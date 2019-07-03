@@ -1,0 +1,1 @@
+﻿All files in and below this assembly directory tree are Copyright © Quantisle 2010-2016.  All rights reserved.

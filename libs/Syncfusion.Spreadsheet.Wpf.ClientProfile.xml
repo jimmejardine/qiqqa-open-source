@@ -1,0 +1,3455 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Syncfusion.Spreadsheet.WPF.ClientProfile</name>
+    </assembly>
+    <members>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridImportTableStyleConverter.CheckForTableCell(Syncfusion.XlsIO.IRange,Syncfusion.Windows.Controls.Grid.GridStyleInfo,Syncfusion.XlsIO.IWorksheet)">
+            <summary>
+            Checks for the cells is in table.
+            </summary>
+            <param name="range">The Range.</param>
+            <param name="cell">The cell.</param>
+            <param name="sheet">The sheet.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridImportTableStyleConverter.ApplyTableContentStyle(Syncfusion.XlsIO.IListObject,Syncfusion.Windows.Controls.Grid.GridStyleInfo,Syncfusion.XlsIO.TableBuiltInStyles)">
+            <summary>
+            Applies the table content style to Grid cells.
+            </summary>
+            <param name="table">The Table.</param>
+            <param name="cell">The Cell.</param>
+            <param name="tablestyle">The Tablestyle.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridImportTableStyleConverter.ApplyHeaderStyle(Syncfusion.XlsIO.IListObject,Syncfusion.Windows.Controls.Grid.GridStyleInfo,Syncfusion.XlsIO.TableBuiltInStyles)">
+            <summary>
+            Applies the header style to cell.
+            </summary>
+            <param name="table">The Table.</param>
+            <param name="cell">The Cell.</param>
+            <param name="tablestyle">The Tablestyle.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridImportTableStyleConverter.GetTableContentBorderStyle(Syncfusion.XlsIO.TableBuiltInStyles,Syncfusion.Windows.Controls.Grid.Converter.ExcelGridImportTableStyleConverter.TableBorderStyle@,System.Windows.Media.Color@)">
+            <summary>
+            Gets the table content border style.
+            </summary>
+            <param name="tablestyle">The Tablestyle.</param>
+            <param name="tableBorderStyle">The Table border style.</param>
+            <param name="borderColor">Color of the border.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridImportTableStyleConverter.GetTableHeaderBorderStyle(Syncfusion.XlsIO.TableBuiltInStyles,Syncfusion.Windows.Controls.Grid.Converter.ExcelGridImportTableStyleConverter.TableBorderStyle@,System.Windows.Media.Color@)">
+            <summary>
+            Gets the table header border style.
+            </summary>
+            <param name="tablestyle">The Tablestyle.</param>
+            <param name="tableBorderStyle">The Table border style.</param>
+            <param name="borderColor">Color of the border.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridImportTableStyleConverter.GetTableContentBackGround(Syncfusion.XlsIO.TableBuiltInStyles,System.Windows.Media.Color@,System.Windows.Media.Color@,System.Boolean@)">
+            <summary>
+            Gets the table content back ground.
+            </summary>
+            <param name="tablestyle">The Tablestyle.</param>
+            <param name="firstBackgroundColor">First color of the background.</param>
+            <param name="secondBackgroundColor">Color of the second background.</param>
+            <param name="entireRow">if set to <c>true</c> apply bockground to entire row.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridImportTableStyleConverter.GetTableContentForeground(Syncfusion.XlsIO.TableBuiltInStyles)">
+            <summary>
+            Gets the table content foreground.
+            </summary>
+            <param name="tablestyle">The Tablestyle.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridImportTableStyleConverter.GetTableHeaderForeground(Syncfusion.XlsIO.TableBuiltInStyles)">
+            <summary>
+            Gets the table header foreground.
+            </summary>
+            <param name="tablestyle">The Tablestyle.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridImportTableStyleConverter.GetTableHeaderBackGround(Syncfusion.XlsIO.TableBuiltInStyles)">
+            <summary>
+            Gets the table header background.
+            </summary>
+            <param name="tablestyle">The Tablestyle.</param>
+            <returns></returns>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridImportTableStyleConverter.TableBorderStyle.None">
+            <summary>
+            Represents the No Solidstyle.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridImportTableStyleConverter.TableBorderStyle.Top">
+            <summary>
+            Represents the solid style for the Top ExcelBorderIndex.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridImportTableStyleConverter.TableBorderStyle.Bottom">
+            <summary>
+            Represents the solid style for the Bottom ExcelBorderIndex.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridImportTableStyleConverter.TableBorderStyle.Right">
+            <summary>
+            Represents the solid style for the Right ExcelBorderIndex.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridImportTableStyleConverter.TableBorderStyle.Left">
+            <summary>
+            Represents the solid style for the Left ExcelBorderIndex.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridImportTableStyleConverter.TableBorderStyle.TopBottom">
+            <summary>
+            Represents the solid style for both Top and Bottom ExcelBorderIndex.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridImportTableStyleConverter.TableBorderStyle.LeftRight">
+            <summary>
+            Represents the solid style for both Right and Left ExcelBorderIndex.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridImportTableStyleConverter.TableBorderStyle.All">
+            <summary>
+            Represents that all ExcelBorderIndex is set.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.RichTextBoxHelper.SetRichTextValue(Syncfusion.XlsIO.IRange,System.Windows.Documents.Paragraph,System.String)">
+            <summary>
+            UpdateExcelCellVaue()is a static method invoked to update the modified cell value to Excel sheet only for RichText Cell Type.
+            </summary>
+            <param name="range">Current Range value in the Excelsheet</param>
+            <param name="paragraph">Modified cells value in the Grid as Paragraph</param>
+            <param name="PlainText">Unformatted Text </param>      
+            <remarks></remarks>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.RichTextBoxHelper.ConvertRunToIFont(System.Windows.Documents.Run,Syncfusion.XlsIO.IFont)">
+            <summary>
+            ConvertRunToIFont() method converts the formatting from Run to IFont. 
+            </summary>
+            <param name="run"></param>
+            <param name="fontstyle"></param>
+            <returns></returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.RichTextBoxHelper.IsFormatSame(Syncfusion.XlsIO.IFont,Syncfusion.XlsIO.IFont)">
+            <summary>
+            IsFormatSame() method validates the formatting for both the character is same or not. 
+            </summary>
+            <param name="char1"></param>
+            <param name="char2"></param>
+            <returns></returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.RichTextBoxHelper.AppendFormat(Syncfusion.XlsIO.IFont,System.Windows.Documents.Run,System.Boolean)">
+            <summary>
+            AppendFormat() method Returns <param name="run"/> append the next character when both have same font format. 
+            </summary>
+            <param name="charfont"></param>
+            <param name="run"></param>
+            <param name="isnewline">If the character falls in new line set True, other wise False.</param>
+            <returns></returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.RichTextBoxHelper.ConvertIRangeToParagraph(Syncfusion.XlsIO.IRichTextString)">
+            <summary>
+            ConvertIRangeToParagraph() method convert the IRange into Paragraph value. 
+            </summary>
+            <param name="range"></param>
+            <returns></returns>
+            <remarks></remarks>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Grid.Converter.ImportCellFromExcelEventArgs">
+            <summary>
+            Importing event arguments
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.SheetFamilyId">
+            <summary>
+            Sheet family id - This is used to identify a family of grids.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.ImportFromExcel(Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel,System.IO.Stream)">
+            <summary>
+            Imports single sheets from excel to Grid.
+            </summary>
+            <param name="grid">The Grid.</param>
+            <param name="fileStream">The File stream.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.ImportFromExcel(Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel,System.IO.Stream,Syncfusion.Windows.Controls.Grid.Converter.ImportGridCellFromExcelHandler)">
+            <summary>
+            Imports single sheets from excel to Grid with importing event handler.
+            </summary>
+            <param name="grid">The Grid.</param>
+            <param name="fileStream">The File stream.</param>
+            <param name="importFromExcelHandler">The importing event handler.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.ImportFromExcel(Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel,System.String)">
+            <summary>
+            Imports single sheets from excel to Grid.
+            </summary>
+            <param name="grid">The Grid.</param>
+            <param name="FileName">Name of the file.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.ImportFromExcel(Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel,System.String,Syncfusion.Windows.Controls.Grid.Converter.ImportGridCellFromExcelHandler)">
+            <summary>
+            Imports single sheets from excel to Grid with importing event handler.
+            </summary>
+            <param name="grid">The Grid.</param>
+            <param name="FileName">Name of the file.</param>
+            <param name="importFromExcelHandler">The importing event handler.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.ImportFromExcel(Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel,Syncfusion.XlsIO.IWorkbook,Syncfusion.XlsIO.IWorksheet,Syncfusion.Windows.Controls.Grid.Converter.ImportGridCellFromExcelHandler)">
+            <summary>
+            Imports single sheets from excel to Grid with importing event handler.
+            </summary>
+            <param name="grid">The grid.</param>
+            <param name="sheet">The sheet.</param>
+            <param name="importingHandler">The importing event handler.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.ImportFromExcel(System.String,System.Int32[],Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel[])">
+            <summary>
+            Imports the particular sheets from excel to Grid Model array.
+            </summary>
+            <param name="strFileName">Name of the file.</param>
+            <param name="arrIndexes">The array indexes.</param>
+            <param name="arrModels">The array models.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.ImportFromExcel(System.String,System.Int32[],Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel[],Syncfusion.Windows.Controls.Grid.Converter.ImportGridCellFromExcelHandler)">
+            <summary>
+            Imports the particular sheets from excel to Grid Model array with importing event handler. 
+            </summary>
+            <param name="strFileName">Name of the file.</param>
+            <param name="arrIndexes">The array indexes.</param>
+            <param name="arrModels">The array models.</param>
+            <param name="importFromExcelHandler">The importing event handler.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.ImportFromExcel(System.String,Syncfusion.XlsIO.IRange[],Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel[])">
+            <summary>
+            Imports the array ranges from excel to Grid Model array.
+            </summary>
+            <param name="strFileName">Name of the file.</param>
+            <param name="arrRanges">The array ranges.</param>
+            <param name="arrModels">The array models.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.ImportFromExcel(System.String,Syncfusion.XlsIO.IRange[],Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel[],Syncfusion.Windows.Controls.Grid.Converter.ImportGridCellFromExcelHandler)">
+            <summary>
+            Imports the array ranges from excel to Grid Model array with importing event handler. 
+            </summary>
+            <param name="strFileName">Name of the file.</param>
+            <param name="arrRanges">The array ranges.</param>
+            <param name="arrModels">The array models.</param>
+            <param name="importFromExcelHandler">The importing event handler.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.ImportFromExcel(Syncfusion.XlsIO.IWorkbook)">
+            <summary>
+            Imports the entire workbook.
+            </summary>
+            <param name="book">The book.</param>
+            <returns>Array of GridModels</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.ImportFromExcel(Syncfusion.XlsIO.IWorkbook,Syncfusion.Windows.Controls.Grid.Converter.ImportGridCellFromExcelHandler)">
+            <summary>
+            Imports the entire workbook.
+            </summary>
+            <param name="book">The book.</param>
+            <param name="importFromExcelHandler">The importing event handler.</param>
+            <returns>Array of GridModels</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.ConvertExcelRangeToGrid(Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel,Syncfusion.XlsIO.IWorkbook,Syncfusion.XlsIO.IWorksheet,Syncfusion.XlsIO.IRange,Syncfusion.Windows.Controls.Grid.Converter.ImportGridCellFromExcelHandler)">
+            <summary>
+            Converts the excel range to grid.
+            </summary>
+            <param name="grid">The grid.</param>
+            <param name="sheet">The sheet.</param>
+            <param name="rangeToConvert">The range to convert.</param>
+            <param name="importingHandler">The importing handler.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.ImportFromExcelToVirtualGrid(Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel,Syncfusion.XlsIO.IWorkbook,Syncfusion.XlsIO.IWorksheet,Syncfusion.Windows.Controls.Grid.Converter.ImportGridCellFromExcelHandler)">
+            <summary>
+            Imports the single sheet from excel to virtual grid.
+            </summary>
+            <param name="grid">The grid.</param>
+            <param name="sheet">The sheet.</param>
+            <param name="importFromExcelHandler">The importing event handler.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.ImportFromExcelToVirtualGrid(Syncfusion.XlsIO.IWorkbook,System.Int32)">
+            <summary>
+            Imports the entire workbook from excel to virtual grid.
+            </summary>
+            <param name="book">The book.</param>
+            <param name="sheetFamilyID">Sheet family Id of FormulaEngine</param>
+            <returns>Array of GridModel</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.ImportFromExcelToVirtualGrid(Syncfusion.XlsIO.IWorkbook,Syncfusion.Windows.Controls.Grid.Converter.ImportGridCellFromExcelHandler,System.Int32)">
+            <summary>
+            Imports the entire workbook from excel to virtual grid.
+            </summary>
+            <param name="book">The book.</param>
+            <param name="importFromExcelHandler">importing event handler.</param>
+            <param name="sheetFamilyId">Sheet family Id of FormulaEngine</param>
+            <returns>Array of GridModel</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.ConvertExcelRangeToVirtualGrid(Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridStyleInfo,Syncfusion.XlsIO.IWorksheet,Syncfusion.XlsIO.IRange,System.Boolean,Syncfusion.Windows.Controls.Grid.Converter.ImportGridCellFromExcelHandler)">
+            <summary>
+            Converts the excel range to virtual grid.
+            </summary>
+            <param name="cell">The grid cell.</param>
+            <param name="sheet">The sheet.</param>
+            <param name="rangeToConvert">The excel cell.</param>
+            <param name="importingHandler">The importing event handler.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.copyConditionalFormatToCell(Syncfusion.Windows.Controls.Grid.GridConditionalFormat,Syncfusion.XlsIO.IConditionalFormat,Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridStyleInfo,Syncfusion.XlsIO.IRange)">
+            <summary>
+            Copies the conditional format to grid cell.
+            </summary>
+            <param name="GridConditionalFormat1">The GridConditionalFormating.</param>
+            <param name="format">The format.</param>
+            <param name="cell">Conditionalformat applying cell.</param>
+            <param name="rangeToConvert">IRange info of conditional format applying cell.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.GetDateTimeFormat(System.String)">
+            <summary>
+            Gets the date time format.
+            </summary>
+            <param name="format">The format.</param>
+            <returns>The DateTimePattern</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.GetFormat(System.String)">
+            <summary>
+            convert the excel format into grid supports formats.
+            </summary>
+            <param name="format">The format.</param>
+            <returns>The format</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.CopyImageToGrid(Syncfusion.XlsIO.IWorksheet,Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel)">
+            <summary>
+            Copies the image from excel worksheet into grid.
+            </summary>
+            <param name="sheet">The sheet.</param>
+            <param name="grid">The grid.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.CopySparkLineToGrid(Syncfusion.XlsIO.IWorksheet,Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel)">
+            <summary>
+            Copies the sparkline groups from excel worksheet into grid.
+            </summary>
+            <param name="sheet">The sheet.</param>
+            <param name="grid">The grid.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.CopyNamesToGrid(Syncfusion.XlsIO.IWorksheet,Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel)">
+            <summary>
+            Copies the named range from excel worksheet into grid.
+            </summary>
+            <param name="sheet">The sheet.</param>
+            <param name="grid">The grid.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.CopyFreezePanesToGrid(Syncfusion.XlsIO.IWorksheet,Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel)">
+            <summary>
+            Copies the freeze panes from excel worksheet into grid.
+            </summary>
+            <param name="sheet">The sheet.</param>
+            <param name="grid">The grid.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.CopyRowHeightToGrid(Syncfusion.XlsIO.IWorksheet,Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel)">
+            <summary>
+            Copies row height information from excel worksheet into grid.
+            </summary>
+            <param name="sheet">Sheet to copy from.</param>
+            <param name="grid">Grid to copy into.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.CopyColumnWidthToGrid(Syncfusion.XlsIO.IWorksheet,Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel)">
+            <summary>
+            Copies column width information from excel worksheet into grid.
+            </summary>
+            <param name="sheet">Sheet to copy from.</param>
+            <param name="grid">Grid to copy into.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.CopyComboxToGrid(Syncfusion.XlsIO.IWorksheet,Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel)">
+            <summary>
+            Copies the combox from excel worksheet into grid.
+            </summary>
+            <param name="sheet">The sheet.</param>
+            <param name="grid">The grid.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.CopyMergesToGrid(Syncfusion.XlsIO.IWorksheet,Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel)">
+            <summary>
+            Copies merged ranges into grid.
+            </summary>
+            <param name="sheet">Destination worksheet.</param>
+            <param name="grid">Source grid.</param>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.SkipMergeCellCheckOnSetBorders">
+            <summary>
+            After v6.1 ExcelToGrid Convertion will check for Merged cells when importing borders. 
+            When there is no merged cells this can be set to true to avoid cehcking for MergeCells on 
+            importing borders from exccel cells.
+            <para/>Default value is false.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.GetMergeCellRange(Syncfusion.XlsIO.IRange,System.Int32@,System.Int32@)">
+            <summary>
+            Gets the merge cell range.
+            </summary>
+            <param name="range">The range.</param>
+            <param name="bottom">The Bottom.</param>
+            <param name="right">The Right.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.SetCellStyle(Syncfusion.XlsIO.IRange,Syncfusion.Windows.Controls.Grid.GridStyleInfo,Syncfusion.XlsIO.IWorksheet)">
+            <summary>
+            Sets grid cell style based on excel style.
+            </summary>
+            <param name="excelStyle">Source style.</param>
+            <param name="cell">Destination cell.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.SetBorders(Syncfusion.XlsIO.IRange,Syncfusion.Windows.Controls.Grid.GridStyleInfo,Syncfusion.XlsIO.IWorksheet)">
+            <summary>
+            Sets grid cell borders based on excel style.
+            </summary>
+            <param name="excelStyle">Source style.</param>
+            <param name="cell">Destination cell.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.ConvertExcelBorder(Syncfusion.XlsIO.IBorder)">
+            <summary>
+            Converts excel border into grid border.
+            </summary>
+            <param name="border">Border to convert.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.SetBrush(Syncfusion.XlsIO.IStyle,Syncfusion.Windows.Controls.Grid.GridStyleInfo)">
+            <summary>
+            Sets cell's brush.
+            </summary>
+            <param name="excelStyle">Excel style containing information about brush.</param>
+            <param name="cell">Style info to set brush in.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.SetAlignment(Syncfusion.XlsIO.IStyle,Syncfusion.Windows.Controls.Grid.GridStyleInfo,Syncfusion.XlsIO.IWorksheet)">
+            <summary>
+            Sets alignment of the GridStyleInfo.
+            </summary>
+            <param name="excelStyle">Excel style to get alignment block from.</param>
+            <param name="cell">GridStyleInfo to set alignment block in.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.SetOrientation(Syncfusion.XlsIO.IStyle,Syncfusion.Windows.Controls.Grid.GridStyleInfo)">
+            <summary>
+            Copies orientation settings from excel style into grid cell.
+            </summary>
+            <param name="excelStyle">Source cell style.</param>
+            <param name="cell">Destination grid cell.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.SetFont(Syncfusion.XlsIO.IStyle,Syncfusion.Windows.Controls.Grid.GridStyleInfo)">
+            <summary>
+            Sets font for the cell based on Excel style.
+            </summary>
+            <param name="excelStyle">Excel style to get font setting from.</param>
+            <param name="cell">Cell style to set font.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.CopyHyperlinkToVirtualGrid(Syncfusion.XlsIO.IWorksheet,Syncfusion.XlsIO.IWorkbook,Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel)">
+            <summary>
+            Copies the hyperlink to virtual grid.
+            </summary>
+            <param name="sheet">The sheet.</param>
+            <param name="book">The WorkBook</param>
+            <param name="grid">The grid.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.ExcelGridModelImportExtensions.CopyHyperlinkToCell(Syncfusion.XlsIO.IWorkbook,Syncfusion.XlsIO.IWorksheet,Syncfusion.XlsIO.IRange,Syncfusion.Windows.Controls.Grid.GridStyleInfo)">
+            <summary>
+            Copies the hyperlink to normal grid.
+            </summary>
+            <param name="excelrange">The excelrange.</param>
+            <param name="cell">The cell.</param>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.Commands.CellFormatWindow">
+            <summary>
+            Interaction logic for CellFormatWindow.xaml
+            </summary>
+            <summary>
+            CellFormatWindow
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.Commands.CellFormatWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.CommandExtensions.CommandExtensions.SetHorizontalAlignment(Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetControl,System.Windows.HorizontalAlignment)">
+            <summary>
+            Sets the horizontal alignment.
+            </summary>
+            <param name="excelEditorControl">The excel editor control.</param>
+            <param name="horizontalAlignment">The horizontal alignment.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.CommandExtensions.CommandExtensions.SetWrapText(Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetControl)">
+            <summary>
+            Sets WrapText method called when calling WrapTextCommand to set WrapText on selected cells.
+            </summary>
+            <param name="excelEditorControl"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.CommandExtensions.CommandExtensions.SetVerticalAlignment(Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetControl,System.Windows.VerticalAlignment)">
+            <summary>
+            Sets the vertical alignment.
+            </summary>
+            <param name="excelEditorControl">The excel editor control.</param>
+            <param name="verticalAlignment">The vertical alignment.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.CommandExtensions.CommandExtensions.ChangeFontColor(Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetControl,System.Windows.Media.Color)">
+            <summary>
+            Changes the color of the font.
+            </summary>
+            <param name="excelEditorControl">The excel editor control.</param>
+            <param name="fontColor">Color of the font.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.CommandExtensions.CommandExtensions.MergeCells(Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetControl,System.Boolean)">
+            <summary>
+            Merges the cells.
+            </summary>
+            <param name="excelEditorControl">The excel editor control.</param>
+            <param name="canMerge">if set to <c>true</c> [can merge].</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.CommandExtensions.CommandExtensions.ChangeFillColor(Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetControl,System.Windows.Media.Color)">
+            <summary>
+            Fills the color.
+            </summary>
+            <param name="excelEditorControl">The excel editor control.</param>
+            <param name="fillColor">Color of the fill.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.CommandExtensions.CommandExtensions.ChangeFontSize(Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetControl,System.Double)">
+            <summary>
+            Changes the size of the font.
+            </summary>
+            <param name="excelEditorControl">The excel editor control.</param>
+            <param name="size">The size.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.CommandExtensions.CommandExtensions.ChangeFontFamily(Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetControl,System.String)">
+            <summary>
+            Changes the font family.
+            </summary>
+            <param name="excelEditorControl">The excel editor control.</param>
+            <param name="fontFamily">The font family.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.CommandExtensions.CommandExtensions.Underline(Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetControl)">
+            <summary>
+            Underlines the specified excel editor control.
+            </summary>
+            <param name="excelEditorControl">The excel editor control.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.CommandExtensions.CommandExtensions.Italic(Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetControl)">
+            <summary>
+            Italics the specified excel editor control.
+            </summary>
+            <param name="excelEditorControl">The excel editor control.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.CommandExtensions.CommandExtensions.Bold(Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetControl)">
+            <summary>
+            Bolds the specified excel editor control.
+            </summary>
+            <param name="excelEditorControl">The excel editor control.</param>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.Commands.ConditionalFormatWindow">
+            <summary>
+            Interaction logic for ConditionalFormatWindow.xaml
+            </summary>   
+            <summary>
+            ConditionalFormatWindow
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.Commands.ConditionalFormatWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.Commands.DataValidationWindow">
+            <summary>
+            Interaction logic for DataValidationWindow.xaml
+            </summary>
+            <summary>
+            DataValidationWindow
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.Commands.DataValidationWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.Commands.EditNamedRangeWindow">
+            <summary>
+            Interaction logic for EditNamedRanges.xaml
+            </summary>
+            <summary>
+            EditNamedRangeWindow
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.Commands.EditNamedRangeWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Commands.EditNamedRangeWindow.SelectedItem">
+            <summary>
+            Contains the Scope for the Named Ranges.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Commands.EditNamedRangeWindow.NamedRangeText">
+            <summary>
+            Contains the Name of the Selected NamedRanges.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Commands.EditNamedRangeWindow.RangeAddress">
+            <summary>
+            Contains the Cell address of the Selected NamedRanges.
+            for ex: RangeAddress = "=Sheet1!$A$1".
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Commands.EditNamedRangeWindow.AssociatedSpreadsheet">
+            <summary>
+            AssociatedSpreadSheet contains the spreadsheetgrid.
+            </summary>
+        </member>
+        <member name="E:Syncfusion.Windows.Controls.Spreadsheet.Commands.EditNamedRangeWindow.PropertyChanged">
+            <summary>
+            Property changed handler listens to the changes made to the properties.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.Commands.EncryptCommandWindow">
+            <summary>
+            Interaction logic for EncryptCommandWindow.xaml
+            </summary>
+            <summary>
+            EncryptCommandWindow
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.Commands.EncryptCommandWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.Commands.FormatAsTableWindow">
+            <summary>
+            Interaction logic for FormatAsTableWindow.xaml
+            </summary>
+            <summary>
+            FormatAsTableWindow
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.Commands.FormatAsTableWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.GetPasswordWindow">
+            <summary>
+            Interaction logic for GetPasswordWindow.xaml
+            </summary>
+            
+            <summary>
+            GetPasswordWindow
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.GetPasswordWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.Commands.GroupbyWindow">
+            <summary>
+            Interaction logic for GroupbyWindow.xaml
+            </summary>
+            <summary>
+            GroupbyWindow
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.Commands.GroupbyWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.Commands.GroupOptionsWindow">
+            <summary>
+            Interaction logic for GroupOptionsWindow.xaml
+            </summary>
+            <summary>
+            GroupOptionsWindow
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.Commands.GroupOptionsWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.Commands.HyperlinkWindow">
+            <summary>
+            Interaction logic for HyperlinkWindow.xaml
+            </summary>
+            <summary>
+            HyperlinkWindow
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.Commands.HyperlinkWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.Commands.InsertCommentWindow">
+            <summary>
+            Interaction logic for InsertCommentWindow.xaml
+            </summary>
+            <summary>
+            InsertCommentWindow
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.Commands.InsertCommentWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Commands.NameRange.Name">
+            <summary>
+            Holds the data of Name of NamedRanges.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Commands.NameRange.RefersTo">
+            <summary>
+            Holds the data of CellAddress of NamedRanges.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Commands.NameRange.Scope">
+            <summary>
+            Holds the data of Scope of NamedRanges.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.Commands.NameManagerWindow">
+            <summary>
+            Interaction logic for NamedRangeManager.xaml
+            </summary>
+            <summary>
+            NameManagerWindow
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.Commands.NameManagerWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Commands.NameManagerWindow.SelectedAddress">
+            <summary>
+            Mainatains the SelectedAddress from the gridselected item.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Commands.NameManagerWindow.DataGrid_SelectedIndex">
+            <summary>
+            Maintains the DataGrid Selected Item's index.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Commands.NameManagerWindow.AssociatedSpreadsheet">
+            <summary>
+            AssociatedSpreadSheet contains the spreadsheetgrid.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Commands.NameManagerWindow.ItemSource">
+            <summary>
+            Holds the itemsource for the DataGrid
+            </summary>
+        </member>
+        <member name="E:Syncfusion.Windows.Controls.Spreadsheet.Commands.NameManagerWindow.PropertyChanged">
+            <summary>
+            Property changed handler listens to the changes made to the properties.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.Commands.NewNamedRangeWindow">
+            <summary>
+            Interaction logic for NewNamedRange.xaml
+            </summary>
+            <summary>
+            NewNamedRangeWindow
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.Commands.NewNamedRangeWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Commands.NewNamedRangeWindow.ComboBx_SelectedItem">
+            <summary>
+            Contains the Combox SelectedItem , i.e Scope for the NamedRanges.    
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Commands.NewNamedRangeWindow.AssociatedSpreadsheet">
+            <summary>
+            AssociatedSpreadSheet contains the spreadsheetgrid.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Commands.NewNamedRangeWindow.NameBox">
+            <summary>
+            Contains the Name for the NamedRanges.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Commands.NewNamedRangeWindow.RefersTO">
+            <summary>
+            Contains the Cell Address for the Named Ranges.
+            </summary>
+        </member>
+        <member name="E:Syncfusion.Windows.Controls.Spreadsheet.Commands.NewNamedRangeWindow.PropertyChanged">
+            <summary>
+            Property changed handler listens to the changes made to the properties.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.Commands.ProtectCommandWindow">
+            <summary>
+            Interaction logic for ProtectCommandWindow.xaml
+            </summary>
+            <summary>
+            ProtectCommandWindow
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.Commands.ProtectCommandWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.Commands.ProtectWorkbookWindow">
+            <summary>
+            Interaction logic for ProtectWorkbookWindow.xaml
+            </summary>
+            <summary>
+            ProtectWorkbookWindow
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.Commands.ProtectWorkbookWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.Commands.UnhideWindow">
+            <summary>
+            Interaction logic for UnhideWindow.xaml
+            </summary>
+            <summary>
+            UnhideWindow
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.Commands.UnhideWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.Commands.UnprotectWorkbookWindow">
+            <summary>
+            Interaction logic for UnprotectWorkbookWindow.xaml
+            </summary>
+            <summary>
+            UnprotectWorkbookWindow
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.Commands.UnprotectWorkbookWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridCopyPaste.IsInPaste">
+            <summary>
+            Indicates whether the paste operation is in progress
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetFormulaRangeSelection">
+            <summary>
+            Supports selecting ranges and cells while editing a formulacell to insert
+            range references and cell references into the editing formula text. You
+            can use either the mouse or the keyboard arrow keys to select the range
+            to be inserted.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetFormulaRangeSelection.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Spreadsheet.Resources.ResourceWrapper._New">
+            BackStage
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Spreadsheet.Resources.ResourceWrapper._Clipboard">
+            Clipboard
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Spreadsheet.Resources.ResourceWrapper._Font">
+            Font
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Spreadsheet.Resources.ResourceWrapper.clipboard">
+            Clipboard
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Spreadsheet.Resources.ResourceWrapper.font">
+            Font
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.ResourceWrapper.DocumentProperty_Title">
+            <summary>
+            Gets or sets the document properties title.
+            </summary>
+            <value>The document properties title.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.ResourceWrapper.DocumentMask_Title">
+            <summary>
+            Gets or sets the document mask title.
+            </summary>
+            <value>The document mask title.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.ResourceWrapper.DocumentProperty_Tag">
+            <summary>
+            Gets or sets the document properties tag.
+            </summary>
+            <value>The document properties tag.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.ResourceWrapper.DocumentMask_Tag">
+            <summary>
+            Gets or sets the document mask tag.
+            </summary>
+            <value>The document mask tag.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.ResourceWrapper.DocumentProperty_Comments">
+            <summary>
+            Gets or sets the document properties comments.
+            </summary>
+            <value>The document properties comments.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.ResourceWrapper.DocumentMask_Comments">
+            <summary>
+            Gets or sets the document mask comments.
+            </summary>
+            <value>The document mask comments.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.ResourceWrapper.DocumentProperties_Cataegory">
+            <summary>
+            Gets or sets the document properties cataegories.
+            </summary>
+            <value>The document properties cataegories.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.ResourceWrapper.DocumentMask_Category">
+            <summary>
+            Gets or sets the document mask category.
+            </summary>
+            <value>The document mask category.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.ResourceWrapper.DocumentProperty_Subject">
+            <summary>
+            Gets or sets the document properties subject.
+            </summary>
+            <value>The document properties subject.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.ResourceWrapper.DocumentMask_Subject">
+            <summary>
+            Gets or sets the document mask subject.
+            </summary>
+            <value>The document mask subject.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.ResourceWrapper.DocumentProperty_AppName">
+            <summary>
+            Gets or sets the name of the document properties app.
+            </summary>
+            <value>The name of the document properties app.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.ResourceWrapper.DocumentMask_AppName">
+            <summary>
+            Gets or sets the name of the document mask app.
+            </summary>
+            <value>The name of the document mask app.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.ResourceWrapper.DocumentProperty_RelatedPeople">
+            <summary>
+            Gets or sets the document properties related people.
+            </summary>
+            <value>The document properties related people.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.ResourceWrapper.DocumentProperty_Manager">
+            <summary>
+            Gets or sets the document properties manager.
+            </summary>
+            <value>The document properties manager.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.ResourceWrapper.DocumentMask_Manager">
+            <summary>
+            Gets or sets the document mask manager.
+            </summary>
+            <value>The document mask manager.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.ResourceWrapper.DocumentProperty_Author">
+            <summary>
+            Gets or sets the document properties author.
+            </summary>
+            <value>The document properties author.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.ResourceWrapper.DocumentMask_Author">
+            <summary>
+            Gets or sets the document mask author.
+            </summary>
+            <value>The document mask author.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.ResourceWrapper.ShowAllProperies">
+            <summary>
+            Gets or sets the show all properies.
+            </summary>
+            <value>The show all properies.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.ResourceWrapper.ShowFewerProperties">
+            <summary>
+            Gets or sets the show fewer properties.
+            </summary>
+            <value>The show fewer properties.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.ResourceWrapper.DocumentProperties">
+            <summary>
+            Gets or sets the document properties.
+            </summary>
+            <value>The document properties.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.ResourceWrapper.DocumentProperty_Company">
+            <summary>
+            Gets or sets the document properties company.
+            </summary>
+            <value>The document properties company.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.ResourceWrapper.DocumentMask_Company">
+            <summary>
+            Gets or sets the document mask company.
+            </summary>
+            <value>The document mask company.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.ResourceWrapper.WrapText">
+            <summary>
+            Gets or sets the wrap text.
+            </summary>
+            <value>The wrap text.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.SpreadsheetResourceWrapper.ValidationMessage_BuildInStyleNotSupportedInExcelVersion">
+            <summary>
+            /
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Spreadsheet.GridProperties.HighlightSelectionHeaderBackgroundProperty">
+            <summary>
+            HighLightBackground property
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.GridProperties.GetCellName(Syncfusion.Windows.Controls.Grid.GridRangeInfo)">
+            <summary>
+            Return the cell name based on the  GridRangeInfo
+            </summary>
+            <param name="Range">GridRangeInfo</param>
+            <returns>Cell Name</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.GridProperties.FindKey(System.String,System.Collections.Hashtable)">
+            <summary>
+            Search the value in the Hashtable, if the value found then it will return the particular key
+            </summary>
+            <param name="Value">Hashtable value</param>
+            <param name="HT">Hashtable</param>
+            <returns>Hashtable key </returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.GridProperties.GridRangeInfoToGlobalWorkbookRange(Syncfusion.Windows.Controls.Grid.GridRangeInfo)">
+            <summary>
+            Convert the GridRangeInfo To workbook range (Address Global = "'Sheet1'!$A$1")
+            </summary>
+            <param name="Range">GridRangeInfo</param>
+            <returns>string - Global Address</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.GridProperties.AddNamedRange(System.String,Syncfusion.Windows.Controls.Grid.GridRangeInfo)">
+            <summary>
+            Add the named range to the GridFormulaEngine and Workbook
+            </summary>
+            <param name="Name">NamedRange Name</param>
+            <param name="Range">GridRangeInfo</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.GridProperties.RowIndex(System.String)">
+            <summary>
+            Returns the row index from a cell reference.
+            </summary>
+            <param name="s">String holding a cell reference such as C21 or AB11.</param>
+            <returns>An integer with the corresponding row number.</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.GridProperties.ColIndex(System.String)">
+            <summary>
+            Returns a column index from a cell reference.
+            </summary>
+            <param name="s">String holding a cell reference such as C21 or AB11.</param>
+            <returns>An integer with the corresponding column number.</returns>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.GridProperties.ActiveSpreadsheetGrid">
+            <summary>
+               Returns an SpreadsheetGrid that represents the active Grid
+               in the specified window or workbook. Read-only.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.GridProperties.HighlightSelectionHeaderBackground">
+            <summary>
+            Gets or sets the high light background.
+            </summary>
+            <value>The high light background.</value>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Spreadsheet.ExcelProperties.AuthorProperty">
+            <summary>
+            Author Dependency property
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Spreadsheet.ExcelProperties.ApplicationNameProperty">
+            <summary>
+            ApplicationName Dependency Property
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Spreadsheet.ExcelProperties.CategoryProperty">
+            <summary>
+            Category Dependency property
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Spreadsheet.ExcelProperties.CommentsProperty">
+            <summary>
+            Comments Dependency property
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Spreadsheet.ExcelProperties.CompanyProperty">
+            <summary>
+            Company Dependency property
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Spreadsheet.ExcelProperties.SubjectProperty">
+            <summary>
+            Subject Dependency property
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Spreadsheet.ExcelProperties.KeywordsProperty">
+            <summary>
+            Keywords Dependency property
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Spreadsheet.ExcelProperties.ManagerProperty">
+            <summary>
+            Manager Dependency property
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Spreadsheet.ExcelProperties.TitleProperty">
+            <summary>
+            Title Dependency property
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.ExcelProperties.OnAuthorPropertyChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when [author property changed].
+            </summary>
+            <param name="source">The source.</param>
+            <param name="e">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.ExcelProperties.ApplicationNameChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Applications the name changed.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="e">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.ExcelProperties.CategoryChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Categories the changed.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="e">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.ExcelProperties.CommentsNameChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Commentses the name changed.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="e">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.ExcelProperties.CompanyChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Companies the changed.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="e">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.ExcelProperties.SubjectChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Subjects the changed.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="e">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.ExcelProperties.KeywordsChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Keywordses the changed.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="e">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.ExcelProperties.ManagerChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Managers the changed.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="e">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.ExcelProperties.TitleChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Titles the changed.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="e">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.ExcelProperties.SetExcelEngine(System.IO.Stream,System.String)">
+            <summary>
+            Sets the excel engine.
+            </summary>
+            <param name="workBookStream">The work book stream.</param>
+            <param name="FileName">Name of the file.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.ExcelProperties.SetExcelEngine(System.IO.Stream,System.String,Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetControl)">
+            <summary>
+            Sets the excel engine.
+            </summary>
+            <param name="workBookStream">The work book stream.</param>
+            <param name="FileName">Name of the file.</param>
+            <param name="Control">The control.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.ExcelProperties.SetExcelEngine(System.IO.Stream,System.String,System.String)">
+            <summary>
+            Sets the excel engine.
+            </summary>
+            <param name="workBookStream">The work book stream.</param>
+            <param name="FileName">Name of the file.</param>
+            <param name="Password">The password.</param>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.ExcelProperties.spreadControl">
+            <summary>
+            Gets or sets the spread control.
+            </summary>
+            <value>The spread control.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.ExcelProperties.Author">
+            <summary>
+            Gets or sets the author name.
+            </summary>
+            <value>The author.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.ExcelProperties.ApplicationName">
+            <summary>
+            Gets or sets the name of the application.
+            </summary>
+            <value>The name of the application.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.ExcelProperties.Category">
+            <summary>
+            Gets or sets the category.
+            </summary>
+            <value>The category.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.ExcelProperties.Comments">
+            <summary>
+            Gets or sets the comments.
+            </summary>
+            <value>The comments.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.ExcelProperties.Company">
+            <summary>
+            Gets or sets the company.
+            </summary>
+            <value>The company.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.ExcelProperties.Subject">
+            <summary>
+            Gets or sets the subject.
+            </summary>
+            <value>The subject.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.ExcelProperties.Keywords">
+            <summary>
+            Gets or sets the keywords.
+            </summary>
+            <value>The keywords.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.ExcelProperties.Manager">
+            <summary>
+            Gets or sets the manager.
+            </summary>
+            <value>The manager.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.ExcelProperties.Title">
+            <summary>
+            Gets or sets the title.
+            </summary>
+            <value>The title.</value>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetControl.AddedSheetsCount">
+            <summary>
+            Checks whether security permission can be granted. Read-only.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetControl.ImportFromDataTable(System.Data.DataTable)">
+            <summary>
+            Imports from data table.
+            </summary>
+            <param name="table">The table.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetControl.ImportFromDataTable(System.Data.DataTable,System.Boolean,System.Int32,System.Int32)">
+            <summary>
+            Imports from data table.
+            </summary>
+            <param name="table">The table.</param>
+            <param name="isFieldNameShow">if set to <c>true</c> [is field name show].</param>
+            <param name="startRow">The start row.</param>
+            <param name="startCol">The start col.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetControl.ImportFromDataTable(System.Data.DataTable,System.Boolean,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Imports from data table.
+            </summary>
+            <param name="table">The table.</param>
+            <param name="isFieldNameShow">if set to <c>true</c> [is field name show].</param>
+            <param name="startRow">The start row.</param>
+            <param name="startCol">The start col.</param>
+            <param name="preserveTypes">if set to <c>true</c> [preserve types].</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetControl.ImportFromDataTable(System.Data.DataTable,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Imports from data table.
+            </summary>
+            <param name="table">The table.</param>
+            <param name="isFieldNameShow">if set to <c>true</c> [is field name show].</param>
+            <param name="startRow">The start row.</param>
+            <param name="startCol">The start col.</param>
+            <param name="maxRow">The max row.</param>
+            <param name="maxCol">The max col.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetControl.ImportFromDataTable(System.Data.DataTable,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Imports from data table.
+            </summary>
+            <param name="table">The table.</param>
+            <param name="isFieldNameShow">if set to <c>true</c> [is field name show].</param>
+            <param name="startRow">The start row.</param>
+            <param name="startCol">The start col.</param>
+            <param name="maxRow">The max row.</param>
+            <param name="maxCol">The max col.</param>
+            <param name="preserveTypes">if set to <c>true</c> [preserve types].</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetControl.CreateBlankDefaultWorkbook(System.Int32)">
+            <summary>
+            Create blank Workbook with default setting
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetControl.ImportFromExcel(Syncfusion.XlsIO.IWorkbook)">
+            <summary>
+            To import the workbook to the Spreadsheet control
+            </summary>
+            <param name="workbook">Workbook</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetControl.tab_ContextMenuOpening(System.Object,System.Windows.Controls.ContextMenuEventArgs)">
+            <summary>
+            Handel the tab context menu when it open inside the grid control
+            </summary>
+            <param name="sender">Tab Item</param>
+            <param name="e">ContextMenuEventArgs</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetControl.FormulaEngine_QueryDependentCellValue(System.Object,Syncfusion.Windows.Controls.Grid.GridQueryDependentCellValueEventArgs)">
+            <summary>
+            This will optimize the Loading time of the tab
+            </summary>
+            <param name="sender">GridModel</param>
+            <param name="e">GridQueryDependentCellValueEventArgs</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetControl.UnhookScrollbarEvent(System.Windows.Controls.ScrollViewer)">
+            <summary>
+            Unhook the scrollbar event
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetControl.GetThumbAndHookEvent(System.Windows.Controls.Primitives.ScrollBar,System.String)">
+            <summary>
+            Get the scrollbar thumb and hook event
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetControl.GetThumbAndUnhookEvent(System.Windows.Controls.Primitives.ScrollBar,System.String)">
+            <summary>
+            Get the scrollbar thumb and unhook event
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetControl.GetChildObject``1(System.Windows.DependencyObject,System.String)">
+            <summary>
+            Generic method to get the child object
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetControl.FormulaRangeSelection">
+            <summary>
+            Supports the Formula Range selection in Spreadsheet
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetControl.EnableFormulaRangeSelection">
+            <summary>
+            Enables or Disables the formula range selection in Spreadsheet
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetControl.WrapTextCommand">
+            <summary>
+            Gets or sets the wrap text command.
+            </summary>
+            <value>The wrap text command.</value>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.GridExcelHelper.ResizeColumnToFit(Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetControl,Syncfusion.XlsIO.IRange)">
+            <summary>
+            Method to auto fit the column width for the given IRange.
+            </summary>
+            <param name="spreadsheetControl"></param>
+            <param name="range"></param>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.WorkbookLoadedEventArgs.Workbook">
+            <summary>
+            Loaded Workbook
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.WorkbookLoadedEventArgs.GridCollection">
+            <summary>
+            Spreadsheet Grid Collection
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGroupPanel.MeasureOverride(System.Windows.Size)">
+            <summary>
+            In this method we are adding the SpreadsheetGroup Buttons for the Visible OutlineWrappers. 
+            </summary>
+            <param name="availableSize">Available size of panel </param>
+            <returns>availableSize</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGroupPanel.PreArrange">
+            <summary>
+            Copies the Childrens of the panel to Collections for recycling.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGroupPanel.PostArrange">
+            <summary>
+            removes the unwanted childrens from the panel and clears the Unload Dictionaries.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGroupPanel.IsSummaryRowBelow">
+            <summary>
+            A boolean property that determines whether the SummaryRow (Expander) is above the group or below group.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGroupPanel.IsSummaryColumnRight">
+            <summary>
+            Boolean property that determines whether the SummaryColumn (i.e Expander) is Right of the Details or Left of the Details.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGroupPanel.Orientation">
+            <summary>
+            Boolean property that determines whether the panel is RowGroupPanel or ColumnGroupPanel.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGroupButton">
+            <summary>
+            Expander/Collapse buttons placed in the SpreasheetGroupPanel.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.TabStyleManager">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.ImportExportHelper.GetExcelLikeFormula(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.XlsIO.IWorkbook,System.String)">
+            <summary>
+            Gets the excel like formula.
+            </summary>
+            <param name="model">The model.</param>
+            <param name="workbook">The workbook.</param>
+            <param name="formula">The formula.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.ImportExportHelper.SetAlignment(Syncfusion.XlsIO.IRange,Syncfusion.Windows.Controls.Grid.GridStyleInfo)">
+            <summary>
+            Alignment was changed based on the cell value as like in excel
+            </summary>
+            <param name="range">Excel Range</param>
+            <param name="Style">Grid cell style</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.ImportExportHelper.ExportCellToExcel(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.XlsIO.IWorkbook,Syncfusion.XlsIO.IRange,Syncfusion.Windows.Controls.Grid.GridCommitCellInfoEventArgs)">
+            <summary>
+            Exports the cell to excel.
+            </summary>
+            <param name="model">The model.</param>
+            <param name="workbook">The workbook.</param>
+            <param name="range">The range.</param>
+            <param name="e">The <see cref="T:Syncfusion.Windows.Controls.Grid.GridQueryCellInfoEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel.OnSelectionChanged(Syncfusion.Windows.Controls.Grid.GridSelectionChangedEventArgs)">
+            <summary>
+            Raises the <see cref="E:Syncfusion.Windows.Controls.Grid.GridModel.SelectionChanged"/> event.
+            </summary>
+            <param name="e">A <see cref="T:Syncfusion.Windows.Controls.Grid.GridSelectionChangedEventArgs"/> that contains the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel.checkWrapRow(System.Int32,System.Int32)">
+            <summary>
+            Checks the wrap row.
+            </summary>
+            <param name="row">The row.</param>
+            <param name="curCol">The cur col.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel.calculateTextLengthPixals(System.Int32,System.Int32)">
+            <summary>
+            Calculates the text length pixals.
+            </summary>
+            <param name="row">The row.</param>
+            <param name="col">The col.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel.SetWrapText(System.Boolean)">
+            <summary>
+            Sets the wrap text.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel.IsInFormulabarEditing">
+            <summary>
+            Suspend Formaula parsing and calculation of the CurrentCell when we read the formatted from the GridStyleInfo
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel.IsInInsert">
+            <summary>
+            Returns True if inserting rows or columns.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel.IsInGroup">
+            <summary>
+            Returns True if Grouping or Ungrouping.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGrid">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGrid.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGrid"/> class.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGrid.getVisibleColumnsWidth(System.Int32)">
+            <summary>
+            Gets the width of the visible columns.
+            </summary>
+            <param name="Col">The col.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGrid.OnPrepareRenderCell(Syncfusion.Windows.Controls.Grid.GridPrepareRenderCellEventArgs)">
+            <summary>
+            Prepare Rendrer scell raised to set HighlightSelectionForeGround
+            </summary>
+            <param name="e">The <see cref="T:Syncfusion.Windows.Controls.Grid.GridPrepareRenderCellEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGrid.StringToColor(System.String)">
+            <summary>
+            Convert Strings to color.
+            </summary>
+            <param name="hexaColor">Color of the hexa.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGrid.GetTextLength(System.Int32,System.Int32)">
+            <summary>
+            Gets the length of the text.
+            </summary>
+            <param name="row">The row.</param>
+            <param name="col">The col.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGrid.GetTextLength(System.Int32,System.Int32,System.String)">
+            <summary>
+            Gets the length of the text.
+            </summary>
+            <param name="row">The row.</param>
+            <param name="col">The col.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGrid.IsBlankColumn(System.Int32)">
+            <summary>
+            Determines whether the entire column is blank or not.
+            </summary>
+            <param name="columnIndex">ColumnIndex to check </param>
+            <returns>true if all cells in the column are blank, otherwise returns false.</returns>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGrid.CommittedCellRowColumnIndex">
+            <summary>
+            When we save the cell value in the worksheet it will trigger the CellValueChanged, to avoid the invalidate cell 
+            in the CellValueChanged event handler, this CommittedRowColumn Index was maintained
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridCellTextBoxRenderer.OnSaveChanges">
+            <summary>
+            Overridden to make sure the formula is recomputed as the changes are saved.
+            </summary>
+            <returns>True if the changes were saved.</returns>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridCommand">
+            <summary>
+            Holds undo information about a previous <see cref="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel.ChangeCells(Syncfusion.Windows.Controls.Grid.GridRangeInfo,Syncfusion.Windows.Controls.Grid.GridStyleInfo[],Syncfusion.Windows.Styles.StyleModifyType)"/> operation.
+            </summary>
+            <remarks>
+            The <see cref="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridCommand.Execute"/> method will call <see cref="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel.ChangeCells(Syncfusion.Windows.Controls.Grid.GridRangeInfo,Syncfusion.Windows.Controls.Grid.GridStyleInfo[],Syncfusion.Windows.Styles.StyleModifyType)"/> 
+            with information stored in this object and scroll the affect range into the current grid view.
+            </remarks>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridCommand.#ctor(Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel,Syncfusion.Windows.Controls.Grid.GridRangeInfo,Syncfusion.Windows.Controls.Grid.GridStyleInfo[],Syncfusion.Windows.Styles.StyleModifyType,Syncfusion.Windows.Styles.StyleInfoProperty)">
+            <summary>
+            Initializes the <see cref="T:Syncfusion.Windows.Controls.Grid.GridChangeCellsCommand"/> with information how to execute
+            a <see cref="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel.ChangeCells(Syncfusion.Windows.Controls.Grid.GridRangeInfo,Syncfusion.Windows.Controls.Grid.GridStyleInfo[],Syncfusion.Windows.Styles.StyleModifyType)"/> command at a later time.
+            </summary>
+            <param name="table">The <see cref="T:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel"/> this command is associated with.</param>
+            <param name="range">A <see cref="T:Syncfusion.Windows.Controls.Grid.GridRangeInfo"/> that specifies the range of cells.</param>
+            <param name="cellsInfo">The array of <see cref="T:Syncfusion.Windows.Controls.Grid.GridStyleInfo"/> objects that holds cell information.</param>
+            <param name="type">A <see cref="T:Syncfusion.Windows.Styles.StyleModifyType"/> that specifies the style operation to be performed.</param>
+            <param name="sip">A <see cref="T:Syncfusion.Windows.Styles.StyleInfoProperty"/> that specifies the changed property.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridCommand.Execute">
+            <summary>
+            Execute the command.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridCommand.ExportCellToExcel(Syncfusion.XlsIO.IRange,Syncfusion.Windows.Controls.Grid.GridStyleInfo)">
+            <summary>
+            Export grid style info to excel range <see cref="T:Syncfusion.XlsIO.IRange"/>.
+            </summary>
+            <param name="rangeToConvert">A <see cref="T:Syncfusion.XlsIO.IRange"/> that specifies the excel range.</param>
+            <param name="styleInfo">A <see cref="T:Syncfusion.Windows.Controls.Grid.GridStyleInfo"/> that specifies the range of cells.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridCommand.SetFontToExcelRange(Syncfusion.XlsIO.IRange,Syncfusion.Windows.Controls.Grid.GridStyleInfo)">
+            <summary>
+            Export fond info to excel range <see cref="T:Syncfusion.XlsIO.IRange"/>.
+            </summary>
+            <param name="rangeToConvert">A <see cref="T:Syncfusion.XlsIO.IRange"/> that specifies the excel range.</param>
+            <param name="styleInfo">A <see cref="T:Syncfusion.Windows.Controls.Grid.GridStyleInfo"/> that specifies the range of cells.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridCommand.SetAlignment(Syncfusion.XlsIO.IRange,Syncfusion.Windows.Controls.Grid.GridStyleInfo)">
+            <summary>
+            Export alignment style to excel range <see cref="T:Syncfusion.XlsIO.IRange"/>.
+            </summary>
+            <param name="rangeToConvert">A <see cref="T:Syncfusion.XlsIO.IRange"/> that specifies the excel range.</param>
+            <param name="styleInfo">A <see cref="T:Syncfusion.Windows.Controls.Grid.GridStyleInfo"/> that specifies the range of cells.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridCommand.SetExcelBorderStyle(Syncfusion.XlsIO.IRange,Syncfusion.Windows.Controls.Grid.GridStyleInfo)">
+            <summary>
+            Set excel border style to <see cref="T:Syncfusion.XlsIO.IRange"/> from <see cref="T:Syncfusion.Windows.Controls.Grid.GridStyleInfo"/>.
+            </summary>
+            <param name="rangeToConvert">A <see cref="T:Syncfusion.XlsIO.IRange"/> that specifies the excel range.</param>
+            <param name="styleInfo">A <see cref="T:Syncfusion.Windows.Controls.Grid.GridStyleInfo"/> that specifies the range of cells.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridCommand.SetBorder(Syncfusion.XlsIO.IRange,Syncfusion.Windows.Controls.Grid.GridStyleInfo)">
+            <summary>
+            Method to set border to excel range <see cref="T:Syncfusion.XlsIO.IRange"/>.
+            </summary>
+            <param name="rangeToConvert">A <see cref="T:Syncfusion.XlsIO.IRange"/> that specifies the excel range.</param>
+            <param name="styleInfo">A <see cref="T:Syncfusion.Windows.Controls.Grid.GridStyleInfo"/> that specifies the range of cells.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridCommand.SetStyle(Syncfusion.XlsIO.IRange,Syncfusion.Windows.Controls.Grid.GridStyleInfo)">
+            <summary>
+            Method to set cell style to excel range <see cref="T:Syncfusion.XlsIO.IRange"/>.
+            </summary>
+            <param name="rangeToConvert">A <see cref="T:Syncfusion.XlsIO.IRange"/> that specifies the excel range.</param>
+            <param name="styleInfo">A <see cref="T:Syncfusion.Windows.Controls.Grid.GridStyleInfo"/> that specifies the range of cells.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridCommand.SetBrush(Syncfusion.XlsIO.IRange,Syncfusion.Windows.Controls.Grid.GridStyleInfo)">
+            <summary>
+            Method to set the foreground and background to excel range <see cref="T:Syncfusion.XlsIO.IRange"/>.
+            </summary>
+            <param name="rangeToConvert">A <see cref="T:Syncfusion.XlsIO.IRange"/> that specifies the excel range.</param>
+            <param name="styleInfo">A <see cref="T:Syncfusion.Windows.Controls.Grid.GridStyleInfo"/> that specifies the range of cells.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridCommand.SetHyperLink(Syncfusion.XlsIO.IRange,Syncfusion.Windows.Controls.Grid.GridStyleInfo)">
+            <summary>
+            Method to set the Hyperlink to the Excel Range.
+            </summary>
+            <param name="rangeToConvert">Excel range</param>
+            <param name="styleInfo">GridStyleInfo</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridCommand.SetConditionalFormat(Syncfusion.XlsIO.IRange,Syncfusion.Windows.Controls.Grid.GridStyleInfo)">
+            <summary>
+            Method to set the Conditional Format to the Excel Range.
+            </summary>
+            <param name="rangeToConvert">Specifies the Excel range</param>
+            <param name="styleInfo">StyleInfo from Grid Cell</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridCommand.GetExcelOperator(System.String)">
+            <summary>
+            Parse the Enum StyleInfo.ConditionalFormats.ConditionType.
+            </summary>
+            <param name="conditionType">StyleInfo.ConditionalFormats.ConditionType as String</param>
+            <returns>ExcelComparisonOperator</returns>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetFontSizeChangedCommand">
+             <summary>
+             Holds undo information about <see cref="M:Syncfusion.Windows.Controls.Spreadsheet.CommandExtensions.CommandExtensions.ChangeFontSize(Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetControl,System.Double)"/> method.
+             </summary>
+             <remarks>
+             This method Push SpreadsheetFontSizeChangedCommand into the CommandStack and 
+             Changes the FontStyle stored in this object to the Excel sheet.
+            </remarks>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetSetRowSizeCommand">
+            <summary>
+            This command object holds row size information to undo row height of excel range.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetSetRowSizeCommand.#ctor(Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel,System.Int32,System.Int32,System.Double)">
+            <summary>
+            Initializes a new SpreadsheetSetRowSizeCommand object with all the commands.
+            </summary>
+            <param name="model">The <see cref="T:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel"/> this command is associated with.</param>
+            <param name="from">First row index in range.</param>
+            <param name="last">Last row index in range.</param>
+            <param name="values">The sizes to be applies to the range.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetSetRowSizeCommand.Execute">
+            <summary>
+            Exceute the command.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetSetColumnSizeCommand">
+            <summary>
+            This command object holds column size information to undo column width of excel range.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetSetColumnSizeCommand.#ctor(Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel,System.Int32,System.Int32,System.Double)">
+            <summary>
+            Initializes a new SpreadsheetSetColumnSizeCommand object with all the commands.
+            </summary>
+            <param name="model">The <see cref="T:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel"/> this command is associated with.</param>
+            <param name="from">First row index in range.</param>
+            <param name="last">Last row index in range.</param>
+            <param name="values">The sizes to be applies to the range.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetSetColumnSizeCommand.Execute">
+            <summary>
+            Execute the command
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetModelRemoveRowsCommand">
+            <summary>
+            Holds undo information about a previous "GridModelRowColOperations.InsertRange" operation.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetModelRemoveRowsCommand.#ctor(Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel,System.Int32,System.Int32)">
+            <summary>
+            Initializes the <see cref="T:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetModelRemoveRowsCommand"/> with information how to execute
+            a "GridModelRowColOperations.RemoveRange" command at a later time and associates it with a "GridModelRowColOperations"
+            instance.
+            </summary>
+            <param name="model">The <see cref="T:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel"/> this command is associated with.</param>
+            <param name="from">First row index in range.</param>
+            <param name="count">Last row index in range.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetModelRemoveRowsCommand.Execute">
+            <override/>
+            <summary>Executes the command.</summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetModelRemoveColumnsCommand">
+            <summary>
+            Holds undo information about a previous "GridModelRowColOperations.InsertRange" operation.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetModelRemoveColumnsCommand.#ctor(Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel,System.Int32,System.Int32)">
+            <summary>
+            Initializes the <see cref="T:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetModelRemoveColumnsCommand"/> with information how to execute
+            a "GridModelRowColOperations.RemoveRange" command at a later time and associates it with a "GridModelRowColOperations"/&gt;
+            instance.
+            </summary>
+            <param name="model">The <see cref="T:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel"/> this command is associated with.</param>
+            <param name="from">First row index in range.</param>
+            <param name="count">Last row index in range.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetModelRemoveColumnsCommand.Execute">
+            <override/>
+            <summary>Executes the command.</summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetModelInsertRowsCommand">
+            <summary>
+            Holds undo information about a previous "GridModelRowColOperations.InsertRange" operation.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetModelInsertRowsCommand.#ctor(Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel,System.Int32,System.Int32,Syncfusion.Windows.Controls.Grid.GridStyleInfo[],Syncfusion.Windows.Controls.Spreadsheet.Commands.GridFormulaInfo[],System.Double[])">
+            <summary>
+            Initializes the <see cref="T:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetModelInsertRowsCommand"/> with information how to execute
+            a "GridModelRowColOperations.RemoveRange" command at a later time and associates it with a "GridModelRowColOperations"/&gt;
+            instance.
+            </summary>
+            <param name="model">The <see cref="T:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel"/> this command is associated with.</param>
+            <param name="insertAt">The row or column where cells should be inserted.</param>
+            <param name="count">The number of rows or columns to insert.</param>
+            <param name="cellsInfo">The collection of GridStyleInfo.</param>
+            <param name="formulas">The Collection of GridFormulaInfo.</param>
+            <param name="heights">The RowHeights.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetModelInsertRowsCommand.Execute">
+            <override/>
+            <summary>
+            Executes the command.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetModelInsertColumnsCommand">
+            <summary>
+            Holds undo information about a previous "GridModelRowColOperations.InsertRange" operation.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetModelInsertColumnsCommand.#ctor(Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel,System.Int32,System.Int32,Syncfusion.Windows.Controls.Grid.GridStyleInfo[],Syncfusion.Windows.Controls.Spreadsheet.Commands.GridFormulaInfo[],System.Double[])">
+            <summary>
+            Initializes the <see cref="T:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetModelInsertColumnsCommand"/> with information how to execute
+            a "GridModelRowColOperations.RemoveRange" command at a later time and associates it with a "GridModelRowColOperations"
+            instance.
+            </summary>
+            <param name="model">The <see cref="T:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel"/> this command is associated with.</param>
+            <param name="insertAt">The row or column where cells should be inserted.</param>
+            <param name="count">The number of rows or columns to insert.</param>
+            <param name="cellsInfo">The collection of GridStyleInfo.</param>
+            <param name="formulas">The Collection of GridFormulaInfo.</param>
+            <param name="width">The ColumnWidths.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetModelInsertColumnsCommand.Execute">
+            <override/>
+            <summary>
+            Executes the command.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetTableFormatCommand">
+            <summary>
+            Holds undo information about a previous <see cref="T:Syncfusion.XlsIO.IListObject"/>.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetTableFormatCommand.#ctor(Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel,Syncfusion.Windows.Controls.Grid.GridRangeInfo,Syncfusion.Windows.Controls.Grid.GridStyleInfo[],Syncfusion.Windows.Styles.StyleModifyType,Syncfusion.XlsIO.IListObject)">
+            <summary>
+            Initializes the <see cref="T:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetTableFormatCommand"/> with information about table format.
+            </summary>
+            <param name="table">The <see cref="T:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel"/> this command is associated with.</param>
+            <param name="range">A <see cref="T:Syncfusion.Windows.Controls.Grid.GridRangeInfo"/> that specifies the range of cells.</param>
+            <param name="cellsInfo">The array of <see cref="T:Syncfusion.Windows.Controls.Grid.GridStyleInfo"/> objects that holds cell information.</param>
+            <param name="type">A <see cref="T:Syncfusion.Windows.Styles.StyleModifyType"/> that specifies the style operation to be performed.</param>
+            <param name="tableFormat">A <see cref="T:Syncfusion.XlsIO.IListObject"/> that specifies the table format to be performed.</param>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetMergeCommand">
+            <summary>
+            Holds undo information about a previous merge cell range.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetMergeCommand.#ctor(Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel,Syncfusion.Windows.Controls.Grid.GridRangeInfo,Syncfusion.Windows.Controls.Grid.GridStyleInfo[],Syncfusion.Windows.Styles.StyleModifyType,System.Boolean)">
+            <summary>
+            Initializes the <see cref="T:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetTableFormatCommand"/> with information about merge cell range.
+            </summary>
+            <param name="table">The <see cref="T:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridModel"/> this command is associated with.</param>
+            <param name="range">A <see cref="T:Syncfusion.Windows.Controls.Grid.GridRangeInfo"/> that specifies the range of cells.</param>
+            <param name="cellsInfo">The array of <see cref="T:Syncfusion.Windows.Controls.Grid.GridStyleInfo"/> objects that holds cell information.</param>
+            <param name="type">A <see cref="T:Syncfusion.Windows.Styles.StyleModifyType"/> that specifies the style operation to be performed.</param>
+            <param name="merge">Specify te range to merge or unmerge</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetMergeCommand.Execute">
+            <summary>
+            Execute the command
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetPictureCommand">
+            <summary>
+            Holds Undo information about previous<see cref="T:Syncfusion.Windows.Controls.Spreadsheet.Commands.InsertPictureCommand"/> Operation.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridStyleInfoStore.Clone">
+            <override/>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetGridStyleInfoStore.StaticDataStore">
+            <override/>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.ISpreadsheetGridVisualStyle.HeaderBackgroundBrush">
+            <summary>
+            Gets the header background.
+            </summary>
+            <value>The header background.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.ISpreadsheetGridVisualStyle.HeaderForegroundBrush">
+            <summary>
+            Gets the header foreground.
+            </summary>
+            <value>The header foreground.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.ISpreadsheetGridVisualStyle.SelectionHeaderBackgroundBrush">
+            <summary>
+            Gets the highlight header background.
+            </summary>
+            <value>The highlight header background.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.ISpreadsheetGridVisualStyle.RowColumnSelectionHeaderBackgroundBrush">
+            <summary>
+            Gets the row couumn highlight selection header background.
+            </summary>
+            <value>The highlight header background.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.DefaultSpreadsheetGridVisualStyle.HeaderBackgroundBrush">
+            <summary>
+            Gets the header background.
+            </summary>
+            <value>The header background.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.DefaultSpreadsheetGridVisualStyle.HeaderForegroundBrush">
+            <summary>
+            Gets the header foreground.
+            </summary>
+            <value>The header foreground.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.DefaultSpreadsheetGridVisualStyle.SelectionHeaderBackgroundBrush">
+            <summary>
+            Gets the highlight header background.
+            </summary>
+            <value>The highlight header background.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.DefaultSpreadsheetGridVisualStyle.RowColumnSelectionHeaderBackgroundBrush">
+            <summary>
+            Gets the row couumn highlight selection header background.
+            </summary>
+            <value>The highlight header background.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Office2010BlueSpreadsheetGridVisualStyle.HeaderBackgroundBrush">
+            <summary>
+            Gets the header background.
+            </summary>
+            <value>The header background.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Office2010BlueSpreadsheetGridVisualStyle.HeaderForegroundBrush">
+            <summary>
+            Gets the header foreground.
+            </summary>
+            <value>The header foreground.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Office2010BlueSpreadsheetGridVisualStyle.SelectionHeaderBackgroundBrush">
+            <summary>
+            Gets the highlight header background.
+            </summary>
+            <value>The highlight header background.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Office2010BlueSpreadsheetGridVisualStyle.RowColumnSelectionHeaderBackgroundBrush">
+            <summary>
+            Gets the row couumn highlight selection header background.
+            </summary>
+            <value>The highlight header background.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Office2010SilverSpreadsheetGridVisualStyle.HeaderBackgroundBrush">
+            <summary>
+            Gets the header background.
+            </summary>
+            <value>The header background.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Office2010SilverSpreadsheetGridVisualStyle.HeaderForegroundBrush">
+            <summary>
+            Gets the header foreground.
+            </summary>
+            <value>The header foreground.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Office2010SilverSpreadsheetGridVisualStyle.SelectionHeaderBackgroundBrush">
+            <summary>
+            Gets the highlight header background.
+            </summary>
+            <value>The highlight header background.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Office2010SilverSpreadsheetGridVisualStyle.RowColumnSelectionHeaderBackgroundBrush">
+            <summary>
+            Gets the row couumn highlight selection header background.
+            </summary>
+            <value>The highlight header background.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Office2010BlackSpreadsheetGridVisualStyle.HeaderBackgroundBrush">
+            <summary>
+            Gets the header background.
+            </summary>
+            <value>The header background.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Office2010BlackSpreadsheetGridVisualStyle.HeaderForegroundBrush">
+            <summary>
+            Gets the header foreground.
+            </summary>
+            <value>The header foreground.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Office2010BlackSpreadsheetGridVisualStyle.SelectionHeaderBackgroundBrush">
+            <summary>
+            Gets the highlight header background.
+            </summary>
+            <value>The highlight header background.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Office2010BlackSpreadsheetGridVisualStyle.RowColumnSelectionHeaderBackgroundBrush">
+            <summary>
+            Gets the row couumn highlight selection header background.
+            </summary>
+            <value>The highlight header background.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.RibbonTextBox.MaskText">
+            <summary>
+            Gets or sets the MaskText.
+            </summary>
+            <value>The Mask Text.</value>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetRibbon.Border_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Set the small icon for the BorderSplitButton
+            </summary>
+            <param name="sender">RibbonMenuItem</param>
+            <param name="e">RoutedEventArgs</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetRibbon._propertiesButton_MouseLeave(System.Object,System.Windows.Input.MouseEventArgs)">
+            <summary>
+            Handles the MouseLeave event of the _propertiesButton control to set forground of properties button.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.Windows.Input.MouseEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetRibbon._propertiesButton_MouseMove(System.Object,System.Windows.Input.MouseEventArgs)">
+            <summary>
+            Handles the MouseMove event of the _propertiesButton control to set the foreground of properties button.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.Windows.Input.MouseEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetRibbon._imageViewBox_MouseLeftButtonDown(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Handles the MouseLeftButtonDown event of the _imageViewBox control to open home tab.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.Windows.Input.MouseButtonEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetRibbon._imageViewBox_MouseDown(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Handles the MouseDown event of the _imageViewBox control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.Windows.Input.MouseButtonEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Spreadsheet.SpreadsheetRibbon._propertiesButton_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Handles the Click event of the _propertiesButton control to swap between all changes to fewer changes.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Accounting">
+            <summary>
+              Looks up a localized string similar to Accounting.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.AccountingNumberFormat">
+            <summary>
+              Looks up a localized string similar to Accounting Number Format.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Address">
+            <summary>
+              Looks up a localized string similar to Address.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Alignment">
+            <summary>
+              Looks up a localized string similar to Alignment.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.AllBorder">
+            <summary>
+              Looks up a localized string similar to All Border.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Allow">
+            <summary>
+              Looks up a localized string similar to Allow:.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.And">
+            <summary>
+              Looks up a localized string similar to and.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.AnyValue">
+            <summary>
+              Looks up a localized string similar to Any value.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.AutoFitColumnWidth">
+            <summary>
+              Looks up a localized string similar to AutoFit Column Width.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.AutoFitRowHeight">
+            <summary>
+              Looks up a localized string similar to AutoFit Row Height.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Between">
+            <summary>
+              Looks up a localized string similar to Between.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Between_Lower">
+            <summary>
+              Looks up a localized string similar to between.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.BetweenOption">
+            <summary>
+              Looks up a localized string similar to Between....
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.BetweenWindowDescription">
+            <summary>
+              Looks up a localized string similar to Format cells that are BETWEEN:.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.BetweenWindowTitle">
+            <summary>
+              Looks up a localized string similar to Between.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.BlankWorkbook">
+            <summary>
+              Looks up a localized string similar to Blank Workbook.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Border">
+            <summary>
+              Looks up a localized string similar to Border.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.BottomAlign">
+            <summary>
+              Looks up a localized string similar to Bottom Align.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.BottomBorder">
+            <summary>
+              Looks up a localized string similar to Bottom Border.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Cancel">
+            <summary>
+              Looks up a localized string similar to Cancel.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Cells">
+            <summary>
+              Looks up a localized string similar to Cells.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.CenterAlign">
+            <summary>
+              Looks up a localized string similar to Center Align.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Changes">
+            <summary>
+              Looks up a localized string similar to Changes.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ClearAll">
+            <summary>
+              Looks up a localized string similar to Clear All.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Clipboard">
+            <summary>
+              Looks up a localized string similar to Clipboard.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Close">
+            <summary>
+              Looks up a localized string similar to Close.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ColumnWidth">
+            <summary>
+              Looks up a localized string similar to Column Width.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ColumnWidthDescription">
+            <summary>
+              Looks up a localized string similar to Column Width:.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ColumnWidthOption">
+            <summary>
+              Looks up a localized string similar to Column Width....
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.CommaStyle">
+            <summary>
+              Looks up a localized string similar to Comma Style.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Comment">
+            <summary>
+              Looks up a localized string similar to Comment.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Comments">
+            <summary>
+              Looks up a localized string similar to Comments.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ConditionalFormatting">
+            <summary>
+              Looks up a localized string similar to Conditional Formatting.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Copy">
+            <summary>
+              Looks up a localized string similar to Copy.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Currency">
+            <summary>
+              Looks up a localized string similar to Currency.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Cut">
+            <summary>
+              Looks up a localized string similar to Cut.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Data">
+            <summary>
+              Looks up a localized string similar to Data.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Data_small">
+            <summary>
+              Looks up a localized string similar to Data:.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.DataValidation">
+            <summary>
+              Looks up a localized string similar to Data Validation.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.DataValidationDescription">
+            <summary>
+              Looks up a localized string similar to You must enter the Minimum  or Maximum value.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.DataValidationTitle">
+            <summary>
+              Looks up a localized string similar to Spreadsheet Control.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Date">
+            <summary>
+              Looks up a localized string similar to Date:.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.DateAndTime">
+            <summary>
+              Looks up a localized string similar to Date.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Decimal">
+            <summary>
+              Looks up a localized string similar to Decimal.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.DecreaseDecmial">
+            <summary>
+              Looks up a localized string similar to Decrease Decmial.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.DecreaseIndent">
+            <summary>
+              Looks up a localized string similar to Decrease Indent.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Delete">
+            <summary>
+              Looks up a localized string similar to Delete.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.DeleteColumn">
+            <summary>
+              Looks up a localized string similar to Delete Column.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.DeleteComments">
+            <summary>
+              Looks up a localized string similar to Delete Comments.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.DeleteRow">
+            <summary>
+              Looks up a localized string similar to Delete Row.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.DeleteSheet">
+            <summary>
+              Looks up a localized string similar to Delete Sheet.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.DocumentMask_AppName">
+            <summary>
+              Looks up a localized string similar to Add an application name.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.DocumentMask_Author">
+            <summary>
+              Looks up a localized string similar to Add an author.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.DocumentMask_Category">
+            <summary>
+              Looks up a localized string similar to Add a Category.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.DocumentMask_Comments">
+            <summary>
+              Looks up a localized string similar to Add a comments.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.DocumentMask_Company">
+            <summary>
+              Looks up a localized string similar to Add a company.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.DocumentMask_Manager">
+            <summary>
+              Looks up a localized string similar to Specify the manager.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.DocumentMask_Subject">
+            <summary>
+              Looks up a localized string similar to Specify the subject.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.DocumentMask_Tag">
+            <summary>
+              Looks up a localized string similar to Add a tag.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.DocumentMask_Title">
+            <summary>
+              Looks up a localized string similar to Add a title.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.DocumentProperties">
+            <summary>
+              Looks up a localized string similar to Properties.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.DocumentProperty_AppName">
+            <summary>
+              Looks up a localized string similar to AppName.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.DocumentProperty_Author">
+            <summary>
+              Looks up a localized string similar to Author.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.DocumentProperty_Cataegory">
+            <summary>
+              Looks up a localized string similar to Categories.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.DocumentProperty_Comments">
+            <summary>
+              Looks up a localized string similar to Comments.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.DocumentProperty_Company">
+            <summary>
+              Looks up a localized string similar to Company.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.DocumentProperty_Manager">
+            <summary>
+              Looks up a localized string similar to Manager.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.DocumentProperty_RelatedPeople">
+            <summary>
+              Looks up a localized string similar to Related People.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.DocumentProperty_Subject">
+            <summary>
+              Looks up a localized string similar to Subject.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.DocumentProperty_Tag">
+            <summary>
+              Looks up a localized string similar to Tag.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.DocumentProperty_Title">
+            <summary>
+              Looks up a localized string similar to Title.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.EditComment">
+            <summary>
+              Looks up a localized string similar to Edit Comment.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.EditComments">
+            <summary>
+              Looks up a localized string similar to Edit Comments.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.EncryptCommandWindowDescription">
+            <summary>
+              Looks up a localized string similar to Password:.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.EncryptCommandWindowDescriptionText">
+            <summary>
+              Looks up a localized string similar to Encrypt the contents of this file.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.EncryptCommandWindowTitle">
+            <summary>
+              Looks up a localized string similar to Encrypt Document.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.EncryptwithPassword">
+            <summary>
+              Looks up a localized string similar to Encrypt with Password.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.EndDate">
+            <summary>
+              Looks up a localized string similar to End date:.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.EndDateErrorText">
+            <summary>
+              Looks up a localized string similar to You must enter a End Date..
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.EndDateStartDateErrorText">
+            <summary>
+              Looks up a localized string similar to You must enter both a End Date and a Start Date..
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.EqualTo">
+            <summary>
+              Looks up a localized string similar to Equal To.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Equalto_Lower">
+            <summary>
+              Looks up a localized string similar to equal to.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.EqualToOption">
+            <summary>
+              Looks up a localized string similar to Equal To....
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ErrorAlert">
+            <summary>
+              Looks up a localized string similar to Error Alert.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ErrorAlertDescription">
+            <summary>
+              Looks up a localized string similar to When user enters invalid data, show this error alert:.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ErrorMessage">
+            <summary>
+              Looks up a localized string similar to Error message:.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ErrorMessageTitle">
+            <summary>
+              Looks up a localized string similar to Spreadsheet Control.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Exit">
+            <summary>
+              Looks up a localized string similar to Exit.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.File">
+            <summary>
+              Looks up a localized string similar to File.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Font">
+            <summary>
+              Looks up a localized string similar to Font.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Format">
+            <summary>
+              Looks up a localized string similar to Format.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.FormatAsTable">
+            <summary>
+              Looks up a localized string similar to Format As Table.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.FormatAsTableDescription">
+            <summary>
+              Looks up a localized string similar to Where is the data for your table?.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.FormatAsTableWindowTitle">
+            <summary>
+              Looks up a localized string similar to Format As Table.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.FormatCellsThatAreBetween">
+            <summary>
+              Looks up a localized string similar to Format cells that are BETWEEN:.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.FormatCellsThatAreEqualTo">
+            <summary>
+              Looks up a localized string similar to Format cells that are EQUAL TO:.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.FormatCellsThatAreGreaterThan">
+            <summary>
+              Looks up a localized string similar to Format cells that are GREATER THAN:.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.FormatCellsThatAreLessThan">
+            <summary>
+              Looks up a localized string similar to Format cells that are LESS THAN:.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.FormatCellsThatAreNotBetween">
+            <summary>
+              Looks up a localized string similar to Format cells that are NOTBETWEEN:.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Formula">
+            <summary>
+              Looks up a localized string similar to Formula.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.FormulaBar">
+            <summary>
+              Looks up a localized string similar to Formula Bar.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Freeze">
+            <summary>
+              Looks up a localized string similar to Freeze.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.FreezePanes">
+            <summary>
+              Looks up a localized string similar to Freeze Panes.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.FreezeTopColumn">
+            <summary>
+              Looks up a localized string similar to Freeze First Column.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.FreezeTopRow">
+            <summary>
+              Looks up a localized string similar to Freeze Top Row.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.General">
+            <summary>
+              Looks up a localized string similar to General.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.GreaterThan">
+            <summary>
+              Looks up a localized string similar to Greater Than.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.GreaterThan_Lower">
+            <summary>
+              Looks up a localized string similar to greater than.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.GreaterThanOption">
+            <summary>
+              Looks up a localized string similar to Greater Than....
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.GreaterThanOrEqualTo">
+            <summary>
+              Looks up a localized string similar to Greater than or equal to.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.GreaterThanOrEqualTo_Lower">
+            <summary>
+              Looks up a localized string similar to greater than or equal to.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.GreaterThanWindowDescription">
+            <summary>
+              Looks up a localized string similar to Format cells that are GREATER THAN:.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.GreaterThanWindowTitle">
+            <summary>
+              Looks up a localized string similar to Greater Than.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.GreenFillwithDarkGreenText">
+            <summary>
+              Looks up a localized string similar to Green Fill with Dark Green Text.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.GridLines">
+            <summary>
+              Looks up a localized string similar to Grid Lines.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Group">
+            <summary>
+              Looks up a localized string similar to Group.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Headings">
+            <summary>
+              Looks up a localized string similar to Headings.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.HideAndUnhide">
+            <summary>
+              Looks up a localized string similar to Hide and Unhide.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.HideColumns">
+            <summary>
+              Looks up a localized string similar to Hide Columns.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.HideRows">
+            <summary>
+              Looks up a localized string similar to Hide Rows.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.HideSheet">
+            <summary>
+              Looks up a localized string similar to Hide Sheet.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.HighlightCellsRules">
+            <summary>
+              Looks up a localized string similar to Highlight Cells Rules.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Home">
+            <summary>
+              Looks up a localized string similar to Home.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Hyperlink">
+            <summary>
+              Looks up a localized string similar to Hyperlink.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Illustrations">
+            <summary>
+              Looks up a localized string similar to Illustrations.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.IncreaseDecmial">
+            <summary>
+              Looks up a localized string similar to Increase Decmial.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.IncreaseIndent">
+            <summary>
+              Looks up a localized string similar to Increase Indent.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Info">
+            <summary>
+              Looks up a localized string similar to Info.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Information">
+            <summary>
+              Looks up a localized string similar to Information.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.InputMessage">
+            <summary>
+              Looks up a localized string similar to Input Message.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Inputmessage_small">
+            <summary>
+              Looks up a localized string similar to Input message:.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.InputmessageDescription">
+            <summary>
+              Looks up a localized string similar to When cell is selected, show this input message:.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Insert">
+            <summary>
+              Looks up a localized string similar to Insert.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.InsertColumn">
+            <summary>
+              Looks up a localized string similar to Insert Column.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.InsertHyperlink">
+            <summary>
+              Looks up a localized string similar to Insert Hyperlink.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.InsertRow">
+            <summary>
+              Looks up a localized string similar to Insert Row.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.InsertSheet">
+            <summary>
+              Looks up a localized string similar to Insert Sheet.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.IsSummaryColumnAtRight">
+            <summary>
+              Looks up a localized string similar to IsSummaryColumnAtRight.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.IsSummaryRowBelow">
+            <summary>
+              Looks up a localized string similar to IsSummaryRowBelow.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.LeftAlign">
+            <summary>
+              Looks up a localized string similar to Left Align.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.LeftBorder">
+            <summary>
+              Looks up a localized string similar to Left Border.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.LessThan">
+            <summary>
+              Looks up a localized string similar to Less Than.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Lessthan_Lower">
+            <summary>
+              Looks up a localized string similar to less than.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.LessThanOption">
+            <summary>
+              Looks up a localized string similar to Less Than....
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.LessThanOrEqualTo">
+            <summary>
+              Looks up a localized string similar to Less than or equal to.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.LessThanOrEqualTo_Lower">
+            <summary>
+              Looks up a localized string similar to less than or equal to.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.LessThanWindowDescription">
+            <summary>
+              Looks up a localized string similar to Format cells that are LESS THAN:.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.LessThanWindowTitle">
+            <summary>
+              Looks up a localized string similar to Less Than.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.LightRedFill">
+            <summary>
+              Looks up a localized string similar to Light Red Fill.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.LightRedFillwithDarkRedText">
+            <summary>
+              Looks up a localized string similar to Light Red Fill with Dark Red Text.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Links">
+            <summary>
+              Looks up a localized string similar to Links.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.List">
+            <summary>
+              Looks up a localized string similar to List.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.LongDate">
+            <summary>
+              Looks up a localized string similar to Long Date.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Maximum">
+            <summary>
+              Looks up a localized string similar to Maximum:.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.MaximumErrorText">
+            <summary>
+              Looks up a localized string similar to You must enter a Maximum..
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.MergeAndCenter">
+            <summary>
+              Looks up a localized string similar to Merge And Center.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.MessageBoxCaption">
+            <summary>
+              Looks up a localized string similar to Spreadsheet.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.MiddeleAlign">
+            <summary>
+              Looks up a localized string similar to Middele Align.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Minimum">
+            <summary>
+              Looks up a localized string similar to Minimum:.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.MinimumErrorText">
+            <summary>
+              Looks up a localized string similar to You must enter a Minimum..
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.MinimumMaximumErrorText">
+            <summary>
+              Looks up a localized string similar to You must enter both a Maximum and a Minimum..
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.New">
+            <summary>
+              Looks up a localized string similar to New.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.NewComment">
+            <summary>
+              Looks up a localized string similar to New Comment.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.NoBorder">
+            <summary>
+              Looks up a localized string similar to No Border.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.NotBetween">
+            <summary>
+              Looks up a localized string similar to Not Between.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Notbetween_Lower">
+            <summary>
+              Looks up a localized string similar to not between.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.NotBetweenWindowDescription">
+            <summary>
+              Looks up a localized string similar to Format cells that are NOT BETWEEN:.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.NotBetweenWindowTitle">
+            <summary>
+              Looks up a localized string similar to Not Between.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.NotEqualTo">
+            <summary>
+              Looks up a localized string similar to Not Equal To.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.NotEqualTo_Lower">
+            <summary>
+              Looks up a localized string similar to not equal to.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Number">
+            <summary>
+              Looks up a localized string similar to Number.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Ok">
+            <summary>
+              Looks up a localized string similar to OK.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Open">
+            <summary>
+              Looks up a localized string similar to Open.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Others">
+            <summary>
+              Looks up a localized string similar to Others.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Outline">
+            <summary>
+              Looks up a localized string similar to Outline.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.OutSideBorder">
+            <summary>
+              Looks up a localized string similar to Out Side Border.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Password">
+            <summary>
+              Looks up a localized string similar to Password.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Paste">
+            <summary>
+              Looks up a localized string similar to Paste.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Percentage">
+            <summary>
+              Looks up a localized string similar to Percentage.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.PercentStyle">
+            <summary>
+              Looks up a localized string similar to Percent Style.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Permissions">
+            <summary>
+              Looks up a localized string similar to Permissions.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Picture">
+            <summary>
+              Looks up a localized string similar to Picture.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Print">
+            <summary>
+              Looks up a localized string similar to Print.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ProtectCurrentSheet">
+            <summary>
+              Looks up a localized string similar to Protect Current Sheet.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ProtectSheet">
+            <summary>
+              Looks up a localized string similar to Protect Sheet.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ProtectSheetDescription">
+            <summary>
+              Looks up a localized string similar to Protect worksheet and contents of locked cells.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ProtectSheetDescriptionText">
+            <summary>
+              Looks up a localized string similar to Password to protect sheet:.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ProtectSheetTitle">
+            <summary>
+              Looks up a localized string similar to Protect Sheet.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ProtectWorkbook">
+            <summary>
+              Looks up a localized string similar to Protect Workbook.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ProtectWorkbookDescription">
+            <summary>
+              Looks up a localized string similar to Protect workbook for.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ProtectWorkbookDescriptionText">
+            <summary>
+              Looks up a localized string similar to Password:.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ProtectWorkbookTitle">
+            <summary>
+              Looks up a localized string similar to Protect Structure and Windows.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.RedBorder">
+            <summary>
+              Looks up a localized string similar to Red Border.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.RedText">
+            <summary>
+              Looks up a localized string similar to Red Text.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.RenameSheet">
+            <summary>
+              Looks up a localized string similar to Rename Sheet.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.RightAlign">
+            <summary>
+              Looks up a localized string similar to Right Align.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.RightBorder">
+            <summary>
+              Looks up a localized string similar to Right Border.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.RowHeight">
+            <summary>
+              Looks up a localized string similar to Row Height.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.RowHeightDescription">
+            <summary>
+              Looks up a localized string similar to Row Height:.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.RowHeightOption">
+            <summary>
+              Looks up a localized string similar to Row Height....
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Rows">
+            <summary>
+              Looks up a localized string similar to Rows.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Save">
+            <summary>
+              Looks up a localized string similar to Save.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.SaveACopyOfTheItem">
+            <summary>
+              Looks up a localized string similar to Save a copy of the item..
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.SaveAs">
+            <summary>
+              Looks up a localized string similar to Save As.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.SaveAsDifferentTypes">
+            <summary>
+              Looks up a localized string similar to Save as Different Types.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Settings">
+            <summary>
+              Looks up a localized string similar to Settings.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ShortDate">
+            <summary>
+              Looks up a localized string similar to Short Date.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Show">
+            <summary>
+              Looks up a localized string similar to Show.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ShowAllProperies">
+            <summary>
+              Looks up a localized string similar to Show All Properties.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ShowFewerProperties">
+            <summary>
+              Looks up a localized string similar to Show Fewer Properties.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Source">
+            <summary>
+              Looks up a localized string similar to Source:.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.SourceErrorText">
+            <summary>
+              Looks up a localized string similar to You must enter the Source..
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.StartDate">
+            <summary>
+              Looks up a localized string similar to Start date:.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.StartDateErrorText">
+            <summary>
+              Looks up a localized string similar to You must enter a Start Date..
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Stop">
+            <summary>
+              Looks up a localized string similar to Stop.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Structure">
+            <summary>
+              Looks up a localized string similar to Structure.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Styles">
+            <summary>
+              Looks up a localized string similar to Styles.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.TextLength">
+            <summary>
+              Looks up a localized string similar to Text length.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Texttodisplay">
+            <summary>
+              Looks up a localized string similar to Text to display.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ThickBottomBorder">
+            <summary>
+              Looks up a localized string similar to Thick Bottom Border.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ThickBoxBorder">
+            <summary>
+              Looks up a localized string similar to Thick Box Border.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Time">
+            <summary>
+              Looks up a localized string similar to Time.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Title">
+            <summary>
+              Looks up a localized string similar to Title:.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.TopAlign">
+            <summary>
+              Looks up a localized string similar to Top Align.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.TopandBottomBorder">
+            <summary>
+              Looks up a localized string similar to Top and Bottom Border.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.TopandThickBottomBorder">
+            <summary>
+              Looks up a localized string similar to Top and Thick Bottom Border.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.TopBorder">
+            <summary>
+              Looks up a localized string similar to Top Border.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.UnFreezePanes">
+            <summary>
+              Looks up a localized string similar to UnFreeze Panes.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Ungroup">
+            <summary>
+              Looks up a localized string similar to Ungroup.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Unhide">
+            <summary>
+              Looks up a localized string similar to Unhide.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.UnhideColumns">
+            <summary>
+              Looks up a localized string similar to Unhide Columns.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.UnhideRows">
+            <summary>
+              Looks up a localized string similar to Unhide Rows.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.UnhideSheetDescription">
+            <summary>
+              Looks up a localized string similar to Unhide Sheet:.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.UnHideSheetOption">
+            <summary>
+              Looks up a localized string similar to Unhide Sheet....
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.UnmergeCells">
+            <summary>
+              Looks up a localized string similar to Unmerge Cells.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.UnProtectSheet">
+            <summary>
+              Looks up a localized string similar to UnProtect Sheet.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.UnProtectSheetDescription">
+            <summary>
+              Looks up a localized string similar to UnProtect worksheet and contents of locked cells.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.UnProtectSheetDescriptionText">
+            <summary>
+              Looks up a localized string similar to Password to unprotect sheet:.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.UnprotectWorkbookTitle">
+            <summary>
+              Looks up a localized string similar to Unprotect Workbook.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ValidationCriteria">
+            <summary>
+              Looks up a localized string similar to Validation criteria.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ValidationFailed">
+            <summary>
+              Looks up a localized string similar to Validation Failed.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ValidationMessage_BuildInStyleNotSupportedInExcelVersion">
+            <summary>
+              Looks up a localized string similar to This build in style not supported in this excel version..
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ValidationMessage_DeleteNonEmptySheet">
+            <summary>
+              Looks up a localized string similar to Data may exists in selected sheet, To permanently delete the Sheet, Press Ok.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ValidationMessage_NotEnoughSpaceToPaste">
+            <summary>
+              Looks up a localized string similar to There is not enough space, Do you wish to Continue?.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ValidationMessage_PasteOnMergedCells">
+            <summary>
+              Looks up a localized string similar to Cannot change a part of merged cell.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ValidationMessage_DeleteSheet">
+            <summary>
+              Looks up a localized string similar to Workbook must contains at least one worksheet. You cannot remove last worksheet..
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ValidationMessage_DiscardChanges">
+            <summary>
+              Looks up a localized string similar to Do you want to discard the changes you made?.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ValidationMessage_EnteredInvalidData">
+            <summary>
+              Looks up a localized string similar to The value you entered is not a valid data.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ValidationMessage_EnterValidRange">
+            <summary>
+              Looks up a localized string similar to Enter a Valid Range.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ValidationMessage_Error">
+            <summary>
+              Looks up a localized string similar to Error.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ValidationMessage_HideSheet">
+            <summary>
+              Looks up a localized string similar to A Workbook must contain at least one visible worksheet.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ValidationMessage_InCorrectPassword">
+            <summary>
+              Looks up a localized string similar to The password you supplied is not correct. Verify that the CAPS LOCK key is off and be sure to use correct capitalization..
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ValidationMessage_RemoveCurrentRecord">
+            <summary>
+              Looks up a localized string similar to Do you want to remove the current record?.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ValidationMessage_SelectCellToInsertComment">
+            <summary>
+              Looks up a localized string similar to Please select Cell in which you want to insert Comment:.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ValidationMessage_SelectCellToInsertHyperlink">
+            <summary>
+              Looks up a localized string similar to Please select Cell in which you want to insert Hyperlink:.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ValidationMessage_SheetAlreadyPotected">
+            <summary>
+              Looks up a localized string similar to Current sheet already protected by password.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ValidationMessage_SheetNotFound">
+            <summary>
+              Looks up a localized string similar to Sheet was not found.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ValidationMessage_ValueIsNoValid">
+            <summary>
+              Looks up a localized string similar to The value you entered is not valid..
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Value">
+            <summary>
+              Looks up a localized string similar to Value:.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.ValueErrorText">
+            <summary>
+              Looks up a localized string similar to You must enter a Value..
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.View">
+            <summary>
+              Looks up a localized string similar to View.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Warning">
+            <summary>
+              Looks up a localized string similar to Warning.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.WholeNumber">
+            <summary>
+              Looks up a localized string similar to Whole number.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.Windows">
+            <summary>
+              Looks up a localized string similar to Windows.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.With">
+            <summary>
+              Looks up a localized string similar to with.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.WrapText">
+            <summary>
+              Looks up a localized string similar to Wrap Text.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Resources.Syncfusion_Speradsheet_Wpf.YellowFillwithDarkYellowText">
+            <summary>
+              Looks up a localized string similar to Yellow Fill with Dark Yellow Text.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.SpreadsheetWpfAssembly">
+            <summary>
+            This class holds the name of the Syncfusion.Windows.Controls.Grid assembly and provides a helper 
+            routine that helps with resolving types when loading a serialization stream and when 
+            the framework probes for assemblies by reflection. 
+            </summary>
+        </member>
+        <member name="F:Syncfusion.SpreadsheetWpfAssembly.Name">
+            <summary>
+            The full name of this assembly without version information: "Syncfusion.Grid.Wpf"
+            </summary>
+        </member>
+        <member name="F:Syncfusion.SpreadsheetWpfAssembly.Assembly">
+            <summary>
+            A reference to the <see cref="T:System.Reflection.Assembly"/> for the Grid assembly.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.SpreadsheetWpfAssembly.RootNamespace">
+            <summary>
+            The root namespace of this assembly. Used internally for locating resources within the assembly.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.SpreadsheetWpfAssembly.AssemblyResolver(System.Object,System.ResolveEventArgs)">
+            <summary>
+            This delegate helps with resolving types and can be used as a eventhandler
+            for a <see cref="E:System.AppDomain.AssemblyResolve"/> event.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The event data with information about the type.</param>
+            <returns>A reference to the assembly where the type is located.</returns>
+            <remarks>
+            Use this handler when reading back types from a serialization stread
+            saved with an earlier version of this assembly.
+            </remarks>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Spreadsheet.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Spreadsheet.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
+            </summary>
+        </member>
+    </members>
+</doc>

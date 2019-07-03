@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="Qiqqa.Documents.PDF.PDFControls.MetadataControls.QuickMetadataControl"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+>
+  <UserControl.Resources>
+    <local_gui:ReadPropertyAfterSetConverter x:Key="ReadPropertyAfterSetConverter"/>
+  </UserControl.Resources>
+
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition/>
+      <RowDefinition/>
+      <RowDefinition/>
+    </Grid.RowDefinitions>
+
+    <TextBox Grid.Row="0" Text="{Binding TitleCombined, Converter={StaticResource ReadPropertyAfterSetConverter}}" VerticalAlignment="Center" ToolTip="{Binding TitleCombinedReason}" MinWidth="30" Name="ObjTitle" BorderThickness="0" TextWrapping ="Wrap" FontSize="18"/>
+    <TextBox Grid.Row="1" Text="{Binding AuthorsCombined, Converter={StaticResource ReadPropertyAfterSetConverter}}" ToolTip="{Binding AuthorsCombinedReason}" MinWidth="30" BorderThickness="0" TextWrapping ="Wrap"  />
+    <TextBox Grid.Row="2" Text="{Binding YearCombined, Converter={StaticResource ReadPropertyAfterSetConverter}}" ToolTip="{Binding YearCombinedReason}" MinWidth="30" BorderThickness="0" />
+  </Grid>
+</UserControl>

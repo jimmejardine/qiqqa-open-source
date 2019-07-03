@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+<project name="Qiqqa Client Build and Package" default="thelot">
+
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+    <!-- Properties                                                        -->
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+    
+    <property name="dir.build" value="${directory::get-current-directory()}" />
+    <property name="dir.base" value="${path::combine(dir.build, '..')}" />
+    <property name="dir.nant" value="${path::combine(dir.build, 'nant')}" />
+    <property name="dir.nant.temp" value="${path::combine(dir.nant, 'temp')}" />
+    <property name="dir.nantcontrib" value="${path::combine(dir.nant, 'nant-contrib')}" />
+    
+    <property name="file.template.ClientVersion.xml" value="${dir.build}/ClientVersion.xml" />
+    
+    <property name="dir.qiqqa.bin" value="${path::combine(dir.base, 'Qiqqa/Bin/Release')}" />
+    <property name="file.qiqqa.exe" value="${path::combine(dir.qiqqa.bin, 'Qiqqa.exe')}" />
+    <property name="sln.qiqqa" value="${dir.base}/Qiqqa.sln"/>
+    
+    <property name="dir.packaging" value="${path::combine(dir.build, 'Packaging')}" />
+    <property name="dir.packaging.icons" value="${path::combine(dir.packaging, 'Icons')}" />
+    <property name="dir.packaging.include" value="${path::combine(dir.packaging, 'Include')}" />
+    <property name="dir.packaging.temp" value="${path::combine(dir.packaging, 'temp')}" />
+    <property name="dir.iscc" value="${path::combine(dir.packaging, 'ISCC')}" />
+    <property name="file.iscc" value="${path::combine(dir.iscc, 'ISCC.exe')}" />
+    
+    <!-- .NET 4.0 setup gumf since not supported by the latest stable version -->
+    <property name="nant.settings.currentframework" value="net-4.0" />
+    <loadtasks>
+        <fileset>
+            <include name="${dir.nantcontrib}\lib"/>
+        </fileset>
+    </loadtasks>
+    
+    <target name="info">
+        <echo message="--------------------------------------------------------------------------------" />
+        <echo message=" * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * "/>
+        <echo message=" Properties"/>
+        <echo message=" * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * "/>
+        <echo message=" dir.base                        ==> ${dir.base}"/>
+        <echo message=" dir.build                       ==> ${dir.build}"/>
+        <echo message=" dir.nant                        ==> ${dir.nant}"/>
+        <echo message=" dir.nant                        ==> ${dir.nantcontrib}"/>
+        <echo message=" dir.qiqqa.bin (build output)    ==> ${dir.qiqqa.bin}"/>
+        <echo />
+        <echo message=" sln.qiqqa                       ==> ${sln.qiqqa}"/>
+        <echo />
+        <echo message=" dir.packaging                   ==> ${dir.packaging}"/>
+        <echo message=" dir.packaging.icons             ==> ${dir.packaging.icons}"/>
+        <echo message=" dir.iscc                        ==> ${dir.iscc}"/>
+        <echo message=" file.iscc                       ==> ${file.iscc}"/>
+        <echo message="--------------------------------------------------------------------------------" />
+        <sleep seconds="3"/>
+    </target>
+    
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+    <!-- Build (Release)                                                   -->
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+    <target name="build" depends="info">
+        <echo message=" * * * * * * * * * * * * * * * * * * * * * * * *"/>
+        <echo message=" Building"/>
+        <echo message=" * * * * * * * * * * * * * * * * * * * * * * * *"/>
+        <msbuild project="${sln.qiqqa}" target="Clean">
+            <arg value="/property:Configuration=Release" />
+            <arg value="/property:Platform=Any CPU" />
+        </msbuild>
+        <msbuild project="${sln.qiqqa}">
+            <arg value="/property:Configuration=Release" />
+            <arg value="/property:Platform=Any CPU" />
+        </msbuild>
+        <!-- Figure out what the version number is from Qiqqa.exe that we have just built -->
+        <property name="version.client" value="${version::get-major(assemblyname::get-version(assemblyname::get-assembly-name(file.qiqqa.exe)))}" overwrite="true"/>
+    </target>
+    
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+    <!-- Create the ClientVersion.xml file we deploy to the server.        -->
+    <!-- Also inject the client version that we picked up along the way.   -->
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+    <target name="version" depends="build">
+        <echo message=" * * * * * * * * * * * * * * * * * * * * * * * *"/>
+        <echo message=" Creating ClientVersion.xml"/>
+        <echo message=" * * * * * * * * * * * * * * * * * * * * * * * *"/>
+
+		<tstamp property="build.date" pattern="yyyyMMdd-HHmmss" verbose="true" />
+		<property name="build.version" value="v${version.client} - ${build.date}" />	
+		<property name="dir.packages" value="${path::combine(dir.build, 'Packages')}" />
+		<property name="dir.packages.latest" value="${path::combine(dir.packages, build.version)}" />
+		<property name="file.packages.latest.prefix" value="setup" />
+		<property name="file.packages.latest" value="${dir.packages.latest}/${file.packages.latest.prefix}.exe" />
+
+        <delete dir="${dir.nant.temp}" />
+        <mkdir dir="${dir.nant.temp}" />
+        <!-- copy the template version and then start poking it -->
+        <copy file="${file.template.ClientVersion.xml}" todir="${dir.nant.temp}" />
+        <xmlpoke file="${dir.nant.temp}/ClientVersion.xml" xpath="/ClientVersionInformation/LatestVersion" value="${version.client}"/>
+        <copy file="${dir.nant.temp}/ClientVersion.xml" todir="${dir.packages.latest}" />
+        <delete dir="${dir.nant.temp}" />
+    </target>
+    
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+    <!-- Package                                                           -->
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+    <target name="package" depends="version">
+        <echo message=" * * * * * * * * * * * * * * * * * * * * * * * *"/>
+        <echo message=" Packaging v${version.client}"/>
+        <echo message=" * * * * * * * * * * * * * * * * * * * * * * * *"/>
+
+
+        <!-- Copy build and additional files -->
+        <delete dir="${dir.packaging.temp}" />
+        <mkdir dir="${dir.packaging.temp}" />
+        <!-- Copy the compiled binary files -->
+        <copy todir="${dir.packaging.temp}">
+            <fileset basedir="${dir.qiqqa.bin}">
+                <include name="**/*" />
+                <exclude name="*.pdb" />
+                <exclude name="Qiqqa.vshost.*" />
+                <exclude name="readme.txt" />
+            </fileset>
+        </copy>
+        <exec program="${file.iscc}"
+            commandline='setup.iss "/dAppVersion=${version.client}" "/dAppSource=${dir.packaging.temp}/*" "/dOutputBaseFilename=${file.packages.latest.prefix}" "/dOutputDir=${dir.packages.latest}"'
+            workingdir="${dir.packaging}" />
+        <delete dir="${dir.packaging.temp}" />
+    </target>
+    
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+    <!-- Give Helpful Message                                              -->
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+    <target name="thelot" depends="package">
+        <echo />
+        <echo />
+        <echo />
+        <echo />
+        <echo />
+        <echo />
+        <echo />
+        <echo />
+        <echo />
+        <echo />
+        <echo />
+        <echo />
+        <echo />
+        <echo />
+        <echo />
+        <echo />
+        <echo />
+        <echo message=" --------------------------------------"/>
+        <echo message=" Completed Packaging Qiqqa version ${version.client} into ${dir.packages.latest}" />
+        <echo message=" --------------------------------------"/>
+        <echo />
+    </target>
+</project>

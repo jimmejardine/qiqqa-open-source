@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="Qiqqa.DocumentLibrary.WebLibraryStuff.WebLibraryDetailControlPopup"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+>
+
+  <StackPanel Grid.Column="0">
+    <MenuItem Header="Open Library" Name="MenuOpenLibrary"/>
+    <Separator/>
+    <MenuItem Header="Customise Icon" Name="MenuCustomiseIcon"/>
+    <MenuItem Header="Customise Background" Name="MenuCustomiseBackground"/>
+  </StackPanel>
+</UserControl>

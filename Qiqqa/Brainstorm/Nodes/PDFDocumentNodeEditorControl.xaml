@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="Qiqqa.Brainstorm.Nodes.PDFDocumentNodeEditorControl"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+  xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
+             xmlns:local_metadata="clr-namespace:Qiqqa.Documents.PDF.PDFControls.MetadataControls"
+>
+  <DockPanel>
+    <FlowDocumentScrollViewer  IsToolBarVisible="False" VerticalScrollBarVisibility="Auto" DockPanel.Dock="Top">
+      <commongui:StandardFlowDocument>
+        <Paragraph>
+          Explore this PDF document by pressing:
+        </Paragraph>
+        <List>
+          <ListItem>
+            <Paragraph>
+              'N' - expand all your annotations.  You can hover the mouse over these to see the annotation in situ.
+            </Paragraph>
+          </ListItem>
+          <ListItem>
+            <Paragraph>
+              'M' - expand the top Expedition themes in this document.
+            </Paragraph>
+          </ListItem>
+          <ListItem>
+            <Paragraph>
+              'S' - expand similar documents.  These are documents that have the same general themes running through them as in this document.
+            </Paragraph>
+          </ListItem>
+          <ListItem>
+            <Paragraph>
+              'R' - expand relevant documents.  For each theme in this document, find the most representative documents.  They will generally be very theme-specific.
+            </Paragraph>
+          </ListItem>
+          <ListItem>
+            <Paragraph>
+              'A' - expand all the authors.
+            </Paragraph>
+          </ListItem>
+          <ListItem>
+            <Paragraph>
+              'T' or 'G' - expand all the tags and AutoTags, respectively.
+            </Paragraph>
+          </ListItem>
+          <ListItem>
+            <Paragraph>
+              'I' or 'O' - expand all the inbound and outbound citations, respectively.
+            </Paragraph>
+          </ListItem>
+        </List>
+      </commongui:StandardFlowDocument>
+    </FlowDocumentScrollViewer>
+
+    <local_metadata:DocumentMetadataControlsPanel x:Name="ObjDocumentMetadataControlsPanel" />
+    
+  </DockPanel>  
+</UserControl>

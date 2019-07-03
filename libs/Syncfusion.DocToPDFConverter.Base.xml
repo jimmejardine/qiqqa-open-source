@@ -1,0 +1,236 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Syncfusion.DocToPDFConverter.Base</name>
+    </assembly>
+    <members>
+        <member name="T:Syncfusion.DocToPDFConverter.DocToPDFConverter">
+            <summary>
+            This class provides support for converting WordDocument into an PDF Document.
+            </summary>
+            <seealso cref="T:Syncfusion.DocIO.DLS.WordDocument"/>
+            <seealso cref="T:Syncfusion.Pdf.PdfDocument"/>
+            <example>
+            This example converts the specified Word Document in to PDF Document.
+            <code lang="C#">
+            void Convert()
+            {
+                WordDocument wordDoc = new WordDocument(strFileName);
+                DocToPDFConverterControl converter = new DocToPDFConverterControl();
+                PdfDocument pdfDoc = converter.ConvertToPDF(wordDoc);
+            }
+            </code>
+            </example>
+        </member>
+        <member name="F:Syncfusion.DocToPDFConverter.DocToPDFConverter.DEF_IMAGETYPE">
+            <summary>
+            Specifies the default image type.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.DocToPDFConverter.DocToPDFConverter.m_settings">
+            <summary>
+            converter settings to the document
+            </summary>
+        </member>
+        <member name="F:Syncfusion.DocToPDFConverter.DocToPDFConverter.m_flag">
+            <summary>
+            The m_flag
+            </summary>
+        </member>
+        <member name="M:Syncfusion.DocToPDFConverter.DocToPDFConverter.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.DocToPDFConverter.DocToPDFConverter"/> class.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.DocToPDFConverter.DocToPDFConverter.Close">
+            <summary>
+            Release the resources occupied by this <see cref="T:Syncfusion.DocToPDFConverter.DocToPDFConverter"/> instance.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.DocToPDFConverter.DocToPDFConverter.Dispose">
+            <summary>
+            Releases all resources used by the object.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.DocToPDFConverter.DocToPDFConverter.ConvertToPDF(Syncfusion.DocIO.DLS.WordDocument)">
+            <summary>
+            Converts the specified WordDocument to PDF.
+            </summary>
+            <param name="wordDocument">The word document.</param>
+            <returns>The PdfDocument.</returns>
+        </member>
+        <member name="M:Syncfusion.DocToPDFConverter.DocToPDFConverter.ConvertToPDF(System.String)">
+            <summary>
+            Converts the specified WordDocument to PDF.
+            </summary>
+            <param name="fileName">Name of the file.</param>
+            <returns>The PdfDocument.</returns>
+        </member>
+        <member name="M:Syncfusion.DocToPDFConverter.DocToPDFConverter.ConvertToPDF(System.IO.Stream)">
+            <summary>
+            Converts to PDF.
+            </summary>
+            <param name="stream">The stream.</param>
+            <returns>The PdfDocument.</returns>
+        </member>
+        <member name="M:Syncfusion.DocToPDFConverter.DocToPDFConverter.CreateDocument">
+            <summary>
+            Creates the PDF document.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.DocToPDFConverter.DocToPDFConverter.AddSection(Syncfusion.DocIO.DLS.WPageSetup)">
+            <summary>
+            Adds the section.
+            </summary>
+            <param name="pageSetup">The page setup.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.DocToPDFConverter.DocToPDFConverter.InitPagesSettings(Syncfusion.DocIO.DLS.Rendering.DocumentLayouter)">
+            <summary>
+            Sets the pages settings.
+            </summary>
+            <param name="layouter">The layouter.</param>
+        </member>
+        <member name="M:Syncfusion.DocToPDFConverter.DocToPDFConverter.AddDocumentProperties(Syncfusion.DocIO.DLS.BuiltinDocumentProperties)">
+            <summary>
+            Adds the document properties.
+            </summary>
+            <param name="docProperties">The doc properties.</param>
+        </member>
+        <member name="M:Syncfusion.DocToPDFConverter.DocToPDFConverter.AddHyperLinks(System.Collections.Generic.List{System.Collections.Generic.Dictionary{System.String,System.Drawing.RectangleF}})">
+            <summary>
+            Adds the hyper links.
+            </summary>
+            <param name="hyperlinks">The hyperlinks.</param>
+        </member>
+        <member name="M:Syncfusion.DocToPDFConverter.DocToPDFConverter.AddBookmarks(System.Collections.Generic.List{System.Collections.Generic.Dictionary{System.String,Syncfusion.DocIO.Rendering.BookmarkHyperlink}})">
+            <summary>
+            Converts the TOC into Bookmark.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.DocToPDFConverter.DocToPDFConverter.DrawToPDF(Syncfusion.DocIO.DLS.Rendering.DocumentLayouter)">
+            <summary>
+            Draw To PDF
+            </summary>
+            <param name="layouter">The DocumentLayouter</param>
+            <returns>PdfDocument</returns>
+        </member>
+        <member name="M:Syncfusion.DocToPDFConverter.DocToPDFConverter.ShowWarnings">
+            <summary>
+            Shows the warnings.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.DocToPDFConverter.DocToPDFConverter.CreateWarningElmentNames">
+            <summary>
+            Create warning element names into the list
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Syncfusion.DocToPDFConverter.DocToPDFConverter.PageSettings">
+            <summary>
+            Gets the page settings.
+            </summary>
+            <value>The page settings.</value>
+        </member>
+        <member name="P:Syncfusion.DocToPDFConverter.DocToPDFConverter.Settings">
+            <summary>
+            Gets or sets the quality.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.DocToPDFConverter.DocToPDFConverter.IsCanceled">
+            <summary>
+            Gets a value indicating whether this conversion has been canceled.
+            </summary>
+            <value>
+            <c>true</c> if this conversion is canceled; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="T:Syncfusion.DocToPDFConverter.DocToPDFConverterSettings">
+            <summary>
+            Represent class with setting of converter.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.DocToPDFConverter.DocToPDFConverterSettings.m_enableAlternateChunks">
+            <summary>
+            Need to enable the Alternate chunks element
+            </summary>
+        </member>
+        <member name="F:Syncfusion.DocToPDFConverter.DocToPDFConverterSettings.m_imageQuality">
+            <summary>
+            Indicates the quality of the image.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.DocToPDFConverter.DocToPDFConverterSettings.m_imageResolution">
+            <summary>
+            Indicates the Image resolution
+            </summary>
+        </member>
+        <member name="F:Syncfusion.DocToPDFConverter.DocToPDFConverterSettings.m_warning">
+            <summary>
+            The m_warning
+            </summary>
+        </member>
+        <member name="P:Syncfusion.DocToPDFConverter.DocToPDFConverterSettings.EnableAlternateChunks">
+            <summary>
+            Gets or sets a value indicates to enable the Alternate chunks present in the Word document . Default value is <b>True</b>.
+            </summary>
+            <value><b>True</b> if need to enable the Alternate chunks; otherwise, <b>false</b>.</value>
+            /// <example>The following example illustrates how to skip the Alternate chunks content in output PDF document.
+            <code language = "C#">
+            private void Button1_Click(System.Object sender, System.EventArgs e)
+            {
+               WordDocument document = new WordDocument("Alternate chunk.docx", FormatType.Docx);
+               DocToPDFConverter docToPDFConverter = new DocToPDFConverter();
+               //Skip the updating process for Alternate chunks in the Word document 
+               docToPDFConverter.Settings.EnableAlternateChunks = false;
+               PdfDocument pdf = docToPDFConverter.ConvertToPDF(document);
+               //Save and close the document
+               document.Close();
+               pdf.Save("Alternate chunk.pdf");
+               pdf.Close(true);
+            }
+            </code>
+            <code language = "VB">
+            Private Sub button_Click(sender As Object, e As EventArgs)
+                Dim document As New WordDocument("Alternate chunk.docx", FormatType.Docx)
+                Dim docToPDFConverter As New DocToPDFConverter()
+                'Skip the updating process for Alternate chunks in the Word document 
+                docToPDFConverter.Settings.EnableAlternateChunks = False
+                Dim pdf As PdfDocument = docToPDFConverter.ConvertToPDF(document)
+                'Save and close the document
+                document.Close()
+                pdf.Save("Alternate chunk.pdf")
+                pdf.Close(True)
+            End Sub
+            </code>
+            </example>
+        </member>
+        <member name="P:Syncfusion.DocToPDFConverter.DocToPDFConverterSettings.ImageQuality">
+            <summary>
+            Gets or sets the quality. The value indicates in percentage, max value represents best quality and min value represents best compression.
+            </summary>
+            <remarks>The value indicates in percentage, max value represents best quality and min value represents best compression</remarks>
+        </member>
+        <member name="P:Syncfusion.DocToPDFConverter.DocToPDFConverterSettings.ImageResolution">
+            <summary>
+            Sets the image resolution to the image, which are Embedded
+            in the Word document
+            </summary>
+        </member>
+        <member name="P:Syncfusion.DocToPDFConverter.DocToPDFConverterSettings.OptimizeIdenticalImages">
+            <summary>
+            Gets/Sets a value indicating whether to optimize the memory usage for the identical (duplicate) images in Doc to Pdf conversion and converted Pdf document.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.DocToPDFConverter.DocToPDFConverterSettings.Warning">
+            <summary>
+            Gets or sets the warning that describes the unsupported elements found while converting the specified Word document to PDF.
+            </summary>
+            <value>
+            The warning.
+            </value>
+        </member>
+    </members>
+</doc>

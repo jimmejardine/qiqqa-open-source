@@ -1,0 +1,16 @@
+﻿<ResourceDictionary
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+>
+  <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="{StaticResource Background_Color_Blue_Light}"/>
+
+  <Style TargetType="{x:Type Hyperlink}">
+    <Setter Property="Foreground" Value="{StaticResource Background_Brush_Blue_VeryVeryVeryDark}"/>
+  </Style>
+</ResourceDictionary>
+
+
+
+

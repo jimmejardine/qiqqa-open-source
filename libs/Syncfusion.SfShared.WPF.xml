@@ -1,0 +1,2476 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Syncfusion.SfShared.Wpf</name>
+    </assembly>
+    <members>
+        <member name="T:Syncfusion.Windows.Controls.State">
+            <summary>
+            Defines the different states options that a <see
+            cref="T:Syncfusion.UI.Xaml.Controls.LoopingSelector"/> can be animated.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.State.Normal">
+            <summary>
+            Looping is in Normal state
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.State.Expanded">
+            <summary>
+            Looping is in Expanded state
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.State.Dragging">
+            <summary>
+            Looping is in Dragging state
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.State.Snapping">
+            <summary>
+            Looping is in Snapping state
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.State.Flicking">
+            <summary>
+            Looping is in Flicking state
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.SnappedEventArgs">
+            <summary>
+             Provides information about the DateTime changes of all kinds.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.SnappedEventArgs.DateTime">
+            <summary>
+            Gets or sets the DateTime
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.LoopingSelector">
+            <summary>
+             LoopingSelector is a <see cref="N:Windows.UI.Xaml.Controls.Control"/>, that
+            allow the user to select the items based the the <see
+            cref="T:Syncfusion.UI.Xaml.Controls.State"/>. It is touch friendly and resembles
+            the Windows phone looping selector.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.LoopingSelector.#ctor">
+            <summary>
+            Initializes a new instance of the <see
+            cref="T:Syncfusion.UI.Xaml.Controls.LoopingSelector"/> class.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.LoopingSelector._state">
+            <summary>
+            Represents a variable for the <see cref="T:Syncfusion.UI.Xaml.Controls.State"/>
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.LoopingSelector.DataSourceProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for DataSource.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.LoopingSelector.SelectedForegroundProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for AccentBrush.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.LoopingSelector.ItemTemplateProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for ItemTemplate.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.LoopingSelector.ItemTemplateSelectorProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for ItemTemplateSelector.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.LoopingSelector.ItemHeightProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for ItemHeight.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.LoopingSelector.ItemWidthProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for ItemWidth.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.LoopingSelector.ItemMarginProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for ItemMargin.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.LoopingSelector.ItemContainerStyleProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for ItemContainerStyle.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.LoopingSelector.AccentBrushProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for AccentBrush.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.LoopingSelector.IsExpandedProperty">
+            <summary>
+            The IsExpanded DependencyProperty.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.LoopingSelector.UpdateItemTemplate">
+            <summary>
+            Updates the template for the item
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.LoopingSelector.OnApplyTemplate">
+            <summary>
+            Initializes all the child elements of <see
+            cref="T:Syncfusion.UI.Xaml.Controls.LoopingSelector"/> control.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.LoopingSelector.Dispose">
+            <summary>
+            Disposes the control while unloading
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.LoopingSelector.State">
+            <summary>
+            Gets or sets the state
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.LoopingSelector.DataSource">
+            <summary>
+            Gets or sets the data source that the control is displaying data for.
+            </summary>
+            <value>
+            The default value is null.
+            </value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.LoopingSelector.SelectedForeground">
+            <summary>
+            Gets or sets the background for <see
+            cref="T:Syncfusion.UI.Xaml.Controls.Input.LoopingSelector"/>.
+            </summary>
+            <value>
+            The default value is null.
+            </value>
+            <seealso cref="T:Syncfusion.UI.Xaml.Controls.Input.LoopingSelector"/>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.LoopingSelector.ItemTemplate">
+            <summary>
+            Gets or sets the <see cref="N:Windows.UI.Xaml.Controls.DataTemplate"/> used to
+            display each item.
+            </summary>
+            <value>
+            The default value is null.
+            </value>
+            <seealso cref="P:Syncfusion.UI.Xaml.Controls.LoopingSelector.ItemHeight"/>
+            <seealso cref="P:Syncfusion.UI.Xaml.Controls.LoopingSelector.ItemMargin"/>
+            <seealso cref="P:Syncfusion.UI.Xaml.Controls.LoopingSelector.ItemWidth"/>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.LoopingSelector.ItemTemplateSelector">
+            <summary>
+            Getsor sets the Templae selector for the item
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.LoopingSelector.ItemHeight">
+            <summary>
+            Gets or sets the height of the items.
+            </summary>
+            <value>
+            The default value is zero.
+            </value>
+            <seealso cref="P:Syncfusion.UI.Xaml.Controls.LoopingSelector.ItemMargin"/>
+            <seealso cref="P:Syncfusion.UI.Xaml.Controls.LoopingSelector.ItemTemplate"/>
+            <seealso cref="P:Syncfusion.UI.Xaml.Controls.LoopingSelector.ItemWidth"/>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.LoopingSelector.ItemWidth">
+            <summary>
+            Gets or sets the width of the items.
+            </summary>
+            <value>
+            The default value is zero.
+            </value>
+            <seealso cref="P:Syncfusion.UI.Xaml.Controls.LoopingSelector.ItemHeight"/>
+            <seealso cref="P:Syncfusion.UI.Xaml.Controls.LoopingSelector.ItemMargin"/>
+            <seealso cref="P:Syncfusion.UI.Xaml.Controls.LoopingSelector.ItemTemplate"/>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.LoopingSelector.ItemMargin">
+            <summary>
+            Gets or sets margin around the items, to be a part of the touchable area.
+            </summary>
+            <value>
+            The default value is null.
+            </value>
+            <seealso cref="P:Syncfusion.UI.Xaml.Controls.LoopingSelector.ItemHeight"/>
+            <seealso cref="P:Syncfusion.UI.Xaml.Controls.LoopingSelector.ItemWidth"/>
+            <seealso cref="P:Syncfusion.UI.Xaml.Controls.LoopingSelector.ItemTemplate"/>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.LoopingSelector.ItemContainerStyle">
+            <summary>
+            Gets or sets the style that is applied to the container element generated for
+            each item.
+            </summary>
+            <value>
+            The default value is null.
+            </value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.LoopingSelector.AccentBrush">
+            <summary>
+            Gets or sets the background for the <see
+            cref="T:Syncfusion.UI.Xaml.Controls.LoopingSelector"/>.
+            </summary>
+            <value>
+            The default value is null.
+            </value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.LoopingSelector.IsExpanded">
+            <summary>
+            Gets or sets a value indicating whether this instance the looping selector is
+            expanded .
+            </summary>
+            <value>
+            <see langword="true"/> if the looping selector is open; otherwise, <see
+            langword="false"/>.
+            </value>
+        </member>
+        <member name="E:Syncfusion.Windows.Controls.LoopingSelector.IsExpandedChanged">
+            <summary>
+            Occurs when the <see
+            cref="P:Syncfusion.UI.Xaml.Controls.LoopingSelector.IsExpanded"/> is changed.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.LoopingSelectorItem">
+            <summary>
+             LoopingSelectorItem is a <see
+            cref="N:Windows.UI.Xaml.Controls.ContentControl"/>. It is a selectable item
+            inside the <see cref="T:Syncfusion.UI.Xaml.Controls.LoopingSelector"/>.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.LoopingSelectorItem._state">
+            <summary>
+            Declares a variable for <see
+            cref="T:Syncfusion.UI.Xaml.Controls.LoopingSelectorItem.State"/>
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.LoopingSelectorItem.#ctor">
+            <summary>
+            Initializes a new instance of the <see
+            cref="T:Syncfusion.UI.Xaml.Controls.LoopingSelectorItem"/> class.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.LoopingSelectorItem.SetState(Syncfusion.Windows.Controls.LoopingSelectorItem.State,System.Boolean)">
+            <summary>
+            Sets the state <see
+            cref="T:Syncfusion.UI.Xaml.Controls.LoopingSelectorItem.State"/>
+            </summary>
+            <param name="newState"></param>
+            <param name="useTransitions"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.LoopingSelectorItem.OnApplyTemplate">
+            <summary>
+            Initializes all the child elements of <see
+            cref="T:Syncfusion.UI.Xaml.Controls.LoopingSelectorItem"/> control.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.LoopingSelectorItem.Dispose">
+            <summary>
+            Disposes the control while unloading
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.LoopingSelectorItem.AccentBrushProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for AccentBrush.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.LoopingSelectorItem.SelectedForegroundProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for AccentBrush.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="E:Syncfusion.Windows.Controls.LoopingSelectorItem.Click">
+            <summary>
+            The Click event. This is needed because there is no gesture for touch-down, pause 
+            longer than the Hold time, and touch-up. Tap will not be raise, and Hold is not 
+            adequate.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.LoopingSelectorItem.AccentBrush">
+            <summary>
+            Gets or sets the brush that is applied as the background of the item.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.LoopingSelectorItem.SelectedForeground">
+            <summary>
+            Gets or sets the brush that is applied as the background of the item.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.LoopingSelectorItem.State">
+            <summary>
+            Represents an enum list for <see
+            cref="T:Syncfusion.UI.Xaml.Controls.LoopingSelectorItem.State"/>
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.LoopingSelectorItem.State.Normal">
+            <summary>
+            Not visible
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.LoopingSelectorItem.State.Expanded">
+            <summary>
+            Visible
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.LoopingSelectorItem.State.Selected">
+            <summary>
+            Selected
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.LoopingSelectorItem.State.Disabled">
+            <summary>
+            Disabled
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Converters.NullToVisibilityConverter">
+            <summary>
+            Convertor from null to visibility
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Converters.NullToVisibilityConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts the object
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Converters.NullToVisibilityConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts the value back into the object
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.Converters.EmptyStringToVisibilityConverter">
+            <summary>
+            Convertor for empty string to visibility
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Converters.EmptyStringToVisibilityConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts into visibility
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Converters.EmptyStringToVisibilityConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts the value back into the object
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.Converters.StringToVisibilityConverter">
+            <summary>
+            Convertor for String to visibility
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Converters.StringToVisibilityConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts to viibility
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Converters.StringToVisibilityConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts the value back into the object
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.DateTimeExtension">
+            <summary>
+            Represents a class for the DateTime Extension
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.DateTimeExtension.EachDayInMonth(System.DateTime)">
+            <summary>
+            Calculates each day in the given month
+            </summary>
+            <param name="datetime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.DateTimeExtension.FirstDay(System.DateTime)">
+            <summary>
+            Returns the first day of the given DateTime
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.DateTimeExtension.StartOfWeek(System.DateTime,System.DayOfWeek)">
+            <summary>
+            Returns the last day of the given DateTime
+            </summary>
+            <param name="dt"></param>
+            <param name="startOfWeek"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.DateTimeExtension.LastDay(System.DateTime)">
+            <summary>
+            Returns the last day of the given DateTime
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.DateTimeExtension.ToDateTime(System.Object)">
+            <summary>
+            Returns the DateTime of the given object
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.Primitives.AmPmDataSource">
+            <summary>
+            Source for AMPM Data
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Primitives.DataSource">
+            <summary>
+            Source of data
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Primitives.ILoopingSelectorDataSource">
+            <summary>
+             Defines how the LoopingSelector communicates with data source.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.ILoopingSelectorDataSource.GetNext(System.Object)">
+            <summary>
+             Get the next datum, relative to an existing datum.
+            </summary>
+            <param name="relativeTo"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.ILoopingSelectorDataSource.GetPrevious(System.Object)">
+            <summary>
+             Get the previous datum, relative to an existing datum.
+            </summary>
+            <param name="relativeTo"></param>
+        </member>
+        <member name="P:Syncfusion.Windows.Primitives.ILoopingSelectorDataSource.SelectedItem">
+            <summary>
+            Gets or sets the current selected item.
+            </summary>
+        </member>
+        <member name="E:Syncfusion.Windows.Primitives.ILoopingSelectorDataSource.SelectionChanged">
+            <summary>
+            Occurs when the selected item changed.
+            </summary>
+            <seealso
+            cref="P:Syncfusion.UI.Xaml.Primitives.ILoopingSelectorDataSource.SelectedItem"/>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.DataSource.GetNext(System.Object)">
+            <summary>
+            Gets the next value.
+            </summary>
+            <param name="relativeTo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.DataSource.GetPrevious(System.Object)">
+            <summary>
+            Gets the previous value.
+            </summary>
+            <param name="relativeTo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.DataSource.UpdateMinimumDateTime(System.DateTime,System.Int32,System.Int32,System.DateTime@)">
+            <summary>
+            Gets the updated minimum date time.
+            </summary>
+            <param name="relativeDate"></param>
+            <param name="minuteinterval"></param>
+            <param name="secondinterval"></param>
+            <param name="datetime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.DataSource.GetDatePartCollection(System.DateTime,System.Int32,System.Int32)">
+            <summary>
+            Gets the collection of dates.
+            </summary>
+            <param name="relativeDate"></param>
+            <param name="minuteinterval"></param>
+            <param name="secondinterval"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.DataSource.GetRelativeTo(System.DateTime,System.Int32)">
+            <summary>
+            Gets the relative DateTime value
+            </summary>
+            <param name="relativeDate"></param>
+            <param name="delta"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Syncfusion.Windows.Primitives.DataSource.SelectionChangedEvent">
+            <summary>
+            Event invoked on changing the selection
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Primitives.DataSource.SelectedItem">
+            <summary>
+            Gets or sets the item that has been selected
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.AmPmDataSource.GetRelativeTo(System.DateTime,System.Int32)">
+            <summary>
+            Gets the relative DateTime
+            </summary>
+            <param name="relativeDate"></param>
+            <param name="delta"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.Primitives.MinuteDataSource">
+            <summary>
+            Represents the minute datas
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.MinuteDataSource.#ctor(System.Int32)">
+            <summary>
+            Initializes a new MinuteDataSource
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.MinuteDataSource.#ctor">
+            <summary>
+            Initializes a new MinuteDataSource
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.MinuteDataSource.GetRelativeTo(System.DateTime,System.Int32)">
+            <summary>
+            Compares the minute data with the next.
+            </summary>
+            <param name="relativeDate"></param>
+            <param name="delta"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Syncfusion.Windows.Primitives.MinuteDataSource.Interval">
+            <summary>
+            Represents a start date of date range
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Primitives.SecondDataSource">
+            <summary>
+            Represents the seconds data.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.SecondDataSource.#ctor(System.Int32)">
+            <summary>
+            Initializes a new SecondDataSource
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.SecondDataSource.#ctor">
+            <summary>
+            Initializes a new SecondDataSource
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.SecondDataSource.GetRelativeTo(System.DateTime,System.Int32)">
+            <summary>
+            Compares the second data with the next.
+            </summary>
+            <param name="relativeDate"></param>
+            <param name="delta"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Syncfusion.Windows.Primitives.SecondDataSource.Interval">
+            <summary>
+            Represents a Interval
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Primitives.TwelveHourDataSource">
+            <summary>
+            Gets the twelve hour datas
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.TwelveHourDataSource.GetRelativeTo(System.DateTime,System.Int32)">
+            <summary>
+            Compares the twelve hour data with the next.
+            </summary>
+            <param name="relativeDate"></param>
+            <param name="delta"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.Primitives.TwentyFourHourDataSource">
+            <summary>
+            Represents the twwentyfour hour datas
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.TwentyFourHourDataSource.GetRelativeTo(System.DateTime,System.Int32)">
+            <summary>
+            Compares the twwentyfour hour data with the next.
+            </summary>
+            <param name="relativeDate"></param>
+            <param name="delta"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.Primitives.DateTimeWrapper">
+            <summary>
+            An ElementWrapper class that can serve as the basis for Atom Date Construct
+            based extensions.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.DateTimeWrapper.#ctor(System.DateTime)">
+            <summary>
+            Initializes a new instance of the DateTimeWrapper class.
+            </summary>
+            <param name="dateTime">DateTime to wrap.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.DateTimeWrapper.CurrentCultureUsesTwentyFourHourClock">
+            <summary>
+            Returns a value indicating whether the current culture uses a 24-hour clock.
+            </summary>
+            <returns>True if it uses a 24-hour clock; false otherwise.</returns>
+        </member>
+        <member name="P:Syncfusion.Windows.Primitives.DateTimeWrapper.DateTime">
+            <summary>
+            Gets the DateTime being wrapped.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Primitives.DateTimeWrapper.YearNumber">
+            <summary>
+            Gets the 4-digit year as a string.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Primitives.DateTimeWrapper.MonthNumber">
+            <summary>
+            Gets the 2-digit month as a string.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Primitives.DateTimeWrapper.MonthName">
+            <summary>
+            Gets the month name as a string.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Primitives.DateTimeWrapper.DayNumber">
+            <summary>
+            Gets the 2-digit day as a string.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Primitives.DateTimeWrapper.DayName">
+            <summary>
+            Gets the day name as a string.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Primitives.DateTimeWrapper.HourNumber">
+            <summary>
+            Gets the hour as a string.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Primitives.DateTimeWrapper.IsTwentyFourHourtimeline">
+            <summary>
+            Gets and sets the IsTwentyFourHourtimeline as a bool.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Primitives.DateTimeWrapper.MinuteNumber">
+            <summary>
+            Gets the 2-digit minute as a string.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Primitives.DateTimeWrapper.SecondNumber">
+            <summary>
+            Gets the 2-digit second as a string.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Primitives.DateTimeWrapper.AmPmString">
+            <summary>
+            Gets the AM/PM designator as a string.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Primitives.HeaderedItemsControl">
+            <summary>
+             Represents a control that contains multiple items and has a header.
+            </summary>
+            <seealso cref="T:Syncfusion.UI.Xaml.Primitives.HeaderedItemsControl"/>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.HeaderedItemsControl.#ctor">
+            <summary>
+            Initializes a new instance of the <see
+            cref="T:Syncfusion.UI.Xaml.Primitives.HeaderedItemsControl"/> class.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Primitives.HeaderedItemsControl.HeaderStyleProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for HeaderStyle.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Primitives.HeaderedItemsControl.HeaderProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for Header.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Primitives.HeaderedItemsControl.HeaderTemplateProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for HeaderTemplate.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Primitives.HeaderedItemsControl.HeaderTemplateSelectorProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for HeaderTemplateSelector.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Primitives.HeaderedItemsControl.HeaderStyle">
+            <summary>
+            Gets or sets  the style that appearance of the <see
+            cref="P:Syncfusion.UI.Xaml.Primitives.HeaderedItemsControl.Header"/>.
+            </summary>
+            <value>
+            The default value is null.
+            </value>
+            <seealso
+            cref="P:Syncfusion.UI.Xaml.Primitives.HeaderedItemsControl.HeaderTemplate"/>
+            <seealso
+            cref="P:Syncfusion.UI.Xaml.Primitives.HeaderedItemsControl.HeaderTemplateSelector"/>
+        </member>
+        <member name="P:Syncfusion.Windows.Primitives.HeaderedItemsControl.Header">
+            <summary>
+            Gets or sets the data used for the header of each control.
+            </summary>
+            <value>
+            The default value is null.
+            </value>
+            <seealso
+            cref="P:Syncfusion.UI.Xaml.Primitives.HeaderedItemsControl.HeaderStyle"/>
+            <seealso
+            cref="P:Syncfusion.UI.Xaml.Primitives.HeaderedItemsControl.HeaderTemplate"/>
+            <seealso
+            cref="P:Syncfusion.UI.Xaml.Primitives.HeaderedItemsControl.HeaderTemplateSelector"/>
+        </member>
+        <member name="P:Syncfusion.Windows.Primitives.HeaderedItemsControl.HeaderTemplate">
+            <summary>
+            Gets or sets the <see cref="N:Windows.UI.Xaml.DataTemplate">DataTemplate</see> used
+            to display the content of the control&apos;s <see
+            cref="P:Syncfusion.UI.Xaml.Primitives.HeaderedItemsControl.Header"/>.
+            </summary>
+            <value>
+            The default value is null.
+            </value>
+            <seealso
+            cref="P:Syncfusion.UI.Xaml.Primitives.HeaderedItemsControl.HeaderStyle"/>
+            <seealso
+            cref="P:Syncfusion.UI.Xaml.Primitives.HeaderedItemsControl.HeaderTemplateSelector"/>
+        </member>
+        <member name="P:Syncfusion.Windows.Primitives.HeaderedItemsControl.HeaderTemplateSelector">
+            <summary>
+            Gets or sets a <see
+            cref="N:Windows.UI.Xaml.Controls.DataTemplateSelector">DataTemplateSelector</see> that provides
+            custom logic for choosing the template used to display the <see
+            cref="P:Syncfusion.UI.Xaml.Primitives.HeaderedItemsControl.Header"/>.
+            </summary>
+            <value>
+            The default value is null.
+            </value>
+            <seealso
+            cref="P:Syncfusion.UI.Xaml.Primitives.HeaderedItemsControl.HeaderStyle"/>
+            <seealso
+            cref="P:Syncfusion.UI.Xaml.Primitives.HeaderedItemsControl.HeaderTemplate"/>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.ChildCollection">
+            <summary>
+            Represents a class to maintain the child collection
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.ChildCollection.#ctor">
+            <summary>
+            Initializes an instance of the <see
+            cref="T:Syncfusion.UI.Xaml.Controls.ChildCollection"/> class.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.ChildCollection.IndexOf(System.Object)">
+            <summary>
+            Gets the index of the item
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.ChildCollection.Insert(System.Int32,System.Object)">
+            <summary>
+            Inserts an item in the particular index
+            </summary>
+            <param name="index"></param>
+            <param name="item"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.ChildCollection.RemoveAt(System.Int32)">
+            <summary>
+            Removes an item in the particular index
+            </summary>
+            <param name="index"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.ChildCollection.Add(System.Object)">
+            <summary>
+            Add an item to children
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.ChildCollection.Clear">
+            <summary>
+            Clears the children
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.ChildCollection.Contains(System.Object)">
+            <summary>
+            Checks if the children contains the given item
+            </summary>
+            <param name="item"></param>
+            <returns>
+            <c>true</c> if it contains; otherwise, <c>false</c>
+            </returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.ChildCollection.CopyTo(System.Object[],System.Int32)">
+            <summary>
+            Copies an item to the children
+            </summary>
+            <param name="array"></param>
+            <param name="arrayIndex"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.ChildCollection.Remove(System.Object)">
+            <summary>
+            Removes an item from the children
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.ChildCollection.GetEnumerator">
+            <summary>
+            Gets the children enumerator
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.ChildCollection.Item(System.Int32)">
+            <summary>
+            Gets or sets the children at the index position
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.ChildCollection.Count">
+            <summary>
+            Gets the count of the children
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.ChildCollection.IsReadOnly">
+            <summary>
+            Returns true if set, otherwise false
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.SfNavigator">
+            <summary>
+            Represents a control for navigation
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.SfNavigator.#ctor">
+            <summary>
+            Initializes an instance of the <see
+            cref="T:Syncfusion.UI.Xaml.Controls.SfNavigator"/> class.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.SfNavigator.UpdateTransform">
+            <summary>
+            Updates the layout for the transformation
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.SfNavigator.HostProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for Host.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.SfNavigator.ActiveItemProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for ActiveItem.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.SfNavigator.ActiveIndexProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for ActiveIndex.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.SfNavigator.OnActiveItemChanged(System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Invoked when the active item has changed
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.SfNavigator.OnActiveIndexChanged(System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Invoked when the index of the active item has changed
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.SfNavigator.Navigate(System.Object)">
+            <summary>
+            Function to navigate through items
+            </summary>
+            <param name="child"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.SfNavigator.OnApplyTemplate">
+            <summary>
+            Initializes all the child elements of <see
+            cref="T:Syncfusion.UI.Xaml.Controls.SfNavigator"/> control.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.SfNavigator.Host">
+            <summary>
+            Gets or sets the host
+            </summary>
+        </member>
+        <member name="E:Syncfusion.Windows.Controls.SfNavigator.Navigated">
+            <summary>
+            Invoke event when item is navigated
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.SfNavigator.ActiveItem">
+            <summary>
+            Gets or sets the items that are active
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.SfNavigator.ActiveIndex">
+            <summary>
+            Gets or sets the index of the items that are active
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.SfNavigator.Items">
+            <summary>
+            Gets or sets the items of the <see
+            cref="T:Syncfusion.UI.Xaml.Controls.ChildCollection"/> control.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.SfNavigator.Direction">
+            <summary>
+            Represents an enum list for Direction of navigation
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.SfNavigator.Direction.Next">
+            <summary>
+            Navigate to the Next item
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.SfNavigator.Direction.Previous">
+            <summary>
+            Navigate to the Previous item
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.FadeTransition">
+            <summary>
+             This Transition creates a fade effect animation that spans its duration. This
+            is done by updating the opacity variable of the node at regular interval.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.ContentTransition">
+            <summary>
+            Represents a class for the content transition
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.ContentTransition.#ctor">
+            <summary>
+            Initializes an instance of the <see
+            cref="T:Syncfusion.UI.Xaml.Controls.ContentTransition"/> class.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.FadeTransition.DurationProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for Duration.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.FadeTransition.EasingProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for EasingFunction.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.FadeTransition.Duration">
+            <summary>
+            Gets or sets the length of time for which this timeline plays, not counting
+            repetitions.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.FadeTransition.Easing">
+            <summary>
+            Gets or sets <see
+            cref="N:Windows.UI.Xaml.Media.EasingFunctionBase">EasingFunctionBase</see> that allow to
+            apply custom mathematical formulas to animations
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.RotateTransition">
+            <summary>
+             his Transition creates a rotation animation that spans its <see
+            cref="P:Syncfusion.UI.Xaml.Controls.RotateTransition.Duration"/>. This is done
+            by updating the rotate variable of the node at regular interval. The angle value
+            is specified in degrees.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.RotateTransition.DurationProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for Duration.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.RotateTransition.EasingProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for Easing.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.RotateTransition.Duration">
+            <summary>
+            Gets or sets the length of time for which this timeline plays, not counting
+            repetitions.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.RotateTransition.Easing">
+            <summary>
+            Gets or sets <see
+            cref="N:Windows.UI.Xaml.Media.EasingFunctionBase">EasingFunctionBase</see> that allow to
+            apply custom mathematical formulas to animations
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.SlideTransition">
+            <summary>
+             Animating the content one after another in a regular <see
+            cref="P:Syncfusion.UI.Xaml.Controls.SlideTransition.Duration"/>.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.SlideTransition.Position">
+            <summary>
+            Defines a varible for <see
+            cref="P:Syncfusion.UI.Xaml.Controls.Position"/> 
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.SlideTransition.DirectionProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for Direction.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.SlideTransition.DurationProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for Duration.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.SlideTransition.EasingProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for Easing.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.SlideTransition.CreateExitAnimation(System.Double)">
+            <summary>
+            Create animation for the control while exit
+            </summary>
+            <param name="toValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.SlideTransition.CreateEnterAnimation(System.Double)">
+            <summary>
+            Create animation for the control while enter
+            </summary>
+            <param name="fromValue"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.SlideTransition.Direction">
+            <summary>
+            Gets or sets direction of the slide.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.SlideTransition.Duration">
+            <summary>
+            Gets or sets the length of time for which this timeline plays, not counting
+            repetitions.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.SlideTransition.Easing">
+            <summary>
+            Gets or sets <see
+            cref="N:Windows.UI.Xaml.Media.EasingFunctionBase">EasingFunctionBase</see> that allow to
+            apply custom mathematical formulas to animations
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.TransitionContentControl">
+             <summary>
+            TransitionContentControl is a <see
+             cref="N:Windows.UI.Xaml.Controls.ContentControl">ContentControl</see> that contains
+             the implementation for the controls that needs transitions.
+             </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.TransitionContentControl.#ctor">
+            <summary>
+            Initializes a new instance of the <see
+            cref="T:Syncfusion.UI.Xaml.Controls.TransitionContentControl"/> class.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.TransitionContentControl.TransitionProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for Transition.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.TransitionContentControl.EnableAnimationProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for EnableAnimation.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.TransitionContentControl.OnApplyTemplate">
+            <summary>
+            Initializes all the child elements of <see
+            cref="T:Syncfusion.UI.Xaml.Controls.TransitionContentControl"/> control.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.TransitionContentControl.OnContentChanged(System.Object,System.Object)">
+            <summary>
+            Invoked when the content is changed
+            </summary>
+            <param name="oldContent"></param>
+            <param name="newContent"></param>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.TransitionContentControl.Transition">
+            <summary>
+            Gets or sets the transition.
+            </summary>
+            <value>
+            The default value is null.
+            </value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.TransitionContentControl.EnableAnimation">
+            <summary>
+            Gets or sets a value to animate while up/down click.
+            </summary>
+            <value>
+            <c>true</c> if [enable animation]; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.TransitionInverter">
+            <summary>
+            Represents a convertor that inverts the transition
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.TransitionInverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Inverts the transition
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.TransitionInverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts back into default type
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.SfUpDown">
+            <summary>
+            Represents a control to navigate up and down through the items
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.SfUpDown.#ctor">
+            <summary>
+            Initializes an instance of the <see
+            cref="T:Syncfusion.UI.Xaml.Controls.SfUpDown"/> class.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.SfUpDown.UpCommandProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for UpCommand.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.SfUpDown.DownCommandProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for DownCommand.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.SfUpDown.UpCommandParameterProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for commandParameter.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.SfUpDown.DownCommandParameterProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for DownCommandParameter.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.SfUpDown.UpButtonStyleProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for UpButtonStyle.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.SfUpDown.DownButtonStyleProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for DownButtonStyle.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.SfUpDown.SpinButtonsAlignmentProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for SpinButtonsAlignment.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.SfUpDown.UpDownContentProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for UpDownContent.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.SfUpDown.AccentBrushProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for AccentBrush.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.SfUpDown.OnApplyTemplate">
+            <summary>
+            Initializes all the child elements of <see
+            cref="T:Syncfusion.UI.Xaml.Controls.SfUpDown"/> control.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.SfUpDown.OnSpinButtonsAlignmentChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Invoked when Spin buttons allignment has changed
+            </summary>
+            <param name="obj"></param>
+            <param name="args"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.SfUpDown.OnSpinButtonsAlignmentChanged(System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Invoked when Spin buttons allignment has changed
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.SfUpDown.UpCommand">
+            <summary>
+            Gets or sets the command for up motion
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.SfUpDown.DownCommand">
+            <summary>
+            Gets or sets the command for down motion
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.SfUpDown.UpCommandParameter">
+            <summary>
+            Gets or sets the parameter for up command
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.SfUpDown.DownCommandParameter">
+            <summary>
+            Gets or sets the parameter for down command
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.SfUpDown.UpButtonStyle">
+            <summary>
+            Gets or sets the style for up button
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.SfUpDown.DownButtonStyle">
+            <summary>
+            Gets or sets the style for down button
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.SfUpDown.SpinButtonsAlignment">
+            <summary>
+            Gets or sets the allignment for spin buttons
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.SfUpDown.UpDownContent">
+            <summary>
+            Gets or sets the content for up button
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.SfUpDown.AccentBrush">
+            <summary>
+            Gets or sets the accent brush
+            </summary>
+        </member>
+        <member name="E:Syncfusion.Windows.Controls.SfUpDown.UpButtonClick">
+            <summary>
+            Event that is raised when UpButton is clicked.
+            </summary>
+        </member>
+        <member name="E:Syncfusion.Windows.Controls.SfUpDown.DownButtonClick">
+            <summary>
+            Event that is raised when DownButton is clicked.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.SpinButtonsAlignment">
+            <summary>
+            Represents an enum list for the Spin button aignment
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.SpinButtonsAlignment.Left">
+            <summary>
+            Align SpinButtons to Left
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.SpinButtonsAlignment.Right">
+            <summary>
+            Align SpinButtons to Right
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.SpinButtonsAlignment.Both">
+            <summary>
+            Align SpinButtons at both the end
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Converters.BooleanToVisibilityConverter">
+            <summary>
+            Represents the converter that converts Boolean values to and
+            from visibility enumeration values
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Converters.BooleanToVisibilityConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts bool variable to visibility
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Converters.BooleanToVisibilityConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts back into default type
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.Converters.InverseBooleanToVisibilityConverter">
+            <summary>
+            Represents the converter that converts InverseBoolean values to and
+            from visibility enumeration values
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Converters.InverseBooleanToVisibilityConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts Boolean to visibility
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Converters.InverseBooleanToVisibilityConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts back into default type
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.Converters.BrushModifier">
+            <summary>
+            Represents a convertor that modifies the brush
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Converters.BrushModifier.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Modifies the brush
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Converters.BrushModifier.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts back into default type
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.Converters.BrushToColorConverter">
+            <summary>
+            Represents a convertor that converts brush to color
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Converters.BrushToColorConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts brush to color
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Converters.BrushToColorConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts back into default type
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.Converters.ColorToBrushConverter">
+            <summary>
+            Represents a convertor that converts color to brush
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Converters.ColorToBrushConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts color to brush
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Converters.ColorToBrushConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts back into default type
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.Converters.DoubleToThicknessConverter">
+            <summary>
+            Represents a convertor that converts Double to thickness
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Converters.DoubleToThicknessConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts Double to thickness
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Converters.DoubleToThicknessConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts back into default type
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.Converters.InvertRadialDoubleToThicknessConverter">
+            <summary>
+             Conversion of InvertRadialDouble To Thickness
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Converters.InvertRadialDoubleToThicknessConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts InvertRadialDouble To Thickness
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Converters.InvertRadialDoubleToThicknessConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts back into default type
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.Converters.PopupPositioner">
+            <summary>
+            Converts Popup position
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Converters.PopupPositioner.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            converts into position value
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Converters.PopupPositioner.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts back into default type
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.Converters.PrecisionToVisibilityConverter">
+            <summary>
+            Conversion of precision to visibility
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Converters.PrecisionToVisibilityConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts precision to visibility
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Converters.PrecisionToVisibilityConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts back into default type
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.Converters.RadialDoubleToThicknessConverter">
+            <summary>
+            Conversion of Radial Double to thickness
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Converters.RadialDoubleToThicknessConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts Radial Double to thickness
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Converters.RadialDoubleToThicknessConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts back into default type
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.Converters.RadiusToWidthConverter">
+            <summary>
+            Conversion of radius to width
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Converters.RadiusToWidthConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts the Raddius to width
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Converters.RadiusToWidthConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts the width back into radius
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.Converters.RandomBrushConverter">
+            <summary>
+            Brush convertor
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Converters.RandomBrushConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts into brush
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Converters.RandomBrushConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts the value back into the object
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.Converters.RGBConverter">
+            <summary>
+            Conversion of RGB values
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Converters.RGBConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts into RGB Value
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Converters.RGBConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts the value back into the object
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.HsvColor">
+            <summary>
+            Represents a structure for the HSV color values
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.HsvColor.H">
+            <summary>
+            The Hue in 0..360 range.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.HsvColor.S">
+            <summary>
+            The Saturation in 0..1 range.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.HsvColor.V">
+            <summary>
+            The Value in 0..1 range.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.HsvColor.A">
+            <summary>
+            The Alpha/opacity in 0..1 range.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Pixel">
+            <summary>
+            Represents a class for maintaining Pixels
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Pixel.#ctor(System.Byte,System.Byte,System.Byte,System.Byte)">
+            <summary>
+            Initializes an instance of the <see
+            cref="T:Syncfusion.UI.Xaml.Controls.Pixel"/> class.
+            </summary>
+            <param name="R"></param>
+            <param name="G"></param>
+            <param name="B"></param>
+            <param name="A"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Pixel.#ctor">
+            <summary>
+            Initializes an instance of the <see
+            cref="T:Syncfusion.UI.Xaml.Controls.Pixel"/> class.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Pixel.R">
+            <summary>
+            Gets or sets the R byte
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Pixel.G">
+            <summary>
+            Gets or sets the G byte
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Pixel.B">
+            <summary>
+            Gets or sets the B byte
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Pixel.A">
+            <summary>
+            Gets or sets the A byte
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Position">
+            <summary>
+            Represents an enum list for the <see
+            cref="T:Syncfusion.UI.Xaml.Controls.Position"/>
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Position.Bottom">
+            <summary>
+            Bottom position
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Position.Center">
+            <summary>
+            Center position
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Position.Top">
+            <summary>
+            Top position
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Position.Left">
+            <summary>
+            Left position
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Position.Right">
+            <summary>
+            Right position
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Primitives.SlideDirection">
+            <summary>
+            Creates an enum list for the Slide Direction
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Primitives.SlideDirection.Up">
+            <summary>
+            Up Direction
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Primitives.SlideDirection.Down">
+            <summary>
+            Down Direction
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Primitives.SlideDirection.Left">
+            <summary>
+            Up Direction
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Primitives.SlideDirection.Right">
+            <summary>
+            Down Direction
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Primitives.SlideDirection.Default">
+            <summary>
+            Default Direction
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Primitives.Precision">
+            <summary>
+            Creates an enum list for the precision
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Primitives.Precision.Standard">
+            <summary>
+            Standard Precision
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Primitives.Precision.Half">
+            <summary>
+            Half Precision
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Primitives.Precision.Exact">
+            <summary>
+            Exact Precision
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.ColorExtension">
+            <summary>
+            Represents a class for the color extension
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.ColorExtension.AsInt(System.Windows.Media.Color)">
+            <summary>
+            Gets the color as an integer
+            </summary>
+            <param name="color"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.ColorExtension.GetPixel(System.Windows.Media.Color)">
+            <summary>
+            Gets pixel value from the color
+            </summary>
+            <param name="color"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.ColorExtension.ToHsv(System.Windows.Media.Color)">
+            <summary>
+            Converts the RGBA color to HSV
+            </summary>
+            <param name="rgba"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.GridExtension">
+            <summary>
+            Represents a class for the Grid Extension
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.GridExtension.ElementAt(System.Windows.Controls.Grid,System.Int32,System.Int32)">
+            <summary>
+            Gets the element at the given position.
+            </summary>
+            <param name="grid"></param>
+            <param name="row"></param>
+            <param name="column"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.WriteableBitmapExtention">
+            <summary>
+            Represents a class for Bitmap Extensions
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.WriteableBitmapExtention.RenderSaturationValue(System.Windows.Media.Imaging.WriteableBitmap,System.Double)">
+            <summary>
+            Validate the saturation values
+            </summary>
+            <param name="target"></param>
+            <param name="hue"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.WriteableBitmapExtention.GetPixels(System.Int32[])">
+            <summary>
+            Retrieves information of the pixel buffer
+            </summary>
+            <param name="pixelBuffer"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.Primitives.Clipper">
+            <summary>
+            Clips a ratio of its content.
+            </summary>
+            <QualityBand>Preview</QualityBand>
+        </member>
+        <member name="F:Syncfusion.Windows.Primitives.Clipper.RatioVisibleProperty">
+            <summary>
+            Identifies the RatioVisible dependency property.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.Clipper.OnRatioVisibleChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            RatioVisibleProperty property changed handler.
+            </summary>
+            <param name="d">PartialView that changed its RatioVisible.</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.Clipper.OnRatioVisibleChanged(System.Double,System.Double)">
+            <summary>
+            RatioVisibleProperty property changed handler.
+            </summary>
+            <param name="oldValue">Old value.</param>
+            <param name="newValue">New value.</param>        
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.Clipper.#ctor">
+            <summary>
+            Initializes a new instance of the Clipper class.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.Clipper.ClipContent">
+            <summary>
+            Updates the clip geometry.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Primitives.Clipper.RatioVisible">
+            <summary>
+            Gets or sets the percentage of the item visible.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Primitives.HeaderedContentControl">
+            <summary>
+            Represents a control with headered content
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.HeaderedContentControl.#ctor">
+            <summary>
+            Initializes an instance of the <see
+            cref="T:Syncfusion.UI.Xaml.Primitives.HeaderedContentControl"/> class.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Primitives.HeaderedContentControl.HeaderProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for Header.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Primitives.HeaderedContentControl.HeaderStyleProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for HeaderStyle.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Primitives.HeaderedContentControl.HeaderTemplateProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for HeaderTemplate.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Primitives.HeaderedContentControl.HeaderTemplateSelectorProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for HeaderTemplateSelector.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Primitives.HeaderedContentControl.Header">
+            <summary>
+            Gets or sets the data used as header
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Primitives.HeaderedContentControl.HeaderStyle">
+            <summary>
+            Gets or sets the style for the data used as header
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Primitives.HeaderedContentControl.HeaderTemplate">
+            <summary>
+            Gets or sets the template for the data used as header
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Primitives.HeaderedContentControl.HeaderTemplateSelector">
+            <summary>
+            Gets or sets the TemplateSelector for the data used as header
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Primitives.HierarchicalDataTemplate">
+            <summary>
+            Represents a <see cref="T:System.Windows.DataTemplate" /> that supports
+            <see cref="T:System.Windows.Controls.HeaderedItemsControl" /> objects,
+            such as <see cref="T:System.Windows.Controls.TreeViewItem" />.
+            </summary>
+            <QualityBand>Stable</QualityBand>
+        </member>
+        <member name="F:Syncfusion.Windows.Primitives.HierarchicalDataTemplate._itemTemplate">
+            <summary>
+            The DataTemplate to apply to the ItemTemplate property on a
+            generated HeaderedItemsControl (such as a MenuItem or a
+            TreeViewItem), to indicate how to display items from the next level
+            in the data hierarchy.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Primitives.HierarchicalDataTemplate._itemContainerStyle">
+            <summary>
+            The Style to apply to the ItemContainerStyle property on a generated
+            HeaderedItemsControl (such as a MenuItem or a TreeViewItem), to
+            indicate how to style items from the next level in the data
+            hierarchy.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.HierarchicalDataTemplate.#ctor">
+            <summary>
+            Initializes a new instance of the
+            <see cref="T:WinRTXamlToolkit.Controls.Data.HierarchicalDataTemplate" /> class.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Primitives.HierarchicalDataTemplate.ItemsSource">
+            <summary>
+            Gets or sets the values for the item source
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Primitives.HierarchicalDataTemplate.IsItemTemplateSet">
+            <summary>
+            Gets a value indicating whether the ItemTemplate property was set on
+            the template.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Primitives.HierarchicalDataTemplate.ItemTemplate">
+            <summary>
+            Gets or sets the <see cref="T:System.Windows.DataTemplate" /> to
+            apply to the
+            <see cref="P:System.Windows.Controls.ItemsControl.ItemTemplate" />
+            property on a generated
+            <see cref="T:System.Windows.Controls.HeaderedItemsControl" />, such
+            as a <see cref="T:System.Windows.Controls.TreeViewItem" />, to
+            indicate how to display items from the next sublevel in the data
+            hierarchy.
+            </summary>
+            <value>
+            The <see cref="T:System.Windows.DataTemplate" /> to apply to the
+            <see cref="P:System.Windows.Controls.ItemsControl.ItemTemplate" />
+            property on a generated
+            <see cref="T:System.Windows.Controls.HeaderedItemsControl" />, such
+            as a <see cref="T:System.Windows.Controls.TreeViewItem" />, to
+            indicate how to display items from the next sublevel in the data
+            hierarchy.
+            </value>
+        </member>
+        <member name="P:Syncfusion.Windows.Primitives.HierarchicalDataTemplate.Template">
+            <summary>
+            Gets or sets the value for the template
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Primitives.HierarchicalDataTemplate.IsItemContainerStyleSet">
+            <summary>
+            Gets a value indicating whether the ItemContainerStyle property was
+            set on the template.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Primitives.HierarchicalDataTemplate.ItemContainerStyle">
+            <summary>
+            Gets or sets the <see cref="T:System.Windows.Style" /> that is
+            applied to the item container for each child item.
+            </summary>
+            <value>
+            The style that is applied to the item container for each child item.
+            </value>
+        </member>
+        <member name="T:Syncfusion.Windows.Primitives.LinearClipper">
+            <summary>
+            Clips the content of the control in a given direction.
+            </summary>
+            <QualityBand>Preview</QualityBand>
+        </member>
+        <member name="F:Syncfusion.Windows.Primitives.LinearClipper.ExpandDirectionProperty">
+            <summary>
+            Identifies the ExpandDirection dependency property.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.LinearClipper.ClipContent">
+            <summary>
+            Updates the clip geometry.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.LinearClipper.OnExpandDirectionChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            ExpandDirectionProperty property changed handler.
+            </summary>
+            <param name="d">ExpandDirectionView that changed its ExpandDirection.</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.LinearClipper.OnExpandDirectionChanged(Syncfusion.Windows.Primitives.ExpandDirection,Syncfusion.Windows.Primitives.ExpandDirection)">
+            <summary>
+            ExpandDirectionProperty property changed handler.
+            </summary>
+            <param name="oldValue">Old value.</param>
+            <param name="newValue">New value.</param>        
+        </member>
+        <member name="P:Syncfusion.Windows.Primitives.LinearClipper.ExpandDirection">
+            <summary>
+            Gets or sets the clipped edge.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Primitives.ExpandDirection">
+            <summary>
+            Represents an enum list for the direction to expand.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Primitives.ExpandDirection.Down">
+            <summary>
+            Specifies that the <see cref="T:System.Windows.Controls.Expander" />
+            control opens in the down direction.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Primitives.ExpandDirection.Up">
+            <summary>
+            Specifies that the <see cref="T:System.Windows.Controls.Expander" />
+            control opens in the up direction.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Primitives.ExpandDirection.Left">
+            <summary>
+            Specifies that the <see cref="T:System.Windows.Controls.Expander" />
+            control opens in the left direction.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Primitives.ExpandDirection.Right">
+            <summary>
+            Specifies that the <see cref="T:System.Windows.Controls.Expander" />
+            control opens in the right direction.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.SafeRaise.Raise(System.EventHandler,System.Object)">
+            <summary>
+            Raises an event in a thread-safe manner, also does the null check.
+            </summary>
+            <param name="eventToRaise">The event to raise.</param>
+            <param name="sender">The event sender.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.SafeRaise.Raise(System.EventHandler{System.EventArgs},System.Object)">
+            <summary>
+            Raises an event in a thread-safe manner, also does the null check.
+            </summary>
+            <param name="eventToRaise">The event to raise.</param>
+            <param name="sender">The event sender.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.SafeRaise.Raise``1(System.EventHandler{``0},System.Object,``0)">
+            <summary>
+            Raises an event in a thread-safe manner, also does the null check.
+            </summary>
+            <typeparam name="T">The event args type.</typeparam>
+            <param name="eventToRaise">The event to raise.</param>
+            <param name="sender">The event sender.</param>
+            <param name="args">The event args.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.SafeRaise.Raise``1(System.EventHandler{``0},System.Object,Syncfusion.Windows.Primitives.SafeRaise.GetEventArgs{``0})">
+            <summary>
+            Raise an event in a thread-safe manner, with the required null check. Lazily creates event args.
+            </summary>
+            <typeparam name="T">The event args type.</typeparam>
+            <param name="eventToRaise">The event to raise.</param>
+            <param name="sender">The event sender.</param>
+            <param name="getEventArgs">The delegate to return the event args if needed.</param>
+        </member>
+        <member name="T:Syncfusion.Windows.Primitives.SafeRaise.GetEventArgs`1">
+            <summary>
+            This is a method that returns event args, used for lazy creation.
+            </summary>
+            <typeparam name="T">The event type.</typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.Primitives.Selector">
+            <summary>
+            Represents a class for defining the selection properties.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Primitives.Selector.SelectedIndexProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for SelectedIndex.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Primitives.Selector.SelectedItemProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for SelectedItem.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.Selector.OnApplyTemplate">
+            <summary>
+            Initializes the SelectedItem property.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.Selector.OnSelectedItemChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when the Selector SelectedItem Property changed.
+            </summary>
+            <param name="obj">The obj.</param>
+            <param name="args">The DependencyPropertyChangedEventArgs instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.Selector.OnSelectedItemChanged(System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when the Selector SelectedItem Property changed.
+            </summary>
+            <param name="args">The DependencyPropertyChangedEventArgs instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.Selector.OnSelectionChanged(System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when the Selector SelectedItem Property changed.
+            </summary>
+            <param name="args">The DependencyPropertyChangedEventArgs instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.Selector.OnSelectedIndexChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when the Selector SelectedIndex Property changed.
+            </summary>
+            <param name="obj">The obj.</param>
+            <param name="args">The DependencyPropertyChangedEventArgs instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.Selector.OnSelectedIndexChanged(System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when the Selector SelectedIndex Property changed.
+            </summary>
+            <param name="args">The DependencyPropertyChangedEventArgs instance containing the event data.</param>
+        </member>
+        <member name="F:Syncfusion.Windows.Primitives.Selector.SelectionChangedEvent">
+            <summary>
+            Occurs when the selection has changed
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Primitives.Selector.SelectedIndex">
+            <summary>
+            Gets or sets tthe index for the selecte item.
+            </summary>
+            <value>
+            The default value is -1
+            </value>
+        </member>
+        <member name="P:Syncfusion.Windows.Primitives.Selector.SelectedItem">
+            <summary>
+            Gets or sets the selected item.
+            </summary>
+        </member>
+        <member name="E:Syncfusion.Windows.Primitives.Selector.SelectionChanged">
+            <summary>
+            add remove handlers
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.ColorPickerHelper">
+            <summary>
+            Represents a helping class for the <see
+            cref="T:Syncfusion.UI.Xaml.Controls.SfColorPicker"/> control.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.ColorPickerHelper.FromHsv(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Gets the ARGB values from HSV
+            </summary>
+            <param name="hue"></param>
+            <param name="saturation"></param>
+            <param name="value"></param>
+            <param name="alpha"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.ColorPickerHelper.IntColorFromBytes(System.Byte,System.Byte,System.Byte,System.Byte)">
+            <summary>
+            Gets the color from the input bytes
+            </summary>
+            <param name="a"></param>
+            <param name="r"></param>
+            <param name="g"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.ColorPickerHelper.UpdateColorValue(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Update all the color values
+            </summary>
+            <param name="hue"></param>
+            <param name="x"></param>
+            <param name="y"></param>
+            <param name="ph"></param>
+            <param name="pw"></param>
+            <param name="invPh"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.ColorPickerHelper.GetCanvasPosition(Syncfusion.Windows.Controls.HsvColor,System.Double,System.Double)">
+            <summary>
+            Gets the canvas position
+            </summary>
+            <param name="hsv"></param>
+            <param name="ph"></param>
+            <param name="pw"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.ColorPickerHelper.FromHsl(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Returns the A, RGB values
+            </summary>
+            <param name="hue"></param>
+            <param name="saturation"></param>
+            <param name="lightness"></param>
+            <param name="alpha"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.Utils.DelegateCommand">
+            <summary>
+            Represents a class for the delegate command
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Utils.DelegateCommand.#ctor(System.Action{System.Object},System.Predicate{System.Object})">
+            <summary>
+            Initializes a new instance of the <see
+            cref="T:Syncfusion.UI.Xaml.Utils.DelegateCommand"/> class.
+            </summary>
+            <seealso cref="T:Syncfusion.UI.Xaml.Utils.DelegateCommand"/>
+            <seealso cref="N:Syncfusion.UI.Xaml.Utils">Syncfusion.UI.Xaml.Utils
+            Namespace</seealso>
+            <param name="executeAction"></param>
+            <param name="canExecute"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Utils.DelegateCommand.#ctor(System.Action{System.Object})">
+            <summary>
+            Initializes a new instance of the <see
+            cref="T:Syncfusion.UI.Xaml.Utils.DelegateCommand"/> class.
+            </summary>
+            <seealso cref="T:Syncfusion.UI.Xaml.Utils.DelegateCommand"/>
+            <seealso cref="N:Syncfusion.UI.Xaml.Utils">Syncfusion.UI.Xaml.Utils
+            Namespace</seealso>
+            <param name="executeAction"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Utils.DelegateCommand.UpdateCanExecute">
+            <summary>
+            Invokes event if can execute
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Utils.DelegateCommand.CanExecute(System.Object)">
+            <summary>
+            Returns a value if can execute
+            </summary>
+            <param name="parameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Utils.DelegateCommand.Execute(System.Object)">
+            <summary>
+            Executes the parameter command
+            </summary>
+            <param name="parameter"></param>
+        </member>
+        <member name="E:Syncfusion.Windows.Utils.DelegateCommand.CanExecuteChanged">
+            <summary>
+            Occurs when value of CanExecute as changed
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.PixelBufferInfo">
+            <summary>
+            Represents a class to maintain the pixel buffer Information
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.PixelBufferInfo.pixels">
+            <summary>
+            Declares a variable for pixels
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.PixelBufferInfo.#ctor(System.Int32[])">
+            <summary>
+            Retieves information about the pixel buffer
+            </summary>
+            <param name="pixelBuffer"></param>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.PixelBufferInfo.Item(System.Int32)">
+            <summary>
+            Gets or sets the pixels
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.Primitives.DayDataSource">
+            <summary>
+            Source for the day data
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.DayDataSource.GetRelativeTo(System.DateTime,System.Int32)">
+            <summary>
+            Returns the relative date
+            </summary>
+            <param name="relativeDate"></param>
+            <param name="delta"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.Primitives.MonthDataSource">
+            <summary>
+            Represents the month datas
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.MonthDataSource.GetRelativeTo(System.DateTime,System.Int32)">
+            <summary>
+            Compares the month data with the next.
+            </summary>
+            <param name="relativeDate"></param>
+            <param name="delta"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.Primitives.YearDataSource">
+            <summary>
+            Represents the year datas
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Primitives.YearDataSource.GetRelativeTo(System.DateTime,System.Int32)">
+            <summary>
+            Compares the year data with the next.
+            </summary>
+            <param name="relativeDate"></param>
+            <param name="delta"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ClassReferenceAttribute">
+            <summary>
+            Represents a class for the Reference attributes
+            </summary>
+        </member>
+        <member name="P:ClassReferenceAttribute.IsReviewed">
+            <summary>
+            Returns a value when set
+            </summary>
+            <value>
+            <c>true</c> if instance is created ; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:ClassReferenceAttribute.ShouldInclude">
+            <summary>
+            Returns a value when set
+            </summary>
+            <value>
+            <c>true</c> if instance is created ; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="T:Syncfusion.SharedBaseAssembly">
+            <summary>
+            SharedBase assembly class.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.SharedBaseAssembly.Name">
+            <summary>
+            Name of the assembly.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.SharedBaseAssembly.Assembly">
+            <summary>
+            Defines assembly object reference variable.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.SharedBaseAssembly.RootNamespace">
+            <summary>
+            Root namespace of the assembly.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.SharedBaseAssembly.#cctor">
+            <summary>
+            Initializes static members of the <see cref="T:Syncfusion.SharedBaseAssembly"/> class.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.SharedBaseAssembly.AssemblyResolver(System.Object,System.ResolveEventArgs)">
+            <summary>
+            Assemblies the resolver.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.ResolveEventArgs"/> instance containing the event data.</param>
+            <returns>Assembly object.</returns>
+        </member>
+        <member name="T:Syncfusion.AssemblyInfo">
+            <summary>
+            Assembly info class
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.VisualUtils">
+            <summary>
+            Represents a class for the visual utils
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.VisualUtils.#ctor">
+            <summary>
+            Initializes an instance of the <see
+            cref="T:Syncfusion.Windows.Controls.VisualUtils"/> class.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.VisualUtils.FindDescendant(System.Windows.Media.Visual,System.Type)">
+            <summary>
+            Gets the decendant
+            </summary>
+            <param name="startingFrom"></param>
+            <param name="typeDescendant"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

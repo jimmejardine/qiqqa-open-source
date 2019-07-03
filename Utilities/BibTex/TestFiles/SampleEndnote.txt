@@ -1,0 +1,408 @@
+﻿%0 book
+%A Casebier, Allan
+%D 1991
+%T Film and phenomenology: toward a realist theory of cinematic representation
+%C Cambridge
+%I Cambridge University Press
+%! Film and phenomenology: toward a realist theory of cinematic representation
+%@ 9780521411325
+%U http://books.google.com/books?id=VpdOAAAAIAAJ
+%> internal-pdf://0521411327-2100874753/0521411327.pdf
+
+
+
+%0 Book
+%A Lacan, Jacques
+%D 2006
+%T Le séminaire Livre XVI: D'un autre à l'autre
+%C Paris
+%I Seuil
+%9 Texte imprimé
+%! Le séminaire Livre XVI: D'un autre à l'autre
+%@ 2-02-082705-0 br. 30 EUR
+%M FRBNF401345190000005
+%L Tolbiac - D1 Rez de Jardin - Magasin
+Tolbiac - D1 Haut de Jardin - Salle J - Libre accès
+Tolbiac - D1 Rez de Jardin - Salle K - Libre accès
+%F 150
+%K Jouissance (psychanalyse)
+L' Autre (psychanalyse)
+150.195 2
+%Z Jacques Lacan
+61-Lonrai Impr. Normandie roto
+ill., couv. ill. 24 cm
+Notice réd. d'après la couv.
+Index
+D'un autre à l'autre
+Le séminaire de Jacques Lacan
+%U http://catalogue.bnf.fr/ark:/12148/cb401345191
+%> internal-pdf://2020827050-0199078918/2020827050.djvu
+internal-pdf://2020827050-1893725446/2020827050.pdf
+%G fre
+
+
+
+%0 Book
+%A Miller, Jacques-Alain
+%D 2002
+%T Un début dans la vie
+%B Le cabinet des lettrés
+%C Paris
+%I Gallimard
+%P 162
+%9 Texte imprimé
+%! Un début dans la vie
+%@ 2-07-076495-8 br. 16,50 EUR
+%M FRBNF388330580000004
+%L Tolbiac - D1 Rez de Jardin - Magasin
+%F 150
+%K 150.195
+%Z Jacques-Alain Miller
+53-Mayenne Impr. Floch
+couv. ill. en coul. 17 cm
+%U http://catalogue.bnf.fr/ark:/12148/cb38833058h
+%> internal-pdf://9782070764952-2296178950/9782070764952.djvu
+internal-pdf://9782070764952-3067930886/9782070764952.pdf
+%G fre
+
+
+
+%0 Book
+%A Lacan, Jacques
+%D 2007
+%T Le séminaire Livre XVIII D'un discours qui ne serait pas du semblant
+%C Paris
+%I Seuil
+%9 Texte imprimé
+%! Le séminaire Livre XVIII D'un discours qui ne serait pas du semblant
+%@ 978-2-02-090219-9 rel. 21 EUR
+%M FRBNF41049264000000X
+%L Tolbiac - D1 Rez de Jardin - Magasin
+Tolbiac - D1 Haut de Jardin - Salle J - Libre accès
+Tolbiac - D1 Rez de Jardin - Salle K - Libre accès
+%F 150
+%K Jouissance (psychanalyse)
+Relations hommes-femmes
+Psychanalyse et linguistique
+150.195 2
+%Z Jacques Lacan
+61-Lonrai Normandie roto impr.
+ill., couv. ill. en coul. 24 cm
+Notice réd. d'après la couv.
+Index
+D'un discours qui ne serait pas du semblant
+Le séminaire de Jacques Lacan
+%U http://catalogue.bnf.fr/ark:/12148/cb41049264d
+%> internal-pdf://2020902192-1474042118/2020902192.pdf
+internal-pdf://978202092199-2346738438/978202092199.djvu
+%G fre
+
+
+
+%0 Book
+%A West-Pavlov, R
+%D 2009
+%T Space in theory: Kristeva, Foucault, Deleuze
+%I Rodopi
+%! Space in theory: Kristeva, Foucault, Deleuze
+%@ 9789042025455
+%U http://books.google.com/books?id=BAJUPgAACAAJ
+%> internal-pdf://Space in Theory- Kristeva, Foucault, Deleuze. (Spatial Practices)-2339322626/Space in Theory- Kristeva, Foucault, Deleuze. (Spatial Practices).pdf
+
+
+
+%0 Book
+%A Britton, Celia
+%D 1999
+%T Edouard Glissant and postcolonial theory: strategies of language and resistance
+%I University Press of Virginia
+%! Edouard Glissant and postcolonial theory: strategies of language and resistance
+%@ 9780813918495
+%U http://books.google.com/books?id=sT2ilrNtGkEC
+%> internal-pdf://cover - Unknown-2658066946/cover - Unknown.pdf
+
+
+
+%0 Book
+%A Dash, J. Michael
+%D 1995
+%T Édouard Glissant
+%C Cambridge
+%I Cambridge University Press
+%! Édouard Glissant
+%@ 9780521402736
+%X 1. Contexts
+2. The poetic intention: Un champ d'îles, La terre inquiète, Les Indes, Soleil de la conscience
+3. Novels of time and space: La lézarde, Le quatrième siècle
+4. Writing the 'real country': L'intention poétique, Malemort, Boises, Monsieur Toussaint
+5. Towards a theory of Antillanité: La case du commandeur, Le discours antillais
+6. A poetics of chaos: Pays rêvé, pays réel, Mahagony, Poétique de la relation.
+%U http://books.google.com/books?id=ty_ukIzKs3kC
+%> internal-pdf://9780511549847_9780521402736-3781057538/9780511549847_9780521402736.pdf
+
+
+
+%0 Book
+%A Prabhu, Anjali
+%D 2007
+%T Hybridity: limits, transformations, prospects
+%C Albany, NY
+%I State University of New York Press
+%! Hybridity: limits, transformations, prospects
+%@ 9780791470411
+%X Preface     ix
+Acknowledgments     xvii
+Introduction: Hybridity in Contemporary Postcolonial Theory: Examining Agency     1
+Hybridity in La Reunion: Monique Boyer's Metisse and the Nation as Necessity     19
+Theorizing Hybridity: Colonial and Postcolonial La Reunion     35
+On the Difficulty of Articulating Hybridity: Africanness in Mauritius     51
+Ethnicity and the Fate of the Nation: Reading Mauritius     85
+Interrogating Hybridity: Subaltern Agency and Totality through Edouard Glissant's Poetique de la Relation     105
+Narration in Frantz Fanon's Peau noire masques blancs: Some Reconsiderations for Hybridity     123
+Afterword: Why Hybridity Now?     147
+Notes     151
+Works Cited     165
+Index     175
+SUNY series, Explorations in Postcolonial Studies     186
+%U http://books.google.com/books?id=4N_2YlXYzQsC
+%> internal-pdf://hybridity Limits, Transformations, Prospects-3395125250/hybridity Limits, Transformations, Prospects.pdf
+
+
+
+%0 Book
+%A Hooft, Stan Van
+%A Vanderkerckhove, Wim
+%D 2010
+%T Questioning Cosmopolitanism
+%I Springer
+%! Questioning Cosmopolitanism
+%@ 9789048187034
+%U http://books.google.com/books?id=FNIGB729C4EC
+%> internal-pdf://RqbzScT1P-0972641536/RqbzScT1P.pdf
+
+
+
+%0 Book
+%A Fanon, Frantz
+%D 1975
+%T Peau noire, masques blancs
+%B Points Essais
+%C Paris
+%I Seuil
+%N 26
+%P 188
+%9 Texte imprimé
+%! Peau noire, masques blancs
+%@ 2-02-000601-4
+%M FRBNF374141510000003
+%L Tolbiac - D4 Rez de Jardin - Salle V - Libre accès
+Tolbiac - D4 Haut de Jardin - Salle H - Libre accès
+%K 844
+%Z Frantz Fanon
+couv. ill. 18 cm
+%U http://catalogue.bnf.fr/ark:/12148/cb37414151c
+%G fre
+
+
+
+%0 Book
+%A Fanon, Frantz
+%D 1975
+%T Peau noire masques blancs
+%B Points Civilisation
+%C Paris
+%I Seuil
+%N 26
+%P 188
+%9 Texte imprimé
+%! Peau noire masques blancs
+%@ 2-02-000601-4
+%M FRBNF373626880000007
+%L Tolbiac - D1 Haut de Jardin - Salle J - Libre accès
+Tolbiac - D2 Haut de Jardin - Salle D - Libre accès
+%K Noirs Acculturation
+Noirs Conditions sociales
+303.482
+305.896
+%Z Frantz Fanon
+couv. ill. 18 cm
+Première éd. paru en 1952 dans la collection Esprit
+%U http://catalogue.bnf.fr/ark:/12148/cb37362688g
+%> internal-pdf://2020006014-3886251025/2020006014.pdf
+%G fre
+
+
+
+%0 Book
+%A Belsey, C
+%D 2005
+%T Culture and the real: theorizing cultural criticism
+%I Routledge
+%! Culture and the real: theorizing cultural criticism
+%@ 9780415252898
+%U http://books.google.com/books?id=6cYL8GMKavoC
+%> internal-pdf://041525289X-4228605197/041525289X.html
+
+
+
+%0 Book
+%A Lazarus, Neil
+%D 1999
+%T Nationalism and Cultural Practice in the Postcolonial World
+%I CUP
+%P 312
+%! Nationalism and Cultural Practice in the Postcolonial World
+%@ 9780521624107
+%> internal-pdf://9780521624107 - NEIL LAZARUS - Nationalism and Cultural Practice in the-4111006989/9780521624107 - NEIL LAZARUS - Nationalism and Cultural Practice in the Postcolonial World.pdf
+
+
+
+%0 Book
+%A Lazarus, Neil
+%D 2002
+%T Marxism, Modernity and Postcolonial Studies
+%I CUP
+%P 300
+%! Marxism, Modernity and Postcolonial Studies
+%@ 0521813670
+
+
+
+%0 Book
+%A Mennel, Barbara
+%D 2008
+%T Cities and Cinema
+%I Routledge
+%P 256
+%7 1Ed
+%! Cities and Cinema
+%@ 0415364450
+%> internal-pdf://0415364450 - BARBARA MENNEL - Cities and Cinema-3238369293/0415364450 - BARBARA MENNEL - Cities and Cinema.pdf
+
+
+
+%0 Book
+%A Hitchcock, Peter
+%D 1993
+%T Dialogics of the Oppressed
+%I University of Minnesota Press
+%P 244
+%! Dialogics of the Oppressed
+%@ 0816621063
+%> internal-pdf://0816621063 - PETER HITCHCOCK - Dialogics of the Oppressed-3271806989/0816621063 - PETER HITCHCOCK - Dialogics of the Oppressed.pdf
+
+
+
+%0 Book
+%A Vallega, Alejandro A.
+%D 2003
+%T Heidegger and the Issue of Space: Thinking on Exilic Grounds
+%I Pennsylvania State University Press
+%P 202
+%! Heidegger and the Issue of Space: Thinking on Exilic Grounds
+%@ 0271023074
+%> internal-pdf://0271023074 - ALEJANDRO A. VALLEGA - Heidegger and the Issue of Sp-3556950285/0271023074 - ALEJANDRO A. VALLEGA - Heidegger and the Issue of Space~ Thinking on Exilic Grounds.pdf
+
+
+
+%0 Book
+%A Hitchcock, P
+%D 1999
+%T Oscillate wildly: space, body, and spirit of millennial materialism
+%I University of Minnesota Press
+%! Oscillate wildly: space, body, and spirit of millennial materialism
+%@ 9780816631506
+%U http://books.google.com/books?id=EBHQTXiEsEcC
+%> internal-pdf://0816631492-1984288524/0816631492.pdf
+
+
+
+%0 Book
+%A Hiddleston, Jane
+%D 2009
+%T Understanding postcolonialism
+%I Acumen
+%! Understanding postcolonialism
+%@ 9781844651603
+%U http://books.google.com/books?id=gCdYPgAACAAJ
+%> internal-pdf://Hiddleston-Postcolonialism-2437224204/Hiddleston-Postcolonialism.pdf
+
+
+
+%0 Book
+%A Swearingen, James E
+%A Cutting-Gray, Joanne
+%D 2002
+%T Extreme beauty: aesthetics, politics, death
+%C London
+%I Continuum
+%! Extreme beauty: aesthetics, politics, death
+%@ 9780826460103
+%X Pt. 1	An Other Beauty	3
+1	Feeling the Difference	4
+Pt. 2	Art and the Turn to the Postmodern	15
+2	Breton's Post-Hegelian Modernism	17
+3	Postponing the Future: Marcel Duchamp and the Avant-Garde	29
+4	When Less Is More, More or Less: Subtraction and Addition in (Post)Modernist Poetics	40
+Pt. 3	The Impossible Place of Literature	53
+5	Chora and Character: Mimesis of Difference in Plato's Timaeus	56
+6	The Place of Boredom: Blanchot Not Reading Proust	67
+7	Literature, Film, and Virtuality: Technology's Cutting Edge	78
+Pt. 4	The Rhetoric of the Political	91
+8	Rhetoric, Politics, Romance: Arendt and Heidegger, 1924-26	94
+9	Hannah Arendt: Literary Criticism and the Political	110
+10	The Politics of Fascism, or Consuming the Flesh of the Other	124
+Pt. 5	The Political Imaginary	139
+11	Post-Colonialism and History: Are We Responsible for the Past?	142
+12	Indigenous-Becoming in the Post-Colonial Polity	152
+13	The Post-Colonial Threshold of Capacity: "The Other! The Other!"	163
+Pt. 6	Extreme Beauty - Death, Glory	177
+14	The Simulacrum of Death: Perniola Beyond Heidegger and Metaphysics?	180
+15	A Deadly Gift: To Derrida, from Kierkegaard and Bataille	194
+16	Glory in Levinas and Derrida	208
+Abbreviations	223
+Notes	225
+Bibliography	245
+Index	255
+Contributors	258
+Editors	260
+%U http://books.google.com/books?id=op5Imn1c7JIC
+%> internal-pdf://0826460100-3812831756/0826460100.pdf
+
+
+
+%0 Book
+%A Sheth, Falguni A.
+%D 2009
+%T Toward a Political Philosophy of Race
+%C Albany, NY
+%I State University of New York Press
+%P 256
+%! Toward a Political Philosophy of Race
+%@ 9780791493977
+%> internal-pdf://9780791493977 - FALGUNI A. SHETH - Toward a Political Philosophy of Race-1370972164/9780791493977 - FALGUNI A. SHETH - Toward a Political Philosophy of Race.pdf
+
+
+
+%0 Book
+%A Purshouse, luke
+%D 2006
+%T Plato's Republic: A Reader's Guide
+%I Continuum
+%P 176
+%! Plato's Republic: A Reader's Guide
+%@ 0826474675
+%> internal-pdf://0826474675 - LUKE PURSHOUSE - Plato's Republic~ A Reader's Guide-3216386564/0826474675 - LUKE PURSHOUSE - Plato's Republic~ A Reader's Guide.pdf
+
+
+
+%0 Book
+%A Kauppi, Niilo
+%D 2010
+%T Radicalism in French Culture
+%I Ashgate
+%P 160
+%! Radicalism in French Culture
+%@ 9781409407836
+%> internal-pdf://9781409407836 - NIILO KAUPPI - Radicalism in French Culture-0079028484/9781409407836 - NIILO KAUPPI - Radicalism in French Culture.pdf
+

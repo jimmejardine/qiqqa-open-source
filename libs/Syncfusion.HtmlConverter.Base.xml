@@ -1,0 +1,2225 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Syncfusion.HtmlConverter.Base</name>
+    </assembly>
+    <members>
+        <member name="T:Syncfusion.HtmlConverter.HtmlConverter">
+            <summary>
+            Class which allows converting Html to the Image.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.HtmlConverter.Natives.IOleClientSite">
+            <summary>
+            System interface.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.IOleClientSite.SaveObject">
+            <summary>
+            System method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.IOleClientSite.GetMoniker(System.UInt32,System.UInt32,System.Object)">
+            <summary>
+            System method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.IOleClientSite.GetContainer(System.Object)">
+            <summary>
+            System method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.IOleClientSite.ShowObject">
+            <summary>
+            System method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.IOleClientSite.OnShowWindow(System.Boolean)">
+            <summary>
+            System method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.IOleClientSite.RequestNewObjectLayout">
+            <summary>
+            System method.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.HtmlConverter.DEF_OFFSET">
+            <summary>
+            Offset to the width/height.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.HtmlConverter.DEF_TIMEOUT">
+            <summary>
+            Timeout of the thread while document is lodaing.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.HtmlConverter.DEF_BLANK">
+            <summary>
+            Blank page.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.HtmlConverter.DISPID_AMBIENT_DLCONTROL">
+            <summary>
+            IDispatch:: Invoke params.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.HtmlConverter.DEF_META_EXEC_PARAMS">
+            <summary>
+            Metafile Execute parameters.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.HtmlConverter.DEF_BITMAP_EXEC_PARAMS">
+            <summary>
+            Bitmap Execute parameters.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.HtmlConverter.m_startFrom">
+            <summary>
+            Internal variable to store webbrowser scroll position.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.HtmlConverter.currentregions">
+            <summary>
+            Internal variable to store current regions.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.HtmlConverter.m_htmlHeight">
+            <summary>
+            Internal variable to store size of the web page.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.HtmlConverter.m_forceSize">
+            <summary>
+            Internal variable to store if the specified size should be used. Must be true for Tagged PDF.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.HtmlConverter.m_WebKitViewPort">
+            <summary>
+            Internal variable to store WebKit view port size; Default 1280 X 1024
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.HtmlConverter.m_DocComplete">
+            <summary>
+            Indicates whether loading of the document is completed.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.HtmlConverter.m_url">
+            <summary>
+            Url to the Html resource.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.HtmlConverter.m_type">
+            <summary>
+            Type of the image.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.HtmlConverter.m_bCancelNavigate">
+            <summary>
+            Indicates whether we should stop navigation.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.HtmlConverter.m_html">
+            <summary>
+            String containing html data.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.HtmlConverter.m_size">
+            <summary>
+            Original size of the image.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.HtmlConverter.m_aspectRatio">
+            <summary>
+            The aspect ratio of the image.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.HtmlConverter.isLinkWrapped">
+            <summary>
+            Checks whether link wrapped
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.#ctor">
+            <summary>
+            Creates new object.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.Dispose(System.Boolean)">
+            <summary>
+            Disposes component.
+            </summary>
+            <param name="disposing">Indicates whether dispose managed resources or not.</param>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.ConvertToImage(System.String,Syncfusion.HtmlConverter.ImageType,System.Int32,System.Int32,Syncfusion.HtmlConverter.AspectRatio)">
+            <summary>
+            Converts Html by the url to the image.
+            </summary>
+            <param name="url">Path to the Html resource.</param>
+            <param name="type">Type of the output image.</param>
+            <param name="width">Preffered width of the image in pixels.</param>
+            <param name="height">Preffered height of the image in pixels.</param>
+            <param name="aspectRatio">Aspect ratio of the image.</param>
+            <returns>Image, containing data from the Html.</returns>
+            <remarks>Image height can be greater than <see cref="!:height"/> value.</remarks>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.ConvertToImage(System.String,Syncfusion.HtmlConverter.ImageType,System.Int32,System.Int32,Syncfusion.HtmlConverter.AspectRatio,System.String,System.String)">
+            <summary>
+            Converts Html by the url to the image.
+            </summary>
+            <param name="url">Path to the Html resource.</param>
+            <param name="type">Type of the output image.</param>
+            <param name="width">Preffered width of the image in pixels.</param>
+            <param name="height">Preffered height of the image in pixels.</param>
+            <param name="aspectRatio">Aspect ratio of the image.</param>
+            <param name="username">The Username.</param>
+            <param name="password">The Password.</param>
+            <returns>Image, containing data from the Html.</returns>
+            <remarks>Image height can be greater than <see cref="!:height"/> value.</remarks>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.ConvertToImage(System.String,Syncfusion.HtmlConverter.ImageType,System.Int32,System.Int32)">
+            <summary>
+            Converts Html by the url to the image.
+            </summary>
+            <param name="url">Path to the Html resource.</param>
+            <param name="type">Type of the output image.</param>
+            <param name="width">Preffered width of the image in pixels.</param>
+            <param name="height">Preffered height of the image in pixels.</param>
+            <returns>Image, containing data from the Html.</returns>
+            <remarks>Image height can be greater than <see cref="!:height"/> value.</remarks>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.ConvertToImage(System.String,Syncfusion.HtmlConverter.ImageType,System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            Converts Html by the url to the image.
+            </summary>
+            <param name="url">Path to the Html resource.</param>
+            <param name="type">Type of the output image.</param>
+            <param name="width">Preffered width of the image in pixels.</param>
+            <param name="height">Preffered height of the image in pixels.</param>
+            <param name="username">The Username.</param>
+            <param name="password">The Password.</param>
+            <returns>Image, containing data from the Html.</returns>
+            <remarks>Image height can be greater than <see cref="!:height"/> value.</remarks>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.ConvertToImage(System.String,Syncfusion.HtmlConverter.ImageType,System.Int32)">
+            <summary>
+            Converts Html by the url to the image.
+            </summary>
+            <param name="url">Path to the Html resource.</param>
+            <param name="type">Type of the output image.</param>
+            <param name="width">Preffered width of the image in pixels.</param>
+            <returns>Image, containing data from the Html.</returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.ConvertToImage(System.String,Syncfusion.HtmlConverter.ImageType,System.Int32,System.String,System.String)">
+            <summary>
+            Converts Html by the url to the image.
+            </summary>
+            <param name="url">Path to the Html resource.</param>
+            <param name="type">Type of the output image.</param>
+            <param name="width">Preffered width of the image in pixels.</param>
+            <param name="username">The Username.</param>
+            <param name="password">The Password.</param>
+            <returns>Image, containing data from the Html.</returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.ConvertToImage(System.String,Syncfusion.HtmlConverter.ImageType)">
+            <summary>
+            Converts Html by the url to the image.
+            </summary>
+            <param name="url">Path to the Html resource.</param>
+            <param name="type">Type of the output image.</param>
+            <returns>Image, containing data from the Html.</returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.CalculateOffsets(System.Drawing.Size)">
+            <summary>
+            Calculates the offsets.
+            </summary>
+            <param name="size">The size.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.GetImagesFromUrl(System.String,Syncfusion.HtmlConverter.ImageType)">
+            <summary>
+            Gets the images from URL.
+            </summary>
+            <param name="url">The URL.</param>
+            <param name="type">The type.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.ConvertToImage(System.String,Syncfusion.HtmlConverter.ImageType,System.String,System.String)">
+            <summary>
+            Converts Html by the url to the image.
+            </summary>
+            <param name="url">Path to the Html resource.</param>
+            <param name="type">Type of the output image.</param>
+            <param name="username">The Username.</param>
+            <param name="password">The Password.</param>
+            <returns>Image, containing data from the Html.</returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.ConvertToImage(System.IO.Stream,System.Text.Encoding,Syncfusion.HtmlConverter.ImageType,System.Int32,System.Int32,Syncfusion.HtmlConverter.AspectRatio)">
+            <summary>
+            Converts Html data contained in the stream to the image.
+            </summary>
+            <param name="stream">Stream containing Html data.</param>
+            <param name="encoding">Encoding used for reading data from the stream.</param>
+            <param name="type">Type of the output image.</param>
+            <param name="width">Preffered width of the image in pixels.</param>
+            <param name="height">Preffered height of the image in pixels.</param>
+            <param name="aspectRatio">Aspect ratio of the image.</param>
+            <returns>Image, containing data from the Html.</returns>
+            <remarks>If the stream can seek, the position will be set to 0 before data reading.</remarks>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.ConvertToImage(System.IO.Stream,System.Text.Encoding,Syncfusion.HtmlConverter.ImageType,System.Int32,System.Int32)">
+            <summary>
+            Converts Html data contained in the stream to the image.
+            </summary>
+            <param name="stream">Stream containing Html data.</param>
+            <param name="encoding">Encoding used for reading data from the stream.</param>
+            <param name="type">Type of the output image.</param>
+            <param name="width">Preffered width of the image in pixels.</param>
+            <param name="height">Preffered height of the image in pixels.</param>
+            <returns>Image, containing data from the Html.</returns>
+            <remarks>If the stream can seek, the position will be set to 0 before data reading.</remarks>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.ConvertToImage(System.IO.Stream,System.Text.Encoding,Syncfusion.HtmlConverter.ImageType,System.Int32)">
+            <summary>
+            Converts Html data contained in the stream to the image.
+            </summary>
+            <param name="stream">Stream containing Html data.</param>
+            <param name="encoding">Encoding used for reading data from the stream.</param>
+            <param name="type">Type of the output image.</param>
+            <param name="width">Preffered width of the image in pixels.</param>
+            <returns>Image, containing data from the Html.</returns>
+            <remarks>If the stream can seek, the position will be set to 0 before data reading.</remarks>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.ConvertToImage(System.IO.Stream,System.Text.Encoding,Syncfusion.HtmlConverter.ImageType)">
+            <summary>
+            Converts Html data contained in the stream to the image.
+            </summary>
+            <param name="stream">Stream containing Html data.</param>
+            <param name="encoding">Encoding used for reading data from the stream.</param>
+            <param name="type">Type of the output image.</param>
+            <returns>Image, containing data from the Html.</returns>
+            <remarks>If the stream can seek, the position will be set to 0 before data reading.</remarks>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.FromString(System.String,System.String,Syncfusion.HtmlConverter.ImageType,System.Int32,System.Int32,Syncfusion.HtmlConverter.AspectRatio,System.String,System.String)">
+            <summary>
+            Renders html from the string to the image.
+            </summary>
+            <param name="html">Html data.</param>
+            <param name="type">Type of the image.</param>
+            <param name="baseUrl">Used to retrieve images, scripts and stylesheets.</param>
+            <param name="width">Preffered width of the image.</param>
+            <param name="height">Preffered height of the image.</param>
+            <param name="aspectRatio">Aspect ratio of the image.</param>
+            <param name="username">The Username.</param>
+            <param name="password">The Password.</param>
+            <returns>Image, containing data from the Html.</returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.FromString(System.String,System.String,Syncfusion.HtmlConverter.ImageType,System.Int32,System.Int32,Syncfusion.HtmlConverter.AspectRatio)">
+            <summary>
+            Renders html from the string to the image.
+            </summary>
+            <param name="html">Html data.</param>
+            <param name="type">Type of the image.</param>
+            <param name="baseUrl">Used to retrieve images, scripts and stylesheets.</param>
+            <param name="width">Preffered width of the image.</param>
+            <param name="height">Preffered height of the image.</param>
+            <param name="aspectRatio">Aspect ratio of the image.</param>
+            <returns>Image, containing data from the Html.</returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.FromString(System.String,System.String,Syncfusion.HtmlConverter.ImageType,System.Int32,System.Int32)">
+            <summary>
+            Renders html from the string to the image.
+            </summary>
+            <param name="html">Html data.</param>
+            <param name="baseUrl">Used to retrieve images, scripts and stylesheets.</param>
+            <param name="type">Type of the image.</param>
+            <param name="width">Preffered width of the image.</param>
+            <param name="height">Preffered height of the image.</param>
+            <returns>Image, containing data from the Html.</returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.FromString(System.String,System.String,Syncfusion.HtmlConverter.ImageType,System.Int32)">
+            <summary>
+            Renders html from the string to the image.
+            </summary>
+            <param name="html">Html data.</param>
+            <param name="baseUrl">Used to retrieve images, scripts and stylesheets.</param>
+            <param name="type">Type of the image.</param>
+            <param name="width">Preffered width of the image.</param>
+            <returns>Image, containing data from the Html.</returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.FromString(System.String,System.String,Syncfusion.HtmlConverter.ImageType)">
+            <summary>
+            Renders html from the string to the image.
+            </summary>
+            <param name="html">Html data.</param>
+            <param name="baseUrl">Used to retrieve images, scripts and stylesheets.</param>
+            <param name="type">Type of the image.</param>
+            <returns>Image, containing data from the Html.</returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.FromString(System.String,Syncfusion.HtmlConverter.ImageType,System.Int32,System.Int32)">
+            <summary>
+            Renders html from the string to the image.
+            </summary>
+            <param name="html">Html data.</param>
+            <param name="type">Type of the image.</param>
+            <param name="width">Preffered width of the image.</param>
+            <param name="height">Preffered height of the image.</param>
+            <returns>Image, containing data from the Html.</returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.FromString(System.String,Syncfusion.HtmlConverter.ImageType,System.Int32,System.Int32,Syncfusion.HtmlConverter.AspectRatio)">
+            <summary>
+            Renders html from the string to the image.
+            </summary>
+            <param name="html">Html data.</param>
+            <param name="type">Type of the image.</param>
+            <param name="width">Preffered width of the image.</param>
+            <param name="height">Preffered height of the image.</param>
+            <param name="aspectRatio">Aspect ratio of the image.</param>
+            <returns>Image, containing data from the Html.</returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.FromString(System.String,Syncfusion.HtmlConverter.ImageType,System.Int32)">
+            <summary>
+            Renders html from the string to the image.
+            </summary>
+            <param name="html">Html data.</param>
+            <param name="type">Type of the image.</param>
+            <param name="width">Preffered width of the image.</param>
+            <returns>Image, containing data from the Html.</returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.FromString(System.String,Syncfusion.HtmlConverter.ImageType)">
+            <summary>
+            Renders html from the string to the image.
+            </summary>
+            <param name="html">Html data.</param>
+            <param name="type">Type of the image.</param>
+            <returns>Image, containing data from the Html.</returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.ConvertToTaggedPDF(Syncfusion.Pdf.PdfDocument,System.String,System.String,System.String)">
+            <summary>
+            Converts the url as Tagged PDF.
+            </summary>
+            <param name="document"></param>
+            <param name="url"></param>
+            <param name="userName"></param>
+            <param name="password"></param>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.ConvertToTaggedPDF(Syncfusion.Pdf.PdfDocument,System.String)">
+            <summary>
+            Converts the url as Tagged PDF.
+            </summary>
+            <param name="document"></param>
+            <param name="url"></param>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.ConvertToTaggedPDF(Syncfusion.Pdf.PdfDocument,System.String,System.String)">
+            <summary>
+            Converts the html string as Tagged PDF.
+            </summary>
+            <param name="document"></param>
+            <param name="html"></param>
+            <param name="baseURL"></param>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.ConvertToImage">
+            <summary>
+            Converts html to image.
+            </summary>
+            <returns>Converted image.</returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.DeleteFile(System.String)">
+            <summary>
+            Delete the file
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.Convert(System.String,Syncfusion.HtmlConverter.ImageType,System.Int32,System.Int32,Syncfusion.HtmlConverter.AspectRatio,System.String,System.String)">
+            <summary>
+            Converts html to HtmlToPdfElement result.
+            </summary>
+            <returns>Converted image.</returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.ConvertHtmlToPDF(System.String[],System.String[])">
+            <summary>
+            Entry point for the x64 process and process the OCR
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.ConvertHtmlToMhtml(System.String[])">
+            <summary>
+            Entry point for HTML to MHTML conversion
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.ConvertHtmlToSvg(System.String[])">
+            <summary>
+            Entry point for HTML to SVG conversion
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.ConvertToImage(System.String)">
+            <summary>
+            Converts html to image.
+            </summary>
+            <returns>Converted image's stream.</returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.ConvertToImage(System.String,System.String)">
+            <summary>
+            Converts html to image.
+            </summary>
+            <returns>Converted image's stream.</returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.ConvertHtmlToImage(System.String[])">
+            <summary>
+            Entry point for HTML to Image conversion
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.Convert(System.String,Syncfusion.HtmlConverter.ImageType,System.Int32,System.Int32,Syncfusion.HtmlConverter.AspectRatio)">
+            <summary>
+            Converts html to HtmlToPdfElement result.
+            </summary>
+            <returns>Converted image.</returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.Convert(System.String,System.String,Syncfusion.HtmlConverter.ImageType,System.Int32,System.Int32,Syncfusion.HtmlConverter.AspectRatio)">
+            <summary>
+            Converts the given html string to HtmlToPdfResult.
+            </summary>
+            <returns>Converted image.</returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.Convert(System.Drawing.Image[])">
+            <summary>
+            Converts html to HtmlToPdf Element result.
+            </summary>
+            <returns>Converted image.</returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.ConvertToMetafile2">
+            <summary>
+            Converts Html to metafile.
+            </summary>
+            <returns>Metafile image.</returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.ConvertToMetafile">
+            <summary>
+            Converts Html to metafile.
+            </summary>
+            <returns>Metafile image.</returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.ConvertToBitmap2">
+            <summary>
+            Converts Html to bitmap.
+            </summary>
+            <returns>Bitmap image.</returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.ConvertToBitmap">
+            <summary>
+            Converts Html to bitmap.
+            </summary>
+            <returns>Bitmap image.</returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.ToImage">
+            <summary>
+            Start exporting Html to Image.
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+            
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.GetHtmlBody">
+            <summary>
+            Returns BODY element of the document.
+            </summary>
+            <returns>BODY element of the document.</returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.GetDocument">
+            <summary>
+            Returns the current document.
+            </summary>
+            <returns>The current document.</returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.ResizeBrowser3">
+            <summary>
+            Resizes browser to the document.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.ResizeBrowser2">
+            <summary>
+            Resizes browser to the document.
+            </summary>
+            <returns>Size of the browser.</returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.ResizeBrowser">
+            <summary>
+            Resizes browser to the document.
+            </summary>
+            <returns>Size of the browser.</returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.Print(System.IntPtr,System.Boolean)">
+            <summary>
+            Prints Html to the device context.
+            </summary>
+            <param name="ptr">Device context.</param>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.DumpMetafile(System.IO.MemoryStream)">
+            <summary>
+            Saves metafile to the file. It's debug method.
+            </summary>
+            <param name="ms">data containing metafile.</param>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.DisableScrollBars">
+            <summary>
+            disables scrollbars.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.SetWidth(System.Int32)">
+            <summary>
+            Sets width of the web browser.
+            </summary>
+            <param name="width">Width of the web browser.</param>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.SetHeight(System.Int32)">
+            <summary>
+            Sets height of the web browser.
+            </summary>
+            <param name="height">Height of the web browser.</param>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.Reset">
+            <summary>
+            Resets the settings.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.CalculateImageSize(System.Drawing.Size)">
+            <summary>
+            Calculates size of the resulting image.
+            </summary>
+            <param name="documentSize">Size of the document.</param>
+            <returns>Size of the image.</returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.GetBounds(mshtml.IHTMLElement,System.Boolean)">
+            <summary>
+            Calculates the bounds of the Html Element.
+            </summary>
+            <param name="element">The Html Element.</param>
+            <returns>The Bounds.</returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.GetHyperlinks">
+            <summary>
+            Gets page break.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.GetDocumentLinks">
+            <summary>
+            Returns all document links present in the HTML.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.GetPageBreak">
+            <summary>
+            Gets page break.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.OnDocumentComplete(System.Object,Syncfusion.HtmlConverter.Natives.DWebBrowserEvents2_DocumentCompleteEvent)">
+            <summary>
+            Loading of the document completed.
+            </summary>
+            <param name="sender">Sender of the event.</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.NewWindow(System.Object,Syncfusion.HtmlConverter.Natives.DWebBrowserEvents2_NewWindow2Event)">
+            <summary>
+            Blocks popups.
+            </summary>
+            <param name="sender">Sender of the event.</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.NavigateError(System.Object,Syncfusion.HtmlConverter.Natives.DWebBrowserEvents2_NavigateErrorEvent)">
+            <summary>
+            Handles Navigation Error.
+            </summary>
+            <param name="sender">Sender of the event.</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.SetUIHandler">
+            <summary>
+            Register this window as host of the web browser.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.CustomizeDownload">
+            <summary>
+            Applies download and executing properties.
+            </summary>
+            <returns>Settings flag.</returns>
+            <remarks>Don't call this method. It's used for internal purpose only. </remarks>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.Syncfusion#HtmlConverter#Natives#IDocHostUIHandler#ShowContextMenu(System.UInt32,Syncfusion.HtmlConverter.tagPOINT@,System.Object,System.Object)">
+            <summary>
+            Customization method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.Syncfusion#HtmlConverter#Natives#IDocHostUIHandler#GetHostInfo(Syncfusion.HtmlConverter.Natives.DOCHOSTUIINFO@)">
+            <summary>
+            Customization method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.Syncfusion#HtmlConverter#Natives#IDocHostUIHandler#ShowUI(System.UInt32,System.IntPtr,System.IntPtr,System.IntPtr,System.IntPtr)">
+            <summary>
+            Customization method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.Syncfusion#HtmlConverter#Natives#IDocHostUIHandler#HideUI">
+            <summary>
+            Customization method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.Syncfusion#HtmlConverter#Natives#IDocHostUIHandler#UpdateUI">
+            <summary>
+            Customization method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.Syncfusion#HtmlConverter#Natives#IDocHostUIHandler#EnableModeless(System.Int32)">
+            <summary>
+            Customization method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.Syncfusion#HtmlConverter#Natives#IDocHostUIHandler#OnDocWindowActivate(System.Int32)">
+            <summary>
+            Customization method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.Syncfusion#HtmlConverter#Natives#IDocHostUIHandler#OnFrameWindowActivate(System.Int32)">
+            <summary>
+            Customization method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.Syncfusion#HtmlConverter#Natives#IDocHostUIHandler#ResizeBorder(Syncfusion.HtmlConverter.tagRECT@,System.IntPtr,System.Int32)">
+            <summary>
+            Customization method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.Syncfusion#HtmlConverter#Natives#IDocHostUIHandler#TranslateAccelerator(Syncfusion.HtmlConverter.Natives.tagMSG@,System.Guid@,System.UInt32)">
+            <summary>
+            Customization method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.Syncfusion#HtmlConverter#Natives#IDocHostUIHandler#GetOptionKeyPath(System.String@,System.UInt32)">
+            <summary>
+            Customization method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.Syncfusion#HtmlConverter#Natives#IDocHostUIHandler#GetDropTarget(Syncfusion.HtmlConverter.Natives.IDropTarget,Syncfusion.HtmlConverter.Natives.IDropTarget@)">
+            <summary>
+            Customization method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.Syncfusion#HtmlConverter#Natives#IDocHostUIHandler#GetExternal(System.Object@)">
+            <summary>
+            Customization method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.Syncfusion#HtmlConverter#Natives#IDocHostUIHandler#TranslateUrl(System.UInt32,System.UInt16@,System.IntPtr)">
+            <summary>
+            Customization method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.Syncfusion#HtmlConverter#Natives#IDocHostUIHandler#FilterDataObject(System.Runtime.InteropServices.ComTypes.IDataObject,System.Runtime.InteropServices.ComTypes.IDataObject@)">
+            <summary>
+            Customization method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.Syncfusion#HtmlConverter#Natives#IOleClientSite#SaveObject">
+            <summary>
+            Customization method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.Syncfusion#HtmlConverter#Natives#IOleClientSite#GetMoniker(System.UInt32,System.UInt32,System.Object)">
+            <summary>
+            Customization method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.Syncfusion#HtmlConverter#Natives#IOleClientSite#GetContainer(System.Object)">
+            <summary>
+            Customization method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.Syncfusion#HtmlConverter#Natives#IOleClientSite#ShowObject">
+            <summary>
+            Customization method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.Syncfusion#HtmlConverter#Natives#IOleClientSite#OnShowWindow(System.Boolean)">
+            <summary>
+            Customization method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlConverter.Syncfusion#HtmlConverter#Natives#IOleClientSite#RequestNewObjectLayout">
+            <summary>
+            Customization method.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.HtmlConverter.Username">
+            <summary>
+            Gets or Sets the Username
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.HtmlConverter.Password">
+            <summary>
+            Gets or Sets the password
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.HtmlConverter.EnableJavaScript">
+            <summary>
+            Gets or Sets a value indicating whether to Enable/Disable Javascripts in the webpage.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.HtmlConverter.EnableActiveXContents">
+            <summary>
+            Gets or Sets a value indicating whether to Enable/Disable Javascripts in the webpage.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.HtmlConverter.EnableBinaryBehaviors">
+            <summary>
+            Gets or Sets a value indicating whether to Enable/Disable binary behaviors in the webpage.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.HtmlConverter.AutoDetectPageBreak">
+            <summary>
+            Gets or Sets a value indicating whether to auto-detect page-break in the webpage.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.HtmlConverter.EnableHyperlinks">
+            <summary>
+            Gets or Sets a value indicating whether to preserve the live-links in the converted document or not.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.HtmlConverter.ClearInternetCache">
+            <summary>
+            Gets or sets a value indicating whether to clear Internet cache.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.HtmlConverter.StartFrom">
+            <summary>
+            Gets or sets the scroll position.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.HtmlConverter.ForceSize">
+            <summary>
+            Gets or sets if specified size should be used. Must be true for Tagged PDF.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.HtmlConverter.WebKitPath">
+            <summary>
+            Gets or Sets WebKit assembly path
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.HtmlConverter.TempPath">
+            <summary>
+            Gets or Sets WebKit assembly path
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.HtmlConverter.WebKitViewPort">
+            <summary>
+            WebKit view port size; By default 1280 X 1024
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.HtmlConverter.Cookies">
+            <summary>
+            Gets or sets cookie collection with names and vlues
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.HtmlConverter.RenderEngine">
+            <summary>
+            Gets or Sets Render engine
+            </summary>
+        </member>
+        <member name="T:Syncfusion.HtmlConverter.HtmlConverter.BrowserNavConstants">
+            <summary>
+            Loading flags
+            </summary>
+        </member>
+        <member name="T:Syncfusion.HtmlConverter.ExternalScriptWrapper">
+            <summary>
+            Class to execute javascript calls for GetExternal.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.ExternalScriptWrapper.#ctor(Syncfusion.HtmlConverter.HtmlConverter)">
+            <summary>
+            Requires a handle to the owning form
+            </summary>
+            <param name="ownerForm"></param>
+        </member>
+        <member name="T:Syncfusion.HtmlConverter.ImageType">
+            <summary>
+            Type of the image.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.ImageType.Bitmap">
+            <summary>
+            Image is bitmap.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.ImageType.Metafile">
+            <summary>
+            Image is metafile.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.HtmlConverter.AspectRatio">
+            <summary>
+            The type defines the primary dimension of the output image.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.AspectRatio.None">
+            <summary>
+            Don't apply keeping of aspect ratio.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.AspectRatio.KeepWidth">
+            <summary>
+            Keep width fixed and proportionally change height of the image.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.AspectRatio.KeepHeight">
+            <summary>
+            Keep height fixed and proportionally change width of the image.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.AspectRatio.FitPageSize">
+            <summary>
+            keep the width and height.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.HtmlConverter.HtmlRenderingEngine">
+            <summary>
+            Type of the Render Engine.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.HtmlRenderingEngine.IE">
+            <summary>
+            IE engine convert the HTML
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.HtmlRenderingEngine.WebKit">
+            <summary>
+            WebKit engine convert the HTML
+            </summary>
+        </member>
+        <member name="T:Syncfusion.HtmlConverter.NamespaceDoc">
+            <summary>
+            The Syncfusion.HtmlConverter namespace contains classes to perform  HTML to PDF conversion .
+            </summary>
+        </member>
+        <member name="T:Syncfusion.HtmlConverter.HtmlToPdfConverter">
+            <summary>
+            Class which allows converting HTML to PDF.
+            </summary>
+            <example>
+            <code lang = "C#">
+            //Initialize HtmlToPdfConverter class with IE rendering Engine.
+            HtmlToPdfConverter htmlConverter = new HtmlToPdfConverter();
+            //Converting HTML to PDF
+            PdfDocument pdfDocument = htmlConverter.Convert("http://www.google.com");
+            //Saving and closing PDF document
+            pdfDocument.Save("Output.pdf");
+            pdfDocument.Close(true);
+            </code>
+            <code lang="VB">
+            'Initialize HtmlToPdfConverter class with IE rendering Engine.
+            Dim htmlConverter As New HtmlToPdfConverter()
+            'Converting HTML to PDF
+            Dim pdfDocument As PdfDocument = htmlConverter.Convert("http://www.google.com")
+            'Saving and closing PDF document
+            pdfDocument.Save("Output.pdf")
+            pdfDocument.Close(True)
+            </code>
+            </example>   
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlToPdfConverter.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.HtmlConverter.HtmlToPdfConverter"/> class.
+            </summary>
+            <example>
+            <code lang="C#">
+            //Initialize HtmlToPdfConverter class with IE rendering Engine.
+            HtmlToPdfConverter htmlConverter = new HtmlToPdfConverter();
+            //Converting HTML to PDF
+            PdfDocument pdfDocument = htmlConverter.Convert("http://www.google.com");
+            //Saving and closing PDF document
+            pdfDocument.Save("Output.pdf");
+            pdfDocument.Close(true);
+            </code>
+            <code lang="VB">
+            'Initialize HtmlToPdfConverter class with IE rendering Engine.
+            Dim htmlConverter As New HtmlToPdfConverter()
+            'Converting HTML to PDF
+            Dim pdfDocument As PdfDocument = htmlConverter.Convert("http://www.google.com")
+            'Saving and closing PDF document
+            pdfDocument.Save("Output.pdf")
+            pdfDocument.Close(True)
+            </code>
+            </example>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlToPdfConverter.#ctor(Syncfusion.HtmlConverter.HtmlRenderingEngine)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.HtmlConverter.HtmlToPdfConverter"/> class with specified <see cref="P:Syncfusion.HtmlConverter.HtmlToPdfConverter.RenderingEngine"/>.
+            </summary>
+            <param name="renderingEngine">Rendering Engine used for conversion</param>
+            <example>
+            <code lang="C#">
+            //Initialize HtmlToPdfConverter class with IE rendering Engine.
+            HtmlToPdfConverter htmlConverter = new HtmlToPdfConverter(RenderEngine.IE);
+            //Converting HTML to PDF
+            PdfDocument pdfDocument = htmlConverter.Convert("http://www.google.com");
+            //Saving and closing PDF document
+            pdfDocument.Save("Output.pdf");
+            pdfDocument.Close(true);
+            </code>
+            <code lang="VB">
+            'Initialize HtmlToPdfConverter class with IE rendering Engine.
+            Dim htmlConverter As New HtmlToPdfConverter(RenderEngine.IE)
+            'Converting HTML to PDF
+            Dim pdfDocument As PdfDocument = htmlConverter.Convert("http://www.google.com")
+            'Saving and closing PDF document
+            pdfDocument.Save("Output.pdf")
+            pdfDocument.Close(True)
+            </code>
+            </example>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlToPdfConverter.Convert(System.String)">
+            <summary>
+            Converts URL to PdfDocument
+            </summary>
+            <param name="url">Path to the Html resource.</param>
+            <returns>PDF document</returns>
+            <example>
+            <code lang = "C#">
+            //Initialize HtmlToPdfConverter class with IE rendering Engine.
+            HtmlToPdfConverter htmlConverter = new HtmlToPdfConverter(RenderEngine.IE);
+            //Setting properties for IE conversion.
+            IEConverterSettings ieSettings = new IEConverterSettings();
+            ieSettings.AdditionalDelay = 1000;
+            //Convert HTML to PDF.
+            PdfDocument pdfDocument = htmlConverter.Convert("http://www.google.com");
+            //Saving and closing PDF document
+            pdfDocument.Save("Output.pdf");
+            pdfDocument.Close(true);
+            </code>
+            <code lang="VB">
+            'Initialize HtmlToPdfConverter class with IE rendering Engine.
+            Dim htmlConverter As New HtmlToPdfConverter(RenderEngine.IE)
+            'Setting properties for IE conversion.
+            Dim ieSettings As New IEConverterSettings()
+            ieSettings.AdditionalDelay = 1000
+            'Convert HTML to PDF.
+            Dim pdfDocument As PdfDocument = htmlConverter.Convert("http://www.google.com")
+            'Saving and closing PDF document
+            pdfDocument.Save("Output.pdf")
+            pdfDocument.Close(True)
+            </code>
+            </example>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlToPdfConverter.Convert(System.String,Syncfusion.Pdf.Graphics.PdfLayoutResult@)">
+            <summary>
+            Converts URL to PdfDocument
+            </summary>
+            <param name="url">Path to the Html resource.</param>
+            <param name="layoutResult">Layout result</param>
+            <returns>PDF document</returns>
+            <example>
+            <code lang = "C#">
+            //Initialize HtmlToPdfConverter class with IE rendering Engine.
+            HtmlToPdfConverter htmlConverter = new HtmlToPdfConverter(RenderEngine.IE);
+            //Setting properties for IE conversion.
+            IEConverterSettings ieSettings = new IEConverterSettings();
+            ieSettings.AdditionalDelay = 1000;
+            //Get the layout result after conversion
+            PdfLayoutResult layoutResult = null;
+            //Convert HTML to PDF.
+            PdfDocument pdfDocument = htmlConverter.Convert("http://www.google.com", out layoutResult);
+            //Saving and closing PDF document
+            pdfDocument.Save("Output.pdf");
+            pdfDocument.Close(true);
+            </code>
+            <code lang="VB">
+            'Initialize HtmlToPdfConverter class with IE rendering Engine.
+            Dim htmlConverter As New HtmlToPdfConverter(RenderEngine.IE)
+            'Setting properties for IE conversion.
+            Dim ieSettings As New IEConverterSettings()
+            ieSettings.AdditionalDelay = 1000
+            'Get the layout result after conversion
+            PdfLayoutResult layoutResult = null
+            'Convert HTML to PDF.
+            Dim pdfDocument As PdfDocument = htmlConverter.Convert("http://www.google.com", out layoutResult)
+            'Saving and closing PDF document
+            pdfDocument.Save("Output.pdf")
+            pdfDocument.Close(True)
+            </code>
+            </example>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlToPdfConverter.Convert(System.String,System.Single,System.Single,Syncfusion.HtmlConverter.AspectRatio)">
+            <summary>
+            Converts URL to PdfDocument
+            </summary>
+            <param name="url">Path to the Html resource.</param>
+            <param name="width">Preferred width of the PDF page.</param>
+            <param name="height">Preferred height of the PDF page.</param>
+            <param name="aspectRatio">Aspect ratio of the PDF.</param>
+            <returns>PDF document</returns>
+            <example>
+            <code lang = "C#">
+            //Initialize HtmlToPdfConverter class with IE rendering Engine.
+            HtmlToPdfConverter htmlConverter = new HtmlToPdfConverter(RenderEngine.IE);
+            //Setting properties for IE conversion.
+            IEConverterSettings ieSettings = new IEConverterSettings();
+            ieSettings.AdditionalDelay = 1000;
+            //Convert HTML to PDF.
+            PdfDocument pdfDocument = htmlConverter.Convert("http://www.google.com", PdfPageSize.A4.Width, PdfPageSize.A4.Height, AspectRatio.KeepWidth);
+            //Saving and closing PDF document
+            pdfDocument.Save("Output.pdf");
+            pdfDocument.Close(true);
+            </code>
+            <code lang="VB">
+            'Initialize HtmlToPdfConverter class with IE rendering Engine.
+            Dim htmlConverter As New HtmlToPdfConverter(RenderEngine.IE)
+            'Setting properties for IE conversion.
+            Dim ieSettings As New IEConverterSettings()
+            ieSettings.AdditionalDelay = 1000
+            'Convert HTML to PDF.
+            Dim pdfDocument As PdfDocument = htmlConverter.Convert("http://www.google.com", PdfPageSize.A4.Width, PdfPageSize.A4.Height, AspectRatio.KeepWidth)
+            'Saving and closing PDF document
+            pdfDocument.Save("Output.pdf")
+            pdfDocument.Close(True)
+            </code>
+            </example>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlToPdfConverter.Convert(System.String,System.Single,System.Single,Syncfusion.HtmlConverter.AspectRatio,Syncfusion.Pdf.Graphics.PdfLayoutResult@)">
+            <summary>
+            Converts URL to PdfDocument
+            </summary>
+            <param name="url">Path to the Html resource.</param>
+            <param name="width">Preferred width of the PDF page.</param>
+            <param name="height">Preferred height of the PDF page.</param>
+            <param name="aspectRatio">Aspect ratio</param>
+            <param name="layoutResult">Layout result</param>
+            <returns>PDF document</returns>
+            <example>
+            <code lang = "C#">
+            //Initialize HtmlToPdfConverter class with IE rendering Engine.
+            HtmlToPdfConverter htmlConverter = new HtmlToPdfConverter(RenderEngine.IE);
+            //Setting properties for IE conversion.
+            IEConverterSettings ieSettings = new IEConverterSettings();
+            ieSettings.AdditionalDelay = 1000;
+            htmlConverter.ConverterSettings = ieSettings;
+            //Get the layout result after conversion
+            PdfLayoutResult layoutResult = null;
+            //Convert HTML to PDF.
+            PdfDocument pdfDocument = htmlConverter.Convert("http://www.google.com", PdfPageSize.A4.Width, PdfPageSize.A4.Height, AspectRatio.KeepWidth, out layoutResult);
+            //Saving and closing PDF document
+            pdfDocument.Save("Output.pdf");
+            pdfDocument.Close(true);
+            </code>
+            <code lang="VB">
+            'Initialize HtmlToPdfConverter class with IE rendering Engine.
+            Dim htmlConverter As New HtmlToPdfConverter(RenderEngine.IE)
+            'Setting properties for IE conversion.
+            Dim ieSettings As New IEConverterSettings()
+            ieSettings.AdditionalDelay = 1000
+            htmlConverter.ConverterSettings = ieSettings
+            'Convert HTML to PDF.
+            Dim pdfDocument As PdfDocument = htmlConverter.Convert("http://www.google.com", PdfPageSize.A4.Width, PdfPageSize.A4.Height, AspectRatio.KeepWidth, out layoutResult)
+            'Saving and closing PDF document
+            pdfDocument.Save("Output.pdf")
+            pdfDocument.Close(True)
+            </code>
+            </example>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlToPdfConverter.Convert(System.String,System.String)">
+            <summary>
+            Converts HTML string to PdfDocument
+            </summary>
+            <param name="htmlString">Html data.</param>
+            <param name="baseUrl">Used to retrieve images, scripts and stylesheets.</param>
+            <returns>PDF document</returns>
+            <example>
+            <code lang = "C#">
+            //Initialize HtmlToPdfConverter class with IE rendering Engine.
+            HtmlToPdfConverter htmlConverter = new HtmlToPdfConverter(RenderEngine.IE);
+            //Setting properties for IE conversion.
+            IEConverterSettings ieSettings = new IEConverterSettings();
+            ieSettings.AdditionalDelay = 1000;
+            //Convert HTML to PDF.
+            string htmlString = "<HTML><BODY><H1>Welcome to Syncfusion.!</H1><P>Simple HTML content</P></BODY></HTML>";
+            PdfDocument pdfDocument = htmlConverter.Convert(htmlString, "");
+            //Saving and closing PDF document
+            pdfDocument.Save("Output.pdf");
+            pdfDocument.Close(true);
+            </code>
+            <code lang="VB">
+            'Initialize HtmlToPdfConverter class with IE rendering Engine.
+            Dim htmlConverter As New HtmlToPdfConverter(RenderEngine.IE)
+            'Setting properties for IE conversion.
+            Dim ieSettings As New IEConverterSettings()
+            ieSettings.AdditionalDelay = 1000
+            'Convert HTML to PDF.
+            Dim htmlString As String = "<HTML><BODY><H1>Welcome to Syncfusion.!</H1><P>Simple HTML content</P></BODY></HTML>"
+            Dim pdfDocument As PdfDocument = htmlConverter.Convert(htmlString, "")
+            'Saving and closing PDF document
+            pdfDocument.Save("Output.pdf")
+            pdfDocument.Close(True)
+            </code>
+            </example>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlToPdfConverter.Convert(System.String,System.String,Syncfusion.Pdf.Graphics.PdfLayoutResult@)">
+            <summary>
+            Converts HTML string to PdfDocument
+            </summary>
+            <param name="htmlString">Html data.</param>
+            <param name="baseUrl">Used to retrieve images, scripts and stylesheets.</param>
+            <param name="layoutResult">Layout result</param>
+            <returns>PDF document</returns>
+            <example>
+            <code lang = "C#">
+            //Initialize HtmlToPdfConverter class with IE rendering Engine.
+            HtmlToPdfConverter htmlConverter = new HtmlToPdfConverter(RenderEngine.IE);
+            //Setting properties for IE conversion.
+            IEConverterSettings ieSettings = new IEConverterSettings();
+            ieSettings.AdditionalDelay = 1000;
+            htmlConverter.ConverterSettings = ieSettings;
+            //Get the layout result after conversion
+            PdfLayoutResult layoutResult = null;
+            //Convert HTML to PDF.
+            string htmlString = "<HTML><BODY><H1>Welcome to Syncfusion.!</H1><P>Simple HTML content</P></BODY></HTML>";
+            PdfDocument pdfDocument = htmlConverter.Convert(htmlString, "", out layoutResult);
+            //Saving and closing PDF document
+            pdfDocument.Save("Output.pdf");
+            pdfDocument.Close(true);
+            </code>
+            <code lang="VB">
+            'Initialize HtmlToPdfConverter class with IE rendering Engine.
+            Dim htmlConverter As New HtmlToPdfConverter(RenderEngine.IE)
+            'Setting properties for IE conversion.
+            Dim ieSettings As New IEConverterSettings()
+            ieSettings.AdditionalDelay = 1000
+            htmlConverter.ConverterSettings = ieSettings
+            'Convert HTML to PDF.
+            Dim htmlString As String = "<HTML><BODY><H1>Welcome to Syncfusion.!</H1><P>Simple HTML content</P></BODY></HTML>"
+            Dim pdfDocument As PdfDocument = htmlConverter.Convert(htmlString, "", out layoutResult)
+            'Saving and closing PDF document
+            pdfDocument.Save("Output.pdf")
+            pdfDocument.Close(True)
+            </code>
+            </example>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlToPdfConverter.Convert(System.String,System.String,System.Single,System.Single,Syncfusion.HtmlConverter.AspectRatio)">
+            <summary>
+            Converts HTML string to PdfDocument
+            </summary>
+            <param name="htmlString">Html data.</param>
+            <param name="baseUrl">Used to retrieve images, scripts and stylesheets.</param>
+            <param name="width">Preferred width of the PDF page.</param>
+            <param name="height">Preferred height of the PDF page.</param>
+            <param name="aspectRatio">Aspect ratio of the PDF.</param>
+            <returns>PDF document</returns>
+            <example>
+            <code lang = "C#">
+            //Initialize HtmlToPdfConverter class with IE rendering Engine.
+            HtmlToPdfConverter htmlConverter = new HtmlToPdfConverter(RenderEngine.IE);
+            //Setting properties for IE conversion.
+            IEConverterSettings ieSettings = new IEConverterSettings();
+            ieSettings.AdditionalDelay = 1000;
+            htmlConverter.ConverterSettings = ieSettings;
+            //Convert HTML to PDF.
+            string htmlString = "<HTML><BODY><H1>Welcome to Syncfusion.!</H1><P>Simple HTML content</P></BODY></HTML>";
+            PdfDocument pdfDocument = htmlConverter.Convert(htmlString, "", PdfPageSize.A4.Width, PdfPageSize.A4.Height, AspectRatio.KeepWidth);
+            //Saving and closing PDF document
+            pdfDocument.Save("Output.pdf");
+            pdfDocument.Close(true);
+            </code>
+            <code lang="VB">
+            'Initialize HtmlToPdfConverter class with IE rendering Engine.
+            Dim htmlConverter As New HtmlToPdfConverter(RenderEngine.IE)
+            'Setting properties for IE conversion.
+            Dim ieSettings As New IEConverterSettings()
+            ieSettings.AdditionalDelay = 1000
+            htmlConverter.ConverterSettings = ieSettings
+            'Convert HTML to PDF.
+            Dim htmlString As String = "<HTML><BODY><H1>Welcome to Syncfusion.!</H1><P>Simple HTML content</P></BODY></HTML>"
+            Dim pdfDocument As PdfDocument = htmlConverter.Convert(htmlString, "", PdfPageSize.A4.Width, PdfPageSize.A4.Height, AspectRatio.KeepWidth)
+            'Saving and closing PDF document
+            pdfDocument.Save("Output.pdf")
+            pdfDocument.Close(True)
+            </code>
+            </example>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlToPdfConverter.Convert(System.String,System.String,System.Single,System.Single,Syncfusion.HtmlConverter.AspectRatio,Syncfusion.Pdf.Graphics.PdfLayoutResult@)">
+            <summary>
+            Converts HTML string to PdfDocument
+            </summary>
+            <param name="htmlString">Html data.</param>
+            <param name="baseUrl">Used to retrieve images, scripts and stylesheets.</param>
+            <param name="width">Preferred width of the PDF page.</param>
+            <param name="height">Preferred height of the PDF page.</param>
+            <param name="aspectRatio">Aspect ratio of the PDF.</param>
+            <param name="layoutResult">Layout result</param>
+            <returns>PDF document</returns>
+            <example>
+            <code lang = "C#">
+            //Initialize HtmlToPdfConverter class with IE rendering Engine.
+            HtmlToPdfConverter htmlConverter = new HtmlToPdfConverter(RenderEngine.IE);
+            //Setting properties for IE conversion.
+            IEConverterSettings ieSettings = new IEConverterSettings();
+            ieSettings.AdditionalDelay = 1000;
+            htmlConverter.ConverterSettings = ieSettings;
+            //Get the layout result after conversion
+            PdfLayoutResult layoutResult = null;
+            //Convert HTML to PDF.
+            string htmlString = "<HTML><BODY><H1>Welcome to Syncfusion.!</H1><P>Simple HTML content</P></BODY></HTML>";
+            PdfDocument pdfDocument = htmlConverter.Convert(htmlString, "", PdfPageSize.A4.Width, PdfPageSize.A4.Height, AspectRatio.KeepWidth, out layoutResult);
+            //Saving and closing PDF document
+            pdfDocument.Save("Output.pdf");
+            pdfDocument.Close(true);
+            </code>
+            <code lang="VB">
+            'Initialize HtmlToPdfConverter class with IE rendering Engine.
+            Dim htmlConverter As New HtmlToPdfConverter(RenderEngine.IE)
+            'Setting properties for IE conversion.
+            Dim ieSettings As New IEConverterSettings()
+            ieSettings.AdditionalDelay = 1000
+            htmlConverter.ConverterSettings = ieSettings
+            'Convert HTML to PDF.
+            Dim htmlString As String = "<HTML><BODY><H1>Welcome to Syncfusion.!</H1><P>Simple HTML content</P></BODY></HTML>"
+            Dim pdfDocument As PdfDocument = htmlConverter.Convert(htmlString, "", PdfPageSize.A4.Width, PdfPageSize.A4.Height, AspectRatio.KeepWidth, out layoutResult)
+            'Saving and closing PDF document
+            pdfDocument.Save("Output.pdf")
+            pdfDocument.Close(True)
+            </code>
+            </example>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlToPdfConverter.ConvertToMhtml(System.String,System.String)">
+            <summary>
+            Converts an URL or local file to MHTML and writes the converted MHTML into a file.
+            </summary>
+            <param name="url">The URL or local file path of the HTML document to convert to MHTML.</param>
+            <param name= "outputPath">The path of the converted MHTML file.</param>
+            <example>
+            <code lang = "C#">
+            //Initialize HtmlToPdfConverter class with webkit rendering Engine.
+            HtmlToPdfConverter htmlConverter = new HtmlToPdfConverter(RenderEngine.WebKit);
+            //Setting properties for WebKit conversion.
+            WebKitConverterSettings webKitSettings = new WebKitConverterSettings();
+            webKitSettings.AdditionalDelay = 1000;
+            //Convert HTML to MHTML.
+            htmlConverter.ConvertToMhtml("http://www.google.com","C://Sample.mhtml");
+            </code>
+            <code lang="VB">
+            'Initialize HtmlToPdfConverter class with WebKit rendering Engine.
+            Dim htmlConverter As New HtmlToPdfConverter(RenderEngine.WebKit)
+            'Setting properties for WebKit conversion.
+            Dim webKitSettings As New WebKitConverterSettings()
+            webKitSettings.AdditionalDelay = 1000
+            'Convert HTML to MHTML.
+            htmlConverter.ConvertToMhtml("http://www.google.com","c://Sample.mhtml");
+            </code>
+            </example>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlToPdfConverter.ConvertToMhtml(System.String,System.IO.Stream)">
+            <summary>
+            Converts an URL or local file to MHTML and writes the converted MHTML into a stream.
+            </summary>
+            <param name="url">The URL or local file path of the HTML document to convert to MHTML.</param>
+            <param name= "stream">The stream  of the converted MHTML file.</param>
+            <example>
+            <code lang = "C#">
+            //Initialize HtmlToPdfConverter class with webkit rendering Engine.
+            HtmlToPdfConverter htmlConverter = new HtmlToPdfConverter(RenderEngine.WebKit);
+            //Setting properties for WebKit conversion.
+            WebKitConverterSettings webKitSettings = new WebKitConverterSettings();
+            webKitSettings.AdditionalDelay = 1000;
+            //Convert HTML to MHTML.
+            Stream stream = new MemoryStream();
+            htmlConverter.ConvertToMhtml(url, stream);
+            using (FileStream output = new FileStream(@"C:\MyOutput.mhtml", FileMode.Create))
+            {
+                stream.CopyTo(output);
+            }
+            stream.Dispose();
+            </code>
+            <code lang="VB">
+            'Initialize HtmlToPdfConverter class with WebKit rendering Engine.
+            Dim htmlConverter As New HtmlToPdfConverter(RenderEngine.WebKit)
+            'Setting properties for WebKit conversion.
+            Dim webKitSettings As New WebKitConverterSettings()
+            webKitSettings.AdditionalDelay = 1000
+            'Convert HTML to MHTML stream.
+            Stream stream = new MemoryStream();
+            htmlConverter.ConvertToMhtml(url, stream);
+            </code>
+            </example>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlToPdfConverter.ConvertToSvg(System.String,System.String)">
+            <summary>
+            Converts an URL or local file to SVG and writes the converted SVG into a file.
+            </summary>
+            <param name="url">The URL or local file path of the HTML document to convert to SVG.</param>
+            <param name= "outputPath">The path of the converted SVG file</param>
+            <example>
+            <code lang = "C#">
+            //Initialize HtmlToPdfConverter class with webkit rendering Engine.
+            HtmlToPdfConverter htmlConverter = new HtmlToPdfConverter(RenderEngine.WebKit);
+            //Setting properties for WebKit conversion.
+            WebKitConverterSettings webKitSettings = new WebKitConverterSettings();
+            webKitSettings.AdditionalDelay = 1000;
+            //Convert HTML to SVG.
+            htmlConverter.ConvertToSvg("http://www.google.com","C://Sample.svg");
+            </code>
+            <code lang="VB">
+            'Initialize HtmlToPdfConverter class with WebKit rendering Engine.
+            Dim htmlConverter As New HtmlToPdfConverter(RenderEngine.WebKit)
+            'Setting properties for WebKit conversion.
+            Dim webKitSettings As New WebKitConverterSettings()
+            webKitSettings.AdditionalDelay = 1000
+            'Convert HTML to SVG.
+            htmlConverter.ConvertToSvg("http://www.google.com","c://Sample.svg");
+            </code>
+            </example>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlToPdfConverter.ConvertToSvg(System.String,System.IO.Stream)">
+            <summary>
+            Converts an URL or local file to SVG and writes the converted SVG into a stream.
+            </summary>
+            <param name="url">The URL or local file path of the HTML document to convert to SVG.</param>
+            <param name= "stream">The stream  of the converted SVG file.</param>
+            <example>
+            <code lang = "C#">
+            //Initialize HtmlToPdfConverter class with webkit rendering Engine.
+            HtmlToPdfConverter htmlConverter = new HtmlToPdfConverter(RenderEngine.WebKit);
+            //Setting properties for WebKit conversion.
+            WebKitConverterSettings webKitSettings = new WebKitConverterSettings();
+            webKitSettings.AdditionalDelay = 1000;
+            //Convert HTML to MHTML.
+            Stream stream = new MemoryStream();
+            htmlConverter.ConvertToMhtml(url, stream);
+            using (System.IO.FileStream output = new System.IO.FileStream(@"C:\MyOutput.svg", FileMode.Create))
+            {
+                stream.CopyTo(output);
+            }
+            stream.Dispose();
+            </code>
+            <code lang="VB">
+            'Initialize HtmlToPdfConverter class with WebKit rendering Engine.
+            Dim htmlConverter As New HtmlToPdfConverter(RenderEngine.WebKit)
+            'Setting properties for WebKit conversion.
+            Dim webKitSettings As New WebKitConverterSettings()
+            webKitSettings.AdditionalDelay = 1000
+            'Convert HTML to MHTML stream.
+            Stream stream = new MemoryStream();
+            htmlConverter.ConvertToSvg(url, stream);
+            </code>
+            </example>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlToPdfConverter.ConvertToImage(System.String)">
+            <summary>
+            Converts URL to Image
+            </summary>
+            <param name="url">Path to the Html resource.</param>
+            <returns>Image Array</returns>
+            <example>
+            <code lang = "C#">
+            //Initialize HtmlToPdfConverter class with IE rendering Engine.
+            HtmlToPdfConverter htmlConverter = new HtmlToPdfConverter(RenderEngine.IE);
+            //Setting properties for IE conversion.
+            IEConverterSettings ieSettings = new IEConverterSettings();
+            ieSettings.AdditionalDelay = 1000;
+            htmlConverter.ConverterSettings = ieSettings;
+            //Converting HTML to Image
+            Image[] image = htmlConverter.ConvertToImage("http://www.google.com");
+            //Saving image
+            image[0].Save("Output.bmp");
+            </code>
+            <code lang="VB">
+            'Initialize HtmlToPdfConverter class with IE rendering Engine.
+            Dim htmlConverter As New HtmlToPdfConverter(RenderEngine.IE)
+            'Setting properties for IE conversion.
+            Dim ieSettings As New IEConverterSettings()
+            ieSettings.AdditionalDelay = 1000
+            htmlConverter.ConverterSettings = ieSettings
+            'Converting HTML to Image
+            Dim image As Image() = htmlConverter.ConvertToImage("http://www.google.com")
+            'Saving image
+            image(0).Save("Output.bmp")
+            </code>
+            </example>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.HtmlToPdfConverter.ConvertToImage(System.String,System.String)">
+            <summary>
+            Converts HTML string to Image
+            </summary>
+            <param name="htmlString">Html data.</param>
+            <param name="baseUrl">Used to retrieve images, scripts and stylesheets.</param>
+            <returns>Image Array</returns>
+            <example>
+            <code lang = "C#">
+            //Initialize HtmlToPdfConverter class with IE rendering Engine.
+            HtmlToPdfConverter htmlConverter = new HtmlToPdfConverter(RenderEngine.IE);
+            //Setting properties for IE conversion.
+            IEConverterSettings ieSettings = new IEConverterSettings();
+            ieSettings.AdditionalDelay = 1000;
+            htmlConverter.ConverterSettings = ieSettings;
+            //Convert HTML to Image.
+            string htmlString = "<HTML><BODY><H1>Welcome to Syncfusion.!</H1><P>Simple HTML content</P></BODY></HTML>";
+            Image[] image = htmlConverter.ConvertToImage(htmlString, "");
+            //Saving image
+            image[0].Save("Output.bmp");
+            </code>
+            <code lang="VB">
+            'Initialize HtmlToPdfConverter class with IE rendering Engine.
+            Dim htmlConverter As New HtmlToPdfConverter(RenderEngine.IE)
+            'Setting properties for IE conversion.
+            Dim ieSettings As New IEConverterSettings()
+            ieSettings.AdditionalDelay = 1000
+            htmlConverter.ConverterSettings = ieSettings
+            'Convert HTML to Image.
+            Dim htmlString As String = "<HTML><BODY><H1>Welcome to Syncfusion.!</H1><P>Simple HTML content</P></BODY></HTML>"
+            Dim image As Image() = htmlConverter.ConvertToImage(htmlString, "")
+            'Saving image
+            image(0).Save("Output.bmp")
+            </code>
+            </example>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.HtmlToPdfConverter.RenderingEngine">
+            <summary>
+            Gets or sets the rendering engine used for conversion(Default IE rendering engine).
+            </summary>
+            <example>
+            <code lang = "C#">
+            //Initialize HtmlToPdfConverter class with IE rendering Engine.
+            HtmlToPdfConverter htmlConverter = new HtmlToPdfConverter();
+            //Converting HTML to PDF
+            PdfDocument pdfDocument = htmlConverter.Convert("http://www.google.com");
+            //Saving and closing PDF document
+            pdfDocument.Save("Output.pdf");
+            pdfDocument.Close(true);
+            </code>
+            <code lang="VB">
+            'Initialize HtmlToPdfConverter class with IE rendering Engine.
+            Dim htmlConverter As New HtmlToPdfConverter()
+            'Converting HTML to PDF
+            Dim pdfDocument As PdfDocument = htmlConverter.Convert("http://www.google.com")
+            'Saving and closing PDF document
+            pdfDocument.Save("Output.pdf")
+            pdfDocument.Close(True)
+            </code>
+            </example>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.HtmlToPdfConverter.ConverterSettings">
+            <summary>
+            Rendering engine settings.
+            </summary>
+            <param name="url">Path to the Html resource.</param>
+            <returns>PDF document</returns>
+            <example>
+            <code lang = "C#">
+            //Initialize HtmlToPdfConverter(default IE rendering engine).
+            HtmlToPdfConverter htmlConverter = new HtmlToPdfConverter();
+            //Setting properties for IE conversion.
+            IEConverterSettings ieSettings = new IEConverterSettings();
+            ieSettings.AdditionalDelay = 1000;
+            //Convert HTML to PDF.
+            PdfDocument pdfDocument = htmlConverter.Convert("http://www.google.com");
+            //Saving and closing PDF document
+            pdfDocument.Save("Output.pdf");
+            pdfDocument.Close(true);
+            </code>
+            <code lang="VB">
+            'Initialize HtmlToPdfConverter(default IE rendering engine).
+            Dim htmlConverter As New HtmlToPdfConverter()
+            'Setting properties for IE conversion.
+            Dim ieSettings As New IEConverterSettings()
+            ieSettings.AdditionalDelay = 1000
+            'Convert HTML to PDF.
+            Dim pdfDocument As PdfDocument = htmlConverter.Convert("http://www.google.com")
+            'Saving and closing PDF document
+            pdfDocument.Save("Output.pdf")
+            pdfDocument.Close(True)
+            </code>
+            </example>
+        </member>
+        <member name="T:Syncfusion.HtmlConverter.IHtmlConverterSettings">
+            <summary>
+            Interface for Rendering engine settings
+            </summary>  
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IHtmlConverterSettings.TempPath">
+            <summary>
+            Gets or sets the temp path where the temporary operations are performed if any;By default %temp%
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IHtmlConverterSettings.AdditionalDelay">
+            <summary>
+            Gets or sets the additional delay to load JavaScript; Unit is Milliseconds; By default 0
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IHtmlConverterSettings.EnableHyperLink">
+            <summary>
+            Gets or Sets a value indicating whether to preserve the live-links in the converted document or not;By default true
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IHtmlConverterSettings.EnableJavaScript">
+            <summary>
+            Gets or Sets a value indicating whether to Enable/Disable JavaScripts in the webpage; By default true
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IHtmlConverterSettings.Password">
+            <summary>
+            Gets or Sets the password; By default ""
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IHtmlConverterSettings.Username">
+            <summary>
+            Gets or Sets the Username; By default ""
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IHtmlConverterSettings.Margin">
+            <summary>
+            Gets or sets the margins to the PDF document; By default all margins are 0
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IHtmlConverterSettings.PdfHeader">
+            <summary>
+            Gets or sets the Header to the PDF document; By default null
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IHtmlConverterSettings.PdfFooter">
+            <summary>
+            Gets or sets the Footer to the PDF document; By default null
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IHtmlConverterSettings.Orientation">
+            <summary>
+            Gets or sets the Orientation of the PDF document; By default Portrait
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IHtmlConverterSettings.PdfPageSize">
+            <summary>
+            Gets or sets the size of the PDF page; By default A4 size
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IHtmlConverterSettings.AspectRatio">
+            <summary>
+            Gets or sets the aspect ratio; By default None
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IHtmlConverterSettings.PageRotateAngle">
+            <summary>
+            Gets or sets the number of degrees by which the page should be rotated clockwise when displayed or printed.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IHtmlConverterSettings.SplitTextLines">
+            <summary>
+            Gets or sets a value indicating whether [split text lines].
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IHtmlConverterSettings.SplitImages">
+            <summary>
+            Gets or sets a value indicating whether [split images].
+            </summary>
+        </member>
+        <member name="T:Syncfusion.HtmlConverter.CookieCollection">
+            <summary>
+             Class which represents collection of cookies name and value pair of data.
+            </summary>  
+        </member>
+        <member name="T:Syncfusion.HtmlConverter.IEConverterSettings">
+            <summary>
+            Class which represents the settings of IE rendering engine
+            </summary>
+            <example>
+            <code lang = "C#">
+            //Initialize HtmlToPdfConverter class with IE rendering Engine.
+            HtmlToPdfConverter htmlConverter = new HtmlToPdfConverter(RenderEngine.IE);
+            //Setting properties for IE conversion.
+            IEConverterSettings ieSettings = new IEConverterSettings();
+            ieSettings.AdditionalDelay = 1000;
+            ieSettings.AspectRatio = AspectRatio.KeepWidth;
+            ieSettings.AutoDetectPageBreak = true;
+            ieSettings.ClearInternetCache = true;
+            ieSettings.EnableActiveXControl = true;
+            ieSettings.EnableBinaryBehaviors = true;
+            ieSettings.EnableHyperLink = true;
+            ieSettings.EnableJavaScript = true;
+            ieSettings.IsPDFA1B = false;
+            ieSettings.IsTaggedPDF = false;
+            ieSettings.Margin = new PdfMargins { All = 40 };
+            ieSettings.Orientation = PdfPageOrientation.Portrait;
+            ieSettings.Password = "";
+            ieSettings.Username = "";
+            htmlConverter.ConverterSettings = ieSettings;
+            //Convert HTML to PDF.
+            PdfDocument pdfDocument = htmlConverter.Convert("http://www.google.com");
+            //Saving and closing PDF document
+            pdfDocument.Save("Output.pdf");
+            pdfDocument.Close(true);
+            </code>
+            <code lang="VB">
+            'Initialize HtmlToPdfConverter class with IE rendering Engine.
+            Dim htmlConverter As New HtmlToPdfConverter(RenderEngine.IE)
+            'Setting properties for IE conversion.
+            Dim ieSettings As New IEConverterSettings()
+            ieSettings.AdditionalDelay = 1000
+            ieSettings.AspectRatio = AspectRatio.KeepWidth
+            ieSettings.AutoDetectPageBreak = True
+            ieSettings.ClearInternetCache = True
+            ieSettings.EnableActiveXControl = True
+            ieSettings.EnableBinaryBehaviors = True
+            ieSettings.EnableHyperLink = True
+            ieSettings.EnableJavaScript = True
+            ieSettings.IsPDFA1B = False
+            ieSettings.IsTaggedPDF = False
+            ieSettings.Orientation = PdfPageOrientation.Portrait
+            ieSettings.Password = ""
+            ieSettings.Username = ""
+            htmlConverter.ConverterSettings = ieSettings
+            'Convert HTML to PDF.
+            Dim pdfDocument As PdfDocument = htmlConverter.Convert("http://www.google.com")
+            'Saving and closing PDF document
+            pdfDocument.Save("Output.pdf")
+            pdfDocument.Close(True)
+            </code>
+            </example>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.IEConverterSettings.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.HtmlConverter.IEConverterSettings"/> class.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IEConverterSettings.TempPath">
+            <summary>
+            Gets or sets the temp path where the temporary operations are performed if any;By default %temp%
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IEConverterSettings.AdditionalDelay">
+            <summary>
+            Gets or sets the additional delay to load JavaScript; Unit is Milliseconds; By default 0
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IEConverterSettings.EnableHyperLink">
+            <summary>
+            Gets or Sets a value indicating whether to preserve the live-links in the converted document or not;By default true
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IEConverterSettings.EnableJavaScript">
+            <summary>
+            Gets or Sets a value indicating whether to Enable/Disable JavaScripts in the webpage; By default true
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IEConverterSettings.Password">
+            <summary>
+            Gets or Sets the password; By default ""
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IEConverterSettings.Username">
+            <summary>
+            Gets or Sets the Username; By default ""
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IEConverterSettings.Margin">
+            <summary>
+            Gets or sets the margins to the PDF document; By default all margins are 0
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IEConverterSettings.PdfHeader">
+            <summary>
+            Gets or sets the Header to the PDF document; By default null
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IEConverterSettings.PdfFooter">
+            <summary>
+            Gets or sets the Footer to the PDF document; By default null
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IEConverterSettings.Orientation">
+            <summary>
+            Gets or sets the Orientation of the PDF document; By default Portrait
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IEConverterSettings.PdfPageSize">
+            <summary>
+            Gets or sets the size of the PDF page; By default A4 size
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IEConverterSettings.AspectRatio">
+            <summary>
+            Gets or sets the aspect ratio; By default None
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IEConverterSettings.PageRotateAngle">
+            <summary>
+            Gets or sets the number of degrees by which the page should be rotated clockwise when displayed or printed.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IEConverterSettings.SplitTextLines">
+            <summary>
+            Gets or sets a value indicating whether [split text lines].
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IEConverterSettings.SplitImages">
+            <summary>
+            Gets or sets a value indicating whether [split images].
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IEConverterSettings.AutoDetectPageBreak">
+            <summary>
+            Gets or Sets a value indicating whether to auto-detect page-break in the webpage; By default true
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IEConverterSettings.ClearInternetCache">
+            <summary>
+            Gets or sets a value indicating whether to clear Internet cache; By default false
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IEConverterSettings.EnableActiveXControl">
+            <summary>
+            Gets or Sets a value indicating whether to Enable/Disable ActiveX contents in the webpage; By default false
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IEConverterSettings.EnableBinaryBehaviors">
+            <summary>
+            Gets or Sets a value indicating whether to Enable/Disable binary behaviors in the webpage; By default false
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IEConverterSettings.IsTaggedPDF">
+            <summary>
+            Gets or sets a value indicating the output PDF is tagged; By default false
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.IEConverterSettings.IsPDFA1B">
+            <summary>
+            Gets or sets a value indicating the output PDF is A1B; By default false
+            </summary>
+        </member>
+        <member name="T:Syncfusion.HtmlConverter.WebKitConverterSettings">
+            <summary>
+            Class which represents the settings of WebKit rendering engine
+            </summary>
+            <example>
+            <code lang = "C#">
+            //Initialize HtmlToPdfConverter class with WebKit rendering Engine.
+            HtmlToPdfConverter htmlConverter = new HtmlToPdfConverter(RenderEngine.WebKit);
+            //Setting properties for WebKit conversion.
+            WebKitConverterSettings webKitSettings = new WebKitConverterSettings();
+            webKitSettings.AdditionalDelay = 1000;
+            webKitSettings.WebKitPath = @"C:\QtBinaries";
+            webKitSettings.AspectRatio = AspectRatio.None;
+            webKitSettings.EnableHyperLink = true;
+            webKitSettings.EnableJavaScript = true;
+            webKitSettings.Margin = new PdfMargins { All = 40 };
+            webKitSettings.Orientation = PdfPageOrientation.Portrait;
+            webKitSettings.Password = "";
+            webKitSettings.Username = "";
+            htmlConverter.ConverterSettings = webKitSettings;
+            //Convert HTML to PDF
+            PdfDocument pdfDocument = htmlConverter.Convert("http://www.google.com");
+            //Saving and closing PDF document
+            pdfDocument.Save("Output.pdf");
+            pdfDocument.Close(true);
+            </code>
+            <code lang="VB">
+            'Initialize HtmlToPdfConverter class with WebKit rendering Engine.
+            Dim htmlConverter As New HtmlToPdfConverter(RenderEngine.WebKit)
+            'Setting properties for WebKit conversion.
+            Dim webKitSettings As New WebKitConverterSettings()
+            webKitSettings.AdditionalDelay = 1000
+            webKitSettings.WebKitPath = "C:\QtBinaries"
+            webKitSettings.AspectRatio = AspectRatio.None
+            webKitSettings.EnableHyperLink = True
+            webKitSettings.EnableJavaScript = True
+            webKitSettings.Orientation = PdfPageOrientation.Portrait
+            webKitSettings.Password = ""
+            webKitSettings.Username = ""
+            htmlConverter.ConverterSettings = webKitSettings
+            'Convert HTML to PDF
+            Dim pdfDocument As PdfDocument = htmlConverter.Convert("http://www.google.com")
+            'Saving and closing PDF document
+            pdfDocument.Save("Output.pdf")
+            pdfDocument.Close(True)
+            </code>
+            </example>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.WebKitConverterSettings.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.HtmlConverter.WebKitConverterSettings"/> class.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.WebKitConverterSettings.TempPath">
+            <summary>
+            Gets or sets the temp path where the temporary operations are performed if any;By default %temp%
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.WebKitConverterSettings.AdditionalDelay">
+            <summary>
+            Gets or sets the additional delay to load JavaScript; Unit is Milliseconds; By default 0
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.WebKitConverterSettings.EnableHyperLink">
+            <summary>
+            Gets or Sets a value indicating whether to preserve the live-links in the converted document or not;By default true
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.WebKitConverterSettings.EnableJavaScript">
+            <summary>
+            Gets or Sets a value indicating whether to Enable/Disable JavaScripts in the webpage; By default true
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.WebKitConverterSettings.Password">
+            <summary>
+            Gets or Sets the password; By default ""
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.WebKitConverterSettings.Username">
+            <summary>
+            Gets or Sets the Username; By default ""
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.WebKitConverterSettings.Margin">
+            <summary>
+            Gets or sets the margins to the PDF document; By default all margins are 0
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.WebKitConverterSettings.PdfHeader">
+            <summary>
+            Gets or sets the Header to the PDF document; By default null
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.WebKitConverterSettings.PdfFooter">
+            <summary>
+            Gets or sets the Footer to the PDF document; By default null
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.WebKitConverterSettings.Orientation">
+            <summary>
+            Gets or sets the Orientation of the PDF document; By default Portrait
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.WebKitConverterSettings.PdfPageSize">
+            <summary>
+            Gets or sets the size of the PDF page; By default A4 size
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.WebKitConverterSettings.AspectRatio">
+            <summary>
+            Gets or sets the aspect ratio; By default None
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.WebKitConverterSettings.PageRotateAngle">
+            <summary>
+            Gets or sets the number of degrees by which the page should be rotated clockwise when displayed or printed.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.WebKitConverterSettings.SplitTextLines">
+            <summary>
+            Gets or sets a value indicating whether [split text lines].
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.WebKitConverterSettings.SplitImages">
+            <summary>
+            Gets or sets a value indicating whether [split images].
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.WebKitConverterSettings.WebKitPath">
+            <summary>
+            Gets or Sets WebKit assembly path;; By default bin folder
+            </summary>
+        </member>
+        <member name="P:Syncfusion.HtmlConverter.WebKitConverterSettings.WebKitViewPort">
+            <summary>
+            WebKit view port size; By default use system ViewPort size
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Syncfusion.HtmlConverter.WebKitConverterSettings.Cookies" -->
+        <member name="T:Syncfusion.HtmlConverter.Natives.Native">
+            <summary>
+            Contains native function declarations.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.Natives.Native.PRF_CHECKVISIBLE">
+            <summary>
+            Windows message.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.Natives.Native.PRF_CHILDREN">
+            <summary>
+            Windows message.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.Natives.Native.PRF_CLIENT">
+            <summary>
+            Windows message.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.Natives.Native.PRF_ERASEBKGND">
+            <summary>
+            Windows message.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.Natives.Native.PRF_NONCLIENT">
+            <summary>
+            Windows message.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.Natives.Native.PRF_OWNED">
+            <summary>
+            Windows message.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.Natives.Native.PW_CLIENTONLY">
+            <summary>
+            Windows message.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.Natives.Native.WM_PRINT">
+            <summary>
+            Windows message.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.Natives.Native.WM_PRINTCLIENT">
+            <summary>
+            Windows message.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.Natives.Native.S_OK">
+            <summary>
+            HRESULT S_OK constant.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.Natives.Native.S_FALSE">
+            <summary>
+            HRESULT S_OK constant.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.Native.#ctor">
+            <summary>
+            Creates new object.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.HtmlConverter.Natives.DOCHOSTUITYPE">
+            <summary>
+            System enum.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.HtmlConverter.Natives.DOCHOSTUIDBLCLK">
+            <summary>
+            System enum.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.HtmlConverter.Natives.DOCHOSTUIFLAG">
+            <summary>
+            System enum.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.HtmlConverter.Natives.INVOKE_PARAMS">
+            <summary>
+            System enum.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.HtmlConverter.Natives.tagMSG">
+            <summary>
+            System struct.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.HtmlConverter.Natives.ICustomDoc">
+            <summary>
+            System interface.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.HtmlConverter.Natives.IOleObject">
+            <summary>
+            System interface.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.IOleObject.SetClientSite(Syncfusion.HtmlConverter.Natives.IOleClientSite)">
+            <summary>
+            System method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.IOleObject.GetClientSite(Syncfusion.HtmlConverter.Natives.IOleClientSite)">
+            <summary>
+            System method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.IOleObject.SetHostNames(System.Object,System.Object)">
+            <summary>
+            System method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.IOleObject.Close(System.UInt32)">
+            <summary>
+            System method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.IOleObject.SetMoniker(System.UInt32,System.Object)">
+            <summary>
+            System method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.IOleObject.GetMoniker(System.UInt32,System.UInt32,System.Object)">
+            <summary>
+            System method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.IOleObject.InitFromData(System.Runtime.InteropServices.ComTypes.IDataObject,System.Boolean,System.UInt32)">
+            <summary>
+            System method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.IOleObject.GetClipboardData(System.UInt32,System.Runtime.InteropServices.ComTypes.IDataObject)">
+            <summary>
+            System method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.IOleObject.DoVerb(System.UInt32,System.UInt32,System.Object,System.UInt32,System.UInt32,System.UInt32)">
+            <summary>
+            System method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.IOleObject.EnumVerbs(System.Object)">
+            <summary>
+            System method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.IOleObject.Update">
+            <summary>
+            System method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.IOleObject.IsUpToDate">
+            <summary>
+            System method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.IOleObject.GetUserClassID(System.UInt32)">
+            <summary>
+            System method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.IOleObject.GetUserType(System.UInt32,System.UInt32)">
+            <summary>
+            System method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.IOleObject.SetExtent(System.UInt32,System.UInt32)">
+            <summary>
+            System method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.IOleObject.GetExtent(System.UInt32,System.UInt32)">
+            <summary>
+            System method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.IOleObject.Advise(System.Object,System.UInt32)">
+            <summary>
+            System method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.IOleObject.Unadvise(System.UInt32)">
+            <summary>
+            System method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.IOleObject.EnumAdvise(System.Object)">
+            <summary>
+            System method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.IOleObject.GetMiscStatus(System.UInt32,System.UInt32)">
+            <summary>
+            System method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.IOleObject.SetColorScheme(System.Object)">
+            <summary>
+            System method.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.KernelApi.SetDllDirectory(System.String)">
+            <summary>
+            Adds a directory to the search path used to locate DLLs for the application.
+            </summary>
+            <param name="lpPathName">The directory to be added to the search path. If this parameter is an empty string (""), the call removes the current directory from the default DLL search order. If this parameter is NULL, the function restores the default search order.</param>
+            <returns>If the function succeeds, the return value is nonzero.</returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.KernelApi.WaitForSingleObject(System.IntPtr,System.UInt32)">
+            <summary>
+            Waits until the specified object is in the signaled state or the time-out interval elapses.
+            </summary>
+            <param name="hHandle">A handle to the object. If this handle is closed while the wait is still pending, 
+            the function's behavior is undefined.</param>
+            <param name="dwMilliseconds">The time-out interval, in milliseconds. If a nonzero value is specified, 
+            the function waits until the object is signaled or the interval elapses. 
+            If dwMilliseconds is zero, the function does not enter a wait state if the object is not signaled; 
+            it always returns immediately. If dwMilliseconds is INFINITE, the function will return only when the object is signaled</param>
+            <returns>If the function succeeds, the return value indicates the event that caused the function to return.</returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.KernelApi.CloseHandle(System.IntPtr)">
+            <summary>
+            Closes an open object handle.
+            </summary>
+            <param name="handle">A valid handle to an open object.</param>
+            <returns>If the function succeeds, the return value is nonzero.</returns>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.Natives.AdvApi.status">
+            <summary>
+            The ImpersonateLoggedOnUser function lets the calling thread impersonate the security context of a logged-on user. 
+            The user is represented by a token handle.
+            </summary>
+            <param name="hToken">A handle to a primary or impersonation access token that represents a logged-on user. .</param>
+            <returns>If the function succeeds, the return value is nonzero.</returns>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.AdvApi.DuplicateToken(System.IntPtr,System.Int32,System.IntPtr@)">
+            <summary>
+            The DuplicateToken function creates a new access token that duplicates one already in existence.
+            </summary>
+            <param name="hToken">A handle to an access token opened with TOKEN_DUPLICATE access.</param>
+            <param name="impersonationLevel">Specifies a SECURITY_IMPERSONATION_LEVEL enumerated type that supplies the impersonation level of the new token.</param>
+            <param name="hNewToken">A pointer to a variable that receives a handle to the duplicate token. This handle has TOKEN_IMPERSONATE and TOKEN_QUERY access to the new token.</param>
+            <returns>If the function succeeds, the return value is nonzero  .</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Syncfusion.HtmlConverter.Natives.AdvApi.CreateProcessAsUser(System.IntPtr,System.String,System.String,System.IntPtr,System.IntPtr,System.Boolean,System.Int32,System.IntPtr,System.String,Syncfusion.HtmlConverter.Natives.Structures.STARTUPINFO@,Syncfusion.HtmlConverter.Natives.Structures.PROCESS_INFORMATION@)" -->
+        <member name="F:Syncfusion.HtmlConverter.Natives.ProcessInteroperability.INFINITE">
+            <summary>
+            Holds the Infinite value
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.Natives.ProcessInteroperability.WAIT_FAILED">
+            <summary>
+            Holds the Infinite value for wait failed
+            </summary>
+        </member>
+        <member name="F:Syncfusion.HtmlConverter.Natives.ProcessInteroperability.x86Platform">
+            <summary>
+            Holds the value of the target platform
+            </summary>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.ProcessInteroperability.LaunchSurrogateProcess(System.String)">
+            <summary>
+            Launch the 32 bit surrogate process
+            </summary>
+            <param name="strCommand">Path of the surrogate process</param>
+        </member>
+        <member name="M:Syncfusion.HtmlConverter.Natives.ProcessInteroperability.CreateSurrogateProcess(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String)">
+            <summary>
+            Create a 32 bit surrogate process application
+            </summary>
+            <param name="assemblyPath">Tesseract assembly path</param>
+            <param name="tessdataPath">Tesseract data path</param>
+            <param name="language">language to process OCR</param>
+            <param name="imagePath">Image path</param>
+            <param name="hocrPath">HOCR file path</param>
+            <param name="pageSegment">Type of page segment</param>
+            <param name="blackList">Black list</param>
+            <param name="whiteList">White List</param>
+            <param name="performance">Type of performance</param>
+            <param name="processPath">Output Assembly path</param>
+        </member>
+        <member name="T:Syncfusion.HtmlConverter.Natives.WinApis">
+            <summary>
+            Windows API constants and functions
+            </summary>
+        </member>
+        <member name="T:Syncfusion.HtmlConverter.Natives.Iid_Clsids">
+            <summary>
+            GUID representation of IIDs and CLSIDs
+            </summary>
+        </member>
+    </members>
+</doc>

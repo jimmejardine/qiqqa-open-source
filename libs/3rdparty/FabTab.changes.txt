@@ -1,0 +1,14 @@
+Generic.xaml - commented out the setters of the drag-drop functionality so that my on hover drag-drop will work
+
+        <!--
+        <Setter Property="dd:DragDropManager.DragSourceAdvisor" Value="{StaticResource advisor}"/>
+        <Setter Property="dd:DragDropManager.DropTargetAdvisor" Value="{StaticResource advisor}"/>
+        -->
+
+
+ContentTabView.xaml.cs - added .ToString() to get the title control label for the button, otherwise title control had two parents...
+
+	if (_views.TryGetValue(view, out title))
+	{
+		imageButton.Title = title.ToString();
+	}

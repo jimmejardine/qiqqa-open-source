@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="Qiqqa.DocumentLibrary.LibraryCatalog.LibraryInstructionsPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local_formatting="clr-namespace:Qiqqa.StartPage.Formatting"
+  xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
+  xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+             >
+  <DockPanel>
+    <local_gui:AugmentedBorder DockPanel.Dock="Top" Name="BorderPublicStatus">
+    <local_gui:NonScrollingFlowDocumentScrollViewer>
+      <commongui:StandardFlowDocument>
+        <Paragraph>
+          You can make this library <Hyperlink Name="HyperlinkPublicStatus">publicly available</Hyperlink>.
+        </Paragraph>
+        </commongui:StandardFlowDocument>
+      </local_gui:NonScrollingFlowDocumentScrollViewer>
+    </local_gui:AugmentedBorder>
+
+
+  <local_gui:AugmentedSpacer DockPanel.Dock="Top" />
+      
+  <local_gui:AugmentedBorder>
+  <Grid VerticalAlignment="Center">
+    <DockPanel>
+      <TextBlock DockPanel.Dock="Top" TextAlignment="Center" Padding="0,50,0,50">
+        No document(s) selected.  <Hyperlink Name="ObjHyperlinkHelp">(Explain)</Hyperlink>
+        </TextBlock>
+
+      <ScrollViewer Name="ObjScrollerHelp">
+        <local_gui:NonScrollingFlowDocumentScrollViewer>
+          <commongui:StandardFlowDocument>
+
+            <Paragraph>
+              The list on the left shows all those documents that match your current search and slice choices.  Generally, running tools from the toolbar (e.g., annotation reports, exports, etc.) will only run on this subset of your library.
+            </Paragraph>
+
+            <Paragraph>
+              If you right-click a document, you will get some options to perform on just that document, or if you have selected multiple documents, on that set of documents.  You can select multiple documents in your document library in several ways:
+            </Paragraph>
+
+            <List>
+              <ListItem>
+                <Paragraph>
+                  Ticking the checkboxes to the left of each document.
+                </Paragraph>
+              </ListItem>
+              <ListItem>
+                <Paragraph>
+                  Holding down CTRL while clicking on various documents.
+                </Paragraph>
+              </ListItem>
+              <ListItem>
+                <Paragraph>
+                  Holding down SHIFT while clicking on a document, which will select the range of documents.
+                </Paragraph>
+              </ListItem>
+              <ListItem>
+                <Paragraph>
+                  Clicking a document, and pressing CTRL-A, which will select ALL the documents in the list.
+                </Paragraph>
+              </ListItem>
+            </List>
+
+            <Paragraph>
+              You can drag-and-drop documents onto brainstorms or into other libraries by clicking on the PDF icon and dragging.
+            </Paragraph>
+
+          </commongui:StandardFlowDocument>
+        </local_gui:NonScrollingFlowDocumentScrollViewer>
+      </ScrollViewer>
+    </DockPanel>
+  </Grid>
+  </local_gui:AugmentedBorder>
+
+  </DockPanel>
+</UserControl>

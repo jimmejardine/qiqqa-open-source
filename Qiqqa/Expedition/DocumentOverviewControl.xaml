@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="Qiqqa.Expedition.DocumentOverviewControl"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+  xmlns:local="clr-namespace:Utilities.GUI;assembly=Utilities"
+  xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
+  xmlns:this="clr-namespace:Qiqqa.Expedition"
+>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Name="ObjPDFRendererControlPlaceholderRow"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition />
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition />
+      <ColumnDefinition Width="Auto"/>
+      <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+
+    <local_gui:AugmentedBorder Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" >
+      <StackPanel>
+        <TextBlock Text="{Binding TitleCombined}" TextWrapping="Wrap" FontWeight="Bold" Name="TxtTitle"/>
+        <StackPanel Orientation="Horizontal">
+          <TextBlock Text="{Binding YearCombined}" TextWrapping="Wrap"/>
+          <local_gui:AugmentedSpacer />
+          <TextBlock Text="{Binding AuthorsCombined}" TextWrapping="Wrap"/>
+        </StackPanel>
+        <TextBlock Text="{Binding Publication}" TextWrapping="Wrap" FontStyle="Italic"/>
+      </StackPanel>
+    </local_gui:AugmentedBorder>
+
+    <local_gui:AugmentedSpacer Grid.Row="1" />
+
+    <local_gui:AugmentedBorder Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Name="ObjPDFRendererControlPlaceholderBorder">
+      <Grid Name="ObjPDFRendererControlPlaceholder" />
+    </local_gui:AugmentedBorder>
+
+    <local_gui:AugmentedSpacer Grid.Row="3" />
+
+    <local_gui:AugmentedInfoBarItemControl Header="Themes in this document" Grid.Row="4" Grid.Column="0" >
+      <ScrollViewer>
+      <this:ExpeditionPaperThemesControl />
+      </ScrollViewer>
+    </local_gui:AugmentedInfoBarItemControl>
+
+    <local_gui:AugmentedSpacer Grid.Row="4" Grid.Column="1" />
+
+    <local_gui:AugmentedInfoBarItemControl Header="Documents relevant to this one" Grid.Row="4" Grid.Column="2">
+      <ScrollViewer>
+        <this:ExpeditionPaperSimilarsControl x:Name="ObjExpeditionPaperSimilarsControl"/>
+      </ScrollViewer>
+    </local_gui:AugmentedInfoBarItemControl>
+
+  </Grid>
+</UserControl>

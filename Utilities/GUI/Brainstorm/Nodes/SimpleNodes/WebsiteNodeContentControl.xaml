@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="Utilities.GUI.Brainstorm.Nodes.SimpleNodes.WebsiteNodeContentControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    >
+  <DockPanel>
+    <Image DockPanel.Dock="Left" Name="ImageDocumentIcon" />
+
+    <Viewbox Stretch="Uniform" HorizontalAlignment="Left">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition />
+          <RowDefinition />
+          <RowDefinition />
+          <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Name="TextUrl" Text="{Binding Url}" />
+        <TextBlock Grid.Row="1" Name="TextTitle" Text="{Binding Title}" />
+        <TextBlock Grid.Row="2" Name="TextLastVisited" Text="{Binding LastVisited}" />
+        <TextBlock Grid.Row="3" Name="TextVisitedCount" Text="{Binding VisitedCount}" />
+      </Grid>
+    </Viewbox>
+  </DockPanel>
+</UserControl>

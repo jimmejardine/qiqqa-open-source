@@ -1,0 +1,89 @@
+﻿<UserControl x:Class="Qiqqa.Expedition.ExpeditionInstructionsControl"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+  xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
+>
+  <StackPanel>
+
+    <local_gui:AugmentedBorder Name="RegionNoLibrary">
+      <FlowDocumentScrollViewer IsToolBarVisible="False" VerticalScrollBarVisibility="Disabled">
+        <commongui:StandardFlowDocument>
+          <Paragraph>
+            <Floater Width="90" HorizontalAlignment="Right" Padding="0">
+              <BlockUIContainer>
+                <Image Name="ImageExpedition" VerticalAlignment="Top" />
+              </BlockUIContainer>
+            </Floater>Welcome to Qiqqa Expedition! Expedition automatically presents your library as a series of overarching themes so that you can easily:
+          </Paragraph>
+          <List>
+            <ListItem>
+              <Paragraph>
+                understand the main themes in your library, understand their main technical terms and browse their papers.
+              </Paragraph>
+            </ListItem>
+            <ListItem>
+              <Paragraph>
+                explore your papers in more detail, understanding their main themes and finding their connections to other papers.
+              </Paragraph>
+            </ListItem>
+            <ListItem>
+              <Paragraph>
+                convince yourself that you have read and cited everything you should have for each area of your literature review.
+              </Paragraph>
+            </ListItem>
+          </List>
+          <Paragraph>
+            The first thing you need to do is choose a library over which you wish to run your Expedition!  Do this from the toolbar.  Note that for your Expedition to work best, you need quite a few papers in your library and the titles of most of your papers must be populated.  You can use the BibTeX Sniffer to quickly help you locate the metadata (and titles) for all your papers.
+          </Paragraph>
+        </commongui:StandardFlowDocument>
+      </FlowDocumentScrollViewer>
+    </local_gui:AugmentedBorder>
+
+    <local_gui:AugmentedBorder Name="RegionNoExpedition">
+      <FlowDocumentScrollViewer IsToolBarVisible="False" VerticalScrollBarVisibility="Disabled">
+        <commongui:StandardFlowDocument>
+          <Paragraph>
+            You have never run an Expedition over this library.  Press the Refresh button on the toolbar to create it now!
+          </Paragraph>
+        </commongui:StandardFlowDocument>
+      </FlowDocumentScrollViewer>
+    </local_gui:AugmentedBorder>
+
+    <local_gui:AugmentedClosableBorder Name="RegionStaleExpedition">
+      <FlowDocumentScrollViewer IsToolBarVisible="False" VerticalScrollBarVisibility="Disabled">
+        <commongui:StandardFlowDocument>
+          <Paragraph>
+            You haven't refreshed your Expedition for this library for a while.  If you have add new papers or tags to your library, you may wish to press the Refresh button on the toolbar.  It will run in the background so that you can keep working.
+          </Paragraph>
+        </commongui:StandardFlowDocument>
+      </FlowDocumentScrollViewer>
+    </local_gui:AugmentedClosableBorder>
+
+    <local_gui:AugmentedClosableBorder Name="RegionExpeditionTooSmall">
+      <FlowDocumentScrollViewer IsToolBarVisible="False" VerticalScrollBarVisibility="Disabled">
+        <commongui:StandardFlowDocument>
+          <Paragraph>
+            Your library is probably too small for Expedition to discover useful themes.  Expedition only becomes useful once:
+          </Paragraph>
+          <List>
+            <ListItem>
+              <Paragraph>
+                You have many documents in your library.  Twenty is a good start, but Expedition comes into its own when you have hundreds or thousands of documents.
+              </Paragraph>
+            </ListItem>
+            <ListItem>
+            <Paragraph>
+                You have populated enough of the document titles (use the BibTeX Sniffer!) for Qiqqa to produce meaningful AutoTags.  Expedition will also fall back on the tags you have manually added to your documents.
+              </Paragraph>
+            </ListItem>
+          </List>
+          <Paragraph>
+            So once your library has grown, come back here and press the Refresh button to generate your new Expedition!
+          </Paragraph>
+        </commongui:StandardFlowDocument>
+      </FlowDocumentScrollViewer>
+    </local_gui:AugmentedClosableBorder>
+
+  </StackPanel>
+</UserControl>

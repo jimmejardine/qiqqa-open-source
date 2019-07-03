@@ -1,0 +1,60 @@
+﻿@INBOOK{chicago,
+   title = "The Chicago Manual of Style",
+   publisher = "University of Chicago Press",
+   edition = "Thirteenth",
+   year = 1982,
+   pages = "400--401",
+   key = "Chicago"
+   }
+
+@BOOK{texbook_jackson,
+   author = "Jon Jackson",
+   title= "The Jackson book",
+   publisher = "Addison-Wesley",
+   year = 2010
+   }
+
+@phdthesis{phd_jackson,
+        Author = "Jon Jackson",
+        Title = "Jackson On Spectra",
+        Department = "Mathematics",
+        School = "Princeton University",
+        Year = 2010 }
+
+
+@UNPUBLISHED{btxdoc,
+   author = "Kirk Narendra and Terry Trailor",
+   title = "{Using BibTeX}",
+   note = "Documentation for general BibTeX users",
+   month = jan,
+   year = 1988
+   }
+
+@Article{Narendra_1990,
+  author =       {Kelly Narendra and K. Parthsarathy and C. Candice and D. Dawg and E. Ellie and F. Frasier and G. Grahams and H. Hilly and I. Ignas and J. Jonas},
+  title =        {Identification and Control of Dynamical System using Neural Networks},
+  journal =      "IEENN",
+  year =         {1990},
+  volume =    {1},
+  number =    {1},
+  month =     {},
+  pages =     {4-27},
+  note =      {},
+  annote =    {}
+}
+
+@book{ Barwise:handbook,
+        Author = "Barwise, Jon and Kaf, Amit and Ar, Adin",
+        Title = "Handbook of Mathematical Logic",
+        Year = "1977",
+        Address = "Amsterdam",
+        Publisher = "North-Holland" }
+
+@inproceedings{Cobham,
+        Author = "Alan Cobham",
+        Title = "The Intrinsic Computational Difficulty of Functions",
+        Booktitle = "Logic, Methodology and Philosophy of Science, proceedings of the second International Congress, held in Jerusalem, 1964",
+        Editor = "Y. Bar-Hillel",
+        Publisher = "North-Holland",
+        Address = "Amsterdam",
+        Year = "1965" }

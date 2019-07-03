@@ -1,0 +1,1120 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ImapX</name>
+    </assembly>
+    <members>
+        <member name="M:ImapX.Parsing.CommandProcessor.ProcessCommandResult(System.String)">
+            <summary>
+                Processes a command result part
+            </summary>
+            <param name="data">The command result part</param>
+        </member>
+        <member name="M:ImapX.Authentication.ImapCredentials.ToCommand(ImapX.Capability)">
+            <summary>
+            Provides the authentication command to be send to the server
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ImapX.Authentication.ImapCredentials.IsSupported(ImapX.Capability)">
+            <summary>
+            Checks whether the authntication mechanism used is supported by the server
+            </summary>
+            <param name="capabilities"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ImapX.Authentication.OAuth2Credentials">
+            <summary>
+            Credentials used for OAuth2 authentication
+            </summary>
+        </member>
+        <member name="P:ImapX.Authentication.OAuth2Credentials.Login">
+            <summary>
+                The login name
+            </summary>
+        </member>
+        <member name="P:ImapX.Authentication.OAuth2Credentials.AuthToken">
+            <summary>
+                The auth token
+            </summary>
+        </member>
+        <member name="P:ImapX.Authentication.OAuth2Credentials.Vendor">
+            <summary>
+            The vendor
+            </summary>
+        </member>
+        <member name="T:ImapX.Authentication.PlainCredentials">
+            <summary>
+            Credentials used for PLAIN authentication or the LOGIN command
+            </summary>
+        </member>
+        <member name="P:ImapX.Authentication.PlainCredentials.Login">
+            <summary>
+            The login name
+            </summary>
+        </member>
+        <member name="P:ImapX.Authentication.PlainCredentials.Password">
+            <summary>
+            The password
+            </summary>
+        </member>
+        <member name="P:ImapX.Capability.Acl">
+            <summary>
+                Gets whether the server supports the ACL extension
+            </summary>
+            <see cref="!:http://tools.ietf.org/html/rfc4314"/>
+        </member>
+        <member name="P:ImapX.Capability.All">
+            <summary>
+                Contains a list of all capabilities supported by the server
+            </summary>
+        </member>
+        <member name="P:ImapX.Capability.AuthenticationMechanisms">
+            <summary>
+                A list of additional authentication mechanisms the server supports
+            </summary>
+        </member>
+        <member name="P:ImapX.Capability.Binary">
+            <summary>
+                Gets whether the server supports the BINARY extension
+            </summary>
+            <see cref="!:http://tools.ietf.org/html/rfc3516"/>
+        </member>
+        <member name="P:ImapX.Capability.Catenate">
+            <summary>
+                Gets whether the server supports the CATENATE extension
+            </summary>
+            <see cref="!:http://tools.ietf.org/html/rfc4469"/>
+        </member>
+        <member name="P:ImapX.Capability.Children">
+            <summary>
+                Gets whether the server supports the CHILD extension
+            </summary>
+            <see cref="!:http://tools.ietf.org/html/rfc3348"/>
+        </member>
+        <member name="P:ImapX.Capability.CompressionMechanisms">
+            <summary>
+                Contains a list of compression mechanisms supported by the server
+            </summary>
+            <see cref="!:http://tools.ietf.org/html/rfc4978"/>
+        </member>
+        <member name="P:ImapX.Capability.CondStore">
+            <summary>
+                Gets whether the server supports the CONDSTORE extension
+            </summary>
+            <see cref="!:http://tools.ietf.org/html/rfc4551"/>
+        </member>
+        <member name="P:ImapX.Capability.Contexts">
+            <summary>
+                Contains a list of contexts supported by the server
+            </summary>
+            <see cref="!:http://tools.ietf.org/html/rfc5267"/>
+        </member>
+        <member name="P:ImapX.Capability.Convert">
+            <summary>
+                Gets whether the server supports the CONVERT extension
+            </summary>
+            <see cref="!:http://tools.ietf.org/html/rfc5259"/>
+        </member>
+        <member name="P:ImapX.Capability.CreateSpecialUse">
+            <summary>
+                Gets whether the server supports the CREATE-SPECIAL-USE extension
+            </summary>
+            <see cref="!:http://tools.ietf.org/html/rfc6154"/>
+        </member>
+        <member name="P:ImapX.Capability.Enable">
+            <summary>
+                Gets whether the server supports the ENABLE extension
+            </summary>
+            <see cref="!:http://tools.ietf.org/html/rfc5161"/>
+        </member>
+        <member name="P:ImapX.Capability.ESearch">
+            <summary>
+                Gets whether the server supports the ESEARCH extension
+            </summary>
+            <see cref="!:http://tools.ietf.org/html/rfc4731"/>
+        </member>
+        <member name="P:ImapX.Capability.ESort">
+            <summary>
+                Gets whether the server supports the ESORT extension
+            </summary>
+            <see cref="!:http://tools.ietf.org/html/rfc5267"/>
+        </member>
+        <member name="P:ImapX.Capability.Filters">
+            <summary>
+                Gets whether the server supports the FILTERS extension
+            </summary>
+            <see cref="!:http://tools.ietf.org/html/rfc5466"/>
+        </member>
+        <member name="P:ImapX.Capability.Id">
+            <summary>
+                Gets whether the server supports the ID extension
+            </summary>
+        </member>
+        <member name="P:ImapX.Capability.Idle">
+            <summary>
+                Gets whether the server supports the IDLE extension
+            </summary>
+            <see cref="!:http://tools.ietf.org/html/rfc2177"/>
+        </member>
+        <member name="P:ImapX.Capability.LoginDisabled">
+            <summary>
+                Gets whether the LOGIN command is disabled on the server
+            </summary>
+            <see cref="!:http://tools.ietf.org/html/rfc2595"/>
+        </member>
+        <member name="P:ImapX.Capability.Metadata">
+            <summary>
+                Gets whether the METADATA extension is supported
+            </summary>
+            <see cref="!:http://tools.ietf.org/html/rfc5464"/>
+        </member>
+        <member name="P:ImapX.Capability.Namespace">
+            <summary>
+                Gets whether the server supports the NAMESPACE extension
+            </summary>
+            <see cref="!:http://tools.ietf.org/html/rfc2342"/>
+        </member>
+        <member name="P:ImapX.Capability.XoAuth">
+            <summary>
+                Gets whether the server supports authentication through OAuth
+            </summary>
+        </member>
+        <member name="P:ImapX.Capability.XoAuth2">
+            <summary>
+                Gets whether the server supports authentication through OAuth2
+            </summary>
+        </member>
+        <member name="P:ImapX.Capability.Quota">
+            <summary>
+                Gets whether the server supports the QUOTA extension
+            </summary>
+            <see cref="!:http://tools.ietf.org/html/rfc2087"/>
+        </member>
+        <member name="P:ImapX.Capability.Unselect">
+            <summary>
+                Gets whether the server supports the UNSELECT extension
+            </summary>
+            <see cref="!:http://tools.ietf.org/html/rfc3691"/>
+        </member>
+        <member name="T:ImapX.ClientBehavior">
+            <summary>
+            Defines basic client behavior for browsing folders, downloading messages and other
+            </summary>
+        </member>
+        <member name="P:ImapX.ClientBehavior.FolderTreeBrowseMode">
+            <summary>
+                Get or set the folder tree loading mode
+            </summary>
+        </member>
+        <member name="P:ImapX.ClientBehavior.MessageFetchMode">
+            <summary>
+                Gets or sets the mode how messages should be downloaded when fetched automatically
+            </summary>
+        </member>
+        <member name="P:ImapX.ClientBehavior.RequestedHeaders">
+            <summary>
+                A list of message headers that will be requested. Set it to <code>null</code> to request all headers
+            </summary>
+        </member>
+        <member name="P:ImapX.ClientBehavior.AutoPopulateFolderMessages">
+            <summary>
+                Gets or sets whether the client should automatically populate Folder.Messages or it is done manually by calling
+                Folder.Messages.Download
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:ImapX.ClientBehavior.AutoDownloadBodyOnAccess" -->
+        <member name="P:ImapX.ClientBehavior.ExamineFolders">
+            <summary>
+                Gets or sets whether the folders should be examined when requested first
+            </summary>
+        </member>
+        <member name="P:ImapX.ClientBehavior.FolderDelimeter">
+            <summary>
+                A char used as delimeter for folders
+            </summary>
+        </member>
+        <member name="P:ImapX.ClientBehavior.FolderDelimeterString">
+            <summary>
+            In some cases, the server returns two characters for delimiter, which is weird @"\\"
+            </summary>
+        </member>
+        <member name="P:ImapX.ClientBehavior.SpecialUseMetadataPath">
+            <summary>
+                The path where the special use metadata information for folders is stored
+            </summary>
+        </member>
+        <member name="P:ImapX.ClientBehavior.AutoGenerateMissingBody">
+            <summary>
+                In case a message has only plain text or only html body available, the other view will be generated automatically if this property is set to <code>true</code>, 
+            </summary>
+        </member>
+        <member name="P:ImapX.ClientBehavior.SearchAllNotSupported">
+            <summary>
+                Some servers (e.g) imap.qq.com seem not give any response on SEARCH ALL, set this property to true to automatically replace this call by SEARCH SINCE 0000-00-00 in order to fix the issue
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:ImapX.ClientBehavior.LazyFolderBrowsingNotSupported" -->
+        <member name="P:ImapX.ClientBehavior.NoopIssueTimeout">
+            <summary>
+            Number of seconds after which a NOOP command is sent to the server if there is no activity
+            </summary>
+        </member>
+        <member name="M:ImapX.Collections.FolderCollection.Add(System.String)">
+            <summary>
+            Creates a new folder with the given name
+            </summary>
+            <param name="folderName">The folder name</param>
+            <returns>The new folder if it could be created, otherwise null</returns>
+            <exception cref="T:System.ArgumentException">If the folder name is empty</exception>
+        </member>
+        <member name="M:ImapX.Collections.FolderCollection.Remove(ImapX.Folder)">
+            <summary>
+            Removes a folder
+            </summary>
+            <param name="item">The folder to remove</param>
+            <returns><code>true</code> if the folder could be removed</returns>
+        </member>
+        <member name="M:ImapX.Collections.FolderCollection.RemoveAt(System.Int32)">
+            <summary>
+            Removes a folder at the specified index
+            </summary>
+            <returns><code>true</code> if the folder could be removed</returns>
+        </member>
+        <member name="M:ImapX.Collections.FolderFlagCollection.Add(System.String)">
+            <summary>
+            Adds a folder flag
+            </summary>
+            <param name="flag">The flag to be added</param>
+            <returns><code>true</code> if the flag could be added</returns>
+            <exception cref="T:System.ArgumentException">If the flag is empty</exception>
+        </member>
+        <member name="M:ImapX.Collections.FolderFlagCollection.AddRange(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Adds a list of specified folder flags
+            </summary>
+            <param name="flags">The flags to be added</param>
+            <returns><code>true</code> if the flags could be added</returns>
+        </member>
+        <member name="M:ImapX.Collections.FolderFlagCollection.Remove(System.String)">
+            <summary>
+            Removes a folder flag
+            </summary>
+            <param name="flag">The flag to be removed</param>
+            <returns><code>true</code> if the flag could be removed</returns>
+            <exception cref="T:System.ArgumentException">If the flag is empty</exception>
+        </member>
+        <member name="M:ImapX.Collections.FolderFlagCollection.RemoveRange(System.Int32,System.Int32)">
+            <summary>
+            Removes a list of specified folder flags
+            </summary>
+            <param name="index">The index of the first flag to be removed</param>
+            <param name="count">The number of flags to be removed</param>
+            <returns><code>true</code> if the flags could be removed</returns>
+        </member>
+        <member name="M:ImapX.Collections.FolderFlagCollection.RemoveRange(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Removes a list of specified folder flags
+            </summary>
+            <param name="flags">The flags to be removed</param>
+            <returns><code>true</code> if the flags could be removed</returns>
+        </member>
+        <member name="M:ImapX.Collections.MessageFlagCollection.Add(System.String)">
+            <summary>
+                Adds a flag to the message
+            </summary>
+            <param name="flag">The flag to be added</param>
+            <returns><code>true</code> if the flag could be added</returns>
+            <exception cref="T:System.ArgumentException">If the flag is empty</exception>
+        </member>
+        <member name="M:ImapX.Collections.MessageFlagCollection.AddRange(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+                Adds the given flags to the message
+            </summary>
+            <param name="flags">The flags to be added</param>
+            <returns><code>true</code> if the flags could be added</returns>
+        </member>
+        <member name="M:ImapX.Collections.MessageFlagCollection.Remove(System.String)">
+            <summary>
+                Removes a flag from a message
+            </summary>
+            <param name="flag">The flag to be removed</param>
+            <returns><code>true</code> if the flag could be removed</returns>
+            <exception cref="T:System.ArgumentException">If the flag is empty</exception>
+        </member>
+        <member name="M:ImapX.Collections.MessageFlagCollection.RemoveRange(System.Int32,System.Int32)">
+            <summary>
+                Removes a list of specified message flags
+            </summary>
+            <param name="index">The index of the first flag to be removed</param>
+            <param name="count">The number of flags to be removed</param>
+            <returns><code>true</code> if the flags could be removed</returns>
+        </member>
+        <member name="M:ImapX.Collections.MessageFlagCollection.RemoveRange(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+                Removes a list of specified message flags
+            </summary>
+            <param name="flags">The flags to be removed</param>
+            <returns><code>true</code> if the flags could be removed</returns>
+        </member>
+        <member name="M:ImapX.Collections.GMailMessageLabelCollection.Add(System.String)">
+            <summary>
+                Adds a label to the message
+            </summary>
+            <param name="label">The label to be added</param>
+            <returns><code>true</code> if the label could be added</returns>
+            <exception cref="T:System.ArgumentException">If the label is empty</exception>
+            <exception cref="T:System.NotSupportedException">If Google Mail labels are not supported on this server</exception>
+        </member>
+        <member name="M:ImapX.Collections.GMailMessageLabelCollection.AddRange(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+                Adds the given labels to the message
+            </summary>
+            <param name="labels">The labels to be added</param>
+            <returns><code>true</code> if the labels could be added</returns>
+            <exception cref="T:System.NotSupportedException">If Google Mail labels are not supported on this server</exception>
+        </member>
+        <member name="M:ImapX.Collections.GMailMessageLabelCollection.Remove(System.String)">
+            <summary>
+                Removes a label from a message
+            </summary>
+            <param name="label">The label to be removed</param>
+            <returns><code>true</code> if the label could be removed</returns>
+            <exception cref="T:System.ArgumentException">If the label is empty</exception>
+            <exception cref="T:System.NotSupportedException">If Google Mail labels are not supported on this server</exception>
+        </member>
+        <member name="M:ImapX.Collections.GMailMessageLabelCollection.RemoveRange(System.Int32,System.Int32)">
+            <summary>
+                Removes a list of specified message labels
+            </summary>
+            <param name="index">The index of the first label to be removed</param>
+            <param name="count">The number of labels to be removed</param>
+            <returns><code>true</code> if the labels could be removed</returns>
+            <exception cref="T:System.NotSupportedException">If Google Mail labels are not supported on this server</exception>
+        </member>
+        <member name="M:ImapX.Collections.GMailMessageLabelCollection.RemoveRange(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+                Removes a list of specified message labels
+            </summary>
+            <param name="labels">The labels to be removed</param>
+            <returns><code>true</code> if the labels could be removed</returns>
+            <exception cref="T:System.NotSupportedException">If Google Mail labels are not supported on this server</exception>
+        </member>
+        <member name="M:ImapX.Collections.MessageCollection.Download(System.String,ImapX.Enums.MessageFetchMode,System.Int32)">
+            <summary>
+                Downloads messages from server using default or given mode.
+            </summary>
+            <param name="query">The search query to filter messages. <code>ALL</code> by default</param>
+            <param name="mode">The message fetch mode, allows to select which parts of the message will be requested.</param>
+            <param name="count">
+                The maximum number of messages that will be requested. Set <code>count</code> to <code>-1</code>
+                will request all messages which match the given query.
+            </param>
+        </member>
+        <member name="M:ImapX.Collections.MessageCollection.Download(System.Int64[],ImapX.Enums.MessageFetchMode)">
+            <summary>
+                Downloads messages by their UIds from server using default or given mode.
+            </summary>
+            <param name="uIds">The uIds of the messages to download.</param>
+            <param name="mode">The message fetch mode, allows to select which parts of the message will be requested.</param>
+        </member>
+        <member name="T:ImapX.Collections.ThreadSafeQueue`1">
+            <see cref="!:http://hashcode.ru/research/221526/%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE%D0%BF%D0%BE%D1%82%D0%BE%D1%87%D0%BD%D0%BE%D1%81%D1%82%D1%8C-%D0%B8%D0%BC%D0%BF%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%86%D0%B8%D1%8F-producer-consumer-pattern"/>
+        </member>
+        <member name="F:ImapX.Constants.FolderStatusFields.Messages">
+            <summary>
+            The number of messages in the mailbox.
+            </summary>
+        </member>
+        <member name="F:ImapX.Constants.FolderStatusFields.Recent">
+            <summary>
+            The number of messages with the \Recent flag set.
+            </summary>
+        </member>
+        <member name="F:ImapX.Constants.FolderStatusFields.UIdNext">
+            <summary>
+            The next unique identifier value of the mailbox.
+            </summary>
+        </member>
+        <member name="F:ImapX.Constants.FolderStatusFields.UIdValidity">
+            <summary>
+             The unique identifier validity value of the mailbox.
+            </summary>
+        </member>
+        <member name="F:ImapX.Constants.FolderStatusFields.Unseen">
+            <summary>
+            The number of messages which do not have the \Seen flag set.
+            </summary>
+        </member>
+        <member name="T:ImapX.EncodingHelpers.Base64">
+            <summary>
+                Transforms text to and from base64 encoding using streams.
+            </summary>
+            <remarks>
+                <para>
+                    The built in System.Convert.ToBase64String and FromBase64String methods are prone
+                    to error with OutOfMemoryException when used with larger strings or byte arrays.
+                </para>
+                <para>
+                    This class remedies the problem by using classes from the System.Security.Cryptography
+                    namespace to do the byte conversion with streams and buffered output.
+                </para>
+            </remarks>
+            <see cref="!:http://www.tribridge.com/Blog/crm/default/2011-04-29/Solving-OutOfMemoryException-errors-when-attempting-to-attach-large-Base64-encoded-content-into-CRM-annotations.aspx"/>
+        </member>
+        <member name="M:ImapX.EncodingHelpers.Base64.ToBase64(System.Byte[])">
+            <summary>
+                Converts a byte array to a base64 string one block at a time.
+            </summary>
+            <param name="data">The data.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ImapX.EncodingHelpers.Base64.FromBase64(System.String)">
+            <summary>
+                Converts a base64 string to a byte array.
+            </summary>
+            <param name="s">The s.</param>
+            <returns></returns>
+        </member>
+        <member name="F:ImapX.Enums.FolderTreeBrowseMode.Lazy">
+            <summary>
+            The subfolder list is only loaded when it is being needed
+            </summary>
+        </member>
+        <member name="F:ImapX.Enums.FolderTreeBrowseMode.Full">
+            <summary>
+            Full folder structure is loaded.
+            WARNING: Will lead to infinite loops if the folder structure is circular!
+            </summary>
+        </member>
+        <member name="F:ImapX.Enums.MessageFetchMode.Flags">
+            <summary>
+            Request message flags
+            </summary>
+        </member>
+        <member name="F:ImapX.Enums.MessageFetchMode.Tiny">
+            <summary>
+            Request flags, headers and the body structure
+            </summary>
+        </member>
+        <member name="F:ImapX.Enums.MessageFetchMode.Minimal">
+            <summary>
+            Request flags, headers, body structure, size and internal date
+            </summary>
+        </member>
+        <member name="F:ImapX.Enums.MessageFetchMode.Basic">
+            <summary>
+            Request flags, headers, body structure and body, size and internal date
+            </summary>
+        </member>
+        <member name="F:ImapX.Enums.MessageFetchMode.Full">
+            <summary>
+            Request flags, headers, body and attachments, size and internal date
+            </summary>
+        </member>
+        <member name="T:ImapX.Flags.FolderFlags">
+            <summary>
+            Predefined system folder flags and additional flags returned by the XLIST command
+            </summary>
+        </member>
+        <member name="T:ImapX.Flags.MessageFlags">
+            <summary>
+            Predefined system Message flags
+            </summary>
+        </member>
+        <member name="F:ImapX.Flags.MessageFlags.Seen">
+            <summary>
+            Message has been read.
+            </summary>
+        </member>
+        <member name="F:ImapX.Flags.MessageFlags.Answered">
+            <summary>
+            Message has been answered.
+            </summary>
+        </member>
+        <member name="F:ImapX.Flags.MessageFlags.Flagged">
+            <summary>
+            Message is "flagged" for urgent/special attention.
+            </summary>
+        </member>
+        <member name="F:ImapX.Flags.MessageFlags.Deleted">
+            <summary>
+            Message is "deleted" for removal by later EXPUNGE.
+            </summary>
+        </member>
+        <member name="F:ImapX.Flags.MessageFlags.Draft">
+            <summary>
+            Message has not completed composition (marked as a draft).
+            </summary>
+        </member>
+        <member name="F:ImapX.Flags.MessageFlags.Recent">
+            <summary>
+            Message is "recently" arrived in this mailbox. 
+            WARNING: This flag can not be altered by the client.
+            </summary>
+        </member>
+        <member name="M:ImapX.GMailMessageThread.FetchAssocicatedMessages(ImapX.Enums.MessageFetchMode,System.Int32)">
+            <summary>
+            Downloads all messages associated with the current thread
+            </summary>
+            <param name="mode">The message fetch mode, allows to select which parts of the message will be requested.</param>
+            <param name="count">
+                The maximum number of messages that will be requested. Set <code>count</code> to <code>-1</code>
+                will request all messages which match the given query.
+            </param>
+        </member>
+        <member name="P:ImapX.GMailMessageThread.Id">
+            <summary>
+            The Id of the current thread
+            </summary>
+        </member>
+        <member name="P:ImapX.GMailMessageThread.Messages">
+            <summary>
+            Messages associated with the current thread. The collection is being populated when new messages are downloaded. To fetch all messages use <code>FetchAssocicatedMessages</code>
+            </summary>
+        </member>
+        <member name="M:ImapX.Folder.UpdateFlags(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+                Updates the private list of flags, sets properties like HasChildren and Selectable
+            </summary>
+            <param name="flags"></param>
+        </member>
+        <member name="M:ImapX.Folder.Rename(System.String)">
+            <summary>
+                Ranames the folder
+            </summary>
+            <param name="name">the name to set</param>
+            <returns></returns>
+        </member>
+        <member name="M:ImapX.Folder.Remove">
+            <summary>
+                Removes the folder
+            </summary>
+            <returns><code>true</code> if the folder could be removed</returns>
+        </member>
+        <member name="M:ImapX.Folder.Expunge">
+            <summary>
+                Permanently removes all messages that have the \Deleted flag set from the current folder.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ImapX.Folder.Select">
+            <summary>
+                Selects the folder, making messages available for queries
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ImapX.Folder.SearchMessageIds(System.String,System.Int32)">
+            <exception cref="T:ImapX.Exceptions.OperationFailedException"></exception>
+        </member>
+        <member name="M:ImapX.Folder.Search(System.String,ImapX.Enums.MessageFetchMode,System.Int32)">
+            <summary>
+                Downloads messages from server using default or given mode.
+            </summary>
+            <param name="query">The search query to filter messages. <code>ALL</code> by default</param>
+            <param name="mode">The message fetch mode, allows to select which parts of the message will be requested.</param>
+            <param name="count">
+                The maximum number of messages that will be requested. Set <code>count</code> to <code>-1</code>
+                will request all messages which match the given query.
+            </param>
+        </member>
+        <member name="M:ImapX.Folder.Search(System.Int64[],ImapX.Enums.MessageFetchMode)">
+            <summary>
+                Downloads messages by their UIds from server using default or given mode.
+            </summary>
+            <param name="uIds">The uIds of the messages to download.</param>
+            <param name="mode">The message fetch mode, allows to select which parts of the message will be requested.</param>
+        </member>
+        <member name="M:ImapX.Folder.AppendMessage(System.String,System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.DateTime})">
+            <summary>
+            Appends a new message to the end of specified folder
+            </summary>
+            <param name="eml">The eml data of the message to append</param>
+            <param name="flags">The flags to be set for the message. If empty, the server will add the \Recent flag automatically</param>
+            <param name="date">The internal date of the message to be set</param>
+            <returns><code>true</code> if the message was appended, otherwise <code>false</code></returns>
+        </member>
+        <member name="M:ImapX.Folder.EmptyFolder">
+            <summary>
+                Removes all messages from current folder
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ImapX.Folder.Exists">
+            <summary>
+                The number of messages in the mailbox.
+            </summary>
+        </member>
+        <member name="P:ImapX.Folder.Recent">
+            <summary>
+                The number of messages with the \Recent flag set.
+            </summary>
+        </member>
+        <member name="P:ImapX.Folder.FirstUnseen">
+            <summary>
+                The message sequence number of the first unseen message in the mailbox.
+            </summary>
+        </member>
+        <member name="P:ImapX.Folder.Unseen">
+            <summary>
+                The number of messages which do not have the \Seen flag set.
+            </summary>
+        </member>
+        <member name="P:ImapX.Folder.SubFolders">
+            <summary>
+                Subfolders of the current folder
+            </summary>
+        </member>
+        <member name="P:ImapX.Folder.Messages">
+            <summary>
+                Messages stored in this folder
+            </summary>
+        </member>
+        <member name="P:ImapX.Folder.GMailThreads">
+            <summary>
+                The collection of GMail message threads in this folder. The collection is populated when messages are requested.
+            </summary>
+        </member>
+        <member name="P:ImapX.Folder.HasChildren">
+            <summary>
+                Gets whether the current folder has subfolders
+            </summary>
+        </member>
+        <member name="P:ImapX.Folder.Name">
+            <summary>
+                Gets or sets the name of the folder. Setting this property will rename the folder.
+            </summary>
+        </member>
+        <member name="P:ImapX.Folder.Selectable">
+            <summary>
+                Gets whether the folder can be selected (messages can be searched)
+            </summary>
+        </member>
+        <member name="P:ImapX.Folder.Path">
+            <summary>
+                Folder path on the server
+            </summary>
+        </member>
+        <member name="P:ImapX.Folder.Flags">
+            <summary>
+                Flags of current folder. Determine the type of the folder.
+            </summary>
+            <see cref="!:ImapY.Flags.FolderFlags"/>
+        </member>
+        <member name="P:ImapX.Folder.AllowedPermanentFlags">
+            <summary>
+                A list of message flags that the client can change permanently.  If this is missing, the client should assume that
+                all flags can be changed permanently.
+            </summary>
+        </member>
+        <member name="P:ImapX.Folder.UidNext">
+            <summary>
+                The next unique identifier value.
+            </summary>
+        </member>
+        <member name="P:ImapX.Folder.UidValidity">
+            <summary>
+                The unique identifier validity value.
+            </summary>
+        </member>
+        <member name="M:ImapX.ImapBase.Dispose">
+            <summary>
+                Disconnects from server and disposes the objects
+            </summary>
+        </member>
+        <member name="M:ImapX.ImapBase.Connect">
+            <summary>
+                Connect using set values.
+            </summary>
+            <returns><code>true</code> if the connection was successful</returns>
+            <exception cref="T:ImapX.Exceptions.InvalidStateException">If the client is already connected.</exception>
+        </member>
+        <member name="M:ImapX.ImapBase.Connect(System.String,System.Boolean,System.Boolean)">
+            <summary>
+                Connects to an IMAP server on the default port (143; 993 if SSL is used)
+            </summary>
+            <param name="host">Server address</param>
+            <param name="useSsl">Defines whether SSL should be used.</param>
+            <param name="validateServerCertificate">Defines whether the server certificate should be validated when SSL is used</param>
+            <returns><code>true</code> if the connection was successful</returns>
+            <exception cref="T:ImapX.Exceptions.InvalidStateException">If the client is already connected.</exception>
+        </member>
+        <member name="M:ImapX.ImapBase.Connect(System.String,System.Int32,System.Boolean,System.Boolean)">
+            <summary>
+                Connects to an IMAP server on the specified port
+            </summary>
+            <param name="host">Server address</param>
+            <param name="port">Server port</param>
+            <param name="useSsl">Defines whether SSL should be used</param>
+            <param name="validateServerCertificate">Defines whether the server certificate should be validated when SSL is used</param>
+            <returns><code>true</code> if the connection was successful</returns>
+            <exception cref="T:ImapX.Exceptions.InvalidStateException">If the client is already connected.</exception>
+        </member>
+        <member name="M:ImapX.ImapBase.Connect(System.String,System.Int32,System.Security.Authentication.SslProtocols,System.Boolean)">
+            <summary>
+                Connects to an IMAP server on the specified port
+            </summary>
+            <param name="host">Server address</param>
+            <param name="port">Server port</param>
+            <param name="sslProtocol">SSL protocol to use, <code>SslProtocols.None</code> by default</param>
+            <param name="validateServerCertificate">Defines whether the server certificate should be validated when SSL is used</param>
+            <returns><code>true</code> if the connection was successful</returns>
+            <exception cref="T:ImapX.Exceptions.InvalidStateException">If the client is already connected.</exception>
+        </member>
+        <member name="M:ImapX.ImapBase.Disconnect">
+            <summary>
+                Disconnects from server
+            </summary>
+        </member>
+        <member name="M:ImapX.ImapBase.CleanUp">
+            <summary>
+                Disconnects from server and disposes the objects
+            </summary>
+        </member>
+        <member name="M:ImapX.ImapBase.CertificateValidationCallback(System.Object,System.Security.Cryptography.X509Certificates.X509Certificate,System.Security.Cryptography.X509Certificates.X509Chain,System.Net.Security.SslPolicyErrors)">
+            <summary>
+                The certificate validation callback
+            </summary>
+        </member>
+        <member name="P:ImapX.ImapBase.Behavior">
+            <summary>
+                Basic client behavior settings like folder browse mode and message download mode
+            </summary>
+        </member>
+        <member name="P:ImapX.ImapBase.IsAuthenticated">
+            <summary>
+                Gets whether the client is authenticated
+            </summary>
+        </member>
+        <member name="P:ImapX.ImapBase.IsConnected">
+            <summary>
+                Gets whether the client is connected to the server
+            </summary>
+        </member>
+        <member name="P:ImapX.ImapBase.Host">
+            <summary>
+                The server address to connect to
+            </summary>
+            <exception cref="T:ImapX.Exceptions.InvalidStateException">On set, if the client is connected.</exception>
+        </member>
+        <member name="P:ImapX.ImapBase.Port">
+            <summary>
+                The server port used. 143 by default
+            </summary>
+            <exception cref="T:ImapX.Exceptions.InvalidStateException">On set, if the client is connected.</exception>
+        </member>
+        <member name="P:ImapX.ImapBase.SslProtocol">
+            <summary>
+                The SSL protocol used. <code>SslProtocols.None</code> by default
+            </summary>
+            <exception cref="T:ImapX.Exceptions.InvalidStateException">On set, if the client is connected.</exception>
+        </member>
+        <member name="P:ImapX.ImapBase.UseSsl">
+            <summary>
+                Get or set if SSL should be used. <code>false</code> by default.  If set to <code>true</code>, the
+                <code>SslProtocol</code> will be set to <code>SslProtocols.Default</code>
+            </summary>
+            <exception cref="T:ImapX.Exceptions.InvalidStateException">On set, if the client is connected.</exception>
+        </member>
+        <member name="P:ImapX.ImapBase.ValidateServerCertificate">
+            <summary>
+                Get or set whether the server certificate should be validated when using SSL. <code>true</code> by default
+            </summary>
+            <exception cref="T:ImapX.Exceptions.InvalidStateException">On set, if the client is connected.</exception>
+        </member>
+        <member name="P:ImapX.ImapBase.Capabilities">
+            <summary>
+                The server capabilities
+            </summary>
+        </member>
+        <member name="M:ImapX.ImapClient.#ctor">
+            <summary>
+            Creates a new IMAP client
+            </summary>
+        </member>
+        <member name="M:ImapX.ImapClient.#ctor(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Creates a new IMAP client, specifies the server to connect to. The default port is used (143; 993 if SSL is used)
+            </summary>
+        </member>
+        <member name="M:ImapX.ImapClient.#ctor(System.String,System.Int32,System.Boolean,System.Boolean)">
+            <summary>
+            Creates a new IMAP client, specifies the server and the port to connect to. 
+            </summary>
+        </member>
+        <member name="M:ImapX.ImapClient.#ctor(System.String,System.Int32,System.Security.Authentication.SslProtocols,System.Boolean)">
+            <summary>
+            Creates a new IMAP client, specifies the server and the port to connect to. 
+            </summary>
+        </member>
+        <member name="M:ImapX.ImapClient.Login">
+            <summary>
+            Authenticate using credentials set through the <code>Credentials</code> property
+            </summary>
+            <returns><code>true</code> if the authentication was successful</returns>
+        </member>
+        <member name="M:ImapX.ImapClient.Login(System.String,System.String)">
+            <summary>
+            Authenticate using a login and password
+            </summary>
+            <returns><code>true</code> if the authentication was successful</returns>
+        </member>
+        <member name="M:ImapX.ImapClient.Login(ImapX.Authentication.ImapCredentials)">
+            <summary>
+            Authenticate using given credentials
+            </summary>
+            <returns><code>true</code> if the authentication was successful</returns>
+        </member>
+        <member name="M:ImapX.ImapClient.Logout">
+            <summary>
+            Logout from server
+            </summary>
+            <returns><code>true</code> if the logout was successful</returns>
+        </member>
+        <member name="M:ImapX.ImapClient.GetFolders">
+            <summary>
+            Requests the top-level folder structure
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ImapX.ImapClient.GetFolders(System.String,ImapX.Collections.CommonFolderCollection,ImapX.Folder,System.Boolean)">
+            <summary>
+            Request the folder structure for a specific path
+            </summary>
+            <param name="path">The path to search</param>
+            <param name="commonFolders">The list of common folders to update</param>
+            <param name="parent">The parent folder</param>
+            <param name="isFirstLevel">if <code>true</code>, will request the subfolders of all folders found. Thsi settign depends on the current FolderTreeBrowseMode</param>
+            <returns>A list of folders</returns>
+        </member>
+        <member name="P:ImapX.ImapClient.Folders">
+            <summary>
+            The folder structure
+            </summary>
+        </member>
+        <member name="P:ImapX.ImapClient.Credentials">
+            <summary>
+            Get or set the credentials used to authenticate
+            </summary>
+        </member>
+        <member name="M:ImapX.Message.DownloadRawMessage">
+            <summary>
+            Downloads the raw message (EML) returned by the server. It's not recommended to use this method unless you don't need to parse the message and only want to save it completely.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ImapX.Message.MoveTo(ImapX.Folder,System.Boolean)">
+            <summary>
+                Moves the current message to another folder
+            </summary>
+            <param name="folder">The folder where the current message should be  moved to</param>
+            <returns><code>true</code> if the message could be moved</returns>
+        </member>
+        <member name="M:ImapX.Message.CopyTo(ImapX.Folder,System.Boolean)">
+            <summary>
+                Creates a copy of the current message in another folder
+            </summary>
+            <param name="folder">The folder where the message should be copied to</param>
+            <param name="downloadCopy">If <code>true</code>, the copy of the message will be downloaded to target folder</param>
+            <returns><code>true</code> if the message could be copied</returns>
+        </member>
+        <member name="M:ImapX.Message.Remove">
+            <summary>
+                Removes the current message from server
+            </summary>
+            <returns><code>true</code> if the message could be removed, otherwise false</returns>
+        </member>
+        <member name="M:ImapX.Message.FromEml(System.String)">
+            <summary>
+                Creates a new <code>ImapX.Message</code> from EML
+            </summary>
+            <param name="eml">The eml data</param>
+        </member>
+        <member name="M:ImapX.Message.ToEml">
+            <summary>
+                Returns the current message in its eml string representation.
+            </summary>
+        </member>
+        <member name="M:ImapX.Message.SaveTo(System.String,System.String)">
+            <summary>
+                Saves the current message as eml to file
+            </summary>
+            <param name="folderPath">The folder path where the message should be stored</param>
+            <param name="fileName">The file name</param>
+        </member>
+        <member name="M:ImapX.Message.Save(System.String)">
+            <summary>
+                Saves the current message as eml to file
+            </summary>
+            <param name="filePath">The file path where to save the message</param>
+        </member>
+        <member name="P:ImapX.Message.UId">
+            <summary>
+                A unique identifier of the message.
+            </summary>
+        </member>
+        <member name="P:ImapX.Message.SequenceNumber">
+            <summary>
+                A relative position from 1 to the number of messages in the mailbox.
+            </summary>
+        </member>
+        <member name="P:ImapX.Message.Size">
+            <summary>
+                Size of the message in bytes
+            </summary>
+        </member>
+        <member name="P:ImapX.Message.Flags">
+            <summary>
+                A list of zero or more named tokens associated with the message.
+                Can contain system flags (<code>Flags.MessageFlags</code>) or keywords defined by the server.
+            </summary>
+            <see cref="T:ImapX.Flags.MessageFlags"/>
+        </member>
+        <member name="P:ImapX.Message.Labels">
+            <summary>
+                A list of GMail labels associated with the message
+            </summary>
+        </member>
+        <member name="P:ImapX.Message.Date">
+            <summary>
+                The time when the message was written (or submitted)
+            </summary>
+        </member>
+        <member name="P:ImapX.Message.Headers">
+            <summary>
+                All headers associated with the message
+            </summary>
+        </member>
+        <member name="P:ImapX.Message.MimeVersion">
+            <summary>
+                An indicator that this message is formatted according to the MIME standard, and an indication of which version of
+                MIME is utilized.
+            </summary>
+        </member>
+        <member name="P:ImapX.Message.Subject">
+            <summary>
+                Text that provides a summary, or indicates the nature, of the message
+            </summary>
+        </member>
+        <member name="P:ImapX.Message.ContentType">
+            <summary>
+                Data type and format of content
+            </summary>
+        </member>
+        <member name="P:ImapX.Message.ContentTransferEncoding">
+            <summary>
+                Coding method used in a MIME message body
+            </summary>
+        </member>
+        <member name="P:ImapX.Message.From">
+            <summary>
+                Author or person taking responsibility for the message.
+            </summary>
+        </member>
+        <member name="P:ImapX.Message.Sender">
+            <summary>
+                The person or agent submitting the message to the network, if other than shown by the From header
+            </summary>
+        </member>
+        <member name="P:ImapX.Message.To">
+            <summary>
+                Primary recipient(s)
+            </summary>
+        </member>
+        <member name="P:ImapX.Message.Cc">
+            <summary>
+                Secondary, informational recipients. (cc = Carbon Copy)
+            </summary>
+        </member>
+        <member name="P:ImapX.Message.Bcc">
+            <summary>
+                Recipient(s) not to be disclosed to other recipients ("blind carbon copy")
+            </summary>
+        </member>
+        <member name="P:ImapX.Message.Organization">
+            <summary>
+                The organization to which the sender belongs, or to which the machine belongs
+            </summary>
+        </member>
+        <member name="P:ImapX.Message.Importance">
+            <summary>
+                A hint from the sender to the recipients about how important a message is
+            </summary>
+        </member>
+        <member name="P:ImapX.Message.Sensitivity">
+            <summary>
+                How sensitive it is to disclose this message to other people than the specified recipients
+            </summary>
+        </member>
+        <member name="P:ImapX.Message.MessageId">
+            <summary>
+                Unique ID of this message.
+            </summary>
+        </member>
+        <member name="P:ImapX.Message.Mailer">
+            <summary>
+                Client software used by the sender
+            </summary>
+            <remarks>Parsed from Mailer or X-Mailer header.</remarks>
+        </member>
+        <member name="P:ImapX.Message.ReplyTo">
+            <summary>
+                Suggested E-mail address(es) for replies
+            </summary>
+        </member>
+        <member name="P:ImapX.Message.Language">
+            <summary>
+                Code for natural language used in the message.
+            </summary>
+            <remarks>Parsed from Language or Content-Language header.</remarks>
+        </member>
+        <member name="P:ImapX.Message.InReplyTo">
+            <summary>
+                Reference to message which this message is a reply to.
+            </summary>
+        </member>
+        <member name="P:ImapX.Message.Comments">
+            <summary>
+                Text comments added to the message
+            </summary>
+        </member>
+        <member name="P:ImapX.Message.Seen">
+            <summary>
+                Gets or sets whether the message has been read/seen
+            </summary>
+        </member>
+        <member name="P:ImapX.Message.GmailThread">
+            <summary>
+                A GMail thread associating a group of connected messages
+            </summary>
+        </member>
+        <member name="P:ImapX.Message.GMailMessageId">
+            <summary>
+                Unique message identifier across multiple folders on GMail
+            </summary>
+        </member>
+        <member name="M:ImapX.MessageBuilder.FromEml(System.String)">
+            <summary>
+            Creates a new <code>ImapX.Message</code> from EML
+            </summary>
+            <param name="eml">The eml data</param>
+        </member>
+        <member name="M:ImapX.MessageBuilder.ToEml(ImapX.Message)">
+            <summary>
+            Converts a ImapX.Message to EML
+            </summary>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="P:ImapX.MessageContent.Size">
+            <summary>
+            The size of the message part
+            </summary>
+        </member>
+        <member name="F:ImapX.Parsing.Expressions.FolderParseRex">
+            <summary>
+            Used to parse the information from a string like <code>* LIST (\\HasNoChildren) "/" Folder name</code>, where folder name can also be quoted
+            </summary>
+        </member>
+    </members>
+</doc>

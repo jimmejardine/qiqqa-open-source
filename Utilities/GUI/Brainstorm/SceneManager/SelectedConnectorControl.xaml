@@ -1,0 +1,6 @@
+﻿<UserControl x:Class="Utilities.GUI.Brainstorm.SceneManager.SelectedConnectorControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  >
+    <Border BorderBrush="Gold" BorderThickness="1"/>
+</UserControl>

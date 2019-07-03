@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="Qiqqa.DocumentLibrary.LibraryDBStuff.LibraryDBExplorer"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+  xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
+  xmlns:local_library="clr-namespace:Qiqqa.DocumentLibrary"
+  xmlns:avalonEdit="clr-namespace:ICSharpCode.AvalonEdit;assembly=ICSharpCode.AvalonEdit"
+>
+  <DockPanel>
+
+    <!-- BEGIN: The toolbar - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+    <local_gui:AugmentedToolBarTray DockPanel.Dock="Top">
+
+      <StackPanel Orientation="Horizontal">
+
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+          </Grid.RowDefinitions>
+
+          <TextBlock Grid.Row="1" >Library:</TextBlock>
+          <TextBox Grid.Row="2" Name="TxtLibrary" MaxWidth="150" />
+        </Grid>
+
+        <local_gui:AugmentedSpacer />
+
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+          </Grid.RowDefinitions>
+
+          <TextBlock Grid.Row="1" >Document fingerprint:</TextBlock>
+          <TextBox Grid.Row="2" Name="TxtFingerprint" />
+        </Grid>
+
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+          </Grid.RowDefinitions>
+
+          <TextBlock Grid.Row="1" >Document extension:</TextBlock>
+          <TextBox Grid.Row="2" Name="TxtExtension" />
+        </Grid>
+
+        <local_gui:AugmentedSpacer />
+
+        <local_gui:AugmentedButton Name="ButtonGet" />
+        <local_gui:AugmentedButton Name="ButtonPut" />
+
+      </StackPanel>
+
+    </local_gui:AugmentedToolBarTray>
+
+    <!-- END: The toolbar - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+    <Grid>
+      <avalonEdit:TextEditor Name="TxtData" SyntaxHighlighting="JavaScript" ShowLineNumbers="True" />
+    </Grid>
+    
+  </DockPanel>
+  </UserControl>

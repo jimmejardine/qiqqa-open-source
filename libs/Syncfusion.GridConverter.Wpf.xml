@@ -1,0 +1,1461 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Syncfusion.GridConverter.Wpf</name>
+    </assembly>
+    <members>
+        <member name="T:Syncfusion.Windows.Controls.Grid.Converter.GridDataControlExportExtensions">
+            <summary>
+            Extensions class for GridDataControl
+            </summary>   
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridDataControlExportExtensions.ExportToExcel(Syncfusion.Windows.Controls.Grid.GridDataControl,System.String,Syncfusion.XlsIO.ExcelVersion)">
+            <summary>
+            Exports to excel.
+            </summary>
+            <param name="gridDataControl">The grid data control.</param>
+            <param name="fileName">Name of the file.</param>
+            <param name="excelVersion">The excel version.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridDataControlExportExtensions.ExportToExcel(Syncfusion.Windows.Controls.Grid.GridDataControl,System.String,Syncfusion.XlsIO.ExcelVersion,System.Boolean)">
+            <summary>
+            Exports to excel.
+            </summary>
+            <param name="gridDataControl">The grid data control.</param>
+            <param name="fileName">Name of the file.</param>
+            <param name="excelVersion">The excel version.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridDataControlExportExtensions.ExportToExcel(Syncfusion.Windows.Controls.Grid.GridDataControl,System.String,Syncfusion.XlsIO.ExcelVersion,System.Boolean,Syncfusion.Windows.Controls.Grid.Converter.GridModelExportToExcelHandler)">
+            <summary>
+            Exports to excel.
+            </summary>
+            <param name="gridDataControl">The grid data control.</param>
+            <param name="fileName">Name of the file.</param>
+            <param name="excelVersion">The excel version.</param>
+            <param name="modelExportingHandler">The model exporting handler.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridDataControlExportExtensions.ExportToExcel(Syncfusion.Windows.Controls.Grid.GridDataControl,System.String,Syncfusion.XlsIO.ExcelVersion,System.Collections.Generic.List{System.String},System.Boolean)">
+            <summary>
+            Exports to excel.
+            </summary>
+            <param name="gridDataControl">The grid data control.</param>
+            <param name="fileName">Name of the file.</param>
+            <param name="excelVersion">The excel version.</param>
+            <param name="_excludedColumns">The _excluded columns.</param>
+            <param name="IsExpanderColumnExported">if set to <c>true</c> [is expander column exported].</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridDataControlExportExtensions.ExportToExcel(Syncfusion.Windows.Controls.Grid.GridDataControl,System.String,Syncfusion.XlsIO.ExcelVersion,Syncfusion.Windows.Controls.Grid.Converter.GridCellExportToExcelHandler,System.Boolean)">
+            <summary>
+            Exports to excel.
+            </summary>
+            <param name="gridDataControl">The grid data control.</param>
+            <param name="fileName">Name of the file.</param>
+            <param name="excelVersion">The excel version.</param>
+            <param name="exportingHandler">The exporting handler.</param>
+            <param name="useExcelExpanderAndIndentColumn">if set to <c>true</c> [hide expander and indent].</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridDataControlExportExtensions.ExportToExcel(Syncfusion.Windows.Controls.Grid.GridDataControl,System.String,Syncfusion.XlsIO.ExcelVersion,Syncfusion.Windows.Controls.Grid.Converter.GridCellExportToExcelHandler)">
+            <summary>
+            Exports to excel.
+            </summary>
+            <param name="gridDataControl">The grid data control.</param>
+            <param name="fileName">Name of the file.</param>
+            <param name="excelVersion">The excel version.</param>
+            <param name="exportingHandler">The exporting handler.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridDataControlExportExtensions.ExportToExcel(Syncfusion.Windows.Controls.Grid.GridDataControl,System.String,Syncfusion.XlsIO.ExcelVersion,Syncfusion.Windows.Controls.Grid.Converter.GridCellExportToExcelHandler,Syncfusion.Windows.Controls.Grid.Converter.GridModelExportToExcelHandler,System.Boolean)">
+            <summary>
+            Exports to excel.
+            </summary>
+            <param name="gridDataControl">The grid data control.</param>
+            <param name="fileName">Name of the file.</param>
+            <param name="excelVersion">The excel version.</param>
+            <param name="exportingHandler">The exporting handler.</param>
+            <param name="modelExportingHandler">The model exporting handler.</param>
+            <param name="useExcelExpanderAndIndentColumn">if set to <c>true</c> [hide expander and indent].</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridDataControlExportExtensions.ExportToExcel(Syncfusion.Windows.Controls.Grid.GridDataControl,Syncfusion.Windows.Controls.Grid.GridRangeInfo,System.String,Syncfusion.XlsIO.ExcelVersion,Syncfusion.Windows.Controls.Grid.Converter.GridCellExportToExcelHandler)">
+            <summary>
+            Exports to excel.
+            </summary>
+            <param name="gridDataControl">The grid data control.</param>
+            <param name="gridRange">The grid range.</param>
+            <param name="fileName">Name of the file.</param>
+            <param name="excelVersion">The excel version.</param>
+            <param name="exportingHandler">The exporting handler.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridDataControlExportExtensions.ExportToExcel(Syncfusion.Windows.Controls.Grid.GridDataControl,Syncfusion.Windows.Controls.Grid.GridRangeInfo,System.String,Syncfusion.XlsIO.ExcelVersion)">
+            <summary>
+            Exports to excel.
+            </summary>
+            <param name="gridDataControl">The grid data control.</param>
+            <param name="gridRange">The grid range.</param>
+            <param name="fileName">Name of the file.</param>
+            <param name="excelVersion">The excel version.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridDataControlExportExtensions.ExportToExcel(Syncfusion.Windows.Controls.Grid.GridDataControl,Syncfusion.Windows.Controls.Grid.GridRangeInfo,Syncfusion.XlsIO.IWorksheet,Syncfusion.XlsIO.IRange)">
+            <summary>
+            Exports to excel.
+            </summary>
+            <param name="gridDataControl">The grid data control.</param>
+            <param name="gridRange">The grid range.</param>
+            <param name="workSheet">The work sheet.</param>
+            <param name="excelRange">The excel range.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridDataControlExportExtensions.ExportToExcel(Syncfusion.Windows.Controls.Grid.GridDataControl,Syncfusion.Windows.Controls.Grid.GridRangeInfo,Syncfusion.XlsIO.IWorksheet,Syncfusion.XlsIO.IRange,Syncfusion.Windows.Controls.Grid.Converter.GridCellExportToExcelHandler)">
+            <summary>
+            Exports to excel.
+            </summary>
+            <param name="gridDataControl">The grid data control.</param>
+            <param name="gridRange">The grid range.</param>
+            <param name="workSheet">The work sheet.</param>
+            <param name="excelRange">The excel range.</param>
+            <param name="exportingHandler">The exporting handler.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridDataControlExportExtensions.ExportToExcel(Syncfusion.Windows.Controls.Grid.GridDataControl,Syncfusion.Windows.Controls.Grid.GridRangeInfo,Syncfusion.XlsIO.IWorksheet,Syncfusion.XlsIO.IRange,Syncfusion.Windows.Controls.Grid.Converter.GridCellExportToExcelHandler,System.Boolean)">
+            <summary>
+            Exports to excel.
+            </summary>
+            <param name="gridDataControl">The grid data control.</param>
+            <param name="gridRange">The grid range.</param>
+            <param name="workSheet">The work sheet.</param>
+            <param name="excelRange">The excel range.</param>
+            <param name="exportingHandler">The exporting handler.</param>
+            <param name="useExcelExpanderAndIndentColumn">if set to <c>true</c> [hide expander and indent].</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridDataControlExportExtensions.ExportToExcel(Syncfusion.Windows.Controls.Grid.GridDataControl,Syncfusion.Windows.Controls.Grid.GridRangeInfo,Syncfusion.XlsIO.IWorksheet,Syncfusion.XlsIO.IRange,Syncfusion.Windows.Controls.Grid.Converter.GridCellExportToExcelHandler,Syncfusion.Windows.Controls.Grid.Converter.GridModelExportToExcelHandler,System.Boolean)">
+            <summary>
+            Exports to excel.
+            </summary>
+            <param name="gridDataControl">The grid data control.</param>
+            <param name="gridRange">The grid range.</param>
+            <param name="workSheet">The work sheet.</param>
+            <param name="excelRange">The excel range.</param>
+            <param name="exportingHandler">The exporting handler.</param>
+            <param name="modelExportingHandler">The model exporting handler.</param>
+            <param name="useExcelExpanderAndIndentColumn">if set to <c>true</c> [hide expander and indent].</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridDataControlExportExtensions.ExportToExcel(Syncfusion.Windows.Controls.Grid.GridDataTableModel,Syncfusion.Windows.Controls.Grid.GridRangeInfo,Syncfusion.XlsIO.IWorksheet,System.Int32,System.Int32,Syncfusion.Windows.Controls.Grid.Converter.GridCellExportToExcelHandler,Syncfusion.Windows.Controls.Grid.Converter.GridModelExportToExcelHandler,System.Boolean,System.Collections.Generic.Dictionary{System.Int32,System.Int32},System.Collections.Generic.Dictionary{System.Int32,Syncfusion.Windows.Controls.Grid.Converter.ExportingGridModelToExcelEventArgs},System.Collections.Generic.List{System.Object},System.Int32@,System.Int32@,System.Boolean@)">
+            <summary>
+            Exports to excel.
+            </summary>
+            <param name="model">The model.</param>
+            <param name="gridRange">The grid range.</param>
+            <param name="workSheet">The work sheet.</param>
+            <param name="excelRow">The excel row.</param>
+            <param name="excelCol">The excel col.</param>
+            <param name="exportingHandler">The exporting handler.</param>
+            <param name="modelExportingHandler">The model exporting handler.</param>
+            <param name="useExcelExpanderAndIndentColumn">if set to <c>true</c> [hide expander and indent].</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridDataControlExportExtensions.ExportToCSV(Syncfusion.Windows.Controls.Grid.GridDataTableModel,System.String)">
+            <summary>
+            Exports to CSV.
+            </summary>
+            <param name="gridModel">The grid model.</param>
+            <param name="fileName">Name of the file.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridDataControlExportExtensions.ExportToCSV(Syncfusion.Windows.Controls.Grid.GridDataTableModel,System.String,System.String)">
+            <summary>
+            Exports to CSV.
+            </summary>
+            <param name="gridModel">The grid model.</param>
+            <param name="fileName">Name of the file.</param>
+            <param name="delimiter">The delimiter.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridDataControlExportExtensions.ExportToCSV(Syncfusion.Windows.Controls.Grid.GridDataTableModel,Syncfusion.Windows.Controls.Grid.GridRangeInfo,System.String)">
+            <summary>
+            Exports to CSV.
+            </summary>
+            <param name="gridModel">The grid model.</param>
+            <param name="gridRange">The grid range.</param>
+            <param name="fileName">Name of the file.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridDataControlExportExtensions.ExportToCSV(Syncfusion.Windows.Controls.Grid.GridDataTableModel,Syncfusion.Windows.Controls.Grid.GridRangeInfo,System.String,System.String)">
+            <summary>
+            Exports to CSV.
+            </summary>
+            <param name="gridModel">The grid model.</param>
+            <param name="gridRange">The grid range.</param>
+            <param name="fileName">Name of the file.</param>
+            <param name="delimiter">The delimiter.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridDataControlExportExtensions.CopyTextToBuffer(Syncfusion.Windows.Controls.Grid.GridDataTableModel,System.String@,System.String,Syncfusion.Windows.Controls.Grid.GridRangeInfo)">
+            <summary>
+            Copies the text to buffer.
+            </summary>
+            <param name="gridModel">The grid model.</param>
+            <param name="buffer">The buffer.</param>
+            <param name="range">The range.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridDataControlExportExtensions.GetExpandedRange(Syncfusion.Windows.Controls.Grid.GridRangeInfo,Syncfusion.Windows.Controls.Grid.GridDataTableModel)">
+            <summary>
+            Gets the expanded range.
+            </summary>
+            <param name="range">The range.</param>
+            <param name="gridModel">The grid model.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase">
+            <summary>
+            Base class for Excel Export
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.DEFMAXCOLUMNONEINDEX">
+            <summary>
+            Maximum one-based index of the column in MS Excel.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.DEFMAXROWZEROINDEX">
+            <summary>
+            Maximum zero-based index of the row in MS Excel.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.DEFMAXROWONEINDEX">
+            <summary>
+            Maximum one-based index of the row in MS Excel.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.DEFCHARCURRENCY">
+            <summary>
+            Currency format in the .Net.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.DEFCHARDATE">
+            <summary>
+            Date format in the .Net.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.DEFCHARSCIENTIFIC">
+            <summary>
+            Sceintific format in the .Net.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.DEFCHARFIXEDPOINT">
+            <summary>
+            Fixed point format in the .Net.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.DEFCHARGENERAL">
+            <summary>
+            General format in the .Net.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.DEFCHARNUMBER">
+            <summary>
+            Number format in the .Net.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.DEFCHARPERCENT">
+            <summary>
+            Percent format in the .Net.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.DEFCHARHEX">
+            <summary>
+            Hexadecimal format in the .Net.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.DEFDEFAULTHALIGNMENT">
+            <summary>
+            Default horizontal alignment.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.DEFDEFAULTVALIGNMENT">
+            <summary>
+            Default vertical alignment.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.DEFRIGHTANGLE">
+            <summary>
+            Right angle value.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.DEFMAXIMUMANGLE">
+            <summary>
+            Maximum possible angle value.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.DEFMINIMUMSUPPORTEDANGLE">
+            <summary>
+            Angle that corresponds to 90 rotation value in the XlsIO.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.DEFGENERALFORMAT">
+            <summary>
+            General Format
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.DEFEXCELGENERALFORMAT">
+            <summary>
+            Excel Generatl Format
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.DEFEXCELCURRENCYFORMAT">
+            <summary>
+            Currency format index in the MS Excel.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.DEFEXCELDECIMALFORMAT">
+            <summary>
+            Decimal format index in the MS Excel.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.DEFEXCELSCIENTIFICFORMAT">
+            <summary>
+            Scientific format index in the MS Excel.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.DEFEXCELFIXEDPOINTFORMAT">
+            <summary>
+            Fixed-point format index in the MS Excel.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.DEFEXCELNUMBERFORMAT">
+            <summary>
+            Number format index in the MS Excel.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.DEFEXCELPERCENTFORMAT">
+            <summary>
+            Percent format index in the MS Excel.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.DEFEXCELDATEFORMAT">
+            <summary>
+            Date format index in the MS Excel.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.DEFEXCELHEXFORMAT">
+            <summary>
+            Hex format index in the MS Excel.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.DEFMAXCOLUMNZEROINDEX">
+            <summary>
+            Maximum zero-based index of the column in MS Exce.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.DEFCOLORMASK">
+            <summary>
+            Color mask to remove Alpha component.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.DEFAULTCOLOR">
+            <summary>
+            Default color (white).
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.CopyRowHeightFromGrid(Syncfusion.Windows.Controls.Grid.GridStyleInfo,Syncfusion.XlsIO.IRange)">
+            <summary>
+            Copies row height settings from grid model into excel worksheet
+            </summary>
+            <param name="style">Source grid cell</param>
+            <param name="range">Destination excel cell</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.CopyColumnWidthFromGrid(Syncfusion.Windows.Controls.Grid.GridStyleInfo,Syncfusion.XlsIO.IRange)">
+            <summary>
+            Copies column width settings from grid model into excel worksheet
+            </summary>
+            <param name="style">Source grid cell</param>
+            <param name="range">Destination excel cell</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.CopyStyle(Syncfusion.Windows.Controls.Grid.GridStyleInfo,Syncfusion.XlsIO.IRange,System.Boolean)">
+            <summary>
+            Copies style from grid style into range style
+            </summary>
+            <param name="gridStyle">Grid style to copy</param>
+            <param name="destRange">Destination range</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.CopyFont(Syncfusion.Windows.Controls.Grid.GridStyleInfo,Syncfusion.XlsIO.IRange)">
+            <summary>
+            Copies font settings from grid cell into excel cell.
+            </summary>
+            <param name="gridCell">Source grid cell</param>
+            <param name="range">Destination excel cell</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.CopyBorders(Syncfusion.Windows.Controls.Grid.GridStyleInfo,Syncfusion.XlsIO.IRange,System.Boolean)">
+            <summary>
+            Copies borders settings from grid cell into excel cell
+            </summary>
+            <param name="gridCell">Source grid cell</param>
+            <param name="range">Destination excel cell</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.CopyBorder(System.Windows.Media.Pen,Syncfusion.XlsIO.IBorder,System.Boolean)">
+            <summary>
+            Copies border settings from grid border into excel border
+            </summary>
+            <param name="cellBorder">Grid border to copy</param>
+            <param name="rangeBorder">Destination excel border</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.ColorFromString(System.String)">
+            <summary>
+            Get the color value from the string
+            </summary>
+            <param name="parseStr">string value</param>
+            <returns>color value</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.CopyBrush(Syncfusion.Windows.Controls.Grid.GridStyleInfo,Syncfusion.XlsIO.IRange)">
+            <summary>
+            Copies brush settings from grid cell into excel cell
+            </summary>
+            <param name="gridCell">Source grid cell</param>
+            <param name="range">Destination excel cell</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.CopyAlignment(Syncfusion.Windows.Controls.Grid.GridStyleInfo,Syncfusion.XlsIO.IRange)">
+            <summary>
+            Copies alignment settings from grid cell into excel cell
+            </summary>
+            <param name="gridCell">Source grid cell</param>
+            <param name="range">Destination excel cell</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.GetClosestExcelHorizontalAlignment(System.Windows.HorizontalAlignment)">
+            <summary>
+            Converts GridHorizontalAlignment into ExcelHAlign.
+            </summary>
+            <param name="gridHAlign">GridHorizontalAlignment to convert</param>
+            <returns>Corresponding ExcelHAlign</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.GetClosestExcelVerticalAlignment(System.Windows.VerticalAlignment)">
+            <summary>
+            Converts GridVerticalAlignment into ExcelVAlign
+            </summary>
+            <param name="gridVAlign">GridVerticalAlignment to convert</param>
+            <returns>Corresponding ExcelVAlign</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.SetNumberFormatIndex(Syncfusion.XlsIO.IRange,Syncfusion.Windows.Controls.Grid.GridStyleInfo)">
+            <summary>
+            Copies number format from excel style into grid cell
+            </summary>
+            <param name="range">Range to add format to</param>
+            <param name="gridStyle">Style to get number format from</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterBase.ConvertFormatFromGridToExcel(Syncfusion.XlsIO.IWorkbook,System.String)">
+            <summary>
+            Converts grid number format into excel number format
+            </summary>
+            <param name="book">Workbook Object</param>
+            <param name="strGridFormat">Grid format to convert</param>
+            <returns>Index to the excel format</returns>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterControl">
+            <summary>
+            Control class for ExcelExport
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterControl.GridCellToExcel(Syncfusion.Windows.Controls.Grid.GridModel,System.Int32,System.Int32,Syncfusion.XlsIO.IRange,Syncfusion.Windows.Controls.Grid.Converter.GridCellExportToExcelHandler,System.Boolean)" -->
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridExcelConverterControl.GridCellToExcel(Syncfusion.Windows.Controls.Grid.GridModel,System.Int32,System.Int32,Syncfusion.XlsIO.IRange,System.Boolean,Syncfusion.Windows.Controls.Grid.Converter.ExcelExportingOptions)">
+            <summary>
+            Copies one grid cell into excel cell.
+            </summary>
+            <param name="gridModel">Source grid</param>
+            <param name="row">Grid cell row index to copy</param>
+            <param name="column">Grid cell column index to copy</param>
+            <param name="range">Destination excel range</param>
+            <param name="IsAsyncExport">To IsAsynExport</param>
+            <param name="exportingOptions">Exporting Option decides whether the styles and formats should be exported or not</param>
+        </member>
+        <member name="T:Syncfusion.GridConverterWpfAssembly">
+            <summary>
+            This class holds the name of the Syncfusion.Windows.Controls.Grid assembly and provides a helper 
+            routine that helps with resolving types when loading a serialization stream and when 
+            the framework probes for assemblies by reflection. 
+            </summary>
+        </member>
+        <member name="F:Syncfusion.GridConverterWpfAssembly.Name">
+            <summary>
+            The full name of this assembly without version information: "Syncfusion.Grid.Wpf"
+            </summary>
+        </member>
+        <member name="F:Syncfusion.GridConverterWpfAssembly.Assembly">
+            <summary>
+            A reference to the <see cref="T:System.Reflection.Assembly"/> for the Grid assembly.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.GridConverterWpfAssembly.RootNamespace">
+            <summary>
+            The root namespace of this assembly. Used internally for locating resources within the assembly.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.GridConverterWpfAssembly.AssemblyResolver(System.Object,System.ResolveEventArgs)">
+            <summary>
+            This delegate helps with resolving types and can be used as a eventhandler
+            for a <see cref="E:System.AppDomain.AssemblyResolve"/> event.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The event data with information about the type.</param>
+            <returns>A reference to the assembly where the type is located.</returns>
+            <remarks>
+            Use this handler when reading back types from a serialization stread
+            saved with an earlier version of this assembly.
+            </remarks>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridImportTableStyleConverter.CheckForTableCell(Syncfusion.XlsIO.IRange,Syncfusion.Windows.Controls.Grid.GridStyleInfo,Syncfusion.XlsIO.IWorksheet)">
+            <summary>
+            Checks for the cells is in table.
+            </summary>
+            <param name="range">The Range.</param>
+            <param name="cell">The cell.</param>
+            <param name="sheet">The sheet.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridImportTableStyleConverter.ApplyTableContentStyle(Syncfusion.XlsIO.IListObject,Syncfusion.Windows.Controls.Grid.GridStyleInfo,Syncfusion.XlsIO.TableBuiltInStyles)">
+            <summary>
+            Applies the table content style to Grid cells.
+            </summary>
+            <param name="table">The Table.</param>
+            <param name="cell">The Cell.</param>
+            <param name="tablestyle">The Tablestyle.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridImportTableStyleConverter.ApplyHeaderStyle(Syncfusion.XlsIO.IListObject,Syncfusion.Windows.Controls.Grid.GridStyleInfo,Syncfusion.XlsIO.TableBuiltInStyles)">
+            <summary>
+            Applies the header style to cell.
+            </summary>
+            <param name="table">The Table.</param>
+            <param name="cell">The Cell.</param>
+            <param name="tablestyle">The Tablestyle.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridImportTableStyleConverter.GetTableContentBorderStyle(Syncfusion.XlsIO.TableBuiltInStyles,Syncfusion.Windows.Controls.Grid.Converter.GridImportTableStyleConverter.TableBorderStyle@,System.Windows.Media.Color@)">
+            <summary>
+            Gets the table content border style.
+            </summary>
+            <param name="tablestyle">The Tablestyle.</param>
+            <param name="tableBorderStyle">The Table border style.</param>
+            <param name="borderColor">Color of the border.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridImportTableStyleConverter.GetTableHeaderBorderStyle(Syncfusion.XlsIO.TableBuiltInStyles,Syncfusion.Windows.Controls.Grid.Converter.GridImportTableStyleConverter.TableBorderStyle@,System.Windows.Media.Color@)">
+            <summary>
+            Gets the table header border style.
+            </summary>
+            <param name="tablestyle">The Tablestyle.</param>
+            <param name="tableBorderStyle">The Table border style.</param>
+            <param name="borderColor">Color of the border.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridImportTableStyleConverter.GetTableContentBackGround(Syncfusion.XlsIO.TableBuiltInStyles,System.Windows.Media.Color@,System.Windows.Media.Color@,System.Boolean@)">
+            <summary>
+            Gets the table content back ground.
+            </summary>
+            <param name="tablestyle">The Tablestyle.</param>
+            <param name="firstBackgroundColor">First color of the background.</param>
+            <param name="secondBackgroundColor">Color of the second background.</param>
+            <param name="entireRow">if set to <c>true</c> apply bockground to entire row.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridImportTableStyleConverter.GetTableContentForeground(Syncfusion.XlsIO.TableBuiltInStyles)">
+            <summary>
+            Gets the table content foreground.
+            </summary>
+            <param name="tablestyle">The Tablestyle.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridImportTableStyleConverter.GetTableHeaderForeground(Syncfusion.XlsIO.TableBuiltInStyles)">
+            <summary>
+            Gets the table header foreground.
+            </summary>
+            <param name="tablestyle">The Tablestyle.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridImportTableStyleConverter.GetTableHeaderBackGround(Syncfusion.XlsIO.TableBuiltInStyles)">
+            <summary>
+            Gets the table header background.
+            </summary>
+            <param name="tablestyle">The Tablestyle.</param>
+            <returns></returns>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridImportTableStyleConverter.TableBorderStyle.None">
+            <summary>
+            Represents the No Solidstyle.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridImportTableStyleConverter.TableBorderStyle.Top">
+            <summary>
+            Represents the solid style for the Top ExcelBorderIndex.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridImportTableStyleConverter.TableBorderStyle.Bottom">
+            <summary>
+            Represents the solid style for the Bottom ExcelBorderIndex.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridImportTableStyleConverter.TableBorderStyle.Right">
+            <summary>
+            Represents the solid style for the Right ExcelBorderIndex.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridImportTableStyleConverter.TableBorderStyle.Left">
+            <summary>
+            Represents the solid style for the Left ExcelBorderIndex.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridImportTableStyleConverter.TableBorderStyle.TopBottom">
+            <summary>
+            Represents the solid style for both Top and Bottom ExcelBorderIndex.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridImportTableStyleConverter.TableBorderStyle.LeftRight">
+            <summary>
+            Represents the solid style for both Right and Left ExcelBorderIndex.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridImportTableStyleConverter.TableBorderStyle.All">
+            <summary>
+            Represents that all ExcelBorderIndex is set.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.RichTextBoxHelper.SetRichTextValue(Syncfusion.XlsIO.IRange,System.Windows.Documents.Paragraph,System.String)">
+            <summary>
+            UpdateExcelCellVaue()is a static method invoked to update the modified cell value to Excel sheet only for RichText Cell Type.
+            </summary>
+            <param name="range">Current Range value in the Excelsheet</param>
+            <param name="paragraph">Modified cells value in the Grid as Paragraph</param>
+            <param name="PlainText">Unformatted Text </param>      
+            <remarks></remarks>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.RichTextBoxHelper.ConvertRunToIFont(System.Windows.Documents.Run,Syncfusion.XlsIO.IFont)">
+            <summary>
+            ConvertRunToIFont() method converts the formatting from Run to IFont. 
+            </summary>
+            <param name="run"></param>
+            <param name="fontstyle"></param>
+            <returns></returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.RichTextBoxHelper.IsFormatSame(Syncfusion.XlsIO.IFont,Syncfusion.XlsIO.IFont)">
+            <summary>
+            IsFormatSame() method validates the formatting for both the character is same or not. 
+            </summary>
+            <param name="char1"></param>
+            <param name="char2"></param>
+            <returns></returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.RichTextBoxHelper.AppendFormat(Syncfusion.XlsIO.IFont,System.Windows.Documents.Run,System.Boolean)">
+            <summary>
+            AppendFormat() method Returns <param name="run"/> append the next character when both have same font format. 
+            </summary>
+            <param name="charfont"></param>
+            <param name="run"></param>
+            <param name="isnewline">If the character falls in new line set True, other wise False.</param>
+            <returns></returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.RichTextBoxHelper.ConvertIRangeToParagraph(Syncfusion.XlsIO.IRichTextString)">
+            <summary>
+            ConvertIRangeToParagraph() method convert the IRange into Paragraph value. 
+            </summary>
+            <param name="range"></param>
+            <returns></returns>
+            <remarks></remarks>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Grid.Converter.ExcelExportingOptions">
+            <summary>
+            Class which is used to set the ExportingOptions. 
+            user can pass this class as an argument to the ExportToExcelMethod.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Grid.Converter.ExcelExportingOptions.ExportStyle">
+            <summary>
+            Determines whether the cell styles should be exported into Excel or not.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Grid.Converter.ExcelExportingOptions.ExportFormat">
+            <summary>
+            Determines whether the Number formats to be exported into Excel or not.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Grid.Converter.ExcelExportingOptions.ExportMode">
+            <summary>
+            Decides the Exportmode when ExportFormat is false
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Grid.Converter.ExcelExportingOptions.CellExportToExcelHandler">
+            <summary>
+            Delegate handler which is used to customize the range and decides styles is exported or not.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Grid.Converter.ExcelExportingOptions.ExportToExcelHandler">
+            <summary>
+            Delegate handler which is used to customize the styles for Workbook in the excel.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Grid.Converter.ExportMode">
+            <summary>
+            Decides to Export Formatted Text or cellvalue to excel when ExportFormat is false
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.ExportMode.Text">
+            <summary>
+            Exports the Formatted text to Excel
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.ExportMode.Value">
+            <summary>
+            Exports the CellValue to the Excel
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Grid.Converter.GridExportToExcelEventArgs">
+            <summary>
+            GridExportToExcelEventArgs is used as Event arguments for the GridExportToExcelHandler
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridExportToExcelEventArgs.#ctor(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.XlsIO.IWorkbook,Syncfusion.XlsIO.IWorksheet)">
+            <summary>
+            Constructor to initialize the GridModel, workbook and worksheet
+            </summary>
+            <param name="gridModel">gridModel object</param>
+            <param name="workbook">workbook object</param>
+            <param name="worksheet">worksheet object</param>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Grid.Converter.GridExportToExcelEventArgs.GridModel">
+            <summary>
+            returns GridModel
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Grid.Converter.GridExportToExcelEventArgs.Workbook">
+            <summary>
+            returns Workbook
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Grid.Converter.GridExportToExcelEventArgs.Worksheet">
+            <summary>
+            returns Worksheet
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Grid.Converter.GridExportToExcelHandler">
+            <summary>
+            GridExportToExcelHandler is used to explicitly set the styles
+            </summary>
+            <param name="sender">sender object</param>
+            <param name="e">GridExportToEventArgs argument</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelExportExtensions.ExportToExcel(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.Windows.Controls.Grid.GridRangeInfo,Syncfusion.XlsIO.ExcelEngine,System.Int32,Syncfusion.XlsIO.IRange,Syncfusion.Windows.Controls.Grid.Converter.GridCellExportToExcelHandler)">
+            <summary>
+            Extension method for GridModel used for export the selected grid cell data to excel sheet
+            </summary>
+            <param name="model">GridModel Object</param>
+            <param name="gridRange">Range of the grid cell data</param>
+            <param name="excelEngine">ExcelEngine Object</param>
+            <param name="sheetNumber">Work sheet number</param>
+            <param name="excelRange">Range of the excel sheet</param>
+            <param name="fileName">Name of the file for Save the information</param>
+            <param name="excelVersion">Version of the Excel Sheet</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelExportExtensions.ExportToExcel(Syncfusion.Windows.Controls.Grid.GridModel,System.String,Syncfusion.XlsIO.ExcelVersion,Syncfusion.Windows.Controls.Grid.Converter.GridCellExportToExcelHandler)">
+            <summary>
+             Extension method for GridModel used for export the entire grid Cell data to excel sheet
+            </summary>
+            <param name="model">GridModel Object</param>
+            <param name="fileName">Name of the file for Save the information</param>
+            <param name="excelVersion">Version of the Excel Sheet</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelExportExtensions.ExportToExcel(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.XlsIO.IWorksheet,Syncfusion.Windows.Controls.Grid.Converter.ExcelExportingOptions)">
+            <summary>
+            This method used to export the specified Worksheet into the Excel Worksheet
+            </summary>
+            <param name="gridModel">gridModel Object</param>
+            <param name="workSheet">workSheet Object</param>
+            <param name="exportingOptions">exporting Options decides styles and format should be exported or not</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelExportExtensions.ExportToExcel(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.Windows.Controls.Grid.GridRangeInfo,Syncfusion.XlsIO.IWorksheet,Syncfusion.XlsIO.IRange,Syncfusion.Windows.Controls.Grid.Converter.GridCellExportToExcelHandler)">
+            <summary>
+            Extension method for GridModel used for export the selected grid cell data to excel sheet
+            </summary>
+            <param name="model">GridModel Object</param>
+            <param name="gridRange">Range of the grid cell data</param>
+            <param name="mySheet">WorkSheet Object</param>
+            <param name="excelRange">Range of the excel sheet</param>
+            <param name="fileName">Name of the file for Save the information</param>
+            <param name="excelVersion">Version of the Excel Sheet</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelExportExtensions.ExportToExcel(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.Windows.Controls.Grid.GridRangeInfo,Syncfusion.XlsIO.IWorksheet,Syncfusion.XlsIO.IRange,Syncfusion.Windows.Controls.Grid.Converter.ExcelExportingOptions)">
+            <summary>
+            This method used to export the mentioned GridRange into the Excel Worksheet.
+            </summary>
+            <param name="gridModel">GirdModel object</param>
+            <param name="gridRange">Range of the grid cell data</param>
+            <param name="workSheet">Worksheet Object</param>
+            <param name="excelRange">Range of the Excelsheet</param>
+            <param name="exportingOptions">exporting Options decides styles and format should be exported or not</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelExportExtensions.GetExpandedRange(Syncfusion.Windows.Controls.Grid.GridRangeInfo,Syncfusion.Windows.Controls.Grid.GridModel)">
+            <summary>
+            Expand the range when row,column or table is selected
+            </summary>
+            <param name="range">GridRangeInfo Object</param>
+            <param name="model">GridModel object</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelExportExtensions.ExportToCSV(Syncfusion.Windows.Controls.Grid.GridModel,System.String)">
+            <summary>
+            Exports the content of GridControl into a CSV file.
+            </summary>
+            <param name="gridModel">GridModel Object.</param>
+            <param name="fileName">The name of the CSV file.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelExportExtensions.ExportToCSV(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.Windows.Controls.Grid.GridRangeInfo,System.String)">
+            <summary>
+            Extension method for CSV export used for exporting the given grid range into a CSV file.
+            </summary>
+            <param name="gridModel">GridModel Object.</param>
+            <param name="gridRange">The grid range ro be exported.</param>
+            <param name="fileName">The name of the CSV file.</param>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Grid.Converter.ImportingCellFromExcelEventArgs">
+            <summary>
+            Importing event arguments
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.SheetFamilyId">
+            <summary>
+            Sheet family id - This is used to identify a family of grids.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.ImportFromExcel(Syncfusion.Windows.Controls.Grid.GridModel,System.IO.Stream)">
+            <summary>
+            Imports single sheets from excel to Grid.
+            </summary>
+            <param name="grid">The Grid.</param>
+            <param name="fileStream">The File stream.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.ImportFromExcel(Syncfusion.Windows.Controls.Grid.GridModel,System.IO.Stream,Syncfusion.Windows.Controls.Grid.Converter.GridCellImportFromExcelHandler)">
+            <summary>
+            Imports single sheets from excel to Grid with importing event handler.
+            </summary>
+            <param name="grid">The Grid.</param>
+            <param name="fileStream">The File stream.</param>
+            <param name="importFromExcelHandler">The importing event handler.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.ImportFromExcel(Syncfusion.Windows.Controls.Grid.GridModel,System.String)">
+            <summary>
+            Imports single sheets from excel to Grid.
+            </summary>
+            <param name="grid">The Grid.</param>
+            <param name="FileName">Name of the file.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.ImportFromExcel(Syncfusion.Windows.Controls.Grid.GridModel,System.String,Syncfusion.Windows.Controls.Grid.Converter.GridCellImportFromExcelHandler)">
+            <summary>
+            Imports single sheets from excel to Grid with importing event handler.
+            </summary>
+            <param name="grid">The Grid.</param>
+            <param name="FileName">Name of the file.</param>
+            <param name="importFromExcelHandler">The importing event handler.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.ImportFromExcel(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.XlsIO.IWorksheet)">
+            <summary>
+            Imports single sheets from excel to Grid.
+            </summary>
+            <param name="grid">The grid.</param>
+            <param name="sheet">The Sheet.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.ImportFromExcel(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.XlsIO.IWorksheet,Syncfusion.Windows.Controls.Grid.Converter.GridCellImportFromExcelHandler)">
+            <summary>
+            Imports single sheets from excel to Grid with importing event handler.
+            </summary>
+            <param name="grid">The grid.</param>
+            <param name="sheet">The sheet.</param>
+            <param name="importingHandler">The importing event handler.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.ImportFromExcel(Syncfusion.XlsIO.IWorkbook)">
+            <summary>
+            Imports the entire workbook.
+            </summary>
+            <param name="book">The book.</param>
+            <returns>Array of GridModels</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.ImportFromExcel(Syncfusion.XlsIO.IWorkbook,Syncfusion.Windows.Controls.Grid.Converter.GridCellImportFromExcelHandler)">
+            <summary>
+            Imports the entire workbook.
+            </summary>
+            <param name="book">The book.</param>
+            <param name="importFromExcelHandler">The importing event handler.</param>
+            <returns>Array of GridModels</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.ConvertExcelRangeToGrid(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.XlsIO.IWorksheet,Syncfusion.XlsIO.IRange,Syncfusion.Windows.Controls.Grid.Converter.GridCellImportFromExcelHandler)">
+            <summary>
+            Converts the excel range to grid.
+            </summary>
+            <param name="grid">The grid.</param>
+            <param name="sheet">The sheet.</param>
+            <param name="rangeToConvert">The range to convert.</param>
+            <param name="importingHandler">The importing handler.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.ImportFromExcelToVirtualGrid(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.XlsIO.IWorkbook,Syncfusion.XlsIO.IWorksheet,Syncfusion.Windows.Controls.Grid.Converter.GridCellImportFromExcelHandler)">
+            <summary>
+            Imports the single sheet from excel to virtual grid.
+            </summary>
+            <param name="grid">The grid.</param>
+            <param name="sheet">The sheet.</param>
+            <param name="importFromExcelHandler">The importing event handler.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.ImportFromExcelToVirtualGrid(Syncfusion.XlsIO.IWorkbook)">
+            <summary>
+            Imports the entire workbook from excel to virtual grid.
+            </summary>
+            <param name="book">The book.</param>
+            <param name="sheetFamilyID">Sheet family Id of FormulaEngine</param>
+            <returns>Array of GridModel</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.ImportFromExcelToVirtualGrid(Syncfusion.XlsIO.IWorkbook,Syncfusion.Windows.Controls.Grid.Converter.GridCellImportFromExcelHandler)">
+            <summary>
+            Imports the entire workbook from excel to virtual grid.
+            </summary>
+            <param name="book">The book.</param>
+            <param name="importFromExcelHandler">importing event handler.</param>
+            <param name="sheetFamilyId">Sheet family Id of FormulaEngine</param>
+            <returns>Array of GridModel</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.ConvertExcelRangeToVirtualGrid(Syncfusion.Windows.Controls.Grid.GridStyleInfo,Syncfusion.XlsIO.IWorksheet,Syncfusion.XlsIO.IRange,System.Boolean,Syncfusion.Windows.Controls.Grid.Converter.GridCellImportFromExcelHandler)">
+            <summary>
+            Converts the excel range to virtual grid.
+            </summary>
+            <param name="cell">The grid cell.</param>
+            <param name="sheet">The sheet.</param>
+            <param name="rangeToConvert">The excel cell.</param>
+            <param name="importingHandler">The importing event handler.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.copyConditionalFormatToCell(Syncfusion.Windows.Controls.Grid.GridConditionalFormat,Syncfusion.XlsIO.IConditionalFormat,Syncfusion.Windows.Controls.Grid.GridStyleInfo,Syncfusion.XlsIO.IRange)">
+            <summary>
+            Copies the conditional format to grid cell.
+            </summary>
+            <param name="GridConditionalFormat1">The GridConditionalFormating.</param>
+            <param name="format">The format.</param>
+            <param name="cell">Conditionalformat applying cell.</param>
+            <param name="rangeToConvert">IRange info of conditional format applying cell.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.GetDateTimeFormat(System.String)">
+            <summary>
+            Gets the date time format.
+            </summary>
+            <param name="format">The format.</param>
+            <returns>The DateTimePattern</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.GetFormat(System.String)">
+            <summary>
+            convert the excel format into grid supports formats.
+            </summary>
+            <param name="format">The format.</param>
+            <returns>The format</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.CopyImageToGrid(Syncfusion.XlsIO.IWorksheet,Syncfusion.Windows.Controls.Grid.GridModel)">
+            <summary>
+            Copies the image from excel worksheet into grid.
+            </summary>
+            <param name="sheet">The sheet.</param>
+            <param name="grid">The grid.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.CopySparkLineToGrid(Syncfusion.XlsIO.IWorksheet,Syncfusion.Windows.Controls.Grid.GridModel)">
+            <summary>
+            Copies the sparkline groups from excel worksheet into grid.
+            </summary>
+            <param name="sheet">The sheet.</param>
+            <param name="grid">The grid.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.CopyNamesToGrid(Syncfusion.XlsIO.IWorksheet,Syncfusion.Windows.Controls.Grid.GridModel)">
+            <summary>
+            Copies the named range from excel worksheet into grid.
+            </summary>
+            <param name="sheet">The sheet.</param>
+            <param name="grid">The grid.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.CopyFreezePanesToGrid(Syncfusion.XlsIO.IWorksheet,Syncfusion.Windows.Controls.Grid.GridModel)">
+            <summary>
+            Copies the freeze panes from excel worksheet into grid.
+            </summary>
+            <param name="sheet">The sheet.</param>
+            <param name="grid">The grid.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.CopyRowHeightToGrid(Syncfusion.XlsIO.IWorksheet,Syncfusion.Windows.Controls.Grid.GridModel)">
+            <summary>
+            Copies row height information from excel worksheet into grid.
+            </summary>
+            <param name="sheet">Sheet to copy from.</param>
+            <param name="grid">Grid to copy into.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.CopyColumnWidthToGrid(Syncfusion.XlsIO.IWorksheet,Syncfusion.Windows.Controls.Grid.GridModel)">
+            <summary>
+            Copies column width information from excel worksheet into grid.
+            </summary>
+            <param name="sheet">Sheet to copy from.</param>
+            <param name="grid">Grid to copy into.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.CopyComboxToGrid(Syncfusion.XlsIO.IWorksheet,Syncfusion.Windows.Controls.Grid.GridModel)">
+            <summary>
+            Copies the combox from excel worksheet into grid.
+            </summary>
+            <param name="sheet">The sheet.</param>
+            <param name="grid">The grid.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.CopyMergesToGrid(Syncfusion.XlsIO.IWorksheet,Syncfusion.Windows.Controls.Grid.GridModel)">
+            <summary>
+            Copies merged ranges into grid.
+            </summary>
+            <param name="sheet">Destination worksheet.</param>
+            <param name="grid">Source grid.</param>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.SkipMergeCellCheckOnSetBorders">
+            <summary>
+            After v6.1 ExcelToGrid Convertion will check for Merged cells when importing borders. 
+            When there is no merged cells this can be set to true to avoid cehcking for MergeCells on 
+            importing borders from exccel cells.
+            <para/>Default value is false.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.GetMergeCellRange(Syncfusion.XlsIO.IRange,System.Int32@,System.Int32@)">
+            <summary>
+            Gets the merge cell range.
+            </summary>
+            <param name="range">The range.</param>
+            <param name="bottom">The Bottom.</param>
+            <param name="right">The Right.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.SetCellStyle(Syncfusion.XlsIO.IRange,Syncfusion.Windows.Controls.Grid.GridStyleInfo,Syncfusion.XlsIO.IWorksheet)">
+            <summary>
+            Sets grid cell style based on excel style.
+            </summary>
+            <param name="excelStyle">Source style.</param>
+            <param name="cell">Destination cell.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.SetBorders(Syncfusion.XlsIO.IRange,Syncfusion.Windows.Controls.Grid.GridStyleInfo,Syncfusion.XlsIO.IWorksheet)">
+            <summary>
+            Sets grid cell borders based on excel style.
+            </summary>
+            <param name="excelStyle">Source style.</param>
+            <param name="cell">Destination cell.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.ConvertExcelBorder(Syncfusion.XlsIO.IBorder)">
+            <summary>
+            Converts excel border into grid border.
+            </summary>
+            <param name="border">Border to convert.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.SetBrush(Syncfusion.XlsIO.IStyle,Syncfusion.Windows.Controls.Grid.GridStyleInfo)">
+            <summary>
+            Sets cell's brush.
+            </summary>
+            <param name="excelStyle">Excel style containing information about brush.</param>
+            <param name="cell">Style info to set brush in.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.SetAlignment(Syncfusion.XlsIO.IStyle,Syncfusion.Windows.Controls.Grid.GridStyleInfo,Syncfusion.XlsIO.IWorksheet)">
+            <summary>
+            Sets alignment of the GridStyleInfo.
+            </summary>
+            <param name="excelStyle">Excel style to get alignment block from.</param>
+            <param name="cell">GridStyleInfo to set alignment block in.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.SetOrientation(Syncfusion.XlsIO.IStyle,Syncfusion.Windows.Controls.Grid.GridStyleInfo)">
+            <summary>
+            Copies orientation settings from excel style into grid cell.
+            </summary>
+            <param name="excelStyle">Source cell style.</param>
+            <param name="cell">Destination grid cell.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.SetFont(Syncfusion.XlsIO.IStyle,Syncfusion.Windows.Controls.Grid.GridStyleInfo)">
+            <summary>
+            Sets font for the cell based on Excel style.
+            </summary>
+            <param name="excelStyle">Excel style to get font setting from.</param>
+            <param name="cell">Cell style to set font.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.CopyHyperlinkToVirtualGrid(Syncfusion.XlsIO.IWorksheet,Syncfusion.XlsIO.IWorkbook,Syncfusion.Windows.Controls.Grid.GridModel)">
+            <summary>
+            Copies the hyperlink to virtual grid.
+            </summary>
+            <param name="sheet">The sheet.</param>
+            <param name="book">The WorkBook</param>
+            <param name="grid">The grid.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.CopyHyperlinkToCell(Syncfusion.XlsIO.IWorksheet,Syncfusion.XlsIO.IRange,Syncfusion.Windows.Controls.Grid.GridStyleInfo)">
+            <summary>
+            Copies the hyperlink to normal grid.
+            </summary>
+            <param name="excelrange">The excelrange.</param>
+            <param name="cell">The cell.</param>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Grid.Converter.GridPdfConverterControl">
+            <summary>
+            Converter Base includes the basic properties and methods used for exporting Grid to PDF
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfConverterControl.GridCellToPdf(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.Pdf.Grid.PdfGrid,Syncfusion.Pdf.Grid.PdfGridCell,System.Int32,System.Int32,Syncfusion.Windows.Controls.Grid.Converter.GridCellExportToPdfHandler)">
+            <summary>
+            Copies values and styles from GridStyleInfo to PdfGridCell
+            </summary>
+            <param name="gridModel">used to pass GridStyleInfo</param>
+            <param name="pdfGrid"><see cref="T:Syncfusion.Pdf.Grid.PdfGrid"/></param>
+            <param name="pdfGridCell">A PdfGridCell to which values and styles to be copied.</param>
+            <param name="rowIndex"> RowIndex of the currently exporting Grid Cell </param>
+            <param name="columnIndex">Column Index of the currently Exporting Grid Cell</param>
+            <param name="pdfExportHandler"> Delegate Event handler which fires for every cell before exporting. </param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfConverterControl.GridCellToPdf(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.Pdf.Grid.PdfGridCell,System.Int32,System.Int32,Syncfusion.Windows.Controls.Grid.Converter.ExportToPdfOptions)">
+            <summary>
+            Copies values and styles from GridStyleInfo to PdfGridCell
+            </summary>
+            <param name="gridModel">used to pass GridStyleInfo</param>
+            <param name="pdfGridCell">A PdfGridCell to which values and styles to be copied.</param>
+            <param name="rowIndex"> RowIndex of the currently exporting Grid Cell </param>
+            <param name="columnIndex">Column Index of the currently Exporting Grid Cell</param>
+            <param name="exportingOptions"> <see cref="T:Syncfusion.Windows.Controls.Grid.Converter.ExportToPdfOptions"/> holds the Export To Pdf Options </param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfConverterControl.CopyCellValue(Syncfusion.Windows.Controls.Grid.GridStyleInfo,Syncfusion.Pdf.Grid.PdfGridCell)">
+            <summary>
+            Copies the CellValue from GridStyleInfo to PdfGridCell based on the cell type.
+            </summary>
+            <param name="style">GridStyleInfo </param>
+            <param name="pdfGridCell"> PdfGridCell to whcih the values and styles to be copied.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfConverterControl.CopyRichText(Syncfusion.Windows.Controls.Grid.GridStyleInfo,Syncfusion.Pdf.Grid.PdfGridCell)">
+            <summary>
+            Copies RichTextBox from GridStyleInfo to PdfGridCell
+            </summary>
+            <param name="style"><see cref="T:Syncfusion.Windows.Controls.Grid.GridStyleInfo"/> holds the RichTextBox values of Grid</param>
+            <param name="pdfGridCell">PdfGridCell to which the RichTextBox to be copied.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfConverterControl.CopyAlignment(Syncfusion.Pdf.Grid.PdfGridCell,Syncfusion.Windows.Controls.Grid.GridStyleInfo)">
+            <summary>
+            Sets Alignment details from GridStyleInfo to PdfGridCell
+            </summary>
+            <param name="style">GridStyleInfo </param>
+            <param name="pdfGridCell"> PdfGridCell to whcih the Alignment to be copied.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfConverterControl.CopyBorders(Syncfusion.Windows.Controls.Grid.GridStyleInfo,Syncfusion.Pdf.Grid.PdfGridCell)">
+            <summary>
+            Copies the borders from GridStyleInfo to PdfGridCell.
+            </summary>
+            <param name="style"/><see cref="T:Syncfusion.Windows.Controls.Grid.GridStyleInfo"/>
+            <param name="pdfGridCell"/><see cref="T:Syncfusion.Pdf.Grid.PdfGridCell"/>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfConverterControl.ConvertToPdfBorder(System.Windows.Media.Pen)">
+            <summary>
+            Converts Pen to PdfPen
+            </summary>
+            <param name="border">Value of Type Pen<see cref="T:System.Windows.Media.Pen"/></param>
+            <returns>Value of Type PdfPen<see cref="T:Syncfusion.Pdf.Graphics.PdfPen"/></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfConverterControl.CopyCoveredCells(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.Pdf.Grid.PdfGridCell,System.Int32,System.Int32,Syncfusion.Windows.Controls.Grid.Converter.ExportToPdfOptions)">
+            <summary>
+            Copies the covered cells from GridModel to PdfGridCell.
+            </summary>
+            <param name="gridModel"><see cref="T:Syncfusion.Windows.Controls.Grid.GridModel"/>holds the covered cells Info</param>
+            <param name="pdfGridCell">PdfGridCell to which the column spanning is set.</param>
+            <param name="rowIndex">Row Index of the Grid Cell</param>
+            <param name="columnIndex">ColumnIndex of the Grid Cell</param>
+            <param name="exportingOptions"><see cref="T:Syncfusion.Windows.Controls.Grid.Converter.ExportToPdfOptions"/> Used to check the Exclude Columns while setting the Column Span</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfConverterControl.CopyImageCells(Syncfusion.Windows.Controls.Grid.GridStyleInfo,Syncfusion.Pdf.Grid.PdfGridCell)">
+            <summary>
+            Copies the image from GridStyleInfo to PdfGridCell
+            </summary>
+            <param name="style"><see cref="T:Syncfusion.Windows.Controls.Grid.GridStyleInfo"/>holds the ImagePath or Stream details</param>
+            <param name="pdfGridCell">PdfGridCell to which the Image is to be copied.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfConverterControl.CopyBackground(Syncfusion.Windows.Controls.Grid.GridStyleInfo,Syncfusion.Pdf.Grid.PdfGridCell)">
+            <summary>
+            Copies the Background from GridStyleInfo to PdfGridCell.
+            </summary>
+            <param name="cellStyle"><see cref="T:Syncfusion.Windows.Controls.Grid.GridStyleInfo"/> holds the Background details.</param>
+            <param name="pdfGridCell">PdfGridCell to which the background is to be copied.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfConverterControl.CopyFontStyle(Syncfusion.Pdf.Grid.PdfGridCell,Syncfusion.Windows.Controls.Grid.GridStyleInfo)">
+            <summary>
+            Copies the font style.
+            </summary>
+            <param name="pdfGridCell">The PDF grid cell to which the font is to be copied.</param>
+            <param name="cellStyle"><see cref="T:Syncfusion.Windows.Controls.Grid.GridStyleInfo"/> holds the font informations.</param>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Grid.Converter.GridPdfExportExtension">
+            <summary>
+            Class which exports the GridModel to PDF
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfExportExtension.ExportToPdfLightTableDocument(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.Windows.Controls.Grid.GridRangeInfo,System.String)">
+            <summary>
+            Exports the Grid to PdfLightTable
+            </summary>
+            <param name="grid"><see cref="T:Syncfusion.Windows.Controls.Grid.GridModel"/> </param>
+            <param name="range">Specifies the range to be exported to pdf. <see cref="T:Syncfusion.Windows.Controls.Grid.GridRangeInfo"/> </param>
+            <param name="filename">FileName, which used to save the pdfdocument after exporting.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfExportExtension.ExportToPdfLightTableDocument(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.Windows.Controls.Grid.GridRangeInfo,Syncfusion.Windows.Controls.Grid.Converter.DrawPdfHeaderFooterEventHandler,Syncfusion.Windows.Controls.Grid.Converter.DrawPdfHeaderFooterEventHandler,System.String)">
+            <summary>
+            Exports the Grid to PdfLightTable
+            </summary>
+            <param name="grid"><see cref="T:Syncfusion.Windows.Controls.Grid.GridModel"/> </param>
+            <param name="range">Specifies the range to be exported to pdf. <see cref="T:Syncfusion.Windows.Controls.Grid.GridRangeInfo"/> </param>
+            <param name="headerHandler">Delegate event handler of type DrawPdfHeaderFooterEventHandler, which fires before drawing header.</param>
+            <param name="footerHandler">Delegate event handler of type DrawPdfHeaderFooterEventHandler, which fires before drawing footer.</param>
+            <param name="filename">FileName, which used to save the pdfdocument after exporting.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfExportExtension.ExportToPdfLightTableDocument(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.Windows.Controls.Grid.GridRangeInfo)">
+            <summary>
+            Exports the Grid to PdfLightTable
+            </summary>
+            <param name="grid"><see cref="T:Syncfusion.Windows.Controls.Grid.GridModel"/> </param>
+            <param name="range">Specifies the range to be exported to pdf. <see cref="T:Syncfusion.Windows.Controls.Grid.GridRangeInfo"/> </param>
+            <returns>PdfDocument</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfExportExtension.ExportToPdfLightTableDocument(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.Windows.Controls.Grid.GridRangeInfo,Syncfusion.Windows.Controls.Grid.Converter.DrawPdfHeaderFooterEventHandler,Syncfusion.Windows.Controls.Grid.Converter.DrawPdfHeaderFooterEventHandler)">
+            <summary>
+            Exports the Grid to PdfLightTable
+            </summary>
+            <param name="grid"><see cref="T:Syncfusion.Windows.Controls.Grid.GridModel"/> </param>
+            <param name="range">Specifies the range to be exported to pdf. <see cref="T:Syncfusion.Windows.Controls.Grid.GridRangeInfo"/> </param>
+            <param name="headerHandler">Delegate event handler of type DrawPdfHeaderFooterEventHandler, which fires before drawing header.</param>
+            <param name="footerHandler">Delegate event handler of type DrawPdfHeaderFooterEventHandler, which fires before drawing footer.</param>
+            <returns>PdfDocument</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfExportExtension.ExportToPdfLightTable(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.Windows.Controls.Grid.GridRangeInfo)">
+            <summary>
+            Exports the Grid to PdfLightTable
+            </summary>
+            <param name="grid"><see cref="T:Syncfusion.Windows.Controls.Grid.GridModel"/> </param>
+            <param name="range">Specifies the range to be exported to pdf. <see cref="T:Syncfusion.Windows.Controls.Grid.GridRangeInfo"/> </param>
+            <returns>PdfLightTable</returns>   
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfExportExtension.ExportToPdfGridDocument(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.Windows.Controls.Grid.GridRangeInfo)">
+            <summary>
+            Exports the GridModel to Pdf.
+            </summary>
+            <param name="gridModel"><see cref="T:Syncfusion.Windows.Controls.Grid.GridModel"/> Grid Model</param>
+            <param name="range"><see cref="T:Syncfusion.Windows.Controls.Grid.GridRangeInfo"/> The Range to be exported to Pdf</param>
+            <returns>PdfDocument</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfExportExtension.ExportToPdfGridDocument(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.Windows.Controls.Grid.GridRangeInfo,Syncfusion.Windows.Controls.Grid.Converter.GridCellExportToPdfHandler)">
+            <summary>
+            Exports the GridModel to Pdf.
+            </summary>
+            <param name="gridModel"><see cref="T:Syncfusion.Windows.Controls.Grid.GridModel"/> Grid Model</param>
+            <param name="range"><see cref="T:Syncfusion.Windows.Controls.Grid.GridRangeInfo"/> The Range to be exported to Pdf</param>
+            <param name="pdfExportHandler">Delegate Event handler which fires for every cell before exporting.</param>
+            <returns>PdfDocument</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfExportExtension.ExportToPdfGridDocument(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.Windows.Controls.Grid.GridRangeInfo,Syncfusion.Windows.Controls.Grid.Converter.DrawPdfHeaderFooterEventHandler,Syncfusion.Windows.Controls.Grid.Converter.DrawPdfHeaderFooterEventHandler)">
+            <summary>
+            Exports the GridModel to Pdf.
+            </summary>
+            <param name="gridModel"><see cref="T:Syncfusion.Windows.Controls.Grid.GridModel"/> Grid Model</param>
+            <param name="range"><see cref="T:Syncfusion.Windows.Controls.Grid.GridRangeInfo"/> The Range to be exported to Pdf</param>
+            <param name="drawPdfHeader">Event Handler which fires before drawing the header. </param>
+            <param name="drawPdfFooter">Event Handler which fires before drawing the footer.</param>
+            <returns>PdfDocument</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfExportExtension.ExportToPdfGridDocument(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.Windows.Controls.Grid.GridRangeInfo,Syncfusion.Windows.Controls.Grid.Converter.GridCellExportToPdfHandler,Syncfusion.Windows.Controls.Grid.Converter.DrawPdfHeaderFooterEventHandler,Syncfusion.Windows.Controls.Grid.Converter.DrawPdfHeaderFooterEventHandler)">
+            <summary>
+            Exports the GridModel to Pdf.
+            </summary>
+            <param name="gridModel"><see cref="T:Syncfusion.Windows.Controls.Grid.GridModel"/> Grid Model</param>
+            <param name="range"><see cref="T:Syncfusion.Windows.Controls.Grid.GridRangeInfo"/> The Range to be exported to Pdf</param>
+            <param name="pdfExportHandler">Delegate Event handler which fires for every cell before exporting.</param>
+            <param name="drawPdfHeader">Event Handler which fires before drawing the header. </param>
+            <param name="drawPdfFooter">Event Handler which fires before drawing the footer.</param>
+            <returns>PdfDocument</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfExportExtension.ExportToPdfGridDocument(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.Windows.Controls.Grid.GridRangeInfo,System.String)">
+            <summary>
+            Exports the GridModel to Pdf.
+            </summary>
+            <param name="gridModel"><see cref="T:Syncfusion.Windows.Controls.Grid.GridModel"/> Grid Model</param>
+            <param name="range"><see cref="T:Syncfusion.Windows.Controls.Grid.GridRangeInfo"/> The Range to be exported to Pdf</param>
+            <param name="fileName"> Name of the Pdf file to be saved after exporting.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfExportExtension.ExportToPdfGridDocument(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.Windows.Controls.Grid.GridRangeInfo,Syncfusion.Windows.Controls.Grid.Converter.GridCellExportToPdfHandler,System.String)">
+            <summary>
+            Exports the GridModel to Pdf.
+            </summary>
+            <param name="gridModel"><see cref="T:Syncfusion.Windows.Controls.Grid.GridModel"/> Grid Model</param>
+            <param name="range"><see cref="T:Syncfusion.Windows.Controls.Grid.GridRangeInfo"/> The Range to be exported to Pdf</param>
+            <param name="pdfExportHandler">Delegate Event handler which fires for every cell before exporting.</param>
+            <param name="fileName"> Name of the Pdf file to be saved after exporting.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfExportExtension.ExportToPdfGridDocument(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.Windows.Controls.Grid.GridRangeInfo,Syncfusion.Windows.Controls.Grid.Converter.DrawPdfHeaderFooterEventHandler,Syncfusion.Windows.Controls.Grid.Converter.DrawPdfHeaderFooterEventHandler,System.String)">
+            <summary>
+            Exports the GridModel to Pdf.
+            </summary>
+            <param name="gridModel"><see cref="T:Syncfusion.Windows.Controls.Grid.GridModel"/> Grid Model</param>
+            <param name="range"><see cref="T:Syncfusion.Windows.Controls.Grid.GridRangeInfo"/> The Range to be exported to Pdf</param>
+            <param name="drawPdfHeader">Event Handler which fires before drawing the header. </param>
+            <param name="drawPdfFooter">Event Handler which fires before drawing the footer.</param>
+            <param name="fileName"> Name of the Pdf file to be saved after exporting.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfExportExtension.ExportToPdfGridDocument(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.Windows.Controls.Grid.GridRangeInfo,Syncfusion.Windows.Controls.Grid.Converter.GridCellExportToPdfHandler,Syncfusion.Windows.Controls.Grid.Converter.DrawPdfHeaderFooterEventHandler,Syncfusion.Windows.Controls.Grid.Converter.DrawPdfHeaderFooterEventHandler,System.String)">
+            <summary>
+            Exports the GridModel to Pdf.
+            </summary>
+            <param name="gridModel"><see cref="T:Syncfusion.Windows.Controls.Grid.GridModel"/> Grid Model</param>
+            <param name="range"><see cref="T:Syncfusion.Windows.Controls.Grid.GridRangeInfo"/> The Range to be exported to Pdf</param>
+            <param name="pdfExportHandler">Delegate Event handler which fires for every cell before exporting.</param>
+            <param name="drawPdfHeader">Event Handler which fires before drawing the header. </param>
+            <param name="drawPdfFooter">Event Handler which fires before drawing the footer.</param>
+            <param name="fileName"> Name of the Pdf file to be saved after exporting.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfExportExtension.ExportToPdfGrid(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.Windows.Controls.Grid.GridRangeInfo)">
+            <summary>
+            Exports the GridModel to Pdf.
+            </summary>
+            <param name="gridModel"><see cref="T:Syncfusion.Windows.Controls.Grid.GridModel"/> Grid Model</param>
+            <param name="range"><see cref="T:Syncfusion.Windows.Controls.Grid.GridRangeInfo"/> The Range to be exported to Pdf</param>
+            <returns>PdfGrid</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfExportExtension.ExportToPdfGrid(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.Windows.Controls.Grid.GridRangeInfo,Syncfusion.Windows.Controls.Grid.Converter.GridCellExportToPdfHandler)">
+            <summary>
+            Exports the GridModel to Pdf.
+            </summary>
+            <param name="gridModel"><see cref="T:Syncfusion.Windows.Controls.Grid.GridModel"/> Grid Model</param>
+            <param name="range"><see cref="T:Syncfusion.Windows.Controls.Grid.GridRangeInfo"/> The Range to be exported to Pdf</param>
+            <param name="pdfExportHandler">Delegate Event handler which fires for every cell before exporting.</param>
+            <returns>PdfGrid</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfExportExtension.ExportToPdf(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.Windows.Controls.Grid.GridRangeInfo,Syncfusion.Windows.Controls.Grid.Converter.ExportToPdfOptions)">
+            <summary>
+            Exports the GridModel to Pdf.
+            </summary>
+            <param name="gridModel"><see cref="T:Syncfusion.Windows.Controls.Grid.GridModel"/> Grid Model</param>
+            <param name="range"><see cref="T:Syncfusion.Windows.Controls.Grid.GridRangeInfo"/> The Range to be exported to Pdf</param>        
+            <param name="exportingOptions"><see cref="T:Syncfusion.Windows.Controls.Grid.Converter.ExportToPdfOptions"/> holds the Pdf Exporting Options</param>
+            <returns>PdfGrid</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfExportExtension.ExportToPdfDocument(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.Windows.Controls.Grid.GridRangeInfo,Syncfusion.Windows.Controls.Grid.Converter.ExportToPdfOptions)">
+            <summary>
+            Exports the GridModel to Pdf.
+            </summary>
+            <param name="gridModel"><see cref="T:Syncfusion.Windows.Controls.Grid.GridModel"/> Grid Model</param>
+            <param name="range"><see cref="T:Syncfusion.Windows.Controls.Grid.GridRangeInfo"/> The Range to be exported to Pdf</param>        
+            <param name="exportingOptions"><see cref="T:Syncfusion.Windows.Controls.Grid.Converter.ExportToPdfOptions"/> holds the Pdf Exporting Options</param>
+            <returns>PdfGridDocument</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfExportExtension.CreatePdfGrid(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.Windows.Controls.Grid.Converter.ExportToPdfOptions)">
+            <summary>
+            Creates the PdfGrid and Export the data from Grid To PdfGrid
+            </summary>
+            <param name="gridModel"><see cref="T:Syncfusion.Windows.Controls.Grid.GridModel"/> Grid Model</param>
+            <param name="exportingOptions"><see cref="T:Syncfusion.Windows.Controls.Grid.Converter.ExportToPdfOptions"/> holds the Pdf Exporting Options</param>
+            <returns>PdfGrid</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfExportExtension.ExportEmptyRows(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.Pdf.Grid.PdfGrid,Syncfusion.Windows.Controls.Grid.Converter.ExportToPdfOptions)">
+            <summary>
+            Exports the AddNewRow and FilterBarRow to PdfGrid.
+            </summary>
+            <param name="gridModel"><see cref="T:Syncfusion.Windows.Controls.Grid.GridModel"/> Grid Model</param>
+            <param name="pdfGrid">PdfGrid</param>
+            <param name="exportingOptions"><see cref="T:Syncfusion.Windows.Controls.Grid.Converter.ExportToPdfOptions"/> holds the Pdf Exporting Options</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfExportExtension.CreateChildPdfGrid(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.Windows.Controls.Grid.Converter.ExportToPdfOptions)">
+            <summary>
+            Exports the Nested Grid to PdfGrid.
+            </summary>
+            <param name="gridModel"><see cref="T:Syncfusion.Windows.Controls.Grid.GridModel"/> Grid Model</param>
+            <param name="exportingOptions"><see cref="T:Syncfusion.Windows.Controls.Grid.Converter.ExportToPdfOptions"/> holds the Pdf Exporting Options</param>
+            <returns>PdfGrid</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfExportExtension.CreateHeaderRows(Syncfusion.Pdf.Grid.PdfGrid,Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.Windows.Controls.Grid.Converter.ExportToPdfOptions)">
+            <summary>
+            Exports the Header rows from Grid to PdfGrid.
+            </summary>
+            <param name="pdfGrid"> PdfGrid</param>
+            <param name="gridModel"><see cref="T:Syncfusion.Windows.Controls.Grid.GridModel"/> Grid Model</param>
+            <param name="exportingOptions"><see cref="T:Syncfusion.Windows.Controls.Grid.Converter.ExportToPdfOptions"/> holds the Pdf Exporting Options</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfExportExtension.OnDrawHeader(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.Pdf.PdfDocument@,Syncfusion.Pdf.PdfPage,Syncfusion.Windows.Controls.Grid.Converter.DrawPdfHeaderFooterEventHandler)">
+            <summary>
+            Method used to draw the header for PdfGrid
+            </summary>        
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridPdfExportExtension.OnDrawFooter(Syncfusion.Windows.Controls.Grid.GridModel,Syncfusion.Pdf.PdfDocument@,Syncfusion.Pdf.PdfPage,Syncfusion.Windows.Controls.Grid.Converter.DrawPdfHeaderFooterEventHandler)">
+            <summary>
+            Method used to draw the header for PdfGrid
+            </summary>        
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Grid.Converter.ExportingToPdfEventArgs">
+            <summary>
+            Event Data Class of <see cref="T:Syncfusion.Windows.Controls.Grid.Converter.GridCellExportToPdfHandler"/>
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Grid.Converter.ExportingToPdfEventArgs.Handled">
+            <summary>
+            Bool variable used to determine whether the user handled the exporting or not.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Grid.Converter.ExportingToPdfEventArgs.GridStyle">
+            <summary>
+            GridStyleInfo holds the style info of the exporting Grid Cell.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Grid.Converter.ExportingToPdfEventArgs.PdfGridCell">
+            <summary>
+            Currently Exporting PdfGridCell
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Grid.Converter.ExportToPdfOptions">
+            <summary>
+            Event Data Class of <see cref="T:Syncfusion.Windows.Controls.Grid.Converter.GridCellExportToPdfHandler"/>
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Grid.Converter.ExportToPdfOptions.RepeatHeaders">
+            <summary>
+            Determines whether the headers shoule be exported to all pdf pages or not.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Grid.Converter.ExportToPdfOptions.IncludeHeaders">
+            <summary>
+            Determines whether the headers should be exported or not.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Grid.Converter.ExportToPdfOptions.PdfExportHandler">
+            <summary>
+            Gets or Sets the delegate handler of type GridCellExportToPdfHandler.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Grid.Converter.ExportToPdfOptions.AutoColumnWidth">
+            <summary>
+            Determines whether the column widths should copied from Grid or Automatically set by the PdfGrid based on the cell Value.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Grid.Converter.ExportToPdfOptions.ExportStyles">
+            <summary>
+            Determines whether the styles should be exported or not.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Grid.Converter.ExportToPdfOptions.ExportNestedGrid">
+            <summary>
+            Determines whether the NestedGrid should be exported or Not.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Grid.Converter.ExportToPdfOptions.ExportAddNewRow">
+            <summary>
+            Determines whether the method should export AddNewRow or Not, Applicable for GridDataControl Only.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Grid.Converter.ExportToPdfOptions.ExportFilterBar">
+            <summary>
+            Determines whether the method should export FiletrBar or Not, Applicable for GridDataControl Only.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Grid.Converter.GridTreeControlExportExtensions">
+            <summary>
+            Extensions class for GridDataControl
+            </summary>   
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridTreeControlExportExtensions.ExportToExcel(Syncfusion.Windows.Controls.Grid.GridTreeControl,System.String,Syncfusion.XlsIO.ExcelVersion,Syncfusion.Windows.Controls.Grid.Converter.GridCellExportToExcelHandler)">
+             <summary>
+            
+             Extension method for GridDataControl used for export the  GridDataControl cell data to excel sheet
+             </summary>
+             <param name="gridDataControl">GridDataControl Object</param>
+             <param name="fileName">Name of the file for Save the information</param>
+             <param name="excelVersion">Version of the Excel Sheet</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridTreeControlExportExtensions.ExportToExcel(Syncfusion.Windows.Controls.Grid.GridTreeControl,Syncfusion.Windows.Controls.Grid.GridRangeInfo,Syncfusion.XlsIO.IWorksheet,Syncfusion.XlsIO.IRange,Syncfusion.Windows.Controls.Grid.Converter.GridCellExportToExcelHandler)">
+            <summary>
+            Extension method for GridDataControl used for export the  GridDataControl cell data to excel sheet
+            </summary>
+            <param name="gridData">GridTreeControl Object</param>
+            <param name="gridRange">Range of the grid cell data</param>
+            <param name="mySheet">WorkSheet Object</param>
+            <param name="excelRange">Range of the excel sheet</param>
+            <param name="fileName">Name of the file for Save the information</param>
+            <param name="excelVersion">Version of the Excel Sheet</param>
+        </member>
+    </members>
+</doc>

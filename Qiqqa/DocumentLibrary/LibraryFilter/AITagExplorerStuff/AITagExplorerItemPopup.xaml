@@ -1,0 +1,11 @@
+﻿<UserControl x:Class="Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff.AITagExplorerItemPopup"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+>
+  <StackPanel>
+    <MenuItem Header="Explore in Brainstorm" Name="MenuExploreTag"/>
+    <MenuItem Header="Add to Whitelist" Name="MenuAddWhitelist"/>
+    <MenuItem Header="Add to Blacklist" Name="MenuAddBlacklist"/>
+    <MenuItem Header="Promote to Tag" Name="MenuPromoteToTag"/>
+  </StackPanel>
+</UserControl>

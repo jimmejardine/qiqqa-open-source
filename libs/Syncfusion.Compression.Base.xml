@@ -1,0 +1,2177 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Syncfusion.Compression.Base</name>
+    </assembly>
+    <members>
+        <member name="T:Syncfusion.Compression.ChecksumCalculator">
+            <summary>
+            Checksum calculator, based on Adler32 algorithm.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.ChecksumCalculator.DEF_CHECKSUM_BIT_OFFSET">
+            <summary>
+            Bits offset, used in adler checksum calculation.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.ChecksumCalculator.DEF_CHECKSUM_BASE">
+            <summary>
+            Lagrest prime, less than 65535
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.ChecksumCalculator.DEF_CHECKSUM_ITERATIONSCOUNT">
+            <summary>
+            Count of iteration used in calculated of the adler checksumm.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.ChecksumCalculator.ChecksumUpdate(System.Int64@,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Updates checksum by calculating checksum of the 
+            given buffer and adding it to current value.
+            </summary>
+            <param name="checksum">Current checksum.</param>
+            <param name="buffer">Data byte array.</param>
+            <param name="offset">Offset in the buffer.</param>
+            <param name="length">Length of data to be used from the stream.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.ChecksumCalculator.ChecksumGenerate(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Generates checksum by calculating checksum of the 
+            given buffer.
+            </summary>
+            <param name="buffer">Data byte array.</param>
+            <param name="offset">Offset in the buffer.</param>
+            <param name="length">Length of data to be used from the stream.</param>
+        </member>
+        <member name="T:Syncfusion.Compression.CompressedStreamReader">
+            <summary>
+            Reader, that reads stream with compressed data
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.DEF_HEADER_METHOD_MASK">
+            <summary>
+            Mask for compression method to be decoded from 16-bit header.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.DEF_HEADER_INFO_MASK">
+            <summary>
+            Mask for compression info to be decoded from 16-bit header.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.DEF_HEADER_FLAGS_FCHECK">
+            <summary>
+            Mask for check bits to be decoded from 16-bit header.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.DEF_HEADER_FLAGS_FDICT">
+            <summary>
+            Mask for dictionary presence to be decoded from 16-bit header.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.DEF_HEADER_FLAGS_FLEVEL">
+            <summary>
+            Mask for compression level to be decoded from 16-bit header.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.DEF_MAX_WINDOW_SIZE">
+            <summary>
+            Maximum size of the data window.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.DEF_HUFFMAN_REPEATE_MAX">
+            <summary>
+            Maximum length of the repeatable block.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.DEF_HUFFMAN_END_BLOCK">
+            <summary>
+            End of the block sign.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.DEF_HUFFMAN_LENGTH_MINIMUM_CODE">
+            <summary>
+            Minimal length code.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.DEF_HUFFMAN_LENGTH_MAXIMUM_CODE">
+            <summary>
+            Maximal length code.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.DEF_HUFFMAN_DISTANCE_MAXIMUM_CODE">
+            <summary>
+            Maximal distance code.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.DEF_HUFFMAN_DYNTREE_REPEAT_MINIMUMS">
+            <summary>
+            Minimum count of repetions.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.DEF_HUFFMAN_DYNTREE_REPEAT_BITS">
+            <summary>
+            Bits, that responds for different repetion modes.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.DEF_HUFFMAN_REPEAT_LENGTH_BASE">
+            <summary>
+            Length bases.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.DEF_HUFFMAN_REPEAT_LENGTH_EXTENSION">
+            <summary>
+            Length extended bits count.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.DEF_HUFFMAN_REPEAT_DISTANCE_BASE">
+            <summary>
+            Distance bases.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.DEF_HUFFMAN_REPEAT_DISTANCE_EXTENSION">
+            <summary>
+            Distance extanded bits count.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.m_InputStream">
+            <summary>
+            Input stream.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.m_CheckSum">
+            <summary>
+            Currently calculated checksum, 
+            based on Adler32 algorithm.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.m_Buffer">
+            <summary>
+            Currently read 4 bytes.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.m_BufferedBits">
+            <summary>
+            Count of bits that are in buffer.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.m_temp_buffer">
+            <summary>
+            Temporary buffer.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.m_Block_Buffer">
+            <summary>
+            32k buffer for unpacked data.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.m_bNoWrap">
+            <summary>
+            No wrap mode.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.m_WindowSize">
+            <summary>
+            Window size, can not be larger than 32k.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.m_CurrentPosition">
+            <summary>
+            Current position in output stream.
+            Current in-block position can be extracted by applying Int16.MaxValue mask.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.m_DataLength">
+            <summary>
+            Data length.
+            Current in-block position can be extracted by applying Int16.MaxValue mask.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.m_bReadingUncompressed">
+            <summary>
+            Sign of uncompressed data reading.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.m_UncompressedDataLength">
+            <summary>
+            Size of the block with uncompressed data.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.m_bCanReadNextBlock">
+            <summary>
+            Specifies wheather next block can to be read.
+            Reading can be denied because the header of the last block have been read.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.m_bCanReadMoreData">
+            <summary>
+            Specifies wheather user can read more data from stream.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.m_CurrentLengthTree">
+            <summary>
+            Current lengths huffman tree.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.m_CurrentDistanceTree">
+            <summary>
+            Current distances huffman tree.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamReader.m_bCheckSumRead">
+            <summary>
+            Specifies wheather checksum has been read.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamReader.#ctor(System.IO.Stream)">
+            <summary>
+            TODO: place correct comment here
+            </summary>
+            <param name="stream"/>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamReader.#ctor(System.IO.Stream,System.Boolean)">
+            <summary>
+            Creates new reader for streams with compressed data.
+            </summary>
+            <param name="stream"></param>
+            <param name="bNoWrap"></param>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamReader.ChecksumReset">
+            <summary>
+            Resets current checksum to 1.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamReader.ChecksumUpdate(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Updates checksum by calculating checksum of the 
+            given buffer and adding it to current value.
+            </summary>
+            <param name="buffer">Data byte array.</param>
+            <param name="offset">Offset in the buffer.</param>
+            <param name="length">Length of data to be used from the stream.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamReader.SkipToBoundary">
+            <summary>
+            Discards left-most partially used byte.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamReader.ReadPackedBytes(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Reads array of bytes.
+            </summary>
+            <param name="buffer">Output buffer.</param>
+            <param name="offset">Offset in output buffer.</param>
+            <param name="length">Length of the data to be read.</param>
+            <returns>Count of bytes actually read to the buffer.</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamReader.FillBuffer">
+            <summary>
+            Fill`s empty parts of the buffer.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamReader.PeekBits(System.Int32)">
+            <summary>
+            Reads specified count of bits without adjusting position.
+            </summary>
+            <param name="count">Count of bits to be read.</param>
+            <returns>Read value.</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamReader.SkipBits(System.Int32)">
+            <summary>
+            Skips specified count of bits.
+            </summary>
+            <param name="count">Count of bits to be skipped.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamReader.ReadBits(System.Int32)">
+            <summary>
+            Reads specified count of bits from stream.
+            </summary>
+            <param name="count">Count of bits to be read.</param>
+            <returns>
+            TODO: place correct comment here
+            </returns>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamReader.ReadInt16">
+            <summary>
+            TODO: place correct comment here
+            </summary>
+            <returns>
+            TODO: place correct comment here
+            </returns>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamReader.ReadInt16Inverted">
+            <summary>
+            TODO: place correct comment here
+            </summary>
+            <returns>
+            TODO: place correct comment here
+            </returns>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamReader.ReadInt32">
+            <summary>
+            TODO: place correct comment here
+            </summary>
+            <returns>
+            TODO: place correct comment here
+            </returns>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamReader.ReadZLibHeader">
+            <summary>
+            Reads ZLib header with compression method and flags.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamReader.BitsToString(System.Int32,System.Int32)">
+            <summary>
+            TODO: place correct comment here
+            </summary>
+            <returns>
+            TODO: place correct comment here
+            </returns>
+            <param name="bits"/>
+            <param name="count"/>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamReader.DecodeDynHeader(Syncfusion.Compression.DecompressorHuffmanTree@,Syncfusion.Compression.DecompressorHuffmanTree@)">
+            <summary>
+            Reades dynamic huffman codes from block header.
+            </summary>
+            <param name="lengthTree">Literals/Lengths tree.</param>
+            <param name="distanceTree">Distances tree.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamReader.DecodeBlockHeader">
+            <summary>
+            Reads and decodes block of data.
+            </summary>
+            <returns>True if buffer was empty and new data was read, otherwise - False.</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamReader.ReadHuffman">
+            <summary>
+            Decodes huffman codes.
+            </summary>
+            <returns>True if some data was read.</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamReader.Read(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Reads data to buffer.
+            </summary>
+            <param name="buffer">Output buffer for data.</param>
+            <param name="offset">Offset in output data.</param>
+            <param name="length">Length of the data to be read.</param>
+            <returns>Count of bytes actually read.</returns>
+        </member>
+        <member name="P:Syncfusion.Compression.CompressedStreamReader.AvailableBits">
+            <summary>
+            GET count of bits available
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Compression.CompressedStreamReader.AvailableBytes">
+            <summary>
+            Get count of full bytes available.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Compression.CompressionLevel">
+            <summary>
+            Compression level.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressionLevel.NoCompression">
+            <summary>
+            Pack without compression
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressionLevel.BestSpeed">
+            <summary>
+            Use high speed compression, reduce of data size is low
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressionLevel.BelowNormal">
+            <summary>
+            Something middle between normal and BestSpeed compressions
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressionLevel.Normal">
+            <summary>
+            Use normal compression, middle between speed and size
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressionLevel.AboveNormal">
+            <summary>
+            Pack better but require a little more time
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressionLevel.Best">
+            <summary>
+            Use best compression, slow enough
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Compression.CompressedStreamWriter">
+            <summary>
+            Represents the compressed stream writer
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.DEF_ZLIB_HEADER_TEMPLATE">
+            <summary>
+            Start template of the zlib header.
+            </summary>                               
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.DEFAULT_MEM_LEVEL">
+            <summary>
+            Memory usage level.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.DEF_PENDING_BUFFER_SIZE">
+            <summary>
+            Size of the pending buffer.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.DEF_HUFFMAN_BUFFER_SIZE">
+            <summary>
+            Size of the buffer for the huffman encoding.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.DEF_HUFFMAN_LITERAL_ALPHABET_LENGTH">
+            <summary>
+            Length of the literal alphabet(literal+lengths).
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.DEF_HUFFMAN_DISTANCES_ALPHABET_LENGTH">
+            <summary>
+            Distances alphabet length.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.DEF_HUFFMAN_BITLEN_TREE_LENGTH">
+            <summary>
+            Length of the code-lengths tree.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.DEF_HUFFMAN_ENDBLOCK_SYMBOL">
+            <summary>
+            Code of the symbol, than means the end of the block.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.WSIZE">
+            <summary>
+            Maximum window size.
+            </summary>		
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.WMASK">
+            <summary>
+            Internal compression engine constant
+            </summary>		
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.HASH_BITS">
+            <summary>
+            Internal compression engine constant
+            </summary>		
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.HASH_SIZE">
+            <summary>
+            Internal compression engine constant
+            </summary>		
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.HASH_MASK">
+            <summary>
+            Internal compression engine constant
+            </summary>		
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.MAX_MATCH">
+            <summary>
+            Internal compression engine constant
+            </summary>		
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.MIN_MATCH">
+            <summary>
+            Internal compression engine constant
+            </summary>		
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.HASH_SHIFT">
+            <summary>
+            Internal compression engine constant
+            </summary>		
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.MIN_LOOKAHEAD">
+            <summary>
+            Internal compression engine constant
+            </summary>		
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.MAX_DIST">
+            <summary>
+            Internal compression engine constant
+            </summary>		
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.GOOD_LENGTH">
+            <summary>
+            Internal compression engine constant
+            </summary>		
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.MAX_LAZY">
+            <summary>
+            Internal compression engine constant
+            </summary>		
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.NICE_LENGTH">
+            <summary>
+            Internal compression engine constant
+            </summary>		
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.MAX_CHAIN">
+            <summary>
+            Internal compression engine constant
+            </summary>		
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.COMPR_FUNC">
+            <summary>
+            Internal compression engine constant
+            </summary>		
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.MAX_BLOCK_SIZE">
+            <summary>
+            Internal compression engine constant
+            </summary>		
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_stream">
+            <summary>
+            Output stream.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_PendingBuffer">
+            <summary>
+            Pending buffer for writing.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_PendingBufferLength">
+            <summary>
+            Length of the unflushed data.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_PendingBufferBitsCache">
+            <summary>
+            Bits cache for pending buffer.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_PendingBufferBitsInCache">
+            <summary>
+            Count of bits in pending buffer cache.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_bNoWrap">
+            <summary>
+            If true, no zlib header will be written to the stream.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_CheckSum">
+            <summary>
+            Current checksum.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_Level">
+            <summary>
+            Current compression level.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_treeLiteral">
+            <summary>
+            Current tree for literals.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_treeDistances">
+            <summary>
+            Current tree for distances.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_treeCodeLengths">
+            <summary>
+            Current tree for code lengths.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_iBufferPosition">
+            <summary>
+            Current position in literals and distances buffer.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_arrLiteralsBuffer">
+            <summary>
+            Recorded literals buffer.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_arrDistancesBuffer">
+            <summary>
+            Recorded distances buffer.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_iExtraBits">
+            <summary>
+            Count of the extra bits.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_arrLiteralCodes">
+            <summary>
+            Static array of the literal codes.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_arrLiteralLengths">
+            <summary>
+            Static array of the lengths of the literal codes.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_arrDistanceCodes">
+            <summary>
+            Static array of the distance codes.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_arrDistanceLengths">
+            <summary>
+            Static array of the lengths of the distance codes.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_bStreamClosed">
+            <summary>
+            If true, no futher writings can be performed.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_CurrentHash">
+            <summary>
+            Current hash.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_HashHead">
+            <summary>
+            Hash m_HashHead.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_HashPrevious">
+            <summary>
+            Previous hashes.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_MatchStart">
+            <summary>
+            Start of the matched part.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_MatchLength">
+            <summary>
+            Length of the matched part.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_MatchPreviousAvailable">
+            <summary>
+            Previous match available.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_BlockStart">
+            <summary>
+            Start of the data window.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_StringStart">
+            <summary>
+            String start in data window.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_LookAhead">
+            <summary>
+            Lookahead.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_DataWindow">
+            <summary>
+            Data window.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_MaximumChainLength">
+            <summary>
+            Maximum chain length.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_MaximumLazySearch">
+            <summary>
+            Maximum distance of the search with "lazy" algotithm.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_NiceLength">
+            <summary>
+            Nice length of the block.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_GoodLength">
+            <summary>
+            Good length of the block.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_CompressionFunction">
+            <summary>
+            Current compression function.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_InputBuffer">
+            <summary>
+            Current block of the data to be compressed.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_TotalBytesIn">
+            <summary>
+            Total count of bytes, that were compressed.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_InputOffset">
+            <summary>
+            Offset in the input buffer, where input starts.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_InputEnd">
+            <summary>
+            Offset in the input buffer, where input ends.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.m_bCloseStream">
+            <summary>
+            If true, stream will be closed after the last block.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.#cctor">
+            <summary>
+            Initializes statical data for huffman compression.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.#ctor(System.IO.Stream,System.Boolean,Syncfusion.Compression.CompressionLevel,System.Boolean)">
+            <summary>
+            Initializes compressor and writes ZLib header if needed.
+            </summary>
+            <param name="outputStream">Output stream.</param>
+            <param name="bNoWrap">If true, ZLib header and checksum will not be written.</param>
+            <param name="level">Compression level.</param>
+            <param name="bCloseStream">If true, output stream will be closed after the last block has been written.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.#ctor(System.IO.Stream,System.Boolean,System.Boolean)">
+            <summary>
+            Initializes compressor and writes ZLib header if needed.
+            Compression level is set to normal.
+            </summary>
+            <param name="outputStream">Output stream.</param>
+            <param name="bNoWrap">If true, ZLib header and checksum will not be written.</param>
+            <param name="bCloseStream">If true, output stream will be closed after the last block has been written.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.#ctor(System.IO.Stream,Syncfusion.Compression.CompressionLevel,System.Boolean)">
+            <summary>
+            Initializes compressor and writes ZLib header.
+            </summary>
+            <param name="outputStream">Output stream.</param>
+            <param name="level">Compression level.</param>
+            <param name="bCloseStream">If true, output stream will be closed after the last block has been written.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.#ctor(System.IO.Stream,System.Boolean)">
+            <summary>
+            Initializes compressor and writes ZLib header.
+            </summary>
+            <param name="outputStream">Output stream.</param>
+            <param name="bCloseStream">If true, output stream will be closed after the last block has been written.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.Write(System.Byte[],System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Compresses data and writes it to the stream.
+            </summary>
+            <param name="data">Data to compress</param>
+            <param name="offset">offset in data array</param>
+            <param name="length">length of data to compress</param>
+            <param name="bCloseAfterWrite">True - write last compress block in stream, 
+            otherwise False</param>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.WriteZLIBHeader">
+            <summary>
+            Writes ZLib header to stream.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.FillWindow">
+            <summary>
+            Fill the window
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.SlideWindow">
+            <summary>
+            Slides current window, and data, associated with it.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.UpdateHash">
+            <summary>
+            Updates hash.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.InsertString">
+            <summary>
+            Inserts string to the hash.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.FindLongestMatch(System.Int32)">
+            <summary>
+            Searches for the longest match.
+            </summary>
+            <param name="curMatch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.SaveStored(System.Boolean,System.Boolean)">
+            <summary>
+            Store data without compression.
+            </summary>
+            <param name="flush"></param>
+            <param name="finish"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.CompressFast(System.Boolean,System.Boolean)">
+            <summary>
+            Compress with a maximum speed.
+            </summary>
+            <param name="flush"></param>
+            <param name="finish"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.CompressSlow(System.Boolean,System.Boolean)">
+            <summary>
+            Compress, using maximum compression level.
+            </summary>
+            <param name="flush"></param>
+            <param name="finish"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.CompressData(System.Boolean)">
+            <summary>
+            CompressData drives actual compression of data
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.HuffmanReset">
+            <summary>
+            Reset internal state
+            </summary>		
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.HuffmanLengthCode(System.Int32)">
+            <summary>
+            Calculates length code from length.
+            </summary>
+            <param name="len">Length.</param>
+            <returns>Length code.</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.HuffmanDistanceCode(System.Int32)">
+            <summary>
+            Calculates distance code from distance.
+            </summary>
+            <param name="distance">Distance.</param>
+            <returns>Distance code.</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.HuffmanSendAllTrees(System.Int32)">
+            <summary>
+            Write all trees to pending buffer
+            </summary>		
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.HuffmanCompressBlock">
+            <summary>
+            Compress current buffer writing data to pending buffer
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.HuffmanFlushStoredBlock(System.Byte[],System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Flush block to output with no compression
+            </summary>
+            <param name="stored">Data to write</param>
+            <param name="storedOffset">Index of first byte to write</param>
+            <param name="storedLength">Count of bytes to write</param>
+            <param name="lastBlock">True if this is the last block</param>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.HuffmanFlushBlock(System.Byte[],System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Flush block to output with compression
+            </summary>		
+            <param name="stored">Data to flush</param>
+            <param name="storedOffset">Index of first byte to flush</param>
+            <param name="storedLength">Count of bytes to flush</param>
+            <param name="lastBlock">True if this is the last block</param>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.HuffmanTallyLit(System.Int32)">
+            <summary>
+            Add literal to buffer.
+            </summary>
+            <param name="literal"></param>
+            <returns>Value indicating internal buffer is full</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.HuffmanTallyDist(System.Int32,System.Int32)">
+            <summary>
+            Add distance code and length to literal and distance trees
+            </summary>
+            <param name="dist">Distance code</param>
+            <param name="len">Length</param>
+            <returns>Value indicating if internal buffer is full</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.PendingBufferWriteByte(System.Int32)">
+            <summary>
+            write a byte to buffer
+            </summary>
+            <param name="b">
+            value to write
+            </param>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.PendingBufferWriteShort(System.Int32)">
+            <summary>
+            Write a short value to buffer LSB first
+            </summary>
+            <param name="s">
+            value to write
+            </param>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.PendingBufferWriteInt(System.Int32)">
+            <summary>
+            write an integer LSB first
+            </summary>
+            <param name="s">value to write</param>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.PendingBufferWriteByteBlock(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Write a block of data to buffer
+            </summary>
+            <param name="data">data to write</param>
+            <param name="offset">offset of first byte to write</param>
+            <param name="length">number of bytes to write</param>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.PendingBufferAlignToByte">
+            <summary>
+            Align internal buffer on a byte boundary
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.PendingBufferWriteBits(System.Int32,System.Int32)">
+            <summary>
+            Write bits to internal buffer
+            </summary>
+            <param name="b">source of bits</param>
+            <param name="count">number of bits to write</param>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.PendingBufferWriteShortMSB(System.Int32)">
+            <summary>
+            Write a short value to internal buffer most significant byte first
+            </summary>
+            <param name="s">value to write</param>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.PendingBufferFlush">
+            <summary>
+            Flushes the pending buffer into the given output array.  If the
+            output array is to small, only a partial flush is done.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.PendingBufferFlushBits">
+            <summary>
+            Flushes fully recorded bytes to buffer array.
+            </summary>
+            <returns>Count of bytes, added to buffer.</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressedStreamWriter.PendingBufferToByteArray">
+            <summary>
+            Convert internal buffer to byte array.
+            Buffer is empty on completion
+            </summary>
+            <returns>
+            converted buffer contents contents
+            </returns>
+        </member>
+        <member name="P:Syncfusion.Compression.CompressedStreamWriter.TotalIn">
+            <summary>
+            Total data processed.
+            </summary>		
+        </member>
+        <member name="P:Syncfusion.Compression.CompressedStreamWriter.NeedsInput">
+            <summary>
+            Return true if input is needed
+            </summary>		
+        </member>
+        <member name="P:Syncfusion.Compression.CompressedStreamWriter.HuffmanIsFull">
+            <summary>
+            Checks, wheather huffman compression buffer is full.
+            </summary>
+            <returns>True if buffer is full.</returns>
+        </member>
+        <member name="P:Syncfusion.Compression.CompressedStreamWriter.PendingBufferBitCount">
+            <summary>
+            The number of bits written to the buffer
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Compression.CompressedStreamWriter.PendingBufferIsFlushed">
+            <summary>
+            Indicates if buffer has been flushed
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Compression.CompressedStreamWriter.BlockType">
+            <summary>
+            Type of the block.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.BlockType.Stored">
+            <summary>
+            Data simply stored as is
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.BlockType.FixedHuffmanCodes">
+            <summary>
+            An option to use Fixed Huffman tree codes
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressedStreamWriter.BlockType.DynamicHuffmanCodes">
+            <summary>
+            An option to use Dynamically built Huffman codes
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Compression.CompressorHuffmanTree">
+            <summary>
+            Represents the Huffman Tree.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressorHuffmanTree.m_CodeFrequences">
+            <summary>
+            Frequences of the codes.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressorHuffmanTree.m_Codes">
+            <summary>
+            Codes itself.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressorHuffmanTree.m_CodeLengths">
+            <summary>
+            Bit counts, needed to encode different codes.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressorHuffmanTree.m_LengthCounts">
+            <summary>
+            Count of codes with some lengths.
+            Index - length, value - count.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressorHuffmanTree.m_CodeMinimumCount">
+            <summary>
+            TODO: place correct comment here
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressorHuffmanTree.m_CodeCount">
+            <summary>
+            TODO: place correct comment here
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressorHuffmanTree.m_MaximumLength">
+            <summary>
+            TODO: place correct comment here
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.CompressorHuffmanTree.m_Writer">
+            <summary>
+            Data compressor.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressorHuffmanTree.#ctor(Syncfusion.Compression.CompressedStreamWriter,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Create a new Huffman tree
+            </summary>
+            <param name="writer"/>
+            <param name="iElementsCount"/>
+            <param name="iMinimumCodes"/>
+            <param name="iMaximumLength"/>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressorHuffmanTree.Reset">
+            <summary>
+            Resets all code data in tree.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressorHuffmanTree.WriteCodeToStream(System.Int32)">
+            <summary>
+            Writes code to the compressor output stream.
+            </summary>
+            <param name="code">Code to be written.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressorHuffmanTree.CheckEmpty">
+            <summary>
+            Checks wheather tree is empty.
+            If tree is not empty, then exception will be raised.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressorHuffmanTree.SetStaticCodes(System.Int16[],System.Byte[])">
+            <summary>
+            Specifies new arrays of codes and their lengths.
+            </summary>
+            <param name="codes">Array of codes.</param>
+            <param name="lengths">Array of code lengths.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressorHuffmanTree.BuildCodes">
+            <summary>
+            Calculates codes from their frequences.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressorHuffmanTree.BuildLength(System.Int32[])">
+            <summary>
+            Build tree with lengths.
+            </summary>
+            <param name="childs"></param>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressorHuffmanTree.BuildTree">
+            <summary>
+            Builds tree.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressorHuffmanTree.GetEncodedLength">
+            <summary>
+            Calculates length of the compressed data.
+            </summary>
+            <returns>Count of bits, the data will occupy.</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressorHuffmanTree.CalcBLFreq(Syncfusion.Compression.CompressorHuffmanTree)">
+            <summary>
+            Calculates code frequences.
+            </summary>
+            <param name="blTree">Tree.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.CompressorHuffmanTree.WriteTree(Syncfusion.Compression.CompressorHuffmanTree)">
+            <summary>
+            Writes tree to output stream.
+            </summary>
+            <param name="blTree">Tree to be written.</param>
+        </member>
+        <member name="P:Syncfusion.Compression.CompressorHuffmanTree.TreeLength">
+            <summary>
+            Length of the tree.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Compression.CompressorHuffmanTree.CodeLengths">
+            <summary>
+            Lengths of codes in tree.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Compression.CompressorHuffmanTree.CodeFrequences">
+            <summary>
+            Code frequences.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Compression.DecompressorHuffmanTree">
+            <summary>
+            Huffman tree, used for decompression.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.DecompressorHuffmanTree.MAX_BITLEN">
+            <summary>
+            Maximum count of bits.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.DecompressorHuffmanTree.m_Tree">
+            <summary>
+            Build huffman tree.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.DecompressorHuffmanTree.m_LengthTree">
+            <summary>
+            Huffman tree for encoding and decoding lengths.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.DecompressorHuffmanTree.m_DistanceTree">
+            <summary>
+            huffman tree for encoding and decoding distances.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.DecompressorHuffmanTree.#cctor">
+            <summary>
+            Generates fixed huffman trees.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.DecompressorHuffmanTree.#ctor(System.Byte[])">
+            <summary>
+            Creates huffman tree.
+            </summary>
+            <param name="codeLengths"></param>
+        </member>
+        <member name="M:Syncfusion.Compression.DecompressorHuffmanTree.PrepareData(System.Int32[],System.Int32[],System.Byte[],System.Int32@)">
+            <summary>
+            Prepares data for generating huffman tree.
+            </summary>
+            <param name="blCount">Array of counts of each code length.</param>
+            <param name="nextCode">Numerical values of the smallest code for each code length.</param>
+            <param name="lengths">Array of code lengths.</param>
+            <param name="treeSize">Calculated tree size.</param>
+            <returns>Code.</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.DecompressorHuffmanTree.TreeFromData(System.Int32[],System.Int32[],System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Generates huffman tree.
+            </summary>
+            <param name="blCount">Array of counts of each code length.</param>
+            <param name="nextCode">Numerical values of the smallest code for each code length.</param>
+            <param name="code">Precalculated code.</param>
+            <param name="lengths">Array of code lengths.</param>
+            <param name="treeSize">Calculated size of the tree.</param>
+            <returns>Generated tree.</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.DecompressorHuffmanTree.BuildTree(System.Byte[])">
+            <summary>
+            Builds huffman tree from array of code lengths.
+            </summary>
+            <param name="lengths">Array of code lengths.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.DecompressorHuffmanTree.UnpackSymbol(Syncfusion.Compression.CompressedStreamReader)">
+            <summary>
+            Reads and decompresses one symbol.
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Syncfusion.Compression.DecompressorHuffmanTree.LengthTree">
+            <summary>
+            GET huffman tree for encoding and decoding lengths.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Compression.DecompressorHuffmanTree.DistanceTree">
+            <summary>
+            GET huffman tree for encoding and decoding distances.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Compression.Utils">
+            <summary>
+            Utility Class
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Utils.DEF_REVERSE_BITS">
+            <summary>
+            Bit-indexes for reversing.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Utils.DEF_HUFFMAN_DYNTREE_CODELENGTHS_ORDER">
+            <summary>
+            Code lengths for the code length alphabet.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Utils.BitReverse(System.Int32)">
+            <summary>
+            Reverses bit.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Compression.Zip.BeginsWithNamePreprocessor">
+            <summary>
+            Implemenation of IFileNamePreprocessor interface that simply removes
+            some string from the name start and converts all \ characters into /.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Compression.Zip.IFileNamePreprocessor">
+            <summary>
+            Preprocesses file name before ZipArchiveItem saving. Used to convert full item path into local one.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.IFileNamePreprocessor.PreprocessName(System.String)">
+            <summary>
+            Somehow converts full path into name that will be stored in the zip archive.
+            </summary>
+            <param name="fullName">Name to process.</param>
+            <returns>Converted name.</returns>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.BeginsWithNamePreprocessor.m_strStartToRemove">
+            <summary>
+            String to remove from the name start.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.BeginsWithNamePreprocessor.#ctor(System.String)">
+            <summary>
+            Initializes new instance of the name preprocessor.
+            </summary>
+            <param name="startToRemove">String to remove from the name start.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.BeginsWithNamePreprocessor.PreprocessName(System.String)">
+            <summary>
+            Somehow converts full path into name that will be stored in the zip archive.
+            </summary>
+            <param name="fullName">Name to process.</param>
+            <returns>Converted name.</returns>
+        </member>
+        <member name="T:Syncfusion.Compression.Zip.Constants">
+            <summary>
+            Class contains all constants that are required by ZipArchive.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Constants.HeaderSignature">
+            <summary>
+            Zip header signature.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Constants.HeaderSignatureBytes">
+            <summary>
+            Number of bytes in HeaderSignature constant.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Constants.BufferSize">
+            <summary>
+            Buffer size.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Constants.VersionNeededToExtract">
+            <summary>
+            Version needed to extract.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Constants.VersionMadeBy">
+            <summary>
+            Version made by.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Constants.ShortSize">
+            <summary>
+            Size of the short value in bytes.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Constants.IntSize">
+            <summary>
+            Size of the int value in bytes.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Constants.CentralHeaderSignature">
+            <summary>
+            Central header signature.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Constants.CentralDirectoryEndSignature">
+            <summary>
+            End of central directory signature.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Constants.StartCrc">
+            <summary>
+            Initial value for CRC-32 evaluation.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Constants.CentralDirSizeOffset">
+            <summary>
+            Offset to the size field in the End of central directory record.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Constants.HeaderSignatureStartByteValue">
+            <summary>
+            Start byte of the Header signature.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.Constants.#ctor">
+            <summary>
+            Default constructor to prevent users from creating instances of this class.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Compression.Zip.CompressionMethod">
+            <summary>
+            The kind of compression used for an entry in an archive
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.CompressionMethod.Stored">
+            <summary>
+            The file is stored (no compression).
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.CompressionMethod.Shrunk">
+            <summary>
+            The file is Shrunk.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.CompressionMethod.ReducedFactor1">
+            <summary>
+            The file is Reduced with compression factor 1.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.CompressionMethod.ReducedFactor2">
+            <summary>
+            The file is Reduced with compression factor 2.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.CompressionMethod.ReducedFactor3">
+            <summary>
+            The file is Reduced with compression factor 3.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.CompressionMethod.ReducedFactor4">
+            <summary>
+            The file is Reduced with compression factor 4.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.CompressionMethod.Imploded">
+            <summary>
+            The file is Imploded.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.CompressionMethod.Tokenizing">
+            <summary>
+            Reserved for Tokenizing compression algorithm.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.CompressionMethod.Deflated">
+            <summary>
+            The file is Deflated.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.CompressionMethod.Defalte64">
+            <summary>
+            Enhanced Deflating using Deflate64(tm).
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.CompressionMethod.PRWARE">
+            <summary>
+            PKWARE Data Compression Library Imploding (old IBM TERSE).
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.CompressionMethod.BZIP2">
+            <summary>
+            File is compressed using BZIP2 algorithm.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.CompressionMethod.LZMA">
+            <summary>
+            LZMA (EFS).
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.CompressionMethod.IBMTerse">
+            <summary>
+            File is compressed using IBM TERSE (new).
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.CompressionMethod.LZ77">
+            <summary>
+            IBM LZ77 z Architecture (PFS).
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.CompressionMethod.PPMd">
+            <summary>
+            PPMd version I, Rev 1.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Compression.Zip.GeneralPurposeBitFlags">
+            <summary>
+            General purpose bit flag.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.GeneralPurposeBitFlags.SizeAfterData">
+            <summary>
+            If this bit is set, the fields crc-32, compressed size and uncompressed
+            size are set to zero in the local header.  The correct values are put
+            in the data descriptor immediately following the compressed data.
+            (Note: PKZIP version 2.04g for DOS only recognizes this bit for method 8
+            compression, newer versions of PKZIP recognize this bit for any compression method.)
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.GeneralPurposeBitFlags.Unicode">
+            <summary>
+            Language encoding flag (EFS).  If this bit is set, the filename and
+            comment fields for this file must be encoded using UTF-8.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Compression.Zip.ZipArchive">
+            <summary>
+            Represents zip archive.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZipArchive.m_arrItems">
+            <summary>
+            Collection of archive items.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZipArchive.m_dicItems">
+            <summary>
+            Dictionary that allows quick search operations by item name.
+            Key - item name,
+            Value - corresponding ZipArchiveItem.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZipArchive.m_fileNamePreprocessor">
+            <summary>
+            File name preprocessor - object that converts full file/folder
+            name into value that will be written into zip archive.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZipArchive.m_bCheckCrc">
+            <summary>
+            Indicates whether we should check Crc value when reading item's data. Check
+            is performed when user gets access to decompressed data for the first time.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZipArchive.m_defaultLevel">
+            <summary>
+            Default compression level.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZipArchive.m_netCompression">
+            <summary>
+            Compresses files using custom NetCompressor.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZipArchive.CreateCompressor">
+            <summary>
+            Creates compressor.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchive.FindValueFromEnd(System.IO.Stream,System.UInt32,System.Int32)">
+            <summary>
+            Searches for integer value from the end of the stream.
+            </summary>
+            <param name="stream">Stream to search value in.</param>
+            <param name="value">Value to locate.</param>
+            <param name="maxCount">Maximum number of bytes to scan.</param>
+            <returns>Offset to the value, or -1 if it wasn't found.</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchive.ReadInt32(System.IO.Stream)">
+            <summary>
+            Extracts Int32 value from the stream.
+            </summary>
+            <param name="stream">Stream to read data from.</param>
+            <returns>Extracted value.</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchive.ReadInt16(System.IO.Stream)">
+            <summary>
+            Extracts Int16 value from the stream.
+            </summary>
+            <param name="stream">Stream to read data from.</param>
+            <returns>Extracted value.</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchive.ReadUInt16(System.IO.Stream)">
+            <summary>
+            Extracts unsigned Int16 value from the stream.
+            </summary>
+            <param name="stream">Stream to read data from.</param>
+            <returns>Extracted value.</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchive.AddDirectory(System.String)">
+            <summary>
+            Adds empty directory to the archive.
+            </summary>
+            <param name="directoryName">Directory path.</param>
+            <returns>Item that has been added.</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchive.AddFile(System.String)">
+            <summary>
+            Adds specified file to the archive.
+            </summary>
+            <param name="fileName">File to add.</param>
+            <returns>Item that has been added.</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchive.AddItem(System.String,System.IO.Stream,System.Boolean,System.IO.FileAttributes)">
+            <summary>
+            Adds new item to the archive
+            </summary>
+            <param name="itemName">Item name to add.</param>
+            <param name="data">Items data stream (can be null for empty files or folders).</param>
+            <param name="bControlStream">Indicates whether ZipArchive is responsible for stream closing.</param>
+            <param name="attributes">File attributes.</param>
+            <returns>Item that has been added.</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchive.AddItem(Syncfusion.Compression.Zip.ZipArchiveItem)">
+            <summary>
+            Adds existing item to the archive.
+            </summary>
+            <param name="item">Item to add.</param>
+            <returns>Added item.</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchive.RemoveItem(System.String)">
+            <summary>
+            Removes item from the archive.
+            </summary>
+            <param name="itemName">Item name to remove.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchive.RemoveAt(System.Int32)">
+            <summary>
+            Removes item at the specified position.
+            </summary>
+            <param name="index">Item index to remove.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchive.Remove(System.Text.RegularExpressions.Regex)">
+            <summary>
+            Removes items that matches specified regular expression from the collection.
+            </summary>
+            <param name="mask">Regular expression used to decide whether to remove item or not.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchive.UpdateItem(System.String,System.IO.Stream,System.Boolean)">
+            <summary>
+            Updates item inside existing archive.
+            </summary>
+            <param name="itemName">Item name to update.</param>
+            <param name="newDataStream">New data for the item.</param>
+            <param name="controlStream">Indicates whether item should control its stream after update.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchive.UpdateItem(System.String,System.IO.Stream,System.Boolean,System.IO.FileAttributes)">
+            <summary>
+            Updates existing item or creates new one.
+            </summary>
+            <param name="itemName">Item to update or create.</param>
+            <param name="newDataStream">New data for the item.</param>
+            <param name="controlStream">Indicates whether item should control its stream after update.</param>
+            <param name="attributes">File attributes for the item. This argument is only used if item is created.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchive.UpdateItem(System.String,System.Byte[])">
+            <summary>
+            Updates item inside existing archive.
+            </summary>
+            <param name="itemName">Item name to update.</param>
+            <param name="newData">New data for the item.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchive.Save(System.String)">
+            <summary>
+            Saves archive into specified file.
+            </summary>
+            <param name="outputFileName">Output file name.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchive.Save(System.String,System.Boolean)">
+            <summary>
+            Saves archive into specified file.
+            </summary>
+            <param name="outputFileName">Output file name.</param>
+            <param name="createFilePath">Indicates whether we should create full path to the file if it doesn't exist.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchive.Save(System.IO.Stream,System.Boolean)">
+            <summary>
+            Saves archive into specified stream.
+            </summary>
+            <param name="stream">Output stream.</param>
+            <param name="closeStream">Indicates whether method should close stream after saving.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchive.Open(System.String)">
+            <summary>
+            Reads archive data from the file.
+            </summary>
+            <param name="inputFileName">Filename to read.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchive.Open(System.IO.Stream,System.Boolean)">
+            <summary>
+            Reads archive data from the stream. In the current implementation
+            stream must be seekable and readable to extract data.
+            </summary>
+            <param name="stream">Stream to read data from.</param>
+            <param name="closeStream">Indicates whether method should close stream after reading.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchive.Close">
+            <summary>
+            Clears all internal data.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchive.Find(System.String)">
+            <summary>
+            Searches for the item with specified name.
+            </summary>
+            <param name="itemName">Item to find.</param>
+            <returns>Zero-based item index if found; -1 otherwise.</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchive.Find(System.Text.RegularExpressions.Regex)">
+            <summary>
+            Searches for the item with specified name.
+            </summary>
+            <param name="itemRegex">Regular expression that defines item to find.</param>
+            <returns>Zero-based item index if found; -1 otherwise.</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchive.WriteCentralDirectory(System.IO.Stream)">
+            <summary>
+            Writes central directory to the stream.
+            </summary>
+            <param name="stream">Stream to write data into.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchive.WriteCentralDirectoryEnd(System.IO.Stream,System.Int64)">
+            <summary>
+            Writes End of central directory record into stream.
+            </summary>
+            <param name="stream">Stream to write data into.</param>
+            <param name="directoryStart">Offset to the central directory start.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchive.ReadCentralDirectoryData(System.IO.Stream)">
+            <summary>
+            Read central directory record from the stream.
+            </summary>
+            <param name="stream">Stream to read from.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchive.ExtractItems(System.IO.Stream)">
+            <summary>
+            Extracts items' data from the stream.
+            </summary>
+            <param name="stream">Stream to read data from.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchive.Clone">
+            <summary>
+            Creates a copy of the current instance.
+            </summary>
+            <returns>A copy of the current instance.</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchive.Dispose">
+            <summary>
+            A method to release allocated unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchive.Finalize">
+            <summary>
+            Class finilizer.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Compression.Zip.ZipArchive.Item(System.Int32)">
+            <summary>
+            Returns single archive item from the collection. Read-only.
+            </summary>
+            <param name="index">Zero-based index of the item to return.</param>
+            <returns>Single archive item from the collection.</returns>
+        </member>
+        <member name="P:Syncfusion.Compression.Zip.ZipArchive.Item(System.String)">
+            <summary>
+            Returns item by its name. Null if item wasn't found. Read-only.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Compression.Zip.ZipArchive.Count">
+            <summary>
+            Returns number of items inside archive. Read-only.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Compression.Zip.ZipArchive.Items">
+            <summary>
+            Returns the items inside archive. Read-only.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Compression.Zip.ZipArchive.FileNamePreprocessor">
+            <summary>
+            Gets / sets file name preprocessor - object that converts full file/folder
+            name into value that will be written into zip archive.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Compression.Zip.ZipArchive.DefaultCompressionLevel">
+            <summary>
+            Gets / sets default compression level - compression level for new items.
+            By default is equal to CompressionLevel.Best.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Compression.Zip.ZipArchive.CheckCrc">
+            <summary>
+            Indicates whether we should check Crc value when reading item's data. Check
+            is performed when user gets access to item's decompressed data for the first time.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Compression.Zip.ZipArchive.UseNetCompression">
+            <summary>
+            Uses custom compressed stream reader and writer.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Compression.Zip.ZipArchiveItem">
+            <summary>
+            Represents single item inside zip archive. It can be either folder or file.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZipArchiveItem.m_strItemName">
+            <summary>
+            Name of the archive item.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZipArchiveItem.m_compressionMethod">
+            <summary>
+            Compression method.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZipArchiveItem.m_compressionLevel">
+            <summary>
+            Compression level.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZipArchiveItem.m_uiCrc32">
+            <summary>
+            Crc.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZipArchiveItem.m_streamData">
+            <summary>
+            Stream with item's data.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZipArchiveItem.m_lCompressedSize">
+            <summary>
+            Compressed data size.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZipArchiveItem.m_lOriginalSize">
+            <summary>
+            Original (not compressed) data size.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZipArchiveItem.m_bControlStream">
+            <summary>
+            Indicates whether this item controls it's data stream.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZipArchiveItem.m_bCompressed">
+            <summary>
+            Indicates whether internal stream contains compressed data.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZipArchiveItem.m_lCrcPosition">
+            <summary>
+            Position of the size block inside local file header.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZipArchiveItem.m_iLocalHeaderOffset">
+            <summary>
+            Offset to the local header.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZipArchiveItem.m_options">
+            <summary>
+            General purpose bit flag.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZipArchiveItem.m_iExternalAttributes">
+            <summary>
+            Item's external attributes.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZipArchiveItem.m_bCheckCrc">
+            <summary>
+            Indicates whether we should check crc value after decompressing item's data.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZipArchiveItem.m_bOptimizedDecompress">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchiveItem.#ctor(Syncfusion.Compression.Zip.ZipArchive)">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchiveItem.#ctor(Syncfusion.Compression.Zip.ZipArchive,System.String,System.IO.Stream,System.Boolean,System.IO.FileAttributes)">
+            <summary>
+            Creates new instance of the zip item.
+            </summary>
+            <param name="itemName">Name of the item (can be relative or absolute path).</param>
+            <param name="streamData">Stream data.</param>
+            <param name="controlStream">
+            Indicates whether item controls stream and must close it when item finish its work.
+            </param>
+            <param name="attributes"></param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchiveItem.Update(Syncfusion.Compression.Zip.ZippedContentStream)">
+            <summary>
+            
+            </summary>
+            <param name="stream"></param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchiveItem.Update(System.IO.Stream,System.Boolean)">
+            <summary>
+            Updates internal data stream.
+            </summary>
+            <param name="newDataStream">New stream to set.</param>
+            <param name="controlStream">Indicates whether item should conrol new stream.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchiveItem.ResetFlags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchiveItem.Write(System.IO.Stream)">
+            <summary>
+            This method saves item inside stream.
+            </summary>
+            <param name="outputStream">Stream to save item into.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchiveItem.Close">
+            <summary>
+            Frees all internal resources and closes internal stream if necessary.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchiveItem.WriteFileHeader(System.IO.Stream)">
+            <summary>
+            This method writes file header into Central directory record.
+            </summary>
+            <param name="stream">Stream to write data into.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchiveItem.ConvertDateTime(System.DateTime)">
+            <summary>
+            Converts current datetime to Windows format.
+            </summary>
+            <param name="time">Current Date and time.</param>
+            <returns>Value in Windows format.</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchiveItem.ReadCentralDirectoryData(System.IO.Stream)">
+            <summary>
+            Read data from the stream based on the central directory.
+            </summary>
+            <param name="stream">Stream to read data from, stream.Position must point at just after correct file header.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchiveItem.ReadData(System.IO.Stream,System.Boolean)">
+            <summary>
+            Reads zipped data from the stream.
+            </summary>
+            <param name="stream">Stream to read data from.</param>
+            <param name="checkCrc">Indicates whether we should check crc value after data decompression.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchiveItem.ReadCompressedData(System.IO.Stream)">
+            <summary>
+            Extracts compressed data from the stream.
+            </summary>
+            <param name="stream">Stream to read data from.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchiveItem.ReadLocalHeader(System.IO.Stream)">
+            <summary>
+            Extracts local header from the stream.
+            </summary>
+            <param name="stream">Stream to read data from.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchiveItem.DecompressData">
+            <summary>
+            Decompressed internal data if necessary.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchiveItem.WriteHeader(System.IO.Stream)">
+            <summary>
+            Writes local file header.
+            </summary>
+            <param name="outputStream">Stream to write into.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchiveItem.WriteZippedContent(System.IO.Stream)">
+            <summary>
+            Writes zipped content inside stream.
+            </summary>
+            <param name="outputStream">Stream to write into.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchiveItem.WriteFooter(System.IO.Stream)">
+            <summary>
+            Writes local file footer into stream.
+            </summary>
+            <param name="outputStream">Stream to write into.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchiveItem.CheckCrc">
+            <summary>
+            Checks whether Crc field and stream data corresponds each other.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchiveItem.CloneStream(System.IO.Stream)">
+            <summary>
+            Creates copy of the stream.
+            </summary>
+            <param name="stream">Stream to copy.</param>
+            <returns>Created stream.</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchiveItem.Dispose">
+            <summary>
+            A method to release allocated unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchiveItem.Finalize">
+            <summary>
+            Finilizer.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchiveItem.IsIBM437Encoding(System.String)">
+            <summary>
+            Checks whether the file has unicode characters.
+            </summary>
+            <param name="fileName">Name of the file.</param>
+            <returns></returns>
+        </member>
+        <member name="P:Syncfusion.Compression.Zip.ZipArchiveItem.ItemName">
+            <summary>
+            Name of the archive item.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Compression.Zip.ZipArchiveItem.CompressionMethod">
+            <summary>
+            Compression method.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Compression.Zip.ZipArchiveItem.CompressionLevel">
+            <summary>
+            Gets/sets item's compression level.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Compression.Zip.ZipArchiveItem.Crc32">
+            <summary>
+            Crc.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Compression.Zip.ZipArchiveItem.DataStream">
+            <summary>
+            Stream with item's data.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Compression.Zip.ZipArchiveItem.CompressedSize">
+            <summary>
+            Compressed data size.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Compression.Zip.ZipArchiveItem.OriginalSize">
+            <summary>
+            Original (not compressed) data size.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Compression.Zip.ZipArchiveItem.ControlStream">
+            <summary>
+            Indicates whether this item controls it's data stream.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Compression.Zip.ZipArchiveItem.Compressed">
+            <summary>
+            Indicates whether internal stream contains compressed data.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Compression.Zip.ZipArchiveItem.ExternalAttributes">
+            <summary>
+            Gets / sets item's external attributes.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Compression.Zip.ZipArchiveItem.OemCodePage">
+            <summary>
+            Gets current OEM code page.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Compression.Zip.ZipCrc32">
+            <summary>
+            Crc32 implementation used in zip archive to verify data correctness.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZipCrc32.s_crcTable">
+            <summary>
+            Special pre-evaluated table used for faster crc evaluation.
+            Evaluated when crcNumber was 0xEDB88320. EvaluateTable method
+            can be used to evaluated table with different constant.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipCrc32.ComputeCrc(System.Byte[],System.Int32,System.Int32,System.UInt32)">
+            <summary>Computes crc-32 value for the buffer.</summary>
+            <param name="buffer">Buffer to compute crc-32 for.</param>
+            <param name="offset">Offset to the data start.</param>
+            <param name="length">Data length in bytes.</param>
+            <param name="startCrc">Initial crc-32 value.</param>
+            <returns>Updated crc-32 value.</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipCrc32.ComputeCrc(System.IO.Stream,System.Int32)">
+            <summary>Computes crc-32 value for the stream.</summary>
+            <param name="stream">Stream to compute crc-32 for.</param>
+            <param name="length">Data length in bytes.</param>
+            <returns>Crc-32 value.</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipCrc32.EvaluateTable(System.UInt32)">
+            <summary>
+            Evaluates crc table.
+            </summary>
+            <param name="crcNumber">"Magic" number.</param>
+            <returns>Create table.</returns>
+        </member>
+        <member name="T:Syncfusion.Compression.Zip.ZipException">
+            <summary>
+            This class represents exception type that is mostly raised when some
+            problems with zip extraction/creation occurs.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipException.#ctor(System.String)">
+            <summary>
+            Initializes new instance of the exception class.
+            </summary>
+            <param name="message">Exception message.</param>
+        </member>
+        <member name="T:Syncfusion.Compression.Zip.ZippedContentStream">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZippedContentStream.m_deflateStream">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZippedContentStream.m_uiCrc32">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZippedContentStream.m_lSize">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZippedContentStream.#ctor">
+            <summary>
+            Initializes new instance of the stream.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZippedContentStream.#ctor(Syncfusion.Compression.Zip.ZipArchive.CompressorCreator)">
+            <summary>
+            Initializes new instance of the stream.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZippedContentStream.Flush">
+            <summary>
+            Clears all buffers for this stream and causes any buffered data to be written to the underlying device.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZippedContentStream.Read(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Reads a sequence of bytes from the current stream and advances the position
+            within the stream by the number of bytes read.
+            </summary>
+            <param name="buffer">An array of bytes. When this method returns, the buffer
+            contains the specified byte array with the values between offset and
+            (offset + count - 1) replaced by the bytes read from the current source.</param>
+            <param name="offset">The zero-based byte offset in buffer at which to begin
+            storing the data read from the current stream.</param>
+            <param name="count">The maximum number of bytes to be read from the current stream.</param>
+            <returns>The total number of bytes read into the buffer. This can be less
+            than the number of bytes requested if that many bytes are not currently
+            available, or zero (0) if the end of the stream has been reached.</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZippedContentStream.Seek(System.Int64,System.IO.SeekOrigin)">
+            <summary>
+            Sets the position within the current stream.
+            </summary>
+            <param name="offset">A byte offset relative to the origin parameter.</param>
+            <param name="origin">A value of type SeekOrigin indicating the reference
+            point used to obtain the new position.</param>
+            <returns>The new position within the current stream.</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZippedContentStream.SetLength(System.Int64)">
+            <summary>
+            Sets the length of the current stream.
+            </summary>
+            <param name="value">The desired length of the current stream in bytes.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZippedContentStream.Write(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Writes a sequence of bytes to the current stream and advances the current
+            position within this stream by the number of bytes written.
+            </summary>
+            <param name="buffer">An array of bytes. This method copies count bytes
+            from buffer to the current stream.</param>
+            <param name="offset">The zero-based byte offset in buffer at which to begin
+            copying bytes to the current stream. </param>
+            <param name="count">The number of bytes to be written to the current stream.</param>
+        </member>
+        <member name="P:Syncfusion.Compression.Zip.ZippedContentStream.CanRead">
+            <summary>
+            Gets a value indicating whether the current stream supports reading. Read-only.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Compression.Zip.ZippedContentStream.CanSeek">
+            <summary>
+            Gets a value indicating whether the current stream supports seeking. Read-only.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Compression.Zip.ZippedContentStream.CanWrite">
+            <summary>
+            Gets a value indicating whether the current stream supports writing. Read-only.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Compression.Zip.ZippedContentStream.Length">
+            <summary>
+            Gets the length in bytes of the stream. Read-only.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Compression.Zip.ZippedContentStream.Position">
+            <summary>
+            Gets or sets the position within the current stream. Read-only.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Compression.Zip.ZippedContentStream.ZippedContent">
+            <summary>
+            This property returns stream with zipped content. It closes internal deflate
+            stream, so you won't be able to write anything in int. Read-only.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Compression.Zip.ZippedContentStream.Crc32">
+            <summary>
+            Returns computed crc32 value. Read-only.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Compression.Zip.ZippedContentStream.UnzippedSize">
+            <summary>
+            Returns size of the unzipped data. Read-only.
+            </summary>
+        </member>
+    </members>
+</doc>

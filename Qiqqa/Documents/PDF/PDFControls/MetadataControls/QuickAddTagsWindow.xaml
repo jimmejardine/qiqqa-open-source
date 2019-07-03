@@ -1,0 +1,39 @@
+﻿<commongui:StandardWindow x:Class="Qiqqa.Documents.PDF.PDFControls.MetadataControls.QuickAddTagsWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+        xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
+    xmlns:tagedit="clr-namespace:Qiqqa.Common.TagManagement"
+>
+  <DockPanel>
+    <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
+
+    <DockPanel DockPanel.Dock="Bottom">
+      <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
+      <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdGenerate" />
+      <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
+      <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdCancel" />
+      <Grid/>
+    </DockPanel>
+
+    <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
+
+    <Grid>
+      <local_gui:AugmentedBorder Grid.Column="0">
+        <FlowDocumentScrollViewer IsToolBarVisible="False" VerticalScrollBarVisibility="Auto">
+          <commongui:StandardFlowDocument>
+            <Paragraph>
+              Please pick the tags you wish to add to the <Bold Name="RegionDocumentCount">0</Bold> selected document(s).  Separate multiple tags that you wish to add in one go with semicolons (e.g. tagA;tagB;tagC). Once you have all the tags you need, press the "Add tags" button.
+            </Paragraph>
+            <Paragraph>
+              <tagedit:TagEditorControl x:Name="ObjTagEditorControl"/>
+            </Paragraph>
+            <Paragraph>
+              Did you know that an even quicker way to add a tag to a selection of documents by dragging-and-dropping their PDF icons onto a tag in the tag explorer in the library screen.
+            </Paragraph>
+          </commongui:StandardFlowDocument>
+        </FlowDocumentScrollViewer>
+      </local_gui:AugmentedBorder>
+    </Grid>
+  </DockPanel>
+</commongui:StandardWindow>

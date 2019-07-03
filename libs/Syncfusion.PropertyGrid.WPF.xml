@@ -1,0 +1,3401 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Syncfusion.PropertyGrid.Wpf</name>
+    </assembly>
+    <members>
+        <member name="T:Syncfusion.Windows.PropertyGrid.ClearButtonAutomationPeer">
+            <property name="flag" value="Finished" />
+            <summary>
+            Class that provides UI Automation support.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ClearButtonAutomationPeer.#ctor(Syncfusion.Windows.PropertyGrid.ClearButton)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.Windows.PropertyGrid.ClearButtonAutomationPeer"/> class
+            </summary>
+            <param name="control"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ClearButtonAutomationPeer.GetNameCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ClearButtonAutomationPeer.GetAutomationIdCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ClearButtonAutomationPeer.GetClassNameCore">
+            <summary>
+            Gets the name of the <see cref="T:System.Windows.UIElement"/> that is associated with this <see cref="T:System.Windows.Automation.Peers.UIElementAutomationPeer"/>. This method is called by <see cref="M:System.Windows.Automation.Peers.AutomationPeer.GetClassName"/>.
+            </summary>
+            <returns>
+            An <see cref="F:System.String.Empty"/> string.
+            </returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ClearButtonAutomationPeer.GetHelpTextCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ClearButtonAutomationPeer.GetPattern(System.Windows.Automation.Peers.PatternInterface)">
+            <summary>
+            Gets the control pattern for the <see cref="T:System.Windows.UIElement"/> that is associated with this <see cref="T:System.Windows.Automation.Peers.UIElementAutomationPeer"/>.
+            </summary>
+            <param name="patternInterface">A value from the enumeration.</param>
+            <returns>returns the pattern</returns>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.ClearButtonAutomationPeer.MyOwner">
+            <property name="flag" value="Finished" />
+            <summary>
+            Gets Clear button object.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.DescriptionBorderAutomationPeer">
+            <property name="flag" value="Finished" />
+            <summary>
+            Class that provides UI Automation support.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.DescriptionBorderAutomationPeer.#ctor(Syncfusion.Windows.PropertyGrid.DescriptionBorder)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.Windows.PropertyGrid.DescriptionBorderAutomationPeer"/> class
+            </summary>
+            <param name="control"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.DescriptionBorderAutomationPeer.GetNameCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.DescriptionBorderAutomationPeer.GetAutomationIdCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.DescriptionBorderAutomationPeer.GetClassNameCore">
+            <summary>
+            Gets the name of the <see cref="T:System.Windows.UIElement"/> that is associated with this <see cref="T:System.Windows.Automation.Peers.UIElementAutomationPeer"/>. This method is called by <see cref="M:System.Windows.Automation.Peers.AutomationPeer.GetClassName"/>.
+            </summary>
+            <returns>
+            An <see cref="F:System.String.Empty"/> string.
+            </returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.DescriptionBorderAutomationPeer.GetHelpTextCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.DescriptionBorderAutomationPeer.GetPattern(System.Windows.Automation.Peers.PatternInterface)">
+            <summary>
+            Gets the control pattern for the <see cref="T:System.Windows.UIElement"/> that is associated with this <see cref="T:System.Windows.Automation.Peers.UIElementAutomationPeer"/>.
+            </summary>
+            <param name="patternInterface">A value from the enumeration.</param>
+            <returns>returns the pattern</returns>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.DescriptionBorderAutomationPeer.MyOwner">
+            <property name="flag" value="Finished" />
+            <summary>
+            Gets DescriptionBorder object.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.DescriptionDetailsTextBlockAutomationPeer">
+            <property name="flag" value="Finished" />
+            <summary>
+            Class that provides UI Automation support.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.DescriptionDetailsTextBlockAutomationPeer.#ctor(Syncfusion.Windows.PropertyGrid.DescriptionDetailsTextBlock)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.Windows.PropertyGrid.DescriptionDetailsTextBlock"/> class
+            </summary>
+            <param name="control"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.DescriptionDetailsTextBlockAutomationPeer.GetNameCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.DescriptionDetailsTextBlockAutomationPeer.GetAutomationIdCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.DescriptionDetailsTextBlockAutomationPeer.GetClassNameCore">
+            <summary>
+            Gets the name of the <see cref="T:System.Windows.UIElement"/> that is associated with this <see cref="T:System.Windows.Automation.Peers.UIElementAutomationPeer"/>. This method is called by <see cref="M:System.Windows.Automation.Peers.AutomationPeer.GetClassName"/>.
+            </summary>
+            <returns>
+            An <see cref="F:System.String.Empty"/> string.
+            </returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.DescriptionDetailsTextBlockAutomationPeer.GetHelpTextCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.DescriptionDetailsTextBlockAutomationPeer.GetPattern(System.Windows.Automation.Peers.PatternInterface)">
+            <summary>
+            Gets the control pattern for the <see cref="T:System.Windows.UIElement"/> that is associated with this <see cref="T:System.Windows.Automation.Peers.UIElementAutomationPeer"/>.
+            </summary>
+            <param name="patternInterface">A value from the enumeration.</param>
+            <returns>returns the pattern</returns>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.DescriptionDetailsTextBlockAutomationPeer.MyOwner">
+            <property name="flag" value="Finished" />
+            <summary>
+            Gets Description Details TextBlock  object.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.DescriptionNameTextBlockAutomationPeer">
+            <property name="flag" value="Finished" />
+            <summary>
+            Class that provides UI Automation support.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.DescriptionNameTextBlockAutomationPeer.#ctor(Syncfusion.Windows.PropertyGrid.DescriptionNameTextBlock)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.Windows.PropertyGrid.DescriptionNameTextBlockAutomationPeer"/> class
+            </summary>
+            <param name="control"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.DescriptionNameTextBlockAutomationPeer.GetNameCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.DescriptionNameTextBlockAutomationPeer.GetAutomationIdCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.DescriptionNameTextBlockAutomationPeer.GetClassNameCore">
+            <summary>
+            Gets the name of the <see cref="T:System.Windows.UIElement"/> that is associated with this <see cref="T:System.Windows.Automation.Peers.UIElementAutomationPeer"/>. This method is called by <see cref="M:System.Windows.Automation.Peers.AutomationPeer.GetClassName"/>.
+            </summary>
+            <returns>
+            An <see cref="F:System.String.Empty"/> string.
+            </returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.DescriptionNameTextBlockAutomationPeer.GetHelpTextCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.DescriptionNameTextBlockAutomationPeer.GetPattern(System.Windows.Automation.Peers.PatternInterface)">
+            <summary>
+            Gets the control pattern for the <see cref="T:System.Windows.UIElement"/> that is associated with this <see cref="T:System.Windows.Automation.Peers.UIElementAutomationPeer"/>.
+            </summary>
+            <param name="patternInterface">A value from the enumeration.</param>
+            <returns>returns the pattern</returns>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.DescriptionNameTextBlockAutomationPeer.MyOwner">
+            <property name="flag" value="Finished" />
+            <summary>
+            Gets Description Name TextBlock object.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItemAutomationPeer">
+            <property name="flag" value="Finished" />
+            <summary>
+            Class that provides UI Automation support.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItemAutomationPeer.#ctor(Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItem)">
+            <summary>
+            /// Initializes a new instance of the <see cref="T:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItemAutomationPeer"/> class
+            </summary>
+            <param name="control"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItemAutomationPeer.GetClassNameCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItemAutomationPeer.GetAutomationControlTypeCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItemAutomationPeer.GetNameCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItemAutomationPeer.GetAutomationIdCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItemAutomationPeer.GetHelpTextCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItemAutomationPeer.MyOwner">
+            <property name="flag" value="Finished" />
+            <summary>
+            Gets PropertyCatagoryViewItem object.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.PropertyGridAutomationPeer">
+            <property name="flag" value="Finished" />
+            <summary>
+            Class that provides UI Automation support.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGridAutomationPeer.#ctor(Syncfusion.Windows.PropertyGrid.PropertyGrid)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.Windows.PropertyGrid.PropertyGridAutomationPeer"/> class
+            </summary>
+            <param name="control"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGridAutomationPeer.GetNameCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGridAutomationPeer.GetAutomationIdCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGridAutomationPeer.GetClassNameCore">
+            <summary>
+            Gets the name of the <see cref="T:System.Windows.UIElement"/> that is associated with this <see cref="T:System.Windows.Automation.Peers.UIElementAutomationPeer"/>. This method is called by <see cref="M:System.Windows.Automation.Peers.AutomationPeer.GetClassName"/>.
+            </summary>
+            <returns>
+            An <see cref="F:System.String.Empty"/> string.
+            </returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGridAutomationPeer.GetHelpTextCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGridAutomationPeer.GetPattern(System.Windows.Automation.Peers.PatternInterface)">
+            <summary>
+            Gets the control pattern for the <see cref="T:System.Windows.UIElement"/> that is associated with this <see cref="T:System.Windows.Automation.Peers.UIElementAutomationPeer"/>.
+            </summary>
+            <param name="patternInterface">A value from the enumeration.</param>
+            <returns>returns the pattern</returns>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyGridAutomationPeer.MyOwner">
+            <property name="flag" value="Finished" />
+            <summary>
+            Gets PropertyGrid object.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.PropertyGridScrollViewerAutomationPeer">
+            <property name="flag" value="Finished" />
+            <summary>
+            Class that provides UI Automation support.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGridScrollViewerAutomationPeer.#ctor(Syncfusion.Windows.PropertyGrid.PropertyGridScrollViewer)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.Windows.PropertyGrid.PropertyGridScrollViewerAutomationPeer"/> class
+            </summary>
+            <param name="control"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGridScrollViewerAutomationPeer.GetNameCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGridScrollViewerAutomationPeer.GetAutomationIdCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGridScrollViewerAutomationPeer.GetClassNameCore">
+            <summary>
+            Gets the name of the <see cref="T:System.Windows.UIElement"/> that is associated with this <see cref="T:System.Windows.Automation.Peers.UIElementAutomationPeer"/>. This method is called by <see cref="M:System.Windows.Automation.Peers.AutomationPeer.GetClassName"/>.
+            </summary>
+            <returns>
+            An <see cref="F:System.String.Empty"/> string.
+            </returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGridScrollViewerAutomationPeer.GetHelpTextCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGridScrollViewerAutomationPeer.GetPattern(System.Windows.Automation.Peers.PatternInterface)">
+            <summary>
+            Gets the control pattern for the <see cref="T:System.Windows.UIElement"/> that is associated with this <see cref="T:System.Windows.Automation.Peers.UIElementAutomationPeer"/>.
+            </summary>
+            <param name="patternInterface">A value from the enumeration.</param>
+            <returns>returns the pattern</returns>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyGridScrollViewerAutomationPeer.MyOwner">
+            <property name="flag" value="Finished" />
+            <summary>
+            Gets PropertyGridScrollViewer object.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.PropertyGridSplitterAutomationPeer">
+            <property name="flag" value="Finished" />
+            <summary>
+            Class that provides UI Automation support.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGridSplitterAutomationPeer.#ctor(Syncfusion.Windows.PropertyGrid.PropertyGridSplitter)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.Windows.PropertyGrid.PropertyGridSplitterAutomationPeer"/> class
+            </summary>
+            <param name="control"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGridSplitterAutomationPeer.GetNameCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGridSplitterAutomationPeer.GetAutomationIdCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGridSplitterAutomationPeer.GetClassNameCore">
+            <summary>
+            Gets the name of the <see cref="T:System.Windows.UIElement"/> that is associated with this <see cref="T:System.Windows.Automation.Peers.UIElementAutomationPeer"/>. This method is called by <see cref="M:System.Windows.Automation.Peers.AutomationPeer.GetClassName"/>.
+            </summary>
+            <returns>
+            An <see cref="F:System.String.Empty"/> string.
+            </returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGridSplitterAutomationPeer.GetHelpTextCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGridSplitterAutomationPeer.GetPattern(System.Windows.Automation.Peers.PatternInterface)">
+            <summary>
+            Gets the control pattern for the <see cref="T:System.Windows.UIElement"/> that is associated with this <see cref="T:System.Windows.Automation.Peers.UIElementAutomationPeer"/>.
+            </summary>
+            <param name="patternInterface">A value from the enumeration.</param>
+            <returns>returns the pattern</returns>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyGridSplitterAutomationPeer.MyOwner">
+            <property name="flag" value="Finished" />
+            <summary>
+            Gets PropertyGridSplitter object.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.PropertyItemTextBlockAutomationPeer">
+            <property name="flag" value="Finished" />
+            <summary>
+            Class that provides UI Automation support.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyItemTextBlockAutomationPeer.#ctor(Syncfusion.Windows.PropertyGrid.PropertyItemTextBlock)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.Windows.PropertyGrid.PropertyItemTextBlockAutomationPeer"/> class
+            </summary>
+            <param name="control"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyItemTextBlockAutomationPeer.GetNameCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyItemTextBlockAutomationPeer.GetAutomationIdCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyItemTextBlockAutomationPeer.GetClassNameCore">
+            <summary>
+            Gets the name of the <see cref="T:System.Windows.UIElement"/> that is associated with this <see cref="T:System.Windows.Automation.Peers.UIElementAutomationPeer"/>. This method is called by <see cref="M:System.Windows.Automation.Peers.AutomationPeer.GetClassName"/>.
+            </summary>
+            <returns>
+            An <see cref="F:System.String.Empty"/> string.
+            </returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyItemTextBlockAutomationPeer.GetHelpTextCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyItemTextBlockAutomationPeer.GetPattern(System.Windows.Automation.Peers.PatternInterface)">
+            <summary>
+            Gets the control pattern for the <see cref="T:System.Windows.UIElement"/> that is associated with this <see cref="T:System.Windows.Automation.Peers.UIElementAutomationPeer"/>.
+            </summary>
+            <param name="patternInterface">A value from the enumeration.</param>
+            <returns>returns the pattern</returns>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyItemTextBlockAutomationPeer.MyOwner">
+            <property name="flag" value="Finished" />
+            <summary>
+            Gets PropertyItemTextBlock object.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.PropertyViewAutomationPeer">
+            <property name="flag" value="Finished" />
+            <summary>
+            Class that provides UI Automation support.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyViewAutomationPeer.#ctor(System.Windows.Controls.ItemsControl)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.Windows.PropertyGrid.PropertyViewAutomationPeer"/> class
+            </summary>
+            <param name="propertyview"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyViewAutomationPeer.GetClassNameCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyViewAutomationPeer.GetNameCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyViewAutomationPeer.GetHelpTextCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyViewAutomationPeer.GetAutomationIdCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyViewAutomationPeer.GetPattern(System.Windows.Automation.Peers.PatternInterface)">
+            <summary>
+            
+            </summary>
+            <param name="patternInterface"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyViewAutomationPeer.MyOwner">
+            <property name="flag" value="Finished" />
+            <summary>
+            Gets PropertyViewItem object.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.PropertyViewItemAutomationPeer">
+            <property name="flag" value="Finished" />
+            <summary>
+            Class that provides UI Automation support.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyViewItemAutomationPeer.#ctor(Syncfusion.Windows.PropertyGrid.PropertyViewItem)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.Windows.PropertyGrid.PropertyViewItemAutomationPeer"/> class
+            </summary>
+            <param name="control"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyViewItemAutomationPeer.GetClassNameCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyViewItemAutomationPeer.GetNameCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyViewItemAutomationPeer.GetAutomationIdCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyViewItemAutomationPeer.GetHelpTextCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyViewItemAutomationPeer.MyOwner">
+            <property name="flag" value="Finished" />
+            <summary>
+            Gets PropertyViewItem object.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.SearchTextBoxAutomationPeer">
+            <property name="flag" value="Finished" />
+            <summary>
+            Class that provides UI Automation support.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.SearchTextBoxAutomationPeer.#ctor(Syncfusion.Windows.PropertyGrid.SearchTextBox)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.Windows.PropertyGrid.SearchTextBoxAutomationPeer"/> class
+            </summary>
+            <param name="searchtextbox"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.SearchTextBoxAutomationPeer.GetNameCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.SearchTextBoxAutomationPeer.GetAutomationIdCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.SearchTextBoxAutomationPeer.GetClassNameCore">
+            <summary>
+            Gets the name of the <see cref="T:System.Windows.UIElement"/> that is associated with this <see cref="T:System.Windows.Automation.Peers.UIElementAutomationPeer"/>. This method is called by <see cref="M:System.Windows.Automation.Peers.AutomationPeer.GetClassName"/>.
+            </summary>
+            <returns>
+            An <see cref="F:System.String.Empty"/> string.
+            </returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.SearchTextBoxAutomationPeer.GetHelpTextCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.SearchTextBoxAutomationPeer.GetPattern(System.Windows.Automation.Peers.PatternInterface)">
+            <summary>
+            Gets the control pattern for the <see cref="T:System.Windows.UIElement"/> that is associated with this <see cref="T:System.Windows.Automation.Peers.UIElementAutomationPeer"/>.
+            </summary>
+            <param name="patternInterface">A value from the enumeration.</param>
+            <returns>returns the pattern</returns>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.SearchTextBoxAutomationPeer.MyOwner">
+            <property name="flag" value="Finished" />
+            <summary>
+            Gets SearchTextBox object.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.ToggleGroupButtonAutomationPeer">
+            <property name="flag" value="Finished" />
+            <summary>
+            Class that provides UI Automation support.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ToggleGroupButtonAutomationPeer.#ctor(Syncfusion.Windows.PropertyGrid.ToggleGroupButton)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.Windows.PropertyGrid.ToggleGroupButtonAutomationPeer"/> class
+            </summary>
+            <param name="togglegroupbutton"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ToggleGroupButtonAutomationPeer.GetNameCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ToggleGroupButtonAutomationPeer.GetAutomationControlTypeCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ToggleGroupButtonAutomationPeer.GetAutomationIdCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ToggleGroupButtonAutomationPeer.GetClassNameCore">
+            <summary>
+            Gets the name of the <see cref="T:System.Windows.UIElement"/> that is associated with this <see cref="T:System.Windows.Automation.Peers.UIElementAutomationPeer"/>. This method is called by <see cref="M:System.Windows.Automation.Peers.AutomationPeer.GetClassName"/>.
+            </summary>
+            <returns>
+            An <see cref="F:System.String.Empty"/> string.
+            </returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ToggleGroupButtonAutomationPeer.GetHelpTextCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ToggleGroupButtonAutomationPeer.GetPattern(System.Windows.Automation.Peers.PatternInterface)">
+            <summary>
+            Gets the control pattern for the <see cref="T:System.Windows.UIElement"/> that is associated with this <see cref="T:System.Windows.Automation.Peers.UIElementAutomationPeer"/>.
+            </summary>
+            <param name="patternInterface">A value from the enumeration.</param>
+            <returns>returns the pattern</returns>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.ToggleGroupButtonAutomationPeer.MyOwner">
+            <property name="flag" value="Finished" />
+            <summary>
+            Gets ToggleGroup button object.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.ToggleSortButtonAutomationPeer">
+            <property name="flag" value="Finished" />
+            <summary>
+            Class that provides UI Automation support.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ToggleSortButtonAutomationPeer.#ctor(Syncfusion.Windows.PropertyGrid.ToggleSortButton)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.Windows.PropertyGrid.ToggleSortButtonAutomationPeer"/> class
+            </summary>
+            <param name="togglesortbutton"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ToggleSortButtonAutomationPeer.GetNameCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ToggleSortButtonAutomationPeer.GetAutomationControlTypeCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ToggleSortButtonAutomationPeer.GetAutomationIdCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ToggleSortButtonAutomationPeer.GetClassNameCore">
+            <summary>
+            Gets the name of the <see cref="T:System.Windows.UIElement"/> that is associated with this <see cref="T:System.Windows.Automation.Peers.UIElementAutomationPeer"/>. This method is called by <see cref="M:System.Windows.Automation.Peers.AutomationPeer.GetClassName"/>.
+            </summary>
+            <returns>
+            An <see cref="F:System.String.Empty"/> string.
+            </returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ToggleSortButtonAutomationPeer.GetHelpTextCore">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ToggleSortButtonAutomationPeer.GetPattern(System.Windows.Automation.Peers.PatternInterface)">
+            <summary>
+            Gets the control pattern for the <see cref="T:System.Windows.UIElement"/> that is associated with this <see cref="T:System.Windows.Automation.Peers.UIElementAutomationPeer"/>.
+            </summary>
+            <param name="patternInterface">A value from the enumeration.</param>
+            <returns>returns the pattern</returns>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.ToggleSortButtonAutomationPeer.MyOwner">
+            <property name="flag" value="Finished" />
+            <summary>
+            Gets ToggleSort button object.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.EnumHelper">
+            <summary>  
+            Helper class to allow users to get the values of a enumeration  
+            </summary>  
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.EnumHelper.GetValues``1">
+            <summary>  
+            Get values of an enumeration of type T  
+            </summary>  
+            <typeparam name="T">Enumeration type</typeparam>  
+            <returns>List of types in a enumeration</returns>  
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.EnumHelper.GetValues(System.Type)">
+            <summary>  
+            Get all the values of an enumeration of Type enumType  
+            </summary>  
+            <param name="enumType">Enumeration type</param>  
+            <returns>Array of objects</returns>  
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.BooleanToSortDirectionConverter">
+            <summary>
+             Represent BooleanToSortDirection converter for PropertyGrid.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.BooleanToSortDirectionConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value.
+            </summary>
+            <param name="value">The value produced by the binding data source.</param>
+            <param name="targetType">The type of the binding data target property.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.BooleanToSortDirectionConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value.
+            </summary>
+            <param name="value">The value that is produced by the binding target.</param>
+            <param name="targetType">The type to convert to.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.InvertBooleanConverter">
+            <summary>
+             Represent InvertBooleanConverter for the PropertyGrid
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.InvertBooleanConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value.
+            </summary>
+            <param name="value">The value produced by the binding data source.</param>
+            <param name="targetType">The type of the binding data target property.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.InvertBooleanConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value.
+            </summary>
+            <param name="value">The value that is produced by the binding data target.</param>
+            <param name="targetType">The type to convert to.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.BooleanToVisibilityConverter">
+            <summary>
+            Represents class for BooleanToVisibilityConverter which converts Boolean to Visibility values 
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.BooleanToVisibilityConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value.
+            </summary>
+            <param name="value">The value produced by the binding source.</param>
+            <param name="targetType">The type of the binding target property.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.BooleanToVisibilityConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value.
+            </summary>
+            <param name="value">The value that is produced by the binding target.</param>
+            <param name="targetType">The type to convert to.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.InvertBooleanVisibilityConverter">
+            <summary>
+            Represent class for InvertBooleanVisibilityConverter 
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.InvertBooleanVisibilityConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value.
+            </summary>
+            <param name="value">The value produced by the binding source.</param>
+            <param name="targetType">The type of the binding target property.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.InvertBooleanVisibilityConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value.
+            </summary>
+            <param name="value">The value that is produced by the binding target.</param>
+            <param name="targetType">The type to convert to.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.BrushConverter">
+            <summary>
+            Represents class for Brush converter
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.BrushConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value.
+            </summary>
+            <param name="value">The value produced by the binding data source.</param>
+            <param name="targetType">The type of the binding data target property.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.BrushConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value.
+            </summary>
+            <param name="value">The value that is produced by the binding data target.</param>
+            <param name="targetType">The type to convert to.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.PropertyItemToNameConverter">
+            <summary>
+            Represents class for PropertyItemToNameConverter
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyItemToNameConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value.
+            </summary>
+            <param name="value">The value produced by the binding data source.</param>
+            <param name="targetType">The type of the binding data target property.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyItemToNameConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value.
+            </summary>
+            <param name="value">The value produced by the binding data source.</param>
+            <param name="targetType">The type of the binding data target property.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.TypeToNameConverter">
+            <summary>
+            Represent class for TypeToNameConverter
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.TypeToNameConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value.
+            </summary>
+            <param name="value">The value produced by the binding data source.</param>
+            <param name="targetType">The type of the binding data target property.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.TypeToNameConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value.
+            </summary>
+            <param name="value">The value produced by the binding data source.</param>
+            <param name="targetType">The type of the binding data target property.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.BooleanToTooltipConverter">
+            <summary>
+            Represents BooleanToToolTipConverter which represents converter for converting boolean to tooltip value
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.BooleanToTooltipConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value. 
+            </summary>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+            <param name="value">The value produced by the binding source.</param><param name="targetType">The type of the binding target property.</param><param name="parameter">The converter parameter to use.</param><param name="culture">The culture to use in the converter.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.BooleanToTooltipConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value.
+            </summary>
+            <param name="value">The value that is produced by the binding data target.</param>
+            <param name="targetType">The type to convert to.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.BooleanTobrushConverter">
+            <summary>
+            Represents BooleanTobrushConverter which converts Boolean to brush values
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.BooleanTobrushConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value. 
+            </summary>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+            <param name="value">The value produced by the binding source.</param><param name="targetType">The type of the binding target property.</param><param name="parameter">The converter parameter to use.</param><param name="culture">The culture to use in the converter.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.BooleanTobrushConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value. 
+            </summary>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+            <param name="value">The value that is produced by the binding target.</param><param name="targetType">The type to convert to.</param><param name="parameter">The converter parameter to use.</param><param name="culture">The culture to use in the converter.</param>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.ThicknessConverter">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ThicknessConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <param name="sourceType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ThicknessConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <param name="destinationType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ThicknessConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <param name="culture"></param>
+            <param name="value"></param>
+            <param name="destinationType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ThicknessConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <param name="culture"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.LevelToThicknessConverter">
+            <summary>
+            Represents LevelToThicknessConverter which converts level to thickness
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.LevelToThicknessConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value. 
+            </summary>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+            <param name="value">The value produced by the binding source.</param><param name="targetType">The type of the binding target property.</param><param name="parameter">The converter parameter to use.</param><param name="culture">The culture to use in the converter.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.LevelToThicknessConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value.
+            </summary>
+            <param name="value">The value that is produced by the binding data target.</param>
+            <param name="targetType">The type to convert to.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.LevelToThicknessConverterForTogglebutton">
+            <summary>
+            Represents Level to thickness converter 
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.LevelToThicknessConverterForTogglebutton.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value. 
+            </summary>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+            <param name="value">The value produced by the binding source.</param><param name="targetType">The type of the binding target property.</param><param name="parameter">The converter parameter to use.</param><param name="culture">The culture to use in the converter.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.LevelToThicknessConverterForTogglebutton.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value. 
+            </summary>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+            <param name="value">The value that is produced by the binding target.</param><param name="targetType">The type to convert to.</param><param name="parameter">The converter parameter to use.</param><param name="culture">The culture to use in the converter.</param>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.StringTrimmerConverter">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.StringTrimmerConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.StringTrimmerConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.ValueChangedEventHandler">
+            <summary>
+            Represents the delegate ValueChangedEventHandler
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.MenuPopupEventHandler">
+            <summary>
+            Represents the delegate MenuPopupEventHandler
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.ValueChangedEventArgs">
+            <summary>
+            Represents the ValuechangedEventArgs class 
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ValueChangedEventArgs.#ctor(Syncfusion.Windows.PropertyGrid.Property)">
+            <summary>
+            Represents the ValueChangedEventArgs constructor
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ValueChangedEventArgs.#ctor(Syncfusion.Windows.PropertyGrid.Property,System.Object,System.Object)">
+            <summary>
+            Represents ValueChangedEventrgs
+            </summary>
+            <param name="item"></param>
+            <param name="newValue"></param>
+            <param name="oldValue"></param>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.ValueChangedEventArgs.Property">
+            <summary>
+            Get and set the Property
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.ValueChangedEventArgs.NewValue">
+            <summary>
+            Get the NewValue for the PropertyGrid
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.ValueChangedEventArgs.OldValue">
+            <summary>
+            Get and set the oldValue for the PropertyGrid
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.MenuPopupEventArgs">
+            <summary>
+            Represents the MenuPopupEventArgs class 
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.MenuPopupEventArgs.#ctor(Syncfusion.Windows.PropertyGrid.PropertyItem)">
+            <summary>
+            Represents the MenuPopupEvent constructor
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.MenuPopupEventArgs.PropertyItem">
+            <summary>
+            Get and set the Property
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.Property">
+            <summary>
+            Represents the Property class
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.Property.SelectedObject">
+            <summary>
+            Gets or sets the selected object.
+            </summary>
+            <value>The selected object.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.Property.PropertyInformation">
+            <summary>
+            Gets or sets the property information.
+            </summary>
+            <value>The property information.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.Property.Name">
+            <summary>
+            Gets the name.
+            </summary>
+            <value>The name.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.Property.DisplayName">
+            <summary>
+            Gets the display name.
+            </summary>
+            <value>The display name.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.Property.Category">
+            <summary>
+            Gets the category.
+            </summary>
+            <value>The category.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.Property.Browsable">
+            <summary>
+            Gets a value indicating whether this <see cref="T:Syncfusion.Windows.PropertyGrid.PropertyItem"/> is browsable.
+            </summary>
+            <value><c>true</c> if browsable; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.Property.IsReadOnly">
+            <summary>
+            Gets a value indicating whether this instance is read only.
+            </summary>
+            <value>
+            	<c>true</c> if this instance is read only; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.Property.Value">
+            <summary>
+            Gets or sets the value.
+            </summary>
+            <value>The value.</value>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.BooleanComboEditor">
+            <summary>
+            Represents the BooleanComboEditor class which inherits from ITypeEditor
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.ITypeEditor">
+            <summary>
+            Represents the ITypeEditor Interface
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ITypeEditor.Attach(Syncfusion.Windows.PropertyGrid.PropertyViewItem,Syncfusion.Windows.PropertyGrid.PropertyItem)">
+            <summary>
+            
+            </summary>
+            <param name="property"></param>
+            <param name="info"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ITypeEditor.Create(System.Reflection.PropertyInfo)">
+            <summary>
+            
+            </summary>
+            <param name="PropertyInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ITypeEditor.Detach(Syncfusion.Windows.PropertyGrid.PropertyViewItem)">
+            <summary>
+            Represents the Detach method
+            </summary>
+            <param name="property"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.BooleanComboEditor.#ctor">
+            <summary>
+            Represents the BooleanComboEditor constructor
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.BooleanComboEditor.Attach(Syncfusion.Windows.PropertyGrid.PropertyViewItem,Syncfusion.Windows.PropertyGrid.PropertyItem)">
+            <summary>
+            Represents the Attach method
+            </summary>
+            <param name="property"></param>
+            <param name="info"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.BooleanComboEditor.Create(System.Reflection.PropertyInfo)">
+            <summary>
+            
+            </summary>
+            <param name="propertyInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.BooleanComboEditor.Detach(Syncfusion.Windows.PropertyGrid.PropertyViewItem)">
+            <summary>
+            Represents the Detach method
+            </summary>
+            <param name="property"></param>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.BoolMembers">
+            <summary>
+            Represents the BoolMembers class
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.BoolMembers.DispalyName">
+            <summary>
+            Represent the DispalyName property
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.BoolMembers.Value">
+            <summary>
+            Represents the Value Porperty
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.BrushSelectorEditor">
+            <summary>
+            Represents the BrushSelectorEditor class
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.BrushSelectorEditor.Attach(Syncfusion.Windows.PropertyGrid.PropertyViewItem,Syncfusion.Windows.PropertyGrid.PropertyItem)">
+            <summary>
+            Represents the Attach method
+            </summary>
+            <param name="property"></param>
+            <param name="info"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.BrushSelectorEditor.Create(System.Reflection.PropertyInfo)">
+            <summary>
+            Represents the Create method
+            </summary>
+            <param name="propertyInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.BrushSelectorEditor.Detach(Syncfusion.Windows.PropertyGrid.PropertyViewItem)">
+            <summary>
+            Represents the Detach method
+            </summary>
+            <param name="property"></param>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.CheckBoxEditor">
+            <summary>
+            Represents the CheckBoxEditor
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.CheckBoxEditor.Attach(Syncfusion.Windows.PropertyGrid.PropertyViewItem,Syncfusion.Windows.PropertyGrid.PropertyItem)">
+            <summary>
+            Represents the Attach method
+            </summary>
+            <param name="property"></param>
+            <param name="info"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.CheckBoxEditor.Create(System.Reflection.PropertyInfo)">
+            <summary>
+            Represents the create method
+            </summary>
+            <param name="propertyInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.CheckBoxEditor.Detach(Syncfusion.Windows.PropertyGrid.PropertyViewItem)">
+            <summary>
+            Represents the Detach method
+            </summary>
+            <param name="property"></param>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.DateTimeEditor">
+            <summary>
+            Represents the DateTimeEditor class
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.DateTimeEditor.Attach(Syncfusion.Windows.PropertyGrid.PropertyViewItem,Syncfusion.Windows.PropertyGrid.PropertyItem)">
+            <summary>
+            Represents the Attach method
+            </summary>
+            <param name="property"></param>
+            <param name="info"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.DateTimeEditor.Create(System.Reflection.PropertyInfo)">
+            <summary>
+            Represents the Create method
+            </summary>
+            <param name="propertyInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.DateTimeEditor.Detach(Syncfusion.Windows.PropertyGrid.PropertyViewItem)">
+            <summary>
+            Represents the Detach method
+            </summary>
+            <param name="property"></param>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.DoubleTextBoxEditor">
+            <summary>
+            Represents the DoubleTextBoxEditor
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.DoubleTextBoxEditor.Attach(Syncfusion.Windows.PropertyGrid.PropertyViewItem,Syncfusion.Windows.PropertyGrid.PropertyItem)">
+            <summary>
+            Represents the Attach method
+            </summary>
+            <param name="property"></param>
+            <param name="info"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.DoubleTextBoxEditor.Create(System.Reflection.PropertyInfo)">
+            <summary>
+            Represents the Create method
+            </summary>
+            <param name="propertyInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.DoubleTextBoxEditor.Detach(Syncfusion.Windows.PropertyGrid.PropertyViewItem)">
+            <summary>
+            Represents the Detach method
+            </summary>
+            <param name="property"></param>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.EnumComboEditor">
+            <summary>
+            Represents the EnumComboEditor class
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.EnumComboEditor.Attach(Syncfusion.Windows.PropertyGrid.PropertyViewItem,Syncfusion.Windows.PropertyGrid.PropertyItem)">
+            <summary>
+            Represents the Attach method
+            </summary>
+            <param name="property"></param>
+            <param name="info"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.EnumComboEditor.Create(System.Reflection.PropertyInfo)">
+            <summary>
+            Represents the create method
+            </summary>
+            <param name="propertyInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.EnumComboEditor.Detach(Syncfusion.Windows.PropertyGrid.PropertyViewItem)">
+            <summary>
+            Represents the detach method
+            </summary>
+            <param name="property"></param>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.FontComboEditor">
+            <summary>
+            Represents the FontComboEditor class
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.FontComboEditor.Attach(Syncfusion.Windows.PropertyGrid.PropertyViewItem,Syncfusion.Windows.PropertyGrid.PropertyItem)">
+            <summary>
+            Represents the Attach method
+            </summary>
+            <param name="property"></param>
+            <param name="info"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.FontComboEditor.Create(System.Reflection.PropertyInfo)">
+            <summary>
+            Represents the create method
+            </summary>
+            <param name="propertyInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.FontComboEditor.Detach(Syncfusion.Windows.PropertyGrid.PropertyViewItem)">
+            <summary>
+            Represents the detach method
+            </summary>
+            <param name="property"></param>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.IntegerTextBoxEditor">
+            <summary>
+            Represents the IntegerTextBoxEditor class
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.IntegerTextBoxEditor.Attach(Syncfusion.Windows.PropertyGrid.PropertyViewItem,Syncfusion.Windows.PropertyGrid.PropertyItem)">
+            <summary>
+            Represents the Attach method
+            </summary>
+            <param name="property"></param>
+            <param name="info"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.IntegerTextBoxEditor.Create(System.Reflection.PropertyInfo)">
+            <summary>
+            Represents the create method
+            </summary>
+            <param name="propertyInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.IntegerTextBoxEditor.Detach(Syncfusion.Windows.PropertyGrid.PropertyViewItem)">
+            <summary>
+            Represents the Detach method
+            </summary>
+            <param name="property"></param>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.Int64ToInt32ConverterForIntegerTextBox">
+            <summary>
+            Represents the Converter which converts Int64toInt32
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.Int64ToInt32ConverterForIntegerTextBox.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value. 
+            </summary>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+            <param name="value">The value produced by the binding source.</param><param name="targetType">The type of the binding target property.</param><param name="parameter">The converter parameter to use.</param><param name="culture">The culture to use in the converter.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.Int64ToInt32ConverterForIntegerTextBox.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value. 
+            </summary>
+            <returns>
+            A converted value. If the method returns null, the valid null value is used.
+            </returns>
+            <param name="value">The value that is produced by the binding target.</param><param name="targetType">The type to convert to.</param><param name="parameter">The converter parameter to use.</param><param name="culture">The culture to use in the converter.</param>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.ITypeCustomEditor">
+            <summary>
+            Represents the interface ITypeCustomEditor
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.ITypeCustomEditor.Editor">
+            <summary>
+            Get and set the Editor 
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.ITypeCustomEditor.Properties">
+            <summary>
+            Get and set the Properties values
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.ITypeCustomEditor.PropertyType">
+            <summary>
+            Get and set the PropertyType
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.ITypeCustomEditor.HasPropertyType">
+            <summary>
+            Get and set the HasPropertyType
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.CustomEditor">
+            <summary>
+            Represents the CustomEditor class
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.CustomEditor.#ctor">
+            <summary>
+            Represents the CustomEditor Constructor
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.CustomEditor._Properties">
+            <summary>
+            Represents the Properties property
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.CustomEditor.Editor">
+            <summary>
+            Get and set the Editor 
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.CustomEditor.Properties">
+             <summary>
+            Get and Set the collection of properties
+             </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.CustomEditor.PropertyType">
+            <summary>
+            Get and set the PropertyType
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.CustomEditor.HasPropertyType">
+            <summary>
+            Get and Set the HasPropertyType
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.CustomEditorCollection">
+            <summary>
+            Represents the CustomEditorCollection class
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.CustomEditorCollection.Item(System.Type)">
+            <summary>
+            Get the ITypeCustomEditor
+            </summary>
+            <param name="PropertyType"></param>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.CustomEditorCollection.Item(System.String,System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="PropertyName"></param>
+            <param name="PropertyType"></param>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.TextBoxEditor">
+            <summary>
+            Represents the TextBoxEditor class
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.TextBoxEditor.#ctor">
+            <summary>
+            Represents the TextBoxEditor Constructor
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.TextBoxEditor.Attach(Syncfusion.Windows.PropertyGrid.PropertyViewItem,Syncfusion.Windows.PropertyGrid.PropertyItem)">
+            <summary>
+            Represents the Attach method
+            </summary>
+            <param name="property"></param>
+            <param name="info"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.TextBoxEditor.Create(System.Reflection.PropertyInfo)">
+            <summary>
+            Represents the Create method
+            </summary>
+            <param name="propertyInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.TextBoxEditor.Detach(Syncfusion.Windows.PropertyGrid.PropertyViewItem)">
+            <summary>
+            Represents the detach method
+            </summary>
+            <param name="property"></param>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.CategoryEditorProperty">
+            <summary>
+            Represents the CategoryEditorProperty
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.CategoryEditorProperty.Name">
+            <summary>
+            Get and Set the Name property
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.CategoryEditor">
+            <summary>
+            Represent the CategoryEditor property
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.CategoryEditor.Category">
+            <summary>
+            Represents the Category property
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.CategoryEditor.Description">
+            <summary>
+            Get and set the Description property
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.CategoryEditor.DisplayName">
+            <summary>
+            Get and set the DisplayName property
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.CategoryEditor.EditorTemplate">
+            <summary>
+            Get and set the EditorTemplate
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.CategoryEditor.Properties">
+            <summary>
+            Get and set the Properties 
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.PropertyCategoryViewItemCollection">
+            <summary>
+            Represents the PropertyCategoryViewItemCollection
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyCategoryViewItemCollection.Properties">
+            <summary>
+            Get and Set the collection of Properties property
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyCategoryViewItemCollection.Category">
+            <summary>
+            Get and set the Category property
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.PropertyCollection">
+            <summary>
+            Represents the PropertyCollection class
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.PropertyItemCollection">
+            <summary>
+            Represents PropertyItemCollection class
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyItemCollection.Item(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="PropertyName"></param>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.CategoryEditorCollection">
+            <summary>
+            Represents the CategroyEditorCollection class
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.CategoryEditorPropertyCollection">
+            <summary>
+            Represents the CateGoryEditorPropertyCollection class
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.IProperty">
+            <summary>
+            Represents the Iproperty Interface
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.IProperty.PropertyName">
+            <summary>
+            Get and set the PropertyName
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.IProperty.PropertyType">
+            <summary>
+            Get and set the PropertyType
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.DefaultMenuButton">
+            <summary>
+            DefaultMenuButton class
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.DefaultMenuButton.#ctor">
+            <summary>
+            DefaultMenuButton constructor
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.DefaultMenuButton.OnApplyTemplate">
+            <summary>
+            OnApplyTemplate() 
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.PropertyGrid">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyGrid.FlatTypeCollection">
+            <summary>
+            Represents the FlatTypeCollection
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGrid.#cctor">
+            <summary>
+            Initializes the <see cref="T:Syncfusion.Windows.PropertyGrid.PropertyGrid"/> class.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGrid.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.Windows.PropertyGrid.PropertyGrid"/> class.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyGrid.MenuItemsProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyGrid.MenuButtonVisibilityProperty">
+            <summary>
+             Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyGrid.SelectedPropertyItemProperty">
+            <summary>
+             Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyGrid.DisableAnimationOnObjectSelectionProperty">
+            <summary>
+            enable or disable animation while loading selectedobject
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyGrid.LoadingDelayProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for LoadingDelay.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyGrid.SelectedItemsProperty">
+            <summary>
+             Using a DependencyProperty as the backing store for SelectedItems.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyGrid.EditableBackgroundProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for EditableBackground.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyGrid.SearchBoxVisibilityProperty">
+            <summary>
+             Using a DependencyProperty as the backing store for SearchBoxVisibility.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyGrid.PropertyExpandModeProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for PropertyVisiblityMode.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyGrid.EnableToolTipProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for EnableToolTip.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyGrid.EditableFontWeightProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for EditableFontWeight.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyGrid.ReadOnlyBackgroundProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for ReadOnlyBackground.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyGrid.ReadOnlyFontWeightProperty">
+            <summary>
+             Using a DependencyProperty as the backing store for ReadOnlyFontWeight.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyGrid.ButtonPanelVisibilityProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for ButtonPanelVisibility.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyGrid.CategoryForegroundProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyGrid.LineColorProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyGrid.ViewBackgroundColorProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyGrid.DefaultPropertyPathProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for DefaultPropertyPath.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyGrid.EnableGroupingProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyGrid.SelectedObjectProperty">
+            <summary>
+             SelectedObject property used for displaying object which displays in the grid.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyGrid.VisualStyleProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for VisualStyle.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyGrid.PropertiesProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyGrid.CategoryEditorsProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for CategoryEditors.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyGrid.SelectedObjectPropertiesProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for SelectedObjectProperties.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyGrid.DescriptionPanelVisibilityProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for DescriptionPanelVisibility.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyGrid.DescriptionPanelHeightProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for DescriptionPanelHeight.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyGrid.SortDirectionProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyGrid.CollapseSidePanelProperty">
+            <summary>
+            CollapseSidePanel an dependency property for the collapsing the side panel of the PropertyGrid
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyGrid.HidePropertiesCollectionProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyGrid.CustomEditorCollectionProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGrid.RefreshPropertygrid">
+            <summary>
+            Refesh the property Grid.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGrid.ResetAll">
+            <summary>
+            ReserAll method
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGrid.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+            <filterpriority>2</filterpriority>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGrid.ParseObject(System.Object)">
+            <summary>
+            Parses the object.
+            </summary>
+            <param name="objItem">The obj item.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGrid.GetPropertyDescriptors(System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="instance"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGrid.GroupAndSort(Syncfusion.Windows.PropertyGrid.PropertyItemCollection)">
+            <summary>
+            Groups the and sort.
+            </summary>
+            <param name="propertyCollection">The property collection.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGrid.FireValueChanged(Syncfusion.Windows.PropertyGrid.PropertyItem,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Fires the value changed.
+            </summary>
+            <param name="propertyItem">The property item.</param>
+            <param name="args"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGrid.OnSelectedPropertyItemChanged(System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Raises the <see cref="E:SelectedPropertyItemChanged"/> event.
+            </summary>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGrid.OnExpanderStyleChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when [expander style changed].
+            </summary>
+            <param name="obj">The obj.</param>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGrid.OnSelectedObjectChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when [selected object changed].
+            </summary>
+            <param name="obj">The obj.</param>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGrid.OnVisualStyleChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Raises the <see cref="E:VisualStyleChanged"/> event.
+            </summary>
+            <param name="obj"></param>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGrid.OnSelectedObjectChanged(System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Raises the <see cref="E:SelectedObjectChanged"/> event.
+            </summary>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGrid.OnEnableGroupingChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when [enable grouping changed].
+            </summary>
+            <param name="obj">The obj.</param>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGrid.OnEnableGroupingChanged(System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Raises the <see cref="E:EnableGroupingChanged"/> event.
+            </summary>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGrid.OnSortDirectionChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when [sort direction changed].
+            </summary>
+            <param name="obj">The obj.</param>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGrid.OnSortDirectionChanged(System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Raises the <see cref="E:SortDirectionChanged"/> event.
+            </summary>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGrid.OnCategoryForegroundChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when [category foreground changed].
+            </summary>
+            <param name="obj">The obj.</param>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGrid.OnLoadingDelayChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            
+            </summary>
+            <param name="d"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGrid.OnLoadingDelayChanged(System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGrid.OnLineColorChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when [line color changed].
+            </summary>
+            <param name="obj">The obj.</param>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGrid.OnViewBackgroundColorChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when [view background color changed].
+            </summary>
+            <param name="obj">The obj.</param>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGrid.OnViewForegroundColorChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when [view foreground color changed].
+            </summary>
+            <param name="obj">The obj.</param>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyGrid.PART_GroupButton">
+            <summary>
+            The ToggleButton variable Part_GroupButton for defining the group buttons
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyGrid.PART_SortButton">
+            <summary>
+            The ToggleButton variable Part_GroupButton for defining the group buttons
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGrid.OnApplyTemplate">
+            <summary>
+            When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate"/>.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGrid.OnPropertyChanged(System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Invoked while any of the property get changed
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGrid.OnCreateAutomationPeer">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="E:Syncfusion.Windows.PropertyGrid.PropertyGrid.SelectedObjectChanged">
+            <summary>
+            Occurs when [selected object changed].
+            </summary>
+        </member>
+        <member name="E:Syncfusion.Windows.PropertyGrid.PropertyGrid.SelectedPropertyItemChanged">
+            <summary>
+            Occurs when [selected property changed].
+            </summary>
+        </member>
+        <member name="E:Syncfusion.Windows.PropertyGrid.PropertyGrid.SortDirectionChanged">
+            <summary>
+            Occurs when [sort direction changed].
+            </summary>
+        </member>
+        <member name="E:Syncfusion.Windows.PropertyGrid.PropertyGrid.EnableGroupingChanged">
+            <summary>
+            Occurs when [enable grouping changed].
+            </summary>
+        </member>
+        <member name="E:Syncfusion.Windows.PropertyGrid.PropertyGrid.ValueChanged">
+            <summary>
+            Occurs when [value changed].
+            </summary>
+        </member>
+        <member name="E:Syncfusion.Windows.PropertyGrid.PropertyGrid.MenuPopupOpening">
+            <summary>
+            Occurs when [MenuPopup Opening].
+            </summary>
+        </member>
+        <member name="E:Syncfusion.Windows.PropertyGrid.PropertyGrid.MenuPopupOpened">
+            <summary>
+            Occurs when [MenuPopup Opened].
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyGrid.MenuItems">
+            <summary>
+            Get and set the MenuItems
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyGrid.MenuButtonVisibility">
+            <summary>
+            Get and set the MenuButtonVisibility
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyGrid.SelectedPropertyItem">
+            <summary>
+            Get and set the SelectedPropertyItem
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyGrid.DisableAnimationOnObjectSelection">
+            <summary>
+            enable or disable animation while loading selectedobject
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyGrid.LoadingDelay">
+            <summary>
+            LoadingDelay on MilliSeconds
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyGrid.SelectedItems">
+            <summary>
+            Get and set the SeelctedItems property
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyGrid.EditableBackground">
+            <summary>
+            Gets or sets the editable background.
+            </summary>
+            <value>The editable background.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyGrid.SearchBoxVisibility">
+            <summary>
+            Get and set the SearchBoxVisibility
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyGrid.PropertyExpandMode">
+            <summary>
+            Get and set the PropertyExpandMode property
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyGrid.EnableToolTip">
+            <summary>
+            Get and set the EnableToolTip property
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyGrid.EditableFontWeight">
+            <summary>
+            Gets or sets the editable font weight.
+            </summary>
+            <value>The editable font weight.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyGrid.ReadOnlyBackground">
+            <summary>
+            Gets or sets the read only background.
+            </summary>
+            <value>The read only background.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyGrid.ReadOnlyFontWeight">
+            <summary>
+            Gets or sets the read only font weight.
+            </summary>
+            <value>The read only font weight.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyGrid.ButtonPanelVisibility">
+            <summary>
+            Gets or sets the button panel visibility.
+            </summary>
+            <value>The button panel visibility.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyGrid.CategoryForeground">
+            <summary>
+            Gets or sets the text color used for category headings.
+            </summary>
+            <value>The category foreground.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyGrid.LineColor">
+            <summary>
+            Gets or sets the color of the borders and category heading background.
+            </summary>
+            <value>The color of the line.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyGrid.ViewBackgroundColor">
+            <summary>
+            Gets or sets the background color of the propertyview.
+            </summary>
+            <value>The color of the view background.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyGrid.DefaultPropertyPath">
+            <summary>
+            Get and Set the default property path for the property grid
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyGrid.EnableGrouping">
+            <summary>
+            Gets or sets a value indicating whether [enable grouping].
+            </summary>
+            <value><c>true</c> if [enable grouping]; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyGrid.SelectedObject">
+            <summary>
+            Gets or sets the object for which the grid displays properties.
+            </summary>
+            <value>The selected object.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyGrid.VisualStyle">
+            <summary>
+            Gets or sets the visual style for PropertyGrid.
+            </summary>
+            <value>The visual style.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyGrid.Properties">
+            <summary>
+            Gets or sets the properties.
+            </summary>
+            <value>The properties.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyGrid.CategoryEditors">
+            <summary>
+            Gets or sets the category editors.
+            </summary>
+            <value>The category editors.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyGrid.SelectedObjectProperties">
+            <summary>
+            Gets or sets the selected object properties.
+            </summary>
+            <value>The selected object properties.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyGrid.DescriptionPanelVisibility">
+            <summary>
+            Get and Set the DescriptionPanelVisibility for the PropertyGridControl
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyGrid.DescriptionPanelHeight">
+            <summary>
+            Get and Set the property of DescriptionPanelHeight for the PropertyGrid
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyGrid.SortDirection">
+            <summary>
+              Gets or sets the type of sorting the PropertyGrid uses to display properties.
+            </summary>
+            <value>The sort direction.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyGrid.CollapseSidePanel">
+            <summary>
+            Gets or sets the CollapseSidePanel properties.
+            </summary>
+            <value>The CollapseSidePanel.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyGrid.HidePropertiesCollection">
+            <summary>
+            Gets or sets the hide properties collection.
+            </summary>
+            <value>The hide properties collection.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyGrid.CustomEditorCollection">
+            <summary>
+            Gets or sets the custom editor collection.
+            </summary>
+            <value>The custom editor collection.</value>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.PropertyExpandModes">
+            <summary>
+            Enum variable PropertyExpandModes which contains different modes for PropertyGrid
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyExpandModes.NestedMode">
+            <summary>
+            variable for nested mode
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyExpandModes.FlatMode">
+            <summary>
+            variable for flat mode
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.PropertyItem">
+            <summary>
+            Represents PropertyItem class
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyItem.#ctor">
+            <summary>
+            Represents PropertyItem constructor
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyItem.SelectedObjectProperty">
+            <summary>
+            Represents selectedObjectProperty dependency poroperty of PropertyGrid
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyItem.OnSelectedObjectChanged(System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Represents protected method OnSelectedObjectChanged
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyItem.PropertyExpandModeProperty">
+            <summary>
+            Represents depedency property PropertyExpandModeProperty used for expanding the ProperyGrid
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyItem.ValueProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyItem.OnValueChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when [value changed].
+            </summary>
+            <param name="obj">The obj.</param>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyItem.OnValueChanged(System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Raises the <see cref="E:ValueChanged"/> event.
+            </summary>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyItem.GetAttribute``1(System.Reflection.PropertyInfo)">
+            <summary>
+            Gets the attribute.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="propertyInfo">The property info.</param>
+            <returns></returns>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyItem.PropertyLevelProperty">
+            <summary>
+            Represents DependencyProperty PropertyLevel which represents level 
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyItem.CategoryValuePropertiesProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyItem.OnPropertyChanged(System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Invoked while any of the property get changed
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyItem.ResetCommand">
+            <summary>
+            Reset Command
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyItem.PropertyGrid">
+            <summary>
+            Gets or sets the property grid.
+            </summary>
+            <value>The property grid.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyItem.SelectedObject">
+            <summary>
+            Gets or sets the selected object.
+            </summary>
+            <value>The selected object.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyItem.PropertyExpandMode">
+            <summary>
+            Gets or sets the property information.
+            </summary>
+            <value>The property information.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyItem.PropertyInformation">
+            <summary>
+            Gets or sets the property information.
+            </summary>
+            <value>The property information.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyItem.Name">
+            <summary>
+            Gets the name.
+            </summary>
+            <value>The name.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyItem.DisplayName">
+            <summary>
+            Gets the display name.
+            </summary>
+            <value>The display name.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyItem.IsDefaultValue">
+            <summary>
+            Gets the IsDefaultValue
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyItem.DefaultValue">
+            <summary>
+            Gets  the DefaultValue
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyItem.EnableMenuButton">
+            <summary>
+            Gets the EnableMenuButton
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyItem.Category">
+            <summary>
+            Gets the category.
+            </summary>
+            <value>The category.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyItem.Description">
+            <summary>
+            Gets the description.
+            </summary>
+            <value>The description.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyItem.EnableToolTip">
+            <summary>
+            Get the EnableToolTip property
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyItem.PropertyType">
+            <summary>
+            Gets the type of the property.
+            </summary>
+            <value>The type of the property.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyItem.CanWrite">
+            <summary>
+            Gets a value indicating whether this instance can write.
+            </summary>
+            <value><c>true</c> if this instance can write; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyItem.Browsable">
+            <summary>
+            Gets a value indicating whether this <see cref="T:Syncfusion.Windows.PropertyGrid.PropertyItem"/> is browsable.
+            </summary>
+            <value><c>true</c> if browsable; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyItem.IsReadOnly">
+            <summary>
+            Gets a value indicating whether this instance is read only.
+            </summary>
+            <value>
+            	<c>true</c> if this instance is read only; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyItem.Value">
+            <summary>
+            Gets or sets the value.
+            </summary>
+            <value>The value.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyItem.Editor">
+            <summary>
+            Gets or sets the editor.
+            </summary>
+            <value>The editor.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyItem.PropertyLevel">
+            <summary>
+            Get and set the PropertyLevelProperty for PropertyGrid
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyItem.PropertyEditor">
+            <summary>
+            Gets or sets the property editor.
+            </summary>
+            <value>The property editor.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyItem.Template">
+            <summary>
+            Gets or sets the template.
+            </summary>
+            <value>The template.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyItem.CategoryValueProperties">
+            <summary>
+            Gets or sets the category value properties.
+            </summary>
+            <value>The category value properties.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyItem.SelectedObjectProperties">
+            <summary>
+            Gets or sets the selected object properties.
+            </summary>
+            <value>The selected object properties.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyItem.Error">
+            <summary>
+            Gets an error message indicating what is wrong with this object.
+            </summary>
+            <value></value>
+            <returns>An error message indicating what is wrong with this object. The default is an empty string ("").</returns>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyItem.Item(System.String)">
+            <summary>
+            Gets the <see cref="T:System.String"/> with the specified column name.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyItem.IsSelected">
+            <summary>
+            Get and Set the IsSelected Property
+            </summary>
+        </member>
+        <member name="E:Syncfusion.Windows.PropertyGrid.PropertyItem.PropertyChanged">
+            <summary>
+            Represent Propeety
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.ToggleGroupButton">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ToggleGroupButton.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ToggleGroupButton.OnCreateAutomationPeer">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.ToggleSortButton">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ToggleSortButton.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ToggleSortButton.OnCreateAutomationPeer">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.SearchTextBox">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.SearchTextBox.OnCreateAutomationPeer">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.DescriptionBorder">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.DescriptionBorder.OnCreateAutomationPeer">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.DescriptionNameTextBlock">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.DescriptionNameTextBlock.OnCreateAutomationPeer">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.DescriptionDetailsTextBlock">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.DescriptionDetailsTextBlock.OnCreateAutomationPeer">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.PropertyGridScrollViewer">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGridScrollViewer.OnCreateAutomationPeer">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.PropertyGridSplitter">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGridSplitter.OnCreateAutomationPeer">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.PropertyItemTextBlock">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyItemTextBlock.OnCreateAutomationPeer">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.ClearButton">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ClearButton.OnCreateAutomationPeer">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItem">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItem.PropertyView">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItem.IsExpandedProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItem.CategoryForegroundProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItem.LineColorProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItem.EditableBackgroundProperty">
+            <summary>
+            EditableBackgroundproperty depedency property for the PropertyGrid
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItem.EditableFontWeightProperty">
+            <summary>
+            EditableFontWeight property depedency property for PropertyGrid
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItem.ReadOnlyBackgroundProperty">
+            <summary>
+            ReadOnlyBackgroundproperty dependency property for the PropertyGrid
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItem.ReadOnlyFontWeightProperty">
+            <summary>
+            ReadOnlyFontWeight depedency property for ReadOnlyFontWeight
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItem.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItem"/> class.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItem.OnHeaderChanged(System.Object,System.Object)">
+            <summary>
+            Called when the <see cref="P:System.Windows.Controls.HeaderedItemsControl.Header"/> property of a <see cref="T:System.Windows.Controls.HeaderedItemsControl"/> changes. 
+            </summary>
+            <param name="oldHeader">The old value of the <see cref="P:System.Windows.Controls.HeaderedItemsControl.Header"/> property.</param><param name="newHeader">The new value of the <see cref="P:System.Windows.Controls.HeaderedItemsControl.Header"/> property.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItem.IsItemItsOwnContainerOverride(System.Object)">
+            <summary>
+            Determines if the specified item is (or is eligible to be) its own container.
+            </summary>
+            <param name="item">The item to check.</param>
+            <returns>
+            true if the item is (or is eligible to be) its own container; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItem.GetContainerForItemOverride">
+            <summary>
+            Creates or identifies the element that is used to display the given item.
+            </summary>
+            <returns>
+            The element that is used to display the given item.
+            </returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItem.PrepareContainerForItemOverride(System.Windows.DependencyObject,System.Object)">
+            <summary>
+            Prepares the specified element to display the specified item.
+            </summary>
+            <param name="element">Element used to display the specified item.</param>
+            <param name="item">Specified item.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItem.OnApplyTemplate">
+            <summary>
+            When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate"/>.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItem.OnIsExpandedChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when [is expanded changed].
+            </summary>
+            <param name="obj">The obj.</param>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItem.OnIsExpandedChanged(System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Raises the <see cref="E:IsExpandedChanged"/> event.
+            </summary>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItem.UpdateVisualState(System.Boolean)">
+            <summary>
+            Updates the state of the visual.
+            </summary>
+            <param name="useTransitions">if set to <c>true</c> [use transitions].</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItem.OnCategoryForegroundChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when [category foreground changed].
+            </summary>
+            <param name="obj">The obj.</param>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItem.OnLineColorChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when [line color changed].
+            </summary>
+            <param name="obj">The obj.</param>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItem.OnCreateAutomationPeer">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItem.IsExpanded">
+            <summary>
+            Gets or sets a value indicating whether this instance is expanded.
+            </summary>
+            <value>
+            	<c>true</c> if this instance is expanded; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItem.CategoryForeground">
+            <summary>
+            Gets or sets the text color used for category headings.
+            </summary>
+            <value>The category foreground.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItem.LineColor">
+            <summary>
+            Gets or sets the color of the borders and category heading background.
+            </summary>
+            <value>The color of the line.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItem.EditableBackground">
+            <summary>
+            Gets or sets the editable background.
+            </summary>
+            <value>The editable background.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItem.EditableFontWeight">
+            <summary>
+            Gets or sets the editable font weight.
+            </summary>
+            <value>The editable font weight.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItem.ReadOnlyBackground">
+            <summary>
+            Gets or sets the read only background.
+            </summary>
+            <value>The read only background.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItem.ReadOnlyFontWeight">
+            <summary>
+            Gets or sets the read only font weight.
+            </summary>
+            <value>The read only font weight.</value>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.PropertyView">
+            <summary>
+            Represents class for PropertyView which inherits from ItemsControl
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyView.SelectedPropertyProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyView.OnSelectedPropertyChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when [selected property changed].
+            </summary>
+            <param name="obj">The obj.</param>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyView.OnSelectedPropertyChanged(System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Raises the <see cref="E:SelectedPropertyChanged"/> event.
+            </summary>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyView.SelectedItemProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyView.OnSelectedItemChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when [selected item changed].
+            </summary>
+            <param name="obj">The obj.</param>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyView.OnSelectedItemChanged(System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Raises the <see cref="E:SelectedItemChanged"/> event.
+            </summary>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyView.EnableGroupingProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyView.OnEnableGroupingChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when [enable grouping changed].
+            </summary>
+            <param name="obj">The obj.</param>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyView.OnEnableGroupingChanged(System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Raises the <see cref="E:EnableGroupingChanged"/> event.
+            </summary>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyView.CategoryForegroundProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyView.LineColorProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyView.ViewBackgroundColorProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyView.EditableBackgroundProperty">
+            <summary>
+            EditableBackgroundProperty DependencyProperty for PropertyGrid
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyView.EditableFontWeightProperty">
+            <summary>
+            Represents EditableFontWeight property for PropertyGrid.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyView.ReadOnlyBackgroundProperty">
+            <summary>
+            Represents Dependency property ReadOnlyBackground for PropertyGrid
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyView.ReadOnlyFontWeightProperty">
+            <summary>
+             The read only font weight dependency property for the PropertyGrid
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyView.OnCategoryForegroundChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when [category foreground changed].
+            </summary>
+            <param name="obj">The obj.</param>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyView.OnLineColorChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when [line color changed].
+            </summary>
+            <param name="obj">The obj.</param>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyView.OnViewBackgroundColorChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when [view background color changed].
+            </summary>
+            <param name="obj">The obj.</param>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyView.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.Windows.PropertyGrid.PropertyView"/> class.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyView.ClearContainerForItemOverride(System.Windows.DependencyObject,System.Object)">
+            <summary>
+            When overridden in a derived class, undoes the effects of the <see cref="M:System.Windows.Controls.ItemsControl.PrepareContainerForItemOverride(System.Windows.DependencyObject,System.Object)"/> method.
+            </summary>
+            <param name="element">The container element.</param><param name="item">The item.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyView.PrepareContainerForItemOverride(System.Windows.DependencyObject,System.Object)">
+            <summary>
+            Prepares the specified element to display the specified item.
+            </summary>
+            <param name="element">Element used to display the specified item.</param>
+            <param name="item">Specified item.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyView.IsItemItsOwnContainerOverride(System.Object)">
+            <summary>
+            Determines if the specified item is (or is eligible to be) its own container.
+            </summary>
+            <param name="item">The item to check.</param>
+            <returns>
+            true if the item is (or is eligible to be) its own container; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyView.GetContainerForItemOverride">
+            <summary>
+            Creates or identifies the element that is used to display the given item.
+            </summary>
+            <returns>
+            The element that is used to display the given item.
+            </returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyView.OnCreateAutomationPeer">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyView.SelectedProperty">
+            <summary>
+            Gets or sets the selected property.
+            </summary>
+            <value>The selected property.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyView.SelectedItem">
+            <summary>
+            Gets or sets the selected item.
+            </summary>
+            <value>The selected item.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyView.EnableGrouping">
+            <summary>
+            Gets or sets a value indicating whether [enable grouping].
+            </summary>
+            <value><c>true</c> if [enable grouping]; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyView.CategoryForeground">
+            <summary>
+            Gets or sets the text color used for category headings.
+            </summary>
+            <value>The category foreground.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyView.LineColor">
+            <summary>
+            Gets or sets the color of the borders and category heading background.
+            </summary>
+            <value>The color of the line.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyView.ViewBackgroundColor">
+            <summary>
+            Gets or sets the color of the view background.
+            </summary>
+            <value>The color of the view background.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyView.EditableBackground">
+            <summary>
+            Gets or sets the editable background.
+            </summary>
+            <value>The editable background.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyView.EditableFontWeight">
+            <summary>
+            Gets or sets the editable font weight.
+            </summary>
+            <value>The editable font weight.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyView.ReadOnlyBackground">
+            <summary>
+            Gets or sets the read only background.
+            </summary>
+            <value>The read only background.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyView.ReadOnlyFontWeight">
+            <summary>
+            Gets or sets the read only font weight.
+            </summary>
+            <value>The read only font weight.</value>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.PropertyViewItem">
+            <summary>
+             The PropertyView Item class
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyViewItem.IsItemItsOwnContainerOverride(System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyViewItem.GetContainerForItemOverride">
+            <summary>
+            Creates or identifies the element that is used to display the given item.
+            </summary>
+            <returns>
+            The element that is used to display the given item.
+            </returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyViewItem.PrepareContainerForItemOverride(System.Windows.DependencyObject,System.Object)">
+            <summary>
+            Prepares the specified element to display the specified item. 
+            </summary>
+            <param name="element">Element used to display the specified item.</param><param name="item">Specified item.</param>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyViewItem.IsSelectedProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyViewItem.IsMouseOverProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyViewItem.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.Windows.PropertyGrid.PropertyViewItem"/> class.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyViewItem.EditorTemplateProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyViewItem.OnGotFocus(System.Windows.RoutedEventArgs)">
+            <summary>
+            Invoked whenever an unhandled <see cref="E:System.Windows.UIElement.GotFocus"/> event reaches this element in its route.
+            </summary>
+            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> that contains the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyViewItem.OnLostFocus(System.Windows.RoutedEventArgs)">
+            <summary>
+            Raises the <see cref="E:System.Windows.UIElement.LostFocus"/> routed event by using the event data that is provided.
+            </summary>
+            <param name="e">A <see cref="T:System.Windows.RoutedEventArgs"/> that contains event data. This event data must contain the identifier for the <see cref="E:System.Windows.UIElement.LostFocus"/> event.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyViewItem.OnMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Invoked when an unhandled <see cref="E:System.Windows.UIElement.MouseLeftButtonDown"/> routed event is raised on this element. Implement this method to add class handling for this event.
+            </summary>
+            <param name="e">The <see cref="T:System.Windows.Input.MouseButtonEventArgs"/> that contains the event data. The event data reports that the left mouse button was pressed.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyViewItem.OnMouseEnter(System.Windows.Input.MouseEventArgs)">
+            <summary>
+            Invoked when an unhandled <see cref="E:System.Windows.Input.Mouse.MouseEnter"/> attached event is raised on this element. Implement this method to add class handling for this event.
+            </summary>
+            <param name="e">The <see cref="T:System.Windows.Input.MouseEventArgs"/> that contains the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyViewItem.OnMouseLeave(System.Windows.Input.MouseEventArgs)">
+            <summary>
+            Invoked when an unhandled <see cref="E:System.Windows.Input.Mouse.MouseLeave"/> attached event is raised on this element. Implement this method to add class handling for this event.
+            </summary>
+            <param name="e">The <see cref="T:System.Windows.Input.MouseEventArgs"/> that contains the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyViewItem.OnMouseMove(System.Windows.Input.MouseEventArgs)">
+            <summary>
+            Invoke on Mousemove
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyViewItem.OnIsSelectedChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when [is selected changed].
+            </summary>
+            <param name="obj">The obj.</param>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyViewItem.OnIsSelectedChanged(System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Raises the <see cref="E:IsSelectedChanged"/> event.
+            </summary>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyViewItem.OnIsMouseOverChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when [is mouse over changed].
+            </summary>
+            <param name="obj">The obj.</param>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyViewItem.OnIsMouseOverChanged(System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Raises the <see cref="E:IsMouseOverChanged"/> event.
+            </summary>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyViewItem.UpdateVisualState(System.Boolean)">
+            <summary>
+            Updates the state of the visual.
+            </summary>
+            <param name="useTransitions">if set to <c>true</c> [use transitions].</param>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyViewItem.NameProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyViewItem.OnApplyTemplate">
+            <summary>
+            When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate"/>.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyViewItem.OnCreateAutomationPeer">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyViewItem.IsSelected">
+            <summary>
+            Gets or sets a value indicating whether this instance is selected.
+            </summary>
+            <value>
+            	<c>true</c> if this instance is selected; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyViewItem.IsMouseOver">
+            <summary>
+            Gets a value indicating whether the mouse pointer is located over this element (including child elements in the visual tree).
+            </summary>
+            <value></value>
+            <returns>true if mouse pointer is over the element or its child elements; otherwise, false. The default is false.</returns>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyViewItem.HasItems">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyViewItem.EditorTemplate">
+            <summary>
+            Gets or sets the editor template.
+            </summary>
+            <value>The editor template.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyViewItem.Name">
+            <summary>
+            Gets or sets the identifying name of the element. The name provides a reference so that code-behind, such as event handler code, can refer to a markup element after it is constructed during processing by a XAML processor.
+            </summary>
+            <value></value>
+            <returns>The name of the element. The default is an empty string.</returns>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.ResourceManager">
+            <summary>
+            Represents the ResourceManager class
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ResourceManager.#ctor">
+            <summary>
+            Represents the ResourceManager constructor
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ResourceManager.GetValueTemplate(System.Type,System.String)">
+            <summary>
+            Method for getting the template for the value
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.PropertyExpandModeAttribute">
+            <summary>
+            PropertyExpandModeAttribute for the PropertyGrid
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyExpandModeAttribute.#ctor(System.String)">
+            <summary>
+            Attribute called PropertyExpandModeAttribute , used for expand mode
+            </summary>
+            <param name="ExpandMode"></param>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyExpandModeAttribute.ExpandMode">
+            <summary>
+            Get and Set the mode for the expanding the property grid
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.CollectionEditor">
+            <summary>
+            Interaction logic for CollectionEditor UI.
+            </summary>
+            <summary>
+            CollectionEditor
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.CollectionEditor.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.Windows.PropertyGrid.CollectionEditor"/> class.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.CollectionEditor.#ctor(Syncfusion.Windows.PropertyGrid.ItemsSourceControl)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.Windows.PropertyGrid.CollectionEditor"/> class.
+            </summary>
+            <param name="itemsSourceCtrl">The items source CTRL.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.CollectionEditor.CollectionEditor_Loaded(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Handles the Loaded event of the CollectionEditor control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.CollectionEditor.AddBtn_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Handles the Click event of the AddBtn control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.CollectionEditor.GetNewInstance(System.Type)">
+            <summary>
+            Gets the new instance.
+            </summary>
+            <param name="type">The type.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.CollectionEditor.OkBtn_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Handles the Click event of the OkBtn control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.CollectionEditor.CancelBtn_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Handles the Click event of the CancelBtn control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.CollectionEditor.RemoveBtn_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Handles the Click event of the RemoveBtn control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.CollectionEditor.SelectedObjectProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for SelectedObject.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.CollectionEditor.ItemTypeProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for ItemType.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.CollectionEditor.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.CollectionEditor.SelectedObject">
+            <summary>
+            Gets or sets the selected object.
+            </summary>
+            <value>The selected object.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.CollectionEditor.ItemType">
+            <summary>
+            Gets or sets the type of the item.
+            </summary>
+            <value>The type of the item.</value>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.ItemsSourceControl">
+            <summary>
+            Represent the ItemsSourceControl
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ItemsSourceControl.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.Windows.PropertyGrid.ItemsSourceControl"/> class.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ItemsSourceControl.#cctor">
+            <summary>
+            Initializes the <see cref="T:Syncfusion.Windows.PropertyGrid.ItemsSourceControl"/> class.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ItemsSourceControl.OnApplyTemplate">
+            <summary>
+            When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate"/>.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ItemsSourceControl.Part_CollectionBtn_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Handles the Click event of the Part_CollectionBtn control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.ITypeItemsSourceControl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ITypeItemsSourceControl.Attach(Syncfusion.Windows.PropertyGrid.PropertyViewItem,Syncfusion.Windows.PropertyGrid.PropertyItem)">
+            <summary>
+            
+            </summary>
+            <param name="property"></param>
+            <param name="info"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ITypeItemsSourceControl.Create(System.Reflection.PropertyInfo)">
+            <summary>
+            Creates ands initializes a new instance of the editor
+            </summary>
+            <param name="PropertyInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ITypeItemsSourceControl.Detach(Syncfusion.Windows.PropertyGrid.PropertyViewItem)">
+            <summary>
+            Detaches (releases) the editor that was attached with the property passed as parameter.
+            </summary>
+            <param name="property"></param>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.PropertyGrid.ExpandableObjects">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.ExpandableObjects.GetPropertiesSupported(System.ComponentModel.ITypeDescriptorContext)">
+            <summary>
+            Gets a value indicating whether this object supports properties using the specified context.
+            </summary>
+            <returns>
+            true because <see cref="M:System.ComponentModel.TypeConverter.GetProperties(System.Object)"/> should be called to find the properties of this object. This method never returns false.
+            </returns>
+            <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext"/> that provides a format context. </param>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
+            </summary>
+        </member>
+    </members>
+</doc>

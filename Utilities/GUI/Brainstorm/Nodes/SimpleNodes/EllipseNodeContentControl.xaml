@@ -1,0 +1,8 @@
+﻿<UserControl x:Class="Utilities.GUI.Brainstorm.Nodes.SimpleNodes.EllipseNodeContentControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    >
+  <Grid>
+    <Ellipse Name="ObjEllipse" />
+  </Grid>
+</UserControl>

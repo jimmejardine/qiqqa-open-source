@@ -1,0 +1,12 @@
+icons/bin/*
+icons/obj/*
+libs/bin/*
+libs/obj/*
+Qiqqa/bin/*
+Qiqqa/obj/*
+QiqqaOCR/bin/*
+QiqqaOCR/obj/*
+Utilities/bin/*
+Utilities/obj/*
+
+*.csproj.user

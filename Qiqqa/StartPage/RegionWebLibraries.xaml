@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="Qiqqa.StartPage.RegionWebLibraries"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+    xmlns:local_formatting="clr-namespace:Qiqqa.StartPage.Formatting"
+    xmlns:local_web_library="clr-namespace:Qiqqa.DocumentLibrary.WebLibraryStuff"
+  xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
+>
+  <DockPanel>
+    <local_gui:AugmentedBorder  DockPanel.Dock="Bottom" Name="RegionMoreWebLibraries" Visibility="Collapsed">
+      <FlowDocumentScrollViewer VerticalScrollBarVisibility="Auto">
+        <commongui:StandardFlowDocument>
+          <Paragraph>
+            At the moment you have only a single Web Library.
+          </Paragraph>
+        </commongui:StandardFlowDocument>
+      </FlowDocumentScrollViewer>
+    </local_gui:AugmentedBorder>
+
+
+    <local_web_library:WebLibraryListControl x:Name="ObjWebLibraryListControl"/>
+
+
+  </DockPanel>
+</UserControl>

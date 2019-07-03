@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="Qiqqa.Documents.PDF.PDFControls.CanvasToolbars.HighlightCanvasToolbarControl"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+>
+  <local_gui:AugmentedBorder Background="White">
+  <StackPanel>
+
+      <local_gui:AugmentedButton x:Name="ButtonPointErase" Grid.Column="0"/>
+      <local_gui:AugmentedSpacer />
+      <local_gui:AugmentedButton Height="32" x:Name="ButtonColor1" Grid.Column="1"/>
+      <local_gui:AugmentedButton Height="32" x:Name="ButtonColor2" Grid.Column="2"/>
+      <local_gui:AugmentedButton Height="32" x:Name="ButtonColor3" Grid.Column="3"/>
+      <local_gui:AugmentedButton Height="32" x:Name="ButtonColor4" Grid.Column="4"/>
+      <local_gui:AugmentedButton Height="32" x:Name="ButtonColor5" Grid.Column="5"/>
+
+  </StackPanel>
+  </local_gui:AugmentedBorder>
+</UserControl>

@@ -1,0 +1,81 @@
+﻿<UserControl x:Class="Qiqqa.Documents.BibTeXEditor.BibTeXEditorControl"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+  xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:local_dualtab="clr-namespace:Utilities.GUI.DualTabbedLayoutStuff;assembly=Utilities"
+  xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
+>
+  <DockPanel>
+
+    <local_gui:NonScrollingFlowDocumentScrollViewer DockPanel.Dock="Bottom" Name="ObjNoBibTeXInstructions">
+      <commongui:StandardFlowDocument>
+        <Paragraph>
+          Qiqqa has not been able to automatically associate BibTeX with this document.  BibTeX is useful when formatting your bibliography with InCite.  Use the BibTeX Sniffer to quickly search the Internet for this document's BibTeX.
+        </Paragraph>
+      </commongui:StandardFlowDocument>
+    </local_gui:NonScrollingFlowDocumentScrollViewer>
+
+    <Grid>
+
+      <DockPanel Name="ObjGridPanel">
+        <Grid Name="ObjHeaderGrid" DockPanel.Dock="Top">
+
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="60" />
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+          </Grid.RowDefinitions>
+
+          <TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold" Name="ComboRecordTypeHeader">Type</TextBlock>
+          <ComboBox Grid.Row="0" Grid.Column="2" Name="ComboRecordType" MinWidth="50" IsEditable="True" BorderThickness="0"/>
+          <TextBlock Grid.Row="1" Grid.Column="0" FontWeight="Bold" Name="TxtRecordKeyHeader" >Key</TextBlock>
+          <TextBox  Grid.Row="1" Grid.Column="2" Name="TxtRecordKey" MinWidth="50" BorderThickness="0"/>
+        </Grid>
+
+        <local_gui:AugmentedSpacer DockPanel.Dock="Top" />
+
+        
+          <Grid Name="ObjBibTeXGrid">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="60" />
+              <ColumnDefinition Width="5"/>
+              <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+          </Grid>
+        
+
+      </DockPanel>
+
+      <Grid Name="ObjTextPanel">
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+          <TextBox Name="ObjBibTeXText" AcceptsReturn="True" />
+        </ScrollViewer>
+      </Grid>
+
+      <Grid Name="ObjErrorPanel" />
+
+      <DockPanel>
+        <DockPanel DockPanel.Dock="Bottom">
+          <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
+          <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
+          <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
+          <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
+          <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
+          <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
+          <Image Name="ImageBibTeXModeToggle" DockPanel.Dock="Right" Width="12"/>
+          <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
+          <Image Name="ImageBibTeXParseError" DockPanel.Dock="Right" Width="12"/>
+          <local_gui:AugmentedSpacer />
+        </DockPanel>
+        <local_gui:AugmentedSpacer />
+      </DockPanel>
+
+    </Grid>
+
+  </DockPanel>
+</UserControl>
