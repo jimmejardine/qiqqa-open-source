@@ -328,6 +328,8 @@ namespace Qiqqa.DocumentLibrary
                 ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(existing_pdf_document, library, suppress_signal_that_docs_have_changed);
             }
 
+            library.NotifyLibraryThatDocumentListHasChangedExternally();
+
             StatusManager.Instance.UpdateStatus("BulkLibraryDocument", String.Format("Added {0} document(s) to your library", existing_pdf_documents.Count));
         }
 

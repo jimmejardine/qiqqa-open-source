@@ -354,6 +354,13 @@ namespace Qiqqa.DocumentLibrary
                 return null;
             }
 
+            // If the PDF does not exist, can not clone
+            if (!File.Exists(filename))
+            {
+                Logging.Info("Can not add non-existent file to library, so skipping: " + filename);
+                return null;
+            }
+
             string fingerprint = StreamFingerprint.FromFile(filename);
 
             // Useful in logging for diagnosing if we're adding the same document again
@@ -510,6 +517,14 @@ namespace Qiqqa.DocumentLibrary
 
                 //  do a normal add (since stored separately)
                 var new_pdf_document = AddNewDocumentToLibrary_LOCK(existing_pdf_document.DocumentPath, null, null, null, null, suppress_dialogs, suppress_signal_that_docs_have_changed);
+
+
+                // If we were not able to create the PDFDocument from an existing pdf file (i.e. it was a missing reference), then create one from scratch
+                if (null == new_pdf_document)                    
+                {
+                    new_pdf_document = PDFDocument.CreateFromPDF(this, existing_pdf_document.DocumentPath, existing_pdf_document.Fingerprint);
+                    pdf_documents[new_pdf_document.Fingerprint] = new_pdf_document;
+                }
 
                 //  clone the metadata and switch libraries
                 new_pdf_document.CloneMetaData(existing_pdf_document);

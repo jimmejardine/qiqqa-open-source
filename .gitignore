@@ -1,3 +1,6 @@
+.vs
+*.csproj.user
+
 icons/bin/*
 icons/obj/*
 libs/bin/*
@@ -9,4 +12,3 @@ QiqqaOCR/obj/*
 Utilities/bin/*
 Utilities/obj/*
 
-*.csproj.user

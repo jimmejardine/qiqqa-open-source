@@ -61,7 +61,6 @@ namespace Qiqqa.StartPage
             ButtonSync.ToolTip = LocalisationManager.Get("START/TIP/SYNC_LIBRARIES");
             ButtonSync.Click += ButtonSync_Click;
             
-            ButtonCreateIntranetLibrary.Visibility = ConfigurationManager.Instance.NoviceVisibility;
             ButtonCreateIntranetLibrary.Icon = Icons.GetAppIcon(Icons.WebLibrary_IntranetLibrary);
             ButtonCreateIntranetLibrary.Caption = LocalisationManager.Get("START/CAP/CREATE_INTRANET_LIBRARY");
             ButtonCreateIntranetLibrary.ToolTip = LocalisationManager.Get("START/TIP/CREATE_INTRANET_LIBRARY");

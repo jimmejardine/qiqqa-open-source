@@ -1008,7 +1008,7 @@ namespace Qiqqa.Documents.PDF
 
         public void StoreAssociatedPDFInRepository(string filename)
         {
-            if (!File.Exists(DocumentPath))
+            if (File.Exists(filename) && !File.Exists(DocumentPath))
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(DocumentPath));
                 Alphaleonis.Win32.Filesystem.File.Copy(filename, DocumentPath);

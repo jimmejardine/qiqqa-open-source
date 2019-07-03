@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.IO;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.BundleLibrary;
@@ -28,6 +29,12 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
             AddLocalGuestLibraryIfMissing();
 
+            // *************************************************************************************************************
+            // *** MIGRATION TO OPEN SOURCE CODE ***************************************************************************
+            // *************************************************************************************************************
+            AddLegacyWebLibrariesThatCanBeFoundOnDisk();
+            // *************************************************************************************************************
+
             FireWebLibrariesChanged();
         }
 
@@ -40,6 +47,57 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             }
             Logging.Info("-Notifying everyone that web libraries have changed");
         }
+
+
+        // *************************************************************************************************************
+        // *** MIGRATION TO OPEN SOURCE CODE ***************************************************************************
+        // *************************************************************************************************************
+        private void AddLegacyWebLibrariesThatCanBeFoundOnDisk()
+        {
+            /**
+             * Plan:
+             * Iterate through all the folders in the Qiqqa data directory
+             * If a folder contains a valid Library record and it is a WEB library, then add it to our list with the word '[LEGACY]' in front of it
+             */
+
+            string base_directory_path = UpgradePaths.V037To038.SQLiteUpgrade.BaseDirectoryForQiqqa;
+            Logging.Info("Going to scan for web libraries at: " + base_directory_path);
+            if (Directory.Exists(base_directory_path))
+            {
+                string[] library_directories = Directory.GetDirectories(base_directory_path);
+                foreach (string library_directory in library_directories)
+                {
+                    Logging.Info("Inspecting directory {0}", library_directory);
+
+                    string database_file = library_directory + @"\Qiqqa.library";
+                    if (File.Exists(database_file))
+                    {
+                        var library_id = Path.GetFileName(library_directory);
+                        if (web_library_details.ContainsKey(library_id))
+                        {
+                            Logging.Info("We already know about this library, so skipping legacy locate: " + library_id);
+                            continue;
+                        }
+
+                        WebLibraryDetail new_web_library_detail = new WebLibraryDetail();
+
+                        new_web_library_detail.Id = library_id;
+                        new_web_library_detail.Title = "Legacy Web Library - " + new_web_library_detail.Id.Substring(0, 8);
+                        new_web_library_detail.IsReadOnly = true;
+                        new_web_library_detail.library = new Library(new_web_library_detail);
+                        web_library_details[new_web_library_detail.Id] = new_web_library_detail;
+                    }
+                }
+            }
+                
+
+
+                
+
+
+
+        }
+        // *************************************************************************************************************
 
         private void AddLocalGuestLibraryIfMissing()
         {
@@ -293,6 +351,16 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 known_web_libraries_file.web_library_details = new List<WebLibraryDetail>();
                 foreach (WebLibraryDetail web_library_detail in web_library_details.Values)
                 {
+                    // *************************************************************************************************************
+                    // *** MIGRATION TO OPEN SOURCE CODE ***************************************************************************
+                    // *************************************************************************************************************
+                    // Don't remember the web libraries - let them be discovered by this
+                    if ("UNKNOWN" == web_library_detail.LibraryType())
+                    {
+                        continue;
+                    }
+                    // *************************************************************************************************************
+
                     known_web_libraries_file.web_library_details.Add(web_library_detail);
                 }
                 SerializeFile.ProtoSave<KnownWebLibrariesFile>(KNOWN_WEB_LIBRARIES_FILENAME, known_web_libraries_file);
