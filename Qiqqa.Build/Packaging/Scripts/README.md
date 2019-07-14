@@ -1,4 +1,4 @@
-files for downloading .NET 4.0 as part of inno setup
+files for downloading .NET 4.0 as part of **Inno Setup**
 from:
 http://tonaday.blogspot.com/2010/12/innosetup.html
 
