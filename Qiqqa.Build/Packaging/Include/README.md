@@ -1,3 +1,2 @@
 - `psvince.dll` - used by **Inno Setup** to determine if the application is already running.
 - `couninst.exe` - this is run to remove an already installed ClickOnce version of Qiqqa.  The source code is in the directory tree.
-- 
