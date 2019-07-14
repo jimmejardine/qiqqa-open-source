@@ -9,5 +9,6 @@ http://stackoverflow.com/questions/12957595/error-accessing-com-components
 To potentially fix the problem, select and double-click to install the registry file corresponding to your correct version of Word.
 
 Thanks,
+
 Qiqqa Support
 
