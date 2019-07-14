@@ -41,46 +41,32 @@ Had a look at Windows version numbers, and tried to match them up the the .NET d
 
 .NET 4.0 has dependency on Windows Installer 3.1.  Windows installer versions bundled with Windows:
 
-<table>
-<tr>
-<td>
-| 3.1 | - Windows XP SP3                                          |
-|     | - Windows Server 2003 SP1, SP2                            |
-|     | - Windows XP Professional x64 Edition RTM, SP2            |
-<tr>
-<td>
-|  4  | - Windows Vista RTM, SP1                                  |
-|     | - Windows Server 2008 RTM                                 |
-<tr>
-<td>
-| 4.5 | - Windows Vista SP2                                       |
-|     | - Windows Server 2008 SP2                                 |
-<tr>
-<td>
-|  5  | - Windows 7 RTM                                           |
-|     | - Windows Server 2008 R2 RTM                              |
-</table>
+- 3.1 
+  - Windows XP SP3                                         
+  - Windows Server 2003 SP1, SP2                           
+  - Windows XP Professional x64 Edition RTM, SP2            
+- 4
+  - Windows Vista RTM, SP1                                  
+  - Windows Server 2008 RTM                                 
+- 4.5
+  - Windows Vista SP2                                       
+  - Windows Server 2008 SP2                                 
+- 5
+  - Windows 7 RTM                                           
+  - Windows Server 2008 R2 RTM                              
   
 (so requirements for .NET 4.0 are stricter than for Windows Installer 3.1 - don't bother checking for Windows Installer version)
 
 Windows Versions (http://msdn.microsoft.com/en-us/library/ms724834(VS.85).aspx):
 
-|----------------------------|------------|
-| Windows 7   | 6.1 |
-|----------------------------|------------|
+| OS            | Version              |
+| ------------- | -------------------- |
+| Windows 7     | 6.1 |
 | Windows Server 2008 R2  | 6.1 |
-|----------------------------|------------|
 | Windows Server 2008 | 6.0 |
-|----------------------------|------------|
 | Windows Vista   | 6.0 |
-|----------------------------|------------|
 | Windows Server 2003 R2  | 5.2 |
-|----------------------------|------------|
 | Windows Server 2003 | 5.2 |
-|----------------------------|------------|
 | Windows XP 64-Bit Edition   | 5.2 |
-|----------------------------|------------|
-| Windows XP  | 5.1 |
-|----------------------------|------------|
+| Windows XP    | 5.1 |
 | Windows 2000  |   5 |
-|----------------------------|------------|
