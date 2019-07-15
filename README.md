@@ -6,9 +6,7 @@ Unfortunately we have had to remove the web cloud sync ability as that is the on
 
 You'll need to be a little technically experienced in the .NET world to get a build up and running.
 
-You will need:
-  Visual Studio 2017 Community Edition
-  Syncfusion Essential Studio 14.1.0.41 - you can get a free evaluation key from syncfusion - works for single developers for private/free projects
+You will need to download Visual Studio 2017 Community Edition and Syncfusion Essential Studio 14.1.0.41 (you can get a free evaluation key from syncfusion.com - works for single developers for private/free projects).
   
 Then simply go to Qiqqa.Build and run go.bat to build the latest version into the Qiqqa.Build/Packages directory.
 
