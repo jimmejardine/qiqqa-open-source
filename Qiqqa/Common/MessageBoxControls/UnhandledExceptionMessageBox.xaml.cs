@@ -19,6 +19,9 @@ namespace Qiqqa.Common.MessageBoxControls
     {
         private UnhandledExceptionMessageBox()
         {
+            // Collect all generations of memory.
+            GC.Collect();
+
             InitializeComponent();        
 
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -34,6 +37,9 @@ namespace Qiqqa.Common.MessageBoxControls
 
         public static void DisplayException(Exception ex)
         {
+            // Collect all generations of memory.
+            GC.Collect();
+
             if (!Application.Current.Dispatcher.CheckAccess())
             {
                 Application.Current.Dispatcher.Invoke(((Action)(() => DisplayException(ex))));
@@ -58,7 +64,7 @@ namespace Qiqqa.Common.MessageBoxControls
                     );
             }
 
-            string useful_text_heading = "Something unexpected has happened, but it's okay.";
+            string useful_text_heading = "Something unexpected has happened, but it's okay. " + ex.Message;
             string useful_text_subheading = "You can continue working, but we would appreciate it if you would send us some feedback on what you were doing when this happened.";
 
             //  should we display a better message
@@ -86,6 +92,9 @@ namespace Qiqqa.Common.MessageBoxControls
 
         public static void DisplayInfo(string useful_text, string useful_text_subheading, bool display_faq_link, Exception ex)
         {
+            // Collect all generations of memory.
+            GC.Collect();
+
             if (!Application.Current.Dispatcher.CheckAccess())
             {
                 Application.Current.Dispatcher.Invoke(((Action)(() => DisplayInfo(useful_text, useful_text_subheading, display_faq_link, ex))));
