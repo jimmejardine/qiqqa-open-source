@@ -78,7 +78,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
         #endregion
 
-        public void IncrementalBuildIndex()
+        public void IncrementalBuildIndex(Daemon daemon)
         {
             if (DateTime.UtcNow.Subtract(time_of_last_library_scan).TotalSeconds > LIBRARY_SCAN_PERIOD_SECONDS)
             {
@@ -86,7 +86,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 time_of_last_library_scan = DateTime.UtcNow;
             }
 
-            bool did_some_work = IncrementalBuildNextDocuments();
+            bool did_some_work = IncrementalBuildNextDocuments(daemon);
 
             // Flush to disk
             if (did_some_work)
@@ -234,10 +234,16 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             word_index_manager.InvalidateIndex();
         }
 
-        private bool IncrementalBuildNextDocuments()
+        private bool IncrementalBuildNextDocuments(Daemon daemon)
         {
             bool did_some_work = false;
 
+            // If this library is busy, skip it for now
+            if (Library.IsBusyAddingPDFs)
+            {
+                Logging.Info("IncrementalBuildNextDocuments: Not daemon processing a library that is busy with adds...");
+                return false;
+            }
 
             lock (pdf_documents_in_library)
             {
@@ -253,12 +259,19 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                     select pdf_document_in_library;
 
                 // Process each one
-                int MAX_SECONDS_PER_ITERATION = 15;
+                const int MAX_SECONDS_PER_ITERATION = 15;
                 DateTime index_processing_start_time = DateTime.UtcNow;
                 foreach (PDFDocumentInLibrary pdf_document_in_library in pdf_documents_in_library_to_process)
                 {
                     if (DateTime.UtcNow.Subtract(index_processing_start_time).TotalSeconds > MAX_SECONDS_PER_ITERATION)
                     {
+                        Logging.Info("IncrementalBuildNextDocuments: Breaking out of processing loop due to MAX_SECONDS_PER_ITERATION: {0} seconds consumed", DateTime.UtcNow.Subtract(index_processing_start_time).TotalSeconds);
+                        break;
+                    }
+
+                    if (daemon != null && !daemon.StillRunning)
+                    {
+                        Logging.Debug("Breaking out of IncrementalBuildNextDocuments processing loop due to daemon termination");
                         break;
                     }
 
@@ -383,7 +396,10 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
         {
             get
             {
-                return pdf_documents_in_library.Count;
+                lock (pdf_documents_in_library)
+                {
+                    return pdf_documents_in_library.Count;
+                }
             }
         }
 
@@ -392,7 +408,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             while (true)
             {
                 Library library = Library.GuestInstance;
-                library.LibraryIndex.IncrementalBuildIndex();
+                library.LibraryIndex.IncrementalBuildIndex(null);
 
                 Logging.Info("Number of indexed PDF Documents is {0}", library.LibraryIndex.NumberOfIndexedPDFDocuments);
                 Thread.Sleep(1000);
