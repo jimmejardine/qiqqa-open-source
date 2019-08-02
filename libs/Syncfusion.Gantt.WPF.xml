@@ -154,6 +154,144 @@
             </summary>
             <value>The control template selector.</value>
         </member>
+        <member name="T:Syncfusion.Windows.Controls.Gantt.SplitTask">
+            <summary>
+            A class that can hold the information about a split task.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.SplitTask.startDate">
+            <summary>
+            It holds the <see cref="P:Syncfusion.Windows.Controls.Gantt.SplitTask.StartDate"/> instance.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.SplitTask.finishDate">
+            <summary>
+            It holds the <see cref="P:Syncfusion.Windows.Controls.Gantt.SplitTask.FinishDate"/> instance.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.SplitTask.duration">
+            <summary>
+            It holds the <see cref="P:Syncfusion.Windows.Controls.Gantt.SplitTask.Duration"/> instance.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.SplitTask.progress">
+            <summary>
+            It holds the <see cref="P:Syncfusion.Windows.Controls.Gantt.SplitTask.Progress"/> instance.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.SplitTask.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.Windows.Controls.Gantt.SplitTask"/> class.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.SplitTask.OnPropertyChanged(System.String)">
+            <summary>
+            Called when [property changed].
+            </summary>
+            <param name="propertyName">Name of the property.</param>
+        </member>
+        <member name="E:Syncfusion.Windows.Controls.Gantt.SplitTask.PropertyChanged">
+            <summary>
+            Occurs when a property value changes.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.SplitTask.StartDate">
+            <summary>
+            Gets or sets the start date.
+            </summary>
+            <value>The start date.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.SplitTask.Duration">
+            <summary>
+            Gets or sets the duration.
+            </summary>
+            <value>The duration.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.SplitTask.FinishDate">
+            <summary>
+            Gets or sets the finish date.
+            </summary>
+            <value>The finish date.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.SplitTask.Progress">
+            <summary>
+            Gets the progress.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.SplitTask.DataItem">
+            <summary>
+            Gets or sets the data item.
+            </summary>
+            <value>The data item.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.SplitTask.SplitParent">
+            <summary>
+            Gets or sets the parent task.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Gantt.SplitTaskAttributeMapping">
+            <summary>
+            Class used to provide the mapping name to split task properties.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.SplitTaskAttributeMapping.StartDateMappingProperty">
+            <summary>
+            The DependencyProperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.SplitTaskAttributeMapping.StartDateMapping"/> property.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.SplitTaskAttributeMapping.DurationMappingProperty">
+            <summary>
+            The DependencyProperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.SplitTaskAttributeMapping.DurationMapping"/> property.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.SplitTaskAttributeMapping.FinishDateMappingProperty">
+            <summary>
+            The DependencyProperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.SplitTaskAttributeMapping.FinishDateMapping"/> property.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.SplitTaskAttributeMapping.mappedAttributes">
+            <summary>
+            It holds the instance of mapping attributes.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.SplitTaskAttributeMapping.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.Windows.Controls.Gantt.SplitTaskAttributeMapping"/> class.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.SplitTaskAttributeMapping.OnPropertyChanged(System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Invoked whenever the effective value of any dependency property on this <see cref="T:System.Windows.DependencyObject"/> has been updated. The specific dependency property that changed is reported in the event data.
+            </summary>
+            <param name="e">Event data that will contain the dependency property identifier of interest, the property metadata for the type, and old and new values.</param>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.SplitTaskAttributeMapping.MappedAttributes">
+            <summary>
+            Gets the mapped attributes.
+            </summary>
+            <value>The mapped attributes.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.SplitTaskAttributeMapping.StartDateMapping">
+            <summary>
+            Gets or sets the start date mapping.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.SplitTaskAttributeMapping.FinishDateMapping">
+            <summary>
+            Gets or sets the finish date mapping.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.SplitTaskAttributeMapping.DurationMapping">
+            <summary>
+            Gets or sets the duration mapping.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.SplitTaskAttributeMapping.Default">
+            <summary>
+            Gets the default.
+            </summary>
+            <value>The default.</value>
+        </member>
         <member name="T:Syncfusion.Windows.Controls.Gantt.GanttRecord">
             <summary>
             Class that holds the information oabout a record.
@@ -203,6 +341,27 @@
             Gets or sets the in line records.
             </summary>
             <value>The in line records.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.GanttRecord.ActualSplitTaskRecords">
+            <summary>
+            Gets or sets the split task records.
+            </summary>
+            <value>The split task records.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.GanttRecord.ActualSplitTasks">
+            <summary>
+            Gets or sets the actual split tasks.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.GanttRecord.SortedActualSplitTasks">
+            <summary>
+            Gets the sorted actual split tasks based on its start date.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.GanttRecord.IsSplitParent">
+            <summary>
+            Gets a value indicating whether current record is split parent record.
+            </summary>
         </member>
         <member name="T:Syncfusion.Windows.Controls.Gantt.GanttRecordCollection">
             <summary>
@@ -679,6 +838,11 @@
             The DependencyProperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.TaskAttributeMapping.InLineTaskMapping"/> property.
             </summary>
         </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.TaskAttributeMapping.SplitTaskMappingProperty">
+            <summary>
+            The DependencyProperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.TaskAttributeMapping.SplitTaskMapping"/> property.
+            </summary>
+        </member>
         <member name="F:Syncfusion.Windows.Controls.Gantt.TaskAttributeMapping.MileStoneMappingProperty">
             <summary>
             The DependencyProperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.TaskAttributeMapping.MileStoneMapping"/> property.
@@ -826,6 +990,12 @@
             Gets or sets the in line task mapping.
             </summary>
             <value>The in line task mapping.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.TaskAttributeMapping.SplitTaskMapping">
+            <summary>
+            Gets or sets the split task segments mapping.
+            </summary>
+            <value>The split task segments mapping.</value>
         </member>
         <member name="P:Syncfusion.Windows.Controls.Gantt.TaskAttributeMapping.MileStoneMapping">
             <summary>
@@ -1016,6 +1186,11 @@
             The DependencyProperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.Chart.GanttNodeConnector.ConnectorStroke"/> property.
             </summary>
         </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttNodeConnector.SetConnectorColor">
+            <summary>
+            Sets the color for connector lines and arrows.
+            </summary>
+        </member>
         <member name="F:Syncfusion.Windows.Controls.Gantt.Chart.GanttNodeConnector.ConnectorGeometryProperty">
             <summary>
             The DependencyProperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.Chart.GanttNodeConnector.ConnectorGeometry"/> property.
@@ -1051,6 +1226,12 @@
             <summary>
             Updates the predecessor info of overall Gantt tasks.
             </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttNodeConnector.ValidateNodeRelationship(Syncfusion.Windows.Controls.Gantt.Chart.PredecessorExt)">
+            <summary>
+            Placed the successor node based on its predecessor node.
+            </summary>
+            <param name="predecessorExt"></param>
         </member>
         <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttNodeConnector.ExpandedCollection_CollectionChanged(System.Object,System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
             <summary>
@@ -1151,29 +1332,38 @@
             </summary>
             <param name="currentItem">The current item.</param>
         </member>
-        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttNodeConnector.GetTalis(System.Object)">
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttNodeConnector.GetTails(System.Object)">
             <summary>
             Gets the talis.
             </summary>
             <param name="obj">The obj.</param>
             <returns></returns>
         </member>
-        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttNodeConnector.DrawConnector(System.Object,Syncfusion.Windows.Controls.Gantt.Chart.GanttNode,Syncfusion.Windows.Controls.Gantt.GanttTaskRelationship,System.Boolean,System.Windows.Media.PathFigure,System.Windows.Media.PathFigure)">
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttNodeConnector.DrawConnector(System.Object,System.Object,Syncfusion.Windows.Controls.Gantt.GanttTaskRelationship,System.Boolean,System.Windows.Media.PathFigure,System.Windows.Media.PathFigure,System.Windows.Shapes.Path,System.Windows.Shapes.Path)">
             <summary>
             Draws the connector.
             </summary>
             <param name="headItem">The head item.</param>
-            <param name="tailNode">The tail node.</param>
+            <param name="tailItem">The tail item.</param>
             <param name="relation">The relation.</param>
             <param name="IsHeader">if set to <c>true</c> [is header].</param>
             <param name="line">The line.</param>
             <param name="arrow">The arrow.</param>
+            <param name="cpmArrow">cpmNewArrow</param>
+            <param name="cpmLine">cpmLine</param>
         </member>
-        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttNodeConnector.DrawArrow(System.Windows.Media.PathFigure,System.Windows.Point,System.Double)">
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttNodeConnector.ValidateNodeHeight(Syncfusion.Windows.Controls.Gantt.Chart.GanttNode)">
+            <summary>
+            Method called to check the node actual height.
+            </summary>
+            <param name="node"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttNodeConnector.DrawArrow(System.Windows.Media.PathFigure,System.Windows.Shapes.Path,System.Windows.Point,System.Double)">
             <summary>
             Draws the arrow.
             </summary>
             <param name="arrow">The arrow.</param>
+            <param name="cpmNewArrow">The cpmArrow</param>
             <param name="end">The end.</param>
             <param name="angle">The angle.</param>
         </member>
@@ -1250,6 +1440,51 @@
             </summary>
             <value>The dependent item.</value>
         </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.Chart.DragAndDropToolTipInfo.SourceIdProperty">
+            <summary>
+            The DependencyProperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.Chart.DragAndDropToolTipInfo.SourceId"/> property.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.Chart.DragAndDropToolTipInfo.TargetIdProperty">
+            <summary>
+            The DependencyProperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.Chart.DragAndDropToolTipInfo.TargetId"/> property.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Chart.DragAndDropToolTipInfo.SourceId">
+            <summary>
+            Id of the node from which node the relation starts.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Chart.DragAndDropToolTipInfo.Source">
+            <summary>
+            From which node the relation starts.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Chart.DragAndDropToolTipInfo.Target">
+            <summary>
+            To which node the relation ends.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Chart.DragAndDropToolTipInfo.TargetId">
+            <summary>
+            Id of the node to which node the relation ends.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Chart.DragAndDropToolTipInfo.IsValid">
+            <summary>
+            Given relation is valid or not.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Chart.DragAndDropToolTipInfo.Start">
+            <summary>
+            From where the relation starts.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Chart.DragAndDropToolTipInfo.Finish">
+            <summary>
+            To where the relation ends.
+            </summary>
+        </member>
         <member name="T:Syncfusion.Windows.Controls.Gantt.Chart.GanttChartBackgroundPanel">
             <summary>
             Represents a panel that will arrange the background cells of GanttChart
@@ -1317,6 +1552,13 @@
             <summary>
             Gets the cell count.
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChartBackgroundPanel.GetDayValue(System.String)">
+            <summary>
+            Returns the int value of the day
+            </summary>
+            <param name="day"></param>
             <returns></returns>
         </member>
         <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChartBackgroundPanel.GetDay(System.DayOfWeek)">
@@ -1409,9 +1651,22 @@
             Generates the items.
             </summary>
         </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChartRow.CanRenderBaseline(System.Object)">
+            <summary>
+            To validate the baseline start and end date values.
+            </summary>
+            <param name="currentItem">The current item.</param>
+            <returns>Current item has valid baseline start and end values or not.</returns>
+        </member>
         <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChartRow.GenerateInlineItems(Syncfusion.Windows.Controls.Gantt.GanttRecord)">
             <summary>
             Generates the inline items.
+            </summary>
+            <param name="currentItem">The current item.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChartRow.GenerateSplitTaskItems(Syncfusion.Windows.Controls.Gantt.GanttRecord)">
+            <summary>
+            Generates the split task items.
             </summary>
             <param name="currentItem">The current item.</param>
         </member>
@@ -1420,6 +1675,13 @@
             Creates the in line item.
             </summary>
             <param name="inLineitem">The in lineitem.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChartRow.CreateSplitTaskItem(Syncfusion.Windows.Controls.Gantt.SplitTask,System.String)">
+            <summary>
+            Creates the in split item.
+            </summary>
+            <param name="splitTaskItem">The split task item.</param>
+            <param name="pos">The position of the segment</param>
         </member>
         <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChartRow.CanGenerateItems">
             <summary>
@@ -1439,6 +1701,13 @@
         <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChartRow.OnInLineCollectionChanged(System.Object,System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
             <summary>
             Called when [in line collection changed].
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.Collections.Specialized.NotifyCollectionChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChartRow.OnSplitTaskCollectionChanged(System.Object,System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
+            <summary>
+            Called when [split task collection changed].
             </summary>
             <param name="sender">The sender.</param>
             <param name="e">The <see cref="T:System.Collections.Specialized.NotifyCollectionChangedEventArgs"/> instance containing the event data.</param>
@@ -1494,16 +1763,46 @@
             Regenerates the items.
             </summary>
         </member>
-        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChartRow.BringResizingRectToPosition(System.Windows.FrameworkElement)">
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChartRow.BringResizingRectToPosition(System.Windows.FrameworkElement,System.Double)">
             <summary>
             Brinds the drag rect to position.
             </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChartRow.OnTouchOrMouseMove(System.Windows.Input.InputEventArgs)">
+            <summary>
+            Handle predecessor rendering while touch or mouse move.
+            </summary>
+            <param name="e">The input event arguments.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChartRow.OnTouchOrMouseUp(System.Windows.Input.InputEventArgs)">
+            <summary>
+            To create the predecessor relation while release the mouse or touch.
+            </summary>
+            <param name="e">The input event arguments.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChartRow.GetCurrentNode">
+            <summary>
+            To get the current node.
+            </summary>
+            <returns>The current node.</returns>
         </member>
         <member name="P:Syncfusion.Windows.Controls.Gantt.Chart.GanttChartRow.Model">
             <summary>
             Gets the model.
             </summary>
             <value>The model.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Chart.GanttChartRow.LeftChildNode">
+            <summary>
+            Gets or sets the item presenters left child node.
+            If gantt chart row having split segments then left most node is present in this, otherwise first node is present in this.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Chart.GanttChartRow.RightChildNode">
+            <summary>
+            Gets or sets the item presenters right child node.
+            If gantt chart row having split segments then right most node is present in this, otherwise first node is present in this.
+            </summary>
         </member>
         <member name="T:Syncfusion.Windows.Controls.Gantt.Chart.GanttChartRowItemsPresenter">
             <summary>
@@ -1793,11 +2092,6 @@
             VS2010 Style.
             </summary>
         </member>
-        <member name="T:Syncfusion.Windows.Controls.Gantt.Month">
-            <summary>
-            Represents the Calendar Months.
-            </summary>
-        </member>
         <member name="T:Syncfusion.Windows.Controls.Gantt.ScheduleType">
             <summary>
             Represents the schedule type.
@@ -1848,9 +2142,24 @@
             Schedule with Day, hour and minutes header.
             </summary>
         </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.ScheduleType.HoursWithSeconds">
+            <summary>
+            Schedule with Hour, minute and seconds header.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.ScheduleType.MinutesWithSeconds">
+            <summary>
+            Schedule with Minute and seconds header.
+            </summary>
+        </member>
         <member name="T:Syncfusion.Windows.Controls.Gantt.TimeUnit">
             <summary>
             Represents the Time units.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.TimeUnit.Seconds">
+            <summary>
+            Represents the Seconds unit
             </summary>
         </member>
         <member name="F:Syncfusion.Windows.Controls.Gantt.TimeUnit.Minutes">
@@ -2028,6 +2337,56 @@
             Place the Resource Name in top of Gantt Node
             </summary>
         </member>
+        <member name="T:Syncfusion.Windows.Controls.Gantt.Mode">
+            <summary>
+            Represents the validation mode
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.Mode.Manual">
+            <summary>
+            Predecessor relationships are not validated in this mode
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.Mode.Auto">
+            <summary>
+            predecessor relationships are validated in this mode
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Gantt.GridSelectionMode">
+            <summary>
+            Denotes the grid selection mode.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.GridSelectionMode.MouseMove">
+            <summary>
+            Selection applied when mouse move occurs.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.GridSelectionMode.MouseClick">
+            <summary>
+            Selection applied when mouse click occurs.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Gantt.NodeType">
+            <summary>
+            Represents the split task's node type.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.NodeType.SplitNode">
+            <summary>
+            Represents the split node.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.NodeType.LeftSplitNode">
+            <summary>
+            Represents the left split node.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.NodeType.RightSplitNode">
+            <summary>
+            Represents the right split node.
+            </summary>
+        </member>
         <member name="T:Syncfusion.Windows.Controls.Gantt.Chart.GanttChart">
             <summary>
             Represents a control that can display the progress of project in graphical notation.
@@ -2172,7 +2531,7 @@
             <param name="d">The d.</param>
             <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         </member>
-        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChart.OnTaskNodeBackgroudChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChart.OnTaskNodeBackgroundChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
             <summary>
             Called when [task node backgroud changed].
             </summary>
@@ -2266,6 +2625,127 @@
             <param name="sender">The source of the event.</param>
             <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
         </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChart.ValidateRelations">
+            <summary>
+            Validate all predecessor relations.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChart.ValidateNodeRelationship(System.Boolean)">
+            <summary>
+            Validate all the node relationship.
+            </summary>
+            <param name="isDynamicCase"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChart.GenerateCriticalPaths">
+            <summary>
+            Algorithm to find critical path.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChart.IsInCriticalPath(System.Object)">
+            <summary>
+            Determines whether [is in critical path] [the specified item].
+            </summary>
+            <param name="item">The node's data context</param>
+            <returns>
+            <c>true</c> if [is in critical path] [the specified item]; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChart.ResetNodeColors">
+            <summary>
+            Resets the task node background color.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChart.GetLastTasks(System.Collections.Generic.List{Syncfusion.Windows.Controls.Gantt.GanttRecord},System.Collections.ObjectModel.ObservableCollection{Syncfusion.Windows.Controls.Gantt.GanttRecord})">
+            <summary>
+            Find out the last tasks. ie) task with no successors.
+            </summary>
+            <param name="Source">The list of records</param>
+            <param name="LastTasks">Last tasks collection</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChart.GetProjectEndDate(System.Collections.Generic.List{Syncfusion.Windows.Controls.Gantt.GanttRecord})">
+            <summary>
+            To get the whole project end date.
+            </summary>
+            <param name="Source">The list of records.</param>
+            <returns>Returns the whole project end date.</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChart.GenerateSlackValuesRecord(System.Collections.Generic.Dictionary{Syncfusion.Windows.Controls.Gantt.GanttRecord,System.Nullable{System.Double}})">
+            <summary>
+            Resets the slack values for all records.
+            </summary>
+            <param name="Source">The slack values dictionary</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChart.CalculateSlackForLastTasks(System.Collections.ObjectModel.ObservableCollection{Syncfusion.Windows.Controls.Gantt.GanttRecord},System.DateTime)">
+            <summary>
+            Calculate slack value for last tasks.
+            </summary>
+            <param name="Source">The last tasks collection.</param>
+            <param name="ProjectLastDate">The whole Project last date.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChart.FindConnectedTaskAndSlackValues(System.Collections.ObjectModel.ObservableCollection{Syncfusion.Windows.Controls.Gantt.GanttRecord},System.DateTime,System.Collections.Generic.List{Syncfusion.Windows.Controls.Gantt.Chart.PredecessorExt})">
+            <summary>
+            To find the immediate predecessor and current record's slack value.
+            </summary>
+            <param name="Source">The last tasks collection.</param>
+            <param name="ProjectLastDate">The whole project last date.</param>
+            <param name="ConnectedTasks">The connected task collection</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChart.FindPredecessor(Syncfusion.Windows.Controls.Gantt.GanttRecord,System.Collections.Generic.List{Syncfusion.Windows.Controls.Gantt.Chart.PredecessorExt})">
+            <summary>
+            Find the immediate predecessor for a given record.
+            </summary>
+            <param name="Record">The gantt record</param>
+            <param name="ConnectedTasks">The connected task collection.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChart.SlackFromItem(System.Object)">
+            <summary>
+            Gets the slack value of a record using item.
+            </summary>
+            <param name="item">The task's data context</param>
+            <returns>Slack value for an given item.</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChart.CalculateSlackValue(Syncfusion.Windows.Controls.Gantt.Chart.PredecessorExt,System.DateTime)">
+            <summary>
+            Calculate the slack value for current item of the given relation.
+            </summary>
+            <param name="TaskWithType">The predecessor extens.</param>
+            <param name="ProjectLastDate">The whole project last date.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChart.GetCriticalTasks">
+            <summary>
+            Get the critical tasks.
+            </summary>
+            <returns>The critical tasks collection.</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChart.RefreshCriticalTask">
+            <summary>
+            Refresh the critical tasks collection.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChart.RecordFromItem(System.Object)">
+            <summary>
+            Gets the corresponding record for an given item.
+            </summary>
+            <param name="item">The task's data context</param>
+            <returns>The corresponding gantt record.</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChart.ValidateRelations(Syncfusion.Windows.Controls.Gantt.Predecessor)">
+            <summary>
+            Validate the given predecessor relation.
+            </summary>
+            <param name="predecessor">The predecessor</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChart.EliminateLoopRelationship(System.Collections.ObjectModel.ObservableCollection{Syncfusion.Windows.Controls.Gantt.Predecessor},Syncfusion.Windows.Controls.Gantt.Predecessor,System.Object)">
+            <summary>
+            Validate whether the current relation creates loop relation.
+            </summary>
+            <param name="CurrentItemPredecessors"></param>
+            <param name="CurrentRelationPredecessor"></param>
+            <param name="Item"></param>
+            <returns>
+            <c>true</c> if [is it creates loop relationship] [the specified item]; otherwise, <c>false</c>.
+            </returns>
+        </member>
         <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChart.GanttChart_Loaded(System.Object,System.Windows.RoutedEventArgs)">
             <summary>
             Handles the Loaded event of the GanttChart control.
@@ -2355,6 +2835,13 @@
             <param name="record">The record.</param>
             <param name="e">The <see cref="T:System.Collections.Specialized.NotifyCollectionChangedEventArgs"/> instance containing the event data.</param>
         </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChart.SplitTaskCollectionChanged(System.Object,System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
+            <summary>
+            Ins the split task collection changed.
+            </summary>
+            <param name="record">The record.</param>
+            <param name="e">The <see cref="T:System.Collections.Specialized.NotifyCollectionChangedEventArgs"/>Instance containing the event data.</param>
+        </member>
         <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChart.RemoveChildren">
             <summary>
             Removes the children.
@@ -2389,6 +2876,19 @@
             Raises the node resizing delta.
             </summary>
             <param name="args">The <see cref="T:Syncfusion.Windows.Controls.Gantt.NodeResizingEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChart.RaiseProgressResizing(Syncfusion.Windows.Controls.Gantt.ProgressResizingEventArgs)">
+            <summary>
+            Raises the progress resizing.
+            </summary>
+            <param name="args">The <see cref="T:Syncfusion.Windows.Controls.Gantt.ProgressResizingEventArgs"/> instance containing the event data.</param>
+            <returns>The boolean value.</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttChart.RaiseProgressResizingCompleted(Syncfusion.Windows.Controls.Gantt.ProgressResizingCompletedEventArgs)">
+            <summary>
+            Raises the progress resizing completed.
+            </summary>
+            <param name="args">The <see cref="T:Syncfusion.Windows.Controls.Gantt.ProgressResizingCompletedEventArgs"/> instance containing the event data.</param>
         </member>
         <member name="P:Syncfusion.Windows.Controls.Gantt.Chart.GanttChart.ChartScrollViewer">
             <summary>
@@ -2426,6 +2926,24 @@
             </summary>
             <value>The chart items panel.</value>
             This will available only with Silverlight Gantt
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Chart.GanttChart.ShowWeekends">
+            <summary>
+            Enables or disables the ShowWeekends
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Chart.GanttChart.Weekends">
+            <summary>
+            Gets or sets enum values which are weekends 
+            </summary>
+            <value>
+            The value of type Days
+            </value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Chart.GanttChart.TouchDownRow">
+            <summary>
+            Gets or sets the gantt chart row in which the touch or mouse down.
+            </summary>
         </member>
         <member name="P:Syncfusion.Windows.Controls.Gantt.Chart.GanttChart.Model">
             <summary>
@@ -2575,11 +3093,6 @@
             Occurs when [Task node background changed].
             </summary>
         </member>
-        <member name="E:Syncfusion.Windows.Controls.Gantt.Chart.GanttChart.ToolTipTemplateChagned">
-            <summary>
-            Occurs when [tool tip template chagned].
-            </summary>
-        </member>
         <member name="E:Syncfusion.Windows.Controls.Gantt.Chart.GanttChart.ResourceNameVisibilityChanged">
             <summary>
             Occurs when [resource name visibility changed].
@@ -2595,9 +3108,19 @@
             Occurs when [highlight items changed].
             </summary>
         </member>
+        <member name="T:Syncfusion.Windows.Controls.Gantt.Chart.CultureConverter">
+            <summary>
+            Used to convert the culture of the content in drag and drop tooltip
+            </summary>
+        </member>
         <member name="T:Syncfusion.Windows.Controls.Gantt.Chart.GanttNode">
             <summary>
             Represents a control that can display the duration of a task in Gantt Chart.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.Chart.GanttNode.mouseOverTooltip">
+            <summary>
+            To store the mouse over tooltip.
             </summary>
         </member>
         <member name="F:Syncfusion.Windows.Controls.Gantt.Chart.GanttNode.ProgressWidthProperty">
@@ -2622,6 +3145,26 @@
             The DependencyProperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.Chart.GanttNode.ProgressIndicatorBackground"/> property.
             </summary>
         </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.Chart.GanttNode.BaselineStartDateProperty">
+            <summary>
+            The DependencyProperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.Chart.GanttNode.BaselineStartDate"/> property.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.Chart.GanttNode.BaselineFinishDateProperty">
+            <summary>
+            The DependencyProperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.Chart.GanttNode.BaselineFinishDate"/> property.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.Chart.GanttNode.BaselineStartPointProperty">
+            <summary>
+            The DependencyProperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.Chart.GanttNode.BaselineStartPoint"/> property.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.Chart.GanttNode.BaselineFinishPointProperty">
+            <summary>
+            The DependencyProperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.Chart.GanttNode.BaselineFinishPoint"/> property.
+            </summary>
+        </member>
         <member name="F:Syncfusion.Windows.Controls.Gantt.Chart.GanttNode.StartTimeProperty">
             <summary>
             The DependencyProperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.Chart.GanttNode.StartTime"/> property.
@@ -2631,6 +3174,13 @@
             <summary>
             The DependencyProperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.Chart.GanttNode.IsMileStone"/> property.
             </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttNode.CanProceed(Syncfusion.Windows.Controls.Gantt.Chart.GanttNode)">
+            <summary>
+            To ensure the available of live parents.
+            </summary>
+            <param name="node">The gantt node.</param>
+            <returns>Availability of live parents.</returns>
         </member>
         <member name="F:Syncfusion.Windows.Controls.Gantt.Chart.GanttNode.EndTimeProperty">
             <summary>
@@ -2676,6 +3226,11 @@
             When overridden in a derived class, is invoked whenever application code or 
             internal processes (such as a rebuilding layout pass) call <see cref="M:System.Windows.Controls.Control.ApplyTemplate"/>. 
             In simplest terms, this means the method is called just before a UI element displays in an application. For more information, see Remarks.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttNode.RemoveSplitTaskProgressThumb">
+            <summary>
+            To remove the progress thumb for split task.
             </summary>
         </member>
         <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttNode.HookBinding">
@@ -2726,6 +3281,11 @@
             </summary>
             <param name="point">The point.</param>
             <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttNode.RightTouchPoint_Enter">
+            <summary>
+            Validate the relation while mouse or touch enter into the right touch point.
+            </summary>
         </member>
         <member name="M:Syncfusion.Windows.Controls.Gantt.Chart.GanttNode.WireEvents">
             <summary>
@@ -2843,6 +3403,21 @@
             </summary>
             <param name="record">The record.</param>
             <returns></returns>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Chart.GanttNode.IsSegmentSplit">
+            <summary>
+            Gets a value indicating whether current node's parent having multiple segments.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Chart.GanttNode.Type">
+            <summary>
+            Gets or sets the type of the node.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Chart.GanttNode.IsSplitNode">
+            <summary>
+            Gets a value that indicating whether the current node is split node or not.
+            </summary>
         </member>
         <member name="P:Syncfusion.Windows.Controls.Gantt.Chart.GanttNode.X1">
             <summary>
@@ -3177,6 +3752,11 @@
             Display the Variances in Table View
             </summary>
         </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Grid.GanttGrid.CheckExpandOnNodes">
+            <summary>
+            Method called to check whether the nodes are exapnded.
+            </summary>
+        </member>
         <member name="M:Syncfusion.Windows.Controls.Gantt.Grid.GanttGrid.LoadDefaultTableView">
             <summary>
             Reloads the DefaultView
@@ -3255,6 +3835,16 @@
             Gets or sets a value indicating whether [show date with time].
             </summary>
             <value><c>true</c> if [show date with time]; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Gantt.Grid.CollectionValueConverter">
+            <summary>
+            Represents a class file to convert value to string in cell tooltip.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Gantt.Grid.GanttGridCellVisibilityConverter">
+            <summary>
+            Represents the converter to collapse the visibility of tooltip for empty cell.
+            </summary>
         </member>
         <member name="T:Syncfusion.Windows.Controls.Gantt.ScheduleCellCreatedEventHandler">
             <summary>
@@ -3402,6 +3992,43 @@
             </summary>
             <value>The node parent.</value>
         </member>
+        <member name="T:Syncfusion.Windows.Controls.Gantt.ProgressResizingEventArgs">
+            <summary>
+            Represents the Gantt progress resizing event arguments.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.ProgressResizingEventArgs.Node">
+            <summary>
+            Gets the node.
+            </summary>
+            <value>The node.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.ProgressResizingEventArgs.Value">
+            <summary>
+            Gets the changing progress value.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Gantt.ProgressResizingCompletedEventArgs">
+            <summary>
+            Represents the Gantt progress resizing completed event arguments.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.ProgressResizingCompletedEventArgs.Node">
+            <summary>
+            Gets the node.
+            </summary>
+            <value>The node.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.ProgressResizingCompletedEventArgs.OldValue">
+            <summary>
+            Gets the old progress value.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.ProgressResizingCompletedEventArgs.NewValue">
+            <summary>
+            Gets the progress value.
+            </summary>
+        </member>
         <member name="T:Syncfusion.Windows.Controls.Gantt.NodeResizingEventHandeler">
             <summary>
             Delegate for Node Resizing Delta and Node Resizing Completed Events
@@ -3475,6 +4102,26 @@
             Gets or sets the current task.
             </summary>
             <value>The current task.</value>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Gantt.GanttRelationshipEstablishedEventArgs">
+            <summary>
+            Provides data for the <see cref="!:RelationshipEstabishedEvent"/>.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.GanttRelationshipEstablishedEventArgs.StartTask">
+            <summary>
+            Gets the start task of the relation.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.GanttRelationshipEstablishedEventArgs.EndTask">
+            <summary>
+            Gets the end task of the relation.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.GanttRelationshipEstablishedEventArgs.Relationship">
+            <summary>
+            Gets the type of the relation.
+            </summary>
         </member>
         <member name="T:Syncfusion.Windows.Controls.Gantt.GanttModel">
             <summary>
@@ -3592,7 +4239,11 @@
             Creates the expanded collection.
             </summary>
             <param name="sourceList">The source list.</param>
-            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttModel.ResetMinAndMaxDate">
+            <summary>
+            To replace the min and max date with schedule start date.
+            </summary>
         </member>
         <member name="M:Syncfusion.Windows.Controls.Gantt.GanttModel.WireCollectionChanged(System.Collections.IEnumerable,Syncfusion.Windows.Controls.Gantt.GanttRecord)">
             <summary>
@@ -3614,6 +4265,12 @@
             </summary>
             <param name="sender">The source of the event.</param>
             <param name="e">The <see cref="T:System.Collections.Specialized.NotifyCollectionChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttModel.AddChildRecords(System.Collections.IList)">
+            <summary>
+            To add the child records to the expanded collection.
+            </summary>
+            <param name="newItems">The newly added items.</param>
         </member>
         <member name="M:Syncfusion.Windows.Controls.Gantt.GanttModel.AddItems(System.Collections.Specialized.NotifyCollectionChangedEventArgs,Syncfusion.Windows.Controls.Gantt.GanttRecord,System.Int32)">
             <summary>
@@ -3661,6 +4318,44 @@
             </summary>
             <param name="sender">The sender.</param>
             <param name="e">The <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttModel.SetSplitTasksProgress(Syncfusion.Windows.Controls.Gantt.GanttRecord)">
+            <summary>
+            To set the split tasks progress based on its parent's progress value.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttModel.TailValidation(System.Object)">
+            <summary>
+            Placed the successor nodes based on its predecessor nodes.
+            </summary>
+            <param name="tailItem">Successor item.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttModel.MoveSplitTask(Syncfusion.Windows.Controls.Gantt.GanttRecord,System.TimeSpan)">
+            <summary>
+            To move the split task along with segments.
+            </summary>
+            <param name="splitParentRecord">The split parent record.</param>
+            <param name="toBeMoved">The time span to be moved.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttModel.CompareHeaders(System.Object,System.Double)">
+            <summary>
+            If node has more than one predecessor, then compare check with all predecessor nodes.
+            </summary>
+            <param name="tailItem"></param>
+            <param name="duration"></param>
+            <returns>Start date for the node.</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttModel.ValidateOnEndDateChanged(System.Object)">
+            <summary>
+            Validate the successor nodes.
+            </summary>
+            <param name="item">Current item.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttModel.ValidateOnStartDateChanged(System.Object)">
+            <summary>
+            Validate the successor nodes.
+            </summary>
+            <param name="item">Current item.</param>
         </member>
         <member name="M:Syncfusion.Windows.Controls.Gantt.GanttModel.UpdateInlineParentInfo(Syncfusion.Windows.Controls.Gantt.GanttRecord)">
             <summary>
@@ -3730,6 +4425,12 @@
             Calculates the duration.
             </summary>
             <param name="obj">The obj.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttModel.CalculateSplitTaskDuration(System.Object)">
+            <summary>
+            Calculates the duration of split task.
+            </summary>
+            <param name="item">The split task's item.</param>
         </member>
         <member name="M:Syncfusion.Windows.Controls.Gantt.GanttModel.ExpandAllNodes">
             <summary>
@@ -3876,6 +4577,77 @@
             <param name="sender">The sender.</param>
             <param name="e">The <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance containing the event data.</param>
         </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttModel.CheckForSplitTaskItems(System.Object,Syncfusion.Windows.Controls.Gantt.GanttRecord)">
+            <summary>
+            Checks for split task items.
+            </summary>
+            <param name="node">The node.</param>
+            <param name="currentRecord">The current record.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttModel.CreateSplitTaskRecords(Syncfusion.Windows.Controls.Gantt.GanttRecord)">
+            <summary>
+            To create a gantt records for split task items.
+            </summary>
+            <param name="currentRecord">The split parent record.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttModel.CreateActualSplitTasks(Syncfusion.Windows.Controls.Gantt.GanttRecord,System.Collections.IEnumerable)">
+            <summary>
+            To validate and create the actual split tasks.
+            </summary>
+            <param name="currentRecord">The current record.</param>
+            <param name="splitTaskItems">The split task items</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttModel.WireSplitTaskCollectionChanged(System.Collections.IEnumerable,Syncfusion.Windows.Controls.Gantt.GanttRecord)">
+            <summary>
+            To wire the split task collection changed.
+            </summary>
+            <param name="splitTaskItems">The split task items.</param>
+            <param name="record">The gantt record.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttModel.UnWireSplitTaskCollectionChanged(System.Object)">
+            <summary>
+            To un wire the split task collection changed.
+            </summary>
+            <param name="items">The split task collection.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttModel.OnSplitTaskCollectionChanged(System.Object,System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
+            <summary>
+            Update the actual split tasks while split task collection changed.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">he <see cref="T:System.Collections.Specialized.NotifyCollectionChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttModel.RegenerateActualSplitTasks(Syncfusion.Windows.Controls.Gantt.GanttRecord)">
+            <summary>
+            To clear and regenerate the actual split tasks in particular record.
+            </summary>
+            <param name="record">The record.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttModel.CalculateActualSplitTaskDuration(Syncfusion.Windows.Controls.Gantt.SplitTask)">
+            <summary>
+            Calculates the split task duration.
+            </summary>
+            <param name="splitTask">The current item.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttModel.UpdateSplitParentRange(Syncfusion.Windows.Controls.Gantt.GanttRecord)">
+            <summary>
+            To update the split parent's start/finish/duration based on its split tasks.
+            </summary>
+            <param name="currentRecord">The split parent's gantt record.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttModel.UpdateSplitParentDuration(Syncfusion.Windows.Controls.Gantt.GanttRecord)">
+            <summary>
+            Updates the split parent's progress.
+            </summary>
+            <param name="currentRecord">The current record.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttModel.GetSplitParentDuration(System.Collections.Generic.List{Syncfusion.Windows.Controls.Gantt.GanttRecord})">
+            <summary>
+            To get the split parent duration.
+            </summary>
+            <param name="splitRecords">Split records.</param>
+            <returns>The split parent duration.</returns>
+        </member>
         <member name="M:Syncfusion.Windows.Controls.Gantt.GanttModel.GetProjStartDate">
             <summary>
             Gets the Project Start Date
@@ -3942,6 +4714,12 @@
             </summary>
             <value>The appointment mapping.</value>
         </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.GanttModel.SplitTaskAttributeMapping">
+            <summary>
+            Gets or sets the appointment mapping.
+            </summary>
+            <value>The appointment mapping.</value>
+        </member>
         <member name="P:Syncfusion.Windows.Controls.Gantt.GanttModel.Resources">
             <summary>
             Gets or sets the resources.
@@ -3961,6 +4739,11 @@
             <value>
             	<c>true</c> if this instance is auto update enabled; otherwise, <c>false</c>.
             </value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.GanttModel.ProjectStartDate">
+            <summary>
+            Gets or sets the actual project start date.
+            </summary>
         </member>
         <member name="P:Syncfusion.Windows.Controls.Gantt.GanttModel.InbuiltTaskCollection">
             <summary>
@@ -4132,6 +4915,12 @@
             </summary>
             <value>The gantt task relationship.</value>
         </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Predecessor.Offset">
+            <summary>
+            Gets or sets the offset for gantt task relationship.
+            </summary>
+            <value>The offset.</value>
+        </member>
         <member name="T:Syncfusion.Windows.Controls.Gantt.XMLImportExport">
             <summary>
             A class that helps to Export/Import current project in Gantt
@@ -4144,13 +4933,36 @@
             <param name="FilePath">The file path.</param>
             <returns></returns>
         </member>
-        <member name="M:Syncfusion.Windows.Controls.Gantt.XMLImportExport.CreateGanttTasks(System.Collections.Generic.List{Syncfusion.ProjIO.Task},System.Collections.Generic.Dictionary{Syncfusion.ProjIO.Task,System.Collections.Generic.List{Syncfusion.ProjIO.Resource}})">
+        <member name="M:Syncfusion.Windows.Controls.Gantt.XMLImportExport.GetWeekends(System.String)">
+            <summary>
+            To get the weekends.
+            </summary>
+            <param name="filePath">The path of the xml file</param>
+            <returns>The weekends</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.XMLImportExport.GetDay(Syncfusion.ProjIO.DayType)">
+            <summary>
+            To get the equivalent Days value of given DayType value.
+            </summary>
+            <param name="dayType">The day type value.</param>
+            <returns>The equivalent Days value of given DayType value.</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.XMLImportExport.CreateGanttTasks(System.Collections.Generic.List{Syncfusion.ProjIO.Task},System.Collections.Generic.Dictionary{Syncfusion.ProjIO.Task,System.Collections.Generic.List{Syncfusion.ProjIO.Resource}},System.Int32)">
             <summary>
             Creates the gantt tasks.
             </summary>
             <param name="taskList">The task list.</param>
             <param name="resourcesAssignment">The resources assignment.</param>
+            <param name="currencyDigits">The currency precisions.</param>
             <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.XMLImportExport.CostConvertor(System.Double,System.Double)">
+            <summary>
+            To convert cost based on precision value.
+            </summary>
+            <param name="cost">The cost.</param>
+            <param name="precisionValue">The precision value.</param>
+            <returns>Cost with precision value.</returns>
         </member>
         <member name="M:Syncfusion.Windows.Controls.Gantt.XMLImportExport.GetPredecessor(System.Collections.Generic.List{Syncfusion.ProjIO.TaskLink})">
             <summary>
@@ -4166,14 +4978,15 @@
             <param name="assignments">The assignments.</param>
             <returns></returns>
         </member>
-        <member name="M:Syncfusion.Windows.Controls.Gantt.XMLImportExport.ExportToXML(System.Collections.IEnumerable,System.String)">
+        <member name="M:Syncfusion.Windows.Controls.Gantt.XMLImportExport.ExportToXML(System.Collections.IEnumerable,System.String,System.Collections.Generic.IEnumerable{System.String})">
             <summary>
             Exports to XML.
             </summary>
             <param name="taskDetailsCollection">The task details collection.</param>
             <param name="FilePath">The file path.</param>
+            <param name="weekendsList">The weekends list.</param>
         </member>
-        <member name="M:Syncfusion.Windows.Controls.Gantt.XMLImportExport.CreateProjectTasks(System.Collections.IEnumerable,System.Collections.Generic.Dictionary{Syncfusion.Windows.Controls.Gantt.TaskDetails,Syncfusion.ProjIO.Task},System.Collections.Generic.List{Syncfusion.ProjIO.Assignment},System.Collections.Generic.Dictionary{Syncfusion.Windows.Controls.Gantt.TaskDetails,Syncfusion.ProjIO.Task})">
+        <member name="M:Syncfusion.Windows.Controls.Gantt.XMLImportExport.CreateProjectTasks(System.Collections.IEnumerable,System.Collections.Generic.Dictionary{Syncfusion.Windows.Controls.Gantt.TaskDetails,Syncfusion.ProjIO.Task},System.Collections.Generic.List{Syncfusion.ProjIO.Assignment},System.Collections.Generic.Dictionary{Syncfusion.Windows.Controls.Gantt.TaskDetails,Syncfusion.ProjIO.Task},System.Int32)">
             <summary>
             Creates the project tasks.
             </summary>
@@ -4181,6 +4994,7 @@
             <param name="likendTasks">The likend tasks.</param>
             <param name="assignedTasks">The assigned tasks.</param>
             <param name="linearTasks">The linear tasks.</param>
+            <param name="currencyDigits">The project currency digits.</param>
             <returns></returns>
         </member>
         <member name="M:Syncfusion.Windows.Controls.Gantt.XMLImportExport.UpdateLinkedTasks(System.Collections.Generic.Dictionary{Syncfusion.Windows.Controls.Gantt.TaskDetails,Syncfusion.ProjIO.Task},System.Collections.Generic.Dictionary{Syncfusion.Windows.Controls.Gantt.TaskDetails,Syncfusion.ProjIO.Task})">
@@ -4420,6 +5234,19 @@
             </summary>
             <value>The schedule scroll view.</value>
         </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Schedule.GanttSchedule.Weekends">
+            <summary>
+            Gets or sets enum values which are weekends 
+            </summary>
+            <value>
+            The value of type Days
+            </value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Schedule.GanttSchedule.ShowWeekends">
+            <summary>
+            Enables or disables the ShowWeekends.
+            </summary>
+        </member>
         <member name="P:Syncfusion.Windows.Controls.Gantt.Schedule.GanttSchedule.Model">
             <summary>
             Gets the model.
@@ -4465,6 +5292,11 @@
             <value>
             The week begins on.
             </value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Schedule.GanttSchedule.ExcludeWeekends">
+            <summary>
+            Excludes or includes the weekends days in duration calculation
+            </summary>
         </member>
         <member name="P:Syncfusion.Windows.Controls.Gantt.Schedule.GanttSchedule.FiscalYearBeginsOn">
             <summary>
@@ -4591,6 +5423,21 @@
             The DependencyProperty for <see cref="!:WeekBeginsOn"/> property.
             </summary>
         </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.Schedule.GanttScheduleRow.ShowWeekendsProperty">
+            <summary>
+            The Dependencyproperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.Schedule.GanttScheduleRow.ShowWeekends"/> property
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.Schedule.GanttScheduleRow.WeekendsProperty">
+            <summary>
+            The DependencyProperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.Schedule.GanttScheduleRow.Weekends"/> property
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.Schedule.GanttScheduleRow.ExcludeWeekendsProperty">
+            <summary>
+            The DependencyProperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.Schedule.GanttScheduleRow.ExcludeWeekends"/> property
+            </summary>
+        </member>
         <member name="M:Syncfusion.Windows.Controls.Gantt.Schedule.GanttScheduleRow.OnStartPointChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
             <summary>
             Called when [start point changed].
@@ -4625,6 +5472,27 @@
             </summary>
             <param name="sender">The sender.</param>
             <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Schedule.GanttScheduleRow.OnShowWeekendsPropertyChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            called when Showweekends property changed
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Schedule.GanttScheduleRow.OnWeekendsPropertyChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when Weekends property changed
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Schedule.GanttScheduleRow.OnExcludeWeekendsPropertyChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when ExcludeWeekends property changed
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
         </member>
         <member name="M:Syncfusion.Windows.Controls.Gantt.Schedule.GanttScheduleRow.#ctor">
             <summary>
@@ -4864,6 +5732,24 @@
             The end time.
             </value>
         </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Schedule.GanttScheduleRow.ExcludeWeekends">
+            <summary>
+            Excludes or includes the weekend days in duration calculation
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Schedule.GanttScheduleRow.ShowWeekends">
+            <summary>
+            Enables or disables the ShowWeekends 
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Schedule.GanttScheduleRow.Weekends">
+            <summary>
+            Gets or sets enum values which are weekends 
+            </summary>
+            <value>
+            The value of type Days
+            </value>
+        </member>
         <member name="T:Syncfusion.Windows.Controls.Gantt.Schedule.GanttScheduleExt">
             <summary>
             Class that handles the basic calculations of Schedule.
@@ -4965,22 +5851,6 @@
             Gets or sets the parent control.
             </summary>
             <value>The parent control.</value>
-        </member>
-        <member name="T:Syncfusion.Windows.Controls.Gantt.Properties.Resources">
-            <summary>
-              A strongly-typed resource class, for looking up localized strings, etc.
-            </summary>
-        </member>
-        <member name="P:Syncfusion.Windows.Controls.Gantt.Properties.Resources.ResourceManager">
-            <summary>
-              Returns the cached ResourceManager instance used by this class.
-            </summary>
-        </member>
-        <member name="P:Syncfusion.Windows.Controls.Gantt.Properties.Resources.Culture">
-            <summary>
-              Overrides the current thread's CurrentUICulture property for all
-              resource lookups using this strongly typed resource class.
-            </summary>
         </member>
         <member name="T:Syncfusion.Windows.Controls.Gantt.TaskDetails">
             <summary>
@@ -5141,6 +6011,87 @@
             Occurs when a property value changes.
             </summary>
         </member>
+        <member name="T:Syncfusion.Windows.Controls.Gantt.Resources.ResourceWrapper">
+            <summary>
+             Represents a wrapper for the resources
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.Resources.ResourceWrapper.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.Windows.Controls.Gantt.Resources.ResourceWrapper"/> class.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Gantt.Resources.Syncfusion_Gantt_WPF">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Resources.Syncfusion_Gantt_WPF.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Resources.Syncfusion_Gantt_WPF.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Resources.Syncfusion_Gantt_WPF.Cost">
+            <summary>
+              Looks up a localized string similar to Cost.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Resources.Syncfusion_Gantt_WPF.Duration">
+            <summary>
+              Looks up a localized string similar to Duration.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Resources.Syncfusion_Gantt_WPF.FinishDate">
+            <summary>
+              Looks up a localized string similar to Finish.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Resources.Syncfusion_Gantt_WPF.FinishPoint">
+            <summary>
+              Looks up a localized string similar to Finish.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Resources.Syncfusion_Gantt_WPF.MileStone">
+            <summary>
+              Looks up a localized string similar to IsMileStone.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Resources.Syncfusion_Gantt_WPF.Predecessor">
+            <summary>
+              Looks up a localized string similar to Predecessor.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Resources.Syncfusion_Gantt_WPF.Progress">
+            <summary>
+              Looks up a localized string similar to Progress (%).
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Resources.Syncfusion_Gantt_WPF.ResourceInfo">
+            <summary>
+              Looks up a localized string similar to Resource Names.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Resources.Syncfusion_Gantt_WPF.StartDate">
+            <summary>
+              Looks up a localized string similar to Start.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Resources.Syncfusion_Gantt_WPF.StartPoint">
+            <summary>
+              Looks up a localized string similar to Start.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.Resources.Syncfusion_Gantt_WPF.TaskName">
+            <summary>
+              Looks up a localized string similar to Task Name.
+            </summary>
+        </member>
         <member name="M:Syncfusion.Windows.Controls.Gantt.DependencyObjectExtensions.IsDescendant(System.Windows.DependencyObject,System.Windows.DependencyObject)">
             <summary>
             Checks if the node is present in the VisualTree.
@@ -5194,6 +6145,96 @@
             <param name="obj">The obj.</param>
             <param name="value">The value.</param>
         </member>
+        <member name="T:Syncfusion.Windows.Controls.Gantt.UIElementsRecycler`1">
+            <summary>
+            Contains utility methods to add and remove elements inside a panel.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.UIElementsRecycler`1.#ctor(System.Windows.Controls.Panel)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="panel"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.UIElementsRecycler`1.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.UIElementsRecycler`1.GenerateElements(System.Int32)">
+            <summary>
+            Generates or recycles the elements
+            </summary>
+            <param name="count">Number of elements to be generated</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.UIElementsRecycler`1.Add(`0)">
+            <summary>
+            Method used to add a element in the panel.
+            </summary>
+            <param name="element"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.UIElementsRecycler`1.IndexOf(`0)">
+            <summary>
+            Indexes the of.
+            </summary>
+            <param name="element">The element.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.UIElementsRecycler`1.Remove(`0)">
+            <summary>
+            Method used to remove the element from the panel.
+            </summary>
+            <param name="element"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.UIElementsRecycler`1.CreateNewInstance">
+            <summary>
+            Creates a new instance of the specified type
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.UIElementsRecycler`1.RemoveBinding(System.Windows.DependencyProperty)">
+            <summary>
+            Removes the particular binding from the generated elements
+            </summary>
+            <param name="property"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.UIElementsRecycler`1.Clear">
+            <summary>
+            Clears the generated elements
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.UIElementsRecycler`1.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the collection.
+            </summary>
+            <returns>
+            A <see cref="T:System.Collections.Generic.IEnumerator`1"/> that can be used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.UIElementsRecycler`1.Panel">
+            <summary>
+            Get the panel
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.UIElementsRecycler`1.Count">
+            <summary>
+            Get the value of CLR property.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.UIElementsRecycler`1.BindingProvider">
+            <summary>
+            Provides binding objects to be attached with the generated FrameworkElement.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.UIElementsRecycler`1.Item(System.Int32)">
+            <summary>
+            Return the panel's child at the corresponding index
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
         <member name="T:Syncfusion.GanttWpfAssembly">
             <summary>
             This class holds the name of the Syncfusion.Windows.Controls.Gantt assembly and provides a helper 
@@ -5232,6 +6273,11 @@
         <member name="T:Syncfusion.Windows.Controls.Gantt.GanttControl">
             <summary>
             Represents a control, that illustrates a project schedule by displaying the progress of list of tasks/activities of a project in table view and graph notation.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.GanttControl.ShowGridCellToolTipProperty">
+            <summary>
+            Identifies the <see cref="P:Syncfusion.Windows.Controls.Gantt.GanttControl.ShowGridCellToolTip"/> property.
             </summary>
         </member>
         <member name="F:Syncfusion.Windows.Controls.Gantt.GanttControl.StartPointProperty">
@@ -5274,6 +6320,11 @@
             The DependencyProperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.GanttControl.TaskAttributeMapping"/> property.
             </summary>
         </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.GanttControl.SplitTaskAttributeMappingProperty">
+            <summary>
+            The DependencyProperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.GanttControl.SplitTaskAttributeMapping"/> property.
+            </summary>
+        </member>
         <member name="F:Syncfusion.Windows.Controls.Gantt.GanttControl.IsFYNumberingEnabledProperty">
             <summary>
             The DependencyProperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.GanttControl.IsFYNumberingEndbled"/> property.
@@ -5287,6 +6338,16 @@
         <member name="F:Syncfusion.Windows.Controls.Gantt.GanttControl.HolidaysProperty">
             <summary>
             The DependencyProperty for <see cref="!:HolidaysCollection"/> property.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.GanttControl.ShowWeekendsProperty">
+            <summary>
+            The DependencyProperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.GanttControl.ShowWeekends"/> property
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.GanttControl.WeekendsProperty">
+            <summary>
+            The DependencyProperty of <see cref="P:Syncfusion.Windows.Controls.Gantt.GanttControl.Weekends"/> property
             </summary>
         </member>
         <member name="F:Syncfusion.Windows.Controls.Gantt.GanttControl.CurrentDateLineProperty">
@@ -5494,6 +6555,21 @@
             The DependencyProperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.GanttControl.ShowGridLinesOnZooming"/> property.
             </summary>
         </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.GanttControl.ExcludeWeekendsProperty">
+            <summary>
+            The DependencyProperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.GanttControl.ExcludeWeekends"/> property
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.GanttControl.SelectionModeProperty">
+            <summary>
+            Identifies the <see cref="F:Syncfusion.Windows.Controls.Gantt.GanttControl.SelectionModeProperty"/> property.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.GanttControl.SelectionBrushProperty">
+            <summary>
+            Identifies the <see cref="P:Syncfusion.Windows.Controls.Gantt.GanttControl.SelectionBrush"/> property.
+            </summary>
+        </member>
         <member name="F:Syncfusion.Windows.Controls.Gantt.GanttControl.ScheduleCellCreatedEvent">
             <summary>
             The DependencyProperty for <see cref="E:Syncfusion.Windows.Controls.Gantt.GanttControl.ScheduleCellCreated"/> property.
@@ -5539,10 +6615,94 @@
             The DependencyProperty for <see cref="E:Syncfusion.Windows.Controls.Gantt.GanttControl.NodeResizingCompleted"/> property.
             </summary>
         </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.GanttControl.ValidationModeProperty">
+            <summary>
+            The DependencyProperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.GanttControl.ValidationMode"/> property.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttControl.OnValidationModeChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when [validation mode is changed].
+            </summary>
+            <param name="sender">The d.</param>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.GanttControl.ShowCriticalPathProperty">
+            <summary>
+            The DependencyProperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.GanttControl.ShowCriticalPath"/> property.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttControl.OnShowCriticalPathChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when [show criticalpath changed].
+            </summary>
+            <param name="d">The d.</param>
+            <param name="e">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.GanttControl.CriticalPathBrushProperty">
+            <summary>
+            The DependencyProperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.GanttControl.CriticalPathBrush"/> property.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttControl.OnCriticalPathBrushChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when [critical path brush changed].
+            </summary>
+            <param name="sender">The d.</param>
+            <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.GanttControl.DragAndDropToolTipTemplateProperty">
+            <summary>
+            The DependencyProperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.GanttControl.DragAndDropToolTipTemplate"/> property.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttControl.OnDragAndDropToolTipTemplateChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when [drag and drop tool tip template is changed].
+            </summary>
+            <param name="d">The d.</param>
+            <param name="e">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
         <member name="F:Syncfusion.Windows.Controls.Gantt.GanttControl.ScheduleRangePaddingProperty">
             <summary>
             The DependencyProperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.GanttControl.ScheduleRangePadding"/> property.
             </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.GanttControl.BaselineColorProperty">
+            <summary>
+            The DependencyProperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.GanttControl.BaselineColor"/> property.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttControl.OnBaselineColorChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when [baseline color changed].
+            </summary>
+            <param name="d">The d.</param>
+            <param name="e">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.GanttControl.ShowBaselineProperty">
+            <summary>
+            The DependencyProperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.GanttControl.ShowBaseline"/> property.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttControl.OnShowBaselineChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when [show baseline changed].
+            </summary>
+            <param name="d">The d.</param>
+            <param name="e">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Gantt.GanttControl.BaselineStrokeThicknessProperty">
+            <summary>
+            The DependencyProperty for <see cref="P:Syncfusion.Windows.Controls.Gantt.GanttControl.BaselineStrokeThickness"/> property.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttControl.OnBaselineStrokeThicknessChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when [baseline stroke thickness changed].
+            </summary>
+            <param name="d">The d.</param>
+            <param name="e">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         </member>
         <member name="M:Syncfusion.Windows.Controls.Gantt.GanttControl.#ctor">
             <summary>
@@ -5568,14 +6728,21 @@
             <param name="d">The d.</param>
             <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         </member>
-        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttControl.OnStartTimeChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttControl.OnShowWeekendsPropertyChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when the exclude weekend property gets changed
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttControl.OnActualStartTimeChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
             <summary>
             Called when [start time changed].
             </summary>
             <param name="sender">The d.</param>
             <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         </member>
-        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttControl.OnEndTimeChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttControl.OnActualEndTimeChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
             <summary>
             Called when [end time changed].
             </summary>
@@ -5595,6 +6762,13 @@
             </summary>
             <param name="sender">The dpo.</param>
             <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttControl.OnSplitTaskAttributePropertyChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when [split task attribute mapping property changed].
+            </summary>
+            <param name="d">The dependency property changed.</param>
+            <param name="e">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/>Instance containing the event data.</param>
         </member>
         <member name="M:Syncfusion.Windows.Controls.Gantt.GanttControl.OnResourceCollectionChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
             <summary>
@@ -5617,6 +6791,18 @@
             <param name="sender">The Sender</param>
             <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttControl.OnWeekendsPropertyChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when non working days property changes
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttControl.OnExcludeWeekendsPropertyChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when exclude weekend property changes
+            </summary>
+        </member>
         <member name="M:Syncfusion.Windows.Controls.Gantt.GanttControl.OnStripLinesChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
             <summary>
             Called when [strip lines changed].
@@ -5631,7 +6817,7 @@
             <param name="dep">The dep.</param>
             <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         </member>
-        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttControl.OnStickCurrnetDateLineToPropertychanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttControl.OnStickCurrentDateLineToPropertyChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
             <summary>
             Called when [stick currnet date line to propertychanged].
             </summary>
@@ -5680,9 +6866,9 @@
             <param name="dep">The dep.</param>
             <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         </member>
-        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttControl.OnHighlightedItemsChagned(System.Object,System.Windows.DependencyPropertyChangedEventArgs)">
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttControl.OnHighlightedItemsChanged(System.Object,System.Windows.DependencyPropertyChangedEventArgs)">
             <summary>
-            Called when [highlighted items chagned].
+            Called when [highlighted items changed].
             </summary>
             <param name="sender">The sender.</param>
             <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
@@ -5693,6 +6879,11 @@
             </summary>
             <param name="sender">The sender.</param>
             <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttControl.ValidateDuration">
+            <summary>
+            For excludes weekends during property changed call back
+            </summary>
         </member>
         <member name="M:Syncfusion.Windows.Controls.Gantt.GanttControl.SetItemsSourceOnModel(System.Object)">
             <summary>
@@ -5775,6 +6966,19 @@
             Raises the node resizing delta.
             </summary>
             <param name="args">The <see cref="T:Syncfusion.Windows.Controls.Gantt.NodeResizingEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttControl.RaiseProgressResizing(Syncfusion.Windows.Controls.Gantt.ProgressResizingEventArgs)">
+            <summary>
+            Raises the progress resizing delta.
+            </summary>
+            <param name="args">The <see cref="T:Syncfusion.Windows.Controls.Gantt.ProgressResizingEventArgs"/> instance containing the event data.</param>
+            <returns>The boolean value.</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Gantt.GanttControl.RaiseProgressResizingCompleted(Syncfusion.Windows.Controls.Gantt.ProgressResizingCompletedEventArgs)">
+            <summary>
+            Raises the progress resizing completed.
+            </summary>
+            <param name="args">The <see cref="T:Syncfusion.Windows.Controls.Gantt.ProgressResizingCompletedEventArgs"/> instance containing the event data.</param>
         </member>
         <member name="M:Syncfusion.Windows.Controls.Gantt.GanttControl.GetProjectStatistics">
             <summary>
@@ -5871,6 +7075,11 @@
             Occurs when [items source changed].
             </summary>
         </member>
+        <member name="E:Syncfusion.Windows.Controls.Gantt.GanttControl.RelationshipEstablished">
+            <summary>
+            Occurs when relationship is established.
+            </summary>
+        </member>
         <member name="E:Syncfusion.Windows.Controls.Gantt.GanttControl.TemplateApplied">
             <summary>
             Occurs when [template applied].
@@ -5920,6 +7129,55 @@
             <summary>
             Occurs when [node resizing completed].
             </summary>
+        </member>
+        <member name="E:Syncfusion.Windows.Controls.Gantt.GanttControl.ProgressResizing">
+            <summary>
+            Occurs when resizing the progress.
+            </summary>
+        </member>
+        <member name="E:Syncfusion.Windows.Controls.Gantt.GanttControl.ProgressResizingCompleted">
+            <summary>
+            Occurs when progress resizing is completed.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.GanttControl.ShowGridCellToolTip">
+            <summary>
+            Gets or sets a value to enable the cell tooltip.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.GanttControl.SelectionBrush">
+            <summary>
+            Gets or sets the brush color for selection.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.GanttControl.SelectionMode">
+            <summary>
+            Gets or sets mode in which row has to selected in grid.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.GanttControl.ValidationMode">
+            <summary>
+            Gets or Sets validation mode.
+            </summary>
+            <value>The validation mode.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.GanttControl.ShowCriticalPath">
+            <summary>
+            Gets or sets a value indicating whether the critical path need to be highlighted in GanttChart.
+            </summary>
+            <value>The show critical path.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.GanttControl.CriticalPathBrush">
+            <summary>
+            Gets or sets brush for critical path.
+            </summary>
+            <value>The critical path brush.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.GanttControl.DragAndDropToolTipTemplate">
+            <summary>
+            Gets or sets the DataTemplate for DragAndDropToolTip.
+            </summary>
+            <value>The drag and drop tool tip template.</value>
         </member>
         <member name="P:Syncfusion.Windows.Controls.Gantt.GanttControl.GanttGrid">
             <summary>
@@ -5986,6 +7244,30 @@
             </summary>
             <value>The task attribute mapping.</value>
         </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.GanttControl.SplitTaskAttributeMapping">
+            <summary>
+            Gets or sets the split task attribute mapping.
+            </summary>
+            <value>The split task attribute mapping.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.GanttControl.BaselineColor">
+            <summary>
+            Gets or sets the color for baseline.
+            </summary>
+            <value>The baseline color.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.GanttControl.ShowBaseline">
+            <summary>
+            Enable or disable the baseline.
+            </summary>
+            <value>The show baseline.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.GanttControl.BaselineStrokeThickness">
+            <summary>
+            Gets or sets the stroke thickness for baseline.
+            </summary>
+            <value>The baseline stroke thickness.</value>
+        </member>
         <member name="P:Syncfusion.Windows.Controls.Gantt.GanttControl.DefaultStartTime">
             <summary>
             Gets or sets the default start time.
@@ -6007,6 +7289,19 @@
             Gets or sets the week begins on.
             </summary>
             <value>The week begins on.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.GanttControl.ShowWeekends">
+            <summary>
+            Enables or disables the ShowWeekends 
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.GanttControl.Weekends">
+            <summary>
+            Gets or sets enum values which are weekends 
+            </summary>
+            <value>
+            The value of type Days
+            </value>
         </member>
         <member name="P:Syncfusion.Windows.Controls.Gantt.GanttControl.IsFYNumberingEndbled">
             <summary>
@@ -6301,6 +7596,17 @@
             <value>
             	<c>true</c> if [show grid lines on zooming]; otherwise, <c>false</c>.
             </value>
+        </member>
+        <member name="P:Syncfusion.Windows.Controls.Gantt.GanttControl.ExcludeWeekends">
+            <summary>
+            Excludes or includes the weekend days in duration calculation
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Gantt.NamespaceDoc">
+            <summary>
+            Defines the namespace to intialize the Gantt control.
+            <exclude/>
+            </summary>
         </member>
         <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
             <summary>

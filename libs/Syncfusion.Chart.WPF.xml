@@ -241,6 +241,11 @@
              Initializes ChartArea
             </summary> 
         </member>
+        <member name="M:Syncfusion.Windows.Chart.Chart3D.#ctor">
+            <summary>
+            Initializes an instance of the <see cref="T:Syncfusion.Windows.Chart.Chart3D"/> class.
+            </summary>
+        </member>
         <member name="M:Syncfusion.Windows.Chart.Chart3D.OnCameraProjectionChanged(System.Windows.DependencyPropertyChangedEventArgs)">
             <summary>
             Updates property value cache and raises CameraProjectionChanged event.
@@ -9165,6 +9170,16 @@
             <param name="series"></param>
             <param name="position"></param>
             <param name="forPositive"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Chart.ChartArea.GetStackInfo(Syncfusion.Windows.Chart.ChartSeries,System.Double,System.Nullable{System.Boolean},System.Int32)">
+            <summary>
+            Return double value Based on given series collection
+            </summary>
+            <param name="series"></param>
+            <param name="position"></param>
+            <param name="forPositive"></param>
+            <param name="stackInfoCurrentIndex"></param>
             <returns></returns>
         </member>
         <member name="M:Syncfusion.Windows.Chart.ChartArea.GetPercentageStackInfo(Syncfusion.Windows.Chart.ChartSeries,Syncfusion.Windows.Chart.ChartIndexedDataPoint)">

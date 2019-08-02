@@ -4,6 +4,11 @@
         <name>Syncfusion.Edit.Wpf</name>
     </assembly>
     <members>
+        <member name="F:Syncfusion.Windows.Edit.EditControl.IsLineBackgroundApplying">
+            <summary>
+             internal bool variable to identify if LineBackgroundApplying is created or not.
+            </summary>
+        </member>
         <member name="F:Syncfusion.Windows.Edit.EditControl.mlines">
             <summary>
             object of LineItemsCollection
@@ -47,6 +52,46 @@
         <member name="F:Syncfusion.Windows.Edit.EditControl.IsPaste">
             <summary>
             internal variable to denote if the paste operation has perform.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditControl.ExpandButtonStyle">
+            <summary>
+            Stores the expand button style
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditControl.EndLineButtonStyle">
+            <summary>
+            Stores the end line button style
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditControl.LineButtonStyle">
+            <summary>
+            stores the line button style
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditControl.EmpyLineButtonStyle">
+            <summary>
+            stores the empty line button style
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditControl.IsUpDownKeyPressed">
+            <summary>
+            Indicates whether the up, down key is pressed or not.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditControl.previousLineIndex">
+            <summary>
+             Stores the previous line index
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditControl.IsKeyDown">
+            <summary>
+            Indicates whether the keys are pressed or not.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditControl.isFileloaded">
+            <summary>
+            Indicates whether the new file is loaded or not. 
             </summary>
         </member>
         <member name="F:Syncfusion.Windows.Edit.EditControl.inputtimer">
@@ -129,6 +174,11 @@
             Local variable to store the intellisense args values.
             </summary>
         </member>
+        <member name="F:Syncfusion.Windows.Edit.EditControl.onBeforeLineRenderArgs">
+            <summary>
+            Local variable to store the On Before Line Render Args values.
+            </summary>
+        </member>
         <member name="F:Syncfusion.Windows.Edit.EditControl.replaceControl">
             <summary>
             Local variable to store the replace control
@@ -144,9 +194,42 @@
             Local variable to identify if the insert key is toggled.
             </summary>
         </member>
+        <member name="F:Syncfusion.Windows.Edit.EditControl.isCommentExecute">
+            <summary>
+            Indiactes whether comment operation is executed
+            </summary>
+        </member>
         <member name="F:Syncfusion.Windows.Edit.EditControl.isAssemblyInitializing">
             <summary>
             Local variable to identify if the assembly initialization process is going on.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditControl.FindNextSelection">
+            <summary>
+            Gets or sets a value indicating whether the find next operation is performed or not
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditControl.textselectline">
+            <summary>
+            local variable text select line
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditControl.isReplaceExecute">
+            <summary>
+            Gets or sets the value indicating replace text is executed
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditControl.PrintSettingsProperty">
+            <summary>
+            Stores the cref="Syncfusion.Windows.Edit.PrintSettings"/>
+            </summary>
+            <remarks>
+            The identifier for the Syncfusion.Windows.Edit.PrintSettings dependency property.
+            </remarks>           
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditControl.SelectedTextPointerProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for SelectedTextPointer.  This enables animation, styling, binding, etc...
             </summary>
         </member>
         <member name="F:Syncfusion.Windows.Edit.EditControl.EnterKeyBehaviorProperty">
@@ -409,6 +492,11 @@
             DependencyProperty for IsAutoIndentationEnabled Property
             </summary>
         </member>
+        <member name="F:Syncfusion.Windows.Edit.EditControl.AcceptsReturnProperty">
+            <summary>
+            DependencyProperty for AcceptsReturn Property
+            </summary>
+        </member>
         <member name="F:Syncfusion.Windows.Edit.EditControl.IndentingOptionsProperty">
             <summary>
             DependencyProperty for IndentingOptions Property
@@ -418,6 +506,51 @@
             <summary>
             Bubbled RoutedEvent Identifies the SelectionChanged.
             </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditControl.m_SelectLinesOnDrop">
+            <summary>
+            Select Lines on drop
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditControl.touchStart">
+            <summary>
+            UIElement of Start ellipse
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditControl.touchEnd">
+            <summary>
+            UIElement of End ellipse
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditControl.scrollCount">
+            <summary>
+            Count to specify whether scrolling occurred or not
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditControl.isKeyPressed">
+            <summary>
+            Value indicates whether text selection is occurring or not through key board.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditControl.isTextChangedInternally">
+            <summary>
+            Value indicates whether text is changed programmatically or user interaction.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditControl.isScroll">
+            <summary>
+            Value indicates whether scrolling is performing or not
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditControl.isEndEllipsePressed">
+            <summary>
+            Value indicates whether the End Touch Selection pointer is pressed or not
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditControl.isStartEllipsePressed">
+            <summary>
+            Value indicates whether the Start Touch Selection pointer is pressed or not
+            </summary>        
         </member>
         <member name="M:Syncfusion.Windows.Edit.EditControl.OnTextChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
             <summary>
@@ -603,6 +736,26 @@
             cref="T:Syncfusion.Windows.Edit.EditControl">EditControl</see> class.
             </summary>
         </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.Print">
+            <summary>
+            Print the EditControl content based on its PrintSettings.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.ShowPrintPreview">
+            <summary>
+            Helps to preview the EditControl content based on its PrintSettings.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditControl.Inbetweentag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.UpdateVisibilityOfSelectionPointers">
+            <summary>
+            Method to update the visibility of the Selection pointers
+            </summary>
+        </member>
         <member name="M:Syncfusion.Windows.Edit.EditControl.EditControl_Loaded(System.Object,System.Windows.RoutedEventArgs)">
             <summary>
             Sets the focus of the control whent the control gets loaded.
@@ -701,6 +854,59 @@
             <param name="encoding">The encoding.</param>
             <returns>Returns true when File length greater than 0, otherwise return false.</returns>
         </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.UpdateCursorPosition(Syncfusion.Windows.Edit.LineItem,System.Boolean)">
+            <summary>
+            Update position of the cursor in specific line based on previous cursor position
+            </summary>
+            <param name="lineItem">LineItem to update the position</param>        
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.MoveToNextWord">
+            <summary>
+            Moves the cursor to the start position of the next word in <see cref="T:Syncfusion.Windows.Edit.EditControl"/>.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.MoveToPreviousWord">
+            <summary>
+            Moves the cursor to the start position of the previous word in <see cref="T:Syncfusion.Windows.Edit.EditControl"/>.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.MoveToNextLine">
+            <summary>
+            Moves the cursor to the same position on the next <see cref="T:Syncfusion.Windows.Edit.LineItem"/> in <see cref="T:Syncfusion.Windows.Edit.EditControl"/>.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.MoveToPreviousLine">
+            <summary>
+            Moves the cursor to the same position on the previous <see cref="T:Syncfusion.Windows.Edit.LineItem"/> in <see cref="T:Syncfusion.Windows.Edit.EditControl"/>.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.MoveToLineStart">
+            <summary>
+            Moves the cursor to a start position of current <see cref="T:Syncfusion.Windows.Edit.LineItem"/> in <see cref="T:Syncfusion.Windows.Edit.EditControl"/>.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.UpdateCaretOnSelection(System.Int32,System.Int32)">
+            <summary>
+            Method to update the caret index when selection is not empty
+            </summary>
+            <param name="lineNumber">line number to place the cursor</param>
+            <param name="cursorIndex">line index to place the cursor</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.MoveToLineEnd">
+            <summary>
+            Moves the cursor to an end position of current <see cref="T:Syncfusion.Windows.Edit.LineItem"/> in <see cref="T:Syncfusion.Windows.Edit.EditControl"/>.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.MoveToPreviousIndex">
+            <summary>
+            Moves the cursor to a position backward in current <see cref="T:Syncfusion.Windows.Edit.LineItem"/> of <see cref="T:Syncfusion.Windows.Edit.EditControl"/>.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.MoveToNextIndex">
+            <summary>
+            Moves the cursor to a position forward in current <see cref="T:Syncfusion.Windows.Edit.LineItem"/> of <see cref="T:Syncfusion.Windows.Edit.EditControl"/>.
+            </summary>
+        </member>
         <member name="M:Syncfusion.Windows.Edit.EditControl.ExecuteTab">
             <summary>
             Helper method for Tab key activity
@@ -765,7 +971,7 @@
             <param name="action">The Edit Action.</param>
             <returns>Returns the Cursor index</returns>
         </member>
-        <member name="M:Syncfusion.Windows.Edit.EditControl.PasteText(System.Int32,System.Int32,System.String)">
+        <member name="M:Syncfusion.Windows.Edit.EditControl.PasteText(System.Int32,System.Int32,System.String,System.Boolean)">
             <summary>
             Helper method to paste operation
             </summary>
@@ -894,12 +1100,64 @@
             <param name="startIndex">represents the selection start index.</param>
             <param name="endIndex">represents the selection end index.</param>
         </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.GoToLine(System.Int32)">
+            <summary>
+            Go to the Select line 
+            </summary>
+            <param name="LineNumber">Selected number</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.ShowGoToLine(System.Int32)">
+            <summary>
+            Show Go To Line
+            </summary>
+            <param name="LineNumber">navigatelinenumber</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.ShowGoToLine">
+            <summary>
+            Show Go To Line Window
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.RegisterUnderlineFormat(System.Windows.Media.Brush,Syncfusion.Windows.Edit.Interfaces.UnderlineStyle)">
+            <summary>
+            Register the Under line format
+            </summary>
+            <param name="color"></param>
+            <param name="style"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.SetUnderline(Syncfusion.Windows.Edit.SelectionPointer,Syncfusion.Windows.Edit.Interfaces.ISnippetFormat)">
+            <summary>
+            Set underline for the Pointer 
+            </summary>
+            <param name="pointer"></param>
+            <param name="formatedtext"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.RemoveUnderLine(Syncfusion.Windows.Edit.SelectionPointer)">
+            <summary>
+            Remove Under line for the  pointer
+            </summary>
+            <param name="pointer"></param>
+        </member>
         <member name="M:Syncfusion.Windows.Edit.EditControl.viewer_ScrollChanged(System.Object,System.Windows.Controls.ScrollChangedEventArgs)">
             <summary>
             Event handler to update the visibility of caret when scrolled horizontally
             </summary>
             <param name="sender">represents the ScrollViewer in the control template</param>
             <param name="e">represents ScrollChangedEventArgs</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.SetLineBackground(System.Int32,System.Boolean,System.Windows.Media.Brush)">
+            <summary>
+            Set the background to a specified Line.
+            </summary>
+            <param name="lineNumber">To specify the Line Number to be customized.</param>
+            <param name="isFullLine">To specify whether to highlight Background for full line or within text limit. </param>
+            <param name="brush">To specify the Brush to customize the Line Background.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.ResetLineBackground(System.Int32)">
+            <summary>
+            To reset the Line Background. 
+            </summary>
+            <param name="lineNumber">To specify the Line Number to reset to default Background. </param>
         </member>
         <member name="M:Syncfusion.Windows.Edit.EditControl.intellisenseBox_MouseDoubleClick(System.Object,System.Windows.Input.MouseButtonEventArgs)">
             <summary>
@@ -929,10 +1187,72 @@
             <param name="sender"></param>
             <param name="e">represents NotifyCollectionChangedEventArgs</param>
         </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.OnPreviewMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Invoked when Mouse Left Button Down
+            </summary>
+            <param name="e">The Mouse Button Event Args</param>
+        </member>
         <member name="M:Syncfusion.Windows.Edit.EditControl.OnApplyTemplate">
             <summary>
             This method gets called when the control template is applied
             </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.Viewer_MouseMove(System.Object,System.Windows.Input.MouseEventArgs)">
+            <summary>
+            Event handler to update the value of IsTouchPerformed 
+            </summary>
+            <param name="sender">represents the ScrollViewer in the control template</param>
+            <param name="e">represents MouseEventArgs</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.Viewer_PreviewMouseUp(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Event handler to update the value of IsTouchPerformed 
+            </summary>
+            <param name="sender">represents the ScrollViewer in the control template</param>
+            <param name="e">represents MouseButtonEventArgs</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.Viewer_PreviewMouseDown(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Event handler to update the value of IsTouchPerformed 
+            </summary>
+            <param name="sender">represents the ScrollViewer in the control template</param>
+            <param name="e">represents MouseButtonEventArgs</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.TouchStart_PreviewMouseLeftButtonUp(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Event handler to update the selection pointers based on text selection
+            </summary>
+            <param name="sender">Border - Touch start</param>
+            <param name="e">represents MouseButtonEventArgs</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.TouchStart_PreviewMouseLeftButtonDown(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Event handler to start the selection by holding start selection pointer
+            </summary>
+            <param name="sender">Border - Touch start</param>
+            <param name="e">represents MouseButtonEventArgs</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.TouchEnd_PreviewMouseLeftButtonUp(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Event handler to update the selection pointers based on text selection
+            </summary>
+            <param name="sender">Border - Touch end</param>
+            <param name="e">represents MouseButtonEventArgs</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.TouchEnd_PreviewMouseLeftButtonDown(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Event handler to start the selection by holding end selection pointer
+            </summary>
+            <param name="sender">Border - Touch end</param>
+            <param name="e">represents MouseButtonEventArgs</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.EditControl_SizeChanged(System.Object,System.Windows.SizeChangedEventArgs)">
+            <summary>
+            Invoked when EditControl SizeChanged
+            </summary>
+            <param name="sender">EditControl</param>
+            <param name="e">Size changed event argument</param>
         </member>
         <member name="M:Syncfusion.Windows.Edit.EditControl.OnContextMenuOpening(System.Windows.Controls.ContextMenuEventArgs)">
             <summary>
@@ -951,6 +1271,15 @@
             <summary>
             
             </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.PlaceLine(System.Int32,System.Boolean,System.Text.StringBuilder,System.Int32)">
+            <summary>
+            Place the line properly Line
+            </summary>
+            <param name="linenum">line Number</param>
+            <param name="setcursor">set cursor or not</param>
+            <param name="builder">StringBuilder</param>
+            <param name="spacecount">spacecount</param>
         </member>
         <member name="M:Syncfusion.Windows.Edit.EditControl.OnPreviewKeyDown(System.Windows.Input.KeyEventArgs)">
             <summary>
@@ -1008,6 +1337,13 @@
         <member name="M:Syncfusion.Windows.Edit.EditControl.OnCutCanExecute(System.Object,System.Windows.Input.CanExecuteRoutedEventArgs)">
             <summary>
             Updates Cut command's can execute property
+            </summary>
+            <param name="target">The target.</param>
+            <param name="args">The <see cref="T:System.Windows.Input.CanExecuteRoutedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.OnCopyCanExecute(System.Object,System.Windows.Input.CanExecuteRoutedEventArgs)">
+            <summary>
+            Updates Copy command's can execute property
             </summary>
             <param name="target">The target.</param>
             <param name="args">The <see cref="T:System.Windows.Input.CanExecuteRoutedEventArgs"/> instance containing the event data.</param>
@@ -1082,6 +1418,27 @@
             <param name="target">The target.</param>
             <param name="args">The <see cref="T:System.Windows.Input.CanExecuteRoutedEventArgs"/> instance containing the event data.</param>
         </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.OnGotolineCanExecute(System.Object,System.Windows.Input.CanExecuteRoutedEventArgs)">
+            <summary>
+            Updates canexecute argument of GoToLine command
+            </summary>
+            <param name="target">The target.</param>
+            <param name="args">The <see cref="T:System.Windows.Input.CanExecuteRoutedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.OnPrintCanExecute(System.Object,System.Windows.Input.CanExecuteRoutedEventArgs)">
+            <summary>
+            Updates canexecute argument of Print command
+            </summary>
+            <param name="target">The target.</param>
+            <param name="args">The <see cref="T:System.Windows.Input.CanExecuteRoutedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.OnPrintPreviewCanExecute(System.Object,System.Windows.Input.CanExecuteRoutedEventArgs)">
+            <summary>
+            Updates canexecute argument of Print Preview command
+            </summary>
+            <param name="target">The target.</param>
+            <param name="args">The <see cref="T:System.Windows.Input.CanExecuteRoutedEventArgs"/> instance containing the event data.</param>
+        </member>
         <member name="M:Syncfusion.Windows.Edit.EditControl.OnNewCanExecute(System.Object,System.Windows.Input.CanExecuteRoutedEventArgs)">
             <summary>
             Updates canexecute argument of new command.
@@ -1123,6 +1480,16 @@
             </summary>
             <param name="target">The target.</param>
             <param name="args">The <see cref="T:System.Windows.Input.ExecutedRoutedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.OnOutliningExecute(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Occurs when Outlining command is executed.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.OnOutliningCanExecute(System.Object,System.Windows.Input.CanExecuteRoutedEventArgs)">
+            <summary>
+            Occurs when Outlining command is executed.
+            </summary>
         </member>
         <member name="M:Syncfusion.Windows.Edit.EditControl.OnUndoCanExecute(System.Object,System.Windows.Input.CanExecuteRoutedEventArgs)">
             <summary>
@@ -1197,6 +1564,27 @@
         <member name="M:Syncfusion.Windows.Edit.EditControl.OnFindExecute(System.Object,System.Windows.Input.ExecutedRoutedEventArgs)">
             <summary>
             Occurs when Find command is executed
+            </summary>
+            <param name="target">The target.</param>
+            <param name="args">The <see cref="T:System.Windows.Input.ExecutedRoutedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.OnGoToLineExecute(System.Object,System.Windows.Input.ExecutedRoutedEventArgs)">
+            <summary>
+            Occurs when GoToLine command is executed
+            </summary>
+            <param name="target">The target.</param>
+            <param name="args">The <see cref="T:System.Windows.Input.ExecutedRoutedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.OnPrintExecute(System.Object,System.Windows.Input.ExecutedRoutedEventArgs)">
+            <summary>
+            Occurs when Print command is executed
+            </summary>
+            <param name="target">The target.</param>
+            <param name="args">The <see cref="T:System.Windows.Input.ExecutedRoutedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.OnPrintPreviewExecute(System.Object,System.Windows.Input.ExecutedRoutedEventArgs)">
+            <summary>
+            Occurs when Print command is executed
             </summary>
             <param name="target">The target.</param>
             <param name="args">The <see cref="T:System.Windows.Input.ExecutedRoutedEventArgs"/> instance containing the event data.</param>
@@ -1385,6 +1773,15 @@
             parameters
             </remarks>
         </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.FindAllOccurrences">
+            <summary>
+            Finds  all the occurrences of FindText specified in FindOptions. Results can be obtained using SearchResults.FindAllResult property of EditControl class
+            </summary>
+            <remarks>
+            FindOptions property of the EditControl can be used to set the Find related
+            parameters
+            </remarks>
+        </member>
         <member name="M:Syncfusion.Windows.Edit.EditControl.OpenFindWindow(Syncfusion.Windows.Edit.Tabs)">
             <summary>
             Helper method to open the Find window
@@ -1397,11 +1794,27 @@
             </summary>
             <param name="args">represents the EditIntellisenseArgs value</param>
         </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.RaiseLineBackgroundChangingEvent(Syncfusion.Windows.Edit.OnBeforeLineRenderArgs)">
+            <summary>
+            Helper method to raise IntellisenseBoxOpening event
+            </summary>
+            <param name="args">represents the EditIntellisenseArgs value</param>
+        </member>
         <member name="M:Syncfusion.Windows.Edit.EditControl.RaiseIntellisenseDrillDownEvent(Syncfusion.Windows.Edit.EditIntellisenseArgs)">
             <summary>
             Helper method to raise IntellisenseDrillDownEvent event
             </summary>
             <param name="args">represents the EditIntellisenseArgs value</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditControl.Dispose">
+            <summary>
+            Method to clear the unused objects
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.EditControl.IsResettingLineBackground">
+            <summary>
+             internal bool variable to identify if Resetting is called or not.
+            </summary>
         </member>
         <member name="E:Syncfusion.Windows.Edit.EditControl.FindReplaceWindowOpened">
             <summary>
@@ -1436,6 +1849,11 @@
         <member name="E:Syncfusion.Windows.Edit.EditControl.IntellisenseDrillDown">
             <summary>
             Occurs when a intellisense drills down to sub -items
+            </summary>
+        </member>
+        <member name="E:Syncfusion.Windows.Edit.EditControl.OnBeforeLineRender">
+            <summary>
+            Occurs before applying LineBackground
             </summary>
         </member>
         <member name="P:Syncfusion.Windows.Edit.EditControl.Text">
@@ -1479,6 +1897,11 @@
             <para></para>
             <para>editControl1.DocumentLanguage = Languages.VisualBasic;</para>
             </example>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.EditControl.PrintSettings">
+            <summary>
+            Gets or sets the cref="Syncfusion.Windows.Edit.PrintSettings"/>
+            </summary>
         </member>
         <member name="P:Syncfusion.Windows.Edit.EditControl.LineHeight">
             <summary>
@@ -1611,6 +2034,11 @@
             <para> </para>
             <para>textBox1.Text = editControl1.SelectedText;</para>
             </example>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.EditControl.SelectedTextPointer">
+            <summary>
+            Gets or Sets the Selection text pointer
+            </summary>
         </member>
         <member name="P:Syncfusion.Windows.Edit.EditControl.EnableOutlining">
             <summary>
@@ -2243,6 +2671,15 @@
             <see langword="false"/>.
             </value>
         </member>
+        <member name="P:Syncfusion.Windows.Edit.EditControl.AcceptsReturn">
+            <summary>
+            Gets / Sets whether to add the new line when enter key pressed.
+            </summary>
+            <value>
+            <see langword="true"/> New line will be added.
+            <see langword="false"/>New line will not be added 
+            </value>
+        </member>
         <member name="P:Syncfusion.Windows.Edit.EditControl.CollapsedTextForeground">
             <summary>
             Gets or sets foreground brush value for ellipsis text and border.
@@ -2266,6 +2703,11 @@
         <member name="P:Syncfusion.Windows.Edit.EditControl.Lines">
             <summary>
             Gets the collection of lines in EditControl.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.EditControl.PrintLines">
+            <summary>
+            Gets or sets the LineItemCollection to be printed.
             </summary>
         </member>
         <member name="P:Syncfusion.Windows.Edit.EditControl.CurrentLanguage">
@@ -2314,6 +2756,11 @@
             Gets an instance of EditScrollControl in the template.
             </summary>
         </member>
+        <member name="P:Syncfusion.Windows.Edit.EditControl.SelectLinesOnDrop">
+            <summary>
+            Gets / Sets to Select Lines on Drop
+            </summary>
+        </member>
         <member name="P:Syncfusion.Windows.Edit.EditControl.UndoManager">
             <summary>
             Gets or sets an instance of UndoManager
@@ -2322,6 +2769,115 @@
         <member name="P:Syncfusion.Windows.Edit.EditControl.SearchResults">
             <summary>
             Get or sets a value indicating the Search results.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.EditControl.TouchStartEllipse">
+            <summary>
+            Gets or sets a value of Border which contains Start ellipse
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.EditControl.TouchEndEllipse">
+            <summary>
+            Gets or sets a value of Border which contains End ellipse
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.EditControl.ScrollCount">
+            <summary>
+            Gets or sets a value of scrolling count of scroll bar
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.EditControl.IsPreviewKeyPressed">
+            <summary>
+            Gets or sets a value to indicates whether text selection occurs through Key events
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.EditControl.IsScrollPerforming">
+            <summary>
+            Gets or sets a value indicates whether scrolling is performing or not through touch
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.EditControl.IsEndEllipsePressed">
+            <summary>
+            Gets or sets a value indicates whether the End Touch Selection pointer is pressed or not
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.EditControl.IsStartEllipsePressed">
+            <summary>
+            Gets or sets a value indicates whether the Start Touch Selection pointer is pressed or not
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Edit.OnBeforeLineRenderEventHandler">
+            <summary>
+            Delegate for OnBeforeLineRender Event
+            </summary>
+            <param name="sender">Gets the sender object from the reporting source</param>
+            <param name="args">Gets the OnBeforeLineRenderArgs object from the reporting source</param>
+        </member>
+        <member name="T:Syncfusion.Windows.Edit.OnBeforeLineRenderArgs">
+            <summary>
+            Class defines EditLineBackground Event Args
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.OnBeforeLineRenderArgs.LineItem">
+            <summary>
+            Gets/Sets to specify the LineItem to be customized.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.OnBeforeLineRenderArgs.IsFullLine">
+            <summary>
+            Gets/Sets to specify whether to highlight Background for full line or within text limit.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.OnBeforeLineRenderArgs.BackgroundColor">
+            <summary>
+            Gets/Sets to specify the Brush to customize the Line Background.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Edit.Format">
+            <summary>
+            Format derives from ISnippetFormat
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Edit.Interfaces.ISnippetFormat">
+            <summary>
+            Interface for linecolor and Underlinestyle
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.Interfaces.ISnippetFormat.LineColor">
+            <summary>
+            Gets or Sets the LineColor
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.Interfaces.ISnippetFormat.UnderlineStyle">
+            <summary>
+            Gets or sets the UnderlineStyle
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.Format._linecolor">
+            <summary>
+            Holds the line Color
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.Format._underlinestyle">
+            <summary>
+            Holds the _underlinestyle
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Format.#ctor(System.Windows.Media.Brush,Syncfusion.Windows.Edit.Interfaces.UnderlineStyle)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="color"></param>
+            <param name="style"></param>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.Format.LineColor">
+            <summary>
+            Get or Set Line color
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.Format.UnderlineStyle">
+            <summary>
+            Get or Set UnderlineStyle
             </summary>
         </member>
         <member name="P:Syncfusion.Windows.Edit.ApplyExpandCollapseArgs.ExpandInformation">
@@ -2390,6 +2946,247 @@
         <member name="T:Syncfusion.AssemblyInfo">
             <summary>
             Internal AssemblyInfo class is used to get the assembly information.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Edit.EditPrintManager">
+            <summary>
+            This class is used to Print and Print Preview functionalities.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditPrintManager.rowheight">
+            <summary>
+            Denotes Row height 
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditPrintManager.previousPrintPageHeight">
+            <summary>
+            Which is used to store the PageHeight 
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditPrintManager.linesCount">
+            <summary>
+            Denotes number of lines per page when preview and print
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditPrintManager.pageIndex">
+            <summary>
+            Which is used to denote the 
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditPrintManager.wraploaded">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditPrintManager.rowDictionary">
+            <summary>
+            Can stores the rows
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditPrintManager.pageDictionary">
+            <summary>
+            Can stores the pages
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditPrintManager.#ctor(Syncfusion.Windows.Edit.EditControl)">
+            <summary>
+            Invoked when initialize the EditPrintManager
+            </summary>
+            <param name="edit">EditControl</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditPrintManager.ComputePages(Syncfusion.Windows.Edit.LineItemsCollection,System.Int32)">
+            <summary>
+            Compute the pages to print
+            </summary>
+            <param name="totallines">Total number of lines in EditControl</param>
+            <param name="limit">Limit</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditPrintManager.DoTextWrapping(Syncfusion.Windows.Edit.LineItem,System.Double)">
+            <summary>
+            Wrap the text based on print page width
+            </summary>
+            <param name="item">LineItem</param>
+            <param name="width">print page width</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditPrintManager.UpdateWordDetails(System.String,System.Windows.Media.Brush)">
+            <summary>
+            Update the word details 
+            </summary>
+            <param name="text">lineItem text</param>
+            <param name="foreground">lineItem text foreground</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditPrintManager.CreateNewLine(System.Collections.Generic.List{Syncfusion.Windows.Edit.WordDetails})">
+            <summary>
+            Create a new LineItem 
+            </summary>
+            <param name="sublineCollection">contains a subline</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditPrintManager.AddSublines(System.Double)">
+            <summary>
+            Add the sublines if the line width is greater than available width.
+            </summary>
+            <param name="avalWidth">available width</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditPrintManager.OnRender(System.Windows.Media.DrawingContext,System.Collections.Generic.List{Syncfusion.Windows.Edit.LineInfo})">
+            <summary>
+            To Render the Lines
+            </summary>
+            <param name="drawingContext">DrawingContext</param>
+            <param name="lines">Lines</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditPrintManager.ComputePageCount">
+            <summary>
+            Initializes the print process such as print properties,settings.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditPrintManager.CreatePage(System.Int32,Syncfusion.Windows.Shared.Printing.PrintPageControl)">
+            <summary>
+            Creates the page corresponding to the specified page index and <see cref="!:Syncfusion.Windows.Shared.PrintPageControl"/> control.
+            </summary>
+            <param name="pageIndex">
+            The corresponding page index to create page.
+            </param>
+            <param name="pageControl">
+            <see cref="!:Syncfusion.Windows.Shared.PrintPageControl"/>
+            The corresponding page control to create page.
+            </param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditPrintManager.InitializeProperties">
+            <summary>
+            Initializes properties and settings for printing process.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditPrintManager.GetPrintDocument">
+            <summary>
+            Gets the print document of page control.
+            </summary>
+            <returns>
+            Returns the <see cref="T:System.Windows.Documents.FixedDocument"/> that contains the print document of page control.
+            </returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditPrintManager.GetPrintDocument(System.Int32,System.Int32)">
+            <summary>
+            Gets the print document of page control based on the specified start and end index of page.
+            </summary>
+            <param name="start">
+            The start index of the page to get print document.
+            </param>
+            <param name="end">
+            The end index of the page to get print document.
+            </param>
+            <returns>
+            Returns the <see cref="T:System.Windows.Documents.FixedDocument"/> for the specified start and end index of the page contains the print document of page control.
+            </returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditPrintManager.OnPrintOrientationChanged(Syncfusion.Windows.Shared.Printing.PrintOrientation)">
+            <summary>
+            Update the print manager based upon the paper option changed from the print option control.
+            </summary>
+            <param name="value">Print orientation of the page.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditPrintManager.OnPageSizeChanged(System.Double,System.Double)">
+            <summary>
+            Update the print manager based upon the paper option changed from the print option control.
+            </summary>
+            <param name="width"> width of the page.</param>
+            <param name="height">height of the page.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditPrintManager.OnPrintMarginChanged(System.Windows.Thickness)">
+            <summary>
+            Update the print manager based upon the margin option changed from the print option control.
+            </summary>
+            <param name="value"> Margin thickness of the page.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditPrintManager.OnPrintScaleOptionChanged(System.Int32)">
+            <summary>
+            Update the print manager based upon the page scale option changed from the print option control.
+            </summary>
+            <param name="width">The print page scale option selected index.</param>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.EditPrintManager.editcontrol">
+            <summary>
+            Denotes EditControl
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Edit.LineInfo">
+            <summary>
+            Line Info Claas contains Lines and Line Index
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.LineInfo.RecordIndex">
+            <summary>
+            Gets or sets the index of the record.
+            </summary>
+            <value>
+            The index of the record.
+            </value>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Syncfusion.Windows.Edit.LineInfo.Record" -->
+        <member name="T:Syncfusion.Windows.Edit.PrintSettings">
+            <summary>
+            Class which represents the setting for Printing and PrintPreview customizations. 
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.PrintSettings.editPrintManager">
+            <summary>
+            Used to get the EditPrintManager
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.PrintSettings.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="!:Syncfusion.UI.Xaml.Grid.PrintSettings"/> class.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.PrintSettings.EditPrintManager">
+            <summary>
+            Gets or Sets the EditPrintManager
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Edit.PrintPagePanel">
+            <summary>
+            This class used for the PrintPage Panel
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.PrintPagePanel.#ctor(System.Action{System.Windows.Media.DrawingContext,System.Collections.Generic.List{Syncfusion.Windows.Edit.LineInfo}})">
+            <summary>
+            Initializes a new instance of <see cref="!:Syncfusion.UI.Xaml.Grid.PrintPagePanel"/> class.
+            </summary>
+            <param name="OnRender">
+            Contains the visual and cell content to arrange it in page panel.
+            </param>
+            <param name="allowPrintByDrawing">
+            Indicates whether the printing is based on drawing.
+            </param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.PrintPagePanel.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="!:Syncfusion.UI.Xaml.Grid.PrintPagePanel"/> class.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.PrintPagePanel.OnRender(System.Windows.Media.DrawingContext)">
+            <summary>
+            Draws the content of the specified DrawingContext object to page panel element .
+            </summary>
+            <param name="Drawingcontext">
+            The corresponding Drawingcontext to draw.
+            </param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.PrintPagePanel.Dispose">
+            <summary>
+            Releases all  the resources used by the <see cref="!:Syncfusion.UI.Xaml.Grid.PrintPagePanel"/> class.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.PrintPagePanel.Dispose(System.Boolean)">
+            <summary>
+            Disposes all the resources used by the <see cref="!:Syncfusion.UI.Xaml.Grid.PrintPagePanel"/> class.
+            </summary>
+            <param name="isDisposing">Indicates whether the call is from Dispose method or from a finalizer.</param>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.PrintPagePanel.LinesInfoList">
+            <summary>
+            Gets / Sets number of lines collection per page
             </summary>
         </member>
         <member name="F:Syncfusion.Windows.Edit.BlockCodes.startline">
@@ -2719,6 +3516,140 @@
             Initializes a new instance of the <see cref="T:Syncfusion.Windows.Edit.LexemCollection"/> class.
             </summary>
             <param name="collection">Gets the Lexem object to collection from the reporting source</param>
+        </member>
+        <member name="T:Syncfusion.Windows.Edit.Implementation.GoToLine">
+            <summary>
+            Interaction logic for GoToLine.xaml
+            </summary>
+            <summary>
+            GoToLine
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.Implementation.GoToLine.m_editor">
+            <summary>
+            Edit control variable
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.Implementation.GoToLine.Selectline">
+            <summary>
+            selectline
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.Implementation.GoToLine.AltKeyPressed">
+            <summary>
+            indicates Alt Key Pressed or not.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Implementation.GoToLine.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Implementation.GoToLine.GoToLine_Unloaded(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Releases all resources 
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Implementation.GoToLine.GoToLine_Loaded(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Invoked when GoToLine window loaded
+            </summary>
+            <param name="sender">GoToLine</param>
+            <param name="e">Routed event argument</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Implementation.GoToLine.GoToLine_PreviewKeyDown(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            Invoked when Preview key down
+            </summary>
+            <param name="sender">GotoLine window</param>
+            <param name="e">The key event</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Implementation.GoToLine.OnSourceInitialized(System.EventArgs)">
+            <summary>
+            
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Implementation.GoToLine.Cancelbutton_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Invoked when click cancel button 
+            </summary>
+            <param name="sender">Go to line</param>
+            <param name="e">The routed event</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Implementation.GoToLine.CalculateSelectline">
+            <summary>
+            Calculate the Selected line to navigate
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Implementation.GoToLine.OKbutton_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Invoked when Ok button click
+            </summary>
+            <param name="sender">Go to line window</param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Implementation.GoToLine.Dispose">
+            <summary>
+            Releases all resources 
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Implementation.GoToLine.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.Implementation.GoToLine.Editor">
+            <summary>
+            Gets or Sets Edit Control 
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Edit.Implementation.NumericTextBox">
+            <summary>
+            Numeric TextBox class
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Implementation.NumericTextBox.NumericTextBox_TextChanged(System.Object,System.Windows.Controls.TextChangedEventArgs)">
+            <summary>
+            Invoked when Text changed
+            </summary>
+            <param name="sender">NumericTextBox</param>
+            <param name="e">TextChanged Event Args</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Implementation.NumericTextBox.NumericTextBox_ValueChanged(System.Object,System.EventArgs)">
+            <summary>
+            Invoked when value changed
+            </summary>
+            <param name="sender">NumericTextBox</param>
+            <param name="e">Event argument</param>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.Implementation.NumericTextBox.Value">
+            <summary>
+            Value changed or not
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.Implementation.NumericTextBox.MinValue">
+            <span class="code-SummaryComment"/><summary>
+            Indicates the minimum value for the numeric textbox control.
+            <span class="code-SummaryComment"/></summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.Implementation.NumericTextBox.MaxValue">
+            <span class="code-SummaryComment"/><summary>
+            Indicates the maximum value for the numeric textbox control.
+            </summary>
+            <span class="code-SummaryComment"/>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.Implementation.NumericTextBox.Enable">
+            <summary>
+            Indicates for enable the Ok Button or not
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.Implementation.NumericTextBox.ImageVisibility">
+            <summary>
+            Indicates Error image visible or not
+            </summary>
         </member>
         <member name="T:Syncfusion.Windows.Edit.KeyGestureExt">
             <summary>
@@ -3330,6 +4261,13 @@
             
              </summary>
         </member>
+        <member name="M:Syncfusion.Windows.Edit.FindReplaceControl.Findtext_SelectionChanged(System.Object,System.Windows.Controls.SelectionChangedEventArgs)">
+            <summary>
+            Update the selected items as FindText
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
         <member name="M:Syncfusion.Windows.Edit.FindReplaceControl.OnPreviewKeyDown(System.Windows.Input.KeyEventArgs)">
              <summary>
             
@@ -3515,6 +4453,802 @@
              <summary>
             
              </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Edit.Interfaces.UnderlineStyle">
+            <summary>
+            UnderLineStyle Options
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.Interfaces.UnderlineStyle.Solid">
+            <summary>
+            This options define underline style as Solid
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.Interfaces.UnderlineStyle.Dot">
+            <summary>
+            This options define underline style as Dot
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.Interfaces.UnderlineStyle.Dash">
+            <summary>
+            This options define underline style as Dash
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.Interfaces.UnderlineStyle.DashDot">
+             <summary>
+            This options define underline style as DashDot
+             </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Edit.CLanguage">
+            <summary>
+            Represents a class that provides support for Syntax highlighting and Outlining for C language.   
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.literalCount">
+            <summary>
+            A public variable literalcount
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.currentBlockCount">
+            <summary>
+            A Publicly declared CurrentBlockCount variable
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.isCurrentBlockComment">
+            <summary>
+            A publicly declared IsCurrentBlockComment variable
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.langName">
+            <summary>
+            instance for Name property.
+            </summary>
+            <value>
+            Type: System.String
+            </value>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.isRegexApplied">
+            <summary>
+            bool variable used to check whether the regex applied or not
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.fileExtension">
+            <summary>
+            instance for FileExtension property.
+            </summary>
+            <value>
+            Type: System.String
+            </value>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.caseSensitive">
+            <summary>
+            instance for case sensitive property.
+            </summary>
+            <value>
+            Type: System.Boolean
+            </value>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.isMatched">
+            <summary>
+            instance for Matching the Regex 
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.textForeground">
+            <summary>
+            instance for TextForeground property.  default color is black.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.blockStart">
+            <summary>
+            instance for BlockStart property.
+            </summary>
+            <value>
+            Type: System.String
+            </value>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.blockEnd">
+            <summary>
+            instance for BlockEnd property.
+            </summary>
+            <value>
+            Type: System.String
+            </value>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.commentsCol">
+            <summary>
+            Private Lexem collection object for get the comments type of lexems.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.operatorsCol">
+            <summary>
+            Private Lexem collection object for get the operators type of lexems.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.keywordsCol">
+            <summary>
+            Private Lexem collection object for get the keywords type of lexems.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.literalsCol">
+            <summary>
+            Private Lexem collection object for get the literals type of lexems.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.currentColor">
+            <summary>
+            Private Brush object for get the current Foreground of Lexems.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.isThreadRunning">
+            <summary>
+            internal bool variable to identify if the thread is running
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.currentListener">
+            <summary>
+            internal variable to hold the current block listener
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.blocksStack">
+            <summary>
+            internal stack object of type BlockListener to hold the parent blocks while applying expand and collapse.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.scopeDefinitions">
+            <summary>
+            internal variable to hold the list of scopes availables. Its updated in the ApplyExpandCollapse and used in Intellisense to identify the items to
+            be displayed in the intellisense in auto mode at different scopes.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.typesCollection">
+            <summary>
+            internal variable that holds all the namespace and types in a tree structure. Its constructed based on the assemblies added as reference in EditControl instance.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.instancesCollection">
+            <summary>
+            internal variable that holds the collection of instances in the current scope.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.includedNamespaces">
+            <summary>
+            internal variable that holds the list of namespaces being added in the content.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.currentScope">
+            <summary>
+            internal variable that holds the reference to current scope.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.defaultItems">
+            <summary>
+            internal collection objects to hold items generated from Language Lexem
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.customItems">
+            <summary>
+            internal collection objects to hold items generated based on current scope and selected item.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.timer">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.timerValue">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.currentItem">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.selectedIntellisenseItems">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.previousSelectedItem">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.indentBlocks">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.wordIndex">
+            <summary>
+            Indicates the current word index for formatting
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.LexemProperty">
+            <summary>
+            Dependency property for Lexem property
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.FormatsProperty">
+            <summary>
+            Dependency property for Formats property
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.SupportsOutliningProperty">
+            <summary>
+            Dependency property for Supports Outlining property
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.IsIndentSelectionOnTabEnabledProperty">
+            <summary>
+            Dependency property for IsIndentSelectionOnTabEnabled Property
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LanguageBase.isUpdating">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.#ctor(Syncfusion.Windows.Edit.EditControl)">
+            <summary>
+            Initializes a new instance of the <see
+            cref="T:Syncfusion.Windows.Edit.LanguageBase">LanguageBase</see> class.
+            </summary>
+            <param name="control">represents the parent EditControl</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.SplitTextToLines">
+            <summary>
+            A helper method to split the text in the EditControl in to individual lines.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.CalculatePreferredWidth">
+            <summary>
+            Helper method to calculate preferred width to be applied to the ScrollColumn based on the text.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.ApplyFormats(Syncfusion.Windows.Edit.LineItem)">
+            <summary>
+            Helper method to apply coloring to a line item.
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.SplitTextToWords(System.String)">
+            <summary>
+            Helper method to Split text in to individual words based on SplitWordsRegex
+            </summary>
+            <param name="text">represents the text to be splitted</param>
+            <returns>a list of WordDetails objects after splitting the text</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.SplitTextToWords(System.String,System.Int32)">
+            <summary>
+            Helper method to Split text in to individual words based on SplitWordsRegex
+            </summary>
+            <param name="text">represents the text to be splitted</param>
+            <param name="lineNumber">represents the line number</param>
+            <returns>a list of WordDetails objects after splitting the text</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.ApplyColor(System.String,System.Int32)">
+            <summary>
+            Helper method to apply coloring to the text based on the Lexems in the Language configurations
+            </summary>
+            <param name="text">The text to apply color.</param>
+            <param name="line">The line number of the text.</param>
+            <returns>Returns the IFormat</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.UpdateWordFormats(Syncfusion.Windows.Edit.WordDetails,Syncfusion.Windows.Edit.IFormat)">
+            <summary>
+            Helper method to update text styles in the words property of the LineItem
+            </summary>
+            <param name="words">The words from the word details collection.</param>
+            <param name="format">The format of the word.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.ResetLine(Syncfusion.Windows.Edit.LineItem,System.Boolean)">
+            <summary>
+            internal helper method to reset the line's coloring when the text is changed.
+            </summary>
+            <param name="item">represents the line item object</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.GetSplittedText(Syncfusion.Windows.Edit.LineItem)">
+            <summary>
+            Helper method to get the splitted text from a LineItem object
+            </summary>
+            <param name="item">represents a LineItem</param>
+            <returns>the splitted string </returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.ResetColor(System.Int32)">
+            <summary>
+            internal helper method to reset the color of the a line
+            </summary>
+            <param name="line"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.GeneratePattern">
+            <summary>
+            Helper method to generate Regex pattern to tokenize procedural code using the lexems in Language configurations
+            </summary>
+            <returns>Retturns the Regex pattern.</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.AppendEscapeForPattern(System.String)">
+            <summary>
+            Appends the escape for pattern.
+            </summary>
+            <param name="str">The text to append.</param>
+            <returns>Returns the append text.</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.GetFormat(System.String)">
+            <summary>
+            Helper method to retreive IFormat object from the Formats Collection based on FormatName
+            </summary>
+            <returns>Retturns the IFormat object.</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.OnLexemsChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            PropertyChangedCallback for Lexem DependencyProperty
+            </summary>
+            <param name="obj">represents the dependency object</param>
+            <param name="e">represents the DependencypPropertyChangedEventArgs</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.OnLexemsChanged(System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Helper method to perform operations when the Lexem property gets changed.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.OnFormatsChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            PropertyChangedCallback for Formats DependencyProperty
+            </summary>
+            <param name="obj">represents the dependency object</param>
+            <param name="e">represents the DependencypPropertyChangedEventArgs</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.OnFormatsChanged(System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Helper method to perform operations when the Formats property gets changed.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.ApplyExpandItems">
+            <summary>
+            Helper method to Apply Expansions for the content in the EditControl.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.InitializeApplyExpandCollapse">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.RefreshExpandItems(System.Int32)">
+            <summary>
+            Helper method to refresh lines expansions from a specified line number. Here line number refers to the index (starts from 0)
+            </summary>
+            <param name="line"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.ApplyExpandCollapse(Syncfusion.Windows.Edit.ApplyExpandCollapseArgs)">
+            <summary>
+            Helper method for perform expand collapse for line items. This method can be overridden if custom expand logics has be implemented.
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.GetBlockStartList">
+            <summary>
+            Helper method to generate the list of BlockListener objects from language Lexem
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.GetCollapsedItemText(Syncfusion.Windows.Edit.LineItem)">
+            <summary>
+            Helper method that returns the text to be displayed when a line is collapsed.
+            </summary>
+            <param name="item">represents the line item</param>
+            <returns>a string to be displayed when a line is collapsed</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.OnLineItemRender(Syncfusion.Windows.Edit.LineItem,System.Windows.Media.DrawingContext)">
+            <summary>
+            Helper method that performs the rendering of line item.
+            </summary>
+            <param name="item">represents the line item</param>
+            <param name="context">represents the drawingcontext object</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.OnLineItemRender(Syncfusion.Windows.Edit.LineItem,System.Windows.Media.DrawingContext,System.Double,System.Int32,Syncfusion.Windows.Edit.EditPrintManager)">
+            <summary>
+            Method used to performs the rendering of line item when printing with Preview.
+            </summary>
+            <param name="item">represents the line item</param>
+            <param name="context">represents the drawingcontext object</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.UpdateCollapsedItemSelectionPointer(Syncfusion.Windows.Edit.LineItem)">
+            <summary>
+            Helper method to update the SelectionPointer when the item is in collapsed state.
+            </summary>
+            <param name="item">represents the collapsed item</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.GetCollapsedItemSelectionEndIndex(Syncfusion.Windows.Edit.LineItem,System.Int32)">
+            <summary>
+            Helper method to calculate the end index of the selection for a collapsed lineitem. This method helps to specify different end index for different languages.
+            </summary>
+            <param name="lineitem">represents the collapsed line item</param>
+            <param name="regularEndIndex">represents the end index in expanded state</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.OnCommentCommandExecute(Syncfusion.Windows.Edit.LineItem)">
+            <summary>
+            Helper method perform the Comment Command operations for an individual line
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.OnCommentCommandExecute(Syncfusion.Windows.Edit.SelectionPointer)">
+            <summary>
+            Helper method perform the Comment Command operations for lines in a selected range
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.OnCommentCommandExecute(Syncfusion.Windows.Edit.LineItem,System.Int32,Syncfusion.Windows.Edit.ILexem)">
+            <summary>
+            Helper method perform the Comment Command operations for an individual line
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.OnUncommentCommandExecute(Syncfusion.Windows.Edit.LineItem)">
+            <summary>
+            Helper method perform the Uncomment Command operations for an individual line
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.OnUncommentCommandExecute(Syncfusion.Windows.Edit.LineItem,Syncfusion.Windows.Edit.ILexem)">
+            <summary>
+            Helper method perform the Uncomment Command operations for an individual line
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.OnUncommentCommandExecute(Syncfusion.Windows.Edit.SelectionPointer)">
+            <summary>
+            Helper method perform the Comment Command operations for lines in a selected range
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.OnTextInput(System.Int32,System.Windows.Input.TextCompositionEventArgs)">
+            <summary>
+            Helper method to perform any language related operations when the user inputs any character in EditControl.
+            </summary>
+            <param name="currentLineNumber">represents the current line number</param>
+            <param name="e">represent TextCompositionEventArgs</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.ShowIntellisenseBox(Syncfusion.Windows.Edit.EditIntellisenseArgs)">
+             <summary>
+            
+             </summary>
+             <param name="args"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.PositionIntellisenseBox(Syncfusion.Windows.Edit.EditIntellisenseArgs)">
+            <summary>
+            Method to adjust the position of the intellisense box.
+            </summary>
+            <param name="args">represents the cursor index</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.UpdateEditTypeInfoList(Syncfusion.Windows.Edit.EditTypeCollection,System.String)">
+            <summary>
+            Helper method to iterate through the namespace tree and add items accordingly
+            </summary>
+            <param name="infoList"></param>
+            <param name="typeName"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.InitializeNamespaces(System.Collections.Generic.IEnumerable{System.Uri})">
+            <summary>
+            Helper method to load generate namespace tree.
+            </summary>
+            <param name="assemblies">represents the list of assemblies added</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.ApplyFilterToIntellisense(System.String)">
+            <summary>
+            Helper method to select the item in the intellisense listbox when the text is typed by the user.
+            </summary>
+            <param name="intellisenseFilterString">represents current word text</param>
+            <returns>index of the selected item.</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.LineContainsNamespaceDeclaration(Syncfusion.Windows.Edit.ScopeDefinition,System.String)">
+            <summary>
+            Helper method to check if the line content contains Namespace declaration.
+            </summary>
+            <param name="scope">represents the ScopeDefinition of the line</param>
+            <param name="leadingText">represents the leading text from the current location</param>
+            <returns>whether the text contains the namespace declaration or not</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.GetMatchingNamespaceDeclarationLexems(Syncfusion.Windows.Edit.ScopeDefinition,System.String)">
+            <summary>
+            Helper method to get NamespaceDeclaration type of ILexem from Lexem property.
+            </summary>
+            <param name="scope">represents the ScopeDefinition of the line</param>
+            <param name="leadingText">represents the leading text from the current location</param>
+            <returns>a collection of ILexem object matching the namespace declaration text if any</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.GetNamespaceScopeDefinition(System.Int32)">
+            <summary>
+            Helper method to get the namespace ScopeDefinition of specified line
+            </summary>
+            <param name="line">represents the line number</param>
+            <returns>a value indicating the ScopeDefinition of the specified line</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.GetTypesFromString(Syncfusion.Windows.Edit.EditTypeCollection,System.String)">
+            <summary>
+            Helper method to iterate to the types collection tree and find the type given. This is a recursive method that splits the text based with "." and iterates to returns the nested types under the type name.
+            </summary>
+            <param name="collection"></param>
+            <param name="typeName"></param>
+            <returns>a collection of EditTypeInfo objects under the type name</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.GetTypeFromString(Syncfusion.Windows.Edit.EditTypeCollection,System.String)">
+            <summary>
+            Helper method to iterate to the types collection tree and find the type given. This is a recursive method that splits the text based with "." and iterates to returns the nested types under the type name.
+            </summary>
+            <param name="collection"></param>
+            <param name="typeName"></param>
+            <returns>a collection of EditTypeInfo objects under the type name</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.GetBaseTypeFromFullName(System.String)">
+            <summary>
+            Helper method to get an EditTypeInfo instances from TypesCollection based on the full name of the type.
+            </summary>
+            <param name="typeName">represents full name of the type including namespace</param>
+            <returns>EditTypeInfo instance from the types collection.</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.GetBaseType(System.String)">
+            <summary>
+            Helper method to get an EditTypeInfo instances from TypesCollection based on the name of the type.
+            </summary>
+            <param name="typeName">represents full name of the type without namespace</param>
+            <returns>EditTypeInfo instance from the types collection.</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.HideIntellisensePopup">
+            <summary>
+            Method to Hide Intellisense Popup.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.UpdateTypesForIncludedNamespaces(System.Collections.Generic.IEnumerable{System.Uri})">
+            <summary>
+            Helper method to load generate types in namespace tree.
+            </summary>
+            <param name="assemblies">represents the list of assemblies added</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.ExecuteDeleteText">
+            <summary>
+            Helper method for delete key activity
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.ExecuteBackspace">
+            <summary>
+            Helper method for backspace key activity
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.GetTextInCollapsedArea(Syncfusion.Windows.Edit.LineItem)">
+             <summary>
+            
+             </summary>
+             <param name="lineItem"></param>
+             <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.GetSelectionEndIndex(Syncfusion.Windows.Edit.LineItem)">
+             <summary>
+            
+             </summary>
+             <param name="lineitem"></param>
+             <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.LanguageBase.GetIndentLevel(System.Int32)">
+             <summary>
+            
+             </summary>
+             <param name="lineNumber"></param>
+             <returns></returns>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.LanguageBase.Lexem">
+            <summary>
+            Gets or Sets a collection of type of ILexem indicating the language configurations. It has been modified to IEnumerable type to allow the
+            users to binding a custom collection as language lexems.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.LanguageBase.Formats">
+            <summary>
+            Gets or Sets a collection of type of IFormat indicating the language configurations. It has been modified to IEnumerable type to allow the
+            users to binding a custom collection as language formats.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.LanguageBase.SupportsOutlining">
+            <summary>
+            Gets or Sets a value indicating whether the language supports outlining
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.LanguageBase.IsIndentSelectionOnTabEnabled">
+            <summary>
+            Gets or sets a value indicating whether the selected should be indented or removed when tab key is pressed.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.LanguageBase.ParentControl">
+            <summary>
+            Gets a value indicating the parent EditControl reference.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.LanguageBase.SplitLinesRegex">
+            <summary>
+            Gets or sets a value indicating the Regex to be applied for splitting the text in lines.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.LanguageBase.SplitWordsRegex">
+            <summary>
+            Gets or sets a value indicating the Regex to be applied for splitting the lines into individual tokens.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.LanguageBase.IsSplitTextToWords">
+            <summary>
+            Gets or sets a value indicating if the text in lines has to be splitted in to tokens.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.LanguageBase.CurrentBlock">
+            <summary>
+            internal property to hold a reference to current BlockCodes instance used in applying syntax colors
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.LanguageBase.CurrentFormat">
+            <summary>
+            internal property to hold a reference to current IFormat instance used in applying in syntax colors.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.LanguageBase.ApplyColoring">
+            <summary>
+            Gets or sets a value indicating if the language supports syntax highlighting
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.LanguageBase.Name">
+            <summary>
+            Gets or sets Name of the Language.
+            </summary>
+            <remarks>
+            <para>Specifies the Name of the Language.</para>
+            </remarks>
+            <value>
+            <para>Type: System.String</para>
+            </value>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.LanguageBase.FileExtension">
+            <summary>
+            Gets or sets File Extension supported by the language
+            </summary>
+            <remarks>
+            <para>Specifies the file extension.</para>
+            </remarks>
+            <value>
+            <para>Type: System.String</para>
+            </value>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.LanguageBase.CaseSensitive">
+            <summary>
+            Gets or sets a value indicating whether the Language has case sensitive or not
+            </summary>
+            <remarks>
+            Specifies the particular language is case sensitive or not.
+            </remarks>
+            <value>
+            Type: System.Boolean
+            </value>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.LanguageBase.TextForeground">
+            <summary>
+            Gets or sets foreground brush to be applied when no Lexems are applicable for
+            the text
+            </summary>
+            <remarks>
+            <para>Specifies the particular language Text Foreground.</para>
+            </remarks>
+            <value>
+            <para>TextForeground = Brushes.Green;</para>
+            </value>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.LanguageBase.BlockStart">
+            <summary>
+            Gets or sets BlockStart property. Specifies the start symbol that denotes start of a block of code
+            </summary>
+            <remarks>
+            Specifies the Block start text.
+            </remarks>
+            <value>
+            Type: System.String
+            </value>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.LanguageBase.BlockEnd">
+            <summary>
+            Gets or sets BlockEnd property. Specifies the end symbol that denotes end of block of code
+            </summary>
+            <remarks>
+            Specifies the Block End text.
+            </remarks>
+            <value>
+            Type: System.String
+            </value>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.LanguageBase.SupportsIntellisense">
+            <summary>
+            Gets or sets a value indicating whether the language supports Intellisense or not
+            </summary>
+            <remarks>
+            Specifies the particular language supports Intellisense or not.
+            </remarks>
+            <value>
+            Type: System.Boolean
+            </value>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.LanguageBase.DocumentBlocks">
+            <summary>
+            internal variable to hold a list of Blocks including preprocessors in the entire content.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.LanguageBase.EllipsisText">
+             <summary>
+            Gets or sets a value indicating the text to be displayed when a block is collapsed. By default its set to "..."
+             </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.LanguageBase.TypesCollection">
+            <summary>
+            Gets the Types tree generated based on the assembly references.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.LanguageBase.IntellisenseDrillDownChar">
+            <summary>
+            Gets or sets a value indicating a char on which the sub-items of the intellisense items to displayed.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.LanguageBase.IntellisenseCommitCharacters">
+            <summary>
+            Gets or sets a value indicating when the selected intellisense items to be appended. The string given will be coverted to individual characters internally and
+            verified to append the selected item to text.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.LanguageBase.CommitsIntellisenseItemOnSpaceBar">
+            <summary>
+            Gets or sets a value indicating whether the selected intellisense items to be appended when space bar is pressed.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.LanguageBase.IndentableBlocks">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.ProceduralLanguageBase.#ctor(Syncfusion.Windows.Edit.EditControl)">
+             <summary>
+            
+             </summary>
+             <param name="control"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.ProceduralLanguageBase.ApplyColor(System.String,System.Int32)">
+             <summary>
+            
+             </summary>
+             <param name="text"></param>
+             <param name="line"></param>
+             <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.ProceduralLanguageBase.ApplyExpandCollapse(Syncfusion.Windows.Edit.ApplyExpandCollapseArgs)">
+             <summary>
+            
+             </summary>
+             <param name="args"></param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.CLanguage.#ctor(Syncfusion.Windows.Edit.EditControl)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.Windows.Edit.CLanguage"/> class.
+            </summary>
+            <remarks>
+            CLanguage constructor is used to initialize C language Formats, Lexem, Name, FileExtension, TextForeground, BlockStart, 
+            BlockEnd, ApplyColoring, CaseSensitive, SupportsOutlining and SupportsIntellisense.
+            </remarks>
+            <param name="control"> It represents the EditControl</param>
+        </member>
+        <member name="T:Syncfusion.Windows.Edit.DelphiLanguage">
+            <summary>
+            Represents a class that provides support for Syntax highlighting and Outlining for Delphi language.   
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.DelphiLanguage.#ctor(Syncfusion.Windows.Edit.EditControl)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.Windows.Edit.DelphiLanguage"/> class.
+            </summary>
+            <remarks>
+            DelphiLanguage constructor is used to initialize delphi language Formats, Lexem, Name, FileExtension, TextForeground, BlockStart, 
+            BlockEnd, ApplyColoring, CaseSensitive, SupportsOutlining and SupportsIntellisense.
+            </remarks>
+            <param name="control"> It represents the EditControl</param>
         </member>
         <member name="T:Syncfusion.Windows.Edit.EditFormats">
             <remarks>
@@ -4123,724 +5857,171 @@
             Type: Syncfusion.Windows.Edit.EditLanguageType
             </value>
         </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.literalCount">
+        <member name="T:Syncfusion.Windows.Edit.HTMLLanguage">
             <summary>
-            A public variable literalcount
+            Represents a class that provides support for Syntax highlighting and Outlining for HTML language.   
             </summary>
         </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.currentBlockCount">
+        <member name="F:Syncfusion.Windows.Edit.MarkupLanguageBase.coloringDetails">
             <summary>
-            A Publicly declared CurrentBlockCount variable
+            Local variable of SyntaxColoringDetails to store current color information
             </summary>
         </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.isCurrentBlockComment">
+        <member name="F:Syncfusion.Windows.Edit.MarkupLanguageBase.patternStack">
             <summary>
-            A publicly declared IsCurrentBlockComment variable
+            Private SyntaxColoringDetails object for get the patterns in stack.
             </summary>
         </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.langName">
+        <member name="F:Syncfusion.Windows.Edit.MarkupLanguageBase.formatStack">
             <summary>
-            instance for Name property.
-            </summary>
-            <value>
-            Type: System.String
-            </value>
-        </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.fileExtension">
-            <summary>
-            instance for FileExtension property.
-            </summary>
-            <value>
-            Type: System.String
-            </value>
-        </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.caseSensitive">
-            <summary>
-            instance for case sensitive property.
-            </summary>
-            <value>
-            Type: System.Boolean
-            </value>
-        </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.textForeground">
-            <summary>
-            instance for TextForeground property.  default color is black.
+            Private IFormat object for get the Formats in stack.
             </summary>
         </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.blockStart">
+        <member name="F:Syncfusion.Windows.Edit.MarkupLanguageBase.blockStack">
             <summary>
-            instance for BlockStart property.
-            </summary>
-            <value>
-            Type: System.String
-            </value>
-        </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.blockEnd">
-            <summary>
-            instance for BlockEnd property.
-            </summary>
-            <value>
-            Type: System.String
-            </value>
-        </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.commentsCol">
-            <summary>
-            Private Lexem collection object for get the comments type of lexems.
+            Private IFormat object for get the Formats in stack.
             </summary>
         </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.operatorsCol">
+        <member name="F:Syncfusion.Windows.Edit.MarkupLanguageBase.markupCol">
             <summary>
-            Private Lexem collection object for get the operators type of lexems.
+            Private Lexem collection object for get the markup type of lexems.
             </summary>
         </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.keywordsCol">
+        <member name="F:Syncfusion.Windows.Edit.MarkupLanguageBase.othersCol">
             <summary>
-            Private Lexem collection object for get the keywords type of lexems.
+            Private Lexem collection object for get the other type of lexems.
             </summary>
         </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.literalsCol">
+        <member name="F:Syncfusion.Windows.Edit.MarkupLanguageBase._isinbetween">
             <summary>
-            Private Lexem collection object for get the literals type of lexems.
+            Property to check whether the given text is data.
             </summary>
         </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.currentColor">
+        <member name="F:Syncfusion.Windows.Edit.MarkupLanguageBase.isCommentExecute">
             <summary>
-            Private Brush object for get the current Foreground of Lexems.
+            Property to check whether comment is enabled or not.
             </summary>
         </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.isThreadRunning">
-            <summary>
-            internal bool variable to identify if the thread is running
-            </summary>
+        <member name="M:Syncfusion.Windows.Edit.MarkupLanguageBase.#ctor(Syncfusion.Windows.Edit.EditControl)">
+             <summary>
+            
+             </summary>
+             <param name="control"></param>
         </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.currentListener">
-            <summary>
-            internal variable to hold the current block listener
-            </summary>
+        <member name="M:Syncfusion.Windows.Edit.MarkupLanguageBase.OnLexemsChanged(System.Windows.DependencyPropertyChangedEventArgs)">
+             <summary>
+            
+             </summary>
+             <param name="e"></param>
         </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.blocksStack">
-            <summary>
-            internal stack object of type BlockListener to hold the parent blocks while applying expand and collapse.
-            </summary>
-        </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.scopeDefinitions">
-            <summary>
-            internal variable to hold the list of scopes availables. Its updated in the ApplyExpandCollapse and used in Intellisense to identify the items to
-            be displayed in the intellisense in auto mode at different scopes.
-            </summary>
-        </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.typesCollection">
-            <summary>
-            internal variable that holds all the namespace and types in a tree structure. Its constructed based on the assemblies added as reference in EditControl instance.
-            </summary>
-        </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.instancesCollection">
-            <summary>
-            internal variable that holds the collection of instances in the current scope.
-            </summary>
-        </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.includedNamespaces">
-            <summary>
-            internal variable that holds the list of namespaces being added in the content.
-            </summary>
-        </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.currentScope">
-            <summary>
-            internal variable that holds the reference to current scope.
-            </summary>
-        </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.defaultItems">
-            <summary>
-            internal collection objects to hold items generated from Language Lexem
-            </summary>
-        </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.customItems">
-            <summary>
-            internal collection objects to hold items generated based on current scope and selected item.
-            </summary>
-        </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.timer">
+        <member name="M:Syncfusion.Windows.Edit.MarkupLanguageBase.SplitTextToLines">
              <summary>
             
              </summary>
         </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.timerValue">
-             <summary>
-            
-             </summary>
-        </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.currentItem">
-             <summary>
-            
-             </summary>
-        </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.selectedIntellisenseItems">
-             <summary>
-            
-             </summary>
-        </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.previousSelectedItem">
-             <summary>
-            
-             </summary>
-        </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.indentBlocks">
-             <summary>
-            
-             </summary>
-        </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.LexemProperty">
-            <summary>
-            Dependency property for Lexem property
-            </summary>
-        </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.FormatsProperty">
-            <summary>
-            Dependency property for Formats property
-            </summary>
-        </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.SupportsOutliningProperty">
-            <summary>
-            Dependency property for Supports Outlining property
-            </summary>
-        </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.IsIndentSelectionOnTabEnabledProperty">
-            <summary>
-            Dependency property for IsIndentSelectionOnTabEnabled Property
-            </summary>
-        </member>
-        <member name="F:Syncfusion.Windows.Edit.LanguageBase.isUpdating">
-             <summary>
-            
-             </summary>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.#ctor(Syncfusion.Windows.Edit.EditControl)">
-            <summary>
-            Initializes a new instance of the <see
-            cref="T:Syncfusion.Windows.Edit.LanguageBase">LanguageBase</see> class.
-            </summary>
-            <param name="control">represents the parent EditControl</param>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.SplitTextToLines">
-            <summary>
-            A helper method to split the text in the EditControl in to individual lines.
-            </summary>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.CalculatePreferredWidth">
-            <summary>
-            Helper method to calculate preferred width to be applied to the ScrollColumn based on the text.
-            </summary>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.ApplyFormats(Syncfusion.Windows.Edit.LineItem)">
-            <summary>
-            Helper method to apply coloring to a line item.
-            </summary>
-            <param name="item"></param>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.SplitTextToWords(System.String)">
-            <summary>
-            Helper method to Split text in to individual words based on SplitWordsRegex
-            </summary>
-            <param name="text">represents the text to be splitted</param>
-            <returns>a list of WordDetails objects after splitting the text</returns>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.SplitTextToWords(System.String,System.Int32)">
-            <summary>
-            Helper method to Split text in to individual words based on SplitWordsRegex
-            </summary>
-            <param name="text">represents the text to be splitted</param>
-            <param name="lineNumber">represents the line number</param>
-            <returns>a list of WordDetails objects after splitting the text</returns>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.ApplyColor(System.String,System.Int32)">
-            <summary>
-            Helper method to apply coloring to the text based on the Lexems in the Language configurations
-            </summary>
-            <param name="text">The text to apply color.</param>
-            <param name="line">The line number of the text.</param>
-            <returns>Returns the IFormat</returns>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.UpdateWordFormats(Syncfusion.Windows.Edit.WordDetails,Syncfusion.Windows.Edit.IFormat)">
-            <summary>
-            Helper method to update text styles in the words property of the LineItem
-            </summary>
-            <param name="words">The words from the word details collection.</param>
-            <param name="format">The format of the word.</param>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.ResetLine(Syncfusion.Windows.Edit.LineItem)">
-            <summary>
-            internal helper method to reset the line's coloring when the text is changed.
-            </summary>
-            <param name="item">represents the line item object</param>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.GetSplittedText(Syncfusion.Windows.Edit.LineItem)">
-            <summary>
-            Helper method to get the splitted text from a LineItem object
-            </summary>
-            <param name="item">represents a LineItem</param>
-            <returns>the splitted string </returns>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.ResetColor(System.Int32)">
-            <summary>
-            internal helper method to reset the color of the a line
-            </summary>
-            <param name="line"></param>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.GeneratePattern">
-            <summary>
-            Helper method to generate Regex pattern to tokenize procedural code using the lexems in Language configurations
-            </summary>
-            <returns>Retturns the Regex pattern.</returns>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.AppendEscapeForPattern(System.String)">
-            <summary>
-            Appends the escape for pattern.
-            </summary>
-            <param name="str">The text to append.</param>
-            <returns>Returns the append text.</returns>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.GetFormat(System.String)">
-            <summary>
-            Helper method to retreive IFormat object from the Formats Collection based on FormatName
-            </summary>
-            <returns>Retturns the IFormat object.</returns>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.OnLexemsChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
-            <summary>
-            PropertyChangedCallback for Lexem DependencyProperty
-            </summary>
-            <param name="obj">represents the dependency object</param>
-            <param name="e">represents the DependencypPropertyChangedEventArgs</param>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.OnLexemsChanged(System.Windows.DependencyPropertyChangedEventArgs)">
-            <summary>
-            Helper method to perform operations when the Lexem property gets changed.
-            </summary>
-            <param name="e"></param>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.OnFormatsChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
-            <summary>
-            PropertyChangedCallback for Formats DependencyProperty
-            </summary>
-            <param name="obj">represents the dependency object</param>
-            <param name="e">represents the DependencypPropertyChangedEventArgs</param>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.OnFormatsChanged(System.Windows.DependencyPropertyChangedEventArgs)">
-            <summary>
-            Helper method to perform operations when the Formats property gets changed.
-            </summary>
-            <param name="e"></param>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.ApplyExpandItems">
-            <summary>
-            Helper method to Apply Expansions for the content in the EditControl.
-            </summary>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.InitializeApplyExpandCollapse">
-             <summary>
-            
-             </summary>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.RefreshExpandItems(System.Int32)">
-            <summary>
-            Helper method to refresh lines expansions from a specified line number. Here line number refers to the index (starts from 0)
-            </summary>
-            <param name="line"></param>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.ApplyExpandCollapse(Syncfusion.Windows.Edit.ApplyExpandCollapseArgs)">
-            <summary>
-            Helper method for perform expand collapse for line items. This method can be overridden if custom expand logics has be implemented.
-            </summary>
-            <param name="args"></param>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.GetBlockStartList">
-            <summary>
-            Helper method to generate the list of BlockListener objects from language Lexem
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.GetCollapsedItemText(Syncfusion.Windows.Edit.LineItem)">
-            <summary>
-            Helper method that returns the text to be displayed when a line is collapsed.
-            </summary>
-            <param name="item">represents the line item</param>
-            <returns>a string to be displayed when a line is collapsed</returns>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.OnLineItemRender(Syncfusion.Windows.Edit.LineItem,System.Windows.Media.DrawingContext)">
-            <summary>
-            Helper method that performs the rendering of line item.
-            </summary>
-            <param name="item">represents the line item</param>
-            <param name="context">represents the drawingcontext object</param>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.UpdateCollapsedItemSelectionPointer(Syncfusion.Windows.Edit.LineItem)">
-            <summary>
-            Helper method to update the SelectionPointer when the item is in collapsed state.
-            </summary>
-            <param name="item">represents the collapsed item</param>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.GetCollapsedItemSelectionEndIndex(Syncfusion.Windows.Edit.LineItem,System.Int32)">
-            <summary>
-            Helper method to calculate the end index of the selection for a collapsed lineitem. This method helps to specify different end index for different languages.
-            </summary>
-            <param name="lineitem">represents the collapsed line item</param>
-            <param name="regularEndIndex">represents the end index in expanded state</param>
-            <returns></returns>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.OnCommentCommandExecute(Syncfusion.Windows.Edit.LineItem)">
-            <summary>
-            Helper method perform the Comment Command operations for an individual line
-            </summary>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.OnCommentCommandExecute(Syncfusion.Windows.Edit.SelectionPointer)">
-            <summary>
-            Helper method perform the Comment Command operations for lines in a selected range
-            </summary>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.OnCommentCommandExecute(Syncfusion.Windows.Edit.LineItem,System.Int32,Syncfusion.Windows.Edit.ILexem)">
-            <summary>
-            Helper method perform the Comment Command operations for an individual line
-            </summary>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.OnUncommentCommandExecute(Syncfusion.Windows.Edit.LineItem)">
-            <summary>
-            Helper method perform the Uncomment Command operations for an individual line
-            </summary>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.OnUncommentCommandExecute(Syncfusion.Windows.Edit.LineItem,Syncfusion.Windows.Edit.ILexem)">
-            <summary>
-            Helper method perform the Uncomment Command operations for an individual line
-            </summary>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.OnUncommentCommandExecute(Syncfusion.Windows.Edit.SelectionPointer)">
-            <summary>
-            Helper method perform the Comment Command operations for lines in a selected range
-            </summary>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.OnTextInput(System.Int32,System.Windows.Input.TextCompositionEventArgs)">
-            <summary>
-            Helper method to perform any language related operations when the user inputs any character in EditControl.
-            </summary>
-            <param name="currentLineNumber">represents the current line number</param>
-            <param name="e">represent TextCompositionEventArgs</param>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.ShowIntellisenseBox(Syncfusion.Windows.Edit.EditIntellisenseArgs)">
+        <member name="M:Syncfusion.Windows.Edit.MarkupLanguageBase.ApplyExpandCollapse(Syncfusion.Windows.Edit.ApplyExpandCollapseArgs)">
              <summary>
             
              </summary>
              <param name="args"></param>
         </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.PositionIntellisenseBox(Syncfusion.Windows.Edit.EditIntellisenseArgs)">
+        <member name="M:Syncfusion.Windows.Edit.MarkupLanguageBase.ResetColor(System.Int32)">
             <summary>
-            Method to adjust the position of the intellisense box.
+            internal helper method to reset the color of the a line
             </summary>
-            <param name="args">represents the cursor index</param>
+            <param name="line"></param>
         </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.UpdateEditTypeInfoList(Syncfusion.Windows.Edit.EditTypeCollection,System.String)">
+        <member name="M:Syncfusion.Windows.Edit.MarkupLanguageBase.GetBlockStartList">
             <summary>
-            Helper method to iterate through the namespace tree and add items accordingly
+            Returns a list of the preprocessers defined in the language configurations
             </summary>
-            <param name="infoList"></param>
-            <param name="typeName"></param>
+            <returns>Returns the Lexem List</returns>
         </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.InitializeNamespaces(System.Collections.Generic.IEnumerable{System.Uri})">
-            <summary>
-            Helper method to load generate namespace tree.
-            </summary>
-            <param name="assemblies">represents the list of assemblies added</param>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.ApplyFilterToIntellisense(System.String)">
-            <summary>
-            Helper method to select the item in the intellisense listbox when the text is typed by the user.
-            </summary>
-            <param name="intellisenseFilterString">represents current word text</param>
-            <returns>index of the selected item.</returns>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.LineContainsNamespaceDeclaration(Syncfusion.Windows.Edit.ScopeDefinition,System.String)">
-            <summary>
-            Helper method to check if the line content contains Namespace declaration.
-            </summary>
-            <param name="scope">represents the ScopeDefinition of the line</param>
-            <param name="leadingText">represents the leading text from the current location</param>
-            <returns>whether the text contains the namespace declaration or not</returns>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.GetMatchingNamespaceDeclarationLexems(Syncfusion.Windows.Edit.ScopeDefinition,System.String)">
-            <summary>
-            Helper method to get NamespaceDeclaration type of ILexem from Lexem property.
-            </summary>
-            <param name="scope">represents the ScopeDefinition of the line</param>
-            <param name="leadingText">represents the leading text from the current location</param>
-            <returns>a collection of ILexem object matching the namespace declaration text if any</returns>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.GetNamespaceScopeDefinition(System.Int32)">
-            <summary>
-            Helper method to get the namespace ScopeDefinition of specified line
-            </summary>
-            <param name="line">represents the line number</param>
-            <returns>a value indicating the ScopeDefinition of the specified line</returns>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.GetTypesFromString(Syncfusion.Windows.Edit.EditTypeCollection,System.String)">
-            <summary>
-            Helper method to iterate to the types collection tree and find the type given. This is a recursive method that splits the text based with "." and iterates to returns the nested types under the type name.
-            </summary>
-            <param name="collection"></param>
-            <param name="typeName"></param>
-            <returns>a collection of EditTypeInfo objects under the type name</returns>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.GetTypeFromString(Syncfusion.Windows.Edit.EditTypeCollection,System.String)">
-            <summary>
-            Helper method to iterate to the types collection tree and find the type given. This is a recursive method that splits the text based with "." and iterates to returns the nested types under the type name.
-            </summary>
-            <param name="collection"></param>
-            <param name="typeName"></param>
-            <returns>a collection of EditTypeInfo objects under the type name</returns>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.GetBaseTypeFromFullName(System.String)">
-            <summary>
-            Helper method to get an EditTypeInfo instances from TypesCollection based on the full name of the type.
-            </summary>
-            <param name="typeName">represents full name of the type including namespace</param>
-            <returns>EditTypeInfo instance from the types collection.</returns>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.GetBaseType(System.String)">
-            <summary>
-            Helper method to get an EditTypeInfo instances from TypesCollection based on the name of the type.
-            </summary>
-            <param name="typeName">represents full name of the type without namespace</param>
-            <returns>EditTypeInfo instance from the types collection.</returns>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.HideIntellisensePopup">
-            <summary>
-            Method to Hide Intellisense Popup.
-            </summary>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.UpdateTypesForIncludedNamespaces(System.Collections.Generic.IEnumerable{System.Uri})">
-            <summary>
-            Helper method to load generate types in namespace tree.
-            </summary>
-            <param name="assemblies">represents the list of assemblies added</param>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.ExecuteDeleteText">
-            <summary>
-            Helper method for delete key activity
-            </summary>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.ExecuteBackspace">
-            <summary>
-            Helper method for backspace key activity
-            </summary>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.GetTextInCollapsedArea(Syncfusion.Windows.Edit.LineItem)">
+        <member name="M:Syncfusion.Windows.Edit.MarkupLanguageBase.GetTextInCollapsedArea(Syncfusion.Windows.Edit.LineItem)">
              <summary>
             
              </summary>
              <param name="lineItem"></param>
              <returns></returns>
         </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.GetSelectionEndIndex(Syncfusion.Windows.Edit.LineItem)">
+        <member name="M:Syncfusion.Windows.Edit.MarkupLanguageBase.GetSelectionEndIndex(Syncfusion.Windows.Edit.LineItem)">
              <summary>
             
              </summary>
              <param name="lineitem"></param>
              <returns></returns>
         </member>
-        <member name="M:Syncfusion.Windows.Edit.LanguageBase.GetIndentLevel(System.Int32)">
+        <member name="M:Syncfusion.Windows.Edit.MarkupLanguageBase.GetIndentLevel(System.Int32)">
              <summary>
             
              </summary>
              <param name="lineNumber"></param>
              <returns></returns>
         </member>
-        <member name="P:Syncfusion.Windows.Edit.LanguageBase.Lexem">
+        <member name="M:Syncfusion.Windows.Edit.MarkupLanguageBase.ExecuteDeleteText">
             <summary>
-            Gets or Sets a collection of type of ILexem indicating the language configurations. It has been modified to IEnumerable type to allow the
-            users to binding a custom collection as language lexems.
+            Helper method for delete key activity
             </summary>
         </member>
-        <member name="P:Syncfusion.Windows.Edit.LanguageBase.Formats">
+        <member name="M:Syncfusion.Windows.Edit.MarkupLanguageBase.ExecuteBackspace">
             <summary>
-            Gets or Sets a collection of type of IFormat indicating the language configurations. It has been modified to IEnumerable type to allow the
-            users to binding a custom collection as language formats.
+            Helper method for backspace key activity
             </summary>
         </member>
-        <member name="P:Syncfusion.Windows.Edit.LanguageBase.SupportsOutlining">
+        <member name="M:Syncfusion.Windows.Edit.HTMLLanguage.#ctor(Syncfusion.Windows.Edit.EditControl)">
             <summary>
-            Gets or Sets a value indicating whether the language supports outlining
-            </summary>
-        </member>
-        <member name="P:Syncfusion.Windows.Edit.LanguageBase.IsIndentSelectionOnTabEnabled">
-            <summary>
-            Gets or sets a value indicating whether the selected should be indented or removed when tab key is pressed.
-            </summary>
-        </member>
-        <member name="P:Syncfusion.Windows.Edit.LanguageBase.ParentControl">
-            <summary>
-            Gets a value indicating the parent EditControl reference.
-            </summary>
-        </member>
-        <member name="P:Syncfusion.Windows.Edit.LanguageBase.SplitLinesRegex">
-            <summary>
-            Gets or sets a value indicating the Regex to be applied for splitting the text in lines.
-            </summary>
-        </member>
-        <member name="P:Syncfusion.Windows.Edit.LanguageBase.SplitWordsRegex">
-            <summary>
-            Gets or sets a value indicating the Regex to be applied for splitting the lines into individual tokens.
-            </summary>
-        </member>
-        <member name="P:Syncfusion.Windows.Edit.LanguageBase.IsSplitTextToWords">
-            <summary>
-            Gets or sets a value indicating if the text in lines has to be splitted in to tokens.
-            </summary>
-        </member>
-        <member name="P:Syncfusion.Windows.Edit.LanguageBase.CurrentBlock">
-            <summary>
-            internal property to hold a reference to current BlockCodes instance used in applying syntax colors
-            </summary>
-        </member>
-        <member name="P:Syncfusion.Windows.Edit.LanguageBase.CurrentFormat">
-            <summary>
-            internal property to hold a reference to current IFormat instance used in applying in syntax colors.
-            </summary>
-        </member>
-        <member name="P:Syncfusion.Windows.Edit.LanguageBase.ApplyColoring">
-            <summary>
-            Gets or sets a value indicating if the language supports syntax highlighting
-            </summary>
-        </member>
-        <member name="P:Syncfusion.Windows.Edit.LanguageBase.Name">
-            <summary>
-            Gets or sets Name of the Language.
+            Initializes a new instance of the <see cref="T:Syncfusion.Windows.Edit.HTMLLanguage"/> class.
             </summary>
             <remarks>
-            <para>Specifies the Name of the Language.</para>
+            HTMLLanguage constructor is used to initialize HTML language Formats, Lexem, Name, FileExtension, TextForeground, BlockStart, 
+            BlockEnd, ApplyColoring, CaseSensitive, SupportsOutlining and SupportsIntellisense.
             </remarks>
-            <value>
-            <para>Type: System.String</para>
-            </value>
+            <param name="control"> It represents the EditControl</param>
         </member>
-        <member name="P:Syncfusion.Windows.Edit.LanguageBase.FileExtension">
+        <member name="T:Syncfusion.Windows.Edit.JavaLanguage">
             <summary>
-            Gets or sets File Extension supported by the language
+            Represents a class that provides support for Syntax highlighting and Outlining for Java language.   
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.JavaLanguage.#ctor(Syncfusion.Windows.Edit.EditControl)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.Windows.Edit.JavaLanguage"/> class.
             </summary>
             <remarks>
-            <para>Specifies the file extension.</para>
+            JavaLanguage constructor is used to initialize java Formats, Lexem, Name, FileExtension, TextForeground, BlockStart, 
+            BlockEnd, ApplyColoring, CaseSensitive, SupportsOutlining and SupportsIntellisense.
             </remarks>
-            <value>
-            <para>Type: System.String</para>
-            </value>
+            <param name="control"> It represents the EditControl</param>
         </member>
-        <member name="P:Syncfusion.Windows.Edit.LanguageBase.CaseSensitive">
+        <member name="T:Syncfusion.Windows.Edit.JScriptLanguage">
             <summary>
-            Gets or sets a value indicating whether the Language has case sensitive or not
+            Represents a class that provides support for Syntax highlighting and Outlining for JScript language.   
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.JScriptLanguage.#ctor(Syncfusion.Windows.Edit.EditControl)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.Windows.Edit.JScriptLanguage"/> class.
             </summary>
             <remarks>
-            Specifies the particular language is case sensitive or not.
+            JScriptLanguage constructor is used to initialize java script Formats, Lexem, Name, FileExtension, TextForeground, BlockStart, 
+            BlockEnd, ApplyColoring, CaseSensitive, SupportsOutlining and SupportsIntellisense.
             </remarks>
-            <value>
-            Type: System.Boolean
-            </value>
+            <param name="control"> It represents the EditControl</param>
         </member>
-        <member name="P:Syncfusion.Windows.Edit.LanguageBase.TextForeground">
+        <member name="T:Syncfusion.Windows.Edit.PowerShellLanguage">
             <summary>
-            Gets or sets foreground brush to be applied when no Lexems are applicable for
-            the text
+            Represents a class that provides support for Syntax highlighting and Outlining for Powershell language.   
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.PowerShellLanguage.#ctor(Syncfusion.Windows.Edit.EditControl)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.Windows.Edit.PowerShellLanguage"/> class.
             </summary>
             <remarks>
-            <para>Specifies the particular language Text Foreground.</para>
+            PowerShellLanguage constructor is used to initialize powershell language Formats, Lexem, Name, FileExtension, TextForeground, BlockStart, 
+            BlockEnd, ApplyColoring, CaseSensitive, SupportsOutlining and SupportsIntellisense.
             </remarks>
-            <value>
-            <para>TextForeground = Brushes.Green;</para>
-            </value>
-        </member>
-        <member name="P:Syncfusion.Windows.Edit.LanguageBase.BlockStart">
-            <summary>
-            Gets or sets BlockStart property. Specifies the start symbol that denotes start of a block of code
-            </summary>
-            <remarks>
-            Specifies the Block start text.
-            </remarks>
-            <value>
-            Type: System.String
-            </value>
-        </member>
-        <member name="P:Syncfusion.Windows.Edit.LanguageBase.BlockEnd">
-            <summary>
-            Gets or sets BlockEnd property. Specifies the end symbol that denotes end of block of code
-            </summary>
-            <remarks>
-            Specifies the Block End text.
-            </remarks>
-            <value>
-            Type: System.String
-            </value>
-        </member>
-        <member name="P:Syncfusion.Windows.Edit.LanguageBase.SupportsIntellisense">
-            <summary>
-            Gets or sets a value indicating whether the language supports Intellisense or not
-            </summary>
-            <remarks>
-            Specifies the particular language supports Intellisense or not.
-            </remarks>
-            <value>
-            Type: System.Boolean
-            </value>
-        </member>
-        <member name="P:Syncfusion.Windows.Edit.LanguageBase.DocumentBlocks">
-            <summary>
-            internal variable to hold a list of Blocks including preprocessors in the entire content.
-            </summary>
-        </member>
-        <member name="P:Syncfusion.Windows.Edit.LanguageBase.EllipsisText">
-             <summary>
-            Gets or sets a value indicating the text to be displayed when a block is collapsed. By default its set to "..."
-             </summary>
-        </member>
-        <member name="P:Syncfusion.Windows.Edit.LanguageBase.TypesCollection">
-            <summary>
-            Gets the Types tree generated based on the assembly references.
-            </summary>
-        </member>
-        <member name="P:Syncfusion.Windows.Edit.LanguageBase.IntellisenseDrillDownChar">
-            <summary>
-            Gets or sets a value indicating a char on which the sub-items of the intellisense items to displayed.
-            </summary>
-        </member>
-        <member name="P:Syncfusion.Windows.Edit.LanguageBase.IntellisenseCommitCharacters">
-            <summary>
-            Gets or sets a value indicating when the selected intellisense items to be appended. The string given will be coverted to individual characters internally and
-            verified to append the selected item to text.
-            </summary>
-        </member>
-        <member name="P:Syncfusion.Windows.Edit.LanguageBase.CommitsIntellisenseItemOnSpaceBar">
-            <summary>
-            Gets or sets a value indicating whether the selected intellisense items to be appended when space bar is pressed.
-            </summary>
-        </member>
-        <member name="P:Syncfusion.Windows.Edit.LanguageBase.IndentableBlocks">
-             <summary>
-            
-             </summary>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.ProceduralLanguageBase.#ctor(Syncfusion.Windows.Edit.EditControl)">
-             <summary>
-            
-             </summary>
-             <param name="control"></param>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.ProceduralLanguageBase.ApplyColor(System.String,System.Int32)">
-             <summary>
-            
-             </summary>
-             <param name="text"></param>
-             <param name="line"></param>
-             <returns></returns>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.ProceduralLanguageBase.ApplyExpandCollapse(Syncfusion.Windows.Edit.ApplyExpandCollapseArgs)">
-             <summary>
-            
-             </summary>
-             <param name="args"></param>
+            <param name="control"> It represents the EditControl</param>
         </member>
         <member name="M:Syncfusion.Windows.Edit.SQLLanguage.#ctor(Syncfusion.Windows.Edit.EditControl)">
              <summary>
@@ -5435,101 +6616,20 @@
              <param name="culture"></param>
              <returns></returns>
         </member>
-        <member name="F:Syncfusion.Windows.Edit.MarkupLanguageBase.coloringDetails">
+        <member name="T:Syncfusion.Windows.Edit.VBScriptLanguage">
             <summary>
-            Local variable of SyntaxColoringDetails to store current color information
-            </summary>
+            Represents a class that provides support for Syntax highlighting and Outlining for VBScript language.   
+            </summary>   
         </member>
-        <member name="F:Syncfusion.Windows.Edit.MarkupLanguageBase.patternStack">
+        <member name="M:Syncfusion.Windows.Edit.VBScriptLanguage.#ctor(Syncfusion.Windows.Edit.EditControl)">
             <summary>
-            Private SyntaxColoringDetails object for get the patterns in stack.
+            Initializes a new instance of the <see cref="T:Syncfusion.Windows.Edit.VBScriptLanguage"/> class.
             </summary>
-        </member>
-        <member name="F:Syncfusion.Windows.Edit.MarkupLanguageBase.formatStack">
-            <summary>
-            Private IFormat object for get the Formats in stack.
-            </summary>
-        </member>
-        <member name="F:Syncfusion.Windows.Edit.MarkupLanguageBase.blockStack">
-            <summary>
-            Private IFormat object for get the Formats in stack.
-            </summary>
-        </member>
-        <member name="F:Syncfusion.Windows.Edit.MarkupLanguageBase.markupCol">
-            <summary>
-            Private Lexem collection object for get the markup type of lexems.
-            </summary>
-        </member>
-        <member name="F:Syncfusion.Windows.Edit.MarkupLanguageBase.othersCol">
-            <summary>
-            Private Lexem collection object for get the other type of lexems.
-            </summary>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.MarkupLanguageBase.#ctor(Syncfusion.Windows.Edit.EditControl)">
-             <summary>
-            
-             </summary>
-             <param name="control"></param>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.MarkupLanguageBase.OnLexemsChanged(System.Windows.DependencyPropertyChangedEventArgs)">
-             <summary>
-            
-             </summary>
-             <param name="e"></param>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.MarkupLanguageBase.SplitTextToLines">
-             <summary>
-            
-             </summary>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.MarkupLanguageBase.ApplyExpandCollapse(Syncfusion.Windows.Edit.ApplyExpandCollapseArgs)">
-             <summary>
-            
-             </summary>
-             <param name="args"></param>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.MarkupLanguageBase.ResetColor(System.Int32)">
-            <summary>
-            internal helper method to reset the color of the a line
-            </summary>
-            <param name="line"></param>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.MarkupLanguageBase.GetBlockStartList">
-            <summary>
-            Returns a list of the preprocessers defined in the language configurations
-            </summary>
-            <returns>Returns the Lexem List</returns>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.MarkupLanguageBase.GetTextInCollapsedArea(Syncfusion.Windows.Edit.LineItem)">
-             <summary>
-            
-             </summary>
-             <param name="lineItem"></param>
-             <returns></returns>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.MarkupLanguageBase.GetSelectionEndIndex(Syncfusion.Windows.Edit.LineItem)">
-             <summary>
-            
-             </summary>
-             <param name="lineitem"></param>
-             <returns></returns>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.MarkupLanguageBase.GetIndentLevel(System.Int32)">
-             <summary>
-            
-             </summary>
-             <param name="lineNumber"></param>
-             <returns></returns>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.MarkupLanguageBase.ExecuteDeleteText">
-            <summary>
-            Helper method for delete key activity
-            </summary>
-        </member>
-        <member name="M:Syncfusion.Windows.Edit.MarkupLanguageBase.ExecuteBackspace">
-            <summary>
-            Helper method for backspace key activity
-            </summary>
+            <remarks>
+            VBScriptLanguage constructor is used to initialize VBScript Formats, Lexem, Name, FileExtension, TextForeground, BlockStart, 
+            BlockEnd, ApplyColoring, CaseSensitive, SupportsOutlining and SupportsIntellisense.
+            </remarks>
+            <param name="control"> It represents the EditControl</param>        
         </member>
         <member name="M:Syncfusion.Windows.Edit.XMLLanguage.#ctor(Syncfusion.Windows.Edit.EditControl)">
              <summary>
@@ -5640,6 +6740,11 @@
             Initializes a new instance of the RoutedUICommand class for SelectAll operation
             </summary>
         </member>
+        <member name="F:Syncfusion.Windows.Edit.EditCommands.Outlining">
+            <summary>
+            Initializes a new instance of the RoutedUICommand class for Outlining operation.
+            </summary>
+        </member>
         <member name="F:Syncfusion.Windows.Edit.EditCommands.Undo">
             <summary>
             Initializes a new instance of the RoutedUICommand class for Undo operation
@@ -5740,6 +6845,21 @@
             Initializes a new instance of the RoutedUICommand class for Auto-indentation operation.
             </summary>
         </member>
+        <member name="F:Syncfusion.Windows.Edit.EditCommands.GoToLine">
+            <summary>
+            Initializes a new instance of the RoutedUICommand class for GoToLine operation.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditCommands.Print">
+            <summary>
+            Initializes a new instance of the RoutedUICommand class for Print operation.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditCommands.PrintPreview">
+            <summary>
+            Initializes a new instance of the RoutedUICommand class for Print Preview.
+            </summary>
+        </member>
         <member name="F:Syncfusion.Windows.Edit.EditScrollControl.rowheights">
             <summary>
             Internal property to store row details
@@ -5760,7 +6880,7 @@
             bool variable IsDragging for check text dragging or not.
             </summary>
         </member>
-        <member name="F:Syncfusion.Windows.Edit.EditScrollControl.m_index">
+        <member name="F:Syncfusion.Windows.Edit.EditScrollControl.caretIndex">
             <summary>
             instance for CaretIndex property.
             </summary>
@@ -5785,9 +6905,24 @@
             int variable to hold the Selection start line.
             </summary>
         </member>
+        <member name="F:Syncfusion.Windows.Edit.EditScrollControl.PreviousHeight">
+            <summary>
+            Stores the previous height of EditScrollControl
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditScrollControl.PreviousWidth">
+            <summary>
+            stores the previous width of EditScrollControl
+            </summary>
+        </member>
         <member name="F:Syncfusion.Windows.Edit.EditScrollControl.selectionStartIndex">
             <summary>
             int variable to hold the selection start index.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditScrollControl.selectionLayer">
+            <summary>
+            Holds the cursor layer of the specific line item
             </summary>
         </member>
         <member name="F:Syncfusion.Windows.Edit.EditScrollControl.isSelectionstarted">
@@ -5805,10 +6940,93 @@
             bool variable indicating if Ellipsis for collapsed item is selected.
             </summary>
         </member>
+        <member name="F:Syncfusion.Windows.Edit.EditScrollControl.isSizeChanged">
+            <summary>
+            indicates whether the size has been changed or not. 
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditScrollControl.isTouch">
+            <summary>
+            Value which indicates whether touch action is performed or not
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditScrollControl.tempSelectionStartIndex">
+            <summary>
+            Value to indicate the selection start index of the lineitem while selecting text by double clicking the end index of the word
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditScrollControl.isTextEndswithSpecialCharacter">
+            <summary>
+            Value to indicate whether the selected word is ended with SpecialCharacter or not
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditScrollControl.startIndexofLineItem">
+            <summary>
+            Value to indicate the selection start index of the lineitem while selecting text by double clicking the word
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditScrollControl.endIndexofLineItem">
+            <summary>
+            Value to indicate the selection end index of the lineitem while selecting text by double clicking the word
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditScrollControl.mouseHitCount">
+            <summary>
+            Value to indicate whether mouse move action is performing or not
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditScrollControl.selectionEndIndex">
+            <summary>
+            Stores the value of selection end index to position the End Selection ellipse
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditScrollControl.selectionEndLine">
+            <summary>
+            Stores the value of selection end line to position the End Selection ellipse
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditScrollControl.isSelectionCleared">
+            <summary>
+            Value indicates whether the selection is cleared or not on Touch/Mouse events
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditScrollControl.mouseDoubleClick">
+            <summary>
+            Value to indicate whether mouse double click action is performed or not
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditScrollControl.setCursorAtStartIndex">
+            <summary>
+            Value to indicate whether the cursor index can be placed at start index or at end index
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditScrollControl.lineNumber">
+            <summary>
+            Indicates the linenumber based on mouse position
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditScrollControl.arrangeStartPointeronSelection">
+            <summary>
+            Indicates whether the value of SelectionEndIndex can be considered or not while arranging Selection pointer
+            </summary>
+        </member>
         <member name="M:Syncfusion.Windows.Edit.EditScrollControl.#ctor">
              <summary>
             
              </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditScrollControl.UpdateTouch(System.Windows.Input.InputEventArgs)">
+            <summary>
+            Method to update the IsTouchPerformed property
+            </summary>
+            <param name="e">Input Argument </param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditScrollControl.EditScrollControl_LayoutUpdated(System.Object,System.EventArgs)">
+            <summary>
+            Event handler to update the layout of the Edit control
+            </summary>
+            <param name="sender">sender of the event</param>
+            <param name="e">Event arguments</param>
         </member>
         <member name="M:Syncfusion.Windows.Edit.EditScrollControl.InitializeValues(Syncfusion.Windows.Edit.EditControl)">
             <summary>
@@ -5822,6 +7040,11 @@
             </summary>
             <param name="arrangeSize">Specifies the size available for arrange the
             items.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditScrollControl.RearrangeLines">
+            <summary>
+            Method to rearrange lines based on font size changes dynamically.
+            </summary>
         </member>
         <member name="M:Syncfusion.Windows.Edit.EditScrollControl.ArrangeRow(Syncfusion.Windows.Controls.Scroll.VisibleLineInfo,System.Windows.Point)">
             <summary>
@@ -5910,11 +7133,11 @@
             <param name="point">The point of the click position.</param>
             <returns>Returns the Line item based on the point position.</returns>
         </member>
-        <member name="M:Syncfusion.Windows.Edit.EditScrollControl.SetCursorLocation(Syncfusion.Windows.Edit.LineItem,System.Windows.Point)">
+        <member name="M:Syncfusion.Windows.Edit.EditScrollControl.SetCursorLocation(Syncfusion.Windows.Edit.LineItem,System.Windows.Point,System.Boolean)">
             <summary>
             Helper method to update the cursor location
             </summary>
-            <param name="lineitem">The lineitem to update the cursor location.</param>
+            <param name="lineItem">The lineitem to update the cursor location.</param>
             <param name="pt">The point object used to update the cursor point.</param>
         </member>
         <member name="M:Syncfusion.Windows.Edit.EditScrollControl.RemoveCursorLayer(Syncfusion.Windows.Edit.LineItem)">
@@ -5937,6 +7160,11 @@
             <param name="currentitem">The current line item.</param>
             <param name="point">The point to get the cursor index.</param>
             <returns>Returns the current item Index value.</returns>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditScrollControl.includeHeaderWidth">
+            <summary>
+             Value indicating whether the header width and horizontal offset can be considered or not while calcualting the carent index of the line item for programmatic navigation
+            </summary>
         </member>
         <member name="M:Syncfusion.Windows.Edit.EditScrollControl.MoveCursorToLineItem(System.Int32)">
             <summary>
@@ -6026,6 +7254,11 @@
             Helper method to clear selection
             </summary>
         </member>
+        <member name="M:Syncfusion.Windows.Edit.EditScrollControl.ArrangeSelectionPointers">
+            <summary>
+            Method to arrange the Selection pointers based on Text Selection
+            </summary>
+        </member>
         <member name="M:Syncfusion.Windows.Edit.EditScrollControl.KeyDownPreview(System.Windows.Input.KeyEventArgs)">
             <summary>
             Helper method used for moving cursor position based on key pressed and updates selection when shift is pressed
@@ -6064,6 +7297,13 @@
             <param name="element">represents on DependencyObject to which tooltip to be set.</param>
             <param name="pt">represents mouse' current position</param>
         </member>
+        <member name="M:Syncfusion.Windows.Edit.EditScrollControl.GetLineItemPosition(Syncfusion.Windows.Edit.LineItem)">
+            <summary>
+            Method to find the position of the line item
+            </summary>
+            <param name="lineItem">LineItem to find position</param>
+            <returns>returns the position</returns>
+        </member>
         <member name="M:Syncfusion.Windows.Edit.EditScrollControl.CheckMouseOverEllipsis(System.Windows.Point)">
             <summary>
             Helper method to check if the mouse position is over the Ellipsis.
@@ -6071,11 +7311,33 @@
             <param name="pt">represents the mouse position</param>
             <returns>whether the mouse position is inside or outside of the ellipsis area</returns>
         </member>
+        <member name="M:Syncfusion.Windows.Edit.EditScrollControl.IsWordContainsSpecialCharacter(Syncfusion.Windows.Edit.WordDetails)">
+            <summary>
+            Method to get the word to highlight
+            </summary>
+            <param name="item">Word details </param>
+            <returns>returns true if any special character exist, else returns false</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditScrollControl.IsClickItemContainsSpecialCharacterAtEnd(Syncfusion.Windows.Edit.LineItem)">
+            <summary>
+            Method to check whether the caret index has special character or not
+            </summary>
+            <param name="lineItem">LineItem</param>
+            <returns>IsSpecial character or not</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditScrollControl.UpdateSelectionOnEndText(System.Windows.Input.MouseButtonEventArgs,Syncfusion.Windows.Edit.LineItem,Syncfusion.Windows.Edit.WordDetails)">
+            <summary>
+            Method to udpate the Selection to the line item which has Special character at the end
+            </summary>
+            <param name="e">Event arguments</param>
+            <param name="clickItem">Lineitem to update the selection </param>
+            <param name="item">word collection</param>
+        </member>
         <member name="M:Syncfusion.Windows.Edit.EditScrollControl.HandleDoubleClick(Syncfusion.Windows.Edit.LineItem,System.Windows.Input.MouseButtonEventArgs)">
             <summary>
             Helper method to handle double click operation on a word.
             </summary>
-            <param name="clickitem">represents the lineitem on which the double click was made</param>
+            <param name="clickItem">represents the lineitem on which the double click was made</param>
             <param name="e">represents MouseEventArgs</param>
         </member>
         <member name="M:Syncfusion.Windows.Edit.EditScrollControl.OnPreviewMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs)">
@@ -6093,6 +7355,24 @@
             </summary>
             <param name="e">The <see cref="T:System.Windows.Input.MouseButtonEventArgs"/> that contains the event data. The event data reports that the left mouse button was released.</param>
         </member>
+        <member name="M:Syncfusion.Windows.Edit.EditScrollControl.PreviewLeftButtonDown(System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Method to perform the selection actions when the PreviewLeftMouseDownButton event is fired
+            </summary>
+            <param name="e">Event args</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditScrollControl.IsEllipsePressed">
+            <summary>
+            Method to check whether any of the Selection pointer ellipse are pressed or not
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditScrollControl.PreviewLeftButtonUp(System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Method to perform the selection actions when the PreviewLeftMouseUpButton event is fired
+            </summary>
+            <param name="e">Event args</param>
+        </member>
         <member name="M:Syncfusion.Windows.Edit.EditScrollControl.CreateScrollAxis(System.Windows.Controls.Orientation,System.Boolean,Syncfusion.Windows.Controls.Scroll.IScrollBar,Syncfusion.Windows.Controls.Scroll.ILineSizeHost)">
             <summary>
             
@@ -6109,7 +7389,70 @@
              </summary>
              <param name="e"></param>
         </member>
+        <member name="M:Syncfusion.Windows.Edit.EditScrollControl.ArrangeStartTouchPointer(Syncfusion.Windows.Edit.LineItem)">
+            <summary>
+            Method to place the start pointer based on Selection
+            </summary>
+            <param name="lineItem">LineItem to place the pointer</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditScrollControl.ArrangeSelectionStartTouchPointer(Syncfusion.Windows.Edit.LineItem,System.Int32)">
+            <summary>
+            Method to arrange the Start Selection pointer based on the selection through KeyDown event
+            </summary>
+            <param name="lineitem">Lineitem to place the selection pointer</param>
+            <param name="index">Index to retrive the selected text position</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditScrollControl.ArrangeSelectionEndTouchPointer(Syncfusion.Windows.Edit.LineItem,System.Int32)">
+            <summary>
+            Method to arrange the End Selection pointer based on the selection through KeyDown event
+            </summary>
+            <param name="lineItem">Lineitem to place the selection pointer</param>
+            <param name="index">Index to retrive the selected text position</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditScrollControl.GetPositionofSelectionPointers(System.Windows.Shapes.Ellipse)">
+            <summary>
+            Method to calculate the position of the ellipse
+            </summary>
+            <param name="ellipse">Start Ellipse or End ellipse</param>
+            <returns>Position of the ellipse</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditScrollControl.ArrangeEndTouchPointer(Syncfusion.Windows.Edit.LineItem)">
+            <summary>
+            Method to update the End touch pointer
+            </summary>
+            <param name="lineItem">LineItem to arrange the end pointer</param>
+        </member>
         <member name="M:Syncfusion.Windows.Edit.EditScrollControl.OnMouseMove(System.Windows.Input.MouseEventArgs)">
+            <summary>
+            MouseMove event override - updates selection, updates scrollbar offset when the mouse is moved out of the viewing area
+            </summary>
+            <param name="e">The <see cref="T:System.Windows.Input.MouseEventArgs"/> that contains the event data.</param>
+            <remarks>Each mouse move event the control update the selection pointer.</remarks>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditScrollControl.GetLineItem(System.Int32)">
+            <summary>
+            Method to retrive the line item from Lines collection based on index
+            </summary>
+            <param name="index">index to find the corresponding line item</param>
+            <returns>Lineitem which is assosiated with the index</returns>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditScrollControl.setStartEllipseOnStart">
+            <summary>
+            Value indicates whether the start pointer is arranged at start on Reverse selection
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EditScrollControl.isCollapseIconClicked">
+            <summary>
+            Value indicates whether the Collapse region has been clicked or not
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditScrollControl.UpdateTouchSelectionOnMouse(System.Windows.Input.MouseEventArgs)">
+            <summary>
+            Method to perform touch selection
+            </summary>
+            <param name="e">Event args</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditScrollControl.SelectionOnMouseMove(System.Windows.Input.MouseEventArgs)">
             <summary>
             MouseMove event override - updates selection, updates scrollbar offset when the mouse is moved out of the viewing area
             </summary>
@@ -6127,6 +7470,20 @@
             OnGotFocus - updates the visibility of the cursor to visible.
             </summary>
             <param name="e">represents the RoutedEventArgs</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditScrollControl.EditScrollControl_Unloaded(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Invoke when edit scroll control was unloaded 
+            </summary>
+            <param name="sender">sender as EditScrollControl</param>
+            <param name="e"> e as RoutedEventArgs</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.EditScrollControl.EditScrollControl_SizeChanged(System.Object,System.Windows.SizeChangedEventArgs)">
+            <summary>
+            Invoke when edit scroll control size was changed.  
+            </summary>
+            <param name="sender">sender as EditScrollControl</param>
+            <param name="e">e as SizeChangedEventArgs</param>
         </member>
         <member name="M:Syncfusion.Windows.Edit.EditScrollControl.Lines_CollectionChanged(System.Object,System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
             <summary>
@@ -6156,6 +7513,16 @@
             </summary>
             <param name="sender">represents the Selection Layer</param>
             <param name="e">represents the MouseEventArgs</param>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.EditScrollControl.SelectionCursorLayer">
+            <summary>
+            Holds the cursor layer of the specific line item
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.EditScrollControl.IsTouchPerformed">
+            <summary>
+            Indicates whether touch action is performed or not
+            </summary>
         </member>
         <member name="P:Syncfusion.Windows.Edit.EditScrollControl.LineNumber">
             <summary>
@@ -6211,6 +7578,11 @@
             Type: <see
             cref="T:Syncfusion.Windows.Edit.SelectionPointer">Syncfusion.Windows.Edit.SelectionPointer</see>
             </value>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.EditScrollControl.IncludeHeaderWidth">
+            <summary>
+            Value indicating whether the header width and horizontal offset can be considered or not while calcualting the carent index of the line item for programmatic navigation
+            </summary>
         </member>
         <member name="T:Syncfusion.Windows.Edit.PixelScrollAxisExt">
             <summary>
@@ -6659,6 +8031,48 @@
             built - in language specification for XAML.
             </summary>
         </member>
+        <member name="F:Syncfusion.Windows.Edit.Languages.Java">
+            <summary>
+            Represents Java files and applies syntax highlighting and outlining
+            based on the built - in language specification for Java.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.Languages.VBScript">
+            <summary>
+            Represents VBScript files and applies syntax highlighting and outlining
+            based on the built - in language specification for VBScript.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.Languages.JScript">
+            <summary>
+            Represents JScript files and applies syntax highlighting and outlining
+            based on the built - in language specification for JScript.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.Languages.Delphi">
+            <summary>
+            Represents Delphi files and applies syntax highlighting and outlining
+            based on the built - in language specification for Delphi.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.Languages.PowerShell">
+            <summary>
+            Represents PowerShell files and applies syntax highlighting and outlining
+            based on the built - in language specification for PowerShell.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.Languages.HTML">
+            <summary>
+            Represents HTML files and applies syntax highlighting and outlining
+            based on the built - in language specification for HTML.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.Languages.C">
+            <summary>
+            Represents C files and applies syntax highlighting and outlining
+            based on the built - in language specification for C.
+            </summary>
+        </member>
         <member name="T:Syncfusion.Windows.Edit.EditTokenType">
             <summary>
             Specifies types of tokens supported by EditLanguage lexems
@@ -6907,12 +8321,17 @@
         </member>
         <member name="F:Syncfusion.Windows.Edit.EnterKeyBehavior.Default">
             <summary>
-            
+            Adds the new line on pressing the Enter Key.
             </summary>
         </member>
         <member name="F:Syncfusion.Windows.Edit.EnterKeyBehavior.VS">
             <summary>
-            
+            Adds the new line on pressing Enter key. Adds new line above the current line on pressing Ctrl + Enter key.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.EnterKeyBehavior.AddNewLineFeed">
+            <summary>
+            Adds the new line on pressing the Enter key. Supress the KeyDown and PreviewKeyDown event of EditControl on pressing enter key.
             </summary>
         </member>
         <member name="T:Syncfusion.Windows.Edit.Localization.ResourceWrapper">
@@ -7030,6 +8449,26 @@
             Get and set the FindnextTextProperty which is used for searching for next text
             </summary>
         </member>
+        <member name="P:Syncfusion.Windows.Edit.Localization.ResourceWrapper.OKButtonText">
+            <summary>
+            Get and set the OKButtonText which is used for Go to Line support
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.Localization.ResourceWrapper.CancelButtonText">
+            <summary>
+            Get and set the OKButtonText which is used for Go to Line support
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.Localization.ResourceWrapper.GoToLineHeaderText">
+            <summary>
+            Get and set the GoToLineHeaderText which is used for Go to Line support
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.Localization.ResourceWrapper.LineNumberText">
+            <summary>
+            Get and set the LineNumberText which is used for Go to Line support
+            </summary>
+        </member>
         <member name="P:Syncfusion.Windows.Edit.Localization.ResourceWrapper.FindallText">
             <summary>
             Get and set the FindallText property 
@@ -7114,6 +8553,183 @@
             <summary>
             Get and set the SelectionText Property
             </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Edit.Localization.SR">
+            <summary>
+            Sealed class for SR
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Localization.SR.ReleaseResources">
+            <summary>
+            Static method for Release Resources
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Localization.SR.GetString(System.Globalization.CultureInfo,System.String,System.Object[])">
+            <summary>
+            Method to return culture and name
+            </summary>
+            <param name="culture"></param>
+            <param name="name"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Localization.SR.GetString(System.String)">
+            <summary>
+            Method to return name
+            </summary>
+            <param name="name"></param>
+            <returns>name</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Localization.SR.GetString(System.String,System.Object[])">
+            <summary>
+            Method to return name
+            </summary>
+            <param name="name"></param>
+            <param name="args"></param>
+            <returns>name</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Localization.SR.GetString(System.Globalization.CultureInfo,System.String)">
+            <summary>
+            Method to return culture and name
+            </summary>
+            <param name="culture"></param>
+            <param name="name"></param>
+            <returns>culture and name</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Localization.SR.GetObject(System.Globalization.CultureInfo,System.String)">
+            <summary>
+            Method to return Culture and name
+            </summary>
+            <param name="culture"></param>
+            <param name="name"></param>
+            <returns>culture and name</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Localization.SR.GetObject(System.String)">
+            <summary>
+            Method to return name
+            </summary>
+            <param name="name"></param>
+            <returns>name</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Localization.SR.GetBoolean(System.Globalization.CultureInfo,System.String)">
+            <summary>
+            Method to return boolean value for name and culture
+            </summary>
+            <param name="culture"></param>
+            <param name="name"></param>
+            <returns>boolean value for name and culture</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Localization.SR.GetBoolean(System.String)">
+            <summary>
+            Method to return boolean value for name
+            </summary>
+            <param name="name"></param>
+            <returns>boolean for name</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Localization.SR.GetByte(System.Globalization.CultureInfo,System.String)">
+            <summary>
+            Method to return byte for culture and name
+            </summary>
+            <param name="culture"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Localization.SR.GetByte(System.String)">
+            <summary>
+            Method to return name as byte
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Localization.SR.GetChar(System.Globalization.CultureInfo,System.String)">
+            <summary>
+            Method to return cultur and name as char
+            </summary>
+            <param name="culture"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Localization.SR.GetChar(System.String)">
+            <summary>
+            Method to return name as char
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Localization.SR.GetDouble(System.Globalization.CultureInfo,System.String)">
+            <summary>
+            Method to return culture and name as double
+            </summary>
+            <param name="culture"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Localization.SR.GetDouble(System.String)">
+            <summary>
+            Method to return the name as double
+            </summary>
+            <param name="name"></param>
+            <returns>name</returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Localization.SR.GetFloat(System.Globalization.CultureInfo,System.String)">
+            <summary>
+            Method to return the cultur and name as float
+            </summary>
+            <param name="culture"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Localization.SR.GetFloat(System.String)">
+            <summary>
+            Method to return name as float
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Localization.SR.GetInt(System.String)">
+            <summary>
+            Method to return name as int
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Localization.SR.GetInt(System.Globalization.CultureInfo,System.String)">
+            <summary>
+            Method to return culture and name as int
+            </summary>
+            <param name="culture"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Localization.SR.GetLong(System.String)">
+            <summary>
+            Method to return name as long
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Localization.SR.GetLong(System.Globalization.CultureInfo,System.String)">
+            <summary>
+            Method to return culture and name as long
+            </summary>
+            <param name="culture"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Localization.SR.GetShort(System.Globalization.CultureInfo,System.String)">
+            <summary>
+            Method to return culture and name as short
+            </summary>
+            <param name="culture"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Windows.Edit.Localization.SR.GetShort(System.String)">
+            <summary>
+            Method to return name as short
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
         </member>
         <member name="M:Syncfusion.Windows.Edit.Localization.SR.SetDefaultNamespace(System.String)">
             <summary>
@@ -7527,6 +9143,36 @@
             Type: Syncfusion.Windows.Edit.EditControl
             </value>
         </member>
+        <member name="F:Syncfusion.Windows.Edit.LineItem.textChangedForIndent">
+            <summary>
+            Indicates the text changed for indent operation
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LineItem.refreshed">
+            <summary>
+            Indicates whether the line item is already refreshed or not
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LineItem._sublines">
+            <summary>
+            Holds the LineItemCollection, if the LineItem width is exceed to EditControl width
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LineItem.IsShowWrapping">
+            <summary>
+            Holds whether the Wrapping Icon is displayed or not
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LineItem.isBackgroundColorModified">
+            <summary>
+            Indicate whether the BackgroundColor of the Line modified or not.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Edit.LineItem.IsFullLine">
+            <summary>
+            Indicate whether it is full line or not.
+            </summary>
+        </member>
         <member name="M:Syncfusion.Windows.Edit.LineItem.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:Syncfusion.Windows.Edit.LineItem"/> class.
@@ -7650,6 +9296,12 @@
             <param name="d">DepdendencyObject from the requested source</param>
             <param name="e">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         </member>
+        <member name="M:Syncfusion.Windows.Edit.LineItem.IsLineVisible">
+            <summary>
+            Method returns the visiblility of the current line
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Syncfusion.Windows.Edit.LineItem.OnExpandedChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
             <summary>
             Called when ExpandedChanged.
@@ -7682,6 +9334,26 @@
         <member name="E:Syncfusion.Windows.Edit.LineItem.OnItemTextChanged">
             <summary>
             Occurs when <see cref="T:Syncfusion.Windows.Edit.LineItem"/> is Changed.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.LineItem.BackgroundColor">
+            <summary>
+            Gets or set the Background Color of a line 
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.LineItem.WrapWordsCollection">
+            <summary>
+            Gets or sets the collection of Wrap words
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.LineItem.SubLines">
+            <summary>
+            Gets or sets the LineItemCollection, if the LineItem width is exceed to EditControl width
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.LineItem.PrintWordsCollection">
+            <summary>
+            Gets or sets the Word collection
             </summary>
         </member>
         <member name="P:Syncfusion.Windows.Edit.LineItem.Text">
@@ -8077,6 +9749,18 @@
             Returns the formatted text.
             </returns>
         </member>
+        <member name="M:Syncfusion.Windows.Edit.Utils.GetFormattedTextDecoration(System.String,System.Windows.Media.FontFamily,System.Double,System.Windows.Media.Brush,Syncfusion.Windows.Edit.Interfaces.ISnippetFormat)">
+            <summary>
+            GetFormattedTextDecoration method used to get the formatted text and text decoration based on the text, fontfamily, fontsize,
+            foreground,format parameters.
+            </summary>
+            <param name="text"></param>
+            <param name="fontFamily"></param>
+            <param name="fontSize"></param>
+            <param name="foreground"></param>
+            <param name="format"></param>
+            <returns>Returns the formatted and decorated text</returns>
+        </member>
         <member name="M:Syncfusion.Windows.Edit.Utils.BindObjects(System.Windows.DependencyObject,System.Windows.DependencyProperty,System.String,System.Object,System.Windows.Data.BindingMode,System.Windows.Data.UpdateSourceTrigger)">
             <summary>
             Helper method to bind objects with updatesourcetrigger
@@ -8407,6 +10091,16 @@
             Type: System.Int32
             </value>
         </member>
+        <member name="P:Syncfusion.Windows.Edit.WordDetails.IsMatched">
+            <summary>
+            Gets / Sets the whether the word is Matched and split for Regex case
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Windows.Edit.WordDetails.MatchedText">
+            <summary>
+            Gets / Sets the whether the word is Matched and split for Regex case
+            </summary>
+        </member>
         <member name="P:Syncfusion.Windows.Edit.WordDetails.StartPosition">
             <summary>
             Gets or sets Token's Start Position with the screen points
@@ -8440,6 +10134,36 @@
             
              </summary>
              <param name="control"></param>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
+            </summary>
         </member>
     </members>
 </doc>

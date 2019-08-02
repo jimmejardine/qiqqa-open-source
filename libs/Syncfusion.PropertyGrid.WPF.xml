@@ -1887,9 +1887,14 @@
             ReserAll method
             </summary>
         </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGrid.Dispose(System.Boolean)">
+            <summary>
+            Dispose to clear managed resources
+            </summary>
+        </member>
         <member name="M:Syncfusion.Windows.PropertyGrid.PropertyGrid.Dispose">
             <summary>
-            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            Dispose to clear managed resources
             </summary>
             <filterpriority>2</filterpriority>
         </member>
@@ -2715,12 +2720,6 @@
             </summary>
             <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         </member>
-        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItem.UpdateVisualState(System.Boolean)">
-            <summary>
-            Updates the state of the visual.
-            </summary>
-            <param name="useTransitions">if set to <c>true</c> [use transitions].</param>
-        </member>
         <member name="M:Syncfusion.Windows.PropertyGrid.PropertyCatagoryViewItem.OnCategoryForegroundChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
             <summary>
             Called when [category foreground changed].
@@ -3047,6 +3046,11 @@
             
             </summary>
         </member>
+        <member name="F:Syncfusion.Windows.PropertyGrid.PropertyViewItem.EditorValueTemplateProperty">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="M:Syncfusion.Windows.PropertyGrid.PropertyViewItem.OnGotFocus(System.Windows.RoutedEventArgs)">
             <summary>
             Invoked whenever an unhandled <see cref="E:System.Windows.UIElement.GotFocus"/> event reaches this element in its route.
@@ -3109,12 +3113,6 @@
             </summary>
             <param name="args">The <see cref="T:System.Windows.DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         </member>
-        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyViewItem.UpdateVisualState(System.Boolean)">
-            <summary>
-            Updates the state of the visual.
-            </summary>
-            <param name="useTransitions">if set to <c>true</c> [use transitions].</param>
-        </member>
         <member name="F:Syncfusion.Windows.PropertyGrid.PropertyViewItem.NameProperty">
             <summary>
             
@@ -3131,6 +3129,11 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Syncfusion.Windows.PropertyGrid.PropertyViewItem.Dispose">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:Syncfusion.Windows.PropertyGrid.PropertyViewItem.IsSelected">
             <summary>
             Gets or sets a value indicating whether this instance is selected.
@@ -3146,12 +3149,23 @@
             <value></value>
             <returns>true if mouse pointer is over the element or its child elements; otherwise, false. The default is false.</returns>
         </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyViewItem.ResizeColumn1">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:Syncfusion.Windows.PropertyGrid.PropertyViewItem.HasItems">
             <summary>
             
             </summary>
         </member>
         <member name="P:Syncfusion.Windows.PropertyGrid.PropertyViewItem.EditorTemplate">
+            <summary>
+            Gets or sets the editor template.
+            </summary>
+            <value>The editor template.</value>
+        </member>
+        <member name="P:Syncfusion.Windows.PropertyGrid.PropertyViewItem.EditorValueTemplate">
             <summary>
             Gets or sets the editor template.
             </summary>
@@ -3174,7 +3188,7 @@
             Represents the ResourceManager constructor
             </summary>
         </member>
-        <member name="M:Syncfusion.Windows.PropertyGrid.ResourceManager.GetValueTemplate(System.Type,System.String)">
+        <member name="M:Syncfusion.Windows.PropertyGrid.ResourceManager.GetValueTemplate(System.Type,System.String,System.Boolean)">
             <summary>
             Method for getting the template for the value
             </summary>

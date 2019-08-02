@@ -979,7 +979,7 @@
             <param name="sheet">Sheet to copy from.</param>
             <param name="grid">Grid to copy into.</param>
         </member>
-        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.CopyComboxToGrid(Syncfusion.XlsIO.IWorksheet,Syncfusion.Windows.Controls.Grid.GridModel)">
+        <member name="M:Syncfusion.Windows.Controls.Grid.Converter.GridModelImportExtensions.CopyComboBoxToGrid(Syncfusion.XlsIO.IWorksheet,Syncfusion.Windows.Controls.Grid.GridModel)">
             <summary>
             Copies the combox from excel worksheet into grid.
             </summary>

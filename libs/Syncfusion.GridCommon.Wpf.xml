@@ -4,6 +4,11 @@
         <name>Syncfusion.GridCommon.Wpf</name>
     </assembly>
     <members>
+        <member name="T:Syncfusion.NamespaceDoc">
+            <summary>
+            Contains the class for assembly information.
+            </summary>
+        </member>
         <member name="T:Syncfusion.GridCommonWpfAssembly">
             <summary>
             This class holds the name of the Syncfusion.Windows.Grid assembly and provides a helper 
@@ -7415,6 +7420,11 @@
             <param name="sender">The source of the event.</param>
             <param name="e">A <see cref="T:Syncfusion.Windows.Styles.StyleChangedEventArgs"/> that contains the event data.</param>
         </member>
+        <member name="T:Syncfusion.Windows.Styles.NamespaceDoc">
+            <summary>
+            Contains classes which are used to maintain the data and style information of Grid. 
+            </summary>
+        </member>
         <member name="T:Syncfusion.Windows.Styles.CreateSubObjectHandler">
             <exclude/>
         </member>
@@ -8110,14 +8120,14 @@
         <member name="M:Syncfusion.Windows.Styles.DisposeablePropertyAttribute.Equals(System.Object)">
             <override/>
         </member>
-        <member name="M:Syncfusion.Windows.Styles.DisposeablePropertyAttribute.IsDisposeableProperty(System.Reflection.PropertyInfo)">
+        <member name="M:Syncfusion.Windows.Styles.DisposeablePropertyAttribute.IsDisposableProperty(System.Reflection.PropertyInfo)">
             <summary>
             Indicates whether the <see cref="T:Syncfusion.Windows.Styles.DisposeablePropertyAttribute"/> has been set for the property.
             </summary>
             <param name="info">A <see cref="T:System.Reflection.PropertyInfo"/>.</param>
             <returns>True if property has a <see cref="T:Syncfusion.Windows.Styles.DisposeablePropertyAttribute"/>; false otherwise.</returns>
         </member>
-        <member name="P:Syncfusion.Windows.Styles.DisposeablePropertyAttribute.DisposeableProperty">
+        <member name="P:Syncfusion.Windows.Styles.DisposeablePropertyAttribute.DisposableProperty">
             <summary>
               <para>Indicates whether a property should be disposed if the assigned object implements IDisposeable.</para>
             </summary>
@@ -10390,6 +10400,7 @@
             Gets or sets a number that represents the current position of the scroll box on the scroll bar control.
             </summary>
         </member>
+        <!-- Badly formed XML comment ignored for member "T:Syncfusion.Windows.Controls.Scroll.NamespaceDoc" -->
         <member name="T:Syncfusion.Windows.Controls.Scroll.ScrollInfo">
             <summary>
             Provides all properties to configure a scrollbar.
@@ -11784,6 +11795,11 @@
             Returns a <see cref="T:System.String"/> with state information about the object.
             </returns>
         </member>
+        <member name="T:Syncfusion.Windows.Controls.Cells.NamespaceDoc">
+            <summary>
+            Contains classes and interfaces which are required to render the cells in a grid.
+            </summary>
+        </member>
         <member name="T:Syncfusion.Windows.Controls.Cells.ArrangedCellUIElementsManager">
             <summary>
             Provides routines for managing cells visuals (aka UIElement children)
@@ -11917,6 +11933,11 @@
             <see cref="M:Syncfusion.Windows.Controls.Cells.ArrangedCellUIElementsManager.InsertColumns(System.Int32,System.Int32)"/> call when columns should be moved. When null, 
             cell visuals that belong to the removed columns are unloaded. 
             Otherwise these visuals will be saved into this container.</param>
+        </member>
+        <member name="T:Syncfusion.Windows.Collections.Generic.NamespaceDoc">
+            <summary>
+            Contains classes and interfaces to maintain the row heights and column widths in a tree structure.
+            </summary>
         </member>
         <member name="T:Syncfusion.Windows.Collections.Generic.GenericTreeTableEntry`1">
             <summary>
@@ -13535,6 +13556,11 @@
             <param name="valueMember">The name of the value member</param>
             <returns>The value of the ValueMember.</returns>
         </member>
+        <member name="T:Syncfusion.Windows.Collections.NamespaceDoc">
+            <summary>
+            Contains classes and interfaces to maintain the row heights and column widths in a balanced tree structure.
+            </summary>
+        </member>
         <member name="T:Syncfusion.Windows.Collections.TreeTableNodeColor">
             <summary>
             Used by TreeTable to balance the tree with algorithm based on Red-Black tree.
@@ -14851,6 +14877,11 @@
             Returns the current <see cref="T:Syncfusion.Windows.Collections.TreeTableWithSummary"/> object.
             </summary>
         </member>
+        <member name="T:Syncfusion.Windows.ComponentModel.NamespaceDoc">
+            <summary>
+            Contains classes used to dispose the instances and also contains some common event arguments.
+            </summary>
+        </member>
         <member name="T:Syncfusion.Windows.ComponentModel.DisposableWithEvent">
             <summary>
             This class provides a base class that implements the IDisposable interface
@@ -15146,6 +15177,11 @@
             <summary>
             Indicates whether <see cref="M:Syncfusion.Windows.Styles.ValueConvert.FormatValue(System.Object,System.Type,System.String,System.Globalization.CultureInfo,System.Globalization.NumberFormatInfo,System.IFormatProvider)"/> should trim whitespace characters from
             the end of the formatted text.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Diagnostics.NamespaceDoc">
+            <summary>
+            Contains the diagnostics utilities.
             </summary>
         </member>
         <member name="T:Syncfusion.Windows.Diagnostics.MeasureTime">
@@ -16162,6 +16198,11 @@
             <devdoc>
             </devdoc>
         </member>
+        <member name="T:Syncfusion.Windows.GridCommon.NamespaceDoc">
+            <summary>
+            Contains the utlities used to maintain and perform common functionalities.
+            </summary>
+        </member>
         <member name="T:Syncfusion.Windows.GridCommon.ColorHelper">
             <summary>
             Provides some helper routines related to brushes and colors.
@@ -16202,6 +16243,11 @@
             <returns></returns>
         </member>
         <!-- Badly formed XML comment ignored for member "M:Syncfusion.Windows.Controls.Grid.DependencyObjectExtensions.FindElementsOfType``1(System.Windows.FrameworkElement)" -->
+        <member name="T:Syncfusion.Windows.Controls.Grid.NamespaceDoc">
+            <summary>
+            Contains extension classes for some common operations on dependency object.
+            </summary>
+        </member>
         <member name="T:Syncfusion.Windows.Controls.VirtualTreeView.TreeCellDataTemplateRenderer">
             <summary>
             A renderer that manages a DataTemplate specified with <see cref="P:Syncfusion.Windows.Controls.VirtualTreeView.TreeStyleInfo.CellTemplateKey"/>
@@ -18679,6 +18725,11 @@
             Gets the cumulated height in pixels.
             </summary>
             <value>The height.</value>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.VirtualTreeView.NamespaceDoc">
+            <summary>
+            Contains classes required for rendering GridTreeControl.
+            </summary>
         </member>
         <member name="T:Syncfusion.Windows.Controls.VirtualTreeView.TreePrepareRenderCellEventArgs">
             <summary>

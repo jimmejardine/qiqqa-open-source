@@ -191,53 +191,95 @@
             </remarks>
             <seealso cref="T:Syncfusion.UI.Xaml.Controls.Notification.AnimationTypes"/>
         </member>
-        <member name="M:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.#ctor">
+        <member name="F:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.MinAnimationSpeed">
             <summary>
-            Initializes a new instance of the <see
-            cref="T:Syncfusion.UI.Xaml.Controls.Notification.BusyIndicator"/> class.
+            MinAnimationSpeed field.
             </summary>
-            <seealso
-            cref="N:Syncfusion.UI.Xaml.Controls.Notification">Syncfusion.UI.Xaml.Controls.Notification
-            Namespace</seealso>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.MaxAnimationSpeed">
+            <summary>
+            MaxAnimationSpeed field.
+            </summary>
         </member>
         <member name="F:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.AnimationTypeProperty">
             <summary>
-             Using a DependencyProperty as the backing store for AnimationType.  This enables animation, styling, binding, etc...
-             </summary>
+            Gets or sets the animation types of busyindicator. It is used to change the various types of animation.
+            </summary>
+            <remarks>This <see cref="!:BindableProperty"/> is read-only.</remarks>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.AnimationSpeedProperty">
+            <summary>
+            Gets or sets the animation speed of busyindicator. Using this property, you can change the speed of animation.
+            </summary>
+            <remarks>This <see cref="!:BindableProperty"/> is read-only.</remarks>
         </member>
         <member name="F:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.ViewboxHeightProperty">
             <summary>
-             Using a DependencyProperty as the backing store for ViewboxHeight.  This enables animation, styling, binding, etc...
-             </summary>
+            Identifies ViewBoxHeight. It is used to change the height of the view box <see cref="!:BindableProperty"/>.
+            </summary>  
+            <remarks>This <see cref="!:BindableProperty"/> is read-only.</remarks>
         </member>
         <member name="F:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.ViewboxWidthProperty">
             <summary>
-             Using a DependencyProperty as the backing store for ViewboxWidth.  This enables animation, styling, binding, etc...
-             </summary>
+            Identifies ViewBoxWidth. It is used to change the width of the view box <see cref="!:BindableProperty"/>.
+            </summary>  
+            <remarks>This <see cref="!:BindableProperty"/> is read-only.</remarks>
         </member>
         <member name="F:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.IsBusyProperty">
             <summary>
-             Using a DependencyProperty as the backing store for IsBusy.  This enables animation, styling, binding, etc...
-             </summary>
+            Identifies the IsBusy property of busy indicator. It is used to determine whether the animation of indiacator to be shown or not <see cref="!:BindableProperty"/>.
+            </summary>
+            <remarks>This <see cref="!:BindableProperty"/> is read-only.</remarks>
         </member>
         <member name="F:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.HeaderProperty">
             <summary>
-             Using a DependencyProperty as the backing store for Header.  This enables animation, styling, binding, etc...
-             </summary>
+            Identifies the Header property of busy indicator. It is used to give the header to the  <see cref="T:Syncfusion.Windows.Controls.Notification.SfBusyIndicator"/>
+            </summary>  
+            <remarks>This <see cref="!:BindableProperty"/> is read-only.</remarks>
         </member>
         <member name="F:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.HeaderTemplateProperty">
             <summary>
-             Using a DependencyProperty as the backing store for HeaderTemplate.  This enables animation, styling, binding, etc...
-             </summary>
+            Identifies HeaderTemplate. It is used to give the template to the header in <see cref="T:Syncfusion.Windows.Controls.Notification.SfBusyIndicator"/>.
+            </summary>  
         </member>
-        <member name="M:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.OnAnimationTypeChanged(System.Windows.DependencyPropertyChangedEventArgs)">
+        <member name="F:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.busy">
             <summary>
-            Sets the State of Animation type of the<see
-            cref="T:Syncfusion.UI.Xaml.Controls.Notification.SfBusyIndicator"/> control.
+            Busy indicator field.
             </summary>
-            <value>
-            <c>true</c> if this instance is changed; otherwise, <c>false</c>.
-            </value>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.layoutRoot">
+            <summary>
+            Indicate whether the Animation Paused or not.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.storyBoard">
+            <summary>
+            storyBoard field.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.content">
+            <summary>
+            FrameworkElement Content.
+            </summary>
+            <seealso cref="T:Syncfusion.UI.Xaml.Controls.Notification.AnimationTypes"/>
+        </member>
+        <member name="F:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.isPaused">
+            <summary>
+            storyBoard field.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.Windows.Controls.Notification.SfBusyIndicator"/> class.
+            </summary>
+            <seealso cref="N:Syncfusion.UI.Xaml.Controls.Notification">Syncfusion.UI.Xaml.Controls.Notification Namespace
+            </seealso>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.Dispose">
+            <summary>
+            Disposes the <see
+            cref="T:Syncfusion.UI.Xaml.Controls.Notification.SfBusyIndicator"/> control while unloading.
+            </summary>        
         </member>
         <member name="M:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.OnApplyTemplate">
             <summary>
@@ -248,11 +290,78 @@
             <c>true</c> if this instance is changed; otherwise, <c>false</c>.
             </value>
         </member>
-        <member name="M:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.Dispose">
+        <member name="M:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.OnAnimationTypeChanged(System.Windows.DependencyPropertyChangedEventArgs)">
             <summary>
-            Disposes the <see
-            cref="T:Syncfusion.UI.Xaml.Controls.Notification.SfBusyIndicator"/> control while unloading.
-            </summary>        
+            Sets the State of Animation type of the args<see cref="T:Syncfusion.UI.Xaml.Controls.Notification.SfBusyIndicator"/> control.
+            </summary>
+            <param name="args">DependencyPropertyChangedEventArgs as args</param>
+            <value>
+            <c>true</c> if this instance is changed; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.Dispose(System.Boolean)">
+            <summary>
+            Dispose Method to remove all the instance.
+            </summary>
+            <param name ="disposing">boolean as disposing </param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.OnPropertyChanged(System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            On property changed
+            </summary>
+            <param name="e">event args</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.BusyMethod">
+            <summary>
+            Busy method
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.OnIsBusyChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            OnIsBusyChanged Method.
+            </summary>
+            <param name="d">DependencyObject as d.</param>
+            <param name="e">DependencyPropertyEvent Argument as e.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.OnAnimationSpeedChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            BusyIndicator Enabled Method.
+            </summary>
+            <param name="d">Dependency Object as d.</param>
+            <param name="e">DependencyPropertyEvent Argument as e.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.OnAnimationTypeChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            OnAnimationTypeChanged Method.
+            </summary>
+            <param name="sender">DependencyObject as sender.</param>
+            <param name="e">DependencyPropertyEvent Argument as e.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.SfBusyIndicator_Unloaded(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            BusyIndicator UnLoaded Method.
+            </summary>
+            <param name="sender">object as sender.</param>
+            <param name="e">RoutedEvent Argument as e.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.SfBusyIndicator_Loaded(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            BusyIndicator Loaded Method.
+            </summary>
+            <param name="sender">object as sender.</param>
+            <param name="e">RoutedEvent Argument as e.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.SfBusyIndicator_IsEnabledChanged(System.Object,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            BusyIndicator Enabled Method.
+            </summary>
+            <param name="sender">object as sender.</param>
+            <param name="e">DependencyPropertyEvent Argument as e.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.UpdateVisualState">
+            <summary>
+            UpdateVisualState Method.
+            </summary>
         </member>
         <member name="P:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.AnimationType">
             <summary>
@@ -266,10 +375,14 @@
             cref="P:Syncfusion.UI.Xaml.Controls.Notification.SfBusyIndicator.OnAnimationTypeChanged"/>
             <seealso cref="T:Syncfusion.UI.Xaml.Controls.Notification.SfBusyIndicator"/>
         </member>
+        <member name="P:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.AnimationSpeed">
+            <summary>
+            Gets or sets the Maximum and Minimum  AnimationSpeed. Using this property, you can change the speed of animation.
+            </summary>
+        </member>
         <member name="P:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.ViewboxHeight">
             <summary>
-            Gets or sets the ViewboxHeight of the <see
-            cref="T:Syncfusion.UI.Xaml.Controls.Notification.SfBusyIndicator"/> 
+            Gets or sets the ViewBox Height of the <see cref="T:Syncfusion.UI.Xaml.Controls.Notification.SfBusyIndicator"/> 
             </summary>
             <value>
             The default value is 0.0.
@@ -277,7 +390,7 @@
         </member>
         <member name="P:Syncfusion.Windows.Controls.Notification.SfBusyIndicator.ViewboxWidth">
             <summary>
-            Gets or sets the ViewboxWidth of the <see
+            Gets or sets the ViewBox Width of the <see
             cref="T:Syncfusion.UI.Xaml.Controls.Notification.SfBusyIndicator"/> 
             </summary>
             <value>
@@ -331,11 +444,6 @@
             Root namespace of the assembly.
             </summary>
         </member>
-        <member name="M:Syncfusion.SfBusyIndicatorBaseAssembly.#cctor">
-            <summary>
-            Initializes static members of the <see cref="T:Syncfusion.SfBusyIndicatorBaseAssembly"/> class.
-            </summary>
-        </member>
         <member name="M:Syncfusion.SfBusyIndicatorBaseAssembly.AssemblyResolver(System.Object,System.ResolveEventArgs)">
             <summary>
             Assemblies the resolver.
@@ -343,11 +451,6 @@
             <param name="sender">The sender.</param>
             <param name="e">The <see cref="T:System.ResolveEventArgs"/> instance containing the event data.</param>
             <returns>Assembly object.</returns>
-        </member>
-        <member name="T:Syncfusion.AssemblyInfo">
-            <summary>
-            Assembly info class
-            </summary>
         </member>
         <member name="T:Syncfusion.Windows.Controls.Notification.Properties.Resources">
             <summary>

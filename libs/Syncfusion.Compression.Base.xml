@@ -1455,6 +1455,718 @@
             comment fields for this file must be encoded using UTF-8.
             </summary>
         </member>
+        <member name="T:Syncfusion.Compression.Zip.Aes">
+            <summary>
+            Class used for implementing Advanced Encryption Standard algorithm.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Aes.Nb">
+            <summary>
+            block size in 32-bit words.  Always 4 for AES.  (128 bits).
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Aes.Nk">
+            <summary>
+            key size in 32-bit words.  4, 6, 8.  (128, 192, 256 bits).
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Aes.Nr">
+            <summary>
+            number of rounds. 10, 12, 14.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Aes.key">
+            <summary>
+            the seed key. size will be 4 * keySize .
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Aes.Sbox">
+            <summary>
+            Substitution box
+             </summary>    
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Aes.iSbox">
+            <summary>
+            inverse Substitution box 
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Aes.w">
+            <summary>
+            key schedule array. 
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Aes.Rcon">
+            <summary>
+            Round constants
+             </summary>     
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Aes.State">
+            <summary>
+            State matrix
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Aes.mKeySize">
+            <summary>
+            AES key size
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Aes.m_salt">
+            <summary>
+            Salt value
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Aes.m_macKey">
+            <summary>
+            Message Authentication Code Key
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Aes.m_storedmac">
+            <summary>
+            Stored Message Authentication Code
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Aes.m_compMac">
+            <summary>
+            Computed Message Authentication Code
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Aes.m_encryptionKey">
+            <summary>
+            Encryption Key
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Aes.m_passVer">
+            <summary>
+            Password verifier
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Aes.m_password">
+            <summary>
+            Password
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Aes.m_keyBytes">
+            <summary>
+            No of keyBytes
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Aes.m_saltBytes">
+            <summary>
+            No of saltBytes
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.Aes.Initialize">
+            <summary>
+            Initiates Aes
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.Aes.SetKey(Syncfusion.Compression.Zip.Aes.KeySize,System.Byte[])">
+            <summary> 
+            Initializes a new instance of the Aes class.
+            </summary>
+            <param name="keySize">Key size.</param>
+            <param name="keyBytes">Key bytes</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.Aes.Cipher(System.Byte[],System.Byte[])">
+            <summary>
+            Encipher 16 bit input
+            </summary>
+            <param name="input">16 bit Input</param>
+            <param name="output">Output value</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.Aes.InvCipher(System.Byte[],System.Byte[])">
+            <summary>
+             Decipher 16-bit input
+            </summary>
+            <param name="input"></param>
+            <param name="output"></param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.Aes.SetNbNkNr(Syncfusion.Compression.Zip.Aes.KeySize)">
+            <summary>
+            SetNbNkNr()
+            </summary>
+            <param name="keySize">Keysize</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.Aes.BuildSbox">
+            <summary>
+            Building S-box
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.Aes.BuildInvSbox">
+            <summary>
+            Building Inverse S-box
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.Aes.BuildRcon">
+            <summary>
+            Builds Rotation array
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.Aes.AddRoundKey(System.Int32)">
+            <summary>
+            Adds rounf Key
+            </summary>
+            <param name="round">No of Rounds</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.Aes.SubBytes">
+            <summary>
+             SubBytes
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.Aes.InvSubBytes">
+            <summary>
+            InvSubBytes
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.Aes.ShiftRows">
+            <summary>
+            ShiftRows()
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.Aes.InvShiftRows">
+            <summary>
+            InvShiftRows()
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.Aes.MixColumns">
+            <summary>
+            MixColumns
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.Aes.InvMixColumns">
+            <summary>
+            InvMixColumns
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.Aes.KeyExpansion">
+            <summary>
+            Key Expansion
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.Aes.SubWord(System.Byte[])">
+            <summary>
+            Subword
+            </summary>
+            <param name="word">Word</param>
+            <returns>resulted word</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.Aes.RotWord(System.Byte[])">
+            <summary>
+            Rotates word
+            </summary>
+            <param name="word">Input</param>
+            <returns>Result</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.Aes.Dump">
+            <summary>
+            Dump
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.Aes.DumpKey">
+            <summary>
+            Dump key.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.Aes.DumpTwoByTwo(System.Byte[0:,0:])">
+            <summary>
+            Dump two by two.
+            </summary>
+            <param name="a"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.Aes.GenerateCryptographicKey">
+            <summary>
+            Generates a key for Encryption and Decryption
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.Aes.GenerateMAC(System.Byte[])">
+            <summary>
+            Generates Message Authentication Code
+            </summary>
+            <param name="data">data used for MAC</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.Aes.Compare(System.Byte[],System.Byte[])">
+            <summary>
+            Compares two bytes arrays
+            </summary>
+            <param name="input1">First byte array</param>
+            <param name="input2">Second byte array </param>
+            <returns>true if two arrays are same</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.Aes.SetKeyBytes(Syncfusion.Compression.Zip.EncryptionAlgorithm)">
+            <summary>
+            Set key and salt lengths for AES key
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.Aes.Decrypt(System.Byte[])">
+            <summary>
+             Decrypt the cipherData
+            </summary>
+            <param name="cipherData">Encrypted data</param>
+            <returns>Decrypted</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.Aes.Encrypt(System.Byte[])">
+            <summary>
+            Encrypt the plain data
+            </summary>
+            <param name="plainData">Data needs to be encrypted</param>
+            <returns>Encrypted data</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.Aes.AesEncryptDecrypt(System.Byte[],System.Byte[])">
+            <summary>
+            Counter Mode Encryption
+            </summary>
+            <param name="input">Encrypted data</param>
+            <param name="output">Decrypted data to get </param>
+            <param name="aesKey">AES encryption Key</param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.Compression.Zip.Aes.KeySize">
+            <summary>
+            Possible key sizes.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Aes.KeySize.Bits128">
+            <summary>
+            128-bit.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Aes.KeySize.Bits192">
+            <summary>
+            192-bit.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.Aes.KeySize.Bits256">
+            <summary>
+            256-bit.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Compression.Zip.RFC2898Key">
+            <summary>
+            Implementation Rfc2898Key generation
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.RFC2898Key.m_block">
+            <summary>
+            Block Number
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.RFC2898Key.m_rfcBuffer">
+            <summary>
+            Rfc Buffer
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.RFC2898Key.m_endOffset">
+            <summary>
+            End Offset
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.RFC2898Key.m_iterations">
+            <summary>
+            No of Iterations
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.RFC2898Key.m_salt">
+            <summary>
+            Salt Value
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.RFC2898Key.m_startOffset">
+            <summary>
+            Start Offset
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.RFC2898Key.m_password">
+            <summary>
+            Password
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.RFC2898Key.m_blockSizeValue">
+            <summary>
+            BlockSize for SHA1 buffer
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.RFC2898Key.m_inner">
+            <summary>
+            Inner buffer
+             </summary>      
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.RFC2898Key.m_outer">
+            <summary>
+            Outer buffer
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.RFC2898Key.m_hashing">
+            <summary>
+            Indicates whether needs hash
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.RFC2898Key.m_keyVal">
+            <summary>
+            Key Value
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.RFC2898Key.m_buffer">
+            <summary>
+            Buffer
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.RFC2898Key.m_count">
+            <summary>
+            No of hash
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.RFC2898Key.m_stateSHA1">
+            <summary>
+            State of SHA1
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.RFC2898Key.m_expandedBuffer">
+            <summary>
+            Expanded array
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.RFC2898Key.m_hmacHashVal">
+            <summary>
+            HMAC hash value
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.RFC2898Key.m_sha1HashVal">
+            <summary>
+            SHA1 hash value
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.RFC2898Key.#ctor(System.String,System.Byte[],System.Int32)">
+            <summary>
+            Constructor 
+            </summary>
+            <param name="password">Password</param>
+            <param name="salt">salt value to get key</param>
+            <param name="iterations">No of iteration used</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.RFC2898Key.#ctor(System.Byte[],System.Byte[],System.Int32)">
+            <summary>
+            Constructor 
+            </summary>
+            <param name="password">Password</param>
+            <param name="salt">salt value to get key</param>
+            <param name="iterations">No of iteration used</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.RFC2898Key.ByteArray(System.Int32)">
+            <summary>
+            Creates a byte array for input 
+            </summary>
+            <param name="input">Input</param>
+            <returns>Converted byte array for input</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.RFC2898Key.DeriveCryptographicKey">
+            <summary>
+            Derives key
+            </summary>
+            <returns>key</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.RFC2898Key.GetBytes(System.Int32)">
+            <summary>
+            Generates the byte array based on the given length
+            </summary>
+            <param name="length">Length of the array</param>
+            <returns>Byte array</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.RFC2898Key.InitializeRfc2898">
+            <summary>
+            Initializes the RFC to initial state
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.RFC2898Key.UpdateInnerAndOuterArrays">
+            <summary>
+            Updates the m_inner and m_outer arrays
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.RFC2898Key.InitializeKey(System.Byte[])">
+            <summary>
+            Initializes the key value
+            </summary>
+            <param name="keyVal"></param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.RFC2898Key.ComputeHash(System.Byte[])">
+            <summary>
+            Computes hash code for the given data
+            </summary>
+            <param name="data">input data</param>
+            <returns>return hash in bytes</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.RFC2898Key.UpdateBlock(System.Byte[],System.Int32,System.Int32,System.Byte[],System.Int32)">
+            <summary>
+            Computes hash for the specified region from input for the given offset and copies the data to the output from the given offset
+            </summary>
+            <param name="input">Input array</param>
+            <param name="inputOff">input Offset</param>
+            <param name="count">Length</param>
+            <param name="output">Output array</param>
+            <param name="outputOff">output Offset</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.RFC2898Key.UpdateFinalBlock(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Computes hash for the specified region from input for the given offset.
+            </summary>
+            <param name="input">Input array</param>
+            <param name="inputOff">input Offset</param>
+            <param name="count">Length</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.RFC2898Key.Initialize">
+            <summary>
+            Clears all value rom arrays
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.RFC2898Key.InitializeState">
+            <summary>
+            Initializes State values
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.RFC2898Key.UpdateHashData(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Computes hash for the given input data from the specified offset and Length
+            </summary>
+            <param name="inputData">Input</param>
+            <param name="startOffSet">start from the input array</param>
+            <param name="size">length needs to be hashed</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.RFC2898Key.UpdateEndHash">
+            <summary>
+            Computes the final hash code
+            </summary>
+            <returns>hash data</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.RFC2898Key.SHAModify(System.UInt32[],System.UInt32[],System.Byte[])">
+            <summary>
+            Modifies the buffer using SHA 
+            </summary>
+            <param name="expandedBuffer">input </param>
+            <param name="state">State array</param>
+            <param name="block">Blocks</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.RFC2898Key.SHAExpansion(System.UInt32[])">
+            <summary>
+            Expand the input array using SHA
+            </summary>
+            <param name="input">Input array</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.RFC2898Key.DWORDFromBigEndian(System.UInt32[],System.Int32,System.Byte[])">
+            <summary>
+            Convert the BigEndian to DWORD
+            </summary>
+            <param name="input">Dword array</param>
+            <param name="digits">No of digits</param>
+            <param name="block">Input block</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.RFC2898Key.DWORDToBigEndian(System.Byte[],System.UInt32[],System.Int32)">
+            <summary>
+            Convert Dword to BigEndian
+            </summary>
+            <param name="blockData">BigEndian array</param>
+            <param name="output">Output array</param>
+            <param name="digits">no of digits</param>
+        </member>
+        <member name="P:Syncfusion.Compression.Zip.RFC2898Key.Hash">
+            <summary>
+            Hash value
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Compression.Zip.SecurityConstants">
+            <summary>
+             Contains security Constants
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.SecurityConstants.AesPassVerLength">
+            <summary>
+            Password Verifier Length of AES Encryption
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.SecurityConstants.AesMacLength">
+            <summary>
+             Message Authentication Code Length of AES Encryption
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.SecurityConstants.ZipCryptoPassLength">
+            <summary>
+            Password Length of ZipCrypto Encryption
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.SecurityConstants.ZipCryptoPassVerPos">
+            <summary>
+            Password verifier value position of ZipCrypto 0 based index
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.SecurityConstants.PKZipEncryptionHeader">
+            <summary>
+            PKZip strong encryption header length
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.SecurityConstants.AES">
+            <summary>
+            AES compression method
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.SecurityConstants.Rfc2898BlockSize">
+            <summary>
+            Block size for Rfc2898Key
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.SecurityConstants.PassIterations">
+            <summary>
+            Password iteration Count for AES
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.SecurityConstants.AesBlockSize">
+            <summary>
+            Aes Block Size
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.SecurityConstants.AesEncryptionHeader">
+            <summary>
+            AES encryption header constants
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Compression.Zip.ZipCrypto">
+            <summary>
+            ZipCrypto Encryption and Decryption
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZipCrypto.m_dataStream">
+            <summary>
+            Data stream
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZipCrypto.m_password">
+            <summary>
+            Password
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZipCrypto.m_iCrc">
+            <summary>
+            Crc value
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZipCrypto.m_Keys">
+            <summary>
+            Initial keys
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZipCrypto.m_crc32">
+            <summary>
+            ZipCrc32
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipCrypto.#ctor(System.IO.Stream,System.String)">
+            <summary>
+            Constructor initializes Data stream and password
+            </summary>
+            <param name="dataStream">Data</param>
+            <param name="password">Password</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipCrypto.#ctor(System.String,System.UInt32)">
+            <summary>
+            Initializes Password and Crc value
+            </summary>
+            <param name="password">Password</param>
+            <param name="crc">Crc value</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipCrypto.Initialize">
+            <summary>
+            Initializes key and crc
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipCrypto.UpdatePassword(System.String)">
+            <summary>
+            Update password
+            </summary>
+            <param name="password">Password</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipCrypto.UpdateKeys(System.Byte)">
+            <summary>
+            Update key values
+            </summary>
+            <param name="byteVal">byte needed for key update</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipCrypto.InitiateCipher(System.String)">
+            <summary>
+            Initializes the keys using Password
+            </summary>
+            <param name="passphrase">Password of the zip file</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipCrypto.Write(System.String)">
+            <summary>
+             Key Update using password
+            </summary>
+            <param name="password">Password of the zip file</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipCrypto.EncryptMessage(System.Byte[])">
+            <summary>
+             Data Encryption
+            </summary>
+            <param name="plainData">Plain data</param>
+            <returns>Cipher data</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipCrypto.DecryptMessage(System.Byte[])">
+            <summary>
+            Data Decryption
+            </summary>
+            <param name="cipherData">Cipher data</param>
+            <returns>Plain data</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipCrypto.Decrypt(System.Byte[])">
+            <summary>
+            Decrypt the data using ZipCrypto
+            </summary>
+            <param name="data">Cipher data</param>
+            <returns>Plain data</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipCrypto.Encrypt(System.Byte[])">
+            <summary>
+            Encrypt the data using ZipCrypto
+            </summary>
+            <param name="data">Plain data</param>
+            <returns> Cipher data</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipCrypto.GetCryptoByte">
+            <summary>
+            Generates the Encryption and Decryption Byte
+            </summary>
+            <returns>byte value</returns>
+        </member>
+        <member name="T:Syncfusion.Compression.Zip.EncryptionAlgorithm">
+            <summary>
+            Encryption types.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.EncryptionAlgorithm.None">
+            <summary>
+            No Encryption
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.EncryptionAlgorithm.AES128">
+            <summary>
+            AES-128 bit encryption
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.EncryptionAlgorithm.AES192">
+            <summary>
+             AES-192 bit encryption
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.EncryptionAlgorithm.AES256">
+            <summary>
+             AES-256 bit encryption
+             </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.EncryptionAlgorithm.ZipCrypto">
+            <summary>
+            ZipCrypto Encryption
+            </summary>
+        </member>
         <member name="T:Syncfusion.Compression.Zip.ZipArchive">
             <summary>
             Represents zip archive.
@@ -1492,6 +2204,16 @@
         <member name="F:Syncfusion.Compression.Zip.ZipArchive.m_netCompression">
             <summary>
             Compresses files using custom NetCompressor.
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZipArchive.m_password">
+            <summary>
+            Password for the zip File
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZipArchive.m_encryptType">
+            <summary>
+            Type of the Encryption
             </summary>
         </member>
         <member name="F:Syncfusion.Compression.Zip.ZipArchive.CreateCompressor">
@@ -1686,6 +2408,34 @@
             </summary>
             <returns>A copy of the current instance.</returns>
         </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchive.Protect(System.String,Syncfusion.Compression.Zip.EncryptionAlgorithm)">
+            <summary>
+            Protects the archived file with password using specified algorithm.
+            </summary>
+            <param name="password">Password to protect.</param>
+            <param name="type">Type of encryption algorithm to be used.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchive.UnProtect">
+            <summary>
+            Removes password from the compressed file.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchive.Open(System.String,System.String)">
+            <summary>
+            Opens an encrypted zip file with password.
+            </summary>
+            <param name="fileName">File Name.</param>
+            <param name="password">Password of the file to open.</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchive.Open(System.IO.Stream,System.Boolean,System.String)">
+            <summary>
+            Reads archive data from the stream. In the current implementation
+            stream must be seekable and readable to extract data.
+            </summary>
+            <param name="stream">Stream to read data from.</param>
+            <param name="closeStream">Indicates whether method should close stream after reading.</param>
+            <param name="password">Password for the file to open.</param>
+        </member>
         <member name="M:Syncfusion.Compression.Zip.ZipArchive.Dispose">
             <summary>
             A method to release allocated unmanaged resources.
@@ -1739,6 +2489,16 @@
         <member name="P:Syncfusion.Compression.Zip.ZipArchive.UseNetCompression">
             <summary>
             Uses custom compressed stream reader and writer.
+            </summary>
+        </member>
+        <member name="P:Syncfusion.Compression.Zip.ZipArchive.EncryptionAlgorithm">
+            <summary>
+             Returns the encryption algorithm used. Default value is NONE.
+             </summary>
+        </member>
+        <member name="P:Syncfusion.Compression.Zip.ZipArchive.Password">
+            <summary>
+            Password for ZipFile
             </summary>
         </member>
         <member name="T:Syncfusion.Compression.Zip.ZipArchiveItem">
@@ -1819,6 +2579,11 @@
         <member name="F:Syncfusion.Compression.Zip.ZipArchiveItem.m_bOptimizedDecompress">
             <summary>
             
+            </summary>
+        </member>
+        <member name="F:Syncfusion.Compression.Zip.ZipArchiveItem.m_actualCompression">
+            <summary>
+            Actual compression when Aes Encryption
             </summary>
         </member>
         <member name="M:Syncfusion.Compression.Zip.ZipArchiveItem.#ctor(Syncfusion.Compression.Zip.ZipArchive)">
@@ -1939,6 +2704,13 @@
             <param name="stream">Stream to copy.</param>
             <returns>Created stream.</returns>
         </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchiveItem.CheckForLatin(System.String)">
+            <summary>
+                Checks for Latin characters in the Unicode string.
+            </summary>
+            <param name="unicodeText">Input Unicode string.</param>
+            <returns>True if the Unicode string contain Latin characters. False otherwise.</returns>
+        </member>
         <member name="M:Syncfusion.Compression.Zip.ZipArchiveItem.Dispose">
             <summary>
             A method to release allocated unmanaged resources.
@@ -1949,12 +2721,39 @@
             Finilizer.
             </summary>
         </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchiveItem.WriteEncryptionHeader(System.IO.Stream)">
+            <summary>
+             Writes the header to Indicate the zip the file is encrypted.
+            </summary>
+            <param name="stream">The data to write</param>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchiveItem.Encrypt(System.Byte[])">
+            <summary>
+            Data Encryption
+            </summary>
+            <param name="plainData">Data to be Encrypted</param>
+            <returns>Encrypted data</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchiveItem.Decrypt(System.Byte[])">
+            <summary>
+            Data Decryption
+            </summary>
+            <param name="cipherData">Data needs to be decrypted</param>
+            <returns>Decrypted data</returns>
+        </member>
         <member name="M:Syncfusion.Compression.Zip.ZipArchiveItem.IsIBM437Encoding(System.String)">
             <summary>
             Checks whether the file has unicode characters.
             </summary>
             <param name="fileName">Name of the file.</param>
             <returns></returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipArchiveItem.CreateRandom(System.Int32)">
+            <summary>
+            Create a Random byte Array
+            </summary>
+            <param name="length">Length of the salt value</param>
+            <returns>salt value</returns>
         </member>
         <member name="P:Syncfusion.Compression.Zip.ZipArchiveItem.ItemName">
             <summary>
@@ -2043,6 +2842,14 @@
             </summary>
             <param name="crcNumber">"Magic" number.</param>
             <returns>Create table.</returns>
+        </member>
+        <member name="M:Syncfusion.Compression.Zip.ZipCrc32.ComputeCrc(System.UInt32,System.UInt32)">
+            <summary>
+             Computes crc value for given number
+            </summary>
+            <param name="number">Number to calculate Crc value</param>
+            <param name="start">Initial crc-32 value</param>
+            <returns>Crc value</returns>
         </member>
         <member name="T:Syncfusion.Compression.Zip.ZipException">
             <summary>

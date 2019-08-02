@@ -4601,6 +4601,11 @@
             Parses all values by converting them as string.
             </summary>
         </member>
+        <member name="P:Syncfusion.Linq.ClassFactory.Instance">
+            <summary>
+            Gets the new instance of the ClassFactory class.
+            </summary>
+        </member>
         <member name="T:Syncfusion.Linq.NullableHelperInternal">
             <summary>
             A framework independent utility class for the new Nullable type in .NET Framework 2.0

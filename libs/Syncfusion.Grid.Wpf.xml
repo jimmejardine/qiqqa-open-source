@@ -4,6 +4,11 @@
         <name>Syncfusion.Grid.Wpf</name>
     </assembly>
     <members>
+        <member name="T:Syncfusion.NamespaceDoc">
+            <summary>
+            Contains the class for assembly information.
+            </summary>
+        </member>
         <member name="T:Syncfusion.GridWpfAssembly">
             <summary>
             This class holds the name of the Syncfusion.Windows.Controls.Grid assembly and provides a helper 
@@ -38,6 +43,16 @@
             Use this handler when reading back types from a serialization stread
             saved with an earlier version of this assembly.
             </remarks>
+        </member>
+        <member name="T:Syncfusion.Windows.Automation.Linq.NamespaceDoc">
+            <summary>
+            Contains classes which are required to automate the grid.
+            </summary>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Grid.Automation.Peers.NamespaceDoc">
+            <summary>
+            Contains classes which provide the automation peer functionalities to the grid.
+            </summary>
         </member>
         <member name="T:Syncfusion.Windows.Controls.Grid.DataPagerExt">
             <summary>
@@ -2594,6 +2609,11 @@
             Returns the model of drop-down list control.
             </summary>
         </member>
+        <member name="T:Syncfusion.Windows.Controls.Grid.GridCellRenderer.DropdownCellRenderers.NamespaceDoc">
+            <summary>
+            Contains classes to create the renderers for Dropdown cell types. 
+            </summary>
+        </member>
         <member name="P:Syncfusion.Windows.Controls.Grid.GridCellRenderer.DropdownCellRenderers.GridDataControlDropDownCellRenderer.DisplayMember">
             <summary>
             Display member of the dropdown grid.
@@ -2923,6 +2943,11 @@
             <param name="rowIndex">Cell row index.</param>
             <param name="colIndex">Cell column index.</param>
             <param name="e">A reference to <see cref="T:Syncfusion.Windows.Controls.Scroll.MouseControllerEventArgs"/>.</param>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Grid.GridCellRenderer.NamespaceDoc">
+            <summary>
+            Contains interface and classes to create the renderers for all supported cell types. 
+            </summary>
         </member>
         <member name="M:Syncfusion.Windows.Controls.Grid.GridCellRenderer.GridCellRichTextBoxCellRenderer.OnInitializeContent(System.Windows.Controls.RichTextBox,Syncfusion.Windows.Controls.Grid.GridRenderStyleInfo)">
             <summary>
@@ -18402,7 +18427,7 @@
             by either ASC or DESC depending upon the ListSortDirection.
             </summary>
             <param name="property">The property name.</param>
-            <param name="dir">The ListSortDirection.</param>
+            <param name="direction">The ListSortDirection.</param>
             <returns>The string consisting of the property name followed by a space followed 
             by either ASC or DESC.</returns>
         </member>
@@ -18540,6 +18565,11 @@
             Raises the CreatingTreeNode event.
             </summary>
             <param name="e">The event argument.</param>
+        </member>
+        <member name="M:Syncfusion.Windows.Controls.Grid.GridTreeControl.OnNodesSorted">
+            <summary>
+            Called after sorting the nodes in GridTreeControl
+            </summary>
         </member>
         <member name="F:Syncfusion.Windows.Controls.Grid.GridTreeControl.SelectedNodeProperty">
             <summary>
@@ -18843,8 +18873,14 @@
         </member>
         <member name="P:Syncfusion.Windows.Controls.Grid.GridTreeControl.FooterRows">
             <summary>
-            Gets or sets the FooterRows count.
+            Gets or sets the number of non-scrolling rows at bottom of the GridTreeControl.
             </summary>
+            <value>
+            The number of non-scrolling rows at bottom. The default value is <b>zero</b>.
+            </value>
+            <remarks>
+            Footer rows are always displayed and it can’t be scrolled out of visibility.
+            </remarks>
         </member>
         <member name="P:Syncfusion.Windows.Controls.Grid.GridTreeControl.FrozenRows">
             <summary>
@@ -19431,14 +19467,14 @@
             Sorts the tree contents within tree levels.
             </summary>
             <param name="colName">The name of the column to be sorted.</param>
-            <param name="dir">The direction of the sort.</param>
+            <param name="direction">The direction of the sort.</param>
         </member>
         <member name="M:Syncfusion.Windows.Controls.Grid.GridTreeControlImpl.SortTree(System.String,System.ComponentModel.ListSortDirection,System.Boolean)">
             <summary>
             Sorts the tree contents within tree levels.
             </summary>
             <param name="colName">The name of the column to be sorted.</param>
-            <param name="dir">The direction of the sort.</param>
+            <param name="direction">The direction of the sort.</param>
             <param name="clearSort">Whether any existing sort should be cleared before the new sort is applied.</param>
         </member>
         <member name="M:Syncfusion.Windows.Controls.Grid.GridTreeControlImpl.ResetDisplay">
@@ -20435,6 +20471,7 @@
             Gets text data exchange for the grid. Lets you copy cell text to a stream or clipboard and recreate the
             cell text at a later time.
             </summary>
+            WPF-43414:Provide the set access for this property due to call the GridTreeModelTextDataExchange class in sample level
         </member>
         <member name="T:Syncfusion.Windows.Controls.Grid.GridTreeNode">
             <summary>
@@ -21506,6 +21543,7 @@
             <summary>
             Gets or sets the error content alignment.
             </summary>
+            <remarks>The <see cref="P:Syncfusion.Windows.Controls.Grid.GridErrorStyleInfo.ErrorContentAlignment"/> property doesn't support <see cref="F:Syncfusion.Windows.Controls.Grid.ImageContentAlignment.Center"/>. Only Left and Right alignments are supported.</remarks>
         </member>
         <member name="P:Syncfusion.Windows.Controls.Grid.GridErrorStyleInfo.HasErrorContentAlignment">
             <summary>
@@ -38172,6 +38210,12 @@
             Image appears after the cell content.
             </summary>
         </member>
+        <member name="F:Syncfusion.Windows.Controls.Grid.ImageContentAlignment.Center">
+            <summary>
+            Image appears at center of the cell. But,
+            this alignment is not applicable to the <see cref="P:Syncfusion.Windows.Controls.Grid.GridErrorStyleInfo.ErrorContentAlignment"/> of GridCell.
+            </summary>
+        </member>
         <member name="T:Syncfusion.Windows.Controls.Grid.ImageContentStretch">
             <summary>
             Defines options for stretching the image in the image cell.
@@ -39869,6 +39913,11 @@
             </summary>
             <param name="sender">Event source.</param>
             <param name="e">A <see cref="T:Syncfusion.Windows.Controls.Grid.GridPrepareRenderCellEventArgs"/> that contains the event data.</param>
+        </member>
+        <member name="T:Syncfusion.Windows.Controls.Grid.NamespaceDoc">
+            <summary>
+            Contains classes which are required to create GridControl, GridDataControl and GridTreeControl.
+            </summary>
         </member>
         <member name="T:Syncfusion.Windows.Controls.Grid.GridPropertyStandardValuesList">
             <internalonly/>
