@@ -498,7 +498,7 @@ namespace Qiqqa.WebBrowsing
         }
 
 
-        bool is_first_grab_pdfs = true;        
+        //bool is_first_grab_pdfs = true;        
         void ButtonGrabPDFs_Click(object sender, RoutedEventArgs e)
         {
             Uri current_uri = CurrentWebBrowserControl.CurrentUri;
