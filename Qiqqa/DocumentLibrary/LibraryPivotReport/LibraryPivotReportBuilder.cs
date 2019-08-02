@@ -44,20 +44,18 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
 
         public static MultiMapSet<string, string> GenerateAxisMap(string axis_name, Library library, HashSet<string> parent_fingerprints)
         {
-            if (false) return null;
+            switch (axis_name) {
+            case "Tag": return TagExplorerControl.GetNodeItems(library, parent_fingerprints);
+            case "Ratings": return RatingExplorerControl.GetNodeItems(library, parent_fingerprints);
+            case "ReadingStage": return ReadingStageExplorerControl.GetNodeItems(library, parent_fingerprints);
+            case "Author": return AuthorExplorerControl.GetNodeItems(library, parent_fingerprints);
+            case "Year": return YearExplorerControl.GetNodeItems(library, parent_fingerprints);
+            case "AutoTag": return AITagExplorerControl.GetNodeItems(library, parent_fingerprints);
+            case "Publication": return PublicationExplorerControl.GetNodeItems(library, parent_fingerprints);
+            case "Theme": return ThemeExplorerControl.GetNodeItems_STATIC(library, parent_fingerprints);
+            case "Type": return TypeExplorerControl.GetNodeItems(library, parent_fingerprints);
 
-            else if ("Tag" == axis_name) return TagExplorerControl.GetNodeItems(library, parent_fingerprints);
-            else if ("Ratings" == axis_name) return RatingExplorerControl.GetNodeItems(library, parent_fingerprints);
-            else if ("ReadingStage" == axis_name) return ReadingStageExplorerControl.GetNodeItems(library, parent_fingerprints);
-            else if ("Author" == axis_name) return AuthorExplorerControl.GetNodeItems(library, parent_fingerprints);
-            else if ("Year" == axis_name) return YearExplorerControl.GetNodeItems(library, parent_fingerprints);
-            else if ("AutoTag" == axis_name) return AITagExplorerControl.GetNodeItems(library, parent_fingerprints);
-            else if ("Publication" == axis_name) return PublicationExplorerControl.GetNodeItems(library, parent_fingerprints);
-            else if ("Theme" == axis_name) return ThemeExplorerControl.GetNodeItems_STATIC(library, parent_fingerprints);
-            else if ("Type" == axis_name) return TypeExplorerControl.GetNodeItems(library, parent_fingerprints);
-
-            else
-            {
+            default:
                 Logging.Warn("Unknown pivot axis {0}", axis_name);
                 return GenerateMap_None(library, parent_fingerprints);
             }
@@ -153,14 +151,12 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
 
             public static IdentifierImplementationDelegate GetIdentifierImplementation(string identifier_name)
             {
-                if (false) return null;
+                switch (identifier_name) {
+                case "Count": return Count;
+                case "Fingerprint": return Fingerprint;
+                case "BibTeXKey": return BibTeXKey;
 
-                else if ("Count" == identifier_name) return Count;
-                else if ("Fingerprint" == identifier_name) return Fingerprint;
-                else if ("BibTeXKey" == identifier_name) return BibTeXKey;
-
-                else
-                {
+                default:
                     Logging.Warn("Unknown pivot identifier {0}", identifier_name);
                     return Count;
                 }
