@@ -132,68 +132,114 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 return;
             }
 
-            // Mark that we are now processing the folder
-            folder_contents_has_changed = false;
+            Logging.Debug("FolderWatcher BEGIN");
 
-            // If we get this far then there might be some work to do in the folder...
-            string[] filenames_in_folder = Directory.GetFiles(previous_folder_to_watch, "*.pdf", SearchOption.AllDirectories);
+            // To recover from a fatal library failure and re-indexing attempt for very large libraries,
+            // we're better off processing a limited number of source files as we'll be able to see 
+            // *some* results more quickly and we'll have a working, though yet incomplete,
+            // index in *reasonable time*.
+            //
+            // To reconstruct the entire index will take a *long* time. We grow the index and other meta
+            // stores a bunch-of-files at a time and then repeat the entire maintenance process until
+            // we'll be sure to have run out of files to process for sure...
+            const int MAX_NUMBER_OF_PDF_FILES_TO_PROCESS = 10;
+            const int MAX_SECONDS_PER_ITERATION = 15;
+            DateTime index_processing_start_time = DateTime.UtcNow;
 
-            List<PDFDocument> pdf_documents_already_in_library = library.PDFDocuments;
-
-            List<string> filenames_that_are_new = new List<string>();
-            foreach (string filename in filenames_in_folder)
+            while (folder_contents_has_changed)
             {
-                // If we already have this file in the "cache since we started", skip it
-                if (folder_watcher_manager.HaveProcessedFile(filename))
+                // If this library is busy, skip it for now
+                if (Library.IsBusyAddingPDFs)
                 {
-                    //Logging.Info("FolderWatcher is skipping {0} as it has already been processed", filename);
-                    continue;
+                    Logging.Info("FolderWatcher: Not daemon processing a library that is busy with adds...");
+                    break;
                 }
 
-                // If we already have this file in the "pdf file locations", skip it
-                bool is_already_in_library = false;
-                foreach (PDFDocument pdf_document in pdf_documents_already_in_library)
+                if (DateTime.UtcNow.Subtract(index_processing_start_time).TotalSeconds > MAX_SECONDS_PER_ITERATION)
                 {
-                    if (pdf_document.DownloadLocation == filename)
-                    {                        
-                        is_already_in_library = true;
+                    Logging.Info("FolderWatcher: Breaking out of outer processing loop due to MAX_SECONDS_PER_ITERATION: {0} seconds consumed", DateTime.UtcNow.Subtract(index_processing_start_time).TotalSeconds);
+                    break;
+                }
+
+                if (!daemon.StillRunning)
+                {
+                    Logging.Debug("FolderWatcher: Breaking out of outer processing loop due to daemon termination");
+                    break;
+                }
+
+                // Mark that we are now processing the folder
+                folder_contents_has_changed = false;
+
+                int processed_file_count = 0;
+
+                // If we get this far then there might be some work to do in the folder...
+                string[] filenames_in_folder = Directory.GetFiles(previous_folder_to_watch, "*.pdf", SearchOption.AllDirectories);
+
+                List<PDFDocument> pdf_documents_already_in_library = library.PDFDocuments;
+
+                List<string> filenames_that_are_new = new List<string>();
+                foreach (string filename in filenames_in_folder)
+                {
+                    processed_file_count++;
+
+                    if (processed_file_count > MAX_NUMBER_OF_PDF_FILES_TO_PROCESS)
+                    {
+                        Logging.Info("FolderWatcher: {0} files have been processed/inspected", processed_file_count);
+                        folder_contents_has_changed = true;
                         break;
                     }
-                }
 
-                if (is_already_in_library)
-                {
+                    // If we already have this file in the "cache since we started", skip it
+                    if (folder_watcher_manager.HaveProcessedFile(filename))
+                    {
+                        Logging.Debug("FolderWatcher is skipping {0} as it has already been processed", filename);
+                        continue;
+                    }
+
+                    // If we already have this file in the "pdf file locations", skip it
+                    bool is_already_in_library = false;
+                    foreach (PDFDocument pdf_document in pdf_documents_already_in_library)
+                    {
+                        if (pdf_document.DownloadLocation == filename)
+                        {
+                            is_already_in_library = true;
+                            break;
+                        }
+                    }
+
+                    if (is_already_in_library)
+                    {
+                        // Add this file to the list of processed files...
+                        folder_watcher_manager.RememberProcessedFile(filename);
+
+                        continue;
+                    }
+
+                    // Check that the file is not still locked - if it is, mark that the folder is still "changed" and come back later..
+                    if (IsFileLocked(filename))
+                    {
+                        Logging.Info("Watched folder contains file '{0}' which is locked, so coming back later...", filename);
+                        folder_contents_has_changed = true;
+                        continue;
+                    }
+
+                    Logging.Info("FolderWatcher is importing {0}", filename);
+                    filenames_that_are_new.Add(filename);
+
                     // Add this file to the list of processed files...
                     folder_watcher_manager.RememberProcessedFile(filename);
-
-                    continue;
                 }
 
-                // Check that the file is not still locked - if it is, mark that the folder is still "changed" and come back later..
-                if (IsFileLocked(filename))
+                // Create the import records
+                List<ImportingIntoLibrary.FilenameWithMetadataImport> filename_with_metadata_imports = new List<ImportingIntoLibrary.FilenameWithMetadataImport>();
+                foreach (var filename in filenames_that_are_new)
                 {
-                    Logging.Info("Watched folder contains file '{0}' which is locked, so coming back later...", filename);
-                    folder_contents_has_changed = true;
-                    continue;
+                    filename_with_metadata_imports.Add(new ImportingIntoLibrary.FilenameWithMetadataImport { filename = filename, tags = new List<string>(this.tags) });
                 }
 
-                Logging.Info("FolderWatcher is importing {0}", filename);                
-                filenames_that_are_new.Add(filename);
-
-                // Add this file to the list of processed files...
-                folder_watcher_manager.RememberProcessedFile(filename);
-            }            
-            
-            
-            // Create the import records
-            List<ImportingIntoLibrary.FilenameWithMetadataImport> filename_with_metadata_imports = new List<ImportingIntoLibrary.FilenameWithMetadataImport>();
-            foreach(var filename in filenames_that_are_new)
-            {
-                filename_with_metadata_imports.Add(new ImportingIntoLibrary.FilenameWithMetadataImport { filename = filename, tags = new List<string>(this.tags) });
-            }            
-            
-            // Get the library to import all these new files
-            ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(library, true, true, filename_with_metadata_imports.ToArray());
+                // Get the library to import all these new files
+                ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(library, true, true, filename_with_metadata_imports.ToArray());
+            }
         }
 
         bool IsFileLocked(string filename)
