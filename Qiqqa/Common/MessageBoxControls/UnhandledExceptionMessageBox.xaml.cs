@@ -116,7 +116,6 @@ namespace Qiqqa.Common.MessageBoxControls
                 mb.PopulateMachineStats();
                 mb.ShowDialog();
             }
-
             catch (Exception ex2)
             {
                 Logging.Error(ex2, "There was an error while trying to display an UnhandledExceptionMessageBox.  Bailing so that we don't get an infinite-recurse!");

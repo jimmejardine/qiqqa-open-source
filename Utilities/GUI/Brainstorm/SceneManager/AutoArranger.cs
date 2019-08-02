@@ -36,7 +36,6 @@ namespace Utilities.GUI.Brainstorm.SceneManager
                         active_thread.Start(active_thread);
                     }
                 }
-
                 else
                 {
                     // USER WANTS TO DISABLE

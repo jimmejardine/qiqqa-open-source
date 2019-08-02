@@ -336,11 +336,13 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 // Get a count of how many jobs are left...
                 int job_queue_group_count;
                 int job_queue_single_count;
+
                 lock (queue_lock)
                 {
                     job_queue_group_count = job_queue_group.Count;
                     job_queue_single_count = job_queue_single.Count;
                 }
+
                 int job_queue_total_count = job_queue_group_count + job_queue_single_count;
 
 

@@ -41,7 +41,7 @@ namespace Utilities.ClientVersioning
         {
             try
             {
-                Logging.Info("About to check for new client version at server...");
+                Logging.Info("About to check for new client version at server: {0}", _clientVersionUrl);
                 string temp_file = null;
                 try
                 {

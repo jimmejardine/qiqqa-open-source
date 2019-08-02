@@ -618,7 +618,6 @@ namespace Qiqqa.DocumentLibrary
         /// </summary>
         public bool DocumentExistsInLibraryWithBibTeX(string bibTeXId)
         {
-            
             lock (pdf_documents)
             {
                 foreach(var pdf in pdf_documents.Where(x=> x.Value.Deleted == false))

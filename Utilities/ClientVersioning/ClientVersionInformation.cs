@@ -36,21 +36,23 @@ namespace Utilities.ClientVersioning
             return string.Format("LatestVersion: {0}, CompliantFromVersion: {1}, ObsoleteToVersion: {2}, DownloadLocations: {3}", LatestVersion, CompliantFromVersion, ObsoleteToVersion, StringTools.ConcatenateStrings(DownloadLocations));
         }
 
-        /*        public static void TestSerialize()
-                {
-                    ClientVersionInformation test = new ClientVersionInformation
-                                                        {
-                                                            LatestVersion = 123,
-                                                            CompliantFromVersion = 120,
-                                                            ObsoleteToVersion = 10,
-                                                            DownloadLocations = new List<string> {"http://test.qiqqa.com/download/qiqqa-123.com", "http://test.download.other.com/qiqqa-123.com"},
-                                                            ReleaseNotes = "Version 123:\nChange #1\nChange#2\n\nVersion 122:\nChange #1"
-                                                        };
-                    new XmlSerializer(typeof(ClientVersionInformation)).Serialize(File.OpenWrite(@"C:\client.version.xml"), test);
+        /*
+        public static void TestSerialize()
+        {
+            ClientVersionInformation test = new ClientVersionInformation
+            {
+                LatestVersion = 123,
+                CompliantFromVersion = 120,
+                ObsoleteToVersion = 10,
+                DownloadLocations = new List<string> { "http://test.qiqqa.com/download/qiqqa-123.com", "http://test.download.other.com/qiqqa-123.com" },
+                ReleaseNotes = "Version 123:\nChange #1\nChange#2\n\nVersion 122:\nChange #1"
+            };
+            new XmlSerializer(typeof(ClientVersionInformation)).Serialize(File.OpenWrite(@"C:\client.version.xml"), test);
 
-                    test.CompliantFromVersion = null;
-                    test.ObsoleteToVersion = null;
-                    new XmlSerializer(typeof(ClientVersionInformation)).Serialize(File.OpenWrite(@"C:\client.version2.xml"), test);
-                }*/
+            test.CompliantFromVersion = null;
+            test.ObsoleteToVersion = null;
+            new XmlSerializer(typeof(ClientVersionInformation)).Serialize(File.OpenWrite(@"C:\client.version2.xml"), test);
+        }
+        */
     }
 }

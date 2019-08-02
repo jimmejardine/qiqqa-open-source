@@ -576,6 +576,7 @@ namespace Qiqqa.InCite
             {
                 // Get the next context to search for, and if there is none, then exit the background thread
                 string context;
+
                 lock (context_thread_lock)
                 {
                     context = context_thread_next_context;
