@@ -237,7 +237,7 @@ namespace Utilities.Language.TextIndexing
             }
             catch (Exception ex)
             {
-                Logging.Warn(ex, "There was a problem opening the index file for searching.");
+                Logging.Warn(ex, "GetDocumentsWithQuery: There was a problem opening the index file for searching.");
             }
 
             return fingerprints;
@@ -291,7 +291,7 @@ namespace Utilities.Language.TextIndexing
             }
             catch (Exception ex)
             {
-                Logging.Warn(ex, "There was a problem opening the index file for searching.");
+                Logging.Warn(ex, "GetDocumentPagesWithQuery: There was a problem opening the index file for searching.");
             }
 
             return results;
@@ -336,7 +336,7 @@ namespace Utilities.Language.TextIndexing
             }
             catch (Exception ex)
             {
-                Logging.Warn(ex, "There was a problem opening the index file for searching.");
+                Logging.Warn(ex, "GetDocumentsWithWord: There was a problem opening the index file for searching.");
             }
 
             return fingerprints;
@@ -346,26 +346,33 @@ namespace Utilities.Language.TextIndexing
         {
             List<string> fingerprints = new List<string>();
 
-            IndexReader index_reader = IndexReader.Open(LIBRARY_INDEX_BASE_PATH, true);
-            Searcher index_searcher = new IndexSearcher(index_reader);
-            
-            LuceneMoreLikeThis mlt = new LuceneMoreLikeThis(index_reader);
-            mlt.SetFieldNames(new string[] { "content" });
-            mlt.SetMinTermFreq(0);
-
-            Query query = mlt.Like(new StreamReader(document_filename));
-            Hits hits = index_searcher.Search(query);
-            var i = hits.Iterator();
-            while (i.MoveNext())
+            try
             {
-                Hit hit = (Hit)i.Current;
-                string fingerprint = hit.Get("fingerprint");
-                fingerprints.Add(fingerprint);
-            }
+                IndexReader index_reader = IndexReader.Open(LIBRARY_INDEX_BASE_PATH, true);
+                Searcher index_searcher = new IndexSearcher(index_reader);
+            
+                LuceneMoreLikeThis mlt = new LuceneMoreLikeThis(index_reader);
+                mlt.SetFieldNames(new string[] { "content" });
+                mlt.SetMinTermFreq(0);
 
-            // Close the index
-            index_searcher.Close();
-            index_reader.Close();
+                Query query = mlt.Like(new StreamReader(document_filename));
+                Hits hits = index_searcher.Search(query);
+                var i = hits.Iterator();
+                while (i.MoveNext())
+                {
+                    Hit hit = (Hit)i.Current;
+                    string fingerprint = hit.Get("fingerprint");
+                    fingerprints.Add(fingerprint);
+                }
+
+                // Close the index
+                index_searcher.Close();
+                index_reader.Close();
+            }
+            catch (Exception ex)
+            {
+                Logging.Warn(ex, "GetDocumentsSimilarToDocument: There was a problem opening the index file for searching.");
+            }
 
             return fingerprints;
         }

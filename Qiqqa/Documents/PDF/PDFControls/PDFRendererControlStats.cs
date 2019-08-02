@@ -141,7 +141,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
                         resized_page_image_item_request.callback(bitmap, resized_page_image_item_request.height);
                     }
                 }
-
                 catch (Exception ex)
                 {
                     Logging.Error(ex, "There was an error while resizing a PDF page image");

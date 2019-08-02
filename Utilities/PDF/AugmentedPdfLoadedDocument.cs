@@ -13,10 +13,12 @@ namespace Utilities.PDF
         public AugmentedPdfLoadedDocument(string filename)
             : base(filename)
         {
+            Logging.Debug("+AugmentedPdfLoadedDocument::constructor: {0}", filename);
         }
 
         ~AugmentedPdfLoadedDocument()
         {
+            Logging.Debug("+AugmentedPdfLoadedDocument::DESTRUCTOR");
             Dispose(false);            
         }
 

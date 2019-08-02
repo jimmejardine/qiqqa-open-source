@@ -163,9 +163,6 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             sb.Append(pdf_documents[0].Library.WebLibraryDetail.Id);
             sb.Append("/");
             sb.Append(pdf_documents[0].Fingerprint);
-
-
-            
             
             // To clipboard
             string html = @"Version:0.9

@@ -14,6 +14,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             // Try multiple approaches because each fails in their own special way........
             int pages = 0;
 
+            Logging.Debug("+CountPDFPages #1 = Sorax");
             try
             {
                 if (0 == pages)
@@ -25,7 +26,9 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             {
                 Logging.Warn(ex, "Fail trying to count pages using Sorax");
             }
+            Logging.Debug("-CountPDFPages #1 = Sorax");
 
+            Logging.Debug("+CountPDFPages #2 = Syncfusion");
             try
             {
                 if (0 == pages)
@@ -37,7 +40,9 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             {
                 Logging.Warn(ex, "Fail trying to count pages using Syncfusion");
             }
+            Logging.Debug("-CountPDFPages #2 = Syncfusion");
 
+            Logging.Debug("+CountPDFPages #3 = Jimme");
             try
             {
                 if (0 == pages)
@@ -49,6 +54,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             {
                 Logging.Warn(ex, "Fail trying to count pages using Jimme");
             }
+            Logging.Debug("-CountPDFPages #3 = Jimme: {0}", pages);
 
             return pages;
         }
@@ -64,7 +70,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             }
             catch (Exception ex)
             {
-                Logging.Warn(ex, "Error while counting pages in CountPDFPages_Sorax");
+                Logging.Warn(ex, "Error while counting pages in CountPDFPages_Sorax for file: {0}", filename);
                 return 0;
             }
         }
@@ -73,17 +79,17 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         {
             try
             {
-                Logging.Debug("+CountPDFPages_Jimme");
+                Logging.Debug("+CountPDFPages_Jimme_MEGA");
                 string pdf_text = File.ReadAllText(filename);
-                Logging.Debug("+CountPDFPages_Jimme....read");
+                Logging.Debug("+CountPDFPages_Jimme_MEGA....read");
                 Regex regex = new Regex(@"/Type\s*/Page[^s]");
                 MatchCollection matches = regex.Matches(pdf_text);
-                Logging.Debug("-CountPDFPages ({0} pages)", matches.Count);
+                Logging.Debug("-CountPDFPages_Jimme_MEGA ({0} pages)", matches.Count);
                 return matches.Count;
             }
             catch (Exception ex)
             {
-                Logging.Warn(ex, "Error while counting pages in CountPDFPages_Jimme");
+                Logging.Warn(ex, "Error while counting pages in CountPDFPages_Jimme_MEGA for file: {0}", filename);
                 return 0;
             }
         }
@@ -92,7 +98,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         {
             try
             {
-                Logging.Debug("+CountPDFPages_Syncfusion");
+                Logging.Debug("+CountPDFPages_Syncfusion: {0}", filename);
                 using (AugmentedPdfLoadedDocument doc = new AugmentedPdfLoadedDocument(filename))
                 {
                     int pages = doc.Pages.Count;
@@ -102,7 +108,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             }
             catch (Exception ex)
             {
-                Logging.Warn(ex, "Error while counting pages in CountPDFPages_Syncfusion");
+                Logging.Warn(ex, "Error while counting pages in CountPDFPages_Syncfusion for file: {0}", filename);
                 return 0;
             }
         }

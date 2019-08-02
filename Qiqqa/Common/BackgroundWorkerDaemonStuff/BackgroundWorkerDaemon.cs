@@ -94,6 +94,7 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
 
         private void ShowReleaseNotes(string release_notes)
         {
+            Logging.Info("Release Notes: {0}", release_notes);
             new ClientVersionReleaseNotes(release_notes).ShowDialog();
         }
 
@@ -158,8 +159,10 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
 
         void DoMaintenance_Infrequent(Daemon daemon)
         {
+            Logging.Debug("DoMaintenance_Infrequent START @ LINE: {0}", 162);
             daemon.Sleep(10 * 1000);
 
+            Logging.Debug("DoMaintenance_Infrequent LINE: {0}", 165);
             if (RegistrySettings.Instance.IsSet(RegistrySettings.SuppressDaemon))
             {
                 Logging.Info("Daemon is forced to sleep via registry SuppressDaemon");
@@ -167,8 +170,10 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
                 return;
             }
 
+            Logging.Debug("DoMaintenance_Infrequent LINE: {0}", 173);
             foreach (var x in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries_All)
             {
+	            Logging.Debug("DoMaintenance_Infrequent LINE: {0}", 176);
                 Library library = x.library;
 
                 // If this library is busy, skip it for now
@@ -178,6 +183,7 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
                     continue;
                 }
 
+	            Logging.Debug("DoMaintenance_Infrequent LINE: {0}", 186);
                 try
                 {
                     metadata_extraction_daemon.DoMaintenance(library, daemon);
@@ -187,15 +193,18 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
                     Logging.Error(ex, "Exception in metadata_extraction_daemon");
                 }
 
+	            Logging.Debug("DoMaintenance_Infrequent LINE: {0}", 196);
                 try
                 {
-                    library.LibraryIndex.IncrementalBuildIndex();
+                    library.LibraryIndex.IncrementalBuildIndex(daemon);
                 }
                 catch (Exception ex)
                 {
                     Logging.Error(ex, "Exception in LibraryIndex.IncrementalBuildIndex()");
                 }
+	            Logging.Debug("DoMaintenance_Infrequent LINE: {0}", 205);
             }
+            Logging.Debug("DoMaintenance_Infrequent END @ LINE: {0}", 207);
         }
 
         void DoMaintenance_Frequent(Daemon daemon)
