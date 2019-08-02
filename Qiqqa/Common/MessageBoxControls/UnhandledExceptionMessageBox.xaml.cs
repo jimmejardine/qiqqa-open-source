@@ -40,6 +40,12 @@ namespace Qiqqa.Common.MessageBoxControls
             // Collect all generations of memory.
             GC.Collect();
 
+            // When we're looking at an OutOfMem exception, there's nothing we can do but abort everything!
+            if (ex is System.OutOfMemoryException)
+            {
+                throw ex;
+            }
+
             if (!Application.Current.Dispatcher.CheckAccess())
             {
                 Application.Current.Dispatcher.Invoke(((Action)(() => DisplayException(ex))));
