@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Quantisle")]
 [assembly: AssemblyProduct("")]
-[assembly: AssemblyCopyright("Copyright © Quantisle 2010-2016.  All rights reserved.")]
+[assembly: AssemblyCopyright("Copyright © Quantisle 2010-2019.  All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <ClientVersionInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <LatestVersion>!!!This will be filled in by the nant build!!!</LatestVersion>
-  <CompliantFromVersion>80</CompliantFromVersion>
+  <CompliantFromVersion>81</CompliantFromVersion>
   <ObsoleteToVersion xsi:nil="true" />
   <DownloadLocations>
     <!-- @WEB_BASE@ will be populated with "http://download.qiqqa.com/Content/Client/setup.exe" -->
@@ -9,6 +9,13 @@
   </DownloadLocations>
   <ReleaseNotes>
     <![CDATA[
+
+-------------------------------------------------------------------------------------------------------------------
+
+Version 81:
+- Qiqqa now copes better with damaged PDFs which are part of the librarie(s): 
+  + search index does not "disappear" any more
+  + Qiqqa does not continue running in the background for eternity due to locked-up PDF re-indexing task
 
 -------------------------------------------------------------------------------------------------------------------
 

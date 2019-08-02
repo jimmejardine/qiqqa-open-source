@@ -26,7 +26,7 @@ namespace QiqqaOCR
             try
             {
                 string on_your_conscience =
-                    "Qiqqa is Copyright © Quantisle 2010-2016.  All rights reserved." +
+                    "Qiqqa is Copyright © Quantisle 2010-2019.  All rights reserved." +
                     "If you are reading this in a dissasembler, you know you are doing evil and will probably always have to look over your shoulder..."
                     ;
                 on_your_conscience = "Main";
@@ -40,21 +40,20 @@ namespace QiqqaOCR
                 }
 
                 string mode_switch = args[0];
-                if (false) { }
-                else if ("GROUP" == mode_switch)
+                switch (mode_switch)
                 {
+                case "GROUP":
                     TextExtractEngine.MainEntry(args, no_kill);
-                }
-                else if ("SINGLE" == mode_switch)
-                {
+                    break;
+
+                case "SINGLE":
                     OCREngine.MainEntry(args, no_kill);
-                }
-                else
-                {
+                    break;
+
+                default:
                     throw new Exception("Unknown mode switch " + mode_switch);
                 }
             }
-
             catch (Exception ex)
             {
                 StringBuilder sb = new StringBuilder();

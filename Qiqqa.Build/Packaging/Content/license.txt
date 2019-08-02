@@ -1,13 +1,13 @@
 -----------------------------------------------------------------------------------------
 --- Qiqqa Terms and Conditions
 -----------------------------------------------------------------------------------------
---- Copyright © Quantisle 2010-2016. All rights reserved.
+--- Copyright © Quantisle 2010-2019. All rights reserved.
 --- Updated 5 February 2015
 -----------------------------------------------------------------------------------------
 
 By using Qiqqa, you are agreeing to be bound by these Terms and Conditions.
 
-Qiqqa is Copyright © Quantisle 2010-2016. All rights reserved.
+Qiqqa is Copyright © Quantisle 2010-2019. All rights reserved.
 
 Qiqqa, Qiqqa Premium and the Qiqqa Web Library (from now on “Qiqqa”) are offered as 
 Services to you by Quantisle Ltd.
