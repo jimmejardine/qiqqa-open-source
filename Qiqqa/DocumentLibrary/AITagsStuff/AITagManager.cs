@@ -19,6 +19,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
         Library library;
         AITags current_ai_tags_record;
 
+        object in_progress_lock = new object();
         bool regenerating_in_progress = false;
 
         public AITagManager(Library library)
@@ -59,7 +60,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
 
         public void Regenerate(AsyncCallback callback)
         {
-            lock (this)
+            lock (in_progress_lock)
             {
                 if (regenerating_in_progress)
                 {
@@ -288,7 +289,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
 
             finally
             {
-                lock (this)
+                lock (in_progress_lock)
                 {
                     regenerating_in_progress = false;
                 }

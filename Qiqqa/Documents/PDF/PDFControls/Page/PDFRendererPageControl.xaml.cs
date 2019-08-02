@@ -484,6 +484,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             {
                 // Get the next piece of work
                 PendingRefreshWork pending_refresh_work = null;
+
                 lock (pending_refresh_work_lock)
                 {
                     pending_refresh_work = pending_refresh_work_fast;
@@ -530,6 +531,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             {
                 // Get the next piece of work
                 PendingRefreshWork pending_refresh_work = null;
+
                 lock (pending_refresh_work_lock)
                 {
                     pending_refresh_work = pending_refresh_work_slow;
@@ -569,17 +571,20 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                         // Is the current image not good enough?  Then perhaps use a provided one
                         if (null == CurrentlyShowingImage || CurrentlyShowingImage.requested_height != desired_rescaled_image_height)
                         {
-                            // Check if we want to use the supplied image
-                            if (null != pending_refresh_work.requested_image_rescale)
+                            lock (pending_refresh_work_lock)
                             {
-                                // Choose the closer image
-                                double discrepancy_existing_image = (null == CurrentlyShowingImage) ? Double.MaxValue : Math.Abs(CurrentlyShowingImage.requested_height - desired_rescaled_image_height);
-                                double discrepancy_supplied_image = (null == pending_refresh_work.requested_image_rescale) ? Double.MaxValue : Math.Abs(pending_refresh_work.requested_height - desired_rescaled_image_height);
-
-                                // If the request image is better, use it
-                                if (discrepancy_supplied_image < discrepancy_existing_image)
+                                // Check if we want to use the supplied image
+                                if (null != pending_refresh_work.requested_image_rescale)
                                 {
-                                    CurrentlyShowingImage = new CurrentlyShowingImageClass { Image = pending_refresh_work.requested_image_rescale, requested_height = pending_refresh_work.requested_height };
+                                    // Choose the closer image
+                                    double discrepancy_existing_image = (null == CurrentlyShowingImage) ? Double.MaxValue : Math.Abs(CurrentlyShowingImage.requested_height - desired_rescaled_image_height);
+                                    double discrepancy_supplied_image = (null == pending_refresh_work.requested_image_rescale) ? Double.MaxValue : Math.Abs(pending_refresh_work.requested_height - desired_rescaled_image_height);
+
+                                    // If the request image is better, use it
+                                    if (discrepancy_supplied_image < discrepancy_existing_image)
+                                    {
+                                        CurrentlyShowingImage = new CurrentlyShowingImageClass { Image = pending_refresh_work.requested_image_rescale, requested_height = pending_refresh_work.requested_height };
+                                    }
                                 }
                             }
                         }

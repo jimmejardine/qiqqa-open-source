@@ -72,7 +72,7 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
 
         public void FindDuplicates(Library library)
         {
-            lock(locker)
+            lock (locker)
             {
                 if (already_finding_duplicates)
                 {

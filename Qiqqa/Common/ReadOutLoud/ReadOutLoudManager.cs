@@ -11,6 +11,7 @@ namespace Qiqqa.Common.ReadOutLoud
     {
         public static ReadOutLoudManager Instance = new ReadOutLoudManager();
 
+        object read_out_loud_lock = new object();
         SpeechSynthesizer speech_synthesizer;
         Prompt current_prompt;
         int current_prompt_length;
@@ -30,7 +31,10 @@ namespace Qiqqa.Common.ReadOutLoud
         void OnShutdown()
         {
             Logging.Info("Shutting down ReadOutLoudManager");
-            speech_synthesizer.SpeakAsyncCancelAll();
+            lock (read_out_loud_lock)
+            {
+                speech_synthesizer.SpeakAsyncCancelAll();
+            }
         }
 
         void speech_synthesizer_SpeakProgress(object sender, SpeakProgressEventArgs e)
@@ -58,7 +62,7 @@ namespace Qiqqa.Common.ReadOutLoud
 
         public void Read(string text)
         {
-            lock (this)
+            lock (read_out_loud_lock)
             {
                 if (null != current_prompt)
                 {
@@ -73,7 +77,7 @@ namespace Qiqqa.Common.ReadOutLoud
 
         public void Pause()
         {
-            lock (this)
+            lock (read_out_loud_lock)
             {
                 speech_synthesizer.Pause();
             }
@@ -81,9 +85,8 @@ namespace Qiqqa.Common.ReadOutLoud
 
         public void Resume()
         {
-            lock (this)
+            lock (read_out_loud_lock)
             {
-
                 speech_synthesizer.Resume();
             }
         }

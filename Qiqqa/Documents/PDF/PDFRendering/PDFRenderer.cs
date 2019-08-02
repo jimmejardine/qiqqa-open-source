@@ -22,8 +22,8 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         PDFRendererFileLayer pdf_render_file_layer;        
         Dictionary<int, TypedWeakReference<WordList>> texts = new Dictionary<int, TypedWeakReference<WordList>>();
 
-        object pages_to_render_lock = new object();
-        List<int> pages_to_render = new List<int>();
+        //object pages_to_render_lock = new object();
+        //List<int> pages_to_render = new List<int>();
 
         public delegate void OnPageTextAvailableDelegate(int page_from, int page_to);
         public event OnPageTextAvailableDelegate OnPageTextAvailable;
@@ -91,12 +91,15 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         public override string ToString()
         {
-            return string.Format(
-                "{0}T/{1} - {2}",                
-                texts.Count,
-                PageCount,
-                document_fingerprint
-            );
+            lock (texts)
+            {
+                return string.Format(
+                    "{0}T/{1} - {2}",
+                    texts.Count,
+                    PageCount,
+                    document_fingerprint
+                );
+            }
         }
 
         /// <summary>

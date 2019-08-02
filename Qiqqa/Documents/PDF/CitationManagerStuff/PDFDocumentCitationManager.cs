@@ -10,6 +10,7 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
     {
         PDFDocument pdf_document;
 
+        object locker = new object();
         List<Citation> _citations = null;
         List<Citation> Citations
         {
@@ -43,7 +44,7 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
 
         private bool ContainsCitation(string fingerprint_outbound, string fingerprint_inbound)
         {
-            lock (this)
+            lock (locker)
             {
                 List<Citation> citations = Citations;
                 foreach (Citation citation in citations)
@@ -83,7 +84,7 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
         
         private void AddCitation(Citation new_citation)
         {
-            lock (this)
+            lock (locker)
             {
                 // We can't cite ourself!
                 if (0 == new_citation.fingerprint_outbound.CompareTo(new_citation.fingerprint_inbound))
@@ -133,7 +134,7 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
         {
             List<Citation> result_citations = new List<Citation>();
             
-            lock (this)
+            lock (locker)
             {
                 List<Citation> citations = Citations;
                 foreach (Citation citation in citations)
@@ -153,7 +154,7 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
 
             List<Citation> result_citations = new List<Citation>();
 
-            lock (this)
+            lock (locker)
             {
                 List<Citation> citations = Citations;
                 foreach (Citation citation in citations)
@@ -211,8 +212,11 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
 
         internal void CloneFrom(PDFDocumentCitationManager other)
         {
-            this.Citations.AddRange(other.Citations);
-            WriteToDisk(pdf_document, Citations);
+            lock (locker)
+            {
+                this.Citations.AddRange(other.Citations);
+                WriteToDisk(pdf_document, Citations);
+            }
         }
     }
 }

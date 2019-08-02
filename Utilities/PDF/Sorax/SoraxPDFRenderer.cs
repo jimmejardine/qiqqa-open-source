@@ -38,8 +38,11 @@
         }
 
         public void Flush()
-        {   
-            cache.Flush();
+        {
+            lock (cache)
+            {
+                cache.Flush();
+            }
         }
     }
 }
