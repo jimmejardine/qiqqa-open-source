@@ -970,7 +970,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BibTex\TestFiles\SampleEndnote.txt" />
-    <Resource Include="GUI\Brainstorm\Nodes\~readme.txt" />
+    <Resource Include="GUI\Brainstorm\Nodes\README.md" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="GUI\AugmentedButton.xaml">

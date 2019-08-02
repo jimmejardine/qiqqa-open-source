@@ -1094,7 +1094,6 @@
     <Compile Include="WebBrowsing\WebSearchers.cs" />
     <Compile Include="Wizards\SearchResultWizard.cs" />
     <Compile Include="Wizards\AnnotationReport\AnnotationReportWizard.cs" />
-    <EmbeddedResource Include="licenses.licx" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="AnnotationsReportBuilding\AnnotationReportOptionsWindow.xaml">
@@ -1863,7 +1862,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Brainstorm\Nodes\~readme.txt" />
+    <Resource Include="Brainstorm\Nodes\README.md" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\libs\7za.exe">
@@ -1926,7 +1925,7 @@
       <Link>xulrunner-33.1.1.en-US.win32.zip</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="InCite\registry_fixes\README.txt">
+    <None Include="InCite\registry_fixes\README.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="Localisation\tr.qiqqa.txt">
