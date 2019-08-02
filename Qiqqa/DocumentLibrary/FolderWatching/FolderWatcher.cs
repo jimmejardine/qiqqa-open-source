@@ -174,15 +174,6 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 List<string> filenames_that_are_new = new List<string>();
                 foreach (string filename in filenames_in_folder)
                 {
-                    processed_file_count++;
-
-                    if (processed_file_count > MAX_NUMBER_OF_PDF_FILES_TO_PROCESS)
-                    {
-                        Logging.Info("FolderWatcher: {0} files have been processed/inspected", processed_file_count);
-                        folder_contents_has_changed = true;
-                        break;
-                    }
-
                     if (DateTime.UtcNow.Subtract(index_processing_start_time).TotalSeconds > MAX_SECONDS_PER_ITERATION)
                     {
                         Logging.Info("FolderWatcher: Breaking out of inner processing loop due to MAX_SECONDS_PER_ITERATION: {0} seconds consumed", DateTime.UtcNow.Subtract(index_processing_start_time).TotalSeconds);
@@ -214,6 +205,27 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                         folder_watcher_manager.RememberProcessedFile(filename);
 
                         continue;
+                    }
+
+                    // Do NOT count files which are already present in our library/DB, 
+                    // despite the fact that those also *do* take time and effort to check
+                    // in the code above.
+                    //
+                    // The issue here is that when we would import files A,B,C,D,E,F,G,H,I,J,K,
+                    // we would do so in tiny batches, resulting in a rescan after each batch 
+                    // where the already processed files will be included in the set, but must
+                    // be filtered out as 'already in there' in the code above.
+                    // Iff we had counted *all* files we inspect from the Watch Directory,
+                    // we would never make it batch the first batch as then our count limit
+                    // would trigger already for every round through here!
+                    //
+                    processed_file_count++;
+
+                    if (processed_file_count > MAX_NUMBER_OF_PDF_FILES_TO_PROCESS)
+                    {
+                        Logging.Info("FolderWatcher: {0} files have been processed/inspected", processed_file_count);
+                        folder_contents_has_changed = true;
+                        break;
                     }
 
                     // Check that the file is not still locked - if it is, mark that the folder is still "changed" and come back later..
