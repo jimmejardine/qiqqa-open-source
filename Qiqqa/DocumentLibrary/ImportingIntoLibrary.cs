@@ -111,7 +111,6 @@ namespace Qiqqa.DocumentLibrary
                     }
                     last_added_pdf_document = pdf_document;
                 }
-
                 catch (Exception ex)
                 {
                     Logging.Warn(ex, "There was a problem adding a document to the library:\n{0}", filename_with_metadata_import);

@@ -155,12 +155,6 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                     break;
                 }
 
-                if (DateTime.UtcNow.Subtract(index_processing_start_time).TotalSeconds > MAX_SECONDS_PER_ITERATION)
-                {
-                    Logging.Info("FolderWatcher: Breaking out of outer processing loop due to MAX_SECONDS_PER_ITERATION: {0} seconds consumed", DateTime.UtcNow.Subtract(index_processing_start_time).TotalSeconds);
-                    break;
-                }
-
                 if (!daemon.StillRunning)
                 {
                     Logging.Debug("FolderWatcher: Breaking out of outer processing loop due to daemon termination");
@@ -185,6 +179,13 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                     if (processed_file_count > MAX_NUMBER_OF_PDF_FILES_TO_PROCESS)
                     {
                         Logging.Info("FolderWatcher: {0} files have been processed/inspected", processed_file_count);
+                        folder_contents_has_changed = true;
+                        break;
+                    }
+
+                    if (DateTime.UtcNow.Subtract(index_processing_start_time).TotalSeconds > MAX_SECONDS_PER_ITERATION)
+                    {
+                        Logging.Info("FolderWatcher: Breaking out of inner processing loop due to MAX_SECONDS_PER_ITERATION: {0} seconds consumed", DateTime.UtcNow.Subtract(index_processing_start_time).TotalSeconds);
                         folder_contents_has_changed = true;
                         break;
                     }
@@ -239,7 +240,13 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
                 // Get the library to import all these new files
                 ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(library, true, true, filename_with_metadata_imports.ToArray());
+
+                Logging.Debug("FolderWatcher End-Of-Round");
+
+                daemon.Sleep(3 * 1000);
             }
+
+            Logging.Debug("FolderWatcher END");
         }
 
         bool IsFileLocked(string filename)
