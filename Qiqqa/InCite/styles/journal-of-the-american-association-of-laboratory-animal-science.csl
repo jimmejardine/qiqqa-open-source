@@ -9,13 +9,13 @@
     <link href="http://www.aalas.org/publications/cm_jaalas_info_for_au.aspx" rel="documentation"/>
     <author>
       <name>Charles Parnot</name>
-      <email>charles@mekentosj.com</email>
+      <email>charles.parnot@gmail.com</email>
       <uri>http://twitter.com/cparnot</uri>
     </author>
     <category citation-format="numeric"/>
     <category field="biology"/>
     <issn>1559-6109</issn>
-    <updated>2013-08-29T05:27:03+00:00</updated>
+    <updated>2012-10-09T12:00:00+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="editor">
@@ -38,16 +38,6 @@
         </substitute>
       </names>
     </group>
-  </macro>
-  <macro name="author-short">
-    <names variable="author">
-      <name form="short" and="symbol" delimiter=", " initialize-with="."/>
-      <substitute>
-        <names variable="editor"/>
-        <names variable="translator"/>
-        <text macro="anon"/>
-      </substitute>
-    </names>
   </macro>
   <macro name="access">
     <group>

@@ -4,7 +4,7 @@
     <title>International Journal of Sport Medicine</title>
     <id>http://www.zotero.org/styles/international-journal-of-sports-medicine</id>
     <link href="http://www.zotero.org/styles/international-journal-of-sports-medicine" rel="self"/>
-    <link href="http://www.zotero.org/styles/thieme-e-journals-vancouver" rel="template"/>
+    <link href="http://www.zotero.org/styles/thieme-german" rel="template"/>
     <link href="http://www.thieme.com//media/ita/pubid926886473.pdf" rel="documentation"/>
     <author>
       <name>Sebastian Karcher</name>
@@ -14,7 +14,7 @@
     <issn>0172-4622</issn>
     <eissn>1439-3964</eissn>
     <summary>Modified version of the "Vancouver Bracket" for Thieme Journals</summary>
-    <updated>2013-12-06T02:44:59+00:00</updated>
+    <updated>2013-05-01T07:05:54+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="author">

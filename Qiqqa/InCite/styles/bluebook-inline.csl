@@ -20,7 +20,7 @@
     <category citation-format="author-date"/>
     <category field="law"/>
     <summary>Bluebook citation formatting for in-text citations.</summary>
-    <updated>2013-09-08T00:04:27+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <!-- sets up basics of dealing with authors -->
@@ -216,8 +216,7 @@
             <text macro="source-short" suffix=","/>
             <text value="supra" font-style="italic"/>
             <text value="note"/>
-            <!-- CSL does not currently support reference to a note number, so we leave a blank space for correction now -->
-            <text value="##"/>
+            <text variable="first-reference-note-number"/>
             <text macro="at_page"/>
           </group>
         </else-if>

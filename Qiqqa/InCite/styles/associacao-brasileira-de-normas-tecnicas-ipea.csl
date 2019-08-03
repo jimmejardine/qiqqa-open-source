@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <style xmlns="http://purl.org/net/xbiblio/csl" version="1.0" class="in-text" default-locale="pt-BR">
   <info>
-    <title>Associação Brasileira de Normas Técnicas - Instituto de Pesquisa Econômica Aplicada (Portuguese - Brazil)</title>
+    <title>Instituto de Pesquisa Econômica Aplicada - ABNT (Portuguese - Brazil)</title>
     <title-short>ABNT-IPEA</title-short>
     <id>http://www.zotero.org/styles/associacao-brasileira-de-normas-tecnicas-ipea</id>
     <link href="http://www.zotero.org/styles/associacao-brasileira-de-normas-tecnicas-ipea" rel="self"/>
@@ -38,7 +38,7 @@
     <category citation-format="author-date"/>
     <category field="generic-base"/>
     <summary>The Brazilian standard style for IPEA</summary>
-    <updated>2013-11-23T02:49:43+00:00</updated>
+    <updated>2013-03-13T02:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="pt-BR">
@@ -81,7 +81,7 @@
             <name-part name="family" text-case="uppercase"/>
             <name-part name="given" text-case="uppercase"/>
           </name>
-          <et-al prefix=" " font-style="italic"/>
+          <et-al font-style="italic"/>
           <label form="short" prefix=" (" suffix=".). " text-case="capitalize-first"/>
           <substitute>
             <names variable="editor"/>
@@ -112,7 +112,7 @@
         <name-part name="given" text-case="capitalize-first"/>
         <name-part name="family" text-case="capitalize-first"/>
       </name>
-      <et-al prefix=" " font-style="italic"/>
+      <et-al font-style="italic"/>
     </names>
   </macro>
   <!--A macro 'author' e responsavel por mostrar os nomes dos autores na bibliografia, serao no formato SOBRENOME, INICIAIS PRENOMES, tendo 
@@ -124,7 +124,7 @@
         <name-part name="family" text-case="uppercase"/>
         <name-part name="given" text-case="uppercase"/>
       </name>
-      <et-al prefix=" " font-style="italic"/>
+      <et-al font-style="italic"/>
       <label form="short" prefix=" (" suffix=".)" text-case="uppercase"/>
       <substitute>
         <names variable="editor"/>
@@ -140,7 +140,7 @@
     <names variable="author">
       <name form="short" name-as-sort-order="all" sort-separator=", " and="text" initialize-with=". " delimiter=", " delimiter-precedes-last="never">
       </name>
-      <et-al prefix=" " font-style="italic"/>
+      <et-al font-style="italic"/>
       <substitute>
         <names variable="editor"/>
         <names variable="translator"/>
@@ -204,7 +204,6 @@
             <text variable="publisher-place" suffix=": "/>
           </if>
           <else-if type="entry-encyclopedia">
-            
           </else-if>
           <else>
             <text value="[s.l.] "/>
@@ -339,23 +338,13 @@
       </else-if>
     </choose>
   </macro>
-  <!--Resumo-->
-  <macro name="abstract">
-    <text variable="abstract"/>
-  </macro>
-  <!--Mostra a ISBN-->
-  <macro name="ISBN">
-    <group>
-      <text variable="ISBN" prefix="ISBN "/>
-    </group>
-  </macro>
   <macro name="collection-title">
     <text variable="collection-title"/>
     <text variable="collection-number" prefix=" "/>
   </macro>
   <!--Citacao-->
   <!--et al. aparece a partir de 04 autores-->
-  <citation et-al-min="4" et-al-use-first="1" et-al-subsequent-min="4" et-al-subsequent-use-first="1" disambiguate-add-year-suffix="true" disambiguate-add-names="true" disambiguate-add-givenname="true" collapse="year-suffix">
+  <citation et-al-min="4" et-al-use-first="1" disambiguate-add-year-suffix="true" disambiguate-add-names="true" disambiguate-add-givenname="true" collapse="year-suffix">
     <sort>
       <key macro="author"/>
       <!--Puxa o autor primeiro-->

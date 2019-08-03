@@ -12,7 +12,7 @@
     <category citation-format="author-date"/>
     <eissn>1475-4754</eissn>
     <summary>Style for Arhcaeometry Journal</summary>
-    <updated>2013-11-12T16:37:08+00:00</updated>
+    <updated>2013-11-12T16:18:37+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="container-contributors">
@@ -277,7 +277,7 @@
       </else>
     </choose>
   </macro>
-  <citation et-al-min="3" et-al-use-first="1" et-al-subsequent-min="3" et-al-subsequent-use-first="1" disambiguate-add-year-suffix="true" disambiguate-add-names="false" disambiguate-add-givenname="false">
+  <citation et-al-min="3" et-al-use-first="1" disambiguate-add-year-suffix="true" disambiguate-add-names="false" disambiguate-add-givenname="false">
     <sort>
       <key macro="date"/>
     </sort>

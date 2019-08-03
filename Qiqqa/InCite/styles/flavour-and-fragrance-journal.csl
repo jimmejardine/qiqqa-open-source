@@ -20,7 +20,7 @@ added second macro for access2, not very elegant programing
 uses superscripts intext
 in bibliography adds full-stop after entries for webpages 
 (officially not foreseen by Flavor and Fragrance Journal but probably a mistake</summary>
-    <updated>2013-11-02T03:09:48+00:00</updated>
+    <updated>2013-02-20T19:19:00+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="author">
@@ -102,7 +102,7 @@ in bibliography adds full-stop after entries for webpages
   <bibliography entry-spacing="0" second-field-align="flush">
     <layout suffix=".">
       <text variable="citation-number" prefix="[" suffix="]"/>
-      <text macro="author" prefix=" " suffix=", "/>
+      <text macro="author" suffix=", "/>
       <choose>
         <if type="bill book graphic legal_case legislation motion_picture report song" match="any">
           <group delimiter=", ">

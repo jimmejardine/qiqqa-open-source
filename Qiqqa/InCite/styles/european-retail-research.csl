@@ -17,7 +17,7 @@
     <category field="sociology"/>
     <issn>1867-8785</issn>
     <summary>Author-date style for the journal European Retail Research</summary>
-    <updated>2013-09-08T00:04:27+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="author-short">
@@ -42,7 +42,7 @@
   <macro name="editor">
     <names variable="editor">
       <name sort-separator=", " initialize-with=". " name-as-sort-order="all" delimiter="; " delimiter-precedes-last="always"/>
-      <label form="short" strip-periods="true" prefix=" (" suffix=".)"/>
+      <label form="short" prefix=" (" suffix=")"/>
     </names>
   </macro>
   <macro name="edition">

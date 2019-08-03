@@ -9,13 +9,13 @@
     <author>
       <name>Charles Parnot</name>
       <uri>http://twitter.com/cparnot</uri>
-      <email>charles@mekentosj.com</email>
+      <email>charles.parnot@gmail.com</email>
     </author>
     <category citation-format="numeric"/>
     <category field="biology"/>
     <issn>0022-2275</issn>
     <eissn>1539-7262</eissn>
-    <updated>2013-09-25T04:19:09+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="editor">
@@ -61,7 +61,7 @@
       <if is-numeric="edition">
         <group delimiter=" ">
           <number variable="edition" form="ordinal"/>
-          <text term="edition" form="short" suffix="." text-case="capitalize-first" strip-periods="true"/>
+          <text term="edition" form="short" text-case="capitalize-first"/>
         </group>
       </if>
       <else>

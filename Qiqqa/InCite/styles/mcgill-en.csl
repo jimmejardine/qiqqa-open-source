@@ -12,9 +12,14 @@
     <contributor>
       <name>Frank Bennett</name>
     </contributor>
+    <contributor>
+      <name>Florian Martin-Bariteau</name>
+      <email>f.martin-bariteau@umontreal.ca</email>
+      <uri>http://f-mb.github.io/cslegal/</uri>
+    </contributor>
     <category citation-format="note"/>
     <category field="law"/>
-    <updated>2013-09-21T17:20:28+00:00</updated>
+    <updated>2014-06-28T19:23:00+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="en">
@@ -31,6 +36,20 @@
       <term name="paragraph" form="short">
         <single>para</single>
         <multiple>paras</multiple>
+      </term>
+      <!-- the usual workaround for inserting "Art" or "Arts" (article) pinpointers is to type the term directly into the pinpoint box, and to use sub verbo for a blank pinpointer. However, for clarity and compliance, this functionality needs to be activated by the user by taking the element below out of documentation
+      <term name="sub verbo" form="short">
+        <single/>
+        <multiple/>
+      </term>
+      -->
+      <term name="section" form="short">
+        <single>s</single>
+        <multiple>ss</multiple>
+      </term>
+      <term name="chapter" form="short">
+        <single>ch</single>
+        <multiple>chs</multiple>
       </term>
     </terms>
   </locale>
@@ -111,7 +130,7 @@
       <else-if type="book thesis" match="any">
         <text value="3"/>
       </else-if>
-      <else-if type="article-journal chapter article-newspaper" match="any">
+      <else-if type="article-journal chapter article-newspaper article-magazine" match="any">
         <text value="4"/>
       </else-if>
       <else>
@@ -129,6 +148,7 @@ all the other tests should have been done... -->
       <text macro="editor" strip-periods="true" suffix=","/>
       <text macro="container-title" font-style="italic"/>
     </group>
+    <text macro="series-info" prefix=", "/>
     <text macro="edition" prefix=", "/>
     <text macro="publisher-place-year"/>
     <text variable="page-first" prefix=" "/>
@@ -137,11 +157,13 @@ all the other tests should have been done... -->
     <group delimiter=" ">
       <text variable="title" quotes="true"/>
       <date form="text" variable="issued" date-parts="year" prefix="(" suffix=")"/>
-      <text variable="volume"/>
+      <group delimiter=":">
+        <text variable="volume"/>
+        <text variable="issue"/>
+      </group>
+      <text macro="container-title"/>
+      <text variable="page-first"/>
     </group>
-    <text variable="issue" prefix=":"/>
-    <text macro="container-title" prefix=" "/>
-    <text variable="page-first" prefix=" "/>
     <text macro="internet-location"/>
   </macro>
   <macro name="render-book">
@@ -182,6 +204,15 @@ all the other tests should have been done... -->
     </group>
     <text macro="internet-location"/>
   </macro>
+  <macro name="render-article-magazine">
+    <group delimiter=" ">
+      <text variable="title" quotes="true" suffix=","/>
+      <text macro="container-title" font-style="italic"/>
+      <text macro="issued-long" prefix="(" suffix=")"/>
+      <text variable="page-first"/>
+    </group>
+    <text macro="internet-location"/>
+  </macro>
   <macro name="render-webpage">
     <group delimiter=" ">
       <text variable="title" quotes="true" suffix=","/>
@@ -207,25 +238,60 @@ all the other tests should have been done... -->
     </group>
   </macro>
   <macro name="render-case">
-    <group delimiter=", ">
-      <group delimiter=" ">
-        <text variable="title" font-style="italic"/>
+    <choose>
+      <if variable="author">
+        <group delimiter=", ">
+          <text variable="authority" strip-periods="true"/>
+          <date form="numeric" variable="issued"/>
+          <text variable="number"/>
+          <group delimiter=" ">
+            <text variable="title" font-style="italic" strip-periods="true"/>
+            <text variable="references" prefix="(" suffix=")"/>
+          </group>
+          <text variable="container-title" strip-periods="true" font-style="italic"/>
+          <text variable="volume"/>
+          <text variable="page"/>
+          <text variable="note"/>
+        </group>
+      </if>
+      <else-if variable="title" match="none">
+        <group delimiter=", ">
+          <text variable="authority" strip-periods="true"/>
+          <date form="numeric" variable="issued"/>
+          <text variable="number"/>
+          <group delimiter=" ">
+            <text variable="title" form="short" font-style="italic" strip-periods="true"/>
+            <text variable="references" prefix="(" suffix=")"/>
+          </group>
+          <text variable="container-title" strip-periods="true" font-style="italic"/>
+          <text variable="volume"/>
+          <text variable="page"/>
+          <text variable="note"/>
+        </group>
+      </else-if>
+      <else>
+        <text variable="title" font-style="italic" suffix=", " strip-periods="true"/>
         <choose>
-          <if variable="volume">
-            <date form="text" variable="issued" date-parts="year" prefix="(" suffix=")"/>
+          <if variable="container-title" match="none">
+            <group delimiter=" ">
+              <date form="text" variable="issued" date-parts="year"/>
+              <text variable="authority" strip-periods="true"/>
+              <text variable="page"/>
+            </group>
           </if>
+          <else>
+            <date form="text" variable="issued" date-parts="year" prefix="[" suffix="] "/>
+            <text variable="volume" suffix=" "/>
+            <text variable="container-title" suffix=" " strip-periods="true"/>
+            <text variable="page"/>
+            <text variable="authority" prefix=" (" suffix=")" strip-periods="true"/>
+          </else>
         </choose>
-      </group>
-      <group delimiter=" ">
-        <text variable="volume"/>
-        <date form="text" variable="issued" date-parts="year"/>
-        <text macro="container-title"/>
-        <text variable="number"/>
-        <text variable="page-first"/>
-        <text variable="authority" prefix="(" suffix=")"/>
-        <text variable="URL" prefix="(available on " suffix=")"/>
-      </group>
-    </group>
+        <text variable="note" prefix=", "/>
+        <text variable="references" prefix=" (" suffix=")"/>
+      </else>
+    </choose>
+    <text variable="URL" prefix=" (available on " suffix=")"/>
   </macro>
   <macro name="pinpoint">
     <group delimiter=" ">
@@ -238,7 +304,7 @@ all the other tests should have been done... -->
           </choose>
         </if>
         <else>
-          <label variable="locator" form="short" strip-periods="true" prefix=", "/>
+          <label variable="locator" plural="contextual" form="short" strip-periods="true" prefix=", "/>
         </else>
       </choose>
       <text variable="locator"/>
@@ -259,6 +325,20 @@ Not implemented: "cited to" for cases, construct short casenames, adding ref to 
         </names>
       </if>
       <else>
+        <choose>
+          <if type="legal_case">
+            <choose>
+              <if variable="author">
+                <text variable="authority" suffix=", "/>
+                <date form="numeric" variable="issued" suffix=", "/>
+              </if>
+              <else-if variable="title" match="none">
+                <text variable="authority" suffix=", "/>
+                <date form="numeric" variable="issued" suffix=", "/>
+              </else-if>
+            </choose>
+          </if>
+        </choose>
         <text variable="title" font-style="italic" form="short"/>
       </else>
     </choose>
@@ -320,10 +400,13 @@ Not implemented: "cited to" for cases, construct short casenames, adding ref to 
                     <else-if type="thesis">
                       <text macro="render-thesis"/>
                     </else-if>
-                    <else-if type="article-newspaper">
+                    <else-if type="article-newspaper" match="any">
                       <text macro="render-article-newspaper"/>
                     </else-if>
-                    <else-if type="webpage">
+                    <else-if type="article-magazine">
+                      <text macro="render-article-magazine"/>
+                    </else-if>
+                    <else-if type="webpage post-weblog" match="any">
                       <text macro="render-webpage"/>
                     </else-if>
                     <else-if type="book">
@@ -352,7 +435,7 @@ Not implemented: "cited to" for cases, construct short casenames, adding ref to 
       </choose>
     </layout>
   </citation>
-  <bibliography et-al-min="4" et-al-use-first="1">
+  <bibliography et-al-min="4" et-al-use-first="1" subsequent-author-substitute="&#8212;&#8212;&#8212;">
     <sort>
       <key macro="sort-by-type"/>
       <key macro="author-bib"/>
@@ -386,10 +469,13 @@ Not implemented: "cited to" for cases, construct short casenames, adding ref to 
               <else-if type="article-newspaper">
                 <text macro="render-article-newspaper"/>
               </else-if>
+              <else-if type="article-magazine">
+                <text macro="render-article-magazine"/>
+              </else-if>
               <else-if type="book">
                 <text macro="render-book"/>
               </else-if>
-              <else-if type="webpage">
+              <else-if type="webpage post-weblog" match="any">
                 <text macro="render-webpage"/>
               </else-if>
               <else-if type="report">

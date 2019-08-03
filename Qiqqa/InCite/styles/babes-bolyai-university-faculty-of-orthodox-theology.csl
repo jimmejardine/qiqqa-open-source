@@ -5,6 +5,7 @@
     <title>Babes-Bolyai University - Faculty of Orthodox Theology (Romanian)</title>
     <id>http://www.zotero.org/styles/babes-bolyai-university-faculty-of-orthodox-theology</id>
     <link href="http://www.zotero.org/styles/babes-bolyai-university-faculty-of-orthodox-theology" rel="self"/>
+    <link href="http://ot.ubbcluj.ro/" rel="documentation"/>
     <author>
       <name>Nicolae Turcan</name>
       <email>nturcan@gmail.com</email>
@@ -12,7 +13,7 @@
     <category citation-format="note"/>
     <category field="theology"/>
     <summary>Babes-Bolyai University (Cluj-Napoca), Faculty of Orthodox Theology, with full notes and bibliography</summary>
-    <updated>2013-12-06T01:48:46+00:00</updated>
+    <updated>2013-11-21T16:45:00+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="editor">
@@ -38,7 +39,7 @@
       <if variable="author">
         <names variable="editor" delimiter=", ">
           <name delimiter=", " delimiter-precedes-last="always"/>
-          <label form="short" text-case="lowercase" prefix=" (" suffix=".)" strip-periods="true"/>
+          <label form="short" text-case="lowercase" prefix=" (" suffix=")"/>
         </names>
       </if>
     </choose>
@@ -57,7 +58,7 @@
           <if variable="editor">
             <names variable="editor">
               <name delimiter=", " delimiter-precedes-last="always" sort-separator=", "/>
-              <label form="short" text-case="lowercase" prefix=" (" suffix=".)" strip-periods="true"/>
+              <label form="short" text-case="lowercase" prefix=" (" suffix=")"/>
             </names>
           </if>
         </choose>
@@ -85,19 +86,13 @@
       <if variable="author" match="none">
         <names variable="editor">
           <name name-as-sort-order="all" form="long" delimiter="; " delimiter-precedes-last="always" sort-separator=", "/>
-          <label form="short" text-case="lowercase" prefix=" (" suffix=".)" strip-periods="true"/>
+          <label form="short" text-case="lowercase" prefix=" (" suffix=")"/>
         </names>
       </if>
     </choose>
   </macro>
   <macro name="recipient">
     <names variable="recipient" delimiter=", ">
-      <label form="verb" prefix=" " text-case="lowercase" suffix=" "/>
-      <name and="text" delimiter=", "/>
-    </names>
-  </macro>
-  <macro name="interviewer">
-    <names variable="interviewer" delimiter=", ">
       <label form="verb" prefix=" " text-case="lowercase" suffix=" "/>
       <name and="text" delimiter=", "/>
     </names>
@@ -168,19 +163,19 @@
   </macro>
   <macro name="locators">
     <group>
-      <label variable="locator" suffix="." form="short" strip-periods="true"/>
+      <label variable="locator" form="short"/>
       <text variable="locator" prefix=" "/>
     </group>
   </macro>
   <macro name="volume">
     <group delimiter=" ">
-      <text term="volume" form="short" suffix="." strip-periods="true"/>
+      <text term="volume" form="short"/>
       <text variable="volume"/>
     </group>
   </macro>
   <macro name="pages">
     <group>
-      <label variable="page" suffix="." form="short" strip-periods="true"/>
+      <label variable="page" form="short"/>
       <text variable="page" prefix=" "/>
     </group>
   </macro>
@@ -190,7 +185,7 @@
       <text variable="collection-number"/>
     </group>
   </macro>
-  <citation et-al-min="3" et-al-use-first="1" et-al-subsequent-min="3" et-al-subsequent-use-first="1" disambiguate-add-year-suffix="false" disambiguate-add-names="true" disambiguate-add-givenname="true">
+  <citation et-al-min="3" et-al-use-first="1" disambiguate-add-year-suffix="false" disambiguate-add-names="true" disambiguate-add-givenname="true">
     <layout prefix="" suffix="." delimiter="; ">
       <choose>
         <if position="ibid-with-locator">
@@ -306,7 +301,7 @@
       </choose>
     </layout>
   </citation>
-  <bibliography hanging-indent="true" et-al-min="6" et-al-use-first="6" entry-spacing="0">
+  <bibliography hanging-indent="true" et-al-min="6" et-al-use-first="5" entry-spacing="0">
     <sort>
       <key macro="author-bib"/>
       <key variable="issue"/>

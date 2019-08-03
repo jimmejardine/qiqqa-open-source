@@ -18,7 +18,7 @@
     <category citation-format="note"/>
     <category field="law"/>
     <summary>Prepared according the authors' guidelines of the Institute of Austrian and International Tax Law at the Vienna University of Economic and Business regarding their "ECJ pending cases series"</summary>
-    <updated>2013-09-25T04:19:09+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="editor-translator">
@@ -303,7 +303,7 @@
       </choose>
     </layout>
   </citation>
-  <bibliography hanging-indent="true" et-al-min="6" et-al-use-first="6">
+  <bibliography hanging-indent="true" et-al-min="7" et-al-use-first="6">
     <sort>
       <key macro="author-bibliography"/>
       <key variable="title"/>

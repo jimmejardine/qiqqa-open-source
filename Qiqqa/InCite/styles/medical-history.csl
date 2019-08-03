@@ -16,7 +16,7 @@
     <issn>0025-7273</issn>
     <eissn>2048-8343</eissn>
     <summary>This style is for the journal Medical History.</summary>
-    <updated>2013-09-08T00:04:27+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="en-GB">
@@ -33,10 +33,7 @@
         <single>(ed. and trans.)</single>
         <multiple>(eds and trans.)</multiple>
       </term>
-      <term name="translator" form="short">
-        <single>(trans.)</single>
-        <multiple>(trans.)</multiple>
-      </term>
+      <term name="translator" form="short">(trans.)</term>
       <term name="container-author" form="short">
         <single>(author)</single>
         <multiple>(authors)</multiple>
@@ -100,34 +97,12 @@
       </names>
     </group>
   </macro>
-  <macro name="container-author">
-    <names variable="container-author">
-      <name and="text"/>
-      <label form="short" prefix=" "/>
-    </names>
-  </macro>
   <macro name="container-contributors">
     <choose>
       <if type="chapter entry-dictionary entry-encyclopedia paper-conference" match="any">
         <text macro="editor-translator"/>
       </if>
     </choose>
-  </macro>
-  <macro name="editor">
-    <group delimiter=", ">
-      <names variable="editor">
-        <name and="text"/>
-        <label form="short" prefix=" "/>
-      </names>
-    </group>
-  </macro>
-  <macro name="translator">
-    <group delimiter=", ">
-      <names variable="translator">
-        <name and="text"/>
-        <label form="short" prefix=" "/>
-      </names>
-    </group>
   </macro>
   <macro name="title">
     <choose>

@@ -34,7 +34,7 @@
     <category field="biology"/>
     <category field="medicine"/>
     <summary>Style for the "Trends" journals by Cell Press</summary>
-    <updated>2013-11-02T03:09:48+00:00</updated>
+    <updated>2012-10-29T10:03:16+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <!-- Macros -->
@@ -79,7 +79,7 @@
   <macro name="author">
     <names variable="author">
       <name sort-separator=", " initialize-with="." name-as-sort-order="all" delimiter=", " and="text"/>
-      <label form="short" prefix=", " text-case="capitalize-first"/>
+      <label form="short" prefix=", "/>
       <et-al font-style="italic"/>
       <substitute>
         <names variable="editor"/>
@@ -88,9 +88,9 @@
     </names>
   </macro>
   <macro name="editor">
-    <names variable="editor">
-      <name sort-separator=", " initialize-with=". " name-as-sort-order="all" delimiter=", " and="text" prefix="("/>
-      <label form="short" prefix=", " suffix=")," strip-periods="true"/>
+    <names variable="editor" prefix="(" suffix="),">
+      <name sort-separator=", " initialize-with=". " name-as-sort-order="all" delimiter=", " and="text"/>
+      <label form="short" prefix=", " strip-periods="true"/>
     </names>
   </macro>
   <macro name="locators">
@@ -101,7 +101,7 @@
       </group>
       <group delimiter=" ">
         <number variable="number-of-volumes" form="numeric"/>
-        <text term="volume" form="short" suffix="." plural="true" strip-periods="true"/>
+        <text term="volume" form="short" plural="true"/>
       </group>
     </group>
   </macro>

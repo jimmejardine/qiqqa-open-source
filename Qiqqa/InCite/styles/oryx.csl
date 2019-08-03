@@ -16,7 +16,7 @@
     <issn>0030-6053</issn>
     <eissn>1365-3008</eissn>
     <summary>Style for Oryx: the international journal of conservation</summary>
-    <updated>2013-09-08T00:04:27+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="en">
@@ -94,10 +94,6 @@
       <text variable="publisher-place"/>
     </group>
   </macro>
-  <macro name="event">
-    <text variable="event"/>
-    <text variable="event-place" prefix=", "/>
-  </macro>
   <macro name="issued">
     <choose>
       <if variable="issued">
@@ -151,7 +147,7 @@
           <text term="in" suffix=" " text-case="capitalize-first"/>
           <text variable="container-title" font-style="italic"/>
           <text macro="container-contributors" prefix=" (" suffix="),"/>
-          <label variable="page" form="short" suffix=". " prefix=" " strip-periods="true"/>
+          <label variable="page" form="short" suffix=" " prefix=" "/>
           <text variable="page"/>
         </group>
       </else-if>

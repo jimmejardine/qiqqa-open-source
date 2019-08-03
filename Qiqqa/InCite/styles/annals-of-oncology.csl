@@ -13,7 +13,7 @@
     <category field="medicine"/>
     <issn>0923-7534</issn>
     <eissn>1569-8041</eissn>
-    <updated>2012-09-28T02:06:38+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="en">
@@ -93,14 +93,18 @@
           <text macro="title"/>
           <choose>
             <if type="bill book graphic legal_case legislation motion_picture report song" match="any">
-              <text macro="edition" suffix=" "/>
-              <text macro="publisher" prefix=" "/>
+              <group delimiter=" ">
+                <text macro="edition"/>
+                <text macro="publisher"/>
+              </group>
             </if>
             <else-if type="chapter paper-conference" match="any">
               <text macro="editor"/>
               <text macro="container-title" suffix=", "/>
-              <text macro="edition" suffix=". "/>
-              <text macro="publisher" prefix=" "/>
+              <group delimiter=" ">
+                <text macro="edition" suffix="."/>
+                <text macro="publisher"/>
+              </group>
             </else-if>
             <else>
               <text macro="container-title" suffix=" "/>

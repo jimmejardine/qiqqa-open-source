@@ -29,7 +29,7 @@
     <issn>0020-8183</issn>
     <eissn>1531-5088</eissn>
     <summary>Style for the Cambridge Journal International Organization</summary>
-    <updated>2013-11-02T01:11:01+00:00</updated>
+    <updated>2017-04-19T12:15:47+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale>
@@ -178,29 +178,6 @@
       </else>
     </choose>
   </macro>
-  <macro name="title-short">
-    <choose>
-      <if variable="title" match="none">
-        <choose>
-          <if type="interview">
-            <text term="interview"/>
-          </if>
-          <else-if type="manuscript speech" match="any">
-            <text variable="genre" form="short"/>
-          </else-if>
-          <else-if type="personal_communication">
-            <text macro="issued"/>
-          </else-if>
-        </choose>
-      </if>
-      <else-if type="bill book graphic legal_case legislation motion_picture report song" match="any">
-        <text variable="title" form="short" font-style="italic"/>
-      </else-if>
-      <else>
-        <text variable="title" form="short" quotes="true"/>
-      </else>
-    </choose>
-  </macro>
   <macro name="description">
     <group delimiter=", ">
       <group delimiter=". ">
@@ -281,9 +258,9 @@
     <choose>
       <if type="article-newspaper">
         <group delimiter=", ">
-          <group>
-            <text variable="edition" suffix=" "/>
-            <text term="edition" prefix=" "/>
+          <group delimiter=" ">
+            <text variable="edition"/>
+            <text term="edition"/>
           </group>
           <group>
             <text term="section" form="short" suffix=" "/>
@@ -407,10 +384,14 @@
       </choose>
       <choose>
         <if type="legal_case" match="none">
-          <text variable="URL" prefix=". Available from &lt;" suffix="&gt;"/>
+          <group delimiter=" " prefix=". ">
+            <text term="available at" text-case="capitalize-first"/>
+            <text variable="URL" prefix="&lt;" suffix="&gt;"/>
+          </group>
           <choose>
             <if variable="URL">
-              <group prefix=". Accessed">
+              <group delimiter=" ">
+                <text term="accessed" text-case="capitalize-first"/>
                 <date variable="accessed">
                   <date-part name="day" suffix=" "/>
                   <date-part name="month" suffix=" "/>

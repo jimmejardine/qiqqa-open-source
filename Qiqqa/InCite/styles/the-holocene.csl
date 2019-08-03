@@ -16,7 +16,7 @@
     <issn>0959-6836</issn>
     <eissn>1477-0911</eissn>
     <summary>The Holocene citation style.</summary>
-    <updated>2013-09-08T00:04:27+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="author">
@@ -116,19 +116,6 @@
       </if>
       <else>
         <text prefix=" (" term="no date" suffix=")" form="short"/>
-      </else>
-    </choose>
-  </macro>
-  <macro name="edition">
-    <choose>
-      <if is-numeric="edition">
-        <group delimiter=" ">
-          <number variable="edition" form="ordinal"/>
-          <text term="edition" form="short"/>
-        </group>
-      </if>
-      <else>
-        <text variable="edition" suffix="."/>
       </else>
     </choose>
   </macro>

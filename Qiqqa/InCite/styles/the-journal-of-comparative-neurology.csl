@@ -21,7 +21,7 @@
     <issn>0021-9967</issn>
     <eissn>1096-9861</eissn>
     <summary>Style for The Journal of Comparative Neurology</summary>
-    <updated>2013-10-11T23:55:58+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="editor">
@@ -72,21 +72,6 @@
     <group delimiter=": ">
       <text variable="publisher-place"/>
       <text variable="publisher"/>
-    </group>
-  </macro>
-  <macro name="issued">
-    <date variable="issued" delimiter=" ">
-      <date-part name="year"/>
-      <date-part name="month" prefix=" "/>
-      <date-part name="day" prefix=" "/>
-    </date>
-    <group prefix=" [" suffix="]" delimiter=" ">
-      <text term="cited"/>
-      <date variable="accessed">
-        <date-part name="year"/>
-        <date-part name="month" prefix=" "/>
-        <date-part name="day" prefix=" "/>
-      </date>
     </group>
   </macro>
   <macro name="pages">

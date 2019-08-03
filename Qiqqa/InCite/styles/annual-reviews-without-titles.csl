@@ -27,7 +27,7 @@
     </contributor>
     <category citation-format="numeric"/>
     <category field="generic-base"/>
-    <updated>2013-11-02T03:09:48+00:00</updated>
+    <updated>2013-03-28T21:58:08+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="en">
@@ -45,7 +45,7 @@
   </locale>
   <macro name="author">
     <names variable="author">
-      <name initialize-with="" delimiter=", " name-as-sort-order="all" sort-separator=" " et-al-min="7" et-al-use-first="5"/>
+      <name initialize-with="" delimiter=", " name-as-sort-order="all" sort-separator=" "/>
       <label form="short" prefix=", "/>
       <substitute>
         <names variable="editor"/>
@@ -57,7 +57,7 @@
   <macro name="editor">
     <names variable="editor">
       <label form="short" suffix=" " plural="never"/>
-      <name initialize-with="" delimiter=", " et-al-min="7" et-al-use-first="5"/>
+      <name initialize-with="" delimiter=", "/>
     </names>
   </macro>
   <macro name="year-date">
@@ -86,7 +86,7 @@
         </group>
       </else-if>
       <else-if type="chapter article-journal article-magazine article-newspaper article" match="none">
-        <text variable="title" text-case="sentence"/>
+        <text variable="title"/>
       </else-if>
     </choose>
   </macro>
@@ -252,7 +252,7 @@
       <text variable="citation-number"/>
     </layout>
   </citation>
-  <bibliography entry-spacing="0" second-field-align="flush" line-spacing="2">
+  <bibliography entry-spacing="0" second-field-align="flush" line-spacing="2" et-al-min="7" et-al-use-first="5">
     <layout>
       <text variable="citation-number" suffix=". "/>
       <group delimiter=". ">

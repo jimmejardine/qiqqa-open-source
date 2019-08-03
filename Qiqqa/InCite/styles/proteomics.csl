@@ -17,7 +17,7 @@
     <category field="biology"/>
     <issn>1615-9853</issn>
     <eissn>1615-9861</eissn>
-    <updated>2013-11-02T03:09:48+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="author">
@@ -67,7 +67,7 @@
     </sort>
     <layout suffix=".">
       <text variable="citation-number" prefix="[" suffix="]"/>
-      <text macro="author" prefix=" " suffix=", "/>
+      <text macro="author" suffix=", "/>
       <choose>
         <if type="bill book graphic legal_case legislation motion_picture report song" match="any">
           <group delimiter=", ">

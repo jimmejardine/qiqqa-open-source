@@ -12,14 +12,14 @@
     </author>
     <author>
       <name>Charles Parnot</name>
-      <email>charles@mekentosj.com</email>
+      <email>charles.parnot@gmail.com</email>
       <uri>http://twitter.com/cparnot</uri>
     </author>
     <category citation-format="numeric"/>
     <category field="medicine"/>
     <category field="biology"/>
     <summary>Based on AMA with strip-periods on journal abbreviations and et al for &gt;3 authors</summary>
-    <updated>2012-10-16T07:34:13+00:00</updated>
+    <updated>2012-10-16T12:00:00+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="editor">
@@ -42,16 +42,6 @@
         </substitute>
       </names>
     </group>
-  </macro>
-  <macro name="author-short">
-    <names variable="author">
-      <name form="short" and="symbol" delimiter=", " initialize-with="."/>
-      <substitute>
-        <names variable="editor"/>
-        <names variable="translator"/>
-        <text macro="anon"/>
-      </substitute>
-    </names>
   </macro>
   <macro name="access">
     <choose>
@@ -82,20 +72,6 @@
     <group delimiter=": ">
       <text variable="publisher-place"/>
       <text variable="publisher"/>
-    </group>
-  </macro>
-  <macro name="year-date">
-    <group prefix=" ">
-      <choose>
-        <if variable="issued">
-          <date variable="issued">
-            <date-part name="year"/>
-          </date>
-        </if>
-        <else>
-          <text term="no date" form="short"/>
-        </else>
-      </choose>
     </group>
   </macro>
   <macro name="edition">

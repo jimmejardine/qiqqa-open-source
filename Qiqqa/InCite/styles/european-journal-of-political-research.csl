@@ -14,7 +14,7 @@
     <category field="political_science"/>
     <issn>0304-4130</issn>
     <eissn>1475-6765</eissn>
-    <updated>2013-09-08T00:04:27+00:00</updated>
+    <updated>2013-08-26T02:14:22+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="en">
@@ -23,10 +23,7 @@
         <single>ed. &amp; trans.</single>
         <multiple>eds. &amp; trans.</multiple>
       </term>
-      <term name="translator" form="short">
-        <single>trans.</single>
-        <multiple>trans.</multiple>
-      </term>
+      <term name="translator" form="short">trans.</term>
     </terms>
   </locale>
   <macro name="container-contributors">
@@ -311,7 +308,7 @@
           <date variable="issued" form="text"/>
         </group>
       </else-if>
-      <else-if type="bill legislation">
+      <else-if type="bill legislation" match="any">
         <date variable="issued" prefix=" (" suffix=")">
           <date-part name="year"/>
         </date>

@@ -16,7 +16,7 @@
     <category citation-format="note"/>
     <category field="law"/>
     <summary>The Bluebook legal citation style for law reviews.</summary>
-    <updated>2013-09-08T00:04:27+00:00</updated>
+    <updated>2018-12-04T16:38:55+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale>
@@ -74,23 +74,6 @@
       <label form="short" prefix=" " suffix=".," strip-periods="true"/>
     </names>
   </macro>
-  <!-- sets up font variations for titles in books, articles, etc. -->
-  <macro name="title">
-    <choose>
-      <if type="bill book graphic legal_case legislation motion_picture report song" match="any">
-        <text variable="title" font-variant="small-caps"/>
-      </if>
-      <else-if type="article-journal article-magazine article-newspaper broadcast interview manuscript map patent personal_communication song speech thesis webpage" match="any">
-        <text variable="title" font-style="italic"/>
-      </else-if>
-      <else-if type="legal_case">
-        <text variable="title" font-variant="normal"/>
-      </else-if>
-      <else>
-        <text variable="title"/>
-      </else>
-    </choose>
-  </macro>
   <!-- link to online content, called in YYYYY -->
   <macro name="access">
     <choose>
@@ -113,43 +96,61 @@
     macro entirely. -->
     <choose>
       <if type="article-journal" match="any">
-        <text variable="title" suffix=", " font-style="italic"/>
-        <text variable="volume"/>
-        <text macro="container"/>
+        <text variable="title" font-style="italic"/>
+        <group prefix=", " delimiter=" ">
+          <text variable="volume"/>
+          <text macro="container"/>
+        </group>
         <text variable="page" prefix=" "/>
         <text variable="locator" prefix=", "/>
         <text macro="issuance" prefix=" (" suffix=")"/>
       </if>
       <else-if type="legal_case">
-        <text variable="title" suffix=", " font-variant="normal"/>
-        <text variable="volume"/>
-        <text macro="container"/>
+        <text variable="title" font-variant="normal"/>
+        <group prefix=", " delimiter=" ">
+          <text variable="volume"/>
+          <text macro="container"/>
+        </group>
         <text variable="page" prefix=" "/>
         <text variable="locator" prefix=", "/>
         <text macro="issuance" prefix=" (" suffix=")"/>
       </else-if>
       <else-if type="article-newspaper article-magazine thesis" match="any">
-        <text variable="title" suffix=", " font-style="italic"/>
-        <text variable="volume" suffix=" "/>
-        <text macro="container" suffix=", "/>
-        <text macro="issuance"/>
-        <group>
-          <text value="at" prefix=", "/>
-          <text variable="page" prefix=" "/>
+        <group delimiter=", ">
+          <text variable="title" font-style="italic"/>
+          <group delimiter=" ">
+            <text variable="volume"/>
+            <text macro="container"/>
+          </group>
+          <text macro="issuance"/>
+          <group delimiter=" ">
+            <text value="at"/>
+            <text variable="page"/>
+          </group>
         </group>
       </else-if>
       <else-if type="chapter paper-conference" match="any">
-        <text variable="title" suffix=", " font-style="italic"/>
-        <text variable="volume" suffix=" "/>
-        <text macro="container" suffix=" "/>
+        <text variable="title" font-style="italic"/>
+        <group prefix=", " delimiter=" " suffix=" ">
+          <text variable="volume"/>
+          <text macro="container"/>
+        </group>
         <text variable="page"/>
         <text variable="locator" prefix=", "/>
         <text macro="issuance" prefix=" (" suffix=")"/>
       </else-if>
-      <else>
-        <text variable="volume" suffix=" "/>
+      <else-if type="book" match="any">
         <text variable="title" font-variant="small-caps"/>
-        <text macro="container" prefix=" "/>
+        <text variable="page" prefix=" "/>
+        <text variable="locator" prefix=" "/>
+        <text macro="issuance" prefix=" (" suffix=")"/>
+      </else-if>
+      <else>
+        <text variable="title" font-style="italic"/>
+        <group prefix=", " delimiter=" " suffix=" ">
+          <text variable="volume"/>
+          <text macro="container"/>
+        </group>
         <text variable="page" prefix=" "/>
         <text variable="locator" prefix=" "/>
         <text macro="issuance" prefix=" (" suffix=")"/>
@@ -224,14 +225,23 @@
           <!-- period will not show up - this is for find-and-replace later. -->
         </if>
         <else-if position="subsequent">
+          <choose>
+            <if type="book" match="any">
+              <text variable="volume" suffix=" "/>
+            </if>
+          </choose>
           <text macro="author-short"/>
           <text value="supra" font-style="italic" prefix=", "/>
           <text value="note" prefix=" "/>
-          <!-- CSL does not currently support reference to a note number, so we leave a blank space for correction now -->
-          <text value="___"/>
+          <text variable="first-reference-note-number" prefix=" "/>
           <text macro="at_page"/>
         </else-if>
         <else>
+          <choose>
+            <if type="book" match="any">
+              <text variable="volume" suffix=" "/>
+            </if>
+          </choose>
           <text macro="author" suffix=", "/>
           <text macro="source"/>
           <text macro="access" prefix=", "/>

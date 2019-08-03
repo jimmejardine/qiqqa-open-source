@@ -13,7 +13,7 @@
     <category field="medicine"/>
     <issn>1232-1087</issn>
     <eissn>1896-494X</eissn>
-    <updated>2013-09-08T00:04:27+00:00</updated>
+    <updated>2013-04-26T00:00:00+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="en">
@@ -34,7 +34,7 @@
   <macro name="editor">
     <group delimiter=": ">
       <choose>
-        <if type="chapter paper-conference">
+        <if type="chapter paper-conference" match="any">
           <text term="in" text-case="capitalize-first"/>
         </if>
       </choose>
@@ -105,7 +105,7 @@
         <text macro="edition" prefix=" "/>
       </if>
       <!--add event-name and event-place once they become available-->
-      <else-if type="bill legislation">
+      <else-if type="bill legislation" match="any">
         <group delimiter=", ">
           <group delimiter=". ">
             <text variable="container-title" form="short"/>
@@ -123,7 +123,7 @@
     </choose>
   </macro>
   <macro name="title">
-    <text variable="title" font-style="italic"/>
+    <text variable="title"/>
     <choose>
       <if type="article-journal article-magazine chapter paper-conference article-newspaper" match="none">
         <choose>
@@ -165,7 +165,7 @@
           <text macro="accessed-date"/>
         </group>
       </if>
-      <else-if type="bill legislation">
+      <else-if type="bill legislation" match="any">
         <group delimiter=", ">
           <date variable="issued" delimiter=" ">
             <date-part name="month" form="short" strip-periods="true"/>

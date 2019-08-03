@@ -5,7 +5,7 @@
     <id>http://www.zotero.org/styles/philosophiques</id>
     <link href="http://www.zotero.org/styles/philosophiques" rel="self"/>
     <link href="http://www.zotero.org/styles/infoclio-fr-nocaps" rel="template"/>
-    <link href="http://www.er.uqam.ca/nobel/philuqam/philosophiques/index.php?section=preparation_manuscrits" rel="documentation"/>
+    <link href="http://philosophiques.ca/directives-pour-la-preparation-des-manuscrits/" rel="documentation"/>
     <author>
       <name>Nicolas Chachereau</name>
       <email>nicolas.chachereau@unil.ch</email>
@@ -22,7 +22,7 @@
     <category field="philosophy"/>
     <issn>0316-2923</issn>
     <eissn>1492-1391</eissn>
-    <updated>2013-11-23T02:49:43+00:00</updated>
+    <updated>2013-08-29T04:18:55+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="fr">
@@ -37,10 +37,7 @@
         <single>p.</single>
         <multiple>pp.</multiple>
       </term>
-      <term name="editor" form="short">
-        <single>dir.</single>
-        <multiple>dir.</multiple>
-      </term>
+      <term name="editor" form="short">dir.</term>
     </terms>
   </locale>
   <macro name="author-or-editor">
@@ -72,19 +69,6 @@
         <names variable="editor"/>
       </substitute>
     </names>
-  </macro>
-  <macro name="editor-or-book-author">
-    <choose>
-      <if variable="editor">
-        <text macro="editor"/>
-      </if>
-      <else-if variable="container-author">
-        <names variable="container-author">
-          <name sort-separator=", "/>
-          <et-al font-style="italic"/>
-        </names>
-      </else-if>
-    </choose>
   </macro>
   <macro name="title">
     <choose>
@@ -374,7 +358,7 @@
       <text macro="date-pages-and-collection"/>
     </group>
   </macro>
-  <citation name-form="long" and="text" sort-separator=", " name-as-sort-order="all" delimiter-precedes-last="never" et-al-min="4">
+  <citation name-form="long" and="text" sort-separator=", " name-as-sort-order="all" delimiter-precedes-last="never" et-al-min="4" et-al-use-first="1">
     <!-- the attributes on citation are inheritable name options -->
     <layout suffix="." delimiter="&#160;; ">
       <choose>
@@ -417,7 +401,7 @@
       </choose>
     </layout>
   </citation>
-  <bibliography name-form="long" and="text" sort-separator=", " name-as-sort-order="all" delimiter-precedes-last="never" et-al-min="4">
+  <bibliography name-form="long" and="text" sort-separator=", " name-as-sort-order="all" delimiter-precedes-last="never" et-al-min="4" et-al-use-first="1">
     <!-- the attributes on bibliography are inheritable name options -->
     <sort>
       <key macro="author-or-editor" names-min="3" names-use-first="3"/>

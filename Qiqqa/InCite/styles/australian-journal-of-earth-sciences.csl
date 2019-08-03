@@ -9,13 +9,13 @@
     <author>
       <name>Charles Parnot</name>
       <uri>http://twitter.com/cparnot</uri>
-      <email>charles@mekentosj.com</email>
+      <email>charles.parnot@gmail.com</email>
     </author>
     <category citation-format="author-date"/>
     <category field="geology"/>
     <issn>0812-0099</issn>
     <eissn>1440-0952</eissn>
-    <updated>2013-08-29T04:18:55+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="author-short">
@@ -79,7 +79,7 @@
             <text variable="container-title" prefix="In " suffix="," text-case="title"/>
             <text macro="editor"/>
             <text macro="publisher" suffix=","/>
-            <label variable="page" suffix="." form="short" strip-periods="true"/>
+            <label variable="page" form="short"/>
             <text variable="page"/>
           </else-if>
           <else-if type="thesis">

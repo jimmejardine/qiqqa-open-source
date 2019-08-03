@@ -5,7 +5,7 @@
     <title-short>SLAS</title-short>
     <id>http://www.zotero.org/styles/society-for-laboratory-automation-and-screening</id>
     <link href="http://www.zotero.org/styles/society-for-laboratory-automation-and-screening" rel="self"/>
-    <link href="http://www.zotero.org/styles/american-chemical-society-with-titles" rel="template"/>
+    <link href="http://www.zotero.org/styles/american-chemical-society" rel="template"/>
     <link href="http://www.slas.org/publications/scientific-journals/author-instructions/" rel="documentation"/>
     <link href="http://pubs.acs.org/doi/pdf/10.1021/bk-2006-STYG.ch014" rel="documentation"/>
     <author>
@@ -14,7 +14,7 @@
     <category citation-format="numeric"/>
     <category field="chemistry"/>
     <summary>The ACS style with 4/3 et-al</summary>
-    <updated>2013-12-05T00:53:57+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="editor">
@@ -29,9 +29,6 @@
       <label form="short" prefix=", " text-case="capitalize-first"/>
     </names>
   </macro>
-  <macro name="access">
-    <text variable="URL"/>
-  </macro>
   <macro name="publisher">
     <group delimiter=": ">
       <text variable="publisher"/>
@@ -40,7 +37,7 @@
   </macro>
   <macro name="title">
     <choose>
-      <if type="bill book graphic legal_case legislation motion_picture report song">
+      <if type="bill book graphic legal_case legislation motion_picture report song" match="any">
         <text variable="title" text-case="title" font-style="italic"/>
       </if>
       <else>
@@ -50,7 +47,7 @@
   </macro>
   <macro name="volume">
     <group delimiter=" ">
-      <text term="volume" form="short" suffix="." text-case="capitalize-first" strip-periods="true"/>
+      <text term="volume" form="short" text-case="capitalize-first"/>
       <text variable="volume"/>
     </group>
   </macro>
@@ -101,9 +98,9 @@
       <text variable="citation-number"/>
     </layout>
   </citation>
-  <bibliography second-field-align="flush" entry-spacing="0" et-al-min="11" et-al-use-first="10">
+  <bibliography second-field-align="flush" entry-spacing="0" et-al-min="4" et-al-use-first="3">
     <layout suffix=".">
-      <text variable="citation-number" prefix="(" suffix=") "/>
+      <text variable="citation-number" suffix="."/>
       <text macro="author" suffix=" "/>
       <choose>
         <if type="article-magazine">

@@ -19,12 +19,12 @@
     <issn>0141-9889</issn>
     <eissn>1467-9566</eissn>
     <summary>Harvard author-date style edited for Sociology of Health and Illness</summary>
-    <updated>2014-01-26T18:39:19+00:00</updated>
+    <updated>2014-01-15T11:19:51+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="editor">
     <names variable="editor" delimiter=", ">
-      <name and="text" et-al-min="5" et-al-use-first="4" initialize-with="." name-as-sort-order="all"/>
+      <name and="text" initialize-with="." name-as-sort-order="all"/>
       <label form="short" prefix=" (" suffix=")"/>
     </names>
   </macro>
@@ -33,7 +33,7 @@
   </macro>
   <macro name="author">
     <names variable="author">
-      <name and="text" delimiter-precedes-last="never" et-al-min="5" et-al-use-first="4" initialize-with="." name-as-sort-order="all"/>
+      <name and="text" delimiter-precedes-last="never" initialize-with="." name-as-sort-order="all"/>
       <label form="short" prefix=" "/>
       <substitute>
         <text macro="editor"/>
@@ -43,7 +43,7 @@
   </macro>
   <macro name="author-short">
     <names variable="author" font-weight="normal">
-      <name form="short" and="text" delimiter-precedes-last="never" et-al-min="3" et-al-use-first="1"/>
+      <name form="short" and="text" delimiter-precedes-last="never"/>
       <et-al font-style="italic"/>
       <substitute>
         <names variable="editor"/>
@@ -56,31 +56,6 @@
         <text macro="anon"/>
       </substitute>
     </names>
-  </macro>
-  <macro name="access">
-    <choose>
-      <if variable="URL DOI" match="any">
-        <group>
-          <text value="Available from: "/>
-          <choose>
-            <if variable="DOI">
-              <text variable="DOI" prefix="doi:"/>
-            </if>
-            <else>
-              <text variable="URL"/>
-            </else>
-          </choose>
-          <group prefix=" [" suffix="]">
-            <text term="accessed" text-case="capitalize-first" suffix=": "/>
-            <date variable="accessed">
-              <date-part name="day" suffix=" "/>
-              <date-part name="month" suffix=" "/>
-              <date-part name="year"/>
-            </date>
-          </group>
-        </group>
-      </if>
-    </choose>
   </macro>
   <macro name="title">
     <choose>
@@ -158,7 +133,7 @@
       </if>
     </choose>
   </macro>
-  <citation disambiguate-add-year-suffix="true" collapse="year">
+  <citation disambiguate-add-year-suffix="true" collapse="year" et-al-min="3" et-al-use-first="1">
     <sort>
       <key macro="author-short"/>
       <key macro="year-date"/>
@@ -173,7 +148,7 @@
       </group>
     </layout>
   </citation>
-  <bibliography initialize-with="." hanging-indent="true" line-spacing="2">
+  <bibliography initialize-with="." hanging-indent="true" line-spacing="2" et-al-min="5" et-al-use-first="4">
     <sort>
       <key macro="author"/>
       <key macro="year-date"/>
@@ -241,8 +216,8 @@
           </group>
         </else-if>
         <else-if type="chapter paper-conference" match="any">
-          <text macro="title" prefix=" " suffix=". "/>
           <group prefix=" " delimiter=" ">
+            <text macro="title" suffix="."/>
             <text term="in" text-case="capitalize-first"/>
             <text macro="editor" suffix=" "/>
             <text variable="container-title" font-style="italic" suffix="."/>
@@ -256,21 +231,23 @@
           </group>
         </else-if>
         <else>
-          <group suffix=".">
-            <text macro="title" prefix=" "/>
-            <text macro="editor" prefix=" "/>
-          </group>
-          <text variable="container-title" font-style="italic" prefix=" " suffix="."/>
-          <text macro="online" prefix=" " suffix=". "/>
-          <group prefix=" " suffix=".">
-            <group prefix=" ">
-              <text variable="volume"/>
-              <text variable="issue" prefix=" (" suffix=")"/>
-              <text macro="issued"/>
+          <group delimiter=". " prefix=" " suffix=".">
+            <group delimiter=" ">
+              <text macro="title"/>
+              <text macro="editor"/>
             </group>
-            <group prefix=" ">
-              <label variable="page" form="short"/>
-              <text macro="pages"/>
+            <text variable="container-title" font-style="italic"/>
+            <text macro="online"/>
+            <group delimiter=" ">
+              <group>
+                <text variable="volume"/>
+                <text variable="issue" prefix=" (" suffix=")"/>
+                <text macro="issued"/>
+              </group>
+              <group>
+                <label variable="page" form="short"/>
+                <text macro="pages"/>
+              </group>
             </group>
           </group>
         </else>

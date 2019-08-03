@@ -13,7 +13,7 @@
     <category citation-format="author-date"/>
     <category field="social_science"/>
     <issn>0317-0861</issn>
-    <updated>2013-09-27T22:18:36+00:00</updated>
+    <updated>2013-09-22T16:08:14+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale>
@@ -120,7 +120,7 @@
   <macro name="contributors">
     <names variable="author">
       <name and="text" delimiter-precedes-last="always" et-al-use-last="true" initialize-with=". " name-as-sort-order="first"/>
-      <label form="verb-short" prefix=", " suffix="." strip-periods="true"/>
+      <label form="verb-short" prefix=", "/>
       <substitute>
         <text macro="editor"/>
         <text macro="translator"/>
@@ -222,7 +222,7 @@
           </group>
           <group>
             <number variable="number-of-volumes" form="numeric"/>
-            <text term="volume" form="short" prefix=" " suffix="." plural="true" strip-periods="true"/>
+            <text term="volume" form="short" prefix=" " plural="true"/>
           </group>
         </group>
       </else-if>
@@ -256,9 +256,9 @@
     <choose>
       <if type="article-newspaper">
         <group prefix=", " delimiter=", ">
-          <group>
-            <text variable="edition" suffix=" "/>
-            <text term="edition" prefix=" "/>
+          <group delimiter=" ">
+            <text variable="edition"/>
+            <text term="edition"/>
           </group>
           <group>
             <text term="section" form="short" suffix=" "/>
@@ -369,7 +369,7 @@
   <macro name="issue">
     <choose>
       <if type="article-journal"/>
-      <else-if type="legal_case article">
+      <else-if type="legal_case article" match="any">
         <text variable="authority" prefix=". "/>
       </else-if>
       <else-if type="speech">

@@ -15,7 +15,7 @@
     <issn>1946-6234</issn>
     <eissn>1946-6242</eissn>
     <summary>The style for the Science journal style: Science Translational Medicine</summary>
-    <updated>2013-09-08T00:04:27+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="editor">
@@ -27,7 +27,7 @@
   <macro name="author">
     <names variable="author">
       <name sort-separator=", " initialize-with=". " delimiter=", " delimiter-precedes-last="always"/>
-      <label form="short" prefix=", " suffix="." text-case="capitalize-first" strip-periods="true"/>
+      <label form="short" prefix=", " text-case="capitalize-first"/>
       <substitute>
         <names variable="editor"/>
       </substitute>

@@ -11,7 +11,7 @@
     <category citation-format="note"/>
     <category field="history"/>
     <summary>Harvard author-date style edited for Oxford Studies on the Roman Economy</summary>
-    <updated>2014-01-31T20:42:05+00:00</updated>
+    <updated>2013-05-23T11:00:00+01:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="editor">
@@ -26,13 +26,10 @@
       <label form="short" prefix=" (" suffix=")"/>
     </names>
   </macro>
-  <macro name="anon">
-    <text term="anonymous" form="short" text-case="capitalize-first" strip-periods="true"/>
-  </macro>
   <macro name="author">
     <names variable="author">
       <name and="text" name-as-sort-order="all" sort-separator=", " initialize-with="." delimiter=", "/>
-      <label form="short" prefix=" " suffix="." strip-periods="true"/>
+      <label form="short" prefix=" "/>
       <substitute>
         <text macro="editor"/>
       </substitute>
@@ -124,9 +121,20 @@
       <group>
         <text macro="author-short" suffix=" "/>
         <text macro="year-date"/>
-        <group>
-          <text variable="locator" prefix=": "/>
-        </group>
+        <choose>
+          <if locator="page">
+            <text variable="locator" prefix=":&#160;"/>
+          </if>
+          <else-if locator="paragraph">
+            <text variable="locator" prefix=":&#160;§"/>
+          </else-if>
+          <else>
+            <group prefix=":&#160;">
+              <label variable="locator" form="short" suffix=".&#160;"/>
+              <text variable="locator"/>
+            </group>
+          </else>
+        </choose>
       </group>
     </layout>
   </citation>
@@ -196,7 +204,7 @@
         </else-if>
         <else-if type="chapter paper-conference" match="any">
           <text macro="title" quotes="true" prefix=" " suffix=", "/>
-          <group prefix=" ">
+          <group>
             <text term="in" suffix=" "/>
             <text macro="editor-bib" suffix=", "/>
             <text variable="container-title" font-style="italic"/>

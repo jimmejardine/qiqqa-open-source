@@ -13,7 +13,7 @@
     <issn>0196-0202</issn>
     <eissn>1538-4667</eissn>
     <summary>Style for Ear and Hearing, based on the Harvard author-date style, but with abbreviated journal names..</summary>
-    <updated>2013-08-29T03:14:21+00:00</updated>
+    <updated>2012-11-08T15:24:39+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="en">
@@ -33,7 +33,7 @@
   <macro name="author">
     <names variable="author">
       <name name-as-sort-order="all" and="symbol" sort-separator=", " initialize-with="." delimiter-precedes-last="never" delimiter=", "/>
-      <label form="short" prefix=" " suffix="." strip-periods="true"/>
+      <label form="short" prefix=" "/>
       <substitute>
         <names variable="editor"/>
         <text macro="anon"/>
@@ -43,7 +43,7 @@
   <macro name="author-ref">
     <names variable="author">
       <name name-as-sort-order="all" sort-separator=", " initialize-with="." delimiter-precedes-last="always" delimiter=", "/>
-      <label form="short" prefix=" " suffix="." strip-periods="true"/>
+      <label form="short" prefix=" "/>
       <substitute>
         <names variable="editor"/>
         <text macro="anon"/>
@@ -123,7 +123,7 @@
       <text variable="page"/>
     </group>
   </macro>
-  <citation et-al-min="3" et-al-use-first="1" et-al-subsequent-min="3" et-al-subsequent-use-first="1" disambiguate-add-year-suffix="true" disambiguate-add-names="false" disambiguate-add-givenname="false">
+  <citation et-al-min="3" et-al-use-first="1" disambiguate-add-year-suffix="true" disambiguate-add-names="false" disambiguate-add-givenname="false">
     <layout prefix="(" suffix=")" delimiter="; ">
       <group delimiter=" ">
         <group delimiter=" ">
@@ -131,7 +131,7 @@
           <text macro="year-date"/>
         </group>
         <group>
-          <label variable="locator" suffix="." form="short" strip-periods="true"/>
+          <label variable="locator" form="short"/>
           <text variable="locator"/>
         </group>
       </group>

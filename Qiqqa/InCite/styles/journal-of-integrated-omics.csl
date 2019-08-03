@@ -13,7 +13,7 @@
     <category citation-format="numeric"/>
     <category field="generic-base"/>
     <issn>2182-0287</issn>
-    <updated>2013-11-02T03:09:48+00:00</updated>
+    <updated>2012-09-20T14:08:35+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="en">
@@ -83,7 +83,7 @@
   <bibliography entry-spacing="0" second-field-align="flush">
     <layout>
       <text variable="citation-number" prefix="[" suffix="]"/>
-      <text macro="author" prefix=" " suffix=", "/>
+      <text macro="author" suffix=", "/>
       <choose>
         <if type="bill book graphic legal_case legislation motion_picture report song" match="any">
           <group delimiter=", " suffix=".">

@@ -14,7 +14,7 @@
     <category field="medicine"/>
     <issn>0021-9738</issn>
     <eissn>1558-8238</eissn>
-    <updated>2013-09-08T00:04:27+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="en">
@@ -115,10 +115,6 @@
       </else>
     </choose>
   </macro>
-  <macro name="pages">
-    <label variable="page" form="short" suffix=" " strip-periods="true"/>
-    <text variable="page"/>
-  </macro>
   <citation collapse="citation-number">
     <sort>
       <key variable="citation-number"/>
@@ -148,7 +144,7 @@
         </else-if>
         <else>
           <text macro="title"/>
-          <text variable="container-title" suffix=". " prefix=". " form="short" strip-periods="true" font-style="italic"/>
+          <text variable="container-title" suffix=" " prefix=". " form="short" font-style="italic"/>
           <text macro="date" suffix=";"/>
           <group suffix=".">
             <text variable="volume"/>

@@ -4,7 +4,7 @@
     <title>Grasas y Aceites</title>
     <id>http://www.zotero.org/styles/grasas-y-aceites</id>
     <link href="http://www.zotero.org/styles/grasas-y-aceites" rel="self"/>
-    <link href="http://www.zotero.org/styles/harvard1" rel="template"/>
+    <link href="http://www.zotero.org/styles/harvard-cite-them-right" rel="template"/>
     <link href="http://grasasyaceites.revistas.csic.es/index.php/grasasyaceites/about/submissions#authorGuidelines" rel="documentation"/>
     <author>
       <name>cleber barreto</name>
@@ -15,7 +15,7 @@
     <issn>0017-3495</issn>
     <eissn>1988-4214</eissn>
     <summary>Grasas y Aceites publishes, in English or in Spanish, original papers (neither previously published nor submitted for publication anywhere) on fats, oils, oleaginous seeds or fruits, and similar products, in the form of articles, notes, reviews, and informative papers</summary>
-    <updated>2014-03-10T23:30:36+00:00</updated>
+    <updated>2014-02-28T19:45:59+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="editor">
@@ -30,7 +30,7 @@
   <macro name="author">
     <names variable="author">
       <name delimiter-precedes-last="never" initialize-with="" name-as-sort-order="all" sort-separator=" "/>
-      <label form="short" text-case="lowercase" strip-periods="true" prefix=" " suffix="."/>
+      <label form="short" text-case="lowercase" prefix=" "/>
       <substitute>
         <names variable="editor"/>
         <text macro="anon"/>
@@ -49,7 +49,7 @@
   </macro>
   <macro name="access">
     <choose>
-      <if variable="URL" type="webpage">
+      <if variable="URL" type="webpage" match="all">
         <text value="Available at:" suffix=" "/>
         <text variable="URL"/>
         <group prefix=" [" suffix="]">
@@ -110,7 +110,7 @@
       <text variable="page"/>
     </group>
   </macro>
-  <citation et-al-min="3" et-al-use-first="1" et-al-subsequent-min="3" et-al-subsequent-use-first="1" disambiguate-add-year-suffix="true" disambiguate-add-names="true" disambiguate-add-givenname="true">
+  <citation et-al-min="3" et-al-use-first="1" disambiguate-add-year-suffix="true" disambiguate-add-names="true" disambiguate-add-givenname="true">
     <sort>
       <key variable="citation-number"/>
     </sort>
@@ -121,7 +121,7 @@
           <text macro="year-date"/>
         </group>
         <group>
-          <label variable="locator" suffix="." form="short" strip-periods="true"/>
+          <label variable="locator" form="short"/>
           <text variable="locator"/>
         </group>
       </group>

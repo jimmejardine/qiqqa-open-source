@@ -18,7 +18,7 @@
     <category field="biology"/>
     <issn>0032-5791</issn>
     <eissn>1525-3171</eissn>
-    <updated>2013-08-29T02:46:15+00:00</updated>
+    <updated>2012-09-14T21:22:32+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="editor-translator">
@@ -114,7 +114,7 @@
         </date>
       </group>
       <group prefix=", ">
-        <label variable="locator" suffix="." form="short" strip-periods="true"/>
+        <label variable="locator" form="short"/>
         <text variable="locator" prefix=" "/>
       </group>
     </layout>

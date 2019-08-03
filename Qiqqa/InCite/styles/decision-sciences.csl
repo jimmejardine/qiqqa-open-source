@@ -12,7 +12,7 @@
     <category citation-format="author-date"/>
     <issn>0011-7315</issn>
     <eissn>1540-5915</eissn>
-    <updated>2013-12-06T02:44:59+00:00</updated>
+    <updated>2013-06-15T08:22:33+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="en">
@@ -25,9 +25,9 @@
       <name name-as-sort-order="all" and="symbol" sort-separator=", " initialize-with=". " delimiter=", " delimiter-precedes-last="always"/>
       <label form="short" prefix=" (" suffix=")" text-case="capitalize-first"/>
       <substitute>
+        <names variable="editor"/>
         <text variable="container-title"/>
         <text variable="collection-title"/>
-        <names variable="editor"/>
       </substitute>
     </names>
   </macro>

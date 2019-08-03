@@ -18,7 +18,7 @@
     <issn>1469-6053</issn>
     <eissn>1741-2951</eissn>
     <summary>Journal of Social Archaeology Style - this is based on the actual journal format, not the (misleading) instructions</summary>
-    <updated>2013-09-08T00:04:27+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale>
@@ -41,7 +41,7 @@
   <macro name="author">
     <names variable="author">
       <name delimiter=", " and="text" delimiter-precedes-last="never" initialize-with="" name-as-sort-order="all" sort-separator=" "/>
-      <label form="short" prefix=" " suffix="." strip-periods="true"/>
+      <label form="short" prefix=" "/>
       <substitute>
         <names variable="editor"/>
         <text macro="anon"/>
@@ -114,14 +114,6 @@
       <else>
         <text variable="edition"/>
       </else>
-    </choose>
-  </macro>
-  <macro name="pages">
-    <choose>
-      <if type="chapter">
-        <label variable="page" form="short"/>
-        <text variable="page"/>
-      </if>
     </choose>
   </macro>
   <citation and="text" delimiter-precedes-last="never" et-al-min="3" et-al-use-first="1" disambiguate-add-year-suffix="true" collapse="year-suffix-ranged" year-suffix-delimiter="," after-collapse-delimiter="; ">
@@ -202,16 +194,14 @@
         </else-if>
         <else-if type="webpage"/>
         <else>
-          <group suffix=", ">
-            <text macro="editor" prefix=" "/>
-          </group>
+          <text macro="editor" prefix=" " suffix=","/>
           <group prefix=" " suffix=".">
             <text variable="container-title" form="short" font-style="italic"/>
             <group prefix=" ">
               <text variable="volume"/>
             </group>
             <group>
-              <label variable="locator" suffix="." form="short" strip-periods="true"/>
+              <label variable="locator" form="short"/>
               <text variable="page" prefix=": "/>
             </group>
           </group>

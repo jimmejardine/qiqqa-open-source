@@ -14,7 +14,7 @@
     <category citation-format="author-date"/>
     <category field="sociology"/>
     <issn>0340-1804</issn>
-    <updated>2013-09-08T00:04:27+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="de">
@@ -51,7 +51,7 @@
   <macro name="author">
     <names variable="author">
       <name and="symbol" delimiter-precedes-last="never" initialize-with="." name-as-sort-order="first"/>
-      <label form="short" prefix=" (" suffix=".)" text-case="capitalize-first" strip-periods="true"/>
+      <label form="short" prefix=" (" suffix=")" text-case="capitalize-first"/>
       <substitute>
         <names variable="editor"/>
         <names variable="translator"/>
@@ -69,7 +69,7 @@
   </macro>
   <macro name="author-short">
     <names variable="author" delimiter=", ">
-      <name form="short" and="symbol" et-al-min="3" et-al-use-first="1" initialize-with=". "/>
+      <name form="short" and="symbol" initialize-with=". "/>
       <substitute>
         <names variable="editor"/>
         <names variable="translator"/>
@@ -87,61 +87,6 @@
         </choose>
       </substitute>
     </names>
-  </macro>
-  <macro name="access">
-    <choose>
-      <if type="thesis">
-        <choose>
-          <if variable="archive" match="any">
-            <group>
-              <text term="retrieved" text-case="capitalize-first" suffix=" "/>
-              <text term="from" suffix=" "/>
-              <text variable="archive" suffix="."/>
-              <text variable="archive_location" prefix=" (" suffix=")"/>
-            </group>
-          </if>
-          <else>
-            <group>
-              <text term="retrieved" text-case="capitalize-first" suffix=" "/>
-              <text term="from" suffix=" "/>
-              <text variable="URL"/>
-            </group>
-          </else>
-        </choose>
-      </if>
-      <else>
-        <choose>
-          <if variable="DOI">
-            <text variable="DOI" prefix="doi:"/>
-          </if>
-          <else>
-            <choose>
-              <if type="webpage">
-                <group delimiter=" ">
-                  <text term="retrieved" text-case="capitalize-first" suffix=" "/>
-                  <group>
-                    <date variable="accessed" suffix=", ">
-                      <date-part name="month" suffix=" "/>
-                      <date-part name="day" suffix=", "/>
-                      <date-part name="year"/>
-                    </date>
-                  </group>
-                  <text term="from"/>
-                  <text variable="URL"/>
-                </group>
-              </if>
-              <else>
-                <group>
-                  <text term="retrieved" text-case="capitalize-first" suffix=" "/>
-                  <text term="from" suffix=" "/>
-                  <text variable="URL"/>
-                </group>
-              </else>
-            </choose>
-          </else>
-        </choose>
-      </else>
-    </choose>
   </macro>
   <macro name="title">
     <choose>
@@ -274,9 +219,6 @@
         <text variable="year-suffix" prefix="-"/>
       </else>
     </choose>
-  </macro>
-  <macro name="edition">
-    <text value=""/>
   </macro>
   <macro name="locators">
     <choose>

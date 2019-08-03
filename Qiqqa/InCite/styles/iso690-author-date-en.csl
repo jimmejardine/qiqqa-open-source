@@ -5,6 +5,7 @@
     <id>http://www.zotero.org/styles/iso690-author-date-en</id>
     <link href="http://www.zotero.org/styles/iso690-author-date-en" rel="self"/>
     <link href="https://forums.zotero.org/discussion/20342" rel="documentation"/>
+    <link href="http://www.iso.org/iso/catalogue_detail.htm?csnumber=43320" rel="documentation"/>
     <author>
       <name>Laure Mellifluo</name>
       <email>laure.melli@gmail.com</email>
@@ -19,8 +20,8 @@
     </author>
     <category citation-format="author-date"/>
     <category field="generic-base"/>
-    <summary>Style based on ISO 690:2010(E), V1.1</summary>
-    <updated>2013-08-29T04:18:55+00:00</updated>
+    <summary>Style based on ISO 690:2010(E), v1.1</summary>
+    <updated>2016-12-26T11:30:00+01:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale>
@@ -33,14 +34,6 @@
       <term name="from">from</term>
     </terms>
   </locale>
-  <macro name="author">
-    <names variable="author">
-      <name and="text" name-as-sort-order="all" sort-separator=", " delimiter=", " delimiter-precedes-last="never">
-        <name-part name="family" text-case="uppercase"/>
-        <name-part name="given"/>
-      </name>
-    </names>
-  </macro>
   <macro name="editor">
     <names variable="editor">
       <name and="text" name-as-sort-order="all" sort-separator=", " delimiter=", " delimiter-precedes-last="never">
@@ -72,7 +65,7 @@
       </substitute>
     </names>
     <choose>
-      <if variable="author editor translator">
+      <if variable="author editor translator" match="any">
         <text macro="year-date" prefix=", "/>
       </if>
     </choose>
@@ -124,7 +117,7 @@
     <choose>
       <if type="book thesis map motion_picture song manuscript" match="any">
         <choose>
-          <if variable="author editor translator">
+          <if variable="author editor translator" match="any">
             <text variable="title" font-style="italic"/>
           </if>
           <else>
@@ -135,7 +128,7 @@
       </if>
       <else-if type="paper-conference speech chapter article-journal article-magazine article-newspaper entry entry-dictionary entry-encyclopedia post-weblog post webpage broadcast" match="any">
         <choose>
-          <if variable="author editor translator">
+          <if variable="author editor translator" match="any">
             <text variable="title" suffix=". "/>
           </if>
           <else>
@@ -145,7 +138,7 @@
         </choose>
         <choose>
           <if type="chapter paper-conference" match="any">
-            <text term="in" text-case="capitalize-first" suffix="&#160;: "/>
+            <text term="in" text-case="capitalize-first" suffix=": "/>
           </if>
         </choose>
         <choose>
@@ -169,7 +162,7 @@
       </else-if>
       <else-if type="report">
         <choose>
-          <if variable="author editor translator">
+          <if variable="author editor translator" match="any">
             <text variable="number" suffix=": "/>
             <text variable="title" font-style="italic"/>
           </if>
@@ -182,7 +175,7 @@
       </else-if>
       <else-if type="patent">
         <choose>
-          <if variable="author editor translator">
+          <if variable="author editor translator" match="any">
             <text variable="title"/>
           </if>
           <else>
@@ -193,7 +186,7 @@
       </else-if>
       <else>
         <choose>
-          <if variable="author editor translator">
+          <if variable="author editor translator" match="any">
             <text variable="title" font-style="italic"/>
           </if>
           <else>
@@ -214,9 +207,6 @@
   </macro>
   <macro name="medium">
     <text variable="medium" prefix=" [" suffix="]"/>
-  </macro>
-  <macro name="version">
-    <text variable="version"/>
   </macro>
   <macro name="genre">
     <choose>
@@ -250,7 +240,7 @@
     <text variable="edition" form="long"/>
   </macro>
   <macro name="publisher-group">
-    <group delimiter="&#160;: ">
+    <group delimiter=": ">
       <text variable="publisher-place"/>
       <text variable="publisher"/>
     </group>
@@ -324,12 +314,10 @@
     </choose>
   </macro>
   <macro name="archive">
-    <text variable="archive"/>
-    <choose>
-      <if variable="archive_location call-number">
-        <text value=":&#160;"/>
-      </if>
-    </choose>
+    <group delimiter=":&#160;">
+      <text variable="archive"/>
+      <text macro="archive_location"/>
+    </group>
   </macro>
   <macro name="archive_location">
     <choose>
@@ -370,9 +358,9 @@
       <choose>
         <if type="book map" match="any">
           <group display="block">
-            <text macro="responsability" suffix=", "/>
+            <text macro="responsability" suffix=". "/>
             <choose>
-              <if variable="author editor translator">
+              <if variable="author editor translator" match="any">
                 <text macro="title" suffix=". "/>
               </if>
             </choose>
@@ -387,9 +375,9 @@
         </if>
         <else-if type="article-journal article-magazine" match="any">
           <group display="block">
-            <text macro="responsability" suffix=", "/>
+            <text macro="responsability" suffix=". "/>
             <choose>
-              <if variable="author editor translator">
+              <if variable="author editor translator" match="any">
                 <text macro="title" suffix=". "/>
               </if>
             </choose>
@@ -403,9 +391,9 @@
         </else-if>
         <else-if type="article-newspaper">
           <group display="block">
-            <text macro="responsability" suffix=", "/>
+            <text macro="responsability" suffix=". "/>
             <choose>
-              <if variable="author editor translator">
+              <if variable="author editor translator" match="any">
                 <text macro="title" suffix=". "/>
               </if>
             </choose>
@@ -419,9 +407,9 @@
         </else-if>
         <else-if type="chapter entry entry-dictionary entry-encyclopedia" match="any">
           <group display="block">
-            <text macro="responsability" suffix=", "/>
+            <text macro="responsability" suffix=". "/>
             <choose>
-              <if variable="author editor translator">
+              <if variable="author editor translator" match="any">
                 <text macro="title" suffix=". "/>
               </if>
             </choose>
@@ -436,9 +424,9 @@
         </else-if>
         <else-if type="speech">
           <group display="block">
-            <text macro="responsability" suffix=", "/>
+            <text macro="responsability" suffix=". "/>
             <choose>
-              <if variable="author editor translator">
+              <if variable="author editor translator" match="any">
                 <text macro="title" suffix=". "/>
               </if>
             </choose>
@@ -452,9 +440,9 @@
         </else-if>
         <else-if type="paper-conference">
           <group display="block">
-            <text macro="responsability" suffix=", "/>
+            <text macro="responsability" suffix=". "/>
             <choose>
-              <if variable="author editor translator">
+              <if variable="author editor translator" match="any">
                 <text macro="title" suffix=". "/>
               </if>
             </choose>
@@ -470,9 +458,9 @@
         </else-if>
         <else-if type="thesis">
           <group display="block">
-            <text macro="responsability" suffix=", "/>
+            <text macro="responsability" suffix=". "/>
             <choose>
-              <if variable="author editor translator">
+              <if variable="author editor translator" match="any">
                 <text macro="title" suffix=". "/>
               </if>
             </choose>
@@ -484,9 +472,9 @@
         </else-if>
         <else-if type="post-weblog post webpage" match="any">
           <group display="block">
-            <text macro="responsability" suffix=", "/>
+            <text macro="responsability" suffix=". "/>
             <choose>
-              <if variable="author editor translator">
+              <if variable="author editor translator" match="any">
                 <text macro="title" suffix=". "/>
               </if>
             </choose>
@@ -497,9 +485,9 @@
         </else-if>
         <else-if type="broadcast motion_picture song" match="any">
           <group display="block">
-            <text macro="responsability" suffix=", "/>
+            <text macro="responsability" suffix=". "/>
             <choose>
-              <if variable="author editor translator">
+              <if variable="author editor translator" match="any">
                 <text macro="title" suffix=". "/>
               </if>
             </choose>
@@ -514,9 +502,9 @@
         </else-if>
         <else-if type="report">
           <group display="block">
-            <text macro="responsability" suffix=", "/>
+            <text macro="responsability" suffix=". "/>
             <choose>
-              <if variable="author editor translator">
+              <if variable="author editor translator" match="any">
                 <text macro="title" suffix=". "/>
               </if>
             </choose>
@@ -530,9 +518,9 @@
         </else-if>
         <else-if type="manuscript">
           <group display="block">
-            <text macro="responsability" suffix=", "/>
+            <text macro="responsability" suffix=". "/>
             <choose>
-              <if variable="author editor translator">
+              <if variable="author editor translator" match="any">
                 <text macro="title" suffix=". "/>
               </if>
             </choose>
@@ -546,9 +534,9 @@
         </else-if>
         <else-if type="patent">
           <group display="block">
-            <text macro="responsability" suffix=", "/>
+            <text macro="responsability" suffix=". "/>
             <choose>
-              <if variable="author editor translator">
+              <if variable="author editor translator" match="any">
                 <text macro="title" suffix=". "/>
               </if>
             </choose>
@@ -562,9 +550,9 @@
         </else-if>
         <else>
           <group display="block">
-            <text macro="responsability" suffix=", "/>
+            <text macro="responsability" suffix=". "/>
             <choose>
-              <if variable="author editor translator">
+              <if variable="author editor translator" match="any">
                 <text macro="title" suffix=". "/>
               </if>
             </choose>
@@ -584,7 +572,6 @@
       </choose>
       <group display="right-inline">
         <text macro="archive"/>
-        <text macro="archive_location"/>
       </group>
       <group display="right-inline">
         <text macro="abstract"/>

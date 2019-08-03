@@ -25,7 +25,7 @@
     <issn>0006-3495</issn>
     <eissn>1542-0086</eissn>
     <summary>Style for Biophysical Journal</summary>
-    <updated>2013-08-29T04:18:55+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="author">
@@ -47,22 +47,6 @@
   <macro name="publisher">
     <text variable="publisher-place" suffix=": "/>
     <text variable="publisher"/>
-  </macro>
-  <macro name="access">
-    <group>
-      <group prefix=" " suffix=".">
-        <text value="Available at: "/>
-        <text variable="URL"/>
-      </group>
-      <group prefix=" ">
-        <text term="accessed" text-case="capitalize-first"/>
-        <date variable="accessed" prefix=" ">
-          <date-part name="day" prefix=" "/>
-          <date-part name="month" prefix=" " form="long"/>
-          <date-part name="year" prefix=" "/>
-        </date>
-      </group>
-    </group>
   </macro>
   <macro name="title">
     <group delimiter=" ">
@@ -90,7 +74,7 @@
       <text variable="citation-number"/>
     </layout>
   </citation>
-  <bibliography et-al-min="6" et-al-use-first="5" second-field-align="flush">
+  <bibliography et-al-min="99" et-al-use-first="98" second-field-align="flush">
     <layout suffix=".">
       <text variable="citation-number" suffix=". "/>
       <text macro="author"/>

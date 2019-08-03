@@ -12,7 +12,7 @@
     </author>
     <category citation-format="note"/>
     <category field="law"/>
-    <updated>2014-03-10T20:06:02+00:00</updated>
+    <updated>2014-03-10T19:41:30+01:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
     <!-- GENERAL COMMENTS
 			All comments below are in DUTCH since this is a Dutch reference-style. The comments are for further development of this style. 
@@ -65,19 +65,19 @@
     <choose>
       <if variable="editor">
         <names variable="author" suffix="/">
-          <name form="long" initialize="true" initialize-with="." and="symbol" delimiter=", " delimiter-precedes-et-al="never" delimiter-precedes-last="never" et-al-min="4" et-al-use-first="1">
+          <name form="long" initialize="true" initialize-with="." and="symbol" delimiter=", " delimiter-precedes-et-al="never" delimiter-precedes-last="never">
             <name-part name="family" text-case="capitalize-all"/>
           </name>
         </names>
         <names variable="editor">
-          <name form="long" initialize="true" initialize-with="." and="symbol" delimiter=", " delimiter-precedes-et-al="never" delimiter-precedes-last="never" et-al-min="4" et-al-use-first="1">
+          <name form="long" initialize="true" initialize-with="." and="symbol" delimiter=", " delimiter-precedes-et-al="never" delimiter-precedes-last="never">
             <name-part name="family" text-case="capitalize-all"/>
           </name>
         </names>
       </if>
       <else-if variable="editorial-director">
         <names variable="editorial-director">
-          <name form="long" initialize="true" initialize-with="." and="symbol" delimiter=", " delimiter-precedes-et-al="never" delimiter-precedes-last="never" et-al-min="4" et-al-use-first="1">
+          <name form="long" initialize="true" initialize-with="." and="symbol" delimiter=", " delimiter-precedes-et-al="never" delimiter-precedes-last="never">
             <name-part name="family" text-case="capitalize-all"/>
           </name>
           <label form="short" prefix=" (" suffix=")"/>
@@ -85,7 +85,7 @@
       </else-if>
       <else-if variable="author">
         <names variable="author">
-          <name form="long" initialize="true" initialize-with="." and="symbol" delimiter=", " delimiter-precedes-et-al="never" delimiter-precedes-last="never" et-al-min="4" et-al-use-first="1">
+          <name form="long" initialize="true" initialize-with="." and="symbol" delimiter=", " delimiter-precedes-et-al="never" delimiter-precedes-last="never">
             <name-part name="family" text-case="capitalize-all"/>
           </name>
         </names>
@@ -96,26 +96,26 @@
     <choose>
       <if variable="editor">
         <names variable="author" suffix="/">
-          <name form="short" and="symbol" delimiter=", " delimiter-precedes-et-al="never" delimiter-precedes-last="never" et-al-min="4" et-al-use-first="1">
+          <name form="short" and="symbol" delimiter=", " delimiter-precedes-et-al="never" delimiter-precedes-last="never">
             <name-part name="family" text-case="capitalize-all"/>
           </name>
         </names>
         <names variable="editor">
-          <name form="short" and="symbol" delimiter=", " delimiter-precedes-et-al="never" delimiter-precedes-last="never" et-al-min="4" et-al-use-first="1">
+          <name form="short" and="symbol" delimiter=", " delimiter-precedes-et-al="never" delimiter-precedes-last="never">
             <name-part name="family" text-case="capitalize-all"/>
           </name>
         </names>
       </if>
       <else-if variable="editorial-director">
         <names variable="editorial-director">
-          <name form="short" and="symbol" delimiter=", " delimiter-precedes-et-al="never" delimiter-precedes-last="never" et-al-min="4" et-al-use-first="1">
+          <name form="short" and="symbol" delimiter=", " delimiter-precedes-et-al="never" delimiter-precedes-last="never">
             <name-part name="family" text-case="capitalize-all"/>
           </name>
         </names>
       </else-if>
       <else-if variable="author">
         <names variable="author">
-          <name form="short" and="symbol" delimiter=", " delimiter-precedes-et-al="never" delimiter-precedes-last="never" et-al-min="4" et-al-use-first="1">
+          <name form="short" and="symbol" delimiter=", " delimiter-precedes-et-al="never" delimiter-precedes-last="never">
             <name-part name="family" text-case="capitalize-all"/>
           </name>
         </names>
@@ -124,14 +124,14 @@
   </macro>
   <macro name="container-author">
     <names variable="container-author">
-      <name form="long" initialize="true" initialize-with="." and="symbol" delimiter=", " delimiter-precedes-et-al="never" delimiter-precedes-last="never" et-al-min="4" et-al-use-first="1">
+      <name form="long" initialize="true" initialize-with="." and="symbol" delimiter=", " delimiter-precedes-et-al="never" delimiter-precedes-last="never">
         <name-part name="family" text-case="capitalize-all"/>
       </name>
     </names>
   </macro>
   <macro name="name-translator">
     <names variable="translator">
-      <name form="long" initialize="true" initialize-with="." and="symbol" delimiter=", " delimiter-precedes-et-al="never" delimiter-precedes-last="never" et-al-min="4" et-al-use-first="1">
+      <name form="long" initialize="true" initialize-with="." and="symbol" delimiter=", " delimiter-precedes-et-al="never" delimiter-precedes-last="never">
         <name-part name="family" text-case="capitalize-all"/>
       </name>
     </names>
@@ -183,13 +183,6 @@
       <date-part name="year"/>
     </date>
   </macro>
-  <macro name="legislation-issued-long">
-    <date variable="issued">
-      <date-part name="day" suffix=" "/>
-      <date-part name="month" form="long" suffix=" "/>
-      <date-part name="year" form="long"/>
-    </date>
-  </macro>
   <!-- BLOK III: VERWIJZINGEN NAAR (DIGITALE) LOCATIES -->
   <macro name="locators">
     <choose>
@@ -213,7 +206,7 @@
       <else>
         <text value="."/>
       </else>
-    </choose>    
+    </choose>
   </macro>
   <!-- BLOK IV: LITERATUURLIJST -->
   <!-- korte verwijzing -->
@@ -241,7 +234,7 @@
   <macro name="reference-book-etc-long">
     <text macro="creator-long" suffix=" "/>
     <choose>
-      <if type="book report">
+      <if type="book report" match="any">
         <choose>
           <if variable="translator">
             <text variable="title" font-style="italic" suffix=", "/>
@@ -264,8 +257,8 @@
           </else>
         </choose>
       </if>
-      <else-if type="article article-magazine article-newspaper article-journal">
-        <text variable="title" text-case="sentence" quotes="true" suffix=", "/>
+      <else-if type="article article-magazine article-newspaper article-journal" match="any">
+        <text variable="title" quotes="true" suffix=", "/>
         <text variable="container-title" font-style="italic"/>
         <choose>
           <if variable="volume issue" match="all">
@@ -280,7 +273,7 @@
         <text macro="locators"/>
       </else-if>
       <else-if type="chapter">
-        <text variable="title" text-case="sentence" quotes="true" suffix=", in: "/>
+        <text variable="title" quotes="true" suffix=", in: "/>
         <text macro="container-author" suffix=", "/>
         <text variable="container-title" font-style="italic" suffix=", "/>
         <text variable="publisher-place"/>
@@ -362,7 +355,7 @@
             <text variable="container-title" suffix=" " font-style="italic"/>
             <text macro="legislation-issued-short" suffix=", "/>
             <text variable="page" suffix="."/>
-          </else>        
+          </else>
         </choose>
       </else-if>
     </choose>
@@ -409,7 +402,7 @@
             <text macro="date-accessed" prefix=" geraadpleegd op "/>
           </group>
         </group>
-       </else-if>
+      </else-if>
     </choose>
   </macro>
   <!-- BLOK VI: BIBLIOGRRAFIE DEEL 3: JURISPRUDENTIE -->
@@ -495,7 +488,7 @@
         <text macro="remains-long"/>
       </else>
     </choose>
-    <text value=" "/>  
+    <text value=" "/>
   </macro>
   <!-- biblografie: de korte vermelding -->
   <macro name="bibliography-reference-title">
@@ -614,7 +607,7 @@
     </choose>
   </macro>
   <!-- VERMELDING ALS VOETNOOT -->
-  <citation initialize="true" initialize-with="." givenname-disambiguation-rule="by-cite" disambiguate-add-givenname="true" disambiguate-add-year-suffix="true">
+  <citation initialize="true" initialize-with="." givenname-disambiguation-rule="by-cite" disambiguate-add-givenname="true" disambiguate-add-year-suffix="true" et-al-min="4" et-al-use-first="1">
     <sort>
       <key macro="footnote-reference"/>
       <key macro="year-publication"/>
@@ -624,7 +617,7 @@
     </layout>
   </citation>
   <!-- VERMELDING IN DE BRONVERMELDING -->
-  <bibliography>
+  <bibliography et-al-min="4" et-al-use-first="1">
     <sort>
       <key macro="display-order"/>
       <key macro="sort-order-when-same-type"/>

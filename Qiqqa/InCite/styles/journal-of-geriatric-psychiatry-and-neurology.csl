@@ -5,7 +5,7 @@
     <id>http://www.zotero.org/styles/journal-of-geriatric-psychiatry-and-neurology</id>
     <link href="http://www.zotero.org/styles/journal-of-geriatric-psychiatry-and-neurology" rel="self"/>
     <link href="http://www.zotero.org/styles/american-medical-association" rel="template"/>
-    <link href="http://www.sagepub.com/journals/Journal201662/manuscriptSubmission" rel="documentation"/>
+    <link href="https://us.sagepub.com/en-us/nam/journal-of-geriatric-psychiatry-and-neurology/journal201662#submission-guidelines" rel="documentation"/>
     <author>
       <name>Sebastian Karcher</name>
     </author>
@@ -13,7 +13,7 @@
     <category field="medicine"/>
     <issn>0891-9887</issn>
     <summary>The American Medical Association style  without DOIs. Based on published articles, e.g. doi: 10.1177/0891988713490992  which diverge slightly from instructions to authors</summary>
-    <updated>2013-11-02T01:11:01+00:00</updated>
+    <updated>2012-09-30T23:10:36+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="editor">
@@ -33,15 +33,6 @@
         </substitute>
       </names>
     </group>
-  </macro>
-  <macro name="author-short">
-    <names variable="author">
-      <name form="short" and="symbol" delimiter=", " initialize-with="."/>
-      <substitute>
-        <names variable="editor"/>
-        <names variable="translator"/>
-      </substitute>
-    </names>
   </macro>
   <macro name="access">
     <choose>
@@ -79,20 +70,6 @@
     <group delimiter=": ">
       <text variable="publisher-place"/>
       <text variable="publisher"/>
-    </group>
-  </macro>
-  <macro name="year-date">
-    <group prefix=" ">
-      <choose>
-        <if variable="issued">
-          <date variable="issued">
-            <date-part name="year"/>
-          </date>
-        </if>
-        <else>
-          <text term="no date" form="short"/>
-        </else>
-      </choose>
     </group>
   </macro>
   <macro name="edition">
@@ -214,7 +191,7 @@
         <else>
           <text macro="editor" prefix=" " suffix="."/>
           <group prefix=" " suffix=".">
-            <text variable="container-title" font-style="italic" strip-periods="true" form="short" suffix="."/>
+            <text variable="container-title" font-style="italic" form="short"/>
             <group delimiter=";" prefix=" ">
               <date variable="issued">
                 <date-part name="year"/>

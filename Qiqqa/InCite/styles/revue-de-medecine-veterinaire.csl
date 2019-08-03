@@ -12,7 +12,7 @@
     <category citation-format="numeric"/>
     <category field="medicine"/>
     <issn>0035-1555</issn>
-    <updated>2013-08-29T04:18:55+00:00</updated>
+    <updated>2013-04-08T23:40:21+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale>
@@ -74,7 +74,7 @@
       <text variable="citation-number"/>
     </layout>
   </citation>
-  <bibliography et-al-min="99" et-al-use-first="99">
+  <bibliography et-al-min="99" et-al-use-first="98">
     <sort>
       <key macro="author"/>
       <key variable="issued"/>

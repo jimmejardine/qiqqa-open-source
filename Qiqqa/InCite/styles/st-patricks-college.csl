@@ -13,7 +13,7 @@
     <category citation-format="author-date"/>
     <category field="generic-base"/>
     <summary>Harvard author-date style edited for St Patrick's College specifics.</summary>
-    <updated>2013-09-25T04:19:09+00:00</updated>
+    <updated>2013-01-30T02:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="author">
@@ -168,7 +168,7 @@
         <text macro="year-date"/>
         <!--  Does this next group do anything?  -->
         <group>
-          <label variable="locator" suffix="." form="short" strip-periods="true"/>
+          <label variable="locator" form="short"/>
           <text variable="locator"/>
         </group>
       </group>

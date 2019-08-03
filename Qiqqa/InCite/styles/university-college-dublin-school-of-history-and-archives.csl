@@ -13,19 +13,13 @@
     <category citation-format="note"/>
     <category field="history"/>
     <summary>This is the style currently used by the School of History and Archives, University College Dublin, Ireland. In all essentials it is in the Chicago Manual Style format with full notes and bibliography. It differs significantly only in the use of minimal page ranges and single rather than double quotation marks. While the introductory remarks on the School of History and Archives style sheet indicate that the school style is identical with that of the journal Irish Historical Studies (available in the Zotero style repository), the examples that they provide in the style sheet indicate that it actually differs significantly. For a discussion of these issues please see the following thread on the Zotero forum: http://forums.zotero.org/discussion/24431/new-style-university-dept-school-of-history-and-archives-university-college-dublin-ireland/</summary>
-    <updated>2013-09-08T00:04:27+00:00</updated>
+    <updated>2012-10-25T21:15:26+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="en">
     <terms>
-      <term name="editortranslator" form="verb-short">
-        <single>trans. and ed.</single>
-        <multiple>trans. and ed.</multiple>
-      </term>
-      <term name="editortranslator" form="verb">
-        <single> Translated and edited by</single>
-        <multiple> Translated and edited by</multiple>
-      </term>
+      <term name="editortranslator" form="verb-short">trans. and ed.</term>
+      <term name="editortranslator" form="verb"> Translated and edited by</term>
       <term name="editor" form="verb-short">ed.</term>
       <term name="translator" form="verb-short">trans.</term>
     </terms>
@@ -437,9 +431,9 @@
     <choose>
       <if type="article-newspaper">
         <group delimiter=", ">
-          <group>
-            <text variable="edition" suffix=" "/>
-            <text term="edition" prefix=" "/>
+          <group delimiter=" ">
+            <text variable="edition"/>
+            <text term="edition"/>
           </group>
           <group>
             <text term="section" form="short" suffix=" "/>
@@ -722,7 +716,7 @@
         <if type="graphic report" match="any">
           <text macro="archive"/>
         </if>
-        <else-if type=" article-journal article-magazine article-newspaper bill book chapter graphic legal_case legislation motion_picture paper-conference report song" match="none">
+        <else-if type="article-journal article-magazine article-newspaper bill book chapter graphic legal_case legislation motion_picture paper-conference report song" match="none">
           <text macro="archive"/>
         </else-if>
       </choose>

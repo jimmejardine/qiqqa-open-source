@@ -10,13 +10,13 @@
     <author>
       <name>Charles Parnot</name>
       <uri>http://twitter.com/cparnot</uri>
-      <email>charles@mekentosj.com</email>
+      <email>charles.parnot@gmail.com</email>
     </author>
     <category citation-format="numeric"/>
     <category field="biology"/>
     <issn>1547-3287</issn>
     <eissn>1557-8534</eissn>
-    <updated>2013-08-29T03:14:21+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="author">
@@ -50,11 +50,6 @@
     </layout>
   </citation>
   <bibliography et-al-min="51" et-al-use-first="50" line-spacing="2">
-    <sort>
-      <key macro="author"/>
-      <key macro="issued"/>
-      <key variable="title"/>
-    </sort>
     <layout suffix=".">
       <text variable="citation-number" suffix=". "/>
       <group delimiter=" ">
@@ -72,7 +67,7 @@
             <text variable="container-title" prefix="In " suffix="," text-case="title"/>
             <text macro="editor"/>
             <text macro="publisher" suffix=","/>
-            <label variable="page" suffix="." form="short" strip-periods="true"/>
+            <label variable="page" form="short"/>
             <text variable="page"/>
           </else-if>
           <else-if type="thesis">

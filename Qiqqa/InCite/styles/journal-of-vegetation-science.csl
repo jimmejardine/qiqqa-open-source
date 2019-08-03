@@ -5,7 +5,7 @@
     <title>Journal of Vegetation Science</title>
     <id>http://www.zotero.org/styles/journal-of-vegetation-science</id>
     <link href="http://www.zotero.org/styles/journal-of-vegetation-science" rel="self"/>
-    <link href="http://www.zotero.org/styles/basic-and-applied-ecology" rel="template"/>
+    <link href="http://www.zotero.org/styles/apa" rel="template"/>
     <link href="http://onlinelibrary.wiley.com/journal/10.1111/(ISSN)1654-1103/homepage/ForAuthors.html" rel="documentation"/>
     <author>
       <name>Johan Asplund</name>
@@ -19,7 +19,7 @@
     <category field="biology"/>
     <issn>1100-9233</issn>
     <eissn>1654-1103</eissn>
-    <updated>2013-10-17T23:48:00+00:00</updated>
+    <updated>2013-06-17T08:11:00+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="editor-translator">
@@ -31,7 +31,7 @@
   <macro name="author">
     <names variable="author">
       <name and="symbol" delimiter-precedes-last="always" initialize-with="." name-as-sort-order="all"/>
-      <label form="short" prefix=" (" suffix=".)" text-case="capitalize-first" strip-periods="true"/>
+      <label form="short" prefix=" (" suffix=")" text-case="capitalize-first"/>
       <substitute>
         <names variable="editor"/>
         <names variable="translator"/>
@@ -55,20 +55,6 @@
         </choose>
       </substitute>
     </names>
-  </macro>
-  <macro name="access">
-    <group>
-      <text term="retrieved" text-case="capitalize-first" suffix=" "/>
-      <date variable="accessed" suffix=", ">
-        <date-part name="month" suffix=" "/>
-        <date-part name="day" suffix=", "/>
-        <date-part name="year"/>
-      </date>
-      <group>
-        <text term="from" suffix=" "/>
-        <text variable="URL"/>
-      </group>
-    </group>
   </macro>
   <macro name="title">
     <choose>
@@ -98,7 +84,7 @@
           <date-part name="year"/>
         </date>
         <group>
-          <label variable="locator" suffix="." form="short" strip-periods="true"/>
+          <label variable="locator" form="short"/>
           <text variable="locator" prefix=" "/>
         </group>
       </group>
@@ -128,7 +114,7 @@
             <text term="in" text-case="capitalize-first"/>
             <names variable="editor translator" prefix=" " suffix="," delimiter=", ">
               <name and="symbol" initialize-with="." name-as-sort-order="all"/>
-              <label form="short" strip-periods="true" prefix=" (" suffix=".)"/>
+              <label form="short" prefix=" (" suffix=")"/>
             </names>
             <text variable="container-title" font-style="italic" prefix=" " suffix=","/>
             <group prefix=" " suffix=".">
@@ -142,9 +128,9 @@
           </group>
         </else-if>
         <else-if type="article-journal">
-          <group suffix=". ">
-            <text macro="title" prefix=" "/>
-            <text macro="editor-translator" prefix=" "/>
+          <group prefix=" " suffix=". " delimiter=" ">
+            <text macro="title"/>
+            <text macro="editor-translator"/>
           </group>
           <choose>
             <if variable="issue volume" match="any">
@@ -162,9 +148,9 @@
           </choose>
         </else-if>
         <else>
-          <group suffix=". ">
-            <text macro="title" prefix=" "/>
-            <text macro="editor-translator" prefix=" "/>
+          <group suffix=". " prefix=" " delimiter=" ">
+            <text macro="title"/>
+            <text macro="editor-translator"/>
           </group>
           <group delimiter=" " suffix=".">
             <text variable="container-title" font-style="italic"/>

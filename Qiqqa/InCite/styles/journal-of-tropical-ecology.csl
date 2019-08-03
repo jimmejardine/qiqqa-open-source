@@ -16,7 +16,7 @@
     <category field="biology"/>
     <issn>0266-4674</issn>
     <eissn>1469-7831</eissn>
-    <updated>2013-08-29T02:46:15+00:00</updated>
+    <updated>2012-09-09T21:58:08+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="container-contributors">
@@ -46,7 +46,7 @@
         <name-part name="family" text-case="uppercase"/>
         <name-part name="given" text-case="uppercase"/>
       </name>
-      <label form="short" prefix=" (" suffix=".)" text-case="capitalize-first" strip-periods="true"/>
+      <label form="short" prefix=" (" suffix=")" text-case="capitalize-first"/>
       <substitute>
         <names variable="editor"/>
         <names variable="translator"/>
@@ -71,27 +71,6 @@
       </substitute>
     </names>
   </macro>
-  <macro name="access">
-    <choose>
-      <if variable="DOI">
-        <text variable="DOI" prefix="doi: "/>
-      </if>
-      <else>
-        <group>
-          <text term="retrieved" text-case="capitalize-first" suffix=" "/>
-          <date variable="accessed" suffix=", ">
-            <date-part name="month" suffix=" "/>
-            <date-part name="day" suffix=", "/>
-            <date-part name="year"/>
-          </date>
-          <group>
-            <text term="from" suffix=" "/>
-            <text variable="URL"/>
-          </group>
-        </group>
-      </else>
-    </choose>
-  </macro>
   <macro name="publisher">
     <text variable="genre" suffix=", "/>
     <group delimiter=", ">
@@ -99,10 +78,6 @@
       <text variable="publisher-place"/>
     </group>
     <text variable="number-of-pages" prefix=". " suffix=" pp"/>
-  </macro>
-  <macro name="event">
-    <text variable="event"/>
-    <text variable="event-place" prefix=", "/>
   </macro>
   <macro name="issued">
     <choose>

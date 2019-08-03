@@ -15,7 +15,7 @@
     <category citation-format="numeric"/>
     <category field="physics"/>
     <summary>Common style use by OSA publications.</summary>
-    <updated>2013-09-08T00:04:27+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="author">
@@ -88,11 +88,6 @@
       <text variable="collection-number" prefix="No. "/>
     </group>
   </macro>
-  <macro name="access">
-    <group>
-      <text variable="URL"/>
-    </group>
-  </macro>
   <macro name="personal-communication">
     <group prefix="personal communication (" suffix=")">
       <text macro="day-date"/>
@@ -126,7 +121,7 @@
   <bibliography entry-spacing="0" second-field-align="flush">
     <layout suffix=".">
       <text variable="citation-number" suffix=". "/>
-      <text macro="author" prefix=" " suffix=", "/>
+      <text macro="author" suffix=", "/>
       <choose>
         <if type="bill book graphic legal_case legislation motion_picture report song" match="any">
           <group delimiter=" ">

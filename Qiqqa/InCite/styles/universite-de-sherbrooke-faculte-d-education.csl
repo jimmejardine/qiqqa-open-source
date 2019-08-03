@@ -12,7 +12,7 @@
     <category citation-format="author-date"/>
     <category field="humanities"/>
     <category field="generic-base"/>
-    <updated>2013-09-27T22:50:37+00:00</updated>
+    <updated>2013-02-26T13:43:03+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="fr">
@@ -21,10 +21,7 @@
       <term name="editor" form="short">dir.</term>
       <term name="in">In</term>
       <term name="no date" form="short">s.d.</term>
-      <term name="translator" form="short">
-        <single>trad.</single>
-        <multiple>trad.</multiple>
-      </term>
+      <term name="translator" form="short">trad.</term>
     </terms>
   </locale>
   <macro name="container-contributors">
@@ -57,7 +54,7 @@
   <macro name="author">
     <names variable="author">
       <name name-as-sort-order="all" and="text" sort-separator=", " initialize-with=". " delimiter=", " delimiter-precedes-last="never"/>
-      <label form="short" prefix=" (" suffix=".)" text-case="lowercase" strip-periods="true"/>
+      <label form="short" prefix=" (" suffix=")" text-case="lowercase"/>
       <substitute>
         <names variable="editor"/>
         <names variable="translator"/>
@@ -335,7 +332,7 @@
           </date>
         </group>
       </else-if>
-      <else-if type="bill legislation">
+      <else-if type="bill legislation" match="any">
         <date variable="issued" prefix=" (" suffix=")">
           <date-part name="year"/>
         </date>

@@ -14,7 +14,7 @@
     <category field="botany"/>
     <issn>0034-7744</issn>
     <eissn>2215-2075</eissn>
-    <updated>2013-04-12T01:06:40+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="container">
@@ -150,19 +150,6 @@
         <text term="no date" form="short"/>
       </else>
     </choose>
-  </macro>
-  <macro name="edition">
-    <group delimiter=" ">
-      <choose>
-        <if is-numeric="edition">
-          <number variable="edition" form="ordinal"/>
-        </if>
-        <else>
-          <text variable="edition" suffix="."/>
-        </else>
-      </choose>
-      <text value="ed"/>
-    </group>
   </macro>
   <macro name="locators">
     <choose>

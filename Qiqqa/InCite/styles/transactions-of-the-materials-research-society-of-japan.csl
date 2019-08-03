@@ -4,7 +4,7 @@
     <title>Transactions of the Materials Research Society of Japan</title>
     <title-short>Trans. Mater. Res. Soc. Japan</title-short>
     <id>http://www.zotero.org/styles/transactions-of-the-materials-research-society-of-japan</id>
-    <link rel="self" href="http://www.zotero.org/styles/transactions-of-the-materials-research-society-of-japan"/>
+    <link href="http://www.zotero.org/styles/transactions-of-the-materials-research-society-of-japan" rel="self"/>
     <link href="http://mc.manuscriptcentral.com/mrsj" rel="documentation"/>
     <link href="http://www.mrs-j.org/en/pub/index.php" rel="documentation"/>
     <contributor>
@@ -14,7 +14,7 @@
     <category citation-format="numeric"/>
     <category field="engineering"/>
     <issn>1382-3469</issn>
-    <updated>2014-03-12T03:15:34+00:00</updated>
+    <updated>2014-03-12T03:08:43+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="en-US">
@@ -77,7 +77,7 @@
   <bibliography entry-spacing="0" second-field-align="flush" et-al-min="20" et-al-use-first="19">
     <layout suffix=".">
       <text variable="citation-number" prefix="[" suffix="]"/>
-      <text macro="author" prefix=" " suffix=", "/>
+      <text macro="author" suffix=", "/>
       <choose>
         <if type="bill book graphic legal_case legislation motion_picture report song" match="any">
           <group delimiter=", ">

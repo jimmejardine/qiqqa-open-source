@@ -14,7 +14,7 @@
     <issn>1355-4786</issn>
     <eissn>1460-2369</eissn>
     <summary>Style for the Oxford UP Journal Human Reproduction Update</summary>
-    <updated>2013-08-04T17:05:27+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="editor">
@@ -22,9 +22,6 @@
       <name name-as-sort-order="all" sort-separator=" " initialize-with="" delimiter=", " delimiter-precedes-last="always"/>
       <label form="short" prefix=" (" suffix=")" strip-periods="true"/>
     </names>
-  </macro>
-  <macro name="anon">
-    <text term="anonymous" form="short" text-case="capitalize-first" strip-periods="true"/>
   </macro>
   <macro name="author">
     <group suffix=".">

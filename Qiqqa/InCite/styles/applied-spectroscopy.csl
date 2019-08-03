@@ -14,7 +14,7 @@
     <issn>0003-7028</issn>
     <eissn>1943-3530</eissn>
     <summary>Style for Applied Spectroscopy</summary>
-    <updated>2013-11-23T02:45:16+00:00</updated>
+    <updated>2012-10-25T21:15:26+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale>
@@ -43,7 +43,7 @@
   </macro>
   <macro name="title">
     <choose>
-      <if type="article-journal chapter article-magazine speech webpage">
+      <if type="article-journal chapter article-magazine speech webpage" match="any">
         <text variable="title" quotes="true"/>
       </if>
       <else-if type="thesis patent" match="any">

@@ -18,7 +18,7 @@
     <category field="anthropology"/>
     <issn>0165-005X</issn>
     <eissn>1573-076X</eissn>
-    <updated>2013-08-29T05:27:03+00:00</updated>
+    <updated>2012-10-25T21:15:26+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale>
@@ -115,7 +115,7 @@
   <macro name="contributors">
     <names variable="author">
       <name and="text" name-as-sort-order="first" sort-separator=", " delimiter=", " delimiter-precedes-last="always"/>
-      <label form="verb-short" prefix=", " suffix="." strip-periods="true"/>
+      <label form="verb-short" prefix=", "/>
       <substitute>
         <text macro="editor"/>
         <text macro="translator"/>
@@ -224,7 +224,7 @@
           </group>
           <group>
             <number variable="number-of-volumes" form="numeric"/>
-            <text term="volume" form="short" prefix=" " suffix="." plural="true" strip-periods="true"/>
+            <text term="volume" form="short" prefix=" " plural="true"/>
           </group>
         </group>
       </else-if>
@@ -244,9 +244,9 @@
     <choose>
       <if type="article-newspaper">
         <group prefix=", " delimiter=", ">
-          <group>
-            <text variable="edition" suffix=" "/>
-            <text term="edition" prefix=" "/>
+          <group delimiter=" ">
+            <text variable="edition"/>
+            <text term="edition"/>
           </group>
           <group>
             <text term="section" form="short" suffix=" "/>

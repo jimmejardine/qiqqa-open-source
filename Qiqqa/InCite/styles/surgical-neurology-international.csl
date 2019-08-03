@@ -16,7 +16,7 @@
     <issn>2229-5097</issn>
     <eissn>2152-7806</eissn>
     <summary>Style for Surgical Neurology International, the open-acccess journal for neurosurgery and clinical neuroscience.</summary>
-    <updated>2013-12-22T02:33:59+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="editor">
@@ -97,7 +97,7 @@
   </macro>
   <macro name="volume">
     <group delimiter=" ">
-      <text term="volume" form="short" suffix="." text-case="capitalize-first" strip-periods="true"/>
+      <text term="volume" form="short" text-case="capitalize-first"/>
       <text variable="volume"/>
     </group>
   </macro>
@@ -120,7 +120,7 @@
       <text variable="citation-number"/>
     </layout>
   </citation>
-  <bibliography et-al-min="6" et-al-use-first="6">
+  <bibliography et-al-min="7" et-al-use-first="6">
     <sort>
       <key macro="author-sort"/>
       <key variable="title"/>

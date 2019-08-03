@@ -12,7 +12,7 @@
     <category citation-format="author-date"/>
     <category field="biology"/>
     <eissn>2051-1434</eissn>
-    <updated>2014-01-24T00:19:05+00:00</updated>
+    <updated>2013-06-05T05:06:19+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="container">
@@ -106,7 +106,7 @@
         <text macro="edition" prefix=", "/>
       </else-if>
       <else>
-        <text variable="title" text-case="title"/>
+        <text variable="title"/>
       </else>
     </choose>
   </macro>
@@ -179,8 +179,8 @@
   </macro>
   <citation et-al-min="3" et-al-use-first="1" disambiguate-add-givenname="true" disambiguate-add-year-suffix="true" collapse="year" cite-group-delimiter=", ">
     <sort>
+      <key macro="issued"/>
       <key macro="author"/>
-      <key macro="issued" sort="descending"/>
     </sort>
     <layout prefix="(" suffix=")" delimiter="; ">
       <group delimiter=", ">

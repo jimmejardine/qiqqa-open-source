@@ -15,7 +15,7 @@
     <issn>1053-0770</issn>
     <eissn>1532-8422</eissn>
     <summary>Style for the Journal for Cardiothoracic and Vascular Anesthesia, published by Elsevier. Based on Vancouver.</summary>
-    <updated>2013-11-23T02:49:43+00:00</updated>
+    <updated>2013-09-05T20:11:00+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="en">
@@ -127,21 +127,6 @@
       </if>
       <else>
         <text variable="edition" suffix="."/>
-      </else>
-    </choose>
-  </macro>
-  <macro name="issued">
-    <!-- format date conditional on source type and whether article in press -->
-    <choose>
-      <if variable="issued">
-        <group prefix=" " suffix=".">
-          <date variable="issued">
-            <date-part name="year"/>
-          </date>
-        </group>
-      </if>
-      <else>
-        <text prefix=" (" term="in press" suffix=")"/>
       </else>
     </choose>
   </macro>

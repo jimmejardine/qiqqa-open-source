@@ -17,7 +17,7 @@
     <category citation-format="author-date"/>
     <category field="generic-base"/>
     <summary>Style based on ČSN ISO 690:2011</summary>
-    <updated>2014-03-13T02:23:25+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale>
@@ -173,7 +173,7 @@
       <if variable="issued">
         <choose>
           <if is-uncertain-date="issued">
-            <text term="circa" form="short" suffix=" "/>
+            <text term="circa" form="short" suffix="&#160;"/>
           </if>
         </choose>
         <date variable="issued">
@@ -192,7 +192,7 @@
       </if>
       <else-if type="paper-conference speech chapter post" match="any">
         <text variable="title" suffix=". "/>
-        <text term="in" text-case="capitalize-first" suffix=": "/>
+        <text term="in" text-case="capitalize-first" suffix=":&#160;"/>
         <choose>
           <if variable="container-author editor translator" match="any">
             <text macro="container-responsability"/>
@@ -276,26 +276,26 @@
     <choose>
       <if variable="issued">
         <date variable="issued">
-          <date-part name="day" suffix=". "/>
-          <date-part name="month" suffix=" "/>
+          <date-part name="day" suffix=".&#160;"/>
+          <date-part name="month" suffix="&#160;"/>
           <date-part name="year"/>
         </date>
       </if>
     </choose>
   </macro>
-  <macro name="date-day-month">
+  <!--<macro name="date-day-month">
     <choose>
       <if variable="issued">
         <date variable="issued">
-          <date-part name="day" suffix="."/>
-          <date-part name="month" form="numeric" suffix="."/>
-          <!--date-part name="year"/-->
-        </date>
+          <date-part name="day" suffix=".&#160;"/>
+          <date-part name="month" form="numeric" suffix="."/>-->
+  <!--date-part name="year"/-->
+  <!--</date>
       </if>
     </choose>
-  </macro>
+  </macro>-->
   <macro name="scale">
-    <group delimiter=" ">
+    <group delimiter="&#160;">
       <text term="scale" text-case="capitalize-first"/>
       <text variable="scale"/>
     </group>
@@ -304,7 +304,7 @@
     <choose>
       <if is-numeric="edition">
         <number variable="edition" form="ordinal"/>
-        <label variable="edition" form="short" prefix=" "/>
+        <label variable="edition" form="short" prefix="&#160;"/>
       </if>
       <else>
         <text variable="edition" form="long"/>
@@ -335,19 +335,12 @@
   </macro>
   <macro name="issue">
     <group delimiter=", ">
-      <group delimiter=" ">
-        <label variable="volume" form="short"/>
-        <text variable="volume"/>
-      </group>
-      <group delimiter=" ">
-        <label variable="issue" form="short"/>
-        <text variable="issue"/>
+      <group>
+        <text variable="volume" font-weight="bold"/>
+        <text variable="issue" prefix="(" suffix=")"/>
       </group>
       <text macro="collection"/>
-      <group delimiter=" ">
-        <label variable="page" form="short"/>
-        <text variable="page"/>
-      </group>
+      <text variable="page"/>
     </group>
   </macro>
   <macro name="publisher">
@@ -386,11 +379,11 @@
     <choose>
       <if variable="URL DOI" match="any">
         <group prefix=" [" suffix="]">
-          <text term="accessed" form="short"/>
+          <text term="accessed" form="short" suffix=".&#160;"/>
           <date variable="accessed">
-            <date-part name="day" prefix=". "/>
-            <date-part name="month" prefix=". "/>
-            <date-part name="year" prefix=" "/>
+            <date-part name="year"/>
+            <date-part name="month" form="numeric-leading-zeros" prefix="-"/>
+            <date-part name="day" form="numeric-leading-zeros" prefix="-"/>
           </date>
         </group>
       </if>
@@ -412,13 +405,13 @@
   <macro name="page">
     <choose>
       <if type="book thesis manuscript" match="any">
-        <group delimiter=" ">
+        <group delimiter="&#160;">
           <text variable="number-of-pages"/>
           <text term="page" form="short"/>
         </group>
       </if>
       <else-if type="chapter paper-conference article-newspaper" match="any">
-        <group delimiter=" ">
+        <group delimiter="&#160;">
           <text term="page" form="short"/>
           <text variable="page"/>
         </group>
@@ -429,55 +422,33 @@
     </choose>
   </macro>
   <macro name="isbn">
-    <text variable="ISBN" prefix="ISBN "/>
+    <choose>
+      <if variable="ISBN">
+        <text variable="ISBN" prefix="ISBN&#160;"/>
+      </if>
+      <else>
+        <text macro="issn"/>
+      </else>
+    </choose>
   </macro>
   <macro name="issn">
-    <text variable="ISSN" prefix="ISSN "/>
-  </macro>
-  <macro name="doi">
-    <text variable="DOI" prefix="doi "/>
+    <text variable="ISSN" prefix="ISSN&#160;"/>
   </macro>
   <macro name="url">
     <choose>
       <if variable="DOI">
         <group>
-          <text term="retrieved" suffix=" " text-case="capitalize-first"/>
-          <text term="from" suffix=": doi:"/>
+          <text term="available at" suffix=":&#160;doi:" text-case="capitalize-first"/>
           <text variable="DOI"/>
         </group>
       </if>
       <else-if variable="URL">
         <group>
-          <text term="retrieved" suffix=" " text-case="capitalize-first"/>
-          <text term="from" suffix=": "/>
+          <text term="available at" suffix=":&#160;" text-case="capitalize-first"/>
           <text variable="URL"/>
         </group>
       </else-if>
     </choose>
-  </macro>
-  <macro name="archive">
-    <text variable="archive"/>
-    <choose>
-      <if variable="archive_location">
-        <text value=": "/>
-      </if>
-    </choose>
-  </macro>
-  <macro name="archive_location">
-    <choose>
-      <if variable="archive_location">
-        <text variable="archive_location"/>
-      </if>
-      <else>
-        <text variable="call-number"/>
-      </else>
-    </choose>
-  </macro>
-  <macro name="abstract">
-    <text variable="abstract"/>
-  </macro>
-  <macro name="note">
-    <text variable="note"/>
   </macro>
   <citation disambiguate-add-year-suffix="true" collapse="year" year-suffix-delimiter=", " after-collapse-delimiter="; " et-al-min="3" et-al-use-first="1" and="text">
     <layout prefix="(" suffix=")" delimiter="; ">
@@ -486,7 +457,7 @@
           <text macro="author-citation"/>
           <text macro="year-date"/>
         </group>
-        <group delimiter=" ">
+        <group delimiter="&#160;">
           <label variable="locator" form="short"/>
           <text variable="locator"/>
         </group>
@@ -562,7 +533,7 @@
             <group delimiter=" ">
               <group delimiter=", ">
                 <text macro="publisher-info"/>
-                <text macro="date-day-month"/>
+                <!--<text macro="date-day-month"/>-->
                 <text macro="issue"/>
               </group>
               <text macro="accessed"/>
@@ -597,7 +568,7 @@
             <text macro="genre"/>
             <text macro="publisher-place"/>
             <group delimiter=" ">
-              <text macro="date-day-month"/>
+              <!--<text macro="date-day-month"/>-->
               <text macro="accessed"/>
             </group>
             <text macro="page"/>
@@ -643,7 +614,7 @@
         </else-if>
         <else-if type="motion_picture" match="any">
           <text macro="title" suffix=". "/>
-          <text macro="medium" prefix=" [" suffix="]. "/>
+          <text macro="medium" prefix="[" suffix="]. "/>
           <text macro="year-date" suffix=". "/>
           <text macro="responsability" suffix=". "/>
           <text macro="publisher-place" suffix=": "/>
@@ -717,7 +688,7 @@
             <text macro="title"/>
             <text macro="interviewer"/>
             <!--text macro="event"/-->
-            <text macro="date-day-month"/>
+            <!--<text macro="date-day-month"/>-->
           </group>
         </else-if>
         <else>

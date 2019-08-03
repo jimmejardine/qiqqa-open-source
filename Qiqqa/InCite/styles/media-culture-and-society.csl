@@ -14,19 +14,13 @@
     <issn>0163-4437</issn>
     <eissn>1460-3675</eissn>
     <summary>The MCS style.</summary>
-    <updated>2013-09-27T22:18:36+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="editor">
     <names variable="editor">
       <name initialize-with="" and="text" name-as-sort-order="all" sort-separator=" " delimiter=", " delimiter-precedes-last="never"/>
       <label form="short" prefix=" (" suffix=")" strip-periods="true"/>
-    </names>
-  </macro>
-  <macro name="series-editor">
-    <names variable="original-author">
-      <label form="short" text-case="capitalize-first" suffix=" "/>
-      <name and="text" delimiter=", "/>
     </names>
   </macro>
   <macro name="anon">
@@ -119,7 +113,7 @@
       </else>
     </choose>
   </macro>
-  <citation et-al-min="3" et-al-use-first="1" et-al-subsequent-min="3" et-al-subsequent-use-first="1" disambiguate-add-year-suffix="true" disambiguate-add-names="false" collapse="year">
+  <citation et-al-min="3" et-al-use-first="1" disambiguate-add-year-suffix="true" disambiguate-add-names="false" collapse="year">
     <layout prefix="(" suffix=")" delimiter="; ">
       <group delimiter=": ">
         <group delimiter=" ">
@@ -202,10 +196,10 @@
           </group>
         </else-if>
         <else>
-          <group suffix=" ">
-            <text macro="year-date" prefix=" (" suffix=")"/>
-            <text macro="title" prefix=" " suffix=","/>
-            <text macro="editor" prefix=" "/>
+          <group suffix=" " prefix=" " delimiter=" ">
+            <text macro="year-date" prefix="(" suffix=")"/>
+            <text macro="title" suffix=","/>
+            <text macro="editor"/>
           </group>
           <group prefix=" " delimiter=" ">
             <text variable="container-title" suffix="," font-style="italic"/>

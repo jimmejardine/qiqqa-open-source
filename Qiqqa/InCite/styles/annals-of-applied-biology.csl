@@ -5,7 +5,7 @@
     <title>Annals of Applied Biology</title>
     <id>http://www.zotero.org/styles/annals-of-applied-biology</id>
     <link href="http://www.zotero.org/styles/annals-of-applied-biology" rel="self"/>
-    <link href="http://www.zotero.org/styles/harvard1" rel="template"/>
+    <link href="http://www.zotero.org/styles/harvard-cite-them-right" rel="template"/>
     <link href="http://onlinelibrary.wiley.com/journal/10.1111/%28ISSN%291744-7348/homepage/ForAuthors.html" rel="documentation"/>
     <author>
       <name>phyto</name>
@@ -14,7 +14,7 @@
     <category field="biology"/>
     <issn>0003-4746</issn>
     <eissn>1744-7348</eissn>
-    <updated>2013-12-22T00:58:33+00:00</updated>
+    <updated>2013-12-13T10:05:43+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="editor">
@@ -29,7 +29,7 @@
   <macro name="author">
     <names variable="author">
       <name delimiter-precedes-last="never" initialize-with="." name-as-sort-order="all" sort-separator=" "/>
-      <label form="short" prefix=" " suffix="." text-case="lowercase" strip-periods="true"/>
+      <label form="short" prefix=" " text-case="lowercase"/>
       <substitute>
         <names variable="editor"/>
         <text macro="anon"/>
@@ -109,7 +109,7 @@
       <text variable="page"/>
     </group>
   </macro>
-  <citation et-al-min="3" et-al-use-first="1" et-al-subsequent-min="3" et-al-subsequent-use-first="1" disambiguate-add-year-suffix="true" collapse="year-suffix" year-suffix-delimiter=",">
+  <citation et-al-min="3" et-al-use-first="1" disambiguate-add-year-suffix="true" collapse="year-suffix" year-suffix-delimiter=",">
     <layout prefix="(" suffix=")" delimiter="; ">
       <group delimiter=", ">
         <group delimiter=" ">
@@ -117,13 +117,13 @@
           <text macro="year-date"/>
         </group>
         <group>
-          <label variable="locator" suffix="." form="short" strip-periods="true"/>
+          <label variable="locator" form="short"/>
           <text variable="locator"/>
         </group>
       </group>
     </layout>
   </citation>
-  <bibliography et-al-use-first="1" hanging-indent="true">
+  <bibliography hanging-indent="true">
     <sort>
       <key macro="author"/>
       <key variable="title"/>

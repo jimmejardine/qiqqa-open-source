@@ -15,7 +15,7 @@
     </contributor>
     <category citation-format="numeric"/>
     <summary>Style Zotero respectant les normes bibliographiques françaises : NF Z44-005  et NF ISO 690-2</summary>
-    <updated>2013-08-29T04:18:55+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="author">
@@ -24,7 +24,7 @@
         <name-part name="family" text-case="uppercase"/>
         <name-part name="given" text-case="uppercase"/>
       </name>
-      <label form="short" prefix=", " suffix="." text-case="uppercase" strip-periods="true"/>
+      <label form="short" prefix=", " text-case="uppercase"/>
       <substitute>
         <names variable="editor"/>
       </substitute>
@@ -36,7 +36,7 @@
         <name-part name="family" text-case="uppercase"/>
         <name-part name="given" text-case="uppercase"/>
       </name>
-      <label form="short" prefix=", " suffix="." text-case="uppercase" strip-periods="true"/>
+      <label form="short" prefix=", " text-case="uppercase"/>
     </names>
   </macro>
   <macro name="publisher">
@@ -72,7 +72,7 @@
       <if variable="DOI">
         <text value="Disponible sur : " prefix=" "/>
         <group prefix="&lt; " suffix=" &gt;">
-          <text value="http://dx.doi.org/"/>
+          <text value="https://doi.org/"/>
           <text variable="DOI"/>
         </group>
       </if>

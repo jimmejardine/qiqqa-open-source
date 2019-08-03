@@ -14,7 +14,7 @@
     <category field="medicine"/>
     <category field="generic-base"/>
     <summary>NLM style as used by T &amp; F : Brackets, no et-al, no issue numbers, locators in text possible.</summary>
-    <updated>2013-09-08T00:04:27+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="en">
@@ -51,17 +51,21 @@
     </group>
   </macro>
   <macro name="publisher">
-    <group delimiter=": " suffix=";">
-      <choose>
-        <if type="thesis">
-          <text variable="publisher-place" prefix="[" suffix="]"/>
-        </if>
-        <else>
-          <text variable="publisher-place"/>
-        </else>
-      </choose>
-      <text variable="publisher"/>
-    </group>
+    <choose>
+      <if type="article-journal article-magazine article-newspaper" match="none">
+        <group delimiter=": " suffix=";">
+          <choose>
+            <if type="thesis">
+              <text variable="publisher-place" prefix="[" suffix="]"/>
+            </if>
+            <else>
+              <text variable="publisher-place"/>
+            </else>
+          </choose>
+          <text variable="publisher"/>
+        </group>
+      </if>
+    </choose>
   </macro>
   <macro name="access">
     <choose>
@@ -152,7 +156,14 @@
     <choose>
       <if type="article-journal article-magazine article-newspaper" match="any">
         <group suffix=";" delimiter=" ">
-          <date variable="issued" form="text" date-parts="year-month"/>
+          <choose>
+            <if type="article-journal">
+              <date variable="issued" form="text" date-parts="year"/>
+            </if>
+            <else>
+              <date variable="issued" form="text"/>
+            </else>
+          </choose>
           <text macro="accessed-date"/>
         </group>
       </if>
@@ -218,14 +229,14 @@
       </group>
     </layout>
   </citation>
-  <bibliography second-field-align="flush">
+  <bibliography second-field-align="flush" et-al-min="4" et-al-use-first="3">
     <layout suffix=".">
-      <text variable="citation-number" suffix=". "/>
-      <group delimiter=". " suffix=". ">
+      <text variable="citation-number" prefix="[" suffix="] "/>
+      <group delimiter=". " suffix=".">
         <text macro="author"/>
         <text macro="title"/>
       </group>
-      <group delimiter=" " suffix=". ">
+      <group delimiter=" " suffix="." prefix=" ">
         <text macro="editor"/>
         <text macro="container-title"/>
         <text macro="publisher"/>
@@ -235,8 +246,10 @@
           <text macro="pages"/>
         </group>
       </group>
-      <text macro="report-details" suffix=". "/>
-      <text macro="access"/>
+      <group prefix=" ">
+        <text macro="report-details" suffix=". "/>
+        <text macro="access"/>
+      </group>
     </layout>
   </bibliography>
 </style>

@@ -14,7 +14,7 @@
     <category field="generic-base"/>
     <category field="science"/>
     <summary>This style just partly implemented what the Chinese GB/T 7714-1987 requires.</summary>
-    <updated>2013-08-29T05:27:03+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="author">
@@ -170,12 +170,6 @@
       </else-if>
     </choose>
   </macro>
-  <macro name="page">
-    <group>
-      <label variable="page" form="short" suffix=" "/>
-      <text variable="page"/>
-    </group>
-  </macro>
   <citation collapse="citation-number">
     <sort>
       <key variable="citation-number" sort="descending"/>
@@ -184,7 +178,7 @@
       <text variable="citation-number"/>
     </layout>
   </citation>
-  <bibliography et-al-min="3" et-al-use-first="3" second-field-align="flush" entry-spacing="0">
+  <bibliography et-al-min="4" et-al-use-first="3" second-field-align="flush" entry-spacing="0">
     <layout suffix=".">
       <text variable="citation-number" prefix="[" suffix="]"/>
       <text macro="author" suffix=". "/>

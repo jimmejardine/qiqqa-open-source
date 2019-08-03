@@ -6,7 +6,7 @@
     <id>http://www.zotero.org/styles/journal-of-animal-science</id>
     <link href="http://www.zotero.org/styles/journal-of-animal-science" rel="self"/>
     <link href="http://www.zotero.org/styles/council-of-science-editors-author-date" rel="template"/>
-    <link href="http://www.journalofanimalscience.org/site/misc/ifora.xhtml" rel="documentation"/>
+    <link href="https://www.animalsciencepublications.org/publications/jas/infora" rel="documentation"/>
     <author>
       <name>Sebastian Karcher</name>
     </author>
@@ -14,7 +14,7 @@
     <category field="biology"/>
     <issn>0021-8812</issn>
     <eissn>1525-3163</eissn>
-    <updated>2014-01-16T21:22:05+00:00</updated>
+    <updated>2012-09-09T21:58:08+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="editor">
@@ -66,12 +66,6 @@
       <text variable="publisher-place"/>
     </group>
   </macro>
-  <macro name="issued">
-    <date variable="issued" delimiter=" ">
-      <date-part name="month" prefix=" "/>
-      <date-part name="day" prefix=" "/>
-    </date>
-  </macro>
   <macro name="pages">
     <label plural="never" suffix=" " variable="page" form="short"/>
     <text variable="page"/>
@@ -97,7 +91,7 @@
       </else>
     </choose>
   </macro>
-  <citation et-al-min="3" et-al-use-first="1" disambiguate-add-year-suffix="true" disambiguate-add-names="true" disambiguate-add-givenname="true">
+  <citation et-al-min="3" et-al-use-first="1" disambiguate-add-year-suffix="true" disambiguate-add-givenname="true">
     <sort>
       <key macro="year-date"/>
       <key macro="author-short"/>
@@ -144,11 +138,14 @@
             </group>
           </else-if>
           <else>
-            <text macro="editor" suffix="."/>
-            <group prefix=" " suffix=".">
+            <group prefix=" " delimiter=". ">
+              <text macro="editor"/>
               <text macro="journal"/>
-              <text variable="volume" prefix=" "/>
-              <text variable="page" prefix=":"/>
+              <group delimiter=":">
+                <text variable="volume"/>
+                <text variable="page"/>
+              </group>
+              <text variable="DOI" prefix="doi:"/>
             </group>
           </else>
         </choose>

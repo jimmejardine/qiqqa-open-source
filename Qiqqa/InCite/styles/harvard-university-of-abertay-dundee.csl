@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="sort-only" default-locale="en-GB">
   <info>
-    <title>Harvard - University of Abertay Dundee</title>
+    <title>University of Abertay Dundee - Harvard</title>
     <id>http://www.zotero.org/styles/harvard-university-of-abertay-dundee</id>
     <link href="http://www.zotero.org/styles/harvard-university-of-abertay-dundee" rel="self"/>
     <link href="https://portal.abertay.ac.uk/portal/page/portal/Library/Referencing" rel="documentation"/>
@@ -16,7 +16,7 @@
     <category citation-format="author-date"/>
     <category field="generic-base"/>
     <summary>The Abertay version of the Harvard author-date style</summary>
-    <updated>2013-03-04T03:53:05+00:00</updated>
+    <updated>2012-11-16T18:17:12+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="en-GB">
@@ -55,7 +55,7 @@
   </macro>
   <macro name="author-short">
     <names variable="author">
-      <name form="short" and="text" delimiter-precedes-last="never" et-al-min="4" et-al-use-first="1" initialize-with=". "/>
+      <name form="short" and="text" delimiter-precedes-last="never" initialize-with=". "/>
       <substitute>
         <names variable="editor"/>
         <names variable="translator"/>

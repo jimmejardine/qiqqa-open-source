@@ -6,11 +6,14 @@
     <link href="http://www.zotero.org/styles/equine-veterinary-journal" rel="self"/>
     <link href="http://www.zotero.org/styles/equine-veterinary-education" rel="template"/>
     <link href="http://onlinelibrary.wiley.com/journal/10.1001/(ISSN)2042-3306/homepage/ForAuthors.html" rel="documentation"/>
-    <category citation-format="author-date"/>
+    <author>
+      <name>Sebastian Karcher</name>
+    </author>
+    <category citation-format="numeric"/>
     <category field="biology"/>
     <issn>0425-1644</issn>
     <eissn>2042-3306</eissn>
-    <updated>2014-02-13T01:40:34+00:00</updated>
+    <updated>2012-10-18T22:38:43+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="author">
@@ -80,29 +83,17 @@
       </else>
     </choose>
   </macro>
-  <macro name="date-reference">
-    <choose>
-      <if variable="issued">
-        <date variable="issued">
-          <date-part name="year"/>
-        </date>
-      </if>
-      <else>
-        <text term="no date" form="short"/>
-      </else>
-    </choose>
-  </macro>
   <citation collapse="citation-number">
+    <sort>
+      <key variable="citation-number"/>
+    </sort>
     <layout prefix="[" suffix="]" delimiter=",">
       <text variable="citation-number"/>
     </layout>
   </citation>
-  <bibliography et-al-min="99" et-al-use-first="98">
-    <sort>
-      <key macro="author"/>
-      <key variable="issued"/>
-    </sort>
+  <bibliography et-al-min="99" et-al-use-first="98" second-field-align="flush">
     <layout suffix=".">
+      <text variable="citation-number" suffix="."/>
       <text macro="author" suffix=" "/>
       <date variable="issued" prefix="(" suffix=") ">
         <date-part name="year"/>

@@ -15,7 +15,7 @@
     <issn>0022-3166</issn>
     <eissn>1541-6100</eissn>
     <summary>Vancouver style with only year/volume and et al after 11 authors</summary>
-    <updated>2014-01-07T07:36:16+00:00</updated>
+    <updated>2013-12-15T07:14:53+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="en">
@@ -240,7 +240,7 @@
       <text variable="citation-number"/>
     </layout>
   </citation>
-  <bibliography et-al-min="11" et-al-use-first="9" second-field-align="flush">
+  <bibliography et-al-min="11" et-al-use-first="10" second-field-align="flush">
     <layout>
       <text variable="citation-number" suffix=". "/>
       <group delimiter=". " suffix=". ">

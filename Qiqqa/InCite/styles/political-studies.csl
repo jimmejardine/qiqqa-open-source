@@ -27,16 +27,13 @@
     <category field="political_science"/>
     <issn>0032-3217</issn>
     <eissn>1467-9248</eissn>
-    <updated>2013-09-08T00:04:27+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="en">
     <style-options punctuation-in-quote="false"/>
     <terms>
-      <term name="translator" form="short">
-        <single>trans.</single>
-        <multiple>trans.</multiple>
-      </term>
+      <term name="translator" form="short">trans.</term>
       <term name="open-quote">‘</term>
       <term name="close-quote">’</term>
       <term name="open-inner-quote">“</term>

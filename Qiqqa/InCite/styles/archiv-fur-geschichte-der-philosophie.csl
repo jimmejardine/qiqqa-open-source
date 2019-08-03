@@ -6,6 +6,7 @@
     <id>http://www.zotero.org/styles/archiv-fur-geschichte-der-philosophie</id>
     <link href="http://www.zotero.org/styles/archiv-fur-geschichte-der-philosophie" rel="self"/>
     <link href="http://www.zotero.org/styles/environment-and-planning" rel="template"/>
+    <link href="http://www.degruyter.com/view/supplement/s16130650_Autorenrichtlinien_de.pdf" rel="documentation"/>
     <link href="www.degruyter.com/view/supplement/s16130650_Instructions_for_Authors_en.pdf" rel="documentation"/>
     <author>
       <name>Jamie Dow</name>
@@ -15,7 +16,7 @@
     <issn>0003-9101</issn>
     <eissn>1613-0650</eissn>
     <summary>Style for Archiv für Geschichte der Philosophie</summary>
-    <updated>2013-09-27T22:18:36+00:00</updated>
+    <updated>2013-09-20T19:03:14+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="en">

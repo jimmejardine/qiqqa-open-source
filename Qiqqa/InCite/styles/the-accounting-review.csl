@@ -16,7 +16,7 @@
     <category field="social_science"/>
     <issn>0001-4826</issn>
     <eissn>1558-7967</eissn>
-    <updated>2013-09-08T00:04:27+00:00</updated>
+    <updated>2012-10-25T21:15:26+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale>
@@ -56,7 +56,7 @@
           <choose>
             <if variable="author">
               <names variable="editor">
-                <label form="verb-short" prefix=" " suffix=" "/>
+                <label form="verb" prefix=" " suffix=" "/>
                 <name and="text" delimiter=", " initialize-with=". "/>
               </names>
               <choose>
@@ -74,7 +74,7 @@
           <choose>
             <if variable="author editor" match="any">
               <names variable="translator">
-                <label form="verb-short" prefix=" " suffix=" "/>
+                <label form="verb" prefix=" " suffix=" "/>
                 <name and="text" delimiter=", "/>
               </names>
             </if>
@@ -123,7 +123,7 @@
   <macro name="contributors">
     <names variable="author">
       <name and="text" name-as-sort-order="first" sort-separator=", " delimiter=", " delimiter-precedes-last="always" initialize-with=". "/>
-      <label form="verb-short" prefix=", " suffix="." strip-periods="true"/>
+      <label form="verb-short" prefix=", "/>
       <substitute>
         <text macro="editor"/>
         <text macro="translator"/>
@@ -225,7 +225,7 @@
           </group>
           <group>
             <number variable="number-of-volumes" form="numeric"/>
-            <text term="volume" form="short" prefix=" " suffix="." plural="true" strip-periods="true"/>
+            <text term="volume" form="short" prefix=" " plural="true"/>
           </group>
         </group>
       </else-if>
@@ -259,9 +259,9 @@
     <choose>
       <if type="article-newspaper">
         <group prefix=", " delimiter=", ">
-          <group>
-            <text variable="edition" suffix=" "/>
-            <text term="edition" prefix=" "/>
+          <group delimiter=" ">
+            <text variable="edition"/>
+            <text term="edition"/>
           </group>
           <group>
             <text term="section" form="short" suffix=" "/>

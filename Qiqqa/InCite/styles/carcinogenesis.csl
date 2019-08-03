@@ -16,7 +16,7 @@
     <issn>0143-3334</issn>
     <eissn>1460-2180</eissn>
     <summary>Style for the "Carcinogenesis" journal</summary>
-    <updated>2013-09-27T22:18:36+00:00</updated>
+    <updated>2013-09-24T13:04:00+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <!-- Macros -->
@@ -83,7 +83,7 @@
       </group>
       <group delimiter=" ">
         <number variable="number-of-volumes" form="numeric"/>
-        <text term="volume" form="short" suffix="." plural="true" strip-periods="true"/>
+        <text term="volume" form="short" plural="true"/>
       </group>
     </group>
   </macro>
@@ -222,7 +222,7 @@
         <else-if type="patent">
           <text macro="issued"/>
           <text macro="title" suffix=", "/>
-          <text variable="number" prefix=" " suffix="."/>
+          <text variable="number" suffix="."/>
         </else-if>
         <!-- Generic/Fallback Formats -->
         <else-if type="bill book graphic legal_case legislation motion_picture report song" match="any">

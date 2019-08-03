@@ -14,7 +14,7 @@
     <issn>2050-9928</issn>
     <eissn>2050-9936</eissn>
     <summary>Citation Style of the journal of the British Arachnological Society</summary>
-    <updated>2014-03-05T20:38:15+00:00</updated>
+    <updated>2014-03-05T17:03:22+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="en-US">
@@ -39,7 +39,7 @@
         <name-part name="family" text-case="uppercase"/>
       </name>
       <et-al font-style="italic"/>
-      <label form="short" strip-periods="true" prefix=" " suffix="."/>
+      <label form="short" prefix=" "/>
       <substitute>
         <names variable="editor"/>
         <text macro="anon"/>
@@ -47,7 +47,7 @@
     </names>
   </macro>
   <macro name="author-short">
-    <names variable="author" prefix="(">
+    <names variable="author">
       <name form="short" and="symbol" delimiter-precedes-last="never" initialize-with=". "/>
       <et-al font-style="italic"/>
       <substitute>
@@ -117,7 +117,7 @@
         </group>
       </if>
       <else>
-        <text term="no date" form="short" suffix=")"/>
+        <text term="no date" form="short"/>
       </else>
     </choose>
   </macro>
@@ -140,29 +140,27 @@
         <text variable="locator" prefix=": "/>
       </if>
       <else>
-        <group delimiter=" " suffix=")">
-          <label suffix=")" variable="locator" form="short"/>
-          <text variable="locator" suffix=")"/>
+        <group delimiter=" ">
+          <label variable="locator" form="short"/>
+          <text variable="locator"/>
         </group>
       </else>
     </choose>
   </macro>
-  <citation and="text" et-al-min="3" et-al-use-first="2" disambiguate-add-year-suffix="true" givenname-disambiguation-rule="primary-name" collapse="year-suffix">
+  <citation and="text" et-al-min="3" et-al-use-first="1" disambiguate-add-year-suffix="true" givenname-disambiguation-rule="primary-name" collapse="year-suffix">
     <sort>
       <key macro="author-short"/>
       <key macro="year-date"/>
     </sort>
-    <layout delimiter="; ">
-      <group suffix=")">
-        <group delimiter=" ">
-          <text macro="author-short"/>
-          <text macro="year-date"/>
-        </group>
-        <text macro="locator"/>
+    <layout delimiter="; " prefix="(" suffix=")">
+      <group delimiter=" ">
+        <text macro="author-short"/>
+        <text macro="year-date"/>
       </group>
+      <text macro="locator"/>
     </layout>
   </citation>
-  <bibliography et-al-min="99" et-al-use-first="99" hanging-indent="true">
+  <bibliography et-al-min="99" et-al-use-first="98" hanging-indent="true">
     <sort>
       <key macro="author"/>
       <key macro="year-date"/>

@@ -14,7 +14,7 @@
     <category field="engineering"/>
     <issn>0028-1522</issn>
     <eissn>2161-4296</eissn>
-    <updated>2013-08-25T02:29:55+00:00</updated>
+    <updated>2013-08-07T18:51:00+02:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="en">
@@ -50,7 +50,7 @@
           <date-part name="year" form="long"/>
         </date>
       </if>
-      <else-if type=" bill book chapter graphic legal_case legislation motion_picture paper-conference song thesis" match="any">
+      <else-if type="bill book chapter graphic legal_case legislation motion_picture paper-conference song thesis" match="any">
         <date variable="issued">
           <date-part name="year" form="long"/>
         </date>
@@ -109,7 +109,7 @@
   </macro>
   <macro name="publisher">
     <choose>
-      <if type=" bill book chapter graphic legal_case legislation motion_picture paper-conference song" match="any">
+      <if type="bill book chapter graphic legal_case legislation motion_picture paper-conference song" match="any">
         <group delimiter=": ">
           <text variable="publisher-place"/>
           <text variable="publisher"/>
@@ -264,7 +264,7 @@
         </else-if>
         <else-if type="patent">
           <text macro="title" suffix=", "/>
-          <text variable="number" prefix=" "/>
+          <text variable="number"/>
           <text macro="issued"/>
         </else-if>
         <!-- Generic/Fallback Formats -->

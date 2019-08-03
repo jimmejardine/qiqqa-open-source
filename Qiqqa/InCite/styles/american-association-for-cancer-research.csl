@@ -9,13 +9,13 @@
     <link href="http://www.aacrjournals.org/site/InstrAuthors/ifora.xhtml#references" rel="documentation"/>
     <author>
       <name>Charles Parnot</name>
-      <email>charles@mekentosj.com</email>
+      <email>charles.parnot@gmail.com</email>
       <uri>http://twitter.com/cparnot</uri>
     </author>
     <category citation-format="numeric"/>
     <category field="medicine"/>
     <summary>Parent style for AACR's journals</summary>
-    <updated>2013-09-08T00:04:27+00:00</updated>
+    <updated>2013-02-04T12:00:00+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="en">

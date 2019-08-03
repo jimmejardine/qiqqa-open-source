@@ -52,7 +52,7 @@
       tab: &#009;
 
     -->
-    <updated>2013-12-05T11:58:24+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="de">
@@ -99,7 +99,7 @@
     </names>
   </macro>
   <!--  <macro name="contributor">
-    <names variable="  " delimiter=" ; ">
+    <names variable=" " delimiter=" ; ">
     <name name-as-sort-order="all" sort-separator=", " initialize-with=". " delimiter=" ; "
     delimiter-precedes-last="always" font-variant="small-caps"/>
     <label form="short" prefix=" (" suffix=")"/>
@@ -178,12 +178,6 @@
       </if>
     </choose>
   </macro>
-  <macro name="publisher">
-    <group delimiter=": ">
-      <text variable="publisher-place"/>
-      <text variable="publisher"/>
-    </group>
-  </macro>
   <macro name="volumes">
     <group delimiter=" ">
       <text term="volume" form="short" plural="false"/>
@@ -192,10 +186,17 @@
     </group>
   </macro>
   <macro name="edition">
-    <group>
-      <number variable="edition" form="numeric" suffix=". "/>
-      <text term="edition" form="short" plural="false"/>
-    </group>
+    <choose>
+      <if is-numeric="edition">
+        <group delimiter=" ">
+          <number variable="edition" form="numeric" suffix=". "/>
+          <text term="edition" form="short" plural="false"/>
+        </group>
+      </if>
+      <else>
+        <text variable="edition" suffix="."/>
+      </else>
+    </choose>
   </macro>
   <macro name="pages">
     <choose>
@@ -270,7 +271,7 @@
       </choose>
     </group>
   </macro>
-  <citation et-al-min="3" et-al-use-first="1" et-al-subsequent-min="3" et-al-subsequent-use-first="1" disambiguate-add-year-suffix="true" disambiguate-add-names="false" disambiguate-add-givenname="false" collapse="year">
+  <citation et-al-min="3" et-al-use-first="1" disambiguate-add-year-suffix="true" disambiguate-add-names="false" disambiguate-add-givenname="false" collapse="year">
     <sort>
       <key macro="author"/>
       <key variable="issued"/>
@@ -283,7 +284,7 @@
       </group>
     </layout>
   </citation>
-  <bibliography hanging-indent="true" et-al-min="9" et-al-use-first="9">
+  <bibliography hanging-indent="true" et-al-min="9" et-al-use-first="8">
     <sort>
       <key macro="author"/>
       <key variable="issued"/>
@@ -360,7 +361,7 @@
           <text macro="bibliography-year" prefix=", "/>
           <text prefix=". &#8212;&#160;" variable="note"/>
         </else-if>
-        <else-if type="webpage post post-weblog " match="any">
+        <else-if type="webpage post post-weblog" match="any">
           <text prefix=" " macro="title" suffix=". " font-style="italic"/>
           <text prefix="URL " variable="URL"/>
           <text prefix=". - " macro="access"/>

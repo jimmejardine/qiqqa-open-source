@@ -17,7 +17,7 @@
     <category field="biology"/>
     <issn>0030-1299</issn>
     <eissn>1600-0706</eissn>
-    <updated>2013-08-29T04:18:55+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="editor-translator">
@@ -103,7 +103,7 @@
       </else>
     </choose>
   </macro>
-  <citation collapse="year-suffix" et-al-min="3" et-al-use-first="1" et-al-subsequent-min="3" et-al-subsequent-use-first="1" disambiguate-add-year-suffix="true">
+  <citation collapse="year-suffix" et-al-min="3" et-al-use-first="1" disambiguate-add-year-suffix="true">
     <sort>
       <key variable="issued"/>
       <key variable="author"/>

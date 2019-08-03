@@ -15,7 +15,7 @@
     <category field="biology"/>
     <issn>0961-8368</issn>
     <eissn>1469-896x</eissn>
-    <updated>2013-08-29T05:27:03+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="editor">
@@ -39,16 +39,6 @@
       </names>
     </group>
   </macro>
-  <macro name="author-short">
-    <names variable="author">
-      <name form="short" and="symbol" delimiter=", " initialize-with="."/>
-      <substitute>
-        <names variable="editor"/>
-        <names variable="translator"/>
-        <text macro="anon"/>
-      </substitute>
-    </names>
-  </macro>
   <macro name="access">
     <group>
       <text value="Available from:" suffix=" "/>
@@ -68,12 +58,6 @@
     <date variable="issued" delimiter=" ">
       <date-part name="year"/>
     </date>
-    <group prefix=" [" suffix="]" delimiter=" ">
-      <text term="cited"/>
-      <date variable="accessed">
-        <date-part name="year"/>
-      </date>
-    </group>
   </macro>
   <macro name="pages">
     <label variable="page" form="short" suffix=" "/>
@@ -112,7 +96,7 @@
       </group>
     </layout>
   </citation>
-  <bibliography hanging-indent="false" et-al-min="10" et-al-use-first="10">
+  <bibliography hanging-indent="false" et-al-min="11" et-al-use-first="10">
     <layout>
       <text variable="citation-number" suffix=". "/>
       <text macro="author"/>

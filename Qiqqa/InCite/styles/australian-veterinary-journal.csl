@@ -16,7 +16,7 @@
     <issn>0005-0423</issn>
     <eissn>1751-0813</eissn>
     <summary>Vancouver style for AVJ</summary>
-    <updated>2014-03-10T23:30:36+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="en">
@@ -71,7 +71,7 @@
   </macro>
   <macro name="accessed-date">
     <choose>
-      <if variable="URL" type="webpage">
+      <if variable="URL" type="webpage" match="all">
         <group delimiter=" ">
           <text term="retrieved" text-case="capitalize-first"/>
           <date variable="accessed" delimiter=" ">
@@ -219,7 +219,7 @@
           <text macro="pages"/>
         </group>
       </group>
-      <text macro="report-details" suffix=". "/>
+      <text macro="report-details" suffix="."/>
       <text macro="access" prefix=" "/>
     </layout>
   </bibliography>

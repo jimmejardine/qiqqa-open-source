@@ -12,7 +12,7 @@
     <category citation-format="note"/>
     <category field="social_science"/>
     <issn>0294-1759</issn>
-    <updated>2013-08-29T04:18:55+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="fr">
@@ -22,14 +22,8 @@
       <term name="ordinal-03">e</term>
       <term name="ordinal-04">e</term>
       <term name="cited">op.&#160;cit.</term>
-      <term name="page" form="short">
-        <single>p.</single>
-        <multiple>p.</multiple>
-      </term>
-      <term name="editor" form="short">
-        <single>dir.</single>
-        <multiple>dir.</multiple>
-      </term>
+      <term name="page" form="short">p.</term>
+      <term name="editor" form="short">dir.</term>
     </terms>
   </locale>
   <macro name="author">
@@ -210,80 +204,6 @@
       </else-if>
     </choose>
   </macro>
-  <macro name="yearpage-bib">
-    <choose>
-      <if type="bill book graphic legal_case motion_picture paper-conference manuscript report song thesis" match="any">
-        <group delimiter=", ">
-          <group delimiter=", " font-style="normal">
-            <date variable="issued">
-              <date-part name="year"/>
-            </date>
-            <group>
-              <text term="volume" form="short" suffix="."/>
-              <text variable="number-of-volumes" prefix=". " suffix="/"/>
-              <text variable="volume"/>
-            </group>
-            <text variable="number-of-pages" suffix="&#160;p"/>
-          </group>
-          <group>
-            <label variable="locator" form="short"/>
-            <text variable="locator"/>
-          </group>
-        </group>
-      </if>
-      <else-if type="chapter entry-dictionary entry-encyclopedia" match="any">
-        <group delimiter=", " font-style="normal">
-          <date variable="issued">
-            <date-part name="year"/>
-          </date>
-          <group>
-            <text term="volume" form="short" suffix="."/>
-            <text variable="number-of-volumes" prefix=". " suffix="/"/>
-            <text variable="volume"/>
-          </group>
-          <group>
-            <label variable="page" form="short"/>
-            <text variable="page" prefix="&#160;"/>
-          </group>
-        </group>
-      </else-if>
-      <else-if type="article-journal chapter" match="any">
-        <group delimiter=" " font-style="normal">
-          <label variable="page" form="short"/>
-          <text variable="page"/>
-        </group>
-      </else-if>
-      <else-if type="article-newspaper article-magazine" match="any">
-        <group delimiter=" " font-style="normal">
-          <date variable="issued" form="numeric">
-            <date-part name="day"/>
-            <date-part name="month"/>
-            <date-part name="year"/>
-          </date>
-          <group delimiter=" " font-style="normal">
-            <choose>
-              <if variable="locator" match="any">
-                <text variable="locator" prefix="p.&#160;"/>
-              </if>
-              <else-if variable="locator" match="none">
-                <label variable="page" form="short"/>
-              </else-if>
-            </choose>
-          </group>
-        </group>
-      </else-if>
-      <else-if type="webpage" match="any">
-        <group delimiter=" " font-style="normal">
-          <text value="consulté le" suffix=" " prefix=" "/>
-          <date variable="accessed" form="text">
-            <date-part name="day"/>
-            <date-part name="month"/>
-            <date-part name="year"/>
-          </date>
-        </group>
-      </else-if>
-    </choose>
-  </macro>
   <macro name="edition">
     <choose>
       <if type="bill book graphic legal_case motion_picture report song chapter paper-conference" match="any">
@@ -338,21 +258,6 @@
       </if>
       <else>
         <text variable="issue"/>
-      </else>
-    </choose>
-  </macro>
-  <macro name="collection">
-    <choose>
-      <if is-numeric="collection-number">
-        <group prefix=" coll.">
-          <text variable="collection-title" quotes="true"/>
-        </group>
-        <text variable="collection-number" prefix=", n˚&#160;"/>
-      </if>
-      <else>
-        <group prefix=" coll.">
-          <text variable="collection-title" quotes="true"/>
-        </group>
       </else>
     </choose>
   </macro>

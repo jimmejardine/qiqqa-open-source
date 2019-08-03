@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="sort-only" default-locale="de-DE">
   <info>
-    <title>Universität Bremen - Institut für Politikwissenschaft</title>
+    <title>Universität Bremen - Institut für Politikwissenschaft (German)</title>
     <title-short>IfP Uni Bremen</title-short>
     <id>http://www.zotero.org/styles/universitat-bremen-institut-fur-politikwissenschaft</id>
     <link href="http://www.zotero.org/styles/universitat-bremen-institut-fur-politikwissenschaft" rel="self"/>
     <link href="http://www.zotero.org/styles/harvard-institut-fur-praxisforschung-de" rel="template"/>
-    <!--Der Link unter dieser Zeile verweist auf die Vorgaben, nach denen dieser Code ausgerichtet ist (Stand November 2013)-->
-    <link href="http://www.politik.uni-bremen.de/downloads/kompendium_wiss_arb.pdf" rel="documentation"/>
+    <!--Der Link unter dieser Zeile verweist auf die Vorgaben, nach denen dieser Code ausgerichtet ist (Stand März 2016)-->
+    <link href="http://www.politik.uni-bremen.de/ccm/cms-service/download/asset/Kompendium.pdf?asset_id=914048" rel="documentation"/>
     <contributor>
       <name>Julian Koepff</name>
-      <email>jkoepff@uni-bremen.de</email>
+      <email>j.koepff@hotmail.com</email>
     </contributor>
     <category citation-format="author-date"/>
     <category field="political_science"/>
     <category field="social_science"/>
     <summary>Universität Bremen - Institut für Politikwissenschaft (German) - A Harvard author-date style variant as used for Political Science at University of Bremen, Germany. The in-text citation style is changed to [author year: page], avoiding the abbreviation for pages (S.) and changing the delimiters. Based on Harvard - Institut fuer Praxisforschung (Bahr &amp; Frackmann) style by Jonas Bahr and Malte Frackmann.</summary>
-    <updated>2014-01-24T00:19:05+00:00</updated>
+    <updated>2013-11-26T21:57:29+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="de">
@@ -31,13 +31,13 @@
       <if type="chapter article-journal" match="any">
         <names variable="editor" delimiter="/" suffix=",">
           <name name-as-sort-order="all" sort-separator=", " delimiter="/" delimiter-precedes-last="always" form="long"/>
-          <label form="short" prefix=" (" suffix=".)" strip-periods="true"/>
+          <label form="short" prefix=" (" suffix=")"/>
         </names>
       </if>
       <else>
         <names variable="editor" delimiter="/">
           <name name-as-sort-order="all" sort-separator=", " delimiter="/" delimiter-precedes-last="always" form="long"/>
-          <label form="short" prefix=" (" suffix=".)" strip-periods="true"/>
+          <label form="short" prefix=" (" suffix=")"/>
         </names>
       </else>
     </choose>
@@ -48,7 +48,7 @@
   <macro name="author">
     <names variable="author" delimiter="/">
       <name delimiter="/" delimiter-precedes-last="always" name-as-sort-order="all"/>
-      <label form="short" prefix=" (" suffix=".)" strip-periods="true"/>
+      <label form="short" prefix=" (" suffix=")"/>
       <substitute>
         <text macro="editor"/>
         <text macro="anon"/>
@@ -67,30 +67,59 @@
   </macro>
   <macro name="access">
     <choose>
-      <if type="webpage article-journal article-magazine article-newspaper article speech" variable="URL" match="all">
-        <group>
-          <text value="Text abrufbar unter:" prefix=" " suffix=" "/>
-          <text variable="URL"/>
-          <group prefix=" (" suffix=")">
-            <text value="Zugriff am" suffix=" "/>
-            <date variable="accessed">
-              <date-part name="day" form="numeric" suffix="."/>
-              <date-part name="month" form="numeric" suffix="."/>
-              <date-part name="year" form="long"/>
-            </date>
-          </group>
-        </group>
+      <if variable="URL">
+        <choose>
+          <if type="article-journal" variable="DOI" match="all">
+            <choose>
+              <if variable="volume" match="none">
+                <group>
+                  <text value="Text abrufbar unter:" prefix=" " suffix=" "/>
+                  <text variable="URL"/>
+                </group>
+              </if>
+            </choose>
+          </if>
+          <else-if type="article-journal">
+            <choose>
+              <if variable="DOI volume" match="none">
+                <text value="Text abrufbar unter:" prefix=" " suffix=" "/>
+                <text variable="URL"/>
+                <group prefix=" (" suffix=")">
+                  <text value="Zugriff am" suffix=" "/>
+                  <date variable="accessed">
+                    <date-part name="day" form="numeric" suffix="."/>
+                    <date-part name="month" form="numeric" suffix="."/>
+                    <date-part name="year" form="long"/>
+                  </date>
+                </group>
+              </if>
+            </choose>
+          </else-if>
+          <else-if type="article-journal" variable="DOI" match="none">
+            <text value="Text abrufbar unter:" prefix=" " suffix=" "/>
+            <text variable="URL"/>
+            <group prefix=" (" suffix=")">
+              <text value="Zugriff am" suffix=" "/>
+              <date variable="accessed">
+                <date-part name="day" form="numeric" suffix="."/>
+                <date-part name="month" form="numeric" suffix="."/>
+                <date-part name="year" form="long"/>
+              </date>
+            </group>
+          </else-if>
+        </choose>
       </if>
     </choose>
   </macro>
   <macro name="title">
+    <text variable="title" text-case="title"/>
     <choose>
-      <if type="bill book graphic legal_case legislation motion_picture report song" match="any">
-        <text variable="title" text-case="title"/>
+      <if type="book" variable="volume" match="all">
+        <text variable="volume" form="short" prefix=", Bd. "/>
       </if>
-      <else>
-        <text variable="title" text-case="title" prefix=" " suffix=" "/>
-      </else>
+      <else-if type="book" variable="number-of-volumes" match="all">
+        <text variable="number-of-volumes" prefix=", " suffix=" Bände"/>
+      </else-if>
     </choose>
   </macro>
   <macro name="genre">
@@ -124,8 +153,17 @@
   <macro name="locator">
     <choose>
       <if type="article-journal">
-        <text variable="volume" suffix=" "/>
-        <text variable="issue" prefix="(" suffix=")"/>
+        <choose>
+          <if variable="volume" match="none">
+            <text variable="DOI" prefix="DOI: "/>
+          </if>
+          <else>
+            <group delimiter=" ">
+              <text variable="volume"/>
+              <text variable="issue" prefix="(" suffix=")"/>
+            </group>
+          </else>
+        </choose>
       </if>
     </choose>
   </macro>
@@ -136,7 +174,7 @@
   </macro>
   <macro name="published-date">
     <choose>
-      <if type="article-newspaper speech" match="any">
+      <if type="article-newspaper speech interview" match="any">
         <date variable="issued">
           <date-part name="day" form="numeric" suffix=". "/>
           <date-part name="month" form="long" suffix=" "/>
@@ -147,16 +185,12 @@
   </macro>
   <macro name="pages">
     <choose>
-      <if type="chapter paper-conference article-journal article-magazine article-newspaper" match="any">
+      <if type="article-journal" variable="volume" match="all">
         <text variable="page"/>
       </if>
-    </choose>
-  </macro>
-  <macro name="duration">
-    <choose>
-      <if type="broadcast motion_picture song interview " match="any">
-        <text variable="note" suffix="duration"/>
-      </if>
+      <else-if type="chapter paper-conference article-magazine article-newspaper" match="any">
+        <text variable="page"/>
+      </else-if>
     </choose>
   </macro>
   <macro name="edition">
@@ -164,7 +198,7 @@
       <if is-numeric="edition">
         <group>
           <number variable="edition" form="numeric" suffix=". "/>
-          <text term="edition" form="short" suffix="." strip-periods="true"/>
+          <text term="edition" form="short"/>
         </group>
       </if>
       <else>
@@ -198,20 +232,30 @@
     </choose>
     <choose>
       <if type="chapter" match="any">
-        <text variable="container-title" text-case="title" prefix=" " suffix="."/>
+        <group delimiter=", " prefix=" " suffix=".">
+          <text variable="container-title" text-case="title"/>
+          <choose>
+            <if variable="volume" match="all">
+              <text variable="volume" form="short" prefix="Bd. "/>
+            </if>
+            <else-if variable="number-of-volumes" match="all">
+              <text variable="number-of-volumes" suffix=" Bände"/>
+            </else-if>
+          </choose>
+        </group>
       </if>
       <else-if type="webpage" match="any">
         <text variable="container-title" suffix="."/>
+      </else-if>
+      <else-if type="interview" match="any">
+        <text value="Interview am" text-case="capitalize-first"/>
       </else-if>
       <else>
         <text variable="container-title" font-style="italic" text-decoration="none" suffix=","/>
       </else>
     </choose>
   </macro>
-  <macro name="isbn">
-    <text variable="ISBN" prefix="ISBN: "/>
-  </macro>
-  <citation et-al-min="3" et-al-use-first="1" et-al-subsequent-min="3" et-al-subsequent-use-first="1" disambiguate-add-year-suffix="true" collapse="year">
+  <citation et-al-min="3" et-al-use-first="1" disambiguate-add-year-suffix="true" collapse="year">
     <sort>
       <key macro="author"/>
       <key variable="issued"/>
@@ -224,7 +268,7 @@
       </group>
     </layout>
   </citation>
-  <bibliography hanging-indent="false" et-al-min="10" et-al-use-first="10">
+  <bibliography hanging-indent="false" et-al-min="11" et-al-use-first="10">
     <sort>
       <key macro="author"/>
       <key variable="issued"/>
@@ -232,16 +276,7 @@
     </sort>
     <layout>
       <group delimiter=" " suffix=".">
-        <choose>
-          <if type="chapter paper-conference" match="any">
-            <group delimiter="; ">
-              <text macro="author"/>
-            </group>
-          </if>
-          <else>
-            <text macro="author"/>
-          </else>
-        </choose>
+        <text macro="author"/>
         <text macro="year-date" prefix="(" suffix="):"/>
         <text macro="title" suffix="."/>
         <text macro="container-prefix"/>
@@ -257,11 +292,7 @@
           <text macro="publisher"/>
           <text macro="locator"/>
           <text macro="published-date"/>
-          <choose>
-            <if match="any" variable="page">
-              <text macro="pages"/>
-            </if>
-          </choose>
+          <text macro="pages"/>
         </group>
         <text macro="access"/>
       </group>

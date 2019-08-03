@@ -12,7 +12,7 @@
     <category citation-format="note"/>
     <category field="law"/>
     <summary>Style for a series of Thomson Reuters law publications for Australia</summary>
-    <updated>2014-03-10T23:30:36+00:00</updated>
+    <updated>2012-10-25T21:15:26+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale>
@@ -109,49 +109,6 @@
       </else>
     </choose>
   </macro>
-  <macro name="author">
-    <!--for bills & hearing this should start with jurisdiction once available-->
-    <choose>
-      <if type="interview">
-        <group delimiter=", ">
-          <names variable="interviewer">
-            <name delimiter-precedes-last="never" and="text" delimiter=", " initialize="false" initialize-with="" name-as-sort-order="first"/>
-          </names>
-          <names variable="author" prefix="Interview with ">
-            <name delimiter-precedes-last="never" and="text" delimiter=", " initialize="false" initialize-with=""/>
-          </names>
-        </group>
-      </if>
-      <else-if type="personal_communication">
-        <group delimiter=" ">
-          <group delimiter=", ">
-            <names variable="author">
-              <name delimiter-precedes-last="never" and="text" delimiter=", " name-as-sort-order="first" initialize="false" initialize-with=""/>
-            </names>
-            <text variable="genre"/>
-          </group>
-          <names variable="recipient" prefix="to ">
-            <name delimiter-precedes-last="never" and="text" delimiter=", " initialize="false" initialize-with=""/>
-          </names>
-        </group>
-      </else-if>
-      <else-if type="broadcast">
-        <text variable="publisher"/>
-      </else-if>
-      <else-if type="legal_case legislation" match="any"/>
-      <else>
-        <names variable="author">
-          <name delimiter-precedes-last="never" and="text" delimiter=", " name-as-sort-order="first" initialize="false" initialize-with=""/>
-          <label form="short" prefix=" (" suffix=")" strip-periods="true"/>
-          <substitute>
-            <names variable="editor"/>
-            <names variable="translator"/>
-            <text macro="title"/>
-          </substitute>
-        </names>
-      </else>
-    </choose>
-  </macro>
   <macro name="editor">
     <group>
       <choose>
@@ -208,7 +165,7 @@
   </macro>
   <macro name="date-parenthesis">
     <choose>
-      <if type="legal_case " match="any">
+      <if type="legal_case" match="any">
         <choose>
           <if variable="volume">
             <text macro="issued-year" prefix="(" suffix=")"/>

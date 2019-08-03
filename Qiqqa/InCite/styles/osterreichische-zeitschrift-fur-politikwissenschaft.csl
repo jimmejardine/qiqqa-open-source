@@ -13,7 +13,7 @@
     <category field="social_science"/>
     <issn>1615-5548</issn>
     <summary>Stil fuer die Politikwissenschaftlichen Publikationen des Nomos Verlages</summary>
-    <updated>2013-08-29T04:18:55+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="de">
@@ -37,7 +37,7 @@
       <name name-as-sort-order="all" sort-separator=", " delimiter-precedes-last="always" delimiter="/">
         <name-part name="family" font-style="italic"/>
       </name>
-      <label form="short" prefix=" (" suffix=".)" text-case="capitalize-first" strip-periods="true"/>
+      <label form="short" prefix=" (" suffix=")" text-case="capitalize-first"/>
       <substitute>
         <names variable="editor"/>
         <text macro="anon"/>

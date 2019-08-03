@@ -14,7 +14,7 @@
     <issn>2152-4971</issn>
     <eissn>2152-4998</eissn>
     <summary>Style for Cellular reprogramming, same as Cell except for no italics in journal vol nos. Use et al min 11 in line with published articls</summary>
-    <updated>2013-02-21T02:28:44+00:00</updated>
+    <updated>2013-01-26T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="author-short">
@@ -89,7 +89,7 @@
             <text variable="container-title" prefix="In " suffix="," text-case="title"/>
             <text macro="editor"/>
             <text macro="publisher" suffix=","/>
-            <label variable="page" suffix="." form="short" strip-periods="true"/>
+            <label variable="page" form="short"/>
             <text variable="page"/>
           </else-if>
           <else-if type="thesis">

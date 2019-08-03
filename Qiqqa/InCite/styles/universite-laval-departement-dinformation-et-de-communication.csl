@@ -20,7 +20,7 @@
     <category citation-format="author-date"/>
     <category field="communications"/>
     <summary>Le style de citation des références bibliographiques du Département d'information et de communication de l'Université Laval.</summary>
-    <updated>2013-09-27T22:50:37+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="anon">
@@ -55,7 +55,7 @@
         <name-part name="family" text-case="capitalize-first"/>
         <name-part name="given" text-case="capitalize-first"/>
       </name>
-      <label form="short" prefix=" (" suffix=".)" text-case="lowercase" strip-periods="true"/>
+      <label form="short" prefix=" (" suffix=")" text-case="lowercase"/>
     </names>
   </macro>
   <macro name="publisher">
@@ -97,12 +97,6 @@
         <text term="no date" form="short" strip-periods="true" prefix="[" suffix="]"/>
       </else>
     </choose>
-  </macro>
-  <macro name="day-month">
-    <date variable="issued">
-      <date-part name="month" text-case="capitalize-first"/>
-      <date-part name="day" prefix=" "/>
-    </date>
   </macro>
   <macro name="journal-title">
     <choose>
@@ -194,7 +188,7 @@
       <choose>
         <if type="thesis">
           <text variable="genre" suffix=". "/>
-          <text macro="publisher" prefix=" "/>
+          <text macro="publisher"/>
           <text variable="number-of-pages" suffix=" p."/>
         </if>
         <else-if type="bill book graphic legal_case legislation motion_picture report song" match="any">

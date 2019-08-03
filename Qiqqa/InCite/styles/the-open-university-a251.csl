@@ -12,7 +12,7 @@
     <category citation-format="author-date"/>
     <category field="history"/>
     <summary>Style for The Open University Arts course A251</summary>
-    <updated>2013-09-25T04:19:09+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="editor">
@@ -94,22 +94,24 @@
       <text variable="publisher"/>
     </group>
   </macro>
-  <citation et-al-min="2" et-al-use-first="1" et-al-subsequent-min="2" et-al-subsequent-use-first="1" disambiguate-add-year-suffix="true" disambiguate-add-names="true" disambiguate-add-givenname="true">
+  <citation et-al-min="2" et-al-use-first="1" disambiguate-add-year-suffix="true" disambiguate-add-names="true" disambiguate-add-givenname="true">
     <layout prefix="(" suffix=")" delimiter="; ">
       <text macro="author-short"/>
-      <label variable="locator" prefix=", " suffix="." form="short" strip-periods="true"/>
+      <label variable="locator" prefix=", " form="short"/>
       <text variable="locator" prefix=" "/>
     </layout>
   </citation>
-  <bibliography hanging-indent="true" et-al-min="6" et-al-use-first="6">
+  <bibliography hanging-indent="true" et-al-min="7" et-al-use-first="6">
     <sort>
       <key macro="author"/>
     </sort>
     <layout>
-      <text macro="author" suffix=" "/>
-      <date variable="issued" prefix=" (" suffix=")">
-        <date-part name="year"/>
-      </date>
+      <group delimiter=" ">
+        <text macro="author"/>
+        <date variable="issued" prefix="(" suffix=")">
+          <date-part name="year"/>
+        </date>
+      </group>
       <choose>
         <if type="bill book graphic legal_case legislation motion_picture report song" match="any">
           <group suffix=",">

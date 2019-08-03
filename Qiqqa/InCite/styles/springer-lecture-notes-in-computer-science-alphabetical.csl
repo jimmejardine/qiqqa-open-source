@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="sort-only" default-locale="en-US">
   <info>
-    <title>Springer Lecture Notes in Computer Science (sorted alphabetically)</title>
+    <title>Springer - Lecture Notes in Computer Science (sorted alphabetically)</title>
     <title-short>Springer LNCS</title-short>
     <id>http://www.zotero.org/styles/springer-lecture-notes-in-computer-science-alphabetical</id>
     <link href="http://www.zotero.org/styles/springer-lecture-notes-in-computer-science-alphabetical" rel="self"/>
@@ -20,7 +20,7 @@
     </contributor>
     <category citation-format="numeric"/>
     <category field="engineering"/>
-    <updated>2013-09-25T04:19:09+00:00</updated>
+    <updated>2012-09-27T22:06:38+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="author">
@@ -53,9 +53,6 @@
   <macro name="publisher">
     <text variable="publisher"/>
     <text variable="publisher-place" prefix=", "/>
-  </macro>
-  <macro name="access">
-    <text variable="URL"/>
   </macro>
   <macro name="page">
     <group>
@@ -117,7 +114,8 @@
             <text macro="title" suffix="."/>
             <choose>
               <if variable="container-title">
-                <text macro="editor" prefix="In: " suffix=" "/>
+                <text term="in" text-case="capitalize-first" suffix=": "/>
+                <text macro="editor" suffix=" "/>
                 <text variable="container-title" suffix=". "/>
                 <text macro="page"/>
                 <text macro="publisher"/>
@@ -163,6 +161,7 @@
           </group>
         </else>
       </choose>
+      <text variable="DOI" prefix=". https://doi.org/"/>
     </layout>
   </bibliography>
 </style>
