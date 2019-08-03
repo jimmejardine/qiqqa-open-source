@@ -1,6 +1,6 @@
 Hi there,
 
-Word is running and Qiqqa still can't connect to it, then your registry settings for the "Word Automation COM interface" might have been corrupted when you installed/uninstalled different versions of Word. 
+Word is running and Qiqqa still can't connect to it, then your registry settings for the "Word Automation COM interface" might have become corrupted when you installed/uninstalled different versions of Word. 
 
 This directory contains a number of "registry patches" that can help fix the problem in a manner similar to what is discussed here:
 
