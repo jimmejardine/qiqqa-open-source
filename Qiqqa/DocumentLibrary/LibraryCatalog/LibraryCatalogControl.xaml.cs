@@ -281,8 +281,9 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             }
         }
 
+        #region --- Test ------------------------------------------------------------------------
 
-
+#if TEST
         public static void TestHarness()
         {
             Library library = Library.GuestInstance;
@@ -294,5 +295,8 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             ControlHostingWindow window = new ControlHostingWindow("Fast library control", lcc);
             window.Show();
         }
+#endif
+
+        #endregion
     }    
 }

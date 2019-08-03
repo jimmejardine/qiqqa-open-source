@@ -591,11 +591,15 @@ namespace Utilities.Language.Buzzwords
             return ngrams;
         }
 
+        #region --- Test ------------------------------------------------------------------------
 
+#if TEST
         public static void Test()
         {
             List<string> splits = SplitStringAtSpacesAndMarkBadSubstrings("This is a test. And's then there was madder-schein.  There (2010) you have it {although not quite} me.");
         }
+#endif
 
+        #endregion
     }
 }

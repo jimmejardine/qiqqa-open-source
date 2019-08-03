@@ -86,6 +86,9 @@ namespace Qiqqa.DocumentLibrary.VisualGalleryStuff
 
         }
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void Test(Library library)
         {
             int total_count_jpeg=0;
@@ -133,16 +136,16 @@ namespace Qiqqa.DocumentLibrary.VisualGalleryStuff
 
                         Logging.Info("We are at {0}/{1} images - total {2}/{3} - {4}", count_jpeg, count_other, total_count_jpeg, total_count_other, pdf_document.DocumentPath);
                     }
-
-                    
                 }
-
                 catch (Exception ex)
                 {
                     Logging.Warn(ex, "There was a problem extracting images from {0}", pdf_document.DocumentPath);
                 }
             }
         }
+#endif
+
+        #endregion
     }
 }
 

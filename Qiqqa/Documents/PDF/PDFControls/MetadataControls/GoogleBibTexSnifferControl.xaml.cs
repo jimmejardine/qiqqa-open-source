@@ -642,6 +642,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             return (text.StartsWith("@") && text.EndsWith("}"));
         }
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void TestHarness()
         {
             Library library = Library.GuestInstance;
@@ -653,5 +656,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             //c.Show(pdf_document.Library, pdf_document);
             c.Show(pdf_document.Library.PDFDocuments);
         }
+#endif
+
+        #endregion
     }
 }

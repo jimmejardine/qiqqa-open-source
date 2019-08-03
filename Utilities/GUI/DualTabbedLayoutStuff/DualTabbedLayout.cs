@@ -822,9 +822,9 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             }
         }
 
-        
-        // ------------------------------------------------------------------------------------------------------------
-        
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void TestHarness()
         {
             DualTabbedLayout dtl = new DualTabbedLayout();
@@ -845,6 +845,9 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             dtl.WindowIcon = Icons.GetAppIconICO(Icons.Qiqqa);
             window.Show();
         }
+#endif
+
+        #endregion
 
         static void button_DragOver(object sender, DragEventArgs e)
         {

@@ -276,6 +276,9 @@ namespace Qiqqa.InCite
             return citation_javascript;
         }
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void Test()
         {
             Library library = Library.GuestInstance;            
@@ -286,5 +289,8 @@ namespace Qiqqa.InCite
             string style_filename = @"c:\temp\harvard1.csl";
             RefreshDocument(WordConnector.Instance, style_filename, null);
         }
+#endif
+
+        #endregion
     }
 }

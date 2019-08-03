@@ -232,6 +232,9 @@ namespace Utilities.Mathematics.LinearAlgebra
 			return LU.dump();
 		}
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
 		public static void TestHarness()
 		{
 //			Matrix A = new Matrix(3, 3);
@@ -267,5 +270,8 @@ namespace Utilities.Mathematics.LinearAlgebra
 			Matrix test_b = B.multiply(x);
 			Console.WriteLine("test_B is\n{0}", test_b.dump());
 		}
-	}
+#endif
+
+        #endregion
+    }
 }

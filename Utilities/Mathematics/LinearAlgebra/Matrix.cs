@@ -500,6 +500,9 @@ namespace Utilities.Mathematics.LinearAlgebra
 			return result;
 		}
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
 		public static void TestHarness()
 		{
 			Console.WriteLine("Matrix A");
@@ -532,5 +535,8 @@ namespace Utilities.Mathematics.LinearAlgebra
 			Console.WriteLine(A_inverse.dump());
 			Console.WriteLine(A.multiply(A_inverse).dump());
 		}
-	}
+#endif
+
+        #endregion
+    }
 }

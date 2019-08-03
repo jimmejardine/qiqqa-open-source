@@ -192,7 +192,10 @@ namespace Utilities.Internet.GoogleScholar
                 }
             }
         }
-        
+
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void Test()
         {
             //GoogleScholarScraper gs_scraper = new GoogleScholarScraper("latent dirichlet allocation", 100, true);
@@ -215,15 +218,11 @@ namespace Utilities.Internet.GoogleScholar
                         have_a_close_match = true;
                     }
 
-
-
                     if (acl_title.Contains(gs_title) || gs_title.Contains(acl_title))
                     {
                         have_a_match = true;
                     }
-
                 }
-
 
                 Logging.Info((have_a_match ? "X" : ".") + (have_a_close_match ? "X" : "."));
 
@@ -234,8 +233,10 @@ namespace Utilities.Internet.GoogleScholar
                  * */
 
                 Logging.Info(gs_paper.ToString());
-                
             }
         }
+#endif
+
+        #endregion
     }
 }

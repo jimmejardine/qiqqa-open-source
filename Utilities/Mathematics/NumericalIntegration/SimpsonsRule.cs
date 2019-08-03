@@ -22,6 +22,9 @@ namespace Utilities.Mathematics.NumericalIntegration
 			return total;
 		}
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
 		public static void TestHarness()
 		{
 			ObjectiveFunction.ObjectiveFunction c = new Constant();
@@ -29,5 +32,8 @@ namespace Utilities.Mathematics.NumericalIntegration
 			Console.WriteLine("Constant is {0}", integrate(0, 1, c, 100));
 			Console.WriteLine("Sin is {0}", integrate(0, 1, sin, 100));
 		}
-	}
+#endif
+
+        #endregion
+    }
 }

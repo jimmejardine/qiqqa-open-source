@@ -77,9 +77,10 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
                 OnTagSelectionChanged(fingerprints, descriptive_span);
             }
         }
-        
-        // -----------------------------
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void TestHarness()
         {
             Library library = Library.GuestInstance;
@@ -89,5 +90,8 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
             ControlHostingWindow w = new ControlHostingWindow("Tags", tec);
             w.Show();
         }
+#endif
+
+        #endregion
     }
 }

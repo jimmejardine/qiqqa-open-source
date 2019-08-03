@@ -77,6 +77,9 @@ namespace Utilities.Files
             return FromStream(ms);
         }
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void Test()
         {
             string[] filenames = Directory.GetFiles(@"C:\temp");
@@ -108,5 +111,8 @@ namespace Utilities.Files
                 }
             }
         }
+#endif
+
+        #endregion
     }
 }

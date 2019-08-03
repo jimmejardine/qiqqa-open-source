@@ -87,12 +87,18 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
             }
         }
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void Test()
         {
             BlackWhiteListEditorWindow w = new BlackWhiteListEditorWindow();
             w.SetLibrary(Library.GuestInstance);
             w.Show();
         }
+#endif
+
+        #endregion
 
         public void SetLibrary(Library library)
         {

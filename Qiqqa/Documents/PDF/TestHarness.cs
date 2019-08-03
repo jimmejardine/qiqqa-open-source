@@ -6,6 +6,7 @@ using Utilities.GUI;
 
 namespace Qiqqa.Documents.PDF
 {
+#if TEST
     public class TestHarness
     {
         public static void TestPDFRendererControl()
@@ -34,4 +35,5 @@ namespace Qiqqa.Documents.PDF
             window.Show();
         }
     }
+#endif
 }

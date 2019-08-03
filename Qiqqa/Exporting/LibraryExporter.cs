@@ -141,9 +141,9 @@ namespace Qiqqa.Exporting
             return pdf_document_export_items;
         }
 
+        #region --- Test ------------------------------------------------------------------------
 
-        // --------------------------------------------------------------------------------------------------------------------------------------------
-
+#if TEST
         public static void Test1()
         {
             LibraryExporter_PDFs.Test();
@@ -158,5 +158,8 @@ namespace Qiqqa.Exporting
             string base_path = @"C:\temp\qiqqalibexport";
             Export(library, library.PDFDocuments, base_path);
         }
+#endif
+
+        #endregion
     }
 }

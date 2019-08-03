@@ -537,6 +537,9 @@ namespace Qiqqa.DocumentLibrary
             new ImportFromFolder(library).ShowDialog();
         }
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void Test()
         {
             Library library = Library.GuestInstance;
@@ -544,6 +547,9 @@ namespace Qiqqa.DocumentLibrary
             ControlHostingWindow window = new ControlHostingWindow("Library control", lic);
             window.Show();
         }
+#endif
+
+        #endregion
 
         internal void SearchLibrary(string query)
         {
@@ -557,7 +563,7 @@ namespace Qiqqa.DocumentLibrary
             return child;
         }
 
-        #region --- Drag and drop onto library tab header --------------------------------------------------------------------------------
+#region --- Drag and drop onto library tab header --------------------------------------------------------------------------------
 
         public void DualTabbedLayoutDragEnter(object sender, DragEventArgs e)
         {
@@ -574,6 +580,6 @@ namespace Qiqqa.DocumentLibrary
             dual_tab_drag_to_library_manager.OnDrop(sender, e);
         }
 
-        #endregion
+#endregion
     }
 }

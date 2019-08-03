@@ -304,12 +304,17 @@ namespace Qiqqa.InCite.CSLEditorStuff
             }
         }
 
+        #region --- Test ------------------------------------------------------------------------
 
+#if TEST
         public static void Test()
         {
             CSLEditorControl lec = new CSLEditorControl();
             ControlHostingWindow chw = new ControlHostingWindow("CSL Editor", lec);
             chw.Show();
         }
+#endif
+
+        #endregion
     }
 }

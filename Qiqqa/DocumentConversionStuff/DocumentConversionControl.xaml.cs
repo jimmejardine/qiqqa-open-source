@@ -106,12 +106,16 @@ namespace Qiqqa.DocumentConversionStuff
             }
         }
 
+        #region --- Test ------------------------------------------------------------------------
 
+#if TEST
         public static void Test()
         {
             DocumentConversionControl dcc = new DocumentConversionControl();
             ControlHostingWindow w = new ControlHostingWindow("PDF Convert", dcc);
             w.Show();
         }
+#endif
+        #endregion
     }
 }

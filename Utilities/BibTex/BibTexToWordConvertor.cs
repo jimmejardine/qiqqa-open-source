@@ -344,20 +344,16 @@ namespace Utilities.BibTex
             return bibtex_list;
         }
 
-        // ----------------------------------------------------------------------------------------
+        #region --- Test ------------------------------------------------------------------------
 
-
-
-
-        #region --- Tests ------------------------------------------------------------------------
-
-
+#if TEST
         public static void Test()
         {
             string bibtexes = File.ReadAllText(@"C:\temp\bibtexsample.bib");
             string word2007 = ConvertBibTexesToXML(bibtexes);
             File.WriteAllText(@"C:\temp\bibtexwordsample.xml", word2007);
         }
+#endif
 
         #endregion
     }

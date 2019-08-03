@@ -125,6 +125,9 @@ namespace Utilities.BibTex.Parsing
             return source;
         }
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void Test()
         {
             Test_REVERSE();
@@ -168,5 +171,8 @@ namespace Utilities.BibTex.Parsing
                 Logging.Error("STRANGE");
             }
         }
+#endif
+
+        #endregion
     }
 }

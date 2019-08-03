@@ -201,6 +201,9 @@ namespace Utilities.BibTex
             }
         }
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         private static void Test_SINGLE(string filename)
         {
             // See http://www.nlm.nih.gov/bsd/licensee/elements_descriptions.html for the low-down
@@ -221,5 +224,8 @@ namespace Utilities.BibTex
         {
             Test_SINGLE(@"C:\temp\sample_pubmed.xml");            
         }
+#endif
+
+        #endregion
     }
 }

@@ -266,9 +266,15 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
             }
         }
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void Test()
         {
             MendeleyDatabaseDetails mdd = DetectMendeleyDatabaseDetails();
         }
+#endif
+
+        #endregion
     }
 }

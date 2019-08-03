@@ -4,6 +4,7 @@ using Utilities.GUI;
 
 namespace Qiqqa.Brainstorm.SceneManager
 {
+#if TEST
     public class TestHarness
     {
         public static void Test()
@@ -19,4 +20,5 @@ namespace Qiqqa.Brainstorm.SceneManager
             window.Show();
         }
     }
+#endif
 }

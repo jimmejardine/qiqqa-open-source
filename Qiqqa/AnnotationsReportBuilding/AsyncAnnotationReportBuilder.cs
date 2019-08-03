@@ -722,8 +722,9 @@ namespace Qiqqa.AnnotationsReportBuilding
             MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document, annotation_work.pdf_annotation.Page);
         }
 
-        // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        #region --- Test ------------------------------------------------------------------------
 
+#if TEST
         public static void Test()
         {
             Library library = Library.GuestInstance;
@@ -748,6 +749,9 @@ namespace Qiqqa.AnnotationsReportBuilding
             AnnotationReportOptionsWindow arow = new AnnotationReportOptionsWindow();
             arow.ShowTagOptions(library, pdf_documents, OnShowTagOptionsComplete);
         }
+#endif
+
+        #endregion
 
         private static void OnShowTagOptionsComplete(Library library, List<PDFDocument> pdf_documents, AnnotationReportOptionsWindow.AnnotationReportOptions annotation_report_options)
         {

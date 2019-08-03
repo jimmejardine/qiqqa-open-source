@@ -163,6 +163,9 @@ namespace Utilities.Mathematics.LinearAlgebra
 			return result;
 		}
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
 		public static void TestHarness()
 		{
 			Matrix A = new Matrix(3, 3);
@@ -178,5 +181,8 @@ namespace Utilities.Mathematics.LinearAlgebra
 			Matrix test = factor.multiply(factor.transpose());
 			Console.WriteLine(test.dump());
 		}
-	}
+#endif
+
+        #endregion
+    }
 }

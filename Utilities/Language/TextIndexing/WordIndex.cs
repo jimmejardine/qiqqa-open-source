@@ -729,9 +729,9 @@ namespace Utilities.Language.TextIndexing
 
         #endregion
 
+        #region --- Test ------------------------------------------------------------------------
 
-
-
+#if TEST
         public static void Test()
         {
             WordIndex wim = new WordIndex(@"C:\Temp\QiqqaTestIndex\", true);
@@ -752,6 +752,8 @@ namespace Utilities.Language.TextIndexing
                 wim.WriteMasterList();
             }
         }
+#endif
 
+        #endregion
     }
 }

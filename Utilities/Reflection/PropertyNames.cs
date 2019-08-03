@@ -17,6 +17,9 @@ namespace Utilities.Reflection
             return property_info.Name;
         }
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void Test()
         {
             T t = new T();
@@ -36,5 +39,8 @@ namespace Utilities.Reflection
                 }
             }
         }
+#endif
+
+        #endregion
     }
 }

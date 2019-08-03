@@ -5,6 +5,7 @@ using Utilities.GUI;
 
 namespace Qiqqa.Documents.PDF.PDFControls
 {
+#if TEST
     public class Tests
     {
         public static void TestPDFRendererControl()
@@ -24,4 +25,5 @@ namespace Qiqqa.Documents.PDF.PDFControls
             }
         }
     }
+#endif
 }

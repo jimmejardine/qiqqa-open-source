@@ -68,6 +68,9 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.PDFDocumentTagCloudStuff
             return entries;
         }
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void Test()
         {
             Library library = Library.GuestInstance;
@@ -80,5 +83,8 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.PDFDocumentTagCloudStuff
             ControlHostingWindow window = new ControlHostingWindow("Tag cloud", tcrc);
             window.Show();
         }
+#endif
+
+        #endregion
     }    
 }

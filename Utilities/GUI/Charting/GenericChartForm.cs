@@ -107,6 +107,9 @@ namespace Utilities.GUI.Charting
 			}
 		}
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
 		public static void TestHarness()
 		{
 			GenericChartForm a = new GenericChartForm();
@@ -136,13 +139,16 @@ namespace Utilities.GUI.Charting
 			}
 			base.Dispose( disposing );
 		}
+#endif
 
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
+        #endregion
+
+        #region Windows Form Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
 		{
 			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(GenericChartForm));
 			// 
@@ -155,6 +161,6 @@ namespace Utilities.GUI.Charting
 			this.Text = "GenericChartForm";
 
 		}
-		#endregion
+        #endregion
 	}
 }

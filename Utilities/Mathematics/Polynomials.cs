@@ -98,6 +98,9 @@ namespace Utilities.Mathematics
 			}
 		}
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
 		public static void TestHarness()
 		{
 			Console.WriteLine("Testing quadratics");
@@ -126,8 +129,6 @@ namespace Utilities.Mathematics
 					}
 				}
 			}
-
-
 		}
 
 		static void testQuadraticFactor(double x2, double x1, double x0)
@@ -154,6 +155,8 @@ namespace Utilities.Mathematics
 				Console.WriteLine("a; b; c = {0}; {1}; {2}", a, b,c);
 			}
 		}
+#endif
 
-	}
+        #endregion
+    }
 }

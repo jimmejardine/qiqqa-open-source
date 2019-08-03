@@ -173,6 +173,9 @@ namespace Qiqqa.Expedition
             return tags;
         }
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void Test()
         {
             Library library = Library.GuestInstance;
@@ -181,5 +184,8 @@ namespace Qiqqa.Expedition
             int num_topics = (int)Math.Ceiling(Math.Sqrt(library.PDFDocuments.Count));
             ExpeditionDataSource ebds = BuildExpeditionDataSource(library, num_topics, true, true, null);
         }
+#endif
+
+        #endregion
     }
 }

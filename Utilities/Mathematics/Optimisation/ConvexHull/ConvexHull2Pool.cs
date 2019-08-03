@@ -75,6 +75,9 @@ namespace Utilities.Mathematics.Optimisation.ConvexHull
 			ConvexHull.findHull(combined_points, out output_m, out output_c);
 		}
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
 		public static void TestHarness()
 		{
 			for (int i = 0; i < 5; ++i)
@@ -107,5 +110,8 @@ namespace Utilities.Mathematics.Optimisation.ConvexHull
 			charts[0].Refresh();
 			charts.ShowDialog();
 		}
-	}
+#endif
+
+        #endregion
+    }
 }

@@ -111,6 +111,9 @@ namespace Utilities.Mathematics
 			return !(Precision.closeToZero(complex));
 		}
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
 		public static void TestHarness()
 		{
 			Complex a = new Complex(2);
@@ -124,5 +127,8 @@ namespace Utilities.Mathematics
 			Console.WriteLine("a+b  = {0}", add(a,b));
 			Console.WriteLine("a*b  = {0}", multiply(a,b));
 		}
-	}
+#endif
+
+        #endregion
+    }
 }

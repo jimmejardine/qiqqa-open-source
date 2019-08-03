@@ -21,9 +21,15 @@ namespace Utilities.Mathematics.Statistics.Distributions
 			
 			return 0.0;
 		}
-		
+
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
 		public static void TestHarness()
 		{
 		}
-	}
+#endif
+
+        #endregion
+    }
 }

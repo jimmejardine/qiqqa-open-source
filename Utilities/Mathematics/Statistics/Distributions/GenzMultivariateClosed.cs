@@ -11,12 +11,18 @@ namespace Utilities.Mathematics.Statistics.Distributions
 		const double epsilon = 1E-15;
 		const double invsqr2pi = 0.398942280401433;
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
 		public static void TestHarness()
 		{
 			Console.WriteLine("{0} is {1}", cumnorm(0.4)*cumnorm(0.6), bivarcumnorm(0.4, 0.6, 0));
 		}
+#endif
 
-		public static double cumnorm(double x)
+        #endregion
+
+        public static double cumnorm(double x)
 		{
 			double cn;
 	

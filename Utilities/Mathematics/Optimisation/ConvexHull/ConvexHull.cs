@@ -62,6 +62,9 @@ namespace Utilities.Mathematics.Optimisation.ConvexHull
 			output_c = ((Point2D) points[0]).y;
 		}
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
 		public static void TestHarness()
 		{
 			RandomAugmented random = RandomAugmented.getSeededRandomAugmented();
@@ -83,5 +86,8 @@ namespace Utilities.Mathematics.Optimisation.ConvexHull
 			charts[0].Refresh();
 			charts.ShowDialog();
 		}
-	}
+#endif
+
+        #endregion
+    }
 }

@@ -36,7 +36,10 @@ namespace Utilities.ClientVersioning
             return string.Format("LatestVersion: {0}, CompliantFromVersion: {1}, ObsoleteToVersion: {2}, DownloadLocations: {3}", LatestVersion, CompliantFromVersion, ObsoleteToVersion, StringTools.ConcatenateStrings(DownloadLocations));
         }
 
-        /*
+
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void TestSerialize()
         {
             ClientVersionInformation test = new ClientVersionInformation
@@ -53,6 +56,8 @@ namespace Utilities.ClientVersioning
             test.ObsoleteToVersion = null;
             new XmlSerializer(typeof(ClientVersionInformation)).Serialize(File.OpenWrite(@"C:\client.version2.xml"), test);
         }
-        */
+#endif
+
+        #endregion
     }
 }

@@ -236,6 +236,9 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
             }
         }
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void Test()
         {
             //Test(@"D:\Quantisle\trunk\QiqqaClient\Scratchpad\EndnoteImportTests\refs2.enl");
@@ -305,9 +308,11 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                 }
 
                 Logging.Info("{0}", sb);
-
             }
         }
+#endif
+
+        #endregion
     }
 }
 

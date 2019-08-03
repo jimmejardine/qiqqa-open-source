@@ -3,6 +3,7 @@ using Utilities.GUI;
 
 namespace Qiqqa.WebBrowsing
 {
+#if TEST
     public class TestHarness
     {
         static WebBrowserHostControl WBC = null;
@@ -28,4 +29,5 @@ namespace Qiqqa.WebBrowsing
             }
         }
     }
+#endif
 }

@@ -810,6 +810,9 @@ namespace Qiqqa.InCite
             }
         }
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void Test()
         {
             InCiteControl icc = new InCiteControl();
@@ -818,5 +821,8 @@ namespace Qiqqa.InCite
             w.Height= 800;
             w.Show();
         }
+#endif
+
+        #endregion
     }
 }

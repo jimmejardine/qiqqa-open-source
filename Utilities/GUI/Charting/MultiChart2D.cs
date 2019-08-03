@@ -619,6 +619,9 @@ namespace Utilities.GUI.Charting
             this.Refresh();
         }
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
 		Series doSampleChartSeries(int series_number)
 		{
 			RandomAugmented random = RandomAugmented.getSeededRandomAugmented();
@@ -676,7 +679,10 @@ namespace Utilities.GUI.Charting
 			form.setControl(chart);
 			form.ShowDialog();
 		}
+#endif
 
+        #endregion
+        
         private void InitializeComponent()
         {
             this.SuspendLayout();
@@ -688,6 +694,5 @@ namespace Utilities.GUI.Charting
             this.ResumeLayout(false);
 
         }
-
 	}
 }

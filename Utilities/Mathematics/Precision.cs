@@ -45,6 +45,9 @@ namespace Utilities.Mathematics
 			return digits;
 		}
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
 		public static void TestHarness()
 		{
 			Console.WriteLine("Rounding precision of 1000 is {0}", estimateMeaningfulChartRoundingPrecision(1000));
@@ -58,5 +61,8 @@ namespace Utilities.Mathematics
 			Console.WriteLine("Rounding precision of 0.09 is {0}", estimateMeaningfulChartRoundingPrecision(0.09));
 			Console.WriteLine("Rounding precision of 0 is {0}", estimateMeaningfulChartRoundingPrecision(0));
 		}
-	}
+#endif
+    
+        #endregion
+    }
 }

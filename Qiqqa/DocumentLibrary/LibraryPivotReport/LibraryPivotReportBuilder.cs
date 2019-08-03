@@ -191,9 +191,9 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
             }
         }
 
+        #region --- Test ------------------------------------------------------------------------
 
-
-
+#if TEST
         public static void Test()
         {
             // TODO REMOVE AFTER TESTING
@@ -231,5 +231,8 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
 
             PivotResult pivot_result = GeneratePivot(map_y_axis, map_x_axis);
         }
+#endif
+
+        #endregion
     }
 }

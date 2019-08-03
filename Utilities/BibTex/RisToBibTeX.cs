@@ -267,7 +267,9 @@ namespace Utilities.BibTex
             return all_records;
         }
 
+        #region --- Test ------------------------------------------------------------------------
 
+#if TEST
         public static void Test()
         {
             string ris_text = File.ReadAllText(@"c:\TEMP\SAMPLEENDNOTE.TXT");
@@ -284,6 +286,9 @@ namespace Utilities.BibTex
                 string result = bibtex.ToBibTex();
             }
         }
+#endif
+
+        #endregion
     }
 }
 
@@ -411,7 +416,7 @@ VIDEO - Video recording
 
  */
 
- /*
+/*
 
 Some sample RIS
 
@@ -517,3 +522,4 @@ ER  -
 
 
 */
+  

@@ -220,7 +220,9 @@ namespace Utilities.Mathematics.Topics.LDAStuff
             }
         }
 
+        #region --- Test ------------------------------------------------------------------------
 
+#if TEST
         public static void TestFastSaveLoad()
         {
             // Random data
@@ -253,5 +255,8 @@ namespace Utilities.Mathematics.Topics.LDAStuff
                 Logging.Info("-NewLoad");
             }
         }
+#endif
+
+        #endregion
     }
 }

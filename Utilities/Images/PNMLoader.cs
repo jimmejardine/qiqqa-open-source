@@ -519,6 +519,9 @@ namespace Utilities.Images
             }
         }
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void Test()
         {
             while (true)
@@ -530,5 +533,8 @@ namespace Utilities.Images
                 Logging.Info("-Loading PNM");
             }
         }
+#endif
+
+        #endregion
     }
 }

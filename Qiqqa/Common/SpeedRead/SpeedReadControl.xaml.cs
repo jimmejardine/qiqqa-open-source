@@ -289,6 +289,7 @@ namespace Qiqqa.Common.SpeedRead
 
         #region --- Test ------------------------------------------------------------------------
 
+#if TEST
         public static void Test()
         {
             SpeedReadControl src = new SpeedReadControl();
@@ -301,11 +302,12 @@ namespace Qiqqa.Common.SpeedRead
             string text = File.ReadAllText(@"c:\temp\alice-en1.txt");
             src.UseText(text);
         }
+#endif
 
-        #endregion
+#endregion
 
 
-        #region --- IDisposable ------------------------------------------------------------------------
+#region --- IDisposable ------------------------------------------------------------------------
 
         ~SpeedReadControl()
         {
@@ -331,7 +333,7 @@ namespace Qiqqa.Common.SpeedRead
             // Get rid of unmanaged resources 
         }
 
-        #endregion
+#endregion
 
     }
 }

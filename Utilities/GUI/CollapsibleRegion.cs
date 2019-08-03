@@ -311,6 +311,9 @@ namespace Utilities.GUI
             return Math.Sqrt((p1.X - p2.X) * (p1.X - p2.X) + (p1.Y - p2.Y) * (p1.Y - p2.Y));
         }
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void Test()
         {
             CollapsibleRegion cr = new CollapsibleRegion();
@@ -320,5 +323,8 @@ namespace Utilities.GUI
             ControlHostingWindow w = new ControlHostingWindow("", sp);
             w.Show();
         }
+#endif
+
+        #endregion
     }
 }

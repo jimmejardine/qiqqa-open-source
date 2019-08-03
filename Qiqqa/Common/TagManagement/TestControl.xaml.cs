@@ -4,6 +4,7 @@ using Utilities.Reflection;
 
 namespace Qiqqa.Common.TagManagement
 {
+#if TEST
     /// <summary>
     /// Interaction logic for TestControl.xaml
     /// </summary>
@@ -30,4 +31,5 @@ namespace Qiqqa.Common.TagManagement
             w.Show();
         }
     }
+#endif
 }

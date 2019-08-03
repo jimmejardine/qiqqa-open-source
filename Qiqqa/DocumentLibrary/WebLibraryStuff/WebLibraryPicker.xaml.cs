@@ -69,22 +69,19 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         {
             List<WebLibraryDetail> wlds = WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries_All;
 
-            if (false) {}
-            
-            else if (0 == wlds.Count)
+            switch (wlds.Count)
             {
-                // If we have no libraries, use the guest account...
-                return WebLibraryManager.Instance.WebLibraryDetails_Guest;
-            }
-            else if (1 == wlds.Count)
-            {
-                // If we have only one library, use that...
-                return wlds[0];
-            }
-            else
-            {
-                // Otherwise fall back on the GUI
-                return PickWebLibrary_GUI(message);
+                case 0:
+                    // If we have no libraries, use the guest account...
+                    return WebLibraryManager.Instance.WebLibraryDetails_Guest;
+
+                case 1:
+                    // If we have only one library, use that...
+                    return wlds[0];
+
+                default:
+                    // Otherwise fall back on the GUI
+                    return PickWebLibrary_GUI(message);
             }
         }
 
@@ -102,12 +99,16 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             return web_library_picker.last_picked_web_library_detail;
         }
 
-        // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void Test()
         {
             WebLibraryDetail web_library_detail = PickWebLibrary();
             Logging.Info("You picked {0}", web_library_detail);
         }
+#endif
+
+        #endregion
     }
 }

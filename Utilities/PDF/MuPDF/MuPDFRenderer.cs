@@ -298,9 +298,9 @@ namespace Utilities.PDF.MuPDF
             return ms;
         }
 
-        #region --- Tests ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        #region --- Test ------------------------------------------------------------------------
 
-
+#if TEST
         public static void TestHarness_TEXT_RENDER()
         {
             // SUCCESSES
@@ -321,7 +321,6 @@ namespace Utilities.PDF.MuPDF
             {
                 TestHarness_TEXT_RENDER_ONE(@"C:\Users\Jimme\AppData\Roaming\Quantisle\Qiqqa\\7CDA3872-F99B-49B5-A0EB-E58C08719C1C\documents\1\1E18A4945DA8F9CDB6621F12FECE3CFFC3CB7CF.pdf", 8);
             }
-            
         }
 
         public static void TestHarness_TEXT_RENDER_ONE(string PDF_FILENAME, int PAGE)
@@ -434,7 +433,8 @@ namespace Utilities.PDF.MuPDF
             }
             Logging.Info("Done!");
         }
+#endif
 
-        #endregion ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#endregion ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     }
 }

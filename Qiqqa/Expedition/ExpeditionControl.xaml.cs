@@ -295,11 +295,12 @@ namespace Qiqqa.Expedition
                 );
             }
 
-
             GridVote.Visibility = Visibility.Collapsed;
         }
 
+        #region --- Test ------------------------------------------------------------------------
 
+#if TEST
         public static void Test()        
         {
             Library library = Library.GuestInstance;
@@ -313,5 +314,8 @@ namespace Qiqqa.Expedition
             w.Height= 600;
             w.Show();
         }
+#endif
+
+        #endregion
     }
 }

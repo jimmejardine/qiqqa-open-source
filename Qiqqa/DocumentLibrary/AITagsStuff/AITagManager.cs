@@ -310,6 +310,9 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
             }
         }
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void TestHarness()
         {
             Daemon daemon = new Daemon("Test");
@@ -318,5 +321,8 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
             AITagManager ai_tag_manager = new AITagManager(library);
             ai_tag_manager.Regenerate();                        
         }
+#endif
+
+        #endregion
     }
 }

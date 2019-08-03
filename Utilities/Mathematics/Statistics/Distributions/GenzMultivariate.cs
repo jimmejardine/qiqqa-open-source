@@ -49,9 +49,7 @@ namespace Utilities.Mathematics.Statistics.Distributions
 			rho_matrix[1,1] = 1;
 			return CNorm(d, rho_matrix);
 		}
-
-
-		
+        		
 		public double getProb(Vector a, Vector b, double alpha, double epsilon, int N_max)
 		{
 			// A neat reference to match the document
@@ -120,6 +118,9 @@ namespace Utilities.Mathematics.Statistics.Distributions
 			return intsum;
 		}
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
 		public static void TestHarness()
 		{
 			TestHarness2D();
@@ -167,8 +168,6 @@ namespace Utilities.Mathematics.Statistics.Distributions
 			charts[1,1].addSeries(series4);
 
 			charts.ShowDialog();
-
-
 		}
 
 		public static void TestHarness_ComparisonWithDrezner_Subtest(double y, double correlation, MultiChart2D chart)
@@ -238,7 +237,6 @@ namespace Utilities.Mathematics.Statistics.Distributions
 
 		public static void TestHarness3D()
 		{
-		
 			Matrix correlation = new Matrix(3,3);
 			correlation.setIdentity();
 			correlation[0,1] = correlation[1,0] = 3.0/5.0; 
@@ -255,5 +253,8 @@ namespace Utilities.Mathematics.Statistics.Distributions
 			GenzMultivariate genzmultivariate = new GenzMultivariate(correlation);
 			Console.WriteLine("Prob is {0} and should be 0.82798", genzmultivariate.getProb(a, b, 2.5, 1E-5, 100000));
 		}
-	}
+#endif
+
+        #endregion
+    }
 }

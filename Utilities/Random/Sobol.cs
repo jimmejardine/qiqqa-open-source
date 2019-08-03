@@ -816,14 +816,15 @@ namespace Utilities.Random
 			++index;
 		}
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
 		public static void TestHarness()
 		{
 			const int DIM = 80;
 
 			Series series = new Series("1,2", ChartType.Point);
 			MultiChart2D chart = new MultiChart2D();
-
-
 			
 			Vector rands = new Vector(DIM);
 			Sobol sobol = new Sobol(DIM);
@@ -838,8 +839,11 @@ namespace Utilities.Random
 			form.setControl(chart);
 			form.ShowDialog();
 		}
+#endif
 
-		public double nextRandomDouble()
+        #endregion
+
+        public double nextRandomDouble()
 		{
 			generateNextIteration();
 			return x_real[0];

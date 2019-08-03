@@ -115,6 +115,9 @@ namespace Utilities.Mathematics.Statistics.Distributions
 			return root_one_minus_rho_squared / Math.PI * sum;
 		}
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
 		public static void TestHarness()
 		{
 			Console.WriteLine("Zero is {0}", CBivariateStandardNormal(-1000, -1000, 0));
@@ -142,7 +145,6 @@ namespace Utilities.Mathematics.Statistics.Distributions
 			int GRIDSIZE = 100;
 			double[,] values = new double[GRIDSIZE,GRIDSIZE];
 			double BOUND = 1.0;
-
 			
 			double rho = 0.0;
 
@@ -162,6 +164,8 @@ namespace Utilities.Mathematics.Statistics.Distributions
 			chart.setDataset(values, "x", -BOUND, BOUND, "y", -BOUND, BOUND);
 			chart.showFormModal();
 		}
+#endif
 
-	}
+        #endregion
+    }
 }

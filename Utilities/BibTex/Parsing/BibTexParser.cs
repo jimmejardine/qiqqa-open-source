@@ -52,8 +52,9 @@ namespace Utilities.BibTex.Parsing
         {
         }
 
-        // ------------------------------------------------------------------------------------
-        
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void Test()
         {
             string filename = @"..\..\..\..\Utilities\BibTex\Parsing\Sample.bib";
@@ -66,5 +67,8 @@ namespace Utilities.BibTex.Parsing
                 Logging.Info(items[i].ToBibTex());
             }
         }
+#endif
+
+        #endregion
     }
 }

@@ -101,11 +101,17 @@ namespace Qiqqa.DocumentLibrary.CrossLibrarySearchStuff
             ObjLibraryCatalog.SetPDFDocuments(pdf_documents, null, query, search_scores);
         }
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void Test()
         {
             CrossLibrarySearchControl control = new CrossLibrarySearchControl();
             ControlHostingWindow w = new ControlHostingWindow("Cross library search", control);
             w.Show();
         }
+#endif
+
+        #endregion
     }
 }

@@ -223,7 +223,9 @@ namespace Qiqqa.Common.MessageBoxControls
             this.Close();
         }
 
+        #region --- Test ------------------------------------------------------------------------
 
+#if TEST
         public static void Test()
         {
             try
@@ -250,5 +252,8 @@ namespace Qiqqa.Common.MessageBoxControls
                  DisplayException(ex_outer);
             }
         }
+#endif
+
+        #endregion
     }
 }

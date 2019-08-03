@@ -134,6 +134,9 @@ namespace Utilities.Random
 			nextRandomVector(vector);
 		}
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
 		public static void TestHarness()
 		{
 			MersenneTwister mt = new MersenneTwister();
@@ -148,5 +151,8 @@ namespace Utilities.Random
 			form.setControl(chart);
 			form.Show();
 		}
-	}
+#endif
+
+        #endregion
+    }
 }

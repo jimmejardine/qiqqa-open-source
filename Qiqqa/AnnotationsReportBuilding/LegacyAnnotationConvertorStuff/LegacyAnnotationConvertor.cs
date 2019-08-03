@@ -224,6 +224,9 @@ namespace Qiqqa.AnnotationsReportBuilding.LegacyAnnotationConvertorStuff
             Logging.Info("-Getting legacy annotations from {0}", pdf_filename);
         }
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void Test()
         {
             Library library = Library.GuestInstance;
@@ -235,5 +238,8 @@ namespace Qiqqa.AnnotationsReportBuilding.LegacyAnnotationConvertorStuff
 
             GetAnnotations(pdf_document.PDFRenderer.PDFFilename);
         }
+#endif
+
+        #endregion
     }
 }

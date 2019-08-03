@@ -402,6 +402,9 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             }
         }
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void TestHarness()
         {
             while (true)
@@ -413,5 +416,8 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 Thread.Sleep(1000);
             }
         }
+#endif
+
+        #endregion
     }
 }

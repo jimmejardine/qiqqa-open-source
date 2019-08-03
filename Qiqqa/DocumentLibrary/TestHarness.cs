@@ -2,6 +2,7 @@
 
 namespace Qiqqa.DocumentLibrary
 {
+#if TEST
     public class TestHarness
     {
         public static void TestWatchFolder()
@@ -22,6 +23,6 @@ namespace Qiqqa.DocumentLibrary
                 daemon.Sleep(1000);
             }
         }
-
     }
+#endif
 }

@@ -123,11 +123,17 @@ namespace Qiqqa.Localisation
             GridEditor.ItemsSource = rows;
         }
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void Test()        
         {
             LocalisationEditingControl lec = new LocalisationEditingControl();
             ControlHostingWindow chw = new ControlHostingWindow("Localisation", lec);
             chw.Show();
         }
+#endif
+
+        #endregion
     }
 }

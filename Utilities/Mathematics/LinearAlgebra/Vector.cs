@@ -184,7 +184,9 @@ namespace Utilities.Mathematics.LinearAlgebra
 			return Math.Sqrt(x*x+y*y+z*z);
 		}
 
+        #region --- Test ------------------------------------------------------------------------
 
+#if TEST
 		public static void TestHarness()
 		{
 			Vector A = new Vector(3);
@@ -199,5 +201,8 @@ namespace Utilities.Mathematics.LinearAlgebra
 			Vector C = A.add(B);
 			C.dump();
 		}
-	}
+#endif
+
+        #endregion
+    }
 }

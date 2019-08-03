@@ -587,13 +587,17 @@ namespace Utilities.Strings
             return Regex.Replace(str, @"<[^>]*>", replacement);
         }
 
-        // ---------------------------------------------------------------------------------------------------------------------------------------------------------
+        #region --- Test ------------------------------------------------------------------------
 
+#if TEST
         public static void Test_CountWordOccurence()
         {
             int string_count = CountStringOccurence("at father that cat 'at' threw an attack at.", "at");
             int word_count = CountWordOccurence("at father that cat 'at' threw an attack at.", "at");
         }
+#endif
+
+        #endregion
 
         public static string Reverse(string src)
         {

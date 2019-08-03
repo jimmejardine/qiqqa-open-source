@@ -8,6 +8,7 @@ using Utilities.OCR;
 
 namespace Qiqqa.Documents.PDF.PDFRendering
 {
+#if TEST
     public class Tests
     {
         static readonly string TEST_PDF_FILENAME_LOCAL2 = @"C:\temp\2.pdf";
@@ -87,8 +88,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 PDFRenderer pdf_renderer = new PDFRenderer(TEST_PDF_FILENAME_LOCAL8, null, null);
                 PDFCoherentTextExtractor.ExtractText(pdf_renderer);
             }
-
         }
-
     }
+#endif
 }

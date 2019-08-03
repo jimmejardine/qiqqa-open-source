@@ -70,10 +70,16 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             this.Close();
         }
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void TestHarness()
         {
             MetadataBibTeXEditorControl c = new MetadataBibTeXEditorControl();
             c.Show();
         }
+#endif
+
+        #endregion
     }
 }

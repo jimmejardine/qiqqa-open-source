@@ -56,10 +56,16 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             this.Close();
         }
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void TestHarness()
         {
             MetadataCommentEditorControl c = new MetadataCommentEditorControl();
             c.Show();
         }
+#endif
+
+        #endregion
     }
 }

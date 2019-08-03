@@ -52,6 +52,9 @@ namespace QuantIsleParser
             return ArrayFormatter.ListElements(list, "\n") + "\n";
 		}
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
 		public static void TestHarness()
 		{
 			TextArrayBuilder tab = new TextArrayBuilder();
@@ -65,7 +68,8 @@ namespace QuantIsleParser
 			tab.flush();
 			Console.WriteLine(tab);
 		}
+#endif
 
-
-	}
+        #endregion
+    }
 }

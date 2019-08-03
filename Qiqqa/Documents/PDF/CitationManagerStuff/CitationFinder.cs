@@ -10,6 +10,10 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
 {
     public class CitationFinder
     {
+
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void Test()
         {
             Library library = Library.GuestInstance;
@@ -23,6 +27,9 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
 
             Logging.Info("Found {0} in total!!!!!!!!!!!", total_found);
         }
+#endif
+
+        #endregion
 
         public static int FindCitations(Library library)
         {
@@ -64,8 +71,7 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
 
             return total_found;
         }
-
-
+        
         internal static int FindCitations(PDFDocument pdf_document)
         {
             int total_found = 0;

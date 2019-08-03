@@ -126,7 +126,9 @@ namespace Qiqqa.Exporting
             }
         }
 
+        #region --- Test ------------------------------------------------------------------------
 
+#if TEST
         public static void Test()
         {
             PdfDocument document = PdfReader.Open(@"C:\temp\pdfwithhighlights.pdf", PdfDocumentOpenMode.ReadOnly);
@@ -139,5 +141,8 @@ namespace Qiqqa.Exporting
                 }
             }
         }
+#endif
+
+        #endregion
     }
 }

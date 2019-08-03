@@ -599,6 +599,9 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             EntrySelection
         }
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void Test()
         {
             Library library = Library.GuestInstance;
@@ -613,7 +616,8 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             win.DoAutomatedBibTeXImport(@"c:\temp\omnipatents_export.bib");
             win.ShowDialog();
         }
+#endif
+
+        #endregion
     }
-
-
 }

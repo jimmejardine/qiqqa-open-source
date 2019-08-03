@@ -78,18 +78,17 @@ namespace Qiqqa.Common.DocumentPickerStuff
             Logging.Info("{0} was clicked", tag.pdf_document);
         }
 
+        #region --- Test ------------------------------------------------------------------------
 
-        // ------------------------------------------------------------------------------------------------------------------------------------------------------
-
+#if TEST
         public static void Test()
         {
             DocumentPickerControl dpc = new DocumentPickerControl();
             ControlHostingWindow w = new ControlHostingWindow("Document picker", dpc);
             w.Show();
         }
+#endif
 
-        // ------------------------------------------------------------------------------------------------------------------------------------------------------
+        #endregion
     }
-
-
 }

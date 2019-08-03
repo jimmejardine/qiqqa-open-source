@@ -465,6 +465,9 @@ namespace Qiqqa.Documents.BibTeXEditor
             }
         }
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void Test()
         {
             BibTeXEditorControl bec = new BibTeXEditorControl();
@@ -474,5 +477,8 @@ namespace Qiqqa.Documents.BibTeXEditor
             window.Height = 300;
             window.Show();
         }
+#endif
+
+        #endregion
     }
 }

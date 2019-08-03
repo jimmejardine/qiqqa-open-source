@@ -519,11 +519,17 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
             }
         }
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void Test()
         {
             LibraryFilterControl l = new LibraryFilterControl();
             ControlHostingWindow window = new ControlHostingWindow("Library index", l);
             window.Show();
         }
+#endif
+
+        #endregion
     }
 }

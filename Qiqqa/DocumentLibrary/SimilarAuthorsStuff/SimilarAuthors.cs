@@ -82,12 +82,11 @@ namespace Qiqqa.DocumentLibrary.SimilarAuthorsStuff
             }
 
             return pdf_documents;
-
         }
 
+        #region --- Test ------------------------------------------------------------------------
 
-
-
+#if TEST
         public static void Test()
         {
             Library library = Library.GuestInstance;
@@ -105,5 +104,8 @@ namespace Qiqqa.DocumentLibrary.SimilarAuthorsStuff
                 }
             }
         }
+#endif
+
+        #endregion
     }
 }

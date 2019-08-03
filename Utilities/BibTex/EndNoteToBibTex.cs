@@ -269,7 +269,9 @@ namespace Utilities.BibTex
             return all_records;
         }
 
+        #region --- Test ------------------------------------------------------------------------
 
+#if TEST
         public static void Test()
         {
             string endnote_text = File.ReadAllText(@"c:\TEMP\SAMPLEENDNOTE.TXT");
@@ -286,6 +288,9 @@ namespace Utilities.BibTex
                 string result = bibtex.ToBibTex();
             }
         }
+#endif
+
+        #endregion
     }
 }
 

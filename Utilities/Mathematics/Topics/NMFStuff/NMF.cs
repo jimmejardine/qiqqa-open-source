@@ -8,6 +8,9 @@ namespace Utilities.Mathematics.Topics.NMFStuff
     {
         private static readonly float SMALL_NUMBER = (float)1E-9;
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void Test_Simple()
         {
             int ITERATIONS = 50;            
@@ -68,6 +71,9 @@ namespace Utilities.Mathematics.Topics.NMFStuff
             Logging.Info("Before:\n" + PrintMatrix(mV.ToFloatMatrix()));
             Logging.Info("After:\n" + PrintMatrix(mVV.ToFloatMatrix()));
         }
+#endif
+
+        #endregion
 
         private static string PrintMatrix(float[,] matrix)
         {
@@ -87,7 +93,9 @@ namespace Utilities.Mathematics.Topics.NMFStuff
             return sb.ToString();
         }
 
-        /*
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
         public static void Test()
         {
             //Test_Simple();
@@ -164,7 +172,8 @@ namespace Utilities.Mathematics.Topics.NMFStuff
             Utilities.Files.SerializeFile.Save(String.Format(@"C:\temp\nmf_{0}_W.dat", K), W);
             Utilities.Files.SerializeFile.Save(String.Format(@"C:\temp\nmf_{0}_H.dat", K), H);
         }
+#endif
 
-        */
+        #endregion
     }
 }

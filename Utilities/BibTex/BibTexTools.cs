@@ -212,8 +212,9 @@ namespace Utilities.BibTex
             }
         }
 
-        // ----------------------------------------------------------------------------------------
+        #region --- Test ------------------------------------------------------------------------
 
+#if TEST
         public static void Test()
         {
             string sample_bibtext = @"@conference{kamp1984theory,title =       {{A theory of truth and semantic representation}},author =       {Kamp, H.},booktitle={Truth, Interpretation and Information: Selected Papers from the Third Amsterdam Colloquium},pages={1--41},year={1984}";
@@ -233,6 +234,8 @@ namespace Utilities.BibTex
 
             Logging.Info("Replaced BibTex is:\n" + replaced_bibtex);
         }
+#endif
 
+        #endregion
     }
 }

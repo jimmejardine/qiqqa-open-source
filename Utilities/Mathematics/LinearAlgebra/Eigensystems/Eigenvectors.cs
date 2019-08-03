@@ -5,6 +5,10 @@ namespace Utilities.Mathematics.LinearAlgebra.Eigensystems
 {
 	public class Eigenvectors
 	{
+
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
 		public static void TestHarness()
 		{
 			RandomAugmented ra = RandomAugmented.getSeededRandomAugmented();
@@ -46,8 +50,10 @@ namespace Utilities.Mathematics.LinearAlgebra.Eigensystems
 				Console.WriteLine(eigenvector.multiply(eigenvalues[i]));
 			}
 		}
+#endif
 
-		public static void sortEigensystem(Matrix eigenvectors, Vector eigenvalues)
+        #endregion
+        public static void sortEigensystem(Matrix eigenvectors, Vector eigenvalues)
 		{
 			int N = eigenvectors.rows;
 

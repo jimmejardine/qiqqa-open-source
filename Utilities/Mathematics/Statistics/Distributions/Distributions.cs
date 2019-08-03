@@ -187,6 +187,9 @@ namespace Utilities.Mathematics.Statistics.Distributions
 			return Y + num / den;
 		}
 
+        #region --- Test ------------------------------------------------------------------------
+
+#if TEST
 		public static void TestHarness()
 		{
 			Console.WriteLine("i\tN(i)");
@@ -197,5 +200,8 @@ namespace Utilities.Mathematics.Statistics.Distributions
 
 			Console.WriteLine("Moro inv of 0.8 is {0} and should be 0.841621234897994", InvDist_SN(0.8));
 		}
-	}
+#endif
+
+        #endregion
+    }
 }
