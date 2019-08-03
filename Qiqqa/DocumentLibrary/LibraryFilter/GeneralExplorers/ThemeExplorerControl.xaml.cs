@@ -64,7 +64,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
         {
             MultiMapSet<string, string> results = GetNodeItems_STATIC(library, parent_fingerprints);
 
-                    // Show the no themes message
+            // Show the no themes message
             {
                 bool have_topics =
                     true
@@ -109,7 +109,6 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
                         }
                     }
                 }
-
             }
             catch (Exception ex)
             {
