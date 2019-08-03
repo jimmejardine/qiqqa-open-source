@@ -2,7 +2,7 @@
 
 namespace Qiqqa.DocumentLibrary
 {
-    [Obsolete]
+    [Obsolete("Do not use", true)]
     class Configuration    
     {
     }

@@ -50,7 +50,7 @@ namespace Utilities.Images
             return bitmap.Clone(rectangle, bitmap.PixelFormat);
         }
 
-        [Obsolete("Use the byte[] version directly", false)]        
+        [Obsolete("Use the byte[] version directly", true)]        
         public static BitmapSource LoadBitmapImageRegion(string filename, double left, double top, double width, double height)
         {            
             Image image = LoadImageRegion(filename, left, top, width, height);

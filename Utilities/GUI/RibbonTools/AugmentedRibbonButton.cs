@@ -2,7 +2,7 @@
 
 namespace Utilities.GUI.RibbonTools
 {
-    [Obsolete]
+    [Obsolete("Do not use", true)]
     public class AugmentedRibbonButton
     {
     }

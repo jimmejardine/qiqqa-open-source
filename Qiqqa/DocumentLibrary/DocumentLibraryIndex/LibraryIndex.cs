@@ -159,8 +159,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             return word_index_manager.GetDocumentPagesWithQuery(query);
         }
 
-
-        [Obsolete]
+        [Obsolete("Do not use this attribute, but keep it in the class definition for backwards compatibility of the serialization", true)]
         public HashSet<string> GetFingerprintsForKeyword(string keyword)
         {
             return word_index_manager.GetDocumentsWithWord(keyword);

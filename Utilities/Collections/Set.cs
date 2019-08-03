@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Utilities.Collections
 {
-    [Obsolete("Use HashSet instead.")]
+    [Obsolete("Use HashSet instead.", true)]
     public class Set<T> : IEnumerable, IEnumerable<T>
     {
         static object DUMMY = new object();
@@ -41,7 +41,7 @@ namespace Utilities.Collections
         }
     }
 
-    [Obsolete("Use HashSet instead.")]
+    [Obsolete("Use HashSet instead.", true)]
     public class Set : IEnumerable
 	{
         Object _dummy = new Object();

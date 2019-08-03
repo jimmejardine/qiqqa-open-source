@@ -54,7 +54,7 @@ namespace Qiqqa.Common.Configuration
             set { this["Feedback_GATrackingCode"] = value; }
         }
 
-        [Obsolete]
+        [Obsolete("Do not use this attribute, but keep it in the class definition for backwards compatibility of the serialization", true)]
         public int? System_TempAge
         {
             get { return this["System_TempAge"] as int?; }
