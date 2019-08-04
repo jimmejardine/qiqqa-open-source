@@ -34,10 +34,20 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
         {
             this.library = library;
 
-            // Try to load a historical progress file
-            if (File.Exists(Filename_DocumentProgressList))
+            Logging.Info("Try to load a historical progress file: {0}", Filename_DocumentProgressList);
+            try
             {
-                pdf_documents_in_library = (Dictionary<string, PDFDocumentInLibrary>)SerializeFile.LoadSafely(Filename_DocumentProgressList);
+                if (File.Exists(Filename_DocumentProgressList))
+                {
+                    Logging.Info("+Loading historical progress file: {0}", Filename_DocumentProgressList);
+                    pdf_documents_in_library = (Dictionary<string, PDFDocumentInLibrary>)SerializeFile.LoadSafely(Filename_DocumentProgressList);
+                    Logging.Info("-Loaded historical progress file: {0}", Filename_DocumentProgressList);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex, "FAILED to load historical progress file \"{0}\". Will start indexing afresh.", Filename_DocumentProgressList);
+                pdf_documents_in_library = null;
             }
 
             // If there was no historical progress file, start afresh
