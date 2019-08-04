@@ -932,7 +932,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Language\ScrabbleWords.dat" />
-    <None Include="BibTex\Parsing\Sample.bib" />
+    <None Include="BibTex\TestFiles\Sample.bib" />
     <None Include="GUI\Shaders\Negative\NegativeEffect.fx" />
     <EmbeddedResource Include="Maps\Geocode\postcode-outcodes.csv.gz" />
     <None Include="Mathematics\Statistics\Distributions\Drezner - Computation of the Bivariate Normal Integral.pdf" />
