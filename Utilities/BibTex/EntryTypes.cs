@@ -8,8 +8,14 @@ namespace Utilities.BibTex
 
         Dictionary<string, EntryType> entry_types = new Dictionary<string, EntryType>();
 
-        // Populated from http://www.kfunigraz.ac.at/~binder/texhelp/bibtx-7.html
+        // Populated from http://www.kfunigraz.ac.at/~binder/texhelp/bibtx-7.html (not active anymore in 2019 A.D.)
         // Also at http://nwalsh.com/tex/texhelp/bibtx-7.html
+        //
+        // Other potential sources:
+        // - http://bib-it.sourceforge.net/help/fieldsAndEntryTypes.php
+        // - https://www.bibtex.com/e/book-entry/
+        // - https://en.wikipedia.org/wiki/BibTeX#Style_files
+        //
         private EntryTypes()
         {
             AddEntryType(
