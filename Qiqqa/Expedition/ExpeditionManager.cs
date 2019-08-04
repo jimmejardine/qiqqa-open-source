@@ -61,7 +61,7 @@ namespace Qiqqa.Expedition
                     {
                         if (File.Exists(Filename_Store))
                         {
-                            Logging.Info("+Loading Expedition");
+                            Logging.Info("+Loading Expedition: {0}", Filename_Store);
                             expedition_data_source = (ExpeditionDataSource)SerializeFile.LoadSafely(Filename_Store);
                             Logging.Info("-Loading Expedition");
                         }
