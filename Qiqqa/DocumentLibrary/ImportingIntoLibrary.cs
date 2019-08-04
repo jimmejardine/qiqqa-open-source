@@ -136,7 +136,14 @@ namespace Qiqqa.DocumentLibrary
                 }
             }
 
-            StatusManager.Instance.UpdateStatus("BulkLibraryDocument", String.Format("Added {0} of {1} document(s) to your library", successful_additions, filename_with_metadata_imports.Length));
+            if (filename_with_metadata_imports.Length > 0)
+            {
+                StatusManager.Instance.UpdateStatus("BulkLibraryDocument", String.Format("Added {0} of {1} document(s) to your library", successful_additions, filename_with_metadata_imports.Length));
+            }
+            else
+            {
+                StatusManager.Instance.ClearStatus("BulkLibraryDocument");
+            }
 
             // If there have been some import problems, report them to the user
             if (null != problematic_import_documents_filename)
