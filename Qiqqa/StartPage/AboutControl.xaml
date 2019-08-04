@@ -162,10 +162,22 @@
 
           <ListItem>
             <Paragraph>
-              A number of the CSL styles bundled with Qiqqa are courtesy of the <Hyperlink Click="Hyperlink_Click"  x:Name="lnkZoteroCSL">Zotero CSL repository</Hyperlink>.
+              A number of the CSL styles bundled with Qiqqa are courtesy of 
+			  the <Hyperlink Click="Hyperlink_Click"  x:Name="lnkZoteroCSL">Zotero CSL repository</Hyperlink>.
             </Paragraph>
           </ListItem>
-
+                    <ListItem>
+                        <Paragraph>
+                            Many more CSL styles bundled with Qiqqa are courtesy of the 
+                            <Hyperlink Click="Hyperlink_Click"  x:Name="lnkCSLProject">
+								Citation Style Language Project
+                            </Hyperlink>
+                            via its 
+                            <Hyperlink Click="Hyperlink_Click"  x:Name="lnkCSLGithub">
+                                GitHub CSL repository
+                            </Hyperlink>.
+                        </Paragraph>
+                    </ListItem>
           <ListItem>
             <Paragraph>
               Our browser thanks to <Hyperlink Click="Hyperlink_Click" x:Name="lnkGecko">GeckoFX</Hyperlink> and <Hyperlink Click="Hyperlink_Click" x:Name="lnkXULRunner">XULRunner</Hyperlink>.
