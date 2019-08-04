@@ -41,16 +41,16 @@
 
           <TextBlock />
 
-          <local_gui:AugmentedInfoBarItemControl Header="Exception Trees" x:Name="TextExceptionsRegion" Collapsed="True">
+          <local_gui:AugmentedInfoBarItemControl Header="Exception Trees" x:Name="TextExceptionsRegion" Collapsed="False">
             <TextBox Name="TextExceptions" Height="200" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
           </local_gui:AugmentedInfoBarItemControl>
 
-          <local_gui:AugmentedInfoBarItemControl Header="Recent Logs" Collapsed="True">
+          <local_gui:AugmentedInfoBarItemControl Header="Recent Logs" Collapsed="False">
             <TextBox Name="TextLogs" Height="200" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" />
           </local_gui:AugmentedInfoBarItemControl>
 
 
-          <local_gui:AugmentedInfoBarItemControl Header="Machine Stats" Collapsed="True">
+          <local_gui:AugmentedInfoBarItemControl Header="Machine Stats" Collapsed="False">
             <TextBox Name="TextMachineStats" Height="200" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" />
           </local_gui:AugmentedInfoBarItemControl>
 

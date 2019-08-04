@@ -24,7 +24,7 @@
 
 
         <local_gui:AugmentedSpacer Height="20"/>
-        <local_gui:AugmentedInfoBarItemControl Header="Novice/Expert"  Collapsed="True">
+        <local_gui:AugmentedInfoBarItemControl Header="Novice/Expert"  Collapsed="False">
           <StackPanel>
             <local_gui:AugmentedSpacer Height="20"/>
             <local_gui:AugmentedInfoBarItemControl Header="Novice/Expert mode">
@@ -52,7 +52,7 @@
 
 
         <local_gui:AugmentedSpacer Height="20"/>
-        <local_gui:AugmentedInfoBarItemControl Header="Premium Features"  Collapsed="True">
+        <local_gui:AugmentedInfoBarItemControl Header="Premium Features"  Collapsed="False">
           <DockPanel>
             <StackPanel>
               <local_gui:AugmentedSpacer Height="20"/>
@@ -81,7 +81,7 @@
 
 
         <local_gui:AugmentedSpacer Height="20"/>
-        <local_gui:AugmentedInfoBarItemControl Header="Automated Metadata Discovery"  Collapsed="True">
+        <local_gui:AugmentedInfoBarItemControl Header="Automated Metadata Discovery"  Collapsed="False">
           <StackPanel>
             <local_gui:AugmentedSpacer Height="20"/>
             <local_gui:AugmentedInfoBarItemControl Header="Automatically associate BibTeX with PDFs">
@@ -108,7 +108,7 @@
 
 
         <local_gui:AugmentedSpacer Height="20"/>
-        <local_gui:AugmentedInfoBarItemControl Header="Network" Collapsed="True">
+        <local_gui:AugmentedInfoBarItemControl Header="Network" Collapsed="False">
           <StackPanel>
             <local_gui:AugmentedSpacer Height="20"/>
             <local_gui:AugmentedInfoBarItemControl Header="Proxy support" Grid.Row="0" Grid.Column="0">
@@ -185,7 +185,7 @@
         </local_gui:AugmentedInfoBarItemControl>
 
         <local_gui:AugmentedSpacer Height="20"/>
-        <local_gui:AugmentedInfoBarItemControl Header="Appearance"  Collapsed="True">
+        <local_gui:AugmentedInfoBarItemControl Header="Appearance"  Collapsed="False">
           <StackPanel>
             <local_gui:AugmentedSpacer Height="20"/>
             <local_gui:AugmentedInfoBarItemControl Header="Theme colours">
@@ -257,7 +257,7 @@
 
 
         <local_gui:AugmentedSpacer Height="20"/>
-        <local_gui:AugmentedInfoBarItemControl Header="Startup &amp; Shutdown"  Collapsed="True">
+        <local_gui:AugmentedInfoBarItemControl Header="Startup &amp; Shutdown"  Collapsed="False">
           <StackPanel>
             <local_gui:AugmentedSpacer Height="20"/>
             <local_gui:AugmentedInfoBarItemControl Header="Ask on exit?" Grid.Row="7" Grid.Column="0">
@@ -300,7 +300,7 @@
 
 
         <local_gui:AugmentedSpacer Height="20"/>
-        <local_gui:AugmentedInfoBarItemControl Header="Notices"  Collapsed="True">
+        <local_gui:AugmentedInfoBarItemControl Header="Notices"  Collapsed="False">
           <StackPanel>
             <local_gui:AugmentedSpacer Height="20"/>
             <local_gui:AugmentedInfoBarItemControl Header="Feedback" Grid.Row="1" Grid.Column="0">
@@ -337,7 +337,7 @@
 
 
         <local_gui:AugmentedSpacer Height="20"/>
-        <local_gui:AugmentedInfoBarItemControl Header="System"  Collapsed="True">
+        <local_gui:AugmentedInfoBarItemControl Header="System"  Collapsed="False">
           <StackPanel>
             <local_gui:AugmentedSpacer Height="20"/>
             <local_gui:AugmentedInfoBarItemControl Header="Qiqqa data directory">
@@ -374,7 +374,7 @@
         </local_gui:AugmentedInfoBarItemControl>
 
         <local_gui:AugmentedSpacer Height="20"/>
-        <local_gui:AugmentedInfoBarItemControl Header="Troubleshooting"  Collapsed="True">
+        <local_gui:AugmentedInfoBarItemControl Header="Troubleshooting"  Collapsed="False">
           <StackPanel>
             <local_gui:AugmentedSpacer Height="20"/>
             <local_gui:AugmentedInfoBarItemControl Header="Login details">
