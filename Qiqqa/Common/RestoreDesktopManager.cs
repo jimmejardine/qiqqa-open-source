@@ -41,7 +41,6 @@ namespace Qiqqa.Common
                 }
             }
 
-
             // Store the remembrances
             File.WriteAllLines(Filename, restore_settings);
         }
@@ -68,7 +67,6 @@ namespace Qiqqa.Common
                                 Library library = WebLibraryManager.Instance.GetLibrary(library_id);
                                 MainWindowServiceDispatcher.Instance.OpenLibrary(library);
                             }
-
                             else if (restore_setting.StartsWith("PDF_DOCUMENT"))
                             {
                                 string[] parts = restore_setting.Split(',');
@@ -118,7 +116,16 @@ namespace Qiqqa.Common
                 string[] positions = position.Split('|');
                 main_window.Left = Double.Parse(positions[0]);
                 main_window.Top = Double.Parse(positions[1]);
-                Logging.Info("Screen position restored to {0},{1}", main_window.Left, main_window.Top);
+                if (positions.Length == 4)
+                {
+                    main_window.Width = Double.Parse(positions[2]);
+                    main_window.Height = Double.Parse(positions[3]);
+                    Logging.Info("Screen position and window size restored to {0},{1},{2},{3}", main_window.Left, main_window.Top, main_window.Width, main_window.Height);
+                }
+                else
+                {
+                    Logging.Info("Screen position restored to {0},{1}", main_window.Left, main_window.Top);
+                }
             }
             catch (Exception ex)
             {
@@ -128,7 +135,7 @@ namespace Qiqqa.Common
 
         internal static void SaveLocation(MainWindow main_window)
         {
-            string position = String.Format("{0}|{1}", main_window.Left, main_window.Top);
+            string position = String.Format("{0}|{1}|{2}|{3}", main_window.Left, main_window.Top, main_window.Width, main_window.Height);
             ConfigurationManager.Instance.ConfigurationRecord.GUI_RestoreLocationAtStartup_Position = position;
             ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.GUI_RestoreLocationAtStartup_Position);
             Logging.Info("Screen position stored as {0}", position);
