@@ -6,11 +6,12 @@ namespace Utilities.Mathematics.Topics.NMFStuff
 {
     public class NMF
     {
-        private static readonly float SMALL_NUMBER = (float)1E-9;
-
         #region --- Test ------------------------------------------------------------------------
 
 #if TEST
+
+        private static readonly float SMALL_NUMBER = (float)1E-9;
+
         public static void Test_Simple()
         {
             int ITERATIONS = 50;            
