@@ -14,10 +14,13 @@ namespace Utilities.GUI.Charting
 		int num_charts_y;
 		int num_charts;
 		MultiChart2D[] charts;
+
+#if TEST
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
 		private Container components = null;
+#endif
 
 		public GenericChartForm()
 		{

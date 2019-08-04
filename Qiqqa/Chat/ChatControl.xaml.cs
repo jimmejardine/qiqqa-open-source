@@ -134,14 +134,22 @@ namespace Qiqqa.Chat
                 Logging.Warn(ex, "There was a problem communicating with chat.");
                 next_autopoll_datetime = DateTime.UtcNow.AddMinutes(1);
 
-                is_chat_available = false;                
+                is_chat_available = false;
             }
-            
-            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+
+            // make sure we're not in the process of shutting down Qiqqa for then the next code chunk will cause a CRASH:
+            if (null != Application.Current)
             {
-                this.IsEnabled = is_chat_available;
-                TxtChatUnavailable.Visibility = is_chat_available ? Visibility.Collapsed : Visibility.Visible;
-            }));
+                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    this.IsEnabled = is_chat_available;
+                    TxtChatUnavailable.Visibility = is_chat_available ? Visibility.Collapsed : Visibility.Visible;
+                }));
+            }
+            else
+            {
+                Logging.Warn("Chat: detected Qiqqa shutting down.");
+            }
         }
 
         private void OnTimeTick(object state)

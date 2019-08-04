@@ -46,10 +46,18 @@ namespace Qiqqa.Common.MessageBoxControls
                 throw ex;
             }
 
-            if (!Application.Current.Dispatcher.CheckAccess())
+            // make sure we're not in the process of shutting down Qiqqa for then the next code chunk will cause a (recursive) CRASH:
+            if (null != Application.Current)
             {
-                Application.Current.Dispatcher.Invoke(((Action)(() => DisplayException(ex))));
-                return;
+                if (!Application.Current.Dispatcher.CheckAccess())
+                {
+                    Application.Current.Dispatcher.Invoke(((Action)(() => DisplayException(ex))));
+                    return;
+                }
+            }
+            else
+            {
+                Logging.Warn("Unhandled Exception Handler: detected Qiqqa shutting down.");
             }
 
             // Record this exception at server so that we know about it
@@ -93,7 +101,13 @@ namespace Qiqqa.Common.MessageBoxControls
                 useful_text_subheading = ute.body;
             }
 
-            Display("Unexpected problem in Qiqqa!", useful_text_heading, useful_text_subheading, null, true, false, ex);
+
+            // make sure we're not in the process of shutting down Qiqqa for then we won't have any live app window any more:
+            if (null != Application.Current)
+            {
+                Display("Unexpected problem in Qiqqa!", useful_text_heading, useful_text_subheading, null, true, false, ex);
+            }
+            Logging.Error(ex, "Unhandled Exception Handler: {0} - {1}", useful_text_heading, useful_text_subheading);
         }
 
         public static void DisplayInfo(string useful_text, string useful_text_subheading, bool display_faq_link, Exception ex)
@@ -101,10 +115,18 @@ namespace Qiqqa.Common.MessageBoxControls
             // Collect all generations of memory.
             GC.Collect();
 
-            if (!Application.Current.Dispatcher.CheckAccess())
+            // make sure we're not in the process of shutting down Qiqqa for then the next code chunk will cause a (recursive) CRASH:
+            if (null != Application.Current)
             {
-                Application.Current.Dispatcher.Invoke(((Action)(() => DisplayInfo(useful_text, useful_text_subheading, display_faq_link, ex))));
-                return;
+                if (!Application.Current.Dispatcher.CheckAccess())
+                {
+                    Application.Current.Dispatcher.Invoke(((Action)(() => DisplayInfo(useful_text, useful_text_subheading, display_faq_link, ex))));
+                    return;
+                }
+            }
+            else
+            {
+                Logging.Warn("Unhandled Exception Handler: detected Qiqqa shutting down.");
             }
 
             Display(
