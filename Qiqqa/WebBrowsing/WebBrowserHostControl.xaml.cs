@@ -142,7 +142,10 @@ namespace Qiqqa.WebBrowsing
 
         void ButtonNewBrowser_Click(object sender, RoutedEventArgs e)
         {
-            this.OpenNewWindow("http://www.qiqqa.com/Account/Edit");
+            // This URL is slow/timeout:
+            // this.OpenNewWindow("http://www.qiqqa.com/Account/Edit");
+
+            this.OpenNewWindow(WebsiteAccess.Url_GithubRepo4Qiqqa);
         }
 
         public void ForceAdvancedMenus()
@@ -555,7 +558,7 @@ namespace Qiqqa.WebBrowsing
         internal void DoDictionarySearch(string query)
         {
             string search_terms = Uri.EscapeDataString(query);
-            string url_browsing = String.Format("http://dictionary.reference.com/browse/{0}", search_terms);
+            string url_browsing = String.Format(WebsiteAccess.Url_ThesaurusSearch, search_terms);
 
             wbc_browsing.Navigate(url_browsing);
             TabWebBrowserControls.MakeActive(TAB_BROWSING);
