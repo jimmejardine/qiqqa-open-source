@@ -100,7 +100,7 @@ namespace Qiqqa.InCite
                     return null;
                 }
             }
-            else // Not a dependenet style, so use this filename
+            else // Not a dependent style, so use this filename
             {
                 return style_xml_filename;
             }
