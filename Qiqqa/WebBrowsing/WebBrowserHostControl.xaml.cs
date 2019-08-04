@@ -145,7 +145,8 @@ namespace Qiqqa.WebBrowsing
             // This URL is slow/timeout:
             // this.OpenNewWindow("http://www.qiqqa.com/Account/Edit");
 
-            this.OpenNewWindow(WebsiteAccess.Url_GithubRepo4Qiqqa);
+            //this.OpenNewWindow(WebsiteAccess.Url_GithubRepo4Qiqqa);
+            this.OpenNewWindow(WebsiteAccess.Url_BlankWebsite);
         }
 
         public void ForceAdvancedMenus()

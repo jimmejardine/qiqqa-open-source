@@ -51,6 +51,7 @@ namespace Qiqqa.Common.Configuration
         public static readonly string Url_CSLGithub = @"https://github.com/citation-style-language/styles";
         public static readonly string Url_IconsVisualPharm = @"http://www.visualpharm.com/";
         public static readonly string Url_Glyphicons = @"http://glyphicons.com/";
+        public static readonly string Url_BlankWebsite = @"http://www.blankwebsite.com/";
         public static readonly string Url_Gecko = @"http://code.google.com/p/geckofx/";
         public static readonly string Url_XULRunner = @"https://developer.mozilla.org/en/XULRunner";
         public static readonly string Url_AdobeAcrobatDownload = @"http://get.adobe.com/reader/";
