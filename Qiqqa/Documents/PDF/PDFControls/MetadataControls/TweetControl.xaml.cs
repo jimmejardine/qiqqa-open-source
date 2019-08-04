@@ -12,6 +12,7 @@ using Utilities.BibTex.Parsing;
 using Utilities.Language;
 using Utilities.BibTex;
 using System.Collections.Generic;
+using Qiqqa.Common.Configuration;
 
 namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 {
@@ -38,7 +39,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         void ButtonSubmit_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            string url = String.Format("http://twitter.com/intent/tweet?text={0}", Uri.EscapeDataString(TxtTweet.Text));
+            string url = String.Format(WebsiteAccess.Url_TwitterTweetSubmit, Uri.EscapeDataString(TxtTweet.Text));
             Process.Start(url);
         }
 

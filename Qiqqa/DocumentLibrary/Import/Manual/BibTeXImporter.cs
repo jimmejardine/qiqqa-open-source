@@ -68,8 +68,8 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         /// </summary>
         public static string TranslateFilePathWithoutContext(string value)
         {
-            value = value.Replace("$\\backslash$:", ":"); //mendeley
-            value = value.Replace("/", "\\");  //mendeley
+            value = value.Replace("$\\backslash$:", ":"); //Mendeley
+            value = value.Replace("/", "\\");  //Mendeley
             value = value.Replace("\\_", "_"); //Mendeley escapes underscores. I get the feeling from http://www.citeulike.org/groupforum/1245 that others might not.
             value = value.Replace("\\&", "&"); //Mendeley escapes &.(https://quantisle.fogbugz.com/f/cases/15838/) 
 

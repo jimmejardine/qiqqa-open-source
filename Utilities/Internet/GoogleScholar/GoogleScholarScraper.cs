@@ -4,18 +4,18 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
+using Utilities.Internet;
 
 namespace Utilities.Internet.GoogleScholar
 {
     public class GoogleScholarScraper
     {
+        // the google scholar search request has 2 parameters: the search criteria (text) and the max number of results (number) 
+        public static readonly string Url_GoogleScholarQuery = @"http://scholar.google.com/scholar?q={0}&num={1}";
+
         public static string GenerateQueryUrl(string query, int num_items)
         {
-            string url =
-                "http://scholar.google.com/scholar?"
-                + "q=" + Uri.EscapeDataString(query)
-                + "&num=" + num_items
-                ;
+            string url = String.Format(Url_GoogleScholarQuery, Uri.EscapeDataString(query), num_items);
 
             return url;
         }

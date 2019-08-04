@@ -621,7 +621,7 @@ namespace Qiqqa.Common
         internal void OpenCSLWebEditor()
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_CSLEditorWebOpen);
-            Instance.OpenUrlInBrowser("http://editor.citationstyles.org/about/");
+            Instance.OpenUrlInBrowser(WebsiteAccess.Url_CSLAbout);
         }
 
         internal void OpenControl(string type, string title, UserControl control)

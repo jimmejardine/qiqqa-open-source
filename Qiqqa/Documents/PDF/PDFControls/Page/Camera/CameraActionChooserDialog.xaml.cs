@@ -5,6 +5,7 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using icons;
 using Qiqqa.Common;
+using Qiqqa.Common.Configuration;
 using Qiqqa.Common.GUI;
 using Qiqqa.UtilisationTracking;
 using Utilities;
@@ -80,7 +81,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
             else if (CmdTabulatedCharts == sender)
             {
                 string data = Uri.EscapeDataString(tabled_text);
-                string url = "https://datacopia.com?data=" + data;
+                string url = String.Format(WebsiteAccess.Url_DatacopiaSearch, data);
                 MainWindowServiceDispatcher.Instance.OpenUrlInBrowser(url, true);
             }
 

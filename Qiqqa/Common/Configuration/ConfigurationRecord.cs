@@ -110,7 +110,6 @@ namespace Qiqqa.Common.Configuration
                 string filename = this["InCite_LastStyleFile"] as string;
                 if (String.IsNullOrEmpty(filename))
                 {
-
                     filename = ConfigurationManager.Instance.StartupDirectoryForQiqqa + @"\InCite\styles\harvard1.csl";
                 }
                 return filename;
@@ -348,7 +347,10 @@ namespace Qiqqa.Common.Configuration
 
         public double GUI_AnnotationScreenTransparency
         {
-            get { return (this["GUI_AnnotationScreenTransparency"] as double?) ?? 0.25; }
+            get
+            {
+                return (this["GUI_AnnotationScreenTransparency"] as double?) ?? 0.25;
+            }
 
             set
             {
@@ -361,7 +363,10 @@ namespace Qiqqa.Common.Configuration
 
         public double GUI_HighlightScreenTransparency
         {
-            get { return (this["GUI_HighlightScreenTransparency"] as double?) ?? 0.25; }
+            get
+            {
+                return (this["GUI_HighlightScreenTransparency"] as double?) ?? 0.25;
+            }
 
             set
             {
@@ -374,7 +379,10 @@ namespace Qiqqa.Common.Configuration
 
         public double GUI_InkScreenTransparency
         {
-            get { return (this["GUI_InkScreenTransparency"] as double?) ?? 0.25; }
+            get
+            {
+                return (this["GUI_InkScreenTransparency"] as double?) ?? 0.25;
+            }
 
             set
             {
@@ -414,8 +422,6 @@ namespace Qiqqa.Common.Configuration
             get { return this["GUI_RestoreLocationAtStartup_Position"] as string; }
             set { this["GUI_RestoreLocationAtStartup_Position"] = value; }
         }
-
-        
 
         public string GUI_LastPagesUp // Can be 1 2 N or W
         {

@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using icons;
 using Qiqqa.Common;
+using Qiqqa.Common.Configuration;
 using Qiqqa.Common.GUI;
 
 namespace Qiqqa.DocumentLibrary.LibraryFilter
@@ -21,7 +22,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
 
         void HyperlinkLuceneExamples_Click(object sender, RoutedEventArgs e)
         {
-            MainWindowServiceDispatcher.Instance.OpenUrlInBrowser(@"http://lucene.apache.org/core/old_versioned_docs/versions/2_9_1/queryparsersyntax.html");
+            MainWindowServiceDispatcher.Instance.OpenUrlInBrowser(WebsiteAccess.Url_LuceneQuerySyntax);
         }
     }
 }

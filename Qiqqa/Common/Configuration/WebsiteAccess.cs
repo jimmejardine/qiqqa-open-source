@@ -10,7 +10,7 @@ using Utilities.Internet;
 
 namespace Qiqqa.Common.Configuration
 {
-    public class WebsiteAccess
+    public class WebsiteAccess // : Utilities.Internet.WebsiteAccess
     {
         static WebsiteAccess()
         {
@@ -25,8 +25,10 @@ namespace Qiqqa.Common.Configuration
 
         public static readonly string Url_AmazonS3 = @"http://aws.amazon.com/s3/";
         public static readonly string Url_Webcasts = @"http://www.youtube.com/user/QiqqaTips";
-        public static readonly string Url_ZoteroCSLRepository = @"http://zotero.org/styles";
+        public static readonly string Url_ZoteroCSLRepository = @"https://www.zotero.org/styles/";
         public static readonly string Url_CSLManual = @"http://citationstyles.org/downloads/specification.html";
+        public static readonly string Url_CSLAbout = @"http://editor.citationstyles.org/about/";
+
         public static readonly string Url_Forums = @"http://getsatisfaction.com/qiqqa";
 
         public static readonly string Url_Datacopia = @"https://www.youtube.com/watch?v=NnNm_aqYUrQ";
@@ -34,6 +36,46 @@ namespace Qiqqa.Common.Configuration
         public static readonly string Url_PosterPack = @"http://www.qiqqa.com/Redir/Download/posterpack";
 
         public static readonly string Url_AlternativeTo = @"http://alternativeto.net/software/qiqqa/";
+
+        public static readonly string Url_FreeDigitalPhotos = @"http://www.freedigitalphotos.net";
+        public static readonly string Url_IconsTango = @"http://commons.wikimedia.org/wiki/User:Inductiveload/Tango";
+        public static readonly string Url_IconsBuuf = @"http://mattahan.deviantart.com/";
+        public static readonly string Url_Sorax = @"http://www.soraxsoft.com/index.html";
+        public static readonly string Url_Redgate = @"http://www.red-gate.com/";
+        public static readonly string Url_Tesseract = @"http://sourceforge.net/projects/tesseract-ocr/";
+        public static readonly string Url_WpfToolkit = @"http://wpf.codeplex.com/";
+        public static readonly string Url_WiseWanderer = @"http://wisewanderer.deviantart.com/";
+        public static readonly string Url_CiteProc = @"https://bitbucket.org/fbennett/citeproc-js/wiki/Home/";
+        public static readonly string Url_CSLProject = @"http://citationstyles.org/";
+        public static readonly string Url_AvalonEdit = @"http://wiki.sharpdevelop.net/AvalonEdit.ashx";
+        public static readonly string Url_CSLGithub = @"https://github.com/citation-style-language/styles";
+        public static readonly string Url_IconsVisualPharm = @"http://www.visualpharm.com/";
+        public static readonly string Url_Glyphicons = @"http://glyphicons.com/";
+        public static readonly string Url_Gecko = @"http://code.google.com/p/geckofx/";
+        public static readonly string Url_XULRunner = @"https://developer.mozilla.org/en/XULRunner";
+        public static readonly string Url_AdobeAcrobatDownload = @"http://get.adobe.com/reader/";
+        public static readonly string Url_LuceneQuerySyntax = @"http://lucene.apache.org/core/old_versioned_docs/versions/2_9_1/queryparsersyntax.html";
+        public static readonly string Url_GoogleScholarBibTeXPreferences = @"http://scholar.google.com/scholar_setprefs?scis=yes&scisf=4";
+
+        public static readonly string Url_ChatAPI4Qiqqa = @"http://chatapi.qiqqa.com:8080";
+
+        public static readonly string Url_QiqqaLibraryExportTrackReference = @"http://www.qiqqa.com/?ref=EXPHTML";
+        public static readonly string Url_GoogleAnalyticsTracker4Qiqqa = @"http://www.google-analytics.com/collect";
+        // dictionary tracker search URL has 1 parameter: the word you look up:
+        public static readonly string Url_ThesaurusSearch = @"http://dictionary.reference.com/browse/{0}";
+        // TODO: replace URL with https://www.dictionary.com/browse/{0} (which the above one maps to anyway)
+
+        // search URL has 1 parameter:
+        public static readonly string Url_DatacopiaSearch = @"https://datacopia.com?data={0}";
+
+        public static readonly string Url_GithubRepo4Qiqqa = @"https://github.com/jimmejardine/qiqqa-open-source";
+
+        // bibtexsearch.com search URL has 1 parameter: the server ID/number (1..4):
+        public static readonly string Url_BibTeXSearchServerN = @"http://search{0}.bibtexsearch.com:80";
+        public static readonly string Url_BibTeXSearch_Submit = @"http://submit.bibtexsearch.com:80/submit";
+
+        // Twitter Posting URL: takes 1 parameter (the message text):
+        public static readonly string Url_TwitterTweetSubmit = @"http://twitter.com/intent/tweet?text={0}";
 
         public static readonly string Url_OliVideo = Webcasts.PLAY.url;
         public static readonly string Url_WebCastMcKillop = Webcasts.EXTERNAL_BASICS.url;

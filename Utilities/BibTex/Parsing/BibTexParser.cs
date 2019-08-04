@@ -17,7 +17,7 @@ namespace Utilities.BibTex.Parsing
 
             if (1 < items.Count)
             {
-                //Logging.Warn("There is more than one BibTex record - using only the first...");
+                Logging.Warn("There is more than one BibTex record - using only the first...");
             }
 
             if (0 < items.Count)

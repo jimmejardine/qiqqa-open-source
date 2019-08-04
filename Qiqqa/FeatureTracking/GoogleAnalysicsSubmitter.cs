@@ -13,7 +13,7 @@ namespace Qiqqa.FeatureTracking
     class GoogleAnalysicsSubmitter
     {                                                      
         private static readonly string TRACKING_ID = "UA-16059803-8";
-        private static readonly string URL = "http://www.google-analytics.com/collect";
+        private static readonly string URL = WebsiteAccess.Url_GoogleAnalyticsTracker4Qiqqa;
 
         private static DateTime last_ga_failure_time = DateTime.MinValue;
 

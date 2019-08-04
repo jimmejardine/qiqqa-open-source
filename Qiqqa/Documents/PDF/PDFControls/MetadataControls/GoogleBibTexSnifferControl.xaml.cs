@@ -217,7 +217,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
             if (MessageBoxes.AskQuestion(message))
             {
-                string preferences_url = "http://scholar.google.com/scholar_setprefs?scis=yes&scisf=4";
+                string preferences_url = WebsiteAccess.Url_GoogleScholarBibTeXPreferences;
                 ObjWebBrowser.OpenUrl(preferences_url);
             }
 
@@ -591,7 +591,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             {
                 byte[] buffer = Encoding.UTF8.GetBytes(bibtex);
 
-                HttpWebRequest web_request = (HttpWebRequest)HttpWebRequest.Create("http://submit.bibtexsearch.com:80/submit");
+                HttpWebRequest web_request = (HttpWebRequest)HttpWebRequest.Create(WebsiteAccess.Url_BibTeXSearch_Submit);
                 web_request.Proxy = ConfigurationManager.Instance.Proxy;
                 web_request.Method = "POST";
                 web_request.ContentLength = buffer.Length;

@@ -108,7 +108,7 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
         private void DownloadAndInstallAcrobatReader(object obj)
         {
             Application.Current.Dispatcher.BeginInvoke(
-                new Action(() => MainWindowServiceDispatcher.Instance.OpenUrlInBrowser("http://get.adobe.com/reader/", true))
+                new Action(() => MainWindowServiceDispatcher.Instance.OpenUrlInBrowser(WebsiteAccess.Url_AdobeAcrobatDownload, true))
             );
         }
     }

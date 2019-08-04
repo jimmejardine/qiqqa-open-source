@@ -5,6 +5,7 @@ using System.Net;
 using System.Text;
 using System.Windows.Media.Imaging;
 using icons;
+using Qiqqa.Common.Configuration;
 using Qiqqa.Common.TagManagement;
 using Qiqqa.DocumentLibrary;
 using Qiqqa.Documents.PDF;
@@ -24,7 +25,7 @@ namespace Qiqqa.Exporting
             html.AppendFormat("    <title>Qiqqa Library Export</title>\n");
             html.AppendFormat("  </head>\n");
             html.AppendFormat("<body>\n");
-            html.AppendFormat("<a href=\"http://www.qiqqa.com/?ref=EXPHTML\"><image align=\"right\" src=\"Qiqqa.png\" border=\"0\"/></a>\n");
+            html.AppendFormat(String.Format("<a href=\"{0}\"><image align=\"right\" src=\"Qiqqa.png\" border=\"0\"/></a>\n", WebsiteAccess.Url_QiqqaLibraryExportTrackReference));
             html.AppendFormat("<h1>Qiqqa Library Export</h1>\n");
 
             Export_HTML_Titles(html, library, base_path, pdf_document_export_items);

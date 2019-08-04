@@ -28,7 +28,7 @@ namespace Qiqqa.Chat
     /// </summary>
     public partial class ChatControl : UserControl, IDisposable
     {
-        private static string BASE_URL = "http://chatapi.qiqqa.com:8080";
+        private static readonly string BASE_URL = WebsiteAccess.Url_ChatAPI4Qiqqa;
         private static int MAX_SLEEP_BACKOFF_SECONDS = 16;
 
         private Timer timer;

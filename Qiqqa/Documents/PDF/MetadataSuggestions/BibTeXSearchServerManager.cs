@@ -1,4 +1,5 @@
 ﻿using Qiqqa.Common;
+using Qiqqa.Common.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,8 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
         {
             for (int i = 1; i <= 4; ++i)
             {
-                string url = String.Format("http://search{0}.bibtexsearch.com:80", i);
+                // WHOIS search1.bibtexsearch.com ==> owned by James Jardine. See also www.jimme.net
+                string url = String.Format(WebsiteAccess.Url_BibTeXSearchServerN, i);
                 EnsureServerRecordExists(url);
             }
         }

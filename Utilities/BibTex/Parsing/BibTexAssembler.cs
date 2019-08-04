@@ -130,8 +130,7 @@ namespace Utilities.BibTex.Parsing
             current_item = null;
             current_field_name = null;
         }
-
-
+        
         // ------------------------------------------------------------------------------------
     }
 }

@@ -211,7 +211,6 @@ namespace Utilities.GUI
             }
         }
 
-
         Popup attached_popup = null;
         public void AttachPopup(Popup popup)
         {

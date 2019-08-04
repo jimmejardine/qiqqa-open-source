@@ -25,51 +25,55 @@ namespace Qiqqa.StartPage
 
             else if (sender == lnkIconsFreeDigitalPhotos)
             {
-                MainWindowServiceDispatcher.Instance.OpenUrlInBrowser("http://www.freedigitalphotos.net");
+                MainWindowServiceDispatcher.Instance.OpenUrlInBrowser(WebsiteAccess.Url_FreeDigitalPhotos);
             }
             else if (sender == lnkIconsTango)
             {
-                MainWindowServiceDispatcher.Instance.OpenUrlInBrowser("http://commons.wikimedia.org/wiki/User:Inductiveload/Tango");
+                MainWindowServiceDispatcher.Instance.OpenUrlInBrowser(WebsiteAccess.Url_IconsTango);
             }
             else if (sender == lnkIconsBuuf)
             {
-                MainWindowServiceDispatcher.Instance.OpenUrlInBrowser("http://mattahan.deviantart.com/");
+                MainWindowServiceDispatcher.Instance.OpenUrlInBrowser(WebsiteAccess.Url_IconsBuuf);
             }
             else if (sender == lnkSorax)
             {
-                MainWindowServiceDispatcher.Instance.OpenUrlInBrowser("http://www.soraxsoft.com/index.html");
+                MainWindowServiceDispatcher.Instance.OpenUrlInBrowser(WebsiteAccess.Url_Sorax);
             }
             else if (sender == lnkRedgate)
             {
-                MainWindowServiceDispatcher.Instance.OpenUrlInBrowser("http://www.red-gate.com/");
+                MainWindowServiceDispatcher.Instance.OpenUrlInBrowser(WebsiteAccess.Url_Redgate);
             }
             else if (sender == lnkTesseract)
             {
-                MainWindowServiceDispatcher.Instance.OpenUrlInBrowser("http://sourceforge.net/projects/tesseract-ocr/");
+                MainWindowServiceDispatcher.Instance.OpenUrlInBrowser(WebsiteAccess.Url_Tesseract);
             }
             else if (sender == lnkWpfToolkit)
             {
-                MainWindowServiceDispatcher.Instance.OpenUrlInBrowser("http://wpf.codeplex.com/");
+                MainWindowServiceDispatcher.Instance.OpenUrlInBrowser(WebsiteAccess.Url_WpfToolkit);
             }
             else if (sender == lnkSplashScreen)
             {
-                MainWindowServiceDispatcher.Instance.OpenUrlInBrowser("http://wisewanderer.deviantart.com/");
+                MainWindowServiceDispatcher.Instance.OpenUrlInBrowser(WebsiteAccess.Url_WiseWanderer);
             }
             else if (sender == lnkCiteProc)
             {
-                MainWindowServiceDispatcher.Instance.OpenUrlInBrowser("https://bitbucket.org/fbennett/citeproc-js/wiki/Home/");
+                MainWindowServiceDispatcher.Instance.OpenUrlInBrowser(WebsiteAccess.Url_CiteProc);
             }
-            else if (sender == lnkCSL)
+            else if (sender == lnkCSL || sender == lnkCSLProject)
             {
-                MainWindowServiceDispatcher.Instance.OpenUrlInBrowser("http://citationstyles.org/");
+                MainWindowServiceDispatcher.Instance.OpenUrlInBrowser(WebsiteAccess.Url_CSLProject);
             }
             else if (sender == lnkAvalonEdit)
             {
-                MainWindowServiceDispatcher.Instance.OpenUrlInBrowser("http://wiki.sharpdevelop.net/AvalonEdit.ashx");
+                MainWindowServiceDispatcher.Instance.OpenUrlInBrowser(WebsiteAccess.Url_AvalonEdit);
             }
             else if (sender == lnkZoteroCSL)
             {
-                MainWindowServiceDispatcher.Instance.OpenUrlInBrowser("http://www.zotero.org/styles/");
+                MainWindowServiceDispatcher.Instance.OpenUrlInBrowser(WebsiteAccess.Url_ZoteroCSLRepository);
+            }
+            else if (sender == lnkCSLGithub)
+            {
+                MainWindowServiceDispatcher.Instance.OpenUrlInBrowser(WebsiteAccess.Url_CSLGithub);
             }
             else if (sender == lnkQiqqaWebsite)
             {
@@ -77,19 +81,19 @@ namespace Qiqqa.StartPage
             }
             else if (sender == lnkIconsVisualPharm)
             {
-                WebsiteAccess.OpenWebsite("http://www.visualpharm.com/");
+                WebsiteAccess.OpenWebsite(WebsiteAccess.Url_IconsVisualPharm);
             }
             else if (sender == lnkIconsGlyphicons)
             {
-                WebsiteAccess.OpenWebsite("http://glyphicons.com/");
+                WebsiteAccess.OpenWebsite(WebsiteAccess.Url_Glyphicons);
             }
             else if (sender == lnkGecko)
             {
-                WebsiteAccess.OpenWebsite("http://code.google.com/p/geckofx/");
+                WebsiteAccess.OpenWebsite(WebsiteAccess.Url_Gecko);
             }
             else if (sender == lnkXULRunner)
             {
-                WebsiteAccess.OpenWebsite("https://developer.mozilla.org/en/XULRunner");
+                WebsiteAccess.OpenWebsite(WebsiteAccess.Url_XULRunner);
             }
             else if (sender == lnkLicenses)
             {
