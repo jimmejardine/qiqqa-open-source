@@ -56,7 +56,7 @@ namespace Utilities.BibTex.Parsing
 
         public void SetIfHasValue(string index, string value)
         {
-            if (!String.IsNullOrEmpty(value))
+            if (!String.IsNullOrWhiteSpace(value))
             {
                 this[index] = value;
             }

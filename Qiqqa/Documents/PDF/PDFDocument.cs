@@ -194,15 +194,29 @@ namespace Qiqqa.Documents.PDF
             set { dictionary["FileType"] = value.ToLower(); }
         }
 
-
         private BibTexItem bibtex_item = null;
+        private bool bibtex_item_parsed = false;
         public BibTexItem BibTexItem
         {
             get
             {
-                if (null == bibtex_item)
+                if (!bibtex_item_parsed)
                 {
                     bibtex_item = BibTexParser.ParseOne(BibTex, true);
+                    bibtex_item_parsed = true;
+
+                    if (null != bibtex_item)
+                    {
+                        // if the bibtex is ill formatted, make sure some basic sanity is provided:
+                        if (String.IsNullOrWhiteSpace(BibTexItem.Type))
+                        {
+                            BibTexItem.Type = "empty_and_erroneous";
+                        }
+                        if (String.IsNullOrWhiteSpace(BibTexItem.Key))
+                        {
+                            BibTexItem.Key = BibTexTools.GenerateRandomBibTeXKey();
+                        }
+                    }
                 }
 
                 return bibtex_item;
@@ -216,12 +230,12 @@ namespace Qiqqa.Documents.PDF
             {
                 // Clear the cached item
                 bibtex_item = null;
+                bibtex_item_parsed = false;
 
                 // Store the new value
                 dictionary["BibTex"] = value;
 
                 // If the bibtex contains title, author or year, use those by clearing out any overriding values
-                string bibtex = value;
                 if (!String.IsNullOrEmpty(BibTexTools.GetTitle(BibTexItem)))
                 {
                     Title = null;
@@ -249,7 +263,10 @@ namespace Qiqqa.Documents.PDF
                         return item.Key;
                     }
                 }
-                catch (Exception) { }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex, "exception in BibTexKey");
+                }
 
                 return null;
             }

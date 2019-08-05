@@ -109,12 +109,23 @@ namespace Utilities.Language.TextIndexing
         {
             if (null == bibtex_item) return;
 
-            document.Add(new Field("type", bibtex_item.Type, Field.Store.NO, Field.Index.ANALYZED));
-            document.Add(new Field("key", bibtex_item.Key, Field.Store.NO, Field.Index.ANALYZED));
-
-            foreach (var pair in bibtex_item.EnumerateFields())
+            try
             {
-                document.Add(new Field(pair.Key, pair.Value, Field.Store.NO, Field.Index.ANALYZED));
+                if (String.IsNullOrWhiteSpace(bibtex_item.Type) || String.IsNullOrWhiteSpace(bibtex_item.Key))
+                {
+                    Logging.Warn("boo");
+                }
+                document.Add(new Field("type", bibtex_item.Type, Field.Store.NO, Field.Index.ANALYZED));
+                document.Add(new Field("key", bibtex_item.Key, Field.Store.NO, Field.Index.ANALYZED));
+
+                foreach (var pair in bibtex_item.EnumerateFields())
+                {
+                    document.Add(new Field(pair.Key, pair.Value, Field.Store.NO, Field.Index.ANALYZED));
+                }
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex, "unexpected exception in AddDocumentMetaData_Bibtex");
             }
         }
 
