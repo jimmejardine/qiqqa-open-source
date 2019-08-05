@@ -41,4 +41,7 @@ set +x
 
 cd ..
 
-read -p "Press ENTER to continue..." -n 1
+#
+# read -p "Press ENTER to continue..." -n 1
+#
+
