@@ -174,13 +174,6 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 List<string> filenames_that_are_new = new List<string>();
                 foreach (string filename in filenames_in_folder)
                 {
-                    if (DateTime.UtcNow.Subtract(index_processing_start_time).TotalSeconds > MAX_SECONDS_PER_ITERATION)
-                    {
-                        Logging.Info("FolderWatcher: Breaking out of inner processing loop due to MAX_SECONDS_PER_ITERATION: {0} seconds consumed", DateTime.UtcNow.Subtract(index_processing_start_time).TotalSeconds);
-                        folder_contents_has_changed = true;
-                        break;
-                    }
-
                     // If we already have this file in the "cache since we started", skip it
                     if (folder_watcher_manager.HaveProcessedFile(filename))
                     {
@@ -224,6 +217,13 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                     if (processed_file_count > MAX_NUMBER_OF_PDF_FILES_TO_PROCESS)
                     {
                         Logging.Info("FolderWatcher: {0} files have been processed/inspected", processed_file_count);
+                        folder_contents_has_changed = true;
+                        break;
+                    }
+
+                    if (DateTime.UtcNow.Subtract(index_processing_start_time).TotalSeconds > MAX_SECONDS_PER_ITERATION)
+                    {
+                        Logging.Info("FolderWatcher: Breaking out of inner processing loop due to MAX_SECONDS_PER_ITERATION: {0} seconds consumed", DateTime.UtcNow.Subtract(index_processing_start_time).TotalSeconds);
                         folder_contents_has_changed = true;
                         break;
                     }
