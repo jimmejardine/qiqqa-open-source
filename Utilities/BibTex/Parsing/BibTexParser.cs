@@ -11,13 +11,17 @@ namespace Utilities.BibTex.Parsing
 
         public static BibTexItem ParseOne(string bibtex, bool suppress_error_logging)
         {
-            if (String.IsNullOrEmpty(bibtex)) return null;
+            if (String.IsNullOrWhiteSpace(bibtex)) return null;
 
             List<BibTexItem> items = Parse(bibtex).Items;
 
             if (1 < items.Count)
             {
                 Logging.Warn("There is more than one BibTex record - using only the first...");
+                if (!suppress_error_logging)
+                {
+                    items[0].Warnings.Add(String.Format("There is more than one BibTeX record - using only the first. RAW record: {0}", bibtex));
+                }
             }
 
             if (0 < items.Count)
