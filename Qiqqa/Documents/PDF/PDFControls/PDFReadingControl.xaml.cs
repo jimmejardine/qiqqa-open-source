@@ -377,6 +377,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 pdf_renderer_control = null;
 
                 pdf_renderer_control_stats.pdf_document.PDFRenderer.FlushCachedPageRenderings();
+                pdf_renderer_control_stats = null;
             }
 
             // Get rid of unmanaged resources 

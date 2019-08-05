@@ -239,7 +239,6 @@ namespace Qiqqa.Main
                     Logging.Error(ex, "Exception caught at Main() application.Run().  Disaster.");
                 }
 
-
                 DoShutdown();
             }
 

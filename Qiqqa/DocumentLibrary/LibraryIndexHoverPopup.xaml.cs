@@ -52,6 +52,7 @@ namespace Qiqqa.DocumentLibrary
             {
                 // Get rid of managed resources
                 this.pdf_document = null;
+                this.specific_pdf_annotation = null;
             }
 
             // Get rid of unmanaged resources 

@@ -328,6 +328,8 @@ namespace Qiqqa.Common.SpeedRead
             {
                 // Get rid of managed resources
                 TogglePlayPause(true);
+
+		        this.words = null;
             }
 
             // Get rid of unmanaged resources 

@@ -76,11 +76,12 @@ namespace Qiqqa.AnnotationsReportBuilding
                 // Get rid of managed resources
                 this.ObjDocumentViewer.Document.Blocks.Clear();
                 this.ObjDocumentViewer.Document = null;
+
+                this.annotation_report = null;
             }
 
             // Get rid of unmanaged resources 
         }
-
 
         string SaveToRTF()
         {

@@ -80,7 +80,13 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             if (disposing)
             {
                 // Get rid of managed resources
-                this.word_index_manager.Dispose();                
+                this.word_index_manager.Dispose();
+                this.word_index_manager = null;
+
+                this.library.Dispose();
+                this.library = null;
+
+                this.pdf_documents_in_library = null;
             }
 
             // Get rid of unmanaged resources 

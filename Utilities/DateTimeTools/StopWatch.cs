@@ -89,7 +89,7 @@ namespace Utilities.DateTimeTools
             Logging.Debug("{0} in {1}ms", Description, ElapsedMilliseconds());
             disposed = true;
 
-            GC.SuppressFinalize(this);
+            //GC.SuppressFinalize(this);
         }
 	}
 }

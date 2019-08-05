@@ -39,8 +39,6 @@ namespace Utilities.GUI
                 {
                     fps = 0.75 * fps + 0.25 * now_fps;
                 }
-
-
             }
         }
     }

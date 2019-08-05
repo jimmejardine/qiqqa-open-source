@@ -235,13 +235,10 @@ namespace Qiqqa.Brainstorm.SceneManager
 
                 e.Handled = true;
             }
-
-
             else
             {
                 PropagateKeyPressToNodes(e);
             }
-
         }
 
         private void PropagateKeyPressToNodes(KeyEventArgs e)
@@ -536,19 +533,16 @@ namespace Qiqqa.Brainstorm.SceneManager
         public List<NodeControl> AddNewNodeControls(List<object> node_contents, double left, double top)
         {
             List<NodeControl> node_controls = new List<NodeControl>();
-
-            
             
             if (0 == node_contents.Count)
-            {   return null;
+            {
+                return null;
             }
-
             else if (1 == node_contents.Count)
             {
                 NodeControl node_control = AddNewNodeControl(node_contents[0], left, top);
                 node_controls.Add(node_control);
             }
-
             // If we get here, we have many node controls, so splay them out...
             else
             {
@@ -1423,6 +1417,23 @@ namespace Qiqqa.Brainstorm.SceneManager
             {
                 // Get rid of managed resources
                 this.AutoArranger.Enabled(false);
+
+                this.brainstorm_metadata_control = null;
+                this.brainstorm_metadata = null;
+
+                this.auto_arranger = null;
+                this.drag_drop_manager = null;
+                this.basic_drag_drop_behaviours = null;
+
+                this.selected_connector_control = null;
+                this.selecting_nodes_control = null;
+
+                this.node_controls = null;
+                this.connector_control_manager = null;
+
+                this.SelectedNodeControlChanged = null;
+
+                this.ScrollInfoChanged = null;
             }
 
             // Get rid of unmanaged resources 

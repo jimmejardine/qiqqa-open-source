@@ -128,10 +128,9 @@ namespace Qiqqa.Chat
 
                 is_chat_available = true;
             }
-
             catch (Exception ex)
             {
-                Logging.Warn(ex, "There was a problem communicating with chat.");
+                Logging.Warn(ex, "There was a problem communicating with chat. URL: {0}", url);
                 next_autopoll_datetime = DateTime.UtcNow.AddMinutes(1);
 
                 is_chat_available = false;
@@ -305,6 +304,7 @@ namespace Qiqqa.Chat
             if (disposing)
             {
                 timer.Dispose();
+                timer = null;
             }
 
             // Get rid of unmanaged resources 
