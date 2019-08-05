@@ -33,6 +33,40 @@ namespace Qiqqa.DocumentLibrary
             return new SQLiteConnection("Pooling=True;Max Pool Size=3;Data Source=" + library_path);
         }
 
+        private static readonly char[] queryWildcards = { '*', '?', '%', '_' };
+
+        private string turnArgumentIntoQueryPart(string key, string value)
+        {
+            if (!String.IsNullOrWhiteSpace(value))
+            {
+                if (value.IndexOfAny(queryWildcards) >= 0)
+                {
+                    value = value
+                        .Replace('*', '%')
+                        .Replace('?', '_')
+                        // and for query safety:
+                        .Replace('\'', '_');
+                    return String.Format(" AND {0}='{1}'", key, value);
+                }
+                else
+                {
+                    return String.Format(" AND {0}=@{0}", key);
+                }
+            }
+            return "";
+        }
+
+        private void turnArgumentIntoQueryParameter(SQLiteCommand command, string key, string value)
+        {
+            if (!String.IsNullOrWhiteSpace(value))
+            {
+                if (value.IndexOfAny(queryWildcards) < 0)
+                {
+                    command.Parameters.AddWithValue("@" + key, value);
+                }
+            }
+        }
+
         public void PutString(string fingerprint, string extension, string data)
         {
             byte[] data_bytes = Encoding.UTF8.GetBytes(data);
@@ -42,11 +76,11 @@ namespace Qiqqa.DocumentLibrary
         public void PutBlob(string fingerprint, string extension, byte[] data)
         {
             // Guard
-            if (String.IsNullOrEmpty(fingerprint))
+            if (String.IsNullOrWhiteSpace(fingerprint))
             {
                 throw new Exception("Can't store in LibraryDB with null fingerprint.");
             }
-            if (String.IsNullOrEmpty(extension))
+            if (String.IsNullOrWhiteSpace(extension))
             {
                 throw new Exception("Can't store in LibraryDB with null extension.");
             }
@@ -137,7 +171,7 @@ namespace Qiqqa.DocumentLibrary
         }
         
         
-        public List<LibraryItem> GetLibraryItems(string fingerprint, string extension)
+        public List<LibraryItem> GetLibraryItems(string fingerprint, string extension, int MaxRecordCount = 0)
         {
             List<LibraryItem> results = new List<LibraryItem>();
 
@@ -146,13 +180,22 @@ namespace Qiqqa.DocumentLibrary
                 connection.Open();
 
                 string command_string = "SELECT fingerprint, extension, md5, data FROM LibraryItem WHERE 1=1 ";
-                if (null != fingerprint) command_string = command_string + " AND fingerprint=@fingerprint";
-                if (null != extension) command_string = command_string + " AND extension=@extension";
+                command_string += turnArgumentIntoQueryPart("fingerprint", fingerprint);
+                command_string += turnArgumentIntoQueryPart("extension", extension);
+                if (MaxRecordCount > 0)
+                {
+                    // http://www.sqlitetutorial.net/sqlite-limit/
+                    command_string += " LIMIT @maxnum";
+                }
 
                 using (var command = new SQLiteCommand(command_string, connection))
                 {
-                    if (null != fingerprint) command.Parameters.AddWithValue("@fingerprint", fingerprint);
-                    if (null != extension) command.Parameters.AddWithValue("@extension", extension);
+                    turnArgumentIntoQueryParameter(command, "fingerprint", fingerprint);
+                    turnArgumentIntoQueryParameter(command, "extension", extension);
+                    if (MaxRecordCount > 0)
+                    {
+                        command.Parameters.AddWithValue("@maxnum", MaxRecordCount);
+                    }
 
                     SQLiteDataReader reader = command.ExecuteReader();
                     while (reader.Read())

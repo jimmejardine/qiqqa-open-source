@@ -49,6 +49,16 @@
           <TextBox Grid.Row="2" Name="TxtExtension" />
         </Grid>
 
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="1" >Max # of records:</TextBlock>
+                    <TextBox Grid.Row="2" Name="MaxNumberOfRecords" />
+                </Grid>
         <local_gui:AugmentedSpacer />
 
         <local_gui:AugmentedButton Name="ButtonGet" />
@@ -61,7 +71,11 @@
     <!-- END: The toolbar - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
     <Grid>
-      <avalonEdit:TextEditor Name="TxtData" SyntaxHighlighting="JavaScript" ShowLineNumbers="True" />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="49*"/>
+                <ColumnDefinition Width="22*"/>
+            </Grid.ColumnDefinitions>
+            <avalonEdit:TextEditor Name="TxtData" SyntaxHighlighting="JavaScript" ShowLineNumbers="True" Grid.ColumnSpan="2" Margin="0,0,0.2,-0.2" />
     </Grid>
     
   </DockPanel>
