@@ -8,7 +8,7 @@ using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Utilities.BibTex.Parsing;
 using Utilities.GUI;
-using static Qiqqa.DocumentLibrary.LibraryDB;
+using Qiqqa.DocumentLibrary;
 
 namespace Qiqqa.DocumentLibrary.LibraryDBStuff
 {
@@ -76,7 +76,7 @@ namespace Qiqqa.DocumentLibrary.LibraryDBStuff
                         allstr.Append("\n\n==========================================================\n\n");
                     }
 
-                    LibraryItem item = items[i];
+                    LibraryDB.LibraryItem item = items[i];
                     byte[] data = item.data;
                     string json = Encoding.UTF8.GetString(data);
                     allstr.AppendLine(json);
