@@ -1940,6 +1940,9 @@
     <Content Include="The Qiqqa Manual - LOEX.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="The Qiqqa Manual.docx" />
+    <None Include="The Qiqqa Manual.pptx" />
+    <None Include="The Qiqqa Manual.todo.docx" />
     <Resource Include="Expedition\Thoughts.txt" />
     <Content Include="InCite\CSLEditorStuff\SampleBibTeX.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
