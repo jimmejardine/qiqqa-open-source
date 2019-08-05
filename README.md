@@ -15,6 +15,9 @@ You will need to download Visual Studio 2017 Community Edition and Syncfusion Es
   
 Then simply go to `./Qiqqa.Build/` and run `go.bat` to build the latest version into the `Qiqqa.Build/Packages` directory.
 
+(Alternatively, when using `bash` on Windows, you may execute `./build-installer.sh` from the repository base directory to accomplish the same as when you'ld have executed `go.bat`.)
+
+
 Would anyone who is interested in contributing towards this repository please contact @jimmejardine...
 
 
