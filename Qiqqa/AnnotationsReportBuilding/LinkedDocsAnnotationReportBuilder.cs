@@ -14,6 +14,12 @@ namespace Qiqqa.AnnotationsReportBuilding
 {
     class LinkedDocsAnnotationReportBuilder
     {
+        // Warning CA1812	'LinkedDocsAnnotationReportBuilder' is an internal class that is apparently never instantiated.
+        // If this class is intended to contain only static methods, consider adding a private constructor to prevent 
+        // the compiler from generating a default constructor.
+        private LinkedDocsAnnotationReportBuilder()
+        { }
+
         internal static void BuildReport(Library library, List<PDFDocument> pdf_documents)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_LinkedDocsAnnotationReport);
