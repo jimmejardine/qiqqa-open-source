@@ -10,7 +10,7 @@ using Utilities.PDF;
 
 namespace Qiqqa.AnnotationsReportBuilding.LegacyAnnotationConvertorStuff
 {
-    public class LegacyAnnotationConvertor
+    public static class LegacyAnnotationConvertor
     {
         public static void ForgetLegacyAnnotations(PDFDocument pdf_document)
         {
