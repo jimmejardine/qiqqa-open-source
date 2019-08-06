@@ -133,7 +133,7 @@ namespace QiqqaOCR
             }
         }
 
-        private Brush ChooseBrush(PDFRegionLocator.Region region)
+        private static Brush ChooseBrush(PDFRegionLocator.Region region)
         {
             switch (region.state)
             {
