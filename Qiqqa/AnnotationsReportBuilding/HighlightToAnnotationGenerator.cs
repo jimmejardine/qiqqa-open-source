@@ -5,7 +5,13 @@ namespace Qiqqa.AnnotationsReportBuilding
 {
     class HighlightToAnnotationGenerator
     {
-        public static readonly string HIGHLIGHTS_TAG = "*Highlights*";
+        public const string HIGHLIGHTS_TAG = "*Highlights*";
+
+        // Warning CA1812	'HighlightToAnnotationGenerator' is an internal class that is apparently never instantiated.
+        // If this class is intended to contain only static methods, consider adding a private constructor to prevent 
+        // the compiler from generating a default constructor.
+        private HighlightToAnnotationGenerator()
+        { }
 
         internal static List<PDFAnnotation> GenerateAnnotations(PDFDocument pdf_document, Dictionary<string, byte[]> library_items_highlights_cache)
         {
