@@ -28,7 +28,7 @@ using Utilities.OCR;
 
 namespace Qiqqa.AnnotationsReportBuilding
 {
-    public class AsyncAnnotationReportBuilder
+    public static class AsyncAnnotationReportBuilder
     {
         public class AnnotationReport
         {
