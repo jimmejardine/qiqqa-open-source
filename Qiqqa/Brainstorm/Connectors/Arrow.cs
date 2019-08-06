@@ -111,23 +111,23 @@ namespace Qiqqa.Brainstorm.Connectors
             }
         }
 
-        public void SetNodes(NodeControl node_from, NodeControl node_to)
+        public void SetNodes(NodeControl node_from_, NodeControl node_to_)
         {
             // Unregister the existing nodes
             if (null != this.node_from)
             {
-                node_from.OnDimensionsChanged -= Node_OnDimensionsChangedDelegate;
-                node_from.OnDeleted -= Node_OnDeletedDelegate;
+                this.node_from.OnDimensionsChanged -= Node_OnDimensionsChangedDelegate;
+                this.node_from.OnDeleted -= Node_OnDeletedDelegate;
             }
             if (null != this.node_to)
             {
-                node_to.OnDimensionsChanged -= Node_OnDimensionsChangedDelegate;
-                node_to.OnDeleted -= Node_OnDeletedDelegate;
+                this.node_to.OnDimensionsChanged -= Node_OnDimensionsChangedDelegate;
+                this.node_to.OnDeleted -= Node_OnDeletedDelegate;
             }
 
             // Know our new nodes
-            this.node_from = node_from;
-            this.node_to = node_to;
+            this.node_from = node_from_;
+            this.node_to = node_to_;
 
             // Match our nodes' zorder
             int min_z_index = Math.Min(Canvas.GetZIndex(node_from), Canvas.GetZIndex(node_to));
