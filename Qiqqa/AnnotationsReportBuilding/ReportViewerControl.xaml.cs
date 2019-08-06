@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using icons;
 using Qiqqa.UtilisationTracking;
+using Syncfusion.Pdf;
+using Syncfusion.Pdf.Graphics;
 using Utilities;
 using Utilities.Files;
 using Utilities.GUI.Wizard;
@@ -37,15 +40,20 @@ namespace Qiqqa.AnnotationsReportBuilding
             ButtonToPDF.ToolTip = "Export to PDF";
             ButtonToPDF.Click += ButtonToPDF_Click;
 
-            //ButtonCollapseClickOptions.Caption = "Collapse";
-            //ButtonCollapseClickOptions.Click += ButtonCollapseClickOptions_Click;
-            //ButtonExpandClickOptions.Caption = "Expand";
-            //ButtonExpandClickOptions.Click += ButtonExpandClickOptions_Click;
-            
+#if INCLUDE_UNUSED
+            ButtonCollapseClickOptions.Caption = "Collapse";
+            ButtonCollapseClickOptions.Click += ButtonCollapseClickOptions_Click;
+            ButtonExpandClickOptions.Caption = "Expand";
+            ButtonExpandClickOptions.Click += ButtonExpandClickOptions_Click;
+#endif
+
             this.annotation_report = annotation_report;
             this.ObjDocumentViewer.Document = annotation_report.flow_document;
         }
 
+        // Warning CA1811	'ReportViewerControl.ButtonExpandClickOptions_Click(object, RoutedEventArgs)' appears to have no upstream public or protected callers.
+        // Warning CA1811	'ReportViewerControl.ButtonCollapseClickOptions_Click(object, RoutedEventArgs)' appears to have no upstream public or protected callers.
+#if INCLUDE_UNUSED
         void ButtonExpandClickOptions_Click(object sender, RoutedEventArgs e)
         {
             annotation_report.ExpandClickOptions();
@@ -55,6 +63,7 @@ namespace Qiqqa.AnnotationsReportBuilding
         {
             annotation_report.CollapseClickOptions();
         }
+#endif
 
         ~ReportViewerControl()
         {
@@ -109,7 +118,6 @@ namespace Qiqqa.AnnotationsReportBuilding
 
         void ButtonToPDF_Click(object sender, RoutedEventArgs e)
         {
-            /*
             PdfDocument doc = new PdfDocument();
 
             PdfPage page = doc.Pages.Add();            
@@ -121,18 +129,17 @@ namespace Qiqqa.AnnotationsReportBuilding
             PdfMetafile metafile = (PdfMetafile)PdfImage.FromRtf(text, bounds.Width, PdfImageType.Metafile);
             PdfMetafileLayoutFormat format = new PdfMetafileLayoutFormat();
 
-            //Allow the text to flow multiple pages without any breaks.
+            // Allow the text to flow multiple pages without any breaks.
             format.SplitTextLines = true;
             format.SplitImages = true;
 
-            //Draw the image.
+            // Draw the image.
             metafile.Draw(page, 0, 0, format);
 
             string filename_pdf = TempFile.GenerateTempFilename("pdf");
 
             doc.Save(filename_pdf);
             Process.Start(filename_pdf);
-            */ 
         }
 
         void ButtonPrint_Click(object sender, RoutedEventArgs e)
