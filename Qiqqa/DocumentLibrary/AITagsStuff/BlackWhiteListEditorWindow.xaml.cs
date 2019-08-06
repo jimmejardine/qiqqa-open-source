@@ -100,7 +100,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
 
         #endregion
 
-        public void SetLibrary(Library library)
+        public void SetLibrary(Library library_)
         {
             // Reset the screen
             this.library = null;
@@ -111,16 +111,15 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
             // Reflect the library
             if (null != library)
             {
-                this.library = library;
-                entries = library.BlackWhiteListManager.ReadList();
+                this.library = library_;
+                entries = library_.BlackWhiteListManager.ReadList();
                 foreach (var entry in entries)
                 {
                     if (entry.is_deleted)
                     {
                         continue;
                     }
-
-
+                                  
                     switch (entry.list_type)
                     {
                         case BlackWhiteListEntry.ListType.White:

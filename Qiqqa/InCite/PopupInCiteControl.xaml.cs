@@ -195,13 +195,13 @@ namespace Qiqqa.InCite
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_Popup_ChooseLibrary);
 
             // Pick a new library...
-            WebLibraryDetail web_library_detail = WebLibraryPicker.PickWebLibrary();
-            if (null != web_library_detail)
+            WebLibraryDetail web_library_detail_ = WebLibraryPicker.PickWebLibrary();
+            if (null != web_library_detail_)
             {
-                ConfigurationManager.Instance.ConfigurationRecord.InCite_LastLibrary = web_library_detail.Title;
+                ConfigurationManager.Instance.ConfigurationRecord.InCite_LastLibrary = web_library_detail_.Title;
                 ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.InCite_LastLibrary);
 
-                ChooseNewLibrary(web_library_detail);
+                ChooseNewLibrary(web_library_detail_);
             }
 
             e.Handled = true;
@@ -213,24 +213,25 @@ namespace Qiqqa.InCite
 
             // Attempt to match the last known library
             string last_library_name = ConfigurationManager.Instance.ConfigurationRecord.InCite_LastLibrary;
-            foreach (WebLibraryDetail web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries_All)
+            foreach (WebLibraryDetail web_library_detail_ in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries_All)
             {
-                if (last_library_name == web_library_detail.Title)
+                if (last_library_name == web_library_detail_.Title)
                 {
-                    ChooseNewLibrary(web_library_detail);
+                    ChooseNewLibrary(web_library_detail_);
+                    break;
                 }
             }
         }
 
-        private void ChooseNewLibrary(WebLibraryDetail web_library_detail)
+        private void ChooseNewLibrary(WebLibraryDetail web_library_detail_)
         {
             this.web_library_detail = null;
             TextLibraryForCitations.Text = "Click to choose a library.";
 
-            if (null != web_library_detail)
+            if (null != web_library_detail_)
             {
-                this.web_library_detail = web_library_detail;
-                TextLibraryForCitations.Text = web_library_detail.Title;
+                this.web_library_detail = web_library_detail_;
+                TextLibraryForCitations.Text = web_library_detail_.Title;
             }
 
             ReSearch();

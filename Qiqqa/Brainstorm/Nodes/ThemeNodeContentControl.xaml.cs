@@ -26,11 +26,11 @@ namespace Qiqqa.Brainstorm.Nodes
         NodeControl node_control;
         AugmentedBindable<ThemeNodeContent> theme_node_content;
 
-        public ThemeNodeContentControl(NodeControl node_control, ThemeNodeContent theme_node_content)
+        public ThemeNodeContentControl(NodeControl node_control_, ThemeNodeContent theme_node_content)
         {
             InitializeComponent();
 
-            this.node_control = node_control;
+            this.node_control = node_control_;
             this.theme_node_content = new AugmentedBindable<ThemeNodeContent>(theme_node_content);
 
             this.DataContextChanged += ThemeNodeContentControl_DataContextChanged;
@@ -66,7 +66,7 @@ namespace Qiqqa.Brainstorm.Nodes
             ApplyTagsDistribution(ColourNodeBackground);
         }
 
-        internal void ColourNodeBackground(NodeControl node_control, Library library, ExpeditionDataSource eds, float[] tags_distribution)
+        internal void ColourNodeBackground(NodeControl node_control_, Library library, ExpeditionDataSource eds, float[] tags_distribution)
         {
             TextBorder.Opacity = 0.8;
             TextBorder.Background = ThemeBrushes.GetBrushForDistribution(library, tags_distribution.Length, tags_distribution);
@@ -84,7 +84,7 @@ namespace Qiqqa.Brainstorm.Nodes
             ApplyTagsDistribution(AddDocumentsInfluentialInDistribution);
         }
 
-        internal static void AddDocumentsInfluentialInDistribution(NodeControl node_control, Library library, ExpeditionDataSource eds, float[] tags_distribution)
+        internal static void AddDocumentsInfluentialInDistribution(NodeControl node_control_, Library library, ExpeditionDataSource eds, float[] tags_distribution)
         {
             Logging.Info("+Performing ThemedPageRank on {0} documents", eds.LDAAnalysis.NUM_DOCS);
 
@@ -205,7 +205,7 @@ namespace Qiqqa.Brainstorm.Nodes
                 else
                 {
                     PDFDocumentNodeContent content = new PDFDocumentNodeContent(pdf_document.Fingerprint, pdf_document.Library.WebLibraryDetail.Id);
-                    NodeControlAddingByKeyboard.AddChildToNodeControl(node_control, content, false);
+                    NodeControlAddingByKeyboard.AddChildToNodeControl(node_control_, content, false);
                 }
             }
         }
@@ -218,7 +218,7 @@ namespace Qiqqa.Brainstorm.Nodes
             ApplyTagsDistribution(AddDocumentsSimilarToDistribution);
         }
 
-        internal static void AddDocumentsSimilarToDistribution(NodeControl node_control, Library library, ExpeditionDataSource eds, float[] tags_distribution)
+        internal static void AddDocumentsSimilarToDistribution(NodeControl node_control_, Library library, ExpeditionDataSource eds, float[] tags_distribution)
         {
             // Get the most similar PDFDocuments
             int[] doc_ids = LDAAnalysisTools.GetDocumentsSimilarToDistribution(eds.LDAAnalysis, tags_distribution);
@@ -236,7 +236,7 @@ namespace Qiqqa.Brainstorm.Nodes
                 else
                 {
                     PDFDocumentNodeContent content = new PDFDocumentNodeContent(pdf_document.Fingerprint, pdf_document.Library.WebLibraryDetail.Id);
-                    NodeControlAddingByKeyboard.AddChildToNodeControl(node_control, content, false);
+                    NodeControlAddingByKeyboard.AddChildToNodeControl(node_control_, content, false);
                 }
             }
         }
@@ -297,7 +297,7 @@ namespace Qiqqa.Brainstorm.Nodes
             distribution_use(node_control, library, eds, tags_distribution);
         }
 
-        private delegate void DistributionUseDelegate(NodeControl node_control, Library library, ExpeditionDataSource eds, float[] tags_distribution);
+        private delegate void DistributionUseDelegate(NodeControl node_control_, Library library, ExpeditionDataSource eds, float[] tags_distribution);
 
 
     }

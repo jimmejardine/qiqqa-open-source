@@ -2,7 +2,7 @@
 {
     class InCiteFields
     {
-        public static readonly string BIBLIOGRAPHY = "QIQQA_BIBLIOGRAPHY";
-        public static readonly string CSL_STATS = "QIQQA_CSLSTATS";
+        public const string BIBLIOGRAPHY = "QIQQA_BIBLIOGRAPHY";
+        public const string CSL_STATS = "QIQQA_CSLSTATS";
     }
 }

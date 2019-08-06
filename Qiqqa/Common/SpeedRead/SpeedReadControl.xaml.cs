@@ -273,16 +273,16 @@ namespace Qiqqa.Common.SpeedRead
         {
             char[] separators = { ' ', '\t', '\r', '\n' };
 
-            string[] words = text.Split(separators, StringSplitOptions.RemoveEmptyEntries);
-            UseText(new List<string>(words));
+            string[] extracted_words = text.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+            UseText(new List<string>(extracted_words));
         }
 
-        public void UseText(List<string> words)
+        public void UseText(List<string> words_)
         {
-            this.words = words;
+            this.words = words_;
 
             SliderLocation.Minimum = 0;
-            SliderLocation.Maximum = words.Count;
+            SliderLocation.Maximum = words_.Count;
             SliderLocation.Value = 0;
         }
 

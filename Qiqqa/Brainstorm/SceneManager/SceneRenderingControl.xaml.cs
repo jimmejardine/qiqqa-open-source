@@ -207,9 +207,9 @@ namespace Qiqqa.Brainstorm.SceneManager
             e.Cancel();
         }
 
-        internal void SceneRenderingControl_PostConstructor(BrainstormMetadataControl brainstorm_metadata_control)
+        internal void SceneRenderingControl_PostConstructor(BrainstormMetadataControl brainstorm_metadata_control_)
         {
-            this.brainstorm_metadata_control = brainstorm_metadata_control;
+            this.brainstorm_metadata_control = brainstorm_metadata_control_;
 
             New();
 
@@ -548,7 +548,7 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         public List<NodeControl> AddNewNodeControls(List<object> node_contents, double left, double top)
         {
-            List<NodeControl> node_controls = new List<NodeControl>();
+            List<NodeControl> added_node_controls = new List<NodeControl>();
             
             if (0 == node_contents.Count)
             {
@@ -557,7 +557,7 @@ namespace Qiqqa.Brainstorm.SceneManager
             else if (1 == node_contents.Count)
             {
                 NodeControl node_control = AddNewNodeControl(node_contents[0], left, top);
-                node_controls.Add(node_control);
+                added_node_controls.Add(node_control);
             }
             // If we get here, we have many node controls, so splay them out...
             else
@@ -568,11 +568,11 @@ namespace Qiqqa.Brainstorm.SceneManager
                     double circle_top = top + 50 / CurrentPowerScale * node_contents.Count * Math.Sin(i * 2 * Math.PI / node_contents.Count);
 
                     NodeControl node_control = AddNewNodeControl(node_contents[i], circle_left, circle_top);
-                    node_controls.Add(node_control);
+                    added_node_controls.Add(node_control);
                 }
             }
 
-            return node_controls;
+            return added_node_controls;
         }
 
         public NodeControl AddNewNodeControl(object node_content, double left, double top)
@@ -1280,9 +1280,9 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         NextClickMode next_click_mode = NextClickMode.Hand;
 
-        internal void SetNextClickMode(NextClickMode next_click_mode)
+        internal void SetNextClickMode(NextClickMode next_click_mode_)
         {
-            this.next_click_mode = next_click_mode;
+            this.next_click_mode = next_click_mode_;
 
             switch (next_click_mode)
             {
@@ -1396,7 +1396,7 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         internal void RemoveSelectedNodeControl(NodeControl node_control)
         {
-            for (int i = selected_node_controls.Count-1; i >= 0 ; --i)                
+            for (int i = selected_node_controls.Count - 1; i >= 0 ; --i)                
             {
                 SelectedNodeControl selected_node_control = selected_node_controls[i];
                 if (selected_node_control.Selected == node_control)

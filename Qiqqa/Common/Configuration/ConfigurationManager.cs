@@ -141,9 +141,9 @@ namespace Qiqqa.Common.Configuration
             SaveSearchHistory();
         }
 
-        private void ResetConfigurationRecord(string user_guid, bool is_guest)
+        private void ResetConfigurationRecord(string user_guid_, bool is_guest_)
         {
-            Logging.Info("Resetting configuration settings to {0}", user_guid);
+            Logging.Info("Resetting configuration settings to {0}", user_guid_);
 
             if (null != configuration_record_bindable)
             {
@@ -151,8 +151,8 @@ namespace Qiqqa.Common.Configuration
             }
 
             // Create the new user_guid
-            this.user_guid = user_guid;
-            this.is_guest = is_guest;
+            this.user_guid = user_guid_;
+            this.is_guest = is_guest_;
 
             // Create the base directory in case it doesnt exist
             Directory.CreateDirectory(BaseDirectoryForUser);
@@ -285,9 +285,9 @@ namespace Qiqqa.Common.Configuration
             ResetConfigurationRecord("Guest", true);
         }
 
-        public void ResetConfigurationRecordToUser(string user_guid)
+        public void ResetConfigurationRecordToUser(string user_guid_)
         {
-            ResetConfigurationRecord(user_guid, false);
+            ResetConfigurationRecord(user_guid_, false);
         }
 
         #endregion

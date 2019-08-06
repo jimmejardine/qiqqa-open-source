@@ -95,7 +95,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
             SafeThreadPool.QueueUserWorkItem(o => TailZIPProcess(manifest, zip_process));
         }
 
-        private void TailZIPProcess(BundleLibraryManifest manifest, Process zip_process)
+        private static void TailZIPProcess(BundleLibraryManifest manifest, Process zip_process)
         {
             string STATUS_TOKEN = "Bundle-" + manifest.Version;
 
@@ -150,25 +150,25 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
             }
         }
 
-        public void ReflectLibrary(Library library)
+        public void ReflectLibrary(Library library_)
         {
-            this.library = library;
+            this.library = library_;
             this.manifest = new BundleLibraryManifest();
             
-            string bundle_title = library.WebLibraryDetail.Title + " Bundle Library";
+            string bundle_title = library_.WebLibraryDetail.Title + " Bundle Library";
             bundle_title = bundle_title.Replace("Library Bundle Library", "Bundle Library");
 
             // Set the manifest
-            this.manifest.Id = "BUNDLE_" + library.WebLibraryDetail.Id;
+            this.manifest.Id = "BUNDLE_" + library_.WebLibraryDetail.Id;
             this.manifest.Version = DateTime.UtcNow.ToString("yyyyMMdd.HHmmss");
 
             this.manifest.Title = bundle_title;
-            this.manifest.Description = library.WebLibraryDetail.Description;
+            this.manifest.Description = library_.WebLibraryDetail.Description;
             
 
             // GUI updates
             this.DataContext = this.manifest;
-            ObjRunLibraryName.Text = library.WebLibraryDetail.Title;
+            ObjRunLibraryName.Text = library_.WebLibraryDetail.Title;
 
             ResetProgress();
         }
