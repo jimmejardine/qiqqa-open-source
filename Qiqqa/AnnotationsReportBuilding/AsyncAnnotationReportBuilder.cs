@@ -293,7 +293,7 @@ namespace Qiqqa.AnnotationsReportBuilding
                             italic.FontSize = 16;
                             string annotation_header = String.Format("Page {0}", pdf_annotation.Page);
                             italic.Inlines.Add(annotation_header);
-                            Underline underline = new Underline(italic);
+                            //Underline underline = new Underline(italic);
                             paragraph.Inlines.Add(italic);
                         }
 
