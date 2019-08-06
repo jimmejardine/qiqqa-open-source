@@ -37,6 +37,7 @@ namespace QiqqaOCR
             GetRegions(this.bitmap, out regions, out width_x);
         }
 
+#if INCLUDE_UNUSED
         private static void GetRegions_FULLPAGE(Bitmap bitmap, out List<Region> regions, out int width_x)
         {
             Logging.Info("Height is {0}", bitmap.Height);
@@ -46,6 +47,7 @@ namespace QiqqaOCR
             regions.Add(new Region { y = bitmap.Height, state = SegmentState.BOTTOM });
             width_x = 0;
         }
+#endif
 
         static int ScanTillCompletelyBlankRow(Bitmap bitmap, int direction, int start_y)
         {
