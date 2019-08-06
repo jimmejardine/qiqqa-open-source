@@ -37,7 +37,7 @@ namespace QiqqaOCR
             // Check that we were given the right number of parameters
             if (args.Length < 6)
             {
-                throw new Exception("Not enough command line arguments");
+                throw new CmdLineException("Not enough command line arguments");
             }
 
             // Get the parameters
@@ -50,7 +50,7 @@ namespace QiqqaOCR
             // Check that the PDF exists
             if (!File.Exists(pdf_filename))
             {
-                throw new Exception(String.Format("Input PDF '{0}' does not exst", pdf_filename));
+                throw new Exception(String.Format("Input PDF '{0}' does not exist", pdf_filename));
             }
 
             // Check that we have a language
