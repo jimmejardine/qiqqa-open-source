@@ -16,6 +16,8 @@ namespace QiqqaOCR
         static string page_numbers;
         static string ocr_output_filename;
         static string pdf_user_password;
+        // Warning CA1823  It appears that field 'TextExtractEngine.language' is never used or is only ever assigned to. 
+        // Use this field or remove it.	
         static string language;
 
         static Thread thread_text_extract = null;
@@ -48,7 +50,7 @@ namespace QiqqaOCR
             // Check that the PDF exists
             if (!File.Exists(pdf_filename))
             {
-                throw new Exception(String.Format("Input PDF '{0}' does not exst", pdf_filename));
+                throw new Exception(String.Format("Input PDF '{0}' does not exist", pdf_filename));
             }
 
             // When should the various processes die?
