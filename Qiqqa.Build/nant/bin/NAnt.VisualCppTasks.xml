@@ -26,76 +26,8 @@
         </member>
         <member name="M:NAnt.VisualCpp.Tasks.ClTask.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:NAnt.VisualCpp.Tasks.ClTask"/> class.
+            Initializes a new instance of the <see cref="T:NAnt.VisualCpp.Tasks.ClTask" /> class.
             </summary>
-        </member>
-        <member name="M:NAnt.VisualCpp.Tasks.ClTask.ExecuteTask">
-            <summary>
-            Compiles the sources.
-            </summary>
-        </member>
-        <member name="M:NAnt.VisualCpp.Tasks.ClTask.NeedsCompiling">
-            <summary>
-            Determines if the sources need to be compiled.
-            </summary>
-        </member>
-        <member name="M:NAnt.VisualCpp.Tasks.ClTask.IsPchfileUpToDate">
-            <summary>
-            Determines whether the precompiled header file is up-to-date.
-            </summary>
-            <returns>
-            <see langword="true" /> if no precompiled header file was specified;
-            otherwise, <see langword="false" />.
-            </returns>
-            <remarks>
-            In order to determine accurately whether the precompile header file
-            is up-to-date, we'd need scan all the header files that are pulled 
-            in. As this is not implemented right now, its safer to always
-            recompile.
-            </remarks>
-        </member>
-        <member name="M:NAnt.VisualCpp.Tasks.ClTask.FindUpdatedInclude(System.String,System.DateTime)">
-            <summary>
-            Determines whether any file that are includes in the specified
-            source file has been updated after the obj was compiled.
-            </summary>
-            <param name="srcFileName">The source file to check.</param>
-            <param name="objLastWriteTime">The last write time of the compiled obj.</param>
-            <returns>
-            The full path to the include file that was modified after the obj
-            was compiled, or <see langword="null" /> if no include files were
-            modified since the obj was compiled.
-            </returns>
-            <remarks>
-              <para>
-              To determine what includes are defined in a source file, conditional
-              directives are not honored.
-              </para>
-              <para>
-              If a given include cannot be resolved to an existing file, then
-              it will be considered stable.
-              </para>
-            </remarks>
-        </member>
-        <member name="M:NAnt.VisualCpp.Tasks.ClTask.QuoteArgumentValue(System.String)">
-            <summary>
-            Quotes an argument value and duplicates trailing backslahes.
-            </summary>
-            <param name="value">The argument value to quote.</param>
-            <returns>
-            The quotes argument value.
-            </returns>
-        </member>
-        <member name="M:NAnt.VisualCpp.Tasks.ClTask.GetObjOutputFile(System.String,System.String)">
-            <summary>
-            Determines the file name of the OBJ file for the specified source
-            file.
-            </summary>
-            <param name="srcFile">The source file for which the OBJ file should be determined.</param>
-            <param name="objectPath">The path of the object file.</param>
-            <returns>
-            The file name of the OBJ file for the specified source file.
-            </returns>
         </member>
         <member name="P:NAnt.VisualCpp.Tasks.ClTask.OutputDir">
             <summary>
@@ -105,21 +37,21 @@
         <member name="P:NAnt.VisualCpp.Tasks.ClTask.PchFile">
             <summary>
             Specifies the path and/or name of the generated precompiled header 
-            file - given either relative to <see cref="P:NAnt.VisualCpp.Tasks.ClTask.OutputDir"/> or as an 
+            file - given either relative to <see cref="P:NAnt.VisualCpp.Tasks.ClTask.OutputDir" /> or as an 
             absolute path. 
             </summary>
         </member>
         <member name="P:NAnt.VisualCpp.Tasks.ClTask.PchThroughFile">
             <summary>
             The path of the boundary file when generating/using the 
-            specified <see cref="P:NAnt.VisualCpp.Tasks.ClTask.PchFile"/>.  If a precompiled header file is
+            specified <see cref="P:NAnt.VisualCpp.Tasks.ClTask.PchFile" />.  If a precompiled header file is
             not specified then this attribute is ignored.
             </summary>
         </member>
         <member name="P:NAnt.VisualCpp.Tasks.ClTask.PchMode">
             <summary>
-            The mode in which the specified <see cref="P:NAnt.VisualCpp.Tasks.ClTask.PchFile"/> (if any) is
-            used. The default is <see cref="F:NAnt.VisualCpp.Tasks.ClTask.PrecompiledHeaderMode.Use"/>.
+            The mode in which the specified <see cref="P:NAnt.VisualCpp.Tasks.ClTask.PchFile" /> (if any) is
+            used. The default is <see cref="F:NAnt.VisualCpp.Tasks.ClTask.PrecompiledHeaderMode.Use" />.
             </summary>
         </member>
         <member name="P:NAnt.VisualCpp.Tasks.ClTask.ManagedExtensions">
@@ -197,6 +129,74 @@
             The command-line arguments for the external program.
             </value>
         </member>
+        <member name="M:NAnt.VisualCpp.Tasks.ClTask.ExecuteTask">
+            <summary>
+            Compiles the sources.
+            </summary>
+        </member>
+        <member name="M:NAnt.VisualCpp.Tasks.ClTask.NeedsCompiling">
+            <summary>
+            Determines if the sources need to be compiled.
+            </summary>
+        </member>
+        <member name="M:NAnt.VisualCpp.Tasks.ClTask.IsPchfileUpToDate">
+            <summary>
+            Determines whether the precompiled header file is up-to-date.
+            </summary>
+            <returns>
+            <see langword="true" /> if no precompiled header file was specified;
+            otherwise, <see langword="false" />.
+            </returns>
+            <remarks>
+            In order to determine accurately whether the precompile header file
+            is up-to-date, we'd need scan all the header files that are pulled 
+            in. As this is not implemented right now, its safer to always
+            recompile.
+            </remarks>
+        </member>
+        <member name="M:NAnt.VisualCpp.Tasks.ClTask.FindUpdatedInclude(System.String,System.DateTime)">
+            <summary>
+            Determines whether any file that are includes in the specified
+            source file has been updated after the obj was compiled.
+            </summary>
+            <param name="srcFileName">The source file to check.</param>
+            <param name="objLastWriteTime">The last write time of the compiled obj.</param>
+            <returns>
+            The full path to the include file that was modified after the obj
+            was compiled, or <see langword="null" /> if no include files were
+            modified since the obj was compiled.
+            </returns>
+            <remarks>
+              <para>
+              To determine what includes are defined in a source file, conditional
+              directives are not honored.
+              </para>
+              <para>
+              If a given include cannot be resolved to an existing file, then
+              it will be considered stable.
+              </para>
+            </remarks>
+        </member>
+        <member name="M:NAnt.VisualCpp.Tasks.ClTask.QuoteArgumentValue(System.String)">
+            <summary>
+            Quotes an argument value and duplicates trailing backslahes.
+            </summary>
+            <param name="value">The argument value to quote.</param>
+            <returns>
+            The quotes argument value.
+            </returns>
+        </member>
+        <member name="M:NAnt.VisualCpp.Tasks.ClTask.GetObjOutputFile(System.String,System.String)">
+            <summary>
+            Determines the file name of the OBJ file for the specified source
+            file.
+            </summary>
+            <param name="srcFile">The source file for which the OBJ file should be determined.</param>
+            <param name="objectPath">The path of the object file.</param>
+            <returns>
+            The file name of the OBJ file for the specified source file.
+            </returns>
+        </member>
         <member name="T:NAnt.VisualCpp.Tasks.ClTask.PrecompiledHeaderMode">
             <summary>
             Defines the supported modes for the use of precompiled header files.
@@ -245,16 +245,6 @@
                 ]]>
               </code>
             </example>
-        </member>
-        <member name="M:NAnt.VisualCpp.Tasks.LibTask.ExecuteTask">
-            <summary>
-            Creates the library.
-            </summary>
-        </member>
-        <member name="M:NAnt.VisualCpp.Tasks.LibTask.NeedsCompiling">
-            <summary>
-            Determines if the sources need to be linked.
-            </summary>
         </member>
         <member name="P:NAnt.VisualCpp.Tasks.LibTask.Options">
             <summary>
@@ -305,6 +295,16 @@
             The command-line arguments for the external program.
             </value>
         </member>
+        <member name="M:NAnt.VisualCpp.Tasks.LibTask.ExecuteTask">
+            <summary>
+            Creates the library.
+            </summary>
+        </member>
+        <member name="M:NAnt.VisualCpp.Tasks.LibTask.NeedsCompiling">
+            <summary>
+            Determines if the sources need to be linked.
+            </summary>
+        </member>
         <member name="T:NAnt.VisualCpp.Tasks.LinkTask">
             <summary>
             Links files using <c>link.exe</c>, Microsoft's Incremental Linker.
@@ -327,25 +327,6 @@
               </code>
             </example>
         </member>
-        <member name="M:NAnt.VisualCpp.Tasks.LinkTask.ExecuteTask">
-            <summary>
-            Links the sources.
-            </summary>
-        </member>
-        <member name="M:NAnt.VisualCpp.Tasks.LinkTask.NeedsLinking">
-            <summary>
-            Determines if the output needs linking.
-            </summary>
-        </member>
-        <member name="M:NAnt.VisualCpp.Tasks.LinkTask.QuoteArgumentValue(System.String)">
-            <summary>
-            Quotes an argument value and duplicates trailing backslahes.
-            </summary>
-            <param name="value">The argument value to quote.</param>
-            <returns>
-            The quotes argument value.
-            </returns>
-        </member>
         <member name="P:NAnt.VisualCpp.Tasks.LinkTask.Options">
             <summary>
             Options to pass to the compiler.
@@ -366,7 +347,7 @@
             <summary>
             A user-specified name for the program database (PDB) that the linker 
             creates. The default file name for the PDB has the base name of the 
-            <see cref="P:NAnt.VisualCpp.Tasks.LinkTask.OutputFile"/> and the extension .pdb.
+            <see cref="P:NAnt.VisualCpp.Tasks.LinkTask.OutputFile" /> and the extension .pdb.
             </summary>
         </member>
         <member name="P:NAnt.VisualCpp.Tasks.LinkTask.ModuleDefinition">
@@ -425,6 +406,25 @@
             The command-line arguments for the external program.
             </value>
         </member>
+        <member name="M:NAnt.VisualCpp.Tasks.LinkTask.ExecuteTask">
+            <summary>
+            Links the sources.
+            </summary>
+        </member>
+        <member name="M:NAnt.VisualCpp.Tasks.LinkTask.NeedsLinking">
+            <summary>
+            Determines if the output needs linking.
+            </summary>
+        </member>
+        <member name="M:NAnt.VisualCpp.Tasks.LinkTask.QuoteArgumentValue(System.String)">
+            <summary>
+            Quotes an argument value and duplicates trailing backslahes.
+            </summary>
+            <param name="value">The argument value to quote.</param>
+            <returns>
+            The quotes argument value.
+            </returns>
+        </member>
         <member name="T:NAnt.VisualCpp.Tasks.McTask">
             <summary>
             Compiles messages using mc.exe, Microsoft's Win32 message compiler.
@@ -448,16 +448,6 @@
                 ]]>
               </code>
             </example>
-        </member>
-        <member name="M:NAnt.VisualCpp.Tasks.McTask.ExecuteTask">
-            <summary>
-            Compiles the sources.
-            </summary>
-        </member>
-        <member name="M:NAnt.VisualCpp.Tasks.McTask.NeedsCompiling(System.String)">
-            <summary>
-            Determine if source files need re-building.
-            </summary>
         </member>
         <member name="P:NAnt.VisualCpp.Tasks.McTask.Options">
             <summary>
@@ -495,6 +485,16 @@
             The command-line arguments for the external program.
             </value>
         </member>
+        <member name="M:NAnt.VisualCpp.Tasks.McTask.ExecuteTask">
+            <summary>
+            Compiles the sources.
+            </summary>
+        </member>
+        <member name="M:NAnt.VisualCpp.Tasks.McTask.NeedsCompiling(System.String)">
+            <summary>
+            Determine if source files need re-building.
+            </summary>
+        </member>
         <member name="T:NAnt.VisualCpp.Tasks.MidlTask">
             <summary>
             This tasks allows you to run MIDL.exe.
@@ -530,32 +530,6 @@
                 ]]>
               </code>
             </example>
-        </member>
-        <member name="M:NAnt.VisualCpp.Tasks.MidlTask.ExecuteTask">
-            <summary>
-            This is where the work is done.
-            </summary>
-        </member>
-        <member name="M:NAnt.VisualCpp.Tasks.MidlTask.NeedsCompiling">
-            <summary>
-            Check output files to see if we need rebuilding.
-            </summary>
-            <see langword="true" /> if a rebuild is needed; otherwise, 
-            <see langword="false" />.
-        </member>
-        <member name="M:NAnt.VisualCpp.Tasks.MidlTask.NeedsCompiling(System.IO.FileInfo)">
-            <summary>
-            Check output files to see if we need rebuilding.
-            </summary>
-            <returns>
-            <see langword="true" /> if a rebuild is needed; otherwise, 
-            <see langword="false" />.
-            </returns>
-        </member>
-        <member name="M:NAnt.VisualCpp.Tasks.MidlTask.WriteResponseFile(System.IO.TextWriter)">
-            <summary>
-            Writes the response file for <c>midl.exe</c>.
-            </summary>
         </member>
         <member name="P:NAnt.VisualCpp.Tasks.MidlTask.Acf">
             <summary>
@@ -606,7 +580,7 @@
             <summary>
             Specifies the file name for the generated dlldata file for a proxy
             DLL. The default file name Dlldata.c is used if 
-            <see cref="P:NAnt.VisualCpp.Tasks.MidlTask.DllData"/> is not specified.
+            <see cref="P:NAnt.VisualCpp.Tasks.MidlTask.DllData" /> is not specified.
             </summary>
         </member>
         <member name="P:NAnt.VisualCpp.Tasks.MidlTask.Env">
@@ -694,6 +668,32 @@
             The command-line arguments for the external program.
             </value>
         </member>
+        <member name="M:NAnt.VisualCpp.Tasks.MidlTask.ExecuteTask">
+            <summary>
+            This is where the work is done.
+            </summary>
+        </member>
+        <member name="M:NAnt.VisualCpp.Tasks.MidlTask.NeedsCompiling">
+            <summary>
+            Check output files to see if we need rebuilding.
+            </summary>
+            <see langword="true" /> if a rebuild is needed; otherwise, 
+            <see langword="false" />.
+        </member>
+        <member name="M:NAnt.VisualCpp.Tasks.MidlTask.NeedsCompiling(System.IO.FileInfo)">
+            <summary>
+            Check output files to see if we need rebuilding.
+            </summary>
+            <returns>
+            <see langword="true" /> if a rebuild is needed; otherwise, 
+            <see langword="false" />.
+            </returns>
+        </member>
+        <member name="M:NAnt.VisualCpp.Tasks.MidlTask.WriteResponseFile(System.IO.TextWriter)">
+            <summary>
+            Writes the response file for <c>midl.exe</c>.
+            </summary>
+        </member>
         <member name="T:NAnt.VisualCpp.Tasks.RcTask">
             <summary>
             Compiles resources using <c>rc.exe</c>, Microsoft's Win32 resource 
@@ -719,23 +719,6 @@
                 ]]>
               </code>
             </example>
-        </member>
-        <member name="M:NAnt.VisualCpp.Tasks.RcTask.ExecuteTask">
-            <summary>
-            Compile the resource file
-            </summary>
-        </member>
-        <member name="M:NAnt.VisualCpp.Tasks.RcTask.NeedsCompiling">
-            <summary>
-            Determines if the resource need compiling.
-            </summary>
-        </member>
-        <member name="M:NAnt.VisualCpp.Tasks.RcTask.CheckResourceTimeStamp(System.String)">
-            <summary>
-            Check if a resource file has been updated.
-            </summary>
-            <param name="filePath"></param>
-            <returns></returns>
         </member>
         <member name="P:NAnt.VisualCpp.Tasks.RcTask.Options">
             <summary>
@@ -778,6 +761,23 @@
             Arguments of program to execute
             </summary>
         </member>
+        <member name="M:NAnt.VisualCpp.Tasks.RcTask.ExecuteTask">
+            <summary>
+            Compile the resource file
+            </summary>
+        </member>
+        <member name="M:NAnt.VisualCpp.Tasks.RcTask.NeedsCompiling">
+            <summary>
+            Determines if the resource need compiling.
+            </summary>
+        </member>
+        <member name="M:NAnt.VisualCpp.Tasks.RcTask.CheckResourceTimeStamp(System.String)">
+            <summary>
+            Check if a resource file has been updated.
+            </summary>
+            <param name="filePath"></param>
+            <returns></returns>
+        </member>
         <member name="T:NAnt.VisualCpp.Types.CharacterSet">
             <summary>
             Defines the character sets that can be used by the C++ compiler.
@@ -805,15 +805,15 @@
         </member>
         <member name="M:NAnt.VisualCpp.Types.Library.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:NAnt.VisualCpp.Types.Library"/> class.
+            Initializes a new instance of the <see cref="T:NAnt.VisualCpp.Types.Library" /> class.
             </summary>
         </member>
         <member name="M:NAnt.VisualCpp.Types.Library.#ctor(System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:NAnt.VisualCpp.Types.Library"/> class with
+            Initializes a new instance of the <see cref="T:NAnt.VisualCpp.Types.Library" /> class with
             the specified name.
             </summary>
-            <exception cref="T:System.ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="name" /> is <see langword="null" />.</exception>
         </member>
         <member name="P:NAnt.VisualCpp.Types.Library.LibraryName">
             <summary>
@@ -854,6 +854,12 @@
             with the specified array of <see cref="T:NAnt.VisualCpp.Types.Library"/> instances.
             </summary>
         </member>
+        <member name="P:NAnt.VisualCpp.Types.LibraryCollection.Item(System.Int32)">
+            <summary>
+            Gets or sets the element at the specified index.
+            </summary>
+            <param name="index">The zero-based index of the element to get or set.</param>
+        </member>
         <member name="M:NAnt.VisualCpp.Types.LibraryCollection.Add(NAnt.VisualCpp.Types.Library)">
             <summary>
             Adds a <see cref="T:NAnt.VisualCpp.Types.Library"/> to the end of the collection.
@@ -879,8 +885,8 @@
             </summary>
             <param name="item">The <see cref="T:NAnt.VisualCpp.Types.Library"/> to locate in the collection.</param> 
             <returns>
-            <see langword="true"/> if <paramref name="item"/> is found in the 
-            collection; otherwise, <see langword="false"/>.
+            <see langword="true" /> if <paramref name="item"/> is found in the 
+            collection; otherwise, <see langword="false" />.
             </returns>
         </member>
         <member name="M:NAnt.VisualCpp.Types.LibraryCollection.CopyTo(NAnt.VisualCpp.Types.Library[],System.Int32)">
@@ -920,12 +926,6 @@
             </summary>
             <param name="item">The <see cref="T:NAnt.VisualCpp.Types.Library"/> to remove from the collection.</param>
         </member>
-        <member name="P:NAnt.VisualCpp.Types.LibraryCollection.Item(System.Int32)">
-            <summary>
-            Gets or sets the element at the specified index.
-            </summary>
-            <param name="index">The zero-based index of the element to get or set.</param>
-        </member>
         <member name="T:NAnt.VisualCpp.Types.LibraryEnumerator">
             <summary>
             Enumerates the <see cref="T:NAnt.VisualCpp.Types.Library"/> elements of a <see cref="T:NAnt.VisualCpp.Types.LibraryCollection"/>.
@@ -937,6 +937,14 @@
             with the specified <see cref="T:NAnt.VisualCpp.Types.LibraryCollection"/>.
             </summary>
             <param name="arguments">The collection that should be enumerated.</param>
+        </member>
+        <member name="P:NAnt.VisualCpp.Types.LibraryEnumerator.Current">
+            <summary>
+            Gets the current element in the collection.
+            </summary>
+            <returns>
+            The current element in the collection.
+            </returns>
         </member>
         <member name="M:NAnt.VisualCpp.Types.LibraryEnumerator.MoveNext">
             <summary>
@@ -954,14 +962,6 @@
             first element in the collection.
             </summary>
         </member>
-        <member name="P:NAnt.VisualCpp.Types.LibraryEnumerator.Current">
-            <summary>
-            Gets the current element in the collection.
-            </summary>
-            <returns>
-            The current element in the collection.
-            </returns>
-        </member>
         <member name="T:NAnt.VisualCpp.Types.Symbol">
             <summary>
             Represents a symbol.
@@ -969,15 +969,15 @@
         </member>
         <member name="M:NAnt.VisualCpp.Types.Symbol.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:NAnt.VisualCpp.Types.Symbol"/> class.
+            Initializes a new instance of the <see cref="T:NAnt.VisualCpp.Types.Symbol" /> class.
             </summary>
         </member>
         <member name="M:NAnt.VisualCpp.Types.Symbol.#ctor(System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:NAnt.VisualCpp.Types.Symbol"/> class with
+            Initializes a new instance of the <see cref="T:NAnt.VisualCpp.Types.Symbol" /> class with
             the specified name.
             </summary>
-            <exception cref="T:System.ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="name" /> is <see langword="null" />.</exception>
         </member>
         <member name="P:NAnt.VisualCpp.Types.Symbol.SymbolName">
             <summary>
@@ -1018,6 +1018,12 @@
             with the specified array of <see cref="T:NAnt.VisualCpp.Types.Symbol"/> instances.
             </summary>
         </member>
+        <member name="P:NAnt.VisualCpp.Types.SymbolCollection.Item(System.Int32)">
+            <summary>
+            Gets or sets the element at the specified index.
+            </summary>
+            <param name="index">The zero-based index of the element to get or set.</param>
+        </member>
         <member name="M:NAnt.VisualCpp.Types.SymbolCollection.Add(NAnt.VisualCpp.Types.Symbol)">
             <summary>
             Adds a <see cref="T:NAnt.VisualCpp.Types.Symbol"/> to the end of the collection.
@@ -1043,8 +1049,8 @@
             </summary>
             <param name="item">The <see cref="T:NAnt.VisualCpp.Types.Symbol"/> to locate in the collection.</param> 
             <returns>
-            <see langword="true"/> if <paramref name="item"/> is found in the 
-            collection; otherwise, <see langword="false"/>.
+            <see langword="true" /> if <paramref name="item"/> is found in the 
+            collection; otherwise, <see langword="false" />.
             </returns>
         </member>
         <member name="M:NAnt.VisualCpp.Types.SymbolCollection.CopyTo(NAnt.VisualCpp.Types.Symbol[],System.Int32)">
@@ -1084,12 +1090,6 @@
             </summary>
             <param name="item">The <see cref="T:NAnt.VisualCpp.Types.Symbol"/> to remove from the collection.</param>
         </member>
-        <member name="P:NAnt.VisualCpp.Types.SymbolCollection.Item(System.Int32)">
-            <summary>
-            Gets or sets the element at the specified index.
-            </summary>
-            <param name="index">The zero-based index of the element to get or set.</param>
-        </member>
         <member name="T:NAnt.VisualCpp.Types.SymbolEnumerator">
             <summary>
             Enumerates the <see cref="T:NAnt.VisualCpp.Types.Symbol"/> elements of a <see cref="T:NAnt.VisualCpp.Types.SymbolCollection"/>.
@@ -1101,6 +1101,14 @@
             with the specified <see cref="T:NAnt.VisualCpp.Types.SymbolCollection"/>.
             </summary>
             <param name="arguments">The collection that should be enumerated.</param>
+        </member>
+        <member name="P:NAnt.VisualCpp.Types.SymbolEnumerator.Current">
+            <summary>
+            Gets the current element in the collection.
+            </summary>
+            <returns>
+            The current element in the collection.
+            </returns>
         </member>
         <member name="M:NAnt.VisualCpp.Types.SymbolEnumerator.MoveNext">
             <summary>
@@ -1117,14 +1125,6 @@
             Sets the enumerator to its initial position, which is before the 
             first element in the collection.
             </summary>
-        </member>
-        <member name="P:NAnt.VisualCpp.Types.SymbolEnumerator.Current">
-            <summary>
-            Gets the current element in the collection.
-            </summary>
-            <returns>
-            The current element in the collection.
-            </returns>
         </member>
         <member name="T:NAnt.VisualCpp.Util.BackslashProcessingMethod">
             <summary>
@@ -1155,7 +1155,7 @@
         </member>
         <member name="T:NAnt.VisualCpp.Util.ArgumentUtils">
             <summary>
-            Groups a set of useful <see cref="T:System.String"/> manipulation methods for
+            Groups a set of useful <see cref="T:System.String" /> manipulation methods for
             command-line arguments.
             </summary>
         </member>
@@ -1164,11 +1164,11 @@
             Performs backslash processing on the specified value using a given
             method.
             </summary>
-            <param name="value">The <see cref="T:System.String"/> to process.</param>
-            <param name="processingMethod">The <see cref="T:NAnt.VisualCpp.Util.BackslashProcessingMethod"/> to use.</param>
+            <param name="value">The <see cref="T:System.String" /> to process.</param>
+            <param name="processingMethod">The <see cref="T:NAnt.VisualCpp.Util.BackslashProcessingMethod" /> to use.</param>
             <returns>
-            <paramref name="value"/> with backslashes processed using the given
-            <see cref="T:NAnt.VisualCpp.Util.BackslashProcessingMethod"/>.
+            <paramref name="value" /> with backslashes processed using the given
+            <see cref="T:NAnt.VisualCpp.Util.BackslashProcessingMethod" />.
             </returns>
         </member>
         <member name="M:NAnt.VisualCpp.Util.ArgumentUtils.DuplicateTrailingBackslash(System.String)">
@@ -1199,10 +1199,10 @@
         <member name="M:NAnt.VisualCpp.Util.ArgumentUtils.QuoteArgumentValue(System.String,NAnt.VisualCpp.Util.BackslashProcessingMethod)">
             <summary>
             Quotes an argument value and processes backslashes using a given
-            <see cref="T:NAnt.VisualCpp.Util.BackslashProcessingMethod"/>.
+            <see cref="T:NAnt.VisualCpp.Util.BackslashProcessingMethod" />.
             </summary>
             <param name="value">The argument value to quote.</param>
-            <param name="processingMethod">The <see cref="T:NAnt.VisualCpp.Util.BackslashProcessingMethod"/> to use.</param>
+            <param name="processingMethod">The <see cref="T:NAnt.VisualCpp.Util.BackslashProcessingMethod" /> to use.</param>
             <returns>
             The quoted argument value.
             </returns>

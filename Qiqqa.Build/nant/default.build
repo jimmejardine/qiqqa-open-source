@@ -60,6 +60,11 @@
         <echo message=" * * * * * * * * * * * * * * * * * * * * * * * *"/>
         <echo message=" Building"/>
         <echo message=" * * * * * * * * * * * * * * * * * * * * * * * *"/>
+        <echo message=" WARNING"/>
+        <echo message=" BATCH BUILD the Qiqqa binaries using MSVC2019"/>
+        <echo message=" as NANT does not support building the new code."/>
+        <echo message=" * * * * * * * * * * * * * * * * * * * * * * * *"/>
+<!--
         <msbuild project="${sln.qiqqa}" target="Clean">
             <arg value="/property:Configuration=Release" />
             <arg value="/property:Platform=Any CPU" />
@@ -68,8 +73,12 @@
             <arg value="/property:Configuration=Release" />
             <arg value="/property:Platform=Any CPU" />
         </msbuild>
+-->
         <!-- Figure out what the version number is from Qiqqa.exe that we have just built -->
+<!--
         <property name="version.client" value="${version::get-major(assemblyname::get-version(assemblyname::get-assembly-name(file.qiqqa.exe)))}" overwrite="true"/>
+-->
+        <property name="version.client" value="81" overwrite="true"/>
     </target>
     
     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->

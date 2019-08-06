@@ -6,7 +6,7 @@
     <members>
         <member name="T:NAnt.Console.ConsoleStub">
             <summary>
-            Stub used to created <see cref="T:System.AppDomain"/> and launch real <c>ConsoleDriver</c> 
+            Stub used to created <see cref="T:System.AppDomain" /> and launch real <c>ConsoleDriver</c> 
             class in Core assembly.
             </summary>
         </member>
@@ -55,16 +55,11 @@
         </member>
         <member name="M:NAnt.Console.ConsoleStub.HelperArguments.#ctor(System.String[],System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:NAnt.Console.ConsoleStub.HelperArguments"/>
+            Initializes a new instance of the <see cref="T:NAnt.Console.ConsoleStub.HelperArguments" />
             class with the specified command-line arguments.
             </summary>
             <param name="args">The commandline arguments passed to NAnt.exe.</param>
             <param name="probePaths">Directories relative to the base directory of the AppDomain to probe for missing assembly references.</param>
-        </member>
-        <member name="M:NAnt.Console.ConsoleStub.HelperArguments.CallConsoleRunner">
-            <summary>
-            Invokes the application entry point in NAnt.Core.
-            </summary>
         </member>
         <member name="P:NAnt.Console.ConsoleStub.HelperArguments.ExitCode">
             <summary>
@@ -73,6 +68,11 @@
             <value>
             The code that the build process specified when it terminated.
             </value>
+        </member>
+        <member name="M:NAnt.Console.ConsoleStub.HelperArguments.CallConsoleRunner">
+            <summary>
+            Invokes the application entry point in NAnt.Core.
+            </summary>
         </member>
     </members>
 </doc>

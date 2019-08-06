@@ -34,7 +34,7 @@
         <member name="P:NAnt.NUnit.Types.FormatterData.OutputDirectory">
             <summary>
             Gets or sets the directory where the output file should be written 
-            to, if <see cref="P:NAnt.NUnit.Types.FormatterData.UseFile"/> is <see langword="true"/>.
+            to, if <see cref="P:NAnt.NUnit.Types.FormatterData.UseFile" /> is <see langword="true" />.
             </summary> 
             <value>
             The directory where the output file should be written to.
@@ -62,6 +62,12 @@
             with the specified array of <see cref="T:NAnt.NUnit.Types.FormatterData"/> instances.
             </summary>
         </member>
+        <member name="P:NAnt.NUnit.Types.FormatterDataCollection.Item(System.Int32)">
+            <summary>
+            Gets or sets the element at the specified index.
+            </summary>
+            <param name="index">The zero-based index of the element to get or set.</param>
+        </member>
         <member name="M:NAnt.NUnit.Types.FormatterDataCollection.Add(NAnt.NUnit.Types.FormatterData)">
             <summary>
             Adds a <see cref="T:NAnt.NUnit.Types.FormatterData"/> to the end of the collection.
@@ -87,8 +93,8 @@
             </summary>
             <param name="item">The <see cref="T:NAnt.NUnit.Types.FormatterData"/> to locate in the collection.</param> 
             <returns>
-            <see langword="true"/> if <paramref name="item"/> is found in the 
-            collection; otherwise, <see langword="false"/>.
+            <see langword="true" /> if <paramref name="item"/> is found in the 
+            collection; otherwise, <see langword="false" />.
             </returns>
         </member>
         <member name="M:NAnt.NUnit.Types.FormatterDataCollection.CopyTo(NAnt.NUnit.Types.FormatterData[],System.Int32)">
@@ -128,12 +134,6 @@
             </summary>
             <param name="item">The <see cref="T:NAnt.NUnit.Types.FormatterData"/> to remove from the collection.</param>
         </member>
-        <member name="P:NAnt.NUnit.Types.FormatterDataCollection.Item(System.Int32)">
-            <summary>
-            Gets or sets the element at the specified index.
-            </summary>
-            <param name="index">The zero-based index of the element to get or set.</param>
-        </member>
         <member name="T:NAnt.NUnit.Types.FormatterDataEnumerator">
             <summary>
             Enumerates the <see cref="T:NAnt.NUnit.Types.FormatterData"/> elements of a <see cref="T:NAnt.NUnit.Types.FormatterDataCollection"/>.
@@ -145,6 +145,14 @@
             with the specified <see cref="T:NAnt.NUnit.Types.FormatterDataCollection"/>.
             </summary>
             <param name="arguments">The collection that should be enumerated.</param>
+        </member>
+        <member name="P:NAnt.NUnit.Types.FormatterDataEnumerator.Current">
+            <summary>
+            Gets the current element in the collection.
+            </summary>
+            <returns>
+            The current element in the collection.
+            </returns>
         </member>
         <member name="M:NAnt.NUnit.Types.FormatterDataEnumerator.MoveNext">
             <summary>
@@ -161,14 +169,6 @@
             Sets the enumerator to its initial position, which is before the 
             first element in the collection.
             </summary>
-        </member>
-        <member name="P:NAnt.NUnit.Types.FormatterDataEnumerator.Current">
-            <summary>
-            Gets the current element in the collection.
-            </summary>
-            <returns>
-            The current element in the collection.
-            </returns>
         </member>
         <member name="T:NAnt.NUnit.Types.FormatterType">
             <summary>
@@ -209,14 +209,14 @@
         <member name="P:NAnt.NUnit.Types.FormatterElement.OutputDirectory">
             <summary>
             Specifies the directory where the output file should be written to,
-            if <see cref="P:NAnt.NUnit.Types.FormatterElement.UseFile"/> is <see langword="true"/>.  If not 
+            if <see cref="P:NAnt.NUnit.Types.FormatterElement.UseFile" /> is <see langword="true" />.  If not 
             specified, the output file will be written to the directory where
             the test module is located.
             </summary> 
         </member>
         <member name="P:NAnt.NUnit.Types.FormatterElement.Data">
             <summary>
-            Gets the underlying <see cref="T:NAnt.NUnit.Types.FormatterData"/> for the element.
+            Gets the underlying <see cref="T:NAnt.NUnit.Types.FormatterData" /> for the element.
             </summary>
         </member>
         <member name="T:NAnt.NUnit.Types.FormatterElementCollection">
@@ -240,6 +240,12 @@
             Initializes a new instance of the <see cref="T:NAnt.NUnit.Types.FormatterElementCollection"/> class
             with the specified array of <see cref="T:NAnt.NUnit.Types.FormatterElement"/> instances.
             </summary>
+        </member>
+        <member name="P:NAnt.NUnit.Types.FormatterElementCollection.Item(System.Int32)">
+            <summary>
+            Gets or sets the element at the specified index.
+            </summary>
+            <param name="index">The zero-based index of the element to get or set.</param>
         </member>
         <member name="M:NAnt.NUnit.Types.FormatterElementCollection.Add(NAnt.NUnit.Types.FormatterElement)">
             <summary>
@@ -266,8 +272,8 @@
             </summary>
             <param name="item">The <see cref="T:NAnt.NUnit.Types.FormatterElement"/> to locate in the collection.</param> 
             <returns>
-            <see langword="true"/> if <paramref name="item"/> is found in the 
-            collection; otherwise, <see langword="false"/>.
+            <see langword="true" /> if <paramref name="item"/> is found in the 
+            collection; otherwise, <see langword="false" />.
             </returns>
         </member>
         <member name="M:NAnt.NUnit.Types.FormatterElementCollection.CopyTo(NAnt.NUnit.Types.FormatterElement[],System.Int32)">
@@ -307,12 +313,6 @@
             </summary>
             <param name="item">The <see cref="T:NAnt.NUnit.Types.FormatterElement"/> to remove from the collection.</param>
         </member>
-        <member name="P:NAnt.NUnit.Types.FormatterElementCollection.Item(System.Int32)">
-            <summary>
-            Gets or sets the element at the specified index.
-            </summary>
-            <param name="index">The zero-based index of the element to get or set.</param>
-        </member>
         <member name="T:NAnt.NUnit.Types.FormatterElementEnumerator">
             <summary>
             Enumerates the <see cref="T:NAnt.NUnit.Types.FormatterElement"/> elements of a <see cref="T:NAnt.NUnit.Types.FormatterElementCollection"/>.
@@ -324,6 +324,14 @@
             with the specified <see cref="T:NAnt.NUnit.Types.FormatterElementCollection"/>.
             </summary>
             <param name="arguments">The collection that should be enumerated.</param>
+        </member>
+        <member name="P:NAnt.NUnit.Types.FormatterElementEnumerator.Current">
+            <summary>
+            Gets the current element in the collection.
+            </summary>
+            <returns>
+            The current element in the collection.
+            </returns>
         </member>
         <member name="M:NAnt.NUnit.Types.FormatterElementEnumerator.MoveNext">
             <summary>
@@ -340,14 +348,6 @@
             Sets the enumerator to its initial position, which is before the 
             first element in the collection.
             </summary>
-        </member>
-        <member name="P:NAnt.NUnit.Types.FormatterElementEnumerator.Current">
-            <summary>
-            Gets the current element in the collection.
-            </summary>
-            <returns>
-            The current element in the collection.
-            </returns>
         </member>
     </members>
 </doc>

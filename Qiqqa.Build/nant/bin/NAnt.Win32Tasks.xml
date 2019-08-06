@@ -17,10 +17,10 @@
         </member>
         <member name="M:NAnt.Win32.Functions.CygpathFunctions.#ctor(NAnt.Core.Project,NAnt.Core.PropertyDictionary)">
             <summary>
-            Initializes a new instance of the <see cref="T:NAnt.Win32.Functions.CygpathFunctions"/>
-            class with the specified <see cref="T:NAnt.Core.Project"/> and properties.
+            Initializes a new instance of the <see cref="T:NAnt.Win32.Functions.CygpathFunctions" />
+            class with the specified <see cref="T:NAnt.Core.Project" /> and properties.
             </summary>
-            <param name="project">The <see cref="T:NAnt.Core.Project"/> in which the class is used.</param>
+            <param name="project">The <see cref="T:NAnt.Core.Project" /> in which the class is used.</param>
             <param name="properties">The set of properties to use for macro expansion.</param>
         </member>
         <member name="M:NAnt.Win32.Functions.CygpathFunctions.GetDosPath(System.String)">
@@ -32,7 +32,7 @@
             The DOS (short) form of the specified path.
             </returns>
             <exception cref="T:System.ComponentModel.Win32Exception"><c>cygpath</c> could not be started.</exception>
-            <exception cref="T:System.ArgumentException"><paramref name="path"/> could not be converted to a short form.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="path" /> could not be converted to a short form.</exception>
         </member>
         <member name="M:NAnt.Win32.Functions.CygpathFunctions.GetUnixPath(System.String)">
             <summary>
@@ -43,7 +43,7 @@
             The Unix form of the specified path.
             </returns>
             <exception cref="T:System.ComponentModel.Win32Exception"><c>cygpath</c> could not be started.</exception>
-            <exception cref="T:System.ArgumentException"><paramref name="path"/> could not be converted to a Unix form.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="path" /> could not be converted to a Unix form.</exception>
         </member>
         <member name="M:NAnt.Win32.Functions.CygpathFunctions.GetWindowsPath(System.String)">
             <summary>
@@ -54,12 +54,12 @@
             The Windows form of the specified path.
             </returns>
             <exception cref="T:System.ComponentModel.Win32Exception"><c>cygpath</c> could not be started.</exception>
-            <exception cref="T:System.ArgumentException"><paramref name="path"/> could not be converted to a Windows form.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="path" /> could not be converted to a Windows form.</exception>
         </member>
         <member name="M:NAnt.Win32.Functions.CygpathFunctions.RunCygpathString(NAnt.Core.Types.Argument[])">
             <summary>
             Runs cygpath with the specified arguments and returns the result 
-            as a <see cref="T:System.String"/>.
+            as a <see cref="T:System.String" />.
             </summary>
             <param name="args">The arguments to pass to cygpath.</param>
             <returns>
@@ -85,20 +85,6 @@
                 ]]>
               </code>
             </example>
-        </member>
-        <member name="M:NAnt.Win32.Tasks.AxImpTask.ExecuteTask">
-            <summary>
-            Import the ActiveX control.
-            </summary>
-        </member>
-        <member name="M:NAnt.Win32.Tasks.AxImpTask.NeedsCompiling">
-            <summary>
-            Determines whether the assembly needs to be created again.
-            </summary>
-            <returns>
-            <see langword="true" /> if the assembly needs to be created again; 
-            otherwise, <see langword="false" />.
-            </returns>
         </member>
         <member name="P:NAnt.Win32.Tasks.AxImpTask.OcxFile">
             <summary>
@@ -173,6 +159,20 @@
             The command-line arguments for the external program.
             </value>
         </member>
+        <member name="M:NAnt.Win32.Tasks.AxImpTask.ExecuteTask">
+            <summary>
+            Import the ActiveX control.
+            </summary>
+        </member>
+        <member name="M:NAnt.Win32.Tasks.AxImpTask.NeedsCompiling">
+            <summary>
+            Determines whether the assembly needs to be created again.
+            </summary>
+            <returns>
+            <see langword="true" /> if the assembly needs to be created again; 
+            otherwise, <see langword="false" />.
+            </returns>
+        </member>
         <member name="T:NAnt.Win32.Tasks.LocateSdkTask">
             <summary>
             Reads the most recent Windows SDK InstallationFolder key into a NAnt property
@@ -184,22 +184,6 @@
                 ]]>
               </code>
             </example>
-        </member>
-        <member name="M:NAnt.Win32.Tasks.LocateSdkTask.ExecuteTask">
-            <summary>
-            locate the most recent WinSDK installed
-            </summary>
-        </member>
-        <member name="M:NAnt.Win32.Tasks.LocateSdkTask.StringToVersion(System.String)">
-            <summary>
-            Converts a version expressed as a string into a Version object 
-            </summary>
-            <param name="sdkVersion">
-            A <see cref="T:System.String"/> containing the version to convert.
-            </param>
-            <returns>
-            A <see cref="T:System.Version"/> object representing the version string.
-            </returns>
         </member>
         <member name="P:NAnt.Win32.Tasks.LocateSdkTask.PropertyName">
             <summary>
@@ -236,6 +220,99 @@
                 </para>
             </summary>
         </member>
+        <member name="M:NAnt.Win32.Tasks.LocateSdkTask.ExecuteTask">
+            <summary>
+            locate the most recent WinSDK installed
+            </summary>
+        </member>
+        <member name="M:NAnt.Win32.Tasks.LocateSdkTask.StringToVersion(System.String)">
+            <summary>
+            Converts a version expressed as a string into a Version object 
+            </summary>
+            <param name="sdkVersion">
+            A <see cref="T:System.String"/> containing the version to convert.
+            </param>
+            <returns>
+            A <see cref="T:System.Version"/> object representing the version string.
+            </returns>
+        </member>
+        <member name="T:NAnt.Win32.Tasks.ReadRegistryTask">
+            <summary>
+            Reads a value or set of values from the Windows Registry into one or 
+            more NAnt properties.
+            </summary>
+            <example>
+              <para>Read a single value from the registry.</para>
+              <code>
+                <![CDATA[
+            <readregistry property="sdkRoot" key="SOFTWARE\Microsoft\.NETFramework\sdkInstallRoot" hive="LocalMachine" />
+                ]]>
+              </code>
+              <para>Read all the registry values in a key.</para>
+              <code>
+                <![CDATA[
+            <readregistry prefix="dotNetFX" key="SOFTWARE\Microsoft\.NETFramework\sdkInstallRoot" hive="LocalMachine" />
+                ]]>
+              </code>
+            </example>
+        </member>
+        <member name="P:NAnt.Win32.Tasks.ReadRegistryTask.PropertyName">
+            <summary>
+                <para>The property to set to the specified registry key value.</para>
+                <para>If this attribute is used then a single value will be read.</para>
+            </summary>
+        </member>
+        <member name="P:NAnt.Win32.Tasks.ReadRegistryTask.PropertyPrefix">
+            <summary>
+                <para>The prefix to use for the specified registry key values.</para>
+                <para>If this attribute is used then all registry values will be read and stored as properties with this prefix.</para>
+            </summary>
+            <example>
+                <para>Registry values a, b, c will be turned into prefixa, prefixb, prefixc named properties</para>
+            </example>
+        </member>
+        <member name="P:NAnt.Win32.Tasks.ReadRegistryTask.RegistryKey">
+            <summary>
+            The registry key to read, including the path.
+            </summary>
+            <example>
+            SOFTWARE\Microsoft\.NETFramework\sdkInstallRoot
+            </example>
+        </member>
+        <member name="P:NAnt.Win32.Tasks.ReadRegistryTask.RegistryHiveName">
+            <summary>
+            Space separated list of registry hives to search for <see cref="P:NAnt.Win32.Tasks.ReadRegistryTask.RegistryKey" />.
+            For a list of possible values, see <see cref="T:Microsoft.Win32.RegistryHive" />. The 
+            default is <see cref="F:Microsoft.Win32.RegistryHive.LocalMachine" />.
+            </summary>
+            <remarks>
+            <seealso cref="T:Microsoft.Win32.RegistryHive" />
+            </remarks>
+        </member>
+        <member name="M:NAnt.Win32.Tasks.ReadRegistryTask.ExecuteTask">
+            <summary>
+            read the specified registry value
+            </summary>
+        </member>
+        <member name="M:NAnt.Win32.Tasks.ReadRegistryTask.LookupRegKey(System.String,Microsoft.Win32.RegistryHive[])">
+            <summary>
+            Returns the hive for a given key.
+            </summary>
+            <param name="key"></param>
+            <param name="registries"></param>
+            <returns>
+            The hive for a given key.
+            </returns>
+        </member>
+        <member name="M:NAnt.Win32.Tasks.ReadRegistryTask.GetHiveKey(Microsoft.Win32.RegistryHive)">
+            <summary>
+            Returns the key for a given registry hive.
+            </summary>
+            <param name="hive">The registry hive to return the key for.</param>
+            <returns>
+            The key for a given registry hive.
+            </returns>
+        </member>
         <member name="T:NAnt.Win32.Tasks.MonoRegistryTask">
             <summary>
             Reads the mono registry path into a NAnt property.
@@ -271,11 +348,6 @@
             If new registry paths are used by the Mono team, add them to this array.
             </remarks>
         </member>
-        <member name="M:NAnt.Win32.Tasks.MonoRegistryTask.ExecuteTask">
-            <summary>
-            Locates the appropriate Mono registry path to use.
-            </summary>
-        </member>
         <member name="P:NAnt.Win32.Tasks.MonoRegistryTask.PropertyName">
             <summary>
             <para>
@@ -283,82 +355,10 @@
             </para>
             </summary>
         </member>
-        <member name="T:NAnt.Win32.Tasks.ReadRegistryTask">
+        <member name="M:NAnt.Win32.Tasks.MonoRegistryTask.ExecuteTask">
             <summary>
-            Reads a value or set of values from the Windows Registry into one or 
-            more NAnt properties.
+            Locates the appropriate Mono registry path to use.
             </summary>
-            <example>
-              <para>Read a single value from the registry.</para>
-              <code>
-                <![CDATA[
-            <readregistry property="sdkRoot" key="SOFTWARE\Microsoft\.NETFramework\sdkInstallRoot" hive="LocalMachine" />
-                ]]>
-              </code>
-              <para>Read all the registry values in a key.</para>
-              <code>
-                <![CDATA[
-            <readregistry prefix="dotNetFX" key="SOFTWARE\Microsoft\.NETFramework\sdkInstallRoot" hive="LocalMachine" />
-                ]]>
-              </code>
-            </example>
-        </member>
-        <member name="M:NAnt.Win32.Tasks.ReadRegistryTask.ExecuteTask">
-            <summary>
-            read the specified registry value
-            </summary>
-        </member>
-        <member name="M:NAnt.Win32.Tasks.ReadRegistryTask.LookupRegKey(System.String,Microsoft.Win32.RegistryHive[])">
-            <summary>
-            Returns the hive for a given key.
-            </summary>
-            <param name="key"></param>
-            <param name="registries"></param>
-            <returns>
-            The hive for a given key.
-            </returns>
-        </member>
-        <member name="M:NAnt.Win32.Tasks.ReadRegistryTask.GetHiveKey(Microsoft.Win32.RegistryHive)">
-            <summary>
-            Returns the key for a given registry hive.
-            </summary>
-            <param name="hive">The registry hive to return the key for.</param>
-            <returns>
-            The key for a given registry hive.
-            </returns>
-        </member>
-        <member name="P:NAnt.Win32.Tasks.ReadRegistryTask.PropertyName">
-            <summary>
-                <para>The property to set to the specified registry key value.</para>
-                <para>If this attribute is used then a single value will be read.</para>
-            </summary>
-        </member>
-        <member name="P:NAnt.Win32.Tasks.ReadRegistryTask.PropertyPrefix">
-            <summary>
-                <para>The prefix to use for the specified registry key values.</para>
-                <para>If this attribute is used then all registry values will be read and stored as properties with this prefix.</para>
-            </summary>
-            <example>
-                <para>Registry values a, b, c will be turned into prefixa, prefixb, prefixc named properties</para>
-            </example>
-        </member>
-        <member name="P:NAnt.Win32.Tasks.ReadRegistryTask.RegistryKey">
-            <summary>
-            The registry key to read, including the path.
-            </summary>
-            <example>
-            SOFTWARE\Microsoft\.NETFramework\sdkInstallRoot
-            </example>
-        </member>
-        <member name="P:NAnt.Win32.Tasks.ReadRegistryTask.RegistryHiveName">
-            <summary>
-            Space separated list of registry hives to search for <see cref="P:NAnt.Win32.Tasks.ReadRegistryTask.RegistryKey"/>.
-            For a list of possible values, see <see cref="T:Microsoft.Win32.RegistryHive"/>. The 
-            default is <see cref="F:Microsoft.Win32.RegistryHive.LocalMachine"/>.
-            </summary>
-            <remarks>
-            <seealso cref="T:Microsoft.Win32.RegistryHive"/>
-            </remarks>
         </member>
         <member name="T:NAnt.Win32.Tasks.RegAsmTask">
             <summary>
@@ -411,22 +411,10 @@
               </code>
             </example>
         </member>
-        <member name="M:NAnt.Win32.Tasks.RegAsmTask.PrepareProcess(System.Diagnostics.Process)">
-            <summary>
-            Updates the <see cref="T:System.Diagnostics.ProcessStartInfo"/> of the specified 
-            <see cref="T:System.Diagnostics.Process"/>.
-            </summary>
-            <param name="process">The <see cref="T:System.Diagnostics.Process"/> of which the <see cref="T:System.Diagnostics.ProcessStartInfo"/> should be updated.</param>
-        </member>
-        <member name="M:NAnt.Win32.Tasks.RegAsmTask.ExecuteTask">
-            <summary>
-            Registers or unregisters a single assembly, or a group of assemblies.
-            </summary>
-        </member>
         <member name="P:NAnt.Win32.Tasks.RegAsmTask.AssemblyFile">
             <summary>
             The name of the file to register. This is provided as an alternate 
-            to using the task's <see cref="P:NAnt.Win32.Tasks.RegAsmTask.Assemblies"/>.
+            to using the task's <see cref="P:NAnt.Win32.Tasks.RegAsmTask.Assemblies" />.
             </summary>
         </member>
         <member name="P:NAnt.Win32.Tasks.RegAsmTask.RegistryFile">
@@ -493,6 +481,18 @@
             external tool.
             </remarks>
         </member>
+        <member name="M:NAnt.Win32.Tasks.RegAsmTask.PrepareProcess(System.Diagnostics.Process)">
+            <summary>
+            Updates the <see cref="T:System.Diagnostics.ProcessStartInfo" /> of the specified 
+            <see cref="T:System.Diagnostics.Process"/>.
+            </summary>
+            <param name="process">The <see cref="T:System.Diagnostics.Process" /> of which the <see cref="T:System.Diagnostics.ProcessStartInfo" /> should be updated.</param>
+        </member>
+        <member name="M:NAnt.Win32.Tasks.RegAsmTask.ExecuteTask">
+            <summary>
+            Registers or unregisters a single assembly, or a group of assemblies.
+            </summary>
+        </member>
         <member name="T:NAnt.Win32.Tasks.TlbExpTask">
             <summary>
             Exports a .NET assembly to a type library that can be used from unmanaged 
@@ -511,21 +511,6 @@
                 ]]>
               </code>
             </example>
-        </member>
-        <member name="M:NAnt.Win32.Tasks.TlbExpTask.ExecuteTask">
-            <summary>
-            Exports the type library.
-            </summary>
-        </member>
-        <member name="M:NAnt.Win32.Tasks.TlbExpTask.NeedsCompiling">
-            <summary>
-            Determines whether the assembly needs to be exported to a type 
-            library again.
-            </summary>
-            <returns>
-            <see langword="true" /> if the assembly needs to be exported to a 
-            type library; otherwise, <see langword="false" />.
-            </returns>
         </member>
         <member name="P:NAnt.Win32.Tasks.TlbExpTask.AssemblyFile">
             <summary>
@@ -562,6 +547,21 @@
             <value>
             The command line arguments for the external program.
             </value>
+        </member>
+        <member name="M:NAnt.Win32.Tasks.TlbExpTask.ExecuteTask">
+            <summary>
+            Exports the type library.
+            </summary>
+        </member>
+        <member name="M:NAnt.Win32.Tasks.TlbExpTask.NeedsCompiling">
+            <summary>
+            Determines whether the assembly needs to be exported to a type 
+            library again.
+            </summary>
+            <returns>
+            <see langword="true" /> if the assembly needs to be exported to a 
+            type library; otherwise, <see langword="false" />.
+            </returns>
         </member>
         <member name="T:NAnt.Win32.Tasks.TlbImpTask">
             <summary>
@@ -601,35 +601,6 @@
                 ]]>
               </code>
             </example>
-        </member>
-        <member name="M:NAnt.Win32.Tasks.TlbImpTask.ExecuteTask">
-            <summary>
-            Imports the type library to a .NET assembly.
-            </summary>
-        </member>
-        <member name="M:NAnt.Win32.Tasks.TlbImpTask.ExtractTypeLibPath(System.String)">
-            <summary>
-            Returns the path of the type library, removing the identifier of 
-            the type library from the specified string.
-            </summary>
-            <param name="path">The path from which to extract the path of the type library.</param>
-            <returns>
-            The path of the type library without the type library identifier.
-            </returns>
-            <remarks>
-            An example of a path which includes the identifier of the type 
-            library (in this case &quot;2&quot;) is
-            <c>C:\WINDOWS\system32\msvidctl.dll\2</c>.
-            </remarks>
-        </member>
-        <member name="M:NAnt.Win32.Tasks.TlbImpTask.NeedsCompiling">
-            <summary>
-            Determines whether the type library needs to be imported again.
-            </summary>
-            <returns>
-            <see langword="true" /> if the type library needs to be imported; 
-            otherwise, <see langword="false" />.
-            </returns>
         </member>
         <member name="P:NAnt.Win32.Tasks.TlbImpTask.OutputFile">
             <summary>
@@ -795,6 +766,35 @@
             <value>
             The command line arguments for the external program.
             </value>
+        </member>
+        <member name="M:NAnt.Win32.Tasks.TlbImpTask.ExecuteTask">
+            <summary>
+            Imports the type library to a .NET assembly.
+            </summary>
+        </member>
+        <member name="M:NAnt.Win32.Tasks.TlbImpTask.ExtractTypeLibPath(System.String)">
+            <summary>
+            Returns the path of the type library, removing the identifier of 
+            the type library from the specified string.
+            </summary>
+            <param name="path">The path from which to extract the path of the type library.</param>
+            <returns>
+            The path of the type library without the type library identifier.
+            </returns>
+            <remarks>
+            An example of a path which includes the identifier of the type 
+            library (in this case &quot;2&quot;) is
+            <c>C:\WINDOWS\system32\msvidctl.dll\2</c>.
+            </remarks>
+        </member>
+        <member name="M:NAnt.Win32.Tasks.TlbImpTask.NeedsCompiling">
+            <summary>
+            Determines whether the type library needs to be imported again.
+            </summary>
+            <returns>
+            <see langword="true" /> if the type library needs to be imported; 
+            otherwise, <see langword="false" />.
+            </returns>
         </member>
     </members>
 </doc>

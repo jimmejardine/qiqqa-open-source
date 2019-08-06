@@ -1,5 +1,6 @@
 .vs
 *.csproj.user
+*.pdb
 
 icons/bin/*
 icons/obj/*

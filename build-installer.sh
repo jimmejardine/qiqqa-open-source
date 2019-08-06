@@ -11,6 +11,8 @@ cat <<EOF
 
   1.) Set the Qiqqa.csproj major version (which sets the client version).
   2.) Update ClientVersion.xml Release Notes (and optionally the ObsoleteFromVersion and CompliantFromVersion settings)
+  3.) 'Rebuild All' in MSVC2019, target 'Release' (or Batch Build everything) so that binaries are ready in 
+      the Qiqqa/bin/Release/ directory. 
 
 
 EOF
@@ -36,7 +38,7 @@ if [ "$1" == "-debug" ] ; then
 fi
 
 set -x
-./nant/bin/nant.exe -buildfile:./nant/default.build $QIQQA_CLIENT $QIQQA_DEBUG
+./nant/bin/nant.exe -debug -logfile:NANT.BUILD.log -buildfile:./nant/default.build $QIQQA_CLIENT $QIQQA_DEBUG
 set +x
 
 cd ..
