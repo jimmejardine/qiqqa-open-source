@@ -11,7 +11,7 @@ namespace Qiqqa.Brainstorm.Nodes
 
         static readonly Brush FILL_BRUSH = Brushes.LightBlue;
         static readonly Brush STROKE_BRUSH = Brushes.DarkBlue;
-        static readonly double STROKE_THICKNESS = 1;
+        const double STROKE_THICKNESS = 1;
 
         EllipseNodeContent circle_node_content;
 
