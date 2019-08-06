@@ -11,6 +11,12 @@ namespace Qiqqa.Backups
 {
     class BackingUp
     {
+        // Warning CA1812	'BackingUp' is an internal class that is apparently never instantiated.
+        // If this class is intended to contain only static methods, consider adding a private constructor 
+        // to prevent the compiler from generating a default constructor.
+        private BackingUp()
+        { }
+
         public static void DoBackup()
         {
             string DEFAULT_FILENAME = String.Format("QiqqaBackup.{0}.qiqqa_backup", DateFormatter.asYYYYMMDDHHMMSS(DateTime.Now));
