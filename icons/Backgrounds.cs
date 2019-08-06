@@ -3,10 +3,9 @@ using System.Windows.Media.Imaging;
 
 namespace icons
 {
-    public class Backgrounds
+    public static class Backgrounds
     {
         static readonly string module_name = typeof(Icons).Assembly.GetName().Name;
-
 
         public static readonly string ExceptionDialogBackground = "ExceptionDialogBackground.jpg";
 

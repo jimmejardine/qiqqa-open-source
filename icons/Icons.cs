@@ -3,275 +3,275 @@ using System.Windows.Media.Imaging;
 
 namespace icons
 {
-    public class Icons
+    public static class Icons
     {
         static readonly string MODULE_NAME = typeof(Icons).Assembly.GetName().Name;
 
-        public static string QiqqaLogoSmall = "QiqqaLogoSmall";
-        public static string Qiqqa = "Qiqqa";
-        public static string QiqqaMedal = "QiqqaMedal";
-        public static string QiqqaWhiteBackground = "QiqqaWhiteBackground";
-        public static string QiqqaAndroid = "QiqqaAndroid";
+        public const string QiqqaLogoSmall = "QiqqaLogoSmall";
+        public const string Qiqqa = "Qiqqa";
+        public const string QiqqaMedal = "QiqqaMedal";
+        public const string QiqqaWhiteBackground = "QiqqaWhiteBackground";
+        public const string QiqqaAndroid = "QiqqaAndroid";
 
-        public static string AugmentedButtonDown = "AugmentedButtonDown";
-        public static string ToolbarBackground = "ToolbarBackground";
+        public const string AugmentedButtonDown = "AugmentedButtonDown";
+        public const string ToolbarBackground = "ToolbarBackground";
 
-        public static string Champion = "Champion";
-        public static string Fiftieth = "50th";
-        public static string Plus = "Plus";
-        public static string Minus = "Minus";
-        public static string Yes = "Yes";
-        public static string No = "No";
-        public static string Sort = "Sort";
-        public static string PageCurlTL = "PageCurlTL";
-        public static string PageCurlBR = "PageCurlBR";
+        public const string Champion = "Champion";
+        public const string Fiftieth = "50th";
+        public const string Plus = "Plus";
+        public const string Minus = "Minus";
+        public const string Yes = "Yes";
+        public const string No = "No";
+        public const string Sort = "Sort";
+        public const string PageCurlTL = "PageCurlTL";
+        public const string PageCurlBR = "PageCurlBR";
 
-        public static string Import_BibTeX = "Import_BibTeX";
-        public static string Import_Mendeley = "Import_Mendeley";
-        public static string Import_Zotero = "Import_Zotero";
-        public static string Import_EndNote = "Import_EndNote";
-        public static string Import_JabRef = "Import_JabRef";
+        public const string Import_BibTeX = "Import_BibTeX";
+        public const string Import_Mendeley = "Import_Mendeley";
+        public const string Import_Zotero = "Import_Zotero";
+        public const string Import_EndNote = "Import_EndNote";
+        public const string Import_JabRef = "Import_JabRef";
 
         // http://www.easyicon.net/language.en/iconsearch/iconset:symbolize-icons/1/
-        public static string SpeedRead_Plus = "SpeedRead_Plus";
-        public static string SpeedRead_Minus = "SpeedRead_Minus";
-        public static string SpeedRead_Play = "SpeedRead_Play";
-        public static string SpeedRead_Pause = "SpeedRead_Pause";
-        public static string SpeedRead_Backward = "SpeedRead_Backward";
-        public static string SpeedRead_Stop = "SpeedRead_Stop";
+        public const string SpeedRead_Plus = "SpeedRead_Plus";
+        public const string SpeedRead_Minus = "SpeedRead_Minus";
+        public const string SpeedRead_Play = "SpeedRead_Play";
+        public const string SpeedRead_Pause = "SpeedRead_Pause";
+        public const string SpeedRead_Backward = "SpeedRead_Backward";
+        public const string SpeedRead_Stop = "SpeedRead_Stop";
         
-        public static string WebLibraryRefresh = "WebLibraryRefresh";
-        public static string WebLibrarySyncAll = "WebLibrarySyncAll";
-        public static string WebLibrarySyncAllPDFs = "WebLibrarySyncAllPDFs";
-        public static string WebLibraryManage = "WebLibraryManage";
-        public static string WebLibrary_CoverFlow = "WebLibrary_CoverFlow";
-        public static string WebLibrary_Charts = "WebLibrary_Charts";
-        public static string WebLibrary_ReadOnly = "WebLibrary_ReadOnly";
-        public static string WebLibrary_AutoSync = "WebLibrary_AutoSync";
-        public static string WebLibrary_Grids = "WebLibrary_Grids";
-        public static string WebLibrary_IntranetLibrary = "WebLibrary_IntranetLibrary";
-        public static string WebLibrary_BundleLibrary = "WebLibrary_BundleLibrary";        
-        public static string WebLibrary_WebLibrary = "WebLibrary_WebLibrary";
+        public const string WebLibraryRefresh = "WebLibraryRefresh";
+        public const string WebLibrarySyncAll = "WebLibrarySyncAll";
+        public const string WebLibrarySyncAllPDFs = "WebLibrarySyncAllPDFs";
+        public const string WebLibraryManage = "WebLibraryManage";
+        public const string WebLibrary_CoverFlow = "WebLibrary_CoverFlow";
+        public const string WebLibrary_Charts = "WebLibrary_Charts";
+        public const string WebLibrary_ReadOnly = "WebLibrary_ReadOnly";
+        public const string WebLibrary_AutoSync = "WebLibrary_AutoSync";
+        public const string WebLibrary_Grids = "WebLibrary_Grids";
+        public const string WebLibrary_IntranetLibrary = "WebLibrary_IntranetLibrary";
+        public const string WebLibrary_BundleLibrary = "WebLibrary_BundleLibrary";        
+        public const string WebLibrary_WebLibrary = "WebLibrary_WebLibrary";
         
-        public static string ModulePDFViewer = "ModulePDFViewer";
-        public static string ModuleDocumentLibrary = "ModuleDocumentLibrary";
-        public static string ModuleWebBrowser = "ModuleWebBrowser";
-        public static string ModuleBrainstorm = "ModuleBrainstorm";
-        public static string ModuleConfiguration = "ModuleConfiguration";
-        public static string ModuleHelp = "ModuleHelp";
-        public static string ModulePDFAnnotationReport = "ModulePDFAnnotationReport";        
-        public static string ModuleStartPage = "ModuleStartPage";        
-        public static string ModuleInCite = "ModuleInCite";
-        public static string ModuleExpedition = "ModuleExpedition";
-        public static string ModuleLocalisation = "ModuleLocalisation";
+        public const string ModulePDFViewer = "ModulePDFViewer";
+        public const string ModuleDocumentLibrary = "ModuleDocumentLibrary";
+        public const string ModuleWebBrowser = "ModuleWebBrowser";
+        public const string ModuleBrainstorm = "ModuleBrainstorm";
+        public const string ModuleConfiguration = "ModuleConfiguration";
+        public const string ModuleHelp = "ModuleHelp";
+        public const string ModulePDFAnnotationReport = "ModulePDFAnnotationReport";        
+        public const string ModuleStartPage = "ModuleStartPage";        
+        public const string ModuleInCite = "ModuleInCite";
+        public const string ModuleExpedition = "ModuleExpedition";
+        public const string ModuleLocalisation = "ModuleLocalisation";
 
-        public static string About = "About";
-        public static string Help = "Help";
-        public static string Manual = "Manual";
-        public static string Backup = "Backup";
-        public static string Logout = "Logout";
-        public static string Login = "Login";
-        public static string LoginRegister = "LoginRegister";
-        public static string LoginGuest = "LoginGuest";
-        public static string Upgrade = "Upgrade";
-        public static string GarbageCollect = "GarbageCollect";
-        public static string ZipLogs = "ZipLogs";
+        public const string About = "About";
+        public const string Help = "Help";
+        public const string Manual = "Manual";
+        public const string Backup = "Backup";
+        public const string Logout = "Logout";
+        public const string Login = "Login";
+        public const string LoginRegister = "LoginRegister";
+        public const string LoginGuest = "LoginGuest";
+        public const string Upgrade = "Upgrade";
+        public const string GarbageCollect = "GarbageCollect";
+        public const string ZipLogs = "ZipLogs";
 
-        public static string AdChampion = "AdChampion";
-        public static string AdDatacopiaQiqqa = "AdDatacopiaQiqqa";
-        public static string AdOmnipatentsQiqqa = "AdOmnipatentsQiqqa";
-        public static string Datacopia = "Datacopia";
-        public static string SocialMedia = "SocialMedia";
-        public static string QiqqaWeb = "QiqqaWeb";
+        public const string AdChampion = "AdChampion";
+        public const string AdDatacopiaQiqqa = "AdDatacopiaQiqqa";
+        public const string AdOmnipatentsQiqqa = "AdOmnipatentsQiqqa";
+        public const string Datacopia = "Datacopia";
+        public const string SocialMedia = "SocialMedia";
+        public const string QiqqaWeb = "QiqqaWeb";
 
-        public static string New = "New";
-        public static string Open = "Open";        
-        public static string Save = "Save";
-        public static string SaveAs = "SaveAs";
-        public static string Delete = "Delete";
-        public static string Switch = "Switch";
-        public static string Explore = "Explore";
+        public const string New = "New";
+        public const string Open = "Open";        
+        public const string Save = "Save";
+        public const string SaveAs = "SaveAs";
+        public const string Delete = "Delete";
+        public const string Switch = "Switch";
+        public const string Explore = "Explore";
         
-        public static string Page1Up = "Page1Up";
-        public static string Page2Up = "Page2Up";
-        public static string PageNUp = "PageNUp";
-        public static string PageWholeUp = "PageWholeUp";
-        public static string PageRotate = "PageRotate";
+        public const string Page1Up = "Page1Up";
+        public const string Page2Up = "Page2Up";
+        public const string PageNUp = "PageNUp";
+        public const string PageWholeUp = "PageWholeUp";
+        public const string PageRotate = "PageRotate";
 
-        public static string DocumentFullScreen = "DocumentFullScreen";
-        public static string ZoomIn = "ZoomIn";
-        public static string ZoomOut = "ZoomOut";
+        public const string DocumentFullScreen = "DocumentFullScreen";
+        public const string ZoomIn = "ZoomIn";
+        public const string ZoomOut = "ZoomOut";
 
-        public static string Next = "Next";
-        public static string Previous = "Previous";
+        public const string Next = "Next";
+        public const string Previous = "Previous";
 
-        public static string Cancel = "Cancel";
-        public static string Back = "Back";
-        public static string Forward = "Forward";
-        public static string Refresh = "Refresh";
+        public const string Cancel = "Cancel";
+        public const string Back = "Back";
+        public const string Forward = "Forward";
+        public const string Refresh = "Refresh";
 
-        public static string Share = "Share";
-        public static string Find = "Find";
-        public static string Search = "Search";
-        public static string JumpToSection = "JumpToSection";        
-        public static string Hand = "Hand";
-        public static string TextSelect = "TextSelect";
-        public static string TextSentenceSelect = "TextSentenceSelect";
-        public static string Annotation = "Annotation";
-        public static string Highlighter = "Highlighter";
-        public static string Printer = "Printer";
-        public static string Metadata = "Metadata";
-        public static string PictureGrab = "PictureGrab";
-        public static string ReadOutLoud = "ReadOutLoud";
-        public static string SpeedRead = "SpeedRead";
-        public static string ExportToText = "ExportToText";        
-        public static string OCRNotComplete = "OCRNotComplete";
+        public const string Share = "Share";
+        public const string Find = "Find";
+        public const string Search = "Search";
+        public const string JumpToSection = "JumpToSection";        
+        public const string Hand = "Hand";
+        public const string TextSelect = "TextSelect";
+        public const string TextSentenceSelect = "TextSentenceSelect";
+        public const string Annotation = "Annotation";
+        public const string Highlighter = "Highlighter";
+        public const string Printer = "Printer";
+        public const string Metadata = "Metadata";
+        public const string PictureGrab = "PictureGrab";
+        public const string ReadOutLoud = "ReadOutLoud";
+        public const string SpeedRead = "SpeedRead";
+        public const string ExportToText = "ExportToText";        
+        public const string OCRNotComplete = "OCRNotComplete";
         
-        public static string DesktopRefresh = "DesktopRefresh";
-        public static string DesktopCommit = "DesktopCommit";
-        public static string Clear = "Clear";
-        public static string Camera = "Camera";
-        public static string Ink = "Ink";
+        public const string DesktopRefresh = "DesktopRefresh";
+        public const string DesktopCommit = "DesktopCommit";
+        public const string Clear = "Clear";
+        public const string Camera = "Camera";
+        public const string Ink = "Ink";
 
 
-        public static string HighlightPointErase = "HighlightPointErase";
-        public static string InkDraw = "InkDraw";
-        public static string InkPointErase = "InkPointErase";
-        public static string InkStrokeErase = "InkStrokeErase";
-        public static string InkSelect = "InkSelect";
+        public const string HighlightPointErase = "HighlightPointErase";
+        public const string InkDraw = "InkDraw";
+        public const string InkPointErase = "InkPointErase";
+        public const string InkStrokeErase = "InkStrokeErase";
+        public const string InkSelect = "InkSelect";
 
-        public static string BrainstormAddText = "BrainstormAddText";
-        public static string BrainstormAddConnector = "BrainstormAddConnector";        
-        public static string BrainstormAddImage = "BrainstormAddImage";
-        public static string BrainstormDocument = "BrainstormDocument";
-        public static string BrainstormLibrary = "BrainstormLibrary";
-        public static string BrainstormPDFAnnotation = "BrainstormPDFAnnotation";
-        public static string BrainstormPDFAuthor = "BrainstormPDFAuthor";
-        public static string BrainstormPDFTag = "BrainstormPDFTag";
-        public static string BrainstormPDFAutoTag = "BrainstormPDFAutoTag";
-        public static string BrainstormWebsite = "BrainstormWebsite";
-        public static string BrainstormAttractorTheme = "BrainstormAttractorTheme";
-        public static string BrainstormAutoArrange = "BrainstormAutoArrange";
+        public const string BrainstormAddText = "BrainstormAddText";
+        public const string BrainstormAddConnector = "BrainstormAddConnector";        
+        public const string BrainstormAddImage = "BrainstormAddImage";
+        public const string BrainstormDocument = "BrainstormDocument";
+        public const string BrainstormLibrary = "BrainstormLibrary";
+        public const string BrainstormPDFAnnotation = "BrainstormPDFAnnotation";
+        public const string BrainstormPDFAuthor = "BrainstormPDFAuthor";
+        public const string BrainstormPDFTag = "BrainstormPDFTag";
+        public const string BrainstormPDFAutoTag = "BrainstormPDFAutoTag";
+        public const string BrainstormWebsite = "BrainstormWebsite";
+        public const string BrainstormAttractorTheme = "BrainstormAttractorTheme";
+        public const string BrainstormAutoArrange = "BrainstormAutoArrange";
 
-        public static string LibraryDoOCR = "LibraryDoOCR";
-        public static string LibraryTextSearch = "LibraryTextSearch";
-        public static string LibraryAnnotationsReport = "LibraryAnnotationsReport";
-        public static string LibraryGenerateReferences = "LibraryGenerateReferences";
-        public static string LibraryFindDuplicates = "LibraryFindDuplicates";
-        public static string LibraryPivot = "LibraryPivot";
+        public const string LibraryDoOCR = "LibraryDoOCR";
+        public const string LibraryTextSearch = "LibraryTextSearch";
+        public const string LibraryAnnotationsReport = "LibraryAnnotationsReport";
+        public const string LibraryGenerateReferences = "LibraryGenerateReferences";
+        public const string LibraryFindDuplicates = "LibraryFindDuplicates";
+        public const string LibraryPivot = "LibraryPivot";
 
-        public static string LibraryCatalogDetails = "LibraryCatalogDetails";
-        public static string LibraryCatalogDrag = "LibraryCatalogDrag";
-        public static string LibraryCatalogOpen = "LibraryCatalogOpen";
-        public static string LibraryCatalogOpenVanillaReference = "LibraryCatalogOpenVanillaReference";
-        public static string LibraryCatalogPreview = "LibraryCatalogPreview";
-        public static string LibraryAutoTagsBlackWhiteLists = "LibraryAutoTagsBlackWhiteLists";
+        public const string LibraryCatalogDetails = "LibraryCatalogDetails";
+        public const string LibraryCatalogDrag = "LibraryCatalogDrag";
+        public const string LibraryCatalogOpen = "LibraryCatalogOpen";
+        public const string LibraryCatalogOpenVanillaReference = "LibraryCatalogOpenVanillaReference";
+        public const string LibraryCatalogPreview = "LibraryCatalogPreview";
+        public const string LibraryAutoTagsBlackWhiteLists = "LibraryAutoTagsBlackWhiteLists";
 
-        public static string LibraryEmptyAddFiles = "LibraryEmptyAddFiles";        
+        public const string LibraryEmptyAddFiles = "LibraryEmptyAddFiles";        
 
-        public static string LibraryTypeGuest = "LibraryTypeGuest";
-        public static string LibraryTypeIntranet = "LibraryTypeIntranet";
-        public static string LibraryTypeWeb = "LibraryTypeWeb";
-        public static string LibraryTypeBundle = "LibraryTypeBundle";
+        public const string LibraryTypeGuest = "LibraryTypeGuest";
+        public const string LibraryTypeIntranet = "LibraryTypeIntranet";
+        public const string LibraryTypeWeb = "LibraryTypeWeb";
+        public const string LibraryTypeBundle = "LibraryTypeBundle";
 
-        public static string BibTexSniffer = "BibTexSniffer";
-        public static string LibraryExport = "LibraryExport";
-        public static string ExportBibTex = "ExportBibTex";
-        public static string ExportWord2007 = "ExportWord2007";
-        public static string ExportCitationMatrix = "ExportCitationMatrix";
-        public static string BuildBundleLibrary = "BuildBundleLibrary";
+        public const string BibTexSniffer = "BibTexSniffer";
+        public const string LibraryExport = "LibraryExport";
+        public const string ExportBibTex = "ExportBibTex";
+        public const string ExportWord2007 = "ExportWord2007";
+        public const string ExportCitationMatrix = "ExportCitationMatrix";
+        public const string BuildBundleLibrary = "BuildBundleLibrary";
 
-        public static string SyncWithCloud = "SyncWithCloud";
-        public static string SyncPDFsWithCloud = "SyncPDFsWithCloud";
-        public static string SyncDetails = "SyncDetails";
-        public static string SyncDialogClose = "SyncDialogClose";
+        public const string SyncWithCloud = "SyncWithCloud";
+        public const string SyncPDFsWithCloud = "SyncPDFsWithCloud";
+        public const string SyncDetails = "SyncDetails";
+        public const string SyncDialogClose = "SyncDialogClose";
 
-        public static string WebSearch = "WebSearch";
-        public static string WebGrabWebPage = "WebGrabWebPage";
-        public static string WebGrabPDFs = "WebGrabPDFs";
-        public static string WebAddToLibrary = "WebAddToLibrary";
-        public static string WebDragToLibrary = "WebDragToLibrary";
-        public static string WebPreferences = "WebPreferences";
-        public static string WebEZProxy = "WebEZProxy";
+        public const string WebSearch = "WebSearch";
+        public const string WebGrabWebPage = "WebGrabWebPage";
+        public const string WebGrabPDFs = "WebGrabPDFs";
+        public const string WebAddToLibrary = "WebAddToLibrary";
+        public const string WebDragToLibrary = "WebDragToLibrary";
+        public const string WebPreferences = "WebPreferences";
+        public const string WebEZProxy = "WebEZProxy";
 
-        public static string DocumentsAddToLibrary = "DocumentsAddToLibrary";
-        public static string DocumentsAddToLibraryFromFolder = "DocumentsAddToLibraryFromFolder";
-        public static string DocumentsWatchFolder = "DocumentsWatchFolder";
-        public static string DocumentsAddToLibraryFromLibrary = "DocumentsAddToLibraryFromLibrary";        
-        public static string DocumentsImportFromThirdParty = "DocumentsImportFromThirdParty";
-        public static string DocumentsInvertColours = "DocumentsInvertColours";
-        public static string DocumentSave = "DocumentSave";
-        public static string DocumentMisc = "DocumentMisc";        
+        public const string DocumentsAddToLibrary = "DocumentsAddToLibrary";
+        public const string DocumentsAddToLibraryFromFolder = "DocumentsAddToLibraryFromFolder";
+        public const string DocumentsWatchFolder = "DocumentsWatchFolder";
+        public const string DocumentsAddToLibraryFromLibrary = "DocumentsAddToLibraryFromLibrary";        
+        public const string DocumentsImportFromThirdParty = "DocumentsImportFromThirdParty";
+        public const string DocumentsInvertColours = "DocumentsInvertColours";
+        public const string DocumentSave = "DocumentSave";
+        public const string DocumentMisc = "DocumentMisc";        
 
-        public static string ExceptionFeedbackSend = "ExceptionFeedbackSend";
-        public static string ExceptionFeedbackDecline = "ExceptionFeedbackDecline";
+        public const string ExceptionFeedbackSend = "ExceptionFeedbackSend";
+        public const string ExceptionFeedbackDecline = "ExceptionFeedbackDecline";
 
-        public static string AnnotationReportExportToPDF = "AnnotationReportExportToPDF";
-        public static string AnnotationReportExportToWord = "AnnotationReportExportToWord";
-        public static string AnnotationReportImageWaiting = "AnnotationReportImageWaiting";
-        public static string AnnotationReportImageError = "AnnotationReportImageError";
+        public const string AnnotationReportExportToPDF = "AnnotationReportExportToPDF";
+        public const string AnnotationReportExportToWord = "AnnotationReportExportToWord";
+        public const string AnnotationReportImageWaiting = "AnnotationReportImageWaiting";
+        public const string AnnotationReportImageError = "AnnotationReportImageError";
 
-        public static string PivotExportToExcel = "PivotExportToExcel";
+        public const string PivotExportToExcel = "PivotExportToExcel";
 
-        public static string DualTabbed_Minimize = "DualTabbed_Minimize";
-        public static string DualTabbed_Maximize = "DualTabbed_Maximize";
-        public static string DualTabbed_Close = "DualTabbed_Close";
-        public static string DualTabbed_CloseGlow = "DualTabbed_CloseGlow";        
-        public static string DualTabbed_TopLeft = "DualTabbed_TopLeft";
-        public static string DualTabbed_TopRight = "DualTabbed_TopRight";
-        public static string DualTabbed_Bottom = "DualTabbed_Bottom";
-        public static string DualTabbed_Floating = "DualTabbed_Floating";
-        public static string DualTabbed_FullScreen = "DualTabbed_FullScreen";
-        public static string DualTabbed_ChangeLocation = "DualTabbed_ChangeLocation";
+        public const string DualTabbed_Minimize = "DualTabbed_Minimize";
+        public const string DualTabbed_Maximize = "DualTabbed_Maximize";
+        public const string DualTabbed_Close = "DualTabbed_Close";
+        public const string DualTabbed_CloseGlow = "DualTabbed_CloseGlow";        
+        public const string DualTabbed_TopLeft = "DualTabbed_TopLeft";
+        public const string DualTabbed_TopRight = "DualTabbed_TopRight";
+        public const string DualTabbed_Bottom = "DualTabbed_Bottom";
+        public const string DualTabbed_Floating = "DualTabbed_Floating";
+        public const string DualTabbed_FullScreen = "DualTabbed_FullScreen";
+        public const string DualTabbed_ChangeLocation = "DualTabbed_ChangeLocation";
 
-        public static string GoogleBibTexNext = "GoogleBibTexNext";
-        public static string GoogleBibTexSkip = "GoogleBibTexSkip";
-        public static string GoogleBibTexSkipForever = "GoogleBibTexSkipForever";        
-        public static string BibTeXSnifferWizard = "BibTeXSnifferWizard";
-        public static string PubMedUseThis = "PubMedUseThis";
-        public static string GoogleBibTexUseThis = "GoogleBibTexUseThis";
-        public static string GoogleBibTexCancel = "GoogleBibTexCancel";
+        public const string GoogleBibTexNext = "GoogleBibTexNext";
+        public const string GoogleBibTexSkip = "GoogleBibTexSkip";
+        public const string GoogleBibTexSkipForever = "GoogleBibTexSkipForever";        
+        public const string BibTeXSnifferWizard = "BibTeXSnifferWizard";
+        public const string PubMedUseThis = "PubMedUseThis";
+        public const string GoogleBibTexUseThis = "GoogleBibTexUseThis";
+        public const string GoogleBibTexCancel = "GoogleBibTexCancel";
 
-        public static string DocumentMetadataComments = "DocumentMetadataComments";
-        public static string BibTeXParseError = "BibTeXParseError";       
+        public const string DocumentMetadataComments = "DocumentMetadataComments";
+        public const string BibTeXParseError = "BibTeXParseError";       
 
-        public static string SecureIndicator = "SecureIndicator";       
+        public const string SecureIndicator = "SecureIndicator";       
 
-        public static string DocumentTypePdf = "DocumentTypePdf";
+        public const string DocumentTypePdf = "DocumentTypePdf";
 
-        public static string AdvertClose = "AdvertClose";
-        public static string ThumbsUp = "ThumbsUp";
-        public static string ThumbsDown = "ThumbsDown";
-        public static string Tweet = "Tweet";
+        public const string AdvertClose = "AdvertClose";
+        public const string ThumbsUp = "ThumbsUp";
+        public const string ThumbsDown = "ThumbsDown";
+        public const string Tweet = "Tweet";
 
-        public static string LEDCircleBlue = "led_circle_blue";
+        public const string LEDCircleBlue = "led_circle_blue";
 
-        public static string Premium = "Premium";
-        public static string PremiumInactive = "PremiumInactive";
-        public static string PremiumPlus = "PremiumPlus";
-        public static string PremiumPlusInactive = "PremiumPlusInactive";
-        public static string Favourite = "Favourite";
+        public const string Premium = "Premium";
+        public const string PremiumInactive = "PremiumInactive";
+        public const string PremiumPlus = "PremiumPlus";
+        public const string PremiumPlusInactive = "PremiumPlusInactive";
+        public const string Favourite = "Favourite";
 
-        public static string Webcast = "Webcast";
-        public static string Xmas = "Xmas";
-        public static string Xmas3 = "Xmas3";
-        public static string TopUp = "TopUp";
-        public static string ViewOnline = "ViewOnline";        
+        public const string Webcast = "Webcast";
+        public const string Xmas = "Xmas";
+        public const string Xmas3 = "Xmas3";
+        public const string TopUp = "TopUp";
+        public const string ViewOnline = "ViewOnline";        
 
-        public static string InCiteNewCitation = "InCiteNewCitation";
-        public static string InCiteAppendCitation = "InCiteAppendCitation";
-        public static string InCiteAddBibliography = "InCiteAddBibliography";
-        public static string InCiteAddCSLStats = "InCiteAddCSLStats";
-        public static string InCiteRefresh = "InCiteRefresh";
-        public static string InCiteCitationSnippet = "InCiteCitationSnippet";        
-        public static string InCiteCSLStandard = "InCiteCSLStandard";
-        public static string InCiteCSLDownload = "InCiteCSLDownload";
-        public static string InCitePause= "InCitePause";
-        public static string InCiteConnection = "InCiteConnection";
-        public static string InCiteEditCSL = "InCiteEditCSL";
-        public static string InCiteFindUsedReferences = "InCiteFindUsedReferences";
-        public static string InCiteToolbarOpenPopup = "InCiteToolbarOpenPopup";
-        public static string InCiteAbbreviations = "InCiteAbbreviations";
+        public const string InCiteNewCitation = "InCiteNewCitation";
+        public const string InCiteAppendCitation = "InCiteAppendCitation";
+        public const string InCiteAddBibliography = "InCiteAddBibliography";
+        public const string InCiteAddCSLStats = "InCiteAddCSLStats";
+        public const string InCiteRefresh = "InCiteRefresh";
+        public const string InCiteCitationSnippet = "InCiteCitationSnippet";        
+        public const string InCiteCSLStandard = "InCiteCSLStandard";
+        public const string InCiteCSLDownload = "InCiteCSLDownload";
+        public const string InCitePause= "InCitePause";
+        public const string InCiteConnection = "InCiteConnection";
+        public const string InCiteEditCSL = "InCiteEditCSL";
+        public const string InCiteFindUsedReferences = "InCiteFindUsedReferences";
+        public const string InCiteToolbarOpenPopup = "InCiteToolbarOpenPopup";
+        public const string InCiteAbbreviations = "InCiteAbbreviations";
 
         public static readonly string NotificationBarClose = "NotificationBarClose";
 
@@ -292,13 +292,13 @@ namespace icons
 
         #region LexLens only
 
-        public static string lexlens_logo = "lexlens_logo";
-        public static string lexlens_back = "lexlens_back";
-        public static string lexlens_dock = "lexlens_dock";
-        public static string lexlens_eye = "lexlens_eye";
-        public static string lexlens_search = "lexlens_search";
-        public static string lexlens_search_down = "lexlens_search_down";
-        public static string lexlens_search_up = "lexlens_search_up";
+        public const string lexlens_logo = "lexlens_logo";
+        public const string lexlens_back = "lexlens_back";
+        public const string lexlens_dock = "lexlens_dock";
+        public const string lexlens_eye = "lexlens_eye";
+        public const string lexlens_search = "lexlens_search";
+        public const string lexlens_search_down = "lexlens_search_down";
+        public const string lexlens_search_up = "lexlens_search_up";
 
         #endregion
 
