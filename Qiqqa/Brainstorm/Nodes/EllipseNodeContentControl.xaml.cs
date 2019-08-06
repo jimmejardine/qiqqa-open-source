@@ -15,19 +15,18 @@ namespace Qiqqa.Brainstorm.Nodes
 
         EllipseNodeContent circle_node_content;
 
-        public EllipseNodeContentControl(NodeControl node_control, EllipseNodeContent circle_node_content)
+        public EllipseNodeContentControl(NodeControl node_control, EllipseNodeContent circle_node_content_)
         {
             InitializeComponent();
 
             Focusable = true;
 
-            this.circle_node_content = circle_node_content;
-            this.ToolTip = circle_node_content.text;
+            this.circle_node_content = circle_node_content_;
+            this.ToolTip = circle_node_content_.text;
 
             ObjEllipse.Fill = FILL_BRUSH;
             ObjEllipse.Stroke = STROKE_BRUSH;
             ObjEllipse.StrokeThickness = STROKE_THICKNESS;
-
         }
     }
 }
