@@ -94,8 +94,6 @@ namespace Qiqqa.AnnotationsReportBuilding
 
         internal static AnnotationReport BuildReport(Library library, List<PDFDocument> pdf_documents, AnnotationReportOptionsWindow.AnnotationReportOptions annotation_report_options)
         {
-            char NBSPACE = System.Convert.ToChar(160);
-
             AnnotationReport annotation_report = new AnnotationReport();
             StandardFlowDocument flow_document = annotation_report.flow_document;
             
