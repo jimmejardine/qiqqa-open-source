@@ -37,7 +37,7 @@ namespace QiqqaOCR
             // Check that we were given the right number of parameters
             if (args.Length < 6)
             {
-                throw new CmdLineException("Not enough command line arguments");
+                throw new Exception("Not enough command line arguments");
             }
 
             // Get the parameters

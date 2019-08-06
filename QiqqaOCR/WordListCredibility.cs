@@ -8,7 +8,7 @@ namespace QiqqaOCR
     {
         public static WordListCredibility Instance = new WordListCredibility();
 
-        static const int REASONABLE_WORD_LIST_LENGTH = 10;
+        const int REASONABLE_WORD_LIST_LENGTH = 10;
 
         HashSet<string> COMMON_WORDS;
 
