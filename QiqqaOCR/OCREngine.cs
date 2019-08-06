@@ -164,9 +164,11 @@ namespace QiqqaOCR
             Logging.Info("Startup directory is {0}", Environment.CurrentDirectory);
             Logging.Info("Language is '{0}'", language);
 
+            Tesseract ocr = null;
+
             try
             { 
-                Tesseract ocr = new Tesseract();
+                ocr = new Tesseract();
                 ocr.Init(null, language, false);
 
                 Logging.Info("+Doing OCR");
@@ -247,6 +249,8 @@ namespace QiqqaOCR
                 // Warning CA2000  call System.IDisposable.Dispose on object 'new MemoryStream(renderer.GetPageByDPIAsImage(page_number, 200F))' 
                 // before all references to it are out of scope.
                 bitmap.Dispose();
+                // Warning CA2000  call System.IDisposable.Dispose on object 'ocr' before all references to it are out of scope.
+                ocr?.Dispose();
             }
         }
 
