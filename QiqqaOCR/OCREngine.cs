@@ -26,6 +26,12 @@ namespace QiqqaOCR
         static bool has_exited_ocr = false;
         static Exception exception_ocr = null;
 
+        // Warning CA1812	'OCREngine' is an internal class that is apparently never instantiated.
+        // If this class is intended to contain only static methods, consider adding a private constructor 
+        // to prevent the compiler from generating a default constructor.
+        private OCREngine()
+        { }
+
         internal static void MainEntry(string[] args, bool no_kill)
         {
             // Check that we were given the right number of parameters
