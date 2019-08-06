@@ -118,27 +118,37 @@ namespace Qiqqa.AnnotationsReportBuilding
 
         void ButtonToPDF_Click(object sender, RoutedEventArgs e)
         {
-            PdfDocument doc = new PdfDocument();
-
-            PdfPage page = doc.Pages.Add();            
-            SizeF bounds = page.GetClientSize();
-
-            string filename_rtf = SaveToRTF();
-            string text = File.ReadAllText(filename_rtf);
-
-            PdfMetafile metafile = (PdfMetafile)PdfImage.FromRtf(text, bounds.Width, PdfImageType.Metafile);
-            PdfMetafileLayoutFormat format = new PdfMetafileLayoutFormat();
-
-            // Allow the text to flow multiple pages without any breaks.
-            format.SplitTextLines = true;
-            format.SplitImages = true;
-
-            // Draw the image.
-            metafile.Draw(page, 0, 0, format);
-
+            PdfDocument doc = null;
             string filename_pdf = TempFile.GenerateTempFilename("pdf");
+                                  
+            try
+            {
+                doc = new PdfDocument();
 
-            doc.Save(filename_pdf);
+                PdfPage page = doc.Pages.Add();
+                SizeF bounds = page.GetClientSize();
+
+                string filename_rtf = SaveToRTF();
+                string text = File.ReadAllText(filename_rtf);
+
+                PdfMetafile metafile = (PdfMetafile)PdfImage.FromRtf(text, bounds.Width, PdfImageType.Metafile);
+                PdfMetafileLayoutFormat format = new PdfMetafileLayoutFormat();
+
+                // Allow the text to flow multiple pages without any breaks.
+                format.SplitTextLines = true;
+                format.SplitImages = true;
+
+                // Draw the image.
+                metafile.Draw(page, 0, 0, format);
+
+                doc.Save(filename_pdf);
+            }
+            finally
+            {
+                // Warning CA2000  call System.IDisposable.Dispose on object 'doc' before all references to it are out of scope.
+                doc?.Dispose();
+            }
+
             Process.Start(filename_pdf);
         }
 
