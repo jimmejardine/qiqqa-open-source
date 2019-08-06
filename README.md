@@ -27,11 +27,31 @@ As above, but instead you'll need to obtain and install Syncfusion Essential Stu
 
 See also Qiqqa bug reports:
 
-- #9
-- #10
-- #11
-- #12
-- #13
-- #14
+- [#9](https://github.com/jimmejardine/qiqqa-open-source/issues/9)
+- [#10](https://github.com/jimmejardine/qiqqa-open-source/issues/10)
+- [#11](https://github.com/jimmejardine/qiqqa-open-source/issues/11)
+- [#12](https://github.com/jimmejardine/qiqqa-open-source/issues/12)
+- [#13](https://github.com/jimmejardine/qiqqa-open-source/issues/13)
+- [#14](https://github.com/jimmejardine/qiqqa-open-source/issues/14)
 
 
+
+## Fixes & Additions to Qiqqa
+
+- [#10](https://github.com/jimmejardine/qiqqa-open-source/issues/10)
+- [#11](https://github.com/jimmejardine/qiqqa-open-source/issues/11)
+- [#13](https://github.com/jimmejardine/qiqqa-open-source/issues/13)
+- [#14](https://github.com/jimmejardine/qiqqa-open-source/issues/14)
+- [#16](https://github.com/jimmejardine/qiqqa-open-source/issues/16)
+- [#17](https://github.com/jimmejardine/qiqqa-open-source/issues/17)
+- [#19](https://github.com/jimmejardine/qiqqa-open-source/issues/19)
+- [#20](https://github.com/jimmejardine/qiqqa-open-source/issues/20)
+
+
+
+## Work In Progress 
+### (issues which haven't yet been tackled completely to my satisfaction)
+
+- [#8](https://github.com/jimmejardine/qiqqa-open-source/issues/8)
+- [#10](https://github.com/jimmejardine/qiqqa-open-source/issues/10)
+- [#18](https://github.com/jimmejardine/qiqqa-open-source/issues/18)
