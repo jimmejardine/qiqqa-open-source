@@ -32,24 +32,34 @@ namespace Utilities
 
         public static void Info(string msg)
         {
+            msg = String.Format("[{0}] {1}", GC.GetTotalMemory(false), msg);
             log.Info(msg);
         }
 
         public static string Info(string msg, params object[] args)
         {
             string message = String.Format(msg, args);
+            message = String.Format("[{0}] {1}", GC.GetTotalMemory(false), message);
             log.Info(message);
             return message;
         }
 
         public static string Warn(string msg, params object[] args)
         {
-            return Warn(true, msg, args);
+            string message = String.Format(msg, args);
+            message = String.Format("[{0}] {1}", GC.GetTotalMemory(false), message);
+            log.Warn(message);
+            return message;
         }
 
-        public static string Warn(bool show_stack, string msg, params object[] args)
+        public static string Warn(Exception ex, string msg, params object[] args)
         {
-            string message = String.Format(msg, args);
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat(msg, args);
+            sb.AppendLine();
+            sb.Append(ex.ToString());
+            string message = sb.ToString();
+            message = String.Format("[{0}] {1}", GC.GetTotalMemory(false), message);
             log.Warn(message);
             return message;
         }
@@ -57,33 +67,15 @@ namespace Utilities
         public static string Error(string msg, params object[] args)
         {
             string message = String.Format(msg, args);
+            message = String.Format("[{0}] {1}", GC.GetTotalMemory(false), message);
             log.Error(message);
-            return message;
-        }
-
-        public static string Warn(Exception ex, string msg, params object[] args)
-        {
-            return Warn(true, ex, msg, args);
-        }
-        
-        public static string Warn(bool show_stack, Exception ex, string msg, params object[] args)
-        {            
-            StringBuilder sb = new StringBuilder();
-            sb.AppendFormat(msg, args);
-            if (show_stack)
-            {
-                sb.AppendLine();
-                sb.Append(ex.ToString());
-            }
-
-            string message = sb.ToString();
-            log.Warn(message);
             return message;
         }
 
         public static string Error(Exception ex)
         {
             string message = ex.ToString();
+            message = String.Format("[{0}] {1}", GC.GetTotalMemory(false), message);
             log.Error(message);
             return message;
         }
@@ -95,8 +87,8 @@ namespace Utilities
             sb.AppendLine();
             sb.AppendLine();
             sb.Append(ex.ToString());
-
             string message = sb.ToString();
+            message = String.Format("[{0}] {1}", GC.GetTotalMemory(false), message);
             log.Error(message);
             return message;
         }
