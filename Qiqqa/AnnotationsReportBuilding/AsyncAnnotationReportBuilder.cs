@@ -747,9 +747,6 @@ namespace Qiqqa.AnnotationsReportBuilding
             AnnotationReportOptionsWindow arow = new AnnotationReportOptionsWindow();
             arow.ShowTagOptions(library, pdf_documents, OnShowTagOptionsComplete);
         }
-#endif
-
-        #endregion
 
         private static void OnShowTagOptionsComplete(Library library, List<PDFDocument> pdf_documents, AnnotationReportOptionsWindow.AnnotationReportOptions annotation_report_options)
         {
@@ -759,5 +756,9 @@ namespace Qiqqa.AnnotationsReportBuilding
             ControlHostingWindow window = new ControlHostingWindow("Annotations", viewer);
             window.Show();
         }
+#endif
+
+        #endregion
+
     }
 }
