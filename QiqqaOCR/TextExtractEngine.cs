@@ -24,6 +24,12 @@ namespace QiqqaOCR
         static bool has_exited_text_extract = false;
         static Exception exception_text_extract = null;
 
+        // Warning CA1812	'TextExtractEngine' is an internal class that is apparently never instantiated.
+        // If this class is intended to contain only static methods, consider adding a private constructor 
+        // to prevent the compiler from generating a default constructor.
+        private TextExtractEngine()
+        { }
+
         internal static void MainEntry(string[] args, bool no_kill)
         {
             // Check that we were given the right number of parameters
