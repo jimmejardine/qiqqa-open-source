@@ -2,9 +2,11 @@
 <RuleSet Name="Copy of Microsoft All Rules" Description="This rule set contains all rules. Running this rule set may result in a large number of warnings being reported. Use this rule set to get a comprehensive picture of all issues in your code. This can help you decide which of the more focused rule sets are most appropriate to run for your projects." ToolsVersion="16.0">
   <IncludeAll Action="Warning" />
   <Rules AnalyzerId="Microsoft.Analyzers.ManagedCodeAnalysis" RuleNamespace="Microsoft.Rules.Managed">
+    <Rule Id="CA1024" Action="None" />
     <Rule Id="CA1031" Action="None" />
     <Rule Id="CA1034" Action="None" />
     <Rule Id="CA1051" Action="None" />
+    <Rule Id="CA1062" Action="None" />
     <Rule Id="CA1303" Action="None" />
     <Rule Id="CA1304" Action="None" />
     <Rule Id="CA1305" Action="None" />
