@@ -120,7 +120,11 @@ namespace QiqqaOCR
             return common_words_present.Count >= COMMON_WORD_THRESHOLD;
         }
 
-        private bool HasSufficientRepeatedWords(WordList word_list)
+        // Warning CA1822  The 'this' parameter(or 'Me' in Visual Basic) of 'WordListCredibility.HasSufficientRepeatedWords(WordList)' 
+        // is never used.
+        // Mark the member as static (or Shared in Visual Basic) or use 'this'/'Me' in the method body or at least one property accessor, 
+        // if appropriate.
+        private static bool HasSufficientRepeatedWords(WordList word_list)
         {
             HashSet<string> viable_words = new HashSet<string>();
             
