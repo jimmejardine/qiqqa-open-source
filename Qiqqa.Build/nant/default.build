@@ -75,10 +75,11 @@
         </msbuild>
 -->
         <!-- Figure out what the version number is from Qiqqa.exe that we have just built -->
-<!--
         <property name="version.client" value="${version::get-major(assemblyname::get-version(assemblyname::get-assembly-name(file.qiqqa.exe)))}" overwrite="true"/>
--->
-        <property name="version.client" value="81" overwrite="true"/>
+        <property name="version.build" value="${assemblyname::get-version(assemblyname::get-assembly-name(file.qiqqa.exe))}" overwrite="true"/>
+        <echo message=""/>
+        <echo message="BUILD FULL VERSION: ${version.client}"/>
+        <echo message="BUILD RELEASE VERSION: ${version.build}"/>
     </target>
     
     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
