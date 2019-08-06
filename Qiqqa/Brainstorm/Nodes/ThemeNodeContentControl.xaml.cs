@@ -178,7 +178,7 @@ namespace Qiqqa.Brainstorm.Nodes
                 // Switch in the next pageranks because we will overwrite them
                 double[] pageranks_temp = pageranks_current;
                 pageranks_current = pageranks_next;
-                pageranks_next = pageranks_current;
+                pageranks_next = pageranks_temp;
             }
 
             // Sort the pageranks, descending
