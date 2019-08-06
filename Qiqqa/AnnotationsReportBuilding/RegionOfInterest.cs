@@ -7,7 +7,7 @@ namespace Qiqqa.AnnotationsReportBuilding
 {
     class RegionOfInterest
     {
-        public static readonly double PROXIMITY_MARGIN = 1.0 / 30.0;
+        public const double PROXIMITY_MARGIN = 1.0 / 30.0;
 
         public double left;
         public double top;
@@ -27,9 +27,9 @@ namespace Qiqqa.AnnotationsReportBuilding
             if (this.Contains(other)) return true;
             if (other.Contains(this)) return true;
 
-            double other_distance_to_right = other.left - this.Right;
-            double other_distance_to_left = this.left - other.Right;
-            double horizontal_distance = Math.Max(other_distance_to_right, other_distance_to_left);
+            //double other_distance_to_right = other.left - this.Right;
+            //double other_distance_to_left = this.left - other.Right;
+            //double horizontal_distance = Math.Max(other_distance_to_right, other_distance_to_left);
 
             double other_distance_to_top = this.top - other.Bottom;
             double other_distance_to_bottom = other.top - this.Bottom;
