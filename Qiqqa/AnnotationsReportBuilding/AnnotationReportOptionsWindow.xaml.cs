@@ -104,11 +104,11 @@ namespace Qiqqa.AnnotationsReportBuilding
         List<PDFDocument> pdf_documents;
         OnShowTagOptionsCompleteDelegate OnShowTagOptionsComplete;
 
-        internal void ShowTagOptions(Library library, List<PDFDocument> pdf_documents, OnShowTagOptionsCompleteDelegate OnShowTagOptionsComplete)
+        internal void ShowTagOptions(Library library_, List<PDFDocument> pdf_documents_, OnShowTagOptionsCompleteDelegate OnShowTagOptionsComplete_)
         {
-            this.library = library;
-            this.pdf_documents = pdf_documents;
-            this.OnShowTagOptionsComplete = OnShowTagOptionsComplete;
+            this.library = library_;
+            this.pdf_documents = pdf_documents_;
+            this.OnShowTagOptionsComplete = OnShowTagOptionsComplete_;
 
             // Collate all the availalbe tags
             HashSet<string> all_tags = new HashSet<string>();
