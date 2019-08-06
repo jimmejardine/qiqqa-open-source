@@ -37,7 +37,6 @@ namespace Qiqqa.Brainstorm.SceneManager
                         active_thread.Start(active_thread);
                     }
                 }
-
                 else
                 {
                     // USER WANTS TO DISABLE
@@ -87,8 +86,15 @@ namespace Qiqqa.Brainstorm.SceneManager
             }
 
             // We reuse this so that it is memory allocation time efficient
-            NodesVector vector = new NodesVector();            
+            NodesVector vector = new NodesVector();
 
+			// Also note that Utilities codebase had ATTRACTION *before* REPULSION.
+			// Haven't looked at the precise code, but wouldn't be surprised if this is
+			// very similar to the D3 force anneal code (D3.js) anyway. There aren't that
+			// many ways to stabilize a (large) graph in 2D. 
+			//
+			// See also https://github.com/jimmejardine/qiqqa-open-source/issues/26
+			
             // Perform the repulsion
             if (true)
             {   
@@ -111,13 +117,27 @@ namespace Qiqqa.Brainstorm.SceneManager
 
                         vector.Recalculate(nodeI, nodeJ);
 
-                        double strength = vector.maximum_extent * SPEED * (1 / (vector.box_distance + 1));
-                        strength = Math.Min(strength, 5);
-                        if (strength > 10)
+                        // Utilities code had:
+                        // 
+                        // See also https://github.com/jimmejardine/qiqqa-open-source/issues/26
+                        if (false)
                         {
+                            double strength = SPEED * Math.Min(2, (vector.minimum_extent / (vector.box_distance + 1)));
+                            DoPushPull(nodeI, nodeJ, vector, strength);
                         }
-                        DoPushPull(nodeI, nodeJ, vector, strength);
-                        //Logging.Info("REPULSE STRENGTH={0}, box.distance={1}", strength, vector.box_distance);
+                        else
+                        {
+                            // Qiqqa code chunk alt:
+                            double strength = vector.maximum_extent * SPEED * (1 / (vector.box_distance + 1));
+                            strength = Math.Min(strength, 5);
+                            if (strength > 10)
+                            {
+                            }
+                            // end of Qiqqa alt chunk; looks to me like someone has been fiddling around here... 
+                            // (including the logline below, which was also not in Utilities codebase...
+                            DoPushPull(nodeI, nodeJ, vector, strength);
+                            //Logging.Info("REPULSE STRENGTH={0}, box.distance={1}", strength, vector.box_distance);
+                        }
                     }
                 }
             }
@@ -139,9 +159,19 @@ namespace Qiqqa.Brainstorm.SceneManager
 
                     vector.Recalculate(nodeI, nodeJ);
 
-                    double strength = -1 * SPEED * (vector.box_distance / 50);                    
-                    DoPushPull(nodeI, nodeJ, vector, strength);
-                    //Logging.Info("ATTRACT STRENGTH={0}", strength);
+					if (false)
+					{
+						// Utilities codebase was:
+						// See also https://github.com/jimmejardine/qiqqa-open-source/issues/26
+	                    double strength = -1 * SPEED * (vector.distance / vector.minimum_extent);
+	                    DoPushPull(nodeI, nodeJ, vector, strength);
+					}
+					else
+					{						
+	                    double strength = -1 * SPEED * (vector.box_distance / 50);                    
+	                    DoPushPull(nodeI, nodeJ, vector, strength);
+	                    //Logging.Info("ATTRACT STRENGTH={0}", strength);
+					}
                 }
             }
 
@@ -176,6 +206,11 @@ namespace Qiqqa.Brainstorm.SceneManager
             public double unit_x;
             public double unit_y;
 
+			// Utilities codebase had MIN instead of max:
+			// (https://github.com/jimmejardine/qiqqa-open-source/issues/26)
+			//
+            public double minimum_extent;
+            // Qiqqa alt:
             public double maximum_extent;
 
             public NodesVector()
@@ -194,10 +229,21 @@ namespace Qiqqa.Brainstorm.SceneManager
                 box_j.Height = nodeJ.Height;
 
                 box_distance = BoxDistance.CalculateDistanceBetweenTwoBoxes(box_i, box_j);
-                //Logging.Debug(" DIST {0}", box_distance);
-                maximum_extent = Math.Max(Math.Max(nodeI.Width, nodeI.Height), Math.Max(nodeJ.Width, nodeJ.Height));
-                //minimum_extent = Math.Min(Math.Min(nodeI.Width, nodeI.Height), Math.Min(nodeJ.Width, nodeJ.Height));
-
+				if (false)
+				{
+					// Utilities codebase had:
+					// (https://github.com/jimmejardine/qiqqa-open-source/issues/26)
+	                minimum_extent = Math.Min(Math.Min(nodeI.Width, nodeI.Height), Math.Min(nodeJ.Width, nodeJ.Height));
+				}
+				else
+				{
+					// Qiqqa codebase had:
+					//
+	                //Logging.Debug(" DIST {0}", box_distance);
+	                maximum_extent = Math.Max(Math.Max(nodeI.Width, nodeI.Height), Math.Max(nodeJ.Width, nodeJ.Height));
+	                //minimum_extent = Math.Min(Math.Min(nodeI.Width, nodeI.Height), Math.Min(nodeJ.Width, nodeJ.Height));
+				}
+				
                 delta_x = nodeI.CentreX - nodeJ.CentreX;
                 delta_y = nodeI.CentreY - nodeJ.CentreY;
                 

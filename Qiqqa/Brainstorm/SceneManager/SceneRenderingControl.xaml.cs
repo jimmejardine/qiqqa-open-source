@@ -22,6 +22,12 @@ using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Internet;
 
+// NOTE: this source file has a few diffs compared to its Utilities/GUI/Brainstorm copy,
+// but all changes are deemed improvements or equivalent compared to that codebase,
+// so no notes about what *was* and what *is*, except the diag hint lines below :-)
+//
+// See also https://github.com/jimmejardine/qiqqa-open-source/issues/26
+
 namespace Qiqqa.Brainstorm.SceneManager
 {
     /// <summary>
@@ -93,7 +99,13 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         internal delegate void ScrollInfoChangedDelegate();
         internal event ScrollInfoChangedDelegate ScrollInfoChanged;
-        private void FireScrollInfoChanged() { if (null != ScrollInfoChanged) ScrollInfoChanged(); }
+        private void FireScrollInfoChanged()
+        {
+            if (null != ScrollInfoChanged)
+            {
+                ScrollInfoChanged();
+            }
+        }
 
         internal Point mouse_previous = new Point(0.0, 0.0);
         internal Point mouse_current = new Point(0.0, 0.0);
@@ -155,6 +167,11 @@ namespace Qiqqa.Brainstorm.SceneManager
 
             //this.Background = ThemeColours.Background_Brush_Blue_LightToDark;
             this.Background = Brushes.White;
+			//
+			// ^^^^ now *this* line hints to me that the Qiqqa Brainstrom copy
+			// is a copy off the Utilities/GUI/BrainStorm code!
+			// The Utils copy had the commented out Background setting.
+			// See also https://github.com/jimmejardine/qiqqa-open-source/issues/26
 
             this.ClipToBounds = true;
             this.Focusable = true;
@@ -339,7 +356,6 @@ namespace Qiqqa.Brainstorm.SceneManager
                 ImageNodeContent inc = new ImageNodeContent(ms_image);
                 AddNewNodeControl(inc, mouse_current_virtual.X, mouse_current_virtual.Y);
             }
-
             else
             {
                 WebsiteNodeContent wnc = new WebsiteNodeContent();
@@ -1430,6 +1446,8 @@ namespace Qiqqa.Brainstorm.SceneManager
             {
                 // Get rid of managed resources
                 this.AutoArranger?.Enabled(false);
+
+                node_controls.Clear();
             }
 
             this.brainstorm_metadata_control = null;
@@ -1442,7 +1460,7 @@ namespace Qiqqa.Brainstorm.SceneManager
             this.selected_connector_control = null;
             this.selecting_nodes_control = null;
 
-            this.node_controls = null;
+            this.node_controls.Clear();
             this.connector_control_manager = null;
 
             this.SelectedNodeControlChanged = null;

@@ -399,77 +399,6 @@
     <Compile Include="GUI\BindableRun.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GUI\Brainstorm\Common\RecurrentNodeContent.cs" />
-    <Compile Include="GUI\Brainstorm\Common\Searching\Searchable.cs" />
-    <Compile Include="GUI\Brainstorm\Common\Selectable.cs" />
-    <Compile Include="GUI\Brainstorm\Connectors\Arrow.cs" />
-    <Compile Include="GUI\Brainstorm\DragDropStuff\BasicDragDropBehaviours.cs" />
-    <Compile Include="GUI\Brainstorm\DragDropStuff\DragDropManager.cs" />
-    <Compile Include="GUI\Brainstorm\Nodes\SimpleNodes\EllipseNodeContent.cs" />
-    <Compile Include="GUI\Brainstorm\Nodes\SimpleNodes\EllipseNodeContentControl.xaml.cs">
-      <DependentUpon>EllipseNodeContentControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Brainstorm\Nodes\SimpleNodes\FileSystemNodeContent.cs" />
-    <Compile Include="GUI\Brainstorm\Nodes\SimpleNodes\FileSystemNodeContentControl.xaml.cs">
-      <DependentUpon>FileSystemNodeContentControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Brainstorm\Nodes\SimpleNodes\IconNodeContent.cs" />
-    <Compile Include="GUI\Brainstorm\Nodes\SimpleNodes\IconNodeContentControl.xaml.cs">
-      <DependentUpon>IconNodeContentControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Brainstorm\Nodes\IEditableNodeContentControl.cs" />
-    <Compile Include="GUI\Brainstorm\Nodes\IKeyPressableNodeContentControl.cs" />
-    <Compile Include="GUI\Brainstorm\Nodes\SimpleNodes\ImageNodeContent.cs" />
-    <Compile Include="GUI\Brainstorm\Nodes\SimpleNodes\ImageNodeContentControl.xaml.cs">
-      <DependentUpon>ImageNodeContentControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Brainstorm\Nodes\SimpleNodes\LinkedImageNodeContent.cs" />
-    <Compile Include="GUI\Brainstorm\Nodes\SimpleNodes\LinkedImageNodeContentControl.xaml.cs">
-      <DependentUpon>LinkedImageNodeContentControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Brainstorm\Nodes\NodeContent.cs" />
-    <Compile Include="GUI\Brainstorm\Nodes\NodeContentControl.cs" />
-    <Compile Include="GUI\Brainstorm\Nodes\NodeContentControlRegistry.cs" />
-    <Compile Include="GUI\Brainstorm\Nodes\NodeControl.xaml.cs">
-      <DependentUpon>NodeControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Brainstorm\Nodes\NodeControlSceneData.cs" />
-    <Compile Include="GUI\Brainstorm\Nodes\NodeThemes.cs" />
-    <Compile Include="GUI\Brainstorm\Nodes\SimpleNodes\StringNodeContent.cs" />
-    <Compile Include="GUI\Brainstorm\Nodes\SimpleNodes\StringNodeContentControl.xaml.cs">
-      <DependentUpon>StringNodeContentControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Brainstorm\Nodes\SimpleNodes\StringNodeContentEditor.xaml.cs">
-      <DependentUpon>StringNodeContentEditor.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Brainstorm\Nodes\SimpleNodes\WebsiteNodeContent.cs" />
-    <Compile Include="GUI\Brainstorm\Nodes\SimpleNodes\WebsiteNodeContentControl.xaml.cs">
-      <DependentUpon>WebsiteNodeContentControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Brainstorm\SceneManager\AutoArranger.cs" />
-    <Compile Include="GUI\Brainstorm\SceneManager\BrainstormFileFormat.cs" />
-    <Compile Include="GUI\Brainstorm\SceneManager\BrainstormMetaData.cs" />
-    <Compile Include="GUI\Brainstorm\SceneManager\BrainstormMetadataControl.xaml.cs">
-      <DependentUpon>BrainstormMetadataControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Brainstorm\SceneManager\ConnectorControlManager.cs" />
-    <Compile Include="GUI\Brainstorm\SceneManager\NodeControlAddingByKeyboard.cs" />
-    <Compile Include="GUI\Brainstorm\SceneManager\SampleSceneGenerator.cs" />
-    <Compile Include="GUI\Brainstorm\SceneManager\SceneRenderingControl.xaml.cs">
-      <DependentUpon>SceneRenderingControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Brainstorm\SceneManager\SceneRenderingControlScrollWrapper.xaml.cs">
-      <DependentUpon>SceneRenderingControlScrollWrapper.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Brainstorm\SceneManager\SelectedConnectorControl.xaml.cs">
-      <DependentUpon>SelectedConnectorControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Brainstorm\SceneManager\SelectedNodeControl.xaml.cs">
-      <DependentUpon>SelectedNodeControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Brainstorm\SceneManager\SelectingNodesControl.xaml.cs">
-      <DependentUpon>SelectingNodesControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="GUI\Charting\ChartAxis.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -971,7 +900,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BibTex\TestFiles\SampleEndnote.txt" />
-    <Resource Include="GUI\Brainstorm\Nodes\README.md" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="GUI\AugmentedButton.xaml">
@@ -993,66 +921,6 @@
     <Page Include="GUI\AugmentedToggleButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\Brainstorm\Nodes\SimpleNodes\EllipseNodeContentControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="GUI\Brainstorm\Nodes\SimpleNodes\FileSystemNodeContentControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="GUI\Brainstorm\Nodes\SimpleNodes\IconNodeContentControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="GUI\Brainstorm\Nodes\SimpleNodes\ImageNodeContentControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="GUI\Brainstorm\Nodes\SimpleNodes\LinkedImageNodeContentControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="GUI\Brainstorm\Nodes\NodeControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="GUI\Brainstorm\Nodes\SimpleNodes\StringNodeContentControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="GUI\Brainstorm\Nodes\SimpleNodes\StringNodeContentEditor.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="GUI\Brainstorm\Nodes\SimpleNodes\WebsiteNodeContentControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="GUI\Brainstorm\SceneManager\BrainstormMetadataControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="GUI\Brainstorm\SceneManager\SceneRenderingControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="GUI\Brainstorm\SceneManager\SceneRenderingControlScrollWrapper.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="GUI\Brainstorm\SceneManager\SelectedConnectorControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="GUI\Brainstorm\SceneManager\SelectedNodeControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="GUI\Brainstorm\SceneManager\SelectingNodesControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="GUI\ControlHostingWindow.xaml">
       <SubType>Designer</SubType>

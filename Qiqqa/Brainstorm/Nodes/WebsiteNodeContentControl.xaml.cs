@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -46,7 +47,16 @@ namespace Qiqqa.Brainstorm.Nodes
 
             try
             {
-                WebsiteAccess.OpenWebsite(website_node_content.Underlying.Url);
+                if (false)
+				{
+					// Utilities code; see https://github.com/jimmejardine/qiqqa-open-source/issues/26
+					Process.Start(website_node_content.Underlying.Url);
+				}
+				else
+				{
+					// Qiqqa code; see https://github.com/jimmejardine/qiqqa-open-source/issues/26
+                	WebsiteAccess.OpenWebsite(website_node_content.Underlying.Url);
+				}
             }
             catch (Exception ex)
             {

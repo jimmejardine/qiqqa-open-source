@@ -10,7 +10,9 @@ namespace Qiqqa.Brainstorm.Nodes
         internal Guid guid = Guid.NewGuid();
 
         [Obsolete("Do not use this attribute, but keep it in the class definition for backwards compatibility of the serialization", true)]
+#pragma warning disable CS0169 // The field 'NodeControlSceneData.current_scale_at_last_resize' is never used
         double current_scale_at_last_resize; // NB THIS CANT BE REMOVED OR IT WILL DESTROY THE SERIALIZATION...
+#pragma warning restore CS0169 // The field 'NodeControlSceneData.current_scale_at_last_resize' is never used
 
         double original_left = 20;  // NB: This is now centre_x - can't change because of serialization
         double original_top = 20; // NB: This is now centre_y - can't change because of serialization
@@ -108,7 +110,9 @@ namespace Qiqqa.Brainstorm.Nodes
             original_height = v;
         }
 
-        public double Left { get { return CentreX - Width/2.0d; } }
+		// Note the DIVIDE-BY-2 below; Utilities equiv code didn't have that.
+		// See also https://github.com/jimmejardine/qiqqa-open-source/issues/26
+        public double Left { get { return CentreX - Width / 2.0d; } }
         public double Top { get { return CentreY - Height / 2.0d; } }
     }
 }
