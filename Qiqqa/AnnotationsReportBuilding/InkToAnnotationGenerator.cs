@@ -7,7 +7,13 @@ namespace Qiqqa.AnnotationsReportBuilding
 {
     class InkToAnnotationGenerator
     {
-        public static readonly string INKS_TAG = "*Inks*";
+        public const string INKS_TAG = "*Inks*";
+
+        // Warning CA1812	'InkToAnnotationGenerator' is an internal class that is apparently never instantiated.
+        // If this class is intended to contain only static methods, consider adding a private constructor to prevent 
+        // the compiler from generating a default constructor.
+        private InkToAnnotationGenerator()
+        { }
 
         internal static List<PDFAnnotation> GenerateAnnotations(PDFDocument pdf_document, Dictionary<string, byte[]> library_items_inks_cache)
         {
