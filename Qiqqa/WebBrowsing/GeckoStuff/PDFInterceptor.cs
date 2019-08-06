@@ -26,8 +26,11 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
 
         static bool have_notified_about_installing_acrobat = false;
 
-
         private PDFDocument potential_attachment_pdf_document = null;
+
+        // information obtained from Gecko:
+        private string document_source_filename = null;
+        private string document_source_url = null;
         
         private PDFInterceptor() : base()
         {
@@ -45,6 +48,10 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
         {
             if (channel.ContentType.Contains("pdf"))
             {
+                // this is taken from the headers sent by the HTTP/FTP server
+                document_source_filename = channel.ContentDispositionFilename; 
+                document_source_url = channel.Uri.AbsoluteUri;
+
                 StreamListenerTee stream_listener_tee = new StreamListenerTee();
                 stream_listener_tee.Completed += streamListener_Completed;
 
@@ -84,8 +91,7 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
                 string temp_pdf_filename = TempFile.GenerateTempFilename("pdf");
                 File.WriteAllBytes(temp_pdf_filename, captured_data);
 
-                string pdf_source_url = null; // Can we find this?!!
-                PDFDocument pdf_document = Library.GuestInstance.AddNewDocumentToLibrary_SYNCHRONOUS(temp_pdf_filename, pdf_source_url, null, null, null, true, true);
+                PDFDocument pdf_document = Library.GuestInstance.AddNewDocumentToLibrary_SYNCHRONOUS(temp_pdf_filename, document_source_filename, document_source_url, null, null, null, true, true);
                 File.Delete(temp_pdf_filename);
 
                 Application.Current.Dispatcher.Invoke

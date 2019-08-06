@@ -877,7 +877,10 @@ namespace Qiqqa.Documents.PDF
         {
             get
             {
-                if (null == _pdf_document_citation_manager) _pdf_document_citation_manager = new PDFDocumentCitationManager(this);
+                if (null == _pdf_document_citation_manager)
+                {
+                    _pdf_document_citation_manager = new PDFDocumentCitationManager(this);
+                }
                 return _pdf_document_citation_manager;
             }
         }
@@ -1059,7 +1062,7 @@ namespace Qiqqa.Documents.PDF
             }
 
             // Create the new PDF document
-            PDFDocument new_pdf_document = library.AddNewDocumentToLibrary_SYNCHRONOUS(pdf_filename, pdf_filename, null, null, null, false, true);
+            PDFDocument new_pdf_document = library.AddNewDocumentToLibrary_SYNCHRONOUS(pdf_filename, pdf_filename, pdf_filename, null, null, null, false, true);
 
             // Overwrite the new document's metadata with that of the vanilla reference...
             if (null != new_pdf_document)
@@ -1080,7 +1083,7 @@ namespace Qiqqa.Documents.PDF
             }
             else
             {
-                MessageBoxes.Warn("The reference has not been associated with " + pdf_filename);
+                MessageBoxes.Warn("The reference has not been associated with {0}", pdf_filename);
             }
 
             return new_pdf_document;

@@ -141,8 +141,6 @@ namespace Qiqqa.DocumentLibrary
                 return DateTime.UtcNow.Subtract(last_pdf_add_time).TotalSeconds < 3;
             }
         }
-        
-
 
         public Library(WebLibraryDetail web_library_detail)
         {            
@@ -167,13 +165,16 @@ namespace Qiqqa.DocumentLibrary
             SafeThreadPool.QueueUserWorkItem(o => BuildFromDocumentRepository());
         }
 
+        private int dispose_count = 0;
         internal void Dispose()
         {
+            Logging.Info("Library::Dispose() @{0}", ++dispose_count);
+
             // Do we need to check that the library has finished being loaded?
 
             // Switch off the living things
-            this.library_index.Dispose();
-            this.folder_watcher_manager.Dispose();
+            this.library_index?.Dispose();
+            this.folder_watcher_manager?.Dispose();
 
             // Clear the references for sanity's sake
             this.expedition_manager = null;
@@ -185,7 +186,6 @@ namespace Qiqqa.DocumentLibrary
             this.folder_watcher_manager = null;
             this.library_db = null;
         }
-
 
         void BuildFromDocumentRepository()
         {
@@ -274,12 +274,13 @@ namespace Qiqqa.DocumentLibrary
         /// NB: Use ImportingIntoLibrary to add to the library.  Try not to call this directly!!
         /// </summary>
         /// <param name="filename"></param>
+        /// <param name="original_filename"></param>
         /// <param name="suggested_download_source"></param>
         /// <param name="bibtex"></param>
         /// <param name="tags"></param>
         /// <param name="suppressDialogs"></param>
         /// <returns></returns>
-        public PDFDocument AddNewDocumentToLibrary_SYNCHRONOUS(string filename, string suggested_download_source, string bibtex, List<string> tags, string comments, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
+        public PDFDocument AddNewDocumentToLibrary_SYNCHRONOUS(string filename, string original_filename, string suggested_download_source, string bibtex, List<string> tags, string comments, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
         {
             lock (pdf_documents)
             {
@@ -288,7 +289,7 @@ namespace Qiqqa.DocumentLibrary
                     StatusManager.Instance.UpdateStatus("LibraryDocument", String.Format("Adding {0} to library", filename));
                 }
 
-                PDFDocument pdf_document = AddNewDocumentToLibrary_LOCK(filename, suggested_download_source, bibtex, tags, comments, suppressDialogs, suppress_signal_that_docs_have_changed);
+                PDFDocument pdf_document = AddNewDocumentToLibrary_LOCK(filename, original_filename, suggested_download_source, bibtex, tags, comments, suppressDialogs, suppress_signal_that_docs_have_changed);
 
                 if (!suppressDialogs)
                 {
@@ -309,7 +310,7 @@ namespace Qiqqa.DocumentLibrary
         /// <summary>
         /// Only call this if you have LOCKed the pdf_documents object
         /// </summary>
-        private PDFDocument AddNewDocumentToLibrary_LOCK(string filename, string suggested_download_source, string bibtex, List<string> tags, string comments, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
+        private PDFDocument AddNewDocumentToLibrary_LOCK(string filename, string original_filename, string suggested_download_source, string bibtex, List<string> tags, string comments, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
         {
             // Flag that someone is trying to add to the library.  This is used by the background processes to hold off while the library is busy being added to...
             last_pdf_add_time = DateTime.UtcNow;
@@ -415,6 +416,7 @@ namespace Qiqqa.DocumentLibrary
             {
                 // Create a new document
                 pdf_document = PDFDocument.CreateFromPDF(this, filename, fingerprint);
+                //pdf_document.OriginalFileName = original_filename;
                 pdf_document.DownloadLocation = suggested_download_source;
                 pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.DownloadLocation);
                 pdf_document.BibTex = bibtex;
@@ -516,9 +518,8 @@ namespace Qiqqa.DocumentLibrary
                 StatusManager.Instance.UpdateStatus("LibraryDocument", String.Format("Copying {0} into library", existing_pdf_document.TitleCombined));
 
                 //  do a normal add (since stored separately)
-                var new_pdf_document = AddNewDocumentToLibrary_LOCK(existing_pdf_document.DocumentPath, null, null, null, null, suppress_dialogs, suppress_signal_that_docs_have_changed);
-
-
+                var new_pdf_document = AddNewDocumentToLibrary_LOCK(existing_pdf_document.DocumentPath, null, null, null, null, null, suppress_dialogs, suppress_signal_that_docs_have_changed);
+                
                 // If we were not able to create the PDFDocument from an existing pdf file (i.e. it was a missing reference), then create one from scratch
                 if (null == new_pdf_document)                    
                 {

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Net;
+using System.Net.Mime;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Documents.PDF;
 using Utilities;
@@ -104,7 +105,7 @@ namespace Qiqqa.DocumentLibrary
                         }
                     }
 
-                    PDFDocument pdf_document = library.AddNewDocumentToLibrary_SYNCHRONOUS(filename, filename, bibtex, filename_with_metadata_import.tags, filename_with_metadata_import.notes, suppress_notifications, local_suppress_signal_that_docs_have_changed);
+                    PDFDocument pdf_document = library.AddNewDocumentToLibrary_SYNCHRONOUS(filename, filename, filename, bibtex, filename_with_metadata_import.tags, filename_with_metadata_import.notes, suppress_notifications, local_suppress_signal_that_docs_have_changed);
                     if (null != pdf_document)
                     {
                         ++successful_additions;
@@ -262,6 +263,12 @@ namespace Qiqqa.DocumentLibrary
                     {
                         Stream response_stream = web_response.GetResponseStream();
                         string content_type = web_response.GetResponseHeader("Content-Type");
+                        // See also: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition
+                        string content_disposition = web_response.GetResponseHeader("Content-Disposition");
+                        ContentDisposition contentDisposition = new ContentDisposition(content_disposition);
+                        string original_filename = contentDisposition.FileName;
+                        //StringDictionary parameters = contentDisposition.Parameters;
+
 
                         bool is_acceptable_content_type = false;
                         if (content_type.ToLower(CultureInfo.CurrentCulture).EndsWith("pdf")) is_acceptable_content_type = true;
@@ -277,7 +284,7 @@ namespace Qiqqa.DocumentLibrary
                                 fs.Close();
                             }
 
-                            library.AddNewDocumentToLibrary_SYNCHRONOUS(filename, download_url, null, null, null, false, false);
+                            library.AddNewDocumentToLibrary_SYNCHRONOUS(filename, original_filename, download_url, null, null, null, false, false);
                             File.Delete(filename);
                         }
                         else
