@@ -33,7 +33,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
         internal static readonly int BASIC_PAGE_WIDTH = 850;
         internal static readonly int BASIC_PAGE_HEIGHT = 1100;
 
-        PDFRendererControl pdf_renderer_control;
+        PDFRendererControl pdf_renderer_control = null;
         PDFRendererControlStats pdf_renderer_control_stats = null;
         int page = 0;
         bool add_bells_and_whistles;
@@ -130,6 +130,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
         PDFHandLayer CanvasHand_;
         PDFInkLayer CanvasInk_;
         List<PageLayer> page_layers;
+
+        // Provide a cached copy of the PDF document fingerprint for Exception report logging,
+        // when this instance has otherwise already been Disposed():
+        internal string documentFingerprint = String.Empty;
 
         public PDFRendererPageControl(int page, PDFRendererControl pdf_renderer_control, PDFRendererControlStats pdf_renderer_control_stats, bool add_bells_and_whistles)
         {            
@@ -352,7 +356,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 
         internal void Dispose()
         {
-            this.pdf_renderer_control_stats.pdf_document.PDFRenderer.OnPageTextAvailable -= pdf_renderer_OnPageTextAvailable;
+            Logging.Info("PDFRendererPageControl::Dispose()");
+
+            pdf_renderer_control_stats.pdf_document.PDFRenderer.OnPageTextAvailable -= pdf_renderer_OnPageTextAvailable;
 
             CurrentlyShowingImage = null;
 
@@ -360,6 +366,28 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             {
                 page_layer.Dispose();
             }
+
+            page_layers.Clear();
+
+            // Also erase any pending RefreshPage work:
+            lock (pending_refresh_work_lock)
+            {
+                pending_refresh_work_fast = null;
+                pending_refresh_work_slow = null;
+            }
+
+            //pdf_renderer_control.Dispose();
+            pdf_renderer_control = null;
+            pdf_renderer_control_stats = null;
+            ImagePage_HIDDEN = null;
+            
+            CanvasTextSentence_ = null;
+            CanvasSearch_ = null;
+            CanvasAnnotation_ = null;
+            CanvasHighlight_ = null;
+            CanvasCamera_ = null;
+            CanvasHand_ = null;
+            CanvasInk_ = null;
         }
 
         public int PageNumber
@@ -460,6 +488,12 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
         {
             PendingRefreshWork pending_refresh_work = new PendingRefreshWork { requested_image_rescale = requested_image_rescale, requested_height = requested_height };
 
+            // cache the document fingerprint for the occasion where the RefreshPage_*() methods invoked/dispatched
+            // below happen to encounter a Disposed()-just-now state of affairs for this Control instance, where
+            // an exception may be thrown and *reported*: that's where we need this Fingerprint copy to prevent
+            // a second failure:
+            documentFingerprint = pdf_renderer_control_stats.pdf_document.Fingerprint;
+
             lock (pending_refresh_work_lock)
             {
                 pending_refresh_work_fast = pending_refresh_work;
@@ -514,12 +548,17 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                         }
                     }
 
+                    //
+                    // WARNING: we MAY be executing this bit of code while the control
+                    // has just been Dispose()d! 
+                    //
+                    // When that happens, we're okay with FAILURE here...
                     Height = (int)(remembered_image_height * pdf_renderer_control_stats.zoom_factor);
                     Width = (int)(remembered_image_width * pdf_renderer_control_stats.zoom_factor);
                 }
                 catch (Exception ex)
                 {
-                    Logging.Error(ex, "There was a problem while trying to FAST render the page image for page {0} of document {1}", page, pdf_renderer_control_stats.pdf_document.Fingerprint);
+                    Logging.Error(ex, "There was a problem while trying to FAST render the page image for page {0} of document {1}", page, documentFingerprint);
                 }
             }
         }
@@ -555,7 +594,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                     }
 
                     // Page is not in view, be nice to memory and clean up
-                    if (!page_is_in_view)
+                    //
+                    // WARNING: we MAY be executing this bit of code while the control
+                    // has just been Dispose()d! Hence the extra control_Stats check!
+                    if (!page_is_in_view && null != pdf_renderer_control_stats)
                     {
                         CurrentlyShowingImage = null;
                         Height = (int)(remembered_image_height * pdf_renderer_control_stats.zoom_factor);
@@ -619,7 +661,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                 }
                 catch (Exception ex)
                 {
-                    Logging.Error(ex, "There was a problem while trying to SLOW render the page image for page {0} of document {1}", page, pdf_renderer_control_stats.pdf_document.Fingerprint);
+                    Logging.Error(ex, "There was a problem while trying to SLOW render the page image for page {0} of document {1}", page, Logging.Error(ex, "There was a problem while trying to SLOW render the page image for page {0} of document {1}", page, documentFingerprint));
                 }
             }
         }

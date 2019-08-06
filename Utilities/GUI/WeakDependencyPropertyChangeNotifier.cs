@@ -36,9 +36,29 @@ namespace Utilities.GUI
             BindingOperations.SetBinding(this, ValueProperty, binding);
         }
 
+        ~WeakDependencyPropertyChangeNotifier()
+        {
+            Logging.Info("~WeakDependencyPropertyChangeNotifier()");
+            Dispose(false);
+        }
+
         public void Dispose()
         {
-            BindingOperations.ClearBinding(this, ValueProperty);
+            Logging.Info("Disposing WeakDependencyPropertyChangeNotifier");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        private void Dispose(bool disposing)
+        {
+            Logging.Debug("WeakDependencyPropertyChangeNotifier::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
+            if (disposing)
+            {
+                BindingOperations.ClearBinding(this, ValueProperty);
+            }
+
+            // Get rid of unmanaged resources 
         }
 
         #endregion --- Lifetime management -----------------------------------------------------------------------

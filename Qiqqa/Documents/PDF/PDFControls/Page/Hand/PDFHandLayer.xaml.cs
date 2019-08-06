@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using Qiqqa.Documents.PDF.PDFControls.Page.Tools;
+using Utilities;
 
 namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
 {
@@ -31,7 +32,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
 
             Background = Brushes.Transparent;
             this.Cursor = Cursors.Hand;
-
 
             int start_page_offset = pdf_renderer_control_stats.StartPageOffset;
             if (0 != start_page_offset)
@@ -85,6 +85,14 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
             }
 
             mouse_last_position = mouse_current_position;
+        }
+
+        internal override void Dispose()
+        {
+            Logging.Info("PDFHandLayer::Dispose()");
+
+            pdf_renderer_control_stats = null;
+            pdf_renderer_control = null;
         }
     }
 }

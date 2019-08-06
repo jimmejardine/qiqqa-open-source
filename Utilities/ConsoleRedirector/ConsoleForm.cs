@@ -9,6 +9,7 @@ namespace Utilities.ConsoleRedirector
 	public class ConsoleForm : Form
 	{
 		private RichTextBox objText;
+
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -26,27 +27,33 @@ namespace Utilities.ConsoleRedirector
 			//
 		}
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        private int dispose_count = 0;
 
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+		{
+            Logging.Debug("ConsoleForm::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
+            if (disposing)
+			{
+				components?.Dispose();
+                objText?.Dispose();
+            }
+
+            components = null;
+            objText = null;
+
+            base.Dispose(disposing);
+		}
+    
 		public void setText(string t)
 		{
 			this.objText.Text = t;
 		}
 
 		#region Windows Form Designer generated code
+
 		/// <summary>
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.

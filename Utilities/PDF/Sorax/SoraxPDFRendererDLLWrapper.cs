@@ -23,14 +23,37 @@ namespace Utilities.PDF.Sorax
                     throw new Exception(String.Format("There was a problem opening the PDF '{0}'", filename));
                 }
             }
-            
+
+            ~HDOCWrapper()
+            {
+                Logging.Info("~HDOCWrapper()");
+                Dispose(false);
+            }
+
             public void Dispose()
             {
-                if (IntPtr.Zero != HDOC)
+                Logging.Info("Disposing HDOCWrapper");
+                Dispose(true);
+                GC.SuppressFinalize(this);
+            }
+
+            private int dispose_count = 0;
+            private void Dispose(bool disposing)
+            {
+                Logging.Debug("HDOCWrapper::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
+                if (disposing)
                 {
-                    SoraxDLL.SPD_Close(HDOC);
-                    HDOC = IntPtr.Zero;
+                    // Get rid of managed resources
+                    Logging.Info("Disposing the lucene index writer");
+
+                    if (IntPtr.Zero != HDOC)
+                    {
+                        SoraxDLL.SPD_Close(HDOC);
+                        HDOC = IntPtr.Zero;
+                    }
                 }
+
+                // Get rid of unmanaged resources 
             }
         }
 

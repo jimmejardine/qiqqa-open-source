@@ -5,6 +5,7 @@ using System.Windows.Media;
 using Qiqqa.Documents.PDF.PDFControls.Page.Text;
 using Qiqqa.Documents.PDF.PDFControls.Page.Tools;
 using Qiqqa.Documents.PDF.Search;
+using Utilities;
 using Utilities.GUI.Animation;
 using Utilities.OCR;
 
@@ -131,6 +132,14 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
 
             // We have not managed to find a search position if we get this far
             return null;
+        }
+
+        internal override void Dispose()
+        {
+            Logging.Info("PDFSearchLayer::Dispose()");
+
+            pdf_renderer_control_stats = null;
+            search_result_set = null;
         }
     }
 }

@@ -40,8 +40,11 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             GeneralTaskDaemon.Instance.AddGeneralTask(TaskDaemonEntryPoint);
         }
 
+        private int dispose_count = 0;
         internal void Dispose()
         {
+            Logging.Debug("FolderWatcherManager::Dispose() @{0}", ++dispose_count);
+
             GeneralTaskDaemon.Instance.RemoveGeneralTask(TaskDaemonEntryPoint);
 
             // Dispose of all the folder watchers
@@ -50,6 +53,11 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 folder_watcher_record.Value.folder_watcher.Dispose();
             }
             folder_watcher_records.Clear();
+
+            //library.Dispose();
+            library = null;
+
+            filenames_processed.Clear();
         }
 
         public string Filename_Store

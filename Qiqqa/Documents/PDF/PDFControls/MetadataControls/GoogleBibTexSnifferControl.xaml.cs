@@ -472,9 +472,25 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
         
         void GoogleBibTexSnifferControl_Closed(object sender, EventArgs e)
         {
+            Logging.Info("GoogleBibTexSnifferControl_Closed()");
+
             ObjWebBrowser.Dispose();
+
+            search_options = null;
+            search_options_bindable = null;
+
+            user_specified_pdf_document = null;
+            pdf_documents_total_pool.Clear();
+            pdf_documents_search_pool.Clear();
+            pdf_document = null;
+            pdf_document_rendered = null;
+
+            pdf_renderer_control?.Dispose();
+            pdf_renderer_control = null;
+
+            last_autonavigated_url = null;
         }
-        
+
         void ObjWebBrowser_PageLoaded()
         {
             ReflectLatestBrowserContent();

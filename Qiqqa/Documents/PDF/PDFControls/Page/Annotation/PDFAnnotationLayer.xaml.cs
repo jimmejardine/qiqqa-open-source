@@ -21,7 +21,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
         PDFRendererControlStats pdf_renderer_control_stats;
         int page;
 
-        DragAreaTracker drag_area_tracker;
+        DragAreaTracker drag_area_tracker = null;
 
         public PDFAnnotationLayer(PDFRendererControlStats pdf_renderer_control_stats, int page)
         {
@@ -79,10 +79,15 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
 
         internal override void Dispose()
         {
+            Logging.Info("PDFAnnotationLayer::Dispose()");
+
             foreach (PDFAnnotationItem pdf_annotation_item in Children.OfType<PDFAnnotationItem>())
             {
                 pdf_annotation_item.Dispose();
             }
+
+            pdf_renderer_control_stats = null;
+            drag_area_tracker = null;
         }
 
         void drag_area_tracker_OnDragComplete(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point, Point mouse_up_point)

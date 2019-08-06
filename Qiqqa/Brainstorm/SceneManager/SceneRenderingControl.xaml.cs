@@ -1143,7 +1143,6 @@ namespace Qiqqa.Brainstorm.SceneManager
                 start_search_child_offset = 0;
             }
 
-
             int first_matching_node_ever = -1;
             int first_matching_node_after_last = -1;
 
@@ -1157,8 +1156,14 @@ namespace Qiqqa.Brainstorm.SceneManager
                     if (searchable.MatchesKeyword(keyword))
                     {
                         // Remember the important last-search positions
-                        if (-1 == first_matching_node_ever) first_matching_node_ever = i;
-                        if (-1 == first_matching_node_after_last && i > last_search_child_offset) first_matching_node_after_last = i;
+                        if (-1 == first_matching_node_ever)
+                        {
+                            first_matching_node_ever = i;
+                        }
+                        if (-1 == first_matching_node_after_last && i > last_search_child_offset)
+                        {
+                            first_matching_node_after_last = i;
+                        }
 
                         // This is one of the search results
                         matching_nodes.Add(node_control);
@@ -1263,9 +1268,16 @@ namespace Qiqqa.Brainstorm.SceneManager
         {
             this.next_click_mode = next_click_mode;
 
-            if (false) { }
-            else if (next_click_mode == NextClickMode.Hand) this.Cursor = Cursors.Hand;
-            else if (next_click_mode == NextClickMode.AddText) this.Cursor = Cursors.Pen;
+            switch (next_click_mode)
+            {
+                case NextClickMode.Hand:
+                    this.Cursor = Cursors.Hand;
+                    break;
+
+                case NextClickMode.AddText:
+                    this.Cursor = Cursors.Pen;
+                    break;
+            }
         }
 
         #endregion ---------------------------------------------------------------------------------
@@ -1292,7 +1304,6 @@ namespace Qiqqa.Brainstorm.SceneManager
         {
             SetSelectedNodeControls(node_controls, false);
         }
-
 
         internal List<NodeControl> GetSelectedNodeControls()
         {
@@ -1411,30 +1422,32 @@ namespace Qiqqa.Brainstorm.SceneManager
             GC.SuppressFinalize(this);
         }
 
+        private int dispose_count = 0;
         private void Dispose(bool disposing)
         {
+            Logging.Debug("SceneRenderingControl::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
             if (disposing)
             {
                 // Get rid of managed resources
-                this.AutoArranger.Enabled(false);
-
-                this.brainstorm_metadata_control = null;
-                this.brainstorm_metadata = null;
-
-                this.auto_arranger = null;
-                this.drag_drop_manager = null;
-                this.basic_drag_drop_behaviours = null;
-
-                this.selected_connector_control = null;
-                this.selecting_nodes_control = null;
-
-                this.node_controls = null;
-                this.connector_control_manager = null;
-
-                this.SelectedNodeControlChanged = null;
-
-                this.ScrollInfoChanged = null;
+                this.AutoArranger?.Enabled(false);
             }
+
+            this.brainstorm_metadata_control = null;
+            this.brainstorm_metadata = null;
+
+            this.auto_arranger = null;
+            this.drag_drop_manager = null;
+            this.basic_drag_drop_behaviours = null;
+
+            this.selected_connector_control = null;
+            this.selecting_nodes_control = null;
+
+            this.node_controls = null;
+            this.connector_control_manager = null;
+
+            this.SelectedNodeControlChanged = null;
+
+            this.ScrollInfoChanged = null;
 
             // Get rid of unmanaged resources 
         }

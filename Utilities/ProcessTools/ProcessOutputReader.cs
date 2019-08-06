@@ -36,20 +36,26 @@ namespace Utilities.ProcessTools
             GC.SuppressFinalize(this);
         }
 
+        private int dispose_count = 0;
         private void Dispose(bool disposing)
         {
+            Logging.Debug("ProcessOutputReader::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
             if (disposing)
             {
                 // Get rid of managed resources
                 process.CancelErrorRead();
                 process.CancelOutputRead();
+
+                Output.Clear();
+                Error.Clear();
             }
+
+            process = null;
 
             // Get rid of unmanaged resources 
         }
 
         // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    
 
         public string GetOutputsDumpString()
         {

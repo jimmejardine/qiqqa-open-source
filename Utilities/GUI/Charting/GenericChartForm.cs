@@ -15,16 +15,17 @@ namespace Utilities.GUI.Charting
 		int num_charts;
 		MultiChart2D[] charts;
 
-#if TEST
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
 		private Container components = null;
-#endif
 
 		public GenericChartForm()
 		{
-			InitializeComponent();
+            //
+            // Required for Windows Form Designer support
+            //
+            InitializeComponent();
 		}
 
 		private int getChartOffset(int i, int j)
@@ -60,7 +61,6 @@ namespace Utilities.GUI.Charting
 
 		private void recalcChartSizes()
 		{
-
 			int chart_width = this.Width / num_charts_x;
 			int chart_height = (this.Height - 50) / num_charts_y;
 
@@ -126,27 +126,30 @@ namespace Utilities.GUI.Charting
 			a[0,1].addSeries(s);
 			a[2,0].addSeries(s);
 		}
-
-
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
 #endif
 
         #endregion
 
+        private int dispose_count = 0;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            Logging.Debug("GenericChartForm::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
+            if (disposing)
+            {
+                components?.Dispose();
+            }
+
+            components = null;
+
+            base.Dispose(disposing);
+        }
+
         #region Windows Form Designer generated code
+
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.

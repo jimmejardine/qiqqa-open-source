@@ -165,9 +165,7 @@ namespace Qiqqa.StartPage
             
             ObjGlobalSearchPanel.Visibility = ConfigurationManager.Instance.NoviceVisibility;
         }
-
         
-
         void StartPageControl_KeyDown(object sender, KeyEventArgs e)
         {
             if (Key.F == e.Key && KeyboardTools.IsCTRLDown())
@@ -330,9 +328,29 @@ namespace Qiqqa.StartPage
             MainWindowServiceDispatcher.Instance.GoExpertMode();
         }
 
+        ~StartPageControl()
+        {
+            Logging.Info("~StartPageControl()");
+            Dispose(false);
+        }
+
         public void Dispose()
         {
-            ObjChatControl.Dispose();
+            Logging.Info("Disposing StartPageControl");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        private void Dispose(bool disposing)
+        {
+            Logging.Debug("StartPageControl::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
+            if (disposing)
+            {
+                ObjChatControl.Dispose();
+            }
+
+            // Get rid of unmanaged resources 
         }
     }
 }

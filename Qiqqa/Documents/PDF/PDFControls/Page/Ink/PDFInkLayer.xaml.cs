@@ -7,6 +7,7 @@ using System.Windows.Input;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Documents.PDF.PDFControls.Page.Tools;
 using Qiqqa.UtilisationTracking;
+using Utilities;
 using Utilities.GUI.Animation;
 
 namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
@@ -139,6 +140,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
         internal void RaiseInkChange(DrawingAttributes drawingAttributes)
         {
             ObjInkCanvas.DefaultDrawingAttributes = drawingAttributes;
+        }
+
+        internal override void Dispose()
+        {
+            Logging.Info("PDFInkLayer::Dispose()");
+
+            pdf_renderer_control_stats = null;
         }
     }
 }

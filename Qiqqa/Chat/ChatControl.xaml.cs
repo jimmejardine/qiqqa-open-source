@@ -299,13 +299,15 @@ namespace Qiqqa.Chat
             GC.SuppressFinalize(this);
         }
 
+        private int dispose_count = 0;
         private void Dispose(bool disposing)
         {
+            Logging.Debug("ChatControl::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
             if (disposing)
             {
-                timer.Dispose();
-                timer = null;
+                timer?.Dispose();
             }
+            timer = null;
 
             // Get rid of unmanaged resources 
         }

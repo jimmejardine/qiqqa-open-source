@@ -22,7 +22,7 @@ namespace Qiqqa.DocumentLibrary
     {
         PDFDocument pdf_document = null;
         int page;
-        PDFAnnotation specific_pdf_annotation;
+        PDFAnnotation specific_pdf_annotation = null;
 
         public LibraryIndexHoverPopup()
         {
@@ -36,24 +36,33 @@ namespace Qiqqa.DocumentLibrary
         }
 
         ~LibraryIndexHoverPopup()
-        {            
+        {
+            Logging.Info("~LibraryIndexHoverPopup()");
             Dispose(false);            
         }
 
         public void Dispose()
-        {            
+        {
+            Logging.Info("Disposing LibraryIndexHoverPopup");
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
+        private int dispose_count = 0;
         private void Dispose(bool disposing)
         {
+            Logging.Debug("LibraryIndexHoverPopup::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
+
             if (disposing)
             {
-                // Get rid of managed resources
-                this.pdf_document = null;
-                this.specific_pdf_annotation = null;
+                DataContext = null;
+                ImageThumbnail.Source = null;
+                ImageThumbnail.Visibility = Visibility.Collapsed;
             }
+
+            // Get rid of managed resources
+            this.pdf_document = null;
+            this.specific_pdf_annotation = null;
 
             // Get rid of unmanaged resources 
         }

@@ -78,16 +78,18 @@ namespace Qiqqa.AnnotationsReportBuilding
             GC.SuppressFinalize(this);
         }
 
+        private int dispose_count = 0;
         private void Dispose(bool disposing)
         {
+            Logging.Debug("ReportViewerControl::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
             if (disposing)
             {
                 // Get rid of managed resources
-                this.ObjDocumentViewer.Document.Blocks.Clear();
-                this.ObjDocumentViewer.Document = null;
-
-                this.annotation_report = null;
+                this.ObjDocumentViewer.Document?.Blocks.Clear();
             }
+
+            this.ObjDocumentViewer.Document = null;
+            this.annotation_report = null;
 
             // Get rid of unmanaged resources 
         }

@@ -30,12 +30,10 @@ namespace Qiqqa.Common.GUI
         void StandardWindow_Closed(object sender, EventArgs e)
         {
             IDisposable disposable = this.Content as IDisposable;
-            this.Content = null;
 
-            if (null != disposable)
-            {
-                disposable.Dispose();
-            }
+            disposable?.Dispose();
+
+            this.Content = null;
         }
     }
 }

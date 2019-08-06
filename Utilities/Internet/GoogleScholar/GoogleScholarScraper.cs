@@ -60,7 +60,10 @@ namespace Utilities.Internet.GoogleScholar
             }
             finally
             {
-                if (ms != null) ms.Dispose();
+                if (ms != null)
+                {
+                    ms.Dispose();
+                }
             }
 
             return gssps;

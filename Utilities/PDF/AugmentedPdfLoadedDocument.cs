@@ -18,21 +18,21 @@ namespace Utilities.PDF
 
         ~AugmentedPdfLoadedDocument()
         {
-            Logging.Debug("+AugmentedPdfLoadedDocument::DESTRUCTOR");
-            Dispose(false);            
+            Logging.Info("~AugmentedPdfLoadedDocument()");
+            Dispose(false);
         }
 
         public new void Dispose()
         {
+            Logging.Info("Disposing AugmentedPdfLoadedDocument");
             Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
-            GC.SuppressFinalize(this);            
-        } 
-
+        private int dispose_count = 0;
         private void Dispose(bool disposing)
         {
-            base.Dispose();
-
+            Logging.Debug("AugmentedPdfLoadedDocument::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
             if (disposing)
             {
                 // Get rid of managed resources
@@ -40,6 +40,8 @@ namespace Utilities.PDF
             }
 
             // Get rid of unmanaged resources 
+
+            base.Dispose();
         }
     }
 }

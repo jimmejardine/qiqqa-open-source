@@ -44,7 +44,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             Ink
         }
 
-        private readonly PDFRendererControlStats pdf_renderer_control_stats = null;
+        private PDFRendererControlStats pdf_renderer_control_stats = null;
         private readonly bool remember_last_read_page;
 
         ZoomType zoom_type = ZoomType.Zoom1Up;
@@ -324,8 +324,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 {
                 }
             }
-
-
+            
             // Store the last seen page - but not right at the start
             if (DateTime.UtcNow.Subtract(first_scroll_timestamp).TotalSeconds > 1)
             {
@@ -348,23 +347,25 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         ~PDFRendererControl()
         {
-            //Logging.Info("~PDFRendererControl()");
+            Logging.Info("~PDFRendererControl()");
             Dispose(false);
         }
 
         public void Dispose()
         {
-            //Logging.Info("Disposing PDFRendererControl");
+            Logging.Info("Disposing PDFRendererControl");
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
+        private int dispose_count = 0;
         private void Dispose(bool disposing)
         {
+            Logging.Debug("PDFRendererControl::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
             if (disposing)
             {
                 // Get the PDFDocument flushed
-                pdf_renderer_control_stats.pdf_document.QueueToStorage();
+                pdf_renderer_control_stats?.pdf_document.QueueToStorage();
 
                 // Get rid of managed resources
                 List<PDFRendererPageControl> children = new List<PDFRendererPageControl>();
@@ -380,17 +381,16 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     child.Dispose();
                 }
 
-                pdf_renderer_control_stats.pdf_document.PDFRenderer.FlushCachedPageRenderings();
+                pdf_renderer_control_stats?.pdf_document.PDFRenderer.FlushCachedPageRenderings();
             }
 
+            pdf_renderer_control_stats = null;
+            
             // Get rid of unmanaged resources 
         }
 
-
         void PDFRendererControl_TextInput(object sender, TextCompositionEventArgs e)
         {
-            if (false) {}
-
         }
 
         void PDFRendererControl_KeyDown(object sender, KeyEventArgs e)

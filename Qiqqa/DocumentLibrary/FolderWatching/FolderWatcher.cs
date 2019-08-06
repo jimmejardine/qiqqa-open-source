@@ -38,14 +38,25 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             file_system_watcher.EnableRaisingEvents = false;
         }
 
+        private int dispose_count = 0;
         internal void Dispose()
         {
+            Logging.Debug("FolderWatcher::Dispose() @{0}", ++dispose_count);
+
             if (null != file_system_watcher)
             {
                 file_system_watcher.EnableRaisingEvents = false;
                 file_system_watcher.Dispose();
-                file_system_watcher = null;
             }
+
+            file_system_watcher = null;
+
+            folder_watcher_manager = null;
+            //library.Dispose();
+            library = null;
+            tags.Clear();
+            previous_folder_to_watch = null;
+            folder_to_watch = null;
         }
 
         void file_system_watcher_Changed(object sender, FileSystemEventArgs e)

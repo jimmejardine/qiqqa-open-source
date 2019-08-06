@@ -77,19 +77,38 @@ namespace Utilities.DateTimeTools
 			}
 		}
 
-        private bool disposed;
+        ~StopWatch()
+        {
+            Logging.Info("~StopWatch()");
+            Dispose(false);
+        }
+
         public void Dispose()
         {
-            if (disposed)
+            Logging.Info("Disposing StopWatch");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private bool disposed;
+
+        private int dispose_count = 0;
+        private void Dispose(bool disposing)
+        {
+            Logging.Debug("StopWatch::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
+            if (!disposed)
             {
-                return;
+                Stop();
+                Logging.Debug("{0} in {1}ms", Description, ElapsedMilliseconds());
+                disposed = true;
             }
 
-            Stop();
-            Logging.Debug("{0} in {1}ms", Description, ElapsedMilliseconds());
-            disposed = true;
+            if (disposing)
+            {
+                //GC.SuppressFinalize(this);
+            }
 
-            //GC.SuppressFinalize(this);
+            // Get rid of unmanaged resources 
         }
 	}
 }

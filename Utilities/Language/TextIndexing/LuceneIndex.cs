@@ -58,8 +58,10 @@ namespace Utilities.Language.TextIndexing
             GC.SuppressFinalize(this);
         }
 
+        private int dispose_count = 0;
         private void Dispose(bool disposing)
         {
+            Logging.Debug("LuceneIndex::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
             if (disposing)
             {
                 // Get rid of managed resources
@@ -82,7 +84,7 @@ namespace Utilities.Language.TextIndexing
             }
         }
         
-        public void FlushIndexWriter_LOCK()
+        private void FlushIndexWriter_LOCK()
         {
             Logging.Info("+Flushing a lucene IndexWriter");
             if (null != index_writer)

@@ -182,7 +182,6 @@ namespace Qiqqa.Common.SpeedRead
                 ButtonPlayStop.Icon = Icons.GetAppIcon(Icons.SpeedRead_Stop);
                 KickOffPlayingThread();
             }
-
             else
             {
                 ButtonPlayStop.Icon = Icons.GetAppIcon(Icons.SpeedRead_Play);                
@@ -322,20 +321,22 @@ namespace Qiqqa.Common.SpeedRead
             GC.SuppressFinalize(this);
         }
 
+        private int dispose_count = 0;
         private void Dispose(bool disposing)
         {
+            Logging.Debug("SpeedReadControl::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
             if (disposing)
             {
                 // Get rid of managed resources
                 TogglePlayPause(true);
-
-		        this.words = null;
             }
+
+            this.words = null;
 
             // Get rid of unmanaged resources 
         }
 
-#endregion
+        #endregion
 
     }
 }

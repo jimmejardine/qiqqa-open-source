@@ -181,15 +181,21 @@ namespace Utilities.Files
             get { return m_streamBase; }
         }
 
+        private int dispose_count = 0;
+
         /// <summary>
         /// Releases the unmanaged resources used by the <see cref="WrappingStream"/> and optionally releases the managed resources.
         /// </summary>
         /// <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
         protected override void Dispose(bool disposing)
         {
+            Logging.Debug("WrappingStream::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
+
             // doesn't close the base stream, but just prevents access to it through this WrappingStream
             if (disposing)
+            {
                 m_streamBase = null;
+            }
 
             base.Dispose(disposing);
         }
@@ -198,7 +204,9 @@ namespace Utilities.Files
         {
             // throws an ObjectDisposedException if this object has been disposed
             if (m_streamBase == null)
+            {
                 throw new ObjectDisposedException(GetType().Name);
+            }
         }
 
         Stream m_streamBase;

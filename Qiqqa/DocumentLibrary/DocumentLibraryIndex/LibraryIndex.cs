@@ -65,29 +65,32 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
         ~LibraryIndex()
         {
+            Logging.Info("~LibraryIndex()");
             Dispose(false);
         }
 
         public void Dispose()
         {
+            Logging.Info("Disposing LibraryIndex");
             Dispose(true);
-
             GC.SuppressFinalize(this);            
-        } 
+        }
 
+        private int dispose_count = 0;
         private void Dispose(bool disposing)
         {
+            Logging.Debug("LibraryIndex::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
             if (disposing)
             {
                 // Get rid of managed resources
-                this.word_index_manager.Dispose();
-                this.word_index_manager = null;
+                this.word_index_manager?.Dispose();
 
-                this.library.Dispose();
-                this.library = null;
-
-                this.pdf_documents_in_library = null;
+                this.library?.Dispose();
             }
+
+            this.word_index_manager = null;
+            this.library = null;
+            this.pdf_documents_in_library = null;
 
             // Get rid of unmanaged resources 
         }

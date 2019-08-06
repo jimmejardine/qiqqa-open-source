@@ -48,7 +48,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
                 List<Word> words = GetSnappedWords(mouse_up_point, mouse_down_point);
                 string raw_text = SelectedWordsToFormattedTextConvertor.ConvertToParagraph(words);
                 string tabled_text = SelectedWordsToFormattedTextConvertor.ConvertToTable(words);
-                
 
                 CameraActionChooserDialog cacd = new CameraActionChooserDialog();
                 cacd.SetLovelyDetails(image, raw_text, tabled_text);
@@ -109,6 +108,14 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
             }
 
             return cropped_image_page;
+        }
+
+        internal override void Dispose()
+        {
+            Logging.Info("PDFCameraLayer::Dispose()");
+
+            pdf_renderer_control_stats = null;
+            drag_area_tracker = null;
         }
     }
 }

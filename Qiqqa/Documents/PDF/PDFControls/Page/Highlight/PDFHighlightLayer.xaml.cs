@@ -6,6 +6,7 @@ using System.Windows.Media;
 using Qiqqa.Documents.PDF.PDFControls.Page.Text;
 using Qiqqa.Documents.PDF.PDFControls.Page.Tools;
 using Qiqqa.UtilisationTracking;
+using Utilities;
 using Utilities.OCR;
 
 namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
@@ -72,6 +73,11 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
 
         internal override void Dispose()
         {
+            Logging.Info("PDFHighlightLayer::Dispose()");
+
+            pdf_renderer_control_stats = null;
+            drag_area_tracker = null;
+            text_selection_manager = null;
         }
 
         void drag_area_tracker_OnDragStarted(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point)

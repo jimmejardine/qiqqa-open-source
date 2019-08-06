@@ -75,7 +75,6 @@ namespace Qiqqa.Brainstorm.Nodes
                     }
                 }
             }
-
             catch (Exception ex)
             {
                 Logging.Error(ex, "Exception while displaying document preview popup");
@@ -84,12 +83,9 @@ namespace Qiqqa.Brainstorm.Nodes
 
         void PDFDocumentNodeContentControl_ToolTipClosing(object sender, ToolTipEventArgs e)
         {
-            if (null != library_index_hover_popup)
-            {
-                this.ToolTip = "";
-                library_index_hover_popup.Dispose();
-                library_index_hover_popup = null;
-            }
+            this.ToolTip = "";
+            library_index_hover_popup?.Dispose();
+            library_index_hover_popup = null;
         }
 
         public void ProcessKeyPress(KeyEventArgs e)
@@ -115,7 +111,5 @@ namespace Qiqqa.Brainstorm.Nodes
                 e.Handled = true;
             }
         }
-
-
     }
 }

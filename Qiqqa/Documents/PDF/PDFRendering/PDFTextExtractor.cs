@@ -52,6 +52,12 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             {
                 return String.Format("PDF:{0} Page:{1}", pdf_renderer, page);
             }
+
+            public void Clear()
+            {
+                this.pdf_renderer = null;
+                this.language = String.Empty;
+            }
         }
 
         class NextJob : IDisposable
@@ -70,10 +76,35 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 pdf_text_extractor.RecordThatJobHasStarted_LOCK(this, queue_lock_reminder);
             }
 
+            ~NextJob()
+            {
+                Logging.Info("~NextJob()");
+                Dispose(false);
+            }
+
             public void Dispose()
             {
-                // Notify that this job is done...
-                pdf_text_extractor.RecordThatJobHasCompleted(this);
+                Logging.Info("Disposing NextJob");
+                Dispose(true);
+                GC.SuppressFinalize(this);
+            }
+
+            private int dispose_count = 0;
+            private void Dispose(bool disposing)
+            {
+                Logging.Debug("NextJob::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
+                if (disposing)
+                {
+                    // Notify that this job is done...
+                    pdf_text_extractor.RecordThatJobHasCompleted(this);
+
+                    //job?.Clear();
+                }
+
+                pdf_text_extractor = null;
+                job = null;
+
+                // Get rid of unmanaged resources 
             }
 
             /// <summary>
@@ -344,8 +375,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 }
 
                 int job_queue_total_count = job_queue_group_count + job_queue_single_count;
-
-
+                
                 if ((0 < job_queue_group_count || 0 < job_queue_single_count) && Library.IsBusyAddingPDFs)
                 {
                     StatusManager.Instance.UpdateStatus("PDFOCR", "OCR paused while adding documents.");

@@ -61,7 +61,10 @@ namespace Utilities.GUI
         {
             {
                 WindowClosedCapable wcc = InternalControl as WindowClosedCapable;
-                if (null != wcc) wcc.OnWindowClosed();
+                if (null != wcc)
+                {
+                    wcc.OnWindowClosed();
+                }
             }
 
             {
@@ -72,6 +75,7 @@ namespace Utilities.GUI
                 {
                     disposable.Dispose();
                 }
+                this.control = null;
             }
         }
 

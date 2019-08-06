@@ -91,7 +91,13 @@ namespace Utilities.GUI.Brainstorm.SceneManager
 
         internal delegate void ScrollInfoChangedDelegate();
         internal event ScrollInfoChangedDelegate ScrollInfoChanged;
-        private void FireScrollInfoChanged() { if (null != ScrollInfoChanged) ScrollInfoChanged(); }
+        private void FireScrollInfoChanged()
+        {
+            if (null != ScrollInfoChanged)
+            {
+                ScrollInfoChanged();
+            }
+        }
 
         internal Point mouse_previous = new Point(0.0, 0.0);
         internal Point mouse_current = new Point(0.0, 0.0);
@@ -194,7 +200,6 @@ namespace Utilities.GUI.Brainstorm.SceneManager
             {
                 DoPaste();
             }
-
             else if (Key.Delete == e.Key)
             {
                 List<NodeControl> selected_node_controls = GetSelectedNodeControls();
@@ -213,8 +218,6 @@ namespace Utilities.GUI.Brainstorm.SceneManager
 
                 e.Handled = true;
             }
-
-
             else
             {
                 PropagateKeyPressToNodes(e);
@@ -320,7 +323,6 @@ namespace Utilities.GUI.Brainstorm.SceneManager
                 ImageNodeContent inc = new ImageNodeContent(ms_image);
                 AddNewNodeControl(inc, mouse_current_virtual.X, mouse_current_virtual.Y);
             }
-
             else
             {
                 WebsiteNodeContent wnc = new WebsiteNodeContent();
@@ -518,7 +520,8 @@ namespace Utilities.GUI.Brainstorm.SceneManager
             
             
             if (0 == node_contents.Count)
-            {   return null;
+            {
+                return null;
             }
 
             else if (1 == node_contents.Count)
@@ -1371,13 +1374,30 @@ namespace Utilities.GUI.Brainstorm.SceneManager
             GC.SuppressFinalize(this);
         }
 
+        private int dispose_count = 0;
         private void Dispose(bool disposing)
         {
+            Logging.Debug("SceneRenderingControl::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
             if (disposing)
             {
                 // Get rid of managed resources
                 this.AutoArranger.Enabled(false);
+
+                node_controls.Clear();
             }
+
+            brainstorm_metadata_control = null;
+            brainstorm_metadata = null;
+
+            auto_arranger = null;
+            drag_drop_manager = null;
+            basic_drag_drop_behaviours = null;
+
+            selected_connector_control = null;
+            selecting_nodes_control = null;
+
+            node_controls.Clear();
+            connector_control_manager = null;
 
             // Get rid of unmanaged resources 
         }

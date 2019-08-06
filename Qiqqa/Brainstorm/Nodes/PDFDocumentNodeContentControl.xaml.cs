@@ -260,12 +260,9 @@ namespace Qiqqa.Brainstorm.Nodes
 
         void PDFDocumentNodeContentControl_ToolTipClosing(object sender, ToolTipEventArgs e)
         {
-            if (null != library_index_hover_popup)
-            {
-                this.ToolTip = "";
-                library_index_hover_popup.Dispose();
-                library_index_hover_popup = null;
-            }
+            this.ToolTip = "";
+            library_index_hover_popup?.Dispose();
+            library_index_hover_popup = null;
         }
 
         void  DocumentNodeContentControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -275,51 +272,55 @@ namespace Qiqqa.Brainstorm.Nodes
 
         public void ProcessKeyPress(KeyEventArgs e)
         {
-            if (false) { }
-            else if (Key.I == e.Key)
+            switch (e.Key)
             {
-                ExpandCitationsInbound();
-                e.Handled = true;
-            }
-            else if (Key.O == e.Key)
-            {
-                ExpandCitationsOutbound();
-                e.Handled = true;
-            }
-            else if (Key.A == e.Key)
-            {
-                ExpandAuthors();
-                e.Handled = true;
-            }
-            else if (Key.T == e.Key)
-            {
-                ExpandTags();
-                e.Handled = true;
-            }
-            else if (Key.G == e.Key)
-            {
-                ExpandAutoTags();
-                e.Handled = true;
-            }
-            else if (Key.N == e.Key)
-            {
-                ExpandAnnotations();
-                e.Handled = true;
-            }
-            else if (Key.M == e.Key)
-            {
-                ExpandThemes();
-                e.Handled = true;
-            }
-            else if (Key.S == e.Key)
-            {
-                ExpandSimilars();
-                e.Handled = true;
-            }
-            else if (Key.R == e.Key)
-            {
-                ExpandRelevants();
-                e.Handled = true;
+                case Key.I:
+                    ExpandCitationsInbound();
+                    e.Handled = true;
+                    break;
+
+                case Key.O:
+                    ExpandCitationsOutbound();
+                    e.Handled = true;
+                    break;
+
+                case Key.A:
+                    ExpandAuthors();
+                    e.Handled = true;
+                    break;
+
+                case Key.T:
+                    ExpandTags();
+                    e.Handled = true;
+                    break;
+
+                case Key.G:
+                    ExpandAutoTags();
+                    e.Handled = true;
+                    break;
+
+                case Key.N:
+                    ExpandAnnotations();
+                    e.Handled = true;
+                    break;
+
+                case Key.M:
+                    ExpandThemes();
+                    e.Handled = true;
+                    break;
+
+                case Key.S:
+                    ExpandSimilars();
+                    e.Handled = true;
+                    break;
+
+                case Key.R:
+                    ExpandRelevants();
+                    e.Handled = true;
+                    break;
+
+                default:
+                    break;
             }
         }
     }

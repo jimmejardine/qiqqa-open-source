@@ -89,7 +89,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
         
         internal override void Dispose()
         {
+            Logging.Info("PDFTextSentenceLayer::Dispose()");
+
             ClearChildren();
+
+            pdf_renderer_control_stats = null;
+            drag_area_tracker = null;
+            text_selection_manager = null;
         }
 
         internal override void DeselectLayer()

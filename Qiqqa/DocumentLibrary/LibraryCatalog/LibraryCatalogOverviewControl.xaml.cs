@@ -297,12 +297,9 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
         void HyperlinkPreview_ToolTipClosing(object sender, ToolTipEventArgs e)
         {
-            if (null != library_index_hover_popup)
-            {
-                ButtonOpen.ToolTip = "";
-                library_index_hover_popup.Dispose();
-                library_index_hover_popup = null;
-            }
+            library_index_hover_popup?.Dispose();
+            library_index_hover_popup = null;
+            ButtonOpen.ToolTip = "";
         }
 
         void ButtonOpen_Click(object sender, RoutedEventArgs e)

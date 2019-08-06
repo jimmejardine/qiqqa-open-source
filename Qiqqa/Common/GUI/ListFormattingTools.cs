@@ -159,12 +159,9 @@ namespace Qiqqa.Common.GUI
             TextBlock text_block = (TextBlock)sender;
             DocumentTextBlockTag tag = (DocumentTextBlockTag)text_block.Tag;
 
-            if (null != tag.library_index_hover_popup)
-            {
-                text_block.ToolTip = "";
-                tag.library_index_hover_popup.Dispose();
-                tag.library_index_hover_popup = null;
-            }
+            tag.library_index_hover_popup?.Dispose();
+            tag.library_index_hover_popup = null;
+            text_block.ToolTip = "";
         }
 
         public static void AddGlowingHoverEffect(FrameworkElement fe)
