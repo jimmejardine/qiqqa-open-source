@@ -47,16 +47,13 @@ namespace Qiqqa.Brainstorm.Nodes
 
             try
             {
-                if (false)
-				{
-					// Utilities code; see https://github.com/jimmejardine/qiqqa-open-source/issues/26
-					Process.Start(website_node_content.Underlying.Url);
-				}
-				else
-				{
-					// Qiqqa code; see https://github.com/jimmejardine/qiqqa-open-source/issues/26
-                	WebsiteAccess.OpenWebsite(website_node_content.Underlying.Url);
-				}
+#if UNUSED_CODE
+                // Utilities code; see https://github.com/jimmejardine/qiqqa-open-source/issues/26
+                Process.Start(website_node_content.Underlying.Url);
+#else
+                // Qiqqa code; see https://github.com/jimmejardine/qiqqa-open-source/issues/26
+                WebsiteAccess.OpenWebsite(website_node_content.Underlying.Url);
+#endif
             }
             catch (Exception ex)
             {

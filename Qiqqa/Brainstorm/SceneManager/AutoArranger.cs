@@ -120,24 +120,21 @@ namespace Qiqqa.Brainstorm.SceneManager
                         // Utilities code had:
                         // 
                         // See also https://github.com/jimmejardine/qiqqa-open-source/issues/26
-                        if (false)
+#if UNUSED_CODE
+                        double strength = SPEED * Math.Min(2, (vector.minimum_extent / (vector.box_distance + 1)));
+                        DoPushPull(nodeI, nodeJ, vector, strength);
+#else
+                        // Qiqqa code chunk alt:
+                        double strength = vector.maximum_extent * SPEED * (1 / (vector.box_distance + 1));
+                        strength = Math.Min(strength, 5);
+                        if (strength > 10)
                         {
-                            double strength = SPEED * Math.Min(2, (vector.minimum_extent / (vector.box_distance + 1)));
-                            DoPushPull(nodeI, nodeJ, vector, strength);
                         }
-                        else
-                        {
-                            // Qiqqa code chunk alt:
-                            double strength = vector.maximum_extent * SPEED * (1 / (vector.box_distance + 1));
-                            strength = Math.Min(strength, 5);
-                            if (strength > 10)
-                            {
-                            }
-                            // end of Qiqqa alt chunk; looks to me like someone has been fiddling around here... 
-                            // (including the logline below, which was also not in Utilities codebase...
-                            DoPushPull(nodeI, nodeJ, vector, strength);
-                            //Logging.Info("REPULSE STRENGTH={0}, box.distance={1}", strength, vector.box_distance);
-                        }
+                        // end of Qiqqa alt chunk; looks to me like someone has been fiddling around here... 
+                        // (including the logline below, which was also not in Utilities codebase...
+                        DoPushPull(nodeI, nodeJ, vector, strength);
+                        //Logging.Info("REPULSE STRENGTH={0}, box.distance={1}", strength, vector.box_distance);
+#endif
                     }
                 }
             }
@@ -159,19 +156,16 @@ namespace Qiqqa.Brainstorm.SceneManager
 
                     vector.Recalculate(nodeI, nodeJ);
 
-					if (false)
-					{
-						// Utilities codebase was:
-						// See also https://github.com/jimmejardine/qiqqa-open-source/issues/26
-	                    double strength = -1 * SPEED * (vector.distance / vector.minimum_extent);
-	                    DoPushPull(nodeI, nodeJ, vector, strength);
-					}
-					else
-					{						
-	                    double strength = -1 * SPEED * (vector.box_distance / 50);                    
-	                    DoPushPull(nodeI, nodeJ, vector, strength);
-	                    //Logging.Info("ATTRACT STRENGTH={0}", strength);
-					}
+#if UNUSED_CODE
+					// Utilities codebase was:
+					// See also https://github.com/jimmejardine/qiqqa-open-source/issues/26
+	                double strength = -1 * SPEED * (vector.distance / vector.minimum_extent);
+	                DoPushPull(nodeI, nodeJ, vector, strength);
+#else
+	                double strength = -1 * SPEED * (vector.box_distance / 50);                    
+	                DoPushPull(nodeI, nodeJ, vector, strength);
+	                //Logging.Info("ATTRACT STRENGTH={0}", strength);
+#endif
                 }
             }
 
@@ -206,12 +200,14 @@ namespace Qiqqa.Brainstorm.SceneManager
             public double unit_x;
             public double unit_y;
 
+#if UNUSED_CODE
 			// Utilities codebase had MIN instead of max:
 			// (https://github.com/jimmejardine/qiqqa-open-source/issues/26)
 			//
             public double minimum_extent;
-            // Qiqqa alt:
+#else
             public double maximum_extent;
+#endif
 
             public NodesVector()
             {                
@@ -229,21 +225,19 @@ namespace Qiqqa.Brainstorm.SceneManager
                 box_j.Height = nodeJ.Height;
 
                 box_distance = BoxDistance.CalculateDistanceBetweenTwoBoxes(box_i, box_j);
-				if (false)
-				{
-					// Utilities codebase had:
-					// (https://github.com/jimmejardine/qiqqa-open-source/issues/26)
-	                minimum_extent = Math.Min(Math.Min(nodeI.Width, nodeI.Height), Math.Min(nodeJ.Width, nodeJ.Height));
-				}
-				else
-				{
-					// Qiqqa codebase had:
-					//
-	                //Logging.Debug(" DIST {0}", box_distance);
-	                maximum_extent = Math.Max(Math.Max(nodeI.Width, nodeI.Height), Math.Max(nodeJ.Width, nodeJ.Height));
-	                //minimum_extent = Math.Min(Math.Min(nodeI.Width, nodeI.Height), Math.Min(nodeJ.Width, nodeJ.Height));
-				}
-				
+
+#if UNUSED_CODE
+				// Utilities codebase had:
+				// (https://github.com/jimmejardine/qiqqa-open-source/issues/26)
+	            minimum_extent = Math.Min(Math.Min(nodeI.Width, nodeI.Height), Math.Min(nodeJ.Width, nodeJ.Height));
+#else
+                // Qiqqa codebase had:
+				//
+	            //Logging.Debug(" DIST {0}", box_distance);
+	            maximum_extent = Math.Max(Math.Max(nodeI.Width, nodeI.Height), Math.Max(nodeJ.Width, nodeJ.Height));
+                //minimum_extent = Math.Min(Math.Min(nodeI.Width, nodeI.Height), Math.Min(nodeJ.Width, nodeJ.Height));
+#endif
+                
                 delta_x = nodeI.CentreX - nodeJ.CentreX;
                 delta_y = nodeI.CentreY - nodeJ.CentreY;
                 
