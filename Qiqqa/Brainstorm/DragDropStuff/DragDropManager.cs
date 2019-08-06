@@ -68,7 +68,7 @@ namespace Qiqqa.Brainstorm.DragDropStuff
             return false;
         }
 
-        public static string DumpUnkownDropTypes(DragEventArgs e)
+        public static string DumpUnknownDropTypes(DragEventArgs e)
         {
             StringBuilder sb = new StringBuilder();
 

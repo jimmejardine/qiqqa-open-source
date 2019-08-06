@@ -428,7 +428,7 @@ namespace Qiqqa.Brainstorm.SceneManager
 
             else
             {
-                string msg = DragDropManager.DumpUnkownDropTypes(e);
+                string msg = DragDropManager.DumpUnknownDropTypes(e);
                 Logging.Info(msg);
             }
         }
