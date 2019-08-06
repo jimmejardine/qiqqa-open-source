@@ -7,7 +7,7 @@ using Qiqqa.Documents.PDF;
 namespace Qiqqa.Brainstorm.Nodes
 {
     [Serializable]
-    public class PDFDocumentNodeContent : Searchable, RecurrentNodeContent
+    public class PDFDocumentNodeContent : ISearchable, IRecurrentNodeContent
     {
         string document_fingerprint;
         string library_fingerprint;
@@ -80,7 +80,5 @@ namespace Qiqqa.Brainstorm.Nodes
             hash = hash * 37 + this.library_fingerprint.GetHashCode();
             return hash;
         }
-
-
     }
 }

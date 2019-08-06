@@ -7,7 +7,7 @@ namespace Qiqqa.Brainstorm.Nodes
 {
     [Serializable]
     [Obfuscation(Feature = "properties renaming")]
-    public class WebsiteNodeContent : Searchable
+    public class WebsiteNodeContent : ISearchable
     {
         public string Url { get; set; }
         public string Title { get; set; }

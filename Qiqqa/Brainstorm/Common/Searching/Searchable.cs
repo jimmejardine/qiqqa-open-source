@@ -1,6 +1,6 @@
 ﻿namespace Qiqqa.Brainstorm.Common.Searching
 {
-    public interface Searchable
+    public interface ISearchable
     {
         bool MatchesKeyword(string keyword);
     }

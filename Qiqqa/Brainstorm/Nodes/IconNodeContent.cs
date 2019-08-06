@@ -7,7 +7,7 @@ using Qiqqa.Brainstorm.Common.Searching;
 namespace Qiqqa.Brainstorm.Nodes
 {
     [Serializable]
-    public class IconNodeContent : Searchable
+    public class IconNodeContent : ISearchable
     {
         string icon_path;
         [NonSerialized]

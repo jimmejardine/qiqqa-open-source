@@ -5,7 +5,7 @@ using Qiqqa.Brainstorm.Common.Searching;
 namespace Qiqqa.Brainstorm.Nodes
 {
     [Serializable]
-    public class FileSystemNodeContent : Searchable
+    public class FileSystemNodeContent : ISearchable
     {
         public string path;
 

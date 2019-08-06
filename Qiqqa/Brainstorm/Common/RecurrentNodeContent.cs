@@ -1,6 +1,6 @@
 ﻿namespace Qiqqa.Brainstorm.Common
 {
-    public interface RecurrentNodeContent
+    public interface IRecurrentNodeContent
     {
     }
 }

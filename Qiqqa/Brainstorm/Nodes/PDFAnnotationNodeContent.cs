@@ -8,7 +8,7 @@ using Utilities.Reflection;
 namespace Qiqqa.Brainstorm.Nodes
 {
     [Serializable]
-    public class PDFAnnotationNodeContent : Searchable
+    public class PDFAnnotationNodeContent : ISearchable
     {
         // NB: Do not reorder these cos it breaks serialization!
         internal string pdf_document_fingerprint;

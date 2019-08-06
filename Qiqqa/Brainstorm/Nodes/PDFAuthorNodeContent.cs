@@ -8,7 +8,7 @@ using Qiqqa.DocumentLibrary.WebLibraryStuff;
 namespace Qiqqa.Brainstorm.Nodes
 {
     [Serializable]
-    public class PDFAuthorNodeContent : Searchable, RecurrentNodeContent
+    public class PDFAuthorNodeContent : ISearchable, IRecurrentNodeContent
     {
         string library_id;
         string surname;
@@ -101,6 +101,5 @@ namespace Qiqqa.Brainstorm.Nodes
             if (null != initial) hash = hash * 37 + this.initial.GetHashCode();
             return hash;
         }
-
     }
 }

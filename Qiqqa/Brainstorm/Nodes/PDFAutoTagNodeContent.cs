@@ -8,12 +8,11 @@ using Qiqqa.DocumentLibrary.WebLibraryStuff;
 namespace Qiqqa.Brainstorm.Nodes
 {
     [Serializable]
-    public class PDFAutoTagNodeContent : Searchable, RecurrentNodeContent
+    public class PDFAutoTagNodeContent : ISearchable, IRecurrentNodeContent
     {
         string library_id;
         string tag;
-
-
+                                     
         [NonSerialized]
         Library library = null;
         public Library Library

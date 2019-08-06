@@ -8,7 +8,7 @@ using Utilities.Images;
 namespace Qiqqa.Brainstorm.Nodes
 {
     [Serializable]
-    public class LinkedImageNodeContent : Searchable
+    public class LinkedImageNodeContent : ISearchable
     {
         string image_path;
         [NonSerialized]

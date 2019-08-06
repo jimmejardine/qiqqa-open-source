@@ -5,7 +5,7 @@ using Qiqqa.Brainstorm.Common.Searching;
 namespace Qiqqa.Brainstorm.Nodes
 {
     [Serializable]
-    public class LibraryNodeContent : Searchable, RecurrentNodeContent
+    public class LibraryNodeContent : ISearchable, IRecurrentNodeContent
     {
         public string title;
         public string library_fingerprint;

@@ -5,7 +5,7 @@ using Qiqqa.Brainstorm.Common.Searching;
 namespace Qiqqa.Brainstorm.Nodes
 {
     [Serializable]
-    public class EllipseNodeContent : Searchable
+    public class EllipseNodeContent : ISearchable
     {
         public string text;
 

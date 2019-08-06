@@ -148,7 +148,7 @@ namespace Qiqqa.Brainstorm.SceneManager
                     node_control.OnDimensionsChanged -= SelectedNode_OnDimensionsChangedDelegate;
                     node_control.OnDeleted -= SelectedNode_OnDeletedDelegate;
 
-                    Selectable selectable = node_control.NodeContentControl as Selectable;
+                    ISelectable selectable = node_control.NodeContentControl as ISelectable;
                     if (null != selectable) selectable.Deselect();
 
                     node_control = null;
@@ -161,7 +161,7 @@ namespace Qiqqa.Brainstorm.SceneManager
                     node_control.OnDimensionsChanged += SelectedNode_OnDimensionsChangedDelegate;
                     node_control.OnDeleted += SelectedNode_OnDeletedDelegate;
 
-                    Selectable selectable = node_control.NodeContentControl as Selectable;
+                    ISelectable selectable = node_control.NodeContentControl as ISelectable;
                     if (null != selectable) selectable.Select();
 
                     scene_rendering_control.Focus();

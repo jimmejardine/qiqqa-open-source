@@ -6,7 +6,7 @@ using Utilities.Reflection;
 namespace Qiqqa.Brainstorm.Nodes
 {
     [Serializable]
-    public class StringNodeContent : Searchable
+    public class StringNodeContent : ISearchable
     {
         [NonSerialized]
         public static string DEFAULT_NODE_CONTENT = "Type or double click to edit...";

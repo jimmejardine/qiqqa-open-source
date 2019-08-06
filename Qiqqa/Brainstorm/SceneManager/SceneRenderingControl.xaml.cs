@@ -571,7 +571,7 @@ namespace Qiqqa.Brainstorm.SceneManager
             // Check that we don't already have a recurrent node we can use            
             if (NodeAdditionPolicyEnum.AlwaysUseExisting == node_addition_policy)
             {
-                RecurrentNodeContent recurrent_node_content = node_content as RecurrentNodeContent;
+                IRecurrentNodeContent recurrent_node_content = node_content as IRecurrentNodeContent;
                 if (null != recurrent_node_content)
                 {
                     foreach (NodeControl node_control in node_controls)
@@ -1130,7 +1130,7 @@ namespace Qiqqa.Brainstorm.SceneManager
             }
 
             keyword = keyword.ToLower();
-            List<Searchable> searchables = new List<Searchable>();
+            List<ISearchable> searchables = new List<ISearchable>();
 
             // Work out where we are starting in the list
             int start_search_child_offset = last_search_child_offset + 1;
@@ -1150,7 +1150,7 @@ namespace Qiqqa.Brainstorm.SceneManager
             for (int i = 0; i < node_controls.Count; ++i)
             {
                 NodeControl node_control = node_controls[i];
-                Searchable searchable = node_control.scene_data.node_content as Searchable;
+                ISearchable searchable = node_control.scene_data.node_content as ISearchable;
                 if (null != searchable)
                 {
                     if (searchable.MatchesKeyword(keyword))
