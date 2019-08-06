@@ -90,7 +90,7 @@ namespace QiqqaOCR
                 // --- TEST FOR PROBLEMS ------------------------------------------------------------------------------------------------------------------------------------------------
 
                 // Have we been running for too long?
-                if (DateTime.UtcNow > kill_time)
+                if (DateTime.UtcNow > kill_time && !no_kill)
                 {
                     Logging.Info("We have been running for too long, so exiting");
                     break;
