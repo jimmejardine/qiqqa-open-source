@@ -52,10 +52,7 @@ namespace Qiqqa.Documents.PDF
         {
             page_ink_blobs[page] = page_ink_blob;
 
-            if (null != OnPDFInkListChanged)
-            {
-                OnPDFInkListChanged();
-            }
+            OnPDFInkListChanged?.Invoke();
         }
 
         /// <summary>

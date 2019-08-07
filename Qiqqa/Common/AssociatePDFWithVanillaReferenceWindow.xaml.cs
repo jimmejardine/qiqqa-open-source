@@ -67,13 +67,13 @@ namespace Qiqqa.Common
         void CmdLocal_Click(object sender, RoutedEventArgs e)
         {
             using (System.Windows.Forms.OpenFileDialog dlg = new System.Windows.Forms.OpenFileDialog
-            {
-                CheckFileExists = true,
-                CheckPathExists = true,
-                Filter = "PDF Files|*.pdf",
-                Multiselect = false,
-                Title = "Select the PDF document you wish to associate with this Vanilla Reference."
-            })
+                {
+                    CheckFileExists = true,
+                    CheckPathExists = true,
+                    Filter = "PDF Files|*.pdf",
+                    Multiselect = false,
+                    Title = "Select the PDF document you wish to associate with this Vanilla Reference."
+                })
 			{
 	            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 	            {

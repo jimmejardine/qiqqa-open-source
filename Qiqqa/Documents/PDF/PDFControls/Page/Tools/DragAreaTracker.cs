@@ -57,15 +57,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
 
                 canvas.Children.Add(current_annotation);
 
-                if (null != OnDragStarted)
-                {
-                    OnDragStarted(button_left_pressed, button_right_pressed, mouse_down_point);
-                }
+                OnDragStarted?.Invoke(button_left_pressed, button_right_pressed, mouse_down_point);
 
-                if (null != OnDragInProgress)
-                {
-                    OnDragInProgress(button_left_pressed, button_right_pressed, mouse_down_point, mouse_down_point);
-                }
+                OnDragInProgress?.Invoke(button_left_pressed, button_right_pressed, mouse_down_point, mouse_down_point);
             }
         }
 
@@ -79,10 +73,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
                 current_annotation.Width = Math.Abs(mouse_move_point.X - mouse_down_point.X);
                 current_annotation.Height = Math.Abs(mouse_move_point.Y - mouse_down_point.Y);
 
-                if (null != OnDragInProgress)
-                {
-                    OnDragInProgress(button_left_pressed, button_right_pressed, mouse_down_point, mouse_move_point);
-                }
+                OnDragInProgress?.Invoke(button_left_pressed, button_right_pressed, mouse_down_point, mouse_move_point);
             }
         }
 
@@ -95,10 +86,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
                 canvas.ReleaseMouseCapture();
 
                 Point mouse_up_point = e.GetPosition(canvas);
-                if (null != OnDragComplete)
-                {
-                    OnDragComplete(button_left_pressed, button_right_pressed, mouse_down_point, mouse_up_point);
-                }
+                OnDragComplete?.Invoke(button_left_pressed, button_right_pressed, mouse_down_point, mouse_up_point);
             }
         }
     }

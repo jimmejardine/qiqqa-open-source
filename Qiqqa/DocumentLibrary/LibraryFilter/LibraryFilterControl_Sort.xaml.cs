@@ -37,7 +37,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
                 sort_hyperlink = new_sort_hyperlink;
             }
 
-            if (null != SortChanged) SortChanged();
+            SortChanged?.Invoke();
         }
 
         internal void SetSortToSearchScore()

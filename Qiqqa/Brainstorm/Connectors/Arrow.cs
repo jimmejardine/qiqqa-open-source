@@ -275,20 +275,14 @@ namespace Qiqqa.Brainstorm.Connectors
         public event DeletedDelegate OnDeleted;
         internal void RaiseOnDeleted()
         {
-            if (null != OnDeleted)
-            {
-                OnDeleted(this);
-            }
+            OnDeleted?.Invoke(this);
         }
 
         public delegate void DimensionsChangedDelegate(ConnectorControl cc);
         public event DimensionsChangedDelegate OnDimensionsChanged;
         internal void RaiseOnDimensionsChanged()
         {
-            if (null != OnDimensionsChanged)
-            {
-                OnDimensionsChanged(this);
-            }
+            OnDimensionsChanged?.Invoke(this);
         }
 
 

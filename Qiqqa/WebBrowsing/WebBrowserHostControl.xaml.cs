@@ -305,10 +305,7 @@ namespace Qiqqa.WebBrowsing
                 TextBoxUrl.Text = uri == null ? String.Empty : uri.ToString();
             }
 
-            if (null != TabChanged)
-            {
-                TabChanged();
-            }
+            TabChanged?.Invoke();
         }
 
         /*
@@ -397,7 +394,7 @@ namespace Qiqqa.WebBrowsing
 
         public WebBrowserControl OpenNewWindow()
         {
-            WebBrowserControl wbc = new WebBrowserControl(this);
+            WebBrowserControl wbc = new WebBrowserControl(this);   // <-- must be Dispose()d by caller
 
             string unique_tab_name = Guid.NewGuid().ToString();
             TabWebBrowserControls.AddContent(unique_tab_name, "Browser", Icons.GetAppIcon(Icons.ModuleWebBrowser), true, true, wbc);
@@ -469,10 +466,7 @@ namespace Qiqqa.WebBrowsing
                 TextBoxUrl.Text = uri.ToString();
                 TextBoxUrl.SelectAll();
 
-                if (null != Navigating)
-                {
-                    Navigating(uri);
-                }
+                Navigating?.Invoke(uri);
             }
         }
 
@@ -480,10 +474,7 @@ namespace Qiqqa.WebBrowsing
         {
             if (wbc == active_wbc)
             {
-                if (null != PageLoaded)
-                {
-                    PageLoaded();
-                }
+                PageLoaded?.Invoke();
             }
         }
 

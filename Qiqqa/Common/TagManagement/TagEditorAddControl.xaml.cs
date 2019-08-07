@@ -67,10 +67,7 @@ namespace Qiqqa.Common.TagManagement
                 
             if (!String.IsNullOrEmpty(tag))
             {
-                if (null != OnNewTag)
-                {
-                    OnNewTag(tag);
-                }
+                OnNewTag?.Invoke(tag);
             }
 
             ComboBoxNewTag.Text = "";

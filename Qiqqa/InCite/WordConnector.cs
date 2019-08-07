@@ -196,15 +196,9 @@ namespace Qiqqa.InCite
 
         public void ReissueContextChanged()
         {
-            if (null != ContextChanged)
-            {
-                ContextChanged(current_context_word, current_context_backward, current_context_surround);
-            }
+            ContextChanged?.Invoke(current_context_word, current_context_backward, current_context_surround);
 
-            if (null != CitationClusterChanged)
-            {
-                CitationClusterChanged(current_context_citation_cluster);
-            }
+            CitationClusterChanged?.Invoke(current_context_citation_cluster);
         }
         
         private void CheckForChangedContexts(string context_word, string context_backward, string context_surround, CitationCluster context_citation_cluster)
@@ -216,20 +210,14 @@ namespace Qiqqa.InCite
                 current_context_backward = context_backward;
                 current_context_surround = context_surround;
 
-                if (null != ContextChanged)
-                {
-                    ContextChanged(current_context_word, current_context_backward, current_context_surround);
-                }
+                ContextChanged?.Invoke(current_context_word, current_context_backward, current_context_surround);
             }
 
             // Has citation context changed?
             if ((context_citation_cluster == null ? null : context_citation_cluster.cluster_id) != (current_context_citation_cluster == null ? null : current_context_citation_cluster.cluster_id))
             {
                 current_context_citation_cluster = context_citation_cluster;
-                if (null != CitationClusterChanged)
-                {
-                    CitationClusterChanged(current_context_citation_cluster);
-                }
+                CitationClusterChanged?.Invoke(current_context_citation_cluster);
             }
         }
 

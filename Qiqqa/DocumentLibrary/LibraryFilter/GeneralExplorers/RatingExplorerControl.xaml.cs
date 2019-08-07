@@ -71,10 +71,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
 
         void TagExplorerTree_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
         {
-            if (null != OnTagSelectionChanged)
-            {
-                OnTagSelectionChanged(fingerprints, descriptive_span);
-            }
+            OnTagSelectionChanged?.Invoke(fingerprints, descriptive_span);
         }
     }
 }

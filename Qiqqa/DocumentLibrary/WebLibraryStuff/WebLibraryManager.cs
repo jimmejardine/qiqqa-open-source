@@ -41,10 +41,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         private void FireWebLibrariesChanged()
         {
             Logging.Info("+Notifying everyone that web libraries have changed");
-            if (null != WebLibrariesChanged)
-            {
-                WebLibrariesChanged();
-            }
+            WebLibrariesChanged?.Invoke();
             Logging.Info("-Notifying everyone that web libraries have changed");
         }
 

@@ -101,10 +101,7 @@ namespace Qiqqa.Brainstorm.SceneManager
         internal event ScrollInfoChangedDelegate ScrollInfoChanged;
         private void FireScrollInfoChanged()
         {
-            if (null != ScrollInfoChanged)
-            {
-                ScrollInfoChanged();
-            }
+            ScrollInfoChanged?.Invoke();
         }
 
         internal Point mouse_previous = new Point(0.0, 0.0);
@@ -1417,10 +1414,7 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         internal void NotifySelectedNodeControlChanged(NodeControl node_control)
         {
-            if (null != SelectedNodeControlChanged)
-            {
-                SelectedNodeControlChanged(node_control);
-            }
+            SelectedNodeControlChanged?.Invoke(node_control);
         }
 
         internal bool IsUserIndicatingAddToSelection()

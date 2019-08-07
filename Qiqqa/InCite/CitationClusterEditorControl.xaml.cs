@@ -69,10 +69,7 @@ namespace Qiqqa.InCite
 
                     if (null != selected_item_reference_key)
                     {
-                        if (null != CitationClusterOpenPDFByReferenceKey)
-                        {
-                            CitationClusterOpenPDFByReferenceKey(selected_item_reference_key);
-                        }
+                        CitationClusterOpenPDFByReferenceKey?.Invoke(selected_item_reference_key);
                     }
 
                 }
@@ -134,10 +131,7 @@ namespace Qiqqa.InCite
 
                 // And apply the modified cluster back to Word
                 {
-                    if (null != CitationClusterChanged)
-                    {
-                        CitationClusterChanged(citation_cluster);
-                    }
+                    CitationClusterChanged?.Invoke(citation_cluster);
                 }
             }
         }

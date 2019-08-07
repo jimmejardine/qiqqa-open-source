@@ -497,10 +497,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 page_control.SetOperationMode(operation_mode);
             }
 
-            if (null != OperationModeChanged)
-            {
-                OperationModeChanged(operation_mode);
-            }
+            OperationModeChanged?.Invoke(operation_mode);
         }
 
         PDFSearchResultSet previous_search_result_set = null;
@@ -618,10 +615,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     {
                         selected_page.SelectPage();
 
-                        if (null != SelectedPageChanged)
-                        {
-                            SelectedPageChanged(selected_page.Page);
-                        }
+                        SelectedPageChanged?.Invoke(selected_page.Page);
                     }
                 }
             }
@@ -800,10 +794,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     break;
             }
 
-            if (null != ZoomTypeChanged)
-            {
-                ZoomTypeChanged(zoom_type);
-            }
+            ZoomTypeChanged?.Invoke(zoom_type);
         }
 
         internal void ToggleZoom()
@@ -921,10 +912,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
         /// <param name="selected_text"></param>
         internal void OnTextSelected(string selected_text)
         {
-            if (null != TextSelected)
-            {
-                TextSelected(selected_text);
-            }
+            TextSelected?.Invoke(selected_text);
         }
 
         internal void RotatePage()

@@ -28,19 +28,13 @@ namespace Qiqqa.Documents.PDF.Search
         void ListSearchResults_MouseUp(object sender, MouseButtonEventArgs e)
         {
             PDFSearchResult search_result = ListSearchResults.SelectedItem as PDFSearchResult;
-            if (null != SearchClicked)
-            {
-                SearchClicked(search_result);
-            }
+            SearchClicked?.Invoke(search_result);
         }
 
         void ListSearchResults_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             PDFSearchResult search_result = ListSearchResults.SelectedItem as PDFSearchResult;
-            if (null != SearchSelectionChanged)
-            {
-                SearchSelectionChanged(search_result);
-            }
+            SearchSelectionChanged?.Invoke(search_result);
         }
 
         void SearchResultsListControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)

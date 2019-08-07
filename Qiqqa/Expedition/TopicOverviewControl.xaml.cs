@@ -116,10 +116,7 @@ namespace Qiqqa.Expedition
         {
             TextBlock text_block = (TextBlock)sender;
             ListFormattingTools.DocumentTextBlockTag tag = (ListFormattingTools.DocumentTextBlockTag)text_block.Tag;
-            if (null != PDFDocumentSelected)
-            {
-                PDFDocumentSelected(tag.pdf_document);
-            }            
+            PDFDocumentSelected?.Invoke(tag.pdf_document);
             e.Handled = true;
         }
     }

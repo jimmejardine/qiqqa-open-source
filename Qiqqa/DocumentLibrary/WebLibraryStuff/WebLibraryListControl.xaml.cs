@@ -74,10 +74,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.GUI_LastSelectedLibraryId);
 
             // Callback
-            if (null != OnWebLibrarySelected)
-            {
-                OnWebLibrarySelected(web_library_detail);
-            }
+            OnWebLibrarySelected?.Invoke(web_library_detail);
         }
     }
 }

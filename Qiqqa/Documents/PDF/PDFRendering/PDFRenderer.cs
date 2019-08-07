@@ -339,10 +339,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         {
             string filename = pdf_render_file_layer.StorePageTextSingle(page, source_filename);
 
-            if (null != OnPageTextAvailable)
-            {
-                OnPageTextAvailable(page, page);
-            }
+            OnPageTextAvailable?.Invoke(page, page);
         }
 
         internal void StorePageTextGroup(int page, int TEXT_PAGES_PER_GROUP, string source_filename)

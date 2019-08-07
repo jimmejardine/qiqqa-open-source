@@ -52,10 +52,7 @@ namespace Qiqqa.Common.LibraryPickerStuff
             }
 
             // Callback
-            if (null != OnWebLibraryPicked)
-            {
-                OnWebLibraryPicked(web_library_detail);
-            }
+            OnWebLibraryPicked?.Invoke(web_library_detail);
         }
     }
 }

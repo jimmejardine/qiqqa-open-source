@@ -296,10 +296,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
             }
 
             // Call any callback that might be interested
-            if (null != callback)
-            {
-                callback(null);
-            }
+            callback?.Invoke(null);
         }
 
         public AITags AITags        

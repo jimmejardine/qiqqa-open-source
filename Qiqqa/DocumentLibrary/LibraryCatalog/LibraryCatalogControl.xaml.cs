@@ -43,10 +43,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
         {
             ReconsiderPDFDocumentDetail();
 
-            if (null != SelectionChanged)
-            {
-                SelectionChanged(SelectedPDFDocuments);
-            }
+            SelectionChanged?.Invoke(SelectedPDFDocuments);
         }
 
         private void ReconsiderPDFDocumentDetail()

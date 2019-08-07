@@ -31,18 +31,12 @@ namespace Qiqqa.Documents.PDF
                 annotation.Bindable.PropertyChanged += Bindable_PropertyChanged;
             }
 
-            if (null != OnPDFAnnotationListChanged)
-            {
-                OnPDFAnnotationListChanged();
-            }
+            OnPDFAnnotationListChanged?.Invoke();
         }
 
         void Bindable_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (null != OnPDFAnnotationListChanged)
-            {
-                OnPDFAnnotationListChanged();
-            }
+            OnPDFAnnotationListChanged?.Invoke();
         }
 
         public int Count

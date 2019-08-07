@@ -513,10 +513,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
             ObjLibraryFilterControl_Sort.ApplySort(pdf_documents, search_quick_scores);
 
             // Call the event
-            if (null != OnFilterChanged)
-            {
-                OnFilterChanged(this, pdf_documents, descriptive_span, search_quick_query, search_quick_scores, pdf_document_to_focus_on);
-            }
+            OnFilterChanged?.Invoke(this, pdf_documents, descriptive_span, search_quick_query, search_quick_scores, pdf_document_to_focus_on);
         }
 
         #region --- Test ------------------------------------------------------------------------

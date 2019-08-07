@@ -42,7 +42,7 @@ namespace Qiqqa.StartPage
             ConfigurationManager.Instance.ConfigurationRecord.TermsAndConditionsAccepted = true;
             ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.TermsAndConditionsAccepted);
 
-            if (null != GetGoing) GetGoing();
+            GetGoing?.Invoke();
         }
 
         private void Feedback_Click(object sender, RoutedEventArgs e)

@@ -412,10 +412,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             descriptive_span.Inlines.Add(" ");
             descriptive_span.Inlines.Add(LibraryFilterHelpers.GetClearImageInline("Clear this filter.", hyperlink_clear_all_OnClick));
 
-            if (null != OnTagSelectionChanged)
-            {
-                OnTagSelectionChanged(fingerprints, descriptive_span);
-            }
+            OnTagSelectionChanged?.Invoke(fingerprints, descriptive_span);
         }
 
         #region --- Charting methods ------------------------------------------------------------------------------------------------------------------

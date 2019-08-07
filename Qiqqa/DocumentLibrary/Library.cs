@@ -858,10 +858,7 @@ namespace Qiqqa.DocumentLibrary
 
                 try
                 {
-                    if (null != OnDocumentsChanged)
-                    {
-                        OnDocumentsChanged(this, new PDFDocumentEventArgs(local_documents_changed_optional_changed_pdf_document));
-                    }
+                    OnDocumentsChanged?.Invoke(this, new PDFDocumentEventArgs(local_documents_changed_optional_changed_pdf_document));
                 }
                 catch (Exception ex)
                 {

@@ -52,28 +52,19 @@ namespace Qiqqa.Documents.PDF
         {
             AddHighlight_Internal(highlight);
 
-            if (null != OnPDFHighlightListChanged)
-            {
-                OnPDFHighlightListChanged();
-            }
+            OnPDFHighlightListChanged?.Invoke();
         }
 
         public void RemoveUpdatedHighlight(PDFHighlight highlight)
         {
             RemoveHighlight_Internal(highlight);
 
-            if (null != OnPDFHighlightListChanged)
-            {
-                OnPDFHighlightListChanged();
-            }
+            OnPDFHighlightListChanged?.Invoke();
         }
 
         void Bindable_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (null != OnPDFHighlightListChanged)
-            {
-                OnPDFHighlightListChanged();
-            }
+            OnPDFHighlightListChanged?.Invoke();
         }
 
         public int Count

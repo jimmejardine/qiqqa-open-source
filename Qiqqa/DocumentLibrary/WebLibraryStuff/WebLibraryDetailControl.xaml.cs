@@ -591,10 +591,10 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 using (Font font = new Font("Times New Roman", 11.0f))
                 {
                     using (StringFormat string_format = new StringFormat
-                    {
-                        Alignment = StringAlignment.Center,
-                        LineAlignment = StringAlignment.Center
-                    })
+                        {
+                            Alignment = StringAlignment.Center,
+                            LineAlignment = StringAlignment.Center
+                        })
                     {
                         var color_matrix = new ColorMatrix();
                         color_matrix.Matrix33 = 0.9f;

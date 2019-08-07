@@ -53,10 +53,10 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         void CmdAddFolder_Click(object sender, RoutedEventArgs e)
         {
             using (FolderBrowserDialog dlg = new FolderBrowserDialog
-            {
-                Description = "Please select the folder you want to watch for new PDFs.",
-                ShowNewFolderButton = true
-            })
+                {
+                    Description = "Please select the folder you want to watch for new PDFs.",
+                    ShowNewFolderButton = true
+                })
             {
                 if (System.Windows.Forms.DialogResult.OK == dlg.ShowDialog())
                 {

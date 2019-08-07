@@ -81,10 +81,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         void pdf_renderer_control_SelectedPageChanged(int page)
         {
-            if (null != SelectedPageChanged)
-            {
-                SelectedPageChanged(page);
-            }
+            SelectedPageChanged?.Invoke(page);
         }
     }
 }
