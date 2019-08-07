@@ -44,15 +44,19 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             public bool Skipped { get; set; }
             public bool Auto { get; set; }
             public bool Manual { get; set; }
+            // checkboxes for subset selection: only when ticked ON are these active:
             public bool HasSourceURL { get; set; }
             public bool HasSourceLocalFileSystem { get; set; }
             public bool Unsourced { get; set; }
+            public bool HasDocumentPDF { get; set; }
+            // checkbox for NOT query mode
             public bool InvertSelection { get; set; }
 #pragma warning restore 0649
 
             public SearchOptions()
             {
                 Missing = true;
+                HasDocumentPDF = true;
             }
         }
 
@@ -374,20 +378,72 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                 // apply subselections:
                 if (include_in_search_pool)
                 {
-                    include_in_search_pool = (search_options.Unsourced ^ !String.IsNullOrEmpty(pdf_document.DownloadLocation));
-                    if (!search_options.Unsourced && search_options.HasSourceURL && !String.IsNullOrEmpty(pdf_document.DownloadLocation)
-                        && (pdf_document.DownloadLocation.StartsWith("http://")
-                        || pdf_document.DownloadLocation.StartsWith("https://")
-                        || pdf_document.DownloadLocation.StartsWith("ftp://")
-                        || pdf_document.DownloadLocation.StartsWith("ftps://"))) include_in_search_pool = true;
+                    // When ANY of these checkboxes is *ON*, then the subselection criteria apply.
+                    // Otherwise we simply *pass*.
+                    //
+                    // Note: the three criteria combine together to ALL, i.e. when all three(3)
+                    // tickboxes have been ticked, you get *all* documents from the main filter,
+                    // i.e. all ticked means everyone *passes*.
+                    if (search_options.Unsourced || search_options.HasSourceURL || search_options.HasSourceLocalFileSystem)
+                    {
+                        // subselection: only match records which match any or all of the ticked criteria:
+                        include_in_search_pool = false;
+
+                        if (search_options.Unsourced)
+                        {
+                            include_in_search_pool |= String.IsNullOrEmpty(pdf_document.DownloadLocation);
+                        }
+                        if (search_options.HasSourceURL)
+                        {
+                            include_in_search_pool |= !String.IsNullOrEmpty(pdf_document.DownloadLocation)
+                            && (pdf_document.DownloadLocation.StartsWith("http://")
+                            || pdf_document.DownloadLocation.StartsWith("https://")
+                            || pdf_document.DownloadLocation.StartsWith("ftp://")
+                            || pdf_document.DownloadLocation.StartsWith("ftps://"));
+                        }
+                        if (search_options.HasSourceLocalFileSystem)
+                        {
+                            // this is the inverse of HasSourceURL for all documents which *do have* a source:
+                            include_in_search_pool |= !String.IsNullOrEmpty(pdf_document.DownloadLocation)
+                            && !(pdf_document.DownloadLocation.StartsWith("http://")
+                            || pdf_document.DownloadLocation.StartsWith("https://")
+                            || pdf_document.DownloadLocation.StartsWith("ftp://")
+                            || pdf_document.DownloadLocation.StartsWith("ftps://"));
+                        }
+                    }
                 }
 
-                if (pdf_document == user_specified_pdf_document || include_in_search_pool && pdf_document.DocumentExists)
+                // another subselection is ON/OFF: does the library entry have a PDF file available or not?
+                if (include_in_search_pool)
+                {
+                    include_in_search_pool = !(search_options.HasDocumentPDF ^ pdf_document.DocumentExists);
+                }
+
+                // the odd one out: the user specified document exists in both regular *and* inverted set:
+                if (pdf_document == user_specified_pdf_document)
+                {
+                    pdf_documents_search_pool.Add(pdf_document);
+                    pdf_documents_inverted_search_pool.Add(pdf_document);
+                }
+                else if (include_in_search_pool)
                 {
                     pdf_documents_search_pool.Add(pdf_document);
                 }
                 else
-                { }
+                {
+                    pdf_documents_inverted_search_pool.Add(pdf_document);
+                }
+            }
+
+            // now decide if this was a positive or negative search query: invert the set or not?
+            if (search_options.InvertSelection)
+            {
+                pdf_documents_search_pool.Clear();
+                pdf_documents_search_pool = pdf_documents_inverted_search_pool;
+            }
+            else
+            {
+                pdf_documents_inverted_search_pool.Clear();
             }
 
             MoveFirst();            

@@ -60,30 +60,28 @@
 
                 <Grid Name="ObjSearchOptionsPanel">
                   <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="5" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="5" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="5" />
-                    <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="7*" />
+                                        <ColumnDefinition Width="3" />
+                                        <ColumnDefinition Width="10*" />
+                                        <ColumnDefinition Width="3" />
+                                        <ColumnDefinition Width="10*" />
                   </Grid.ColumnDefinitions>
 
                   <StackPanel>
                     <RadioButton GroupName="SEARCH_OPTIONS_GROUP" IsChecked="{Binding Missing}">Missing</RadioButton >
                     <RadioButton GroupName="SEARCH_OPTIONS_GROUP" IsChecked="{Binding Skipped}">Skipped</RadioButton >
-                  </StackPanel>
-                  <StackPanel Grid.Column="2">
                     <RadioButton GroupName="SEARCH_OPTIONS_GROUP" IsChecked="{Binding Auto}">Auto</RadioButton >
                     <RadioButton GroupName="SEARCH_OPTIONS_GROUP" IsChecked="{Binding Manual}">Manual</RadioButton >
                   </StackPanel>
-                  <StackPanel Grid.Column="4">
+                  <StackPanel Grid.Column="2">
                     <CheckBox IsChecked="{Binding HasSourceURL}">Sourced (URL)</CheckBox >
                     <CheckBox IsChecked="{Binding HasSourceLocalFileSystem}">Sourced (Local)</CheckBox >
-                  </StackPanel>
-                  <StackPanel Grid.Column="6">
                     <CheckBox IsChecked="{Binding Unsourced}">Unsourced</CheckBox >
-                    <CheckBox IsChecked="{Binding InvertSelection}">Invert Selection</CheckBox >
+                  </StackPanel>
+                  <StackPanel Grid.Column="4">
+                    <CheckBox IsChecked="{Binding HasDocumentPDF}" Content="Has PDF"/>
+	                <Rectangle Height="30" StrokeThickness="0" />
+	                <CheckBox IsChecked="{Binding InvertSelection}" Content="Invert Selection"></CheckBox>
                   </StackPanel>
                 </Grid>
               </DockPanel>
