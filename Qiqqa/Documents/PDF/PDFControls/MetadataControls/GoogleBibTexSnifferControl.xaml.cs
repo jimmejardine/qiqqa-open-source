@@ -44,6 +44,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             public bool Skipped { get; set; }
             public bool Auto { get; set; }
             public bool Manual { get; set; }
+            public bool HasSourceURL { get; set; }
+            public bool HasSourceLocalFileSystem { get; set; }
+            public bool Unsourced { get; set; }
+            public bool InvertSelection { get; set; }
 #pragma warning restore 0649
 
             public SearchOptions()
@@ -349,6 +353,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         private void RecalculateSearchPool()
         {
+            List<PDFDocument> pdf_documents_inverted_search_pool = new List<PDFDocument>();
             pdf_documents_search_pool.Clear();
             foreach (PDFDocument pdf_document in pdf_documents_total_pool)
             {
@@ -366,10 +371,23 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                     if (search_options.Manual && !pdf_document.BibTex.Contains(BibTeXActionComments.AUTO_BIBTEXSEARCH) && !pdf_document.BibTex.Contains(BibTeXActionComments.AUTO_GS)) include_in_search_pool = true;
                 }
 
+                // apply subselections:
+                if (include_in_search_pool)
+                {
+                    include_in_search_pool = (search_options.Unsourced ^ !String.IsNullOrEmpty(pdf_document.DownloadLocation));
+                    if (!search_options.Unsourced && search_options.HasSourceURL && !String.IsNullOrEmpty(pdf_document.DownloadLocation)
+                        && (pdf_document.DownloadLocation.StartsWith("http://")
+                        || pdf_document.DownloadLocation.StartsWith("https://")
+                        || pdf_document.DownloadLocation.StartsWith("ftp://")
+                        || pdf_document.DownloadLocation.StartsWith("ftps://"))) include_in_search_pool = true;
+                }
+
                 if (pdf_document == user_specified_pdf_document || include_in_search_pool && pdf_document.DocumentExists)
                 {
                     pdf_documents_search_pool.Add(pdf_document);
                 }
+                else
+                { }
             }
 
             MoveFirst();            
@@ -577,7 +595,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                                     }
                                 }
                             }
-
                         }
 
                         catch (Exception ex)
@@ -587,7 +604,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                     }
                 }
             }
-
             catch (Exception ex)
             {
                 Logging.Error(ex, "There was an exception while trying to parse the html back from Google Scholar");
