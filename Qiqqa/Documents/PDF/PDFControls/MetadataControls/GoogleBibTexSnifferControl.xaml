@@ -28,9 +28,9 @@
 
       <Grid>
         <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="5*" />
+          <ColumnDefinition Width="10*" />
           <ColumnDefinition Width="5" />
-          <ColumnDefinition Width="2*" />
+          <ColumnDefinition Width="5*" />
         </Grid.ColumnDefinitions>
 
 
@@ -63,6 +63,10 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="5" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="*" />
                   </Grid.ColumnDefinitions>
 
                   <StackPanel>
@@ -73,8 +77,15 @@
                     <RadioButton GroupName="SEARCH_OPTIONS_GROUP" IsChecked="{Binding Auto}">Auto</RadioButton >
                     <RadioButton GroupName="SEARCH_OPTIONS_GROUP" IsChecked="{Binding Manual}">Manual</RadioButton >
                   </StackPanel>
+                  <StackPanel Grid.Column="4">
+                    <CheckBox IsChecked="{Binding HasSourceURL}">Sourced (URL)</CheckBox >
+                    <CheckBox IsChecked="{Binding HasSourceLocalFileSystem}">Sourced (Local)</CheckBox >
+                  </StackPanel>
+                  <StackPanel Grid.Column="6">
+                    <CheckBox IsChecked="{Binding Unsourced}">Unsourced</CheckBox >
+                    <CheckBox IsChecked="{Binding InvertSelection}">Invert Selection</CheckBox >
+                  </StackPanel>
                 </Grid>
-                
               </DockPanel>
 
               <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
