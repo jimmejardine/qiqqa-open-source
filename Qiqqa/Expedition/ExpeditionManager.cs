@@ -62,6 +62,9 @@ namespace Qiqqa.Expedition
                         if (File.Exists(Filename_Store))
                         {
                             Logging.Info("+Loading Expedition: {0}", Filename_Store);
+                            // TODO: Analyse code flow and find out if we can DELAY-LOAD expedition and brainstorm
+                            // data as those CAN be wild & huge and cause OutOfMemory issues, which we cannot fix in-app
+                            // as these buggers load as part of the init phase. :-(
                             expedition_data_source = (ExpeditionDataSource)SerializeFile.LoadSafely(Filename_Store);
                             Logging.Info("-Loading Expedition");
                         }

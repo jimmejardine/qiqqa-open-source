@@ -29,6 +29,9 @@ namespace Qiqqa.Expedition
             {
                 if (null == lda_analysis)
                 {
+                    // TODO: Analyse code flow and find out if we can DELAY-LOAD expedition and brainstorm
+                    // data as those CAN be wild & huge and cause OutOfMemory issues, which we cannot fix in-app
+                    // as these buggers load as part of the init phase. :-(
                     lda_analysis = new LDAAnalysis(lda_sampler);
                 }
                 
