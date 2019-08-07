@@ -30,14 +30,14 @@ namespace Utilities.BibTex
                 XmlNode xml_doc = xml_doc_wrapped.SelectSingleNode("/PubmedArticles/PubmedArticle");
                 if (null == xml_doc)
                 {
-                    throw new Exception(String.Format("No valid PubMed XML has been provided: input XML = \"{0}\"", pubmed_xml);
+                    throw new Exception(String.Format("No valid PubMed XML has been provided.\n  input XML = \"{0}\"", pubmed_xml));
                 }
 
                 // Check that it is PubMed XML
                 string pmid = GetElementText(xml_doc, "MedlineCitation/PMID");
                 if (String.IsNullOrEmpty(pmid))
                 {
-                    throw new Exception("No PubMed ID was found in the XML");
+                    throw new Exception(String.Format("No PubMed ID was found in the XML\n  input XML = \"{0}\"", pubmed_xml));
                 }
 
                 // Get the fields
