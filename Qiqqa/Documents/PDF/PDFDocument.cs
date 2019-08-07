@@ -176,8 +176,14 @@ namespace Qiqqa.Documents.PDF
         
         public string Fingerprint
         {
-            get { return dictionary["Fingerprint"] as string; }
-            protected set { dictionary["Fingerprint"] = value; }
+            get
+            {
+                return dictionary["Fingerprint"] as string;
+            }
+            protected set
+            {
+                dictionary["Fingerprint"] = value;
+            }
         }
 
         /// <summary>
@@ -274,13 +280,24 @@ namespace Qiqqa.Documents.PDF
 
         public string Title
         {
-            get { return dictionary["Title"] as string; }
-            set { dictionary["Title"] = value; }
+            get {
+                return dictionary["Title"] as string;
+            }
+            set
+            {
+                dictionary["Title"] = value;
+            }
         }
         public string TitleSuggested
         {
-            get { return dictionary["TitleSuggested"] as string; }
-            set { dictionary["TitleSuggested"] = value; }
+            get
+            {
+                return dictionary["TitleSuggested"] as string;
+            }
+            set
+            {
+                dictionary["TitleSuggested"] = value;
+            }
         }
         public string TitleCombinedReason
         {

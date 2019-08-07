@@ -128,7 +128,7 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
                 }
             }
 
-            return final_sentence.ToString().TrimEnd();
+            return final_sentence.ToString().Trim();
         }
 
         private static void GetSentence(WordList words, ref int word_offset, out string sentence, out double average_sentence_height)
@@ -163,7 +163,7 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
 
             if (height_den > 0)
             {
-                sentence = sb.ToString();
+                sentence = sb.ToString().Trim();
                 average_sentence_height = height_num / height_den;
             }
             else
