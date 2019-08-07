@@ -517,17 +517,16 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                 text = text.Trim();
 
                 // If this is valid BibTeX, offer it
+                if (IsValidBibTex(text))
                 {
-                    if (IsValidBibTex(text))
-                    {
-                        FeatureTrackingManager.Instance.UseFeature(Features.MetadataSniffer_ValidBibTeX);
-                        UseAsBibTeX(text);
+                    FeatureTrackingManager.Instance.UseFeature(Features.MetadataSniffer_ValidBibTeX);
+                    UseAsBibTeX(text);
                         
-                        return;
-                    }
+                    return;
                 }
 
                 // If this is valid PubMed XML, offer it
+                if (!String.IsNullOrEmpty(text))
                 {
                     string converted_bibtex;
                     List<string> messages;
@@ -544,7 +543,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                         {
                             foreach (string message in messages)
                             {
-                                Logging.Info(message);
+                                Logging.Info("(PubMedXMLToBibTex) " + message);
                             }
                         }
                     }
@@ -577,7 +576,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                                     }
                                 }
                             }
-
                         }
 
                         catch (Exception ex)
@@ -587,7 +585,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                     }
                 }
             }
-
             catch (Exception ex)
             {
                 Logging.Error(ex, "There was an exception while trying to parse the html back from Google Scholar");
@@ -633,7 +630,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             }
             catch (Exception ex)
             {
-                Logging.Warn(ex, "Problem with bibtexsearch.com");
+                Logging.Warn(ex, "Problem with bibtexsearch.com - URL: {0}", WebsiteAccess.Url_BibTeXSearch_Submit);
                 bibtexsearch_backoff_timestamp = DateTime.UtcNow.AddHours(1);
             }
         }

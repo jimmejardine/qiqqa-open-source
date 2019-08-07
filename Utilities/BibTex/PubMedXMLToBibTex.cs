@@ -28,6 +28,10 @@ namespace Utilities.BibTex
                 xml_doc_wrapped.LoadXml(pubmed_xml_wrapped);
 
                 XmlNode xml_doc = xml_doc_wrapped.SelectSingleNode("/PubmedArticles/PubmedArticle");
+                if (null == xml_doc)
+                {
+                    throw new Exception(String.Format("No valid PubMed XML has been provided: input XML = \"{0}\"", pubmed_xml);
+                }
 
                 // Check that it is PubMed XML
                 string pmid = GetElementText(xml_doc, "MedlineCitation/PMID");
@@ -98,7 +102,6 @@ namespace Utilities.BibTex
                 bibtex = sb.ToString();
                 return true;
             }
-
             catch (Exception ex)
             {
                 messages.Add(ex.Message);
