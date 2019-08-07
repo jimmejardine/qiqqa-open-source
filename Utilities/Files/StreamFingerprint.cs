@@ -18,34 +18,34 @@ namespace Utilities.Files
             return FromStream_DOTNET(stream);
         }
 
+#if TEST
         private static string FromStream_BOUNCY(Stream stream)
         {
-            return null;
+            int BUFFER_SIZE = 5 * 1024 * 1024;
+            byte[] buffer = new byte[BUFFER_SIZE];
 
-            //int BUFFER_SIZE = 5 * 1024 * 1024;
-            //byte[] buffer = new byte[BUFFER_SIZE];
+            int total_read = 0;
+            int num_read = 0;
+            Sha1Digest sha1 = new Sha1Digest();
+            while (0 < (num_read = stream.Read(buffer, 0, BUFFER_SIZE)))
+            {
+                total_read += num_read;
+                sha1.BlockUpdate(buffer, 0, num_read);
+            }
 
-            //int total_read = 0;
-            //int num_read = 0;
-            //Sha1Digest sha1 = new Sha1Digest();
-            //while (0 < (num_read = stream.Read(buffer, 0, BUFFER_SIZE)))
-            //{
-            //    total_read += num_read;
-            //    sha1.BlockUpdate(buffer, 0, num_read);
-            //}
+            byte[] hash = new byte[sha1.GetDigestSize()];
+            sha1.DoFinal(hash, 0);
 
-            //byte[] hash = new byte[sha1.GetDigestSize()];
-            //sha1.DoFinal(hash, 0);
+            // Convert to string
+            StringBuilder buff = new StringBuilder();
+            foreach (byte hash_byte in hash)
+            {
+                buff.Append(String.Format("{0:X1}", hash_byte));
+            }
 
-            //// Convert to string
-            //StringBuilder buff = new StringBuilder();
-            //foreach (byte hash_byte in hash)
-            //{
-            //    buff.Append(String.Format("{0:X1}", hash_byte));
-            //}
-
-            //return buff.ToString();
+            return buff.ToString();
         }
+#endif
         
         private static string FromStream_DOTNET(Stream stream)
         {
@@ -80,7 +80,7 @@ namespace Utilities.Files
             return FromStream(ms);
         }
 
-        #region --- Test ------------------------------------------------------------------------
+#region --- Test ------------------------------------------------------------------------
 
 #if TEST
         public static void Test()
@@ -116,6 +116,6 @@ namespace Utilities.Files
         }
 #endif
 
-        #endregion
+#endregion
     }
 }
