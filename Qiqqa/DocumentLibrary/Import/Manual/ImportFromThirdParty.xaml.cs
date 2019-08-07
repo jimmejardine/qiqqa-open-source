@@ -459,12 +459,17 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
         private static string GetFolderNameFromDialog(string title, string defaultFolder)
         {
-            FolderBrowserDialog ofd = new FolderBrowserDialog();
-            ofd.Description = title;
-            ofd.SelectedPath = defaultFolder;
+            using (FolderBrowserDialog ofd = new FolderBrowserDialog())
+            {
+                ofd.Description = title;
+                ofd.SelectedPath = defaultFolder;
 
-            if (System.Windows.Forms.DialogResult.OK != ofd.ShowDialog()) return null;
-            return ofd.SelectedPath;
+                if (System.Windows.Forms.DialogResult.OK != ofd.ShowDialog())
+                {
+                    return null;
+                }
+                return ofd.SelectedPath;
+            }
         }
 
 

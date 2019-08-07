@@ -188,16 +188,17 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
 
         void ObjButtonFolderChoose_Click(object sender, RoutedEventArgs e)
         {
-            FolderBrowserDialog dlg = new FolderBrowserDialog
+            using (FolderBrowserDialog dlg = new FolderBrowserDialog
             {
                 Description = "Please select the shared directory for your Intranet Library.",
                 SelectedPath = TxtPath.Text,
                 ShowNewFolderButton = true
-            };
-
-            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            })
             {
-                TxtPath.Text = dlg.SelectedPath;
+                if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    TxtPath.Text = dlg.SelectedPath;
+                }
             }
         }
     }

@@ -29,6 +29,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
         DateTime time_of_last_library_scan = DateTime.MinValue;
         Dictionary<string, PDFDocumentInLibrary> pdf_documents_in_library;
+        private object pdf_documents_in_library_lock = new object();
 
         public LibraryIndex(Library library)
         {
@@ -40,21 +41,30 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 if (File.Exists(Filename_DocumentProgressList))
                 {
                     Logging.Info("+Loading historical progress file: {0}", Filename_DocumentProgressList);
-                    pdf_documents_in_library = (Dictionary<string, PDFDocumentInLibrary>)SerializeFile.LoadSafely(Filename_DocumentProgressList);
+                    lock (pdf_documents_in_library_lock)
+                    {
+                        pdf_documents_in_library = (Dictionary<string, PDFDocumentInLibrary>)SerializeFile.LoadSafely(Filename_DocumentProgressList);
+                    }
                     Logging.Info("-Loaded historical progress file: {0}", Filename_DocumentProgressList);
                 }
             }
             catch (Exception ex)
             {
                 Logging.Error(ex, "FAILED to load historical progress file \"{0}\". Will start indexing afresh.", Filename_DocumentProgressList);
-                pdf_documents_in_library = null;
+                lock (pdf_documents_in_library_lock)
+                {
+                    pdf_documents_in_library = null;
+                }
             }
 
             // If there was no historical progress file, start afresh
-            if (null == pdf_documents_in_library)
+            lock (pdf_documents_in_library_lock)
             {
-                Logging.Warn("Cound not find any indexing progress, so starting from scratch.");
-                pdf_documents_in_library = new Dictionary<string, PDFDocumentInLibrary>();
+                if (null == pdf_documents_in_library)
+                {
+                    Logging.Warn("Cound not find any indexing progress, so starting from scratch.");
+                    pdf_documents_in_library = new Dictionary<string, PDFDocumentInLibrary>();
+                }
             }
 
             word_index_manager = new LuceneIndex(library.LIBRARY_INDEX_BASE_PATH);
@@ -90,7 +100,10 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
             this.word_index_manager = null;
             this.library = null;
-            this.pdf_documents_in_library = null;
+            lock (pdf_documents_in_library_lock)
+            {
+                this.pdf_documents_in_library = null;
+            }
 
             // Get rid of unmanaged resources 
         }
@@ -112,7 +125,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             {
                 Logging.Info("+Writing the index master list");
                 word_index_manager.WriteMasterList();
-                lock (pdf_documents_in_library)
+                lock (pdf_documents_in_library_lock)
                 {
                     SerializeFile.SaveSafely(Filename_DocumentProgressList, pdf_documents_in_library);
                 }
@@ -127,7 +140,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
         {
             try
             {
-                lock (pdf_documents_in_library)
+                lock (pdf_documents_in_library_lock)
                 {                    
                     pdf_documents_in_library.Remove(pdf_document.Fingerprint);
                 }
@@ -146,7 +159,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             int pages_so_far = 0;
             int pages_to_go = 0;
 
-            lock (pdf_documents_in_library)
+            lock (pdf_documents_in_library_lock)
             {
                 foreach (PDFDocumentInLibrary pdf_document_in_library in pdf_documents_in_library.Values)
                 {
@@ -205,7 +218,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
             int total_new_to_be_indexed = 0;
 
-            lock (pdf_documents_in_library)
+            lock (pdf_documents_in_library_lock)
             {
                 foreach (PDFDocument pdf_document in pdf_documents)
                 {
@@ -236,7 +249,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                     }
                     catch (Exception ex)
                     {
-                        Logging.Error(ex, "There was a problem with a document while rescanning the library for indexing");
+                        Logging.Error(ex, "There was a problem with a document while rescanning the library for indexing. Document fingerprint: {0}", pdf_document.Fingerprint);
                     }
                 }
             }
@@ -263,7 +276,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 return false;
             }
 
-            lock (pdf_documents_in_library)
+            lock (pdf_documents_in_library_lock)
             {
                 // We will only attempt to process documents that have not been looked at for a while - what is that time
                 DateTime most_recent_eligible_time_for_processing = DateTime.UtcNow.Subtract(TimeSpan.FromSeconds(DOCUMENT_INDEX_RETRY_PERIOD_SECONDS));
@@ -414,7 +427,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
         {
             get
             {
-                lock (pdf_documents_in_library)
+                lock (pdf_documents_in_library_lock)
                 {
                     return pdf_documents_in_library.Count;
                 }

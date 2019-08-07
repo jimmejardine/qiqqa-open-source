@@ -11,6 +11,13 @@ namespace Qiqqa.Common.ReadOutLoud
     {
         public static ReadOutLoudManager Instance = new ReadOutLoudManager();
 
+        // TODO
+        //
+        // Warning CA1001  Implement IDisposable on 'ReadOutLoudManager' because it creates members 
+        // of the following IDisposable types: 'SpeechSynthesizer'. 
+        // If 'ReadOutLoudManager' has previously shipped, adding new members that implement IDisposable 
+        // to this type is considered a breaking change to existing consumers.
+
         object read_out_loud_lock = new object();
         SpeechSynthesizer speech_synthesizer;
         Prompt current_prompt;

@@ -42,12 +42,16 @@ namespace Qiqqa.DocumentConversionStuff
 
         private static bool ConvertorDOC(string filename, string pdf_filename)
         {
-            WordDocument word_document = new WordDocument(filename);
-            DocToPDFConverter converter = new DocToPDFConverter();
-            PdfDocument pdf_document = converter.ConvertToPDF(word_document);
+            using (WordDocument word_document = new WordDocument(filename))
+            {
+                using (DocToPDFConverter converter = new DocToPDFConverter())
+                {
+                    PdfDocument pdf_document = converter.ConvertToPDF(word_document);
 
-            pdf_document.Save(pdf_filename);
-            pdf_document.Close(true);
+                    pdf_document.Save(pdf_filename);
+                    pdf_document.Close(true);
+                }
+            }
             return true;
         }
 

@@ -351,10 +351,17 @@ namespace Qiqqa.Brainstorm.SceneManager
                 || url_lower.EndsWith(".jpeg", StringComparison.CurrentCultureIgnoreCase)
                 )
             {
-                MemoryStream ms_image;
-                UrlDownloader.DownloadWithBlocking(ConfigurationManager.Instance.Proxy, url, out ms_image);
-                ImageNodeContent inc = new ImageNodeContent(ms_image);
-                AddNewNodeControl(inc, mouse_current_virtual.X, mouse_current_virtual.Y);
+                MemoryStream ms_image = null;
+                try
+                {
+                    UrlDownloader.DownloadWithBlocking(ConfigurationManager.Instance.Proxy, url, out ms_image);
+                    ImageNodeContent inc = new ImageNodeContent(ms_image);
+                    AddNewNodeControl(inc, mouse_current_virtual.X, mouse_current_virtual.Y);
+                }
+                finally
+                {
+                    ms_image.Dispose();
+                }
             }
             else
             {

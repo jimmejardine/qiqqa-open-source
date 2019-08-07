@@ -105,14 +105,17 @@ namespace Qiqqa.DocumentLibrary
                 {
                     double IMAGE_PERCENTAGE = 0.5;
 
-                    Bitmap image = (Bitmap)Image.FromStream(new MemoryStream(pdf_document.PDFRenderer.GetPageByHeightAsImage(this.page, ImageThumbnail.Height / IMAGE_PERCENTAGE)));
-                    PDFOverlayRenderer.RenderAnnotations(image, pdf_document, page, specific_pdf_annotation);
-                    PDFOverlayRenderer.RenderHighlights(image, pdf_document, page);
-                    PDFOverlayRenderer.RenderInks(image, pdf_document, page);
+                    using (MemoryStream ms = new MemoryStream(pdf_document.PDFRenderer.GetPageByHeightAsImage(this.page, ImageThumbnail.Height / IMAGE_PERCENTAGE)))
+                    {
+                        Bitmap image = (Bitmap)Image.FromStream(ms);
+                        PDFOverlayRenderer.RenderAnnotations(image, pdf_document, page, specific_pdf_annotation);
+                        PDFOverlayRenderer.RenderHighlights(image, pdf_document, page);
+                        PDFOverlayRenderer.RenderInks(image, pdf_document, page);
 
-                    image = image.Clone(new RectangleF { Width = image.Width, Height = (int)Math.Round(image.Height * IMAGE_PERCENTAGE) }, image.PixelFormat);
-                    BitmapSource image_page = BitmapImageTools.CreateBitmapSourceFromImage(image);
-                    ImageThumbnail.Source = image_page;
+                        image = image.Clone(new RectangleF { Width = image.Width, Height = (int)Math.Round(image.Height * IMAGE_PERCENTAGE) }, image.PixelFormat);
+                        BitmapSource image_page = BitmapImageTools.CreateBitmapSourceFromImage(image);
+                        ImageThumbnail.Source = image_page;
+                    }
                 }
                 else
                 {

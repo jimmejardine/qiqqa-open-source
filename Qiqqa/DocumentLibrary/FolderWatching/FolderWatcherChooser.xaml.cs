@@ -51,24 +51,25 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         }
 
         void CmdAddFolder_Click(object sender, RoutedEventArgs e)
-        {            
-            FolderBrowserDialog dlg = new FolderBrowserDialog
+        {
+            using (FolderBrowserDialog dlg = new FolderBrowserDialog
             {
-                Description = "Please select the folder you want to watch for new PDFs.",                
+                Description = "Please select the folder you want to watch for new PDFs.",
                 ShowNewFolderButton = true
-            };
-
-            if (System.Windows.Forms.DialogResult.OK == dlg.ShowDialog())
+            })
             {
-                Logging.Info("The user starting watching folder {0}", dlg.SelectedPath);
+                if (System.Windows.Forms.DialogResult.OK == dlg.ShowDialog())
+                {
+                    Logging.Info("The user starting watching folder {0}", dlg.SelectedPath);
 
-                if (string.IsNullOrEmpty(TxtFolders.Text))
-                {
-                    TxtFolders.Text = dlg.SelectedPath;
-                }
-                else
-                {
-                    TxtFolders.Text += "\r\n" + dlg.SelectedPath;
+                    if (string.IsNullOrEmpty(TxtFolders.Text))
+                    {
+                        TxtFolders.Text = dlg.SelectedPath;
+                    }
+                    else
+                    {
+                        TxtFolders.Text += "\r\n" + dlg.SelectedPath;
+                    }
                 }
             }
         }

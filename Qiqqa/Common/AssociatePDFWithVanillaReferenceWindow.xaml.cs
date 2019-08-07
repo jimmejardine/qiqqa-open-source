@@ -66,20 +66,21 @@ namespace Qiqqa.Common
 
         void CmdLocal_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.Forms.OpenFileDialog dlg = new System.Windows.Forms.OpenFileDialog
+            using (System.Windows.Forms.OpenFileDialog dlg = new System.Windows.Forms.OpenFileDialog
             {
                 CheckFileExists = true,
                 CheckPathExists = true,
                 Filter = "PDF Files|*.pdf",
                 Multiselect = false,
                 Title = "Select the PDF document you wish to associate with this Vanilla Reference."
-            };
-
-            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                FeatureTrackingManager.Instance.UseFeature(Features.Library_AttachToVanilla_Local);
-                pdf_document.AssociatePDFWithVanillaReference(dlg.FileName);
-            }
+            })
+			{
+	            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+	            {
+	                FeatureTrackingManager.Instance.UseFeature(Features.Library_AttachToVanilla_Local);
+	                pdf_document.AssociatePDFWithVanillaReference(dlg.FileName);
+	            }
+			}
 
             this.Close();
         }

@@ -17,6 +17,13 @@ namespace Qiqqa.Common.TagManagement
         internal Feature TagFeature_Add { get; set; }
         internal Feature TagFeature_Remove { get; set; }
 
+        // TODO
+        //
+        // Warning CA1001  Implement IDisposable on 'TagEditorControl' because it creates members 
+        // of the following IDisposable types: 'WeakDependencyPropertyChangeNotifier'. 
+        // If 'TagEditorControl' has previously shipped, adding new members that implement IDisposable 
+        // to this type is considered a breaking change to existing consumers.
+
         WeakDependencyPropertyChangeNotifier wdpcn;
 
         public TagEditorControl()

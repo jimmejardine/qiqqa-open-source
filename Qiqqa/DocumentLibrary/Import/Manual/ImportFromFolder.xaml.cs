@@ -110,24 +110,25 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
         private void FolderLocationButton_Click(object sender, RoutedEventArgs e)
         {
-            FolderBrowserDialog dlg = new FolderBrowserDialog
+            using (FolderBrowserDialog dlg = new FolderBrowserDialog
             {
                 Description = "Please select a folder.  All the PDFs in the folder will be added to your document library.",
                 ShowNewFolderButton = false
-            };
-            string default_folder = bindable.Underlying.DefaultSelectedPath;
-            if (default_folder != null)
+            })
             {
-                dlg.SelectedPath = default_folder;
-            }
+                string default_folder = bindable.Underlying.DefaultSelectedPath;
+                if (default_folder != null)
+                {
+                    dlg.SelectedPath = default_folder;
+                }
 
-            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                bindable.Underlying.SelectedPath = dlg.SelectedPath;
-                bindable.NotifyPropertyChanged(() => bindable.Underlying.SelectedPath);
+                if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    bindable.Underlying.SelectedPath = dlg.SelectedPath;
+                    bindable.NotifyPropertyChanged(() => bindable.Underlying.SelectedPath);
+                }
+                Logging.Debug("User selected import folder path: " + bindable.Underlying.SelectedPath);
             }
-            Logging.Debug("User selected import folder path: " + bindable.Underlying.SelectedPath);
-
         }
 
         private void BtnCancel_OnClick(object sender, RoutedEventArgs e)

@@ -588,88 +588,94 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 Dispatcher.Invoke(new Action(() => UpdateLibraryStatistics_Stats_Background_GUI_AddAllPlaceHolders(ddwm.ddws)));
 
                 // Now render each document
-                Font font = new Font("Times New Roman", 11.0f);
-                StringFormat string_format = new StringFormat
+                using (Font font = new Font("Times New Roman", 11.0f))
                 {
-                    Alignment = StringAlignment.Center,
-                    LineAlignment = StringAlignment.Center
-                };
-                var color_matrix = new ColorMatrix();
-                color_matrix.Matrix33 = 0.9f;
-                var image_attributes = new ImageAttributes();
-                image_attributes.SetColorMatrix(color_matrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
-
-                foreach (DocumentDisplayWork ddw in ddwm.ddws)
-                {
-                    try
+                    using (StringFormat string_format = new StringFormat
                     {
-                        Bitmap page_bitmap = (Bitmap)System.Drawing.Image.FromStream(new MemoryStream(ddw.pdf_document.PDFRenderer.GetPageByHeightAsImage(1, PREVIEW_IMAGE_HEIGHT / PREVIEW_IMAGE_PERCENTAGE)));
-                        page_bitmap = page_bitmap.Clone(new RectangleF { Width = page_bitmap.Width, Height = (int)Math.Round(page_bitmap.Height * PREVIEW_IMAGE_PERCENTAGE) }, page_bitmap.PixelFormat);
+                        Alignment = StringAlignment.Center,
+                        LineAlignment = StringAlignment.Center
+                    })
+                    {
+                        var color_matrix = new ColorMatrix();
+                        color_matrix.Matrix33 = 0.9f;
+                        using (var image_attributes = new ImageAttributes())
+                        { 
+                            image_attributes.SetColorMatrix(color_matrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
 
-                        using (Graphics g = Graphics.FromImage(page_bitmap))
-                        {
-                            int CENTER = 60;
-                            int RADIUS = 60;
-
+                            foreach (DocumentDisplayWork ddw in ddwm.ddws)
                             {
-                                BitmapImage starburst_bi = null;
-                                switch (ddw.starburst_color)
+                                try
                                 {
-                                    case DocumentDisplayWork.StarburstColor.Blue:
-                                        starburst_bi = Icons.GetAppIcon(Icons.PageCornerBlue);
-                                        break;
-                                    case DocumentDisplayWork.StarburstColor.Green:
-                                        starburst_bi = Icons.GetAppIcon(Icons.PageCornerGreen);
-                                        break;
-                                    case DocumentDisplayWork.StarburstColor.Pink:
-                                        starburst_bi = Icons.GetAppIcon(Icons.PageCornerPink);
-                                        break;
-                                    default:
-                                        starburst_bi = Icons.GetAppIcon(Icons.PageCornerOrange);
-                                        break;
+                                    using (MemoryStream ms = new MemoryStream(ddw.pdf_document.PDFRenderer.GetPageByHeightAsImage(1, PREVIEW_IMAGE_HEIGHT / PREVIEW_IMAGE_PERCENTAGE)))
+                                    {
+                                        Bitmap page_bitmap = (Bitmap)System.Drawing.Image.FromStream(ms);
+                                        page_bitmap = page_bitmap.Clone(new RectangleF { Width = page_bitmap.Width, Height = (int)Math.Round(page_bitmap.Height * PREVIEW_IMAGE_PERCENTAGE) }, page_bitmap.PixelFormat);
+
+                                        using (Graphics g = Graphics.FromImage(page_bitmap))
+                                        {
+                                            int CENTER = 60;
+                                            int RADIUS = 60;
+
+                                            {
+                                                BitmapImage starburst_bi = null;
+                                                switch (ddw.starburst_color)
+                                                {
+                                                case DocumentDisplayWork.StarburstColor.Blue:
+                                                    starburst_bi = Icons.GetAppIcon(Icons.PageCornerBlue);
+                                                    break;
+                                                case DocumentDisplayWork.StarburstColor.Green:
+                                                    starburst_bi = Icons.GetAppIcon(Icons.PageCornerGreen);
+                                                    break;
+                                                case DocumentDisplayWork.StarburstColor.Pink:
+                                                    starburst_bi = Icons.GetAppIcon(Icons.PageCornerPink);
+                                                    break;
+                                                default:
+                                                    starburst_bi = Icons.GetAppIcon(Icons.PageCornerOrange);
+                                                    break;
+                                                }
+
+                                                Bitmap starburst_image = BitmapImageTools.ConvertBitmapSourceToBitmap(starburst_bi);
+                                                g.SmoothingMode = SmoothingMode.AntiAlias;
+                                                g.DrawImage(
+                                                    starburst_image,
+                                                    new Rectangle(CENTER - RADIUS, CENTER - RADIUS, 2 * RADIUS, 2 * RADIUS),
+                                                    0,
+                                                    0,
+                                                    starburst_image.Width,
+                                                    starburst_image.Height,
+                                                    GraphicsUnit.Pixel,
+                                                    image_attributes
+                                                );
+                                            }
+
+                                            using (Matrix mat = new Matrix())
+                                            {
+                                                mat.RotateAt(-50, new PointF(CENTER / 2, CENTER / 2));
+                                                g.Transform = mat;
+
+                                                string wrapped_caption = ddw.starburst_caption;
+                                                wrapped_caption = wrapped_caption.ToLower();
+                                                wrapped_caption = Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(wrapped_caption);
+                                                wrapped_caption = wrapped_caption.Replace(" ", "\n");
+                                                g.DrawString(wrapped_caption, font, Brushes.Black, new PointF(CENTER / 2, CENTER / 2), string_format);
+                                            }
+                                        }
+
+                                        BitmapSource page_bitmap_source = BitmapImageTools.CreateBitmapSourceFromImage(page_bitmap);
+
+                                        ddw.page_bitmap_source = page_bitmap_source;
+                                    }
+
+                                    Dispatcher.Invoke(new Action(() => UpdateLibraryStatistics_Stats_Background_GUI_FillPlaceHolder(ddw)));
                                 }
-
-                                Bitmap starburst_image = BitmapImageTools.ConvertBitmapSourceToBitmap(starburst_bi);
-                                g.SmoothingMode = SmoothingMode.AntiAlias;
-                                g.DrawImage(
-                                    starburst_image,
-                                    new Rectangle(CENTER - RADIUS, CENTER - RADIUS, 2 * RADIUS, 2 * RADIUS),
-                                    0,
-                                    0,
-                                    starburst_image.Width,
-                                    starburst_image.Height,
-                                    GraphicsUnit.Pixel,
-                                    image_attributes
-                                );
-
-                            }
-
-                            {
-                                Matrix mat = new Matrix();
-                                mat.RotateAt(-50, new PointF(CENTER / 2, CENTER / 2));
-                                g.Transform = mat;
-
-                                string wrapped_caption = ddw.starburst_caption;
-                                wrapped_caption = wrapped_caption.ToLower();
-                                wrapped_caption = Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(wrapped_caption);
-                                wrapped_caption = wrapped_caption.Replace(" ", "\n");
-                                g.DrawString(wrapped_caption, font, Brushes.Black, new PointF(CENTER / 2, CENTER / 2), string_format);
+                                catch (Exception ex)
+                                {
+                                    Logging.Warn(ex, "There was a problem loading a preview image for document {0}", ddw.pdf_document.Fingerprint);
+                                }
                             }
                         }
-
-                        BitmapSource page_bitmap_source = BitmapImageTools.CreateBitmapSourceFromImage(page_bitmap);
-
-                        ddw.page_bitmap_source = page_bitmap_source;
-
-                        Dispatcher.Invoke(new Action(() => UpdateLibraryStatistics_Stats_Background_GUI_FillPlaceHolder(ddw)));
-                    }
-
-                    catch (Exception ex)
-                    {
-                        Logging.Warn(ex, "There was a problem loading a preview image for document {0}", ddw.pdf_document.Fingerprint);
                     }
                 }
-
 
                 if (0 == ddwm.ddws.Count)
                 {
@@ -956,20 +962,22 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private void GenericCustomiseChooser(string title, string filename)
         {
-            var dialog = new OpenFileDialog();
-            dialog.Filter = "Image files|*.jpeg;*.jpg;*.png;*.gif;*.bmp" + "|" + "All files|*.*";
-            dialog.CheckFileExists = true;
-            dialog.Multiselect = false;
-            dialog.Title = title;
-            if (DialogResult.OK == dialog.ShowDialog())
+            using (var dialog = new OpenFileDialog())
             {
-                // Copy the new file into place
-                File.Delete(filename);
-                File.Copy(dialog.FileName, filename);
-            }
-            else
-            {
-                File.Delete(filename);
+                dialog.Filter = "Image files|*.jpeg;*.jpg;*.png;*.gif;*.bmp" + "|" + "All files|*.*";
+                dialog.CheckFileExists = true;
+                dialog.Multiselect = false;
+                dialog.Title = title;
+                if (DialogResult.OK == dialog.ShowDialog())
+                {
+                    // Copy the new file into place
+                    File.Delete(filename);
+                    File.Copy(dialog.FileName, filename);
+                }
+                else
+                {
+                    File.Delete(filename);
+                }
             }
 
             UpdateLibraryStatistics();

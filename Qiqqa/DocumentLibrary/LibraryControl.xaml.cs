@@ -491,18 +491,19 @@ namespace Qiqqa.DocumentLibrary
 
         void ButtonAddDocuments_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog
+            using (OpenFileDialog dlg = new OpenFileDialog
             {
                 CheckFileExists = true,
                 CheckPathExists = true,
                 Filter = "PDF Files|*.pdf",
                 Multiselect = true,
                 Title = "Select the PDF documents you wish to add to your document library"
-            };
-
-            if (dlg.ShowDialog() == DialogResult.OK)
+            })
             {
-                ImportingIntoLibrary.AddNewPDFDocumentsToLibrary_ASYNCHRONOUS(library, false, false, dlg.FileNames);
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    ImportingIntoLibrary.AddNewPDFDocumentsToLibrary_ASYNCHRONOUS(library, false, false, dlg.FileNames);
+                }
             }
         }
 

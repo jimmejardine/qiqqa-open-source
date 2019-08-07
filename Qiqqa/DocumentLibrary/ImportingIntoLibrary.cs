@@ -281,7 +281,7 @@ namespace Qiqqa.DocumentLibrary
                             {
                                 int total_bytes = StreamToFile.CopyStreamToStream(response_stream, fs);
                                 Logging.Info("Saved {0} bytes to {1}", total_bytes, filename);
-                                fs.Close();
+                                //fs.Close();    -- autoclosed by `using` statement
                             }
 
                             library.AddNewDocumentToLibrary_SYNCHRONOUS(filename, original_filename, download_url, null, null, null, false, false);
@@ -291,9 +291,11 @@ namespace Qiqqa.DocumentLibrary
                         {
                             if (content_type.ToLower(CultureInfo.CurrentCulture).EndsWith("html"))
                             {
-                                StreamReader sr = new StreamReader(response_stream);
-                                string html = sr.ReadToEnd();
-                                Logging.Warn("Got this HTML instead of a PDF: {0}", html);
+                                using (StreamReader sr = new StreamReader(response_stream))
+                                {
+                                    string html = sr.ReadToEnd();
+                                    Logging.Warn("Got this HTML instead of a PDF: {0}", html);
+                                }
                             }
 
                             MessageBoxes.Info("The document library supports only PDF files at the moment.  You are trying to download something of type {0}.", content_type);

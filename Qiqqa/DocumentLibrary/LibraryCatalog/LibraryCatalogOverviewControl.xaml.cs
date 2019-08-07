@@ -288,7 +288,6 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
                     ButtonOpen.ToolTip = library_index_hover_popup;
                 }
             }
-
             catch (Exception ex)
             {
                 Logging.Error(ex, "Exception while displaying document preview popup");

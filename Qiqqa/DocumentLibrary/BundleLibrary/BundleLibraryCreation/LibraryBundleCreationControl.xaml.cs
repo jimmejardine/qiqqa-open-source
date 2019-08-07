@@ -50,16 +50,18 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
 
         void CmdCreateBundle_Click(object sender, RoutedEventArgs e)
         {
-            FolderBrowserDialog dialog = new FolderBrowserDialog();
-            dialog.Description = "Please select the folder into which the two Library Bundle files should be placed.";
-            DialogResult result = dialog.ShowDialog();
-            if (result == DialogResult.OK)
+            using (FolderBrowserDialog dialog = new FolderBrowserDialog())
             {
-                CreateBundle(dialog.SelectedPath.ToString());
-            }
-            else
-            {
-                MessageBoxes.Warn("Your Library Bundle creation has been cancelled.");
+                dialog.Description = "Please select the folder into which the two Library Bundle files should be placed.";
+                DialogResult result = dialog.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    CreateBundle(dialog.SelectedPath.ToString());
+                }
+                else
+                {
+                    MessageBoxes.Warn("Your Library Bundle creation has been cancelled.");
+                }
             }
         }
 

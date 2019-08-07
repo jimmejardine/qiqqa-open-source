@@ -142,32 +142,33 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
         void GenerateRtfCitationSnippet_OnBibliographyReady(CSLProcessorOutputConsumer ip)
         {
             if (ip.success)
-            {   
-                System.Windows.Forms.RichTextBox rich_text_box = new System.Windows.Forms.RichTextBox();
-                rich_text_box.Rtf = ip.GetRtf();
-                string text = rich_text_box.Text;
-
-                text = text.Trim();
-                text = text.Replace(";", ",");
-                if (text.StartsWith("1.\t")) text = text.Substring(3);
-                if (text.StartsWith("1 \t")) text = text.Substring(3);
-                if (text.StartsWith("1\t")) text = text.Substring(2);
-
-                if (text.Length > 32)
+            {
+                using (System.Windows.Forms.RichTextBox rich_text_box = new System.Windows.Forms.RichTextBox())
                 {
-                    string POSTAMBLE_QIQQA_TWITTER = " @Qiqqa";
-                    string POSTAMBLE_QIQQA_URL = " http://www.qiqqa.com";
-                    int POSTAMBLE_QIQQA_URL_SHORTENED_LENGTH = 22;
-                    string PREAMBLE_CHECK_OUT = "Check out ";
+                    rich_text_box.Rtf = ip.GetRtf();
+                    string text = rich_text_box.Text;
 
-                    if (text.Length < 140 - POSTAMBLE_QIQQA_TWITTER.Length) text = text + POSTAMBLE_QIQQA_TWITTER;
-                    if (text.Length < 140 - POSTAMBLE_QIQQA_URL_SHORTENED_LENGTH) text = text + POSTAMBLE_QIQQA_URL;
-                    if (text.Length < 140 - PREAMBLE_CHECK_OUT.Length) text = PREAMBLE_CHECK_OUT + text;
+                    text = text.Trim();
+                    text = text.Replace(";", ",");
+                    if (text.StartsWith("1.\t")) text = text.Substring(3);
+                    if (text.StartsWith("1 \t")) text = text.Substring(3);
+                    if (text.StartsWith("1\t")) text = text.Substring(2);
 
-                    TxtTweet.Text = text;
+                    if (text.Length > 32)
+                    {
+                        string POSTAMBLE_QIQQA_TWITTER = " @Qiqqa";
+                        string POSTAMBLE_QIQQA_URL = " http://www.qiqqa.com";
+                        int POSTAMBLE_QIQQA_URL_SHORTENED_LENGTH = 22;
+                        string PREAMBLE_CHECK_OUT = "Check out ";
+
+                        if (text.Length < 140 - POSTAMBLE_QIQQA_TWITTER.Length) text = text + POSTAMBLE_QIQQA_TWITTER;
+                        if (text.Length < 140 - POSTAMBLE_QIQQA_URL_SHORTENED_LENGTH) text = text + POSTAMBLE_QIQQA_URL;
+                        if (text.Length < 140 - PREAMBLE_CHECK_OUT.Length) text = PREAMBLE_CHECK_OUT + text;
+
+                        TxtTweet.Text = text;
+                    }
                 }
             }
-
             else
             {
                 Logging.Warn("There was a problem generating a citation snippet to tweet, so ignoring...");

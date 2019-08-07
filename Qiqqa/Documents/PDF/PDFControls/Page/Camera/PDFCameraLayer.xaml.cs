@@ -87,27 +87,30 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
         {
             CroppedBitmap cropped_image_page = null;
 
-            PngBitmapDecoder decoder = new PngBitmapDecoder(new MemoryStream(pdf_renderer_control_stats.pdf_document.PDFRenderer.GetPageByDPIAsImage(page, 150)), BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
-            BitmapSource image_page = decoder.Frames[0];
-            if (null != image_page)
+            using (MemoryStream ms = new MemoryStream(pdf_renderer_control_stats.pdf_document.PDFRenderer.GetPageByDPIAsImage(page, 150)))
             {
-                double left = Math.Min(mouse_up_point.X, mouse_down_point.X) * image_page.PixelWidth / this.ActualWidth;
-                double top = Math.Min(mouse_up_point.Y, mouse_down_point.Y) * image_page.PixelHeight / this.ActualHeight;
-                double width = Math.Abs(mouse_up_point.X - mouse_down_point.X) * image_page.PixelWidth / this.ActualWidth;
-                double height = Math.Abs(mouse_up_point.Y - mouse_down_point.Y) * image_page.PixelHeight / this.ActualHeight;
-
-                left = Math.Max(left, 0);
-                top = Math.Max(top, 0);
-                width = Math.Min(width, image_page.PixelWidth - left);
-                height = Math.Min(height, image_page.PixelHeight - top);
-
-                if (0 < width && 0 < height)
+                PngBitmapDecoder decoder = new PngBitmapDecoder(ms, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
+                BitmapSource image_page = decoder.Frames[0];
+                if (null != image_page)
                 {
-                    cropped_image_page = new CroppedBitmap(image_page, new Int32Rect((int)left, (int)top, (int)width, (int)height));
-                }
-            }
+                    double left = Math.Min(mouse_up_point.X, mouse_down_point.X) * image_page.PixelWidth / this.ActualWidth;
+                    double top = Math.Min(mouse_up_point.Y, mouse_down_point.Y) * image_page.PixelHeight / this.ActualHeight;
+                    double width = Math.Abs(mouse_up_point.X - mouse_down_point.X) * image_page.PixelWidth / this.ActualWidth;
+                    double height = Math.Abs(mouse_up_point.Y - mouse_down_point.Y) * image_page.PixelHeight / this.ActualHeight;
 
-            return cropped_image_page;
+                    left = Math.Max(left, 0);
+                    top = Math.Max(top, 0);
+                    width = Math.Min(width, image_page.PixelWidth - left);
+                    height = Math.Min(height, image_page.PixelHeight - top);
+
+                    if (0 < width && 0 < height)
+                    {
+                        cropped_image_page = new CroppedBitmap(image_page, new Int32Rect((int)left, (int)top, (int)width, (int)height));
+                    }
+                }
+
+                return cropped_image_page;
+            }
         }
 
         internal override void Dispose()

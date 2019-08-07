@@ -113,7 +113,6 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                                     ++edd.pdfs_found;
                                 }
                             }
-
                             catch (Exception ex)
                             {
                                 Logging.Warn(ex, "Problem processing Endnote record.");

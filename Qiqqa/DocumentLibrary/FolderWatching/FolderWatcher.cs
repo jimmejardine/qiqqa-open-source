@@ -13,7 +13,16 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         FolderWatcherManager folder_watcher_manager;
         Library library;
         HashSet<string> tags;
+
+        // TODO
+        //
+        // Warning CA1001  Implement IDisposable on 'FolderWatcher' because it creates members 
+        // of the following IDisposable types: 'FileSystemWatcher'. 
+        // If 'FolderWatcher' has previously shipped, adding new members that implement IDisposable 
+        // to this type is considered a breaking change to existing consumers.
+
         FileSystemWatcher file_system_watcher;        
+
         string previous_folder_to_watch;
         string folder_to_watch;        
         bool folder_contents_has_changed;

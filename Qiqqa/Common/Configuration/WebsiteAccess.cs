@@ -126,11 +126,13 @@ namespace Qiqqa.Common.Configuration
         /// </summary>
         public static string DownloadFile(OurSiteFileKind fileType)
         {
-            WebClient web_client = new WebClient();
-            web_client.Proxy = ConfigurationManager.Instance.Proxy;
-            string temp_file = TempFile.GenerateTempFilename("tmp");
-            web_client.DownloadFile(GetOurFileUrl(fileType), temp_file);
-            return temp_file;
+            using (WebClient web_client = new WebClient())
+            {
+                web_client.Proxy = ConfigurationManager.Instance.Proxy;
+                string temp_file = TempFile.GenerateTempFilename("tmp");
+                web_client.DownloadFile(GetOurFileUrl(fileType), temp_file);
+                return temp_file;
+            }
         }
 
         /// <summary>

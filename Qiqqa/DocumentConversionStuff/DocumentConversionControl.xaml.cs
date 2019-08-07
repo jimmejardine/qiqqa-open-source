@@ -70,7 +70,6 @@ namespace Qiqqa.DocumentConversionStuff
                                 PDFDocument pdf_document = WebLibraryManager.Instance.Library_Guest.AddNewDocumentToLibrary_SYNCHRONOUS(pdf_filename, filename, filename, null, null, null, true, false);
                                 PDFReadingControl pdf_reading_control = MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);
                                 pdf_reading_control.EnableGuestMoveNotification();
-
                             }),
                             DispatcherPriority.Background);
                     }

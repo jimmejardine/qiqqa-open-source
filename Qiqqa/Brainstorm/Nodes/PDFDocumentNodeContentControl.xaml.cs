@@ -28,6 +28,17 @@ namespace Qiqqa.Brainstorm.Nodes
         NodeControl node_control;
         PDFDocumentNodeContent pdf_document_node_content;
 
+        // TODO:
+        //
+        // Warning CA1001  Implement IDisposable on 'PDFAnnotationNodeContentControl' because it creates 
+        // members of the following IDisposable types: 'LibraryIndexHoverPopup'. 
+        // If 'PDFAnnotationNodeContentControl' has previously shipped, adding new members that implement 
+        // IDisposable to this type is considered a breaking change to existing consumers.
+        //
+        // Note from GHO: that object is already managed through the sequence of tooltip_open and tooltip_close 
+        // handlers below and is currently not considered a memory leak risk for https://github.com/jimmejardine/qiqqa-open-source/issues/19
+        // and there-abouts.
+
         LibraryIndexHoverPopup library_index_hover_popup = null;
 
         public PDFDocumentNodeContentControl(NodeControl node_control, PDFDocumentNodeContent pdf_document_node_content)
