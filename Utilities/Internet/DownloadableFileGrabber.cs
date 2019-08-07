@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using HtmlAgilityPack;
 
 namespace Utilities.Internet
@@ -25,17 +26,45 @@ namespace Utilities.Internet
                         string href = href_object.Value;
                         if (null != href)
                         {
-                            // Strip off everything after the #
-                            int hash_position = href.IndexOf('#');
-                            if (-1 != hash_position)
-                            {
-                                href = href.Substring(0, hash_position);
-                            }
-
                             // Look for the required extension
-                            if (href.ToLower().EndsWith(extension_lower))
+                            Uri url = new Uri(href);
+                            if (url.AbsolutePath.ToLower().EndsWith(extension_lower))
                             {
-                                //Logging.Info("We have {0}", href);
+                                Logging.Info("Grabber/HREF: We have {0}", href);
+                                results.Add(href);
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Also cope with Adobe Acrobat reader pages which show a single PDF while using HTML like this:
+            //
+            // <html><head><meta content="width=device-width; height=device-height;" name="viewport"></head>
+            // <body marginheight="0" marginwidth="0">
+            //   <embed type="application/pdf" src="http://the.pdf" name="plugin" height="100%" width="100%">
+            // </body></html>
+
+            var embed_nodes = doc.DocumentNode.SelectNodes("//embed");
+
+            if (null != embed_nodes)
+            {
+                foreach (var embed_node in embed_nodes)
+                {
+                    var type_object = embed_node.Attributes["type"];
+                    var src_object = embed_node.Attributes["src"];
+                    string type_value = type_object?.Value;
+
+                    if (type_value.Contains("application/pdf"))
+                    {
+                        string href = src_object?.Value;
+
+                        if (null != href)
+                        {
+                            Uri url = new Uri(href);
+                            if (url.AbsolutePath.ToLower().EndsWith(extension_lower))
+                            { 
+                                Logging.Info("Grabber/EMBED: We have {0}", href);
                                 results.Add(href);
                             }
                         }

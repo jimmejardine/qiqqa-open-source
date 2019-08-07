@@ -265,11 +265,21 @@ namespace Qiqqa.DocumentLibrary
                         string content_type = web_response.GetResponseHeader("Content-Type");
                         // See also: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition
                         string content_disposition = web_response.GetResponseHeader("Content-Disposition");
-                        ContentDisposition contentDisposition = new ContentDisposition(content_disposition);
-                        string original_filename = contentDisposition.FileName;
-                        //StringDictionary parameters = contentDisposition.Parameters;
+                        string original_filename = null;
+                        try
+                        {
+                            ContentDisposition contentDisposition = new ContentDisposition(content_disposition);
+                            original_filename = contentDisposition.FileName;
+                            //StringDictionary parameters = contentDisposition.Parameters;
+                        }
+                        catch (Exception ex)
+                        {
+                            Logging.Error(ex, "AddNewDocumentToLibraryFromInternet: no Content-Disposition header received?\n  Headers:\n{0}", web_response.Headers);
 
-
+                            // fallback: derive the filename from the URL:
+                            original_filename = web_response.ResponseUri.LocalPath;
+                        }
+                        
                         bool is_acceptable_content_type = false;
                         if (content_type.ToLower(CultureInfo.CurrentCulture).EndsWith("pdf")) is_acceptable_content_type = true;
                         if (content_type.ToLower(CultureInfo.CurrentCulture).StartsWith("application/octet-stream")) is_acceptable_content_type = true;

@@ -46,7 +46,7 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
 
         protected override void Response(HttpChannel channel)
         {
-            if (channel.ContentType.Contains("pdf"))
+            if (channel.ContentType.Contains("application/pdf"))
             {
                 // this is taken from the headers sent by the HTTP/FTP server
                 document_source_filename = channel.ContentDispositionFilename; 
