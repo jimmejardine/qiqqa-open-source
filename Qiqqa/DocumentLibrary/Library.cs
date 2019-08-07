@@ -119,7 +119,8 @@ namespace Qiqqa.DocumentLibrary
             }
         }
 
-        Dictionary<string, PDFDocument> pdf_documents = new Dictionary<string, PDFDocument>();        
+        Dictionary<string, PDFDocument> pdf_documents = new Dictionary<string, PDFDocument>();
+        private object pdf_documents_lock = new object();
 
         // Move this somewhere nice...
         public bool sync_in_progress = false;
@@ -243,7 +244,7 @@ namespace Qiqqa.DocumentLibrary
             {
                 PDFDocument pdf_document = PDFDocument.LoadFromMetaData(this, library_item.data, library_items_annotations_cache);
 
-                lock (pdf_documents)
+                lock (pdf_documents_lock)
                 {
                     pdf_documents[pdf_document.Fingerprint] = pdf_document;
 
@@ -282,35 +283,31 @@ namespace Qiqqa.DocumentLibrary
         /// <returns></returns>
         public PDFDocument AddNewDocumentToLibrary_SYNCHRONOUS(string filename, string original_filename, string suggested_download_source, string bibtex, List<string> tags, string comments, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
         {
-            lock (pdf_documents)
+            if (!suppressDialogs)
             {
-                if (!suppressDialogs)
-                {
-                    StatusManager.Instance.UpdateStatus("LibraryDocument", String.Format("Adding {0} to library", filename));
-                }
-
-                PDFDocument pdf_document = AddNewDocumentToLibrary_LOCK(filename, original_filename, suggested_download_source, bibtex, tags, comments, suppressDialogs, suppress_signal_that_docs_have_changed);
-
-                if (!suppressDialogs)
-                {
-                    if (null != pdf_document)
-                    {
-                        StatusManager.Instance.UpdateStatus("LibraryDocument", String.Format("Added {0} to your library", filename));
-                    }
-                    else
-                    {
-                        StatusManager.Instance.UpdateStatus("LibraryDocument", String.Format("Could not add {0} to your library", filename));
-                    }
-                }
-
-                return pdf_document;
+                StatusManager.Instance.UpdateStatus("LibraryDocument", String.Format("Adding {0} to library", filename));
             }
+
+            PDFDocument pdf_document = AddNewDocumentToLibrary(filename, original_filename, suggested_download_source, bibtex, tags, comments, suppressDialogs, suppress_signal_that_docs_have_changed);
+
+            if (!suppressDialogs)
+            {
+                if (null != pdf_document)
+                {
+                    StatusManager.Instance.UpdateStatus("LibraryDocument", String.Format("Added {0} to your library", filename));
+                }
+                else
+                {
+                    StatusManager.Instance.UpdateStatus("LibraryDocument", String.Format("Could not add {0} to your library", filename));
+                }
+            }
+
+            return pdf_document;
         }
 
         /// <summary>
-        /// Only call this if you have LOCKed the pdf_documents object
         /// </summary>
-        private PDFDocument AddNewDocumentToLibrary_LOCK(string filename, string original_filename, string suggested_download_source, string bibtex, List<string> tags, string comments, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
+        private PDFDocument AddNewDocumentToLibrary(string filename, string original_filename, string suggested_download_source, string bibtex, List<string> tags, string comments, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
         {
             // Flag that someone is trying to add to the library.  This is used by the background processes to hold off while the library is busy being added to...
             last_pdf_add_time = DateTime.UtcNow;
@@ -367,8 +364,8 @@ namespace Qiqqa.DocumentLibrary
             // Useful in logging for diagnosing if we're adding the same document again
             Logging.Info("Fingerprint: " + fingerprint);
 
-            PDFDocument pdf_document;
-            if (pdf_documents.TryGetValue(fingerprint, out pdf_document))
+            PDFDocument pdf_document = GetDocumentByFingerprint(fingerprint);
+            if (null != pdf_document)
             {
                 // Pdf reportedly exists in database.
 
@@ -384,9 +381,20 @@ namespace Qiqqa.DocumentLibrary
                 }
 
                 // Try to add some useful information from the download source if the metadata doesn't already have it
-                if (String.IsNullOrEmpty(pdf_document.DownloadLocation) && !String.IsNullOrEmpty(suggested_download_source))
+                if (!String.IsNullOrEmpty(suggested_download_source)
+                    && (String.IsNullOrEmpty(pdf_document.DownloadLocation) 
+                    // or when the new source is a URL we also
+                    // *upgrade* our source info by taking up the new URL
+                    // as we than assume that a new URL is 'better' i.e. more 'fresh'
+                    // than any existing URL or local source file path:
+                    || suggested_download_source.StartsWith("http://")
+                    || suggested_download_source.StartsWith("https://")
+                    || suggested_download_source.StartsWith("ftp://")
+                    || suggested_download_source.StartsWith("ftps://"))
+                    // *and* the old and new source shouldn't be the same:
+                    && suggested_download_source != pdf_document.DownloadLocation)
                 {
-                    Logging.Info("The document in the library had no download location, so inferring it from download.");
+                    Logging.Info("The document in the library had no download location or an older one, so inferring it from download: {0} --> {1}", pdf_document.DownloadLocation ?? "(NULL)", suggested_download_source);
                     pdf_document.DownloadLocation = suggested_download_source;
                     pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.DownloadLocation);
                 }
@@ -429,8 +437,11 @@ namespace Qiqqa.DocumentLibrary
                 pdf_document.Comments = comments;
                 pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Comments);
 
-                // Store in our database - note that we have the lock already
-                pdf_documents[pdf_document.Fingerprint] = pdf_document;
+                lock (pdf_documents_lock)
+                {
+                    // Store in our database - note that we have the lock already
+                    pdf_documents[pdf_document.Fingerprint] = pdf_document;
+                }
 
                 // Get OCR queued
                 pdf_document.PDFRenderer.CauseAllPDFPagesToBeOCRed();
@@ -464,20 +475,15 @@ namespace Qiqqa.DocumentLibrary
             string bibtex_after_key = GetBibTeXAfterKey(bibtex);
 
             // Check that we are not adding a duplicate
-            lock (pdf_documents)
+            foreach (var pdf_document_existing in this.PDFDocuments)
             {
-                foreach (var pdf_document_existing in pdf_documents.Values)
+                if (!String.IsNullOrEmpty(pdf_document_existing.BibTex))
                 {
-                    if (pdf_document_existing.Deleted) continue;
-
-                    if (!String.IsNullOrEmpty(pdf_document_existing.BibTex))
+                    // Identical BibTeX (after the key) will be treated as a duplicate
+                    if (GetBibTeXAfterKey(pdf_document_existing.BibTex) == bibtex_after_key)
                     {
-                        // Identical BibTeX (after the key) will be treated as a duplicate
-                        if (GetBibTeXAfterKey(pdf_document_existing.BibTex) == bibtex_after_key)
-                        {
-                            Logging.Info("Not importing duplicate vanilla reference with identical BibTeX to '{0}' ({1}).", pdf_document_existing.TitleCombined, pdf_document_existing.Fingerprint);
-                            return pdf_document_existing;
-                        }
+                        Logging.Info("Not importing duplicate vanilla reference with identical BibTeX to '{0}' ({1}).", pdf_document_existing.TitleCombined, pdf_document_existing.Fingerprint);
+                        return pdf_document_existing;
                     }
                 }
             }
@@ -497,7 +503,7 @@ namespace Qiqqa.DocumentLibrary
                 }
 
                 // Store in our database
-                lock (pdf_documents)
+                lock (pdf_documents_lock)
                 {
                     pdf_documents[pdf_document.Fingerprint] = pdf_document;
                 }
@@ -513,27 +519,27 @@ namespace Qiqqa.DocumentLibrary
 
         public PDFDocument CloneExistingDocumentFromOtherLibrary_SYNCHRONOUS(PDFDocument existing_pdf_document, bool suppress_dialogs, bool suppress_signal_that_docs_have_changed)
         {
-            lock (pdf_documents)
-            {
-                StatusManager.Instance.UpdateStatus("LibraryDocument", String.Format("Copying {0} into library", existing_pdf_document.TitleCombined));
+            StatusManager.Instance.UpdateStatus("LibraryDocument", String.Format("Copying {0} into library", existing_pdf_document.TitleCombined));
 
-                //  do a normal add (since stored separately)
-                var new_pdf_document = AddNewDocumentToLibrary_LOCK(existing_pdf_document.DocumentPath, null, null, null, null, null, suppress_dialogs, suppress_signal_that_docs_have_changed);
-                
-                // If we were not able to create the PDFDocument from an existing pdf file (i.e. it was a missing reference), then create one from scratch
-                if (null == new_pdf_document)                    
+            //  do a normal add (since stored separately)
+            var new_pdf_document = AddNewDocumentToLibrary(existing_pdf_document.DocumentPath, null, null, null, null, null, suppress_dialogs, suppress_signal_that_docs_have_changed);
+
+            // If we were not able to create the PDFDocument from an existing pdf file (i.e. it was a missing reference), then create one from scratch
+            if (null == new_pdf_document)
+            {
+                new_pdf_document = PDFDocument.CreateFromPDF(this, existing_pdf_document.DocumentPath, existing_pdf_document.Fingerprint);
+                lock (pdf_documents_lock)
                 {
-                    new_pdf_document = PDFDocument.CreateFromPDF(this, existing_pdf_document.DocumentPath, existing_pdf_document.Fingerprint);
                     pdf_documents[new_pdf_document.Fingerprint] = new_pdf_document;
                 }
-
-                //  clone the metadata and switch libraries
-                new_pdf_document.CloneMetaData(existing_pdf_document);
-
-                StatusManager.Instance.UpdateStatus("LibraryDocument", String.Format("Copied {0} into your library", existing_pdf_document.TitleCombined));
-
-                return new_pdf_document;
             }
+
+            //  clone the metadata and switch libraries
+            new_pdf_document.CloneMetaData(existing_pdf_document);
+
+            StatusManager.Instance.UpdateStatus("LibraryDocument", String.Format("Copied {0} into your library", existing_pdf_document.TitleCombined));
+
+            return new_pdf_document;
         }
 
         public void DeleteDocument(PDFDocument pdf_document)
@@ -551,18 +557,24 @@ namespace Qiqqa.DocumentLibrary
         /// <returns></returns>
         public PDFDocument GetDocumentByFingerprint(string fingerprint)
         {
-            lock (pdf_documents)
+            lock (pdf_documents_lock)
             {
                 PDFDocument result = null;
-                pdf_documents.TryGetValue(fingerprint, out result);
-                return result;
+                if (pdf_documents.TryGetValue(fingerprint, out result))
+                {
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
         public List<PDFDocument> GetDocumentByFingerprints(IEnumerable<string> fingerprints)
         {
             List<PDFDocument> pdf_documents_list = new List<PDFDocument>();
-            lock (pdf_documents)
+            lock (pdf_documents_lock)
             {
                 foreach (string fingerprint in fingerprints)
                 {
@@ -602,7 +614,7 @@ namespace Qiqqa.DocumentLibrary
         /// </summary>
         public bool DocumentExistsInLibraryWithFingerprint(string fingerprint)
         {
-            lock (pdf_documents)
+            lock (pdf_documents_lock)
             {
                 if (pdf_documents.ContainsKey(fingerprint))
                 {
@@ -619,7 +631,7 @@ namespace Qiqqa.DocumentLibrary
         /// </summary>
         public bool DocumentExistsInLibraryWithBibTeX(string bibTeXId)
         {
-            lock (pdf_documents)
+            lock (pdf_documents_lock)
             {
                 foreach(var pdf in pdf_documents.Where(x=> x.Value.Deleted == false))
                 {
@@ -640,7 +652,7 @@ namespace Qiqqa.DocumentLibrary
         {
             get
             {
-                lock (pdf_documents)
+                lock (pdf_documents_lock)
                 {
                     List<PDFDocument> pdf_documents_list = new List<PDFDocument>(pdf_documents.Values);
                     return pdf_documents_list;
@@ -652,7 +664,7 @@ namespace Qiqqa.DocumentLibrary
         {
             get
             {
-                lock (pdf_documents)
+                lock (pdf_documents_lock)
                 {
                     return pdf_documents.Count;
                 }
@@ -669,7 +681,7 @@ namespace Qiqqa.DocumentLibrary
             get
             {
                 List<PDFDocument> pdf_documents_list = new List<PDFDocument>();
-                lock (pdf_documents)
+                lock (pdf_documents_lock)
                 {
                     foreach (var x in pdf_documents.Values)
                     {
@@ -692,7 +704,7 @@ namespace Qiqqa.DocumentLibrary
             get
             {
                 List<PDFDocument> pdf_documents_list = new List<PDFDocument>();
-                lock (pdf_documents)
+                lock (pdf_documents_lock)
                 {
                     foreach (var x in pdf_documents.Values)
                     {
