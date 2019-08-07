@@ -675,6 +675,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             {
                 byte[] buffer = Encoding.UTF8.GetBytes(bibtex);
 
+                Logging.Info("posting BibTeX info to bibtexsearch.com aggregator - URL: {0}, BibTeX = {1}", WebsiteAccess.Url_BibTeXSearch_Submit, bibtex);
+
                 HttpWebRequest web_request = (HttpWebRequest)HttpWebRequest.Create(WebsiteAccess.Url_BibTeXSearch_Submit);
                 web_request.Proxy = ConfigurationManager.Instance.Proxy;
                 web_request.Method = "POST";
