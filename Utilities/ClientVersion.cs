@@ -11,5 +11,12 @@ namespace Utilities
         {
             get { return Assembly.GetEntryAssembly().GetName().Version.Major; }
         }
+
+        public static string CurrentBuild
+        {
+            get {
+                return Assembly.GetEntryAssembly().GetName().Version.ToString();
+            }
+        }
     }
 }

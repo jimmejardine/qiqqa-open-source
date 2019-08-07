@@ -16,6 +16,7 @@ namespace Utilities
             sb.AppendFormat("COMMON STATISTICS:\r\n");
 
             sb.AppendFormat("Current version:       {0}\r\n", ClientVersion.CurrentVersion);
+            sb.AppendFormat("Current build:         {0}\r\n", ClientVersion.CurrentBuild);
             sb.AppendFormat("Current path:          {0}\r\n", Environment.CurrentDirectory);
             sb.AppendFormat("System path:           {0}\r\n", Environment.SystemDirectory);
             sb.AppendFormat("Command line:          {0}\r\n", Environment.CommandLine);
@@ -35,7 +36,6 @@ namespace Utilities
             sb.AppendFormat(".NET4 client installed {0}\r\n", IsNET4ClientInstalled());
             sb.AppendFormat(".NET4 full installed   {0}\r\n", IsNET4FullInstalled());
             
-
             if (ApplicationDeployment.IsNetworkDeployed)
             {
                 sb.AppendFormat("Application is network deployed:\r\n");
