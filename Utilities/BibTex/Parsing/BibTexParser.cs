@@ -17,6 +17,8 @@ namespace Utilities.BibTex.Parsing
 
             if (1 < items.Count)
             {
+                // TODO: look into the library entry/entries where I have multiple bibtex records dumped in a single slot.
+                // That was surely some metadata merge attempt pending way back then... (Not a code issue; this is a DB issue)
                 Logging.Warn("There is more than one BibTex record - using only the first... RAW record: {0}", bibtex);
                 if (!suppress_error_logging)
                 {
