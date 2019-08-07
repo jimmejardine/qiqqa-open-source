@@ -94,13 +94,10 @@ namespace Qiqqa.WebBrowsing
             ButtonGrabPDFs.ToolTip = "Downloads all the PDFs that are accessible from this web page.";
             ButtonGrabPDFs.Click += ButtonGrabPDFs_Click;
 
-
-            /*
             ButtonAddToLibrary.Icon = Icons.GetAppIcon(Icons.WebAddToLibrary);
             if (!ADVANCED_MENUS) ButtonAddToLibrary.Caption = "Add PDF to\nLibrary";
             ButtonAddToLibrary.ToolTip = "Add the currently displayed page to your library (must be a PDF).";
             ButtonAddToLibrary.Click += new RoutedEventHandler(ButtonAddToLibrary_Click);
-            */
 
             web_searcher_preference_control = new WebSearcherPreferenceControl(this);
             wbc_browsing = new WebBrowserControl(this);
@@ -308,7 +305,9 @@ namespace Qiqqa.WebBrowsing
             TabChanged?.Invoke();
         }
 
-        /*
+		// TODO: make it work akin to the <embed> handling to prevent confusion: 
+		// when the browser shows a single PDF, it MAY be an <embed> web page and 
+		// we should account for that!
         void ButtonAddToLibrary_Click(object sender, RoutedEventArgs e)
         {
             if (null == CurrentUri)
@@ -327,7 +326,6 @@ namespace Qiqqa.WebBrowsing
                 ImportingIntoLibrary.AddNewDocumentToLibraryFromInternet_ASYNCHRONOUS(web_library_detail.library, url);
             }
         }
-        */
 
         void TextBoxUrl_OnHardSearch()
         {
@@ -521,8 +519,6 @@ namespace Qiqqa.WebBrowsing
             CurrentWebBrowserControl.GoBack();
         }
 
-
-        //bool is_first_grab_pdfs = true;        
         void ButtonGrabPDFs_Click(object sender, RoutedEventArgs e)
         {
             Uri current_uri = CurrentWebBrowserControl.CurrentUri;

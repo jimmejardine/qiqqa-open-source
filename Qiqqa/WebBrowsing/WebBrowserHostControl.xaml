@@ -41,6 +41,7 @@
         <local_gui:AugmentedToolBarButton x:Name="ButtonPrint"/>
         <local_gui:AugmentedToolBarButton x:Name="ButtonGrabWebPage"/>
         <local_gui:AugmentedToolBarButton x:Name="ButtonGrabPDFs"/>
+        <local_gui:AugmentedToolBarButton x:Name="ButtonAddToLibrary"/>
       </StackPanel>
     </local_gui:AugmentedToolBarTray>
 
