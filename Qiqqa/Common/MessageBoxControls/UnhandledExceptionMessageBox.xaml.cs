@@ -57,7 +57,7 @@ namespace Qiqqa.Common.MessageBoxControls
             }
             else
             {
-                Logging.Warn("Unhandled Exception Handler: detected Qiqqa shutting down.");
+                Logging.Error(ex, "Unhandled Exception Handler: detected Qiqqa shutting down.");
             }
 
             // Record this exception at server so that we know about it

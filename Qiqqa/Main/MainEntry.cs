@@ -268,6 +268,7 @@ namespace Qiqqa.Main
 
         static void RemarkOnException(Exception ex)
         {
+            Logging.Error(ex, "RemarkOnException.....");
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
                 RemarkOnException_GUI_THREAD(ex);
@@ -279,7 +280,7 @@ namespace Qiqqa.Main
         {
             try
             {
-                Logging.Error(ex);
+                Logging.Error(ex, "RemarkOnException_GUI_THREAD...");
                 UnhandledExceptionMessageBox.DisplayException(ex);
             }
             catch (Exception ex2)

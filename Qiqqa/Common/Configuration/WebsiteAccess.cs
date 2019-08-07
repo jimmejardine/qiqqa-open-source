@@ -211,7 +211,7 @@ namespace Qiqqa.Common.Configuration
             if (ApplicationDeployment.IsNetworkDeployed)
             {
                 string update_location = ApplicationDeployment.CurrentDeployment.UpdateLocation.GetLeftPart(UriPartial.Authority);
-                //Logging.Info("The ApplicationDeployment.CurrentDeployment.UpdateLocation is {0}", update_location);
+                Logging.Info("The ApplicationDeployment.CurrentDeployment.UpdateLocation is {0}", update_location);
 
                 int firstDot = update_location.IndexOf('.');
                 if (firstDot < 0)

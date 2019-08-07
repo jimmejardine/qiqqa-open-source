@@ -17,7 +17,7 @@ namespace Utilities.BibTex.Parsing
 
             if (1 < items.Count)
             {
-                Logging.Warn("There is more than one BibTex record - using only the first...");
+                Logging.Warn("There is more than one BibTex record - using only the first... RAW record: {0}", bibtex);
                 if (!suppress_error_logging)
                 {
                     items[0].Warnings.Add(String.Format("There is more than one BibTeX record - using only the first. RAW record: {0}", bibtex));

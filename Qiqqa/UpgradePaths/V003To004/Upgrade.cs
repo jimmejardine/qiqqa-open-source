@@ -27,8 +27,7 @@ namespace Qiqqa.UpgradePaths.V003To004
                         Logging.Info("Guest directory does not exist, so creating it");
                         Directory.CreateDirectory(NEW_BASE_PATH);
                     }
-
-
+            
                     // Move the documents if we have them
                     string old_documents_path = OLD_BASE_PATH + "documents";
                     if (Directory.Exists(old_documents_path))
@@ -56,10 +55,9 @@ namespace Qiqqa.UpgradePaths.V003To004
                     }
                 }
             }
-
             catch (Exception ex)
             {
-                Logging.Error(ex);
+                Logging.Error(ex, "Upgrade V003-to-V004 failure");
             }
         }
     }
