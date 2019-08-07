@@ -66,7 +66,9 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
                 StreamListenerTee stream_listener_tee = (StreamListenerTee)sender;
 
                 byte[] captured_data = stream_listener_tee.GetCapturedData();
-                stream_listener_tee.Dispose();
+
+                // stream_listener_tee.Dispose();  -- suggested by Microsoft Code Analysis Report, but with this active, some PDFs won't make it into the library!?!?
+
                 if (0 == captured_data.Length)
                 {
                     if (!have_notified_about_installing_acrobat)
