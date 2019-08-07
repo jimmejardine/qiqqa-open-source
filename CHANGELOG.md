@@ -1,9 +1,29 @@
-Version 81:
-==========
 
-- Qiqqa now copes better with damaged PDFs which are part of the librarie(s): 
-  + search index does not "disappear" any more
-  + Qiqqa does not continue running in the background for eternity due to locked-up PDF re-indexing task
+# version 81.0.7158.38371 :: alpha test release
+2019-08-07
+----------
+
+  * Qiqqa now copes better with damaged PDFs which are part of the librarie(s): 
+    + search index does not "disappear" any more
+    + Qiqqa does not continue running in the background for eternity due to locked-up PDF re-indexing task
+
+  * log outgoing activity: posting BibTeX info to bibtexsearch.com aggregator
+  * re-added to 'Add This PDF to Library' button in the browser; TODO: make it work akin to the <embed> handling to prevent confusion: when the browser shows a single PDF, it MAY be an <embed> web page and we should account for that!
+  * IMPORTANT FIX: this bad boy (an overzealous Dispose() which I introduced following up on the MSVS Code Analysis Reports) prevented Qiqqa from properly fetching and importing various PDFs from the Sniffer. (click on link would show the PDFs but not open them in Qiqqa nor import them into the Qiqqa library)
+  * fix crash in PDF import when website/webserver does not provide a `Content-Disposable` HTTP response header
+  * import PDF(s) from this web pages: added ability to cope with `<embed>` PDF links, e.g. when a HTML page is shown with PDF embedded instead of the PDF itself
+  * detect PDF files in URLs which have query parameters: '.pdf' is not always the end of the URL for downloading the filename
+  * added CHANGELOG (partly edited & full version using git log)
+  * Whoops. Crash when quickly opening + closing + opening.... Sniffer windows: CLOSE != DISPOSE. Crash due to loss of search_options binding on second opening...
+  * Only when you play with it, you discover what works. The HasSourceURL/Local/Unsourced choices should be OR-ed together as that feels intuitive, while we also want to see 'sans PDF' entries as we can use the Sniffer to dig up the PDF on the IntarWebz if we're lucky. Meanwhile, 'invert' should clearly be positioned off to a corner to signify its purpose: inverting your selection set (while it should **probably** :thinking: have no effect if a specific document was specified by the user: then we're looking at a particular item PLUS maybe some other stuff?
+  * Sniffer Features:
+    - add checkboxes to (sub)select documents which have a URL source registered with them or no source registered at all. (https://github.com/jimmejardine/qiqqa-open-source/issues/29)
+    - add 'invert' logic for the library filter (https://github.com/jimmejardine/qiqqa-open-source/issues/30)
+  * fix https://github.com/jimmejardine/qiqqa-open-source/issues/28: turns out Qiqqa is feeding all the empty records to the PubMed-to-BibTex converter, which is throwing a tantrum. Improved checks and balances and all that. Jolly good, carry on, chaps. :-)
+  * report complete build version in logging.
+  * improving the logging while we hunt for the elusive Fail Creatures...
+  * Code Quality / Stability work following up on Microsoft Visual Studio Code Analysis Reports et al.
+  * done work on https://github.com/jimmejardine/qiqqa-open-source/issues/27 and on the lockups of Qiqqa (some critical sections in there were **humongous** in both code side and run-time duration; now the number of lock-ups due to *very* slow loading PDFs coming in from the Qiqqa Sniffer should be quite reduced: work related to https://github.com/jimmejardine/qiqqa-open-source/issues/18
 
 2019-08-07
 ----------

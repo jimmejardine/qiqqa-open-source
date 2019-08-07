@@ -1,6 +1,19 @@
+
+# version 81.0.7158.38371 :: alpha test release
 2019-08-07
 ----------
 
+  * ALPHA/TEST RELEASE v81 : version 81.0.7158.38371
+  * log outgoing activity: posting BibTeX info to bibtexsearch.com aggregator
+  * re-added to 'Add This PDF to Library' button in the browser; TODO: make it work akin to the <embed> handling to prevent confusion: when the browser shows a single PDF, it MAY be an <embed> web page and we should account for that!
+  * IMPORTANT: this bad boy (an overzealous Dispose() which I introduced following up on the MSVS Code Analysis Reports) prevented Qiqqa from properly fetching and importing various PDFs from the Sniffer. (click on link would show the PDFs but not open them in Qiqqa nor import them into the Qiqqa library)
+  * some titles/sentences seem to come with leading whitespace; title suggestion construction would produce suggested titles with leading and trailing whitespace. Fixed.
+  * #ifdef/#endif unused code
+  * - fix crash in PDF import when website/webserver does not provide a Content-Disposable HTTP response header
+    - add ability to cope with <embed> PDF links, e.g. when a HTML page is shown with PDF embedded instead of the PDF itself
+    - detect PDF files in URLs which have query parameters: '.pdf' is not always the end of the URL for downloading the filename
+  * revert/fix NANT build script to produce a setup.exe once again.
+  * added CHANGELOG (partly edited & full version using git log)
   * moving some Info-level logging to Debug level as that's what it is, really. (Dispose activity tracking et al)
   * added TODO to remember my own DB ...
   * Whoops. Crash when quickly opening + closing + opening.... Sniffer windows: CLOSE != DISPOSE. Crash due to loss of search_options binding on second opening...
