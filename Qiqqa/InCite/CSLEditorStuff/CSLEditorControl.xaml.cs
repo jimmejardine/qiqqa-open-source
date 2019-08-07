@@ -284,9 +284,11 @@ namespace Qiqqa.InCite.CSLEditorStuff
 
             // Set the box
             //string formatted_bibliography_section = ip.GetFormattedBibliographySection();
-            MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(result_rtf.ToString()));            
-            ObjRichTextEditor.SelectAll();
-            ObjRichTextEditor.Selection.Load(ms, DataFormats.Rtf);
+            using (MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(result_rtf.ToString())))
+            {
+                ObjRichTextEditor.SelectAll();
+                ObjRichTextEditor.Selection.Load(ms, DataFormats.Rtf);
+            }
 
             // Display any errors
             LogMessage(ip.error_message);

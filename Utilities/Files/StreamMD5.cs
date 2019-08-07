@@ -9,16 +9,18 @@ namespace Utilities.Files
     {
         public static string FromStream(Stream stream)
         {
-            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
-            md5.ComputeHash(stream);
-
-            StringBuilder buff = new StringBuilder();
-            foreach (byte hash_byte in md5.Hash)
+            using (MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider())
             {
-                buff.Append(String.Format("{0:X2}", hash_byte));
-            }
+                md5.ComputeHash(stream);
 
-            return buff.ToString();
+                StringBuilder buff = new StringBuilder();
+                foreach (byte hash_byte in md5.Hash)
+                {
+                    buff.Append(String.Format("{0:X2}", hash_byte));
+                }
+
+                return buff.ToString();
+            }
         }
 
         public static string FromFile(string filename)

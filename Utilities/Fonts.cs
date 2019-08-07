@@ -12,7 +12,14 @@ namespace Utilities
 			{
 				font = new Font(font_name, i);
 				SizeF font_size = g.MeasureString("M", font);
-				if (font_size.Width < max_size && font_size.Height < max_size) break;
+                if (font_size.Width < max_size && font_size.Height < max_size)
+                {
+                    break;
+                }
+                else
+                {
+                    font.Dispose();
+                }
 			}
 
 			return font;

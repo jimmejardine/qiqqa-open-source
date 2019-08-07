@@ -49,15 +49,18 @@ namespace Utilities.Files
         
         private static string FromStream_DOTNET(Stream stream)
         {
-            SHA1CryptoServiceProvider sha1 = new SHA1CryptoServiceProvider();
-            sha1.ComputeHash(stream);
-
-            StringBuilder buff = new StringBuilder();
-            foreach (byte hash_byte in sha1.Hash)
+            using (SHA1CryptoServiceProvider sha1 = new SHA1CryptoServiceProvider())
             {
-                buff.Append(String.Format("{0:X1}", hash_byte));    // <--- NB NB NB NEVER CHANGE THIS LINE TO X2 - the while of Qiqqa's infrastructure requires this shitty X1...
+                sha1.ComputeHash(stream);
+
+                StringBuilder buff = new StringBuilder();
+                foreach (byte hash_byte in sha1.Hash)
+                {
+                    buff.Append(String.Format("{0:X1}", hash_byte));    // <--- NB NB NB NEVER CHANGE THIS LINE TO X2 - the while of Qiqqa's infrastructure requires this shitty X1...
+                }
+
+                return buff.ToString();
             }
-            return buff.ToString();
         }
 
         public static string FromFile(string filename)

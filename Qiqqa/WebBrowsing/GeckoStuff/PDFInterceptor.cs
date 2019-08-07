@@ -52,9 +52,8 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
                 document_source_filename = channel.ContentDispositionFilename; 
                 document_source_url = channel.Uri.AbsoluteUri;
 
-                StreamListenerTee stream_listener_tee = new StreamListenerTee();
+                StreamListenerTee stream_listener_tee = new StreamListenerTee();  // <-- will be Dispose()d once response/content has been received
                 stream_listener_tee.Completed += streamListener_Completed;
-
                 TraceableChannel tc = channel.CastToTraceableChannel();
                 tc.SetNewListener(stream_listener_tee);
             }
@@ -67,6 +66,7 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
                 StreamListenerTee stream_listener_tee = (StreamListenerTee)sender;
 
                 byte[] captured_data = stream_listener_tee.GetCapturedData();
+                stream_listener_tee.Dispose();
                 if (0 == captured_data.Length)
                 {
                     if (!have_notified_about_installing_acrobat)
@@ -84,7 +84,7 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
                             ));
                     }
 
-                    Logging.Error("We seem to have been notified about a zero-length PDF");
+                    Logging.Error("We seem to have been notified about a zero-length PDF - URL: {0}, FILE: {1}", document_source_url, document_source_filename);
                     return;
                 }
 
@@ -104,10 +104,9 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
                     DispatcherPriority.Background
                 );
             }
-
             catch (Exception ex)
             {
-                Logging.Error(ex, "There was a problem while intercepting the download of a PDF.");
+                Logging.Error(ex, "There was a problem while intercepting the download of a PDF - URL: {0}, FILE: {1}", document_source_url, document_source_filename);
             }
         }
 

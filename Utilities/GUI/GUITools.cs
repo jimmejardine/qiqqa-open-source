@@ -226,7 +226,7 @@ namespace Utilities.GUI
             var encoder = new PngBitmapEncoder();
             encoder.Frames.Add(frame);
 
-            MemoryStream ms = new MemoryStream();
+            MemoryStream ms = new MemoryStream();    // <-- must be disposed by caller
             encoder.Save(ms);
 
             BitmapImage bitmap_image = new BitmapImage();

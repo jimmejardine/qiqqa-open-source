@@ -362,23 +362,24 @@ namespace Utilities.GUI.Charting
 				g.DrawLine(pen_axis, region_y1_axis.Right-axis_notch_height, (float) y_pos, region_y1_axis.Right, (float) y_pos);
 			}
 
-			// Used to make text vertical
-			StringFormat string_format = new StringFormat(StringFormatFlags.DirectionVertical);
+            // Used to make text vertical
+            using (StringFormat string_format = new StringFormat(StringFormatFlags.DirectionVertical))
+            {
+                // Draw in the values
+                int precision = Precision.estimateMeaningfulChartRoundingPrecision(max.y - min.y);
+                for (double y_pos = region_y1_axis.Top; y_pos <= region_y1_axis.Bottom && notch_spacing > 0; y_pos += notch_spacing)
+                {
+                    double y_value = max.y - (max.y - min.y) * (y_pos - region_y1_axis.Top) / region_y1_axis.Height;
+                    y_value = Math.Round(y_value, precision);
+                    string y_text = "" + y_value;
+                    SizeF y_text_size = g.MeasureString(y_text, font_axis, (int)region_y1_axis.Width, string_format);
+                    g.DrawString(y_text, font_axis, brush_axis, region_y1_axis.Right - 5.0f - y_text_size.Width, (float)(y_pos - y_text_size.Height / 2.0), string_format);
+                }
 
-			// Draw in the values
-			int precision = Precision.estimateMeaningfulChartRoundingPrecision(max.y - min.y);
-			for (double y_pos = region_y1_axis.Top; y_pos <= region_y1_axis.Bottom && notch_spacing > 0; y_pos += notch_spacing)
-			{
-				double y_value = max.y - (max.y - min.y) * (y_pos - region_y1_axis.Top) / region_y1_axis.Height;
-				y_value = Math.Round(y_value, precision);
-				string y_text = "" + y_value;
-				SizeF y_text_size = g.MeasureString(y_text, font_axis, (int) region_y1_axis.Width, string_format);
-				g.DrawString(y_text, font_axis, brush_axis, region_y1_axis.Right - 5.0f - y_text_size.Width, (float) (y_pos - y_text_size.Height/ 2.0), string_format);
-			}
-
-			// Draw in the title
-			SizeF y1_axis_title_text_size = g.MeasureString(y1_axis_title, font_axis, (int) region_y1_axis.Width, string_format);
-			g.DrawString(y1_axis_title, font_axis, brush_axis, 0, (float) (region_y1_axis.Top + (region_y1_axis.Height - y1_axis_title_text_size.Height) / 2.0), string_format);
+                // Draw in the title
+                SizeF y1_axis_title_text_size = g.MeasureString(y1_axis_title, font_axis, (int)region_y1_axis.Width, string_format);
+                g.DrawString(y1_axis_title, font_axis, brush_axis, 0, (float)(region_y1_axis.Top + (region_y1_axis.Height - y1_axis_title_text_size.Height) / 2.0), string_format);
+            }
 		}
 
 		void performPaintY2Axis(Graphics g, ChartRegion region_chart, ChartRegion region_y2_axis, Point2D min, Point2D max)
@@ -403,23 +404,24 @@ namespace Utilities.GUI.Charting
 				g.DrawLine(pen_axis, region_y2_axis.Left, (float) y_pos, region_y2_axis.Left+axis_notch_height, (float) y_pos);
 			}
 
-			// Used to make text vertical
-			StringFormat string_format = new StringFormat(StringFormatFlags.DirectionVertical);
+            // Used to make text vertical
+            using (StringFormat string_format = new StringFormat(StringFormatFlags.DirectionVertical))
+            {
+                // Draw in the values
+                int precision = Precision.estimateMeaningfulChartRoundingPrecision(max.y - min.y);
+                for (double y_pos = region_y2_axis.Top; y_pos <= region_y2_axis.Bottom && notch_spacing > 0; y_pos += notch_spacing)
+                {
+                    double y_value = max.y - (max.y - min.y) * (y_pos - region_y2_axis.Top) / region_y2_axis.Height;
+                    y_value = Math.Round(y_value, precision);
+                    string y_text = "" + y_value;
+                    SizeF y_text_size = g.MeasureString(y_text, font_axis, (int)region_y2_axis.Width, string_format);
+                    g.DrawString(y_text, font_axis, brush_axis, region_y2_axis.Left + 5.0f, (float)(y_pos - y_text_size.Height / 2.0), string_format);
+                }
 
-			// Draw in the values
-			int precision = Precision.estimateMeaningfulChartRoundingPrecision(max.y - min.y);
-			for (double y_pos = region_y2_axis.Top; y_pos <= region_y2_axis.Bottom && notch_spacing > 0; y_pos += notch_spacing)
-			{
-				double y_value = max.y - (max.y - min.y) * (y_pos - region_y2_axis.Top) / region_y2_axis.Height;
-				y_value = Math.Round(y_value, precision);
-				string y_text = "" + y_value;
-				SizeF y_text_size = g.MeasureString(y_text, font_axis, (int) region_y2_axis.Width, string_format);
-				g.DrawString(y_text, font_axis, brush_axis, region_y2_axis.Left + 5.0f, (float) (y_pos - y_text_size.Height/ 2.0), string_format);
-			}
-
-			// Draw in the title
-			SizeF y2_axis_title_text_size = g.MeasureString(y2_axis_title, font_axis, (int) region_y2_axis.Width, string_format);
-			g.DrawString(y2_axis_title, font_axis, brush_axis, region_y2_axis.Right - y2_axis_title_text_size.Width, (float) (region_y2_axis.Top + (region_y2_axis.Height - y2_axis_title_text_size.Height) / 2.0), string_format);
+                // Draw in the title
+                SizeF y2_axis_title_text_size = g.MeasureString(y2_axis_title, font_axis, (int)region_y2_axis.Width, string_format);
+                g.DrawString(y2_axis_title, font_axis, brush_axis, region_y2_axis.Right - y2_axis_title_text_size.Width, (float)(region_y2_axis.Top + (region_y2_axis.Height - y2_axis_title_text_size.Height) / 2.0), string_format);
+            }
 		}
 
 		void performPaintSeries(Graphics g, ChartRegion region_chart, Point2D min_pri, Point2D max_pri, Point2D min_sec, Point2D max_sec)

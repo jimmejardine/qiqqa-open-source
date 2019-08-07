@@ -56,8 +56,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
             // We use a smaller image than necessary as we do not need high resolution to represent the highlights
             double scaled_capped_width = Math.Min(this.Width, 300);
             double scaled_capped_height = this.Height * scaled_capped_width / this.Width;
-            Bitmap raster_bitmap = PDFOverlayRenderer.RenderHighlights((int)scaled_capped_width, (int)scaled_capped_height, pdf_document, page);
-            this.Source = BitmapImageTools.FromBitmap(raster_bitmap);
+            using (Bitmap raster_bitmap = PDFOverlayRenderer.RenderHighlights((int)scaled_capped_width, (int)scaled_capped_height, pdf_document, page))
+            {
+                this.Source = BitmapImageTools.FromBitmap(raster_bitmap);
+            }
 
             //Logging.Info("-HighlightsRenderer RebuildVisual() on page {0}", page);
         }

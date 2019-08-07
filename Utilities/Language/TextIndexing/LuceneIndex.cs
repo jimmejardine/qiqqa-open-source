@@ -316,24 +316,27 @@ namespace Utilities.Language.TextIndexing
                     //    Logging.Debug("No index segments files found");
                     //    return fingerprints;
                     //}
-                    
-                    IndexReader index_reader = IndexReader.Open(LIBRARY_INDEX_BASE_PATH, true);
-                    Searcher index_searcher = new IndexSearcher(index_reader);
 
-                    TermQuery term_query = new TermQuery(new Term("content", keyword));
-                    Hits hits = index_searcher.Search(term_query);
-
-                    var i = hits.Iterator();
-                    while (i.MoveNext())
+                    using (IndexReader index_reader = IndexReader.Open(LIBRARY_INDEX_BASE_PATH, true))
                     {
-                        Hit hit = (Hit)i.Current;
-                        string fingerprint = hit.Get("fingerprint");
-                        fingerprints.Add(fingerprint);
-                    }
+                        using (Searcher index_searcher = new IndexSearcher(index_reader))
+                        {
+                            TermQuery term_query = new TermQuery(new Term("content", keyword));
+                            Hits hits = index_searcher.Search(term_query);
 
-                    // Close the index
-                    index_searcher.Close();
-                    index_reader.Close();
+                            var i = hits.Iterator();
+                            while (i.MoveNext())
+                            {
+                                Hit hit = (Hit)i.Current;
+                                string fingerprint = hit.Get("fingerprint");
+                                fingerprints.Add(fingerprint);
+                            }
+
+                            // Close the index
+                            index_searcher.Close();
+                        }
+                        index_reader.Close();
+                    }
                 }
             }
             catch (Exception ex)
@@ -350,26 +353,29 @@ namespace Utilities.Language.TextIndexing
 
             try
             {
-                IndexReader index_reader = IndexReader.Open(LIBRARY_INDEX_BASE_PATH, true);
-                Searcher index_searcher = new IndexSearcher(index_reader);
-            
-                LuceneMoreLikeThis mlt = new LuceneMoreLikeThis(index_reader);
-                mlt.SetFieldNames(new string[] { "content" });
-                mlt.SetMinTermFreq(0);
-
-                Query query = mlt.Like(new StreamReader(document_filename));
-                Hits hits = index_searcher.Search(query);
-                var i = hits.Iterator();
-                while (i.MoveNext())
+                using (IndexReader index_reader = IndexReader.Open(LIBRARY_INDEX_BASE_PATH, true))
                 {
-                    Hit hit = (Hit)i.Current;
-                    string fingerprint = hit.Get("fingerprint");
-                    fingerprints.Add(fingerprint);
-                }
+                    using (Searcher index_searcher = new IndexSearcher(index_reader))
+                    {
+                        LuceneMoreLikeThis mlt = new LuceneMoreLikeThis(index_reader);
+                        mlt.SetFieldNames(new string[] { "content" });
+                        mlt.SetMinTermFreq(0);
 
-                // Close the index
-                index_searcher.Close();
-                index_reader.Close();
+                        Query query = mlt.Like(new StreamReader(document_filename));
+                        Hits hits = index_searcher.Search(query);
+                        var i = hits.Iterator();
+                        while (i.MoveNext())
+                        {
+                            Hit hit = (Hit)i.Current;
+                            string fingerprint = hit.Get("fingerprint");
+                            fingerprints.Add(fingerprint);
+                        }
+
+                        // Close the index
+                        index_searcher.Close();
+                    }
+                    index_reader.Close();
+                }
             }
             catch (Exception ex)
             {

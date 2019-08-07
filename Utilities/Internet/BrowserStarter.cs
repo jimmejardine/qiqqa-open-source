@@ -43,10 +43,12 @@ namespace Utilities.Internet
             {
                 browser_path = GetDefaultBrowserPath();
 
-                Process p = new Process();
-                p.StartInfo.FileName = browser_path;
-                p.StartInfo.Arguments = url;
-                p.Start();
+                using (Process p = new Process())
+                {
+                    p.StartInfo.FileName = browser_path;
+                    p.StartInfo.Arguments = url;
+                    p.Start();
+                }
                 return true;
             }
             catch (Exception ex2)

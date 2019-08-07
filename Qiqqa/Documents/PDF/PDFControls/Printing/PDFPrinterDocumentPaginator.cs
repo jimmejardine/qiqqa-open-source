@@ -49,37 +49,40 @@ namespace Qiqqa.Documents.PDF.PDFControls.Printing
 
             int page = page_from + page_zero_based;
 
-            StatusManager.Instance.UpdateStatus("PDFPrinter", String.Format("Printing page {0} of {1}", page_zero_based + 1, this.PageCount), page_zero_based + 1, this.PageCount, true);            
+            StatusManager.Instance.UpdateStatus("PDFPrinter", String.Format("Printing page {0} of {1}", page_zero_based + 1, this.PageCount), page_zero_based + 1, this.PageCount, true);
 
             // Render a page at 300 DPI...
-            using (Image image = Image.FromStream(new MemoryStream(pdf_renderer.GetPageByDPIAsImage(page, 300))))
+            using (MemoryStream ms = new MemoryStream(pdf_renderer.GetPageByDPIAsImage(page, 300)))
             {
-                PDFOverlayRenderer.RenderAnnotations(image, pdf_document, page, null);
-                PDFOverlayRenderer.RenderHighlights(image, pdf_document, page);
-                PDFOverlayRenderer.RenderInks(image, pdf_document, page);
-                BitmapSource image_page = BitmapImageTools.CreateBitmapSourceFromImage(image);
-                image_page.Freeze();
-
-                DrawingVisual dv = new DrawingVisual();
-                using (DrawingContext dc = dv.RenderOpen())
+                using (Image image = Image.FromStream(ms))
                 {
-                    // Rotate the image if its orientation does not match the printer
-                    if (
-                        page_size.Width < page_size.Height && image_page.Width > image_page.Height ||
-                        page_size.Width > page_size.Height && image_page.Width < image_page.Height
-                        )
+                    PDFOverlayRenderer.RenderAnnotations(image, pdf_document, page, null);
+                    PDFOverlayRenderer.RenderHighlights(image, pdf_document, page);
+                    PDFOverlayRenderer.RenderInks(image, pdf_document, page);
+                    BitmapSource image_page = BitmapImageTools.CreateBitmapSourceFromImage(image);
+                    image_page.Freeze();
+
+                    DrawingVisual dv = new DrawingVisual();
+                    using (DrawingContext dc = dv.RenderOpen())
                     {
-                        image_page = new TransformedBitmap(image_page, new RotateTransform(90));
-                        image_page.Freeze();
+                        // Rotate the image if its orientation does not match the printer
+                        if (
+                            page_size.Width < page_size.Height && image_page.Width > image_page.Height ||
+                            page_size.Width > page_size.Height && image_page.Width < image_page.Height
+                            )
+                        {
+                            image_page = new TransformedBitmap(image_page, new RotateTransform(90));
+                            image_page.Freeze();
+                        }
+
+                        dc.DrawImage(image_page, new Rect(0, 0, page_size.Width, page_size.Height));
                     }
 
-                    dc.DrawImage(image_page, new Rect(0, 0, page_size.Width, page_size.Height));
+                    ++total_pages_printed;
+
+                    last_document_page = new DocumentPage(dv);
+                    return last_document_page;
                 }
-
-                ++total_pages_printed;
-
-                last_document_page = new DocumentPage(dv);
-                return last_document_page;
             }
         }
 

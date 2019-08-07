@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using Utilities;
 using Utilities.Internet;
 using Utilities.Misc;
 
@@ -46,9 +47,13 @@ namespace Qiqqa.FeatureTracking
                 string request = sb.ToString();
 
                 // Send
-                WebClient wc = new WebClient();
-                wc.Proxy = ConfigurationManager.Instance.Proxy;
-                string response = wc.UploadString(URL, request);
+                using (WebClient wc = new WebClient())
+                {
+                    wc.Proxy = ConfigurationManager.Instance.Proxy;
+                    string response = wc.UploadString(URL, request);
+
+                    Logging.Info("Google Analytics Submitted: REQUEST:\n{0}\n\nRESPONSE:\n{1}", request, response);
+                }
             }
             catch (Exception)
             {

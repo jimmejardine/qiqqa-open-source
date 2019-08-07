@@ -95,9 +95,11 @@ namespace Utilities.Images
         {
             if (File.Exists(filename))
             {
-                FileStream stream = new FileStream(filename, FileMode.Open);
-                this.FromStream(stream);
-                stream.Close();
+                using (FileStream stream = new FileStream(filename, FileMode.Open))
+                {
+                    this.FromStream(stream);
+                    //stream.Close();
+                }
             }
             else
             {

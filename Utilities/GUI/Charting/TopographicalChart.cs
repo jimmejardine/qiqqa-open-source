@@ -54,49 +54,53 @@ namespace Utilities.GUI.Charting
 				if (last_mouse_x > screenwidth) last_mouse_x = screenwidth-1;
 				if (last_mouse_y > screenheight) last_mouse_y = screenheight-1;
 
-				SolidBrush brush = new SolidBrush(Color.Black);
-				for (int i = 0; i < datasetheight; ++i)
-				{
-					for (int j = 0; j < datasetwidth; ++j)
-					{
-						if (Double.IsNaN(dataset[i, j]))
-						{
-							brush.Color = Color.Orange;
-						}
-						else if (datasetmin == dataset[i, j])
-						{
-							brush.Color = Color.Blue;
-						}
-						else if (datasetmax == dataset[i, j])
-						{
-							brush.Color = Color.Red;
-						}
-						else
-						{
-							int colorvalue = 255 - (int) (255.0 * (dataset[i,j] - datasetmin) / (datasetmax - datasetmin));
-							brush.Color = Color.FromArgb(colorvalue, colorvalue, colorvalue);
-						}
+                using (SolidBrush brush = new SolidBrush(Color.Black))
+                {
+                    for (int i = 0; i < datasetheight; ++i)
+                    {
+                        for (int j = 0; j < datasetwidth; ++j)
+                        {
+                            if (Double.IsNaN(dataset[i, j]))
+                            {
+                                brush.Color = Color.Orange;
+                            }
+                            else if (datasetmin == dataset[i, j])
+                            {
+                                brush.Color = Color.Blue;
+                            }
+                            else if (datasetmax == dataset[i, j])
+                            {
+                                brush.Color = Color.Red;
+                            }
+                            else
+                            {
+                                int colorvalue = 255 - (int)(255.0 * (dataset[i, j] - datasetmin) / (datasetmax - datasetmin));
+                                brush.Color = Color.FromArgb(colorvalue, colorvalue, colorvalue);
+                            }
 
-						e.Graphics.FillRectangle(brush, j*rendersquarewidth, i*rendersquareheight, rendersquarewidth, rendersquareheight);
-					}
-				}
+                            e.Graphics.FillRectangle(brush, j * rendersquarewidth, i * rendersquareheight, rendersquarewidth, rendersquareheight);
+                        }
+                    }
 
-				// Print out some information
-				double current_y = y_min + (y_max - y_min) * last_mouse_y / (double) (this.Height-rendersquareheight);
-				double current_x = x_min + (x_max - x_min) * last_mouse_x / (double) (this.Width-rendersquarewidth);
+                    // Print out some information
+                    double current_y = y_min + (y_max - y_min) * last_mouse_y / (double)(this.Height - rendersquareheight);
+                    double current_x = x_min + (x_max - x_min) * last_mouse_x / (double)(this.Width - rendersquarewidth);
 
-				int dataset_i = (int) (datasetheight * last_mouse_y / (double) this.Height);
-				int dataset_j = (int) (datasetwidth * last_mouse_x / (double) this.Width);
-				if (dataset_i > dataset.GetUpperBound(0)) dataset_i = dataset.GetUpperBound(0);
-				if (dataset_j > dataset.GetUpperBound(1)) dataset_j = dataset.GetUpperBound(1);
-				if (dataset_i < 0) dataset_i = 0;
-				if (dataset_j < 0) dataset_j = 0;
+                    int dataset_i = (int)(datasetheight * last_mouse_y / (double)this.Height);
+                    int dataset_j = (int)(datasetwidth * last_mouse_x / (double)this.Width);
+                    if (dataset_i > dataset.GetUpperBound(0)) dataset_i = dataset.GetUpperBound(0);
+                    if (dataset_j > dataset.GetUpperBound(1)) dataset_j = dataset.GetUpperBound(1);
+                    if (dataset_i < 0) dataset_i = 0;
+                    if (dataset_j < 0) dataset_j = 0;
 
-				Font font = new Font(FontFamily.GenericSansSerif, 8.0f);
-				brush.Color = Color.Green;
-				StringBuilder sb = new StringBuilder();
-				sb.AppendFormat("Mouse at {0}={1} {2}={3} value={4} i,j=({5},{6})", x_name, current_x, y_name, current_y, dataset[dataset_i, dataset_j], dataset_i, dataset_j);
-				e.Graphics.DrawString(sb.ToString(), font, brush, 10, 10);
+                    using (Font font = new Font(FontFamily.GenericSansSerif, 8.0f))
+                    {
+                        brush.Color = Color.Green;
+                        StringBuilder sb = new StringBuilder();
+                        sb.AppendFormat("Mouse at {0}={1} {2}={3} value={4} i,j=({5},{6})", x_name, current_x, y_name, current_y, dataset[dataset_i, dataset_j], dataset_i, dataset_j);
+                        e.Graphics.DrawString(sb.ToString(), font, brush, 10, 10);
+                    }
+                }
 			}
 
 			// Otherwise we have no dataset to render
@@ -150,16 +154,20 @@ namespace Utilities.GUI.Charting
 
 		public void showFormModal()
 		{
-			SingleControlForm form = new SingleControlForm();
-			form.setControl(this);
-			form.ShowDialog();
+            using (SingleControlForm form = new SingleControlForm())
+            {
+                form.setControl(this);
+                form.ShowDialog();
+            }
 		}
 
 		public void showForm()
 		{
-			SingleControlForm form = new SingleControlForm();
-			form.setControl(this);
-			form.Show();
+            using (SingleControlForm form = new SingleControlForm())
+            {
+                form.setControl(this);
+                form.Show();
+            }
 		}
 	}
 }

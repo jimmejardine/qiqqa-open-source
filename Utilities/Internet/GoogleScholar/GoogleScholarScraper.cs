@@ -43,7 +43,8 @@ namespace Utilities.Internet.GoogleScholar
         {
             List<GoogleScholarScrapePaper> gssps = new List<GoogleScholarScrapePaper>();
 
-            MemoryStream ms = new MemoryStream();
+            MemoryStream ms = null;
+
             try
             {
                 WebHeaderCollection header_collection = new WebHeaderCollection();
@@ -56,7 +57,7 @@ namespace Utilities.Internet.GoogleScholar
             }
             catch (Exception ex)
             {
-                Logging.Error(ex, "There was a problem parsing the GoogleScholar url");
+                Logging.Error(ex, "There was a problem parsing the GoogleScholar url {0}", url);
             }
             finally
             {

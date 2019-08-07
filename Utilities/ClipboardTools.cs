@@ -61,33 +61,35 @@ namespace Utilities
         {
 
             // Also convert the RTF to normal text
-            RichTextBox rich_text_box = new RichTextBox();
-            rich_text_box.Rtf = text_rtf;
-            string text_plain = rich_text_box.Text;
-
-            DataObject data = new DataObject();
-            data.SetData(DataFormats.Rtf, text_rtf);
-            data.SetData(DataFormats.Text, text_plain);
-            
-            for (int i = 0; i < 3; ++i)
+            using (RichTextBox rich_text_box = new RichTextBox())
             {
-                try
-                {
-                    // Try set the text - and if we succeed, exit
-                    Clipboard.Clear();
-                    Clipboard.SetDataObject(data, true);
-                    return;
-                }
-                catch (Exception ex)
-                {
-                    Logging.Warn(ex, "There was a problem setting the clipboard text, so trying again.");
-                    Thread.Sleep(250);
-                }
-            }
+                rich_text_box.Rtf = text_rtf;
+                string text_plain = rich_text_box.Text;
 
-            // If we get here, try one last time!
-            Clipboard.Clear();
-            Clipboard.SetDataObject(data, true);
+                DataObject data = new DataObject();
+                data.SetData(DataFormats.Rtf, text_rtf);
+                data.SetData(DataFormats.Text, text_plain);
+
+                for (int i = 0; i < 3; ++i)
+                {
+                    try
+                    {
+                        // Try set the text - and if we succeed, exit
+                        Clipboard.Clear();
+                        Clipboard.SetDataObject(data, true);
+                        return;
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Warn(ex, "There was a problem setting the clipboard text, so trying again.");
+                        Thread.Sleep(250);
+                    }
+                }
+
+                // If we get here, try one last time!
+                Clipboard.Clear();
+                Clipboard.SetDataObject(data, true);
+            }
         }
 
         public static string GetText()
