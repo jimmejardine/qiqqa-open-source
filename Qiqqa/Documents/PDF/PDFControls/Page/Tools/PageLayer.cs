@@ -7,7 +7,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
     public class PageLayer : Canvas
     {
         internal virtual void Dispose() {
-            Logging.Info("PageLayer::Dispose()");
+            //Logging.Debug("PageLayer::Dispose()");
 
             throw new Exception("unexpected invocation of abstract parent class Dispose method");
         }

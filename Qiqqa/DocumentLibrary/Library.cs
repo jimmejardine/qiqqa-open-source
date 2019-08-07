@@ -169,7 +169,7 @@ namespace Qiqqa.DocumentLibrary
         private int dispose_count = 0;
         internal void Dispose()
         {
-            Logging.Info("Library::Dispose() @{0}", ++dispose_count);
+            Logging.Debug("Library::Dispose() @{0}", ++dispose_count);
 
             // Do we need to check that the library has finished being loaded?
 

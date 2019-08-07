@@ -8,6 +8,7 @@ using System.Windows.Input;
 using Qiqqa.Common;
 using Qiqqa.DocumentLibrary.LibraryFilter;
 using Qiqqa.Documents.PDF;
+using Utilities;
 using Utilities.GUI;
 using Utilities.Reflection;
 
@@ -203,7 +204,10 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
                     ListPDFDocuments.ScrollIntoView(pdf_documents_bindable[selected_index]);
                 }
             }
-            catch (Exception) {}
+            catch (Exception ex)
+            {
+                Logging.Error(ex, "unexpected exception in FocusOnDocument");
+            }
         }
 
         /// <summary>

@@ -550,9 +550,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
             ObjWebBrowser.Dispose();
 
-            //search_options = null;
-            //search_options_bindable = null;
-
             user_specified_pdf_document = null;
             pdf_documents_total_pool.Clear();
             pdf_documents_search_pool.Clear();

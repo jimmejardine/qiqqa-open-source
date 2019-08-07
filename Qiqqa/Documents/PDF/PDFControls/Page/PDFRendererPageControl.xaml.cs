@@ -356,7 +356,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 
         internal void Dispose()
         {
-            Logging.Info("PDFRendererPageControl::Dispose()");
+            Logging.Debug("PDFRendererPageControl::Dispose()");
 
             pdf_renderer_control_stats.pdf_document.PDFRenderer.OnPageTextAvailable -= pdf_renderer_OnPageTextAvailable;
 

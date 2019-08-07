@@ -115,7 +115,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
 
         internal override void Dispose()
         {
-            Logging.Info("PDFCameraLayer::Dispose()");
+            //Logging.Debug("PDFCameraLayer::Dispose()");
 
             pdf_renderer_control_stats = null;
             drag_area_tracker = null;

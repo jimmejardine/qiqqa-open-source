@@ -79,7 +79,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
 
         internal override void Dispose()
         {
-            Logging.Info("PDFAnnotationLayer::Dispose()");
+            Logging.Debug("PDFAnnotationLayer::Dispose()");
 
             foreach (PDFAnnotationItem pdf_annotation_item in Children.OfType<PDFAnnotationItem>())
             {

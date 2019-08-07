@@ -89,7 +89,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
 
         internal override void Dispose()
         {
-            Logging.Info("PDFHandLayer::Dispose()");
+            //Logging.Debug("PDFHandLayer::Dispose()");
 
             pdf_renderer_control_stats = null;
             pdf_renderer_control = null;

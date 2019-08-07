@@ -73,7 +73,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
 
         internal override void Dispose()
         {
-            Logging.Info("PDFHighlightLayer::Dispose()");
+            Logging.Debug("PDFHighlightLayer::Dispose()");
 
             pdf_renderer_control_stats = null;
             drag_area_tracker = null;

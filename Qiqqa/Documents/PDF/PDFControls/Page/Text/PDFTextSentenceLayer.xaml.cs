@@ -89,7 +89,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
         
         internal override void Dispose()
         {
-            Logging.Info("PDFTextSentenceLayer::Dispose()");
+            Logging.Debug("PDFTextSentenceLayer::Dispose()");
 
             ClearChildren();
 
