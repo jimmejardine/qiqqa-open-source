@@ -38,7 +38,7 @@ if [ "$1" == "-debug" ] ; then
 fi
 
 set -x
-./nant/bin/nant.exe -debug -buildfile:./nant/default.build $QIQQA_CLIENT $QIQQA_DEBUG build
+./nant/bin/nant.exe -debug -buildfile:./nant/default.build $QIQQA_CLIENT $QIQQA_DEBUG 
 set +x
 
 cd ..
