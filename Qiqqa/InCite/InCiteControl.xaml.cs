@@ -38,17 +38,17 @@ namespace Qiqqa.InCite
             InitializeComponent();
 
             // Tabs
-            {
+            
                 DualTabControlArea.Children.Clear();
                 DualTabControlArea.AddContent("Library", "Cite papers from your library", null, false, false, TabLibrary);
                 DualTabControlArea.AddContent("Recommendations", "Cite papers recommended by Qiqqa InCite", null, false, false, TabRecommendations);
                 DualTabControlArea.AddContent("Cluster", "Edit current citation cluster", null, false, false, TabCitationClusterEditor);
                 DualTabControlArea.MakeActive("Library");
-            }
+            
 
             bool ADVANCED_MENUS = ConfigurationManager.Instance.ConfigurationRecord.GUI_AdvancedMenus;
 
-            {
+            
                 ButtonCitationSnippetToClipboard.Icon = Icons.GetAppIcon(Icons.InCiteCitationSnippet);
                 if (!ADVANCED_MENUS) ButtonCitationSnippetToClipboard.Caption = LocalisationManager.Get("INCITE/CAP/NEW_SNIPPET");
                 ButtonCitationSnippetToClipboard.ToolTip = LocalisationManager.Get("INCITE/TIP/NEW_SNIPPET");
@@ -73,12 +73,12 @@ namespace Qiqqa.InCite
                 if (!ADVANCED_MENUS) ButtonRefresh.Caption = LocalisationManager.Get("INCITE/CAP/REFORMAT");
                 ButtonRefresh.ToolTip = LocalisationManager.Get("INCITE/TIP/REFORMAT");
                 ButtonRefresh.Click += ButtonRefresh_Click;
-            }
+            
 
             ButtonEditCSL.AttachPopup(ButtonEditCSLPopup);
             ButtonEditCSL.Icon = Icons.GetAppIcon(Icons.InCiteEditCSL);
             if (!ADVANCED_MENUS) ButtonEditCSL.Caption = LocalisationManager.Get("INCITE/CAP/CSL_OPTIONS");
-            {
+            
                 ButtonCSLStandard.Icon = Icons.GetAppIcon(Icons.InCiteCSLStandard);
                 ButtonCSLStandard.Caption = LocalisationManager.Get("INCITE/CAP/CSL_STANDARD");
                 ButtonCSLStandard.ToolTip = LocalisationManager.Get("INCITE/TIP/CSL_STANDARD");
@@ -98,12 +98,12 @@ namespace Qiqqa.InCite
                 ButtonEditCSL_Internal.Icon = Icons.GetAppIcon(Icons.InCiteEditCSL);
                 ButtonEditCSL_Internal.Caption = "Open Qiqqa CSL Editor (Advanced)";
                 ButtonEditCSL_Internal.ToolTip = LocalisationManager.Get("INCITE/TIP/CSL_EDIT");
-            }
+            
 
             ButtonTools.AttachPopup(ButtonToolsPopup);
             ButtonTools.Icon = Icons.GetAppIcon(Icons.ModuleConfiguration);
             if (!ADVANCED_MENUS) ButtonTools.Caption = LocalisationManager.Get("INCITE/CAP/TOOLS");
-            {
+            
                 ButtonFindUsedReferences.Icon = Icons.GetAppIcon(Icons.InCiteFindUsedReferences);
                 ButtonFindUsedReferences.Caption = LocalisationManager.Get("INCITE/CAP/CSL_FIND");
                 ButtonFindUsedReferences.ToolTip = LocalisationManager.Get("INCITE/TIP/CSL_FIND");
@@ -138,7 +138,7 @@ namespace Qiqqa.InCite
                 ButtonInCitePopup.Caption = LocalisationManager.Get("INCITE/CAP/INCITE_POPUP");
                 ButtonInCitePopup.ToolTip = LocalisationManager.Get("INCITE/TIP/INCITE_POPUP");
                 ButtonInCitePopup.Click += ButtonInCitePopup_Click;
-            }
+            
 
             ObjCitationClusterEditorControl.CitationClusterChanged += ObjCitationClusterEditorControl_CitationClusterChanged;
             ObjCitationClusterEditorControl.CitationClusterOpenPDFByReferenceKey += ObjCitationClusterEditorControl_CitationClusterOpenPDFByReferenceKey;

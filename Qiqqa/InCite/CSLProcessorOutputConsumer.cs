@@ -48,7 +48,7 @@ namespace Qiqqa.InCite
             this.user_argument = user_argument;
 
             // Create the browser
-            Logging.Info("Creating web browser");
+            Logging.Info("Creating web browser for InCite CSL processing");
             web_browser = new GeckoWebBrowser();
             web_browser.CreateControl();
 
@@ -196,7 +196,7 @@ namespace Qiqqa.InCite
                         // Clean up
                         if (null != web_browser)
                         {
-                            Logging.Info("Disposing of web browser");
+                            Logging.Info("Disposing of web browser for InCite CSL processing");
                             web_browser.Dispose();
                             web_browser = null;
                         }

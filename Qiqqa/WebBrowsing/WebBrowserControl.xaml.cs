@@ -43,7 +43,7 @@ namespace Qiqqa.WebBrowsing
         {   
             GeckoWebBrowser web_control = (GeckoWebBrowser)sender;
             StatusManager.Instance.UpdateStatus("WebBrowser", web_control.StatusText);
-            //Logging.Info("Browser:{0}", web_control.StatusText);
+            Logging.Info("Browser:{0}", web_control.StatusText);
         }
 
         void ObjWebBrowser_Navigating(object sender, GeckoNavigatingEventArgs e)
@@ -213,7 +213,7 @@ namespace Qiqqa.WebBrowsing
                     }
                     catch (Exception ex)
                     {
-                        Logging.Error(ex, "Error disposing Gecko");
+                        Logging.Error(ex, "Error disposing Gecko webbrowser");
                     }
 
                     // Multiple WebBrowserControl instances MAY SHARE a single WebBrowserHostControl.
