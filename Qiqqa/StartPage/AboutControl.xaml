@@ -13,8 +13,9 @@
         </local_formatting:ParagraphHeader>
 
         <Paragraph>
-                    This is Qiqqa version <Run Name="lblVersion"></Run>.
-                    Qiqqa is Copyright © Quantisle 2010-<Run Name="lblCopyrightYear"></Run> .  All rights reserved.  All other trademarks are copyright their respective owners.
+                    This is Qiqqa version <Run Name="lblVersion"></Run> (<Run Name="lblFullVersion"></Run>).
+                    Qiqqa is Copyright © Quantisle 2010-<Run Name="lblCopyrightYear"></Run>.  
+            All rights reserved.  All other trademarks are copyright their respective owners.
         </Paragraph>
 
          <local_formatting:ParagraphHeader>
@@ -29,7 +30,7 @@
           </ListItem>
           <ListItem>
             <Paragraph>
-              <Hyperlink Click="Feedback_Click">Submit feedback</Hyperlink> - bugs, praise, complaints,  ideas.
+              <Hyperlink Click="Feedback_Click">Submit feedback</Hyperlink> - bugs, praise, complaints, ideas.
             </Paragraph>
           </ListItem>
           <ListItem>

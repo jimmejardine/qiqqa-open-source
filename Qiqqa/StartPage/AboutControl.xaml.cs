@@ -17,6 +17,7 @@ namespace Qiqqa.StartPage
             
             string post_version_type = ApplicationDeployment.IsNetworkDeployed ? "o" : "s";
             lblVersion.Text = "v." + ClientVersion.CurrentVersion + post_version_type;
+            lblFullVersion.Text = "v." + ClientVersion.CurrentBuild + post_version_type;
         }
 
         private void Hyperlink_Click(object sender, RoutedEventArgs e)
