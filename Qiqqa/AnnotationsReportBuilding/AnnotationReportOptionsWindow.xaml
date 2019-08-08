@@ -1,8 +1,11 @@
-﻿<commongui:StandardWindow x:Class="Qiqqa.AnnotationsReportBuilding.AnnotationReportOptionsWindow"
+﻿<commongui:StandardWindow
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
   xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+  x:Class="Qiqqa.AnnotationsReportBuilding.AnnotationReportOptionsWindow"
+  d:DesignHeight="633"
   >
 
   <DockPanel>
@@ -26,9 +29,9 @@
           <local_gui:NonScrollingFlowDocumentScrollViewer>
             <commongui:StandardFlowDocument>
               <Paragraph>
-                Please select the annotation tags you want to filter into your annotation report.  You will get a complete annotation report if you select either ALL tags or NO tags.
-                <Hyperlink Name="CmdSelectAll">Select All</Hyperlink>
-                <Hyperlink Name="CmdSelectNone">Select None</Hyperlink>
+                Please select the annotation tags you want to filter into your annotation report.  
+				You will get a complete annotation report if you select either ALL tags or NO tags:
+                <Hyperlink Name="CmdSelectAll">Select All</Hyperlink> / <Hyperlink Name="CmdSelectNone">Select None</Hyperlink>
               </Paragraph>
             </commongui:StandardFlowDocument>
           </local_gui:NonScrollingFlowDocumentScrollViewer>
@@ -111,7 +114,7 @@
       </local_gui:AugmentedInfoBarItemControl>
 
 
-      <local_gui:AugmentedInfoBarItemControl Header="Annotation Image/Text Overrides" Collapsed="True">
+      <local_gui:AugmentedInfoBarItemControl Header="Annotation Image/Text Overrides" Collapsed="False">
         <DockPanel>
           <local_gui:NonScrollingFlowDocumentScrollViewer>
             <commongui:StandardFlowDocument>
