@@ -38,7 +38,7 @@ namespace Utilities
 
         private static string PrefixMemUsage(string message)
         {
-            return String.Format("[{0}] {1}", ((double)GC.GetTotalMemory(false)) / 1E6, message);
+            return String.Format("[{0:0.000}M] {1}", ((double)GC.GetTotalMemory(false)) / 1E6, message);
         }
 
         public static void Debug(string msg)
