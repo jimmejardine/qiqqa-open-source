@@ -31,8 +31,6 @@ namespace Qiqqa.Common.Configuration
             this.DataContext = ConfigurationManager.Instance.ConfigurationRecord_Bindable;
             this.Background = ThemeColours.Background_Brush_Blue_LightToDark;
 
-            bool ADVANCED_MENUS = ConfigurationManager.Instance.ConfigurationRecord.GUI_AdvancedMenus;
-
             ButtonOpenDataDirectory.Caption = "Open Qiqqa data directory.";
             ButtonOpenDataDirectory.Icon = Icons.GetAppIcon(Icons.GarbageCollect);
             ButtonOpenDataDirectory.Click += ButtonOpenDataDirectory_Click;
