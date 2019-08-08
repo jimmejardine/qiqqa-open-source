@@ -25,15 +25,29 @@ Would anyone who is interested in contributing towards this repository please co
 
 As above, but instead you'll need to obtain and install Syncfusion Essential Studio 17 as this fixes at least **one very annoying bug** in Qiqqa's handling of (broken!) PDF files which are already part of your Qiqqa librarie(s).
 
-See also Qiqqa bug reports:
+### How to build the `setup.exe` installer
 
-- [#9](https://github.com/jimmejardine/qiqqa-open-source/issues/9)
-- [#10](https://github.com/jimmejardine/qiqqa-open-source/issues/10)
-- [#11](https://github.com/jimmejardine/qiqqa-open-source/issues/11)
-- [#12](https://github.com/jimmejardine/qiqqa-open-source/issues/12)
-- [#13](https://github.com/jimmejardine/qiqqa-open-source/issues/13)
-- [#14](https://github.com/jimmejardine/qiqqa-open-source/issues/14)
+- Make sure you have these installed (it may work with other tools, but this is what I (@GerHobbelt) use):
+  + Microsoft Visual Studio 2019 Professional (IDE)
+  + [Git For Windows](https://gitforwindows.org/) - which includes `bash`
+- Open `Qiqqa.sln` in MSVS
+- Build > Batch Build > (tick all 'Release' items or simply Select All)
+  + When this is done, you should have a Qiqqa.exe binary and assorted files in `./Qiqqa/bin/Release/`
+- run a `bash` shell and `cd` to the `iqqa-open-source` repository root directory if you haven't already :wink:
+- in `bash`, run:
 
+  ```
+  ./build-installer.sh
+  ```
+
+  + At the end of which you should see a line reporting success, with a version number and a path where the `setup.exe` has been dropped.
+    
+    > That'll be in the `./Qiqqa.Build/Packages/` directory tree: it should match the `vNN-YYYYMMDD-HHMMSS` with the latest date. 
+
+  + Presto! 🎉 
+
+
+  
 
 
 ## Fixes & Additions to Qiqqa
@@ -53,5 +67,10 @@ See also Qiqqa bug reports:
 ### (issues which haven't yet been tackled completely to my satisfaction)
 
 - [#8](https://github.com/jimmejardine/qiqqa-open-source/issues/8)
-- [#10](https://github.com/jimmejardine/qiqqa-open-source/issues/10)
+- [#9](https://github.com/jimmejardine/qiqqa-open-source/issues/9)
+- [#11](https://github.com/jimmejardine/qiqqa-open-source/issues/11)
+- [#12](https://github.com/jimmejardine/qiqqa-open-source/issues/12)
+- [#13](https://github.com/jimmejardine/qiqqa-open-source/issues/13)
+- [#14](https://github.com/jimmejardine/qiqqa-open-source/issues/14)
 - [#18](https://github.com/jimmejardine/qiqqa-open-source/issues/18)
+
