@@ -3,7 +3,7 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
 >
-  <DockPanel>
+    <DockPanel Width="350">
     <CheckBox DockPanel.Dock="Top" IsChecked="{Binding Proxy_UseProxy}" Name="CheckUseProxy">Use an Internet proxy?</CheckBox>
     <local_gui:AugmentedBorder>
       <StackPanel Name="GridProxyDetails">
@@ -16,9 +16,9 @@
           </Grid.RowDefinitions>
 
           <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="200*"/>
             <ColumnDefinition Width="5"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="200*"/>
           </Grid.ColumnDefinitions>
 
           <TextBlock Grid.Row="0" Grid.Column="0">Hostname:</TextBlock>
