@@ -249,7 +249,7 @@ namespace Qiqqa.Common.Configuration
             try
             {
                 Logging.Info("Saving configuration to JSON");
-                string output = JsonConvert.SerializeObject(configuration_record);
+                string output = JsonConvert.SerializeObject(configuration_record, Formatting.Indented);
 
                 // The using statement automatically flushes AND CLOSES the stream and calls 
                 // IDisposable.Dispose on the stream object.
