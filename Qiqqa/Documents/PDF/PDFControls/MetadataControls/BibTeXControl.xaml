@@ -12,11 +12,11 @@
       </Grid.RowDefinitions>
 
       <Grid.ColumnDefinitions>
-        <ColumnDefinition/>
-        <ColumnDefinition Width="Auto"/>
-        <ColumnDefinition/>
-        <ColumnDefinition Width="Auto"/>
-        <ColumnDefinition/>
+        <ColumnDefinition Width="7*"/>
+        <ColumnDefinition Width="3"/>
+        <ColumnDefinition Width="7*"/>
+        <ColumnDefinition Width="3"/>
+        <ColumnDefinition Width="7*"/>
       </Grid.ColumnDefinitions>
 
       <local_gui:AugmentedButton Grid.Column="0" Name="ButtonBibTexAutoFind" />
@@ -34,9 +34,9 @@
 
     <Grid>
       <Grid.ColumnDefinitions>
-        <ColumnDefinition/>
-        <ColumnDefinition Width="Auto"/>
-        <ColumnDefinition/>
+        <ColumnDefinition Width="7*"/>
+        <ColumnDefinition Width="3"/>
+        <ColumnDefinition Width="7*"/>
       </Grid.ColumnDefinitions>
 
       <local_gui:AugmentedButton Grid.Column="0" Name="ButtonBibTexEditor" />
