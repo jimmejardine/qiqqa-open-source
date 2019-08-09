@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using Qiqqa.Brainstorm.Nodes;
+using Utilities.Misc;
 
 namespace Qiqqa.Brainstorm.SceneManager
 {
@@ -42,6 +43,17 @@ namespace Qiqqa.Brainstorm.SceneManager
 
             double mid = (ObjSceneRenderingControl.current_viewport_topleft.X + ObjSceneRenderingControl.ActualWidth / ObjSceneRenderingControl.CurrentPowerScale / 2);
             double visible = ObjSceneRenderingControl.ActualWidth / ObjSceneRenderingControl.CurrentPowerScale;
+
+#if DEBUG
+            // Are we looking at this dialog in the Visual Studio Designer?
+            if (Runtime.IsRunningInVisualStudioDesigner && 0 == ObjSceneRenderingControl.NodeControls.Count && Double.IsNaN(mid))
+            {
+                min = Math.Min(min, 0);
+                max = Math.Max(max, 8000);
+                mid = 2500;
+                visible = 225;
+            }
+#endif
 
             horizonal_changing = true;
             ScrollHorizonal.Minimum = min;

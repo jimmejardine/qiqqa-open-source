@@ -6,6 +6,25 @@
     xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
   xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
 >
+<!--
+WARNING NOTE:
+
+TODO: This is copy/dump off SO where the same problem as https://github.com/jimmejardine/qiqqa-open-source/issues/40
+
+Must be tweaked and then retried with Qiqqa as it didn't fly for me yet. :-(
+
+The blunter hack of tweaked the Qiqqa code and sneakily support XDesProc code flow too 
+by moving the Theme loader into Utilities.GUI is nice, but somehow still makes Designer
+blue-wave the Brushes and NOT render them.
+- - - - - - - 
+<UserControl.Resources>
+    <ResourceDictionary>
+        <ResourceDictionary.MergedDictionaries>
+			<ResourceDictionary Source="pack://application:,,,/Styles;component/Resources.xaml" />
+        </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+</UserControl.Resources>
+-->
   <Grid>
     <DockPanel>
       <local_gui:AugmentedBorder DockPanel.Dock="Top">

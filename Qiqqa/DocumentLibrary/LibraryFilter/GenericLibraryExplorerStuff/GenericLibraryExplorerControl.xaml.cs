@@ -53,6 +53,8 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
 
         public GenericLibraryExplorerControl()
         {
+            Theme.Initialize();
+
             InitializeComponent();
 
             TreeSearchTerms.Background = ThemeColours.Background_Brush_Blue_LightToDark;

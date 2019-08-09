@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
     xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
-    xmlns:local_utilities="clr-namespace:Qiqqa.Common.GUI" Width="640" Height="640"
+    xmlns:local_utilities="clr-namespace:Qiqqa.Common.GUI" Width="640" Height="600"
     Title="Unexpected error in Qiqqa!"
     x:Name="UnhandledExceptionBox"
 >
@@ -42,16 +42,16 @@
           <TextBlock />
 
           <local_gui:AugmentedInfoBarItemControl Header="Exception Trees" x:Name="TextExceptionsRegion" Collapsed="False">
-            <TextBox Name="TextExceptions" Height="200" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
+            <TextBox Name="TextExceptions" Height="637" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
           </local_gui:AugmentedInfoBarItemControl>
 
           <local_gui:AugmentedInfoBarItemControl Header="Recent Logs" Collapsed="False">
-            <TextBox Name="TextLogs" Height="200" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" />
+            <TextBox Name="TextLogs" Height="430" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" />
           </local_gui:AugmentedInfoBarItemControl>
 
 
           <local_gui:AugmentedInfoBarItemControl Header="Machine Stats" Collapsed="False">
-            <TextBox Name="TextMachineStats" Height="200" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" />
+            <TextBox Name="TextMachineStats" Height="450" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" />
           </local_gui:AugmentedInfoBarItemControl>
 
 

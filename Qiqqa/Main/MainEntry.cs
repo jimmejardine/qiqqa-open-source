@@ -192,10 +192,7 @@ namespace Qiqqa.Main
             // NB NB NB NB: You CANT USE ANYTHING IN THE USER CONFIG AT THIS POINT - it is not yet decided until LOGIN has completed...
 
             splashscreen_window.UpdateMessage("Loading themes");
-            ThemeColours.AddToApplicationResources(application);
-            ThemeTextStyles.AddToApplicationResources(application);
-            ThemeScrollbar.AddToApplicationResources(application);
-            ThemeTabItem.AddToApplicationResources(application);
+            Theme.Initialize(application);
             DualTabbedLayout.GetWindowOverride = delegate() { return new StandardWindow(); };
 
             // Force tooltips to stay open

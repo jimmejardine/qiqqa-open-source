@@ -24,6 +24,8 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
 
         public TagExplorerControl()
         {
+            Theme.Initialize();
+
             InitializeComponent();
 
             this.ToolTip = "Here are the Tags you have added to your documents.  " + GenericLibraryExplorerControl.YOU_CAN_FILTER_TOOLTIP;

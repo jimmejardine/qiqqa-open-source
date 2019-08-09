@@ -546,6 +546,7 @@
     <Compile Include="GUI\SpaceAvoidingGrid.cs" />
     <Compile Include="GUI\Syncfusion\GridDataControl_DistinctCountAggregate.cs" />
     <Compile Include="GUI\Syncfusion\SummaryColumnTools.cs" />
+    <Compile Include="GUI\Theme.cs" />
     <Compile Include="GUI\ThemeColours.cs">
       <SubType>Code</SubType>
     </Compile>

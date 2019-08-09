@@ -12,5 +12,15 @@ namespace Utilities.Misc
                 return Path.GetDirectoryName(new Uri(Assembly.GetEntryAssembly().CodeBase).LocalPath);
             }
         }
+
+        public static bool IsRunningInVisualStudioDesigner
+        {
+            get
+            {
+                // Are we looking at this dialog in the Visual Studio Designer?
+                string appname = System.Reflection.Assembly.GetEntryAssembly().FullName;
+                return appname.Contains("XDesProc");
+            }
+        }
     }
 }
