@@ -10,7 +10,7 @@
     <local_gui:AugmentedSpacer DockPanel.Dock="Bottom"/>
 
     <DockPanel DockPanel.Dock="Left" Name="PanelSearchScore">
-      <local_gui:AugmentedButton DockPanel.Dock="Left" Name="ButtonSearchInside" Background="Gold">
+      <local_gui:AugmentedButton DockPanel.Dock="Left" Name="ButtonSearchInside" Background="Gold" MinHeight="10">
         <local_gui:AugmentedButton.LayoutTransform>
           <RotateTransform Angle="-90" />
         </local_gui:AugmentedButton.LayoutTransform>

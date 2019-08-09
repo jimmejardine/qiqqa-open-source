@@ -32,7 +32,7 @@ xmlns:local_bibtex="clr-namespace:Qiqqa.Documents.BibTeXEditor"
       </local_gui:NonScrollingFlowDocumentScrollViewer>
 
 
-      <local_gui:AugmentedInfoBarItemControl Header="Tags - Add Multiple" ToolTip="Add tags to many documents simultaneously." Collapsed="True">
+      <local_gui:AugmentedInfoBarItemControl Header="Tags - Add Multiple" ToolTip="Add tags to many documents simultaneously." Collapsed="False">
         <StackPanel>
           <tag:TagEditorControl TagsBundle="{Binding Tags, Mode=TwoWay}" x:Name="ObjTagsAddEditorControl" />
 
@@ -43,14 +43,14 @@ xmlns:local_bibtex="clr-namespace:Qiqqa.Documents.BibTeXEditor"
               <ColumnDefinition/>
               <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <local_gui:AugmentedButton x:Name="ButtonResetTagsAdd" Grid.Column="0" />
-            <local_gui:AugmentedButton x:Name="ButtonApplyTagsAdd" Grid.Column="1" />
+            <local_gui:AugmentedButton x:Name="ButtonResetTagsAdd" Grid.Column="0" MinHeight="20" />
+            <local_gui:AugmentedButton x:Name="ButtonApplyTagsAdd" Grid.Column="1" MinHeight="20" />
           </Grid>
         </StackPanel>
       </local_gui:AugmentedInfoBarItemControl>
 
 
-      <local_gui:AugmentedInfoBarItemControl Header="Tags - Remove Multiple" ToolTip="Remove tags from many documents simultaneously." Collapsed="True">
+      <local_gui:AugmentedInfoBarItemControl Header="Tags - Remove Multiple" ToolTip="Remove tags from many documents simultaneously." Collapsed="False">
         <StackPanel>
           <tag:TagEditorControl TagsBundle="{Binding Tags, Mode=TwoWay}" x:Name="ObjTagsRemoveEditorControl" />
 
@@ -62,14 +62,14 @@ xmlns:local_bibtex="clr-namespace:Qiqqa.Documents.BibTeXEditor"
               <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <local_gui:AugmentedButton x:Name="ButtonResetTagsRemove" Grid.Column="0" />
-            <local_gui:AugmentedButton x:Name="ButtonApplyTagsRemove" Grid.Column="1" />
+            <local_gui:AugmentedButton x:Name="ButtonResetTagsRemove" Grid.Column="0" MinHeight="20" />
+            <local_gui:AugmentedButton x:Name="ButtonApplyTagsRemove" Grid.Column="1" MinHeight="20" />
           </Grid>
         </StackPanel>
       </local_gui:AugmentedInfoBarItemControl>
 
 
-      <local_gui:AugmentedInfoBarItemControl Header="Review - Edit Multiple" ToolTip="Update the review details of many documents simultaneously." Collapsed="True">
+      <local_gui:AugmentedInfoBarItemControl Header="Review - Edit Multiple" ToolTip="Update the review details of many documents simultaneously." Collapsed="False">
         <StackPanel>
           <local_metadata:UserReviewControl x:Name="ObjUserReviewControl" DatesVisible="False"/>
 
@@ -81,15 +81,15 @@ xmlns:local_bibtex="clr-namespace:Qiqqa.Documents.BibTeXEditor"
               <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <local_gui:AugmentedButton x:Name="ButtonResetReview" Grid.Column="0" />
-            <local_gui:AugmentedButton x:Name="ButtonApplyReview" Grid.Column="1" />
+            <local_gui:AugmentedButton x:Name="ButtonResetReview" Grid.Column="0" MinHeight="20" />
+            <local_gui:AugmentedButton x:Name="ButtonApplyReview" Grid.Column="1" MinHeight="20" />
           </Grid>
         </StackPanel>
       </local_gui:AugmentedInfoBarItemControl>
 
 
 
-      <local_gui:AugmentedInfoBarItemControl Header="Reference Details - Edit Multiple" ToolTip="Update the reference details of many documents simultaneously."  Collapsed="True">
+      <local_gui:AugmentedInfoBarItemControl Header="Reference Details - Edit Multiple" ToolTip="Update the reference details of many documents simultaneously."  Collapsed="False">
         <StackPanel>
           <local_bibtex:BibTeXEditorControl x:Name="ObjBibTeXEditorControl" BibTeX="{Binding BibTex, Mode=TwoWay}" ForceHideNoBibTeXInstructions="True"/>
 
@@ -101,8 +101,8 @@ xmlns:local_bibtex="clr-namespace:Qiqqa.Documents.BibTeXEditor"
               <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <local_gui:AugmentedButton x:Name="ButtonResetBibTeX" Grid.Column="0" />
-            <local_gui:AugmentedButton x:Name="ButtonApplyBibTeX" Grid.Column="1" />
+            <local_gui:AugmentedButton x:Name="ButtonResetBibTeX" Grid.Column="0" MinHeight="20" />
+            <local_gui:AugmentedButton x:Name="ButtonApplyBibTeX" Grid.Column="1" MinHeight="20" />
           </Grid>
         </StackPanel>
       </local_gui:AugmentedInfoBarItemControl>
