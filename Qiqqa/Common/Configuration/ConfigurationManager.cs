@@ -13,6 +13,7 @@ using Utilities.Reflection;
 using Utilities.Shutdownable;
 using Application = System.Windows.Forms.Application;
 using Utilities.Strings;
+using Newtonsoft.Json;
 
 namespace Qiqqa.Common.Configuration
 {
@@ -160,16 +161,45 @@ namespace Qiqqa.Common.Configuration
             // Try loading any pre-existing config file
             try
             {
-                if (File.Exists(ConfigFilenameForUser))
+                if (File.Exists(ConfigFilenameForUser + ".json"))
                 {
-                    Logging.Info("Loading configuration");
-                    configuration_record = (ConfigurationRecord)ObjectSerializer.LoadObject(ConfigFilenameForUser);
-                    Logging.Info("Loaded configuration");
+                    Logging.Info("Loading configuration from JSON");
+                    string input;
+                    // The using statement automatically CLOSES the stream and calls 
+                    // IDisposable.Dispose on the stream object.
+                    // NOTE: do not use FileStream for text files because it read bytes, but StreamReader
+                    // encodes the output as text.
+                    using (System.IO.StreamReader file = new System.IO.StreamReader(ConfigFilenameForUser + ".json"))
+                    {
+                        input = file.ReadToEnd();
+                    }
+                    configuration_record = JsonConvert.DeserializeObject<ConfigurationRecord>(input);
+                    Logging.Info("Loaded configuration from JSON");
                 }
             }
             catch (Exception ex)
             {
-                Logging.Error(ex, "There was a problem loading configuration.");
+                Logging.Error(ex, "There was a problem loading configuration from JSON.");
+            }
+
+            // If the new JSON format doesn't fly, we're probably migrating from an older Qiqqa:
+            // try loading the config the old way:
+            if (null == configuration_record)
+            {
+                // Try loading any pre-existing config file
+                try
+                {
+                    if (File.Exists(ConfigFilenameForUser))
+                    {
+                        Logging.Info("Loading configuration");
+                        configuration_record = (ConfigurationRecord)ObjectSerializer.LoadObject(ConfigFilenameForUser);
+                        Logging.Info("Loaded configuration");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex, "There was a problem loading configuration.");
+                }
             }
 
             if (null == configuration_record)
@@ -214,6 +244,26 @@ namespace Qiqqa.Common.Configuration
             catch (Exception ex)
             {
                 Logging.Error(ex, "There was a problem saving the configuration.");
+            }
+
+            try
+            {
+                Logging.Info("Saving configuration to JSON");
+                string output = JsonConvert.SerializeObject(configuration_record);
+
+                // The using statement automatically flushes AND CLOSES the stream and calls 
+                // IDisposable.Dispose on the stream object.
+                // NOTE: do not use FileStream for text files because it writes bytes, but StreamWriter
+                // encodes the output as text.
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(ConfigFilenameForUser + ".json"))
+                {
+                    file.WriteLine(output);
+                }
+                Logging.Info("Saved configuration to JSON");
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex, "There was a problem saving the configuration to JSON.");
             }
         }
 
@@ -314,6 +364,11 @@ namespace Qiqqa.Common.Configuration
         {
             get
             {
+                if (null == configuration_record)
+                {
+                    Logging.Warn("Accessing ConfigurationRecord before it has been initialized by Qiqqa: running as Guest for now");
+                    ResetConfigurationRecordToGuest();
+                }
                 return configuration_record;
             }
         }
