@@ -53,6 +53,25 @@ namespace Utilities
             return message;
         }
 
+        public static string Debug(Exception ex)
+        {
+            string message = ex.ToString();
+            log.Debug(PrefixMemUsage(AppendStackTrace(message)));
+            return message;
+        }
+
+        public static string Debug(Exception ex, string msg, params object[] args)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat(msg, args);
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.Append(ex.ToString());
+            string message = sb.ToString();
+            log.Debug(PrefixMemUsage(AppendStackTrace(message)));
+            return message;
+        }
+
         public static void Info(string msg)
         {
             log.Info(PrefixMemUsage(AppendStackTrace(msg)));

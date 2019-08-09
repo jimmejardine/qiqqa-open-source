@@ -196,76 +196,102 @@ namespace Qiqqa.Common.SpeedRead
 
         private void BackgroundThread(object thread_object)
         {
-            while (playing)
+            try
             {
-                int current_wpm = 0;
-                
-                // Interrogate the GUI
-                Dispatcher.Invoke(
-                    new Action(() =>
+                // NOTE: while one might wonder why `playing` is not protected by a lock, while it
+                // is used by two threads: this is by design.
+                //
+                // `playing` is only ever changed by a single thread (Main) and any temporary collision
+                // between reading `playing` while the boolean is being changed by the main thread
+                // is NOT A PROBLEM.
+                // Yes, an Exception MAY be thrown then, but we have to reckon with failures inside
+                // the loop anyway (https://github.com/jimmejardine/qiqqa-open-source/issues/42) as
+                // the `playing = false` STOP instruction MAY occur while Dispose()-ing this class
+                // instance: *that* action MAY very well happen while we're *somewhere* inside the
+                // play loop executing stuff... which will surely CRASH with an Exception, e.g.
+                // https://github.com/jimmejardine/qiqqa-open-source/issues/42
+                // hence we NEED the Exception handling anyway and any unsafe checking of `playing`
+                // is but one potential failure mode, all of whom will be correctly caught by the
+                // outer `try...catch`, hence no critical section lock coding effort for `playing`:
+                while (playing)
+                {
+                    int current_wpm = 0;
+
+                    // Interrogate the GUI
+                    Dispatcher.Invoke(
+                        new Action(() =>
+                                {
+                                    current_wpm = (int)SliderWPM.Value;
+                                }
+                    ));
+
+
+                    // Sleep a bit to reflect the WPM
+                    int sleep_time_ms = (60 * 1000 / (current_wpm + 1));
+                    Thread.Sleep(sleep_time_ms);
+
+
+                    int current_position = 0;
+                    int current_maximum = 0;
+                    // Interrogate the GUI
+                    Dispatcher.Invoke(
+                        new Action(() =>
+                        {
+                            current_position = (int)SliderLocation.Value;
+                            current_maximum = (int)SliderLocation.Maximum;
+                        }
+                    ));
+
+
+                    // Can we move onto the next word?
+                    if (current_position < current_maximum)
+                    {
+                        string current_word = this.words[current_position];
+                        string current_word_left = "";
+                        string current_word_right = "";
+                        for (int i = 1; i <= 3; ++i)
+                        {
+                            if (current_position - i >= 0 && current_position - i < words.Count)
                             {
-                                current_wpm = (int)SliderWPM.Value;
+                                current_word_left += this.words[current_position - i] + " ";
                             }
-                ));
+                            if (current_position + i >= 0 && current_position + i < words.Count)
+                            {
+                                current_word_right += " " + this.words[current_position + i];
+                            }
+                        }
 
+                        ++current_position;
 
-                // Sleep a bit to reflect the WPM
-                int sleep_time_ms = (60 * 1000 / (current_wpm+1) );
-                Thread.Sleep(sleep_time_ms);
+                        Dispatcher.Invoke(
+                            new Action(() =>
+                            {
+                                SliderLocation.Value = current_position;
+                                TextCurrentWord.Text = current_word;
+                                TextCurrentWordLeft.Text = current_word_left;
+                                TextCurrentWordRight.Text = current_word_right;
+                            }
+                        ));
 
-
-                int current_position = 0;
-                int current_maximum = 0;
-                // Interrogate the GUI
-                Dispatcher.Invoke(
-                    new Action(() =>
-                    {
-                        current_position = (int)SliderLocation.Value;
-                        current_maximum = (int)SliderLocation.Maximum;
                     }
-                ));
-
-
-                // Can we move onto the next word?
-                if (current_position < current_maximum)
-                {
-                    string current_word = this.words[current_position];
-                    string current_word_left = "";
-                    string current_word_right = "";
-                    for (int i = 1; i <= 3; ++i)
+                    else
                     {
-                        if (current_position - i >= 0 && current_position - i < words.Count)
-                        {
-                            current_word_left += this.words[current_position - i] + " ";
-                        }
-                        if (current_position + i >= 0 && current_position + i < words.Count)
-                        {
-                            current_word_right += " " + this.words[current_position + i];
-                        }
+                        Dispatcher.Invoke(
+                            new Action(() =>
+                            {
+                                TogglePlayPause(true);
+                            }
+                        ));
                     }
-
-                    ++current_position;                    
-
-                    Dispatcher.Invoke(
-                        new Action(() =>
-                        {
-                            SliderLocation.Value = current_position;
-                            TextCurrentWord.Text = current_word;
-                            TextCurrentWordLeft.Text = current_word_left;
-                            TextCurrentWordRight.Text = current_word_right;
-                        }
-                    ));
-
                 }
-                else
-                {
-                    Dispatcher.Invoke(
-                        new Action(() =>
-                        {
-                            TogglePlayPause(true);
-                        }
-                    ));
-                }
+            }
+            catch (Exception ex)
+            {
+                // all sorts of nasty stuff can happen. If it happens while `Dispose()`
+                // was invoked on the mainline, it's hunky-dory. So we merely rate this
+                // DEBUG level diagnostics.
+                Logging.Debug(ex, "VERY PROBABLY HARMLESS AND EXPECTED crash in SpeedReader: if you just closed/quit the panel, this is due to Dispose() invocation in the Main thread and expected behaviour.");
+
             }
         }
 
