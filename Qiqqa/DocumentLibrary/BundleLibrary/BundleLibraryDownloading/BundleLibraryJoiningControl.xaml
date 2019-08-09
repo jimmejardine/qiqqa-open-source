@@ -16,10 +16,10 @@
     <DockPanel >
       <DockPanel DockPanel.Dock="Right">
 
-        <local_gui:AugmentedButton Name="ButtonDownload" DockPanel.Dock="Right" MinWidth="200"/>
+        <local_gui:AugmentedButton Name="ButtonDownload" DockPanel.Dock="Right" MinWidth="200" MinHeight="20"/>
         <local_gui:AugmentedSpacer DockPanel.Dock="Right"/>
 
-        <local_gui:AugmentedButton Name="ButtonCancel" DockPanel.Dock="Left"/>
+        <local_gui:AugmentedButton Name="ButtonCancel" DockPanel.Dock="Left" MinWidth="200" MinHeight="20"/>
         <local_gui:AugmentedSpacer DockPanel.Dock="Left"/>
 
         <local_gui:AugmentedSpacer />

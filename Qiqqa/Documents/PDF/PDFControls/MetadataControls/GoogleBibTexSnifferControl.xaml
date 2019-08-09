@@ -28,9 +28,9 @@
 
       <Grid>
         <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="10*" />
-          <ColumnDefinition Width="5" />
-          <ColumnDefinition Width="5*" />
+	        <ColumnDefinition Width="561*" />
+	        <ColumnDefinition Width="5" />
+	        <ColumnDefinition Width="381*" />
         </Grid.ColumnDefinitions>
 
 
@@ -60,11 +60,11 @@
 
                 <Grid Name="ObjSearchOptionsPanel">
                   <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="7*" />
-                                        <ColumnDefinition Width="3" />
-                                        <ColumnDefinition Width="10*" />
-                                        <ColumnDefinition Width="3" />
-                                        <ColumnDefinition Width="10*" />
+                    <ColumnDefinition Width="56*" />
+                    <ColumnDefinition Width="3" />
+                    <ColumnDefinition Width="87*" />
+                    <ColumnDefinition Width="3" />
+                    <ColumnDefinition Width="88*" />
                   </Grid.ColumnDefinitions>
 
                   <StackPanel>
