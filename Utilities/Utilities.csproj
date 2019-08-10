@@ -623,7 +623,6 @@
     <Compile Include="Language\ScrabbleWords.cs" />
     <Compile Include="Language\Stopwords.cs" />
     <Compile Include="Language\TextIndexing\IndexPageResult.cs" />
-    <Compile Include="Language\TextIndexing\IndexResult.cs" />
     <Compile Include="Language\TextIndexing\LuceneIndex.cs" />
     <Compile Include="Language\TextIndexing\LuceneMoreLikeThis.cs" />
     <Compile Include="Language\TextIndexing\LuceneSimilarityQueries.cs" />

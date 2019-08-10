@@ -42,7 +42,7 @@ namespace Utilities.Language.TextIndexing
             }
 
             // Create our common parts
-            analyzer = new StandardAnalyzer(Version.LUCENE_29, new Hashtable());            
+            analyzer = new Lucene.Net.Analysis.Standard.StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_29, new Hashtable());            
         }
 
         ~LuceneIndex()
@@ -92,6 +92,7 @@ namespace Utilities.Language.TextIndexing
                 index_writer.Commit();
                 index_writer.Optimize();
                 index_writer.Close();
+                index_writer.Dispose();
                 index_writer = null;
             }
             Logging.Info("-Flushing a lucene IndexWriter");
@@ -103,7 +104,7 @@ namespace Utilities.Language.TextIndexing
             {
                 sb.AppendLine(field_value);
 
-                document.Add(new Field(field_name, field_value, Field.Store.NO, Field.Index.ANALYZED));
+                document.Add(new Lucene.Net.Documents.Field(field_name, field_value, Lucene.Net.Documents.Field.Store.NO, Lucene.Net.Documents.Field.Index.ANALYZED));
             }
         }
 
@@ -111,23 +112,23 @@ namespace Utilities.Language.TextIndexing
         {
             if (null == bibtex_item) return;
 
-            document.Add(new Field("type", bibtex_item.Type, Field.Store.NO, Field.Index.ANALYZED));
-            document.Add(new Field("key", bibtex_item.Key, Field.Store.NO, Field.Index.ANALYZED));
+            document.Add(new Lucene.Net.Documents.Field("type", bibtex_item.Type, Lucene.Net.Documents.Field.Store.NO, Lucene.Net.Documents.Field.Index.ANALYZED));
+            document.Add(new Lucene.Net.Documents.Field("key", bibtex_item.Key, Lucene.Net.Documents.Field.Store.NO, Lucene.Net.Documents.Field.Index.ANALYZED));
 
             foreach (var pair in bibtex_item.EnumerateFields())
             {
-                document.Add(new Field(pair.Key, pair.Value, Field.Store.NO, Field.Index.ANALYZED));
+                document.Add(new Lucene.Net.Documents.Field(pair.Key, pair.Value, Lucene.Net.Documents.Field.Store.NO, Lucene.Net.Documents.Field.Index.ANALYZED));
             }
         }
 
         public void AddDocumentMetadata(bool is_deleted, string fingerprint, string title, string author, string year, string comment, string tag, string annotation, string bibtex, BibTexItem bibtex_item)
         {
-            Document document = null;
+            Lucene.Net.Documents.Document document = null;
 
             // Create the document only if it is not to be deleted
             if (!is_deleted)
             {
-                document = new Document();
+                document = new Lucene.Net.Documents.Document();
                 document.Add(new Field("fingerprint", fingerprint, Field.Store.YES, Field.Index.NOT_ANALYZED_NO_NORMS));
                 document.Add(new Field("page", "0", Field.Store.YES, Field.Index.NOT_ANALYZED_NO_NORMS));
 
@@ -151,13 +152,13 @@ namespace Utilities.Language.TextIndexing
         }
 
         public void AddDocumentPage(bool is_deleted, string fingerprint, int page, string content)
-        {            
-            Document document = null;
+        {
+            Lucene.Net.Documents.Document document = null;
 
             // Create the document only if it is not to be deleted
             if (!is_deleted)
             {
-                document = new Document();
+                document = new Lucene.Net.Documents.Document();
                 document.Add(new Field("fingerprint", fingerprint, Field.Store.YES, Field.Index.NOT_ANALYZED_NO_NORMS));
                 document.Add(new Field("page", Convert.ToString(page), Field.Store.YES, Field.Index.NOT_ANALYZED_NO_NORMS));
                 document.Add(new Field("content", content, Field.Store.NO, Field.Index.ANALYZED));
@@ -174,14 +175,14 @@ namespace Utilities.Language.TextIndexing
                 if (null == index_writer)
                 {
                     Logging.Info("+Creating a new lucene IndexWriter");
-                    index_writer = new IndexWriter(LIBRARY_INDEX_BASE_PATH, analyzer, IndexWriter.MaxFieldLength.UNLIMITED);
+                    index_writer = new Lucene.Net.Index.IndexWriter(LIBRARY_INDEX_BASE_PATH, analyzer, IndexWriter.MaxFieldLength.UNLIMITED);
                     Logging.Info("-Creating a new lucene IndexWriter");
                 }
 
                 // Delete the document if it already exists
-                BooleanQuery bq = new BooleanQuery();
-                bq.Add(new TermQuery(new Term("fingerprint", fingerprint)), BooleanClause.Occur.MUST);
-                bq.Add(new TermQuery(new Term("page", Convert.ToString(page))), BooleanClause.Occur.MUST);
+                Lucene.Net.Search.BooleanQuery bq = new Lucene.Net.Search.BooleanQuery();
+                bq.Add(new Lucene.Net.Search.TermQuery(new Lucene.Net.Index.Term("fingerprint", fingerprint)), Lucene.Net.Search.BooleanClause.Occur.MUST);
+                bq.Add(new Lucene.Net.Search.TermQuery(new Lucene.Net.Index.Term("page", System.Convert.ToString(page))), Lucene.Net.Search.BooleanClause.Occur.MUST);
                 index_writer.DeleteDocuments(bq);
 
                 // Add the new document
@@ -202,40 +203,43 @@ namespace Utilities.Language.TextIndexing
         /***
          * Understands the lucene query syntax
          */
-        public List<IndexResult> GetDocumentsWithQuery(string query)
+        public List<Utilities.Language.TextIndexing.IndexResult> GetDocumentsWithQuery(string query)
         {
-            List<IndexResult> fingerprints = new List<IndexResult>();
+            List<Utilities.Language.TextIndexing.IndexResult> fingerprints = new List<Utilities.Language.TextIndexing.IndexResult>();
             HashSet<string> fingerprints_already_seen = new HashSet<string>();
 
             try
             {
-                IndexReader index_reader = IndexReader.Open(LIBRARY_INDEX_BASE_PATH, true);
-                Searcher index_searcher = new IndexSearcher(index_reader);
-
-                QueryParser query_parser = new QueryParser(Version.LUCENE_29, "content", analyzer);
-
-                Query query_object = query_parser.Parse(query);
-                Hits hits = index_searcher.Search(query_object);
-
-                var i = hits.Iterator();
-                while (i.MoveNext())
+                using (Lucene.Net.Index.IndexReader index_reader = Lucene.Net.Index.IndexReader.Open(LIBRARY_INDEX_BASE_PATH, true))
                 {
-                    Hit hit = (Hit)i.Current;
-                    string fingerprint = hit.Get("fingerprint");
-                    string page = hit.Get("page");
-
-                    if (!fingerprints_already_seen.Contains(fingerprint))
+                    using (Lucene.Net.Search.Searcher index_searcher = new Lucene.Net.Search.IndexSearcher(index_reader))
                     {
-                        fingerprints_already_seen.Add(fingerprint);
+                        Lucene.Net.QueryParsers.QueryParser query_parser = new Lucene.Net.QueryParsers.QueryParser(Version.LUCENE_29, "content", analyzer);
 
-                        IndexResult index_result = new IndexResult { fingerprint = fingerprint, score = hit.GetScore() };
-                        fingerprints.Add(index_result);
+                        Lucene.Net.Search.Query query_object = query_parser.Parse(query);
+                        Lucene.Net.Search.Hits hits = index_searcher.Search(query_object);
+
+                        var i = hits.Iterator();
+                        while (i.MoveNext())
+                        {
+                            Lucene.Net.Search.Hit hit = (Lucene.Net.Search.Hit)i.Current;
+                            string fingerprint = hit.Get("fingerprint");
+                            string page = hit.Get("page");
+
+                            if (!fingerprints_already_seen.Contains(fingerprint))
+                            {
+                                fingerprints_already_seen.Add(fingerprint);
+
+                                IndexResult index_result = new IndexResult { fingerprint = fingerprint, score = hit.GetScore() };
+                                fingerprints.Add(index_result);
+                            }
+                        }
+
+                        // Close the index
+                        index_searcher.Close();
                     }
+                    index_reader.Close();
                 }
-
-                // Close the index
-                index_searcher.Close();
-                index_reader.Close();
             }
             catch (Exception ex)
             {
@@ -252,44 +256,47 @@ namespace Utilities.Language.TextIndexing
 
             try
             {
-                IndexReader index_reader = IndexReader.Open(LIBRARY_INDEX_BASE_PATH, true);
-                Searcher index_searcher = new IndexSearcher(index_reader);
-
-                QueryParser query_parser = new QueryParser(Version.LUCENE_29, "content", analyzer);
-
-                Query query_object = query_parser.Parse(query);
-                Hits hits = index_searcher.Search(query_object);
-
-                var i = hits.Iterator();
-                while (i.MoveNext())
+                using (IndexReader index_reader = IndexReader.Open(LIBRARY_INDEX_BASE_PATH, true))
                 {
-                    Hit hit = (Hit)i.Current;
-                    string fingerprint = hit.Get("fingerprint");
-                    int page = Convert.ToInt32(hit.Get("page"));
-                    double score = hit.GetScore();
-
-                    // If this is the first time we have seen this fingerprint, make the top-level record
-                    if (!fingerprints_already_seen.ContainsKey(fingerprint))
+                    using (Searcher index_searcher = new IndexSearcher(index_reader))
                     {
-                        IndexPageResult result = new IndexPageResult();
-                        result.fingerprint = fingerprint;
-                        result.score = score;
+                        QueryParser query_parser = new QueryParser(Version.LUCENE_29, "content", analyzer);
 
-                        // Add to our structures
-                        results.Add(result);
-                        fingerprints_already_seen[fingerprint] = result;
-                    }
+                        Query query_object = query_parser.Parse(query);
+                        Lucene.Net.Search.Hits hits = index_searcher.Search(query_object);
 
-                    // And add the page record
-                    {
-                        IndexPageResult result = fingerprints_already_seen[fingerprint];
-                        result.page_results.Add(new IndexPageResult.PageResult { page = page, score=score});
+                        var i = hits.Iterator();
+                        while (i.MoveNext())
+                        {
+                            Hit hit = (Hit)i.Current;
+                            string fingerprint = hit.Get("fingerprint");
+                            int page = Convert.ToInt32(hit.Get("page"));
+                            double score = hit.GetScore();
+
+                            // If this is the first time we have seen this fingerprint, make the top-level record
+                            if (!fingerprints_already_seen.ContainsKey(fingerprint))
+                            {
+                                IndexPageResult result = new IndexPageResult();
+                                result.fingerprint = fingerprint;
+                                result.score = score;
+
+                                // Add to our structures
+                                results.Add(result);
+                                fingerprints_already_seen[fingerprint] = result;
+                            }
+
+                            // And add the page record
+                            {
+                                IndexPageResult result = fingerprints_already_seen[fingerprint];
+                                result.page_results.Add(new PageResult { page = page, score = score });
+                            }
+                        }
+
+                        // Close the index
+                        index_searcher.Close();
                     }
+                    index_reader.Close();
                 }
-
-                // Close the index
-                index_searcher.Close();
-                index_reader.Close();
             }
             catch (Exception ex)
             {
@@ -437,7 +444,7 @@ namespace Utilities.Language.TextIndexing
         private void DeleteIndex()
         {
             Logging.Info("Deleting the index at path '{0}'", LIBRARY_INDEX_BASE_PATH);
-            DirectoryTools.DeleteDirectory(LIBRARY_INDEX_BASE_PATH, true);
+            Utilities.Files.DirectoryTools.DeleteDirectory(LIBRARY_INDEX_BASE_PATH, true);
         }
     }
 }
