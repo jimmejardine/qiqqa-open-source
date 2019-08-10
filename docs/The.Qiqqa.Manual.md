@@ -205,47 +205,47 @@ Once you are in Expert mode, it should look like this:
 
 From the Start Screen toolbar you can access the main features of Qiqqa:
 
-· Opening and managing your various PDF libraries.
+* Opening and managing your various PDF libraries.
 
-· Running Qiqqa InCite to add citations and bibliographies to Word documents.
+* Running Qiqqa InCite to add citations and bibliographies to Word documents.
 
-· Using Qiqqa Expedition to browse the themes present in your PDF documents.
+* Using Qiqqa Expedition to browse the themes present in your PDF documents.
 
-· Building dynamic and interactive Brainstorms to explore your PDFs.
+* Building dynamic and interactive Brainstorms to explore your PDFs.
 
-· Power-browsing the web to quickly add PDFs to your libraries.
+* Power-browsing the web to quickly add PDFs to your libraries.
 
-· Accessing the configuration screen and help.
+* Accessing the configuration screen and help.
 
 To locate each of these features, move your mouse over each button on the toolbar at the top of the screen and rest it there (“hover it”) to get a popup explaining what each button does.
 
 The Start screen is dominated by your most recently opened PDF library. Several PDFs are recommended from that library for reading next. Double-click on one of them to quickly get down to some reading. These PDFs include in descending order of priority:
 
-· Papers that you have marked “Top Priority” in the Reading Stage
+* Papers that you have marked “Top Priority” in the Reading Stage
 
-· Papers that you have marked “Interrupted” in the Reading Stage
+* Papers that you have marked “Interrupted” in the Reading Stage
 
-· The most recently added PDFs that are still marked as Unread.
+* The most recently added PDFs that are still marked as Unread.
 
 Next to each library are three toggle buttons:
 
-· The first toggles whether you want this library to automatically sync with its Web Library in the cloud.
+* The first toggles whether you want this library to automatically sync with its Web Library in the cloud.
 
-· The second opens some statistics about your activity in the library.
+* The second opens some statistics about your activity in the library.
 
-· The third opens the recommended PDFs for any of your other libraries.
+* The third opens the recommended PDFs for any of your other libraries.
 
 On the right hand side you have access to some information about Qiqqa – most importantly the “Videos and Help” section, but also information about Qiqqa Premium, Premium+ and the Qiqqa Champion Project. Please the “+” button to expand the sections. Note that you can click the “splitter bar” to resize or collapse the region on the right. This splitter bar functionality is available in many places in Qiqqa.
 
 The status bar at the bottom gives you several items of information:
 
-· Your current Qiqqa Premium and Premium+ membership status
+* Your current Qiqqa Premium and Premium+ membership status
 
-· The current version of Qiqqa – if followed by an “s” you are using the “setup.exe” version of Qiqqa (recommended, and suitable for people who have administrator rights on their machine) and if followed by an “o” you are using the web download version (for those who have a locked down machine).
+* The current version of Qiqqa – if followed by an “s” you are using the “setup.exe” version of Qiqqa (recommended, and suitable for people who have administrator rights on their machine) and if followed by an “o” you are using the web download version (for those who have a locked down machine).
 
-· The username with which you have logged into Qiqqa, and with which all syncing will be done online.
+* The username with which you have logged into Qiqqa, and with which all syncing will be done online.
 
-· Various status updates about background tasks that are going on inside Qiqqa.
+* Various status updates about background tasks that are going on inside Qiqqa.
 
 
 
@@ -263,23 +263,23 @@ The Library screen is where you get to collect and organise your PDFs. The easie
 
 Exhibit 1 lists all the PDFs that are currently in this library. The fastest way to add more PDFs to your library is to drag-and-drop them in from Windows Explorer. However, there are loads of ways do can do it, such as:
 
-· You can import PDFs from other reference managers, like EndNote, Zotero and Mendeley. This is accessible under the first menu item.
+* You can import PDFs from other reference managers, like EndNote, Zotero and Mendeley. This is accessible under the first menu item.
 
-· You can browse to a PDF using the Qiqqa Power Browser. The PDF will automatically be downloaded into your Guest library and you will be given the opportunity to move it to another library.
+* You can browse to a PDF using the Qiqqa Power Browser. The PDF will automatically be downloaded into your Guest library and you will be given the opportunity to move it to another library.
 
-· You can set up a watch folder (again under the first menu item). To start watching a folder, choose the watch folder option, select a folder and press OK. To stop watching a folder, choose the watch folder option, and then press CANCEL. Each library can only watch one folder.
+* You can set up a watch folder (again under the first menu item). To start watching a folder, choose the watch folder option, select a folder and press OK. To stop watching a folder, choose the watch folder option, and then press CANCEL. Each library can only watch one folder.
 
 Clicking on one of the PDFs brings up some details about that PDF in Exhibit 2, where you can quickly review or modify any annotations you may have made about your PDF. You can also manually edit the metadata associated with the PDF, such as its title, authors, and other bibliographic information, but see Section 8 for quicker ways to do this.
 
 The list of PDFs is affected either by filters you have in place (Exhibit 3) or by how you have sorted them (Exhibit 4). You can select multiple PDFs in several ways:
 
-· Checking the square box below each PDF adds/removes the PDF from the current selection.
+* Checking the square box below each PDF adds/removes the PDF from the current selection.
 
-· Holding down CTRL and clicking individual PDFs adds/removes them PDF from the current selection.
+* Holding down CTRL and clicking individual PDFs adds/removes them PDF from the current selection.
 
-· Holding down SHIRT and clicking a PDF adds to the current selection all the PDFs between the last selected PDF and the clicked PDF.
+* Holding down SHIRT and clicking a PDF adds to the current selection all the PDFs between the last selected PDF and the clicked PDF.
 
-· Pressing CTRL-A selects all the PDFs in the current list.
+* Pressing CTRL-A selects all the PDFs in the current list.
 
 Once you have selected one or more PDFs you can right click any PDF to get a variety of functions that affect only the selected PDFs. Several of the tools on the toolbar also only apply to the currently selected PDFs.
 
@@ -293,33 +293,33 @@ Exhibit 3 shows the various filters that you can apply to the library. Probably 
 
 Once you have added tags to your library, Qiqqa offers a powerful way of filtering by them. Let’s try to explain the power by way of example. Suppose your research PDFs document animal in various habitats. Perhaps each PDF can have associated with tags for each of the animals and countries it covers. Then you can do several types of tag filtering:
 
-· Simple filtering involves selecting a single tag, and only the PDFs with that tag will be shown.
+* Simple filtering involves selecting a single tag, and only the PDFs with that tag will be shown.
 
-· Hierarchical filtering involves first selecting a single tag, and then selecting another tag in the tree that appears beside the tag. By clicking the tag “Madagascar” you get all the PDFs relevant to Madagascar, and the tree of tags that appears beside “Madagascar” will show all tags that exist in PDFs with the tag Madagascar – both the animals in Madagascar, and the countries that are covered in common with Madagascar. Selecting the subtag “Lemur” will then only show the papers that are about Madagascar and Lemurs. This is similar to having folders within folders on your hard drive, but is fantastically more powerful because you can do the query “in reverse”. You can first filter by all papers that talk about Lemurs and then drill into the countries that have Lemurs! Try that on your folder of PDFs…
+* Hierarchical filtering involves first selecting a single tag, and then selecting another tag in the tree that appears beside the tag. By clicking the tag “Madagascar” you get all the PDFs relevant to Madagascar, and the tree of tags that appears beside “Madagascar” will show all tags that exist in PDFs with the tag Madagascar – both the animals in Madagascar, and the countries that are covered in common with Madagascar. Selecting the subtag “Lemur” will then only show the papers that are about Madagascar and Lemurs. This is similar to having folders within folders on your hard drive, but is fantastically more powerful because you can do the query “in reverse”. You can first filter by all papers that talk about Lemurs and then drill into the countries that have Lemurs! Try that on your folder of PDFs…
 
-· If you want to drill even more specifically, you need to use the circular “AND” and “OR” radio buttons. By selecting multiple tags at the same level in the tag hierarchy, you can either show only those papers that have “tag1 AND tag2 AND tag3” (i.e. their intersection) or those papers that have “tag1 OR tag2 OR tag3” (i.e. their union).
+* If you want to drill even more specifically, you need to use the circular “AND” and “OR” radio buttons. By selecting multiple tags at the same level in the tag hierarchy, you can either show only those papers that have “tag1 AND tag2 AND tag3” (i.e. their intersection) or those papers that have “tag1 OR tag2 OR tag3” (i.e. their union).
 
-· If you check the NOT checkbox, you will get the inverse of your PDFs. So if you select multiple tags, NOT is checked, and the AND radio box is selected, you will get all papers that do not have all those tags. IF OR is selected, you will get all papers that do not have any of those tags.
+* If you check the NOT checkbox, you will get the inverse of your PDFs. So if you select multiple tags, NOT is checked, and the AND radio box is selected, you will get all papers that do not have all those tags. IF OR is selected, you will get all papers that do not have any of those tags.
 
-· Phew! It sounds harder than it really is. Start with the simple filters and it will become obvious over time. Feel free to play with these filters – you can’t break anything! J
+* Phew! It sounds harder than it really is. Start with the simple filters and it will become obvious over time. Feel free to play with these filters – you can’t break anything! J
 
 In addition to being able to filter by tags, there are a multitude of other filters inside Qiqqa:
 
-· **AutoTags** – These are a powerful mechanism for automatically tagging your PDFs. They rely very heavily on your having properly populated the titles of your PDFs to find reliable suggestions for AutoTags. But a little effort up front will lead to rewards all over Qiqqa – from AutoTags to Expedition themes to brainstorming. Section 8 will explain how to quickly get these titles populated. The blacklist and whilelist allow you to help Qiqqa block the tags (blacklist) and find the tags (whitelist) that are particularly meaningful to you. Note though that the free version of Qiqqa is limited to five tags in each of these lists.
+* **AutoTags** – These are a powerful mechanism for automatically tagging your PDFs. They rely very heavily on your having properly populated the titles of your PDFs to find reliable suggestions for AutoTags. But a little effort up front will lead to rewards all over Qiqqa – from AutoTags to Expedition themes to brainstorming. Section 8 will explain how to quickly get these titles populated. The blacklist and whilelist allow you to help Qiqqa block the tags (blacklist) and find the tags (whitelist) that are particularly meaningful to you. Note though that the free version of Qiqqa is limited to five tags in each of these lists.
 
-· **Author, Publication, Year** – These are automatically available once you have populated the metadata of your PDFs. See Section 8 for how to quickly obtain these.
+* **Author, Publication, Year** – These are automatically available once you have populated the metadata of your PDFs. See Section 8 for how to quickly obtain these.
 
-· **Stage, Rating** – These are obtained from the “Review” area for each PDF (Exhibit 2).
+* **Stage, Rating** – These are obtained from the “Review” area for each PDF (Exhibit 2).
 
-· **Theme** – once you have generated reasonable AutoTags for your library, you can get Qiqqa to automatically detect the themes in your library using Qiqqa Expedition. The resulting themes are available as filters.
+* **Theme** – once you have generated reasonable AutoTags for your library, you can get Qiqqa to automatically detect the themes in your library using Qiqqa Expedition. The resulting themes are available as filters.
 
 Note that you can apply multiple filters at once. This allows you to do such filtering as:
 
-· Which were my “_favourite_” papers published within the “_past 3 years_”?
+* Which were my “_favourite_” papers published within the “_past 3 years_”?
 
-· Which papers in the “_antenatal care_” theme have I “_not yet read_”?
+* Which papers in the “_antenatal care_” theme have I “_not yet read_”?
 
-· Which are the papers by “_Jones_” in “_Nature_” that I have “_not_” tagged with “_fruit fly_” or “_gnat_”
+* Which are the papers by “_Jones_” in “_Nature_” that I have “_not_” tagged with “_fruit fly_” or “_gnat_”
 
 
 
@@ -351,51 +351,51 @@ Exhibit 1 is the main PDF reading area where you interact with your PDFs. This i
 
 Exhibit 2 is where you keep track of where you are with the current PDF. This is the same functionality down the right hand side of the Library screen.
 
-· **Review** – Set the Reading Stage to reflect where you are with the PDF. Remember that setting the Reading Stage to “top priority” or “interrupted” will include the PDF on the Start screen as one of your next recommended readings. You can do with Rating and Favourite as you see fit.
+* **Review** – Set the Reading Stage to reflect where you are with the PDF. Remember that setting the Reading Stage to “top priority” or “interrupted” will include the PDF on the Start screen as one of your next recommended readings. You can do with Rating and Favourite as you see fit.
 
-· **Tags** – The Tags section is really important: associating documents with tags allows you to slice-and-dice your PDFs using the Tag Filter on the Library screen. Note that tags you associate with PDFs are different to tags you associate with Annotations (see Section 7). The former are used to filter PDFs in the Library screen. The latter are used to build tag-specific Annotation Reports.
+* **Tags** – The Tags section is really important: associating documents with tags allows you to slice-and-dice your PDFs using the Tag Filter on the Library screen. Note that tags you associate with PDFs are different to tags you associate with Annotations (see Section 7). The former are used to filter PDFs in the Library screen. The latter are used to build tag-specific Annotation Reports.
 
-· **Comments** – You can add arbitrary comments in the Comments box. These comments will show up on the Annotation Report described in Section 7.
+* **Comments** – You can add arbitrary comments in the Comments box. These comments will show up on the Annotation Report described in Section 7.
 
-· **Annotations** – The Annotations section summarises any Annotations you may have already made on this PDF. Sometimes, if you have made too many Annotations, for performance reasons, you might have to press a button to load the annotation summary.
+* **Annotations** – The Annotations section summarises any Annotations you may have already made on this PDF. Sometimes, if you have made too many Annotations, for performance reasons, you might have to press a button to load the annotation summary.
 
-· **Abstract (on the Preview tab)** – Qiqqa will try to automatically detect the abstract in the PDF and display it here. If you find that Qiqqa has got it wrong, you can edit the text in this box or paste in the real abstract. IF you want to go back to the “automatic version” just clear all the text in this box.
+* **Abstract (on the Preview tab)** – Qiqqa will try to automatically detect the abstract in the PDF and display it here. If you find that Qiqqa has got it wrong, you can edit the text in this box or paste in the real abstract. IF you want to go back to the “automatic version” just clear all the text in this box.
 
 Exhibit 3 puts the PDF into perspective relative to your library:
 
-· **Duplicates** – Any duplicate PDFs are shown if they exist. Click on a duplicate to open to see if you have already dealt with that PDF. Qiqqa looks for duplicates using an approximate match on the Title associated with each PDF, so for this to work well, you have to have populated your PDF metadata. It is impossible for two identical PDFs to be in a Qiqqa library, so the only possible duplicates are PDFs that might be preprints, or PDFs that have been edited in some way (e.g. using PDF editing software to add highlights or annotations).
+* **Duplicates** – Any duplicate PDFs are shown if they exist. Click on a duplicate to open to see if you have already dealt with that PDF. Qiqqa looks for duplicates using an approximate match on the Title associated with each PDF, so for this to work well, you have to have populated your PDF metadata. It is impossible for two identical PDFs to be in a Qiqqa library, so the only possible duplicates are PDFs that might be preprints, or PDFs that have been edited in some way (e.g. using PDF editing software to add highlights or annotations).
 
-· **Online Databases** – lets you quickly look up the current PDF in some of the more popular online databases.
+* **Online Databases** – lets you quickly look up the current PDF in some of the more popular online databases.
 
-· **Linked Docs** – allows you to arbitrarily link together two documents in your library so that you can jump between them quickly. When you create a link, it is a permanent two-way link.
+* **Linked Docs** – allows you to arbitrarily link together two documents in your library so that you can jump between them quickly. When you create a link, it is a permanent two-way link.
 
-· **Keywords** – Qiqqa lists keywords that have been automatically associated with this PDF. You have to have generated your AutoTags for this to be available. To regenerate your AutoTags, go to the Library screen, select the AutoTags filter, and press the “Regenerate AutoTags” button.
+* **Keywords** – Qiqqa lists keywords that have been automatically associated with this PDF. You have to have generated your AutoTags for this to be available. To regenerate your AutoTags, go to the Library screen, select the AutoTags filter, and press the “Regenerate AutoTags” button.
 
-· **Themes** – The Themes present in this PDF are shown next. To get your Themes, you have to have run Qiqqa Expedition on your library. See Section 14 for how to do this.
+* **Themes** – The Themes present in this PDF are shown next. To get your Themes, you have to have run Qiqqa Expedition on your library. See Section 14 for how to do this.
 
-· **Also by** – For each of the authors of this PDF, Qiqqa shows any papers with an author with a matching surname. We decided to go with just surnames because there is often ambiguity between full first names, single initials and multiple initials.
+* **Also by** – For each of the authors of this PDF, Qiqqa shows any papers with an author with a matching surname. We decided to go with just surnames because there is often ambiguity between full first names, single initials and multiple initials.
 
-· **Relevant others PDFs** – The PDFs in your library that are most relevant to this PDF are shown here. You have to have run Qiqqa Expedition for this to work.
+* **Relevant others PDFs** – The PDFs in your library that are most relevant to this PDF are shown here. You have to have run Qiqqa Expedition for this to work.
 
-· **Citations** – This section shows the PDFs _in your library_ that this PDF cites (outbound) and the PDFs _in your library_ that cite this PDF (inbound). For efficiency reasons it is possible only to refresh the Inbound citations from this screen by pressing the little blue arrows. To find all the cross-references between all the PDFs in your library, you have to go to the Library screen and press the “Find all cross-references” button. This can take some time, but runs in the background so you can get on with your work.
+* **Citations** – This section shows the PDFs _in your library_ that this PDF cites (outbound) and the PDFs _in your library_ that cite this PDF (inbound). For efficiency reasons it is possible only to refresh the Inbound citations from this screen by pressing the little blue arrows. To find all the cross-references between all the PDFs in your library, you have to go to the Library screen and press the “Find all cross-references” button. This can take some time, but runs in the background so you can get on with your work.
 
 Exhibit 4 is where you can search this PDF. The search results are shown in Exhibit 5. Note that you can resize the search results area by clicking and dragging its top border.
 
 Exhibit 6 is the toolbar where you can get to loads of features for editing the current PDF:
 
-· The hand icon lets you click and drag the PDF surface to move around.
+* The hand icon lets you click and drag the PDF surface to move around.
 
-· The sticky-note icon lets you add Annotations to your PDF. This is by far the most important form of annotation that Qiqqa provides as you can associate Tags with each Annotation. Later, when you want to run an Annotation Report across your entire library, you can specify which Tags you are interested in, and all the Annotations with those Tags across all your PDFs will be included in the report. This is a very powerful way to review and recap all the reading you have been doing about a particular topic. You can even export that Annotation Report to Word.
+* The sticky-note icon lets you add Annotations to your PDF. This is by far the most important form of annotation that Qiqqa provides as you can associate Tags with each Annotation. Later, when you want to run an Annotation Report across your entire library, you can specify which Tags you are interested in, and all the Annotations with those Tags across all your PDFs will be included in the report. This is a very powerful way to review and recap all the reading you have been doing about a particular topic. You can even export that Annotation Report to Word.
 
-· The highlighter icon lets you add Highlight Annotations to the PDF. Select a highlight colour and drag out areas to highlight. To remove an area that you have previously highlighted, click on the little eraser icon to the left of the highlight colours and then select the text to “unhighlight.” Highlighted text will also be included on the annotation report if you select the \*Highlights\* tag when running the Annotation Report (see Section 7).
+* The highlighter icon lets you add Highlight Annotations to the PDF. Select a highlight colour and drag out areas to highlight. To remove an area that you have previously highlighted, click on the little eraser icon to the left of the highlight colours and then select the text to “unhighlight.” Highlighted text will also be included on the annotation report if you select the \*Highlights\* tag when running the Annotation Report (see Section 7).
 
-· The pencil icon lets you add Ink Annotations to the PDF. Use the “Ink tools” menu that pops up to select whether you want to draw or erase, and to choose the drawing colour. Ink Annotations will also be included on the annotation report if you select the \*Inks\* tag when running the Annotation Report (see Section 7).
+* The pencil icon lets you add Ink Annotations to the PDF. Use the “Ink tools” menu that pops up to select whether you want to draw or erase, and to choose the drawing colour. Ink Annotations will also be included on the annotation report if you select the \*Inks\* tag when running the Annotation Report (see Section 7).
 
-· The camera icon lets you select an area of a PDF that will immediately be copied onto the Clipboard. You can then switch to Word or PowerPoint or Email and paste a snapshot image there. This is useful if you want to quickly lift a diagram or quote from a PDF.
+* The camera icon lets you select an area of a PDF that will immediately be copied onto the Clipboard. You can then switch to Word or PowerPoint or Email and paste a snapshot image there. This is useful if you want to quickly lift a diagram or quote from a PDF.
 
-· The scribbler icon lets you quickly cite this PDF. If you want to cite this PDF in Word, Word must be running. A citation placeholder will be inserted at the cursor of the last active Word document. To transform this citation placeholder, you will still need to “wave the magic wand” inside Qiqqa InCite (see Section 9). But generally speaking, it is more productive to add many citation placeholders as you are working, and then “wave the magic wand” only occasionally when you want to check your reference formatting.
+* The scribbler icon lets you quickly cite this PDF. If you want to cite this PDF in Word, Word must be running. A citation placeholder will be inserted at the cursor of the last active Word document. To transform this citation placeholder, you will still need to “wave the magic wand” inside Qiqqa InCite (see Section 9). But generally speaking, it is more productive to add many citation placeholders as you are working, and then “wave the magic wand” only occasionally when you want to check your reference formatting.
 
-· There are loads of other icons. Play with them – they don’t bite. Hover the mouse over each of them to get a description of what they do. And if you want to help translate Qiqqa into your own language, then look for the “Help us translate Qiqqa” option on the Start screen.
+* There are loads of other icons. Play with them – they don’t bite. Hover the mouse over each of them to get a description of what they do. And if you want to help translate Qiqqa into your own language, then look for the “Help us translate Qiqqa” option on the Start screen.
 
 
 
@@ -407,11 +407,11 @@ Qiqqa provides very advanced search features to find exactly what you are lookin
 
 There are three areas from which you can search your PDFs:
 
-· From the Start screen, Qiqqa will search across all your libraries.
+* From the Start screen, Qiqqa will search across all your libraries.
 
-· From a Library screen, Qiqqa will search just within that library.
+* From a Library screen, Qiqqa will search just within that library.
 
-· From a PDF screen, Qiqqa will search just that PDF.
+* From a PDF screen, Qiqqa will search just that PDF.
 
 If you notice some strangeness in the search results or notice some missing PDFs, your search index may have become corrupted. We have noticed this with users running Cloud syncing software such as DropBox or SkyDrive. To rebuild a search index, go to the Configuration screen (from the Start screen) and right at the bottom press the “Rebuild search indices” button. You will have to restart Qiqqa. If the problems still persist, you can always go to the Library screen, select all PDFs (by pressing CTRL-A), right-clicking, and pressing “Reindex this document.”
 
@@ -467,11 +467,11 @@ If you are a Qiqqa Premium member, clicking on a summary Annotation takes you di
 
 From the Library screen, pressing the Annotation Report button takes you to the Annotation Report options screen. You need to be a little careful to correctly choose the PDFs you want to include in the Annotation Report before pressing the Annotation Report button:
 
-· If you have **no** PDFs selected in the Library screen, then an Annotation Report will be generated for **all** the PDFs. This is also the case if you have selected all the PDFs by pressing CTRL-A before pressing the Annotation Report button.
+* If you have **no** PDFs selected in the Library screen, then an Annotation Report will be generated for **all** the PDFs. This is also the case if you have selected all the PDFs by pressing CTRL-A before pressing the Annotation Report button.
 
-· If you have selected only one PDF, then the Annotation Report will be run for just that PDF.
+* If you have selected only one PDF, then the Annotation Report will be run for just that PDF.
 
-· If you have selected several PDFs, then the Annotation Report will be run for those PDFs.
+* If you have selected several PDFs, then the Annotation Report will be run for those PDFs.
 
 It is important to remember that the Library screen only shows the currently filtered PDFs. So if you have a filter in place, the above three criteria apply to the filtered PDFs, not to the entire library. This is a very useful feature though. If you want to run an Annotation Report on only those PDFs by a particular author, select the author in the Author library filter and then run the Annotation Report. If you want only the annotations from PDFs you tagged with a particular set of Tags, select those tags in the Tag library filter and run the report. Note that tags you associate with PDFs are different to tags you associate with Annotations. The former are used to filter PDFs in the Library screen. The latter are used to build tag-specific Annotation Reports.
 
@@ -525,11 +525,11 @@ Exhibit 4 provides you with quick access to three key fields in the BibTeX – t
 
 At Exhibit 5 you will find three buttons:
 
-· The “Find” button will attempt to automatically find the BibTeX for this PDF from the bibtexsearch.com database. Most of the time this won’t do anything because this is automatically done for you when you add a PDF to the database. It might only come in handy if you change the title or author metadata of the PDF and want to search again.
+* The “Find” button will attempt to automatically find the BibTeX for this PDF from the bibtexsearch.com database. Most of the time this won’t do anything because this is automatically done for you when you add a PDF to the database. It might only come in handy if you change the title or author metadata of the PDF and want to search again.
 
-· The “Summary” button attempts to construct a BibTeX record for you using the title, author and year fields automatically pulled from the PDF (if it exists).
+* The “Summary” button attempts to construct a BibTeX record for you using the title, author and year fields automatically pulled from the PDF (if it exists).
 
-· But most important is the BibTeX “Sniffer” button, which automates the population of you BibTeX. You can access the Sniffer by pressing the “Sniffer” button or from the toolbar on the Library screen.
+* But most important is the BibTeX “Sniffer” button, which automates the population of you BibTeX. You can access the Sniffer by pressing the “Sniffer” button or from the toolbar on the Library screen.
 
 
 
@@ -561,15 +561,15 @@ One key aspect about the BibTeX Sniffer is that by forcing you to populate your 
 
 However, when it is enabled, the Sniffer does a few steps for you. As soon as you press the NEXT button, Qiqqa does the following automatically:
 
-· It moves onto the next random PDF with no associated BibTeX.
+* It moves onto the next random PDF with no associated BibTeX.
 
-· It submits the title of the PDF as a query to Google Scholar.
+* It submits the title of the PDF as a query to Google Scholar.
 
-· It “clicks” on the “Import into BibTeX” link of the first item in the Google Scholar search results.
+* It “clicks” on the “Import into BibTeX” link of the first item in the Google Scholar search results.
 
-· It copies the BibTeX to the BibTeX text box and checks for the authors.
+* It copies the BibTeX to the BibTeX text box and checks for the authors.
 
-· If it finds at least one matching author, it assumes the BibTeX record is correct (what are the odds of searching by title and getting the wrong BibTeX containing an author whose surname appears on the first page of your PDF?!!) and repeats the process.
+* If it finds at least one matching author, it assumes the BibTeX record is correct (what are the odds of searching by title and getting the wrong BibTeX containing an author whose surname appears on the first page of your PDF?!!) and repeats the process.
 
 The BibTeX Sniffer Wizard can get through loads of PDFs without intervention. It stops immediately if any of the steps return something it doesn’t understand. This lets you step in to fix things. As soon as you have, press NEXT and the Wizard will take over again. You can turn off the Wizard by pressing the magician’s hat again.
 
@@ -599,9 +599,9 @@ At Exhibit 1 you have your most recent PDF library. If you want to change it, yo
 
 Qiqqa InCite works with Microsoft Word using two concepts: citation-clusters and bibliographies.
 
-· A Word document can contain many citation-clusters. These might be a single reference, e.g. (Murdoch, 2008), or a group of references, e.g. (Blei, 2008; Jackson, 2010; Earl, 2010a). Needless to say, you will have loads of citation-clusters littered around your Word document wherever you need to cite another paper.
+* A Word document can contain many citation-clusters. These might be a single reference, e.g. (Murdoch, 2008), or a group of references, e.g. (Blei, 2008; Jackson, 2010; Earl, 2010a). Needless to say, you will have loads of citation-clusters littered around your Word document wherever you need to cite another paper.
 
-· A Word document should contain only one bibliography, and it normally lives near the end of your document. There is nothing to stop you adding several, but why would you want to?
+* A Word document should contain only one bibliography, and it normally lives near the end of your document. There is nothing to stop you adding several, but why would you want to?
 
 Let’s see how InCite works with these concepts with a worked example. In Word, I am going to type the first sentence of my ground-breaking paper:
 
@@ -635,17 +635,17 @@ At Exhibit 4 you have the ability to edit an existing citation in your Word docu
 
 With this screen you can:
 
-· Select one of the PDFs in the cluster and press ENTER to open the PDF. This is extremely useful if you want to quickly refer to the PDF content while editing your Word document. Just select the citation-cluster, switch to Qiqqa, click on the “Item in the cluster” and press ENTER.
+* Select one of the PDFs in the cluster and press ENTER to open the PDF. This is extremely useful if you want to quickly refer to the PDF content while editing your Word document. Just select the citation-cluster, switch to Qiqqa, click on the “Item in the cluster” and press ENTER.
 
-· Delete one of the references from the citation-cluster. Remember to press “Apply” for this to take effect and then wave the magic wand.
+* Delete one of the references from the citation-cluster. Remember to press “Apply” for this to take effect and then wave the magic wand.
 
-· Specify more detail about a citation. So if you want (Liang et al. 2011) to rather appear as (Liang et al. 2011, pp.22–23), set the type and the location (e.g. type=page, location=22-23).
+* Specify more detail about a citation. So if you want (Liang et al. 2011) to rather appear as (Liang et al. 2011, pp.22–23), set the type and the location (e.g. type=page, location=22-23).
 
-· If you want a string of text preceding or following your citation, enter it in the “Prefix” or “Suffix” text fields.
+* If you want a string of text preceding or following your citation, enter it in the “Prefix” or “Suffix” text fields.
 
-· Separate the author and date.
+* Separate the author and date.
 
-· Remember to press APPLY after changing the cluster in any way. Then wave the magic wand.
+* Remember to press APPLY after changing the cluster in any way. Then wave the magic wand.
 
 
 
@@ -721,9 +721,9 @@ Once you understand these details, check “Hide the introductory guidelines” 
 
 There are two degrees of free storage space to which you are automatically entitled in Qiqqa:
 
-· As a non-Premium Qiqqa member, you are entitled to a nominal amount of free cloud space. Generally this is enough to store a few hundred PDFs in your Web Libraries.
+* As a non-Premium Qiqqa member, you are entitled to a nominal amount of free cloud space. Generally this is enough to store a few hundred PDFs in your Web Libraries.
 
-· As a Premium member (see Section 11), you are entitled to free cloud space large enough to hold thousands of PDFs.
+* As a Premium member (see Section 11), you are entitled to free cloud space large enough to hold thousands of PDFs.
 
 Note that this free storage space is automatically accounted for across ALL your Qiqqa Web Libraries. So for example, you can use half the free storage space with one library, and split the remaining free storage space across several other libraries. If you go over your free storage limit, you will have to delete some PDFs, or upgrade to Qiqqa Premium, or Top-Up one of your Web Libraries.
 
@@ -773,9 +773,9 @@ To alleviate the burden of having to remember to press SYNC all the time, you ca
 
 There are two ways to create additional Web Libraries:
 
-· From Qiqqa Desktop, on the Start screen press the “Create Web Library” button and give your new Web Library a title and a description. These can be changed on the Qiqqa Website at any time.
+* From Qiqqa Desktop, on the Start screen press the “Create Web Library” button and give your new Web Library a title and a description. These can be changed on the Qiqqa Website at any time.
 
-· From the Qiqqa Website, log in to your account and you will be able to create a Web Library from the “Your libraries” screen. To be able to see these new Web Libraries from inside Qiqqa Desktop, you need to press the “Refresh web library memberships” button on the Start screen.
+* From the Qiqqa Website, log in to your account and you will be able to create a Web Library from the “Your libraries” screen. To be able to see these new Web Libraries from inside Qiqqa Desktop, you need to press the “Refresh web library memberships” button on the Start screen.
 
 
 
@@ -799,11 +799,11 @@ Follow the instructions for emailing invitations to others.
 
 When inviting others to share your Web Library, you can give them three levels of access:
 
-· Admin – means that they have full control of the library, just like you. They can invite more members and remove members. They can even remove you if you no longer want to participate in the library. They can also change the permissions of other members.
+* Admin – means that they have full control of the library, just like you. They can invite more members and remove members. They can even remove you if you no longer want to participate in the library. They can also change the permissions of other members.
 
-· Contributors – means that they can add, update and remove PDFs from the library. Whenever they sync, their changes will be visible to all the other members of the library.
+* Contributors – means that they can add, update and remove PDFs from the library. Whenever they sync, their changes will be visible to all the other members of the library.
 
-· Viewers – means that they can only view the PDFs in the library. Any additions, deletions or updates they make to PDFs in the library will be ignore and overwritten the next time they sync. This is useful for a central repository of PDFs, maintained by a select few people. Others in your organisation will be able to download and view the PDFs and perhaps copy them into their own libraries to work with them.
+* Viewers – means that they can only view the PDFs in the library. Any additions, deletions or updates they make to PDFs in the library will be ignore and overwritten the next time they sync. This is useful for a central repository of PDFs, maintained by a select few people. Others in your organisation will be able to download and view the PDFs and perhaps copy them into their own libraries to work with them.
 
 
 
@@ -853,13 +853,13 @@ The Qiqqa Champion Project earns you a whopping 25% of each purchase of Qiqqa Pr
 
 If the above appeals, harness your creative juices and come up with fun ideas on how to spread the word:
 
-· a poster campaign at your college,
+* a poster campaign at your college,
 
-· a link from your university homepage,
+* a link from your university homepage,
 
-· a funky or quirky YouTube video,
+* a funky or quirky YouTube video,
 
-· or a blog post on how you used Qiqqa to solve a real world problem.
+* or a blog post on how you used Qiqqa to solve a real world problem.
 
 To get involved, enrol in the Qiqqa Champion Project from your Qiqqa Account online.
 
@@ -917,19 +917,19 @@ Qiqqa Premium and Premium+ membership have different capabilities when working w
 
 Premium+ memberships give you full Intranet Library capabilities. You can:
 
-· Create new Intranet Libraries and join existing Intranet Libraries.
+* Create new Intranet Libraries and join existing Intranet Libraries.
 
-· Sync down annotations and PDFs that others have added or altered.
+* Sync down annotations and PDFs that others have added or altered.
 
-· Sync up new PDFs and annotations that you have added.
+* Sync up new PDFs and annotations that you have added.
 
 Premium memberships are limited to being read-only. You can:
 
-· Create new Intranet Libraries and join existing Intranet Libraries.
+* Create new Intranet Libraries and join existing Intranet Libraries.
 
-· Sync down annotations and PDFs that others have added or altered.
+* Sync down annotations and PDFs that others have added or altered.
 
-· Any PDFs or annotations you add to your local copy of the Intranet Library will not be synced up to the synchronisation point. This means that others won’t be able to see your documents or annotations. NB: if someone else alters PDFs in the Intranet Library, their changes will overwrite yours the next time you sync, so as a Premium member you should treat Intranet Libraries as a reference library and not work on those PDFs. Instead, you can copy any interesting PDFs from the Intranet Library into your local Guest library.
+* Any PDFs or annotations you add to your local copy of the Intranet Library will not be synced up to the synchronisation point. This means that others won’t be able to see your documents or annotations. NB: if someone else alters PDFs in the Intranet Library, their changes will overwrite yours the next time you sync, so as a Premium member you should treat Intranet Libraries as a reference library and not work on those PDFs. Instead, you can copy any interesting PDFs from the Intranet Library into your local Guest library.
 
 
 
@@ -975,13 +975,13 @@ Once you have the list of PDFs you can press and hold a PDF to download it from 
 
 The PDF reading screen (Exhibit 4) offers you touch scrolling, pinch zooming, bookmarking and the ability to add box annotations:
 
-· The pink circles on the left are your bookmarks. Press and hold a pink circle to remember the current location in the PDF – it will turn green. When you wish to return to this location, tap a green circle.
+* The pink circles on the left are your bookmarks. Press and hold a pink circle to remember the current location in the PDF – it will turn green. When you wish to return to this location, tap a green circle.
 
-· The blue circle in the bottom-left is your “add annotation” button. Once you tap this button, you can drag out an annotation over an area of the PDF that you find interesting. These annotations will be waiting for you on your Qiqqa Desktop after you synchronise. Similary, any annotations you might have made on the desktop will be visible here.
+* The blue circle in the bottom-left is your “add annotation” button. Once you tap this button, you can drag out an annotation over an area of the PDF that you find interesting. These annotations will be waiting for you on your Qiqqa Desktop after you synchronise. Similary, any annotations you might have made on the desktop will be visible here.
 
-· Any highlighted text you have made on Qiqqa Desktop will be shown on Qiqqa for Android. Unfortunately, you cannot yet add highlights using Qiqqa for Android.
+* Any highlighted text you have made on Qiqqa Desktop will be shown on Qiqqa for Android. Unfortunately, you cannot yet add highlights using Qiqqa for Android.
 
-· Press the Android MENU button to access the other PDF reading functionality.
+* Press the Android MENU button to access the other PDF reading functionality.
 
 NB: Always remember to sync regularly so you don’t run into information conflict!
 
@@ -1027,9 +1027,9 @@ Nodes representing the technical terms from the top five Themes for this PDF are
 
 Select a theme node and press either ‘D’ or ‘S’ to expand some PDF nodes that are relevant to the theme. There are two types of relevance:
 
-· Press 'D' to expand the most influential documents in an Expedition theme. This takes into account not only whether the PDF talk about the theme, but also considers PDFs that are often cited by other PDFs that talks about the theme. These PDFs are probably worth reading if you are interested in becoming well versed in the PDFs in and around the theme that seem to matter to other authors. For this to work well you have to have instructed Qiqqa to find the cross-references between your PDFs before refreshing Qiqqa Expedition.
+* Press 'D' to expand the most influential documents in an Expedition theme. This takes into account not only whether the PDF talk about the theme, but also considers PDFs that are often cited by other PDFs that talks about the theme. These PDFs are probably worth reading if you are interested in becoming well versed in the PDFs in and around the theme that seem to matter to other authors. For this to work well you have to have instructed Qiqqa to find the cross-references between your PDFs before refreshing Qiqqa Expedition.
 
-· Press 'S' to expand the most specific documents in an Expedition theme. This shows the PDFs that are most specific to the theme. These PDFs are probably worth reading if you are interested in delving into the specific details of papers in the theme.
+* Press 'S' to expand the most specific documents in an Expedition theme. This shows the PDFs that are most specific to the theme. These PDFs are probably worth reading if you are interested in delving into the specific details of papers in the theme.
 
 
 
@@ -1041,13 +1041,13 @@ To find all the cross-references between all the PDFs in your library, you have 
 
 Then from the Brainstorm screen you can select a PDF and:
 
-· Press ‘A’ to expand all the authors of the PDF. Selecting an Author node and pressing ‘D’ will expand all the PDFs written by that author.
+* Press ‘A’ to expand all the authors of the PDF. Selecting an Author node and pressing ‘D’ will expand all the PDFs written by that author.
 
-· Press ‘I’ to expand all the other PDFs that cite the selected PDF (inbound citations).
+* Press ‘I’ to expand all the other PDFs that cite the selected PDF (inbound citations).
 
-· Press ‘O’ to expand all the other PDFs cited by the selected PDF (outbound citations).
+* Press ‘O’ to expand all the other PDFs cited by the selected PDF (outbound citations).
 
-· Examine the instructions panel on the right-hand for the variety of other options available from each brainstorm node type.
+* Examine the instructions panel on the right-hand for the variety of other options available from each brainstorm node type.
 
 
 
@@ -1077,8 +1077,8 @@ The second feature is downloading PDFs. If you click on a link to a PDF, Qiqqa w
 
 There are several avenues for getting help with Qiqqa:
 
-· The Qiqqa Support forum is available at [https://getsatisfaction.com/qiqqa](https://getsatisfaction.com/qiqqa). We built this forum so that the Qiqqa Community might be able help each other out. While we do read every posting in the forum, it is impossible for us to answer every question. So please search the forum for answers to your questions before posting new identical questions! J
+* The Qiqqa Support forum is available at [https://getsatisfaction.com/qiqqa](https://getsatisfaction.com/qiqqa). We built this forum so that the Qiqqa Community might be able help each other out. While we do read every posting in the forum, it is impossible for us to answer every question. So please search the forum for answers to your questions before posting new identical questions! J
 
-· As Qiqqa has grown over time, we have made a variety of video webcasts to show the various aspects of Qiqqa in action. To watch a webcast specific to a particular Qiqqa screen, press the Webcast button that appears on several of the toolbars. Please note that Qiqqa has evolved over the years, so some of these webcasts show versions of Qiqqa that are slightly different to the latest version. However there is still massive value in watching them as the fundamentals haven’t changed! If you search YouTube for “Qiqqa” you will also find some of the training material made by others for Qiqqa.
+* As Qiqqa has grown over time, we have made a variety of video webcasts to show the various aspects of Qiqqa in action. To watch a webcast specific to a particular Qiqqa screen, press the Webcast button that appears on several of the toolbars. Please note that Qiqqa has evolved over the years, so some of these webcasts show versions of Qiqqa that are slightly different to the latest version. However there is still massive value in watching them as the fundamentals haven’t changed! If you search YouTube for “Qiqqa” you will also find some of the training material made by others for Qiqqa.
 
-· Get your friends and colleagues using Qiqqa! The more people you know using Qiqqa, the easier it is to find someone who might explain something in Qiqqa that you haven’t yet discovered.
+* Get your friends and colleagues using Qiqqa! The more people you know using Qiqqa, the easier it is to find someone who might explain something in Qiqqa that you haven’t yet discovered.
