@@ -161,6 +161,7 @@ namespace Qiqqa.Common.Configuration
             // Try loading any pre-existing config file
             try
             {
+                // First try to load the modern configuration file type: JSON format
                 if (File.Exists(ConfigFilenameForUser + ".json"))
                 {
                     Logging.Info("Loading configuration from JSON");
@@ -182,7 +183,7 @@ namespace Qiqqa.Common.Configuration
                 Logging.Error(ex, "There was a problem loading configuration from JSON.");
             }
 
-            // If the new JSON format doesn't fly, we're probably migrating from an older Qiqqa:
+            // If the new JSON format doesn't fly, we're probably migrating from an older Qiqqa like v80 or v79:
             // try loading the config the old way:
             if (null == configuration_record)
             {
@@ -235,6 +236,7 @@ namespace Qiqqa.Common.Configuration
 
         public void SaveConfigurationRecord()
         {
+#if false           // we don't 'do' old configuration file format anymore on (re)write; instead we use portable JSON
             try
             {
                 Logging.Info("Saving configuration");
@@ -245,6 +247,7 @@ namespace Qiqqa.Common.Configuration
             {
                 Logging.Error(ex, "There was a problem saving the configuration.");
             }
+#endif
 
             try
             {
@@ -267,7 +270,7 @@ namespace Qiqqa.Common.Configuration
             }
         }
 
-        #region --- Search history ----------------------------------------------------------------------------------------
+#region --- Search history ----------------------------------------------------------------------------------------
 
         HashSet<string> search_history = new HashSet<string>();
         HashSet<string> search_history_from_disk = null;
@@ -326,9 +329,9 @@ namespace Qiqqa.Common.Configuration
             }
         }
 
-        #endregion
+#endregion
 
-        #region --- Public initialisation ----------------------------------------------------------------------------------------
+#region --- Public initialisation ----------------------------------------------------------------------------------------
 
         public void ResetConfigurationRecordToGuest()
         {            
@@ -340,9 +343,9 @@ namespace Qiqqa.Common.Configuration
             ResetConfigurationRecord(user_guid_, false);
         }
 
-        #endregion
+#endregion
 
-        #region --- Public accessors ----------------------------------------------------------------------------------------
+#region --- Public accessors ----------------------------------------------------------------------------------------
 
         public bool IsGuest
         {
@@ -407,6 +410,6 @@ namespace Qiqqa.Common.Configuration
             }
         }
         
-        #endregion
+#endregion
     }
 }
