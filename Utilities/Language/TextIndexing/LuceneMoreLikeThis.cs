@@ -817,8 +817,8 @@ namespace Utilities.Language.TextIndexing
         /// </param>
         private void  AddTermFrequencies(StreamReader r, IDictionary termFreqMap, String fieldName)
         {
-            TokenStream ts = analyzer.TokenStream(fieldName, r);
-            Token token;
+            Lucene.Net.Analysis.TokenStream ts = analyzer.TokenStream(fieldName, r);
+            Lucene.Net.Analysis.Token token;
             int tokenCount = 0;
             while ((token = ts.Next()) != null)
             {
@@ -898,7 +898,7 @@ namespace Utilities.Language.TextIndexing
         /// </returns>
         /// <seealso cref="#retrieveInterestingTerms">
         /// </seealso>
-        public PriorityQueue RetrieveTerms(StreamReader r)
+        public Lucene.Net.Util.PriorityQueue RetrieveTerms(StreamReader r)
         {
             IDictionary words = new Hashtable();
             for (int i = 0; i < fieldNames.Length; i++)
@@ -924,7 +924,7 @@ namespace Utilities.Language.TextIndexing
         public String[] RetrieveInterestingTerms(StreamReader r)
         {
             ArrayList al = new ArrayList(maxQueryTerms);
-            PriorityQueue pq = RetrieveTerms(r);
+            Lucene.Net.Util.PriorityQueue pq = RetrieveTerms(r);
             Object cur;
             int lim = maxQueryTerms; // have to be careful, retrieveTerms returns all words but that's probably not useful to our caller...
             // we just want to return the top words
@@ -939,7 +939,7 @@ namespace Utilities.Language.TextIndexing
         }
 		
         /// <summary> PriorityQueue that orders words by score.</summary>
-        private class FreqQ : PriorityQueue
+        private class FreqQ : Lucene.Net.Util.PriorityQueue
         {
             internal FreqQ(int s)
             {
@@ -952,7 +952,7 @@ namespace Utilities.Language.TextIndexing
                 Object[] bb = (Object[]) b;
                 Single fa = (Single) aa[2];
                 Single fb = (Single) bb[2];
-                return (float) fa > (float) fb;
+                return fa > fb;
             }
         }
 		
