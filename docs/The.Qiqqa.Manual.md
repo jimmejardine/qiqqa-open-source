@@ -6,130 +6,137 @@ THE MANUAL
 
 V.20160720
 
-  
+
+---------------------------------------------------------------------------------
+
 
 Table of Contents
 
-[1. Welcome to Qiqqa!  4](#_Toc456800470)
+[1. Welcome to Qiqqa!  ](#_Toc456800470)
 
-[2. Your Qiqqa Account  5](#_Toc456800471)
+[2. Your Qiqqa Account  ](#_Toc456800471)
 
-[Creating a Qiqqa Account  5](#_Toc456800472)
+[Creating a Qiqqa Account  ](#_Toc456800472)
 
-[Logging in and out of Qiqqa Desktop. 5](#_Toc456800473)
+[Logging in and out of Qiqqa Desktop. ](#_Toc456800473)
 
-[Logging in and out of the Qiqqa Website. 6](#_Toc456800474)
+[Logging in and out of the Qiqqa Website. ](#_Toc456800474)
 
-[3. The Start Screen. 7](#_Toc456800475)
+[3. The Start Screen. ](#_Toc456800475)
 
-[4. The Library Screen. 9](#_Toc456800476)
+[4. The Library Screen. ](#_Toc456800476)
 
-[The PDFs in the library. 9](#_Toc456800477)
+[The PDFs in the library. ](#_Toc456800477)
 
-[Filtering the library. 10](#_Toc456800478)
+[Filtering the library. ](#_Toc456800478)
 
-[Sorting and searching. 11](#_Toc456800479)
+[Sorting and searching. ](#_Toc456800479)
 
-[The toolbar  11](#_Toc456800480)
+[The toolbar  ](#_Toc456800480)
 
-[5. The PDF Reading Screen. 12](#_Toc456800481)
+[5. The PDF Reading Screen. ](#_Toc456800481)
 
-[6. Searching. 15](#_Toc456800482)
+[6. Searching. ](#_Toc456800482)
 
-[7. Annotations, Highlights, Inks and Annotation Reports. 17](#_Toc456800483)
+[7. Annotations, Highlights, Inks and Annotation Reports. ](#_Toc456800483)
 
-[Annotations. 17](#_Toc456800484)
+[Annotations. ](#_Toc456800484)
 
-[Highlights and Inks. 18](#_Toc456800485)
+[Highlights and Inks. ](#_Toc456800485)
 
-[PDF Viewer  18](#_Toc456800486)
+[PDF Viewer  ](#_Toc456800486)
 
-[The Annotation Report  18](#_Toc456800487)
+[The Annotation Report  ](#_Toc456800487)
 
-[8. Document Metadata, BibTeX and the BibTeX Sniffer  22](#_Toc456800488)
+[8. Document Metadata, BibTeX and the BibTeX Sniffer  ](#_Toc456800488)
 
-[BibTeX. 22](#_Toc456800489)
+[BibTeX. ](#_Toc456800489)
 
-[The BibTeX Sniffer  24](#_Toc456800490)
+[The BibTeX Sniffer  ](#_Toc456800490)
 
-[9. Citations, Bibliographies, InCite and Word. 28](#_Toc456800491)
+[9. Citations, Bibliographies, InCite and Word. ](#_Toc456800491)
 
-[The Qiqqa InCite screen. 28](#_Toc456800492)
+[The Qiqqa InCite screen. ](#_Toc456800492)
 
-[InCite suggestions. 31](#_Toc456800493)
+[InCite suggestions. ](#_Toc456800493)
 
-[Editing citation-clusters. 31](#_Toc456800494)
+[Editing citation-clusters. ](#_Toc456800494)
 
-[Qiqqa InCite popup. 32](#_Toc456800495)
+[Qiqqa InCite popup. ](#_Toc456800495)
 
-[Browsing all the existing citations in a Word document  33](#_Toc456800496)
+[Browsing all the existing citations in a Word document  ](#_Toc456800496)
 
-[Copying citation snippets. 33](#_Toc456800497)
+[Copying citation snippets. ](#_Toc456800497)
 
-[Exporting BibTeX for use with LaTeX. 33](#_Toc456800498)
+[Exporting BibTeX for use with LaTeX. ](#_Toc456800498)
 
-[10. Syncing to the Cloud and Qiqqa Web Libraries. 34](#_Toc456800499)
+[10. Syncing to the Cloud and Qiqqa Web Libraries. ](#_Toc456800499)
 
-[Getting your first Web Library. 34](#_Toc456800500)
+[Getting your first Web Library. ](#_Toc456800500)
 
-[Syncing. 34](#_Toc456800501)
+[Syncing. ](#_Toc456800501)
 
-[Free cloud storage space. 34](#_Toc456800502)
+[Free cloud storage space. ](#_Toc456800502)
 
-[Topping-Up your Web Libraries. 34](#_Toc456800503)
+[Topping-Up your Web Libraries. ](#_Toc456800503)
 
-[Making changes from two computers and information conflicts. 37](#_Toc456800504)
+[Making changes from two computers and information conflicts. ](#_Toc456800504)
 
-[Autosync. 37](#_Toc456800505)
+[Autosync. ](#_Toc456800505)
 
-[Creating additional Web Libraries. 38](#_Toc456800506)
+[Creating additional Web Libraries. ](#_Toc456800506)
 
-[Accessing your Web Libraries from the Internet and Android tablets. 38](#_Toc456800507)
+[Accessing your Web Libraries from the Internet and Android tablets. ](#_Toc456800507)
 
-[Sharing Web Libraries with other people. 38](#_Toc456800508)
+[Sharing Web Libraries with other people. ](#_Toc456800508)
 
-[11. Qiqqa Premium, Premium+ and the Qiqqa Champion Project  40](#_Toc456800509)
+[11. Qiqqa Premium, Premium+ and the Qiqqa Champion Project  ](#_Toc456800509)
 
-[Purchasing Qiqqa Premium and Premium+. 40](#_Toc456800510)
+[Purchasing Qiqqa Premium and Premium+. ](#_Toc456800510)
 
-[Bulk discounts for Qiqqa Premium and Premium+ licenses. 41](#_Toc456800511)
+[Bulk discounts for Qiqqa Premium and Premium+ licenses. ](#_Toc456800511)
 
-[Your Qiqqa Champion settings. 41](#_Toc456800512)
+[Your Qiqqa Champion settings. ](#_Toc456800512)
 
-[12. Intranet Libraries. 42](#_Toc456800513)
+[12. Intranet Libraries. ](#_Toc456800513)
 
-[Creating an Intranet Library. 42](#_Toc456800514)
+[Creating an Intranet Library. ](#_Toc456800514)
 
-[Joining an Intranet Library. 42](#_Toc456800515)
+[Joining an Intranet Library. ](#_Toc456800515)
 
-[Syncing with an Intranet Library. 42](#_Toc456800516)
+[Syncing with an Intranet Library. ](#_Toc456800516)
 
-[Premium and Premium+ capabilities for Intranet Libraries. 43](#_Toc456800517)
+[Premium and Premium+ capabilities for Intranet Libraries. ](#_Toc456800517)
 
-[Securing your Intranet Libraries. 43](#_Toc456800518)
+[Securing your Intranet Libraries. ](#_Toc456800518)
 
-[13. Qiqqa for Android. 44](#_Toc456800519)
+[13. Qiqqa for Android. ](#_Toc456800519)
 
-[Qiqqa for Android as a standalone PDF reader  44](#_Toc456800520)
+[Qiqqa for Android as a standalone PDF reader  ](#_Toc456800520)
 
-[Qiqqa for Android as a companion to Qiqqa Desktop. 44](#_Toc456800521)
+[Qiqqa for Android as a companion to Qiqqa Desktop. ](#_Toc456800521)
 
-[14. Themes and Qiqqa Expedition. 47](#_Toc456800522)
+[14. Themes and Qiqqa Expedition. ](#_Toc456800522)
 
-[15. Interactive Brainstorming. 49](#_Toc456800523)
+[15. Interactive Brainstorming. ](#_Toc456800523)
 
-[Exploring Themes. 49](#_Toc456800524)
+[Exploring Themes. ](#_Toc456800524)
 
-[Exploring cross-references and authors. 50](#_Toc456800525)
+[Exploring cross-references and authors. ](#_Toc456800525)
 
-[General brainstorming. 51](#_Toc456800526)
+[General brainstorming. ](#_Toc456800526)
 
-[16. The Web Browser  53](#_Toc456800527)
+[16. The Web Browser  ](#_Toc456800527)
 
-[17. Getting Help. 54](#_Toc456800528)
+[17. Getting Help. ](#_Toc456800528)
 
-1. Welcome to Qiqqa!
-====================
+
+
+
+
+
+# 1. Welcome to Qiqqa!
+
 
 Thank you for downloading and installing Qiqqa. We're delighted to have you on board!
 
@@ -143,29 +150,40 @@ This manual sets out to describe the most fundamental aspects of Qiqqa. But it i
 
 Most importantly, have fun! Research is an amazing process, and Qiqqa strives to take the “search” out of research so you can focus more on the exciting information at your fingertips.
 
-2. Your Qiqqa Account
-=====================
+
+
+
+# 2. Your Qiqqa Account
+
 
 You can use Qiqqa Desktop without creating an account by pressing ESCAPE or by pressing the “Guest” button at the bottom of the Qiqqa Desktop Login screen. You will then be able to use Qiqqa with a single Guest library.
 
 To access some of the features of Qiqqa, such as having multiple Web Libraries, syncing with the cloud and Premium and Premium+ memberships, you will need a Qiqqa account.
 
-Creating a Qiqqa Account
-------------------------
+
+
+
+## Creating a Qiqqa Account
 
 To create a new Qiqqa account, press the “Register” button on the Qiqqa Desktop Login screen, or go to [http://www.qiqqa.com/Account/Register](http://www.qiqqa.com/Account/Register).
 
 Once you have chosen your username and password, use can use these same login details on the Qiqqa Website, Qiqqa Desktop and Qiqqa for Android.
 
-Logging in and out of Qiqqa Desktop
------------------------------------
+
+
+
+## Logging in and out of Qiqqa Desktop
+
 
 Enter your username and password on the Qiqqa Desktop login screen. You will then be logged into Qiqqa.
 
 To logout of Qiqqa Desktop, press the “Logout” button on the status bar in the bottom-left corner of the screen.
 
-Logging in and out of the Qiqqa Website
----------------------------------------
+
+
+
+## Logging in and out of the Qiqqa Website
+
 
 To log in to the Qiqqa Website, go to [http://www.qiqqa.com/Account/LogOn](http://www.qiqqa.com/Account/LogOn)
 
@@ -173,8 +191,11 @@ Be sure to enter the Qiqqa username you chose when you registered, and not your 
 
 To logout, press the “Logout” link in the top-right corner of the Qiqqa Website.
 
-3. The Start Screen
-===================
+
+
+
+# 3. The Start Screen
+
 
 The Start screen is your entry point to Qiqqa.
 
@@ -226,13 +247,19 @@ The status bar at the bottom gives you several items of information:
 
 · Various status updates about background tasks that are going on inside Qiqqa.
 
-4. The Library Screen
-=====================
+
+
+
+# 4. The Library Screen
+
 
 The Library screen is where you get to collect and organise your PDFs. The easiest way to get to this screen is to click on the title of the library on the Start screen.
 
-The PDFs in the library
------------------------
+
+
+
+## The PDFs in the library
+
 
 Exhibit 1 lists all the PDFs that are currently in this library. The fastest way to add more PDFs to your library is to drag-and-drop them in from Windows Explorer. However, there are loads of ways do can do it, such as:
 
@@ -256,8 +283,11 @@ The list of PDFs is affected either by filters you have in place (Exhibit 3) or 
 
 Once you have selected one or more PDFs you can right click any PDF to get a variety of functions that affect only the selected PDFs. Several of the tools on the toolbar also only apply to the currently selected PDFs.
 
-Filtering the library
----------------------
+
+
+
+## Filtering the library
+
 
 Exhibit 3 shows the various filters that you can apply to the library. Probably the most important filter is the Tag filter. You can add multiple tags to your PDFs in Exhibit 2 by typing each tag into the grey box in the Tags section and pressing ENTER. To quickly add multiple tags, separate them with a semicolon.
 
@@ -291,20 +321,29 @@ Note that you can apply multiple filters at once. This allows you to do such fil
 
 · Which are the papers by “_Jones_” in “_Nature_” that I have “_not_” tagged with “_fruit fly_” or “_gnat_”
 
-Sorting and searching
----------------------
+
+
+
+## Sorting and searching
+
 
 Clicking on any of the search options at Exhibit 4 sorts your library. Click them a second time to reverse the sort. Sorting by “SearchScore” is only relevant once you have searched your library using Exhibit 5. Type your Google-like search query into the Search Box and hit ENTER. A little score will pop up next to each PDF. Click on this search score to get Qiqqa to show you examples from the PDF where your search query has a literal match.
 
 Be sure to press the question mark next to the Search Box to get an explanation of the full power of Qiqqa’s search. Note that some of these searches return approximate or fuzzy matches, so pressing the search score might not find any literal matches. Rest assured that the search score assigned to each PDF is quite a good indicator of its relevance.
 
-The toolbar
------------
+
+
+
+## The toolbar
+
 
 Finally, Exhibit 6 is the toolbar. You can access a variety of tools here. Probably the most interesting to get started with are the Sync and the Annotation report. Move your mouse over each button and rest it there (“hover it”) to get a popup explaining what each button does.
 
-5. The PDF Reading Screen
-=========================
+
+
+
+# 5. The PDF Reading Screen
+
 
 The PDF Reading screen is where you will be spending most of your time in Qiqqa.
 
@@ -358,8 +397,11 @@ Exhibit 6 is the toolbar where you can get to loads of features for editing the 
 
 · There are loads of other icons. Play with them – they don’t bite. Hover the mouse over each of them to get a description of what they do. And if you want to help translate Qiqqa into your own language, then look for the “Help us translate Qiqqa” option on the Start screen.
 
-6. Searching
-============
+
+
+
+# 6. Searching
+
 
 Qiqqa provides very advanced search features to find exactly what you are looking for across your thousands of PDFs. The Search Boxes are located to the top-right of each screen.
 
@@ -375,15 +417,21 @@ If you notice some strangeness in the search results or notice some missing PDFs
 
 Qiqqa supports a wide syntax for searching. To see some examples of the variety of searches Qiqqa can perform, press the little question mark next to the Search Boxes. They are included here for your convenience:
 
-7. Annotations, Highlights, Inks and Annotation Reports
-=======================================================
+
+
+
+# 7. Annotations, Highlights, Inks and Annotation Reports
+
 
 People love Qiqqa most because of its Annotation Reports. Anecdotally, one of the founders of Qiqqa needed this feature so desperately while doing his PhD that he set out to build Qiqqa!
 
 The idea behind Annotation Reports is that you should only ever read a PDF once. And only once! After that, any information you found useful in the PDF should be instantly accessible to you without your ever having to open the PDF again (let alone having to find the PDF).
 
-Annotations
------------
+
+
+
+## Annotations
+
 
 Adding annotations is easy. While you are reading a PDF, if you find something you want to recall, draw an annotation box around it using the Annotation tool on the PDF screen toolbar. If you move the mouse over an Annotation and click the “Info” button in the bottom-right of the Annotation, you get the Annotation Editor box. **Note that this only works if you are in Annotation mode, having pressed the Annotation tool button on the toolbar.**
 
@@ -393,20 +441,29 @@ Any Comments you write in the Annotation editor will be searchable and will appe
 
 Note the instructions on how to move and resize annotations.
 
-Highlights and Inks
--------------------
+
+
+
+## Highlights and Inks
+
 
 Highlights and Inks are simpler, less powerful forms of Annotations. While they still appear on the Annotation Report, you cannot associate Tags or Comments with them. That said, there is nothing more gratifying than highlighting or circling the most important parts of a PDF, and then having them turn up in an Annotation Report a year later when you are trying to remember where you read something and are desperately trying to locate the citation. You will be sipping tea in the tea room while your colleagues are cursing their way through reams of dog-eared printouts (or not - because you have already told them about Qiqqa, haven’t you?).
 
-PDF Viewer
-----------
+
+
+
+## PDF Viewer
+
 
 When you select a PDF from the Library screen, or when you open a PDF, any Annotations you have made on that PDF will be summarised in the Annotations area. This is a great way to quickly recap the aspects of the PDF that you felt were important when you read it the first time.
 
 If you are a Qiqqa Premium member, clicking on a summary Annotation takes you directly to the page of the Annotation inside the PDF. Sometimes, if you have made too many Annotations, for performance reasons, you might have to press a button to load the annotation summary.
 
-The Annotation Report
----------------------
+
+
+
+## The Annotation Report
+
 
 From the Library screen, pressing the Annotation Report button takes you to the Annotation Report options screen. You need to be a little careful to correctly choose the PDFs you want to include in the Annotation Report before pressing the Annotation Report button:
 
@@ -442,11 +499,17 @@ Exhibit 3 shows the underlying image of the Annotation, transcribed directly fro
 
 Exhibit 5 allows you to print the Annotation Report or export it to Rich Text Format (RTF) to be opened in Microsoft Word or some other Word Processor.
 
-8. Document Metadata, BibTeX and the BibTeX Sniffer
-===================================================
 
-BibTeX
-------
+
+
+# 8. Document Metadata, BibTeX and the BibTeX Sniffer
+
+
+
+
+
+## BibTeX
+
 
 Rather than create its own proprietary bibliography format, Qiqqa embraces the industry-standard BibTeX to associate metadata with your PDFs. This BibTeX metadata contains information such as the reference title, author, publication year and venue, the type of the reference (article, journal paper, book chapter, etc), and editor and publisher, if applicable.
 
@@ -468,8 +531,11 @@ At Exhibit 5 you will find three buttons:
 
 · But most important is the BibTeX “Sniffer” button, which automates the population of you BibTeX. You can access the Sniffer by pressing the “Sniffer” button or from the toolbar on the Library screen.
 
-The BibTeX Sniffer
-------------------
+
+
+
+## The BibTeX Sniffer
+
 
 The BibTeX Sniffer takes the pain out of associating BibTeX with your PDFs. Rather than typing in your document metadata and BibTeX let’s turn to the Internet to do this for us semi-automatically!
 
@@ -509,15 +575,21 @@ The BibTeX Sniffer Wizard can get through loads of PDFs without intervention. It
 
 Once you have all your BibTeX records you are in a position to be using Qiqqa InCite to automatically create beautiful bibliographies in Microsoft Word, or export the BibTeX for use with your favourite LaTeX processor!
 
-9. Citations, Bibliographies, InCite and Word
-=============================================
+
+
+
+# 9. Citations, Bibliographies, InCite and Word
+
 
 While Qiqqa aims to be an amazing _Research_ Manager with its annotation reports, Expedition Themes and Interactive Brainstorming, Qiqqa also excels as a _Reference_ Manager. And what good is a _Reference_ Manager if it can’t help you automatically produce awesome bibliographies for your awesome research papers?
 
 Qiqqa supports the industry-standard Citation Style Language (CSL) for automatically producing bibliographies in any of thousands of available styles. It supports the big names like APA, Harvard, IEEE, Nature and Vancouver and the most niche journals you can imagine. And if you can’t find an already-made CSL style file matching your institution’s requirements, you can roll your own.
 
-The Qiqqa InCite screen
------------------------
+
+
+
+## The Qiqqa InCite screen
+
 
 The fastest way to get going is to fire up Microsoft Word and then open Qiqqa Incite from the Start screen toolbar. It looks like this:
 
@@ -545,13 +617,19 @@ We’re almost there. We need to convert these pesky placeholders into correctly
 
 You can now continue editing your Word Document and adding more citations. As you add those citations, they will be inserted as citation-cluster placeholders. You just have to wave the magic wand to get them formatted correctly. If you want to change style completely, pick another CSL file by pressing the “Style CSL” (next to Exhibit 2) and wave the magic wand. It’s as simple as that!
 
-InCite suggestions
-------------------
+
+
+
+## InCite suggestions
+
 
 At Exhibit 3, you have the papers that Qiqqa suggests you might want to cite. These suggestions are based off the paragraph around the current location of your editor caret in the last active Word document. That cursor location is also where Qiqqa will be inserting any new citations, so position it wisely. If you are a Qiqqa Premium member you can click on these recommendations to automatically select them for citation in the Library list in Exhibit 1.
 
-Editing citation-clusters
--------------------------
+
+
+
+## Editing citation-clusters
+
 
 At Exhibit 4 you have the ability to edit an existing citation in your Word document. If your editor caret is inside a citation in Word, then Exhibit 3 will be populated with information about that citation.
 
@@ -569,13 +647,19 @@ With this screen you can:
 
 · Remember to press APPLY after changing the cluster in any way. Then wave the magic wand.
 
-Qiqqa InCite popup
-------------------
+
+
+
+## Qiqqa InCite popup
+
 
 If you find it a little tedious having to switch between Word and Qiqqa for each citation, a “mini InCite screen ” is available. While in Word, hold down the WINDOWS key (the one between the left-hand CTRL and ALT) and press Q. InCite will pop up with a quick-search function and the ability to add citations in several formats. Under Windows 8.1, Win-Q starts the search tool, so we have also enabled Win-A as an alternative.
 
-Browsing all the existing citations in a Word document
-------------------------------------------------------
+
+
+
+## Browsing all the existing citations in a Word document
+
 
 Imagine you have written a 100-page thesis and want to prepare for your viva. This might involve reviewing every reference you ever made. You can do this quickly and efficiently using Qiqqa. Open your thesis in Word. Then switch to Qiqqa and press the “Show all citations” button on the Qiqqa InCite screen toolbar.
 
@@ -583,39 +667,57 @@ You will get a screen listing all the citations from the Word document in alphab
 
 Good luck with the viva!
 
-Copying citation snippets
--------------------------
+
+
+
+## Copying citation snippets
+
 
 Sometimes you just want to quickly cite a document without having to go through Word. Perhaps you are writing an email or want to put together a slide in PowerPoint. This is as simple as opening the InCite screen, selecting the relevant PDF or PDFs, and pressing the “Citation Snippet” button on the Qiqqa InCite screen toolbar. You can then switch to your other application (email, powerpoint, etc) and paste in the citation. It will be in the style of whatever the last CSL style you selected in InCite.
 
-Exporting BibTeX for use with LaTeX
------------------------------------
+
+
+
+## Exporting BibTeX for use with LaTeX
+
 
 If you are not a Word user, you can still use Qiqqa to help you manage your BibTeX database while using LaTeX. The first thing to do is export all the BibTeX records in your library by pressing the “Export BibTeX” button on the Library screen. Note that, similar to many of the tools on the library screen, this export file will only contain the records for the PDFs you have selected, so select wisely or select no PDFs to export all of them.
 
 Point your LaTeX processor at the resulting BibTeX file. Then, to cite a document, right-click it and “Copy BibTeX key”. Then paste the BibTeX key into LaTeX.
 
-10. Syncing to the Cloud and Qiqqa Web Libraries
-================================================
+
+
+
+# 10. Syncing to the Cloud and Qiqqa Web Libraries
+
 
 Qiqqa offers the ability to sync (short for synchronise) your PDF libraries across multiple computers using Qiqqa’s secure servers in the cloud as the connecting storage. Once you have synced one computer to the cloud, you will be able to log into other computers and sync those with the cloud too.
 
 Any changes you make on one computer, once synced up to the cloud will become visible on other computers once synced down from the cloud. These changes include adding new PDFs to a library, editing metadata of your PDFs, and adding or altering annotations inside PDFs.
 
-Getting your first Web Library
-------------------------------
+
+
+
+## Getting your first Web Library
+
 
 To use cloud syncing in Qiqqa you need to use a Web Library. When you first start Qiqqa and log in as a Guest, you automatically start with a Local Guest Library . This account only works locally on one machine and cannot be used to sync. To get your first Web Library, you must register on the Qiqqa Website and log into the Qiqqa Desktop using your account details. Then you will see your first Web Library . Any work you do inside this library will be eligible for syncing with the cloud.
 
-Syncing
--------
+
+
+
+## Syncing
+
 
 To sync a Web Library with the cloud, open the Library screen and press the “Full Sync” button on the toolbar. If this is the first time you have synced, it will bring up a dialog with an explanation of syncing. Please read this screen in detail, as it explains the various aspects of syncing, how much cloud storage space you are using, and indicates if you have exceeded your storage space.
 
 Once you understand these details, check “Hide the introductory guidelines” and this box will not appear again unless there is a problem with your syncing. If you ever want the full instructions again, hold down CTRL while pressing the “Full sync” button on the Library toolbar.
 
-Free cloud storage space
-------------------------
+
+
+
+## Free cloud storage space
+
 
 There are two degrees of free storage space to which you are automatically entitled in Qiqqa:
 
@@ -625,8 +727,11 @@ There are two degrees of free storage space to which you are automatically entit
 
 Note that this free storage space is automatically accounted for across ALL your Qiqqa Web Libraries. So for example, you can use half the free storage space with one library, and split the remaining free storage space across several other libraries. If you go over your free storage limit, you will have to delete some PDFs, or upgrade to Qiqqa Premium, or Top-Up one of your Web Libraries.
 
-Topping-Up your Web Libraries
------------------------------
+
+
+
+## Topping-Up your Web Libraries
+
 
 Some Qiqqa users have unbelievable numbers of PDFs, with libraries containing tens of thousands of PDFs that require tens of gigabytes of cloud storage space. Other Qiqqa users work in a lab group and want to share a Web Library without the shared library eating into their personal free cloud storage space.
 
@@ -642,20 +747,29 @@ When viewing your Web library, click the Cloud Storage tab, choose an amount, an
 
 This will take you to PayPal to complete your purchase. Your credit will be applied immediately and you will be able to sync this library just like you do your other Web Libraries, except this Web Library does not account towards your free cloud storage space. Instead, small microcharges will be charged for storing and transferring your PDFs to/from the cloud. You can see the microcharges against your Top-Up Web Libraries at any time from the Library screen on the Qiqqa Website. These microcharges really are small – a couple of dollars can easily last a year for reasonable libraries.
 
-Making changes from two computers and information conflicts
------------------------------------------------------------
+
+
+
+## Making changes from two computers and information conflicts
+
 
 It is important that you be diligent when using syncing or you might find yourself overwriting your own changes. Imagine you have two laptops and edit the title of the same PDF on each laptop. Then you connect each laptop to the Internet and press sync on each of them. They both try to contact the Qiqqa cloud to update the title of the PDF, **but only one of them will win**. The other title will be lost forever! This is called an information conflict.
 
 To avoid this situation, it is a good idea that before you sit down to work in Qiqqa on a new computer, press the SYNC button to bring that computer up to date. Then do your work over the next few hours, and then before going home for the day, press the SYNC button again to apply your changes to the cloud. When you get to a new computer elsewhere, repeat this process. If you do this you will never lose any information through information conflicts.
 
-Autosync
---------
+
+
+
+## Autosync
+
 
 To alleviate the burden of having to remember to press SYNC all the time, you can turn on AutoSync for a Web Library. On the Qiqqa Start Page, you can toggle AutoSync on and off for each Web Library. This will do the equivalent of pressing the SYNC button every 15 minutes.
 
-Creating additional Web Libraries
----------------------------------
+
+
+
+## Creating additional Web Libraries
+
 
 There are two ways to create additional Web Libraries:
 
@@ -663,13 +777,19 @@ There are two ways to create additional Web Libraries:
 
 · From the Qiqqa Website, log in to your account and you will be able to create a Web Library from the “Your libraries” screen. To be able to see these new Web Libraries from inside Qiqqa Desktop, you need to press the “Refresh web library memberships” button on the Start screen.
 
-Accessing your Web Libraries from the Internet and Android tablets
-------------------------------------------------------------------
+
+
+
+## Accessing your Web Libraries from the Internet and Android tablets
+
 
 Another benefit of syncing your Web Libraries is that you can access your PDFs from the Internet using the Qiqqa Website, or from your tablet or phone using Qiqqa for Android.
 
-Sharing Web Libraries with other people
----------------------------------------
+
+
+
+## Sharing Web Libraries with other people
+
 
 One of the most compelling aspects of Qiqqa is to be able to work collaboratively in a group on the same Web Library. Any additions, changes and annotations made by one person will be visible to the others sharing the library whenever they sync. It is important to sync regularly when working in a group so that you don’t run into information conflicts. It is best to have AutoSync enabled on shared Web Libraries.
 
@@ -685,8 +805,11 @@ When inviting others to share your Web Library, you can give them three levels o
 
 · Viewers – means that they can only view the PDFs in the library. Any additions, deletions or updates they make to PDFs in the library will be ignore and overwritten the next time they sync. This is useful for a central repository of PDFs, maintained by a select few people. Others in your organisation will be able to download and view the PDFs and perhaps copy them into their own libraries to work with them.
 
-11. Qiqqa Premium, Premium+ and the Qiqqa Champion Project
-==========================================================
+
+
+
+# 11. Qiqqa Premium, Premium+ and the Qiqqa Champion Project
+
 
 The Qiqqa team loves producing awesome free research management software. Everything already free in Qiqqa will always be free. From the start, we have built Qiqqa in a sustainable way that requires no external funding for its development or servers.
 
@@ -696,8 +819,11 @@ Qiqqa Premium+ brings additional features to Qiqqa Premium for companies and ind
 
 You can find out more about Qiqqa Premium and Premium + from the Qiqqa Website.
 
-Purchasing Qiqqa Premium and Premium+
--------------------------------------
+
+
+
+## Purchasing Qiqqa Premium and Premium+
+
 
 Log into the Qiqqa Website, click on “Your account” and choose the “Premium” or “Premium+” tab. Then click on the “Top up” button. Follow the PayPal instructions. Note that you do not need a PayPal account to purchase Qiqqa Premium. You can pay directly with a credit or debit card.
 
@@ -707,13 +833,19 @@ The moment we receive confirmation of your purchase, you Qiqqa account will auto
 
 You can see how much of your Premium membership remains by hovering the mouse over the little stars in the bottom-left corner of the Qiqqa Desktop window. You can quickly top up again by clicking on either of the stars.
 
-Bulk discounts for Qiqqa Premium and Premium+ licenses
-------------------------------------------------------
+
+
+
+## Bulk discounts for Qiqqa Premium and Premium+ licenses
+
 
 For groups of friends, or for organisations who wish to purchase multiple Qiqqa Premium licences at once, we do offer bulk discounts. Discounts start at 5 people or more. Please contact [support@qiqqa.com](mailto:support@qiqqa.com) to organise.
 
-Your Qiqqa Champion settings
-----------------------------
+
+
+
+## Your Qiqqa Champion settings
+
 
 Some folks do an awesome job telling people about how useful Qiqqa is to them. We already reward their effort with loads of free Qiqqa Premium, but we wanted to go one step further.
 
@@ -731,15 +863,21 @@ If the above appeals, harness your creative juices and come up with fun ideas on
 
 To get involved, enrol in the Qiqqa Champion Project from your Qiqqa Account online.
 
-12. Intranet Libraries
-======================
+
+
+
+# 12. Intranet Libraries
+
 
 The most significant functionality offered by Qiqqa Premium+ membership is the ability to synchronise your libraries via your corporate intranet rather than the cloud. This is important for organisations who are not yet allowed to store their documents in the Cloud.
 
 Qiqqa does this by making use of a shared folder on your local intranet as a synchronisation point to exchange information with multiple people who are members of the same Intranet Library. You should use different shared folders as the synchronisation point for different Intranet Libraries.
 
-Creating an Intranet Library
-----------------------------
+
+
+
+## Creating an Intranet Library
+
 
 To create a new Intranet Library, from the Start screen, press the “Create/Join Intranet Library” button on the toolbar. Then choose a shared directory on your corporate network to use as the synchronisation point for your Intranet Library. To discourage users from accidentally breaking the library we recommend giving this directory a name like “DO NOT OPEN – Qiqqa research library” or “DO NOT OPEN – Qiqqa product group library”. System administrators are welcome to inspect the contents of this directory but should not move, delete or rename files. Using Windows Security, make sure that this shared folder on the network drive is at least readable by everyone who you want to have access to this Intranet Library. You may have to ask for system administrator to help you create the shared folder and grant permission to your colleagues.
 
@@ -749,22 +887,31 @@ You can email the location of this shared folder to all your colleagues who wish
 
 The Intranet Library will appear on your Start screen. Open the library to start adding PDFs to it as you would to any other Qiqqa library. When you press Sync, Qiqqa will copy any new or changed PDFs up to the synchronisation point of the Intranet Library, and copy down any changes that others have made.
 
-Joining an Intranet Library
----------------------------
+
+
+
+## Joining an Intranet Library
+
 
 To join an Intranet Library you will need the shared folder location of the synchronisation point. From the Start screen, press the “Create/Join Intranet Library” button on the toolbar and navigate to this shared folder. If Qiqqa detects that you have selected a valid Intranet Library synchronisation point, it will show the title and description of the library. Press the “Join” button to join the library.
 
 The Intranet Library will appear on your Start screen. The first thing you will want to do is press the Sync button to download all the PDFs from this library.
 
-Syncing with an Intranet Library
---------------------------------
+
+
+
+## Syncing with an Intranet Library
+
 
 From the Library screen, press Sync as usual. The local contents of the Intranet Library on your machine will be synchronised with the contents of the library at the synchronisation point.
 
 Remember to sync regularly or you might have an information conflict with your colleagues if you work on the same PDF simultaneously. It is a good idea to leave AutoAync enabled for Intranet Libraries to minimise this risk.
 
-Premium and Premium+ capabilities for Intranet Libraries
---------------------------------------------------------
+
+
+
+## Premium and Premium+ capabilities for Intranet Libraries
+
 
 Qiqqa Premium and Premium+ membership have different capabilities when working with Intranet Libraries
 
@@ -784,27 +931,39 @@ Premium memberships are limited to being read-only. You can:
 
 · Any PDFs or annotations you add to your local copy of the Intranet Library will not be synced up to the synchronisation point. This means that others won’t be able to see your documents or annotations. NB: if someone else alters PDFs in the Intranet Library, their changes will overwrite yours the next time you sync, so as a Premium member you should treat Intranet Libraries as a reference library and not work on those PDFs. Instead, you can copy any interesting PDFs from the Intranet Library into your local Guest library.
 
-Securing your Intranet Libraries
---------------------------------
+
+
+
+## Securing your Intranet Libraries
+
 
 Qiqqa leverages Windows Security to maintain access control to your Intranet Libraries.
 
 If you want more granular security on your Intranet Libraries, use Windows Security to configure your desired security settings. You or your system administrator can deny or grant read-only or full-control access to your colleagues.
 
-13. Qiqqa for Android
-=====================
+
+
+
+# 13. Qiqqa for Android
+
 
 Qiqqa for Android is a lightweight PDF reader for Android tablets and smart-phones that lets you read and annotate your PDFs while on the road or from the comfort of your sofa. Download it for free from the Google Play store or Amazon Marketplace.
 
 You can use the same Qiqqa for Android application in two ways:
 
-Qiqqa for Android as a standalone PDF reader
---------------------------------------------
+
+
+
+## Qiqqa for Android as a standalone PDF reader
+
 
 You can use Qiqqa for Android simply as a lightweight PDF reader with touch scrolling, pinch zooming, searching, bookmarking and the ability to add box annotations. To open a PDF, select one from your email or file system and choose Qiqqa to open it.
 
-Qiqqa for Android as a companion to Qiqqa Desktop
--------------------------------------------------
+
+
+
+## Qiqqa for Android as a companion to Qiqqa Desktop
+
 
 This is by far the coolest way to use Qiqqa for Android. Select the Qiqqa for Android icon from the menu and you will be asked to sign in (Exhibit 1). You need to be connected to the Internet to login. Use the same Qiqqa login details that you use for Qiqqa Desktop and the Qiqqa Website.
 
@@ -826,8 +985,11 @@ The PDF reading screen (Exhibit 4) offers you touch scrolling, pinch zooming, bo
 
 NB: Always remember to sync regularly so you don’t run into information conflict!
 
-14. Themes and Qiqqa Expedition
-===============================
+
+
+
+# 14. Themes and Qiqqa Expedition
+
 
 Probably one of the most fascinating parts of reading for research is that one can never have read everything. Indeed, by the time you have finished reading a journal article, you have added another five to your reading list. It seems that the more you read, the more you still have to read. The difficulty lies in choosing what to read next. All the papers are on your list are interesting – that why you added them to the list in the first place. So you need a more structured way to tackle the problem. This is where Qiqqa Expedition and Qiqqa Brainstorming come in.
 
@@ -845,13 +1007,19 @@ Once your themes are generated, they are shown at Exhibit 3. You can expand and 
 
 Clicking on a PDF shows a preview of it at Exhibit 4. To open the PDF for reading, click the title of the PDF above Exhibit 4. Exhibit 5 shows a breakdown of the Themes present in the currently selected PDF. Exhibit 6 shows other PDFs that are most similar to this PDF. Could can also click on these PDFs to explore further. Exhibit 7 shows the usual PDF details. It is probably of interest to you to know whether or not you have read this PDF, or to review the Annotations you made in the past.
 
-15. Interactive Brainstorming
-=============================
+
+
+
+# 15. Interactive Brainstorming
+
 
 A different approach Qiqqa offers to deciding what to read next is its Interactive Brainstorming. Probably the fastest way to get up to speed with Brainstorming is to right-click a PDF in your Library screen and select “Explore in a Brainstorm”. This will open a Brainstorm screen with your selected PDF in the middle. You can collapse the instructions panel that appears on the right-hand side by clicking on the splitter between the brainstorm and the instructions text. Click on the PDF node to select it.
 
-Exploring Themes
-----------------
+
+
+
+## Exploring Themes
+
 
 If you have already run Qiqqa Expedition of your library (see Section 14) then press ‘M’ to expand the main Themes for this PDF:
 
@@ -863,8 +1031,11 @@ Select a theme node and press either ‘D’ or ‘S’ to expand some PDF nodes
 
 · Press 'S' to expand the most specific documents in an Expedition theme. This shows the PDFs that are most specific to the theme. These PDFs are probably worth reading if you are interested in delving into the specific details of papers in the theme.
 
-Exploring cross-references and authors
---------------------------------------
+
+
+
+## Exploring cross-references and authors
+
 
 To find all the cross-references between all the PDFs in your library, you have to go to the Library screen and press the “Find all cross-references” button. This can take some time, but runs in the background so you can get on with your work.
 
@@ -878,13 +1049,19 @@ Then from the Brainstorm screen you can select a PDF and:
 
 · Examine the instructions panel on the right-hand for the variety of other options available from each brainstorm node type.
 
-General brainstorming
----------------------
+
+
+
+## General brainstorming
+
 
 You can also use Qiqqa Brainstorms to brainstorm ideas around your research. You can add text, images and links to your brainstorms and even combine them with automatic brainstorm node features.
 
-16. The Web Browser
-===================
+
+
+
+# 16. The Web Browser
+
 
 The Web Browser built into Qiqqa is a simple wrapper of the popular Firefox browser. It has been modified slightly to help you quickly track down new research material.
 
@@ -892,8 +1069,11 @@ The first feature is the search box, which will automatically forward your searc
 
 The second feature is downloading PDFs. If you click on a link to a PDF, Qiqqa will automatically download the PDF, add it to your Guest library, and let you start reviewing and annotating it immediately. If you like the PDF and want to keep it, you have the opportunity to move it to one of your other Qiqqa libraries.
 
-17. Getting Help
-================
+
+
+
+# 17. Getting Help
+
 
 There are several avenues for getting help with Qiqqa:
 
