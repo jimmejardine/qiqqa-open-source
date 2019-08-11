@@ -30,7 +30,27 @@ using Lucene.Net.Util;
 
 namespace Utilities.Language.TextIndexing
 {
-	
+	public class PQRecord
+    {
+        public string word;
+        public string topField;
+        public float score;
+        public float idf;
+        public Int32 docFreq;
+        public Int32 tf;
+
+        public PQRecord(string w_, string tf_, float r_, float f_, int df_, int tfr_)
+        {
+            word = w_;
+            topField = tf_;
+            score = r_;
+            idf = f_;
+            docFreq = df_;
+            tf = tfr_;
+        }
+    }
+
+
 	
     /// <summary> Generate "more like this" similarity queries. 
     /// Based on this mail:
@@ -145,7 +165,7 @@ namespace Utilities.Language.TextIndexing
         /// <summary> Default analyzer to parse source doc with.</summary>
         /// <seealso cref="#getAnalyzer">
         /// </seealso>
-        public static readonly Analyzer DEFAULT_ANALYZER = new StandardAnalyzer();
+        public static readonly Lucene.Net.Analysis.Analyzer DEFAULT_ANALYZER = new Lucene.Net.Analysis.Standard.StandardAnalyzer();
 		
         /// <summary> Ignore terms with less than this frequency in the source doc.</summary>
         /// <seealso cref="#getMinTermFreq">
@@ -212,7 +232,7 @@ namespace Utilities.Language.TextIndexing
         public const int DEFAULT_MAX_QUERY_TERMS = 25;
 		
         /// <summary> Analyzer that will be used to parse the doc.</summary>
-        private Analyzer analyzer = DEFAULT_ANALYZER;
+        private Lucene.Net.Analysis.Analyzer analyzer = DEFAULT_ANALYZER;
 		
         /// <summary> Ignore words less freqent that this.</summary>
         private int minTermFreq = DEFAULT_MIN_TERM_FREQ;
@@ -241,10 +261,10 @@ namespace Utilities.Language.TextIndexing
         private int maxQueryTerms = DEFAULT_MAX_QUERY_TERMS;
 		
         /// <summary> For idf() calculations.</summary>
-        private Similarity similarity = new DefaultSimilarity();
+        private Lucene.Net.Search.Similarity similarity = new Lucene.Net.Search.DefaultSimilarity();
 		
         /// <summary> IndexReader to use</summary>
-        private IndexReader ir;
+        private Lucene.Net.Index.IndexReader ir;
 		
         /// <summary> Constructor requiring an IndexReader.</summary>
         public LuceneMoreLikeThis(IndexReader ir)
@@ -260,7 +280,7 @@ namespace Utilities.Language.TextIndexing
         /// </returns>
         /// <seealso cref="#DEFAULT_ANALYZER">
         /// </seealso>
-        public Analyzer GetAnalyzer()
+        public Lucene.Net.Analysis.Analyzer GetAnalyzer()
         {
             return analyzer;
         }
@@ -271,7 +291,7 @@ namespace Utilities.Language.TextIndexing
         /// </summary>
         /// <param name="analyzer">the analyzer to use to tokenize text.
         /// </param>
-        public void  SetAnalyzer(Analyzer analyzer)
+        public void  SetAnalyzer(Lucene.Net.Analysis.Analyzer analyzer)
         {
             this.analyzer = analyzer;
         }
@@ -487,12 +507,12 @@ namespace Utilities.Language.TextIndexing
         /// </param>
         /// <returns> a query that will return docs like the passed lucene document ID.
         /// </returns>
-        public Query Like(int docNum)
+        public Lucene.Net.Search.Query Like(int docNum)
         {
             if (fieldNames == null)
             {
                 // gather list of valid fields from lucene
-                ICollection<string> fields = ir.GetFieldNames(IndexReader.FieldOption.INDEXED);
+                ICollection<string> fields = ir.GetFieldNames(Lucene.Net.Index.IndexReader.FieldOption.INDEXED);
                 IEnumerator e = fields.GetEnumerator();
                 fieldNames = new String[fields.Count];
                 int index = 0;
@@ -508,7 +528,7 @@ namespace Utilities.Language.TextIndexing
         /// </summary>
         /// <returns> a query that will return docs like the passed file.
         /// </returns>
-        public Query Like(FileInfo f)
+        public Lucene.Net.Search.Query Like(FileInfo f)
         {
             if (fieldNames == null)
             {
@@ -555,34 +575,34 @@ namespace Utilities.Language.TextIndexing
         }
 		
         /// <summary> Create the More like query from a PriorityQueue</summary>
-        private Query CreateQuery(PriorityQueue q)
+        private Query CreateQuery(Lucene.Net.Util.PriorityQueue q)
         {
-            BooleanQuery query = new BooleanQuery();
+            Lucene.Net.Search.BooleanQuery query = new Lucene.Net.Search.BooleanQuery();
             Object cur;
             int qterms = 0;
             float bestScore = 0;
 			
             while (((cur = q.Pop()) != null))
             {
-                Object[] ar = (Object[]) cur;
-                TermQuery tq = new TermQuery(new Term((String) ar[1], (String) ar[0]));
+                PQRecord ar = (PQRecord) cur;
+                Lucene.Net.Search.TermQuery tq = new Lucene.Net.Search.TermQuery(new Term(ar.topField, ar.word));
 				
                 if (boost)
                 {
                     if (qterms == 0)
                     {
-                        bestScore = (float) ((Single) ar[2]);
+                        bestScore = ar.score;
                     }
-                    float myScore = (float) ((Single) ar[2]);
+                    float myScore = ar.score;
 					
                     tq.SetBoost(myScore / bestScore);
                 }
 				
                 try
                 {
-                    query.Add(tq, BooleanClause.Occur.SHOULD);
+                    query.Add(tq, Lucene.Net.Search.BooleanClause.Occur.SHOULD);
                 }
-                catch (BooleanQuery.TooManyClauses)
+                catch (Lucene.Net.Search.BooleanQuery.TooManyClauses)
                 {
                     break;
                 }
@@ -642,9 +662,17 @@ namespace Utilities.Language.TextIndexing
 				
                 float idf = similarity.Idf(docFreq, numDocs);
                 float score = tf * idf;
-				
+
                 // only really need 1st 3 entries, other ones are for troubleshooting
-                res.Insert(new Object[]{word, topField, (float) score, (float) idf, (Int32) docFreq, (Int32) tf});
+                PQRecord pqr = new PQRecord(
+                    word,
+                    topField,
+                    score,
+                    idf,
+                    docFreq,
+                    tf
+                );
+                res.Insert(pqr);
             }
             return res;
         }
@@ -723,15 +751,15 @@ namespace Utilities.Language.TextIndexing
 			
             o.WriteLine("q: " + query);
             o.WriteLine();
-            IndexSearcher searcher = new IndexSearcher(indexName);
-			
-            Hits hits = searcher.Search(query);
+            Lucene.Net.Search.IndexSearcher searcher = new Lucene.Net.Search.IndexSearcher(indexName);
+
+            Lucene.Net.Search.Hits hits = searcher.Search(query);
             int len = hits.Length();
             o.WriteLine("found: " + len + " documents matching");
             o.WriteLine();
             for (int i = 0; i < Math.Min(25, len); i++)
             {
-                Document d = hits.Doc(i);
+                Lucene.Net.Documents.Document d = hits.Doc(i);
                 String summary = d.Get("summary");
                 o.WriteLine("score  : " + hits.Score(i));
                 o.WriteLine("url    : " + d.Get("url"));
@@ -753,7 +781,7 @@ namespace Utilities.Language.TextIndexing
             for (int i = 0; i < fieldNames.Length; i++)
             {
                 String fieldName = fieldNames[i];
-                TermFreqVector vector = ir.GetTermFreqVector(docNum, fieldName);
+                Lucene.Net.Index.TermFreqVector vector = ir.GetTermFreqVector(docNum, fieldName);
 				
                 // field does not store term vector info
                 if (vector == null)
@@ -930,8 +958,8 @@ namespace Utilities.Language.TextIndexing
             // we just want to return the top words
             while (((cur = pq.Pop()) != null) && lim-- > 0)
             {
-                Object[] ar = (Object[]) cur;
-                al.Add(ar[0]); // the 1st entry is the interesting word
+                PQRecord ar = (PQRecord) cur;
+                al.Add(ar.word); // the 1st entry is the interesting word
             }
             String[] res = new String[al.Count];
             // return (System.String[]) SupportClass.ICollectionSupport.ToArray(al, res);
@@ -948,10 +976,10 @@ namespace Utilities.Language.TextIndexing
 			
             override public bool LessThan(Object a, Object b)
             {
-                Object[] aa = (Object[]) a;
-                Object[] bb = (Object[]) b;
-                Single fa = (Single) aa[2];
-                Single fb = (Single) bb[2];
+                PQRecord aa = (PQRecord) a;
+                PQRecord bb = (PQRecord) b;
+                float fa = aa.score;
+                float fb = bb.score;
                 return fa > fb;
             }
         }
