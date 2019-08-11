@@ -108,20 +108,20 @@ namespace Utilities.Language.TextIndexing
             }
         }
 
-        private static void AddDocumentMetadata_BibTex(Document document, BibTexItem bibtex_item)
+        private static void AddDocumentMetadata_BibTex(Document document, Utilities.BibTex.Parsing.BibTexItem bibtex_item)
         {
             if (null == bibtex_item) return;
 
             document.Add(new Lucene.Net.Documents.Field("type", bibtex_item.Type, Lucene.Net.Documents.Field.Store.NO, Lucene.Net.Documents.Field.Index.ANALYZED));
             document.Add(new Lucene.Net.Documents.Field("key", bibtex_item.Key, Lucene.Net.Documents.Field.Store.NO, Lucene.Net.Documents.Field.Index.ANALYZED));
 
-            foreach (var pair in bibtex_item.EnumerateFields())
+            foreach (KeyValuePair<string, string> pair in bibtex_item.EnumerateFields())
             {
                 document.Add(new Lucene.Net.Documents.Field(pair.Key, pair.Value, Lucene.Net.Documents.Field.Store.NO, Lucene.Net.Documents.Field.Index.ANALYZED));
             }
         }
 
-        public void AddDocumentMetadata(bool is_deleted, string fingerprint, string title, string author, string year, string comment, string tag, string annotation, string bibtex, BibTexItem bibtex_item)
+        public void AddDocumentMetadata(bool is_deleted, string fingerprint, string title, string author, string year, string comment, string tag, string annotation, string bibtex, Utilities.BibTex.Parsing.BibTexItem bibtex_item)
         {
             Lucene.Net.Documents.Document document = null;
 
@@ -212,7 +212,7 @@ namespace Utilities.Language.TextIndexing
             {
                 using (Lucene.Net.Index.IndexReader index_reader = Lucene.Net.Index.IndexReader.Open(LIBRARY_INDEX_BASE_PATH, true))
                 {
-                    using (Lucene.Net.Search.Searcher index_searcher = new Lucene.Net.Search.IndexSearcher(index_reader))
+                    using (Lucene.Net.Search.IndexSearcher index_searcher = new Lucene.Net.Search.IndexSearcher(index_reader))
                     {
                         Lucene.Net.QueryParsers.QueryParser query_parser = new Lucene.Net.QueryParsers.QueryParser(Version.LUCENE_29, "content", analyzer);
 
@@ -258,7 +258,7 @@ namespace Utilities.Language.TextIndexing
             {
                 using (IndexReader index_reader = IndexReader.Open(LIBRARY_INDEX_BASE_PATH, true))
                 {
-                    using (Searcher index_searcher = new IndexSearcher(index_reader))
+                    using (IndexSearcher index_searcher = new IndexSearcher(index_reader))
                     {
                         QueryParser query_parser = new QueryParser(Version.LUCENE_29, "content", analyzer);
 
@@ -326,7 +326,7 @@ namespace Utilities.Language.TextIndexing
 
                     using (IndexReader index_reader = IndexReader.Open(LIBRARY_INDEX_BASE_PATH, true))
                     {
-                        using (Searcher index_searcher = new IndexSearcher(index_reader))
+                        using (IndexSearcher index_searcher = new IndexSearcher(index_reader))
                         {
                             TermQuery term_query = new TermQuery(new Term("content", keyword));
                             Hits hits = index_searcher.Search(term_query);
@@ -362,7 +362,7 @@ namespace Utilities.Language.TextIndexing
             {
                 using (IndexReader index_reader = IndexReader.Open(LIBRARY_INDEX_BASE_PATH, true))
                 {
-                    using (Searcher index_searcher = new IndexSearcher(index_reader))
+                    using (IndexSearcher index_searcher = new IndexSearcher(index_reader))
                     {
                         LuceneMoreLikeThis mlt = new LuceneMoreLikeThis(index_reader);
                         mlt.SetFieldNames(new string[] { "content" });
