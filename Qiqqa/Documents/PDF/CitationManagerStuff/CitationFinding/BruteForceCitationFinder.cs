@@ -95,7 +95,7 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff.CitationFinding
                         }
 
                         // Now search each page for the title of the paper
-                        foreach (IndexPageResult.PageResult page_result in index_page_result.page_results)
+                        foreach (PageResult page_result in index_page_result.page_results)
                         {
                             // Don't process the metadata "page"
                             if (0 == page_result.page)
