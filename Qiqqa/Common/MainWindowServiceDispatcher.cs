@@ -66,7 +66,7 @@ namespace Qiqqa.Common
 
         public ConfigurationControl OpenControlPanel()
         {
-            string window_key = "ControlPanel";
+            const string window_key = "ControlPanel";
             ConfigurationControl existing_control = (ConfigurationControl)main_window.DockingManager.MakeActive(window_key);
             if (null != existing_control)
             {
@@ -99,7 +99,7 @@ namespace Qiqqa.Common
 
         public InCiteControl OpenInCite()
         {
-            string window_key = "InCite";
+            const string window_key = "InCite";
 
             InCiteControl existing_control = (InCiteControl)main_window.DockingManager.MakeActive(window_key);
             if (null != existing_control)
@@ -138,7 +138,7 @@ namespace Qiqqa.Common
                 expedition_control.ChooseNewPDFDocument(pdf_document);
             }
 
-            main_window.DockingManager.AddContent("Expedition"+Guid.NewGuid(), "Expedition", Icons.GetAppIcon(Icons.ModuleExpedition), true, true, expedition_control);
+            main_window.DockingManager.AddContent("Expedition" + Guid.NewGuid(), "Expedition", Icons.GetAppIcon(Icons.ModuleExpedition), true, true, expedition_control);
             return expedition_control;
         }
 
@@ -257,7 +257,6 @@ namespace Qiqqa.Common
                 }
             }
 
-
             // Open the window
             PDFReadingControl pdf_reading_control = null;
             if (!open_again && main_window.DockingManager.Contains(pdf_document.UniqueId))
@@ -364,7 +363,7 @@ namespace Qiqqa.Common
         internal BrainstormControl OpenNewBrainstorm()
         {
             BrainstormControl brainstorm_control = new BrainstormControl();
-            main_window.DockingManager.AddContent("Brainstorm"+Guid.NewGuid(), "Brainstorm", Icons.GetAppIcon(Icons.ModuleBrainstorm), true, true, brainstorm_control);
+            main_window.DockingManager.AddContent("Brainstorm" + Guid.NewGuid(), "Brainstorm", Icons.GetAppIcon(Icons.ModuleBrainstorm), true, true, brainstorm_control);
             return brainstorm_control;
         }
 
@@ -378,7 +377,7 @@ namespace Qiqqa.Common
 
         public WebBrowserHostControl OpenWebBrowser()
         {
-            string window_key = "WebBrowser";
+            const string window_key = "WebBrowser";
 
             WebBrowserHostControl existing_control = (WebBrowserHostControl)main_window.DockingManager.MakeActive(window_key);
             if (null != existing_control)
@@ -447,8 +446,7 @@ namespace Qiqqa.Common
 
         internal AboutControl OpenAbout()
         {
-
-            string window_key = "About";
+            const string window_key = "About";
             AboutControl existing_control = (AboutControl)main_window.DockingManager.MakeActive(window_key);
             if (null != existing_control)
             {
