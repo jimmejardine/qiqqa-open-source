@@ -564,11 +564,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         void ObjWebBrowser_PageLoaded()
         {
+            Logging.Debug("BibTexSniffer::Browser::Page Loaded");
             ReflectLatestBrowserContent();
         }
 
         void ObjWebBrowser_TabChanged()
         {
+            Logging.Debug("BibTexSniffer::Browser::Tab Changed");
             ReflectLatestBrowserContent();
         }
 

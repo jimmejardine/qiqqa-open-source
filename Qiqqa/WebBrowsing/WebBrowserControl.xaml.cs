@@ -43,7 +43,7 @@ namespace Qiqqa.WebBrowsing
         {   
             GeckoWebBrowser web_control = (GeckoWebBrowser)sender;
             StatusManager.Instance.UpdateStatus("WebBrowser", web_control.StatusText);
-            Logging.Info("Browser:{0}", web_control.StatusText);
+            Logging.Info("Browser:StatusTextChanged: {0}", web_control.StatusText);
         }
 
         void ObjWebBrowser_Navigating(object sender, GeckoNavigatingEventArgs e)
