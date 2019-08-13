@@ -152,11 +152,9 @@ namespace QiqqaOCR
 
         private static Dictionary<int, WordList> ConvertToWordList(List<MuPDFRenderer.TextChunk> text_chunks)
         {
-            
             Dictionary<int, WordList> word_lists = new Dictionary<int, WordList>();
             int current_page = 0;
             WordList current_word_list = null;
-            
             
             foreach (MuPDFRenderer.TextChunk text_chunk in text_chunks)
             {
