@@ -1,5 +1,92 @@
+2019-08-13
+----------
+
+* Slighty more informative/easier to track back log lines for browsing web pages in Qiqqa
+* (lint) `const`-ing a few variables, which really are constants
+* Removing old debug lines that aren't required any more...
+* Prepwork for https://github.com/jimmejardine/qiqqa-open-source/issues/23 to make transition to latest LuceneNET easier to do.
+* Prepwork / minimal refactoring of `Object[]` to `PQRecord` done on https://github.com/jimmejardine/qiqqa-open-source/issues/23 as it turns out to be a tougher nut to crack then I initially expected.
+* fix compile error introduced with commit SHA-1: e774847fe9b317d40ba700315dd5e67f7888850a * Prepwork done on https://github.com/jimmejardine/qiqqa-open-source/issues/23 as it turns out to be a tougher nut to crack then I initially expected.
+* fiddling with website theme...
+* Move the reference HTML file out of the way. https://github.com/jimmejardine/qiqqa-open-source/issues/38
+* GH_PAGES: Set theme jekyll-theme-tactile
+* done: https://github.com/jimmejardine/qiqqa-open-source/issues/38 -- Part 14: added the images. Turns out there are two screens (screen0003.ai and screen0014.ai that remain unused. Looks like this was partly old stuff and maybe a chunk that still needs to go into a section of the manual. Haven't checked precisely as the job at hand was *conversion*.
+* prepwork for https://github.com/jimmejardine/qiqqa-open-source/issues/38 : Part 13: adding the images. First one. Let's check because I always screw this bit of MD notation up.  :-S
+* prepwork for https://github.com/jimmejardine/qiqqa-open-source/issues/38 : Part 12: Done with the roundtrip check and HTML + MD cleanup. Now we only need to get back all the images in there...
+* prepwork for https://github.com/jimmejardine/qiqqa-open-source/issues/38 : Part 11: Basically we're all good now. Tweaked the MD source to use modern MarkDown header marks. Found that we still need to correct lists in there as TurnDown didn't catch all the &middot encoded lists from Word, so that'll be next, together picking up the Unicode SmartQuotes from the RoundTrip copy so that the HTML file will serve as a reference for subsequent MarkDown source editing work...
+* prepwork for https://github.com/jimmejardine/qiqqa-open-source/issues/38 : Part 10: Some swift manual edits on initial comparison: looks like everything made it, but there are notable differences. Patching the destination HTML and source MD MarkDown file to ensure the next round will correct these render mistakes...
+* prepwork for https://github.com/jimmejardine/qiqqa-open-source/issues/38 : Part 9: Cleaning the source HTML using https://html-cleaner.com/ to kill the MSWord left-overs and then another round of https://htmlformatter.com/ for maximum similarity (and thus faster work in reviewing the diffs next)
+* prepwork for https://github.com/jimmejardine/qiqqa-open-source/issues/38 : Part 8: Same https://htmlformatter.com/ applied to source HTML
+* prepwork for https://github.com/jimmejardine/qiqqa-open-source/issues/38 : Part 7: A swift kill of all styling and Dillinger editor/line left-overs in the HTML: one regex replace in Sublime.
+* prepwork for https://github.com/jimmejardine/qiqqa-open-source/issues/38 : Part 6: Applying https://htmlformatter.com/ to the Dillinger output
+* prepwork for https://github.com/jimmejardine/qiqqa-open-source/issues/38 : Part 5: RoundTripping the MarkDown to HTML (we need to check everything made it through and this is the quickest way for a large document like this: at the end waits a fast Beyond Compare session going through the diffs of the source and roundtrip HTML files...). Uses https://dillinger.io/
+* prepwork for https://github.com/jimmejardine/qiqqa-open-source/issues/38 : Part 4: Pulled the HTML through TurnDown ( http://domchristie.github.io/turndown/ ) to produce an initial MarkDown version of the documentation. Need to round-trip it to ensure we didn't loose any important chunks. :-)
+* prepwork for https://github.com/jimmejardine/qiqqa-open-source/issues/38 : exported the MSWord DOCX source to HTML. Patched the generated `Qiqqa Manual_files/*.*` paths to point to `images/*.*` instead. Part 3: patching the HTML.
+* prepwork for https://github.com/jimmejardine/qiqqa-open-source/issues/38 : exported the MSWord DOCX source to HTML. Patched the generated `Qiqqa Manual_files/*.*` paths to point to `images/*.*` instead. Part 2.
+* prepwork for https://github.com/jimmejardine/qiqqa-open-source/issues/38 : exported the MSWord DOCX source to HTML. Patched the generated `Qiqqa Manual_files/*.*` paths to point to `images/*.*` instead.
+* prepwork done for https://github.com/jimmejardine/qiqqa-open-source/issues/38 : extracted all displays from the pptx file (I've no problem using PowerPoint for stuff like this, but I have more control over publishing/output when using tools like Adobe Illustrator. Besides, the images that stick partly outside the PowerPoint pages are begging for clipping issues, etc. when rendering.
+* Prepwork done on https://github.com/jimmejardine/qiqqa-open-source/issues/23 as it turns out to be a tougher nut to crack then I initially expected.
+* Do NOT write old format (.NET serialized binary) configuration files any more: DO load them when the new JSON format is missing, but only write the NEW JSON format. https://github.com/jimmejardine/qiqqa-open-source/issues/41
+* NuGet: package Newtonsoft.JSON: the JSON-to-object deserializer/serializer. Lingering work from https://github.com/jimmejardine/qiqqa-open-source/issues/41
+* https://github.com/jimmejardine/qiqqa-open-source/issues/41 tweak: more human-readable JSON formatting
+* fix https://github.com/jimmejardine/qiqqa-open-source/issues/42: fixed crash.
+* more of the same as SHA-1: af670a88f8fb56d090ed8d04bfb9b08cb0e53b33 * minimally tweak UI elements and make Microsoft Visual Studio :: XAML Designer *NOT* barf a hairball
+* Hm, looks like the NANT build script (`./build-installer.sh`) picks up the new Newtonsoft.Json.dll location. Lucky break. Killed the old one as we now *upgrade* JSON.NET ( https://github.com/jimmejardine/qiqqa-open-source/issues/41 )
+* work done on https://github.com/jimmejardine/qiqqa-open-source/issues/41, which was triggered by the bugging and b0rking of https://github.com/jimmejardine/qiqqa-open-source/issues/40, hence a few bits from that one will peek through here.
+* Using Json.NET as advised by Microsoft: https://docs.microsoft.com/en-us/dotnet/api/system.web.script.serialization.javascriptserializer?view=netframework-4.8
+    
+  As mentioned in the Deprecation Notice of the old serializer code:
+    
+  > .NET binary serialization causes too much trouble, e.g. https://stackoverflow.com/questions/6825819/how-can-i-tell-when-what-is-loading-certain-assemblies and https://social.msdn.microsoft.com/forums/vstudio/en-US/7192f23e-7d43-47b5-b401-5fcd19671cf6/invalidcastexception-thrown-when-casting-to-the-same-type. Use Json.NET instead. And then there's https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/how-to-enable-and-disable-automatic-binding-redirection (sigh)
+
+* minimally tweak UI elements and make Microsoft Visual Studio :: XAML Designer *NOT* barf a hairball (Fatal System Exception) on many XAML dialogs/panels in Qiqqa.
+    
+  The key to the latter is tweaked the dialog setup/init code such that XDevProc (which is part of Visual Studio) can execute that part of the Qiqqa code and thus render the panel -- or at least not b0rk and fail on it when you open the XAML file in the Designer.
+    
+  ---
+    
+  WARNING NOTE:
+    
+  TODO: The bit at the end is a copy/dump off SO where the same problem as https://github.com/jimmejardine/qiqqa-open-source/issues/40
+    
+  Must be tweaked and then retried with Qiqqa as it didn't fly for me yet. :-(
+    
+  The blunter hack of tweaked the Qiqqa code and sneakily support XDesProc code flow too
+  by moving the Theme loader into Utilities.GUI is nice, but somehow still makes Designer
+  blue-wave the Brushes and NOT render them.
+    
+  ---
+    
+  ```
+  <UserControl.Resources>
+   <ResourceDictionary>
+    <ResourceDictionary.MergedDictionaries>
+     <ResourceDictionary Source="pack://application:,,,/Styles;component/Resources.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+   </ResourceDictionary>
+  </UserControl.Resources>
+  ```
+
+* Minor UI tweak of BibTeX metadata pane in main UI: distance between buttons
+* Tweak the AnnotationReportOptionsWindow XAML a little so it shows up in its entirety in de MSVS Designer.
+* Fiddling with the size of the proxy config dialog panel: make it wider so we can more easily enter&see host URI and user password.
+* tweak the About message: now also show the *full* build version next to the classic `vNN` version.
+* Tweak the logging lines for the InCite webbrowser so its start and end can be easily detected in the logfiles.
+* removed unused variable assignment
+* prep for https://github.com/jimmejardine/qiqqa-open-source/issues/38
+* add 'how to build setup.exe' instructions to README.md
+* make Qiqqa main app and QiqqaOCR logging easily recognizable: `[Q]` or `[OCR]` tag per logline.
+ 
+  Also print the QC-reported memory usage as a fixed-width number in MBytes
+
+
 
 # version 81.0.7158.38371 :: alpha test release
+
+* updated CHANGELOG files
+
+
+
 2019-08-07
 ----------
 
@@ -443,6 +530,8 @@ Version 81:
   + Qiqqa does not continue running in the background for eternity due to locked-up PDF re-indexing task
 
 Version 80 (FOSS):
+=================
+
 - Qiqqa goes Open Source!!!
 - Enabled ALL Premium and Premium+ features for everyone.
 - Removed all Web Library capabilities (create/sync/manage)
@@ -459,7 +548,7 @@ Version 78:
 - Can export linked-documents data.
 - Custom abbreviations can override default ones.
 - Font size change in Speed Reader.
---- Fixes a BibTeX parse error causing problems with Qiqqa starting.
+- Fixes a BibTeX parse error causing problems with Qiqqa starting.
 
 Version 77:
 - You can override the location of your PDF and OCR files.
@@ -474,23 +563,23 @@ Version 75:
 - Can toggle BibTeX Search Wizard and Automatic BibTeX association.
 - Automatically import from EndNote.
 - Qiqqa Community Chat.
---- Latest embedded Firefox browser.
---- Locked PDFs do not cause the Annotation Report to stop halfway through.
+- Latest embedded Firefox browser.
+- Locked PDFs do not cause the Annotation Report to stop halfway through.
 
 Version 74:
 - Can watch multiple folders.
 - Can automatically attach tags to PDFs from watched folders.
 - Can export tags, autotags, etc.
---- Updated lucene library to fix corrupted search index on rare occasions.
---- Moves to the top of the library after sorting.
+- Updated lucene library to fix corrupted search index on rare occasions.
+- Moves to the top of the library after sorting.
 
 Version 73:
 - Friendlier configuration screen.
 - Scrolls to the top of the document list when a filter or sort changes.
 - Annotation Report: Removes menu hyperlinks from annotation report on export to Word; Abstract and Comment titles.
---- PDF renderer is robust to a variety of corrupted PDF types.
---- PDFs are not blurry on *all* LCD monitor types
---- If necessary, Qiqqa can now use up to 4Gb RAM on 64-bit machines.  No longer limited to circa 1.2Gb.
+- PDF renderer is robust to a variety of corrupted PDF types.
+- PDFs are not blurry on *all* LCD monitor types
+- If necessary, Qiqqa can now use up to 4Gb RAM on 64-bit machines.  No longer limited to circa 1.2Gb.
 
 Version 72:
 - Qiqqa automatically associates BibTeX with well-known PDFs.
@@ -500,7 +589,7 @@ Version 72:
 - Can tweet a document from the document reader
 - Can get a username reminder from login screen.
 - Batches PDF uploads so that massive libraries (e.g. 20,000+ docs) do not time out on slow networks.
---- Fix to brainstorm resize exception
+- Fix to brainstorm resize exception
 
 Version 71:
 - Can link documents so that you can quickly jump between them.
@@ -523,8 +612,8 @@ Version 70:
 - Can explore an AutoTag in a Brainstorm.
 - Automatically detects when you sync from another computer and syncs immediately.
 - Autodetects new library memberships and new premium payments.
---- Fixed the 'forgotten watch folder when you refresh memberships' issue.
---- Authors in BibTeX are now aplit on 'mixed case aNd'
+- Fixed the 'forgotten watch folder when you refresh memberships' issue.
+- Authors in BibTeX are now split on 'mixed case aNd'
 
 Version 69:
 - You can filter annotation in the Annotation Report by creator.
@@ -533,7 +622,7 @@ Version 69:
 - Welcome Wizard gets you up to speed with Qiqqa quickly.
 - Mass-download all PDFs in web browser handles more types of URL and content type.
 - Web Browser status messages.
---- Ctrl-F jumps to search box.
+- Ctrl-F jumps to search box.
 
 Version 68:
 - Supports imports of patent portfolios from Omnipatents.
@@ -548,8 +637,8 @@ Version 67:
 - Share Annotations and Brainstorms via Social Media.
 - Redesigned Qiqqa InCite screen.
 - Improvement to 'blue book' citation snippet formatting.
---- Miscellaneous changes to GUI to remove clutter.
---- Fixed window redock exception.
+- Miscellaneous changes to GUI to remove clutter.
+- Fixed window redock exception.
 
 Version 66:
 - Can filter annotations by date in the Annotation Report.
@@ -563,23 +652,23 @@ Version 66:
 - EZProxy support.
 - Can toggle appearance of SpeedRead shadow text.
 - Improved printing of Brainstorms.
---- Fixed the 'bug' where a new PDF in the watch folder 'steals' the currently selected focus.
---- Much faster addition of 1,000s of PDFs.
+- Fixed the 'bug' where a new PDF in the watch folder 'steals' the currently selected focus.
+- Much faster addition of 1,000s of PDFs.
 
 Version 65:
 - Share PDF annotations via social media.
 - Sort tags, authors, etc. in the library filter by frequency.
 - Web page HTML to PDF conversion is now completely inside Qiqqa, so it is more stable and has better features.
 - Further integration with Datacopia.com to automatically create beautiful charts from tables of results.
---- Improved stability for import where Mendeley points to broken files.
+- Improved stability for import where Mendeley points to broken files.
 
 Version 64:
 - BibTeX Sniffer supports international characters
 - Libraries open much more quickly - especially libraries with more than 10k+ documents.
 - Importing PDFs is much faster.
 - Batch importing of PDFs no longer aborts after the first missing PDF: instead a report of errors is offered at the end of the import.
---- Now supports 'ridiculously long filenames'.
---- Updated the bundled Firefox browser to latest version - improves stability of internal web browser.
+- Now supports 'ridiculously long filenames'.
+- Updated the bundled Firefox browser to latest version - improves stability of internal web browser.
 
 Version 63:
 - Integration with Datacopia.com to automatically create charts from tables of results.
@@ -693,15 +782,15 @@ Version 48:
 - The filter graph shows more columns.
 - You can create Web Libraries from within the Qiqqa Client.
 - Stability:
---- Fixes more issues around Firefox DLL clashes.
+  + Fixes more issues around Firefox DLL clashes.
 
 Version 47:
 - Remembers last page N-up settings.
 - Deleted PDFs no longer appear in cross references.
 - Stability:
---- Fixes issues with clients with non-standard DPI display settings (highlighting positions do not match text).
---- Fixes issues with PDFs with corrupted XRef tables.
---- Fixes some issues around Firefox DLL clashes.
+  + Fixes issues with clients with non-standard DPI display settings (highlighting positions do not match text).
+  + Fixes issues with PDFs with corrupted XRef tables.
+  + Fixes some issues around Firefox DLL clashes.
 
 Version 46:
 - Win+Q key combination brings up a mini-InCite screen so that you can easily add citations to Word.
