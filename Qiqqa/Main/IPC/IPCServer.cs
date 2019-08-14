@@ -66,16 +66,15 @@ namespace Qiqqa.Main.IPC
 
                             catch (Exception ex)
                             {
-                                Logging.Error(ex, "Error while processing pipe connection.");
+                                Logging.Error(ex, "Error while processing pipe connection. ({0})", IPCCommon.PIPE_NAME);
                             }
                         },
                         npss);
                 }
             }
-
             catch (Exception ex)
             {
-                Logging.Error(ex, "Error while waiting for pipe connection.");
+                Logging.Error(ex, "Error while waiting for pipe connection. ({0})", IPCCommon.PIPE_NAME);
             }
         }
     }
