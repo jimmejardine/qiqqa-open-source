@@ -43,6 +43,10 @@ namespace Utilities.Maintainable
                 while (!do_maintenance_delegate_wrapper.daemon.Join(1000))
                 {
                     Logging.Info("Waiting for Maintainable {0} to terminate.", do_maintenance_delegate_wrapper.maintainable_description);
+                    double memsize1 = GC.GetTotalMemory(false);
+                    GC.Collect();
+                    double memsize2 = GC.GetTotalMemory(true);
+                    Logging.Info("While Waiting to terminate, GC collect => memory {0:0.000}K -> {1:0.000}K.", memsize1 / 1E3, memsize2 / 1E3);
                 }
             }
         }
@@ -81,7 +85,7 @@ namespace Utilities.Maintainable
                 Logging.Info("-MaintainableManager is waiting some startup time for {0}", do_maintenance_delegate_wrapper.maintainable_description);
             }
 
-            while (do_maintenance_delegate_wrapper.daemon.StillRunning)
+            while (do_maintenance_delegate_wrapper.daemon.StillRunning && !Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
             {
                 try
                 {
@@ -97,16 +101,12 @@ namespace Utilities.Maintainable
                         do_maintenance_delegate_wrapper.daemon.Stop();
                     }
                 }
-
                 catch (Exception ex)
                 {
                     Logging.Error(ex, "Maintainable {0} has thrown an unhandled exception.", do_maintenance_delegate_wrapper.maintainable_description);
                 }
 
-                if (do_maintenance_delegate_wrapper.daemon.StillRunning)
-                {
-                    do_maintenance_delegate_wrapper.daemon.Sleep();
-                }
+                do_maintenance_delegate_wrapper.daemon.Sleep();
             }
         }
     }

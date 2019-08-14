@@ -47,7 +47,10 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
                 {
                     StartupCommandLineParameterChecker.Check();
                 }
-                catch (Exception ex) { Logging.Error(ex, "Exception during StartupCommandLineParameterChecker.Check"); }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex, "Exception during StartupCommandLineParameterChecker.Check");
+                }
 
                 try
                 {
@@ -60,32 +63,47 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
 
                     ClientUpdater.Instance.CheckForNewClientVersion(ConfigurationManager.Instance.Proxy);
                 }
-                catch (Exception ex) { Logging.Error(ex, "Exception during Utilities.ClientVersioning.ClientUpdater.Instance.CheckForNewClientVersion"); }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex, "Exception during Utilities.ClientVersioning.ClientUpdater.Instance.CheckForNewClientVersion");
+                }
 
 
                 try
                 {
                     AlternativeToReminderNotification.CheckIfWeWantToNotify();
                 }
-                catch (Exception ex) { Logging.Error(ex, "Exception during AlternativeToReminderNotification.CheckIfWeWantToNotify"); }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex, "Exception during AlternativeToReminderNotification.CheckIfWeWantToNotify");
+                }
 
                 try
                 {
                     DropboxChecker.DoCheck();
                 }
-                catch (Exception ex) { Logging.Error(ex, "Exception during DropboxChecker.DoCheck"); }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex, "Exception during DropboxChecker.DoCheck");
+                }
 
                 try
                 {
                     AutoImportFromMendeleyChecker.DoCheck();
                 }
-                catch (Exception ex) { Logging.Error(ex, "Exception during AutoImportFromMendeleyChecker.DoCheck"); }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex, "Exception during AutoImportFromMendeleyChecker.DoCheck");
+                }
 
                 try
                 {
                     AutoImportFromEndnoteChecker.DoCheck();
                 }
-                catch (Exception ex) { Logging.Error(ex, "Exception during AutoImportFromEndnoteChecker.DoCheck"); }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex, "Exception during AutoImportFromEndnoteChecker.DoCheck");
+                }
             }
 
             // We only want this to run once
@@ -182,7 +200,7 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
 
                 try
                 {
-                    metadata_extraction_daemon.DoMaintenance(library, daemon);
+                    metadata_extraction_daemon.DoMaintenance(library);
                 }
                 catch (Exception ex)
                 {
@@ -191,7 +209,7 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
 
                 try
                 {
-                    library.LibraryIndex.IncrementalBuildIndex(daemon);
+                    library.LibraryIndex.IncrementalBuildIndex();
                 }
                 catch (Exception ex)
                 {

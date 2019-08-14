@@ -5,6 +5,7 @@ using Qiqqa.Common.GeneralTaskDaemonStuff;
 using Qiqqa.Documents.PDF;
 using Utilities;
 using Qiqqa.Common.TagManagement;
+using System.Diagnostics;
 
 namespace Qiqqa.DocumentLibrary.FolderWatching
 {
@@ -175,7 +176,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                     break;
                 }
 
-                if (!daemon.StillRunning)
+                if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
                 {
                     Logging.Debug("FolderWatcher: Breaking out of outer processing loop due to daemon termination");
                     break;
@@ -187,13 +188,22 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 int processed_file_count = 0;
 
                 // If we get this far then there might be some work to do in the folder...
-                string[] filenames_in_folder = Directory.GetFiles(previous_folder_to_watch, "*.pdf", SearchOption.AllDirectories);
+                Stopwatch clk = new Stopwatch();
+                clk.Start();
+                IEnumerable<string> filenames_in_folder = Directory.EnumerateFiles(previous_folder_to_watch, "*.pdf", SearchOption.AllDirectories);
+                Logging.Debug("Directory.GetFiles took {0} ms", clk.ElapsedMilliseconds);
 
                 List<PDFDocument> pdf_documents_already_in_library = library.PDFDocuments;
 
                 List<string> filenames_that_are_new = new List<string>();
                 foreach (string filename in filenames_in_folder)
                 {
+	                if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+                    {
+                        Logging.Debug("FolderWatcher: Breaking out of inner processing loop due to daemon termination");
+                        break;
+                    }
+
                     // If we already have this file in the "cache since we started", skip it
                     if (folder_watcher_manager.HaveProcessedFile(filename))
                     {
@@ -261,6 +271,12 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
                     // Add this file to the list of processed files...
                     folder_watcher_manager.RememberProcessedFile(filename);
+                }
+
+                if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+                {
+                    Logging.Debug("FolderWatcher: Breaking out of outer processing loop due to daemon termination");
+                    break;
                 }
 
                 // Create the import records

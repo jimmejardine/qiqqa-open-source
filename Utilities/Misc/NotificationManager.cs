@@ -83,7 +83,7 @@ namespace Utilities.Misc
 
         private readonly Queue<Notification> pending_notifications = new Queue<Notification>(2);
         private readonly ReaderWriterLockSlim pending_notifications_lock = new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
-        private readonly Daemon daemon;
+        private Daemon daemon;
 
         private DateTime last_notification_fired = DateTime.MinValue;
         private const int DelayBetweenNotificationsSeconds = 60;
@@ -133,7 +133,16 @@ namespace Utilities.Misc
         private void DoShutdown()
         {
             Logging.Info("Shutting down notifications ({0} pending)", pending_notifications.Count);
-            if (daemon != null) daemon.Stop();
+
+            // get out of the WaitOne() *fast*:
+            auto_reset_event.Set();
+
+            // signal thread kill:
+            if (daemon != null)
+            {
+                daemon.Stop();
+            }
+            daemon = null;
         }
 
         /// <summary>
@@ -143,7 +152,7 @@ namespace Utilities.Misc
         {
             Logging.Info("Starting Notifications daemon");
 
-            while (daemon.StillRunning)
+            while (null != daemon && daemon.StillRunning && !Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
             {
                 pending_notifications_lock.EnterUpgradeableReadLock();
                 try

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -40,12 +41,14 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             {
                 if (File.Exists(Filename_DocumentProgressList))
                 {
+                    Stopwatch clk = new Stopwatch();
+                    clk.Start();
                     Logging.Info("+Loading historical progress file: {0}", Filename_DocumentProgressList);
                     lock (pdf_documents_in_library_lock)
                     {
                         pdf_documents_in_library = (Dictionary<string, PDFDocumentInLibrary>)SerializeFile.LoadSafely(Filename_DocumentProgressList);
                     }
-                    Logging.Info("-Loaded historical progress file: {0}", Filename_DocumentProgressList);
+                    Logging.Info("-Loaded historical progress file: {0} (time spent: {1} ms)", Filename_DocumentProgressList, clk.ElapsedMilliseconds);
                 }
             }
             catch (Exception ex)
@@ -110,26 +113,30 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
         #endregion
 
-        public void IncrementalBuildIndex(Daemon daemon)
+        public void IncrementalBuildIndex()
         {
             if (DateTime.UtcNow.Subtract(time_of_last_library_scan).TotalSeconds > LIBRARY_SCAN_PERIOD_SECONDS)
             {
-                RescanLibrary();
-                time_of_last_library_scan = DateTime.UtcNow;
+                if (RescanLibrary())
+                {
+                    time_of_last_library_scan = DateTime.UtcNow;
+                }
             }
 
-            bool did_some_work = IncrementalBuildNextDocuments(daemon);
+            bool did_some_work = IncrementalBuildNextDocuments();
 
             // Flush to disk
             if (did_some_work)
             {
+                Stopwatch clk = new Stopwatch();
+                clk.Start();
                 Logging.Info("+Writing the index master list");
                 word_index_manager.WriteMasterList();
                 lock (pdf_documents_in_library_lock)
                 {
                     SerializeFile.SaveSafely(Filename_DocumentProgressList, pdf_documents_in_library);
                 }
-                Logging.Info("-Wrote the index master list");
+                Logging.Info("-Wrote the index master list (time spent: {0} ms", clk.ElapsedMilliseconds);
 
                 // Report to user
                 UpdateStatus();
@@ -211,7 +218,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
         }
 
 
-        private void RescanLibrary()
+        private bool RescanLibrary()
         {
             // We include the deleted ones because we need to reindex their metadata...
             List<PDFDocument> pdf_documents = library.PDFDocuments_IncludingDeleted;
@@ -222,6 +229,12 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             {
                 foreach (PDFDocument pdf_document in pdf_documents)
                 {
+                    if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+                    {
+                        Logging.Debug("Breaking out of RescanLibrary loop due to application termination");
+                        return false;
+                    }
+
                     try
                     {
                         if (!pdf_documents_in_library.ContainsKey(pdf_document.Fingerprint))
@@ -258,6 +271,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             {
                 Logging.Info("There are {0} new document(s) to be indexed", total_new_to_be_indexed);
             }
+            return true;
         }
 
         public void InvalidateIndex()
@@ -265,7 +279,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             word_index_manager.InvalidateIndex();
         }
 
-        private bool IncrementalBuildNextDocuments(Daemon daemon)
+        private bool IncrementalBuildNextDocuments()
         {
             bool did_some_work = false;
 
@@ -300,9 +314,9 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                         break;
                     }
 
-                    if (daemon != null && !daemon.StillRunning)
+                    if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
                     {
-                        Logging.Debug("Breaking out of IncrementalBuildNextDocuments processing loop due to daemon termination");
+                        Logging.Debug("Breaking out of IncrementalBuildNextDocuments processing loop due to application termination");
                         break;
                     }
 
