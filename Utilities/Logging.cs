@@ -43,20 +43,20 @@ namespace Utilities
 
         public static void Debug(string msg)
         {
-            log.Debug(PrefixMemUsage(AppendStackTrace(msg)));
+            log.Debug(CheckToBreakIntoDebugger(PrefixMemUsage(AppendStackTrace(msg))));
         }
 
         public static string Debug(string msg, params object[] args)
         {
             string message = String.Format(msg, args);
-            log.Debug(PrefixMemUsage(AppendStackTrace(message)));
+            log.Debug(CheckToBreakIntoDebugger(PrefixMemUsage(AppendStackTrace(message))));
             return message;
         }
 
         public static string Debug(Exception ex)
         {
             string message = ex.ToString();
-            log.Debug(PrefixMemUsage(AppendStackTrace(message)));
+            log.Debug(CheckToBreakIntoDebugger(PrefixMemUsage(AppendStackTrace(message))));
             return message;
         }
 
@@ -68,26 +68,26 @@ namespace Utilities
             sb.AppendLine();
             sb.Append(ex.ToString());
             string message = sb.ToString();
-            log.Debug(PrefixMemUsage(AppendStackTrace(message)));
+            log.Debug(CheckToBreakIntoDebugger(PrefixMemUsage(AppendStackTrace(message))));
             return message;
         }
 
         public static void Info(string msg)
         {
-            log.Info(PrefixMemUsage(AppendStackTrace(msg)));
+            log.Info(CheckToBreakIntoDebugger(PrefixMemUsage(AppendStackTrace(msg))));
         }
 
         public static string Info(string msg, params object[] args)
         {
             string message = String.Format(msg, args);
-            log.Info(PrefixMemUsage(AppendStackTrace(message)));
+            log.Info(CheckToBreakIntoDebugger(PrefixMemUsage(AppendStackTrace(message))));
             return message;
         }
 
         public static string Warn(string msg, params object[] args)
         {
             string message = String.Format(msg, args);
-            log.Warn(PrefixMemUsage(AppendStackTrace(message)));
+            log.Warn(CheckToBreakIntoDebugger(PrefixMemUsage(AppendStackTrace(message))));
             return message;
         }
 
@@ -98,21 +98,21 @@ namespace Utilities
             sb.AppendLine();
             sb.Append(ex.ToString());
             string message = sb.ToString();
-            log.Warn(PrefixMemUsage(AppendStackTrace(message)));
+            log.Warn(CheckToBreakIntoDebugger(PrefixMemUsage(AppendStackTrace(message))));
             return message;
         }
 
         public static string Error(string msg, params object[] args)
         {
             string message = String.Format(msg, args);
-            log.Error(PrefixMemUsage(AppendStackTrace(message)));
+            log.Error(CheckToBreakIntoDebugger(PrefixMemUsage(AppendStackTrace(message))));
             return message;
         }
 
         public static string Error(Exception ex)
         {
             string message = ex.ToString();
-            log.Error(PrefixMemUsage(AppendStackTrace(message)));
+            log.Error(CheckToBreakIntoDebugger(PrefixMemUsage(AppendStackTrace(message))));
             return message;
         }
 
@@ -124,7 +124,7 @@ namespace Utilities
             sb.AppendLine();
             sb.Append(ex.ToString());
             string message = sb.ToString();
-            log.Error(PrefixMemUsage(AppendStackTrace(message)));
+            log.Error(CheckToBreakIntoDebugger(PrefixMemUsage(AppendStackTrace(message))));
             return message;
         }
 
@@ -140,6 +140,22 @@ namespace Utilities
             }
 
             return null;
+        }
+
+        private static string CheckToBreakIntoDebugger(string msg)
+        {
+            if (msg.Contains("Browser") 
+                || msg.Contains("Active browser control changed")
+                || msg.Contains("Error while processing pipe connection")
+                || msg.Contains("ObjectDisposedException")
+                || msg.Contains("ArgumentOutOfRangeException")
+                || msg.Contains("IndexOutOfRangeException")
+            )
+            {
+                // break!
+                msg = "BRK!" + msg;
+            }
+            return msg;
         }
     }
 }
