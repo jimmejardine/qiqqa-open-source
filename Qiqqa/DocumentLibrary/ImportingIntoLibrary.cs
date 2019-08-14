@@ -70,6 +70,9 @@ namespace Qiqqa.DocumentLibrary
 
         public static PDFDocument AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(Library library, bool suppress_notifications, bool suppress_signal_that_docs_have_changed, FilenameWithMetadataImport[] filename_with_metadata_imports)
         {
+            Stopwatch clk = new Stopwatch();
+            clk.Start();
+
             // Notify if there is just a single doc
             suppress_notifications = suppress_notifications || (filename_with_metadata_imports.Length > 1);
 
@@ -81,6 +84,12 @@ namespace Qiqqa.DocumentLibrary
             int successful_additions = 0;
             for (int i = 0; i < filename_with_metadata_imports.Length; ++i)
             {
+                if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+                {
+                    Logging.Debug("FolderWatcher: Breaking out of outer processing loop due to application termination");
+                    break;
+                }
+
                 if (StatusManager.Instance.IsCancelled("BulkLibraryDocument"))
                 {
                     Logging.Warn("User chose to stop bulk adding documents to the library");
@@ -158,6 +167,8 @@ namespace Qiqqa.DocumentLibrary
                     File.Delete(problematic_import_documents_filename);
                 }
             }
+
+            Logging.Debug("AddNewPDFDocumentsToLibraryFromFolder_SYNCHRONOUS: time spent: {0} ms", clk.ElapsedMilliseconds);
 
             return last_added_pdf_document;
         }

@@ -15,7 +15,7 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
     {
         CountingDictionary<string> pdfs_retry_count = new CountingDictionary<string>();
 
-        public void DoMaintenance(Library library, Daemon daemon)
+        public void DoMaintenance(Library library)
         {
             Stopwatch sw_total = new Stopwatch();
             sw_total.Start();
@@ -45,13 +45,13 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
 
                 if (DateTime.UtcNow.Subtract(index_processing_start_time).TotalSeconds > MAX_SECONDS_PER_ITERATION)
                 {
-                    Logging.Info("DoMaintenance: Breaking out of outer processing loop due to MAX_SECONDS_PER_ITERATION: {0} seconds consumed", DateTime.UtcNow.Subtract(index_processing_start_time).TotalSeconds);
+                    Logging.Info("MetadataExtractionDaemon::DoMaintenance: Breaking out of outer processing loop due to MAX_SECONDS_PER_ITERATION: {0} seconds consumed", DateTime.UtcNow.Subtract(index_processing_start_time).TotalSeconds);
                     break;
                 }
 
-                if (!daemon.StillRunning)
+                if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
                 {
-                    Logging.Debug("DoMaintenance: Breaking out of outer processing loop due to daemon termination");
+                    Logging.Debug("MetadataExtractionDaemon::DoMaintenance: Breaking out of outer processing loop due to application termination");
                     break;
                 }
 
@@ -75,7 +75,7 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
                             }
                         }
 
-                        if (!daemon.StillRunning)
+                        if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
                         {
                             Logging.Debug("Breaking out of MetadataExtractionDaemon PDF fingerprinting loop due to daemon termination");
                             break;
@@ -104,7 +104,7 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
                 // Get each of our guys to start rendering their first pages so we can do some extraction
                 foreach (PDFDocument pdf_document in pdfs_to_process)
                 {
-                    if (!daemon.StillRunning)
+                    if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
                     {
                         Logging.Debug("Breaking out of MetadataExtractionDaemon PDF processing loop due to daemon termination");
                         break;
@@ -137,7 +137,7 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
                         break;
                     }
 
-                    if (!daemon.StillRunning)
+                    if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
                     {
                         Logging.Debug("Breaking out of MetadataExtractionDaemon metadata suggesting loop due to daemon termination");
                         break;
@@ -183,7 +183,7 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
                 }
                 else
                 {
-                    Logging.Debug("DoMaintenance: Breaking out of outer processing loop due to no more files to process (count = {0})", pdfs_to_process.Count);
+                    Logging.Debug("MetadataExtractionDaemon::DoMaintenance: Breaking out of outer processing loop due to no more files to process (count = {0})", pdfs_to_process.Count);
                     break;
                 }
             }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using Lucene.Net.Analysis;
@@ -86,6 +87,8 @@ namespace Utilities.Language.TextIndexing
         
         private void FlushIndexWriter_LOCK()
         {
+            Stopwatch clk = new Stopwatch();
+            clk.Start();
             Logging.Info("+Flushing a lucene IndexWriter");
             if (null != index_writer)
             {
@@ -95,7 +98,7 @@ namespace Utilities.Language.TextIndexing
                 index_writer.Dispose();
                 index_writer = null;
             }
-            Logging.Info("-Flushing a lucene IndexWriter");
+            Logging.Info("-Flushing a lucene IndexWriter (time spent: {0} ms", clk.ElapsedMilliseconds);
         }
 
         private static void AddDocumentMetadata_SB(Document document, StringBuilder sb, string field_name, string field_value)

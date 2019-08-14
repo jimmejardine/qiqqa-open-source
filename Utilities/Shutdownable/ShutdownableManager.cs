@@ -24,9 +24,35 @@ namespace Utilities.Shutdownable
             }
         }
 
+        private bool is_being_shutting_down = false;
+        private object is_being_shutting_down_lock = new object();
+
+        public bool IsShuttingDown
+        {
+            get
+            {
+                lock (is_being_shutting_down_lock)
+                {
+                    return is_being_shutting_down;
+                }
+            }
+            set
+            {
+                lock (is_being_shutting_down_lock)
+                {
+                    if (!is_being_shutting_down)
+                    {
+                        is_being_shutting_down = true;
+                    }
+                }
+            }
+        }
+
         public void Shutdown()
         {
             Logging.Info("ShutdownableManager is shutting down all shutdownables:");
+
+            this.IsShuttingDown = true;
 
             while (true)
             {

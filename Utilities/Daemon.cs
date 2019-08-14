@@ -7,7 +7,8 @@ namespace Utilities
     {
         string daemon_name;
         Thread thread;
-        bool still_running;
+        bool still_running = false;
+        object still_running_lock = new object();
 
         public Daemon(string daemon_name)
         {
@@ -15,25 +16,43 @@ namespace Utilities
         }
 
         public void Start(ParameterizedThreadStart thread_start, object param)
-        {            
+        {
             thread = new Thread(thread_start);
             thread.Name = "Daemon." + daemon_name;
             still_running = true;
             thread.Start(param);
         }
 
+        /// <summary>
+        /// Signal the daemon thread that it is being terminated.
+        /// 
+        /// Check for this signal by testing <code>daemon.StillRunning</code>.
+        /// 
+        /// <see cref="StillRunning" /> 
+        /// </summary>
         public void Stop()
         {
-            still_running = false;
+            lock (still_running_lock)
+            {
+                still_running = false;
+            }
         }
 
         public void Join()
         {
-            thread.Join();            
+            // when user code hasn't called Stop() yt, we do it for them to signal 
+            // any running code in the thread that time is up:
+            Stop();
+
+            thread.Join();
         }
 
         public bool Join(int timeout_milliseconds)
         {
+            // when user code hasn't called Stop() yt, we do it for them to signal 
+            // any running code in the thread that time is up:
+            Stop();
+
             return thread.Join(timeout_milliseconds);
         }
 
@@ -41,13 +60,16 @@ namespace Utilities
         {
             get
             {
-                return still_running;
+                lock (still_running_lock)
+                {
+                    return still_running;
+                }
             }
         }
 
         public void Sleep()
         {
-            Sleep(500);            
+            Sleep(500);
         }
 
         public ThreadPriority Priority
@@ -57,7 +79,7 @@ namespace Utilities
                 thread.Priority = value;
             }
         }
-        
+
         /// <summary>
         /// Put the daemon to sleep, but in a way that will end sooner if the app is exiting
         /// </summary>
@@ -67,10 +89,10 @@ namespace Utilities
             int timeout_milliseconds_remaining = timeout_milliseconds;
             while (StillRunning && timeout_milliseconds_remaining > 0)
             {
-                int sleep_time = Math.Min(timeout_milliseconds_remaining, 1000);
-                timeout_milliseconds_remaining -= sleep_time;                
+                int sleep_time = Math.Min(timeout_milliseconds_remaining, 500);
+                timeout_milliseconds_remaining -= sleep_time;
                 Thread.Sleep(sleep_time);
-            }            
+            }
         }
     }
 }
