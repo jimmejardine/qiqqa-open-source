@@ -54,7 +54,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AuthorExplorerStuff
 
         internal static MultiMapSet<string, string> GetNodeItems(Library library, HashSet<string> parent_fingerprints)
         {
-            Logging.Info("+Getting node items for " + "Authors");
+            Logging.Info("+Getting node items for Authors");
 
             List<PDFDocument> pdf_documents = null;
             if (null == parent_fingerprints)

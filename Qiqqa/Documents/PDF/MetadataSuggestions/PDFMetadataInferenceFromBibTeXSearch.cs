@@ -6,6 +6,7 @@ using Qiqqa.Documents.PDF.Search;
 using Qiqqa.UtilisationTracking;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -136,6 +137,7 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
                 string auth = title;
                 if (0 < auth.Length)
                 {
+                    // construct key for bibtexsearch.com authentication hash: 
                     auth = auth[0] + auth + auth[0];
                 }
                 auth = StreamFingerprint.FromText(auth);
@@ -146,10 +148,10 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
                 {
                     MemoryStream ms;
                     WebHeaderCollection header_collection;
-                    DateTime START = DateTime.UtcNow;
+                    Stopwatch clk = new Stopwatch();
+                    clk.Start();
                     UrlDownloader.DownloadWithBlocking(ConfigurationManager.Instance.Proxy, url, out ms, out header_collection);
-                    DateTime STOP = DateTime.UtcNow;
-                    bibtex_search_server_manager.ReportLatency(url_server, (STOP - START).TotalMilliseconds);
+                    bibtex_search_server_manager.ReportLatency(url_server, clk.ElapsedMilliseconds);
 
                     string json = Encoding.UTF8.GetString(ms.ToArray());
                     return json;

@@ -72,7 +72,6 @@ namespace Qiqqa.DocumentLibrary
             if (!ADVANCED_MENUS) ButtonSync.Caption = LocalisationManager.Get("LIBRARY/CAP/POPUP_SYNC");
             ButtonSync.ToolTip = LocalisationManager.Get("LIBRARY/TIP/POPUP_SYNC");
 
-
             // Then the menus
             ButtonAddVanillaReference.Icon = Icons.GetAppIcon(Icons.New);
             ButtonAddVanillaReference.Caption = LocalisationManager.Get("LIBRARY/CAP/ADD_REFERENCE");
@@ -135,7 +134,6 @@ namespace Qiqqa.DocumentLibrary
             ButtonAnnotationsReport.Click += ButtonAnnotationsReport_Click;
             WizardDPs.SetPointOfInterest(ButtonAnnotationsReport, "LibraryAnnotationReportButton");
 
-            {
                 ButtonGenerateReferences.Visibility = ConfigurationManager.Instance.NoviceVisibility;
                 ButtonGenerateReferences.Icon = Icons.GetAppIcon(Icons.LibraryGenerateReferences);
                 if (!ADVANCED_MENUS) ButtonGenerateReferences.Caption = LocalisationManager.Get("LIBRARY/CAP/FIND_REFERENCES");
@@ -147,7 +145,6 @@ namespace Qiqqa.DocumentLibrary
                 if (!ADVANCED_MENUS) ButtonFindDuplicates.Caption = LocalisationManager.Get("LIBRARY/CAP/FIND_DUPLICATES");
                 ButtonFindDuplicates.ToolTip = LocalisationManager.Get("LIBRARY/TIP/FIND_DUPLICATES");
                 ButtonFindDuplicates.Click += ButtonFindDuplicates_Click;
-            }
 
             ButtonBibTexSniffer.Icon = Icons.GetAppIcon(Icons.BibTexSniffer);
             if (!ADVANCED_MENUS) ButtonBibTexSniffer.Caption = LocalisationManager.Get("LIBRARY/CAP/BIBTEX_SNIFFER");
@@ -159,7 +156,7 @@ namespace Qiqqa.DocumentLibrary
             if (!ADVANCED_MENUS) ButtonExplore.Caption = LocalisationManager.Get("LIBRARY/CAP/EXPLORE");
             ButtonExplore.ToolTip = LocalisationManager.Get("LIBRARY/TIP/EXPLORE");
             ButtonExplore.Visibility = ConfigurationManager.Instance.NoviceVisibility;
-            {
+
                 ButtonExpedition.Icon = Icons.GetAppIcon(Icons.ModuleExpedition);
                 ButtonExpedition.Caption = LocalisationManager.Get("LIBRARY/TIP/EXPEDITION");
                 ButtonExpedition.Click += ButtonExpedition_Click;
@@ -171,14 +168,13 @@ namespace Qiqqa.DocumentLibrary
                 ButtonExploreInPivot.Icon = Icons.GetAppIcon(Icons.LibraryPivot);
                 ButtonExploreInPivot.Caption = LocalisationManager.Get("LIBRARY/TIP/PIVOT");
                 ButtonExploreInPivot.Click += ButtonExploreInPivot_Click;
-            }
 
             ButtonExport.AttachPopup(ButtonExportPopup);
             ButtonExport.Icon = Icons.GetAppIcon(Icons.LibraryExport);
             if (!ADVANCED_MENUS) ButtonExport.Caption = LocalisationManager.Get("LIBRARY/CAP/POPUP_EXPORT");
             ButtonExport.ToolTip = LocalisationManager.Get("LIBRARY/TIP/POPUP_EXPORT");
             ButtonExport.Visibility = ConfigurationManager.Instance.NoviceVisibility;
-            {
+
                 ButtonExportLibrary.Icon = Icons.GetAppIcon(Icons.LibraryExport);
                 ButtonExportLibrary.Caption = LocalisationManager.Get("LIBRARY/CAP/EXPORT_LIBRARY");
                 ButtonExportLibrary.ToolTip = LocalisationManager.Get("LIBRARY/TIP/EXPORT_LIBRARY");
@@ -213,7 +209,6 @@ namespace Qiqqa.DocumentLibrary
                 ButtonExportAnnotationsCode.Caption = LocalisationManager.Get("LIBRARY/CAP/EXPORT_ANNOTATIONS_CODE");
                 ButtonExportAnnotationsCode.ToolTip = LocalisationManager.Get("LIBRARY/TIP/EXPORT_ANNOTATIONS_CODE");
                 ButtonExportAnnotationsCode.Click += ButtonExportAnnotationsCode_Click;
-            }
 
             ButtonAddDocuments.Icon = Icons.GetAppIcon(Icons.DocumentsAddToLibrary);
             ButtonAddDocuments.Caption = LocalisationManager.Get("LIBRARY/CAP/ADD_DOCUMENTS");

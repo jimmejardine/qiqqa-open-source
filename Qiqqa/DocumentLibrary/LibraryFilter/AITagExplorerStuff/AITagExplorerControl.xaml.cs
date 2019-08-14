@@ -145,7 +145,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
 
         internal static MultiMapSet<string, string> GetNodeItems(Library library, HashSet<string> parent_fingerprints)
         {
-            Logging.Info("+Getting node items for " + "AutoTags");
+            Logging.Info("+Getting node items for AutoTags");
 
             if (null == library.AITagManager.AITags)
             {

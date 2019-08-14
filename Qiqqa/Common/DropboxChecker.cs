@@ -24,7 +24,7 @@ namespace Qiqqa.Common
                 File.WriteAllText(FULL_FILENAME, WARNING);
 
                 // Check for other's versions
-                string[] matching_files = Directory.GetFiles(ConfigurationManager.Instance.BaseDirectoryForQiqqa, PREAMBLE_FILENAME+"*", SearchOption.TopDirectoryOnly);
+                string[] matching_files = Directory.GetFiles(ConfigurationManager.Instance.BaseDirectoryForQiqqa, PREAMBLE_FILENAME + "*", SearchOption.TopDirectoryOnly);
                 if (1 < matching_files.Length)
                 {
                     // We have a problem, Houston...

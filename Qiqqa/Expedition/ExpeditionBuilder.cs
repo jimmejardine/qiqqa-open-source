@@ -80,7 +80,6 @@ namespace Qiqqa.Expedition
                 {
                     not_aborted_by_user = not_aborted_by_user && progress_update_delegate("Scanning documents", total_processed_local / (double)data_source.docs.Count);
                 }
-                
 
                 List<int> tags_in_document = new List<int>();
 
