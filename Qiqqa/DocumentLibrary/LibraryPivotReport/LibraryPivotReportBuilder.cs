@@ -185,7 +185,7 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
                 if (null != fingerprints)
                 {
                     List<PDFDocument> pdf_documents = library.GetDocumentByFingerprints(fingerprints);
-                    gsi.CellValue = String.Join(";", pdf_documents.Select(pdf_document => pdf_document.BibTexKey ?? ("?"+pdf_document.Fingerprint)));
+                    gsi.CellValue = String.Join(";", pdf_documents.Select(pdf_document => pdf_document.BibTexKey ?? ("?" + pdf_document.Fingerprint)));
                     gsi.CellValueType = typeof(string);
                 }
             }

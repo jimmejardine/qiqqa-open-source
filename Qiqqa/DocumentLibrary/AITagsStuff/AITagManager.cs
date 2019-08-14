@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using Qiqqa.DocumentLibrary.DocumentLibraryIndex;
 using Qiqqa.Documents.PDF;
@@ -34,9 +35,11 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
             {
                 if (File.Exists(Filename_Store))
                 {
+                    Stopwatch clk = new Stopwatch();
+                    clk.Start();
                     Logging.Info("+Loading AutoTags");
                     current_ai_tags_record = SerializeFile.ProtoLoad<AITags>(Filename_Store);
-                    Logging.Info("-Loading AutoTags");
+                    Logging.Info("-Loading AutoTags (time spent: {0} ms", clk.ElapsedMilliseconds);
                 }
             }
             catch (Exception ex)
@@ -70,6 +73,9 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
 
                 regenerating_in_progress = true;
             }
+
+            Stopwatch clk = new Stopwatch();
+            clk.Start();
 
             try
             {
@@ -283,16 +289,15 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
                 }
 
                 StatusManager.Instance.UpdateStatus("AITags", "AutoTags generated!");
-
-                Logging.Info("-AITagManager is finished regenerating");
             }
-
             finally
             {
                 lock (in_progress_lock)
                 {
                     regenerating_in_progress = false;
                 }
+
+                Logging.Info("-AITagManager is finished regenerating (time spent: {0} ms", clk.ElapsedMilliseconds);
             }
 
             // Call any callback that might be interested

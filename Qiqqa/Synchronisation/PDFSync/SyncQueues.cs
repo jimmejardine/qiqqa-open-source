@@ -104,12 +104,10 @@ namespace Qiqqa.Synchronisation.PDFSync
                     ClearSyncQueue(fingerprints_to_put);
                 }
 
-
                 try
                 {
                     // --- TODO: Replace this with a pretty interface class ------------------------------------------------
-                    if (false) { }
-                    else if (sync_queue_entry.library.WebLibraryDetail.IsIntranetLibrary)
+                    if (sync_queue_entry.library.WebLibraryDetail.IsIntranetLibrary)
                     {
                         SyncQueues_Intranet.DaemonPut(sync_queue_entry.library, sync_queue_entry.fingerprint);
                     }
@@ -159,8 +157,7 @@ namespace Qiqqa.Synchronisation.PDFSync
                 try
                 {
                     // --- TODO: Replace this with a pretty interface class ------------------------------------------------
-                    if (false) { }
-                    else if (sync_queue_entry.library.WebLibraryDetail.IsIntranetLibrary)
+                    if (sync_queue_entry.library.WebLibraryDetail.IsIntranetLibrary)
                     {
                         SyncQueues_Intranet.DaemonGet(sync_queue_entry.library, sync_queue_entry.fingerprint);
                     }
@@ -209,7 +206,6 @@ namespace Qiqqa.Synchronisation.PDFSync
                 fingerprints.Clear();
             }
         }
-
 
         #endregion
     }

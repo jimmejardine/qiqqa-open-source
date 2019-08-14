@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Qiqqa.Common.Configuration;
@@ -194,6 +195,8 @@ namespace Qiqqa.DocumentLibrary
             {
                 library_is_loaded = false;
 
+                Stopwatch clk = new Stopwatch();
+                clk.Start();
                 Logging.Debug("+Build library from repository");
                 List<LibraryDB.LibraryItem> library_items = this.library_db.GetLibraryItems(null, PDFDocumentFileLocations.METADATA);
 
@@ -224,14 +227,12 @@ namespace Qiqqa.DocumentLibrary
 
                 StatusManager.Instance.ClearStatus("LibraryInitialLoad");
 
-                Logging.Debug("-Build library from repository");
+                Logging.Debug("-Build library from repository (time spent: {0} ms", clk.ElapsedMilliseconds);
             }
-
             catch (Exception ex)
             {
                 Logging.Error(ex, "There was a problem while building the document library");
             }
-
             finally
             {
                 library_is_loaded = true;
@@ -264,7 +265,6 @@ namespace Qiqqa.DocumentLibrary
                     SignalThatDocumentsHaveChanged(null);
                 }
             }
-
             catch (Exception ex)
             {
                 Logging.Warn(ex, "Couldn't load document from ", library_item);
