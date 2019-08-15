@@ -285,15 +285,20 @@ namespace Qiqqa.DocumentLibrary
                         }
                         catch (Exception ex)
                         {
-                            Logging.Error(ex, "AddNewDocumentToLibraryFromInternet: no Content-Disposition header received?\n  Headers:\n{0}", web_response.Headers);
+                            Logging.Error(ex, "AddNewDocumentToLibraryFromInternet: no Content-Disposition header received from {1}?\n  Headers:\n{0}", web_response.Headers, download_url);
 
                             // fallback: derive the filename from the URL:
                             original_filename = web_response.ResponseUri.LocalPath;
                         }
+                        // extract the type from the Content-Type header value:
+                        {
+                            ContentType ct = new ContentType(content_type);
+                            content_type = ct.MediaType.ToLower(CultureInfo.CurrentCulture);
+                        }
                         
                         bool is_acceptable_content_type = false;
-                        if (content_type.ToLower(CultureInfo.CurrentCulture).EndsWith("pdf")) is_acceptable_content_type = true;
-                        if (content_type.ToLower(CultureInfo.CurrentCulture).StartsWith("application/octet-stream")) is_acceptable_content_type = true;
+                        if (content_type.EndsWith("pdf")) is_acceptable_content_type = true;
+                        if (content_type.StartsWith("application/octet-stream")) is_acceptable_content_type = true;
 
                         if (is_acceptable_content_type)
                         {
@@ -310,7 +315,7 @@ namespace Qiqqa.DocumentLibrary
                         }
                         else
                         {
-                            if (content_type.ToLower(CultureInfo.CurrentCulture).EndsWith("html"))
+                            if (content_type.EndsWith("html"))
                             {
                                 using (StreamReader sr = new StreamReader(response_stream))
                                 {
