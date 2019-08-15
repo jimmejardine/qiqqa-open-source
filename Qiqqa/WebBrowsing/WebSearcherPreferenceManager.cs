@@ -40,6 +40,15 @@ namespace Qiqqa.WebBrowsing
             return preferences;
         }
 
+        /// <summary>
+        /// Load WebSearcher Preferences: the set of search engines (websites) which should be listed.
+        /// 
+        /// When any mandatory web searchers are specified through the <code>mandatory_web_searchers</code>
+        /// argument, then these will be OR-combined with the set stored as preferences.
+        /// </summary>
+        /// <param name="mandatory_web_searchers">May be NULL or a set of required web searchers; these will be 
+        /// added to the returned set, next to the preferences set.</param>
+        /// <returns>A set of websearcher identifiers.</returns>
         public HashSet<string> LoadPreferences(HashSet<string> mandatory_web_searchers = null)
         {
             HashSet<string> preferences = new HashSet<string>();
