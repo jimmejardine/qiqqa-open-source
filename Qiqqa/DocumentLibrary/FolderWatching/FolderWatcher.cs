@@ -163,7 +163,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             // To reconstruct the entire index will take a *long* time. We grow the index and other meta
             // stores a bunch-of-files at a time and then repeat the entire maintenance process until
             // we'll be sure to have run out of files to process for sure...
-            const int MAX_NUMBER_OF_PDF_FILES_TO_PROCESS = 10;
+            const int MAX_NUMBER_OF_PDF_FILES_TO_PROCESS = 5;
             const int MAX_SECONDS_PER_ITERATION = 15;
             DateTime index_processing_start_time = DateTime.UtcNow;
 
@@ -185,7 +185,10 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 // Mark that we are now processing the folder
                 folder_contents_has_changed = false;
 
+                int processing_file_count = 0;
                 int processed_file_count = 0;
+                int scanned_file_count = 0;
+                int skipped_file_count = 0;
 
                 // If we get this far then there might be some work to do in the folder...
                 Stopwatch clk = new Stopwatch();
@@ -204,10 +207,23 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                         break;
                     }
 
+                    scanned_file_count++;
+
+                    if (DateTime.UtcNow.Subtract(index_processing_start_time).TotalSeconds > MAX_SECONDS_PER_ITERATION)
+                    {
+                        Logging.Info("FolderWatcher: Taking a nap due to MAX_SECONDS_PER_ITERATION: {0} seconds consumed", DateTime.UtcNow.Subtract(index_processing_start_time).TotalSeconds);
+                        daemon.Sleep(1 * 1000);
+                        // As we have slept a while, it's quite unsure whether that file still exists. Skip it and 
+                        // let the next round find it later on.
+                        folder_contents_has_changed = true;
+                        continue;
+                    }
+
                     // If we already have this file in the "cache since we started", skip it
                     if (folder_watcher_manager.HaveProcessedFile(filename))
                     {
                         Logging.Debug("FolderWatcher is skipping {0} as it has already been processed", filename);
+                        skipped_file_count++;
                         continue;
                     }
 
@@ -226,7 +242,15 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                     {
                         // Add this file to the list of processed files...
                         folder_watcher_manager.RememberProcessedFile(filename);
+                        skipped_file_count++;
+                        continue;
+                    }
 
+                    // Check that the file is not still locked - if it is, mark that the folder is still "changed" and come back later..
+                    if (IsFileLocked(filename))
+                    {
+                        Logging.Info("Watched folder contains file '{0}' which is locked, so coming back later...", filename);
+                        folder_contents_has_changed = true;
                         continue;
                     }
 
@@ -242,52 +266,26 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                     // we would never make it batch the first batch as then our count limit
                     // would trigger already for every round through here!
                     //
-                    processed_file_count++;
-
-                    if (processed_file_count > MAX_NUMBER_OF_PDF_FILES_TO_PROCESS)
-                    {
-                        Logging.Info("FolderWatcher: {0} files have been processed/inspected", processed_file_count);
-                        folder_contents_has_changed = true;
-                        break;
-                    }
-
-                    if (DateTime.UtcNow.Subtract(index_processing_start_time).TotalSeconds > MAX_SECONDS_PER_ITERATION)
-                    {
-                        Logging.Info("FolderWatcher: Breaking out of inner processing loop due to MAX_SECONDS_PER_ITERATION: {0} seconds consumed", DateTime.UtcNow.Subtract(index_processing_start_time).TotalSeconds);
-                        folder_contents_has_changed = true;
-                        break;
-                    }
-
-                    // Check that the file is not still locked - if it is, mark that the folder is still "changed" and come back later..
-                    if (IsFileLocked(filename))
-                    {
-                        Logging.Info("Watched folder contains file '{0}' which is locked, so coming back later...", filename);
-                        folder_contents_has_changed = true;
-                        continue;
-                    }
+                    processing_file_count++;
 
                     Logging.Info("FolderWatcher is importing {0}", filename);
                     filenames_that_are_new.Add(filename);
 
                     // Add this file to the list of processed files...
                     folder_watcher_manager.RememberProcessedFile(filename);
+
+                    if (processing_file_count >= MAX_NUMBER_OF_PDF_FILES_TO_PROCESS + processed_file_count)
+                    {
+                        Logging.Info("FolderWatcher: {0} of {1} files have been processed/inspected (total {2} scanned, {3} skipped, {4} ignored)", processed_file_count, processing_file_count, scanned_file_count, skipped_file_count, scanned_file_count - skipped_file_count - processing_file_count);
+                        // process one little batch, before we add any more:
+                        ProcessTheNewDocuments(filenames_that_are_new);
+                        processed_file_count = processing_file_count;
+                    }
                 }
 
-                if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
-                {
-                    Logging.Debug("FolderWatcher: Breaking out of outer processing loop due to daemon termination");
-                    break;
-                }
-
-                // Create the import records
-                List<ImportingIntoLibrary.FilenameWithMetadataImport> filename_with_metadata_imports = new List<ImportingIntoLibrary.FilenameWithMetadataImport>();
-                foreach (var filename in filenames_that_are_new)
-                {
-                    filename_with_metadata_imports.Add(new ImportingIntoLibrary.FilenameWithMetadataImport { filename = filename, tags = new List<string>(this.tags) });
-                }
-
-                // Get the library to import all these new files
-                ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(library, true, true, filename_with_metadata_imports.ToArray());
+                Logging.Info("FolderWatcher: {0} of {1} files have been processed/inspected (total {2} scanned, {3} skipped, {4} ignored)", processed_file_count, processing_file_count, scanned_file_count, skipped_file_count, scanned_file_count - skipped_file_count - processing_file_count);
+                // process the remainder: a last little batch:
+                ProcessTheNewDocuments(filenames_that_are_new);
 
                 Logging.Debug("FolderWatcher End-Of-Round");
 
@@ -295,6 +293,24 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             }
 
             Logging.Debug("FolderWatcher END");
+        }
+
+        private void ProcessTheNewDocuments(List<string> filenames_that_are_new)
+        {
+            if (0 == filenames_that_are_new.Count)
+            {
+                return;
+            }
+
+            // Create the import records
+            List<ImportingIntoLibrary.FilenameWithMetadataImport> filename_with_metadata_imports = new List<ImportingIntoLibrary.FilenameWithMetadataImport>();
+            foreach (var filename in filenames_that_are_new)
+            {
+                filename_with_metadata_imports.Add(new ImportingIntoLibrary.FilenameWithMetadataImport { filename = filename, tags = new List<string>(this.tags) });
+            }
+
+            // Get the library to import all these new files
+            ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(library, true, true, filename_with_metadata_imports.ToArray());
         }
 
         bool IsFileLocked(string filename)

@@ -68,7 +68,6 @@ namespace Qiqqa.WebBrowsing
                     ObjListWebSearchers.SelectedItems.Add(searcher);
                 }
             }
-
         }
     }
 }
