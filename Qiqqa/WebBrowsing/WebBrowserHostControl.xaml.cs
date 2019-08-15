@@ -103,10 +103,34 @@ namespace Qiqqa.WebBrowsing
             wbc_browsing = new WebBrowserControl(this);
 
             TabWebBrowserControls.OnActiveItemChanged += TabWebBrowserControls_OnActiveItemChanged;
+            TabWebBrowserControls.SourceUpdated += TabWebBrowserControls_SourceUpdated;
+            TabWebBrowserControls.TargetUpdated += TabWebBrowserControls_TargetUpdated;
+            TabWebBrowserControls.Unloaded += TabWebBrowserControls_Unloaded;
+            TabWebBrowserControls.Initialized += TabWebBrowserControls_Initialized;
 
             RebuildSearchers();
 
             Logging.Info("-WebBrowserHostControl()");
+        }
+
+        private void TabWebBrowserControls_Initialized(object sender, EventArgs e)
+        {
+            Logging.Debug("x");
+        }
+
+        private void TabWebBrowserControls_Unloaded(object sender, RoutedEventArgs e)
+        {
+            Logging.Debug("x");
+        }
+
+        private void TabWebBrowserControls_TargetUpdated(object sender, System.Windows.Data.DataTransferEventArgs e)
+        {
+            Logging.Debug("x");
+        }
+
+        private void TabWebBrowserControls_SourceUpdated(object sender, System.Windows.Data.DataTransferEventArgs e)
+        {
+            Logging.Debug("x");
         }
 
         void ButtonEZProxy_Click(object sender, RoutedEventArgs e)
@@ -155,6 +179,7 @@ namespace Qiqqa.WebBrowsing
             ButtonPrint.Caption = null;
             ButtonEZProxy.Caption = null;
             ButtonGrabPDFs.Caption = null;
+            ButtonAddToLibrary.Caption = null;
 
             TxtWebAddress.Visibility = Visibility.Collapsed;
             TxtSearchTheWeb.Visibility = Visibility.Collapsed;
@@ -228,7 +253,7 @@ namespace Qiqqa.WebBrowsing
             DeleteSearchers();
 
             // Which are the entries we deffo want?
-            HashSet<string> requested_web_searchers = once_off_requested_web_searchers ?? WebSearcherPreferenceManager.Instance.LoadPreferences();
+            HashSet<string> requested_web_searchers = WebSearcherPreferenceManager.Instance.LoadPreferences(once_off_requested_web_searchers);
 
             // Create the new searchers
             foreach (string requested_web_searcher in requested_web_searchers)

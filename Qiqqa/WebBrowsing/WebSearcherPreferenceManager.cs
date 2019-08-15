@@ -27,22 +27,35 @@ namespace Qiqqa.WebBrowsing
 
             preferences.Add(WebSearchers.SCHOLAR_KEY);
             preferences.Add(WebSearchers.PUBMED_KEY);
-            preferences.Add("ARXIV");
-            preferences.Add("JSTOR");
-            preferences.Add("IEEEXPLORE");
-            preferences.Add("SCIVERSE");
-            preferences.Add("MSACADEMIC");
-            preferences.Add("WIKIPEDIA");
+            preferences.Add(WebSearchers.ARXIV_KEY);
+            preferences.Add(WebSearchers.JSTOR_KEY);
+            preferences.Add(WebSearchers.IEEEXPLORE_KEY);
+            preferences.Add(WebSearchers.SCIVERSE_KEY);
+            preferences.Add(WebSearchers.MSACADEMIC_KEY);
+            preferences.Add(WebSearchers.WIKIPEDIA_KEY);
+            //preferences.Add(WebSearchers.PUBMEDXML_KEY);
+            preferences.Add(WebSearchers.GOOGLE_US_KEY);
+            //preferences.Add(WebSearchers.GOOGLE_UK_KEY);
 
             return preferences;
         }
 
-        public HashSet<string> LoadPreferences()
+        public HashSet<string> LoadPreferences(HashSet<string> mandatory_web_searchers = null)
         {
+            HashSet<string> preferences = new HashSet<string>();
+
+            // mix in the required set:
+            if (null != mandatory_web_searchers)
+            {
+                foreach (string line in mandatory_web_searchers)
+                {
+                    preferences.Add(line.ToUpper());
+                }
+            }
+
             // If they have a preferences file
             if (File.Exists(PREFERENCES_FILENAME))
             {
-                HashSet<string> preferences = new HashSet<string>();
                 using (StreamReader sr = new StreamReader(PREFERENCES_FILENAME))
                 {
                     while (true)
@@ -65,10 +78,12 @@ namespace Qiqqa.WebBrowsing
 
 
             // If they have no preferences file, then return the default
+            Logging.Info("Returning default WebSearcher preferences because no preferences have been saved.");
+            foreach (string line in GetDefaultPreferences())
             {
-                Logging.Info("Returning default WebSearcher preferences because no preferences have been saved.");
-                return GetDefaultPreferences();
+                preferences.Add(line.ToUpper());
             }
+            return preferences;
         }
 
         public void SavePreferences(HashSet<string> preferences)
