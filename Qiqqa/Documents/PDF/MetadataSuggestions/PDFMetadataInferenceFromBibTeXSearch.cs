@@ -96,6 +96,14 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
                         if (0.75 > similarity) continue;
                     }
 
+                    if (!bibtex.Contains(BibTeXActionComments.AUTO_BIBTEXSEARCH))
+                    {
+                        bibtex =
+                            BibTeXActionComments.AUTO_BIBTEXSEARCH
+                            + "\r\n"
+                            + bibtex;
+                    }
+
                     // If we get this far, we are happy with the bibtex
                     bibtex_choices.Add(bibtex);
                 }
