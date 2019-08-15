@@ -29,7 +29,6 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             string matchFilenameRegex = "(.*?):(.*):(.*)";
             Regex rx = new Regex(matchFilenameRegex);
 
-
             foreach (var entry in Entries)
             {
                 try
@@ -39,15 +38,13 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                         #region Do some post processing on the file
                         /* 
                          * Samples: 
-                        
+                         * 
                          *  file = {sample.pdf:files/10/sample.pdf:application/pdf}
-                         *   file = {Google Books Link:undefined:text/html}
-                         *   file = {chris bishop - Google Scholar:files/21/scholar.html:text/html}
-                         
+                         *  file = {Google Books Link:undefined:text/html}
+                         *  file = {chris bishop - Google Scholar:files/21/scholar.html:text/html}
+                         *
                          * *NOTE THE MULTIPLE ATTACHMENTS HERE
                          * file = {Analytics_www.qiqqa.com_20100531_(Qiqqa_utilisation).pdf:files/24/Analytics_www.qiqqa.com_20100531_(Qiqqa_utilisation).pdf:application/pdf;Namecheap.com - Checkout : Secure Payment:files/26/payment.html:text/html}
-
-                         * 
                          */
 
                         //Since there can be multiple attachments, we take the first one with mime type application/pdf, with a valid file. 
@@ -82,7 +79,6 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                                     {
                                         //Ignore problems with weird filenames like "undefined".
                                     }
-
                                 }
                             }
                             else
@@ -119,7 +115,6 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                     Logging.Warn(ex, "Exception while parsing Zotero import");
                 }
             }
-
             
             return CreateFinalResult();
         }
