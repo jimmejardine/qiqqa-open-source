@@ -47,7 +47,6 @@ namespace Qiqqa.Common.GeneralTaskDaemonStuff
                         {
                             general_task_item.method.Invoke(target, new object[] { daemon });
                         }
-
                         catch (Exception ex)
                         {
                             Logging.Error(ex, "An exception occurred in the GeneralTaskDaemon with GeneralTaskItem {0}", general_task_item.description);

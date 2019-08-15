@@ -62,7 +62,6 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.OnlineDatabaseLookupStuff
             DoSearch(WebSearchers.ARXIV_KEY);
         }
 
-
         void DoSearch(string ACTIVE_SEARCH_KEY)
         {
             if (null == pdf_document) return;
