@@ -133,7 +133,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             ObjWebBrowser.TabChanged += ObjWebBrowser_TabChanged;
 
             PDFRendererControlArea.ToolTip = "This is the current PDF that has no BibTeX associated with it.  You can select text from the PDF to automatically search for that text.";
-            ObjWebBrowser.ToolTip = "Use this browser to hunt for BibTeX of PubMed XML.  As soon as you find some, it will automatically be associated with your PDFF.";
+            ObjWebBrowser.ToolTip = "Use this browser to hunt for BibTeX of PubMed XML.  As soon as you find some, it will automatically be associated with your PDF.";
             TxtBibTeX.ToolTip = "This is the BibTeX that is currently associated with the displayed PDF.\nFeel free to edit this or replace it with a # if there is no BibTeX for this record and you do not want the Sniffer to keep prompting you for some...";
 
             HyperlinkBibTeXLinksMissing.Click += HyperlinkBibTeXLinksMissing_Click;
