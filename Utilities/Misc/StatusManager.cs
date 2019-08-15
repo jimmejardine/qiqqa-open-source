@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Utilities.Shutdownable;
 
 namespace Utilities.Misc
 {
@@ -66,11 +67,23 @@ namespace Utilities.Misc
             }            
         }
 
-
         Dictionary<string, StatusEntry> status_entries = new Dictionary<string, StatusEntry>();
-        
+        // do note https://stackoverflow.com/questions/29557718/correct-way-to-lock-the-dictionary-object
+        // https://stackoverflow.com/questions/410270/can-you-lock-on-a-generic-dictionary
+        // https://stackoverflow.com/questions/16984598/can-i-use-dictionary-elements-as-lock-objects
+        // generic advice at https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/lock-statement#remarks
+        object status_entries_lock = new object();
+
         private StatusManager()
         {
+            ShutdownableManager.Instance.Register(Shutdown);
+        }
+
+        private void Shutdown()
+        {
+            Logging.Info("StatusManager is signalling shutdown");
+            // canceling all statuses which can be canceled:
+            SetAllCancelled();
         }
 
         public void ClearStatus(string key)
@@ -98,7 +111,6 @@ namespace Utilities.Misc
             UpdateStatus(key, message, current_update_number, total_update_count, cancellable);
         }
 
-
         public void UpdateStatus(string key, string message, long current_update_number, long total_update_count)
         {
             UpdateStatus(key, message, current_update_number, total_update_count, false);
@@ -115,7 +127,7 @@ namespace Utilities.Misc
 
             StatusEntry status_entry;
 
-            lock (status_entries)
+            lock (status_entries_lock)
             {                
                 if (!status_entries.TryGetValue(key, out status_entry))
                 {
@@ -163,6 +175,20 @@ namespace Utilities.Misc
             lock (cancelled_items)
             {
                 cancelled_items.Remove(key);
+            }
+        }
+
+        public void SetAllCancelled()
+        {
+            lock (status_entries_lock)
+            {
+                lock (cancelled_items)
+                {
+                    foreach (string key in status_entries.Keys)
+                    {
+                        cancelled_items.Add(key);
+                    }
+                }
             }
         }
     }
