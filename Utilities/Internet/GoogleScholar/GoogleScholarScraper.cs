@@ -11,7 +11,7 @@ namespace Utilities.Internet.GoogleScholar
     public class GoogleScholarScraper
     {
         // the google scholar search request has 2 parameters: the search criteria (text) and the max number of results (number) 
-        public static readonly string Url_GoogleScholarQuery = @"http://scholar.google.com/scholar?q={0}&num={1}";
+        public const string Url_GoogleScholarQuery = @"http://scholar.google.com/scholar?q={0}&num={1}";
 
         public static string GenerateQueryUrl(string query, int num_items)
         {

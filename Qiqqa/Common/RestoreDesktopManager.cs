@@ -219,8 +219,6 @@ namespace Qiqqa.Common
             }
         }
 
-        static StoredLocation stored_location;
-
         internal static void RestoreLocation(MainWindow main_window)
         {
             // https://stackoverflow.com/questions/16100/convert-a-string-to-an-enum-in-c-sharp

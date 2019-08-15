@@ -136,8 +136,6 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
             return pivot_result;
         }
 
-
-
         public static readonly string[] IDENTIFIER_CHOICES = new string[]
         {
             "Count"
