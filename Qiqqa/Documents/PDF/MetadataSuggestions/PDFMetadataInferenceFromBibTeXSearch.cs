@@ -152,6 +152,7 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
                     clk.Start();
                     UrlDownloader.DownloadWithBlocking(ConfigurationManager.Instance.Proxy, url, out ms, out header_collection);
                     bibtex_search_server_manager.ReportLatency(url_server, clk.ElapsedMilliseconds);
+                    Logging.Debug("bibtex_search_server_manager: Download {0} took {1} ms", url, clk.ElapsedMilliseconds);
 
                     string json = Encoding.UTF8.GetString(ms.ToArray());
                     return json;
