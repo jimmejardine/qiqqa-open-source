@@ -125,7 +125,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             }
 
             // Import the Qiqqa manuals...
-            QiqqaManualTools.AddManualsToLibrary(guest_web_library_detail.library);
+            QiqqaManualTools.AddManualsToLibrary(guest_web_library_detail.library, new LibraryPdfActionCallbacks());
         }
 
         public WebLibraryDetail WebLibraryDetails_Guest

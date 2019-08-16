@@ -120,9 +120,7 @@ namespace Qiqqa.DocumentLibrary
             //    Logging.Debug(sb.ToString());
             //}
 
-            if (false) { }
-
-            else if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[] filenames = (string[])e.Data.GetData(DataFormats.FileDrop);
 
@@ -141,7 +139,7 @@ namespace Qiqqa.DocumentLibrary
                 }
                 else
                 {
-                    ImportingIntoLibrary.AddNewPDFDocumentsToLibrary_ASYNCHRONOUS(library, false, false, filenames);
+                    ImportingIntoLibrary.AddNewPDFDocumentsToLibrary_ASYNCHRONOUS(library, false, filenames);
                 }
             }
 
@@ -156,7 +154,7 @@ namespace Qiqqa.DocumentLibrary
             {
                 PDFDocument pdf_document = (PDFDocument)e.Data.GetData(typeof(PDFDocument));
                 Logging.Info("The dropped item is {0}", pdf_document);
-                ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_ASYNCHRONOUS(pdf_document, library, false);
+                ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_ASYNCHRONOUS(pdf_document, library);
             }
 
             else if (e.Data.GetDataPresent(typeof(List<PDFDocument>)))

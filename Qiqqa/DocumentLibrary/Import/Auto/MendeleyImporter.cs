@@ -16,7 +16,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
             public int documents_found = 0;
             public int pdfs_found = 0;
 
-            public List<ImportingIntoLibrary.FilenameWithMetadataImport> metadata_imports = new List<ImportingIntoLibrary.FilenameWithMetadataImport>();
+            public List<FilenameWithMetadataImport> metadata_imports = new List<FilenameWithMetadataImport>();
 
             public string PotentialImportMessage
             {
@@ -175,7 +175,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                                                 bibtex_item["author"] = authors_lookup[document_id];
                                             }
 
-                                            ImportingIntoLibrary.FilenameWithMetadataImport fwmi = new ImportingIntoLibrary.FilenameWithMetadataImport();
+                                            FilenameWithMetadataImport fwmi = new FilenameWithMetadataImport();
                                             fwmi.tags.Add("import_mendeley");
                                             fwmi.bibtex = bibtex_item.ToBibTex();
 
@@ -192,6 +192,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                                                 filename = filename.Replace('/', '\\');
 
                                                 fwmi.filename = filename;
+                                                fwmi.suggested_download_source_uri = reader["localUrl"] as string;
 
                                                 ++mdd.pdfs_found;
                                             }                                            

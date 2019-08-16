@@ -233,22 +233,41 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                     // If we already have this file in the "pdf file locations", skip it
                     bool is_already_in_library = false;
 
-                    string fingerprint = StreamFingerprint.FromFile(filename);
+                    // Check that the file is not still locked - if it is, mark that the folder is still "changed" and come back later.
+                    //
+                    // We do this at the same tim as calculating the file fingerprint as both actions require (costly) File I/O
+                    // and can be folded together: if the fingerprint fails, that's 99.9% sure a failure in the File I/O, hence
+                    // a locked or otherwise inaccessible file.
+                    string fingerprint;
+                    try
+                    {
+                        fingerprint = StreamFingerprint.FromFile(filename);
+                    }
+                    catch (Exception)
+                    {
+                        Logging.Info("Watched folder contains file '{0}' which is locked, so coming back later...", filename);
+                        folder_contents_has_changed = true;
+                        continue;
+                    }
 
                     foreach (PDFDocument pdf_document in pdf_documents_already_in_library)
                     {
-#if OLD          // do NOT depend on the file staying the same; external activities may have replaced the PDF with another one!
+                        // do NOT depend on the file staying the same; external activities may have replaced the PDF with another one!
+                        //
+                        // Hence we SHOULD check using file FINGERPRINT, even though that's a costly operation:
+#if OLD          
                         if (pdf_document.DownloadLocation == filename)
                         {
                             is_already_in_library = true;
                             break;
                         }
-#endif
+#else
                         if (pdf_document.Fingerprint == fingerprint)
                         {
                             is_already_in_library = true;
                             break;
                         }
+#endif
                     }
 
                     if (is_already_in_library)
@@ -256,14 +275,6 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                         // Add this file to the list of processed files...
                         folder_watcher_manager.RememberProcessedFile(filename);
                         skipped_file_count++;
-                        continue;
-                    }
-
-                    // Check that the file is not still locked - if it is, mark that the folder is still "changed" and come back later..
-                    if (IsFileLocked(filename))
-                    {
-                        Logging.Info("Watched folder contains file '{0}' which is locked, so coming back later...", filename);
-                        folder_contents_has_changed = true;
                         continue;
                     }
 
@@ -284,14 +295,15 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                     Logging.Info("FolderWatcher is importing {0}", filename);
                     filenames_that_are_new.Add(filename);
 
-                    // Add this file to the list of processed files...
-                    folder_watcher_manager.RememberProcessedFile(filename);
-
                     if (processing_file_count >= MAX_NUMBER_OF_PDF_FILES_TO_PROCESS + processed_file_count)
                     {
                         Logging.Info("FolderWatcher: {0} of {1} files have been processed/inspected (total {2} scanned, {3} skipped, {4} ignored)", processed_file_count, processing_file_count, scanned_file_count, skipped_file_count, scanned_file_count - skipped_file_count - processing_file_count);
                         // process one little batch, before we add any more:
                         ProcessTheNewDocuments(filenames_that_are_new);
+
+                        // reset 
+                        filenames_that_are_new.Clear();
+
                         processed_file_count = processing_file_count;
                     }
                 }
@@ -316,31 +328,29 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             }
 
             // Create the import records
-            List<ImportingIntoLibrary.FilenameWithMetadataImport> filename_with_metadata_imports = new List<ImportingIntoLibrary.FilenameWithMetadataImport>();
             foreach (var filename in filenames_that_are_new)
             {
-                filename_with_metadata_imports.Add(new ImportingIntoLibrary.FilenameWithMetadataImport { filename = filename, tags = new List<string>(this.tags) });
-            }
-
-            // Get the library to import all these new files
-            ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(library, true, true, filename_with_metadata_imports.ToArray());
-
-            // TODO: refactor the ImportingIntoLibrary class 
-            //filename_with_metadata_imports.Clear();
-        }
-
-        bool IsFileLocked(string filename)
-        {
-            try
-            {
-                using (FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read, 1024 * 1024))
+                if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
                 {
-                    return false;
+                    Logging.Debug("FolderWatcher::ProcessTheNewDocuments: Aborting due to daemon termination");
+                    return;
                 }
-            }
-            catch (Exception)
-            {
-                return true;
+
+                var file_info = new FilenameWithMetadataImport
+                {
+                    filename = filename,
+                    tags = new List<string>(this.tags)
+                };
+
+                // Get the library to import all these new files
+                ImportingIntoLibrary.AddNewPDFDocumentToLibraryWithMetadata_ASYNCHRONOUS(library, true, file_info, new LibraryPdfActionCallbacks
+                {
+                    OnAdded = (pdf_document, filename) =>
+                    {
+                    // Add this file to the list of processed files...
+                    folder_watcher_manager.RememberProcessedFile(filename);
+                    }
+                });
             }
         }
     }
