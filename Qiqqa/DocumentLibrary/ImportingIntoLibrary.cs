@@ -326,8 +326,6 @@ namespace Qiqqa.DocumentLibrary
 
                 using (HttpWebResponse web_response = (HttpWebResponse)web_request.GetResponse())
                 {
-                    if (false) {}
-
                     if (HttpStatusCode.Redirect == web_response.StatusCode)
                     {
                         string redirect_url = web_response.Headers["Location"];

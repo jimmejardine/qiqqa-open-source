@@ -120,9 +120,7 @@ namespace Qiqqa.DocumentLibrary
             //    Logging.Debug(sb.ToString());
             //}
 
-            if (false) { }
-
-            else if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[] filenames = (string[])e.Data.GetData(DataFormats.FileDrop);
 

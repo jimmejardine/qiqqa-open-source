@@ -394,7 +394,7 @@ SourceURL: {0}
             {
                 if (pdf_document.Library.WebLibraryDetail == web_library_detail)
                 {
-                    same_library = true; ;
+                    same_library = true;
                 }
             }
             if (same_library)

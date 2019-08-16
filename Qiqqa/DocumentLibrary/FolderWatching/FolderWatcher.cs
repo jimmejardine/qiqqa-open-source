@@ -233,22 +233,41 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                     // If we already have this file in the "pdf file locations", skip it
                     bool is_already_in_library = false;
 
-                    string fingerprint = StreamFingerprint.FromFile(filename);
+                    // Check that the file is not still locked - if it is, mark that the folder is still "changed" and come back later.
+                    //
+                    // We do this at the same tim as calculating the file fingerprint as both actions require (costly) File I/O
+                    // and can be folded together: if the fingerprint fails, that's 99.9% sure a failure in the File I/O, hence
+                    // a locked or otherwise inaccessible file.
+                    string fingerprint;
+                    try
+                    {
+                        fingerprint = StreamFingerprint.FromFile(filename);
+                    }
+                    catch (Exception)
+                    {
+                        Logging.Info("Watched folder contains file '{0}' which is locked, so coming back later...", filename);
+                        folder_contents_has_changed = true;
+                        continue;
+                    }
 
                     foreach (PDFDocument pdf_document in pdf_documents_already_in_library)
                     {
-#if OLD          // do NOT depend on the file staying the same; external activities may have replaced the PDF with another one!
+                        // do NOT depend on the file staying the same; external activities may have replaced the PDF with another one!
+                        //
+                        // Hence we SHOULD check using file FINGERPRINT, even though that's a costly operation:
+#if OLD          
                         if (pdf_document.DownloadLocation == filename)
                         {
                             is_already_in_library = true;
                             break;
                         }
-#endif
+#else
                         if (pdf_document.Fingerprint == fingerprint)
                         {
                             is_already_in_library = true;
                             break;
                         }
+#endif
                     }
 
                     if (is_already_in_library)
@@ -256,14 +275,6 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                         // Add this file to the list of processed files...
                         folder_watcher_manager.RememberProcessedFile(filename);
                         skipped_file_count++;
-                        continue;
-                    }
-
-                    // Check that the file is not still locked - if it is, mark that the folder is still "changed" and come back later..
-                    if (IsFileLocked(filename))
-                    {
-                        Logging.Info("Watched folder contains file '{0}' which is locked, so coming back later...", filename);
-                        folder_contents_has_changed = true;
                         continue;
                     }
 
@@ -327,21 +338,6 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
             // TODO: refactor the ImportingIntoLibrary class 
             //filename_with_metadata_imports.Clear();
-        }
-
-        bool IsFileLocked(string filename)
-        {
-            try
-            {
-                using (FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read, 1024 * 1024))
-                {
-                    return false;
-                }
-            }
-            catch (Exception)
-            {
-                return true;
-            }
         }
     }
 }
