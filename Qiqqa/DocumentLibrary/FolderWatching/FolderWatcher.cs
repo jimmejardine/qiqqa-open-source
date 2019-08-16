@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Diagnostics;
 using Qiqqa.Common.GeneralTaskDaemonStuff;
 using Qiqqa.Documents.PDF;
-using Utilities;
 using Qiqqa.Common.TagManagement;
-using System.Diagnostics;
+using Utilities;
+using Utilities.Files;
 
 namespace Qiqqa.DocumentLibrary.FolderWatching
 {
@@ -164,8 +165,8 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             // stores a bunch-of-files at a time and then repeat the entire maintenance process until
             // we'll be sure to have run out of files to process for sure...
             const int MAX_NUMBER_OF_PDF_FILES_TO_PROCESS = 5;
-            const int MAX_SECONDS_PER_ITERATION = 15;
-            DateTime index_processing_start_time = DateTime.UtcNow;
+            const int MAX_SECONDS_PER_ITERATION = 15 * 1000;
+            Stopwatch index_processing_clock = Stopwatch.StartNew();
 
             while (folder_contents_has_changed)
             {
@@ -194,7 +195,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 Stopwatch clk = new Stopwatch();
                 clk.Start();
                 IEnumerable<string> filenames_in_folder = Directory.EnumerateFiles(previous_folder_to_watch, "*.pdf", SearchOption.AllDirectories);
-                Logging.Debug("Directory.GetFiles took {0} ms", clk.ElapsedMilliseconds);
+                Logging.Debug("Directory.EnumerateFiles took {0} ms", clk.ElapsedMilliseconds);
 
                 List<PDFDocument> pdf_documents_already_in_library = library.PDFDocuments;
 
@@ -209,13 +210,15 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
                     scanned_file_count++;
 
-                    if (DateTime.UtcNow.Subtract(index_processing_start_time).TotalSeconds > MAX_SECONDS_PER_ITERATION)
+                    if (index_processing_clock.ElapsedMilliseconds > MAX_SECONDS_PER_ITERATION)
                     {
-                        Logging.Info("FolderWatcher: Taking a nap due to MAX_SECONDS_PER_ITERATION: {0} seconds consumed", DateTime.UtcNow.Subtract(index_processing_start_time).TotalSeconds);
+                        Logging.Info("FolderWatcher: Taking a nap due to MAX_SECONDS_PER_ITERATION: {0} seconds consumed", index_processing_clock.ElapsedMilliseconds / 1E3);
                         daemon.Sleep(1 * 1000);
                         // As we have slept a while, it's quite unsure whether that file still exists. Skip it and 
                         // let the next round find it later on.
                         folder_contents_has_changed = true;
+                        // reset:
+                        index_processing_clock.Restart();
                         continue;
                     }
 
@@ -229,9 +232,19 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
                     // If we already have this file in the "pdf file locations", skip it
                     bool is_already_in_library = false;
+
+                    string fingerprint = StreamFingerprint.FromFile(filename);
+
                     foreach (PDFDocument pdf_document in pdf_documents_already_in_library)
                     {
+#if OLD          // do NOT depend on the file staying the same; external activities may have replaced the PDF with another one!
                         if (pdf_document.DownloadLocation == filename)
+                        {
+                            is_already_in_library = true;
+                            break;
+                        }
+#endif
+                        if (pdf_document.Fingerprint == fingerprint)
                         {
                             is_already_in_library = true;
                             break;
@@ -311,6 +324,9 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
             // Get the library to import all these new files
             ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(library, true, true, filename_with_metadata_imports.ToArray());
+
+            // TODO: refactor the ImportingIntoLibrary class 
+            //filename_with_metadata_imports.Clear();
         }
 
         bool IsFileLocked(string filename)
