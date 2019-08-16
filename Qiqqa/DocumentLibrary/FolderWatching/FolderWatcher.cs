@@ -330,14 +330,19 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             List<ImportingIntoLibrary.FilenameWithMetadataImport> filename_with_metadata_imports = new List<ImportingIntoLibrary.FilenameWithMetadataImport>();
             foreach (var filename in filenames_that_are_new)
             {
-                filename_with_metadata_imports.Add(new ImportingIntoLibrary.FilenameWithMetadataImport { filename = filename, tags = new List<string>(this.tags) });
+                filename_with_metadata_imports.Add(new ImportingIntoLibrary.FilenameWithMetadataImport {
+                    filename = filename,
+                    tags = new List<string>(this.tags)
+                });
             }
 
             // Get the library to import all these new files
             ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(library, true, true, filename_with_metadata_imports.ToArray());
 
             // TODO: refactor the ImportingIntoLibrary class 
-            //filename_with_metadata_imports.Clear();
+            //
+            // HACK & QUICK PATCH until we have refactored this stuff:
+            filenames_that_are_new.Clear();
         }
     }
 }
