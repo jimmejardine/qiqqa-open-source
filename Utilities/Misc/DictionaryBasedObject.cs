@@ -129,7 +129,7 @@ namespace Utilities.Misc
         public double GetDouble(string key)
         {
             // Is this fast enough if most of the time it is returning doubles anyway?
-            // It has to cope with JSON containing 0 - which is returned as a boxed long and then the type converstion fails...
+            // It has to cope with JSON containing 0 - which is returned as a boxed long and then the type conversion fails...
             return Convert.ToDouble(this[key] ?? 0.0);
         }
 
@@ -152,7 +152,7 @@ namespace Utilities.Misc
             }
 
             // Not a good place to be, but we will try our best :-)
-            // This means that we somehow didnt write a correct color to the streamm...
+            // This means that we somehow didn't write a correct color to the streamm...
             JContainer color_json = obj as JContainer;
             if (null != color_json)
             {
