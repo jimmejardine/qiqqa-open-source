@@ -143,10 +143,10 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                 var root_folder = bindable.Underlying.SelectedPath;
                 if (!Directory.Exists(root_folder)) return;
 
-                //  do the import
-                ImportingIntoLibrary.AddNewPDFDocumentsToLibraryFromFolder_ASYNCHRONOUS(library, root_folder, bindable.Underlying.RecurseSubfolders, bindable.Underlying.ImportTagsFromSubfolderNames, false, false);
+                // do the import
+                ImportingIntoLibrary.AddNewPDFDocumentsToLibraryFromFolder(library, root_folder, bindable.Underlying.RecurseSubfolders, bindable.Underlying.ImportTagsFromSubfolderNames);
 
-                //  remember settings for next time
+                // remember settings for next time
                 bindable.Underlying.DefaultSelectedPath = root_folder;
                 bindable.Underlying.DefaultRecurseSubfolders = bindable.Underlying.RecurseSubfolders;
                 bindable.Underlying.DefaultImportTagsFromSubfolderNames = bindable.Underlying.ImportTagsFromSubfolderNames;

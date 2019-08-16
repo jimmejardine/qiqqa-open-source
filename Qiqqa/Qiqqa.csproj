@@ -510,6 +510,7 @@
     </Compile>
     <Compile Include="DocumentLibrary\BundleLibrary\BundleLibraryDownloading\BundleLibraryUpdatedManifestChecker.cs" />
     <Compile Include="DocumentLibrary\BundleLibrary\BundleLibraryDownloading\LibraryBundleInstaller.cs" />
+    <Compile Include="DocumentLibrary\FilenameWithMetadataImport.cs" />
     <Compile Include="DocumentLibrary\FolderWatching\FolderWatcherManager.cs" />
     <Compile Include="DocumentLibrary\Import\Auto\AutoImportFromEndnoteChecker.cs" />
     <Compile Include="DocumentLibrary\Import\Auto\EndnoteImporter.cs" />
@@ -520,6 +521,7 @@
     <Compile Include="DocumentLibrary\Import\Auto\Endnote\MYDDatabase.cs" />
     <Compile Include="DocumentLibrary\Import\Auto\Endnote\MYDRecord.cs" />
     <Compile Include="DocumentLibrary\Import\Auto\Endnote\MYDRecordReader.cs" />
+    <Compile Include="DocumentLibrary\LibraryAddPdfCallbacks.cs" />
     <Compile Include="DocumentLibrary\LibraryFilter\AITagExplorerStuff\AITagExplorerItemPopup.xaml.cs">
       <DependentUpon>AITagExplorerItemPopup.xaml</DependentUpon>
     </Compile>

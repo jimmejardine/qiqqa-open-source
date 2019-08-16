@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Threading;
 using Microsoft.Win32;
 using Qiqqa.Common;
+using Qiqqa.DocumentLibrary;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Qiqqa.Documents.PDF.PDFControls;
@@ -67,7 +68,12 @@ namespace Qiqqa.DocumentConversionStuff
                         Application.Current.Dispatcher.Invoke(
                             new Action(() =>
                             {
-                                PDFDocument pdf_document = WebLibraryManager.Instance.Library_Guest.AddNewDocumentToLibrary_SYNCHRONOUS(pdf_filename, filename, filename, null, null, null, true, false);
+                                PDFDocument pdf_document = WebLibraryManager.Instance.Library_Guest.AddNewDocumentToLibrary_SYNCHRONOUS(new FilenameWithMetadataImport
+                                {
+                                    filename = pdf_filename,
+                                    original_filename = filename,
+                                    suggested_download_source_uri = filename
+                                }, true);
                                 PDFReadingControl pdf_reading_control = MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);
                                 pdf_reading_control.EnableGuestMoveNotification();
                             }),
