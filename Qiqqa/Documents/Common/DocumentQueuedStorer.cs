@@ -34,16 +34,30 @@ namespace Qiqqa.Documents.Common
 
         private void FlushDocuments()
         {
-
             while (true)
             {
+                int count_to_go = 0;
+
                 // No flushing while still adding...
                 if (Library.IsBusyAddingPDFs)
                 {
+                    lock (locker)
+                    {
+                        count_to_go = documents_to_store.Count;
+                    }
+
+                    if (0 < count_to_go)
+                    {
+                        StatusManager.Instance.UpdateStatusBusy("DocumentQueuedStorer", String.Format("{0} documents still to flush", count_to_go), 1, count_to_go);
+                    }
+                    else
+                    {
+                        StatusManager.Instance.ClearStatus("DocumentQueuedStorer");
+                    }
+
                     return;
                 }
 
-                int count_to_go = 0;
                 PDFDocument pdf_document_to_flush = null;
 
                 lock (locker)
@@ -57,22 +71,22 @@ namespace Qiqqa.Documents.Common
                     }
                 }
 
+                if (0 < count_to_go)
+                {
+                    StatusManager.Instance.UpdateStatusBusy("DocumentQueuedStorer", String.Format("{0} documents still to flush", count_to_go), 1, count_to_go);
+                }
+                else
+                {
+                    StatusManager.Instance.ClearStatus("DocumentQueuedStorer");
+                }
+
                 if (null != pdf_document_to_flush)
                 {
-                    if (10 < count_to_go)
-                    {
-                        StatusManager.Instance.UpdateStatusBusy("DocumentQueuedStorer", String.Format("{0} documents still to flush", count_to_go), 1, count_to_go);
-                    }
-                    else
-                    {
-                        StatusManager.Instance.ClearStatus("DocumentQueuedStorer");
-                    }
-
                     pdf_document_to_flush.SaveToMetaData();
                 }
                 else
                 {
-                    break;
+                    return;
                 }
             }
         }
@@ -82,6 +96,17 @@ namespace Qiqqa.Documents.Common
             lock (locker)
             {
                 documents_to_store[pdf_document.Library.WebLibraryDetail.Id + "." + pdf_document.Fingerprint] = pdf_document;
+            }
+        }
+
+        public int PendingQueueCount
+        {
+            get
+            {
+                lock (locker)
+                {
+                    return documents_to_store.Count;
+                }
             }
         }
     }
