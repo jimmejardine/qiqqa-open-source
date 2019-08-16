@@ -9,6 +9,17 @@ namespace Utilities.Misc
 
         public static bool QueueUserWorkItem(WaitCallback callback)
         {
+#if DEBUG
+            int workerThreads;
+            int completionPortThreads;
+            ThreadPool.GetAvailableThreads(out workerThreads, out completionPortThreads);
+            //Logging.Debug("QueueUserWorkItem: AvailableThreads = {0} | {1}, CompletedWorkItemCount = {2}, PendingWorkItemCount = {3}, ThreadCount = {4}", workerThreads, completionPortThreads, ThreadPool.CompletedWorkItemCount, ThreadPool.PendingWorkItemCount, ThreadPool.ThreadCount);
+            Logging.Debug("QueueUserWorkItem: AvailableThreads = {0} | {1}", workerThreads, completionPortThreads);
+            ThreadPool.GetMaxThreads(out workerThreads, out completionPortThreads);
+            Logging.Debug("QueueUserWorkItem: MaxThreads = {0} | {1}", workerThreads, completionPortThreads);
+            ThreadPool.GetMinThreads(out workerThreads, out completionPortThreads);
+            Logging.Debug("QueueUserWorkItem: MinThreads = {0} | {1}", workerThreads, completionPortThreads);
+#endif
             return ThreadPool.QueueUserWorkItem(o => QueueUserWorkItem_THREAD(callback));
         }
 
