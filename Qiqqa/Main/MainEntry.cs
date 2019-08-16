@@ -21,7 +21,7 @@ using Utilities.ProcessTools;
 using Utilities.Shutdownable;
 using Console = Utilities.GUI.Console;
 using System.Runtime.InteropServices;
-
+using System.Diagnostics;
 
 namespace Qiqqa.Main
 {
@@ -89,25 +89,22 @@ namespace Qiqqa.Main
 
             // Support windows-level error reporting - helps suppressing the errors in pdfdraw.exe and QiqqaOCR.exe
             // https://msdn.microsoft.com/en-us/library/windows/desktop/ms680621%28v=vs.85%29.aspx
-            if (true)
-            {
-                try
-                {   
-                    SetErrorMode(0x0001 | 0x0002 | 0x0004 | 0x8000);
-                }
-                catch (Exception ex)
-                {
-                    Logging.Error(ex, "Error trying to suppress global process failure.");
-                }
+            try
+            {   
+                SetErrorMode(0x0001 | 0x0002 | 0x0004 | 0x8000);
             }
-            
-            if (true)
+            catch (Exception ex)
             {
-                AppDomain.CurrentDomain.AssemblyLoad += delegate(object sender, AssemblyLoadEventArgs args)
-                {
-                    Logging.Info("Loaded assembly: {0}", args.LoadedAssembly.FullName);
-                };
+                Logging.Error(ex, "Error trying to suppress global process failure.");
             }
+
+            // kick the number of threads in the threadpool down to a reasonable number
+            SafeThreadPool.SetMaxActiveThreadCount();
+
+            AppDomain.CurrentDomain.AssemblyLoad += delegate(object sender, AssemblyLoadEventArgs args)
+            {
+                Logging.Info("Loaded assembly: {0}", args.LoadedAssembly.FullName);
+            };
 
             try
             {
@@ -127,40 +124,36 @@ namespace Qiqqa.Main
                 Logging.Error(ex, "Unknown exception during FileAssociationRegistration.DoRegistration().");
             }
 
-            //// Start tracing WPF events
-            //WPFTrace wpf_trace = new WPFTrace();            
-            //PresentationTraceSources.Refresh();
-            //PresentationTraceSources.DataBindingSource.Listeners.Add(wpf_trace);
-            //PresentationTraceSources.DataBindingSource.Switch.Level = SourceLevels.Error;
-            //System.Diagnostics.Trace.AutoFlush = true;
+            // Start tracing WPF events
+#if DEBUG
+            WPFTrace wpf_trace = new WPFTrace();            
+            PresentationTraceSources.Refresh();
+            PresentationTraceSources.DataBindingSource.Listeners.Add(wpf_trace);
+            PresentationTraceSources.DataBindingSource.Switch.Level = SourceLevels.Error;
+            System.Diagnostics.Trace.AutoFlush = true;
+#endif
 
             // If we have a command line parameter and another instance is running, send it to them and exit
-            if (true)
+            string[] command_line_args = Environment.GetCommandLineArgs();
+            if (1 < command_line_args.Length && !ProcessSingleton.IsProcessUnique(false))
             {
-                string[] command_line_args = Environment.GetCommandLineArgs();
-                if (1 < command_line_args.Length && !ProcessSingleton.IsProcessUnique(false))
-                {
-                    IPCClient.SendMessage(command_line_args[1]);
-                    Environment.Exit(-2);
-                }
+                IPCClient.SendMessage(command_line_args[1]);
+                Environment.Exit(-2);
             }
 
             // Check that we are the only instance running
-            if (true)
+            try
             {
-                try
+                if (!RegistrySettings.Instance.IsSet(RegistrySettings.AllowMultipleQiqqaInstances) && !ProcessSingleton.IsProcessUnique(true))
                 {
-                    if (!RegistrySettings.Instance.IsSet(RegistrySettings.AllowMultipleQiqqaInstances) && !ProcessSingleton.IsProcessUnique(true))
-                    {
-                        MessageBoxes.Info("There seems to be an instance of Qiqqa already running so Qiqqa will not start again.\n\nSometimes it takes a few moments for Qiqqa to exit as it finishes up a final OCR or download.  If this problem persists, you can kill the Qiqqa.exe process in Task Manager.");
-                        Logging.Info("There is another instance of Qiqqa running, so exiting.");
-                        Environment.Exit(-1);
-                    }
+                    MessageBoxes.Info("There seems to be an instance of Qiqqa already running so Qiqqa will not start again.\n\nSometimes it takes a few moments for Qiqqa to exit as it finishes up a final OCR or download.  If this problem persists, you can kill the Qiqqa.exe process in Task Manager.");
+                    Logging.Info("There is another instance of Qiqqa running, so exiting.");
+                    Environment.Exit(-1);
                 }
-                catch (Exception ex)
-                {
-                    Logging.Error(ex, "Unknown exception while checking for single app instance.  Continuing as normal so there could be several Qiqqas running.");
-                }
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex, "Unknown exception while checking for single app instance.  Continuing as normal so there could be several Qiqqas running.");
             }
 
             ComputerStatistics.LogCommonStatistics();

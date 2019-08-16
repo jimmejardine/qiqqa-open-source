@@ -159,12 +159,12 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             }
         }
 
-        public void UpdateStatus()
+        public void GetStatusCounts(out int numerator_documents, out int denominator_documents, out int pages_so_far, out int pages_to_go)
         {
-            int numerator_documents = 0;
-            int denominator_documents = 0;
-            int pages_so_far = 0;
-            int pages_to_go = 0;
+            numerator_documents = 0;
+            denominator_documents = 0;
+            pages_so_far = 0;
+            pages_to_go = 0;
 
             lock (pdf_documents_in_library_lock)
             {
@@ -184,8 +184,18 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                     }
                 }
             }
+        }
 
-            StatusManager.Instance.UpdateStatus("LibraryIndex", String.Format("{3} page(s) are searchable ({2} still to go)", numerator_documents, denominator_documents, pages_to_go, pages_so_far), 1, pages_to_go);
+        public void UpdateStatus()
+        {
+            int numerator_documents = 0;
+            int denominator_documents = 0;
+            int pages_so_far = 0;
+            int pages_to_go = 0;
+
+            GetStatusCounts(out numerator_documents, out denominator_documents, out pages_so_far, out pages_to_go);
+
+            StatusManager.Instance.UpdateStatus("LibraryIndex", String.Format("{3} page(s) are searchable ({2} still to go)", numerator_documents, denominator_documents, pages_to_go, pages_so_far), pages_to_go, pages_to_go + pages_so_far);
         }
 
         public List<IndexResult> GetFingerprintsForQuery(string query)
@@ -216,7 +226,6 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 return library.LIBRARY_INDEX_BASE_PATH + "DocumentProgressList.dat";
             }
         }
-
 
         private bool RescanLibrary()
         {
@@ -437,7 +446,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             return did_some_work;
         }
 
-        int NumberOfIndexedPDFDocuments
+        public int NumberOfIndexedPDFDocuments
         {
             get
             {
@@ -445,6 +454,21 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 {
                     return pdf_documents_in_library.Count;
                 }
+            }
+        }
+
+        public int PagesPending
+        {
+            get
+            {
+                int numerator_documents = 0;
+                int denominator_documents = 0;
+                int pages_so_far = 0;
+                int pages_to_go = 0;
+
+                GetStatusCounts(out numerator_documents, out denominator_documents, out pages_so_far, out pages_to_go);
+
+                return pages_to_go;
             }
         }
 

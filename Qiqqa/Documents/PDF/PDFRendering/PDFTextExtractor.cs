@@ -30,6 +30,16 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         HashSet<string> current_jobs_group = new HashSet<string>();
         HashSet<string> current_jobs_single = new HashSet<string>();
 
+        public void GetJobCounts(out int job_queue_group_count, out int job_queue_single_count)
+        {
+            // Get a count of how many jobs are left...
+            lock (queue_lock)
+            {
+                job_queue_group_count = job_queue_group.Count;
+                job_queue_single_count = job_queue_single.Count;
+            }
+        }
+
         public class Job
         {
             public PDFRenderer pdf_renderer;
@@ -149,7 +159,10 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
             // Get a sensible number of OCR processors
             NUM_OCR_THREADS = ConfigurationManager.Instance.ConfigurationRecord.System_NumOCRProcesses ?? 0;
-            if (0 == NUM_OCR_THREADS) NUM_OCR_THREADS = Environment.ProcessorCount - 1;
+            if (0 == NUM_OCR_THREADS)
+            {
+                NUM_OCR_THREADS = Environment.ProcessorCount - 1;
+            }
             NUM_OCR_THREADS = Math.Max(NUM_OCR_THREADS, 1);
             NUM_OCR_THREADS = Math.Min(NUM_OCR_THREADS, Environment.ProcessorCount);
 

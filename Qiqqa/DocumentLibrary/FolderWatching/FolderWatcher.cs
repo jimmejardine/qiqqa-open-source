@@ -7,6 +7,7 @@ using Qiqqa.Documents.PDF;
 using Qiqqa.Common.TagManagement;
 using Utilities;
 using Utilities.Files;
+using Utilities.Misc;
 
 namespace Qiqqa.DocumentLibrary.FolderWatching
 {
@@ -165,7 +166,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             // stores a bunch-of-files at a time and then repeat the entire maintenance process until
             // we'll be sure to have run out of files to process for sure...
             const int MAX_NUMBER_OF_PDF_FILES_TO_PROCESS = 5;
-            const int MAX_SECONDS_PER_ITERATION = 15 * 1000;
+            const int MAX_SECONDS_PER_ITERATION = 5 * 1000;
             Stopwatch index_processing_clock = Stopwatch.StartNew();
 
             while (folder_contents_has_changed)
@@ -212,8 +213,21 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
                     if (index_processing_clock.ElapsedMilliseconds > MAX_SECONDS_PER_ITERATION)
                     {
-                        Logging.Info("FolderWatcher: Taking a nap due to MAX_SECONDS_PER_ITERATION: {0} seconds consumed", index_processing_clock.ElapsedMilliseconds / 1E3);
-                        daemon.Sleep(1 * 1000);
+                        Logging.Info("FolderWatcher: Taking a nap due to MAX_SECONDS_PER_ITERATION: {0} seconds consumed, {1} threads pending", index_processing_clock.ElapsedMilliseconds / 1E3, SafeThreadPool.QueuedThreadCount);
+
+                        // Collect various 'pending' counts to help produce a stretched sleep/delay period
+                        // in order to allow the other background tasks to keep up with the PDF series being
+                        // fed into them by this task.
+                        int thr_cnt = Math.Max(0, SafeThreadPool.QueuedThreadCount - 2);
+                        int queued_cnt = Qiqqa.Documents.Common.DocumentQueuedStorer.Instance.PendingQueueCount;
+                        int textify_count = 0;
+                        int ocr_count = 0;
+                        Qiqqa.Documents.PDF.PDFRendering.PDFTextExtractor.Instance.GetJobCounts(out textify_count, out ocr_count);
+                        int indexing_pages_pending = library.LibraryIndex.PagesPending;
+
+                        int duration = 1 * 1000 + thr_cnt * 250 + queued_cnt * 20 + textify_count * 50 + ocr_count * 500 + indexing_pages_pending * 30;
+
+                        daemon.Sleep(Math.Min(60 * 1000, duration));
                         // As we have slept a while, it's quite unsure whether that file still exists. Skip it and 
                         // let the next round find it later on.
                         folder_contents_has_changed = true;
@@ -347,8 +361,8 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 {
                     OnAdded = (pdf_document, filename) =>
                     {
-                    // Add this file to the list of processed files...
-                    folder_watcher_manager.RememberProcessedFile(filename);
+	                    // Add this file to the list of processed files...
+	                    folder_watcher_manager.RememberProcessedFile(filename);
                     }
                 });
             }

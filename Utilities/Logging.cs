@@ -31,6 +31,9 @@ namespace Utilities
                 || message.Contains("Logging initialised"))
             {
                 string t = Environment.StackTrace;
+                int pos = t.IndexOf("AppendStackTrace");
+                pos = t.IndexOf("\n", pos + 16);
+                t = t.Substring(pos + 1);
                 return message + "\n  Stacktrace:\n    " + t.Replace("\n", "\n    ");
             }
             return message;
