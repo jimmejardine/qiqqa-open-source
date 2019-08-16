@@ -149,7 +149,10 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
             // Get a sensible number of OCR processors
             NUM_OCR_THREADS = ConfigurationManager.Instance.ConfigurationRecord.System_NumOCRProcesses ?? 0;
-            if (0 == NUM_OCR_THREADS) NUM_OCR_THREADS = Environment.ProcessorCount - 1;
+            if (0 == NUM_OCR_THREADS)
+            {
+                NUM_OCR_THREADS = Environment.ProcessorCount - 1;
+            }
             NUM_OCR_THREADS = Math.Max(NUM_OCR_THREADS, 1);
             NUM_OCR_THREADS = Math.Min(NUM_OCR_THREADS, Environment.ProcessorCount);
 
