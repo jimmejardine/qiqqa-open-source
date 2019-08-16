@@ -75,7 +75,7 @@ namespace Qiqqa.AnnotationsReportBuilding
                     // Filter by annotations
                     if (null != annotation_report_options.filter_tags && annotation_report_options.filter_tags.Count > 0)
                     {
-                        HashSet<string> annotation_tags = new HashSet<string>(TagTools.ConvertTagBundleToTags(pdf_annotation.Tags));
+                        HashSet<string> annotation_tags = TagTools.ConvertTagBundleToTags(pdf_annotation.Tags);
                         annotation_tags.IntersectWith(annotation_report_options.filter_tags);
                         if (0 == annotation_tags.Count)
                         {
