@@ -12,4 +12,11 @@ QiqqaOCR/bin/*
 QiqqaOCR/obj/*
 Utilities/bin/*
 Utilities/obj/*
-
+QiqqaPackager/bin/*
+QiqqaPackager/obj/*
+QiqqaToolBench/bin/*
+QiqqaToolBench/obj/*
+QiqqaUnitTester/bin/*
+QiqqaUnitTester/obj/*
+QiqqaVersionMigrator/bin/*
+QiqqaVersionMigrator/obj/*

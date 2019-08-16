@@ -5,7 +5,8 @@
     <!-- Properties                                                        -->
     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
     
-    <property name="dir.build" value="${directory::get-current-directory()}" />
+    <property name="build.mode" value="Release" overwrite="false" />
+    <property name="dir.build" value="${directory::get-current-directory()}" overwrite="false" />
     <property name="dir.base" value="${path::combine(dir.build, '..')}" />
     <property name="dir.nant" value="${path::combine(dir.build, 'nant')}" />
     <property name="dir.nant.temp" value="${path::combine(dir.nant, 'temp')}" />
@@ -13,7 +14,7 @@
     
     <property name="file.template.ClientVersion.xml" value="${dir.build}/ClientVersion.xml" />
     
-    <property name="dir.qiqqa.bin" value="${path::combine(dir.base, 'Qiqqa/Bin/Release')}" />
+    <property name="dir.qiqqa.bin" value="${path::combine(dir.base, path::combine('Qiqqa/Bin/', build.mode))}" />
     <property name="file.qiqqa.exe" value="${path::combine(dir.qiqqa.bin, 'Qiqqa.exe')}" />
     <property name="sln.qiqqa" value="${dir.base}/Qiqqa.sln"/>
     
@@ -37,6 +38,7 @@
         <echo message=" * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * "/>
         <echo message=" Properties"/>
         <echo message=" * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * "/>
+        <echo message=" build.mode                      ==> ${build.mode}"/>
         <echo message=" dir.base                        ==> ${dir.base}"/>
         <echo message=" dir.build                       ==> ${dir.build}"/>
         <echo message=" dir.nant                        ==> ${dir.nant}"/>
@@ -58,7 +60,7 @@
     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
     <target name="build" depends="info">
         <echo message=" * * * * * * * * * * * * * * * * * * * * * * * *"/>
-        <echo message=" Building"/>
+        <echo message=" Building (${build.mode})"/>
         <echo message=" * * * * * * * * * * * * * * * * * * * * * * * *"/>
         <echo message=" WARNING"/>
         <echo message=" BATCH BUILD the Qiqqa binaries using MSVC2019"/>
