@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Utilities.Files
@@ -18,28 +19,28 @@ namespace Utilities.Files
             List<string> ret = new List<string>();
             
             if (!Directory.Exists(root)) return ret;
-
-            
+                        
             try
             {
                 ret.AddRange(Directory.GetFiles(root, "*." + extension, SearchOption.TopDirectoryOnly
                     /* Other option seems to fall over on security exceptions */));
             }
-            catch
+            catch (Exception ex)
             {
                 //Possible security problem
+                Logging.Error(ex, "GetSubFiles::GetFiles failure: Possible security problem?");
             }
-
-
+            
             foreach (string subDir in Directory.GetDirectories(root, "*", SearchOption.TopDirectoryOnly))
             {
                 try
                 {
                     ret.AddRange(GetSubFiles(subDir, extension));
                 }
-                catch
+                catch (Exception ex)
                 {
                     //Possible security problem
+                    Logging.Error(ex, "GetSubFiles::GetDirectories failure: Possible security problem?");
                 }
             }
 
