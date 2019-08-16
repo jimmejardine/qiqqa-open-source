@@ -68,7 +68,7 @@
             <local_metadata:TweetControl Height="50"/>
           </local_gui:AugmentedInfoBarItemControl>
 
-          <local_gui:AugmentedInfoBarItemControl Header="Abstract" Name="ObjAbstract" Collapsed="True" DockPanel.Dock="Top">
+          <local_gui:AugmentedInfoBarItemControl Header="Abstract" Name="ObjAbstract" Collapsed="False" DockPanel.Dock="Top">
             <ScrollViewer VerticalScrollBarVisibility="Auto" >
               <local_metadata:AbstractPreviewControl />
             </ScrollViewer>
