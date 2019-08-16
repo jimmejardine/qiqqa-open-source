@@ -295,9 +295,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DateTimeTools\Misc.cs" />
-    <Compile Include="DateTimeTools\StopWatch.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="DateTimeTools\UnixTimestamps.cs" />
     <Compile Include="Encryption\PkiEncryption.cs" />
     <Compile Include="Encryption\ReversibleEncryption.cs" />
