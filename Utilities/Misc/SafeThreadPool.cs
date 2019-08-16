@@ -48,5 +48,19 @@ namespace Utilities.Misc
                 }
             }
         }
+
+        public static void SetMaxActiveThreadCount(int count = 0)
+        {
+            if (0 == count)
+            {
+                // determine the number of *logical* processor cores.
+                // see also: https://stackoverflow.com/questions/1542213/how-to-find-the-number-of-cpu-cores-via-net-c
+                count = Math.Max(2, Environment.ProcessorCount);
+            }
+
+            // heuristic: allow two CPU threads per core, two I/O thread per core with a minimum of 6
+            ThreadPool.SetMaxThreads(2 * count, Math.Max(6, 2 * count));
+            ThreadPool.SetMaxThreads(1, 2);
+        }
     }
 }
