@@ -214,7 +214,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QiqqaVersionMigrator", "Qiq
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QiqqaToolBench", "QiqqaToolBench\QiqqaToolBench.csproj", "{C683A6F0-C645-4A09-8858-98E289D5AAAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QiqqaUnitTester", "QiqqaUnitTester\QiqqaUnitTester.csproj", "{867A07FF-E082-45E9-A67E-5D921F361C22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QiqqaUnitTester", "QiqqaUnitTester\QiqqaUnitTester.csproj", "{867A07FF-E082-45E9-A67E-5D921F361C22}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QiqqaPackager", "QiqqaPackager\QiqqaPackager.csproj", "{47AB8F63-DB41-4946-A506-BF93D24492EF}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -318,7 +318,6 @@ Global
 		{867A07FF-E082-45E9-A67E-5D921F361C22}.Release|x86.ActiveCfg = Release|Any CPU
 		{867A07FF-E082-45E9-A67E-5D921F361C22}.Release|x86.Build.0 = Release|Any CPU
 		{47AB8F63-DB41-4946-A506-BF93D24492EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{47AB8F63-DB41-4946-A506-BF93D24492EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47AB8F63-DB41-4946-A506-BF93D24492EF}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{47AB8F63-DB41-4946-A506-BF93D24492EF}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{47AB8F63-DB41-4946-A506-BF93D24492EF}.Debug|x86.ActiveCfg = Debug|Any CPU
