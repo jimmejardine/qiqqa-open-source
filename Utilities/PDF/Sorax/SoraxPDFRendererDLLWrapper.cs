@@ -125,12 +125,10 @@ namespace Utilities.PDF.Sorax
                 bitmap.Dispose();
                 return ms.ToArray();
             }
-
             catch (Exception ex)
             {
                 throw new GenericException(ex, "Error while rasterising page {0} at {1}dpi of '{2}'", page, dpi, hdoc.filename);
             }
-
             finally
             {
                 SoraxDLL.ReleaseDC(IntPtr.Zero, HDC_HDC);

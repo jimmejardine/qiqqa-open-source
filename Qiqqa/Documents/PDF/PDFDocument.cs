@@ -191,7 +191,10 @@ namespace Qiqqa.Documents.PDF
         /// </summary>
         public string UniqueId
         {
-            get { return string.Format("{0}_{1}", Fingerprint, library.WebLibraryDetail.Id); }
+            get
+            {
+                return string.Format("{0}_{1}", Fingerprint, library.WebLibraryDetail.Id);
+            }
         }
 
         public string FileType

@@ -235,7 +235,6 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                             }
                         }
                     }
-
                     catch (Exception ex)
                     {
                         Logging.Error(ex, "Exception while exploring for Mendeley instance in file '{0}'.", sqlite_filename);

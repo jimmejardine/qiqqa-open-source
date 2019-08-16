@@ -73,8 +73,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.DuplicateDetectionStuff
             ));
 
             
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
+            Stopwatch stopwatch = Stopwatch.StartNew();
 
             if (null == pdf_document_this)
             {

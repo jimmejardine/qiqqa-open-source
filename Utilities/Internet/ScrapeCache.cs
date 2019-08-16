@@ -26,7 +26,7 @@ namespace Utilities.Internet
 
         public IEnumerable<string> GetAllContentFilenames()
         {
-            return Directory.GetFiles(base_directory,"*", System.IO.SearchOption.AllDirectories);
+            return Directory.GetFiles(base_directory, "*", System.IO.SearchOption.AllDirectories);
         }
 
         public string ScrapeURL(string url, bool force_download = false, Dictionary<string, string> additional_headers = null)
