@@ -25,6 +25,11 @@ namespace Qiqqa.DocumentLibrary
         
         static readonly string LIBRARY_DOWNLOAD = "LibraryDownload";
 
+        // make sure all threads use the same report file and the alert box is only shown once
+        internal static string problematic_import_documents_filename = null;
+        internal static int problematic_import_documents_alert_showing = 0;
+        internal static object problematic_import_documents_lock = new object();
+
         #region --- Add filenames ---------------------------------------------------------------------------------------------------------------------------
 
         public class FilenameWithMetadataImport
@@ -79,14 +84,13 @@ namespace Qiqqa.DocumentLibrary
             StatusManager.Instance.ClearCancelled("BulkLibraryDocument");
 
             PDFDocument last_added_pdf_document = null;
-            string problematic_import_documents_filename = null;
             
             int successful_additions = 0;
             for (int i = 0; i < filename_with_metadata_imports.Length; ++i)
             {
                 if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
                 {
-                    Logging.Debug("FolderWatcher: Breaking out of outer processing loop due to application termination");
+                    Logging.Debug("ImportingIntoLibrary: Breaking out of outer processing loop due to application termination");
                     break;
                 }
 
@@ -125,24 +129,45 @@ namespace Qiqqa.DocumentLibrary
                 {
                     Logging.Warn(ex, "There was a problem adding a document to the library:\n{0}", filename_with_metadata_import);
 
-                    if (null == problematic_import_documents_filename)
+                    // if the problem report file doesn't exist yet, we have to create it:
+                    lock (problematic_import_documents_lock)
                     {
-                        problematic_import_documents_filename = TempFile.GenerateTempFilename("txt");
+                        if (null == problematic_import_documents_filename)
+                        {
+                            problematic_import_documents_filename = TempFile.GenerateTempFilename("qiqqa-import-problem-report.txt");
+                        }
+                    }
 
+                    // then always append the entire report chunk at once as multiple threads MAY
+                    // be appending to the report simultaneously!
+                    lock (problematic_import_documents_lock)
+                    {
                         File.AppendAllText(
                             problematic_import_documents_filename,
                             "The following files caused problems while being imported into Qiqqa:\r\n\r\n"
                         );
-                    }
 
-                    File.AppendAllText(
-                        problematic_import_documents_filename,
-                        String.Format(
-                            "----------\r\n{0}\r\n{1}\r\n----------\r\n"
-                            ,ex.Message
-                            ,filename_with_metadata_import
-                        )
-                    );
+#if DEBUG
+                        File.AppendAllText(
+                            problematic_import_documents_filename,
+                            String.Format(
+                                "----------\r\n{0}\r\n{1}\r\n{2}\r\n----------\r\n"
+                                , ex.Message
+                                , ex.StackTrace
+                                , filename_with_metadata_import
+                            )
+                        );
+#else
+                        File.AppendAllText(
+                            problematic_import_documents_filename,
+                            String.Format(
+                                "----------\r\n{0}\r\n{1}\r\n----------\r\n"
+                                , ex.Message
+                                , filename_with_metadata_import
+                            )
+                        );
+#endif
+                    }
                 }
             }
 
@@ -155,16 +180,21 @@ namespace Qiqqa.DocumentLibrary
                 StatusManager.Instance.ClearStatus("BulkLibraryDocument");
             }
 
-            // If there have been some import problems, report them to the user
-            if (null != problematic_import_documents_filename)
+            // If there have been some import problems, report them to the user.
+            // However, we should not wait for the user response!
+            lock (problematic_import_documents_lock)
             {
-                if (MessageBoxes.AskErrorQuestion("There were problems with some of the documents you were trying to add to Qiqqa.  Do you want to see the problem details?", true))
+                if (null != problematic_import_documents_filename)
                 {
-                    Process.Start(problematic_import_documents_filename);
-                }
-                else
-                {
-                    File.Delete(problematic_import_documents_filename);
+                    problematic_import_documents_alert_showing++;
+
+                    // only show a single alert, not a plethora of 'em!
+                    if (1 == problematic_import_documents_alert_showing)
+                    {
+                        // once the user has ack'ed or nack'ed the message, that handler
+                        // will RESET the 'showing' counter and the party can start all over again!
+                        SafeThreadPool.QueueUserWorkItem(o => AlertUserAboutProblematicImports());
+                    }
                 }
             }
 
@@ -173,9 +203,42 @@ namespace Qiqqa.DocumentLibrary
             return last_added_pdf_document;
         }
 
-        #endregion
+#endregion
 
-        #region --- Add from folder ----------------------------------------------------------------------------------------------------------------------- 
+        internal static void AlertUserAboutProblematicImports()
+        {
+            bool do_view = MessageBoxes.AskErrorQuestion("There were problems with some of the documents you were trying to add to Qiqqa.  Do you want to see the problem details?", true);
+
+            // do NOT spend a long time inside the lock!
+            // hence we null the report file reference so that other threads can
+            // create another report file and continue work while the user takes
+            // a slow look at the old one...
+            //
+            // In short: take `Process.Start(...)` *outside* the lock!
+            string report_filename = null;
+
+            lock (problematic_import_documents_lock)
+            {
+                if (do_view)
+                {
+                    report_filename = problematic_import_documents_filename;
+                }
+                else
+                {
+                    File.Delete(problematic_import_documents_filename);
+                }
+                // reset:
+                problematic_import_documents_filename = null;
+                problematic_import_documents_alert_showing = 0;
+            }
+
+            if (null != report_filename)
+            {
+                Process.Start(report_filename);
+            }
+        }
+
+#region --- Add from folder ----------------------------------------------------------------------------------------------------------------------- 
 
         public static void AddNewPDFDocumentsToLibraryFromFolder_SYNCHRONOUS(Library library, string root_folder, bool recurse_subfolders, bool import_tags_from_subfolder_names, bool suppress_notifications, bool suppress_signal_that_docs_have_changed)
         {
@@ -233,16 +296,15 @@ namespace Qiqqa.DocumentLibrary
                     BuildFileListFromFolder(file_list, subfolder, subfolder_tags, true, import_tags_from_subfolder_names);
                 }
             }
-
             catch (Exception ex)
             {
                 Logging.Warn(ex, "Unable to process folder {0} while importing files", folder);
             }
         }
 
-        #endregion
+#endregion
 
-        #region --- Add from internet ---------------------------------------------------------------------------------------------------------------------------
+#region --- Add from internet ---------------------------------------------------------------------------------------------------------------------------
 
         public static void AddNewDocumentToLibraryFromInternet_ASYNCHRONOUS(Library library, object download_url)
         {
@@ -337,9 +399,9 @@ namespace Qiqqa.DocumentLibrary
             StatusManager.Instance.UpdateStatus(LIBRARY_DOWNLOAD, String.Format("Downloaded {0}", download_url));
         }
 
-        #endregion
+#endregion
 
-        #region --- Add from another library ---------------------------------------------------------------------------------------------------------------------------
+#region --- Add from another library ---------------------------------------------------------------------------------------------------------------------------
 
         public static void ClonePDFDocumentsFromOtherLibrary_ASYNCHRONOUS(PDFDocument existing_pdf_document, Library library, bool suppress_signal_that_docs_have_changed)
         {
@@ -399,6 +461,6 @@ namespace Qiqqa.DocumentLibrary
             }
         }
 
-        #endregion
+#endregion
     }
 }
