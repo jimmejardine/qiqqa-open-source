@@ -153,10 +153,6 @@ namespace QiqqaOCR
             // Add the bottom region
             regions.Add(new Region { y = bitmap.Height, state = SegmentState.BOTTOM });
 
-
-
-
-
             // Get rid of any blank segments that are too small
             if (true)
             {

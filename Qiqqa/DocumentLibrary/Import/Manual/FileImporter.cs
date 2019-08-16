@@ -56,7 +56,6 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
                     if (entry.FileType != null && entry.FileType.Equals("pdf") && !String.IsNullOrEmpty(entry.Filename))
                     {
-
                         if (!File.Exists(entry.Filename))
                         {
                             //Perhaps it's a relative reference instead (like Qiqqa's export)
@@ -70,7 +69,6 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                                 
                             }
                         }
-
 
                         if (File.Exists(entry.Filename))
                         {
@@ -106,13 +104,14 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                 if (entry.IsVanilla)
                 {
                     entry.ExistsInLibrary = ImportLibrary.DocumentExistsInLibraryWithBibTeX(entry.Id);
-                }else
+                }
+                else
                 {
                     entry.ExistsInLibrary = ImportLibrary.DocumentExistsInLibraryWithFingerprint(entry.Fingerprint);
                 }
             }
 
-            int vanillaEntriesCount = Entries.Where(x => x.IsVanilla).Count(); ;
+            int vanillaEntriesCount = Entries.Where(x => x.IsVanilla).Count(); 
             
             return new ParseFileResult(Entries, vanillaEntriesCount);
         }

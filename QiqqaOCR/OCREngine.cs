@@ -178,8 +178,7 @@ namespace QiqqaOCR
 		            List<Rectangle> rectangles = new List<Rectangle>();
 		            foreach (PDFRegionLocator.Region region in pdf_region_locator.regions)
 		            {
-		                if (false) { }
-		                else if (last_region.state == PDFRegionLocator.SegmentState.BLANKS)
+		                if (last_region.state == PDFRegionLocator.SegmentState.BLANKS)
 		                {
 		                    // LHS
 		                    {
@@ -204,19 +203,21 @@ namespace QiqqaOCR
 		                last_region = region;
 		            }
 
-		            // DEBUG CODE: Draw in the region rectangles
-		            //{
-		            //    Graphics g = Graphics.FromImage(bitmap);
-		            //    foreach (Rectangle rectangle in rectangles)
-		            //    {
-		            //        g.DrawRectangle(Pens.Black, rectangle);
-		            //    }
+                    // DEBUG CODE: Draw in the region rectangles
+#if DEBUG_OCR
+                    {
+                        Graphics g = Graphics.FromImage(bitmap);
+		                foreach (Rectangle rectangle in rectangles)
+		                {
+		                    g.DrawRectangle(Pens.OrangeRed, rectangle);
+		                }
 
-		            //    bitmap.Save(@"C:\temp\aaaaaa.png", ImageFormat.Png);
-		            //}
+		                bitmap.Save(@"C:\temp\aaaaaa.png", ImageFormat.Png);
+		            }
+#endif
 
-		            // Do the OCR on each of the rectangles
-		            WordList word_list = new WordList();
+                    // Do the OCR on each of the rectangles
+                    WordList word_list = new WordList();
 		            foreach (Rectangle rectangle in rectangles)
 		            {
 		                if (0 == rectangle.Width || 0 == rectangle.Height)
