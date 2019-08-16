@@ -22,18 +22,30 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         Dictionary<string, FolderWatcherRecord> folder_watcher_records = new Dictionary<string, FolderWatcherRecord>();
 
         HashSet<string> filenames_processed = new HashSet<string>();
+        // lock for all Filename_Store File I/O and filenames_processed HashSet:
+        object filenames_processed_lock = new object();
 
         public FolderWatcherManager(Library library)
         {
             this.library = library;
 
             // Load any pre-existing watched filenames
-            if (File.Exists(Filename_Store))
+            bool file_exists;
+
+            lock (filenames_processed_lock)
+            {
+                file_exists = File.Exists(Filename_Store);
+            }
+            if (file_exists)
             {
                 Logging.Info("Loading memory of files that we watched previously.");
-                foreach (string filename in File.ReadAllLines(Filename_Store))
+
+                lock (filenames_processed_lock)
                 {
-                    filenames_processed.Add(filename);
+                    foreach (string filename in File.ReadAllLines(Filename_Store))
+                    {
+                        filenames_processed.Add(filename);
+                    }
                 }
             }
 
@@ -57,7 +69,10 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             //library.Dispose();
             library = null;
 
-            filenames_processed.Clear();
+            lock (filenames_processed_lock)
+            {
+                filenames_processed.Clear();
+            }
         }
 
         public string Filename_Store
@@ -70,19 +85,29 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
         internal void ResetHistory()
         {
-            FileTools.Delete(Filename_Store);
-            filenames_processed.Clear();
+            lock (filenames_processed_lock)
+            {
+                FileTools.Delete(Filename_Store);
+                filenames_processed.Clear();
+            }
         }
         
         internal bool HaveProcessedFile(string filename)
         {
-            return filenames_processed.Contains(filename);
+            lock (filenames_processed_lock)
+            {
+                return filenames_processed.Contains(filename);
+            }
         }
         
+        // NOTE: this method will be called from various threads.
         internal void RememberProcessedFile(string filename)
         {
-            File.AppendAllText(Filename_Store, filename + "\n");
-            filenames_processed.Add(filename);
+            lock (filenames_processed_lock)
+            {
+                File.AppendAllText(Filename_Store, filename + "\n");
+                filenames_processed.Add(filename);
+            }
         }
 
         internal void TaskDaemonEntryPoint(Utilities.Daemon daemon)

@@ -15,7 +15,6 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         
         public string EntryType { get; set; }
         
-        
         public string Filename { get; set; }
         public string FileType { get; set; }
 
@@ -30,17 +29,25 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         public string Fingerprint { get; set; }
         public bool ExistsInLibrary { get; set; }
 
-
         private bool _selected;
         /// <summary>
         /// Selected for import. 
         /// </summary>
-        public bool Selected { get { return _selected; } set { _selected = value; this.Bindable.NotifyPropertyChanged(() => this.Selected); } }
-
-
+        public bool Selected
+        {
+            get
+            {
+                return _selected;
+            }
+            set
+            {
+                _selected = value;
+                this.Bindable.NotifyPropertyChanged(() => this.Selected);
+            }
+        }
+        
         public BibTeXEntry()
         {
-            
         }
 
         AugmentedBindable<BibTeXEntry> _bindable = null;
@@ -57,12 +64,10 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             }
         }
 
-
         private string GetValue(string key)
         {
             return Item[key];
         }
-
 
         /// <summary>
         /// Used via reflection
@@ -86,9 +91,6 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             }
         }
 
-
-
-
         private static void ExtractTagsFromBibTeXField(string bibtex, string TAG, List<string> tags)
         {
             string vals = BibTexTools.GetField(bibtex, TAG);
@@ -111,7 +113,6 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                 return tags;
             }
         }
-
 
         public bool IsVanilla { get; set; }
         

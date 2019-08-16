@@ -179,7 +179,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                 // Build up the list of candidates
                 string base_directory = endnote_database_filename.Substring(0, endnote_database_filename.Length - 4) + ".Data\\PDF\\";
                 List<string> pdf_links = new List<string>();
-                {
+
                     // First candidates are those in the subdirectory corresponding to the .ENL file
                     foreach (string link in links)
                     {
@@ -191,7 +191,6 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                     {
                         pdf_links.Add(link);
                     }
-                }
 
                 // Use the first PDF file that exists in the file system
                 foreach (string pdf_link in pdf_links)

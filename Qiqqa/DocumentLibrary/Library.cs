@@ -136,11 +136,16 @@ namespace Qiqqa.DocumentLibrary
 
         // This is GLOBAL to all libraries
         private static DateTime last_pdf_add_time = DateTime.MinValue;
+        private static object last_pdf_add_time_lock = new object();
+
         public static bool IsBusyAddingPDFs
         {
             get
             {
-                return DateTime.UtcNow.Subtract(last_pdf_add_time).TotalSeconds < 3;
+                lock (last_pdf_add_time_lock)
+                {
+                    return DateTime.UtcNow.Subtract(last_pdf_add_time).TotalSeconds < 3;
+                }
             }
         }
 
@@ -310,7 +315,10 @@ namespace Qiqqa.DocumentLibrary
         private PDFDocument AddNewDocumentToLibrary(string filename, string original_filename, string suggested_download_source, string bibtex, List<string> tags, string comments, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
         {
             // Flag that someone is trying to add to the library.  This is used by the background processes to hold off while the library is busy being added to...
-            last_pdf_add_time = DateTime.UtcNow;
+            lock (last_pdf_add_time_lock)
+            {
+                last_pdf_add_time = DateTime.UtcNow;
+            }
 
             if (String.IsNullOrEmpty(filename) || filename.EndsWith(".vanilla_reference"))
             {
@@ -355,14 +363,14 @@ namespace Qiqqa.DocumentLibrary
             // If the PDF does not exist, can not clone
             if (!File.Exists(filename))
             {
-                Logging.Info("Can not add non-existent file to library, so skipping: " + filename);
+                Logging.Info("Can not add non-existent file to library, so skipping: {0}", filename);
                 return null;
             }
 
             string fingerprint = StreamFingerprint.FromFile(filename);
 
             // Useful in logging for diagnosing if we're adding the same document again
-            Logging.Info("Fingerprint: " + fingerprint);
+            Logging.Info("Fingerprint: {0}", fingerprint);
 
             PDFDocument pdf_document = GetDocumentByFingerprint(fingerprint);
             if (null != pdf_document)
@@ -489,32 +497,29 @@ namespace Qiqqa.DocumentLibrary
             }
 
             // Not a dupe, so create
-            if (true)
+            PDFDocument pdf_document = PDFDocument.CreateFromVanillaReference(this);
+            pdf_document.BibTex = bibtex;
+            pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.BibTex);
+            pdf_document.Comments = comments;
+            pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Comments);
+
+            if (tags != null)
             {
-                PDFDocument pdf_document = PDFDocument.CreateFromVanillaReference(this);
-                pdf_document.BibTex = bibtex;
-                pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.BibTex);
-                pdf_document.Comments = comments;
-                pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Comments);
-
-                if (tags != null)
-                {
-                    tags.ForEach(x => pdf_document.AddTag(x)); //Notify changes called internally
-                }
-
-                // Store in our database
-                lock (pdf_documents_lock)
-                {
-                    pdf_documents[pdf_document.Fingerprint] = pdf_document;
-                }
-
-                if (!suppress_signal_that_docs_have_changed)
-                {
-                    SignalThatDocumentsHaveChanged(pdf_document);
-                }
-
-                return pdf_document;
+                tags.ForEach(x => pdf_document.AddTag(x)); //Notify changes called internally
             }
+
+            // Store in our database
+            lock (pdf_documents_lock)
+            {
+                pdf_documents[pdf_document.Fingerprint] = pdf_document;
+            }
+
+            if (!suppress_signal_that_docs_have_changed)
+            {
+                SignalThatDocumentsHaveChanged(pdf_document);
+            }
+
+            return pdf_document;
         }
 
         public PDFDocument CloneExistingDocumentFromOtherLibrary_SYNCHRONOUS(PDFDocument existing_pdf_document, bool suppress_dialogs, bool suppress_signal_that_docs_have_changed)
@@ -821,49 +826,55 @@ namespace Qiqqa.DocumentLibrary
         private DateTime last_documents_changed_time = DateTime.MinValue;
         private DateTime last_documents_changed_signal_time = DateTime.MinValue;
         private PDFDocument documents_changed_optional_changed_pdf_document = null;
+        private object last_documents_changed_lock = new object();
 
         public void SignalThatDocumentsHaveChanged(PDFDocument optional_changed_pdf_document)
         {
-            last_documents_changed_time = DateTime.UtcNow;            
-            documents_changed_optional_changed_pdf_document = optional_changed_pdf_document;
+            lock (last_documents_changed_lock)
+            {
+                last_documents_changed_time = DateTime.UtcNow;
+                documents_changed_optional_changed_pdf_document = optional_changed_pdf_document;
+            }
         }
 
         internal void CheckForSignalThatDocumentsHaveChanged()
         {
-            // If no docs have changed, nothing to do
-            if (last_documents_changed_signal_time > last_documents_changed_time)
+            PDFDocument local_documents_changed_optional_changed_pdf_document;
+            DateTime now = DateTime.UtcNow;
+
+            lock (last_documents_changed_lock)
             {
-                return;
-            }
+                // If no docs have changed, nothing to do
+                if (last_documents_changed_signal_time >= last_documents_changed_time)
+                {
+                    return;
+                }
 
-            // Don't refresh more than once every few seconds in busy-adding times
-            if (DateTime.UtcNow.Subtract(last_documents_changed_time).TotalSeconds < 1 && DateTime.UtcNow.Subtract(last_documents_changed_signal_time).TotalSeconds < 15)
-            {
-                return;
-            }
+                // Don't refresh more than once every few seconds in busy-adding times
+                if (now.Subtract(last_documents_changed_time).TotalSeconds < 1 && now.Subtract(last_documents_changed_signal_time).TotalSeconds < 15)
+                {
+                    return;
+                }
 
+                // Don't refresh more than once a second in quiet times
+                if (now.Subtract(last_documents_changed_signal_time).TotalSeconds < 1)
+                {
+                    return;
+                }
 
-            // Don't refresh more than once a second in quiet times
-            if (DateTime.UtcNow.Subtract(last_documents_changed_signal_time).TotalSeconds < 1)
-            {
-                return;
-            }
-
-
-            // Let's signal!
-            {
-                PDFDocument local_documents_changed_optional_changed_pdf_document = documents_changed_optional_changed_pdf_document;
+                // Let's signal!
+                local_documents_changed_optional_changed_pdf_document = documents_changed_optional_changed_pdf_document;
                 documents_changed_optional_changed_pdf_document = null;
-                last_documents_changed_signal_time = DateTime.UtcNow;
+                last_documents_changed_signal_time = now;
+            }
 
-                try
-                {
-                    OnDocumentsChanged?.Invoke(this, new PDFDocumentEventArgs(local_documents_changed_optional_changed_pdf_document));
-                }
-                catch (Exception ex)
-                {
-                    Logging.Error(ex, "There was an exception while notifying that documents have changed.");
-                }
+            try
+            {
+                OnDocumentsChanged?.Invoke(this, new PDFDocumentEventArgs(local_documents_changed_optional_changed_pdf_document));
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex, "There was an exception while notifying that documents have changed.");
             }
         }
 
