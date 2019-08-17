@@ -328,6 +328,11 @@ namespace Qiqqa.DocumentLibrary
                 // ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
                 ServicePointManager.SecurityProtocol = (SecurityProtocolType)(0xc0 | 0x300 | 0xc00);
 
+                // same headers as sent by modern Chrome.
+                // Gentlemen, start your prayer wheels!
+                web_request.Headers.Add("Cache-Control", "no-cache");
+                web_request.Headers.Add("Pragma", "no-cache");
+
 
                 using (HttpWebResponse web_response = (HttpWebResponse)web_request.GetResponse())
                 {
