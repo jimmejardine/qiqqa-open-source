@@ -46,36 +46,40 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
 
         protected override void Response(HttpChannel channel)
         {
-            string abs_uri = channel.Uri.AbsoluteUri;
-            string disp_hdr = "x";
-            try
+#if DEBUG
             {
-                disp_hdr = channel.ContentDispositionHeader;
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex, "Gecko ContentDispositionHeader b0rk at {0}", abs_uri);
-            }
-            string mimetype = channel.ContentType;
-            uint rvc = channel.ResponseStatus;
-            var hdrs = channel.GetResponseHeadersDict();
-            string hdrs_str = "";
-            foreach (var key in hdrs)
-            {
-                hdrs_str += "\n" + key.Key;
-                var v = key.Value;
-                hdrs_str += ":";
-                bool first = true;
-                foreach (var elv in v)
+                string abs_uri = channel.Uri.AbsoluteUri;
+                string disp_hdr = "x";
+                try
                 {
-                    if (first)
-                        first = false;
-                    else
-                        hdrs_str += ";";
-                    hdrs_str += elv;
+                    disp_hdr = channel.ContentDispositionHeader;
                 }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex, "Gecko ContentDispositionHeader b0rk at {0}", abs_uri);
+                }
+                string mimetype = channel.ContentType;
+                uint rvc = channel.ResponseStatus;
+                var hdrs = channel.GetResponseHeadersDict();
+                string hdrs_str = "";
+                foreach (var key in hdrs)
+                {
+                    hdrs_str += "\n" + key.Key;
+                    var v = key.Value;
+                    hdrs_str += ":";
+                    bool first = true;
+                    foreach (var elv in v)
+                    {
+                        if (first)
+                            first = false;
+                        else
+                            hdrs_str += ";";
+                        hdrs_str += elv;
+                    }
+                }
+                Logging.Info("PDFInterceptor::Response URI: {0} ; disposition: {1}; mime: {2}; status: {3}; headers:\n{4}", abs_uri, disp_hdr, mimetype, rvc, hdrs_str);
             }
-            Logging.Info("PDFInterceptor::Response URI: {0} ; disposition: {1}; mime: {2}; status: {3}; headers:\n{4}", abs_uri, disp_hdr, mimetype, rvc, hdrs_str);
+#endif
             if (channel.ContentType.Contains("application/pdf"))
             {
                 try
@@ -85,7 +89,7 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
                 }
                 catch (Exception ex)
                 {
-                    Logging.Error(ex, "Gecko ContentDispositionFilename b0rk at {0}", abs_uri);
+                    Logging.Error(ex, "Gecko ContentDispositionFilename b0rk at {0}", channel.Uri.AbsoluteUri);
                 }
                 document_source_url = channel.Uri.AbsoluteUri;
 

@@ -321,6 +321,13 @@ namespace Qiqqa.DocumentLibrary
                 web_request.Proxy = ConfigurationManager.Instance.Proxy;
                 web_request.Method = "GET";
                 web_request.AllowAutoRedirect = true;
+                // https://stackoverflow.com/questions/21728773/the-underlying-connection-was-closed-an-unexpected-error-occurred-on-a-receiv
+                // also: https://stackoverflow.com/questions/21481682/httpwebrequest-the-underlying-connection-was-closed-the-connection-was-closed
+                web_request.KeepAlive = false;
+                // https://stackoverflow.com/questions/47269609/system-net-securityprotocoltype-tls12-definition-not-found
+                // ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+                ServicePointManager.SecurityProtocol = (SecurityProtocolType)(0xc0 | 0x300 | 0xc00);
+
 
                 using (HttpWebResponse web_response = (HttpWebResponse)web_request.GetResponse())
                 {
@@ -382,14 +389,14 @@ namespace Qiqqa.DocumentLibrary
                                 }
                             }
 
-                            MessageBoxes.Info("The document library supports only PDF files at the moment.  You are trying to download something of type {0}.", content_type);
+                            MessageBoxes.Info("The document library supports only PDF files at the moment.  You are trying to download something of type {0} at URI {1}.", content_type, download_url);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                Logging.Error(ex, "There was a problem adding the downloaded PDF to the library.");
+                Logging.Error(ex, "There was a problem adding the downloaded PDF to the library for URI {0}.", download_url);
             }
 
             StatusManager.Instance.UpdateStatus(LIBRARY_DOWNLOAD, String.Format("Downloaded {0}", download_url));
