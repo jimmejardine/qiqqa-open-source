@@ -4,7 +4,6 @@ using Utilities.GUI;
 
 namespace Qiqqa.Common.GUI
 {
-    [Obfuscation(Feature = "properties renaming")]
     public class StandardFlowDocument : FlowDocument
     {
         public StandardFlowDocument()

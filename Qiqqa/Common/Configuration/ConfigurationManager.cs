@@ -17,7 +17,6 @@ using Newtonsoft.Json;
 
 namespace Qiqqa.Common.Configuration
 {
-    [Obfuscation(Feature = "properties renaming")]
     public class ConfigurationManager
     {
         public static readonly ConfigurationManager Instance = new ConfigurationManager();

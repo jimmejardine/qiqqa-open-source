@@ -9,7 +9,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
     /// <summary>
     /// Interaction logic for WebLibraryListControl.xaml
     /// </summary>
-    [Obfuscation(Feature = "properties renaming")]
     public partial class WebLibraryListControl : UserControl
     {
         public delegate void WebLibrarySelectedDelegate(WebLibraryDetail web_library_detail);
@@ -22,7 +21,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             InitializeComponent();
         }
 
-        [Obfuscation(Feature = "properties renaming")]
         public bool ConciseView
         {
             set

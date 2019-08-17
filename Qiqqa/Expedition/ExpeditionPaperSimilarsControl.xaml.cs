@@ -14,14 +14,12 @@ namespace Qiqqa.Expedition
     /// <summary>
     /// Interaction logic for ExpeditionPaperSimilarsControl.xaml
     /// </summary>
-    [Obfuscation(Feature = "properties renaming")]
     public partial class ExpeditionPaperSimilarsControl : UserControl
     {
         public delegate void PDFDocumentSelectedDelegate(PDFDocument pdf_document);
         public event PDFDocumentSelectedDelegate PDFDocumentSelected;
 
         private int _NumberOfRelevantPapersToDisplay = 50;
-        [Obfuscation(Feature = "properties renaming")]
         public int NumberOfRelevantPapersToDisplay
         {
             get { return _NumberOfRelevantPapersToDisplay; }
@@ -29,7 +27,6 @@ namespace Qiqqa.Expedition
         }
 
         private bool _ShowRelevancePercentage = true;
-        [Obfuscation(Feature = "properties renaming")]
         public bool ShowRelevancePercentage
         {
             get { return _ShowRelevancePercentage; }

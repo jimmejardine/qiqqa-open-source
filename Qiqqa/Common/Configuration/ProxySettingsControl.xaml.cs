@@ -10,7 +10,6 @@ namespace Qiqqa.Common.Configuration
     /// </summary>
     public partial class ProxySettingsControl : UserControl
     {
-        [Obfuscation(Feature = "properties renaming")]
         public class StandardProxySettings
         {
             public bool Proxy_UseProxy { get; set; }

@@ -6,7 +6,6 @@ using Utilities.Misc;
 namespace Qiqqa.Common.Configuration
 {
     [Serializable]
-    [Obfuscation(Feature = "properties renaming")]
     public class ConfigurationRecord : DictionaryBasedObject
     {
         public ConfigurationRecord()

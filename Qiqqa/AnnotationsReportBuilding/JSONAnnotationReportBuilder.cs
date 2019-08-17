@@ -14,7 +14,6 @@ namespace Qiqqa.AnnotationsReportBuilding
 {
     class JSONAnnotationReportBuilder    
     {
-        [Obfuscation(Feature = "properties renaming")]
         class AnnotationJSON
         {
             public string fingerprint { get; set; }

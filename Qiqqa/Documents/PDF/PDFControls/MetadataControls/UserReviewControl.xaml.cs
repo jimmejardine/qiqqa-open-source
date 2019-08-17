@@ -9,7 +9,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
     /// <summary>
     /// Interaction logic for UserReviewControl.xaml
     /// </summary>
-    [Obfuscation(Feature = "properties renaming")]
     public partial class UserReviewControl : UserControl
     {
         public UserReviewControl()
@@ -20,7 +19,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             ComboBoxRating.ItemsSource = Choices.Ratings;
         }
 
-        [Obfuscation(Feature = "properties renaming")]
         public bool DatesVisible
         {
             set

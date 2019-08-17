@@ -7,7 +7,6 @@ using Utilities.OCR;
 namespace Qiqqa.Documents.PDF
 {    
     [ProtoContract]    
-    [Obfuscation(Feature = "properties renaming")]
     public class PDFHighlight : ICloneable
     {
         [ProtoMember(1)]

@@ -33,7 +33,6 @@ namespace Qiqqa.Documents.PDF
     /// ******************* NB NB NB NB NB NB NB NB NB NB NB ********************************
     /// </summary>
 
-    [Obfuscation(Feature = "properties renaming")]
     public class PDFDocument
     {
         private const string VanillaReferenceFileType = "VANILLA_REFERENCE";

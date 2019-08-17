@@ -6,7 +6,6 @@ using Utilities.Reflection;
 namespace Qiqqa.Brainstorm.SceneManager
 {
     [Serializable]
-    [Obfuscation(Feature = "properties renaming")]
     public class BrainstormMetadata : DictionaryBasedObject
     {
         public string Title

@@ -9,7 +9,6 @@ using icons;
 
 namespace Utilities.GUI
 {
-    [Obfuscation(Feature = "properties renaming")]
     [ContentProperty("ClientContent")]
     public class AugmentedInfoBarItemControl : DockPanel
     {

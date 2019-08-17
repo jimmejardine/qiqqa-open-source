@@ -984,7 +984,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         }
     }
 
-    [Obfuscation(Feature = "properties renaming")]
     public class ChartItem
     {
         public string Title { get; set; }

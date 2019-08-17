@@ -18,7 +18,6 @@ namespace Qiqqa.Documents.PDF
     /// </summary>
 
     [Serializable]
-    [Obfuscation(Feature = "properties renaming")]
     public class PDFAnnotation : ICloneable
     {
         readonly DictionaryBasedObject dictionary = new DictionaryBasedObject();
