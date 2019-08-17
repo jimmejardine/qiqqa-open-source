@@ -463,7 +463,7 @@ namespace Qiqqa.WebBrowsing
                 {
                     if (default_web_searcher_key == web_searcher_entry.web_searcher.key)
                     {
-                        TabWebBrowserControls.MakeActive(web_searcher_entry.web_searcher.key);
+                        //TabWebBrowserControls.MakeActive(web_searcher_entry.web_searcher.key);
                         used_default_web_searcher = true;
                     }
                 }
@@ -472,7 +472,7 @@ namespace Qiqqa.WebBrowsing
                 {
                     if (web_searcher_entries.Count > 0)
                     {
-                        TabWebBrowserControls.MakeActive(web_searcher_entries[0].web_searcher.key);
+                        //TabWebBrowserControls.MakeActive(web_searcher_entries[0].web_searcher.key);
                     }
                 }
             }
