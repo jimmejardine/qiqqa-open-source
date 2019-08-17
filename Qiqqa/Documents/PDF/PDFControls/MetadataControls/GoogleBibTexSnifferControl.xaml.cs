@@ -49,7 +49,49 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             public bool HasSourceLocalFileSystem { get; set; }
             public bool Unsourced { get; set; }
             public bool HasDocumentPDF { get; set; }
-            public bool DocumentIsOCRed { get; set; }
+
+            bool? _DocumentIsOCRed;
+            public bool? DocumentIsOCRed {
+                get
+                {
+                    return _DocumentIsOCRed;
+                }
+                set
+                {
+                    if (value == null)
+                    {
+                        DocumentIsOCRed_TriState = true;
+                    }
+                    // cycle properly: when the checkbox cycles from ON to OFF, it SHOULD cycle from ON to TRISTATE!
+                    else if (value == false && _DocumentIsOCRed == true)
+                    {
+                        DocumentIsOCRed_TriState = true;
+                    }
+                    else
+                    { 
+                        DocumentIsOCRed_TriState = false;
+                        _DocumentIsOCRed = value;
+                    }
+                }
+            }
+            internal bool DocumentIsOCRed_TriState
+            {
+                get
+                {
+                    return null == _DocumentIsOCRed;
+                }
+                set
+                {
+                    if (value)
+                    {
+                        _DocumentIsOCRed = null;
+                    }
+                    else if (_DocumentIsOCRed == null)
+                    {
+                        _DocumentIsOCRed = false;
+                    }
+                }
+            }
             // checkbox for NOT query mode
             public bool InvertSelection { get; set; }
 #pragma warning restore 0649
@@ -58,7 +100,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             {
                 Missing = true;
                 HasDocumentPDF = true;
-                DocumentIsOCRed = true;
+                DocumentIsOCRed = null;
             }
         }
 
@@ -80,6 +122,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
         public GoogleBibTexSnifferControl()
         {
             InitializeComponent();
+
+            SetupConfiguredDimensions();
 
             // Search options
             search_options = new SearchOptions();
@@ -141,22 +185,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             HyperlinkBibTeXLinksMissing.Click += HyperlinkBibTeXLinksMissing_Click;
 
             Webcasts.FormatWebcastButton(ButtonWebcast, Webcasts.BIBTEX_SNIFFER);
-
-            // Set dimensions
-            {
-                this.Width = 800;
-                this.Height = 600;
-
-                // Be a little larger if possible
-                if (SystemParameters.FullPrimaryScreenWidth > 1024)
-                {
-                    this.Height = 1024;
-                }
-                if (SystemParameters.FullPrimaryScreenHeight > 1024)
-                {
-                    this.Height = 1024;
-                }
-            }
 
             TxtBibTeX.TextChanged += TxtBibTeX_TextChanged;
 
@@ -424,14 +452,27 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                 }
 
                 // another subselection is ON/OFF: does the library entry have OCR data available already?
-                if (include_in_search_pool)
+                if (include_in_search_pool && null != search_options.DocumentIsOCRed)
                 {
                     bool hasOCRdata = !pdf_document.IsVanillaReference && pdf_document.HasOCRdata;
+                    // perform a more precise check when there's few documents to process, as this check is pretty costly:
+                    //
+                    // Note: fetching the `PDFRenderer.PageCount` may produce non-zero results, but it would still
+                    // be highly inaccurate as documents can exist with a correct(?) pagecount but not having had their
+                    // pages OCR-ed -- and that's what matters in the end.
+                    //
+                    if (hasOCRdata && pdf_documents_total_pool.Count < 100000)
+                    {
+                        string w = pdf_document.PDFRenderer.GetFullOCRText();
+                        hasOCRdata = !String.IsNullOrWhiteSpace(w);
+                    }
+#if false
                     if (!hasOCRdata)
                     {
                         Logging.Debug("No OCR data known for {0}", pdf_document.Fingerprint);
                     }
-                    include_in_search_pool = !(search_options.DocumentIsOCRed ^ hasOCRdata);
+#endif
+                    include_in_search_pool = !((bool)search_options.DocumentIsOCRed ^ hasOCRdata);
                 }
 
                 // the odd one out: the user specified document exists in both regular *and* inverted set:
@@ -556,7 +597,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
         void GoogleBibTexSnifferControl_Closing(object sender, CancelEventArgs e)
         {
             ObjWebBrowser.PageLoaded -= ObjWebBrowser_PageLoaded;
-            ObjWebBrowser.TabChanged -= ObjWebBrowser_TabChanged; 
+            ObjWebBrowser.TabChanged -= ObjWebBrowser_TabChanged;
         }
         
         void GoogleBibTexSnifferControl_Closed(object sender, EventArgs e)
@@ -799,7 +840,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             }
         }
 
-        #region --- Test ------------------------------------------------------------------------
+#region --- Test ------------------------------------------------------------------------
 
 #if TEST
         public static void TestHarness()
@@ -815,6 +856,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
         }
 #endif
 
-        #endregion
+#endregion
     }
 }
