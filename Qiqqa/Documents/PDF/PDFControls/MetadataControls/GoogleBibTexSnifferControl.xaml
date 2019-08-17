@@ -4,6 +4,10 @@
   xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
   xmlns:webbrowser="clr-namespace:Qiqqa.WebBrowsing"
   xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+  mc:Ignorable="d" 
+  d:DesignWidth="1006"
 >
 
   <Grid>
@@ -80,7 +84,8 @@
                   </StackPanel>
                   <StackPanel Grid.Column="4">
                     <CheckBox IsChecked="{Binding HasDocumentPDF}" Content="Has PDF"/>
-	                <Rectangle Height="30" StrokeThickness="0" />
+                    <CheckBox IsChecked="{Binding DocumentIsOCRed}" Content="Is OCRed"/>
+                    <Rectangle Height="15" StrokeThickness="0" />
 	                <CheckBox IsChecked="{Binding InvertSelection}" Content="Invert Selection"></CheckBox>
                   </StackPanel>
                 </Grid>
