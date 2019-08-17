@@ -306,15 +306,13 @@ namespace Qiqqa.DocumentLibrary
 
 #region --- Add from internet ---------------------------------------------------------------------------------------------------------------------------
 
-        public static void AddNewDocumentToLibraryFromInternet_ASYNCHRONOUS(Library library, object download_url)
+        public static void AddNewDocumentToLibraryFromInternet_ASYNCHRONOUS(Library library, string download_url)
         {
             SafeThreadPool.QueueUserWorkItem(o => AddNewDocumentToLibraryFromInternet_SYNCHRONOUS(library, download_url));
         }
         
-        public static void AddNewDocumentToLibraryFromInternet_SYNCHRONOUS(Library library, object download_url_obj)
+        public static void AddNewDocumentToLibraryFromInternet_SYNCHRONOUS(Library library, string download_url)
         {
-            string download_url = (string)download_url_obj;
-
             StatusManager.Instance.UpdateStatus(LIBRARY_DOWNLOAD, String.Format("Downloading {0}", download_url));
 
             try
