@@ -49,6 +49,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             public bool HasSourceLocalFileSystem { get; set; }
             public bool Unsourced { get; set; }
             public bool HasDocumentPDF { get; set; }
+            public bool DocumentIsOCRed { get; set; }
             // checkbox for NOT query mode
             public bool InvertSelection { get; set; }
 #pragma warning restore 0649
@@ -57,6 +58,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             {
                 Missing = true;
                 HasDocumentPDF = true;
+                DocumentIsOCRed = true;
             }
         }
 
@@ -166,8 +168,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         void GoogleBibTexSnifferControl_KeyUp(object sender, KeyEventArgs e)
         {
-            if (false) { }
-            else if (Key.Clear == e.Key)
+            if (Key.Clear == e.Key)
             {
                 MoveDelta(+1);
                 e.Handled = true;
@@ -212,7 +213,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                     }
                 }
             }
-            catch (Exception) {}
+            catch (Exception ex)
+            {
+                Logging.Error(ex, "TextChanged failure in BibTeXSniffer");
+            }
         }
 
         void HyperlinkBibTeXLinksMissing_Click(object sender, RoutedEventArgs e)
@@ -419,6 +423,17 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                     include_in_search_pool = !(search_options.HasDocumentPDF ^ pdf_document.DocumentExists);
                 }
 
+                // another subselection is ON/OFF: does the library entry have OCR data available already?
+                if (include_in_search_pool)
+                {
+                    bool hasOCRdata = !pdf_document.IsVanillaReference && pdf_document.HasOCRdata;
+                    if (!hasOCRdata)
+                    {
+                        Logging.Debug("No OCR data known for {0}", pdf_document.Fingerprint);
+                    }
+                    include_in_search_pool = !(search_options.DocumentIsOCRed ^ hasOCRdata);
+                }
+
                 // the odd one out: the user specified document exists in both regular *and* inverted set:
                 if (pdf_document == user_specified_pdf_document)
                 {
@@ -564,13 +579,41 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         void ObjWebBrowser_PageLoaded()
         {
-            Logging.Debug("BibTexSniffer::Browser::Page Loaded");
+            Logging.Debug("BibTexSniffer::Browser::Page Loaded: {0}", ObjWebBrowser.CurrentUri.AbsoluteUri);
             ReflectLatestBrowserContent();
+            // When PDFs are viewed in Gecko/Firefox and somehow things went wrong the first time around,
+            // but **not enough wrong** so to speak, then the PDF is **cached** by Gecko/FireFox and it WILL NOT
+            // show up as one of the URIs being fetched for a page reload! The PDF will only show up **here**,
+            // as a completely loaded document.
+            //
+            // Meanwhile the Acrobat Reader in there will cause the `ObjWebBrowser.CurrentPageHTML` to render
+            // something like this:
+            //
+            // <html><head><meta content="width=device-width; height=device-height;" name="viewport"></head>
+            // <body marginheight="0" marginwidth="0"><embed type="application/pdf" 
+            //    src ="https://escholarship.org/content/qt0cs6v2w7/qt0cs6v2w7.pdf" 
+            //    name ="plugin" height="100%" width="100%"></body></html>
+            //
+            // !Yay!          /sarcasm!/
+            string uri = null;
+            try
+            {
+                uri = ObjWebBrowser.CurrentUri.AbsoluteUri;
+                if (uri.Contains(".pdf"))
+                {
+                    // fetch the PDF!
+                    ImportingIntoLibrary.AddNewDocumentToLibraryFromInternet_ASYNCHRONOUS(CurrentLibrary, uri);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex, "fetch PDF failed for {0}", uri);
+            }
         }
 
         void ObjWebBrowser_TabChanged()
         {
-            Logging.Debug("BibTexSniffer::Browser::Tab Changed");
+            Logging.Debug("BibTexSniffer::Browser::Tab Changed: {0}", ObjWebBrowser.CurrentUri.AbsoluteUri);
             ReflectLatestBrowserContent();
         }
 
@@ -583,7 +626,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
                 if (null == text)
                 {
-                    return;
+                    text = "";
                 }
 
                 // Process
@@ -628,7 +671,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                     // Only do this automatically if there is not already bibtex in the record
                     if (null != pdf_document && String.IsNullOrEmpty(pdf_document.BibTex))
                     { 
-                        string url = ObjWebBrowser.CurrentUri.ToString();
+                        string url = ObjWebBrowser.CurrentUri.AbsoluteUri;
                         string html = ObjWebBrowser.CurrentPageHTML;
                         List<GoogleScholarScrapePaper> gssps = GoogleScholarScraper.ScrapeHtml(html, url);                    
                     
@@ -650,7 +693,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                                 }
                             }
                         }
-
                         catch (Exception ex)
                         {
                             Logging.Warn(ex, "Sniffer was not able to parse the results that came back from GS.");
@@ -728,6 +770,33 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
         private static bool IsValidBibTex(string text)
         {
             return (text.StartsWith("@") && text.EndsWith("}"));
+        }
+
+        private Library CurrentLibrary
+        {
+            get
+            {
+                if (null != user_specified_pdf_document && null != user_specified_pdf_document.Library)
+                {
+                    return user_specified_pdf_document.Library;
+                }
+                if (null != pdf_document_rendered && null != pdf_document_rendered.Library)
+                {
+                    return pdf_document_rendered.Library;
+                }
+                if (null != pdf_document && null != pdf_document.Library)
+                {
+                    return pdf_document.Library;
+                }
+                foreach (PDFDocument pdf in pdf_documents_total_pool)
+                {
+                    if (null != pdf && null != pdf.Library)
+                    {
+                        return pdf.Library;
+                    }
+                }
+                return null;
+            }
         }
 
         #region --- Test ------------------------------------------------------------------------

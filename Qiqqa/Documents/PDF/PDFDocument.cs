@@ -33,7 +33,6 @@ namespace Qiqqa.Documents.PDF
     /// ******************* NB NB NB NB NB NB NB NB NB NB NB ********************************
     /// </summary>
 
-    [Obfuscation(Feature = "properties renaming")]
     public class PDFDocument
     {
         private const string VanillaReferenceFileType = "VANILLA_REFERENCE";
@@ -155,6 +154,21 @@ namespace Qiqqa.Documents.PDF
                 {
                     return 0;
                 }
+            }
+        }
+
+        /// <summary>
+        /// This is an approximate response: it takes a *fast* shortcut to check if the given
+        /// PDF has been OCR'd in the past.
+        /// 
+        /// The emphasis here is on NOT triggering a new OCR action! Just taking a peek, *quickly*.
+        /// </summary>
+        public bool HasOCRdata
+        {
+            get
+            {
+                // do not check if DocumentExists: our pagecount cache check is sufficient and one I/O per check.
+                return PDFRendererFileLayer.HasOCRdata(Fingerprint);
             }
         }
 

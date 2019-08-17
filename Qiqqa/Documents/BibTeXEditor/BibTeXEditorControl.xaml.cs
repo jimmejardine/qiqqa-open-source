@@ -18,7 +18,6 @@ namespace Qiqqa.Documents.BibTeXEditor
     /// <summary>
     /// Interaction logic for BibTeXEditorControl.xaml
     /// </summary>
-    [Obfuscation(Feature = "properties renaming")]
     public partial class BibTeXEditorControl : UserControl
     {
         WeakDependencyPropertyChangeNotifier wdpcn;
@@ -121,7 +120,6 @@ namespace Qiqqa.Documents.BibTeXEditor
             RebuidTextAndGrid();
         }
 
-        [Obfuscation(Feature = "properties renaming")]
         public bool ForceHideNoBibTeXInstructions { get; set; }
         
         void RebuidTextAndGrid()

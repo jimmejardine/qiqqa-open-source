@@ -27,6 +27,22 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             this.num_pages = CountPDFPages();
         }
 
+        public static bool HasOCRdata(string fingerprint)
+        {
+            // BasePath:
+            string base_path = ConfigurationManager.Instance.ConfigurationRecord.System_OverrideDirectoryForOCRs;
+            if (String.IsNullOrEmpty(base_path))
+            {
+                base_path = BASE_PATH_DEFAULT;
+            }
+            // string cached_count_filename = MakeFilename_PageCount(fingerprint);
+            // return MakeFilenameWith2LevelIndirection("pagecount", "0", "txt");
+            string indirection_characters = fingerprint.Substring(0, 2);
+            string cached_count_filename = String.Format("{0}\\{1}\\{2}.{3}.{4}.{5}", base_path, indirection_characters, fingerprint, "pagecount", "0", "txt");
+
+            return File.Exists(cached_count_filename);
+        }
+
         private string BasePath
         {
             get
@@ -123,16 +139,16 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 }
             }
 
-            // If we get here, either the pagecountfile doesnt exist, or there was an exception
+            // If we get here, either the pagecountfile doesn't exist, or there was an exception
             {
                 string cached_count_filename = MakeFilename_PageCount();
 
-                Logging.Debug("Using calculated PDF page count");
+                Logging.Debug("Using calculated PDF page count for file {0}", pdf_filename);
                 int num_pages = PDFTools.CountPDFPages(pdf_filename);
                 if (0 != num_pages)
                 {
                     Directory.CreateDirectory(Path.GetDirectoryName(cached_count_filename));
-                    File.WriteAllText(cached_count_filename, "" + num_pages);
+                    File.WriteAllText(cached_count_filename, Convert.ToString(num_pages, 10));
                 }
                 return num_pages;
             }

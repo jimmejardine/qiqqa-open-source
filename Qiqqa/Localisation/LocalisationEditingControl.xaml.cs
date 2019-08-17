@@ -14,7 +14,6 @@ namespace Qiqqa.Localisation
     /// </summary>
     public partial class LocalisationEditingControl : UserControl
     {
-        [Obfuscation(Feature = "properties renaming")]
         public class LocalisationRow
         {
             public string Id { get; set; }

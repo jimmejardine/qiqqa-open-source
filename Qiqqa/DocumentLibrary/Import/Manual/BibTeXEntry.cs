@@ -8,7 +8,6 @@ using Utilities.Reflection;
 
 namespace Qiqqa.DocumentLibrary.Import.Manual
 {
-    [Obfuscation(Feature = "properties renaming")]
     public class BibTeXEntry
     {
         public string BibTeX { get; set; }

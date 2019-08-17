@@ -87,7 +87,7 @@ namespace Utilities.Misc
             ThreadPool.GetMinThreads(out min_cpu_threads, out min_io_threads);
             min_cpu_threads = Math.Max(2 * count, min_cpu_threads);
             min_io_threads = Math.Max(Math.Max(6, 2 * count), min_io_threads);
-            ThreadPool.SetMaxThreads(min_cpu_threads, min_io_threads);
+            //ThreadPool.SetMaxThreads(min_cpu_threads, min_io_threads);
         }
     }
 }

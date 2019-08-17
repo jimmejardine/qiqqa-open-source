@@ -17,14 +17,11 @@ using Newtonsoft.Json;
 
 namespace Qiqqa.Common.Configuration
 {
-    [Obfuscation(Feature = "properties renaming")]
     public class ConfigurationManager
     {
         public static readonly ConfigurationManager Instance = new ConfigurationManager();
 
         string user_guid;
-        bool is_guest;
-
 
         public string TempDirectoryForQiqqa
         {
@@ -142,7 +139,7 @@ namespace Qiqqa.Common.Configuration
             SaveSearchHistory();
         }
 
-        private void ResetConfigurationRecord(string user_guid_, bool is_guest_)
+        private void ResetConfigurationRecord(string user_guid_)
         {
             Logging.Info("Resetting configuration settings to {0}", user_guid_);
 
@@ -153,7 +150,6 @@ namespace Qiqqa.Common.Configuration
 
             // Create the new user_guid
             this.user_guid = user_guid_;
-            this.is_guest = is_guest_;
 
             // Create the base directory in case it doesnt exist
             Directory.CreateDirectory(BaseDirectoryForUser);
@@ -187,7 +183,7 @@ namespace Qiqqa.Common.Configuration
             // try loading the config the old way:
             if (null == configuration_record)
             {
-                // Try loading any pre-existing config file
+                // Try loading any pre-existing config file: call The Migrator
                 try
                 {
                     if (File.Exists(ConfigFilenameForUser))
@@ -335,25 +331,17 @@ namespace Qiqqa.Common.Configuration
 
         public void ResetConfigurationRecordToGuest()
         {            
-            ResetConfigurationRecord("Guest", true);
+            ResetConfigurationRecord("Guest");
         }
 
         public void ResetConfigurationRecordToUser(string user_guid_)
         {
-            ResetConfigurationRecord(user_guid_, false);
+            ResetConfigurationRecord(user_guid_);
         }
 
 #endregion
 
 #region --- Public accessors ----------------------------------------------------------------------------------------
-
-        public bool IsGuest
-        {
-            get
-            {
-                return is_guest;
-            }
-        }
 
         public Visibility NoviceVisibility
         {

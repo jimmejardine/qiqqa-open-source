@@ -467,7 +467,6 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
 
     #region --- Useful ancilliary classes ------------
 
-    [Obfuscation(Feature = "properties renaming")]
     public class ChartItem
     {
         public int X { get; set; }

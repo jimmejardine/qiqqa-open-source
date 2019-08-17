@@ -5,7 +5,6 @@ using ProtoBuf;
 namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 {
     [ProtoContract]
-    [Obfuscation(Feature = "properties renaming")]
     class KnownWebLibrariesFile
     {
         [ProtoMember(1)]

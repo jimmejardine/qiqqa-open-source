@@ -678,7 +678,6 @@ namespace Utilities.Language.TextIndexing
         #region --- Serialisation records -----------------------------------------------------------------
 
         [ProtoContract]
-        [Obfuscation(Feature = "properties renaming")]
         public class Headers
         {
             [ProtoMember(1)]
@@ -689,7 +688,6 @@ namespace Utilities.Language.TextIndexing
         }
 
         [ProtoContract]
-        [Obfuscation(Feature = "properties renaming")]
         public class DocumentMapHeader
         {
             [ProtoMember(1)]
@@ -699,7 +697,6 @@ namespace Utilities.Language.TextIndexing
         }
 
         [ProtoContract]
-        [Obfuscation(Feature = "properties renaming")]
         public class WordMapHeader
         {
             [ProtoMember(1)]
@@ -711,7 +708,6 @@ namespace Utilities.Language.TextIndexing
         }
 
         [ProtoContract]
-        [Obfuscation(Feature = "properties renaming")]
         public class WordEntry
         {
             [ProtoMember(1)]

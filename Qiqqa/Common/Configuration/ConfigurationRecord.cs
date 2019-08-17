@@ -6,7 +6,6 @@ using Utilities.Misc;
 namespace Qiqqa.Common.Configuration
 {
     [Serializable]
-    [Obfuscation(Feature = "properties renaming")]
     public class ConfigurationRecord : DictionaryBasedObject
     {
         public ConfigurationRecord()
@@ -38,7 +37,15 @@ namespace Qiqqa.Common.Configuration
         }
         public string Account_Nickname
         {
-            get { return this["Account_Nickname"] as string; }
+            get
+            {
+                string nick = this["Account_Nickname"] as string;
+                if (String.IsNullOrEmpty(nick))
+                {
+                    nick = "Guest-" + ConfigurationManager.Instance.ConfigurationRecord.Account_Username.Substring(0, 3);
+                }
+                return nick;
+            }
             set { this["Account_Nickname"] = value; }
         }
 
@@ -144,7 +151,7 @@ namespace Qiqqa.Common.Configuration
         public bool Library_OCRDisabled
         {
             get { return (this["Library_OCRDisabled"] as bool?) ?? false; }
-            set { this["Library_OCRDisabled"] = value; }
+            set { this["Library_OCRDisabled"] = value || true; }
         }
 
         public bool System_UseExternalWebBrowser

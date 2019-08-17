@@ -6,7 +6,6 @@ using Qiqqa.Brainstorm.Common.Searching;
 namespace Qiqqa.Brainstorm.Nodes
 {
     [Serializable]
-    [Obfuscation(Feature = "properties renaming")]
     public class WebsiteNodeContent : ISearchable
     {
         public string Url { get; set; }

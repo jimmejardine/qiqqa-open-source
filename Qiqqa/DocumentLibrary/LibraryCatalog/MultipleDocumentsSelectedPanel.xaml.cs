@@ -66,10 +66,8 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
         // ---------------------------------------------------------------------------------------------------
 
-        [Obfuscation(Feature = "properties renaming")]
         class TagsAddStub
         {
-            [Obfuscation(Feature = "properties renaming")]
             public string Tags { get; set; }
         }
 
@@ -108,10 +106,8 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
         // ---------------------------------------------------------------------------------------------------
 
-        [Obfuscation(Feature = "properties renaming")]
         class TagsRemoveStub
         {
-            [Obfuscation(Feature = "properties renaming")]
             public string Tags { get; set; }
         }
 
@@ -151,16 +147,11 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
         // ---------------------------------------------------------------------------------------------------
 
-        [Obfuscation(Feature = "properties renaming")]
         class ReviewStub
         {
-            [Obfuscation(Feature = "properties renaming")]
             public string ReadingStage { get; set; }
-            [Obfuscation(Feature = "properties renaming")]
             public string Rating { get; set; }
-            [Obfuscation(Feature = "properties renaming")]
             public bool? IsFavourite { get; set; }
-            [Obfuscation(Feature = "properties renaming")]
             public Color Color { get; set; }
         }
 
@@ -216,10 +207,8 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
         // ---------------------------------------------------------------------------------------------------
 
-        [Obfuscation(Feature = "properties renaming")]
         class BibTeXStub
         {
-            [Obfuscation(Feature = "properties renaming")]
             public string BibTex { get; set; }
         }
 

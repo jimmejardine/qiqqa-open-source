@@ -6,7 +6,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 {
     [Serializable]
     [ProtoContract]
-    [Obfuscation(Feature = "properties renaming")]
     public class WebLibraryDetail
     {
         [ProtoMember(1)]
