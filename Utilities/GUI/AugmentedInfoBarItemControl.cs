@@ -128,6 +128,11 @@ namespace Utilities.GUI
 
         public Visibility BottomSpacerVisibility
         {
+            get
+            {
+                return spacer1.Visibility;
+            }
+
             set
             {
                 spacer1.Visibility = value;
