@@ -34,6 +34,11 @@ namespace Qiqqa.Common.GeneralTaskDaemonStuff
         /// <param name="daemon"></param>
         void DoMaintenance(Daemon daemon)
         {
+            if (Qiqqa.Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
+            {
+                return;
+            }
+
             lock (general_task_items)
             {
                 for (int i = general_task_items.Count - 1; i >= 0; --i)

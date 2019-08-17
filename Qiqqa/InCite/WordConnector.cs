@@ -53,6 +53,12 @@ namespace Qiqqa.InCite
 
         void DoMaintenance(Daemon daemon)
         {
+            if (Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
+            {
+                daemon.Sleep(60 * 1000);
+                return;
+            }
+
             if (paused || repopulating_clusters)
             {
                 Logging.Info("WordConnector paused");

@@ -460,7 +460,7 @@ namespace Qiqqa.Common.Configuration
             set { this["AutomaticAccountDetails_LibraryMembershipLastDate"] = value; }
         }
 
-        public DisableAllBackgroundTasks
+        public bool DisableAllBackgroundTasks
         {
             get { return (this["DisableAllBackgroundTasks"] as bool?) ?? false; }
             set { this["DisableAllBackgroundTasks"] = value; }

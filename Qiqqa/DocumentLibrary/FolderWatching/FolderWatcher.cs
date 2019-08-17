@@ -184,6 +184,12 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                     break;
                 }
 
+                if (Qiqqa.Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
+                {
+                    Logging.Debug("FolderWatcher: Breaking out of outer processing loop due to DisableAllBackgroundTasks");
+                    break;
+                }
+
                 // Mark that we are now processing the folder
                 folder_contents_has_changed = false;
 
@@ -206,6 +212,12 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 	                if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
                     {
                         Logging.Debug("FolderWatcher: Breaking out of inner processing loop due to daemon termination");
+                        break;
+                    }
+
+                    if (Qiqqa.Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
+                    {
+                        Logging.Debug("FolderWatcher: Breaking out of inner processing loop due to DisableAllBackgroundTasks");
                         break;
                     }
 

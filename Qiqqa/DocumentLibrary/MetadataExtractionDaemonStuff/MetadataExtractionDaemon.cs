@@ -55,6 +55,11 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
                     break;
                 }
 
+                if (Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
+                {
+                    return;
+                }
+
                 // Check that we have something to do
                 List<PDFDocument> pdfs_to_process = new List<PDFDocument>();
                 {

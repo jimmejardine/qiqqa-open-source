@@ -20,7 +20,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         public static PDFTextExtractor Instance = new PDFTextExtractor();
 
         bool still_running;
-        int NUM_OCR_THREADS; 
+        int NUM_OCR_THREADS;
         Thread[] threads;
 
         private object queue_lock = new object();
@@ -53,7 +53,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 this.pdf_renderer = pdf_renderer;
                 this.page = page;
                 this.TEXT_PAGES_PER_GROUP = TEXT_PAGES_PER_GROUP;
-                
+
                 this.force_job = false;
                 this.language = "";
             }
@@ -126,7 +126,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             {
                 return job.pdf_renderer.DocumentFingerprint + "." + job.page;
             }
-            
+
             /// <summary>
             /// Use this for determining if a job group is running
             /// </summary>
@@ -138,7 +138,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             {
                 if (force_is_group || is_group)
                 {
-                    int job_group_start_page = ((job.page-1) / job.TEXT_PAGES_PER_GROUP) * job.TEXT_PAGES_PER_GROUP + 1;
+                    int job_group_start_page = ((job.page - 1) / job.TEXT_PAGES_PER_GROUP) * job.TEXT_PAGES_PER_GROUP + 1;
                     return job.pdf_renderer.DocumentFingerprint + "." + job_group_start_page;
                 }
                 else
@@ -177,13 +177,13 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 threads[i].Start();
             }
         }
-        
+
         public void QueueJobGroup(Job job)
         {
             lock (queue_lock)
             {
                 string token = NextJob.GetQueuedJobToken(job);
-                
+
                 // Only add the job if it is not already queued
                 if (!job_queue_group.ContainsKey(token))
                 {
@@ -257,13 +257,14 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             lock (queue_lock)
             {
                 // Check if OCR is disabled
-                if (ConfigurationManager.Instance.ConfigurationRecord.Library_OCRDisabled)
+                if (ConfigurationManager.Instance.ConfigurationRecord.Library_OCRDisabled
+                    || ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
                 {
                     // Only state the OCR is disabled if there is something to be OCRed
                     if (0 < job_queue_single.Count)
                     {
                         if (DateTime.UtcNow.Subtract(ocr_disabled_next_notification_time).TotalMilliseconds > 0)
-                        {                            
+                        {
                             StatusManager.Instance.UpdateStatus("PDFOCR", String.Format("OCR is disabled ({0} page(s) still to OCR)", job_queue_single.Count));
                             ocr_disabled_next_notification_time = DateTime.UtcNow.AddSeconds(5);
                         }
@@ -286,7 +287,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
                 // First look for any SINGLE 1st pages - these get priority
                 foreach (var pair in job_queue_single)
-                {                    
+                {
                     Job job = pair.Value;
                     if (!IsSimilarJobRunning(job, false, queue_lock))
                     {
@@ -353,7 +354,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                         }
                     }
                 }
-                
+
                 // Otherwise get the most recently added job
                 foreach (var pair in job_queue_single)
                 {
@@ -388,7 +389,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 }
 
                 int job_queue_total_count = job_queue_group_count + job_queue_single_count;
-                
+
                 if ((0 < job_queue_group_count || 0 < job_queue_single_count) && Library.IsBusyAddingPDFs)
                 {
                     StatusManager.Instance.UpdateStatus("PDFOCR", "OCR paused while adding documents.");
@@ -456,7 +457,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             }
         }
 
-        private HashSet<string> failed_pdf_group_tokens = new HashSet<string>();        
+        private HashSet<string> failed_pdf_group_tokens = new HashSet<string>();
         private void ProcessNextJob_Group(NextJob next_job, string temp_ocr_result_filename)
         {
             // Check that this PDF has not failed before
@@ -466,7 +467,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 // Build up the page numbers string
                 string page_numbers_string;
                 {
-                    int page_range_start = ((next_job.job.page-1) / next_job.job.TEXT_PAGES_PER_GROUP) * next_job.job.TEXT_PAGES_PER_GROUP + 1;
+                    int page_range_start = ((next_job.job.page - 1) / next_job.job.TEXT_PAGES_PER_GROUP) * next_job.job.TEXT_PAGES_PER_GROUP + 1;
                     int page_range_end = page_range_start + next_job.job.TEXT_PAGES_PER_GROUP - 1;
                     page_range_end = Math.Min(page_range_end, next_job.job.pdf_renderer.PageCount);
 
@@ -480,19 +481,19 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                     page_numbers_string = page_numbers_string.TrimEnd(',');
                 }
 
-                string ocr_parameters = 
+                string ocr_parameters =
                     ""
-                    + "GROUP" 
-                    + " " 
-                    + '"' + next_job.job.pdf_renderer.PDFFilename + '"' 
-                    + " " 
-                    + page_numbers_string 
-                    + " " 
-                    + '"' + temp_ocr_result_filename + '"' 
-                    + " " 
-                    + '"' + ReversibleEncryption.Instance.EncryptString(next_job.job.pdf_renderer.PDFUserPassword) + '"' 
+                    + "GROUP"
                     + " "
-                    + '"' + next_job.job.language + '"' 
+                    + '"' + next_job.job.pdf_renderer.PDFFilename + '"'
+                    + " "
+                    + page_numbers_string
+                    + " "
+                    + '"' + temp_ocr_result_filename + '"'
+                    + " "
+                    + '"' + ReversibleEncryption.Instance.EncryptString(next_job.job.pdf_renderer.PDFUserPassword) + '"'
+                    + " "
+                    + '"' + next_job.job.language + '"'
                     ;
 
                 int SECONDS_TO_WAIT = 60;  // MAKE SURE THIS NUMBER IS LARGER THAN THE NUMBER IN THE ACTUAL QiqqaOCR so that QiqqaOCR has time to finish up...!
@@ -520,16 +521,16 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         private void ProcessNextJob_Single(NextJob next_job, string temp_ocr_result_filename)
         {
-            string ocr_parameters = 
+            string ocr_parameters =
                 ""
-                + "SINGLE" 
-                + " " 
-                + '"' + next_job.job.pdf_renderer.PDFFilename + '"' 
-                + " " 
-                + next_job.job.page 
-                + " " 
-                + '"' + temp_ocr_result_filename + '"' 
-                + " " 
+                + "SINGLE"
+                + " "
+                + '"' + next_job.job.pdf_renderer.PDFFilename + '"'
+                + " "
+                + next_job.job.page
+                + " "
+                + '"' + temp_ocr_result_filename + '"'
+                + " "
                 + '"' + ReversibleEncryption.Instance.EncryptString(next_job.job.pdf_renderer.PDFUserPassword) + '"'
                 + " "
                 + '"' + next_job.job.language + '"'
@@ -542,9 +543,9 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 next_job.job.pdf_renderer.StorePageTextSingle(next_job.job.page, temp_ocr_result_filename);
             }
             else
-            {   
+            {
                 Logging.Error("Couldn't even perform OCR on the page, so giving up for " + next_job.job);
-                
+
                 // Store an empty file so we don't queue forever...
 
             }
@@ -604,7 +605,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 }
             }
         }
-                
+
         void Shutdown()
         {
             Logging.Info("Stopping PDFTextExtractor threads");
