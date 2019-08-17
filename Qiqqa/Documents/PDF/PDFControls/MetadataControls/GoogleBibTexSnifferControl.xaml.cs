@@ -767,6 +767,11 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                 web_request.Method = "POST";
                 web_request.ContentLength = buffer.Length;
                 web_request.ContentType = "text/plain; charset=utf-8";
+                //web_request.KeepAlive = false;
+                // https://stackoverflow.com/questions/47269609/system-net-securityprotocoltype-tls12-definition-not-found
+                // ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+                ServicePointManager.SecurityProtocol = (SecurityProtocolType)(0xc0 | 0x300 | 0xc00);
+
                 using (Stream stream = web_request.GetRequestStream())
                 {
                     stream.Write(buffer, 0, buffer.Length);
