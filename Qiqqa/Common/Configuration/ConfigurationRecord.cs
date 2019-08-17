@@ -151,7 +151,7 @@ namespace Qiqqa.Common.Configuration
         public bool Library_OCRDisabled
         {
             get { return (this["Library_OCRDisabled"] as bool?) ?? false; }
-            set { this["Library_OCRDisabled"] = value || true; }
+            set { this["Library_OCRDisabled"] = value; }
         }
 
         public bool System_UseExternalWebBrowser
