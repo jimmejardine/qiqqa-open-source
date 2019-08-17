@@ -79,6 +79,11 @@ namespace Utilities.GUI
 
         public string Caption
         {
+            get
+            {
+                return TextCaptionCentered.Text;
+            }
+
             set
             {
                 if (null != value)
@@ -177,6 +182,11 @@ namespace Utilities.GUI
 
         public Dock CaptionDock
         {
+            get
+            {
+                return Dock.Bottom;
+            }
+
             set
             {
                 switch (value)
