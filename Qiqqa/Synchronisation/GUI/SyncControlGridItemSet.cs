@@ -4,7 +4,6 @@ using Qiqqa.Synchronisation.BusinessLogic;
 
 namespace Qiqqa.Synchronisation.GUI
 {
-    [Obfuscation(Feature = "properties renaming")]
     class SyncControlGridItemSet
     {
         internal LibrarySyncManager.SyncRequest sync_request;

@@ -27,7 +27,6 @@ namespace Qiqqa.Main.LoginStuff
     /// </summary>
     public partial class LoginWindow : StandardWindow
     {
-        [Obfuscation(Feature = "properties renaming")]
         class DisableSSLData
         {
             public bool System_DisableSSL { get; set; }

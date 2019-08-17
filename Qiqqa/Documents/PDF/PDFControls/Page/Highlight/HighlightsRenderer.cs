@@ -10,7 +10,6 @@ using Image = System.Windows.Controls.Image;
 
 namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
 {
-    [Obfuscation(Feature = "renaming", ApplyToMembers = false)]
     public class HighlightsRenderer : Image
     {
         int page;

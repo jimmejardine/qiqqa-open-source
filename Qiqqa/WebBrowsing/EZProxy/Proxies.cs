@@ -16,12 +16,9 @@ namespace Qiqqa.WebBrowsing.EZProxy
         {
         }
 
-        [Obfuscation(Feature = "properties renaming")]
         public class Proxy
         {
-            [Obfuscation(Feature = "properties renaming")]
             public string url { get; set; }
-            [Obfuscation(Feature = "properties renaming")]
             public string name { get; set; }
 
             public override string ToString()

@@ -114,7 +114,6 @@ namespace Qiqqa.Expedition
         }
     }
 
-    [Obfuscation(Feature = "properties renaming")]
     public class ChartItem
     {
         public string Topic { get; set; }

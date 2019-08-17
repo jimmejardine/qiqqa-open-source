@@ -5,7 +5,6 @@ using System.Windows.Media;
 
 namespace Qiqqa.StartPage.Formatting
 {
-    [Obfuscation(Feature = "renaming", ApplyToMembers = false)]
     class ParagraphHeader : Paragraph
     {
         static readonly Brush brush = new SolidColorBrush(Color.FromRgb(47, 104, 149));
