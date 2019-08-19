@@ -698,7 +698,8 @@ namespace Utilities.Language.TextIndexing
             sb.Append("\t" + "minDocFreq     : " + minDocFreq + "\n");
             return sb.ToString();
         }
-		
+
+#if TEST
         /// <summary> Test driver.
         /// Pass in "-i INDEX" and then either "-fn FILE" or "-url URL".
         /// </summary>
@@ -769,7 +770,8 @@ namespace Utilities.Language.TextIndexing
                 o.WriteLine();
             }
         }
-		
+#endif
+        
         /// <summary> Find words for a more-like-this query former.
         /// 
         /// </summary>
@@ -874,7 +876,6 @@ namespace Utilities.Language.TextIndexing
                 }
             }
         }
-		
 		
         /// <summary>determines if the passed term is likely to be of interest in "more like" comparisons 
         /// 

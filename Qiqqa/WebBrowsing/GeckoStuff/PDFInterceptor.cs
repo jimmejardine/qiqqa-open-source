@@ -49,7 +49,7 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
 #if DEBUG
             {
                 string abs_uri = channel.Uri.AbsoluteUri;
-                string disp_hdr = "x";
+                string disp_hdr = "(not specified)";
                 try
                 {
                     disp_hdr = channel.ContentDispositionHeader;
