@@ -6,11 +6,14 @@ namespace Utilities.Internet
 {
     public class DownloadableFileGrabber
     {
-        public static List<string> Grab(string html, string extension)
+        public static List<string> Grab(Uri base_uri, string html, string extension)
         {
-            string extension_lower = extension.ToLower();
+            string extension_lower = "." + extension.ToLower();
 
-            List<string> results = new List<string>();
+            // use a hashset so we don't add duplicate entries as one PDF *can* be
+            // referenced multiple times on the same page: in such a case, we only
+            // want it mentioned *once* in the result set.
+            HashSet<string> results = new HashSet<string>();
 
             HtmlDocument doc = new HtmlDocument();
             doc.LoadHtml(html);
@@ -27,11 +30,20 @@ namespace Utilities.Internet
                         if (null != href)
                         {
                             // Look for the required extension
-                            Uri url = new Uri(href);
-                            if (url.AbsolutePath.ToLower().EndsWith(extension_lower))
+                            Uri url;
+                            try
                             {
-                                Logging.Info("Grabber/HREF: We have {0}", href);
-                                results.Add(href);
+                                // handle both relative and absolute URIs in one go
+                                url = new Uri(base_uri, href);
+                                if (url.AbsolutePath.ToLower().EndsWith(extension_lower))
+                                {
+                                    Logging.Info("Grabber/HREF: We have {0}", href);
+                                    results.Add(href);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Logging.Error(ex, "Grabber/HREF: Failed to interpret {0} as a URI: skipping this entry", href);
                             }
                         }
                     }
@@ -61,18 +73,27 @@ namespace Utilities.Internet
 
                         if (null != href)
                         {
-                            Uri url = new Uri(href);
-                            if (url.AbsolutePath.ToLower().EndsWith(extension_lower))
-                            { 
-                                Logging.Info("Grabber/EMBED: We have {0}", href);
-                                results.Add(href);
+                            Uri url;
+                            try
+                            {
+                                // handle both relative and absolute URIs in one go
+                                url = new Uri(base_uri, href);
+                                if (url.AbsolutePath.ToLower().EndsWith(extension_lower))
+                                {
+                                    Logging.Info("Grabber/HREF: We have {0}", href);
+                                    results.Add(href);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Logging.Error(ex, "Grabber/HREF: Failed to interpret {0} as a URI: skipping this entry", href);
                             }
                         }
                     }
                 }
             }
 
-            return results;
+            return new List<string>(results);
         }
     }
 }
