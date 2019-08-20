@@ -62,13 +62,13 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.OnlineDatabaseLookupStuff
             DoSearch(WebSearchers.ARXIV_KEY);
         }
 
-        void DoSearch(string ACTIVE_SEARCH_KEY)
+        void DoSearch(string active_search_key)
         {
             if (null == pdf_document) return;
             
             var web_browser = MainWindowServiceDispatcher.Instance.OpenWebBrowser();
             web_browser.DoWebSearch(pdf_document.TitleCombined);
-            web_browser.SelectSearchTab(ACTIVE_SEARCH_KEY);
+            web_browser.SelectSearchTab(active_search_key);
         }
     }
 }

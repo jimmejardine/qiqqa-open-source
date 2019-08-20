@@ -85,7 +85,6 @@ namespace Qiqqa.WebBrowsing
                 return preferences;
             }
 
-
             // If they have no preferences file, then return the default
             Logging.Info("Returning default WebSearcher preferences because no preferences have been saved.");
             foreach (string line in GetDefaultPreferences())
