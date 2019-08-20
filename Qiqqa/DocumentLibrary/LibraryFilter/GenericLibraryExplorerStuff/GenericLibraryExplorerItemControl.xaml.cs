@@ -17,6 +17,8 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
 
         public GenericLibraryExplorerItemControl()
         {
+            Theme.Initialize();
+
             InitializeComponent();
 
             this.DataContextChanged +=GenericLibraryExplorerItemControl_DataContextChanged;

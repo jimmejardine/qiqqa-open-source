@@ -42,6 +42,8 @@ namespace Qiqqa.Chat
 
         public ChatControl()
         {
+            Theme.Initialize();
+
             InitializeComponent();
 
             TxtSubmission.PreviewKeyDown += TxtSubmission_PreviewKeyDown;

@@ -11,128 +11,128 @@
   x:Name="BibTexSnifferWindow"
 >
 
-  <Grid>
+    <Grid>
 
-    <Grid.RowDefinitions>
-      <RowDefinition Height="2*" />
-      <RowDefinition Height="5" />
-      <RowDefinition Height="3*" />
-    </Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="3*" />
+        </Grid.RowDefinitions>
 
 
-    <!-- Contains the PDF and bibtex and buttons -->
-    <DockPanel Grid.Row="0">
+        <!-- Contains the PDF and bibtex and buttons -->
+        <DockPanel Grid.Row="0">
 
-      <local_gui:AugmentedClosableBorder DockPanel.Dock="Top">
-        <TextBlock TextWrapping="Wrap">
+            <local_gui:AugmentedClosableBorder DockPanel.Dock="Top">
+                <TextBlock TextWrapping="Wrap">
           You are missing metadata for the PDF shown below.
           Select the title (or anything else) in the PDF window to search for it in Google Scholar in the bottom browser.  When you find it, click on the "Import into BibTeX" link to associate the correct BibTeX with the PDF.  <Hyperlink Name="HyperlinkBibTeXLinksMissing">Not seeing any "Import into BibTeX" links?</Hyperlink>  The BibTeX will then be shown in the top-right so you can edit it if necessary.
           You can put a # in the top-right box if there is no BibTeX for this paper and you don't want Sniffer to keep asking you.  You can also navigate to PubMed XML records and they will automatically be translated to BibTeX.
-        </TextBlock>
-      </local_gui:AugmentedClosableBorder>
+                </TextBlock>
+            </local_gui:AugmentedClosableBorder>
 
-      <Grid>
-        <Grid.ColumnDefinitions>
-	        <ColumnDefinition Width="561*" />
-	        <ColumnDefinition Width="5" />
-	        <ColumnDefinition Width="381*" />
-        </Grid.ColumnDefinitions>
-
-
-        <Grid>
-          <Grid Grid.Column="0" Name="PDFRendererControlArea" />
-          <Grid Grid.Column="0" Name="ObjNoPDFAvailableMessage">
-            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center">There is no PDF associated with this control.  You can still search for reference information using the browser below.</TextBlock>
-          </Grid>
-
-          <local_gui:AugmentedBorder x:Name="PDFRendererControlAreaButtonPanel" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5" Background="White">
-            <StackPanel>
-              <local_gui:AugmentedButton DockPanel.Dock="Right" Name="ButtonConfig"/>
-            </StackPanel>
-          </local_gui:AugmentedBorder>
-
-        </Grid>
-
-        <GridSplitter Grid.Column="1" Height="Auto" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-
-        <DockPanel Grid.Column="2" >
-          <local_gui:AugmentedBorder DockPanel.Dock="Bottom">
-            <StackPanel>
-              <DockPanel>
-                <local_gui:AugmentedToggleButton DockPanel.Dock="Right" Name="ButtonWizard" IsChecked="{Binding Metadata_UseBibTeXSnifferWizard}"/>                
-                <local_gui:AugmentedButton DockPanel.Dock="Right" Name="ButtonRedo" Visibility="Collapsed"/>
-                <local_gui:AugmentedButton DockPanel.Dock="Right" Name="ButtonWebcast"/>
-
-                <Grid Name="ObjSearchOptionsPanel">
-                  <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="56*" />
-                    <ColumnDefinition Width="3" />
-                    <ColumnDefinition Width="87*" />
-                    <ColumnDefinition Width="3" />
-                    <ColumnDefinition Width="88*" />
-                  </Grid.ColumnDefinitions>
-
-                  <StackPanel>
-                    <RadioButton GroupName="SEARCH_OPTIONS_GROUP" IsChecked="{Binding Missing}">Missing</RadioButton >
-                    <RadioButton GroupName="SEARCH_OPTIONS_GROUP" IsChecked="{Binding Skipped}">Skipped</RadioButton >
-                    <RadioButton GroupName="SEARCH_OPTIONS_GROUP" IsChecked="{Binding Auto}">Auto</RadioButton >
-                    <RadioButton GroupName="SEARCH_OPTIONS_GROUP" IsChecked="{Binding Manual}">Manual</RadioButton >
-                  </StackPanel>
-                  <StackPanel Grid.Column="2">
-                    <CheckBox IsChecked="{Binding HasSourceURL}">Sourced (URL)</CheckBox >
-                    <CheckBox IsChecked="{Binding HasSourceLocalFileSystem}">Sourced (Local)</CheckBox >
-                    <CheckBox IsChecked="{Binding Unsourced}">Unsourced</CheckBox >
-                  </StackPanel>
-                  <StackPanel Grid.Column="4">
-                    <CheckBox IsChecked="{Binding HasDocumentPDF}" Content="Has PDF"/>
-                    <CheckBox IsChecked="{Binding DocumentIsOCRed}" Content="Is OCRed" IsThreeState="{Binding DocumentIsOCRed_TriState}"/>
-                    <Rectangle Height="15" StrokeThickness="0" />
-	                <CheckBox IsChecked="{Binding InvertSelection}" Content="Invert Selection"></CheckBox>
-                  </StackPanel>
-                </Grid>
-              </DockPanel>
-
-              <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
-
-              <DockPanel>
-                <local_gui:AugmentedButton DockPanel.Dock="Right" Name="ButtonNext"/>
-                <local_gui:AugmentedButton DockPanel.Dock="Right" Name="ButtonPrev"/>
-                <Grid>
-                  <ProgressBar Name="ObjProgress" />
-                  <TextBlock Name="TxtProgress" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center"/>
-                </Grid>
-              </DockPanel>
-            </StackPanel>
-          </local_gui:AugmentedBorder>
-
-          <local_gui:AugmentedBorder>
             <Grid>
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-              <TextBox Name="TxtBibTeX" Text="{Binding BibTex}" AcceptsReturn="True" />
-            </ScrollViewer>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="561*" />
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="381*" />
+                </Grid.ColumnDefinitions>
 
-              <local_gui:AugmentedBorder x:Name="ObjBibTeXEditButtonPanel" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5" Background="White">
-                <StackPanel>
-                  <local_gui:AugmentedButton Name="ButtonClear"/>
-                  <local_gui:AugmentedButton Name="ButtonSkipForever"/>
-                  <local_gui:AugmentedButton Name="ButtonValidate"/>
-                </StackPanel>
-              </local_gui:AugmentedBorder>
-              
+
+                <Grid>
+                    <Grid Grid.Column="0" Name="PDFRendererControlArea" />
+                    <Grid Grid.Column="0" Name="ObjNoPDFAvailableMessage">
+                        <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center">There is no PDF associated with this control.  You can still search for reference information using the browser below.</TextBlock>
+                    </Grid>
+
+                    <local_gui:AugmentedBorder x:Name="PDFRendererControlAreaButtonPanel" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5" Background="White">
+                        <StackPanel>
+                            <local_gui:AugmentedButton DockPanel.Dock="Right" Name="ButtonConfig"/>
+                        </StackPanel>
+                    </local_gui:AugmentedBorder>
+
+                </Grid>
+
+                <GridSplitter Grid.Column="1" Height="Auto" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+
+                <DockPanel Grid.Column="2" >
+                    <local_gui:AugmentedBorder DockPanel.Dock="Bottom">
+                        <StackPanel>
+                            <DockPanel>
+                                <local_gui:AugmentedToggleButton DockPanel.Dock="Right" Name="ButtonWizard" IsChecked="{Binding Metadata_UseBibTeXSnifferWizard}"/>
+                                <local_gui:AugmentedButton DockPanel.Dock="Right" Name="ButtonRedo" Visibility="Collapsed"/>
+                                <local_gui:AugmentedButton DockPanel.Dock="Right" Name="ButtonWebcast"/>
+
+                                <Grid Name="ObjSearchOptionsPanel">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="56*" />
+                                        <ColumnDefinition Width="3" />
+                                        <ColumnDefinition Width="87*" />
+                                        <ColumnDefinition Width="3" />
+                                        <ColumnDefinition Width="88*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel>
+                                        <RadioButton GroupName="SEARCH_OPTIONS_GROUP" IsChecked="{Binding Missing}">Missing</RadioButton >
+                                        <RadioButton GroupName="SEARCH_OPTIONS_GROUP" IsChecked="{Binding Skipped}">Skipped</RadioButton >
+                                        <RadioButton GroupName="SEARCH_OPTIONS_GROUP" IsChecked="{Binding Auto}">Auto</RadioButton >
+                                        <RadioButton GroupName="SEARCH_OPTIONS_GROUP" IsChecked="{Binding Manual}">Manual</RadioButton >
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="2">
+                                        <CheckBox IsChecked="{Binding HasSourceURL}">Sourced (URL)</CheckBox >
+                                        <CheckBox IsChecked="{Binding HasSourceLocalFileSystem}">Sourced (Local)</CheckBox >
+                                        <CheckBox IsChecked="{Binding Unsourced}">Unsourced</CheckBox >
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="4">
+                                        <CheckBox x:Name="HasDocumentPDF_CheckBox" IsChecked="{Binding HasDocumentPDF}" Content="Has PDF" IsThreeState="{Binding HasDocumentPDF_TriState}" />
+                                        <CheckBox x:Name="DocumentIsOCRed_CheckBox" IsChecked="{Binding DocumentIsOCRed}" Content="Is OCRed" IsThreeState="{Binding DocumentIsOCRed_TriState}"/>
+                                        <Rectangle Height="15" StrokeThickness="0" />
+                                        <CheckBox IsChecked="{Binding InvertSelection}" Content="Invert Selection"></CheckBox>
+                                    </StackPanel>
+                                </Grid>
+                            </DockPanel>
+
+                            <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
+
+                            <DockPanel>
+                                <local_gui:AugmentedButton DockPanel.Dock="Right" Name="ButtonNext"/>
+                                <local_gui:AugmentedButton DockPanel.Dock="Right" Name="ButtonPrev"/>
+                                <Grid>
+                                    <ProgressBar Name="ObjProgress" />
+                                    <TextBlock Name="TxtProgress" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                </Grid>
+                            </DockPanel>
+                        </StackPanel>
+                    </local_gui:AugmentedBorder>
+
+                    <local_gui:AugmentedBorder>
+                        <Grid>
+                            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                                <TextBox Name="TxtBibTeX" Text="{Binding BibTex}" AcceptsReturn="True" />
+                            </ScrollViewer>
+
+                            <local_gui:AugmentedBorder x:Name="ObjBibTeXEditButtonPanel" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5" Background="White">
+                                <StackPanel>
+                                    <local_gui:AugmentedButton Name="ButtonClear"/>
+                                    <local_gui:AugmentedButton Name="ButtonSkipForever"/>
+                                    <local_gui:AugmentedButton Name="ButtonValidate"/>
+                                </StackPanel>
+                            </local_gui:AugmentedBorder>
+
+                        </Grid>
+                    </local_gui:AugmentedBorder>
+                </DockPanel>
+
             </Grid>
-          </local_gui:AugmentedBorder>
+
         </DockPanel>
 
-      </Grid>
+        <GridSplitter Grid.Row="1" Height="Auto" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
 
-    </DockPanel>
+        <local_gui:AugmentedBorder Grid.Row="2">
+            <webbrowser:WebBrowserHostControl Grid.Row="4" x:Name="ObjWebBrowser" />
+        </local_gui:AugmentedBorder>
 
-    <GridSplitter Grid.Row="1" Height="Auto" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-
-    <local_gui:AugmentedBorder Grid.Row="2">
-      <webbrowser:WebBrowserHostControl Grid.Row="4" x:Name="ObjWebBrowser" />
-    </local_gui:AugmentedBorder>
-
-  </Grid>
+    </Grid>
 
 </commongui:StandardWindow>

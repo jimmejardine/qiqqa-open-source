@@ -14,9 +14,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
         {
             InitializeComponent();
 
-
-//            TextLabelTitle.OnClick += new HyperlinkTextBlock.OnClickDelegate(TextLabelTitle_OnClick);
-  //          TextLabelAuthors.OnClick += new HyperlinkTextBlock.OnClickDelegate(TextLabelAuthors_OnClick);
+            //ObjTitle.OnClick += new ObjTitle.OnClickDelegate(TextLabelTitle_OnClick);
+            //ObjAuthors.OnClick += new ObjAuthors.OnClickDelegate(TextLabelAuthors_OnClick);
         }
 
         void TextLabelTitle_OnClick(object sender, MouseButtonEventArgs e)
@@ -38,6 +37,5 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                 e.Handled = true;
             }
         }
-
     }
 }

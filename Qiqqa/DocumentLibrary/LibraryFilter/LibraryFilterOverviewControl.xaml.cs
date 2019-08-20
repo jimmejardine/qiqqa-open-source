@@ -17,6 +17,8 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
 
         public LibraryFilterOverviewControl()
         {
+            Theme.Initialize();
+
             InitializeComponent();
 
             ObjLibraryFilterDescriptiveText.Background = ThemeColours.Background_Brush_Blue_VeryDarkToDark;

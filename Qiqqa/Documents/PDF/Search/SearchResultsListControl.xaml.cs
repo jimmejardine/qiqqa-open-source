@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Utilities.GUI;
 
 namespace Qiqqa.Documents.PDF.Search
 {
@@ -16,6 +17,8 @@ namespace Qiqqa.Documents.PDF.Search
         
         public SearchResultsListControl()
         {
+            Theme.Initialize();
+
             InitializeComponent();
 
             ListSearchResults.SelectionChanged += ListSearchResults_SelectionChanged;
