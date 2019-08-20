@@ -20,31 +20,46 @@ namespace Qiqqa.Documents.Common
 
         protected DocumentQueuedStorer()
         {
-            MaintainableManager.Instance.Register(DoMaintenance_FlushDocuments, 30000, ThreadPriority.Normal);
+            MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_FlushDocuments, 30 * 1000, ThreadPriority.BelowNormal);
+            // Quit this delayed storing of PDF files when we've hit the end of the execution run: 
+            // we'll have to save them all to disk in one go then, and quickly too!
+            Utilities.Shutdownable.ShutdownableManager.Instance.Register(Shutdown);
         }
 
         void DoMaintenance_FlushDocuments(Daemon daemon)
         {
-            if (period_flush.Expired)
+            if (Qiqqa.Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
+            {
+                // do run the flush task, but delayed!
+                daemon.Sleep(5 * 60 * 1000);
+            }
+
+            // Quit this delayed storing of PDF files when we've hit the end of the excution run: 
+            // we'll have to save them all to disk in one go then, and quickly too!
+            if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown || period_flush.Expired)
             {
                 period_flush.Signal();
-                FlushDocuments();
+                FlushDocuments(false);
             }
         }
 
-        private void FlushDocuments()
+        void Shutdown()
         {
-            while (true)
-            {
-                int count_to_go = 0;
+            // **forced** flush!
+            FlushDocuments(true);
+        }
 
-                // No flushing while still adding...
-                if (Library.IsBusyAddingPDFs)
+        object flush_locker = new object();
+
+        private void FlushDocuments(bool force_flush_no_matter_what)
+        {
+            // use a lock to ensure the time-delayed flush doesn't ever collide with the
+            // end-of-execution-run flush initiated by ShutdownableManager.
+            lock (flush_locker)
+            {
+                while (true)
                 {
-                    lock (locker)
-                    {
-                        count_to_go = documents_to_store.Count;
-                    }
+                    int count_to_go = PendingQueueCount;
 
                     if (0 < count_to_go)
                     {
@@ -53,40 +68,32 @@ namespace Qiqqa.Documents.Common
                     else
                     {
                         StatusManager.Instance.ClearStatus("DocumentQueuedStorer");
+                        return;
                     }
 
-                    return;
-                }
-
-                PDFDocument pdf_document_to_flush = null;
-
-                lock (locker)
-                {
-                    foreach (var pair in documents_to_store)
+                    // No flushing while still adding... unless we're quitting the executable already.
+                    if (!force_flush_no_matter_what && Library.IsBusyAddingPDFs)
                     {
-                        pdf_document_to_flush = pair.Value;
-                        documents_to_store.Remove(pair.Key);
-                        count_to_go = documents_to_store.Count;
-                        break;
+                        return;
                     }
-                }
 
-                if (0 < count_to_go)
-                {
-                    StatusManager.Instance.UpdateStatusBusy("DocumentQueuedStorer", String.Format("{0} documents still to flush", count_to_go), 1, count_to_go);
-                }
-                else
-                {
-                    StatusManager.Instance.ClearStatus("DocumentQueuedStorer");
-                }
+                    PDFDocument pdf_document_to_flush = null;
 
-                if (null != pdf_document_to_flush)
-                {
-                    pdf_document_to_flush.SaveToMetaData();
-                }
-                else
-                {
-                    return;
+                    // grab one PDF to save/flush:
+                    lock (locker)
+                    {
+                        foreach (var pair in documents_to_store)
+                        {
+                            pdf_document_to_flush = pair.Value;
+                            documents_to_store.Remove(pair.Key);
+                            break;
+                        }
+                    }
+
+                    if (null != pdf_document_to_flush)
+                    {
+                        pdf_document_to_flush.SaveToMetaData();
+                    }
                 }
             }
         }
