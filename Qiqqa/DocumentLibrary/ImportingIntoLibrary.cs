@@ -325,14 +325,15 @@ namespace Qiqqa.DocumentLibrary
                 // also: https://stackoverflow.com/questions/21481682/httpwebrequest-the-underlying-connection-was-closed-the-connection-was-closed
                 web_request.KeepAlive = false;
                 // https://stackoverflow.com/questions/47269609/system-net-securityprotocoltype-tls12-definition-not-found
-                // ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
-                ServicePointManager.SecurityProtocol = (SecurityProtocolType)(0xc0 | 0x300 | 0xc00);
+                //
+                // Allow ALL protocols?
+                // ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls | SecurityProtocolType.Tls;
+                ServicePointManager.SecurityProtocol = (SecurityProtocolType)(0xc0 | 0x300 | 0xc00) | SecurityProtocolType.Ssl3;
 
                 // same headers as sent by modern Chrome.
                 // Gentlemen, start your prayer wheels!
                 web_request.Headers.Add("Cache-Control", "no-cache");
                 web_request.Headers.Add("Pragma", "no-cache");
-
 
                 using (HttpWebResponse web_response = (HttpWebResponse)web_request.GetResponse())
                 {
