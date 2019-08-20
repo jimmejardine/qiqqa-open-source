@@ -38,6 +38,8 @@ namespace Qiqqa.Main
         {
             MainWindowServiceDispatcher.Instance.MainWindow = this;
 
+            Theme.Initialize();
+
             InitializeComponent();
 
             this.DataContext = ConfigurationManager.Instance.ConfigurationRecord_Bindable;

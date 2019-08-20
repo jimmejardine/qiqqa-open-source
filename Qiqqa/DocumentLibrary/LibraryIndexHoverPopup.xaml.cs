@@ -26,6 +26,8 @@ namespace Qiqqa.DocumentLibrary
 
         public LibraryIndexHoverPopup()
         {
+            Theme.Initialize();
+
             InitializeComponent();
 
             double max_height = Math.Min(SystemParameters.PrimaryScreenHeight / 2, 600);

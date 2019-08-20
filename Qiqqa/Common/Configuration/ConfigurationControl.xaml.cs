@@ -26,6 +26,8 @@ namespace Qiqqa.Common.Configuration
     {
         public ConfigurationControl()
         {
+            Theme.Initialize();
+
             InitializeComponent();
 
             this.DataContext = ConfigurationManager.Instance.ConfigurationRecord_Bindable;

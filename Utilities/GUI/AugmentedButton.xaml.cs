@@ -14,7 +14,9 @@ namespace Utilities.GUI
     public partial class AugmentedButton : Button
     {
         public AugmentedButton()
-        { 
+        {
+            Theme.Initialize();
+
             InitializeComponent();
             
             this.HorizontalContentAlignment = HorizontalAlignment.Stretch;

@@ -26,6 +26,8 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
         public LibraryCatalogControl()
         {
+            Theme.Initialize();
+
             InitializeComponent();
 
             ListPDFDocuments.Background = ThemeColours.Background_Brush_Blue_LightToDark;

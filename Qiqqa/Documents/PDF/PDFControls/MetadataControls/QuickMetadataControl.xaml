@@ -15,7 +15,7 @@
     </Grid.RowDefinitions>
 
     <TextBox Grid.Row="0" Text="{Binding TitleCombined, Converter={StaticResource ReadPropertyAfterSetConverter}}" VerticalAlignment="Center" ToolTip="{Binding TitleCombinedReason}" MinWidth="30" Name="ObjTitle" BorderThickness="0" TextWrapping ="Wrap" FontSize="18"/>
-    <TextBox Grid.Row="1" Text="{Binding AuthorsCombined, Converter={StaticResource ReadPropertyAfterSetConverter}}" ToolTip="{Binding AuthorsCombinedReason}" MinWidth="30" BorderThickness="0" TextWrapping ="Wrap"  />
+        <TextBox Grid.Row="1" Text="{Binding AuthorsCombined, Converter={StaticResource ReadPropertyAfterSetConverter}}" ToolTip="{Binding AuthorsCombinedReason}" MinWidth="30" BorderThickness="0" TextWrapping ="Wrap" Name="ObjAuthors"  />
     <TextBox Grid.Row="2" Text="{Binding YearCombined, Converter={StaticResource ReadPropertyAfterSetConverter}}" ToolTip="{Binding YearCombinedReason}" MinWidth="30" BorderThickness="0" />
   </Grid>
 </UserControl>

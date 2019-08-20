@@ -32,6 +32,10 @@ namespace Utilities.GUI
 
         public string Caption
         {
+            get
+            {
+                return TextCaption.Text;
+            }
             set
             {
                 if (null != value)
