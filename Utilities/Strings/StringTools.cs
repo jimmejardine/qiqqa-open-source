@@ -573,15 +573,28 @@ namespace Utilities.Strings
             return str;            
         }
 
-        
+        private static readonly Regex sWhitespace = new Regex(@"[\s\r\n]+");
+
         public static string StripWhitespace(string str)
         {
             if (String.IsNullOrEmpty(str)) return str;
-            return Regex.Replace(str, @"\s*", String.Empty);
+            return sWhitespace.Replace(str, String.Empty);
         }
 
+        public static string ReplaceWhitespace(string str, string replacement)
+        {
+            if (String.IsNullOrEmpty(str)) return str;
+            return sWhitespace.Replace(str, replacement);
+        }
 
-	    public static string StripHtmlTags(string str, string replacement)
+        public static string Sanitize(string str)
+        {
+            if (String.IsNullOrEmpty(str)) return str;
+            str = str.Normalize().Trim();
+            return ReplaceWhitespace(str, " ");
+        }
+
+        public static string StripHtmlTags(string str, string replacement)
         {
             if (String.IsNullOrEmpty(str)) return str;
             return Regex.Replace(str, @"<[^>]*>", replacement);

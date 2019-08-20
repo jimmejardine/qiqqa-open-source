@@ -189,9 +189,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             TxtBibTeX.TextChanged += TxtBibTeX_TextChanged;
 
             // Navigate to GS in a bid to not have the first .bib prompt for download
-            ObjWebBrowser.ForceAdvancedMenus();
-            ObjWebBrowser.ForceSnifferSearchers();
             ObjWebBrowser.DefaultWebSearcherKey = WebSearchers.SCHOLAR_KEY;
+            ObjWebBrowser.ForceAdvancedMenus();
+            ObjWebBrowser.SetupSnifferSearchers();
         }
 
         void GoogleBibTexSnifferControl_KeyUp(object sender, KeyEventArgs e)
@@ -378,6 +378,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             this.pdf_documents_total_pool.Clear();
             this.pdf_documents_total_pool.AddRange(pdf_documents);
             RecalculateSearchPool();
+
+            ObjWebBrowser.CurrentLibrary = this.CurrentLibrary;
 
             base.Show();
         }
@@ -769,8 +771,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                 web_request.ContentType = "text/plain; charset=utf-8";
                 //web_request.KeepAlive = false;
                 // https://stackoverflow.com/questions/47269609/system-net-securityprotocoltype-tls12-definition-not-found
-                // ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
-                ServicePointManager.SecurityProtocol = (SecurityProtocolType)(0xc0 | 0x300 | 0xc00);
+                //
+                // Allow ALL protocols?
+                // ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls | SecurityProtocolType.Tls;
+                ServicePointManager.SecurityProtocol = (SecurityProtocolType)(0xc0 | 0x300 | 0xc00) | SecurityProtocolType.Ssl3;
 
                 using (Stream stream = web_request.GetRequestStream())
                 {
