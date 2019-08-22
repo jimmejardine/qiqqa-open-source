@@ -51,7 +51,7 @@ namespace Utilities.Maintainable
             }
         }
 
-        public Daemon Register(DoMaintenanceDelegate do_maintenance_delegate, int delay_before_start_milliseconds, ThreadPriority thread_priority)
+        public void Register(DoMaintenanceDelegate do_maintenance_delegate, int delay_before_start_milliseconds, ThreadPriority thread_priority)
         {
             lock (do_maintenance_delegate_wrappers)
             {
@@ -69,8 +69,6 @@ namespace Utilities.Maintainable
                 // Start the thread
                 do_maintenance_delegate_wrapper.daemon.Start(DaemonThreadEntryPoint, do_maintenance_delegate_wrapper);
                 do_maintenance_delegate_wrapper.daemon.Priority = thread_priority;
-
-                return do_maintenance_delegate_wrapper.daemon;
             }
         }
 

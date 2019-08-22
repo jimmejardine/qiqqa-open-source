@@ -23,6 +23,8 @@ namespace Utilities.GUI.Wizard
 
         public Player(PointOfInterestLocator poi_locator, Route route)
         {
+            Theme.Initialize();
+
             InitializeComponent();
 
             this.Background = ThemeColours.Background_Brush_Blue_VeryDark;

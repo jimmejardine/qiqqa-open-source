@@ -44,6 +44,28 @@ namespace Qiqqa.WebBrowsing
         WebBrowserControl wbc_browsing = null;
         List<WebSearcherEntry> web_searcher_entries = new List<WebSearcherEntry>();
 
+        Library current_library = null;
+        public Library CurrentLibrary
+        {
+            get
+            {
+                Library lib = current_library;
+                if (null == lib)
+                {
+                    WebLibraryDetail web_library_detail = WebLibraryPicker.PickWebLibrary();
+                    if (null != web_library_detail)
+                    {
+                        lib = web_library_detail.library;
+                    }
+                }
+                return lib;
+            }
+            set
+            {
+                current_library = value;
+            }
+        }
+
         public WebBrowserHostControl()
         {
             Logging.Info("+WebBrowserHostControl()");
@@ -98,6 +120,8 @@ namespace Qiqqa.WebBrowsing
             if (!ADVANCED_MENUS) ButtonAddToLibrary.Caption = "Add PDF to\nLibrary";
             ButtonAddToLibrary.ToolTip = "Add the currently displayed page to your library (must be a PDF).";
             ButtonAddToLibrary.Click += new RoutedEventHandler(ButtonAddToLibrary_Click);
+
+            if (ADVANCED_MENUS) ForceAdvancedMenus();
 
             web_searcher_preference_control = new WebSearcherPreferenceControl(this);
             wbc_browsing = new WebBrowserControl(this);
@@ -170,7 +194,7 @@ namespace Qiqqa.WebBrowsing
             this.OpenNewWindow(WebsiteAccess.Url_BlankWebsite);
         }
 
-        public void ForceAdvancedMenus()
+        internal void ForceAdvancedMenus()
         {
             ButtonNewBrowser.Caption = null;
             ButtonBack.Caption = null;
@@ -185,7 +209,7 @@ namespace Qiqqa.WebBrowsing
             TxtSearchTheWeb.Visibility = Visibility.Collapsed;
         }
 
-        internal void ForceSnifferSearchers()
+        internal void SetupSnifferSearchers()
         {
             HashSet<string> once_off_requested_web_searchers = new HashSet<string>();
             once_off_requested_web_searchers.Add(WebSearchers.SCHOLAR_KEY);
@@ -345,10 +369,10 @@ namespace Qiqqa.WebBrowsing
 
             string url = CurrentUri.ToString();
 
-            WebLibraryDetail web_library_detail = WebLibraryPicker.PickWebLibrary();
-            if (null != web_library_detail)
+            Library lib = CurrentLibrary;
+            if (null != lib)
             {
-                ImportingIntoLibrary.AddNewDocumentToLibraryFromInternet_ASYNCHRONOUS(web_library_detail.library, url);
+                ImportingIntoLibrary.AddNewDocumentToLibraryFromInternet_ASYNCHRONOUS(lib, url);
             }
         }
 
@@ -370,7 +394,6 @@ namespace Qiqqa.WebBrowsing
                 if (!uri.StartsWith("www.") && !uri.StartsWith("http")) uri = "www." + uri;
                 TextBoxUrl.Text = uri;
             }
-
 
             // If they are missing http:// or the like, then add it
             if (uri.Contains('.') && !Uri.IsWellFormedUriString(uri, UriKind.Absolute))
@@ -401,9 +424,9 @@ namespace Qiqqa.WebBrowsing
             DoWebSearch();
         }
 
-        internal void SelectSearchTab(string ACTIVE_SEARCH_KEY)
+        internal void SelectSearchTab(string active_search_key)
         {
-            TabWebBrowserControls.MakeActive(ACTIVE_SEARCH_KEY);
+            TabWebBrowserControls.MakeActive(active_search_key);
         }
 
         public void OpenUrl(string url)
@@ -441,6 +464,9 @@ namespace Qiqqa.WebBrowsing
 
         public void DoWebSearch(string search_terms)
         {
+            // sanitize search text: TABS to spaces
+            search_terms = Utilities.Strings.StringTools.Sanitize(search_terms);
+
             TextBoxGoogleScholar.Text = search_terms;
 
             foreach (var web_searcher_entry in web_searcher_entries)
@@ -455,8 +481,9 @@ namespace Qiqqa.WebBrowsing
                 }
             }
 
-            // Make sure we are looking at a search page...
-            if (TabWebBrowserControls.CurrentActiveTabItem == wbc_browsing)
+            // Make sure we are looking at a search page... **UNLESS** the user has explicitly selected 
+            // the current browser tab.
+            if (CurrentWebBrowserControl == wbc_browsing)
             {
                 bool used_default_web_searcher = false;
                 foreach (var web_searcher_entry in web_searcher_entries)
@@ -549,7 +576,7 @@ namespace Qiqqa.WebBrowsing
             Uri current_uri = CurrentWebBrowserControl.CurrentUri;
             string html = CurrentWebBrowserControl.PageHTML;
 
-            List<string> urls = DownloadableFileGrabber.Grab(html, "pdf");
+            List<string> urls = DownloadableFileGrabber.Grab(current_uri, html, "pdf");
 
             List<Uri> uris = new List<Uri>();
             foreach (string url in urls)
@@ -568,12 +595,12 @@ namespace Qiqqa.WebBrowsing
                     , uris.Count
                     );
 
-                WebLibraryDetail web_library_detail = WebLibraryPicker.PickWebLibrary(msg);
-                if (null != web_library_detail)
+                Library lib = CurrentLibrary;
+                if (null != lib)
                 {
                     foreach (Uri uri in uris)
                     {
-                        ImportingIntoLibrary.AddNewDocumentToLibraryFromInternet_ASYNCHRONOUS(web_library_detail.library, uri.ToString());
+                        ImportingIntoLibrary.AddNewDocumentToLibraryFromInternet_ASYNCHRONOUS(lib, uri.ToString());
                     }
                 }
                 else
@@ -668,11 +695,12 @@ namespace Qiqqa.WebBrowsing
 
                 wbc_browsing = null;
                 active_wbc = null;
+                CurrentLibrary = null;
 
                 web_searcher_preference_control = null;
 
                 // // DeleteSearchers(); ===>
-                // web_searcher_entries.Clear();
+                //web_searcher_entries.Clear();
 
                 // Get rid of unmanaged resources 
             }

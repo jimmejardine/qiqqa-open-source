@@ -157,6 +157,21 @@ namespace Qiqqa.Documents.PDF
             }
         }
 
+        /// <summary>
+        /// This is an approximate response: it takes a *fast* shortcut to check if the given
+        /// PDF has been OCR'd in the past.
+        /// 
+        /// The emphasis here is on NOT triggering a new OCR action! Just taking a peek, *quickly*.
+        /// </summary>
+        public bool HasOCRdata
+        {
+            get
+            {
+                // do not check if DocumentExists: our pagecount cache check is sufficient and one I/O per check.
+                return PDFRendererFileLayer.HasOCRdata(Fingerprint);
+            }
+        }
+
         [NonSerialized]
         AugmentedBindable<PDFDocument> bindable = null;
         public AugmentedBindable<PDFDocument> Bindable
@@ -233,7 +248,10 @@ namespace Qiqqa.Documents.PDF
         
         public string BibTex
         {
-            get { return dictionary["BibTex"] as string; }
+            get
+            {
+                return dictionary["BibTex"] as string;
+            }
             set
             {
                 // Clear the cached item
@@ -282,7 +300,8 @@ namespace Qiqqa.Documents.PDF
 
         public string Title
         {
-            get {
+            get
+            {
                 return dictionary["Title"] as string;
             }
             set

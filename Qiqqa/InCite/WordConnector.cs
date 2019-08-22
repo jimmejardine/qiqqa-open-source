@@ -23,7 +23,6 @@ namespace Qiqqa.InCite
         static readonly string RTF_START = @"{\rtf1" + "\n";
         static readonly string RTF_END = @"}";
         
-        Daemon daemon;
         bool paused;
         bool have_iterated_at_least_once = false;
         bool repopulating_clusters = false;
@@ -44,7 +43,7 @@ namespace Qiqqa.InCite
         private WordConnector()
         {
             this.paused = false;
-            daemon = MaintainableManager.Instance.Register(DoMaintenance, 0, ThreadPriority.BelowNormal);
+            MaintainableManager.Instance.Register(DoMaintenance, 0, ThreadPriority.BelowNormal);
         }
 
         public void SetPaused(bool paused)
@@ -54,6 +53,12 @@ namespace Qiqqa.InCite
 
         void DoMaintenance(Daemon daemon)
         {
+            if (Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
+            {
+                daemon.Sleep(60 * 1000);
+                return;
+            }
+
             if (paused || repopulating_clusters)
             {
                 Logging.Info("WordConnector paused");
@@ -67,7 +72,6 @@ namespace Qiqqa.InCite
                 CheckTheCurrentTextContext();
                 daemon.Sleep(1500);
             }
-
             catch (Exception ex)
             {
                 Logging.Error(ex, "There was a problem attaching to Word.");

@@ -459,5 +459,11 @@ namespace Qiqqa.Common.Configuration
             get { return (this["AutomaticAccountDetails_LibraryMembershipLastDate"] as DateTime?) ?? DateTime.MinValue; }
             set { this["AutomaticAccountDetails_LibraryMembershipLastDate"] = value; }
         }
+
+        public bool DisableAllBackgroundTasks
+        {
+            get { return (this["DisableAllBackgroundTasks"] as bool?) ?? false; }
+            set { this["DisableAllBackgroundTasks"] = value; }
+        }
     }
 }

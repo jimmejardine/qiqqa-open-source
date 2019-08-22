@@ -33,7 +33,7 @@ As above, but instead you'll need to obtain and install Syncfusion Essential Stu
 - Open `Qiqqa.sln` in MSVS
 - Build > Batch Build > (tick all 'Release' items or simply Select All)
   + When this is done, you should have a Qiqqa.exe binary and assorted files in `./Qiqqa/bin/Release/`
-- run a `bash` shell and `cd` to the `iqqa-open-source` repository root directory if you haven't already :wink:
+- run a `bash` shell and `cd` to the `qiqqa-open-source` repository root directory if you haven't already :wink:
 - in `bash`, run:
 
   ```

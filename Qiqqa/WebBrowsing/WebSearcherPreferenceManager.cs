@@ -26,16 +26,25 @@ namespace Qiqqa.WebBrowsing
             HashSet<string> preferences = new HashSet<string>();
 
             preferences.Add(WebSearchers.SCHOLAR_KEY);
-            preferences.Add(WebSearchers.PUBMED_KEY);
-            preferences.Add(WebSearchers.ARXIV_KEY);
-            preferences.Add(WebSearchers.JSTOR_KEY);
-            preferences.Add(WebSearchers.IEEEXPLORE_KEY);
-            preferences.Add(WebSearchers.SCIVERSE_KEY);
-            preferences.Add(WebSearchers.MSACADEMIC_KEY);
-            preferences.Add(WebSearchers.WIKIPEDIA_KEY);
-            //preferences.Add(WebSearchers.PUBMEDXML_KEY);
-            preferences.Add(WebSearchers.GOOGLE_US_KEY);
-            //preferences.Add(WebSearchers.GOOGLE_UK_KEY);
+#if DEBUG
+            // Are we looking at this dialog in the Visual Studio Designer?
+            bool include_more = !Utilities.Misc.Runtime.IsRunningInVisualStudioDesigner;
+#else
+            const bool include_more = true;
+#endif
+            if (include_more)
+            {
+                preferences.Add(WebSearchers.PUBMED_KEY);
+                preferences.Add(WebSearchers.ARXIV_KEY);
+                preferences.Add(WebSearchers.JSTOR_KEY);
+                preferences.Add(WebSearchers.IEEEXPLORE_KEY);
+                preferences.Add(WebSearchers.SCIVERSE_KEY);
+                preferences.Add(WebSearchers.MSACADEMIC_KEY);
+                preferences.Add(WebSearchers.WIKIPEDIA_KEY);
+                //preferences.Add(WebSearchers.PUBMEDXML_KEY);
+                preferences.Add(WebSearchers.GOOGLE_US_KEY);
+                //preferences.Add(WebSearchers.GOOGLE_UK_KEY);
+            }
 
             return preferences;
         }
@@ -62,8 +71,16 @@ namespace Qiqqa.WebBrowsing
                 }
             }
 
+
+#if DEBUG
+            // Are we looking at this dialog in the Visual Studio Designer?
+            bool load_from_file = !Utilities.Misc.Runtime.IsRunningInVisualStudioDesigner;
+#else
+            const bool load_from_file = true;
+#endif
+
             // If they have a preferences file
-            if (File.Exists(PREFERENCES_FILENAME))
+            if (load_from_file && File.Exists(PREFERENCES_FILENAME))
             {
                 using (StreamReader sr = new StreamReader(PREFERENCES_FILENAME))
                 {
@@ -85,7 +102,6 @@ namespace Qiqqa.WebBrowsing
                 return preferences;
             }
 
-
             // If they have no preferences file, then return the default
             Logging.Info("Returning default WebSearcher preferences because no preferences have been saved.");
             foreach (string line in GetDefaultPreferences())
@@ -97,6 +113,12 @@ namespace Qiqqa.WebBrowsing
 
         public void SavePreferences(HashSet<string> preferences)
         {
+#if DEBUG
+            // Are we looking at this dialog in the Visual Studio Designer?
+            if (Utilities.Misc.Runtime.IsRunningInVisualStudioDesigner)
+                return;
+#endif
+
             using (StreamWriter sw = new StreamWriter(PREFERENCES_FILENAME))
             {
                 foreach (string preference in preferences)

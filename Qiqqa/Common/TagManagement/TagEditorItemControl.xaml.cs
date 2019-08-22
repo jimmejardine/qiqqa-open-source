@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using icons;
+using Utilities.GUI;
 
 namespace Qiqqa.Common.TagManagement
 {
@@ -14,6 +15,8 @@ namespace Qiqqa.Common.TagManagement
 
         public TagEditorItemControl()
         {
+            Theme.Initialize();
+
             InitializeComponent();
         }
 

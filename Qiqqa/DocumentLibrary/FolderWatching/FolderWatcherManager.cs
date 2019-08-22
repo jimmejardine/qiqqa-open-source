@@ -165,7 +165,6 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 {
                     folder_watcher_record.Value.folder_watcher.TaskDaemonEntryPoint(daemon);
                 }
-
                 catch (Exception ex)
                 {
                     Logging.Warn(ex, "There was an exception while processing the watched folder '{0}'.", folder_watcher_record.Value.path);

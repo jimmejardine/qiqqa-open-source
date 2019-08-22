@@ -29,6 +29,7 @@ using Utilities.Misc;
 using Utilities.Random;
 using Qiqqa.Documents.PDF.MetadataSuggestions;
 using Utilities.Reflection;
+using System.Diagnostics;
 
 namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 {
@@ -48,7 +49,92 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             public bool HasSourceURL { get; set; }
             public bool HasSourceLocalFileSystem { get; set; }
             public bool Unsourced { get; set; }
-            public bool HasDocumentPDF { get; set; }
+            bool? _HasDocumentPDF;
+            public bool? HasDocumentPDF
+            {
+                get
+                {
+                    return _HasDocumentPDF;
+                }
+                set
+                {
+                    if (value == null)
+                    {
+                        HasDocumentPDF_TriState = true;
+                    }
+                    // cycle properly: when the checkbox cycles from ON to OFF, it SHOULD cycle from ON to TRISTATE!
+                    else if (value == false && _HasDocumentPDF == true)
+                    {
+                        HasDocumentPDF_TriState = true;
+                    }
+                    else
+                    {
+                        HasDocumentPDF_TriState = false;
+                        _HasDocumentPDF = value;
+                    }
+                }
+            }
+            public bool HasDocumentPDF_TriState
+            {
+                get
+                {
+                    return null == _HasDocumentPDF;
+                }
+                set
+                {
+                    if (value)
+                    {
+                        _HasDocumentPDF = null;
+                    }
+                    else if (_HasDocumentPDF == null)
+                    {
+                        _HasDocumentPDF = false;
+                    }
+                }
+            }
+
+            bool? _DocumentIsOCRed;
+            public bool? DocumentIsOCRed {
+                get
+                {
+                    return _DocumentIsOCRed;
+                }
+                set
+                {
+                    if (value == null)
+                    {
+                        DocumentIsOCRed_TriState = true;
+                    }
+                    // cycle properly: when the checkbox cycles from ON to OFF, it SHOULD cycle from ON to TRISTATE!
+                    else if (value == false && _DocumentIsOCRed == true)
+                    {
+                        DocumentIsOCRed_TriState = true;
+                    }
+                    else
+                    { 
+                        DocumentIsOCRed_TriState = false;
+                        _DocumentIsOCRed = value;
+                    }
+                }
+            }
+            internal bool DocumentIsOCRed_TriState
+            {
+                get
+                {
+                    return null == _DocumentIsOCRed;
+                }
+                set
+                {
+                    if (value)
+                    {
+                        _DocumentIsOCRed = null;
+                    }
+                    else if (_DocumentIsOCRed == null)
+                    {
+                        _DocumentIsOCRed = false;
+                    }
+                }
+            }
             // checkbox for NOT query mode
             public bool InvertSelection { get; set; }
 #pragma warning restore 0649
@@ -57,6 +143,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             {
                 Missing = true;
                 HasDocumentPDF = true;
+                DocumentIsOCRed = null;
             }
         }
 
@@ -77,7 +164,11 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         public GoogleBibTexSnifferControl()
         {
+            Theme.Initialize();
+
             InitializeComponent();
+
+            SetupConfiguredDimensions();
 
             // Search options
             search_options = new SearchOptions();
@@ -140,34 +231,17 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
             Webcasts.FormatWebcastButton(ButtonWebcast, Webcasts.BIBTEX_SNIFFER);
 
-            // Set dimensions
-            {
-                this.Width = 800;
-                this.Height = 600;
-
-                // Be a little larger if possible
-                if (SystemParameters.FullPrimaryScreenWidth > 1024)
-                {
-                    this.Height = 1024;
-                }
-                if (SystemParameters.FullPrimaryScreenHeight > 1024)
-                {
-                    this.Height = 1024;
-                }
-            }
-
             TxtBibTeX.TextChanged += TxtBibTeX_TextChanged;
 
             // Navigate to GS in a bid to not have the first .bib prompt for download
-            ObjWebBrowser.ForceAdvancedMenus();
-            ObjWebBrowser.ForceSnifferSearchers();
             ObjWebBrowser.DefaultWebSearcherKey = WebSearchers.SCHOLAR_KEY;
+            ObjWebBrowser.ForceAdvancedMenus();
+            ObjWebBrowser.SetupSnifferSearchers();
         }
 
         void GoogleBibTexSnifferControl_KeyUp(object sender, KeyEventArgs e)
         {
-            if (false) { }
-            else if (Key.Clear == e.Key)
+            if (Key.Clear == e.Key)
             {
                 MoveDelta(+1);
                 e.Handled = true;
@@ -212,7 +286,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                     }
                 }
             }
-            catch (Exception) {}
+            catch (Exception ex)
+            {
+                Logging.Error(ex, "TextChanged failure in BibTeXSniffer");
+            }
         }
 
         void HyperlinkBibTeXLinksMissing_Click(object sender, RoutedEventArgs e)
@@ -347,6 +424,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             this.pdf_documents_total_pool.AddRange(pdf_documents);
             RecalculateSearchPool();
 
+            ObjWebBrowser.CurrentLibrary = this.CurrentLibrary;
+
             base.Show();
         }
 
@@ -357,6 +436,15 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         private void RecalculateSearchPool()
         {
+            Stopwatch clk = Stopwatch.StartNew();
+            const int MAX_MILLISECONDS_ALLOWED_FOR_THE_SLOWER_CHECKS = 5 * 1000;
+            int slower_checks_allowed = 1;      // state: 1 = allowed, 0 = disallowed, signalling, -1 = disallowed, already signalled
+
+            this.HasDocumentPDF_CheckBox.Background = Brushes.White;
+            //this.HasDocumentPDF_CheckBox.Background.Opacity = 1.0;
+            this.DocumentIsOCRed_CheckBox.Background = Brushes.White;
+            //this.DocumentIsOCRed_CheckBox.Background.Opacity = 1.0;
+
             List<PDFDocument> pdf_documents_inverted_search_pool = new List<PDFDocument>();
             pdf_documents_search_pool.Clear();
             foreach (PDFDocument pdf_document in pdf_documents_total_pool)
@@ -413,10 +501,59 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                     }
                 }
 
-                // another subselection is ON/OFF: does the library entry have a PDF file available or not?
-                if (include_in_search_pool)
+                // Now follow the **slow** checks: these are time-restrained in that we have set an "acceptable upper time limit"
+                // for them to take, after which we let *everyone* through: UX-wise performance has to win over accuracy of
+                // the filter result.
+                // 
+                // When this timeout happens, we flag the flags RED to signal their *inaccuracy*.
+                if (1 == slower_checks_allowed)
                 {
-                    include_in_search_pool = !(search_options.HasDocumentPDF ^ pdf_document.DocumentExists);
+                    if (clk.ElapsedMilliseconds > MAX_MILLISECONDS_ALLOWED_FOR_THE_SLOWER_CHECKS)
+                    {
+                        slower_checks_allowed = 0;
+                    }
+                }
+                if (1 == slower_checks_allowed)
+                {
+                    // another subselection is ON/OFF: does the library entry have a PDF file available or not?
+                    if (include_in_search_pool && null != search_options.HasDocumentPDF)
+                    {
+                        include_in_search_pool = !((bool)search_options.HasDocumentPDF ^ pdf_document.DocumentExists);
+                    }
+
+                    // another subselection is ON/OFF: does the library entry have OCR data available already?
+                    if (include_in_search_pool && null != search_options.DocumentIsOCRed)
+                    {
+                        bool hasOCRdata = !pdf_document.IsVanillaReference && pdf_document.HasOCRdata;
+                        // perform a more precise check when there's few documents to process, as this check is pretty costly:
+                        //
+                        // Note: fetching the `PDFRenderer.PageCount` may produce non-zero results, but it would still
+                        // be highly inaccurate as documents can exist with a correct(?) pagecount but not having had their
+                        // pages OCR-ed -- and that's what matters in the end.
+                        //
+                        if (hasOCRdata && pdf_documents_total_pool.Count < 100000)
+                        {
+                            string w = pdf_document.PDFRenderer.GetFullOCRText();
+                            hasOCRdata = !String.IsNullOrWhiteSpace(w);
+                        }
+#if false
+                        if (!hasOCRdata)
+                        {
+                            Logging.Debug("No OCR data known for {0}", pdf_document.Fingerprint);
+                        }
+#endif
+                        include_in_search_pool = !((bool)search_options.DocumentIsOCRed ^ hasOCRdata);
+                    }
+                }
+                else if (0 == slower_checks_allowed)
+                {
+                    slower_checks_allowed = -1;
+
+                    // color....
+                    this.HasDocumentPDF_CheckBox.Background = Brushes.Red;
+                    //this.HasDocumentPDF_CheckBox.Background.Opacity = 0.75;
+                    this.DocumentIsOCRed_CheckBox.Background = Brushes.Red;
+                    //this.DocumentIsOCRed_CheckBox.Background.Opacity = 0.75;
                 }
 
                 // the odd one out: the user specified document exists in both regular *and* inverted set:
@@ -541,7 +678,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
         void GoogleBibTexSnifferControl_Closing(object sender, CancelEventArgs e)
         {
             ObjWebBrowser.PageLoaded -= ObjWebBrowser_PageLoaded;
-            ObjWebBrowser.TabChanged -= ObjWebBrowser_TabChanged; 
+            ObjWebBrowser.TabChanged -= ObjWebBrowser_TabChanged;
         }
         
         void GoogleBibTexSnifferControl_Closed(object sender, EventArgs e)
@@ -564,13 +701,41 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         void ObjWebBrowser_PageLoaded()
         {
-            Logging.Debug("BibTexSniffer::Browser::Page Loaded");
+            Logging.Debug("BibTexSniffer::Browser::Page Loaded: {0}", ObjWebBrowser.CurrentUri.AbsoluteUri);
             ReflectLatestBrowserContent();
+            // When PDFs are viewed in Gecko/Firefox and somehow things went wrong the first time around,
+            // but **not enough wrong** so to speak, then the PDF is **cached** by Gecko/FireFox and it WILL NOT
+            // show up as one of the URIs being fetched for a page reload! The PDF will only show up **here**,
+            // as a completely loaded document.
+            //
+            // Meanwhile the Acrobat Reader in there will cause the `ObjWebBrowser.CurrentPageHTML` to render
+            // something like this:
+            //
+            // <html><head><meta content="width=device-width; height=device-height;" name="viewport"></head>
+            // <body marginheight="0" marginwidth="0"><embed type="application/pdf" 
+            //    src ="https://escholarship.org/content/qt0cs6v2w7/qt0cs6v2w7.pdf" 
+            //    name ="plugin" height="100%" width="100%"></body></html>
+            //
+            // !Yay!          /sarcasm!/
+            string uri = null;
+            try
+            {
+                uri = ObjWebBrowser.CurrentUri.AbsoluteUri;
+                if (uri.Contains(".pdf"))
+                {
+                    // fetch the PDF!
+                    ImportingIntoLibrary.AddNewDocumentToLibraryFromInternet_ASYNCHRONOUS(CurrentLibrary, uri);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex, "fetch PDF failed for {0}", uri);
+            }
         }
 
         void ObjWebBrowser_TabChanged()
         {
-            Logging.Debug("BibTexSniffer::Browser::Tab Changed");
+            Logging.Debug("BibTexSniffer::Browser::Tab Changed: {0}", ObjWebBrowser.CurrentUri.AbsoluteUri);
             ReflectLatestBrowserContent();
         }
 
@@ -583,7 +748,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
                 if (null == text)
                 {
-                    return;
+                    text = "";
                 }
 
                 // Process
@@ -628,7 +793,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                     // Only do this automatically if there is not already bibtex in the record
                     if (null != pdf_document && String.IsNullOrEmpty(pdf_document.BibTex))
                     { 
-                        string url = ObjWebBrowser.CurrentUri.ToString();
+                        string url = ObjWebBrowser.CurrentUri.AbsoluteUri;
                         string html = ObjWebBrowser.CurrentPageHTML;
                         List<GoogleScholarScrapePaper> gssps = GoogleScholarScraper.ScrapeHtml(html, url);                    
                     
@@ -650,7 +815,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                                 }
                             }
                         }
-
                         catch (Exception ex)
                         {
                             Logging.Warn(ex, "Sniffer was not able to parse the results that came back from GS.");
@@ -684,6 +848,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                 web_request.Method = "POST";
                 web_request.ContentLength = buffer.Length;
                 web_request.ContentType = "text/plain; charset=utf-8";
+                //web_request.KeepAlive = false;
+                // https://stackoverflow.com/questions/47269609/system-net-securityprotocoltype-tls12-definition-not-found
+                //
+                // Allow ALL protocols?
+                // ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls | SecurityProtocolType.Tls;
+                ServicePointManager.SecurityProtocol = (SecurityProtocolType)(0xc0 | 0x300 | 0xc00) | SecurityProtocolType.Ssl3;
+
                 using (Stream stream = web_request.GetRequestStream())
                 {
                     stream.Write(buffer, 0, buffer.Length);
@@ -730,7 +901,34 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             return (text.StartsWith("@") && text.EndsWith("}"));
         }
 
-        #region --- Test ------------------------------------------------------------------------
+        private Library CurrentLibrary
+        {
+            get
+            {
+                if (null != user_specified_pdf_document && null != user_specified_pdf_document.Library)
+                {
+                    return user_specified_pdf_document.Library;
+                }
+                if (null != pdf_document_rendered && null != pdf_document_rendered.Library)
+                {
+                    return pdf_document_rendered.Library;
+                }
+                if (null != pdf_document && null != pdf_document.Library)
+                {
+                    return pdf_document.Library;
+                }
+                foreach (PDFDocument pdf in pdf_documents_total_pool)
+                {
+                    if (null != pdf && null != pdf.Library)
+                    {
+                        return pdf.Library;
+                    }
+                }
+                return null;
+            }
+        }
+
+#region --- Test ------------------------------------------------------------------------
 
 #if TEST
         public static void TestHarness()
@@ -746,6 +944,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
         }
 #endif
 
-        #endregion
+#endregion
     }
 }

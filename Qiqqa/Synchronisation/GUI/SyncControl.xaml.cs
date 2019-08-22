@@ -23,6 +23,8 @@ namespace Qiqqa.Synchronisation.GUI
 
         public SyncControl()
         {
+            Theme.Initialize();
+
             InitializeComponent();
 
             this.DataContext = ConfigurationManager.Instance.ConfigurationRecord_Bindable;
