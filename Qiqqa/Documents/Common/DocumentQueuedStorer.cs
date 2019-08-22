@@ -25,6 +25,12 @@ namespace Qiqqa.Documents.Common
 
         void DoMaintenance_FlushDocuments(Daemon daemon)
         {
+            if (Qiqqa.Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
+            {
+                // do run the flush task, but delayed!
+                daemon.Sleep(5 * 60 * 1000);
+            }
+
             if (period_flush.Expired)
             {
                 period_flush.Signal();

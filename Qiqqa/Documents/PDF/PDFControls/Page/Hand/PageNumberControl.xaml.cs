@@ -10,7 +10,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
     {
         public PageNumberControl()
         {
+            Theme.Initialize();
+
             InitializeComponent();
+
             this.Opacity = 0.5;
             this.Background = ThemeColours.Background_Brush_Blue_LightToDark;
         }

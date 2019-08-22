@@ -151,7 +151,7 @@ namespace Qiqqa.Common.Configuration
         public bool Library_OCRDisabled
         {
             get { return (this["Library_OCRDisabled"] as bool?) ?? false; }
-            set { this["Library_OCRDisabled"] = value || true; }
+            set { this["Library_OCRDisabled"] = value; }
         }
 
         public bool System_UseExternalWebBrowser
@@ -458,6 +458,12 @@ namespace Qiqqa.Common.Configuration
         {
             get { return (this["AutomaticAccountDetails_LibraryMembershipLastDate"] as DateTime?) ?? DateTime.MinValue; }
             set { this["AutomaticAccountDetails_LibraryMembershipLastDate"] = value; }
+        }
+
+        public bool DisableAllBackgroundTasks
+        {
+            get { return (this["DisableAllBackgroundTasks"] as bool?) ?? false; }
+            set { this["DisableAllBackgroundTasks"] = value; }
         }
     }
 }

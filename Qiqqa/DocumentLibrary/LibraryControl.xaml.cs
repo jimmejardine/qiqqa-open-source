@@ -47,6 +47,8 @@ namespace Qiqqa.DocumentLibrary
 
         public LibraryControl(Library library)
         {
+            Theme.Initialize();
+
             Logging.Info("+LibraryControl()");
 
             this.library = library;

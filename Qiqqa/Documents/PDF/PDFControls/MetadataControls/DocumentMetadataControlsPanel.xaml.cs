@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using Utilities.GUI;
 using Utilities.Reflection;
 
 namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
@@ -13,6 +14,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         public DocumentMetadataControlsPanel()
         {
+            Theme.Initialize();
+
             InitializeComponent();
 
             ObjTabs.Children.Clear();

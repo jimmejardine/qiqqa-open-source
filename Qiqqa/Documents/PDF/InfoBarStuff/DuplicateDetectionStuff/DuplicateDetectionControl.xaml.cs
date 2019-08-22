@@ -7,6 +7,7 @@ using Qiqqa.Common.GUI;
 using Qiqqa.Documents.Common;
 using Qiqqa.UtilisationTracking;
 using Utilities;
+using Utilities.GUI;
 using Utilities.Misc;
 using Utilities.Strings;
 
@@ -19,8 +20,9 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.DuplicateDetectionStuff
     {
         public DuplicateDetectionControl()
         {
-            InitializeComponent();
+            Theme.Initialize();
 
+            InitializeComponent();
         }
 
         public PDFDocument PDFDocument

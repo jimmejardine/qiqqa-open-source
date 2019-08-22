@@ -38,6 +38,8 @@ namespace Qiqqa.Main
         {
             MainWindowServiceDispatcher.Instance.MainWindow = this;
 
+            Theme.Initialize();
+
             InitializeComponent();
 
             this.DataContext = ConfigurationManager.Instance.ConfigurationRecord_Bindable;
@@ -140,7 +142,7 @@ namespace Qiqqa.Main
 
             if (ConfigurationManager.Instance.ConfigurationRecord.GUI_RestoreLocationAtStartup)
             {
-                RestoreDesktopManager.RestoreLocation(this);
+                this.SetupConfiguredDimensions();
             }
             else
             {
@@ -190,8 +192,6 @@ namespace Qiqqa.Main
         public bool suppress_exit_warning = false;        
         void MainWindow_Closing(object sender, CancelEventArgs e)
         {
-            RestoreDesktopManager.SaveLocation(this);
-
             if (!already_exiting && !suppress_exit_warning)
             {
                 if (ConfigurationManager.Instance.ConfigurationRecord.GUI_AskOnExit)

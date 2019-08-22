@@ -23,6 +23,8 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.PDFDocumentTagCloudStuff
         
         public TagCloudRendererControl()
         {
+            Theme.Initialize();
+
             InitializeComponent();
         }
 

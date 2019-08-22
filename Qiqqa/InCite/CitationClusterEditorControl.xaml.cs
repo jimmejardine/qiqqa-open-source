@@ -22,6 +22,8 @@ namespace Qiqqa.InCite
 
         public CitationClusterEditorControl()
         {
+            Theme.Initialize();
+
             InitializeComponent();
 
             CmdApply.Caption = "Apply";
@@ -42,10 +44,8 @@ namespace Qiqqa.InCite
 
         void ObjSpecifierType_KeyDown(object sender, KeyEventArgs e)
         {
-            if (false) { }
-
             // Delete the selected item...
-            else if (e.Key == Key.Delete)
+            if (e.Key == Key.Delete)
             {
                 ObservableCollection<string> citation_item_keys = (ObservableCollection<string>)ObjCitationsInCluster.ItemsSource;
                 if (1 < citation_item_keys.Count)

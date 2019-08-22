@@ -128,6 +128,11 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
                 return;
             }
 
+            if (ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
+            {
+                return;
+            }
+
             try
             {
                 AutoSyncManager.Instance.DoMaintenance();
@@ -173,6 +178,11 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
                 daemon.Sleep(10 * 1000);
                 return;
             }
+
+            if (ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
+            {
+                return;
+            }
         }
 
         void DoMaintenance_Infrequent(Daemon daemon)
@@ -184,6 +194,11 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
             {
                 Logging.Info("Daemon is forced to sleep via registry SuppressDaemon");
                 daemon.Sleep(10 * 1000);
+                return;
+            }
+
+            if (ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
+            {
                 return;
             }
 
@@ -227,6 +242,11 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
             {
                 Logging.Info("Daemon is forced to sleep via registry SuppressDaemon");
                 daemon.Sleep(10 * 1000);
+                return;
+            }
+
+            if (ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
+            {
                 return;
             }
 

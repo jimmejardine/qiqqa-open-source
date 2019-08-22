@@ -60,6 +60,8 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             this.concise_view = concise_view;
             this.web_library_selected_delegate = web_library_selected_delegate;
 
+            Theme.Initialize();
+
             InitializeComponent();
 
             ButtonMain.Background = ThemeColours.Background_Brush_Blue_LightToDark;

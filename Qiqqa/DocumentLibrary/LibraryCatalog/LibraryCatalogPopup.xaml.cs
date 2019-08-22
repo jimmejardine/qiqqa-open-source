@@ -34,6 +34,8 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
         {
             this.pdf_documents = pdf_documents;
 
+            Theme.Initialize();
+
             InitializeComponent();
 
             MenuOpen.Click += MenuOpen_Click;

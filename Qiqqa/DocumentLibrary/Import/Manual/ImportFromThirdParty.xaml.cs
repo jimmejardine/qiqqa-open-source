@@ -36,6 +36,8 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         {
             this._library = library;
 
+            Theme.Initialize();
+
             InitializeComponent();
 
             this.btnProvider_BibTeX.Icon = Icons.GetAppIcon(Icons.Import_BibTeX);

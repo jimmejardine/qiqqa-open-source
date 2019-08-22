@@ -248,7 +248,10 @@ namespace Qiqqa.Documents.PDF
         
         public string BibTex
         {
-            get { return dictionary["BibTex"] as string; }
+            get
+            {
+                return dictionary["BibTex"] as string;
+            }
             set
             {
                 // Clear the cached item
@@ -297,7 +300,8 @@ namespace Qiqqa.Documents.PDF
 
         public string Title
         {
-            get {
+            get
+            {
                 return dictionary["Title"] as string;
             }
             set
