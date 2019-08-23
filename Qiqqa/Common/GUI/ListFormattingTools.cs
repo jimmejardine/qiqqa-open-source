@@ -27,12 +27,12 @@ namespace Qiqqa.Common.GUI
 
         public static TextBlock GetDocumentTextBlock(PDFDocument pdf_document, ref bool alternator, Feature feature)
         {
-            return GetDocumentTextBlock(pdf_document, ref alternator, feature, null, null, null);
+            return GetDocumentTextBlock(pdf_document, ref alternator, feature, null, "", null);
         }
 
         public static TextBlock GetDocumentTextBlock(PDFDocument pdf_document, ref bool alternator, Feature feature, MouseButtonEventHandler mouse_down)
         {
-            return GetDocumentTextBlock(pdf_document, ref alternator, feature, mouse_down, null, null);
+            return GetDocumentTextBlock(pdf_document, ref alternator, feature, mouse_down, "", null);
         }
 
         public static TextBlock GetDocumentTextBlock(PDFDocument pdf_document, ref bool alternator, Feature feature, MouseButtonEventHandler mouse_down, string prefix)
