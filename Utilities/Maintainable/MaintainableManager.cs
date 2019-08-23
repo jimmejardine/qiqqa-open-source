@@ -51,7 +51,7 @@ namespace Utilities.Maintainable
             }
         }
 
-        public Daemon Register(DoMaintenanceDelegate do_maintenance_delegate, int delay_before_start_milliseconds, ThreadPriority thread_priority)
+        public void RegisterHeldOffTask(DoMaintenanceDelegate do_maintenance_delegate, int delay_before_start_milliseconds, ThreadPriority thread_priority)
         {
             lock (do_maintenance_delegate_wrappers)
             {
@@ -77,28 +77,40 @@ namespace Utilities.Maintainable
         void DaemonThreadEntryPoint(object wrapper)
         {
             DoMaintenanceDelegateWrapper do_maintenance_delegate_wrapper = (DoMaintenanceDelegateWrapper)wrapper;
+            Daemon daemon = do_maintenance_delegate_wrapper.daemon;
 
-            if (0 != do_maintenance_delegate_wrapper.delay_before_start_milliseconds)
+            // first wait until the hold off signal is released
+            while (daemon.StillRunning && !Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
             {
-                Logging.Info("+MaintainableManager is waiting some startup time for {0}", do_maintenance_delegate_wrapper.maintainable_description);
-                do_maintenance_delegate_wrapper.daemon.Sleep(do_maintenance_delegate_wrapper.delay_before_start_milliseconds);
-                Logging.Info("-MaintainableManager is waiting some startup time for {0}", do_maintenance_delegate_wrapper.maintainable_description);
+                if (!IsHoldOffPending) break;
+                daemon.Sleep(1000);
             }
 
-            while (do_maintenance_delegate_wrapper.daemon.StillRunning && !Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+            // only sleep the extra delay time when there's still a chance we will be running the actual thread code.
+            if (daemon.StillRunning && !Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+            {
+                if (0 != do_maintenance_delegate_wrapper.delay_before_start_milliseconds)
+                {
+                    Logging.Info("+MaintainableManager is waiting some startup time for {0}", do_maintenance_delegate_wrapper.maintainable_description);
+                    daemon.Sleep(do_maintenance_delegate_wrapper.delay_before_start_milliseconds);
+                    Logging.Info("-MaintainableManager is waiting some startup time for {0}", do_maintenance_delegate_wrapper.maintainable_description);
+                }
+            }
+
+            while (daemon.StillRunning && !Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
             {
                 try
                 {
                     object target = do_maintenance_delegate_wrapper.target.Target;
                     if (null != target)
                     {
-                        do_maintenance_delegate_wrapper.method_info.Invoke(target, new object[] { do_maintenance_delegate_wrapper.daemon } );
+                        do_maintenance_delegate_wrapper.method_info.Invoke(target, new object[] { daemon } );
                         target = null;
                     }
                     else
                     {
                         Logging.Info("Target maintainable ({0}) has been garbage collected, so closing down Maintainable thread.", do_maintenance_delegate_wrapper.maintainable_description);
-                        do_maintenance_delegate_wrapper.daemon.Stop();
+                        daemon.Stop();
                     }
                 }
                 catch (Exception ex)
@@ -106,7 +118,31 @@ namespace Utilities.Maintainable
                     Logging.Error(ex, "Maintainable {0} has thrown an unhandled exception.", do_maintenance_delegate_wrapper.maintainable_description);
                 }
 
-                do_maintenance_delegate_wrapper.daemon.Sleep();
+                daemon.Sleep();
+            }
+        }
+
+        private bool hold_off = true;
+        private object hold_off_lock = new object();
+    
+        public bool IsHoldOffPending
+        {
+            get
+            {
+                lock (hold_off_lock)
+                {
+                    return hold_off;
+                }
+            }
+            set
+            {
+                lock (hold_off_lock)
+                {
+                    if (!value)
+                    {
+                        hold_off = false;
+                    }
+                }
             }
         }
     }

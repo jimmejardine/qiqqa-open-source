@@ -1,5 +1,4 @@
-﻿using Qiqqa.Common.GeneralTaskDaemonStuff;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -20,6 +19,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             public FolderWatcher folder_watcher;
         }
         Dictionary<string, FolderWatcherRecord> folder_watcher_records = new Dictionary<string, FolderWatcherRecord>();
+        object folder_watcher_records_lock = new object();
 
         HashSet<string> filenames_processed = new HashSet<string>();
         // lock for all Filename_Store File I/O and filenames_processed HashSet:
@@ -49,7 +49,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 }
             }
 
-            GeneralTaskDaemon.Instance.AddGeneralTask(TaskDaemonEntryPoint);
+            Utilities.Maintainable.MaintainableManager.Instance.RegisterHeldOffTask(TaskDaemonEntryPoint, 30 * 1000, System.Threading.ThreadPriority.BelowNormal);
         }
 
         private int dispose_count = 0;
@@ -57,17 +57,18 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         {
             Logging.Debug("FolderWatcherManager::Dispose() @{0}", ++dispose_count);
 
-            GeneralTaskDaemon.Instance.RemoveGeneralTask(TaskDaemonEntryPoint);
-
-            // Dispose of all the folder watchers
-            foreach (var folder_watcher_record in folder_watcher_records)
+            lock (folder_watcher_records_lock)
             {
-                folder_watcher_record.Value.folder_watcher.Dispose();
-            }
-            folder_watcher_records.Clear();
+                // Dispose of all the folder watchers
+                foreach (var folder_watcher_record in folder_watcher_records)
+                {
+                    folder_watcher_record.Value.folder_watcher.Dispose();
+                }
+                folder_watcher_records.Clear();
 
-            //library.Dispose();
-            library = null;
+                //library.Dispose();
+                library = null;
+            }
 
             lock (filenames_processed_lock)
             {
@@ -112,19 +113,22 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
         internal void TaskDaemonEntryPoint(Utilities.Daemon daemon)
         {
-            // Get the new list of folders to watch
-            string folders_to_watch_batch = library.WebLibraryDetail.FolderToWatch;
-            HashSet<string> folders_to_watch = new HashSet<string>();
-            if (null != folders_to_watch_batch)
-            {
-                foreach (var folder_to_watch_batch in folders_to_watch_batch.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries))
-                {
-                    folders_to_watch.Add(folder_to_watch_batch);
-                }
-            }
+            Dictionary<string, FolderWatcherRecord> folder_watchset = new Dictionary<string, FolderWatcherRecord>();
 
-            // Kill off any unwanted folders
+            lock (folder_watcher_records_lock)
             {
+                // Get the new list of folders to watch
+                string folders_to_watch_batch = library.WebLibraryDetail.FolderToWatch;
+                HashSet<string> folders_to_watch = new HashSet<string>();
+                if (null != folders_to_watch_batch)
+                {
+                    foreach (var folder_to_watch_batch in folders_to_watch_batch.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries))
+                    {
+                        folders_to_watch.Add(folder_to_watch_batch);
+                    }
+                }
+
+                // Kill off any unwanted folders
                 HashSet<string> folders_to_watch_deleted = new HashSet<string>(folder_watcher_records.Keys);
                 foreach (var folder_to_watch in folders_to_watch)
                 {
@@ -137,10 +141,8 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                     folder_watcher_records[folder_to_watch_deleted].folder_watcher.Dispose();
                     folder_watcher_records.Remove(folder_to_watch_deleted);
                 }
-            }
 
-            // Create any new folders
-            {
+                // Create any new folders
                 foreach (var folder_to_watch in folders_to_watch)
                 {
                     if (!folder_watcher_records.ContainsKey(folder_to_watch))
@@ -156,10 +158,16 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                         folder_watcher_records[folder_to_watch] = fwr;
                     }
                 }
+
+                // Copy the list to local dict:
+                foreach (var folder_watcher_record in folder_watcher_records)
+                {
+                    folder_watchset.Add(folder_watcher_record.Key, folder_watcher_record.Value);
+                }
             }
 
             // Do the actual folder processing
-            foreach (var folder_watcher_record in folder_watcher_records)
+            foreach (var folder_watcher_record in folder_watchset)
             {
                 try
                 {
