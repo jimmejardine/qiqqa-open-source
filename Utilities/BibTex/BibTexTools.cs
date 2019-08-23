@@ -207,7 +207,7 @@ namespace Utilities.BibTex
             }
             catch (Exception ex)
             {
-                Logging.Warn(ex, "There was a problem setting the BibTeX");
+                Logging.Warn(ex, "There was a problem setting a field in BibTeX:\n  field: {0}\n  value: {1}\n  BibTeX:\n  {2}", field, field_value, bibtex);
                 return null;
             }
         }
