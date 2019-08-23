@@ -124,8 +124,17 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 guest_web_library_detail = new_web_library_detail;
             }
 
-            // Import the Qiqqa manuals...
-            QiqqaManualTools.AddManualsToLibrary(guest_web_library_detail.library);
+            // Import the Qiqqa manuals in the background, waiting until the library has loaded...
+            SafeThreadPool.QueueUserWorkItem(o =>
+            {
+                while (!guest_web_library_detail.library.LibraryIsLoaded)
+                {
+                    System.Threading.Thread.Sleep(500);
+                }
+                    
+                QiqqaManualTools.AddManualsToLibrary(guest_web_library_detail.library);
+            });
+
         }
 
         public WebLibraryDetail WebLibraryDetails_Guest
