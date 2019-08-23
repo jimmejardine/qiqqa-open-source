@@ -17,7 +17,6 @@ namespace Utilities.GUI
             ++theme_init_count;
 
             Application app = Application.Current;
-            Logging.Debug("current vs application: {0}", app == application);
 
             ThemeColours.AddToApplicationResources(app);
             ThemeTextStyles.AddToApplicationResources(app);

@@ -123,10 +123,19 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
                 // WEAK EVENT HANDLER FOR: library.OnDocumentsChanged += Library_OnNewDocument;
                 WeakEventHandler<Library.PDFDocumentEventArgs>.Register<Library, LibraryFilterControl>(
                     library,
-                    (d, eh) => d.OnDocumentsChanged += eh,
-                    (d, eh) => d.OnDocumentsChanged -= eh,
+                    (d, eh) =>
+                    {
+                        d.OnDocumentsChanged += eh;
+                    },
+                    (d, eh) =>
+                    {
+                        d.OnDocumentsChanged -= eh;
+                    },
                     this,
-                    (me, event_sender, args) => me.Library_OnNewDocument(event_sender, args.PDFDocument)
+                    (me, event_sender, args) =>
+                    {
+                        me.Library_OnNewDocument(event_sender, args.PDFDocument);
+                    }
                 );
             }
         }
