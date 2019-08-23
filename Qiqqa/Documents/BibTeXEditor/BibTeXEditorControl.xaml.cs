@@ -49,6 +49,8 @@ namespace Qiqqa.Documents.BibTeXEditor
         
         public BibTeXEditorControl()
         {
+            Theme.Initialize();
+
             InitializeComponent();
 
             // The error panel

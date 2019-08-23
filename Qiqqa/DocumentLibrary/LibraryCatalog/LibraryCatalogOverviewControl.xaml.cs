@@ -32,6 +32,8 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
         public LibraryCatalogOverviewControl()
         {
+            Theme.Initialize();
+
             InitializeComponent();
 
             WizardDPs.SetPointOfInterest(PanelSearchScore, "LibrarySearchScoreButton");

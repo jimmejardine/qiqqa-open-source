@@ -17,6 +17,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         public PDFAnnotationEditorControl()
         {
+            Theme.Initialize();
+
             InitializeComponent();
 
             this.Background = ThemeColours.Background_Brush_Blue_LightToDark;

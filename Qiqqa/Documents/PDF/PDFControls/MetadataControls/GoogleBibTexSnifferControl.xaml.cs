@@ -29,6 +29,7 @@ using Utilities.Misc;
 using Utilities.Random;
 using Qiqqa.Documents.PDF.MetadataSuggestions;
 using Utilities.Reflection;
+using System.Diagnostics;
 
 namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 {
@@ -48,7 +49,49 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             public bool HasSourceURL { get; set; }
             public bool HasSourceLocalFileSystem { get; set; }
             public bool Unsourced { get; set; }
-            public bool HasDocumentPDF { get; set; }
+            bool? _HasDocumentPDF;
+            public bool? HasDocumentPDF
+            {
+                get
+                {
+                    return _HasDocumentPDF;
+                }
+                set
+                {
+                    if (value == null)
+                    {
+                        HasDocumentPDF_TriState = true;
+                    }
+                    // cycle properly: when the checkbox cycles from ON to OFF, it SHOULD cycle from ON to TRISTATE!
+                    else if (value == false && _HasDocumentPDF == true)
+                    {
+                        HasDocumentPDF_TriState = true;
+                    }
+                    else
+                    {
+                        HasDocumentPDF_TriState = false;
+                        _HasDocumentPDF = value;
+                    }
+                }
+            }
+            public bool HasDocumentPDF_TriState
+            {
+                get
+                {
+                    return null == _HasDocumentPDF;
+                }
+                set
+                {
+                    if (value)
+                    {
+                        _HasDocumentPDF = null;
+                    }
+                    else if (_HasDocumentPDF == null)
+                    {
+                        _HasDocumentPDF = false;
+                    }
+                }
+            }
 
             bool? _DocumentIsOCRed;
             public bool? DocumentIsOCRed {
@@ -121,6 +164,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         public GoogleBibTexSnifferControl()
         {
+            Theme.Initialize();
+
             InitializeComponent();
 
             SetupConfiguredDimensions();
@@ -391,6 +436,15 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         private void RecalculateSearchPool()
         {
+            Stopwatch clk = Stopwatch.StartNew();
+            const int MAX_MILLISECONDS_ALLOWED_FOR_THE_SLOWER_CHECKS = 5 * 1000;
+            int slower_checks_allowed = 1;      // state: 1 = allowed, 0 = disallowed, signalling, -1 = disallowed, already signalled
+
+            this.HasDocumentPDF_CheckBox.Background = Brushes.White;
+            //this.HasDocumentPDF_CheckBox.Background.Opacity = 1.0;
+            this.DocumentIsOCRed_CheckBox.Background = Brushes.White;
+            //this.DocumentIsOCRed_CheckBox.Background.Opacity = 1.0;
+
             List<PDFDocument> pdf_documents_inverted_search_pool = new List<PDFDocument>();
             pdf_documents_search_pool.Clear();
             foreach (PDFDocument pdf_document in pdf_documents_total_pool)
@@ -447,34 +501,59 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                     }
                 }
 
-                // another subselection is ON/OFF: does the library entry have a PDF file available or not?
-                if (include_in_search_pool)
+                // Now follow the **slow** checks: these are time-restrained in that we have set an "acceptable upper time limit"
+                // for them to take, after which we let *everyone* through: UX-wise performance has to win over accuracy of
+                // the filter result.
+                // 
+                // When this timeout happens, we flag the flags RED to signal their *inaccuracy*.
+                if (1 == slower_checks_allowed)
                 {
-                    include_in_search_pool = !(search_options.HasDocumentPDF ^ pdf_document.DocumentExists);
+                    if (clk.ElapsedMilliseconds > MAX_MILLISECONDS_ALLOWED_FOR_THE_SLOWER_CHECKS)
+                    {
+                        slower_checks_allowed = 0;
+                    }
                 }
-
-                // another subselection is ON/OFF: does the library entry have OCR data available already?
-                if (include_in_search_pool && null != search_options.DocumentIsOCRed)
+                if (1 == slower_checks_allowed)
                 {
-                    bool hasOCRdata = !pdf_document.IsVanillaReference && pdf_document.HasOCRdata;
-                    // perform a more precise check when there's few documents to process, as this check is pretty costly:
-                    //
-                    // Note: fetching the `PDFRenderer.PageCount` may produce non-zero results, but it would still
-                    // be highly inaccurate as documents can exist with a correct(?) pagecount but not having had their
-                    // pages OCR-ed -- and that's what matters in the end.
-                    //
-                    if (hasOCRdata && pdf_documents_total_pool.Count < 100000)
+                    // another subselection is ON/OFF: does the library entry have a PDF file available or not?
+                    if (include_in_search_pool && null != search_options.HasDocumentPDF)
                     {
-                        string w = pdf_document.PDFRenderer.GetFullOCRText();
-                        hasOCRdata = !String.IsNullOrWhiteSpace(w);
+                        include_in_search_pool = !((bool)search_options.HasDocumentPDF ^ pdf_document.DocumentExists);
                     }
+
+                    // another subselection is ON/OFF: does the library entry have OCR data available already?
+                    if (include_in_search_pool && null != search_options.DocumentIsOCRed)
+                    {
+                        bool hasOCRdata = !pdf_document.IsVanillaReference && pdf_document.HasOCRdata;
+                        // perform a more precise check when there's few documents to process, as this check is pretty costly:
+                        //
+                        // Note: fetching the `PDFRenderer.PageCount` may produce non-zero results, but it would still
+                        // be highly inaccurate as documents can exist with a correct(?) pagecount but not having had their
+                        // pages OCR-ed -- and that's what matters in the end.
+                        //
+                        if (hasOCRdata && pdf_documents_total_pool.Count < 100000)
+                        {
+                            string w = pdf_document.PDFRenderer.GetFullOCRText();
+                            hasOCRdata = !String.IsNullOrWhiteSpace(w);
+                        }
 #if false
-                    if (!hasOCRdata)
-                    {
-                        Logging.Debug("No OCR data known for {0}", pdf_document.Fingerprint);
-                    }
+                        if (!hasOCRdata)
+                        {
+                            Logging.Debug("No OCR data known for {0}", pdf_document.Fingerprint);
+                        }
 #endif
-                    include_in_search_pool = !((bool)search_options.DocumentIsOCRed ^ hasOCRdata);
+                        include_in_search_pool = !((bool)search_options.DocumentIsOCRed ^ hasOCRdata);
+                    }
+                }
+                else if (0 == slower_checks_allowed)
+                {
+                    slower_checks_allowed = -1;
+
+                    // color....
+                    this.HasDocumentPDF_CheckBox.Background = Brushes.Red;
+                    //this.HasDocumentPDF_CheckBox.Background.Opacity = 0.75;
+                    this.DocumentIsOCRed_CheckBox.Background = Brushes.Red;
+                    //this.DocumentIsOCRed_CheckBox.Background.Opacity = 0.75;
                 }
 
                 // the odd one out: the user specified document exists in both regular *and* inverted set:

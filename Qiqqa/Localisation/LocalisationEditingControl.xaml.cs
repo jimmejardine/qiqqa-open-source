@@ -25,6 +25,8 @@ namespace Qiqqa.Localisation
 
         public LocalisationEditingControl()
         {
+            Theme.Initialize();
+
             InitializeComponent();
 
             TxtNewLocale.EmptyTextPrompt = "Type a new locale to edit here and press <ENTER>";

@@ -11,6 +11,8 @@ namespace Utilities.GUI
     {
         public AugmentedPopup(UIElement child)
         {
+            Theme.Initialize();
+
             InitializeComponent();
 
             AllowsTransparency = true;
