@@ -57,9 +57,7 @@ namespace Qiqqa.Common
                     {
                         try
                         {
-                            if (false) { }
-
-                            else if (restore_setting.StartsWith("PDF_LIBRARY"))
+                            if (restore_setting.StartsWith("PDF_LIBRARY"))
                             {
                                 string[] parts = restore_setting.Split(',');
                                 string library_id = parts[1];
@@ -78,15 +76,13 @@ namespace Qiqqa.Common
                                 MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);
                             }
                         }
-
                         catch (Exception ex)
                         {
-                            Logging.Warn(ex, "There was an problem restoring desktop with state {0}", restore_setting);
+                            Logging.Warn(ex, "There was a problem restoring desktop with state {0}", restore_setting);
                         }
                     }
                 }
             }
-
             catch (Exception ex)
             {
                 Logging.Error(ex, "There was a problem restoring the saved desktop state.");
