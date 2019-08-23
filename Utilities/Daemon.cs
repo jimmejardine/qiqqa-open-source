@@ -87,7 +87,7 @@ namespace Utilities
         public void Sleep(int timeout_milliseconds)
         {
             int timeout_milliseconds_remaining = timeout_milliseconds;
-            while (StillRunning && timeout_milliseconds_remaining > 0)
+            while (StillRunning && !Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown && timeout_milliseconds_remaining > 0)
             {
                 int sleep_time = Math.Min(timeout_milliseconds_remaining, 500);
                 timeout_milliseconds_remaining -= sleep_time;

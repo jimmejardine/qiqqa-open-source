@@ -43,7 +43,7 @@ namespace Qiqqa.InCite
         private WordConnector()
         {
             this.paused = false;
-            MaintainableManager.Instance.Register(DoMaintenance, 0, ThreadPriority.BelowNormal);
+            MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance, 0, ThreadPriority.BelowNormal);
         }
 
         public void SetPaused(bool paused)
@@ -53,11 +53,13 @@ namespace Qiqqa.InCite
 
         void DoMaintenance(Daemon daemon)
         {
+#if false
             if (Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
             {
                 daemon.Sleep(60 * 1000);
                 return;
             }
+#endif
 
             if (paused || repopulating_clusters)
             {
@@ -559,9 +561,8 @@ namespace Qiqqa.InCite
                             // Update this citation cluster only if it needs updating (if it has changed from what is currently stored in it)
                             if (!String.IsNullOrEmpty(text_for_cluster))
                             {
-                                
-
                                 bool needs_update = false;
+
                                 if (!needs_update)
                                 {
                                     if (rtf_hash != citation_cluster.rtf_hash)
@@ -569,6 +570,7 @@ namespace Qiqqa.InCite
                                         needs_update = true;
                                     }
                                 }
+
                                 if (!needs_update)
                                 {
                                     string current_field_contents = field.Result.Text;
@@ -685,7 +687,6 @@ namespace Qiqqa.InCite
                             continue;
                         }
                     }
-
                     catch (Exception ex)
                     {
                         ++dodgy_paste_retry_count;
@@ -707,7 +708,6 @@ namespace Qiqqa.InCite
                     }
                 }
             }
-
             finally
             {
                 // Restore the screen updates

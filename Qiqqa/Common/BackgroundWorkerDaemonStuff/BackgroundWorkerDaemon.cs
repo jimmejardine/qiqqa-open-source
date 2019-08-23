@@ -30,11 +30,11 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
 
             metadata_extraction_daemon = new MetadataExtractionDaemon();
 
-            MaintainableManager.Instance.Register(DoMaintenance_OnceOff, 10 * 1000, ThreadPriority.BelowNormal);
-            MaintainableManager.Instance.Register(DoMaintenance_Frequent, 10 * 1000, ThreadPriority.BelowNormal);
-            MaintainableManager.Instance.Register(DoMaintenance_Infrequent, 10 * 1000, ThreadPriority.BelowNormal);
-            MaintainableManager.Instance.Register(DoMaintenance_QuiteInfrequent, 10 * 1000, ThreadPriority.BelowNormal);
-            MaintainableManager.Instance.Register(DoMaintenance_VeryInfrequent, 10 * 1000, ThreadPriority.BelowNormal);
+            MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_OnceOff, 10 * 1000, ThreadPriority.BelowNormal);
+            MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_Frequent, 10 * 1000, ThreadPriority.BelowNormal);
+            MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_Infrequent, 10 * 1000, ThreadPriority.BelowNormal);
+            MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_QuiteInfrequent, 10 * 1000, ThreadPriority.BelowNormal);
+            MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_VeryInfrequent, 10 * 1000, ThreadPriority.BelowNormal);
         }
 
         void DoMaintenance_OnceOff(Daemon daemon)
@@ -67,7 +67,6 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
                 {
                     Logging.Error(ex, "Exception during Utilities.ClientVersioning.ClientUpdater.Instance.CheckForNewClientVersion");
                 }
-
 
                 try
                 {
@@ -119,7 +118,6 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
         void DoMaintenance_VeryInfrequent(Daemon daemon)
         {
             daemon.Sleep(15 * 60 * 1000);
-            //daemon.Sleep(5 * 1000);
 
             if (RegistrySettings.Instance.IsSet(RegistrySettings.SuppressDaemon))
             {
@@ -199,6 +197,7 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
 
             if (ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
             {
+                Logging.Info("Daemons are forced to sleep via Configuration::DisableAllBackgroundTasks");
                 return;
             }
 

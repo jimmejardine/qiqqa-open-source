@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Diagnostics;
-using Qiqqa.Common.GeneralTaskDaemonStuff;
 using Qiqqa.Documents.PDF;
 using Qiqqa.Common.TagManagement;
 using Utilities;
@@ -28,7 +27,40 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
         string previous_folder_to_watch;
         string folder_to_watch;        
-        bool folder_contents_has_changed;
+        bool __folder_contents_has_changed;
+        object folder_contents_has_changed_lock = new object();
+
+        private bool FolderContentsHaveChanged
+        {
+            get
+            {
+                lock (folder_contents_has_changed_lock)
+                {
+                    return __folder_contents_has_changed;
+                }
+            }
+            set
+            {
+                // can only SET the signal; TestAndReset is required to RESET the signalling boolean
+                lock (folder_contents_has_changed_lock)
+                {
+                    __folder_contents_has_changed = true;
+                }
+            }
+        }
+
+        private bool TestAndReset_FolderContentsHaveChanged()
+        {
+            bool rv;
+
+            lock (folder_contents_has_changed_lock)
+            {
+                rv = __folder_contents_has_changed;
+                __folder_contents_has_changed = false;
+            }
+
+            return rv;
+        }
 
         public FolderWatcher(FolderWatcherManager folder_watcher_manager, Library library, string folder_to_watch, string tags)
         {
@@ -44,7 +76,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             file_system_watcher.Changed += file_system_watcher_Changed;
             file_system_watcher.Created += file_system_watcher_Created;
             previous_folder_to_watch = null;
-            folder_contents_has_changed = false;
+            FolderContentsHaveChanged = false;
 
             file_system_watcher.Path = null;
             file_system_watcher.EnableRaisingEvents = false;
@@ -74,13 +106,13 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         void file_system_watcher_Changed(object sender, FileSystemEventArgs e)
         {
             Logging.Info("FolderWatcher file_system_watcher_Changed");
-            folder_contents_has_changed = true;
+            FolderContentsHaveChanged = true;
         }
 
         void file_system_watcher_Created(object sender, FileSystemEventArgs e)
         {
             Logging.Info("FolderWatcher file_system_watcher_Created");
-            folder_contents_has_changed = true;
+            FolderContentsHaveChanged = true;
         }
 
         private void CheckIfFolderNameHasChanged()
@@ -101,7 +133,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             // If we get here, things have changed
             Logging.Info("FolderWatcher's folder has changed from '{0}' to '{1}'", previous_folder_to_watch, folder_to_watch);
             file_system_watcher.EnableRaisingEvents = false;
-            folder_contents_has_changed = true;
+            FolderContentsHaveChanged = true;
             previous_folder_to_watch = folder_to_watch;
             file_system_watcher.Path = folder_to_watch;
 
@@ -129,7 +161,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 Logging.Info("Library is not yet loaded, so waiting before watching...");
 
                 // Indicate that the library may still not have been changed...
-                folder_contents_has_changed = true;
+                FolderContentsHaveChanged = true;
                 return;
             }
 
@@ -148,9 +180,8 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 return;
             }
 
-
             // If the folder or its contents has not changed since the last time, do nothing
-            if (!folder_contents_has_changed)
+            if (!FolderContentsHaveChanged)
             {
                 return;
             }
@@ -169,29 +200,30 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             const int MAX_SECONDS_PER_ITERATION = 5 * 1000;
             Stopwatch index_processing_clock = Stopwatch.StartNew();
 
-            while (folder_contents_has_changed)
+            // Mark that we are now processing the folder
+            while (TestAndReset_FolderContentsHaveChanged())
             {
                 // If this library is busy, skip it for now
                 if (Library.IsBusyAddingPDFs)
                 {
                     Logging.Info("FolderWatcher: Not daemon processing a library that is busy with adds...");
+                    FolderContentsHaveChanged = true;
                     break;
                 }
 
                 if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
                 {
                     Logging.Debug("FolderWatcher: Breaking out of outer processing loop due to daemon termination");
+                    FolderContentsHaveChanged = true;
                     break;
                 }
 
                 if (Qiqqa.Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
                 {
                     Logging.Debug("FolderWatcher: Breaking out of outer processing loop due to DisableAllBackgroundTasks");
+                    FolderContentsHaveChanged = true;
                     break;
                 }
-
-                // Mark that we are now processing the folder
-                folder_contents_has_changed = false;
 
                 int processing_file_count = 0;
                 int processed_file_count = 0;
@@ -242,7 +274,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                         daemon.Sleep(Math.Min(60 * 1000, duration));
                         // As we have slept a while, it's quite unsure whether that file still exists. Skip it and 
                         // let the next round find it later on.
-                        folder_contents_has_changed = true;
+                        FolderContentsHaveChanged = true;
                         // reset:
                         index_processing_clock.Restart();
                         continue;
@@ -272,7 +304,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                     catch (Exception)
                     {
                         Logging.Info("Watched folder contains file '{0}' which is locked, so coming back later...", filename);
-                        folder_contents_has_changed = true;
+                        FolderContentsHaveChanged = true;
                         continue;
                     }
 
@@ -321,9 +353,6 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                     Logging.Info("FolderWatcher is importing {0}", filename);
                     filenames_that_are_new.Add(filename);
 
-                    // Add this file to the list of processed files...
-                    folder_watcher_manager.RememberProcessedFile(filename);
-
                     if (processing_file_count >= MAX_NUMBER_OF_PDF_FILES_TO_PROCESS + processed_file_count)
                     {
                         Logging.Info("FolderWatcher: {0} of {1} files have been processed/inspected (total {2} scanned, {3} skipped, {4} ignored)", processed_file_count, processing_file_count, scanned_file_count, skipped_file_count, scanned_file_count - skipped_file_count - processing_file_count);
@@ -352,6 +381,18 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 return;
             }
 
+            if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+            {
+                Logging.Debug("FolderWatcher: Breaking out due to daemon termination");
+                return;
+            }
+
+            if (Qiqqa.Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
+            {
+                Logging.Debug("FolderWatcher: Breaking out due to DisableAllBackgroundTasks");
+                return;
+            }
+
             // Create the import records
             List<ImportingIntoLibrary.FilenameWithMetadataImport> filename_with_metadata_imports = new List<ImportingIntoLibrary.FilenameWithMetadataImport>();
             foreach (var filename in filenames_that_are_new)
@@ -360,6 +401,11 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                     filename = filename,
                     tags = new List<string>(this.tags)
                 });
+
+                // TODO: refactor this: delay until the PDF has actually been processed completely!
+                //
+                // Add this file to the list of processed files...
+                folder_watcher_manager.RememberProcessedFile(filename);
             }
 
             // Get the library to import all these new files
