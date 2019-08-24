@@ -169,8 +169,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             }
 
             // Choose the icon depending on the reference type
-            if (false) { }
-            else if (PDFDocumentBindable.Underlying.IsVanillaReference)
+            if (PDFDocumentBindable.Underlying.IsVanillaReference)
             {
                 ButtonOpen.Icon = Icons.GetAppIcon(Icons.LibraryCatalogOpenVanillaReference);
                 ButtonOpen.Opacity = 1.0;
@@ -206,27 +205,28 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             // Reading stage
             switch (PDFDocumentBindable.Underlying.ReadingStage)
             {
-                case "Top priority":
+                case Choices.ReadingStages_TOP_PRIORITY:
                     TextTitle.Foreground = Brushes.DarkRed;
                     break;
 
-                case "Read again":
-                case "Interrupted":
-                case "Started reading":
+                case Choices.ReadingStages_READ_AGAIN:
+                case Choices.ReadingStages_INTERRUPTED:
+                case Choices.ReadingStages_STARTED_READING:
                     TextTitle.Foreground = Brushes.DarkGreen;
                     break;
 
-                case "Skim read":
-                case "Browsed":
+                case Choices.ReadingStages_SKIM_READ:
+                case Choices.ReadingStages_BROWSED:
+                case Choices.ReadingStages_INTEREST_ONLY:
                     TextTitle.Foreground = Brushes.DarkBlue;
                     break;
 
-                case "Finished reading":
+                case Choices.ReadingStages_FINISHED_READING:
                 case Choices.ReadingStages_DUPLICATE:
                     TextTitle.Foreground = Brushes.DarkGray;
                     break;
 
-                case "Unread":
+                case Choices.ReadingStages_UNREAD:
                     TextTitle.Foreground = Brushes.Black;
                     break;
 
