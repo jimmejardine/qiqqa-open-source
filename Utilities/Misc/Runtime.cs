@@ -8,7 +8,8 @@ namespace Utilities.Misc
     {
         public static string StartupDirectory
         {
-            get {
+            get
+            {
                 return Path.GetDirectoryName(new Uri(Assembly.GetEntryAssembly().CodeBase).LocalPath);
             }
         }
@@ -17,9 +18,16 @@ namespace Utilities.Misc
         {
             get
             {
+#if DEBUG
                 // Are we looking at this dialog in the Visual Studio Designer or Blend?
                 string appname = System.Reflection.Assembly.GetEntryAssembly().FullName;
-                return appname.Contains("XDesProc");
+                bool rv = appname.Contains("XDesProc");
+                if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject()))
+                {
+                    return true;
+                }
+#endif
+                return false;
             }
         }
     }
