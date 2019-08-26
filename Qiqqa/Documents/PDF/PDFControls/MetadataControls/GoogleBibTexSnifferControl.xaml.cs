@@ -324,19 +324,11 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         private void MoveFirst()
         {
-            if (0 < pdf_documents_search_pool.Count)
-            {
-                pdf_documents_search_index = 0;
-                pdf_document = pdf_documents_search_pool[pdf_documents_search_index];
-            }
-            else
-            {
-                pdf_documents_search_index = 0;
-                pdf_document = null;
-            }
-
-            ReflectPDFDocument(null);
+            // Move to position #0:
+            MoveDelta(-pdf_documents_search_index);
         }
+
+        private string prev_MoveDeltaFingerprint = "bogus";
 
         private void MoveDelta(int direction)
         {
@@ -353,7 +345,19 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                 pdf_document = null;
             }
 
-            ReflectPDFDocument(null);
+            // fix https://github.com/jimmejardine/qiqqa-open-source/issues/59: don't reflect if we didn't change.
+            // 
+            // We start with a dummy fingerprint to ensure that we will observe ANY initial setup/change 
+            // as significant for otherwise we don't get the initial PDF document rendered at all!
+            //
+            // We use the PDF Fingerprint as a check for change as the numeric `pdf_documents_search_index`
+            // value might look easier but doesn't show us any library updates that may have happened in
+            // the meantime.
+            if (prev_MoveDeltaFingerprint != pdf_document?.Fingerprint)
+            {
+                prev_MoveDeltaFingerprint = pdf_document?.Fingerprint;
+                ReflectPDFDocument(null);
+            }
         }        
 
         private void ButtonConfig_Click(object sender, RoutedEventArgs e)
