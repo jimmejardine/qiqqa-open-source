@@ -121,7 +121,7 @@ namespace Qiqqa.DocumentLibrary
             ButtonPublicStatus.Click += ButtonPublicStatus_Click;
 
             // Guest library doesnt have some settings
-            if (!library.WebLibraryDetail.IsWebLibrary)
+            if (false && !library.WebLibraryDetail.IsWebLibrary)
             {
                 ButtonViewOnline.Visibility = Visibility.Collapsed;
                 ButtonTopUp.Visibility = Visibility.Collapsed;

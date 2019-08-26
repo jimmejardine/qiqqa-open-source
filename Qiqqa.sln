@@ -325,7 +325,6 @@ Global
 		{47AB8F63-DB41-4946-A506-BF93D24492EF}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{47AB8F63-DB41-4946-A506-BF93D24492EF}.Debug|x86.Build.0 = Debug|Any CPU
 		{47AB8F63-DB41-4946-A506-BF93D24492EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{47AB8F63-DB41-4946-A506-BF93D24492EF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{47AB8F63-DB41-4946-A506-BF93D24492EF}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{47AB8F63-DB41-4946-A506-BF93D24492EF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{47AB8F63-DB41-4946-A506-BF93D24492EF}.Release|x86.ActiveCfg = Release|Any CPU
@@ -336,7 +335,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{AFB0BE7E-CE68-47B1-8E14-66A0DBC848A4} = {19960EDF-B439-4ED5-AD0B-A08FDA6ECF3E}
-		{E0648CF2-1955-441E-939E-C6765630E65C} = {19960EDF-B439-4ED5-AD0B-A08FDA6ECF3E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1053AC46-6C10-40DE-8F81-A31A1C28ACDC}
