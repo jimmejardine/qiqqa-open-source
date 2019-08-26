@@ -17,5 +17,11 @@ namespace QiqqaUnitTester
         {
             Assert.Pass();
         }
+
+        [Test]
+        public void Test2()
+        {
+            throw new Exception("bugger");
+        }
     }
 }
