@@ -277,7 +277,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                     // If we are feeling really racy, let the wizard button also move onto the next guy cos we are cooking on GAS
                     if (ConfigurationManager.Instance.ConfigurationRecord.Metadata_UseBibTeXSnifferWizard)
                     {
-                        if (!pdf_document.BibTex.Contains(BibTeXActionComments.AUTO_GS))
+                        if (!pdf_document.BibTex?.Contains(BibTeXActionComments.AUTO_GS) ?? false)
                         {
                             pdf_document.BibTex =
                                 BibTeXActionComments.AUTO_GS
@@ -286,7 +286,45 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                             pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.BibTex);
                         }
 
-                        MoveDelta(+1);
+                        // fix: https://github.com/jimmejardine/qiqqa-open-source/issues/60
+                        //
+                        // check how many PDF files actually match and only move forward when we don't end up
+                        // full circle:
+                        int count = pdf_documents_search_pool.Count;
+                        int step = 1;
+                        int my_index = pdf_documents_search_index;
+                        PDFDocument next_pdf;
+                        if (count <= 1)
+                        {
+                            next_pdf = null;
+                            step--;
+                        }
+                        else
+                        {
+                            while (step < count)
+                            {
+                                int pos = my_index + step;
+                                if (pos >= count) pos -= count;
+                                next_pdf = pdf_documents_search_pool[pos];
+
+                                if (!next_pdf.BibTex?.Contains(BibTeXActionComments.AUTO_GS) ?? false)
+                                {
+                                    break;
+                                }
+
+                                step++;
+                            }
+                        }
+
+                        // fix https://github.com/jimmejardine/qiqqa-open-source/issues/60: don't cycle if we didn't change.
+                        //
+                        // only move forward if there's actually a slot to move to that doesn't automatically
+                        // moves forward to the current slot itself. Hence it must be a slot at current-position minus 1
+                        // or further back or forward from us, i.e. `step+1 <= count`.
+                        if (step != 0 && step < count)
+                        {
+                            MoveDelta(step);
+                        }
                     }
                 }
             }
@@ -328,15 +366,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             MoveDelta(-pdf_documents_search_index);
         }
 
-        private string prev_MoveDeltaFingerprint = "bogus";
-
         private void MoveDelta(int direction)
         {
             if (0 < pdf_documents_search_pool.Count)
             {
                 pdf_documents_search_index += direction;
                 if (pdf_documents_search_index >= pdf_documents_search_pool.Count) pdf_documents_search_index = 0;
-                if (pdf_documents_search_index < 0) pdf_documents_search_index = pdf_documents_search_pool.Count-1;
+                if (pdf_documents_search_index < 0) pdf_documents_search_index = pdf_documents_search_pool.Count - 1;
                 pdf_document = pdf_documents_search_pool[pdf_documents_search_index];
             }
             else
@@ -345,20 +381,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                 pdf_document = null;
             }
 
-            // fix https://github.com/jimmejardine/qiqqa-open-source/issues/59: don't reflect if we didn't change.
-            // 
-            // We start with a dummy fingerprint to ensure that we will observe ANY initial setup/change 
-            // as significant for otherwise we don't get the initial PDF document rendered at all!
-            //
-            // We use the PDF Fingerprint as a check for change as the numeric `pdf_documents_search_index`
-            // value might look easier but doesn't show us any library updates that may have happened in
-            // the meantime.
-            if (prev_MoveDeltaFingerprint != pdf_document?.Fingerprint)
-            {
-                prev_MoveDeltaFingerprint = pdf_document?.Fingerprint;
-                ReflectPDFDocument(null);
-            }
-        }        
+            ReflectPDFDocument(null);
+        }
 
         private void ButtonConfig_Click(object sender, RoutedEventArgs e)
         {
@@ -612,6 +636,16 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                 TxtProgress.Text = "No documents";
                 ObjProgress.Value = 1;
                 ObjProgress.Maximum = 1;
+            }
+
+            // fix: https://github.com/jimmejardine/qiqqa-open-source/issues/60
+            // fix: https://github.com/jimmejardine/qiqqa-open-source/issues/39
+            // fix https://github.com/jimmejardine/qiqqa-open-source/issues/59: don't reflect if we didn't change.
+            //
+            // when we re-render the same document, we don't move at all!
+            if (this.pdf_document_rendered == pdf_document)
+            {
+                return;
             }
 
             if (null != this.pdf_document_rendered)
