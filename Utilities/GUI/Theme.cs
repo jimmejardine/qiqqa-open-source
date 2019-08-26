@@ -16,12 +16,15 @@ namespace Utilities.GUI
 
             ++theme_init_count;
 
-            Application app = Application.Current;
+            if (theme_init_count == 1)
+            {
+                Application app = Application.Current;
 
-            ThemeColours.AddToApplicationResources(app);
-            ThemeTextStyles.AddToApplicationResources(app);
-            ThemeScrollbar.AddToApplicationResources(app);
-            ThemeTabItem.AddToApplicationResources(app);
+                ThemeColours.AddToApplicationResources(app);
+                ThemeTextStyles.AddToApplicationResources(app);
+                ThemeScrollbar.AddToApplicationResources(app);
+                ThemeTabItem.AddToApplicationResources(app);
+            }
 
             // NB NB NB NB: You CANT USE ANYTHING IN THE USER CONFIG AT THIS POINT - it is not yet decided until LOGIN has completed...
         }
