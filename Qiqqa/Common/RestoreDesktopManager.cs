@@ -50,7 +50,7 @@ namespace Qiqqa.Common
             try
             {
                 // Get the remembrances
-                if (File.Exists(Filename))
+                if (false && File.Exists(Filename))
                 {
                     string[] restore_settings = File.ReadAllLines(Filename);
                     foreach (string restore_setting in restore_settings)
