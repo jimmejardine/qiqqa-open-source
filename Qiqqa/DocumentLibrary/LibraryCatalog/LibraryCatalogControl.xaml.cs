@@ -34,7 +34,16 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
             ListPDFDocuments.SelectionChanged += ListPDFDocuments_SelectionChanged;
             ListPDFDocuments.MouseDoubleClick += ListPDFDocuments_MouseDoubleClick;
+            ListPDFDocuments.IsVisibleChanged += ListPDFDocuments_IsVisibleChanged;
             ReconsiderPDFDocumentDetail();
+        }
+
+        private void ListPDFDocuments_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (ListPDFDocuments.IsVisible)
+            {
+                ListPDFDocuments.UpdateLayout();
+            }
         }
 
         internal void OnFilterChanged(LibraryFilterControl library_filter_control, List<PDFDocument> pdf_documents, Span descriptive_span, string filter_terms, Dictionary<string, double> search_scores, PDFDocument pdf_document_to_focus_on)
@@ -62,7 +71,6 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
                 ObjMultipleDocumentsSelectedPanel.DataContext = null;
                 ObjMultipleDocumentsSelectedPanel.Visibility = Visibility.Collapsed;
             }
-
             else if (1 == selected_pdf_documents.Count)
             {
                 ObjLibraryInstructionsPanel.Visibility = Visibility.Collapsed;
@@ -171,7 +179,6 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             {
                 return;
             }
-
             
             // Find the selected document
             int selected_index = -1;
