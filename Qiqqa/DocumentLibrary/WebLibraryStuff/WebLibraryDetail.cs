@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using ProtoBuf;
+using Utilities.Strings;
 
 namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 {
@@ -14,6 +15,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         public string Title { get; set; }
         [ProtoMember(3)]
         public string Description { get; set; }
+
         [ProtoMember(4)]
         public bool Deleted { get; set; }
         [ProtoMember(5)]
@@ -81,6 +83,19 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         public override string ToString()
         {
             return String.Format("Library {0}: {1}", Id, Title);
+        }
+
+        //[NonSerialized]
+        public string DescriptiveTitle
+        {
+            get
+            {
+                string s = Title;
+                if (!String.IsNullOrWhiteSpace(s)) return s;
+                s = StringTools.TrimToLengthWithEllipsis(Description);
+                if (!String.IsNullOrWhiteSpace(s)) return s;
+                return Id;
+            }
         }
 
         public string LibraryType()

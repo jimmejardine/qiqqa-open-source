@@ -136,8 +136,6 @@ namespace Utilities.Strings
             return sb.ToString();
         }
 
-
-
         public static string StringFromByteArray(byte[] data)
         {
             StringBuilder sb = new StringBuilder();
@@ -408,8 +406,7 @@ namespace Utilities.Strings
             for (int i = start_pos; i < target.Length; ++i)
             {
                 // Check our depth
-                if (false) { }
-                else if (target[i] == delim_open)
+                if (target[i] == delim_open)
                 {
                     ++depth;
                 }
@@ -436,8 +433,7 @@ namespace Utilities.Strings
             for (int i = start_pos; i < target.Length; ++i)
             {
                 // Check our depth
-                if (false) { }
-                else if (target[i] == delim)
+                if (target[i] == delim)
                 {
                     inside_delim = !inside_delim;
                 }
@@ -638,6 +634,48 @@ namespace Utilities.Strings
                 str = str.Substring(0, blank_pos + (include_string?chr.Length:0));
             }
 
+            return str;
+        }
+
+        private static readonly Regex multi_ws_re = new Regex(@"[\s\r\n]+");
+
+        /// <summary>
+        /// Cleans up all whitespace in the given string. 
+        /// Double spaces, tabs, etc. are converted to single spaces.
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string TrimAndClean(string str)
+        {
+            if (null == str) return str;
+            str = multi_ws_re.Replace(str, " ");
+            return str.Trim();
+        }
+
+        public static string TrimToLengthWithEllipsis(string str, int max_length = 40)
+        {
+            if (null == str) return str;
+            str = TrimAndClean(str);
+            int len = str.Length;
+            max_length = Math.Max(5, max_length);  // sane lower limit?
+            if (len > max_length)
+            {
+                // heuristic: when there's a word boundary within last 20% slots, take that one instead: 
+                int range_to_check = Math.Max(2, max_length / 5);
+                // account for the Unicode ellipsis character
+                int pos = str.LastIndexOf(' ', max_length - 1, range_to_check);
+                if (pos > 0)
+                {
+                    // soft cut: cut just past the space = word boundary
+                    str = str.Substring(0, pos + 1);
+                }
+                else
+                {
+                    // hard cut
+                    str = str.Substring(0, max_length - 1);
+                }
+                str += "…";
+            }
             return str;
         }
     }
