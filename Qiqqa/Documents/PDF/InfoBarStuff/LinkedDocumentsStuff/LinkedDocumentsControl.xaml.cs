@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Qiqqa.Common.GUI;
 using Qiqqa.Documents.PDF.InfoBarStuff.CitationsStuff;
 using Qiqqa.UtilisationTracking;
+using Utilities;
 using Utilities.Language.TextIndexing;
 
 namespace Qiqqa.Documents.PDF.InfoBarStuff.LinkedDocumentsStuff
@@ -44,7 +45,10 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.LinkedDocumentsStuff
                     ObjPDFDocuments.ScrollIntoView(ObjPDFDocuments.SelectedItem);
                     e.Handled = true;
                 }
-                catch (Exception) { }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex, "Key UP");
+                }
             }
             else if (Key.Down == e.Key)
             {
@@ -54,7 +58,10 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.LinkedDocumentsStuff
                     ObjPDFDocuments.ScrollIntoView(ObjPDFDocuments.SelectedItem);
                     e.Handled = true;
                 }
-                catch (Exception) { }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex, "Key DOWN");
+                }
             }
         }
 
@@ -89,7 +96,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.LinkedDocumentsStuff
                 for (int i = 0; i < MAX_DOCUMENTS && i < matches.Count; ++i)
                 {
                     PDFDocument pdf_document = this.pdf_document.Library.GetDocumentByFingerprint(matches[i].fingerprint);
-                    if (pdf_document.Deleted) continue;
+                    if (null == pdf_document || pdf_document.Deleted) continue;
 
                     string prefix = String.Format("{0:0%} - ", matches[i].score);
                     TextBlock text_block = ListFormattingTools.GetDocumentTextBlock(pdf_document, ref alternator, null, MouseButtonEventHandler, prefix, null);

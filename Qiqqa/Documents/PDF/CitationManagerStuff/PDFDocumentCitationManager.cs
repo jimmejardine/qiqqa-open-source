@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Qiqqa.DocumentLibrary;
+using Utilities;
 using Utilities.Strings;
 
 namespace Qiqqa.Documents.PDF.CitationManagerStuff
@@ -10,9 +11,10 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
     {
         PDFDocument pdf_document;
 
-        object locker = new object();
+        object citations_lock = new object();
         List<Citation> _citations = null;
-        List<Citation> Citations
+
+        private List<Citation> Citations_RAW
         {
             get
             {
@@ -24,7 +26,24 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
                 return _citations;
             }
         }
-        
+
+        /// <summary>
+        /// Deliver a safe-to-use copy of the citations list: use this API
+        /// to access the citations list from another instance of PDFDocumentCitationManager.
+        /// </summary>
+        private List<Citation> Citations_LOCKED
+        {
+            get
+            {
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                lock (citations_lock)
+                {
+                    l1_clk.LockPerfTimerStop();
+                    return new List<Citation>(Citations_RAW); 
+                }
+            }
+        }
+
         public PDFDocumentCitationManager(PDFDocument pdf_document)
         {
             this.pdf_document = pdf_document;
@@ -44,9 +63,11 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
 
         private bool ContainsCitation(string fingerprint_outbound, string fingerprint_inbound)
         {
-            lock (locker)
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (citations_lock)
             {
-                List<Citation> citations = Citations;
+                l1_clk.LockPerfTimerStop();
+                List<Citation> citations = Citations_RAW;
                 foreach (Citation citation in citations)
                 {
                     if (0 == citation.fingerprint_inbound.CompareTo(fingerprint_inbound) && 0 == citation.fingerprint_outbound.CompareTo(fingerprint_outbound))
@@ -84,8 +105,10 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
         
         private void AddCitation(Citation new_citation)
         {
-            lock (locker)
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (citations_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 // We can't cite ourself!
                 if (0 == new_citation.fingerprint_outbound.CompareTo(new_citation.fingerprint_inbound))
                 {
@@ -95,7 +118,7 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
                 // Try to update an existing record
                 bool needs_write = false;
                 bool citation_exists = false;
-                List<Citation> citations = Citations;
+                List<Citation> citations = Citations_RAW;
                 foreach (Citation citation in citations)
                 {
                     if (new_citation.Equals(citation))
@@ -133,10 +156,12 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
         private List<Citation> GetCitations(string fingerprint_outbound, string fingerprint_inbound)
         {
             List<Citation> result_citations = new List<Citation>();
-            
-            lock (locker)
+
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (citations_lock)
             {
-                List<Citation> citations = Citations;
+                l1_clk.LockPerfTimerStop();
+                List<Citation> citations = Citations_RAW;
                 foreach (Citation citation in citations)
                 {
                     if (null != fingerprint_outbound && Citation.Type.AUTO_CITATION == citation.type && 0 == fingerprint_outbound.CompareTo(citation.fingerprint_outbound)) result_citations.Add(citation);
@@ -150,13 +175,14 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
         public List<Citation> GetLinkedDocuments()
         {
             string fingerprint = this.pdf_document.Fingerprint;
-
-
+            
             List<Citation> result_citations = new List<Citation>();
 
-            lock (locker)
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (citations_lock)
             {
-                List<Citation> citations = Citations;
+                l1_clk.LockPerfTimerStop();
+                List<Citation> citations = Citations_RAW;
                 foreach (Citation citation in citations)
                 {
                     if (Citation.Type.MANUAL_LINK == citation.type && 0 == fingerprint.CompareTo(citation.fingerprint_outbound)) result_citations.Add(citation);
@@ -212,10 +238,19 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
 
         internal void CloneFrom(PDFDocumentCitationManager other)
         {
-            lock (locker)
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (citations_lock)
             {
-                this.Citations.AddRange(other.Citations);
-                WriteToDisk(pdf_document, Citations);
+                l1_clk.LockPerfTimerStop();
+                // prevent deadlock due to possible incorrect use of this API:
+                if (other != this)
+                {
+                    // the other PDFCitMgr instance has its own lock, so without
+                    // a copy through `other.Citations_LOCKED` this code would
+                    // be very much thread-UNSAFE!
+                    this.Citations_RAW.AddRange(other.Citations_LOCKED);
+                    WriteToDisk(pdf_document, this.Citations_RAW);
+                }
             }
         }
     }

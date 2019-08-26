@@ -269,10 +269,13 @@ namespace Qiqqa.DocumentLibrary
         {
             ObjReadOnlyLibraryDescriptionBorder.Visibility = library.WebLibraryDetail.IsReadOnly ? Visibility.Visible : Visibility.Collapsed;
             ObjReadonlyExplain.Text = "";
-            if (false) {}
-            else if (library.WebLibraryDetail.IsWebLibrary) ObjReadonlyExplain.Text = "If you wish to have write access, ask your library administrator to give you permission.";
-            else if (library.WebLibraryDetail.IsIntranetLibrary) ObjReadonlyExplain.Text = "You need to upgrade to Premium+ to be able to write to this Intranet Library.";
-            else if (library.WebLibraryDetail.IsBundleLibrary) ObjReadonlyExplain.Text = "This Bundle Library is automatically overwritten whenever the Bundle creator updates it online.";
+
+            if (library.WebLibraryDetail.IsWebLibrary)
+                ObjReadonlyExplain.Text = "If you wish to have write access, ask your library administrator to give you permission.";
+            else if (library.WebLibraryDetail.IsIntranetLibrary)
+                ObjReadonlyExplain.Text = "You need to upgrade to Premium+ to be able to write to this Intranet Library.";
+            else if (library.WebLibraryDetail.IsBundleLibrary)
+                ObjReadonlyExplain.Text = "This Bundle Library is automatically overwritten whenever the Bundle creator updates it online.";
         }
 
         void ButtonBuildBundleLibrary_Click(object sender, RoutedEventArgs e)

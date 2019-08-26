@@ -74,8 +74,10 @@ namespace Utilities.Internet
 
             void wcb_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
             {
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (progress_lock)
                 {
+                    l1_clk.LockPerfTimerStop();
                     if (progress_percentage < e.ProgressPercentage)
                     {
                         Logging.Info("Downloaded {0} / {1} ({2}%)", e.BytesReceived, e.TotalBytesToReceive, e.ProgressPercentage);
@@ -86,8 +88,10 @@ namespace Utilities.Internet
 
             void wcb_DownloadDataCompleted(object sender, DownloadDataCompletedEventArgs e)
             {
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (progress_lock)
                 {
+                    l1_clk.LockPerfTimerStop();
                     Logging.Info("Download complete");
                 }
             }
@@ -127,8 +131,10 @@ namespace Utilities.Internet
 
             internal void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
             {
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (progress_lock)
                 {
+                    l1_clk.LockPerfTimerStop();
                     // Limit the logging frequency
                     if (ProgressPercentage < e.ProgressPercentage)
                     {
@@ -140,8 +146,10 @@ namespace Utilities.Internet
 
             internal void wc_DownloadDataCompleted(object sender, DownloadDataCompletedEventArgs e)
             {
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (progress_lock)
                 {
+                    l1_clk.LockPerfTimerStop();
                     Logging.Info("Download complete");
                     this.DownloadDataCompletedEventArgs = e;
                 }

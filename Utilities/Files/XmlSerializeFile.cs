@@ -21,15 +21,17 @@ namespace Utilities.Files
                     return xml_serializer.Deserialize(xml_reader) as T;
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Logging.Error(e, "Unable to deserialize type {0} from file: {1}", typeof(T).FullName, filename);
+                Logging.Error(ex, "Unable to deserialize type {0} from file: {1}", typeof(T).FullName, filename);
                 try
                 {
                     Logging.Info("XML from file {0}:\n{1}", filename, File.ReadAllText(filename));
                 }
-                catch(Exception)
+                catch (Exception ex2)
                 {
+                    Logging.Error(ex2);
+
                     //  oh well, was just for info anyway
                 }
                 return null;

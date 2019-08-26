@@ -49,12 +49,11 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
         internal void ApplySort(List<PDFDocument> pdf_documents, Dictionary<string, double> search_quick_scores)
         {
             // Now apply the sort
-            if (false) { }
-            else if (sort_hyperlink == HyperlinkScore)
+            if (sort_hyperlink == HyperlinkScore)
             {
                 if (null != search_quick_scores)
                 {
-                    pdf_documents.Sort(delegate(PDFDocument p1, PDFDocument p2)
+                    pdf_documents.Sort(delegate (PDFDocument p1, PDFDocument p2)
                     {
                         double s1, s2;
                         search_quick_scores.TryGetValue(p1.Fingerprint, out s1);
@@ -63,19 +62,18 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
                     });
                 }
             }
-            else if (sort_hyperlink == HyperlinkTitle) pdf_documents.Sort(delegate(PDFDocument p1, PDFDocument p2) { return String.Compare(p1.TitleCombined, p2.TitleCombined); });
-            else if (sort_hyperlink == HyperlinkAuthors) pdf_documents.Sort(delegate(PDFDocument p1, PDFDocument p2) { return String.Compare(p1.AuthorsCombined, p2.AuthorsCombined); });
-            else if (sort_hyperlink == HyperlinkYear) pdf_documents.Sort(delegate(PDFDocument p1, PDFDocument p2) { return -String.Compare(p1.YearCombined, p2.YearCombined); });
+            else if (sort_hyperlink == HyperlinkTitle) pdf_documents.Sort(PDFDocumentListSorters.Title);
+            else if (sort_hyperlink == HyperlinkAuthors) pdf_documents.Sort(PDFDocumentListSorters.Authors);
+            else if (sort_hyperlink == HyperlinkYear) pdf_documents.Sort(PDFDocumentListSorters.Year);
             else if (sort_hyperlink == HyperlinkRecentlyAdded) pdf_documents.Sort(PDFDocumentListSorters.DateAddedToDatabase);
             else if (sort_hyperlink == HyperlinkRecentlyRead) pdf_documents.Sort(PDFDocumentListSorters.DateLastRead);
-            else if (sort_hyperlink == HyperlinkRecentlyCited) pdf_documents.Sort(PDFDocumentListSorters.DateLastCited);                
-            else if (sort_hyperlink == HyperlinkReadingStage) pdf_documents.Sort(delegate(PDFDocument p1, PDFDocument p2) { return String.Compare(p1.ReadingStage, p2.ReadingStage); });
-            else if (sort_hyperlink == HyperlinkRating) pdf_documents.Sort(delegate(PDFDocument p1, PDFDocument p2) { return -String.Compare(p1.Rating, p2.Rating); });
-            else if (sort_hyperlink == HyperlinkFavourite) pdf_documents.Sort(delegate(PDFDocument p1, PDFDocument p2) { return Sorting.Compare(p1.IsFavourite, p2.IsFavourite); });
-            else if (sort_hyperlink == HyperlinkHasPDF) pdf_documents.Sort(delegate(PDFDocument p1, PDFDocument p2) { return Sorting.Compare(p1.DocumentExists, p2.DocumentExists); });
-            else if (sort_hyperlink == HyperlinkHasBibTeX) pdf_documents.Sort(delegate(PDFDocument p1, PDFDocument p2) { return Sorting.CompareLengths(p1.BibTex, p2.BibTex); });
-            else if (sort_hyperlink == HyperlinkPageCount) pdf_documents.Sort(delegate(PDFDocument p1, PDFDocument p2) { return Sorting.Compare(p1.SafePageCount, p2.SafePageCount); });
-
+            else if (sort_hyperlink == HyperlinkRecentlyCited) pdf_documents.Sort(PDFDocumentListSorters.DateLastCited);
+            else if (sort_hyperlink == HyperlinkReadingStage) pdf_documents.Sort(PDFDocumentListSorters.ReadingStage);
+            else if (sort_hyperlink == HyperlinkRating) pdf_documents.Sort(PDFDocumentListSorters.Rating);
+            else if (sort_hyperlink == HyperlinkFavourite) pdf_documents.Sort(PDFDocumentListSorters.Favourite);
+            else if (sort_hyperlink == HyperlinkHasPDF) pdf_documents.Sort(PDFDocumentListSorters.HasPDF);
+            else if (sort_hyperlink == HyperlinkHasBibTeX) pdf_documents.Sort(PDFDocumentListSorters.HasBibTeX);
+            else if (sort_hyperlink == HyperlinkPageCount) pdf_documents.Sort(PDFDocumentListSorters.PageCount);
             else
             {
                 // If there is nothing else to sort by, do recently added

@@ -289,9 +289,9 @@ namespace Utilities.PDF.MuPDF
                     process.Kill();
                     Logging.Info("Killed PDFRenderer process");
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    Logging.Error("These was an exception while trying to kill the PDFRenderer process");
+                    Logging.Error(ex, "These was an exception while trying to kill the PDFRenderer process");
                 }
             }
 

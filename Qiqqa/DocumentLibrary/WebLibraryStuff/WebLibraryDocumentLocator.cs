@@ -1,5 +1,6 @@
 ﻿using System;
 using Qiqqa.Documents.PDF;
+using Utilities;
 
 namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 {
@@ -18,6 +19,10 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     {
                         return pdf_document;
                     }
+                    else
+                    {
+                        Logging.Warn("WbLibraryDocumentLocator: Cannot find document anymore for fingerprint {0}", document_fingerprint);
+                    }
                 }
             }
 
@@ -28,6 +33,10 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 if (null != pdf_document)
                 {
                     return pdf_document;
+                }
+                else
+                {
+                    Logging.Warn("WbLibraryDocumentLocator: Cannot find document anymore for fingerprint {0}", document_fingerprint);
                 }
             }
 

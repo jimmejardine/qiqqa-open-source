@@ -46,34 +46,41 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
 
             try
             {
-                string[] lines = File.ReadAllLines(Filename_Store);
-                foreach (string line in lines)
+                if (!File.Exists(Filename_Store))
                 {
-                    if (String.IsNullOrEmpty(line))
+                    Logging.Info("No file {0} found, so starting afresh.", Filename_Store);
+                }
+                else
+                {
+                    string[] lines = File.ReadAllLines(Filename_Store);
+                    foreach (string line in lines)
                     {
-                        continue;
-                    }
+                        if (String.IsNullOrEmpty(line))
+                        {
+                            continue;
+                        }
 
-                    if (line.StartsWith("#"))
-                    {
-                        continue;
-                    }
+                        if (line.StartsWith("#"))
+                        {
+                            continue;
+                        }
 
-                    // Process the line
-                    try
-                    {
-                        BlackWhiteListEntry entry = new BlackWhiteListEntry(line);
-                        results.Add(entry);
-                    }
-                    catch (Exception ex2)
-                    {
-                        Logging.Warn(ex2, "There was a problem processing aitag blacklist/whitelist line: {0}", line);
+                        // Process the line
+                        try
+                        {
+                            BlackWhiteListEntry entry = new BlackWhiteListEntry(line);
+                            results.Add(entry);
+                        }
+                        catch (Exception ex2)
+                        {
+                            Logging.Warn(ex2, "There was a problem processing aitag blacklist/whitelist line: {0}", line);
+                        }
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Logging.Info("No file {0} found, so starting afresh.", Filename_Store);
+                Logging.Error(ex, "Error loading WhiteList file {0}.", Filename_Store);
             }
 
             return results;

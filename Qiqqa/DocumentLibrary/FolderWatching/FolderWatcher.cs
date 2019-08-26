@@ -25,8 +25,8 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
         FileSystemWatcher file_system_watcher;        
 
-        string previous_folder_to_watch;
-        string folder_to_watch;        
+        string configured_folder_to_watch;
+        string aspiring_folder_to_watch;        
         bool __folder_contents_has_changed;
         object folder_contents_has_changed_lock = new object();
 
@@ -34,16 +34,20 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         {
             get
             {
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (folder_contents_has_changed_lock)
                 {
+                    l1_clk.LockPerfTimerStop();
                     return __folder_contents_has_changed;
                 }
             }
             set
             {
                 // can only SET the signal; TestAndReset is required to RESET the signalling boolean
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (folder_contents_has_changed_lock)
                 {
+                    l1_clk.LockPerfTimerStop();
                     __folder_contents_has_changed = true;
                 }
             }
@@ -53,8 +57,10 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         {
             bool rv;
 
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (folder_contents_has_changed_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 rv = __folder_contents_has_changed;
                 __folder_contents_has_changed = false;
             }
@@ -66,16 +72,16 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         {
             this.folder_watcher_manager = folder_watcher_manager;            
             this.library = library;
-            this.folder_to_watch = folder_to_watch;
+            this.aspiring_folder_to_watch = folder_to_watch;
             this.tags = TagTools.ConvertTagBundleToTags(tags);
-            this.previous_folder_to_watch = null;
+            this.configured_folder_to_watch = null;
 
             file_system_watcher = new FileSystemWatcher();
             file_system_watcher.IncludeSubdirectories = true;
             file_system_watcher.Filter = "*.pdf";
             file_system_watcher.Changed += file_system_watcher_Changed;
             file_system_watcher.Created += file_system_watcher_Created;
-            previous_folder_to_watch = null;
+            configured_folder_to_watch = null;
             FolderContentsHaveChanged = false;
 
             file_system_watcher.Path = null;
@@ -99,8 +105,8 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             //library.Dispose();
             library = null;
             tags.Clear();
-            previous_folder_to_watch = null;
-            folder_to_watch = null;
+            configured_folder_to_watch = null;
+            aspiring_folder_to_watch = null;
         }
 
         void file_system_watcher_Changed(object sender, FileSystemEventArgs e)
@@ -118,29 +124,39 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         private void CheckIfFolderNameHasChanged()
         {
             // If they are both null, no worries - they are the same
-            if (null == previous_folder_to_watch && null == folder_to_watch)
+            if (null == configured_folder_to_watch && null == aspiring_folder_to_watch)
             {
                 file_system_watcher.EnableRaisingEvents = false;
                 return;
             }
 
             // If they are both identical, no worries
-            if (null != previous_folder_to_watch && null != folder_to_watch && 0 == previous_folder_to_watch.CompareTo(folder_to_watch))
+            if (null != configured_folder_to_watch && null != aspiring_folder_to_watch && 0 == configured_folder_to_watch.CompareTo(aspiring_folder_to_watch))
             {                
                 return;
             }
 
             // If we get here, things have changed
-            Logging.Info("FolderWatcher's folder has changed from '{0}' to '{1}'", previous_folder_to_watch, folder_to_watch);
+            Logging.Info("FolderWatcher's folder has changed from '{0}' to '{1}'", configured_folder_to_watch, aspiring_folder_to_watch);
             file_system_watcher.EnableRaisingEvents = false;
             FolderContentsHaveChanged = true;
-            previous_folder_to_watch = folder_to_watch;
-            file_system_watcher.Path = folder_to_watch;
+            try
+            {
+                file_system_watcher.Path = aspiring_folder_to_watch;
+                configured_folder_to_watch = aspiring_folder_to_watch;
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex, "Failure to set up the new Watch Folder: {0}.", aspiring_folder_to_watch);
+                file_system_watcher.Path = null;
+                configured_folder_to_watch = null;
+                aspiring_folder_to_watch = null;
+            }
 
             // Start watching if there is something to watch
-            if (!String.IsNullOrEmpty(folder_to_watch))
+            if (!String.IsNullOrEmpty(configured_folder_to_watch))
             {
-                Logging.Info("FolderWatcher is watching '{0}'", folder_to_watch);
+                Logging.Info("FolderWatcher is watching '{0}'", configured_folder_to_watch);
                 file_system_watcher.EnableRaisingEvents = true;
             }
             else
@@ -169,13 +185,13 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             CheckIfFolderNameHasChanged();
 
             // If the current folder is blank, do nothing
-            if (String.IsNullOrEmpty(folder_to_watch))
+            if (String.IsNullOrEmpty(configured_folder_to_watch))
             {
                 return;
             }
 
             // If the folder does not exist, do nothing
-            if (!Directory.Exists(folder_to_watch))
+            if (!Directory.Exists(configured_folder_to_watch))
             {
                 return;
             }
@@ -227,7 +243,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 // If we get this far then there might be some work to do in the folder...
                 Stopwatch clk = new Stopwatch();
                 clk.Start();
-                IEnumerable<string> filenames_in_folder = Directory.EnumerateFiles(previous_folder_to_watch, "*.pdf", SearchOption.AllDirectories);
+                IEnumerable<string> filenames_in_folder = Directory.EnumerateFiles(configured_folder_to_watch, "*.pdf", SearchOption.AllDirectories);
                 Logging.Debug("Directory.EnumerateFiles took {0} ms", clk.ElapsedMilliseconds);
 
                 List<PDFDocument> pdf_documents_already_in_library = library.PDFDocuments;
@@ -289,9 +305,9 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                     {
                         fingerprint = StreamFingerprint.FromFile(filename);
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        Logging.Info("Watched folder contains file '{0}' which is locked, so coming back later...", filename);
+                        Logging.Error(ex, "Watched folder contains file '{0}' which is locked, so coming back later...", filename);
                         FolderContentsHaveChanged = true;
                         continue;
                     }

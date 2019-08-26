@@ -19,8 +19,10 @@
 
         public byte[] GetPageByHeightAsImage(int page, double height)
         {
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (cache)
             {
+                l1_clk.LockPerfTimerStop();
                 byte[] bitmap = cache.Get(page, height);
                 if (null == bitmap)
                 {
@@ -39,8 +41,10 @@
 
         public void Flush()
         {
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (cache)
             {
+                l1_clk.LockPerfTimerStop();
                 cache.Flush();
             }
         }

@@ -17,6 +17,8 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
 
             Header.Img = Icons.GetAppIcon(Icons.Search);
 
+            // TODO: size the dialog to fit the screen.
+
             HyperlinkLuceneExamples.Click += HyperlinkLuceneExamples_Click;
         }
 

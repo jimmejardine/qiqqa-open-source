@@ -123,7 +123,7 @@ namespace Utilities.Images
                     image.Freeze();
                     return image;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     // If there was an exception, log the contents of the memory stream as it may be a useful error message)
                     try
@@ -132,6 +132,7 @@ namespace Utilities.Images
                         var ascii_encoding = new ASCIIEncoding();
                         string output = ascii_encoding.GetString(ms.ToArray(), 0, 1024);
                         Logging.Error("Could not decode BitmapImage.  First few bytes are: {0}", output);
+                        Logging.Error(ex);
                     }
                     catch (Exception ex2)
                     {
@@ -139,7 +140,7 @@ namespace Utilities.Images
                     }
 
                     // Throw the exception anyway
-                    throw;
+                    throw ex;
                 }
             }
         }

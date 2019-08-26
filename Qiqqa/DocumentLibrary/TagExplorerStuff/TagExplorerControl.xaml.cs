@@ -60,7 +60,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
 
         internal static MultiMapSet<string, string> GetNodeItems(Library library, HashSet<string> parent_fingerprints)
         {
-            Logging.Info("+Getting node items for " + "Tags");
+            Logging.Info("+Getting node items for Tags");
 
             List<PDFDocument> pdf_documents = null;
             if (null == parent_fingerprints)
@@ -71,6 +71,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             {
                 pdf_documents = library.GetDocumentByFingerprints(parent_fingerprints);
             }
+            Logging.Debug("TagExplorerControl: processing {0} documents from library {1}", pdf_documents.Count, library.WebLibraryDetail.Title);
 
             // Load all the annotations upfront so we dont have to go to the database for each PDF
             Dictionary<string, byte[]> library_items_annotations_cache = library.LibraryDB.GetLibraryItemsAsCache(PDFDocumentFileLocations.ANNOTATIONS);
@@ -98,8 +99,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
                         }
                     }
                 }
-                
-
+               
                 if (!has_tag)
                 {
                     tags_with_fingerprints.Add(NO_TAG_KEY, pdf_document.Fingerprint);
@@ -136,8 +136,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
 
         void OnItemDrop(Library library, string item_tag, DragEventArgs e)
         {
-            if (false){}
-            else if (e.Data.GetDataPresent(typeof(PDFDocument)))
+            if (e.Data.GetDataPresent(typeof(PDFDocument)))
             {
                 PDFDocument pdf_document = (PDFDocument)e.Data.GetData(typeof(PDFDocument));
                 Logging.Info("The PDF dropped onto tag {1} is {0}", pdf_document, item_tag);

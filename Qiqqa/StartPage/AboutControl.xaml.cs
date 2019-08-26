@@ -22,9 +22,7 @@ namespace Qiqqa.StartPage
 
         private void Hyperlink_Click(object sender, RoutedEventArgs e)
         {
-            if (false) { }
-
-            else if (sender == lnkIconsFreeDigitalPhotos)
+            if (sender == lnkIconsFreeDigitalPhotos)
             {
                 MainWindowServiceDispatcher.Instance.OpenUrlInBrowser(WebsiteAccess.Url_FreeDigitalPhotos);
             }
@@ -104,7 +102,6 @@ namespace Qiqqa.StartPage
             {
                 WebsiteAccess.OpenWebsite(WebsiteAccess.Url_Forums);
             }
-                
             else
             {
                 Logging.Error("Unknown about screen hyperlink " + sender);

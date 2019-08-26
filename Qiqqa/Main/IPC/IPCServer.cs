@@ -63,7 +63,6 @@ namespace Qiqqa.Main.IPC
                                     StartServerPump();
                                 }
                             }
-
                             catch (Exception ex)
                             {
                                 Logging.Error(ex, "Error while processing pipe connection. ({0})", IPCCommon.PIPE_NAME);

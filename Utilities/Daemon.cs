@@ -32,8 +32,10 @@ namespace Utilities
         /// </summary>
         public void Stop()
         {
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (still_running_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 still_running = false;
             }
         }
@@ -60,8 +62,10 @@ namespace Utilities
         {
             get
             {
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (still_running_lock)
                 {
+                    l1_clk.LockPerfTimerStop();
                     return still_running;
                 }
             }

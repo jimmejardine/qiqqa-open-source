@@ -33,8 +33,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.PublicationExplorerStuff
 
             CmdGenerate.Click += CmdGenerate_Click;
             CmdCancel.Click += CmdCancel_Click;
-
-            
+                        
             TextNewTagName.Text = tag;            
             TextNewTagName.SelectAll();            
             TextNewTagName.Focus();

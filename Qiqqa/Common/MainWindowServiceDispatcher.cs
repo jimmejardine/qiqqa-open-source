@@ -87,12 +87,14 @@ namespace Qiqqa.Common
             LibraryControl existing_control = (LibraryControl)main_window.DockingManager.MakeActive(window_key);
             if (null != existing_control)
             {
+                Logging.Debug("OpenLibrary::ExistingControl: Library {0} has {1} documents loaded", library.WebLibraryDetail.Title, library.PDFDocuments_IncludingDeleted_Count);
                 return existing_control;
             }
             else
             {
                 LibraryControl library_control = new LibraryControl(library);
                 main_window.DockingManager.AddContent(window_key, library.WebLibraryDetail.Title, Icons.GetAppIcon(Icons.ModuleDocumentLibrary), true, true, library_control);
+                Logging.Debug("OpenLibrary: Library {0} has {1} documents loaded", library.WebLibraryDetail.Title, library.PDFDocuments_IncludingDeleted_Count);
                 return library_control;
             }
         }
@@ -325,8 +327,7 @@ namespace Qiqqa.Common
 
         internal void ProcessCommandLineFile(string filename)
         {
-            if (false) { }
-            else if (filename.EndsWith(DocumentLibrary.BundleLibrary.Common.EXT_BUNDLE_MANIFEST))
+            if (filename.EndsWith(DocumentLibrary.BundleLibrary.Common.EXT_BUNDLE_MANIFEST))
             {
                 ShowBundleLibraryJoiningControl(filename);
             }

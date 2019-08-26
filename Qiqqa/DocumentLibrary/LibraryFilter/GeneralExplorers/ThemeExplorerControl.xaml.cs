@@ -92,6 +92,8 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
                 }
 
                 ExpeditionDataSource eds = library.ExpeditionManager.ExpeditionDataSource;
+                HashSet<string> pdf_doc_fingerprints = library.GetAllDocumentFingerprints();
+
                 for (int t = 0; t < eds.LDAAnalysis.NUM_TOPICS; ++t)
                 {
                     string topic_name = eds.GetDescriptionForTopic(t, false, "; ");
@@ -102,10 +104,14 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
 
                     for (int d = 0; d < eds.LDAAnalysis.NUM_DOCS && d < num_docs; ++d)
                     {
-                        PDFDocument pdf_document = library.GetDocumentByFingerprint(eds.docs[eds.LDAAnalysis.DensityOfDocsInTopicsSorted[t][d].doc]);
-                        if (null == parent_fingerprints || parent_fingerprints.Contains(pdf_document.Fingerprint))
+                        string fingerprint_to_look_for = eds.docs[eds.LDAAnalysis.DensityOfDocsInTopicsSorted[t][d].doc];
+                        if (!pdf_doc_fingerprints.Contains(fingerprint_to_look_for))
                         {
-                            results.Add(topic_name, pdf_document.Fingerprint);
+                            Logging.Warn("ThemeExplorer: Cannot find document anymore for fingerprint {0}", fingerprint_to_look_for);
+                        }
+                        else if (null == parent_fingerprints || parent_fingerprints.Contains(fingerprint_to_look_for))
+                        {
+                            results.Add(topic_name, fingerprint_to_look_for);
                         }
                     }
                 }

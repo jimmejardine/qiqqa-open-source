@@ -116,8 +116,10 @@ namespace Utilities.Mathematics.Topics.LDAStuff
                     int old_topic = lda_sampler.topic_of_word_in_doc[doc][doc_word_index];
                     if (new_topic != old_topic)
                     {
+                        Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                         lock (lda_sampler)
                         {
+                            l1_clk.LockPerfTimerStop();
                             // Resample the old topic, because it might have been moved already...
                             old_topic = lda_sampler.topic_of_word_in_doc[doc][doc_word_index];
                             if (new_topic != old_topic)

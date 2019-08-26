@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Utilities;
 using Utilities.BibTex;
 using Utilities.BibTex.Parsing;
 using Utilities.Language;
@@ -23,7 +24,10 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
                     return DoesBibTeXMatchDocument(bibtex_item, pdf_document, out search_result_set);
                 }
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             search_result_set = new PDFSearchResultSet();
             return false;
@@ -54,7 +58,10 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
                     }
                 }
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             search_result_set = new PDFSearchResultSet();
             return false;

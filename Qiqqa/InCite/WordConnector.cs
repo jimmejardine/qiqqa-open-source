@@ -179,9 +179,9 @@ namespace Qiqqa.InCite
                             ++context_citation_cluster_count;
                         }
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        Logging.Info("Skipping field that can't be an InCite field.");
+                        Logging.Warn(ex, "Skipping field that can't be an InCite field.");
                         continue;
                     }
                 }

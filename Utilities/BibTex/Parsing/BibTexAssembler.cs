@@ -7,7 +7,10 @@ namespace Utilities.BibTex.Parsing
         internal static BibTexParseResult Parse(string bibtex)
         {
             BibTexAssembler assembler = new BibTexAssembler();
-            BibTexLexer lexer = new BibTexLexer(bibtex);
+            // append some harmless whitespace at the end to help 
+            // reduce the number of out-of-bounds exceptions in the parser/lexer
+            // while keeping the code simple:
+            BibTexLexer lexer = new BibTexLexer(bibtex + "\n\n\n");
             lexer.Parse(assembler);
             return new BibTexParseResult(assembler.items, assembler.comments);
         }

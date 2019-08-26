@@ -119,7 +119,7 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
                         NotificationManager.Instance.AddPendingNotification(
                             new NotificationManager.Notification(
                                 "We notice that your PDF files are not loading in your browser.  Please install Acrobat Reader for Qiqqa to be able to automatically add PDFs to your libraries.",
-                                "We notice that your PDF files are not loading in your browser.  Please install Acrobat Reader for Qiqqa to be able to automatically add PDFs to your libraries.",
+                                null,
                                 NotificationManager.NotificationType.Info,
                                 Icons.DocumentTypePdf,
                                 "Download",

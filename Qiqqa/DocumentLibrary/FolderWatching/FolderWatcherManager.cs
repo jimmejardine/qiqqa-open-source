@@ -32,16 +32,20 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             // Load any pre-existing watched filenames
             bool file_exists;
 
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (filenames_processed_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 file_exists = File.Exists(Filename_Store);
             }
             if (file_exists)
             {
                 Logging.Info("Loading memory of files that we watched previously.");
 
+                Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
                 lock (filenames_processed_lock)
                 {
+                    l2_clk.LockPerfTimerStop();
                     foreach (string filename in File.ReadAllLines(Filename_Store))
                     {
                         filenames_processed.Add(filename);
@@ -57,8 +61,10 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         {
             Logging.Debug("FolderWatcherManager::Dispose() @{0}", ++dispose_count);
 
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (folder_watcher_records_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 // Dispose of all the folder watchers
                 foreach (var folder_watcher_record in folder_watcher_records)
                 {
@@ -70,8 +76,10 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 library = null;
             }
 
+            Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
             lock (filenames_processed_lock)
             {
+                l2_clk.LockPerfTimerStop();
                 filenames_processed.Clear();
             }
         }
@@ -86,8 +94,10 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
         internal void ResetHistory()
         {
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (filenames_processed_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 FileTools.Delete(Filename_Store);
                 filenames_processed.Clear();
             }
@@ -95,8 +105,10 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         
         internal bool HaveProcessedFile(string filename)
         {
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (filenames_processed_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 return filenames_processed.Contains(filename);
             }
         }
@@ -104,8 +116,10 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         // NOTE: this method will be called from various threads.
         internal void RememberProcessedFile(string filename)
         {
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (filenames_processed_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 File.AppendAllText(Filename_Store, filename + "\n");
                 filenames_processed.Add(filename);
             }
@@ -115,8 +129,6 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         {
             Dictionary<string, FolderWatcherRecord> folder_watchset = new Dictionary<string, FolderWatcherRecord>();
 
-            lock (folder_watcher_records_lock)
-            {
                 // Get the new list of folders to watch
                 string folders_to_watch_batch = library.WebLibraryDetail.FolderToWatch;
                 HashSet<string> folders_to_watch = new HashSet<string>();
@@ -128,6 +140,10 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                     }
                 }
 
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (folder_watcher_records_lock)
+            {
+                l1_clk.LockPerfTimerStop();
                 // Kill off any unwanted folders
                 HashSet<string> folders_to_watch_deleted = new HashSet<string>(folder_watcher_records.Keys);
                 foreach (var folder_to_watch in folders_to_watch)

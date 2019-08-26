@@ -8,25 +8,26 @@ namespace Utilities.GUI
 {
     public class AugmentedScrollViewer : ScrollViewer
     {
-        static readonly double INITIAL_ARROW_SCROLL_SIZE = 20;
-        static readonly double ARROW_SCROLL_SIZE_DELTA = 2;
+        const double INITIAL_ARROW_SCROLL_SIZE = 20;
+        const double ARROW_SCROLL_SIZE_DELTA = 2;
 
-        double ARROW_SCROLL_SIZE = 10;
+        // the current scroll speed accelleration
+        private double arrow_scroll_size = 10;
 
         protected override void OnKeyDown(KeyEventArgs e)
         {
-            if (false) { }
-
-            else if (e.Key == Key.Up)
+            if (e.Key == Key.Up)
             {
-                this.SmoothScroll(new Point(0, 0), new Point(0, -ARROW_SCROLL_SIZE));
-                ARROW_SCROLL_SIZE += ARROW_SCROLL_SIZE_DELTA;
+                this.SmoothScroll(new Point(0, 0), new Point(0, -arrow_scroll_size));
+                // accellerate scrolling while the user keeps the key depressed
+                arrow_scroll_size += ARROW_SCROLL_SIZE_DELTA;
                 e.Handled = true;
             }
             else if (e.Key == Key.Down)
             {
-                this.SmoothScroll(new Point(0, 0), new Point(0, ARROW_SCROLL_SIZE));
-                ARROW_SCROLL_SIZE += ARROW_SCROLL_SIZE_DELTA;
+                this.SmoothScroll(new Point(0, 0), new Point(0, arrow_scroll_size));
+                // accellerate scrolling while the user keeps the key depressed
+                arrow_scroll_size += ARROW_SCROLL_SIZE_DELTA;
                 e.Handled = true;
             }
             else if (e.Key == Key.Home)
@@ -47,7 +48,8 @@ namespace Utilities.GUI
 
         protected override void OnKeyUp(KeyEventArgs e)
         {
-            ARROW_SCROLL_SIZE = INITIAL_ARROW_SCROLL_SIZE;
+            // when the user lifts the key, reset the scroll speed to the default speed
+            arrow_scroll_size = INITIAL_ARROW_SCROLL_SIZE;
             base.OnKeyUp(e);
         }
 
@@ -83,8 +85,10 @@ namespace Utilities.GUI
             current_scroll_gamma.X = gamma.X;
             current_scroll_gamma.Y = gamma.Y;
 
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (thread_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 if (!is_someone_scrolling)
                 {
                     is_someone_scrolling = true;
@@ -95,8 +99,8 @@ namespace Utilities.GUI
 
         private void RollAfterDrag()
         {
-            double ROLL_THRESHOLD = 1;
-            double ROLL_FALLOFF = 1.05;
+            const double ROLL_THRESHOLD = 1;
+            const double ROLL_FALLOFF = 1.05;
 
             current_scroll_gamma.X /= ROLL_FALLOFF;
             current_scroll_gamma.Y /= ROLL_FALLOFF;
@@ -104,8 +108,10 @@ namespace Utilities.GUI
             Scroll(current_scroll_gamma);
 
             // Check if we should keep going
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (thread_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 if (Math.Abs(current_scroll_gamma.X) < ROLL_THRESHOLD && Math.Abs(current_scroll_gamma.Y) < ROLL_THRESHOLD)
                 {
                     is_someone_scrolling = false;                    

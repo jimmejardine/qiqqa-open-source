@@ -185,8 +185,7 @@ namespace Qiqqa.Common.GUI
                 // Format: Name=X|Y|W|H|M::...
                 // Exception to the rule for backwards compatibility: first record is for main window and has no name.
                 string cfg = Configuration.ConfigurationManager.Instance.ConfigurationRecord.GUI_RestoreLocationAtStartup_Position;
-                List<string> cfgarr = new List<string>(cfg.Split(new string[]{ "::" }, StringSplitOptions.None));
-                bool got_it = false;
+
                 string name_to_find = this.Name;
 
                 if (String.IsNullOrEmpty(name_to_find))
@@ -198,27 +197,40 @@ namespace Qiqqa.Common.GUI
                     name_to_find = "!";
                 }
 
-                for (int i = 0; i < cfgarr.Count; i++)
-                {
-                    string[] wincfg = cfgarr[i].Split('=');
-                    if (0 == i)
-                    {
-                        wincfg = new string[]{ "!" /* Main */, wincfg[0] };
-                    }
+                bool got_it = false;
 
-                    if (wincfg[0] == name_to_find)
+                List<string> cfgarr;
+                if (!String.IsNullOrWhiteSpace(cfg))
+                {
+                    cfgarr = new List<string>(cfg.Split(new string[] { "::" }, StringSplitOptions.None));
+
+                    for (int i = 0; i < cfgarr.Count; i++)
                     {
-                        // replace this part with the new data:
-                        cfgarr[i] = String.Format("{0}={1}", name_to_find, position);
-                        got_it = true;
-                    }
-                    // validation of other records:
-                    else if (0 != wincfg[0].IndexOfAny("!ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray()))
-                    {
-                        // bad record: nuke it!
-                        cfgarr[i] = "";
+                        string[] wincfg = cfgarr[i].Split('=');
+                        if (0 == i)
+                        {
+                            wincfg = new string[] { "!" /* Main */, wincfg[0] };
+                        }
+
+                        if (wincfg[0] == name_to_find)
+                        {
+                            // replace this part with the new data:
+                            cfgarr[i] = String.Format("{0}={1}", name_to_find, position);
+                            got_it = true;
+                        }
+                        // validation of other records:
+                        else if (0 != wincfg[0].IndexOfAny("!ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray()))
+                        {
+                            // bad record: nuke it!
+                            cfgarr[i] = "";
+                        }
                     }
                 }
+                else
+                {
+                    cfgarr = new List<string>();
+                }
+
                 if (!got_it)
                 {
                     cfgarr.Add(String.Format("{0}={1}", name_to_find, position));

@@ -14,7 +14,18 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 {
     class WebLibraryManager
     {
-        public static WebLibraryManager Instance = new WebLibraryManager();
+        private static WebLibraryManager __instance = null;
+        public static WebLibraryManager Instance
+        {
+            get
+            {
+                if (null == __instance)
+                {
+                    __instance = new WebLibraryManager();
+                }
+                return __instance;
+            }
+        }
 
         private Dictionary<string, WebLibraryDetail> web_library_details = new Dictionary<string, WebLibraryDetail>();
         private WebLibraryDetail guest_web_library_detail;
@@ -58,7 +69,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
              */
 
             string base_directory_path = UpgradePaths.V037To038.SQLiteUpgrade.BaseDirectoryForQiqqa;
-            Logging.Info("Going to scan for web libraries at: " + base_directory_path);
+            Logging.Info("Going to scan for web libraries at: {0}", base_directory_path);
             if (Directory.Exists(base_directory_path))
             {
                 string[] library_directories = Directory.GetDirectories(base_directory_path);
@@ -86,13 +97,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     }
                 }
             }
-                
-
-
-                
-
-
-
         }
         // *************************************************************************************************************
 
@@ -129,12 +133,15 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             {
                 while (!guest_web_library_detail.library.LibraryIsLoaded)
                 {
+                    if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+                    {
+                        return;
+                    }
                     System.Threading.Thread.Sleep(500);
                 }
                     
                 QiqqaManualTools.AddManualsToLibrary(guest_web_library_detail.library);
             });
-
         }
 
         public WebLibraryDetail WebLibraryDetails_Guest
@@ -342,7 +349,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             }
             catch (Exception ex)
             {
-                Logging.Error(ex, "There was a problem loading the known Web Libraries");
+                Logging.Error(ex, "There was a problem loading the known Web Libraries from config file {0}", KNOWN_WEB_LIBRARIES_FILENAME);
             }
             Logging.Info("-Loading known Web Libraries");
         }

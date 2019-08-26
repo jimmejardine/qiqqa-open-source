@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Utilities;
 using Utilities.Files;
 
 namespace Qiqqa.DocumentLibrary.Import.Manual
@@ -88,8 +89,10 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
                     finalEntries.Add(entry);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Logging.Error(ex);
+
                     //TODO log /status manager.  
                     //Ignore problems with individual files. 
                 }

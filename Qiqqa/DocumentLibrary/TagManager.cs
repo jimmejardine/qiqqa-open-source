@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Qiqqa.Common.TagManagement;
 using Qiqqa.Documents.PDF;
+using Utilities;
 
 namespace Qiqqa.DocumentLibrary
 {
@@ -20,6 +21,7 @@ namespace Qiqqa.DocumentLibrary
 
         HashSet<string> tags = new HashSet<string>();
         List<string> tags_sorted = new List<string>();
+        private object tags_lock = new object();
         bool requires_sort = false;
 
         internal void ProcessDocument(PDFDocument pdf_document)
@@ -43,8 +45,10 @@ namespace Qiqqa.DocumentLibrary
 
         internal void ProcessTags(IEnumerable<string> tags_list)
         {
-            lock (tags)
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (tags_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 foreach (var tag in tags_list)
                 {
                     AddTag_LOCK(tag);
@@ -66,9 +70,14 @@ namespace Qiqqa.DocumentLibrary
         {
             get
             {
-                lock (tags)
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                lock (tags_lock)
                 {
-                    if (requires_sort) tags_sorted.Sort();
+                    l1_clk.LockPerfTimerStop();
+                    if (requires_sort)
+                    {
+                        tags_sorted.Sort();
+                    }
                     requires_sort = false;
                     return tags_sorted.AsReadOnly();
                 }
@@ -79,8 +88,10 @@ namespace Qiqqa.DocumentLibrary
         {
             get
             {
-                lock (tags)
-                {                    
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                lock (tags_lock)
+                {
+                    l1_clk.LockPerfTimerStop();
                     return new HashSet<string>(tags);
                 }
             }

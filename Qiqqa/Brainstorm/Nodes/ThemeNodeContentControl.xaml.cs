@@ -117,14 +117,21 @@ namespace Qiqqa.Brainstorm.Nodes
                 
                 string fingerprint = eds.docs[doc];
                 PDFDocument pdf_document = library.GetDocumentByFingerprint(fingerprint);
-                List<Citation> citations_outbound = pdf_document.PDFDocumentCitationManager.GetOutboundCitations();
-                foreach (Citation citation in citations_outbound)
+                if (null == pdf_document)
                 {
-                    string fingerprint_inbound = citation.fingerprint_inbound;
-                    if (eds.docs_index.ContainsKey(fingerprint_inbound))
+                    Logging.Warn("ThemeExplorer::AddInInfluential: Cannot find document anymore for fingerprint {0}", fingerprint);
+                }
+                else
+                {
+                    List<Citation> citations_outbound = pdf_document.PDFDocumentCitationManager.GetOutboundCitations();
+                    foreach (Citation citation in citations_outbound)
                     {
-                        int doc_inbound = eds.docs_index[fingerprint_inbound];
-                        references_outbound[doc].Add(doc_inbound);
+                        string fingerprint_inbound = citation.fingerprint_inbound;
+                        if (eds.docs_index.ContainsKey(fingerprint_inbound))
+                        {
+                            int doc_inbound = eds.docs_index[fingerprint_inbound];
+                            references_outbound[doc].Add(doc_inbound);
+                        }
                     }
                 }
             }

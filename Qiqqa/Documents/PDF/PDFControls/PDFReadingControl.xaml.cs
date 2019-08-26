@@ -863,7 +863,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void ToggleFullScreen()
         {
-            if (!(ButtonFullScreen.IsChecked ?? false)) ButtonFullScreen.IsChecked = true; else ButtonFullScreen.IsChecked = false;
+            ButtonFullScreen.IsChecked = !(ButtonFullScreen.IsChecked ?? false);
             ReevaluateFullScreen();
         }
 

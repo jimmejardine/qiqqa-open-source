@@ -15,7 +15,7 @@ namespace Qiqqa.Documents.Common
 
         PeriodTimer period_flush = new PeriodTimer(new TimeSpan(0, 0, 1));
 
-        object locker = new object();
+        object documents_to_store_lock = new object();
         Dictionary<string, PDFDocument> documents_to_store = new Dictionary<string, PDFDocument>();
 
         protected DocumentQueuedStorer()
@@ -55,8 +55,10 @@ namespace Qiqqa.Documents.Common
         {
             // use a lock to ensure the time-delayed flush doesn't ever collide with the
             // end-of-execution-run flush initiated by ShutdownableManager.
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (flush_locker)
             {
+                l1_clk.LockPerfTimerStop();
                 while (true)
                 {
                     int count_to_go = PendingQueueCount;
@@ -80,8 +82,10 @@ namespace Qiqqa.Documents.Common
                     PDFDocument pdf_document_to_flush = null;
 
                     // grab one PDF to save/flush:
-                    lock (locker)
+                    Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+                    lock (documents_to_store_lock)
                     {
+                        l2_clk.LockPerfTimerStop();
                         foreach (var pair in documents_to_store)
                         {
                             pdf_document_to_flush = pair.Value;
@@ -100,8 +104,10 @@ namespace Qiqqa.Documents.Common
 
         public void Queue(PDFDocument pdf_document)
         {
-            lock (locker)
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (documents_to_store_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 documents_to_store[pdf_document.Library.WebLibraryDetail.Id + "." + pdf_document.Fingerprint] = pdf_document;
             }
         }
@@ -110,8 +116,10 @@ namespace Qiqqa.Documents.Common
         {
             get
             {
-                lock (locker)
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                lock (documents_to_store_lock)
                 {
+                    l1_clk.LockPerfTimerStop();
                     return documents_to_store.Count;
                 }
             }

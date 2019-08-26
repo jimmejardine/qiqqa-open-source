@@ -7,14 +7,24 @@ namespace Utilities
     /// </summary>
     public class ClientVersion
     {
+        /// <summary>
+        /// Produces the major revision number from the entry exe, i.e. "the current version".
+        /// </summary>
         public static int CurrentVersion
         {
-            get { return Assembly.GetEntryAssembly().GetName().Version.Major; }
+            get
+            {
+                return Assembly.GetEntryAssembly().GetName().Version.Major;
+            }
         }
 
+        /// <summary>
+        /// Produces the full build version string from the entry exe, i.e. "the current build".
+        /// </summary>
         public static string CurrentBuild
         {
-            get {
+            get
+            {
                 return Assembly.GetEntryAssembly().GetName().Version.ToString();
             }
         }

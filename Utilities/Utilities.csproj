@@ -329,9 +329,6 @@
     </Compile>
     <Compile Include="Files\WrappingStream.cs" />
     <Compile Include="Files\XmlSerializeFile.cs" />
-    <Compile Include="Finance\YieldSolverAnnualised.cs" />
-    <Compile Include="Finance\YieldSolverContinuous.cs" />
-    <Compile Include="Finance\YieldSolver.cs" />
     <Compile Include="Fonts.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -625,6 +622,7 @@
     <Compile Include="Language\TextIndexing\LuceneSimilarityQueries.cs" />
     <Compile Include="Language\TextIndexing\WordIndex.cs" />
     <Compile Include="Language\TextIndexing\WordInWordIndex.cs" />
+    <Compile Include="LockPerfChecker.cs" />
     <Compile Include="Logging.cs" />
     <Compile Include="Maintainable\MaintainableManager.cs" />
     <Compile Include="Maintainable\PeriodTimer.cs" />
@@ -826,7 +824,6 @@
     <Compile Include="Swap.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="WebUtility.cs" />
     <Compile Include="WPFTrace.cs" />
     <Compile Include="XMLTools.cs" />
     <EmbeddedResource Include="ConsoleRedirector\ConsoleForm.resx">

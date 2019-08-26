@@ -36,7 +36,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private void RepopulateLibraries()
         {
-            int MAX_EXPANDED_CHILD_COUNT = 1;
+            const int MAX_EXPANDED_CHILD_COUNT = 1;
 
             // Sort the children by last accessed order
             List<WebLibraryDetail> children = new List<WebLibraryDetail>();

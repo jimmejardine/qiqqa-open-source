@@ -37,7 +37,6 @@ namespace Utilities.GUI
 
             if (nCode > -1 && (KeyDown != null || KeyUp != null || KeyPress != null))
             {
-
                 KeyboardHookStruct keyboardHookStruct =
                     (KeyboardHookStruct)Marshal.PtrToStructure(lParam, typeof(KeyboardHookStruct));
 
@@ -68,7 +67,6 @@ namespace Utilities.GUI
                 // Handle KeyDown and KeyUp events
                 switch (wParam)
                 {
-
                     case WM_KEYDOWN:
                     case WM_SYSKEYDOWN:
                         if (KeyDown != null)
@@ -85,7 +83,6 @@ namespace Utilities.GUI
                             handled = handled || e.Handled;
                         }
                         break;
-
                 }
 
                 // Handle KeyPress event
@@ -94,9 +91,9 @@ namespace Utilities.GUI
                    !e.SuppressKeyPress &&
                     KeyPress != null)
                 {
-
                     byte[] keyState = new byte[256];
                     byte[] inBuffer = new byte[2];
+
                     GetKeyboardState(keyState);
 
                     if (ToAscii(keyboardHookStruct.vkCode,
@@ -105,18 +102,17 @@ namespace Utilities.GUI
                               inBuffer,
                               keyboardHookStruct.flags) == 1)
                     {
-
                         char key = (char)inBuffer[0];
+
                         if ((capslock ^ shift) && Char.IsLetter(key))
+                        {
                             key = Char.ToUpper(key);
+                        }
                         KeyPressEventArgs e2 = new KeyPressEventArgs(key);
                         KeyPress(this, e2);
                         handled = handled || e.Handled;
-
                     }
-
                 }
-
             }
 
             if (handled)
@@ -127,7 +123,6 @@ namespace Utilities.GUI
             {
                 return CallNextHookEx(_handleToHook, nCode, wParam, lParam);
             }
-
         }
 
         #endregion

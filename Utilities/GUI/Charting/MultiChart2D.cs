@@ -130,13 +130,13 @@ namespace Utilities.GUI.Charting
 
 				performPaintBorders(e.Graphics, region_chart);
 			}
-			
-			catch (Exception)
-			{
-			}
-		}
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
+        }
 
-		void getSeriesExtents_EnsureNoZeroExtent(ref double min, ref double max)
+        void getSeriesExtents_EnsureNoZeroExtent(ref double min, ref double max)
 		{
 			if (min == max)
 			{

@@ -18,10 +18,7 @@ namespace Qiqqa.Brainstorm.Nodes
 
         public bool MatchesKeyword(string keyword)
         {
-            return
-                false
-                || (null != title) && title.ToLower().Contains(keyword)
-                ;
+            return title?.ToLower().Contains(keyword) ?? false;
         }
 
         public override bool Equals(object obj)

@@ -62,8 +62,16 @@ namespace Qiqqa.Expedition
                     similar_docs.Sort();
                     for (int i = 0; i < similar_docs.Count && i < NUM_OTHERS; ++i)
                     {
-                        PDFDocument pdf_document_similar = pdf_document.Library.GetDocumentByFingerprint(eds.docs[similar_docs[i].doc]);
-                        results.Add(new Result { pdf_document = pdf_document_similar, relevance = similar_docs[i].prob });
+                        string fingerprint_to_look_for = eds.docs[similar_docs[i].doc];
+                        PDFDocument pdf_document_similar = pdf_document.Library.GetDocumentByFingerprint(fingerprint_to_look_for);
+                        if (null == pdf_document_similar)
+                        {
+                            Logging.Warn("ExpeditionPaperSuggestions: Cannot find similar document anymore for fingerprint {0}", fingerprint_to_look_for);
+                        }
+                        else
+                        {
+                            results.Add(new Result { pdf_document = pdf_document_similar, relevance = similar_docs[i].prob });
+                        }
                     }
                 }
 

@@ -485,8 +485,8 @@ namespace Qiqqa.Documents.PDF
             {
                 if (!String.IsNullOrEmpty(Year)) return Year;
 
-                string bibtex = BibTexTools.GetYear(BibTexItem);
-                if (!String.IsNullOrEmpty(bibtex)) return bibtex;
+                string bibtex_year = BibTexTools.GetYear(BibTexItem);
+                if (!String.IsNullOrEmpty(bibtex_year)) return bibtex_year;
 
                 if (!String.IsNullOrEmpty(YearSuggested)) return YearSuggested;
 
@@ -670,8 +670,14 @@ namespace Qiqqa.Documents.PDF
 
         public bool Deleted        
         {
-            get { return (bool)(dictionary["Deleted"] ?? false); }
-            set { dictionary["Deleted"] = value; }
+            get
+            {
+                return (bool)(dictionary["Deleted"] ?? false);
+            }
+            set
+            {
+                dictionary["Deleted"] = value;
+            }
         }
 
         #region --- AutoSuggested ------------------------------------------------------------------------------

@@ -717,7 +717,14 @@ namespace Qiqqa.AnnotationsReportBuilding
         {
             string fingerprint = annotation_work.pdf_annotation.DocumentFingerprint;
             PDFDocument pdf_document = annotation_work.library.GetDocumentByFingerprint(fingerprint);
-            MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document, annotation_work.pdf_annotation.Page);
+            if (null == pdf_document)
+            {
+                Logging.Error("AsyncAnnotationReportBuilder: Cannot find document anymore for fingerprint {0}", fingerprint);
+            }
+            else
+            {
+                MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document, annotation_work.pdf_annotation.Page);
+            }
         }
 
         #region --- Test ------------------------------------------------------------------------

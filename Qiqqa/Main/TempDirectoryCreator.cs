@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Utilities;
 using Utilities.Files;
 
 namespace Qiqqa.Main
@@ -16,8 +17,10 @@ namespace Qiqqa.Main
                     Directory.CreateDirectory(TempFile.TempDirectory);
                 }
             }
-
-            catch (Exception) {}
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
         }
 
         public static bool CheckTempExists()
