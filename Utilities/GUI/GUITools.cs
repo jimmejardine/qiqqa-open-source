@@ -88,19 +88,19 @@ namespace Utilities.GUI
         {
             try
             {
-                if (!double.IsNaN(listview.Height))
-                {
                     listview.UpdateLayout();
 
-                // you MAY encounter this crash:
-                // System.ArgumentOutOfRangeException: 'Specified index is out of range or child at index is null. 
-                // Do not call this method if VisualChildrenCount returns zero, indicating that the Visual 
-                // has no children.
-                // Parameter name: index
-                // Actual value was 0.'
-                // Unfortunately, listview.VisualChildrenCount is inaccessible due to its protection settings. 
-                // So that's a lot of help...
-                // Further debugging reveils Height=NaN, so we'll fly with that one...
+                if (!double.IsNaN(listview.Height))
+                {
+                    // you MAY encounter this crash:
+                    // System.ArgumentOutOfRangeException: 'Specified index is out of range or child at index is null. 
+                    // Do not call this method if VisualChildrenCount returns zero, indicating that the Visual 
+                    // has no children.
+                    // Parameter name: index
+                    // Actual value was 0.'
+                    // Unfortunately, listview.VisualChildrenCount is inaccessible due to its protection settings. 
+                    // So that's a lot of help...
+                    // Further debugging reveils Height=NaN, so we'll fly with that one...
                     Border b = VisualTreeHelper.GetChild(listview, 0) as Border;
                     if (b != null)
                     {
