@@ -21,8 +21,8 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         PDFRendererFileLayer pdf_render_file_layer;        
         Dictionary<int, TypedWeakReference<WordList>> texts = new Dictionary<int, TypedWeakReference<WordList>>();
+        object texts_lock = new object();
 
-        //object pages_to_render_lock = new object();
         //List<int> pages_to_render = new List<int>();
 
         public delegate void OnPageTextAvailableDelegate(int page_from, int page_to);
@@ -91,8 +91,10 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         public override string ToString()
         {
-            lock (texts)
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (texts_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 return string.Format(
                     "{0}T/{1} - {2}",
                     texts.Count,
@@ -140,8 +142,10 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         public WordList GetOCRText(int page, bool queue_for_ocr)
         {
-            lock (texts)
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (texts_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 // First check our cache                
                 {
                     TypedWeakReference<WordList> word_list_weak;
@@ -304,8 +308,10 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             }
 
             // Clear out the old texts
-            lock (texts)
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (texts_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 texts.Clear();
             }
         }
@@ -320,8 +326,10 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             Logging.Info("Forcing OCR for document {0} in language {1}", document_fingerprint, language);
 
             // Clear out the old texts
-            lock (texts)
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (texts_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 texts.Clear();
             }
 
@@ -373,9 +381,11 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         {
             Logging.Info("Flushing the cached texts for {0}", document_fingerprint);
 
-            lock (texts)
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (texts_lock)
             {
-                this.texts.Clear();
+                l1_clk.LockPerfTimerStop();
+                texts.Clear();
             }
         }
     }

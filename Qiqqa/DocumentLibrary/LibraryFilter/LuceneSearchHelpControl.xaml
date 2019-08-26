@@ -1,10 +1,15 @@
-﻿<commongui:StandardWindow x:Class="Qiqqa.DocumentLibrary.LibraryFilter.LuceneSearchHelpControl"
+﻿<commongui:StandardWindow 
+  x:Class="Qiqqa.DocumentLibrary.LibraryFilter.LuceneSearchHelpControl"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
   xmlns:local_gui="clr-namespace:Qiqqa.Common.GUI"
   xmlns:local_formatting="clr-namespace:Qiqqa.StartPage.Formatting"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+  mc:Ignorable="d" 
   Title="Search Instructions"
+  d:DesignHeight="870"
 >
 
   <DockPanel>
@@ -99,4 +104,5 @@
     </FlowDocumentScrollViewer>
     
   </DockPanel>
-  </commongui:StandardWindow>
+</commongui:StandardWindow>
+

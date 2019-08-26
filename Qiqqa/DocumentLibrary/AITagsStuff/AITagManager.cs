@@ -63,8 +63,10 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
 
         public void Regenerate(AsyncCallback callback)
         {
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (in_progress_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 if (regenerating_in_progress)
                 {
                     Logging.Info("Not regenerating AutoTags because a regeneration is already in progress.");
@@ -193,7 +195,6 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
                                 else
                                 {
                                     // Acronyms need to be done manually because we only want the upper case ones...
-
                                     PDFDocument pdf_document = library.GetDocumentByFingerprint(fingerprint_potential.fingerprint);
                                     if (null != pdf_document && !pdf_document.Deleted)
                                     {
@@ -292,8 +293,10 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
             }
             finally
             {
+                Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
                 lock (in_progress_lock)
                 {
+                    l2_clk.LockPerfTimerStop();
                     regenerating_in_progress = false;
                 }
 

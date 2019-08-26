@@ -127,8 +127,10 @@ namespace Utilities.Misc
 
             StatusEntry status_entry;
 
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (status_entries_lock)
-            {                
+            {
+                l1_clk.LockPerfTimerStop();
                 if (!status_entries.TryGetValue(key, out status_entry))
                 {
                     status_entry = new StatusEntry();
@@ -153,37 +155,48 @@ namespace Utilities.Misc
         }
 
         HashSet<string> cancelled_items = new HashSet<string>();
+        object cancelled_items_lock = new object();
         
         public bool IsCancelled(string key)
         {
-            lock (cancelled_items)
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (cancelled_items_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 return cancelled_items.Contains(key);
             }
         }
 
         public void SetCancelled(string key)
         {
-            lock (cancelled_items)
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (cancelled_items_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 cancelled_items.Add(key);
             }
         }
 
         public void ClearCancelled(string key)
         {
-            lock (cancelled_items)
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (cancelled_items_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 cancelled_items.Remove(key);
             }
         }
 
         public void SetAllCancelled()
         {
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (status_entries_lock)
             {
-                lock (cancelled_items)
+                l1_clk.LockPerfTimerStop();
+                Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+                lock (cancelled_items_lock)
                 {
+                    l2_clk.LockPerfTimerStop();
                     foreach (string key in status_entries.Keys)
                     {
                         cancelled_items.Add(key);

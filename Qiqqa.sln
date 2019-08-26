@@ -29,6 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "All XAML panels", "All XAML
 		Qiqqa\DocumentLibrary\LibraryFilter\AITagExplorerStuff\AITagExplorerItemPopup.xaml = Qiqqa\DocumentLibrary\LibraryFilter\AITagExplorerStuff\AITagExplorerItemPopup.xaml
 		Qiqqa\AnnotationsReportBuilding\AnnotationReportOptionsWindow.xaml = Qiqqa\AnnotationsReportBuilding\AnnotationReportOptionsWindow.xaml
 		Qiqqa\Documents\PDF\PDFControls\MetadataControls\AnnotationsReviewControl.xaml = Qiqqa\Documents\PDF\PDFControls\MetadataControls\AnnotationsReviewControl.xaml
+		QiqqaVersionMigrator\App.xaml = QiqqaVersionMigrator\App.xaml
 		Qiqqa\Common\AssociatePDFWithVanillaReferenceWindow.xaml = Qiqqa\Common\AssociatePDFWithVanillaReferenceWindow.xaml
 		Utilities\GUI\AugmentedButton.xaml = Utilities\GUI\AugmentedButton.xaml
 		Utilities\GUI\AugmentedPopup.xaml = Utilities\GUI\AugmentedPopup.xaml
@@ -105,6 +106,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "All XAML panels", "All XAML
 		Qiqqa\DocumentLibrary\LibraryFilter\LuceneSearchHelpButton.xaml = Qiqqa\DocumentLibrary\LibraryFilter\LuceneSearchHelpButton.xaml
 		Qiqqa\DocumentLibrary\LibraryFilter\LuceneSearchHelpControl.xaml = Qiqqa\DocumentLibrary\LibraryFilter\LuceneSearchHelpControl.xaml
 		Qiqqa\Main\MainWindow.xaml = Qiqqa\Main\MainWindow.xaml
+		QiqqaVersionMigrator\MainWindow.xaml = QiqqaVersionMigrator\MainWindow.xaml
 		Qiqqa\DocumentLibrary\MassDuplicateCheckingStuff\MassDuplicateCheckingControl.xaml = Qiqqa\DocumentLibrary\MassDuplicateCheckingStuff\MassDuplicateCheckingControl.xaml
 		Qiqqa\Documents\PDF\PDFControls\MetadataControls\MetadataBibTeXEditorControl.xaml = Qiqqa\Documents\PDF\PDFControls\MetadataControls\MetadataBibTeXEditorControl.xaml
 		Qiqqa\Documents\PDF\PDFControls\MetadataControls\MetadataCommentEditorControl.xaml = Qiqqa\Documents\PDF\PDFControls\MetadataControls\MetadataCommentEditorControl.xaml
@@ -334,6 +336,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{AFB0BE7E-CE68-47B1-8E14-66A0DBC848A4} = {19960EDF-B439-4ED5-AD0B-A08FDA6ECF3E}
+		{E0648CF2-1955-441E-939E-C6765630E65C} = {19960EDF-B439-4ED5-AD0B-A08FDA6ECF3E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1053AC46-6C10-40DE-8F81-A31A1C28ACDC}

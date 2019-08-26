@@ -70,9 +70,9 @@ namespace Utilities.ClientVersioning
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Logging.Error(e, "Problem checking for new client version");
+                Logging.Error(ex, "Problem checking for new client version");
             }
         }
 
@@ -120,14 +120,13 @@ namespace Utilities.ClientVersioning
             else
             {
                 notification_bar_text = "A new version of " + _appName + " is available for download.";
-                notification_bar_tooltip = "A new version of " + _appName + " is available for download.";
+                notification_bar_tooltip = null;
                 notification_type = NotificationManager.NotificationType.Warning;
             }
 
             //  should we notify them about a new version available - only do if their version isn't compliant
             if (!client_version_information.CompliantFromVersion.HasValue || current_executing_version < client_version_information.CompliantFromVersion)
             {
-
                 NotificationManager.Instance.AddPendingNotification(
                     new NotificationManager.Notification(
                         notification_bar_text,

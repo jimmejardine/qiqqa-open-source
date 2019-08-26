@@ -46,7 +46,7 @@ namespace Qiqqa.Common
                     PDFDocument pdf_document = library.GetDocumentByFingerprint(document_fingerprint);
                     if (null == pdf_document)
                     {
-                        throw new GenericException("Unknown document for qiqqa protocol open request: {0}", filename);
+                        throw new GenericException("Unknown document for qiqqa protocol open request: {0} @ fingerprint {1}", filename, document_fingerprint);
                     }
 
                     MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);

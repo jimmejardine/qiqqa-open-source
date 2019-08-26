@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
+using System.Timers;
 using log4net;
 using log4net.Appender;
 using log4net.Config;
@@ -8,115 +11,239 @@ namespace Utilities
 {
     public class Logging
     {
-        static ILog log;
+        static ILog __log;
+
+        internal struct LogBufEntry
+        {
+            internal Exception ex;
+            internal string message;
+        }
+        static List<LogBufEntry> init_ex_list;
 
         static Logging()
         {
-            BasicConfigurator.Configure();
-            XmlConfigurator.Configure();
-            log = LogManager.GetLogger(typeof(Logging));
-            Info("Logging initialised");
+            ILog dummy_fetch_to_init_logger = log;
         }
 
-        private static string AppendStackTrace(string message)
+        static ILog log
         {
-            // Do not append a StackTrace when there's already one:
-            if (message.Contains("  at "))
+            get
             {
-                return message;
+                if (null != __log) return __log;
+
+                try
+                {
+                    BasicConfigurator.Configure();
+                    XmlConfigurator.Configure();
+                    __log = LogManager.GetLogger(typeof(Logging));
+                    Info("Logging initialised.{0}", LogAssist.AppendStackTrace(null, "get_log"));
+
+                    if (init_ex_list != null && init_ex_list.Count > 0)
+                    {
+                        Error("Logging init failures (due to premature init/usage?):");
+                        foreach (LogBufEntry ex in init_ex_list)
+                        {
+                            if (ex.ex != null)
+                            {
+                                if (ex.message != null)
+                                {
+                                    Error(ex.ex, "Logger init failure. Message: {0}", ex.message);
+                                }
+                                else
+                                {
+                                    Error(ex.ex, "Logger init failure.");
+                                }
+                            }
+                            else
+                            {
+                                Info(ex.message);
+                            }
+                        }
+                        init_ex_list.Clear();
+                        init_ex_list = null;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    BufferException(ex);
+                }
+
+                return __log;
             }
-            // Do not append stacktrace to every log line: only specific
-            // log messages should be augmented with a stacktrace:
-            if (message.Contains("Object reference not set to an instance of an object") 
-                || message.Contains("Logging initialised"))
-            {
-                string t = Environment.StackTrace;
-                int pos = t.IndexOf("AppendStackTrace");
-                pos = t.IndexOf("\n", pos + 16);
-                t = t.Substring(pos + 1);
-                return message + "\n  Stacktrace:\n    " + t.Replace("\n", "\n    ");
-            }
-            return message;
         }
 
-        private static string PrefixMemUsage(string message)
+        private static void BufferException(Exception _ex, string msg = null)
         {
-            return String.Format("[{0:0.000}M] {1}", ((double)GC.GetTotalMemory(false)) / 1E6, message);
+            if (init_ex_list == null)
+            {
+                init_ex_list = new List<LogBufEntry>();
+            }
+            init_ex_list.Add(new LogBufEntry
+            {
+                ex = _ex,
+                message = msg
+            });
+        }
+        private static void BufferMessage(string msg)
+        {
+            if (init_ex_list == null)
+            {
+                init_ex_list = new List<LogBufEntry>();
+            }
+            init_ex_list.Add(new LogBufEntry
+            {
+                message = msg
+            });
+        }
+
+        private static void LogDebug(string msg)
+        {
+            msg = LogAssist.CheckToBreakIntoDebugger(LogAssist.PrefixMemUsage(LogAssist.AppendStackTrace(msg)));
+            ILog l = log;
+            if (l != null)
+            {
+                l.Debug(msg);
+            }
+            else
+            {
+                BufferMessage(msg);
+            }
+        }
+        private static void LogInfo(string msg)
+        {
+            msg = LogAssist.CheckToBreakIntoDebugger(LogAssist.PrefixMemUsage(LogAssist.AppendStackTrace(msg)));
+            ILog l = log;
+            if (l != null)
+            {
+                l.Info(msg);
+            }
+            else
+            {
+                BufferMessage(msg);
+            }
+        }
+        private static void LogWarn(string msg)
+        {
+            msg = LogAssist.CheckToBreakIntoDebugger(LogAssist.PrefixMemUsage(LogAssist.AppendStackTrace(msg)));
+            ILog l = log;
+            if (l != null)
+            {
+                l.Warn(msg);
+            }
+            else
+            {
+                BufferMessage(msg);
+            }
+        }
+        private static void LogError(string msg)
+        {
+            msg = LogAssist.CheckToBreakIntoDebugger(LogAssist.PrefixMemUsage(LogAssist.AppendStackTrace(msg)));
+            ILog l = log;
+            if (l != null)
+            {
+                l.Error(msg);
+            }
+            else
+            {
+                BufferMessage(msg);
+            }
+
+#if TEST
+            object l1 = new object();
+            object l2 = new object();
+
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (l1)
+            {
+                l1_clk.LockPerfTimerStop();
+                msg += "x";
+                Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+                    System.Threading.Thread.Sleep(10 * 1000);
+                    l2_clk.LockPerfTimerStop();
+                    msg += "x";
+            }
+#endif
         }
 
         public static void Debug(string msg)
         {
-            log.Debug(CheckToBreakIntoDebugger(PrefixMemUsage(AppendStackTrace(msg))));
+            //log?.Debug(msg) ?? BufferMessage(msg);
+            LogDebug(msg);
         }
 
-        public static string Debug(string msg, params object[] args)
+        public static void Debug(string msg, params object[] args)
         {
-            string message = String.Format(msg, args);
-            log.Debug(CheckToBreakIntoDebugger(PrefixMemUsage(AppendStackTrace(message))));
-            return message;
+            msg = String.Format(msg, args);
+            //log?.Debug(msg) ?? BufferMessage(msg);
+            LogDebug(msg);
         }
 
-        public static string Debug(Exception ex)
+        public static void Debug(Exception ex)
         {
-            string message = ex.ToString();
-            log.Debug(CheckToBreakIntoDebugger(PrefixMemUsage(AppendStackTrace(message))));
-            return message;
+            string msg = ex.ToString();
+            //log?.Debug(msg) ?? BufferMessage(msg);
+            LogDebug(msg);
         }
 
-        public static string Debug(Exception ex, string msg, params object[] args)
+        public static void Debug(Exception ex, string msg, params object[] args)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendFormat(msg, args);
             sb.AppendLine();
             sb.AppendLine();
             sb.Append(ex.ToString());
-            string message = sb.ToString();
-            log.Debug(CheckToBreakIntoDebugger(PrefixMemUsage(AppendStackTrace(message))));
-            return message;
+            msg = sb.ToString();
+            //log?.Debug(msg) ?? BufferMessage(msg);
+            LogDebug(msg);
         }
 
         public static void Info(string msg)
         {
-            log.Info(CheckToBreakIntoDebugger(PrefixMemUsage(AppendStackTrace(msg))));
+            //log?.Info(msg) ?? BufferMessage(msg);
+            LogInfo(msg);
         }
 
         public static string Info(string msg, params object[] args)
         {
-            string message = String.Format(msg, args);
-            log.Info(CheckToBreakIntoDebugger(PrefixMemUsage(AppendStackTrace(message))));
-            return message;
+            msg = String.Format(msg, args);
+            //log?.Info(msg) ?? BufferMessage(msg);
+            LogInfo(msg);
+            return msg;
         }
 
         public static string Warn(string msg, params object[] args)
         {
-            string message = String.Format(msg, args);
-            log.Warn(CheckToBreakIntoDebugger(PrefixMemUsage(AppendStackTrace(message))));
-            return message;
+            msg = String.Format(msg, args);
+            //log?.Warn(msg) ?? BufferMessage(msg);
+            LogWarn(msg);
+            return msg;
         }
 
-        public static string Warn(Exception ex, string msg, params object[] args)
+        public static void Warn(Exception ex, string msg, params object[] args)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendFormat(msg, args);
             sb.AppendLine();
             sb.Append(ex.ToString());
-            string message = sb.ToString();
-            log.Warn(CheckToBreakIntoDebugger(PrefixMemUsage(AppendStackTrace(message))));
-            return message;
+            msg = sb.ToString();
+            //log?.Warn(msg) ?? BufferMessage(msg);
+            LogWarn(msg);
         }
 
         public static string Error(string msg, params object[] args)
         {
-            string message = String.Format(msg, args);
-            log.Error(CheckToBreakIntoDebugger(PrefixMemUsage(AppendStackTrace(message))));
-            return message;
+            msg = String.Format(msg, args);
+            //log?.Error(msg) ?? BufferMessage(msg);
+            LogError(msg);
+            return msg;
         }
 
         public static string Error(Exception ex)
         {
-            string message = ex.ToString();
-            log.Error(CheckToBreakIntoDebugger(PrefixMemUsage(AppendStackTrace(message))));
-            return message;
+            string msg = ex.ToString();
+            //log?.Error(msg) ?? BufferMessage(msg);
+            LogError(msg);
+            return msg;
         }
 
         public static string Error(Exception ex, string msg, params object[] args)
@@ -126,9 +253,10 @@ namespace Utilities
             sb.AppendLine();
             sb.AppendLine();
             sb.Append(ex.ToString());
-            string message = sb.ToString();
-            log.Error(CheckToBreakIntoDebugger(PrefixMemUsage(AppendStackTrace(message))));
-            return message;
+            msg = sb.ToString();
+            //log?.Error(msg) ?? BufferMessage(msg);
+            LogError(msg);
+            return msg;
         }
 
         public static string GetLogFilename()
@@ -139,26 +267,10 @@ namespace Utilities
                 if (null != rfa)
                 {
                     return rfa.File;
-                }                
+                }
             }
 
             return null;
-        }
-
-        private static string CheckToBreakIntoDebugger(string msg)
-        {
-            if (msg.Contains("Browser") 
-                || msg.Contains("Active browser control changed")
-                || msg.Contains("Error while processing pipe connection")
-                || msg.Contains("ObjectDisposedException")
-                || msg.Contains("ArgumentOutOfRangeException")
-                || msg.Contains("IndexOutOfRangeException")
-            )
-            {
-                // break!
-                msg = "BRK!" + msg;
-            }
-            return msg;
         }
     }
 }

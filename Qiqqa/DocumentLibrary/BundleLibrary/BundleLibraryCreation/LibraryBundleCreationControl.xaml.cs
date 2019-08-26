@@ -71,7 +71,6 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
             string target_filename_bundle = target_directory + "\\" + manifest.Id + Common.EXT_BUNDLE;
 
             // Check that the details of the manifest are reasonable
-            {
                 try
                 {
                     new Uri(this.manifest.BaseUrl);
@@ -81,7 +80,6 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
                     MessageBoxes.Warn("Your base URL of '{0}' is invalid.  Please correct it and try again.", this.manifest.BaseUrl);
                     return;
                 }
-            }
 
             // Smash out he manifest
             string json = this.manifest.ToJSON();

@@ -129,7 +129,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                 }
             }
         }
-
         
         void ButtonBibTexSniffer_Click(object sender, RoutedEventArgs e)
         {
@@ -142,6 +141,5 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             GoogleBibTexSnifferControl sniffer = new GoogleBibTexSnifferControl();
             sniffer.Show(pdf_document_bindable.Underlying);
         }
-
     }
 }

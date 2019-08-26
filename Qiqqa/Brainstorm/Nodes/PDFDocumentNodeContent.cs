@@ -55,10 +55,13 @@ namespace Qiqqa.Brainstorm.Nodes
         {
             return
                 false
-                || (null != PDFDocument.TitleCombined) && PDFDocument.TitleCombined.ToLower().Contains(keyword)
-                || (null != PDFDocument.AuthorsCombined) && PDFDocument.AuthorsCombined.ToLower().Contains(keyword)
-                || (null != PDFDocument.Comments) && PDFDocument.Comments.ToLower().Contains(keyword)
-                || (null != PDFDocument.Publication) && PDFDocument.Publication.ToLower().Contains(keyword)
+                || (PDFDocument.TitleCombined?.ToLower().Contains(keyword) ?? false)
+                || (PDFDocument.AuthorsCombined?.ToLower().Contains(keyword) ?? false)
+                || (PDFDocument.Comments?.ToLower().Contains(keyword) ?? false)
+                || (PDFDocument.Publication?.ToLower().Contains(keyword) ?? false)
+//                            || (pdf_document.YearCombined?.ToLower().Contains(keyword) ?? false)
+//                            || (pdf_document.BibTex?.ToLower().Contains(keyword) ?? false)
+//                            || (pdf_document.Fingerprint?.ToLower().Contains(keyword) ?? false)
                 ;
         }
 

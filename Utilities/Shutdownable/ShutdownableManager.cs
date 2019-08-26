@@ -9,6 +9,7 @@ namespace Utilities.Shutdownable
         public delegate void ShutdownDelegate();
 
         List<ShutdownDelegate> shutdown_delegates = new List<ShutdownDelegate>();
+        object shutdown_delegates_lock = new object();
 
         ShutdownableManager()
         {
@@ -17,8 +18,10 @@ namespace Utilities.Shutdownable
 
         public void Register(ShutdownDelegate shutdown_delegate)
         {
-            lock (shutdown_delegates)
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (shutdown_delegates_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 Logging.Info("ShutdownableManager is registering {0}", shutdown_delegate.Target);
                 shutdown_delegates.Add(shutdown_delegate);
             }
@@ -31,15 +34,19 @@ namespace Utilities.Shutdownable
         {
             get
             {
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (is_being_shutting_down_lock)
                 {
+                    l1_clk.LockPerfTimerStop();
                     return is_being_shutting_down;
                 }
             }
             set
             {
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (is_being_shutting_down_lock)
                 {
+                    l1_clk.LockPerfTimerStop();
                     if (!is_being_shutting_down)
                     {
                         is_being_shutting_down = true;
@@ -57,8 +64,10 @@ namespace Utilities.Shutdownable
             while (true)
             {
                 ShutdownDelegate shutdown_delegate = null;
-                lock (shutdown_delegates)
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                lock (shutdown_delegates_lock)
                 {
+                    l1_clk.LockPerfTimerStop();
                     if (0 == shutdown_delegates.Count) break;
                     shutdown_delegate = shutdown_delegates[0];
                     shutdown_delegates.RemoveAt(0);

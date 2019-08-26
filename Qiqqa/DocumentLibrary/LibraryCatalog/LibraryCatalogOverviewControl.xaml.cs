@@ -257,15 +257,11 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             }
 
             // Populate the theme swatch
-            {
                 ButtonThemeSwatch.Visibility = Visibility.Visible;
                 ButtonThemeSwatch.Background = ThemeBrushes.GetBrushForDocument(PDFDocumentBindable.Underlying);
-            }
 
             // Populate the linked documents
-            {
                 CitationsUserControl.PopulatePanelWithCitations(DocsPanel_Linked, PDFDocumentBindable.Underlying.Library, PDFDocumentBindable.Underlying, PDFDocumentBindable.Underlying.PDFDocumentCitationManager.GetLinkedDocuments(), Features.LinkedDocument_Library_OpenDoc, " » ", false);
-            }
         }
 
         void ButtonSearchInside_Click(object sender, RoutedEventArgs e)

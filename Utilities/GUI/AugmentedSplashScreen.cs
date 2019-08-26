@@ -30,7 +30,10 @@ namespace Utilities.GUI
                     {
                         Application.Current.MainWindow.Focus();
                     }
-                    catch (Exception) {}
+                    catch (Exception ex2)
+                    {
+                        Logging.Error(ex2);
+                    }
                 }
             }
         }

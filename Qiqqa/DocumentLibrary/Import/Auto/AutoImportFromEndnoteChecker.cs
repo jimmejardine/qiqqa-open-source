@@ -43,7 +43,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                 NotificationManager.Instance.AddPendingNotification(
                     new NotificationManager.Notification(
                         notification
-                        ,notification
+                        ,null
                         ,NotificationManager.NotificationType.Info
                         , Icons.Import_EndNote
                         ,"Yes, Import!"

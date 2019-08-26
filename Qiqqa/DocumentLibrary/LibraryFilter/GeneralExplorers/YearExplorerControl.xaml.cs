@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using Qiqqa.Documents.PDF;
+using Utilities;
 using Utilities.Collections;
 
 namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
@@ -59,6 +60,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
             {
                 pdf_documents = library.GetDocumentByFingerprints(parent_fingerprints);
             }
+            Logging.Debug("YearExplorerControl: processing {0} documents from library {1}", pdf_documents.Count, library.WebLibraryDetail.Title);
 
             MultiMapSet<string, string> tags_with_fingerprints = new MultiMapSet<string, string>();
             foreach (PDFDocument pdf_document in pdf_documents)
@@ -105,7 +107,6 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
                 if (this_year - 20 <= year_of_document) return "(vii) the last 20 years";
                 return "(viii) before all that";
             }
-
             else
             {
                 return "(x) (unknown)";

@@ -17,8 +17,6 @@ namespace Utilities.Misc
         /// </summary>
         public class Notification
         {
-            private string tooltip;
-
             public Notification(string text, string tooltip, NotificationType type, string image_name)
             {
                 Text = text;
@@ -46,6 +44,8 @@ namespace Utilities.Misc
             }
 
             public string Text { get; set; }
+
+            private string tooltip;
             public string ToolTip
             {
                 get { return (tooltip ?? Text); }

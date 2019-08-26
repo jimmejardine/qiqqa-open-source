@@ -28,6 +28,7 @@ namespace Qiqqa.Main
 
         private Dictionary<string, StatusManager.StatusEntry> status_entries_still_to_process = new Dictionary<string, StatusManager.StatusEntry>();
         private bool status_entries_still_to_process_fresh_thread_running = false;
+        object status_entries_still_to_process_lock = new object();
 
         public StatusBar()
         {
@@ -78,14 +79,23 @@ namespace Qiqqa.Main
 
         void StatusManager_OnStatusEntryUpdate(StatusManager.StatusEntry status_entry)
         {
-            lock (status_entries_still_to_process)
+            bool do_invoke = false;
+
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (status_entries_still_to_process_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 status_entries_still_to_process[status_entry.key] = status_entry;
                 if (!status_entries_still_to_process_fresh_thread_running)
                 {
                     status_entries_still_to_process_fresh_thread_running = true;
-                    Dispatcher.BeginInvoke(new Action(() => StatusManager_OnStatusEntryUpdate_GUI()), DispatcherPriority.Background);
+                    do_invoke = true;
                 }
+            }
+
+            if (do_invoke)
+            {
+                Dispatcher.BeginInvoke(new Action(() => StatusManager_OnStatusEntryUpdate_GUI()), DispatcherPriority.Background);
             }
         }
 
@@ -94,8 +104,10 @@ namespace Qiqqa.Main
             while (true)
             {
                 StatusManager.StatusEntry status_entry = null;
-                lock (status_entries_still_to_process)
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                lock (status_entries_still_to_process_lock)
                 {
+                    l1_clk.LockPerfTimerStop();
                     if (status_entries_still_to_process.Count > 0)
                     {
                         var pair = status_entries_still_to_process.First();
@@ -107,8 +119,10 @@ namespace Qiqqa.Main
                 // Is there nothing left to do?
                 if (null == status_entry)
                 {
-                    lock (status_entries_still_to_process)
+                    Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+                    lock (status_entries_still_to_process_lock)
                     {
+                        l2_clk.LockPerfTimerStop();
                         status_entries_still_to_process_fresh_thread_running = false;
                         break;
                     }                    

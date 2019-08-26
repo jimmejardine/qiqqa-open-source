@@ -46,6 +46,7 @@ namespace Utilities.GUI.Animation
         class FadeManager
         {
             static Dictionary<FrameworkElement, FadeManager> responsible_managers = new Dictionary<FrameworkElement, FadeManager>();
+            object responsible_managers_lock = new object();
 
             FrameworkElement fe;
             double from_opacity;
@@ -67,8 +68,10 @@ namespace Utilities.GUI.Animation
                 fe.Opacity = from_opacity;
                 fe.Visibility = Visibility.Visible;
 
-                lock (responsible_managers)
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                lock (responsible_managers_lock)
                 {
+                    l1_clk.LockPerfTimerStop();
                     //Logging.Info("FadeManager: Current {0} animations running", responsible_managers.Count);
                     responsible_managers[fe] = this;
 
@@ -80,8 +83,10 @@ namespace Utilities.GUI.Animation
 
             void da_Completed(object sender, EventArgs e)
             {
-                lock (responsible_managers)
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                lock (responsible_managers_lock)
                 {
+                    l1_clk.LockPerfTimerStop();
                     if (!responsible_managers.ContainsKey(this.fe) || this != responsible_managers[this.fe])
                     {                        
                     }

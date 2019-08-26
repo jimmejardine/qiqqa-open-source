@@ -39,9 +39,11 @@ namespace Qiqqa.Synchronisation.PDFSync
         {
             //We never send vanilla ref PDFs to s3.
             if (VanillaReferenceCreating.IsVanillaReferenceFingerprint(fingerprint)) return;
-            
+
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (fingerprints_to_put)
             {
+                l1_clk.LockPerfTimerStop();
                 fingerprints_to_put.Add(new SyncQueueEntry { fingerprint = fingerprint, library = library });
             }
         }
@@ -50,9 +52,11 @@ namespace Qiqqa.Synchronisation.PDFSync
         {
             // We never fetch vanilla ref PDFs from S3.
             if (VanillaReferenceCreating.IsVanillaReferenceFingerprint(fingerprint)) return;
-            
+
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (fingerprints_to_get)
             {
+                l1_clk.LockPerfTimerStop();
                 fingerprints_to_get.Add(new SyncQueueEntry { fingerprint = fingerprint, library = library });
             }
         }
@@ -185,8 +189,10 @@ namespace Qiqqa.Synchronisation.PDFSync
         {
             SyncQueueEntry sync_queue_entry = null;
 
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (fingerprints)
             {
+                l1_clk.LockPerfTimerStop();
                 fingerprints_remaining = fingerprints.Count;
                 if (0 < fingerprints_remaining)
                 {
@@ -201,8 +207,10 @@ namespace Qiqqa.Synchronisation.PDFSync
 
         private static void ClearSyncQueue(List<SyncQueueEntry> fingerprints)
         {
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (fingerprints)
             {
+                l1_clk.LockPerfTimerStop();
                 fingerprints.Clear();
             }
         }

@@ -194,8 +194,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             e.Handled = true;
         }
 
-
-
         internal void OpenLibrary()        
         {
             WebLibraryDetail web_library_detail = this.DataContext as WebLibraryDetail;
@@ -341,13 +339,12 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 return;
             }
 
-            bool library_is_empty = (null == web_library_detail || 0 == web_library_detail.library.PDFDocuments.Count);
-
+            bool library_is_empty = (null == web_library_detail || 0 == web_library_detail.library.PDFDocuments_IncludingDeleted_Count);
             
             if (!concise_view)
             {
                 // Visibility of the empty lib msg
-                if (library_is_empty || web_library_detail.IsLocalGuestLibrary && 1 >= web_library_detail.library.PDFDocuments.Count)
+                if (library_is_empty || web_library_detail.IsLocalGuestLibrary && 1 >= web_library_detail.library.PDFDocuments_IncludingDeleted_Count)
                 {
                     ObjEmptyLibraryGrid.Visibility = Visibility.Visible;
                 }
@@ -379,9 +376,8 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         private void UpdateLibraryStatistics_Stats_Background_Charts()
         {
             // The chart of the recently read and the recently added...
-            {
-                int WEEK_HISTORY = 4 * 3;
-                DateTime NOW = DateTime.UtcNow;
+            int WEEK_HISTORY = 4 * 3;
+            DateTime NOW = DateTime.UtcNow;
 
                 // Get the buckets for the past few weeks of READING                    
                 CountingDictionary<DateTime> date_buckets_read = new CountingDictionary<DateTime>();
@@ -432,7 +428,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 }
 
                 Dispatcher.BeginInvoke(new Action(() => UpdateLibraryStatistics_Stats_Background_GUI(chart_items_read, chart_items_added)));
-            }
         }
 
 
@@ -789,10 +784,9 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             ButtonAutoSync.Visibility = Visibility.Collapsed;
             ButtonReadOnly.Visibility = Visibility.Collapsed;
 
-
             if (null != web_library_detail)
             {
-                TextLibraryCount.Text = String.Format("{0} document(s) in this library", web_library_detail.library.PDFDocuments.Count);
+                TextLibraryCount.Text = String.Format("{0} document(s) in this library", web_library_detail.library.PDFDocuments_IncludingDeleted_Count);
 
                 //TextLibraryCount.Text =
                 //    String.Format(
@@ -802,13 +796,11 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 //    );
 
                 // The wizard stuff
-                {
                     if (web_library_detail.IsLocalGuestLibrary)
                     {
                         WizardDPs.SetPointOfInterest(ButtonIcon, "GuestLibraryOpenButton");
                         WizardDPs.SetPointOfInterest(TxtTitle, "GuestLibraryTitle");
                     }
-                }
 
                 // The icon stuff
                 {
@@ -816,8 +808,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     ButtonIcon.Width = 64;
                     ButtonIcon.Height = 64;
 
-                    if (false) { }
-                    else if (web_library_detail.IsWebLibrary)
+                    if (web_library_detail.IsWebLibrary)
                     {
                         ButtonIcon.Source = Icons.GetAppIcon(Icons.LibraryTypeWeb);
                         ButtonIcon.ToolTip = "This is a Web Library.\nYou can sync it via the cloud to access it online or on your other devices.";
@@ -845,7 +836,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 }
 
                 // The customization images stuff
-                {
                     {
                         string image_filename = CustomBackgroundFilename;
                         if (File.Exists(image_filename))
@@ -879,7 +869,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                             }
                         }
                     }
-                }
 
 
                 // The autosync stuff

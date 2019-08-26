@@ -33,8 +33,10 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         public void GetJobCounts(out int job_queue_group_count, out int job_queue_single_count)
         {
             // Get a count of how many jobs are left...
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (queue_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 job_queue_group_count = job_queue_group.Count;
                 job_queue_single_count = job_queue_single.Count;
             }
@@ -180,8 +182,10 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         public void QueueJobGroup(Job job)
         {
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (queue_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 string token = NextJob.GetQueuedJobToken(job);
 
                 // Only add the job if it is not already queued
@@ -194,8 +198,10 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         public void QueueJobSingle(Job job)
         {
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (queue_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 string token = NextJob.GetQueuedJobToken(job);
 
                 // Only add the job if it is not already queued, OR if we are queuing a FORCE job, which has priority
@@ -223,8 +229,10 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         private void RecordThatJobHasCompleted(NextJob next_job)
         {
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (queue_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 string token = NextJob.GetCurrentJobToken(next_job.job, next_job.is_group, false);
                 HashSet<string> current_jobs = next_job.is_group ? current_jobs_group : current_jobs_single;
                 if (!current_jobs.Contains(token))
@@ -254,8 +262,10 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         DateTime ocr_disabled_next_notification_time = DateTime.MinValue;
         NextJob GetNextJob()
         {
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (queue_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 // Check if OCR is disabled
                 if (ConfigurationManager.Instance.ConfigurationRecord.Library_OCRDisabled
                     || ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
@@ -382,8 +392,10 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 int job_queue_group_count;
                 int job_queue_single_count;
 
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (queue_lock)
                 {
+                    l1_clk.LockPerfTimerStop();
                     job_queue_group_count = job_queue_group.Count;
                     job_queue_single_count = job_queue_single.Count;
                 }

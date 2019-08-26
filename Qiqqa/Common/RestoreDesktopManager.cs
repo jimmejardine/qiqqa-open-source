@@ -73,7 +73,14 @@ namespace Qiqqa.Common
 
                                 Library library = WebLibraryManager.Instance.GetLibrary(library_id);
                                 PDFDocument pdf_document = library.GetDocumentByFingerprint(document_fingerprint);
-                                MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);
+                                if (null == pdf_document)
+                                {
+                                    Logging.Warn("RestoreDesktop: Cannot find document anymore for fingerprint {0}", document_fingerprint);
+                                }
+                                else
+                                {
+                                    MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);
+                                }
                             }
                         }
                         catch (Exception ex)

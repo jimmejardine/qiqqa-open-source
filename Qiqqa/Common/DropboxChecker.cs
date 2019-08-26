@@ -45,7 +45,6 @@ namespace Qiqqa.Common
                     );
                 }
             }
-
             catch (Exception ex)
             {
                 Logging.Error(ex, "There was a problem checking for Dropbox.");

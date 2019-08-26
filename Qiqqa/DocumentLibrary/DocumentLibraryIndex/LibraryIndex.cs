@@ -21,8 +21,8 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 {
     public class LibraryIndex : IDisposable
     {
-        static readonly int LIBRARY_SCAN_PERIOD_SECONDS = 60;
-        static readonly int DOCUMENT_INDEX_RETRY_PERIOD_SECONDS = 60;
+        const int LIBRARY_SCAN_PERIOD_SECONDS = 60;
+        const int DOCUMENT_INDEX_RETRY_PERIOD_SECONDS = 60;
 
         private Library library;
 
@@ -44,8 +44,10 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                     Stopwatch clk = new Stopwatch();
                     clk.Start();
                     Logging.Info("+Loading historical progress file: {0}", Filename_DocumentProgressList);
+                    Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                     lock (pdf_documents_in_library_lock)
                     {
+                        l1_clk.LockPerfTimerStop();
                         pdf_documents_in_library = (Dictionary<string, PDFDocumentInLibrary>)SerializeFile.LoadSafely(Filename_DocumentProgressList);
                     }
                     Logging.Info("-Loaded historical progress file: {0} (time spent: {1} ms)", Filename_DocumentProgressList, clk.ElapsedMilliseconds);
@@ -54,15 +56,19 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             catch (Exception ex)
             {
                 Logging.Error(ex, "FAILED to load historical progress file \"{0}\". Will start indexing afresh.", Filename_DocumentProgressList);
+                Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
                 lock (pdf_documents_in_library_lock)
                 {
+                    l2_clk.LockPerfTimerStop();
                     pdf_documents_in_library = null;
                 }
             }
 
             // If there was no historical progress file, start afresh
+            Utilities.LockPerfTimer l3_clk = Utilities.LockPerfChecker.Start();
             lock (pdf_documents_in_library_lock)
             {
+                l3_clk.LockPerfTimerStop();
                 if (null == pdf_documents_in_library)
                 {
                     Logging.Warn("Cound not find any indexing progress, so starting from scratch.");
@@ -103,8 +109,10 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
             this.word_index_manager = null;
             this.library = null;
+            Utilities.LockPerfTimer l4_clk = Utilities.LockPerfChecker.Start();
             lock (pdf_documents_in_library_lock)
             {
+                l4_clk.LockPerfTimerStop();
                 this.pdf_documents_in_library = null;
             }
 
@@ -132,8 +140,10 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 clk.Start();
                 Logging.Info("+Writing the index master list");
                 word_index_manager.WriteMasterList();
+                Utilities.LockPerfTimer l5_clk = Utilities.LockPerfChecker.Start();
                 lock (pdf_documents_in_library_lock)
                 {
+                    l5_clk.LockPerfTimerStop();
                     SerializeFile.SaveSafely(Filename_DocumentProgressList, pdf_documents_in_library);
                 }
                 Logging.Info("-Wrote the index master list (time spent: {0} ms", clk.ElapsedMilliseconds);
@@ -147,8 +157,10 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
         {
             try
             {
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (pdf_documents_in_library_lock)
-                {                    
+                {
+                    l1_clk.LockPerfTimerStop();
                     pdf_documents_in_library.Remove(pdf_document.Fingerprint);
                 }
             }
@@ -166,8 +178,10 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             pages_so_far = 0;
             pages_to_go = 0;
 
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (pdf_documents_in_library_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 foreach (PDFDocumentInLibrary pdf_document_in_library in pdf_documents_in_library.Values)
                 {
                     ++denominator_documents;
@@ -234,8 +248,10 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
             int total_new_to_be_indexed = 0;
 
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (pdf_documents_in_library_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 foreach (PDFDocument pdf_document in pdf_documents)
                 {
                     if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
@@ -299,8 +315,10 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 return false;
             }
 
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (pdf_documents_in_library_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 // We will only attempt to process documents that have not been looked at for a while - what is that time
                 DateTime most_recent_eligible_time_for_processing = DateTime.UtcNow.Subtract(TimeSpan.FromSeconds(DOCUMENT_INDEX_RETRY_PERIOD_SECONDS));
 
@@ -450,8 +468,10 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
         {
             get
             {
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (pdf_documents_in_library_lock)
                 {
+                    l1_clk.LockPerfTimerStop();
                     return pdf_documents_in_library.Count;
                 }
             }

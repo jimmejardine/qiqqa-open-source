@@ -531,9 +531,10 @@ namespace Qiqqa.InCite
             }
             ), DispatcherPriority.Background);
 
-
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (context_thread_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 context_thread_next_context = context_backward;
                 if (!context_thread_running)
                 {
@@ -577,8 +578,10 @@ namespace Qiqqa.InCite
                 // Get the next context to search for, and if there is none, then exit the background thread
                 string context;
 
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (context_thread_lock)
                 {
+                    l1_clk.LockPerfTimerStop();
                     context = context_thread_next_context;
                     context_thread_next_context = null;
 

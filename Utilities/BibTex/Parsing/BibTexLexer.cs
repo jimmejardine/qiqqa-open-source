@@ -97,19 +97,17 @@ namespace Utilities.BibTex.Parsing
                 ParseWhiteSpace();
 
                 // Now and entry is either { xxx } or ( xxx )
-                if (false)
+                switch (c < MAX_C ? bibtex[c] : '\0')
                 {
-                }
-                else if ('(' == bibtex[c])
-                {
+                    case '(':
                     ParseEntry_Delim(callback, '(', ')');
-                }
-                else if ('{' == bibtex[c])
-                {
+                        break;
+
+                    case '{':
                     ParseEntry_Delim(callback, '{', '}');
-                }
-                else
-                {
+                        break;
+
+                    default:
                     Exception(callback, "Expecting a {0} or {1} to start a BibTeX reference", "(", "{{");
                     return;
                 }

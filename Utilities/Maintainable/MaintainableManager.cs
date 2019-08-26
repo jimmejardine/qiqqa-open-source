@@ -22,6 +22,7 @@ namespace Utilities.Maintainable
         }
 
         List<DoMaintenanceDelegateWrapper> do_maintenance_delegate_wrappers = new List<DoMaintenanceDelegateWrapper>();
+        object do_maintenance_delegate_wrappers_lock = new object();
 
         MaintainableManager()
         {
@@ -53,8 +54,10 @@ namespace Utilities.Maintainable
 
         public void RegisterHeldOffTask(DoMaintenanceDelegate do_maintenance_delegate, int delay_before_start_milliseconds, ThreadPriority thread_priority)
         {
-            lock (do_maintenance_delegate_wrappers)
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (do_maintenance_delegate_wrappers_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 // Set up the wrapper
                 DoMaintenanceDelegateWrapper do_maintenance_delegate_wrapper = new DoMaintenanceDelegateWrapper();
                 do_maintenance_delegate_wrapper.maintainable_description = String.Format("{0}:{1}", do_maintenance_delegate.Target, do_maintenance_delegate.Method.Name);
@@ -127,15 +130,19 @@ namespace Utilities.Maintainable
         {
             get
             {
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (hold_off_lock)
                 {
+                    l1_clk.LockPerfTimerStop();
                     return hold_off;
                 }
             }
             set
             {
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (hold_off_lock)
                 {
+                    l1_clk.LockPerfTimerStop();
                     if (!value)
                     {
                         hold_off = false;

@@ -268,7 +268,11 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                 if (BibTeXGoodnessOfFitEstimator.DoesBibTeXMatchDocument(bibtex, pdf_document, out search_result_set))
                 {
                     TxtBibTeX.Background = Brushes.LightGreen;
-                    pdf_renderer_control.SetSearchKeywords(search_result_set);
+                    // ReflectPDFDocument(string search_terms)?
+                    if (null != pdf_renderer_control)
+                    {
+                        pdf_renderer_control.SetSearchKeywords(search_result_set);
+                    }
 
                     // If we are feeling really racy, let the wizard button also move onto the next guy cos we are cooking on GAS
                     if (ConfigurationManager.Instance.ConfigurationRecord.Metadata_UseBibTeXSnifferWizard)

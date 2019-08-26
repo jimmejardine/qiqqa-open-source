@@ -550,6 +550,7 @@ namespace Utilities.Language.Buzzwords
         static CountingDictionary<NGram> FilterSubNGrams(CountingDictionary<NGram> source_ngrams)
         {
             CountingDictionary<NGram> ngrams = new CountingDictionary<NGram>();
+            object ngrams_lock = new object();
 
             Parallel.ForEach(source_ngrams, ngram_sub =>
             //foreach (var ngram_sub in source_ngrams)
@@ -580,8 +581,10 @@ namespace Utilities.Language.Buzzwords
 
                 if (!is_bad)
                 {
-                    lock (ngrams)
+                    Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                    lock (ngrams_lock)
                     {
+                        l1_clk.LockPerfTimerStop();
                         ngrams[ngram_sub.Key] = ngram_sub.Value;
                     }
                 }

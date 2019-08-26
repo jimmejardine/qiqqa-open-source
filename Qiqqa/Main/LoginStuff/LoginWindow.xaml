@@ -16,10 +16,9 @@
 
   <StackPanel>
 
-    <Image Width="211" Name="ImageQiqqaLogo" Margin="0,10,0,0" HorizontalAlignment="Center" />
-
+    <Image Width="211" MinHeight="50" Name="ImageQiqqaLogo" Margin="0,10,0,0" HorizontalAlignment="Center" />
     
-    <local_gui:AugmentedBorder Margin="10"  >
+    <local_gui:AugmentedBorder Margin="10" >
       <StackPanel Margin="10">
         <Button Name="ButtonGuest" Height="50">Start Qiqqa (ESC)</Button>
       </StackPanel>

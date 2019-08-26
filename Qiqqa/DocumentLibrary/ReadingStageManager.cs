@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Qiqqa.Documents.Common;
 using Qiqqa.Documents.PDF;
+using Utilities;
 
 namespace Qiqqa.DocumentLibrary
 {
@@ -17,13 +18,16 @@ namespace Qiqqa.DocumentLibrary
         #endregion
 
         HashSet<string> tags = new HashSet<string>();
+        private object tags_lock = new object();
 
         internal void ProcessDocument(PDFDocument pdf_document)
         {
             if (null != pdf_document.ReadingStage && !Choices.ReadingStages.Contains(pdf_document.ReadingStage))
             {
-                lock (tags)
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                lock (tags_lock)
                 {
+                    l1_clk.LockPerfTimerStop();
                     tags.Add(pdf_document.ReadingStage);
                 }
             }
@@ -32,9 +36,11 @@ namespace Qiqqa.DocumentLibrary
         public List<string> ReadingStages
         {
             get
-            {   
-                lock (tags)
+            {
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                lock (tags_lock)
                 {
+                    l1_clk.LockPerfTimerStop();
                     List<string> results = new List<string>();
                     results.AddRange(tags);
                     results.Sort();                    
@@ -43,6 +49,5 @@ namespace Qiqqa.DocumentLibrary
                 }
             }
         }
-
     }
 }

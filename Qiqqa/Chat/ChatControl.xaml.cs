@@ -53,9 +53,11 @@ namespace Qiqqa.Chat
             TxtSubmissionEmpty.Focusable = false;
             TxtSubmissionEmpty.IsEnabled = false;
 
+#if false
             timer = new Timer(OnTimeTick);
             timer.Change(0, 500);
-        }
+#endif
+            }
 
 
         private string ChatUsername
@@ -132,9 +134,9 @@ namespace Qiqqa.Chat
             }
 
             // make sure we're not in the process of shutting down Qiqqa for then the next code chunk will cause a CRASH:
-            if (null != Application.Current)
-            {
-                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            if (null != Application.Current && !Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+                    {
+                        Application.Current.Dispatcher.BeginInvoke(new Action(() =>
                 {
                     this.IsEnabled = is_chat_available;
                     TxtChatUnavailable.Visibility = is_chat_available ? Visibility.Collapsed : Visibility.Visible;
@@ -281,7 +283,7 @@ namespace Qiqqa.Chat
             return previous_text_alignment;
         }
 
-        #region --- IDisposable ------------------------------------------------------------------------
+#region --- IDisposable ------------------------------------------------------------------------
 
         ~ChatControl()
         {
@@ -309,7 +311,7 @@ namespace Qiqqa.Chat
             // Get rid of unmanaged resources 
         }
 
-        #endregion
+#endregion
 
     }
 }

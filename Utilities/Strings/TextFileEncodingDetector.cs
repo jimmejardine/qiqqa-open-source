@@ -15,8 +15,7 @@ namespace Utilities.Strings
 
             string result = null;
 
-            if (false) { }
-            else if (buffer[0] == 239 && buffer[1] == 187 && buffer[2] == 191)
+            if (buffer[0] == 239 && buffer[1] == 187 && buffer[2] == 191)
             {
                 result = Encoding.UTF8.GetString(buffer, 3, buffer.Length - 3);
             }

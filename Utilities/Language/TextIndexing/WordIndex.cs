@@ -105,8 +105,10 @@ namespace Utilities.Language.TextIndexing
                 return search_result;
             }
 
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (locker)
             {
+                l1_clk.LockPerfTimerStop();
                 WordInWordIndex word_in_word_index = GetWordInWordIndex_LOCKER(word, false);
                 if (null == word_in_word_index)
                 {
@@ -145,8 +147,10 @@ namespace Utilities.Language.TextIndexing
                 return EMPTY_DOCUMENT_SET;
             }
 
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (locker)
             {
+                l1_clk.LockPerfTimerStop();
                 WordInWordIndex word_in_word_index = GetWordInWordIndex_LOCKER(word, false);
                 if (null == word_in_word_index)
                 {
@@ -180,8 +184,10 @@ namespace Utilities.Language.TextIndexing
                 return 0;
             }
 
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (locker)
             {
+                l1_clk.LockPerfTimerStop();
                 WordInWordIndex wiw;
                 if (word_in_word_index_lookups.TryGetValue(word, out wiw))
                 {
@@ -215,8 +221,10 @@ namespace Utilities.Language.TextIndexing
                 return;
             }
 
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (locker)
             {
+                l1_clk.LockPerfTimerStop();
                 // Get the doc_id
                 int document_id;
                 if (!fingerprint_to_document_ids.TryGetValue(document_fingerprint, out document_id))
@@ -293,8 +301,10 @@ namespace Utilities.Language.TextIndexing
         {
             get
             {
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (locker)
                 {
+                    l1_clk.LockPerfTimerStop();
                     return word_in_word_index_lookups.Count;
                 }
             }
@@ -304,8 +314,10 @@ namespace Utilities.Language.TextIndexing
         {
             Logging.Info("+ReadMasterList");
 
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (locker)
             {
+                l1_clk.LockPerfTimerStop();
                 try
                 {
                     using (FileStream fs = File.OpenRead(GetFilename_MasterList()))
@@ -355,8 +367,11 @@ namespace Utilities.Language.TextIndexing
             Logging.Info("+WriteMasterList");
 
             string filename_temp = Path.GetTempFileName();
+
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (locker)
             {
+                l1_clk.LockPerfTimerStop();
                 FlushAllWords_LOCK();
                 PurgeAllWords_LOCK();
 
@@ -468,8 +483,10 @@ namespace Utilities.Language.TextIndexing
 
         void FlushAllWords()
         {
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (locker)
             {
+                l1_clk.LockPerfTimerStop();
                 FlushAllWords_LOCK();
             }
         }
@@ -582,8 +599,7 @@ namespace Utilities.Language.TextIndexing
                     word_in_word_indexes[gang_start + i].needs_flushing = false;
                 }
             }
-
-            catch (Exception)
+            catch (Exception ex)
             {
                 //  If we have an exception, it is probably because we have not created the directory, so try that
                 if (!create_directory_first)
@@ -593,7 +609,7 @@ namespace Utilities.Language.TextIndexing
                 else
                 {
                     // If we have created the directory before, then there must be some other problem
-                    throw;
+                    throw ex;
                 }
             }
         }

@@ -151,15 +151,18 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
             {
                 return new MultiMapSet<string,string>();
             }
-            
+
+            MultiMapSet<string, string> rv;
             if (null == parent_fingerprints)
             {
-                return library.AITagManager.AITags.GetTagsWithDocuments();
+                rv = library.AITagManager.AITags.GetTagsWithDocuments();
             }
             else
             {
-                return library.AITagManager.AITags.GetTagsWithDocuments(parent_fingerprints);
+                rv = library.AITagManager.AITags.GetTagsWithDocuments(parent_fingerprints);
             }
+            Logging.Debug("AITagExplorerControl: processing {0} documents from library {1}", rv.Count, library.WebLibraryDetail.Title);
+            return rv;
         }
 
         void OnItemPopup(Library library, string item_tag)
@@ -170,8 +173,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
 
         void OnItemDragOver(Library library, string item_tag, DragEventArgs e)
         {
-            if (false) { }
-            else if (e.Data.GetDataPresent(typeof(PDFDocument)))
+            if (e.Data.GetDataPresent(typeof(PDFDocument)))
             {
                 e.Effects = DragDropEffects.Copy;
             }

@@ -27,7 +27,7 @@ namespace Utilities.Misc
             {
                 queued_thread_count++;
             }
-#if DEBUG
+#if TEST
             int workerThreads;
             int completionPortThreads;
 

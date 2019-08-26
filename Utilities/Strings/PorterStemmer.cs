@@ -551,7 +551,5 @@ namespace Utilities.Strings
 			i_end = k+1;
 			i = 0;
 		}
-
-
 	}
 }

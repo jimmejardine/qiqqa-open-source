@@ -81,7 +81,7 @@ namespace Qiqqa.DocumentLibrary.CrossLibrarySearchStuff
                     }
                     else
                     {
-                        Logging.Debug("Received a null document from search?!");
+                        Logging.Debug("Received a null document from search?! (Fingerprint: {0})", index_result.fingerprint);
                     }
                 }
             }

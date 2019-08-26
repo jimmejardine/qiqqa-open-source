@@ -43,8 +43,8 @@ namespace Qiqqa.Main.LoginStuff
 
         public LoginWindow()
         {
-            InitializeComponent();            
-            
+            InitializeComponent();
+
             Title = "Welcome to Qiqqa!";
             if (WebsiteAccess.IsTestEnvironment)
             {
@@ -55,28 +55,23 @@ namespace Qiqqa.Main.LoginStuff
 
             Brush BRUSH = new LinearGradientBrush(Colors.White, Color.FromRgb(230, 240, 255), 90);
             this.Background = BRUSH;
-            
+
             ImageQiqqaLogo.Source = Icons.GetAppIcon(Icons.QiqqaLogoSmall);
 
-            {
-                ObjQiqqaDatabaseLocation.Text = ConfigurationManager.Instance.BaseDirectoryForQiqqa;
+            ObjQiqqaDatabaseLocation.Text = ConfigurationManager.Instance.BaseDirectoryForQiqqa;
 
-                ButtonRestore.Icon = Icons.GetAppIcon(Icons.Backup);
-                ButtonRestore.IconWidth = ButtonRestore.IconHeight = 64;
-                ButtonRestore.Caption = "Restore";
-                ButtonRestore.Click += ButtonRestore_Click;
+            ButtonRestore.Icon = Icons.GetAppIcon(Icons.Backup);
+            ButtonRestore.IconWidth = ButtonRestore.IconHeight = 64;
+            ButtonRestore.Caption = "Restore";
+            ButtonRestore.Click += ButtonRestore_Click;
 
-                ButtonBackup.Icon = Icons.GetAppIcon(Icons.Backup);
-                ButtonBackup.IconWidth = ButtonBackup.IconHeight = 64;
-                ButtonBackup.Caption = "Backup";
-                ButtonBackup.Click += ButtonBackup_Click;
-            }
+            ButtonBackup.Icon = Icons.GetAppIcon(Icons.Backup);
+            ButtonBackup.IconWidth = ButtonBackup.IconHeight = 64;
+            ButtonBackup.Caption = "Backup";
+            ButtonBackup.Click += ButtonBackup_Click;
 
-            {
-                ButtonGuest.Click += ButtonGuest_Click;
-                AugmentedButton.ApplyStyling(ButtonGuest);
-            }
-                
+            ButtonGuest.Click += ButtonGuest_Click;
+            AugmentedButton.ApplyStyling(ButtonGuest);
 
             this.IsEnabled = true;
 
@@ -84,7 +79,6 @@ namespace Qiqqa.Main.LoginStuff
             this.KeyDown += LoginWindow_KeyDown;
         }
 
-        
         void ButtonBackup_Click(object sender, RoutedEventArgs e)
         {
             BackingUp.DoBackup();
@@ -115,7 +109,7 @@ namespace Qiqqa.Main.LoginStuff
         void ButtonGuest_Click(object sender, RoutedEventArgs e)
         {
             e.Handled = true;
-            DoGuest();            
+            DoGuest();
         }
 
         void DoGuest()
@@ -180,13 +174,11 @@ namespace Qiqqa.Main.LoginStuff
 
         private void StartDaemonSingletons()
         {
-            {
-                splashscreen_window.UpdateMessage("Starting feature manager");
-                FeatureTrackingManager f = FeatureTrackingManager.Instance;
+            splashscreen_window.UpdateMessage("Starting feature manager");
+            FeatureTrackingManager f = FeatureTrackingManager.Instance;
 
-                splashscreen_window.UpdateMessage("Starting libraries");
-                WebLibraryManager wlm = WebLibraryManager.Instance;
-            }            
+            splashscreen_window.UpdateMessage("Starting libraries");
+            WebLibraryManager wlm = WebLibraryManager.Instance;
         }
 
         private void FireStartUseFeature()

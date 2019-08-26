@@ -17,6 +17,7 @@ namespace Qiqqa.Synchronisation.PDFSync
 
         private bool is_dirty = false;
         private HashSet<string> tokens = new HashSet<string>();
+        private object tokens_lock = new object();
         
         private PDFsAlreadyStoredOnServerCache()
         {
@@ -34,8 +35,10 @@ namespace Qiqqa.Synchronisation.PDFSync
 
         private void Load()
         {
-            lock (tokens)
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (tokens_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 try
                 {
                     if (File.Exists(FILENAME))
@@ -56,8 +59,10 @@ namespace Qiqqa.Synchronisation.PDFSync
 
         public void Save()
         {
-            lock (tokens)
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (tokens_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 if (!is_dirty) return;
                 try
                 {
@@ -73,8 +78,10 @@ namespace Qiqqa.Synchronisation.PDFSync
 
         public void Add(string token)
         {
-            lock (tokens)
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (tokens_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 if (tokens.Add(token))
                 {
                     is_dirty = true;
@@ -84,8 +91,10 @@ namespace Qiqqa.Synchronisation.PDFSync
 
         public bool IsAlreadyCached(string token)
         {
-            lock (tokens)
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (tokens_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 return tokens.Contains(token);
             }
         }

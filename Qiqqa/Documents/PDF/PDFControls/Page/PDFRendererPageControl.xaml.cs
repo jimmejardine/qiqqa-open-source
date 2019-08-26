@@ -370,8 +370,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             page_layers.Clear();
 
             // Also erase any pending RefreshPage work:
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (pending_refresh_work_lock)
             {
+                l1_clk.LockPerfTimerStop();
                 pending_refresh_work_fast = null;
                 pending_refresh_work_slow = null;
             }
@@ -494,8 +496,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             // a second failure:
             documentFingerprint = pdf_renderer_control_stats.pdf_document.Fingerprint;
 
-            lock (pending_refresh_work_lock)
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (pending_refresh_work_lock)        
             {
+                l1_clk.LockPerfTimerStop();
                 pending_refresh_work_fast = pending_refresh_work;
                 if (!pending_refresh_work_fast_running)
                 {
@@ -519,8 +523,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                 // Get the next piece of work
                 PendingRefreshWork pending_refresh_work = null;
 
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (pending_refresh_work_lock)
                 {
+                    l1_clk.LockPerfTimerStop();
                     pending_refresh_work = pending_refresh_work_fast;
                     pending_refresh_work_fast = null;
 
@@ -571,8 +577,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                 // Get the next piece of work
                 PendingRefreshWork pending_refresh_work = null;
 
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (pending_refresh_work_lock)
                 {
+                    l1_clk.LockPerfTimerStop();
                     pending_refresh_work = pending_refresh_work_slow;
                     pending_refresh_work_slow = null;
 
@@ -613,8 +621,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                         // Is the current image not good enough?  Then perhaps use a provided one
                         if (null == CurrentlyShowingImage || CurrentlyShowingImage.requested_height != desired_rescaled_image_height)
                         {
+                            Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
                             lock (pending_refresh_work_lock)
                             {
+                                l2_clk.LockPerfTimerStop();
                                 // Check if we want to use the supplied image
                                 if (null != pending_refresh_work.requested_image_rescale)
                                 {

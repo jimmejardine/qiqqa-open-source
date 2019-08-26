@@ -25,7 +25,7 @@ namespace Utilities.Files
             {
                 return Load(filename);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 // Check if there is a redundant file to fall back on
                 string redundant_filename = filename + REDUNDANT;
@@ -37,7 +37,7 @@ namespace Utilities.Files
                 }
                 else
                 {
-                    throw;
+                    throw ex;
                 }
             }
         }
@@ -137,8 +137,9 @@ namespace Utilities.Files
             {
                 return JsonLoad<T>(filename);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                //Logging.Error(ex);
                 return null;
             }
         }
@@ -168,7 +169,7 @@ namespace Utilities.Files
             {
                 return TextLoad_NotRedundant(filename);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 // Check if there is a redundant file to fall back on
                 string redundant_filename = filename + REDUNDANT;
@@ -180,7 +181,7 @@ namespace Utilities.Files
                 }
                 else
                 {
-                    throw;
+                    throw ex;
                 }
             }
         }
@@ -235,7 +236,7 @@ namespace Utilities.Files
             {
                 return ProtoLoad_NotRedundant<T>(filename);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 // Check if there is a redundant file to fall back on
                 string redundant_filename = filename + REDUNDANT;
@@ -247,7 +248,7 @@ namespace Utilities.Files
                 }
                 else
                 {
-                    throw;
+                    throw ex;
                 }
             }
         }

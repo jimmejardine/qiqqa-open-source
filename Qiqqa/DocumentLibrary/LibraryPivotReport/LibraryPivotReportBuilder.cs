@@ -72,6 +72,7 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
             {
                 pdf_documents = library.GetDocumentByFingerprints(parent_fingerprints);
             }
+            Logging.Debug("LibraryPivotExplorerControl: processing {0} documents from library {1}", pdf_documents.Count, library.WebLibraryDetail.Title);
 
             MultiMapSet<string, string> tags_with_fingerprints = new MultiMapSet<string, string>();
             foreach (PDFDocument pdf_document in pdf_documents)
@@ -90,8 +91,7 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
             x_keys.Sort();
 
             List<string>[,] common_fingerprints = new List<string>[y_keys.Count, x_keys.Count];
-
-
+            
             StatusManager.Instance.ClearCancelled("LibraryPivot");
             int y_progress = 0;
             Parallel.For(0, y_keys.Count, (y, loop_state) =>

@@ -89,8 +89,7 @@ namespace Qiqqa.Main
 
         void keyboard_hook_KeyDown(object sender, KeyEventArgs e)
         {
-            if (false) { }
-            else if (Keys.Z == e.KeyCode && KeyboardTools.IsWinDown())
+            if (Keys.Z == e.KeyCode && KeyboardTools.IsWinDown())
             {
                 Logging.Info("Qiqqa is being activated by WIN-Z");
                 MainWindowServiceDispatcher.Instance.OpenPopupInCite();
@@ -116,25 +115,23 @@ namespace Qiqqa.Main
                 }
 
                 // Also open guest under some circumstances
-                {
                     bool should_open_guest = false;
-                    {
+
                         // No web libraries
                         if (0 == web_libary_details.Count)
                         {
                             should_open_guest = true;
                         }
                         // Web library is small compared to guest library
-                        if (0 < web_libary_details.Count && WebLibraryManager.Instance.Library_Guest.PDFDocuments.Count > 2 * web_libary_details[0].library.PDFDocuments.Count)
+                        if (0 < web_libary_details.Count && WebLibraryManager.Instance.Library_Guest.PDFDocuments_IncludingDeleted_Count > 2 * web_libary_details[0].library.PDFDocuments_IncludingDeleted_Count)
                         {
                             should_open_guest = true;
                         }
-                    }
+
                     if (should_open_guest)
                     {
                         MainWindowServiceDispatcher.Instance.OpenLibrary(WebLibraryManager.Instance.Library_Guest);
                     }
-                }
 
                 // Make sure the start page is selected
                 MainWindowServiceDispatcher.Instance.OpenStartPage();

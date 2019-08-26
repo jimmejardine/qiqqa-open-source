@@ -55,9 +55,10 @@ namespace Qiqqa.FeatureTracking
                     Logging.Info("Google Analytics Submitted: REQUEST:\n{0}\n\nRESPONSE:\n{1}", request, response);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 last_ga_failure_time = DateTime.UtcNow;
+                Logging.Error(ex, "Google Analytics submission failure for feature {0}", feature.Name);
             }
         }
     }

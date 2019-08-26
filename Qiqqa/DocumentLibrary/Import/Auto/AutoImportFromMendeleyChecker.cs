@@ -25,7 +25,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
             int total_pdfs = 0;
             foreach (WebLibraryDetail web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries_All)
             {
-                total_pdfs +=   web_library_detail.library.PDFDocuments_IncludingDeleted_Count;
+                total_pdfs += web_library_detail.library.PDFDocuments_IncludingDeleted_Count;
             }
 
             // Count the number of found mendeley papers
@@ -43,7 +43,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                 NotificationManager.Instance.AddPendingNotification(
                     new NotificationManager.Notification(
                         notification
-                        ,notification
+                        ,null
                         ,NotificationManager.NotificationType.Info
                         ,Icons.Import_Mendeley
                         ,"Yes, Import!"
