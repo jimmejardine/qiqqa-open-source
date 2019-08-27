@@ -43,8 +43,8 @@ xmlns:local_bibtex="clr-namespace:Qiqqa.Documents.BibTeXEditor"
               <ColumnDefinition/>
               <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <local_gui:AugmentedButton x:Name="ButtonResetTagsAdd" Grid.Column="0" MinHeight="20" />
-            <local_gui:AugmentedButton x:Name="ButtonApplyTagsAdd" Grid.Column="1" MinHeight="20" />
+            <local_gui:AugmentedButton x:Name="ButtonResetTagsAdd" Grid.Column="0" MinHeight="20" >Reset</local_gui:AugmentedButton>
+            <local_gui:AugmentedButton x:Name="ButtonApplyTagsAdd" Grid.Column="1" MinHeight="20" >Apply</local_gui:AugmentedButton>
           </Grid>
         </StackPanel>
       </local_gui:AugmentedInfoBarItemControl>
@@ -62,8 +62,8 @@ xmlns:local_bibtex="clr-namespace:Qiqqa.Documents.BibTeXEditor"
               <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <local_gui:AugmentedButton x:Name="ButtonResetTagsRemove" Grid.Column="0" MinHeight="20" />
-            <local_gui:AugmentedButton x:Name="ButtonApplyTagsRemove" Grid.Column="1" MinHeight="20" />
+            <local_gui:AugmentedButton x:Name="ButtonResetTagsRemove" Grid.Column="0" MinHeight="20" >Reset</local_gui:AugmentedButton>
+            <local_gui:AugmentedButton x:Name="ButtonApplyTagsRemove" Grid.Column="1" MinHeight="20" >Apply</local_gui:AugmentedButton>
           </Grid>
         </StackPanel>
       </local_gui:AugmentedInfoBarItemControl>
@@ -81,8 +81,8 @@ xmlns:local_bibtex="clr-namespace:Qiqqa.Documents.BibTeXEditor"
               <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <local_gui:AugmentedButton x:Name="ButtonResetReview" Grid.Column="0" MinHeight="20" />
-            <local_gui:AugmentedButton x:Name="ButtonApplyReview" Grid.Column="1" MinHeight="20" />
+            <local_gui:AugmentedButton x:Name="ButtonResetReview" Grid.Column="0" MinHeight="20" >Reset</local_gui:AugmentedButton>
+            <local_gui:AugmentedButton x:Name="ButtonApplyReview" Grid.Column="1" MinHeight="20" >Apply</local_gui:AugmentedButton>
           </Grid>
         </StackPanel>
       </local_gui:AugmentedInfoBarItemControl>
@@ -101,8 +101,8 @@ xmlns:local_bibtex="clr-namespace:Qiqqa.Documents.BibTeXEditor"
               <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <local_gui:AugmentedButton x:Name="ButtonResetBibTeX" Grid.Column="0" MinHeight="20" />
-            <local_gui:AugmentedButton x:Name="ButtonApplyBibTeX" Grid.Column="1" MinHeight="20" />
+            <local_gui:AugmentedButton x:Name="ButtonResetBibTeX" Grid.Column="0" MinHeight="20" >Reset</local_gui:AugmentedButton>
+            <local_gui:AugmentedButton x:Name="ButtonApplyBibTeX" Grid.Column="1" MinHeight="20" >Apply</local_gui:AugmentedButton>
           </Grid>
         </StackPanel>
       </local_gui:AugmentedInfoBarItemControl>
