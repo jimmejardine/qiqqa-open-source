@@ -483,9 +483,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GUI\HyperlinkTextBlock.cs" />
-    <Compile Include="GUI\ImageCache.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="GUI\KeyboardHook.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -551,10 +548,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GUI\ThemeTextStyles.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GUI\TrialPeriod.cs" />
-    <Compile Include="GUI\VectorMath.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GUI\WeakDependencyPropertyChangeNotifier.cs">
