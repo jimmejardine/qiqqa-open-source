@@ -24,8 +24,14 @@ namespace Qiqqa.Documents.BibTeXEditor
         public static DependencyProperty BibTeXProperty = DependencyProperty.Register("BibTeX", typeof(string), typeof(BibTeXEditorControl), new PropertyMetadata());
         public string BibTeX
         {
-            get { return (string)GetValue(BibTeXProperty); }
-            set { SetValue(BibTeXProperty, value); }
+            get
+            {
+                return (string)GetValue(BibTeXProperty);
+            }
+            set
+            {
+                SetValue(BibTeXProperty, value);
+            }
         }
 
         [NonSerialized]
@@ -107,13 +113,11 @@ namespace Qiqqa.Documents.BibTeXEditor
             {
                 ObjBibTeXGrid.Visibility = Visibility.Visible;
                 ObjTextPanel.Visibility = Visibility.Collapsed;
-
             }
             else
             {
                 ObjBibTeXGrid.Visibility = Visibility.Collapsed;
                 ObjTextPanel.Visibility = Visibility.Visible;
-
             }
         }
 
@@ -196,7 +200,7 @@ namespace Qiqqa.Documents.BibTeXEditor
         HashSet<AutoCompleteBox> first_text_change_suppression_set = new HashSet<AutoCompleteBox>();        
         void tb_key_TextChanged(object sender, RoutedEventArgs e)
         {
-            // Sigh - this crappy control seems to set a text change just once after initialisation - even if we dont change the text.
+            // Sigh - this crappy control seems to set a text change just once after initialisation - even if we don't change the text.
             AutoCompleteBox sender_ac = (AutoCompleteBox)sender;
             if (first_text_change_suppression_set.Contains(sender_ac))
             {
@@ -247,8 +251,6 @@ namespace Qiqqa.Documents.BibTeXEditor
                     }
                 }
             }
-
-            
             
             // Check that the BibTeX is not completely empty
             string bibtex = bibtex_item.ToBibTex();
@@ -394,7 +396,6 @@ namespace Qiqqa.Documents.BibTeXEditor
             GridPair gp = new GridPair();
 
             // The KEY column
-            {
                 if (!isEditableKey)
                 {
                     TextBlock tb_key = new TextBlock();
@@ -434,7 +435,6 @@ namespace Qiqqa.Documents.BibTeXEditor
                     tb_key.TextChanged += tb_key_TextChanged;
                     first_text_change_suppression_set.Add(tb_key);
                 }
-            }
 
             // The VALUE column 
             {
