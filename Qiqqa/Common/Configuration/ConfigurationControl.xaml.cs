@@ -33,31 +33,31 @@ namespace Qiqqa.Common.Configuration
             this.DataContext = ConfigurationManager.Instance.ConfigurationRecord_Bindable;
             this.Background = ThemeColours.Background_Brush_Blue_LightToDark;
 
-            ButtonOpenDataDirectory.Caption = "Open Qiqqa data directory.";
+            ButtonOpenDataDirectory.Caption = "Open Qiqqa data directory";
             ButtonOpenDataDirectory.Icon = Icons.GetAppIcon(Icons.GarbageCollect);
             ButtonOpenDataDirectory.Click += ButtonOpenDataDirectory_Click;
 
-            ButtonOpenTempDirectory.Caption = "Open Qiqqa temp directory.";
+            ButtonOpenTempDirectory.Caption = "Open Qiqqa temp directory";
             ButtonOpenTempDirectory.Icon = Icons.GetAppIcon(Icons.GarbageCollect);
             ButtonOpenTempDirectory.Click += ButtonOpenTempDirectory_Click;
 
-            ButtonGarbageCollect.Caption = "Run garbage collection.";
+            ButtonGarbageCollect.Caption = "Run garbage collection";
             ButtonGarbageCollect.Icon = Icons.GetAppIcon(Icons.GarbageCollect);
             ButtonGarbageCollect.Click += ButtonGarbageCollect_Click;
 
-            ButtonRebuildIndices.Caption = "Rebuild library search indices.";
+            ButtonRebuildIndices.Caption = "Rebuild library search indices";
             ButtonRebuildIndices.Icon = Icons.GetAppIcon(Icons.GarbageCollect);
             ButtonRebuildIndices.Click += ButtonRebuildIndices_Click;
 
-            ButtonPurgeDeletedPDFs.Caption = "Purge deleted PDFs.";
+            ButtonPurgeDeletedPDFs.Caption = "Purge deleted PDFs";
             ButtonPurgeDeletedPDFs.Icon = Icons.GetAppIcon(Icons.GarbageCollect);
             ButtonPurgeDeletedPDFs.Click += ButtonPurgeDeletedPDFs_Click;
 
-            ButtonClearAutoSuggests.Caption = "Clear out all the autosuggestions for title, author and year.";
+            ButtonClearAutoSuggests.Caption = "Clear out all the autosuggestions for title, author and year";
             ButtonClearAutoSuggests.Icon = Icons.GetAppIcon(Icons.GarbageCollect);
             ButtonClearAutoSuggests.Click += ButtonClearAutoSuggests_Click;
 
-            ButtonSeeDebugStatistics.Caption = "See debug statistics.";
+            ButtonSeeDebugStatistics.Caption = "See debug statistics";
             ButtonSeeDebugStatistics.Icon = Icons.GetAppIcon(Icons.GarbageCollect);
             ButtonSeeDebugStatistics.Click += ButtonSeeDebugStatistics_Click;
 

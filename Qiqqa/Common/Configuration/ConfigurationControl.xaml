@@ -9,7 +9,7 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 	mc:Ignorable="d" 
 	x:Class="Qiqqa.Common.Configuration.ConfigurationControl"
-    d:DesignHeight="4744"
+    d:DesignHeight="4244"
 >
 
   <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
@@ -427,11 +427,11 @@
                       <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <local_gui:AugmentedButton Grid.Column="0" x:Name="ButtonOpenDataDirectory" MinHeight="30"/>
-                    <local_gui:AugmentedButton Grid.Column="1" x:Name="ButtonOpenTempDirectory" MinHeight="30"/>
-                    <local_gui:AugmentedButton Grid.Column="2" x:Name="ButtonZipLogs" MinHeight="30"/>
-                    <local_gui:AugmentedButton Grid.Column="3" x:Name="ButtonSeeDebugStatistics" MinHeight="30"/>
-                    <local_gui:AugmentedButton Grid.Column="4" x:Name="ButtonGarbageCollect" MinHeight="30"/>
+  					  <local_gui:AugmentedButton Grid.Column="0" x:Name="ButtonOpenDataDirectory" >Open Qiqqa data directory</local_gui:AugmentedButton>
+					  <local_gui:AugmentedButton Grid.Column="1" x:Name="ButtonOpenTempDirectory" >Open Qiqqa temp directory</local_gui:AugmentedButton>
+					  <local_gui:AugmentedButton Grid.Column="2" x:Name="ButtonZipLogs" >Bundle logs for Qiqqa support</local_gui:AugmentedButton>
+					  <local_gui:AugmentedButton Grid.Column="3" x:Name="ButtonSeeDebugStatistics" >See debug statistics</local_gui:AugmentedButton>
+					  <local_gui:AugmentedButton Grid.Column="4" x:Name="ButtonGarbageCollect" >Run garbage collection</local_gui:AugmentedButton>
                   </Grid>
 
                   <Grid>
@@ -443,10 +443,10 @@
                       <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <local_gui:AugmentedButton Grid.Column="0" x:Name="ButtonRebuildIndices" MinHeight="30"/>
-                    <local_gui:AugmentedButton Grid.Column="1" x:Name="ButtonPurgeDeletedPDFs" MinHeight="30"/>
-                    <local_gui:AugmentedButton Grid.Column="2" x:Name="ButtonLibraryDBExplorer" MinHeight="30"/>
-                    <local_gui:AugmentedButton Grid.Column="3" x:Name="ButtonClearAutoSuggests" MinHeight="30"/>
+                    <local_gui:AugmentedButton Grid.Column="0" x:Name="ButtonRebuildIndices" >Rebuild library search indices</local_gui:AugmentedButton>
+                    <local_gui:AugmentedButton Grid.Column="1" x:Name="ButtonPurgeDeletedPDFs" >Purge deleted PDFs</local_gui:AugmentedButton>
+                    <local_gui:AugmentedButton Grid.Column="2" x:Name="ButtonLibraryDBExplorer" >LibraryDB Explorer</local_gui:AugmentedButton>
+                    <local_gui:AugmentedButton Grid.Column="3" x:Name="ButtonClearAutoSuggests" >Clear out all the autosuggestions for title, author and year</local_gui:AugmentedButton>
                   </Grid>
 
                 </StackPanel>

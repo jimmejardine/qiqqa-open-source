@@ -10,10 +10,10 @@
 
     <DockPanel DockPanel.Dock="Bottom">
       <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
-      <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdGenerate" />
-      <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
-      <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdCancel" />
-      <Grid/>
+            <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdGenerate" >Generate</local_gui:AugmentedButton>
+            <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
+            <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdCancel" >Cancel</local_gui:AugmentedButton>
+            <Grid/>
     </DockPanel>
 
     <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />

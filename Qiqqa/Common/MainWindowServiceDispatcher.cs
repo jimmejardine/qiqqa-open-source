@@ -198,7 +198,7 @@ namespace Qiqqa.Common
             // If the document doesn't exist, check if it has a url bibtex field.  If so, prompt to go there to find the doc
             if (!File.Exists(pdf_document.DocumentPath))
             {
-                string URL_FIELD = "url";
+                const string URL_FIELD = "url";
                 if (null != pdf_document.BibTexItem && pdf_document.BibTexItem.ContainsField(URL_FIELD))
                 {
                     if (MessageBoxes.AskQuestion("You do not have the PDF file associated with this document.  However the document metadata has a URL link.  Do you want to visit that web page to perhaps download it?"))

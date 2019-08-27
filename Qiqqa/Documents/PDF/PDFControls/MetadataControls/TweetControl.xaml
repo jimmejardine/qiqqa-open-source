@@ -5,10 +5,10 @@
   xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
 >
   <DockPanel>
-    <local_gui:AugmentedButton x:Name="ButtonSubmit" DockPanel.Dock="Left"/>
+        <local_gui:AugmentedButton x:Name="ButtonSubmit" DockPanel.Dock="Left">Submit</local_gui:AugmentedButton>
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto" >
-      <TextBox TextWrapping="Wrap" Name="TxtTweet" />
-    </ScrollViewer>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" >
+            <TextBox TextWrapping="Wrap" Name="TxtTweet" >Tweeterdetweet</TextBox>
+        </ScrollViewer>
   </DockPanel>
 </UserControl>
