@@ -22,6 +22,10 @@ namespace Utilities.GUI
 
         public FrameworkElement InnerChild
         {
+            get
+            {
+                return (FrameworkElement)this.grid.Children[0];
+            }
             set
             {
                 this.grid.Children.Clear();

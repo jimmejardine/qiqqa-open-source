@@ -176,7 +176,6 @@ namespace Utilities.GUI
             FixedPage.SetLeft(pageImage, capabilities.PageImageableArea.OriginWidth);
             FixedPage.SetTop(pageImage, capabilities.PageImageableArea.OriginHeight);
 
-
             return pageContent;
         }
     }

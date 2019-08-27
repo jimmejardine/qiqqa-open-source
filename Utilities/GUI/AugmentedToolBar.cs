@@ -7,8 +7,9 @@ namespace Utilities.GUI
     public class AugmentedToolBar : ToolBar
     {
         public AugmentedToolBar()
-        {            
-            // This is a bit of a hack to get the toolbar dropdowns to be the right colour!!!  I guess there must be a way to do it with styles - i dont know how.
+        {
+            // This is a bit of a hack to get the toolbar dropdowns to be the right colour!!!  
+            // I guess there must be a way to do it with styles - i dont know how.
             this.SizeChanged += AugmentedToolBar_SizeChanged;
         }
 

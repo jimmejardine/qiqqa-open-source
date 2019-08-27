@@ -19,11 +19,11 @@
         <ColumnDefinition Width="7*"/>
       </Grid.ColumnDefinitions>
 
-      <local_gui:AugmentedButton Grid.Column="0" Name="ButtonBibTexAutoFind" MinHeight="15" >Find</local_gui:AugmentedButton>
+      <local_gui:AugmentedButton Grid.Column="0" Name="ButtonBibTexAutoFind" >Find</local_gui:AugmentedButton>
       <local_gui:AugmentedSpacer Grid.Column="1" />
-      <local_gui:AugmentedButton Grid.Column="2" Name="ButtonBibTexSniffer" MinHeight="15" >Sniffer</local_gui:AugmentedButton>
+      <local_gui:AugmentedButton Grid.Column="2" Name="ButtonBibTexSniffer" >Sniffer</local_gui:AugmentedButton>
       <local_gui:AugmentedSpacer Grid.Column="3" />
-      <local_gui:AugmentedButton Grid.Column="4" Name="ButtonUseSummary" MinHeight="15" >Summary</local_gui:AugmentedButton>
+      <local_gui:AugmentedButton Grid.Column="4" Name="ButtonUseSummary" >Summary</local_gui:AugmentedButton>
     </Grid>
 
     <local_gui:AugmentedSpacer />
@@ -39,9 +39,9 @@
         <ColumnDefinition Width="7*"/>
       </Grid.ColumnDefinitions>
 
-      <local_gui:AugmentedButton Grid.Column="0" Name="ButtonBibTexEditor" MinHeight="15" >Popup</local_gui:AugmentedButton>
+      <local_gui:AugmentedButton Grid.Column="0" Name="ButtonBibTexEditor" >Popup</local_gui:AugmentedButton>
       <local_gui:AugmentedSpacer Grid.Column="1" />
-      <local_gui:AugmentedButton Grid.Column="2" Name="ButtonBibTexClear" MinHeight="15" >Clear</local_gui:AugmentedButton>
+      <local_gui:AugmentedButton Grid.Column="2" Name="ButtonBibTexClear" >Clear</local_gui:AugmentedButton>
     </Grid>
 
   </StackPanel>

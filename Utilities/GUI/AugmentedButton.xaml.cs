@@ -45,6 +45,10 @@ namespace Utilities.GUI
 
         public bool CenteredMode
         {
+            get
+            {
+                return (ObjPanelCentered.Visibility == System.Windows.Visibility.Visible);
+            }
             set
             {
                 if (value)
@@ -130,6 +134,10 @@ namespace Utilities.GUI
 
         public Visibility IconVisibility
         {
+            get
+            {
+                return ImageIcon.Visibility;
+            }
             set
             {
                 ImageIcon.Visibility = value;
@@ -140,6 +148,10 @@ namespace Utilities.GUI
         
         public ImageSource Icon
         {
+            get
+            {
+                return ImageIcon.Source;
+            }
             set
             {   
                 ImageIcon.Source = value;
