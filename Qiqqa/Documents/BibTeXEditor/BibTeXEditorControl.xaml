@@ -22,7 +22,7 @@
         <Grid Name="ObjHeaderGrid" DockPanel.Dock="Top">
 
           <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="60" />
+            <ColumnDefinition Width="80" />
             <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="*" />
           </Grid.ColumnDefinitions>
@@ -42,13 +42,11 @@
         
           <Grid Name="ObjBibTeXGrid">
             <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="60" />
+              <ColumnDefinition Width="80" />
               <ColumnDefinition Width="5"/>
               <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
           </Grid>
-        
-
       </DockPanel>
 
       <Grid Name="ObjTextPanel">
@@ -67,9 +65,9 @@
           <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
           <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
           <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
-          <Image Name="ImageBibTeXModeToggle" DockPanel.Dock="Right" Width="12"/>
+          <Image Name="ImageBibTeXModeToggle" DockPanel.Dock="Right" Width="12" Height="12" />
           <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
-          <Image Name="ImageBibTeXParseError" DockPanel.Dock="Right" Width="12"/>
+          <Image Name="ImageBibTeXParseError" DockPanel.Dock="Right" Width="12" Height="12" />
           <local_gui:AugmentedSpacer />
         </DockPanel>
         <local_gui:AugmentedSpacer />
