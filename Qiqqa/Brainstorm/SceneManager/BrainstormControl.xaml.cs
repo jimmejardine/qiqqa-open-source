@@ -177,8 +177,7 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         void ButtonNextClickMode_Click(object sender, RoutedEventArgs e)
         {
-            if (false) { }
-            else if (sender == ButtonHand)
+            if (sender == ButtonHand)
             {
                 ButtonHand.IsChecked = true;
                 ButtonAddText.IsChecked = false;
@@ -190,7 +189,10 @@ namespace Qiqqa.Brainstorm.SceneManager
                 ButtonAddText.IsChecked = true;
                 ObjSceneRenderingControlScrollWrapper.ObjSceneRenderingControl.SetNextClickMode(SceneRenderingControl.NextClickMode.AddText);
             }
-            else Logging.Warn("An unknown control called ButtonNextClickMode_Click: {0}", sender);
+            else
+            {
+                Logging.Warn("An unknown control called ButtonNextClickMode_Click: {0}", sender);
+            }
         }
 
         void ButtonAddConnector_Click(object sender, RoutedEventArgs e)

@@ -8,9 +8,9 @@
 
     <local_gui:AugmentedToolBarTray DockPanel.Dock="Top">
       <StackPanel Orientation="Horizontal">
-        <local_gui:AugmentedButton x:Name="ButtonPrint" />
-        <local_gui:AugmentedButton x:Name="ButtonToWord" />
-        <local_gui:AugmentedButton x:Name="ButtonToPDF" Visibility="Collapsed" />
+        <local_gui:AugmentedButton x:Name="ButtonPrint" >Print</local_gui:AugmentedButton>
+        <local_gui:AugmentedButton x:Name="ButtonToWord" >To Word</local_gui:AugmentedButton>
+        <local_gui:AugmentedButton x:Name="ButtonToPDF" Visibility="Collapsed" >To PDF</local_gui:AugmentedButton>
 
         <!--
         <local_gui:AugmentedButton x:Name="ButtonCollapseClickOptions" />

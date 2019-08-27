@@ -13,11 +13,11 @@
 
     <local_gui:AugmentedPadder DockPanel.Dock="Bottom">
       <DockPanel>
-        <local_gui:AugmentedButton Name="CmdWeb" DockPanel.Dock="Right" />
+        <local_gui:AugmentedButton Name="CmdWeb" DockPanel.Dock="Right" >Web</local_gui:AugmentedButton>
         <local_gui:AugmentedSpacer DockPanel.Dock="Right"/>
-        <local_gui:AugmentedButton Name="CmdLocal" DockPanel.Dock="Right" />
+        <local_gui:AugmentedButton Name="CmdLocal" DockPanel.Dock="Right" >Local</local_gui:AugmentedButton>
         <local_gui:AugmentedSpacer DockPanel.Dock="Right"/>
-        <local_gui:AugmentedButton Name="CmdCancel" DockPanel.Dock="Right" />
+        <local_gui:AugmentedButton Name="CmdCancel" DockPanel.Dock="Right" >Cancel</local_gui:AugmentedButton>
         <local_gui:AugmentedSpacer DockPanel.Dock="Right"/>
       </DockPanel>
     </local_gui:AugmentedPadder>
