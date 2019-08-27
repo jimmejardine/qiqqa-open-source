@@ -5,6 +5,8 @@ using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Net.Mime;
+using System.Windows.Threading;
+using Qiqqa.Common;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Documents.PDF;
 using Utilities;
@@ -345,9 +347,30 @@ namespace Qiqqa.DocumentLibrary
 
                 using (HttpWebResponse web_response = (HttpWebResponse)web_request.GetResponse())
                 {
-                    if (HttpStatusCode.Redirect == web_response.StatusCode)
+                    // is this a 302/30x Response Code (Forwarded)?
+                    // if so, then grab the forward reference URI and go grab that one.
+                    if (web_response.StatusCode == HttpStatusCode.MovedPermanently
+                        || web_response.StatusCode == HttpStatusCode.Moved
+                        || web_response.StatusCode == HttpStatusCode.Redirect
+                        || web_response.StatusCode == HttpStatusCode.Found
+                        || web_response.StatusCode == HttpStatusCode.SeeOther
+                        || web_response.StatusCode == HttpStatusCode.RedirectKeepVerb
+                        || web_response.StatusCode == HttpStatusCode.TemporaryRedirect
+                        || (uint)web_response.StatusCode == 308)
                     {
-                        string redirect_url = web_response.Headers["Location"];
+                        string fwd_uri_str = web_response.GetResponseHeader("Location");
+                        Uri fwd_uri = new Uri(web_response.ResponseUri, fwd_uri_str);
+                        // fetch the PDF!
+                        // 
+                        // Warning: Do NOT get into a download loop due to badly configured or nasty webservers:
+                        if (fwd_uri.AbsoluteUri != web_request.RequestUri.AbsoluteUri)
+                        {
+                            AddNewDocumentToLibraryFromInternet_ASYNCHRONOUS(library, fwd_uri.AbsoluteUri);
+                        }
+                        else
+                        {
+                            MessageBoxes.Info("Looks like the webserver is throwing you into an infinite redirection loop at URI {0}.", web_request.RequestUri.AbsoluteUri);
+                        }
                     }
                     else
                     {
@@ -389,21 +412,40 @@ namespace Qiqqa.DocumentLibrary
                                 //fs.Close();    -- autoclosed by `using` statement
                             }
 
-                            library.AddNewDocumentToLibrary_SYNCHRONOUS(filename, original_filename, download_url, null, null, null, false, false);
+                            PDFDocument pdf_document = library.AddNewDocumentToLibrary_SYNCHRONOUS(filename, original_filename, download_url, null, null, null, false, false);
                             File.Delete(filename);
+
+                            // make sure we open every PDF fetched off the Internet: the user may need to review
+                            // their metadata.
+                            MainWindowServiceDispatcher.Instance.MainWindow.Dispatcher.BeginInvoke
+                            (
+                                new Action(() =>
+                                {
+                                    Documents.PDF.PDFControls.PDFReadingControl pdf_reading_control = MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);
+                                    pdf_reading_control.EnableGuestMoveNotification(null);
+                                }),
+                                DispatcherPriority.Background
+                            );
                         }
                         else
                         {
+                            string html = "";
+
                             if (content_type.EndsWith("html"))
                             {
                                 using (StreamReader sr = new StreamReader(response_stream))
                                 {
-                                    string html = sr.ReadToEnd();
-                                    Logging.Warn("Got this HTML instead of a PDF: {0}", html);
+                                    html = sr.ReadToEnd();
+                                    Logging.Warn("Got this HTML instead of a PDF for URI {1}: {0}", html, download_url);
                                 }
                             }
 
-                            MessageBoxes.Info("The document library supports only PDF files at the moment.  You are trying to download something of type {0} at URI {1}.", content_type, download_url);
+                            // TODO: check these conditions; they are meant to be pretty tight but MAYBE I still let some
+                            // nasty websites' embedded PDF or other trickery slip through unnoticed.
+                            if (content_type != "text/html" || web_response.StatusCode != HttpStatusCode.OK || html.Contains("<embed"))
+                            {
+                                MessageBoxes.Info("The document library supports only PDF files at the moment.  You are trying to download something of type {0} / response code {1} at URI {2}.", content_type, (uint)web_response.StatusCode, download_url);
+                            }
                         }
                     }
                 }

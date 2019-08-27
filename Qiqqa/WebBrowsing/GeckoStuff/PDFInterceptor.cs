@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Threading;
@@ -80,7 +81,23 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
                 Logging.Info("PDFInterceptor::Response URI: {0} ; disposition: {1}; mime: {2}; status: {3}; headers:\n{4}", abs_uri, disp_hdr, mimetype, rvc, hdrs_str);
             }
 #endif
-            if (channel.ContentType.Contains("application/pdf"))
+            // is this a 302/30x Response Code (Forwarded)?
+            // if so, then grab the forward reference URI and go grab that one.
+            if (channel.ResponseStatus == (uint)HttpStatusCode.MovedPermanently
+                || channel.ResponseStatus == (uint)HttpStatusCode.Moved
+                || channel.ResponseStatus == (uint)HttpStatusCode.Redirect
+                || channel.ResponseStatus == (uint)HttpStatusCode.Found
+                || channel.ResponseStatus == (uint)HttpStatusCode.SeeOther
+                || channel.ResponseStatus == (uint)HttpStatusCode.RedirectKeepVerb
+                || channel.ResponseStatus == (uint)HttpStatusCode.TemporaryRedirect
+                || channel.ResponseStatus == 308)
+            {
+                string fwd_uri_str = channel.GetResponseHeader("Location");
+                Uri fwd_uri = new Uri(channel.Uri, fwd_uri_str);
+                // fetch the PDF!
+                ImportingIntoLibrary.AddNewDocumentToLibraryFromInternet_ASYNCHRONOUS(Library.GuestInstance, fwd_uri.AbsoluteUri);
+            }
+            else if (channel.ContentType.Contains("application/pdf"))
             {
                 try
                 {
@@ -91,6 +108,7 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
                 {
                     Logging.Error(ex, "Gecko ContentDispositionFilename b0rk at {0}", channel.Uri.AbsoluteUri);
                 }
+
                 document_source_url = channel.Uri.AbsoluteUri;
 
                 StreamListenerTee stream_listener_tee = new StreamListenerTee();  // <-- will be Dispose()d once response/content has been received
