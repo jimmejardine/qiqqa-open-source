@@ -46,12 +46,15 @@ namespace Utilities.GUI
             {
                 return TextSearch;
             }
-
         }
 
         private HashSet<string> search_items = new HashSet<string>();
         public HashSet<string> SearchHistoryItemSource
         {
+            get
+            {
+                return search_items;
+            }
             set
             {
                 search_items = value;
@@ -110,15 +113,12 @@ namespace Utilities.GUI
 
         void TextSearch_KeyUp(object sender, KeyEventArgs e)
         {
-            if (false) { }
-
-            else if (Key.Enter == e.Key)
+            if (Key.Enter == e.Key)
             {
                 FireOnHardSearch();
                 SelectAll();
                 e.Handled = true;
             }
-
             else if (Key.Escape == e.Key)
             {
                 Text = "";

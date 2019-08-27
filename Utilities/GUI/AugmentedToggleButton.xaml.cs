@@ -55,6 +55,10 @@ namespace Utilities.GUI
 
         public ImageSource Icon
         {
+            get
+            {
+                return ImageIcon.Source;
+            }
             set
             {
                 ImageIcon.Source = value;
@@ -63,6 +67,21 @@ namespace Utilities.GUI
 
         public Dock CaptionDock
         {
+            get
+            {
+                switch (DockPanel.GetDock(ImageIcon))
+                {
+                    default:
+                    case Dock.Bottom:
+                        return Dock.Top;
+                    case Dock.Top:
+                        return Dock.Bottom;
+                    case Dock.Right:
+                        return Dock.Left;
+                    case Dock.Left:
+                        return Dock.Right;
+                }
+            }
             set
             {
                 switch (value)

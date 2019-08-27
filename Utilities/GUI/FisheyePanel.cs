@@ -63,7 +63,9 @@ namespace Utilities.GUI
         void FishEyePanel_MouseMove(object sender, MouseEventArgs e)
         {
             if (!animating)
+            {
                 this.InvalidateArrange();
+            }
         }
 
         void FishEyePanel_MouseEnter(object sender, MouseEventArgs e)
@@ -91,15 +93,21 @@ namespace Utilities.GUI
 
             // EID calls us with infinity, but framework doesn't like us to return infinity
             if (double.IsInfinity(availableSize.Height) || double.IsInfinity(availableSize.Width))
+            {
                 return idealSize;
+            }
             else
+            {
                 return availableSize;
+            }
         }
 
         protected override Size ArrangeOverride(Size finalSize)
         {
             if (this.Children == null || this.Children.Count == 0)
+            {
                 return finalSize;
+            }
 
             ourSize = finalSize;
             totalChildWidth = 0;
@@ -151,12 +159,18 @@ namespace Utilities.GUI
                 foreach (UIElement child in this.Children)
                 {
                     if (theChild == null)
+                    {
                         theChildX = widthSoFar;
+                    }
                     widthSoFar += (ScaleToFit ? childWidth : child.DesiredSize.Width * overallScaleFactor);
                     if (x < widthSoFar && theChild == null)
+                    {
                         theChild = child;
+                    }
                     if (theChild == null)
+                    {
                         prevChild = child;
+                    }
                     if (nextChild == null && theChild != child && theChild != null)
                     {
                         nextChild = child;
@@ -164,21 +178,31 @@ namespace Utilities.GUI
                     }
                 }
                 if (theChild != null)
+                {
                     ratio = (x - theChildX) / (ScaleToFit ? childWidth : (theChild.DesiredSize.Width * overallScaleFactor));    // Range 0-1 of where the mouse is inside the child
+                }
             }
 
             // These next few lines took two of us hours to write!
             double mag = Magnification;
             double extra = 0;
             if (theChild != null)
+            {
                 extra += (mag - 1);
+            }
 
             if (prevChild == null)
+            {
                 extra += (ratio * (mag - 1));
+            }
             else if (nextChild == null)
+            {
                 extra += ((mag - 1) * (1 - ratio));
+            }
             else
+            {
                 extra += (mag - 1);
+            }
 
             double prevScale = this.Children.Count * (1 + ((mag - 1) * (1 - ratio))) / (this.Children.Count + extra);
             double theScale = (mag * this.Children.Count) / (this.Children.Count + extra);
@@ -212,7 +236,9 @@ namespace Utilities.GUI
             widthSoFar = 0;
             double duration = 0;
             if (wasMouseOver != this.IsMouseOver)
+            {
                 duration = AnimationMilliseconds;
+            }
 
             foreach (UIElement child in this.Children)
             {
@@ -290,7 +316,9 @@ namespace Utilities.GUI
             anim.AccelerationRatio = 0.2;
             anim.DecelerationRatio = 0.7;
             if (endEvent != null)
+            {
                 anim.Completed += endEvent;
+            }
             return anim;
         }
 

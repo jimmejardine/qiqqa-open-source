@@ -67,6 +67,10 @@ namespace Utilities.GUI
 
         public Dock CollapserDock
         {
+            get
+            {
+                return GetDock(ObjIcon);
+            }
             set
             {
                 SetDock(ObjIcon, value);
@@ -113,6 +117,10 @@ namespace Utilities.GUI
 
         public bool Collapsed
         {
+            get
+            {
+                return (ObjClientControl.Visibility == Visibility.Collapsed);
+            }
             set
             {
                 if (value)
@@ -142,6 +150,10 @@ namespace Utilities.GUI
         [Bindable(true)]
         public string Header
         {
+            get
+            {
+                return this.ObjTextHeader.Text;
+            }
             set
             {
                 this.ObjTextHeader.Text = value;
@@ -150,6 +162,10 @@ namespace Utilities.GUI
 
         public Brush HeaderBackground
         {
+            get
+            {
+                return dock_panel_header_background_brush;
+            }
             set
             {
                 dock_panel_header_background_brush = value;

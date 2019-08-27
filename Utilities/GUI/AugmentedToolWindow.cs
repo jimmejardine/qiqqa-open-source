@@ -34,6 +34,10 @@ namespace Utilities.GUI
 
         public bool IsOpen
         {
+            get
+            {
+                return true;    // HACK: only used by Microsoft Designer...
+            }
             set
             {
                 if (value == true)

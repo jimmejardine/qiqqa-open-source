@@ -12,7 +12,7 @@
         <ColumnDefinition />
       </Grid.ColumnDefinitions>
       <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" x:Name="ObjButtonGrid" Grid.Column="1">
-        <local_gui:AugmentedButton x:Name="ButtonCancel" />
+        <local_gui:AugmentedButton x:Name="ButtonCancel" >Close</local_gui:AugmentedButton>
       </StackPanel>
     </Grid>
 
