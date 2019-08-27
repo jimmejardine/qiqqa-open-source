@@ -11,8 +11,8 @@ namespace Utilities.BibTex
         public EntryType(string type, string[] requireds, string[] optionals)
         {
             this.type = type;
-            this.requireds = new List<string>(requireds);
-            this.optionals = new List<string>(optionals);
+            this.requireds = null != requireds ? new List<string>(requireds) : new List<string>();
+            this.optionals = null != optionals ? new List<string>(optionals) : new List<string>();
         }
     }
 }

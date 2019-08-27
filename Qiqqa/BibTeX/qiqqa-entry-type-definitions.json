@@ -1,0 +1,265 @@
+{
+  "article": {
+    "type": "article",
+    "requireds": [
+      "author",
+      "title",
+      "journal",
+      "year"
+    ],
+    "optionals": [
+      "volume",
+      "number",
+      "pages",
+      "month",
+      "note"
+    ]
+  },
+  "book": {
+    "type": "book",
+    "requireds": [
+      "author",
+      "editor",
+      "title",
+      "publisher",
+      "year"
+    ],
+    "optionals": [
+      "volume",
+      "series",
+      "address",
+      "edition",
+      "month",
+      "note"
+    ]
+  },
+  "booklet": {
+    "type": "booklet",
+    "requireds": [
+      "title"
+    ],
+    "optionals": [
+      "author",
+      "howpublished",
+      "address",
+      "year",
+      "month",
+      "note"
+    ]
+  },
+  "conference": {
+    "type": "conference",
+    "requireds": [
+      "author",
+      "title",
+      "booktitle",
+      "year"
+    ],
+    "optionals": [
+      "editor",
+      "pages",
+      "organization",
+      "publisher",
+      "address",
+      "month",
+      "note"
+    ]
+  },
+  "inbook": {
+    "type": "inbook",
+    "requireds": [
+      "author",
+      "title",
+      "booktitle",
+      "chapter",
+      "year"
+    ],
+    "optionals": [
+      "editor",
+      "pages",
+      "organization",
+      "publisher",
+      "address",
+      "month",
+      "note",
+      "volume",
+      "series"
+    ]
+  },
+  "chapter": {
+    "type": "chapter",
+    "requireds": [
+      "author",
+      "title",
+      "chapter",
+      "year"
+    ],
+    "optionals": [
+      "editor",
+      "pages",
+      "organization",
+      "publisher",
+      "address",
+      "month",
+      "note",
+      "volume",
+      "series"
+    ]
+  },
+  "incollection": {
+    "type": "incollection",
+    "requireds": [
+      "author",
+      "title",
+      "booktitle",
+      "year"
+    ],
+    "optionals": [
+      "editor",
+      "pages",
+      "organization",
+      "publisher",
+      "address",
+      "month",
+      "note"
+    ]
+  },
+  "inproceedings": {
+    "type": "inproceedings",
+    "requireds": [
+      "author",
+      "title",
+      "booktitle",
+      "year"
+    ],
+    "optionals": [
+      "editor",
+      "pages",
+      "organization",
+      "publisher",
+      "address",
+      "month",
+      "note"
+    ]
+  },
+  "manual": {
+    "type": "manual",
+    "requireds": [
+      "title"
+    ],
+    "optionals": [
+      "author",
+      "organization",
+      "address",
+      "edition",
+      "year",
+      "month",
+      "note"
+    ]
+  },
+  "mastersthesis": {
+    "type": "mastersthesis",
+    "requireds": [
+      "author",
+      "title",
+      "school",
+      "year"
+    ],
+    "optionals": [
+      "address",
+      "month",
+      "note"
+    ]
+  },
+  "misc": {
+    "type": "misc",
+    "XXXXrequireds": [],
+    "requireds": null,
+    "optionals": [
+      "title",
+      "author",
+      "year",
+      "DOI",
+      "PMID"
+    ]
+  },
+  "phdthesis": {
+    "type": "phdthesis",
+    "requireds": [
+      "author",
+      "title",
+      "school",
+      "year"
+    ],
+    "optionals": [
+      "address",
+      "month",
+      "note"
+    ]
+  },
+  "proceedings": {
+    "type": "proceedings",
+    "requireds": [
+      "title",
+      "year"
+    ],
+    "optionals": [
+      "editor",
+      "publisher",
+      "organization",
+      "address",
+      "month",
+      "note"
+    ]
+  },
+  "techreport": {
+    "type": "techreport",
+    "requireds": [
+      "author",
+      "title",
+      "institution",
+      "year"
+    ],
+    "optionals": [
+      "type",
+      "number",
+      "address",
+      "month",
+      "note"
+    ]
+  },
+  "unpublished": {
+    "type": "unpublished",
+    "requireds": [
+      "author",
+      "title",
+      "note"
+    ],
+    "optionals": [
+      "year",
+      "month"
+    ]
+  },
+  "webpage": {
+    "type": "webpage",
+    "requireds": [
+      "title",
+      "URL"
+    ],
+    "optionals": [
+      "accessed"
+    ]
+  },
+  "legal_case": {
+    "type": "legal_case",
+    "requireds": [
+      "title",
+      "volume",
+      "page",
+      "locator",
+      "container-title",
+      "year"
+    ],
+    "optionals": null,
+  }
+}

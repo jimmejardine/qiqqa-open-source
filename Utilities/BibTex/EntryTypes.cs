@@ -1,10 +1,29 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace Utilities.BibTex
 {
     public class EntryTypes
     {
-        public static EntryTypes Instance = new EntryTypes();
+        // singleton; follow the idiom from https://stackoverflow.com/questions/5897681/unit-testing-singletons
+        public static EntryTypes _Instance = null;
+        public static EntryTypes Instance
+        {
+            get
+            {
+                if (null == _Instance)
+                {
+                    _Instance = new EntryTypes();
+                }
+                return _Instance;
+            }
+        }
+        public static void ResetForTesting()
+        {
+            _Instance = null;
+        }
 
         Dictionary<string, EntryType> entry_types = new Dictionary<string, EntryType>();
 
@@ -18,130 +37,72 @@ namespace Utilities.BibTex
         //
         private EntryTypes()
         {
-            AddEntryType(
-            new EntryType(
-            "article",
-            new string[] { "author", "title", "journal", "year" },
-            new string[] { "volume", "number", "pages", "month", "note" }
-            ));
+            string filename = EntryTypes.EntryTypesDefinitionFilename;
 
-            AddEntryType(
-            new EntryType(
-            "book",
-            new string[] { "author", "editor", "title", "publisher", "year" },
-            new string[] { "volume", "series", "address", "edition", "month", "note" }
-            ));
+            // when the setup file does not exist, yak!
+            if (!File.Exists(filename))
+            {
+                Logging.Error("BibTeX entry types definition JSON file '{0}' does not exist! You install may be boogered!", filename);
 
-            AddEntryType(
-            new EntryType(
-            "booklet",
-            new string[] { "title" },
-            new string[] { "author", "howpublished", "address", "year", "month", "note" }
-            ));
+                // do it old skool style. Only a few so it's easily noticed by the user!
+                AddEntryType(
+                new EntryType(
+                "book",
+                new string[] { "author", "editor", "title", "publisher", "year" },
+                new string[] { "volume", "series", "address", "edition", "month", "note" }
+                ));
 
-            AddEntryType(
-            new EntryType(
-            "conference",
-            new string[] { "author", "title", "booktitle", "year" },
-            new string[] { "editor", "pages", "organization", "publisher", "address", "month", "note" }
-            ));
+                AddEntryType(
+                new EntryType(
+                "misc",
+                null,
+                new string[] { "title", "author", "year", "DOI", "PMID" }
+                ));
 
-            AddEntryType(
-            new EntryType(
-            "inbook",
-            new string[] { "author", "title", "booktitle", "chapter", "year" },
-            new string[] { "editor", "pages", "organization", "publisher", "address", "month", "note", "volume", "series" }
-            ));
+#if false && TEST
+                string json = JsonConvert.SerializeObject(entry_types, Formatting.Indented);
+                File.WriteAllText(filename, json);
+#endif
+            }
+            else
+            {
+                // file exists; load it to get all the goodness.
+                try
+                {
+                    string json = File.ReadAllText(filename, System.Text.Encoding.UTF8);
+                    entry_types = JsonConvert.DeserializeObject<Dictionary<string, EntryType>>(json);
+                    Logging.Info("Loaded {0} BibTeX entry types from configuration file '{1}':\n    [{2}]", entry_types.Count, filename, String.Join(", ", entry_types.Keys));
+                }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex, "Failed to load/parse the BibTeX entry types definition file '{0}'.", filename);
+                }
+            }
 
-            AddEntryType(
-            new EntryType(
-            "chapter",
-            new string[] { "author", "title", "chapter", "year" },
-            new string[] { "editor", "pages", "organization", "publisher", "address", "month", "note", "volume", "series" }
-            ));
-
-            AddEntryType(
-            new EntryType(
-            "incollection",
-            new string[] { "author", "title", "booktitle", "year" },
-            new string[] { "editor", "pages", "organization", "publisher", "address", "month", "note" }
-            ));
-
-            AddEntryType(
-            new EntryType(
-            "inproceedings",
-            new string[] { "author", "title", "booktitle", "year" },
-            new string[] { "editor", "pages", "organization", "publisher", "address", "month", "note" }
-            ));
-
-            AddEntryType(
-            new EntryType(
-            "manual",
-            new string[] { "title" },
-            new string[] { "author", "organization", "address", "edition", "year", "month", "note" }
-            ));
-
-            AddEntryType(
-            new EntryType(
-            "mastersthesis",
-            new string[] { "author", "title", "school", "year" },
-            new string[] { "address", "month", "note" }
-            ));
-
-            AddEntryType(
-            new EntryType(
-            "misc",
-            new string[] { },
-            new string[] { "title", "author", "year", "DOI", "PMID" }
-            ));
-
-            AddEntryType(
-            new EntryType(
-            "phdthesis",
-            new string[] { "author", "title", "school", "year" },
-            new string[] { "address", "month", "note" }
-            ));
-
-            AddEntryType(
-            new EntryType(
-            "proceedings",
-            new string[] { "title", "year" },
-            new string[] { "editor", "publisher", "organization", "address", "month", "note" }
-            ));
-
-            AddEntryType(
-            new EntryType(
-            "techreport",
-            new string[] { "author", "title", "institution", "year" },
-            new string[] { "type", "number", "address", "month", "note" }
-            ));
-
-            AddEntryType(
-            new EntryType(
-            "unpublished",
-            new string[] { "author", "title", "note" },
-            new string[] { "year", "month" }
-            ));
-
-            AddEntryType(
-            new EntryType(
-            "webpage",
-            new string[] { "title", "URL" },
-            new string[] { "accessed" }
-            ));
-
-            AddEntryType(
-            new EntryType(
-            "legal_case",
-            new string[] { "title", "volume", "page", "locator", "container-title", "year" },
-            new string[] {  }
-            ));
-
-
+            // see if the 'common denominator' entry has been defined in there. 
+            // IFF it's not, we add it on the spot and barge on.
+            if (!entry_types.ContainsKey("misc"))
+            {
+                AddEntryType(
+                new EntryType(
+                "misc",
+                null,
+                new string[] { "title", "author", "year", "DOI", "PMID" }
+                ));
+            }
         }
 
-        // Dont forget to add these CSL types
-        // "article", "article-magazine", "article-newspaper", "article-journal", "bill", "book", "broadcast", "chapter", "entry", "entry-dictionary", "entry-encyclopedia", "figure", "graphic", "interview", "legislation", "legal_case", "manuscript", "map", "motion_picture", "musical_score", "pamphlet", "paper-conference", "patent", "post", "post-weblog", "personal_communication", "report", "review", "review-book", "song", "speech", "thesis", "treaty", "webpage"
+        // Dont forget to add these CSL types:
+        //
+        // "article", "article-magazine", "article-newspaper", "article-journal", "bill", 
+        // "book", "broadcast", "chapter", "entry", "entry-dictionary", "entry-encyclopedia", 
+        // "figure", "graphic", "interview", "legislation", "legal_case", "manuscript", "map", 
+        // "motion_picture", "musical_score", "pamphlet", "paper-conference", "patent", "post", 
+        // "post-weblog", "personal_communication", "report", "review", "review-book", "song", 
+        // "speech", "thesis", "treaty", "webpage"
+        // + 
+        // "datasheet", "application-note"
+
 
         private List<string> entry_type_list = null;
         public List<string> EntryTypeList
@@ -213,5 +174,14 @@ namespace Utilities.BibTex
                 return entry_types["misc"];
             }            
         }
+
+        private static string EntryTypesDefinitionFilename
+        {
+            get
+            {
+                return System.Windows.Forms.Application.StartupPath + @"\BibTeX\qiqqa-entry-type-definitions.json";
+            }
+        }
+
     }
 }

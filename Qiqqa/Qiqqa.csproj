@@ -1948,6 +1948,9 @@
     <None Include="The Qiqqa Manual.pptx" />
     <None Include="The Qiqqa Manual.todo.docx" />
     <Resource Include="Expedition\Thoughts.txt" />
+    <Content Include="BibTeX\qiqqa-entry-type-definitions.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="InCite\CSLEditorStuff\SampleBibTeX.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
