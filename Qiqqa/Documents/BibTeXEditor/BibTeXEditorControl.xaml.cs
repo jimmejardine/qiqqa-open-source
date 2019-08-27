@@ -224,7 +224,7 @@ namespace Qiqqa.Documents.BibTeXEditor
             if (rebuilding_grid) return;
 
             BibTexItem bibtex_item = new BibTexItem();
-            bibtex_item.Type = (string)ComboRecordType.Text;
+            bibtex_item.Type = ComboRecordType.Text;
             bibtex_item.Key = TxtRecordKey.Text;
 
             foreach (object child_obj in ObjBibTeXGrid.Children)
@@ -260,7 +260,7 @@ namespace Qiqqa.Documents.BibTeXEditor
             }
 
             // Update the bibtex field
-            updating_from_grid = true && !do_reparse;
+            updating_from_grid = !do_reparse;
             BibTeX = bibtex;
             updating_from_grid = false;
         }
@@ -282,7 +282,6 @@ namespace Qiqqa.Documents.BibTeXEditor
         {
             if (updating_from_grid) return;
 
-            {
                 // Refill the headers
                 rebuilding_grid = true;
                 ComboRecordType.Text = bibtex_item.Type;
@@ -380,7 +379,6 @@ namespace Qiqqa.Documents.BibTeXEditor
                     BuildGridFromBibTeX_AddGridPair(row, "", "", true, false);
                     ++row;
                 }
-            }
         }
 
         private void BuildGridFromBibTeX_AddGridPair(int row, string key, string value, bool isEditableKey, bool isBoldKey)
