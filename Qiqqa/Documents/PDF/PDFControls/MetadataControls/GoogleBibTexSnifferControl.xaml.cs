@@ -225,13 +225,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
             PDFRendererControlArea.ToolTip = "This is the current PDF that has no BibTeX associated with it.  You can select text from the PDF to automatically search for that text.";
             ObjWebBrowser.ToolTip = "Use this browser to hunt for BibTeX of PubMed XML.  As soon as you find some, it will automatically be associated with your PDF.";
-            TxtBibTeX.ToolTip = "This is the BibTeX that is currently associated with the displayed PDF.\nFeel free to edit this or replace it with a # if there is no BibTeX for this record and you do not want the Sniffer to keep prompting you for some...";
+            ObjBibTeXEditorControl.ToolTip = "This is the BibTeX that is currently associated with the displayed PDF.\nFeel free to edit this or replace it with a # if there is no BibTeX for this record and you do not want the Sniffer to keep prompting you for some...";
 
             HyperlinkBibTeXLinksMissing.Click += HyperlinkBibTeXLinksMissing_Click;
 
             Webcasts.FormatWebcastButton(ButtonWebcast, Webcasts.BIBTEX_SNIFFER);
 
-            TxtBibTeX.TextChanged += TxtBibTeX_TextChanged;
+            //ObjBibTeXEditorControl.TextChanged += TxtBibTeX_TextChanged;
 
             // Navigate to GS in a bid to not have the first .bib prompt for download
             ObjWebBrowser.DefaultWebSearcherKey = WebSearchers.SCHOLAR_KEY;
@@ -256,7 +256,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         void TxtBibTeX_TextChanged(object sender, TextChangedEventArgs e)
         {
-            TxtBibTeX.Background = null;
+            ObjBibTeXEditorControl.Background = null;
 
             if (null == pdf_document) return;
 
@@ -267,7 +267,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                 PDFSearchResultSet search_result_set;
                 if (BibTeXGoodnessOfFitEstimator.DoesBibTeXMatchDocument(bibtex, pdf_document, out search_result_set))
                 {
-                    TxtBibTeX.Background = Brushes.LightGreen;
+                    ObjBibTeXEditorControl.Background = Brushes.LightGreen;
                     // ReflectPDFDocument(string search_terms)?
                     if (null != pdf_renderer_control)
                     {
@@ -419,9 +419,15 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
         {
             if (null != pdf_document && null != pdf_document.BibTex)
             {
-                pdf_document.BibTex = pdf_document.BibTex.Replace(BibTeXActionComments.AUTO_GS, "");
-                pdf_document.BibTex = pdf_document.BibTex.Replace(BibTeXActionComments.AUTO_BIBTEXSEARCH, "");
-                pdf_document.BibTex = pdf_document.BibTex.Trim();
+                pdf_document.BibTex = pdf_document.BibTex
+                    .Replace(BibTeXActionComments.AUTO_GS, "")
+                    .Replace(BibTeXActionComments.AUTO_BIBTEXSEARCH, "")
+                    .Trim();
+                pdf_document.BibTex =
+                    BibTeXActionComments.USER_VETTED
+                    + "\r\n"
+                    + pdf_document.BibTex;
+
                 pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.BibTex);
             }
 
@@ -489,10 +495,18 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
                 if (!String.IsNullOrEmpty(pdf_document.BibTex))
                 {
-                    if (search_options.Auto && pdf_document.BibTex.Contains(BibTeXActionComments.AUTO_BIBTEXSEARCH)) include_in_search_pool = true;
-                    if (search_options.Auto && pdf_document.BibTex.Contains(BibTeXActionComments.AUTO_GS)) include_in_search_pool = true;
-                    if (search_options.Skipped && pdf_document.BibTex.Contains(BibTeXActionComments.SKIP)) include_in_search_pool = true;
-                    if (search_options.Manual && !pdf_document.BibTex.Contains(BibTeXActionComments.AUTO_BIBTEXSEARCH) && !pdf_document.BibTex.Contains(BibTeXActionComments.AUTO_GS)) include_in_search_pool = true;
+                    if (search_options.Auto)
+                        include_in_search_pool = (
+                            pdf_document.BibTex.Contains(BibTeXActionComments.AUTO_BIBTEXSEARCH) 
+                            || pdf_document.BibTex.Contains(BibTeXActionComments.AUTO_GS)
+                            );
+                    else if (search_options.Skipped)
+                        include_in_search_pool = pdf_document.BibTex.Contains(BibTeXActionComments.SKIP);
+                    else if (search_options.Manual)
+                        include_in_search_pool = (
+                            !pdf_document.BibTex.Contains(BibTeXActionComments.AUTO_BIBTEXSEARCH) 
+                            && !pdf_document.BibTex.Contains(BibTeXActionComments.AUTO_GS) 
+                            && !pdf_document.BibTex.Contains(BibTeXActionComments.SKIP));
                 }
 
                 // apply subselections:
