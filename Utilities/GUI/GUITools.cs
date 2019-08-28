@@ -88,11 +88,10 @@ namespace Utilities.GUI
         {
             try
             {
-                listview.UpdateLayout();
-
-                //if (!double.IsNaN(listview.Height))
                 if (listview.IsVisible)
                 {
+                    listview.UpdateLayout();
+
                     // you MAY encounter this crash:
                     // System.ArgumentOutOfRangeException: 'Specified index is out of range or child at index is null. 
                     // Do not call this method if VisualChildrenCount returns zero, indicating that the Visual 
