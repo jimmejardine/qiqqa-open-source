@@ -763,7 +763,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             try
             {
                 uri = ObjWebBrowser.CurrentUri.AbsoluteUri;
-                if (uri.Contains(".pdf"))
+                // we also need to fetch nasty URIs like these ones:
+                //
+                //    http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.49.6383&rep=rep1&type=pdf
+                //    https://digitalcommons.unl.edu/cgi/viewcontent.cgi?article=1130&context=cseconfwork
+				//
+                // hence we don't care about the exact extension '.pdf' but merely if it MIGHT be a PDF....
+                if (true) 			// if (uri.Contains(".pdf"))
                 {
                     // fetch the PDF!
                     ImportingIntoLibrary.AddNewDocumentToLibraryFromInternet_ASYNCHRONOUS(CurrentLibrary, uri);
@@ -829,7 +835,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                     }
                 }
 
-                // Otherwise lets try parse the page cos it might be a google scholar page and if so we are going to want to try to get the first link to BibTeX
+                // Otherwise let's try parse the page cos it might be a google scholar page 
+                // and if so we are going to want to try to get the first link to BibTeX
                 if (ConfigurationManager.Instance.ConfigurationRecord.Metadata_UseBibTeXSnifferWizard)
                 {
                     // Only do this automatically if there is not already bibtex in the record
