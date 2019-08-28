@@ -367,7 +367,7 @@ namespace Qiqqa.WebBrowsing
 
             FeatureTrackingManager.Instance.UseFeature(Features.Web_AddToLibrary);
 
-            string url = CurrentUri.ToString();
+            string url = CurrentUri.AbsoluteUri;
 
             Library lib = CurrentLibrary;
             if (null != lib)
@@ -600,7 +600,7 @@ namespace Qiqqa.WebBrowsing
                 {
                     foreach (Uri uri in uris)
                     {
-                        ImportingIntoLibrary.AddNewDocumentToLibraryFromInternet_ASYNCHRONOUS(lib, uri.ToString());
+                        ImportingIntoLibrary.AddNewDocumentToLibraryFromInternet_ASYNCHRONOUS(lib, uri.AbsoluteUri);
                     }
                 }
                 else
