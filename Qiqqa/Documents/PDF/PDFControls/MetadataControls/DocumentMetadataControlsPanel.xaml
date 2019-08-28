@@ -64,7 +64,7 @@
 
         <DockPanel Name="TabPreview">
 
-          <local_gui:AugmentedInfoBarItemControl Header="Tweet This" Name="ObjTweetBar" Collapsed="False" DockPanel.Dock="Top">
+          <local_gui:AugmentedInfoBarItemControl Header="Tweet This" Name="ObjTweetBar" Collapsed="True" DockPanel.Dock="Top">
             <local_metadata:TweetControl Height="50"/>
           </local_gui:AugmentedInfoBarItemControl>
 
