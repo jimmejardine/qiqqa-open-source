@@ -18,6 +18,10 @@
       </StackPanel>
     </Grid>
 
-    <local_bibtex:BibTeXEditorControl x:Name="ObjBibTeXEditorControl" BibTeX="{Binding BibTex, Mode=TwoWay}"/>    
+	<ScrollViewer>
+	  <StackPanel>
+		<local_bibtex:BibTeXEditorControl x:Name="ObjBibTeXEditorControl" BibTeX="{Binding BibTex, Mode=TwoWay}"/>
+	  </StackPanel>
+	</ScrollViewer>
   </DockPanel>
 </commongui:StandardWindow>
