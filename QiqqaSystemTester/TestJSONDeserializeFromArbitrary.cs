@@ -1,30 +1,31 @@
 ﻿using Newtonsoft.Json;
-using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace QiqqaUnitTester
+namespace QiqqaSystemTester
 {
+    [TestClass]
     class TestJSONDeserializeFromArbitrary
     {
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
         }
 
-        [Test]
+        [TestMethod]
         public void DeserializeWhenMissingProperties()
         {
             //configuration_record = JsonConvert.DeserializeObject<ConfigurationRecord>(input);
-            Assert.Pass();
+            Assert.IsTrue(true);
         }
 
-        [Test]
+        [TestMethod]
         public void DeserializeWithSurplusProperties()
         {
             //configuration_record = JsonConvert.DeserializeObject<ConfigurationRecord>(input);
-            Assert.Pass();
+            Assert.IsTrue(true);
         }
     }
 
