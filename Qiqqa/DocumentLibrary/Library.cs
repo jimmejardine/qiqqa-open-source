@@ -124,10 +124,15 @@ namespace Qiqqa.DocumentLibrary
         Dictionary<string, PDFDocument> pdf_documents = new Dictionary<string, PDFDocument>();
         private object pdf_documents_lock = new object();
 
+        public delegate void OnLibraryLoadedHandler(Library library);
+
         // Move this somewhere nice...
         public bool sync_in_progress = false;
         private bool library_is_loaded = false;
         private object library_is_loaded_lock = new object();
+
+        public event OnLibraryLoadedHandler OnLibraryLoaded;
+
         public bool LibraryIsLoaded
         {
             get
@@ -153,6 +158,7 @@ namespace Qiqqa.DocumentLibrary
                 lock (last_pdf_add_time_lock)
                 {
                     l1_clk.LockPerfTimerStop();
+                    // heuristic; give OCR process et al some time to breathe
                     return DateTime.UtcNow.Subtract(last_pdf_add_time).TotalSeconds < 3;
                 }
             }
@@ -177,7 +183,7 @@ namespace Qiqqa.DocumentLibrary
             this.password_manager = new PasswordManager(this);
             this.expedition_manager = new ExpeditionManager(this);
 
-            // Start loading the documents in the backround...
+            // Start loading the documents in the background...
             SafeThreadPool.QueueUserWorkItem(o => BuildFromDocumentRepository());
         }
 
@@ -203,6 +209,10 @@ namespace Qiqqa.DocumentLibrary
             this.library_db = null;
         }
 
+        // NOTE: this function is executed ASYNCHRONOUSLY. 
+        // 
+        // Once completed, an event will be fired to
+        // help the main application update any relevant views.
         void BuildFromDocumentRepository()
         {
             try
@@ -241,9 +251,11 @@ namespace Qiqqa.DocumentLibrary
                     elapsed = clk.ElapsedMilliseconds;
                     if (prev_clk + 1000 <= elapsed)
                     {
-                        StatusManager.Instance.UpdateStatus("LibraryInitialLoad", "Loading your library", i, library_items.Count);
+                        StatusManager.Instance.UpdateStatus("LibraryInitialLoad", String.Format("Loading your library '{0}'", this.WebLibraryDetail.DescriptiveTitle), i, library_items.Count);
                         Logging.Info("Library '{2}': Loaded {0}/{1} documents", i, library_items.Count, this.WebLibraryDetail.DescriptiveTitle);
                         prev_clk = elapsed;
+
+                        System.Threading.Thread.Yield();
                     }
 
                     try
@@ -272,6 +284,9 @@ namespace Qiqqa.DocumentLibrary
                     l1_clk.LockPerfTimerStop();
                     library_is_loaded = true;
                 }
+
+                // fire the event ASYNC
+                OnLibraryLoaded?.BeginInvoke(this, null, null);
             }
         }
 
