@@ -179,9 +179,8 @@ namespace Utilities.BibTex
         {
             get
             {
-                return System.Windows.Forms.Application.StartupPath + @"\BibTeX\qiqqa-entry-type-definitions.json";
+                return UnitTestDetector.StartupDirectoryForQiqqa + @"\BibTeX\qiqqa-entry-type-definitions.json";
             }
         }
-
     }
 }

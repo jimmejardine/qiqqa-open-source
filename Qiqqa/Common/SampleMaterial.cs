@@ -4,6 +4,6 @@ namespace Qiqqa.Common
 {
     public class SampleMaterial
     {
-        public static readonly string Brainstorm = Application.StartupPath + "/SampleMaterial/FinanceSample.brain";
+        public static readonly string Brainstorm = Configuration.ConfigurationManager.Instance.StartupDirectoryForQiqqa + @"SampleMaterial/FinanceSample.brain";
     }
 }

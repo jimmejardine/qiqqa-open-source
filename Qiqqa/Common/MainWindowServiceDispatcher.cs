@@ -463,7 +463,7 @@ namespace Qiqqa.Common
 
         internal void OpenLicensesDirectory()
         {
-            Process.Start(Application.StartupPath + @"\licenses");
+            Process.Start(ConfigurationManager.Instance.StartupDirectoryForQiqqa + @"licenses");
         }
 
         

@@ -18,5 +18,9 @@ QiqqaToolBench/bin/*
 QiqqaToolBench/obj/*
 QiqqaUnitTester/bin/*
 QiqqaUnitTester/obj/*
+QiqqaSystemTester/bin/*
+QiqqaSystemTester/obj/*
+QiqqaTestHelpers/bin/*
+QiqqaTestHelpers/obj/*
 QiqqaVersionMigrator/bin/*
 QiqqaVersionMigrator/obj/*

@@ -9,6 +9,18 @@ using Utilities.Files;
 
 namespace Qiqqa.DocumentLibrary
 {
+    public static class DBAccessLock
+    {
+        //
+        // This lock doesn't solve the lockup-on-connect() issues I'm having, but we keep it for 
+        // safety's sake - better safe than sorry. I suspect we're suffering from
+        // https://stackoverflow.com/questions/12532729/sqlite-keeps-the-database-locked-even-after-the-connection-is-closed
+        // (Note that the *explicit* Close() call inside those `using (...)` blocks seems to alleviate
+        // matters quite a bit, but isn't the end-all as lockup is still happening, though rarely.
+        // 
+        public static object db_access_lock = new object();
+    }
+
     public class LibraryDB
     {
         string base_path;
@@ -88,36 +100,59 @@ namespace Qiqqa.DocumentLibrary
             // Calculate the MD5 of this blobbiiiieeeeee
             string md5 = StreamMD5.FromBytes(data);
 
-            using (var connection = GetConnection())
+            lock (DBAccessLock.db_access_lock)
             {
-                connection.Open();
-
-                bool managed_update = false;
-
-                using (var command = new SQLiteCommand("UPDATE LibraryItem SET MD5=@md5, DATA=@data WHERE fingerprint=@fingerprint AND extension=@extension", connection))
+                using (var connection = GetConnection())
                 {
-                    command.Parameters.AddWithValue("@md5", md5);
-                    command.Parameters.AddWithValue("@data", data);
-                    command.Parameters.AddWithValue("@fingerprint", fingerprint);
-                    command.Parameters.AddWithValue("@extension", extension);
-                    int num_rows_updated = command.ExecuteNonQuery();
-                    if (1 == num_rows_updated)
+                    connection.Open();
+                    using (var transaction = connection.BeginTransaction())
                     {
-                        managed_update = true;
+                        bool managed_update = false;
+
+                        using (var command = new SQLiteCommand("UPDATE LibraryItem SET MD5=@md5, DATA=@data WHERE fingerprint=@fingerprint AND extension=@extension", connection))
+                        {
+                            command.Parameters.AddWithValue("@md5", md5);
+                            command.Parameters.AddWithValue("@data", data);
+                            command.Parameters.AddWithValue("@fingerprint", fingerprint);
+                            command.Parameters.AddWithValue("@extension", extension);
+                            int num_rows_updated = command.ExecuteNonQuery();
+                            if (1 == num_rows_updated)
+                            {
+                                managed_update = true;
+                            }
+                        }
+
+                        if (!managed_update)
+                        {
+                            using (var command = new SQLiteCommand("INSERT INTO LibraryItem(fingerprint, extension, md5, data) VALUES(@fingerprint, @extension, @md5, @data)", connection))
+                            {
+                                command.Parameters.AddWithValue("@fingerprint", fingerprint);
+                                command.Parameters.AddWithValue("@extension", extension);
+                                command.Parameters.AddWithValue("@md5", md5);
+                                command.Parameters.AddWithValue("@data", data);
+                                command.ExecuteNonQuery();
+                            }
+                        }
+
+                        transaction.Commit();
                     }
+                    connection.Close();
                 }
 
-                if (!managed_update)
-                {
-                    using (var command = new SQLiteCommand("INSERT INTO LibraryItem(fingerprint, extension, md5, data) VALUES(@fingerprint, @extension, @md5, @data)", connection))
-                    {
-                        command.Parameters.AddWithValue("@fingerprint", fingerprint);
-                        command.Parameters.AddWithValue("@extension", extension);
-                        command.Parameters.AddWithValue("@md5", md5);
-                        command.Parameters.AddWithValue("@data", data);
-                        command.ExecuteNonQuery();
-                    }
-                }
+                //
+                // see SO link above at the `DBAccessLock.db_access_lock` declaration.
+                //
+                // We keep this *inside* the critical section so that we know we'll be the only active SQLite
+                // action which just transpired.
+                // *This* is also the reason why I went with a *global* lock (singeton) for *all* databases,
+                // even while *theoretically* this is *wrong* or rather: *unneccessary* as the databases
+                // i.e. Qiqqa Libraries shouldn't bite one another. I, however, need to ensure that the
+                // added `System.Data.SQLite.SQLiteConnection.ClearAllPools();` statements don't foul up
+                // matters in another library while lib A I/O is getting cleaned up.
+                //
+                // In short: Yuck. + Cave canem.
+                //
+                SQLiteConnection.ClearAllPools();
             }
         }
 
@@ -146,7 +181,7 @@ namespace Qiqqa.DocumentLibrary
             if (0 == items.Count)
             {
                 throw new Exception(String.Format("We were expecting one item matching {0}.{1} but found none.", fingerprint, extension));
-            }            
+            }
             if (1 != items.Count)
             {
                 throw new Exception(String.Format("We were expecting only one item matching {0}.{1}", fingerprint, extension));
@@ -169,53 +204,77 @@ namespace Qiqqa.DocumentLibrary
 
             return library_items_annotations_cache;
         }
-        
-        
+
+
         public List<LibraryItem> GetLibraryItems(string fingerprint, string extension, int MaxRecordCount = 0)
         {
             List<LibraryItem> results = new List<LibraryItem>();
 
-            using (var connection = GetConnection())
+            lock (DBAccessLock.db_access_lock)
             {
-                connection.Open();
-
-                string command_string = "SELECT fingerprint, extension, md5, data FROM LibraryItem WHERE 1=1 ";
-                command_string += turnArgumentIntoQueryPart("fingerprint", fingerprint);
-                command_string += turnArgumentIntoQueryPart("extension", extension);
-                if (MaxRecordCount > 0)
+                using (var connection = GetConnection())
                 {
-                    // http://www.sqlitetutorial.net/sqlite-limit/
-                    command_string += " LIMIT @maxnum";
-                }
+                    connection.Open();
 
-                using (var command = new SQLiteCommand(command_string, connection))
-                {
-                    turnArgumentIntoQueryParameter(command, "fingerprint", fingerprint);
-                    turnArgumentIntoQueryParameter(command, "extension", extension);
+                    string command_string = "SELECT fingerprint, extension, md5, data FROM LibraryItem WHERE 1=1 ";
+                    command_string += turnArgumentIntoQueryPart("fingerprint", fingerprint);
+                    command_string += turnArgumentIntoQueryPart("extension", extension);
                     if (MaxRecordCount > 0)
                     {
-                        command.Parameters.AddWithValue("@maxnum", MaxRecordCount);
+                        // http://www.sqlitetutorial.net/sqlite-limit/
+                        command_string += " LIMIT @maxnum";
                     }
 
-                    SQLiteDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
+                    using (var command = new SQLiteCommand(command_string, connection))
                     {
-                        LibraryItem result = new LibraryItem();
-                        results.Add(result);
-
-                        result.fingerprint = reader.GetString(0);
-                        result.extension = reader.GetString(1);
-                        result.md5 = reader.GetString(2);
-
-                        long total_bytes = reader.GetBytes(3, 0, null, 0, 0);
-                        result.data = new byte[total_bytes];
-                        long total_bytes2 = reader.GetBytes(3, 0, result.data, 0, (int)total_bytes);
-                        if (total_bytes != total_bytes2)
+                        turnArgumentIntoQueryParameter(command, "fingerprint", fingerprint);
+                        turnArgumentIntoQueryParameter(command, "extension", extension);
+                        if (MaxRecordCount > 0)
                         {
-                            throw new Exception("Error reading blob - blob size different on each occasion.");
+                            command.Parameters.AddWithValue("@maxnum", MaxRecordCount);
+                        }
+
+                        using (SQLiteDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                LibraryItem result = new LibraryItem();
+                                results.Add(result);
+
+                                result.fingerprint = reader.GetString(0);
+                                result.extension = reader.GetString(1);
+                                result.md5 = reader.GetString(2);
+
+                                long total_bytes = reader.GetBytes(3, 0, null, 0, 0);
+                                result.data = new byte[total_bytes];
+                                long total_bytes2 = reader.GetBytes(3, 0, result.data, 0, (int)total_bytes);
+                                if (total_bytes != total_bytes2)
+                                {
+                                    throw new Exception("Error reading blob - blob size different on each occasion.");
+                                }
+                            }
+
+                            reader.Close();
                         }
                     }
+
+                    connection.Close();
                 }
+
+                //
+                // see SO link above at the `DBAccessLock.db_access_lock` declaration.
+                //
+                // We keep this *inside* the critical section so that we know we'll be the only active SQLite
+                // action which just transpired.
+                // *This* is also the reason why I went with a *global* lock (singeton) for *all* databases,
+                // even while *theoretically* this is *wrong* or rather: *unneccessary* as the databases
+                // i.e. Qiqqa Libraries shouldn't bite one another. I, however, need to ensure that the
+                // added `System.Data.SQLite.SQLiteConnection.ClearAllPools();` statements don't foul up
+                // matters in another library while lib A I/O is getting cleaned up.
+                //
+                // In short: Yuck. + Cave canem.
+                //
+                SQLiteConnection.ClearAllPools();
             }
 
             return results;

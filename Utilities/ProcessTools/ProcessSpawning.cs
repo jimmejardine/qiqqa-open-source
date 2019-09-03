@@ -20,7 +20,7 @@ namespace Utilities.ProcessTools
             process_start_info.RedirectStandardInput = true;
             process_start_info.RedirectStandardOutput = true;
             process_start_info.UseShellExecute = false;
-            process_start_info.WorkingDirectory = Application.StartupPath;
+            process_start_info.WorkingDirectory = UnitTestDetector.StartupDirectoryForQiqqa; // Application.StartupPath;
             process_start_info.FileName = executable_filename;
             process_start_info.CreateNoWindow = true;
             process_start_info.Arguments = process_parameters;

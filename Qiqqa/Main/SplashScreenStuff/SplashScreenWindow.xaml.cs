@@ -15,7 +15,7 @@ namespace Qiqqa.Main.SplashScreenStuff
     {
         public static BitmapImage GetSplashImage()
         {
-            string image_filename = Application.StartupPath + @"\Qiqqa.jpg";
+            string image_filename = Common.Configuration.ConfigurationManager.Instance.StartupDirectoryForQiqqa + @"Qiqqa.jpg";
             BitmapImage bi = new BitmapImage();
             bi.BeginInit();
             bi.StreamSource = new MemoryStream(File.ReadAllBytes(image_filename));

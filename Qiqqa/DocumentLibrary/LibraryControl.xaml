@@ -31,6 +31,7 @@
               <local_gui:AugmentedToolBarButton x:Name="ButtonWatchFolder"  CaptionDock="Right" />
               <local_gui:AugmentedToolBarButton x:Name="ButtonImportFromThirdParty"  CaptionDock="Right" />
               <local_gui:AugmentedToolBarButton x:Name="ButtonAddDocumentsFromLibrary"  CaptionDock="Right" />
+              <local_gui:AugmentedToolBarButton x:Name="ButtonAddMissingDocumentsFromSelf"  CaptionDock="Right" />
             </StackPanel>
           </local_gui:AugmentedToolBarPopup>
 
@@ -65,7 +66,6 @@
           
           <local_gui:AugmentedToolBarButton x:Name="ButtonGenerateReferences" />
           <local_gui:AugmentedToolBarButton x:Name="ButtonFindDuplicates" />
-
 
           <local_gui:AugmentedSpacer />
 
