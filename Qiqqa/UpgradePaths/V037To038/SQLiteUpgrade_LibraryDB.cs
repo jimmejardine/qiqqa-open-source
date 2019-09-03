@@ -29,7 +29,7 @@ namespace Qiqqa.UpgradePaths.V037To038
         {
             get
             {
-                return Application.StartupPath + @"\";
+                return Common.Configuration.ConfigurationManager.Instance.StartupDirectoryForQiqqa;
             }
         }
 
