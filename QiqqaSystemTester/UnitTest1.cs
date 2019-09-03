@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using QiqqaTestHelpers;
 
 // https://www.automatetheplanet.com/mstest-cheat-sheet/
 
@@ -53,7 +54,7 @@ namespace QiqqaSystemTester
         [TestMethod]
         public void TestMethod1()
         {
-            Assert.IsTrue(true);
+            ASSERT.IsTrue(true);
         }
     }
 }

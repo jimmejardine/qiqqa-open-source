@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+using QiqqaTestHelpers;
 using Utilities.BibTex;
 
 namespace QiqqaSystemTester
 {
     [TestClass]
-    class TestBibTeX
+    public class TestBibTeX
     {
         [TestInitialize]
         public void Setup()
@@ -18,14 +18,14 @@ namespace QiqqaSystemTester
         [TestMethod]
         public void Test1()
         {
-            Assert.IsTrue(true);
+            ASSERT.IsTrue(true);
         }
 
         [TestMethod]
         public void Test2()
         {
             //            throw new Exception("bugger");
-            Assert.IsTrue(true);
+            ASSERT.IsTrue(true);
         }
 
         [TestMethod]
@@ -33,9 +33,10 @@ namespace QiqqaSystemTester
         {
             // force a load of the types.
             EntryTypes.ResetForTesting();
-            EntryTypes t = Utilities.BibTex.EntryTypes.Instance;
-            Assert.IsNotNull(t);
-            Assert.IsTrue(t.FieldTypeList.Count >= 18, "expected to load a full set of BibTeX entry type specs");
+            EntryTypes t = EntryTypes.Instance;
+            ASSERT.IsNotNull(t);
+            ASSERT.IsGreaterOrEqual(t.EntryTypeList.Count, 17, "expected to load a full set of BibTeX entry type specs");
+            ASSERT.IsGreaterOrEqual(t.FieldTypeList.Count, 28, "expected to load a full set of BibTeX field types");
         }
     }
 }
