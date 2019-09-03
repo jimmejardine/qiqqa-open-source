@@ -83,7 +83,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         private readonly Library library;
         private readonly AugmentedBindable<Context> bindable;
 
-        public ImportFromFolder(Library library)  : this(library, null)
+        public ImportFromFolder(Library library) : this(library, null)
         {
         }
 
@@ -159,6 +159,4 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             }
         }
     }
-
-
 }

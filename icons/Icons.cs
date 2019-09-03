@@ -199,6 +199,7 @@ namespace icons
         public const string DocumentsWatchFolder = "DocumentsWatchFolder";
         public const string DocumentsAddToLibraryFromLibrary = "DocumentsAddToLibraryFromLibrary";        
         public const string DocumentsImportFromThirdParty = "DocumentsImportFromThirdParty";
+        public const string DocumentsAddMissingFromSelf = "DocumentsAddMissingFromSelf";
         public const string DocumentsInvertColours = "DocumentsInvertColours";
         public const string DocumentSave = "DocumentSave";
         public const string DocumentMisc = "DocumentMisc";        

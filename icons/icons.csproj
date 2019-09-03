@@ -1024,6 +1024,7 @@
     <Resource Include="Application\QiqqaWeb.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Application\DocumentsAddMissingFromSelf.png" />
     <Content Include="License.htm" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
