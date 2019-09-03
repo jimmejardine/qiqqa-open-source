@@ -7,6 +7,17 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("QiqqaOCR")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Build and Revision Numbers 
+// by using the '*' as shown below:
+// [assembly: AssemblyVersion("1.0.*")]
+[assembly: AssemblyVersion("81.0.*")]
 [assembly: AssemblyCompany("Quantisle")]
 [assembly: AssemblyProduct("QiqqaOCR")]
 [assembly: AssemblyCopyright("Copyright © Quantisle 2010-2019.  All rights reserved.")]
@@ -21,15 +32,3 @@ using System.Runtime.InteropServices;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("8fe84539-780e-481c-b169-ec21fa65d4a8")]
 
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Build and Revision Numbers 
-// by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
