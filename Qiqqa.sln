@@ -223,6 +223,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QiqqaPackager", "QiqqaPacka
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QiqqaSystemTester", "QiqqaSystemTester\QiqqaSystemTester.csproj", "{6DE7789D-8AE8-42AB-992C-82399BB327AD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QiqqaTestHelpers", "QiqqaTestHelpers\QiqqaTestHelpers.csproj", "{5AD02BA6-4BC7-4265-81CD-EA39F67311EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -333,6 +335,18 @@ Global
 		{6DE7789D-8AE8-42AB-992C-82399BB327AD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{6DE7789D-8AE8-42AB-992C-82399BB327AD}.Release|x86.ActiveCfg = Release|Any CPU
 		{6DE7789D-8AE8-42AB-992C-82399BB327AD}.Release|x86.Build.0 = Release|Any CPU
+		{5AD02BA6-4BC7-4265-81CD-EA39F67311EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AD02BA6-4BC7-4265-81CD-EA39F67311EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AD02BA6-4BC7-4265-81CD-EA39F67311EE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{5AD02BA6-4BC7-4265-81CD-EA39F67311EE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{5AD02BA6-4BC7-4265-81CD-EA39F67311EE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5AD02BA6-4BC7-4265-81CD-EA39F67311EE}.Debug|x86.Build.0 = Debug|Any CPU
+		{5AD02BA6-4BC7-4265-81CD-EA39F67311EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AD02BA6-4BC7-4265-81CD-EA39F67311EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AD02BA6-4BC7-4265-81CD-EA39F67311EE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{5AD02BA6-4BC7-4265-81CD-EA39F67311EE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{5AD02BA6-4BC7-4265-81CD-EA39F67311EE}.Release|x86.ActiveCfg = Release|Any CPU
+		{5AD02BA6-4BC7-4265-81CD-EA39F67311EE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -3,11 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using QiqqaTestHelpers;
 
 namespace QiqqaSystemTester
 {
     [TestClass]
-    class TestJSONDeserializeFromArbitrary
+    public class TestJSONDeserializeFromArbitrary
     {
         [TestInitialize]
         public void Setup()
@@ -18,14 +19,14 @@ namespace QiqqaSystemTester
         public void DeserializeWhenMissingProperties()
         {
             //configuration_record = JsonConvert.DeserializeObject<ConfigurationRecord>(input);
-            Assert.IsTrue(true);
+            ASSERT.IsTrue(true);
         }
 
         [TestMethod]
         public void DeserializeWithSurplusProperties()
         {
             //configuration_record = JsonConvert.DeserializeObject<ConfigurationRecord>(input);
-            Assert.IsTrue(true);
+            ASSERT.IsTrue(true);
         }
     }
 
