@@ -4,11 +4,20 @@ using System.Data.SQLite;
 using System.IO;
 using System.Text;
 using Qiqqa.Common.Configuration;
+using Qiqqa.DocumentLibrary;
 using Utilities;
 using Utilities.Files;
 
 namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
 {
+    //
+    // See ../LibraryDB.cs for the db_access_lock class and comments re the SQLite lockup issues.
+    //
+    // Also note that this source code file is a near *copy* of that source file: ../LibraryDB.cs !
+    //
+
+
+
     public class IntranetLibraryDB
     {
         string base_path;
@@ -33,6 +42,40 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
             return new SQLiteConnection("Pooling=True;Max Pool Size=3;Data Source=" + library_path);
         }
 
+        private static readonly char[] queryWildcards = { '*', '?', '%', '_' };
+
+        private string turnArgumentIntoQueryPart(string key, string value)
+        {
+            if (!String.IsNullOrWhiteSpace(value))
+            {
+                if (value.IndexOfAny(queryWildcards) >= 0)
+                {
+                    value = value
+                        .Replace('*', '%')
+                        .Replace('?', '_')
+                        // and for query safety:
+                        .Replace('\'', '_');
+                    return String.Format(" AND {0}='{1}'", key, value);
+                }
+                else
+                {
+                    return String.Format(" AND {0}=@{0}", key);
+                }
+            }
+            return "";
+        }
+
+        private void turnArgumentIntoQueryParameter(SQLiteCommand command, string key, string value)
+        {
+            if (!String.IsNullOrWhiteSpace(value))
+            {
+                if (value.IndexOfAny(queryWildcards) < 0)
+                {
+                    command.Parameters.AddWithValue("@" + key, value);
+                }
+            }
+        }
+
         public void PutString(string filename, string data)
         {
             byte[] data_bytes = Encoding.UTF8.GetBytes(data);
@@ -42,7 +85,7 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
         public void PutBlob(string filename, byte[] data)
         {
             // Guard
-            if (String.IsNullOrEmpty(filename))
+            if (String.IsNullOrWhiteSpace(filename))
             {
                 throw new Exception("Can't store in LibraryDB with null filename.");
             }
@@ -50,28 +93,47 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
             // Calculate the MD5 of this blobbiiiieeeeee
             string md5 = StreamMD5.FromBytes(data);
 
-            using (var connection = GetConnection())
+            lock (DBAccessLock.db_access_lock)
             {
-                connection.Open();
-                using (var transaction = connection.BeginTransaction())
+                using (var connection = GetConnection())
                 {
-                    using (var command = new SQLiteCommand("DELETE FROM LibraryItem WHERE filename=@filename", connection, transaction))
+                    connection.Open();
+                    using (var transaction = connection.BeginTransaction())
                     {
-                        command.Parameters.AddWithValue("@filename", filename);
-                        command.ExecuteNonQuery();
-                    }
+                        using (var command = new SQLiteCommand("DELETE FROM LibraryItem WHERE filename=@filename", connection, transaction))
+                        {
+                            command.Parameters.AddWithValue("@filename", filename);
+                            command.ExecuteNonQuery();
+                        }
 
-                    using (var command = new SQLiteCommand("INSERT INTO LibraryItem(filename, last_updated_by, md5, data) VALUES(@filename, @last_updated_by, @md5, @data)", connection, transaction))
-                    {
-                        command.Parameters.AddWithValue("@filename", filename);
-                        command.Parameters.AddWithValue("@last_updated_by", Environment.UserName);
-                        command.Parameters.AddWithValue("@md5", md5);
-                        command.Parameters.AddWithValue("@data", data);
-                        command.ExecuteNonQuery();
-                    }
+                        using (var command = new SQLiteCommand("INSERT INTO LibraryItem(filename, last_updated_by, md5, data) VALUES(@filename, @last_updated_by, @md5, @data)", connection, transaction))
+                        {
+                            command.Parameters.AddWithValue("@filename", filename);
+                            command.Parameters.AddWithValue("@last_updated_by", Environment.UserName);
+                            command.Parameters.AddWithValue("@md5", md5);
+                            command.Parameters.AddWithValue("@data", data);
+                            command.ExecuteNonQuery();
+                        }
 
-                    transaction.Commit();
+                        transaction.Commit();
+                    }
+                    connection.Close();
                 }
+
+                //
+                // see SO link in ../LibraryDB.cs at the `DBAccessLock.db_access_lock` declaration.
+                //
+                // We keep this *inside* the critical section so that we know we'll be the only active SQLite
+                // action which just transpired.
+                // *This* is also the reason why I went with a *global* lock (singeton) for *all* databases,
+                // even while *theoretically* this is *wrong* or rather: *unneccessary* as the databases
+                // i.e. Qiqqa Libraries shouldn't bite one another. I, however, need to ensure that the
+                // added `System.Data.SQLite.SQLiteConnection.ClearAllPools();` statements don't foul up
+                // matters in another library while lib A I/O is getting cleaned up.
+                //
+                // In short: Yuck. + Cave canem.
+                //
+                SQLiteConnection.ClearAllPools();
             }
         }
 
@@ -100,7 +162,7 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
             if (0 == items.Count)
             {
                 throw new Exception(String.Format("We were expecting one item matching {0} but found none.", filename));
-            }            
+            }
             if (1 != items.Count)
             {
                 throw new Exception(String.Format("We were expecting only one item matching {0}", filename));
@@ -113,36 +175,60 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
         {
             List<IntranetLibraryItem> results = new List<IntranetLibraryItem>();
 
-            using (var connection = GetConnection())
+            lock (DBAccessLock.db_access_lock)
             {
-                connection.Open();
-
-                string command_string = "SELECT filename, last_updated_by, md5, data FROM LibraryItem WHERE 1=1 ";
-                if (null != filename) command_string = command_string + " AND filename=@filename";
-
-                using (var command = new SQLiteCommand(command_string, connection))
+                using (var connection = GetConnection())
                 {
-                    if (null != filename) command.Parameters.AddWithValue("@filename", filename);
+                    connection.Open();
 
-                    SQLiteDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
+                    string command_string = "SELECT filename, last_updated_by, md5, data FROM LibraryItem WHERE 1=1 ";
+                    command_string += turnArgumentIntoQueryPart("filename", filename);
+
+                    using (var command = new SQLiteCommand(command_string, connection))
                     {
-                        IntranetLibraryItem result = new IntranetLibraryItem();
-                        results.Add(result);
+                        turnArgumentIntoQueryParameter(command, "filename", filename);
 
-                        result.filename = reader.GetString(0);
-                        result.last_updated_by = reader.GetString(1);
-                        result.md5 = reader.GetString(2);
-
-                        long total_bytes = reader.GetBytes(3, 0, null, 0, 0);
-                        result.data = new byte[total_bytes];
-                        long total_bytes2 = reader.GetBytes(3, 0, result.data, 0, (int)total_bytes);
-                        if (total_bytes != total_bytes2)
+                        using (SQLiteDataReader reader = command.ExecuteReader())
                         {
-                            throw new Exception("Error reading blob - blob size different on each occasion.");
+                            while (reader.Read())
+                            {
+                                IntranetLibraryItem result = new IntranetLibraryItem();
+                                results.Add(result);
+
+                                result.filename = reader.GetString(0);
+                                result.last_updated_by = reader.GetString(1);
+                                result.md5 = reader.GetString(2);
+
+                                long total_bytes = reader.GetBytes(3, 0, null, 0, 0);
+                                result.data = new byte[total_bytes];
+                                long total_bytes2 = reader.GetBytes(3, 0, result.data, 0, (int)total_bytes);
+                                if (total_bytes != total_bytes2)
+                                {
+                                    throw new Exception("Error reading blob - blob size different on each occasion.");
+                                }
+                            }
+
+                            reader.Close();
                         }
                     }
+
+                    connection.Close();
                 }
+
+                //
+                // see SO link above at the `DBAccessLock.db_access_lock` declaration.
+                //
+                // We keep this *inside* the critical section so that we know we'll be the only active SQLite
+                // action which just transpired.
+                // *This* is also the reason why I went with a *global* lock (singeton) for *all* databases,
+                // even while *theoretically* this is *wrong* or rather: *unneccessary* as the databases
+                // i.e. Qiqqa Libraries shouldn't bite one another. I, however, need to ensure that the
+                // added `System.Data.SQLite.SQLiteConnection.ClearAllPools();` statements don't foul up
+                // matters in another library while lib A I/O is getting cleaned up.
+                //
+                // In short: Yuck. + Cave canem.
+                //
+                SQLiteConnection.ClearAllPools();
             }
 
             return results;
@@ -152,24 +238,48 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
         {
             List<IntranetLibraryItem> results = new List<IntranetLibraryItem>();
 
-            using (var connection = GetConnection())
+            lock (DBAccessLock.db_access_lock)
             {
-                connection.Open();
-
-                string command_string = "SELECT filename, md5 FROM LibraryItem WHERE 1=1 ";
-
-                using (var command = new SQLiteCommand(command_string, connection))
+                using (var connection = GetConnection())
                 {
-                    SQLiteDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        IntranetLibraryItem result = new IntranetLibraryItem();
-                        results.Add(result);
+                    connection.Open();
 
-                        result.filename = reader.GetString(0);
-                        result.md5 = reader.GetString(1);
+                    string command_string = "SELECT filename, md5 FROM LibraryItem WHERE 1=1 ";
+
+                    using (var command = new SQLiteCommand(command_string, connection))
+                    {
+                        using (SQLiteDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                IntranetLibraryItem result = new IntranetLibraryItem();
+                                results.Add(result);
+
+                                result.filename = reader.GetString(0);
+                                result.md5 = reader.GetString(1);
+                            }
+
+                            reader.Close();
+                        }
                     }
+
+                    connection.Close();
                 }
+
+                //
+                // see SO link above at the `DBAccessLock.db_access_lock` declaration.
+                //
+                // We keep this *inside* the critical section so that we know we'll be the only active SQLite
+                // action which just transpired.
+                // *This* is also the reason why I went with a *global* lock (singeton) for *all* databases,
+                // even while *theoretically* this is *wrong* or rather: *unneccessary* as the databases
+                // i.e. Qiqqa Libraries shouldn't bite one another. I, however, need to ensure that the
+                // added `System.Data.SQLite.SQLiteConnection.ClearAllPools();` statements don't foul up
+                // matters in another library while lib A I/O is getting cleaned up.
+                //
+                // In short: Yuck. + Cave canem.
+                //
+                SQLiteConnection.ClearAllPools();
             }
 
             return results;
