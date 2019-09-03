@@ -32,6 +32,7 @@ using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using UserControl = System.Windows.Controls.UserControl;
 using Qiqqa.AnnotationsReportBuilding;
 using Qiqqa.DocumentLibrary.VisualGalleryStuff;
+using System.IO;
 
 namespace Qiqqa.DocumentLibrary
 {
@@ -236,6 +237,11 @@ namespace Qiqqa.DocumentLibrary
             ButtonImportFromThirdParty.Caption = LocalisationManager.Get("LIBRARY/CAP/ADD_IMPORT");
             ButtonImportFromThirdParty.ToolTip = LocalisationManager.Get("LIBRARY/TIP/ADD_IMPORT");
             ButtonImportFromThirdParty.Click += ButtonImportFromThirdParty_Click;
+
+            ButtonAddMissingDocumentsFromSelf.Icon = Icons.GetAppIcon(Icons.DocumentsAddMissingFromSelf);
+            ButtonAddMissingDocumentsFromSelf.Caption = "Recover unregistered PDFs in this library";
+            ButtonAddMissingDocumentsFromSelf.ToolTip = "This is a live library recovery/restoration operation: inspect the current library's storage and re-register all PDFs in there, which have not been registered in the library already.";
+            ButtonAddMissingDocumentsFromSelf.Click += ButtonAddMissingDocumentsFromSelf_Click;
 
             ObjLibraryEmptyDescriptionText.Background = ThemeColours.Background_Brush_Blue_LightToDark;
 
@@ -486,12 +492,17 @@ namespace Qiqqa.DocumentLibrary
 
         void ButtonWatchFolder_Click(object sender, RoutedEventArgs e)
         {
-            new FolderWatcherChooser(library).ShowDialog();
+            using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonAddPDFPopup))
+            {
+                new FolderWatcherChooser(library).ShowDialog();
+            }
         }
 
         void ButtonAddDocuments_Click(object sender, RoutedEventArgs e)
         {
-            using (OpenFileDialog dlg = new OpenFileDialog
+            using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonAddPDFPopup))
+            {
+                using (OpenFileDialog dlg = new OpenFileDialog
                 {
                     CheckFileExists = true,
                     CheckPathExists = true,
@@ -499,43 +510,62 @@ namespace Qiqqa.DocumentLibrary
                     Multiselect = true,
                     Title = "Select the PDF documents you wish to add to your document library"
                 })
-            {
-                if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    ImportingIntoLibrary.AddNewPDFDocumentsToLibrary_ASYNCHRONOUS(library, false, false, dlg.FileNames);
+                    if (dlg.ShowDialog() == DialogResult.OK)
+                    {
+                        ImportingIntoLibrary.AddNewPDFDocumentsToLibrary_ASYNCHRONOUS(library, false, false, dlg.FileNames);
+                    }
                 }
             }
         }
 
         void ButtonAddDocumentsFromLibrary_Click(object sender, RoutedEventArgs e)
         {
-            // First choose the source library
-            string message = String.Format("You are about to import a lot of PDFs into the library named '{0}'.  Please choose the library FROM WHICH you wish to import the PDFs.", this.library.WebLibraryDetail.Title);
-            WebLibraryDetail web_library_detail = WebLibraryPicker.PickWebLibrary(message);
-            if (null != web_library_detail)
+            using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonAddPDFPopup))
             {
-                if (web_library_detail == this.library.WebLibraryDetail)
+                // First choose the source library
+                string message = String.Format("You are about to import a lot of PDFs into the library named '{0}'.  Please choose the library FROM WHICH you wish to import the PDFs.", this.library.WebLibraryDetail.Title);
+                WebLibraryDetail web_library_detail = WebLibraryPicker.PickWebLibrary(message);
+                if (null != web_library_detail)
                 {
-                    MessageBoxes.Error("You can not copy documents into the same library.");
-                    return;
+                    if (web_library_detail == this.library.WebLibraryDetail)
+                    {
+                        MessageBoxes.Error("You can not copy documents into the same library.");
+                        return;
+                    }
+
+                    // Then check that they still want to do this
+                    string message2 = String.Format("You are about to copy ALL of the PDFs from the library named '{0}' into the library named '{1}'.  Are you sure you want to do this?", web_library_detail.Title, this.library.WebLibraryDetail.Title);
+                    if (!MessageBoxes.AskQuestion(message2))
+                    {
+                        return;
+                    }
+
+                    // They are sure!
+                    ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_ASYNCHRONOUS(web_library_detail.library.PDFDocuments, this.library);
                 }
-
-                // Then check that they still want to do this
-                string message2 = String.Format("You are about to copy ALL of the PDFs from the library named '{0}' into the library named '{1}'.  Are you sure you want to do this?", web_library_detail.Title, this.library.WebLibraryDetail.Title);
-                if (!MessageBoxes.AskQuestion(message2))
-                {
-                    return;                    
-                }
-
-
-                // They are sure!
-                ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_ASYNCHRONOUS(web_library_detail.library.PDFDocuments, this.library);
             }
         }
         
         void ButtonAddDocumentsFromFolder_Click(object sender, RoutedEventArgs e)
         {
-            new ImportFromFolder(library).ShowDialog();
+            using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonAddPDFPopup))
+            {
+                new ImportFromFolder(library).ShowDialog();
+            }
+        }
+
+        void ButtonAddMissingDocumentsFromSelf_Click(object sender, RoutedEventArgs e)
+        {
+            using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonAddPDFPopup))
+            {
+                var root_folder = library.LIBRARY_DOCUMENTS_BASE_PATH;
+                if (Directory.Exists(root_folder))
+                {
+                    // do the import
+                    ImportingIntoLibrary.AddNewPDFDocumentsToLibraryFromFolder_ASYNCHRONOUS(library, root_folder, true, false, false, false);
+                }
+            }
         }
 
         #region --- Test ------------------------------------------------------------------------
