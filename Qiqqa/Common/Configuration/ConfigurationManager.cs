@@ -36,7 +36,7 @@ namespace Qiqqa.Common.Configuration
         {
             get
             {
-                return Application.StartupPath + @"\";
+                return UnitTestDetector.StartupDirectoryForQiqqa;
             }
         }
         

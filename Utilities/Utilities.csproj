@@ -137,9 +137,8 @@
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\libs\HtmlAgilityPack.dll</HintPath>
     </Reference>
-    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\libs\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net40-client\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Lucene.Net">
       <HintPath>..\libs\Lucene.Net.dll</HintPath>
@@ -296,6 +295,7 @@
     </Compile>
     <Compile Include="DateTimeTools\Misc.cs" />
     <Compile Include="DateTimeTools\UnixTimestamps.cs" />
+    <Compile Include="DetectUnitTestRunner.cs" />
     <Compile Include="Encryption\PkiEncryption.cs" />
     <Compile Include="Encryption\ReversibleEncryption.cs" />
     <Compile Include="Files\CSV.cs">
