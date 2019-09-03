@@ -320,7 +320,9 @@ namespace Qiqqa.DocumentLibrary
         {
             SafeThreadPool.QueueUserWorkItem(o => AddNewDocumentToLibraryFromInternet_SYNCHRONOUS(library, download_url));
         }
-        
+
+        private static readonly string[] content_types_to_tolerate = { "image/", "text/" };
+
         public static void AddNewDocumentToLibraryFromInternet_SYNCHRONOUS(Library library, string download_url)
         {
             StatusManager.Instance.UpdateStatus(LIBRARY_DOWNLOAD, String.Format("Downloading {0}", download_url));
@@ -393,11 +395,17 @@ namespace Qiqqa.DocumentLibrary
                             original_filename = web_response.ResponseUri.LocalPath;
                         }
                         // extract the type from the Content-Type header value:
+                        try
                         {
                             ContentType ct = new ContentType(content_type);
                             content_type = ct.MediaType.ToLower(CultureInfo.CurrentCulture);
                         }
-                        
+                        catch (Exception ex)
+                        {
+                            Logging.Error(ex, "AddNewDocumentToLibraryFromInternet: no or invalid Content-Type header '{2}' received from {1}?\n  Headers:\n{0}", web_response.Headers, download_url, content_type);
+                            content_type = "text/html";
+                        }
+
                         bool is_acceptable_content_type = false;
                         if (content_type.EndsWith("pdf")) is_acceptable_content_type = true;
                         if (content_type.StartsWith("application/octet-stream")) is_acceptable_content_type = true;
@@ -442,7 +450,15 @@ namespace Qiqqa.DocumentLibrary
 
                             // TODO: check these conditions; they are meant to be pretty tight but MAYBE I still let some
                             // nasty websites' embedded PDF or other trickery slip through unnoticed.
-                            if (content_type != "text/html" || web_response.StatusCode != HttpStatusCode.OK || html.Contains("<embed"))
+                            bool tolerate_type = false;
+                            foreach (string t in content_types_to_tolerate)
+                            {
+                                if (content_type.Contains(t))
+                                {
+                                    tolerate_type = true;
+                                }
+                            }
+                            if (!tolerate_type || web_response.StatusCode != HttpStatusCode.OK || html.Contains("<embed"))
                             {
                                 MessageBoxes.Info("The document library supports only PDF files at the moment.  You are trying to download something of type {0} / response code {1} at URI {2}.", content_type, (uint)web_response.StatusCode, download_url);
                             }
