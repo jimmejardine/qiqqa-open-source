@@ -78,7 +78,13 @@ namespace Utilities.Internet
                             {
                                 // handle both relative and absolute URIs in one go
                                 url = new Uri(base_uri, href);
-                                if (url.AbsolutePath.ToLower().EndsWith(extension_lower))
+                                // WARNING: a PDF URI does *not* have to include a PDF extension!
+                                // Case in point:
+                                //   https://pubs.acs.org/doi/pdf/10.1021/ed1010618?rand=zf7t0csx
+                                // is an example of such a URI: this URI references a PDF but DOES NOT
+                                // contain the string ".pdf" itself!
+                                //
+                                //if (url.AbsolutePath.ToLower().EndsWith(extension_lower))
                                 {
                                     Logging.Info("Grabber/HREF: We have {0}", href);
                                     results.Add(href);
