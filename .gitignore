@@ -24,3 +24,6 @@ QiqqaTestHelpers/bin/*
 QiqqaTestHelpers/obj/*
 QiqqaVersionMigrator/bin/*
 QiqqaVersionMigrator/obj/*
+
+# scratch directory for other material while working on Qiqqa items
+/research/
