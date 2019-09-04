@@ -376,7 +376,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         private void UpdateLibraryStatistics_Stats_Background_Charts()
         {
             // The chart of the recently read and the recently added...
-            int WEEK_HISTORY = 4 * 3;
+            const int WEEK_HISTORY = 4 * 3;
             DateTime NOW = DateTime.UtcNow;
 
                 // Get the buckets for the past few weeks of READING                    
