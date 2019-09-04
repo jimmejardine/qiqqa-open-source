@@ -114,11 +114,11 @@
                                 </StackPanel>
                             </ScrollViewer>
 
-                            <local_gui:AugmentedBorder x:Name="ObjBibTeXEditButtonPanel" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5" Background="White">
+                            <local_gui:AugmentedBorder x:Name="ObjBibTeXEditButtonPanel" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="15,5" Background="White">
                                 <StackPanel>
-                                    <local_gui:AugmentedButton Name="ButtonClear"/>
-                                    <local_gui:AugmentedButton Name="ButtonSkipForever"/>
-                                    <local_gui:AugmentedButton Name="ButtonValidate"/>
+                                    <local_gui:AugmentedButton Name="ButtonClear" MinWidth="20" MinHeight="20" />
+                                    <local_gui:AugmentedButton Name="ButtonSkipForever" MinWidth="20" MinHeight="20" />
+                                    <local_gui:AugmentedButton Name="ButtonValidate" MinWidth="20" MinHeight="20" />
                                 </StackPanel>
                             </local_gui:AugmentedBorder>
 

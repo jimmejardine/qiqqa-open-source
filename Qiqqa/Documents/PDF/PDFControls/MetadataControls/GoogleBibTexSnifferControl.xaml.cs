@@ -231,9 +231,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
             Webcasts.FormatWebcastButton(ButtonWebcast, Webcasts.BIBTEX_SNIFFER);
 
-#if false
-            TxtBibTeX.TextChanged += TxtBibTeX_TextChanged;
-#endif
+            ObjBibTeXEditorControl.ObjBibTeXText.TextChanged += TxtBibTeX_TextChanged;
 
             // Navigate to GS in a bid to not have the first .bib prompt for download
             ObjWebBrowser.DefaultWebSearcherKey = WebSearchers.SCHOLAR_KEY;
