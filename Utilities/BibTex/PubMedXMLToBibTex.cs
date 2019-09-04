@@ -14,6 +14,12 @@ namespace Utilities.BibTex
             messages = new List<string>();
             bibtex = "";
 
+            // spare ourselves the XML parsing effort if failure is guaranteed using this simple heuristic check:
+            if (!pubmed_xml.Contains("PubmedArticle") && !pubmed_xml.Contains("MedlineCitation"))
+            {
+                return false;
+            }
+
             string pubmed_xml_wrapped =
                 ""
                 + "<PubmedArticles>"
