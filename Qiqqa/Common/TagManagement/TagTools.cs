@@ -6,14 +6,14 @@ namespace Qiqqa.Common.TagManagement
 {
     class TagTools
     {
-        internal static HashSet<string> ConvertTagBundleToTags(string tag_bundle)
+        public static HashSet<string> ConvertTagBundleToTags(string tag_bundle)
         {
             if (String.IsNullOrEmpty(tag_bundle))
             {
                 return new HashSet<string>();
             }
 
-            HashSet<string> list = new HashSet<string>(tag_bundle.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries));
+            HashSet<string> list = new HashSet<string>(tag_bundle.Split(new char[] { ';', ',' }, StringSplitOptions.RemoveEmptyEntries));
             return list;
         }
 
