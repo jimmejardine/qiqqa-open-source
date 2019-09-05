@@ -1,53 +1,57 @@
-﻿<UserControl x:Class="Qiqqa.Documents.BibTeXEditor.BibTeXEditorControl"
+﻿<UserControl
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
   xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:local_dualtab="clr-namespace:Utilities.GUI.DualTabbedLayoutStuff;assembly=Utilities"
   xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+  mc:Ignorable="d" 
+  x:Class="Qiqqa.Documents.BibTeXEditor.BibTeXEditorControl"
+  d:DesignHeight="233"
 >
-  <DockPanel>
+    <DockPanel>
 
-    <local_gui:NonScrollingFlowDocumentScrollViewer DockPanel.Dock="Bottom" Name="ObjNoBibTeXInstructions">
-      <commongui:StandardFlowDocument>
-        <Paragraph>
+        <local_gui:NonScrollingFlowDocumentScrollViewer x:Name="ObjNoBibTeXInstructions" DockPanel.Dock="Bottom">
+            <commongui:StandardFlowDocument>
+                <Paragraph>
           Qiqqa has not been able to automatically associate BibTeX with this document.  BibTeX is useful when formatting your bibliography with InCite.  Use the BibTeX Sniffer to quickly search the Internet for this document's BibTeX.
-        </Paragraph>
-      </commongui:StandardFlowDocument>
-    </local_gui:NonScrollingFlowDocumentScrollViewer>
+                </Paragraph>
+            </commongui:StandardFlowDocument>
+        </local_gui:NonScrollingFlowDocumentScrollViewer>
 
-    <Grid>
+        <Grid >
 
-      <DockPanel Name="ObjGridPanel">
-        <Grid Name="ObjHeaderGrid" DockPanel.Dock="Top">
+            <DockPanel x:Name="ObjGridPanel">
+                <Grid x:Name="ObjHeaderGrid" DockPanel.Dock="Top">
 
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="80" />
-            <ColumnDefinition Width="5"/>
-            <ColumnDefinition Width="*" />
-          </Grid.ColumnDefinitions>
-          <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-          </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80" />
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
 
           <TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold" Name="ComboRecordTypeHeader">Type</TextBlock>
           <ComboBox Grid.Row="0" Grid.Column="2" Name="ComboRecordType" MinWidth="50" IsEditable="True" BorderThickness="0"/>
           <TextBlock Grid.Row="1" Grid.Column="0" FontWeight="Bold" Name="TxtRecordKeyHeader" >Key</TextBlock>
           <TextBox  Grid.Row="1" Grid.Column="2" Name="TxtRecordKey" MinWidth="50" BorderThickness="0"/>
-        </Grid>
+                </Grid>
 
-        <local_gui:AugmentedSpacer DockPanel.Dock="Top" />
+                <local_gui:AugmentedSpacer DockPanel.Dock="Top" />
 
-        
-          <Grid Name="ObjBibTeXGrid">
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="80" />
-              <ColumnDefinition Width="5"/>
-              <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-          </Grid>
-      </DockPanel>
+                <Grid x:Name="ObjBibTeXGrid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80" />
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                </Grid>
+            </DockPanel>
 
       <Grid Name="ObjTextPanel">
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
@@ -55,10 +59,10 @@
         </ScrollViewer>
       </Grid>
 
-      <Grid Name="ObjErrorPanel" />
+            <Grid Name="ObjErrorPanel" />
 
-      <DockPanel>
-        <DockPanel DockPanel.Dock="Bottom">
+      <DockPanel x:Name="ObjOverlayPanel" >
+            <DockPanel  x:Name="ObjOverlayInnerPanel"  DockPanel.Dock="Bottom">
           <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
           <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
           <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
@@ -73,7 +77,7 @@
         <local_gui:AugmentedSpacer />
       </DockPanel>
 
-    </Grid>
+        </Grid>
 
-  </DockPanel>
+    </DockPanel>
 </UserControl>
