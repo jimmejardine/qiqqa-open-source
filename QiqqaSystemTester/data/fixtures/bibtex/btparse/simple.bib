@@ -1,0 +1,18 @@
+% a sample "regular" entry (ie. not a @comment, @preamble, or @string)
+
+@book{abook, 
+title = {A } # "Book",                   % an in-entry comment
+editor = {  John Q.  Random} # junk,
+publisher = {Foo Bar \& Sons}, 
+year = 1922
+}
+@string(macro = "macro  text ",
+        foo = {blah blah  } # " ding dong ")
+
+% this is a lexical comment, which is never seen by the grammar and
+% thus can't be tested (well, not yet at least)
+
+@comment(this is a comment entry, anything at all can go in it (as long
+         as parentheses are balanced), even {braces})
+@preamble{" This is   a preamble" # 
+          {---the concatenation of several strings}}

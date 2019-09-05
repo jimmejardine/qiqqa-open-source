@@ -1,0 +1,95 @@
+{
+  "collections": {},
+  "config": {
+    "id": "36a3b0b5-bad0-4a04-b79b-441c7cef77db",
+    "label": "BetterBibTeX JSON",
+    "options": {
+      "exportNotes": true
+    },
+    "preferences": {
+      "DOIandURL": "doi",
+      "asciiBibLaTeX": false,
+      "asciiBibTeX": true,
+      "autoAbbrev": false,
+      "autoAbbrevStyle": "http://www.zotero.org/styles/cell",
+      "autoExport": "immediate",
+      "autoExportIdleWait": 10,
+      "biblatexExtendedDateFormat": false,
+      "biblatexExtendedNameFormat": false,
+      "bibtexParticleNoOp": false,
+      "bibtexURL": "url",
+      "cacheFlushInterval": 5,
+      "citeCommand": "autocite",
+      "citekeyFold": true,
+      "citekeyFormat": "[authors2:postfix,_][year:postfix,_][Title:skipwords:nopunct:select,1:condense,_]",
+      "csquotes": "",
+      "exportBibTeXStrings": "off",
+      "itemObserverDelay": 100,
+      "jabrefFormat": 0,
+      "keyConflictPolicy": "change",
+      "parseParticles": true,
+      "postscript": "if (this.item.DOI) {\n  var doi = this.item.DOI;\n  if (doi.indexOf('doi:') != 0) { doi = 'doi:' + doi; }\n  this.add({ name: 'note', duplicate: true, value: '[' + doi + ']' });\n}",
+      "qualityReport": false,
+      "quickCopyMode": "latex",
+      "quickCopyPandocBrackets": false,
+      "skipFields": "file,timestamp,annotation,note",
+      "skipWords": "",
+      "suppressTitleCase": false,
+      "warnBulkModify": 10
+    },
+    "release": {
+      "BetterBibTeX": "5.0.31",
+      "Zotero": {
+        "appName": "Zotero",
+        "appVersion": "5.0.24",
+        "locale": "en-US",
+        "oscpu": "Linux x86_64",
+        "platform": "Linux x86_64",
+        "version": "5.0.24"
+      }
+    }
+  },
+  "items": [
+    {
+      "accessDate": "2017-08-17 19:37:30",
+      "attachments": [],
+      "creators": [
+        {
+          "creatorType": "author",
+          "firstName": "Hannes",
+          "lastName": "Schulz"
+        },
+        {
+          "creatorType": "author",
+          "firstName": "Jeremie",
+          "lastName": "Zumer"
+        },
+        {
+          "creatorType": "author",
+          "firstName": "Layla El",
+          "lastName": "Asri"
+        },
+        {
+          "creatorType": "author",
+          "firstName": "Shikhar",
+          "lastName": "Sharma"
+        }
+      ],
+      "date": "2017",
+      "dateAdded": "2017-08-17 19:37:30",
+      "dateModified": "2017-11-06 17:33:31",
+      "itemID": 9877,
+      "itemType": "journalArticle",
+      "libraryCatalog": "Google Scholar",
+      "publicationTitle": "arXiv preprint arXiv:1706.01690",
+      "tags": [
+        {
+          "tag": "_tablet_modified",
+          "type": 0
+        }
+      ],
+      "title": "A Frame Tracking Model for Memory-Enhanced Dialogue Systems",
+      "url": "https://arxiv.org/abs/1706.01690"
+    }
+  ]
+}

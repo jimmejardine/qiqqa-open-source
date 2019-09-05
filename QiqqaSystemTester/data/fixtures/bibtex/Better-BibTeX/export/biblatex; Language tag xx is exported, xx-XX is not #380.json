@@ -1,0 +1,52 @@
+{
+  "collections": {},
+  "config": {
+    "id": "36a3b0b5-bad0-4a04-b79b-441c7cef77db",
+    "label": "BetterBibTeX JSON",
+    "options": {
+      "DOIandURL": "both",
+      "asciiBibLaTeX": false,
+      "asciiBibTeX": true,
+      "attachmentsNoMetadata": false,
+      "csquotes": "",
+      "fancyURLs": false,
+      "jabrefGroups": true,
+      "langID": "babel",
+      "postscript": "",
+      "preserveBibTeXVariables": false,
+      "preserveCaps": "all",
+      "rawImports": false,
+      "skipFields": [
+        ""
+      ]
+    },
+    "preferences": {
+      "bibtexURL": "note",
+      "citekeyFormat": "[auth][year]",
+      "jabrefFormat": 0
+    },
+    "release": "1.5.11"
+  },
+  "items": [
+    {
+      "DOI": "10.2307/2911510",
+      "ISSN": "01496611",
+      "creators": [
+        {
+          "creatorType": "author",
+          "firstName": "Leo",
+          "lastName": "Spitzer"
+        }
+      ],
+      "date": "1941",
+      "issue": "2",
+      "itemID": 275,
+      "itemType": "journalArticle",
+      "language": "fr-FR",
+      "pages": "110\u2013113",
+      "publicationTitle": "Modern Language Notes",
+      "title": "Le po\u00eale de Descartes",
+      "volume": "56"
+    }
+  ]
+}
