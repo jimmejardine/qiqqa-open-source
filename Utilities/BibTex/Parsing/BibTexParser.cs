@@ -7,7 +7,7 @@ namespace Utilities.BibTex.Parsing
 {
     public class BibTexParser
     {
-        private static Regex _latexEncodingsRemover = new Regex(@"\{\\textless\}(.*?)\{\\textgreater\}");
+        private static readonly Regex _latexEncodingsRemover = new Regex(@"\{\\textless\}(.*?)\{\\textgreater\}");
 
         public static BibTexItem ParseOne(string bibtex, bool suppress_error_logging)
         {

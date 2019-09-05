@@ -10,14 +10,14 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
     public class ZoteroImporter : BibTeXImporter
     {
         readonly string _importBasePath;
-        
+
         public ZoteroImporter(Library library, string filename)
             : base(library, filename)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportFromZotero);
 
-            //For Zotero export, the files all live under \Files, 
-            //e.g. if export is c:\temp\bla.bib, a files might be c:\temp\files\20\foo.pdf
+            // For Zotero export, the files all live under \Files, 
+            // e.g. if export is c:\temp\bla.bib, a file might be c:\temp\files\20\foo.pdf
             _importBasePath = Path.GetDirectoryName(filename);
         }
 
@@ -47,8 +47,8 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                          * file = {Analytics_www.qiqqa.com_20100531_(Qiqqa_utilisation).pdf:files/24/Analytics_www.qiqqa.com_20100531_(Qiqqa_utilisation).pdf:application/pdf;Namecheap.com - Checkout : Secure Payment:files/26/payment.html:text/html}
                          */
 
-                        //Since there can be multiple attachments, we take the first one with mime type application/pdf, with a valid file. 
-                        entry.FileType = null; //Assume we've not found a workable attachment
+                        // Since there can be multiple attachments, we take the first one with mime type application/pdf, with a valid file. 
+                        entry.FileType = null; // Assume we've not found a workable attachment
 
                         string fileValue = entry.Item["file"];
 
@@ -61,8 +61,8 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                                 if (String.CompareOrdinal(fileType, PDF_MIMETYPE) == 0)
                                 {
                                     string fn = match.Groups[2].Value;
-                                    fn = fn.Replace("\\_", "_"); //Zotero escapes underscores. I get the feeling from http://www.citeulike.org/groupforum/1245 that others might not.
-                                    fn = fn.Replace("/", "\\"); //Convert to windows slashes for directories. 
+                                    fn = fn.Replace("\\_", "_"); // Zotero escapes underscores. I get the feeling from http://www.citeulike.org/groupforum/1245 that others might not.
+                                    fn = fn.Replace("/", "\\"); // Convert to windows slashes for directories. 
 
                                     try
                                     {
@@ -70,14 +70,14 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
                                         if (File.Exists(fn))
                                         {
-                                            entry.FileType = "pdf"; //Normalized with other importers
+                                            entry.FileType = "pdf"; // Normalized with other importers
                                             entry.Filename = fn;
-                                            break; //We've found a suitable attachment
+                                            break; // We've found a suitable attachment
                                         }
                                     }
                                     catch
                                     {
-                                        //Ignore problems with weird filenames like "undefined".
+                                        // Ignore problems with weird filenames like "undefined".
                                     }
                                 }
                             }
@@ -96,15 +96,15 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                     {
                         //annote = {\textless}p{\textgreater}zotnotes1{\textless}/p{\textgreater}, 
 
-                        //Turn back to pseudo html - we may want to support this format later. 
+                        // Turn back to pseudo html - we may want to support this format later. 
                         notes = notes.Replace(@"{\textless}", "<").Replace(@"{\textgreater}", ">");
 
                         notes = notes.Replace("<p>", "\r");  //Some basic support
 
-                        //Remove tags
+                        // Remove tags
                         notes = StringTools.StripHtmlTags(notes, " ");
 
-                        //Change N to 1 repeated spaces due to missing tags
+                        // Change N to 1 repeated spaces due to missing tags
                         notes = Regex.Replace(notes, @"[\s]+", " ", RegexOptions.Singleline | RegexOptions.IgnoreCase);
 
                         entry.Notes = notes.Trim();
@@ -115,7 +115,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                     Logging.Warn(ex, "Exception while parsing Zotero import");
                 }
             }
-            
+
             return CreateFinalResult();
         }
     }
