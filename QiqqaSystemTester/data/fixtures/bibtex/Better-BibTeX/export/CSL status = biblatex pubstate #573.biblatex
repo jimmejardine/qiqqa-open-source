@@ -1,0 +1,5 @@
+@book{doe_title_nodate,
+  author = {Doe, John},
+  pubstate = {forthcoming},
+  title = {Title}
+}

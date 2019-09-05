@@ -1,0 +1,56 @@
+{
+  "collections": {},
+  "config": {
+    "id": "36a3b0b5-bad0-4a04-b79b-441c7cef77db",
+    "label": "BetterBibTeX JSON",
+    "options": {
+      "Export collections": true,
+      "exportFileData": false,
+      "exportNotes": true
+    },
+    "preferences": {
+      "bibtexURL": "note",
+      "citekeyFormat": "[auth][year]",
+      "jabrefFormat": 0
+    }
+  },
+  "items": [
+    {
+      "DOI": "10.1103/PhysRevLett.97.120405",
+      "abstractNote": "The first step in any quantum key distribution (QKD) protocol consists of sequences of measurements that produce correlated classical data. We show that these correlation data must violate some Bell inequality in order to contain distillable secrecy, if not they could be produced by quantum measurements performed on a separable state of larger dimension. We introduce a new QKD protocol and prove its security against any individual attack by an adversary only limited by the no-signaling condition.",
+      "accessDate": "2014-08-20 19:33:00",
+      "attachments": [],
+      "creators": [
+        {
+          "creatorType": "author",
+          "fieldMode": "",
+          "firstName": "Antonio",
+          "lastName": "Ac\u00edn"
+        },
+        {
+          "creatorType": "author",
+          "fieldMode": "",
+          "firstName": "Nicolas",
+          "lastName": "Gisin"
+        },
+        {
+          "creatorType": "author",
+          "fieldMode": "",
+          "firstName": "Lluis",
+          "lastName": "Masanes"
+        }
+      ],
+      "date": "September 20, 2006",
+      "extra": "biblatexcitekey[Acin2006-105]",
+      "issue": "12",
+      "itemType": "journalArticle",
+      "journalAbbreviation": "Phys. Rev. Lett.",
+      "libraryCatalog": "APS",
+      "pages": "120405",
+      "publicationTitle": "Physical Review Letters",
+      "title": "From Bell\u2019s Theorem to secure quantum key distribution",
+      "url": "http://link.aps.org/doi/10.1103/PhysRevLett.97.120405",
+      "volume": "97"
+    }
+  ]
+}

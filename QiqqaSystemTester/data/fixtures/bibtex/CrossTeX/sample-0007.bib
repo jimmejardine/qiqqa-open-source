@@ -1,0 +1,31 @@
+% CrossTeX example
+
+@conference{nsdi,
+  shortname = "NSDI",
+  longname = "Symposium on Networked System Design and Implementation", 
+  [year=2006] address=SanJose, month=may,
+  [year=2005] address=Boston, month=may,
+  [year=2004] address=SF, month=mar,
+}
+
+% This is a simple \texttt{conference} object whose short name is
+% ``NSDI'' and long name is ``Symposium on Networked System Design and
+% Implementation''. In addition, it carries some conditional fields; that
+% is, fields that are included in the object only if they match the data
+% in the referring context. For instance, if the \texttt{year} field of the
+% referring object is equal to 2006, the \texttt{nsdi} object additionally
+% has the fields \texttt{address=SanJose, month=may}. In a different year,
+% a different conditional might be triggered. Any, all, or none of the
+% conditionals mentioned may be appropriate (although obviously in this
+% case, the year can only have one value).
+
+% By itself, conditional fields are not very useful; their value in
+% simplifying object references becomes apparent when they are used in
+% context. Look at the following reference:
+
+@inproceedings{credence,
+  title = "Experience with an Object Reputation System for Peer-to-Peer Filesharing",
+  author = "kwalsh and egs",
+  booktitle = nsdi,
+  year = 2006
+}
