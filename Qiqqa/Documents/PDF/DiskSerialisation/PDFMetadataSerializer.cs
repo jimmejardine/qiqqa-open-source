@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
 using Qiqqa.UtilisationTracking;
+using Utilities;
 using Utilities.Files;
 using Utilities.Misc;
 
@@ -12,53 +13,25 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
     {
         internal static void WriteToDisk(PDFDocument pdf_document)
         {
-            // A little hack to make sure the legacies are updated...
-            pdf_document.Tags = pdf_document.Tags;
-            pdf_document.DateAddedToDatabase = pdf_document.DateAddedToDatabase;
-            pdf_document.DateLastModified = pdf_document.DateLastModified;
-            pdf_document.DateLastRead = pdf_document.DateLastRead;
-            // A little hack to make sure the legacies are updated...
-
-            string json = JsonConvert.SerializeObject(pdf_document.Dictionary.Attributes, Formatting.Indented);
+            string json = JsonConvert.SerializeObject(pdf_document, Formatting.Indented);
             pdf_document.Library.LibraryDB.PutString(pdf_document.Fingerprint, PDFDocumentFileLocations.METADATA, json);            
             //Logging.Debug(json);
         }
 
-
-        public static DictionaryBasedObject ReadFromStream(byte[] data)
+        public static PDFDocument ReadFromStream(DocumentLibrary.Library library, byte[] data)
         {
+            // TODO: make sure the legacies are updated...
+            string json = "(null)";
             try
             {
-                string json = Encoding.UTF8.GetString(data);
-                char a = json[0];
-                if (0 != a)
-                {
-                    Dictionary<string, object> attributes = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
-                    return new DictionaryBasedObject(attributes);
-                }
-                else
-                {
-                    return ReadFromStream_BINARY(data);
-                }
+                json = Encoding.UTF8.GetString(data);
+                return JsonConvert.DeserializeObject<PDFDocument>(json);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return ReadFromStream_BINARY(data);
+                Logging.Error(ex, "Failed to import PDFDocumnt metadata -- is this some old format which hasn't been converted yet? Data: {0}", json);
+                return null;
             }
-        }
-
-        private static DictionaryBasedObject ReadFromStream_BINARY(byte[] data)
-        {
-            DictionaryBasedObject dbo = (DictionaryBasedObject)SerializeFile.LoadFromByteArray(data);
-            FeatureTrackingManager.Instance.UseFeature(Features.Legacy_Metadata_Binary);
-            return dbo;
-        }
-
-        private static DictionaryBasedObject ReadFromDisk_BINARY(string filename)
-        {
-            DictionaryBasedObject dbo = (DictionaryBasedObject)SerializeFile.LoadRedundant(filename);
-            FeatureTrackingManager.Instance.UseFeature(Features.Legacy_Metadata_Binary);
-            return dbo;
         }
     }
 }

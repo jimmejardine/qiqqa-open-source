@@ -28,7 +28,7 @@ namespace Utilities.DateTimeTools
 
         public static string ToYYYYMMDDHHMMSSMMM(DateTime? date)
         {
-            if (null == date || !date.HasValue)
+            if (null == date || !date.HasValue || date.Value == Utilities.Constants.DATETIME_MIN)
             {
                 return null;
             }
@@ -43,11 +43,11 @@ namespace Utilities.DateTimeTools
             return date.ToString("yyyyMMddHHmmssfff", CultureInfo.InvariantCulture);
         }
 
-        public static DateTime? FromYYYYMMDDHHMMSSMMM(string date_string)
+        public static DateTime FromYYYYMMDDHHMMSSMMM(string date_string)
         {
-            if (null == date_string)
+            if (String.IsNullOrEmpty(date_string))
             {
-                return new DateTime?();
+                return Utilities.Constants.DATETIME_MIN;
             }
             else
             {

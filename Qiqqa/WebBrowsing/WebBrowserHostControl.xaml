@@ -10,12 +10,12 @@
     <local_gui:AugmentedToolBarTray DockPanel.Dock="Top">
       <StackPanel Orientation="Horizontal">
 
-        <local_gui:AugmentedToolBarButton x:Name="ButtonNewBrowser"/>
+        <local_gui:AugmentedToolBarButton x:Name="ButtonNewBrowser" MinWidth="15" />
         
         <local_gui:AugmentedSpacer />
 
-        <local_gui:AugmentedToolBarButton x:Name="ButtonBack"/>
-        <local_gui:AugmentedToolBarButton x:Name="ButtonForward"/>
+                <local_gui:AugmentedToolBarButton x:Name="ButtonBack" MinWidth="15" />
+                <local_gui:AugmentedToolBarButton x:Name="ButtonForward" MinWidth="15" />
 
         <local_gui:AugmentedSpacer />
 
@@ -37,11 +37,11 @@
 
         <local_gui:AugmentedSpacer />
 
-        <local_gui:AugmentedToolBarButton x:Name="ButtonEZProxy"/>
-        <local_gui:AugmentedToolBarButton x:Name="ButtonPrint"/>
-        <local_gui:AugmentedToolBarButton x:Name="ButtonGrabWebPage"/>
-        <local_gui:AugmentedToolBarButton x:Name="ButtonGrabPDFs"/>
-        <local_gui:AugmentedToolBarButton x:Name="ButtonAddToLibrary"/>
+                <local_gui:AugmentedToolBarButton x:Name="ButtonEZProxy" MinWidth="15" />
+                <local_gui:AugmentedToolBarButton x:Name="ButtonPrint" MinWidth="15" />
+                <local_gui:AugmentedToolBarButton x:Name="ButtonGrabWebPage" MinWidth="25" />
+                <local_gui:AugmentedToolBarButton x:Name="ButtonGrabPDFs" MinWidth="25" />
+                <local_gui:AugmentedToolBarButton x:Name="ButtonAddToLibrary" MinWidth="25" />
       </StackPanel>
     </local_gui:AugmentedToolBarTray>
 

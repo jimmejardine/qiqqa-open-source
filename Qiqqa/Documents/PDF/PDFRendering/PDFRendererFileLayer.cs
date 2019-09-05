@@ -29,21 +29,12 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         public static bool HasOCRdata(string fingerprint)
         {
-            // BasePath:
-            string base_path = ConfigurationManager.Instance.ConfigurationRecord.System_OverrideDirectoryForOCRs;
-            if (String.IsNullOrEmpty(base_path))
-            {
-                base_path = BASE_PATH_DEFAULT;
-            }
-            // string cached_count_filename = MakeFilename_PageCount(fingerprint);
-            // return MakeFilenameWith2LevelIndirection("pagecount", "0", "txt");
-            string indirection_characters = fingerprint.Substring(0, 2);
-            string cached_count_filename = String.Format("{0}\\{1}\\{2}.{3}.{4}.{5}", base_path, indirection_characters, fingerprint, "pagecount", "0", "txt");
-
+            string cached_count_filename = MakeFilename_PageCount(fingerprint);
+            
             return File.Exists(cached_count_filename);
         }
 
-        private string BasePath
+        private static string BasePath
         {
             get
             {
@@ -59,39 +50,46 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             }
         }
 
-        private string MakeFilename(string file_type, object token, string extension)
+        private static string MakeFilename(string fingerprint, string file_type, object token, string extension)
         {
             return String.Format("{0}{1}.{2}.{3}.{4}", BasePath, fingerprint, file_type, token, extension);
         }
 
-        private string MakeFilenameWith2LevelIndirection(string file_type, object token, string extension)
+        private static string MakeFilenameWith2LevelIndirection(string fingerprint, string file_type, object token, string extension)
         {
             string indirection_characters = fingerprint.Substring(0, 2);
             return String.Format("{0}\\{1}\\{2}.{3}.{4}.{5}", BasePath, indirection_characters, fingerprint, file_type, token, extension);
         }
 
+        internal static string MakeFilename_TextSingle(string fingerprint, int page_number)
+        {
+            return MakeFilenameWith2LevelIndirection(fingerprint, "text", page_number, "txt");
+        }
         internal string MakeFilename_TextSingle(int page_number)
         {
-            return MakeFilenameWith2LevelIndirection("text", page_number, "txt");
+            return MakeFilename_TextSingle(fingerprint, page_number);
         }
 
-        internal string MakeFilename_TextGroup(int page, int TEXT_PAGES_PER_GROUP)
+        internal static string MakeFilename_TextGroup(string fingerprint, int page, int TEXT_PAGES_PER_GROUP)
         {
             int page_range_start = ((page-1) / TEXT_PAGES_PER_GROUP) * TEXT_PAGES_PER_GROUP + 1;
             int page_range_end = page_range_start + TEXT_PAGES_PER_GROUP - 1;
             string page_range = string.Format("{0:000}_to_{1:000}", page_range_start, page_range_end);
-            return MakeFilenameWith2LevelIndirection("textgroup", page_range, "txt");
+            return MakeFilenameWith2LevelIndirection(fingerprint, "textgroup", page_range, "txt");
         }
-
-        private string MakeFilename_PageCount()
+        internal string MakeFilename_TextGroup(int page, int TEXT_PAGES_PER_GROUP)
         {
-            return MakeFilenameWith2LevelIndirection("pagecount", "0", "txt");
-        }
+            return MakeFilename_TextGroup(fingerprint, page, TEXT_PAGES_PER_GROUP);
+           }
 
+                private static string MakeFilename_PageCount(string fingerprint)
+        {
+            return MakeFilenameWith2LevelIndirection(fingerprint, "pagecount", "0", "txt");
+        }
         
         internal string StorePageTextSingle(int page, string source_filename)
         {
-            string filename = MakeFilename_TextSingle(page);
+            string filename = MakeFilename_TextSingle(fingerprint, page);
             Directory.CreateDirectory(Path.GetDirectoryName(filename));
             File.Copy(source_filename, filename, true);
             File.Delete(source_filename);
@@ -100,7 +98,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         internal string StorePageTextGroup(int page, int TEXT_PAGES_PER_GROUP, string source_filename)
         {
-            string filename = MakeFilename_TextGroup(page, TEXT_PAGES_PER_GROUP);
+            string filename = MakeFilename_TextGroup(fingerprint, page, TEXT_PAGES_PER_GROUP);
             Directory.CreateDirectory(Path.GetDirectoryName(filename));
             File.Copy(source_filename, filename, true);
             File.Delete(source_filename);
@@ -118,7 +116,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         private int CountPDFPages()
         {
             {
-                string cached_count_filename = MakeFilename_PageCount();
+                string cached_count_filename = MakeFilename_PageCount(fingerprint);
 
                 // Try the cached version
                 try
@@ -141,7 +139,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
             // If we get here, either the pagecountfile doesn't exist, or there was an exception
             {
-                string cached_count_filename = MakeFilename_PageCount();
+                string cached_count_filename = MakeFilename_PageCount(fingerprint);
 
                 Logging.Debug("Using calculated PDF page count for file {0}", pdf_filename);
                 int num_pages = PDFTools.CountPDFPages(pdf_filename);

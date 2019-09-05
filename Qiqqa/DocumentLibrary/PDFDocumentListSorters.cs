@@ -12,7 +12,7 @@ namespace Qiqqa.DocumentLibrary
             {
                 return delegate (PDFDocument p1, PDFDocument p2)
                 {
-                    return -DateTime.Compare(p1.DateAddedToDatabase ?? DateTime.MinValue, p2.DateAddedToDatabase ?? DateTime.MinValue);
+                    return -DateTime.Compare(p1.DateAddedToDatabase, p2.DateAddedToDatabase);
                 };
             }
         }
@@ -23,7 +23,7 @@ namespace Qiqqa.DocumentLibrary
             {
                 return delegate (PDFDocument p1, PDFDocument p2)
                 {
-                    return -DateTime.Compare(p1.DateLastRead ?? DateTime.MinValue, p2.DateLastRead ?? DateTime.MinValue);
+                    return -DateTime.Compare(p1.DateLastRead, p2.DateLastRead);
                 };
             }
         }
@@ -34,7 +34,7 @@ namespace Qiqqa.DocumentLibrary
             {
                 return delegate (PDFDocument p1, PDFDocument p2)
                 {
-                    return -DateTime.Compare(p1.DateLastCited ?? DateTime.MinValue, p2.DateLastCited ?? DateTime.MinValue);
+                    return -DateTime.Compare(p1.DateLastCited, p2.DateLastCited);
                 };
             }
         }

@@ -118,11 +118,11 @@ namespace Qiqqa.Exporting
             return p.Replace("\t", "    ").Replace("\r\n", "    ").Replace("\n", "    ").Replace("\r", "    ");
         }
 
-        private static string FormatDate(DateTime? date_time_nullable)
+        private static string FormatDate(DateTime date_time_nullable)
         {
-            if (date_time_nullable.HasValue)
+            if (date_time_nullable > Utilities.Constants.DATETIME_MIN)
             {
-                return date_time_nullable.Value.ToLongDateString();
+                return date_time_nullable.ToLongDateString();
             }
             else
             {

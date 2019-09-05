@@ -63,7 +63,7 @@ namespace Utilities.Misc
             }
         }
 
-        public DateTime? GetDateTime(string key)
+        public DateTime GetDateTime(string key)
         {
             object obj = this[key];
 
@@ -74,17 +74,17 @@ namespace Utilities.Misc
             }
 
             DateTime? datetime = obj as DateTime?;
-            if (null != datetime)
+            if (null != datetime && datetime.HasValue && datetime.Value != Utilities.Constants.DATETIME_MIN)
             {
-                Logging.Info("Doing a legacy DateTime upgrade for key " + key);
-                SetDateTime(key, datetime);
-                return datetime;
+                Logging.Info("Doing a legacy DateTime upgrade for key {0}", key);
+                SetDateTime(key, datetime.Value);
+                return datetime.Value;
             }
-            
-            return null;
+
+            return Utilities.Constants.DATETIME_MIN;
         }
 
-        public void SetDateTime(string key, DateTime? value)
+        public void SetDateTime(string key, DateTime value)
         {
             this[key] = DateFormatter.ToYYYYMMDDHHMMSSMMM(value);
         }

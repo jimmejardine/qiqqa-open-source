@@ -19,7 +19,7 @@ namespace Qiqqa.DocumentLibrary
                 from pdf_document in pdf_documents_all
                 orderby pdf_document.DateLastRead descending
                 where pdf_document.Deleted == false
-                && pdf_document.DateLastRead.HasValue
+                && pdf_document.DateLastRead > Utilities.Constants.DATETIME_MIN
                 select pdf_document;
 
             List<PDFDocument> most_recently_read_pdf_documents = new List<PDFDocument>(most_recently_read_pdf_documents_INTERIM);
