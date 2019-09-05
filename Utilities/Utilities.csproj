@@ -734,6 +734,7 @@
     <Compile Include="MaxMin.cs" />
     <Compile Include="Misc\ArrayExcelColumnMapper.cs" />
     <Compile Include="Misc\CancelEnabler.cs" />
+    <Compile Include="Misc\Constants.cs" />
     <Compile Include="Misc\Dialogs.cs" />
     <Compile Include="Misc\DictionaryBasedObject.cs" />
     <Compile Include="Mathematics\Optimisation\NelderMead\Point2D.cs" />
