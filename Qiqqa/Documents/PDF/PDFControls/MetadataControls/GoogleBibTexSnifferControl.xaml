@@ -110,7 +110,7 @@
                         <Grid>
                             <ScrollViewer>
                                 <StackPanel>
-                                    <local_bibtex:BibTeXEditorControl x:Name="ObjBibTeXEditorControl" BibTeX="{Binding BibTex, Mode=TwoWay}" ForceHideNoBibTeXInstructions="True" />
+                                    <local_bibtex:BibTeXEditorControl x:Name="ObjBibTeXEditorControl" BibTeX="{Binding BibTex, Mode=TwoWay}" ForceHideNoBibTeXInstructions="True" Loaded="ObjBibTeXEditorControl_Loaded" SizeChanged="ObjBibTeXEditorControl_SizeChanged" />
                                 </StackPanel>
                             </ScrollViewer>
 

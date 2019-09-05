@@ -1008,5 +1008,15 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 #endif
 
 #endregion
+
+        private void ObjBibTeXEditorControl_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ObjBibTeXEditorControl_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+
+        }
     }
 }
