@@ -15,17 +15,23 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         public string EntryType { get; set; }
         
         public string Filename { get; set; }
-        public string FileType { get; set; }
 
+        public string FileType { get; set; }
 
         public BibTexItem Item { get; set; }
 
-        public string Id { get { return Item.Key; } }
+        public string Id {
+            get
+            {
+                return Item.Key;
+            }
+        }
 
         /// <summary>
         /// Our Qiqqa Fingerprint. 
         /// </summary>
         public string Fingerprint { get; set; }
+
         public bool ExistsInLibrary { get; set; }
 
         private bool _selected;

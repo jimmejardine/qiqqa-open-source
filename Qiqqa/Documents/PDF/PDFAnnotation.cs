@@ -8,12 +8,12 @@ namespace Qiqqa.Documents.PDF
 {
     /// <summary>
     /// ******************* NB NB NB NB NB NB NB NB NB NB NB ********************************
-    /// 
-    /// ALL PROPERTIES STORED IN THE DICTIONARY MUST BE SIMPLE TYPES - string, int or double.  
-    /// NO DATES, NO COLORS, NO STRUCTs.  
+    ///
+    /// ALL PROPERTIES STORED IN THE DICTIONARY MUST BE SIMPLE TYPES - string, int or double.
+    /// NO DATES, NO COLORS, NO STRUCTs.
     /// If you want to store Color and DateTime, then there are helper methods on the DictionaryBasedObject to convert TO/FROM.  Use those!
     /// Otherwise platform independent serialisation will break!
-    /// 
+    ///
     /// ******************* NB NB NB NB NB NB NB NB NB NB NB ********************************
     /// </summary>
 
@@ -48,7 +48,10 @@ namespace Qiqqa.Documents.PDF
 
         internal DictionaryBasedObject Dictionary
         {
-            get { return dictionary; }
+            get
+            {
+                return dictionary;
+            }
         }
 
         public override string ToString()
@@ -60,20 +63,38 @@ namespace Qiqqa.Documents.PDF
 
         public string DocumentFingerprint
         {
-            get { return dictionary["DocumentFingerprint"] as string; }
-            protected set { dictionary["DocumentFingerprint"] = value as string; }
+            get
+            {
+                return dictionary["DocumentFingerprint"] as string;
+            }
+            protected set
+            {
+                dictionary["DocumentFingerprint"] = value as string;
+            }
         }
 
         public Guid? Guid
         {
-            get { return dictionary.GetNullableGuid("Guid"); }
-            protected set { dictionary["Guid"] = value as Guid?; }
+            get
+            {
+                return dictionary.GetNullableGuid("Guid");
+            }
+            protected set
+            {
+                dictionary["Guid"] = value as Guid?;
+            }
         }
 
         public bool Deleted
         {
-            get { return (bool)(dictionary["Deleted"] ?? false); }
-            set { dictionary["Deleted"] = value; }
+            get
+            {
+                return (bool)(dictionary["Deleted"] ?? false);
+            }
+            set
+            {
+                dictionary["Deleted"] = value;
+            }
         }
 
         /// <summary>
@@ -81,27 +102,51 @@ namespace Qiqqa.Documents.PDF
         /// </summary>
         public bool Legacy
         {
-            get { return (bool)(dictionary["Legacy"] ?? false); }
-            set { dictionary["Legacy"] = value; }
+            get
+            {
+                return (bool)(dictionary["Legacy"] ?? false);
+            }
+            set
+            {
+                dictionary["Legacy"] = value;
+            }
         }
 
         public int Page /* 1 based */
         {
-            get { return Convert.ToInt32(dictionary["Page"] ?? 0); }
-            protected set { dictionary["Page"] = value as int?; }
+            get
+            {
+                return Convert.ToInt32(dictionary["Page"] ?? 0);
+            }
+            protected set
+            {
+                dictionary["Page"] = value as int?;
+            }
         }
 
         public DateTime? DateCreated
         {
-            get { return dictionary.GetDateTime("DateCreated"); }
-            set { dictionary.SetDateTime("DateCreated", value); }
+            get
+            {
+                return dictionary.GetDateTime("DateCreated");
+            }
+            set
+            {
+                dictionary.SetDateTime("DateCreated", value ?? Utilities.Constants.DATETIME_MIN);
+            }
         }
 
         public string Creator
         {
-            get { return dictionary["Creator"] as string; }
-            set { dictionary["Creator"] = value as string; }
-        }        
+            get
+            {
+                return dictionary["Creator"] as string;
+            }
+            set
+            {
+                dictionary["Creator"] = value as string;
+            }
+        }
 
         #endregion
 
@@ -109,71 +154,143 @@ namespace Qiqqa.Documents.PDF
 
         public double Left
         {
-            get { return dictionary.GetDouble("Left"); }            
-            set { dictionary["Left"] = value as double?; }
+            get
+            {
+                return dictionary.GetDouble("Left");
+            }
+            set
+            {
+                dictionary["Left"] = value as double?;
+            }
         }
         public double Top
         {
-            get { return dictionary.GetDouble("Top"); }
-            set { dictionary["Top"] = value as double?; }
+            get
+            {
+                return dictionary.GetDouble("Top");
+            }
+            set
+            {
+                dictionary["Top"] = value as double?;
+            }
         }
         public double Width
         {
-            get { return dictionary.GetDouble("Width"); }
-            set { dictionary["Width"] = value as double?; }
+            get
+            {
+                return dictionary.GetDouble("Width");
+            }
+            set
+            {
+                dictionary["Width"] = value as double?;
+            }
         }
         public double Height
         {
-            get { return dictionary.GetDouble("Height"); }
-            set { dictionary["Height"] = value as double?; }
+            get
+            {
+                return dictionary.GetDouble("Height");
+            }
+            set
+            {
+                dictionary["Height"] = value as double?;
+            }
         }
 
         public Color Color
         {
-            get { return dictionary.GetColor("ColorWrapper"); }
-            set { dictionary.SetColor("ColorWrapper", value); }
+            get
+            {
+                return dictionary.GetColor("ColorWrapper");
+            }
+            set
+            {
+                dictionary.SetColor("ColorWrapper", value);
+            }
         }
 
         public string Text
         {
-            get { return dictionary["Text"] as string; }
-            set { dictionary["Text"] = value as string; }
+            get
+            {
+                return dictionary["Text"] as string;
+            }
+            set
+            {
+                dictionary["Text"] = value as string;
+            }
         }
 
         public string Tags
         {
-            get { return dictionary["Tags"] as string; }
-            set { dictionary["Tags"] = value as string; }
+            get
+            {
+                return dictionary["Tags"] as string;
+            }
+            set
+            {
+                dictionary["Tags"] = value as string;
+            }
         }
 
         public string Rating
         {
-            get { return dictionary["Rating"] as string; }
-            set { dictionary["Rating"] = value as string; }
+            get
+            {
+                return dictionary["Rating"] as string;
+            }
+            set
+            {
+                dictionary["Rating"] = value as string;
+            }
         }
-        
+
         public DateTime? FollowUpDate
         {
-            get { return dictionary.GetDateTime("FollowUpDate"); }
-            set { dictionary.SetDateTime("FollowUpDate", value); }
+            get
+            {
+                return dictionary.GetDateTime("FollowUpDate");
+            }
+            set
+            {
+                dictionary.SetDateTime("FollowUpDate", value ?? Utilities.Constants.DATETIME_MIN);
+            }
         }
 
         public bool AnnotationReportSuppressImage
         {
-            get { return (bool)(dictionary["AnnotationReportSuppressImage"] ?? false); }
-            set { dictionary["AnnotationReportSuppressImage"] = value as bool?; }
+            get
+            {
+                return (bool)(dictionary["AnnotationReportSuppressImage"] ?? false);
+            }
+            set
+            {
+                dictionary["AnnotationReportSuppressImage"] = value as bool?;
+            }
         }
 
         public bool AnnotationReportSuppressText
         {
-            get { return (bool)(dictionary["AnnotationReportSuppressText"] ?? false); }
-            set { dictionary["AnnotationReportSuppressText"] = value as bool?; }
+            get
+            {
+                return (bool)(dictionary["AnnotationReportSuppressText"] ?? false);
+            }
+            set
+            {
+                dictionary["AnnotationReportSuppressText"] = value as bool?;
+            }
         }
 
         public bool AnnotationTextAlwaysVisible
         {
-            get { return (bool)(dictionary["AnnotationTextAlwaysVisible"] ?? false); }
-            set { dictionary["AnnotationTextAlwaysVisible"] = value; }
+            get
+            {
+                return (bool)(dictionary["AnnotationTextAlwaysVisible"] ?? false);
+            }
+            set
+            {
+                dictionary["AnnotationTextAlwaysVisible"] = value;
+            }
         }
 
         #endregion --------------------------------------------------------------------------------
@@ -199,7 +316,7 @@ namespace Qiqqa.Documents.PDF
         /// <returns></returns>
         public object Clone()
         {
-            return new PDFAnnotation((DictionaryBasedObject) dictionary.Clone(), true);
+            return new PDFAnnotation((DictionaryBasedObject)dictionary.Clone(), true);
         }
     }
 }

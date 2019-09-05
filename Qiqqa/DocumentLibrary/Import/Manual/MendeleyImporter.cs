@@ -14,15 +14,17 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             : base(library, filename)
         {
             if (recordUsageAsGenericBibTeX)
+            {
                 FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportFromBibTeXGeneric);
+            }
             else
+            {
                 FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportFromMendeley);
-
+            }
         }
 
         public override ParseFileResult GetResult()
         {
- 	
             string matchFilenameRegex = "(.*?):(.*):(.*)";
             Regex rx = new Regex(matchFilenameRegex);
 
@@ -30,7 +32,6 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             {
                 try
                 {
-
                     #region Deal with file
                     if (entry.Item.ContainsField("file"))
                     {
@@ -40,10 +41,10 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                         Match match = rx.Match(fn);
                         if (match.Success)
                         {
-                            //description:Applications/bla bla/bla/faq.pdf:file_type
+                            // description:Applications/bla bla/bla/faq.pdf:file_type
                             entry.FileType = match.Groups[3].Value.ToLower();
 
-                            //Qiqqa outputs this when exporting...
+                            // Qiqqa outputs this when exporting...
                             if (entry.FileType == "application/pdf")
                             {
                                 entry.FileType = "pdf";
@@ -62,9 +63,9 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                     }
                     #endregion
 
-                    //Handle notes
+                    // Handle notes
 
-                    //Parse notes. 
+                    // Parse notes. 
                     string notes = entry.Item["annote"];
                     if (!String.IsNullOrEmpty(notes))
                     {
@@ -79,7 +80,5 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
             return CreateFinalResult();
         }
-
     }
-
 }

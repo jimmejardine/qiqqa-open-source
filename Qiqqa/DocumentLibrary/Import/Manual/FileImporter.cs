@@ -37,11 +37,6 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         public abstract ParseFileResult GetResult();
 
         /// <summary>
-        /// Only needs to be true for unit tests. 
-        /// </summary>
-        public bool SkipDocumentExistsChecks { get; set; }
-
-        /// <summary>
         /// Removes invalid files, calculates fingerprints, determines if vanilla, and checks if fingerprint already in library. 
         /// </summary>
         protected ParseFileResult CreateFinalResult()
@@ -51,7 +46,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             {
                 try
                 {
-                    //Assume vanilla to start
+                    // Assume vanilla to start
                     entry.IsVanilla = true;
                     entry.Fingerprint = null;
 
@@ -59,7 +54,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                     {
                         if (!File.Exists(entry.Filename))
                         {
-                            //Perhaps it's a relative reference instead (like Qiqqa's export)
+                            // Perhaps it's a relative reference instead (like Qiqqa's export)
                             try
                             {
                                 string speculativeRelativeFn = Path.Combine(_exportDirectory, entry.Filename);
@@ -77,13 +72,13 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
                             if (!String.IsNullOrEmpty(entry.Fingerprint))
                             {
-                                //Definitely has a valid file...
+                                // Definitely has a valid file...
                                 entry.IsVanilla = false;
                             }
                         }
                     }else
                     {
-                        //If file could not be found, ensure it's blanked out so we don't try to import it. This is particularly import w.r.t filenames with funny characters, where the import will choke. 
+                        // If file could not be found, ensure it's blanked out so we don't try to import it. This is particularly import w.r.t filenames with funny characters, where the import will choke. 
                         entry.Filename = entry.FileType = null;
                     }
 
@@ -93,8 +88,8 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                 {
                     Logging.Error(ex);
 
-                    //TODO log /status manager.  
-                    //Ignore problems with individual files. 
+                    // TODO log /status manager.  
+                    // Ignore problems with individual files. 
                 }
             }
 
@@ -102,8 +97,6 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
             foreach (var entry in Entries)
             {
-                if (SkipDocumentExistsChecks) break;
-
                 if (entry.IsVanilla)
                 {
                     entry.ExistsInLibrary = ImportLibrary.DocumentExistsInLibraryWithBibTeX(entry.Id);
