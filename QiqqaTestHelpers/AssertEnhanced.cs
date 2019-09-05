@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -608,6 +609,19 @@ namespace QiqqaTestHelpers
                 IsNotNull(item, NullParameterToAssert, parameterName);
             }
         }
+
+
+        // ==================================================================================================
+
+        #region LessThan
+
+        public static void FileExists(string path)
+        {
+            IsTrue(File.Exists(path), "file <{0}> must exist", path);
+        }
+
+        #endregion
+
 
 
         // ==================================================================================================
