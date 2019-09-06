@@ -86,8 +86,6 @@ namespace QiqqaSystemTester
         [DataTestMethod]
         public void SimpleTest(string bibtex_filepath)
         {
-            ASSERT.IsTrue(true);
-
             string path = GetNormalizedPathToBibTeXTestFile(bibtex_filepath);
             ASSERT.FileExists(path);
 
