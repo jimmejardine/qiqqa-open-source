@@ -122,7 +122,7 @@ namespace Utilities.Language.TextIndexing
             document.Add(new Lucene.Net.Documents.Field("type", bibtex_item.Type, Lucene.Net.Documents.Field.Store.NO, Lucene.Net.Documents.Field.Index.ANALYZED));
             document.Add(new Lucene.Net.Documents.Field("key", bibtex_item.Key, Lucene.Net.Documents.Field.Store.NO, Lucene.Net.Documents.Field.Index.ANALYZED));
 
-            foreach (KeyValuePair<string, string> pair in bibtex_item.EnumerateFields())
+            foreach (KeyValuePair<string, string> pair in bibtex_item.Fields)
             {
                 document.Add(new Lucene.Net.Documents.Field(pair.Key, pair.Value, Lucene.Net.Documents.Field.Store.NO, Lucene.Net.Documents.Field.Index.ANALYZED));
             }

@@ -86,11 +86,16 @@ namespace Utilities.BibTex.Parsing
             }
         }
 
-        public IEnumerable<KeyValuePair<string, string>> EnumerateFields()
+
+        public IEnumerable<KeyValuePair<string, string>> Fields
         {
-            return fields;
+            get
+            {
+                return fields;
+            }
         }
 
+        [Newtonsoft.Json.JsonIgnore]    // https://stackoverflow.com/questions/10169648/how-to-exclude-property-from-json-serialization#answer-25566387
         public Dictionary<string, string>.KeyCollection FieldKeys
         {
             get

@@ -28,7 +28,7 @@ namespace Qiqqa.Exporting
                         BibTexItem item = BibTexParser.ParseOne(pdf_document.BibTex, true);
                         if (null != item)
                         {
-                            foreach (var field in item.EnumerateFields())
+                            foreach (var field in item.Fields)
                             {
                                 field_names_set.Add(field.Key.ToLower());
                             }

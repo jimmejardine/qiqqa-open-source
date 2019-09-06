@@ -251,7 +251,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
                         bibtex_item.Type = bibtex_item_global.Type;
                     }
 
-                    foreach (var field_pair in bibtex_item_global.EnumerateFields())
+                    foreach (var field_pair in bibtex_item_global.Fields)
                     {
                         bibtex_item[field_pair.Key] = field_pair.Value;
                     }
