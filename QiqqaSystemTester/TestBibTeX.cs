@@ -69,6 +69,16 @@ namespace QiqqaSystemTester
             ASSERT.FileExists(path);
         }
 
+        [DataRow("Utilities/BibTeX/TestFiles/Sample.bib")]
+        [DataTestMethod]
+        public void Do_Other_TestFiles_Exist(string bibtex_filepath)
+        {
+            ASSERT.IsTrue(true);
+
+            string path = GetNormalizedPathToAnyFile(bibtex_filepath);
+            ASSERT.FileExists(path);
+        }
+
         [DataRow("simple-0001.bib", DisplayName = "a simple BibTeX record")]
         [DataTestMethod]
         public void SimpleTest(string bibtex_filepath)
