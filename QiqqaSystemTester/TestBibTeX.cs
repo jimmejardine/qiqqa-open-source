@@ -6,6 +6,8 @@ using static QiqqaTestHelpers.MiscTestHelpers;
 using Utilities;
 using Utilities.BibTex;
 using Utilities.BibTex.Parsing;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace QiqqaSystemTester
 {
@@ -36,6 +38,7 @@ namespace QiqqaSystemTester
         [DataRow("misc-0002.bib", DisplayName = "multiple properties on a single line")]
         [DataRow("misc-0004.bib", DisplayName = "multiple properties on a single line")]
         [DataRow("misc-0005.bib", DisplayName = "author-split with semicolon instead of `and`")]
+        [DataRow("misc-0006.bib", DisplayName = "example record from BibTexItem.cs source file")]
         [DataRow("multiple-records-0001.bib")]
         [DataRow("non-ASCII-characters-0001.bib")]
         [DataRow("non-ASCII-characters-0002.bib", DisplayName = "apostrophe is non-ASCII here")]
@@ -91,6 +94,14 @@ namespace QiqqaSystemTester
             string data_in = GetBibTeXTestFileContent(path);
             BibTexParseResult rv = BibTexParser.Parse(data_in);
 
+            // Serialize the result to JSON for easier comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            string json_out = JsonConvert.SerializeObject(rv, Formatting.Indented).Replace("\r\n", "\n");
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new DataTestApprovalTextWriter(json_out, bibtex_filepath),
+                new DataTestLocationNamer(bibtex_filepath) /* GetDefaultNamer() */,
+                ApprovalTests.Approvals.GetReporter()
+            );
         }
 
         [TestMethod]

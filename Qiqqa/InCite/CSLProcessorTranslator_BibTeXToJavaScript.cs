@@ -77,7 +77,7 @@ namespace Qiqqa.InCite
                     ProcessType(sb, bibtex_item.Type);
 
                     // Now translate each field in the bibtex
-                    foreach (var field_pair in bibtex_item.EnumerateFields())
+                    foreach (var field_pair in bibtex_item.Fields)
                     {
                         // Don't let these clash with the actual citeproc fields
                         string[] CITEPROC_RESERVED_FIELDS = new string[] { "id", "type" };

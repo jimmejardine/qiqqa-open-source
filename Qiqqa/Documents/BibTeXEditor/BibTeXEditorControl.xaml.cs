@@ -320,7 +320,7 @@ namespace Qiqqa.Documents.BibTeXEditor
                 }
 
                 // Then the filled in ones
-                foreach (var field in bibtex_item.EnumerateFields())
+                foreach (var field in bibtex_item.Fields)
                 {
                     if (!processed_fields.Contains(field.Key))
                     {
