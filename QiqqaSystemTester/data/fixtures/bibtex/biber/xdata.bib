@@ -1,0 +1,51 @@
+@XDATA{macmillan:pub,
+  IDS       = {macmillan:pubALIAS},
+  PUBLISHER = {Macmillan}
+}
+
+@XDATA{macmillan:loc,
+  LOCATION = {New York and London},
+  NOTE     = {A Note} 
+}
+
+@XDATA{macmillan,
+  IDS   = {macmillanalias},
+  XDATA = {macmillan:pubALIAS, macmillan:loc}
+}
+
+
+@BOOK{xd1,
+  AUTHOR        = {Edward Ellington},
+  DATE          = {2007},
+  XDATA         = {macmillanalias, missingxd}
+}
+
+@BOOK{xd2,
+  AUTHOR        = {Peter Pillington},
+  DATE          = {2003},
+  PUBLISHER     = {Routledge},
+  XDATA         = {macmillan:loc, bltxxd1}
+}
+
+% Loop detection test
+@XDATA{loop:1,
+  NOTE = {Note}
+}
+
+@XDATA{loop:2,
+  XDATA = {loop:3}
+}
+
+@XDATA{loop:3,
+  XDATA = {loop}
+}
+
+@XDATA{loop,
+  XDATA = {loop:1, loop:2}
+}
+
+@BOOK{xd3,
+  AUTHOR        = {Edward Ellington},
+  DATE          = {1923},
+  XDATA         = {loop}
+}
