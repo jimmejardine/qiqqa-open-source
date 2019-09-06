@@ -21,5 +21,12 @@ namespace QiqqaTestHelpers
             string data = File.ReadAllText(bibtex_filepath, Encoding.UTF8);
             return data;
         }
+
+        public static string GetNormalizedPathToAnyFile(string filepath)
+        {
+            string fnpath = Path.GetFullPath(Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"../../..", filepath));
+            return fnpath;
+        }
+
     }
 }
