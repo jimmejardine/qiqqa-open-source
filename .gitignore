@@ -27,3 +27,6 @@ QiqqaVersionMigrator/obj/*
 
 # scratch directory for other material while working on Qiqqa items
 /research/
+
+*.received.json
+
