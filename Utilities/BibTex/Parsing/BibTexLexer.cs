@@ -11,18 +11,24 @@ namespace Utilities.BibTex.Parsing
         string bibtex;
 
         // Named c for current_pos, but needs to be short because we will use it in a LOT of bibtex[c+i] expressions...
-        int MAX_C = 0;
-        int c = 0;
+        readonly int MAX_C;
+        int c;
 
         public BibTexLexer(string bibtex)
         {
-            this.bibtex = bibtex;
-
-            if (null != bibtex)
+            if (null == bibtex)
             {
-                this.MAX_C = bibtex.Length;
-                this.c = 0;
+                bibtex = "";
             }
+
+            // Append some harmless whitespace at the end to help 
+            // reduce the number of out-of-bounds exceptions in the parser/lexer
+            // while keeping the code simple:
+            bibtex += "\n\n\n";
+
+            this.bibtex = bibtex;
+            this.MAX_C = bibtex.Length - 3;
+            this.c = 0;
         }
 
         public void Parse(BibTexLexerCallback callback)
@@ -100,16 +106,16 @@ namespace Utilities.BibTex.Parsing
                 switch (c < MAX_C ? bibtex[c] : '\0')
                 {
                     case '(':
-                    ParseEntry_Delim(callback, '(', ')');
+                        ParseEntry_Delim(callback, '(', ')');
                         break;
 
                     case '{':
-                    ParseEntry_Delim(callback, '{', '}');
+                        ParseEntry_Delim(callback, '{', '}');
                         break;
 
                     default:
-                    Exception(callback, "Expecting a {0} or {1} to start a BibTeX reference", "(", "{{");
-                    return;
+                        Exception(callback, "Expecting a {0} or {1} to start a BibTeX reference", "(", "{{");
+                        return;
                 }
             }
             catch (IndexOutOfRangeException)
@@ -117,7 +123,7 @@ namespace Utilities.BibTex.Parsing
                 Exception(callback, "Ran out of characters while reading the entry");
             }
         }
-        
+
         private void ParseEntry_Delim(BibTexLexerCallback callback, char delim_open, char delim_close)
         {
             // Check the beginning of this entry
@@ -270,25 +276,22 @@ namespace Utilities.BibTex.Parsing
         private void ParseFieldValue(BibTexLexerCallback callback)
         {
             // Decide on the value type and parse it
-            if (false)
-            {
-            }
-            else if ('{' == bibtex[c])
+            char ch = bibtex[c];
+            if ('{' == ch)
             {
                 ParseFieldValue_Braces(callback);
             }
-            else if ('"' == bibtex[c])
+            else if ('"' == ch)
             {
                 ParseFieldValue_Quotes(callback);
             }
-            else if (Char.IsLetterOrDigit(bibtex[c]))
+            else if (Char.IsLetterOrDigit(ch))
             {
                 ParseFieldValue_AlphaNumeric(callback);
             }
             else
             {
                 Exception(callback, "A field value should start with '{0}' or '{1}' or digit", "(", "{{");
-                return;
             }
         }
 
@@ -297,7 +300,7 @@ namespace Utilities.BibTex.Parsing
             // Check we have our {
             if ('"' != bibtex[c])
             {
-                Exception(callback, "Quotes field value should start with \""); 
+                Exception(callback, "Quotes field value should start with \"");
                 return;
             }
             else
@@ -309,34 +312,31 @@ namespace Utilities.BibTex.Parsing
             int field_value_start = c;
             while (true)
             {
+                if ('{' == bibtex[c] && '\\' != bibtex[c - 1])
                 {
-                    if (false) { }
-                    else if ('{' == bibtex[c] && '\\' != bibtex[c - 1])
+                    ++brace_depth;
+                    ++c;
+                }
+                else if ('}' == bibtex[c] && '\\' != bibtex[c - 1])
+                {
+                    --brace_depth;
+                    ++c;
+                }
+                else if ('"' == bibtex[c] && '\\' != bibtex[c - 1])
+                {
+                    // Are we out of our delimeters yet?
+                    if (1 <= brace_depth)
                     {
-                        ++brace_depth;
                         ++c;
-                    }
-                    else if ('}' == bibtex[c] && '\\' != bibtex[c - 1])
-                    {
-                        --brace_depth;
-                        ++c;
-                    }
-                    else if ('"' == bibtex[c] && '\\' != bibtex[c - 1])
-                    {
-                        // Are we out of our delimeters yet?
-                        if (1 <= brace_depth)
-                        {
-                            ++c;
-                        }
-                        else
-                        {
-                            break;
-                        }
                     }
                     else
                     {
-                        ++c;
+                        break;
                     }
+                }
+                else
+                {
+                    ++c;
                 }
             }
             int field_value_end = c;
@@ -373,31 +373,28 @@ namespace Utilities.BibTex.Parsing
             int field_value_start = c;
             while (true)
             {
+                if ('{' == bibtex[c] && '\\' != bibtex[c - 1])
                 {
-                    if (false) { }
-                    else if ('{' == bibtex[c] && '\\' != bibtex[c - 1])
-                    {
-                        ++brace_depth;
-                        ++c;
-                    }
-                    else if ('}' == bibtex[c] && '\\' != bibtex[c - 1])
-                    {
-                        --brace_depth;
+                    ++brace_depth;
+                    ++c;
+                }
+                else if ('}' == bibtex[c] && '\\' != bibtex[c - 1])
+                {
+                    --brace_depth;
 
-                        // Are we out of our delimeters yet?
-                        if (0 <= brace_depth)
-                        {
-                            ++c;
-                        }
-                        else
-                        {
-                            break;
-                        }
+                    // Are we out of our delimeters yet?
+                    if (0 <= brace_depth)
+                    {
+                        ++c;
                     }
                     else
                     {
-                        ++c;
+                        break;
                     }
+                }
+                else
+                {
+                    ++c;
                 }
             }
             int field_value_end = c;
@@ -422,24 +419,21 @@ namespace Utilities.BibTex.Parsing
             int field_value_start = c;
             while (true)
             {
+                if (Char.IsLetterOrDigit(bibtex[c]))
                 {
-                    if (false) { }
-                    else if (Char.IsLetterOrDigit(bibtex[c]))
-                    {
-                        ++c;
-                    }
-                    else if ('.' == bibtex[c])
-                    {
-                        ++c;
-                    }
-                    else if ('-' == bibtex[c])
-                    {
-                        ++c;
-                    }
-                    else
-                    {
-                        break;
-                    }
+                    ++c;
+                }
+                else if ('.' == bibtex[c])
+                {
+                    ++c;
+                }
+                else if ('-' == bibtex[c])
+                {
+                    ++c;
+                }
+                else
+                {
+                    break;
                 }
             }
             int field_value_end = c;
@@ -461,7 +455,7 @@ namespace Utilities.BibTex.Parsing
             }
         }
 
-        
+
         void ParseWhiteSpace()
         {
             while (c < MAX_C && Char.IsWhiteSpace(bibtex[c]))
@@ -485,7 +479,7 @@ namespace Utilities.BibTex.Parsing
 
             return bibtex.Substring(start, c - start);
         }
-        
+
 
         // ------------------------------------------------------------------------------------
 
@@ -506,15 +500,37 @@ namespace Utilities.BibTex.Parsing
             if ('+' == c) return true;
             if (':' == c) return true;
             if ('/' == c) return true;
-            if (' ' == c) return true;
+            //if (' ' == c) return true;
             if ('?' == c) return true;
             return false;
         }
 
-        public static string StripNonKeyChars(string key)
+        public static string StripNonKeyChars(string key, string replacement)
         {
             StringBuilder sb = new StringBuilder();
-            foreach (char c in key) if (IsKeyChar(c)) sb.Append(c);
+            // Only replace first in a series of non-key chars
+            // and then only IFF followed by at least one key-char
+            // AND IFF preceded by at least one key-char!
+            //
+            // This prevents replacements at start or end of a 'key'.
+            int replace_state = 0;              
+            foreach (char c in key)
+            {
+                if (IsKeyChar(c))
+                {
+                    replace_state++;
+                    if (0 == replace_state)
+                    {
+                        sb.Append(replacement);
+                        replace_state = 1;
+                    }
+                    sb.Append(c);
+                }
+                else if (replace_state > 0)
+                {
+                    replace_state = -1;
+                }
+            }
 
             return sb.ToString();
         }
@@ -552,7 +568,7 @@ namespace Utilities.BibTex.Parsing
                 {
                     sb.Append(' ');
                 }
-                
+
             }
             sb.AppendLine();
 
