@@ -56,5 +56,19 @@ namespace QiqqaSystemTester
         {
             ASSERT.IsTrue(true);
         }
+
+#if TEST
+        [TestMethod]
+        public void TEST_Has_Been_Defined_In_The_Project_Configuration()
+        {
+            ASSERT.Pass("TEST has been correctly defined in the QiqqaSystemTester project configuration.");
+        }
+#else
+        [TestMethod]
+        public void TEST_Has_Not_Been_Defined_In_The_Project_Configuration()
+        {
+            ASSERT.Fail("TEST has not been defined in the QiqqaSystemTester project configuration.");
+        }
+#endif
     }
 }

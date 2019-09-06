@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QiqqaTestHelpers;
+using static QiqqaTestHelpers.MiscTestHelpers;
 using Utilities;
 using Utilities.BibTex;
+using Utilities.BibTex.Parsing;
 
 namespace QiqqaSystemTester
 {
@@ -16,13 +16,6 @@ namespace QiqqaSystemTester
         public void Setup()
         {
         }
-
-        private string GetNormalizedPathToTestFile(string bibtex_filepath)
-        {
-            string fnpath = Path.GetFullPath(Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"../../data/fixtures/bibtex", bibtex_filepath));
-            return fnpath;
-        }
-
 
         [DataRow("all-caps-0001.bib", DisplayName = "all caps property / properties")]
         [DataRow("ampersand-0001.bib", DisplayName = "ampersand...")]
@@ -72,7 +65,7 @@ namespace QiqqaSystemTester
         {
             ASSERT.IsTrue(true);
 
-            string path = GetNormalizedPathToTestFile(bibtex_filepath);
+            string path = GetNormalizedPathToBibTeXTestFile(bibtex_filepath);
             ASSERT.FileExists(path);
         }
 
@@ -82,8 +75,11 @@ namespace QiqqaSystemTester
         {
             ASSERT.IsTrue(true);
 
-            string path = GetNormalizedPathToTestFile(bibtex_filepath);
+            string path = GetNormalizedPathToBibTeXTestFile(bibtex_filepath);
             ASSERT.FileExists(path);
+
+            string data_in = GetBibTeXTestFileContent(path);
+            BibTexParseResult rv = BibTexParser.Parse(data_in);
 
         }
 

@@ -93,7 +93,10 @@ namespace Utilities.BibTex.Parsing
 
         public Dictionary<string, string>.KeyCollection FieldKeys
         {
-            get { return fields.Keys; }
+            get
+            {
+                return fields.Keys;
+            }
         }
 
         public string GetExceptionsAndMessagesString()

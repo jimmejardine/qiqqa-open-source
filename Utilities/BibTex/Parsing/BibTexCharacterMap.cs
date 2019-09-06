@@ -1,8 +1,23 @@
 ﻿using System;
 using System.Linq;
 
+#if TEST
+using System.Diagnostics;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using QiqqaTestHelpers;
+using static QiqqaTestHelpers.MiscTestHelpers;
+using Utilities;
+#endif
+
+#if TEST
+namespace QiqqaSystemTester
+#else
 namespace Utilities.BibTex.Parsing
+#endif
 {
+#if TEST
+    [TestClass]
+#endif
     /// <summary>
     /// Use this class to translate between the weird bibtex control codes to ASCII.
     /// The test harness suggests that this is quick (1.5M a second), so add as many translation lookups as you like...
@@ -35,9 +50,9 @@ namespace Utilities.BibTex.Parsing
              "Ó", @"\'O",
              "Ú", @"\'U",
              "Ý", @"\'Y",
-            
+
              "â", @"\^a",
-             "ê", @"\^e",            
+             "ê", @"\^e",
              "î", @"\^i",
              "ô", @"\^o",
              "û", @"\^u",
@@ -51,7 +66,7 @@ namespace Utilities.BibTex.Parsing
              "õ", @"\~o",
              "Ã", @"\~A",
              "Õ", @"\~O",
-            
+
              "ä", @"\""a",
              "ë", @"\""e",
              "ï", @"\""i",
@@ -119,7 +134,7 @@ namespace Utilities.BibTex.Parsing
             // Do the million substitutions
             for (int i = 0; i < MAP.Length; i += 2)
             {
-                source = source.Replace(MAP[i], MAP[i+1]);
+                source = source.Replace(MAP[i], MAP[i + 1]);
             }
 
             return source;
@@ -128,48 +143,61 @@ namespace Utilities.BibTex.Parsing
         #region --- Test ------------------------------------------------------------------------
 
 #if TEST
-        public static void Test()
-        {
-            Test_REVERSE();
-            Test_SPEED();
-        }
-
-        public static void Test_SPEED()
+        [TestMethod]
+        public void Test_Conversion_To_And_From_BibTeX_Text()
         {
             string s1 = "Großherr Schneider müßt être fâché!";
             string s2 = ASCIIToBibTex(s1);
             string s3 = BibTexToASCII(s2);
 
-            int NUM = 100000;
-            DateTime start = DateTime.UtcNow;
+            ASSERT.AreEqual(s1, s3);
+        }
 
-            start = DateTime.UtcNow;
-            for (int i = 0; i < NUM; ++i)
+        [TestMethod]
+        public void Test_SPEED()
+        {
+            string s1 = "Großherr Schneider müßt être fâché!";
+            string s2 = ASCIIToBibTex(s1);
+            string s3 = BibTexToASCII(s2);
+
+            const int NUM = 1000000;
+            const int CHUNK = 10000;
+            Stopwatch start = Stopwatch.StartNew();
+            int i;
+
+            for (i = 0; i < NUM; ++i)
             {
+                if (i % CHUNK == CHUNK - 1)
+                {
+                    // don't run for more than 2 seconds
+                    if (start.ElapsedMilliseconds >= 2000)
+                    {
+                        break;
+                    }
+                }
                 s2 = ASCIIToBibTex(s1);
             }
-            double time_a2b = NUM * 1000.0 / DateTime.UtcNow.Subtract(start).TotalMilliseconds;
-            Logging.Info("To can do {0} per second", time_a2b);
+            double time_a2b = i * 1.0 / start.ElapsedMilliseconds;
+            Logging.Info("ASCIIToBibTex can do {0:0.000}K operations per second", time_a2b);
 
-            start = DateTime.UtcNow;
-            for (int i = 0; i < NUM; ++i)
+            start = Stopwatch.StartNew();
+            for (i = 0; i < NUM; ++i)
             {
+                if (i % CHUNK == CHUNK - 1)
+                {
+                    // don't run for more than 2 seconds
+                    if (start.ElapsedMilliseconds >= 2000)
+                    {
+                        break;
+                    }
+                }
                 s3 = BibTexToASCII(s2);
             }
-            double time_b2a = NUM * 1000.0 / DateTime.UtcNow.Subtract(start).TotalMilliseconds;
-            Logging.Info("To can do {0} per second", time_b2a);
-        }
+            double time_b2a = i * 1.0 / start.ElapsedMilliseconds;
+            Logging.Info("BibTexToASCII can do {0:0.000}K operations per second", time_b2a);
 
-        public static void Test_REVERSE()
-        {
-            string s1 = "Großherr Schneider müßt être fâché!";
-            string s2 = ASCIIToBibTex(s1);
-            string s3 = BibTexToASCII(s2);
-
-            if (0 != String.Compare(s1, s3))
-            {
-                Logging.Error("STRANGE");
-            }
+            // dummy
+            ASCIIToBibTex(s3);
         }
 #endif
 
