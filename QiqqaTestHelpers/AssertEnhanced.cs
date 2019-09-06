@@ -613,11 +613,44 @@ namespace QiqqaTestHelpers
 
         // ==================================================================================================
 
-        #region LessThan
+        #region File System
 
         public static void FileExists(string path)
         {
             IsTrue(File.Exists(path), "file <{0}> must exist", path);
+        }
+
+        #endregion
+
+
+
+
+        // ==================================================================================================
+
+        #region Pass / Fail Additions
+
+        /// <summary>Passes the assertion without checking any conditions.</summary>
+        /// <exception cref="AssertFailedException">Always thrown.</exception>
+        public static void Pass()
+        {
+            System.Diagnostics.Trace.WriteLine("Assertion PASSES");
+        }
+
+        /// <summary>Passes the assertion without checking any conditions. Logs a message.</summary>
+        /// <param name="message">A message to display. This message can be seen in the unit test results.</param>
+        /// <exception cref="AssertFailedException">Always thrown.</exception>
+        public static void Pass(string message)
+        {
+            System.Diagnostics.Trace.WriteLine(String.Format("Assertion PASSES: {0}", message));
+        }
+
+        /// <summary>Passes the assertion without checking any conditions. Displays a message, and applies the specified formatting to it.</summary>
+        /// <param name="message">A message to display. This message can be seen in the unit test results.</param>
+        /// <param name="parameters">An array of parameters to use when formatting <paramref name="message" />.</param>
+        /// <exception cref="AssertFailedException">Always thrown.</exception>
+        public static void Pass(string message, params object[] parameters)
+        {
+            System.Diagnostics.Trace.WriteLine(String.Format("Assertion PASSES: {0}", String.Format(message, parameters)));
         }
 
         #endregion
