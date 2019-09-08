@@ -1,0 +1,152 @@
+Survive multiple errors in a single bib 'record file':
+
+---------------------------------------------------------------------------
+BIBTEX PARSE ERROR:
+
+ @book{mitrinović1996handbook
+,       title   = {Handbook of number theory}
+,       author  = {Mitrinovi\\'c, D.S. and S\'andor, J. and Crstici, B.}
+,       volume  = {1}
+,       year    = {1996}
+,       publisher       = {Kluwer Academic Pub}
+}
+
+
+bibtexParse error:  Token mismatch, expected "," at index 15, found "ć1996handbook"
+
+
+
+---------------------------------------------------------------------------
+BIBTEX PARSE ERROR:
+
+
+ @datasheet = HT16K33 : RAM Mapping 16*8 LED Controller Driver with keyscan
+
+
+
+
+bibtexParse error:  Token mismatch, expected "{" at index 11, found "= HT16K33 : R"
+
+
+---------------------------------------------------------------------------
+BIBTEX PARSE ERROR:
+
+ @delete
+
+bibtexParse error:  Runaway key
+
+
+---------------------------------------------------------------------------
+BIBTEX PARSE ERROR:
+
+ @article{whelan 2010 effective czas reakcji latency rt
+,       author  = {Whelan, Robert}
+,       title   = {Effective analysis of reaction time data}
+,       journal = {The Psychological Record}
+,       year    = {2010}
+,       volume  = {58}
+,       number  = {3}
+,       pages   = {9}
+}
+
+bibtexParse error:  Token mismatch, expected "," at index 16, found "2010 effectiv"
+
+
+---------------------------------------------------------------------------
+BIBTEX PARSE ERROR:
+
+ @delete{}
+
+bibtexParse error:  Token mismatch, expected "," at index 8, found "}"
+
+
+---------------------------------------------------------------------------
+BIBTEX PARSE ERROR:
+
+ @delete{delete
+}
+---------------------------------------------------------------------------
+BIBTEX PARSE ERROR:
+
+ @empty = delete?
+
+bibtexParse error:  Token mismatch, expected "{" at index 7, found "= delete?"
+
+
+---------------------------------------------------------------------------
+BIBTEX PARSE ERROR:
+
+ @blank?
+
+bibtexParse error:  Runaway key
+
+
+---------------------------------------------------------------------------
+BIBTEX PARSE ERROR:
+
+ @blank{
+}
+bibtexParse error:  Token mismatch, expected "," at index 8, found "}"
+
+
+---------------------------------------------------------------------------
+BIBTEX PARSE ERROR:
+
+ @delete
+
+bibtexParse error:  Runaway key
+
+
+---------------------------------------------------------------------------
+BIBTEX PARSE ERROR:
+
+ @comment { BIBTEX_AUTO - GS }
+@article{hermans2012exact,
+  title={Exact and near-miss clone detection in spreadsheets},
+  author={Hermans, Felienne},
+  journal={TinyToCS$\}$},
+  volume={1},
+  year={2012}
+}
+
+bibtexParse error:  Token mismatch, expected "}" at index 173, found "$},\n  volume="
+
+
+---------------------------------------------------------------------------
+BIBTEX PARSE ERROR:
+
+ @book{hopcroft2001automata,
+  title={Introduction to automata theory, languages, and computation},
+  author={Hopcroft, John E and Motwani, Rajeev and Ullman, Jeffrey D},
+  year={2001},
+  publisher=Addison-Wesley}
+}
+bibtexParse error:  Value expected:Addison-Wesley}
+}
+
+
+---------------------------------------------------------------------------
+BIBTEX PARSE ERROR:
+
+ @specsheet{
+title={DHM3UM80: High Voltage Fast Recovery Diode},
+manufacturer={Hitachi}
+}
+bibtexParse error:  Token mismatch, expected "," at index 18, found "={DHM3UM80: H"
+
+
+---------------------------------------------------------------------------
+BIBTEX PARSE ERROR:
+
+ @comment { BIBTEX_AUTO - GS }
+@article{abraham2014fully,
+  title={Fully Dynamic All-Pairs Shortest Paths: Breaking the O (n) Barrier$\}$$\}$},
+  author={Abraham, Ittai and Chechik, Shiri and Talwar, Kunal},
+  journal={Approximation, Randomization, and Combinatorial Optimization. Algorithms and Techniques (APPROX/RANDOM 2014)$\}$},
+  volume={28},
+  pages={1--16},
+  year={2014},
+  publisher={Schloss Dagstuhl--Leibniz-Zentrum fuer Informatik$\}$}
+}
+
+bibtexParse error:  Token mismatch, expected "}" at index 136, found "$$\\}$},\n  aut"

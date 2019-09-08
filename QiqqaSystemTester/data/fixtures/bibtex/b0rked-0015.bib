@@ -1,0 +1,28 @@
+More nutty TeX Math that isn't -- probably some auto-converter b0rked along the line to us getting this record off the IntarWebz:
+
+@comment { BIBTEX_AUTO - GS }
+@article{abraham2014fully,
+  title={Fully Dynamic All-Pairs Shortest Paths: Breaking the O (n) Barrier$\}$$\}$},
+  author={Abraham, Ittai and Chechik, Shiri and Talwar, Kunal},
+  journal={Approximation, Randomization, and Combinatorial Optimization. Algorithms and Techniques (APPROX/RANDOM 2014)$\}$},
+  volume={28},
+  pages={1--16},
+  year={2014},
+  publisher={Schloss Dagstuhl--Leibniz-Zentrum fuer Informatik$\}$}
+}
+
+bibtexParse error:  Token mismatch, expected "}" at index 136, found "$$\\}$},\n  aut"
+--------------------------------------------------
+
+and corrected:
+
+@comment { BIBTEX_AUTO - GS }
+@article{abraham2014fully,
+  title={Fully Dynamic All-Pairs Shortest Paths: Breaking the O(n) Barrier},
+  author={Abraham, Ittai and Chechik, Shiri and Talwar, Kunal},
+  journal={Approximation, Randomization, and Combinatorial Optimization. Algorithms and Techniques (APPROX/RANDOM 2014)},
+  volume={28},
+  pages={1--16},
+  year={2014},
+  publisher={Schloss Dagstuhl--Leibniz-Zentrum fuer Informatik}
+}
