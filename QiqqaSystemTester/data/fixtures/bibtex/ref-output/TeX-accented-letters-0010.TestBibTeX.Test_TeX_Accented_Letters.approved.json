@@ -1,0 +1,24 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "pmid:22898927",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Arithmetic word problem solving: evidence for a magnitude-based mental representation.",
+        "author": "Orrantia, Josetxu and Múñez, David",
+        "journal": "Memory & cognition",
+        "journal-iso": "Mem Cognit",
+        "volume": "41",
+        "number": "1",
+        "year": "2013",
+        "month": "Jan",
+        "pages": "98--108",
+        "doi": "10.3758/s13421-012-0241-1",
+        "pmid": "22898927"
+      }
+    }
+  ],
+  "Comments": []
+}

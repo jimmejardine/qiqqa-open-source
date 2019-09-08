@@ -1,0 +1,21 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "soeiro2013automated",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Automated design of a high-power high-frequency LCC resonant converter for electrostatic precipitators",
+        "author": "Soeiro, Thiago B and Mühlethaler, Jonas and Linnér, Jӧrgen and Ranstad, Per and Kolar, Johann W",
+        "journal": "IEEE Transactions on Industrial Electronics",
+        "volume": "60",
+        "number": "11",
+        "pages": "4805--4819",
+        "year": "2013",
+        "publisher": "IEEE"
+      }
+    }
+  ],
+  "Comments": []
+}

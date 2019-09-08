@@ -49,24 +49,5 @@ namespace Utilities.BibTex.Parsing
         private BibTexParser()
         {
         }
-
-#region --- Test ------------------------------------------------------------------------
-
-#if TEST
-        public static void Test()
-        {
-            string filename = @"..\..\..\..\Utilities\BibTex\TestFiles\Sample.bib";
-            string bibtex = File.ReadAllText(filename);
-
-            List<BibTexItem> items = Parse(bibtex).Items;
-
-            for (int i = 0; i < 5; ++i)
-            {
-                Logging.Info(items[i].ToBibTex());
-            }
-        }
-#endif
-
-#endregion
     }
 }
