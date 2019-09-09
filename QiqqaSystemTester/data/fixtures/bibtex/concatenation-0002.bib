@@ -1,0 +1,47 @@
+journal article with dual months
+use the BibTeX "#" concatenation operator
+From the March 2002 issue of "IEEE Transactions on Mechatronics",
+page 21, reference #8.
+@article{IEEEexample:articledualmonths,
+  author        = "Y. Okada and K. Dejima and T. Ohishi",
+  title         = "Analysis and Comparison of {PM} Synchronous Motor and
+                   Induction Motor Type Magnetic Bearings",
+  journal       = IEEE_J_IA,
+  volume        = "31",
+  month         = sep # "/" # oct,
+  year          = "1995",
+  pages         = "1047-1053"
+}
+
+
+journal article to be published as a misc entry type
+date information like month and year is optional
+However, the article form like that below may be a better approach.
+From the May 2002 issue of "IEEE Journal of Selected Areas in
+Communication", page 725, reference #3.
+@misc{IEEEexample:TBPmisc,
+  author        = "M. Coates and A. Hero and R. Nowak and B. Yu",
+  title         = "Internet Tomography",
+  howpublished  = IEEE_M_SP,
+  month         = may,
+  year          = "2002",
+  note          = "to be published"
+}
+
+
+conference paper with an address and days. Some journals capitalize the
+letters in "Globecom", this one did not.
+From the May 2002 issue of "IEEE Transactions on Communications",
+page 697, reference #12.
+@inproceedings{IEEEexample:confwithadddays,
+  author        = "M. S. Yee and L. Hanzo",
+  title         = "Radial Basis Function Decision Feedback Equaliser
+                   Assisted Burst-by-burst Adaptive Modulation",
+  booktitle     = "Proc. {IEEE} Globecom '99",
+  address       = "Rio de Janeiro, Brazil",
+  month         = dec # " 5--9,",
+  year          = "1999",
+  pages         = "2183-2187"
+}
+
+
