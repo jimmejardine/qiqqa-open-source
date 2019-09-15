@@ -20,6 +20,11 @@ namespace QiqqaSystemTester
         {
         }
 
+        // To (re)generate the DataRow list:
+        //
+        //     cd QiqqaSystemTester/data/fixtures/bibtex
+        //     ( for f in *.bib**/*.bib **/**/*.bib **/**/*.biblatex ; do echo "[DataRow(\"$f\")]" ; done ) > x
+        //
         [DataRow("all-caps-0001.bib")]
         [DataRow("ampersand-0001.bib")]
         [DataRow("ampersand-0002.bib")]
@@ -31,6 +36,15 @@ namespace QiqqaSystemTester
         [DataRow("b0rked-0005.bib")]
         [DataRow("b0rked-0006.bib")]
         [DataRow("b0rked-0007.bib")]
+        [DataRow("b0rked-0008.bib")]
+        [DataRow("b0rked-0009.bib")]
+        [DataRow("b0rked-0010.bib")]
+        [DataRow("b0rked-0011.bib")]
+        [DataRow("b0rked-0012.bib")]
+        [DataRow("b0rked-0013.bib")]
+        [DataRow("b0rked-0014.bib")]
+        [DataRow("b0rked-0015.bib")]
+        [DataRow("b0rked-0100.bib")]
         [DataRow("Better-BibTeX/export/(non-)dropping particle handling #313.biblatex")]
         [DataRow("Better-BibTeX/export/@jurisdiction; map court,authority to institution #326.biblatex")]
         [DataRow("Better-BibTeX/export/@legislation; map code,container-title to journaltitle #327.biblatex")]
@@ -284,6 +298,7 @@ namespace QiqqaSystemTester
         [DataRow("btparse/unlimited.bib")]
         [DataRow("comment-0001.bib")]
         [DataRow("concatenation-0001.bib")]
+        [DataRow("concatenation-0002.bib")]
         [DataRow("CrossTeX/comments.bib")]
         [DataRow("CrossTeX/diss.bib")]
         [DataRow("CrossTeX/sample-0001.bib")]
@@ -307,12 +322,15 @@ namespace QiqqaSystemTester
         [DataRow("macros-0002.bib")]
         [DataRow("macros-0003.bib")]
         [DataRow("macros-0004.bib")]
+        [DataRow("macros-0005.bib")]
         [DataRow("misc-0001.bib")]
         [DataRow("misc-0002.bib")]
         [DataRow("misc-0003.bib")]
         [DataRow("misc-0004.bib")]
         [DataRow("misc-0005.bib")]
         [DataRow("misc-0006.bib")]
+        [DataRow("misc-0007.bib")]
+        [DataRow("misc-0008.bib")]
         [DataRow("multiple-records-0001.bib")]
         [DataRow("non-ASCII-characters-0001.bib")]
         [DataRow("non-ASCII-characters-0002.bib")]
