@@ -1,0 +1,84 @@
+<!DOCTYPE ArticleSet PUBLIC "-//NLM//DTD PubMed 2.8//EN"
+"https://dtd.nlm.nih.gov/ncbi/pubmed/in/PubMed.dtd">
+<!-- Example of a Replaces XML file: https://www.ncbi.nlm.nih.gov/books/NBK3828/#publisherhelp -->
+<ArticleSet>
+  <Article>
+    <Journal>
+      <PublisherName>Sage Publications</PublisherName>
+      <JournalTitle>Am J Hosp Palliat Care</JournalTitle>
+      <Issn>1938-2715</Issn>
+      <Volume>31</Volume>
+      <Issue>2</Issue>
+      <PubDate PubStatus="ppublish">
+        <Year>2014</Year>
+        <Month>Mar</Month>
+      </PubDate>
+    </Journal>
+    <Replaces IdType="doi">10.1177/1049909113482745</Replaces>
+    <ArticleTitle>Neuromodulation and palliative 
+    medicine.</ArticleTitle>
+    <FirstPage>211</FirstPage>
+    <LastPage>219</LastPage>
+    <ELocationID EIdType="doi">10.1177/1049909113482745</ELocationID>
+    <Language>EN</Language>
+    <AuthorList>
+      <Author>
+        <FirstName>Howard S</FirstName>
+        <LastName>Smith</LastName>
+        <Affiliation>Department of Anesthesiology, Albany Medical
+        College, Albany, NY, USA.</Affiliation>
+      </Author>
+      <Author>
+        <FirstName>Julie G</FirstName>
+        <LastName>Pilitsis</LastName>
+        <AffiliationInfo>
+        <Affiliation>Center for Neuropharmacology and Neuroscience,
+        Albany Medical College, Albany, NY USA.</Affiliation>
+        </AffiliationInfo>
+        <AffiliationInfo>
+        <Affiliation>Division of Neurosurgery, Albany Medical Center, 
+        Albany, NY USA.</Affiliation>
+        </AffiliationInfo>
+      </Author>
+    </AuthorList>
+    <PublicationType>JOURNAL ARTICLE</PublicationType>
+    <ArticleIdList>
+      <ArticleId IdType="pii">1049909113482745</ArticleId>
+      <ArticleId IdType="doi">10.1177/1049909113482745</ArticleId>
+    </ArticleIdList>
+    <History>
+      <PubDate PubStatus = "aheadofprint">
+        <Year>2013</Year> 
+        <Month>3</Month> 
+        <Day>26</Day>
+      </PubDate> 
+    </History> 
+    <Abstract>The palliative care population is generally vulnerable to experiencing medication-induced adverse effects and drug-drug interactions. Neuromodulation may offer particular advantages over systemic medications in this population. Spinal cord stimulation and peripheral nerve stimulation have long been utilized in efforts to provide analgesia for various painful conditions. More recently, deep brain stimulation/motor cortex stimulation has anecdotally been utilized for certain intractable pain states. Although brain electrical stimulation has not been adequately trialed or in some cases even tried at all for management of a variety of symptoms, it is conceivable that in the future it may be a potential therapeutic option in efforts to palliate various severe refractory symptoms (eg, intractable pain, nausea, dyspnea, delirium).</Abstract>
+    <ObjectList>
+      <Object Type="keyword">
+        <Param Name="value">brain</Param>
+      </Object>
+      <Object Type="keyword">
+        <Param Name="value">dyspnea</Param>
+      </Object>
+      <Object Type="keyword">
+        <Param Name="value">electrical</Param>
+      </Object>
+      <Object Type="keyword">
+         <Param Name="value">nausea</Param>
+      </Object>
+      <Object Type="keyword">
+        <Param Name="value">neuromodulation</Param>
+      </Object>
+      <Object Type="keyword">
+        <Param Name="value">pain</Param>
+      </Object>
+      <Object Type="keyword">
+        <Param Name="value">palliative care</Param>
+       </Object>
+       <Object Type="keyword">
+         <Param Name="value">stimulation</Param>
+       </Object>
+    </ObjectList>
+  </Article>
+</ArticleSet>

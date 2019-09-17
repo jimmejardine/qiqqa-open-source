@@ -1,0 +1,189 @@
+<!DOCTYPE ArticleSet PUBLIC "-//NLM//DTD PubMed 2.8//EN" "https://dtd.nlm.nih.gov/ncbi/pubmed/in/PubMed.dtd">
+<!-- Example of a Standard XML file: https://www.ncbi.nlm.nih.gov/books/NBK3828/#publisherhelp.Example_of_a_Standard_XML -->
+<ArticleSet>
+  <Article>
+     <Journal>
+       <PublisherName>DOVE Medical Press</PublisherName>
+       <JournalTitle>Int J Chron Obstruct Pulmon Dis</JournalTitle>
+       <Issn>1178-2005</Issn>
+       <Volume>12</Volume>
+       <Issue>3</Issue>
+       <PubDate PubStatus="ppublish">
+       <Year>2017</Year>
+       <Month>03</Month>
+       </PubDate>
+     </Journal>
+     <ArticleTitle>A case series of an off-the-shelf online health
+     resource with integrated nurse coaching to support self-management
+     in COPD.</ArticleTitle>
+     <FirstPage>2955</FirstPage>
+     <LastPage>2967</LastPage>
+     <ELocationID EIdType="doi">10.2147/COPD.S139532</ELocationID>
+     <Language>EN</Language>
+     <AuthorList>
+       <Author>
+         <FirstName>Frances</FirstName>
+         <LastName>Early</LastName>
+         <Affiliation>Centre for Self Management Support, Cambridge
+         University Hospitals NHS Foundation Trust, Cambridge, UK.
+         </Affiliation>
+       </Author>
+       <Author>
+         <FirstName>Jane</FirstName>
+         <MiddleName>S</MiddleName>
+         <LastName>Young</LastName>
+         <Affiliation>Faculty of Health, Social Care and Education,
+         School of Nursing and Midwifery,Anglia Ruskin University,
+         Cambridge, UK.
+         </Affiliation>
+       </Author>
+       <Author>
+         <FirstName>Elizabeth</FirstName>
+         <LastName>Robinshaw</LastName>
+         <AffiliationInfo>
+         <Affiliation>Gloucestershire Hospitals NHS Foundation Trust,
+         Gloucester, UK.</Affiliation>
+         </AffiliationInfo>
+         <AffiliationInfo>
+         <Affiliation> Faculty of Health, Social Care and Education,
+         School of Nursing and Midwifery,Anglia Ruskin University,
+         Cambridge, UK.</Affiliation>
+         </AffiliationInfo>
+         <Identifier Source="ORCID">0000-0001-6439-7613</Identifier>
+       </Author>
+       <Author>
+         <FirstName>Ella Z</FirstName>
+         <LastName>Mi</LastName>
+         <Affiliation>School of Clinical Medicine, University of 
+         Cambridge, Cambridge, UK.</Affiliation>
+       </Author>
+       <Author>
+         <FirstName>Jonathan P</FirstName>
+         <LastName>Fuld</LastName>
+         <Affiliation>Centre for Self Management Support, Cambridge
+         University Hospitals NHS Foundation Trust, Cambridge, UK.
+         </Affiliation>
+       </Author>
+     </AuthorList>
+     <PublicationType>Journal Article</PublicationType>
+     <ArticleIdList>
+       <ArticleId IdType="pii">copd-12-2955</ArticleId>
+       <ArticleId IdType="doi">10.2147/COPD.S139532</ArticleId>
+     </ArticleIdList>
+     <History>
+       <PubDate PubStatus="received">
+         <Year>2014</Year>
+         <Month>09</Month>
+         <Day>30</Day>
+       </PubDate>
+       <PubDate PubStatus="accepted">
+         <Year>2014</Year>
+         <Month>10</Month>
+         <Day>14</Day>
+       </PubDate>
+       <PubDate PubStatus="aheadofprint">
+         <Year>2015</Year>
+         <Month>01</Month>
+         <Day>17</Day>
+       </PubDate>
+     </History>
+     <Abstract>
+       <AbstractText Label="BACKGROUND">COPD has significant 
+       psychosocial impact. Self-management support improves quality of 
+       life, but programs are not universally available. IT-based self-
+       management interventions can provide home-based support, but 
+       have mixed results. We conducted a case series of an off-the-
+       shelf Internet-based health-promotion program, The Preventive 
+       Plan (TPP), coupled with Nurse-coach support, which aimed to 
+       increase patient activation and provide self-management 
+       benefits.
+       </AbstractText>
+       <AbstractText Label="METHODS">A total of 19 COPD patients were 
+       recruited, and 14 completed 3-month follow-up in two groups: 
+       groups 1 and 2 with more and less advanced COPD, respectively. 
+       Change in patient activation was determined with paired t-tests 
+       and Wilcoxon signed-rank tests. Benefits and user experience 
+       were explored in semistructured interviews, analyzed
+       thematically.</AbstractText>
+       <AbstractText Label="RESULTS">Only group 1 improved 
+       significantly in activation, from a lower baseline than group 2; 
+       group 1 also improved significantly in mastery and anxiety. Both 
+       groups felt significantly more informed about COPD and reported 
+       physical functioning improvements. Group 1 reported improvements 
+       in mood and confidence. Overall, group 2 reported fewer benefits 
+       than group 1. Both groups valued nurse-coach support; for group 
+       1, it was more important than TPP in building confidence to 
+       self-manage. The design of TPP and lack of motivation to use IT 
+       were barriers to use, but disease severity and poor IT skills 
+       were not. </AbstractText>
+       <AbstractText Label="DISCUSSION">Our findings demonstrate the 
+       feasibility of combining nurse-coach support aligned to an 
+       Internet-based health resource, TPP, in COPD and provide 
+       learning about the challenges of such an approach and the 
+       importance of the nurse-coach role.</AbstractText>
+     </Abstract>
+     <OtherAbstract Language="eng" Type="plain-language-summary">An 
+       important part of managing COPD is self-management by the 
+       patient. With IT-based self-management programs, patients can do 
+       this from their own home, which is easier for them and more 
+       cost-effective for the health care provider. Our goal was to 
+       explore how a generic Internet-based health-promotion program, 
+       The Preventive Plan (TPP), containing programs to support 
+       behavior change and health information, combined with support 
+       from a specialist nurse, could help patients to manage their 
+       COPD... Our findings demonstrate that a low-intensity 
+       intervention can produce meaningful benefits, and provides 
+       learning about the challenges of this approach and the 
+       importance of the nurse coach role.
+     </OtherAbstract>
+     <CopyrightInformation>Copyright© 2017 Early et al. This work is 
+     published and licensed by Dove Medical Press limited. 
+     </CopyrightInformation>
+     <CoiStatement>The authors report no conflicts of interest in this 
+     work.</CoiStatement>
+     <ObjectList>
+       <Object Type="keyword">
+         <Param Name="value">COPD</Param>
+       </Object>
+       <Object Type="keyword">
+         <Param Name="value">Internet</Param>
+       </Object>
+       <Object Type="keyword">
+         <Param Name="value">coaching</Param>
+       </Object>
+       <Object Type="keyword">
+         <Param Name="value">patient activation</Param>
+       </Object>
+       <Object Type="grant">
+         <Param Name="id">RO1DK561234</Param>
+         <Param Name="grantor">National Institutes of Health</Param>
+       </Object>
+       <Object Type="grant">
+         <Param Name="id">2456797AB</Param>
+         <Param Name="grantor">The British Granting Agency</Param>
+         <Param Name="acronym">BGA</Param>
+         <Param Name="country">England</Param>
+       </Object>
+     </ObjectList>
+     <ReferenceList>
+       <Reference>
+         <Citation>British Lung Foundation Chronic obstructive 
+         pulmonary disease (COPD) statistics. [Accessed January 27, 
+         2017]. </Citation>
+         <ArticleIdList>
+           <ArticleId IdType="pmcid">PMC4153410</ArticleId>
+           <ArticleId IdType="pubmed">24768240</ArticleId>
+         </ArticleIdList>
+       </Reference>
+       <Reference>
+         <Citation>Yohannes AM, Baldwin RC, Connolly MJ. Depression and 
+         anxiety in elderly patients with chronic obstructive pulmonary 
+         disease. Age Ageing. 2006;35(5):457–459. </Citation>
+         <ArticleIdList>
+           <ArticleId IdType="pmcid">PMC3020244</ArticleId>
+           <ArticleId IdType="pubmed">20932581</ArticleId>
+         </ArticleIdList>
+       </Reference>
+     </ReferenceList>
+  </Article>
+</ArticleSet>
