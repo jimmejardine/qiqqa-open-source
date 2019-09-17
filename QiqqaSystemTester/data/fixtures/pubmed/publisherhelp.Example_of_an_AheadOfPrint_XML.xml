@@ -1,0 +1,55 @@
+<!DOCTYPE ArticleSet PUBLIC "-//NLM//DTD PubMed 2.8//EN"
+"https://dtd.nlm.nih.gov/ncbi/pubmed/in/PubMed.dtd">
+<!-- Example of an Ahead of Print XML file: https://www.ncbi.nlm.nih.gov/books/NBK3828/#publisherhelp -->
+<ArticleSet>
+  <Article>
+    <Journal>
+      <PublisherName>Lancet Publishing Group</PublisherName>
+      <JournalTitle>Lancet</JournalTitle>
+      <Issn>1474-547X</Issn>
+      <Volume/>
+      <Issue/>
+      <PubDate PubStatus="aheadofprint">
+        <Year>2015</Year>
+        <Month>Feb</Month>
+        <Day>13</Day>
+      </PubDate>
+    </Journal>
+    <ArticleTitle>Hepatitis C.</ArticleTitle>
+    <FirstPage/>
+    <LastPage/>
+    <ELocationID EIdType="doi">10.1016/S0140-6736(14)62401-
+    6</ELocationID>
+    <ELocationID EIdType="pii">S0140-6736(14)62401-6</ELocationID>
+    <Language>EN</Language>
+      <AuthorList>
+        <Author>
+          <FirstName>Daniel P</FirstName>
+          <LastName>Webster</LastName>
+          <Affiliation>Department of Virology, Royal Free London NHS 
+          Foundation Trust, London, UK.</Affiliation>
+        </Author>
+        <Author>
+          <FirstName>Paul</FirstName>
+          <MiddleName>P</MiddleName>
+          <LastName>Klenerman</LastName>
+          <Affiliation>National Institute for Health Research (NIHR) 
+          Biomedical Research Centre and Nuffield Department of 
+          Medicine, University of Oxford, Oxford,UK.</Affiliation>
+       </Author>
+       <Author>
+         <FirstName>Geoffrey M</FirstName>
+         <LastName>Dusheiko</LastName>
+         <Affiliation>Institute of Liver and Digestive Health,
+         University College London, London, UK.</Affiliation>
+       </Author>
+     </AuthorList>
+     <PublicationType>REVIEW</PublicationType>
+     <ArticleIdList>
+       <ArticleId IdType="pii">S0140-6736(14)62401-6</ArticleId>
+       <ArticleId IdType="doi">10.1016/S0140-6736(14)62401-
+       6</ArticleId>
+     </ArticleIdList>
+     <Abstract>Hepatitis C virus (HCV) infection is a major health problem worldwide. The effects of chronic infection include cirrhosis, end-stage liver disease, and hepatocellular carcinoma. As a result of shared routes of transmission, co-infection with HIV is a substantial problem, and individuals infected with both viruses have poorer outcomes than do peers infected with one virus. No effective vaccine exists, although persistent HCV infection is potentially curable. The standard of care has been subcutaneous interferon alfa and oral ribavirin for 24-72 weeks. This treatment results in a sustained virological response in around 50% of individuals, and is complicated by clinically significant adverse events. In the past 10 years, advances in HCV cell culture have enabled an improved understanding of HCV virology, which has led to development of many new direct-acting antiviral drugs that target key components of virus replication. These direct-acting drugs allow for simplified and shortened treatments for HCV that can be given as oral regimens with increased tolerability and efficacy than interferon and ribavirin. Remaining obstacles include access to appropriate care and treatment, and development of a vaccine. </Abstract>
+  </Article>    
+</ArticleSet>
