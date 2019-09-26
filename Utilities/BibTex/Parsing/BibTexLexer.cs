@@ -188,8 +188,7 @@ namespace Utilities.BibTex.Parsing
             {
                 callback.RaiseWarning("There is no key in this BibTeX reference");
             }
-
-
+            
             string key = bibtex.Substring(key_start, key_end - key_start);
 
             callback.RaiseKey(key);
@@ -197,8 +196,7 @@ namespace Utilities.BibTex.Parsing
 
         private void ParseFields(BibTexLexerCallback callback, char delim_close)
         {
-            {
-                while (delim_close != bibtex[c])
+                            while (delim_close != bibtex[c])
                 {
                     // Parse whitespace
                     ParseWhiteSpace();
@@ -206,8 +204,7 @@ namespace Utilities.BibTex.Parsing
                     // Get the name
                     if (ParseFieldName(callback))
                     {
-
-                        // Parse whitespace
+                                            // Parse whitespace
                         ParseWhiteSpace();
 
                         // Get the equals
@@ -243,8 +240,7 @@ namespace Utilities.BibTex.Parsing
 
                     // Parse whitespace
                     ParseWhiteSpace();
-                }
-            }
+                            }
         }
 
         /// <summary>
@@ -324,7 +320,7 @@ namespace Utilities.BibTex.Parsing
                 }
                 else if ('"' == bibtex[c] && '\\' != bibtex[c - 1])
                 {
-                    // Are we out of our delimeters yet?
+                    // Are we out of our delimiters yet?
                     if (1 <= brace_depth)
                     {
                         ++c;

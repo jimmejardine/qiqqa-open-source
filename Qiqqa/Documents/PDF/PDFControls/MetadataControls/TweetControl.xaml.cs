@@ -26,7 +26,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             InitializeComponent();
 
             this.ToolTip =
-                "Love Qiqqa?  Want to help us spread the word?  Receive two free days Qiqqa Premium each day you tweet about Qiqqa!\n\nRemember to sign in to your account on the Qiqqa.com website and add your Twitter handle to receive your free credit.";
+                "Love OpenSource Qiqqa?  Want to help us spread the word?";
 
             ButtonSubmit.Icon = Icons.GetAppIcon(Icons.Tweet);
             ButtonSubmit.IconWidth = 32;
@@ -52,28 +52,28 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
         {
             string[] TWEET_SELECTION = new string[]
             {
-                    "@Qiqqa rocks. Kudos! http://qiqqa.com",
-                    "I'm loving reading my PDFs using @Qiqqa http://qiqqa.com",
-                    "Reading another paper today with @Qiqqa. http://qiqqa.com",
-                    "I saved hours on my research today using @Qiqqa http://qiqqa.com",
-                    "I've just got Premium for free. Check out @Qiqqa at http://qiqqa.com",
-                    "Highlighting and annotating like a boss! with @Qiqqa http://qiqqa.com",
-                    "My research could never be this organised without @Qiqqa http://qiqqa.com",
-                    "Check out @Qiqqa, the world's most advanced reference manager. http://qiqqa.com",
-                    "My research project is going to be done in a flash with @Qiqqa's help! http://qiqqa.com",
-                    "AutoBibTeX gets meta data for my papers automatically! Nice work @Qiqqa http://qiqqa.com",
-                    "With @Qiqqa I will never lose that important piece of information again! http://qiqqa.com",
-                    "One paper down, 500 to go, no wait, make that 10...thanks @Qiqqa Expedition! http://qiqqa.com",
-                    "@Qiqqa's InCite suggests papers to cite that I haven't even read yet... Magic! http://qiqqa.com",
-                    "You absolutely have to try out @Qiqqa to make your research management a breeze! http://qiqqa.com",
-                    "Store your papers in @Qiqqa, sync them to lab, home and your Android. Brilliant! http://qiqqa.com",
-                    "@Qiqqa really has you covered for the forgotten half of research...quite literally! http://qiqqa.com",
-                    "Tagging my papers with @Qiqqa is powerful but its Autotagging of my papers is amazing! http://qiqqa.com",
-                    "Want to save time reading so you can do more researching? Check out @Qiqqa's speed reader! http://qiqqa.com",
-                    "@Qiqqa InCite, the best referencer manager there is. Practically writes your paper for you! http://qiqqa.com",
-                    "@Qiqqa's Annotation Report saves me so much time by summarising all my highlights and annotations! http://qiqqa.com",
-                    "Exploring my papers and their connections is powerful and fun with @Qiqqa expedition and brainstorms! http://qiqqa.com",
-                    "I will never print another PDF...@Qiqqa annotation report recalls all the annotations I've forgotten about. http://qiqqa.com",
+                    "@Qiqqa rocks. Kudos!",
+                    "I'm loving reading my PDFs using @Qiqqa",
+                    "Reading another paper today with @Qiqqa.",
+                    "I saved hours on my research today using @Qiqqa",
+                    "I've just got Premium for free. Check out @Qiqqa at",
+                    "Highlighting and annotating like a boss! with @Qiqqa",
+                    "My research could never be this organised without @Qiqqa",
+                    "Check out @Qiqqa, the world's most advanced reference manager.",
+                    "My research project is going to be done in a flash with @Qiqqa's help!",
+                    "AutoBibTeX gets meta data for my papers automatically! Nice work @Qiqqa",
+                    "With @Qiqqa I will never lose that important piece of information again!",
+                    "One paper down, 500 to go, no wait, make that 10...thanks @Qiqqa Expedition!",
+                    "@Qiqqa's InCite suggests papers to cite that I haven't even read yet... Magic!",
+                    "You absolutely have to try out @Qiqqa to make your research management a breeze!",
+                    "Store your papers in @Qiqqa, sync them to lab, home and your Android. Brilliant!",
+                    "@Qiqqa really has you covered for the forgotten half of research...quite literally!",
+                    "Tagging my papers with @Qiqqa is powerful but its Autotagging of my papers is amazing!",
+                    "Want to save time reading so you can do more researching? Check out @Qiqqa's speed reader!",
+                    "@Qiqqa InCite, the best referencer manager there is. Practically writes your paper for you!",
+                    "@Qiqqa's Annotation Report saves me so much time by summarising all my highlights and annotations!",
+                    "Exploring my papers and their connections is powerful and fun with @Qiqqa expedition and brainstorms!",
+                    "I will never print another PDF...@Qiqqa annotation report recalls all the annotations I've forgotten about.",
             };
 
             return TWEET_SELECTION[RandomAugmented.Instance.NextIntExclusive(TWEET_SELECTION.Length)];
@@ -88,91 +88,30 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
             BibTexItem bibtex_item = pdf_document.BibTexItem;
 
-            if (!BibTexTools.HasTitle(bibtex_item)) return null;
+            if (!bibtex_item.HasTitle()) return null;
 
-            if (!BibTexTools.HasAuthor(bibtex_item)) return null;
-            List<NameTools.Name> names = NameTools.SplitAuthors(BibTexTools.GetAuthor(bibtex_item), PDFDocument.UNKNOWN_AUTHORS);
+            if (!bibtex_item.HasAuthor()) return null;
+            List<NameTools.Name> names = NameTools.SplitAuthors(bibtex_item.GetAuthor());
             if (0 == names.Count) return null;
 
-            string tweet = String.Format("I'm reading {1}'s '{0}' with @Qiqqa http://qiqqa.com", BibTexTools.GetTitle(bibtex_item), names[0].last_name);
-            if (140 < tweet.Length) return null;
-
-            return tweet;
+            return String.Format("I'm reading {1}'s '{0}' with @Qiqqa", bibtex_item.GetTitle(), names[0].last_name);
         }
 
-        void GenerateTweet()
+        private void GenerateTweet()
         {
-            string tweet_paper = CreatePaperTweet();
-            string tweet_random = GetRandomTweet();
+            string POSTAMBLE_QIQQA_URL = " " + WebsiteAccess.Url_Documentation4Qiqqa;
+            string tweet_paper = CreatePaperTweet() + POSTAMBLE_QIQQA_URL;
+            string tweet_random = GetRandomTweet() + POSTAMBLE_QIQQA_URL;
 
-            if (null == tweet_paper)
-            {
-                TxtTweet.Text = tweet_random;
-            }
-            else
+            if (null != tweet_paper && tweet_paper.Length <= 140)
             {
                 // Give a 2 in 3 chance to the paper tweet
                 if (0 != RandomAugmented.Instance.NextIntExclusive(3))
                 {
-                    TxtTweet.Text = tweet_paper;
-                }
-                else
-                {
-                    TxtTweet.Text = tweet_random;
+                    tweet_random = tweet_paper;
                 }
             }
-        }
-
-        private void CreatePaperBibTeXTweet()
-        {
-            var pdf_document_bindable = DataContext as AugmentedBindable<PDFDocument>;
-            if (null == pdf_document_bindable) return;
-
-            PDFDocument pdf_document = pdf_document_bindable.Underlying;
-
-            TxtTweet.Text = "I'm loving reading my PDFs using @Qiqqa http://qiqqa.com";
-            if (!String.IsNullOrEmpty(pdf_document.TitleCombined))
-            {
-                TxtTweet.Text = String.Format("I'm busy reading {0} using @Qiqqa http://qiqqa.com", pdf_document.TitleCombined);
-            }
-
-            PDFDocumentCitingTools.CiteSnippetPDFDocument(true, pdf_document, GenerateRtfCitationSnippet_OnBibliographyReady);
-        }
-
-        void GenerateRtfCitationSnippet_OnBibliographyReady(CSLProcessorOutputConsumer ip)
-        {
-            if (ip.success)
-            {
-                using (System.Windows.Forms.RichTextBox rich_text_box = new System.Windows.Forms.RichTextBox())
-                {
-                    rich_text_box.Rtf = ip.GetRtf();
-                    string text = rich_text_box.Text;
-
-                    text = text.Trim();
-                    text = text.Replace(";", ",");
-                    if (text.StartsWith("1.\t")) text = text.Substring(3);
-                    if (text.StartsWith("1 \t")) text = text.Substring(3);
-                    if (text.StartsWith("1\t")) text = text.Substring(2);
-
-                    if (text.Length > 32)
-                    {
-                        string POSTAMBLE_QIQQA_TWITTER = " @Qiqqa";
-                        string POSTAMBLE_QIQQA_URL = " http://www.qiqqa.com";
-                        int POSTAMBLE_QIQQA_URL_SHORTENED_LENGTH = 22;
-                        string PREAMBLE_CHECK_OUT = "Check out ";
-
-                        if (text.Length < 140 - POSTAMBLE_QIQQA_TWITTER.Length) text = text + POSTAMBLE_QIQQA_TWITTER;
-                        if (text.Length < 140 - POSTAMBLE_QIQQA_URL_SHORTENED_LENGTH) text = text + POSTAMBLE_QIQQA_URL;
-                        if (text.Length < 140 - PREAMBLE_CHECK_OUT.Length) text = PREAMBLE_CHECK_OUT + text;
-
-                        TxtTweet.Text = text;
-                    }
-                }
-            }
-            else
-            {
-                Logging.Warn("There was a problem generating a citation snippet to tweet, so ignoring...");
-            }
+            TxtTweet.Text = tweet_random;
         }
     }
 }

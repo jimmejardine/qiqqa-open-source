@@ -9,12 +9,14 @@ using Qiqqa.DocumentConversionStuff;
 using Qiqqa.DocumentLibrary.AITagsStuff;
 using Qiqqa.DocumentLibrary.DocumentLibraryIndex;
 using Qiqqa.DocumentLibrary.FolderWatching;
+using Qiqqa.DocumentLibrary.Import.Manual;
 using Qiqqa.DocumentLibrary.PasswordStuff;
 using Qiqqa.DocumentLibrary.RecentlyReadStuff;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Qiqqa.Expedition;
 using Utilities;
+using Utilities.BibTex.Parsing;
 using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
@@ -207,6 +209,8 @@ namespace Qiqqa.DocumentLibrary
             this.library_index = null;
             this.folder_watcher_manager = null;
             this.library_db = null;
+
+            this.web_library_detail = null;       // cyclic reference as WebLibraryDetail instance reference us, so we MUST nil this one to break the cycle for the GC to work well.
         }
 
         // NOTE: this function is executed ASYNCHRONOUSLY. 
@@ -264,7 +268,7 @@ namespace Qiqqa.DocumentLibrary
                     }
                     catch (Exception ex)
                     {
-                        Logging.Error(ex, "Library '{1}': There was a problem loading document {0}", library_item, this.WebLibraryDetail.DescriptiveTitle);
+                        Logging.Error(ex, "Library '{1}': There was a problem loading document {0}", library_item.ToString(), this.WebLibraryDetail.DescriptiveTitle);
                     }
                 }
 
@@ -320,7 +324,7 @@ namespace Qiqqa.DocumentLibrary
             }
             catch (Exception ex)
             {
-                Logging.Warn(ex, "Couldn't load document from ", library_item);
+                Logging.Error(ex, "Couldn't load document from ", library_item);
             }
         }
 
@@ -334,7 +338,7 @@ namespace Qiqqa.DocumentLibrary
         /// <param name="tags"></param>
         /// <param name="suppressDialogs"></param>
         /// <returns></returns>
-        public PDFDocument AddNewDocumentToLibrary_SYNCHRONOUS(string filename, string original_filename, string suggested_download_source, string bibtex, List<string> tags, string comments, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
+        public PDFDocument AddNewDocumentToLibrary_SYNCHRONOUS(string filename, string original_filename, string suggested_download_source, BibTexItem bibtex, List<string> tags, string comments, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
         {
             if (!suppressDialogs)
             {
@@ -360,7 +364,7 @@ namespace Qiqqa.DocumentLibrary
 
         /// <summary>
         /// </summary>
-        private PDFDocument AddNewDocumentToLibrary(string filename, string original_filename, string suggested_download_source, string bibtex, List<string> tags, string comments, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
+        private PDFDocument AddNewDocumentToLibrary(string filename, string original_filename, string suggested_download_source, BibTexItem bibtex, List<string> tags, string comments, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
         {
             // Flag that someone is trying to add to the library.  This is used by the background processes to hold off while the library is busy being added to...
             Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
@@ -457,9 +461,8 @@ namespace Qiqqa.DocumentLibrary
                     pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.DownloadLocation);
                 }
 
-                if (!String.IsNullOrEmpty(bibtex))
+                if (pdf_document.UpdateBibTex(bibtex))
                 {
-                    pdf_document.BibTex = bibtex;
                     pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.BibTex);
                 }
 
@@ -485,8 +488,10 @@ namespace Qiqqa.DocumentLibrary
                 //pdf_document.OriginalFileName = original_filename;
                 pdf_document.DownloadLocation = suggested_download_source;
                 pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.DownloadLocation);
-                pdf_document.BibTex = bibtex;
-                pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.BibTex);
+                if (pdf_document.UpdateBibTex(bibtex))
+                {
+                    pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.BibTex);
+                }
                 if (tags != null)
                 {
                     tags.ForEach(x => pdf_document.AddTag(x));
@@ -515,25 +520,8 @@ namespace Qiqqa.DocumentLibrary
             return pdf_document;
         }
 
-        private static string GetBibTeXAfterKey(string bibtex)
+        public PDFDocument AddVanillaReferenceDocumentToLibrary(BibTexItem bibtex, List<string> tags, string comments, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
         {
-            if (null == bibtex) return bibtex;
-
-            int comma_pos = bibtex.IndexOf(',');
-            if (0 <= comma_pos)
-            {
-                return bibtex.Substring(comma_pos);
-            }
-            else
-            {
-                return bibtex;
-            }
-        }
-
-        public PDFDocument AddVanillaReferenceDocumentToLibrary(string bibtex, List<string> tags, string comments, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
-        {
-            string bibtex_after_key = GetBibTeXAfterKey(bibtex);
-
             // Check that we are not adding a duplicate
             Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (pdf_documents_lock)
@@ -541,10 +529,10 @@ namespace Qiqqa.DocumentLibrary
                 l1_clk.LockPerfTimerStop();
                 foreach (var pdf_document_existing in pdf_documents.Values)
                 {
-                    if (!String.IsNullOrEmpty(pdf_document_existing.BibTex))
+                    if (!pdf_document_existing.BibTexItem.IsEmpty())
                     {
                         // Identical BibTeX (after the key) will be treated as a duplicate
-                        if (GetBibTeXAfterKey(pdf_document_existing.BibTex) == bibtex_after_key)
+                        if (pdf_document_existing.BibTexItem.IsContentIdenticalTo(bibtex))
                         {
                             Logging.Info("Not importing duplicate vanilla reference with identical BibTeX to '{0}' ({1}).", pdf_document_existing.TitleCombined, pdf_document_existing.Fingerprint);
                             return pdf_document_existing;
@@ -555,8 +543,10 @@ namespace Qiqqa.DocumentLibrary
 
             // Not a dupe, so create
             PDFDocument pdf_document = PDFDocument.CreateFromVanillaReference(this);
-            pdf_document.BibTex = bibtex;
-            pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.BibTex);
+            if (pdf_document.UpdateBibTex(bibtex))
+            {
+                pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.BibTex);
+            }
             pdf_document.Comments = comments;
             pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Comments);
 

@@ -9,9 +9,13 @@ namespace Utilities.BibTex.Parsing
     {
         public static BibTexItem ParseOne(string bibtex, bool suppress_error_logging)
         {
-            if (String.IsNullOrWhiteSpace(bibtex)) return null;
+            if (String.IsNullOrWhiteSpace(bibtex))
+            {
+                return null;
+            }
 
-            List<BibTexItem> items = Parse(bibtex).Items;
+            var rv = Parse(bibtex);
+            List<BibTexItem> items = rv.Items;
 
             if (1 < items.Count)
             {

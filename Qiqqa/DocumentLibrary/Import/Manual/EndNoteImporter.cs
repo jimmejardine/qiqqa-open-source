@@ -28,8 +28,8 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             // Then process each one
             foreach (EndNoteToBibTex.EndNoteRecord endnote_record in endnote_records)
             {
+                bool associated_filename_is_rooted = false; // By default they're relative to the import file directory
 
-                bool associated_filename_is_rooted = false; //By default they're relative to the import file directory
                 // Check if there is an associated filename with this guy, use it.  Note that we stop at the FIRST associated PDF file...all the rest are ignored!
                 string associated_filename = null;
                 {
@@ -70,17 +70,21 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                 }
 
                 // Create our import entry
-                BibTeXEntry bibtex_entry = new BibTeXEntry();
-                bibtex_entry.Item = endnote_record.ToBibTeX();
-                bibtex_entry.EntryType = bibtex_entry.Item.Type;
-                bibtex_entry.BibTeX = bibtex_entry.Item.ToBibTex();
-                bibtex_entry.Notes = notes;
+                BibTeXEntry bibtex_entry = new BibTeXEntry
+                {
+                    Parsed = endnote_record.ToBibTeX(),
+                    Notes = notes
+                };
                 if (null != _pdfRootDir /* a valid root dir has been chosen */ && null != associated_filename)
                 {
                     if (associated_filename_is_rooted)
+                    {
                         bibtex_entry.Filename = associated_filename;
+                    }
                     else
+                    {
                         bibtex_entry.Filename = Path.Combine(_pdfRootDir, associated_filename);
+                    }
                     bibtex_entry.FileType = "pdf";
                 }
 

@@ -381,7 +381,7 @@ namespace QiqqaSystemTester
             string path = GetNormalizedPathToBibTeXTestFile(bibtex_filepath);
             ASSERT.FileExists(path);
 
-            string data_in = GetBibTeXTestFileContent(path);
+            string data_in = GetTestFileContent(path);
             BibTexParseResult rv = BibTexParser.Parse(data_in);
 
             // Serialize the result to JSON for easier comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
@@ -411,7 +411,7 @@ namespace QiqqaSystemTester
             string path = GetNormalizedPathToBibTeXTestFile(bibtex_filepath);
             ASSERT.FileExists(path);
 
-            string data_in = GetBibTeXTestFileContent(path);
+            string data_in = GetTestFileContent(path);
             BibTexParseResult rv = BibTexParser.Parse(data_in);
 
             // Serialize the result to JSON for easier comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
@@ -444,7 +444,7 @@ namespace QiqqaSystemTester
             string path = GetNormalizedPathToAnyFile(bibtex_filepath);
             ASSERT.FileExists(path);
 
-            string data_in = GetBibTeXTestFileContent(path);
+            string data_in = GetTestFileContent(path);
             BibTexParseResult rv = BibTexParser.Parse(data_in);
 
             // Serialize the result to JSON for easier comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
@@ -457,6 +457,83 @@ namespace QiqqaSystemTester
             );
         }
 
+        [DataRow("API-test0001.input.bib")]
+        [DataTestMethod]
+        public void Test_BibTeXTools_API(string bibtex_filepath)
+        {
+            ASSERT.IsTrue(true);
+
+            string path = GetNormalizedPathToAnyFile(bibtex_filepath);
+            ASSERT.FileExists(path);
+
+            string sample_bibtext = GetTestFileContent(path);
+
+            Dictionary<string, string> datums = new Dictionary<string, string>();
+
+            // parse the BibTeX input
+            BibTexItem bibtex_item = BibTexParser.ParseOne(sample_bibtext, false);
+
+            // exercise every "get" type API member function & property:
+            datums["has_key"] = bibtex_item.HasKey() ? "true" : "false";
+            datums["has_type"] = bibtex_item.HasType() ? "true" : "false";
+            datums["has_title"] = bibtex_item.HasTitle() ? "true" : "false";
+            datums["has_author"] = bibtex_item.HasAuthor() ? "true" : "false";
+            datums["is_empty"] = bibtex_item.IsEmpty() ? "true" : "false";
+
+            datums["key"] = bibtex_item.Key;
+            datums["type"] = bibtex_item.Type;
+
+            datums["title"] = bibtex_item.GetTitle();
+            datums["author"] = bibtex_item.GetAuthor();
+            datums["year"] = bibtex_item.GetYear();
+
+            datums["field_keys"] = String.Join("; ", bibtex_item.FieldKeys);
+
+            StringWriter sw = new StringWriter();
+            foreach (var r in bibtex_item.Fields)
+            {
+                sw.WriteLine("  {0} = {1}", r.Key, r.Value);
+            }
+            datums["fields"] = sw.ToString();
+
+            datums["has_author_field"] = bibtex_item.ContainsField("author") ? "true" : "false";
+
+            datums["generic_publication"] = bibtex_item.GetGenericPublication();
+            datums["unparseable_content"] = bibtex_item.UnparsableContent;
+
+            datums["exceptions"] = bibtex_item.GetExceptionsString();
+            datums["warnings"] = bibtex_item.GetWarningsString();
+
+            datums["bibtex_record"] = bibtex_item.ToBibTex();
+
+            // Serialize the result to JSON for easier comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            string json_out = JsonConvert.SerializeObject(datums, Formatting.Indented).Replace("\r\n", "\n");
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new DataTestApprovalTextWriter(json_out, bibtex_filepath),
+                new DataTestLocationNamer(bibtex_filepath) /* GetDefaultNamer() */,
+                ApprovalTests.Approvals.GetReporter()
+            );
+
+            // set up reference for write-access comparison
+            string write_filepath = path.Replace(".input.bib", ".edited.bib");
+
+            // exercise every "set" type API member function & property:
+            bibtex_item.Key = null;
+
+            bibtex_item.SetTitle("New title");
+            bibtex_item.SetAuthor("New author");
+            bibtex_item.SetYear("New year");
+
+            // Serialize the result to JSON for easier comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            json_out = JsonConvert.SerializeObject(bibtex_item, Formatting.Indented).Replace("\r\n", "\n");
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new DataTestApprovalTextWriter(json_out, write_filepath),
+                new DataTestLocationNamer(write_filepath) /* GetDefaultNamer() */,
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
 
         [TestMethod]
         public void Measure_Parse_Performance()
@@ -470,7 +547,7 @@ namespace QiqqaSystemTester
             foreach (string file in Directory.EnumerateFiles(path, "*.bib", SearchOption.AllDirectories))
             {
                 ASSERT.FileExists(file);
-                string content = GetBibTeXTestFileContent(file);
+                string content = GetTestFileContent(file);
                 filelist.Add(file, content);
                 charcount += content.Length;
             }
@@ -482,7 +559,7 @@ namespace QiqqaSystemTester
                 // I consider that a .NET bug. Alas.
                 ASSERT.IsTrue(filelist.ContainsKey(file), "EnumerateFiles(*.bib) is supposed to have already picked up the *.bibtex files.");
 #else
-                string content = GetBibTeXTestFileContent(file);
+                string content = GetTestFileContent(file);
                 filelist.Add(file, content);
                 charcount += content.Length;
 #endif

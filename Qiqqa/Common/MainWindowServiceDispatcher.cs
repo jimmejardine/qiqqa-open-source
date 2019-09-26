@@ -236,7 +236,7 @@ namespace Qiqqa.Common
             {
                 StringBuilder sb = new StringBuilder();
 
-                List<NameTools.Name> names = NameTools.SplitAuthors(pdf_document.AuthorsCombined, PDFDocument.UNKNOWN_AUTHORS);
+                List<NameTools.Name> names = NameTools.SplitAuthors(pdf_document.AuthorsCombined);
                 if (0 < names.Count && names[0] != NameTools.Name.UNKNOWN_NAME)
                 {
                     sb.Append(names[0].last_name);

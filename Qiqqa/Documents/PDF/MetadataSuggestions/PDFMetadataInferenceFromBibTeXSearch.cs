@@ -79,17 +79,16 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
                 foreach (var jo in ja)
                 {
                     var bibtex = jo["_source"]["bibtex"].ToString();
-                    if (String.IsNullOrEmpty(bibtex)) continue;
 
                     BibTexItem bibtex_item = BibTexParser.ParseOne(bibtex, true);
 
-                    // Does the bibtex match sufficiently
+                    // Does the bibtex match sufficiently? Empty bibtex will be handled accordingly: no fit/match
                     PDFSearchResultSet search_result_set;
-                    if (!BibTeXGoodnessOfFitEstimator.DoesBibTeXMatchDocument(bibtex, pdf_document, out search_result_set)) continue;
+                    if (!BibTeXGoodnessOfFitEstimator.DoesBibTeXMatchDocument(bibtex_item, pdf_document, out search_result_set)) continue;
 
                     // Does the title match sufficiently to the bibtex
                     {
-                        string title_string = BibTexTools.GetTitle(bibtex_item);
+                        string title_string = bibtex_item.GetTitle();
                         string title_string_tolower = title_string.Trim().ToLower();
                         string title_tolower = title.Trim().ToLower();
                         double similarity = StringTools.LewensteinSimilarity(title_tolower, title_string_tolower);

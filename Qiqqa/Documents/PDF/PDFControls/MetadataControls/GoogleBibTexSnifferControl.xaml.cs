@@ -264,8 +264,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             {
                 string bibtex = pdf_document.BibTex;
 
+                BibTexItem bibtex_item = BibTexParser.ParseOne(bibtex, true);
+
                 PDFSearchResultSet search_result_set;
-                if (BibTeXGoodnessOfFitEstimator.DoesBibTeXMatchDocument(bibtex, pdf_document, out search_result_set))
+                if (BibTeXGoodnessOfFitEstimator.DoesBibTeXMatchDocument(bibtex_item, pdf_document, out search_result_set))
                 {
                     ObjBibTeXEditorControl.Background = Brushes.LightGreen;
                     // ReflectPDFDocument(string search_terms)?

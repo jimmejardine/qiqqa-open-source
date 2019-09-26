@@ -150,13 +150,13 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                 if ("keywords" == key) continue;
                 if ("link_to_pdf" == key) continue;                
 
-                bibtex_item[key] = value;
+                bibtex_item.SetIfHasValue(key, value);
             }
 
             ImportingIntoLibrary.FilenameWithMetadataImport fwmi = new ImportingIntoLibrary.FilenameWithMetadataImport();
             fwmi.tags.Add("import_endnote");
             fwmi.tags.Add("import_endnote_" + Path.GetFileNameWithoutExtension(endnote_database_filename));
-            fwmi.bibtex = bibtex_item.ToBibTex();
+            fwmi.bibtex = bibtex_item;
             
             if (record.fields.ContainsKey("notes"))
             {
@@ -212,7 +212,6 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
             switch (reference_type)
             {
                 default:
-
                     type = "article";
                     break;
             }

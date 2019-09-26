@@ -10,20 +10,46 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 {
     public class BibTeXEntry
     {
-        public string BibTeX { get; set; }
-        
-        public string EntryType { get; set; }
+        public string Raw { get; set; }
         
         public string Filename { get; set; }
 
         public string FileType { get; set; }
 
-        public BibTexItem Item { get; set; }
+        private BibTexItem _Parsed;
+        public BibTexItem Parsed
+        {
+            get
+            {
+                if (null == _Parsed)
+                {
+                    _Parsed = BibTexParser.ParseOne(this.Raw, false);
+                }
+                return _Parsed;
+            }
+            set
+            {
+                if (!String.IsNullOrEmpty(Raw))
+                {
+                    throw new Exception("Internal failure: Cannot overwrite an entire RAW BibTeX record.");
+                }
+                _Parsed = value;
+                Raw = value.ToBibTex();
+            }
+        }
+
+        public string EntryType
+        {
+            get
+            {
+                return this.Parsed.Type;
+            }
+        }
 
         public string Id {
             get
             {
-                return Item.Key;
+                return Parsed.Key;
             }
         }
 
@@ -71,7 +97,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
         private string GetValue(string key)
         {
-            return Item[key];
+            return this.Parsed[key];
         }
 
         /// <summary>
@@ -81,7 +107,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         {
             get
             {
-                return BibTexTools.GetTitle_SLOOOOOOW(this.BibTeX);
+                return this.Parsed.GetTitle();
             }
         }
 
@@ -92,13 +118,13 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         {
             get
             {
-                return BibTexTools.GetAuthor_SLOOOOOOW(this.BibTeX);
+                return this.Parsed.GetAuthor();
             }
         }
 
-        private static void ExtractTagsFromBibTeXField(string bibtex, string TAG, List<string> tags)
+        private void ExtractTagsFromBibTeXField(string tag, List<string> tags)
         {
-            string vals = BibTexTools.GetField(bibtex, TAG);
+            string vals = this.Parsed[tag];
             if (!String.IsNullOrEmpty(vals))
             {
                 string[] ret = vals.Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
@@ -111,10 +137,10 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             get
             {
                 List<string> tags = new List<string>();
-                ExtractTagsFromBibTeXField(this.BibTeX, "tag", tags);
-                ExtractTagsFromBibTeXField(this.BibTeX, "tags", tags);
-                ExtractTagsFromBibTeXField(this.BibTeX, "keyword", tags);
-                ExtractTagsFromBibTeXField(this.BibTeX, "keywords", tags);
+                ExtractTagsFromBibTeXField("tag", tags);
+                ExtractTagsFromBibTeXField("tags", tags);
+                ExtractTagsFromBibTeXField("keyword", tags);
+                ExtractTagsFromBibTeXField("keywords", tags);
                 return tags;
             }
         }

@@ -85,5 +85,20 @@ namespace Utilities.Random
 		{
 			nextRandomVector(vector);
 		}
-	}
+
+        //
+        // Summary:
+        //     Fills the elements of a specified array of bytes with random numbers.
+        //
+        // Parameters:
+        //   buffer:
+        //     An array of bytes to contain random numbers.
+        //
+        // Exceptions:
+        //   System.ArgumentNullException: buffer is null.
+        public void NextBytes(byte[] buffer)
+        {
+            rand.NextBytes(buffer);
+        }
+    }
 }

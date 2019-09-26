@@ -245,7 +245,7 @@ namespace Qiqqa.Documents.BibTeXEditor
 
                             if (!String.IsNullOrEmpty(key) && !String.IsNullOrEmpty(value))
                             {                                
-                                bibtex_item[key] = value;
+                                bibtex_item.SetIfHasValue(key, value);
                             }
                         }
                     }
@@ -254,7 +254,7 @@ namespace Qiqqa.Documents.BibTeXEditor
             
             // Check that the BibTeX is not completely empty
             string bibtex = bibtex_item.ToBibTex();
-            if ("@{\n}" == bibtex)
+            if (bibtex_item.IsEmpty())
             {
                 bibtex = "";
             }

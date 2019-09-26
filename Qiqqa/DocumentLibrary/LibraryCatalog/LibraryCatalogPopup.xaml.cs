@@ -484,7 +484,7 @@ SourceURL: {0}
                     {
                         if (!String.IsNullOrEmpty(pdf_document.DownloadLocation))
                         {
-                            pdf_document.Title = Path.GetFileNameWithoutExtension(pdf_document.DownloadLocation);
+                            pdf_document.TitleCombined = Path.GetFileNameWithoutExtension(pdf_document.DownloadLocation);
                             pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Title);
                         }
                     }

@@ -53,7 +53,7 @@ namespace Qiqqa.Exporting
             {
                 try
                 {
-                    List<NameTools.Name> names = NameTools.SplitAuthors(item.pdf_document.AuthorsCombined, PDFDocument.UNKNOWN_AUTHORS);
+                    List<NameTools.Name> names = NameTools.SplitAuthors(item.pdf_document.AuthorsCombined);
                     foreach (var name in names)
                     {
                         string author_base_path = authors_base_path + name.LastName_Initials + @"\";

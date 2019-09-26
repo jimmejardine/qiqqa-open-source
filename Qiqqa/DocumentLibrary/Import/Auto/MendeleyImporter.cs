@@ -172,12 +172,12 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                                             long document_id = (long)reader["id"];
                                             if (authors_lookup.ContainsKey(document_id))
                                             {
-                                                bibtex_item["author"] = authors_lookup[document_id];
+                                                bibtex_item.SetIfHasValue("author", authors_lookup[document_id]);
                                             }
 
                                             ImportingIntoLibrary.FilenameWithMetadataImport fwmi = new ImportingIntoLibrary.FilenameWithMetadataImport();
                                             fwmi.tags.Add("import_mendeley");
-                                            fwmi.bibtex = bibtex_item.ToBibTex();
+                                            fwmi.bibtex = bibtex_item;
 
                                             string filename = reader["localUrl"] as string;
                                             if (!String.IsNullOrEmpty(filename))
@@ -261,7 +261,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
             object value = reader[mendeley_key];
             if (DBNull.Value != value)
             {
-                bibtex_item[bibtex_key] = Convert.ToString(value);
+                bibtex_item.SetIfHasValue(bibtex_key, Convert.ToString(value));
             }
         }
 

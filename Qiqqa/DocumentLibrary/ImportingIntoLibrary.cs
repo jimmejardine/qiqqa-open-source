@@ -9,11 +9,13 @@ using System.Windows.Threading;
 using Qiqqa.Common;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Documents.PDF;
+using Qiqqa.DocumentLibrary.Import.Manual;
 using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
 using Utilities.Strings;
+using Utilities.BibTex.Parsing;
 
 namespace Qiqqa.DocumentLibrary
 {
@@ -37,7 +39,7 @@ namespace Qiqqa.DocumentLibrary
         public class FilenameWithMetadataImport
         {
             public string filename;
-            public string bibtex;
+            public BibTexItem bibtex;
             public string notes;
             public List<string> tags = new List<string>();
 
@@ -46,7 +48,7 @@ namespace Qiqqa.DocumentLibrary
                 return String.Format(
                     "---\r\n{0}\r\n{1}\r\n{2}\r\n{3}\r\n---"
                     ,filename
-                    ,bibtex
+                    ,bibtex.ToBibTex()
                     ,notes
                     ,StringTools.ConcatenateStrings(tags, ';')
                 );
@@ -108,7 +110,7 @@ namespace Qiqqa.DocumentLibrary
                 try
                 {
                     string filename = filename_with_metadata_import.filename;
-                    string bibtex = filename_with_metadata_import.bibtex;
+                    BibTexItem bibtex = filename_with_metadata_import.bibtex;
 
                     // Although the outside world may allow us to be signalling, we will not do it unless we are the n-100th doc or the last doc
                     bool local_suppress_signal_that_docs_have_changed = suppress_signal_that_docs_have_changed;

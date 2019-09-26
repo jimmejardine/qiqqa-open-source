@@ -13,12 +13,12 @@ namespace Qiqqa.DocumentLibrary.SimilarAuthorsStuff
         public static List<NameTools.Name> GetAuthorsForPDFDocument(PDFDocument pdf_document)
         {
             string authors = pdf_document.AuthorsCombined;
-            if (String.IsNullOrEmpty(authors) || 0 == PDFDocument.UNKNOWN_AUTHORS.CompareTo(authors))
+            if (String.IsNullOrEmpty(authors) || NameTools.UNKNOWN_AUTHORS == authors)
             {
                 return EMPTY_NAMES;
             }
 
-            List<NameTools.Name> names = NameTools.SplitAuthors(authors, PDFDocument.UNKNOWN_AUTHORS);
+            List<NameTools.Name> names = NameTools.SplitAuthors(authors);
             return names;
         }
 

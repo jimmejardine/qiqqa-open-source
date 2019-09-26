@@ -86,14 +86,14 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             bibtem_item.Type = "article";
             bibtem_item.Key = String.Format(
                 "{0}{1}{2}"
-                ,PDFDocument.UNKNOWN_AUTHORS != pdf_document_bindable.Underlying.AuthorsCombined ? GetFirstWord(pdf_document_bindable.Underlying.AuthorsCombined) : ""
+                , Utilities.Language.NameTools.UNKNOWN_AUTHORS != pdf_document_bindable.Underlying.AuthorsCombined ? GetFirstWord(pdf_document_bindable.Underlying.AuthorsCombined) : ""
                 ,PDFDocument.UNKNOWN_YEAR != pdf_document_bindable.Underlying.YearCombined ? GetFirstWord(pdf_document_bindable.Underlying.YearCombined) : ""
                 ,PDFDocument.TITLE_UNKNOWN != pdf_document_bindable.Underlying.TitleCombined ? GetFirstWord(pdf_document_bindable.Underlying.TitleCombined) : ""
             );
 
-            if (PDFDocument.TITLE_UNKNOWN != pdf_document_bindable.Underlying.TitleCombined) bibtem_item["title"] = pdf_document_bindable.Underlying.TitleCombined;
-            if (PDFDocument.UNKNOWN_AUTHORS != pdf_document_bindable.Underlying.AuthorsCombined) bibtem_item["author"] = pdf_document_bindable.Underlying.AuthorsCombined;
-            if (PDFDocument.UNKNOWN_YEAR != pdf_document_bindable.Underlying.YearCombined) bibtem_item["year"] = pdf_document_bindable.Underlying.YearCombined;
+            if (PDFDocument.TITLE_UNKNOWN != pdf_document_bindable.Underlying.TitleCombined) bibtem_item.SetTitle(pdf_document_bindable.Underlying.TitleCombined);
+            if (Utilities.Language.NameTools.UNKNOWN_AUTHORS != pdf_document_bindable.Underlying.AuthorsCombined) bibtem_item.SetAuthor(pdf_document_bindable.Underlying.AuthorsCombined);
+            if (PDFDocument.UNKNOWN_YEAR != pdf_document_bindable.Underlying.YearCombined) bibtem_item.SetYear(pdf_document_bindable.Underlying.YearCombined);
 
             pdf_document_bindable.Underlying.BibTex = bibtem_item.ToBibTex();
             pdf_document_bindable.NotifyPropertyChanged(() => pdf_document_bindable.Underlying.BibTex);

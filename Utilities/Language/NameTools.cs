@@ -58,6 +58,8 @@ namespace Utilities.Language
             public static readonly Name UNKNOWN_NAME = new Name { last_name = "UNKNOWN", first_names = "" };
         }
 
+        public static readonly string UNKNOWN_AUTHORS = "(unknown authors)";
+
 
         /// <summary>
         /// Splits up a string of authors into the component authors
@@ -140,7 +142,7 @@ namespace Utilities.Language
         }
 
         public static readonly List<Name> UNKNOWN_NAMES = new List<Name>(new Name[] { Name.UNKNOWN_NAME });
-        public static List<Name> SplitAuthors(string authors_combined, string UNKNOWN_AUTHORS)
+        public static List<Name> SplitAuthors(string authors_combined)
         {
             if (authors_combined == UNKNOWN_AUTHORS)
             {

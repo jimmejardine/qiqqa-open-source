@@ -17,7 +17,7 @@ namespace Qiqqa.Exporting
             }
 
             string authors = "";
-            List<NameTools.Name> author_names = NameTools.SplitAuthors(pdf_document.AuthorsCombined, PDFDocument.UNKNOWN_AUTHORS);
+            List<NameTools.Name> author_names = NameTools.SplitAuthors(pdf_document.AuthorsCombined);
             if (0 < author_names.Count)
             {
                 authors = author_names[0].last_name;

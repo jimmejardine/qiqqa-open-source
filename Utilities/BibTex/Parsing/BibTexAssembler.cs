@@ -78,7 +78,7 @@ namespace Utilities.BibTex.Parsing
             else
             {
                 string field_value_decoded = BibTexCharacterMap.BibTexToASCII(field_value);
-                current_item[current_field_name] = field_value_decoded;
+                current_item.SetIfHasValue(current_field_name, field_value_decoded);
                 current_field_name = null;
             }
         }
