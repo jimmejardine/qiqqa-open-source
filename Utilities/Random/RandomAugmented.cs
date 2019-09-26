@@ -6,66 +6,64 @@ namespace Utilities.Random
 	/// <summary>
 	/// Summary description for RandomAugmented.
 	/// </summary>
-	public class RandomAugmented : System.Random, IUniformRandomSource
+	public class RandomAugmented : IUniformRandomSource
 	{
-		public RandomAugmented() :
-			base()
+        private System.Random rand;
+
+        public RandomAugmented()
 		{
+            rand = new System.Random();
 		}
 
-		public RandomAugmented(int ticks) :
-			base(ticks)
+		public RandomAugmented(int ticks)
 		{
-		}
+            rand = new System.Random(Math.Max(1, ticks));
+        }
 
-		public void reset()
+        public void reset()
+        {
+            reset(1);
+        }
+        public void reset(int seed)
 		{
-			// We can't reset this number source :(
-		}
+            // We can't reset this number source :(
+            //
+            // But we CAN initialize a fresh random generator:
+            rand = new System.Random(Math.Max(1, seed));
+        }
 
         public int NextIntExclusive(int max)
 		{
-			return (int) (max * this.NextDouble());
+			return (int) NextDouble(max);
 		}
 
 		public int NextInt(int max)
 		{
-			return (int) ((1.0 + max) * this.NextDouble());
+			return (int) NextDouble(1.0 + max);
 		}
 
 		public int NextIntBalanced(int max)
 		{
-			return (int) ((1.0 + max) * this.NextDoubleBalanced());
+			return (int) NextDoubleBalanced(1.0 + max);
 		}
 
-		public double NextDouble(double max)
+		public double NextDouble(double max = 1.0)
 		{
-			return max * this.NextDouble();
+			return max * nextRandomDouble();
 		}
 
-		public double NextDoubleBalanced()
+		public double NextDoubleBalanced(double max = 1.0)
 		{
-			return 2.0 * NextDouble() - 1.0;
-		}
-
-		public double NextDoubleBalanced(double max)
-		{
-			return max * this.NextDoubleBalanced();
+			return 2.0 * NextDouble(max) - 1.0;
 		}
 
 		// ---------------------------------------------------------------
 
         public static RandomAugmented Instance = new RandomAugmented((int)DateTime.Now.Ticks);
         
-		public static RandomAugmented getSeededRandomAugmented()
-		{
-            return Instance;
-		}
-
-
 		public double nextRandomDouble()
 		{
-			return NextDouble();
+			return rand.NextDouble();
 		}
 
 		public void nextRandomVector(Vector vector)
