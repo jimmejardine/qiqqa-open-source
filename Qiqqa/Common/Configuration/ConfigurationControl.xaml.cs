@@ -307,7 +307,7 @@ namespace Qiqqa.Common.Configuration
             }
             else
             {
-                MessageBoxes.Warn("Hmmmm.  Your computer doesn't seem to have a temp folder called '{0}'.  Please let us know at support@qiqqa.com if you are getting any strange Qiqqa behaviour as a result of this.", ConfigurationManager.Instance.TempDirectoryForQiqqa);
+                MessageBoxes.Warn("Hmmmm.  Your computer doesn't seem to have a temp folder called '{0}'.  Please let us know at https://github.com/jimmejardine/qiqqa-open-source/issues if you are getting any strange Qiqqa behaviour as a result of this.", ConfigurationManager.Instance.TempDirectoryForQiqqa);
             }
         }
     }
