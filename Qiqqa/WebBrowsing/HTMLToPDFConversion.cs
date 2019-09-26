@@ -43,7 +43,7 @@ namespace Qiqqa.WebBrowsing
 
             try
             {
-                // Spawn the converstion process
+                // Spawn the conversion process
                 {
                     string user_override_global = "";
                     string user_override_page = "";
