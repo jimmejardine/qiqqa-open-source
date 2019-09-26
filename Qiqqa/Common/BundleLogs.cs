@@ -71,9 +71,7 @@ namespace Qiqqa.Common
                             Logging.Info("-7ZIP progress:");
                         }
 
-                        
-
-                        MessageBoxes.Info("The Qiqqa logs with some diagnostic info has been zipped to the location you specified. Please email it support@qiqqa.com if the support team has requested it. Many thanks!");
+                        MessageBoxes.Info("The Qiqqa logs with some diagnostic info has been zipped to the location you specified. Please upload it as issue attachment in your issue filed at https://github.com/jimmejardine/qiqqa-open-source/issues if the support team has requested it. Many thanks!");
                         FileTools.BrowseToFileInExplorer(target_filename);
                     }
                 }
