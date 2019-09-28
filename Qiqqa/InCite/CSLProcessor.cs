@@ -198,7 +198,7 @@ namespace Qiqqa.InCite
             List<CitationCluster> citation_clusters = new List<CitationCluster>();
             foreach (PDFDocument pdf_document in pdf_documents)
             {
-                string bibtex_key = pdf_document.BibTexKey;
+                string bibtex_key = pdf_document.BibTex.Key;
                 if (!String.IsNullOrEmpty(bibtex_key))
                 {
                     CitationCluster cc = new CitationCluster();

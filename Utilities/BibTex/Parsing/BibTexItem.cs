@@ -169,8 +169,7 @@ namespace Utilities.BibTex.Parsing
                 }
             }
         }
-
-
+        
         public IEnumerable<KeyValuePair<string, string>> Fields
         {
             get
@@ -223,8 +222,7 @@ namespace Utilities.BibTex.Parsing
                 return "";
             }
         }
-
-
+        
         public bool ContainsField(string field)
         {
             return fields.ContainsKey(field);
@@ -343,6 +341,47 @@ namespace Utilities.BibTex.Parsing
                 fields["journal"] = generic_publication; // .Trim();
                                          // this.SetIfHasValue("journal", title);
             }
+        }
+
+        public void ExtractTagsFromBibTeXField(string tag, ref HashSet<string> tags)
+        {
+            string vals = this[tag];
+            if (!String.IsNullOrEmpty(vals))
+            {
+                string[] ret = vals.Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (string el in ret)
+                {
+                    string s = el.Trim();
+                    if (String.IsNullOrEmpty(s)) continue;
+                    tags.Add(s);
+                }
+            }
+        }
+
+        public HashSet<string> Tags
+        {
+            get
+            {
+                HashSet<string> tags = new HashSet<string>();
+                ExtractTagsFromBibTeXField("tag", ref tags);
+                ExtractTagsFromBibTeXField("tags", ref tags);
+                ExtractTagsFromBibTeXField("keyword", ref tags);
+                ExtractTagsFromBibTeXField("keywords", ref tags);
+                return tags;
+            }
+        }
+
+        public void DelayedParse(string record)
+        {
+            /*
+                             if (!bibtex_item_parsed)
+                            {
+                                bibtex_item = BibTexParser.ParseOne(BibTex, true);
+                                bibtex_item_parsed = true;
+                            }
+
+                            return bibtex_item;
+             */
         }
     }
 }

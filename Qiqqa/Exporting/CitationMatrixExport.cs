@@ -40,7 +40,7 @@ namespace Qiqqa.Exporting
                 PDFDocument pdf_document = library.GetDocumentByFingerprint(fingerprint);
                 if (null != pdf_document)
                 {
-                    string bibtex_key = pdf_document.BibTexKey;
+                    string bibtex_key = pdf_document.BibTex.Key;
                     if (!String.IsNullOrEmpty(bibtex_key))
                     {
                         map[fingerprint] = bibtex_key;

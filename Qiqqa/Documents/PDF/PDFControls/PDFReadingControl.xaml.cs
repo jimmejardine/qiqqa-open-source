@@ -320,9 +320,9 @@ namespace Qiqqa.Documents.PDF.PDFControls
         {
             ButtonInCitePopup.Close();
             {
-                if (!String.IsNullOrEmpty(this.pdf_renderer_control_stats.pdf_document.BibTexKey))
+                if (!String.IsNullOrEmpty(this.pdf_renderer_control_stats.pdf_document.BibTex.Key))
                 {
-                    string result = @"\cite{" + this.pdf_renderer_control_stats.pdf_document.BibTexKey + @"}";
+                    string result = @"\cite{" + this.pdf_renderer_control_stats.pdf_document.BibTex.Key + @"}";
                     ClipboardTools.SetText(result);
                     StatusManager.Instance.UpdateStatus("CopyBibTeXKey", String.Format("Copied '{0}' to clipboard.", result));
 

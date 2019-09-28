@@ -202,7 +202,7 @@ SourceURL: {0}
             StringBuilder sb = new StringBuilder();
             foreach (var pdf_document in pdf_documents)
             {
-                string key = pdf_document.BibTexKey;
+                string key = pdf_document.BibTex.Key;
                 if (!String.IsNullOrEmpty(key))
                 {
                     sb.Append(key);

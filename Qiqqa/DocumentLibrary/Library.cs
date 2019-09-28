@@ -705,7 +705,7 @@ namespace Qiqqa.DocumentLibrary
                 l1_clk.LockPerfTimerStop();
                 foreach (var pdf in pdf_documents.Where(x => x.Value.Deleted == false))
                 {
-                    if (String.Compare(pdf.Value.BibTexKey, bibTeXId, StringComparison.OrdinalIgnoreCase) == 0)
+                    if (String.Compare(pdf.Value.BibTex.Key, bibTeXId, StringComparison.OrdinalIgnoreCase) == 0)
                         return true;
                 }
             }

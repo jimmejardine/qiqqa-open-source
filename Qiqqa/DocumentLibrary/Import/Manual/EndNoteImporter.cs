@@ -72,7 +72,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                 // Create our import entry
                 BibTeXEntry bibtex_entry = new BibTeXEntry
                 {
-                    Parsed = endnote_record.ToBibTeX(),
+                    BibTexRecord = endnote_record.ToBibTeX(),
                     Notes = notes
                 };
                 if (null != _pdfRootDir /* a valid root dir has been chosen */ && null != associated_filename)

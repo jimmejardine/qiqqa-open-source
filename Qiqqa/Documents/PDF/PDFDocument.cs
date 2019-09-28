@@ -91,7 +91,6 @@ namespace Qiqqa.Documents.PDF
             property_dependencies.Add(() => p.YearCombined, () => p.YearCombinedReason);
 
             property_dependencies.Add(() => p.BibTex, () => p.Publication);
-            property_dependencies.Add(() => p.BibTex, () => p.Id);
             property_dependencies.Add(() => p.BibTex, () => p.Abstract);
         }
 
@@ -192,6 +191,7 @@ namespace Qiqqa.Documents.PDF
             }
         }
 
+        [NonSerialized]
         private string _FileType;
         public string FileType
         {
@@ -206,27 +206,8 @@ namespace Qiqqa.Documents.PDF
         }
 
         [NonSerialized]
-        private BibTexItem bibtex_item = null;
-        [NonSerialized]
-        private bool bibtex_item_parsed = false;
-        [NonSerialized]
-        private bool bibtex_item_edited = false;
-        public BibTexItem BibTexItem
-        {
-            get
-            {
-                if (!bibtex_item_parsed)
-                {
-                    bibtex_item = BibTexParser.ParseOne(BibTex, true);
-                    bibtex_item_parsed = true;
-                }
-
-                return bibtex_item;
-            }
-        }
-
-        private string _BibTex;
-        public string BibTex
+        private BibTexItem _BibTex;
+        public BibTexItem BibTex
         {
             get
             {
@@ -234,25 +215,19 @@ namespace Qiqqa.Documents.PDF
             }
             set
             {
-                // Clear the cached item
-                bibtex_item = null;
-                bibtex_item_parsed = false;
-                bibtex_item_edited = false;
-
                 // Store the new value
                 _BibTex = value;
 
                 // If the bibtex contains title, author or year, use those by clearing out any overriding values
-                BibTexItem item = BibTexItem;
-                if (item.HasTitle())
+                if (_BibTex.HasTitle())
                 {
                     Title = null;
                 }
-                if (item.HasAuthor())
+                if (_BibTex.HasAuthor())
                 {
                     Authors = null;
                 }
-                if (item.HasYear())
+                if (_BibTex.HasYear())
                 {
                     Year = null;
                 }
@@ -268,12 +243,8 @@ namespace Qiqqa.Documents.PDF
 
             // TODO: check and heuristic for merge/update
 
-            bibtex_item = fresh;
-            bibtex_item_parsed = true;
-            bibtex_item_edited = false;
-
             // Store the new value
-            _BibTex = bibtex_item.ToBibTex();
+            _BibTex = bibtex_item;
 
             // If the bibtex contains title, author or year, use those by clearing out any overriding values
             if (bibtex_item.HasTitle())
@@ -290,26 +261,6 @@ namespace Qiqqa.Documents.PDF
             }
 
             return true;
-        }
-
-        public string BibTexKey
-        {
-            get
-            {
-                try
-                {
-                    BibTexItem item = this.BibTexItem;
-                    if (null != item)
-                    {
-                        return item.Key;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Logging.Error(ex, "exception in BibTexKey");
-                }
-
-                return null;
             }
         }
 
@@ -327,7 +278,7 @@ namespace Qiqqa.Documents.PDF
                     "Final decision: {0}\n\nYour override: {1}\nBibTeX: {2}\nSuggested: {3}\nSource: {4}",
                     TitleCombined,
                     Title,
-                    BibTexItem.GetTitle(),
+                    BibTex.GetTitle(),
                     TitleSuggested,
                     DownloadLocation
                     );
@@ -341,7 +292,7 @@ namespace Qiqqa.Documents.PDF
             {
                 if (!String.IsNullOrEmpty(Title)) return Title;
 
-                if (BibTexItem.HasTitle()) return BibTexItem.GetTitle();
+                if (BibTex.HasTitle()) return BibTex.GetTitle();
 
                 if (!String.IsNullOrEmpty(TitleSuggested)) return TitleSuggested;
 
@@ -365,9 +316,9 @@ namespace Qiqqa.Documents.PDF
                 }
 
                 // Then see if they are updating bibtex
-                if (String.IsNullOrEmpty(Title) && BibTexItem.HasTitle())
+                if (String.IsNullOrEmpty(Title) && BibTex.HasTitle())
                 {
-                    BibTexItem.SetTitle(value);
+                    BibTex.SetTitle(value);
                     return;
                 }
 
@@ -384,7 +335,7 @@ namespace Qiqqa.Documents.PDF
             get
             {
                 if (!String.IsNullOrEmpty(Title)) return true;
-                return BibTexItem.HasTitle();
+                return BibTex.HasTitle();
             }
         }
 
@@ -402,7 +353,7 @@ namespace Qiqqa.Documents.PDF
                     "Final decision: {0}\n\nYour override: {1}\nBibTeX: {2}\nSuggested: {3}",
                     AuthorsCombined,
                     Authors,
-                    BibTexItem.GetAuthor(),
+                    BibTex.GetAuthor(),
                     AuthorsSuggested
                     );
             }
@@ -414,7 +365,7 @@ namespace Qiqqa.Documents.PDF
             {
                 if (!String.IsNullOrEmpty(Authors)) return Authors;
 
-                if (BibTexItem.HasAuthor()) return BibTexItem.GetAuthor();
+                if (BibTex.HasAuthor()) return BibTex.GetAuthor();
 
                 if (!String.IsNullOrEmpty(AuthorsSuggested)) return AuthorsSuggested;
 
@@ -436,9 +387,9 @@ namespace Qiqqa.Documents.PDF
                 }
 
                 // Then see if they are updating bibtex
-                if (String.IsNullOrEmpty(Authors) && BibTexItem.HasAuthor())
+                if (String.IsNullOrEmpty(Authors) && BibTex.HasAuthor())
                 {
-                    BibTexItem.SetAuthor(value);
+                    BibTex.SetAuthor(value);
                     return;
                 }
 
@@ -461,7 +412,7 @@ namespace Qiqqa.Documents.PDF
                     "Final decision: {0}\n\nYour override: {1}\nBibTeX: {2}\nSuggested: {3}",
                     YearCombined,
                     Year,
-                    BibTexItem.GetYear(),
+                    BibTex.GetYear(),
                     YearSuggested
                     );
             }
@@ -474,7 +425,7 @@ namespace Qiqqa.Documents.PDF
             {
                 if (!String.IsNullOrEmpty(Year)) return Year;
 
-                if (BibTexItem.HasYear()) return BibTexItem.GetYear();
+                if (BibTex.HasYear()) return BibTex.GetYear();
 
                 if (!String.IsNullOrEmpty(YearSuggested)) return YearSuggested;
 
@@ -496,9 +447,9 @@ namespace Qiqqa.Documents.PDF
                 }
 
                 // Then see if they are updating bibtex
-                if (String.IsNullOrEmpty(Year) && BibTexItem.HasYear())
+                if (String.IsNullOrEmpty(Year) && BibTex.HasYear())
                 {
-                    BibTexItem.SetYear(value);
+                    BibTex.SetYear(value);
                     return;
                 }
 
@@ -511,33 +462,12 @@ namespace Qiqqa.Documents.PDF
         {
             get
             {
-                return BibTexItem.GetGenericPublication();
+                return BibTex.GetGenericPublication();
             }
 
             set
             {
-                BibTexItem bibtex_item = this.BibTexItem;
-                if (null != bibtex_item)
-                {
-                    BibTexItem.SetGenericPublication(value);
-                    this.BibTex = bibtex_item.ToBibTex();
-                }
-            }
-        }
-
-        public string Id
-        {
-            get
-            {
-                BibTexItem bibtex_item = this.BibTexItem;
-                if (null != bibtex_item)
-                {
-                    return bibtex_item.Key;
-                }
-                else
-                {
-                    return "";
-                }
+                    this.BibTex.SetGenericPublication(value);
             }
         }
 
@@ -592,7 +522,7 @@ namespace Qiqqa.Documents.PDF
 
                 // Then check if there is an abstract in the bibtex
                 {
-                    string abstract_bibtex = this.BibTexItem["abstract"];
+                    string abstract_bibtex = this.BibTex["abstract"];
                     if (!String.IsNullOrEmpty(abstract_bibtex))
                     {
                         return abstract_bibtex;
@@ -673,6 +603,7 @@ namespace Qiqqa.Documents.PDF
             }
         }
 
+        [NonSerialized]
         private HashSet<string> tags_list = new HashSet<string>();
         public string Tags
         {
@@ -738,6 +669,7 @@ namespace Qiqqa.Documents.PDF
 
         #region --- Annotations / highlights / ink ----------------------------------------------------------------------
 
+        [NonSerialized]
         PDFAnnotationList annotations = null;
         public PDFAnnotationList Annotations
         {

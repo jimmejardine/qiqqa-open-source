@@ -7,6 +7,7 @@ using Qiqqa.DocumentLibrary;
 using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.BibTex;
+using Utilities.BibTex.Parsing;
 using Utilities.Collections;
 using Utilities.Misc;
 
@@ -50,13 +51,12 @@ namespace Qiqqa.Exporting
                     StatusManager.Instance.UpdateStatus("BibTexExport", String.Format("Exporting entry {0} of {1}", i, pdf_documents.Count), i, pdf_documents.Count);
 
                     // Get the bibtex
-                    Utilities.BibTex.Parsing.BibTexItem bibtex = pdf_document.BibTexItem;
+                    BibTexItem bibtex = pdf_document.BibTexItem;
 
                     // If there is no bibtex, make a record
                     if (bibtex.IsEmpty())
                     {
-                        pdf_document.BibTex = BibTexTools.GetEmptyArticleBibTeXTemplate();
-                        bibtex = pdf_document.BibTexItem;
+                        bibtex = new BibTexItem(BibTexTools.GetEmptyArticleBibTeXTemplate());
 
                         string title = pdf_document.TitleCombined;
                         if (PDFDocument.TITLE_UNKNOWN != title)
