@@ -218,8 +218,6 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                     break;
                 }
 
-                // Mark that we are now processing the folder
-                folder_contents_has_changed = false;
 
                 int processing_file_count = 0;
                 int processed_file_count = 0;

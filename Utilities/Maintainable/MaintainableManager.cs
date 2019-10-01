@@ -69,8 +69,6 @@ namespace Utilities.Maintainable
                 // Start the thread
                 do_maintenance_delegate_wrapper.daemon.Start(DaemonThreadEntryPoint, do_maintenance_delegate_wrapper);
                 do_maintenance_delegate_wrapper.daemon.Priority = thread_priority;
-
-                return do_maintenance_delegate_wrapper.daemon;
             }
         }
 
