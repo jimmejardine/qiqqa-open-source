@@ -133,14 +133,13 @@ namespace Qiqqa.Synchronisation.MetadataSync
                     StoredUserFile stored_user_file = null;
 
                     // --- TODO: Replace this with a pretty interface class ------------------------------------------------
-                    if (false) { }
-                    else if (library.WebLibraryDetail.IsIntranetLibrary)
+                    if (library.WebLibraryDetail.IsIntranetLibrary)
                     {
                         stored_user_file = SynchronisationExecutor_Intranet.DoDownload(library, ss);
                     }
                     else
                     {
-                        throw new Exception(String.Format("Did not understand how to download for library {0}", library.WebLibraryDetail.Title));
+                        throw new Exception(String.Format("Did not understand how to download for library '{0}'", library.WebLibraryDetail.Title));
                     }
                     // -----------------------------------------------------------------------------------------------------
 
@@ -152,7 +151,7 @@ namespace Qiqqa.Synchronisation.MetadataSync
                         string md5_metadata = StreamMD5.FromBytes(stored_user_file.Content);
                         string header_etag = stored_user_file.Md5;
                         string header_etag_nik = header_etag;
-                        if (null != header_etag && !String.IsNullOrEmpty(header_etag)  && 0 != String.Compare(md5_metadata, header_etag, true) && 0 != String.Compare(md5_metadata, header_etag_nik, true))
+                        if (null != header_etag && !String.IsNullOrEmpty(header_etag) && 0 != String.Compare(md5_metadata, header_etag, true) && 0 != String.Compare(md5_metadata, header_etag_nik, true))
                         {
                             throw new Exception(String.Format("Local and remote MD5s do not match. local={0} remote={1} remote_nik={2}", md5_metadata, header_etag, header_etag_nik));
                         }
@@ -165,10 +164,9 @@ namespace Qiqqa.Synchronisation.MetadataSync
                         historical_sync_file[ss.filename] = md5_metadata;
                     }
                 }
-
                 catch (Exception ex)
                 {
-                    Logging.Error(ex, "There was a problem downloading one of your sync files");
+                    Logging.Error(ex, "There was a problem downloading one of your sync files: file '{0}' for library '{1}'", ss.filename, library.WebLibraryDetail.Title);
                 }
             }
 
