@@ -289,13 +289,8 @@ namespace Qiqqa.StartPage
         void ButtonNewManual_Click(object sender, RoutedEventArgs e)
         {
             ButtonHelpPopup.Close();
-            QiqqaManualTools.AddManualsToLibrary(WebLibraryManager.Instance.WebLibraryDetails_Guest.library, new LibraryPdfActionCallbacks
-            {
-                OnAddedOrSkipped = (pdf_document, filename) =>
-                {
-                    MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);
-                },
-            });
+            PDFDocument pdf_document = QiqqaManualTools.AddManualsToLibrary(WebLibraryManager.Instance.WebLibraryDetails_Guest.library);
+            MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);
         }
 
         void ButtonWelcomeWizard_Click(object sender, RoutedEventArgs e)

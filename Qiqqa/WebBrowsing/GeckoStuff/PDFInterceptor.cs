@@ -93,12 +93,7 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
                 string temp_pdf_filename = TempFile.GenerateTempFilename("pdf");
                 File.WriteAllBytes(temp_pdf_filename, captured_data);
 
-                PDFDocument pdf_document = Library.GuestInstance.AddNewDocumentToLibrary_SYNCHRONOUS(new FilenameWithMetadataImport
-                {
-                    filename = temp_pdf_filename,
-                    original_filename = document_source_filename,
-                    suggested_download_source_uri = document_source_url
-                }, true);
+                PDFDocument pdf_document = Library.GuestInstance.AddNewDocumentToLibrary_SYNCHRONOUS(temp_pdf_filename, document_source_filename, document_source_url, null, null, null, true, true);
                 File.Delete(temp_pdf_filename);
 
                 Application.Current.Dispatcher.Invoke

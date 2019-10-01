@@ -72,7 +72,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
 
             if (null != web_library_detail)
             {
-                ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(web_library_detail.library, false, mdd.metadata_imports);
+                ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(web_library_detail.library, false, false, mdd.metadata_imports.ToArray());
             }
         }
 

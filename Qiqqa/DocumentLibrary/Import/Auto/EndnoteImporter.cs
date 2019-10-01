@@ -22,7 +22,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
             public int documents_found = 0;
             public int pdfs_found = 0;
 
-            public List<FilenameWithMetadataImport> metadata_imports = new List<FilenameWithMetadataImport>();
+            public List<ImportingIntoLibrary.FilenameWithMetadataImport> metadata_imports = new List<ImportingIntoLibrary.FilenameWithMetadataImport>();
 
             public string PotentialImportMessage
             {
@@ -103,7 +103,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                         {
                             try
                             {
-                                FilenameWithMetadataImport fwmi = ConvertEndnoteToFilenameWithMetadataImport(endnote_database_filename, record);
+                                ImportingIntoLibrary.FilenameWithMetadataImport fwmi = ConvertEndnoteToFilenameWithMetadataImport(endnote_database_filename, record);
                                 edd.metadata_imports.Add(fwmi);
                                 
                                 // Update statistics
@@ -130,7 +130,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
             return edd;
         }
 
-        private static FilenameWithMetadataImport ConvertEndnoteToFilenameWithMetadataImport(string endnote_database_filename, MYDRecord record)
+        private static ImportingIntoLibrary.FilenameWithMetadataImport ConvertEndnoteToFilenameWithMetadataImport(string endnote_database_filename, MYDRecord record)
         {
             BibTexItem bibtex_item = new BibTexItem();
 
@@ -153,7 +153,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                 bibtex_item[key] = value;
             }
 
-            FilenameWithMetadataImport fwmi = new FilenameWithMetadataImport();
+            ImportingIntoLibrary.FilenameWithMetadataImport fwmi = new ImportingIntoLibrary.FilenameWithMetadataImport();
             fwmi.tags.Add("import_endnote");
             fwmi.tags.Add("import_endnote_" + Path.GetFileNameWithoutExtension(endnote_database_filename));
             fwmi.bibtex = bibtex_item.ToBibTex();
@@ -174,15 +174,12 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
             if (record.fields.ContainsKey("link_to_pdf"))
             {
                 string links_string = record.fields["link_to_pdf"];
-
-                fwmi.suggested_download_source_uri = links_string;
-
                 string[] links = links_string.Split(new string[] { ",", "internal-pdf://", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
                 // Build up the list of candidates
                 string base_directory = endnote_database_filename.Substring(0, endnote_database_filename.Length - 4) + ".Data\\PDF\\";
                 List<string> pdf_links = new List<string>();
-
+                {
                     // First candidates are those in the subdirectory corresponding to the .ENL file
                     foreach (string link in links)
                     {
@@ -194,6 +191,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                     {
                         pdf_links.Add(link);
                     }
+                }
 
                 // Use the first PDF file that exists in the file system
                 foreach (string pdf_link in pdf_links)

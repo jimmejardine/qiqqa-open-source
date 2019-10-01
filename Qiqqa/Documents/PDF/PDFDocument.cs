@@ -1082,12 +1082,7 @@ namespace Qiqqa.Documents.PDF
             }
 
             // Create the new PDF document
-            PDFDocument new_pdf_document = library.AddNewDocumentToLibrary_SYNCHRONOUS(new FilenameWithMetadataImport
-            {
-                filename = pdf_filename,
-                original_filename = pdf_filename,
-                suggested_download_source_uri = pdf_filename
-            }, false);
+            PDFDocument new_pdf_document = library.AddNewDocumentToLibrary_SYNCHRONOUS(pdf_filename, pdf_filename, pdf_filename, null, null, null, false, true);
 
             // Overwrite the new document's metadata with that of the vanilla reference...
             if (null != new_pdf_document)

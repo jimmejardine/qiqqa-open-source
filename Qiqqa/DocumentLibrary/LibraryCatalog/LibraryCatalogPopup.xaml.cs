@@ -394,7 +394,7 @@ SourceURL: {0}
             {
                 if (pdf_document.Library.WebLibraryDetail == web_library_detail)
                 {
-                    same_library = true;
+                    same_library = true; ;
                 }
             }
             if (same_library)
@@ -405,18 +405,16 @@ SourceURL: {0}
 
             FeatureTrackingManager.Instance.UseFeature(feature);
 
-            ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_ASYNCHRONOUS(pdf_documents, web_library_detail.library, new LibraryPdfActionCallbacks
+            ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(pdf_documents, web_library_detail.library);
+
+            if (delete_source_pdf_documents)
             {
-                //OnAddedOrSkipped   -- too risky for now: we MAY skip when the bibtex differ in both libs and then we shouldn't delete this record!
-                OnAdded = (pdf_document, filename) =>
+                foreach (var pdf_document in pdf_documents)
                 {
-                    if (delete_source_pdf_documents)
-                    {
-                        pdf_document.Deleted = true;
-                        pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Deleted);
-                    }
+                    pdf_document.Deleted = true;
+                    pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Deleted);
                 }
-            });
+            }
         }
 
         void MenuUseKeywordsAsTags_Click(object sender, RoutedEventArgs e)

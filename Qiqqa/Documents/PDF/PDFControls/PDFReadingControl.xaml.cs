@@ -966,7 +966,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
         private void MoveGuestPreviewPDFDocument(WebLibraryDetail web_library_detail)
         {
             PDFDocument source_pdf_document = this.pdf_renderer_control_stats.pdf_document;
-            PDFDocument cloned_pdf_document = ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(source_pdf_document, web_library_detail.library);
+            PDFDocument cloned_pdf_document = ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(source_pdf_document, web_library_detail.library, false);
 
             // Open the new
             if (null != cloned_pdf_document)

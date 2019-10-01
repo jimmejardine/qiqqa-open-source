@@ -23,9 +23,9 @@ namespace Qiqqa.DocumentLibrary
         }
 
 
-        private static void AddQiqqaManualToLibrary(Library library, LibraryPdfActionCallbacks post_partum)
+        private static PDFDocument AddQiqqaManualToLibrary(Library library)
         {
-            FilenameWithMetadataImport fwmi = new FilenameWithMetadataImport();
+            ImportingIntoLibrary.FilenameWithMetadataImport fwmi = new ImportingIntoLibrary.FilenameWithMetadataImport();
             fwmi.filename = QiqqaManualFilename;
             fwmi.tags = new List<string> { "manual", "help" };
             fwmi.bibtex =
@@ -36,12 +36,14 @@ namespace Qiqqa.DocumentLibrary
                 "}"
                 ;
 
-            library.AddNewDocumentToLibrary_SYNCHRONOUS(fwmi, true, post_partum);
+            PDFDocument pdf_document = ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(library, true, true, new ImportingIntoLibrary.FilenameWithMetadataImport[] { fwmi });
+
+            return pdf_document;
         }
 
-        private static void AddLoexManualToLibrary(Library library)
+        private static PDFDocument AddLoexManualToLibrary(Library library)
         {
-            FilenameWithMetadataImport fwmi = new FilenameWithMetadataImport();
+            ImportingIntoLibrary.FilenameWithMetadataImport fwmi = new ImportingIntoLibrary.FilenameWithMetadataImport();
             fwmi.filename = LoexManualFilename;
             fwmi.tags.AddRange(new List<string> { "manual", "help" } );
             fwmi.bibtex =
@@ -55,13 +57,15 @@ namespace Qiqqa.DocumentLibrary
                 "}"
                 ;
 
-            library.AddNewDocumentToLibrary_SYNCHRONOUS(fwmi, true);
+            PDFDocument pdf_document = ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(library, true, true, new ImportingIntoLibrary.FilenameWithMetadataImport[] { fwmi });
+
+            return pdf_document;
         }
 
-        internal static void AddManualsToLibrary(Library library, LibraryPdfActionCallbacks post_partum)
+        internal static PDFDocument AddManualsToLibrary(Library library)
         {   
             AddLoexManualToLibrary(library);
-            AddQiqqaManualToLibrary(library, post_partum);
+            return AddQiqqaManualToLibrary(library);
         }
     }
 }
