@@ -19,21 +19,21 @@ namespace Qiqqa.Synchronisation.MetadataSync
             SynchronisationStates synchronisation_states = new SynchronisationStates();
 
             StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(library), "Building sync state from local history", 0, 1);
-            BuildFromHistoricalSyncFile(historical_sync_file, synchronisation_states);
+            BuildFromHistoricalSyncFile(historical_sync_file, ref synchronisation_states);
 
             StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(library), "Building sync state from local files", 0, 1);
-            BuildFromLocal(library, synchronisation_states);
+            BuildFromLocal(library, ref synchronisation_states);
 
             StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(library), "Building sync state from Web/Intranet Library", 0, 1);
-            BuildFromRemote(library, synchronisation_states);
+            BuildFromRemote(library, ref synchronisation_states);
 
-            FilterSynchronisationStates(synchronisation_states);
+            FilterSynchronisationStates(ref synchronisation_states);
 
             return synchronisation_states;
         }
 
 
-        private static void FilterSynchronisationStates(SynchronisationStates synchronisation_states)
+        private static void FilterSynchronisationStates(ref SynchronisationStates synchronisation_states)
         {
             HashSet<string> ineligible_keys = new HashSet<string>();
 
@@ -52,7 +52,7 @@ namespace Qiqqa.Synchronisation.MetadataSync
             }
         }
 
-        private static void BuildFromHistoricalSyncFile(Dictionary<string, string> historical_sync_file, SynchronisationStates synchronisation_states)
+        private static void BuildFromHistoricalSyncFile(Dictionary<string, string> historical_sync_file, ref SynchronisationStates synchronisation_states)
         {            
             foreach (var pair in historical_sync_file)
             {
@@ -60,7 +60,7 @@ namespace Qiqqa.Synchronisation.MetadataSync
             }
         }
 
-        private static void BuildFromLocal(Library library, SynchronisationStates synchronisation_states)
+        private static void BuildFromLocal(Library library, ref SynchronisationStates synchronisation_states)
         {
             List<LibraryDB.LibraryItem> library_items = library.LibraryDB.GetLibraryItems(null, null);
             foreach (LibraryDB.LibraryItem library_item in library_items)
@@ -72,17 +72,16 @@ namespace Qiqqa.Synchronisation.MetadataSync
             }
         }
 
-        static void BuildFromRemote(Library library, SynchronisationStates synchronisation_states)
+        static void BuildFromRemote(Library library, ref SynchronisationStates synchronisation_states)
         {
             // --- TODO: Replace this with a pretty interface class ------------------------------------------------
-            if (false) { }
-            else if (library.WebLibraryDetail.IsIntranetLibrary)
+            if (library.WebLibraryDetail.IsIntranetLibrary)
             {
-                SynchronisationStateBuilder_Intranet.BuildFromRemote(library, synchronisation_states);
+                SynchronisationStateBuilder_Intranet.BuildFromRemote(library, ref synchronisation_states);
             }
             else
             {
-                throw new Exception(String.Format("Did not understand how to build from remote for library {0}", library.WebLibraryDetail.Title));
+                throw new Exception(String.Format("Did not understand how to build from remote for library '{0}' (Type: {1})", library.WebLibraryDetail.Title, library.WebLibraryDetail.LibraryType()));
             }
             // -----------------------------------------------------------------------------------------------------
         }

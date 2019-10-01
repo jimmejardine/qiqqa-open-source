@@ -6,7 +6,7 @@ namespace Qiqqa.Synchronisation.MetadataSync
 {
     class SynchronisationStateBuilder_Intranet
     {
-        internal static void BuildFromRemote(Library library, SynchronisationStates synchronisation_states)
+        internal static void BuildFromRemote(Library library, ref SynchronisationStates synchronisation_states)
         {
             IntranetLibraryDB db = new IntranetLibraryDB(library.WebLibraryDetail.IntranetPath);
             List<IntranetLibraryDB.IntranetLibraryItem> items = db.GetIntranetLibraryItemsSummary();
