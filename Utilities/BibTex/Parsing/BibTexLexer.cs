@@ -102,7 +102,7 @@ namespace Utilities.BibTex.Parsing
                 // Skip spaces between name and open brackets
                 ParseWhiteSpace();
 
-                // Now and entry is either { xxx } or ( xxx )
+                // Now an entry is either { xxx } or ( xxx )
                 switch (c < MAX_C ? bibtex[c] : '\0')
                 {
                     case '(':
@@ -178,7 +178,7 @@ namespace Utilities.BibTex.Parsing
         {
             // Get the entry name
             int key_start = c;
-            while (c < MAX_C && IsKeyChar(bibtex[c]))
+            while (/* c < MAX_C && */ IsKeyChar(bibtex[c]))  // -- optimization
             {
                 ++c;
             }
@@ -188,8 +188,7 @@ namespace Utilities.BibTex.Parsing
             {
                 callback.RaiseWarning("There is no key in this BibTeX reference");
             }
-
-
+            
             string key = bibtex.Substring(key_start, key_end - key_start);
 
             callback.RaiseKey(key);
@@ -206,7 +205,6 @@ namespace Utilities.BibTex.Parsing
                     // Get the name
                     if (ParseFieldName(callback))
                     {
-
                         // Parse whitespace
                         ParseWhiteSpace();
 
@@ -214,6 +212,7 @@ namespace Utilities.BibTex.Parsing
                         if ('=' != bibtex[c])
                         {
                             Exception(callback, "Expecting an = between the field name and the field value");
+                            if (c >= MAX_C) break;  // abort as we've hit EOF prematurely
                             continue;
                         }
                         else
@@ -224,6 +223,9 @@ namespace Utilities.BibTex.Parsing
                         // Parse whitespace
                         ParseWhiteSpace();
 
+						// TODO: remember `c` as broken (and thus infinitely running) field values
+						// are a common problem in BibTeX records...
+						
                         ParseFieldValue(callback);
 
                         // Parse whitespace
@@ -237,8 +239,16 @@ namespace Utilities.BibTex.Parsing
                     }
                     else
                     {
-                        Exception(callback, "Expecting a field name but nothing was acceptable, so moving onto next whitespace");
-                        HuntForWhitespace();
+                        if (c >= MAX_C)
+                        {
+                            Exception(callback, "Expecting a field name but nothing was acceptable until EOF: broken or truncated BibTeX?");
+                            break;  // abort as we've hit EOF prematurely
+                        }
+                        else
+                        {
+                            Exception(callback, "Expecting a field name but nothing was acceptable, so moving onto next whitespace");
+                            HuntForWhitespace();
+                        }
                     }
 
                     // Parse whitespace
@@ -273,35 +283,36 @@ namespace Utilities.BibTex.Parsing
             }
         }
 
-        private void ParseFieldValue(BibTexLexerCallback callback)
+        private bool ParseFieldValue(BibTexLexerCallback callback)
         {
             // Decide on the value type and parse it
             char ch = bibtex[c];
             if ('{' == ch)
             {
-                ParseFieldValue_Braces(callback);
+                return ParseFieldValue_Braces(callback);
             }
             else if ('"' == ch)
             {
-                ParseFieldValue_Quotes(callback);
+                return ParseFieldValue_Quotes(callback);
             }
             else if (Char.IsLetterOrDigit(ch))
             {
-                ParseFieldValue_AlphaNumeric(callback);
+                return ParseFieldValue_AlphaNumeric(callback);
             }
             else
             {
                 Exception(callback, "A field value should start with '{0}' or '{1}' or digit", "(", "{{");
+                return false;
             }
         }
 
-        private void ParseFieldValue_Quotes(BibTexLexerCallback callback)
+        private bool ParseFieldValue_Quotes(BibTexLexerCallback callback)
         {
             // Check we have our {
             if ('"' != bibtex[c])
             {
                 Exception(callback, "Quotes field value should start with \"");
-                return;
+                return false;
             }
             else
             {
@@ -310,7 +321,7 @@ namespace Utilities.BibTex.Parsing
 
             int brace_depth = 0;
             int field_value_start = c;
-            while (true)
+            while (c < MAX_C)
             {
                 if ('{' == bibtex[c] && '\\' != bibtex[c - 1])
                 {
@@ -342,27 +353,38 @@ namespace Utilities.BibTex.Parsing
             int field_value_end = c;
             string field_value = bibtex.Substring(field_value_start, field_value_end - field_value_start);
 
-            callback.RaiseFieldValue(field_value);
 
             // Check we have our final "
             if ('"' != bibtex[c])
             {
-                Exception(callback, "Quotes field value should end with \"");
-                return;
+                if (c >= MAX_C)
+                {
+                    Exception(callback, "Quotes field value should end with \" instead of being terminated at EOF. Corrupted or truncated BibTeX?");
+                    return false;
+                }
+                else
+                {
+                    Exception(callback, "Quotes field value should end with \"");
+                    return false;
+                }
             }
             else
             {
                 ++c;
             }
+
+            callback.RaiseFieldValue(field_value);
+
+            return true;
         }
 
-        private void ParseFieldValue_Braces(BibTexLexerCallback callback)
+        private bool ParseFieldValue_Braces(BibTexLexerCallback callback)
         {
             // Check we have our {
             if ('{' != bibtex[c])
             {
                 Exception(callback, "Braces field value should start with {0}", "{{");
-                return;
+                return false;
             }
             else
             {
@@ -371,7 +393,7 @@ namespace Utilities.BibTex.Parsing
 
             int brace_depth = 0;
             int field_value_start = c;
-            while (true)
+            while (c < MAX_C)
             {
                 if ('{' == bibtex[c] && '\\' != bibtex[c - 1])
                 {
@@ -397,27 +419,35 @@ namespace Utilities.BibTex.Parsing
                     ++c;
                 }
             }
+
             int field_value_end = c;
             string field_value = bibtex.Substring(field_value_start, field_value_end - field_value_start);
-
-            callback.RaiseFieldValue(field_value);
 
             // Check we have our final }
             if ('}' != bibtex[c])
             {
-                Exception(callback, "Braces field value should end with {0}", "}}");
-                return;
+                if (c >= MAX_C)
+                {
+                    Exception(callback, "Braces field value should end with {0}. Corrupted or truncated BibTeX?", "}}");
+                    return false;
+                }
+                else
+                {
+                    Exception(callback, "Braces field value should end with {0}", "}}");
+                    return false;
+                }
             }
-            else
-            {
-                ++c;
-            }
+            ++c;
+
+            callback.RaiseFieldValue(field_value);
+
+            return true;
         }
 
-        private void ParseFieldValue_AlphaNumeric(BibTexLexerCallback callback)
+        private bool ParseFieldValue_AlphaNumeric(BibTexLexerCallback callback)
         {
             int field_value_start = c;
-            while (true)
+            while (c < MAX_C)
             {
                 if (Char.IsLetterOrDigit(bibtex[c]))
                 {
@@ -439,7 +469,17 @@ namespace Utilities.BibTex.Parsing
             int field_value_end = c;
             string field_value = bibtex.Substring(field_value_start, field_value_end - field_value_start);
 
+            if (c >= MAX_C)
+            {
+                // a field value MUST always sit inside a BibTeX record at least, hence we expect
+                // at least one outer '}'. Therefore the field value cannot run up to EOF.
+                Exception(callback, "Alphanumeric field value should not continue until EOF. Corrupted or truncated BibTeX?");
+                return false;
+            }
+
             callback.RaiseFieldValue(field_value);
+
+            return true;
         }
 
 
