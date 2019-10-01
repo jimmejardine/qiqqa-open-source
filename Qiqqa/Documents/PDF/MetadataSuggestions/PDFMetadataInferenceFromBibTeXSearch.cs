@@ -78,30 +78,24 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
                 List<string> bibtex_choices = new List<string>();
                 foreach (var jo in ja)
                 {
-                    var bibtex = jo["_source"]["bibtex"].ToString();
+                    var bibtex_str = jo["_source"]["bibtex"].ToString();
 
-                    BibTexItem bibtex_item = BibTexParser.ParseOne(bibtex, true);
+                    BibTexItem bibtex = BibTexParser.ParseOne(bibtex_str, true);
 
                     // Does the bibtex match sufficiently? Empty bibtex will be handled accordingly: no fit/match
                     PDFSearchResultSet search_result_set;
-                    if (!BibTeXGoodnessOfFitEstimator.DoesBibTeXMatchDocument(bibtex_item, pdf_document, out search_result_set)) continue;
+                    if (!BibTeXGoodnessOfFitEstimator.DoesBibTeXMatchDocument(bibtex, pdf_document, out search_result_set)) continue;
 
                     // Does the title match sufficiently to the bibtex
                     {
-                        string title_string = bibtex_item.GetTitle();
+                        string title_string = bibtex.GetTitle();
                         string title_string_tolower = title_string.Trim().ToLower();
                         string title_tolower = title.Trim().ToLower();
                         double similarity = StringTools.LewensteinSimilarity(title_tolower, title_string_tolower);
                         if (0.75 > similarity) continue;
                     }
 
-                    if (!bibtex.Contains(BibTeXActionComments.AUTO_BIBTEXSEARCH))
-                    {
-                        bibtex =
-                            BibTeXActionComments.AUTO_BIBTEXSEARCH
-                            + "\r\n"
-                            + bibtex;
-                    }
+                    bibtex.SourcedFromAutoSearch = true;
 
                     // If we get this far, we are happy with the bibtex
                     bibtex_choices.Add(bibtex);
@@ -110,12 +104,12 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
                 // Pick the longest matching bibtex
                 if (0 < bibtex_choices.Count)
                 {
-                    bibtex_choices.Sort(delegate(string a, string b)
-                        {
-                            if (a.Length > b.Length) return -1;
-                            if (a.Length < b.Length) return +1;
-                            return 0;
-                        }
+                    bibtex_choices.Sort(delegate (string a, string b)
+                    {
+                        if (a.Length > b.Length) return -1;
+                        if (a.Length < b.Length) return +1;
+                        return 0;
+                    }
                     );
 
                     pdf_document.BibTex = bibtex_choices[0];

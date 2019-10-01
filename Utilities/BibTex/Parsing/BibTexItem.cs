@@ -60,6 +60,13 @@ namespace Utilities.BibTex.Parsing
         
         private Dictionary<string, string> fields = new Dictionary<string, string>();
 
+        // state flags // BibTeXActionComments:
+        public bool SkippedInSniffer = false;                        // SKIP = "@comment { BIBTEX_SKIP }";
+        public bool SourcedFromAutoSearch = false;          // AUTO_BIBTEXSEARCH = "@comment { BIBTEX_AUTO - BIBTEXSEARCH }";
+        public bool SourcedFromGoogleScholarSniffer = false; // AUTO_GS = "@comment { BIBTEX_AUTO - GS }";
+        public bool SourcedFromManualDataEntry = false; // MANUAL_EDIT = "@comment { BIBTEX_MANUAL_EDIT }";
+        public bool SourceHasBeenUserVetted = false; // USER_VETTED = "@comment { BIBTEX_USER_VETTED }";
+
         public override string ToString()
         {
             return String.Format("{0}({1}) - {2} fields", Type, Key, fields.Count);
