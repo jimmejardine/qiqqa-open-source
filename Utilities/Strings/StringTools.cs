@@ -52,33 +52,28 @@ namespace Utilities.Strings
         /// <param name="separator"></param>
         /// <param name="from"></param>
         /// <returns></returns>
-        public static string ConcatenateStrings(string[] strings, string separator = ",", int from = 0, int to_exclusive = int.MaxValue)
+        public static string ConcatenateStrings(IEnumerable<string> strings, string separator = ",", int from = 0, int to_exclusive = int.MaxValue)
         {
             if (null == strings)
             {
                 return "";
             }
             
-            if (from >= strings.Length)
-            {
-                return "";
-            }
-
-            int end = Math.Min(strings.Length, to_exclusive);
-
-            // If there is only one item
-            if (from == end - 1)
-            {
-                return strings[from];
-            }
-
-            // If there are multiple items
+            // If there are zero, one or multiple items
             StringBuilder sb = new StringBuilder();
-            sb.Append(strings[from]);
-            for (int i = from + 1; i < end; ++i)
+            int i = 0;
+            int j = 0;
+            foreach (string s in strings)
             {
-                sb.Append(separator);
-                sb.Append(strings[i]);                
+                if (i < from) continue;
+                if (i >= to_exclusive) break;
+                if (j > 0)
+                {
+                    sb.Append(separator);
+                }
+                sb.Append(s);
+                i++;
+                j++;
             }
 
             return sb.ToString();
@@ -261,7 +256,7 @@ namespace Utilities.Strings
 			return position;
 		}
 
-        public static int Count(string source, char key)
+        public static int CharCount(string source, char key)
         {
             int total = 0;
             for (int i = 0; i < source.Length; ++i)
@@ -625,6 +620,31 @@ namespace Utilities.Strings
                 str += "…";
             }
             return str;
+        }
+
+        public static string GetFirstWord(string source)
+        {
+            if (String.IsNullOrEmpty(source)) return "";
+            char[] WHITESPACE = { ' ', '\t', '\n' };
+            string[] words = source.Split(WHITESPACE);
+
+            foreach (string w in words)
+            {
+                bool is_word = true;
+                foreach (char c in w)
+                {
+                    if (!Char.IsLetter(c))
+                    {
+                        is_word = false;
+                        break;
+                    }
+                }
+                if (is_word)
+                {
+                    return w;
+                }
+            }
+            return "";
         }
     }
 }

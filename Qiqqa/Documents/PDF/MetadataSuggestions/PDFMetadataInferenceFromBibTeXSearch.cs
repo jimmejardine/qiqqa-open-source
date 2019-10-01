@@ -65,7 +65,7 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
             if (-1 == title.IndexOf(' ')) return false;
 
             // Unwanted automatic titles
-            if (PDFDocument.TITLE_UNKNOWN == title || pdf_document.DownloadLocation == title) return false;
+            if (Constants.TITLE_UNKNOWN == title || pdf_document.DownloadLocation == title) return false;
 
             // Get the search results!
             string json = DoSearch(title);

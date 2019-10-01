@@ -51,30 +51,21 @@ namespace Qiqqa.Exporting
                     StatusManager.Instance.UpdateStatus("BibTexExport", String.Format("Exporting entry {0} of {1}", i, pdf_documents.Count), i, pdf_documents.Count);
 
                     // Get the bibtex
-                    BibTexItem bibtex = pdf_document.BibTexItem;
+                    BibTexItem bibtex = pdf_document.BibTex;
 
                     // If there is no bibtex, make a record
                     if (bibtex.IsEmpty())
                     {
-                        bibtex = new BibTexItem(BibTexTools.GetEmptyArticleBibTeXTemplate());
+                        bibtex = BibTexItem.ParseOne(BibTexTools.GetEmptyArticleBibTeXTemplate());
 
                         string title = pdf_document.TitleCombined;
-                        if (PDFDocument.TITLE_UNKNOWN != title)
-                        {
                             bibtex.SetTitle(title);
-                        }
 
                         string author = pdf_document.AuthorsCombined;
-                        if (Utilities.Language.NameTools.UNKNOWN_AUTHORS != author)
-                        {
                             bibtex.SetAuthor(author);
-                        }
 
                         string year = pdf_document.YearCombined;
-                        if (PDFDocument.UNKNOWN_YEAR != year)
-                        {
                             bibtex.SetYear(year);
-                        }
                     }
 
                     // NB: The ADDITION of the filename and tags causes the bibtex to be reparsed and formatted, 

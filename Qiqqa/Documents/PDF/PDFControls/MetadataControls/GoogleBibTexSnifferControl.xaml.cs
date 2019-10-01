@@ -715,7 +715,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                 if (String.IsNullOrEmpty(search_terms))
                 {
                     string title_combined = pdf_document.TitleCombined;
-                    if (PDFDocument.TITLE_UNKNOWN != title_combined && pdf_document.DownloadLocation != title_combined)
+                    if (Constants.TITLE_UNKNOWN != title_combined && pdf_document.DownloadLocation != title_combined)
                     {
                         search_terms = pdf_document.TitleCombined;
                     }

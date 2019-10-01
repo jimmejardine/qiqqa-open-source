@@ -43,13 +43,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             ButtonUseSummary.MinWidth = 0;
         }
 
-        static string GetFirstWord(string source)
-        {
-            if (String.IsNullOrEmpty(source)) return "";
-            string[] words = source.Split(' ');
-            return StringTools.StripToLettersAndDigits(words[0]);
-        }
-
         void ButtonBibTexClear_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBoxes.AskQuestion("Are you sure you wish to clear this BibTeX?"))
@@ -84,16 +77,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
             BibTexItem bibtem_item = new BibTexItem();
             bibtem_item.Type = "article";
-            bibtem_item.Key = String.Format(
-                "{0}{1}{2}"
-                , Utilities.Language.NameTools.UNKNOWN_AUTHORS != pdf_document_bindable.Underlying.AuthorsCombined ? GetFirstWord(pdf_document_bindable.Underlying.AuthorsCombined) : ""
-                , PDFDocument.UNKNOWN_YEAR != pdf_document_bindable.Underlying.YearCombined ? GetFirstWord(pdf_document_bindable.Underlying.YearCombined) : ""
-                , PDFDocument.TITLE_UNKNOWN != pdf_document_bindable.Underlying.TitleCombined ? GetFirstWord(pdf_document_bindable.Underlying.TitleCombined) : ""
-            );
 
-            if (PDFDocument.TITLE_UNKNOWN != pdf_document_bindable.Underlying.TitleCombined) bibtem_item.SetTitle(pdf_document_bindable.Underlying.TitleCombined);
-            if (Utilities.Language.NameTools.UNKNOWN_AUTHORS != pdf_document_bindable.Underlying.AuthorsCombined) bibtem_item.SetAuthor(pdf_document_bindable.Underlying.AuthorsCombined);
-            if (PDFDocument.UNKNOWN_YEAR != pdf_document_bindable.Underlying.YearCombined) bibtem_item.SetYear(pdf_document_bindable.Underlying.YearCombined);
+            bibtem_item.SetTitle(pdf_document_bindable.Underlying.TitleCombined);
+            bibtem_item.SetAuthor(pdf_document_bindable.Underlying.AuthorsCombined);
+            bibtem_item.SetYear(pdf_document_bindable.Underlying.YearCombined);
 
             pdf_document_bindable.Underlying.BibTex = bibtem_item;
             pdf_document_bindable.NotifyPropertyChanged(() => pdf_document_bindable.Underlying.BibTex);

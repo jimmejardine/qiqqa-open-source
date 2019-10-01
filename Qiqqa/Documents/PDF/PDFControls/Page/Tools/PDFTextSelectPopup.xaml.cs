@@ -171,7 +171,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
                 FeatureTrackingManager.Instance.UseFeature(Features.Document_TextToMetadata);
 
                 string authors = pdf_document.AuthorsCombined;
-                if (Utilities.Language.NameTools.UNKNOWN_AUTHORS == authors)
+                if (Constants.UNKNOWN_AUTHORS == authors)
                 {
                     authors = "";
                 }

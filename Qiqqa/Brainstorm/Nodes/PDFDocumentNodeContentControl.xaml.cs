@@ -234,7 +234,7 @@ namespace Qiqqa.Brainstorm.Nodes
             PDFDocument pdf_document = pdf_document_node_content.PDFDocument;
 
             string authors = pdf_document.AuthorsCombined;
-            if (String.IsNullOrEmpty(authors) || NameTools.UNKNOWN_AUTHORS == authors)
+            if (String.IsNullOrEmpty(authors) || Constants.UNKNOWN_AUTHORS == authors)
             {
                 return;
             }

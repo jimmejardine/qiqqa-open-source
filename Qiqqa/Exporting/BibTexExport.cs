@@ -39,7 +39,7 @@ namespace Qiqqa.Exporting
                     ConfigurationManager.Instance.ConfigurationRecord.System_LastBibTexExportFile = filename;
                     ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.System_LastBibTexExportFile);
 
-                    LibraryExporter_BibTeX.ExportBibTeX(pdf_documents, filename, false);
+                    LibraryExporter_BibTeX.ExportBibTeX(pdf_documents, filename, true);
                 }
             }
         }

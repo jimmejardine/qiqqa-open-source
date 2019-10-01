@@ -156,7 +156,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
             FilenameWithMetadataImport fwmi = new FilenameWithMetadataImport();
             fwmi.tags.Add("import_endnote");
             fwmi.tags.Add("import_endnote_" + Path.GetFileNameWithoutExtension(endnote_database_filename));
-            fwmi.bibtex = bibtex_item;
+            fwmi.BibTexRecord = bibtex_item;
 
             if (record.fields.ContainsKey("notes"))
             {

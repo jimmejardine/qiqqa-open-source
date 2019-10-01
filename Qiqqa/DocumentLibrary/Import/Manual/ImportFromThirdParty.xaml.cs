@@ -571,15 +571,9 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             List<FilenameWithMetadataImport> filename_and_bibtex_imports = new List<FilenameWithMetadataImport>();
             foreach (AugmentedBindable<BibTeXEntry> entry in allEntries)
             {
-                FilenameWithMetadataImport filename_with_metadata_import = new FilenameWithMetadataImport
-                {
-                    filename = entry.Underlying.Filename,
-                    suggested_download_source_uri = entry.Underlying.FileURI,
-                    bibtex = entry.Underlying.BibTeX,
-                    tags = entry.Underlying.Tags,
-                    notes = entry.Underlying.Notes
-                };
-
+                FilenameWithMetadataImport filename_with_metadata_import = new FilenameWithMetadataImport(entry.Underlying);
+//                    suggested_download_source_uri = entry.Underlying.FileURI,
+  
                 filename_and_bibtex_imports.Add(filename_with_metadata_import);
             }
 

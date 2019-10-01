@@ -568,7 +568,7 @@ namespace Qiqqa.DocumentLibrary
             return pdf_document;
         }
 
-        public PDFDocument CloneExistingDocumentFromOtherLibrary_SYNCHRONOUS(PDFDocument existing_pdf_document, bool suppress_dialogs)
+        public PDFDocument CloneExistingDocumentFromOtherLibrary_SYNCHRONOUS(PDFDocument existing_pdf_document, bool suppress_dialogs, LibraryPdfActionCallbacks callbacks)
         {
             StatusManager.Instance.UpdateStatus("LibraryDocument", String.Format("Copying {0} into library", existing_pdf_document.TitleCombined));
 

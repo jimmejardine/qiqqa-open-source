@@ -11,7 +11,7 @@ namespace Qiqqa.Exporting
         public static string MakeExportFilename(PDFDocument pdf_document)
         {
             string year = pdf_document.YearCombined;
-            if (year == PDFDocument.UNKNOWN_YEAR)
+            if (year == PDFDocConstantsument.UNKNOWN_YEAR)
             {
                 year = "";
             }

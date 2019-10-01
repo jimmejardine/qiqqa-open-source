@@ -258,7 +258,6 @@ namespace Qiqqa.Documents.PDF
             }
         }
 
-        public static readonly string TITLE_UNKNOWN = "(unknown title)";
         public string TitleCombined
         {
             get
@@ -271,7 +270,7 @@ namespace Qiqqa.Documents.PDF
 
                 if (!String.IsNullOrEmpty(DownloadLocation)) return DownloadLocation;
 
-                return TITLE_UNKNOWN;
+                return Constants.TITLE_UNKNOWN;
             }
             set
             {
@@ -342,7 +341,7 @@ namespace Qiqqa.Documents.PDF
 
                 if (!String.IsNullOrEmpty(AuthorsSuggested)) return AuthorsSuggested;
 
-                return Utilities.Language.NameTools.UNKNOWN_AUTHORS;
+                return Constants.UNKNOWN_AUTHORS;
             }
             set
             {
@@ -391,24 +390,45 @@ namespace Qiqqa.Documents.PDF
             }
         }
 
-        public static readonly string UNKNOWN_YEAR = "(unknown year)";
+        /// <summary>
+        /// Produce the document's year of publication.
+        /// 
+        /// When producing (getting) this value, the priority is:
+        /// 
+        /// - check the BibTeX `year` field and return that one when it's non-empty
+        /// - check the manual-entry `year` field (@xref Year)
+        /// - check the suggested year field (@xref YearSuggested)
+        /// - if also else fails, return the UNKNOWN_YEAR value.
+        /// 
+        /// When setting this value, the first action in this prioirty list is executed, where the conditions pass:
+        /// 
+        /// - check if there's a non-empty (partial) BibTeX record: when there is, add/update the `year` field
+        /// - update the manual-entry Year field (@xref Year)
+        /// </summary>
         public string YearCombined
         {
             get
             {
-                if (!String.IsNullOrEmpty(Year)) return Year;
-
                 if (BibTex.HasYear()) return BibTex.GetYear();
+
+                if (!String.IsNullOrEmpty(Year)) return Year;
 
                 if (!String.IsNullOrEmpty(YearSuggested)) return YearSuggested;
 
-                return UNKNOWN_YEAR;
+                return Constants.UNKNOWN_YEAR;
             }
             set
             {
-                string old_combined = YearCombined;
-                if (null != old_combined && 0 == old_combined.CompareTo(value))
+                // one can NEVER set the value to UNKNOWN_YEAR:
+                if (Constants.UNKNOWN_YEAR == value)
                 {
+                    return;
+                }
+
+                // BibTeX has precedence when available (complete or partial)
+                if (!BibTex.IsEmpty())
+                {
+                    BibTex.SetYear(value);
                     return;
                 }
 
@@ -416,13 +436,6 @@ namespace Qiqqa.Documents.PDF
                 if (String.IsNullOrEmpty(value))
                 {
                     Year = null;
-                    return;
-                }
-
-                // Then see if they are updating bibtex
-                if (String.IsNullOrEmpty(Year) && BibTex.HasYear())
-                {
-                    BibTex.SetYear(value);
                     return;
                 }
 

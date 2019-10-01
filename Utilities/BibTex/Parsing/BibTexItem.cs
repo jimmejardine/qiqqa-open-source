@@ -43,8 +43,21 @@ namespace Utilities.BibTex.Parsing
             {
                 if (String.IsNullOrEmpty(_Key))
                 {
+                    bool has_auth = this.HasAuthor();
+                    bool has_year = this.HasYear();
+                    bool has_title = this.HasTitle();
+                    bool has_auth2 = (Constants.UNKNOWN_AUTHORS != AuthorsCombined);
+                    bool has_year2 = (Constants.UNKNOWN_YEAR != YearCombined);
+                    bool has_title2 = (Constants.TITLE_UNKNOWN != TitleCombined);
+                    string k = String.Format(
+                        "{0}{1}{2}"
+                        , has_auth2 ? StringTools.GetFirstWord(AuthorsCombined) : ""
+                        , has_year2 ? StringTools.GetFirstWord(YearCombined) : ""
+                        , has_title2 ? StringTools.GetFirstWord(TitleCombined).ToLower() : ""
+                    );
+
                     _Key = BibTexTools.GenerateRandomBibTeXKey(QIQQA_NULL_KEY_LEADER);
-        }
+                }
                 return _Key;
             }
             set
@@ -248,10 +261,13 @@ namespace Utilities.BibTex.Parsing
             return this["title"];
         }
 
-        public void SetTitle(string title)
+        public bool SetTitle(string title)
         {
-            fields["title"] = title; // .Trim();
-            // this.SetIfHasValue("title", title);
+            if (Constants.TITLE_UNKNOWN != title)
+            {
+                return this.SetIfHasValue("title", title);
+            }
+            return false;
         }
 
         public string GetAuthor()
@@ -274,10 +290,13 @@ namespace Utilities.BibTex.Parsing
             return ContainsField("year") && !String.IsNullOrEmpty(this["year"]);
         }
 
-        public void SetAuthor(string author)
+        public bool SetAuthor(string author)
         {
-            fields["author"] = author; // .Trim();
-            // this.SetIfHasValue("author", title);
+            if (Constants.UNKNOWN_AUTHORS != author)
+            {
+                return this.SetIfHasValue("author", author);
+            }
+            return false;
         }
 
         public string GetYear()
@@ -285,10 +304,13 @@ namespace Utilities.BibTex.Parsing
             return this["year"];
         }
 
-        public void SetYear(string year)
+        public bool SetYear(string year)
         {
-            fields["year"] = year; // .Trim();
-            // this.SetIfHasValue("year", title);
+            if (Constants.UNKNOWN_YEAR != year)
+            {
+                return this.SetIfHasValue("year", year);
+            }
+            return false;
         }
 
         public string GetGenericPublication()

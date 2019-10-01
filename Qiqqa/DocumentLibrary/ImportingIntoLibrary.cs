@@ -40,11 +40,11 @@ namespace Qiqqa.DocumentLibrary
         {
             foreach (FilenameWithMetadataImport file_info in files)
             {
-                SafeThreadPool.QueueUserWorkItem(o => AddNewPDFDocumentToLibrary_SYNCHRONOUS(library, suppress_notifications, file_info));
+                SafeThreadPool.QueueUserWorkItem(o => AddNewPDFDocumentsToLibrary_SYNCHRONOUS(library, suppress_notifications, file_info));
             }
         }
 
-        public static PDFDocument AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(Library library, bool suppress_notifications, List<FilenameWithMetadataImport> filename_with_metadata_imports)
+        public static PDFDocument AddNewPDFDocumentsToLibrary_SYNCHRONOUS(Library library, bool suppress_notifications, List<FilenameWithMetadataImport> filename_with_metadata_imports)
         {
             Stopwatch clk = new Stopwatch();
             clk.Start();
@@ -210,13 +210,13 @@ namespace Qiqqa.DocumentLibrary
         {
             //  build up the files list
             var file_list = new List<FilenameWithMetadataImport>();
-            BuildFileListFromFolder(file_list, root_folder, null, recurse_subfolders, import_tags_from_subfolder_names);
+            BuildFileListFromFolder(ref file_list, root_folder, null, recurse_subfolders, import_tags_from_subfolder_names);
 
             //  now import into the library
             Logging.Info(
                 "About to import {0} from folder {1} [recurse_subfolders={2}][import_tags_from_subfolder_names={3}]",
                 file_list.Count, root_folder, recurse_subfolders, import_tags_from_subfolder_names);
-            AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(library, false, file_list);
+            AddNewPDFDocumentsToLibrary_SYNCHRONOUS(library, false, file_list);
         }
 
         public static void AddNewPDFDocumentsToLibraryFromFolder_ASYNCHRONOUS(Library library, string root_folder, bool recurse_subfolders, bool import_tags_from_subfolder_names)
@@ -227,7 +227,7 @@ namespace Qiqqa.DocumentLibrary
         /// <summary>
         /// Build up the list of <code>FilenameWithMetadataImport</code>'s, including tags.  Recurse with all subfolders.
         /// </summary>
-        private static void BuildFileListFromFolder(List<FilenameWithMetadataImport> file_list, string folder, List<string> tags, bool recurse_subfolders, bool import_tags_from_subfolder_names)
+        private static void BuildFileListFromFolder(ref List<FilenameWithMetadataImport> file_list, string folder, List<string> tags, bool recurse_subfolders, bool import_tags_from_subfolder_names)
         {
             try
             {
@@ -259,7 +259,7 @@ namespace Qiqqa.DocumentLibrary
                     }
 
                     //  recurse
-                    BuildFileListFromFolder(file_list, subfolder, subfolder_tags, true, import_tags_from_subfolder_names);
+                    BuildFileListFromFolder(ref file_list, subfolder, subfolder_tags, true, import_tags_from_subfolder_names);
                 }
             }
             catch (Exception ex)
@@ -296,8 +296,8 @@ namespace Qiqqa.DocumentLibrary
                 // https://stackoverflow.com/questions/47269609/system-net-securityprotocoltype-tls12-definition-not-found
                 //
                 // Allow ALL protocols?
-                // ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls | SecurityProtocolType.Tls;
-                ServicePointManager.SecurityProtocol = (SecurityProtocolType)(0xc0 | 0x300 | 0xc00) | SecurityProtocolType.Ssl3;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls | SecurityProtocolType.Ssl3;
+                //ServicePointManager.SecurityProtocol = (SecurityProtocolType)(0xc0 | 0x300 | 0xc00) | SecurityProtocolType.Ssl3;
 
                 // same headers as sent by modern Chrome.
                 // Gentlemen, start your prayer wheels!
@@ -379,9 +379,10 @@ namespace Qiqqa.DocumentLibrary
 
                             PDFDocument pdf_document = library.AddNewDocumentToLibrary_SYNCHRONOUS(new FilenameWithMetadataImport
                             {
-                                filename = filename,
-                                original_filename = original_filename,
-                                suggested_download_source_uri = download_url
+                                Filename = filename,
+                                OriginalFilename = original_filename,
+                                FileURI = download_url,
+                                SuggestedDownloadSourceURI = download_url
                             }, false);
                             File.Delete(filename);
 
@@ -440,9 +441,9 @@ namespace Qiqqa.DocumentLibrary
 
         #region --- Add from another library ---------------------------------------------------------------------------------------------------------------------------
 
-        public static void ClonePDFDocumentsFromOtherLibrary_ASYNCHRONOUS(PDFDocument existing_pdf_document, Library library, LibraryPdfActionCallbacks callbacks)
+        public static void ClonePDFDocumentFromOtherLibrary_ASYNCHRONOUS(PDFDocument existing_pdf_document, Library library, LibraryPdfActionCallbacks callbacks)
         {
-            SafeThreadPool.QueueUserWorkItem(o => ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(existing_pdf_document, library));
+            SafeThreadPool.QueueUserWorkItem(o => ClonePDFDocumentFromOtherLibrary_SYNCHRONOUS(existing_pdf_document, library));
         }
 
         /// <summary>
@@ -467,7 +468,7 @@ namespace Qiqqa.DocumentLibrary
         /// <summary>
         /// Creates a new <code>PDFDocument</code> in the given library, and creates a copy of all the metadata.
         /// </summary>
-        public static PDFDocument ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(PDFDocument existing_pdf_document, Library library)
+        public static PDFDocument ClonePDFDocumentFromOtherLibrary_SYNCHRONOUS(PDFDocument existing_pdf_document, Library library, LibraryPdfActionCallbacks callbacks)
         {
             try
             {
@@ -477,7 +478,7 @@ namespace Qiqqa.DocumentLibrary
                     return null;
                 }
 
-                return library.CloneExistingDocumentFromOtherLibrary_SYNCHRONOUS(existing_pdf_document, false);
+                return library.CloneExistingDocumentFromOtherLibrary_SYNCHRONOUS(existing_pdf_document, false, callbacks);
             }
             catch (Exception e)
             {
