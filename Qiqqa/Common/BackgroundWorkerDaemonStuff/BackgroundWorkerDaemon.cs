@@ -185,12 +185,6 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
                 return;
             }
 
-            if (ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
-            {
-                Logging.Info("Daemons are forced to sleep via Configuration::DisableAllBackgroundTasks");
-                return;
-            }
-
             foreach (var x in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries_All)
             {
                 Library library = x.library;

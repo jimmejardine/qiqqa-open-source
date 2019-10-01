@@ -391,12 +391,6 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 return;
             }
 
-            if (Qiqqa.Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
-            {
-                Logging.Debug("FolderWatcher: Breaking out due to DisableAllBackgroundTasks");
-                return;
-            }
-
             // Create the import records
             List<ImportingIntoLibrary.FilenameWithMetadataImport> filename_with_metadata_imports = new List<ImportingIntoLibrary.FilenameWithMetadataImport>();
             foreach (var filename in filenames_that_are_new)
