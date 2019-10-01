@@ -23,10 +23,10 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         // If 'FolderWatcher' has previously shipped, adding new members that implement IDisposable 
         // to this type is considered a breaking change to existing consumers.
 
-        FileSystemWatcher file_system_watcher;        
+        FileSystemWatcher file_system_watcher;
 
         string configured_folder_to_watch;
-        string aspiring_folder_to_watch;        
+        string aspiring_folder_to_watch;
         bool __folder_contents_has_changed;
         object folder_contents_has_changed_lock = new object();
 
@@ -70,7 +70,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
         public FolderWatcher(FolderWatcherManager folder_watcher_manager, Library library, string folder_to_watch, string tags)
         {
-            this.folder_watcher_manager = folder_watcher_manager;            
+            this.folder_watcher_manager = folder_watcher_manager;
             this.library = library;
             this.aspiring_folder_to_watch = folder_to_watch;
             this.tags = TagTools.ConvertTagBundleToTags(tags);
@@ -132,7 +132,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
             // If they are both identical, no worries
             if (null != configured_folder_to_watch && null != aspiring_folder_to_watch && 0 == configured_folder_to_watch.CompareTo(aspiring_folder_to_watch))
-            {                
+            {
                 return;
             }
 
@@ -257,7 +257,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 List<string> filenames_that_are_new = new List<string>();
                 foreach (string filename in filenames_in_folder)
                 {
-	                if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+                    if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
                     {
                         Logging.Debug("FolderWatcher: Breaking out of inner processing loop due to daemon termination");
                         break;
@@ -433,8 +433,8 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 {
                     OnAdded = (pdf_document, filename) =>
                     {
-	                    // Add this file to the list of processed files...
-	                    folder_watcher_manager.RememberProcessedFile(filename);
+                        // Add this file to the list of processed files...
+                        folder_watcher_manager.RememberProcessedFile(filename);
                     }
                 });
 

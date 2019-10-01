@@ -22,7 +22,7 @@ namespace Utilities.Language
                     }
 
                     StringBuilder sb = new StringBuilder();
-                    
+
                     // Extract all the upper case letters
                     foreach (char c in first_names)
                     {
@@ -113,7 +113,7 @@ namespace Utilities.Language
                 else
                 {
                     // If we get here, we have many names.  Lets assume that all first names start with a capital letter.  If we meet a lower case letter, then we assume that is where the surname starts...
-                    int start_of_surname = nameSplit.Length-1;
+                    int start_of_surname = nameSplit.Length - 1;
                     while (true)
                     {
                         int next_test_position = start_of_surname - 1;
@@ -126,7 +126,7 @@ namespace Utilities.Language
                             break;
                         }
                     }
-                    
+
                     first_name = StringTools.ConcatenateStrings(nameSplit, ' ', 0, start_of_surname).Trim();
                     last_name = StringTools.ConcatenateStrings(nameSplit, ' ', start_of_surname).Trim();
                 }

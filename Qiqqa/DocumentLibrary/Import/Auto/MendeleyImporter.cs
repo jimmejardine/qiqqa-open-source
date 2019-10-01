@@ -22,7 +22,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
             {
                 get
                 {
-                    return 
+                    return
                         String.Format(
                         "Qiqqa has detected Mendeley™ on your computer.  Qiqqa can automatically import {0} references, {1} of which have associated PDFs."
                         , this.documents_found
@@ -31,13 +31,13 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                 }
             }
         }
-        
+
         internal static MendeleyDatabaseDetails DetectMendeleyDatabaseDetails()
         {
             MendeleyDatabaseDetails mdd = new MendeleyDatabaseDetails();
 
             string BASE_DIR_FOR_MENDELEY_DATABASE = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Mendeley Ltd\Mendeley Desktop\";
-            
+
             if (!Directory.Exists(BASE_DIR_FOR_MENDELEY_DATABASE))
             {
                 Logging.Info("Mendeley not found.");
@@ -105,7 +105,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                                             {
                                                 tags_lookup[document_id] = new List<string>();
                                             }
-                                            
+
                                             tags_lookup[document_id].Add(keyword);
                                         }
                                     }
@@ -181,7 +181,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
 
                                             string filename = reader["localUrl"] as string;
                                             if (!String.IsNullOrEmpty(filename))
-                                            {   
+                                            {
                                                 const string FILE_PREFIX = "file:///";
                                                 if (filename.StartsWith(FILE_PREFIX))
                                                 {
@@ -195,7 +195,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                                                 fwmi.suggested_download_source_uri = reader["localUrl"] as string;
 
                                                 ++mdd.pdfs_found;
-                                            }                                            
+                                            }
 
                                             if (tags_lookup.ContainsKey(document_id))
                                             {
@@ -223,7 +223,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                                             }
 
                                             mdd.metadata_imports.Add(fwmi);
-                                            
+
                                             ++mdd.documents_found;
                                         }
 

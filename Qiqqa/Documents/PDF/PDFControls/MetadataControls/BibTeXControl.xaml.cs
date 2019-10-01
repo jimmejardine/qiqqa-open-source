@@ -87,8 +87,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             bibtem_item.Key = String.Format(
                 "{0}{1}{2}"
                 , Utilities.Language.NameTools.UNKNOWN_AUTHORS != pdf_document_bindable.Underlying.AuthorsCombined ? GetFirstWord(pdf_document_bindable.Underlying.AuthorsCombined) : ""
-                ,PDFDocument.UNKNOWN_YEAR != pdf_document_bindable.Underlying.YearCombined ? GetFirstWord(pdf_document_bindable.Underlying.YearCombined) : ""
-                ,PDFDocument.TITLE_UNKNOWN != pdf_document_bindable.Underlying.TitleCombined ? GetFirstWord(pdf_document_bindable.Underlying.TitleCombined) : ""
+                , PDFDocument.UNKNOWN_YEAR != pdf_document_bindable.Underlying.YearCombined ? GetFirstWord(pdf_document_bindable.Underlying.YearCombined) : ""
+                , PDFDocument.TITLE_UNKNOWN != pdf_document_bindable.Underlying.TitleCombined ? GetFirstWord(pdf_document_bindable.Underlying.TitleCombined) : ""
             );
 
             if (PDFDocument.TITLE_UNKNOWN != pdf_document_bindable.Underlying.TitleCombined) bibtem_item.SetTitle(pdf_document_bindable.Underlying.TitleCombined);
@@ -129,7 +129,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                 }
             }
         }
-        
+
         void ButtonBibTexSniffer_Click(object sender, RoutedEventArgs e)
         {
             AugmentedBindable<PDFDocument> pdf_document_bindable = this.DataContext as AugmentedBindable<PDFDocument>;

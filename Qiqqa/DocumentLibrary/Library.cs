@@ -474,10 +474,10 @@ namespace Qiqqa.DocumentLibrary
                     //pdf_document.OriginalFileName = original_filename;
                     pdf_document.DownloadLocation = suggested_download_source;
                     pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.DownloadLocation);
-	                if (pdf_document.UpdateBibTex(bibtex))
-	                {
-	                    pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.BibTex);
-	                }
+                    if (pdf_document.UpdateBibTex(bibtex))
+                    {
+                        pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.BibTex);
+                    }
                     if (tags != null)
                     {
                         tags.ForEach(x => pdf_document.AddTag(x));
@@ -486,10 +486,10 @@ namespace Qiqqa.DocumentLibrary
                     pdf_document.Comments = comments;
                     pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Comments);
 
-	                Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+                    Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
                     lock (pdf_documents_lock)
                     {
-	                    l2_clk.LockPerfTimerStop();
+                        l2_clk.LockPerfTimerStop();
                         // Store in our database - note that we have the lock already
                         pdf_documents[pdf_document.Fingerprint] = pdf_document;
                     }
@@ -521,10 +521,10 @@ namespace Qiqqa.DocumentLibrary
             Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (pdf_documents_lock)
             {
-	            //string suggested_download_source = info.suggested_download_source_uri;
-	            string bibtex = info.bibtex;
-	            List<string> tags = info.tags;
-	            string comments = info.notes;
+                //string suggested_download_source = info.suggested_download_source_uri;
+                string bibtex = info.bibtex;
+                List<string> tags = info.tags;
+                string comments = info.notes;
 
                 l1_clk.LockPerfTimerStop();
                 foreach (var pdf_document_existing in pdf_documents.Values)
@@ -895,7 +895,7 @@ namespace Qiqqa.DocumentLibrary
             SignalThatDocumentsHaveChanged(null);
         }
 
-#region --- Signaling that documents have been changed ------------------
+        #region --- Signaling that documents have been changed ------------------
 
         public class PDFDocumentEventArgs : EventArgs
         {
@@ -976,9 +976,9 @@ namespace Qiqqa.DocumentLibrary
             }
         }
 
-#endregion
+        #endregion
 
-#region --- File locations ------------------------------------------------------------------------------------
+        #region --- File locations ------------------------------------------------------------------------------------
 
         public static string GetLibraryBasePathForId(string id)
         {
@@ -1017,6 +1017,6 @@ namespace Qiqqa.DocumentLibrary
             }
         }
 
-#endregion
+        #endregion
     }
 }

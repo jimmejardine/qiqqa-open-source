@@ -440,7 +440,7 @@ namespace Qiqqa.Documents.PDF
 
             set
             {
-                    this.BibTex.SetGenericPublication(value);
+                this.BibTex.SetGenericPublication(value);
             }
         }
 

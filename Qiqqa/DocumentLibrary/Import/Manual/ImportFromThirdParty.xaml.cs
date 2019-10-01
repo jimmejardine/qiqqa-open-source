@@ -386,7 +386,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
             if (result.EntriesWithoutFileField > 0)
             {
-                ShowNoFilesGuidance(result.Entries.Count,  result.EntriesWithoutFileField);
+                ShowNoFilesGuidance(result.Entries.Count, result.EntriesWithoutFileField);
             }
             else if (importer.InputFileAppearsToBeWrongFormat)
             {
