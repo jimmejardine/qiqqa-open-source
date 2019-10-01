@@ -43,7 +43,7 @@ namespace Qiqqa.InCite
             {
                 foreach (var pdf_document in pdf_documents)
                 {
-                    if (String.IsNullOrEmpty(pdf_document.BibTex))
+                    if (pdf_document.BibTex.IsEmpty())
                     {
                         MessageBoxes.Warn("One or more of your documents have no associated BibTeX information.  Please add some or use the BibTeX Sniffer to locate it on the Internet.");
                         return;
@@ -76,18 +76,18 @@ namespace Qiqqa.InCite
             // Check if any of these documents have duplicated BibTeX keys...
             foreach (PDFDocument pdf_document in selected_pdf_documents)
             {
-                string key = pdf_document.BibTexKey;
+                string key = pdf_document.BibTex.Key;
                 if (!String.IsNullOrEmpty(key))
                 {
                     foreach (PDFDocument pdf_document_other in pdf_document.Library.PDFDocuments)
                     {
                         if (pdf_document_other != pdf_document)
                         {
-                            if (!String.IsNullOrEmpty(pdf_document_other.BibTex) && pdf_document_other.BibTex.Contains(key))
+                            if (!pdf_document_other.BibTex.IsEmpty() && pdf_document_other.BibTex.HasKey())
                             {
-                                if (pdf_document_other.BibTexKey == key)
+                                if (pdf_document_other.BibTex.Key == key)
                                 {
-                                    MessageBoxes.Warn(String.Format("There are several document in your library with the same BibTeX key '{0}'.  Unless they are the same PDF, you should give them different keys or else InCite will just pick the first matching document.", key));
+                                    MessageBoxes.Warn(String.Format("There are several documents in your library with the same BibTeX key '{0}'.  Unless they are the same PDF, you should give them different keys or else InCite will just pick the first matching document.", key));
                                 }
                             }
                         }
@@ -98,7 +98,7 @@ namespace Qiqqa.InCite
             // Check if any of these documents have no BibTeX key...
             foreach (PDFDocument pdf_document in selected_pdf_documents)
             {
-                string key = pdf_document.BibTexKey;
+                string key = pdf_document.BibTex.Key;
                 if (String.IsNullOrEmpty(key))
                 {
                     MessageBoxes.Warn(String.Format("Some of your documents (e.g. with title, '{0}') have no BibTeX key.  Without a unique BibTeX key, Qiqqa has no way of referencing this document from Word, and they will show up in Word as either [ ] or a blank when you wave the magic wand.  Please add any missing keys and try again!", pdf_document.TitleCombined));
@@ -110,7 +110,7 @@ namespace Qiqqa.InCite
                 CitationCluster cc = new CitationCluster();
                 foreach (PDFDocument selected_pdf_document in selected_pdf_documents)
                 {
-                    string reference_key = selected_pdf_document.BibTexKey;
+                    string reference_key = selected_pdf_document.BibTex.Key;
                     if (null != reference_key)
                     {
                         string reference_library = selected_pdf_document.Library.WebLibraryDetail.Id;

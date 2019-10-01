@@ -9,11 +9,6 @@ namespace QiqqaSystemTester
     [TestClass]
     public class UnitTest1
     {
-        [AssemblyInitialize]
-        public static void AssemblyInit(TestContext context)
-        {
-            // Executes once before the test run. (Optional)
-        }
         [ClassInitialize]
         public static void TestFixtureSetup(TestContext context)
         {
@@ -24,11 +19,6 @@ namespace QiqqaSystemTester
         public void Setup()
         {
             // Runs before each test. (Optional)
-        }
-        [AssemblyCleanup]
-        public static void AssemblyCleanup()
-        {
-            // Executes once after the test run. (Optional)
         }
 
         [ClassCleanup]
@@ -56,19 +46,5 @@ namespace QiqqaSystemTester
         {
             ASSERT.IsTrue(true);
         }
-
-#if TEST
-        [TestMethod]
-        public void TEST_Has_Been_Defined_In_The_Project_Configuration()
-        {
-            ASSERT.Pass("TEST has been correctly defined in the QiqqaSystemTester project configuration.");
-        }
-#else
-        [TestMethod]
-        public void TEST_Has_Not_Been_Defined_In_The_Project_Configuration()
-        {
-            ASSERT.Fail("TEST has not been defined in the QiqqaSystemTester project configuration.");
-        }
-#endif
     }
 }

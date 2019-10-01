@@ -1,0 +1,21 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "stipvcevic2007quantum",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Quantum random number generator based on photonic emission in semiconductors",
+        "author": "Stip\\vcevi\\'c, Mario and Rogina, B Medved",
+        "journal": "Review of scientific instruments",
+        "volume": "78",
+        "number": "4",
+        "pages": "045104",
+        "year": "2007",
+        "publisher": "AIP"
+      }
+    }
+  ],
+  "Comments": []
+}

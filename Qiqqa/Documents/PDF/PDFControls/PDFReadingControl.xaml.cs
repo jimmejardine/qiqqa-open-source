@@ -320,9 +320,9 @@ namespace Qiqqa.Documents.PDF.PDFControls
         {
             ButtonInCitePopup.Close();
             {
-                if (!String.IsNullOrEmpty(this.pdf_renderer_control_stats.pdf_document.BibTexKey))
+                if (!String.IsNullOrEmpty(this.pdf_renderer_control_stats.pdf_document.BibTex.Key))
                 {
-                    string result = @"\cite{" + this.pdf_renderer_control_stats.pdf_document.BibTexKey + @"}";
+                    string result = @"\cite{" + this.pdf_renderer_control_stats.pdf_document.BibTex.Key + @"}";
                     ClipboardTools.SetText(result);
                     StatusManager.Instance.UpdateStatus("CopyBibTeXKey", String.Format("Copied '{0}' to clipboard.", result));
 
@@ -966,7 +966,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
         private void MoveGuestPreviewPDFDocument(WebLibraryDetail web_library_detail)
         {
             PDFDocument source_pdf_document = this.pdf_renderer_control_stats.pdf_document;
-            PDFDocument cloned_pdf_document = ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(source_pdf_document, web_library_detail.library, false);
+            PDFDocument cloned_pdf_document = ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(source_pdf_document, web_library_detail.library);
 
             // Open the new
             if (null != cloned_pdf_document)

@@ -26,19 +26,13 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         protected BibTeXImporter(Library library, string filename)
             : base(library, filename)
         {
-            string bibTex = null;
-
-            using (Stream fs = new FileStream(ExportFileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-            {
-                using (StreamReader sr = new StreamReader(fs))
-                {
-                    bibTex = sr.ReadToEnd();
-                }
-            }
+            string bibTex = File.ReadAllText(ExportFileName, System.Text.Encoding.UTF8);
 
             BibTexParseResult = BibTexParser.Parse(bibTex);
 
-            BibTexParseResult.Items.ForEach(x => Entries.Add(new BibTeXEntry { Item = x, BibTeX = x.ToBibTex() }));
+            BibTexParseResult.Items.ForEach(x => Entries.Add(new BibTeXEntry {
+                BibTexRecord = x
+            }));
         }
 
         /// <summary>

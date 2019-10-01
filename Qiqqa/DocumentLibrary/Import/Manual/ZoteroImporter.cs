@@ -33,7 +33,9 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             {
                 try
                 {
-                    if (entry.Item.ContainsField("file"))
+                    Utilities.BibTex.Parsing.BibTexItem item = entry.Parsed;
+
+                    if (item.ContainsField("file"))
                     {
                         #region Do some post processing on the file
                         /* 
@@ -50,7 +52,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                         // Since there can be multiple attachments, we take the first one with mime type application/pdf, with a valid file. 
                         entry.FileType = null; // Assume we've not found a workable attachment
 
-                        string fileValue = entry.Item["file"];
+                        string fileValue = item["file"];
 
                         foreach (string attachmentValue in fileValue.Split(';'))
                         {
@@ -90,8 +92,8 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                     }
 
 
-                    //Parse notes. 
-                    string notes = entry.Item["annote"];
+                    // Parse notes. 
+                    string notes = item["annote"];
                     if (!String.IsNullOrEmpty(notes))
                     {
                         //annote = {\textless}p{\textgreater}zotnotes1{\textless}/p{\textgreater}, 

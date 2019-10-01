@@ -99,7 +99,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             {
                 if (entry.IsVanilla)
                 {
-                    entry.ExistsInLibrary = ImportLibrary.DocumentExistsInLibraryWithBibTeX(entry.Id);
+                    entry.ExistsInLibrary = ImportLibrary.DocumentExistsInLibraryWithBibTeX(entry.BibTexRecord.Key);
                 }
                 else
                 {

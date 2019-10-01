@@ -15,7 +15,7 @@ namespace Utilities.Mathematics.Statistics.Distributions
 
 		public GenzMultivariate(Matrix acorrelation)
 		{
-			random = RandomAugmented.getSeededRandomAugmented();
+			random = RandomAugmented.Instance;
 			setCorrelation(acorrelation);			
 		}
 

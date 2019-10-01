@@ -620,6 +620,11 @@ namespace QiqqaTestHelpers
             IsTrue(File.Exists(path), "file <{0}> must exist", path);
         }
 
+        public static void DirectoryExists(string path)
+        {
+            IsTrue(Directory.Exists(path), "directory <{0}> must exist", path);
+        }
+
         #endregion
 
 

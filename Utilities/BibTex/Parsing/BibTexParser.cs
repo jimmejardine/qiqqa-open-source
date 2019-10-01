@@ -7,13 +7,15 @@ namespace Utilities.BibTex.Parsing
 {
     public class BibTexParser
     {
-        private static readonly Regex _latexEncodingsRemover = new Regex(@"\{\\textless\}(.*?)\{\\textgreater\}");
-
         public static BibTexItem ParseOne(string bibtex, bool suppress_error_logging)
         {
-            if (String.IsNullOrWhiteSpace(bibtex)) return null;
+            if (String.IsNullOrWhiteSpace(bibtex))
+            {
+                return null;
+            }
 
-            List<BibTexItem> items = Parse(bibtex).Items;
+            var rv = Parse(bibtex);
+            List<BibTexItem> items = rv.Items;
 
             if (1 < items.Count)
             {
@@ -45,36 +47,11 @@ namespace Utilities.BibTex.Parsing
 
         public static BibTexParseResult Parse(string bibtex)
         {
-            // First remove any latex encodings.
-            if (!String.IsNullOrEmpty(bibtex))
-            {
-                bibtex = _latexEncodingsRemover.Replace(bibtex, String.Empty);
-            }
-            
             return BibTexAssembler.Parse(bibtex);
         }
 
         private BibTexParser()
         {
         }
-
-        #region --- Test ------------------------------------------------------------------------
-
-#if TEST
-        public static void Test()
-        {
-            string filename = @"..\..\..\..\Utilities\BibTex\Parsing\Sample.bib";
-            string bibtex = File.ReadAllText(filename);
-
-            List<BibTexItem> items = Parse(bibtex).Items;
-
-            for (int i = 0; i < 5; ++i)
-            {
-                Logging.Info(items[i].ToBibTex());
-            }
-        }
-#endif
-
-        #endregion
     }
 }

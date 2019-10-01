@@ -43,13 +43,13 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                 NotificationManager.Instance.AddPendingNotification(
                     new NotificationManager.Notification(
                         notification
-                        ,null
-                        ,NotificationManager.NotificationType.Info
+                        , null
+                        , NotificationManager.NotificationType.Info
                         , Icons.Import_EndNote
-                        ,"Yes, Import!"
-                        ,DoImportMyDocuments
-                        ,"Don't Ask Again"
-                        ,DoNoThanks
+                        , "Yes, Import!"
+                        , DoImportMyDocuments
+                        , "Don't Ask Again"
+                        , DoNoThanks
                     )
                 );
             }
@@ -72,7 +72,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
 
             if (null != web_library_detail)
             {
-                ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(web_library_detail.library, false, false, mdd.metadata_imports.ToArray());
+                ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(web_library_detail.library, false, mdd.metadata_imports);
             }
         }
 

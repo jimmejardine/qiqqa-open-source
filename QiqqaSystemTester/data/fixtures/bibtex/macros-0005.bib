@@ -1,0 +1,355 @@
+Deal correctly with BibTeX's \noopsort command in values:
+
+@book{medici,
+  author = {de'\mbox{} Medici, Lorenzo},
+  note = {[Medici][Lorenzo de'U+200B]}
+}
+
+@book{al-hakim,
+  author = {{al-Hakim}, Tawfiq},
+  note = {[al-Hakim][Tawfiq]}
+}
+
+@book{levayer,
+  author = {Le Vayer, Fran{\c c}ois de La Mothe},
+  note = {[Le Vayer][Fran{\c c}ois de La Mothe]}
+}
+@book{vangogh,
+  author = {{\noopsort{gogh}}{van Gogh}, Vincent},
+  note = {[van Gogh][Vincent]}
+}
+
+@book{humboldt,
+  author = {{\noopsort{humboldt}}von Humboldt, Alexander},
+  note = {[Humboldt][Alexander von]}
+}
+
+@book{beauvoir,
+  author = {{\noopsort{beauvoir}}de Beauvoir, Simone},
+  note = {[Beauvoir][Simone de]}
+}
+
+@book{degaulle,
+  author = {{de Gaulle}, Charles},
+  note = {["de Gaulle"][Charles]}
+}
+
+@book{king,
+  author = {King, Jr., Martin Luther},
+  note = {[King][Martin Luther, Jr.]}
+}
+
+@book{stevenson,
+  author = {Stevenson, III, Adlai E.},
+  note = {[Stevenson][Adlai E.,! III]}
+}
+
+@book{nationalaeronauticsandspaceadministration,
+  author = {{National Aeronautics and Space Administration}},
+  note = {[[National Aeronautics and Space Administration]]}
+}
+
+@book{bovendeert,
+  author = {{\noopsort{eert}}{boven d'Eert}, Christianus},
+  note = {[boven d'Eert][Christianus]}
+}
+
+@book{s-gravesande,
+  author = {{\noopsort{gravesande}}{'s-Gravesande}, Goverdus},
+  note = {['s-Gravesande][Goverdus]}
+}
+
+@book{dequincey,
+  author = {De Quincey, Thomas},
+  note = {[De Quincey][Thomas]}
+}
+
+@book{ortegaygasset,
+  author = {{Ortega y Gasset}, Jos{\'e}},
+  note = {[Ortega y Gasset][Jos{\'e}]}
+}
+
+@book{damato,
+  author = {D'Amato, Alfonse},
+  note = {[D'Amato][Alfonse]}
+}
+
+@book{sadat,
+  author = {{\noopsort{sadat}}el-{\aftergroup\ignorespaces} Sadat, Anwar},
+  note = {[Sadat][Anwar el-]}
+}
+
+@book{lafollette,
+  author = {La Follette, Sr., Robert M.},
+  note = {[La Follette][Robert M., Sr.]}
+}
+
+@book{delamare,
+  author = {{de la Mare}, Walter},
+  note = {["de la Mare"][Walter]}
+}
+
+@book{degette,
+  author = {DeGette, Diana},
+  note = {[DeGette][Diana]}
+}
+
+@book{saunders,
+  author = {Saunders, John Bertrand de Cusance Morant},
+  note = {[Saunders][John Bertrand de Cusance Morant]}
+}
+
+@book{marcusaurelius,
+  author = {{Marcus Aurelius}},
+  note = {[[Marcus Aurelius]]}
+}
+
+@book{dalembert,
+  author = {{\noopsort{alembert}}{d'Alembert}, Jean le Rond},
+  note = {[d'Alembert][Jean le Rond]}
+}
+
+@book{tocqueville,
+  author = {{\noopsort{tocqueville}}de Tocqueville, Alexis},
+  note = {[Tocqueville][Alexis de]}
+}
+
+@book{lafontaine,
+  author = {{\noopsort{la fontaine}}de La Fontaine, Jean},
+  note = {[La Fontaine][Jean de]}
+}
+
+@book{lasalle,
+  author = {{\noopsort{la salle}}de La Salle, Ren{\'e}-Robert Cavelier},
+  note = {[La Salle][Ren{\'e}-Robert Cavelier de]}
+}
+
+@book{dupuydeclinchamps,
+  author = {{\noopsort{puy de clinchamps}}{du Puy de Clinchamps}, {\relax Ph}ilippe},
+  note = {[du Puy de Clinchamps][PhU+0097ilippe]}
+}
+
+@book{stein,
+  author = {{\noopsort{stein}}vom und zum Stein, Heinrich Friedrich Karl},
+  note = {[Stein][Heinrich Friedrich Karl vom und zum]}
+}
+
+@book{silva,
+  author = {{\noopsort{silva}}da Silva, Agostinho},
+  note = {[Silva][Agostinho da]}
+}
+
+@book{dagama,
+  author = {{da Gama}, Vasco},
+  note = {["da Gama"][Vasco]}
+}
+
+@book{dannunzio,
+  author = {D'Annunzio, Gabriele},
+  note = {[D'Annunzio][Gabriele]}
+}
+
+@book{daponte,
+  author = {Da Ponte, Lorenzo},
+  note = {[Da Ponte][Lorenzo]}
+}
+
+@book{dellarobbia,
+  author = {Della Robbia, Luca},
+  note = {[Della Robbia][Luca]}
+}
+
+@book{este,
+  author = {{\noopsort{este}}d'{\aftergroup\ignorespaces} Este, Beatrice},
+  note = {[Este][Beatrice d']}
+}
+
+@book{medici,
+  author = {{\noopsort{medici}}de'\mbox{} Medici, Lorenzo},
+  note = {[Medici][Lorenzo de'U+200B]}
+}
+
+@book{al-hakim,
+  author = {{\noopsort{hakim}}{al-Hakim}, Tawfiq},
+  note = {[al-Hakim][Tawfiq]}
+}
+
+@book{levayer,
+  author = {Le Vayer, Fran{\c c}ois de La Mothe},
+  note = {[Le Vayer][Fran{\c c}ois de La Mothe]}
+}
+
+@preamble{ "\newcommand{\noopsort}[1]{} " }
+
+@incollection{IAB+12,
+  author = {Iancu, Ion and Alpha and Beta and Gamma and Delta},
+  booktitle = {Fuzzy {{Logic}} - {{Controls}}, {{Concepts}}, {{Theories}} and {{Applications}}},
+  date = {2012-03-28},
+  doi = {10.5772/2662},
+  isbn = {978-953-51-0396-7},
+  langid = {english},
+  title = {A {{Mamdani Type Fuzzy Logic Controller}}},
+  url = {https://www.intechopen.com/books/fuzzy-logic-controls-concepts-theories-and-applications},
+  urldate = {2018-11-08}
+}
+
+
+
+@incollection{koopman_efficient_99,
+  author = {Koopman, Pieter and Plasmeijer, Rinus},
+  booktitle = {Implementation of {{Functional Languages}}},
+  date = {1999},
+  doi = {10.1007/3-540-48515-5_8},
+  pages = {120--136},
+  publisher = {{Springer}},
+  title = {Efficient Combinator Parsers}
+}
+
+
+@article{sanders_largest_2016,
+  author = {Sanders, Bernie},
+  date = {2016-04-06},
+  title = {The Largest {{U}}.{{S}}. Companies Would Owe \$620 Billion in {{U}}.{{S}}. Taxes on the Cash They Store in Tax Havens, the Equivalent of Our Defense Budget. [{{Tweet}}]},
+   publisher = "Macmillan",
+   edition = "Third",
+   year = 1979 }
+
+@BOOK{van-leunen,
+   title = "A Handbook for Scholars",
+   author = "Mary-Claire van Leunen",
+   publisher = "Knopf",
+   year = 1979 }
+% Copyright (C) 1988, 2010 Oren Patashnik.
+% Unlimited copying and redistribution of this file are permitted if it
+% is unmodified.  Modifications (and their redistribution) are also
+% permitted, as long as the resulting file is renamed.
+
+@preamble{ "\newcommand{\noopsort}[1]{} "
+        # "\newcommand{\printfirst}[2]{#1} "
+        # "\newcommand{\singleletter}[1]{#1} "
+        # "\newcommand{\switchargs}[2]{#2#1} " }
+
+@ARTICLE{article-minimal,
+   author = {L[eslie] A. Aamport},
+   title = {The Gnats and Gnus Document Preparation System},
+   journal = {\mbox{G-Animal's} Journal},
+   year = 1986,
+}
+
+@ARTICLE{article-full,
+   author = {L[eslie] A. Aamport},
+   title = {The Gnats and Gnus Document Preparation System},
+   journal = {\mbox{G-Animal's} Journal},
+   year = 1986,
+   volume = 41,
+   number = 7,
+   pages = "73+",
+   month = jul,
+   note = "This is a full ARTICLE entry",
+}
+
+The KEY field is here to override the KEY field in the journal being
+cross referenced (so is the NOTE field, in addition to its imparting
+information).
+
+@ARTICLE{whole-journal,
+   key = "GAJ",
+   journal = {\mbox{G-Animal's} Journal},
+   year = 1986,
+   volume = 41,
+   number = 7,
+   month = jul,
+   note = {The entire issue is devoted to gnats and gnus
+                (this entry is a cross-referenced ARTICLE (journal))},
+}
+
+@INBOOK{inbook-minimal,
+   author = "Donald E. Knuth",
+   title = "Fundamental Algorithms",
+   publisher = "Addison-Wesley",
+   year = "{\noopsort{1973b}}1973",
+   chapter = "1.2",
+}
+
+@INBOOK{inbook-full,
+   author = "Donald E. Knuth",
+   title = "Fundamental Algorithms",
+   volume = 1,
+   series = "The Art of Computer Programming",
+   publisher = "Addison-Wesley",
+   address = "Reading, Massachusetts",
+   edition = "Second",
+   month = "10~" # jan,
+   year = "{\noopsort{1973b}}1973",
+   type = "Section",
+   chapter = "1.2",
+   pages = "10--119",
+   note = "This is a full INBOOK entry",
+}
+
+@INBOOK{inbook-crossref,
+   crossref = "whole-set",
+   title = "Fundamental Algorithms",
+   volume = 1,
+   series = "The Art of Computer Programming",
+   edition = "Second",
+   year = "{\noopsort{1973b}}1973",
+   type = "Section",
+   chapter = "1.2",
+   note = "This is a cross-referencing INBOOK entry",
+}
+
+@BOOK{book-minimal,
+   author = "Donald E. Knuth",
+   title = "Seminumerical Algorithms",
+   publisher = "Addison-Wesley",
+   year = "{\noopsort{1973c}}1981",
+}
+
+@BOOK{book-full,
+   author = "Donald E. Knuth",
+   title = "Seminumerical Algorithms",
+   volume = 2,
+   series = "The Art of Computer Programming",
+   publisher = "Addison-Wesley",
+   address = "Reading, Massachusetts",
+   edition = "Second",
+   month = "10~" # jan,
+   year = "{\noopsort{1973c}}1981",
+   note = "This is a full BOOK entry",
+}
+
+@BOOK{book-crossref,
+   crossref = "whole-set",
+   title = "Seminumerical Algorithms",
+   volume = 2,
+   series = "The Art of Computer Programming",
+   edition = "Second",
+   year = "{\noopsort{1973c}}1981",
+   note = "This is a cross-referencing BOOK entry",
+}
+
+@BOOK{whole-set,
+   author = "Donald E. Knuth",
+   publisher = "Addison-Wesley",
+   title = "The Art of Computer Programming",
+   series = "Four volumes",
+   year = "{\noopsort{1973a}}{\switchargs{--90}{1968}}",
+   note = "Seven volumes planned (this is a cross-referenced set of BOOKs)",
+}
+
+@BOOKLET{booklet-minimal,
+   key = "Kn{\printfirst{v}{1987}}",
+   title = "The Programming of Computer Art",
+}
+
+@BOOKLET{booklet-full,
+   author = "Jill C. Knvth",
+   title = "The Programming of Computer Art",
+   howpublished = "Vernier Art Center",
+   address = "Stanford, California",
+   month = feb,
+   year = 1988,
+   note = "This is a full BOOKLET entry",
+}
+

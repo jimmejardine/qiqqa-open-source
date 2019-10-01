@@ -71,6 +71,9 @@
     <Reference Include="System.Data.SqlClient, Version=4.5.0.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SqlClient.4.6.1\lib\net461\System.Data.SqlClient.dll</HintPath>
     </Reference>
+    <Reference Include="System.Data.SQLite, Version=1.0.111.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.111.0\lib\net46\System.Data.SQLite.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Drawing.Common, Version=4.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Drawing.Common.4.5.1\lib\net461\System.Drawing.Common.dll</HintPath>
@@ -88,14 +91,31 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Utilities\BibTex\EndNoteToBibTex.cs">
+      <Link>Utilities\BibTeX\EndNoteToBibTex.cs</Link>
+    </Compile>
+    <Compile Include="..\Utilities\BibTex\Parsing\BibTexCharacterMap.cs">
+      <Link>Utilities\BibTeX\Parsing\BibTexCharacterMap.cs</Link>
+    </Compile>
+    <Compile Include="..\Utilities\BibTex\PubMedXMLToBibTex.cs">
+      <Link>Utilities\BibTeX\PubMedXMLToBibTex.cs</Link>
+    </Compile>
+    <Compile Include="..\Utilities\BibTex\RisToBibTeX.cs">
+      <Link>Utilities\BibTeX\RisToBibTeX.cs</Link>
+    </Compile>
+    <Compile Include="ApprovalTestsConfig.cs" />
     <Compile Include="TestBibTeX.cs" />
     <Compile Include="TestJSONDeserializeFromArbitrary.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTest2.cs" />
-    <Compile Include="..\Utilities\BibTeX\Parsing\BibTexCharacterMap.cs" />
+    <Compile Include="UnitTestProjectConfig.cs" />
+    <Compile Include="Utilities\PDFDocument\TestPDFDocumentSerialization.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Utilities\BibTex\TestFiles\Sample.bib">
+      <Link>data\Utilities\BibTeX\Sample.bib</Link>
+    </None>
     <None Include="App.config" />
     <None Include="data\fixtures\bibtex\all-caps-0001.bib" />
     <None Include="data\fixtures\bibtex\ampersand-0001.bib" />
@@ -591,7 +611,60 @@
     <None Include="data\fixtures\bibtex\Better-BibTeX\import\Wrong ring-above import #1115.json" />
     <None Include="data\fixtures\bibtex\Better-BibTeX\import\zbb %28quietly%29 chokes on this .bib #664.bib" />
     <None Include="data\fixtures\bibtex\Better-BibTeX\import\zbb %28quietly%29 chokes on this .bib #664.json" />
+    <None Include="data\fixtures\bibtex\biber\annotations.bib" />
+    <None Include="data\fixtures\bibtex\biber\bibtex-aliases.bib" />
+    <None Include="data\fixtures\bibtex\biber\crossrefs.bib" />
+    <None Include="data\fixtures\bibtex\biber\datalists.bib" />
+    <None Include="data\fixtures\bibtex\biber\dateformats.bib" />
+    <None Include="data\fixtures\bibtex\biber\definitions.bib" />
+    <None Include="data\fixtures\bibtex\biber\dm-constraints.bib" />
+    <None Include="data\fixtures\bibtex\biber\encoding1.bib" />
+    <None Include="data\fixtures\bibtex\biber\encoding2.bib" />
+    <None Include="data\fixtures\bibtex\biber\encoding3.bib" />
+    <None Include="data\fixtures\bibtex\biber\encoding4.bib" />
+    <None Include="data\fixtures\bibtex\biber\encoding5.bib" />
+    <None Include="data\fixtures\bibtex\biber\encoding6.bib" />
+    <None Include="data\fixtures\bibtex\biber\examples.bib" />
+    <None Include="data\fixtures\bibtex\biber\extradate.bib" />
+    <None Include="data\fixtures\bibtex\biber\extratitle.bib" />
+    <None Include="data\fixtures\bibtex\biber\extratitleyear.bib" />
+    <None Include="data\fixtures\bibtex\biber\full-bbl.bib" />
+    <None Include="data\fixtures\bibtex\biber\full-bibtex_biber.bib" />
+    <None Include="data\fixtures\bibtex\biber\full-dot.bib" />
+    <None Include="data\fixtures\bibtex\biber\labelalpha.bib" />
+    <None Include="data\fixtures\bibtex\biber\labelalphaname.bib" />
+    <None Include="data\fixtures\bibtex\biber\names.bib" />
+    <None Include="data\fixtures\bibtex\biber\names_x.bib" />
+    <None Include="data\fixtures\bibtex\biber\options.bib" />
+    <None Include="data\fixtures\bibtex\biber\papers.bib" />
+    <None Include="data\fixtures\bibtex\biber\related.bib" />
+    <None Include="data\fixtures\bibtex\biber\sections1.bib" />
+    <None Include="data\fixtures\bibtex\biber\sections2.bib" />
+    <None Include="data\fixtures\bibtex\biber\sections3.bib" />
+    <None Include="data\fixtures\bibtex\biber\sections4.bib" />
+    <None Include="data\fixtures\bibtex\biber\sets.bib" />
+    <None Include="data\fixtures\bibtex\biber\skips.bib" />
+    <None Include="data\fixtures\bibtex\biber\skipsg.bib" />
+    <None Include="data\fixtures\bibtex\biber\sort-case.bib" />
+    <None Include="data\fixtures\bibtex\biber\sort-order.bib" />
+    <None Include="data\fixtures\bibtex\biber\sort-uc.bib" />
+    <None Include="data\fixtures\bibtex\biber\sort.bib" />
+    <None Include="data\fixtures\bibtex\biber\tool.bib" />
+    <None Include="data\fixtures\bibtex\biber\translit.bib" />
+    <None Include="data\fixtures\bibtex\biber\truncation.bib" />
+    <None Include="data\fixtures\bibtex\biber\tugboat.bib" />
+    <None Include="data\fixtures\bibtex\biber\uniqueness-nameparts.bib" />
+    <None Include="data\fixtures\bibtex\biber\uniqueness1.bib" />
+    <None Include="data\fixtures\bibtex\biber\uniqueness2.bib" />
+    <None Include="data\fixtures\bibtex\biber\uniqueness3.bib" />
+    <None Include="data\fixtures\bibtex\biber\uniqueness4.bib" />
+    <None Include="data\fixtures\bibtex\biber\uniqueness5.bib" />
+    <None Include="data\fixtures\bibtex\biber\uniqueness6.bib" />
+    <None Include="data\fixtures\bibtex\biber\xdata.bib" />
     <None Include="data\fixtures\bibtex\biblatex-examples.bib" />
+    <None Include="data\fixtures\bibtex\biblatex\95-customlists.bib" />
+    <None Include="data\fixtures\bibtex\biblatex\97-annotations.bib" />
+    <None Include="data\fixtures\bibtex\biblatex\biblatex-examples.bib" />
     <None Include="data\fixtures\bibtex\bibtex-original-btxdoc.bib" />
     <None Include="data\fixtures\bibtex\bibtex-original-xampl.bib" />
     <None Include="data\fixtures\bibtex\btparse\commas.bib" />
@@ -609,6 +682,8 @@
     <None Include="data\fixtures\bibtex\btparse\simple.bib" />
     <None Include="data\fixtures\bibtex\comment-0001.bib" />
     <None Include="data\fixtures\bibtex\concatenation-0001.bib" />
+    <None Include="data\fixtures\bibtex\CrossTeX\comments.bib" />
+    <None Include="data\fixtures\bibtex\CrossTeX\diss.bib" />
     <None Include="data\fixtures\bibtex\CrossTeX\sample-0001.bib" />
     <None Include="data\fixtures\bibtex\CrossTeX\sample-0002.bib" />
     <None Include="data\fixtures\bibtex\CrossTeX\sample-0003.bib" />
@@ -621,6 +696,11 @@
     <None Include="data\fixtures\bibtex\CrossTeX\sample-comment-0001.bib" />
     <None Include="data\fixtures\bibtex\CrossTeX\sample-comment-0002.bib" />
     <None Include="data\fixtures\bibtex\CrossTeX\sample-comment-0003.bib" />
+    <None Include="data\fixtures\bibtex\CrossTeX\styles.bib" />
+    <None Include="data\fixtures\bibtex\CrossTeX\url.bib" />
+    <None Include="data\fixtures\bibtex\IEEEtran\IEEEabrv.bib" />
+    <None Include="data\fixtures\bibtex\IEEEtran\IEEEexample.bib" />
+    <None Include="data\fixtures\bibtex\IEEEtran\IEEEfull.bib" />
     <None Include="data\fixtures\bibtex\misc-0002.bib" />
     <None Include="data\fixtures\bibtex\misc-0004.bib" />
     <None Include="data\fixtures\bibtex\misc-0005.bib" />
@@ -650,6 +730,7 @@
     <None Include="data\fixtures\bibtex\whitespacing-0002.bib" />
     <None Include="data\Qiqqa.configuration" />
     <None Include="data\Qiqqa.configuration.json" />
+    <None Include="data\fixtures\serialization\PDFDocument\v80-record-0001.json" />
     <None Include="GenericTest1.GenericTest" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -667,6 +748,16 @@
       <Name>Utilities</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Utilities\BibTex\TestFiles\SampleEndnote.txt">
+      <Link>data\Utilities\BibTeX\SampleEndnote.txt</Link>
+    </Content>
+    <Content Include="data\fixtures\pubmed\publisherhelp.Example_of_an_AheadOfPrint_XML.xml" />
+    <Content Include="data\fixtures\pubmed\publisherhelp.Example_of_a_NonEnglish_XML.xml" />
+    <Content Include="data\fixtures\pubmed\publisherhelp.Example_of_a_Replaces_XML.xml" />
+    <Content Include="data\fixtures\pubmed\publisherhelp.Example_of_a_Standard_XML.xml" />
+    <Content Include="data\fixtures\RIS\developer.easybib.com__ris-import__sample.txt" />
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -676,6 +767,8 @@
     <Error Condition="!Exists('..\packages\ApprovalTests.4.2.2\build\ApprovalTests.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ApprovalTests.4.2.2\build\ApprovalTests.props'))" />
     <Error Condition="!Exists('..\packages\MSTest.TestAdapter.2.0.0\build\net45\MSTest.TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSTest.TestAdapter.2.0.0\build\net45\MSTest.TestAdapter.props'))" />
     <Error Condition="!Exists('..\packages\MSTest.TestAdapter.2.0.0\build\net45\MSTest.TestAdapter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSTest.TestAdapter.2.0.0\build\net45\MSTest.TestAdapter.targets'))" />
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.111.0\build\net46\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.111.0\build\net46\System.Data.SQLite.Core.targets'))" />
   </Target>
   <Import Project="..\packages\MSTest.TestAdapter.2.0.0\build\net45\MSTest.TestAdapter.targets" Condition="Exists('..\packages\MSTest.TestAdapter.2.0.0\build\net45\MSTest.TestAdapter.targets')" />
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.111.0\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.111.0\build\net46\System.Data.SQLite.Core.targets')" />
 </Project>

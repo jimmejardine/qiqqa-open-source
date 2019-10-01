@@ -10,7 +10,7 @@ namespace Utilities.Random
 				random_order[i] = i;
 			}
 
-			RandomAugmented random = RandomAugmented.getSeededRandomAugmented();
+			RandomAugmented random = RandomAugmented.Instance;
 			for (int i = 0; i < num_tuples; ++i)
 			{
 				int r = random.NextInt(num_tuples-1);

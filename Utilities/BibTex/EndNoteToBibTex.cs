@@ -5,6 +5,20 @@ using System.Text;
 using Utilities.BibTex.Parsing;
 using Utilities.Strings;
 
+#if TEST
+using System.Diagnostics;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using QiqqaTestHelpers;
+using static QiqqaTestHelpers.MiscTestHelpers;
+using Newtonsoft.Json;
+using Utilities;
+
+using Utilities.BibTex;
+#endif
+
+
+#if !TEST
+
 namespace Utilities.BibTex
 {
     /// <summary>
@@ -38,10 +52,7 @@ namespace Utilities.BibTex
                 foreach (var attribute_pair in attributes)
                 {
                     string bibtex_field_type = MapEndNoteToBibTeXFieldType(attribute_pair.Key);
-                    if (!String.IsNullOrEmpty(bibtex_field_type))
-                    {
-                        bibtex_item[bibtex_field_type] = attribute_pair.Value[0];
-                    }
+                    bibtex_item.SetIfHasValue(bibtex_field_type, attribute_pair.Value[0]);
                 }
 
                 // Create the authors
@@ -56,15 +67,12 @@ namespace Utilities.BibTex
                         {
                             sb.Append(" and ");
                         }
-                        
+
                         sb.Append(author);
                     }
 
                     string authors = sb.ToString();
-                    if (!String.IsNullOrEmpty(authors))
-                    {
-                        bibtex_item["author"] = authors;
-                    }
+                        bibtex_item.SetIfHasValue("author", authors);
                 }
 
 
@@ -72,7 +80,7 @@ namespace Utilities.BibTex
                 if (attributes.ContainsKey("%K"))
                 {
                     string keywords = (attributes["%K"][0]).Replace("\n", ",");
-                    bibtex_item["keywords"] = keywords;
+                    bibtex_item.SetIfHasValue("keywords", keywords);
                 }
 
                 return bibtex_item;
@@ -101,7 +109,7 @@ namespace Utilities.BibTex
                     for (int i = 0; i < 3 && i < titles.Length; ++i)
                     {
                         sb.Append(titles[i]);
-                    }                    
+                    }
                 }
 
                 // Polish
@@ -115,7 +123,7 @@ namespace Utilities.BibTex
             private static string MapEndNoteToBibTeXType(string type)
             {
                 type = type.Trim().ToLower();
-                
+
                 if (type == "journal article") return "article";
                 if (type == "book") return "book";
                 if (type == "book section") return "inbook";
@@ -148,12 +156,10 @@ namespace Utilities.BibTex
                 if (field_type == "%X") return "abstract";
                 if (field_type == "%Z") return "note";
                 if (field_type == "7%") return "edition";
-                if (field_type == "%&") return "chapter";                
+                if (field_type == "%&") return "chapter";
 
                 return "misc";
             }
-
-
         }
 
         public static List<EndNoteRecord> Parse(string endnote_text)
@@ -170,13 +176,13 @@ namespace Utilities.BibTex
             return endnote_records;
         }
 
-        private static EndNoteRecord MapEndNoteLinesToDictionary(List<string> lines)
+        protected static EndNoteRecord MapEndNoteLinesToDictionary(List<string> lines)
         {
             EndNoteRecord endnote_record = new EndNoteRecord();
 
             string last_attribute = null;
-            
-            for (int i = 0; i < lines.Count; ++i)            
+
+            for (int i = 0; i < lines.Count; ++i)
             {
                 string line = lines[i];
 
@@ -243,7 +249,7 @@ namespace Utilities.BibTex
             return endnote_record;
         }
 
-        private static List<List<string>> SplitMultipleEndNoteLines(string endnote_text)
+        protected static List<List<string>> SplitMultipleEndNoteLines(string endnote_text)
         {
             string[] endnote_text_lines = endnote_text.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
 
@@ -263,37 +269,68 @@ namespace Utilities.BibTex
                 {
                     current_record.Add(endnote_text_lines[i]);
                 }
-                    
             }
 
             return all_records;
         }
-
-        #region --- Test ------------------------------------------------------------------------
-
-#if TEST
-        public static void Test()
-        {
-            string endnote_text = File.ReadAllText(@"c:\TEMP\SAMPLEENDNOTE.TXT");
-            List<List<string>> lines_set = SplitMultipleEndNoteLines(endnote_text);
-            foreach (List<string> lines in lines_set)
-            {
-                EndNoteRecord record = MapEndNoteLinesToDictionary(lines);
-                if (record.errors.Count > 0)
-                {
-                    Logging.Warn("Errors!");
-                }
-
-                BibTexItem bibtex = record.ToBibTeX();
-                string result = bibtex.ToBibTex();
-            }
-        }
-#endif
-
-        #endregion
     }
 }
 
+#else
+
+#region --- Test ------------------------------------------------------------------------
+
+namespace QiqqaSystemTester
+{
+    // Note https://stackoverflow.com/questions/10375090/accessing-protected-members-of-another-class
+
+    [TestClass]
+    public class EndNoteToBibTexTester : EndNoteToBibTex   // HACK: inherit so we can access protected members
+    {
+        private class Result
+        {
+            internal List<List<string>> lines_set;
+            internal List<EndNoteRecord> records = new List<EndNoteRecord>();
+            internal List<BibTexItem> bibtex_items = new List<BibTexItem>();
+        }
+
+        [DataRow("Utilities/BibTex/TestFiles/SampleEndnote.txt")]
+        [DataTestMethod]
+        public void Basic_Import_Test(string endnote_filepath)
+        {
+            string path = GetNormalizedPathToAnyFile(endnote_filepath);
+            ASSERT.FileExists(path);
+
+            string endnote_text = GetTestFileContent(path);
+
+            Result rv = new Result();
+            rv.lines_set = SplitMultipleEndNoteLines(endnote_text);
+            foreach (List<string> lines in rv.lines_set)
+            {
+                EndNoteRecord record = MapEndNoteLinesToDictionary(lines);
+                rv.records.Add(record);
+                rv.bibtex_items.Add(record.ToBibTeX());
+            }
+
+            // Serialize the result to JSON for easier comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            string json_out = JsonConvert.SerializeObject(rv, Newtonsoft.Json.Formatting.Indented).Replace("\r\n", "\n");
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new DataTestApprovalTextWriter(json_out, endnote_filepath),
+                new DataTestLocationNamer(endnote_filepath) /* GetDefaultNamer() */,
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+    }
+}
+
+#endregion
+
+#endif
+
+
+
+#region --- File Format Documentation ------------------------------------------------------------------------
 
 /*
  * 
@@ -426,3 +463,6 @@ Some sample ENDNOTE
 
 
 */
+
+#endregion
+

@@ -5,9 +5,21 @@ namespace Utilities.GUI
 {
     public class MessageBoxes
     {
+        public static void Error(Exception ex, string msg)
+        {
+            string message = Logging.Error(ex, msg);
+            MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
         public static void Error(Exception ex, string msg, params object[] args)
         {
             string message = Logging.Error(ex, msg, args);
+            MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        public static void Error(string msg)
+        {
+            string message = Logging.Error(msg);
             MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
@@ -17,10 +29,22 @@ namespace Utilities.GUI
             MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+        public static void Warn(string msg)
+        {
+            string message = Logging.Warn(msg);
+            MessageBox.Show(message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
         public static void Warn(string msg, params object[] args)
         {
             string message = Logging.Warn(msg, args);
             MessageBox.Show(message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        public static void Info(string msg)
+        {
+            string message = Logging.Info(msg);
+            MessageBox.Show(message, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         public static void Info(string msg, params object[] args)
@@ -29,9 +53,21 @@ namespace Utilities.GUI
             MessageBox.Show(message, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        public static bool AskQuestion(string msg)
+        {
+            return AskErrorQuestion(msg, false);
+        }
+
         public static bool AskQuestion(string msg, params object[] args)
         {
             return AskErrorQuestion(msg, false, args);
+        }
+
+        public static bool AskErrorQuestion(string message, bool isError)
+        {
+            DialogResult dialog_result = MessageBox.Show(message, isError ? "Problem" : "Question", MessageBoxButtons.YesNo,
+                isError ? MessageBoxIcon.Error : MessageBoxIcon.Question);
+            return (dialog_result == DialogResult.Yes);
         }
 
         public static bool AskErrorQuestion(string msg, bool isError, params object[] args)

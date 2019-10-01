@@ -29,8 +29,10 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
             }
             catch (Exception ex)
             {
-                Logging.Error(ex, "Failed to import PDFDocumnt metadata -- is this some old format which hasn't been converted yet? Data: {0}", json);
-                return null;
+                string msg = String.Format("Failed to import PDFDocument metadata -- is this some old format which hasn't been converted yet? Data: {0}", json);
+                var ex2 = new Exception(msg, ex);
+                Logging.Error(ex, msg);
+                throw ex2;
             }
         }
     }

@@ -10,22 +10,17 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 {
     public class BibTeXEntry
     {
-        public string BibTeX { get; set; }
-        
-        public string EntryType { get; set; }
-        
         public string Filename { get; set; }
 
         public string FileType { get; set; }
 
-        public BibTexItem Item { get; set; }
+        public string FileURI { get; set; }
 
-        public string Id {
-            get
-            {
-                return Item.Key;
-            }
-        }
+        public string OriginalFilename { get; set; }
+
+        public string SuggestedDownloadSourceURI { get; set; }
+
+        public BibTexItem BibTexRecord { get; set; }
 
         /// <summary>
         /// Our Qiqqa Fingerprint. 
@@ -69,69 +64,9 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             }
         }
 
-        private string GetValue(string key)
-        {
-            return Item[key];
-        }
-
-        /// <summary>
-        /// Used via reflection
-        /// </summary>
-        public virtual string Title
-        {
-            get
-            {
-                return BibTexTools.GetTitle_SLOOOOOOW(this.BibTeX);
-            }
-        }
-
-        /// <summary>
-        /// Used via reflection
-        /// </summary>
-        public virtual string Author
-        {
-            get
-            {
-                return BibTexTools.GetAuthor_SLOOOOOOW(this.BibTeX);
-            }
-        }
-
-        private static void ExtractTagsFromBibTeXField(string bibtex, string TAG, List<string> tags)
-        {
-            string vals = BibTexTools.GetField(bibtex, TAG);
-            if (!String.IsNullOrEmpty(vals))
-            {
-                string[] ret = vals.Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
-                tags.AddRange(ret.Select(x => x.Trim()));
-            }
-        }
-
-        public virtual List<string> Tags
-        {
-            get
-            {
-                List<string> tags = new List<string>();
-                ExtractTagsFromBibTeXField(this.BibTeX, "tag", tags);
-                ExtractTagsFromBibTeXField(this.BibTeX, "tags", tags);
-                ExtractTagsFromBibTeXField(this.BibTeX, "keyword", tags);
-                ExtractTagsFromBibTeXField(this.BibTeX, "keywords", tags);
-                return tags;
-            }
-        }
-
+        // HasPDF = !IsVanilla
         public bool IsVanilla { get; set; }
-        
-        /// <summary>
-        /// Used via reflection
-        /// </summary>
-        public bool HasPDF
-        {
-            get
-            {
-                return !IsVanilla;
-            }
-        }
 
-        public virtual string Notes { get; set; } 
+        public string Notes { get; set; } 
     }
 }

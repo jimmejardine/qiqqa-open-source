@@ -1,0 +1,44 @@
+TY  - RPRT
+ID  - ED503000
+AU  - Bauer, Lynn
+AU  - Guerino, Paul
+AU  - Nolle, Kacey Lee
+AU  - Tang, Sze-Wei
+TI  - Student Victimization in U.S. Schools: Results from the 2005 School Crime Supplement to the National Crime Victimization Survey. NCES 2009-306
+PY  - 2008/10/00
+VL  -
+IS  -
+SP  -
+EP  -
+JA  - National Center for Education Statistics
+PB  - National Center for Education Statistics. Available from: ED Pubs. P.O. Box 1398, Jessup, MD 20794-1398. Tel: 877-433-7827; Web site: http://nces.ed.gov/help/orderinfo.asp
+SN  -
+AB  - Abstract.
+L1  - http://www.eric.ed.gov/ERICWebPortal/contentdelivery/servlet/ERICServlet?accno=ED503000
+ER  -
+TY  - JOUR
+ID  - 2009-06385-014
+T1  - A prospective examination of PTSD symptoms as risk factors for subsequent exposure to potentially traumatic events among women.
+JF  - Journal of Abnormal Psychology
+A1  - Cougle, Jesse R.
+A1  - Resnick, Heidi
+A1  - Kilpatrick, Dean G.
+VL  - 118
+IS  - 2
+SP  - 405
+EP  - 411
+Y1  - 2009
+AD  - Dean G. Kilpatrick, Medical University of South Carolina, P.O. Box 250852, Charleston, SC, US, 29425, kilpatdg@musc.edu
+PB  - American Psychological Association: US
+SN  - 0021-843X (Print); 1939-1846 (Electronic)
+N2  - Previous research has suggested that both exposure to potentially traumatic events (PTEs) and emotional reactions to such events act as risk factors for subsequent exposure. Although some studies have implicated posttraumatic stress disorder (PTSD) symptoms as risk factors, extant research suffers from a number of methodological limitations, including the use of cross-sectional designs and student populations. The present study sought to address these limitations using a 2-year, 3-wave national probability household sample of 2,863 adult women. After controlling for demographic characteristics, prior exposure to PTEs, and Wave 1 depression and substance abuse, PTSD reexperiencing symptoms at Wave 1 predicted subsequent exposure to interpersonal violence victimization (IPVV) perpetrated by a nonintimate perpetrator; however, PTSD symptoms did not predict intimate partner IPVV. In addition, PTSD hyperarousal symptoms were unique predictors of subsequent exposure to other traumatic stressors. Findings suggest that efforts to prevent PTEs should focus attention on both prior exposure and PTSD symptoms in response to such exposure. (PsycINFO Database Record (c) 2009 APA, all rights reserved)
+KW  - posttraumatic stress disorder
+KW  - risk factors for trauma exposure
+KW  - revictimization
+KW  - reexperiencing
+KW  - hyperarousal
+KW  - women
+M3  - doi:10.1037/a0015370
+DO  - 10.1037/a0015370
+ER  -
+

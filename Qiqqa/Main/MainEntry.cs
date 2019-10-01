@@ -46,11 +46,9 @@ namespace Qiqqa.Main
                 DoUpgrades(splashscreen_window);
                 DoPostUpgrade(splashscreen_window);
             }
-
             catch (Exception ex)
             {                
-                string error_message = Logging.Error(ex, "There was an exception in the top-level static main entry!");
-                MessageBoxes.Error(error_message);
+                MessageBoxes.Error(ex, "There was an exception in the top-level static main entry!");
             }
         }
 

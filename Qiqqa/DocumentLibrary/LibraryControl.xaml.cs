@@ -137,17 +137,17 @@ namespace Qiqqa.DocumentLibrary
             ButtonAnnotationsReport.Click += ButtonAnnotationsReport_Click;
             WizardDPs.SetPointOfInterest(ButtonAnnotationsReport, "LibraryAnnotationReportButton");
 
-                ButtonGenerateReferences.Visibility = ConfigurationManager.Instance.NoviceVisibility;
-                ButtonGenerateReferences.Icon = Icons.GetAppIcon(Icons.LibraryGenerateReferences);
-                if (!ADVANCED_MENUS) ButtonGenerateReferences.Caption = LocalisationManager.Get("LIBRARY/CAP/FIND_REFERENCES");
-                ButtonGenerateReferences.ToolTip = LocalisationManager.Get("LIBRARY/TIP/FIND_REFERENCES");
-                ButtonGenerateReferences.Click += ButtonGenerateReferences_Click;
+            ButtonGenerateReferences.Visibility = ConfigurationManager.Instance.NoviceVisibility;
+            ButtonGenerateReferences.Icon = Icons.GetAppIcon(Icons.LibraryGenerateReferences);
+            if (!ADVANCED_MENUS) ButtonGenerateReferences.Caption = LocalisationManager.Get("LIBRARY/CAP/FIND_REFERENCES");
+            ButtonGenerateReferences.ToolTip = LocalisationManager.Get("LIBRARY/TIP/FIND_REFERENCES");
+            ButtonGenerateReferences.Click += ButtonGenerateReferences_Click;
 
-                ButtonFindDuplicates.Visibility = ConfigurationManager.Instance.NoviceVisibility;
-                ButtonFindDuplicates.Icon = Icons.GetAppIcon(Icons.LibraryFindDuplicates);
-                if (!ADVANCED_MENUS) ButtonFindDuplicates.Caption = LocalisationManager.Get("LIBRARY/CAP/FIND_DUPLICATES");
-                ButtonFindDuplicates.ToolTip = LocalisationManager.Get("LIBRARY/TIP/FIND_DUPLICATES");
-                ButtonFindDuplicates.Click += ButtonFindDuplicates_Click;
+            ButtonFindDuplicates.Visibility = ConfigurationManager.Instance.NoviceVisibility;
+            ButtonFindDuplicates.Icon = Icons.GetAppIcon(Icons.LibraryFindDuplicates);
+            if (!ADVANCED_MENUS) ButtonFindDuplicates.Caption = LocalisationManager.Get("LIBRARY/CAP/FIND_DUPLICATES");
+            ButtonFindDuplicates.ToolTip = LocalisationManager.Get("LIBRARY/TIP/FIND_DUPLICATES");
+            ButtonFindDuplicates.Click += ButtonFindDuplicates_Click;
 
             ButtonBibTexSniffer.Icon = Icons.GetAppIcon(Icons.BibTexSniffer);
             if (!ADVANCED_MENUS) ButtonBibTexSniffer.Caption = LocalisationManager.Get("LIBRARY/CAP/BIBTEX_SNIFFER");
@@ -160,17 +160,17 @@ namespace Qiqqa.DocumentLibrary
             ButtonExplore.ToolTip = LocalisationManager.Get("LIBRARY/TIP/EXPLORE");
             ButtonExplore.Visibility = ConfigurationManager.Instance.NoviceVisibility;
 
-                ButtonExpedition.Icon = Icons.GetAppIcon(Icons.ModuleExpedition);
-                ButtonExpedition.Caption = LocalisationManager.Get("LIBRARY/TIP/EXPEDITION");
-                ButtonExpedition.Click += ButtonExpedition_Click;
+            ButtonExpedition.Icon = Icons.GetAppIcon(Icons.ModuleExpedition);
+            ButtonExpedition.Caption = LocalisationManager.Get("LIBRARY/TIP/EXPEDITION");
+            ButtonExpedition.Click += ButtonExpedition_Click;
 
-                ButtonExploreInBrainstorm.Icon = Icons.GetAppIcon(Icons.ModuleBrainstorm);
-                ButtonExploreInBrainstorm.Caption = LocalisationManager.Get("LIBRARY/TIP/BRAINSTORM");
-                ButtonExploreInBrainstorm.Click += ButtonExploreInBrainstorm_Click;
+            ButtonExploreInBrainstorm.Icon = Icons.GetAppIcon(Icons.ModuleBrainstorm);
+            ButtonExploreInBrainstorm.Caption = LocalisationManager.Get("LIBRARY/TIP/BRAINSTORM");
+            ButtonExploreInBrainstorm.Click += ButtonExploreInBrainstorm_Click;
 
-                ButtonExploreInPivot.Icon = Icons.GetAppIcon(Icons.LibraryPivot);
-                ButtonExploreInPivot.Caption = LocalisationManager.Get("LIBRARY/TIP/PIVOT");
-                ButtonExploreInPivot.Click += ButtonExploreInPivot_Click;
+            ButtonExploreInPivot.Icon = Icons.GetAppIcon(Icons.LibraryPivot);
+            ButtonExploreInPivot.Caption = LocalisationManager.Get("LIBRARY/TIP/PIVOT");
+            ButtonExploreInPivot.Click += ButtonExploreInPivot_Click;
 
             ButtonExport.AttachPopup(ButtonExportPopup);
             ButtonExport.Icon = Icons.GetAppIcon(Icons.LibraryExport);
@@ -178,40 +178,40 @@ namespace Qiqqa.DocumentLibrary
             ButtonExport.ToolTip = LocalisationManager.Get("LIBRARY/TIP/POPUP_EXPORT");
             ButtonExport.Visibility = ConfigurationManager.Instance.NoviceVisibility;
 
-                ButtonExportLibrary.Icon = Icons.GetAppIcon(Icons.LibraryExport);
-                ButtonExportLibrary.Caption = LocalisationManager.Get("LIBRARY/CAP/EXPORT_LIBRARY");
-                ButtonExportLibrary.ToolTip = LocalisationManager.Get("LIBRARY/TIP/EXPORT_LIBRARY");
-                ButtonExportLibrary.Click += ButtonExportLibrary_Click;
+            ButtonExportLibrary.Icon = Icons.GetAppIcon(Icons.LibraryExport);
+            ButtonExportLibrary.Caption = LocalisationManager.Get("LIBRARY/CAP/EXPORT_LIBRARY");
+            ButtonExportLibrary.ToolTip = LocalisationManager.Get("LIBRARY/TIP/EXPORT_LIBRARY");
+            ButtonExportLibrary.Click += ButtonExportLibrary_Click;
 
-                ButtonExportBibTex.Icon = Icons.GetAppIcon(Icons.ExportBibTex);
-                ButtonExportBibTex.Caption = LocalisationManager.Get("LIBRARY/CAP/EXPORT_BIBTEX");
-                ButtonExportBibTex.ToolTip = LocalisationManager.Get("LIBRARY/TIP/EXPORT_BIBTEX");
-                ButtonExportBibTex.Click += ButtonExportBibTex_Click;
+            ButtonExportBibTex.Icon = Icons.GetAppIcon(Icons.ExportBibTex);
+            ButtonExportBibTex.Caption = LocalisationManager.Get("LIBRARY/CAP/EXPORT_BIBTEX");
+            ButtonExportBibTex.ToolTip = LocalisationManager.Get("LIBRARY/TIP/EXPORT_BIBTEX");
+            ButtonExportBibTex.Click += ButtonExportBibTex_Click;
 
-                ButtonExportWord2007.Icon = Icons.GetAppIcon(Icons.ExportWord2007);
-                ButtonExportWord2007.Caption = LocalisationManager.Get("LIBRARY/CAP/EXPORT_WORD");
-                ButtonExportWord2007.ToolTip = LocalisationManager.Get("LIBRARY/TIP/EXPORT_WORD");
-                ButtonExportWord2007.Click += ButtonExportWord2007_Click;
+            ButtonExportWord2007.Icon = Icons.GetAppIcon(Icons.ExportWord2007);
+            ButtonExportWord2007.Caption = LocalisationManager.Get("LIBRARY/CAP/EXPORT_WORD");
+            ButtonExportWord2007.ToolTip = LocalisationManager.Get("LIBRARY/TIP/EXPORT_WORD");
+            ButtonExportWord2007.Click += ButtonExportWord2007_Click;
 
-                ButtonExportCitationMatrix.Icon = Icons.GetAppIcon(Icons.ExportCitationMatrix);
-                ButtonExportCitationMatrix.Caption = LocalisationManager.Get("LIBRARY/CAP/EXPORT_CITATION_MATRIX");
-                ButtonExportCitationMatrix.ToolTip = LocalisationManager.Get("LIBRARY/TIP/EXPORT_CITATION_MATRIX");
-                ButtonExportCitationMatrix.Click += ButtonExportCitationMatrix_Click;
+            ButtonExportCitationMatrix.Icon = Icons.GetAppIcon(Icons.ExportCitationMatrix);
+            ButtonExportCitationMatrix.Caption = LocalisationManager.Get("LIBRARY/CAP/EXPORT_CITATION_MATRIX");
+            ButtonExportCitationMatrix.ToolTip = LocalisationManager.Get("LIBRARY/TIP/EXPORT_CITATION_MATRIX");
+            ButtonExportCitationMatrix.Click += ButtonExportCitationMatrix_Click;
 
-                ButtonExportLinkedDocs.Icon = Icons.GetAppIcon(Icons.ExportCitationMatrix);
-                ButtonExportLinkedDocs.Caption = LocalisationManager.Get("LIBRARY/CAP/EXPORT_LINKED_DOCS");
-                ButtonExportLinkedDocs.ToolTip = LocalisationManager.Get("LIBRARY/TIP/EXPORT_LINKED_DOCS");
-                ButtonExportLinkedDocs.Click += ButtonExportLinkedDocs_Click;
+            ButtonExportLinkedDocs.Icon = Icons.GetAppIcon(Icons.ExportCitationMatrix);
+            ButtonExportLinkedDocs.Caption = LocalisationManager.Get("LIBRARY/CAP/EXPORT_LINKED_DOCS");
+            ButtonExportLinkedDocs.ToolTip = LocalisationManager.Get("LIBRARY/TIP/EXPORT_LINKED_DOCS");
+            ButtonExportLinkedDocs.Click += ButtonExportLinkedDocs_Click;
 
-                ButtonBuildBundleLibrary.Icon = Icons.GetAppIcon(Icons.BuildBundleLibrary);
-                ButtonBuildBundleLibrary.Caption = LocalisationManager.Get("LIBRARY/CAP/BUILD_BUNDLE_LIBRARY");
-                ButtonBuildBundleLibrary.ToolTip = LocalisationManager.Get("LIBRARY/TIP/BUILD_BUNDLE_LIBRARY");
-                ButtonBuildBundleLibrary.Click += ButtonBuildBundleLibrary_Click;
+            ButtonBuildBundleLibrary.Icon = Icons.GetAppIcon(Icons.BuildBundleLibrary);
+            ButtonBuildBundleLibrary.Caption = LocalisationManager.Get("LIBRARY/CAP/BUILD_BUNDLE_LIBRARY");
+            ButtonBuildBundleLibrary.ToolTip = LocalisationManager.Get("LIBRARY/TIP/BUILD_BUNDLE_LIBRARY");
+            ButtonBuildBundleLibrary.Click += ButtonBuildBundleLibrary_Click;
 
-                ButtonExportAnnotationsCode.Icon = Icons.GetAppIcon(Icons.ExportBibTex);
-                ButtonExportAnnotationsCode.Caption = LocalisationManager.Get("LIBRARY/CAP/EXPORT_ANNOTATIONS_CODE");
-                ButtonExportAnnotationsCode.ToolTip = LocalisationManager.Get("LIBRARY/TIP/EXPORT_ANNOTATIONS_CODE");
-                ButtonExportAnnotationsCode.Click += ButtonExportAnnotationsCode_Click;
+            ButtonExportAnnotationsCode.Icon = Icons.GetAppIcon(Icons.ExportBibTex);
+            ButtonExportAnnotationsCode.Caption = LocalisationManager.Get("LIBRARY/CAP/EXPORT_ANNOTATIONS_CODE");
+            ButtonExportAnnotationsCode.ToolTip = LocalisationManager.Get("LIBRARY/TIP/EXPORT_ANNOTATIONS_CODE");
+            ButtonExportAnnotationsCode.Click += ButtonExportAnnotationsCode_Click;
 
             ButtonAddDocuments.Icon = Icons.GetAppIcon(Icons.DocumentsAddToLibrary);
             ButtonAddDocuments.Caption = LocalisationManager.Get("LIBRARY/CAP/ADD_DOCUMENTS");
@@ -294,7 +294,7 @@ namespace Qiqqa.DocumentLibrary
         void ButtonExportLinkedDocs_Click(object sender, RoutedEventArgs e)
         {
             LinkedDocsAnnotationReportBuilder.BuildReport(this.library, ObjLibraryCatalogControl.SelectedPDFDocumentsElseEverything);
-        }        
+        }
 
         void ButtonExportAnnotationsCode_Click(object sender, RoutedEventArgs e)
         {
@@ -308,7 +308,7 @@ namespace Qiqqa.DocumentLibrary
 
         void ButtonInvite_Click(object sender, RoutedEventArgs e)
         {
-            WebsiteAccess.InviteFriendsToWebLibrary(this.library.WebLibraryDetail.ShortWebId);            
+            WebsiteAccess.InviteFriendsToWebLibrary(this.library.WebLibraryDetail.ShortWebId);
         }
 
         void ButtonEditDelete_Click(object sender, RoutedEventArgs e)
@@ -352,7 +352,7 @@ namespace Qiqqa.DocumentLibrary
         {
             using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonAddPDFPopup))
             {
-                PDFDocument pdf_document = library.AddVanillaReferenceDocumentToLibrary(null, null, null, false, false);
+                PDFDocument pdf_document = library.AddVanillaReferenceDocumentToLibrary(new FilenameWithMetadataImport());
 
                 // Let's pop up the bibtex editor window for the new document
                 MetadataBibTeXEditorControl editor = new MetadataBibTeXEditorControl();
@@ -383,13 +383,13 @@ namespace Qiqqa.DocumentLibrary
             // Check if we should hint about BibTex
             {
                 int NUM_TO_CHECK = 10;
-                int total_without_bibex = 0;
+                int total_without_bibtex = 0;
                 List<PDFDocument> pdf_document_to_check_for_bibtex = this.library.PDFDocuments;
                 for (int i = 0; i < pdf_document_to_check_for_bibtex.Count && i < NUM_TO_CHECK; ++i)
                 {
-                    if (!pdf_document_to_check_for_bibtex[i].Deleted && String.IsNullOrEmpty(pdf_document_to_check_for_bibtex[i].BibTex))
+                    if (!pdf_document_to_check_for_bibtex[i].Deleted && pdf_document_to_check_for_bibtex[i].BibTex.IsEmpty())
                     {
-                        ++total_without_bibex;
+                        ++total_without_bibtex;
                     }
                 }
 
@@ -397,7 +397,7 @@ namespace Qiqqa.DocumentLibrary
                 ObjNotMuchBibTeXDescriptionBorder.Visibility = Visibility.Collapsed;
                 if (this.library.PDFDocuments.Count > EMPTY_LIBRARY_THRESHOLD && pdf_document_to_check_for_bibtex.Count > 0)
                 {
-                    if (total_without_bibex / (double)pdf_document_to_check_for_bibtex.Count >= 0.5 || total_without_bibex / (double)NUM_TO_CHECK >= 0.5)
+                    if (total_without_bibtex / (double)pdf_document_to_check_for_bibtex.Count >= 0.5 || total_without_bibtex / (double)NUM_TO_CHECK >= 0.5)
                     {
                         ObjNotMuchBibTeXDescriptionBorder.Visibility = Visibility.Visible;
                     }
@@ -422,18 +422,18 @@ namespace Qiqqa.DocumentLibrary
             FeatureTrackingManager.Instance.UseFeature(Features.Library_ExploreInPivot);
             MainWindowServiceDispatcher.Instance.OpenPivot(this.library, ObjLibraryCatalogControl.SelectedPDFDocumentsElseEverything);
         }
-        
+
         void ButtonExpedition_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Expedition_Open_Library);
             MainWindowServiceDispatcher.Instance.OpenExpedition(this.library, null);
         }
-        
+
         void ButtonExportLibrary_Click(object sender, RoutedEventArgs e)
         {
             LibraryExporter.Export(this.library, ObjLibraryCatalogControl.SelectedPDFDocumentsElseEverything);
         }
-        
+
         void ButtonExportBibTex_Click(object sender, RoutedEventArgs e)
         {
             BibTexExport.Export(ObjLibraryCatalogControl.SelectedPDFDocumentsElseEverything);
@@ -513,7 +513,7 @@ namespace Qiqqa.DocumentLibrary
                 {
                     if (dlg.ShowDialog() == DialogResult.OK)
                     {
-                        ImportingIntoLibrary.AddNewPDFDocumentsToLibrary_ASYNCHRONOUS(library, false, false, dlg.FileNames);
+                        ImportingIntoLibrary.AddNewPDFDocumentsToLibrary_ASYNCHRONOUS(library, false, dlg.FileNames);
                     }
                 }
             }
@@ -546,7 +546,7 @@ namespace Qiqqa.DocumentLibrary
                 }
             }
         }
-        
+
         void ButtonAddDocumentsFromFolder_Click(object sender, RoutedEventArgs e)
         {
             using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonAddPDFPopup))
@@ -594,7 +594,7 @@ namespace Qiqqa.DocumentLibrary
             return child;
         }
 
-#region --- Drag and drop onto library tab header --------------------------------------------------------------------------------
+        #region --- Drag and drop onto library tab header --------------------------------------------------------------------------------
 
         public void DualTabbedLayoutDragEnter(object sender, DragEventArgs e)
         {
@@ -611,6 +611,6 @@ namespace Qiqqa.DocumentLibrary
             dual_tab_drag_to_library_manager.OnDrop(sender, e);
         }
 
-#endregion
+        #endregion
     }
 }

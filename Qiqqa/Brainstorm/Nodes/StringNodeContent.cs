@@ -11,6 +11,7 @@ namespace Qiqqa.Brainstorm.Nodes
         [NonSerialized]
         public static string DEFAULT_NODE_CONTENT = "Type or double click to edit...";
 
+        [NonSerialized]
         private string text;
         public string Text
         {
@@ -46,6 +47,5 @@ namespace Qiqqa.Brainstorm.Nodes
                 return bindable;
             }
         }
-
     }
 }

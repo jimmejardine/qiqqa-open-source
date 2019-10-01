@@ -90,7 +90,7 @@ namespace Qiqqa.Common.GUI
                     sb.Append(pdf_document.TitleCombined);
 
                     string authors = pdf_document.AuthorsCombined;
-                    if (PDFDocument.UNKNOWN_AUTHORS != authors)
+                    if (Utilities.Language.NameTools.UNKNOWN_AUTHORS != authors)
                     {
                         sb.Append(" by " + authors);
                     }

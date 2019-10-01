@@ -32,11 +32,12 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             {
                 try
                 {
-                    #region Deal with file
-                    if (entry.Item.ContainsField("file"))
-                    {
+                    Utilities.BibTex.Parsing.BibTexItem item = entry.BibTexRecord;
 
-                        string fn = entry.Item["file"];
+                    #region Deal with file
+                    if (item.ContainsField("file"))
+                    {
+                        string fn = item["file"];
 
                         Match match = rx.Match(fn);
                         if (match.Success)
@@ -66,7 +67,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                     // Handle notes
 
                     // Parse notes. 
-                    string notes = entry.Item["annote"];
+                    string notes = item["annote"];
                     if (!String.IsNullOrEmpty(notes))
                     {
                         entry.Notes = notes;

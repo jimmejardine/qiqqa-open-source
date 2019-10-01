@@ -11,7 +11,7 @@ using Utilities.Serialization;
 
 namespace Utilities.Misc
 {
-    [Serializable]
+    // NOT [Serializable] ANYMORE as we want a clean JSON.NET based serialization of the derived classes! [GHo]
     public class DictionaryBasedObject : ICloneable
     {
         protected Dictionary<string, object> attributes;

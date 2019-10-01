@@ -31,7 +31,7 @@ namespace Utilities.Mathematics.Optimisation.NelderMead
 
 		public double[][] generateEmptyStartupParameters(double[] scales)
 		{
-			RandomAugmented ra = RandomAugmented.getSeededRandomAugmented();
+			RandomAugmented ra = RandomAugmented.Instance;
 
 			double[][] initial_points = new double[dimensions+1][];
 			for (int i = 0; i < dimensions+1; ++i)

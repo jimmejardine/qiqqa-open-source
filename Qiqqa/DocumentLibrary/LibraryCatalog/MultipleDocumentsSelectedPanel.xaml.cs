@@ -251,12 +251,12 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
                         bibtex_item.Type = bibtex_item_global.Type;
                     }
 
-                    foreach (var field_pair in bibtex_item_global.EnumerateFields())
+                    foreach (var field_pair in bibtex_item_global.Fields)
                     {
-                        bibtex_item[field_pair.Key] = field_pair.Value;
+                        bibtex_item.SetIfHasValue(field_pair.Key, field_pair.Value);
                     }
 
-                    pdf_document.BibTex = bibtex_item.ToBibTex();
+                    pdf_document.BibTex = bibtex_item;
                     pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.BibTex);
                 }
                 else
@@ -270,10 +270,5 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
                 MessageBoxes.Warn("There was a problem updating {0} documents as they do not have an existing BibTeX record associated with them.", non_updateable_documents);
             }
         }
-
-        // ---------------------------------------------------------------------------------------------------
-
-
-
     }
 }

@@ -5,6 +5,20 @@ using System.Text;
 using Utilities.BibTex.Parsing;
 using Utilities.Strings;
 
+#if TEST
+using System.Diagnostics;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using QiqqaTestHelpers;
+using static QiqqaTestHelpers.MiscTestHelpers;
+using Newtonsoft.Json;
+using Utilities;
+
+using Utilities.BibTex;
+#endif
+
+
+#if !TEST
+
 namespace Utilities.BibTex
 {
     /// <summary>
@@ -38,10 +52,7 @@ namespace Utilities.BibTex
                 foreach (var attribute_pair in attributes)
                 {
                     string bibtex_field_type = MapRISToBibTeXFieldType(attribute_pair.Key);
-                    if (!String.IsNullOrEmpty(bibtex_field_type))
-                    {
-                        bibtex_item[bibtex_field_type] = attribute_pair.Value[0];
-                    }
+                    bibtex_item.SetIfHasValue(bibtex_field_type, attribute_pair.Value[0]);
                 }
 
                 // Create the authors
@@ -61,10 +72,7 @@ namespace Utilities.BibTex
                     }
 
                     string authors = sb.ToString();
-                    if (!String.IsNullOrEmpty(authors))
-                    {
-                        bibtex_item["author"] = authors;
-                    }
+                        bibtex_item.SetIfHasValue("author", authors);
                 }
 
 
@@ -72,7 +80,7 @@ namespace Utilities.BibTex
                 if (attributes.ContainsKey("%K"))
                 {
                     string keywords = (attributes["%K"][0]).Replace("\n", ",");
-                    bibtex_item["keywords"] = keywords;
+                    bibtex_item.SetIfHasValue("keywords", keywords);
                 }
 
                 return bibtex_item;
@@ -168,7 +176,7 @@ namespace Utilities.BibTex
             return ris_records;
         }
 
-        private static RISRecord MapRISLinesToDictionary(List<string> lines)
+        protected static RISRecord MapRISLinesToDictionary(List<string> lines)
         {
             RISRecord ris_record = new RISRecord();
 
@@ -241,7 +249,7 @@ namespace Utilities.BibTex
             return ris_record;
         }
 
-        private static List<List<string>> SplitMultipleRISLines(string ris_text)
+        protected static List<List<string>> SplitMultipleRISLines(string ris_text)
         {
             string[] ris_text_lines = ris_text.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
 
@@ -261,37 +269,68 @@ namespace Utilities.BibTex
                 {
                     current_record.Add(ris_text_lines[i]);
                 }
-
             }
 
             return all_records;
         }
-
-        #region --- Test ------------------------------------------------------------------------
-
-#if TEST
-        public static void Test()
-        {
-            string ris_text = File.ReadAllText(@"c:\TEMP\SAMPLEENDNOTE.TXT");
-            List<List<string>> lines_set = SplitMultipleRISLines(ris_text);
-            foreach (List<string> lines in lines_set)
-            {
-                RISRecord record = MapRISLinesToDictionary(lines);
-                if (record.errors.Count > 0)
-                {
-                    Logging.Warn("Errors!");
-                }
-
-                BibTexItem bibtex = record.ToBibTeX();
-                string result = bibtex.ToBibTex();
-            }
-        }
-#endif
-
-        #endregion
     }
 }
 
+#else
+
+#region --- Test ------------------------------------------------------------------------
+
+namespace QiqqaSystemTester
+{
+    // Note https://stackoverflow.com/questions/10375090/accessing-protected-members-of-another-class
+
+    [TestClass]
+    public class RISToBibTexTester : RISToBibTex   // HACK: inherit so we can access protected members
+    {
+        private class Result
+        {
+            internal List<List<string>> lines_set;
+            internal List<RISRecord> records = new List<RISRecord>();
+            internal List<BibTexItem> bibtex_items = new List<BibTexItem>();
+        }
+
+        [DataRow("developer.easybib.com__ris-import__sample.txt")]
+        [DataTestMethod]
+        public void Basic_Import_Test(string ris_filepath)
+        {
+            string path = GetNormalizedPathToRISTestFile(ris_filepath);
+            ASSERT.FileExists(path);
+
+            string ris_text = GetTestFileContent(path);
+
+            Result rv = new Result();
+            rv.lines_set = SplitMultipleRISLines(ris_text);
+            foreach (List<string> lines in rv.lines_set)
+            {
+                RISRecord record = MapRISLinesToDictionary(lines);
+                rv.records.Add(record);
+                rv.bibtex_items.Add(record.ToBibTeX());
+            }
+
+            // Serialize the result to JSON for easier comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            string json_out = JsonConvert.SerializeObject(rv, Newtonsoft.Json.Formatting.Indented).Replace("\r\n", "\n");
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new DataTestApprovalTextWriter(json_out, ris_filepath),
+                new DataTestLocationNamer(ris_filepath) /* GetDefaultNamer() */,
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+    }
+}
+
+#endregion
+
+#endif
+
+
+
+#region --- File Format Documentation ------------------------------------------------------------------------
 
 /*
  * 
@@ -522,4 +561,6 @@ ER  -
 
 
 */
-  
+
+#endregion
+

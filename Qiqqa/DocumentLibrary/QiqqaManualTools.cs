@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Documents.PDF;
+using Utilities.BibTex.Parsing;
 
 namespace Qiqqa.DocumentLibrary
 {
-    class QiqqaManualTools
+    public class QiqqaManualTools
     {
         private static string QiqqaManualFilename
         {
@@ -23,30 +24,27 @@ namespace Qiqqa.DocumentLibrary
         }
 
 
-        private static PDFDocument AddQiqqaManualToLibrary(Library library)
+        private static void AddQiqqaManualToLibrary(Library library, LibraryPdfActionCallbacks post_partum)
         {
-            ImportingIntoLibrary.FilenameWithMetadataImport fwmi = new ImportingIntoLibrary.FilenameWithMetadataImport();
+            FilenameWithMetadataImport fwmi = new FilenameWithMetadataImport();
             fwmi.filename = QiqqaManualFilename;
             fwmi.tags = new List<string> { "manual", "help" };
-            fwmi.bibtex =
+            fwmi.bibtex = BibTexParser.ParseOne(
                 "@booklet{qiqqa_manual" + "\n" +
                 ",	title	= {The Qiqqa Manual}" + "\n" +
                 ",	author	= {The Qiqqa Team,}" + "\n" +
                 ",	year	= {2013}" + "\n" +
-                "}"
-                ;
+                "}", true);
 
-            PDFDocument pdf_document = ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(library, true, true, new ImportingIntoLibrary.FilenameWithMetadataImport[] { fwmi });
-
-            return pdf_document;
+            library.AddNewDocumentToLibrary_SYNCHRONOUS(fwmi, true, post_partum);
         }
 
-        private static PDFDocument AddLoexManualToLibrary(Library library)
+        private static void AddLoexManualToLibrary(Library library)
         {
-            ImportingIntoLibrary.FilenameWithMetadataImport fwmi = new ImportingIntoLibrary.FilenameWithMetadataImport();
+            FilenameWithMetadataImport fwmi = new FilenameWithMetadataImport();
             fwmi.filename = LoexManualFilename;
             fwmi.tags.AddRange(new List<string> { "manual", "help" } );
-            fwmi.bibtex =
+            fwmi.bibtex = BibTexParser.ParseOne(
                 "@article{qiqqatechmatters" + "\n" +
                 ",	title	= {TechMatters: “Qiqqa” than you can say Reference Management: A Tool to Organize the Research Process}" + "\n" +
                 ",	author	= {Krista Graham}" + "\n" +
@@ -54,18 +52,15 @@ namespace Qiqqa.DocumentLibrary
                 ",	publication	= {LOEX Quarterly}" + "\n" +
                 ",	volume	= {40}" + "\n" +
                 ",	pages	= {4-6}" + "\n" +
-                "}"
-                ;
+                "}", true);
 
-            PDFDocument pdf_document = ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(library, true, true, new ImportingIntoLibrary.FilenameWithMetadataImport[] { fwmi });
-
-            return pdf_document;
+            library.AddNewDocumentToLibrary_SYNCHRONOUS(fwmi, true);
         }
 
-        internal static PDFDocument AddManualsToLibrary(Library library)
+        public static void AddManualsToLibrary(Library library, LibraryPdfActionCallbacks post_partum)
         {   
             AddLoexManualToLibrary(library);
-            return AddQiqqaManualToLibrary(library);
+            AddQiqqaManualToLibrary(library, post_partum);
         }
     }
 }

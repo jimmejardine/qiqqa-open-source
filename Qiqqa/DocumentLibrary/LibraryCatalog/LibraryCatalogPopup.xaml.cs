@@ -165,7 +165,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             sb.Append(pdf_documents[0].Library.WebLibraryDetail.Id);
             sb.Append("/");
             sb.Append(pdf_documents[0].Fingerprint);
-            
+
             // To clipboard
             string html = @"Version:0.9
 StartHTML:<<<<<<<1
@@ -182,7 +182,7 @@ SourceURL: {0}
 </html>";
 
             string result = sb.ToString();
-            string link = String.Format(html, result, "[Qiqqa]");            
+            string link = String.Format(html, result, "[Qiqqa]");
 
             DataObject data_object = new DataObject();
             data_object.SetData(DataFormats.Html, link);
@@ -192,7 +192,7 @@ SourceURL: {0}
             StatusManager.Instance.UpdateStatus("CopyQiqqaURI", String.Format("Copied '{0}' to clipboard.", result));
         }
 
-        
+
         void MenuCopyBibTeXKey_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
@@ -202,7 +202,7 @@ SourceURL: {0}
             StringBuilder sb = new StringBuilder();
             foreach (var pdf_document in pdf_documents)
             {
-                string key = pdf_document.BibTexKey;
+                string key = pdf_document.BibTex.Key;
                 if (!String.IsNullOrEmpty(key))
                 {
                     sb.Append(key);
@@ -267,12 +267,12 @@ SourceURL: {0}
 
             MessageBoxes.Info("Legacy annotations removed.");
         }
-        
+
         void MenuForceOCR_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
 
-            string language = "";            
+            string language = "";
             MenuItem menu_item = sender as MenuItem;
             if (null != menu_item)
             {
@@ -280,7 +280,7 @@ SourceURL: {0}
             }
 
             FeatureTrackingManager.Instance.UseFeature(
-                Features.Library_ForceOCR, 
+                Features.Library_ForceOCR,
                 "language", language
                 );
 
@@ -334,7 +334,7 @@ SourceURL: {0}
 
                     MessageBoxes.Info("Your tags have been cleared.");
                 }
-            }            
+            }
         }
 
         void MenuRemoveAllBibTeX_Click(object sender, RoutedEventArgs e)
@@ -350,7 +350,7 @@ SourceURL: {0}
                 {
                     foreach (var pdf_document in pdf_documents)
                     {
-                        pdf_document.BibTex = "";
+                        pdf_document.BibTex = new Utilities.BibTex.Parsing.BibTexItem();
                         pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.BibTex);
                     }
 
@@ -407,16 +407,18 @@ SourceURL: {0}
 
             FeatureTrackingManager.Instance.UseFeature(feature);
 
-            ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(pdf_documents, web_library_detail.library);
-
-            if (delete_source_pdf_documents)
+            ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_ASYNCHRONOUS(pdf_documents, web_library_detail.library, new LibraryPdfActionCallbacks
             {
-                foreach (var pdf_document in pdf_documents)
+                //OnAddedOrSkipped   -- too risky for now: we MAY skip when the bibtex differ in both libs and then we shouldn't delete this record!
+                OnAdded = (pdf_document, filename) =>
                 {
-                    pdf_document.Deleted = true;
-                    pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Deleted);
+                    if (delete_source_pdf_documents)
+                    {
+                        pdf_document.Deleted = true;
+                        pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Deleted);
+                    }
                 }
-            }
+            });
         }
 
         void MenuUseKeywordsAsTags_Click(object sender, RoutedEventArgs e)
@@ -484,7 +486,7 @@ SourceURL: {0}
                     {
                         if (!String.IsNullOrEmpty(pdf_document.DownloadLocation))
                         {
-                            pdf_document.Title = Path.GetFileNameWithoutExtension(pdf_document.DownloadLocation);
+                            pdf_document.TitleCombined = Path.GetFileNameWithoutExtension(pdf_document.DownloadLocation);
                             pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Title);
                         }
                     }

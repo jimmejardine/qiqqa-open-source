@@ -13,54 +13,37 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
 {
     class BibTeXGoodnessOfFitEstimator
     {
-        public static bool DoesBibTeXMatchDocument(string bibtex, PDFDocument pdf_document, out PDFSearchResultSet search_result_set)
-        {
-            try
-            {
-                if (!String.IsNullOrEmpty(bibtex))
-                {
-                    BibTexItem bibtex_item = BibTexParser.ParseOne(bibtex, true);
-
-                    return DoesBibTeXMatchDocument(bibtex_item, pdf_document, out search_result_set);
-                }
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex);
-            }
-
-            search_result_set = new PDFSearchResultSet();
-            return false;
-        }
-
         public static bool DoesBibTeXMatchDocument(BibTexItem bibtex_item, PDFDocument pdf_document, out PDFSearchResultSet search_result_set)
         {
-            try
+            if (bibtex_item != null)
             {
-                string authors_string = BibTexTools.GetAuthor(bibtex_item);
-                if (!String.IsNullOrEmpty(authors_string))
+                try
                 {
-                    List<NameTools.Name> names = NameTools.SplitAuthors(authors_string, PDFDocument.UNKNOWN_AUTHORS);
-                    StringBuilder sb = new StringBuilder();
-                    foreach (NameTools.Name name in names)
+                    string authors_string = bibtex_item.GetAuthor();
+                    if (!String.IsNullOrEmpty(authors_string))
                     {
-                        sb.AppendFormat("\"{0}\" ", name.last_name);
-                    }
-
-                    string names_search_string = sb.ToString();
-                    if (!String.IsNullOrEmpty(names_search_string))
-                    {
-                        search_result_set = PDFSearcher.Search(pdf_document, 1, names_search_string, PDFSearcher.MATCH_CONTAINS);
-                        if (0 < search_result_set.Count)
+                        List<NameTools.Name> names = NameTools.SplitAuthors(authors_string);
+                        StringBuilder sb = new StringBuilder();
+                        foreach (NameTools.Name name in names)
                         {
-                            return true;
+                            sb.AppendFormat("\"{0}\" ", name.last_name);
+                        }
+
+                        string names_search_string = sb.ToString();
+                        if (!String.IsNullOrEmpty(names_search_string))
+                        {
+                            search_result_set = PDFSearcher.Search(pdf_document, 1, names_search_string, PDFSearcher.MATCH_CONTAINS);
+                            if (0 < search_result_set.Count)
+                            {
+                                return true;
+                            }
                         }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex);
+                catch (Exception ex)
+                {
+                    Logging.Error(ex);
+                }
             }
 
             search_result_set = new PDFSearchResultSet();

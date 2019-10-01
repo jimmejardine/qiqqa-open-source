@@ -117,7 +117,7 @@ namespace Qiqqa.Exporting
 
             foreach (var item in pdf_document_export_items.Values)
             {
-                List<NameTools.Name> names = NameTools.SplitAuthors(item.pdf_document.AuthorsCombined, PDFDocument.UNKNOWN_AUTHORS);
+                List<NameTools.Name> names = NameTools.SplitAuthors(item.pdf_document.AuthorsCombined);
                 foreach (var name in names)
                 {
                     items_sliced.Add(name.LastName_Initials, item);

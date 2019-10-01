@@ -22,7 +22,7 @@ namespace Utilities.Language
                     }
 
                     StringBuilder sb = new StringBuilder();
-                    
+
                     // Extract all the upper case letters
                     foreach (char c in first_names)
                     {
@@ -57,6 +57,8 @@ namespace Utilities.Language
 
             public static readonly Name UNKNOWN_NAME = new Name { last_name = "UNKNOWN", first_names = "" };
         }
+
+        public static readonly string UNKNOWN_AUTHORS = "(unknown authors)";
 
 
         /// <summary>
@@ -111,7 +113,7 @@ namespace Utilities.Language
                 else
                 {
                     // If we get here, we have many names.  Lets assume that all first names start with a capital letter.  If we meet a lower case letter, then we assume that is where the surname starts...
-                    int start_of_surname = nameSplit.Length-1;
+                    int start_of_surname = nameSplit.Length - 1;
                     while (true)
                     {
                         int next_test_position = start_of_surname - 1;
@@ -124,9 +126,9 @@ namespace Utilities.Language
                             break;
                         }
                     }
-                    
-                    first_name = StringTools.ConcatenateStrings(nameSplit, ' ', 0, start_of_surname).Trim();
-                    last_name = StringTools.ConcatenateStrings(nameSplit, ' ', start_of_surname).Trim();
+
+                    first_name = StringTools.ConcatenateStrings(nameSplit, " ", 0, start_of_surname).Trim();
+                    last_name = StringTools.ConcatenateStrings(nameSplit, " ", start_of_surname).Trim();
                 }
             }
 
@@ -134,13 +136,13 @@ namespace Utilities.Language
             else
             {
                 string[] nameSplit = full_name.Split(',');
-                first_name = StringTools.ConcatenateStrings(nameSplit, ' ', 1).Trim();
+                first_name = StringTools.ConcatenateStrings(nameSplit, " ", 1).Trim();
                 last_name = nameSplit[0].Trim();
             }
         }
 
         public static readonly List<Name> UNKNOWN_NAMES = new List<Name>(new Name[] { Name.UNKNOWN_NAME });
-        public static List<Name> SplitAuthors(string authors_combined, string UNKNOWN_AUTHORS)
+        public static List<Name> SplitAuthors(string authors_combined)
         {
             if (authors_combined == UNKNOWN_AUTHORS)
             {

@@ -185,6 +185,17 @@ namespace Utilities
             LogDebug(msg);
         }
 
+        public static void Debug(Exception ex, string msg)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(msg);
+            sb.AppendLine();
+            sb.Append(ex.ToString());
+            msg = sb.ToString();
+            //log?.Debug(msg) ?? BufferMessage(msg);
+            LogDebug(msg);
+        }
+
         public static void Debug(Exception ex, string msg, params object[] args)
         {
             StringBuilder sb = new StringBuilder();
@@ -197,10 +208,11 @@ namespace Utilities
             LogDebug(msg);
         }
 
-        public static void Info(string msg)
+        public static string Info(string msg)
         {
             //log?.Info(msg) ?? BufferMessage(msg);
             LogInfo(msg);
+            return msg;
         }
 
         public static string Info(string msg, params object[] args)
@@ -211,12 +223,37 @@ namespace Utilities
             return msg;
         }
 
+        public static string Warn(string msg)
+        {
+            //log?.Warn(msg) ?? BufferMessage(msg);
+            LogWarn(msg);
+            return msg;
+        }
+
         public static string Warn(string msg, params object[] args)
         {
             msg = String.Format(msg, args);
             //log?.Warn(msg) ?? BufferMessage(msg);
             LogWarn(msg);
             return msg;
+        }
+
+        public static void Warn(Exception ex)
+        {
+            string msg = ex.ToString();
+            //log?.Warn(msg) ?? BufferMessage(msg);
+            LogWarn(msg);
+        }
+
+        public static void Warn(Exception ex, string msg)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(msg);
+            sb.AppendLine();
+            sb.Append(ex.ToString());
+            msg = sb.ToString();
+            //log?.Warn(msg) ?? BufferMessage(msg);
+            LogWarn(msg);
         }
 
         public static void Warn(Exception ex, string msg, params object[] args)
@@ -230,6 +267,13 @@ namespace Utilities
             LogWarn(msg);
         }
 
+        public static string Error(string msg)
+        {
+            //log?.Error(msg) ?? BufferMessage(msg);
+            LogError(msg);
+            return msg;
+        }
+
         public static string Error(string msg, params object[] args)
         {
             msg = String.Format(msg, args);
@@ -241,6 +285,18 @@ namespace Utilities
         public static string Error(Exception ex)
         {
             string msg = ex.ToString();
+            //log?.Error(msg) ?? BufferMessage(msg);
+            LogError(msg);
+            return msg;
+        }
+
+        public static string Error(Exception ex, string msg)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(msg);
+            sb.AppendLine();
+            sb.Append(ex.ToString());
+            msg = sb.ToString();
             //log?.Error(msg) ?? BufferMessage(msg);
             LogError(msg);
             return msg;

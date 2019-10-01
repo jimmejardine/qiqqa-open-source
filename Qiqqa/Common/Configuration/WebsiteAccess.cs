@@ -70,6 +70,8 @@ namespace Qiqqa.Common.Configuration
         public static readonly string Url_DatacopiaSearch = @"https://datacopia.com?data={0}";
 
         public static readonly string Url_GithubRepo4Qiqqa = @"https://github.com/jimmejardine/qiqqa-open-source";
+        public static readonly string Url_Support4Qiqqa = @"https://github.com/jimmejardine/qiqqa-open-source/issues";
+        public static readonly string Url_Documentation4Qiqqa = @"http://bit.ly/QIQQA";  // --> https://gerhobbelt.github.io/qiqqa-open-source
 
         // bibtexsearch.com search URL has 1 parameter: the server ID/number (1..4):
         public static readonly string Url_BibTeXSearchServerN = @"http://search{0}.bibtexsearch.com:80";
@@ -223,7 +225,7 @@ namespace Qiqqa.Common.Configuration
                 return update_location.Substring(firstDot + 1);
             }
             
-            return "qiqqa.com";
+            return "qiqqa.com";  // https://github.com/jimmejardine/qiqqa-open-source/
         }
 
         public static string GetOurUrl(OurSiteLinkKind linkType)

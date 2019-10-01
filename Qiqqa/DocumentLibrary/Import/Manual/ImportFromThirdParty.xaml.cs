@@ -125,14 +125,14 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         void CmdAutomaticMendeleyImport_Click(object sender, RoutedEventArgs e)
         {
             Qiqqa.UtilisationTracking.FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportAutoFromMendeley);
-            ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(this._library, false, false, mdd.metadata_imports.ToArray());
+            ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(this._library, false, mdd.metadata_imports);
             this.Close();
         }
 
         void CmdAutomaticEndnoteImport_Click(object sender, RoutedEventArgs e)
         {
             Qiqqa.UtilisationTracking.FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportAutoFromEndNote);
-            ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(this._library, false, false, edd.metadata_imports.ToArray());
+            ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(this._library, false, edd.metadata_imports);
             this.Close();
         }
 
@@ -386,7 +386,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
             if (result.EntriesWithoutFileField > 0)
             {
-                ShowNoFilesGuidance(result.Entries.Count,  result.EntriesWithoutFileField);
+                ShowNoFilesGuidance(result.Entries.Count, result.EntriesWithoutFileField);
             }
             else if (importer.InputFileAppearsToBeWrongFormat)
             {
@@ -566,12 +566,15 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                 return;
             }
 
-            List<ImportingIntoLibrary.FilenameWithMetadataImport> filename_and_bibtex_imports = new List<ImportingIntoLibrary.FilenameWithMetadataImport>();
+            StatusManager.Instance.UpdateStatus("ImportFromThirdParty", "Started importing documents");
+
+            List<FilenameWithMetadataImport> filename_and_bibtex_imports = new List<FilenameWithMetadataImport>();
             foreach (AugmentedBindable<BibTeXEntry> entry in allEntries)
             {
-                ImportingIntoLibrary.FilenameWithMetadataImport filename_with_metadata_import = new ImportingIntoLibrary.FilenameWithMetadataImport
+                FilenameWithMetadataImport filename_with_metadata_import = new FilenameWithMetadataImport
                 {
                     filename = entry.Underlying.Filename,
+                    suggested_download_source_uri = entry.Underlying.FileURI,
                     bibtex = entry.Underlying.BibTeX,
                     tags = entry.Underlying.Tags,
                     notes = entry.Underlying.Notes
@@ -580,9 +583,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                 filename_and_bibtex_imports.Add(filename_with_metadata_import);
             }
 
-            StatusManager.Instance.UpdateStatus("ImportFromThirdParty", "Started importing documents");
-
-            ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(_library, false, false, filename_and_bibtex_imports.ToArray());
+            ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(_library, false, filename_and_bibtex_imports);
 
             MessageBoxes.Info("{0} files are now being imported - this may take a little while.  You can track the import progress in the status bar.", filename_and_bibtex_imports.Count);
 
