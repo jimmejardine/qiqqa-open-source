@@ -127,8 +127,8 @@ namespace Utilities.Language
                         }
                     }
 
-                    first_name = StringTools.ConcatenateStrings(nameSplit, ' ', 0, start_of_surname).Trim();
-                    last_name = StringTools.ConcatenateStrings(nameSplit, ' ', start_of_surname).Trim();
+                    first_name = StringTools.ConcatenateStrings(nameSplit, " ", 0, start_of_surname).Trim();
+                    last_name = StringTools.ConcatenateStrings(nameSplit, " ", start_of_surname).Trim();
                 }
             }
 
@@ -136,7 +136,7 @@ namespace Utilities.Language
             else
             {
                 string[] nameSplit = full_name.Split(',');
-                first_name = StringTools.ConcatenateStrings(nameSplit, ' ', 1).Trim();
+                first_name = StringTools.ConcatenateStrings(nameSplit, " ", 1).Trim();
                 last_name = nameSplit[0].Trim();
             }
         }

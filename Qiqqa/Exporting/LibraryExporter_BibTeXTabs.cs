@@ -25,13 +25,11 @@ namespace Qiqqa.Exporting
                     PDFDocument pdf_document = pdf_documents[i];
                     if (!pdf_document.BibTex.IsEmpty())
                     {
-                        BibTexItem item = BibTexParser.ParseOne(pdf_document.BibTex, true);
-                        if (null != item)
+                        BibTexItem item = pdf_document.BibTex;
+
+                        foreach (var field in item.Fields)
                         {
-                            foreach (var field in item.Fields)
-                            {
-                                field_names_set.Add(field.Key.ToLower());
-                            }
+                            field_names_set.Add(field.Key.ToLower());
                         }
                     }
                 }
@@ -40,7 +38,6 @@ namespace Qiqqa.Exporting
                 field_names.Sort();
             }
 
-            // 
 
 
 
@@ -74,27 +71,17 @@ namespace Qiqqa.Exporting
                 PDFDocument pdf_document = pdf_documents[i];
                 sb.AppendFormat("{0}\t", pdf_document.Fingerprint);
                 sb.AppendFormat("{0}\t", pdf_document_export_items.ContainsKey(pdf_document.Fingerprint) ? pdf_document_export_items[pdf_document.Fingerprint].filename : "");
-                
-                try
-                {   
-                    if (!pdf_document.BibTex.IsEmpty())
-                    {
-                        BibTexItem item = BibTexParser.ParseOne(pdf_document.BibTex, true);
-                        if (null != item)
-                        {
-                            sb.AppendFormat("{0}\t", item.Key);
-                            sb.AppendFormat("{0}\t", item.Type);
-                            foreach (string field_name in field_names)
-                            {
-                                sb.AppendFormat("{0}\t", item.ContainsField(field_name) ? FormatFreeText(item[field_name]) : "");
-                            }
-                        }
-                    }
-                }
 
-                catch (Exception ex)
+                if (!pdf_document.BibTex.IsEmpty())
                 {
-                    Logging.Error(ex, "There was a problem exporting the tab representation for " + pdf_document);
+                    BibTexItem item = pdf_document.BibTex;
+
+                    sb.AppendFormat("{0}\t", item.Key);
+                    sb.AppendFormat("{0}\t", item.Type);
+                    foreach (string field_name in field_names)
+                    {
+                        sb.AppendFormat("{0}\t", item.ContainsField(field_name) ? FormatFreeText(item[field_name]) : "");
+                    }
                 }
 
                 sb.AppendLine();

@@ -32,7 +32,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             {
                 try
                 {
-                    Utilities.BibTex.Parsing.BibTexItem item = entry.Parsed;
+                    Utilities.BibTex.Parsing.BibTexItem item = entry.BibTexRecord;
 
                     #region Deal with file
                     if (item.ContainsField("file"))

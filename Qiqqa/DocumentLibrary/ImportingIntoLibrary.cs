@@ -219,7 +219,7 @@ namespace Qiqqa.DocumentLibrary
             AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(library, false, file_list);
         }
 
-        public static void AddNewPDFDocumentsToLibraryFromFolder(Library library, string root_folder, bool recurse_subfolders, bool import_tags_from_subfolder_names)
+        public static void AddNewPDFDocumentsToLibraryFromFolder_ASYNCHRONOUS(Library library, string root_folder, bool recurse_subfolders, bool import_tags_from_subfolder_names)
         {
             SafeThreadPool.QueueUserWorkItem(o => AddNewPDFDocumentsToLibraryFromFolder_SYNCHRONOUS(library, root_folder, recurse_subfolders, import_tags_from_subfolder_names));
         }

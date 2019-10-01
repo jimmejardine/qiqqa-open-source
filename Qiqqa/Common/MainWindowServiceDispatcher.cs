@@ -199,11 +199,11 @@ namespace Qiqqa.Common
             if (!File.Exists(pdf_document.DocumentPath))
             {
                 const string URL_FIELD = "url";
-                if (null != pdf_document.BibTexItem && pdf_document.BibTexItem.ContainsField(URL_FIELD))
+                if (null != pdf_document.BibTex && pdf_document.BibTex.ContainsField(URL_FIELD))
                 {
                     if (MessageBoxes.AskQuestion("You do not have the PDF file associated with this document.  However the document metadata has a URL link.  Do you want to visit that web page to perhaps download it?"))
                     {
-                        string url = pdf_document.BibTexItem[URL_FIELD];
+                        string url = pdf_document.BibTex[URL_FIELD];
                         Instance.OpenUrlInBrowser(url);
                     }
                 }

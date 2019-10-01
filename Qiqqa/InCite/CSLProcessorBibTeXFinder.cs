@@ -64,7 +64,7 @@ namespace Qiqqa.InCite
         {
             foreach (PDFDocument pdf_document in library.PDFDocuments)
             {
-                BibTexItem bibtex_item = pdf_document.BibTexItem;
+                BibTexItem bibtex_item = pdf_document.BibTex;
                 if (null != bibtex_item)
                 {
                     if (bibtex_item.Key == reference_key)

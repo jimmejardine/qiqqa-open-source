@@ -566,6 +566,8 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                 return;
             }
 
+            StatusManager.Instance.UpdateStatus("ImportFromThirdParty", "Started importing documents");
+
             List<FilenameWithMetadataImport> filename_and_bibtex_imports = new List<FilenameWithMetadataImport>();
             foreach (AugmentedBindable<BibTeXEntry> entry in allEntries)
             {
@@ -580,8 +582,6 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
                 filename_and_bibtex_imports.Add(filename_with_metadata_import);
             }
-
-            StatusManager.Instance.UpdateStatus("ImportFromThirdParty", "Started importing documents");
 
             ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(_library, false, filename_and_bibtex_imports);
 

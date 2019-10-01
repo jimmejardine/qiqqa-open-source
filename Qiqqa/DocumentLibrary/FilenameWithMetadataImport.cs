@@ -2,19 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Qiqqa.DocumentLibrary.Import.Manual;
 using Utilities.Strings;
 
 namespace Qiqqa.DocumentLibrary
 {
-    public class FilenameWithMetadataImport
+    public class FilenameWithMetadataImport : BibTeXEntry
     {
-        public string filename = null;
-        public string original_filename = null;
-        public string suggested_download_source_uri = null;
-        public string bibtex = null;
-        public string notes = null;
-        public List<string> tags = new List<string>();
-
         public override string ToString()
         {
             return String.Format(

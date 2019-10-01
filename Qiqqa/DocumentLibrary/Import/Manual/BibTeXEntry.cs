@@ -16,6 +16,10 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
         public string FileURI { get; set; }
 
+        public string OriginalFilename { get; set; }
+
+        public string SuggestedDownloadSourceURI { get; set; }
+
         public BibTexItem BibTexRecord { get; set; }
 
         /// <summary>
@@ -60,18 +64,8 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             }
         }
 
+        // HasPDF = !IsVanilla
         public bool IsVanilla { get; set; }
-        
-        /// <summary>
-        /// Used via reflection
-        /// </summary>
-        public bool HasPDF
-        {
-            get
-            {
-                return !IsVanilla;
-            }
-        }
 
         public string Notes { get; set; } 
     }
