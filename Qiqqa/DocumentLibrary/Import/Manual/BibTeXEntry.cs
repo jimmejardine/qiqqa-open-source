@@ -14,6 +14,8 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
         public string FileType { get; set; }
 
+        public string FileURI { get; set; }
+
         public BibTexItem BibTexRecord { get; set; }
 
         /// <summary>

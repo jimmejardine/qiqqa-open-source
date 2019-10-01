@@ -338,16 +338,169 @@ namespace Qiqqa.DocumentLibrary
         /// <param name="tags"></param>
         /// <param name="suppressDialogs"></param>
         /// <returns></returns>
-        public PDFDocument AddNewDocumentToLibrary_SYNCHRONOUS(string filename, string original_filename, string suggested_download_source, BibTexItem bibtex, List<string> tags, string comments, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
+        public PDFDocument AddNewDocumentToLibrary_SYNCHRONOUS(FilenameWithMetadataImport info, bool suppressDialogs, LibraryPdfActionCallbacks post_partum = new LibraryPdfActionCallbacks())
         {
-            if (!suppressDialogs)
+            // Flag that someone is trying to add to the library.  This is used by the background processes to hold off while the library is busy being added to...
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (last_pdf_add_time_lock)
             {
-                StatusManager.Instance.UpdateStatus("LibraryDocument", String.Format("Adding {0} to library", filename));
+                l1_clk.LockPerfTimerStop();
+                last_pdf_add_time = DateTime.UtcNow;
             }
 
-            PDFDocument pdf_document = AddNewDocumentToLibrary(filename, original_filename, suggested_download_source, bibtex, tags, comments, suppressDialogs, suppress_signal_that_docs_have_changed);
+            PDFDocument pdf_document = null;
 
-            if (!suppressDialogs)
+            string filename = info.filename;
+            string suggested_download_source = info.suggested_download_source_uri;
+            string bibtex = info.bibtex;
+            List<string> tags = info.tags;
+            string comments = info.notes;
+
+            StatusManager.Instance.UpdateStatus("LibraryDocument", String.Format("Adding {0} to library", filename));
+
+            try
+            {
+                if (String.IsNullOrEmpty(filename) || filename.EndsWith(".vanilla_reference"))
+                {
+                    return AddVanillaReferenceDocumentToLibrary(info, post_partum);
+                }
+
+                bool is_a_document_we_can_cope_with = false;
+
+                if (0 == Path.GetExtension(filename).ToLower().CompareTo(".pdf"))
+                {
+                    is_a_document_we_can_cope_with = true;
+                }
+                else
+                {
+                    if (DocumentConversion.CanConvert(filename))
+                    {
+                        string filename_before_conversion = filename;
+                        string filename_after_conversion = TempFile.GenerateTempFilename("pdf");
+                        if (DocumentConversion.Convert(filename_before_conversion, filename_after_conversion))
+                        {
+                            is_a_document_we_can_cope_with = true;
+                            filename = filename_after_conversion;
+                        }
+                    }
+                }
+
+                if (!is_a_document_we_can_cope_with)
+                {
+                    string extension = Path.GetExtension(filename);
+
+                    if (!suppressDialogs)
+                    {
+                        MessageBoxes.Info("This document library does not support {0} files.  Free and Premium libraries only support PDF files.  Premium+ libraries can automatically convert DOC and DOCX files to PDF.\n\nYou can convert your DOC files to PDFs using the Conversion Tool available on the Start Page Tools menu.\n\nSkipping {1}.", extension, filename);
+                    }
+                    else
+                    {
+                        StatusManager.Instance.UpdateStatus("LibraryDocument", String.Format("This document library does not support {0} files.", extension));
+                    }
+                    return null;
+                }
+
+                // If the PDF does not exist, can not clone
+                if (!File.Exists(filename))
+                {
+                    Logging.Info("Can not add non-existent file to library, so skipping: {0}", filename);
+                    return null;
+                }
+
+                string fingerprint = StreamFingerprint.FromFile(filename);
+
+                // Useful in logging for diagnosing if we're adding the same document again
+                Logging.Info("Fingerprint: {0}", fingerprint);
+
+                pdf_document = GetDocumentByFingerprint(fingerprint);
+                if (null != pdf_document)
+                {
+                    // Pdf reportedly exists in database.
+
+                    // Store the pdf in our location
+                    pdf_document.StoreAssociatedPDFInRepository(filename);
+
+                    // If the document was previously deleted in metadata, reinstate it
+                    if (pdf_document.Deleted)
+                    {
+                        Logging.Info("The document {0} was deleted, so reinstating it.", fingerprint);
+                        pdf_document.Deleted = false;
+                        pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Deleted);
+                    }
+
+                    // Try to add some useful information from the download source if the metadata doesn't already have it
+                    if (!String.IsNullOrEmpty(suggested_download_source)
+                        && (String.IsNullOrEmpty(pdf_document.DownloadLocation)
+                        // or when the new source is a URL we also
+                        // *upgrade* our source info by taking up the new URL
+                        // as we than assume that a new URL is 'better' i.e. more 'fresh'
+                        // than any existing URL or local source file path:
+                        || suggested_download_source.StartsWith("http://")
+                        || suggested_download_source.StartsWith("https://")
+                        || suggested_download_source.StartsWith("ftp://")
+                        || suggested_download_source.StartsWith("ftps://"))
+                        // *and* the old and new source shouldn't be the same:
+                        && suggested_download_source != pdf_document.DownloadLocation)
+                    {
+                        Logging.Info("The document in the library had no download location or an older one, so inferring it from download: {0} --> {1}", pdf_document.DownloadLocation ?? "(NULL)", suggested_download_source);
+                        pdf_document.DownloadLocation = suggested_download_source;
+                        pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.DownloadLocation);
+                    }
+
+                    if (pdf_document.UpdateBibTex(bibtex))
+                    {
+                        pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.BibTex);
+                    }
+
+                    if (tags != null)
+                    {
+                        tags.ForEach(x => pdf_document.AddTag(x)); //Notify changes called internally
+                    }
+
+                    // If we already have comments, then append them to our existing comments (if they are not identical)
+                    if (!String.IsNullOrEmpty(comments))
+                    {
+                        if (pdf_document.Comments != comments)
+                        {
+                            pdf_document.Comments = pdf_document.Comments + "\n\n---\n\n\n" + comments;
+                            pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Comments);
+                        }
+                    }
+                }
+                else
+                {
+                    // Create a new document
+                    pdf_document = PDFDocument.CreateFromPDF(this, filename, fingerprint);
+                    //pdf_document.OriginalFileName = original_filename;
+                    pdf_document.DownloadLocation = suggested_download_source;
+                    pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.DownloadLocation);
+	                if (pdf_document.UpdateBibTex(bibtex))
+	                {
+	                    pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.BibTex);
+	                }
+                    if (tags != null)
+                    {
+                        tags.ForEach(x => pdf_document.AddTag(x));
+                    }
+
+                    pdf_document.Comments = comments;
+                    pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Comments);
+
+	                Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+                    lock (pdf_documents_lock)
+                    {
+	                    l2_clk.LockPerfTimerStop();
+                        // Store in our database - note that we have the lock already
+                        pdf_documents[pdf_document.Fingerprint] = pdf_document;
+                    }
+
+                    // Get OCR queued
+                    pdf_document.PDFRenderer.CauseAllPDFPagesToBeOCRed();
+                }
+
+                SignalThatDocumentsHaveChanged(pdf_document);
+            }
+            finally
             {
                 if (null != pdf_document)
                 {
@@ -362,170 +515,17 @@ namespace Qiqqa.DocumentLibrary
             return pdf_document;
         }
 
-        /// <summary>
-        /// </summary>
-        private PDFDocument AddNewDocumentToLibrary(string filename, string original_filename, string suggested_download_source, BibTexItem bibtex, List<string> tags, string comments, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
-        {
-            // Flag that someone is trying to add to the library.  This is used by the background processes to hold off while the library is busy being added to...
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-            lock (last_pdf_add_time_lock)
-            {
-                l1_clk.LockPerfTimerStop();
-                last_pdf_add_time = DateTime.UtcNow;
-            }
-
-            if (String.IsNullOrEmpty(filename) || filename.EndsWith(".vanilla_reference"))
-            {
-                return AddVanillaReferenceDocumentToLibrary(bibtex, tags, comments, suppressDialogs, suppress_signal_that_docs_have_changed);
-            }
-
-            bool is_a_document_we_can_cope_with = false;
-
-            if (0 == Path.GetExtension(filename).ToLower().CompareTo(".pdf"))
-            {
-                is_a_document_we_can_cope_with = true;
-            }
-            else
-            {
-                if (DocumentConversion.CanConvert(filename))
-                {
-                    string filename_before_conversion = filename;
-                    string filename_after_conversion = TempFile.GenerateTempFilename("pdf");
-                    if (DocumentConversion.Convert(filename_before_conversion, filename_after_conversion))
-                    {
-                        is_a_document_we_can_cope_with = true;
-                        filename = filename_after_conversion;
-                    }
-                }
-            }
-
-            if (!is_a_document_we_can_cope_with)
-            {
-                string extension = Path.GetExtension(filename);
-
-                if (!suppressDialogs)
-                {
-                    MessageBoxes.Info("This document library does not support {0} files.  Free and Premium libraries only support PDF files.  Premium+ libraries can automatically convert DOC and DOCX files to PDF.\n\nYou can convert your DOC files to PDFs using the Conversion Tool available on the Start Page Tools menu.\n\nSkipping {1}.", extension, filename);
-                }
-                else
-                {
-                    StatusManager.Instance.UpdateStatus("LibraryDocument", String.Format("This document library does not support {0} files.", extension));
-                }
-                return null;
-            }
-
-            // If the PDF does not exist, can not clone
-            if (!File.Exists(filename))
-            {
-                Logging.Info("Can not add non-existent file to library, so skipping: {0}", filename);
-                return null;
-            }
-
-            string fingerprint = StreamFingerprint.FromFile(filename);
-
-            // Useful in logging for diagnosing if we're adding the same document again
-            Logging.Info("Fingerprint: {0}", fingerprint);
-
-            PDFDocument pdf_document = GetDocumentByFingerprint(fingerprint);
-            if (null != pdf_document)
-            {
-                // Pdf reportedly exists in database.
-
-                // Store the pdf in our location
-                pdf_document.StoreAssociatedPDFInRepository(filename);
-
-                // If the document was previously deleted in metadata, reinstate it
-                if (pdf_document.Deleted)
-                {
-                    Logging.Info("The document {0} was deleted, so reinstating it.", fingerprint);
-                    pdf_document.Deleted = false;
-                    pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Deleted);
-                }
-
-                // Try to add some useful information from the download source if the metadata doesn't already have it
-                if (!String.IsNullOrEmpty(suggested_download_source)
-                    && (String.IsNullOrEmpty(pdf_document.DownloadLocation)
-                    // or when the new source is a URL we also
-                    // *upgrade* our source info by taking up the new URL
-                    // as we than assume that a new URL is 'better' i.e. more 'fresh'
-                    // than any existing URL or local source file path:
-                    || suggested_download_source.StartsWith("http://")
-                    || suggested_download_source.StartsWith("https://")
-                    || suggested_download_source.StartsWith("ftp://")
-                    || suggested_download_source.StartsWith("ftps://"))
-                    // *and* the old and new source shouldn't be the same:
-                    && suggested_download_source != pdf_document.DownloadLocation)
-                {
-                    Logging.Info("The document in the library had no download location or an older one, so inferring it from download: {0} --> {1}", pdf_document.DownloadLocation ?? "(NULL)", suggested_download_source);
-                    pdf_document.DownloadLocation = suggested_download_source;
-                    pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.DownloadLocation);
-                }
-
-                if (pdf_document.UpdateBibTex(bibtex))
-                {
-                    pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.BibTex);
-                }
-
-                if (tags != null)
-                {
-                    tags.ForEach(x => pdf_document.AddTag(x)); //Notify changes called internally
-                }
-
-                // If we already have comments, then append them to our existing comments (if they are not identical)
-                if (!String.IsNullOrEmpty(comments))
-                {
-                    if (pdf_document.Comments != comments)
-                    {
-                        pdf_document.Comments = pdf_document.Comments + "\n\n---\n\n\n" + comments;
-                        pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Comments);
-                    }
-                }
-            }
-            else
-            {
-                // Create a new document
-                pdf_document = PDFDocument.CreateFromPDF(this, filename, fingerprint);
-                //pdf_document.OriginalFileName = original_filename;
-                pdf_document.DownloadLocation = suggested_download_source;
-                pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.DownloadLocation);
-                if (pdf_document.UpdateBibTex(bibtex))
-                {
-                    pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.BibTex);
-                }
-                if (tags != null)
-                {
-                    tags.ForEach(x => pdf_document.AddTag(x));
-                }
-
-                pdf_document.Comments = comments;
-                pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Comments);
-
-                Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
-                lock (pdf_documents_lock)
-                {
-                    l2_clk.LockPerfTimerStop();
-                    // Store in our database - note that we have the lock already
-                    pdf_documents[pdf_document.Fingerprint] = pdf_document;
-                }
-
-                // Get OCR queued
-                pdf_document.PDFRenderer.CauseAllPDFPagesToBeOCRed();
-            }
-
-            if (!suppress_signal_that_docs_have_changed)
-            {
-                SignalThatDocumentsHaveChanged(pdf_document);
-            }
-
-            return pdf_document;
-        }
-
-        public PDFDocument AddVanillaReferenceDocumentToLibrary(BibTexItem bibtex, List<string> tags, string comments, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
+        public PDFDocument AddVanillaReferenceDocumentToLibrary(FilenameWithMetadataImport info, LibraryPdfActionCallbacks post_partum = new LibraryPdfActionCallbacks())
         {
             // Check that we are not adding a duplicate
             Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (pdf_documents_lock)
             {
+	            //string suggested_download_source = info.suggested_download_source_uri;
+	            string bibtex = info.bibtex;
+	            List<string> tags = info.tags;
+	            string comments = info.notes;
+
                 l1_clk.LockPerfTimerStop();
                 foreach (var pdf_document_existing in pdf_documents.Values)
                 {
@@ -563,20 +563,24 @@ namespace Qiqqa.DocumentLibrary
                 pdf_documents[pdf_document.Fingerprint] = pdf_document;
             }
 
-            if (!suppress_signal_that_docs_have_changed)
-            {
-                SignalThatDocumentsHaveChanged(pdf_document);
-            }
+            SignalThatDocumentsHaveChanged(pdf_document);
 
             return pdf_document;
         }
 
-        public PDFDocument CloneExistingDocumentFromOtherLibrary_SYNCHRONOUS(PDFDocument existing_pdf_document, bool suppress_dialogs, bool suppress_signal_that_docs_have_changed)
+        public PDFDocument CloneExistingDocumentFromOtherLibrary_SYNCHRONOUS(PDFDocument existing_pdf_document, bool suppress_dialogs)
         {
             StatusManager.Instance.UpdateStatus("LibraryDocument", String.Format("Copying {0} into library", existing_pdf_document.TitleCombined));
 
             //  do a normal add (since stored separately)
-            var new_pdf_document = AddNewDocumentToLibrary(existing_pdf_document.DocumentPath, null, null, null, null, null, suppress_dialogs, suppress_signal_that_docs_have_changed);
+            var new_pdf_document = AddNewDocumentToLibrary_SYNCHRONOUS(new FilenameWithMetadataImport
+            {
+                filename = existing_pdf_document.DocumentPath,
+                //original_filename = existing_pdf_document.DownloadLocation,
+                suggested_download_source_uri = existing_pdf_document.DownloadLocation,
+                tags = new List<string>(TagTools.ConvertTagBundleToTags(existing_pdf_document.Tags)),
+                notes = existing_pdf_document.Comments,
+            }, suppress_dialogs);
 
             // If we were not able to create the PDFDocument from an existing pdf file (i.e. it was a missing reference), then create one from scratch
             if (null == new_pdf_document)

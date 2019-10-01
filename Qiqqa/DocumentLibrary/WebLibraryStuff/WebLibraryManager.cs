@@ -140,7 +140,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     System.Threading.Thread.Sleep(500);
                 }
                     
-                QiqqaManualTools.AddManualsToLibrary(guest_web_library_detail.library);
+            	QiqqaManualTools.AddManualsToLibrary(guest_web_library_detail.library, new LibraryPdfActionCallbacks());
             });
         }
 

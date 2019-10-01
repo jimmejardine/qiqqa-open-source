@@ -374,6 +374,10 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                         Logging.Info("FolderWatcher: {0} of {1} files have been processed/inspected (total {2} scanned, {3} skipped, {4} ignored)", processed_file_count, processing_file_count, scanned_file_count, skipped_file_count, scanned_file_count - skipped_file_count - processing_file_count);
                         // process one little batch, before we add any more:
                         ProcessTheNewDocuments(filenames_that_are_new);
+
+                        // reset 
+                        filenames_that_are_new.Clear();
+
                         processed_file_count = processing_file_count;
                     }
                 }
@@ -410,12 +414,28 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             }
 
             // Create the import records
-            List<ImportingIntoLibrary.FilenameWithMetadataImport> filename_with_metadata_imports = new List<ImportingIntoLibrary.FilenameWithMetadataImport>();
             foreach (var filename in filenames_that_are_new)
             {
-                filename_with_metadata_imports.Add(new ImportingIntoLibrary.FilenameWithMetadataImport {
+                if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+                {
+                    Logging.Debug("FolderWatcher::ProcessTheNewDocuments: Aborting due to daemon termination");
+                    return;
+                }
+
+                var file_info = new FilenameWithMetadataImport
+                {
                     filename = filename,
                     tags = new List<string>(this.tags)
+                };
+
+                // Get the library to import all these new files
+                ImportingIntoLibrary.AddNewPDFDocumentToLibraryWithMetadata_ASYNCHRONOUS(library, true, file_info, new LibraryPdfActionCallbacks
+                {
+                    OnAdded = (pdf_document, filename) =>
+                    {
+	                    // Add this file to the list of processed files...
+	                    folder_watcher_manager.RememberProcessedFile(filename);
+                    }
                 });
 
                 // TODO: refactor this: delay until the PDF has actually been processed completely!
@@ -423,14 +443,6 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 // Add this file to the list of processed files...
                 folder_watcher_manager.RememberProcessedFile(filename);
             }
-
-            // Get the library to import all these new files
-            ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(library, true, true, filename_with_metadata_imports.ToArray());
-
-            // TODO: refactor the ImportingIntoLibrary class 
-            //
-            // HACK & QUICK PATCH until we have refactored this stuff:
-            filenames_that_are_new.Clear();
         }
     }
 }

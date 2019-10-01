@@ -352,7 +352,7 @@ namespace Qiqqa.DocumentLibrary
         {
             using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonAddPDFPopup))
             {
-                PDFDocument pdf_document = library.AddVanillaReferenceDocumentToLibrary(null, null, null, false, false);
+                PDFDocument pdf_document = library.AddVanillaReferenceDocumentToLibrary(new FilenameWithMetadataImport());
 
                 // Let's pop up the bibtex editor window for the new document
                 MetadataBibTeXEditorControl editor = new MetadataBibTeXEditorControl();
@@ -513,7 +513,7 @@ namespace Qiqqa.DocumentLibrary
                 {
                     if (dlg.ShowDialog() == DialogResult.OK)
                     {
-                        ImportingIntoLibrary.AddNewPDFDocumentsToLibrary_ASYNCHRONOUS(library, false, false, dlg.FileNames);
+                    	ImportingIntoLibrary.AddNewPDFDocumentsToLibrary_ASYNCHRONOUS(library, false, dlg.FileNames);
                     }
                 }
             }

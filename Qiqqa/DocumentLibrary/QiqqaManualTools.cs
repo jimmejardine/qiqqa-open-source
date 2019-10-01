@@ -24,9 +24,9 @@ namespace Qiqqa.DocumentLibrary
         }
 
 
-        private static PDFDocument AddQiqqaManualToLibrary(Library library)
+        private static void AddQiqqaManualToLibrary(Library library, LibraryPdfActionCallbacks post_partum)
         {
-            ImportingIntoLibrary.FilenameWithMetadataImport fwmi = new ImportingIntoLibrary.FilenameWithMetadataImport();
+            FilenameWithMetadataImport fwmi = new FilenameWithMetadataImport();
             fwmi.filename = QiqqaManualFilename;
             fwmi.tags = new List<string> { "manual", "help" };
             fwmi.bibtex = BibTexParser.ParseOne(
@@ -36,14 +36,12 @@ namespace Qiqqa.DocumentLibrary
                 ",	year	= {2013}" + "\n" +
                 "}", true);
 
-            PDFDocument pdf_document = ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(library, true, true, new ImportingIntoLibrary.FilenameWithMetadataImport[] { fwmi });
-
-            return pdf_document;
+            library.AddNewDocumentToLibrary_SYNCHRONOUS(fwmi, true, post_partum);
         }
 
-        private static PDFDocument AddLoexManualToLibrary(Library library)
+        private static void AddLoexManualToLibrary(Library library)
         {
-            ImportingIntoLibrary.FilenameWithMetadataImport fwmi = new ImportingIntoLibrary.FilenameWithMetadataImport();
+            FilenameWithMetadataImport fwmi = new FilenameWithMetadataImport();
             fwmi.filename = LoexManualFilename;
             fwmi.tags.AddRange(new List<string> { "manual", "help" } );
             fwmi.bibtex = BibTexParser.ParseOne(
@@ -56,15 +54,13 @@ namespace Qiqqa.DocumentLibrary
                 ",	pages	= {4-6}" + "\n" +
                 "}", true);
 
-            PDFDocument pdf_document = ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(library, true, true, new ImportingIntoLibrary.FilenameWithMetadataImport[] { fwmi });
-
-            return pdf_document;
+            library.AddNewDocumentToLibrary_SYNCHRONOUS(fwmi, true);
         }
 
-        public static PDFDocument AddManualsToLibrary(Library library)
+        public static void AddManualsToLibrary(Library library, LibraryPdfActionCallbacks post_partum)
         {   
             AddLoexManualToLibrary(library);
-            return AddQiqqaManualToLibrary(library);
+            AddQiqqaManualToLibrary(library, post_partum);
         }
     }
 }
