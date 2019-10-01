@@ -160,7 +160,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
             
             if (record.fields.ContainsKey("notes"))
             {
-                fwmi.notes = record.fields["notes"];
+                fwmi.Notes = record.fields["notes"];
             }
 
             if (record.fields.ContainsKey("keywords"))

@@ -175,7 +175,7 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
             string prefix = 
                 pdf_document.ReadingStage 
                 + " - "
-                + (String.IsNullOrEmpty(pdf_document.BibTex) ? "NoBibTeX" : "HasBibTeX")
+                + (pdf_document.BibTex.IsEmpty() ? "NoBibTeX" : "HasBibTeX")
                 + " - "
                 + (!pdf_document.DocumentExists ? "NoPDF" : "HasPDF")
                 + " - "

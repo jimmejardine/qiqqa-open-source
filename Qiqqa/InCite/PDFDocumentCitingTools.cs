@@ -43,7 +43,7 @@ namespace Qiqqa.InCite
             {
                 foreach (var pdf_document in pdf_documents)
                 {
-                    if (String.IsNullOrEmpty(pdf_document.BibTex))
+                    if (pdf_document.BibTex.IsEmpty())
                     {
                         MessageBoxes.Warn("One or more of your documents have no associated BibTeX information.  Please add some or use the BibTeX Sniffer to locate it on the Internet.");
                         return;
@@ -83,7 +83,7 @@ namespace Qiqqa.InCite
                     {
                         if (pdf_document_other != pdf_document)
                         {
-                            if (!String.IsNullOrEmpty(pdf_document_other.BibTex) && pdf_document_other.BibTex.Contains(key))
+                            if (!pdf_document_other.BibTex.IsEmpty() && pdf_document_other.BibTex.Contains(key))
                             {
                                 if (pdf_document_other.BibTex.Key == key)
                                 {

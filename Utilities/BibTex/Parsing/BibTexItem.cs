@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Utilities.Strings;
 
 namespace Utilities.BibTex.Parsing
 {
@@ -369,6 +370,17 @@ namespace Utilities.BibTex.Parsing
                 ExtractTagsFromBibTeXField("keywords", ref tags);
                 return tags;
             }
+        }
+
+        public static string TagsToString(HashSet<string> tags)
+        {
+            string[] ts = new string[tags.Count];
+            int i = 0;
+            foreach (string tag in tags)
+            {
+                ts[i++] = tag;
+            }
+            return StringTools.ConcatenateStrings(ts, ";");
         }
 
         public void DelayedParse(string record)

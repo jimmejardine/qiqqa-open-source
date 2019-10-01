@@ -35,7 +35,7 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
             // Don't allow if there has been a recent problem connecting to bibtexsearch
             if (MustBackoff()) return false;
             if (!pdf_document.DocumentExists) return false;
-            if (!String.IsNullOrEmpty(pdf_document.BibTex)) return false;
+            if (!pdf_document.BibTex.IsEmpty()) return false;
             if (pdf_document.AutoSuggested_BibTeXSearch) return false;
             if (!ConfigurationManager.Instance.ConfigurationRecord.Metadata_AutomaticallyAssociateBibTeX) return false;
 
@@ -47,7 +47,7 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
         {
             if (MustBackoff() && !manual_override) return false;
             if (!pdf_document.DocumentExists) return false;
-            if (!String.IsNullOrEmpty(pdf_document.BibTex) && !manual_override) return false;
+            if (!pdf_document.BibTex.IsEmpty() && !manual_override) return false;
             if (pdf_document.AutoSuggested_BibTeXSearch && !manual_override) return false;
             if (!ConfigurationManager.Instance.ConfigurationRecord.Metadata_AutomaticallyAssociateBibTeX && !manual_override) return false;
 

@@ -23,7 +23,7 @@ namespace Qiqqa.Exporting
                 for (int i = 0; i < pdf_documents.Count; ++i)
                 {
                     PDFDocument pdf_document = pdf_documents[i];
-                    if (!String.IsNullOrEmpty(pdf_document.BibTex))
+                    if (!pdf_document.BibTex.IsEmpty())
                     {
                         BibTexItem item = BibTexParser.ParseOne(pdf_document.BibTex, true);
                         if (null != item)
@@ -77,7 +77,7 @@ namespace Qiqqa.Exporting
                 
                 try
                 {   
-                    if (!String.IsNullOrEmpty(pdf_document.BibTex))
+                    if (!pdf_document.BibTex.IsEmpty())
                     {
                         BibTexItem item = BibTexParser.ParseOne(pdf_document.BibTex, true);
                         if (null != item)

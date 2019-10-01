@@ -262,12 +262,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
             try
             {
-                string bibtex = pdf_document.BibTex;
-
-                BibTexItem bibtex_item = BibTexParser.ParseOne(bibtex, true);
-
                 PDFSearchResultSet search_result_set;
-                if (BibTeXGoodnessOfFitEstimator.DoesBibTeXMatchDocument(bibtex_item, pdf_document, out search_result_set))
+                if (BibTeXGoodnessOfFitEstimator.DoesBibTeXMatchDocument(pdf_document.BibTex, pdf_document, out search_result_set))
                 {
                     ObjBibTeXEditorControl.Background = Brushes.LightGreen;
                     // ReflectPDFDocument(string search_terms)?
@@ -493,9 +489,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
                 if (pdf_document.Deleted) continue;
 
-                if (search_options.Missing && String.IsNullOrEmpty(pdf_document.BibTex)) include_in_search_pool = true;
+                if (search_options.Missing && pdf_document.BibTex.IsEmpty()) include_in_search_pool = true;
 
-                if (!String.IsNullOrEmpty(pdf_document.BibTex))
+                if (!pdf_document.BibTex.IsEmpty())
                 {
                     if (search_options.Auto)
                         include_in_search_pool = (
@@ -856,7 +852,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                 if (ConfigurationManager.Instance.ConfigurationRecord.Metadata_UseBibTeXSnifferWizard)
                 {
                     // Only do this automatically if there is not already bibtex in the record
-                    if (null != pdf_document && String.IsNullOrEmpty(pdf_document.BibTex))
+                    if (null != pdf_document && pdf_document.BibTex.IsEmpty())
                     { 
                         string url = ObjWebBrowser.CurrentUri.AbsoluteUri;
                         string html = ObjWebBrowser.CurrentPageHTML;

@@ -383,13 +383,13 @@ namespace Qiqqa.DocumentLibrary
             // Check if we should hint about BibTex
             {
                 int NUM_TO_CHECK = 10;
-                int total_without_bibex = 0;
+                int total_without_bibtex = 0;
                 List<PDFDocument> pdf_document_to_check_for_bibtex = this.library.PDFDocuments;
                 for (int i = 0; i < pdf_document_to_check_for_bibtex.Count && i < NUM_TO_CHECK; ++i)
                 {
-                    if (!pdf_document_to_check_for_bibtex[i].Deleted && String.IsNullOrEmpty(pdf_document_to_check_for_bibtex[i].BibTex))
+                    if (!pdf_document_to_check_for_bibtex[i].Deleted && pdf_document_to_check_for_bibtex[i].BibTex.IsEmpty())
                     {
-                        ++total_without_bibex;
+                        ++total_without_bibtex;
                     }
                 }
 
@@ -397,7 +397,7 @@ namespace Qiqqa.DocumentLibrary
                 ObjNotMuchBibTeXDescriptionBorder.Visibility = Visibility.Collapsed;
                 if (this.library.PDFDocuments.Count > EMPTY_LIBRARY_THRESHOLD && pdf_document_to_check_for_bibtex.Count > 0)
                 {
-                    if (total_without_bibex / (double)pdf_document_to_check_for_bibtex.Count >= 0.5 || total_without_bibex / (double)NUM_TO_CHECK >= 0.5)
+                    if (total_without_bibtex / (double)pdf_document_to_check_for_bibtex.Count >= 0.5 || total_without_bibtex / (double)NUM_TO_CHECK >= 0.5)
                     {
                         ObjNotMuchBibTeXDescriptionBorder.Visibility = Visibility.Visible;
                     }

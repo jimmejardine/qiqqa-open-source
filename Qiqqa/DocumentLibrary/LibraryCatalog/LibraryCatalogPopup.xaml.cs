@@ -350,7 +350,7 @@ SourceURL: {0}
                 {
                     foreach (var pdf_document in pdf_documents)
                     {
-                        pdf_document.BibTex = "";
+                        pdf_document.BibTex = new Utilities.BibTex.Parsing.BibTexItem();
                         pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.BibTex);
                     }
 

@@ -36,21 +36,18 @@ namespace Qiqqa.DocumentLibrary
 
         #region --- Add filenames ---------------------------------------------------------------------------------------------------------------------------
 
-        public class FilenameWithMetadataImport
+        public class FilenameWithMetadataImport : BibTeXEntry
         {
-            public string filename;
-            public BibTeXEntry bibtex;
-            public string notes;
             public List<string> tags = new List<string>();
 
             public override string ToString()
             {
                 return String.Format(
                     "---\r\n{0}\r\n{1}\r\n{2}\r\n{3}\r\n---"
-                    ,filename
-                    ,bibtex.Parsed.ToBibTex()
-                    ,notes
-                    ,StringTools.ConcatenateStrings(tags, ';')
+                    ,this.Filename
+                    ,this.BibTexRecord.ToBibTex()
+                    ,this.Notes
+                    ,StringTools.ConcatenateStrings(tags, ";")
                 );
             }
         }
@@ -109,7 +106,7 @@ namespace Qiqqa.DocumentLibrary
 
                 try
                 {
-                    string filename = filename_with_metadata_import.filename;
+                    string filename = filename_with_metadata_import.Filename;
                     BibTeXEntry bibtex = filename_with_metadata_import.bibtex;
 
                     // Although the outside world may allow us to be signalling, we will not do it unless we are the n-100th doc or the last doc
@@ -122,7 +119,7 @@ namespace Qiqqa.DocumentLibrary
                         }
                     }
 
-                    PDFDocument pdf_document = library.AddNewDocumentToLibrary_SYNCHRONOUS(filename, filename, filename, bibtex, filename_with_metadata_import.tags, filename_with_metadata_import.notes, suppress_notifications, local_suppress_signal_that_docs_have_changed);
+                    PDFDocument pdf_document = library.AddNewDocumentToLibrary_SYNCHRONOUS(filename, filename, filename, bibtex, filename_with_metadata_import.tags, filename_with_metadata_import.Notes, suppress_notifications, local_suppress_signal_that_docs_have_changed);
                     if (null != pdf_document)
                     {
                         ++successful_additions;
@@ -282,7 +279,7 @@ namespace Qiqqa.DocumentLibrary
                 {
                     var filename_with_metadata_import = new FilenameWithMetadataImport
                                                             {
-                                                                filename = filename,
+                                                                Filename = filename,
                                                                 tags = tags
                                                             };
                     file_list.Add(filename_with_metadata_import);

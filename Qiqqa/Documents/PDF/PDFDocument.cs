@@ -205,38 +205,12 @@ namespace Qiqqa.Documents.PDF
             }
         }
 
-        [NonSerialized]
-        private BibTexItem _BibTex;
         public BibTexItem BibTex
-        {
-            get
-            {
-                return _BibTex;
-            }
-            set
-            {
-                // Store the new value
-                _BibTex = value;
+        { get; private set; }
 
-                // If the bibtex contains title, author or year, use those by clearing out any overriding values
-                if (_BibTex.HasTitle())
-                {
-                    Title = null;
-                }
-                if (_BibTex.HasAuthor())
-                {
-                    Authors = null;
-                }
-                if (_BibTex.HasYear())
-                {
-                    Year = null;
-                }
-            }
-        }
-
-        public bool UpdateBibTex(BibTexItem fresh)
+        public bool UpdateBibTex(BibTexItem fresh, bool replace = true)
         {
-            if (fresh == null || fresh.IsEmpty() || fresh.IsContentIdenticalTo(bibtex_item))
+            if (fresh == null || fresh.IsEmpty() || fresh.IsContentIdenticalTo(fresh))
             {
                 return false;
             }
@@ -244,24 +218,23 @@ namespace Qiqqa.Documents.PDF
             // TODO: check and heuristic for merge/update
 
             // Store the new value
-            _BibTex = bibtex_item;
+            BibTex = fresh;
 
             // If the bibtex contains title, author or year, use those by clearing out any overriding values
-            if (bibtex_item.HasTitle())
+            if (fresh.HasTitle())
             {
                 Title = null;
             }
-            if (bibtex_item.HasAuthor())
+            if (fresh.HasAuthor())
             {
                 Authors = null;
             }
-            if (bibtex_item.HasYear())
+            if (fresh.HasYear())
             {
                 Year = null;
             }
 
             return true;
-            }
         }
 
         public string Title

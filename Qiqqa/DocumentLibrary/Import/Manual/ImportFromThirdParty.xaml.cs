@@ -570,13 +570,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             foreach (AugmentedBindable<BibTeXEntry> entry in allEntries)
             {
                 BibTeXEntry item = entry.Underlying;
-                ImportingIntoLibrary.FilenameWithMetadataImport filename_with_metadata_import = new ImportingIntoLibrary.FilenameWithMetadataImport
-                {
-                    filename = item.Filename,
-                    bibtex = item.Parsed,
-                    tags = item.Tags,
-                    notes = item.Notes
-                };
+                ImportingIntoLibrary.FilenameWithMetadataImport filename_with_metadata_import = new ImportingIntoLibrary.FilenameWithMetadataImport(item);
 
                 filename_and_bibtex_imports.Add(filename_with_metadata_import);
             }

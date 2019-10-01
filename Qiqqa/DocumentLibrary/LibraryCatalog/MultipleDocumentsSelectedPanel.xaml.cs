@@ -256,7 +256,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
                         bibtex_item.SetIfHasValue(field_pair.Key, field_pair.Value);
                     }
 
-                    pdf_document.BibTex = bibtex_item.ToBibTex();
+                    pdf_document.BibTex = bibtex_item;
                     pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.BibTex);
                 }
                 else

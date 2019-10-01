@@ -45,58 +45,6 @@ namespace Utilities.Strings
             }
         }
 
-        /// <summary>
-        /// Default behaviour, combine all using a comma separator.
-        /// </summary>
-        public static string ConcatenateStrings(List<string> strings)
-        {
-            if (strings == null) return string.Empty;
-            return ConcatenateStrings(strings.ToArray(), ',', 0);
-        }
-
-        public static string ConcatenateStrings(IEnumerable<string> strings, string separator)
-        {
-            return ConcatenateStrings(new List<string>(strings).ToArray(), separator, 0, Int32.MaxValue);
-        }
-        
-        public static string ConcatenateStrings(List<string> strings, char separator)
-        {
-            if (strings == null) return string.Empty;
-            return ConcatenateStrings(strings.ToArray(), separator);
-        }
-
-        public static string ConcatenateStrings(List<string> strings, char separator, int from)
-        {
-            if (strings == null) return string.Empty;
-            return ConcatenateStrings(strings.ToArray(), separator, from);
-        }
-
-        public static string ConcatenateStrings(List<string> strings, string separator, int from)
-        {
-            if (strings == null) return string.Empty;
-            return ConcatenateStrings(strings.ToArray(), separator, from);
-        }
-
-        public static string ConcatenateStrings(string[] strings, char separator)
-        {
-            return ConcatenateStrings(strings, separator.ToString(), 0, int.MaxValue);
-        }
-
-        public static string ConcatenateStrings(string[] strings, char separator, int from)
-        {
-            return ConcatenateStrings(strings, separator.ToString(), from, int.MaxValue);
-        }
-
-        public static string ConcatenateStrings(string[] strings, char separator, int from, int to_exclusive)
-        {
-            return ConcatenateStrings(strings, separator.ToString(), from, to_exclusive);
-        }
-
-        public static string ConcatenateStrings(string[] strings, string separator, int from)
-        {
-            return ConcatenateStrings(strings, separator, from, int.MaxValue);
-        }
-
 	    /// <summary>
         /// Returns the concatenated list of strings separated by separator
         /// </summary>
@@ -104,7 +52,7 @@ namespace Utilities.Strings
         /// <param name="separator"></param>
         /// <param name="from"></param>
         /// <returns></returns>
-        public static string ConcatenateStrings(string[] strings, string separator, int from, int to_exclusive)
+        public static string ConcatenateStrings(string[] strings, string separator = ",", int from = 0, int to_exclusive = int.MaxValue)
         {
             if (null == strings)
             {
@@ -116,20 +64,20 @@ namespace Utilities.Strings
                 return "";
             }
 
+            int end = Math.Min(strings.Length, to_exclusive);
+
             // If there is only one item
-            if (from == strings.Length - 1)
+            if (from == end - 1)
             {
                 return strings[from];
             }
 
             // If there are multiple items
             StringBuilder sb = new StringBuilder();
-            for (int i = from; i < strings.Length && i < to_exclusive; ++i)
+            sb.Append(strings[from]);
+            for (int i = from + 1; i < end; ++i)
             {
-                if (i > from)
-                {
-                    sb.Append(separator);
-                }
+                sb.Append(separator);
                 sb.Append(strings[i]);                
             }
 

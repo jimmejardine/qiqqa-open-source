@@ -74,7 +74,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                 return;
             }
 
-            if (!String.IsNullOrEmpty(pdf_document_bindable.Underlying.BibTex))
+            if (!pdf_document_bindable.Underlying.BibTex.IsEmpty())
             {
                 if (!MessageBoxes.AskQuestion("You already have BibTeX associated with this record.  Are you sure you want to overwrite it?"))
                 {
@@ -95,7 +95,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             if (Utilities.Language.NameTools.UNKNOWN_AUTHORS != pdf_document_bindable.Underlying.AuthorsCombined) bibtem_item.SetAuthor(pdf_document_bindable.Underlying.AuthorsCombined);
             if (PDFDocument.UNKNOWN_YEAR != pdf_document_bindable.Underlying.YearCombined) bibtem_item.SetYear(pdf_document_bindable.Underlying.YearCombined);
 
-            pdf_document_bindable.Underlying.BibTex = bibtem_item.ToBibTex();
+            pdf_document_bindable.Underlying.BibTex = bibtem_item;
             pdf_document_bindable.NotifyPropertyChanged(() => pdf_document_bindable.Underlying.BibTex);
         }
 
