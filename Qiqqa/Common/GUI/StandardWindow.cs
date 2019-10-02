@@ -262,7 +262,7 @@ namespace Qiqqa.Common.GUI
         {
             // Format: Name=X|Y|W|H|M::...
             // Exception to the rule for backwards compatibility: first record is for main window and has no name.
-            string cfg = Configuration.ConfigurationManager.Instance.ConfigurationRecord.GUI_RestoreLocationAtStartup_Position;
+            string cfg = Configuration.ConfigurationManager.Instance.ConfigurationRecord.GUI_RestoreLocationAtStartup_Position ?? "";
             List<string> cfgarr = new List<string>(cfg.Split(new string[] { "::" }, StringSplitOptions.None));
             string position = String.Empty;
             string name_to_find = this.Name;
