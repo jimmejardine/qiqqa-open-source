@@ -30,11 +30,14 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
 
             metadata_extraction_daemon = new MetadataExtractionDaemon();
 
-            MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_OnceOff, 10 * 1000, ThreadPriority.BelowNormal);
+            MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_OnceOff, 10 * 1000, ThreadPriority.BelowNormal, 1);
             MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_Frequent, 10 * 1000, ThreadPriority.BelowNormal);
             MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_Infrequent, 10 * 1000, ThreadPriority.BelowNormal);
             MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_QuiteInfrequent, 10 * 1000, ThreadPriority.BelowNormal);
             MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_VeryInfrequent, 10 * 1000, ThreadPriority.BelowNormal);
+
+            // hold off: level 3 -> 2
+            MaintainableManager.Instance.BumpHoldOffPendingLevel();
         }
 
         void DoMaintenance_OnceOff(Daemon daemon)
@@ -103,6 +106,9 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
                 {
                     Logging.Error(ex, "Exception during AutoImportFromEndnoteChecker.DoCheck");
                 }
+
+                // hold off: level 1 -> 0
+                MaintainableManager.Instance.BumpHoldOffPendingLevel();
             }
 
             // We only want this to run once
@@ -142,7 +148,7 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
                 // If this library is busy, skip it for now
                 if (Library.IsBusyAddingPDFs)
                 {
-                    Logging.Info("Not daemon processing a library that is busy with adds...");
+                    Logging.Info("DoMaintenance_VeryInfrequent: Not daemon processing a library that is busy with adds...");
                     continue;
                 }
 
@@ -171,6 +177,14 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
                 daemon.Sleep(10 * 1000);
                 return;
             }
+
+            // If this library is busy, skip it for now
+            if (Library.IsBusyAddingPDFs)
+            {
+                Logging.Info("DoMaintenance_QuiteInfrequent: Not daemon processing a library that is busy with adds...");
+                return;
+            }
+
         }
 
         void DoMaintenance_Infrequent(Daemon daemon)
@@ -192,7 +206,7 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
                 // If this library is busy, skip it for now
                 if (Library.IsBusyAddingPDFs)
                 {
-                    Logging.Info("Not daemon processing a library that is busy with adds...");
+                    Logging.Info("DoMaintenance_Infrequent: Not daemon processing a library that is busy with adds...");
                     continue;
                 }
 
@@ -236,7 +250,7 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
                 // If this library is busy, skip it for now
                 if (Library.IsBusyAddingPDFs)
                 {
-                    Logging.Info("Not daemon processing a library that is busy with adds...");
+                    Logging.Info("DoMaintenance_Frequent: Not daemon processing a library that is busy with adds...");
                     continue;
                 }
 

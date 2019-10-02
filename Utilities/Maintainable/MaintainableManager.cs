@@ -18,6 +18,8 @@ namespace Utilities.Maintainable
             internal MethodInfo method_info;
 
             internal int delay_before_start_milliseconds;
+            internal int hold_off_level;
+
             internal Daemon daemon;
         }
 
@@ -52,7 +54,7 @@ namespace Utilities.Maintainable
             }
         }
 
-        public void RegisterHeldOffTask(DoMaintenanceDelegate do_maintenance_delegate, int delay_before_start_milliseconds, ThreadPriority thread_priority)
+        public void RegisterHeldOffTask(DoMaintenanceDelegate do_maintenance_delegate, int delay_before_start_milliseconds, ThreadPriority thread_priority, int hold_off_level = 0)
         {
             Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (do_maintenance_delegate_wrappers_lock)
@@ -64,6 +66,7 @@ namespace Utilities.Maintainable
                 do_maintenance_delegate_wrapper.target = new WeakReference(do_maintenance_delegate.Target);
                 do_maintenance_delegate_wrapper.method_info = do_maintenance_delegate.Method;
                 do_maintenance_delegate_wrapper.delay_before_start_milliseconds = delay_before_start_milliseconds;
+                do_maintenance_delegate_wrapper.hold_off_level = hold_off_level;
                 do_maintenance_delegate_wrapper.daemon = new Daemon("Maintainable:" + do_maintenance_delegate.Target.GetType().Name + "." + do_maintenance_delegate.Method.Name);
                 
                 // Add it to our list of trackers
@@ -83,7 +86,7 @@ namespace Utilities.Maintainable
             // first wait until the hold off signal is released
             while (daemon.StillRunning && !Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
             {
-                if (!IsHoldOffPending) break;
+                if (!IsHoldOffPending(do_maintenance_delegate_wrapper.hold_off_level)) break;
                 daemon.Sleep(1000);
             }
 
@@ -123,31 +126,25 @@ namespace Utilities.Maintainable
             }
         }
 
-        private bool hold_off = true;
+        private int hold_off = 3;
         private object hold_off_lock = new object();
-    
-        public bool IsHoldOffPending
+
+        public bool IsHoldOffPending(int level)
         {
-            get
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (hold_off_lock)
             {
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-                lock (hold_off_lock)
-                {
-                    l1_clk.LockPerfTimerStop();
-                    return hold_off;
-                }
+                l1_clk.LockPerfTimerStop();
+                return (hold_off > level);
             }
-            set
+        }
+        public void BumpHoldOffPendingLevel()
+        {
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (hold_off_lock)
             {
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-                lock (hold_off_lock)
-                {
-                    l1_clk.LockPerfTimerStop();
-                    if (!value)
-                    {
-                        hold_off = false;
-                    }
-                }
+                l1_clk.LockPerfTimerStop();
+                hold_off--;
             }
         }
     }
