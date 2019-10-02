@@ -70,9 +70,9 @@ namespace Qiqqa.WebBrowsing
                 StatusManager.Instance.UpdateStatusBusy("HTMLToPDF", "Converting HTML to PDF: adding to library");
                 PDFDocument pdf_document = Library.GuestInstance.AddNewDocumentToLibrary_SYNCHRONOUS(new FilenameWithMetadataImport
                 {
-                    filename = filename,
-                    original_filename = url,
-                    suggested_download_source_uri = url
+                    Filename = filename,
+                    OriginalFilename = url,
+                    SuggestedDownloadSourceURI = url
                 }, true);
                 pdf_document.TitleCombined = title;
                 pdf_document.YearCombined = Convert.ToString(DateTime.Now.Year);

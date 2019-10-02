@@ -424,17 +424,17 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
                 var file_info = new FilenameWithMetadataImport
                 {
-                    filename = filename,
-                    tags = new List<string>(this.tags)
+                    Filename = filename,
+                    Tags = new HashSet<string>(this.tags)
                 };
 
                 // Get the library to import all these new files
                 ImportingIntoLibrary.AddNewPDFDocumentToLibraryWithMetadata_ASYNCHRONOUS(library, true, file_info, new LibraryPdfActionCallbacks
                 {
-                    OnAdded = (pdf_document, filename) =>
+                    OnAdded = (pdf_document, pdf_filename) =>
                     {
                         // Add this file to the list of processed files...
-                        folder_watcher_manager.RememberProcessedFile(filename);
+                        folder_watcher_manager.RememberProcessedFile(pdf_filename);
                     }
                 });
 

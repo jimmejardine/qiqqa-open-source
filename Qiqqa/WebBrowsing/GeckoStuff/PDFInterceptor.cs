@@ -154,9 +154,9 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
 
                 PDFDocument pdf_document = Library.GuestInstance.AddNewDocumentToLibrary_SYNCHRONOUS(new FilenameWithMetadataImport
                 {
-                    filename = temp_pdf_filename,
-                    original_filename = document_source_filename,
-                    suggested_download_source_uri = document_source_url
+                    Filename = temp_pdf_filename,
+                    OriginalFilename = document_source_filename,
+                    SuggestedDownloadSourceURI = document_source_url
                 }, true);
                 File.Delete(temp_pdf_filename);
 

@@ -350,11 +350,11 @@ namespace Qiqqa.DocumentLibrary
 
             PDFDocument pdf_document = null;
 
-            string filename = info.filename;
-            string suggested_download_source = info.suggested_download_source_uri;
-            string bibtex = info.bibtex;
-            List<string> tags = info.tags;
-            string comments = info.notes;
+            string filename = info.Filename;
+            string suggested_download_source = info.SuggestedDownloadSourceURI;
+            BibTexItem bibtex = info.BibTex;
+            HashSet<string> tags = info.Tags;
+            string comments = info.Notes;
 
             StatusManager.Instance.UpdateStatus("LibraryDocument", String.Format("Adding {0} to library", filename));
 
@@ -454,7 +454,7 @@ namespace Qiqqa.DocumentLibrary
 
                     if (tags != null)
                     {
-                        tags.ForEach(x => pdf_document.AddTag(x)); //Notify changes called internally
+                        tags.ForEach(x => pdf_document.AddTag(x)); // Notify changes called internally
                     }
 
                     // If we already have comments, then append them to our existing comments (if they are not identical)
@@ -517,22 +517,22 @@ namespace Qiqqa.DocumentLibrary
 
         public PDFDocument AddVanillaReferenceDocumentToLibrary(FilenameWithMetadataImport info, LibraryPdfActionCallbacks post_partum = new LibraryPdfActionCallbacks())
         {
+            //string suggested_download_source = info.SuggestedDownloadSourceURI;
+            BibTexItem bibtex = info.BibTex;
+            HashSet<string> tags = info.Tags;
+            string comments = info.Notes;
+
             // Check that we are not adding a duplicate
             Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (pdf_documents_lock)
             {
-                //string suggested_download_source = info.suggested_download_source_uri;
-                string bibtex = info.bibtex;
-                List<string> tags = info.tags;
-                string comments = info.notes;
-
                 l1_clk.LockPerfTimerStop();
                 foreach (var pdf_document_existing in pdf_documents.Values)
                 {
-                    if (!pdf_document_existing.BibTexItem.IsEmpty())
+                    if (!pdf_document_existing.BibTex.IsEmpty())
                     {
                         // Identical BibTeX (after the key) will be treated as a duplicate
-                        if (pdf_document_existing.BibTexItem.IsContentIdenticalTo(bibtex))
+                        if (pdf_document_existing.BibTex.IsContentIdenticalTo(bibtex))
                         {
                             Logging.Info("Not importing duplicate vanilla reference with identical BibTeX to '{0}' ({1}).", pdf_document_existing.TitleCombined, pdf_document_existing.Fingerprint);
                             return pdf_document_existing;
@@ -575,11 +575,11 @@ namespace Qiqqa.DocumentLibrary
             //  do a normal add (since stored separately)
             var new_pdf_document = AddNewDocumentToLibrary_SYNCHRONOUS(new FilenameWithMetadataImport
             {
-                filename = existing_pdf_document.DocumentPath,
-                //original_filename = existing_pdf_document.DownloadLocation,
-                suggested_download_source_uri = existing_pdf_document.DownloadLocation,
-                tags = new List<string>(TagTools.ConvertTagBundleToTags(existing_pdf_document.Tags)),
-                notes = existing_pdf_document.Comments,
+                Filename = existing_pdf_document.DocumentPath,
+                //OriginalFilename = existing_pdf_document.DownloadLocation,
+                SuggestedDownloadSourceURI = existing_pdf_document.DownloadLocation,
+                Tags = new HashSet<string>(TagTools.ConvertTagBundleToTags(existing_pdf_document.Tags)),
+                Notes = existing_pdf_document.Comments,
             }, suppress_dialogs);
 
             // If we were not able to create the PDFDocument from an existing pdf file (i.e. it was a missing reference), then create one from scratch

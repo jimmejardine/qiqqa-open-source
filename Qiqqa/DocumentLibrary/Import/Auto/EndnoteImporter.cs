@@ -108,7 +108,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
 
                                 // Update statistics
                                 ++edd.documents_found;
-                                if (null != fwmi.filename)
+                                if (null != fwmi.Filename)
                                 {
                                     ++edd.pdfs_found;
                                 }
@@ -154,8 +154,8 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
             }
 
             FilenameWithMetadataImport fwmi = new FilenameWithMetadataImport();
-            fwmi.tags.Add("import_endnote");
-            fwmi.tags.Add("import_endnote_" + Path.GetFileNameWithoutExtension(endnote_database_filename));
+            fwmi.Tags.Add("import_endnote");
+            fwmi.Tags.Add("import_endnote_" + Path.GetFileNameWithoutExtension(endnote_database_filename));
             fwmi.BibTexRecord = bibtex_item;
 
             if (record.fields.ContainsKey("notes"))
@@ -167,7 +167,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
             {
                 string keywords = record.fields["keywords"];
                 string[] tags = keywords.Split(new char[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                fwmi.tags.AddRange(tags);
+                fwmi.Tags.AddRange(tags);
             }
 
             // Handle the attachments
@@ -175,7 +175,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
             {
                 string links_string = record.fields["link_to_pdf"];
 
-                fwmi.suggested_download_source_uri = links_string;
+                fwmi.SuggestedDownloadSourceURI = links_string;
 
                 string[] links = links_string.Split(new string[] { ",", "internal-pdf://", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -200,7 +200,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                 {
                     if (pdf_link.ToLower().EndsWith(".pdf") && File.Exists(pdf_link))
                     {
-                        fwmi.filename = pdf_link;
+                        fwmi.Filename = pdf_link;
                         break;
                     }
                 }

@@ -227,7 +227,7 @@ namespace Qiqqa.DocumentLibrary
         /// <summary>
         /// Build up the list of <code>FilenameWithMetadataImport</code>'s, including tags.  Recurse with all subfolders.
         /// </summary>
-        private static void BuildFileListFromFolder(ref List<FilenameWithMetadataImport> file_list, string folder, List<string> tags, bool recurse_subfolders, bool import_tags_from_subfolder_names)
+        private static void BuildFileListFromFolder(ref List<FilenameWithMetadataImport> file_list, string folder, HashSet<string> tags, bool recurse_subfolders, bool import_tags_from_subfolder_names)
         {
             try
             {
@@ -237,7 +237,7 @@ namespace Qiqqa.DocumentLibrary
                     var filename_with_metadata_import = new FilenameWithMetadataImport
                     {
                         Filename = filename,
-                        tags = tags
+                        Tags = tags
                     };
                     file_list.Add(filename_with_metadata_import);
 
@@ -247,11 +247,11 @@ namespace Qiqqa.DocumentLibrary
                 //  onto the subfolders (if required)
                 if (!recurse_subfolders) return;
 
-                if (tags == null) tags = new List<string>();
+                if (tags == null) tags = new HashSet<string>();
                 foreach (var subfolder in Directory.GetDirectories(folder))
                 {
                     //  build up the new tags list (if required)
-                    var subfolder_tags = new List<string>(tags);
+                    var subfolder_tags = new HashSet<string>(tags);
                     if (import_tags_from_subfolder_names)
                     {
                         var directory_info = new DirectoryInfo(subfolder);

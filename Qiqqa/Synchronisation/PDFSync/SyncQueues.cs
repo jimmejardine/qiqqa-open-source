@@ -110,7 +110,7 @@ namespace Qiqqa.Synchronisation.PDFSync
 
                 try
                 {
-                    // --- TODO: Replace this with a pretty interface class ------------------------------------------------
+                    // TODO: Replace this with a pretty interface class ------------------------------------------------
                     if (sync_queue_entry.library.WebLibraryDetail.IsIntranetLibrary)
                     {
                         SyncQueues_Intranet.DaemonPut(sync_queue_entry.library, sync_queue_entry.fingerprint);
@@ -160,7 +160,7 @@ namespace Qiqqa.Synchronisation.PDFSync
 
                 try
                 {
-                    // --- TODO: Replace this with a pretty interface class ------------------------------------------------
+                    // TODO: Replace this with a pretty interface class ------------------------------------------------
                     if (sync_queue_entry.library.WebLibraryDetail.IsIntranetLibrary)
                     {
                         SyncQueues_Intranet.DaemonGet(sync_queue_entry.library, sync_queue_entry.fingerprint);

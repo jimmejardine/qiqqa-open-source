@@ -19,6 +19,7 @@ using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
 using Qiqqa.Documents.PDF.MetadataSuggestions;
+using Utilities.BibTex.Parsing;
 
 namespace Qiqqa.DocumentLibrary.LibraryCatalog
 {
@@ -350,7 +351,7 @@ SourceURL: {0}
                 {
                     foreach (var pdf_document in pdf_documents)
                     {
-                        pdf_document.BibTex = new Utilities.BibTex.Parsing.BibTexItem();
+                        pdf_document.BibTex = new BibTexItem();
                         pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.BibTex);
                     }
 

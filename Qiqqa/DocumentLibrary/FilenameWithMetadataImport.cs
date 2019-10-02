@@ -13,10 +13,10 @@ namespace Qiqqa.DocumentLibrary
         {
             return String.Format(
                 "---\r\n{0}\r\n{1}\r\n{2}\r\n{3}\r\n---"
-                , filename
-                , bibtex
-                , notes
-                , StringTools.ConcatenateStrings(tags, ';')
+                , Filename
+                , BibTex.toBibTex()
+                , Notes
+                , StringTools.ConcatenateStrings(Tags, ';')
             );
         }
     }

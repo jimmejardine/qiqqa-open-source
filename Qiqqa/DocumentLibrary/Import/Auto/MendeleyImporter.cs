@@ -176,8 +176,8 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                                             }
 
                                             FilenameWithMetadataImport fwmi = new FilenameWithMetadataImport();
-                                            fwmi.tags.Add("import_mendeley");
-                                            fwmi.bibtex = bibtex_item;
+                                            fwmi.Tags.Add("import_mendeley");
+                                            fwmi.BibTex = bibtex_item;
 
                                             string filename = reader["localUrl"] as string;
                                             if (!String.IsNullOrEmpty(filename))
@@ -191,15 +191,15 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                                                 filename = Uri.UnescapeDataString(filename);
                                                 filename = filename.Replace('/', '\\');
 
-                                                fwmi.filename = filename;
-                                                fwmi.suggested_download_source_uri = reader["localUrl"] as string;
+                                                fwmi.Filename = filename;
+                                                fwmi.SuggestedDownloadSourceURI = reader["localUrl"] as string;
 
                                                 ++mdd.pdfs_found;
                                             }
 
                                             if (tags_lookup.ContainsKey(document_id))
                                             {
-                                                fwmi.tags.AddRange(tags_lookup[document_id]);
+                                                fwmi.Tags.AddRange(tags_lookup[document_id]);
                                             }
 
                                             string note = reader["note"] as string;
@@ -219,7 +219,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                                                 note = note.Replace("</m:center>", "");
                                                 note = note.Replace("<m:linebreak/>", "\n");
 
-                                                fwmi.notes = note;
+                                                fwmi.Notes = note;
                                             }
 
                                             mdd.metadata_imports.Add(fwmi);

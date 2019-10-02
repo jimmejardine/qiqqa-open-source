@@ -74,7 +74,7 @@ namespace Qiqqa.Synchronisation.MetadataSync
 
         static void BuildFromRemote(Library library, ref SynchronisationStates synchronisation_states)
         {
-            // --- TODO: Replace this with a pretty interface class ------------------------------------------------
+            // TODO: Replace this with a pretty interface class ------------------------------------------------
             if (library.WebLibraryDetail.IsIntranetLibrary)
             {
                 SynchronisationStateBuilder_Intranet.BuildFromRemote(library, ref synchronisation_states);

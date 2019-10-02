@@ -572,7 +572,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             foreach (AugmentedBindable<BibTeXEntry> entry in allEntries)
             {
                 FilenameWithMetadataImport filename_with_metadata_import = new FilenameWithMetadataImport(entry.Underlying);
-//                    suggested_download_source_uri = entry.Underlying.FileURI,
+//                    SuggestedDownloadSourceURI = entry.Underlying.FileURI,
   
                 filename_and_bibtex_imports.Add(filename_with_metadata_import);
             }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Qiqqa.Documents.PDF;
+using Utilities;
 using Utilities.Files;
 using Utilities.Language;
 
@@ -11,7 +12,7 @@ namespace Qiqqa.Exporting
         public static string MakeExportFilename(PDFDocument pdf_document)
         {
             string year = pdf_document.YearCombined;
-            if (year == PDFDocConstantsument.UNKNOWN_YEAR)
+            if (year == Constants.UNKNOWN_YEAR)
             {
                 year = "";
             }

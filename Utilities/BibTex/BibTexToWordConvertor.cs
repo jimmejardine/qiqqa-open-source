@@ -144,7 +144,7 @@ namespace Utilities.BibTex
         /// <param name="doc"></param>
         /// <param name="bibtex"></param>
         /// <returns></returns>
-        public static XmlNode ConvertBibTexToXML(XmlDocument doc, string bibtex)
+        public static XmlNode ConvertBibTexToXML(XmlDocument doc, BibTexItem bibtex)
         {
             int brace_start = bibtex.IndexOf('{');
 

@@ -520,7 +520,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             }
             else if (KeyboardTools.IsCTRLDown() && e.Key == Key.F)
             {
-                SetSearchKeywords();    // *** TODO
+                SetSearchKeywords();    // TODO: ***
                 e.Handled = true;
             }
 

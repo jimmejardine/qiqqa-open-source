@@ -77,7 +77,7 @@ namespace Utilities.Language
             for (int i = 0; i < authors.Length; ++i)
             {
                 authors[i] = authors[i].Trim();
-                // ***TODO Some of these could be blank...
+                // TODO: Some of these could be blank...
             }
 
             return authors;

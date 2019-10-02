@@ -122,6 +122,10 @@ namespace Qiqqa.DocumentLibrary
             {
                 return delegate (PDFDocument p1, PDFDocument p2)
                 {
+                    // TODO: heuristic: number of filled fields trumps length of BibTeX 
+                    // TODO: heuristic: length of BibTeX should NOT take comments into account, 
+                    // hence we should generate a comment-less BibTeX string for that (while
+                    // other parts of Qiqqa require a FULL dump output mode)
                     return Sorting.CompareLengths(p1.BibTex, p2.BibTex);
                 };
             }

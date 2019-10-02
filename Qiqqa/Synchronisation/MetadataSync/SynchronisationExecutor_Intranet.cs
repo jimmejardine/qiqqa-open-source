@@ -16,7 +16,7 @@ namespace Qiqqa.Synchronisation.MetadataSync
             IntranetLibraryDB db = new IntranetLibraryDB(library.WebLibraryDetail.IntranetPath);
             IntranetLibraryDB.IntranetLibraryItem item = db.GetIntranetLibraryItem(ss.filename);
 
-            // *** TODO: Change this to use the not WEB SERVICE class, but rather a dedicated response class
+            // TODO: Change this to use the not WEB SERVICE class, but rather a dedicated response class
             StoredUserFile suf = new StoredUserFile();
             suf.Key = item.filename;
             suf.Md5 = item.md5;

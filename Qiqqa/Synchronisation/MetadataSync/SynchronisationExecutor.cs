@@ -87,7 +87,7 @@ namespace Qiqqa.Synchronisation.MetadataSync
                 {
                     Logging.Info("+Uploading {0}", ss.filename);
 
-                    // --- TODO: Replace this with a pretty interface class ------------------------------------------------
+                    // TODO: Replace this with a pretty interface class ------------------------------------------------
                     if (false) { }
                     else if (library.WebLibraryDetail.IsIntranetLibrary)
                     {
@@ -132,7 +132,7 @@ namespace Qiqqa.Synchronisation.MetadataSync
 
                     StoredUserFile stored_user_file = null;
 
-                    // --- TODO: Replace this with a pretty interface class ------------------------------------------------
+                    // TODO: Replace this with a pretty interface class ------------------------------------------------
                     if (library.WebLibraryDetail.IsIntranetLibrary)
                     {
                         stored_user_file = SynchronisationExecutor_Intranet.DoDownload(library, ss);

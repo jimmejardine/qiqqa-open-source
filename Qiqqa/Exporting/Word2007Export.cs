@@ -9,6 +9,7 @@ using Qiqqa.Documents.PDF;
 using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.BibTex;
+using Utilities.BibTex.Parsing;
 using Utilities.Misc;
 
 namespace Qiqqa.Exporting
@@ -58,7 +59,7 @@ namespace Qiqqa.Exporting
                         StatusManager.Instance.UpdateStatus("Word2007Export", String.Format("Exporting entry {0} of {1}", i, pdf_documents.Count), i, pdf_documents.Count);
 
                         BibTexItem bibtex = pdf_document.BibTex;
-                        if (!String.IsNullOrEmpty(bibtex))
+                        if (!bibtex.IsEmpty())
                         {
                             try
                             {

@@ -27,9 +27,9 @@ namespace Qiqqa.DocumentLibrary
         private static void AddQiqqaManualToLibrary(Library library, LibraryPdfActionCallbacks post_partum)
         {
             FilenameWithMetadataImport fwmi = new FilenameWithMetadataImport();
-            fwmi.filename = QiqqaManualFilename;
-            fwmi.tags = new List<string> { "manual", "help" };
-            fwmi.bibtex = BibTexParser.ParseOne(
+            fwmi.Filename = QiqqaManualFilename;
+            fwmi.Tags = new List<string> { "manual", "help" };
+            fwmi.BibTex = BibTexParser.ParseOne(
                 "@booklet{qiqqa_manual" + "\n" +
                 ",	title	= {The Qiqqa Manual}" + "\n" +
                 ",	author	= {The Qiqqa Team,}" + "\n" +
@@ -42,9 +42,9 @@ namespace Qiqqa.DocumentLibrary
         private static void AddLoexManualToLibrary(Library library)
         {
             FilenameWithMetadataImport fwmi = new FilenameWithMetadataImport();
-            fwmi.filename = LoexManualFilename;
-            fwmi.tags.AddRange(new List<string> { "manual", "help" } );
-            fwmi.bibtex = BibTexParser.ParseOne(
+            fwmi.Filename = LoexManualFilename;
+            fwmi.Tags.AddRange(new List<string> { "manual", "help" } );
+            fwmi.BibTex = BibTexParser.ParseOne(
                 "@article{qiqqatechmatters" + "\n" +
                 ",	title	= {TechMatters: “Qiqqa” than you can say Reference Management: A Tool to Organize the Research Process}" + "\n" +
                 ",	author	= {Krista Graham}" + "\n" +

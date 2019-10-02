@@ -99,7 +99,7 @@ namespace Qiqqa.DocumentLibrary.LibraryDBStuff
                         }
                         else
                         {
-                            BibTexItem bibtex = doc.BibTexItem;
+                            BibTexItem bibtex = doc.BibTex;
                             string bibtexParseErrors;
                             string formattedBibStr;
                             string rawStr;

@@ -70,9 +70,9 @@ namespace Qiqqa.DocumentConversionStuff
                             {
                                 PDFDocument pdf_document = WebLibraryManager.Instance.Library_Guest.AddNewDocumentToLibrary_SYNCHRONOUS(new FilenameWithMetadataImport
                                 {
-                                    filename = pdf_filename,
-                                    original_filename = filename,
-                                    suggested_download_source_uri = filename
+                                    Filename = pdf_filename,
+                                    OriginalFilename = filename,
+                                    SuggestedDownloadSourceURI = filename
                                 }, true);
                                 PDFReadingControl pdf_reading_control = MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);
                                 pdf_reading_control.EnableGuestMoveNotification();
