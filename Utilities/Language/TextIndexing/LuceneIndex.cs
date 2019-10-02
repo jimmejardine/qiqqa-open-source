@@ -128,6 +128,7 @@ namespace Utilities.Language.TextIndexing
             }
         }
 
+        // TODO: refactor call interface: way too many parameters to be legible.
         public void AddDocumentMetadata(bool is_deleted, string fingerprint, string title, string author, string year, string comment, string tag, string annotation, string bibtex, Utilities.BibTex.Parsing.BibTexItem bibtex_item)
         {
             Lucene.Net.Documents.Document document = null;

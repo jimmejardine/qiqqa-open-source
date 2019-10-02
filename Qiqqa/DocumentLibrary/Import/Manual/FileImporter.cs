@@ -88,7 +88,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                 {
                     Logging.Error(ex);
 
-                    // TODO log /status manager.  
+                    // TODO: log /status manager.  
                     // Ignore problems with individual files. 
                 }
             }

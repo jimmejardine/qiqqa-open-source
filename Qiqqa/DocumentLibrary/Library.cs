@@ -465,7 +465,7 @@ namespace Qiqqa.DocumentLibrary
 
                 if (tags != null)
                 {
-                    tags.ForEach(x => pdf_document.AddTag(x)); //Notify changes called internally
+                    tags.ForEach(x => pdf_document.AddTag(x)); // Notify changes called internally
                 }
 
                 // If we already have comments, then append them to our existing comments (if they are not identical)

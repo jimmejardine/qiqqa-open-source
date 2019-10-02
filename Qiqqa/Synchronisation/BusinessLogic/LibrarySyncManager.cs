@@ -332,9 +332,8 @@ namespace Qiqqa.Synchronisation.BusinessLogic
         
         private void SynchronizeDocuments_Upload_INTERNAL_BACKGROUND(Library library, List<PDFDocument> pdf_documents, bool is_readonly)
         {
-            // --- TODO: Replace this with a pretty interface class ------------------------------------------------
-            if (false) { }
-            else if (is_readonly)
+            // TODO: Replace this with a pretty interface class ------------------------------------------------
+            if (is_readonly)
             {
                 // Do nothing...
                 Logging.Info("Not queueing upload of PDFs for readonly library.");
