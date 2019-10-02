@@ -162,7 +162,7 @@ namespace Qiqqa.DocumentLibrary
                 }
             }
 
-            Logging.Debug("AddNewPDFDocumentsToLibraryFromFolder: time spent: {0} ms", clk.ElapsedMilliseconds);
+            Logging.Debug("AddNewPDFDocumentsToLibraryFromFolder_SYNCHRONOUS: time spent: {0} ms", clk.ElapsedMilliseconds);
 
             return last_added_pdf_document;
         }
