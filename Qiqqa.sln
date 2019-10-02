@@ -16,9 +16,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{19960EDF-B439-4ED5-AD0B-A08FDA6ECF3E}"
 	ProjectSection(SolutionItems) = preProject
 		build-installer.sh = build-installer.sh
+		CHANGELOG.md = CHANGELOG.md
+		CHANGELOG_full.md = CHANGELOG_full.md
 		LICENSE = LICENSE
 		Qiqqa.Build\QiqqaCodeAnalysisRules.ruleset = Qiqqa.Build\QiqqaCodeAnalysisRules.ruleset
 		README.md = README.md
+		update_CHANGELOG.sh = update_CHANGELOG.sh
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "All XAML panels", "All XAML panels", "{AFB0BE7E-CE68-47B1-8E14-66A0DBC848A4}"
