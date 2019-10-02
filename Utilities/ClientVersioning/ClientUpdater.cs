@@ -98,7 +98,7 @@ namespace Utilities.ClientVersioning
             if (client_version_information.CompliantFromVersion.HasValue && current_executing_version >= client_version_information.CompliantFromVersion)
             {
                 Logging.Info("User is running an old version (v{0}), but it is still >= the compliant version (v{1}), so not telling them to update.", current_executing_version, client_version_information.CompliantFromVersion);
-                return;
+                //return;
             }
 
             //  are we ahead of the latest version (in the event we have rolled back, let the user know)

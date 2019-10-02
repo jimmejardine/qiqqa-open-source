@@ -19,6 +19,7 @@ using Utilities.GUI;
 using Application = System.Windows.Application;
 using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
 using Qiqqa.Common.BackgroundWorkerDaemonStuff;
+using Utilities.Maintainable;
 
 namespace Qiqqa.Main
 {
@@ -81,10 +82,32 @@ namespace Qiqqa.Main
             this.Closing += MainWindow_Closing;
             this.Closed += MainWindow_Closed;
 
+			// We've looked for the LAST event that triggers dependably at the start of the application:
+			//   ContentRendered
+			// is the last one triggered of this bunch:
+			//
+            //this.Activated += MainWindow_Activated;
+            this.ContentRendered += MainWindow_ContentRendered;
+            //this.Initialized += MainWindow_Initialized;
+            //this.LayoutUpdated += MainWindow_LayoutUpdated;
+            //this.Loaded += MainWindow_Loaded;
+            //this.ManipulationCompleted += MainWindow_ManipulationCompleted;
+            //this.ManipulationStarting += MainWindow_ManipulationStarting;
+            //this.SourceInitialized += MainWindow_SourceInitialized;
+            //this.StateChanged += MainWindow_StateChanged;
+
             ObjTabWelcome.GetGoing += ObjTabWelcome_GetGoing;
 
             // Put this in a background thread
             Dispatcher.BeginInvoke(((Action)(() => PostStartupWork())), DispatcherPriority.Normal);
+        }
+
+        private void MainWindow_ContentRendered(object sender, EventArgs e)
+        {
+            Logging.Debug("MainWindow_ContentRendered");
+
+            // hold off: level 2 -> 1
+            MaintainableManager.Instance.BumpHoldOffPendingLevel();
         }
 
         void keyboard_hook_KeyDown(object sender, KeyEventArgs e)

@@ -457,6 +457,7 @@ namespace QiqqaSystemTester
             );
         }
 
+#if false
         [DataRow("API-test0001.input.bib")]
         [DataTestMethod]
         public void Test_BibTeXTools_API(string bibtex_filepath)
@@ -534,6 +535,7 @@ namespace QiqqaSystemTester
                 ApprovalTests.Approvals.GetReporter()
             );
         }
+#endif
 
         [TestMethod]
         public void Measure_Parse_Performance()

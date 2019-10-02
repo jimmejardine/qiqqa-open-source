@@ -39,7 +39,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
                     clk.Start();
                     Logging.Info("+Loading AutoTags");
                     current_ai_tags_record = SerializeFile.ProtoLoad<AITags>(Filename_Store);
-                    Logging.Info("-Loading AutoTags (time spent: {0} ms", clk.ElapsedMilliseconds);
+                    Logging.Info("-Loading AutoTags (time spent: {0} ms)", clk.ElapsedMilliseconds);
                 }
             }
             catch (Exception ex)
@@ -300,7 +300,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
                     regenerating_in_progress = false;
                 }
 
-                Logging.Info("-AITagManager is finished regenerating (time spent: {0} ms", clk.ElapsedMilliseconds);
+                Logging.Info("-AITagManager is finished regenerating (time spent: {0} ms)", clk.ElapsedMilliseconds);
             }
 
             // Call any callback that might be interested
