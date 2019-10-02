@@ -340,9 +340,19 @@ namespace Qiqqa.DocumentLibrary
                         string original_filename = null;
                         try
                         {
-                            ContentDisposition contentDisposition = new ContentDisposition(content_disposition);
-                            original_filename = contentDisposition.FileName;
-                            //StringDictionary parameters = contentDisposition.Parameters;
+                            if (!String.IsNullOrEmpty(content_disposition))
+                            {
+                                ContentDisposition contentDisposition = new ContentDisposition(content_disposition);
+                                original_filename = contentDisposition.FileName;
+                                //StringDictionary parameters = contentDisposition.Parameters;
+                            }
+                            else
+                            {
+                                Logging.Warn("AddNewDocumentToLibraryFromInternet: no or empty Content-Disposition header received from {1}?\n  Headers:\n{0}", web_response.Headers, download_url);
+
+                                // fallback: derive the filename from the URL:
+                                original_filename = web_response.ResponseUri.LocalPath;
+                            }
                         }
                         catch (Exception ex)
                         {
@@ -354,8 +364,16 @@ namespace Qiqqa.DocumentLibrary
                         // extract the type from the Content-Type header value:
                         try
                         {
-                            ContentType ct = new ContentType(content_type);
-                            content_type = ct.MediaType.ToLower(CultureInfo.CurrentCulture);
+                            if (!String.IsNullOrEmpty(content_type))
+                            {
+                                ContentType ct = new ContentType(content_type);
+                                content_type = ct.MediaType.ToLower(CultureInfo.CurrentCulture);
+                            }
+                            else
+                            {
+                                Logging.Warn("AddNewDocumentToLibraryFromInternet: no or empty Content-Type header '{2}' received from {1}?\n  Headers:\n{0}", web_response.Headers, download_url, content_type);
+                                content_type = "text/html";
+                            }
                         }
                         catch (Exception ex)
                         {
