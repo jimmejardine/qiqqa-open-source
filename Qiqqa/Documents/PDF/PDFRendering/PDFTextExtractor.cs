@@ -79,7 +79,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             public Job job;
             public bool is_group;
 
-            public NextJob(PDFTextExtractor pdf_text_extractor, Job job, bool is_group, object queue_lock_reminder)
+            internal NextJob(PDFTextExtractor pdf_text_extractor, Job job, bool is_group, object queue_lock_reminder)
             {
                 this.pdf_text_extractor = pdf_text_extractor;
                 this.job = job;
@@ -182,11 +182,12 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         public void QueueJobGroup(Job job)
         {
+            string token = NextJob.GetQueuedJobToken(job);
+
             Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (queue_lock)
             {
                 l1_clk.LockPerfTimerStop();
-                string token = NextJob.GetQueuedJobToken(job);
 
                 // Only add the job if it is not already queued
                 if (!job_queue_group.ContainsKey(token))
@@ -198,11 +199,12 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         public void QueueJobSingle(Job job)
         {
+            string token = NextJob.GetQueuedJobToken(job);
+
             Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (queue_lock)
             {
                 l1_clk.LockPerfTimerStop();
-                string token = NextJob.GetQueuedJobToken(job);
 
                 // Only add the job if it is not already queued, OR if we are queuing a FORCE job, which has priority
                 if (!job_queue_single.ContainsKey(token) || job.force_job)
@@ -229,11 +231,12 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         private void RecordThatJobHasCompleted(NextJob next_job)
         {
+            string token = NextJob.GetCurrentJobToken(next_job.job, next_job.is_group, false);
+
             Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (queue_lock)
             {
                 l1_clk.LockPerfTimerStop();
-                string token = NextJob.GetCurrentJobToken(next_job.job, next_job.is_group, false);
                 HashSet<string> current_jobs = next_job.is_group ? current_jobs_group : current_jobs_single;
                 if (!current_jobs.Contains(token))
                 {
@@ -259,125 +262,138 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         }
 
 
-        DateTime ocr_disabled_next_notification_time = DateTime.MinValue;
-        NextJob GetNextJob()
+        private DateTime ocr_disabled_next_notification_time = DateTime.MinValue;
+        private NextJob GetNextJob()
         {
             Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (queue_lock)
             {
                 l1_clk.LockPerfTimerStop();
+
                 // Check if OCR is disabled
-                if (ConfigurationManager.Instance.ConfigurationRecord.Library_OCRDisabled)
+                if (!ConfigurationManager.Instance.ConfigurationRecord.Library_OCRDisabled)
                 {
-                    // Only state the OCR is disabled if there is something to be OCRed
-                    if (0 < job_queue_single.Count)
+                    // First look for any GROUP jobs                
+                    foreach (var pair in job_queue_group)
                     {
-                        if (DateTime.UtcNow.Subtract(ocr_disabled_next_notification_time).TotalMilliseconds > 0)
+                        Job job = pair.Value;
+                        if (!IsSimilarJobRunning(job, true, queue_lock))
                         {
-                            StatusManager.Instance.UpdateStatus("PDFOCR", String.Format("OCR is disabled ({0} page(s) still to OCR)", job_queue_single.Count));
-                            ocr_disabled_next_notification_time = DateTime.UtcNow.AddSeconds(5);
+                            job_queue_group.Remove(pair.Key);
+                            return new NextJob(this, job, true, queue_lock);
                         }
                     }
 
-                    // Not allowed to return any jobs if disabled
-                    return null;
-                }
-
-                // First look for any GROUP jobs                
-                foreach (var pair in job_queue_group)
-                {
-                    Job job = pair.Value;
-                    if (!IsSimilarJobRunning(job, true, queue_lock))
+                    // Don't bother with these single page priorities when the queue is large/huge:
+                    if (200 >= job_queue_single.Count)
                     {
-                        job_queue_group.Remove(pair.Key);
-                        return new NextJob(this, job, true, queue_lock);
+                        // First look for any SINGLE 1st pages - these get priority
+                        foreach (var pair in job_queue_single)
+                        {
+                            Job job = pair.Value;
+                            if (!IsSimilarJobRunning(job, false, queue_lock))
+                            {
+                                if (1 == job.page)
+                                {
+                                    job_queue_single.Remove(pair.Key);
+                                    return new NextJob(this, job, false, queue_lock);
+                                }
+                            }
+                        }
+
+                        // Look for any first 3 pages (this is where they will probably already be reading by now, so get them early)
+                        foreach (var pair in job_queue_single)
+                        {
+                            Job job = pair.Value;
+                            if (!IsSimilarJobRunning(job, false, queue_lock))
+                            {
+                                if (3 >= job.page)
+                                {
+                                    job_queue_single.Remove(pair.Key);
+                                    return new NextJob(this, job, false, queue_lock);
+                                }
+                            }
+                        }
+
+                        // Look for any last 3 pages (we want the bibliographies in case they click on "make cross references")
+                        foreach (var pair in job_queue_single)
+                        {
+                            Job job = pair.Value;
+                            if (!IsSimilarJobRunning(job, false, queue_lock))
+                            {
+                                if (job.pdf_renderer.PageCount - 3 <= job.page)
+                                {
+                                    job_queue_single.Remove(pair.Key);
+                                    return new NextJob(this, job, false, queue_lock);
+                                }
+                            }
+                        }
+
+                        // Look for any first 10 pages (this is where we process the short PDFs before the long PDFs)
+                        foreach (var pair in job_queue_single)
+                        {
+                            Job job = pair.Value;
+                            if (!IsSimilarJobRunning(job, false, queue_lock))
+                            {
+                                if (10 >= job.page)
+                                {
+                                    job_queue_single.Remove(pair.Key);
+                                    return new NextJob(this, job, false, queue_lock);
+                                }
+                            }
+                        }
+
+                        // Look for any last 10 pages (this is where we process the short PDFs before the long PDFs)
+                        foreach (var pair in job_queue_single)
+                        {
+                            Job job = pair.Value;
+                            if (!IsSimilarJobRunning(job, false, queue_lock))
+                            {
+                                if (job.pdf_renderer.PageCount - 10 <= job.page)
+                                {
+                                    job_queue_single.Remove(pair.Key);
+                                    return new NextJob(this, job, false, queue_lock);
+                                }
+                            }
+                        }
                     }
-                }
 
-                // First look for any SINGLE 1st pages - these get priority
-                foreach (var pair in job_queue_single)
-                {
-                    Job job = pair.Value;
-                    if (!IsSimilarJobRunning(job, false, queue_lock))
+                    // Otherwise get the most recently added job
+                    //
+                    // (in a large queue, that is: just grab the first available)
+                    foreach (var pair in job_queue_single)
                     {
-                        if (1 == job.page)
+                        Job job = pair.Value;
+                        if (!IsSimilarJobRunning(job, false, queue_lock))
                         {
                             job_queue_single.Remove(pair.Key);
                             return new NextJob(this, job, false, queue_lock);
                         }
-                    }
-                }
-
-                // Look for any first 3 pages (this is where they will probably already be reading by now, so get them early)
-                foreach (var pair in job_queue_single)
-                {
-                    Job job = pair.Value;
-                    if (!IsSimilarJobRunning(job, false, queue_lock))
-                    {
-                        if (3 >= job.page)
-                        {
-                            job_queue_single.Remove(pair.Key);
-                            return new NextJob(this, job, false, queue_lock);
-                        }
-                    }
-                }
-
-                // Look for any last 3 pages (we want the bibliographies in case they click on "make cross references")
-                foreach (var pair in job_queue_single)
-                {
-                    Job job = pair.Value;
-                    if (!IsSimilarJobRunning(job, false, queue_lock))
-                    {
-                        if (job.pdf_renderer.PageCount - 3 <= job.page)
-                        {
-                            job_queue_single.Remove(pair.Key);
-                            return new NextJob(this, job, false, queue_lock);
-                        }
-                    }
-                }
-
-                // Look for any first 10 pages (this is where we process the short PDFs before the long PDFs)
-                foreach (var pair in job_queue_single)
-                {
-                    Job job = pair.Value;
-                    if (!IsSimilarJobRunning(job, false, queue_lock))
-                    {
-                        if (10 >= job.page)
-                        {
-                            job_queue_single.Remove(pair.Key);
-                            return new NextJob(this, job, false, queue_lock);
-                        }
-                    }
-                }
-
-                // Look for any last 10 pages (this is where we process the short PDFs before the long PDFs)
-                foreach (var pair in job_queue_single)
-                {
-                    Job job = pair.Value;
-                    if (!IsSimilarJobRunning(job, false, queue_lock))
-                    {
-                        if (job.pdf_renderer.PageCount - 10 <= job.page)
-                        {
-                            job_queue_single.Remove(pair.Key);
-                            return new NextJob(this, job, false, queue_lock);
-                        }
-                    }
-                }
-
-                // Otherwise get the most recently added job
-                foreach (var pair in job_queue_single)
-                {
-                    Job job = pair.Value;
-                    if (!IsSimilarJobRunning(job, false, queue_lock))
-                    {
-
-                        job_queue_single.Remove(pair.Key);
-                        return new NextJob(this, job, false, queue_lock);
                     }
                 }
             }
 
-            // There are no jobs!
+            // Check if OCR is disabled
+            if (ConfigurationManager.Instance.ConfigurationRecord.Library_OCRDisabled)
+            {
+                int job_queue_group_count;
+                int job_queue_single_count;
+                GetJobCounts(out job_queue_group_count, out job_queue_single_count);
+
+                int job_queue_total_count = job_queue_group_count + job_queue_single_count;
+                // Only state that the OCR is disabled if there is something to be OCRed
+                if (0 < job_queue_single_count)
+                {
+                    // perform frequent happening time check outside lock:
+                    if (DateTime.UtcNow.Subtract(ocr_disabled_next_notification_time).TotalMilliseconds > 0)
+                    {
+                        StatusManager.Instance.UpdateStatus("PDFOCR", String.Format("OCR is disabled ({0} page(s) still to OCR)", job_queue_single_count));
+                        ocr_disabled_next_notification_time = DateTime.UtcNow.AddSeconds(5);
+                    }
+                }
+            }
+
+            // There are no jobs! Or we're not allowed to return any jobs if disabled!
             return null;
         }
 
@@ -390,14 +406,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 // Get a count of how many jobs are left...
                 int job_queue_group_count;
                 int job_queue_single_count;
-
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-                lock (queue_lock)
-                {
-                    l1_clk.LockPerfTimerStop();
-                    job_queue_group_count = job_queue_group.Count;
-                    job_queue_single_count = job_queue_single.Count;
-                }
+                GetJobCounts(out job_queue_group_count, out job_queue_single_count);
 
                 int job_queue_total_count = job_queue_group_count + job_queue_single_count;
 
@@ -437,7 +446,6 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                                 ProcessNextJob_Single(next_job, temp_ocr_result_filename);
                             }
                         }
-
                         catch (Exception ex)
                         {
                             Logging.Error(ex, "There was a problem processing job {0}", next_job.job);
