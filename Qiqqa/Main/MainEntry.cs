@@ -22,6 +22,10 @@ using Utilities.Shutdownable;
 using Console = Utilities.GUI.Console;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using CefSharp.Wpf;
+using CefSharp;
 
 namespace Qiqqa.Main
 {
@@ -105,6 +109,15 @@ namespace Qiqqa.Main
             {
                 Logging.Info("Loaded assembly: {0}", args.LoadedAssembly.FullName);
             };
+
+            #region CEFsharp setup
+
+            // CEFsharp setup for AnyPC as per https://github.com/cefsharp/CefSharp/issues/1714:
+            AppDomain.CurrentDomain.AssemblyResolve += CefResolver;
+
+            InitCef();
+
+            #endregion CEFsharp setup
 
             try
             {
@@ -278,5 +291,49 @@ namespace Qiqqa.Main
                 Logging.Error(ex2, "Exception thrown in top level error handler!!");
             }
         }
-	}
+
+        #region CEFsharp setup helpers
+
+        // CEFsharp setup code as per https://github.com/cefsharp/CefSharp/issues/1714:
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        private static void InitCef()
+        {
+            var settings = new CefSettings();
+
+            // Set BrowserSubProcessPath based on app bitness at runtime
+            settings.BrowserSubprocessPath = Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase,
+                                                   Environment.Is64BitProcess ? "x64" : "x86",
+                                                   "CefSharp.BrowserSubprocess.exe");
+
+            // Make sure you set performDependencyCheck false
+            Cef.Initialize(settings, performDependencyCheck: false, browserProcessHandler: null);
+
+#if false
+            var browser = new BrowserForm();
+            Application.Run(browser);
+#endif
+        }
+
+        // Will attempt to load missing assembly from either x86 or x64 subdir
+        private static Assembly CefResolver(object sender, ResolveEventArgs args)
+        {
+            if (args.Name.StartsWith("CefSharp"))
+            {
+                string assemblyName = args.Name.Split(new[] { ',' }, 2)[0] + ".dll";
+                string archSpecificPath = Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase,
+                                                       Environment.Is64BitProcess ? "x64" : "x86",
+                                                       assemblyName);
+
+                return File.Exists(archSpecificPath)
+                           ? Assembly.LoadFile(archSpecificPath)
+                           : null;
+            }
+
+            return null;
+        }
+
+        #endregion CEFsharp setup helpers
+
+    }
 }
