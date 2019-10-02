@@ -65,9 +65,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.SimilarGoogleDocumentsStuff
                     {
                         Logging.Warn(ex, "Problem parsing GS HTML abstract");
                     }
-
-
-
+                                       
                     if (null != gssp.source_url)
                     {
                         HyperlinkTextBlock tb_title = new HyperlinkTextBlock();
@@ -99,8 +97,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.SimilarGoogleDocumentsStuff
 
                     alternate = !alternate;
                     ListFormattingTools.AddGlowingHoverEffect(sp);
-
-
+                    
                     DocsPanel.Children.Add(sp);
                 }
             }

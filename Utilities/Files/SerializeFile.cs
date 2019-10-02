@@ -139,7 +139,9 @@ namespace Utilities.Files
             }
             catch (Exception ex)
             {
-                //Logging.Error(ex);
+#if false
+                Logging.Error(ex);
+#endif
                 return null;
             }
         }
