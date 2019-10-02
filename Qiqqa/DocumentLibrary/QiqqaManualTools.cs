@@ -4,7 +4,7 @@ using Qiqqa.Documents.PDF;
 
 namespace Qiqqa.DocumentLibrary
 {
-    class QiqqaManualTools
+    public class QiqqaManualTools
     {
         private static string QiqqaManualFilename
         {
@@ -62,7 +62,7 @@ namespace Qiqqa.DocumentLibrary
             return pdf_document;
         }
 
-        internal static PDFDocument AddManualsToLibrary(Library library)
+        public static PDFDocument AddManualsToLibrary(Library library)
         {   
             AddLoexManualToLibrary(library);
             return AddQiqqaManualToLibrary(library);
