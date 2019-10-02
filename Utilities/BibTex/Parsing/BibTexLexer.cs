@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Utilities.BibTex.Parsing
 {
@@ -21,10 +23,10 @@ namespace Utilities.BibTex.Parsing
                 bibtex = "";
             }
 
-            // Append some harmless whitespace at the end to help 
+            // Append and prepend some harmless whitespace at the end to help 
             // reduce the number of out-of-bounds exceptions in the parser/lexer
             // while keeping the code simple:
-            bibtex += "\n\n\n";
+            bibtex = "\n" + bibtex + "\n\n\n";
 
             this.bibtex = bibtex;
             this.MAX_C = bibtex.Length - 3;
@@ -38,19 +40,34 @@ namespace Utilities.BibTex.Parsing
 
         void ParseTopLevel(BibTexLexerCallback callback)
         {
+            int prev_c = c;
             while (c < MAX_C)
             {
-                if ('@' != bibtex[c])
+                // The `@keyword` must always be preceded by at least one whitespace
+                // character so as to differentiate it from email addresses, etc.:
+                // `joe@article` vs. ` @article`
+                if ('@' != bibtex[c] || !Char.IsWhiteSpace(bibtex[c - 1]))
                 {
                     ++c;
                 }
                 else
                 {
-                    // Get this entry
+                    // Hit a `@` BibTeX command start marker.
+
+                    // Everything that we looped through thus far is either whitespace or comment or both:
+                    string comment = bibtex.Substring(prev_c, c - prev_c).Trim();
+                    if (!String.IsNullOrEmpty(comment))
+                    {
+                        callback.RaiseComment(comment);
+                    }
+
+                    // Get this @entry
                     ParseEntry(callback);
 
                     // Skip spaces between entries
                     ParseWhiteSpace();
+
+                    prev_c = c;
                 }
             }
 
@@ -59,68 +76,66 @@ namespace Utilities.BibTex.Parsing
 
         private void ParseEntry(BibTexLexerCallback callback)
         {
-            try
+            // skip initial `@`
+            ++c;
+
+            // Get the entry name
+            int entry_name_start = c;
+            while (IsNameChar(bibtex[c]))
             {
-                // Check we have our @
-                if ('@' != bibtex[c])
-                {
-                    Exception(callback, "Entry should start with @");
-                    return;
-                }
-                else
-                {
-                    ++c;
-                }
+                ++c;
+            }
+            int entry_name_end = c;
 
-                // Get the entry name
-                int entry_name_start = c;
-                while (IsNameChar(bibtex[c]))
-                {
-                    ++c;
-                }
-                int entry_name_end = c;
+            string entry_name = bibtex.Substring(entry_name_start, entry_name_end - entry_name_start);
 
-                string entry_name = bibtex.Substring(entry_name_start, entry_name_end - entry_name_start);
-
-                // Check if it is a comment
-                if (0 == "comment".CompareTo(entry_name.ToLower()))
-                {
-                    ParseUntilDelim(callback, '{'); //Ensure we have an opening {
-                    ++c; //Skip it. 
-                    callback.RaiseComment(ParseUntilDelim(callback, '}'));
-                    return;
-                }
-
-                callback.RaiseEntryName(entry_name);
-
-                // Check the length of the entry name
-                if (entry_name_end == entry_name_start)
-                {
-                    Exception(callback, "The BibTeX type is missing");
-                }
-
-                // Skip spaces between name and open brackets
+            // Check if it is a comment
+            if (0 == "comment".CompareTo(entry_name.ToLower()))
+            {
                 ParseWhiteSpace();
 
-                // Now an entry is either { xxx } or ( xxx )
-                switch (c < MAX_C ? bibtex[c] : '\0')
+                switch (bibtex[c])
                 {
                     case '(':
-                        ParseEntry_Delim(callback, '(', ')');
-                        break;
+                        callback.RaiseComment(ParseUntilDelim(callback, ')'));
+                        return;
 
                     case '{':
-                        ParseEntry_Delim(callback, '{', '}');
-                        break;
+                        callback.RaiseComment(ParseUntilDelim(callback, '}'));
+                        return;
 
                     default:
-                        Exception(callback, "Expecting a {0} or {1} to start a BibTeX reference", "(", "{{");
+                        // b0rked `@comment`: parse until EOL
+                        callback.RaiseComment(ParseUntilDelim(callback, '\n'));
                         return;
                 }
             }
-            catch (IndexOutOfRangeException)
+
+            callback.RaiseEntryName(entry_name);
+
+            // Check the length of the entry name
+            if (entry_name_end == entry_name_start)
             {
-                Exception(callback, "Ran out of characters while reading the entry");
+                Exception(callback, "The BibTeX type is missing");
+            }
+
+            // Skip spaces between name and open brackets
+            ParseWhiteSpace();
+
+            // Now an entry is either { xxx } or ( xxx )
+            switch (/* c < MAX_C ? */ bibtex[c])    // -- optimization
+            {
+                case '(':
+                    ParseEntry_Delim(callback, '(', ')');
+                    break;
+
+                case '{':
+                    ParseEntry_Delim(callback, '{', '}');
+                    break;
+
+                default:
+                    Exception(callback, "Expecting a {0} or {1} to start a BibTeX reference", "(", "{{");
+                    return;
             }
         }
 
@@ -194,6 +209,8 @@ namespace Utilities.BibTex.Parsing
             callback.RaiseKey(key);
         }
 
+        private List<string> field_values = new List<string>();
+
         private void ParseFields(BibTexLexerCallback callback, char delim_close)
         {
             {
@@ -220,22 +237,44 @@ namespace Utilities.BibTex.Parsing
                             ++c;
                         }
 
-                        // Parse whitespace
-                        ParseWhiteSpace();
-
-						// TODO: remember `c` as broken (and thus infinitely running) field values
-						// are a common problem in BibTeX records...
-						
-                        ParseFieldValue(callback);
-
-                        // Parse whitespace
-                        ParseWhiteSpace();
-
-                        // Get a optional comma
-                        if (',' == bibtex[c])
+                        field_values.Clear();
+                        while (c < MAX_C)
                         {
-                            ++c;
+                            // Parse whitespace
+                            ParseWhiteSpace();
+
+                            // Remember `c` as broken (and thus infinitely running) field values
+                            // are a common problem in BibTeX records...
+                            int value_start = c;
+
+                            if (!ParseFieldValue(callback))
+                            {
+                                break;
+                            }
+
+                            // Parse whitespace
+                            ParseWhiteSpace();
+
+                            // Get an optional comma or `#` concatenation operator
+                            switch (bibtex[c])
+                            {
+                                case ',':
+                                    ++c;
+                                    break;
+
+                                case '#':
+                                    // concatenation: keep adding to the field value!
+                                    ++c;
+                                    continue;
+
+                                default:
+                                    break;
+                            }
+                            break;
                         }
+
+                        callback.RaiseFieldValue(field_values);
+                        field_values.Clear();
                     }
                     else
                     {
@@ -308,36 +347,63 @@ namespace Utilities.BibTex.Parsing
 
         private bool ParseFieldValue_Quotes(BibTexLexerCallback callback)
         {
-            // Check we have our {
-            if ('"' != bibtex[c])
-            {
-                Exception(callback, "Quotes field value should start with \"");
-                return false;
-            }
-            else
-            {
-                ++c;
-            }
+            // Skip our initial quote
+            char quote = bibtex[c];
 
-            int brace_depth = 0;
+            ++c;
+
             int field_value_start = c;
+            bool escape = false;
             while (c < MAX_C)
             {
-                if ('{' == bibtex[c] && '\\' != bibtex[c - 1])
+                if ('\\' == bibtex[c] && '\\' == bibtex[c - 1] && escape)
                 {
-                    ++brace_depth;
                     ++c;
+                    escape = false;
                 }
-                else if ('}' == bibtex[c] && '\\' != bibtex[c - 1])
+                else if ('\\' == bibtex[c])
                 {
-                    --brace_depth;
                     ++c;
+                    escape = true;
                 }
-                else if ('"' == bibtex[c] && '\\' != bibtex[c - 1])
+                else if (quote == bibtex[c] && ('\\' != bibtex[c - 1] || !escape))
                 {
-                    // Are we out of our delimeters yet?
-                    if (1 <= brace_depth)
+                    break;
+                }
+                else
+                {
+                    ++c;
+                    escape = false;
+                }
+            }
+            int field_value_end = c;
+            string field_value = bibtex.Substring(field_value_start, field_value_end - field_value_start);
+
+            // Check we have our final "
+            if (quote != bibtex[c])
+            {
+                    Exception(callback, "Quotes field value should end with \\{0} instead of being terminated at EOF. Corrupted or truncated BibTeX?", quote);
+                
+                // see if we can backpedal to a first comma and take it from there, thus 'recovering' the damaged field value
+                c = field_value_start;
+
+                while (true)
+                {
+                    while (c < MAX_C && ',' != bibtex[c])
                     {
+                        ++c;
+                    }
+
+                    if (c < MAX_C)
+                    {
+                        // Assuming we will parse a field name and an assignment next...
+                        Regex re = new Regex(@"^\s*\w+\s*=\s*\S+", RegexOptions.Compiled);
+
+                        if (re.IsMatch(bibtex.Substring(c + 1)))
+                        {
+                            // ... we now assume this comma ends this field
+                            break;
+                        }
                         ++c;
                     }
                     else
@@ -345,45 +411,15 @@ namespace Utilities.BibTex.Parsing
                         break;
                     }
                 }
-                else
+
+                if (c < MAX_C)
                 {
-                    ++c;
+                    field_value_end = c;
+                    field_value = bibtex.Substring(field_value_start, field_value_end - field_value_start);
+
+                    field_values.Add(field_value);
                 }
-            }
-            int field_value_end = c;
-            string field_value = bibtex.Substring(field_value_start, field_value_end - field_value_start);
 
-
-            // Check we have our final "
-            if ('"' != bibtex[c])
-            {
-                if (c >= MAX_C)
-                {
-                    Exception(callback, "Quotes field value should end with \" instead of being terminated at EOF. Corrupted or truncated BibTeX?");
-                    return false;
-                }
-                else
-                {
-                    Exception(callback, "Quotes field value should end with \"");
-                    return false;
-                }
-            }
-            else
-            {
-                ++c;
-            }
-
-            callback.RaiseFieldValue(field_value);
-
-            return true;
-        }
-
-        private bool ParseFieldValue_Braces(BibTexLexerCallback callback)
-        {
-            // Check we have our {
-            if ('{' != bibtex[c])
-            {
-                Exception(callback, "Braces field value should start with {0}", "{{");
                 return false;
             }
             else
@@ -391,16 +427,37 @@ namespace Utilities.BibTex.Parsing
                 ++c;
             }
 
+            field_values.Add(field_value);
+
+            return true;
+        }
+
+        private bool ParseFieldValue_Braces(BibTexLexerCallback callback)
+        {
+            // Skip our initial {
+            ++c;
+
+            bool escape = false;
             int brace_depth = 0;
             int field_value_start = c;
             while (c < MAX_C)
             {
-                if ('{' == bibtex[c] && '\\' != bibtex[c - 1])
+                if ('\\' == bibtex[c] && '\\' == bibtex[c - 1] && escape)
+                {
+                    ++c;
+                    escape = false;
+                }
+                else if ('\\' == bibtex[c])
+                {
+                    ++c;
+                    escape = true;
+                }
+                else if ('{' == bibtex[c] && ('\\' != bibtex[c - 1] || !escape))
                 {
                     ++brace_depth;
                     ++c;
                 }
-                else if ('}' == bibtex[c] && '\\' != bibtex[c - 1])
+                else if ('}' == bibtex[c] && ('\\' != bibtex[c - 1] || !escape))
                 {
                     --brace_depth;
 
@@ -417,6 +474,7 @@ namespace Utilities.BibTex.Parsing
                 else
                 {
                     ++c;
+                    escape = false;
                 }
             }
 
@@ -426,20 +484,51 @@ namespace Utilities.BibTex.Parsing
             // Check we have our final }
             if ('}' != bibtex[c])
             {
-                if (c >= MAX_C)
-                {
-                    Exception(callback, "Braces field value should end with {0}. Corrupted or truncated BibTeX?", "}}");
-                    return false;
-                }
-                else
-                {
-                    Exception(callback, "Braces field value should end with {0}", "}}");
-                    return false;
-                }
-            }
-            ++c;
+                Exception(callback, "Braces field value should end with {0}. Corrupted or truncated BibTeX?", "}}");
 
-            callback.RaiseFieldValue(field_value);
+                // see if we can backpedal to a first comma and take it from there, thus 'recovering' the damaged field value
+                c = field_value_start;
+
+                while (true)
+                {
+                    while (c < MAX_C && ',' != bibtex[c])
+                    {
+                        ++c;
+                    }
+
+                    if (c < MAX_C)
+                    {
+                        // Assuming we will parse a field name and an assignment next...
+                        Regex re = new Regex(@"^\s*\w+\s*=\s*\S+", RegexOptions.Compiled);
+
+                        if (re.IsMatch(bibtex.Substring(c + 1)))
+                        {
+                            // ... we now assume this comma ends this field
+                            break;
+                        }
+                        ++c;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                if (c < MAX_C)
+                {
+                    field_value_end = c;
+                    field_value = bibtex.Substring(field_value_start, field_value_end - field_value_start);
+
+                    field_values.Add(field_value);
+                }
+                return false;
+            }
+            else
+            {
+                ++c;
+            }
+
+            field_values.Add(field_value);
 
             return true;
         }
@@ -477,7 +566,7 @@ namespace Utilities.BibTex.Parsing
                 return false;
             }
 
-            callback.RaiseFieldValue(field_value);
+            field_values.Add(field_value);
 
             return true;
         }

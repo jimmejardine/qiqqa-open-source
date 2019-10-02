@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Utilities.Strings;
 
 namespace Utilities.BibTex.Parsing
 {
@@ -63,20 +64,21 @@ namespace Utilities.BibTex.Parsing
             }
         }
 
-        public void RaiseFieldValue(string field_value)
+        public void RaiseFieldValue(List<string> field_values)
         {
-            //Logging.Info("FieldValue=" + field_value);
+            Logging.Info("FieldValue=", StringTools.ConcatenateStrings(field_values, " # "));
 
             if (null == current_item)
             {
-                Logging.Error("Invalid field value outside item: '{0}'", field_value);
+                Logging.Error("Invalid field value outside item: '{0}'", StringTools.ConcatenateStrings(field_values, " # "));
             }
             else if (null == current_field_name)
             {
-                Logging.Error("Invalid field value without field name: '{0}'", field_value);
+                Logging.Error("Invalid field value without field name: '{0}'", StringTools.ConcatenateStrings(field_values, " # "));
             }
             else
             {
+                string field_value = StringTools.ConcatenateStrings(field_values, "");
                 string field_value_decoded = BibTexCharacterMap.BibTexToASCII(field_value);
                 current_item[current_field_name] = field_value_decoded;
                 current_field_name = null;
