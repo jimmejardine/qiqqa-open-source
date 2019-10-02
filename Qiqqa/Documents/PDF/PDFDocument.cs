@@ -172,6 +172,8 @@ namespace Qiqqa.Documents.PDF
             }
         }
 
+        // TODO: has a cyclic link in the GC to PDFDocument due to PDFDocument being referenced as member of this bindable:
+        // PDFDocument -> Bindable -> AugmentedBindable<PDFDocument> -> Underlying -> PDFDocument
         [NonSerialized]
         AugmentedBindable<PDFDocument> bindable = null;
         public AugmentedBindable<PDFDocument> Bindable
