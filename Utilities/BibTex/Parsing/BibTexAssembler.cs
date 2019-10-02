@@ -66,7 +66,7 @@ namespace Utilities.BibTex.Parsing
 
         public void RaiseFieldValue(List<string> field_values)
         {
-            Logging.Info("FieldValue=", StringTools.ConcatenateStrings(field_values, " # "));
+            //Logging.Debug("FieldValue=", StringTools.ConcatenateStrings(field_values, " # "));
 
             if (null == current_item)
             {
