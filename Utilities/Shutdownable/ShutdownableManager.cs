@@ -27,29 +27,29 @@ namespace Utilities.Shutdownable
             }
         }
 
-        private bool is_being_shutting_down = false;
-        private object is_being_shutting_down_lock = new object();
+        private bool is_being_shut_down = false;
+        private object is_being_shut_down_lock = new object();
 
         public bool IsShuttingDown
         {
             get
             {
                 Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-                lock (is_being_shutting_down_lock)
+                lock (is_being_shut_down_lock)
                 {
                     l1_clk.LockPerfTimerStop();
-                    return is_being_shutting_down;
+                    return is_being_shut_down;
                 }
             }
             set
             {
                 Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-                lock (is_being_shutting_down_lock)
+                lock (is_being_shut_down_lock)
                 {
                     l1_clk.LockPerfTimerStop();
-                    if (!is_being_shutting_down)
+                    if (!is_being_shut_down)
                     {
-                        is_being_shutting_down = true;
+                        is_being_shut_down = true;
                     }
                 }
             }
