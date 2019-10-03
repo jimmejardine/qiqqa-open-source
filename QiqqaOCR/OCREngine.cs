@@ -266,7 +266,7 @@ namespace QiqqaOCR
 		            }
 
                     // DEBUG CODE: Draw in the region rectangles
-#if DEBUG_OCR || true
+#if DEBUG_OCR
                     {
                         string bitmap_diag_path = pdf_filename + "." + page_number + @"-ocr.png";
 
