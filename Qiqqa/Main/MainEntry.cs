@@ -50,11 +50,9 @@ namespace Qiqqa.Main
                 DoUpgrades(splashscreen_window);
                 DoPostUpgrade(splashscreen_window);
             }
-
             catch (Exception ex)
             {                
-                string error_message = Logging.Error(ex, "There was an exception in the top-level static main entry!");
-                MessageBoxes.Error(error_message);
+                MessageBoxes.Error(ex, "There was an exception in the top-level static main entry!");
             }
         }
 
@@ -110,14 +108,18 @@ namespace Qiqqa.Main
                 Logging.Info("Loaded assembly: {0}", args.LoadedAssembly.FullName);
             };
 
-            #region CEFsharp setup
+#if CEFSHARP
+
+#region CEFsharp setup
 
             // CEFsharp setup for AnyPC as per https://github.com/cefsharp/CefSharp/issues/1714:
             AppDomain.CurrentDomain.AssemblyResolve += CefResolver;
 
             InitCef();
 
-            #endregion CEFsharp setup
+#endregion CEFsharp setup
+
+#endif
 
             try
             {
@@ -292,7 +294,9 @@ namespace Qiqqa.Main
             }
         }
 
-        #region CEFsharp setup helpers
+#if CEFSHARP
+
+#region CEFsharp setup helpers
 
         // CEFsharp setup code as per https://github.com/cefsharp/CefSharp/issues/1714:
 
@@ -333,7 +337,9 @@ namespace Qiqqa.Main
             return null;
         }
 
-        #endregion CEFsharp setup helpers
+#endregion CEFsharp setup helpers
+
+#endif
 
     }
 }
