@@ -30,3 +30,7 @@ QiqqaVersionMigrator/obj/*
 
 *.received.json
 
+# NuGet installed packages
+/packages/
+
+
