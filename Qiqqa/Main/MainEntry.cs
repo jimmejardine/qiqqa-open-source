@@ -24,8 +24,12 @@ using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+
+#if CEFSHARP
 using CefSharp.Wpf;
 using CefSharp;
+#endif
+
 
 namespace Qiqqa.Main
 {
