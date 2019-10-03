@@ -15,9 +15,9 @@
     <Grid>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*" />
+            <RowDefinition Height="65*" />
             <RowDefinition Height="5" />
-            <RowDefinition Height="3*" />
+            <RowDefinition Height="70*" />
         </Grid.RowDefinitions>
 
 
@@ -114,11 +114,14 @@
                                 </StackPanel>
                             </ScrollViewer>
 
-                            <local_gui:AugmentedBorder x:Name="ObjBibTeXEditButtonPanel" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="15,5" Background="White">
+                            <local_gui:AugmentedBorder x:Name="ObjBibTeXEditButtonPanel" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="15,5" Background="White" MinHeight="100">
                                 <StackPanel>
                                     <local_gui:AugmentedButton Name="ButtonClear" MinWidth="20" MinHeight="20" />
                                     <local_gui:AugmentedButton Name="ButtonSkipForever" MinWidth="20" MinHeight="20" />
                                     <local_gui:AugmentedButton Name="ButtonValidate" MinWidth="20" MinHeight="20" />
+                                    <local_gui:AugmentedSpacer Height="10" Width="Auto"/>
+                                    <local_gui:AugmentedButton Name="ButtonToggleBibTeX" MinWidth="20" MinHeight="20" />
+                                    <local_gui:AugmentedButton Name="ButtonUndoBibTexEdit" MinWidth="20" MinHeight="20" />
                                 </StackPanel>
                             </local_gui:AugmentedBorder>
 
