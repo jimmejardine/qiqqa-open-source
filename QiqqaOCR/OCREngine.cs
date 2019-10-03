@@ -22,9 +22,12 @@ namespace QiqqaOCR
         static string language;
 
         static Thread thread_ocr = null;
+
         static WordList word_list_ocr = null;
         static bool has_exited_ocr = false;
         static Exception exception_ocr = null;
+
+        static object global_vars_access_lock = new object();
 
         // Warning CA1812	'OCREngine' is an internal class that is apparently never instantiated.
         // If this class is intended to contain only static methods, consider adding a private constructor 
@@ -69,7 +72,13 @@ namespace QiqqaOCR
                 // --- TEST FOR STARTUP ------------------------------------------------------------------------------------------------------------------------------------------------
 
                 // Do we need to start the OCR extractor thread?
-                if (null == thread_ocr)
+                bool must_start_thread;
+                lock (global_vars_access_lock)
+                {
+                    must_start_thread = (null == thread_ocr);
+                }
+
+                if (must_start_thread)
                 {
                     Logging.Info("Starting the OCR thread");
                     thread_ocr = new Thread(ThreadOCRMainEntry);
@@ -81,10 +90,13 @@ namespace QiqqaOCR
                 // --- TEST FOR COMPLETION ------------------------------------------------------------------------------------------------------------------------------------------------
 
                 // Do we have any OCR results
-                if (null != word_list_ocr)
+                lock (global_vars_access_lock)
                 {
-                    Logging.Info("We have an OCR word list of length {0}", word_list_ocr.Count);
-                    break;
+                    if (null != word_list_ocr)
+                    {
+                        Logging.Info("We have an OCR word list of length {0}", word_list_ocr.Count);
+                        break;
+                    }
                 }
 
                 // --- TEST FOR PROBLEMS ------------------------------------------------------------------------------------------------------------------------------------------------
@@ -96,18 +108,21 @@ namespace QiqqaOCR
                     break;
                 }
 
-                // Has the process had an exception?
-                if (null != exception_ocr)
+                lock (global_vars_access_lock)
                 {
-                    Logging.Info("Both text extract and OCR have had an exception, so exiting");
-                    break;
-                }
+                    // Has the process had an exception?
+                    if (null != exception_ocr)
+                    {
+                        Logging.Info("Both text extract and OCR have had an exception, so exiting");
+                        break;
+                    }
 
-                // Has the process somehow without writing a result?
-                if (has_exited_ocr)
-                {
-                    Logging.Info("Both text extract and OCR have exited, so exiting");
-                    break;
+                    // Has the process somehow finished without writing a result?
+                    if (has_exited_ocr)
+                    {
+                        Logging.Info("Both text extract and OCR have exited, so exiting");
+                        break;
+                    }
                 }
 
                 // Do some sleeping before iterating
@@ -115,47 +130,70 @@ namespace QiqqaOCR
             }
 
             // Check that we have something to write
-            if (null != word_list_ocr)
+            lock (global_vars_access_lock)
             {
-                Logging.Info("+Writing OCR to file {0}", ocr_output_filename);
-                Dictionary<int, WordList> word_lists = new Dictionary<int,WordList>();
-                word_lists[page_number] = word_list_ocr;
-                WordList.WriteToFile(ocr_output_filename, word_lists, "OCR");                
-                Logging.Info("-Writing OCR to file {0}", ocr_output_filename);
-            }
-            else
-            {
-                Logging.Info("+Writing empty OCR to file {0}", ocr_output_filename);
-                Dictionary<int, WordList> word_lists = new Dictionary<int, WordList>();
-                word_lists[page_number] = new WordList();
-                WordList.WriteToFile(ocr_output_filename, word_lists, "OCR-Failed");
-                Logging.Info("-Writing empty OCR to file {0}", ocr_output_filename);
+                if (null != word_list_ocr)
+                {
+                    Logging.Info("+Writing OCR to file {0}", ocr_output_filename);
+                    Dictionary<int, WordList> word_lists = new Dictionary<int, WordList>();
+                    word_lists[page_number] = word_list_ocr;
+                    WordList.WriteToFile(ocr_output_filename, word_lists, "OCR");
+                    Logging.Info("-Writing OCR to file {0}", ocr_output_filename);
+                }
+                else
+                {
+                    Logging.Info("+Writing empty OCR to file {0}", ocr_output_filename);
+                    Dictionary<int, WordList> word_lists = new Dictionary<int, WordList>();
+                    word_lists[page_number] = new WordList();
+                    WordList.WriteToFile(ocr_output_filename, word_lists, "OCR-Failed");
+                    Logging.Info("-Writing empty OCR to file {0}", ocr_output_filename);
+                }
             }
         }
 
 
         static void ThreadOCRMainEntry(object arg)
         {
+            string fname = "???"; 
+            int pgnum = 0;
+
             try
             {
-                WordList word_list = DoOCR(pdf_filename, page_number);
-                word_list_ocr = word_list;
+                lock (global_vars_access_lock)
+                {
+                    fname = pdf_filename;
+                    pgnum = page_number;
+                }
+
+                WordList word_list = DoOCR(fname, pgnum);
+
+                lock (global_vars_access_lock)
+                {
+                    word_list_ocr = word_list;
+                }
             }
             catch (Exception ex)
             {
-                Logging.Error(ex, "Problem while doing OCR");
-                exception_ocr = ex;
+                Logging.Error(ex, "Problem while doing OCR for file {0} @ page {1}", fname, pgnum);
+
+                lock (global_vars_access_lock)
+                {
+                    exception_ocr = ex;
+                }
             }
             finally
             {
-                has_exited_ocr = true;
+                lock (global_vars_access_lock)
+                {
+                    has_exited_ocr = true;
+                }
             }
         }
 
 
         public static WordList DoOCR(string pdf_filename, int page_number)
         {
-            Logging.Info("+Rendering page for PDF file {0}", pdf_filename);
+            Logging.Info("+Rendering page {1} for PDF file {0}", pdf_filename, page_number);
             SoraxPDFRenderer renderer = new SoraxPDFRenderer(pdf_filename, pdf_user_password, pdf_user_password);
             using (MemoryStream ms = new MemoryStream(renderer.GetPageByDPIAsImage(page_number, 200)))
             { 
@@ -204,15 +242,18 @@ namespace QiqqaOCR
 		            }
 
                     // DEBUG CODE: Draw in the region rectangles
-#if DEBUG_OCR
+#if DEBUG_OCR || true
                     {
+                        string bitmap_diag_path = pdf_filename + "." + page_number + @"-ocr.png";
+
+                        Logging.Debug("Dumping page {0} PNG image to file {1}", page_number, bitmap_diag_path);
                         Graphics g = Graphics.FromImage(bitmap);
 		                foreach (Rectangle rectangle in rectangles)
 		                {
 		                    g.DrawRectangle(Pens.OrangeRed, rectangle);
 		                }
 
-		                bitmap.Save(@"C:\temp\aaaaaa.png", ImageFormat.Png);
+		                bitmap.Save(bitmap_diag_path, ImageFormat.Png);
 		            }
 #endif
 
@@ -235,12 +276,14 @@ namespace QiqqaOCR
 		            Logging.Info("-Doing OCR");
 
 
-		            Logging.Info("Found {0} words", word_list.Count);
+		            Logging.Info("Found {0} words ({1} @ #{2})", word_list.Count, pdf_filename, page_number);
 
-		            //Logging.Info("+Reordering words for columns");
-		            //WordList word_list_ordered = ColumnWordOrderer.ReorderWords(word_list);
-		            //Logging.Info("-Reordering words for columns");
-		            //word_list_ordered.WriteToFile(ocr_output_filename);
+#if false
+                    Logging.Info("+Reordering words for columns");
+                    WordList word_list_ordered = ColumnWordOrderer.ReorderWords(word_list);
+		            Logging.Info("-Reordering words for columns");
+		            word_list_ordered.WriteToFile(ocr_output_filename);
+#endif
 
 		            return word_list;
 				}
