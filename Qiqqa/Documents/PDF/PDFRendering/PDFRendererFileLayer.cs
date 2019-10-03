@@ -27,6 +27,14 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             this.num_pages = CountPDFPages();
         }
 
+        /// <summary>
+        /// This is an approximate response: it takes a *fast* shortcut to check if the given
+        /// PDF has been OCR'd in the past.
+        /// 
+        /// The emphasis here is on NOT triggering a new OCR action! Just taking a peek, *quickly*.
+        /// 
+        /// The cost: one(1) I/O per check.
+        /// </summary>
         public static bool HasOCRdata(string fingerprint)
         {
             // BasePath:

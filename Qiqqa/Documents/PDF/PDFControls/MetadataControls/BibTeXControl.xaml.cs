@@ -6,6 +6,7 @@ using Utilities.BibTex.Parsing;
 using Utilities.GUI;
 using Utilities.Reflection;
 using Utilities.Strings;
+using Utilities;
 using Qiqqa.Documents.PDF.MetadataSuggestions;
 
 namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
@@ -86,14 +87,14 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             bibtem_item.Type = "article";
             bibtem_item.Key = String.Format(
                 "{0}{1}{2}"
-                ,PDFDocument.UNKNOWN_AUTHORS != pdf_document_bindable.Underlying.AuthorsCombined ? GetFirstWord(pdf_document_bindable.Underlying.AuthorsCombined) : ""
-                ,PDFDocument.UNKNOWN_YEAR != pdf_document_bindable.Underlying.YearCombined ? GetFirstWord(pdf_document_bindable.Underlying.YearCombined) : ""
-                ,PDFDocument.TITLE_UNKNOWN != pdf_document_bindable.Underlying.TitleCombined ? GetFirstWord(pdf_document_bindable.Underlying.TitleCombined) : ""
+                , Constants.UNKNOWN_AUTHORS != pdf_document_bindable.Underlying.AuthorsCombined ? GetFirstWord(pdf_document_bindable.Underlying.AuthorsCombined) : ""
+                , Constants.UNKNOWN_YEAR != pdf_document_bindable.Underlying.YearCombined ? GetFirstWord(pdf_document_bindable.Underlying.YearCombined) : ""
+                , Constants.TITLE_UNKNOWN != pdf_document_bindable.Underlying.TitleCombined ? GetFirstWord(pdf_document_bindable.Underlying.TitleCombined) : ""
             );
 
-            if (PDFDocument.TITLE_UNKNOWN != pdf_document_bindable.Underlying.TitleCombined) bibtem_item["title"] = pdf_document_bindable.Underlying.TitleCombined;
-            if (PDFDocument.UNKNOWN_AUTHORS != pdf_document_bindable.Underlying.AuthorsCombined) bibtem_item["author"] = pdf_document_bindable.Underlying.AuthorsCombined;
-            if (PDFDocument.UNKNOWN_YEAR != pdf_document_bindable.Underlying.YearCombined) bibtem_item["year"] = pdf_document_bindable.Underlying.YearCombined;
+            if (Constants.TITLE_UNKNOWN != pdf_document_bindable.Underlying.TitleCombined) bibtem_item["title"] = pdf_document_bindable.Underlying.TitleCombined;
+            if (Constants.UNKNOWN_AUTHORS != pdf_document_bindable.Underlying.AuthorsCombined) bibtem_item["author"] = pdf_document_bindable.Underlying.AuthorsCombined;
+            if (Constants.UNKNOWN_YEAR != pdf_document_bindable.Underlying.YearCombined) bibtem_item["year"] = pdf_document_bindable.Underlying.YearCombined;
 
             pdf_document_bindable.Underlying.BibTex = bibtem_item.ToBibTex();
             pdf_document_bindable.NotifyPropertyChanged(() => pdf_document_bindable.Underlying.BibTex);
@@ -129,7 +130,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                 }
             }
         }
-        
+
         void ButtonBibTexSniffer_Click(object sender, RoutedEventArgs e)
         {
             AugmentedBindable<PDFDocument> pdf_document_bindable = this.DataContext as AugmentedBindable<PDFDocument>;

@@ -84,7 +84,7 @@ namespace Qiqqa.DocumentLibrary
             else if (e.Data.GetDataPresent(typeof(List<PDFDocument>)))
             {
                 e.Effects = DragDropEffects.Copy;
-            }            
+            }
 
             e.Handled = true;
         }

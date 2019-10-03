@@ -16,13 +16,13 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
             public int documents_found = 0;
             public int pdfs_found = 0;
 
-            public List<ImportingIntoLibrary.FilenameWithMetadataImport> metadata_imports = new List<ImportingIntoLibrary.FilenameWithMetadataImport>();
+            public List<FilenameWithMetadataImport> metadata_imports = new List<FilenameWithMetadataImport>();
 
             public string PotentialImportMessage
             {
                 get
                 {
-                    return 
+                    return
                         String.Format(
                         "Qiqqa has detected Mendeley™ on your computer.  Qiqqa can automatically import {0} references, {1} of which have associated PDFs."
                         , this.documents_found
@@ -31,13 +31,13 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                 }
             }
         }
-        
+
         internal static MendeleyDatabaseDetails DetectMendeleyDatabaseDetails()
         {
             MendeleyDatabaseDetails mdd = new MendeleyDatabaseDetails();
 
             string BASE_DIR_FOR_MENDELEY_DATABASE = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Mendeley Ltd\Mendeley Desktop\";
-            
+
             if (!Directory.Exists(BASE_DIR_FOR_MENDELEY_DATABASE))
             {
                 Logging.Info("Mendeley not found.");
@@ -105,7 +105,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                                             {
                                                 tags_lookup[document_id] = new List<string>();
                                             }
-                                            
+
                                             tags_lookup[document_id].Add(keyword);
                                         }
                                     }
@@ -175,13 +175,13 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                                                 bibtex_item["author"] = authors_lookup[document_id];
                                             }
 
-                                            ImportingIntoLibrary.FilenameWithMetadataImport fwmi = new ImportingIntoLibrary.FilenameWithMetadataImport();
+                                            FilenameWithMetadataImport fwmi = new FilenameWithMetadataImport();
                                             fwmi.tags.Add("import_mendeley");
                                             fwmi.bibtex = bibtex_item.ToBibTex();
 
                                             string filename = reader["localUrl"] as string;
                                             if (!String.IsNullOrEmpty(filename))
-                                            {   
+                                            {
                                                 const string FILE_PREFIX = "file:///";
                                                 if (filename.StartsWith(FILE_PREFIX))
                                                 {
@@ -194,7 +194,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                                                 fwmi.filename = filename;
 
                                                 ++mdd.pdfs_found;
-                                            }                                            
+                                            }
 
                                             if (tags_lookup.ContainsKey(document_id))
                                             {
@@ -222,7 +222,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                                             }
 
                                             mdd.metadata_imports.Add(fwmi);
-                                            
+
                                             ++mdd.documents_found;
                                         }
 

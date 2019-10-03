@@ -64,19 +64,12 @@ namespace Qiqqa.Chat
         {
             get            
             {
-                if (ConfigurationManager.Instance.IsGuest)
+                string massaged_username = ConfigurationManager.Instance.ConfigurationRecord.Account_Nickname;
+                if (massaged_username.Contains('@'))
                 {
-                    return "Guest-" + ConfigurationManager.Instance.ConfigurationRecord.Account_Username.Substring(0, 3);                    
+                    massaged_username = massaged_username.Substring(0, massaged_username.IndexOf('@'));
                 }
-                else
-                {
-                    string massaged_username = ConfigurationManager.Instance.ConfigurationRecord.Account_Nickname;
-                    if (massaged_username.Contains('@'))
-                    {
-                        massaged_username = massaged_username.Substring(0, massaged_username.IndexOf('@'));
-                    }
-                    return massaged_username;
-                }
+                return massaged_username;
             }
         }
 

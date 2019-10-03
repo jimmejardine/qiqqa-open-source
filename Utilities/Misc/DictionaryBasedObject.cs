@@ -76,7 +76,7 @@ namespace Utilities.Misc
             DateTime? datetime = obj as DateTime?;
             if (null != datetime)
             {
-                Logging.Info("Doing a legacy DateTime upgrade for key " + key);
+                Logging.Info("Doing a legacy DateTime upgrade for key {0}", key);
                 SetDateTime(key, datetime);
                 return datetime;
             }

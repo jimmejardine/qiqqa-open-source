@@ -84,7 +84,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.DuplicateDetectionStuff
             }
 
             string title_this = pdf_document_this.TitleCombined.ToLower();
-            if (PDFDocument.TITLE_UNKNOWN == title_this)
+            if (Constants.TITLE_UNKNOWN == title_this)
             {
                 Logging.Info("Not doing duplicate detection for an unknown title.");
                 return;
@@ -116,7 +116,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.DuplicateDetectionStuff
             string title_this = pdf_document.TitleCombined.ToLower();
             if (title_this.Length < 128)
             {
-                if (PDFDocument.TITLE_UNKNOWN != title_this)
+                if (Constants.TITLE_UNKNOWN != title_this)
                 {
                     foreach (var entry in cache.Entries)
                     {
@@ -134,7 +134,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.DuplicateDetectionStuff
 
                         // Check if we are almost similar to the other document
                         string title_other = entry.title_combined;
-                        if (PDFDocument.TITLE_UNKNOWN != title_other)
+                        if (Constants.TITLE_UNKNOWN != title_other)
                         {
                             if ((LetterPairSimilarity.CompareStrings(title_this, title_other) > 0.95) && (StringTools.LewensteinSimilarity(title_this, title_other) > 0.9))
                             {

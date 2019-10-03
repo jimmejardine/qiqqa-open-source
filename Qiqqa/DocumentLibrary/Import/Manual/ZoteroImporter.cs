@@ -90,7 +90,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                     }
 
 
-                    //Parse notes. 
+                    // Parse notes. 
                     string notes = entry.Item["annote"];
                     if (!String.IsNullOrEmpty(notes))
                     {

@@ -313,6 +313,11 @@ namespace Qiqqa.Common.Configuration
         {
             get
             {
+                if (null == configuration_record)
+                {
+                    Logging.Warn("Accessing ConfigurationRecord before it has been initialized by Qiqqa: running as Guest for now");
+                    ResetConfigurationRecordToGuest();
+                }
                 return configuration_record;
             }
         }

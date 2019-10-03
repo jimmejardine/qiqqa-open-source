@@ -392,6 +392,24 @@
             </local_gui:AugmentedInfoBarItemControl>
 
             <local_gui:AugmentedSpacer Height="20"/>
+            <local_gui:AugmentedInfoBarItemControl Header="Disable Background Tasks" Grid.Row="1" Grid.Column="1">
+                <StackPanel>
+                    <TextBlock TextWrapping="Wrap">
+                        <Run Text="Tick the checkbox to disable all background tasks."/>
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap">
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" FontWeight="Bold">
+                        <Run Text="WARNING:"/>
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap">
+                        <Run Text="Handle with care! Disabling background tasks will prevent Qiqqa from OCR-ing, indexing and otherwise processing your PDF Libraries!"/>
+                    </TextBlock>
+                    <CheckBox IsChecked="{Binding DisableAllBackgroundTasks}" IsHitTestVisible="False" Focusable="False" />
+                </StackPanel>
+            </local_gui:AugmentedInfoBarItemControl>
+
+            <local_gui:AugmentedSpacer Height="20"/>
             <local_gui:AugmentedInfoBarItemControl Header="Support functions" >
               <DockPanel>
                 <TextBlock DockPanel.Dock="Top" TextWrapping="Wrap">

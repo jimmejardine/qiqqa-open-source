@@ -55,7 +55,7 @@
 
       <Grid Name="ObjTextPanel">
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-          <TextBox Name="ObjBibTeXText" AcceptsReturn="True" />
+           <TextBox Name="ObjBibTeXText" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" />
         </ScrollViewer>
       </Grid>
 

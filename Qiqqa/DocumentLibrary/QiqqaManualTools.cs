@@ -25,7 +25,7 @@ namespace Qiqqa.DocumentLibrary
 
         private static PDFDocument AddQiqqaManualToLibrary(Library library)
         {
-            ImportingIntoLibrary.FilenameWithMetadataImport fwmi = new ImportingIntoLibrary.FilenameWithMetadataImport();
+            FilenameWithMetadataImport fwmi = new FilenameWithMetadataImport();
             fwmi.filename = QiqqaManualFilename;
             fwmi.tags = new List<string> { "manual", "help" };
             fwmi.bibtex =
@@ -36,14 +36,14 @@ namespace Qiqqa.DocumentLibrary
                 "}"
                 ;
 
-            PDFDocument pdf_document = ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(library, true, true, new ImportingIntoLibrary.FilenameWithMetadataImport[] { fwmi });
+            PDFDocument pdf_document = ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(library, true, true, new FilenameWithMetadataImport[] { fwmi });
 
             return pdf_document;
         }
 
         private static PDFDocument AddLoexManualToLibrary(Library library)
         {
-            ImportingIntoLibrary.FilenameWithMetadataImport fwmi = new ImportingIntoLibrary.FilenameWithMetadataImport();
+            FilenameWithMetadataImport fwmi = new FilenameWithMetadataImport();
             fwmi.filename = LoexManualFilename;
             fwmi.tags.AddRange(new List<string> { "manual", "help" } );
             fwmi.bibtex =
@@ -57,7 +57,7 @@ namespace Qiqqa.DocumentLibrary
                 "}"
                 ;
 
-            PDFDocument pdf_document = ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(library, true, true, new ImportingIntoLibrary.FilenameWithMetadataImport[] { fwmi });
+            PDFDocument pdf_document = ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(library, true, true, new FilenameWithMetadataImport[] { fwmi });
 
             return pdf_document;
         }

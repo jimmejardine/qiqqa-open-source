@@ -132,6 +132,11 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
                 return;
             }
 
+            if (ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
+            {
+                return;
+            }
+
             try
             {
                 AutoSyncManager.Instance.DoMaintenance();
@@ -178,6 +183,11 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
                 return;
             }
 
+            if (ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
+            {
+                return;
+            }
+
             // If this library is busy, skip it for now
             if (Library.IsBusyAddingPDFs)
             {
@@ -196,6 +206,12 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
             {
                 Logging.Info("Daemon is forced to sleep via registry SuppressDaemon");
                 daemon.Sleep(10 * 1000);
+                return;
+            }
+
+            if (ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
+            {
+                Logging.Info("Daemons are forced to sleep via Configuration::DisableAllBackgroundTasks");
                 return;
             }
 
@@ -239,6 +255,11 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
             {
                 Logging.Info("Daemon is forced to sleep via registry SuppressDaemon");
                 daemon.Sleep(10 * 1000);
+                return;
+            }
+
+            if (ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
+            {
                 return;
             }
 

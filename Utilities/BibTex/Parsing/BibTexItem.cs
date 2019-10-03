@@ -19,10 +19,7 @@ namespace Utilities.BibTex.Parsing
             return String.Format("{0}({1}) - {2} fields", Type, Key, fields.Count);
         }
 
-        /// <summary>
-        /// Wants to look like the below:
-        /// </summary>
-        /// <returns></returns>
+        // Wants to look like the below:
 
         /*
             @ARTICLE{article-full,
@@ -85,8 +82,7 @@ namespace Utilities.BibTex.Parsing
                 }
             }
         }
-
-
+        
         public IEnumerable<KeyValuePair<string, string>> Fields
         {
             get
@@ -106,11 +102,7 @@ namespace Utilities.BibTex.Parsing
 
         public string GetExceptionsAndMessagesString()
         {
-            return
-                ""
-                + GetExceptionsString()
-                + GetWarningsString()
-                ;
+            return GetExceptionsString() + GetWarningsString();
         }
 
         public string GetExceptionsString()
@@ -143,8 +135,7 @@ namespace Utilities.BibTex.Parsing
                 return "";
             }
         }
-
-
+        
         public bool ContainsField(string field)
         {
             return fields.ContainsKey(field.ToLower());

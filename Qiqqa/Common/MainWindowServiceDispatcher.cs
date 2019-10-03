@@ -129,7 +129,7 @@ namespace Qiqqa.Common
         public ExpeditionControl OpenExpedition(Library library, PDFDocument pdf_document)
         {
             ExpeditionControl expedition_control = new ExpeditionControl();
-            
+
             // Set the optional selections
             if (null != library)
             {
@@ -236,7 +236,7 @@ namespace Qiqqa.Common
             {
                 StringBuilder sb = new StringBuilder();
 
-                List<NameTools.Name> names = NameTools.SplitAuthors(pdf_document.AuthorsCombined, PDFDocument.UNKNOWN_AUTHORS);
+                List<NameTools.Name> names = NameTools.SplitAuthors(pdf_document.AuthorsCombined);
                 if (0 < names.Count && names[0] != NameTools.Name.UNKNOWN_NAME)
                 {
                     sb.Append(names[0].last_name);
@@ -337,7 +337,7 @@ namespace Qiqqa.Common
             }
             else if (filename.StartsWith("qiqqa://"))
             {
-                URLProtocolHandler.Go(filename);                
+                URLProtocolHandler.Go(filename);
             }
         }
 
@@ -346,7 +346,7 @@ namespace Qiqqa.Common
             BundleLibraryJoiningControl control = new BundleLibraryJoiningControl();
             control.Show();
         }
-        
+
         internal void ShowBundleLibraryJoiningControl(string filename)
         {
             BundleLibraryJoiningControl control = new BundleLibraryJoiningControl();
@@ -396,7 +396,7 @@ namespace Qiqqa.Common
         public void SearchDictionary(string query)
         {
             WebBrowserHostControl web_browser_control = OpenWebBrowser();
-            web_browser_control.DoDictionarySearch(query);                        
+            web_browser_control.DoDictionarySearch(query);
         }
 
         public void SearchWeb(string query)
@@ -439,7 +439,7 @@ namespace Qiqqa.Common
         {
             WebsiteAccess.OpenWebsite(WebsiteAccess.OurSiteLinkKind.Home);
         }
-        
+
         internal void OpenHelp()
         {
             WebsiteAccess.OpenWebsite(WebsiteAccess.OurSiteLinkKind.Help);
@@ -466,7 +466,7 @@ namespace Qiqqa.Common
             Process.Start(ConfigurationManager.Instance.StartupDirectoryForQiqqa + @"licenses");
         }
 
-        
+
         internal void ExploreDocumentInBrainstorm(PDFDocument pdf_document)
         {
             List<PDFDocument> pdf_documents = new List<PDFDocument>();
@@ -586,7 +586,7 @@ namespace Qiqqa.Common
             {
                 {
                     StringNodeContent content_warning = new StringNodeContent("Please run Expedition on your library.");
-                    NodeControl node_warning = brainstorm_control.SceneRenderingControl.AddNewNodeControl(content_warning, 0, -2*HEIGHT);
+                    NodeControl node_warning = brainstorm_control.SceneRenderingControl.AddNewNodeControl(content_warning, 0, -2 * HEIGHT);
                     brainstorm_control.SceneRenderingControl.AddNewConnectorControl(node_library, node_warning);
                 }
                 {
@@ -600,7 +600,7 @@ namespace Qiqqa.Common
                     brainstorm_control.SceneRenderingControl.AddNewConnectorControl(node_library, node_warning);
                 }
             }
-            
+
             brainstorm_control.AutoArrange = true;
         }
 
@@ -706,7 +706,7 @@ namespace Qiqqa.Common
         {
             if (MessageBoxes.AskQuestion(
                 ""
-                + "Qiqqa ships out of the box in 'Novice Mode' so that newcomers are not overwhelmed at once by the loads of features Qiqqa has to offer.  If you are comfortable with Qiqqa, you can switch to Expert Mode now.  You can always switch back at any time by going to the configuration screen.\n\n"                
+                + "Qiqqa ships out of the box in 'Novice Mode' so that newcomers are not overwhelmed at once by the loads of features Qiqqa has to offer.  If you are comfortable with Qiqqa, you can switch to Expert Mode now.  You can always switch back at any time by going to the configuration screen.\n\n"
                 + "Do you want to switch to Expert Mode now?"
                 ))
             {

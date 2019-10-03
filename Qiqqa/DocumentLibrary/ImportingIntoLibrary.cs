@@ -24,7 +24,7 @@ namespace Qiqqa.DocumentLibrary
             // This dodgy global hack allows SSL failures on the server to pass (i.e. if they have a dodgy certificate)
             ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
         }
-        
+
         static readonly string LIBRARY_DOWNLOAD = "LibraryDownload";
 
         // make sure all threads use the same report file and the alert box is only shown once
@@ -33,25 +33,6 @@ namespace Qiqqa.DocumentLibrary
         internal static object problematic_import_documents_lock = new object();
 
         #region --- Add filenames ---------------------------------------------------------------------------------------------------------------------------
-
-        public class FilenameWithMetadataImport
-        {
-            public string filename;
-            public string bibtex;
-            public string notes;
-            public List<string> tags = new List<string>();
-
-            public override string ToString()
-            {
-                return String.Format(
-                    "---\r\n{0}\r\n{1}\r\n{2}\r\n{3}\r\n---"
-                    ,filename
-                    ,bibtex
-                    ,notes
-                    ,StringTools.ConcatenateStrings(tags, ';')
-                );
-            }
-        }
 
         public static void AddNewPDFDocumentsToLibrary_ASYNCHRONOUS(Library library, bool suppress_notifications, bool suppress_signal_that_docs_have_changed, params string[] filenames)
         {

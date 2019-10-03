@@ -278,8 +278,7 @@ namespace Utilities.BibTex
                             node_name_list.AppendChild(node_person);
                         }
                     }
-
-                    else
+                                        else
                     {
                         node_record.AppendChild(doc.CreateTextNode(val));
                     }

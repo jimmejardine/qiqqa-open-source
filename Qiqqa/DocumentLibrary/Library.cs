@@ -901,7 +901,7 @@ namespace Qiqqa.DocumentLibrary
             SignalThatDocumentsHaveChanged(null);
         }
 
-#region --- Signaling that documents have been changed ------------------
+        #region --- Signaling that documents have been changed ------------------
 
         public class PDFDocumentEventArgs : EventArgs
         {
@@ -982,9 +982,9 @@ namespace Qiqqa.DocumentLibrary
             }
         }
 
-#endregion
+        #endregion
 
-#region --- File locations ------------------------------------------------------------------------------------
+        #region --- File locations ------------------------------------------------------------------------------------
 
         public static string GetLibraryBasePathForId(string id)
         {
@@ -1023,6 +1023,6 @@ namespace Qiqqa.DocumentLibrary
             }
         }
 
-#endregion
+        #endregion
     }
 }

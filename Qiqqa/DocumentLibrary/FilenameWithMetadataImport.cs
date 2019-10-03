@@ -22,7 +22,7 @@ namespace Qiqqa.DocumentLibrary
                 , filename
                 , bibtex
                 , notes
-                , StringTools.ConcatenateStrings(tags, ';')
+                , StringTools.ConcatenateStrings(tags, separator: ";")
             );
         }
     }

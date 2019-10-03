@@ -9,13 +9,17 @@ namespace Utilities.BibTex
     {
         // ----------------------------------------------------------------------------------------
 
-        public static string GenerateRandomBibTeXKey()
+        public static string GenerateRandomBibTeXKey(string seed = null)
         {
+            if (String.IsNullOrEmpty(seed))
+            {
+                seed = "QIQQA";
+            }
             StringBuilder sb = new StringBuilder();
-            sb.Append("QIQQA-");
+            sb.Append(seed + "-");
             for (int i = 0; i < 5; ++i)
             {                
-                sb.Append(Convert.ToChar((byte)(65+RandomAugmented.Instance.NextIntExclusive(26))));
+                sb.Append(Convert.ToChar((byte)(65 + RandomAugmented.Instance.NextIntExclusive(26))));
             }
             return sb.ToString();
         }

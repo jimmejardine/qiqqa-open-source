@@ -134,7 +134,6 @@ namespace Utilities.OCR
 
                     continue;
                 }
-
                 catch (Exception ex)
                 {
                     Logging.Error(ex, "Invalid line format");

@@ -7,17 +7,15 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QiqqaTestHelpers;
 using static QiqqaTestHelpers.MiscTestHelpers;
 using Utilities;
+
+using Utilities.BibTex.Parsing;
 #endif
 
-#if TEST
-namespace QiqqaSystemTester
-#else
+
+#if !TEST
+
 namespace Utilities.BibTex.Parsing
-#endif
 {
-#if TEST
-    [TestClass]
-#endif
     /// <summary>
     /// Use this class to translate between the weird bibtex control codes to ASCII.
     /// The test harness suggests that this is quick (1.5M a second), so add as many translation lookups as you like...
@@ -165,19 +163,27 @@ namespace Utilities.BibTex.Parsing
 
             return source;
         }
+    }
+}
 
-        #region --- Test ------------------------------------------------------------------------
+#else
 
-#if TEST
-		// see also http://diacritics.typo.cz/index.php?id=1
+#region --- Test ------------------------------------------------------------------------
+
+namespace QiqqaSystemTester
+{
+    [TestClass]
+    public class BibTexCharacterMapTester
+    {
+        // see also http://diacritics.typo.cz/index.php?id=1
         const string TestStringS1 = @"Großherr Schneider müßt être fâché! \ možete tõmmata zdravím můj příteli jak se máš být lepší to těžká řeč áéíóúàèëïöüĳ ÁÉÍÓÚÀÈËÏÖÜĲ patiënt, reünie, coördinatie. Modern fonts rarely contain an Ĳ/ĳ with a double acute, so today it's usually represented as ÍJ/íj. hè, blèren. dấu nặng. ḃ, ċ, ḋ, ḟ, ġ, ṁ, ṗ, ṡ and ṫ. the Ŀ or ŀ (Ldot, ldot) characters. e is ɛ while é is [e:] ő is [ø:] and ű is [y:] dấu hỏ. Háček is a Czech word meaning little hook. This mark goes by other names as well. In Slovak it is called mäkčeň (i.e. “softener” or “palatalization mark”), in Slovenian strešica (“little roof”), in Croatian, Serbian and Bosnian kvačica (also “small hook”), and hattu (“hat”) in Fennic languages. Icelandic capital Ð appears the same as the South Slavic/Vietnamese Ð, but its lower case counterpart is different: ð. French â, ê, î, ô, û. In Slovak, it is used with ô. In Esperanto, with ĉ, ĝ, ĥ, ĵ, and ŝ. In Welsh with â, ê, î, ô, û, ŵ, and ŷ. quốc ngữ. An acute can be added to ư to produce ứ, and a breve can be added to ơ to produce ờ. Naming b bê bò and p pê phở is to avoid confusion in some dialects or some contexts, the same for s sờ mạnh (nặng) and x xờ nhẹ, i i ngắn and y y dài. Nguyễn, Đình-Hoà. In Polish, the ogonek is used with ą and ę for denoting nasal vowels. It also indicates nasality in a number of Native North American languages, such as Cayuga: ę and ǫ, and Chipewyan: ą, ę, ɛ̨, į, ǫ, ų. In Lithuanian, it lengthtens ą, ę, į and ų. somewhere between ö and ō. In Vietnamese, the tilde (or dấu ngã). including Pe̍h-ōe-jī and the Taiwanese Romanization System. It is used above vowels to indicate a specific tone (called tone 8) : a̍ e̍ i̍ o̍ o̍͘ u̍. It is also used in the Standardized orthography of Congo-Kinshasa to indicate mid tone in some languages like Ngbaka Gbaya : a̍ e̍ ɛ̍ i̍ o̍ ɔ̍ u̍. (or dấu sắc)";
 
         [TestMethod]
         public void Test_Conversion_To_And_From_BibTeX_Text()
         {
             string s1 = TestStringS1;
-            string s2 = ASCIIToBibTex(s1);
-            string s3 = BibTexToASCII(s2);
+            string s2 = BibTexCharacterMap.ASCIIToBibTex(s1);
+            string s3 = BibTexCharacterMap.BibTexToASCII(s2);
 
             ASSERT.AreEqual(s1, s3);
         }
@@ -186,8 +192,8 @@ namespace Utilities.BibTex.Parsing
         public void Test_SPEED()
         {
             string s1 = TestStringS1;
-            string s2 = ASCIIToBibTex(s1);
-            string s3 = BibTexToASCII(s2);
+            string s2 = BibTexCharacterMap.ASCIIToBibTex(s1);
+            string s3 = BibTexCharacterMap.BibTexToASCII(s2);
 
             const int NUM = 1000000;
             const int CHUNK = 10000;
@@ -204,7 +210,7 @@ namespace Utilities.BibTex.Parsing
                         break;
                     }
                 }
-                s2 = ASCIIToBibTex(s1);
+                s2 = BibTexCharacterMap.ASCIIToBibTex(s1);
             }
             double time_a2b = i * 1.0E-3 * s1.Length / start.ElapsedMilliseconds;
             Logging.Info("ASCIIToBibTex can do {0:0.000}M operations per second per character", time_a2b);
@@ -220,16 +226,17 @@ namespace Utilities.BibTex.Parsing
                         break;
                     }
                 }
-                s3 = BibTexToASCII(s2);
+                s3 = BibTexCharacterMap.BibTexToASCII(s2);
             }
             double time_b2a = i * 1.0E-3 * s1.Length / start.ElapsedMilliseconds;
             Logging.Info("BibTexToASCII can do {0:0.000}M operations per second per character", time_b2a);
 
             // dummy
-            ASCIIToBibTex(s3);
+            BibTexCharacterMap.ASCIIToBibTex(s3);
         }
-#endif
-
-        #endregion
     }
 }
+
+#endregion
+
+#endif

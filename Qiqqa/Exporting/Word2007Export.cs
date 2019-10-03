@@ -47,11 +47,9 @@ namespace Qiqqa.Exporting
 
                     Logging.Info("Exporting entries to Word 2007 bibliography format");
 
-
                     XmlDocument doc;
                     XmlElement elem_sources;
                     BibTexToWordConvertor.ConvertWrapperBibTexToXML(out doc, out elem_sources);
-
 
                     // Write out the entries
                     for (int i = 0; i < pdf_documents.Count; ++i)

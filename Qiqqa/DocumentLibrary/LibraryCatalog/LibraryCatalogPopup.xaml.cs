@@ -165,7 +165,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             sb.Append(pdf_documents[0].Library.WebLibraryDetail.Id);
             sb.Append("/");
             sb.Append(pdf_documents[0].Fingerprint);
-            
+
             // To clipboard
             string html = @"Version:0.9
 StartHTML:<<<<<<<1
@@ -182,7 +182,7 @@ SourceURL: {0}
 </html>";
 
             string result = sb.ToString();
-            string link = String.Format(html, result, "[Qiqqa]");            
+            string link = String.Format(html, result, "[Qiqqa]");
 
             DataObject data_object = new DataObject();
             data_object.SetData(DataFormats.Html, link);
@@ -192,7 +192,7 @@ SourceURL: {0}
             StatusManager.Instance.UpdateStatus("CopyQiqqaURI", String.Format("Copied '{0}' to clipboard.", result));
         }
 
-        
+
         void MenuCopyBibTeXKey_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
@@ -267,12 +267,12 @@ SourceURL: {0}
 
             MessageBoxes.Info("Legacy annotations removed.");
         }
-        
+
         void MenuForceOCR_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
 
-            string language = "";            
+            string language = "";
             MenuItem menu_item = sender as MenuItem;
             if (null != menu_item)
             {
@@ -280,7 +280,7 @@ SourceURL: {0}
             }
 
             FeatureTrackingManager.Instance.UseFeature(
-                Features.Library_ForceOCR, 
+                Features.Library_ForceOCR,
                 "language", language
                 );
 
@@ -334,7 +334,7 @@ SourceURL: {0}
 
                     MessageBoxes.Info("Your tags have been cleared.");
                 }
-            }            
+            }
         }
 
         void MenuRemoveAllBibTeX_Click(object sender, RoutedEventArgs e)

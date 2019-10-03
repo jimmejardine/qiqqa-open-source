@@ -37,7 +37,15 @@ namespace Qiqqa.Common.Configuration
         }
         public string Account_Nickname
         {
-            get { return this["Account_Nickname"] as string; }
+            get
+            {
+                string nick = this["Account_Nickname"] as string;
+                if (String.IsNullOrEmpty(nick))
+                {
+                    nick = "Guest-" + ConfigurationManager.Instance.ConfigurationRecord.Account_Username.Substring(0, 3);
+                }
+                return nick;
+            }
             set { this["Account_Nickname"] = value; }
         }
 
@@ -450,6 +458,13 @@ namespace Qiqqa.Common.Configuration
         {
             get { return (this["AutomaticAccountDetails_LibraryMembershipLastDate"] as DateTime?) ?? DateTime.MinValue; }
             set { this["AutomaticAccountDetails_LibraryMembershipLastDate"] = value; }
+        }
+
+        //[NonSerialized]
+        public bool DisableAllBackgroundTasks
+        {
+            get { return false; }
+            set { /* nil */ }
         }
     }
 }

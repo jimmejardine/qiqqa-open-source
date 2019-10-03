@@ -4,6 +4,20 @@ using System.IO;
 using System.Text;
 using System.Xml;
 
+#if TEST
+using System.Diagnostics;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using QiqqaTestHelpers;
+using static QiqqaTestHelpers.MiscTestHelpers;
+using Newtonsoft.Json;
+using Utilities;
+
+using Utilities.BibTex;
+#endif
+
+
+#if !TEST
+
 namespace Utilities.BibTex
 {
     public class PubMedXMLToBibTex
@@ -209,32 +223,56 @@ namespace Utilities.BibTex
                 return "";
             }
         }
+    }
+}
 
-        #region --- Test ------------------------------------------------------------------------
+#else
 
-#if TEST
-        private static void Test_SINGLE(string filename)
+#region --- Test ------------------------------------------------------------------------
+
+namespace QiqqaSystemTester
+{
+    // Note https://stackoverflow.com/questions/10375090/accessing-protected-members-of-another-class
+
+    [TestClass]
+    public class PubMedXMLToBibTexTester
+    {
+        private struct Result
+        {
+            internal string bibtex;
+            internal List<string> messages;
+            internal bool success;
+        }
+
+        [DataRow("publisherhelp.Example_of_a_Standard_XML.xml")]
+        [DataRow("publisherhelp.Example_of_an_AheadOfPrint_XML.xml")]
+        [DataRow("publisherhelp.Example_of_a_NonEnglish_XML.xml")]
+        [DataRow("publisherhelp.Example_of_a_Replaces_XML.xml")]
+        [DataTestMethod]
+        public void Basic_Import_Test(string pubmed_filepath)
         {
             // See http://www.nlm.nih.gov/bsd/licensee/elements_descriptions.html for the low-down
 
-            string pubmed_xml = File.ReadAllText(filename);
+            string path = GetNormalizedPathToPubMedXMLTestFile(pubmed_filepath);
+            ASSERT.FileExists(path);
 
-            string bibtex;
-            List<string> messages;
-            bool success = TryConvert(pubmed_xml, out bibtex, out messages);
-            if (success)
-            {
-                string filename_out = filename + ".txt";
-                File.WriteAllText(filename_out, bibtex);
-            }
+            string pubmed_xml = GetTestFileContent(path);
+
+            Result rv = new Result();
+            rv.success = PubMedXMLToBibTex.TryConvert(pubmed_xml, out rv.bibtex, out rv.messages);
+
+            // Serialize the result to JSON for easier comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            string json_out = JsonConvert.SerializeObject(rv, Newtonsoft.Json.Formatting.Indented).Replace("\r\n", "\n");
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new DataTestApprovalTextWriter(json_out, pubmed_filepath),
+                new DataTestLocationNamer(pubmed_filepath) /* GetDefaultNamer() */,
+                ApprovalTests.Approvals.GetReporter()
+            );
         }
-
-        public static void Test()
-        {
-            Test_SINGLE(@"C:\temp\sample_pubmed.xml");            
-        }
-#endif
-
-        #endregion
     }
 }
+
+#endregion
+
+#endif

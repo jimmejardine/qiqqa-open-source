@@ -93,14 +93,7 @@ namespace Qiqqa.Backups
 
         internal static void DoBackupRestoreInstructions()
         {
-            if (ConfigurationManager.Instance.IsGuest)
-            {
-                MessageBoxes.Info("To backup or restore your Qiqqa Database, you need to please restart Qiqqa.  You will see the Backup/Restore option at the bottom of the login window.");
-            }
-            else
-            {
-                MessageBoxes.Info("To backup or restore your Qiqqa Database, you need to please log out of Qiqqa (by clicking on the logout link at the bottom of the window).  Then, restart Qiqqa and you will see the Backup/Restore option at the bottom of the login window.");
-            }
+            MessageBoxes.Info("To backup or restore your Qiqqa Database, you need to please restart Qiqqa.  You will see the Backup/Restore option at the bottom of the login window.");
         }
     }
 }

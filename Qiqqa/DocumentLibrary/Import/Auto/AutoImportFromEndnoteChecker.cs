@@ -43,13 +43,13 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                 NotificationManager.Instance.AddPendingNotification(
                     new NotificationManager.Notification(
                         notification
-                        ,null
-                        ,NotificationManager.NotificationType.Info
+                        , null
+                        , NotificationManager.NotificationType.Info
                         , Icons.Import_EndNote
-                        ,"Yes, Import!"
-                        ,DoImportMyDocuments
-                        ,"Don't Ask Again"
-                        ,DoNoThanks
+                        , "Yes, Import!"
+                        , DoImportMyDocuments
+                        , "Don't Ask Again"
+                        , DoNoThanks
                     )
                 );
             }

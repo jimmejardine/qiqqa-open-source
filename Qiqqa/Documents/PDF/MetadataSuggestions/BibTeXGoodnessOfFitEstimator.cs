@@ -40,7 +40,7 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
                 string authors_string = BibTexTools.GetAuthor(bibtex_item);
                 if (!String.IsNullOrEmpty(authors_string))
                 {
-                    List<NameTools.Name> names = NameTools.SplitAuthors(authors_string, PDFDocument.UNKNOWN_AUTHORS);
+                    List<NameTools.Name> names = NameTools.SplitAuthors(authors_string);
                     StringBuilder sb = new StringBuilder();
                     foreach (NameTools.Name name in names)
                     {

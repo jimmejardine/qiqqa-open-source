@@ -82,7 +82,7 @@ namespace Qiqqa.Common.GUI
                 if (null != pdf_document)
                 {
                     string year = pdf_document.YearCombined;
-                    if (PDFDocument.UNKNOWN_YEAR != year)
+                    if (Constants.UNKNOWN_YEAR != year)
                     {
                         sb.Append("(" + year + ") ");
                     }
@@ -90,7 +90,7 @@ namespace Qiqqa.Common.GUI
                     sb.Append(pdf_document.TitleCombined);
 
                     string authors = pdf_document.AuthorsCombined;
-                    if (PDFDocument.UNKNOWN_AUTHORS != authors)
+                    if (Constants.UNKNOWN_AUTHORS != authors)
                     {
                         sb.Append(" by " + authors);
                     }

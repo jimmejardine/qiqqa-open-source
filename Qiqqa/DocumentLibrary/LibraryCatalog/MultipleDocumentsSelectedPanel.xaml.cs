@@ -270,10 +270,5 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
                 MessageBoxes.Warn("There was a problem updating {0} documents as they do not have an existing BibTeX record associated with them.", non_updateable_documents);
             }
         }
-
-        // ---------------------------------------------------------------------------------------------------
-
-
-
     }
 }

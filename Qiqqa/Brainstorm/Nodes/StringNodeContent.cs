@@ -46,6 +46,5 @@ namespace Qiqqa.Brainstorm.Nodes
                 return bindable;
             }
         }
-
     }
 }

@@ -26,7 +26,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             InitializeComponent();
 
             this.ToolTip =
-                "Love Qiqqa?  Want to help us spread the word?  Receive two free days Qiqqa Premium each day you tweet about Qiqqa!\n\nRemember to sign in to your account on the Qiqqa.com website and add your Twitter handle to receive your free credit.";
+                "Love OpenSource Qiqqa?  Want to help us spread the word?";
 
             ButtonSubmit.Icon = Icons.GetAppIcon(Icons.Tweet);
             ButtonSubmit.IconWidth = 32;
@@ -91,7 +91,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             if (!BibTexTools.HasTitle(bibtex_item)) return null;
 
             if (!BibTexTools.HasAuthor(bibtex_item)) return null;
-            List<NameTools.Name> names = NameTools.SplitAuthors(BibTexTools.GetAuthor(bibtex_item), PDFDocument.UNKNOWN_AUTHORS);
+            List<NameTools.Name> names = NameTools.SplitAuthors(BibTexTools.GetAuthor(bibtex_item));
             if (0 == names.Count) return null;
 
             string tweet = String.Format("I'm reading {1}'s '{0}' with @Qiqqa http://qiqqa.com", BibTexTools.GetTitle(bibtex_item), names[0].last_name);

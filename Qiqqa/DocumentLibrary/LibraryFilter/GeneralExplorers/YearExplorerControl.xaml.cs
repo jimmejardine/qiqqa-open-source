@@ -70,7 +70,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
 
                 // The year itself
                 string year_combined = pdf_document.YearCombined;
-                if (PDFDocument.UNKNOWN_YEAR != year_combined)
+                if (Constants.UNKNOWN_YEAR != year_combined)
                 {
                     tags_with_fingerprints.Add(year_combined, pdf_document.Fingerprint);
                 }

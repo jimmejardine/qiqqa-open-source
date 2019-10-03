@@ -40,6 +40,7 @@ namespace Utilities.Reflection
             
         }
         List<CallbackWrapper> callback_wrappers = new List<CallbackWrapper>();
+        object callback_wrappers_lock = new object();
 
         /// <summary>
         /// This is a "special" event that registers binding requests as usual, but creates weak references back to the registered party, so they will not be rooted by this binding.
@@ -54,7 +55,7 @@ namespace Utilities.Reflection
                 callback_wrapper.method_to_call = value.Method;
 
                 Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-                lock (callback_wrappers)
+                lock (callback_wrappers_lock)
                 {
                     l1_clk.LockPerfTimerStop();
                     callback_wrappers.Add(callback_wrapper);
@@ -64,7 +65,7 @@ namespace Utilities.Reflection
             remove
             {
                 Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-                lock (callback_wrappers)
+                lock (callback_wrappers_lock)
                 {
                     l1_clk.LockPerfTimerStop();
                     for (int i = callback_wrappers.Count - 1; i >= 0; --i)
@@ -83,7 +84,7 @@ namespace Utilities.Reflection
         private void FirePropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
         {
             Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-            lock (callback_wrappers)
+            lock (callback_wrappers_lock)
             {
                 l1_clk.LockPerfTimerStop();
                 if (0 < callback_wrappers.Count)
@@ -135,9 +136,8 @@ namespace Utilities.Reflection
             }            
         }
 
-        private void NotifyPropertyChanged_THREADSAFE(object property_name_obj)
+        private void NotifyPropertyChanged_THREADSAFE(string property_name)
         {
-            string property_name = (string)property_name_obj;
             FirePropertyChanged(this, property_name);
         }
 
@@ -203,7 +203,10 @@ namespace Utilities.Reflection
 
             public override Type ComponentType
             {
-                get { return pd.ComponentType; }
+                get
+                {
+                    return pd.ComponentType;
+                }
             }
 
             public override object GetValue(object component)
@@ -220,12 +223,18 @@ namespace Utilities.Reflection
 
             public override bool IsReadOnly
             {
-                get { return pd.IsReadOnly; }
+                get
+                {
+                    return pd.IsReadOnly;
+                }
             }
 
             public override Type PropertyType
             {
-                get { return pd.PropertyType; }
+                get
+                {
+                    return pd.PropertyType;
+                }
             }
 
             public override void ResetValue(object component)

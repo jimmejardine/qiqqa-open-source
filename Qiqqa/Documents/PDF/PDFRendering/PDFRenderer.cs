@@ -146,6 +146,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             lock (texts_lock)
             {
                 l1_clk.LockPerfTimerStop();
+
                 // First check our cache                
                 {
                     TypedWeakReference<WordList> word_list_weak;
@@ -249,7 +250,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             return sb.ToString();
         }
         
-        // Gets the full concatednated text for this document.
+        // Gets the full concatenated text for this document.
         // This is slow as it concatenates all the words from the OCR result...
         internal string GetFullOCRText()
         {

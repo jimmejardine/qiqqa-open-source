@@ -45,58 +45,6 @@ namespace Utilities.Strings
             }
         }
 
-        /// <summary>
-        /// Default behaviour, combine all using a comma separator.
-        /// </summary>
-        public static string ConcatenateStrings(List<string> strings)
-        {
-            if (strings == null) return string.Empty;
-            return ConcatenateStrings(strings.ToArray(), ',', 0);
-        }
-
-        public static string ConcatenateStrings(IEnumerable<string> strings, string separator)
-        {
-            return ConcatenateStrings(new List<string>(strings).ToArray(), separator, 0, Int32.MaxValue);
-        }
-        
-        public static string ConcatenateStrings(List<string> strings, char separator)
-        {
-            if (strings == null) return string.Empty;
-            return ConcatenateStrings(strings.ToArray(), separator);
-        }
-
-        public static string ConcatenateStrings(List<string> strings, char separator, int from)
-        {
-            if (strings == null) return string.Empty;
-            return ConcatenateStrings(strings.ToArray(), separator, from);
-        }
-
-        public static string ConcatenateStrings(List<string> strings, string separator, int from)
-        {
-            if (strings == null) return string.Empty;
-            return ConcatenateStrings(strings.ToArray(), separator, from);
-        }
-
-        public static string ConcatenateStrings(string[] strings, char separator)
-        {
-            return ConcatenateStrings(strings, separator.ToString(), 0, int.MaxValue);
-        }
-
-        public static string ConcatenateStrings(string[] strings, char separator, int from)
-        {
-            return ConcatenateStrings(strings, separator.ToString(), from, int.MaxValue);
-        }
-
-        public static string ConcatenateStrings(string[] strings, char separator, int from, int to_exclusive)
-        {
-            return ConcatenateStrings(strings, separator.ToString(), from, to_exclusive);
-        }
-
-        public static string ConcatenateStrings(string[] strings, string separator, int from)
-        {
-            return ConcatenateStrings(strings, separator, from, int.MaxValue);
-        }
-
 	    /// <summary>
         /// Returns the concatenated list of strings separated by separator
         /// </summary>
@@ -104,33 +52,28 @@ namespace Utilities.Strings
         /// <param name="separator"></param>
         /// <param name="from"></param>
         /// <returns></returns>
-        public static string ConcatenateStrings(string[] strings, string separator, int from, int to_exclusive)
+        public static string ConcatenateStrings(IEnumerable<string> strings, string separator = ",", int from = 0, int to_exclusive = int.MaxValue)
         {
             if (null == strings)
             {
                 return "";
             }
             
-            if (from >= strings.Length)
-            {
-                return "";
-            }
-
-            // If there is only one item
-            if (from == strings.Length - 1)
-            {
-                return strings[from];
-            }
-
-            // If there are multiple items
+            // If there are zero, one or multiple items
             StringBuilder sb = new StringBuilder();
-            for (int i = from; i < strings.Length && i < to_exclusive; ++i)
+            int i = 0;
+            int j = 0;
+            foreach (string s in strings)
             {
-                if (i > from)
+                if (i < from) continue;
+                if (i >= to_exclusive) break;
+                if (j > 0)
                 {
                     sb.Append(separator);
                 }
-                sb.Append(strings[i]);                
+                sb.Append(s);
+                i++;
+                j++;
             }
 
             return sb.ToString();
@@ -313,7 +256,7 @@ namespace Utilities.Strings
 			return position;
 		}
 
-        public static int Count(string source, char key)
+        public static int CharCount(string source, char key)
         {
             int total = 0;
             for (int i = 0; i < source.Length; ++i)

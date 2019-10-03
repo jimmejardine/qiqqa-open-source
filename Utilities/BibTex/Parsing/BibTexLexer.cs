@@ -213,8 +213,7 @@ namespace Utilities.BibTex.Parsing
 
         private void ParseFields(BibTexLexerCallback callback, char delim_close)
         {
-            {
-                while (delim_close != bibtex[c])
+                            while (delim_close != bibtex[c])
                 {
                     // Parse whitespace
                     ParseWhiteSpace();
@@ -222,7 +221,7 @@ namespace Utilities.BibTex.Parsing
                     // Get the name
                     if (ParseFieldName(callback))
                     {
-                        // Parse whitespace
+                                            // Parse whitespace
                         ParseWhiteSpace();
 
                         // Get the equals
@@ -292,8 +291,7 @@ namespace Utilities.BibTex.Parsing
 
                     // Parse whitespace
                     ParseWhiteSpace();
-                }
-            }
+                            }
         }
 
         /// <summary>
@@ -461,7 +459,7 @@ namespace Utilities.BibTex.Parsing
                 {
                     --brace_depth;
 
-                    // Are we out of our delimeters yet?
+                    // Are we out of our delimiters yet?
                     if (0 <= brace_depth)
                     {
                         ++c;

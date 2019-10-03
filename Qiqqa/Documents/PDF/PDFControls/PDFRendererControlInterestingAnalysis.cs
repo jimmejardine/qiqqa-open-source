@@ -61,7 +61,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             try
             {
                 string title = pdf_renderer_control_stats.pdf_document.TitleCombined;
-                if (PDFDocument.TITLE_UNKNOWN != title)
+                if (Constants.TITLE_UNKNOWN != title)
                 {
                     GoogleScholarScrapePaperSet gssp_set = GoogleScholarScrapePaperSet.GenerateFromQuery(ConfigurationManager.Instance.Proxy, title, 10);
 

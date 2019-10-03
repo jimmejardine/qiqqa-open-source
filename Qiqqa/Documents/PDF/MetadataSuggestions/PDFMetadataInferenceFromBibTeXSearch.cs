@@ -65,7 +65,7 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
             if (-1 == title.IndexOf(' ')) return false;
 
             // Unwanted automatic titles
-            if (PDFDocument.TITLE_UNKNOWN == title || pdf_document.DownloadLocation == title) return false;
+            if (Constants.TITLE_UNKNOWN == title || pdf_document.DownloadLocation == title) return false;
 
             // Get the search results!
             string json = DoSearch(title);
@@ -83,7 +83,7 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
 
                     BibTexItem bibtex_item = BibTexParser.ParseOne(bibtex, true);
 
-                    // Does the bibtex match sufficiently
+                    // Does the bibtex match sufficiently? Empty bibtex will be handled accordingly: no fit/match
                     PDFSearchResultSet search_result_set;
                     if (!BibTeXGoodnessOfFitEstimator.DoesBibTeXMatchDocument(bibtex, pdf_document, out search_result_set)) continue;
 
@@ -111,12 +111,12 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
                 // Pick the longest matching bibtex
                 if (0 < bibtex_choices.Count)
                 {
-                    bibtex_choices.Sort(delegate(string a, string b)
-                        {
-                            if (a.Length > b.Length) return -1;
-                            if (a.Length < b.Length) return +1;
-                            return 0;
-                        }
+                    bibtex_choices.Sort(delegate (string a, string b)
+                    {
+                        if (a.Length > b.Length) return -1;
+                        if (a.Length < b.Length) return +1;
+                        return 0;
+                    }
                     );
 
                     pdf_document.BibTex = bibtex_choices[0];
