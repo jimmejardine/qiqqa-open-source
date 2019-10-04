@@ -21,7 +21,7 @@ Then simply go to `./Qiqqa.Build/` and run `go.bat` to build the latest version 
 Would anyone who is interested in contributing towards this repository please contact @jimmejardine...
 
 
-## Visual Studio 2019 (new build environment)
+## Visual Studio 2019 (NEW, SUPPORTED build environment)
 
 As above, but instead you'll need to obtain and install Syncfusion Essential Studio 17 as this fixes at least **one very annoying bug** in Qiqqa's handling of (broken!) PDF files which are already part of your Qiqqa librarie(s).
 
