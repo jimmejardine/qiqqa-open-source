@@ -24,8 +24,12 @@ using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+
+#if CEFSHARP
 using CefSharp.Wpf;
 using CefSharp;
+#endif
+
 
 namespace Qiqqa.Main
 {
@@ -108,14 +112,18 @@ namespace Qiqqa.Main
                 Logging.Info("Loaded assembly: {0}", args.LoadedAssembly.FullName);
             };
 
-            #region CEFsharp setup
+#if CEFSHARP
+
+#region CEFsharp setup
 
             // CEFsharp setup for AnyPC as per https://github.com/cefsharp/CefSharp/issues/1714:
             AppDomain.CurrentDomain.AssemblyResolve += CefResolver;
 
             InitCef();
 
-            #endregion CEFsharp setup
+#endregion CEFsharp setup
+
+#endif
 
             try
             {
@@ -290,7 +298,9 @@ namespace Qiqqa.Main
             }
         }
 
-        #region CEFsharp setup helpers
+#if CEFSHARP
+
+#region CEFsharp setup helpers
 
         // CEFsharp setup code as per https://github.com/cefsharp/CefSharp/issues/1714:
 
@@ -331,7 +341,9 @@ namespace Qiqqa.Main
             return null;
         }
 
-        #endregion CEFsharp setup helpers
+#endregion CEFsharp setup helpers
+
+#endif
 
     }
 }

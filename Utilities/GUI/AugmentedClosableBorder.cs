@@ -12,6 +12,7 @@ namespace Utilities.GUI
     {
         Grid GridBackground;
         Grid GridContent;
+        // TODO: add SuperExpert Mode where these messages are not shown - at least most of 'em: once closed stays closed forever.
         private bool has_been_force_closed_by_user = false;
 
         public AugmentedClosableBorder()

@@ -21,10 +21,12 @@ namespace QiqqaOCR
         static string language;
 
         static Thread thread_text_extract = null;
-        static Dictionary<int,WordList> word_lists_text_extract = null;
+        static Dictionary<int, WordList> word_lists_text_extract = null;
         static bool word_lists_text_extract_credible = false;
         static bool has_exited_text_extract = false;
         static Exception exception_text_extract = null;
+
+        static object global_vars_access_lock = new object();
 
         // Warning CA1812	'TextExtractEngine' is an internal class that is apparently never instantiated.
         // If this class is intended to contain only static methods, consider adding a private constructor 
@@ -62,7 +64,13 @@ namespace QiqqaOCR
                 // --- TEST FOR STARTUP ------------------------------------------------------------------------------------------------------------------------------------------------
 
                 // Do we need to start the word list extractor thread?
-                if (null == thread_text_extract)
+                bool must_start_thread;
+                lock (global_vars_access_lock)
+                {
+                    must_start_thread = (null == thread_text_extract);
+                }
+
+                if (must_start_thread)
                 {
                     Logging.Info("Starting the text extract thread");
                     thread_text_extract = new Thread(ThreadTextExtractMainEntry);
@@ -74,10 +82,13 @@ namespace QiqqaOCR
                 // --- TEST FOR COMPLETION ------------------------------------------------------------------------------------------------------------------------------------------------
 
                 // Do we have some reasonable text_extract results?
-                if (null != word_lists_text_extract)
+                lock (global_vars_access_lock)
                 {
-                    Logging.Info("We have a text extract word list of length {0}", word_lists_text_extract.Count);
-                    break;
+                    if (null != word_lists_text_extract)
+                    {
+                        Logging.Info("We have a text extract word list of length {0}", word_lists_text_extract.Count);
+                        break;
+                    }
                 }
 
                 // --- TEST FOR PROBLEMS ------------------------------------------------------------------------------------------------------------------------------------------------
@@ -89,18 +100,21 @@ namespace QiqqaOCR
                     break;
                 }
 
-                // Has the process had an exception?
-                if (null != exception_text_extract)
+                lock (global_vars_access_lock)
                 {
-                    Logging.Info("Both text extract and OCR have had an exception, so exiting");
-                    break;
-                }
+                    // Has the process had an exception?
+                    if (null != exception_text_extract)
+                    {
+                        Logging.Info("Both text extract and OCR have had an exception, so exiting");
+                        break;
+                    }
 
-                // Has the process somehow without writing a result?
-                if (has_exited_text_extract)
-                {
-                    Logging.Info("Both text extract and OCR have exited, so exiting");
-                    break;
+                    // Has the process somehow without writing a result?
+                    if (has_exited_text_extract)
+                    {
+                        Logging.Info("Both text extract and OCR have exited, so exiting");
+                        break;
+                    }
                 }
 
                 // Do some sleeping before iterating
@@ -108,15 +122,18 @@ namespace QiqqaOCR
             }
 
             // Check that we have something to write
-            if (null != word_lists_text_extract)
+            lock (global_vars_access_lock)
             {
-                Logging.Info("+Writing OCR to file {0}", ocr_output_filename);
-                WordList.WriteToFile(ocr_output_filename, word_lists_text_extract, "PDFText");
-                Logging.Info("-Writing OCR to file {0}", ocr_output_filename);
-            }
-            else
-            {
-                throw new Exception("We have no wordlist to write!");
+                if (null != word_lists_text_extract)
+                {
+                    Logging.Info("+Writing OCR to file {0}", ocr_output_filename);
+                    WordList.WriteToFile(ocr_output_filename, word_lists_text_extract, "PDFText");
+                    Logging.Info("-Writing OCR to file {0}", ocr_output_filename);
+                }
+                else
+                {
+                    throw new Exception("We have no wordlist to write!");
+                }
             }
         }
 
@@ -126,20 +143,29 @@ namespace QiqqaOCR
             try
             {
                 Dictionary<int, WordList> word_lists = DoOCR(pdf_filename, page_numbers, pdf_user_password);
-                word_lists_text_extract_credible = WordListCredibility.Instance.IsACredibleWordList(word_lists);
-                if (word_lists_text_extract_credible)
+                lock (global_vars_access_lock)
                 {
-                    word_lists_text_extract = word_lists;
+                    word_lists_text_extract_credible = WordListCredibility.Instance.IsACredibleWordList(word_lists);
+                    if (word_lists_text_extract_credible)
+                    {
+                        word_lists_text_extract = word_lists;
+                    }
                 }
             }
             catch (Exception ex)
             {
-                Logging.Error(ex, "Problem while doing text extract");
-                exception_text_extract = ex;
+                Logging.Error(ex, "Problem while doing text extract for file {0}", pdf_filename);
+                lock (global_vars_access_lock)
+                {
+                    exception_text_extract = ex;
+                }
             }
             finally
             {
-                has_exited_text_extract = true;
+                lock (global_vars_access_lock)
+                {
+                    has_exited_text_extract = true;
+                }
             }
         }
 
@@ -155,7 +181,7 @@ namespace QiqqaOCR
             Dictionary<int, WordList> word_lists = new Dictionary<int, WordList>();
             int current_page = 0;
             WordList current_word_list = null;
-            
+
             foreach (MuPDFRenderer.TextChunk text_chunk in text_chunks)
             {
                 // Check if we have moved onto a new page

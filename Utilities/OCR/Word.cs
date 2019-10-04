@@ -85,6 +85,5 @@ namespace Utilities.OCR
                 && top <= this.Top
                 ;
         }
-
     }
 }

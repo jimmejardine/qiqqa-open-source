@@ -16,7 +16,7 @@ namespace Qiqqa.DocumentLibrary
                 , Filename
                 , BibTex.toBibTex()
                 , Notes
-                , StringTools.ConcatenateStrings(Tags, ';')
+                , StringTools.ConcatenateStrings(Tags, separator: ";")
             );
         }
     }

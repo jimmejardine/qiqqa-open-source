@@ -6,6 +6,7 @@ using Utilities.BibTex.Parsing;
 using Utilities.GUI;
 using Utilities.Reflection;
 using Utilities.Strings;
+using Utilities;
 using Qiqqa.Documents.PDF.MetadataSuggestions;
 
 namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls

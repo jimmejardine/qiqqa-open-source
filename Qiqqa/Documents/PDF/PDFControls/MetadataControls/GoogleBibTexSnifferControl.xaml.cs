@@ -208,6 +208,14 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             ButtonValidate.ToolTip = "The automatic BibTeX for this document is great.  Mark it as valid!";
             ButtonValidate.Click += ButtonValidate_Click;
 
+            ButtonToggleBibTeX.Icon = Icons.GetAppIcon(Icons.GoogleBibTexNext);
+            ButtonToggleBibTeX.ToolTip = "Toggle the BibTeX edit mode between RAW and FIELD-FORMATTED.";
+            ButtonToggleBibTeX.Click += ButtonToggleBibTeX_Click;
+
+            ButtonUndoBibTexEdit.Icon = Icons.GetAppIcon(Icons.GoogleBibTexNext);
+            ButtonUndoBibTexEdit.ToolTip = "Reset the BibTeX to what was before, i.e. discard all changes to the BibTeX while viewing this document in this sniffer.";
+            ButtonUndoBibTexEdit.Click += ButtonUndoBibTexEdit_Click;
+
             ButtonConfig.Icon = Icons.GetAppIcon(Icons.DocumentMisc);
             ButtonConfig.ToolTip = LocalisationManager.Get("PDF/TIP/MORE_MENUS");
             ButtonConfig.Click += ButtonConfig_Click;
@@ -238,6 +246,16 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             ObjWebBrowser.DefaultWebSearcherKey = WebSearchers.SCHOLAR_KEY;
             ObjWebBrowser.ForceAdvancedMenus();
             ObjWebBrowser.SetupSnifferSearchers();
+        }
+
+        private void ButtonUndoBibTexEdit_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ButtonToggleBibTeX_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         void GoogleBibTexSnifferControl_KeyUp(object sender, KeyEventArgs e)

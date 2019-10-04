@@ -125,7 +125,6 @@ namespace QiqqaOCR
                         ++y_counts[y];
                         continue;
                     }
-
                 }
             }
 

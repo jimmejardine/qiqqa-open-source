@@ -62,7 +62,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
             public override string ToString()
             {
-                return String.Format("PDF:{0} Page:{1}", pdf_renderer, page);
+                return String.Format("PDF:{0} Page:{1} Grouping:{2} Forced:{3} Language:{4}", pdf_renderer, page, TEXT_PAGES_PER_GROUP, force_job, language);
             }
 
             public void Clear()
@@ -565,10 +565,9 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             }
             else
             {
-                Logging.Error("Couldn't even perform OCR on the page, so giving up for " + next_job.job);
+                Logging.Error("Couldn't even perform OCR on the page, so giving up for {0}", next_job.job);
 
                 // Store an empty file so we don't queue forever...
-
             }
         }
 
@@ -601,9 +600,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                     // Check that we had a clean exit
                     if (!process.HasExited || 0 != process.ExitCode)
                     {
-                        Logging.Error("There was a problem while running OCR with parameters: {0}", ocr_parameters);
-                        Logging.Info("Parameters: {0}", ocr_parameters);
-                        Logging.Info(process_output_reader.GetOutputsDumpString());
+                        Logging.Error("There was a problem while running OCR with parameters: {0}\n    Output:\n{1}", ocr_parameters, process_output_reader.GetOutputsDumpString());
 
                         if (!process.HasExited)
                         {
