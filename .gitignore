@@ -24,6 +24,8 @@ QiqqaTestHelpers/bin/*
 QiqqaTestHelpers/obj/*
 QiqqaVersionMigrator/bin/*
 QiqqaVersionMigrator/obj/*
+QiqqaLegacyFileFormats/bin/*
+QiqqaLegacyFileFormats/obj/*
 
 # scratch directory for other material while working on Qiqqa items
 /research/
