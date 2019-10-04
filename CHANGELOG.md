@@ -105,7 +105,7 @@
   
     **Warning**: this MUST NOT be present in any future production version or you'll kill users by log file collection buildup on the install drive!
 
-  * simple stuff: updating copyright notices from 2016 to 2019 and bumping the version from 80 to 81.  
+  * simple stuff: updating copyright notices from 2016 to 2019.  
 
   * update existing Syncfusion files from v14 to v17, which helps resolve https://github.com/jimmejardine/qiqqa-open-source/issues/11
     
@@ -116,10 +116,36 @@
 Version 80 (FOSS):
 =================
 
+
+> ## Note
+>
+> This release is **binary compatible with v80 and v79**: any library created using this version MUST be readable and usable by v80 and v79 software releases.
+
+
+
+
+			
 - Qiqqa goes Open Source!!!
 - Enabled ALL Premium and Premium+ features for everyone.
 - Removed all Web Library capabilities (create/sync/manage)
 - Added the ability to copy the entire contents of a former Web Library into a library - as a migration path from Qiqqa v79 to v80
+			
+
+
+
+----
+
+**Start of the Qiqqa Open Source activity**
+
+----
+
+
+
+
+
+Commercial Qiqqa releases
+=========================
+
 
 Version 79 (Commercial):
 - Can add regularly used user-defined keys to the BibTeX Editor
