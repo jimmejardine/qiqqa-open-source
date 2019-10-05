@@ -104,6 +104,7 @@
       <Link>Utilities\BibTeX\RisToBibTeX.cs</Link>
     </Compile>
     <Compile Include="ApprovalTestsConfig.cs" />
+    <Compile Include="DebugAndRelaseBinariesExecTest.cs" />
     <Compile Include="TestBibTeX.cs" />
     <Compile Include="TestJSONDeserializeFromArbitrary.cs" />
     <Compile Include="UnitTest1.cs" />
@@ -731,7 +732,6 @@
     <None Include="data\Qiqqa.configuration" />
     <None Include="data\Qiqqa.configuration.json" />
     <None Include="data\fixtures\serialization\PDFDocument\v80-record-0001.json" />
-    <None Include="GenericTest1.GenericTest" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

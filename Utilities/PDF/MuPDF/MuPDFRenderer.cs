@@ -123,7 +123,7 @@ namespace Utilities.PDF.MuPDF
                             Logging.Warn("Bad bounding box for text chunk");
                         }
 
-                        // And add him to the result list6
+                        // And add him to the result list
                         text_chunks.Add(text_chunk);
 
                         continue;

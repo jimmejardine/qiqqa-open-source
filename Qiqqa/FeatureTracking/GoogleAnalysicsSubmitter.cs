@@ -33,6 +33,8 @@ namespace Qiqqa.FeatureTracking
 
         private static void Submit_BACKGROUND(Feature feature)
         {
+            string request = "???";
+
             try
             {
                 // Build up the request
@@ -44,7 +46,7 @@ namespace Qiqqa.FeatureTracking
                     sb.AppendFormat("&t={0}", "pageview");
                     sb.AppendFormat("&dp=/Client/Windows/Feature/{0}", feature.Name);
                 }
-                string request = sb.ToString();
+                request = sb.ToString();
 
                 // Send
                 using (WebClient wc = new WebClient())
@@ -58,7 +60,7 @@ namespace Qiqqa.FeatureTracking
             catch (Exception ex)
             {
                 last_ga_failure_time = DateTime.UtcNow;
-                Logging.Error(ex, "Google Analytics submission failure for feature {0}", feature.Name);
+                Logging.Error(ex, "Google Analytics submission failure for feature {0}: URI: {1}, REQUEST: {2}", feature.Name, URL, request);
             }
         }
     }

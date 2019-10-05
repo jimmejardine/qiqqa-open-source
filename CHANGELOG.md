@@ -1,5 +1,175 @@
-2019-08-11
-  * fiddling with website theme...
+
+v82 release
+===========
+
+> ## Note
+>
+> This release is **binary compatible with v80 and v79**: any library created using this version MUST be readable and usable by v80 and v79 software releases.
+
+
+
+
+* (580ed05) built v82 setup/installer: Qiqqa version 82.0.7216.35525 (Aspirant Release - bugs were found later so this saw the light of day outside the lab)
+			
+* (cdd51d6) Sniffer: BibTeX editor pane can toggle between formatted/parsed field editor mode and raw BibTeX editor mode.
+
+  Known issue: the little green cross that is the UI element to toggle editor modes 
+  has the nauseating behaviour of moving along up & down and thus hiding behind 
+  the sniffer ok/fail/skip/clean buttons at top-right.
+  
+* (1765137) fix https://github.com/jimmejardine/qiqqa-open-source/issues/74 + https://github.com/jimmejardine/qiqqa-open-source/issues/73 = https://github.com/GerHobbelt/qiqqa-open-source/issues/1 : QiqqaOCR is rather fruity when it comes to generating rectangle areas to OCR. This is now sanitized.
+			
+
+
+
+2019-10-03
+----------
+
+			
+* Improved code robustness.
+
+* Some minimal performance improvements
+
+			
+* (a3bc0b4) fix/tweak: when qiqqa server software revision XML response shows a *revert* to an older Qiqqa software release, such was coded but would not have been caught before as that bit of conditional code would never be reached when the user is running a later Qiqqa version.
+  
+* (4fd0bd1 et al) fixed 'recover desktop' functionality: screen positions and opened panes are now correctly remembered.
+
+			
+* (45f083d) upgrade projects to all reference .NET 4.7.2 instead of .NET 4.0 Client Profile
+			
+* (48daaa2) `support@qiqqa.com` is of course R.I.P., hence point at github issue tracker instead for software failures.
+			
+			
+* (4f07d34) Legacy Web Library: such a library is NOT read-only. (What we got to do is point it to an 'Intranet' sync point = directory/URI path instead. (TODO)
+			
+* (bd923e5) fix https://github.com/jimmejardine/qiqqa-open-source/issues/72 + adding **minimal** support for bibtex concatenation macros in order to (somewhat) correctly parse google scholar patents records: fixes https://github.com/jimmejardine/qiqqa-open-source/issues/22 and a bit of work towards https://github.com/jimmejardine/qiqqa-open-source/issues/68
+			
+
+			
+* (07bb569) allow tags to be separated by COMMA as well as SEMICOLON. (Added COMMA separator support)
+			
+			
+* (dad18fd) fix for the new Sniffer feature: a full-fledged BibTeX editor pane, just like you get in the library/document view panels in Qiqqa. KNOWN ISSUE: for small BibTeXs (only a few lines of BibTeX for the given document), the green toggle X is obscured by the thumbs up/down fade in/out buttons. :-(
+* (3efdfd4) EXPERIMENTAL: add full BibTeX editing power to the sniffer, that is: use the same BibTeX control there as used elsewhere where you can switch between RAW view and PARSED BibTeX lines. ----- TODO: link up the edit events again.
+			
+* (ec1fe2c) one more for https://github.com/jimmejardine/qiqqa-open-source/issues/67
+  
+  WARNING: a PDF URI does *not* have to include a PDF extension!
+  
+  Case in point:
+  
+      https://pubs.acs.org/doi/pdf/10.1021/ed1010618?rand=zf7t0csx
+  
+  is an example of such a URI: this URI references a PDF but DOES NOT contain the string ".pdf" itself!
+			
+			
+* (c4b64a4) PDF imports: add menu item to re-import all PDFs collected in the library in order to discover the as-yet-LOST/UNREGISTERED PDFs, which collected in the library due to previous Qiqqa crashes & user ABORT actions (https://github.com/jimmejardine/qiqqa-open-source/issues/64)
+  
+			
+* (3872959) `AddNewDocumentToLibraryFromInternet_*()` APIs: some nasty/ill-configured servers don't produce a legal Content-Type header, or don't provide that header *at all* -- which made Qiqqa barf a hairball instead of properly attempting to import the downloaded PDF.
+
+  Also don't yak about images which are downloaded as part of Google search pages, etc.: these content-types now make it through *part* of the PDF import code as we cannot rely on the Content-Type header being valid or present, hence we need to be very lenient about what we accept as "potentially a PDF document" to inspect before importing.
+  
+  Fixes: https://github.com/jimmejardine/qiqqa-open-source/issues/63
+			
+* (d2b5c22) tackling with the weird SQLite lockup issues: https://github.com/jimmejardine/qiqqa-open-source/issues/62
+  
+  As stated in the issue:
+  
+  Seems to be an SQLite issue: https://stackoverflow.com/questions/12532729/sqlite-keeps-the-database-locked-even-after-the-connection-is-closed gives off the same smell...
+  
+  Adding a `lock(x) {...}` critical section **per library instance** didn't make a difference.
+  
+  Adding a global/singleton  `lock(x) {...}` critical section **shared among /all/ library instances** *seems* to reduce the problem, but large PDF import tests show that the problem isn't *gone* with such a fix/tweak/hack.
+			
+* (abd020a) UPGRADE PACKAGES: log4net, SQLite, etc. -- the easy ones. Using NuGet Package Manager.
+  
+			
+			
+* (43debf6) remaining work for  https://github.com/jimmejardine/qiqqa-open-source/issues/56 / https://github.com/jimmejardine/qiqqa-open-source/issues/54 -- catch some nasty PDF URIs which weren't recognized as such before. Right now we're pretty aggressive as we fetch almost everything that crosses our path; once fetched we check if's actually a valid PDF file after all. CiteSeerX and other sites now deliver once again...
+			
+* (c3102a7) fix: BibTeX dialog doesn't scroll: that's a problem when your list of BibTeX tags is longer than the height of the dialog allows. Hence we can now scroll the bugger.
+			
+* (b46b38d) Don't get bothered by the Tweet stuff: collapse it.
+			
+* (e0d056c) fixes for https://github.com/jimmejardine/qiqqa-open-source/issues/56 ; also ensuring every document that's fetched off the Internet is opened in Qiqqa for review/editing (some PDF documents were silently downloaded and then dumped into the Guest Library just because and you'ld have to go around and check to see the stuff actually arrived in a library of yours. :'-(
+			
+			
+* (be0d54f) fix: https://github.com/jimmejardine/qiqqa-open-source/issues/60 + https://github.com/jimmejardine/qiqqa-open-source/issues/39 + better fix for https://github.com/jimmejardine/qiqqa-open-source/issues/59
+  
+  check how many PDF files actually match and only move forward when we don't end up full circle. don't reflect if we didn't change. when we re-render the same document, we don't move at all!
+			
+* (4e791e8) fix https://github.com/jimmejardine/qiqqa-open-source/issues/59: don't reflect if we didn't change.
+  
+  We start with a dummy fingerprint to ensure that we will observe ANY initial setup/change as significant for otherwise we don't get the initial PDF document rendered at all!
+  
+  We use the PDF Fingerprint as a check for change as the numeric `pdf_documents_search_index` value might look easier but doesn't show us any library updates that may have happened in the meantime.
+			
+			
+* (c8e3729) Locking in the current state of affairs as of https://github.com/jimmejardine/qiqqa-open-source/issues/55#issuecomment-524846632-permalink while I dig further to uncover the *slowtard* culprits. Mother Of All Commits. Can be split up into multiple commits if needed later on in a separate branch. Actions done in the past days while hunting the shite:
+  
+  
+  - `FeatureTracking:GoogleAnalysicsSubmitter` begets a 403 (Forbidden) from Google Analytics. Report such in the logfile instead of letting it pass silently. (Not that I care that much about feature tracking right now, but this was part of the larger code review re HTTP access from Qiqqa)
+  
+			
+* (c1bb4f8) 
+  - BibTeX Sniffer: clean up search items results in better (human readable) search criteria for some PDFs where previously the words were separated by TAB but ended up as one long concatenated string of characters in Google Scholar Search.
+  - HTTP/HTTPS web grab of PDF files: we don't care which TLS/SSL protocol is required, we should just grab the PDF and not bother. Some websites require TLS2 while today I ran into a website which requires old SSL (not TLS): make sure they're **all** turned ON.
+  - Register the current library with the WebBrowserHostControl so that we don't have to go through obnoxious 'Pick A Library' dialog every time we hit the "Import all PDFs available on this page" button in the browser toolbar.
+
+			
+* (5f00577) 
+  - refactor: now StandardWindow will save (and restore on demand) the window size and location for any named window; th settings will be stored in the configuration file. SHOULD be backwards compatible. Further work on https://github.com/jimmejardine/qiqqa-open-source/issues/8
+  - also fix the handling of the "Has OCR" checkbox: made it a proper tri-state. VERY SLOW to filter when ticked OFF or ON. (TODO: add a hack where we only allow it to impact the filtering for N seconds so as to limit the impact on UX performance-wise)
+			
+			
+* (720caf2) 
+  - fix https://github.com/jimmejardine/qiqqa-open-source/issues/54 in GoogleBibTexSnifferControl
+  - Gecko these days crashes on ContentDispositionXXXX member accesses: Exception thrown: 'System.Runtime.InteropServices.COMException' in Geckofx-Core.dll
+  
+    I'm not sure why; the only change I know of is an update of MSVS2019.  :-S
+  
+  - implement the logic for the BibTeXSniffer 'Has OCR' checkbox filter criterium. It's useful but the zillion file-accesses slow the response down too much to my taste.   :-S
+			
+* (6e8ab5d) sniffer: add filter check box to only show those PDF records which have been OCRed already. (The ones that aren't are pretty hard to sniff as you cannot mark any title text bits in them yet, for instance)
+			
+			
+* (3f1bbf2) quick fix for folder watcher going berzerk -- has to last until we refactor the async/sync PDF import code chunks. (see branch `refactoring_pdf_imports`)
+			
+			
+* (b0b7e72) 
+  - 'integrate' nant build script for producing setup.exe installers into MSVS2019 solution by using a dummy project and prebuild script
+  - added skeleton projects for qiqqa diagnostic and migration work. Related to https://github.com/jimmejardine/qiqqa-open-source/issues/43
+			
+			
+* (3a2629f) working on https://github.com/jimmejardine/qiqqa-open-source/issues/52 : FolderWatcher and PDF library import need rework / refactor as we either break the status feedback to user ("Adding document N of M...") as we loose the overall count of added documents, *or* we add/import PDF documents multiple times as we cannot destroy/Clear() the list since it is fed to the async function **as a reference**. :-(
+  
+			
+* (716d54d) fix/tweak: just like with Sniffer AutoGuess, when a BibTeX record is picked from bibtexsearch using heuristics, it is now flagged in the bibtex with a special comment (`@COMMENT...`) which was already available before in the code but apparently disused or unused until today.
+			
+* (2eb1380) refactored: Wasn't happy with the code flow in the FolderWatcher: now the long recursive directory scan (using `EnumerateFiles()`) is only aborted whn the app is terminated or when it has run its course (or when there are more or less dire circumstances); otherwise the dirtreescan is periodically paused to give the machine a bit of air to cope with the results and/or other pending work, while an app exit is very quickly discovered still (just like before, it is also detected inside the `daemon.Sleep(N)` calls in there, so we're good re that one. Tested it and works nicely. https://github.com/jimmejardine/qiqqa-open-source/issues/50
+			
+			
+* (7118c3c) fix https://github.com/jimmejardine/qiqqa-open-source/issues/48 : Expedition: Refresh -> "Looking for new citations in ..." is not aborted when Qiqqa is closed.
+			
+			
+* (1053fce) 
+  - fixed https://github.com/jimmejardine/qiqqa-open-source/issues/50 using EnumerateFiles API instead of GetFiles. (TODO: inspect other sites in code where GetFiles is invoked)
+  - introduced `Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown` as a global flag to check whether the app is terminating: this works the same way as `!thread.IsRunning` but without the need to memoize the thread reference or pass it via extra function arguments.
+  - Addd a couple of extra `IsShuttingDown` checks to improve 'exit' termination speed of the application.
+			
+			
+* (869dea1) fixed https://github.com/jimmejardine/qiqqa-open-source/issues/8: now stores WindowState as well and fetches non-maximized window size using RestoreBounds WPF API.
+			
+			
+* (8db7a3d) tweak the About message: now also show the *full* build version next to the classic `vNN` version.
+			
+			
+* (7750279) make Qiqqa main app and QiqqaOCR logging easily recognizable: `[Q]` or `[OCR]` tag per logline.
+  Also print the QC-reported memory usage as a fixed-width number in MBytes
+			
+
 
 
 # version 81.0.7158.38371 :: alpha test release
@@ -105,7 +275,7 @@
   
     **Warning**: this MUST NOT be present in any future production version or you'll kill users by log file collection buildup on the install drive!
 
-  * simple stuff: updating copyright notices from 2016 to 2019 and bumping the version from 80 to 81.  
+  * simple stuff: updating copyright notices from 2016 to 2019.  
 
   * update existing Syncfusion files from v14 to v17, which helps resolve https://github.com/jimmejardine/qiqqa-open-source/issues/11
     
@@ -116,10 +286,36 @@
 Version 80 (FOSS):
 =================
 
+
+> ## Note
+>
+> This release is **binary compatible with v80 and v79**: any library created using this version MUST be readable and usable by v80 and v79 software releases.
+
+
+
+
+			
 - Qiqqa goes Open Source!!!
 - Enabled ALL Premium and Premium+ features for everyone.
 - Removed all Web Library capabilities (create/sync/manage)
 - Added the ability to copy the entire contents of a former Web Library into a library - as a migration path from Qiqqa v79 to v80
+			
+
+
+
+----
+
+**Start of the Qiqqa Open Source activity**
+
+----
+
+
+
+
+
+Commercial Qiqqa releases
+=========================
+
 
 Version 79 (Commercial):
 - Can add regularly used user-defined keys to the BibTeX Editor

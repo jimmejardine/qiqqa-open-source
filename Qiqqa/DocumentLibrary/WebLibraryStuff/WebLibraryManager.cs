@@ -90,7 +90,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                         WebLibraryDetail new_web_library_detail = new WebLibraryDetail();
 
                         new_web_library_detail.Id = library_id;
-                        new_web_library_detail.Title = "Legacy Web Library - " + new_web_library_detail.Id.Substring(0, 8);
+                        new_web_library_detail.Title = "Legacy Web Library - " + new_web_library_detail.Id.Substring(0, new_web_library_detail.Id.Length);
                         new_web_library_detail.IsReadOnly = false;
                         new_web_library_detail.library = new Library(new_web_library_detail);
                         web_library_details[new_web_library_detail.Id] = new_web_library_detail;
