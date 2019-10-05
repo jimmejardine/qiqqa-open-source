@@ -16,5 +16,7 @@
       }
     }
   ],
-  "Comments": []
+  "Comments": [
+    "% advanced (or b0rked?) escapes"
+  ]
 }

@@ -16,5 +16,7 @@
       }
     }
   ],
-  "Comments": []
+  "Comments": [
+    "% advanced \\k escape, etc."
+  ]
 }
