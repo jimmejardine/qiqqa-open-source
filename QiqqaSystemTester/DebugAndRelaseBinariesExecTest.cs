@@ -12,7 +12,7 @@ namespace QiqqaPreProductionReleaseTester
 
     //[TestCategory("Edit Tests"), TestCategory("Non-Smoke")]
     [TestClass]
-    class DebugAndRelaseBinariesExecTest
+    public class DebugAndReleaseBinariesExecTest
     {
         [ClassInitialize]
         public static void TestFixtureSetup(TestContext context)
