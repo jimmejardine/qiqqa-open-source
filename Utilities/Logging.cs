@@ -25,51 +25,67 @@ namespace Utilities
             ILog dummy_fetch_to_init_logger = log;
         }
 
+        private static bool log4net_loaded;   // WARNING: DO NOT init this to false as then the logger init in the contructor will fail to deliver! HAIRY CODE / .NET BEHAVIOUR
+
         static ILog log
         {
             get
             {
-                if (null != __log) return __log;
-
-                try
+                if (null == __log && log4net_loaded)
                 {
-                    BasicConfigurator.Configure();
-                    XmlConfigurator.Configure();
-                    __log = LogManager.GetLogger(typeof(Logging));
-                    Info("Logging initialised.{0}", LogAssist.AppendStackTrace(null, "get_log"));
+                    Init();
+                }
+                return __log;
+            }
+        }
 
-                    if (init_ex_list != null && init_ex_list.Count > 0)
+        public static void TriggerInit()
+        {
+            log4net_loaded = true;
+        }
+
+        private static bool Init()
+        {
+            if (null != __log) return true;
+
+            try
+            {
+                BasicConfigurator.Configure();
+                XmlConfigurator.Configure();
+                __log = LogManager.GetLogger(typeof(Logging));
+                Info("Logging initialised.{0}", LogAssist.AppendStackTrace(null, "get_log"));
+
+                if (init_ex_list != null && init_ex_list.Count > 0)
+                {
+                    Error("Logging init failures (due to premature init/usage?):");
+                    foreach (LogBufEntry ex in init_ex_list)
                     {
-                        Error("Logging init failures (due to premature init/usage?):");
-                        foreach (LogBufEntry ex in init_ex_list)
+                        if (ex.ex != null)
                         {
-                            if (ex.ex != null)
+                            if (ex.message != null)
                             {
-                                if (ex.message != null)
-                                {
-                                    Error(ex.ex, "Logger init failure. Message: {0}", ex.message);
-                                }
-                                else
-                                {
-                                    Error(ex.ex, "Logger init failure.");
-                                }
+                                Error(ex.ex, "Logger init failure. Message: {0}", ex.message);
                             }
                             else
                             {
-                                Info(ex.message);
+                                Error(ex.ex, "Logger init failure.");
                             }
                         }
-                        init_ex_list.Clear();
-                        init_ex_list = null;
+                        else
+                        {
+                            Info(ex.message);
+                        }
                     }
+                    init_ex_list.Clear();
+                    init_ex_list = null;
                 }
-                catch (Exception ex)
-                {
-                    BufferException(ex);
-                }
-
-                return __log;
             }
+            catch (Exception ex)
+            {
+                BufferException(ex);
+            }
+
+            return (null != __log);
         }
 
         private static void BufferException(Exception _ex, string msg = null)
