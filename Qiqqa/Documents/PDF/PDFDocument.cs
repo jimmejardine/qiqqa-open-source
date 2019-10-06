@@ -866,7 +866,25 @@ namespace Qiqqa.Documents.PDF
 
         public void QueueToStorage()
         {
-            DocumentQueuedStorer.Instance.Queue(this);
+            // create a clone to cross the thread boundary:
+            PDFDocument rv = new PDFDocument(this.Library);
+
+            // Clone the information
+            rv.FileType = this.FileType;
+            rv.Fingerprint = this.Fingerprint;
+            rv.dictionary = (DictionaryBasedObject)this.dictionary.Clone();
+
+            rv.dictionary = (DictionaryBasedObject)this.dictionary.Clone();
+            rv.annotations = (PDFAnnotationList)this.Annotations.Clone();
+            rv.highlights = (PDFHightlightList)this.Highlights.Clone();
+            rv.inks = (PDFInkList)this.Inks.Clone();
+
+            // Copy the citations
+            rv.PDFDocumentCitationManager.CloneFrom(this.PDFDocumentCitationManager);
+
+            // --------------------------------------
+
+            DocumentQueuedStorer.Instance.Queue(rv);
         }
 
         void annotations_OnPDFAnnotationListChanged()
@@ -1023,7 +1041,7 @@ namespace Qiqqa.Documents.PDF
             List<LibraryDB.LibraryItem> library_items = library.LibraryDB.GetLibraryItems(pdf_document.Fingerprint, PDFDocumentFileLocations.METADATA);
             if (0 == library_items.Count)
             {
-                DocumentQueuedStorer.Instance.Queue(pdf_document);
+                pdf_document.QueueToStorage();
             }
             else
             {
@@ -1035,7 +1053,7 @@ namespace Qiqqa.Documents.PDF
                 catch (Exception ex)
                 {
                     Logging.Error(ex, "There was a problem reloading an existing PDF from existing metadata, so overwriting it!");
-                    DocumentQueuedStorer.Instance.Queue(pdf_document);
+                    pdf_document.QueueToStorage();
                     //pdf_document.SaveToMetaData();
                 }
             }
@@ -1058,7 +1076,7 @@ namespace Qiqqa.Documents.PDF
             List<LibraryDB.LibraryItem> library_items = library.LibraryDB.GetLibraryItems(pdf_document.Fingerprint, PDFDocumentFileLocations.METADATA);
             if (0 == library_items.Count)
             {
-                DocumentQueuedStorer.Instance.Queue(pdf_document);
+                pdf_document.QueueToStorage();
             }
             else
             {
@@ -1070,7 +1088,7 @@ namespace Qiqqa.Documents.PDF
                 catch (Exception ex)
                 {
                     Logging.Error(ex, "There was a problem reloading an existing PDF from existing metadata, so overwriting it!");
-                    DocumentQueuedStorer.Instance.Queue(pdf_document);
+                    pdf_document.QueueToStorage();
                 }
             }
 
@@ -1090,15 +1108,23 @@ namespace Qiqqa.Documents.PDF
             annotations = (PDFAnnotationList) existing_pdf_document.Annotations.Clone();
             highlights = (PDFHightlightList) existing_pdf_document.Highlights.Clone();
             inks = (PDFInkList) existing_pdf_document.Inks.Clone();
-            SaveToMetaData();
 
             // Copy the citations
             PDFDocumentCitationManager.CloneFrom(existing_pdf_document.PDFDocumentCitationManager);
+
+            QueueToStorage();
+#if false
+            SaveToMetaData();
 
             //  Now clear out the references for the annotations and highlights, so that when they are reloaded the events are resubscribed
             annotations = null;
             highlights = null;
             inks = null;
+#else
+            annotations.OnPDFAnnotationListChanged += annotations_OnPDFAnnotationListChanged;
+            highlights.OnPDFHighlightListChanged += highlights_OnPDFHighlightListChanged;
+            inks.OnPDFInkListChanged += inks_OnPDFInkListChanged;
+#endif
         }
 
         public void StoreAssociatedPDFInRepository(string filename)
@@ -1147,7 +1173,7 @@ namespace Qiqqa.Documents.PDF
                 new_pdf_document.Fingerprint = fingerprint;
                 new_pdf_document.FileType = Path.GetExtension(pdf_filename).TrimStart('.');
 
-                DocumentQueuedStorer.Instance.Queue(new_pdf_document);
+                new_pdf_document.QueueToStorage();
 
                 // Delete this one
                 this.Deleted = true;
