@@ -89,7 +89,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                                 }
                             }
 
-                            Dictionary<long, List<string>> tags_lookup = new Dictionary<long, List<string>>();
+                            Dictionary<long, HashSet<string>> tags_lookup = new Dictionary<long, HashSet<string>>();
                             {
                                 string command_string = "SELECT * FROM DocumentKeywords";
                                 using (var command = new SQLiteCommand(command_string, connection))
@@ -103,7 +103,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                                         {
                                             if (!tags_lookup.ContainsKey(document_id))
                                             {
-                                                tags_lookup[document_id] = new List<string>();
+                                                tags_lookup[document_id] = new HashSet<string>();
                                             }
 
                                             tags_lookup[document_id].Add(keyword);
@@ -111,8 +111,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                                     }
                                 }
                             }
-
-
+                            
                             // Get the bibtexes
                             {
                                 //string command_string = "SELECT * FROM Documents WHERE 1=1 ";
@@ -198,7 +197,10 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
 
                                             if (tags_lookup.ContainsKey(document_id))
                                             {
-                                                fwmi.tags.AddRange(tags_lookup[document_id]);
+                                                foreach (string tag in tags_lookup[document_id])
+                                                {
+                                                    fwmi.tags.Add(tag);
+                                                }
                                             }
 
                                             string note = reader["note"] as string;

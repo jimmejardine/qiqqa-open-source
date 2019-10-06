@@ -222,21 +222,21 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 // If this library is busy, skip it for now
                 if (Library.IsBusyAddingPDFs)
                 {
-                    Logging.Info("FolderWatcher: Not daemon processing a library that is busy with adds...");
+                    Logging.Debug特("FolderWatcher: Not daemon processing any library that is busy with adds...");
                     FolderContentsHaveChanged = true;
                     break;
                 }
 
                 if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
                 {
-                    Logging.Info("FolderWatcher: Breaking out of outer processing loop due to daemon termination");
+                    Logging.Debug特("FolderWatcher: Breaking out of outer processing loop due to daemon termination");
                     FolderContentsHaveChanged = true;
                     break;
                 }
 
                 if (Qiqqa.Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
                 {
-                    Logging.Info("FolderWatcher: Breaking out of outer processing loop due to DisableAllBackgroundTasks");
+                    Logging.Debug特("FolderWatcher: Breaking out of outer processing loop due to DisableAllBackgroundTasks");
                     FolderContentsHaveChanged = true;
                     break;
                 }
@@ -419,7 +419,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             {
                 filename_with_metadata_imports.Add(new FilenameWithMetadataImport {
                     filename = filename,
-                    tags = new List<string>(this.tags)
+                    tags = new HashSet<string>(this.tags)
                 });
 
                 // TODO: refactor this: delay until the PDF has actually been processed completely!
