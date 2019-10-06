@@ -30,7 +30,7 @@ namespace Utilities
                 //                    this.clk = null;
             }
 
-            if (ms > 100.0)
+            if (ms > 250.0)
             {
                 Logging.Warn("lock took {0} msec @ {1}", ms, this.stackTrace);
             }
