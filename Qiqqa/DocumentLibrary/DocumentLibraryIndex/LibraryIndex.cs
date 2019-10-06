@@ -84,13 +84,13 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
         ~LibraryIndex()
         {
-            Logging.Info("~LibraryIndex()");
+            Logging.Debug("~LibraryIndex()");
             Dispose(false);
         }
 
         public void Dispose()
         {
-            Logging.Info("Disposing LibraryIndex");
+            Logging.Debug("Disposing LibraryIndex");
             Dispose(true);
             GC.SuppressFinalize(this);            
         }
@@ -256,7 +256,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 {
                     if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
                     {
-                        Logging.Debug("Breaking out of RescanLibrary loop due to application termination");
+                        Logging.Info("Breaking out of RescanLibrary loop due to application termination");
                         return false;
                     }
 
@@ -343,7 +343,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
                     if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
                     {
-                        Logging.Debug("Breaking out of IncrementalBuildNextDocuments processing loop due to application termination");
+                        Logging.Info("Breaking out of IncrementalBuildNextDocuments processing loop due to application termination");
                         break;
                     }
 

@@ -227,18 +227,18 @@ namespace Qiqqa.DocumentLibrary
                 Stopwatch clk = Stopwatch.StartNew();
                 long prev_clk = 0;
                 long elapsed = 0;
-                Logging.Debug("+Build library from repository");
+                Logging.Debug特("+Build library from repository");
                 List<LibraryDB.LibraryItem> library_items = this.library_db.GetLibraryItems(null, PDFDocumentFileLocations.METADATA);
 
                 elapsed = clk.ElapsedMilliseconds;
-                Logging.Debug(":Build library '{2}' from repository -- time spent: {0} ms on fetching {1} records from SQLite DB.", elapsed, library_items.Count, this.WebLibraryDetail.DescriptiveTitle);
+                Logging.Debug特(":Build library '{2}' from repository -- time spent: {0} ms on fetching {1} records from SQLite DB.", elapsed, library_items.Count, this.WebLibraryDetail.DescriptiveTitle);
                 prev_clk = elapsed;
 
                 // Get the annotations cache
                 Dictionary<string, byte[]> library_items_annotations_cache = this.library_db.GetLibraryItemsAsCache(PDFDocumentFileLocations.ANNOTATIONS);
 
                 elapsed = clk.ElapsedMilliseconds;
-                Logging.Debug(":Build library '{2}' from repository -- time spent: {0} ms on fetching annotation cache for {1} records.", elapsed - prev_clk, library_items.Count, this.WebLibraryDetail.DescriptiveTitle);
+                Logging.Debug特(":Build library '{2}' from repository -- time spent: {0} ms on fetching annotation cache for {1} records.", elapsed - prev_clk, library_items.Count, this.WebLibraryDetail.DescriptiveTitle);
                 prev_clk = elapsed;
 
                 Logging.Info("Library '{2}': Loading {0} files from repository at {1}", library_items.Count, LIBRARY_DOCUMENTS_BASE_PATH, this.WebLibraryDetail.DescriptiveTitle);
@@ -270,7 +270,7 @@ namespace Qiqqa.DocumentLibrary
 
                 StatusManager.Instance.ClearStatus("LibraryInitialLoad");
 
-                Logging.Debug("-Build library '{2}' from repository -- time spent: {0} ms on {1} library records.", clk.ElapsedMilliseconds, library_items.Count, this.WebLibraryDetail.DescriptiveTitle);
+                Logging.Debug特("-Build library '{2}' from repository -- time spent: {0} ms on {1} library records.", clk.ElapsedMilliseconds, library_items.Count, this.WebLibraryDetail.DescriptiveTitle);
             }
             catch (Exception ex)
             {
@@ -419,10 +419,9 @@ namespace Qiqqa.DocumentLibrary
 
             string fingerprint = StreamFingerprint.FromFile(filename);
 
-            // Useful in logging for diagnosing if we're adding the same document again
-            Logging.Info("Fingerprint: {0}", fingerprint);
-
             PDFDocument pdf_document = GetDocumentByFingerprint(fingerprint);
+            // Useful in logging for diagnosing if we're adding the same document again
+            Logging.Info("Fingerprint: {0} - add to library: {1}", fingerprint, (null == pdf_document));
             if (null != pdf_document)
             {
                 // Pdf reportedly exists in database.

@@ -199,7 +199,7 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
 
         void DoMaintenance_Infrequent(Daemon daemon)
         {
-            Logging.Debug("DoMaintenance_Infrequent START");
+            Logging.Debug特("DoMaintenance_Infrequent START");
             daemon.Sleep(10 * 1000);
 
             if (RegistrySettings.Instance.IsSet(RegistrySettings.SuppressDaemon))
@@ -244,7 +244,7 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
                     Logging.Error(ex, "Exception in LibraryIndex.IncrementalBuildIndex()");
                 }
             }
-            Logging.Debug("DoMaintenance_Infrequent END");
+            Logging.Debug特("DoMaintenance_Infrequent END");
         }
 
         void DoMaintenance_Frequent(Daemon daemon)

@@ -851,7 +851,8 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
 
         static void button_DragOver(object sender, DragEventArgs e)
         {
-            Logging.Debug("BUTTON DRAG OVER");
+            Logging.Debug特("BUTTON DRAG OVER");
+
             e.Handled = true;
         }
 

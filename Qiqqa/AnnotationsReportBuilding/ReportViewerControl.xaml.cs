@@ -67,21 +67,25 @@ namespace Qiqqa.AnnotationsReportBuilding
 
         ~ReportViewerControl()
         {
-            Logging.Info("~ReportViewerControl()");
+            Logging.Debug("~ReportViewerControl()");
             Dispose(false);            
         }
 
         public void Dispose()
         {
-            Logging.Info("Disposing ReportViewerControl");
+            Logging.Debug("Disposing ReportViewerControl");
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
+#if DIAG
         private int dispose_count = 0;
+#endif
         private void Dispose(bool disposing)
         {
+#if DIAG
             Logging.Debug("ReportViewerControl::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
+#endif
             if (disposing)
             {
                 // Get rid of managed resources

@@ -51,7 +51,7 @@ namespace Utilities.ClientVersioning
                     ClientVersionInformation client_version_information = XmlSerializeFile.Deserialize<ClientVersionInformation>(temp_file);
                     if (client_version_information != null)
                     {
-                        Logging.Debug("Received latest client version information from server: {0}", client_version_information);
+                        Logging.Info("Received latest client version information from server: {0}", client_version_information);
 
                         ProcessClientVersionInformation(client_version_information);
                     }

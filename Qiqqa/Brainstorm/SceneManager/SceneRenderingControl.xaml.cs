@@ -432,7 +432,7 @@ namespace Qiqqa.Brainstorm.SceneManager
                 {
                     sb.Append((char)ms_bytes[i]);
                 }
-                Logging.Info(sb.ToString());
+                Logging.Debug特("Drop: {0}", sb.ToString());
 
                 string url = sb.ToString();
                 DragDropClipboard_AddUrl(url);
@@ -449,7 +449,7 @@ namespace Qiqqa.Brainstorm.SceneManager
             else
             {
                 string msg = DragDropManager.DumpUnknownDropTypes(e);
-                Logging.Info(msg);
+                Logging.Debug特("OnDrop: {0}", msg);
             }
         }
 
@@ -459,7 +459,7 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         private void DoPaste()
         {
-            Logging.Info("Clipboard paste");
+            Logging.Debug特("Clipboard paste");
 
             if (false) {}
 
@@ -1428,13 +1428,13 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         ~SceneRenderingControl()
         {
-            Logging.Info("~SceneRenderingControl()");
+            Logging.Debug("~SceneRenderingControl()");
             Dispose(false);            
         }
 
         public void Dispose()
         {
-            Logging.Info("Disposing SceneRenderingControl");
+            Logging.Debug("Disposing SceneRenderingControl");
             Dispose(true);
             GC.SuppressFinalize(this);
         }

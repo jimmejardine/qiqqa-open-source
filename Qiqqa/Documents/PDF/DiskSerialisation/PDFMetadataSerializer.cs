@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
 using Qiqqa.UtilisationTracking;
+using Utilities;
 using Utilities.Files;
 using Utilities.Misc;
 
@@ -21,7 +22,7 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
 
             string json = JsonConvert.SerializeObject(pdf_document.Dictionary.Attributes, Formatting.Indented);
             pdf_document.Library.LibraryDB.PutString(pdf_document.Fingerprint, PDFDocumentFileLocations.METADATA, json);            
-            //Logging.Debug(json);
+            Logging.Debug("Update metadata DB for PDF document {1}: JSON =\n{0}", json, pdf_document.Fingerprint);
         }
 
 

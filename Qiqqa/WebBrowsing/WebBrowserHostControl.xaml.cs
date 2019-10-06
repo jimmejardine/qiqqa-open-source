@@ -68,7 +68,7 @@ namespace Qiqqa.WebBrowsing
 
         public WebBrowserHostControl()
         {
-            Logging.Info("+WebBrowserHostControl()");
+            Logging.Debug("+WebBrowserHostControl()");
 
             InitializeComponent();
 
@@ -134,7 +134,7 @@ namespace Qiqqa.WebBrowsing
 
             RebuildSearchers();
 
-            Logging.Info("-WebBrowserHostControl()");
+            Logging.Debug("-WebBrowserHostControl()");
         }
 
         private void TabWebBrowserControls_Initialized(object sender, EventArgs e)
@@ -344,7 +344,7 @@ namespace Qiqqa.WebBrowsing
             {
                 wbc.NavigateToPendingOnceVisibleUri();
 
-                Logging.Info("Active browser control changed");
+                Logging.Debug特("Active browser control changed");
                 active_wbc = wbc;
 
                 Uri uri = wbc.CurrentUri;
@@ -636,13 +636,13 @@ namespace Qiqqa.WebBrowsing
 
         ~WebBrowserHostControl()
         {
-            Logging.Info("~WebBrowserHostControl()");
+            Logging.Debug("~WebBrowserHostControl()");
             Dispose(false);
         }
 
         public void Dispose()
         {
-            Logging.Info("Disposing WebBrowserHostControl");
+            Logging.Debug("Disposing WebBrowserHostControl");
             Dispose(true);
             GC.SuppressFinalize(this);
         }

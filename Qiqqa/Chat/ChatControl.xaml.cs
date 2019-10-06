@@ -287,13 +287,13 @@ namespace Qiqqa.Chat
 
         ~ChatControl()
         {
-            Logging.Info("~ChatControl()");
+            Logging.Debug("~ChatControl()");
             Dispose(false);            
         }
 
         public void Dispose()
         {
-            Logging.Info("Disposing ChatControl");
+            Logging.Debug("Disposing ChatControl");
             Dispose(true);
             GC.SuppressFinalize(this);
         }

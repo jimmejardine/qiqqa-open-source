@@ -26,7 +26,7 @@ namespace Utilities.PDF.GhostscriptTools
             FileStream fs = (FileStream)sr.BaseStream;
             MemoryStream ms = new MemoryStream(128 * 1024);
             int total_size = StreamToFile.CopyStreamToStream(fs, ms);
-            Logging.Debug("Image size was {0}", total_size);
+            Logging.Debug特("Image size was {0} for PDF file {1}, page {2} @ dpi {3}", total_size, pdf_filename, page_number, dpi);
 
             // Check that the process has exited properly
             process.WaitForExit(1000);

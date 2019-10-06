@@ -111,13 +111,13 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
         void file_system_watcher_Changed(object sender, FileSystemEventArgs e)
         {
-            Logging.Info("FolderWatcher file_system_watcher_Changed");
+            Logging.Debug特("FolderWatcher file_system_watcher_Changed");
             FolderContentsHaveChanged = true;
         }
 
         void file_system_watcher_Created(object sender, FileSystemEventArgs e)
         {
-            Logging.Info("FolderWatcher file_system_watcher_Created");
+            Logging.Debug特("FolderWatcher file_system_watcher_Created");
             FolderContentsHaveChanged = true;
         }
 
@@ -229,14 +229,14 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
                 if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
                 {
-                    Logging.Debug("FolderWatcher: Breaking out of outer processing loop due to daemon termination");
+                    Logging.Info("FolderWatcher: Breaking out of outer processing loop due to daemon termination");
                     FolderContentsHaveChanged = true;
                     break;
                 }
 
                 if (Qiqqa.Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
                 {
-                    Logging.Debug("FolderWatcher: Breaking out of outer processing loop due to DisableAllBackgroundTasks");
+                    Logging.Info("FolderWatcher: Breaking out of outer processing loop due to DisableAllBackgroundTasks");
                     FolderContentsHaveChanged = true;
                     break;
                 }
@@ -250,7 +250,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 Stopwatch clk = new Stopwatch();
                 clk.Start();
                 IEnumerable<string> filenames_in_folder = Directory.EnumerateFiles(configured_folder_to_watch, "*.pdf", SearchOption.AllDirectories);
-                Logging.Debug("Directory.EnumerateFiles took {0} ms", clk.ElapsedMilliseconds);
+                Logging.Debug特("Directory.EnumerateFiles took {0} ms", clk.ElapsedMilliseconds);
 
                 List<PDFDocument> pdf_documents_already_in_library = library.PDFDocuments;
 
@@ -259,13 +259,13 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 {
                     if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
                     {
-                        Logging.Debug("FolderWatcher: Breaking out of inner processing loop due to daemon termination");
+                        Logging.Info("FolderWatcher: Breaking out of inner processing loop due to daemon termination");
                         break;
                     }
 
                     if (Qiqqa.Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
                     {
-                        Logging.Debug("FolderWatcher: Breaking out of inner processing loop due to DisableAllBackgroundTasks");
+                        Logging.Info("FolderWatcher: Breaking out of inner processing loop due to DisableAllBackgroundTasks");
                         break;
                     }
 
@@ -299,7 +299,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                     // If we already have this file in the "cache since we started", skip it
                     if (folder_watcher_manager.HaveProcessedFile(filename))
                     {
-                        Logging.Debug("FolderWatcher is skipping {0} as it has already been processed", filename);
+                        Logging.Debug特("FolderWatcher is skipping {0} as it has already been processed", filename);
                         skipped_file_count++;
                         continue;
                     }
@@ -403,13 +403,13 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
             if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
             {
-                Logging.Debug("FolderWatcher: Breaking out due to daemon termination");
+                Logging.Info("FolderWatcher: Breaking out due to daemon termination");
                 return;
             }
 
             if (Qiqqa.Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
             {
-                Logging.Debug("FolderWatcher: Breaking out due to DisableAllBackgroundTasks");
+                Logging.Info("FolderWatcher: Breaking out due to DisableAllBackgroundTasks");
                 return;
             }
 

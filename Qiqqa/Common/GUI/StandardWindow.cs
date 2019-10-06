@@ -120,7 +120,7 @@ namespace Qiqqa.Common.GUI
                 }
             }
 
-            Logging.Debug("Screen position and window size parsing {4} to {0},{1},{2},{3} ...", left, top, w, h, location_spec);
+            Logging.Debug特("Screen position and window size parsing {4} to {0},{1},{2},{3} ...", left, top, w, h, location_spec);
 
             position = ClipBoundsToScreen(left, top, w, h);
         }

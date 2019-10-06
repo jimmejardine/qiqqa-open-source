@@ -517,7 +517,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
             {
                 pdf_documents = library.GetDocumentByFingerprints(intersection);
             }
-            Logging.Debug("ReviewParameters: {0} documents to process for library {1}", pdf_documents.Count, library.WebLibraryDetail.Title);
+            Logging.Debug特("ReviewParameters: {0} documents to process for library {1}", pdf_documents.Count, library.WebLibraryDetail.Title);
 
             ObjLibraryFilterControl_Sort.ApplySort(pdf_documents, search_quick_scores);
 

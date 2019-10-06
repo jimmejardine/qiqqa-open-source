@@ -90,21 +90,25 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
             ~NextJob()
             {
-                Logging.Info("~NextJob()");
+                Logging.Debug("~NextJob()");
                 Dispose(false);
             }
 
             public void Dispose()
             {
-                Logging.Info("Disposing NextJob");
+                Logging.Debug("Disposing NextJob");
                 Dispose(true);
                 GC.SuppressFinalize(this);
             }
 
+#if DIAG
             private int dispose_count = 0;
+#endif
             private void Dispose(bool disposing)
             {
+#if DIAG
                 Logging.Debug("NextJob::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
+#endif
                 if (disposing)
                 {
                     // Notify that this job is done...

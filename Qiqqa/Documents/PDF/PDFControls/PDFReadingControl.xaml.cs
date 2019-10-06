@@ -351,21 +351,25 @@ namespace Qiqqa.Documents.PDF.PDFControls
                
         ~PDFReadingControl()
         {
-            Logging.Info("~PDFReadingControl()");
+            Logging.Debug("~PDFReadingControl()");
             Dispose(false);
         }
 
         public void Dispose()
         {
-            Logging.Info("Disposing PDFReadingControl");
+            Logging.Debug("Disposing PDFReadingControl");
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
+#if DIAG
         private int dispose_count = 0;
+#endif
         private void Dispose(bool disposing)
         {
+#if DIAG
             Logging.Debug("PDFReadingControl::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
+#endif
             if (disposing)
             {
                 // Get rid of managed resources
@@ -537,7 +541,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             }
         }
 
-        #region --- Mouse operation mode --------------------------------------------------------------------------------------------------------
+#region --- Mouse operation mode --------------------------------------------------------------------------------------------------------
 
         void ButtonTextSentenceSelect_Click(object sender, RoutedEventArgs e)
         {
@@ -694,9 +698,9 @@ namespace Qiqqa.Documents.PDF.PDFControls
             pdf_renderer_control.SelectPage(page);
         }
 
-        #endregion
+#endregion
 
-        #region --- Page navigation --------------------------------------------------------------------------------------------------------
+#region --- Page navigation --------------------------------------------------------------------------------------------------------
 
         void ButtonPreviousPage_Click(object sender, RoutedEventArgs e)
         {
@@ -708,7 +712,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             pdf_renderer_control.MoveSelectedPageDelta(+1);
         }
 
-        #endregion
+#endregion
 
         void Button1Up_Click(object sender, RoutedEventArgs e)
         {
@@ -762,7 +766,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             e.Handled = true;
         }
 
-        #region --- Export-to-text ------------------------------------------------------------------------------------------------------------------------------------------
+#region --- Export-to-text ------------------------------------------------------------------------------------------------------------------------------------------
 
         void ButtonExportToText_Click(object sender, RoutedEventArgs e)
         {
@@ -771,9 +775,9 @@ namespace Qiqqa.Documents.PDF.PDFControls
             e.Handled = true;
         }
 
-        #endregion
+#endregion
 
-        #region --- Speed read and text-to-speech ------------------------------------------------------------------------------------------------------------------------------------------
+#region --- Speed read and text-to-speech ------------------------------------------------------------------------------------------------------------------------------------------
 
         private void GetCombinedWordsList(List<string> words, List<int> page_word_offsets, int single_page_only = -1)
         {
@@ -857,9 +861,9 @@ namespace Qiqqa.Documents.PDF.PDFControls
             }
         }
 
-        #endregion
+#endregion
 
-        #region --- Full screen mode -------------------------------------------------------------------------------------------------------------
+#region --- Full screen mode -------------------------------------------------------------------------------------------------------------
 
         private void ToggleFullScreen()
         {
@@ -889,7 +893,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             ReevaluateFullScreen();
         }
 
-        #endregion
+#endregion
 
         internal void EnableGuestMoveNotification(PDFDocument potential_attachment_pdf_document = null)
         {

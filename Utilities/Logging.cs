@@ -181,12 +181,14 @@ namespace Utilities
 #endif
         }
 
+        [Conditional("DIAG")]
         public static void Debug(string msg)
         {
             //log?.Debug(msg) ?? BufferMessage(msg);
             LogDebug(msg);
         }
 
+        [Conditional("DIAG")]
         public static void Debug(string msg, params object[] args)
         {
             msg = String.Format(msg, args);
@@ -194,6 +196,7 @@ namespace Utilities
             LogDebug(msg);
         }
 
+        [Conditional("DIAG")]
         public static void Debug(Exception ex)
         {
             string msg = ex.ToString();
@@ -201,6 +204,7 @@ namespace Utilities
             LogDebug(msg);
         }
 
+        [Conditional("DIAG")]
         public static void Debug(Exception ex, string msg)
         {
             StringBuilder sb = new StringBuilder();
@@ -212,7 +216,53 @@ namespace Utilities
             LogDebug(msg);
         }
 
+        [Conditional("DIAG")]
         public static void Debug(Exception ex, string msg, params object[] args)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat(msg, args);
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.Append(ex.ToString());
+            msg = sb.ToString();
+            //log?.Debug(msg) ?? BufferMessage(msg);
+            LogDebug(msg);
+        }
+
+        // Special (特) Debug Logging which should be available everywhere at my back&call, without unlocking The Debug Horde Of The Apocalypse (which are the Debug methods above).
+
+        public static void Debug特(string msg)
+        {
+            //log?.Debug(msg) ?? BufferMessage(msg);
+            LogDebug(msg);
+        }
+
+        public static void Debug特(string msg, params object[] args)
+        {
+            msg = String.Format(msg, args);
+            //log?.Debug(msg) ?? BufferMessage(msg);
+            LogDebug(msg);
+        }
+
+        public static void Debug特(Exception ex)
+        {
+            string msg = ex.ToString();
+            //log?.Debug(msg) ?? BufferMessage(msg);
+            LogDebug(msg);
+        }
+
+        public static void Debug特(Exception ex, string msg)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(msg);
+            sb.AppendLine();
+            sb.Append(ex.ToString());
+            msg = sb.ToString();
+            //log?.Debug(msg) ?? BufferMessage(msg);
+            LogDebug(msg);
+        }
+
+        public static void Debug特(Exception ex, string msg, params object[] args)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendFormat(msg, args);

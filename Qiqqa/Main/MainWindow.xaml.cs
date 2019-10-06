@@ -104,7 +104,7 @@ namespace Qiqqa.Main
 
         private void MainWindow_ContentRendered(object sender, EventArgs e)
         {
-            Logging.Debug("MainWindow_ContentRendered");
+            Logging.Debug特("MainWindow::ContentRendered event");
 
             // hold off: level 2 -> 1
             MaintainableManager.Instance.BumpHoldOffPendingLevel();

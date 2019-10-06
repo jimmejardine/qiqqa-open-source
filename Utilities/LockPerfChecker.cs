@@ -83,7 +83,7 @@ namespace Utilities
         // Handle the Elapsed event.
         private static void OnTimedEvent(LockPerfTimer pt, int i)
         {
-            Logging.Debug("+Lock TIMEOUT: {0} msec @ {1}", pt.clk.ElapsedMilliseconds, pt.stackTrace);
+            Logging.Debug特("+Lock TIMEOUT: {0} msec @ {1}", pt.clk.ElapsedMilliseconds, pt.stackTrace);
         }
     }
 

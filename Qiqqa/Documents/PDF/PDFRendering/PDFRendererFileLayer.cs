@@ -151,7 +151,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             {
                 string cached_count_filename = MakeFilename_PageCount();
 
-                Logging.Debug("Using calculated PDF page count for file {0}", pdf_filename);
+                Logging.Debug特("Using calculated PDF page count for file {0}", pdf_filename);
                 int num_pages = PDFTools.CountPDFPages(pdf_filename);
                 if (0 != num_pages)
                 {

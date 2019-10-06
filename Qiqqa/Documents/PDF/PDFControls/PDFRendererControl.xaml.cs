@@ -349,13 +349,13 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         ~PDFRendererControl()
         {
-            Logging.Info("~PDFRendererControl()");
+            Logging.Debug("~PDFRendererControl()");
             Dispose(false);
         }
 
         public void Dispose()
         {
-            Logging.Info("Disposing PDFRendererControl");
+            Logging.Debug("Disposing PDFRendererControl");
             Dispose(true);
             GC.SuppressFinalize(this);
         }

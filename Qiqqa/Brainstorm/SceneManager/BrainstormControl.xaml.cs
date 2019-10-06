@@ -21,7 +21,7 @@ namespace Qiqqa.Brainstorm.SceneManager
     {
         public BrainstormControl()
         {
-            Logging.Info("+BrainstormControl()");
+            Logging.Debug("+BrainstormControl()");
 
             InitializeComponent();
 
@@ -110,7 +110,7 @@ namespace Qiqqa.Brainstorm.SceneManager
             // Listen for node changes
             ObjSceneRenderingControlScrollWrapper.ObjSceneRenderingControl.SelectedNodeControlChanged += ObjSceneRenderingControl_SelectedNodeControlChanged;
 
-            Logging.Info("-BrainstormControl()");
+            Logging.Debug("-BrainstormControl()");
         }
 
         void ButtonAutoArrange_Click(object sender, RoutedEventArgs e)
@@ -282,13 +282,13 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         ~BrainstormControl()
         {
-            Logging.Info("~BrainstormControl()");
+            Logging.Debug("~BrainstormControl()");
             Dispose(false);            
         }
 
         public void Dispose()
         {
-            Logging.Info("Disposing BrainstormControl");
+            Logging.Debug("Disposing BrainstormControl");
             Dispose(true);
             GC.SuppressFinalize(this);
         }

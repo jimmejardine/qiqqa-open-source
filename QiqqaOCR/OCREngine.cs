@@ -270,7 +270,7 @@ namespace QiqqaOCR
                     {
                         string bitmap_diag_path = pdf_filename + "." + page_number + @"-ocr.png";
 
-                        Logging.Debug("Dumping page {0} PNG image to file {1}", page_number, bitmap_diag_path);
+                        Logging.Debug特("Dumping page {0} PNG image to file {1}", page_number, bitmap_diag_path);
                         Graphics g = Graphics.FromImage(bitmap);
 		                foreach (Rectangle rectangle in rectangles)
 		                {

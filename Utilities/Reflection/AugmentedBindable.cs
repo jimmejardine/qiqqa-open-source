@@ -99,7 +99,7 @@ namespace Utilities.Reflection
                         }
                         else
                         {
-                            Logging.Debug("Removing garbage collected callback");
+                            Logging.Debug特("Removing garbage collected callback");
                             callback_wrappers.RemoveAt(i);
                         }
                     }
