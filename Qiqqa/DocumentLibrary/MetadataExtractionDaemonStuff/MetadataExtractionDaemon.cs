@@ -39,7 +39,7 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
                 // If this library is busy, skip it for now
                 if (Library.IsBusyAddingPDFs)
                 {
-                    Logging.Info("MetadataExtractionDaemon::DoMaintenance: Not daemon processing a library that is busy with adds...");
+                    Logging.Debug特("MetadataExtractionDaemon::DoMaintenance: Not daemon processing any library that is busy with adds...");
                     break;
                 }
 
@@ -57,7 +57,8 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
 
                 if (Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
                 {
-                    return;
+                    Logging.Debug特("MetadataExtractionDaemon::DoMaintenance: Breaking out of outer processing loop due to DisableAllBackgroundTasks");
+                    break;
                 }
 
                 // Check that we have something to do

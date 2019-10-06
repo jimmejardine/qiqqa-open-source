@@ -191,6 +191,9 @@ namespace Qiqqa.Common.SpeedRead
         private void KickOffPlayingThread()
         {
             Thread thread = new Thread(BackgroundThread);
+            //thread.IsBackground = true;
+            //thread.Priority = ThreadPriority.Lowest;
+            thread.Name = "SpeedReader:Player";
             thread.Start();
         }
 

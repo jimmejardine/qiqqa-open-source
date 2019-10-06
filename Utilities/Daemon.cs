@@ -20,6 +20,8 @@ namespace Utilities
             thread = new Thread(thread_start);
             thread.Name = "Daemon." + daemon_name;
             still_running = true;
+            //thread.IsBackground = true;
+            thread.Priority = ThreadPriority.BelowNormal;
             thread.Start(param);
         }
 

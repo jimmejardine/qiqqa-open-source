@@ -84,6 +84,7 @@ namespace QiqqaOCR
                     thread_ocr = new Thread(ThreadOCRMainEntry);
                     thread_ocr.Name = "ThreadOCR";
                     thread_ocr.IsBackground = true;
+                    thread_ocr.Priority = ThreadPriority.BelowNormal;
                     thread_ocr.Start();
                 }
 
