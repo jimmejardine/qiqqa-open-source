@@ -41,7 +41,7 @@ namespace Utilities.Language
 			// Some straightforward tests
 			if (c1 == c2) return true;
 
-			// Case insensitive comapre now
+			// Case insensitive compare now
 			c1 = Char.ToLower(c1);
 			c2 = Char.ToLower(c2);
 			if (c1 == c2) return true;
