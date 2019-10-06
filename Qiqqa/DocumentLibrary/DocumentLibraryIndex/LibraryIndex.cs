@@ -209,7 +209,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
             GetStatusCounts(out numerator_documents, out denominator_documents, out pages_so_far, out pages_to_go);
 
-            StatusManager.Instance.UpdateStatus("LibraryIndex", String.Format("{3} page(s) are searchable ({2} still to go)", numerator_documents, denominator_documents, pages_to_go, pages_so_far), pages_to_go, pages_to_go + pages_so_far);
+            StatusManager.Instance.UpdateStatus("LibraryIndex", String.Format("{3} page(s) are searchable ({2} still to go)", numerator_documents, denominator_documents, pages_to_go, pages_so_far), pages_so_far, pages_to_go + pages_so_far);
         }
 
         public List<IndexResult> GetFingerprintsForQuery(string query)
@@ -311,7 +311,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             // If this library is busy, skip it for now
             if (Library.IsBusyAddingPDFs)
             {
-                Logging.Info("IncrementalBuildNextDocuments: Not daemon processing a library that is busy with adds...");
+                Logging.Debug特("IncrementalBuildNextDocuments: Not daemon processing any library that is busy with adds...");
                 return false;
             }
 
