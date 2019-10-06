@@ -2,10 +2,11 @@
 
 namespace QiqqaLegacyFileFormats
 {
-    public class ApplicationConfiguration
+    public class ApplicationConfigurationX
     {
         public void SaveConfigurationRecord()
         {
+#if false
             try
             {
                 Logging.Info("Saving configuration");
@@ -16,8 +17,7 @@ namespace QiqqaLegacyFileFormats
             {
                 Logging.Error(ex, "There was a problem saving the configuration.");
             }
+#endif
         }
-
-
     }
 }

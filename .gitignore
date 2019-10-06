@@ -27,6 +27,12 @@ QiqqaVersionMigrator/obj/*
 QiqqaLegacyFileFormats/bin/*
 QiqqaLegacyFileFormats/obj/*
 
+# CefSharp test projects
+CefSharp.Example/bin/*
+CefSharp.Example/obj/*
+CefSharp.Wpf.Example/bin/*
+CefSharp.Wpf.Example/obj/*
+
 # scratch directory for other material while working on Qiqqa items
 /research/
 

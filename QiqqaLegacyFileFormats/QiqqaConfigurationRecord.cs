@@ -42,7 +42,7 @@ namespace Qiqqa.Common.Configuration
                 string nick = this["Account_Nickname"] as string;
                 if (String.IsNullOrEmpty(nick))
                 {
-                    nick = "Guest-" + ConfigurationManager.Instance.ConfigurationRecord.Account_Username.Substring(0, 3);
+                    nick = "Guest-"; //  + ConfigurationManager.Instance.ConfigurationRecord.Account_Username.Substring(0, 3);
                 }
                 return nick;
             }
@@ -117,7 +117,7 @@ namespace Qiqqa.Common.Configuration
                 string filename = this["InCite_LastStyleFile"] as string;
                 if (String.IsNullOrEmpty(filename))
                 {
-                    filename = ConfigurationManager.Instance.StartupDirectoryForQiqqa + @"\InCite\styles\harvard1.csl";
+                    filename = "xxx"; // = ConfigurationManager.Instance.StartupDirectoryForQiqqa + @"\InCite\styles\harvard1.csl";
                 }
                 return filename;
             }
