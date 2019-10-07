@@ -942,10 +942,10 @@ namespace Qiqqa.DocumentLibrary
 
         public void SignalThatDocumentsHaveChanged(PDFDocument optional_changed_pdf_document)
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (last_documents_changed_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                //l1_clk.LockPerfTimerStop();
                 last_documents_changed_time = DateTime.UtcNow;
                 documents_changed_optional_changed_pdf_document = optional_changed_pdf_document;
             }
@@ -956,10 +956,10 @@ namespace Qiqqa.DocumentLibrary
             PDFDocument local_documents_changed_optional_changed_pdf_document;
             DateTime now = DateTime.UtcNow;
 
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (last_documents_changed_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                //l1_clk.LockPerfTimerStop();
                 // If no docs have changed, nothing to do
                 if (last_documents_changed_signal_time >= last_documents_changed_time)
                 {
