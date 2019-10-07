@@ -327,7 +327,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             else
             {
                 // sort tags alphabetically - default
-                tags_sorted.Sort();
+                //tags_sorted.Sort();
             }
 
             // Create the tag list to bind to
