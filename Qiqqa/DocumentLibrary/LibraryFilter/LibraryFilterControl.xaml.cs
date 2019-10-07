@@ -159,7 +159,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
                 ObjTypeExplorerControl.Reset();
             }
 
-            ReviewParameters();
+            ReviewParameters(reset_explorers);
         }
         
         public void SearchLibrary(string query)
@@ -173,7 +173,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
 
         void ObjLibraryFilterControl_Sort_SortChanged()
         {
-            this.ReviewParameters();
+            ReviewParameters();
         }
 
         #region --- Automated update to match Library ------------------------------------------------------------------------------------------------------------------------
@@ -187,7 +187,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
         {
             library_filter_control_search.ExecuteSearchQuick();
             ExecuteSearchTag();
-            ReviewParameters(pdf_document_to_focus_on);
+            ReviewParameters(pdf_document_to_focus_on, false);
         }
 
         #endregion ----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -405,106 +405,112 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
             SearchTag.Clear();
         }
 
-        internal void ReviewParameters()
+        internal void ReviewParameters(bool explorers_are_reset = false)
         {
-            ReviewParameters(null);
+            ReviewParameters(null, explorers_are_reset);
         }
         
-        private void ReviewParameters(PDFDocument pdf_document_to_focus_on)
+        private void ReviewParameters(PDFDocument pdf_document_to_focus_on, bool explorers_are_reset)
         {
             HashSet<string> intersection = null;
-            intersection = SetTools.FoldInSet_Intersection(intersection, search_quick_fingerprints);
-            intersection = SetTools.FoldInSet_Intersection(intersection, search_tag_fingerprints);
-            intersection = SetTools.FoldInSet_Intersection(intersection, select_tag_fingerprints);
-            intersection = SetTools.FoldInSet_Intersection(intersection, select_ai_tag_fingerprints);
-            intersection = SetTools.FoldInSet_Intersection(intersection, select_author_fingerprints);
-            intersection = SetTools.FoldInSet_Intersection(intersection, select_publication_fingerprints);
-            intersection = SetTools.FoldInSet_Intersection(intersection, select_reading_stage_fingerprints);
-            intersection = SetTools.FoldInSet_Intersection(intersection, select_year_fingerprints);
-            intersection = SetTools.FoldInSet_Intersection(intersection, select_rating_fingerprints);
-            intersection = SetTools.FoldInSet_Intersection(intersection, select_theme_fingerprints);
+            if (!explorers_are_reset)
+            {
+                intersection = SetTools.FoldInSet_Intersection(intersection, search_quick_fingerprints);
+                intersection = SetTools.FoldInSet_Intersection(intersection, search_tag_fingerprints);
+                intersection = SetTools.FoldInSet_Intersection(intersection, select_tag_fingerprints);
+                intersection = SetTools.FoldInSet_Intersection(intersection, select_ai_tag_fingerprints);
+                intersection = SetTools.FoldInSet_Intersection(intersection, select_author_fingerprints);
+                intersection = SetTools.FoldInSet_Intersection(intersection, select_publication_fingerprints);
+                intersection = SetTools.FoldInSet_Intersection(intersection, select_reading_stage_fingerprints);
+                intersection = SetTools.FoldInSet_Intersection(intersection, select_year_fingerprints);
+                intersection = SetTools.FoldInSet_Intersection(intersection, select_rating_fingerprints);
+                intersection = SetTools.FoldInSet_Intersection(intersection, select_theme_fingerprints);
+            }
 
             Span descriptive_span = new Span();
-            int colour_pick = 0;
-            if (null != search_quick_fingerprints)
+            if (!explorers_are_reset)
             {
-                Logging.Info("search_quick_fingerprints={0}", search_quick_fingerprints.Count);
-                descriptive_span.Inlines.Add(search_quick_fingerprints_span);
-                descriptive_span.Inlines.Add("   ");
-                search_quick_fingerprints_span.Background = new SolidColorBrush(ColorTools.GetTransparentRainbowColour(colour_pick++, 128));
-            }
-            if (null != search_tag_fingerprints)
-            {
-                Logging.Info("search_tag_fingerprints={0}", search_tag_fingerprints.Count);
-                descriptive_span.Inlines.Add(search_tag_fingerprints_span);
-                descriptive_span.Inlines.Add("   ");
-                search_tag_fingerprints_span.Background = new SolidColorBrush(ColorTools.GetTransparentRainbowColour(colour_pick++, 128));
-            }
-            if (null != select_tag_fingerprints)
-            {
-                Logging.Info("select_tag_fingerprints={0}", select_tag_fingerprints.Count);
-                descriptive_span.Inlines.Add(select_tag_fingerprints_span);
-                descriptive_span.Inlines.Add("   ");
-                select_tag_fingerprints_span.Background = new SolidColorBrush(ColorTools.GetTransparentRainbowColour(colour_pick++, 128));
-            }
-            if (null != select_ai_tag_fingerprints)
-            {
-                Logging.Info("select_ai_tag_fingerprints={0}", select_ai_tag_fingerprints.Count);
-                descriptive_span.Inlines.Add(select_ai_tag_fingerprints_span);
-                descriptive_span.Inlines.Add("   ");
-                select_ai_tag_fingerprints_span.Background = new SolidColorBrush(ColorTools.GetTransparentRainbowColour(colour_pick++, 128));
-            }
-            if (null != select_author_fingerprints)
-            {
-                Logging.Info("select_author_fingerprints={0}", select_author_fingerprints.Count);
-                descriptive_span.Inlines.Add(select_author_fingerprints_span);
-                descriptive_span.Inlines.Add("   ");
-                select_author_fingerprints_span.Background = new SolidColorBrush(ColorTools.GetTransparentRainbowColour(colour_pick++, 128));
-            }
-            if (null != select_publication_fingerprints)
-            {
-                Logging.Info("select_publication_fingerprints={0}", select_publication_fingerprints.Count);
-                descriptive_span.Inlines.Add(select_publication_fingerprints_span);
-                descriptive_span.Inlines.Add("   ");
-                select_publication_fingerprints_span.Background = new SolidColorBrush(ColorTools.GetTransparentRainbowColour(colour_pick++, 128));
-            }
-            if (null != select_reading_stage_fingerprints)
-            {
-                Logging.Info("select_reading_stage_fingerprints={0}", select_reading_stage_fingerprints.Count);
-                descriptive_span.Inlines.Add(select_reading_stage_fingerprints_span);
-                descriptive_span.Inlines.Add("   ");
-                select_reading_stage_fingerprints_span.Background = new SolidColorBrush(ColorTools.GetTransparentRainbowColour(colour_pick++, 128));
-            }
-            if (null != select_year_fingerprints)
-            {
-                Logging.Info("select_year_fingerprints={0}", select_year_fingerprints.Count);
-                descriptive_span.Inlines.Add(select_year_fingerprints_span);
-                descriptive_span.Inlines.Add("   ");
-                select_year_fingerprints_span.Background = new SolidColorBrush(ColorTools.GetTransparentRainbowColour(colour_pick++, 128));
-            }
-            if (null != select_rating_fingerprints)
-            {
-                Logging.Info("select_rating_fingerprints={0}", select_rating_fingerprints.Count);
-                descriptive_span.Inlines.Add(select_rating_fingerprints_span);
-                descriptive_span.Inlines.Add("   ");
-                select_rating_fingerprints_span.Background = new SolidColorBrush(ColorTools.GetTransparentRainbowColour(colour_pick++, 128));
-            }
-            if (null != select_theme_fingerprints)
-            {
-                Logging.Info("select_theme_fingerprints={0}", select_theme_fingerprints.Count);
-                descriptive_span.Inlines.Add(select_theme_fingerprints_span);
-                descriptive_span.Inlines.Add("   ");
-                select_theme_fingerprints_span.Background = new SolidColorBrush(ColorTools.GetTransparentRainbowColour(colour_pick++, 128));
-            }
-            if (null != intersection)
-            {
-                Logging.Info("intersection={0}", intersection.Count);
-            }
+                int colour_pick = 0;
+                if (null != search_quick_fingerprints)
+                {
+                    Logging.Info("search_quick_fingerprints={0}", search_quick_fingerprints.Count);
+                    descriptive_span.Inlines.Add(search_quick_fingerprints_span);
+                    descriptive_span.Inlines.Add("   ");
+                    search_quick_fingerprints_span.Background = new SolidColorBrush(ColorTools.GetTransparentRainbowColour(colour_pick++, 128));
+                }
+                if (null != search_tag_fingerprints)
+                {
+                    Logging.Info("search_tag_fingerprints={0}", search_tag_fingerprints.Count);
+                    descriptive_span.Inlines.Add(search_tag_fingerprints_span);
+                    descriptive_span.Inlines.Add("   ");
+                    search_tag_fingerprints_span.Background = new SolidColorBrush(ColorTools.GetTransparentRainbowColour(colour_pick++, 128));
+                }
+                if (null != select_tag_fingerprints)
+                {
+                    Logging.Info("select_tag_fingerprints={0}", select_tag_fingerprints.Count);
+                    descriptive_span.Inlines.Add(select_tag_fingerprints_span);
+                    descriptive_span.Inlines.Add("   ");
+                    select_tag_fingerprints_span.Background = new SolidColorBrush(ColorTools.GetTransparentRainbowColour(colour_pick++, 128));
+                }
+                if (null != select_ai_tag_fingerprints)
+                {
+                    Logging.Info("select_ai_tag_fingerprints={0}", select_ai_tag_fingerprints.Count);
+                    descriptive_span.Inlines.Add(select_ai_tag_fingerprints_span);
+                    descriptive_span.Inlines.Add("   ");
+                    select_ai_tag_fingerprints_span.Background = new SolidColorBrush(ColorTools.GetTransparentRainbowColour(colour_pick++, 128));
+                }
+                if (null != select_author_fingerprints)
+                {
+                    Logging.Info("select_author_fingerprints={0}", select_author_fingerprints.Count);
+                    descriptive_span.Inlines.Add(select_author_fingerprints_span);
+                    descriptive_span.Inlines.Add("   ");
+                    select_author_fingerprints_span.Background = new SolidColorBrush(ColorTools.GetTransparentRainbowColour(colour_pick++, 128));
+                }
+                if (null != select_publication_fingerprints)
+                {
+                    Logging.Info("select_publication_fingerprints={0}", select_publication_fingerprints.Count);
+                    descriptive_span.Inlines.Add(select_publication_fingerprints_span);
+                    descriptive_span.Inlines.Add("   ");
+                    select_publication_fingerprints_span.Background = new SolidColorBrush(ColorTools.GetTransparentRainbowColour(colour_pick++, 128));
+                }
+                if (null != select_reading_stage_fingerprints)
+                {
+                    Logging.Info("select_reading_stage_fingerprints={0}", select_reading_stage_fingerprints.Count);
+                    descriptive_span.Inlines.Add(select_reading_stage_fingerprints_span);
+                    descriptive_span.Inlines.Add("   ");
+                    select_reading_stage_fingerprints_span.Background = new SolidColorBrush(ColorTools.GetTransparentRainbowColour(colour_pick++, 128));
+                }
+                if (null != select_year_fingerprints)
+                {
+                    Logging.Info("select_year_fingerprints={0}", select_year_fingerprints.Count);
+                    descriptive_span.Inlines.Add(select_year_fingerprints_span);
+                    descriptive_span.Inlines.Add("   ");
+                    select_year_fingerprints_span.Background = new SolidColorBrush(ColorTools.GetTransparentRainbowColour(colour_pick++, 128));
+                }
+                if (null != select_rating_fingerprints)
+                {
+                    Logging.Info("select_rating_fingerprints={0}", select_rating_fingerprints.Count);
+                    descriptive_span.Inlines.Add(select_rating_fingerprints_span);
+                    descriptive_span.Inlines.Add("   ");
+                    select_rating_fingerprints_span.Background = new SolidColorBrush(ColorTools.GetTransparentRainbowColour(colour_pick++, 128));
+                }
+                if (null != select_theme_fingerprints)
+                {
+                    Logging.Info("select_theme_fingerprints={0}", select_theme_fingerprints.Count);
+                    descriptive_span.Inlines.Add(select_theme_fingerprints_span);
+                    descriptive_span.Inlines.Add("   ");
+                    select_theme_fingerprints_span.Background = new SolidColorBrush(ColorTools.GetTransparentRainbowColour(colour_pick++, 128));
+                }
+                if (null != intersection)
+                {
+                    Logging.Info("intersection={0}", intersection.Count);
+                }
 
-            // If we have nothing good to say, say nothing at all
-            if (0 == descriptive_span.Inlines.Count)
-            {
-                descriptive_span = null;
+                // If we have nothing good to say, say nothing at all
+                if (0 == descriptive_span.Inlines.Count)
+                {
+                    descriptive_span = null;
+                }
             }
 
             List<PDFDocument> pdf_documents = null;
@@ -519,7 +525,10 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
             }
             Logging.Debug特("ReviewParameters: {0} documents to process for library {1}", pdf_documents.Count, library.WebLibraryDetail.Title);
 
-            ObjLibraryFilterControl_Sort.ApplySort(pdf_documents, search_quick_scores);
+            if (!explorers_are_reset)
+            {
+                ObjLibraryFilterControl_Sort.ApplySort(pdf_documents, search_quick_scores);
+            }
 
             // Call the event
             OnFilterChanged?.Invoke(this, pdf_documents, descriptive_span, search_quick_query, search_quick_scores, pdf_document_to_focus_on);
