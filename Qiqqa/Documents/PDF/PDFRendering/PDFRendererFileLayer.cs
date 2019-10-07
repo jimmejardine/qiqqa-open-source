@@ -24,7 +24,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         {
             this.fingerprint = fingerprint;
             this.pdf_filename = pdf_filename;
-            this.num_pages = CountPDFPages();
+            this.num_pages = -1; // CountPDFPages();
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         internal string MakeFilename_TextGroup(int page, int TEXT_PAGES_PER_GROUP)
         {
-            int page_range_start = ((page-1) / TEXT_PAGES_PER_GROUP) * TEXT_PAGES_PER_GROUP + 1;
+            int page_range_start = ((page - 1) / TEXT_PAGES_PER_GROUP) * TEXT_PAGES_PER_GROUP + 1;
             int page_range_end = page_range_start + TEXT_PAGES_PER_GROUP - 1;
             string page_range = string.Format("{0:000}_to_{1:000}", page_range_start, page_range_end);
             return MakeFilenameWith2LevelIndirection("textgroup", page_range, "txt");
@@ -96,7 +96,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             return MakeFilenameWith2LevelIndirection("pagecount", "0", "txt");
         }
 
-        
+
         internal string StorePageTextSingle(int page, string source_filename)
         {
             string filename = MakeFilename_TextSingle(page);
@@ -119,46 +119,47 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         {
             get
             {
+                if (num_pages < 0)
+                {
+                    num_pages = CountPDFPages();
+                }
                 return num_pages;
             }
         }
 
         private int CountPDFPages()
         {
-            {
-                string cached_count_filename = MakeFilename_PageCount();
+            string cached_count_filename = MakeFilename_PageCount();
 
-                // Try the cached version
-                try
+            // Try the cached version
+            try
+            {
+                if (File.Exists(cached_count_filename))
                 {
-                    if (File.Exists(cached_count_filename))
+                    int num = Convert.ToInt32(File.ReadAllText(cached_count_filename));
+                    if (0 != num)
                     {
-                        int num_pages = Convert.ToInt32(File.ReadAllText(cached_count_filename));
-                        if (0 != num_pages)
-                        {
-                            return num_pages;
-                        }
+                        return num;
                     }
                 }
-                catch (Exception ex)
-                {
-                    Logging.Warn(ex, "There was a problem loading the cached page count.");
-                    FileTools.Delete(cached_count_filename);
-                }
+            }
+            catch (Exception ex)
+            {
+                Logging.Warn(ex, "There was a problem loading the cached page count.");
+                FileTools.Delete(cached_count_filename);
             }
 
             // If we get here, either the pagecountfile doesn't exist, or there was an exception
+            Logging.Debug特("Using calculated PDF page count for file {0}", pdf_filename);
             {
-                string cached_count_filename = MakeFilename_PageCount();
-
-                Logging.Debug特("Using calculated PDF page count for file {0}", pdf_filename);
-                int num_pages = PDFTools.CountPDFPages(pdf_filename);
-                if (0 != num_pages)
+                int num = PDFTools.CountPDFPages(pdf_filename);
+                if (0 != num)
                 {
                     Directory.CreateDirectory(Path.GetDirectoryName(cached_count_filename));
-                    File.WriteAllText(cached_count_filename, Convert.ToString(num_pages, 10));
+                    File.WriteAllText(cached_count_filename, Convert.ToString(num, 10));
                 }
-                return num_pages;
+
+                return num;
             }
         }
     }
