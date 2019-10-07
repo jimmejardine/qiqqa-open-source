@@ -54,20 +54,28 @@ namespace Utilities.Reflection
                 callback_wrapper.object_to_callback = new WeakReference(value.Target);
                 callback_wrapper.method_to_call = value.Method;
 
+#if false
                 Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+#endif
                 lock (callback_wrappers_lock)
                 {
+#if false
                     l1_clk.LockPerfTimerStop();
+#endif
                     callback_wrappers.Add(callback_wrapper);
                 }
             }
 
             remove
             {
+#if false
                 Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+#endif
                 lock (callback_wrappers_lock)
                 {
+#if false
                     l1_clk.LockPerfTimerStop();
+#endif
                     for (int i = callback_wrappers.Count - 1; i >= 0; --i)
                     {
                         if (value.Target == callback_wrappers[i].object_to_callback.Target && value.Method == callback_wrappers[i].method_to_call)
@@ -163,9 +171,9 @@ namespace Utilities.Reflection
             }
         }
 
-        #endregion
+#endregion
 
-        #region --- ICustomTypeDescriptor - interesting ---------------------------------------------------------
+#region --- ICustomTypeDescriptor - interesting ---------------------------------------------------------
 
         public PropertyDescriptorCollection GetProperties(Attribute[] attributes)
         {
@@ -262,9 +270,9 @@ namespace Utilities.Reflection
             }
         }
 
-        #endregion
+#endregion
 
-        #region --- ICustomTypeDescriptor - boring ---------------------------------------------------------
+#region --- ICustomTypeDescriptor - boring ---------------------------------------------------------
 
         public AttributeCollection GetAttributes()
         {
@@ -316,7 +324,7 @@ namespace Utilities.Reflection
             return underlying_type;
         }
 
-        #endregion
+#endregion
 
         // ---------------------------------------------------------------------------------------------------
 
