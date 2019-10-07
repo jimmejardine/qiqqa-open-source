@@ -527,7 +527,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
 
             if (!explorers_are_reset)
             {
-               // ObjLibraryFilterControl_Sort.ApplySort(pdf_documents, search_quick_scores);
+                ObjLibraryFilterControl_Sort.ApplySort(pdf_documents, search_quick_scores);
             }
 
             // Call the event
