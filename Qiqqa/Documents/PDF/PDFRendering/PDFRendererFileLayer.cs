@@ -19,12 +19,14 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         string pdf_filename;
 
         int num_pages;
+        int num_pages_calc_try_count;
 
         public PDFRendererFileLayer(string fingerprint, string pdf_filename)
         {
             this.fingerprint = fingerprint;
             this.pdf_filename = pdf_filename;
-            this.num_pages = -1; // CountPDFPages();
+            this.num_pages = 0; // CountPDFPages();
+            this.num_pages_calc_try_count = 0;
         }
 
         /// <summary>
@@ -119,24 +121,25 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         {
             get
             {
-                if (num_pages < 0)
+                if (num_pages == 0)
                 {
                     num_pages = CountPDFPages();
                 }
-                return num_pages;
+                return Math.Max(0, num_pages);
             }
         }
 
         private int CountPDFPages()
         {
             string cached_count_filename = MakeFilename_PageCount();
+            int num;
 
             // Try the cached version
             try
             {
                 if (File.Exists(cached_count_filename))
                 {
-                    int num = Convert.ToInt32(File.ReadAllText(cached_count_filename));
+                    num = Convert.ToInt32(File.ReadAllText(cached_count_filename));
                     if (0 != num)
                     {
                         return num;
@@ -146,21 +149,75 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             catch (Exception ex)
             {
                 Logging.Warn(ex, "There was a problem loading the cached page count.");
+
                 FileTools.Delete(cached_count_filename);
             }
 
             // If we get here, either the pagecountfile doesn't exist, or there was an exception
             Logging.Debug特("Using calculated PDF page count for file {0}", pdf_filename);
+            num = PDFTools.CountPDFPages(pdf_filename);
+            Logging.Info("The result is {1} for using calculated PDF page count for file {0}", pdf_filename, num);
+            do
             {
-                int num = PDFTools.CountPDFPages(pdf_filename);
                 if (0 != num)
                 {
-                    Directory.CreateDirectory(Path.GetDirectoryName(cached_count_filename));
-                    File.WriteAllText(cached_count_filename, Convert.ToString(num, 10));
-                }
+                    num_pages_calc_try_count = 0;  // reset recalc fail counter
 
-                return num;
-            }
+                    try
+                    {
+                        Directory.CreateDirectory(Path.GetDirectoryName(cached_count_filename));
+                        string outputText = Convert.ToString(num, 10);
+                        File.WriteAllText(cached_count_filename, outputText);
+                        // Open the file and read back what was written: we don't do a file lock for this one, but reckon all threads who
+                        // do this, will produce the same number = file content. 
+                        //
+                        // Besides, we don't know if WriteAllText() is atomic; it probably is not.
+                        // Hence we read back to verify written content and if there's anything off about it, we
+                        // blow it out of the water and retry later, possibly.
+                        string readText = File.ReadAllText(cached_count_filename);
+                        if (readText != outputText)
+                        {
+                            throw new IOException("CountPDFPages: cache content as read back from cache file does not match written data. Cache file is untrustworthy.");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex, "There was a problem using calculated PDF page count for file {0} / {1}", pdf_filename, cached_count_filename);
+
+                        FileTools.Delete(cached_count_filename);
+
+                        // we know the *calculated* pagecount is A-okay, so we can pass that on. 
+                        // It's just the file I/O for caching the value that may have gone awry, 
+                        // so we should retry that the next time we (re)calculate the pagecount number 
+                        // as it is a heavy operation!
+                        //
+                        //num = 0;
+                    }
+                }
+                else
+                {
+                    // Special case: when the CountPDFPages() API does not deliver a sane, that is non-zero, page count, 
+                    // then we've got a PDF file issue on our hands, very probably a damaged PDF.
+                    //
+                    // Damaged PDF files SHOULD NOT burden us forever, hence we introduce the heauristic of Three Strikes:
+                    // when we've (re)calculated the PDF page count three times in a row with errors (num == 0), then we
+                    // don't retry ever again, at least not during this application run.
+                    //
+                    // we DO NOT count I/O errors around the cache file, we only count (re)calc errors:
+                    num_pages_calc_try_count++;
+                    if (num_pages_calc_try_count >= 3)
+                    {
+                        num = -1; // signal final failure
+
+                        Logging.Warn("Marking this PDF Document as uncompromisingly stubborn in its failure to be inspected for file {0}", pdf_filename);
+
+                        continue; // and cache this value
+                    }
+                }
+                break;
+            } while (true);
+
+            return num;
         }
     }
 }
