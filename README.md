@@ -31,20 +31,11 @@ As above, but instead you'll need to obtain and install Syncfusion Essential Stu
   + Microsoft Visual Studio 2019 Professional (IDE)
   + [Git For Windows](https://gitforwindows.org/) - which includes `bash`
 - Open `Qiqqa.sln` in MSVS
-- Build > Batch Build > (tick all 'Release' items or simply Select All)
-  + When this is done, you should have a Qiqqa.exe binary and assorted files in `./Qiqqa/bin/Release/`
-- run a `bash` shell and `cd` to the `qiqqa-open-source` repository root directory if you haven't already :wink:
-- in `bash`, run:
-
-  ```
-  ./build-installer.sh
-  ```
-
-  + At the end of which you should see a line reporting success, with a version number and a path where the `setup.exe` has been dropped.
-    
-    > That'll be in the `./Qiqqa.Build/Packages/` directory tree: it should match the `vNN-YYYYMMDD-HHMMSS` with the latest date. 
-
-  + Presto! 🎉 
+- Select `Release+SETUP` as Solution Configuration (instead of just `Debug` or `Release`)
+- Build > Rebuild Solution
+  + When this is done, you should have a Qiqqa.exe binary and assorted files in `./Qiqqa/bin/Release/` 
+  + and a matching `setup.exe` in a `vNN-YYYYMMDD-HHMMSS` **version+date**-stamped directory in `./Qiqqa.Build/Packages/` -- the exact path is listed at the end of the `Output` build log panel in MSVS when the 'Rebuild Solution' action has completed.
+- Presto! 🎉 
 
 
   
