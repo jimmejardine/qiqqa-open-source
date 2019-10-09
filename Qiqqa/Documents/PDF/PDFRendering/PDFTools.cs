@@ -14,23 +14,24 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             // Try multiple approaches because each fails in their own special way........
             int pages = 0;
 
-                if (0 == pages)
+#if false
+            if (0 == pages)
                 {
                     pages = CountPDFPages_Sorax(filename);
                 }
-            Logging.Debug("-CountPDFPages #1 = Sorax");
-
+            Logging.Debug("-CountPDFPages #1 = Sorax :: {0} : {1}", filename, pages);
+#endif
                 if (0 == pages)
                 {
                     pages = CountPDFPages_Syncfusion(filename);
                 }
-            Logging.Debug("-CountPDFPages #2 = Syncfusion");
+            Logging.Debug("-CountPDFPages #2 = Syncfusion :: {0} : {1}", filename, pages);
 
                 if (0 == pages)
                 {
                     pages = CountPDFPages_Jimme_MEGA(filename);
                 }
-            Logging.Debug("-CountPDFPages #3 = Jimme: {0}", pages);
+            Logging.Debug("-CountPDFPages #3 = Jimme :: {0} : {1}", filename, pages);
 
             return pages;
         }
