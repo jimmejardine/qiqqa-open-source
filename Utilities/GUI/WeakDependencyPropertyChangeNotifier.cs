@@ -38,21 +38,25 @@ namespace Utilities.GUI
 
         ~WeakDependencyPropertyChangeNotifier()
         {
-            Logging.Info("~WeakDependencyPropertyChangeNotifier()");
+            Logging.Debug("~WeakDependencyPropertyChangeNotifier()");
             Dispose(false);
         }
 
         public void Dispose()
         {
-            Logging.Info("Disposing WeakDependencyPropertyChangeNotifier");
+            Logging.Debug("Disposing WeakDependencyPropertyChangeNotifier");
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
+#if DIAG
         private int dispose_count = 0;
+#endif
         private void Dispose(bool disposing)
         {
+#if DIAG
             Logging.Debug("WeakDependencyPropertyChangeNotifier::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
+#endif
             if (disposing)
             {
                 BindingOperations.ClearBinding(this, ValueProperty);
@@ -61,9 +65,9 @@ namespace Utilities.GUI
             // Get rid of unmanaged resources 
         }
 
-        #endregion --- Lifetime management -----------------------------------------------------------------------
+#endregion --- Lifetime management -----------------------------------------------------------------------
 
-        #region --- Properties -----------------------------------------------------------------------
+#region --- Properties -----------------------------------------------------------------------
 
         private WeakReference _propertySource;
         public DependencyObject PropertySource
@@ -92,6 +96,6 @@ namespace Utilities.GUI
             }
         }
 
-        #endregion --- Properties -----------------------------------------------------------------------
+#endregion --- Properties -----------------------------------------------------------------------
     }
 }

@@ -30,7 +30,7 @@ namespace Utilities
                 //                    this.clk = null;
             }
 
-            if (ms > 100.0)
+            if (ms > 250.0)
             {
                 Logging.Warn("lock took {0} msec @ {1}", ms, this.stackTrace);
             }
@@ -45,7 +45,7 @@ namespace Utilities
             {
                 clk = Stopwatch.StartNew(),
                 t = new Timer(),
-                stackTrace = LogAssist.AppendStackTrace(null, "LockPerfTimerStart").Trim(),
+                stackTrace = LogAssist.AppendStackTrace(null, "LockPerfChecker.Start").Trim(),
                 obj_lock = new object(),
             };
             rv.handler_ref = new ElapsedEventHandler((object source, ElapsedEventArgs e) =>
@@ -83,7 +83,7 @@ namespace Utilities
         // Handle the Elapsed event.
         private static void OnTimedEvent(LockPerfTimer pt, int i)
         {
-            Logging.Debug("+Lock TIMEOUT: {0} msec @ {1}", pt.clk.ElapsedMilliseconds, pt.stackTrace);
+            Logging.Debug特("+Lock TIMEOUT: {0} msec @ {1}", pt.clk.ElapsedMilliseconds, pt.stackTrace);
         }
     }
 

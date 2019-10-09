@@ -102,9 +102,9 @@ namespace Qiqqa.AnnotationsReportBuilding.LegacyAnnotationConvertorStuff
                 PdfLoadedPopupAnnotation raw_popup_annotation = raw_pdf_annotation as PdfLoadedPopupAnnotation;
                 if (null != raw_popup_annotation)
                 {
-                    Logging.Debug("  - page       = {0}", raw_pdf_page.Size);
-                    Logging.Debug("  - annotation = {0}", raw_popup_annotation.Bounds);
-                    Logging.Debug("  - text       = {0}", raw_popup_annotation.Text);
+                    Logging.Debug特("  - page       = {0}", raw_pdf_page.Size);
+                    Logging.Debug特("  - annotation = {0}", raw_popup_annotation.Bounds);
+                    Logging.Debug特("  - text       = {0}", raw_popup_annotation.Text);
 
                     // Work out the relative coordinates
                     double BUFFER_HORIZ = 0.05;
@@ -136,8 +136,8 @@ namespace Qiqqa.AnnotationsReportBuilding.LegacyAnnotationConvertorStuff
                 PdfLoadedTextMarkupAnnotation raw_markup_annotation = raw_pdf_annotation as PdfLoadedTextMarkupAnnotation;
                 if (null != raw_markup_annotation)
                 {
-                    Logging.Debug("  - page       = {0}", raw_pdf_page.Size);
-                    Logging.Debug("  - annotation = {0}", raw_markup_annotation.Bounds);
+                    Logging.Debug特("  - page       = {0}", raw_pdf_page.Size);
+                    Logging.Debug特("  - annotation = {0}", raw_markup_annotation.Bounds);
 
                     // Work out the relative coordinates
                     double left = raw_markup_annotation.Bounds.Left / raw_pdf_page.Size.Width;
@@ -167,7 +167,7 @@ namespace Qiqqa.AnnotationsReportBuilding.LegacyAnnotationConvertorStuff
 
         public static void GetAnnotations(string pdf_filename)
         {
-            Logging.Info("+Getting legacy annotations from {0}", pdf_filename);
+            Logging.Debug特("+Getting legacy annotations from {0}", pdf_filename);
 
             using (AugmentedPdfLoadedDocument pdf_doc = new AugmentedPdfLoadedDocument(pdf_filename))
             {
@@ -179,14 +179,14 @@ namespace Qiqqa.AnnotationsReportBuilding.LegacyAnnotationConvertorStuff
                             PdfLoadedPopupAnnotation popup_annotation = pdf_annotation as PdfLoadedPopupAnnotation;
                             if (null != popup_annotation)
                             {
-                                Logging.Debug("Popup is {0}", popup_annotation.ToString());
-                                Logging.Debug("  - text     = {0}", popup_annotation.Text);
-                                Logging.Debug("  - icon     = {0}", popup_annotation.Icon);
-                                Logging.Debug("  - size     = {0}", popup_annotation.Size);
-                                Logging.Debug("  - location = {0}", popup_annotation.Location);
-                                Logging.Debug("  - open     = {0}", popup_annotation.Open);
-                                Logging.Debug("  - bounds   = {0}", popup_annotation.Bounds);
-                                Logging.Debug("  - color    = {0}", popup_annotation.Color);
+                                Logging.Debug特("Popup is {0}", popup_annotation.ToString());
+                                Logging.Debug特("  - text     = {0}", popup_annotation.Text);
+                                Logging.Debug特("  - icon     = {0}", popup_annotation.Icon);
+                                Logging.Debug特("  - size     = {0}", popup_annotation.Size);
+                                Logging.Debug特("  - location = {0}", popup_annotation.Location);
+                                Logging.Debug特("  - open     = {0}", popup_annotation.Open);
+                                Logging.Debug特("  - bounds   = {0}", popup_annotation.Bounds);
+                                Logging.Debug特("  - color    = {0}", popup_annotation.Color);
                                 continue;
                             }
 
@@ -196,11 +196,11 @@ namespace Qiqqa.AnnotationsReportBuilding.LegacyAnnotationConvertorStuff
                             PdfLoadedTextMarkupAnnotation markup_annotation = pdf_annotation as PdfLoadedTextMarkupAnnotation;
                             if (null != markup_annotation)
                             {
-                                Logging.Debug("Markup is {0}", markup_annotation.ToString());
-                                Logging.Debug("  - size     = {0}", markup_annotation.Size);
-                                Logging.Debug("  - location = {0}", markup_annotation.Location);
-                                Logging.Debug("  - type     = {0}", markup_annotation.TextMarkupAnnotationType);
-                                Logging.Debug("  - color    = {0}", markup_annotation.TextMarkupColor);                                
+                                Logging.Debug特("Markup is {0}", markup_annotation.ToString());
+                                Logging.Debug特("  - size     = {0}", markup_annotation.Size);
+                                Logging.Debug特("  - location = {0}", markup_annotation.Location);
+                                Logging.Debug特("  - type     = {0}", markup_annotation.TextMarkupAnnotationType);
+                                Logging.Debug特("  - color    = {0}", markup_annotation.TextMarkupColor);                                
                                 continue;
                             }
                         }
@@ -208,10 +208,10 @@ namespace Qiqqa.AnnotationsReportBuilding.LegacyAnnotationConvertorStuff
                         // We don't know what it is
                         {
                             Logging.Info("Unknown annotation {0}", pdf_annotation);
-                            Logging.Debug("  - text     = {0}", pdf_annotation.Text);
-                            Logging.Debug("  - rect     = {0}", pdf_annotation.Bounds);
-                            Logging.Debug("  - location = {0}", pdf_annotation.Location);
-                            Logging.Debug("  - flags    = {0}", pdf_annotation.AnnotationFlags);
+                            Logging.Debug特("  - text     = {0}", pdf_annotation.Text);
+                            Logging.Debug特("  - rect     = {0}", pdf_annotation.Bounds);
+                            Logging.Debug特("  - location = {0}", pdf_annotation.Location);
+                            Logging.Debug特("  - flags    = {0}", pdf_annotation.AnnotationFlags);
                             continue;
                         }
 
@@ -221,7 +221,7 @@ namespace Qiqqa.AnnotationsReportBuilding.LegacyAnnotationConvertorStuff
             }
 
             
-            Logging.Info("-Getting legacy annotations from {0}", pdf_filename);
+            Logging.Debug特("-Getting legacy annotations from {0}", pdf_filename);
         }
 
         #region --- Test ------------------------------------------------------------------------

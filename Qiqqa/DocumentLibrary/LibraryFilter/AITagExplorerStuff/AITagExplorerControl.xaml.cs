@@ -161,7 +161,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
             {
                 rv = library.AITagManager.AITags.GetTagsWithDocuments(parent_fingerprints);
             }
-            Logging.Debug("AITagExplorerControl: processing {0} documents from library {1}", rv.Count, library.WebLibraryDetail.Title);
+            Logging.Debug特("AITagExplorerControl: processing {0} documents from library {1}", rv.Count, library.WebLibraryDetail.Title);
             return rv;
         }
 

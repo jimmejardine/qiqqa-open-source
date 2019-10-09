@@ -67,7 +67,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             lock (resized_page_image_item_requests)
             {
                 l1_clk.LockPerfTimerStop();
-                //Logging.Debug("Queueing page redraw for {0}", page);
+                Logging.Debug("Queueing page redraw for {0}", page);
                 resized_page_image_item_requests[page] = new ResizedPageImageItemRequest
                 {
                     page = page,
@@ -117,7 +117,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     }
                 }
 
-                //Logging.Debug("Performing page redraw for {0}", resized_page_image_item_request.page);
+                Logging.Debug("Performing page redraw for {0}", resized_page_image_item_request.page);
 
                 // Check that the page is still visible
                 if (!resized_page_image_item_request.page_control.PageIsInView)

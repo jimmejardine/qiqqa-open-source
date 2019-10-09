@@ -61,7 +61,7 @@ namespace Utilities.GUI.Notifications
 
         private void CloseButton_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            Logging.Debug("Notification bar closed by user for: {0}", MainText.Text);
+            Logging.Debug特("Notification bar closed by user for: {0}", MainText.Text);
             Visibility = Visibility.Collapsed;
         }
 
@@ -71,7 +71,7 @@ namespace Utilities.GUI.Notifications
 
             try
             {
-                Logging.Debug("User clicked on notification bar button for '{0}', executing action in thread pool", MainText.Text);
+                Logging.Debug特("User clicked on notification bar button for '{0}', executing action in thread pool", MainText.Text);
                 Button button = sender as Button;
                 if (button == null)
                 {

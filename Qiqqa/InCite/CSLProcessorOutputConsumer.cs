@@ -70,7 +70,7 @@ namespace Qiqqa.InCite
 
         void web_browser_ConsoleMessage(object sender, ConsoleMessageEventArgs e)
         {
-            Logging.Debug("JAVASCRIPT CONSOLE MESSAGE: {0}", e.Message);
+            Logging.Debug特("JAVASCRIPT CONSOLE MESSAGE: {0}", e.Message);
 
             try
             {
@@ -185,10 +185,10 @@ namespace Qiqqa.InCite
                             }
                         }
 
-                        Logging.Info("Calling the BibliographyReadyDelegate");
+                        Logging.Debug特("Calling the BibliographyReadyDelegate");
                         this.success = true;
                         brd(this);
-                        Logging.Info("Called the BibliographyReadyDelegate");
+                        Logging.Debug特("Called the BibliographyReadyDelegate");
                     }
 
                     if (finished_processing)
@@ -196,7 +196,7 @@ namespace Qiqqa.InCite
                         // Clean up
                         if (null != web_browser)
                         {
-                            Logging.Info("Disposing of web browser for InCite CSL processing");
+                            Logging.Debug特("Disposing of web browser for InCite CSL processing");
                             web_browser.Dispose();
                             web_browser = null;
                         }

@@ -85,12 +85,11 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             return String.Format("Library {0}: {1}", Id, Title);
         }
 
-        //[NonSerialized]
         public string DescriptiveTitle
         {
             get
             {
-                string s = Title;
+                string s = StringTools.TrimToLengthWithEllipsis(Title);
                 if (!String.IsNullOrWhiteSpace(s)) return s;
                 s = StringTools.TrimToLengthWithEllipsis(Description);
                 if (!String.IsNullOrWhiteSpace(s)) return s;

@@ -330,13 +330,13 @@ namespace Qiqqa.StartPage
 
         ~StartPageControl()
         {
-            Logging.Info("~StartPageControl()");
+            Logging.Debug("~StartPageControl()");
             Dispose(false);
         }
 
         public void Dispose()
         {
-            Logging.Info("Disposing StartPageControl");
+            Logging.Debug("Disposing StartPageControl");
             Dispose(true);
             GC.SuppressFinalize(this);
         }

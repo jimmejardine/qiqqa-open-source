@@ -56,11 +56,13 @@ namespace Qiqqa.Documents.PDF
         }
 
         /// <summary>
-        /// Deep clone not required.
+        /// Deep clone not required. Does not copy the subscribers.
         /// </summary>
         public object Clone()
         {
-            return MemberwiseClone();
+            PDFInkList rv = (PDFInkList)MemberwiseClone();
+            rv.OnPDFInkListChanged = null;
+            return rv;
         }
     }
 }

@@ -21,6 +21,8 @@ namespace Qiqqa.StartPage
         public TabWelcome()
         {
             InitializeComponent();
+
+            WPFDoEvents.ResetHourglassCursor();
             
             ObjBackgroundImage.Source = SplashScreenWindow.GetSplashImage();
             ObjBackgroundImage.Stretch = Stretch.Fill;

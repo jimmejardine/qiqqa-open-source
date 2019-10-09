@@ -13,7 +13,7 @@ namespace Qiqqa.DocumentLibrary
         public string suggested_download_source_uri = null;
         public string bibtex = null;
         public string notes = null;
-        public List<string> tags = new List<string>();
+        public HashSet<string> tags = new HashSet<string>();
 
         public override string ToString()
         {

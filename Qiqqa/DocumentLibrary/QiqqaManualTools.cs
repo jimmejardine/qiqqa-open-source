@@ -27,7 +27,8 @@ namespace Qiqqa.DocumentLibrary
         {
             FilenameWithMetadataImport fwmi = new FilenameWithMetadataImport();
             fwmi.filename = QiqqaManualFilename;
-            fwmi.tags = new List<string> { "manual", "help" };
+            fwmi.tags.Add("manual");
+            fwmi.tags.Add("help");
             fwmi.bibtex =
                 "@booklet{qiqqa_manual" + "\n" +
                 ",	title	= {The Qiqqa Manual}" + "\n" +
@@ -45,7 +46,8 @@ namespace Qiqqa.DocumentLibrary
         {
             FilenameWithMetadataImport fwmi = new FilenameWithMetadataImport();
             fwmi.filename = LoexManualFilename;
-            fwmi.tags.AddRange(new List<string> { "manual", "help" } );
+            fwmi.tags.Add("manual");
+            fwmi.tags.Add("help");
             fwmi.bibtex =
                 "@article{qiqqatechmatters" + "\n" +
                 ",	title	= {TechMatters: “Qiqqa” than you can say Reference Management: A Tool to Organize the Research Process}" + "\n" +

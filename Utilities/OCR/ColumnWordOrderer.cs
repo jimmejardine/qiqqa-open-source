@@ -59,7 +59,7 @@ namespace Utilities.OCR
 
                 if (words_still_to_process.Count > 0)
                 {
-                    Logging.Debug("We have a multiple column situation with {0} words outstanding", words_still_to_process.Count);
+                    Logging.Debug特("We have a multiple column situation with {0} words outstanding", words_still_to_process.Count);
                 }
             }
 

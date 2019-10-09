@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using icons;
 using Qiqqa.Common;
+using Qiqqa.Common.BackgroundWorkerDaemonStuff;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Main.LoginStuff;
 using Utilities;
@@ -51,10 +52,9 @@ namespace Qiqqa.Main
         
         void CmdVersion_Click(object sender, RoutedEventArgs e)
         {
-            if (null != ClientUpdater.Instance)
-            {
-                ClientUpdater.Instance.ViewChanges();
-            }
+            BackgroundWorkerDaemon.Instance.InitClientUpdater();
+            // if (null != ClientUpdater.Instance)
+            ClientUpdater.Instance.ViewChanges();
 
             e.Handled = true;
         }

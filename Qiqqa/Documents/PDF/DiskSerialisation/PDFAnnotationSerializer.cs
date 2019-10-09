@@ -11,24 +11,14 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
     {
         internal static void WriteToDisk(PDFDocument pdf_document)
         {
-            // A little hack to make sure the legacies are updated...
-            foreach (PDFAnnotation annotation in pdf_document.Annotations)
+            string json = pdf_document.GetAnnotationsAsJSON();
+            if (!String.IsNullOrEmpty(json))
             {
-                annotation.Color = annotation.Color;
-                annotation.DateCreated = annotation.DateCreated;
-                annotation.FollowUpDate = annotation.FollowUpDate;
+                pdf_document.Library.LibraryDB.PutString(pdf_document.Fingerprint, PDFDocumentFileLocations.ANNOTATIONS, json);
             }
-
-            List<Dictionary<string, object>> attributes_list = new List<Dictionary<string, object>>();
-            foreach (PDFAnnotation annotation in pdf_document.Annotations)
-            {
-                attributes_list.Add(annotation.Dictionary.Attributes);
-            }
-            string json = JsonConvert.SerializeObject(attributes_list, Formatting.Indented);
-            pdf_document.Library.LibraryDB.PutString(pdf_document.Fingerprint, PDFDocumentFileLocations.ANNOTATIONS, json);
         }
 
-        internal static void ReadFromDisk(PDFDocument pdf_document, PDFAnnotationList annotations, Dictionary<string, byte[]> library_items_annotations_cache)
+        internal static void ReadFromDisk(PDFDocument pdf_document, ref PDFAnnotationList annotations, Dictionary<string, byte[]> library_items_annotations_cache)
         {
             byte[] annotations_data = null;
 

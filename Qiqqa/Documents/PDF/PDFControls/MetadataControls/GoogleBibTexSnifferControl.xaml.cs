@@ -775,7 +775,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         void ObjWebBrowser_PageLoaded()
         {
-            Logging.Debug("BibTexSniffer::Browser::Page Loaded: {0}", ObjWebBrowser.CurrentUri.AbsoluteUri);
+            Logging.Debug特("BibTexSniffer::Browser::Page Loaded: {0}", ObjWebBrowser.CurrentUri.AbsoluteUri);
             ReflectLatestBrowserContent();
             // When PDFs are viewed in Gecko/Firefox and somehow things went wrong the first time around,
             // but **not enough wrong** so to speak, then the PDF is **cached** by Gecko/FireFox and it WILL NOT
@@ -815,7 +815,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         void ObjWebBrowser_TabChanged()
         {
-            Logging.Debug("BibTexSniffer::Browser::Tab Changed: {0}", ObjWebBrowser.CurrentUri.AbsoluteUri);
+            Logging.Debug特("BibTexSniffer::Browser::Tab Changed: {0}", ObjWebBrowser.CurrentUri.AbsoluteUri);
             ReflectLatestBrowserContent();
         }
 

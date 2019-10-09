@@ -48,16 +48,10 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
 
         internal static void WriteToDisk(PDFDocument pdf_document)
         {
-            Dictionary<int, byte[]> page_ink_blobs = new Dictionary<int, byte[]>();
-            foreach (var pair in pdf_document.Inks.PageInkBlobs)
-            {
-                page_ink_blobs.Add(pair.Key, pair.Value);
-            }
+            byte[] data = pdf_document.GetInksAsJSON();
 
-            // We only write to disk if we have at least one page of blobbies to write...
-            if (page_ink_blobs.Count > 0)
+            if (null != data)
             {
-                byte[] data = SerializeFile.ProtoSaveToByteArray<Dictionary<int, byte[]>>(page_ink_blobs);
                 pdf_document.Library.LibraryDB.PutBlob(pdf_document.Fingerprint, PDFDocumentFileLocations.INKS, data);
             }
         }

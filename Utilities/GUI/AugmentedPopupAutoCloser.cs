@@ -14,13 +14,13 @@ namespace Utilities.GUI
 
         ~AugmentedPopupAutoCloser()
         {
-            Logging.Info("~AugmentedPopupAutoCloser()");
+            Logging.Debug("~AugmentedPopupAutoCloser()");
             Dispose(false);            
         }
 
         public void Dispose()
         {
-            Logging.Info("Disposing AugmentedPopupAutoCloser");
+            Logging.Debug("Disposing AugmentedPopupAutoCloser");
             Dispose(true);
             GC.SuppressFinalize(this);
         }

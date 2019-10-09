@@ -47,15 +47,14 @@ namespace Qiqqa.DocumentLibrary
 
         public void OnDragEnter(object sender, DragEventArgs e)
         {
-            //if (false)
-            //{
-            //    Logging.Debug("Allowed effects are {0}", e.AllowedEffects);
+#if false
+            Logging.Debug("Allowed effects are {0}", e.AllowedEffects);
 
-            //    foreach (string format in e.Data.GetFormats(true))
-            //    {
-            //        Logging.Debug("Format is {0}", format);
-            //    }
-            //}
+            foreach (string format in e.Data.GetFormats(true))
+            {
+                Logging.Debug("Format is {0}", format);
+            }
+#endif
         }
 
         public void OnDragOver(object sender, DragEventArgs e)

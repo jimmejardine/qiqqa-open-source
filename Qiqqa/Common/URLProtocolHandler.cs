@@ -24,10 +24,8 @@ namespace Qiqqa.Common
                     throw new GenericException("Unknown qiqqa protocol request: {0}", filename);
                 }
 
-                if (false) { }
-
                 // Is it an open url?
-                else if ("open" == parts[0])
+                if ("open" == parts[0])
                 {
                     if (3 > parts.Length)
                     {

@@ -71,7 +71,11 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         }
 
         /// <summary>
-        /// NB: 1 based offset
+        /// Returns 0 when
+        /// - page count has not been calculated yet (pending action)
+        /// - or PDF is damaged so badly that no page count can be determined.
+        /// 
+        /// Otherwise returns the number of pages in the PDF document.
         /// </summary>
         public int PageCount
         {
@@ -122,6 +126,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         
         public void CauseAllPDFPagesToBeOCRed()
         {
+            // TODO: jobqueue this one too - saves us one PDF access + parse action inline.
             for (int i = PageCount; i >= 1; --i)
             {
                 GetOCRText(i);

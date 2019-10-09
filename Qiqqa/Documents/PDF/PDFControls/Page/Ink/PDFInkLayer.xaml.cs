@@ -144,7 +144,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
 
         internal override void Dispose()
         {
-            //Logging.Debug("PDFInkLayer::Dispose()");
+            Logging.Debug("PDFInkLayer::Dispose()");
 
             pdf_renderer_control_stats = null;
         }

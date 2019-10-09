@@ -96,25 +96,28 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             }
         }
 
-        private static void ExtractTagsFromBibTeXField(string bibtex, string TAG, List<string> tags)
+        private static void ExtractTagsFromBibTeXField(string bibtex, string TAG, ref HashSet<string> tags)
         {
             string vals = BibTexTools.GetField(bibtex, TAG);
             if (!String.IsNullOrEmpty(vals))
             {
                 string[] ret = vals.Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
-                tags.AddRange(ret.Select(x => x.Trim()));
+                foreach (string tag in ret)
+                {
+                    tags.Add(tag.Trim());
+                }
             }
         }
 
-        public virtual List<string> Tags
+        public virtual HashSet<string> Tags
         {
             get
             {
-                List<string> tags = new List<string>();
-                ExtractTagsFromBibTeXField(this.BibTeX, "tag", tags);
-                ExtractTagsFromBibTeXField(this.BibTeX, "tags", tags);
-                ExtractTagsFromBibTeXField(this.BibTeX, "keyword", tags);
-                ExtractTagsFromBibTeXField(this.BibTeX, "keywords", tags);
+                HashSet<string> tags = new HashSet<string>();
+                ExtractTagsFromBibTeXField(this.BibTeX, "tag", ref tags);
+                ExtractTagsFromBibTeXField(this.BibTeX, "tags", ref tags);
+                ExtractTagsFromBibTeXField(this.BibTeX, "keyword", ref tags);
+                ExtractTagsFromBibTeXField(this.BibTeX, "keywords", ref tags);
                 return tags;
             }
         }

@@ -56,10 +56,14 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             Utilities.Maintainable.MaintainableManager.Instance.RegisterHeldOffTask(TaskDaemonEntryPoint, 30 * 1000, System.Threading.ThreadPriority.BelowNormal);
         }
 
+#if DIAG
         private int dispose_count = 0;
+#endif
         internal void Dispose()
         {
+#if DIAG
             Logging.Debug("FolderWatcherManager::Dispose() @{0}", ++dispose_count);
+#endif
 
             Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (folder_watcher_records_lock)
