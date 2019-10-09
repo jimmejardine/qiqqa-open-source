@@ -52,6 +52,8 @@ As above, but instead you'll need to obtain and install Syncfusion Essential Stu
 
 ## Fixes & Additions to Qiqqa
 
+[For a full list click here.](https://github.com/jimmejardine/qiqqa-open-source/issues?q=is%3Aissue+is%3Aclosed+milestone%3Av82)
+
 - [#8](https://github.com/jimmejardine/qiqqa-open-source/issues/8)
 - [#10](https://github.com/jimmejardine/qiqqa-open-source/issues/10)
 - [#11](https://github.com/jimmejardine/qiqqa-open-source/issues/11)
@@ -62,5 +64,4 @@ As above, but instead you'll need to obtain and install Syncfusion Essential Stu
 - [#18](https://github.com/jimmejardine/qiqqa-open-source/issues/18)
 - [#19](https://github.com/jimmejardine/qiqqa-open-source/issues/19)
 - [#20](https://github.com/jimmejardine/qiqqa-open-source/issues/20)
-
-and many more. (See the Qiqqa issues list [here](https://github.com/jimmejardine/qiqqa-open-source/issues?utf8=%E2%9C%93&q=is%3Aissue+milestone%3Av82+).)
+- and many more. (See the Qiqqa issues list [here](https://github.com/jimmejardine/qiqqa-open-source/issues?utf8=%E2%9C%93&q=is%3Aissue+milestone%3Av82).)
