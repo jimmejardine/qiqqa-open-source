@@ -133,8 +133,11 @@ namespace Utilities.Reflection
         }
 
         private void NotifyPropertyChanged(string property_name)
-        {            
-            if (Application.Current == null || Application.Current.Dispatcher.Thread == Thread.CurrentThread)
+        {
+            // if (Application.Current == null || Application.Current.Dispatcher.Thread == Thread.CurrentThread)
+            // as per: https://stackoverflow.com/questions/5143599/detecting-whether-on-ui-thread-in-wpf-and-winforms#answer-14280425
+            // and: https://stackoverflow.com/questions/2982498/wpf-dispatcher-the-calling-thread-cannot-access-this-object-because-a-differen/13726324#13726324
+            if (Application.Current == null || Application.Current.Dispatcher.CheckAccess())
             {
                 NotifyPropertyChanged_THREADSAFE(property_name);
             }
