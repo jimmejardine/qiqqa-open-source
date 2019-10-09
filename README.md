@@ -34,7 +34,9 @@ As above, but instead you'll need to obtain and install Syncfusion Essential Stu
 - Select `Release+SETUP` as Solution Configuration (instead of just `Debug` or `Release`)
 - Build > Rebuild Solution
   + When this is done, you should have a Qiqqa.exe binary and assorted files in `./Qiqqa/bin/Release/` 
-  + and a matching `setup.exe` in a `vNN-YYYYMMDD-HHMMSS` **version+date**-stamped directory in `./Qiqqa.Build/Packages/` -- the exact path is listed at the end of the `Output` build log panel in MSVS when the 'Rebuild Solution' action has completed.
+  + and a matching `setup.exe` Qiqqa installer in a `vNN-YYYYMMDD-HHMMSS` **version+date**-stamped directory in `./Qiqqa.Build/Packages/` 
+  
+    > The exact path is also listed at the end of the `Output` build log panel in MSVS when the 'Rebuild Solution' action has completed.
 - Presto! 🎉 
 
 
