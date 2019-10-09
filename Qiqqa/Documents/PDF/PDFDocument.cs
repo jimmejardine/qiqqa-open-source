@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Reflection;
 using System.Windows.Media;
+using Newtonsoft.Json;
 using Qiqqa.Common.TagManagement;
 using Qiqqa.DocumentLibrary;
 using Qiqqa.Documents.Common;
@@ -48,9 +49,10 @@ namespace Qiqqa.Documents.PDF
 
         private DictionaryBasedObject dictionary = new DictionaryBasedObject();
 
-        internal DictionaryBasedObject Dictionary
+        public string GetAttributesAsJSON()
         {
-            get { return dictionary; }
+            string json = JsonConvert.SerializeObject(dictionary.Attributes, Formatting.Indented);
+            return json;
         }
 
         static readonly PropertyDependencies property_dependencies = new PropertyDependencies();
@@ -857,11 +859,35 @@ namespace Qiqqa.Documents.PDF
             if (null == annotations)
             {
                 annotations = new PDFAnnotationList();
-                PDFAnnotationSerializer.ReadFromDisk(this, annotations, library_items_annotations_cache);
+                PDFAnnotationSerializer.ReadFromDisk(this, ref annotations, library_items_annotations_cache);
                 annotations.OnPDFAnnotationListChanged += annotations_OnPDFAnnotationListChanged;
             }
 
             return annotations;
+        }
+
+        public string GetAnnotationsAsJSON()
+        {
+            string json = String.Empty;
+
+            if (null != annotations && annotations.Count > 0)
+            {
+                // A little hack to make sure the legacies are updated...
+                foreach (PDFAnnotation annotation in annotations)
+                {
+                    annotation.Color = annotation.Color;
+                    annotation.DateCreated = annotation.DateCreated;
+                    annotation.FollowUpDate = annotation.FollowUpDate;
+                }
+
+                List<Dictionary<string, object>> attributes_list = new List<Dictionary<string, object>>();
+                foreach (PDFAnnotation annotation in annotations)
+                {
+                    attributes_list.Add(annotation.Dictionary.Attributes);
+                }
+                json = JsonConvert.SerializeObject(attributes_list, Formatting.Indented);
+            }
+            return json;
         }
 
         public void QueueToStorage()
@@ -915,6 +941,24 @@ namespace Qiqqa.Documents.PDF
             return highlights;
         }
 
+        public string GetHighlightsAsJSON()
+        {
+            string json = String.Empty;
+
+            if (null != highlights && highlights.Count > 0)
+            {
+                List<PDFHighlight> highlights_list = new List<PDFHighlight>();
+                foreach (PDFHighlight highlight in highlights.GetAllHighlights())
+                {
+                    highlights_list.Add(highlight);
+                }
+
+                json = JsonConvert.SerializeObject(highlights_list, Formatting.Indented);
+
+                Logging.Info("Wrote {0} highlights to JSON", highlights_list.Count);
+            }
+            return json;
+        }
 
         void highlights_OnPDFHighlightListChanged()
         {
@@ -944,6 +988,26 @@ namespace Qiqqa.Documents.PDF
             return inks;
         }
 
+        public byte[] GetInksAsJSON()
+        {
+            byte[] data = null;
+
+            if (null != inks)
+            {
+                Dictionary<int, byte[]> page_ink_blobs = new Dictionary<int, byte[]>();
+                foreach (var pair in inks.PageInkBlobs)
+                {
+                    page_ink_blobs.Add(pair.Key, pair.Value);
+                }
+
+                // We only write to disk if we have at least one page of blobbies to write...
+                if (page_ink_blobs.Count > 0)
+                {
+                    data = SerializeFile.ProtoSaveToByteArray<Dictionary<int, byte[]>>(page_ink_blobs);
+                }
+            }
+            return data;
+        }
 
         void inks_OnPDFInkListChanged()
         {
@@ -979,22 +1043,13 @@ namespace Qiqqa.Documents.PDF
             PDFMetadataSerializer.WriteToDisk(this);
 
             // Save the annotations
-            if (null != annotations && annotations.Count > 0)
-            {
-                PDFAnnotationSerializer.WriteToDisk(this);
-            }
+            PDFAnnotationSerializer.WriteToDisk(this);
 
             // Save the highlights
-            if (null != highlights && highlights.Count > 0)
-            {
-                PDFHighlightSerializer.WriteToDisk(this);
-            }
+            PDFHighlightSerializer.WriteToDisk(this);
 
             // Save the inks
-            if (null != inks)
-            {
-                PDFInkSerializer.WriteToDisk(this);
-            }
+            PDFInkSerializer.WriteToDisk(this);
         }
 
         void bindable_PropertyChanged(object sender, PropertyChangedEventArgs e)

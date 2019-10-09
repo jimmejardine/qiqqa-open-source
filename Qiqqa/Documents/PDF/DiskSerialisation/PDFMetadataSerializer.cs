@@ -20,7 +20,7 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
             pdf_document.DateLastRead = pdf_document.DateLastRead;
             // A little hack to make sure the legacies are updated...
 
-            string json = JsonConvert.SerializeObject(pdf_document.Dictionary.Attributes, Formatting.Indented);
+            string json = pdf_document.GetAttributesAsJSON();
             pdf_document.Library.LibraryDB.PutString(pdf_document.Fingerprint, PDFDocumentFileLocations.METADATA, json);            
             Logging.Debug("Update metadata DB for PDF document {1}: JSON =\n{0}", json, pdf_document.Fingerprint);
         }
@@ -31,8 +31,8 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
             try
             {
                 string json = Encoding.UTF8.GetString(data);
-                char a = json[0];
-                if (0 != a)
+                char a = (json.Length > 0 ? json[0] : (char)0);
+                if ((char)0 != a)
                 {
                     Dictionary<string, object> attributes = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
                     return new DictionaryBasedObject(attributes);
@@ -42,9 +42,19 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
                     return ReadFromStream_BINARY(data);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return ReadFromStream_BINARY(data);
+                Logging.Error(ex, "Failed to ReadFromStream, second attempt is to read using old binary format");
+
+                try
+                {
+                    return ReadFromStream_BINARY(data);
+                }
+                catch (Exception ex2)
+                {
+                    Logging.Error(ex2, "Failed second attempt, reading using old binary format");
+                    throw ex;
+                }
             }
         }
 
