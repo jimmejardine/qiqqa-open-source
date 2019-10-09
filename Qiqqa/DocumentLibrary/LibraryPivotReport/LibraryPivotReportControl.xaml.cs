@@ -153,7 +153,8 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
                 if (General.HasPercentageJustTicked(y, pivot_result.y_keys.Count))
                 {
                     StatusManager.Instance.UpdateStatusBusy("LibraryPivot", "Building library pivot grid", y, pivot_result.y_keys.Count, true);
-                    WPFDoEvents.DoEvents();// HackityHack
+
+                    WPFDoEvents.WaitForUIThreadActivityDone(); // HackityHack
 
                     if (StatusManager.Instance.IsCancelled("LibraryPivot"))
                     {
@@ -226,7 +227,5 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
             last_pivot_result = pivot_result;
             last_ObjGridControl = ObjGridControl;
         }
-
-        
     }
 }

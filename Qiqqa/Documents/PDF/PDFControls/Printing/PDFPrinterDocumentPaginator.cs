@@ -39,7 +39,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Printing
         public override DocumentPage GetPage(int page_zero_based)
         {
             // Hackity hack
-            WPFDoEvents.DoEvents();
+            WPFDoEvents.WaitForUIThreadActivityDone();
 
             if (null != last_document_page)
             {

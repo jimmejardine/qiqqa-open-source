@@ -429,7 +429,7 @@ namespace Qiqqa.Common
             library_control.SearchLibrary(query);
         }
 
-        internal void ShutdownQiqqa(bool suppress_exit_warning)
+        public void ShutdownQiqqa(bool suppress_exit_warning)
         {
             main_window.suppress_exit_warning = suppress_exit_warning;
             main_window.Close();

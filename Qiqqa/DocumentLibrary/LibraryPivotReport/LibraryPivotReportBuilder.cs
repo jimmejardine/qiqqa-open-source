@@ -102,7 +102,8 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
                 if (General.HasPercentageJustTicked(y_progress_locked, y_keys.Count))
                 {
                     StatusManager.Instance.UpdateStatusBusy("LibraryPivot", "Building library pivot", y_progress_locked, y_keys.Count, true);
-                    WPFDoEvents.DoEvents();// HackityHack
+
+                    WPFDoEvents.WaitForUIThreadActivityDone(); // HackityHack
 
                     if (StatusManager.Instance.IsCancelled("LibraryPivot"))
                     {

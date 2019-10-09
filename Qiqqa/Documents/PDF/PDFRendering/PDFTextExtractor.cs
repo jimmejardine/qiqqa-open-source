@@ -493,6 +493,10 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                         did_some_ocr_since_last_iteration = true;
 
                         Logging.Info("Doing OCR for job '{0}'", next_job.job);
+
+                        // Relinquish control to the UI thread to make sure responsiveness remains tolerable at 100% CPU load.
+                        Utilities.GUI.WPFDoEvents.WaitForUIThreadActivityDone();
+
                         {
                             // Get a count of how many jobs are left...
                             int job_queue_group_count;

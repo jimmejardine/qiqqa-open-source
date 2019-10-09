@@ -2,6 +2,7 @@
 using System.Net;
 using System.Windows;
 using Utilities.Files;
+using Utilities.GUI;
 using Utilities.Internet;
 using Utilities.Misc;
 
@@ -127,6 +128,8 @@ namespace Utilities.ClientVersioning
             //  should we notify them about a new version available - only do if their version isn't compliant
             if (!client_version_information.CompliantFromVersion.HasValue || current_executing_version < client_version_information.CompliantFromVersion)
             {
+                WPFDoEvents.ResetHourglassCursor();
+
                 NotificationManager.Instance.AddPendingNotification(
                     new NotificationManager.Notification(
                         notification_bar_text,

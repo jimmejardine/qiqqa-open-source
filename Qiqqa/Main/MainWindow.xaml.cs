@@ -43,16 +43,15 @@ namespace Qiqqa.Main
 
             InitializeComponent();
 
+            WPFDoEvents.SetHourglassCursor();
+
             this.DataContext = ConfigurationManager.Instance.ConfigurationRecord_Bindable;
 
             // Set a DEV title if necessary
+            Title = String.Format("Qiqqa v{0}", ClientVersion.CurrentBuild);
             if (WebsiteAccess.IsTestEnvironment)
             {
-                Title = "Qiqqa (TEST ENVIRONMENT)";
-            }
-            else
-            {
-                Title = "Qiqqa";
+                Title = String.Format("Qiqqa v{0} (TEST ENVIRONMENT)", ClientVersion.CurrentBuild);
             }
 
             // Check that we actually are fitting on the user's screen
@@ -108,6 +107,8 @@ namespace Qiqqa.Main
 
             // hold off: level 2 -> 1
             MaintainableManager.Instance.BumpHoldOffPendingLevel();
+
+            WPFDoEvents.ResetHourglassCursor();
         }
 
         void keyboard_hook_KeyDown(object sender, KeyEventArgs e)
@@ -196,6 +197,15 @@ namespace Qiqqa.Main
             if (ConfigurationManager.Instance.ConfigurationRecord.TermsAndConditionsAccepted)
             {
                 StartBackgroundWorkerDaemon();
+            }
+            else
+            {
+                // TODO: nothing to do any more; user hasn't accepted the Terms & Conditions... Allow update via UI maybe? Nah, just quit!
+                WPFDoEvents.ResetHourglassCursor();
+
+                MessageBoxes.Info("You have not accepted the Qiqqa Terms and Conditions. Consequently, no service can be provided. The application will terminate now.\n\nYou may want to re-install the software and check&accept the Terms & Conditions, which are shown during the installation procedure.");
+
+                MainWindowServiceDispatcher.Instance.ShutdownQiqqa(suppress_exit_warning: true);
             }
         }
 

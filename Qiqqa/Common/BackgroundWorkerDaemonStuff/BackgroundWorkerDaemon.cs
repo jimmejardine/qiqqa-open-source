@@ -30,7 +30,7 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
 
             metadata_extraction_daemon = new MetadataExtractionDaemon();
 
-            MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_OnceOff, 10 * 1000, ThreadPriority.BelowNormal, 1);
+            MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_OnceOff, 1 * 1000, ThreadPriority.BelowNormal, 1);
             MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_Frequent, 10 * 1000, ThreadPriority.BelowNormal);
             MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_Infrequent, 10 * 1000, ThreadPriority.BelowNormal);
             MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_QuiteInfrequent, 10 * 1000, ThreadPriority.BelowNormal);
@@ -55,21 +55,7 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
                     Logging.Error(ex, "Exception during StartupCommandLineParameterChecker.Check");
                 }
 
-                try
-                {
-                    ClientUpdater.Init("Qiqqa",
-                                       Icons.Upgrade,
-                                       WebsiteAccess.GetOurFileUrl(WebsiteAccess.OurSiteFileKind.ClientVersion),
-                                       WebsiteAccess.GetOurFileUrl(WebsiteAccess.OurSiteFileKind.ClientSetup),
-                                       WebsiteAccess.IsTestEnvironment,
-                                       ShowReleaseNotes);
-
-                    ClientUpdater.Instance.CheckForNewClientVersion(ConfigurationManager.Instance.Proxy);
-                }
-                catch (Exception ex)
-                {
-                    Logging.Error(ex, "Exception during Utilities.ClientVersioning.ClientUpdater.Instance.CheckForNewClientVersion");
-                }
+                InitClientUpdater();
 
                 try
                 {
@@ -113,6 +99,28 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
 
             // We only want this to run once
             daemon.Stop();
+        }
+
+        public void InitClientUpdater()
+        {
+            if (null == ClientUpdater.Instance)
+            {
+                try
+                {
+                    ClientUpdater.Init("Qiqqa",
+                                       Icons.Upgrade,
+                                       WebsiteAccess.GetOurFileUrl(WebsiteAccess.OurSiteFileKind.ClientVersion),
+                                       WebsiteAccess.GetOurFileUrl(WebsiteAccess.OurSiteFileKind.ClientSetup),
+                                       WebsiteAccess.IsTestEnvironment,
+                                       ShowReleaseNotes);
+
+                    ClientUpdater.Instance.CheckForNewClientVersion(ConfigurationManager.Instance.Proxy);
+                }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex, "Exception during Utilities.ClientVersioning.ClientUpdater.Instance.CheckForNewClientVersion");
+                }
+            }
         }
 
         private void ShowReleaseNotes(string release_notes)

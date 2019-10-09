@@ -25,6 +25,7 @@ namespace Qiqqa.ClientVersioning
 
             DownloadButton.Icon = Icons.GetAppIcon(Icons.Upgrade);
             DownloadButton.Caption = "Download";
+
             CloseButton.Icon = Icons.GetAppIcon(Icons.Cancel);
             CloseButton.Caption = "Cancel";
         }

@@ -379,6 +379,9 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                         filenames_that_are_new.Clear();
 
                         processed_file_count = processing_file_count;
+
+                        // Relinquish control to the UI thread to make sure responsiveness remains tolerable at 100% CPU load.
+                        Utilities.GUI.WPFDoEvents.WaitForUIThreadActivityDone();
                     }
                 }
 

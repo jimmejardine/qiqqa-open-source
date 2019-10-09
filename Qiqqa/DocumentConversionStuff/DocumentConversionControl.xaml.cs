@@ -93,7 +93,6 @@ namespace Qiqqa.DocumentConversionStuff
                             string target_filename = save_file_dialog.FileName;
                             File.Copy(pdf_filename, target_filename);
                         }
-
                     }
 
                     File.Delete(pdf_filename);

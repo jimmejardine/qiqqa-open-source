@@ -192,7 +192,7 @@ namespace Qiqqa.Main
             application.DispatcherUnhandledException += application_DispatcherUnhandledException;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             SafeThreadPool.UnhandledException += SafeThreadPool_UnhandledException;
-            
+
             // Start the FPS measurer
             { var init = WPFFrameRate.Instance; }
         }
@@ -208,7 +208,7 @@ namespace Qiqqa.Main
             // NB NB NB NB: You CANT USE ANYTHING IN THE USER CONFIG AT THIS POINT - it is not yet decided until LOGIN has completed...
 
             splashscreen_window.UpdateMessage("Loading themes");
-            Theme.Initialize(application);
+            Theme.Initialize();
             DualTabbedLayout.GetWindowOverride = delegate() { return new StandardWindow(); };
 
             // Force tooltips to stay open
@@ -241,7 +241,7 @@ namespace Qiqqa.Main
                 login_window.ChooseLogin(splashscreen_window);
 
                 splashscreen_window.Close();
-                WPFDoEvents.DoEvents();
+                WPFDoEvents.WaitForUIThreadActivityDone();
 
                 try
                 {
@@ -282,11 +282,14 @@ namespace Qiqqa.Main
         static void RemarkOnException(Exception ex)
         {
             Logging.Error(ex, "RemarkOnException.....");
-            Application.Current.Dispatcher.Invoke(new Action(() =>
+            if (null != Application.Current)
             {
-                RemarkOnException_GUI_THREAD(ex);
+                Application.Current.Dispatcher.Invoke(new Action(() =>
+                {
+                    RemarkOnException_GUI_THREAD(ex);
+                }
+                ));
             }
-            ));
         }
 
         static void RemarkOnException_GUI_THREAD(Exception ex)
