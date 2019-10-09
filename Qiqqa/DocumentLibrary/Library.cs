@@ -154,13 +154,15 @@ namespace Qiqqa.DocumentLibrary
         {
             get
             {
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                DateTime mark;
                 lock (last_pdf_add_time_lock)
                 {
-                    l1_clk.LockPerfTimerStop();
-                    // heuristic; give OCR process et al some time to breathe
-                    return DateTime.UtcNow.Subtract(last_pdf_add_time).TotalSeconds < 3;
+                    //l1_clk.LockPerfTimerStop();
+                    mark = last_pdf_add_time;
                 }
+                // heuristic; give OCR process et al some time to breathe
+                return DateTime.UtcNow.Subtract(mark).TotalSeconds < 3;
             }
         }
 
@@ -363,10 +365,10 @@ namespace Qiqqa.DocumentLibrary
         private PDFDocument AddNewDocumentToLibrary(string filename, string original_filename, string suggested_download_source, string bibtex, HashSet<string> tags, string comments, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
         {
             // Flag that someone is trying to add to the library.  This is used by the background processes to hold off while the library is busy being added to...
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (last_pdf_add_time_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                //l1_clk.LockPerfTimerStop();
                 last_pdf_add_time = DateTime.UtcNow;
             }
 
