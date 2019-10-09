@@ -45,7 +45,7 @@ namespace Utilities
             {
                 clk = Stopwatch.StartNew(),
                 t = new Timer(),
-                stackTrace = LogAssist.AppendStackTrace(null, "LockPerfTimerStart").Trim(),
+                stackTrace = LogAssist.AppendStackTrace(null, "LockPerfChecker.Start").Trim(),
                 obj_lock = new object(),
             };
             rv.handler_ref = new ElapsedEventHandler((object source, ElapsedEventArgs e) =>
