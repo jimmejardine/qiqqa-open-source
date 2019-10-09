@@ -34,10 +34,10 @@ namespace Utilities.Shutdownable
         {
             get
             {
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (is_being_shut_down_lock)
                 {
-                    l1_clk.LockPerfTimerStop();
+                    //l1_clk.LockPerfTimerStop();
                     return is_being_shut_down;
                 }
             }

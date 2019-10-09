@@ -156,13 +156,15 @@ namespace Qiqqa.DocumentLibrary
         {
             get
             {
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                DateTime mark;
                 lock (last_pdf_add_time_lock)
                 {
-                    l1_clk.LockPerfTimerStop();
-                    // heuristic; give OCR process et al some time to breathe
-                    return DateTime.UtcNow.Subtract(last_pdf_add_time).TotalSeconds < 3;
+                    //l1_clk.LockPerfTimerStop();
+                    mark = last_pdf_add_time;
                 }
+                // heuristic; give OCR process et al some time to breathe
+                return DateTime.UtcNow.Subtract(mark).TotalSeconds < 3;
             }
         }
 
@@ -231,18 +233,18 @@ namespace Qiqqa.DocumentLibrary
                 Stopwatch clk = Stopwatch.StartNew();
                 long prev_clk = 0;
                 long elapsed = 0;
-                Logging.Debug("+Build library from repository");
+                Logging.Debug特("+Build library from repository");
                 List<LibraryDB.LibraryItem> library_items = this.library_db.GetLibraryItems(null, PDFDocumentFileLocations.METADATA);
 
                 elapsed = clk.ElapsedMilliseconds;
-                Logging.Debug(":Build library '{2}' from repository -- time spent: {0} ms on fetching {1} records from SQLite DB.", elapsed, library_items.Count, this.WebLibraryDetail.DescriptiveTitle);
+                Logging.Debug特(":Build library '{2}' from repository -- time spent: {0} ms on fetching {1} records from SQLite DB.", elapsed, library_items.Count, this.WebLibraryDetail.DescriptiveTitle);
                 prev_clk = elapsed;
 
                 // Get the annotations cache
                 Dictionary<string, byte[]> library_items_annotations_cache = this.library_db.GetLibraryItemsAsCache(PDFDocumentFileLocations.ANNOTATIONS);
 
                 elapsed = clk.ElapsedMilliseconds;
-                Logging.Debug(":Build library '{2}' from repository -- time spent: {0} ms on fetching annotation cache for {1} records.", elapsed - prev_clk, library_items.Count, this.WebLibraryDetail.DescriptiveTitle);
+                Logging.Debug特(":Build library '{2}' from repository -- time spent: {0} ms on fetching annotation cache for {1} records.", elapsed - prev_clk, library_items.Count, this.WebLibraryDetail.DescriptiveTitle);
                 prev_clk = elapsed;
 
                 Logging.Info("Library '{2}': Loading {0} files from repository at {1}", library_items.Count, LIBRARY_DOCUMENTS_BASE_PATH, this.WebLibraryDetail.DescriptiveTitle);
@@ -274,7 +276,7 @@ namespace Qiqqa.DocumentLibrary
 
                 StatusManager.Instance.ClearStatus("LibraryInitialLoad");
 
-                Logging.Debug("-Build library '{2}' from repository -- time spent: {0} ms on {1} library records.", clk.ElapsedMilliseconds, library_items.Count, this.WebLibraryDetail.DescriptiveTitle);
+                Logging.Debug特("-Build library '{2}' from repository -- time spent: {0} ms on {1} library records.", clk.ElapsedMilliseconds, library_items.Count, this.WebLibraryDetail.DescriptiveTitle);
             }
             catch (Exception ex)
             {
@@ -300,10 +302,10 @@ namespace Qiqqa.DocumentLibrary
             {
                 PDFDocument pdf_document = PDFDocument.LoadFromMetaData(this, library_item.data, library_items_annotations_cache);
 
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (pdf_documents_lock)
                 {
-                    l1_clk.LockPerfTimerStop();
+                    //l1_clk.LockPerfTimerStop();
                     pdf_documents[pdf_document.Fingerprint] = pdf_document;
                 }
 
@@ -341,10 +343,10 @@ namespace Qiqqa.DocumentLibrary
         public PDFDocument AddNewDocumentToLibrary_SYNCHRONOUS(FilenameWithMetadataImport info, bool suppressDialogs, LibraryPdfActionCallbacks post_partum = new LibraryPdfActionCallbacks())
         {
             // Flag that someone is trying to add to the library.  This is used by the background processes to hold off while the library is busy being added to...
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (last_pdf_add_time_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                //l1_clk.LockPerfTimerStop();
                 last_pdf_add_time = DateTime.UtcNow;
             }
 
@@ -409,10 +411,9 @@ namespace Qiqqa.DocumentLibrary
 
                 string fingerprint = StreamFingerprint.FromFile(filename);
 
-                // Useful in logging for diagnosing if we're adding the same document again
-                Logging.Info("Fingerprint: {0}", fingerprint);
-
                 pdf_document = GetDocumentByFingerprint(fingerprint);
+	            // Useful in logging for diagnosing if we're adding the same document again
+	            Logging.Info("Fingerprint: {0} - add to library: {1}", fingerprint, (null == pdf_document));
                 if (null != pdf_document)
                 {
                     // Pdf reportedly exists in database.
@@ -447,16 +448,23 @@ namespace Qiqqa.DocumentLibrary
                         pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.DownloadLocation);
                     }
 
+	                // TODO: *merge* the BibTeX!
                     if (pdf_document.UpdateBibTex(bibtex))
                     {
                         pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.BibTex);
                     }
 
+	                // merge = add new tags to existing ones (if any)
                     if (tags != null)
                     {
-                        tags.ForEach(x => pdf_document.AddTag(x)); // Notify changes called internally
+	                    foreach (string tag in tags)
+	                    {
+	                        pdf_document.AddTag(tag); // Notify changes called internally
+	                    }
                     }
 
+	                // TODO: merge comments?
+	                //
                     // If we already have comments, then append them to our existing comments (if they are not identical)
                     if (!String.IsNullOrEmpty(comments))
                     {
@@ -480,7 +488,10 @@ namespace Qiqqa.DocumentLibrary
                     }
                     if (tags != null)
                     {
-                        tags.ForEach(x => pdf_document.AddTag(x));
+	                    foreach(string tag in tags)
+	                    {
+	                        pdf_document.AddTag(tag);
+	                    }
                     }
 
                     pdf_document.Comments = comments;
@@ -552,7 +563,10 @@ namespace Qiqqa.DocumentLibrary
 
             if (tags != null)
             {
-                tags.ForEach(x => pdf_document.AddTag(x)); //Notify changes called internally
+                foreach (string tag in tags)
+                {
+                    pdf_document.AddTag(tag); // Notify changes called internally
+                }
             }
 
             // Store in our database
@@ -570,7 +584,7 @@ namespace Qiqqa.DocumentLibrary
 
         public PDFDocument CloneExistingDocumentFromOtherLibrary_SYNCHRONOUS(PDFDocument existing_pdf_document, bool suppress_dialogs, LibraryPdfActionCallbacks callbacks)
         {
-            StatusManager.Instance.UpdateStatus("LibraryDocument", String.Format("Copying {0} into library", existing_pdf_document.TitleCombined));
+            StatusManager.Instance.UpdateStatus("LibraryDocument", String.Format("Copying {0} ({1}) into library", existing_pdf_document.TitleCombined, existing_pdf_document.Fingerprint));
 
             //  do a normal add (since stored separately)
             var new_pdf_document = AddNewDocumentToLibrary_SYNCHRONOUS(new FilenameWithMetadataImport
@@ -924,10 +938,10 @@ namespace Qiqqa.DocumentLibrary
 
         public void SignalThatDocumentsHaveChanged(PDFDocument optional_changed_pdf_document)
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (last_documents_changed_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                //l1_clk.LockPerfTimerStop();
                 last_documents_changed_time = DateTime.UtcNow;
                 documents_changed_optional_changed_pdf_document = optional_changed_pdf_document;
             }
@@ -938,10 +952,10 @@ namespace Qiqqa.DocumentLibrary
             PDFDocument local_documents_changed_optional_changed_pdf_document;
             DateTime now = DateTime.UtcNow;
 
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (last_documents_changed_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                //l1_clk.LockPerfTimerStop();
                 // If no docs have changed, nothing to do
                 if (last_documents_changed_signal_time >= last_documents_changed_time)
                 {

@@ -108,7 +108,7 @@ namespace Utilities.Misc
             pending_notifications_lock.EnterWriteLock();
             try
             {
-                Logging.Debug("Adding pending notification for: {0}", notification.Text);
+                Logging.Debug特("Adding pending notification for: {0}", notification.Text);
                 pending_notifications.Enqueue(notification);
 
                 auto_reset_event.Set();
@@ -121,7 +121,7 @@ namespace Utilities.Misc
 
         private void FireNewNotification(Notification notification)
         {
-            Logging.Debug("Informing notification listeners of new notification for: " + notification.Text);
+            Logging.Debug特("Informing notification listeners of new notification for: {0}", notification.Text);
             last_notification_fired = DateTime.Now;
             NewNotificationFiredDelegate dlgt = NewNotificationFired;
             if (dlgt != null)

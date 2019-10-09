@@ -135,8 +135,8 @@ namespace Qiqqa.Chat
 
             // make sure we're not in the process of shutting down Qiqqa for then the next code chunk will cause a CRASH:
             if (null != Application.Current && !Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
-                    {
-                        Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
                 {
                     this.IsEnabled = is_chat_available;
                     TxtChatUnavailable.Visibility = is_chat_available ? Visibility.Collapsed : Visibility.Visible;
@@ -287,13 +287,13 @@ namespace Qiqqa.Chat
 
         ~ChatControl()
         {
-            Logging.Info("~ChatControl()");
+            Logging.Debug("~ChatControl()");
             Dispose(false);            
         }
 
         public void Dispose()
         {
-            Logging.Info("Disposing ChatControl");
+            Logging.Debug("Disposing ChatControl");
             Dispose(true);
             GC.SuppressFinalize(this);
         }

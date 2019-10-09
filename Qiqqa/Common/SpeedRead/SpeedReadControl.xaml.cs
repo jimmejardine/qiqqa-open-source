@@ -191,6 +191,9 @@ namespace Qiqqa.Common.SpeedRead
         private void KickOffPlayingThread()
         {
             Thread thread = new Thread(BackgroundThread);
+            //thread.IsBackground = true;
+            //thread.Priority = ThreadPriority.Lowest;
+            thread.Name = "SpeedReader:Player";
             thread.Start();
         }
 
@@ -290,7 +293,7 @@ namespace Qiqqa.Common.SpeedRead
                 // all sorts of nasty stuff can happen. If it happens while `Dispose()`
                 // was invoked on the mainline, it's hunky-dory. So we merely rate this
                 // DEBUG level diagnostics.
-                Logging.Debug(ex, "VERY PROBABLY HARMLESS AND EXPECTED crash in SpeedReader: if you just closed/quit the panel, this is due to Dispose() invocation in the Main thread and expected behaviour.");
+                Logging.Debug特(ex, "VERY PROBABLY HARMLESS AND EXPECTED crash in SpeedReader: if you just closed/quit the panel, this is due to Dispose() invocation in the Main thread and expected behaviour.");
 
             }
         }
@@ -336,13 +339,13 @@ namespace Qiqqa.Common.SpeedRead
 
         ~SpeedReadControl()
         {
-            Logging.Info("~SpeedReadControl()");
+            Logging.Debug("~SpeedReadControl()");
             Dispose(false);            
         }
 
         public void Dispose()
         {
-            Logging.Info("Disposing SpeedReadControl");
+            Logging.Debug("Disposing SpeedReadControl");
             Dispose(true);
             GC.SuppressFinalize(this);
         }

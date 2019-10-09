@@ -56,7 +56,8 @@ namespace Qiqqa.Main.SplashScreenStuff
         public void UpdateMessage(string message)
         {
             TxtMessage.Text = message;
-            WPFDoEvents.DoEvents();
+
+            Utilities.GUI.WPFDoEvents.RepaintUIElement(TxtMessage);
         }
     }
 }

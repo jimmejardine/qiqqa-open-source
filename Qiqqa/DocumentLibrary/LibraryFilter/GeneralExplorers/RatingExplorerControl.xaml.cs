@@ -60,7 +60,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
             {
                 pdf_documents = library.GetDocumentByFingerprints(parent_fingerprints);
             }
-            Logging.Debug("RatingExplorerControl: processing {0} documents from library {1}", pdf_documents.Count, library.WebLibraryDetail.Title);
+            Logging.Debug特("RatingExplorerControl: processing {0} documents from library {1}", pdf_documents.Count, library.WebLibraryDetail.Title);
 
             MultiMapSet<string, string> tags_with_fingerprints = new MultiMapSet<string, string>();
             foreach (PDFDocument pdf_document in pdf_documents)

@@ -167,7 +167,10 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
             {
                 string keywords = record.fields["keywords"];
                 string[] tags = keywords.Split(new char[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                fwmi.Tags.AddRange(tags);
+                foreach (string tag in tags)
+                {
+                    fwmi.Tags.Add(tag);
+                }
             }
 
             // Handle the attachments

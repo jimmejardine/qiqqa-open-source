@@ -156,13 +156,13 @@ namespace Qiqqa.WebBrowsing
 
         ~WebBrowserControl()
         {
-            Logging.Info("~WebBrowserControl()");
+            Logging.Debug("~WebBrowserControl()");
             Dispose(false);            
         }
 
         public void Dispose()
         {
-            Logging.Info("Disposing WebBrowserControl");
+            Logging.Debug("Disposing WebBrowserControl");
             Dispose(true);
             GC.SuppressFinalize(this);
         }

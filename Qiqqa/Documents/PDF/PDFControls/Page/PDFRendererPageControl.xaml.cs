@@ -417,18 +417,17 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
         }
 
         void PDFRendererPageControl_MouseDown(object sender, MouseButtonEventArgs e)
-        {            
+        {
             this.Focus();
             Keyboard.Focus(this);
             pdf_renderer_control.SelectedPage = this;
             e.Handled = true;
 
+#if false
             // Save this image to disk
-            //if (false)
-            //{
-            //    ImageSaver.SaveAsPng(@"C:\temp\aaa.png", (BitmapImage)this.ImagePage_HIDDEN.Source);
-            //    Logging.Debug("SAVED PAGE {0}", page);
-            //}
+            ImageSaver.SaveAsPng(@"C:\temp\aaa.png", (BitmapImage)this.ImagePage_HIDDEN.Source);
+            Logging.Debug("SAVED PAGE {0}", page);
+#endif
         }
 
         void pdf_renderer_OnPageTextAvailable(int page_from, int page_to)
@@ -457,7 +456,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             }
         }
 
-        #region Refresh Page
+#region Refresh Page
 
         internal void RefreshPage()
         {
@@ -691,7 +690,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             }
         }
 
-        #endregion
+#endregion
 
         internal void SetOperationMode(PDFRendererControl.OperationMode operation_mode)
         {

@@ -25,13 +25,13 @@ namespace Utilities.ProcessTools
 
         ~ProcessOutputReader()
         {
-            Logging.Info("~ProcessOutputReader()");
+            Logging.Debug("~ProcessOutputReader()");
             Dispose(false);            
         }
 
         public void Dispose()
         {
-            Logging.Info("Disposing ProcessOutputReader");
+            Logging.Debug("Disposing ProcessOutputReader");
             Dispose(true);
             GC.SuppressFinalize(this);
         }

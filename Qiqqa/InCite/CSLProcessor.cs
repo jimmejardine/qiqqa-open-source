@@ -94,10 +94,12 @@ namespace Qiqqa.InCite
             try
             {
                 Thread thread = new Thread(passthru.word_connector.RepopulateFromCSLProcessor);
+                //thread.IsBackground = true;
+                //thread.Priority = ThreadPriority.Lowest;
+                thread.Name = "CSLProcessor:Refresh";
                 thread.SetApartmentState(ApartmentState.STA);
                 thread.Start(ip);
             }
-
             catch (Exception ex)
             {
                 SafeThreadPool.QueueUserWorkItem(o => 

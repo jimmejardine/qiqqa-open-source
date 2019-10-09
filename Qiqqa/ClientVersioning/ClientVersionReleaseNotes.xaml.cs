@@ -25,13 +25,14 @@ namespace Qiqqa.ClientVersioning
 
             DownloadButton.Icon = Icons.GetAppIcon(Icons.Upgrade);
             DownloadButton.Caption = "Download";
+
             CloseButton.Icon = Icons.GetAppIcon(Icons.Cancel);
             CloseButton.Caption = "Cancel";
         }
 
         private void DownloadButton_Click(object sender, RoutedEventArgs e)
         {
-            Logging.Debug("User clicked to download from the release notes window");
+            Logging.Info("User clicked to download from the release notes window");
             ClientUpdater.Instance.DownloadNewClientVersion(null);
         }
 

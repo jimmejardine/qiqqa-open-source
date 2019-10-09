@@ -45,10 +45,10 @@ namespace Qiqqa.DocumentLibrary
 
         internal void ProcessTags(IEnumerable<string> tags_list)
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (tags_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                //l1_clk.LockPerfTimerStop();
                 foreach (var tag in tags_list)
                 {
                     AddTag_LOCK(tag);
@@ -70,10 +70,10 @@ namespace Qiqqa.DocumentLibrary
         {
             get
             {
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (tags_lock)
                 {
-                    l1_clk.LockPerfTimerStop();
+                    //l1_clk.LockPerfTimerStop();
                     if (requires_sort)
                     {
                         tags_sorted.Sort();
@@ -88,10 +88,10 @@ namespace Qiqqa.DocumentLibrary
         {
             get
             {
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (tags_lock)
                 {
-                    l1_clk.LockPerfTimerStop();
+                    //l1_clk.LockPerfTimerStop();
                     return new HashSet<string>(tags);
                 }
             }

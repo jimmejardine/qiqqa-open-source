@@ -115,24 +115,26 @@ namespace Qiqqa.Documents.PDF.PDFControls.PDFExporting
                             }
                         }
 
-                        //// Add the annotations from the page
-                        //{
-                        //    Logging.Debug("This PDF has {0} annotations", pdf_page.Annotations.Count);
-                        //    Logging.Debug("The size of the page is {0}", pdf_page.Size);
-                        //    foreach (var annotation in pdf_page.Annotations)
-                        //    {
-                        //        PdfLoadedUriAnnotation uri_annotation = annotation as PdfLoadedUriAnnotation;
-                        //        if (null != uri_annotation)
-                        //        {
-                        //            Logging.Debug("There is a URL to '{0}' with text '{1}' with bounds '{2}'",
-                        //            uri_annotation.Uri,
-                        //            uri_annotation.Bounds,
-                        //            uri_annotation.Text,
-                        //            null);
-                                    
-                        //        }
-                        //    }
-                        //}
+                        // Add the annotations from the page
+#if false
+                        {
+                            Logging.Debug("This PDF has {0} annotations", pdf_page.Annotations.Count);
+                            Logging.Debug("The size of the page is {0}", pdf_page.Size);
+                            foreach (var annotation in pdf_page.Annotations)
+                            {
+                                PdfLoadedUriAnnotation uri_annotation = annotation as PdfLoadedUriAnnotation;
+                                if (null != uri_annotation)
+                                {
+                                    Logging.Debug("There is a URL to '{0}' with text '{1}' with bounds '{2}'",
+                                    uri_annotation.Uri,
+                                    uri_annotation.Bounds,
+                                    uri_annotation.Text,
+                                    null);
+
+                                }
+                            }
+                        }
+#endif
                     }
 
                     catch (Exception ex)

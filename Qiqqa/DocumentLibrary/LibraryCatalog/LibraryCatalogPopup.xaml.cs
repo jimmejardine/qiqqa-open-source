@@ -415,8 +415,7 @@ SourceURL: {0}
                 {
                     if (delete_source_pdf_documents)
                     {
-                        pdf_document.Deleted = true;
-                        pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Deleted);
+	                    pdf_document.Library.DeleteDocument(pdf_document);
                     }
                 }
             });

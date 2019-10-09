@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Reflection;
 using System.Windows.Media;
+using Newtonsoft.Json;
 using Qiqqa.Common.TagManagement;
 using Qiqqa.DocumentLibrary;
 using Qiqqa.Documents.Common;
@@ -43,10 +44,11 @@ namespace Qiqqa.Documents.PDF
         //[NonSerialized]
         //private DictionaryBasedObject dictionary = new DictionaryBasedObject();
 
-        //internal DictionaryBasedObject Dictionary
-        //{
-        //    get { return dictionary; }
-        //}
+        public string GetAttributesAsJSON()
+        {
+            string json = JsonConvert.SerializeObject(dictionary.Attributes, Formatting.Indented);
+            return json;
+        }
 
         static readonly PropertyDependencies property_dependencies = new PropertyDependencies();
 
@@ -672,16 +674,58 @@ namespace Qiqqa.Documents.PDF
             if (null == annotations)
             {
                 annotations = new PDFAnnotationList();
-                PDFAnnotationSerializer.ReadFromDisk(this, annotations, library_items_annotations_cache);
+                PDFAnnotationSerializer.ReadFromDisk(this, ref annotations, library_items_annotations_cache);
                 annotations.OnPDFAnnotationListChanged += annotations_OnPDFAnnotationListChanged;
             }
 
             return annotations;
         }
 
+        public string GetAnnotationsAsJSON()
+        {
+            string json = String.Empty;
+
+            if (null != annotations && annotations.Count > 0)
+            {
+                // A little hack to make sure the legacies are updated...
+                foreach (PDFAnnotation annotation in annotations)
+                {
+                    annotation.Color = annotation.Color;
+                    annotation.DateCreated = annotation.DateCreated;
+                    annotation.FollowUpDate = annotation.FollowUpDate;
+                }
+
+                List<Dictionary<string, object>> attributes_list = new List<Dictionary<string, object>>();
+                foreach (PDFAnnotation annotation in annotations)
+                {
+                    attributes_list.Add(annotation.Dictionary.Attributes);
+                }
+                json = JsonConvert.SerializeObject(attributes_list, Formatting.Indented);
+            }
+            return json;
+        }
+
         public void QueueToStorage()
         {
-            DocumentQueuedStorer.Instance.Queue(this);
+            // create a clone to cross the thread boundary:
+            PDFDocument rv = new PDFDocument(this.Library);
+
+            // Clone the information
+            rv.FileType = this.FileType;
+            rv.Fingerprint = this.Fingerprint;
+            rv.dictionary = (DictionaryBasedObject)this.dictionary.Clone();
+
+            rv.dictionary = (DictionaryBasedObject)this.dictionary.Clone();
+            rv.annotations = (PDFAnnotationList)this.Annotations.Clone();
+            rv.highlights = (PDFHightlightList)this.Highlights.Clone();
+            rv.inks = (PDFInkList)this.Inks.Clone();
+
+            // Copy the citations
+            rv.PDFDocumentCitationManager.CloneFrom(this.PDFDocumentCitationManager);
+
+            // --------------------------------------
+
+            DocumentQueuedStorer.Instance.Queue(rv);
         }
 
         void annotations_OnPDFAnnotationListChanged()
@@ -712,6 +756,24 @@ namespace Qiqqa.Documents.PDF
             return highlights;
         }
 
+        public string GetHighlightsAsJSON()
+        {
+            string json = String.Empty;
+
+            if (null != highlights && highlights.Count > 0)
+            {
+                List<PDFHighlight> highlights_list = new List<PDFHighlight>();
+                foreach (PDFHighlight highlight in highlights.GetAllHighlights())
+                {
+                    highlights_list.Add(highlight);
+                }
+
+                json = JsonConvert.SerializeObject(highlights_list, Formatting.Indented);
+
+                Logging.Info("Wrote {0} highlights to JSON", highlights_list.Count);
+            }
+            return json;
+        }
 
         void highlights_OnPDFHighlightListChanged()
         {
@@ -739,6 +801,27 @@ namespace Qiqqa.Documents.PDF
             }
 
             return inks;
+        }
+
+        public byte[] GetInksAsJSON()
+        {
+            byte[] data = null;
+
+            if (null != inks)
+            {
+                Dictionary<int, byte[]> page_ink_blobs = new Dictionary<int, byte[]>();
+                foreach (var pair in inks.PageInkBlobs)
+                {
+                    page_ink_blobs.Add(pair.Key, pair.Value);
+                }
+
+                // We only write to disk if we have at least one page of blobbies to write...
+                if (page_ink_blobs.Count > 0)
+                {
+                    data = SerializeFile.ProtoSaveToByteArray<Dictionary<int, byte[]>>(page_ink_blobs);
+                }
+            }
+            return data;
         }
 
         void inks_OnPDFInkListChanged()
@@ -775,22 +858,13 @@ namespace Qiqqa.Documents.PDF
             PDFMetadataSerializer.WriteToDisk(this);
 
             // Save the annotations
-            if (null != annotations && annotations.Count > 0)
-            {
-                PDFAnnotationSerializer.WriteToDisk(this);
-            }
+            PDFAnnotationSerializer.WriteToDisk(this);
 
             // Save the highlights
-            if (null != highlights && highlights.Count > 0)
-            {
-                PDFHighlightSerializer.WriteToDisk(this);
-            }
+            PDFHighlightSerializer.WriteToDisk(this);
 
             // Save the inks
-            if (null != inks)
-            {
-                PDFInkSerializer.WriteToDisk(this);
-            }
+            PDFInkSerializer.WriteToDisk(this);
         }
 
         void bindable_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -836,7 +910,7 @@ namespace Qiqqa.Documents.PDF
             List<LibraryDB.LibraryItem> library_items = library.LibraryDB.GetLibraryItems(pdf_document.Fingerprint, PDFDocumentFileLocations.METADATA);
             if (0 == library_items.Count)
             {
-                DocumentQueuedStorer.Instance.Queue(pdf_document);
+                pdf_document.QueueToStorage();
             }
             else
             {
@@ -848,7 +922,7 @@ namespace Qiqqa.Documents.PDF
                 catch (Exception ex)
                 {
                     Logging.Error(ex, "There was a problem reloading an existing PDF from existing metadata, so overwriting it! (Fingerprint: {0})", pdf_document.Fingerprint);
-                    DocumentQueuedStorer.Instance.Queue(pdf_document);
+                    pdf_document.QueueToStorage();
                     //pdf_document.SaveToMetaData();
                 }
             }
@@ -871,7 +945,7 @@ namespace Qiqqa.Documents.PDF
             List<LibraryDB.LibraryItem> library_items = library.LibraryDB.GetLibraryItems(pdf_document.Fingerprint, PDFDocumentFileLocations.METADATA);
             if (0 == library_items.Count)
             {
-                DocumentQueuedStorer.Instance.Queue(pdf_document);
+                pdf_document.QueueToStorage();
             }
             else
             {
@@ -883,7 +957,7 @@ namespace Qiqqa.Documents.PDF
                 catch (Exception ex)
                 {
                     Logging.Error(ex, "There was a problem reloading an existing PDF from existing metadata, so overwriting it! (Fingerprint: {0})", pdf_document.Fingerprint);
-                    DocumentQueuedStorer.Instance.Queue(pdf_document);
+                    pdf_document.QueueToStorage();
                 }
             }
 
@@ -903,15 +977,23 @@ namespace Qiqqa.Documents.PDF
             annotations = (PDFAnnotationList)existing_pdf_document.Annotations.Clone();
             highlights = (PDFHightlightList)existing_pdf_document.Highlights.Clone();
             inks = (PDFInkList)existing_pdf_document.Inks.Clone();
-            SaveToMetaData();
 
             // Copy the citations
             PDFDocumentCitationManager.CloneFrom(existing_pdf_document.PDFDocumentCitationManager);
+
+            QueueToStorage();
+#if false
+            SaveToMetaData();
 
             //  Now clear out the references for the annotations and highlights, so that when they are reloaded the events are resubscribed
             annotations = null;
             highlights = null;
             inks = null;
+#else
+            annotations.OnPDFAnnotationListChanged += annotations_OnPDFAnnotationListChanged;
+            highlights.OnPDFHighlightListChanged += highlights_OnPDFHighlightListChanged;
+            inks.OnPDFInkListChanged += inks_OnPDFInkListChanged;
+#endif
         }
 
         public void StoreAssociatedPDFInRepository(string filename)
@@ -965,7 +1047,7 @@ namespace Qiqqa.Documents.PDF
                 new_pdf_document.Fingerprint = fingerprint;
                 new_pdf_document.FileType = Path.GetExtension(pdf_filename);
 
-                DocumentQueuedStorer.Instance.Queue(new_pdf_document);
+                new_pdf_document.QueueToStorage();
 
                 // Delete this one
                 this.Deleted = true;

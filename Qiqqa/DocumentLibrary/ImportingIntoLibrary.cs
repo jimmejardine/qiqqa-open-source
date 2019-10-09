@@ -61,7 +61,7 @@ namespace Qiqqa.DocumentLibrary
             {
                 if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
                 {
-                    Logging.Debug("ImportingIntoLibrary: Breaking out of outer processing loop due to application termination");
+                    Logging.Debug特("ImportingIntoLibrary: Breaking out of outer processing loop due to application termination");
                     break;
                 }
 
@@ -71,6 +71,12 @@ namespace Qiqqa.DocumentLibrary
                     break;
                 }
                 StatusManager.Instance.UpdateStatus("BulkLibraryDocument", String.Format("Adding document {0} of {1} to your library", i, filename_with_metadata_imports.Count), i, filename_with_metadata_imports.Count, true);
+
+                // Relinquish control to the UI thread to make sure responsiveness remains tolerable at 100% CPU load.
+                if (i % 10 == 7) // random choice for this heuristic: every tenth ADD should *yield* to the UI
+                {
+                    Utilities.GUI.WPFDoEvents.WaitForUIThreadActivityDone();
+                }
 
                 FilenameWithMetadataImport filename_with_metadata_import = filename_with_metadata_imports[i];
 
@@ -162,7 +168,7 @@ namespace Qiqqa.DocumentLibrary
                 }
             }
 
-            Logging.Debug("AddNewPDFDocumentsToLibraryFromFolder_SYNCHRONOUS: time spent: {0} ms", clk.ElapsedMilliseconds);
+            Logging.Debug特("AddNewPDFDocumentsToLibraryFromFolder_SYNCHRONOUS: time spent: {0} ms", clk.ElapsedMilliseconds);
 
             return last_added_pdf_document;
         }
@@ -241,7 +247,7 @@ namespace Qiqqa.DocumentLibrary
                     };
                     file_list.Add(filename_with_metadata_import);
 
-                    Logging.Debug("Registering file import {0} with tags {1}", filename, StringTools.ConcatenateStrings(tags));
+                    Logging.Debug特("Registering file import {0} with tags {1}", filename, StringTools.ConcatenateStrings(tags));
                 }
 
                 //  onto the subfolders (if required)
@@ -492,7 +498,7 @@ namespace Qiqqa.DocumentLibrary
             {
                 if (existing_pdf_document.Library == library)
                 {
-                    Logging.Debug("Trying to clone a pdf doc back into its own library, ignoring");
+                    Logging.Debug特("Trying to clone a pdf doc back into its own library, ignoring. (fingerprint {0}", existing_pdf_document.Fingerprint);
                     return null;
                 }
 
@@ -500,8 +506,9 @@ namespace Qiqqa.DocumentLibrary
             }
             catch (Exception e)
             {
-                Logging.Error(e, "Problem cloning PDF {0} from library {1} to library {2}",
+                Logging.Error(e, "Problem cloning PDF {0} ({1}) from library {2} to library {3}",
                               existing_pdf_document.TitleCombined,
+                              existing_pdf_document.Fingerprint,
                               existing_pdf_document.Library.WebLibraryDetail.Title,
                               library.WebLibraryDetail.Title);
                 return null;

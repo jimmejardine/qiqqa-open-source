@@ -13,9 +13,9 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
     {
         internal static void WriteToDisk(PDFDocument pdf_document)
         {
-            string json = JsonConvert.SerializeObject(pdf_document, Formatting.Indented);
+            string json = pdf_document.GetAttributesAsJSON();
             pdf_document.Library.LibraryDB.PutString(pdf_document.Fingerprint, PDFDocumentFileLocations.METADATA, json);            
-            //Logging.Debug(json);
+            Logging.Debug("Update metadata DB for PDF document {1}: JSON =\n{0}", json, pdf_document.Fingerprint);
         }
 
         public static PDFDocument ReadFromStream(DocumentLibrary.Library library, byte[] data)

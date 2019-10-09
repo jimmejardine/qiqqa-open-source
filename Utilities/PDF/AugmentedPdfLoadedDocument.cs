@@ -18,21 +18,25 @@ namespace Utilities.PDF
 
         ~AugmentedPdfLoadedDocument()
         {
-            Logging.Info("~AugmentedPdfLoadedDocument()");
+            Logging.Debug("~AugmentedPdfLoadedDocument()");
             Dispose(false);
         }
 
         public new void Dispose()
         {
-            Logging.Info("Disposing AugmentedPdfLoadedDocument");
+            Logging.Debug("Disposing AugmentedPdfLoadedDocument");
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
+#if DIAG
         private int dispose_count = 0;
+#endif
         private void Dispose(bool disposing)
         {
+#if DIAG
             Logging.Debug("AugmentedPdfLoadedDocument::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
+#endif
             if (disposing)
             {
                 // Get rid of managed resources

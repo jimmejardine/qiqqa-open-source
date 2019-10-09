@@ -500,7 +500,7 @@ namespace Qiqqa.InCite
 
         void word_connector_CitationClusterChanged(CitationCluster context_citation_cluster)
         {
-            Logging.Debug("InCite: CitationClusterChanged: " + context_citation_cluster);
+            Logging.Debug特("InCite: CitationClusterChanged: {0}", context_citation_cluster);
 
             Dispatcher.BeginInvoke(new Action(() =>
             {
@@ -523,7 +523,7 @@ namespace Qiqqa.InCite
         
         void word_connector_ContextChanged(string context_word, string context_backward, string context_surround)
         {
-            Logging.Debug("InCite: ContextChanged");
+            Logging.Debug特("InCite: ContextChanged");
 
             Dispatcher.BeginInvoke(new Action(() =>
             {

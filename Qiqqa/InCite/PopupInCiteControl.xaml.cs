@@ -340,9 +340,6 @@ namespace Qiqqa.InCite
             {
                 chw.Hide();
             }
-
-
-
             
             e.Cancel = true;
         }

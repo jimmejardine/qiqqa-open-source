@@ -54,20 +54,28 @@ namespace Utilities.Reflection
                 callback_wrapper.object_to_callback = new WeakReference(value.Target);
                 callback_wrapper.method_to_call = value.Method;
 
+#if false
                 Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+#endif
                 lock (callback_wrappers_lock)
                 {
+#if false
                     l1_clk.LockPerfTimerStop();
+#endif
                     callback_wrappers.Add(callback_wrapper);
                 }
             }
 
             remove
             {
+#if false
                 Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+#endif
                 lock (callback_wrappers_lock)
                 {
+#if false
                     l1_clk.LockPerfTimerStop();
+#endif
                     for (int i = callback_wrappers.Count - 1; i >= 0; --i)
                     {
                         if (value.Target == callback_wrappers[i].object_to_callback.Target && value.Method == callback_wrappers[i].method_to_call)
@@ -99,7 +107,7 @@ namespace Utilities.Reflection
                         }
                         else
                         {
-                            Logging.Debug("Removing garbage collected callback");
+                            Logging.Debug特("Removing garbage collected callback");
                             callback_wrappers.RemoveAt(i);
                         }
                     }
@@ -125,8 +133,11 @@ namespace Utilities.Reflection
         }
 
         private void NotifyPropertyChanged(string property_name)
-        {            
-            if (Application.Current == null || Application.Current.Dispatcher.Thread == Thread.CurrentThread)
+        {
+            // if (Application.Current == null || Application.Current.Dispatcher.Thread == Thread.CurrentThread)
+            // as per: https://stackoverflow.com/questions/5143599/detecting-whether-on-ui-thread-in-wpf-and-winforms#answer-14280425
+            // and: https://stackoverflow.com/questions/2982498/wpf-dispatcher-the-calling-thread-cannot-access-this-object-because-a-differen/13726324#13726324
+            if (Application.Current == null || Application.Current.Dispatcher.CheckAccess())
             {
                 NotifyPropertyChanged_THREADSAFE(property_name);
             }
@@ -163,9 +174,9 @@ namespace Utilities.Reflection
             }
         }
 
-        #endregion
+#endregion
 
-        #region --- ICustomTypeDescriptor - interesting ---------------------------------------------------------
+#region --- ICustomTypeDescriptor - interesting ---------------------------------------------------------
 
         public PropertyDescriptorCollection GetProperties(Attribute[] attributes)
         {
@@ -262,9 +273,9 @@ namespace Utilities.Reflection
             }
         }
 
-        #endregion
+#endregion
 
-        #region --- ICustomTypeDescriptor - boring ---------------------------------------------------------
+#region --- ICustomTypeDescriptor - boring ---------------------------------------------------------
 
         public AttributeCollection GetAttributes()
         {
@@ -316,7 +327,7 @@ namespace Utilities.Reflection
             return underlying_type;
         }
 
-        #endregion
+#endregion
 
         // ---------------------------------------------------------------------------------------------------
 

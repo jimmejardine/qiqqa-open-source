@@ -26,13 +26,13 @@ namespace Utilities.PDF.Sorax
 
             ~HDOCWrapper()
             {
-                Logging.Info("~HDOCWrapper()");
+                Logging.Debug("~HDOCWrapper()");
                 Dispose(false);
             }
 
             public void Dispose()
             {
-                Logging.Info("Disposing HDOCWrapper");
+                Logging.Debug("Disposing HDOCWrapper");
                 Dispose(true);
                 GC.SuppressFinalize(this);
             }
@@ -44,7 +44,7 @@ namespace Utilities.PDF.Sorax
                 if (disposing)
                 {
                     // Get rid of managed resources
-                    Logging.Info("Disposing the lucene index writer");
+                    Logging.Debug("Disposing the lucene index writer");
 
                     if (IntPtr.Zero != HDOC)
                     {
@@ -59,10 +59,10 @@ namespace Utilities.PDF.Sorax
 
         static SoraxPDFRendererDLLWrapper()
         {   
-            Logging.Info("+Initialising SoraxPDFRendererDLLWrapper");
+            Logging.Debug特("+Initialising SoraxPDFRendererDLLWrapper");
             string config_filename = UnitTestDetector.StartupDirectoryForQiqqa + @"SPdf.ini";
             SoraxDLL.SPD_ResetConfig(config_filename);
-            Logging.Info("-Initialising SoraxPDFRendererDLLWrapper");
+            Logging.Debug特("-Initialising SoraxPDFRendererDLLWrapper");
         }
 
         // ------------------------------------------------------------------------------------------------------------------------

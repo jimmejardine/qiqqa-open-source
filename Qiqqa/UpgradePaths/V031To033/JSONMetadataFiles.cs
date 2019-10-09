@@ -12,7 +12,7 @@ namespace Qiqqa.UpgradePaths.V031To033
             {
                 foreach (PDFDocument pdf_document in web_library_detail.library.PDFDocuments_IncludingDeleted)
                 {
-                    DocumentQueuedStorer.Instance.Queue(pdf_document);
+                    pdf_document.QueueToStorage();
                 }
             }
         }

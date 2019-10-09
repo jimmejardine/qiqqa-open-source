@@ -39,13 +39,13 @@ namespace Qiqqa.DocumentLibrary
 
         ~LibraryIndexHoverPopup()
         {
-            Logging.Info("~LibraryIndexHoverPopup()");
+            Logging.Debug("~LibraryIndexHoverPopup()");
             Dispose(false);            
         }
 
         public void Dispose()
         {
-            Logging.Info("Disposing LibraryIndexHoverPopup");
+            Logging.Debug("Disposing LibraryIndexHoverPopup");
             Dispose(true);
             GC.SuppressFinalize(this);
         }

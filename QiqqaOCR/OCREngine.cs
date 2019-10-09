@@ -84,6 +84,7 @@ namespace QiqqaOCR
                     thread_ocr = new Thread(ThreadOCRMainEntry);
                     thread_ocr.Name = "ThreadOCR";
                     thread_ocr.IsBackground = true;
+                    thread_ocr.Priority = ThreadPriority.BelowNormal;
                     thread_ocr.Start();
                 }
 
@@ -270,7 +271,7 @@ namespace QiqqaOCR
                     {
                         string bitmap_diag_path = pdf_filename + "." + page_number + @"-ocr.png";
 
-                        Logging.Debug("Dumping page {0} PNG image to file {1}", page_number, bitmap_diag_path);
+                        Logging.Debug特("Dumping page {0} PNG image to file {1}", page_number, bitmap_diag_path);
                         Graphics g = Graphics.FromImage(bitmap);
 		                foreach (Rectangle rectangle in rectangles)
 		                {

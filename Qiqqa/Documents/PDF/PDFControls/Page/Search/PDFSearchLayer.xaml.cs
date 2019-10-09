@@ -136,7 +136,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
 
         internal override void Dispose()
         {
-            //Logging.Debug("PDFSearchLayer::Dispose()");
+            Logging.Debug("PDFSearchLayer::Dispose()");
 
             pdf_renderer_control_stats = null;
             search_result_set = null;

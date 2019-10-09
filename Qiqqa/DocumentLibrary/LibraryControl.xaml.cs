@@ -50,7 +50,7 @@ namespace Qiqqa.DocumentLibrary
         {
             Theme.Initialize();
 
-            Logging.Info("+LibraryControl()");
+            Logging.Debug("+LibraryControl()");
 
             this.library = library;
             this.dual_tab_drag_to_library_manager = new DragToLibraryManager(library);
@@ -267,7 +267,7 @@ namespace Qiqqa.DocumentLibrary
             // IF the library readonly?
             ReflectReadOnlyStatus();
 
-            Logging.Info("-LibraryControl()");
+            Logging.Debug("-LibraryControl()");
         }
 
 

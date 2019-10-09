@@ -45,10 +45,10 @@ namespace Qiqqa.Main.LoginStuff
         {
             InitializeComponent();
 
-            Title = "Welcome to Qiqqa!";
+            Title = String.Format("Welcome to Qiqqa v{0}!", ClientVersion.CurrentBuild);
             if (WebsiteAccess.IsTestEnvironment)
             {
-                Title = "Welcome to Qiqqa! (TEST ENVIRONMENT)";
+                Title = String.Format("Welcome to Qiqqa v{0}! (TEST ENVIRONMENT)", ClientVersion.CurrentBuild);
             }
 
             WindowStyle = WindowStyle.SingleBorderWindow;
@@ -89,7 +89,6 @@ namespace Qiqqa.Main.LoginStuff
             BackingUp.DoRestore();
         }
 
-        bool went_direct_login = false;
         public void ChooseLogin(SplashScreenWindow splashscreen_window)
         {
             this.splashscreen_window = splashscreen_window;
@@ -133,19 +132,18 @@ namespace Qiqqa.Main.LoginStuff
         {
             is_closing = true;
 
-            if (!went_direct_login)
+            if (!have_done_config)
             {
-                if (!have_done_config)
-                {
-                    DoGuest();
-                }
-
-                StartMainApplication();
+                DoGuest();
             }
+
+            StartMainApplication();
         }
 
         void StartMainApplication()
         {
+            WPFDoEvents.SetHourglassCursor();
+
             // Initialise the web browser
             try
             {

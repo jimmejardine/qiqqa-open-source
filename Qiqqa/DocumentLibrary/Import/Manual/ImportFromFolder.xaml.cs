@@ -127,7 +127,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                     bindable.Underlying.SelectedPath = dlg.SelectedPath;
                     bindable.NotifyPropertyChanged(() => bindable.Underlying.SelectedPath);
                 }
-                Logging.Debug("User selected import folder path: " + bindable.Underlying.SelectedPath);
+                Logging.Debug特("User selected import folder path: " + bindable.Underlying.SelectedPath);
             }
         }
 

@@ -30,7 +30,7 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
 
             metadata_extraction_daemon = new MetadataExtractionDaemon();
 
-            MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_OnceOff, 10 * 1000, ThreadPriority.BelowNormal, 1);
+            MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_OnceOff, 1 * 1000, ThreadPriority.BelowNormal, 1);
             MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_Frequent, 10 * 1000, ThreadPriority.BelowNormal);
             MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_Infrequent, 10 * 1000, ThreadPriority.BelowNormal);
             MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_QuiteInfrequent, 10 * 1000, ThreadPriority.BelowNormal);
@@ -55,21 +55,7 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
                     Logging.Error(ex, "Exception during StartupCommandLineParameterChecker.Check");
                 }
 
-                try
-                {
-                    ClientUpdater.Init("Qiqqa",
-                                       Icons.Upgrade,
-                                       WebsiteAccess.GetOurFileUrl(WebsiteAccess.OurSiteFileKind.ClientVersion),
-                                       WebsiteAccess.GetOurFileUrl(WebsiteAccess.OurSiteFileKind.ClientSetup),
-                                       WebsiteAccess.IsTestEnvironment,
-                                       ShowReleaseNotes);
-
-                    ClientUpdater.Instance.CheckForNewClientVersion(ConfigurationManager.Instance.Proxy);
-                }
-                catch (Exception ex)
-                {
-                    Logging.Error(ex, "Exception during Utilities.ClientVersioning.ClientUpdater.Instance.CheckForNewClientVersion");
-                }
+                InitClientUpdater();
 
                 try
                 {
@@ -115,6 +101,28 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
             daemon.Stop();
         }
 
+        public void InitClientUpdater()
+        {
+            if (null == ClientUpdater.Instance)
+            {
+                try
+                {
+                    ClientUpdater.Init("Qiqqa",
+                                       Icons.Upgrade,
+                                       WebsiteAccess.GetOurFileUrl(WebsiteAccess.OurSiteFileKind.ClientVersion),
+                                       WebsiteAccess.GetOurFileUrl(WebsiteAccess.OurSiteFileKind.ClientSetup),
+                                       WebsiteAccess.IsTestEnvironment,
+                                       ShowReleaseNotes);
+
+                    ClientUpdater.Instance.CheckForNewClientVersion(ConfigurationManager.Instance.Proxy);
+                }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex, "Exception during Utilities.ClientVersioning.ClientUpdater.Instance.CheckForNewClientVersion");
+                }
+            }
+        }
+
         private void ShowReleaseNotes(string release_notes)
         {
             Logging.Info("Release Notes: {0}", release_notes);
@@ -127,13 +135,14 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
 
             if (RegistrySettings.Instance.IsSet(RegistrySettings.SuppressDaemon))
             {
-                Logging.Info("Daemon is forced to sleep via registry SuppressDaemon");
+                Logging.Debug特("Daemon is forced to sleep via registry SuppressDaemon");
                 daemon.Sleep(10 * 1000);
                 return;
             }
 
             if (ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
             {
+                Logging.Debug特("Daemons are forced to sleep via Configuration::DisableAllBackgroundTasks");
                 return;
             }
 
@@ -146,16 +155,16 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
                 Logging.Error(ex, "Exception in autosync_manager_daemon");
             }
 
+            // If this library is busy, skip it for now
+            if (Library.IsBusyAddingPDFs)
+            {
+                Logging.Debug特("DoMaintenance_VeryInfrequent: Not daemon processing any library that is busy with adds...");
+                return;
+            }
+
             foreach (var x in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries_All)
             {
                 Library library = x.library;
-
-                // If this library is busy, skip it for now
-                if (Library.IsBusyAddingPDFs)
-                {
-                    Logging.Info("DoMaintenance_VeryInfrequent: Not daemon processing a library that is busy with adds...");
-                    continue;
-                }
 
                 try
                 {
@@ -178,20 +187,21 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
 
             if (RegistrySettings.Instance.IsSet(RegistrySettings.SuppressDaemon))
             {
-                Logging.Info("Daemon is forced to sleep via registry SuppressDaemon");
+                Logging.Debug特("Daemon is forced to sleep via registry SuppressDaemon");
                 daemon.Sleep(10 * 1000);
                 return;
             }
 
             if (ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
             {
+                Logging.Debug特("Daemons are forced to sleep via Configuration::DisableAllBackgroundTasks");
                 return;
             }
 
             // If this library is busy, skip it for now
             if (Library.IsBusyAddingPDFs)
             {
-                Logging.Info("DoMaintenance_QuiteInfrequent: Not daemon processing a library that is busy with adds...");
+                Logging.Debug特("DoMaintenance_QuiteInfrequent: Not daemon processing any library that is busy with adds...");
                 return;
             }
 
@@ -199,32 +209,32 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
 
         void DoMaintenance_Infrequent(Daemon daemon)
         {
-            Logging.Debug("DoMaintenance_Infrequent START");
+            Logging.Debug特("DoMaintenance_Infrequent START");
             daemon.Sleep(10 * 1000);
 
             if (RegistrySettings.Instance.IsSet(RegistrySettings.SuppressDaemon))
             {
-                Logging.Info("Daemon is forced to sleep via registry SuppressDaemon");
+                Logging.Debug特("Daemon is forced to sleep via registry SuppressDaemon");
                 daemon.Sleep(10 * 1000);
                 return;
             }
 
             if (ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
             {
-                Logging.Info("Daemons are forced to sleep via Configuration::DisableAllBackgroundTasks");
+                Logging.Debug特("Daemons are forced to sleep via Configuration::DisableAllBackgroundTasks");
+                return;
+            }
+
+            // If this library is busy, skip it for now
+            if (Library.IsBusyAddingPDFs)
+            {
+                Logging.Debug特("DoMaintenance_Infrequent: Not daemon processing any library that is busy with adds...");
                 return;
             }
 
             foreach (var x in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries_All)
             {
                 Library library = x.library;
-
-                // If this library is busy, skip it for now
-                if (Library.IsBusyAddingPDFs)
-                {
-                    Logging.Info("DoMaintenance_Infrequent: Not daemon processing a library that is busy with adds...");
-                    continue;
-                }
 
                 try
                 {
@@ -244,7 +254,7 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
                     Logging.Error(ex, "Exception in LibraryIndex.IncrementalBuildIndex()");
                 }
             }
-            Logging.Debug("DoMaintenance_Infrequent END");
+            Logging.Debug特("DoMaintenance_Infrequent END");
         }
 
         void DoMaintenance_Frequent(Daemon daemon)
@@ -253,13 +263,21 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
 
             if (RegistrySettings.Instance.IsSet(RegistrySettings.SuppressDaemon))
             {
-                Logging.Info("Daemon is forced to sleep via registry SuppressDaemon");
+                Logging.Debug特("Daemon is forced to sleep via registry SuppressDaemon");
                 daemon.Sleep(10 * 1000);
                 return;
             }
 
             if (ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
             {
+                Logging.Debug特("Daemons are forced to sleep via Configuration::DisableAllBackgroundTasks");
+                return;
+            }
+
+            // If this library is busy, skip it for now
+            if (Library.IsBusyAddingPDFs)
+            {
+                Logging.Debug特("DoMaintenance_Frequent: Not daemon processing any library that is busy with adds...");
                 return;
             }
 
@@ -267,13 +285,6 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
             foreach (var x in WebLibraryManager.Instance.WebLibraryDetails_All_IncludingDeleted)
             {
                 Library library = x.library;
-
-                // If this library is busy, skip it for now
-                if (Library.IsBusyAddingPDFs)
-                {
-                    Logging.Info("DoMaintenance_Frequent: Not daemon processing a library that is busy with adds...");
-                    continue;
-                }
 
                 try
                 {

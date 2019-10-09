@@ -61,11 +61,11 @@ namespace Qiqqa.Documents.PDF.PDFRendering.CoherentTextExtraction
 
                     if (null != word_list)
                     {
-                        Logging.Debug("Page {0} has OCR available", page_detail.page);
+                        Logging.Debug特("Page {0} has OCR available ({1})", page_detail.page, pdf_renderer.DocumentFingerprint);
                     }
                     else
                     {
-                        Logging.Info("Page {0} has not had OCR done", page_detail.page);
+                        Logging.Debug特("Page {0} has not had OCR done ({1})", page_detail.page, pdf_renderer.DocumentFingerprint);
                         all_pages_already_with_ocr = false;
                     }
                 }
