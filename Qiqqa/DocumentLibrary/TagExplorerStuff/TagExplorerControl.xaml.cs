@@ -71,7 +71,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             {
                 pdf_documents = library.GetDocumentByFingerprints(parent_fingerprints);
             }
-            Logging.Debug("TagExplorerControl: processing {0} documents from library {1}", pdf_documents.Count, library.WebLibraryDetail.Title);
+            Logging.Debug特("TagExplorerControl: processing {0} documents from library {1}", pdf_documents.Count, library.WebLibraryDetail.Title);
 
             // Load all the annotations upfront so we dont have to go to the database for each PDF
             Dictionary<string, byte[]> library_items_annotations_cache = library.LibraryDB.GetLibraryItemsAsCache(PDFDocumentFileLocations.ANNOTATIONS);

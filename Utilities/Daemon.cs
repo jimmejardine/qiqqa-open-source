@@ -20,6 +20,8 @@ namespace Utilities
             thread = new Thread(thread_start);
             thread.Name = "Daemon." + daemon_name;
             still_running = true;
+            //thread.IsBackground = true;
+            thread.Priority = ThreadPriority.BelowNormal;
             thread.Start(param);
         }
 
@@ -62,10 +64,10 @@ namespace Utilities
         {
             get
             {
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (still_running_lock)
                 {
-                    l1_clk.LockPerfTimerStop();
+                    //l1_clk.LockPerfTimerStop();
                     return still_running;
                 }
             }

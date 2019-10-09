@@ -48,13 +48,13 @@ namespace Utilities.Language.TextIndexing
 
         ~LuceneIndex()
         {
-            Logging.Info("~LuceneIndex()");
+            Logging.Debug("~LuceneIndex()");
             Dispose(false);            
         }
 
         public void Dispose()
         {
-            Logging.Info("Disposing LuceneIndex");
+            Logging.Debug("Disposing LuceneIndex");
             Dispose(true);
             GC.SuppressFinalize(this);
         }

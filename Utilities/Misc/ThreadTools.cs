@@ -8,6 +8,8 @@ namespace Utilities.Misc
         {
             Thread thread = new Thread(callback.Invoke);
             thread.Priority = ThreadPriority.Lowest;
+            //thread.IsBackground = true;
+            //thread.Name = "Tools:Callback";
             thread.Start(callback);
             return thread;
         }

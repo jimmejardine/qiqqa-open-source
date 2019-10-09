@@ -76,6 +76,7 @@ namespace QiqqaOCR
                     thread_text_extract = new Thread(ThreadTextExtractMainEntry);
                     thread_text_extract.Name = "ThreadTextExtract";
                     thread_text_extract.IsBackground = true;
+                    thread_text_extract.Priority = ThreadPriority.BelowNormal;
                     thread_text_extract.Start();
                 }
 

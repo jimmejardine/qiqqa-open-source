@@ -32,12 +32,12 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         void SelectedConnectorControl_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Logging.Info("SelectedConnectorControl_MouseDown");
+            Logging.Debug特("SelectedConnectorControl_MouseDown");
         }
 
         void SelectedConnectorControl_KeyDown(object sender, KeyEventArgs e)
         {
-            Logging.Info("SelectedConnectorControl_KeyDown");
+            Logging.Debug特("SelectedConnectorControl_KeyDown");
         }
 
         public ConnectorControl Selected

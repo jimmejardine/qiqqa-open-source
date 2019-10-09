@@ -131,10 +131,10 @@ namespace Utilities.Maintainable
 
         public bool IsHoldOffPending(int level)
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (hold_off_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                //l1_clk.LockPerfTimerStop();
                 return (hold_off > level);
             }
         }

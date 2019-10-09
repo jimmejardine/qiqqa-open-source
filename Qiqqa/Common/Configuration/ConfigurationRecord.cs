@@ -166,7 +166,7 @@ namespace Qiqqa.Common.Configuration
             set 
             { 
                 this["System_DisableSSL"] = value;
-                Logging.Info("DisableSSL = " + value);
+                Logging.Debug特("DisableSSL = " + value);
             }
         }
 

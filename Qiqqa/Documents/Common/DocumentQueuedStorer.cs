@@ -79,6 +79,12 @@ namespace Qiqqa.Documents.Common
                         return;
                     }
 
+                    if (!force_flush_no_matter_what)
+                    {
+                        // Relinquish control to the UI thread to make sure responsiveness remains tolerable at 100% CPU load.
+                        Utilities.GUI.WPFDoEvents.WaitForUIThreadActivityDone();
+                    }
+
                     PDFDocument pdf_document_to_flush = null;
 
                     // grab one PDF to save/flush:

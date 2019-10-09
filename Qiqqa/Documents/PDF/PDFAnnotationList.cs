@@ -60,7 +60,7 @@ namespace Qiqqa.Documents.PDF
         }
 
         /// <summary>
-        /// Deep clone, clears out the OnPDFAnnotationListChanged subscribers.
+        /// Deep clone, but does not copy the OnPDFAnnotationListChanged subscribers.
         /// </summary>
         public object Clone()
         {

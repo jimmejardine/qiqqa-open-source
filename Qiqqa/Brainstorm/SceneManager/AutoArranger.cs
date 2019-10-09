@@ -36,6 +36,7 @@ namespace Qiqqa.Brainstorm.SceneManager
                         active_thread = new Thread(BackgroundThread);
                         active_thread.IsBackground = true;
                         active_thread.Priority = ThreadPriority.Lowest;
+                        active_thread.Name = "AutoArranger:Background";
                         active_thread.Start(active_thread);
                     }
                 }

@@ -413,8 +413,7 @@ SourceURL: {0}
             {
                 foreach (var pdf_document in pdf_documents)
                 {
-                    pdf_document.Deleted = true;
-                    pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Deleted);
+                    pdf_document.Library.DeleteDocument(pdf_document);
                 }
             }
         }

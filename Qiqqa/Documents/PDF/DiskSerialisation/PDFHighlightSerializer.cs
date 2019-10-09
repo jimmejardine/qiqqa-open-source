@@ -82,16 +82,11 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
 
         internal static void WriteToDisk(PDFDocument pdf_document)
         {
-            List<PDFHighlight> highlights_list = new List<PDFHighlight>();
-            foreach (PDFHighlight highlight in pdf_document.Highlights.GetAllHighlights())
+            string json = pdf_document.GetHighlightsAsJSON();
+            if (!String.IsNullOrEmpty(json))
             {
-                highlights_list.Add(highlight);
+                pdf_document.Library.LibraryDB.PutString(pdf_document.Fingerprint, PDFDocumentFileLocations.HIGHLIGHTS, json);
             }
-
-            string json = JsonConvert.SerializeObject(highlights_list, Formatting.Indented);
-            pdf_document.Library.LibraryDB.PutString(pdf_document.Fingerprint, PDFDocumentFileLocations.HIGHLIGHTS, json);            
-            
-            Logging.Info("Wrote {0} highlights to disk", highlights_list.Count);
         }
         
         #endregion --------------------------------------------------------------------------------------------------------------------------------------------

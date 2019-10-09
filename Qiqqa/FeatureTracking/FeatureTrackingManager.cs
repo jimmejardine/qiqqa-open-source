@@ -35,6 +35,12 @@ namespace Qiqqa.UtilisationTracking
 
         public void UseFeature(Feature feature, params object[] parameters)
         {
+            // when there are parameters, create a feature instance which includes them for serialization:
+            if (parameters.Length > 0)
+            {
+                feature = feature._(parameters);
+            }
+
             // Check that we are not meant to be storing this feature only once...
             if (feature.RecordOnlyOncePerSession)
             {
@@ -53,8 +59,10 @@ namespace Qiqqa.UtilisationTracking
                 }
             }
 
+#if false
             // Send to GA
             GoogleAnalysicsSubmitter.Submit(feature);
+#endif
         }
     }
 }

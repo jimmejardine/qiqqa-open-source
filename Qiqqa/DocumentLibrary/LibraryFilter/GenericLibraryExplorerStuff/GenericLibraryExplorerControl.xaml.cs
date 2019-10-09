@@ -318,6 +318,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             List<string> tags_sorted = new List<string>(tags_eligible);
             if (ObjSort.IsChecked ?? false)
             {
+                // sort tags by number of occurrences for each tag: more is better
                 tags_sorted.Sort(delegate(string tag1, string tag2)
                 {
                     return tags_with_fingerprints[tag2].Count - tags_with_fingerprints[tag1].Count;
@@ -325,6 +326,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             }
             else
             {
+                // sort tags alphabetically - default
                 tags_sorted.Sort();
             }
 
