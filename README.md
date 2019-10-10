@@ -49,9 +49,11 @@ As above, but instead you'll need to obtain and install Syncfusion Essential Stu
   
 
 
-## Fixes & Additions to Qiqqa (in this fork)
+# Fixes & Additions to Qiqqa (in this fork)
 
-[For a full list click here.](https://github.com/jimmejardine/qiqqa-open-source/issues?q=is%3Aissue+is%3Aclosed+milestone%3Av82)
+[For a full fixed issue list click here.](https://github.com/jimmejardine/qiqqa-open-source/issues?q=is%3Aissue+is%3Aclosed+milestone%3Av82)
+
+See also [CHANGELOG](../../blob/master/CHANGELOG.md) and it's big brother [CHANGELOG-full](../../blob/master/CHANGELOG_full.md).
 
 While I have joined as a collaborator in the qiqqa-open-source mainline repository, the bleeding edge of my work on Qiqqa can be observed here.
 
