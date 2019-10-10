@@ -31,9 +31,9 @@ v82 release
 			
 * (758e941) Removed unused NuGet bundles; built a v82 setup/installer:
   
-  --------------------------------------
-  Completed Packaging Qiqqa version 82.0.7216.35525 into ...\Qiqqa.Build\Packages\v82 - 20191004-194431\
-  --------------------------------------
+      --------------------------------------
+      Completed Packaging Qiqqa version 82.0.7216.35525 into ...\Qiqqa.Build\Packages\v82 - 20191004-194431\
+      --------------------------------------
 			
 * (3d49ac0) Update README.md
 			
@@ -146,9 +146,6 @@ v82 release
 			
 * (9788540) first baby steps towards https://github.com/jimmejardine/qiqqa-open-source/issues/68 : adding more tests and registering the current state of affairs in 'approved' reference files by way of `ApprovalTests` use in the test rig.
   
-  # Conflicts:
-  #	QiqqaSystemTester/data/fixtures/bibtex/b0rked-0008.bib
-			
 * (5019762) NEVER add/register the `*.received.json` files produced by ApprovalTests in git; only the `*.approved.json` user-approved reference output files should be registered with the revision control system.
 			
 * (5d06874) added more BibTeX test data files + tweaked reference output path for ApprovalTests custom DataTest namer/writer.
@@ -239,8 +236,6 @@ v82 release
 			
 * (a4dbef6) Merge branch 'master' into experimental-ui-edits
   
-  # Conflicts:
-  #	Qiqqa/Documents/PDF/PDFControls/MetadataControls/GoogleBibTexSnifferControl.xaml.cs
 			
 * (27ffcc4) Fiddle with the versions: Qiqqa and QiqqaOCR should have the same build/version numbers.
   
@@ -270,8 +265,6 @@ v82 release
 			
 * (abd020a) UPGRADE PACKAGES: log4net, SQLite, etc. -- the easy ones. Using NuGet Package Manager.
   
-  # Conflicts:
-  #	Utilities/packages.config
 			
 * (b5a4256) preparation for unit tests that can work: add a QiqqaTestHelpers library -- it turns out we're pretty much toast when we use NUnit, so that one's **out**; then there's MSTest but the standard Assert library there is rather lacking, hence we've ripped the Assertions from xUnit/nUnit and tweaked/augmented them to suit MSTest and our rig -- the intent being that you can still see **and debug** the tests from within Microsoft Visual Studio. It's all a bit hacky still to my taste, but at least now we don't get crazy NUnit execution failures any more for every !@#$ test.
 			
@@ -329,8 +322,6 @@ v82 release
 			
 * (bc20149) building x86 only as otherwise antique tesseract et al will fail dramatically. Otherwise aligned the settings of the projects and disabled a few config items in the cod for testing the current view update woes. >:-(   I !@#$%^&^%$#@#$%^ loath WPF.
   
-  # Conflicts:
-  #	Qiqqa/packages.config
 			
 * (be4e884) fiddling: add a *failing* dummy test case to the test suite -- to be written when we address BibTeX parsing for real.
 			
@@ -458,12 +449,6 @@ v82 release
   - added more thread safety code for FolderWatcherManager
   - always keep the Word Connection Setup thread running, even when other background tasks have been disabled, since this thread is required for the InCite front work (direct user activity)
   
-  # Conflicts:
-  #	Qiqqa/Common/BackgroundWorkerDaemonStuff/BackgroundWorkerDaemon.cs
-  #	Qiqqa/Common/GeneralTaskDaemonStuff/GeneralTaskDaemon.cs
-  #	Qiqqa/DocumentLibrary/FolderWatching/FolderWatcher.cs
-  #	Qiqqa/InCite/WordConnector.cs
-  #	Utilities/Maintainable/MaintainableManager.cs
 			
 * (c94c362) fixd bug, found as part of the task register code refactor: Quit this delayed storing of PDF files when we've hit the end of the execution run: we'll have to save them all to disk in one go then, and quickly too!
   
@@ -473,8 +458,6 @@ v82 release
   
   in particular!
   
-  # Conflicts:
-  #	Qiqqa/Documents/Common/DocumentQueuedStorer.cs
 			
 * (9fe39ef) 
   - shut up Visual Studio Designer - at least as much as we can on short notice: give 'em the Theme colors and brushes, limit the number of XUL crashes while loading the Sniffer XAML, etc.
@@ -690,8 +673,6 @@ v82 release
 			
 * (f9918c8) fiddling with website theme...
   
-  # Conflicts:
-  #	docs/_config.yml
 			
 * (831edb3) (lint) `const`-ing a few variables, which really are constants
 			
@@ -1152,8 +1133,6 @@ Version 81:
 			
 * (c186a6b) Merge branch 'memleak-hunting'
   
-  # Conflicts:
-  #	Qiqqa/AnnotationsReportBuilding/ReportViewerControl.xaml.cs
 			
 * (44e1575) working on using a more developed build versioning approach. Have MSVS produce a unique version for each build, then (FUTURE WORK) add tooling to ensure all files carry the updated version number(s).
 			
