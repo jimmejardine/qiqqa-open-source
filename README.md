@@ -1,20 +1,21 @@
+ ![logo](../../blob/master/icons/Application/Qiqqa.png) 
 # Qiqqa (Open Source)
 
 The open-sourced version of the award-winning Qiqqa research management tool for Windows.
 
 This version includes EVERY feature available in Qiqqa, including Premium and Premium+.
 
-Unfortunately we have had to remove the web cloud sync ability as that is the one area that involves storage costs.  Users are encouraged to migrate their Web Libraries into Intranet libraries, and use Google Drive or Dropbox as the 'sync point' for those libraries.
+Unfortunately we have had to remove the web cloud sync ability as that is the one area that involves storage costs.  **Users are encouraged to migrate their Web Libraries into Intranet libraries, and use Google Drive or Dropbox as the 'sync point' for those libraries.**
 
 
-# Qiqqa Collaborators & Developers Wanted
+## Qiqqa Collaborators & Developers Wanted
 
 You'll need to be a little technically experienced in the .NET world to get a build up and running.
  
 Would anyone who is interested in contributing towards this repository please contact @jimmejardine...
 
 
-# For Developers: Building Qiqqa From Source
+## For Developers: Building Qiqqa From Source
 
 >
 > ## Visual Studio 2017 (Original build environment, now *OBSOLETED/UNSUPPORTED*)
@@ -27,11 +28,11 @@ Would anyone who is interested in contributing towards this repository please co
 > 
 
 
-## Visual Studio 2019 (NEW, SUPPORTED build environment)
+### Visual Studio 2019 (NEW, SUPPORTED build environment)
 
 As above, but instead you'll need to obtain and install Syncfusion Essential Studio 17 as this fixes at least **one very annoying bug** in Qiqqa's handling of (broken!) PDF files which are already part of your Qiqqa librarie(s).
 
-### How to build the `setup.exe` installer
+#### How to build the `setup.exe` installer
 
 - Make sure you have these installed (it may work with other tools, but this is what I (@GerHobbelt) use):
   + Microsoft Visual Studio 2019 Professional (IDE)
@@ -49,7 +50,7 @@ As above, but instead you'll need to obtain and install Syncfusion Essential Stu
   
 
 
-# Fixes & Additions to Qiqqa (in this fork)
+## Fixes & Additions to Qiqqa (in this fork)
 
 [For a full fixed issue list click here.](https://github.com/jimmejardine/qiqqa-open-source/issues?q=is%3Aissue+is%3Aclosed+milestone%3Av82)
 
