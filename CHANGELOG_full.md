@@ -1,6 +1,139 @@
+> upcoming release: v82
 
-v82 release
-===========
+
+
+2019-10-10
+----------
+
+			
+* (3a0544c) Updated README + CHANGELOG_full.md fixes for GFM
+			
+* (2832a07) tweak: DescriptiveTitle: trim every title to the default length + ellipsis.
+			
+
+
+
+2019-10-09
+----------
+
+			
+* (deaadc3) refactoring work necessary for fixing https://github.com/jimmejardine/qiqqa-open-source/issues/96 & https://github.com/jimmejardine/qiqqa-open-source/issues/101
+			
+* (0db1848) whitespace police
+			
+* (1b2daca) Mother Of All commit with these fixes and changes:
+  - added WPFDoEvents API for waiting for the UI thread to run its course (UI responsiveness), which is a strengthened version of DoEvents()
+  - added WPFDoEvents APIs for mouse cursor Hourglass/Busybee override and reset: during application startup, this is used to give visual feedback to the user that the work done is taking a while (relatively long startup time, particularly for large libraries which are auto-opened due to saved tab panel sets including their main library tabs)
+  - fixed a couple of crashes, particularly one in the RemarkOnException handler which crashed due to an exception being reported during application shutdown in one particular test run. (hard to reproduce issue, while we were hunting for causes of https://github.com/jimmejardine/qiqqa-open-source/issues/98 / https://github.com/jimmejardine/qiqqa-open-source/issues/96)
+			
+* (fb775d5) augment logging and take out the Sorax PDF page count API call due to suspicion of memleaking and heapcorrupting as per https://github.com/jimmejardine/qiqqa-open-source/issues/98 initial analysis report
+			
+* (ad57656) performance tweak: remove a thread lock monitor which is not important enough and which is loading the CPU (~6%); also reduce the critical section surface.
+			
+* (e353006) PDFRendererFileLayer: when calculating the PDF page count happens to fail 3 times or more (Three Strikes Rule), then this PDF is flagged as irreparably obnoxious and the page count will be set to zero for the remainder of the current Qiqqa run -- this is not something we wish to persist in the metadata store as different software releases may have different page count abilities and *bugs*
+			
+* (bd3e372) LockPerfChecker: fix name of caller to use to strip off the (useless) head lines of the stacktrace - which is included in the report when a lock happens to take longer than the timeout.
+			
+* (935a61f) fix for WPF: correctly detect iff we're running in the UI thread or in another thread.
+			
+
+
+
+2019-10-07
+----------
+
+			
+* (f35ae1f) Revert "temporarily disable sorting - performance hogs - to see where the other perf bottlenecks hide out."
+  
+  This reverts commit b34abff27aa524c0397d5e6959bb600506292a29.
+			
+* (ceae5c6) removed the last vestiges of performance costing thread lock monitor code. At least as far as application startup is concerned, we're now back to the classic performance hogs: UI list filling and sorting...
+			
+* (b34abff) temporarily disable sorting - performance hogs - to see where the other perf bottlenecks hide out.
+			
+* (9eb3d59) add comments about purpose. (the tag sorting now seems to take the cake, performance-wise)
+			
+* (82c52dd) performance testing of startup behaviour: the next big think is ReviewParameters() but we cannot ditch that one as it initiates the (re)draw of the controls. What we can do is save a little time in superfluous code.
+			
+* (359b8d8) after rerun of performance test: now the topmost consumer is the thread lock monitor in SignalThatDocumentsHaveChanged(), or at least regarding thread lock monitors. The highest bidder overall is currently: Qiqqa.DocumentLibrary.Library::BuildFromDocumentRepository	7794 (47.61%)
+			
+* (072a7c6) Delayed the PDF Page Count calculation a bit: it's not yet needed in the constructor call, so delay until actually requested. Also clean up the PDF page count helper method(s) a tad.
+			
+* (dc1e5bd) app start performance test: second culprit was thread lock monitor code for TagManager. That code is harmless, so disabling the monitor code there.
+			
+* (171bf18) performance test: thread lock monitor for AugmentedBindable (which is invoked 40K+ for a large 40K+ lib as each PDFDoc has at least one of 'em) is eating the most. Disabling as that one is not suspect any more anyway.
+			
+* (4ab3f05) The GetCurrentJobToken() API could be simplified without any loss in functionality. Also here's the remainder of the threading work done in SHA-1: 5e5206244190a8c599b883d17529eb59101174ff. And the heuristics around OCR job queueing have been tweaked. Should work out better for (very) large libraries this way.
+			
+* (eba4472) Fix bug where it looked like Coty To Another Library menu choice and Move to Another Library memu choice didn't differ at all: it's just that MOVE did not properly signal the sourcing library needed an update as well as the document itself.
+			
+* (b109a92) fixing https://github.com/jimmejardine/qiqqa-open-source/issues/96 by making sure that we pass a copy instead of a reference to the save logic. (**Incidentally, there are other thread crossings for pdf_document so we'll have to investigate this further as it's not just SAVE activity that's endangered by spurious crashes in annotation, tags or inks lists.**) Everybody should go through the QueueToStorage() API, by the way.
+			
+* (fb3de51) Feature Tracker: actually pick up the feature parameters and include them in the feature tracking info. Currently we don't store the featuretracking info (old Qiqqa had a Qiqq.utilisation file once) as we have DISABLED the GoogleAnalytics web interaction: that one was synchronous and only held up important activities.
+			
+* (1cc4d1f) Clone/Copy didn't carry the document metadata across to the new lib: CloneExistingDocumentFromOtherLibrary_SYNCHRONOUS() did not pass the URL, bibTeX, tags, etc. along so any action going through this API would copy only the PDF and minimal metadata. That is not what was intended, surely!?
+  
+  Also: the remainder of the tags is HashSet instead of List move.
+			
+* (55ce802) tags: migrate from List<> to HashSet<>: that immediately solves the problem of duplicate tags too! Apply throughout the codebase. Note that Library.cs has additional changes, hence that one is also part of this, but will be committed separately.
+			
+* (269a41d) statusbar progress bugfix: use the correct value as otherwise you'ld get a green bar with large number still to do.
+			
+* (6cc6e69) dial up the lock performance threshold for reporting from 100ms to 250ms: several log entries that are frequent now, ar indeed a bother, but not enough to merit being logged. We've got bigger fish to fry.
+			
+* (5e52062) background threads work: make sure all long running threads at least run at below-normal priority. Also ensure all stop-or-exit-due-to-disable-or-shutdown checks and logging is done at debug level (some of these changes will be committed in the subsequent commits as there's a mix of edit purposes in a few files)
+			
+
+
+
+2019-10-06
+----------
+
+			
+* (9439b60) Cleaning up the logging action: the regular Debug activity is relegated to special builds which have the `DIAG` define *set* (I specifically DID NOT use `DEBUG` for this, so I can switch debug logging on in Release builds when the shit hits the fan). Meanwhile Unicode and Chinese language came to the rescue: `Debug特` is the new Debug level logging API methods set which will always do the job, in both DEBUG and RELEASE builds.
+			
+* (4df5d0b) comment typo fix
+			
+
+
+
+2019-10-05
+----------
+
+			
+* (fdb469e) twiddling...
+			
+* (ec57707) fix crash in Jimme's code as I dumped some other libraries in there which have shorter names, e.g. "Guest2" (which is less than 8 characters) - https://github.com/jimmejardine/qiqqa-open-source/issues/93
+			
+* (2373620) Google Analytics throws a 403. Probably did so before, but now we notice it once again as we watch for exceptions occuring in the code flow. Better logging of the 403 failure.
+			
+* (312e9e3) patched CHANGELOG roughly from CHANGELOG-full
+			
+* (c8590be) Trying to cope with the bother of https://github.com/jimmejardine/qiqqa-open-source/issues/94 - quite a bit of it is inexplicable, unless Windows updates pulled the rug from under me (and CLR 4.0)
+			
+* (3c97e85) comment typo fix
+			
+* (53988c2) dump mistake caused the new test file not being discovered in the MSVS2019 Test Explorer: class must be public. duh.
+			
+* (e354aff) Added another RIS test fixture file ( https://github.com/jimmejardine/qiqqa-open-source/issues/70 )
+			
+* (7efcff9) spin off for  https://github.com/jimmejardine/qiqqa-open-source/issues/92 : add prerelease tests which will ensure there's no regression like that. (Discovering that one did hurt/smart!)
+			
+* (26106cf) adding a few STILL FAILING TESTS' reference files: these are guaranteed to report failure until we get those bits of Qiqqa working properly (and/or the tests tweaked/corrected)
+			
+* (193b149) updated the 'approved' references for a few BibTeX test files
+			
+* (db433db) remove yet unused generic test rig bit
+			
+* (2f1d319) fix https://github.com/jimmejardine/qiqqa-open-source/issues/92 : set all build targets to output x86 target code instead of 'AnyPC'
+			
+* (38d5a9f) editing CHANGELOG.md, taking stuff from CHANGELOG_full.md
+			
+* (afb8260) updated CHANGELOG_full.md
+		
+
+v82pre release
+==============
 
 > ## Note
 >
@@ -14,7 +147,7 @@ v82 release
 ----------
 
 			
-* (ed9c129) re-did the CHANGELOG generator, using git+node. The old `changelog` tool (npm changelog / npm @g3erhobbelt/changelog) is not reliable and this was coded faster than debugging and correcting that one.
+* (d4ad6d8) re-did the CHANGELOG generator, using git+node. The old `changelog` tool (npm changelog / npm @g3erhobbelt/changelog) is not reliable and this was coded faster than debugging and correcting that one.
 			
 
 
@@ -1386,7 +1519,7 @@ Version 81:
 ----------
 
 			
- *  Merge remote-tracking branch 'remotes/jimmejardine-original/master'
+* (4c2de1f) Merge remote-tracking branch 'remotes/jimmejardine-original/master'
 
  *  Merge branch 'master' of https://github.com/jimmejardine/qiqqa-open-source
 
