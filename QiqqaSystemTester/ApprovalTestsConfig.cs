@@ -59,7 +59,7 @@ namespace QiqqaSystemTester
             {
                 //string path = base.SourcePath;
                 string path = GetNormalizedPathToBibTeXTestFile(DataFile);
-                path = Path.GetFullPath(Path.Combine(path, "../ref-output"));
+                path = Path.GetFullPath(Path.Combine(path, @"../ref-output"));
                 return path;
             }
         }

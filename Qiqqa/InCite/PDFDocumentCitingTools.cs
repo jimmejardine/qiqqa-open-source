@@ -6,6 +6,8 @@ using Qiqqa.Common.Configuration;
 using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.GUI;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.InCite
 {
@@ -179,7 +181,7 @@ namespace Qiqqa.InCite
         {
             get
             {
-                return ConfigurationManager.Instance.StartupDirectoryForQiqqa + @"InCite\styles";
+                return Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"InCite/styles"));
             }
         }
 
@@ -187,7 +189,7 @@ namespace Qiqqa.InCite
         {
             get
             {
-                return ConfigurationManager.Instance.StartupDirectoryForQiqqa + @"InCite\registry_fixes";
+                return Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"InCite/registry_fixes"));
             }
         }
         
@@ -200,7 +202,7 @@ namespace Qiqqa.InCite
             }
             else
             {
-                string new_style_filename = BASE_STYLE_DIRECTORY + @"\" + Path.GetFileName(style_filename);
+                string new_style_filename = Path.GetFullPath(Path.Combine(BASE_STYLE_DIRECTORY, Path.GetFileName(style_filename)));
                 if (File.Exists(new_style_filename))
                 {   
                     return new_style_filename;

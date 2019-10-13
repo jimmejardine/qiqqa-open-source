@@ -9,6 +9,9 @@ using Utilities.BibTex.Parsing;
 using Newtonsoft.Json;
 using System.IO;
 using System.Diagnostics;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace QiqqaSystemTester
 {

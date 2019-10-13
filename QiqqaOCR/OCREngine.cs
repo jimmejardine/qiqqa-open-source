@@ -10,6 +10,8 @@ using Utilities.Encryption;
 using Utilities.OCR;
 using Utilities.PDF.Sorax;
 using Word = tessnet2.Word;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace QiqqaOCR
 {
@@ -269,7 +271,7 @@ namespace QiqqaOCR
                     // DEBUG CODE: Draw in the region rectangles
 #if DEBUG_OCR
                     {
-                        string bitmap_diag_path = pdf_filename + "." + page_number + @"-ocr.png";
+                        string bitmap_diag_path = pdf_filename + @"." + page_number + @"-ocr.png";
 
                         Logging.Debug特("Dumping page {0} PNG image to file {1}", page_number, bitmap_diag_path);
                         Graphics g = Graphics.FromImage(bitmap);

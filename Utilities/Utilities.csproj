@@ -130,8 +130,8 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AlphaFS">
-      <HintPath>..\libs\AlphaFS-1.5\AlphaFS.dll</HintPath>
+    <Reference Include="AlphaFS, Version=2.2.0.0, Culture=neutral, PublicKeyToken=4d31a58f7d7ad5c9, processorArchitecture=MSIL">
+      <HintPath>..\packages\AlphaFS.2.2.6\lib\net452\AlphaFS.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Core, Version=1.2.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -204,6 +204,7 @@
       <Name>System.Drawing</Name>
     </Reference>
     <Reference Include="System.Printing" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Windows.Controls.Input.Toolkit">
       <HintPath>..\libs\System.Windows.Controls.Input.Toolkit.dll</HintPath>
     </Reference>

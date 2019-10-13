@@ -6,6 +6,8 @@ using System.Text;
 using Gecko;
 using Newtonsoft.Json.Linq;
 using Utilities;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.InCite
 {
@@ -53,12 +55,12 @@ namespace Qiqqa.InCite
             web_browser.CreateControl();
 
             // Add the name of the script to run
-            script_directory = script_directory + "\\runengine.html";
-            script_directory = script_directory.Replace("\\\\", "\\");
-            script_directory = script_directory.Replace("//", "/");
+            script_directory = Path.GetFullPath(Path.Combine(script_directory, @"runengine.html"));
+            script_directory = script_directory.Replace(@"\\", @"\");
+            script_directory = script_directory.Replace(@"//", @"/");
 
             Uri uri = new Uri(script_directory);
-            Logging.Info("CSLProcessorOutputConsumer is about to browse to " + uri);
+            Logging.Info("CSLProcessorOutputConsumer is about to browse to {0}", uri);
 
             // This is the only way we can communicate from JavaScript to .NET!!
             web_browser.EnableConsoleMessageNotfication();

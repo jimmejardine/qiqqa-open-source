@@ -6,6 +6,8 @@ using System.Text;
 using Qiqqa.Common.Configuration;
 using Utilities;
 using Utilities.Files;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary
 {
@@ -29,13 +31,13 @@ namespace Qiqqa.DocumentLibrary
         public LibraryDB(string base_path)
         {
             this.base_path = base_path;
-            this.library_path = base_path + "Qiqqa.library";
+            this.library_path = Path.GetFullPath(Path.Combine(base_path, @"Qiqqa.library"));
 
             // Copy a library into place...
             if (!File.Exists(library_path))
             {
                 Logging.Warn("Library db does not exist so copying the template to {0}", library_path);
-                string library_template_path = ConfigurationManager.Instance.StartupDirectoryForQiqqa + @"DocumentLibrary\Library.Template.s3db";
+                string library_template_path = Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"DocumentLibrary/Library.Template.s3db"));
                 File.Copy(library_template_path, library_path);
             }
         }

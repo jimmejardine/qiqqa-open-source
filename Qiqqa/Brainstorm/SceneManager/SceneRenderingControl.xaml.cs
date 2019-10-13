@@ -21,6 +21,8 @@ using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Internet;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 // NOTE: this source file has a few diffs compared to its Utilities/GUI/Brainstorm copy,
 // but all changes are deemed improvements or equivalent compared to that codebase,
@@ -41,7 +43,7 @@ namespace Qiqqa.Brainstorm.SceneManager
         AutoArranger auto_arranger;
         DragDropManager drag_drop_manager;
         BasicDragDropBehaviours basic_drag_drop_behaviours;
-        
+
         internal SelectedConnectorControl selected_connector_control;
         internal SelectingNodesControl selecting_nodes_control;
 
@@ -75,7 +77,7 @@ namespace Qiqqa.Brainstorm.SceneManager
         {
             get
             {
-                return connector_control_manager;                
+                return connector_control_manager;
             }
         }
 
@@ -110,7 +112,7 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         internal Point mouse_delta_virtual = new Point(0.0, 0.0);
         internal Point mouse_current_virtual = new Point(0.0, 0.0);
-        internal Point mouse_initial_virtual = new Point(0.0, 0.0);        
+        internal Point mouse_initial_virtual = new Point(0.0, 0.0);
 
         internal Point current_viewport_topleft = new Point(0.0, 0.0);
         internal Point current_viewport_bottomright = new Point(0.0, 0.0);
@@ -126,7 +128,7 @@ namespace Qiqqa.Brainstorm.SceneManager
             }
             private set
             {
-                _current_scale = value;                
+                _current_scale = value;
                 _current_power_scale = Math.Pow(1.2, _current_scale);
             }
         }
@@ -155,7 +157,7 @@ namespace Qiqqa.Brainstorm.SceneManager
         }
 
         #endregion
-        
+
         #region --- Creation ----------------------------------------------------------------------------------------
 
         public SceneRenderingControl()
@@ -164,11 +166,11 @@ namespace Qiqqa.Brainstorm.SceneManager
 
             //this.Background = ThemeColours.Background_Brush_Blue_LightToDark;
             this.Background = Brushes.White;
-			//
-			// ^^^^ now *this* line hints to me that the Qiqqa Brainstrom copy
-			// is a copy off the Utilities/GUI/BrainStorm code!
-			// The Utils copy had the commented out Background setting.
-			// See also https://github.com/jimmejardine/qiqqa-open-source/issues/26
+            //
+            // ^^^^ now *this* line hints to me that the Qiqqa Brainstrom copy
+            // is a copy off the Utilities/GUI/BrainStorm code!
+            // The Utils copy had the commented out Background setting.
+            // See also https://github.com/jimmejardine/qiqqa-open-source/issues/26
 
             this.ClipToBounds = true;
             this.Focusable = true;
@@ -224,9 +226,7 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         void SceneRenderingControl_KeyDown(object sender, KeyEventArgs e)
         {
-            if (false) {}
-
-            else if (e.Key == Key.V && KeyboardTools.IsCTRLDown())
+            if (e.Key == Key.V && KeyboardTools.IsCTRLDown())
             {
                 DoPaste();
             }
@@ -286,9 +286,9 @@ namespace Qiqqa.Brainstorm.SceneManager
 
             CurrentScale = 0;
 
-            ViewportHasChanged();            
+            ViewportHasChanged();
         }
-        
+
         void AddMetaControls()
         {
             selected_connector_control = new SelectedConnectorControl();
@@ -461,9 +461,7 @@ namespace Qiqqa.Brainstorm.SceneManager
         {
             Logging.Debug特("Clipboard paste");
 
-            if (false) {}
-
-            else if (Clipboard.ContainsText())
+            if (Clipboard.ContainsText())
             {
                 string text = Clipboard.GetText();
                 DragDropClipboard_AddText(text);
@@ -474,7 +472,7 @@ namespace Qiqqa.Brainstorm.SceneManager
                 BitmapSource bitmap = Clipboard.GetImage();
 
                 string filename = TempFile.GenerateTempFilename("jpg");
-                using (FileStream stream = new FileStream(filename, FileMode.Create))
+                using (FileStream stream = File.Create(filename))
                 {
                     JpegBitmapEncoder encoder = new JpegBitmapEncoder();
                     TextBlock myTextBlock = new TextBlock();
@@ -493,7 +491,7 @@ namespace Qiqqa.Brainstorm.SceneManager
                 List<string> filenames = new List<string>();
                 foreach (string filename in Clipboard.GetFileDropList())
                 {
-                    filenames.Add(filename);                    
+                    filenames.Add(filename);
                 }
 
                 DragDropClipboard_AddFiles(new List<string>(filenames));
@@ -518,9 +516,9 @@ namespace Qiqqa.Brainstorm.SceneManager
         {
             ConnectorControl connector_control = new ConnectorControl(this);
             connector_control.SetNodes(node_from, node_to);
-            return AddNewConnectorControl(connector_control);                
+            return AddNewConnectorControl(connector_control);
         }
-        
+
         public ConnectorControl AddNewConnectorControl(ConnectorControl connector_control)
         {
             scene_changed_timestamp = DateTime.UtcNow;
@@ -553,7 +551,7 @@ namespace Qiqqa.Brainstorm.SceneManager
         public List<NodeControl> AddNewNodeControls(List<object> node_contents, double left, double top)
         {
             List<NodeControl> added_node_controls = new List<NodeControl>();
-            
+
             if (0 == node_contents.Count)
             {
                 return null;
@@ -598,7 +596,7 @@ namespace Qiqqa.Brainstorm.SceneManager
                     {
                         if (!node_control.NodeControlSceneData.Deleted && recurrent_node_content.Equals(node_control.NodeControlSceneData.node_content))
                         {
-                            return node_control;                            
+                            return node_control;
                         }
                     }
                 }
@@ -767,9 +765,7 @@ namespace Qiqqa.Brainstorm.SceneManager
                 SetSelectedNodeControl(null, IsUserIndicatingAddToSelection());
                 selected_connector_control.Selected = null;
 
-                if (false) { }
-
-                else if (next_click_mode == NextClickMode.Hand)
+                if (next_click_mode == NextClickMode.Hand)
                 {
                     if (KeyboardTools.IsShiftDown())
                     {
@@ -786,7 +782,7 @@ namespace Qiqqa.Brainstorm.SceneManager
                     {
                         mouse_drag_mode = MouseDragMode.Pan;
                     }
-                    
+
                     this.CaptureMouse();
                     e.Handled = true;
                 }
@@ -796,7 +792,7 @@ namespace Qiqqa.Brainstorm.SceneManager
                     StringNodeContent new_node = new StringNodeContent();
                     new_node.Text = StringNodeContent.DEFAULT_NODE_CONTENT;
                     NodeControl new_node_control = AddNewNodeControl(new_node, mouse_current_virtual.X, mouse_current_virtual.Y);
-                    
+
                     this.SetSelectedNodeControl(new_node_control, false);
                     new_node_control.AttempToEnterEditMode();
 
@@ -816,8 +812,7 @@ namespace Qiqqa.Brainstorm.SceneManager
 
             if (next_click_mode == NextClickMode.Hand)
             {
-                if (false) { }
-                else if (MouseDragMode.Pan == mouse_drag_mode)
+                if (MouseDragMode.Pan == mouse_drag_mode)
                 {
                     if ((Keyboard.Modifiers & ModifierKeys.Control) > 0)
                     {
@@ -851,13 +846,11 @@ namespace Qiqqa.Brainstorm.SceneManager
         {
             UpdateMouseTracking(e, false);
 
-            if (false) { }
-
-            else if (next_click_mode == NextClickMode.Hand)
+            if (next_click_mode == NextClickMode.Hand)
             {
                 // Have they selected a whole lot of nodes?
                 if (MouseDragMode.Select == mouse_drag_mode)
-                {                    
+                {
                     selecting_nodes_control.Visibility = Visibility.Collapsed;
 
                     double min_x = Math.Min(mouse_current_virtual.X, mouse_initial_virtual.X);
@@ -875,7 +868,7 @@ namespace Qiqqa.Brainstorm.SceneManager
                             && node_control.NodeControlSceneData.CentreX - node_control.NodeControlSceneData.Width / 2 >= min_x
                             && node_control.NodeControlSceneData.CentreX + node_control.NodeControlSceneData.Width / 2 <= max_x
                             && node_control.NodeControlSceneData.CentreY + node_control.NodeControlSceneData.Height / 2 >= min_y
-                            && node_control.NodeControlSceneData.CentreY + node_control.NodeControlSceneData.Height /2 <= max_y
+                            && node_control.NodeControlSceneData.CentreY + node_control.NodeControlSceneData.Height / 2 <= max_y
                             )
                         {
                             newly_selected_node_controls.Add(node_control);
@@ -884,12 +877,12 @@ namespace Qiqqa.Brainstorm.SceneManager
 
                     // Add the newly selected nodes...
                     if (0 < newly_selected_node_controls.Count)
-                    {   
+                    {
                         this.SetSelectedNodeControls(newly_selected_node_controls, IsUserIndicatingAddToSelection());
                         this.selected_connector_control.Selected = null;
                     }
                 }
-                
+
                 mouse_drag_mode = MouseDragMode.None;
 
                 this.ReleaseMouseCapture();
@@ -930,7 +923,7 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         public void New(bool force_new)
         {
-            if (!force_new &&  this.node_controls.Count > 0 && !MessageBoxes.AskQuestion("Are you sure you want to start a new brainstorm?  The existing brainstorm will be lost unless you have saved it."))
+            if (!force_new && this.node_controls.Count > 0 && !MessageBoxes.AskQuestion("Are you sure you want to start a new brainstorm?  The existing brainstorm will be lost unless you have saved it."))
             {
                 return;
             }
@@ -943,7 +936,7 @@ namespace Qiqqa.Brainstorm.SceneManager
             this.connector_control_manager.Clear();
 
             AddMetaControls();
-            ResetViewport();            
+            ResetViewport();
 
             brainstorm_metadata = new BrainstormMetadata();
             brainstorm_metadata_control.DataContext = brainstorm_metadata.AugmentedBindable;
@@ -985,10 +978,10 @@ namespace Qiqqa.Brainstorm.SceneManager
             brainstorm_file_format.ConnectorsV1 = connectors;
             brainstorm_file_format.CurrentViewport = new Point((current_viewport_topleft.X + current_viewport_bottomright.X) / 2.0, (current_viewport_topleft.Y + current_viewport_bottomright.Y) / 2.0);
             brainstorm_file_format.CurrentScale = CurrentScale;
-            
+
             SerializeFile.Save(filename, brainstorm_file_format);
         }
-        
+
         public void SaveToDisk()
         {
             if (!String.IsNullOrEmpty(brainstorm_metadata.LastOpenLocation))
@@ -1032,7 +1025,7 @@ namespace Qiqqa.Brainstorm.SceneManager
         {
             ObjControlsLayer.Children.Clear();
             ObjNodesLayer.Children.Clear();
-            
+
             scene_changed_timestamp = DateTime.UtcNow;
             this.node_controls.Clear();
             this.connector_control_manager.Clear();
@@ -1080,7 +1073,7 @@ namespace Qiqqa.Brainstorm.SceneManager
 
                 Point point = brainstorm_file_format.CurrentViewport ?? new Point();
                 current_viewport_topleft.X = point.X - this.ActualWidth / CurrentPowerScale / 2.0;
-                current_viewport_topleft.Y = point.Y - this.ActualHeight / CurrentPowerScale / 2.0;                
+                current_viewport_topleft.Y = point.Y - this.ActualHeight / CurrentPowerScale / 2.0;
 
                 ViewportHasChanged();
                 RecalculateAllNodeControlDimensions();
@@ -1229,7 +1222,7 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         internal void ZoomIn()
         {
-            DoViewportScale_AroundScreenCentre(+1);            
+            DoViewportScale_AroundScreenCentre(+1);
         }
 
         internal void ZoomOut()
@@ -1306,7 +1299,7 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         internal enum MouseDragMode
         {
-            None,            
+            None,
             Select,
             Pan
         }
@@ -1400,11 +1393,11 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         internal void RemoveSelectedNodeControl(NodeControl node_control)
         {
-            for (int i = selected_node_controls.Count - 1; i >= 0 ; --i)                
+            for (int i = selected_node_controls.Count - 1; i >= 0; --i)
             {
                 SelectedNodeControl selected_node_control = selected_node_controls[i];
                 if (selected_node_control.Selected == node_control)
-                {   
+                {
                     ObjControlsLayer.Children.Remove(selected_node_control);
                     selected_node_controls.RemoveAt(i);
                     selected_node_control.Selected = null;
@@ -1429,7 +1422,7 @@ namespace Qiqqa.Brainstorm.SceneManager
         ~SceneRenderingControl()
         {
             Logging.Debug("~SceneRenderingControl()");
-            Dispose(false);            
+            Dispose(false);
         }
 
         public void Dispose()

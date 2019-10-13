@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using Utilities;
 using Utilities.Files;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary.Import.Manual
 {

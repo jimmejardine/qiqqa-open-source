@@ -4,6 +4,8 @@ using Qiqqa.DocumentLibrary;
 using Utilities;
 using Utilities.Files;
 using Utilities.Misc;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.Expedition
 {
@@ -15,7 +17,7 @@ namespace Qiqqa.Expedition
         {
             get
             {
-                return library.LIBRARY_BASE_PATH + "Qiqqa.expedition";
+                return Path.GetFullPath(Path.Combine(library.LIBRARY_BASE_PATH, @"Qiqqa.expedition"));
             }
         }
 

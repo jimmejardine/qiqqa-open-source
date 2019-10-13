@@ -4,6 +4,8 @@ using System.Text.RegularExpressions;
 using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.Strings;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary.Import.Manual
 {
@@ -62,11 +64,11 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                                 {
                                     string fn = match.Groups[2].Value;
                                     fn = fn.Replace("\\_", "_"); // Zotero escapes underscores. I get the feeling from http://www.citeulike.org/groupforum/1245 that others might not.
-                                    fn = fn.Replace("/", "\\"); // Convert to windows slashes for directories. 
+                                    //fn = fn.Replace("/", "\\"); // Convert to windows slashes for directories. 
 
                                     try
                                     {
-                                        fn = Path.Combine(_importBasePath, fn);
+                                        fn = Path.GetFullPath(Path.Combine(_importBasePath, fn));
 
                                         if (File.Exists(fn))
                                         {
@@ -75,15 +77,15 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                                             break; // We've found a suitable attachment
                                         }
                                     }
-                                    catch
+                                    catch (Exception ex)
                                     {
-                                        // Ignore problems with weird filenames like "undefined".
+                                        Logging.Warn(ex, "Ignoring problems with weird filenames like \"undefined\": {0}", fn);
                                     }
                                 }
                             }
                             else
                             {
-                                Logging.Warn("Non-conformant file key in Zotero import:" + fileValue);
+                                Logging.Warn("Non-conformant file key in Zotero import: {0}", fileValue);
                             }
                         }
                         #endregion

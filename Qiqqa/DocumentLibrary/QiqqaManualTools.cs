@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Documents.PDF;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary
 {
@@ -10,7 +12,7 @@ namespace Qiqqa.DocumentLibrary
         {
             get
             {
-                return ConfigurationManager.Instance.StartupDirectoryForQiqqa + "The Qiqqa Manual.pdf";
+                return Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"The Qiqqa Manual.pdf"));
             }
         }
 
@@ -18,7 +20,7 @@ namespace Qiqqa.DocumentLibrary
         {
             get
             {
-                return ConfigurationManager.Instance.StartupDirectoryForQiqqa + "The Qiqqa Manual - LOEX.pdf";
+                return Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"The Qiqqa Manual - LOEX.pdf"));
             }
         }
 

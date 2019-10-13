@@ -4,6 +4,8 @@ using System.IO;
 using System.IO.Compression;
 using Qiqqa.Common.Configuration;
 using Utilities;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.InCite
 {
@@ -70,8 +72,8 @@ namespace Qiqqa.InCite
                 Dictionary<string, string> abbreviations = new Dictionary<string, string>();
 
                 string citation_resources_subdirectory = CSLProcessor.CITATION_RESOURCES_SUBDIRECTORY;
-                string filename = citation_resources_subdirectory + @"\default_abbreviations.txt.gz";
-                using (Stream stream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read))
+                string filename = Path.GetFullPath(Path.Combine(citation_resources_subdirectory, @"default_abbreviations.txt.gz"));
+                using (FileStream stream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read))
                 {
                     using (GZipStream compressed_stream = new GZipStream(stream, CompressionMode.Decompress))
                     {

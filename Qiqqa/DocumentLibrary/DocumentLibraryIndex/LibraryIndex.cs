@@ -16,6 +16,8 @@ using Utilities.Language;
 using Utilities.Language.TextIndexing;
 using Utilities.Misc;
 using Utilities.OCR;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 {
@@ -237,7 +239,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
         {
             get
             {
-                return library.LIBRARY_INDEX_BASE_PATH + "DocumentProgressList.dat";
+                return Path.GetFullPath(Path.Combine(library.LIBRARY_INDEX_BASE_PATH, @"DocumentProgressList.dat"));
             }
         }
 

@@ -8,6 +8,9 @@ using Qiqqa.Documents.PDF;
 using Qiqqa.Main.LoginStuff;
 using Utilities;
 using Utilities.Files;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.Synchronisation.PDFSync
 {

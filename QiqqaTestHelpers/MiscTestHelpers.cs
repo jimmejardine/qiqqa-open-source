@@ -45,6 +45,5 @@ namespace QiqqaTestHelpers
             string fnpath = Path.GetFullPath(Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"../../..", filepath));
             return fnpath;
         }
-
     }
 }
