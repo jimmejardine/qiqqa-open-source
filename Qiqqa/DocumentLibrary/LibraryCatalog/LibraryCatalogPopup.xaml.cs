@@ -456,7 +456,7 @@ SourceURL: {0}
                         if (!String.IsNullOrEmpty(pdf_document.DownloadLocation))
                         {
                             string path = Path.GetDirectoryName(pdf_document.DownloadLocation);
-                            string[] directories = path.Split(new char[] { '\\' }, StringSplitOptions.RemoveEmptyEntries);
+                            string[] directories = path.Split(new char[] { '\\', '/' }, StringSplitOptions.RemoveEmptyEntries);
 
                             foreach (string directory in directories)
                             {

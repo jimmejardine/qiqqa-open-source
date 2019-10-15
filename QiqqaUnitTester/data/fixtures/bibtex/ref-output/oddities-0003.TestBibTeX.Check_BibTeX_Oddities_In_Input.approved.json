@@ -1,0 +1,19 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "QIQQA-EHSXY",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "\"Lessons In Electric Circuits, Volume III -- Semiconductors\"",
+        "title": "",
+        "year": "2015",
+        "publisher": ""
+      }
+    }
+  ],
+  "Comments": [
+    "% quotes strings inside curly braces = bad data?"
+  ]
+}

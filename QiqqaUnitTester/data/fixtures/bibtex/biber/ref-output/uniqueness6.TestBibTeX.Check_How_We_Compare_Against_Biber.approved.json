@@ -1,0 +1,75 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "entry1a",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Smith and Johnson and Doe",
+        "year": "2005"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "entry1b",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Smith and Johnson and Doe",
+        "year": "2005"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "entry2a",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Smith and Koe and Edwards",
+        "year": "2005"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "entry2b",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Smith and Koe and Edwards",
+        "year": "2005"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "A",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "A and B and C and D and E and F and G",
+        "year": "2007"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "B",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "A and X and Y",
+        "year": "2008"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "C",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "A and B and C and D and E and F and G",
+        "year": "2009"
+      }
+    }
+  ],
+  "Comments": []
+}

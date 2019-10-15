@@ -1,0 +1,40 @@
+﻿{
+  "Items": [
+    {
+      "Type": "delete",
+      "Key": "delete",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n this way in Qiqqa:    @delete { delete }    and this way too:    @delete{}    a\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "delete",
+      "Key": "",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nelete }    and this way too:    @delete{}    and then there's this one too:    @\r\n                                        ^"
+      ],
+      "Warnings": [
+        "There is no key in this BibTeX reference"
+      ],
+      "Fields": {}
+    },
+    {
+      "Type": "empty",
+      "Key": "",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nnd then there's this one too:    @empty{}    \r\n                                        ^"
+      ],
+      "Warnings": [
+        "There is no key in this BibTeX reference"
+      ],
+      "Fields": {}
+    }
+  ],
+  "Comments": [
+    "I flagged quite a few documents for deletion this way in Qiqqa:",
+    "}\r\n\r\nand this way too:",
+    "}\r\n\r\nand then there's this one too:"
+  ]
+}

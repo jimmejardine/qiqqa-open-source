@@ -1,0 +1,112 @@
+﻿{
+  "Items": [
+    {
+      "Type": "ARTICLE",
+      "Key": "ey1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "A. AAA and B. BBB and A. CCC and E. EEE",
+        "title": "Title1",
+        "year": "1968"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "ey1a",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "A. AAA and B. BBB and A. CCC and E. EEE",
+        "title": "Title1",
+        "year": "1969"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "ey2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "A. AAA and B. BBB and A. CCC and D. DDD",
+        "title": "Title2",
+        "year": "1968"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "ey3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "A. MMM and B. NNN",
+        "title": "Title3",
+        "year": "1968"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "ey4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "A. MMM and B. NNN",
+        "title": "Title4",
+        "year": "1968"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "ey5",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Aaa ZZZ and Bbb VVV",
+        "title": "Title3",
+        "year": "1968"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "ey6",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Abb ZZZ and Bbb VVV",
+        "title": "Title6",
+        "year": "1968"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "ey7",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Titlea",
+        "year": "1968"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "ey8",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Titlea",
+        "year": "1968"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "ey9",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Titleb",
+        "year": "1968"
+      }
+    }
+  ],
+  "Comments": []
+}

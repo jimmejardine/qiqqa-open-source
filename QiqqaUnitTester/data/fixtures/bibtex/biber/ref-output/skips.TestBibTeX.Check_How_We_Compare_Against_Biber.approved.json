@@ -1,0 +1,141 @@
+﻿{
+  "Items": [
+    {
+      "Type": "ARTICLE",
+      "Key": "skip1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "options": "skipbib",
+        "author": "John Doe",
+        "shorthand": "AFS",
+        "title": "Algorithms For Sorting",
+        "publisher": "A press",
+        "location": "Cambridge",
+        "year": "1994"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "skip2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "options": "skipbiblist",
+        "shorthand": "SA",
+        "author": "John Doe",
+        "title": "Sorting Algorithms",
+        "publisher": "A press",
+        "location": "Cambridge",
+        "year": "1995"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "skip3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "options": "skipbiblist,skiplab",
+        "shorthand": "SWA",
+        "author": "John Doe",
+        "title": "Sorting With Algorithms",
+        "publisher": "A press",
+        "location": "Cambridge",
+        "year": "1934"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "skip4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "options": "dataonly",
+        "shorthand": "AWS",
+        "author": "John Doe",
+        "title": "Algorithms Which Sort",
+        "publisher": "A press",
+        "location": "Cambridge",
+        "year": "1932"
+      }
+    },
+    {
+      "Type": "SET",
+      "Key": "seta",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "entryset": "set:membera,set:memberb,set:memberc"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "set:membera",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "keywords": "key1, key2",
+        "author": "Doe, John",
+        "title": "Set Member A",
+        "date": "2010"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "set:memberb",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Doe, John",
+        "title": "Set Member B",
+        "date": "2010"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "set:memberc",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Doe, John",
+        "title": "Set Member C",
+        "date": "2010"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "noseta",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Doe, John",
+        "title": "Stand-Alone A",
+        "date": "2010"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "nosetb",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Doe, John",
+        "title": "Stand-Alone B",
+        "date": "2010"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "nosetc",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Doe, John",
+        "title": "Stand-Alone C",
+        "date": "2010"
+      }
+    }
+  ],
+  "Comments": []
+}

@@ -6,6 +6,9 @@ using Microsoft.Win32;
 using Qiqqa.Common.Configuration;
 using Utilities.DateTimeTools;
 using Utilities.GUI;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.Backups
 {

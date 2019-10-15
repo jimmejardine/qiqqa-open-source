@@ -9,6 +9,9 @@ using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 {
@@ -36,7 +39,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         private WebLibraryManager()
         {   
             // Look for any web libraries that we know about
-            LoadKnownWebLibraries();
+            LoadKnownWebLibraries(KNOWN_WEB_LIBRARIES_FILENAME, false);
 
             AddLocalGuestLibraryIfMissing();
 
@@ -77,13 +80,24 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 {
                     Logging.Info("Inspecting directory {0}", library_directory);
 
-                    string database_file = library_directory + @"\Qiqqa.library";
+                    string databaselist_file = Path.GetFullPath(Path.Combine(library_directory, @"Qiqqa.known_web_libraries"));
+                    if (File.Exists(databaselist_file))
+                    {
+                        LoadKnownWebLibraries(databaselist_file, true);
+                    }
+                }
+
+                foreach (string library_directory in library_directories)
+                {
+                    Logging.Info("Inspecting directory {0}", library_directory);
+
+                    string database_file = Path.GetFullPath(Path.Combine(library_directory, @"Qiqqa.library"));
                     if (File.Exists(database_file))
                     {
                         var library_id = Path.GetFileName(library_directory);
                         if (web_library_details.ContainsKey(library_id))
                         {
-                            Logging.Info("We already know about this library, so skipping legacy locate: " + library_id);
+                            Logging.Info("We already know about this library, so skipping legacy locate: {0}", library_id);
                             continue;
                         }
 
@@ -92,8 +106,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                         new_web_library_detail.Id = library_id;
                         new_web_library_detail.Title = "Legacy Web Library - " + new_web_library_detail.Id.Substring(0, new_web_library_detail.Id.Length);
                         new_web_library_detail.IsReadOnly = false;
-                        new_web_library_detail.library = new Library(new_web_library_detail);
-                        web_library_details[new_web_library_detail.Id] = new_web_library_detail;
+                        UpdateKnownWebLibrary(new_web_library_detail);
                     }
                 }
             }
@@ -121,6 +134,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 new_web_library_detail.Description = "This is the library that comes with your Qiqqa guest account.";
                 new_web_library_detail.Deleted = false;
                 new_web_library_detail.IsLocalGuestLibrary = true;
+
                 new_web_library_detail.library = new Library(new_web_library_detail);
                 web_library_details[new_web_library_detail.Id] = new_web_library_detail;
 
@@ -310,18 +324,18 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         {
             get
             {
-                return ConfigurationManager.Instance.BaseDirectoryForUser + "\\" + "Qiqqa.known_web_libraries";
+                return Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.BaseDirectoryForUser, @"Qiqqa.known_web_libraries"));
             }
         }
 
-        void LoadKnownWebLibraries()
+        void LoadKnownWebLibraries(string filename, bool only_load_those_libraries_which_are_actually_present)
         {
             Logging.Info("+Loading known Web Libraries");
             try
             {
-                if (File.Exists(KNOWN_WEB_LIBRARIES_FILENAME))
+                if (File.Exists(filename))
                 {
-                    KnownWebLibrariesFile known_web_libraries_file = SerializeFile.ProtoLoad<KnownWebLibrariesFile>(KNOWN_WEB_LIBRARIES_FILENAME);
+                    KnownWebLibrariesFile known_web_libraries_file = SerializeFile.ProtoLoad<KnownWebLibrariesFile>(filename);
                     if (null != known_web_libraries_file.web_library_details)
                     {
                         foreach (WebLibraryDetail new_web_library_detail in known_web_libraries_file.web_library_details)
@@ -336,8 +350,18 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                                     new_web_library_detail.IsReadOnly = false;
                                 }
 
-                                new_web_library_detail.library = new Library(new_web_library_detail);
-                                web_library_details[new_web_library_detail.Id] = new_web_library_detail;
+                                string libdir_path = Library.GetLibraryBasePathForId(new_web_library_detail.Id);
+                                string libfile_path = Path.GetFullPath(Path.Combine(libdir_path, @"Qiqqa.library"));
+
+                                if (File.Exists(libfile_path) || !only_load_those_libraries_which_are_actually_present)
+                                {
+                                    new_web_library_detail.library = new Library(new_web_library_detail);
+                                    web_library_details[new_web_library_detail.Id] = new_web_library_detail;
+                                }
+                                else
+                                {
+                                    Logging.Info("Not loading library {0} with Id {1} as it does not exist on disk.", new_web_library_detail.Title, new_web_library_detail.Id);
+                                }
                             }
                             else
                             {
@@ -349,14 +373,19 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             }
             catch (Exception ex)
             {
-                Logging.Error(ex, "There was a problem loading the known Web Libraries from config file {0}", KNOWN_WEB_LIBRARIES_FILENAME);
+                Logging.Error(ex, "There was a problem loading the known Web Libraries from config file {0}", filename);
             }
             Logging.Info("-Loading known Web Libraries");
         }
 
-        void SaveKnownWebLibraries()
+        void SaveKnownWebLibraries(string filename = null)
         {
-            Logging.Info("+Saving known Web Libraries");
+            if (null == filename)
+            {
+                filename = KNOWN_WEB_LIBRARIES_FILENAME;
+            }
+
+            Logging.Info("+Saving known Web Libraries to {0}", filename);
 
             try
             {
@@ -376,14 +405,14 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
                     known_web_libraries_file.web_library_details.Add(web_library_detail);
                 }
-                SerializeFile.ProtoSave<KnownWebLibrariesFile>(KNOWN_WEB_LIBRARIES_FILENAME, known_web_libraries_file);
+                SerializeFile.ProtoSave<KnownWebLibrariesFile>(filename, known_web_libraries_file);
             }
             catch (Exception ex)
             {
-                Logging.Error(ex, "There was a problem saving the known web libraries");
+                Logging.Error(ex, "There was a problem saving the known web libraries to file {0}", filename);
             }
 
-            Logging.Info("-Saving known Web Libraries");
+            Logging.Info("-Saving known Web Libraries to {0}", filename);
         }
 
         private void UpdateKnownWebLibrary(WebLibraryDetail new_web_library_detail)
@@ -397,7 +426,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         public void UpdateKnownWebLibraryFromIntranet(string intranet_path)
         {
-            Logging.Info("+Updating known Intranet Library from " + intranet_path);
+            Logging.Info("+Updating known Intranet Library from {0}", intranet_path);
 
             IntranetLibraryDetail intranet_library_detail = IntranetLibraryDetail.Read(IntranetLibraryTools.GetLibraryDetailPath(intranet_path));
 
@@ -411,7 +440,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
             UpdateKnownWebLibrary(new_web_library_detail);
 
-            Logging.Info("-Updating known Intranet Library from " + intranet_path);
+            Logging.Info("-Updating known Intranet Library from {0}", intranet_path);
         }
 
         public WebLibraryDetail UpdateKnownWebLibraryFromBundleLibraryManifest(BundleLibraryManifest manifest)
@@ -435,7 +464,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         internal void ForgetKnownWebLibraryFromIntranet(WebLibraryDetail web_library_detail)
         {
-            Logging.Info("+Forgetting known Intranet Library from " + web_library_detail.Title);
+            Logging.Info("+Forgetting known Intranet Library from {0}", web_library_detail.Title);
 
             if (MessageBoxes.AskQuestion("Are you sure you want to forget the Intranet Library '{0}'?", web_library_detail.Title))
             {
@@ -444,7 +473,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 FireWebLibrariesChanged();
             }
 
-            Logging.Info("-Forgetting known Intranet Library from " + web_library_detail.Title);
+            Logging.Info("-Forgetting known Intranet Library from {0}", web_library_detail.Title);
         }
 
         #endregion

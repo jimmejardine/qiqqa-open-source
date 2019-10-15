@@ -1,0 +1,15 @@
+﻿{
+  "Items": [
+    {
+      "Type": "book",
+      "Key": "mybook",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Joe Blow",
+        "title": "My Little Book"
+      }
+    }
+  ],
+  "Comments": []
+}

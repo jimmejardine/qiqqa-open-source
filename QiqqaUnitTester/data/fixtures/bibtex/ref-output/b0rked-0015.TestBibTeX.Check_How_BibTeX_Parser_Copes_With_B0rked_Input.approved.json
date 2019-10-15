@@ -1,0 +1,42 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "abraham2014fully",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Fully Dynamic All-Pairs Shortest Paths: Breaking the O (n) Barrier$\\$$\\$",
+        "author": "Abraham, Ittai and Chechik, Shiri and Talwar, Kunal",
+        "journal": "Approximation, Randomization, and Combinatorial Optimization. Algorithms and Techniques (APPROX/RANDOM 2014)$\\$",
+        "volume": "28",
+        "pages": "1--16",
+        "year": "2014",
+        "publisher": "Schloss Dagstuhl--Leibniz-Zentrum fuer Informatik$\\$"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "abraham2014fully",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Fully Dynamic All-Pairs Shortest Paths: Breaking the O(n) Barrier",
+        "author": "Abraham, Ittai and Chechik, Shiri and Talwar, Kunal",
+        "journal": "Approximation, Randomization, and Combinatorial Optimization. Algorithms and Techniques (APPROX/RANDOM 2014)",
+        "volume": "28",
+        "pages": "1--16",
+        "year": "2014",
+        "publisher": "Schloss Dagstuhl--Leibniz-Zentrum fuer Informatik"
+      }
+    }
+  ],
+  "Comments": [
+    "More nutty TeX Math that isn't -- probably some auto-converter b0rked along the line to us getting this record off the IntarWebz:",
+    "{ BIBTEX_AUTO - GS ",
+    "}",
+    "bibtexParse error:  Token mismatch, expected \"}\" at index 136, found \"$$\\\\}$},\\n  aut\"\r\n--------------------------------------------------\r\n\r\nand corrected:",
+    "{ BIBTEX_AUTO - GS ",
+    "}"
+  ]
+}

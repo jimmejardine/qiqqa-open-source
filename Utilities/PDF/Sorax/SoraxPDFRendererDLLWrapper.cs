@@ -60,7 +60,7 @@ namespace Utilities.PDF.Sorax
         static SoraxPDFRendererDLLWrapper()
         {   
             Logging.Debug特("+Initialising SoraxPDFRendererDLLWrapper");
-            string config_filename = UnitTestDetector.StartupDirectoryForQiqqa + @"SPdf.ini";
+            string config_filename = Path.GetFullPath(Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"SPdf.ini"));
             SoraxDLL.SPD_ResetConfig(config_filename);
             Logging.Debug特("-Initialising SoraxPDFRendererDLLWrapper");
         }

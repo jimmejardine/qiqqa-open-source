@@ -1,0 +1,15 @@
+﻿{
+  "Items": [
+    {
+      "Type": "inproceedings",
+      "Key": "credence",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Experience with an Object\r\n            Reputation System for \r\n            Peer-to-Peer Filesharing",
+        "author": "Kevin Walsh and Emin Gün Sirer"
+      }
+    }
+  ],
+  "Comments": []
+}

@@ -10,6 +10,8 @@ using Utilities.BibTex;
 using Utilities.BibTex.Parsing;
 using Utilities.Collections;
 using Utilities.Misc;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.Exporting
 {
@@ -17,7 +19,7 @@ namespace Qiqqa.Exporting
     {
         internal static void Export(Library library, List<PDFDocument> pdf_documents, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items, bool include_additional_fields)
         {
-            string filename = base_path + @"Qiqqa.bib";
+            string filename = Path.GetFullPath(Path.Combine(base_path, @"Qiqqa.bib"));
             ExportBibTeX(pdf_documents, filename, pdf_document_export_items, include_additional_fields);
         }
 

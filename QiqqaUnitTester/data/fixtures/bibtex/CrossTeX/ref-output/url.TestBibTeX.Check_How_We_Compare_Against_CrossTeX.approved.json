@@ -1,0 +1,42 @@
+﻿{
+  "Items": [
+    {
+      "Type": "misc",
+      "Key": "corda",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Corda : An Introduction",
+        "author": "Richard Gendal Brown and James Carlyle and Ian Grigg and Mike Hearn",
+        "howpublished": "\\urlhttp://r3cev.com/s/corda-introductory-whitepaper-final.pdf",
+        "year": "2016"
+      }
+    },
+    {
+      "Type": "misc",
+      "Key": "timestamps",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Stuart Haber and W. Scott Stornetta",
+        "title": "How to Time-Stamp a Digital Document",
+        "howpublished": "\\url=http://dl.acm.org/citation.cfm?id=646755.705358"
+      }
+    },
+    {
+      "Type": "misc",
+      "Key": "supplychain",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "IBM Forges Blockchain Collaboration With Nestlé \\& Walmart In Global Food Safety",
+        "author": "Forbes Magazin",
+        "howpublished": "\\urlhttps://www.forbes.com/sites/rogeraitken/2017/08/22/ibm-forges-blockchain-collaboration-with-nestle-walmart-for-global-food-safety",
+        "year": "2017"
+      }
+    }
+  ],
+  "Comments": [
+    "% this one caused problems as it has a lot of braces in the title"
+  ]
+}

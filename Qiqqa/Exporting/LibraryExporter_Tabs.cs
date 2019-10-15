@@ -8,6 +8,8 @@ using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.Collections;
 using Utilities.Misc;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.Exporting
 {
@@ -102,7 +104,7 @@ namespace Qiqqa.Exporting
             }
 
             // Write to disk
-            string filename = base_path + @"Qiqqa.tab";
+            string filename = Path.GetFullPath(Path.Combine(base_path, @"Qiqqa.tab"));
             File.WriteAllText(filename, sb.ToString());
 
             StatusManager.Instance.UpdateStatus("TabExport", String.Format("Exported your tab entries to {0}", filename));

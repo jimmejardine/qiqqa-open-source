@@ -6,6 +6,9 @@ using System.Text;
 using Qiqqa.Common.Configuration;
 using Utilities;
 using Utilities.Files;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.Localisation
 {
@@ -13,17 +16,17 @@ namespace Qiqqa.Localisation
     {
         public static readonly string DEFAULT_LOCALE = "en";
 
-        private static readonly string BASE_PATH = ConfigurationManager.Instance.StartupDirectoryForQiqqa + @"Localisation\";
-        private static readonly string TEMP_BASE_PATH = ConfigurationManager.Instance.TempDirectoryForQiqqa + @"Localisation\";
+        private static readonly string BASE_PATH = Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"Localisation"));
+        private static readonly string TEMP_BASE_PATH = Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.TempDirectoryForQiqqa, @"Localisation"));
 
         private static string GetFilenameForLocale(string locale)
         {
-            return string.Format("{0}{1}.qiqqa.txt", BASE_PATH, locale, BASE_PATH, locale);
+            return Path.GetFullPath(Path.Combine(BASE_PATH, string.Format("{0}.qiqqa.txt", locale)));
         }
 
         private static string GetFilenameForTempLocale(string locale)
         {            
-            return string.Format("{0}{1}.qiqqa.txt", TEMP_BASE_PATH, locale);
+            return Path.GetFullPath(Path.Combine(TEMP_BASE_PATH, string.Format("{0}.qiqqa.txt", locale)));
         }
 
         public static LocalisationManager Instance = new LocalisationManager();
@@ -54,7 +57,7 @@ namespace Qiqqa.Localisation
             string filename = GetFilenameForTempLocale(locale);
             Directory.CreateDirectory(Path.GetDirectoryName(filename));
             locale_table.Save(filename);
-            Logging.Info("Saved locale " + locale);
+            Logging.Info("Saved locale {0}", locale);
         }
 
         public void BrowseTempLocaleTable(string locale)
@@ -104,7 +107,10 @@ namespace Qiqqa.Localisation
             locale = locale.ToLower();
 
             string locale_short = locale;
-            if (locale_short.Length > 2) locale_short = locale_short.Substring(0, 2);
+            if (locale_short.Length > 2)
+            {
+                locale_short = locale_short.Substring(0, 2);
+            }
 
             string locale_en = DEFAULT_LOCALE;
 

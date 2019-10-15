@@ -32,7 +32,7 @@ namespace Qiqqa.WebBrowsing.EZProxy
         {
             if (null == proxies)
             {
-                string proxies_json_filename = ConfigurationManager.Instance.StartupDirectoryForQiqqa + @"WebBrowsing\EZProxy\proxies.json";
+                string proxies_json_filename = Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"WebBrowsing/EZProxy/proxies.json"));
                 Logging.Info("Loading EZProxy proxy information from {0}", proxies_json_filename);
                 string proxies_json = File.ReadAllText(proxies_json_filename);
                 proxies = JsonConvert.DeserializeObject<List<Proxy>>(proxies_json);

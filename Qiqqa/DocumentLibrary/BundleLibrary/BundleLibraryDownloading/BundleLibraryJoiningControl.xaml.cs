@@ -60,7 +60,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleDownloading
 
         private void ManageDownload(BundleLibraryManifest manifest)
         {
-            string url = manifest.BaseUrl + "/" + manifest.Id + Common.EXT_BUNDLE;
+            string url = manifest.BaseUrl + @"/" + manifest.Id + Common.EXT_BUNDLE;
             UrlDownloader.DownloadAsyncTracker download_async_tracker = UrlDownloader.DownloadWithNonBlocking(ConfigurationManager.Instance.Proxy, url);
 
             string STATUS_TOKEN = "BundleDownload-" + manifest.Version;
@@ -79,8 +79,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleDownloading
             }
 
             // Check the reason for exiting
-            if (false) {}
-            else if (download_async_tracker.DownloadDataCompletedEventArgs.Cancelled)
+            if (download_async_tracker.DownloadDataCompletedEventArgs.Cancelled)
             {
                 StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Cancelled download of Bundle Library.");
             }

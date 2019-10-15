@@ -1,0 +1,19 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "QIQQA-ECXLP",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Scaffolding Students’ Learning  using Test My Code",
+        "title": "",
+        "year": "2013",
+        "publisher": ""
+      }
+    }
+  ],
+  "Comments": [
+    "% apostrophe is non-ASCII here"
+  ]
+}

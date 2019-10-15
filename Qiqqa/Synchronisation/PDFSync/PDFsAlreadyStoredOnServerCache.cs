@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using Qiqqa.Common.Configuration;
 using Utilities;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.Synchronisation.PDFSync
 {
@@ -29,7 +31,7 @@ namespace Qiqqa.Synchronisation.PDFSync
         {
             get
             {
-                return ConfigurationManager.Instance.BaseDirectoryForUser + @"Qiqqa.server_stored_pdfs_cache";
+                return Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.BaseDirectoryForUser, @"Qiqqa.server_stored_pdfs_cache"));
             }
         }
 

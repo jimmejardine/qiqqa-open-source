@@ -5,6 +5,8 @@ using System.Threading;
 using Qiqqa.Documents.PDF.PDFRendering.CoherentTextExtraction;
 using Utilities;
 using Utilities.OCR;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.Documents.PDF.PDFRendering
 {

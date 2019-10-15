@@ -7,6 +7,8 @@ using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.BibTex.Parsing;
 using Utilities.Misc;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.Exporting
 {
@@ -37,10 +39,7 @@ namespace Qiqqa.Exporting
                 field_names = new List<string>(field_names_set);
                 field_names.Sort();
             }
-
-
-
-
+                                 
             // Write out the header
             DateTime now = DateTime.Now;
             StringBuilder sb = new StringBuilder();
@@ -61,8 +60,7 @@ namespace Qiqqa.Exporting
                 sb.AppendFormat("{0}\t", FormatFreeText(field_name));
             }
             sb.AppendLine();
-
-
+            
             // Write out the entries
             for (int i = 0; i < pdf_documents.Count; ++i)
             {
@@ -88,7 +86,7 @@ namespace Qiqqa.Exporting
             }
 
             // Write to disk
-            string filename = base_path + @"Qiqqa.BibTeX.tab";
+            string filename = Path.GetFullPath(Path.Combine(base_path, @"Qiqqa.BibTeX.tab"));
             File.WriteAllText(filename, sb.ToString());
 
             StatusManager.Instance.UpdateStatus("TabExport", String.Format("Exported your BibTeX tab entries to {0}", filename));

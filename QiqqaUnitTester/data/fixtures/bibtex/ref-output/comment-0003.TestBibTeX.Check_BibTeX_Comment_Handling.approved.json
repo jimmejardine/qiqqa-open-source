@@ -1,0 +1,17 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "joe3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Average #3",
+        "author": "Joe D Nominal"
+      }
+    }
+  ],
+  "Comments": [
+    "this is another broken @comment as it doesn't have {curly-brace delims where it should} \r"
+  ]
+}

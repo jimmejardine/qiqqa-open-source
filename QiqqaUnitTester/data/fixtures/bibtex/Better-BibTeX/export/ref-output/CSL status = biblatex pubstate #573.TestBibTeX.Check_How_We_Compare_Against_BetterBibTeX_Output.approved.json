@@ -1,0 +1,16 @@
+﻿{
+  "Items": [
+    {
+      "Type": "book",
+      "Key": "doe_title_nodate",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Doe, John",
+        "pubstate": "forthcoming",
+        "title": "Title"
+      }
+    }
+  ],
+  "Comments": []
+}

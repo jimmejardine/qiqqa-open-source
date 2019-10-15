@@ -1,0 +1,76 @@
+﻿{
+  "Items": [
+    {
+      "Type": "BOOK",
+      "Key": "L1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "shorthand": "\\emphA",
+        "sortshorthand": "A",
+        "author": "John Doe",
+        "title": "Algorithms For Sorting",
+        "publisher": "A press",
+        "location": "Cambridge",
+        "year": "1995"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "shorthand": "B",
+        "author": "John Doe",
+        "title": "Sorting Algorithms",
+        "publisher": "A press",
+        "location": "Cambridge",
+        "year": "1995"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "shorthand": "C",
+        "author": "John Doe",
+        "title": "More and More Algorithms",
+        "publisher": "A press",
+        "location": "Cambridge",
+        "year": "1995"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "shorthand": "D",
+        "author": "John Doe and others",
+        "title": "Some title about sorting",
+        "publisher": "Another press",
+        "location": "Cambridge",
+        "year": "1995"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L5",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "shorthand": "E",
+        "author": "John Doe and others",
+        "title": "Some other title about sorting",
+        "publisher": "Another press",
+        "location": "Cambridge",
+        "year": "1995"
+      }
+    }
+  ],
+  "Comments": []
+}

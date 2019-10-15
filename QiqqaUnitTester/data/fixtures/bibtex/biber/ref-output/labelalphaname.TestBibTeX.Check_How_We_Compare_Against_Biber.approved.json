@@ -1,0 +1,64 @@
+﻿{
+  "Items": [
+    {
+      "Type": "BOOK",
+      "Key": "lant1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Arthur Smith"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "lant2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "options": "labelalphanametemplatename=test2",
+        "author": "Arthur Smith"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "lant3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "labelalphanametemplatename=test3 and given=Arthur, family=Smith"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "lant4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "labelalphanametemplatename=test4, given=Arthur, family=Smith"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "lant5",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Galatius, Smith and Randal Williams, Oscar"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "lant6",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Galatius, Smith and Randal-Williams, Oscar"
+      }
+    }
+  ],
+  "Comments": [
+    "% per-entry",
+    "% per-namelist",
+    "% per-name"
+  ]
+}

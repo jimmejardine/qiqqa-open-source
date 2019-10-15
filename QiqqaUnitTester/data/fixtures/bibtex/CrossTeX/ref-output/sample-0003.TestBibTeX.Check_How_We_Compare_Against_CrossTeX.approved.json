@@ -1,0 +1,15 @@
+﻿{
+  "Items": [
+    {
+      "Type": "month",
+      "Key": "sep",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "name": "September",
+        "shortname": "Sept."
+      }
+    }
+  ],
+  "Comments": []
+}

@@ -1,0 +1,63 @@
+﻿{
+  "Items": [
+    {
+      "Type": "electronic",
+      "Key": "IEEEexample:IEEEwebsite",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "The IEEE Website",
+        "url": "http://www.ieee.org/",
+        "year": "2015",
+        "key": "IEEE"
+      }
+    },
+    {
+      "Type": "electronic",
+      "Key": "IEEEexample:bibtexuser",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Oren Patashnik",
+        "title": "\\BibTeXing",
+        "howpublished": "btxdoc.pdf",
+        "url": "http://www.ctan.org/pkg/bibtex",
+        "month": "nov",
+        "year": "2010"
+      }
+    },
+    {
+      "Type": "electronic",
+      "Key": "IEEEexample:bibtexdesign",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Oren Patashnik",
+        "title": "Designing \\BibTeX Styles",
+        "howpublished": "btxhak.pdf",
+        "url": "http://www.ctan.org/pkg/bibtex",
+        "month": "nov",
+        "year": "2010"
+      }
+    },
+    {
+      "Type": "electronic",
+      "Key": "IEEEexample:tamethebeast",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Nicolas Markey",
+        "title": "Tame the BeaST  ---  The B to X of \\BibTeX",
+        "url": "http://www.ctan.org/pkg/tamethebeast",
+        "month": "oct",
+        "year": "2009"
+      }
+    }
+  ],
+  "Comments": [
+    "Deal correctly with TeX commands in values:",
+    "The BibTeX user's guide.\r\nThe filename could have been put in the URL instead. But, there might\r\nbe other interesting things for the user in the same directory - and\r\nthe filename might change before the directory that contains it.",
+    "The BibTeX style designer's guide.",
+    "A comprehensive BibTeX tutorial."
+  ]
+}

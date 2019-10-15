@@ -9,5 +9,7 @@ namespace Utilities
         public const string TITLE_UNKNOWN = "(unknown title)";
         public const string UNKNOWN_AUTHORS = "(unknown authors)";
         public const string UNKNOWN_YEAR = "(unknown year)";
+
+        public const string VanillaReferenceFileType = "VANILLA_REFERENCE";
     }
 }

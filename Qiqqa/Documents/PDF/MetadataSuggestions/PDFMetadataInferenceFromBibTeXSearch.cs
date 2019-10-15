@@ -84,7 +84,7 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
 
                     // Does the bibtex match sufficiently? Empty bibtex will be handled accordingly: no fit/match
                     PDFSearchResultSet search_result_set;
-                    if (!BibTeXGoodnessOfFitEstimator.DoesBibTeXMatchDocument(bibtex, pdf_document, out search_result_set)) continue;
+                    if (!BibTeXGoodnessOfFitEstimator.DoesBibTeXMatchDocument(bibtex_item, pdf_document, out search_result_set)) continue;
 
                     // Does the title match sufficiently to the bibtex
                     {

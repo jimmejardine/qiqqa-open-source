@@ -12,6 +12,8 @@ using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.Collections;
 using Utilities.Language;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.Exporting
 {
@@ -37,7 +39,7 @@ namespace Qiqqa.Exporting
             html.AppendFormat("</html>\n");
 
 
-            string image_filename = base_path + @"Qiqqa.png";
+            string image_filename = Path.GetFullPath(Path.Combine(base_path, @"Qiqqa.png"));
             BitmapImage image = Icons.GetAppIcon(Icons.Qiqqa);
             using (FileStream filestream = new FileStream(image_filename, FileMode.Create))
             {
@@ -46,13 +48,15 @@ namespace Qiqqa.Exporting
                 encoder.Save(filestream);
             }
             
-            string filename = base_path + @"Qiqqa.html";
+            string filename = Path.GetFullPath(Path.Combine(base_path, @"Qiqqa.html"));
             File.WriteAllText(filename, html.ToString());
         }
 
         private static void DumpSortedItems(StringBuilder html, List<PDFDocumentExportItem> items)
         {
-            items.Sort(delegate(PDFDocumentExportItem a, PDFDocumentExportItem b) { return String.Compare(a.pdf_document.TitleCombined, b.pdf_document.TitleCombined); });
+            items.Sort(delegate(PDFDocumentExportItem a, PDFDocumentExportItem b) {
+                return String.Compare(a.pdf_document.TitleCombined, b.pdf_document.TitleCombined);
+            });
 
             foreach (var item in items)
             {

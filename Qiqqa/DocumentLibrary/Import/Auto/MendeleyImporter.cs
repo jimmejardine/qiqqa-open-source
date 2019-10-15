@@ -5,6 +5,9 @@ using System.IO;
 using Utilities;
 using Utilities.BibTex;
 using Utilities.BibTex.Parsing;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary.Import.Auto
 {
@@ -36,7 +39,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
         {
             MendeleyDatabaseDetails mdd = new MendeleyDatabaseDetails();
 
-            string BASE_DIR_FOR_MENDELEY_DATABASE = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Mendeley Ltd\Mendeley Desktop\";
+            string BASE_DIR_FOR_MENDELEY_DATABASE = Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Mendeley Ltd/Mendeley Desktop"));
 
             if (!Directory.Exists(BASE_DIR_FOR_MENDELEY_DATABASE))
             {
@@ -188,9 +191,9 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                                                 }
 
                                                 filename = Uri.UnescapeDataString(filename);
-                                                filename = filename.Replace('/', '\\');
+                                                //filename = filename.Replace('/', '\\');
 
-                                                fwmi.Filename = filename;
+                                                fwmi.filename = Path.GetFullPath(filename);
                                                 fwmi.SuggestedDownloadSourceURI = reader["localUrl"] as string;
 
                                                 ++mdd.pdfs_found;

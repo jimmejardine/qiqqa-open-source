@@ -1,0 +1,593 @@
+﻿{
+  "Items": [
+    {
+      "Type": "BOOK",
+      "Key": "L1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Doe",
+        "title": "Title 1",
+        "publisher": "Oxford",
+        "year": "1995"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Doe and Albert Abrahams",
+        "title": "Title 2",
+        "publisher": "Oxford",
+        "year": "1995"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Doe and Albert Abrahams",
+        "title": "Title 3",
+        "publisher": "Oxford",
+        "year": "1995"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Doe and Albert Abrahams and Ernie Edwards",
+        "title": "Title 4",
+        "publisher": "Oxford",
+        "year": "1995"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L5",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Doe and Albert Abrahams and Ernie Edwards",
+        "title": "Title 5",
+        "publisher": "Oxford",
+        "year": "1995"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L6",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Doe and Simon Smith and Ernie Edwards",
+        "title": "Title 6",
+        "publisher": "Oxford",
+        "year": "1995"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L7",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Doe and Simon Smith and James Jones",
+        "title": "Title 7",
+        "publisher": "Oxford",
+        "year": "1995"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L8",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Bill Shakespeare",
+        "title": "Works",
+        "publisher": "Oxford",
+        "date": "1985/1992"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L9",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "shorthand": "SS1",
+        "author": "Sam Smiley",
+        "title": "Works",
+        "publisher": "Oxford",
+        "year": "1922"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L10",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "shorthand": "SS2",
+        "author": "Sam Smiley",
+        "title": "UnWorks",
+        "publisher": "Oxford",
+        "year": "1922"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L11",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Carl von Rancour",
+        "title": "UnWorks",
+        "year": "1922"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L12",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Carl von Rancour and Russel von Bile",
+        "title": "UnWorks",
+        "origdate": "1922-03-21"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "L13",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Carl von Rancour and Russel von Bile",
+        "title": "UnVorks",
+        "year": "1987"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "L14",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "label": "Alabel",
+        "author": "Carl von Rancour and Russel von Bile",
+        "title": "UnWorks",
+        "year": "1989"
+      }
+    },
+    {
+      "Type": "UNPUBLISHED",
+      "Key": "L15",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Alan Acckerman and Bert Briff and Clive Climben",
+        "title": "Title",
+        "year": "1989"
+      }
+    },
+    {
+      "Type": "BOOKLET",
+      "Key": "L16",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Alan Acckerman and Bert Baff and Clive Climbi",
+        "title": "Title",
+        "year": "1990"
+      }
+    },
+    {
+      "Type": "BOOKLET",
+      "Key": "L16a",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Alan Acckerman and Bert Baff and Clive Climbi",
+        "title": "Title2",
+        "year": "1990"
+      }
+    },
+    {
+      "Type": "REPORT",
+      "Key": "L17",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Alan Ackkerman and Bert Baff and Clive Climbi",
+        "title": "Title",
+        "year": "1911"
+      }
+    },
+    {
+      "Type": "REPORT",
+      "Key": "L17a",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Alan Ackkerman and Bert Baff and Clive Climbi",
+        "title": "Title2",
+        "year": "1911"
+      }
+    },
+    {
+      "Type": "UNPUBLISHED",
+      "Key": "L18",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Agassi and Chang and Laver",
+        "title": "Title",
+        "year": "1911"
+      }
+    },
+    {
+      "Type": "UNPUBLISHED",
+      "Key": "L19",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Agassi and Connors and Lendl",
+        "title": "Title",
+        "year": "1911"
+      }
+    },
+    {
+      "Type": "UNPUBLISHED",
+      "Key": "L20",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Agassi and Courier and Laver",
+        "title": "Title",
+        "year": "1911"
+      }
+    },
+    {
+      "Type": "UNPUBLISHED",
+      "Key": "L21",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Borg and Connors and Edberg",
+        "title": "Title",
+        "year": "1911"
+      }
+    },
+    {
+      "Type": "UNPUBLISHED",
+      "Key": "L22",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Borg and Connors and Emerson",
+        "title": "Title",
+        "year": "1911"
+      }
+    },
+    {
+      "Type": "UNPUBLISHED",
+      "Key": "L23",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Sanchez-Vicario, Bill",
+        "title": "Title",
+        "year": "1900"
+      }
+    },
+    {
+      "Type": "UNPUBLISHED",
+      "Key": "L24",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Zaa",
+        "title": "Title",
+        "year": "1900"
+      }
+    },
+    {
+      "Type": "UNPUBLISHED",
+      "Key": "L25",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Zoo and Xaa",
+        "title": "Title",
+        "year": "1900"
+      }
+    },
+    {
+      "Type": "UNPUBLISHED",
+      "Key": "L26",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Zoo and Xaa",
+        "title": "Title",
+        "year": "1901"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "LDN1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Vela, Luis and Ura Ru, Juan",
+        "title": "Title",
+        "year": "1889"
+      }
+    },
+    {
+      "Type": "CUSTOMA",
+      "Key": "LDN2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "options": "labelalphanametemplatename=customa",
+        "author": "Vela, Luis and Ura Ru, Juan",
+        "title": "Title",
+        "year": "1845"
+      }
+    },
+    {
+      "Type": "CUSTOMD",
+      "Key": "LDN3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "options": "labelalphanametemplatename=customd",
+        "author": "Vela, Luis and given=Ura Ru, family=Juan, suffix=Sr, prefix=von",
+        "title": "Title",
+        "year": "1845"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "knuth:ct",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=american",
+        "sortyear": "1984-0",
+        "sorttitle": "Computers & Typesetting",
+        "indexsorttitle": "Computers & Typesetting",
+        "author": "Knuth, Donald E.",
+        "title": "Computers \\& Typesetting",
+        "volumes": "5",
+        "publisher": "Addison-Wesley",
+        "location": "Reading, Mass.",
+        "date": "1984/1986",
+        "annotation": "A five-volume book cited as a whole. This is a \\textttbook entry, note the\r\n\t\t    \\textttvolumes field"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "knuth:ct:a",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=american",
+        "sortyear": "1984-1",
+        "sorttitle": "Computers & Typesetting A",
+        "indexsorttitle": "The TeXbook",
+        "author": "Knuth, Donald E.",
+        "indextitle": "\\TeX book, The",
+        "title": "The \\TeX book",
+        "shorttitle": "\\TeX book",
+        "maintitle": "Computers \\& Typesetting",
+        "volume": "A",
+        "publisher": "Addison-Wesley",
+        "location": "Reading, Mass.",
+        "date": "1984",
+        "annotation": "The first volume of a five-volume book. Note the \\textttsorttitle and\r\n\t\t    \\textttsortyear fields. We want this volume to be listed after the entry\r\n\t\t    referring to the entire five-volume set. Also note the \\textttindextitle and\r\n\t\t    \\textttindexsorttitle fields"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "knuth:ct:b",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=american",
+        "sortyear": "1986-1",
+        "sorttitle": "Computers & Typesetting B",
+        "indexsorttitle": "TeX: The Program",
+        "author": "Knuth, Donald E.",
+        "title": "\\TeX: The Program",
+        "shorttitle": "\\TeX",
+        "maintitle": "Computers \\& Typesetting",
+        "volume": "B",
+        "publisher": "Addison-Wesley",
+        "location": "Reading, Mass.",
+        "date": "1986",
+        "annotation": "The second volume of a five-volume book. Note the \\textttsorttitle and\r\n\t\t    \\textttsortyear fields. Also note the \\textttindexsorttitle field"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "knuth:ct:c",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=american",
+        "sortyear": "1986-2",
+        "sorttitle": "Computers & Typesetting C",
+        "author": "Knuth, Donald E.",
+        "indextitle": "METAFONTbook, The",
+        "title": "The METAFONTbook",
+        "shorttitle": "METAFONTbook",
+        "maintitle": "Computers \\& Typesetting",
+        "volume": "C",
+        "publisher": "Addison-Wesley",
+        "location": "Reading, Mass.",
+        "date": "1986",
+        "annotation": "The third volume of a five-volume book. Note the \\textttsorttitle and\r\n\t\t    \\textttsortyear fields as well as the \\textttindextitle field"
+      }
+    },
+    {
+      "Type": "PHDTHESIS",
+      "Key": "Schmidt2007a",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "C. Schmidt",
+        "year": "2007"
+      }
+    },
+    {
+      "Type": "INPROCEEDINGS",
+      "Key": "Schmidt2007",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "C. Schmidt and XXX and YYY and ZZZ",
+        "year": "2007"
+      }
+    },
+    {
+      "Type": "PHDTHESIS",
+      "Key": "Schnee2007a",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "D. Schnee",
+        "year": "2007"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "Schnee2007",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "D. Schnee and XXX and YYY and ZZZ",
+        "year": "2007"
+      }
+    },
+    {
+      "Type": "CUSTOMB",
+      "Key": "title1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "D. Schnee and XXX and YYY and ZZZ",
+        "title": "Tïtle in Braces with char",
+        "year": "2007"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "labelstest",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "AAA and BBB and CCC",
+        "title": "A title",
+        "date": "2005-03-02"
+      }
+    },
+    {
+      "Type": "CUSTOMC",
+      "Key": "padtest",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Alan Al",
+        "title": "T",
+        "year": "2007"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "ignore1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "O'Toole, Alexander",
+        "year": "2007"
+      }
+    },
+    {
+      "Type": "CUSTOMA",
+      "Key": "ignore2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "options": "labelalphanametemplatename=customa",
+        "author": "De Long, Alexander",
+        "year": "2007"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "skipwidthtest1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "O'Toole, Henry",
+        "title": "O'Toole",
+        "year": "2007"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "prefix1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Alan van der Vaar",
+        "title": "Thing",
+        "year": "1999"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "rangetest1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "VA and WA and XA and YA and ZA",
+        "editor": "VE and WE and XE and YE and ZE",
+        "translator": "VT and WT and XT and YT and ZT",
+        "foreword": "VF and WF and XF and YF and ZF",
+        "holder": "VH and WH and XH and YH and ZH"
+      }
+    },
+    {
+      "Type": "MOVIE",
+      "Key": "m1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Frank Fake",
+        "title": "Film title 1"
+      }
+    }
+  ],
+  "Comments": [
+    "% For these two, the shorthand should prevent extraalpha being set for them as\r\n% they are disambiguated by their shorthands and labelalpha is true",
+    "% prefix in label",
+    "% per-type labeltemplate",
+    "% disambiguation of labelparts",
+    "% Some examples from biblatex examples file of collection plus individual volumes\r\n% The date ranges should be handled differently by extradate and extraalpha"
+  ]
+}

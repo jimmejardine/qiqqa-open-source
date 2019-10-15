@@ -1,0 +1,21 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "cooley2007schema",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Schema thematization: a framework and an example",
+        "author": "Cooley, Laurel and Trigueros, Mar\\'\\ia and Baker, Bernadette",
+        "journal": "Journal for Research in Mathematics Education",
+        "pages": "370--392",
+        "year": "2007",
+        "publisher": "JSTOR"
+      }
+    }
+  ],
+  "Comments": [
+    "% advanced escapes"
+  ]
+}

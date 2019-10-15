@@ -49,7 +49,7 @@ namespace Qiqqa.WebBrowsing
                     string user_override_page = "";
                     
                     string process_parameters = String.Format(
-                        "{0} {1} --footer-right \"Page [page] of [topage]\" {2} --footer-left \"{3}\" --header-left \"{4}\" --header-right \"Created using www.qiqqa.com\" {5}"
+                        "{0} {1} --footer-right \"Page [page] of [topage]\" {2} --footer-left \"{3}\" --header-left \"{4}\" --header-right \"Created using www.qiqqa.com\" \"{5}\""
                         ,user_override_global
                         ,url
                         ,user_override_page

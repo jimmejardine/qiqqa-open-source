@@ -12,6 +12,9 @@ using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
 {
@@ -143,12 +146,11 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
                 // If the sync database does not exist, put one in place.
                 IntranetLibraryDB db = new IntranetLibraryDB(base_path);
 
-                // Notify the WebLibrearyManager
+                // Notify the WebLibraryManager
                 WebLibraryManager.Instance.UpdateKnownWebLibraryFromIntranet(base_path);
 
                 return true;
             }
-
             catch (Exception ex)
             {
                 Logging.Error(ex, "Problem accessing Intranet Library for the first time.");

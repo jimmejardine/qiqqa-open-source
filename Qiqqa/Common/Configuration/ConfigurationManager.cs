@@ -14,6 +14,9 @@ using Utilities.Shutdownable;
 using Application = System.Windows.Forms.Application;
 using Utilities.Strings;
 using Newtonsoft.Json;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.Common.Configuration
 {
@@ -27,7 +30,7 @@ namespace Qiqqa.Common.Configuration
         {
             get
             {
-                return TempFile.TempDirectory + @"Qiqqa\";
+                return Path.GetFullPath(Path.Combine(TempFile.TempDirectory, @"Qiqqa"));
             }
         }
 
@@ -52,13 +55,7 @@ namespace Qiqqa.Common.Configuration
                         override_path = override_path.Trim();
                         if (!String.IsNullOrEmpty(override_path))
                         {
-                            // Make sure it ends with a \
-                            if (!override_path.EndsWith(@"\"))
-                            {
-                                override_path = override_path + @"\";
-                            }
-
-                            base_directory_for_qiqqa = override_path;
+                            base_directory_for_qiqqa = Path.GetFullPath(override_path);
 
                             // Check that the path is reasonable
                             try
@@ -67,7 +64,7 @@ namespace Qiqqa.Common.Configuration
                             }
                             catch (Exception ex)
                             {
-                                Logging.Error(ex, "There was a problem creating the user-overridden base directory, so reverting to default");
+                                Logging.Error(ex, "There was a problem creating the user-overridden base directory '{0}', so reverting to default", base_directory_for_qiqqa);
                                 base_directory_for_qiqqa = null;
                             }
                         }
@@ -76,7 +73,7 @@ namespace Qiqqa.Common.Configuration
                     // If we get here, use the default path
                     if (null == base_directory_for_qiqqa)
                     {
-                        base_directory_for_qiqqa = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Quantisle\Qiqqa\";
+                        base_directory_for_qiqqa = Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Quantisle/Qiqqa"));
                     }
                 }
 
@@ -88,7 +85,7 @@ namespace Qiqqa.Common.Configuration
         {
             get
             {
-                return BaseDirectoryForQiqqa + @"\" + user_guid + @"\";
+                return Path.GetFullPath(Path.Combine(BaseDirectoryForQiqqa, user_guid));
             }
         }
 
@@ -96,7 +93,7 @@ namespace Qiqqa.Common.Configuration
         {
             get
             {
-                return BaseDirectoryForUser + @"Qiqqa.configuration";
+                return Path.Combine(BaseDirectoryForUser, @"Qiqqa.configuration");
             }
         }
 
@@ -104,7 +101,7 @@ namespace Qiqqa.Common.Configuration
         {
             get
             {
-                return BaseDirectoryForUser + @"Qiqqa.search_history";
+                return Path.Combine(BaseDirectoryForUser, @"Qiqqa.search_history");
             }
         }
 
@@ -112,7 +109,7 @@ namespace Qiqqa.Common.Configuration
         {
             get
             {
-                return StartupDirectoryForQiqqa + @"\7za.exe";
+                return Path.Combine(StartupDirectoryForQiqqa, @"7za.exe");
             }
         }
 
@@ -120,7 +117,7 @@ namespace Qiqqa.Common.Configuration
         {
             get
             {
-                return StartupDirectoryForQiqqa + @"\wkhtmltopdf.exe";
+                return Path.Combine(StartupDirectoryForQiqqa, @"wkhtmltopdf.exe");
             }
         }
 
@@ -130,6 +127,7 @@ namespace Qiqqa.Common.Configuration
         private ConfigurationManager()
         {
             ShutdownableManager.Instance.Register(Shutdown);
+            ResetConfigurationRecordToGuest();
         }
 
         void Shutdown()
@@ -160,7 +158,7 @@ namespace Qiqqa.Common.Configuration
                 // First try to load the modern configuration file type: JSON format
                 if (File.Exists(ConfigFilenameForUser + ".json"))
                 {
-                    Logging.Info("Loading configuration from JSON");
+                    Logging.Info("Loading configuration from JSON file {0}", ConfigFilenameForUser + ".json");
                     string input;
                     // The using statement automatically CLOSES the stream and calls 
                     // IDisposable.Dispose on the stream object.
@@ -171,12 +169,12 @@ namespace Qiqqa.Common.Configuration
                         input = file.ReadToEnd();
                     }
                     configuration_record = JsonConvert.DeserializeObject<ConfigurationRecord>(input);
-                    Logging.Info("Loaded configuration from JSON");
+                    Logging.Info("Loaded configuration from JSON file {0}", ConfigFilenameForUser + ".json");
                 }
             }
             catch (Exception ex)
             {
-                Logging.Error(ex, "There was a problem loading configuration from JSON.");
+                Logging.Error(ex, "There was a problem loading configuration from JSON file {0}", ConfigFilenameForUser + ".json");
             }
 
             // If the new JSON format doesn't fly, we're probably migrating from an older Qiqqa like v80 or v79:
@@ -188,20 +186,20 @@ namespace Qiqqa.Common.Configuration
                 {
                     if (File.Exists(ConfigFilenameForUser))
                     {
-                        Logging.Info("Loading configuration");
+	                    Logging.Info("Loading configuration file {0}", ConfigFilenameForUser);
                         configuration_record = (ConfigurationRecord)ObjectSerializer.LoadObject(ConfigFilenameForUser);
-                        Logging.Info("Loaded configuration");
+    	                Logging.Info("Loaded configuration file {0}", ConfigFilenameForUser);
                     }
                 }
                 catch (Exception ex)
                 {
-                    Logging.Error(ex, "There was a problem loading configuration.");
+        	        Logging.Error(ex, "There was a problem loading configuration file {0}", ConfigFilenameForUser);
                 }
             }
 
             if (null == configuration_record)
             {
-                Logging.Info("There is no existing configuration, so creating one from scratch.");
+                Logging.Info("There is no existing configuration, so creating one from scratch. Is configuration file {0} missing?", ConfigFilenameForUser);
                 configuration_record = new ConfigurationRecord();
             }
 

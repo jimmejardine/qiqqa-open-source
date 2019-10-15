@@ -9,6 +9,8 @@ using Qiqqa.Documents.PDF;
 using Qiqqa.Documents.PDF.PDFControls;
 using Qiqqa.Main;
 using Utilities;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.Common
 {
@@ -26,7 +28,7 @@ namespace Qiqqa.Common
                     LibraryControl library_control = framework_element as LibraryControl;
                     if (null != library_control)
                     {
-                        Logging.Info("Remembering a library control " + library_control.Library.WebLibraryDetail.Id);
+                        Logging.Info("Remembering a library control {0}", library_control.Library.WebLibraryDetail.Id);
                         restore_settings.Add(String.Format("PDF_LIBRARY,{0}", library_control.Library.WebLibraryDetail.Id));
                     }
                 }
@@ -35,7 +37,7 @@ namespace Qiqqa.Common
                     PDFReadingControl pdf_reading_control = framework_element as PDFReadingControl;
                     if (null != pdf_reading_control)
                     {
-                        Logging.Info("Remembering a PDF reader " + pdf_reading_control.PDFRendererControlStats.pdf_document.Fingerprint);
+                        Logging.Info("Remembering a PDF reader {0}", pdf_reading_control.PDFRendererControlStats.pdf_document.Fingerprint);
                         restore_settings.Add(String.Format("PDF_DOCUMENT,{0},{1}", pdf_reading_control.PDFRendererControlStats.pdf_document.Library.WebLibraryDetail.Id, pdf_reading_control.PDFRendererControlStats.pdf_document.Fingerprint));
                     }
                 }
@@ -100,7 +102,7 @@ namespace Qiqqa.Common
         {
             get
             {
-                return ConfigurationManager.Instance.BaseDirectoryForUser + @"\Qiqqa.restore_desktop";
+                return Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.BaseDirectoryForUser, @"Qiqqa.restore_desktop"));
             }
         }
     }

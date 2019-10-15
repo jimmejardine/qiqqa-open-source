@@ -2,6 +2,8 @@
 using System.IO;
 using Qiqqa.Common.Configuration;
 using Utilities;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.WebBrowsing
 {
@@ -17,7 +19,7 @@ namespace Qiqqa.WebBrowsing
         {
             get
             {
-                return ConfigurationManager.Instance.BaseDirectoryForUser + "\\" + "Qiqqa.web_searcher_preferences";
+                return Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.BaseDirectoryForUser, @"Qiqqa.web_searcher_preferences"));
             }
         }
 

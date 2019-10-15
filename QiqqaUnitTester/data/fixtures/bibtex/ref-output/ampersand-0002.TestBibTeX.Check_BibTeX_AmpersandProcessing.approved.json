@@ -1,0 +1,24 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "wieling_impact_2010",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "The impact of online video lecture recordings and automated feedback on student performance",
+        "volume": "54",
+        "issn": "0360-1315",
+        "doi": "DOI: 10.1016/j.compedu.2009.10.002",
+        "number": "4",
+        "journal": "Computers \\& Education",
+        "author": "Wieling, M.B. and Hofman, W.H.A.",
+        "year": "2010",
+        "pages": "992 -- 998"
+      }
+    }
+  ],
+  "Comments": [
+    "% double-escaped ampersand = b0rk?"
+  ]
+}

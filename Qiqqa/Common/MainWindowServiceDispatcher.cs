@@ -43,6 +43,8 @@ using Application = System.Windows.Forms.Application;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using UserControl = System.Windows.Controls.UserControl;
 using Qiqqa.Wizards;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.Common
 {
@@ -463,7 +465,7 @@ namespace Qiqqa.Common
 
         internal void OpenLicensesDirectory()
         {
-            Process.Start(ConfigurationManager.Instance.StartupDirectoryForQiqqa + @"licenses");
+            Process.Start(Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"licenses")));
         }
 
 

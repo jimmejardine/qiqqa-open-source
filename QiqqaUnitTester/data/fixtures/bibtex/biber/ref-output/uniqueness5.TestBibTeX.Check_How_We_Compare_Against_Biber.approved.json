@@ -1,0 +1,131 @@
+﻿{
+  "Items": [
+    {
+      "Type": "ARTICLE",
+      "Key": "uls1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Smith and Henry Jones",
+        "year": "2000"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "uls2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Smith and Sam Small",
+        "year": "2001"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "uls3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Henry Helarn and Brian Bonkers",
+        "year": "2000"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "uls4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Henry Helarn and Michael Resin",
+        "year": "2000"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "uls5",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Robert Feld and Ian Ink",
+        "year": "2000"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "uls6",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Robert Feld and Brian Belt",
+        "year": "2000"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "uls7",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Robert Feld and Stanley Gibbons",
+        "year": "2001"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "uls8",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Patrick Poodle and Robin Vessel and Marvin Eagle and Rupert Trendle",
+        "year": "2000"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "uls9",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Patrick Poodle and Robin Vessel and Jeremy Idle and Leigh Loog",
+        "year": "2001"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "uls10",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Vogel and Beast and Garble and Rook",
+        "year": "2000"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "uls11",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Vogel and Beast and Tremble and Bite",
+        "year": "2000"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "uls12",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Vogel and Beast and Acid and Squeeze",
+        "year": "2001"
+      }
+    }
+  ],
+  "Comments": [
+    "% maxnames=1, minnames=1\r\n% both should be uniquelist=undef as the year disambiguates",
+    "% Should be uniquelist = 2 for both as the year is the same",
+    "% uls5 and uls6 should all be uniquelist = 2 as same year but uls7 should be undef",
+    "% maxnames=3, minnames=2\r\n% uls8 and uls9 should all be undef as the year disambiguates",
+    "% uls10 and uls11 should be uniquelist = 3 and uls12 should be undef"
+  ]
+}

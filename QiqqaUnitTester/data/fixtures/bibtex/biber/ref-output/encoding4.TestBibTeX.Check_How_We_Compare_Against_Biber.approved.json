@@ -1,0 +1,19 @@
+﻿{
+  "Items": [
+    {
+      "Type": "BOOK",
+      "Key": "test1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "year": "1999",
+        "author": "Edward Encalcer",
+        "title": "�ome title",
+        "publisher": "A press"
+      }
+    }
+  ],
+  "Comments": [
+    "% -*- coding: latin-2-unix -*-\r\n% This is a latin2 encoded file (Notice the \"LATIN CAPITAL LETTER Z WITH DOT ABOVE\").\r\n% The top line is a hint to Emacs to open in the right encoding"
+  ]
+}

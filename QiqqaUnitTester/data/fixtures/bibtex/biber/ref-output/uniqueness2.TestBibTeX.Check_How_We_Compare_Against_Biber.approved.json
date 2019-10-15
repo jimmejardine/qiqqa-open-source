@@ -1,0 +1,218 @@
+﻿{
+  "Items": [
+    {
+      "Type": "ARTICLE",
+      "Key": "un8",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Alan AAA and B. BBB and A. CCC"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "un9",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Anthon AAA and B. BBB and B. CCC and A. DDD"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "un10",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "B. DDD"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "unapa1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Ireys, A. and Chernoff, A. and DeVet, A. and Kim, A."
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "unapa2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Ireys, A. and Chernoff, A. and Stein, A. and DeVet, A. and Silver, A."
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "others1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "NameA and NameB and others",
+        "year": "2011"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "others2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "NameA and NameB and others",
+        "year": "2011"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "unall1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Name11 and Name22 and Name33 and Name44 and Name55",
+        "title": "Title 1",
+        "year": "2011"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "unall2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Name11 and Name22 and Name33 and Name44 and Name55",
+        "title": "Title 2",
+        "year": "2011"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "unall3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "A111 and A222 and A333 and A444 and A555",
+        "year": "2011"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "unall4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "A111 and A222 and A333 and A444 and A555 and A666",
+        "year": "2011"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "unall5",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Name1 and Name2 and Name3 and Name4 and Name5",
+        "title": "Title 3",
+        "year": "2010"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "unall6",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Name1 and Name2 and Name3 and Name4 and Name5",
+        "title": "Title 5",
+        "year": "2010"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "unall7",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Name1 and Name2 and Name3 and Name4 and Name6",
+        "title": "Title 3",
+        "year": "2010"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "unall8",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Name1111 and Name2222 and Name3333 and Name4444 and Name5555",
+        "title": "Title 3",
+        "year": "2010"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "unall9",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Name1111 and Name2222 and Name3333 and Name4444 and Name5555",
+        "title": "Title 5",
+        "year": "2010"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "unall9a",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "uniquelist=false and Name1111 and Name2222 and Name3333 and Name4444 and Name5555",
+        "title": "Title 5",
+        "year": "2010"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "unall10",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Name1111 and Name2222 and Name3333 and Name4444 and Name5555 and Name6666",
+        "title": "Title 5",
+        "year": "2010"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "ul01",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "XXX and YYY and ZZZ"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "ul02",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "XXX and YYY and ZZZ and MMM and NNN"
+      }
+    }
+  ],
+  "Comments": [
+    "% Two works by the same author list, should be no uniquelist",
+    "% First namelist is subset of second,\r\n% maxnames=5 -> ul=undef and ul=6 respectively\r\n% maxnames=1 -> ul=5 and ul=6 respectively",
+    "% Two lists with same authors, one differing in last place\r\n% ul=5",
+    "% ul=5",
+    "% ul=5",
+    "% Two lists with same authors, one differing in being a superset. maxnames/minnames=1\r\n% so the truncations are ambiguous, hence uniquelist is needed.\r\n% ul=5",
+    "% ul=5",
+    "% ul=false (per-namelist setting)",
+    "% ul=6",
+    "% Testing \"et al\" counting as a uniquelist position\r\n% ul01 = 3\r\n% ul02 = 3 (because it will be \"XXX and YYY and ZZZ et al\" which disambiguates the list from\r\n% \"XXX and YYY and ZZZ\""
+  ]
+}

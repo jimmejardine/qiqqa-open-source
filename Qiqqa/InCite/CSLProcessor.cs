@@ -15,7 +15,7 @@ namespace Qiqqa.InCite
 {
     public class CSLProcessor
     {
-        private static readonly string BASE_PATH = ConfigurationManager.Instance.TempDirectoryForQiqqa + @"InCite\";
+        private static readonly string BASE_PATH = Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.TempDirectoryForQiqqa, @"InCite"));
 
         public class BrowserThreadPassThru
         {
@@ -114,8 +114,7 @@ namespace Qiqqa.InCite
         {
             get
             {
-                string citation_resources_subdirectory = ConfigurationManager.Instance.StartupDirectoryForQiqqa + @"InCite\resources";
-                return citation_resources_subdirectory;
+                return Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"InCite/resources"));
             }
         }
 
@@ -132,7 +131,7 @@ namespace Qiqqa.InCite
                 if (citation_resource.Contains("default_abbreviations")) continue;
 
                 string source_filename = Path.GetFileName(citation_resource);
-                string dest_filename = BASE_PATH + source_filename;
+                string dest_filename = Path.GetFullPath(Path.Combine(BASE_PATH, source_filename));
                 File.Copy(citation_resource, dest_filename, true);
             }
         }
@@ -140,7 +139,7 @@ namespace Qiqqa.InCite
         private static void AppendCopyright(StringBuilder sb)
         {
             sb.AppendLine("// ------------------------------------------------------------------");
-            sb.AppendLine("// --- © Copyright 2010-2016 Quantisle Ltd.  All Rights Reserved. ---");
+            sb.AppendLine("// --- © Copyright 2010-2019 Quantisle Ltd.  All Rights Reserved. ---");
             sb.AppendLine("// ------------------------------------------------------------------");
             sb.AppendLine();
         }
@@ -177,7 +176,7 @@ namespace Qiqqa.InCite
             sb.AppendFormat("var CITATION_STYLE = \"{0}\";", style);
             sb.AppendLine();
 
-            string style_filename = BASE_PATH + "load_csl.js";
+            string style_filename = Path.GetFullPath(Path.Combine(BASE_PATH, "load_csl.js"));
             File.WriteAllText(style_filename, sb.ToString());
         }
 
@@ -273,7 +272,7 @@ namespace Qiqqa.InCite
 
         private static string EnsureWorkingDirectoryIsPukka_WithCitations_Common_FileWrite(string citation_javascript)
         {
-            string citation_filename = BASE_PATH + "load_citations.js";
+            string citation_filename = Path.GetFullPath(Path.Combine(BASE_PATH, "load_citations.js"));
             File.WriteAllText(citation_filename, citation_javascript);
             return citation_javascript;
         }

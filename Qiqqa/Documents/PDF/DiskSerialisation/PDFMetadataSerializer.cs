@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
 using Qiqqa.UtilisationTracking;
+using Qiqqa.Documents.PDF.ThreadUnsafe;
 using Utilities;
 using Utilities.Files;
 using Utilities.Misc;
@@ -11,7 +12,7 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
 {
     public class PDFMetadataSerializer
     {
-        internal static void WriteToDisk(PDFDocument pdf_document)
+        internal static void WriteToDisk(PDFDocument_ThreadUnsafe pdf_document)
         {
             string json = pdf_document.GetAttributesAsJSON();
             pdf_document.Library.LibraryDB.PutString(pdf_document.Fingerprint, PDFDocumentFileLocations.METADATA, json);            

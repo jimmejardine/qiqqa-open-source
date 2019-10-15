@@ -1,0 +1,17 @@
+﻿{
+  "Items": [
+    {
+      "Type": "Article",
+      "Key": "error1",
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\n @Article{error1,    author {error},    title = {title},  }    artic\r\n                            ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n @Article{error1,    author {error},    title = {title},  }    artic\r\n                            ^"
+      ],
+      "Warnings": [],
+      "Fields": {
+        "title": "title"
+      }
+    }
+  ],
+  "Comments": []
+}

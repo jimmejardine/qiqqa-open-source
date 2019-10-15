@@ -1,0 +1,28 @@
+﻿{
+  "Items": [
+    {
+      "Type": "conference",
+      "Key": "usenix",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n @conference{usenix = usenix,    shortname = \"USENIX\",    lo\r\n                    ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "extend",
+      "Key": "usenix",
+      "Exceptions": [
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nlves the example:    @extend{usenix,    [year=2006] address=Boston, month=may,  \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {
+        "address": "Boston",
+        "month": "may"
+      }
+    }
+  ],
+  "Comments": [
+    "= usenix,\r\n  shortname = \"USENIX\",\r\n  longname = \"USENIX Annual Technical Conference\",\r\n  [year=2005] address=Anaheim, month=apr,\r\n  [year=2004] address=Boston, month=jun,\r\n  [year=2003] address=SanAntonio, month=jun,\r\n  [year=2002] address=Monterey, month=jun,\r\n  [year=2001] address=Boston, month=jun,\r\n  [year=2000] address=SanDiego, month=jun,\r\n  [year=1999] address=Monterey, month=jun,\r\n  [year=1996] address=SanDiego, month=jan,\r\n}\r\n\r\n% Obviously, the best solution is to add the following line to the entry\r\n% in the system conferences database:\r\n\r\n%   [year=2006] address=Boston, month=may,\r\n\r\n% However, you may not have permission to edit the database.  Now there are\r\n% two options: Cut-and-paste the usenix object into some local database with\r\n% a new name so there is no conflict, or put the address and month directly\r\n% into the paper's entry.  Neither one is a good solution.  What you want is\r\n% to be able to extend the \\texttt{usenix} object even though it is in\r\n% another database you can't edit.\r\n% \r\n% Enter the \\texttt{@extend} primitive.  The following solves the example:"
+  ]
+}

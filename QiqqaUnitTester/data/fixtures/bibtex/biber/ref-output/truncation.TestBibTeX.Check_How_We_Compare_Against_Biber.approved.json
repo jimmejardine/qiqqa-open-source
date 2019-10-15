@@ -1,0 +1,116 @@
+﻿{
+  "Items": [
+    {
+      "Type": "BOOK",
+      "Key": "us1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Anne Elk",
+        "title": "A Theory on Brontosauruses",
+        "date": "1972"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "us2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Anne Elk and others",
+        "title": "A Theory on Einiosauruses",
+        "date": "1972"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "us3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Anne Uthor",
+        "title": "Title B",
+        "date": "2000"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "us4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Anne Uthor and Editha Ditor and William Writer\r\n             and Jane Doe",
+        "title": "Title A",
+        "date": "2000"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "us5",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Anne Uthor and Editha Ditor and William Writer\r\n             and Jane Doe",
+        "title": "Title C",
+        "date": "2000"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "us6",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Roger Red",
+        "title": "Ragged Rubles",
+        "date": "1971"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "us7",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Roger Red and others",
+        "title": "Ragged Rupees",
+        "date": "1971"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "us8",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Simon Sly",
+        "title": "Title B",
+        "date": "2000"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "us9",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "options": "nohashothers=false",
+        "author": "nosortothers=false and Simon Sly and Terrence Tremble and Mark Miserable\r\n             and Jake Jolly",
+        "title": "Title A",
+        "date": "2000"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "us10",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Simon Sly and Terrence Tremble and Mark Miserable\r\n             and Jake Jolly",
+        "title": "Title C",
+        "date": "2000"
+      }
+    }
+  ],
+  "Comments": []
+}

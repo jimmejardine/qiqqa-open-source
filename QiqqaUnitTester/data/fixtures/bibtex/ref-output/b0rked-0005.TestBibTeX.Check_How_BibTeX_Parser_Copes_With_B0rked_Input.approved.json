@@ -1,0 +1,54 @@
+﻿{
+  "Items": [
+    {
+      "Type": "incollection",
+      "Key": "bretthorst1988excerpts",
+      "Exceptions": [
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nation},    author={Bretthorst, G Larry},,    booktitle={Maximum-Entropy and Baye\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nn Methods in Science and Engineering},  ,  pages={75--145},    ,year={1988}, , ,\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nd Engineering},  ,  pages={75--145},    ,year={1988}, , , , , , , , , , , , , , \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n,  ,  pages={75--145},    ,year={1988}, , , , , , , , , , , , , , , , , , , , , \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n ,  pages={75--145},    ,year={1988}, , , , , , , , , , , , , , , , , , , , , , \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n  pages={75--145},    ,year={1988}, , , , , , , , , , , , , , , , , , , , , , , \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\npages={75--145},    ,year={1988}, , , , , , , , , , , , , , , , , , , , , , , , \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nges={75--145},    ,year={1988}, , , , , , , , , , , , , , , , , , , , , , , , , \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\ns={75--145},    ,year={1988}, , , , , , , , , , , , , , , , , , , , , , , , , , \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n{75--145},    ,year={1988}, , , , , , , , , , , , , , , , , , , , , , , , , , , \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n5--145},    ,year={1988}, , , , , , , , , , , , , , , , , , , , , , , , , , , , \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n-145},    ,year={1988}, , , , , , , , , , , , , , , , , , , , , , , , , , , , , \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n45},    ,year={1988}, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n},    ,year={1988}, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n    ,year={1988}, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,   \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n  ,year={1988}, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,    p\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n,year={1988}, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,    pub\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\near={1988}, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,    publi\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nr={1988}, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,    publish\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n{1988}, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,    publisher\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n988}, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,    publisher={\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n8}, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,    publisher={Sp\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,    publisher={Spri\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n, , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,    publisher={Spring\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n, , , , , , , , , , , , , , , , , , , , , , , , , , , , ,    publisher={Springer\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n, , , , , , , , , , , , , , , , , , , , , , , , , , , ,    publisher={Springer} \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n, , , , , , , , , , , , , , , , , , , , , , , , , , ,    publisher={Springer}  }\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n, , , , , , , , , , , , , , , , , , , , , , , , , ,    publisher={Springer}  }  \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n, , , , , , , , , , , , , , , , , , , , , , , , ,    publisher={Springer}  }    \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n, , , , , , , , , , , , , , , , , , , , , , , ,    publisher={Springer}  }    \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n, , , , , , , , , , , , , , , , , , , , , , ,    publisher={Springer}  }    \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n, , , , , , , , , , , , , , , , , , , , , ,    publisher={Springer}  }    \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n, , , , , , , , , , , , , , , , , , , , ,    publisher={Springer}  }    \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {
+        "title": "Excerpts from Bayesian spectrum analysis and parameter estimation",
+        "author": "Bretthorst, G Larry",
+        "booktitle": "Maximum-Entropy and Bayesian Methods in Science and Engineering",
+        "pages": "75--145",
+        "publisher": "Springer"
+      }
+    }
+  ],
+  "Comments": [
+    "% multiple commas between two properties"
+  ]
+}

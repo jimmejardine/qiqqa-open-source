@@ -1,0 +1,19 @@
+﻿{
+  "Items": [
+    {
+      "Type": "presentation",
+      "Key": "105coolant",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Reliability Considerations of Inverter/DC Link Capacitor using PP Film and 105° C Engine Coolant",
+        "author": "Sawyer, Ed and Von Kampen, Ted",
+        "year": "2008",
+        "publisher": "SB Electronics"
+      }
+    }
+  ],
+  "Comments": [
+    "% 105 degrees..."
+  ]
+}

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using Utilities;
 using Utilities.Files;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary.FolderWatching
 {
@@ -92,7 +94,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         {
             get
             {
-                return library.LIBRARY_BASE_PATH + "Qiqqa.folder_watcher";
+                return Path.GetFullPath(Path.Combine(library.LIBRARY_BASE_PATH, @"Qiqqa.folder_watcher"));
             }
         }
 

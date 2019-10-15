@@ -1,0 +1,21 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "stipcevic609043quantum",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Quantum random number generator",
+        "author": "Stipcevic, M and Rogina, B Medved",
+        "journal": "arXiv preprint quant-ph/0609043",
+        "year": "2006"
+      }
+    }
+  ],
+  "Comments": [
+    "% `@comment` entries",
+    "{ BIBTEX_AUTO - GS ",
+    "}"
+  ]
+}

@@ -20,8 +20,11 @@ using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
 using Utilities.Reflection;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
-namespace Qiqqa.Documents.PDF
+namespace Qiqqa.Documents.PDF.ThreadUnsafe
 {
     /// <summary>
     /// ******************* NB NB NB NB NB NB NB NB NB NB NB ********************************
@@ -34,10 +37,8 @@ namespace Qiqqa.Documents.PDF
     /// ******************* NB NB NB NB NB NB NB NB NB NB NB ********************************
     /// </summary>
 
-    public class PDFDocument
+    public class PDFDocument_ThreadUnsafe
     {
-        private const string VANILLA_REFERENCE_FILETYPE = "VANILLA_REFERENCE";
-
         public Library Library
         { get; }
 
@@ -50,11 +51,11 @@ namespace Qiqqa.Documents.PDF
             return json;
         }
 
-        static readonly PropertyDependencies property_dependencies = new PropertyDependencies();
+        internal static readonly PropertyDependencies property_dependencies = new PropertyDependencies();
 
-        static PDFDocument()
+        static PDFDocument_ThreadUnsafe()
         {
-            PDFDocument p = null;
+            PDFDocument_ThreadUnsafe p = null;            
 
             property_dependencies.Add(() => p.TitleCombined, () => p.Title);
             property_dependencies.Add(() => p.TitleCombined, () => p.BibTex);
@@ -96,11 +97,11 @@ namespace Qiqqa.Documents.PDF
             property_dependencies.Add(() => p.BibTex, () => p.Abstract);
         }
 
-        private PDFDocument(Library library)
+        internal PDFDocument_ThreadUnsafe(Library library)
         {
             this.Library = library;
         }
-
+ 
         [NonSerialized]
         PDFRenderer pdf_renderer;
         public PDFRenderer PDFRenderer
@@ -160,24 +161,6 @@ namespace Qiqqa.Documents.PDF
             {
                 // do not check if DocumentExists: our pagecount cache check is sufficient and one I/O per check.
                 return PDFRendererFileLayer.HasOCRdata(Fingerprint);
-            }
-        }
-
-        // TODO: has a cyclic link in the GC to PDFDocument due to PDFDocument being referenced as member of this bindable:
-        // PDFDocument -> Bindable -> AugmentedBindable<PDFDocument> -> Underlying -> PDFDocument
-        [NonSerialized]
-        AugmentedBindable<PDFDocument> bindable = null;
-        public AugmentedBindable<PDFDocument> Bindable
-        {
-            get
-            {
-                if (null == bindable)
-                {
-                    bindable = new AugmentedBindable<PDFDocument>(this, property_dependencies);
-                    bindable.PropertyChanged += bindable_PropertyChanged;
-                }
-
-                return bindable;
             }
         }
 
@@ -555,7 +538,7 @@ namespace Qiqqa.Documents.PDF
 
         #region --- Tags ------------------------------------------------------------------------------
 
-        public void AddTag(string new_tag_bundle)
+        public bool AddTag(string new_tag_bundle)
         {
             HashSet<string> new_tags = TagTools.ConvertTagBundleToTags(new_tag_bundle);
 
@@ -568,12 +551,12 @@ namespace Qiqqa.Documents.PDF
             if (tag_count_old != tag_count_new)
             {
                 Tags = TagTools.ConvertTagListToTagBundle(tags);
-                Bindable.NotifyPropertyChanged(() => Tags);
-                TagManager.Instance.ProcessDocument(this);
+                return true;
             }
+            return false;
         }
 
-        public void RemoveTag(string dead_tag_bundle)
+        public bool RemoveTag(string dead_tag_bundle)
         {
             HashSet<string> dead_tags = TagTools.ConvertTagBundleToTags(dead_tag_bundle);
 
@@ -588,9 +571,9 @@ namespace Qiqqa.Documents.PDF
             if (tag_count_old != tag_count_new)
             {
                 Tags = TagTools.ConvertTagListToTagBundle(tags);
-                Bindable.NotifyPropertyChanged(() => Tags);
-                TagManager.Instance.ProcessDocument(this);
+                return true;
             }
+            return false;
         }
 
         [NonSerialized]
@@ -653,7 +636,7 @@ namespace Qiqqa.Documents.PDF
         {
             get
             {
-                return String.Compare(this.FileType, VANILLA_REFERENCE_FILETYPE, StringComparison.OrdinalIgnoreCase) == 0;
+                return String.Compare(this.FileType, Constants.VanillaReferenceFileType, StringComparison.OrdinalIgnoreCase) == 0;
             }
         }
 
@@ -675,7 +658,9 @@ namespace Qiqqa.Documents.PDF
             {
                 annotations = new PDFAnnotationList();
                 PDFAnnotationSerializer.ReadFromDisk(this, ref annotations, library_items_annotations_cache);
+#if false
                 annotations.OnPDFAnnotationListChanged += annotations_OnPDFAnnotationListChanged;
+#endif
             }
 
             return annotations;
@@ -705,34 +690,16 @@ namespace Qiqqa.Documents.PDF
             return json;
         }
 
-        public void QueueToStorage()
-        {
-            // create a clone to cross the thread boundary:
-            PDFDocument rv = new PDFDocument(this.Library);
+        //public void QueueToStorage()
+        //{
+        //    DocumentQueuedStorer.Instance.Queue(this);
+        //}
 
-            // Clone the information
-            rv.FileType = this.FileType;
-            rv.Fingerprint = this.Fingerprint;
-            rv.dictionary = (DictionaryBasedObject)this.dictionary.Clone();
-
-            rv.dictionary = (DictionaryBasedObject)this.dictionary.Clone();
-            rv.annotations = (PDFAnnotationList)this.Annotations.Clone();
-            rv.highlights = (PDFHightlightList)this.Highlights.Clone();
-            rv.inks = (PDFInkList)this.Inks.Clone();
-
-            // Copy the citations
-            rv.PDFDocumentCitationManager.CloneFrom(this.PDFDocumentCitationManager);
-
-            // --------------------------------------
-
-            DocumentQueuedStorer.Instance.Queue(rv);
-        }
-
-        void annotations_OnPDFAnnotationListChanged()
-        {
-            QueueToStorage();
-            this.Library.LibraryIndex.ReIndexDocument(this);
-        }
+        //void annotations_OnPDFAnnotationListChanged()
+        //{
+        //    QueueToStorage();
+        //    this.Library.LibraryIndex.ReIndexDocument(this);
+        //}
 
         [NonSerialized]
         PDFHightlightList highlights = null;
@@ -750,7 +717,10 @@ namespace Qiqqa.Documents.PDF
             {
                 highlights = new PDFHightlightList();
                 PDFHighlightSerializer.ReadFromStream(this, highlights, library_items_highlights_cache);
+#if false
                 highlights.OnPDFHighlightListChanged += highlights_OnPDFHighlightListChanged;
+#endif
+                return highlights;
             }
 
             return highlights;
@@ -775,11 +745,11 @@ namespace Qiqqa.Documents.PDF
             return json;
         }
 
-        void highlights_OnPDFHighlightListChanged()
-        {
-            QueueToStorage();
-            this.Library.LibraryIndex.ReIndexDocument(this);
-        }
+        //void highlights_OnPDFHighlightListChanged()
+        //{
+        //    QueueToStorage();
+        //    this.Library.LibraryIndex.ReIndexDocument(this);
+        //}
 
         [NonSerialized]
         PDFInkList inks = null;
@@ -797,7 +767,9 @@ namespace Qiqqa.Documents.PDF
             {
                 inks = new PDFInkList();
                 PDFInkSerializer.ReadFromDisk(this, inks, library_items_inks_cache);
+#if false
                 inks.OnPDFInkListChanged += inks_OnPDFInkListChanged;
+#endif
             }
 
             return inks;
@@ -824,33 +796,7 @@ namespace Qiqqa.Documents.PDF
             return data;
         }
 
-        void inks_OnPDFInkListChanged()
-        {
-            Logging.Info("Document has changed inks");
-            QueueToStorage();
-            this.Library.LibraryIndex.ReIndexDocument(this);
-        }
-
-
-        #endregion -------------------------------------------------------------------------------------------------
-
-        #region --- Managers ----------------------------------------------------------------------
-
-        [NonSerialized]
-        PDFDocumentCitationManager _pdf_document_citation_manager = null;
-        public PDFDocumentCitationManager PDFDocumentCitationManager
-        {
-            get
-            {
-                if (null == _pdf_document_citation_manager)
-                {
-                    _pdf_document_citation_manager = new PDFDocumentCitationManager(this);
-                }
-                return _pdf_document_citation_manager;
-            }
-        }
-
-        #endregion -------------------------------------------------------------------------------------------------
+#endregion -------------------------------------------------------------------------------------------------
 
         public void SaveToMetaData()
         {
@@ -867,12 +813,13 @@ namespace Qiqqa.Documents.PDF
             PDFInkSerializer.WriteToDisk(this);
         }
 
-        void bindable_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            QueueToStorage();
-            this.Library.LibraryIndex.ReIndexDocument(this);
-        }
+        //void bindable_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        //{
+        //    QueueToStorage();
+        //    this.Library.LibraryIndex.ReIndexDocument(this);
+        //}
 
+#if false
         /// <summary>
         /// Throws exception when metadata could not be converted to a valid PDFDocument instance.
         /// </summary>
@@ -935,7 +882,7 @@ namespace Qiqqa.Documents.PDF
             PDFDocument pdf_document = new PDFDocument(library);
 
             // Store the most important information
-            pdf_document.FileType = VANILLA_REFERENCE_FILETYPE;
+            pdf_document.FileType = Constants.VanillaReferenceFileType;
             pdf_document.Fingerprint = VanillaReferenceCreating.CreateVanillaReferenceFingerprint();
             pdf_document.DateAddedToDatabase = DateTime.UtcNow;
             pdf_document.DateLastModified = DateTime.UtcNow;
@@ -963,25 +910,67 @@ namespace Qiqqa.Documents.PDF
 
             return pdf_document;
         }
+#endif
 
+        public void CopyMetaData(PDFDocument_ThreadUnsafe pdf_document_template, bool copy_fingerprint = true)
+        {
+            dictionary["ColorWrapper"] = pdf_document_template.dictionary["ColorWrapper"];
+            dictionary["DateAddedToDatabase"] = pdf_document_template.dictionary["DateAddedToDatabase"];
+            dictionary["DateLastCited"] = pdf_document_template.dictionary["DateLastCited"];
+            dictionary["DateLastModified"] = pdf_document_template.dictionary["DateLastModified"];
+            dictionary["DateLastRead"] = pdf_document_template.dictionary["DateLastRead"];
+            dictionary["AbstractOverride"] = pdf_document_template.dictionary["AbstractOverride"];
+            dictionary["Authors"] = pdf_document_template.dictionary["Authors"];
+            dictionary["AuthorsSuggested"] = pdf_document_template.dictionary["AuthorsSuggested"];
+            dictionary["AutoSuggested_BibTeXSearch"] = pdf_document_template.dictionary["AutoSuggested_BibTeXSearch"];
+            dictionary["AutoSuggested_OCRFrontPage"] = pdf_document_template.dictionary["AutoSuggested_OCRFrontPage"];
+            dictionary["AutoSuggested_PDFMetadata"] = pdf_document_template.dictionary["AutoSuggested_PDFMetadata"];
+            dictionary["BibTex"] = pdf_document_template.dictionary["BibTex"];
+            dictionary["Bookmarks"] = pdf_document_template.dictionary["Bookmarks"];
+            dictionary["Comments"] = pdf_document_template.dictionary["Comments"];
+            dictionary["Deleted"] = pdf_document_template.dictionary["Deleted"];
+            dictionary["DownloadLocation"] = pdf_document_template.dictionary["DownloadLocation"];
+            dictionary["FileType"] = pdf_document_template.dictionary["FileType"];
+            if (copy_fingerprint)
+            {
+                dictionary["Fingerprint"] = pdf_document_template.dictionary["Fingerprint"];
+            }
+            dictionary["HaveHardcopy"] = pdf_document_template.dictionary["HaveHardcopy"];
+            dictionary["IsFavourite"] = pdf_document_template.dictionary["IsFavourite"];
+            dictionary["PageLastRead"] = pdf_document_template.dictionary["PageLastRead"];
+            dictionary["Rating"] = pdf_document_template.dictionary["Rating"];
+            dictionary["ReadingStage"] = pdf_document_template.dictionary["ReadingStage"];
+            dictionary["Tags"] = pdf_document_template.dictionary["Tags"];
+            dictionary["Tags"] = pdf_document_template.dictionary["Tags"];
+            dictionary["Title"] = pdf_document_template.dictionary["Title"];
+            dictionary["TitleSuggested"] = pdf_document_template.dictionary["TitleSuggested"];
+            dictionary["Year"] = pdf_document_template.dictionary["Year"];
+            dictionary["YearSuggested"] = pdf_document_template.dictionary["YearSuggested"];
+
+            annotations = (PDFAnnotationList)pdf_document_template.Annotations.Clone();
+            highlights = (PDFHightlightList)pdf_document_template.Highlights.Clone();
+            inks = (PDFInkList)pdf_document_template.Inks.Clone();
+        }
 
         /// <summary>
         /// NB: only call this as part of document creation.
         /// </summary>
-        public void CloneMetaData(PDFDocument existing_pdf_document)
+        public void CloneMetaData(PDFDocument_ThreadUnsafe existing_pdf_document)
         {
-            bindable = null;
+            //bindable = null;
 
-            Logging.Info("Cloning metadata from {0}: {1}", existing_pdf_document.Fingerprint, existing_pdf_document.TitleCombined);
+            Logging.Info("Cloning metadata from {0}: {1}", existing_pdf_document..Fingerprint, existing_pdf_document.TitleCombined);
+
             //dictionary = (DictionaryBasedObject)existing_pdf_document.dictionary.Clone();
-            annotations = (PDFAnnotationList)existing_pdf_document.Annotations.Clone();
-            highlights = (PDFHightlightList)existing_pdf_document.Highlights.Clone();
-            inks = (PDFInkList)existing_pdf_document.Inks.Clone();
+            this.CopyMetaData(existing_pdf_document);
 
+#if false
             // Copy the citations
             PDFDocumentCitationManager.CloneFrom(existing_pdf_document.PDFDocumentCitationManager);
 
             QueueToStorage();
+#endif
+
 #if false
             SaveToMetaData();
 
@@ -990,9 +979,11 @@ namespace Qiqqa.Documents.PDF
             highlights = null;
             inks = null;
 #else
+#if false
             annotations.OnPDFAnnotationListChanged += annotations_OnPDFAnnotationListChanged;
             highlights.OnPDFHighlightListChanged += highlights_OnPDFHighlightListChanged;
             inks.OnPDFInkListChanged += inks_OnPDFInkListChanged;
+#endif
 #endif
         }
 
@@ -1023,7 +1014,7 @@ namespace Qiqqa.Documents.PDF
             return null;
         }
 
-        internal PDFDocument AssociatePDFWithVanillaReference(string pdf_filename)
+        internal PDFDocument AssociatePDFWithVanillaReference_Part1(string pdf_filename)
         {
             // Only works with vanilla references
             if (!IsVanillaReference)
@@ -1039,29 +1030,1303 @@ namespace Qiqqa.Documents.PDF
                 SuggestedDownloadSourceURI = pdf_filename
             }, false);
 
-            // Overwrite the new document's metadata with that of the vanilla reference...
-            if (null != new_pdf_document)
+            return new_pdf_document;
+        }
+    }
+}
+
+
+
+//=======================================================================================================
+//=======================================================================================================
+//=======================================================================================================
+//=======================================================================================================
+//=======================================================================================================
+
+
+
+namespace Qiqqa.Documents.PDF
+{
+    internal class LockObject : object
+    {
+    }
+
+    public class PDFDocument 
+    {
+        private LockObject access_lock;
+
+        private ThreadUnsafe.PDFDocument_ThreadUnsafe doc;
+
+        public Library Library
+        {
+            get
             {
-                string fingerprint = new_pdf_document.Fingerprint;
-                //new_pdf_document.dictionary = (DictionaryBasedObject)this.dictionary.Clone();
-                new_pdf_document.Fingerprint = fingerprint;
-                new_pdf_document.FileType = Path.GetExtension(pdf_filename);
+                return doc.Library;
+            }
+        }
 
-                new_pdf_document.QueueToStorage();
+        public string GetAttributesAsJSON()
+        {
+            lock (access_lock)
+            {
+                return doc.GetAttributesAsJSON();
+            }
+        }
 
-                // Delete this one
-                this.Deleted = true;
-                QueueToStorage();
+        private PDFDocument(LockObject _lock, Library library)
+        {
+            access_lock = _lock;
+            doc = new ThreadUnsafe.PDFDocument_ThreadUnsafe(library);
+        }
 
-                // Tell library to refresh
-                this.Library.SignalThatDocumentsHaveChanged(new_pdf_document);
+        private PDFDocument(LockObject _lock, Library library, DictionaryBasedObject dictionary)
+        {
+            access_lock = _lock;
+            doc = new ThreadUnsafe.PDFDocument_ThreadUnsafe(library, dictionary);
+        }
+
+        public PDFRenderer PDFRenderer
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.PDFRenderer;
+                }
+            }
+        }
+
+        public PDFRendererFileLayer PDFRendererFileLayer
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.PDFRendererFileLayer;
+                }
+            }
+        }
+
+        public int SafePageCount
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.SafePageCount;
+                }
+            }
+        }
+
+        /// <summary>
+        /// This is an approximate response: it takes a *fast* shortcut to check if the given
+        /// PDF has been OCR'd in the past.
+        /// 
+        /// The emphasis here is on NOT triggering a new OCR action! Just taking a peek, *quickly*.
+        /// 
+        /// The cost: one(1) I/O per check.
+        /// </summary>
+        public bool HasOCRdata
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.HasOCRdata;
+                }
+            }
+        }
+
+        // TODO: has a cyclic link in the GC to PDFDocument due to PDFDocument being referenced as member of this bindable:
+        // PDFDocument -> Bindable -> AugmentedBindable<PDFDocument> -> Underlying -> PDFDocument
+        [NonSerialized]
+        AugmentedBindable<PDFDocument> bindable = null;
+        public AugmentedBindable<PDFDocument> Bindable
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    if (null == bindable)
+                    {
+                        bindable = new AugmentedBindable<PDFDocument>(this, ThreadUnsafe.PDFDocument_ThreadUnsafe.property_dependencies);
+                        bindable.PropertyChanged += bindable_PropertyChanged;
+                    }
+
+                    return bindable;
+                }
+            }
+        }
+
+        void bindable_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            QueueToStorage();
+            this.Library.LibraryIndex.ReIndexDocument(this);
+        }
+        
+        public string Fingerprint
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.Fingerprint;
+                }
+            }
+             protected set {
+                lock (access_lock)
+                {
+                    doc.Fingerprint = value;
+                                    } }
+        }
+
+        /// <summary>
+        /// Unique id for both this document and the library that it exists in.
+        /// </summary>
+        public string UniqueId
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.UniqueId;
+                }
+            }
+        }
+
+        public string FileType
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.FileType;
+                }
+            }
+            set
+            {
+                lock (access_lock)
+                {
+                    doc.FileType = value;
+                }
+            }
+        }
+
+        public BibTexItem BibTexItem
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.BibTexItem;
+                }
+            }
+        }
+
+        public string BibTex
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.BibTex;
+                }
+            }
+            set
+            {
+                lock (access_lock)
+                {
+                    doc.BibTex = value;
+                }
+            }
+        }
+
+        public string BibTexKey
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.BibTexKey;
+                }
+            }
+        }
+
+        public string Title
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.Title;
+                }
+            }
+            set
+            {
+                lock (access_lock)
+                {
+                    doc.Title = value;
+                }
+            }
+        }
+        public string TitleSuggested
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.TitleSuggested;
+                }
+            }
+            set
+            {
+                lock (access_lock)
+                {
+                    doc.TitleSuggested = value;
+                }
+            }
+        }
+        public string TitleCombinedReason
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.TitleCombinedReason;
+                }
+            }
+        }
+
+        public string TitleCombined
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.TitleCombined;
+                }
+            }
+            set
+            {
+                lock (access_lock)
+                {
+                    doc.TitleCombined = value;
+                }
+            }
+        }
+        /// <summary>
+        /// Is true if the user made this title by hand (e.g. typed it in or got some BibTeX)
+        /// </summary>
+        public bool IsTitleGeneratedByUser
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.IsTitleGeneratedByUser;
+                }
+            }
+        }
+
+        public string Authors
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.Authors;
+                }
+            }
+            set
+            {
+                lock (access_lock)
+                {
+                    doc.Authors = value;
+                }
+            }
+        }
+        public string AuthorsSuggested
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.AuthorsSuggested;
+                }
+            }
+            set
+            {
+                lock (access_lock)
+                {
+                    doc.AuthorsSuggested = value;
+                }
+            }
+        }
+        public string AuthorsCombinedReason
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.AuthorsCombinedReason;
+                }
+            }
+        }
+
+        public string AuthorsCombined
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.AuthorsCombined;
+                }
+            }
+            set
+            {
+                lock (access_lock)
+                {
+                    doc.AuthorsCombined = value;
+                }
+            }
+        }
+
+        public string Year
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.Year;
+                }
+            }
+            set
+            {
+                lock (access_lock)
+                {
+                    doc.Year = value;
+                }
+            }
+        }
+        public string YearSuggested
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.YearSuggested;
+                }
+            }
+            set
+            {
+                lock (access_lock)
+                {
+                    doc.YearSuggested = value;
+                }
+            }
+        }
+        public string YearCombinedReason
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.YearCombinedReason;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Produce the document's year of publication.
+        /// 
+        /// When producing (getting) this value, the priority is:
+        /// 
+        /// - check the BibTeX `year` field and return that one when it's non-empty
+        /// - check the manual-entry `year` field (@xref Year)
+        /// - check the suggested year field (@xref YearSuggested)
+        /// - if also else fails, return the UNKNOWN_YEAR value.
+        /// 
+        /// When setting this value, the first action in this prioirty list is executed, where the conditions pass:
+        /// 
+        /// - check if there's a non-empty (partial) BibTeX record: when there is, add/update the `year` field
+        /// - update the manual-entry Year field (@xref Year)
+        /// </summary>
+        public string YearCombined
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.YearCombined;
+                }
+            }
+            set
+            {
+                lock (access_lock)
+                {
+                    doc.YearCombined = value;
+                }
+            }
+        }
+
+        public string Publication
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.Publication;
+                }
+            }
+
+            set
+            {
+                lock (access_lock)
+                {
+                    doc.Publication = value;
+                }
+            }
+        }
+
+        public string Id
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.Id;
+                }
+            }
+        }
+
+        public string DownloadLocation
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.DownloadLocation;
+                }
+            }
+            set
+            {
+                lock (access_lock)
+                {
+                    doc.DownloadLocation = value;
+                }
+            }
+        }
+
+        public DateTime? DateAddedToDatabase
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.DateAddedToDatabase;
+                }
+            }
+            set
+            {
+                lock (access_lock)
+                {
+                    doc.DateAddedToDatabase = value;
+                }
+            }
+        }
+
+        public DateTime? DateLastModified
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.DateLastModified;
+                }
+            }
+            set
+            {
+                lock (access_lock)
+                {
+                    doc.DateLastModified = value;
+                }
+            }
+        }
+
+        public DateTime? DateLastRead
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.DateLastRead;
+                }
+            }
+            set
+            {
+                lock (access_lock)
+                {
+                    doc.DateLastRead = value;
+                }
+            }
+        }
+
+        public DateTime? DateLastCited
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.DateLastCited;
+                }
+            }
+            set
+            {
+                lock (access_lock)
+                {
+                    doc.DateLastCited = value;
+                }
+            }
+        }
+
+        public void MarkAsModified()
+        {
+            lock (access_lock)
+            {
+                doc.MarkAsModified();
+            }
+        }
+
+        public string ReadingStage
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.ReadingStage;
+                }
+            }
+            set
+            {
+                lock (access_lock)
+                {
+                    doc.ReadingStage = value;
+                }
+            }
+        }
+
+        public bool? HaveHardcopy
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.HaveHardcopy;
+                }
+            }
+            set
+            {
+                lock (access_lock)
+                {
+                    doc.HaveHardcopy = value;
+                }
+            }
+        }
+
+        public bool? IsFavourite
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.IsFavourite;
+                }
+            }
+            set
+            {
+                lock (access_lock)
+                {
+                    doc.IsFavourite = value;
+                }
+            }
+        }
+
+        public string Rating
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.Rating;
+                }
+            }
+            set
+            {
+                lock (access_lock)
+                {
+                    doc.Rating = value;
+                }
+            }
+        }
+
+        public string Comments
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.Comments;
+                }
+            }
+            set
+            {
+                lock (access_lock)
+                {
+                    doc.Comments = value;
+                }
+            }
+        }
+
+        public string Abstract
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.Abstract;
+                }
+            }
+            set
+            {
+                lock (access_lock)
+                {
+                    doc.Abstract = value;
+                }
+            }
+        }
+
+        public string Bookmarks
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.Bookmarks;
+                }
+            }
+            set
+            {
+                lock (access_lock)
+                {
+                    doc.Bookmarks = value;
+                }
+            }
+        }
+
+        public Color Color
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.Color;
+                }
+            }
+            set
+            {
+                lock (access_lock)
+                {
+                    doc.Color = value;
+                }
+            }
+        }
+
+        public int PageLastRead
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.PageLastRead;
+                }
+            }
+            set
+            {
+                lock (access_lock)
+                {
+                    doc.PageLastRead = value;
+                }
+            }
+        }
+
+        public bool Deleted
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.Deleted;
+                }
+            }
+            set
+            {
+                lock (access_lock)
+                {
+                    doc.Deleted = value;
+                }
+            }
+        }
+
+#region --- AutoSuggested ------------------------------------------------------------------------------
+
+        public bool AutoSuggested_PDFMetadata
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.AutoSuggested_PDFMetadata;
+                }
+            }
+            set
+            {
+                lock (access_lock)
+                {
+                    doc.AutoSuggested_PDFMetadata = value;
+                }
+            }
+        }
+
+        public bool AutoSuggested_OCRFrontPage
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.AutoSuggested_OCRFrontPage;
+                }
+            }
+            set
+            {
+                lock (access_lock)
+                {
+                    doc.AutoSuggested_OCRFrontPage = value;
+                }
+            }
+        }
+
+        public bool AutoSuggested_BibTeXSearch
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.AutoSuggested_BibTeXSearch;
+                }
+            }
+            set
+            {
+                lock (access_lock)
+                {
+                    doc.AutoSuggested_BibTeXSearch = value;
+                }
+            }
+        }
+
+        #endregion
+
+        #region --- Tags ------------------------------------------------------------------------------
+
+        public void AddTag(string new_tag_bundle)
+        {
+            bool notify;
+            lock (access_lock)
+            {
+                notify = doc.AddTag(new_tag_bundle);
+            }
+
+            if (notify)
+            {
+                Bindable.NotifyPropertyChanged(() => Tags);
+                TagManager.Instance.ProcessDocument(this);
+            }
+        }
+
+        public void RemoveTag(string dead_tag_bundle)
+        {
+            bool notify;
+
+            lock (access_lock)
+            {
+                notify = doc.RemoveTag(dead_tag_bundle);
+            }
+
+            if (notify)
+            {
+                Bindable.NotifyPropertyChanged(() => Tags);
+                TagManager.Instance.ProcessDocument(this);
+            }
+        }
+
+        public string Tags
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.Tags;
+                }
+            }
+
+            set
+            {
+                lock (access_lock)
+                {
+                    doc.Tags = value;
+                }
+            }
+        }
+
+#endregion ----------------------------------------------------------------------------------------------------
+
+        public string DocumentBasePath
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.DocumentBasePath;
+                }
+            }
+        }
+
+        /// <summary>
+        /// The location of the PDF on disk.
+        /// </summary>
+        public string DocumentPath
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.DocumentPath;
+                }
+            }
+        }
+
+        public bool DocumentExists
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.DocumentExists;
+                }
+            }
+        }
+
+        public bool IsVanillaReference
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.IsVanillaReference;
+                }
+            }
+        }
+
+#region --- Annotations / highlights / ink ----------------------------------------------------------------------
+
+        public PDFAnnotationList Annotations
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.Annotations;
+                }
+            }
+        }
+
+        public PDFAnnotationList GetAnnotations(Dictionary<string, byte[]> library_items_annotations_cache)
+        {
+            PDFAnnotationList annotations;
+
+            lock (access_lock)
+            {
+                annotations = doc.GetAnnotations(library_items_annotations_cache);
+            }
+
+            annotations.OnPDFAnnotationListChanged += annotations_OnPDFAnnotationListChanged;
+
+            return annotations;
+        }
+
+        void annotations_OnPDFAnnotationListChanged()
+        {
+            QueueToStorage();
+            this.Library.LibraryIndex.ReIndexDocument(this);
+        }
+
+        public string GetAnnotationsAsJSON()
+        {
+            lock (access_lock)
+            {
+                return doc.GetAnnotationsAsJSON();
+            }
+        }
+
+        public void QueueToStorage()
+        {
+            DocumentQueuedStorer.Instance.Queue(this);
+        }
+
+        public PDFHightlightList Highlights
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.Highlights;
+                }
+            }
+        }
+
+        internal PDFHightlightList GetHighlights(Dictionary<string, byte[]> library_items_highlights_cache)
+        {
+            PDFHightlightList highlights;
+
+            lock (access_lock)
+            {
+                highlights = doc.GetHighlights(library_items_highlights_cache);
+
+                highlights.OnPDFHighlightListChanged += highlights_OnPDFHighlightListChanged;
+            }
+
+            return highlights;
+        }
+        void highlights_OnPDFHighlightListChanged()
+        {
+            QueueToStorage();
+            this.Library.LibraryIndex.ReIndexDocument(this);
+        }
+
+        public string GetHighlightsAsJSON()
+        {
+            lock (access_lock)
+            {
+                return doc.GetHighlightsAsJSON();
+            }
+        }
+
+        public PDFInkList Inks
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.Inks;
+                }
+            }
+        }
+
+        internal PDFInkList GetInks(Dictionary<string, byte[]> library_items_inks_cache)
+        {
+            PDFInkList inks;
+
+            lock (access_lock)
+            {
+                inks = doc.GetInks(library_items_inks_cache);
+
+                inks.OnPDFInkListChanged += inks_OnPDFInkListChanged;
+            }
+
+            return inks;
+        }
+
+        void inks_OnPDFInkListChanged()
+        {
+            Logging.Info("Document has changed inks");
+            QueueToStorage();
+            this.Library.LibraryIndex.ReIndexDocument(this);
+        }
+
+        public byte[] GetInksAsJSON()
+        {
+            lock (access_lock)
+            {
+                return doc.GetInksAsJSON();
+            }
+        }
+
+        #endregion -------------------------------------------------------------------------------------------------
+
+        #region --- Managers ----------------------------------------------------------------------
+
+        [NonSerialized]
+        PDFDocumentCitationManager _pdf_document_citation_manager = null;
+        public PDFDocumentCitationManager PDFDocumentCitationManager
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    if (null == _pdf_document_citation_manager)
+                    {
+                        _pdf_document_citation_manager = new PDFDocumentCitationManager(this);
+                    }
+                    return _pdf_document_citation_manager;
+                }
+            }
+        }
+
+        #endregion -------------------------------------------------------------------------------------------------
+
+        public void SaveToMetaData()
+        {
+            lock (access_lock)
+            {
+                doc.SaveToMetaData();
+            }
+        }
+
+        /// <summary>
+        /// Throws exception when metadata could not be converted to a valid PDFDocument instance.
+        /// </summary>
+        /// <param name="library"></param>
+        /// <param name="data"></param>
+        /// <param name="library_items_annotations_cache"></param>
+        /// <returns></returns>
+        public static PDFDocument LoadFromMetaData(Library library, byte[] data, Dictionary<string, byte[]> /* can be null */ library_items_annotations_cache)
+        {
+            DictionaryBasedObject dictionary = PDFMetadataSerializer.ReadFromStream(data);
+            LockObject _lock = new LockObject();
+            PDFDocument pdf_document = new PDFDocument(_lock, library, dictionary);
+			// thread-UNSAFE access is permitted as the PDF has just been created so there's no thread-safety risk yet.
+            pdf_document.doc.GetAnnotations(library_items_annotations_cache);
+            return pdf_document;
+        }
+
+        public static PDFDocument CreateFromPDF(Library library, string filename, string precalculated_fingerprint__can_be_null)
+        {
+            string fingerprint = precalculated_fingerprint__can_be_null;
+            if (String.IsNullOrEmpty(fingerprint))
+            {
+                fingerprint = StreamFingerprint.FromFile(filename);
+            }
+
+            LockObject _lock = new LockObject();
+            PDFDocument pdf_document = new PDFDocument(_lock, library);
+
+            // Store the most important information
+			//
+			// thread-UNSAFE access is permitted as the PDF has just been created so there's no thread-safety risk yet.
+            pdf_document.doc.FileType = Path.GetExtension(filename).TrimStart('.');
+            pdf_document.doc.Fingerprint = fingerprint;
+            pdf_document.doc.DateAddedToDatabase = DateTime.UtcNow;
+            pdf_document.doc.DateLastModified = DateTime.UtcNow;
+
+            Directory.CreateDirectory(pdf_document.DocumentBasePath);
+
+            pdf_document.doc.StoreAssociatedPDFInRepository(filename);
+
+            List<LibraryDB.LibraryItem> library_items = library.LibraryDB.GetLibraryItems(pdf_document.doc.Fingerprint, PDFDocumentFileLocations.METADATA);
+            if (0 == library_items.Count)
+            {
+                pdf_document.QueueToStorage();
             }
             else
             {
-                MessageBoxes.Warn("The reference has not been associated with {0}", pdf_filename);
+                try
+                {
+                    LibraryDB.LibraryItem library_item = library_items[0];
+                    pdf_document = LoadFromMetaData(library, library_item.data, null);
+                }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex, "There was a problem reloading an existing PDF from existing metadata, so overwriting it!");
+
+                    // TODO: WARNING: overwriting old (possibly corrupted) records like this can loose you old/corrupted/unsupported metadata content!
+                    pdf_document.QueueToStorage();
+                    //pdf_document.SaveToMetaData();
+                }
+            }
+
+            return pdf_document;
+        }
+
+        public static PDFDocument CreateFromVanillaReference(Library library)
+        {
+            LockObject _lock = new LockObject();
+            PDFDocument pdf_document = new PDFDocument(_lock, library);
+
+            // Store the most important information
+			//
+			// thread-UNSAFE access is permitted as the PDF has just been created so there's no thread-safety risk yet.
+            pdf_document.FileType = Constants.VanillaReferenceFileType;
+            pdf_document.Fingerprint = VanillaReferenceCreating.CreateVanillaReferenceFingerprint();
+            pdf_document.DateAddedToDatabase = DateTime.UtcNow;
+            pdf_document.DateLastModified = DateTime.UtcNow;
+
+            Directory.CreateDirectory(pdf_document.DocumentBasePath);
+
+            List<LibraryDB.LibraryItem> library_items = library.LibraryDB.GetLibraryItems(pdf_document.Fingerprint, PDFDocumentFileLocations.METADATA);
+            if (0 == library_items.Count)
+            {
+                pdf_document.QueueToStorage();
+            }
+            else
+            {
+                try
+                {
+                    LibraryDB.LibraryItem library_item = library_items[0];
+                    pdf_document = LoadFromMetaData(library, library_item.data, null);
+                }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex, "There was a problem reloading an existing PDF from existing metadata, so overwriting it!");
+
+                    // TODO: WARNING: overwriting old (possibly corrupted) records like this can loose you old/corrupted/unsupported metadata content!
+                    pdf_document.QueueToStorage();
+                }
+            }
+
+            return pdf_document;
+        }
+
+        public void CopyMetaData(PDFDocument pdf_document_template, bool copy_fingerprint = true)
+        {
+            // prevent deadlock due to possible incorrect use of this API:
+            if (pdf_document_template != this)
+            {
+                lock (access_lock)
+                {
+                    doc.CopyMetaData(pdf_document_template.doc, copy_fingerprint);
+                }
+            }
+        }
+
+        /// <summary>
+        /// NB: only call this as part of document creation.
+        /// </summary>
+        public void CloneMetaData(PDFDocument existing_pdf_document)
+        {
+            // prevent deadlock due to possible incorrect use of this API:
+            if (existing_pdf_document != this)
+            {
+                lock (existing_pdf_document.access_lock)
+                {
+                    lock (access_lock)
+                    {
+                        bindable = null;
+
+                        doc.CloneMetaData(existing_pdf_document.doc);
+
+                        doc.Annotations.OnPDFAnnotationListChanged += annotations_OnPDFAnnotationListChanged;
+                        doc.Highlights.OnPDFHighlightListChanged += highlights_OnPDFHighlightListChanged;
+                        doc.Inks.OnPDFInkListChanged += inks_OnPDFInkListChanged;
+
+                        // Copy the citations
+                        PDFDocumentCitationManager.CloneFrom(existing_pdf_document.PDFDocumentCitationManager);
+
+                        QueueToStorage();
+                    }
+                }
+            }
+        }
+
+        public void StoreAssociatedPDFInRepository(string filename)
+        {
+            lock (access_lock)
+            {
+                doc.StoreAssociatedPDFInRepository(filename);
+            }
+        }
+
+        public override string ToString()
+        {
+            lock (access_lock)
+            {
+                return doc.ToString();
+            }
+        }
+
+        internal PDFAnnotation GetAnnotationByGuid(Guid guid)
+        {
+            lock (access_lock)
+            {
+                return doc.GetAnnotationByGuid(guid);
+            }
+        }
+
+        internal PDFDocument AssociatePDFWithVanillaReference(string pdf_filename)
+        {
+            PDFDocument new_pdf_document;
+
+            lock (access_lock)
+            {
+                new_pdf_document = doc.AssociatePDFWithVanillaReference_Part1(pdf_filename);
+            }
+
+            // Prevent nasty things when the API is used in unintended ways, where the current document already happens to have that file
+            // associated with it:
+            if (this != new_pdf_document)
+            {
+                // Overwrite the new document's metadata with that of the vanilla reference...
+                if (null != new_pdf_document)
+                {
+#if false
+                    string fingerprint = new_pdf_document.Fingerprint;
+
+                    new_pdf_document.dictionary = (DictionaryBasedObject)this.dictionary.Clone();
+
+                    new_pdf_document.Fingerprint = fingerprint;
+                    new_pdf_document.FileType = Path.GetExtension(pdf_filename).TrimStart('.');
+#else
+                    new_pdf_document.CopyMetaData(this, copy_fingerprint: false);
+#endif
+                    new_pdf_document.QueueToStorage();
+
+                    // Delete this one
+                    this.Deleted = true;
+                    QueueToStorage();
+
+                    // Tell library to refresh
+                    Library.SignalThatDocumentsHaveChanged(this);
+                    new_pdf_document.Library.SignalThatDocumentsHaveChanged(new_pdf_document);
+                }
+                else
+                {
+                    MessageBoxes.Warn("The reference has not been associated with {0}", pdf_filename);
+                }
             }
 
             return new_pdf_document;
+        }
+
+        public void AddPassword(string password)
+        {
+            lock (access_lock)
+            {
+                doc.Library.PasswordManager.AddPassword(doc, password);
+            }
+        }
+
+        public void RemovePassword()
+        {
+            lock (access_lock)
+            {
+                doc.Library.PasswordManager.RemovePassword(doc);
+            }
+        }
+
+        public string GetPassword()
+        {
+            lock (access_lock)
+            {
+                return doc.Library.PasswordManager.GetPassword(doc);
+            }
         }
     }
 }

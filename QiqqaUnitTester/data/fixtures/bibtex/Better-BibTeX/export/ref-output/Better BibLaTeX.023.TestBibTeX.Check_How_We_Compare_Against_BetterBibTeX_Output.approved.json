@@ -1,0 +1,20 @@
+﻿{
+  "Items": [
+    {
+      "Type": "book",
+      "Key": "Manning2008",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Manning, Christopher D. and Raghavan, Prabhakar and Schütze, Hinrich",
+        "date": "2008-07-07",
+        "isbn": "978-0-521-86571-5",
+        "location": "New York",
+        "pagetotal": "496",
+        "publisher": "Cambridge University Press",
+        "title": "Introduction to Information Retrieval"
+      }
+    }
+  ],
+  "Comments": []
+}

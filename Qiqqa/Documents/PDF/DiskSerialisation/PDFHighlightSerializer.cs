@@ -4,6 +4,7 @@ using System.Text;
 using Newtonsoft.Json;
 using Qiqqa.DocumentLibrary;
 using Qiqqa.UtilisationTracking;
+using Qiqqa.Documents.PDF.ThreadUnsafe;
 using Utilities;
 using Utilities.Files;
 
@@ -14,7 +15,7 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
 
         #region --- READ ------------------------------------------------------------------------------------------------------------------------------------
 
-        internal static void ReadFromStream(PDFDocument pdf_document, PDFHightlightList highlights, Dictionary<string, byte[]> /* can be null */ library_items_highlights_cache)
+        internal static void ReadFromStream(PDFDocument_ThreadUnsafe pdf_document, PDFHightlightList highlights, Dictionary<string, byte[]> /* can be null */ library_items_highlights_cache)
         {
             byte[] highlights_data = null;
 
@@ -80,7 +81,7 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
 
         #region  --- WRITE ------------------------------------------------------------------------------------------------------------------------------------
 
-        internal static void WriteToDisk(PDFDocument pdf_document)
+        internal static void WriteToDisk(PDFDocument_ThreadUnsafe pdf_document)
         {
             string json = pdf_document.GetHighlightsAsJSON();
             if (!String.IsNullOrEmpty(json))

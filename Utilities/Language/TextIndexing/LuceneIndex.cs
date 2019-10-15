@@ -13,6 +13,9 @@ using Lucene.Net.Search;
 using Utilities.BibTex.Parsing;
 using Utilities.Files;
 using Version = Lucene.Net.Util.Version;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Utilities.Language.TextIndexing
 {
@@ -327,7 +330,7 @@ namespace Utilities.Language.TextIndexing
                 {
                     ////Do a quick check for whether there are actually any segments files, otherwise we throw many exceptions in the IndexReader.Open in a very tight loop.
                     ////Added by Nik to cope with some exception...will uncomment this when i know what the problem is...
-                    //var segments_files = System.IO.Directory.GetFiles(LIBRARY_INDEX_BASE_PATH, "segments*",SearchOption.AllDirectories);
+                    //var segments_files = Directory.GetFiles(LIBRARY_INDEX_BASE_PATH, "segments*", SearchOption.AllDirectories);
                     //if (segments_files.Length <= 0)
                     //{
                     //    Logging.Debug("No index segments files found");
@@ -408,7 +411,7 @@ namespace Utilities.Language.TextIndexing
         {
             get
             {
-                return LIBRARY_INDEX_BASE_PATH + "index_version.txt";
+                return Path.GetFullPath(Path.Combine(LIBRARY_INDEX_BASE_PATH, @"index_version.txt"));
             }
         }
 
@@ -416,7 +419,7 @@ namespace Utilities.Language.TextIndexing
         {
             get
             {
-                return LIBRARY_INDEX_BASE_PATH + "write.lock";
+                return Path.GetFullPath(Path.Combine(LIBRARY_INDEX_BASE_PATH, @"write.lock"));
             }
         }
 

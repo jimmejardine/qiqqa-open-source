@@ -1,0 +1,85 @@
+﻿{
+  "Items": [
+    {
+      "Type": "BOOK",
+      "Key": "LS1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Slippery, Zänny",
+        "title": "Silent Slippers",
+        "publisher": "Footwear Folios",
+        "location": "London",
+        "year": "1932",
+        "shorthand": "SZä"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "LS2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Slippery, Zznny",
+        "title": "People Prefer Packages to Post",
+        "publisher": "Terrible Typists",
+        "location": "Grimsby",
+        "year": "1945",
+        "shorthand": "SZå"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "LS3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Slippery, Zönny",
+        "title": "Last Lingering Lemons",
+        "publisher": "Fruit Folios",
+        "location": "Catterick",
+        "year": "1966",
+        "shorthand": "SZo"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "LS4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Slippery, Zönny",
+        "title": "last lingering lemons",
+        "publisher": "Fruit Folios",
+        "location": "Catterick",
+        "year": "1966",
+        "shorthand": "SZo"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "LS5",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Slippery, Zanny",
+        "year": "1989"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "LS6",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Slippery, Zan",
+        "year": "1988"
+      }
+    }
+  ],
+  "Comments": [
+    "% Test of U::C tailoring - Swedish - in UCA, å and ä are sorted before z but should be after",
+    "% Upper before lower false",
+    "% Surname is substring so should be first"
+  ]
+}

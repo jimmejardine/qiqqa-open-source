@@ -1,0 +1,37 @@
+﻿{
+  "Items": [
+    {
+      "Type": "BOOK",
+      "Key": "CS1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Albert, Edwin",
+        "title": "TITLE"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "CS2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "albert, Edwin",
+        "title": "title"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "CS3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Albert, edwin",
+        "title": "The title"
+      }
+    }
+  ],
+  "Comments": [
+    "% Test of U::C case sensitivity and case ordering"
+  ]
+}

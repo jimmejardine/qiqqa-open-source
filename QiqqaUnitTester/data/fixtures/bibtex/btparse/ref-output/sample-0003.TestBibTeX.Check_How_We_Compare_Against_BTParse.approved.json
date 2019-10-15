@@ -1,0 +1,15 @@
+﻿{
+  "Items": [
+    {
+      "Type": "book",
+      "Key": "ourbook",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "joeandjohn",
+        "title": "Our Little Book"
+      }
+    }
+  ],
+  "Comments": []
+}

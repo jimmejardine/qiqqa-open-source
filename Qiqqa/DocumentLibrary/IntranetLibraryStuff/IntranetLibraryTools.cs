@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Utilities;
 using Utilities.Files;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
 {
@@ -9,26 +11,22 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
     {
         internal static string GetLibraryDetailPath(string base_path)
         {
-            return base_path + @"\Qiqqa.LibraryDetail.txt";
+            return Path.GetFullPath(Path.Combine(base_path, @"Qiqqa.LibraryDetail.txt"));
         }
 
         internal static string GetLibraryMetadataPath(string base_path)
         {
-            return base_path + @"\Qiqqa.LibraryMetadata.s3db";
+            return Path.GetFullPath(Path.Combine(base_path, @"Qiqqa.LibraryMetadata.s3db"));
         }
 
         internal static string GetLibraryDocumentsPath(string base_path)
         {
-            return base_path + @"\documents\";
+            return Path.GetFullPath(Path.Combine(base_path, @"documents"));
         }
 
         internal static string GetLibraryPDFPath(string base_path, string filename_short)
         {
-            string documents_path = GetLibraryDocumentsPath(base_path);
-            string specific_documents_path = documents_path + filename_short.Substring(0, 1).ToUpper() + @"\";
-            string document_path = specific_documents_path + filename_short;
-
-            return document_path;
+            return Path.GetFullPath(Path.Combine(GetLibraryDocumentsPath(base_path), filename_short.Substring(0, 1).ToUpper(), filename_short));
         }
 
         internal static List<string> GetListOfDocumentsInLibrary(string base_path)
@@ -42,7 +40,7 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
 
         internal static string GetLibraryAuditFilename(string base_path)
         {            
-            return base_path + @"_audit\" + DateTime.UtcNow.ToString("yyyyMMdd") + ".txt";
+            return Path.GetFullPath(Path.Combine(base_path, @"_audit", DateTime.UtcNow.ToString("yyyyMMdd") + @".txt"));
         }
     }
 }

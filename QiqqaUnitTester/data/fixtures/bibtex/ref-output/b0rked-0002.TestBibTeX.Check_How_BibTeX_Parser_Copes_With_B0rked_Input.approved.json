@@ -1,0 +1,16 @@
+﻿{
+  "Items": [
+    {
+      "Type": "deleted",
+      "Key": "",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n   @deleted{     }    \r\n                 ^"
+      ],
+      "Warnings": [
+        "There is no key in this BibTeX reference"
+      ],
+      "Fields": {}
+    }
+  ],
+  "Comments": []
+}

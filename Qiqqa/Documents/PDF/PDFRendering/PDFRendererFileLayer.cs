@@ -3,12 +3,15 @@ using System.IO;
 using Qiqqa.Common.Configuration;
 using Utilities;
 using Utilities.Files;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.Documents.PDF.PDFRendering
 {
     public class PDFRendererFileLayer
     {
-        public static readonly string BASE_PATH_DEFAULT = ConfigurationManager.Instance.BaseDirectoryForQiqqa + @"ocr\";
+        public static readonly string BASE_PATH_DEFAULT = Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.BaseDirectoryForQiqqa, @"ocr"));
 
         static PDFRendererFileLayer()
         {
@@ -51,7 +54,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 string folder_override = ConfigurationManager.Instance.ConfigurationRecord.System_OverrideDirectoryForOCRs;
                 if (!String.IsNullOrEmpty(folder_override))
                 {
-                    return folder_override;
+                    return Path.GetFullPath(folder_override);
                 }
                 else
                 {
@@ -62,13 +65,13 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         private static string MakeFilename(string fingerprint, string file_type, object token, string extension)
         {
-            return String.Format("{0}{1}.{2}.{3}.{4}", BasePath, fingerprint, file_type, token, extension);
+            return Path.GetFullPath(Path.Combine(BasePath, String.Format("{0}.{1}.{2}.{3}", fingerprint, file_type, token, extension)));
         }
 
         private static string MakeFilenameWith2LevelIndirection(string fingerprint, string file_type, object token, string extension)
         {
-            string indirection_characters = fingerprint.Substring(0, 2);
-            return String.Format("{0}\\{1}\\{2}.{3}.{4}.{5}", BasePath, indirection_characters, fingerprint, file_type, token, extension);
+            string indirection_characters = fingerprint.Substring(0, 2).ToUpper();
+            return Path.GetFullPath(Path.Combine(BasePath, indirection_characters, String.Format("{0}.{1}.{2}.{3}", fingerprint, file_type, token, extension)));
         }
 
         internal static string MakeFilename_TextSingle(string fingerprint, int page_number)
@@ -85,16 +88,16 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             int page_range_start = ((page - 1) / TEXT_PAGES_PER_GROUP) * TEXT_PAGES_PER_GROUP + 1;
             int page_range_end = page_range_start + TEXT_PAGES_PER_GROUP - 1;
             string page_range = string.Format("{0:000}_to_{1:000}", page_range_start, page_range_end);
-            return MakeFilenameWith2LevelIndirection(fingerprint, "textgroup", page_range, "txt");
+            return MakeFilenameWith2LevelIndirection(fingerprint, @"textgroup", page_range, @"txt");
         }
         internal string MakeFilename_TextGroup(int page, int TEXT_PAGES_PER_GROUP)
         {
             return MakeFilename_TextGroup(fingerprint, page, TEXT_PAGES_PER_GROUP);
-           }
+        }
 
-                private static string MakeFilename_PageCount(string fingerprint)
+        private static string MakeFilename_PageCount(string fingerprint)
         {
-            return MakeFilenameWith2LevelIndirection(fingerprint, "pagecount", "0", "txt");
+            return MakeFilenameWith2LevelIndirection(fingerprint, @"pagecount", @"0", @"txt");
         }
 
         internal string StorePageTextSingle(int page, string source_filename)

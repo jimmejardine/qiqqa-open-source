@@ -1,0 +1,313 @@
+﻿{
+  "Items": [
+    {
+      "Type": "BOOK",
+      "Key": "L1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Doe",
+        "title": "Title 1",
+        "publisher": "Oxford",
+        "year": "1995"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Doe",
+        "title": "Title 2",
+        "publisher": "Oxford",
+        "year": "1995"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Doe",
+        "title": "Title 3",
+        "publisher": "Oxford",
+        "year": "1995"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Doe and Albert Abrahams",
+        "title": "Title 1",
+        "publisher": "Oxford",
+        "year": "1995"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L5",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Doe and Albert Abrahams",
+        "title": "Title 2",
+        "publisher": "Oxford",
+        "year": "1995"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L6",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Doe and Albert Abrahams",
+        "title": "Title 1",
+        "publisher": "Oxford",
+        "year": "1996"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L7",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Doe and Albert Abrahams",
+        "title": "Title 2",
+        "publisher": "Oxford",
+        "year": "1996"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L8",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Bill Shakespeare",
+        "title": "Works",
+        "publisher": "Oxford",
+        "date": "1985"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L9",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Title with no author",
+        "date": "1985"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L10",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Another title with no author",
+        "date": "1985"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "companion1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Goossens, M. and Mittelbach, F. and Samarin, A.",
+        "date": "1994",
+        "title": "Some title"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "companion2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Goossens, M. and Mittelbach, F.",
+        "year": "1994",
+        "title": "Some title"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "companion3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Goossens, M.",
+        "date": "1994",
+        "title": "Some title"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "vangennep",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "options": "useprefix",
+        "author": "van Gennep, Arnold",
+        "date": "1909",
+        "title": "Some title"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "gennep",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "van Gennep, Arnold",
+        "date": "1909",
+        "title": "Some title"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "LY1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Arthur Example",
+        "date": "2006/2009",
+        "title": "Some title"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "LY2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Arthur Example",
+        "date": "2006",
+        "title": "Some title"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "LY3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Arthur Example",
+        "date": "2006/",
+        "title": "Some title"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "nodate1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Neil Nodate",
+        "title": "Testing"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "nodate2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Neil Nodate",
+        "title": "Testing 2"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "ed1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Percival Prudent",
+        "date": "2001-01-03"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "ed2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Percival Prudent",
+        "date": "2001-02-03"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "ed3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Randolph Reluctant",
+        "date": "2001"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "ed4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Randolph Reluctant",
+        "date": "2001"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "ed5",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Quentin Querulous",
+        "date": "2001-01-03T15:00:00"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "ed6",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Quentin Querulous",
+        "date": "2001-01-03T15:00:00"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "ed7",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Stephen Swarve",
+        "date": "2001-01-03"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "ed8",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Stephen Swarve",
+        "date": "2001-01-03/"
+      }
+    }
+  ],
+  "Comments": [
+    "% Testing no date",
+    "% Testing custom scopes for extradate"
+  ]
+}

@@ -1,0 +1,25 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "pmid:16678558",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Psychosocial aspects of the functional gastrointestinal disorders.",
+        "author": "Levy, Rona L and Olden, Kevin W and Naliboff, Bruce D and Bradley, Laurence A and Francisconi, Carlos and Drossman, Douglas A and Creed, Francis",
+        "journal": "Gastroenterology",
+        "journal-iso": "Gastroenterology",
+        "volume": "130",
+        "number": "5",
+        "year": "2006",
+        "month": "Apr",
+        "pages": "1447--58",
+        "pmid": "16678558"
+      }
+    }
+  ],
+  "Comments": [
+    "% superfluous punctuation at the end of a title"
+  ]
+}

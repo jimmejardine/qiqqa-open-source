@@ -31,6 +31,8 @@ using Utilities.Misc;
 using Utilities.OCR;
 using Qiqqa.WebBrowsing.GeckoStuff;
 using System.Windows.Media.Animation;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.Documents.PDF.PDFControls
 {
@@ -609,8 +611,8 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
             string filename = ExportingTools.MakeExportFilename(pdf_renderer_control_stats.pdf_document);
 
-            //string desktop_directory = System.Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) ;
-            //filename = desktop_directory + '\\' + filename;
+            //string desktop_directory = System.Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            //filename = Path.GetFullPath(Path.Combine(desktop_directory, filename));
 
             SaveFileDialog save_file_dialog = new SaveFileDialog();
             save_file_dialog.AddExtension = true;
