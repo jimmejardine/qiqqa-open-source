@@ -76,11 +76,19 @@ namespace Utilities.Misc
 		
 		internal static void VerifyDelegate(Delegate d, string parameterName)
 		{
-			if (d == null)
-				throw new ArgumentNullException(parameterName);
-			if (!d.Method.IsStatic)
-				throw new ArgumentException("Delegates used for WeakEventHandler must not capture any variables (must point to static methods)", parameterName);
-		}
+            if (d == null)
+            {
+                throw new ArgumentNullException(parameterName);
+            }
+            if (!d.Method.IsStatic)
+            {
+#if false
+                throw new ArgumentException("Delegates used for WeakEventHandler must not capture any variables (must point to static methods)", parameterName);
+#else
+                Logging.Error("Delegates used for WeakEventHandler must not capture any variables (must point to static methods)", parameterName);
+#endif
+            }
+        }
 		
 		internal readonly WeakReference listeningReference;
 		internal Action deregisterCode;
