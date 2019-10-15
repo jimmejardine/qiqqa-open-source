@@ -12,7 +12,8 @@
     }
   ],
   "Comments": [
-    "this is a correct @comment as it does have curly-brace delims where it should",
-    "this is another *legal* @comment as it does have {"
+    "{ this is a correct @comment as it does have curly-brace delims where it should ",
+    "}",
+    "{ this is another *legal* @comment as it does have {"
   ]
 }
