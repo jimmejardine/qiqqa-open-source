@@ -1,0 +1,2204 @@
+﻿{
+  "Items": [
+    {
+      "Type": "STRING",
+      "Key": "anch-ie",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n @STRING{anch-ie   = {Angew.~Chem. Int.~Ed.} }  @STRING{cup\r\n                   ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "cup",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nAngew.~Chem. Int.~Ed.} }  @STRING{cup   = {Cambridge University Press} }  @STRIN\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "dtv",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nidge University Press} }  @STRING{dtv   = {Deutscher Taschenbuch-Verlag} }  @STR\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "hup",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ner Taschenbuch-Verlag} }  @STRING{hup   = {Harvard University Press} }  @STRING{\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "jams",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nard University Press} }  @STRING{jams   = {J.~Amer. Math. Soc.} }  @STRING{jchph\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "jchph",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nJ.~Amer. Math. Soc.} }  @STRING{jchph   = {J.~Chem. Phys.} }  @STRING{jomch   = \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "jomch",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n  = {J.~Chem. Phys.} }  @STRING{jomch   = {J.~Organomet. Chem.} }  @STRING{pup  \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "pup",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n {J.~Organomet. Chem.} }  @STRING{pup   = {Princeton University Press} }    @InC\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "InCollection",
+      "Key": "westfahl:space",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "crossref": "westfahl:frontier",
+        "langid": "english",
+        "langidopts": "variant=american",
+        "author": "Westfahl, Gary",
+        "indextitle": "True Frontier, The",
+        "title": "The True Frontier",
+        "subtitle": "Confronting and Avoiding the Realities of Space in American Science Fiction\r\n\t\t    Films",
+        "pages": "55--65",
+        "annotation": "A cross-referenced article from a \\textttcollection. This is an\r\n\t\t    \\textttincollection entry with a \\textttcrossref field. Note the\r\n\t\t    \\textttsubtitle and \\textttindextitle fields"
+      }
+    },
+    {
+      "Type": "Set",
+      "Key": "set",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "crossref": "set:herrmann",
+        "entryset": "set:herrmann,set:aksin,set:yoon",
+        "annotation": "A \\textttset entry with three members. Note the \\textttentryset and\r\n\t\t    \\textttcrossref fields. The cross-reference must point to the first member of\r\n\t\t    the set"
+      }
+    },
+    {
+      "Type": "Set",
+      "Key": "stdmodel",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "crossref": "stdmodel:glashow",
+        "entryset": "stdmodel:glashow,stdmodel:weinberg,stdmodel:salam",
+        "annotation": "A \\textttset entry with three members discussing the standard model of\r\n\t\t    particle physics."
+      }
+    },
+    {
+      "Type": "Set",
+      "Key": "stdmodel:ps_sc",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "presort": "zs",
+        "crossref": "stdmodel:glashow",
+        "entryset": "stdmodel:glashow,stdmodel:weinberg,stdmodel:salam",
+        "annotation": "A \\textttset entry with three members discussing the standard model of\r\n\t\t    particle physics. Note the \\textttentryset and \\textttcrossref fields. The\r\n\t\t    cross-reference must point to the first member of the set"
+      }
+    },
+    {
+      "Type": "Article",
+      "Key": "angenendt",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "german",
+        "author": "Angenendt, Arnold",
+        "indextitle": "In Honore Salvatoris",
+        "title": "In Honore Salvatoris~-- Vom Sinn und Unsinn der Patrozinienkunde",
+        "shorttitle": "In Honore Salvatoris",
+        "journaltitle": "Revue d'Histoire Ecclésiastique",
+        "volume": "97",
+        "year": "2002",
+        "pages": "431--456, 791--823",
+        "annotation": "A German article in a French journal. Apart from that, a typical\r\n\t\t    \\textttarticle entry. Note the \\textttindextitle field"
+      }
+    },
+    {
+      "Type": "Article",
+      "Key": "angenendtsk",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "sortkey": "AATESTKEY",
+        "langid": "german",
+        "author": "Angenendt, Arnold",
+        "indextitle": "In Honore Salvatoris",
+        "title": "In Honore Salvatoris~-- Vom Sinn und Unsinn der Patrozinienkunde",
+        "shorttitle": "In Honore Salvatoris",
+        "journaltitle": "Revue d'Histoire Ecclésiastique",
+        "volume": "97",
+        "year": "2002",
+        "pages": "431--456, 791--823",
+        "annotation": "A German article in a French journal. Apart from that, a typical\r\n\t\t    \\textttarticle entry. Note the \\textttindextitle field"
+      }
+    },
+    {
+      "Type": "Article",
+      "Key": "angenendtsa",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "german",
+        "shortauthor": "AA",
+        "author": "Angenendt, Arnold",
+        "indextitle": "In Honore Salvatoris",
+        "title": "In Honore Salvatoris~-- Vom Sinn und Unsinn der Patrozinienkunde",
+        "shorttitle": "In Honore Salvatoris",
+        "journaltitle": "Revue d'Histoire Ecclésiastique",
+        "volume": "97",
+        "year": "2002",
+        "pages": "431--456, 791--823",
+        "annotation": "A German article in a French journal. Apart from that, a typical\r\n\t\t    \\textttarticle entry. Note the \\textttindextitle field"
+      }
+    },
+    {
+      "Type": "Article",
+      "Key": "baez/article",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=american",
+        "author": "Baez, John C. and Lauda, Aaron D.",
+        "title": "Higher-Dimensional Algebra V: 2-Groups",
+        "journaltitle": "Theory and Applications of Categories",
+        "volume": "12",
+        "version": "3",
+        "date": "2004",
+        "pages": "423--491",
+        "eprint": "math/0307200v3",
+        "eprinttype": "arxiv",
+        "annotation": "An \\textttarticle with \\texttteprint and \\texttteprinttype fields. Note\r\n\t\t    that the arXiv reference is transformed into a clickable link if\r\n\t\t    \\texttthyperref support has been enabled. Compare \\textttbaez\\slash online\r\n\t\t    which is the same item given as an \\textttonline entry"
+      }
+    },
+    {
+      "Type": "Article",
+      "Key": "bertram",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=american",
+        "author": "Bertram, Aaron and Wentworth, Richard",
+        "title": "Gromov invariants for holomorphic maps on Riemann surfaces",
+        "shorttitle": "Gromov invariants",
+        "journaltitle": "jams",
+        "volume": "9",
+        "number": "2",
+        "year": "1996",
+        "pages": "529--571",
+        "annotation": "An \\textttarticle entry with a \\textttvolume and a \\textttnumber field"
+      }
+    },
+    {
+      "Type": "Article",
+      "Key": "gillies",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=british",
+        "author": "Gillies, Alexander",
+        "title": "Herder and the Preparation of Goethe's Idea of World Literature",
+        "journaltitle": "Publications of the English Goethe Society",
+        "volume": "9",
+        "series": "newseries",
+        "year": "1933",
+        "pages": "46--67",
+        "annotation": "An \\textttarticle entry with a \\textttseries and a \\textttvolume field.\r\n\t\t    Note that format of the \\textttseries field in the database file"
+      }
+    },
+    {
+      "Type": "Article",
+      "Key": "kastenholz",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=american",
+        "author": "Kastenholz, M. A. and Hünenberger, Philippe H.",
+        "indextitle": "Computation of ionic solvation free energies",
+        "title": "Computation of methodology\\hyphen independent ionic solvation free energies\r\n\t\t    from molecular simulations",
+        "subtitle": "I. The electrostatic potential in molecular liquids",
+        "journaltitle": "jchph",
+        "volume": "124",
+        "eid": "124106",
+        "year": "2006",
+        "doi": "10.1063/1.2172593",
+        "annotation": "An \\textttarticle entry with an \\texttteid and a \\textttdoi field. Note\r\n\t\t    that the \\textscdoi is transformed into a clickable link if \\texttthyperref\r\n\t\t    support has been enabled",
+        "abstract": "The computation of ionic solvation free energies from atomistic simulations is\r\n\t\t    a surprisingly difficult problem that has found no satisfactory solution for\r\n\t\t    more than 15 years. The reason is that the charging free energies evaluated from\r\n\t\t    such simulations are affected by very large errors. One of these is related to\r\n\t\t    the choice of a specific convention for summing up the contributions of solvent\r\n\t\t    charges to the electrostatic potential in the ionic cavity, namely, on the basis\r\n\t\t    of point charges within entire solvent molecules (M scheme) or on the basis of\r\n\t\t    individual point charges (P scheme). The use of an inappropriate convention may\r\n\t\t    lead to a charge-independent offset in the calculated potential, which depends\r\n\t\t    on the details of the summation scheme, on the quadrupole-moment trace of the\r\n\t\t    solvent molecule, and on the approximate form used to represent electrostatic\r\n\t\t    interactions in the system. However, whether the M or P scheme (if any)\r\n\t\t    represents the appropriate convention is still a matter of on-going debate. The\r\n\t\t    goal of the present article is to settle this long-standing controversy by\r\n\t\t    carefully analyzing (both analytically and numerically) the properties of the\r\n\t\t    electrostatic potential in molecular liquids (and inside cavities within\r\n\t\t    them)."
+      }
+    },
+    {
+      "Type": "Article",
+      "Key": "murray",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=american",
+        "author": "Hostetler, Michael J. and Wingate, Julia E. and Zhong, Chuan-Jian and Harris,\r\n\t\t    Jay E. and Vachet, Richard W. and Clark, Michael R. and Londono, J. David and\r\n\t\t    Green, Stephen J. and Stokes, Jennifer J. and Wignall, George D. and Glish, Gary\r\n\t\t    L. and Porter, Marc D. and Evans, Neal D. and Murray, Royce W.",
+        "indextitle": "Alkanethiolate gold cluster molecules",
+        "title": "Alkanethiolate gold cluster molecules with core diameters from 1.5 to 5.2~nm",
+        "subtitle": "Core and monolayer properties as a function of core size",
+        "shorttitle": "Alkanethiolate gold cluster molecules",
+        "journaltitle": "Langmuir",
+        "volume": "14",
+        "number": "1",
+        "year": "1998",
+        "pages": "17--30",
+        "annotation": "An \\textttarticle entry with \\arabicauthor authors. By default, long author\r\n\t\t    and editor lists are automatically truncated. This is configurable"
+      }
+    },
+    {
+      "Type": "Article",
+      "Key": "reese",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=american",
+        "author": "Reese, Trevor R.",
+        "title": "Georgia in Anglo-Spanish Diplomacy, 1736-1739",
+        "journaltitle": "William and Mary Quarterly",
+        "volume": "15",
+        "series": "3",
+        "year": "1958",
+        "pages": "168--190",
+        "annotation": "An \\textttarticle entry with a \\textttseries and a \\textttvolume field.\r\n\t\t    Note the format of the series. If the value of the \\textttseries field is an\r\n\t\t    integer, this number is printed as an ordinal and the string \\enquote*series\r\n\t\t    is appended automatically"
+      }
+    },
+    {
+      "Type": "Article",
+      "Key": "set:aksin",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "entryset": "set",
+        "author": "Aks\\in, Özge and Türkmen, Hayati and Artok, Levent and\r\n\t\t    Çetinkaya, Bekir and Ni, Chaoying and Büyükgüngӧr, Orhan\r\n\t\t    and Özkal, Erhan",
+        "indextitle": "Effect of immobilization on catalytic characteristics",
+        "title": "Effect of immobilization on catalytic characteristics of saturated\r\n\t\t    Pd-N-heterocyclic carbenes in Mizoroki-Heck reactions",
+        "journaltitle": "jomch",
+        "volume": "691",
+        "number": "13",
+        "year": "2006",
+        "month": "02",
+        "pages": "3027--3036"
+      }
+    },
+    {
+      "Type": "Article",
+      "Key": "set:herrmann",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "entryset": "set",
+        "author": "Herrmann, Wolfgang A. and Öfele, Karl and Schneider, Sabine K. and\r\n\t\t    Herdtweck, Eberhardt and Hoffmann, Stephan D.",
+        "indextitle": "Carbocyclic carbene as an efficient catalyst, A",
+        "title": "A carbocyclic carbene as an efficient catalyst ligand for C--C coupling\r\n\t\t    reactions",
+        "journaltitle": "anch-ie",
+        "volume": "45",
+        "number": "23",
+        "year": "2006",
+        "pages": "3859--3862"
+      }
+    },
+    {
+      "Type": "Article",
+      "Key": "set:yoon",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "entryset": "set",
+        "author": "Yoon, Myeong S. and Ryu, Dowook and Kim, Jeongryul and Ahn, Kyo Han",
+        "indextitle": "Palladium pincer complexes",
+        "title": "Palladium pincer complexes with reduced bond angle strain: efficient catalysts\r\n\t\t    for the Heck reaction",
+        "journaltitle": "Organometallics",
+        "volume": "25",
+        "number": "10",
+        "year": "2006",
+        "pages": "2409--2411"
+      }
+    },
+    {
+      "Type": "Article",
+      "Key": "shore",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Shore, Bradd",
+        "title": "Twice-Born, Once Conceived",
+        "subtitle": "Meaning Construction and Cultural Cognition",
+        "journaltitle": "American Anthropologist",
+        "volume": "93",
+        "series": "newseries",
+        "number": "1",
+        "date": "1991-03",
+        "pages": "9--27",
+        "annotation": "An \\textttarticle entry with \\textttseries, \\textttvolume, and\r\n\t\t    \\textttnumber fields. Note the format of the \\textttseries which is a\r\n\t\t    localization key"
+      }
+    },
+    {
+      "Type": "Article",
+      "Key": "sigfridsson",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=american",
+        "author": "Sigfridsson, Emma and Ryde, Ulf",
+        "indextitle": "Methods for deriving atomic charges",
+        "title": "Comparison of methods for deriving atomic charges from the electrostatic\r\n\t\t    potential and moments",
+        "journaltitle": "Journal of Computational Chemistry",
+        "volume": "19",
+        "number": "4",
+        "year": "1998",
+        "doi": "10.1002/(SICI)1096-987X(199803)19:4<377::AID-JCC1>3.0.CO;2-P",
+        "pages": "377--395",
+        "annotation": "An \\textttarticle entry with \\textttvolume, \\textttnumber, and\r\n\t\t    \\textttdoi fields. Note that the \\textscdoi is transformed into a clickable\r\n\t\t    link if \\texttthyperref support has been enabled",
+        "abstract": " Four methods for deriving partial atomic charges from the quantum chemical\r\n\t\t    electrostatic potential (CHELP, CHELPG, Merz-Kollman, and RESP) have been\r\n\t\t    compared and critically evaluated. It is shown that charges strongly depend on\r\n\t\t    how and where the potential points are selected. Two alternative methods are\r\n\t\t    suggested to avoid the arbitrariness in the point-selection schemes and van der\r\n\t\t    Waals exclusion radii: CHELP-BOW, which also estimates the charges from the\r\n\t\t    electrostatic potential, but with potential points that are Boltzmann-weighted\r\n\t\t    after their occurrence in actual simulations using the energy function of the\r\n\t\t    program in which the charges will be used, and CHELMO, which estimates the\r\n\t\t    charges directly from the electrostatic multipole moments. Different criteria\r\n\t\t    for the quality of the charges are discussed."
+      }
+    },
+    {
+      "Type": "Article",
+      "Key": "spiegelberg",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "german",
+        "sorttitle": "Intention und Intentionalitat in der Scholastik, bei Brentano und Husserl",
+        "indexsorttitle": "Intention und Intentionalitat in der Scholastik, bei Brentano und Husserl",
+        "author": "Spiegelberg, Herbert",
+        "title": "\\mkbibquoteIntention und \\mkbibquoteIntentionalität in der Scholastik, bei\r\n\t\t    Brentano und Husserl",
+        "shorttitle": "Intention und Intentionalität",
+        "journaltitle": "Studia Philosophica",
+        "volume": "29",
+        "year": "1969",
+        "pages": "189--216",
+        "annotation": "An \\textttarticle entry. Note the \\textttsorttitle and\r\n\t\t    \\textttindexsorttitle fields and the markup of the quotes in the database file"
+      }
+    },
+    {
+      "Type": "Article",
+      "Key": "springer",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=british",
+        "author": "Springer, Otto",
+        "title": "Mediaeval Pilgrim Routes from Scandinavia to Rome",
+        "shorttitle": "Mediaeval Pilgrim Routes",
+        "journaltitle": "Mediaeval Studies",
+        "volume": "12",
+        "year": "1950",
+        "pages": "92--122",
+        "annotation": "A plain \\textttarticle entry"
+      }
+    },
+    {
+      "Type": "Article",
+      "Key": "stdmodel:glashow",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "entryset": "stdmodel",
+        "author": "Glashow, Sheldon",
+        "title": "Partial Symmetries of Weak Interactions",
+        "journaltitle": "Nucl.~Phys.",
+        "volume": "22",
+        "year": "1961",
+        "pages": "579\\psqq"
+      }
+    },
+    {
+      "Type": "Article",
+      "Key": "stdmodel:weinberg",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "entryset": "stdmodel",
+        "author": "Weinberg, Steven",
+        "title": "A Model of Leptons",
+        "journaltitle": "Phys.~Rev.~Lett.",
+        "volume": "19",
+        "year": "1967",
+        "pages": "1264\\psqq"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "aristotle:anima",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "keywords": "primary",
+        "langid": "english",
+        "langidopts": "variant=british",
+        "author": "Aristotle",
+        "editor": "Hicks, Robert Drew",
+        "title": "De Anima",
+        "publisher": "cup",
+        "location": "Cambridge",
+        "year": "1907",
+        "annotation": "A \\textttbook entry with an \\textttauthor and an \\texttteditor"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "aristotle:physics",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "keywords": "primary",
+        "langid": "english",
+        "langidopts": "variant=american",
+        "author": "Aristotle",
+        "translator": "Wicksteed, P. H. and Cornford, F. M.",
+        "title": "Physics",
+        "shorttitle": "Physics",
+        "publisher": "G. P. Putnam",
+        "location": "New York",
+        "year": "1929",
+        "annotation": "A \\textttbook entry with a \\texttttranslator field"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "aristotle:poetics",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "keywords": "primary",
+        "langid": "english",
+        "langidopts": "variant=british",
+        "author": "Aristotle",
+        "editor": "Lucas, D. W.",
+        "title": "Poetics",
+        "shorttitle": "Poetics",
+        "series": "Clarendon Aristotle",
+        "publisher": "Clarendon Press",
+        "location": "Oxford",
+        "year": "1968",
+        "annotation": "A \\textttbook entry with an \\textttauthor and an \\texttteditor as well as\r\n\t\t    a \\textttseries field"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "aristotle:rhetoric",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "keywords": "primary",
+        "langid": "english",
+        "langidopts": "variant=british",
+        "sorttitle": "Rhetoric of Aristotle",
+        "author": "Aristotle",
+        "editor": "Cope, Edward Meredith",
+        "commentator": "Cope, Edward Meredith",
+        "indextitle": "Rhetoric of Aristotle, The",
+        "title": "The Rhetoric of Aristotle with a commentary by the late Edward Meredith Cope",
+        "shorttitle": "Rhetoric",
+        "volumes": "3",
+        "publisher": "cup",
+        "year": "1877",
+        "annotation": "A commented edition. Note the concatenation of the \\texttteditor and\r\n\t\t    \\textttcommentator fields as well as the \\textttvolumes, \\textttsorttitle,\r\n\t\t    and \\textttindextitle fields"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "augustine",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=british",
+        "author": "Augustine, Robert L.",
+        "title": "Heterogeneous catalysis for the synthetic chemist",
+        "shorttitle": "Heterogeneous catalysis",
+        "publisher": "Marcel Dekker",
+        "location": "New York",
+        "year": "1995",
+        "annotation": "A plain \\textttbook entry"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "averroes/bland",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "keywords": "primary",
+        "langid": "english",
+        "langidopts": "variant=american",
+        "author": "Averroes",
+        "editor": "Bland, Kalman P.",
+        "translator": "Bland, Kalman P.",
+        "indextitle": "Epistle on the Possibility of Conjunction, The",
+        "title": "The Epistle on the Possibility of Conjunction with the Active Intellect by Ibn\r\n\t\t    Rushd with the Commentary of Moses Narboni",
+        "shorttitle": "Possibility of Conjunction",
+        "series": "Moreshet: Studies in Jewish History, Literature and Thought",
+        "number": "7",
+        "publisher": "Jewish Theological Seminary of America",
+        "location": "New York",
+        "year": "1982",
+        "annotation": "A \\textttbook entry with a \\textttseries and a \\textttnumber. Note the\r\n\t\t    concatenation of the \\texttteditor and \\texttttranslator fields as well as\r\n\t\t    the \\textttindextitle field"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "averroes/hannes",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "keywords": "primary",
+        "langid": "german",
+        "sorttitle": "Uber die Moglichkeit der Conjunktion",
+        "indexsorttitle": "Uber die Moglichkeit der Conjunktion",
+        "author": "Averroes",
+        "editor": "Hannes, Ludwig",
+        "translator": "Hannes, Ludwig",
+        "annotator": "Hannes, Ludwig",
+        "indextitle": "Über die Mӧglichkeit der Conjunktion",
+        "title": "Des Averroës Abhandlung: \\mkbibquoteÜber die Mӧglichkeit der\r\n\t\t    Conjunktion oder \\mkbibquoteÜber den materiellen Intellekt",
+        "shorttitle": "Mӧglichkeit der Conjunktion",
+        "publisher": "C.~A. Kaemmerer",
+        "location": "Halle an der Saale",
+        "year": "1892",
+        "annotation": "An annotated edition. Note the concatenation of the \\texttteditor,\r\n\t\t    \\texttttranslator, and \\textttannotator fields. Also note the\r\n\t\t    \\textttshorttitle, \\textttindextitle, \\textttsorttitle, and\r\n\t\t    \\textttindexsorttitle fields"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "averroes/hercz",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "keywords": "primary",
+        "langid": "german",
+        "indexsorttitle": "Drei Abhandlungen uber die Conjunction",
+        "author": "Averroes",
+        "editor": "Hercz, J.",
+        "translator": "Hercz, J.",
+        "indextitle": "Drei Abhandlungen über die Conjunction",
+        "title": "Drei Abhandlungen über die Conjunction des separaten Intellects mit dem\r\n\t\t    Menschen",
+        "subtitle": "Von Averroes (Vater und Sohn), aus dem Arabischen übersetzt von Samuel Ibn\r\n\t\t    Tibbon",
+        "shorttitle": "Drei Abhandlungen",
+        "publisher": "S.~Hermann",
+        "location": "Berlin",
+        "year": "1869",
+        "annotation": "A \\textttbook entry. Note the concatenation of the \\texttteditor and\r\n\t\t    \\texttttranslator fields as well as the \\textttindextitle and\r\n\t\t    \\textttindexsorttitle fields"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "cicero",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "german",
+        "author": "Cicero, Marcus Tullius",
+        "editor": "Blank-Sangmeister, Ursula",
+        "translator": "Blank-Sangmeister, Ursula",
+        "afterword": "Thraede, Klaus",
+        "indextitle": "De natura deorum",
+        "title": "De natura deorum. Über das Wesen der Gӧtter",
+        "shorttitle": "De natura deorum",
+        "language": "langlatin and langgerman",
+        "publisher": "Reclam",
+        "location": "Stuttgart",
+        "year": "1995",
+        "annotation": "A bilingual edition of Cicero's \\emphDe natura deorum, with a German\r\n\t\t    translation. Note the format of the \\textttlanguage field in the database\r\n\t\t    file, the concatenation of the \\texttteditor and \\texttttranslator fields,\r\n\t\t    and the \\textttafterword field"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "coleridge",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=british",
+        "author": "Coleridge, Samuel Taylor",
+        "editor": "Coburn, Kathleen and Engell, James and Bate, W. Jackson",
+        "indextitle": "Biographia literaria",
+        "title": "Biographia literaria, or Biographical sketches of my literary life and\r\n\t\t    opinions",
+        "shorttitle": "Biographia literaria",
+        "maintitle": "The collected works of Samuel Taylor Coleridge",
+        "part": "2",
+        "volume": "7",
+        "series": "Bollingen Series",
+        "number": "75",
+        "publisher": "Routledge and Kegan Paul",
+        "location": "London",
+        "year": "1983",
+        "annotation": "One (partial) volume of a multivolume book. This is a \\textttbook entry with\r\n\t\t    a \\textttvolume and a \\textttpart field which explicitly refers to the\r\n\t\t    second (physical) part of the seventh (logical) volume. Also note the\r\n\t\t    \\textttseries and \\textttnumber fields"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "companion",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=american",
+        "sorttitle": "LaTeX Companion",
+        "author": "Goossens, Michel and Mittelbach, Frank and Samarin, Alexander",
+        "indextitle": "LaTeX Companion, The",
+        "title": "The LaTeX Companion",
+        "shorttitle": "LaTeX Companion",
+        "edition": "1",
+        "publisher": "Addison-Wesley",
+        "location": "Reading, Mass.",
+        "year": "1994",
+        "annotation": "A book with three authors. Note the formatting of the author list. By default,\r\n\t\t    only the first name is reversed in the bibliography"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "cotton",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=british",
+        "author": "Cotton, Frank Albert and Wilkinson, Geoffrey and Murillio, Carlos A. and\r\n\t\t    Bochmann, Manfred",
+        "title": "Advanced inorganic chemistry",
+        "edition": "6",
+        "publisher": "Wiley",
+        "location": "Chichester",
+        "year": "1999",
+        "annotation": "A \\textttbook entry with \\arabicauthor authors and an \\textttedition\r\n\t\t    field. By default, long \\textttauthor and \\texttteditor lists are\r\n\t\t    automatically truncated. This is configurable"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "gerhardt",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=american",
+        "sorttitle": "Federal Appointments Process",
+        "author": "Gerhardt, Michael J.",
+        "indextitle": "Federal Appointments Process, The",
+        "title": "The Federal Appointments Process",
+        "subtitle": "A Constitutional and Historical Analysis",
+        "shorttitle": "Federal Appointments Process",
+        "publisher": "Duke University Press",
+        "location": "Durham and London",
+        "year": "2000",
+        "annotation": "This is a \\textttbook entry. Note the format of the \\textttlocation field\r\n\t\t    as well as the \\textttsorttitle and \\textttindextitle fields"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "gonzalez",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=american",
+        "sorttitle": "Ghost of John Wayne and Other Stories",
+        "author": "Gonzalez, Ray",
+        "indextitle": "Ghost of John Wayne and Other Stories, The",
+        "title": "The Ghost of John Wayne and Other Stories",
+        "shorttitle": "Ghost of John Wayne",
+        "publisher": "The University of Arizona Press",
+        "location": "Tucson",
+        "year": "2001",
+        "isbn": "0-816-52066-6",
+        "annotation": "A collection of short stories. This is a \\textttbook entry. Note the\r\n\t\t    \\textttsorttitle and \\textttindextitle fields in the database file. There's\r\n\t\t    also an \\textttisbn field"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "hammond",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=british",
+        "sorttitle": "Basics of crystallography and diffraction",
+        "author": "Hammond, Christopher",
+        "indextitle": "Basics of crystallography and diffraction, The",
+        "title": "The basics of crystallography and diffraction",
+        "shorttitle": "Crystallography and diffraction",
+        "publisher": "International Union of Crystallography and Oxford University Press",
+        "location": "Oxford",
+        "year": "1997",
+        "annotation": "A \\textttbook entry. Note the \\textttsorttitle and \\textttindextitle\r\n\t\t    fields as well as the format of the \\textttpublisher field"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "iliad",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "german",
+        "sorttitle": "Ilias",
+        "author": "Homer",
+        "translator": "Schadewaldt, Wolfgang",
+        "introduction": "Latacz, Joachim",
+        "indextitle": "Ilias, Die",
+        "title": "Die Ilias",
+        "shorttitle": "Ilias",
+        "edition": "3",
+        "publisher": "Artemis \\& Winkler",
+        "location": "Düsseldorf and Zürich",
+        "year": "2004",
+        "annotation": "A German translation of the \\emphIliad. Note the \\texttttranslator and\r\n\t\t    \\textttintroduction fields and the format of the \\textttlocation field in\r\n\t\t    the database file. Also note the \\textttsorttitle and \\textttindextitle fields"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "knuth:ct",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=american",
+        "sorttitle": "Computers & Typesetting",
+        "indexsorttitle": "Computers & Typesetting",
+        "author": "Knuth, Donald E.",
+        "title": "Computers \\& Typesetting",
+        "volumes": "5",
+        "publisher": "Addison-Wesley",
+        "location": "Reading, Mass.",
+        "date": "1984/1986",
+        "annotation": "A five-volume book cited as a whole. This is a \\textttbook entry, note the\r\n\t\t    \\textttvolumes field"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "knuth:ct:a",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "options": "noroman=true",
+        "langid": "english",
+        "langidopts": "variant=american",
+        "sorttitle": "Computers & Typesetting A",
+        "indexsorttitle": "The TeXbook",
+        "author": "Knuth, Donald E.",
+        "indextitle": "\\TeX book, The",
+        "title": "The \\TeX book",
+        "shorttitle": "\\TeX book",
+        "maintitle": "Computers \\& Typesetting",
+        "volume": "A",
+        "publisher": "Addison-Wesley",
+        "location": "Reading, Mass.",
+        "year": "1984",
+        "annotation": "The first volume of a five-volume book. Note the \\textttsorttitle field.\r\n\t\t     We want this volume to be listed after the entry\r\n\t\t    referring to the entire five-volume set. Also note the \\textttindextitle and\r\n\t\t    \\textttindexsorttitle fields"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "knuth:ct:b",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "options": "noroman=true",
+        "langid": "english",
+        "langidopts": "variant=american",
+        "sorttitle": "Computers & Typesetting B",
+        "indexsorttitle": "TeX: The Program",
+        "author": "Knuth, Donald E.",
+        "title": "\\TeX: The Program",
+        "shorttitle": "\\TeX",
+        "maintitle": "Computers \\& Typesetting",
+        "volume": "B",
+        "publisher": "Addison-Wesley",
+        "location": "Reading, Mass.",
+        "year": "1986",
+        "annotation": "The second volume of a five-volume book. Note the \\textttsorttitle\r\n\t\t    field. Also note the \\textttindexsorttitle field"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "knuth:ct:c",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "options": "noroman=true",
+        "langid": "english",
+        "langidopts": "variant=american",
+        "sorttitle": "Computers & Typesetting C",
+        "author": "Knuth, Donald E.",
+        "indextitle": "METAFONTbook, The",
+        "title": "The METAFONTbook",
+        "shorttitle": "METAFONTbook",
+        "maintitle": "Computers \\& Typesetting",
+        "volume": "C",
+        "publisher": "Addison-Wesley",
+        "location": "Reading, Mass.",
+        "year": "1986",
+        "annotation": "The third volume of a five-volume book. Note the \\textttsorttitle and\r\n\t\t    \\textttindextitle field"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "knuth:ct:d",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "options": "noroman=true",
+        "langid": "english",
+        "langidopts": "variant=american",
+        "sorttitle": "Computers & Typesetting D",
+        "author": "Knuth, Donald E.",
+        "title": "METAFONT: The Program",
+        "shorttitle": "METAFONT",
+        "maintitle": "Computers \\& Typesetting",
+        "volume": "D",
+        "publisher": "Addison-Wesley",
+        "location": "Reading, Mass.",
+        "year": "1986",
+        "annotation": "The fourth volume of a five-volume book. Note the \\textttsorttitle field"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "knuth:ct:e",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "options": "noroman=true",
+        "langid": "english",
+        "langidopts": "variant=american",
+        "sorttitle": "Computers & Typesetting E",
+        "author": "Knuth, Donald E.",
+        "title": "Computer Modern Typefaces",
+        "maintitle": "Computers \\& Typesetting",
+        "volume": "E",
+        "publisher": "Addison-Wesley",
+        "location": "Reading, Mass.",
+        "year": "1986",
+        "annotation": "The fifth volume of a five-volume book. Note the \\textttsorttitle field"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "malinowski",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=british",
+        "author": "Malinowski, Bronis\\law",
+        "title": "Argonauts of the Western Pacific",
+        "subtitle": "An account of native enterprise and adventure in the Archipelagoes of\r\n\t\t    Melanesian New Guinea",
+        "shorttitle": "Argonauts",
+        "edition": "8",
+        "publisher": "Routledge and Kegan Paul",
+        "location": "London",
+        "year": "1972",
+        "annotation": "This is a \\textttbook entry. Note the format of the \\textttpublisher and\r\n\t\t    \\textttedition fields as well as the \\textttsubtitle field"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "maron",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=american",
+        "author": "Maron, Monika",
+        "translator": "Brigitte Goldstein",
+        "title": "Animal Triste",
+        "shorttitle": "Animal Triste",
+        "publisher": "University of Nebraska Press",
+        "location": "Lincoln",
+        "year": "2000",
+        "origlanguage": "german",
+        "annotation": "An English translation of a German novel with a French title. In other words: a\r\n\t\t    \\textttbook entry with a \\texttttranslator field. Note the\r\n\t\t    \\textttoriglanguage field which is concatenated with the \\texttttranslator"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "massa",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=british",
+        "author": "Werner Massa",
+        "title": "Crystal structure determination",
+        "edition": "2",
+        "publisher": "Spinger",
+        "location": "Berlin",
+        "year": "2004",
+        "annotation": "A \\textttbook entry with an \\textttedition field"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "nietzsche:ksa",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "german",
+        "sorttitle": "Werke-00-000",
+        "indexsorttitle": "Samtliche Werke",
+        "author": "Nietzsche, Friedrich",
+        "editor": "Colli, Giorgio and Montinari, Mazzino",
+        "title": "Sämtliche Werke",
+        "subtitle": "Kritische Studienausgabe",
+        "volumes": "15",
+        "edition": "2",
+        "publisher": "dtv and Walter de Gruyter",
+        "location": "München and Berlin and New York",
+        "year": "1988",
+        "annotation": "The critical edition of Nietzsche's works. This is a \\textttbook entry\r\n\t\t    referring to a 15-volume work as a whole. Note the \\textttvolumes field and\r\n\t\t    the format of the \\textttpublisher and \\textttlocation fields in the\r\n\t\t    database file. Also note the \\textttsorttitle field\r\n\t\t    which is used to fine-tune the sorting order of the bibliography. We want this\r\n\t\t    item listed first in the bibliography"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "nietzsche:ksa1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "german",
+        "sorttitle": "Werke-01-000",
+        "indexsorttitle": "Samtliche Werke I",
+        "author": "Nietzsche, Friedrich",
+        "bookauthor": "Nietzsche, Friedrich",
+        "editor": "Colli, Giorgio and Montinari, Mazzino",
+        "indextitle": "Sämtliche Werke I",
+        "title": "Die Geburt der Tragӧdie. Unzeitgemäße Betrachtungen I--IV.\r\n\t\t    Nachgelassene Schriften 1870--1973",
+        "shorttitle": "Sämtliche Werke I",
+        "maintitle": "Sämtliche Werke",
+        "mainsubtitle": "Kritische Studienausgabe",
+        "volume": "1",
+        "edition": "2",
+        "publisher": "dtv and Walter de Gruyter",
+        "location": "München and Berlin and New York",
+        "year": "1988",
+        "annotation": "A single volume from the critical edition of Nietzsche's works. This\r\n\t\t    \\textttbook entry explicitly refers to the first volume only. Note the\r\n\t\t    \\texttttitle and \\textttmaintitle fields. Also note the \\textttsorttitle\r\n\t\t    field. We want this entry to be listed after the entry\r\n\t\t    referring to the entire edition"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "nussbaum",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "keywords": "secondary",
+        "langid": "english",
+        "langidopts": "variant=american",
+        "sorttitle": "Aristotle's De Motu Animalium",
+        "indexsorttitle": "Aristotle's De Motu Animalium",
+        "author": "Nussbaum, Martha",
+        "title": "Aristotle's \\mkbibquoteDe Motu Animalium",
+        "publisher": "pup",
+        "location": "Princeton",
+        "year": "1978",
+        "annotation": "A \\textttbook entry. Note the \\textttsorttitle and \\textttindexsorttitle\r\n\t\t    fields and the markup of the quotes in the database file"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "piccato",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=american",
+        "author": "Piccato, Pablo",
+        "title": "City of Suspects",
+        "subtitle": "Crime in Mexico City, 1900--1931",
+        "shorttitle": "City of Suspects",
+        "publisher": "Duke University Press",
+        "location": "Durham and London",
+        "year": "2001",
+        "annotation": "This is a \\textttbook entry. Note the format of the \\textttlocation field\r\n\t\t    in the database file"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "vangennep",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "options": "useprefix",
+        "langid": "french",
+        "sorttitle": "Rites de passage",
+        "author": "van Gennep, Arnold",
+        "indextitle": "Rites de passage, Les",
+        "title": "Les rites de passage",
+        "shorttitle": "Rites de passage",
+        "publisher": "Nourry",
+        "location": "Paris",
+        "year": "1909",
+        "annotation": "A \\textttbook entry. Note the format of the printed name and compare the\r\n\t\t    \\textttuseprefix option in the \\textttoptions field as well as\r\n\t\t    \\textttbrandt and \\textttgeer"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "vangennepx",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "french",
+        "author": "van Gennep, Jean",
+        "title": "Il a neigé à Port-au-Prince",
+        "publisher": "Alhambra",
+        "location": "Montréal",
+        "year": "1999"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "vazques-de-parga",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "spanish",
+        "sorttitle": "Peregrinaciones a Santiago de Compostela",
+        "author": "Vázques de Parga, Luis and Lacarra, José María and Uría\r\n\t\t    Ríu, Juan",
+        "indextitle": "Peregrinaciones a Santiago de Compostela, Las",
+        "title": "Las Peregrinaciones a Santiago de Compostela",
+        "shorttitle": "Peregrinaciones",
+        "volumes": "3",
+        "publisher": "Iberdrola",
+        "location": "Pamplona",
+        "year": "1993",
+        "note": "Ed. facs. de la realizada en 1948--49",
+        "annotation": "A multivolume book cited as a whole. This is a \\textttbook entry with\r\n\t\t    \\textttvolumes, \\textttnote, \\textttsorttitle, and \\textttindextitle fields"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "worman",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=american",
+        "sorttitle": "Cast of Character",
+        "author": "Worman, Nancy",
+        "indextitle": "Cast of Character, The",
+        "title": "The Cast of Character",
+        "subtitle": "Style in Greek Literature",
+        "shorttitle": "Cast of Character",
+        "publisher": "University of Texas Press",
+        "location": "Austin",
+        "year": "2002",
+        "annotation": "A \\textttbook entry. Note the \\textttsorttitle and \\textttindextitle\r\n\t\t    fields"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "wormanx",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=american",
+        "sorttitle": "Someone did it again",
+        "author": "Worman, Nana",
+        "indextitle": "Someone did it again",
+        "title": "Someone did it again",
+        "publisher": "University of Nowhere Press",
+        "location": "Somewhere",
+        "year": "2009"
+      }
+    },
+    {
+      "Type": "Collection",
+      "Key": "britannica",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "options": "useeditor=false",
+        "label": "EB",
+        "langid": "english",
+        "langidopts": "variant=british",
+        "sorttitle": "Encyclopædia Britannica",
+        "editor": "Preece, Warren E.",
+        "indextitle": "Encyclopædia Britannica, The New",
+        "title": "The New Encyclopædia Britannica",
+        "shorttitle": "Encyclopædia Britannica",
+        "volumes": "32",
+        "edition": "15",
+        "publisher": "Encyclopædia Britannica",
+        "location": "Chicago, Ill.",
+        "year": "2003",
+        "annotation": "This is a \\textttcollection entry for an encyclopedia. Note the\r\n\t\t    \\textttuseeditor option in the \\textttoptions field as well as the\r\n\t\t    \\textttsorttitle field. We want this entry to be cited and alphabetized by\r\n\t\t    title even though there is an editor. In addition to that, we want the title to\r\n\t\t    be alphabetized under \\enquote*E rather than \\enquote*T. Also note the\r\n\t\t    \\textttlabel field which is provided for author-year citation styles"
+      }
+    },
+    {
+      "Type": "Collection",
+      "Key": "gaonkar",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=american",
+        "editor": "Gaonkar, Dilip Parameshwar",
+        "title": "Alternative Modernities",
+        "publisher": "Duke University Press",
+        "location": "Durham and London",
+        "year": "2001",
+        "isbn": "0-822-32714-7",
+        "annotation": "This is a \\textttcollection entry. Note the format of the \\textttlocation\r\n\t\t    field in the database file as well as the \\textttisbn field"
+      }
+    },
+    {
+      "Type": "Collection",
+      "Key": "jaffe",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "editor": "Jaffé, Philipp",
+        "editora": "Loewenfeld, Samuel and Kaltenbrunner, Ferdinand and Ewald, Paul",
+        "editoratype": "redactor",
+        "indextitle": "Regesta Pontificum Romanorum",
+        "title": "Regesta Pontificum Romanorum ab condita ecclesia ad annum post Christum natum\r\n\t\t    \\textscmcxcviii",
+        "shorttitle": "Regesta Pontificum Romanorum",
+        "volumes": "2",
+        "edition": "2",
+        "location": "Leipzig",
+        "date": "1885/1888",
+        "annotation": "A \\textttcollection entry with \\textttedition and \\textttvolumes fields.\r\n\t\t    Note the \\texttteditortype field handling the redactor"
+      }
+    },
+    {
+      "Type": "Collection",
+      "Key": "westfahl:frontier",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=american",
+        "editor": "Westfahl, Gary",
+        "title": "Space and Beyond",
+        "subtitle": "The Frontier Theme in Science Fiction",
+        "booktitle": "Space and Beyond",
+        "booksubtitle": "The Frontier Theme in Science Fiction",
+        "publisher": "Greenwood",
+        "location": "Westport, Conn. and London",
+        "year": "2000",
+        "annotation": "This is a \\textttcollection entry. Note the format of the \\textttlocation\r\n\t\t    field as well as the \\textttsubtitle and \\textttbooksubtitle fields"
+      }
+    },
+    {
+      "Type": "InBook",
+      "Key": "kant:kpv",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "shorthand": "KpV",
+        "langid": "german",
+        "author": "Kant, Immanuel",
+        "bookauthor": "Kant, Immanuel",
+        "title": "Kritik der praktischen Vernunft",
+        "shorttitle": "Kritik der praktischen Vernunft",
+        "booktitle": "Kritik der praktischen Vernunft. Kritik der Urtheilskraft",
+        "maintitle": "Kants Werke. Akademie Textausgabe",
+        "volume": "5",
+        "publisher": "Walter de Gruyter",
+        "location": "Berlin",
+        "year": "1968",
+        "pages": "1--163",
+        "annotation": "An edition of Kant's \\emphCollected Works, volume five. This is an\r\n\t\t    \\textttinbook entry which explicitly refers to the \\emphCritique of Practical\r\n\t\t    Reason only, not to the entire fifth volume. Note the \\textttauthor and\r\n\t\t    \\textttbookauthor fields in the database file. By default, the\r\n\t\t    \\textttbookauthor is omitted if the values of the \\textttauthor and\r\n\t\t    \\textttbookauthor fields are identical"
+      }
+    },
+    {
+      "Type": "InBook",
+      "Key": "kant:ku",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "shorthand": "KU",
+        "langid": "german",
+        "author": "Kant, Immanuel",
+        "bookauthor": "Kant, Immanuel",
+        "title": "Kritik der Urtheilskraft",
+        "booktitle": "Kritik der praktischen Vernunft. Kritik der Urtheilskraft",
+        "maintitle": "Kants Werke. Akademie Textausgabe",
+        "volume": "5",
+        "publisher": "Walter de Gruyter",
+        "location": "Berlin",
+        "year": "1968",
+        "pages": "165--485",
+        "annotation": "An edition of Kant's \\emphCollected Works, volume five. This is an\r\n\t\t    \\textttinbook entry which explicitly refers to the \\emphCritique of Judgment\r\n\t\t    only, not to the entire fifth volume"
+      }
+    },
+    {
+      "Type": "InBook",
+      "Key": "nietzsche:historie",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "german",
+        "sorttitle": "Werke-01-243",
+        "indexsorttitle": "Vom Nutzen und Nachtheil der Historie fur das Leben",
+        "author": "Nietzsche, Friedrich",
+        "bookauthor": "Nietzsche, Friedrich",
+        "editor": "Colli, Giorgio and Montinari, Mazzino",
+        "indextitle": "Vom Nutzen und Nachtheil der Historie für das Leben",
+        "title": "Unzeitgemässe Betrachtungen. Zweites Stück",
+        "subtitle": "Vom Nutzen und Nachtheil der Historie für das Leben",
+        "shorttitle": "Vom Nutzen und Nachtheil der Historie",
+        "booktitle": "Die Geburt der Tragӧdie. Unzeitgemäße Betrachtungen I--IV.\r\n\t\t    Nachgelassene Schriften 1870--1973",
+        "maintitle": "Sämtliche Werke",
+        "mainsubtitle": "Kritische Studienausgabe",
+        "volume": "1",
+        "publisher": "dtv and Walter de Gruyter",
+        "location": "München and Berlin and New York",
+        "year": "1988",
+        "pages": "243--334",
+        "annotation": "A single essay from the critical edition of Nietzsche's works. This\r\n\t\t    \\textttinbook entry explicitly refers to an essay found in the first volume.\r\n\t\t    Note the \\texttttitle, \\textttbooktitle, and \\textttmaintitle fields. Also\r\n\t\t    note the \\textttsorttitle field. We want this entry to\r\n\t\t    be listed after the entry referring to the entire first volume"
+      }
+    },
+    {
+      "Type": "InCollection",
+      "Key": "brandt",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "options": "useprefix=false",
+        "langid": "german",
+        "indexsorttitle": "Nordischen Lander von der Mitte des 11. Jahrhunderts bis 1448",
+        "author": "von Brandt, Ahasver and Erich Hoffmann",
+        "editor": "Ferdinand Seibt",
+        "indextitle": "Nordischen Länder von der Mitte des 11.~Jahrhunderts bis 1448, Die",
+        "title": "Die nordischen Länder von der Mitte des 11.~Jahrhunderts bis 1448",
+        "shorttitle": "Die nordischen Länder",
+        "booktitle": "Europa im Hoch- und Spätmittelalter",
+        "series": "Handbuch der europäischen Geschichte",
+        "number": "2",
+        "publisher": "Klett-Cotta",
+        "location": "Stuttgart",
+        "year": "1987",
+        "pages": "884--917",
+        "annotation": "An \\textttincollection entry with a \\textttseries and a \\textttnumber.\r\n\t\t    Note the format of the printed name and compare the \\textttuseprefix option in\r\n\t\t    the \\textttoptions field as well as \\textttvangennep. Also note the\r\n\t\t    \\textttindextitle, and \\textttindexsorttitle fields"
+      }
+    },
+    {
+      "Type": "InCollection",
+      "Key": "hyman",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "keywords": "secondary",
+        "langid": "english",
+        "langidopts": "variant=american",
+        "author": "Arthur Hyman",
+        "editor": "O'Meara, Dominic J.",
+        "indextitle": "Aristotle's Theory of the Intellect",
+        "title": "Aristotle's Theory of the Intellect and its Interpretation by Averroes",
+        "shorttitle": "Aristotle's Theory of the Intellect",
+        "booktitle": "Studies in Aristotle",
+        "series": "Studies in Philosophy and the History of Philosophy",
+        "number": "9",
+        "publisher": "The Catholic University of America Press",
+        "location": "Washington, D.C.",
+        "year": "1981",
+        "pages": "161--191",
+        "annotation": "An \\textttincollection entry with a \\textttseries and \\textttnumber field"
+      }
+    },
+    {
+      "Type": "InCollection",
+      "Key": "pines",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "keywords": "secondary",
+        "langid": "english",
+        "langidopts": "variant=american",
+        "author": "Pines, Shlomo",
+        "editor": "Twersky, Isadore",
+        "indextitle": "Limitations of Human Knowledge According to Al-Farabi, ibn Bajja, and\r\n\t\t    Maimonides, The",
+        "title": "The Limitations of Human Knowledge According to Al-Farabi, ibn Bajja, and\r\n\t\t    Maimonides",
+        "shorttitle": "Limitations of Human Knowledge",
+        "booktitle": "Studies in Medieval Jewish History and Literature",
+        "publisher": "hup",
+        "location": "Cambridge, Mass.",
+        "year": "1979",
+        "pages": "82--109",
+        "annotation": "A typical \\textttincollection entry. Note the \\textttindextitle field"
+      }
+    },
+    {
+      "Type": "InProceedings",
+      "Key": "moraux",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "keywords": "secondary",
+        "langid": "french",
+        "indexsorttitle": "De Anima dans la tradition grecque",
+        "author": "Moraux, Paul",
+        "editor": "Lloyd, G. E. R. and Owen, G. E. L.",
+        "indextitle": "\\emphDe Anima dans la tradition grècque, Le",
+        "title": "Le \\emphDe Anima dans la tradition grècque",
+        "subtitle": "Quelques aspects de l'interpretation du traité, de Theophraste à\r\n\t\t    Themistius",
+        "shorttitle": "\\emphDe Anima dans la tradition grècque",
+        "booktitle": "Aristotle on Mind and the Senses",
+        "booktitleaddon": "Proceedings of the Seventh Symposium Aristotelicum (1975)",
+        "publisher": "cup",
+        "location": "Cambridge",
+        "date": "1979-01-02/1980-04-08",
+        "origdate": "1924-06-07/1924-07-09",
+        "eventdate": "1924-02-03/1924-02-05",
+        "urldate": "1979-03-03/1979-03-04",
+        "url": "http://some/thing",
+        "pages": "281--324",
+        "annotation": "This is a typical \\textttinproceedings entry. Note the \\textttbooksubtitle,\r\n\t\t    \\textttshorttitle, \\textttindextitle, and \\textttindexsorttitle fields"
+      }
+    },
+    {
+      "Type": "InProceedings",
+      "Key": "stdmodel:salam",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "entryset": "stdmodel",
+        "author": "Salam, Abdus",
+        "editor": "Svartholm, Nils",
+        "title": "Weak and Electromagnetic Interactions",
+        "booktitle": "Elementary particle theory",
+        "booksubtitle": "Relativistic groups and analyticity",
+        "booktitleaddon": "Proceedings of the Eighth Nobel Symposium, May 19--25, 1968",
+        "venue": "Aspenäsgarden, Lerum",
+        "publisher": "Almquist \\& Wiksell",
+        "location": "Stockholm",
+        "year": "1968",
+        "pages": "367\\psqq"
+      }
+    },
+    {
+      "Type": "Manual",
+      "Key": "cms",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "label": "CMS",
+        "langid": "english",
+        "langidopts": "variant=american",
+        "sorttitle": "Chicago Manual of Style",
+        "indextitle": "Chicago Manual of Style, The",
+        "title": "The Chicago Manual of Style",
+        "subtitle": "The Essential Guide for Writers, Editors, and Publishers",
+        "shorttitle": "Chicago Manual of Style",
+        "edition": "15",
+        "publisher": "University of Chicago Press",
+        "location": "Chicago, Ill.",
+        "year": "2003",
+        "isbn": "0-226-10403-6",
+        "annotation": "This is a \\textttmanual entry without an \\textttauthor or \\texttteditor.\r\n\t\t    Note the \\textttlabel field in the database file which is provided for\r\n\t\t    author-year citation styles. Also note the \\textttsorttitle and\r\n\t\t    \\textttindextitle fields. By default, all entries without an \\textttauthor\r\n\t\t    or \\texttteditor are alphabetized by \\texttttitle but we want this entry to\r\n\t\t    be alphabetized under \\enquote*C rather than \\enquote*T. There's also an\r\n\t\t    \\textttisbn field"
+      }
+    },
+    {
+      "Type": "Online",
+      "Key": "baez/online",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=american",
+        "author": "Baez, John C. and Lauda, Aaron D.",
+        "title": "Higher-Dimensional Algebra V: 2-Groups",
+        "version": "3",
+        "date": "2004-10-27",
+        "eprint": "math/0307200v3",
+        "eprinttype": "arxiv",
+        "annotation": "An \\textttonline reference from arXiv. Note the \\texttteprint and\r\n\t\t    \\texttteprinttype fields. Also note that the arXiv reference is transformed\r\n\t\t    into a clickable link if \\texttthyperref support has been enabled. Compare\r\n\t\t    \\textttbaez\\slash article which is the same item given as an \\textttarticle\r\n\t\t    entry with eprint information"
+      }
+    },
+    {
+      "Type": "Online",
+      "Key": "ctan",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "label": "CTAN",
+        "langid": "english",
+        "langidopts": "variant=american",
+        "title": "CTAN",
+        "subtitle": "The Comprehensive TeX Archive Network",
+        "year": "2006",
+        "url": "http://www.ctan.org",
+        "urldate": "2006-10-01",
+        "annotation": "This is an \\textttonline entry. The \\textscurl, which is given in the\r\n\t\t    \\texttturl field, is transformed into a clickable link if \\texttthyperref\r\n\t\t    support has been enabled. Note the format of the \\texttturldate field\r\n\t\t    (\\textttyyyy-mm-dd) in the database file. It is also possible to use the\r\n\t\t    fields \\texttturlday\\slash \\texttturlmonth\\slash \\texttturlyear instead.\r\n\t\t    Also note the \\textttlabel field which may be used as a fallback by citation\r\n\t\t    styles which need an \\textttauthor and\\slash or a \\textttyear"
+      }
+    },
+    {
+      "Type": "Online",
+      "Key": "itzhaki",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=american",
+        "author": "Itzhaki, Nissan",
+        "title": "Some remarks on 't Hooft's S-matrix for black holes",
+        "version": "1",
+        "date": "1996-03-11",
+        "eprint": "hep-th/9603067",
+        "eprinttype": "arxiv",
+        "annotation": "An \\textttonline reference from arXiv. Note the \\texttteprint and\r\n\t\t    \\texttteprinttype fields. Also note that the arXiv reference is transformed\r\n\t\t    into a clickable link if \\texttthyperref support has been enabled",
+        "abstract": "We discuss the limitations of 't Hooft's proposal for the black hole S-matrix.\r\n\t\t    We find that the validity of the S-matrix implies violation of the\r\n\t\t    semi-classical approximation at scales large compared to the Planck scale. We\r\n\t\t    also show that the effect of the centrifugal barrier on the S-matrix is crucial\r\n\t\t    even for large transverse distances."
+      }
+    },
+    {
+      "Type": "Online",
+      "Key": "markey",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=american",
+        "sorttitle": "Tame the Beast",
+        "author": "Markey, Nicolas",
+        "title": "Tame the BeaST",
+        "subtitle": "The B to X of BibTeX",
+        "version": "1.3",
+        "url": "http://tug.ctan.org/tex-archive/info/bibtex/tamethebeast/ttb_en.pdf",
+        "urldate": "2006-10-01",
+        "annotation": "An \\textttonline entry for a tutorial. Note the format of the \\textttdate\r\n\t\t    field (\\textttyyyy-mm-dd) in the database file. It is also possible to use the\r\n\t\t    fields \\textttday\\slash \\textttmonth\\slash \\textttyear instead."
+      }
+    },
+    {
+      "Type": "Patent",
+      "Key": "almendro",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "german",
+        "author": "Almendro, José L. and Martín, Jacinto and Sánchez, Alberto and\r\n\t\t    Nozal, Fernando",
+        "title": "Elektromagnetisches Signalhorn",
+        "number": "EU-29702195U",
+        "location": "countryes and countryfr and countryuk and countryde",
+        "year": "1998",
+        "annotation": "This is a \\textttpatent entry with a \\textttlocation field. The number is\r\n\t\t    given in the \\textttnumber field. Note the format of the \\textttlocation\r\n\t\t    field in the database file. Compare \\textttlaufenberg, \\textttsorace, and\r\n\t\t    \\textttkowalik"
+      }
+    },
+    {
+      "Type": "Patent",
+      "Key": "kowalik",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "french",
+        "author": "Kowalik, F. and Isard, M.",
+        "indextitle": "Estimateur d'un défaut de fonctionnement",
+        "title": "Estimateur d'un défaut de fonctionnement d'un modulateur en quadrature et\r\n\t\t    étage de modulation l'utilisant",
+        "type": "patreqfr",
+        "number": "9500261",
+        "date": "1995-01-11",
+        "annotation": "This is a \\textttpatent entry for a French patent request with a full date.\r\n\t\t    The number is given in the \\textttnumber field. Note the format of the\r\n\t\t    \\texttttype and \\textttdate fields in the database file. Compare\r\n\t\t    \\textttalmendro, \\textttlaufenberg, and \\textttsorace"
+      }
+    },
+    {
+      "Type": "Patent",
+      "Key": "laufenberg",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "german",
+        "author": "Laufenberg, Xaver and Eynius, Dominique and Suelzle, Helmut and Usbeck, Stephan\r\n\t\t    and Spaeth, Matthias and Neuser-Hoffmann, Miriam and Myrzik, Christian and\r\n\t\t    Schmid, Manfred and Nietfeld, Franz and Thiel, Alexander and Braun, Harald and\r\n\t\t    Ebner, Norbert",
+        "holder": "Robert Bosch GmbH and Daimler Chrysler AG and Bayerische Motoren Werke\r\n\t\t    AG",
+        "title": "Elektrische Einrichtung und Betriebsverfahren",
+        "type": "patenteu",
+        "number": "1700367",
+        "location": "countryde and countrywo",
+        "date": "2006-09-13",
+        "annotation": "This is a \\textttpatent entry with a \\textttholder field. Note the format\r\n\t\t    of the \\texttttype and \\textttlocation fields in the database file. Compare\r\n\t\t    \\textttalmendro, \\textttsorace, and \\textttkowalik",
+        "abstract": "The invention relates to an electric device comprising a generator, in\r\n\t\t    particular for use in the vehicle electric system of a motor vehicle and a\r\n\t\t    controller for controlling the generator voltage. The device is equipped with a\r\n\t\t    control zone, in which the voltage is controlled and zones, in which the torque\r\n\t\t    is controlled. The invention also relates to methods for operating a device of\r\n\t\t    this type.",
+        "file": "http://v3.espacenet.com/textdoc?IDX=EP1700367"
+      }
+    },
+    {
+      "Type": "Patent",
+      "Key": "sorace",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=american",
+        "author": "Sorace, Ronald E. and Reinhardt, Victor S. and Vaughn, Steven A.",
+        "holder": "Hughes Aircraft Company",
+        "title": "High-Speed Digital-to-RF Converter",
+        "type": "patentus",
+        "number": "5668842",
+        "date": "1997-09-16",
+        "annotation": "This is a \\textttpatent entry with a \\textttholder field. Note the format\r\n\t\t    of the \\texttttype and \\textttdate fields in the database file. Compare\r\n\t\t    \\textttalmendro, \\textttlaufenberg, and \\textttkowalik"
+      }
+    },
+    {
+      "Type": "Report",
+      "Key": "chiu",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=american",
+        "sorttitle": "Hybrid Hierarchical Model of a Multiple Virtual Storage (MVS) Operating\r\n\t\t    System",
+        "author": "Chiu, Willy W. and Chow, We Min",
+        "indextitle": "Hybrid Hierarchical Model, A",
+        "title": "A Hybrid Hierarchical Model of a Multiple Virtual Storage (MVS) Operating\r\n\t\t    System",
+        "institution": "IBM and HP and Sun and Sony",
+        "type": "resreport",
+        "number": "RC-6947",
+        "year": "1978",
+        "annotation": "This is a \\textttreport entry for a research report. Note the format of the\r\n\t\t    \\texttttype field in the database file which uses a localization key. The\r\n\t\t    number of the report is given in the \\textttnumber field. Also note the\r\n\t\t    \\textttsorttitle and \\textttindextitle fields"
+      }
+    },
+    {
+      "Type": "Report",
+      "Key": "padhye",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=american",
+        "sorttitle": "A Stochastic Model of TCP Reno Congestion Avoidance and Control",
+        "author": "Padhye, Jitendra and Firoiu, Victor and Towsley, Don",
+        "indextitle": "Stochastic Model of TCP Reno Congestion Avoidance and Control, A",
+        "title": "A Stochastic Model of TCP Reno Congestion Avoidance and Control",
+        "institution": "University of Massachusetts",
+        "type": "techreport",
+        "number": "99-02",
+        "location": "Amherst, Mass.",
+        "year": "1999",
+        "annotation": "This is a \\textttreport entry for a technical report. Note the format of the\r\n\t\t    \\texttttype field in the database file which uses a localization key. The\r\n\t\t    number of the report is given in the \\textttnumber field. Also note the\r\n\t\t    \\textttsorttitle and \\textttindextitle fields",
+        "abstract": "The steady state performance of a bulk transfer TCP flow (i.e. a flow with a\r\n\t\t    large amount of data to send, such as FTP transfers) may be characterized by\r\n\t\t    three quantities. The first is the send rate, which is the amount of data sent\r\n\t\t    by the sender in unit time. The second is the throughput, which is the amount of\r\n\t\t    data received by the receiver in unit time. Note that the throughput will always\r\n\t\t    be less than or equal to the send rate due to losses. Finally, the number of\r\n\t\t    non-duplicate packets received by the receiver in unit time gives us the goodput\r\n\t\t    of the connection. The goodput is always less than or equal to the throughput,\r\n\t\t    since the receiver may receive two copies of the same packet due to\r\n\t\t    retransmissions by the sender. In a previous paper, we presented a simple model\r\n\t\t    for predicting the steady state send rate of a bulk transfer TCP flow as a\r\n\t\t    function of loss rate and round trip time. In this paper, we extend that work in\r\n\t\t    two ways. First, we analyze the performance of bulk transfer TCP flows using\r\n\t\t    more precise, stochastic analysis. Second, we build upon the previous analysis\r\n\t\t    to provide both an approximate formula as well as a more accurate stochastic\r\n\t\t    model for the steady state throughput of a bulk transfer TCP flow.",
+        "file": "ftp://gaia.cs.umass.edu/pub/Padhey99-markov.ps"
+      }
+    },
+    {
+      "Type": "Thesis",
+      "Key": "geer",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "options": "useprefix=false",
+        "langid": "english",
+        "langidopts": "variant=british",
+        "author": "de Geer, Ingrid",
+        "title": "Earl, Saint, Bishop, Skald~-- and Music",
+        "subtitle": "The Orkney Earldom of the Twelfth Century. A Musicological Study",
+        "institution": "Uppsala Universitet",
+        "type": "phdthesis",
+        "location": "Uppsala",
+        "year": "1985",
+        "annotation": "This is a typical \\textttthesis entry for a PhD thesis. Note the\r\n\t\t    \\texttttype field in the database file which uses a localization key. Also\r\n\t\t    note the format of the printed name and compare the \\textttuseprefix option in\r\n\t\t    the \\textttoptions field as well as \\textttvangennep"
+      }
+    },
+    {
+      "Type": "Thesis",
+      "Key": "loh",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "english",
+        "langidopts": "variant=american",
+        "author": "Loh, Nin C.",
+        "title": "High-Resolution Micromachined Interferometric Accelerometer",
+        "institution": "Massachusetts Institute of Technology",
+        "type": "mathesis",
+        "location": "Cambridge, Mass.",
+        "year": "1992",
+        "annotation": "This is a typical \\textttthesis entry for an MA thesis. Note the\r\n\t\t    \\texttttype field in the database file which uses a localization key"
+      }
+    },
+    {
+      "Type": "Thesis",
+      "Key": "Pimentel00",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Pimentel, Jr.,Joseph J.",
+        "title": "Sociolinguistic Reflections of Privatization and Globalization: The Arabic of Egyptian newspaper advertisements",
+        "school": "University of Michigan",
+        "year": "2000"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "luzzatto",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Luzzatto, Moshe Ḥayyim",
+        "title": "ha-Lashon la-Ramḥal: u-vo sheloshah ḥiburim",
+        "location": "Yerushalayim",
+        "publisher": "Makhon Ramḥal",
+        "year": "2000"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "hasan",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "al-Hasan, ʿAlī",
+        "editor": "al-Hasan, ʿAlī",
+        "translator": "al-Hasan, ʿAlī",
+        "title": "Some title",
+        "publisher": "Some press",
+        "year": "2000"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "t1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "keywords": " primary, something,somethingelse",
+        "author": "Bill Brown",
+        "title": "10\\% of [100] and 90% of $Normal_2$ | \\& # things $^3$",
+        "year": "1992",
+        "pages": "100--"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "t2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Bill Brown",
+        "sortname": "Bill Brown",
+        "title": "Signs of W$\\fracoa$nder",
+        "year": "1994",
+        "pages": "100--108"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "tvonb",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Terrence von Bobble",
+        "title": "Things",
+        "year": "1997"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "avona",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "useprefix=false and Alan von Animal",
+        "title": "Things",
+        "year": "1998"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "rvonr",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "useprefix=false and useprefix=true, given=Richard, prefix=von, family=Rabble",
+        "title": "Things",
+        "year": "1998"
+      }
+    },
+    {
+      "Type": "UNPUBLISHED",
+      "Key": "anon1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "AnonymousX",
+        "title": "Title1",
+        "year": "1835",
+        "shortauthor": "XAnony",
+        "shorttitle": "Shorttitle",
+        "keywords": "arc",
+        "pages": "111--118",
+        "langid": "english",
+        "langidopts": "variant=american"
+      }
+    },
+    {
+      "Type": "UNPUBLISHED",
+      "Key": "anon2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "AnonymousY",
+        "title": "Title2",
+        "year": "1839",
+        "pages": "1176--1276",
+        "shortauthor": "YAnony",
+        "shorttitle": "Shorttitle",
+        "keywords": "arc",
+        "langid": "en",
+        "langidopts": "variant=american"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "u1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "AAA and BBB and CCC and DDD",
+        "title": "A title",
+        "note": "0",
+        "date": "2000"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "u2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "AAA and BBB and CCC and DDD and EEE",
+        "title": "A title",
+        "date": "2003"
+      }
+    },
+    {
+      "Type": "UNPUBLISHED",
+      "Key": "i1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "abstract": "Some abstract %50 of which is useless",
+        "author": "AAA and BBB and CCC and DDD and EEE",
+        "title": "A title",
+        "date": "2003",
+        "userb": "test",
+        "lista": "list test",
+        "listb": "late and early",
+        "listc": "late and early",
+        "listd": "æøå"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "i2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "userb": "Some text & some bad chars",
+        "userf": "Something to lose in an alsoset",
+        "author": "AAA and BBB and CCC",
+        "title": "A title",
+        "date": "2005"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "tmn1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "AAA and BBB and CCC",
+        "title": "A title",
+        "institution": "A and B and C",
+        "date": "2005"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "tmn2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "options": "maxalphanames = 2",
+        "author": "AAA and BBB and CCC",
+        "title": "A title",
+        "date": "2005"
+      }
+    },
+    {
+      "Type": "UNPUBLISHED",
+      "Key": "tmn3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "options": "minitems=2",
+        "author": "AAA and BBB and CCC",
+        "institution": "A and B and C",
+        "title": "A title",
+        "date": "2005"
+      }
+    },
+    {
+      "Type": "UNPUBLISHED",
+      "Key": "tmn4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "options": "maxbibnames=4",
+        "author": "AAA and BBB and CCC",
+        "title": "A title",
+        "date": "2005"
+      }
+    },
+    {
+      "Type": "UNPUBLISHED",
+      "Key": "tmn4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "ZZZ"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "lne1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "AAA and BBB and CCC",
+        "namea": "ZZZ",
+        "title": "A title",
+        "date": "2005"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "alias1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Alan Alias",
+        "date": "2005",
+        "ids": "alias2, alias3"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "alias2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Alan Alias",
+        "date": "2005",
+        "ids": "alias4"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "alias5",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Alan Alias",
+        "date": "2005",
+        "ids": "alias6"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "url1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Alan Alias",
+        "date": "2005",
+        "url": "http://www.something.com/q=áŠ",
+        "urls": "http://www.something.com/q=áŠ and http://www.sun.com"
+      }
+    },
+    {
+      "Type": "ONLINE",
+      "Key": "ol1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Oliver Online",
+        "title": "Online1",
+        "note": "A note"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "pages1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "pages": "23--24"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "pages2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "pages": "23"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "pages3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "pages": "I-II---III-IV"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "pages4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "pages": " 3 -- 5 "
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "pages5",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "pages": "42--"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "pages6",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "pages": "\\bibstringnumber 42"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "pages7",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "pages": "\\bibstringnumber 42, 3 --- 6, I-II--5"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "pages8",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "pages": "10-15, ⅥⅠ-ⅻ"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "pages9",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "pages": "M-1--M-4"
+      }
+    },
+    {
+      "Type": "CONVERSATION",
+      "Key": "us1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Test"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "labelstest",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "AAA and BBB and CCC",
+        "title": "A title",
+        "date": "2005-03-02"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "list1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "location": "ÁAA and BBB and others"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "sn1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "sortname": "ZZZ",
+        "author": "AAA"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "isbn1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "given=Fred, family=Flummox",
+        "isbn": "0816520666",
+        "institution": "",
+        "language": ""
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "isbn2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Fred Flummox",
+        "isbn": "9780816520664"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "snk1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "von Doe, Jr, John"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "ent1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "sortingnamekeytemplatename=snks1 and Simon Smith and family=Brown, prefix=de, given=Brian, sortingnamekeytemplatename=snks2"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "verb1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Arthur Allright",
+        "verba": "\\=y.ä"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "over1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "usera": "thing",
+        "userd": "A"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "others1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Gauck, Joachim",
+        "title": "Title A"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "others2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Gauck, Joachim and others",
+        "title": "Title B"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "recurse1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "ids": "recurse1",
+        "author": "Reginald Roberts"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "final",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "note": "foo",
+        "sortkey": "zzzz"
+      }
+    }
+  ],
+  "Comments": [
+    "= {Angew.~Chem. Int.~Ed.} }",
+    "= {Cambridge University Press} }",
+    "= {Deutscher Taschenbuch-Verlag} }",
+    "= {Harvard University Press} }",
+    "= {J.~Amer. Math. Soc.} }",
+    "= {J.~Chem. Phys.} }",
+    "= {J.~Organomet. Chem.} }",
+    "= {Princeton University Press} }",
+    "% Without braces round this prefixed lastname, T::B::N fails to get\r\n% the lastname on Windows for some reason",
+    "% This also tests auto-escaping of some LaTeX specials chars like \"%\"",
+    "% SORTNAME should not be output",
+    "% useprefix tests",
+    "% fullhash and namehash should be different for these two",
+    "% Testing uniquelist\r\n% Testing field with zero value",
+    "% Testing ignore",
+    "% Testing per_type and per_entry max/min*names",
+    "% Test of duplicate skipping",
+    "% Testing exotic labelnames",
+    "% Testing citekey aliases",
+    "% Testing url encoding",
+    "% Testing user->style maps",
+    "% Note the UTF8 char so we test Text::BibTeX::split_list utf-8 returns",
+    "% ISBN tests\r\n% Also test empty fields",
+    "% Sorting name key tests",
+    "% Extended name format test",
+    "% Decode verbatim test",
+    "% source->target overwrite",
+    "% Test sorting of explicit \"and others\"",
+    "% Test recursion mistake in IDs",
+    "% Test sorting key for final entries with no other data"
+  ]
+}

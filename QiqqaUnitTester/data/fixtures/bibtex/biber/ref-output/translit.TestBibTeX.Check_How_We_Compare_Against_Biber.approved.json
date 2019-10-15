@@ -1,0 +1,167 @@
+﻿{
+  "Items": [
+    {
+      "Type": "MISC",
+      "Key": "kumāra",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "sanskrit",
+        "title": "kumāra"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "kṣetra",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "sanskrit",
+        "title": "kṣetra"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "kha",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "sanskrit",
+        "title": "kha"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "jīvita",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "sanskrit",
+        "title": "jīvita"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "jñāna",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "sanskrit",
+        "title": "jñāna"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "jvara",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "sanskrit",
+        "title": "jvara"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "tyāga",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "sanskrit",
+        "title": "tyāga"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "tridaśa",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "sanskrit",
+        "title": "tridaśa"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "tvid",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "sanskrit",
+        "title": "tvid"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "aachen",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Aachen"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "augsburg",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Augsburg"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "arnhem",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Arnhem"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "avignon",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Avignon"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "aix-en-provence",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Aix-en-Provence"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "berlin",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Berlin"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "utrecht",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Utrecht"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "zeven",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Zeven"
+      }
+    }
+  ],
+  "Comments": []
+}

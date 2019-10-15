@@ -100,11 +100,11 @@ namespace Utilities
                     //we_are_in_test_env = (basedir.ToLowerInvariant() != s3.ToLowerInvariant());
                     if (we_are_in_test_env)
                     {
-                        _StartupDirectoryForQiqqa = basedir + @"\";
+                        _StartupDirectoryForQiqqa = basedir;
                     }
                     else
                     {
-                        _StartupDirectoryForQiqqa = System.Windows.Forms.Application.StartupPath + @"\";
+                        _StartupDirectoryForQiqqa = Path.GetFullPath(System.Windows.Forms.Application.StartupPath);
                     }
                 }
 

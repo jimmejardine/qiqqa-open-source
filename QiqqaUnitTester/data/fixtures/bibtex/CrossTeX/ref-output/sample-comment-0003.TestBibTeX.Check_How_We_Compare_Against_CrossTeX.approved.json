@@ -1,0 +1,6 @@
+﻿{
+  "Items": [],
+  "Comments": [
+    "{\r\n  @inproceedings{bad,\r\n    title = \"Some paper we want to temporarily comment out\",\r\n    author = \"Somebody and Somebody Else\",\r\n    ...\r\n  "
+  ]
+}

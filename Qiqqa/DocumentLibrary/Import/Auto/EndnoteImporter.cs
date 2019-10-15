@@ -11,6 +11,8 @@ using Utilities;
 using Utilities.BibTex;
 using Utilities.BibTex.Parsing;
 using Utilities.Strings;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary.Import.Auto
 {
@@ -180,13 +182,13 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                 string[] links = links_string.Split(new string[] { ",", "internal-pdf://", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
                 // Build up the list of candidates
-                string base_directory = endnote_database_filename.Substring(0, endnote_database_filename.Length - 4) + ".Data\\PDF\\";
+                string base_directory = Path.GetFullPath(endnote_database_filename.Substring(0, endnote_database_filename.Length - 4) + @".Data/PDF");
                 List<string> pdf_links = new List<string>();
 
                 // First candidates are those in the subdirectory corresponding to the .ENL file
                 foreach (string link in links)
                 {
-                    pdf_links.Add(base_directory + link);
+                    pdf_links.Add(Path.GetFullPath(Path.Combine(base_directory, link)));
                 }
 
                 // Second candidates are raw pathnames

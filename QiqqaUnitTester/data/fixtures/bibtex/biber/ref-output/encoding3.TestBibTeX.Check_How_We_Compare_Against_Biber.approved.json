@@ -1,0 +1,19 @@
+﻿{
+  "Items": [
+    {
+      "Type": "BOOK",
+      "Key": "test1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "year": "1999",
+        "author": "Edward Encalcer",
+        "title": "S�me title",
+        "publisher": "A press"
+      }
+    }
+  ],
+  "Comments": [
+    "% -*- coding: latin-1-unix -*-\r\n% This is a latin1 encoded file (Notice the \"LATIN SMALL LETTER O WITH DIAERESIS\").\r\n% The top line is a hint to Emacs to open in the right encoding"
+  ]
+}

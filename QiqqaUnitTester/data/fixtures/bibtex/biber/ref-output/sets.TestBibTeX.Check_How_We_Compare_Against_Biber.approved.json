@@ -1,0 +1,140 @@
+﻿{
+  "Items": [
+    {
+      "Type": "SET",
+      "Key": "Elias1955",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "entryset": "Elias1955aALIAS,Elias1955b",
+        "crossref": "Elias1955a"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "Elias1955a",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "ids": "Elias1955aALIAS",
+        "author": "Elias, P.",
+        "title": "Predictive coding--I",
+        "journal": "IRE Transactions on Information Theory",
+        "year": "1955",
+        "volume": "1",
+        "pages": "16-24",
+        "number": "1",
+        "month": "March",
+        "doi": "10.1109/TIT.1955.1055126",
+        "entryset": "Elias1955",
+        "issn": "0096-1000"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "Elias1955b",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Elias, P.",
+        "title": "Predictive coding--II",
+        "journal": "IRE Transactions on Information Theory",
+        "year": "1955",
+        "volume": "1",
+        "pages": "24-33",
+        "number": "1",
+        "month": "Mar.",
+        "doi": "10.1109/TIT.1955.1055116",
+        "entryset": "Elias1955",
+        "issn": "0096-1000"
+      }
+    },
+    {
+      "Type": "SET",
+      "Key": "Static1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "entryset": "Static2alias, Static3, Static4, missing1",
+        "annotation": "Some notes"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "Static2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "ids": "Somealias, Static2alias",
+        "author": "Brian Bumble",
+        "title": "Blessed Brains",
+        "year": "2001",
+        "annotation": "Some Blessed Note"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "Static3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Derek Dingle",
+        "title": "Castles and Crime",
+        "year": "2002"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "Static4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Clive Crenellation",
+        "title": "Dungeons, Dark and Dangerous",
+        "year": "2005"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "Dynamic1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Derek Dynamism",
+        "title": "Doing Daring Deeds",
+        "year": "2002",
+        "annotation": "Some Dynamic Note",
+        "shorthand": "d1"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "Dynamic2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Brian Bunting",
+        "title": "Beautiful Birthdays",
+        "year": "2010",
+        "shorthand": "d2"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "Dynamic3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "ids": "Dynamic3alias",
+        "author": "Roger Regardless",
+        "title": "Reckless Ravishings",
+        "year": "2000",
+        "shorthand": "d3"
+      }
+    }
+  ],
+  "Comments": [
+    "% Also test of month hacking - should be forced to \"03\" by the bibtex driver",
+    "% Also test of month hacking - should be forced to \"03\" by the bibtex driver"
+  ]
+}

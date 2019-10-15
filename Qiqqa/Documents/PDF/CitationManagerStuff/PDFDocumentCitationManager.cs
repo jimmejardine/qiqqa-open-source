@@ -238,13 +238,14 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
 
         internal void CloneFrom(PDFDocumentCitationManager other)
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-            lock (citations_lock)
+            // prevent deadlock due to possible incorrect use of this API:
+            if (other != this)
             {
-                l1_clk.LockPerfTimerStop();
-                // prevent deadlock due to possible incorrect use of this API:
-                if (other != this)
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                lock (citations_lock)
                 {
+                    l1_clk.LockPerfTimerStop();
+
                     // the other PDFCitMgr instance has its own lock, so without
                     // a copy through `other.Citations_LOCKED` this code would
                     // be very much thread-UNSAFE!

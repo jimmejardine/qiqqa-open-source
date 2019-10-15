@@ -1,0 +1,21 @@
+﻿{
+  "Items": [
+    {
+      "Type": "patent",
+      "Key": "tateishi2010method",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Method of manufacturing conductive polymer electrolytic capacitor",
+        "author": "Tateishi, Kazuyuki and Murakami, Mutsuaki and Furutani, Hiroyuki",
+        "year": "2010",
+        "month": "jun~15",
+        "publisher": "Google Patents",
+        "note": "US Patent 7,736,398"
+      }
+    }
+  ],
+  "Comments": [
+    "% the `#` concatenation operator"
+  ]
+}

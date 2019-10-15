@@ -1,0 +1,16 @@
+﻿{
+  "Items": [
+    {
+      "Type": "preamble",
+      "Key": "",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n @preamble{\" This is   a preamble\" #             {-\r\n           ^"
+      ],
+      "Warnings": [
+        "There is no key in this BibTeX reference"
+      ],
+      "Fields": {}
+    }
+  ],
+  "Comments": []
+}

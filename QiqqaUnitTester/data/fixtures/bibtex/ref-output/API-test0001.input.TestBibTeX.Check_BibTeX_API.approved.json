@@ -1,0 +1,21 @@
+﻿{
+  "Items": [
+    {
+      "Type": "conference",
+      "Key": "kamp1984theory",
+      "Exceptions": [
+        "Expecting a field name but nothing was acceptable until EOF: broken or truncated BibTeX?\r\nam Colloquium},pages={1--41},year={1984}",
+        "Expecting a } to end this BibTeX reference\r\nam Colloquium},pages={1--41},year={1984}"
+      ],
+      "Warnings": [],
+      "Fields": {
+        "title": "A theory of truth and semantic representation",
+        "author": "Kamp, H.",
+        "booktitle": "Truth, Interpretation and Information: Selected Papers from the Third Amsterdam Colloquium",
+        "pages": "1--41",
+        "year": "1984"
+      }
+    }
+  ],
+  "Comments": []
+}

@@ -1,0 +1,20 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "Oliveira_2009",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Oliveira, A",
+        "date": "2009",
+        "journaltitle": "Oil \\& Gas Journal",
+        "number": "29",
+        "pages": "29",
+        "title": "USGS Monitoring Ecological Impacts",
+        "volume": "107"
+      }
+    }
+  ],
+  "Comments": []
+}

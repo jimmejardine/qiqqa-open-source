@@ -1,0 +1,163 @@
+﻿{
+  "Items": [
+    {
+      "Type": "ARTICLE",
+      "Key": "key1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "ids": "key1alias",
+        "related": "key2,key3,missing1",
+        "relatedtype": "reprintas",
+        "author": "Author",
+        "title": "Original Title",
+        "journaltitle": "Journal Title",
+        "volume": "12",
+        "number": "5",
+        "date": "1998",
+        "pages": "125--150",
+        "shorthand": "RK1"
+      }
+    },
+    {
+      "Type": "INBOOK",
+      "Key": "key2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "related": "key1alias",
+        "relatedtype": "reprintof",
+        "relatedstring": "First",
+        "author": "Author",
+        "title": "Reprint Title",
+        "booktitle": "Booktitle",
+        "location": "Location",
+        "publisher": "Publisher",
+        "date": "2009-02?",
+        "pages": "34--60",
+        "shorthand": "RK2"
+      }
+    },
+    {
+      "Type": "INBOOK",
+      "Key": "key3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "related": "key4",
+        "relatedtype": "translationof",
+        "author": "Author",
+        "title": "Reprint Title",
+        "booktitle": "Booktitle",
+        "location": "Location",
+        "publisher": "Publisher2",
+        "date": "-2010-01~",
+        "pages": "33--57",
+        "shorthand": "RK3"
+      }
+    },
+    {
+      "Type": "INBOOK",
+      "Key": "key4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "options": "useeditor=false,uniquename=false",
+        "author": "Author",
+        "title": "Orig Language Title",
+        "booktitle": "Booktitle",
+        "location": "Location",
+        "publisher": "Publisher2",
+        "date": "2011-22",
+        "pages": "33--57",
+        "shorthand": "RK4"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "c1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "related": "c2"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "c2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "related": "c3, missing2"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "c3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "related": "c2, missing3"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "s1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Author",
+        "title": "Title 1"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "s2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Author",
+        "title": "Title 2",
+        "related": "s1",
+        "relatedstring": "Related Book:",
+        "relatedoptions": "dataonly,skipbib=false,usecustom=false"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "kullback",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Kullback, Solomon",
+        "title": "Information Theory and Statistics",
+        "year": "1959",
+        "publisher": "John Wiley \\& Sons",
+        "location": "New York",
+        "langid": "english",
+        "langidopts": "variant=american"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "kullback:related",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Kullback, Solomon",
+        "title": "Information Theory and Statistics",
+        "year": "1997",
+        "publisher": "Dover Publications",
+        "location": "New York",
+        "langid": "english",
+        "langidopts": "variant=american",
+        "related": "kullback",
+        "relatedtype": "origpubin",
+        "annotation": "A reprint of the \\textttkullback entry. Note the format of\r\n                  the \\textttrelated and \\textttrelatedtype fields"
+      }
+    }
+  ],
+  "Comments": [
+    "% Test custom relatedoptions"
+  ]
+}

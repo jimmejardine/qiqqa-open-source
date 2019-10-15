@@ -1,0 +1,181 @@
+﻿{
+  "Items": [
+    {
+      "Type": "ARTICLE",
+      "Key": "K1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Aaron Adamson",
+        "title": "Artificial Advice",
+        "publisher": "Aardvark Press",
+        "location": "Arlington",
+        "year": "1995",
+        "verba": "String"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "K2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Brian Bully",
+        "title": "Lucid Lamas",
+        "publisher": "Aardvark Press",
+        "location": "Arlington",
+        "year": "1971"
+      }
+    },
+    {
+      "Type": "PHDTHESIS",
+      "Key": "K3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "entrysubtype": "rubbish",
+        "author": "Richard Radiator",
+        "title": "Zenos Things",
+        "location": "Cambridge",
+        "year": "1953"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "K4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Linda Lucid",
+        "title": "Collation is cruel",
+        "publisher": "Stuff and Nonesense Press",
+        "location": "London",
+        "year": "1999",
+        "keywords": "key1, key2"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "K5",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Slippery Zånny",
+        "title": "Silent Slippers",
+        "publisher": "Footwear Folios",
+        "location": "London",
+        "year": "1932"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "K6",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "options": "nametemplates=global",
+        "author": "Slippery Zznny",
+        "title": "People Prefer Packages to Post",
+        "publisher": "Terrible Typists",
+        "location": "Grimsby",
+        "year": "1945"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "K7",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Simon Spaniard",
+        "title": "Collation is chilling",
+        "year": "1906"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "K8",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Terrance Tremble",
+        "title": "Collation is chilling",
+        "note": "Collation is chilling",
+        "keywords": "key1"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "K9",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Terrance Tremble",
+        "title": "Collation is chilling",
+        "note": "Collation is cruel",
+        "keywords": "key1"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "K10",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Terrance Tremble",
+        "title": "Collation is cruel",
+        "keywords": "key1"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "D1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "date": "-0380"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "D2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "date": "-0385"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "D3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "date": "-0388"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "D4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "date": "2005"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "D5",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "date": "0380"
+      }
+    }
+  ],
+  "Comments": [
+    "% In es_ES_trad, title comes after K4 as \"ch\" sorts between \"c\" and \"d\"",
+    "% Testing locales at sortitem level\r\n% K8, K9, K10 all in in en_US\r\n% K9, K8, K10 when NOTE is es_ES_trad",
+    "% Testing dateparts as ints"
+  ]
+}

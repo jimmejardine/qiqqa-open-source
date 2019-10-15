@@ -1,0 +1,23 @@
+﻿{
+  "Items": [
+    {
+      "Type": "author",
+      "Key": "rvr",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "name": "Robbert van Renesse"
+      }
+    },
+    {
+      "Type": "author",
+      "Key": "ldv",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "name": "Louis de Vargas, III"
+      }
+    }
+  ],
+  "Comments": []
+}

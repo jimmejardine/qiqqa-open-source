@@ -1,0 +1,16 @@
+﻿{
+  "Items": [
+    {
+      "Type": "incollection",
+      "Key": "bretthorst1988excerpts",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n   @incollection{bretthorst1988excerpts title={Excerpts from Bayesian spectrum a\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    }
+  ],
+  "Comments": [
+    "% no comma after key"
+  ]
+}

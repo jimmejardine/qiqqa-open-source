@@ -1,0 +1,171 @@
+﻿{
+  "Items": [
+    {
+      "Type": "book",
+      "Key": "mitrinović1996handbook",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Handbook of number theory",
+        "author": "Mitrinovi\\'c, D.S. and Sándor, J. and Crstici, B.",
+        "volume": "1",
+        "year": "1996",
+        "publisher": "Kluwer Academic Pub"
+      }
+    },
+    {
+      "Type": "datasheet",
+      "Key": null,
+      "Exceptions": [
+        "Expecting a ( or {{ to start a BibTeX reference\r\n-  BIBTEX PARSE ERROR:       @datasheet = HT16K33 : RAM Mapping 16*8 LED Control\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "delete",
+      "Key": null,
+      "Exceptions": [
+        "Expecting a ( or {{ to start a BibTeX reference\r\n---  BIBTEX PARSE ERROR:     @delete    bibtexParse error:  Runaway key      ---\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "article",
+      "Key": "whelan",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nBIBTEX PARSE ERROR:     @article{whelan 2010 effective czas reakcji latency rt  \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "delete",
+      "Key": "",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n------  BIBTEX PARSE ERROR:     @delete{}    bibtexParse error:  Token mismatch,\r\n                                        ^"
+      ],
+      "Warnings": [
+        "There is no key in this BibTeX reference"
+      ],
+      "Fields": {}
+    },
+    {
+      "Type": "delete",
+      "Key": "delete",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nBIBTEX PARSE ERROR:     @delete{delete  }  -------------------------------------\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "empty",
+      "Key": null,
+      "Exceptions": [
+        "Expecting a ( or {{ to start a BibTeX reference\r\n-------  BIBTEX PARSE ERROR:     @empty = delete?    bibtexParse error:  Token m\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "blank",
+      "Key": null,
+      "Exceptions": [
+        "Expecting a ( or {{ to start a BibTeX reference\r\n--------  BIBTEX PARSE ERROR:     @blank?    bibtexParse error:  Runaway key    \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "blank",
+      "Key": "",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n-----  BIBTEX PARSE ERROR:     @blank{  }  bibtexParse error:  Token mismatch, e\r\n                                        ^"
+      ],
+      "Warnings": [
+        "There is no key in this BibTeX reference"
+      ],
+      "Fields": {}
+    },
+    {
+      "Type": "delete",
+      "Key": null,
+      "Exceptions": [
+        "Expecting a ( or {{ to start a BibTeX reference\r\n---  BIBTEX PARSE ERROR:     @delete    bibtexParse error:  Runaway key      ---\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "article",
+      "Key": "hermans2012exact",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Exact and near-miss clone detection in spreadsheets",
+        "author": "Hermans, Felienne",
+        "journal": "TinyToCS$\\$",
+        "volume": "1",
+        "year": "2012"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "hopcroft2001automata",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Introduction to automata theory, languages, and computation",
+        "author": "Hopcroft, John E and Motwani, Rajeev and Ullman, Jeffrey D",
+        "year": "2001",
+        "publisher": "Addison-Wesley"
+      }
+    },
+    {
+      "Type": "specsheet",
+      "Key": "title",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nBTEX PARSE ERROR:     @specsheet{  title={DHM3UM80: High Voltage Fast Recovery D\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "article",
+      "Key": "abraham2014fully",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Fully Dynamic All-Pairs Shortest Paths: Breaking the O (n) Barrier$\\$$\\$",
+        "author": "Abraham, Ittai and Chechik, Shiri and Talwar, Kunal",
+        "journal": "Approximation, Randomization, and Combinatorial Optimization. Algorithms and Techniques (APPROX/RANDOM 2014)$\\$",
+        "volume": "28",
+        "pages": "1--16",
+        "year": "2014",
+        "publisher": "Schloss Dagstuhl--Leibniz-Zentrum fuer Informatik$\\$"
+      }
+    }
+  ],
+  "Comments": [
+    "Survive multiple errors in a single bib 'record file':\r\n\r\n---------------------------------------------------------------------------\r\nBIBTEX PARSE ERROR:",
+    "bibtexParse error:  Token mismatch, expected \",\" at index 15, found \"ć1996handbook\"\r\n\r\n\r\n\r\n---------------------------------------------------------------------------\r\nBIBTEX PARSE ERROR:",
+    "= HT16K33 : RAM Mapping 16*8 LED Controller Driver with keyscan\r\n\r\n\r\n\r\n\r\nbibtexParse error:  Token mismatch, expected \"{\" at index 11, found \"= HT16K33 : R\"\r\n\r\n\r\n---------------------------------------------------------------------------\r\nBIBTEX PARSE ERROR:",
+    "bibtexParse error:  Runaway key\r\n\r\n\r\n---------------------------------------------------------------------------\r\nBIBTEX PARSE ERROR:",
+    "2010 effective czas reakcji latency rt\r\n,       author  = {Whelan, Robert}\r\n,       title   = {Effective analysis of reaction time data}\r\n,       journal = {The Psychological Record}\r\n,       year    = {2010}\r\n,       volume  = {58}\r\n,       number  = {3}\r\n,       pages   = {9}\r\n}\r\n\r\nbibtexParse error:  Token mismatch, expected \",\" at index 16, found \"2010 effectiv\"\r\n\r\n\r\n---------------------------------------------------------------------------\r\nBIBTEX PARSE ERROR:",
+    "}\r\n\r\nbibtexParse error:  Token mismatch, expected \",\" at index 8, found \"}\"\r\n\r\n\r\n---------------------------------------------------------------------------\r\nBIBTEX PARSE ERROR:",
+    "}\r\n---------------------------------------------------------------------------\r\nBIBTEX PARSE ERROR:",
+    "= delete?\r\n\r\nbibtexParse error:  Token mismatch, expected \"{\" at index 7, found \"= delete?\"\r\n\r\n\r\n---------------------------------------------------------------------------\r\nBIBTEX PARSE ERROR:",
+    "?\r\n\r\nbibtexParse error:  Runaway key\r\n\r\n\r\n---------------------------------------------------------------------------\r\nBIBTEX PARSE ERROR:",
+    "}\r\nbibtexParse error:  Token mismatch, expected \",\" at index 8, found \"}\"\r\n\r\n\r\n---------------------------------------------------------------------------\r\nBIBTEX PARSE ERROR:",
+    "bibtexParse error:  Runaway key\r\n\r\n\r\n---------------------------------------------------------------------------\r\nBIBTEX PARSE ERROR:",
+    "{ BIBTEX_AUTO - GS ",
+    "}",
+    "bibtexParse error:  Token mismatch, expected \"}\" at index 173, found \"$},\\n  volume=\"\r\n\r\n\r\n---------------------------------------------------------------------------\r\nBIBTEX PARSE ERROR:",
+    "}\r\nbibtexParse error:  Value expected:Addison-Wesley}\r\n}\r\n\r\n\r\n---------------------------------------------------------------------------\r\nBIBTEX PARSE ERROR:",
+    "={DHM3UM80: High Voltage Fast Recovery Diode},\r\nmanufacturer={Hitachi}\r\n}\r\nbibtexParse error:  Token mismatch, expected \",\" at index 18, found \"={DHM3UM80: H\"\r\n\r\n\r\n---------------------------------------------------------------------------\r\nBIBTEX PARSE ERROR:",
+    "{ BIBTEX_AUTO - GS ",
+    "}"
+  ]
+}

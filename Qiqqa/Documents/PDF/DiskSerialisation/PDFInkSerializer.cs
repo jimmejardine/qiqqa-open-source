@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.Documents.PDF.ThreadUnsafe;
 using Utilities;
 using Utilities.Files;
 
@@ -8,7 +9,7 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
 {
     class PDFInkSerializer
     {
-        internal static void ReadFromDisk(PDFDocument pdf_document, PDFInkList inks, Dictionary<string, byte[]> library_items_inks_cache)
+        internal static void ReadFromDisk(PDFDocument_ThreadUnsafe pdf_document, PDFInkList inks, Dictionary<string, byte[]> library_items_inks_cache)
         {
             try
             {
@@ -46,7 +47,7 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
             }
         }
 
-        internal static void WriteToDisk(PDFDocument pdf_document)
+        internal static void WriteToDisk(PDFDocument_ThreadUnsafe pdf_document)
         {
             byte[] data = pdf_document.GetInksAsJSON();
 

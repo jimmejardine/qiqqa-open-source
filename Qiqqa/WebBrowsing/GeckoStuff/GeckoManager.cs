@@ -97,11 +97,10 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
 
                 // Work out the paths
                 string installation_directory = GeckoInstaller.InstallationDirectory;
-                installation_directory = installation_directory.TrimEnd('\\');
 
                 // Set the application PATH to try load the DLL
                 {
-                    string path_value = ConfigurationManager.Instance.StartupDirectoryForQiqqa.TrimEnd('\\') + ";" + GeckoInstaller.InstallationDirectory.TrimEnd('\\');
+                    string path_value = ConfigurationManager.Instance.StartupDirectoryForQiqqa + ";" + GeckoInstaller.InstallationDirectory;
                     if (!SetEnvironmentVariable("PATH", path_value))
                     {
                         Logging.Error("There was a problem setting the PATH for Qiqqa to {0}", path_value);
@@ -124,7 +123,7 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
                         try
                         {
                             Logging.Info("Preloading {0}", dependency_dll);
-                            string dll_path = GeckoInstaller.InstallationDirectory + dependency_dll + ".dll";
+                            string dll_path = Path.GetFullPath(Path.Combine(GeckoInstaller.InstallationDirectory, dependency_dll + ".dll"));
                             IntPtr module_handle = LoadLibraryEx(dll_path, IntPtr.Zero, LOAD_WITH_ALTERED_SEARCH_PATH);
                             if (module_handle == IntPtr.Zero)
                             {

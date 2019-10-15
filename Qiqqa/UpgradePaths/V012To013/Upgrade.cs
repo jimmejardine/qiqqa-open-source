@@ -1,6 +1,9 @@
 ﻿using System;
 using System.IO;
 using Utilities;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.UpgradePaths.V012To013
 {
@@ -14,10 +17,10 @@ namespace Qiqqa.UpgradePaths.V012To013
 
         private static void MoveQiqqaLibraryFromRoamingToLocalProfile()
         {
-            string folder_local_qiqqa = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Quantisle\Qiqqa";
-            string folder_roaming_qiqqa = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Quantisle\Qiqqa";
+            string folder_local_qiqqa = Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Quantisle/Qiqqa"));
+            string folder_roaming_qiqqa = Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"Quantisle/Qiqqa"));
 
-            string folder_local_quantisle = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Quantisle";
+            string folder_local_quantisle = Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Quantisle"));
 
             // First make sure that the Quantisle directory is available in the local profile directory
             if (!Directory.Exists(folder_local_quantisle))

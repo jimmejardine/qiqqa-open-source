@@ -7,6 +7,9 @@ using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
 using Utilities.ProcessTools;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.Common
 {
@@ -26,7 +29,6 @@ namespace Qiqqa.Common
                     environment_details_filename = TempFile.GenerateTempFilename("txt");
                     File.WriteAllText(environment_details_filename, environmentDetails);
                 }
-
                 catch (Exception ex)
                 {
                     Logging.Warn(ex, "Could not get environment details");
@@ -48,7 +50,7 @@ namespace Qiqqa.Common
                 {
                     string target_filename = save_file_dialog.FileName;
 
-                    string file_list = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData, Environment.SpecialFolderOption.Create) + @"\Quantisle\Qiqqa\Logs\Qiqqa.log*";
+                    string file_list = Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData, Environment.SpecialFolderOption.Create), @"Quantisle/Qiqqa/Logs", @"Qiqqa*.log*"));
                     if (environment_details_filename != null)
                     {
                         file_list += " \"" + environment_details_filename + "\"";
@@ -78,7 +80,6 @@ namespace Qiqqa.Common
 
                 FileTools.Delete(environment_details_filename);
             }
-
             catch (Exception ex)
             {
                 Logging.Warn(ex, "Problem zipping logs");

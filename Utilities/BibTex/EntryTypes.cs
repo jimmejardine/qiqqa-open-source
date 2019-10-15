@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Utilities.BibTex
 {
@@ -42,7 +44,7 @@ namespace Utilities.BibTex
             // when the setup file does not exist, yak!
             if (!File.Exists(filename))
             {
-                Logging.Error("BibTeX entry types definition JSON file '{0}' does not exist! You install may be boogered!", filename);
+                Logging.Error("BibTeX entry types definition JSON file '{0}' does not exist! Your install may be boogered!", filename);
 
                 // do it old skool style. Only a few so it's easily noticed by the user!
                 AddEntryType(
@@ -179,7 +181,7 @@ namespace Utilities.BibTex
         {
             get
             {
-                return UnitTestDetector.StartupDirectoryForQiqqa + @"\BibTeX\qiqqa-entry-type-definitions.json";
+                return Path.GetFullPath(Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"BibTeX/qiqqa-entry-type-definitions.json"));
             }
         }
     }

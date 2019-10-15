@@ -1,0 +1,1094 @@
+﻿{
+  "Items": [
+    {
+      "Type": "electronic",
+      "Key": "IEEEhowto:IEEEtranpage",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Michael Shell",
+        "title": "IEEEtran Homepage",
+        "url": "http://www.michaelshell.org/tex/ieeetran/",
+        "year": "2015"
+      }
+    },
+    {
+      "Type": "electronic",
+      "Key": "IEEEexample:shellCTANpage",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Michael Shell",
+        "title": "IEEEtran Webpage on CTAN",
+        "url": "http://www.ctan.org/pkg/ieeetran",
+        "year": "2015"
+      }
+    },
+    {
+      "Type": "electronic",
+      "Key": "IEEEexample:IEEEwebsite",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "The IEEE Website",
+        "url": "http://www.ieee.org/",
+        "year": "2015",
+        "key": "IEEE"
+      }
+    },
+    {
+      "Type": "electronic",
+      "Key": "IEEEexample:bibtexuser",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Oren Patashnik",
+        "title": "\\BibTeXing",
+        "howpublished": "btxdoc.pdf",
+        "url": "http://www.ctan.org/pkg/bibtex",
+        "month": "nov",
+        "year": "2010"
+      }
+    },
+    {
+      "Type": "electronic",
+      "Key": "IEEEexample:bibtexdesign",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Oren Patashnik",
+        "title": "Designing \\BibTeX Styles",
+        "howpublished": "btxhak.pdf",
+        "url": "http://www.ctan.org/pkg/bibtex",
+        "month": "nov",
+        "year": "2010"
+      }
+    },
+    {
+      "Type": "electronic",
+      "Key": "IEEEexample:tamethebeast",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Nicolas Markey",
+        "title": "Tame the BeaST  ---  The B to X of \\BibTeX",
+        "url": "http://www.ctan.org/pkg/tamethebeast",
+        "month": "oct",
+        "year": "2009"
+      }
+    },
+    {
+      "Type": "electronic",
+      "Key": "IEEEexample:bibtexFAQ",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "David Hoadley and Michael Shell",
+        "title": "\\BibTeX Tips and FAQ",
+        "howpublished": "btxFAQ.pdf",
+        "url": "http://mirror.ctan.org/biblio/bibtex/contrib/doc/btxFAQ.pdf",
+        "month": "jan",
+        "year": "2007"
+      }
+    },
+    {
+      "Type": "electronic",
+      "Key": "IEEEexample:texfaq",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Robin Fairbairns",
+        "title": "The \\TeX FAQ",
+        "url": "http://www.tex.ac.uk/",
+        "month": "jun",
+        "year": "2014"
+      }
+    },
+    {
+      "Type": "electronic",
+      "Key": "IEEEexample:bibtexguide",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Ki-Joo Kim",
+        "title": "A \\BibTeX Guide via Examples",
+        "howpublished": "bibtex\\_guide.pdf",
+        "url": "http://www.geocities.ws/kijoo2000/",
+        "month": "nov",
+        "year": "2005"
+      }
+    },
+    {
+      "Type": "electronic",
+      "Key": "IEEEexample:beebe_archive",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Nelson H. F. Beebe",
+        "title": "\\TeX User Group Bibliography Archive",
+        "url": "http://www.math.utah.edu/pub/tex/bib/index-table.html",
+        "month": "dec",
+        "year": "2010"
+      }
+    },
+    {
+      "Type": "electronic",
+      "Key": "IEEEexample:natbib",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Patrick W. Daly and Arthur Ogawa",
+        "title": "The natbib package",
+        "url": "http://www.ctan.org/pkg/natbib",
+        "month": "sep",
+        "year": "2010"
+      }
+    },
+    {
+      "Type": "electronic",
+      "Key": "IEEEexample:urlsty",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Donald Arseneau",
+        "title": "The url package",
+        "url": "http://www.ctan.org/pkg/url",
+        "month": "dec",
+        "year": "2013"
+      }
+    },
+    {
+      "Type": "electronic",
+      "Key": "IEEEexample:hyperref",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Sebastian Rahtz and Heiko Oberdiek",
+        "title": "The hyperref package",
+        "url": "http://www.ctan.org/pkg/hyperref",
+        "month": "nov",
+        "year": "2012"
+      }
+    },
+    {
+      "Type": "electronic",
+      "Key": "IEEEexample:breakurl",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Vilar da Camara Neto",
+        "title": "The breakurl package",
+        "url": "http://www.ctan.org/pkg/breakurl",
+        "month": "apr",
+        "year": "2013"
+      }
+    },
+    {
+      "Type": "electronic",
+      "Key": "IEEEexample:babel",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Johannes L. Braams and Javier Bezos",
+        "title": "The Babel package",
+        "url": "http://www.ctan.org/pkg/babel",
+        "month": "sep",
+        "year": "2014"
+      }
+    },
+    {
+      "Type": "electronic",
+      "Key": "IEEEexample:multibib",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Thorsten Hansen",
+        "title": "The multibib package",
+        "url": "http://www.ctan.org/pkg/multibib",
+        "month": "dec",
+        "year": "2008"
+      }
+    },
+    {
+      "Type": "electronic",
+      "Key": "IEEEexample:biblatex",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Philipp Lehman and Philip Kime",
+        "title": "The biblatex package",
+        "url": "http://www.ctan.org/pkg/biblatex",
+        "month": "apr",
+        "year": "2015"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "IEEEexample:article_typical",
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\ni} {TFT}\",    journal       = IEEE_J_EDL,    volume        = \"20\",    month     \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\ni} {TFT}\",    journal       = IEEE_J_EDL,    volume        = \"20\",    month     \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {
+        "author": "S. Zhang and C. Zhu and J. K. O. Sin and P. K. T. Mok",
+        "title": "A Novel Ultrathin Elevated Channel Low-temperature \r\n                   Poly-Si TFT",
+        "journal": "IEEE",
+        "volume": "20",
+        "month": "nov",
+        "year": "1999",
+        "pages": "569-571"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "IEEEexample:articleetal",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "F. Delorme and others",
+        "title": "Butt-jointed DBR Laser With 15 nm Tunability Grown\r\n                   in Three MOVPE Steps",
+        "journal": "Electron. Lett.",
+        "volume": "31",
+        "number": "15",
+        "year": "1995",
+        "pages": "1244-1245"
+      }
+    },
+    {
+      "Type": "inproceedings",
+      "Key": "IEEEexample:conf_typical",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "R. K. Gupta and S. D. Senturia",
+        "title": "Pull-in Time Dynamics as a Measure of Absolute Pressure",
+        "booktitle": "Proc. IEEE International Workshop on\r\n                   Microelectromechanical Systems (MEMS'97)",
+        "address": "Nagoya, Japan",
+        "month": "jan",
+        "year": "1997",
+        "pages": "290-294"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "IEEEexample:book_typical",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "B. D. Cullity",
+        "title": "Introduction to Magnetic Materials",
+        "publisher": "Addison-Wesley",
+        "address": "Reading, MA",
+        "year": "1972"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "IEEEexample:articlelargepages",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "A. Castaldini and A. Cavallini and B. Fraboni\r\n                   and P. Fernandez and J. Piqueras",
+        "title": "Midgap Traps Related to Compensation Processes in\r\n                   CdTe Alloys",
+        "journal": "Phys. Rev. B.",
+        "volume": "56",
+        "number": "23",
+        "year": "1997",
+        "pages": "14897-14900"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "IEEEexample:articledualmonths",
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\n Bearings\",    journal       = IEEE_J_IA,    volume        = \"31\",    month     \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n Bearings\",    journal       = IEEE_J_IA,    volume        = \"31\",    month     \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {
+        "author": "Y. Okada and K. Dejima and T. Ohishi",
+        "title": "Analysis and Comparison of PM Synchronous Motor and\r\n                   Induction Motor Type Magnetic Bearings",
+        "journal": "IEEE",
+        "volume": "31",
+        "month": "sep/oct",
+        "year": "1995",
+        "pages": "1047-1053"
+      }
+    },
+    {
+      "Type": "misc",
+      "Key": "IEEEexample:TBPmisc",
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\nomography\",    howpublished  = IEEE_M_SP,    month         = may,    year       \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nomography\",    howpublished  = IEEE_M_SP,    month         = may,    year       \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {
+        "author": "M. Coates and A. Hero and R. Nowak and B. Yu",
+        "title": "Internet Tomography",
+        "howpublished": "IEEE",
+        "month": "may",
+        "year": "2002",
+        "note": "to be published"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "IEEEexample:TBParticle",
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\nted Codes\",    journal       = IEEE_J_IT,    year          = \"submitted for publ\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nted Codes\",    journal       = IEEE_J_IT,    year          = \"submitted for publ\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {
+        "author": "N. Kahale and R. Urbanke",
+        "title": "On the Minimum Distance of Parallel and Serially\r\n                   Concatenated Codes",
+        "journal": "IEEE",
+        "year": "submitted for publication"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "IEEEexample:bookwitheditor",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "editor": "J. C. Candy and G. C. Temes",
+        "title": "Oversampling Delta-Sigma Data Converters Theory,\r\n                   Design and Simulation",
+        "publisher": "IEEE Press.",
+        "address": "New York",
+        "year": "1992"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "IEEEexample:book",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "S. M. Metev and V. P. Veiko",
+        "editor": "Osgood, Jr., R. M.",
+        "title": "Laser Assisted Microtechnology",
+        "edition": "Second",
+        "publisher": "Springer-Verlag",
+        "address": "Berlin, Germany",
+        "year": "1998"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "IEEEexample:bookwithseriesvolume",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "editor": "J. Breckling",
+        "title": "The Analysis of Directional Time Series: Applications to\r\n                   Wind Speed and Direction",
+        "series": "Lecture Notes in Statistics",
+        "publisher": "Springer",
+        "address": "Berlin, Germany",
+        "year": "1989",
+        "volume": "61"
+      }
+    },
+    {
+      "Type": "inbook",
+      "Key": "IEEEexample:inbook",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "H. E. Rose",
+        "title": "A Course in Number Theory",
+        "publisher": "Oxford Univ. Press",
+        "address": "New York, NY",
+        "year": "1988",
+        "chapter": "3"
+      }
+    },
+    {
+      "Type": "inbook",
+      "Key": "IEEEexample:inbookpagesnote",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "B. K. Bul",
+        "title": "Theory Principles and Design of Magnetic Circuits",
+        "publisher": "Energia Press",
+        "address": "Moscow",
+        "year": "1964",
+        "pages": "464",
+        "note": "(in Russian)"
+      }
+    },
+    {
+      "Type": "incollection",
+      "Key": "IEEEexample:incollection",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "W. V. Sorin",
+        "editor": "D. Derickson",
+        "title": "Optical Reflectometry for Component Characterization",
+        "booktitle": "Fiber Optic Test and Measurement",
+        "publisher": "Prentice-Hall",
+        "address": "Englewood Cliffs, NJ",
+        "year": "1998"
+      }
+    },
+    {
+      "Type": "incollection",
+      "Key": "IEEEexample:incollectionwithseries",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "J. B. Anderson and K. Tepe",
+        "title": "Properties of the Tailbiting BCJR Decoder",
+        "booktitle": "Codes, Systems and Graphical Models",
+        "series": "IMA Volumes in Mathematics and Its Applications",
+        "publisher": "Springer-Verlag",
+        "address": "New York",
+        "year": "2000"
+      }
+    },
+    {
+      "Type": "incollection",
+      "Key": "IEEEexample:incollection_chpp",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "P. Hedelin and P. Knagenhjelm and M. Skoglund",
+        "editor": "W. B. Kleijn and K. K. Paliwal",
+        "title": "Theory for Transmission of Vector Quantization Data",
+        "booktitle": "Speech Coding and Synthesis",
+        "publisher": "Elsevier Science",
+        "address": "Amsterdam, The Netherlands",
+        "year": "1995",
+        "chapter": "10",
+        "pages": "347-396"
+      }
+    },
+    {
+      "Type": "incollection",
+      "Key": "IEEEexample:incollectionmanyauthors",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "R. M. A. Dawson and Z. Shen and D. A. Furst and\r\n                   S. Connor and J. Hsu and M. G. Kane and R. G. Stewart and\r\n                   A. Ipri and C. N. King and P. J. Green and R. T. Flegal\r\n                   and S. Pearson and W. A. Barrow and E. Dickey and K. Ping\r\n                   and C. W. Tang and S. Van. Slyke and\r\n                   F. Chen and J. Shi and J. C. Sturm and M. H. Lu",
+        "title": "Design of an Improved Pixel for a Polysilicon \r\n                   Active-Matrix Organic LED Display",
+        "booktitle": "SID Tech. Dig.",
+        "volume": "29",
+        "year": "1998",
+        "pages": "11-14"
+      }
+    },
+    {
+      "Type": "manual",
+      "Key": "IEEEexample:motmanual",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "FLEXChip Signal Processor (MC68175/D)",
+        "organization": "Motorola",
+        "year": "1996"
+      }
+    },
+    {
+      "Type": "manual",
+      "Key": "IEEEexample:motmanualhowpub",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "FLEXChip Signal Processor",
+        "howpublished": "MC68175/D",
+        "organization": "Motorola",
+        "year": "1996"
+      }
+    },
+    {
+      "Type": "inproceedings",
+      "Key": "IEEEexample:confwithadddays",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "M. S. Yee and L. Hanzo",
+        "title": "Radial Basis Function Decision Feedback Equaliser\r\n                   Assisted Burst-by-burst Adaptive Modulation",
+        "booktitle": "Proc. IEEE Globecom '99",
+        "address": "Rio de Janeiro, Brazil",
+        "month": "dec 5--9,",
+        "year": "1999",
+        "pages": "2183-2187"
+      }
+    },
+    {
+      "Type": "inproceedings",
+      "Key": "IEEEexample:confwithvolume",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "M. Yajnik and S. B. Moon and J. Kurose and D. Towsley",
+        "title": "Measurement and Modeling of the Temporal Dependence in\r\n                   Packet Loss",
+        "booktitle": "Proc. IEEE INFOCOM'99",
+        "volume": "1",
+        "address": "New York, NY",
+        "month": "mar",
+        "year": "1999",
+        "pages": "345-352"
+      }
+    },
+    {
+      "Type": "inproceedings",
+      "Key": "IEEEexample:confwithpaper",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "M. Wegmuller and J. P. von der Weid and P. Oberson\r\n                   and N. Gisin",
+        "title": "High Resolution Fiber Distributed Measurements With\r\n                   Coherent OFDR",
+        "booktitle": "Proc. ECOC'00",
+        "year": "2000",
+        "paper": "11.3.4",
+        "pages": "109"
+      }
+    },
+    {
+      "Type": "inproceedings",
+      "Key": "IEEEexample:confwithpapertype",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "B. Mikkelsen and G. Raybon and R.-J. Essiambre and\r\n                   K. Dreyer and Y. Su. and L. E. Nelson and J. E. Johnson\r\n                   and G. Shtengel and A. Bond and D. G. Moodie and\r\n                   A. D. Ellis",
+        "title": "160 Gbit/s Single-channel Transmission Over 300 km \r\n                   Nonzero-dispersion Fiber With Semiconductor Based\r\n                   Transmitter and Demultiplexer",
+        "booktitle": "Proc. ECOC'99",
+        "year": "1999",
+        "paper": "2-3",
+        "type": "postdeadline paper",
+        "pages": "28-29"
+      }
+    },
+    {
+      "Type": "inproceedings",
+      "Key": "IEEEexample:presentedatconf",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "S. G. Finn and M. Médard and R. A. Barry",
+        "title": "A Novel Approach to Automatic Protection Switching\r\n                   Using Trees",
+        "intype": "presented at the",
+        "booktitle": "Proc. Int. Conf. Commun.",
+        "year": "1997"
+      }
+    },
+    {
+      "Type": "mastersthesis",
+      "Key": "IEEEexample:masters",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Nin C. Loh",
+        "title": "High-Resolution Micromachined Interferometric\r\n                   Accelerometer",
+        "school": "Massachusetts Institute of Technology",
+        "address": "Cambridge",
+        "year": "1992"
+      }
+    },
+    {
+      "Type": "mastersthesis",
+      "Key": "IEEEexample:masterstype",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "A. Karnik",
+        "title": "Performance of TCP Congestion Control with Rate\r\n                   Feedback: TCP/ABR and Rate Adaptive TCP/IP",
+        "school": "Indian Institute of Science",
+        "type": "M. Eng. thesis",
+        "address": "Bangalore, India",
+        "month": "jan",
+        "year": "1999"
+      }
+    },
+    {
+      "Type": "phdthesis",
+      "Key": "IEEEexample:phdurl",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Q. Li",
+        "title": "Delay Characterization and Performance Control of\r\n                   Wide-area Networks",
+        "school": "Univ. of Delaware",
+        "address": "Newark",
+        "month": "may",
+        "year": "2000",
+        "url": "http://www.ece.udel.edu/~qli"
+      }
+    },
+    {
+      "Type": "techreport",
+      "Key": "IEEEexample:techrep",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "R. Jain and K. K. Ramakrishnan and D. M. Chiu",
+        "title": "Congestion Avoidance in Computer Networks with a \r\n                   Connectionless Network Layer",
+        "institution": "Digital Equipment Corporation",
+        "address": "MA",
+        "number": "DEC-TR-506",
+        "month": "aug",
+        "year": "1987"
+      }
+    },
+    {
+      "Type": "techreport",
+      "Key": "IEEEexample:techreptype",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "J. Padhye and V. Firoiu and D. Towsley",
+        "title": "A Stochastic Model of TCP Reno Congestion Avoidance\r\n                   and Control",
+        "institution": "Univ. of Massachusetts",
+        "address": "Amherst, MA",
+        "type": "CMPSCI Tech. Rep.",
+        "number": "99-02",
+        "year": "1999"
+      }
+    },
+    {
+      "Type": "techreport",
+      "Key": "IEEEexample:techreptypeii",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "D. Middleton and A. D. Spaulding",
+        "title": "A Tutorial Review of Elements of Weak Signal Detection\r\n                   in Non-Gaussian EMI Environments",
+        "institution": "National Telecommunications and Information\r\n                   Administration (NTIA), U.S. Dept. of Commerce",
+        "type": "NTIA Report",
+        "number": "86-194",
+        "month": "may",
+        "year": "1986"
+      }
+    },
+    {
+      "Type": "techreport",
+      "Key": "IEEEexample:techrepstdsub",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "S. Kandala",
+        "title": "Changes to Annex D",
+        "institution": "IEEE 802.11 TGe",
+        "number": "02/680r0",
+        "month": "oct",
+        "year": "2002"
+      }
+    },
+    {
+      "Type": "unpublished",
+      "Key": "IEEEexample:unpublished",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "T. J. Ott and N. Aggarwal",
+        "title": "TCP over ATM: ABR or UBR",
+        "note": "Unpublished"
+      }
+    },
+    {
+      "Type": "electronic",
+      "Key": "IEEEexample:electronhowinfo",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "V. Jacobson",
+        "title": "Modified TCP Congestion Avoidance Algorithm",
+        "howpublished": "end2end-interest mailing list",
+        "url": "ftp://ftp.isi.edu/end2end/end2end-interest-1990.mail",
+        "month": "apr",
+        "year": "1990"
+      }
+    },
+    {
+      "Type": "electronic",
+      "Key": "IEEEexample:electronhowinfo2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "V. Valloppillil and K. W. Ross",
+        "title": "Cache Array Routing Protocol v1.1",
+        "howpublished": "Internet draft",
+        "url": "http://ds1.internic.net/internet-drafts/draft-vinod-carp-v1-03.txt",
+        "year": "1998"
+      }
+    },
+    {
+      "Type": "electronic",
+      "Key": "IEEEexample:electronorgadd",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "D. H. Lorenz and A. Orda",
+        "title": "Optimal Partition of QoS Requirements on Unicast\r\n                   Paths and Multicast Trees",
+        "organization": "Dept. Elect. Eng., Technion",
+        "address": "Haifa, Israel",
+        "url": "ftp://ftp.technion.ac.il/pub/supported/ee/Network/lor.mopq98.ps",
+        "month": "jul",
+        "year": "1998"
+      }
+    },
+    {
+      "Type": "patent",
+      "Key": "IEEEexample:uspat",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Ronald E. Sorace and Victor S. Reinhardt and\r\n                   Steven A. Vaughn",
+        "assignee": "Hughes Aircraft Company",
+        "address": "Los Angeles, CA",
+        "title": "High-Speed Digital-to-RF Converter",
+        "nationality": "United States",
+        "number": "5668842",
+        "dayfiled": "28",
+        "monthfiled": "feb",
+        "yearfiled": "1995",
+        "day": "16",
+        "month": "sep",
+        "year": "1997"
+      }
+    },
+    {
+      "Type": "patent",
+      "Key": "IEEEexample:jppat",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "U. Hideki",
+        "title": "Quadrature Modulation Circuit",
+        "nationality": "Japanese",
+        "number": "152932/92",
+        "day": "20",
+        "month": "may",
+        "year": "1992"
+      }
+    },
+    {
+      "Type": "patent",
+      "Key": "IEEEexample:frenchpatreq",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "F. Kowalik and M. Isard",
+        "title": "Estimateur d'un Défaut de Fonctionnement \r\n                   d'un Modulateur en Quadrature et Étage de Modulation\r\n                   l'Utilisant",
+        "language": "french",
+        "nationality": "French",
+        "type": "Patent Request",
+        "number": "9500261",
+        "dayfiled": "11",
+        "monthfiled": "jan",
+        "yearfiled": "1995"
+      }
+    },
+    {
+      "Type": "periodical",
+      "Key": "IEEEexample:periodical",
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\niodical,    title         = IEEE_M_PCOM # \", Special Issue on Wireless {ATM}\",  \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\niodical,    title         = IEEE_M_PCOM # \", Special Issue on Wireless {ATM}\",  \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\ndical,    title         = IEEE_M_PCOM # \", Special Issue on Wireless {ATM}\",    \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nitle         = IEEE_M_PCOM # \", Special Issue on Wireless {ATM}\",    volume     \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n       = IEEE_M_PCOM # \", Special Issue on Wireless {ATM}\",    volume        = \"\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n    = IEEE_M_PCOM # \", Special Issue on Wireless {ATM}\",    volume        = \"3\",\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nE_M_PCOM # \", Special Issue on Wireless {ATM}\",    volume        = \"3\",    month\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nE_M_PCOM # \", Special Issue on Wireless {ATM}\",    volume        = \"3\",    month\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {
+        "title": "IEEE",
+        "volume": "3",
+        "month": "aug",
+        "year": "1996",
+        "key": "IEEE"
+      }
+    },
+    {
+      "Type": "standard",
+      "Key": "IEEEexample:standard",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Wireless LAN Medium Access Control (MAC) and \r\n                   Physical Layer (PHY) Specification",
+        "organization": "IEEE",
+        "address": "Piscataway, NJ",
+        "number": "802.11",
+        "year": "1997"
+      }
+    },
+    {
+      "Type": "standard",
+      "Key": "IEEEexample:standardproposed",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Fiber Channel Physical Interface (FC-PI)",
+        "institution": "NCITS",
+        "address": "Washington, DC",
+        "type": "Working Draft Proposed Standard",
+        "revision": "5.2",
+        "year": "1999"
+      }
+    },
+    {
+      "Type": "misc",
+      "Key": "IEEEexample:draftasmisc",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "I. Widjaja and A. Elwalid",
+        "title": "MATE: MPLS Adaptive Traffic Engineering",
+        "howpublished": "IETF Draft",
+        "year": "1999"
+      }
+    },
+    {
+      "Type": "misc",
+      "Key": "IEEEexample:miscforum",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "L. Roberts",
+        "title": "Enhanced Proportional Rate Control Algorithm PRCA",
+        "howpublished": "ATM Forum Contribution 94-0735R1",
+        "month": "aug",
+        "year": "1994"
+      }
+    },
+    {
+      "Type": "misc",
+      "Key": "IEEEexample:whitepaper",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Advanced QoS Services for the Intelligent Internet",
+        "howpublished": "White Paper",
+        "organization": "Cisco",
+        "month": "may",
+        "year": "1997"
+      }
+    },
+    {
+      "Type": "misc",
+      "Key": "IEEEexample:datasheet",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "PDCA12-70 Data Sheet",
+        "organization": "Opto Speed SA",
+        "address": "Mezzovico, Switzerland"
+      }
+    },
+    {
+      "Type": "misc",
+      "Key": "IEEEexample:private",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "S. Konyagin",
+        "howpublished": "private communication",
+        "year": "1998"
+      }
+    },
+    {
+      "Type": "misc",
+      "Key": "IEEEexample:miscrfc",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "K. K. Ramakrishnan and S. Floyd",
+        "title": "A Proposal to Add Explicit Congestion\r\n                   Notification (ECN) to IP",
+        "howpublished": "RFC 2481",
+        "month": "jan",
+        "year": "1999"
+      }
+    },
+    {
+      "Type": "manual",
+      "Key": "IEEEexample:softmanual",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "SaberDesigner Reference Manual",
+        "organization": "Analogy, Inc.",
+        "address": "Beaverton, OR",
+        "year": "1998",
+        "note": "Release 4.3"
+      }
+    },
+    {
+      "Type": "electronic",
+      "Key": "IEEEexample:softonline",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Ucb/lbnl/vint Network Simulator---ns (Version 2)",
+        "url": "http://www-mash.cs.berkeley.edu/ns/",
+        "key": "ns"
+      }
+    },
+    {
+      "Type": "misc",
+      "Key": "IEEEexample:miscgermanreg",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Messung von Stӧrfeldern an Anlagen \r\n                   und Leitungen der Telekommunikation im\r\n                   Frequenzbereich 9 kHz bis 3 GHz",
+        "language": "german",
+        "howpublished": "Meßvorschrift Reg TP MV 05",
+        "organization": "Regulierungsbehӧrde für Telekommunikation und\r\n                   Post (Reg TP)"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "IEEEexample:bluebookarticle",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Consulative Committee for Space Data Systems (CCSDS)",
+        "title": "Telemetry Channel Coding",
+        "journal": "Blue Book",
+        "number": "4",
+        "year": "1999",
+        "url": "http://www.ccsds.org/documents/pdf/CCSDS-101.0-B-4.pdf"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "IEEEexample:bluebookbook",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Consulative Committee for Space Data Systems (CCSDS)",
+        "title": "Telemetry Channel Coding",
+        "series": "Blue Book",
+        "number": "4",
+        "publisher": "CCSDS",
+        "address": "Newport Beach, CA",
+        "year": "1999",
+        "url": "http://www.ccsds.org/documents/pdf/CCSDS-101.0-B-4.pdf"
+      }
+    },
+    {
+      "Type": "manual",
+      "Key": "IEEEexample:bluebookmanual",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Telemetry Channel Coding",
+        "howpublished": "ser. Blue Book, No. 4",
+        "organization": "Consulative Committee for Space Data Systems (CCSDS)",
+        "address": "Newport Beach, CA",
+        "year": "1999",
+        "url": "http://www.ccsds.org/documents/pdf/CCSDS-101.0-B-4.pdf"
+      }
+    },
+    {
+      "Type": "standard",
+      "Key": "IEEEexample:bluebookstandard",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Telemetry Channel Coding",
+        "howpublished": "ser. Blue Book, No. 4",
+        "organization": "Consulative Committee for Space Data Systems (CCSDS)",
+        "address": "Newport Beach, CA",
+        "type": "Recommendation for Space Data System Standard",
+        "number": "101.0-B-4",
+        "month": "May",
+        "year": "1999",
+        "url": "http://www.ccsds.org/documents/pdf/CCSDS-101.0-B-4.pdf"
+      }
+    },
+    {
+      "Type": "IEEEtranBSTCTL",
+      "Key": "IEEEexample:BSTcontrol",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "ctluse_article_number": "yes",
+        "ctluse_paper": "yes",
+        "ctluse_url": "yes",
+        "ctluse_forced_etal": "no",
+        "ctlmax_names_forced_etal": "10",
+        "ctlnames_show_etal": "1",
+        "ctluse_alt_spacing": "yes",
+        "ctlalt_stretch_factor": "4",
+        "ctldash_repeated_names": "yes",
+        "ctlname_format_string": "f.~vv~ll, jj",
+        "ctlname_latex_cmd": "",
+        "ctlname_url_prefix": "[Online]. Available:"
+      }
+    }
+  ],
+  "Comments": [
+    "IEEEexample.bib \r\nV1.14 (2015/08/26)\r\nCopyright (c) 2002-2015 by Michael Shell\r\nSee: http://www.michaelshell.org/\r\nfor current contact information.\r\n\r\nThis is an example BibTeX database for the official IEEEtran.bst\r\nBibTeX style file.\r\n\r\nSome entries call strings that are defined in the IEEEabrv.bib file.\r\nTherefore, IEEEabrv.bib should be loaded prior to this file.\r\nUsage:\r\n\r\n\\bibliographystyle{./IEEEtran}\r\n\\bibliography{./IEEEabrv,./IEEEexample}\r\n\r\n\r\nSupport sites:\r\nhttp://www.michaelshell.org/tex/ieeetran/\r\nhttp://www.ctan.org/pkg/ieeetran\r\nand/or\r\nhttp://www.ieee.org/\r\n\r\n*************************************************************************\r\nLegal Notice:\r\nThis code is offered as-is without any warranty either expressed or\r\nimplied; without even the implied warranty of MERCHANTABILITY or\r\nFITNESS FOR A PARTICULAR PURPOSE! \r\nUser assumes all risk.\r\nIn no event shall the IEEE or any contributor to this code be liable for\r\nany damages or losses, including, but not limited to, incidental,\r\nconsequential, or any other damages, resulting from the use or misuse\r\nof any information contained here.\r\n\r\nAll comments are the opinions of their respective authors and are not\r\nnecessarily endorsed by the IEEE.\r\n\r\nThis work is distributed under the LaTeX Project Public License (LPPL)\r\n( http://www.latex-project.org/ ) version 1.3, and may be freely used,\r\ndistributed and modified. A copy of the LPPL, version 1.3, is included\r\nin the base LaTeX documentation of all distributions of LaTeX released\r\n2003/12/01 or later.\r\nRetain all contribution notices and credits.\r\n** Modified files should be clearly indicated as such, including  **\r\n** renaming them and changing author support contact information. **\r\n*************************************************************************\r\n\r\n\r\nNote that, because the example references were taken from actual IEEE\r\npublications, these examples do not always contain the full amount\r\nof information that may be desirable (for use with other BibTeX styles).\r\nIn particular, full names (not abbreviated with initials) should be\r\nentered whenever possible as some (non-IEEE) bibliography styles use\r\nfull names. IEEEtran.bst will automatically abbreviate when it encounters\r\nfull names.\r\n \r\n \r\n \r\n \r\nreferences for the IEEEtran.bst documentation\r\nIEEEtran homepage",
+    "the distribution site for IEEEtran.bst",
+    "the IEEE website\r\nsort key is needed for sorting styles",
+    "The BibTeX user's guide.\r\nThe filename could have been put in the URL instead. But, there might\r\nbe other interesting things for the user in the same directory - and\r\nthe filename might change before the directory that contains it.",
+    "The BibTeX style designer's guide.",
+    "A comprehensive BibTeX tutorial.",
+    "The BibTeX Tips and FAQ guide.",
+    "The TeX FAQ",
+    "A BibTeX Guide via Examples.",
+    "TeX User Group Bibliography Archive",
+    "The three most common and typical types of references used in\r\nIEEE publications:\r\n\r\nan article in a journal\r\nNote the use of the IEEE_J_EDL string, defined in the IEEEabrv.bib file,\r\nfor the journal name. IEEEtran.bst defines the BibTeX standard three\r\nletter month codes per IEEE style.\r\nFrom the June 2002 issue of \"IEEE Transactions on Electron Devices\",\r\npage 996, reference #16.",
+    "journal article using et al.\r\nThe (five) authors are actually: F. Delorme, S. Slempkes, G. Alibert, \r\nB. Rose, J. Brandon\r\nThe month (July) was not given here.\r\nFrom the September 1998 issue of \"IEEE Journal on Selected Areas in\r\nCommunications\", page 1257, reference #28.",
+    "a paper in a conference proceedings\r\n\"conference\" can be used as an alias for \"inproceedings\"\r\nFrom the June 2002 issue of \"Journal of Microelectromechanical Systems\",\r\npage 205, reference #16.",
+    "a book\r\nFrom the May 2002 issue of \"IEEE Transactions on Magnetics\",\r\npage 1466, reference #4.",
+    "Other examples\r\n\r\njournal article with large page numbers, the IEEE will divide numbers 5 digits\r\nor longer into groups of three with small spaces between them. Page ranges\r\ncan be separated via either \"-\" or \"--\", IEEEtran.bst will automatically\r\nconvert the separator dash(es) to \"--\".\r\nAuthors and/or the IEEE do not always provide/use the journal number, but it\r\nwas used in this case. IEEEtran.bst can be configured to ignore journal\r\nnumbers if desired.\r\nFrom the August 2000 issue of \"IEEE Photonics Technology Letters\",\r\npage 1039, reference #11.",
+    "journal article with dual months \r\nuse the BibTeX \"#\" concatenation operator\r\nFrom the March 2002 issue of \"IEEE Transactions on Mechatronics\",\r\npage 21, reference #8.",
+    "journal article to be published as a misc entry type\r\ndate information like month and year is optional \r\nHowever, the article form like that below may be a better approach.\r\nFrom the May 2002 issue of \"IEEE Journal of Selected Areas in \r\nCommunication\", page 725, reference #3.",
+    "journal article to be published as an article entry type\r\nyear is required, so if absent, use the year field to hold\r\nthe \"submitted for publication\" in order to avoid a warning for\r\nthe missing year field.\r\nFrom the June 2002 issue of \"IEEE Transactions on Information Theory\",\r\npage 1461, reference #21.",
+    "book with editor and no author\r\nFrom the June 2002 issue of \"IEEE Transactions on Information Theory\",\r\npage 1725, reference #1.",
+    "book with edition, author and editor\r\nNote that the standard BibTeX styles do not support book entries with both\r\nauthor and editor fields, but IEEEtran.bst does.\r\nThe standard BibTeX way of specifying the edition is to use capitalized\r\nordinal words such as \"First\", \"Second\", etc. Most .bst files can convert\r\nup to about \"Fifth\" into the format needed. IEEEtran.bst can convert up\r\nto \"Tenth\" to the \"Arabic ordinal\" form the IEEE uses (e.g., \"10th\"). For\r\neditions over the tenth, it is best to use the \"Arabic ordinal\" form for\r\nIEEE related work (e.g., \"101st\")\r\nNote how \"Jr.\" has to be entered.\r\nFrom the May 2002 issue of \"Journal of Lightwave Technology\", page 856,\r\nreference #17.",
+    "book with series and volume\r\nFrom the January 2000 issue of \"IEEE Transactions on Communications\",\r\npage 11, reference #31.",
+    "inbook with chapter number. The pages field could also have been given.\r\nThe chapter number could be changed to something else such as a section\r\nnumber via the type field: type = \"sec.\".\r\nFrom the May 2002 issue of \"IEEE Transactions on Circuits and Systems---I: \r\nFundamental Applications and Theory\", page 638, reference #22.",
+    "inbook with pages and note. The language field is not set to Russian\r\nbecause the title is presented here in its translated, English, form.\r\nFrom the May 2002 issue of \"IEEE Transactions on Magnetics\", page 1533,\r\nreference #5.",
+    "incollection with author and editor\r\nFrom the May 2002 issue of \"Journal of Lightwave Technology\",\r\npage 807, reference #7.",
+    "incollection with series\r\nFrom the April 2000 issue of \"IEEE Transactions on Communication\",\r\npage 609, reference #3.",
+    "incollection with author, editor, chapter and pages\r\nFrom the January 2000 issue of \"IEEE Transactions on Communications\",\r\npage 16, reference #9.",
+    "incollection with a large number of authors, some authors/journals will\r\nuse et al. for so many names. IEEEtran.bst can be configured to do this\r\nif desired, or \"R. M. A. Dawson and others\" can be used instead.\r\nNote that the IEEE may not include the publisher for incollection entries -\r\nIEEEtran.bst will not issue a warning if the publisher is missing for\r\nincollections - but other .bst files often will.\r\nFrom the June 2002 issue of \"IEEE Transactions on Electron Devices\",\r\npage 996, reference #12.",
+    "A Motorola data book as a manual\r\nIt is somewhat unusual to include the data book part number.\r\nin the title. It might be more correct to put this information\r\nin the howpublished field instead.\r\nFrom the December 2000 issue of \"IEEE Transactions on Communications\",\r\npage 1986, reference #10.",
+    "same reference, but using IEEEtran's howpublished extension",
+    "conference paper with an address and days. Some journals capitalize the\r\nletters in \"Globecom\", this one did not.\r\nFrom the May 2002 issue of \"IEEE Transactions on Communications\",\r\npage 697, reference #12.",
+    "conference paper with volume number. A conference proceedings with a vol\r\nnumber is a little uncommon, note that the vol number is placed\r\nbefore the address in the formatted bibliography entry\r\nFrom the April 2002 issue of \"IEEE/ACM Transactions on Networking\",\r\npage 181, reference #26.",
+    "conference paper with a paper number, the type field can be used to\r\noverride the word \"paper\", e.g., type = \"postdeadline paper\". A type\r\ncan be given even without a paper  field.\r\nAlso, IEEEtran.bst can be configured to ignore paper numbers and types.\r\nFrom the May 2002 issue of \"Journal of Lightwave Technology\",\r\npage 807, reference #4.",
+    "conference paper with a postdeadline type paper, the paper field is\r\noptional.\r\nFrom the August 2000 issue of \"IEEE Photonics Technology Letters\",\r\npage 1087, reference #12.",
+    "presented at a conference\r\nintype overrides the default \"in\" and causes the booktitle not to be\r\nemphasized (rendered in italics).\r\nFrom the February 2002 issue of \"IEEE/ACM Transactions on Networking\",\r\npage 163, reference #6.",
+    "master's thesis, often the University name will be abbreviated and the\r\nstate or country will be included in the address. The type field can\r\nused to override the default type \"Master's thesis\"\r\nFrom the June 2002 issue of \"IEEE Transactions on Microelectromechanical\r\nSystems\", page 186, reference #11.",
+    "master's thesis with a type field\r\nFrom the August 2001 issue of \"IEEE/ACM Transactions on Networking\",\r\npage 391, reference #12.",
+    "Ph.D. dissertation with a URL field, the university is abbreviated\r\nFrom the October 2001 issue of \"IEEE/ACM Transactions on Networking\",\r\npage 590, reference #11.",
+    "technical report\r\nFrom the August 2001 issue of \"IEEE/ACM Transactions on Networking\",\r\npage 490, reference #15.",
+    "technical report with type\r\nfor those times when \"Tech. Rep.\" needs to be modified\r\nFrom the February 2001 issue of \"IEEE/ACM Transactions on Networking\",\r\npage 46, reference #8.",
+    "technical report with type\r\nfor those times when \"Tech. Rep.\" needs to be modified\r\nThis reference did not have an address.\r\nFrom the January 2000 issue of \"IEEE Transactions on Communications\",\r\npage 117, reference #6.",
+    "technical report, standards revision/change submission report\r\nFrom the June 2004 issue of \"IEEE Journal of Selected Areas in Communications\",\r\npage 928, reference #9.\r\nNote that some journals do not abbreviate the task group: \"TGe\" => \"Task Group E\"",
+    "an unpublished work\r\nfor unpublished types, the note field is required. The IEEE usually\r\njust uses the word \"unpublished\" for the note.\r\nFrom the August 2001 issue of \"IEEE/ACM Transactions on Networking\",\r\npage 391, reference #16.",
+    "electronic with a howpublished information field \r\nFrom the August 2001 issue of \"IEEE/ACM Transactions on Networking\",\r\npage 391, reference #7.",
+    "electronic with a howpublished information field \r\nFrom the August 2001 issue of \"IEEE/ACM Transactions on Networking\",\r\npage 418, reference #31.",
+    "electronic with an organization and address\r\nFrom the February 2002 issue of \"IEEE/ACM Transactions on Networking\",\r\npage 114, reference #15.",
+    "U.S. patent\r\nUse the type field to override the patent type. e.g.,\r\ntype = \"Patent Application\"\r\nThe address is that of the assignee. Note that the IEEE does not\r\ndisplay the assignee, the address, and only displays one date.\r\n(if year is not present, the filed dates are used.) However, this\r\ninformation should be entered as other BibTeX styles may use it.\r\nalternatively, nationality could be entered as \"U.S.\" \r\nFrom the April 2000 issue of \"IEEE Transactions on Communications\",\r\npage 542, reference #6.",
+    "Japanese Patent\r\nFrom the April 2000 issue of \"IEEE Transactions on Communications\",\r\npage 556, reference #6.",
+    "French Patent request \r\nThe language field must be entered in lower case\r\nas this is the option name Babel uses. The nationality field needs to be\r\ncapitalized. Because this is a patent request, the date filed fields are\r\nused while the date fields are left empty/missing. In other countries,\r\nthe words \"Patent Application\", etc. are used instead.\r\nFrom the April 2000 issue of \"IEEE Transactions on Communications\",\r\npage 556, reference #9.",
+    "a periodical\r\nFrom the April 2001 issue of \"IEEE/ACM Transactions on Networking\",\r\npage 160, reference #1.\r\nsort key is needed for sorting styles",
+    "a standard\r\nThe IEEE does not use the address for standards, but it is good\r\nto provide one for BibTeX styles that use it.\r\nFrom the August 2001 issue of \"IEEE/ACM Transactions on Networking\",\r\npage 451, reference #2.",
+    "standard with type and revision, the type overrides the word standard\r\n(or std.). Here a standard number is not available and a revision number\r\nis used.\r\nFrom the August 2000 issue of \"IEEE Photonics Technology Letters\",\r\npage 1048, reference #13.",
+    "standard draft as a misc with author\r\nFrom the May 2002 issue of \"IEEE Journal of Selected Areas in\r\nCommunication\", page 725, reference #16.",
+    "misc for a techreport like reference\r\ntechreport is not perfectly suitable because this entry lacks\r\nan institution field\r\nFrom the August 2001 issue of \"IEEE/ACM Transactions on Networking\",\r\npage 490, reference #22.",
+    "misc for a white paper\r\nFrom the August 2001 issue of \"IEEE/ACM Transactions on Networking\",\r\npage 478, reference #4 - Note that the reference there (improperly?)\r\nused the author field for \"Cisco\".",
+    "misc for a data sheet\r\nFrom the November 2000 issue of \"IEEE Photonics Technology Letters\",\r\npage 1551, reference #6.",
+    "Other unusual references\r\n\r\na private communication as a misc entry type\r\nsometimes the designation \"personal communication\" is used instead\r\nFrom the June 2002 issue of \"IEEE Transactions on Information Theory\",\r\npage 1725, reference #16.",
+    "an internet request for comments (RFC) as a misc entry type\r\nIt would also be nice to add a URL to these types of things.\r\nRFCs can also be handled as electronic references.\r\nFrom the April 2002 issue of \"IEEE/ACM Transactions on Networking\",\r\npage 181, reference #14.",
+    "a software package as a manual\r\nFrom the June 2002 issue of \"IEEE/ASME Journal of Microelectromechanical\r\nSystems\", page 205, reference #20.\r\nSometimes they put the version/release information in the title.",
+    "a software package as an electronic reference\r\nFrom the February 2003 issue of  \"IEEE/ACM Transactions on Networking\",\r\npage 46, reference #24. If there is no author or organization, a sorting\r\nkey is required for sorting styles. It might be a good idea to include\r\nmonth and year fields as well.",
+    "misc for a German regulation\r\nIn German, the first letters of nouns are capitalized, so we do so here.\r\nFrom the June 2002 issue of \"IEEE Journal in Selected Areas in\r\nCommunication\", page 892, reference #9.",
+    "Ways to handle things like CCSDS's Blue Books\r\njournal article with a URL. However, this is not a very good approach\r\nbecause the Blue Books are not really journals and the author field has\r\nto be abused.\r\nFrom the June 2002 issue of \"IEEE Transactions on Information Theory\",\r\npage 1461, reference #7.",
+    "CCSDS's Blue Book handled as a book\r\nHowever, it is not a good idea to have to use the author field for\r\nan organization (done here because the book entry type requires an\r\nauthor field).",
+    "CCSDS's Blue Book handled as a manual\r\nThis is a much better approach, but uses the howpublished field.",
+    "CCSDS's Blue Book handled as a standard\r\nProbably the best approach for this particular case because the work\r\nis standard related. Note that the IEEE does not display the address for\r\nstandards.",
+    "An example of a IEEEtran control entry which can change some IEEEtran.bst\r\nsettings. An entry like this must be cited via \\bstctlcite{} command\r\nbefore the first real \\cite{}. The same entry key cannot be called twice\r\n(just like multiple \\cite{} of the same entry key place only one entry\r\nin the bibliography.)\r\nThe available control fields are:\r\n\r\nCTLuse_article_number\r\n\"no\" turns off the display of the number for articles.\r\n\"yes\" enables\r\n\r\nCTLuse_paper\r\n\"no\" turns off the display of the paper and type fields in inproceedings.\r\n\"yes\" enables\r\n\r\nCTLuse_url\r\n\"no\" turns off the display of the url field.\r\n\"yes\" enables\r\n\r\nCTLuse_forced_etal \r\n\"no\" turns off the forced use of \"et al.\"\r\n\"yes\" enables\r\n\r\nCTLmax_names_forced_etal\r\nThe maximum number of names that can be present beyond which an \"et al.\"\r\nusage is forced. Be sure that CTLnames_show_etal (below)\r\nis not greater than this value!\r\n\r\nCTLnames_show_etal\r\nThe number of names that will be shown with a forced \"et al.\".\r\nMust be less than or equal to CTLmax_names_forced_etal\r\n\r\nCTLuse_alt_spacing \r\n\"no\" turns off the alternate interword spacing for entries with URLs.\r\n\"yes\" enables\r\nWill not have any effect (is disabled) if the display of urls is disabled.\r\n\r\nCTLalt_stretch_factor\r\nIf alternate interword spacing for entries with URLs is enabled, this is\r\nthe interword spacing stretch factor that will be used. For example, the\r\ndefault \"4\" here means that the interword spacing in entries with URLs can\r\nstretch to four times normal. Does not have to be an integer.\r\n\r\nCTLdash_repeated_names\r\n\"no\" turns off the \"dashification\" of repeated (i.e., identical to those\r\nof the previous entry) names. The IEEE normally does this.\r\n\"yes\" enables\r\n\r\nCTLname_format_string\r\nThe name format control string as explained in the BibTeX style hacking\r\nguide.\r\nIEEE style \"{f.~}{vv~}{ll}{, jj}\" is the default,\r\n\r\nCTLname_latex_cmd\r\nA LaTeX command that each name will be fed to (e.g., \"\\textsc\").\r\nLeave empty if no special font is desired for the names.\r\nThe default is empty.\r\n\r\nCTLname_url_prefix\r\nThe prefix text used before URLs (if they are enabled).\r\nThe default is \"[Online]. Available:\" A space will be inserted after this\r\ntext. If this space is not wanted, just use \\relax at the end of the\r\nprefix text.\r\n\r\n\r\nThose fields that are not to be changed can be left out."
+  ]
+}

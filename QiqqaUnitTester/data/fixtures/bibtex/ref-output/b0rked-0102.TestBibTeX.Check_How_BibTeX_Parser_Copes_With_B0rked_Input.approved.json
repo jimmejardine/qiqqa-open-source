@@ -1,0 +1,14 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "Rietveld",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n @article{Rietveld 2014  , author = {Rietveld, Cornelius A \r\n                   ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    }
+  ],
+  "Comments": []
+}

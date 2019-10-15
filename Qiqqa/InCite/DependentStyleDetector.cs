@@ -7,6 +7,8 @@ using Qiqqa.Common.Configuration;
 using Utilities;
 using Utilities.GUI;
 using Utilities.Internet;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.InCite
 {
@@ -35,7 +37,7 @@ namespace Qiqqa.InCite
 
                         // Get the rightmost "folder name" from the url - that is the name of the parent style
                         string[] url_parts = parent_url.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
-                        parent_filename = url_parts[url_parts.Length-1] + ".csl";
+                        parent_filename = url_parts[url_parts.Length - 1] + ".csl";
                         
                         // This is a dependent style
                         return true;
@@ -60,7 +62,7 @@ namespace Qiqqa.InCite
             if (IsDependentStyle(style_xml_filename, out parent_filename, out parent_url))
             {
                 // Check that we have the dependent style - if we don't prompt to download it
-                string full_parent_filename = Path.GetDirectoryName(style_xml_filename) + @"\" + parent_filename;
+                string full_parent_filename = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(style_xml_filename), parent_filename));
                 if (!File.Exists(full_parent_filename))
                 {
                     string message = String.Format(

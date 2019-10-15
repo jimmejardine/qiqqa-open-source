@@ -1,0 +1,27 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "a001",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "My Article",
+        "author": "Åse, Straße, and øthers"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "a002",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "\\ttfoo"
+      }
+    }
+  ],
+  "Comments": [
+    "% an entry with non-English characters",
+    "% and one with a misplaced bit of TeX markup that might fool\r\n% the foreign letter detection code"
+  ]
+}

@@ -1,0 +1,32 @@
+﻿{
+  "Items": [
+    {
+      "Type": "misc",
+      "Key": "usingPAPILinux",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Jack Dongarra, Kevin London, Shirley Moore, Philip\r\nMucci and Dan\r\niel Terpstra",
+        "keywords": "PAPI",
+        "local-url": "/Users/mike/Documents/hpcl/Papers/linux-rev2001.pdf",
+        "month": "July",
+        "title": "Using PAPI for hardware performance monitoring on\r\nLinux systems",
+        "url": "http://icl.cs.utk.edu/projects/papi/documents/pub-papers/2001/linux\r\n-rev2001.pdf",
+        "year": "2001"
+      }
+    },
+    {
+      "Type": "Article",
+      "Key": "wall",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Wall,, Larry",
+        "title": "Bugs in Perl",
+        "journal": "J. Gnats \\&\\ Gnus",
+        "year": "2003"
+      }
+    }
+  ],
+  "Comments": []
+}

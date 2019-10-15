@@ -1,0 +1,14 @@
+﻿{
+  "Items": [
+    {
+      "Type": "delete",
+      "Key": "delete",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n @delete{delete    title={Norma test},    }\r\n                   ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    }
+  ],
+  "Comments": []
+}

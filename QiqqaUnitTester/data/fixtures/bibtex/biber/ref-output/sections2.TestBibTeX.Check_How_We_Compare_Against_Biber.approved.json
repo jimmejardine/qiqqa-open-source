@@ -1,0 +1,44 @@
+﻿{
+  "Items": [
+    {
+      "Type": "ARTICLE",
+      "Key": "sect3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Clive Clumberton",
+        "title": "Clumsy Cultural Caveats",
+        "subtitle": "Counter-cultural Concepts",
+        "publisher": "Clapp and Clopp Press",
+        "location": "Cambridge",
+        "year": "1914"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "sect8",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "shorthand": "JJ",
+        "author": "Jimmy Johnson",
+        "title": "Jovial Jamborees",
+        "publisher": "Jasper and Jiff",
+        "location": "Johannesburg",
+        "year": "1938"
+      }
+    },
+    {
+      "Type": "PREAMBLE",
+      "Key": "",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n              = {1938},  }    @PREAMBLE{\"String for Preamble 3\"}\r\n                                        ^"
+      ],
+      "Warnings": [
+        "There is no key in this BibTeX reference"
+      ],
+      "Fields": {}
+    }
+  ],
+  "Comments": []
+}

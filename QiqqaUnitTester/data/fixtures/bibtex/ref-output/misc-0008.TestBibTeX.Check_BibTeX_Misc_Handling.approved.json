@@ -1,0 +1,85 @@
+﻿{
+  "Items": [
+    {
+      "Type": "book",
+      "Key": "humboldt",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "\\noopsorthumboldtvon Humboldt, Alexander",
+        "note": "[Humboldt][Alexander von]"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "beauvoir",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "\\noopsortbeauvoirde Beauvoir, Simone",
+        "note": "[Beauvoir][Simone de]"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "degaulle",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "de Gaulle, Charles",
+        "note": "[\"de Gaulle\"][Charles]"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "king",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "King, Jr., Martin Luther",
+        "note": "[King][Martin Luther, Jr.]"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "stevenson",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Stevenson, III, Adlai E.",
+        "note": "[Stevenson][Adlai E.,! III]"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "nationalaeronauticsandspaceadministration",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "National Aeronautics and Space Administration",
+        "note": "[[National Aeronautics and Space Administration]]"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "bovendeert",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "\\noopsorteertboven d'Eert, Christianus",
+        "note": "[boven d'Eert][Christianus]"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "s-gravesande",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "\\noopsortgravesande's-Gravesande, Goverdus",
+        "note": "['s-Gravesande][Goverdus]"
+      }
+    }
+  ],
+  "Comments": []
+}

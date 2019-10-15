@@ -3,6 +3,8 @@ using System.IO;
 using System.Windows.Forms;
 using Utilities;
 using Utilities.Files;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.UpgradePaths.V037To038
 {
@@ -14,13 +16,13 @@ namespace Qiqqa.UpgradePaths.V037To038
         public SQLiteUpgrade_LibraryDB(string base_path)
         {
             this.base_path = base_path;
-            this.library_path = base_path + "Qiqqa.library";
+            this.library_path = Path.GetFullPath(Path.Combine(base_path, @"Qiqqa.library"));
 
             // Copy a library into place...
             if (!File.Exists(library_path))
             {
                 Logging.Warn("Library db does not exist so copying the template to {0}", library_path);
-                string library_template_path = StartupDirectoryForQiqqa + @"DocumentLibrary\Library.Template.s3db";
+                string library_template_path = Path.GetFullPath(Path.Combine(StartupDirectoryForQiqqa, @"DocumentLibrary/Library.Template.s3db"));
                 File.Copy(library_template_path, library_path);
             }
         }

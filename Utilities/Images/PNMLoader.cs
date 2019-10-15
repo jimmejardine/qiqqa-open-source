@@ -5,6 +5,8 @@ using System.IO;
 using System.Runtime.InteropServices;
 using SysColor = System.Drawing.Color;
 using SysRectangle = System.Drawing.Rectangle;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 
 namespace Utilities.Images

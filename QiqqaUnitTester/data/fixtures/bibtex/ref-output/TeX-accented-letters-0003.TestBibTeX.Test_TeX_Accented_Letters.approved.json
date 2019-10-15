@@ -1,0 +1,22 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "restrepo2010parallelogram",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Parallelogram based method for space vector pulse width modulation",
+        "author": "Restrepo, José and Guzmán, V\\'\\ictor and Giménez, Mar\\'\\ia and Bueno, Alexander and Aller, José",
+        "journal": "Revista Facultad de Ingenier\\'\\ia Universidad de Antioquia",
+        "number": "52",
+        "pages": "161--171",
+        "year": "2010",
+        "publisher": "Universidad de Antioquia"
+      }
+    }
+  ],
+  "Comments": [
+    "% advanced (or b0rked?) escapes"
+  ]
+}

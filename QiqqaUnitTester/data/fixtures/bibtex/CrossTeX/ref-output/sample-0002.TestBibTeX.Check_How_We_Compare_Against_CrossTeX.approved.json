@@ -1,0 +1,19 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "mypaper",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Emin Gün Sirer",
+        "title": "This is My Paper",
+        "journal": "Journal of Improbable Results",
+        "address": "Rio de Janeiro, Brazil",
+        "year": "2018",
+        "month": "September"
+      }
+    }
+  ],
+  "Comments": []
+}

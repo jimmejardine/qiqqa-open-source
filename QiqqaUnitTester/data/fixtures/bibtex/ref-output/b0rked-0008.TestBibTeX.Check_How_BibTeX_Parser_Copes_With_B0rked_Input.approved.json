@@ -1,0 +1,17 @@
+﻿{
+  "Items": [
+    {
+      "Type": "book",
+      "Key": "semiconductor2012igbt",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "HBD871/D: IGBT Applications (Handbook)",
+        "author": "Semiconductor, ON",
+        "publisher": "ON Semiconductor",
+        "year": "2014"
+      }
+    }
+  ],
+  "Comments": []
+}

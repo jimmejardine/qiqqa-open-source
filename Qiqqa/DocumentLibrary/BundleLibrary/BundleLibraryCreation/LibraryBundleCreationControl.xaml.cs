@@ -67,8 +67,8 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
 
         void CreateBundle(string target_directory)
         {
-            string target_filename_bundle_manifest = target_directory + "\\" + manifest.Id + Common.EXT_BUNDLE_MANIFEST;
-            string target_filename_bundle = target_directory + "\\" + manifest.Id + Common.EXT_BUNDLE;
+            string target_filename_bundle_manifest = Path.GetFullPath(Path.Combine(target_directory, manifest.Id + Common.EXT_BUNDLE_MANIFEST));
+            string target_filename_bundle = Path.GetFullPath(Path.Combine(target_directory, manifest.Id + Common.EXT_BUNDLE));
 
             // Check that the details of the manifest are reasonable
                 try
@@ -86,7 +86,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
             File.WriteAllText(target_filename_bundle_manifest, json);
 
             // Smash out the bundle
-            string source_directory = library.LIBRARY_BASE_PATH + "\\*";
+            string source_directory = Path.GetFullPath(Path.Combine(library.LIBRARY_BASE_PATH, @"*"));
             string directory_exclusion_parameter = manifest.IncludesPDFs ? "" : String.Format("-xr!documents", source_directory);
             string parameters = String.Format("a -tzip -mm=Deflate -mmt=on -mx9 \"{0}\" \"{1}\" {2}", target_filename_bundle, source_directory, directory_exclusion_parameter);
             Process zip_process = Process.Start(ConfigurationManager.Instance.Program7ZIP, parameters);
@@ -165,7 +165,6 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
             this.manifest.Title = bundle_title;
             this.manifest.Description = library_.WebLibraryDetail.Description;
             
-
             // GUI updates
             this.DataContext = this.manifest;
             ObjRunLibraryName.Text = library_.WebLibraryDetail.Title;
@@ -176,7 +175,5 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
         private void ResetProgress()
         {
         }
-
-
     }
 }

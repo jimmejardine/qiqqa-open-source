@@ -1,0 +1,89 @@
+﻿{
+  "Items": [
+    {
+      "Type": "Book",
+      "Key": "nietzsche:ksa1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "german",
+        "sorttitle": "Werke-01-000",
+        "indexsorttitle": "Samtliche Werke I",
+        "author": "Nietzsche, Friedrich",
+        "bookauthor": "Nietzsche, Friedrich",
+        "editor": "Colli, Giorgio and Montinari, Mazzino",
+        "indextitle": "Sämtliche Werke I",
+        "title": "Die Geburt der Tragӧdie. Unzeitgemäße Betrachtungen I--IV.\r\n                    Nachgelassene Schriften 1870--1973",
+        "shorttitle": "Sämtliche Werke I",
+        "maintitle": "Sämtliche Werke",
+        "mainsubtitle": "Kritische Studienausgabe",
+        "volume": "1",
+        "edition": "2",
+        "publisher": "dtv and Walter de Gruyter",
+        "location": "München and Berlin and New York",
+        "year": "1988",
+        "annotation": "A single volume from the critical edition of Nietzsche's works. This\r\n                    \\textttbook entry explicitly refers to the first volume only. Note the\r\n                    \\texttttitle and \\textttmaintitle fields. Also note the \\textttsorttitle\r\n                    field. We want this entry to be listed after the entry\r\n                    referring to the entire edition"
+      }
+    },
+    {
+      "Type": "inproceedings",
+      "Key": "IEEEexample:confwithadddays",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "M. S. Yee and L. Hanzo",
+        "title": "Radial Basis Function Decision Feedback Equaliser\r\n                   Assisted Burst-by-burst Adaptive Modulation",
+        "booktitle": "Proc. IEEE Globecom '99",
+        "address": "Rio de Janeiro, Brazil",
+        "month": "dec 5--9,",
+        "year": "1999",
+        "pages": "2183-2187"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "IEEEexample:articledualmonths",
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\n Bearings\",    journal       = IEEE_J_IA,    volume        = \"31\",    month     \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n Bearings\",    journal       = IEEE_J_IA,    volume        = \"31\",    month     \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {
+        "author": "Y. Okada and K. Dejima and T. Ohishi",
+        "title": "Analysis and Comparison of PM Synchronous Motor and\r\n                   Induction Motor Type Magnetic Bearings",
+        "journal": "IEEE",
+        "volume": "31",
+        "month": "sep/oct",
+        "year": "1995",
+        "pages": "1047-1053"
+      }
+    },
+    {
+      "Type": "periodical",
+      "Key": "IEEEexample:periodical",
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\niodical,    title         = IEEE_M_PCOM # \", Special Issue on Wireless {ATM}\",  \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\niodical,    title         = IEEE_M_PCOM # \", Special Issue on Wireless {ATM}\",  \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\ndical,    title         = IEEE_M_PCOM # \", Special Issue on Wireless {ATM}\",    \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nitle         = IEEE_M_PCOM # \", Special Issue on Wireless {ATM}\",    volume     \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n       = IEEE_M_PCOM # \", Special Issue on Wireless {ATM}\",    volume        = \"\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n    = IEEE_M_PCOM # \", Special Issue on Wireless {ATM}\",    volume        = \"3\",\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nE_M_PCOM # \", Special Issue on Wireless {ATM}\",    volume        = \"3\",    month\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nE_M_PCOM # \", Special Issue on Wireless {ATM}\",    volume        = \"3\",    month\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {
+        "title": "IEEE",
+        "volume": "3",
+        "month": "aug",
+        "year": "1996",
+        "key": "IEEE"
+      }
+    }
+  ],
+  "Comments": [
+    "Deal correctly with concatenation (and macros):",
+    "From the May 2002 issue of \"IEEE Transactions on Communications\",\r\npage 697, reference #12.",
+    "From the March 2002 issue of \"IEEE Transactions on Mechatronics\",\r\npage 21, reference #8."
+  ]
+}

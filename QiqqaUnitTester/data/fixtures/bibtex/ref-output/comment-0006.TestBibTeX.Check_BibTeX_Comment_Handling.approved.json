@@ -1,0 +1,50 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "joe1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Average",
+        "author": "Joe D Nominal"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "joe2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Average #2",
+        "author": "Joe D Nominal"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "joe3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Average #3",
+        "author": "Joe D Nominal"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "joe4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Average #4",
+        "author": "Joe D Nominal"
+      }
+    }
+  ],
+  "Comments": [
+    "this is a broken @comment as it doesn't have curly-brace delims where it should",
+    "this is a correct @comment as it does have curly-brace delims where it should",
+    "this is another broken @comment as it doesn't have {curly-brace delims where it should}",
+    "this is another *legal* @comment as it does have {} curly-brace delims where it should,\r\nit's just that it's followed by more comment plaintext after that initial closing brace: '}' on\r\nthat first line.\r\n\r\nNevertheless, BibTeX should consider this entire blather as comment though..."
+  ]
+}

@@ -1,0 +1,38 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "hermans2012exact",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Exact and near-miss clone detection in spreadsheets",
+        "author": "Hermans, Felienne",
+        "journal": "TinyToCS$\\$",
+        "volume": "1",
+        "year": "2012"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "hermans2012exact",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Exact and near-miss clone detection in spreadsheets",
+        "author": "Hermans, Felienne",
+        "journal": "TinyToCS",
+        "volume": "1",
+        "year": "2012"
+      }
+    }
+  ],
+  "Comments": [
+    "Survive TeX math in values:",
+    "{ BIBTEX_AUTO - GS ",
+    "}",
+    "bibtexParse error:  Token mismatch, expected \"}\" at index 173, found \"$},\\n  volume=\"\r\n--------------------------------------------------\r\nand here's the corrected item:",
+    "{ BIBTEX_AUTO - GS ",
+    "}"
+  ]
+}

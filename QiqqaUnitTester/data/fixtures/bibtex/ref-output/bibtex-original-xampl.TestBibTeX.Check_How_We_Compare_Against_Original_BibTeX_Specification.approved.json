@@ -1,0 +1,571 @@
+﻿{
+  "Items": [
+    {
+      "Type": "preamble",
+      "Key": "",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nesulting file is renamed.    @preamble{ \"\\newcommand{\\noopsort}[1]{} \"          \r\n                                        ^"
+      ],
+      "Warnings": [
+        "There is no key in this BibTeX reference"
+      ],
+      "Fields": {}
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "article-minimal",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "L[eslie] A. Aamport",
+        "title": "The Gnats and Gnus Document Preparation System",
+        "journal": "\\mboxG-Animal's Journal",
+        "year": "1986"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "article-full",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "L[eslie] A. Aamport",
+        "title": "The Gnats and Gnus Document Preparation System",
+        "journal": "\\mboxG-Animal's Journal",
+        "year": "1986",
+        "volume": "41",
+        "number": "7",
+        "pages": "73+",
+        "month": "jul",
+        "note": "This is a full ARTICLE entry"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "article-crossref",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "crossref": "WHOLE-JOURNAL",
+        "key": "",
+        "author": "L[eslie] A. Aamport",
+        "title": "The Gnats and Gnus Document Preparation System",
+        "pages": "73+",
+        "note": "This is a cross-referencing ARTICLE entry"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "whole-journal",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "key": "GAJ",
+        "journal": "\\mboxG-Animal's Journal",
+        "year": "1986",
+        "volume": "41",
+        "number": "7",
+        "month": "jul",
+        "note": "The entire issue is devoted to gnats and gnus\r\n                (this entry is a cross-referenced ARTICLE (journal))"
+      }
+    },
+    {
+      "Type": "INBOOK",
+      "Key": "inbook-minimal",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Donald E. Knuth",
+        "title": "Fundamental Algorithms",
+        "publisher": "Addison-Wesley",
+        "year": "\\noopsort1973b1973",
+        "chapter": "1.2"
+      }
+    },
+    {
+      "Type": "INBOOK",
+      "Key": "inbook-full",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Donald E. Knuth",
+        "title": "Fundamental Algorithms",
+        "volume": "1",
+        "series": "The Art of Computer Programming",
+        "publisher": "Addison-Wesley",
+        "address": "Reading, Massachusetts",
+        "edition": "Second",
+        "month": "10~jan",
+        "year": "\\noopsort1973b1973",
+        "type": "Section",
+        "chapter": "1.2",
+        "pages": "10--119",
+        "note": "This is a full INBOOK entry"
+      }
+    },
+    {
+      "Type": "INBOOK",
+      "Key": "inbook-crossref",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "crossref": "whole-set",
+        "title": "Fundamental Algorithms",
+        "volume": "1",
+        "series": "The Art of Computer Programming",
+        "edition": "Second",
+        "year": "\\noopsort1973b1973",
+        "type": "Section",
+        "chapter": "1.2",
+        "note": "This is a cross-referencing INBOOK entry"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "book-minimal",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Donald E. Knuth",
+        "title": "Seminumerical Algorithms",
+        "publisher": "Addison-Wesley",
+        "year": "\\noopsort1973c1981"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "book-full",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Donald E. Knuth",
+        "title": "Seminumerical Algorithms",
+        "volume": "2",
+        "series": "The Art of Computer Programming",
+        "publisher": "Addison-Wesley",
+        "address": "Reading, Massachusetts",
+        "edition": "Second",
+        "month": "10~jan",
+        "year": "\\noopsort1973c1981",
+        "note": "This is a full BOOK entry"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "book-crossref",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "crossref": "whole-set",
+        "title": "Seminumerical Algorithms",
+        "volume": "2",
+        "series": "The Art of Computer Programming",
+        "edition": "Second",
+        "year": "\\noopsort1973c1981",
+        "note": "This is a cross-referencing BOOK entry"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "whole-set",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Donald E. Knuth",
+        "publisher": "Addison-Wesley",
+        "title": "The Art of Computer Programming",
+        "series": "Four volumes",
+        "year": "\\noopsort1973a\\switchargs--901968",
+        "note": "Seven volumes planned (this is a cross-referenced set of BOOKs)"
+      }
+    },
+    {
+      "Type": "BOOKLET",
+      "Key": "booklet-minimal",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "key": "Kn\\printfirstv1987",
+        "title": "The Programming of Computer Art"
+      }
+    },
+    {
+      "Type": "BOOKLET",
+      "Key": "booklet-full",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Jill C. Knvth",
+        "title": "The Programming of Computer Art",
+        "howpublished": "Vernier Art Center",
+        "address": "Stanford, California",
+        "month": "feb",
+        "year": "1988",
+        "note": "This is a full BOOKLET entry"
+      }
+    },
+    {
+      "Type": "INCOLLECTION",
+      "Key": "incollection-minimal",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Daniel D. Lincoll",
+        "title": "Semigroups of Recurrences",
+        "booktitle": "High Speed Computer and Algorithm Organization",
+        "publisher": "Academic Press",
+        "year": "1977"
+      }
+    },
+    {
+      "Type": "INCOLLECTION",
+      "Key": "incollection-full",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Daniel D. Lincoll",
+        "title": "Semigroups of Recurrences",
+        "editor": "David J. Lipcoll and D. H. Lawrie and A. H. Sameh",
+        "booktitle": "High Speed Computer and Algorithm Organization",
+        "number": "23",
+        "series": "Fast Computers",
+        "chapter": "3",
+        "type": "Part",
+        "pages": "179--183",
+        "publisher": "Academic Press",
+        "address": "New York",
+        "edition": "Third",
+        "month": "sep",
+        "year": "1977",
+        "note": "This is a full INCOLLECTION entry"
+      }
+    },
+    {
+      "Type": "INCOLLECTION",
+      "Key": "incollection-crossref",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "crossref": "whole-collection",
+        "author": "Daniel D. Lincoll",
+        "title": "Semigroups of Recurrences",
+        "pages": "179--183",
+        "note": "This is a cross-referencing INCOLLECTION entry"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "whole-collection",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "editor": "David J. Lipcoll and D. H. Lawrie and A. H. Sameh",
+        "title": "High Speed Computer and Algorithm Organization",
+        "booktitle": "High Speed Computer and Algorithm Organization",
+        "number": "23",
+        "series": "Fast Computers",
+        "publisher": "Academic Press",
+        "address": "New York",
+        "edition": "Third",
+        "month": "sep",
+        "year": "1977",
+        "note": "This is a cross-referenced BOOK (collection) entry"
+      }
+    },
+    {
+      "Type": "MANUAL",
+      "Key": "manual-minimal",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "key": "Manmaker",
+        "title": "The Definitive Computer Manual"
+      }
+    },
+    {
+      "Type": "MANUAL",
+      "Key": "manual-full",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Larry Manmaker",
+        "title": "The Definitive Computer Manual",
+        "organization": "Chips-R-Us",
+        "address": "Silicon Valley",
+        "edition": "Silver",
+        "month": "apr-may",
+        "year": "1986",
+        "note": "This is a full MANUAL entry"
+      }
+    },
+    {
+      "Type": "MASTERSTHESIS",
+      "Key": "mastersthesis-minimal",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Édouard Masterly",
+        "title": "Mastering Thesis Writing",
+        "school": "Stanford University",
+        "year": "1988"
+      }
+    },
+    {
+      "Type": "MASTERSTHESIS",
+      "Key": "mastersthesis-full",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Édouard Masterly",
+        "title": "Mastering Thesis Writing",
+        "school": "Stanford University",
+        "type": "Master's project",
+        "address": "English Department",
+        "month": "jun-aug",
+        "year": "1988",
+        "note": "This is a full MASTERSTHESIS entry"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "misc-minimal",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "key": "Missilany",
+        "note": "This is a minimal MISC entry"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "misc-full",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Joe-Bob Missilany",
+        "title": "Handing out random pamphlets in airports",
+        "howpublished": "Handed out at O'Hare",
+        "month": "oct",
+        "year": "1984",
+        "note": "This is a full MISC entry"
+      }
+    },
+    {
+      "Type": "STRING",
+      "Key": "STOC-key",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\null MISC entry\",  }    @STRING{STOC-key = \"OX{\\singleletter{stoc}}\"}    @STRING{\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "ACM",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nX{\\singleletter{stoc}}\"}    @STRING{ACM = \"The OX Association for Computing Mach\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "STOC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nr Computing Machinery\"}    @STRING{STOC = \" Symposium on the Theory of Computing\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "INPROCEEDINGS",
+      "Key": "inproceedings-minimal",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Alfred V. Oaho and Jeffrey D. Ullman and Mihalis Yannakakis",
+        "title": "On Notions of Information Transfer in VLSI Circuits",
+        "booktitle": "Proc. Fifteenth Annual ACMSTOC",
+        "year": "1983"
+      }
+    },
+    {
+      "Type": "INPROCEEDINGS",
+      "Key": "inproceedings-full",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Alfred V. Oaho and Jeffrey D. Ullman and Mihalis Yannakakis",
+        "title": "On Notions of Information Transfer in VLSI Circuits",
+        "editor": "Wizard V. Oz and Mihalis Yannakakis",
+        "booktitle": "Proc. Fifteenth Annual ACMSTOC",
+        "number": "17",
+        "series": "All ACM Conferences",
+        "pages": "133--139",
+        "month": "mar",
+        "year": "1983",
+        "address": "Boston",
+        "organization": "ACM",
+        "publisher": "Academic Press",
+        "note": "This is a full INPROCEDINGS entry"
+      }
+    },
+    {
+      "Type": "INPROCEEDINGS",
+      "Key": "inproceedings-crossref",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "crossref": "whole-proceedings",
+        "author": "Alfred V. Oaho and Jeffrey D. Ullman and Mihalis Yannakakis",
+        "title": "On Notions of Information Transfer in VLSI Circuits",
+        "organization": "",
+        "pages": "133--139",
+        "note": "This is a cross-referencing INPROCEEDINGS entry"
+      }
+    },
+    {
+      "Type": "PROCEEDINGS",
+      "Key": "proceedings-minimal",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "key": "STOC-key",
+        "title": "Proc. Fifteenth AnnualSTOC",
+        "year": "1983"
+      }
+    },
+    {
+      "Type": "PROCEEDINGS",
+      "Key": "proceedings-full",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "editor": "Wizard V. Oz and Mihalis Yannakakis",
+        "title": "Proc. Fifteenth AnnualSTOC",
+        "number": "17",
+        "series": "All ACM Conferences",
+        "month": "mar",
+        "year": "1983",
+        "address": "Boston",
+        "organization": "ACM",
+        "publisher": "Academic Press",
+        "note": "This is a full PROCEEDINGS entry"
+      }
+    },
+    {
+      "Type": "PROCEEDINGS",
+      "Key": "whole-proceedings",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "key": "STOC-key",
+        "organization": "ACM",
+        "title": "Proc. Fifteenth AnnualSTOC",
+        "address": "Boston",
+        "year": "1983",
+        "booktitle": "Proc. Fifteenth Annual ACMSTOC",
+        "note": "This is a cross-referenced PROCEEDINGS"
+      }
+    },
+    {
+      "Type": "PHDTHESIS",
+      "Key": "phdthesis-minimal",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "F. Phidias Phony-Baloney",
+        "title": "Fighting Fire with Fire: Festooning French Phrases",
+        "school": "Fanstord University",
+        "year": "1988"
+      }
+    },
+    {
+      "Type": "PHDTHESIS",
+      "Key": "phdthesis-full",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "F. Phidias Phony-Baloney",
+        "title": "Fighting Fire with Fire: Festooning French Phrases",
+        "school": "Fanstord University",
+        "type": "PhD Dissertation",
+        "address": "Department of French",
+        "month": "jun-aug",
+        "year": "1988",
+        "note": "This is a full PHDTHESIS entry"
+      }
+    },
+    {
+      "Type": "TECHREPORT",
+      "Key": "techreport-minimal",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Tom Terrific",
+        "title": "An $O(n \\log n / \\! \\log\\log n)$ Sorting Algorithm",
+        "institution": "Fanstord University",
+        "year": "1988"
+      }
+    },
+    {
+      "Type": "TECHREPORT",
+      "Key": "techreport-full",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Tom Térrific",
+        "title": "An $O(n \\log n / \\! \\log\\log n)$ Sorting Algorithm",
+        "institution": "Fanstord University",
+        "type": "Wishful Research Result",
+        "number": "7",
+        "address": "Computer Science Department, Fanstord, California",
+        "month": "oct",
+        "year": "1988",
+        "note": "This is a full TECHREPORT entry"
+      }
+    },
+    {
+      "Type": "UNPUBLISHED",
+      "Key": "unpublished-minimal",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Ulrich Ünderwood and Ned Ñet and Paul \\=Pot",
+        "title": "Lower Bounds for Wishful Research Results",
+        "note": "Talk at Fanstord University (this is a minimal UNPUBLISHED entry)"
+      }
+    },
+    {
+      "Type": "UNPUBLISHED",
+      "Key": "unpublished-full",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Ulrich Ünderwood and Ned Ñet and Paul \\=Pot",
+        "title": "Lower Bounds for Wishful Research Results",
+        "month": "nov, dec",
+        "year": "1988",
+        "note": "Talk at Fanstord University (this is a full UNPUBLISHED entry)"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "random-note-crossref",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "key": "Volume-2",
+        "note": "Volume~2 is listed under Knuth \\citebook-full"
+      }
+    }
+  ],
+  "Comments": [
+    "% Copyright (C) 1988, 2010 Oren Patashnik.\r\n% Unlimited copying and redistribution of this file are permitted if it\r\n% is unmodified.  Modifications (and their redistribution) are also\r\n% permitted, as long as the resulting file is renamed.",
+    "\"\\newcommand{\\noopsort}[1]{} \"\r\n        # \"\\newcommand{\\printfirst}[2]{#1} \"\r\n        # \"\\newcommand{\\singleletter}[1]{#1} \"\r\n        # \"\\newcommand{\\switchargs}[2]{#2#1} \" }",
+    "The KEY field is here to override the KEY field in the journal being\r\ncross referenced (so is the NOTE field, in addition to its imparting\r\ninformation).",
+    "= \"OX{\\singleletter{stoc}}\"}",
+    "= \"The OX Association for Computing Machinery\"}",
+    "= \" Symposium on the Theory of Computing\"}"
+  ]
+}

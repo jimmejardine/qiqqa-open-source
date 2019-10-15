@@ -1,0 +1,32 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "whelan",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nhitespace in the key    @article{whelan 2010 effective czas reakcji latency rt  \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "article",
+      "Key": "whelan2010",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Whelan, Robert",
+        "title": "Effective analysis of reaction time data",
+        "journal": "The Psychological Record",
+        "year": "2010",
+        "volume": "58",
+        "number": "3",
+        "pages": "9"
+      }
+    }
+  ],
+  "Comments": [
+    "Survive keying bugs like this one: whitespace in the key",
+    "2010 effective czas reakcji latency rt\r\n,       author  = {Whelan, Robert}\r\n,       title   = {Effective analysis of reaction time data}\r\n,       journal = {The Psychological Record}\r\n,       year    = {2010}\r\n,       volume  = {58}\r\n,       number  = {3}\r\n,       pages   = {9}\r\n}\r\n\r\nand then here's the corrected one:"
+  ]
+}

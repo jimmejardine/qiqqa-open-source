@@ -1,0 +1,46 @@
+﻿{
+  "Items": [
+    {
+      "Type": "BOOK",
+      "Key": "sect6",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "shorthand": "MMMM",
+        "author": "Michael Mumford and Millie Mutherington",
+        "title": "Malodourous Muffins",
+        "publisher": "Ming and Mink Press",
+        "location": "Manchester",
+        "year": "2003"
+      }
+    },
+    {
+      "Type": "PREAMBLE",
+      "Key": "",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n              = {2003},  }    @PREAMBLE{\"String for Preamble 4\"}    @BOOK{sect7,\r\n                                        ^"
+      ],
+      "Warnings": [
+        "There is no key in this BibTeX reference"
+      ],
+      "Fields": {}
+    },
+    {
+      "Type": "BOOK",
+      "Key": "sect7",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "shorthand": "PP",
+        "author": "Percy Pilkington",
+        "title": "Perhaps Penguins Prance",
+        "publisher": "Possible Prattle Press",
+        "location": "Pimlico",
+        "year": "2007"
+      }
+    }
+  ],
+  "Comments": [
+    "\"String for Preamble 4\"}"
+  ]
+}

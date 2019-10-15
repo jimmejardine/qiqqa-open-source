@@ -1,0 +1,19 @@
+﻿{
+  "Items": [
+    {
+      "Type": "appnote",
+      "Key": "???",
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\nPhenomenon},  publisher=Tyco Electronics},  year={???},author={???}}  \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {
+        "title": "Relays and switches: Contact Arc Phenomenon",
+        "publisher": "Tyco"
+      }
+    }
+  ],
+  "Comments": [
+    "Survive typing mistakes like this one: a missing open brace"
+  ]
+}

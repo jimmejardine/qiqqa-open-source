@@ -1,0 +1,164 @@
+﻿{
+  "Items": [
+    {
+      "Type": "BADTYPE",
+      "Key": "c1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Clive Constraint",
+        "title": "Limits of Things",
+        "date": "2003-10-01",
+        "gender": "sm"
+      }
+    },
+    {
+      "Type": "ETA",
+      "Key": "c2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Limits of Things",
+        "date": "2003-10-01",
+        "badfield": "Something",
+        "journal": "Some journal",
+        "abstract": "Some text"
+      }
+    },
+    {
+      "Type": "ETB",
+      "Key": "c3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Clive Constraint",
+        "title": "Limits of Things",
+        "journal": "Some journal",
+        "year": "2003",
+        "month": "WRONG FORMAT",
+        "field1": "7",
+        "gender": "zz"
+      }
+    },
+    {
+      "Type": "ETB",
+      "Key": "c4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Clive Constraint",
+        "title": "Limits of Things",
+        "journal": "Some journal",
+        "year": "2003",
+        "month": "14",
+        "field1": "4"
+      }
+    },
+    {
+      "Type": "ETB",
+      "Key": "c5",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Clive Constraint",
+        "title": "Limits of Things",
+        "journal": "Some journal",
+        "date": "2004-01-02",
+        "year": "2003",
+        "field2": "a",
+        "field3": "a",
+        "field4": "a",
+        "field5": "a",
+        "field6": "a"
+      }
+    },
+    {
+      "Type": "ETB",
+      "Key": "c6",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Clive Constraint",
+        "title": "Limits of Things",
+        "journal": "Some journal",
+        "year": "2003",
+        "field1": "8",
+        "field2": "a",
+        "field3": "a",
+        "field5": "a",
+        "field6": "a",
+        "field9": "a"
+      }
+    },
+    {
+      "Type": "ETC",
+      "Key": "c7",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Clive Constraint",
+        "title": "Limits of Things",
+        "journal": "Some journal",
+        "year": "2003",
+        "field2": "a",
+        "field3": "a",
+        "field5": "a",
+        "field7": "a",
+        "field8": "a",
+        "field9": "a",
+        "field11": "a"
+      }
+    },
+    {
+      "Type": "ETD",
+      "Key": "c8",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Clive Constraint",
+        "title": "Limits of Things",
+        "journal": "Some journal",
+        "year": "2003",
+        "field4": "a",
+        "field5": "a",
+        "field7": "a",
+        "field12": "a",
+        "fielda": "a",
+        "fieldb": "a"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "c9",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Fred Flummox",
+        "isbn": "90-70002-34-5",
+        "issn": "0317-8471"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "c10",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Fred Flummox",
+        "isbn": "90-7002-34-5",
+        "issn": "0317-8470"
+      }
+    }
+  ],
+  "Comments": [
+    "% Not a valid type\r\n% Valid gender",
+    "% Completely nonexistent field and field (alias) not valid for this type\r\n% Testing a field valid for all entrytypes (ABSTRACT)\r\n% Testing missing mandatory field",
+    "% Datatype constraint - wrong month format\r\n% Randomly named field\r\n% Invalid gender",
+    "% Datatype constraint - wrong month format (range)\r\n% Randomly named field with custom range (integer)",
+    "% Conditional checks\r\n% XOR mandatory check - DATE and YEAR are both defined\r\n% all 2,3,4 -> none 5,6 (fail)",
+    "% Conditional checks\r\n% all 2,3,4 -> none 5,6 (pass) (because antecedent is not satisfied)\r\n% all 1,2 -> one 7,8 (fail)\r\n% all 5,6 -> all 9,10 (fail)",
+    "% Conditional checks\r\n% one 2,3 -> none 4 (pass)\r\n% one 5,6 -> none 7 (fail)\r\n% one 2,3 -> all 8,9 (pass)\r\n% one 10,11 -> one 5 (pass)\r\n% Mandatory OR check - one of FIELDA or FIELDB must be present (fail)",
+    "% Conditional checks\r\n% none 2,3 -> none 4 (fail)\r\n% none 7 -> none 5 (pass) as antecedent is false\r\n% none 8,9 -> one 10,11 (fail)\r\n% none 6 -> all 12,13 (fail)\r\n% Mandatory OR check - one of FIELDA or FIELDB must be present\r\n%   (both are, testing different from XOR) (pass)",
+    "% ISBN and ISSN checks"
+  ]
+}

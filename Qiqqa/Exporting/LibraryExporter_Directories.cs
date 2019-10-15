@@ -8,6 +8,9 @@ using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.Files;
 using Utilities.Language;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.Exporting
 {
@@ -25,14 +28,14 @@ namespace Qiqqa.Exporting
         {
             WshShell shell = new WshShell();
 
-            string titles_base_path = base_path + @"titles\";
+            string titles_base_path = Path.GetFullPath(Path.Combine(base_path, @"titles"));
             Directory.CreateDirectory(titles_base_path);
 
             foreach (var item in pdf_document_export_items.Values)
             {
                 try
                 {   
-                    string filename = titles_base_path + FileTools.MakeSafeFilename(item.pdf_document.TitleCombined) + ".lnk";
+                    string filename = Path.GetFullPath(Path.Combine(titles_base_path, FileTools.MakeSafeFilename(item.pdf_document.TitleCombined) + ".lnk"));
                     CreateShortcut(shell, item.filename, filename);                    
                 }
                 catch (Exception ex)
@@ -46,7 +49,7 @@ namespace Qiqqa.Exporting
         {
             WshShell shell = new WshShell();
 
-            string authors_base_path = base_path + @"authors\";
+            string authors_base_path = Path.GetFullPath(Path.Combine(base_path, @"authors"));
             Directory.CreateDirectory(authors_base_path);
 
             foreach (var item in pdf_document_export_items.Values)
@@ -56,9 +59,9 @@ namespace Qiqqa.Exporting
                     List<NameTools.Name> names = NameTools.SplitAuthors(item.pdf_document.AuthorsCombined);
                     foreach (var name in names)
                     {
-                        string author_base_path = authors_base_path + name.LastName_Initials + @"\";
+                        string author_base_path = Path.GetFullPath(Path.Combine(authors_base_path, name.LastName_Initials));
                         Directory.CreateDirectory(author_base_path);
-                        string filename = author_base_path + FileTools.MakeSafeFilename(item.pdf_document.TitleCombined) + ".lnk";
+                        string filename = Path.GetFullPath(Path.Combine(author_base_path, FileTools.MakeSafeFilename(item.pdf_document.TitleCombined) + ".lnk"));
                         CreateShortcut(shell, item.filename, filename);
                     }
                 }
@@ -73,7 +76,7 @@ namespace Qiqqa.Exporting
         {
             WshShell shell = new WshShell();
 
-            string tags_base_path = base_path + @"tags\";
+            string tags_base_path = Path.GetFullPath(Path.Combine(base_path, @"tags"));
             Directory.CreateDirectory(tags_base_path);
 
             foreach (var item in pdf_document_export_items.Values)
@@ -82,9 +85,9 @@ namespace Qiqqa.Exporting
                 {
                     foreach (string tag in TagTools.ConvertTagBundleToTags(item.pdf_document.Tags))
                     {
-                        string tag_base_path = tags_base_path + FileTools.MakeSafeFilename(tag) + @"\";
+                        string tag_base_path = Path.GetFullPath(Path.Combine(tags_base_path, FileTools.MakeSafeFilename(tag)));
                         Directory.CreateDirectory(tag_base_path);
-                        string filename = tag_base_path + FileTools.MakeSafeFilename(item.pdf_document.TitleCombined) + ".lnk";
+                        string filename = Path.GetFullPath(Path.Combine(tag_base_path, FileTools.MakeSafeFilename(item.pdf_document.TitleCombined) + ".lnk"));
                         CreateShortcut(shell, item.filename, filename);
                     }
                 }
@@ -99,7 +102,7 @@ namespace Qiqqa.Exporting
         {
             WshShell shell = new WshShell();
 
-            string tags_base_path = base_path + @"autotags\";
+            string tags_base_path = Path.GetFullPath(Path.Combine(base_path, @"autotags"));
             Directory.CreateDirectory(tags_base_path);
 
             foreach (var item in pdf_document_export_items.Values)
@@ -108,15 +111,15 @@ namespace Qiqqa.Exporting
                 {
                     foreach (string tag in library.AITagManager.AITags.GetTagsWithDocument(item.pdf_document.Fingerprint))
                     {
-                        string tag_base_path = tags_base_path + FileTools.MakeSafeFilename(tag) + @"\";
+                        string tag_base_path = Path.GetFullPath(Path.Combine(tags_base_path, FileTools.MakeSafeFilename(tag)));
                         Directory.CreateDirectory(tag_base_path);
-                        string filename = tag_base_path + FileTools.MakeSafeFilename(item.pdf_document.TitleCombined) + ".lnk";
+                        string filename = Path.GetFullPath(Path.Combine(tag_base_path, FileTools.MakeSafeFilename(item.pdf_document.TitleCombined) + ".lnk"));
                         CreateShortcut(shell, item.filename, filename);
                     }
                 }
                 catch (Exception ex)
                 {
-                    Logging.Error(ex, "Error creating shortcut for " + item.filename);
+                    Logging.Error(ex, "Error creating shortcut for {0}", item.filename);
                 }
             }
         }

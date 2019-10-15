@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using Utilities;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.Localisation
 {

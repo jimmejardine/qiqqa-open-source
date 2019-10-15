@@ -1,0 +1,19 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "QIQQA-CCRFZ",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "CHAPTER - 3  CONVENTIONAL SOURCE INVERTER FED INDUCTION MOTOR DRIVE  3.1. Introduction The objective of this chapter is to describe conventional source",
+        "title": "",
+        "year": "2016",
+        "publisher": ""
+      }
+    }
+  ],
+  "Comments": [
+    "% initial whitespace + multi-spaces within `author`"
+  ]
+}

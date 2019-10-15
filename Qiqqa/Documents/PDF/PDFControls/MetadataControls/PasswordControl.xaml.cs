@@ -49,7 +49,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             {
                 AugmentedBindable<PDFDocument> pdf_document_bindable = DataContext as AugmentedBindable<PDFDocument>;
                 PDFDocument pdf_document = pdf_document_bindable.Underlying;
-                pdf_document.Library.PasswordManager.AddPassword(pdf_document, password);
+                pdf_document.AddPassword(password);
                 ReBind();
             }
         }
@@ -70,7 +70,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             {
                 AugmentedBindable<PDFDocument> pdf_document_bindable = DataContext as AugmentedBindable<PDFDocument>;
                 PDFDocument pdf_document = pdf_document_bindable.Underlying;
-                pdf_document.Library.PasswordManager.RemovePassword(pdf_document);
+                pdf_document.RemovePassword();
                 ReBind();
             }
         }
@@ -90,7 +90,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             {
                 PDFDocument pdf_document = pdf_document_bindable.Underlying;
 
-                string password = pdf_document.Library.PasswordManager.GetPassword(pdf_document);
+                string password = pdf_document.GetPassword();
                 if (!String.IsNullOrEmpty(password))
                 {
                     TxtDescription.Text = "You have a password associated with this PDF.  Enter a new one in the box below or clear it with the Forget button.";

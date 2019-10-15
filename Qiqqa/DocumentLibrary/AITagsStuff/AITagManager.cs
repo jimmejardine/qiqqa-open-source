@@ -12,6 +12,8 @@ using Utilities.Language.Buzzwords;
 using Utilities.Language.TextIndexing;
 using Utilities.Misc;
 using Utilities.OCR;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary.AITagsStuff
 {
@@ -52,7 +54,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
         {
             get
             {
-                return library.LIBRARY_BASE_PATH + "Qiqqa.autotags";
+                return Path.GetFullPath(Path.Combine(library.LIBRARY_BASE_PATH, @"Qiqqa.autotags"));
             }
         }
 

@@ -1,0 +1,17 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "QIQQA-TDWIT",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "  Aalborg Universitet  Control architecture for paralleled current-source-inverter (CSI) based uninterruptible  power systems (UPS)  Wei, Baoze; Vasquez, Juan C.; Guerrero, Josep M.; Guo, Xiaoqiang",
+        "year": "2016"
+      }
+    }
+  ],
+  "Comments": [
+    "% initial whitespace + multi-spaces within `author`"
+  ]
+}

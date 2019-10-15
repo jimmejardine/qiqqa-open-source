@@ -1,0 +1,640 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "abbot3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "abbé d' Aubignac, François Hédelin",
+        "options": "useprefix=true",
+        "title": "(abbé d' Aubignac) (François Hédelin)"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "abbot1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Aubignac, abbé d', François Hédelin",
+        "note": "relies on paricleParser fallback detection",
+        "title": "(Aubignac) (François Hédelin, abbé d')"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "fixedkey",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "von Humboldt, Alexander and Gooding, Jr., Cuba and de La Fontaine, Jean and von Wright, Georg Henrik Auto and von Wright, Georg Henrik Explicit",
+        "date": "1963",
+        "isbn": "0-7100-3616-7",
+        "langid": "anglais",
+        "location": "Londres",
+        "options": "useprefix=true",
+        "pagetotal": "xviii+214",
+        "publisher": "Routledge \\& Kegan Paul",
+        "series": "International Library of Philosophy and Scientific Method",
+        "shorttitle": "Norm and Action",
+        "title": "Norm and Action. A Logical Enquiry"
+      }
+    },
+    {
+      "Type": "collection",
+      "Key": "almeida_reading_2013",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "date": "2013",
+        "editor": "d' Almeida, Luís and Edwards, James and Dolcetti, Andrea",
+        "isbn": "978-1-84946-324-9",
+        "langid": "english",
+        "location": "Oxford",
+        "pagetotal": "vi+309",
+        "publisher": "Hart Publishing",
+        "title": "Reading HLA Hart's: \\emphThe Concept\\emph of \\emphLaw"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "bennett_citations_2013",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Bennett, Jr., Frank G.",
+        "date": "2013",
+        "isbn": "978-1-4793-4771-1",
+        "location": "Lexington Kentucky",
+        "pagetotal": "137",
+        "publisher": "CreateSpace Independent Publishing Platform",
+        "title": "Citations, Out of the Box"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "king_have_1968",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "King, Jr., Martin Luther",
+        "date": "1968",
+        "location": "New York",
+        "pagetotal": "154",
+        "publisher": "Grosset \\& Dunlap",
+        "title": "\"I Have a Dream\" : The Quotations of Martin Luther King JR"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "bugreports_ApostropheOnParticle",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "d' Jones, John",
+        "keywords": "imported",
+        "options": "useprefix=true",
+        "title": "Bugreports\\_ApostropheOnParticle"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "bugreports_AsmJournals",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Doe Co.",
+        "keywords": "imported",
+        "title": "Bugreports\\_AsmJournals"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "bugreports_DemoPageFullCiteCruftOnSubsequent",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "U.S. Bureau of the Census",
+        "keywords": "imported",
+        "title": "Bugreports\\_DemoPageFullCiteCruftOnSubsequent"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "bugreports_DuplicateSpaces",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "D'Arcus, Bruce",
+        "keywords": "imported",
+        "title": "Bugreports\\_DuplicateSpaces"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "bugreports_DuplicateSpaces3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Family Name, N",
+        "keywords": "imported",
+        "title": "Bugreports\\_DuplicateSpaces3"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "bugreports_GreekStyleProblems",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Καρυωτάκης, Κώστας",
+        "keywords": "imported",
+        "title": "Bugreports\\_GreekStyleProblems"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "bugreports_ProcessorHang1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Reynoso-Santos, R. and Soto-Pinto, L. and Tejeda-Cruz, C. and Williams-Linera, G.",
+        "keywords": "imported",
+        "title": "Bugreports\\_ProcessorHang1"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "bugreports_YearSuffixInHarvard1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Africa News",
+        "keywords": "imported",
+        "title": "Bugreports\\_YearSuffixInHarvard1"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "bugreports_parseName",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "van Happel, Eduard and von Hoppel, Gustav",
+        "keywords": "imported",
+        "options": "useprefix=true",
+        "title": "Bugreports\\_parseName"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "decorations_AndTermUnaffectedByNameDecorations",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Doe, III, John and van Roe, Jane",
+        "keywords": "imported",
+        "options": "useprefix=true",
+        "title": "Decorations\\_AndTermUnaffectedByNameDecorations"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "disambiguate_CitationLabelInData",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "von Dipheria, Doug",
+        "keywords": "imported",
+        "options": "useprefix=true",
+        "title": "Disambiguate\\_CitationLabelInData"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "disambiguate_FailWithYearSuffix",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Caritas Europa and JRS-Europe",
+        "keywords": "imported",
+        "title": "Disambiguate\\_FailWithYearSuffix"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "disambiguate_YearCollapseWithInstitution",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Smith Co",
+        "keywords": "imported",
+        "title": "Disambiguate\\_YearCollapseWithInstitution"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "display_SecondFieldAlignMigratePunctuation",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Bennett, Jr., Frank G.",
+        "keywords": "imported",
+        "title": "Display\\_SecondFieldAlignMigratePunctuation"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "group_ComplexNesting",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Doe Inc.",
+        "keywords": "imported",
+        "title": "Group\\_ComplexNesting"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "integration_DuplicateItem",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "la Berge, S. P",
+        "keywords": "imported",
+        "options": "useprefix=true",
+        "title": "Integration\\_DuplicateItem"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "magic_CapitalizeFirstOccurringNameParticle",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "de Simone, Samuel",
+        "keywords": "imported",
+        "options": "useprefix=true",
+        "title": "Magic\\_CapitalizeFirstOccurringNameParticle"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "magic_NameParticle",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "von Doe, John",
+        "keywords": "imported",
+        "options": "useprefix=true",
+        "title": "Magic\\_NameParticle"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "magic_SuppressDuplicateVariableRendering",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Blob",
+        "keywords": "imported",
+        "title": "Magic\\_SuppressDuplicateVariableRendering"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "name_ArticularNameAsSortOrder",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Doe, III, James",
+        "keywords": "imported",
+        "title": "Name\\_ArticularNameAsSortOrder"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "name_ArticularShortFormCommaSuffix",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Doe, Jr, James",
+        "keywords": "imported",
+        "title": "Name\\_ArticularShortFormCommaSuffix"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "name_ArticularWithComma",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Doe, Jr., Jeffrey",
+        "keywords": "imported",
+        "title": "Name\\_ArticularWithComma"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "name_Delimiter",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Noakes Inc.",
+        "keywords": "imported",
+        "title": "Name\\_Delimiter"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "name_FormattingOfParticles",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "van der Meer, Gerard",
+        "keywords": "imported",
+        "options": "useprefix=true",
+        "title": "Name\\_FormattingOfParticles"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "name_HyphenatedNonDroppingParticle1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "al- One, Alan",
+        "keywords": "imported",
+        "options": "useprefix=true",
+        "title": "Name\\_HyphenatedNonDroppingParticle1"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "name_Institution",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Multi-National United",
+        "keywords": "imported",
+        "title": "Name\\_Institution"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "name_InstitutionDecoration",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "São Paulo (Estado)",
+        "keywords": "imported",
+        "title": "Name\\_InstitutionDecoration"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "name_MixedFormatsInitialSortOrderAllWithDecorationsEtAl",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "van Winkle, Rip and Thucydides, III, Carl",
+        "keywords": "imported",
+        "options": "useprefix=true",
+        "title": "Name\\_MixedFormatsInitialSortOrderAllWithDecorationsEtAl"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "name_MultipleLiteral",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Alfred Benzon Foundation and James Benson Foundation and John Candy Foundation",
+        "keywords": "imported",
+        "title": "Name\\_MultipleLiteral"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "name_ParseNames",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "van der Vlist, Eric and van Gogh, Vincent",
+        "keywords": "imported",
+        "options": "useprefix=true",
+        "title": "Name\\_ParseNames"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "name_ParsedDroppingParticleWithAffixes",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "de La Fontaine, Jean",
+        "keywords": "imported",
+        "title": "Name\\_ParsedDroppingParticleWithAffixes"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "name_ParsedNonDroppingParticleWithAffixes",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "de la Fontaine, Jean",
+        "keywords": "imported",
+        "options": "useprefix=true",
+        "title": "Name\\_ParsedNonDroppingParticleWithAffixes"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "name_ParsedNonDroppingParticleWithApostrophe",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "d' Aubignac, abbé d', François Hédelin",
+        "keywords": "imported",
+        "options": "useprefix=true",
+        "title": "Name\\_ParsedNonDroppingParticleWithApostrophe"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "name_ParticleCaps1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "van One, Onename and van Two, Twoname and van Three, Threename and Van Four, Fourname",
+        "keywords": "imported",
+        "options": "useprefix=true",
+        "title": "Name\\_ParticleCaps1"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "name_ParticleCaps3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Van Dyke, Dick",
+        "keywords": "imported",
+        "title": "Name\\_ParticleCaps3"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "name_ParticleFormatting",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "de la Doe, John",
+        "keywords": "imported",
+        "options": "useprefix=true",
+        "title": "Name\\_ParticleFormatting"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "name_ParticlesDemoteNonDroppingNever",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "de Las Familyname, Givenname and del Familyname, Givenname and Di Familyname, Givenname and Da Familyname, Givenname and Do Familyname, Givenname and Des Familyname, Givenname and Lou Familyname, Givenname and Pietro Familyname, Givenname and de Familyname, Givenname and de La Familyname, Givenname and Le Familyname, Givenname and La Familyname, Givenname and L'Familyname, Givenname and Saint Familyname, Givenname and Sainte Familyname, Givenname and St. Familyname, Givenname and Ste. Familyname, Givenname and van Familyname, Givenname and van de Familyname, Givenname and van der Familyname, Givenname and van den Familyname, Givenname and vander Familyname, Givenname and v.d. Familyname, Givenname and vd Familyname, Givenname and van het Familyname, Givenname and ver Familyname, Givenname",
+        "keywords": "imported",
+        "options": "useprefix=true",
+        "title": "Name\\_ParticlesDemoteNonDroppingNever"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "name_WesternArticularLowercase",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "van Doe, Jacques",
+        "keywords": "imported",
+        "options": "useprefix=true",
+        "title": "Name\\_WesternArticularLowercase"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "name_namepartAffixes",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "de La Fontaine, III, Jean",
+        "keywords": "imported",
+        "options": "useprefix=true",
+        "title": "Name\\_namepartAffixes"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "nameorder_Long",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "de la Martinière, III, Gérard",
+        "keywords": "imported",
+        "options": "useprefix=true",
+        "title": "Nameorder\\_Long"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "position_IbidWithSuffix",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Al-Khatib Organization",
+        "keywords": "imported",
+        "title": "Position\\_IbidWithSuffix"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "sort_ChangeInNameSort",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "De Quincey, Alan",
+        "keywords": "imported",
+        "title": "Sort\\_ChangeInNameSort"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "sort_ChicagoYearSuffix1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Beijing Zoo and Beijing Zoo",
+        "keywords": "imported",
+        "title": "Sort\\_ChicagoYearSuffix1"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "sort_FamilyOnly",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "ANZ Group",
+        "keywords": "imported",
+        "title": "Sort\\_FamilyOnly"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "sort_LeadingApostropheOnNameParticle",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "'t Horvath, Peter A.C. and in 't Horvath, Peter A.D.",
+        "keywords": "imported",
+        "options": "useprefix=true",
+        "title": "Sort\\_LeadingApostropheOnNameParticle"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "sort_NameParticleInNameSortFalse",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "di Noakes, John",
+        "keywords": "imported",
+        "options": "useprefix=true",
+        "title": "Sort\\_NameParticleInNameSortFalse"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "sort_NameVariable",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "[F]linders, Jacob",
+        "keywords": "imported",
+        "title": "Sort\\_NameVariable"
+      }
+    },
+    {
+      "Type": "preamble",
+      "Key": "",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nort\\_{{NameVariable}}}  }    @preamble{ \"\\ifdefined\\DeclarePrefChars\\DeclarePref\r\n                                        ^"
+      ],
+      "Warnings": [
+        "There is no key in this BibTeX reference"
+      ],
+      "Fields": {}
+    }
+  ],
+  "Comments": []
+}

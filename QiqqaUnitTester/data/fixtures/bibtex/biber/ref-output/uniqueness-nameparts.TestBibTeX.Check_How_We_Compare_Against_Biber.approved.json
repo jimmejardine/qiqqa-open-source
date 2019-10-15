@@ -1,0 +1,73 @@
+﻿{
+  "Items": [
+    {
+      "Type": "ARTICLE",
+      "Key": "un1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "given=John, family=Smith, middle=Simon"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "un2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "given=John, family=Smith, middle=Alan"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "un3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "given=John, family=Smith, middle=Arthur"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "un4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "given=Alan, family=Smith, middle=Simon"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "un5",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "options": "uniquenametemplatename=test3",
+        "author": "given=Arthur, family=Smith, middle=Simon"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "un6",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "uniquenametemplatename=test4 and given=Arthur, family=Smith, middle=Smythe"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "un7",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "uniquenametemplatename=test5, given=Arthur, family=Smith, middle=Smedley"
+      }
+    }
+  ],
+  "Comments": [
+    "% Per-entry",
+    "% Per-namelist",
+    "% Per-name"
+  ]
+}

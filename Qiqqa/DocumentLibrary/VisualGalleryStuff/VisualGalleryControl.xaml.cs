@@ -5,6 +5,7 @@ using Qiqqa.Documents.PDF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,6 +18,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Utilities;
 using Utilities.PDF;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary.VisualGalleryStuff
 {
@@ -55,9 +58,9 @@ namespace Qiqqa.DocumentLibrary.VisualGalleryStuff
             if (true)
             {
                 byte[] stream = image.Stream.Value;
-                using (System.IO.FileStream fs = new System.IO.FileStream(String.Format(@"c:\temp\aaa\Image{0}.jpeg", ++FILECOUNT), System.IO.FileMode.Create, System.IO.FileAccess.Write))
+                using (FileStream fs = new FileStream(String.Format(@"c:\temp\aaa\Image{0}.jpeg", ++FILECOUNT), FileMode.Create, FileAccess.Write))
                 {
-                    using (System.IO.BinaryWriter bw = new System.IO.BinaryWriter(fs))
+                    using (BinaryWriter bw = new BinaryWriter(fs))
                     {
                         bw.Write(stream);
                     }
@@ -73,17 +76,13 @@ namespace Qiqqa.DocumentLibrary.VisualGalleryStuff
             int height = image.Elements.GetInteger(PdfImage.Keys.Height);
             int bitsPerComponent = image.Elements.GetInteger(PdfImage.Keys.BitsPerComponent);
 
-            //if (false)
-            //{
-            //    using (System.IO.FileStream fs = new System.IO.FileStream(String.Format(@"c:\temp\aaa\Image{0}.png", ++FILECOUNT), System.IO.FileMode.Create, System.IO.FileAccess.Write))
-            //    {
-            //        using (System.IO.BinaryWriter bw = new System.IO.BinaryWriter(fs))
-            //        {
-            //            bw.Write(stream);
-            //        }
-            //    }
-            //}
-
+                using (FileStream fs = new FileStream(String.Format(@"c:\temp\aaa\Image{0}.png", ++FILECOUNT), FileMode.Create, FileAccess.Write))
+                {
+                    using (BinaryWriter bw = new BinaryWriter(fs))
+                    {
+                        bw.Write(stream);
+                    }
+                }
         }
 
         #region --- Test ------------------------------------------------------------------------

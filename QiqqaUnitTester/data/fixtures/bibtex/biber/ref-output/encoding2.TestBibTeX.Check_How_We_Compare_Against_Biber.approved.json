@@ -1,0 +1,19 @@
+﻿{
+  "Items": [
+    {
+      "Type": "BOOK",
+      "Key": "testŠ",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "year": "1999",
+        "author": "Edward Encalcer",
+        "title": "Šome title",
+        "publisher": "A press"
+      }
+    }
+  ],
+  "Comments": [
+    "% This is a UTF-8 encoded file"
+  ]
+}

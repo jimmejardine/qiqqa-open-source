@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Utilities.Files
 {
@@ -57,20 +59,6 @@ namespace Utilities.Files
             return false;
         }
 
-        public static String getFilenameFromFullPathname(String longname)
-		{
-			int last_separator_pos = longname.LastIndexOf('\\');
-			if (-1 == last_separator_pos) return longname;
-			if (last_separator_pos+1 < longname.Length)
-			{
-				return longname.Substring(last_separator_pos+1);
-			}
-			else
-			{
-				return "";
-			}
-		}
-
 		public static bool isValidFilenameCharacter(char c)
 		{
 			if (Char.IsLetterOrDigit(c)) return true;
@@ -105,6 +93,7 @@ namespace Utilities.Files
 
             if (target.Length > 128)
             {
+                // TODO: make name unique by including a bit of filename hash, for example
                 target = target.Substring(0, 128);
             }
 

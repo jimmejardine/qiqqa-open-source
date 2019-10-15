@@ -6,6 +6,9 @@ using System.Reflection;
 using ProtoBuf;
 using Utilities.Files;
 using Utilities.Random;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Utilities.Language.TextIndexing
 {
@@ -39,7 +42,7 @@ namespace Utilities.Language.TextIndexing
         {
             get
             {
-                return LIBRARY_INDEX_BASE_PATH + "index_version.txt";
+                return Path.GetFullPath(Path.Combine(LIBRARY_INDEX_BASE_PATH, @"index_version.txt"));
             }
         }
 
@@ -669,7 +672,7 @@ namespace Utilities.Language.TextIndexing
 
         string GetFilename_MasterList()
         {
-            return LIBRARY_INDEX_BASE_PATH + "MasterList.dat";
+            return Path.GetFullPath(Path.Combine(LIBRARY_INDEX_BASE_PATH, @"MasterList.dat"));
         }
 
         private int GangStart(int word_id)
@@ -680,13 +683,13 @@ namespace Utilities.Language.TextIndexing
         private string Filename_GangList(int word_id)
         {
             string filename = String.Format(
-                @"{2}\{1}\{0}.dat",
+                @"{2}/{1}/{0}.dat",
                 word_id / GANG_SIZE,
                 word_id / GANG_SIZE / 100,
                 word_id / GANG_SIZE / 1000
              );
 
-            return LIBRARY_INDEX_BASE_PATH + filename;
+            return Path.GetFullPath(Path.Combine(LIBRARY_INDEX_BASE_PATH, filename));
         }
 
         #endregion

@@ -1,0 +1,31 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "QIQQA-HSDTQ",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "CLINICALLYSIGNIFICANTDEPRES-sionaffects15%to20%ofel-derlyindividualsintheUnitedStates.1,2Olderindividualsareless likely than younger adults to have",
+        "title": "",
+        "year": "2004",
+        "publisher": ""
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "QIQQA-SREKL",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "werepublished,additionalreportsfromothersourceshavesuggestedthatthesetrendsarecontinuing.3-6However,thosereports from the Behavioral Risk Fac-",
+        "title": "",
+        "year": "2002",
+        "publisher": ""
+      }
+    }
+  ],
+  "Comments": [
+    "% extremely long 'words' as part of a property: bad data?"
+  ]
+}

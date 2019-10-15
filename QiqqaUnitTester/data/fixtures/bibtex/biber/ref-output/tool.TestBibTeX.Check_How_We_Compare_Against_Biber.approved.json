@@ -1,0 +1,158 @@
+﻿{
+  "Items": [
+    {
+      "Type": "UNPUBLISHED",
+      "Key": "i3Š",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "options": "useprefix=false",
+        "abstract": "Some abstract %50 of which is useless",
+        "author": "AAA and BBB and CCC and DDD and EEE",
+        "title": "Š title",
+        "date": "2003",
+        "userb": "test",
+        "location": "one and two",
+        "lista": "list test",
+        "listb": "late and early",
+        "listc": "late and early",
+        "keywords": "keyword, keyword2,keyword3"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "xd1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Edward Paul Ellington",
+        "xdata": "macmillanalias, missingxd"
+      }
+    },
+    {
+      "Type": "XDATA",
+      "Key": "macmillan",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "ids": "macmillanalias",
+        "year": "2001",
+        "xdata": "macmillan:pubALIAS, macmillan:loc"
+      }
+    },
+    {
+      "Type": "XDATA",
+      "Key": "macmillan:pub",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "ids": "macmillan:pubALIAS",
+        "publisher": "Macmillan"
+      }
+    },
+    {
+      "Type": "XDATA",
+      "Key": "macmillan:loc",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "location": "New York and London",
+        "note": "A Note"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "b1",
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\n    TITLE        = {Booktitle},    TITLE+an     = {=ann1, ann2},    LOCATION    \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n    TITLE        = {Booktitle},    TITLE+an     = {=ann1, ann2},    LOCATION    \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nE        = {Booktitle},    TITLE+an     = {=ann1, ann2},    LOCATION     = {Lond\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n       = {Booktitle},    TITLE+an     = {=ann1, ann2},    LOCATION     = {London\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\noktitle},    TITLE+an     = {=ann1, ann2},    LOCATION     = {London and Edinbur\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {
+        "title": "Booktitle"
+      }
+    },
+    {
+      "Type": "MVBOOK",
+      "Key": "mv1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "ids": "mvalias",
+        "title": "Maintitle",
+        "subtitle": "Mainsubtitle",
+        "titleaddon": "Maintitleaddon"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "dt1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "date": "2004-04-25T14:34:00/2004-04-05T14:37:06",
+        "origdate": "2004-04-25T14:34:00Z/2004-04-05T14:34:05Z",
+        "eventdate": "2004-04-25T14:34:00+05:00/2004-04-05T15:34:00+05:00",
+        "urldate": "2004-04-25T14:34:00/2004-04-05T15:00:00"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "m1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "date": "2017",
+        "journaltitle": "A Journal"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "badcr1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Foo",
+        "title": "Foo",
+        "date": "2019",
+        "crossref": "baz"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "badcr2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Bar",
+        "title": "Bar",
+        "date": "2019",
+        "crossref": "baz"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "badname",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Smith and and Terry Brown"
+      }
+    }
+  ],
+  "Comments": [
+    "{Comment 1",
+    "}",
+    "{ Comment 2 ",
+    "}",
+    "{jabref-meta: groupstree:\r\n0 AllEntriesGroup:;\r\n1 ExplicitGroup:Doktorandkurser\\;2\\;;\r\n2 KeywordGroup:Från könsroll till genus\\;0\\;course\\;UCGS Från könsrolltill genus\\;0\\;0\\;;\r\n2 KeywordGroup:Historiska och filosofiska perspektiv på psykologi\\;0\\;course\\;Historiska och filosofiska perspektiv på psykologi\\;0\\;0\\;;\r\n2 KeywordGroup:Kurs i introduktion\\;0\\;course\\;Kurs i introduktion\\;0\\;0\\;;\r\n2 KeywordGroup:Fenomenologi, kön och genus\\;0\\;course\\;UCGS Fenomenologi\\;0\\;0\\;;\r\n2 KeywordGroup:Quantitative Research Methods\\;0\\;course\\;QMR\\;0\\;0\\;;\r\n2 KeywordGroup:Multivariate Analysis\\;0\\;course\\;MVA\\;1\\;0\\;;\r\n",
+    "}",
+    ",\r\n  LOCATION     = {London and Edinburgh},\r\n  LOCATION+an  = {1=ann1; 2=ann2},\r\n  YEAR         = {1999},\r\n  CROSSREF     = {mvalias}\r\n}",
+    "% Test reconstructing datetimes",
+    "% mincrossrefs is 2 by default and so \"baz\" would be added automatically\r\n% but it doesn't exist. This shouldn't cause an error as \"baz\" should be\r\n% weeded out before it is references and this test is to make sure it is\r\n% and that these two entries are processed as normal",
+    "% Test of skipping entry due to bad name with consecutive 'and'"
+  ]
+}

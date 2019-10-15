@@ -1,0 +1,14 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "test-ticket1661",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Non-Breaking Space: ; Accented Characters: Ñ and ñ; Tilde in URL: http://example.com/\\textasciitildeuser"
+      }
+    }
+  ],
+  "Comments": []
+}
