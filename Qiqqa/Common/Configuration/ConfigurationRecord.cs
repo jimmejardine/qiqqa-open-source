@@ -259,13 +259,13 @@ namespace Qiqqa.Common.Configuration
 
         public bool TermsAndConditionsAccepted
         {
-            get { return (this["TermsAndConditionsAccepted_20110517"] as bool?) ?? false; }
+            get { return (this["TermsAndConditionsAccepted_20110517"] as bool?) ?? true; }
             set { this["TermsAndConditionsAccepted_20110517"] = value; }
         }
 
         public bool SyncTermsAccepted
         {
-            get { return (this["SyncTermsAccepted_20100615"] as bool?) ?? false; }
+            get { return (this["SyncTermsAccepted_20100615"] as bool?) ?? true; }
             set { this["SyncTermsAccepted_20100615"] = value; }
         }
 
