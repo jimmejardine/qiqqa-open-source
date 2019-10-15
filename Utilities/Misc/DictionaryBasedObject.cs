@@ -30,7 +30,7 @@ namespace Utilities.Misc
         {
             get
             {
-                return attributes;
+                return new Dictionary<string, object>(attributes);
             }
         }
 
