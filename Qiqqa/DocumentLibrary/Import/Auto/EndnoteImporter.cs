@@ -188,7 +188,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                 // First candidates are those in the subdirectory corresponding to the .ENL file
                 foreach (string link in links)
                 {
-                    pdf_links.Add(Path.GetFullPath(Path.Combine(base_directory, link));
+                    pdf_links.Add(Path.GetFullPath(Path.Combine(base_directory, link)));
                 }
 
                 // Second candidates are raw pathnames
