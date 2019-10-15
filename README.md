@@ -8,6 +8,17 @@ This version includes EVERY feature available in Qiqqa, including Premium and Pr
 Unfortunately we have had to remove the web cloud sync ability as that is the one area that involves storage costs.  **Users are encouraged to migrate their Web Libraries into Intranet libraries, and use Google Drive or Dropbox as the 'sync point' for those libraries.**
 
 
+
+## Fixes & Additions to Qiqqa (in this fork)
+
+[For a full fixed issue list click here.](https://github.com/jimmejardine/qiqqa-open-source/issues?q=is%3Aissue+is%3Aclosed+milestone%3Av82)
+
+See also [CHANGELOG](../../blob/master/CHANGELOG.md) and it's big brother [CHANGELOG-full](../../blob/master/CHANGELOG_full.md).
+
+While I have joined as a collaborator in the qiqqa-open-source mainline repository, the bleeding edge of my work on Qiqqa can be observed here.
+
+
+
 ## Qiqqa Collaborators & Developers Wanted
 
 You'll need to be a little technically experienced in the .NET world to get a build up and running.
@@ -72,13 +83,3 @@ As above, but instead you'll need to obtain and install Syncfusion Essential Stu
 
 
   
-
-
-## Fixes & Additions to Qiqqa (in this fork)
-
-[For a full fixed issue list click here.](https://github.com/jimmejardine/qiqqa-open-source/issues?q=is%3Aissue+is%3Aclosed+milestone%3Av82)
-
-See also [CHANGELOG](../../blob/master/CHANGELOG.md) and it's big brother [CHANGELOG-full](../../blob/master/CHANGELOG_full.md).
-
-While I have joined as a collaborator in the qiqqa-open-source mainline repository, the bleeding edge of my work on Qiqqa can be observed here.
-
