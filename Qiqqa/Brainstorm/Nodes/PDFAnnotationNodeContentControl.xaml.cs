@@ -101,9 +101,7 @@ namespace Qiqqa.Brainstorm.Nodes
 
         public void ProcessKeyPress(KeyEventArgs e)
         {
-            if (false) { }
-
-            else if (Key.P == e.Key)
+            if (Key.P == e.Key)
             {
                 PDFAnnotation pdf_annotation = pdf_annotation_node_content.PDFAnnotation.Underlying;
                 PDFDocument pdf_document = pdf_annotation_node_content.PDFDocument.Underlying;

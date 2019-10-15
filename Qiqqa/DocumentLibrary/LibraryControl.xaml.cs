@@ -33,6 +33,9 @@ using UserControl = System.Windows.Controls.UserControl;
 using Qiqqa.AnnotationsReportBuilding;
 using Qiqqa.DocumentLibrary.VisualGalleryStuff;
 using System.IO;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary
 {

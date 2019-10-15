@@ -4,6 +4,8 @@ using System.IO;
 using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.DateTimeTools;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary.RecentlyReadStuff
 {
@@ -20,7 +22,7 @@ namespace Qiqqa.DocumentLibrary.RecentlyReadStuff
         {
             get
             {
-                return library.LIBRARY_BASE_PATH + "Qiqqa.recently_read";
+                return Path.GetFullPath(Path.Combine(library.LIBRARY_BASE_PATH, @"Qiqqa.recently_read"));
             }
         }
 

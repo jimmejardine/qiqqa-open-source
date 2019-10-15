@@ -9,6 +9,8 @@ using Qiqqa.Documents.PDF;
 using Utilities.BibTex.Parsing;
 using Utilities.GUI;
 using Qiqqa.DocumentLibrary;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary.LibraryDBStuff
 {
@@ -154,7 +156,7 @@ namespace Qiqqa.DocumentLibrary.LibraryDBStuff
                 }
 
                 // also dump the output to file (for diagnostics)
-                string path = library.LIBRARY_BASE_PATH + "Qiqqa.DBexplorer.QueryDump.txt";
+                string path = Path.GetFullPath(Path.Combine(library.LIBRARY_BASE_PATH, @"Qiqqa.DBexplorer.QueryDump.txt"));
 
                 // overwrite previous query dump:
                 using (StreamWriter sr = new StreamWriter(path, false /* overwrite */))

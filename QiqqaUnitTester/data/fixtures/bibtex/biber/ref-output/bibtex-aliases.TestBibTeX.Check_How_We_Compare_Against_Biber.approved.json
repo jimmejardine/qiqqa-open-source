@@ -1,0 +1,110 @@
+﻿{
+  "Items": [
+    {
+      "Type": "PHDTHESIS",
+      "Key": "alias1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Sammy Student",
+        "title": "Four Years Later",
+        "institution": "University of Life",
+        "address": "Ivory Towers",
+        "date": "2003-10-01"
+      }
+    },
+    {
+      "Type": "THING",
+      "Key": "alias2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Samuel Strange",
+        "title": "Entitled",
+        "address": "Ivory Towers",
+        "school": "University of West Grantham",
+        "institution": "University of East Grantham",
+        "date": "2004-03-03"
+      }
+    },
+    {
+      "Type": "CHAT",
+      "Key": "alias3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Samuel Strange",
+        "title": "Hello"
+      }
+    },
+    {
+      "Type": "CONVERSATION",
+      "Key": "alias4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Samuel Strange",
+        "title": "Hello",
+        "participant": "Sam Smith",
+        "verbc": "sometext",
+        "pubmedid": "anid"
+      }
+    },
+    {
+      "Type": "UNPUBLISHED",
+      "Key": "alias5",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "abstract": "Some abstract %50 of which is useless",
+        "author": "AAA and BBB and CCC and DDD and EEE",
+        "title": "A title",
+        "date": "2003",
+        "userb": "test",
+        "lista": "list test",
+        "listb": "late and early",
+        "listc": "late and early"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "alias6",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Brian Broom",
+        "title": "Bristles"
+      }
+    },
+    {
+      "Type": "REPORT",
+      "Key": "alias7",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "lista": "listaval",
+        "verba": "val1",
+        "verbb": "val2",
+        "verbc": "val3"
+      }
+    },
+    {
+      "Type": "REPORT",
+      "Key": "alias8",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "verba": "val2",
+        "verbb": "val2"
+      }
+    }
+  ],
+  "Comments": [
+    "% driver-defined default map to MISC",
+    "% User-defined map to CUSTOMB",
+    "% User-defined map to CUSTOMA plus some alsosets (see tests)",
+    "% User-defined map of string replacements and null maps",
+    "% No target, just field additions",
+    "% No regexp match\r\n% Also testing append mode"
+  ]
+}

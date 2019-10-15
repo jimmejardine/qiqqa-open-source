@@ -1,0 +1,7 @@
+﻿{
+  "Items": [],
+  "Comments": [
+    "% this is a lexical comment, which is never seen by the grammar and\r\n% thus can't be tested (well, not yet at least)",
+    "(this is a comment entry, anything at all can go in it (as long\r\n         as parentheses are balanced"
+  ]
+}

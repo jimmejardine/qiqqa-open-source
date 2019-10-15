@@ -1,6 +1,9 @@
 ﻿using System;
 using System.IO;
 using Utilities;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.UpgradePaths.V003To004
 {
@@ -16,10 +19,10 @@ namespace Qiqqa.UpgradePaths.V003To004
         {
             try
             {
-                string OLD_BASE_PATH = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Quantisle\Qiqqa\";
+                string OLD_BASE_PATH = Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"Quantisle/Qiqqa"));
                 if (Directory.Exists(OLD_BASE_PATH))
                 {
-                    string NEW_BASE_PATH = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Quantisle\Qiqqa\Guest\";
+                    string NEW_BASE_PATH = Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"Quantisle/Qiqqa/Guest"));
 
                     // Check that we have the Guest directory
                     if (!Directory.Exists(NEW_BASE_PATH))
@@ -29,11 +32,11 @@ namespace Qiqqa.UpgradePaths.V003To004
                     }
             
                     // Move the documents if we have them
-                    string old_documents_path = OLD_BASE_PATH + "documents";
+                    string old_documents_path = Path.GetFullPath(Path.Combine(OLD_BASE_PATH, @"documents"));
                     if (Directory.Exists(old_documents_path))
                     {
                         Logging.Info("Old style documents path exists, so moving it");
-                        string new_documents_path = NEW_BASE_PATH + "documents";
+                        string new_documents_path = Path.GetFullPath(Path.Combine(NEW_BASE_PATH, @"documents"));
                         Directory.Move(old_documents_path, new_documents_path);
                     }
 
@@ -49,7 +52,7 @@ namespace Qiqqa.UpgradePaths.V003To004
                         if (File.Exists(old_filename))
                         {
                             Logging.Info("Old style filename exists, so moving it ({0})", old_filename);
-                            string new_filename = NEW_BASE_PATH + application_filename;
+                            string new_filename = Path.GetFullPath(Path.Combine(NEW_BASE_PATH, application_filename));
                             File.Move(old_filename, new_filename);
                         }
                     }

@@ -4,6 +4,9 @@ using System.IO;
 using Qiqqa.Main.SplashScreenStuff;
 using Utilities;
 using Utilities.Misc;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.UpgradePaths.V037To038
 {
@@ -35,14 +38,14 @@ namespace Qiqqa.UpgradePaths.V037To038
                     ++info_library_count;
                     Logging.Info("Inspecting directory {0}", library_directory);
 
-                    string documents_directory = library_directory + @"\documents";
-                    string database_file = library_directory + @"\Qiqqa.library";
+                    string documents_directory = Path.GetFullPath(Path.Combine(library_directory, @"documents"));
+                    string database_file = Path.GetFullPath(Path.Combine(library_directory, @"Qiqqa.library"));
 
                     if (!File.Exists(database_file) && Directory.Exists(documents_directory))
                     {
                         Logging.Warn("We have to upgrade {0}", library_directory);
 
-                        SQLiteUpgrade_LibraryDB library_db = new SQLiteUpgrade_LibraryDB(library_directory + @"\");
+                        SQLiteUpgrade_LibraryDB library_db = new SQLiteUpgrade_LibraryDB(library_directory);
 
                         using (var connection = library_db.GetConnection())
                         {
@@ -96,13 +99,7 @@ namespace Qiqqa.UpgradePaths.V037To038
                         override_path = override_path.Trim();
                         if (!String.IsNullOrEmpty(override_path))
                         {
-                            // Make sure it ends with a \
-                            if (!override_path.EndsWith(@"\"))
-                            {
-                                override_path = override_path + @"\";
-                            }
-
-                            base_directory_for_qiqqa = override_path;
+                            base_directory_for_qiqqa = Path.GetFullPath(override_path);
 
                             // Check that the path is reasonable
                             try
@@ -120,7 +117,7 @@ namespace Qiqqa.UpgradePaths.V037To038
                     // If we get here, use the default path
                     if (null == base_directory_for_qiqqa)
                     {
-                        base_directory_for_qiqqa = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Quantisle\Qiqqa\";
+                        base_directory_for_qiqqa = Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Quantisle/Qiqqa"));
                     }
                 }
 

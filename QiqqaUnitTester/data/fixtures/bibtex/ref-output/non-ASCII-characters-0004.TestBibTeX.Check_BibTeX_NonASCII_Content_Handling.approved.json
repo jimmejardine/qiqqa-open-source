@@ -1,0 +1,31 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "QIQQA-KNBUL",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "国際開発学部",
+        "title": "",
+        "year": "2015",
+        "publisher": ""
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "QIQQA-BKMXY",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "川畑　康治",
+        "title": "",
+        "year": "2015",
+        "publisher": ""
+      }
+    }
+  ],
+  "Comments": [
+    "% Chinese..."
+  ]
+}

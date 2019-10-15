@@ -7,6 +7,9 @@ using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Utilities;
 using Utilities.GUI;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
 {
@@ -41,7 +44,6 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
                 MessageBoxes.Info("You already have a version of this Bundle Library.  Please ensure you close all windows that use this library after the latest has been downloaded.");
             }
 
-            //string library_directory = @"C:\temp\LIBZZZZ";
             string library_directory = Library.GetLibraryBasePathForId(manifest.Id);
             Directory.CreateDirectory(library_directory);
 

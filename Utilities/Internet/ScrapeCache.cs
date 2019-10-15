@@ -6,6 +6,9 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using Utilities.Files;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Utilities.Internet
 {
@@ -26,7 +29,7 @@ namespace Utilities.Internet
 
         public IEnumerable<string> GetAllContentFilenames()
         {
-            return Directory.GetFiles(base_directory, "*", System.IO.SearchOption.AllDirectories);
+            return Directory.GetFiles(base_directory, "*", SearchOption.AllDirectories);
         }
 
         public string ScrapeURL(string url, bool force_download = false, Dictionary<string, string> additional_headers = null)
@@ -38,8 +41,8 @@ namespace Utilities.Internet
         public string ScrapeURLToFile(string url, bool force_download = false, Dictionary<string,string> additional_headers = null)
         {
             string cache_key = StreamMD5.FromText(url);
-            string directory = base_directory + @"\" + cache_key.Substring(0, 2) + @"\";
-            string filename = directory + cache_key;
+            string directory = Path.GetFullPath(Path.Combine(base_directory, cache_key.Substring(0, 2)));
+            string filename = Path.GetFullPath(Path.Combine(directory, cache_key));
 
             if (!File.Exists(filename) || force_download)
             {
@@ -76,14 +79,13 @@ namespace Utilities.Internet
                         File.WriteAllText(temp_filename, ex.ToString());
                     }
                     
-
                     File.Delete(filename);
                     File.Move(temp_filename, filename);
                 }
 
-                string filename_manifest = base_directory + @"\" + "manifest.txt";
+                string filename_manifest = Path.GetFullPath(Path.Combine(base_directory, @"manifest.txt"));
                 string manifest_line = String.Format("{0}\t{1}",cache_key, url);
-                using (System.IO.StreamWriter sw = File.AppendText(filename_manifest))
+                using (StreamWriter sw = File.AppendText(filename_manifest))
                 {
                     sw.WriteLine(manifest_line);
                 }

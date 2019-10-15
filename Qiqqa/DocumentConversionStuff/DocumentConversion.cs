@@ -3,8 +3,9 @@ using Syncfusion.DocIO.DLS;
 using Syncfusion.DocToPDFConverter;
 using Syncfusion.Pdf;
 using Syncfusion.XPS;
-using Path = System.IO.Path;
 using Syncfusion.XlsIO;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentConversionStuff
 {

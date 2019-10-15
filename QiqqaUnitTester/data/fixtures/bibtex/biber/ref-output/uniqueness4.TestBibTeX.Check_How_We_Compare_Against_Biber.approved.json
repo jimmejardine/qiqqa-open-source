@@ -1,0 +1,343 @@
+﻿{
+  "Items": [
+    {
+      "Type": "ARTICLE",
+      "Key": "us1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Smith and Bert Smith",
+        "year": "1968"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "us2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Bill Reynolds and James Plumb",
+        "year": "1932"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "us3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Alan Plumb and Trevor Reynolds",
+        "year": "1945"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "us4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Basil Brown and Helen Heretic",
+        "year": "1984"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "us5",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Mary Brown",
+        "year": "1983"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "us6",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Peter Prefect and Martin Mangle and Leigh Loon",
+        "year": "1982"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "us7",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Russ Prefect and Graham Mangle",
+        "year": "1989"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "us8",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Jeremy Jingle and Otto Irate",
+        "year": "1982"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "us9",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Kevin Jingle and Barbara Montle",
+        "year": "1989"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "us10",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Richard Red and Graham Green",
+        "year": "1982"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "us11",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Victor Red and Mark Green",
+        "year": "1989"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "us12",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Simon Slip and Bertie Brass",
+        "year": "1989"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "us13",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Steven Slip and Bertie Brass",
+        "year": "1989"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "us14",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Peter Gurgle and Martin Splonk and Leigh Remedial and Trevor Argue",
+        "year": "1989"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "us15",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Alan Gurgle and Michael Splonk and Leigh Remedial",
+        "year": "1989"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "us16",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "AAA and BBB and CCC",
+        "year": "1902"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "us17",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "AAA and BBB and CCC and DDD",
+        "year": "1906"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "us18",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "A. AAAA and BBBB and CCCC",
+        "year": "1902"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "us19",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "B. AAAA and BBBB and CCCC and DDDD",
+        "year": "1906"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "us20",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Ulrich Schmitz",
+        "year": "1906"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "us21",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Ulrich Schmitz",
+        "year": "1934"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "us22",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Brian Cambell and Frank Schmitz",
+        "year": "1936"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "us23",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Oliver Oligarch",
+        "year": "1906"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "us24",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Otto Oligarch",
+        "year": "1934"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "us25",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Ian Ink and Peter Oligarch",
+        "year": "1936"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "us26",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Roger Meredith",
+        "year": "1936"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "us27a",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Roger Meredith",
+        "year": "1934"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "us27",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Alan Meredith",
+        "year": "1936"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "us28",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Andrew Meredith",
+        "year": "1936"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "us29",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Clive Creation and Peter Patronage",
+        "year": "1936"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "us29a",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Clive Creation and Peter Patronage",
+        "year": "1934"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "us30",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Liam Creation and Peter Patronage",
+        "year": "1932"
+      }
+    }
+  ],
+  "Comments": [
+    "% Smith and Smith",
+    "% Reynolds and Plumb",
+    "% Plumb and Reynolds",
+    "% Brown and Heretic",
+    "% Brown",
+    "% Prefect, Mangle and Loon",
+    "% Prefect and Mangle",
+    "% Jingle and Irate",
+    "% Jingle and Montle",
+    "% R. Red and G. Green",
+    "% V. Red and M. Green",
+    "% Simon Slip and Brass",
+    "% Steven Slip and Brass",
+    "% With maxnames/minnames=3, don't disambiguate the names in these lists as due to the \"et al\",\r\n% the lists are different in themselves\r\n% With maxnames=2/minnames=1, the lists are \"the same\" (Gurgle et al) so do disambiguate the\r\n% lists.\r\n% With maxnames=3/minnames=1, the lists are different (Gurgle et al, Gurgle, Splonk and Remedial)\r\n% so don't disambiguate\r\n% lists.\r\n% Gurgle, Splonk, Remdial et al",
+    "% Gurgle, Splonk and Remedial",
+    "% $ul = 3 and 4",
+    "% $ul = 3 and 4\r\n% AAAA won't be disambiguated since the lists are therefore different"
+  ]
+}

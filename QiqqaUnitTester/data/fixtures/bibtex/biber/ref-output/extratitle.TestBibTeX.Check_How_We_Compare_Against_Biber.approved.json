@@ -1,0 +1,130 @@
+﻿{
+  "Items": [
+    {
+      "Type": "BOOK",
+      "Key": "L1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Doe",
+        "title": "Title 1",
+        "year": "1995"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Doe",
+        "title": "Title 1",
+        "year": "1996"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Title 2",
+        "year": "1995"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Title 2",
+        "year": "1995"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L5",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Title 1",
+        "year": "1995"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L6",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "shorttitle": "Title A",
+        "title": "Title 3",
+        "year": "1995"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L7",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Title A",
+        "year": "1995"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L8",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Billy Brown",
+        "title": "Title A",
+        "year": "1934"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L9",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Billy Brown",
+        "title": "Title B",
+        "year": "1932"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L10",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Clive Cautious",
+        "title": "Title A",
+        "year": "1946"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L11",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Titular Titilation",
+        "year": "1946"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L12",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "year": "1943"
+      }
+    }
+  ],
+  "Comments": []
+}

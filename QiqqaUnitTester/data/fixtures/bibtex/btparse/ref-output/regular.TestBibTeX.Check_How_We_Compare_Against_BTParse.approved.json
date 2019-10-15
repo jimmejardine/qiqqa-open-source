@@ -1,0 +1,25 @@
+﻿{
+  "Items": [
+    {
+      "Type": "book",
+      "Key": "abook",
+      "Exceptions": [
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nitle = {A } # \"Book\",                   % an in-entry comment  editor = {  John \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n= {A } # \"Book\",                   % an in-entry comment  editor = {  John Q.  R\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n\"Book\",                   % an in-entry comment  editor = {  John Q.  Random} # \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n                 % an in-entry comment  editor = {  John Q.  Random} # junk,  pu\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {
+        "title": "A Book",
+        "editor": "  John Q.  Randomjunk",
+        "publisher": "Foo Bar \\& Sons",
+        "year": "1922"
+      }
+    }
+  ],
+  "Comments": [
+    "% a sample \"regular\" entry (ie. not a",
+    ", @preamble, or @string)\r"
+  ]
+}

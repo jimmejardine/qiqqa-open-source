@@ -33,6 +33,8 @@ using Cursors = System.Windows.Input.Cursors;
 using Image = System.Windows.Controls.Image;
 using Matrix = System.Drawing.Drawing2D.Matrix;
 using MouseEventArgs = System.Windows.Input.MouseEventArgs;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 {
@@ -740,8 +742,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                         fe = (FrameworkElement)ObjCarousel.Items[0];
                     }
                 }
-
-
+                
                 if (null != fe)
                 {
                     DocumentDisplayWork ddw = (DocumentDisplayWork)fe.Tag;
@@ -923,7 +924,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         {
             get
             {
-                return web_library_detail.library.LIBRARY_BASE_PATH + "Qiqqa.library_custom_icon.png";
+                return Path.GetFullPath(Path.Combine(web_library_detail.library.LIBRARY_BASE_PATH, @"Qiqqa.library_custom_icon.png"));
             }
         }
 
@@ -931,7 +932,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         {
             get
             {
-                return web_library_detail.library.LIBRARY_BASE_PATH + "Qiqqa.library_custom_background.jpg";
+                return Path.GetFullPath(Path.Combine(web_library_detail.library.LIBRARY_BASE_PATH, @"Qiqqa.library_custom_background.jpg"));
             }
         }
 
@@ -959,11 +960,17 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 dialog.CheckFileExists = true;
                 dialog.Multiselect = false;
                 dialog.Title = title;
+                //dialog.FileName = filename;
                 if (DialogResult.OK == dialog.ShowDialog())
                 {
-                    // Copy the new file into place
-                    File.Delete(filename);
-                    File.Copy(dialog.FileName, filename);
+                    // Copy the new file into place, if it is another file than the one we already have:
+                    filename = Path.GetFullPath(filename);
+                    string new_filename = Path.GetFullPath(dialog.FileName);
+                    if (0 != new_filename.CompareTo(filename))
+                    {
+                        File.Delete(filename);
+                        File.Copy(new_filename, filename);
+                    }
                 }
                 else
                 {

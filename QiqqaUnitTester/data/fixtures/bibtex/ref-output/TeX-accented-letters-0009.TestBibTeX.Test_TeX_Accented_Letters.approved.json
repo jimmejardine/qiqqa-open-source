@@ -1,0 +1,20 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "studiegaat1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Zwitser, Robert and Béguin, Anton",
+        "title": "Gaat meetfout bij de rekentoets slachtoffers maken?",
+        "journal": "e-examens",
+        "year": "2011",
+        "comment": "studie van Van Rijn, Een and en Verstralen, Béguin"
+      }
+    }
+  ],
+  "Comments": [
+    "% accented letter without curly braces = b0rk?"
+  ]
+}

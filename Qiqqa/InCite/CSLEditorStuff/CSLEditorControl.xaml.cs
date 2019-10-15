@@ -13,6 +13,8 @@ using Qiqqa.UtilisationTracking;
 using Utilities.BibTex.Parsing;
 using Utilities.GUI;
 using Utilities.GUI.DualTabbedLayoutStuff;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.InCite.CSLEditorStuff
 {
@@ -83,14 +85,13 @@ namespace Qiqqa.InCite.CSLEditorStuff
             ObjBibTexEditor.TextChanged += ObjBibTexEditor_TextChanged;
 
             // Load the samples
-            string sample_csl_filename = ConfigurationManager.Instance.StartupDirectoryForQiqqa + @"InCite\styles\apa.csl";
+            string sample_csl_filename = Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"InCite/styles/apa.csl"));
             ObjCSLEditor.Text = File.ReadAllText(sample_csl_filename);
-            string sample_bibtex_filename = ConfigurationManager.Instance.StartupDirectoryForQiqqa + @"InCite\CSLEditorStuff\SampleBibTeX.txt";
+            string sample_bibtex_filename = Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"InCite/CSLEditorStuff/SampleBibTeX.txt"));
             ObjBibTexEditor.Text = File.ReadAllText(sample_bibtex_filename);
 
             // Bind the keys
             this.PreviewKeyDown += CSLEditorControl_PreviewKeyDown;
-
         }
 
         void ButtonHelp_Click(object sender, RoutedEventArgs e)
@@ -222,7 +223,7 @@ namespace Qiqqa.InCite.CSLEditorStuff
             string prepared_citation_javascript = ObjJavaScriptEditor.Text;
 
             // Write to file for processor
-            string style_file_filename = ConfigurationManager.Instance.TempDirectoryForQiqqa + "CSLEditor_CSL.csl";
+            string style_file_filename = Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.TempDirectoryForQiqqa, @"CSLEditor_CSL.csl"));
             File.WriteAllText(style_file_filename, csl);
             
             // Validate the CSL

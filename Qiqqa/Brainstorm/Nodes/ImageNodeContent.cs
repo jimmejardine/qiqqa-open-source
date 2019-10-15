@@ -4,6 +4,9 @@ using System.IO;
 using System.Windows.Media.Imaging;
 using Qiqqa.Brainstorm.Common.Searching;
 using Utilities.Images;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.Brainstorm.Nodes
 {

@@ -1,0 +1,16 @@
+﻿{
+  "Items": [
+    {
+      "Type": "phdthesis",
+      "Key": "王国辉2014开关电源中铝电解电容",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "开关电源中铝电解电容 ESR 实时估测 (Aluminum electrolytic capacitor ESR real-time estimation for switching power supply)",
+        "author": "王国辉 and 关永 and 郑学艳 and 吴立锋 and 潘巍",
+        "year": "2014"
+      }
+    }
+  ],
+  "Comments": []
+}

@@ -5,6 +5,9 @@ using Qiqqa.Common.Configuration;
 using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.Misc;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.Common
 {
@@ -20,11 +23,11 @@ namespace Qiqqa.Common
                 Logging.Info("Checking for Dropbox conflicts in {0} for machine {1}", ConfigurationManager.Instance.BaseDirectoryForQiqqa, Environment.MachineName);
 
                 // Write our version
-                string FULL_FILENAME = ConfigurationManager.Instance.BaseDirectoryForQiqqa + PREAMBLE_FILENAME + "." + Environment.MachineName + ".txt";
+                string FULL_FILENAME = Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.BaseDirectoryForQiqqa, PREAMBLE_FILENAME + @"." + Environment.MachineName + @".txt"));
                 File.WriteAllText(FULL_FILENAME, WARNING);
 
                 // Check for other's versions
-                string[] matching_files = Directory.GetFiles(ConfigurationManager.Instance.BaseDirectoryForQiqqa, PREAMBLE_FILENAME + "*", SearchOption.TopDirectoryOnly);
+                string[] matching_files = Directory.GetFiles(ConfigurationManager.Instance.BaseDirectoryForQiqqa, PREAMBLE_FILENAME + @"*", SearchOption.TopDirectoryOnly);
                 if (1 < matching_files.Length)
                 {
                     // We have a problem, Houston...
@@ -55,7 +58,7 @@ namespace Qiqqa.Common
         {
             try
             {
-                string[] matching_files = Directory.GetFiles(ConfigurationManager.Instance.BaseDirectoryForQiqqa, PREAMBLE_FILENAME + "*", SearchOption.TopDirectoryOnly);
+                string[] matching_files = Directory.GetFiles(ConfigurationManager.Instance.BaseDirectoryForQiqqa, PREAMBLE_FILENAME + @"*", SearchOption.TopDirectoryOnly);
                 foreach (string filename in matching_files)
                 {
                     File.Delete(filename);

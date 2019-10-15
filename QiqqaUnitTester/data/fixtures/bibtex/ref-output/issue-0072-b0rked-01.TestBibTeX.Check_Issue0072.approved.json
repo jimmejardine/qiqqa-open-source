@@ -1,0 +1,17 @@
+﻿{
+  "Items": [
+    {
+      "Type": "poster",
+      "Key": "strandwitz2015GABA",
+      "Exceptions": [
+        "Expecting a field name but nothing was acceptable until EOF: broken or truncated BibTeX?\r\nisher={Northeastern University}  }",
+        "Expecting a } to end this BibTeX reference\r\nisher={Northeastern University}  }"
+      ],
+      "Warnings": [],
+      "Fields": {
+        "title": "GABA Modulating Bacteria - Can our bacteria make us depressed,\r\n  author=Strandwitz, Philip and Kim, Ki-hyun and Dietrich, David and Stewart, Eric and Clardy, Jon and Lewis, Kim,\r\n  Poster=RISE,\r\n    year=2015,\r\n  publisher=Northeastern University\r\n"
+      }
+    }
+  ],
+  "Comments": []
+}

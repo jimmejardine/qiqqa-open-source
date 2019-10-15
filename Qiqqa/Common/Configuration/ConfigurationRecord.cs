@@ -2,6 +2,8 @@
 using System.Reflection;
 using Utilities;
 using Utilities.Misc;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.Common.Configuration
 {
@@ -117,9 +119,9 @@ namespace Qiqqa.Common.Configuration
                 string filename = this["InCite_LastStyleFile"] as string;
                 if (String.IsNullOrEmpty(filename))
                 {
-                    filename = ConfigurationManager.Instance.StartupDirectoryForQiqqa + @"\InCite\styles\harvard1.csl";
+                    filename = Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"InCite/styles/harvard1.csl");
                 }
-                return filename;
+                return Path.GetFullPath(filename);
             }
             set { this["InCite_LastStyleFile"] = value; }
         }
@@ -257,13 +259,13 @@ namespace Qiqqa.Common.Configuration
 
         public bool TermsAndConditionsAccepted
         {
-            get { return (this["TermsAndConditionsAccepted_20110517"] as bool?) ?? false; }
+            get { return (this["TermsAndConditionsAccepted_20110517"] as bool?) ?? true; }
             set { this["TermsAndConditionsAccepted_20110517"] = value; }
         }
 
         public bool SyncTermsAccepted
         {
-            get { return (this["SyncTermsAccepted_20100615"] as bool?) ?? false; }
+            get { return (this["SyncTermsAccepted_20100615"] as bool?) ?? true; }
             set { this["SyncTermsAccepted_20100615"] = value; }
         }
 

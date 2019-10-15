@@ -7,6 +7,9 @@ using Qiqqa.Common.TagManagement;
 using Utilities;
 using Utilities.Files;
 using Utilities.Misc;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary.FolderWatching
 {
@@ -181,7 +184,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 return;
             }
 
-            // Update our fole system watcher if necessary
+            // Update our folder system watcher if necessary
             CheckIfFolderNameHasChanged();
 
             // If the current folder is blank, do nothing

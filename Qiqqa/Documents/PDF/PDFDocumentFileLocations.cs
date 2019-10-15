@@ -1,5 +1,7 @@
 ﻿using System;
 using Qiqqa.DocumentLibrary;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.Documents.PDF
 {
@@ -15,7 +17,7 @@ namespace Qiqqa.Documents.PDF
         internal static string DocumentBasePath(Library library, string fingerprint)
         {
             char folder_id = fingerprint[0];
-            return library.LIBRARY_DOCUMENTS_BASE_PATH + String.Format(@"{0}\", folder_id);
+            return Path.GetFullPath(Path.Combine(library.LIBRARY_DOCUMENTS_BASE_PATH, String.Format(@"{0}", folder_id)));
         }
 
         /// <summary>
@@ -26,7 +28,7 @@ namespace Qiqqa.Documents.PDF
         /// <returns></returns>
         internal static string DocumentPath(Library library, string fingerprint, string file_type)
         {
-            return DocumentBasePath(library, fingerprint) + String.Format(@"{0}.{1}", fingerprint, file_type);
+            return Path.GetFullPath(Path.Combine(DocumentBasePath(library, fingerprint), String.Format(@"{0}.{1}", fingerprint, file_type)));
         }
     }
 }

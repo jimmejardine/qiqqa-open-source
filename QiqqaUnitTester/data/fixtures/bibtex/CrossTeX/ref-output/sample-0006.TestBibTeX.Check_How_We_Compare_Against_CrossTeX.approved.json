@@ -1,0 +1,33 @@
+﻿{
+  "Items": [
+    {
+      "Type": "author",
+      "Key": "kwalsh",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "name": "Kevin Walsh"
+      }
+    },
+    {
+      "Type": "author",
+      "Key": "egs",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "name": "Emin Gün Sirer"
+      }
+    },
+    {
+      "Type": "inproceedings",
+      "Key": "credence",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Experience with an Object\r\n            Reputation System for \r\n            Peer-to-Peer Filesharing",
+        "author": "kwalsh and egs"
+      }
+    }
+  ],
+  "Comments": []
+}

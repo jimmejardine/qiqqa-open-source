@@ -7,6 +7,8 @@ using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary;
 using Utilities;
 using Utilities.Files;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
 {
@@ -32,7 +34,7 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
             if (!File.Exists(library_path))
             {
                 Logging.Warn("Intranet Library metadata db does not exist so copying the template to {0}", library_path);
-                string library_metadata_template_path = ConfigurationManager.Instance.StartupDirectoryForQiqqa + @"DocumentLibrary\IntranetLibraryStuff\IntranetLibrary.Metadata.Template.s3db";
+                string library_metadata_template_path = Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"DocumentLibrary/IntranetLibraryStuff/IntranetLibrary.Metadata.Template.s3db"));
                 File.Copy(library_metadata_template_path, library_path);
             }
         }

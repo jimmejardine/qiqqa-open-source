@@ -1,0 +1,86 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "_carbocyclic",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "british",
+        "title": "A Carbocyclic Carbene as an Efficient Catalyst Ligand for C–C Coupling Reactions"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "_alkanethiolate",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "american",
+        "title": "Alkanethiolate Gold Cluster Molecules with Core Diameters from 1.5 to 5.2~nm"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "_stochastic",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "american",
+        "title": "A Stochastic Model of TCP Reno Congestion Avoidance and Control"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "_effect",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "american",
+        "title": "Effect of Immobilization on Catalytic Characteristics of Saturated Pd-N-Heterocyclic Carbenes in Mizoroki-Heck Reactions"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "_estimateur",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "abstract": "in French, so no case conversion, nor protection.",
+        "langid": "french",
+        "title": "Estimateur d'un défaut de fonctionnement d'un modulateur en quadrature et étage de modulation l'utilisant"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "_highspeed",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "american",
+        "title": "High-Speed Digital-to-RF Converter"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "_pleistocene",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "langid": "british",
+        "title": "Pleistocene \\emphHomo sapiens from Middle Awash, Ethiopia"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "_remarks",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "abstract": "Zotero’s “Language” field empty, so “en-US” is assumed.",
+        "title": "Some Remarks on ’t Hooft’s S-Matrix for Black Holes"
+      }
+    }
+  ],
+  "Comments": []
+}

@@ -1,0 +1,55 @@
+﻿{
+  "Items": [
+    {
+      "Type": "BOOK",
+      "Key": "F1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "ids": "F1a",
+        "shorthand": "\\emphA",
+        "sortshorthand": "A",
+        "author": "John Doe",
+        "title": "The Fullness of Times",
+        "year": "1995"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "F1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Frank Frill",
+        "title": "Dresses for Gentlemen",
+        "year": "1997"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "f1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Someone Else",
+        "title": "The Case of the Duplicitous Duplicate",
+        "year": "1996"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "c1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Benny Balgreen",
+        "title": "Names We Invent",
+        "year": "1900"
+      }
+    }
+  ],
+  "Comments": [
+    "% Duplicate key. Should be reported via a warning",
+    "% Mismatched cased key. Should be reported via a warning"
+  ]
+}

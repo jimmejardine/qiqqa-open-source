@@ -24,20 +24,9 @@ namespace Qiqqa.Exporting
                 authors = author_names[0].last_name;
             }
 
-            int MAX_TITLE_LENGTH = 100;
             string title = pdf_document.TitleCombined;
-            if (title.Length > MAX_TITLE_LENGTH)
-            {
-                title = title.Substring(0, MAX_TITLE_LENGTH);
-            }
 
-            string filename =
-                String.Format(
-                "{0}{1} - {2}",
-                authors,
-                year,
-                title,
-                null);
+            string filename = String.Format("{0}{1} - {2}", authors, year, title);
 
             filename = filename.Trim();
             filename = FileTools.MakeSafeFilename(filename);

@@ -1,0 +1,638 @@
+﻿{
+  "Items": [
+    {
+      "Type": "INBOOK",
+      "Key": "cr1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Graham Gullam",
+        "title": "Great and Good Graphs",
+        "origdate": "1955",
+        "archiveprefix": "SomEPrFiX",
+        "primaryclass": "SOMECLASS",
+        "crossref": "cr_m",
+        "ids": "cr1a1,cr1a2"
+      }
+    },
+    {
+      "Type": "INBOOK",
+      "Key": "cr2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Frederick Fumble",
+        "title": "Fabulous Fourier Forms",
+        "school": "School",
+        "institution": "Institution",
+        "origdate": "1943",
+        "crossref": "cr_m"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "cr_m",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "editor": "Edgar Erbriss",
+        "title": "Graphs of the Continent",
+        "publisher": "Grimble",
+        "year": "1974"
+      }
+    },
+    {
+      "Type": "INBOOK",
+      "Key": "cr3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Arthur Aptitude",
+        "title": "Arrangements of All Articles",
+        "origdate": "1934",
+        "archiveprefix": "SomEPrFiX",
+        "eprinttype": "sometype",
+        "crossref": "crt"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "crt",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "editor": "Mark Monkley",
+        "title": "Beasts of the Burbling Burns",
+        "publisher": "Rancour",
+        "year": "1996"
+      }
+    },
+    {
+      "Type": "INBOOK",
+      "Key": "cr4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Morris Mumble",
+        "title": "Enterprising Entities",
+        "origdate": "1911",
+        "crossref": "crn"
+      }
+    },
+    {
+      "Type": "INBOOK",
+      "Key": "cr5",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Oliver Ordinary",
+        "title": "Questionable Quidities",
+        "origdate": "1919",
+        "crossref": "crn"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "crn",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "editor": "Jeremy Jermain",
+        "title": "Vanquished, Victor, Vandal",
+        "publisher": "Pillsbury",
+        "year": "1945"
+      }
+    },
+    {
+      "Type": "PROCEEDINGS",
+      "Key": "cr6i",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Spurious Author",
+        "address": "Address",
+        "title": "Title of proceeding",
+        "editor": "Editor",
+        "publisher": "Publisher of proceeding",
+        "eventdate": "2009-08-21/2009-08-24",
+        "eventtitle": "Title of the event",
+        "venue": "Location of event",
+        "year": "2009"
+      }
+    },
+    {
+      "Type": "INPROCEEDINGS",
+      "Key": "cr6",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Author, Firstname",
+        "crossref": "cr6i",
+        "pages": "123--",
+        "title": "Title of inproceeding",
+        "booktitle": "Manual booktitle",
+        "year": "2009"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "cr7i",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Brian Bookauthor",
+        "title": "Book Title",
+        "subtitle": "Book Subtitle",
+        "titleaddon": "Book Titleaddon",
+        "publisher": "Publisher of proceeding",
+        "year": "2009",
+        "verba": "String"
+      }
+    },
+    {
+      "Type": "INBOOK",
+      "Key": "cr7",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Author, Firstname",
+        "crossref": "cr7i",
+        "pages": "123--126",
+        "title": "Title of Book bit",
+        "year": "2010"
+      }
+    },
+    {
+      "Type": "COLLECTION",
+      "Key": "cr8i",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "editor": "Brian Editor",
+        "title": "Book Title",
+        "subtitle": "Book Subtitle",
+        "titleaddon": "Book Titleaddon",
+        "publisher": "Publisher of Collection",
+        "year": "2009"
+      }
+    },
+    {
+      "Type": "INCOLLECTION",
+      "Key": "cr8",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Smith, Firstname",
+        "crossref": "cr8i",
+        "pages": "1--12",
+        "title": "Title of Collection bit",
+        "year": "2010"
+      }
+    },
+    {
+      "Type": "INBOOK",
+      "Key": "xr1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Zoe Zentrum",
+        "title": "Moods Mildly Modified",
+        "origdate": "1921",
+        "xref": "xrm"
+      }
+    },
+    {
+      "Type": "INBOOK",
+      "Key": "xr2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Ian Instant",
+        "title": "Migraines Multiplying Madly",
+        "origdate": "1926",
+        "xref": "xrm"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "xrm",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "editor": "Peter Prendergast",
+        "title": "Calligraphy, Calisthenics, Culture",
+        "publisher": "Mainstream",
+        "year": "1970"
+      }
+    },
+    {
+      "Type": "INBOOK",
+      "Key": "xr3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Norman Normal",
+        "title": "Russion Regalia Revisited",
+        "origdate": "1923",
+        "xref": "xrt"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "xrt",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "editor": "Lucy Lunders",
+        "title": "Kings, Cork and Calculation",
+        "publisher": "Middling",
+        "year": "1977"
+      }
+    },
+    {
+      "Type": "INBOOK",
+      "Key": "xr4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Megan Mistrel",
+        "title": "Lumbering Lunatics",
+        "origdate": "1933",
+        "xref": "xrn"
+      }
+    },
+    {
+      "Type": "INBOOK",
+      "Key": "xr5",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Kenneth Kunrath",
+        "title": "Dreadful Dreary Days",
+        "origdate": "1900",
+        "xref": "xrn"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "xrn",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "editor": "Victor Vivacious",
+        "title": "Examples of Excellent Exaggerations",
+        "publisher": "Oxford",
+        "year": "1935"
+      }
+    },
+    {
+      "Type": "INBOOK",
+      "Key": "mxr",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Megan Mistrel",
+        "title": "Lumbering Lunatics",
+        "origdate": "1933",
+        "xref": "missing1"
+      }
+    },
+    {
+      "Type": "INBOOK",
+      "Key": "mcr",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Megan Mistrel",
+        "title": "Lumbering Lunatics",
+        "origdate": "1933",
+        "crossref": "missing1"
+      }
+    },
+    {
+      "Type": "MVBOOK",
+      "Key": "ccr1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Vince Various",
+        "editor": "Edward Editor",
+        "title": "Stuff Concerning Varia",
+        "date": "1934"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "ccr2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Misc etc.",
+        "date": "1923",
+        "crossref": "ccr1"
+      }
+    },
+    {
+      "Type": "INBOOK",
+      "Key": "ccr3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Perhaps, Perchance, Possibilities?",
+        "date": "1911",
+        "crossref": "ccr2"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "circ1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "date": "1911",
+        "crossref": "circ3"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "circ2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "date": "1911",
+        "crossref": "circ1"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "circ3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "date": "1911",
+        "crossref": "circ2"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "r1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "date": "1911",
+        "crossref": "r2"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "r2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "date": "1911",
+        "crossref": "r3"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "r3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "date": "1911",
+        "crossref": "r4"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "r4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "date": "1911"
+      }
+    },
+    {
+      "Type": "XDATA",
+      "Key": "macmillan:pub",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "publisher": "Macmillan"
+      }
+    },
+    {
+      "Type": "XDATA",
+      "Key": "macmillan:loc",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "location": "New York and London",
+        "note": "A Note"
+      }
+    },
+    {
+      "Type": "XDATA",
+      "Key": "macmillan",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "xdata": "macmillan:pub, macmillan:loc"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "xd1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Edward Ellington",
+        "date": "2007",
+        "xdata": "macmillan,missingxd"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "xd2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Peter Pillington",
+        "date": "2003",
+        "publisher": "Routledge",
+        "xdata": "macmillan:loc, bltxxd1"
+      }
+    },
+    {
+      "Type": "SET",
+      "Key": "Static1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "entryset": "Static2, Static3, Static4, missing1",
+        "annotation": "Some notes"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "Static2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Brian Bumble",
+        "title": "Blessed Brains",
+        "year": "2001",
+        "annotation": "Some Blessed Note"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "Static3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Clive Crenellation",
+        "title": "Castles and Crime",
+        "year": "2002"
+      }
+    },
+    {
+      "Type": "INBOOK",
+      "Key": "Static4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Derek Dingle",
+        "title": "Dungeons, Dark and Dangerous",
+        "year": "2005",
+        "crossref": "Dynamic2"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "Dynamic1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Derek Dynamism",
+        "title": "Doing Daring Deeds",
+        "year": "2002",
+        "annotation": "Some Dynamic Note",
+        "shorthand": "d1"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "Dynamic2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Brian Bunting",
+        "title": "Beautiful Birthdays",
+        "year": "2010",
+        "shorthand": "d2"
+      }
+    },
+    {
+      "Type": "INBOOK",
+      "Key": "Dynamic3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Roger Regardless",
+        "title": "Reckless Ravishings",
+        "year": "2000",
+        "crossref": "Dynamic2"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "rel1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "related": "rel2,rel3,rel4",
+        "relatedtype": "reprintas",
+        "author": "Author",
+        "title": "Original Title",
+        "journaltitle": "Journal Title",
+        "volume": "12",
+        "number": "5",
+        "date": "1998",
+        "pages": "125--150",
+        "shorthand": "RK1"
+      }
+    },
+    {
+      "Type": "INBOOK",
+      "Key": "rel2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "related": "rel1",
+        "relatedtype": "reprintof",
+        "relatedstring": "First",
+        "author": "Author",
+        "title": "Reprint Title",
+        "booktitle": "Booktitle",
+        "location": "Location",
+        "publisher": "Publisher",
+        "date": "2009",
+        "pages": "34--60",
+        "shorthand": "RK2"
+      }
+    },
+    {
+      "Type": "INBOOK",
+      "Key": "rel3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "related": "rel1",
+        "relatedtype": "reprintof",
+        "relatedstring": "Second",
+        "author": "Author",
+        "title": "Reprint Title",
+        "booktitle": "Booktitle",
+        "location": "Location",
+        "publisher": "Publisher2",
+        "date": "2010",
+        "pages": "33--57",
+        "shorthand": "RK3"
+      }
+    },
+    {
+      "Type": "INBOOK",
+      "Key": "rel4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Author",
+        "title": "Reprint Title",
+        "booktitle": "Booktitle",
+        "location": "Location",
+        "publisher": "Publisher2",
+        "date": "2011",
+        "pages": "33--57",
+        "shorthand": "RK4"
+      }
+    }
+  ],
+  "Comments": [
+    "% Testing mincrossrefs. cr1 and cr2 crossrefs should trigger inclusion of cr_m and also\r\n% the crossref fields in both of them\r\n% Also a test of some aliases",
+    "% Testing explicit cite of crossref parent. Should trigger inclusion of child crossref field",
+    "% Testing mincrossrefs not reached. cr4 is cited, cr5 isn't, therefore mincrossrefs (2) for\r\n% crn not reached",
+    "% Testing inheritance of event information",
+    "% Testing inheritance of special fields (booktitle, bookauthor etc.)",
+    "% Testing supression of default inheritance",
+    "% Testing mincrossrefs. xr1 and xr2 xrefs should trigger inclusion of xrm and also\r\n% the xreffields in both of them",
+    "% Testing explicit cite of xref parent. Should trigger inclusion of child xref field",
+    "% Testing mincrossrefs not reached. cr4 is cited, cr5 isn't, therefore mincrossrefs (2) for\r\n% crn not reached",
+    "% Testing missing xref",
+    "% Testing missing crossref",
+    "% Testing cascading crossrefs",
+    "% Testing circular refs detection",
+    "% Test of dependency calculations for non-cited entries",
+    "% Related entry"
+  ]
+}

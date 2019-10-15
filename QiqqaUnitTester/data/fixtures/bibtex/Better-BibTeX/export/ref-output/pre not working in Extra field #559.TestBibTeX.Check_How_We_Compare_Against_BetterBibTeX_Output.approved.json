@@ -1,0 +1,16 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "Brons:pretest",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Brøns, Morten",
+        "note": "Hello  hej",
+        "title": "$pretest$"
+      }
+    }
+  ],
+  "Comments": []
+}

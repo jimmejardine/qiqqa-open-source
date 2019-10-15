@@ -1,0 +1,21 @@
+﻿{
+  "Items": [
+    {
+      "Type": "jurisdiction",
+      "Key": "_dalain_2010",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "date": "2010-12-23",
+        "institution": "CE, Ass.",
+        "journaltitle": "Rec.",
+        "langid": "french",
+        "number": "337033",
+        "pages": "649",
+        "title": "Dalain",
+        "volume": "I"
+      }
+    }
+  ],
+  "Comments": []
+}

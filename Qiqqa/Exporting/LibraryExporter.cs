@@ -10,6 +10,9 @@ using Qiqqa.Documents.PDF;
 using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.Misc;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.Exporting
 {
@@ -47,12 +50,6 @@ namespace Qiqqa.Exporting
         {
             try
             {
-                // Make sure the base path ends well
-                if (!base_path.EndsWith(@"\"))
-                {
-                    base_path = base_path + @"\";
-                }
-
                 int MAX_STEPS = 8;
 
                 // Build the directory structure
@@ -94,7 +91,6 @@ namespace Qiqqa.Exporting
                 StatusManager.Instance.UpdateStatus("LibraryExport", "Finished library export");
                 Process.Start(base_path);
             }
-
             catch (Exception ex)
             {
                 Logging.Error(ex, "There was a problem while exporting your library.");
@@ -104,11 +100,11 @@ namespace Qiqqa.Exporting
         private static Dictionary<string, PDFDocumentExportItem> Export_Docs(Library library, List<PDFDocument> pdf_documents, string base_path)
         {
             // Where the original docs go
-            string doc_base_path_original = base_path + @"docs_original\";
+            string doc_base_path_original = Path.GetFullPath(Path.Combine(base_path, @"docs_original"));
             Directory.CreateDirectory(doc_base_path_original);
 
             // Where the modified docs go
-            string doc_base_path = base_path + @"docs\";
+            string doc_base_path = Path.GetFullPath(Path.Combine(base_path, @"docs"));
             Directory.CreateDirectory(doc_base_path);
 
             Dictionary<string, PDFDocumentExportItem> pdf_document_export_items = new Dictionary<string, PDFDocumentExportItem>();
@@ -119,11 +115,11 @@ namespace Qiqqa.Exporting
                     if (File.Exists(pdf_document.DocumentPath))
                     {
                         // The original docs
-                        string filename_original = doc_base_path_original + ExportingTools.MakeExportFilename(pdf_document);
+                        string filename_original = Path.GetFullPath(Path.Combine(doc_base_path_original, ExportingTools.MakeExportFilename(pdf_document)));
                         File.Copy(pdf_document.DocumentPath, filename_original, true);
                         
                         // The modified docs
-                        string filename = doc_base_path + ExportingTools.MakeExportFilename(pdf_document);
+                        string filename = Path.GetFullPath(Path.Combine(doc_base_path, ExportingTools.MakeExportFilename(pdf_document)));
                         File.Copy(pdf_document.DocumentPath, filename, true);
 
                         // And the ledger entry
@@ -135,7 +131,7 @@ namespace Qiqqa.Exporting
                 }
                 catch (Exception ex)
                 {
-                    Logging.Error(ex, "Error copying file from " + pdf_document.DocumentPath);
+                    Logging.Error(ex, "Error copying file from {0}", pdf_document.DocumentPath);
                 }
             }
 

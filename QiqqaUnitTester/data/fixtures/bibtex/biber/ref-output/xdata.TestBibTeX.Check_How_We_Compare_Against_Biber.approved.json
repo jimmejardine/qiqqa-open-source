@@ -1,0 +1,107 @@
+﻿{
+  "Items": [
+    {
+      "Type": "XDATA",
+      "Key": "macmillan:pub",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "ids": "macmillan:pubALIAS",
+        "publisher": "Macmillan"
+      }
+    },
+    {
+      "Type": "XDATA",
+      "Key": "macmillan:loc",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "location": "New York and London",
+        "note": "A Note"
+      }
+    },
+    {
+      "Type": "XDATA",
+      "Key": "macmillan",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "ids": "macmillanalias",
+        "xdata": "macmillan:pubALIAS, macmillan:loc"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "xd1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Edward Ellington",
+        "date": "2007",
+        "xdata": "macmillanalias, missingxd"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "xd2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Peter Pillington",
+        "date": "2003",
+        "publisher": "Routledge",
+        "xdata": "macmillan:loc, bltxxd1"
+      }
+    },
+    {
+      "Type": "XDATA",
+      "Key": "loop:1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "note": "Note"
+      }
+    },
+    {
+      "Type": "XDATA",
+      "Key": "loop:2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "xdata": "loop:3"
+      }
+    },
+    {
+      "Type": "XDATA",
+      "Key": "loop:3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "xdata": "loop"
+      }
+    },
+    {
+      "Type": "XDATA",
+      "Key": "loop",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "xdata": "loop:1, loop:2"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "xd3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Edward Ellington",
+        "date": "1923",
+        "xdata": "loop"
+      }
+    }
+  ],
+  "Comments": [
+    "% Loop detection test"
+  ]
+}

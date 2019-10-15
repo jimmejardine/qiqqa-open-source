@@ -33,9 +33,9 @@ namespace Utilities.Misc
             public long current_update_number;
             public long total_update_count;
 
-            public List<StatusMessage> status_messages = new List<StatusMessage>();
-            
-            
+#if false
+            protected List<StatusMessage> status_messages = new List<StatusMessage>();
+
             public string LastStatusMessage
             {
                 get
@@ -64,7 +64,42 @@ namespace Utilities.Misc
                         return false;
                     }
                 }
-            }            
+            }        
+            
+            public void InsertStatusMessage(StatusMessage msg)
+            {
+                const int MAX_DEPTH = 100;
+
+                status_messages.Insert(0, msg);
+                if (status_messages.Count > MAX_DEPTH)
+                {
+                    status_messages.RemoveRange(MAX_DEPTH, status_messages.Count - MAX_DEPTH);
+                }
+            }
+#else
+            protected StatusMessage last_status_message = null;
+
+            public string LastStatusMessage
+            {
+                get
+                {
+                    return last_status_message?.message;
+                }
+            }
+
+            public bool LastStatusMessageCancellable
+            {
+                get
+                {
+                    return last_status_message?.cancellable ?? false;
+                }
+            }
+
+            public void InsertStatusMessage(StatusMessage msg)
+            {
+                last_status_message = msg;
+            }
+#endif
         }
 
         Dictionary<string, StatusEntry> status_entries = new Dictionary<string, StatusEntry>();
@@ -141,11 +176,7 @@ namespace Utilities.Misc
                 status_entry.last_updated = DateTime.UtcNow;
                 status_entry.current_update_number = current_update_number;
                 status_entry.total_update_count = total_update_count;
-                status_entry.status_messages.Insert(0, new StatusMessage(message, cancellable));
-                while (status_entry.status_messages.Count > 100)
-                {
-                    status_entry.status_messages.RemoveAt(status_entry.status_messages.Count - 1);
-                }
+                status_entry.InsertStatusMessage(new StatusMessage(message, cancellable));
             }
 
             if (null != OnStatusEntryUpdate)

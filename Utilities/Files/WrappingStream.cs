@@ -18,7 +18,9 @@ namespace Utilities.Files
         {
             // check parameters
             if (streamBase == null)
+            {
                 throw new ArgumentNullException("streamBase");
+            }
 
             m_streamBase = streamBase;
         }
@@ -29,7 +31,10 @@ namespace Utilities.Files
         /// <returns><c>true</c> if the stream supports reading; otherwise, <c>false</c>.</returns>
         public override bool CanRead
         {
-            get { return m_streamBase == null ? false : m_streamBase.CanRead; }
+            get
+            {
+                return m_streamBase == null ? false : m_streamBase.CanRead;
+            }
         }
 
         /// <summary>
@@ -38,7 +43,10 @@ namespace Utilities.Files
         /// <returns><c>true</c> if the stream supports seeking; otherwise, <c>false</c>.</returns>
         public override bool CanSeek
         {
-            get { return m_streamBase == null ? false : m_streamBase.CanSeek; }
+            get
+            {
+                return m_streamBase == null ? false : m_streamBase.CanSeek;
+            }
         }
 
         /// <summary>
@@ -47,7 +55,10 @@ namespace Utilities.Files
         /// <returns><c>true</c> if the stream supports writing; otherwise, <c>false</c>.</returns>
         public override bool CanWrite
         {
-            get { return m_streamBase == null ? false : m_streamBase.CanWrite; }
+            get
+            {
+                return m_streamBase == null ? false : m_streamBase.CanWrite;
+            }
         }
 
         /// <summary>
@@ -55,7 +66,11 @@ namespace Utilities.Files
         /// </summary>
         public override long Length
         {
-            get { ThrowIfDisposed(); return m_streamBase.Length; }
+            get
+            {
+                ThrowIfDisposed();
+                return m_streamBase.Length;
+            }
         }
 
         /// <summary>
@@ -63,8 +78,16 @@ namespace Utilities.Files
         /// </summary>
         public override long Position
         {
-            get { ThrowIfDisposed(); return m_streamBase.Position; }
-            set { ThrowIfDisposed(); m_streamBase.Position = value; }
+            get
+            {
+                ThrowIfDisposed();
+                return m_streamBase.Position;
+            }
+            set
+            {
+                ThrowIfDisposed();
+                m_streamBase.Position = value;
+            }
         }
 
         /// <summary>
@@ -178,7 +201,10 @@ namespace Utilities.Files
         /// <value>The wrapped stream.</value>
         protected Stream WrappedStream
         {
-            get { return m_streamBase; }
+            get
+            {
+                return m_streamBase;
+            }
         }
 
         private int dispose_count = 0;

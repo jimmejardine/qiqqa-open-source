@@ -1,0 +1,20 @@
+﻿{
+  "Items": [
+    {
+      "Type": "book",
+      "Key": "mitrinović1996handbook",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Handbook of number theory",
+        "author": "Mitrinovi\\'c, D.S. and Sándor, J. and Crstici, B.",
+        "volume": "1",
+        "year": "1996",
+        "publisher": "Kluwer Academic Pub"
+      }
+    }
+  ],
+  "Comments": [
+    "Survive keying bugs like this one: international character(s) in a key"
+  ]
+}

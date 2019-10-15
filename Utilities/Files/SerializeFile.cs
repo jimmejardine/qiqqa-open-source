@@ -4,6 +4,8 @@ using System.IO.Compression;
 using System.Runtime.Serialization.Formatters.Binary;
 using Newtonsoft.Json;
 using ProtoBuf;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Utilities.Files
 {

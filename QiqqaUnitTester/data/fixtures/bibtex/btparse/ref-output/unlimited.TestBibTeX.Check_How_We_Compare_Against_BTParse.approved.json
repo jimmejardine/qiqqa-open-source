@@ -1,0 +1,25 @@
+﻿{
+  "Items": [
+    {
+      "Type": "AAAAA",
+      "Key": "",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n @AAAAA{  @BBBBB{  CCCCCC={FFFFFFFFFFFFFFFFFFFFFFF\r\n          ^"
+      ],
+      "Warnings": [
+        "There is no key in this BibTeX reference"
+      ],
+      "Fields": {}
+    },
+    {
+      "Type": "BBBBB",
+      "Key": "CCCCCC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n @AAAAA{  @BBBBB{  CCCCCC={FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF\r\n                         ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    }
+  ],
+  "Comments": []
+}

@@ -1,0 +1,2636 @@
+﻿{
+  "Items": [
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_ANNE",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nand military  @STRING{IEEE_J_ANNE       = \"{IEEE} Transactions on Aeronautical a\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_AES",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nlectronics\"}  @STRING{IEEE_J_AES        = \"{IEEE} Transactions on Aerospace and \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_ANE",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nic Systems\"}  @STRING{IEEE_J_ANE        = \"{IEEE} Transactions on Aerospace and \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_AS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nlectronics\"}  @STRING{IEEE_J_AS         = \"{IEEE} Transactions on Aerospace\"}  @\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_AIRE",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n Aerospace\"}  @STRING{IEEE_J_AIRE       = \"{IEEE} Transactions on Airborne Elect\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_MIL",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nlectronics\"}  @STRING{IEEE_J_MIL        = \"{IEEE} Transactions on Military Elect\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_ITS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nn-aerospace)  @STRING{IEEE_J_ITS        = \"{IEEE} Transactions on Intelligent Tr\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_IV",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\non Systems\"}  @STRING{IEEE_J_IV         = \"{IEEE} Transactions on Intelligent Ve\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_TTE",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nt Vehicles\"}  @STRING{IEEE_J_TTE        = \"{IEEE} Transactions on Transportation\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_VC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nrification\"}  @STRING{IEEE_J_VC         = \"{IEEE} Transactions on Vehicular Comm\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_VT",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nunications\"}  @STRING{IEEE_J_VT         = \"{IEEE} Transactions on Vehicular Tech\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_STSP",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nand controls  @STRING{IEEE_J_STSP       = \"{IEEE} Journal of Selected Topics in \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_SPL",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nProcessing\"}  @STRING{IEEE_J_SPL        = \"{IEEE} Signal Processing Letters\"}  @\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_SYST",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nng Letters\"}  @STRING{IEEE_J_SYST       = \"{IEEE} Systems Journal\"}  @STRING{IEE\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_ASSP",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nms Journal\"}  @STRING{IEEE_J_ASSP       = \"{IEEE} Transactions on Acoustics, Spe\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_AU",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nProcessing\"}  @STRING{IEEE_J_AU         = \"{IEEE} Transactions on Audio\"}  @STRI\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_AUEA",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ns on Audio\"}  @STRING{IEEE_J_AUEA       = \"{IEEE} Transactions on Audio and Elec\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_ASLP",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n became ASLP  @STRING{IEEE_J_ASLP       = \"{IEEE/ACM} Transactions on Audio, Spe\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_ASL",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nProcessing\"}  @STRING{IEEE_J_ASL        = \"{IEEE} Transactions on Audio, Speech,\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_AC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nProcessing\"}  @STRING{IEEE_J_AC         = \"{IEEE} Transactions on Automatic Cont\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_CAS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nic Control\"}  @STRING{IEEE_J_CAS        = \"{IEEE} Transactions on Circuits and S\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_CASVT",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nnd Systems\"}  @STRING{IEEE_J_CASVT      = \"{IEEE} Transactions on Circuits and S\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_CASI",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nTechnology\"}  @STRING{IEEE_J_CASI       = \"{IEEE} Transactions on Circuits and S\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_CASII",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nplications\"}  @STRING{IEEE_J_CASII      = \"{IEEE} Transactions on Circuits and S\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_CASI_RP",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nrespectively  @STRING{IEEE_J_CASI_RP    = \"{IEEE} Transactions on Circuits and S\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_CASII_EB",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nlar Papers\"}  @STRING{IEEE_J_CASII_EB   = \"{IEEE} Transactions on Circuits and S\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_CT",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ness Briefs\"}  @STRING{IEEE_J_CT         = \"{IEEE} Transactions on Circuit Theory\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_CST",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nuit Theory\"}  @STRING{IEEE_J_CST        = \"{IEEE} Transactions on Control System\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_ETCAS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nTechnology\"}  @STRING{IEEE_J_ETCAS      = \"{IEEE} Transactions on Emerging and S\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_SP",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nnd Systems\"}  @STRING{IEEE_J_SP         = \"{IEEE} Transactions on Signal Process\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_SU",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nProcessing\"}  @STRING{IEEE_J_SU         = \"{IEEE} Transactions on Sonics and Ult\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_SAP",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nltrasonics\"}  @STRING{IEEE_J_SAP        = \"{IEEE} Transactions on Speech and Aud\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_UE",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nProcessing\"}  @STRING{IEEE_J_UE         = \"{IEEE} Transactions on Ultrasonics En\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_UFFC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nngineering\"}  @STRING{IEEE_J_UFFC       = \"{IEEE} Transactions on Ultrasonics, F\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_COML",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nmmunications  @STRING{IEEE_J_COML       = \"{IEEE} Communications Letters\"}  @STR\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_JSAC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nns Letters\"}  @STRING{IEEE_J_JSAC       = \"{IEEE} Journal on Selected Areas in C\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_COM",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nunications\"}  @STRING{IEEE_J_COM        = \"{IEEE} Transactions on Communications\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_COMT",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nunications\"}  @STRING{IEEE_J_COMT       = \"{IEEE} Transactions on Communication \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_WCOM",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nTechnology\"}  @STRING{IEEE_J_WCOM       = \"{IEEE} Transactions on Wireless Commu\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_WCOML",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nunications\"}  @STRING{IEEE_J_WCOML      = \"{IEEE} Wireless Communications Letter\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_ADVP",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nanufacturing  @STRING{IEEE_J_ADVP       = \"{IEEE} Transactions on Advanced Packa\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_CHMT",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n Packaging\"}  @STRING{IEEE_J_CHMT       = \"{IEEE} Transactions on Components, Hy\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_CPMT",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n became CPMT  @STRING{IEEE_J_CPMT       = \"{IEEE} Transactions on Components, Pa\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_CPMTA",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nTechnology\"}  @STRING{IEEE_J_CPMTA      = \"{IEEE} Transactions on Components, Pa\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_CPMTB",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n--Part {A}\"}  @STRING{IEEE_J_CPMTB      = \"{IEEE} Transactions on Components, Pa\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_CPMTC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n Packaging\"}  @STRING{IEEE_J_CPMTC      = \"{IEEE} Transactions on Components, Pa\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_CAPTS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nufacturing\"}  @STRING{IEEE_J_CAPTS      = \"{IEEE} Transactions on Components and\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_CAPT",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nchnologies\"}  @STRING{IEEE_J_CAPT       = \"{IEEE} Transactions on Components and\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_CPART",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nTechnology\"}  @STRING{IEEE_J_CPART      = \"{IEEE} Transactions on Component Part\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_EPM",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nnent Parts\"}  @STRING{IEEE_J_EPM        = \"{IEEE} Transactions on Electronics Pa\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_MFT",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nufacturing\"}  @STRING{IEEE_J_MFT        = \"{IEEE} Transactions on Manufacturing \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_PHP",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nTechnology\"}  @STRING{IEEE_J_PHP        = \"{IEEE} Transactions on Parts, Hybrids\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_PMP",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n Packaging\"}  @STRING{IEEE_J_PMP        = \"{IEEE} Transactions on Parts, Materia\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_TCAD",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n}        CAD  @STRING{IEEE_J_TCAD       = \"{IEEE} Journal on Technology in Compu\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_CAD",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nded Design\"}  @STRING{IEEE_J_CAD        = \"{IEEE} Transactions on Computer-Aided\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_BD",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nn, knowledge  @STRING{IEEE_J_BD         = \"{IEEE} Transactions on Big Data\"}  @S\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_IFS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nn Big Data\"}  @STRING{IEEE_J_IFS        = \"{IEEE} Transactions on Information Fo\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_IT",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nd Security\"}  @STRING{IEEE_J_IT         = \"{IEEE} Transactions on Information Th\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_KDE",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nion Theory\"}  @STRING{IEEE_J_KDE        = \"{IEEE} Transactions on Knowledge and \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_CAL",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nand software  @STRING{IEEE_J_CAL        = \"{IEEE} Computer Architecture Letters\"\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_ES",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nre Letters\"}  @STRING{IEEE_J_ES         = \"{IEEE} Embedded Systems Letters\"}  @S\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_IOT",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nms Letters\"}  @STRING{IEEE_J_IOT        = \"{IEEE} Internet of Things Journal\"}  \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_XCDC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ngs Journal\"}  @STRING{IEEE_J_XCDC       = \"{IEEE} Journal on Exploratory Solid-S\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_MMCT",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nd Circuits\"}  @STRING{IEEE_J_MMCT       = \"{IEEE} Journal on Multiscale and Mult\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_SUSC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nTechniques\"}  @STRING{IEEE_J_SUSC       = \"{IEEE} Sustainable Computing\"}  @STRI\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_CC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n Computing\"}  @STRING{IEEE_J_CC         = \"{IEEE} Transactions on Cloud Computin\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_CSS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n Computing\"}  @STRING{IEEE_J_CSS        = \"{IEEE} Transactions on Computational \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_C",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nal Systems\"}  @STRING{IEEE_J_C          = \"{IEEE} Transactions on Computers\"}  @\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_CNS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n Computers\"}  @STRING{IEEE_J_CNS        = \"{IEEE} Transactions on Control of Net\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_DSC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nrk Systems\"}  @STRING{IEEE_J_DSC        = \"{IEEE} Transactions on Dependable and\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_ECOMP",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n Computing\"}  @STRING{IEEE_J_ECOMP      = \"{IEEE} Transactions on Electronic Com\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_ETC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n Computers\"}  @STRING{IEEE_J_ETC        = \"{IEEE} Transactions on Emerging Topic\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_EVC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n Computing\"}  @STRING{IEEE_J_EVC        = \"{IEEE} Transactions on Evolutionary C\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_FUZZ",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nomputation\"}  @STRING{IEEE_J_FUZZ       = \"{IEEE} Transactions on Fuzzy Systems\"\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_MC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nzy Systems\"}  @STRING{IEEE_J_MC         = \"{IEEE} Transactions on Mobile Computi\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_MSCS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n Computing\"}  @STRING{IEEE_J_MSCS       = \"{IEEE} Transactions on Multi-Scale Co\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_NET",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nng Systems\"}  @STRING{IEEE_J_NET        = \"{IEEE/ACM} Transactions on Networking\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_NSE",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nNetworking\"}  @STRING{IEEE_J_NSE        = \"{IEEE} Transactions on Network Scienc\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_NSM",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nngineering\"}  @STRING{IEEE_J_NSM        = \"{IEEE} Transactions on Network and Se\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_NN",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nManagement\"}  @STRING{IEEE_J_NN         = \"{IEEE} Transactions on Neural Network\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_NNLS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n became NNLS  @STRING{IEEE_J_NNLS       = \"{IEEE} Transactions on Neural Network\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_PDS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nng Systems\"}  @STRING{IEEE_J_PDS        = \"{IEEE} Transactions on Parallel and D\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_SC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ned Systems\"}  @STRING{IEEE_J_SC         = \"{IEEE} Transactions on Services Compu\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_SIPN",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n Computing\"}  @STRING{IEEE_J_SIPN       = \"{IEEE} Transactions on Signal and Inf\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_SE",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nr Networks\"}  @STRING{IEEE_J_SE         = \"{IEEE} Transactions on Software Engin\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_JDT",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nd multimedia  @STRING{IEEE_J_JDT        = \"{IEEE/OSA} Journal of Display Technol\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_IP",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nTechnology\"}  @STRING{IEEE_J_IP         = \"{IEEE} Transactions on Image Processi\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_MM",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nProcessing\"}  @STRING{IEEE_J_MM         = \"{IEEE} Transactions on Multimedia\"}  \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_VCG",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nMultimedia\"}  @STRING{IEEE_J_VCG        = \"{IEEE} Transactions on Visualization \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_JAS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nd automation  @STRING{IEEE_J_JAS        = \"{IEEE/CAA} Journal of Automatica Sini\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_JRA",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nica Sinica\"}  @STRING{IEEE_J_JRA        = \"{IEEE} Journal of Robotics and Automa\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_AFFC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nAutomation\"}  @STRING{IEEE_J_AFFC       = \"{IEEE} Transactions on Affective Comp\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_ASE",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n Computing\"}  @STRING{IEEE_J_ASE        = \"{IEEE} Transactions on Automation Sci\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_AMD",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nngineering\"}  @STRING{IEEE_J_AMD        = \"{IEEE} Transactions on Autonomous Men\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_CCN",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nevelopment\"}  @STRING{IEEE_J_CCN        = \"{IEEE} Transactions on Cognitive Comm\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_CDS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nD became CDS  @STRING{IEEE_J_CDS        = \"{IEEE} Transactions on Cognitive and \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_CIAIG",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nal Systems\"}  @STRING{IEEE_J_CIAIG      = \"{IEEE} Transactions on Computational \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_CYB",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nB became CYB  @STRING{IEEE_J_CYB        = \"{IEEE} Transactions on Cybernetics\"} \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_H",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nybernetics\"}  @STRING{IEEE_J_H          = \"{IEEE} Transactions on Haptics\"}  @ST\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_HFE",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\non Haptics\"}  @STRING{IEEE_J_HFE        = \"{IEEE} Transactions on Human Factors \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_HMS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nC became HMS  @STRING{IEEE_J_HMS        = \"{IEEE} Transactions on Human-Machine \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_MMS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nne Systems\"}  @STRING{IEEE_J_MMS        = \"{IEEE} Transactions on Man-Machine Sy\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_PAMI",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nne Systems\"}  @STRING{IEEE_J_PAMI       = \"{IEEE} Transactions on Pattern Analys\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_RA",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\no ASE and RO  @STRING{IEEE_J_RA         = \"{IEEE} Transactions on Robotics and A\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_RAL",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nAutomation\"}  @STRING{IEEE_J_RAL        = \"{IEEE} Robotics and Automation Letter\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_RO",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\non Letters\"}  @STRING{IEEE_J_RO         = \"{IEEE} Transactions on Robotics\"}  @S\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_SMC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nn Robotics\"}  @STRING{IEEE_J_SMC        = \"{IEEE} Transactions on Systems, Man, \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_SMCA",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nybernetics\"}  @STRING{IEEE_J_SMCA       = \"{IEEE} Transactions on Systems, Man, \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_SMCB",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nand Humans\"}  @STRING{IEEE_J_SMCB       = \"{IEEE} Transactions on Systems, Man, \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_SMCC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nybernetics\"}  @STRING{IEEE_J_SMCC       = \"{IEEE} Transactions on Systems, Man, \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_SMCS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n became SMCS  @STRING{IEEE_J_SMCS       = \"{IEEE} Transactions on Systems, Man, \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_SSC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ns: Systems\"}  @STRING{IEEE_J_SSC        = \"{IEEE} Transactions on Systems Scienc\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_GRSL",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nre and water  @STRING{IEEE_J_GRSL       = \"{IEEE} Geoscience and Remote Sensing \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_GE",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nng Letters\"}  @STRING{IEEE_J_GE         = \"{IEEE} Transactions on Geoscience Ele\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_GRS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nlectronics\"}  @STRING{IEEE_J_GRS        = \"{IEEE} Transactions on Geoscience and\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_OE",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nte Sensing\"}  @STRING{IEEE_J_OE         = \"{IEEE} Journal of Oceanic Engineering\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_STARS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nngineering\"}  @STRING{IEEE_J_STARS      = \"{IEEE} Journal of Selected Topics in \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_CJECE",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nprofessional  @STRING{IEEE_J_CJECE      = \"Canadian Journal of Electrical and Co\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_PROC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nngineering\"}  @STRING{IEEE_J_PROC       = \"Proceedings of the {IEEE}\"}  @STRING{\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_RITA",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nthe {IEEE}\"}  @STRING{IEEE_J_RITA       = \"{IEEE} Revista Iberoamericana de Tech\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_EDU",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nprendizaje\"}  @STRING{IEEE_J_EDU        = \"{IEEE} Transactions on Education\"}  @\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_EM",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n Education\"}  @STRING{IEEE_J_EM         = \"{IEEE} Transactions on Engineering Ma\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_EWS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nManagement\"}  @STRING{IEEE_J_EWS        = \"{IEEE} Transactions on Engineering Wr\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_LT",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nand Speech\"}  @STRING{IEEE_J_LT         = \"{IEEE} Transactions on Learning Techn\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_PC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nchnologies\"}  @STRING{IEEE_J_PC         = \"{IEEE} Transactions on Professional C\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_AWPL",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nnd microwave  @STRING{IEEE_J_AWPL       = \"{IEEE} Antennas and Wireless Propagat\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_MAGL",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\non Letters\"}  @STRING{IEEE_J_MAGL       = \"{IEEE} Magnetics Letters\"}  @STRING{I\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_MGWL",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ncs Letters\"}  @STRING{IEEE_J_MGWL       = \"{IEEE} Microwave and Guided Wave Lett\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_MWCL",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nve Letters\"}  @STRING{IEEE_J_MWCL       = \"{IEEE} Microwave and Wireless Compone\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_RFIC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nts Letters\"}  @STRING{IEEE_J_RFIC       = \"{IEEE} {RFIC} Journal\"}  @STRING{IEEE\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_RFID",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nC} Journal\"}  @STRING{IEEE_J_RFID       = \"{IEEE} {RFID} Journal\"}  @STRING{IEEE\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_AP",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nD} Journal\"}  @STRING{IEEE_J_AP         = \"{IEEE} Transactions on Antennas and P\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_EMC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nropagation\"}  @STRING{IEEE_J_EMC        = \"{IEEE} Transactions on Electromagneti\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_MAG",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\npatibility\"}  @STRING{IEEE_J_MAG        = \"{IEEE} Transactions on Magnetics\"}  @\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_MTT",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n Magnetics\"}  @STRING{IEEE_J_MTT        = \"{IEEE} Transactions on Microwave Theo\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_RFI",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nTechniques\"}  @STRING{IEEE_J_RFI        = \"{IEEE} Transactions on Radio Frequenc\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_TTHZ",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nterference\"}  @STRING{IEEE_J_TTHZ       = \"{IEEE} Transactions on Terahertz Scie\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_TJMJ",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nTechnology\"}  @STRING{IEEE_J_TJMJ       = \"{IEEE} Translation Journal on Magneti\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_PHOT",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nd conversion  @STRING{IEEE_J_PHOT       = \"{IEEE} Journal of Photovoltaics\"}  @S\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_PEL",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ntovoltaics\"}  @STRING{IEEE_J_PEL        = \"{IEEE} Power Electronics Letters\"}  @\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_PETS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ncs Letters\"}  @STRING{IEEE_J_PETS       = \"{IEEE} Power and Energy Technology Sy\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_ESTPE",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nms Journal\"}  @STRING{IEEE_J_ESTPE      = \"{IEEE} Transactions on Emerging and S\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_EC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nlectronics\"}  @STRING{IEEE_J_EC         = \"{IEEE} Transactions on Energy Convers\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_PWRAS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nConversion\"}  @STRING{IEEE_J_PWRAS      = \"{IEEE} Transactions on Power Apparatu\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_PWRD",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nnd Systems\"}  @STRING{IEEE_J_PWRD       = \"{IEEE} Transactions on Power Delivery\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_PWRE",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nr Delivery\"}  @STRING{IEEE_J_PWRE       = \"{IEEE} Transactions on Power Electron\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_PWRS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nlectronics\"}  @STRING{IEEE_J_PWRS       = \"{IEEE} Transactions on Power Systems\"\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_SG",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ner Systems\"}  @STRING{IEEE_J_SG         = \"{IEEE} Transactions on Smart Grid\"}  \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_STE",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nSmart Grid\"}  @STRING{IEEE_J_STE        = \"{IEEE} Transactions on Sustainable En\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_PSE",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nand consumer  @STRING{IEEE_J_PSE        = \"{IEEE} Journal of Product Safety Engi\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_APPIND",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nngineering\"}  @STRING{IEEE_J_APPIND     = \"{IEEE} Transactions on Applications a\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_BC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nd Industry\"}  @STRING{IEEE_J_BC         = \"{IEEE} Transactions on Broadcasting\"}\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_BCTV",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\noadcasting\"}  @STRING{IEEE_J_BCTV       = \"{IEEE} Transactions on Broadcast and \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_CE",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n Receivers\"}  @STRING{IEEE_J_CE         = \"{IEEE} Transactions on Consumer Elect\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_IE",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nlectronics\"}  @STRING{IEEE_J_IE         = \"{IEEE} Transactions on Industrial Ele\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_IECI",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nlectronics\"}  @STRING{IEEE_J_IECI       = \"{IEEE} Transactions on Industrial Ele\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_IA",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\numentation\"}  @STRING{IEEE_J_IA         = \"{IEEE} Transactions on Industry Appli\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_IGA",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nplications\"}  @STRING{IEEE_J_IGA        = \"{IEEE} Transactions on Industry and G\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_IINF",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nplications\"}  @STRING{IEEE_J_IINF       = \"{IEEE} Transactions on Industrial Inf\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_IM",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n measurement  @STRING{IEEE_J_IM         = \"{IEEE} Transactions on Instrumentatio\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_JEM",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nnd materials  @STRING{IEEE_J_JEM        = \"{IEEE/TMS} Journal of Electronic Mate\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_DEI",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n Materials\"}  @STRING{IEEE_J_DEI        = \"{IEEE} Transactions on Dielectrics an\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_EI",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nInsulation\"}  @STRING{IEEE_J_EI         = \"{IEEE} Transactions on Electrical Ins\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_MEMS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n  mechanical  @STRING{IEEE_J_MEMS       = \"{IEEE/ASME} Journal of Microelectrome\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_MEMSI",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nbecame MEMSI  @STRING{IEEE_J_MEMSI      = \"{IEEE} Journal of Microelectromechani\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_MECH",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nal Systems\"}  @STRING{IEEE_J_MECH       = \"{IEEE/ASME} Transactions on Mechatron\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_BHI",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nd biological  @STRING{IEEE_J_BHI        = \"{IEEE} Journal of Biomedical and Heal\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_TEHM",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nnformatics\"}  @STRING{IEEE_J_TEHM       = \"{IEEE} Journal of Translational Engin\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_LS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nd Medicine\"}  @STRING{IEEE_J_LS         = \"{IEEE} Life Sciences Letters\"}  @STRI\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_RBME",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nes Letters\"}  @STRING{IEEE_J_RBME       = \"{IEEE} Reviews in Biomedical Engineer\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_BCAS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nngineering\"}  @STRING{IEEE_J_BCAS       = \"{IEEE} Transactions on Biomedical Cir\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_BMELC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nnd Systems\"}  @STRING{IEEE_J_BMELC      = \"{IEEE} Transactions on Bio-Medical El\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_BME",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ncame the BME  @STRING{IEEE_J_BME        = \"{IEEE} Transactions on Biomedical Eng\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_B-ME",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nngineering\"}  @STRING{IEEE_J_B-ME       = \"{IEEE} Transactions on Bio-Medical En\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_CBB",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nngineering\"}  @STRING{IEEE_J_CBB        = \"{IEEE/ACM} Transactions on Computatio\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_ITBM",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nnformatics\"}  @STRING{IEEE_J_ITBM       = \"{IEEE} Transactions on Information Te\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_ME",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\niomedicine\"}  @STRING{IEEE_J_ME         = \"{IEEE} Transactions on Medical Electr\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_MI",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nlectronics\"}  @STRING{IEEE_J_MI         = \"{IEEE} Transactions on Medical Imagin\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_MBSC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nal Imaging\"}  @STRING{IEEE_J_MBSC       = \"{IEEE} Transactions on Molecular, Bio\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_NB",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nunications\"}  @STRING{IEEE_J_NB         = \"{IEEE} Transactions on NanoBioscience\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_NSRE",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nBioscience\"}  @STRING{IEEE_J_NSRE       = \"{IEEE} Transactions on Neural Systems\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_RE",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nngineering\"}  @STRING{IEEE_J_RE         = \"{IEEE} Transactions on Rehabilitation\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_JLT",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nnd photonics  @STRING{IEEE_J_JLT        = \"{IEEE/OSA} Journal of Lightwave Techn\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_OCN",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nTechnology\"}  @STRING{IEEE_J_OCN        = \"{IEEE} Journal of Optical Communicati\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_PJ",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nNetworking\"}  @STRING{IEEE_J_PJ         = \"{IEEE} Photonics Journal\"}  @STRING{I\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_PTL",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ncs Journal\"}  @STRING{IEEE_J_PTL        = \"{IEEE} Photonics Technology Letters\"}\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_EDL",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n electronics  @STRING{IEEE_J_EDL        = \"{IEEE} Electron Device Letters\"}  @ST\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_EDS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nce Letters\"}  @STRING{IEEE_J_EDS        = \"{IEEE} Journal of Electron Devices So\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_JQE",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nes Society\"}  @STRING{IEEE_J_JQE        = \"{IEEE} Journal of Quantum Electronics\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_JSTQE",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nlectronics\"}  @STRING{IEEE_J_JSTQE      = \"{IEEE} Journal of Selected Topics in \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_ENANO",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nlectronics\"}  @STRING{IEEE_J_ENANO      = \"{IEEE} Nanotechnology Express\"}  @STR\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_ED",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ngy Express\"}  @STRING{IEEE_J_ED         = \"{IEEE} Transactions on Electron Devic\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_NANO",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\non Devices\"}  @STRING{IEEE_J_NANO       = \"{IEEE} Transactions on Nanotechnology\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_NS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ntechnology\"}  @STRING{IEEE_J_NS         = \"{IEEE} Transactions on Nuclear Scienc\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_PS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nar Science\"}  @STRING{IEEE_J_PS         = \"{IEEE} Transactions on Plasma Science\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_DMR",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n reliability  @STRING{IEEE_J_DMR        = \"{IEEE} Transactions on Device and Mat\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_R",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\neliability\"}  @STRING{IEEE_J_R          = \"{IEEE} Transactions on Reliability\"} \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_ESSL",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n solid state  @STRING{IEEE_J_ESSL       = \"{IEEE/ECS} Electrochemical and Solid-\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_JSSC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nte Letters\"}  @STRING{IEEE_J_JSSC       = \"{IEEE} Journal of Solid-State Circuit\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_ASC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ne Circuits\"}  @STRING{IEEE_J_ASC        = \"{IEEE} Transactions on Applied Superc\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_SM",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nnductivity\"}  @STRING{IEEE_J_SM         = \"{IEEE} Transactions on Semiconductor \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_SENSOR",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n     sensors  @STRING{IEEE_J_SENSOR     = \"{IEEE} Sensors Journal\"}        VLSI \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_J_VLSI",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n        VLSI  @STRING{IEEE_J_VLSI       = \"{IEEE} Transactions on Very Large Sca\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_O_ACC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nications      @STRING{IEEE_O_ACC        = \"{IEEE} Access\"}  @STRING{IEEE_M_AES  \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_AES",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nEE} Access\"}  @STRING{IEEE_M_AES        = \"{IEEE} Aerospace and Electronics Syst\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_HIST",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ns Magazine\"}  @STRING{IEEE_M_HIST       = \"{IEEE} Annals of the History of Compu\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_AP",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n Computing\"}  @STRING{IEEE_M_AP         = \"{IEEE} Antennas and Propagation Magaz\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_ASSP",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nn Magazine\"}  @STRING{IEEE_M_ASSP       = \"{IEEE} {ASSP} Magazine\"}  @STRING{IEE\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_CHINAC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n} Magazine\"}  @STRING{IEEE_M_CHINAC     = \"China Communications Magazine\"}  @STR\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_CD",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ns Magazine\"}  @STRING{IEEE_M_CD         = \"{IEEE} Circuits and Devices Magazine\"\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_CAS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ns Magazine\"}  @STRING{IEEE_M_CAS        = \"{IEEE} Circuits and Systems Magazine\"\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_COM",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ns Magazine\"}  @STRING{IEEE_M_COM        = \"{IEEE} Communications Magazine\"}  @ST\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_COMSOC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ns Magazine\"}  @STRING{IEEE_M_COMSOC     = \"{IEEE} Communications Society Magazin\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_O_CSTO",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ny Magazine\"}  @STRING{IEEE_O_CSTO       = \"{IEEE} Communications Surveys and Tut\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_CIM",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n Tutorials\"}  @STRING{IEEE_M_CIM        = \"{IEEE} Computational Intelligence Mag\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_CSE",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n CSE in 1999  @STRING{IEEE_M_CSE        = \"{IEEE} Computing in Science and Engin\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_CSEM",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nngineering\"}  @STRING{IEEE_M_CSEM       = \"{IEEE} Computational Science and Engi\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_C",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ng Magazine\"}  @STRING{IEEE_M_C          = \"Computer\"}  @STRING{IEEE_M_CAP       \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_CAP",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n \"Computer\"}  @STRING{IEEE_M_CAP        = \"{IEEE} Computer Applications in Power\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_CGA",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ns in Power\"}  @STRING{IEEE_M_CGA        = \"{IEEE} Computer Graphics and Applicat\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_CONC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nplications\"}  @STRING{IEEE_M_CONC       = \"{IEEE} Concurrency\"}  @STRING{IEEE_M_\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_CS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\noncurrency\"}  @STRING{IEEE_M_CS         = \"{IEEE} Control Systems Magazine\"}  in\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_DT",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nTC became DT  @STRING{IEEE_M_DT         = \"{IEEE} Design \\&\\ Test\"}  @STRING{IEE\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_DTC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nn \\&\\ Test\"}  @STRING{IEEE_M_DTC        = \"{IEEE} Design and Test of Computers\"}\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_O_DSO",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n Computers\"}  @STRING{IEEE_O_DSO        = \"{IEEE} Distributed Systems Online\"}  \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_EI",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nems Online\"}  @STRING{IEEE_M_EI         = \"{IEEE} Electrical Insulation Magazine\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_ETF",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nn Magazine\"}  @STRING{IEEE_M_ETF        = \"{IEEE} Electrification Magazine\"}  @S\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_EMC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nn Magazine\"}  @STRING{IEEE_M_EMC        = \"{IEEE} Electromagnetic Compatibility \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_ETR",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ny Magazine\"}  @STRING{IEEE_M_ETR        = \"{IEEE} ElectroTechnology Review\"}  @S\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_EMR",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nogy Review\"}  @STRING{IEEE_M_EMR        = \"{IEEE} Engineering Management Review\"\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_EMB",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nent Review\"}  @STRING{IEEE_M_EMB        = \"{IEEE} Engineering in Medicine and Bi\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_EXP",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ny Magazine\"}  @STRING{IEEE_M_EXP        = \"{IEEE} Expert\"}  @STRING{IEEE_M_GRS  \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_GRS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nEE} Expert\"}  @STRING{IEEE_M_GRS        = \"{IEEE} Geoscience and Remote Sensing \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_IA",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ng Magazine\"}  @STRING{IEEE_M_IA         = \"{IEEE} Industry Applications Magazine\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_IE",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ns Magazine\"}  @STRING{IEEE_M_IE         = \"{IEEE} Industrial Electronics Magazin\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_IM",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ns Magazine\"}  @STRING{IEEE_M_IM         = \"{IEEE} Instrumentation and Measuremen\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_IS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nt Magazine\"}  @STRING{IEEE_M_IS         = \"{IEEE} Intelligent Systems\"}  @STRING\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_ITS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nnt Systems\"}  @STRING{IEEE_M_ITS        = \"{IEEE} Intelligent Transportation Sys\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_IC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ns Magazine\"}  @STRING{IEEE_M_IC         = \"{IEEE} Internet Computing\"}  @STRING{\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_ITP",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n Computing\"}  @STRING{IEEE_M_ITP        = \"{IEEE} {IT} Professional\"}  @STRING{I\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_MICRO",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nofessional\"}  @STRING{IEEE_M_MICRO      = \"{IEEE} Micro\"}  @STRING{IEEE_M_MW    \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_MW",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nEEE} Micro\"}  @STRING{IEEE_M_MW         = \"{IEEE} Microwave Magazine\"}  @STRING{\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_MM",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ne Magazine\"}  @STRING{IEEE_M_MM         = \"{IEEE} Multimedia\"}  @STRING{IEEE_M_N\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_NANO",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nMultimedia\"}  @STRING{IEEE_M_NANO       = \"{IEEE} Nanotechnology Magazine\"}  @ST\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_NET",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ny Magazine\"}  @STRING{IEEE_M_NET        = \"{IEEE} Network\"}  @STRING{IEEE_M_PCOM\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_PCOM",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nE} Network\"}  @STRING{IEEE_M_PCOM       = \"{IEEE} Personal Communications Magazi\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_PVC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ns Magazine\"}  @STRING{IEEE_M_PVC        = \"{IEEE} Pervasive Computing\"}  @STRING\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_POT",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n Computing\"}  @STRING{IEEE_M_POT        = \"{IEEE} Potentials\"}  @STRING{IEEE_M_P\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_PEL",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nPotentials\"}  @STRING{IEEE_M_PEL        = \"{IEEE} Power Electronics Magazine\"}  \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_PE",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nm PE in 2003  @STRING{IEEE_M_PE         = \"{IEEE} Power and Energy Magazine\"}  @\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_PER",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ny Magazine\"}  @STRING{IEEE_M_PER        = \"{IEEE} Power Engineering Review\"}  @S\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_PULSE",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ning Review\"}  @STRING{IEEE_M_PULSE      = \"{IEEE} Pulse\"}  @STRING{IEEE_M_RA    \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_RA",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nEEE} Pulse\"}  @STRING{IEEE_M_RA         = \"{IEEE} Robotics and Automation Magazi\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_SAP",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nn Magazine\"}  @STRING{IEEE_M_SAP        = \"{IEEE} Security and Privacy\"}  @STRIN\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_SP",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nnd Privacy\"}  @STRING{IEEE_M_SP         = \"{IEEE} Signal Processing Magazine\"}  \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_S",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ng Magazine\"}  @STRING{IEEE_M_S          = \"{IEEE} Software\"}  @STRING{IEEE_M_SSC\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_SSC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n} Software\"}  @STRING{IEEE_M_SSC        = \"{IEEE} Solid-State Circuits Magazine\"\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_SPECT",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ns Magazine\"}  @STRING{IEEE_M_SPECT      = \"{IEEE} Spectrum\"}  @STRING{IEEE_M_SMC\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_SMC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n} Spectrum\"}  @STRING{IEEE_M_SMC        = \"{IEEE} Systems, Man, and Cybernetics \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_TS",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ns Magazine\"}  @STRING{IEEE_M_TS         = \"{IEEE} Technology and Society Magazin\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_VT",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ny Magazine\"}  @STRING{IEEE_M_VT         = \"{IEEE} Vehicular Technology Magazine\"\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_WC",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ny Magazine\"}  @STRING{IEEE_M_WC         = \"{IEEE} Wireless Communications\"}  @ST\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "IEEE_M_TODAY",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nunications\"}  @STRING{IEEE_M_TODAY      = \"Today's Engineer\"}            --  EOF\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    }
+  ],
+  "Comments": [
+    "IEEEfull.bib\r\nV1.14 (2015/08/28)\r\nCopyright (c) 2002-2015 by Michael Shell\r\nSee: http://www.michaelshell.org/\r\nfor current contact information.\r\n\r\nBibTeX bibliography string definitions of the FULL titles of\r\nIEEE journals and magazines and online publications.\r\n\r\nThis file is designed for bibliography styles that require \r\nfull-length titles and is not for use in bibliographies that\r\nabbreviate titles.\r\n\r\nSupport sites:\r\nhttp://www.michaelshell.org/tex/ieeetran/\r\nhttp://www.ctan.org/pkg/ieeetran\r\nand/or\r\nhttp://www.ieee.org/\r\n\r\nSpecial thanks to Laura Hyslop, Ken Rawson, Kevin Lisankie and\r\nMona Mittra of the IEEE for their help in obtaining the information needed\r\nto compile this file. Also, Volker Kuhlmann, Moritz Borgmann,\r\nYannick Berker, Nicol�s Barabino, Chuanren Wu and Santiago Cogollos Borras\r\nkindly provided some corrections and additions.\r\n\r\n\r\n*************************************************************************\r\nLegal Notice:\r\nThis code is offered as-is without any warranty either expressed or\r\nimplied; without even the implied warranty of MERCHANTABILITY or\r\nFITNESS FOR A PARTICULAR PURPOSE! \r\nUser assumes all risk.\r\nIn no event shall the IEEE or any contributor to this code be liable for\r\nany damages or losses, including, but not limited to, incidental,\r\nconsequential, or any other damages, resulting from the use or misuse\r\nof any information contained here.\r\n\r\nAll comments are the opinions of their respective authors and are not\r\nnecessarily endorsed by the IEEE.\r\n\r\nThis work is distributed under the LaTeX Project Public License (LPPL)\r\n( http://www.latex-project.org/ ) version 1.3, and may be freely used,\r\ndistributed and modified. A copy of the LPPL, version 1.3, is included\r\nin the base LaTeX documentation of all distributions of LaTeX released\r\n2003/12/01 or later.\r\nRetain all contribution notices and credits.\r\n** Modified files should be clearly indicated as such, including  **\r\n** renaming them and changing author support contact information. **\r\n*************************************************************************\r\n\r\n\r\nUSAGE:\r\n\r\n\\bibliographystyle{mybstfile}\r\n\\bibliography{IEEEfull,mybibfile}\r\n\r\nwhere the IEEE titles in the .bib database entries use the strings\r\ndefined here. e.g.,\r\n\r\n\r\n   journal = IEEE_J_AC,\r\n\r\n\r\nto yield \"{IEEE} Transactions on Automatic Control\"\r\n\r\n\r\nWARNING: The IEEE uses abbreviated journal titles in their bibliographies!\r\nBecause this file provides the full titles, you should NOT use this file\r\nfor work that is to be submitted to the IEEE.\r\n\r\nFor IEEE work, you should use the abbreviated titles provided in the\r\ncompanion file, IEEEabrv.bib.\r\n\r\n\r\n** NOTES **\r\n\r\n 1. Journals have been grouped according to subject in order to make it\r\n    easier to locate and extract the definitions for related journals - \r\n    as most works use references that are confined to a single topic.\r\n    Magazines are listed in straight alphabetical order.\r\n\r\n 2. String names are closely based on IEEE's own internal acronyms.\r\n\r\n 3. Older, out-of-print IEEE titles are included (but not including titles\r\n    dating prior to the IEEE's formation from the IRE and AIEE in 1963).\r\n\r\n\r\n\r\n\r\n\r\n\r\nIEEE Journals \r\n\r\n\r\naerospace and military",
+    "= \"{IEEE} Transactions on Aeronautical and Navigational Electronics\"}",
+    "= \"{IEEE} Transactions on Aerospace and Electronic Systems\"}",
+    "= \"{IEEE} Transactions on Aerospace and Navigational Electronics\"}",
+    "= \"{IEEE} Transactions on Aerospace\"}",
+    "= \"{IEEE} Transactions on Airborne Electronics\"}",
+    "= \"{IEEE} Transactions on Military Electronics\"}\r\n\r\n\r\n\r\nautos, transportation and vehicles (non-aerospace)",
+    "= \"{IEEE} Transactions on Intelligent Transportation Systems\"}",
+    "= \"{IEEE} Transactions on Intelligent Vehicles\"}",
+    "= \"{IEEE} Transactions on Transportation Electrification\"}",
+    "= \"{IEEE} Transactions on Vehicular Communications\"}",
+    "= \"{IEEE} Transactions on Vehicular Technology\"}\r\n\r\n\r\n\r\ncircuits, signals, systems, audio and controls",
+    "= \"{IEEE} Journal of Selected Topics in Signal Processing\"}",
+    "= \"{IEEE} Signal Processing Letters\"}",
+    "= \"{IEEE} Systems Journal\"}",
+    "= \"{IEEE} Transactions on Acoustics, Speech, and Signal Processing\"}",
+    "= \"{IEEE} Transactions on Audio\"}",
+    "= \"{IEEE} Transactions on Audio and Electroacoustics\"}\r\nin 2014 ASL became ASLP",
+    "= \"{IEEE/ACM} Transactions on Audio, Speech, and Language Processing\"}",
+    "= \"{IEEE} Transactions on Audio, Speech, and Language Processing\"}",
+    "= \"{IEEE} Transactions on Automatic Control\"}",
+    "= \"{IEEE} Transactions on Circuits and Systems\"}",
+    "= \"{IEEE} Transactions on Circuits and Systems for Video Technology\"}",
+    "= \"{IEEE} Transactions on Circuits and Systems---Part {I}: Fundamental Theory and Applications\"}",
+    "= \"{IEEE} Transactions on Circuits and Systems---Part {II}: Analog and Digital Signal Processing\"}\r\nin 2004 CASI and CASII renamed part title to CASI_RP and CASII_EB, respectively",
+    "= \"{IEEE} Transactions on Circuits and Systems---Part {I}: Regular Papers\"}",
+    "= \"{IEEE} Transactions on Circuits and Systems---Part {II}: Express Briefs\"}",
+    "= \"{IEEE} Transactions on Circuit Theory\"}",
+    "= \"{IEEE} Transactions on Control Systems Technology\"}",
+    "= \"{IEEE} Transactions on Emerging and Selected Topics in Circuits and Systems\"}",
+    "= \"{IEEE} Transactions on Signal Processing\"}",
+    "= \"{IEEE} Transactions on Sonics and Ultrasonics\"}",
+    "= \"{IEEE} Transactions on Speech and Audio Processing\"}",
+    "= \"{IEEE} Transactions on Ultrasonics Engineering\"}",
+    "= \"{IEEE} Transactions on Ultrasonics, Ferroelectrics, and Frequency Control\"}\r\n\r\n\r\n\r\ncommunications",
+    "= \"{IEEE} Communications Letters\"}",
+    "= \"{IEEE} Journal on Selected Areas in Communications\"}",
+    "= \"{IEEE} Transactions on Communications\"}",
+    "= \"{IEEE} Transactions on Communication Technology\"}",
+    "= \"{IEEE} Transactions on Wireless Communications\"}",
+    "= \"{IEEE} Wireless Communications Letters\"}\r\n\r\n\r\n\r\ncomponents, packaging and manufacturing",
+    "= \"{IEEE} Transactions on Advanced Packaging\"}",
+    "= \"{IEEE} Transactions on Components, Hybrids and Manufacturing Technology\"}\r\nin 2011 CAPT became CPMT",
+    "= \"{IEEE} Transactions on Components, Packaging and Manufacturing Technology\"}",
+    "= \"{IEEE} Transactions on Components, Packaging and Manufacturing Technology---Part {A}\"}",
+    "= \"{IEEE} Transactions on Components, Packaging and Manufacturing Technology---Part {B}: Advanced Packaging\"}",
+    "= \"{IEEE} Transactions on Components, Packaging and Manufacturing Technology---Part {C}: Manufacturing\"}",
+    "= \"{IEEE} Transactions on Components and Packaging Technologies\"}",
+    "= \"{IEEE} Transactions on Components and Packaging Technology\"}",
+    "= \"{IEEE} Transactions on Component Parts\"}",
+    "= \"{IEEE} Transactions on Electronics Packaging Manufacturing\"}",
+    "= \"{IEEE} Transactions on Manufacturing Technology\"}",
+    "= \"{IEEE} Transactions on Parts, Hybrids and Packaging\"}",
+    "= \"{IEEE} Transactions on Parts, Materials and Packaging\"}\r\n\r\n\r\n\r\nCAD",
+    "= \"{IEEE} Journal on Technology in Computer Aided Design\"}",
+    "= \"{IEEE} Transactions on Computer-Aided Design of Integrated Circuits and Systems\"}\r\n\r\n\r\n\r\ncoding, data, information, knowledge",
+    "= \"{IEEE} Transactions on Big Data\"}",
+    "= \"{IEEE} Transactions on Information Forensics and Security\"}",
+    "= \"{IEEE} Transactions on Information Theory\"}",
+    "= \"{IEEE} Transactions on Knowledge and Data Engineering\"}\r\n\r\n\r\n\r\ncomputers, computation, networking and software",
+    "= \"{IEEE} Computer Architecture Letters\"}",
+    "= \"{IEEE} Embedded Systems Letters\"}",
+    "= \"{IEEE} Internet of Things Journal\"}",
+    "= \"{IEEE} Journal on Exploratory Solid-State Computational Devices and Circuits\"}",
+    "= \"{IEEE} Journal on Multiscale and Multiphysics Computational Techniques\"}",
+    "= \"{IEEE} Sustainable Computing\"}",
+    "= \"{IEEE} Transactions on Cloud Computing\"}",
+    "= \"{IEEE} Transactions on Computational Social Systems\"}",
+    "= \"{IEEE} Transactions on Computers\"}",
+    "= \"{IEEE} Transactions on Control of Network Systems\"}",
+    "= \"{IEEE} Transactions on Dependable and Secure Computing\"}",
+    "= \"{IEEE} Transactions on Electronic Computers\"}",
+    "= \"{IEEE} Transactions on Emerging Topics in Computing\"}",
+    "= \"{IEEE} Transactions on Evolutionary Computation\"}",
+    "= \"{IEEE} Transactions on Fuzzy Systems\"}",
+    "= \"{IEEE} Transactions on Mobile Computing\"}",
+    "= \"{IEEE} Transactions on Multi-Scale Computing Systems\"}",
+    "= \"{IEEE/ACM} Transactions on Networking\"}",
+    "= \"{IEEE} Transactions on Network Science and Engineering\"}",
+    "= \"{IEEE} Transactions on Network and Service Management\"}",
+    "= \"{IEEE} Transactions on Neural Networks\"}\r\nin 2012 NN became NNLS",
+    "= \"{IEEE} Transactions on Neural Networks and Learning Systems\"}",
+    "= \"{IEEE} Transactions on Parallel and Distributed Systems\"}",
+    "= \"{IEEE} Transactions on Services Computing\"}",
+    "= \"{IEEE} Transactions on Signal and Information Processing over Networks\"}",
+    "= \"{IEEE} Transactions on Software Engineering\"}\r\n\r\n\r\n\r\ncomputer graphics, imaging, and multimedia",
+    "= \"{IEEE/OSA} Journal of Display Technology\"}",
+    "= \"{IEEE} Transactions on Image Processing\"}",
+    "= \"{IEEE} Transactions on Multimedia\"}",
+    "= \"{IEEE} Transactions on Visualization and Computer Graphics\"}\r\n\r\n\r\n\r\ncybernetics, ergonomics, robots, man-machine, artificial intelligence and automation",
+    "= \"{IEEE/CAA} Journal of Automatica Sinica\"}",
+    "= \"{IEEE} Journal of Robotics and Automation\"}",
+    "= \"{IEEE} Transactions on Affective Computing\"}",
+    "= \"{IEEE} Transactions on Automation Science and Engineering\"}",
+    "= \"{IEEE} Transactions on Autonomous Mental Development\"}",
+    "= \"{IEEE} Transactions on Cognitive Communications and Networking\"}\r\nin 2015 AMD became CDS",
+    "= \"{IEEE} Transactions on Cognitive and Developmental Systems\"}",
+    "= \"{IEEE} Transactions on Computational Intelligence and {AI} in Games\"}\r\nin 2013 SMCB became CYB",
+    "= \"{IEEE} Transactions on Cybernetics\"}",
+    "= \"{IEEE} Transactions on Haptics\"}",
+    "= \"{IEEE} Transactions on Human Factors in Electronics\"}\r\nin 2013 SMCC became HMS",
+    "= \"{IEEE} Transactions on Human-Machine Systems\"}",
+    "= \"{IEEE} Transactions on Man-Machine Systems\"}",
+    "= \"{IEEE} Transactions on Pattern Analysis and Machine Intelligence\"}\r\nin 1989 JRA became RA\r\nin August 2004, RA split into ASE and RO",
+    "= \"{IEEE} Transactions on Robotics and Automation\"}",
+    "= \"{IEEE} Robotics and Automation Letters\"}",
+    "= \"{IEEE} Transactions on Robotics\"}",
+    "= \"{IEEE} Transactions on Systems, Man, and Cybernetics\"}",
+    "= \"{IEEE} Transactions on Systems, Man, and Cybernetics---Part {A}: Systems and Humans\"}",
+    "= \"{IEEE} Transactions on Systems, Man, and Cybernetics---Part {B}: Cybernetics\"}",
+    "= \"{IEEE} Transactions on Systems, Man, and Cybernetics---Part {C}: Applications and Reviews\"}\r\nin 2012 SMCA became SMCS",
+    "= \"{IEEE} Transactions on Systems, Man, and Cybernetics: Systems\"}",
+    "= \"{IEEE} Transactions on Systems Science and Cybernetics\"}\r\n\r\n\r\n\r\nearth, wind, fire and water",
+    "= \"{IEEE} Geoscience and Remote Sensing Letters\"}",
+    "= \"{IEEE} Transactions on Geoscience Electronics\"}",
+    "= \"{IEEE} Transactions on Geoscience and Remote Sensing\"}",
+    "= \"{IEEE} Journal of Oceanic Engineering\"}",
+    "= \"{IEEE} Journal of Selected Topics in Applied Earth Observations and Remote Sensing\"}\r\n\r\n\r\n\r\neducation, engineering, history, IEEE, professional",
+    "= \"Canadian Journal of Electrical and Computer Engineering\"}",
+    "= \"Proceedings of the {IEEE}\"}",
+    "= \"{IEEE} Revista Iberoamericana de Technolog{\\'{i}}as del Aprendizaje\"}",
+    "= \"{IEEE} Transactions on Education\"}",
+    "= \"{IEEE} Transactions on Engineering Management\"}",
+    "= \"{IEEE} Transactions on Engineering Writing and Speech\"}",
+    "= \"{IEEE} Transactions on Learning Technologies\"}",
+    "= \"{IEEE} Transactions on Professional Communication\"}\r\n\r\n\r\n\r\nelectromagnetics, antennas, EMI, magnetics and microwave",
+    "= \"{IEEE} Antennas and Wireless Propagation Letters\"}",
+    "= \"{IEEE} Magnetics Letters\"}",
+    "= \"{IEEE} Microwave and Guided Wave Letters\"}",
+    "= \"{IEEE} Microwave and Wireless Components Letters\"}",
+    "= \"{IEEE} {RFIC} Journal\"}",
+    "= \"{IEEE} {RFID} Journal\"}",
+    "= \"{IEEE} Transactions on Antennas and Propagation\"}",
+    "= \"{IEEE} Transactions on Electromagnetic Compatibility\"}",
+    "= \"{IEEE} Transactions on Magnetics\"}",
+    "= \"{IEEE} Transactions on Microwave Theory and Techniques\"}",
+    "= \"{IEEE} Transactions on Radio Frequency Interference\"}",
+    "= \"{IEEE} Transactions on Terahertz Science and Technology\"}",
+    "= \"{IEEE} Translation Journal on Magnetics in Japan\"}\r\n\r\n\r\n\r\nenergy, power and conversion",
+    "= \"{IEEE} Journal of Photovoltaics\"}",
+    "= \"{IEEE} Power Electronics Letters\"}",
+    "= \"{IEEE} Power and Energy Technology Systems Journal\"}",
+    "= \"{IEEE} Transactions on Emerging and Selected Topics in Power Electronics\"}",
+    "= \"{IEEE} Transactions on Energy Conversion\"}",
+    "= \"{IEEE} Transactions on Power Apparatus and Systems\"}",
+    "= \"{IEEE} Transactions on Power Delivery\"}",
+    "= \"{IEEE} Transactions on Power Electronics\"}",
+    "= \"{IEEE} Transactions on Power Systems\"}",
+    "= \"{IEEE} Transactions on Smart Grid\"}",
+    "= \"{IEEE} Transactions on Sustainable Energy\"}\r\n\r\n\r\n\r\nindustrial, commercial and consumer",
+    "= \"{IEEE} Journal of Product Safety Engineering\"}",
+    "= \"{IEEE} Transactions on Applications and Industry\"}",
+    "= \"{IEEE} Transactions on Broadcasting\"}",
+    "= \"{IEEE} Transactions on Broadcast and Television Receivers\"}",
+    "= \"{IEEE} Transactions on Consumer Electronics\"}",
+    "= \"{IEEE} Transactions on Industrial Electronics\"}",
+    "= \"{IEEE} Transactions on Industrial Electronics and Control Instrumentation\"}",
+    "= \"{IEEE} Transactions on Industry Applications\"}",
+    "= \"{IEEE} Transactions on Industry and General Applications\"}",
+    "= \"{IEEE} Transactions on Industrial Informatics\"}\r\n\r\n\r\n\r\ninstrumentation and measurement",
+    "= \"{IEEE} Transactions on Instrumentation and Measurement\"}\r\n\r\n\r\n\r\ninsulation and materials",
+    "= \"{IEEE/TMS} Journal of Electronic Materials\"}",
+    "= \"{IEEE} Transactions on Dielectrics and Electrical Insulation\"}",
+    "= \"{IEEE} Transactions on Electrical Insulation\"}\r\n\r\n\r\n\r\nmechanical",
+    "= \"{IEEE/ASME} Journal of Microelectromechanical Systems\"}\r\nin 2014 MEMS became MEMSI",
+    "= \"{IEEE} Journal of Microelectromechanical Systems\"}",
+    "= \"{IEEE/ASME} Transactions on Mechatronics\"}\r\n\r\n\r\n\r\nmedical and biological",
+    "= \"{IEEE} Journal of Biomedical and Health Informatics\"}",
+    "= \"{IEEE} Journal of Translational Engineering in Health and Medicine\"}",
+    "= \"{IEEE} Life Sciences Letters\"}",
+    "= \"{IEEE} Reviews in Biomedical Engineering\"}",
+    "= \"{IEEE} Transactions on Biomedical Circuits and Systems\"}",
+    "= \"{IEEE} Transactions on Bio-Medical Electronics\"}\r\nB-ME later dropped the hyphen and became the BME",
+    "= \"{IEEE} Transactions on Biomedical Engineering\"}",
+    "= \"{IEEE} Transactions on Bio-Medical Engineering\"}",
+    "= \"{IEEE/ACM} Transactions on Computational Biology and Bioinformatics\"}",
+    "= \"{IEEE} Transactions on Information Technology in Biomedicine\"}",
+    "= \"{IEEE} Transactions on Medical Electronics\"}",
+    "= \"{IEEE} Transactions on Medical Imaging\"}",
+    "= \"{IEEE} Transactions on Molecular, Biological and Multi-Scale Communications\"}",
+    "= \"{IEEE} Transactions on NanoBioscience\"}",
+    "= \"{IEEE} Transactions on Neural Systems and Rehabilitation Engineering\"}",
+    "= \"{IEEE} Transactions on Rehabilitation Engineering\"}\r\n\r\n\r\n\r\noptics, lightwave and photonics",
+    "= \"{IEEE/OSA} Journal of Lightwave Technology\"}",
+    "= \"{IEEE} Journal of Optical Communications and Networking\"}",
+    "= \"{IEEE} Photonics Journal\"}",
+    "= \"{IEEE} Photonics Technology Letters\"}\r\n\r\n\r\n\r\nphysics, electrons, nanotechnology, nuclear and quantum electronics",
+    "= \"{IEEE} Electron Device Letters\"}",
+    "= \"{IEEE} Journal of Electron Devices Society\"}",
+    "= \"{IEEE} Journal of Quantum Electronics\"}",
+    "= \"{IEEE} Journal of Selected Topics in Quantum Electronics\"}",
+    "= \"{IEEE} Nanotechnology Express\"}",
+    "= \"{IEEE} Transactions on Electron Devices\"}",
+    "= \"{IEEE} Transactions on Nanotechnology\"}",
+    "= \"{IEEE} Transactions on Nuclear Science\"}",
+    "= \"{IEEE} Transactions on Plasma Science\"}\r\n\r\n\r\n\r\nreliability",
+    "= \"{IEEE} Transactions on Device and Materials Reliability\"}",
+    "= \"{IEEE} Transactions on Reliability\"}\r\n\r\n\r\n\r\nsemiconductors, superconductors, electrochemical and solid state",
+    "= \"{IEEE/ECS} Electrochemical and Solid-State Letters\"}",
+    "= \"{IEEE} Journal of Solid-State Circuits\"}",
+    "= \"{IEEE} Transactions on Applied Superconductivity\"}",
+    "= \"{IEEE} Transactions on Semiconductor Manufacturing\"}\r\n\r\n\r\n\r\nsensors",
+    "= \"{IEEE} Sensors Journal\"}\r\n\r\n\r\n\r\nVLSI",
+    "= \"{IEEE} Transactions on Very Large Scale Integration ({VLSI}) Systems\"}\r\n\r\n\r\n\r\n\r\n\r\n\r\nIEEE Magazines and Online Publications",
+    "= \"{IEEE} Access\"}",
+    "= \"{IEEE} Aerospace and Electronics Systems Magazine\"}",
+    "= \"{IEEE} Annals of the History of Computing\"}",
+    "= \"{IEEE} Antennas and Propagation Magazine\"}",
+    "= \"{IEEE} {ASSP} Magazine\"}",
+    "= \"China Communications Magazine\"}",
+    "= \"{IEEE} Circuits and Devices Magazine\"}",
+    "= \"{IEEE} Circuits and Systems Magazine\"}",
+    "= \"{IEEE} Communications Magazine\"}",
+    "= \"{IEEE} Communications Society Magazine\"}",
+    "= \"{IEEE} Communications Surveys and Tutorials\"}",
+    "= \"{IEEE} Computational Intelligence Magazine\"}\r\nCSEM changed to CSE in 1999",
+    "= \"{IEEE} Computing in Science and Engineering\"}",
+    "= \"{IEEE} Computational Science and Engineering Magazine\"}",
+    "= \"Computer\"}",
+    "= \"{IEEE} Computer Applications in Power\"}",
+    "= \"{IEEE} Computer Graphics and Applications\"}",
+    "= \"{IEEE} Concurrency\"}",
+    "= \"{IEEE} Control Systems Magazine\"}\r\nin 2012 DTC became DT",
+    "= \"{IEEE} Design \\&\\ Test\"}",
+    "= \"{IEEE} Design and Test of Computers\"}",
+    "= \"{IEEE} Distributed Systems Online\"}",
+    "= \"{IEEE} Electrical Insulation Magazine\"}",
+    "= \"{IEEE} Electrification Magazine\"}",
+    "= \"{IEEE} Electromagnetic Compatibility Magazine\"}",
+    "= \"{IEEE} ElectroTechnology Review\"}",
+    "= \"{IEEE} Engineering Management Review\"}",
+    "= \"{IEEE} Engineering in Medicine and Biology Magazine\"}",
+    "= \"{IEEE} Expert\"}",
+    "= \"{IEEE} Geoscience and Remote Sensing Magazine\"}",
+    "= \"{IEEE} Industry Applications Magazine\"}",
+    "= \"{IEEE} Industrial Electronics Magazine\"}",
+    "= \"{IEEE} Instrumentation and Measurement Magazine\"}",
+    "= \"{IEEE} Intelligent Systems\"}",
+    "= \"{IEEE} Intelligent Transportation Systems Magazine\"}",
+    "= \"{IEEE} Internet Computing\"}",
+    "= \"{IEEE} {IT} Professional\"}",
+    "= \"{IEEE} Micro\"}",
+    "= \"{IEEE} Microwave Magazine\"}",
+    "= \"{IEEE} Multimedia\"}",
+    "= \"{IEEE} Nanotechnology Magazine\"}",
+    "= \"{IEEE} Network\"}",
+    "= \"{IEEE} Personal Communications Magazine\"}",
+    "= \"{IEEE} Pervasive Computing\"}",
+    "= \"{IEEE} Potentials\"}",
+    "= \"{IEEE} Power Electronics Magazine\"}\r\nCAP and PER merged to form PE in 2003",
+    "= \"{IEEE} Power and Energy Magazine\"}",
+    "= \"{IEEE} Power Engineering Review\"}",
+    "= \"{IEEE} Pulse\"}",
+    "= \"{IEEE} Robotics and Automation Magazine\"}",
+    "= \"{IEEE} Security and Privacy\"}",
+    "= \"{IEEE} Signal Processing Magazine\"}",
+    "= \"{IEEE} Software\"}",
+    "= \"{IEEE} Solid-State Circuits Magazine\"}",
+    "= \"{IEEE} Spectrum\"}",
+    "= \"{IEEE} Systems, Man, and Cybernetics Magazine\"}",
+    "= \"{IEEE} Technology and Society Magazine\"}",
+    "= \"{IEEE} Vehicular Technology Magazine\"}",
+    "= \"{IEEE} Wireless Communications\"}"
+  ]
+}

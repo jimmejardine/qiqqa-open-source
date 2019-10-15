@@ -280,7 +280,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
             try
             {
-                string bibtex = pdf_document.BibTex;
+                BibTexItem bibtex = pdf_document.BibTexItem;
 
                 PDFSearchResultSet search_result_set;
                 if (BibTeXGoodnessOfFitEstimator.DoesBibTeXMatchDocument(bibtex, pdf_document, out search_result_set))

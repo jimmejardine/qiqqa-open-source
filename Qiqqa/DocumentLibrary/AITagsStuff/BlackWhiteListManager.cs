@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Utilities;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary.AITagsStuff
 {
@@ -19,7 +21,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
         {
             get
             {
-                return library.LIBRARY_BASE_PATH + "Qiqqa.aitag_blackwhitelists";
+                return Path.GetFullPath(Path.Combine(library.LIBRARY_BASE_PATH, @"Qiqqa.aitag_blackwhitelists"));
             }
         }
 

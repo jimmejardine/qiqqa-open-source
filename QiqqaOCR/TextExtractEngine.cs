@@ -7,6 +7,8 @@ using Utilities;
 using Utilities.Encryption;
 using Utilities.OCR;
 using Utilities.PDF.MuPDF;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace QiqqaOCR
 {

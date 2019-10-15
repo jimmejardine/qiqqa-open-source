@@ -1,0 +1,36 @@
+﻿{
+  "Items": [
+    {
+      "Type": "conference",
+      "Key": "nsdi",
+      "Exceptions": [
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n System Design and Implementation\",     [year=2006] address=SanJose, month=may, \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nar=2006] address=SanJose, month=may,    [year=2005] address=Boston, month=may,  \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\near=2005] address=Boston, month=may,    [year=2004] address=SF, month=mar,  }   \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {
+        "shortname": "NSDI",
+        "longname": "Symposium on Networked System Design and Implementation",
+        "address": "SF",
+        "month": "mar"
+      }
+    },
+    {
+      "Type": "inproceedings",
+      "Key": "credence",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Experience with an Object Reputation System for Peer-to-Peer Filesharing",
+        "author": "kwalsh and egs",
+        "booktitle": "nsdi",
+        "year": "2006"
+      }
+    }
+  ],
+  "Comments": [
+    "% CrossTeX example",
+    "% This is a simple \\texttt{conference} object whose short name is\r\n% ``NSDI'' and long name is ``Symposium on Networked System Design and\r\n% Implementation''. In addition, it carries some conditional fields; that\r\n% is, fields that are included in the object only if they match the data\r\n% in the referring context. For instance, if the \\texttt{year} field of the\r\n% referring object is equal to 2006, the \\texttt{nsdi} object additionally\r\n% has the fields \\texttt{address=SanJose, month=may}. In a different year,\r\n% a different conditional might be triggered. Any, all, or none of the\r\n% conditionals mentioned may be appropriate (although obviously in this\r\n% case, the year can only have one value).\r\n\r\n% By itself, conditional fields are not very useful; their value in\r\n% simplifying object references becomes apparent when they are used in\r\n% context. Look at the following reference:"
+  ]
+}

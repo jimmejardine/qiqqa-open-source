@@ -14,7 +14,7 @@ namespace Qiqqa.DocumentLibrary
         static void DaemonEntry(object daemon_object)
         {
             Library library = Library.GuestInstance;
-            library.WebLibraryDetail.FolderToWatch = @"C:\\temp\\qiqqawatch";
+            library.WebLibraryDetail.FolderToWatch = @"C:\temp\qiqqawatch";
 
             Daemon daemon = (Daemon)daemon_object;
             while (true)

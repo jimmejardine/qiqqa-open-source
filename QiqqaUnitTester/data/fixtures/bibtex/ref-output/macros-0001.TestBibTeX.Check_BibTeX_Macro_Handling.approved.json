@@ -1,0 +1,103 @@
+﻿{
+  "Items": [
+    {
+      "Type": "string",
+      "Key": "anch-ie",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n string definitions:    @string{anch-ie = {Angew.~Chem. Int.~Ed.}}  @string{cup \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "string",
+      "Key": "cup",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nngew.~Chem. Int.~Ed.}}  @string{cup     = {Cambridge University Press}}  @string\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "string",
+      "Key": "dtv",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ndge University Press}}  @string{dtv     = {Deutscher Taschenbuch-Verlag}}  @stri\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "string",
+      "Key": "hup",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nr Taschenbuch-Verlag}}  @string{hup     = {Harvard University Press}}  @string{j\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "string",
+      "Key": "jams",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nard University Press}}  @string{jams    = {J.~Amer. Math. Soc.}}  @string{jchph \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "string",
+      "Key": "jchph",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n{J.~Amer. Math. Soc.}}  @string{jchph   = {J.~Chem. Phys.}}  @string{jomch   = {\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "string",
+      "Key": "jomch",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n   = {J.~Chem. Phys.}}  @string{jomch   = {J.~Organomet. Chem.}}  @string{pup   \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "string",
+      "Key": "pup",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n{J.~Organomet. Chem.}}  @string{pup     = {Princeton University Press}}    and t\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "article",
+      "Key": "herrmann",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Herrmann, Wolfgang A. and Öfele, Karl and Schneider,\r\n                  Sabine K.  and Herdtweck, Eberhardt and Hoffmann, Stephan D.",
+        "title": "A carbocyclic carbene as an efficient catalyst ligand for C--C\r\n                  coupling reactions",
+        "journaltitle": "anch-ie",
+        "date": "2006",
+        "volume": "45",
+        "number": "23",
+        "pages": "3859-3862",
+        "indextitle": "Carbocyclic carbene as an efficient catalyst, A"
+      }
+    }
+  ],
+  "Comments": [
+    "Recognize string definitions:",
+    "= {Angew.~Chem. Int.~Ed.}}",
+    "= {Cambridge University Press}}",
+    "= {Deutscher Taschenbuch-Verlag}}",
+    "= {Harvard University Press}}",
+    "= {J.~Amer. Math. Soc.}}",
+    "= {J.~Chem. Phys.}}",
+    "= {J.~Organomet. Chem.}}",
+    "= {Princeton University Press}}\r\n\r\nand thier usage:"
+  ]
+}

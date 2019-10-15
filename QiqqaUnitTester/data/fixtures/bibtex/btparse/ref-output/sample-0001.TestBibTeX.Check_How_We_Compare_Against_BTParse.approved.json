@@ -1,0 +1,14 @@
+﻿{
+  "Items": [
+    {
+      "Type": "string",
+      "Key": "and",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n      @string{and = { and },             joe = \"Blow, Joe\"\r\n                  ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    }
+  ],
+  "Comments": []
+}
