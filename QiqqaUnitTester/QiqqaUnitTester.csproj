@@ -6,11 +6,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6DE7789D-8AE8-42AB-992C-82399BB327AD}</ProjectGuid>
+    <ProjectGuid>{F64AFA9C-0DAC-4A3F-A64A-055891366D2C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>QiqqaSystemTester</RootNamespace>
-    <AssemblyName>QiqqaSystemTester</AssemblyName>
+    <RootNamespace>QiqqaUnitTester</RootNamespace>
+    <AssemblyName>QiqqaUnitTester</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -95,12 +95,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\QiqqaUnitTester\ApprovalTestsConfig.cs">
-      <Link>ApprovalTestsConfig.cs</Link>
-    </Compile>
-    <Compile Include="..\QiqqaUnitTester\TestBibTeX.cs">
-      <Link>TestBibTeX.cs</Link>
-    </Compile>
     <Compile Include="..\Utilities\BibTex\EndNoteToBibTex.cs">
       <Link>Utilities\BibTeX\EndNoteToBibTex.cs</Link>
     </Compile>
@@ -113,13 +107,13 @@
     <Compile Include="..\Utilities\BibTex\RisToBibTeX.cs">
       <Link>Utilities\BibTeX\RisToBibTeX.cs</Link>
     </Compile>
-    <Compile Include="DebugAndReleaseBinariesExecTest.cs" />
+    <Compile Include="ApprovalTestsConfig.cs" />
+    <Compile Include="TestBibTeX.cs" />
     <Compile Include="TestJSONDeserializeFromArbitrary.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTest2.cs" />
     <Compile Include="UnitTestProjectConfig.cs" />
-    <Compile Include="Utilities\PDFDocument\TestPDFDocumentSerialization.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\Qiqqa\BibTeX\qiqqa-entry-type-definitions.json">
@@ -741,19 +735,12 @@
     <None Include="data\fixtures\bibtex\TeX-accented-letters-0011.bib" />
     <None Include="data\fixtures\bibtex\whitespacing-0001.bib" />
     <None Include="data\fixtures\bibtex\whitespacing-0002.bib" />
-    <None Include="data\Qiqqa.configuration" />
-    <None Include="data\Qiqqa.configuration.json" />
-    <None Include="data\fixtures\serialization\PDFDocument\v80-record-0001.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QiqqaTestHelpers\QiqqaTestHelpers.csproj">
       <Project>{5ad02ba6-4bc7-4265-81cd-ea39f67311ee}</Project>
       <Name>QiqqaTestHelpers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Qiqqa\Qiqqa.csproj">
-      <Project>{b837c549-3cc9-4855-b698-b7e816c6652b}</Project>
-      <Name>Qiqqa</Name>
     </ProjectReference>
     <ProjectReference Include="..\Utilities\Utilities.csproj">
       <Project>{b0289358-e81c-4094-9db1-f520f24d339b}</Project>
@@ -769,6 +756,9 @@
     <Content Include="data\fixtures\pubmed\publisherhelp.Example_of_a_Replaces_XML.xml" />
     <Content Include="data\fixtures\pubmed\publisherhelp.Example_of_a_Standard_XML.xml" />
     <Content Include="data\fixtures\RIS\developer.easybib.com__ris-import__sample.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="data\fixtures\serialization\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

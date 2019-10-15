@@ -230,7 +230,7 @@ namespace Utilities.BibTex
 
 #region --- Test ------------------------------------------------------------------------
 
-namespace QiqqaSystemTester
+namespace QiqqaUnitTester
 {
     // Note https://stackoverflow.com/questions/10375090/accessing-protected-members-of-another-class
 
@@ -265,8 +265,7 @@ namespace QiqqaSystemTester
             string json_out = JsonConvert.SerializeObject(rv, Newtonsoft.Json.Formatting.Indented).Replace("\r\n", "\n");
             //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
             ApprovalTests.Approvals.Verify(
-                new DataTestApprovalTextWriter(json_out, pubmed_filepath),
-                new DataTestLocationNamer(pubmed_filepath) /* GetDefaultNamer() */,
+                new QiqqaApprover(json_out, pubmed_filepath),
                 ApprovalTests.Approvals.GetReporter()
             );
         }

@@ -59,8 +59,7 @@ namespace QiqqaSystemTester
             string path = GetNormalizedPathToSerializationTestFile("PDFDocument/SerializeBasicLibrary/Manual-Doc-02-serialized.json");
             //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
             ApprovalTests.Approvals.Verify(
-                new DataTestApprovalTextWriter(json_out, path),
-                new DataTestLocationNamer(path) /* GetDefaultNamer() */,
+                new QiqqaApprover(json_out, path),
                 ApprovalTests.Approvals.GetReporter()
             );
 

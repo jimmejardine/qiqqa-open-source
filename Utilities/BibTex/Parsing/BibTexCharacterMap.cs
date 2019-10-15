@@ -170,7 +170,7 @@ namespace Utilities.BibTex.Parsing
 
 #region --- Test ------------------------------------------------------------------------
 
-namespace QiqqaSystemTester
+namespace QiqqaUnitTester
 {
     [TestClass]
     public class BibTexCharacterMapTester
