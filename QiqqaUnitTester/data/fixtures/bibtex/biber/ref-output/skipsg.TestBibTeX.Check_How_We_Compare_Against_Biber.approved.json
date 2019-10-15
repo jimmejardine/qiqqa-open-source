@@ -1,0 +1,43 @@
+﻿{
+  "Items": [
+    {
+      "Type": "BOOK",
+      "Key": "S1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "options": "dataonly=false",
+        "author": "John Doe and Albert Abrahams",
+        "title": "Title 1",
+        "publisher": "Oxford",
+        "year": "1995"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "S2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "options": "skiplab=false, skipbib=false",
+        "author": "John Doe and Albert Abrahams",
+        "title": "Title 2",
+        "publisher": "Oxford",
+        "year": "1995"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "S3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Doe and Albert Abrahams",
+        "title": "Title 3",
+        "publisher": "Oxford",
+        "year": "1995"
+      }
+    }
+  ],
+  "Comments": []
+}

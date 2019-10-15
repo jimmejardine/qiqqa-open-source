@@ -1,0 +1,49 @@
+﻿{
+  "Items": [
+    {
+      "Type": "ARTICLE",
+      "Key": "test1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Arthur Smith and James Jones and Bill Smiley and Jake Wrath",
+        "journaltitle": "A Journal",
+        "year": "2010"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "test2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Philippa Smyth and Arthur Smith and Bill Likely",
+        "journaltitle": "Another Journal",
+        "year": "2011"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "test3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Arthur Smith",
+        "journaltitle": "The Best Journal",
+        "year": "2013"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "test4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Philippa Smyth and Arthur Smith and James Jones",
+        "journaltitle": "Again Another Journal",
+        "year": "2014"
+      }
+    }
+  ],
+  "Comments": []
+}

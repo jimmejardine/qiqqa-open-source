@@ -1,0 +1,91 @@
+﻿{
+  "Items": [
+    {
+      "Type": "BOOK",
+      "Key": "L1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Title 1",
+        "year": "1995",
+        "publisher": "puba"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Title 1",
+        "year": "1995",
+        "publisher": "pubb"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Jim Smith",
+        "year": "1995"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Title 1",
+        "year": "1996"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L5",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "shorttitle": "Title A",
+        "title": "Title 1",
+        "year": "1995"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "LY1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Arthur Example",
+        "date": "2006/2009",
+        "title": "Some title"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "LY2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Arthur Example",
+        "date": "2006",
+        "title": "Some title"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "LY3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Arthur Example",
+        "date": "2006/",
+        "title": "Some title"
+      }
+    }
+  ],
+  "Comments": []
+}

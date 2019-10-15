@@ -1,0 +1,19 @@
+﻿{
+  "Items": [
+    {
+      "Type": "book",
+      "Key": "bohm_introduction_2010",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Introduction to Statistics and Data Analysis for Physicists",
+        "publisher": "Deutsches Elektronen-Synchrotron",
+        "author": "Bohm, Gerhard and Zech, Günter",
+        "year": "2010"
+      }
+    }
+  ],
+  "Comments": [
+    "% accented letter without curly braces = b0rk?"
+  ]
+}

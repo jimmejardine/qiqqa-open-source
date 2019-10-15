@@ -1,0 +1,16 @@
+﻿{
+  "Items": [
+    {
+      "Type": "BOOK",
+      "Key": "test",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\no open in the right encoding  @BOOK{test�,    YEAR = {1999},    AUTHOR = {Edward\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    }
+  ],
+  "Comments": [
+    "% -*- coding: latin-9-unix -*-\r\n% This is a latin9 encoded file (Notice the \"LATIN CAPITAL LETTER S WITH CARON\").\r\n% The top line is a hint to Emacs to open in the right encoding"
+  ]
+}

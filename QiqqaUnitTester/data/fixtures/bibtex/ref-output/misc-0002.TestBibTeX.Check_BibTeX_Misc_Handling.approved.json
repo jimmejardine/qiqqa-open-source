@@ -1,0 +1,21 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "singirikonda2018efficient",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "An Efficient Hybrid DC to DC Boost Converter with Bi-Polar Symmetrical Voltage Multiplier for Renewable Applications",
+        "author": "Singirikonda, Srinivas and Neelima, N",
+        "year": "2018",
+        "journal": "London Journal of Engineering Research",
+        "volume": "18",
+        "issue": "1"
+      }
+    }
+  ],
+  "Comments": [
+    "% multiple properties on a single line"
+  ]
+}

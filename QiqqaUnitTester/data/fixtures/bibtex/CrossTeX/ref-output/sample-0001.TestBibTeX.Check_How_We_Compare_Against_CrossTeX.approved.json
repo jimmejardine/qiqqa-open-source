@@ -1,0 +1,48 @@
+﻿{
+  "Items": [
+    {
+      "Type": "month",
+      "Key": "sep",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "name": "September"
+      }
+    },
+    {
+      "Type": "location",
+      "Key": "rio",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "name": "Rio de Janeiro, Brazil"
+      }
+    },
+    {
+      "Type": "author",
+      "Key": "egs",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "name": "Emin Gün Sirer"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "mypaper",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "egs",
+        "title": "This is My Paper",
+        "journal": "Journal of Improbable Results",
+        "address": "rio",
+        "year": "2018",
+        "month": "sep"
+      }
+    }
+  ],
+  "Comments": [
+    "% CrossTeX sample"
+  ]
+}

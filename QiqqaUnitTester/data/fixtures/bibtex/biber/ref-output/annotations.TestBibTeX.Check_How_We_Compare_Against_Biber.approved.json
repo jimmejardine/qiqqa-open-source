@@ -1,0 +1,48 @@
+﻿{
+  "Items": [
+    {
+      "Type": "MISC",
+      "Key": "ann1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Last1, First1 and Last2, First2 and Last3, First3",
+        "author-an": "1:family=student;2=corresponding",
+        "title": "The Title",
+        "title-an": "=one, two",
+        "language": "english and french",
+        "language-an": "1=ann1; 2=ann2, ann3; =ann4"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "ann2",
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\n    TITLE     = {The Title},    TITLE-an:default  = {=\"one\"},    TITLE-an:french\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n    TITLE     = {The Title},    TITLE-an:default  = {=\"one\"},    TITLE-an:french\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n    = {The Title},    TITLE-an:default  = {=\"one\"},    TITLE-an:french  = {=\"un\"\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n  = {The Title},    TITLE-an:default  = {=\"one\"},    TITLE-an:french  = {=\"un\"},\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nITLE-an:default  = {=\"one\"},    TITLE-an:french  = {=\"un\"},    LANGUAGE  = {engl\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nITLE-an:default  = {=\"one\"},    TITLE-an:french  = {=\"un\"},    LANGUAGE  = {engl\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nefault  = {=\"one\"},    TITLE-an:french  = {=\"un\"},    LANGUAGE  = {english and f\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nault  = {=\"one\"},    TITLE-an:french  = {=\"un\"},    LANGUAGE  = {english and fre\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n1=ann1; 2=\"ann2\"; =ann4},    LANGUAGE-an:alt  = {1=annx; 2=\"anny\"; =annz}  }  \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n1=ann1; 2=\"ann2\"; =ann4},    LANGUAGE-an:alt  = {1=annx; 2=\"anny\"; =annz}  }  \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n; 2=\"ann2\"; =ann4},    LANGUAGE-an:alt  = {1=annx; 2=\"anny\"; =annz}  }  \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n2=\"ann2\"; =ann4},    LANGUAGE-an:alt  = {1=annx; 2=\"anny\"; =annz}  }  \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n    LANGUAGE-an:alt  = {1=annx; 2=\"anny\"; =annz}  }  \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n  LANGUAGE-an:alt  = {1=annx; 2=\"anny\"; =annz}  }  \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {
+        "author": "Last1, First1 and Last2, First2 and Last3, First3",
+        "author-an": "1:family=\"student\";2=corresponding",
+        "title": "The Title",
+        "language": "english and french",
+        "language-an": "1=ann1; 2=\"ann2\"; =ann4",
+        "2": "anny"
+      }
+    }
+  ],
+  "Comments": []
+}

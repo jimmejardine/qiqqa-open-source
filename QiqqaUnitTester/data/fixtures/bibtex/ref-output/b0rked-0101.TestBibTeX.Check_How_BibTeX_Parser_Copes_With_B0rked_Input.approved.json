@@ -1,0 +1,28 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "pmid:28129109",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Motor-Coordinative and Cognitive Dysfunction Caused by Mutant TDP-43 Could Be Reversed by Inhibiting Its Mitochondrial Localization.",
+        "author": "Wang, Wenzhang and Arakawa, Hiroyuki and Wang, Luwen and Okolo, Ogoegbunam and Siedlak, Sandra L and Jiang, Yinfei and Gao, Ju and Xie, Fei and Petersen, Robert B and Wang, Xinglong",
+        "journal": "Molecular therapy : the journal of the American Society of Gene Therapy",
+        "journal-iso": "Mol. Ther.",
+        "volume": "25",
+        "number": "1",
+        "year": "2017",
+        "month": "01",
+        "pages": "127--139",
+        "doi": "10.1016/j.ymthe.2016.10.013",
+        "pmid": "28129109",
+        "abstract": "Dominant missense mutations in TAR DNA-binding protein 43 (TDP-43) cause amyotrophic lateral sclerosis (ALS), and the cytoplasmic accumulation of TDP-43 represents a pathological hallmark in ALS and frontotemporal lobar degeneration (FTD). Behavioral investigation of the transgenic mouse model expressing the disease-causing human TDP-43 M337V mutant (TDP-43M337V mice) is encumbered by premature death in homozygous transgenic mice and a reported lack of phenotype assessed by tail elevation and footprint in hemizygous transgenic mice. Here, using a battery of motor-coordinative and cognitive tests, we report robust motor-coordinative and cognitive deficits in hemizygous TDP-43M337V mice by 8 months of age. After 12 months of age, cortical neurons are significantly affected by the mild expression of mutant TDP-43, characterized by cytoplasmic TDP-43 mislocalization, mitochondrial dysfunction, and neuronal loss. Compared with age-matched non-transgenic mice, TDP-43M337V mice demonstrate a similar expression of total TDP-43 but higher levels of TDP-43 in mitochondria. Interestingly, a TDP-43 mitochondrial localization inhibitory peptide abolishes cytoplasmic TDP-43 accumulation, restores mitochondrial function, prevents neuronal loss, and alleviates motor-coordinative and cognitive deficits in adult hemizygous TDP-43M337V mice. Thus, this study suggests hemizygous TDP-43M337V mice as a useful animal model to study TDP-43 toxicity and further consolidates mitochondrial TDP-43 as a novel therapeutic target for TDP-43-linked neurodegenerative diseases.Published by Elsevier Inc."
+      }
+    }
+  ],
+  "Comments": [
+    "{ BIBTEX_AUTO - GS ",
+    "}"
+  ]
+}

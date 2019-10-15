@@ -1,0 +1,345 @@
+﻿{
+  "Items": [
+    {
+      "Type": "ARTICLE",
+      "Key": "un1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John AAA",
+        "year": "1994"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "un1a",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John AAA",
+        "year": "1999"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "un2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "J. AAA",
+        "year": "1999"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "un3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "uniquename=false and K. AAA",
+        "year": "1939"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "un4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Edward AAA",
+        "year": "1934"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "un4a",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "options": "uniquename=false",
+        "author": "Edward AAA",
+        "year": "1934"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "un5",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Jane AAA",
+        "year": "1983"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "un6",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John AAA and Mike BBB",
+        "year": "1921"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "un7",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "shortauthor": "Chaps",
+        "author": "John AAA and Mike BBB",
+        "year": "1921"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "test1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Paul Smith and Brian Jones and Peter Brown",
+        "year": "1900"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "test2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "uniquename=false, given=Henry, family=Jones",
+        "year": "1903"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "test3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Blether and John Doe",
+        "date": "2011"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "test4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Blether and Jane Doe",
+        "date": "2011"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "test5",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Blether and Edward Doe",
+        "date": "2011"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "unt1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Jeremy Alton and Alan Rattle",
+        "title": "Title",
+        "date": "2011"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "unt2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Jeremy Alton and Andrew Rattle",
+        "title": "Title",
+        "date": "2011"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "unt3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Jeremy Alton and Edward Rattle",
+        "title": "Title",
+        "date": "2011"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "unt4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Meredith Williams",
+        "title": "Title",
+        "date": "2011"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "unt5",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Michael Williams",
+        "title": "Title",
+        "date": "2011"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "untf1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Simon Monocle and Walter Ripple",
+        "title": "Title",
+        "date": "2011"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "untf2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Simon Monocle and Walter Ripple",
+        "title": "Title",
+        "date": "2011"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "untf3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Simon Monocle and William Ripple",
+        "title": "Title",
+        "date": "2011"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "sp1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Greaves, Jr., Percy L.",
+        "title": "Title",
+        "date": "2011"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "sp2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Greaves, Jr., Percy L.",
+        "title": "Title2",
+        "date": "2012"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "sp3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "von Greaves, Jr., Percy L.",
+        "title": "Title1",
+        "date": "2012"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "sp4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "von Greaves, Jr., Percy L.",
+        "title": "Title2",
+        "date": "2012"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "sp5",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "options": "useprefix=false",
+        "author": "von Greaves, Jr., Percy L.",
+        "title": "Title2",
+        "date": "2012"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "sp6",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "von Mises, Jr., Percy L.",
+        "title": "Title1",
+        "date": "2010"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "sp7",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "von Mises, Jr., Paul L.",
+        "title": "Title1",
+        "date": "2010"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "sp8",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Ralley, Percy L.",
+        "title": "Title1",
+        "date": "2010"
+      }
+    },
+    {
+      "Type": "MISC",
+      "Key": "sp9",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Ralley, Jr., Percy L.",
+        "title": "Title1",
+        "date": "2010"
+      }
+    }
+  ],
+  "Comments": [
+    "% Always good to have a repeated labelname entry as this is often an edge case",
+    "% Per-namelist uniquename",
+    "% uniquelist not set because it's not ambiguous with un1 with max/minnames=1 because\r\n% un1 is \"AAA\" and un6 is \"AAA et al\".",
+    "% test2 should have un=0 because minnames makes Brian Jones invisible",
+    "% Per-name uniquename",
+    "% Testing repeated entries for un=1",
+    "% Testing repeated entries for un=2",
+    "% Testing prefices/suffices",
+    "% This counts as the same as sp1 and sp2 because of the useprefix=false"
+  ]
+}

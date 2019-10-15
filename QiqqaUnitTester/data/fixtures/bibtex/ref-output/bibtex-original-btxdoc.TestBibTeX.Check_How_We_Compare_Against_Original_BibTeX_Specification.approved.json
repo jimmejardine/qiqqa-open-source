@@ -1,0 +1,127 @@
+﻿{
+  "Items": [
+    {
+      "Type": "FAKE-ENTRY",
+      "Key": "fake-database-key",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "never-to-be-used-field": "Even if this were a real entry,\r\n                I could still have a comment inside an entry\r\n                by making up a fake field"
+      }
+    },
+    {
+      "Type": "string",
+      "Key": "SCRIBE-NOTE",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\neld\"          }    @string (SCRIBE-NOTE = {Chapter twelve and appendices E8 thro\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "MISC",
+      "Key": "prime-number-theorem",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Charles Louis Xavier Joseph de la Vallée Poussin",
+        "note": "A strong form of the prime number theorem, 19th century"
+      }
+    },
+    {
+      "Type": "INBOOK",
+      "Key": "chicago",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "The Chicago Manual of Style",
+        "publisher": "University of Chicago Press",
+        "edition": "Thirteenth",
+        "year": "1982",
+        "pages": "400--401",
+        "key": "Chicago"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "texbook",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Donald E. Knuth",
+        "title": "The \\TeXbook",
+        "publisher": "Addison-Wesley",
+        "year": "1984"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "latex",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Leslie Lamport",
+        "title": "\\LaTeX \\rm: A Document Preparation System",
+        "publisher": "Addison-Wesley",
+        "year": "1986"
+      }
+    },
+    {
+      "Type": "UNPUBLISHED",
+      "Key": "btxdoc",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Oren Patashnik",
+        "title": "\\BibTeX ing",
+        "note": "Documentation for general \\BibTeX users",
+        "month": "8~feb",
+        "year": "1988"
+      }
+    },
+    {
+      "Type": "UNPUBLISHED",
+      "Key": "btxhak",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Oren Patashnik",
+        "title": "Designing \\BibTeX Styles",
+        "note": "The part of \\BibTeX's documentation\r\n                                        that's not meant for general users",
+        "month": "8~feb",
+        "year": "1988"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "strunk-and-white",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Strunk, Jr., William and E. B. White",
+        "title": "The Elements of Style",
+        "publisher": "Macmillan",
+        "edition": "Third",
+        "year": "1979"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "van-leunen",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "A Handbook for Scholars",
+        "author": "Mary-Claire van Leunen",
+        "publisher": "Knopf",
+        "year": "1979"
+      }
+    }
+  ],
+  "Comments": [
+    "% Copyright (C) 1988, 2010 Oren Patashnik.\r\n% Unlimited copying and redistribution of this file are permitted if it\r\n% is unmodified.  Modifications (and their redistribution) are also\r\n% permitted, as long as the resulting file is renamed.",
+    "(You may put a comment in a `comment' command,\r\n        the way you would with SCRIBE.",
+    ")\r\n\r\nOr you may dispense with the command and simply give the comment,\r\nas long as it's not within an entry.\r\n\r\nIf you really want to put a comment inside an entry, simply\r\nmake up a never-to-be-used field.",
+    "= {Chapter twelve and appendices E8 through E10 deal\r\n                        with bibliographies})\r\n\r\nThe next entry shows some of the syntactically legal things that\r\nthose with the inclination may use.@\r\n\r\nMaNuAl  (scribe,\r\n        TITLE=\"Scribe Document Production System\r\n\r\n\r\n                                                        User Manual\",\r\n        ORGANIZATION =  {Unilogic,}#\" Ltd\"# {.\r\n                        },\r\n        ADDRESS = \"Pittsburgh\",\r\n                                                MONTH\r\n=aPR\r\n        ,YEAR=1984,\r\n        note = scribe-note,\r\n)                               May the inclination not be with you."
+  ]
+}

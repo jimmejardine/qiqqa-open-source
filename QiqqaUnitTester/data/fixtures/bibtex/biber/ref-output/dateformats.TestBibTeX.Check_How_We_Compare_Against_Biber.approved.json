@@ -1,0 +1,439 @@
+﻿{
+  "Items": [
+    {
+      "Type": "ARTICLE",
+      "Key": "L1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Doe",
+        "journaltitle": "Journal",
+        "title": "Title 1",
+        "year": "1995--1996",
+        "month": "14",
+        "origdate": "1985-1030",
+        "urldate": "1.5.1998"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Doe",
+        "title": "Title 2",
+        "publisher": "Oxford",
+        "origdate": "1995-1230",
+        "year": "1991"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Doe",
+        "title": "Title 3",
+        "publisher": "Oxford",
+        "url": "http://a/b/c",
+        "urldate": "1.5.1988",
+        "year": "1854"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Doe and Albert Abrahams",
+        "title": "Title 1",
+        "publisher": "Oxford",
+        "date": "1995-1-04"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L5",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Doe and Albert Abrahams",
+        "title": "Title 2",
+        "publisher": "Oxford",
+        "date": "1995-10-4"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L6",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Doe and Albert Abrahams",
+        "title": "Title 1",
+        "publisher": "Oxford",
+        "date": "1996-13-03"
+      }
+    },
+    {
+      "Type": "PROCEEDINGS",
+      "Key": "L7",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "editor": "John Doe and Albert Abrahams",
+        "title": "Title 2",
+        "publisher": "Oxford",
+        "eventdate": "1996-10-35",
+        "year": "1934"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "L8",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Bill Shakespeare",
+        "journaltitle": "Journal",
+        "title": "Works",
+        "year": "1985a",
+        "month": "january"
+      }
+    },
+    {
+      "Type": "PROCEEDINGS",
+      "Key": "L9",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "editor": "John Doe and Albert Abrahams",
+        "title": "Title 2",
+        "publisher": "Oxford",
+        "eventdate": "1996-12-31",
+        "year": "1234"
+      }
+    },
+    {
+      "Type": "PROCEEDINGS",
+      "Key": "L10",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "editor": "John Doe and Albert Abrahams",
+        "title": "Title 2",
+        "publisher": "Oxford",
+        "eventdate": "1996-01-01",
+        "year": "1239"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L11",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Doe and Albert Abrahams",
+        "title": "Title 2",
+        "publisher": "Oxford",
+        "date": "1996-01-01",
+        "year": "1998"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "L12",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Doe and Albert Abrahams",
+        "journaltitle": "Journal",
+        "title": "Title 2",
+        "date": "1996-01-01",
+        "month": "02"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L13",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Doe and Albert Abrahams",
+        "title": "Title 2",
+        "publisher": "Oxford",
+        "date": "1996-01-01/.."
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L14",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Doe and Albert Abrahams",
+        "title": "Title 2",
+        "publisher": "Oxford",
+        "date": "1996-12-10/1996-12-12"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L15",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Doe and Albert Abrahams",
+        "title": "Title 2",
+        "publisher": "Oxford"
+      }
+    },
+    {
+      "Type": "PROCEEDINGS",
+      "Key": "L16",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "editor": "John Doe and Albert Abrahams",
+        "title": "Title 2",
+        "publisher": "Oxford",
+        "eventdate": "1996-01-01"
+      }
+    },
+    {
+      "Type": "PROCEEDINGS",
+      "Key": "L17",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "pubstate": "inpress",
+        "editor": "John Doe and Albert Abrahams",
+        "title": "Title 2",
+        "publisher": "Oxford",
+        "date": "1996-12-10/1996-12-12",
+        "origdate": "1998-12-10/1998-12-12",
+        "eventdate": "1998-12-10/2004-12-12"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "era1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Alan Smith",
+        "journaltitle": "Journal Title",
+        "title": "Title",
+        "date": "-0379-02",
+        "origdate": "-0221/-0219"
+      }
+    },
+    {
+      "Type": "INPROCEEDINGS",
+      "Key": "era2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Alan Smith",
+        "booktitle": "Book Title",
+        "title": "Title",
+        "date": "-0197",
+        "eventdate": "-0249",
+        "origdate": "-0049/-0044"
+      }
+    },
+    {
+      "Type": "INPROCEEDINGS",
+      "Key": "era3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Alan Smith",
+        "booktitle": "Book Title",
+        "title": "Title",
+        "date": "-0196-02",
+        "eventdate": "0250-03-02"
+      }
+    },
+    {
+      "Type": "INPROCEEDINGS",
+      "Key": "era4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Alan Smith",
+        "booktitle": "Book Title",
+        "title": "Title",
+        "date": "1034~",
+        "eventdate": "1565?",
+        "urldate": "1487~/1490",
+        "origdate": "1487/1488~"
+      }
+    },
+    {
+      "Type": "INPROCEEDINGS",
+      "Key": "range1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Alan Smith",
+        "booktitle": "Book Title",
+        "title": "Title",
+        "date": "1034/",
+        "eventdate": "1565/..",
+        "origdate": "2000/..",
+        "urldate": "/1034"
+      }
+    },
+    {
+      "Type": "INPROCEEDINGS",
+      "Key": "range2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Alan Smith",
+        "booktitle": "Book Title",
+        "title": "Title",
+        "date": "1034/",
+        "eventdate": "../1565",
+        "origdate": "../2000",
+        "urldate": "/1034"
+      }
+    },
+    {
+      "Type": "INPROCEEDINGS",
+      "Key": "season1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Alan Smith",
+        "booktitle": "Book Title",
+        "title": "Title",
+        "date": "2003-21",
+        "eventdate": "2002-23"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "time1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Alan Smith",
+        "journaltitle": "Journal Title",
+        "title": "Title",
+        "date": "2001-01-03T15:00:00",
+        "origdate": "2001-01-03T17:07:34Z",
+        "urldate": "2001-01-03T17:07:34+05:00"
+      }
+    },
+    {
+      "Type": "INPROCEEDINGS",
+      "Key": "unspec1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Alan Smith",
+        "booktitle": "Book Title",
+        "title": "Title",
+        "date": "199X",
+        "eventdate": "19XX",
+        "origdate": "1999-XX",
+        "urldate": "1999-01-XX"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "unspec2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Alan Smith",
+        "journaltitle": "Journal Title",
+        "title": "Title",
+        "date": "1999-XX-XX"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "y1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Alan Smith",
+        "journaltitle": "Journal Title",
+        "title": "Title",
+        "date": "Y17000002"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "y2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Alan Smith",
+        "journaltitle": "Journal Title",
+        "title": "Title",
+        "date": "Y-17000002"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "y3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Alan Smith",
+        "journaltitle": "Journal Title",
+        "title": "Title",
+        "date": "Y1700"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "open1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Bert Brown",
+        "date": "/2004-01-01"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "open2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Bert Brown",
+        "date": "../2004-01-01"
+      }
+    }
+  ],
+  "Comments": [
+    "% WRONG - ORIGDATE is mistyped, URLDATE is just wrong\r\n% YEAR is messy and should be done by DATE but isn't wrong as such\r\n% Explicit MONTH is not checked",
+    "% WRONG - missing dash between month and day",
+    "% WRONG - completely wrong date range format",
+    "% WRONG - 1 digit month",
+    "% WRONG - 1 digit day",
+    "% WRONG - month out of bounds",
+    "% WRONG - day out of bounds",
+    "% WRONG - MONTH not integer",
+    "% OK",
+    "% OK",
+    "% WRONG - DATE and YEAR specified",
+    "% WRONG - DATE and MONTH specified",
+    "% OK - open-ended date",
+    "% OK - ENDYEAR same as YEAR, labelyear should only have YEAR",
+    "% OK - labelyear should be undef, no DATE or YEAR",
+    "% MISSING YEAR/DATE",
+    "% OK - YEAR same as ENDYEAR, labelyear should only have YEAR",
+    "% Testing extended dates",
+    "% EDTF 5.2.2 tests",
+    "% EDTF 5.2.4"
+  ]
+}

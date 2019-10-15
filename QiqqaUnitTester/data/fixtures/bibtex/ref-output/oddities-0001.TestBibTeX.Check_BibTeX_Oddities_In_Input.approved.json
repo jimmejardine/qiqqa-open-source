@@ -1,0 +1,19 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "QIQQA-WFZRK",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Boekbesprekingen |",
+        "title": "",
+        "year": "2008",
+        "publisher": ""
+      }
+    }
+  ],
+  "Comments": [
+    "% odd stuff as part of a title property or other"
+  ]
+}

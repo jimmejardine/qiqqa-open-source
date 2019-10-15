@@ -1,0 +1,152 @@
+﻿{
+  "Items": [
+    {
+      "Type": "ARTICLE",
+      "Key": "L1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Aaron Adamson",
+        "title": "Artificial Advice",
+        "publisher": "Aardvark Press",
+        "location": "Arlington",
+        "volume": "4",
+        "year": "1995"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "L1A",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Aaron Adamson",
+        "title": "Anarchic Ambidexstrous Anomalies",
+        "publisher": "Aardvark Press",
+        "location": "Arlington",
+        "volume": "40",
+        "year": "1995"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "L1B",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Aaron Adazki",
+        "title": "Average Attitudes Are Awful",
+        "publisher": "Aardvark Press",
+        "location": "Arlington",
+        "year": "1984"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "L2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Brian Britherthwaite",
+        "title": "Best Barnacled Boat Bottoms",
+        "publisher": "British Bulldog Press",
+        "location": "Bridlington",
+        "year": "2004"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "L3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Clive Clumberton",
+        "title": "Clumsy Cultural Caveats",
+        "subtitle": "Counter-cultural Concepts",
+        "publisher": "Clapp and Clopp Press",
+        "location": "Cambridge",
+        "year": "1914"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Derek Ditherington and David Dumpton",
+        "title": "Dangerous Dames",
+        "subtitle": "Don't Dally Dude!",
+        "publisher": "Dright and Drought Press",
+        "location": "Dunbar",
+        "year": "2003"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L5",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "sortkey": "aaaaaaa",
+        "author": "Edward E. Ethoxon",
+        "title": "Eating Evil Enemies",
+        "publisher": "Ethical Encouragement Press",
+        "location": "Edinburgh",
+        "year": "2007"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L6",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Richard F. Rank",
+        "title": "Ruminating on Rhubarb",
+        "publisher": "Red, Raw and Raucous",
+        "location": "edinburgh",
+        "year": "2011"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L7",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Peter Pettigrew",
+        "title": "The Pretending Peanuts Pout",
+        "publisher": "Nut Press",
+        "location": "Edinburgh",
+        "year": "2010"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L8",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Lawrence Langour",
+        "title": "Why Walnuts Won't",
+        "publisher": "Nut Press",
+        "location": "Edinburgh",
+        "year": "2009"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L9",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Steven Sensible",
+        "title": "Sorting Sucks Eggs",
+        "publisher": "Yolk Enterprises",
+        "location": "London"
+      }
+    }
+  ],
+  "Comments": []
+}

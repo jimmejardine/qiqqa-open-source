@@ -1,0 +1,19 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "korkmaz2015fuzzy",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Fuzzy logic based direct torque control of induction motor with space vector modulation",
+        "author": "Korkmaz, Fatih and Topalo\\uglu, \\.Ismail and Mamur, Hayati",
+        "journal": "arXiv preprint arXiv:1508.01345",
+        "year": "2015"
+      }
+    }
+  ],
+  "Comments": [
+    "% advanced escapes"
+  ]
+}

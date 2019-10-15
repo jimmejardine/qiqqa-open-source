@@ -1,0 +1,27 @@
+﻿{
+  "Items": [
+    {
+      "Type": "inproceedings",
+      "Key": "Mitchell96",
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\nn P.},    booktitle = PROC_SIGGRAPH93_01,    date = {1996-08},    editor = {Rush\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nn P.},    booktitle = PROC_SIGGRAPH93_01,    date = {1996-08},    editor = {Rush\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n, Holly},    organization = ACM_SIGGRAPH,    pages = {277-280},    publisher = A\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n, Holly},    organization = ACM_SIGGRAPH,    pages = {277-280},    publisher = A\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {
+        "author": "Mitchell, Don P.",
+        "booktitle": "PROC",
+        "date": "1996-08",
+        "editor": "Rushmeier, Holly",
+        "organization": "ACM",
+        "pages": "277-280",
+        "publisher": "AW",
+        "series": "ACS",
+        "title": "Consequences of Stratified Sampling in Graphics"
+      }
+    }
+  ],
+  "Comments": []
+}

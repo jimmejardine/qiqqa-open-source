@@ -1,0 +1,47 @@
+﻿{
+  "Items": [
+    {
+      "Type": "STRING",
+      "Key": "STRING1",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n @STRING{STRING1 = {value2}}    @BOOK{sect4,    SHORTHAND\r\n                 ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "BOOK",
+      "Key": "sect4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "shorthand": "DDDD",
+        "author": "Derek Ditherington and David Dumpton",
+        "title": "Dangerous Dames",
+        "subtitle": "Don't Dally Dude!",
+        "publisher": "Dright and Drought Press",
+        "location": "Dunbar",
+        "year": "2003",
+        "note": "STRING1"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "sect5",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "shorthand": "EE",
+        "sortkey": "aaaaaaa",
+        "author": "Edward E. Ethoxon",
+        "title": "Eating Evil Enemies",
+        "publisher": "Ethical Encouragement Press",
+        "location": "Edinburgh",
+        "year": "2007"
+      }
+    }
+  ],
+  "Comments": [
+    "= {value2}}"
+  ]
+}

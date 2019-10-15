@@ -1,0 +1,14 @@
+﻿{
+  "Items": [
+    {
+      "Type": "string",
+      "Key": "macro",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n @string(macro = \"macro  text \",          foo = {blah b\r\n               ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    }
+  ],
+  "Comments": []
+}

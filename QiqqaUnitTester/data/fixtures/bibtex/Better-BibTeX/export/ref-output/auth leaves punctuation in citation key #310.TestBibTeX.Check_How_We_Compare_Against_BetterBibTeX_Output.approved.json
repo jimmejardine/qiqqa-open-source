@@ -1,0 +1,16 @@
+﻿{
+  "Items": [
+    {
+      "Type": "book",
+      "Key": "Ohara2015",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "O'hara, james",
+        "date": "2015",
+        "title": "A Testbook"
+      }
+    }
+  ],
+  "Comments": []
+}

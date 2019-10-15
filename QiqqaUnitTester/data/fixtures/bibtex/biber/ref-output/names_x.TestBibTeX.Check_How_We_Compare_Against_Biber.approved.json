@@ -1,0 +1,257 @@
+﻿{
+  "Items": [
+    {
+      "Type": "BOOK",
+      "Key": "L1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Alfred Adler"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Bertie B. Bull"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "C. Z. Crop"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Derek D Decket"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L5",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Egbert von Eel"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L6",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Francis van der valt Frome"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L7",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Gregory R. van Gloom"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L8",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Henry F. van Henkel"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L9",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Ian Iliad Ipswich"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L10",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Jolly, III, James"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L10a",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Pimentel, Jr. ,Joseph J."
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L11",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "van Kluster, Jr., Kevin"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L12",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Charles Louis Xavier Joseph de la Vallée Poussin"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L13",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Van de Graaff, R. J."
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L14",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "St John-Mollusc, Oliver"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L15",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Roger P.\\,G. van Gompel"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L16",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Roger P.\\,G. van Gompel"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L17",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Lovecraft, Bill H.\\,P."
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L18",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Lovecraft, Bill H.\\,P."
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L19",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Mustermann, Klaus-Peter"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L19a",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Lam, Ho-Pun"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L20",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "John Henry Ford"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L21",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "\\v Someone Smith"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L22",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Someone \\v Smith"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L23",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Šomeone Smith"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L24",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Someone Šmith"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L25",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "American Psychological Association, Task Force on the Sexualization of Girls"
+      }
+    },
+    {
+      "Type": "BOOK",
+      "Key": "L26",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Sci-Art Publishers"
+      }
+    }
+  ],
+  "Comments": []
+}

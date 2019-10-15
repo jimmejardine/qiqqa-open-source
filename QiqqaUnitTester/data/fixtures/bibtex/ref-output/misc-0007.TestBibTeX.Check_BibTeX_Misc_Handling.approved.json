@@ -1,0 +1,25 @@
+﻿{
+  "Items": [
+    {
+      "Type": "book",
+      "Key": "vangogh",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "\\noopsortgoghvan Gogh, Vincent",
+        "note": "[van Gogh][Vincent]"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "humboldt",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "\\noopsorthumboldtvon Humboldt, Alexander",
+        "note": "[Humboldt][Alexander von]"
+      }
+    }
+  ],
+  "Comments": []
+}

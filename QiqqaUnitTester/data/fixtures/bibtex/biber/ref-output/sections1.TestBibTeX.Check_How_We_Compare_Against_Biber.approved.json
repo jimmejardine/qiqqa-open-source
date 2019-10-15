@@ -1,0 +1,82 @@
+﻿{
+  "Items": [
+    {
+      "Type": "PREAMBLE",
+      "Key": "",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n @PREAMBLE{\"Štring for Preamble 1\"}    @STRING{STRI\r\n           ^"
+      ],
+      "Warnings": [
+        "There is no key in this BibTeX reference"
+      ],
+      "Fields": {}
+    },
+    {
+      "Type": "STRING",
+      "Key": "STRING1",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\ning for Preamble 1\"}    @STRING{STRING1 = {value1}}    @ARTICLE{sect1,    SHORTH\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "sect1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "shorthand": "AA",
+        "author": "Aaron Adamson",
+        "title": "Artificial Advice",
+        "publisher": "Aardvark Press",
+        "location": "Arlington",
+        "volume": "4",
+        "year": "1995",
+        "note": "STRING1"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "sect2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "shorthand": "BB",
+        "author": "Brian Britherthwaite",
+        "title": "Best Barnacled Boat Bottoms",
+        "publisher": "British Bulldog Press",
+        "location": "Bridlington",
+        "year": "2004"
+      }
+    },
+    {
+      "Type": "ARTICLE",
+      "Key": "sectall1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Alan All",
+        "title": "Alternative Alternations",
+        "publisher": "Average Aunt Press",
+        "location": "Allertron",
+        "year": "2004"
+      }
+    },
+    {
+      "Type": "PREAMBLE",
+      "Key": "",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n            = {2004},  }      @PREAMBLE{\"String for Preamble 2\"}\r\n                                        ^"
+      ],
+      "Warnings": [
+        "There is no key in this BibTeX reference"
+      ],
+      "Fields": {}
+    }
+  ],
+  "Comments": [
+    "\"Štring for Preamble 1\"}",
+    "= {value1}}"
+  ]
+}

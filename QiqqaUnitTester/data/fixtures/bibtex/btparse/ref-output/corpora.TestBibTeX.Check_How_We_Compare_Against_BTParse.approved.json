@@ -1,0 +1,379 @@
+﻿{
+  "Items": [
+    {
+      "Type": "Article",
+      "Key": "linguamatica:6:2:Laboreiroetal",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Gustavo Laboreiro and Eugénio Oliveira",
+        "title": "Avaliação de métodos de desofuscação de palavrões",
+        "journal": "Linguamática",
+        "year": "2014",
+        "volume": "6",
+        "number": "2",
+        "pages": "25--43",
+        "month": "Dezembro",
+        "editor": "Alberto Simões and José João Almeida and Xavier Gómez Guinovart"
+      }
+    },
+    {
+      "Type": "Article",
+      "Key": "Arbelatz13",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "An extensive comparative study of cluster validity indicess",
+        "author": "Arbelaitz, Olatz and Gurrutxaga, Ibai and Muguerza, Javier and Pérez, Jesús M and Perona, Iñigo",
+        "journal": "Pattern Recognition",
+        "year": "2013",
+        "number": "1",
+        "pages": "243--256",
+        "volume": "46",
+        "publisher": "Elsevier"
+      }
+    },
+    {
+      "Type": "InProceedings",
+      "Key": "ester1996density",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "A density-based algorithm for discovering clusters in large spatial databases with noise",
+        "author": "Ester, Martin and Kriegel, Hans-Peter and Sander, Jörg and Xu, Xiaowei",
+        "booktitle": "Proceedings of Knowledge Discovery and Data Mining",
+        "year": "1996",
+        "number": "34",
+        "pages": "226--231",
+        "volume": "96"
+      }
+    },
+    {
+      "Type": "Article",
+      "Key": "frey2007clustering",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Clustering by passing messages between data points",
+        "author": "Frey, Brendan J and Dueck, Delbert",
+        "journal": "Science",
+        "year": "2007",
+        "number": "5814",
+        "pages": "972--976",
+        "volume": "315",
+        "publisher": "American Association for the Advancement of Science"
+      }
+    },
+    {
+      "Type": "Article",
+      "Key": "fukunaga1975estimation",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "The estimation of the gradient of a density function, with applications in pattern recognition",
+        "author": "Fukunaga, Keinosuke and Hostetler, Larry D",
+        "journal": "IEEE Transactions on Information Theory",
+        "year": "1975",
+        "number": "1",
+        "pages": "32--40",
+        "volume": "21",
+        "publisher": "IEEE"
+      }
+    },
+    {
+      "Type": "Article",
+      "Key": "grvcar2012methodology",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "A methodology for mining document-enriched heterogeneous information networks",
+        "author": "Gr\\vcar, Miha and Trdin, Nejc and Lavra\\vc, Nada",
+        "journal": "The Computer Journal",
+        "year": "2012",
+        "publisher": "Br Computer Soc"
+      }
+    },
+    {
+      "Type": "Article",
+      "Key": "hartigan1979algorithm",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Algorithm AS 136: A k-means clustering algorithm",
+        "author": "Hartigan, John A and Wong, Manchek A",
+        "journal": "Applied Statistics",
+        "year": "1979",
+        "pages": "100--108",
+        "publisher": "JSTOR"
+      }
+    },
+    {
+      "Type": "InProceedings",
+      "Key": "huynh2012scientific",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Scientific publication recommendations based on collaborative citation networks",
+        "author": "Huynh, Tin and Hoang, Kiem and Do, Loc and Tran, Huong and Luong, Hiep and Gauch, Susan",
+        "booktitle": "International Conference on Collaboration Technologies and Systems (CTS)",
+        "year": "2012",
+        "organization": "IEEE",
+        "pages": "316--321"
+      }
+    },
+    {
+      "Type": "Article",
+      "Key": "johnson1967hierarchical",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Hierarchical clustering schemes",
+        "author": "Johnson, Stephen C",
+        "journal": "Psychometrika",
+        "year": "1967",
+        "number": "3",
+        "pages": "241--254",
+        "volume": "32",
+        "publisher": "Springer"
+      }
+    },
+    {
+      "Type": "InCollection",
+      "Key": "liang2011finding",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Finding relevant papers based on citation relations",
+        "author": "Liang, Yicong and Li, Qing and Qian, Tieyun",
+        "booktitle": "Web-age Information Management",
+        "publisher": "Springer",
+        "year": "2011",
+        "pages": "403--414"
+      }
+    },
+    {
+      "Type": "TechReport",
+      "Key": "ilprints422",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "The PageRank Citation Ranking: Bringing Order to the Web.",
+        "author": "Lawrence Page and Sergey Brin and Rajeev Motwani and Terry Winograd",
+        "institution": "Stanford InfoLab",
+        "year": "1999",
+        "address": "Stanford, CA",
+        "month": "November",
+        "number": "1999-66",
+        "publisher": "Stanford InfoLab"
+      }
+    },
+    {
+      "Type": "Article",
+      "Key": "pedregosa2011scikit",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Scikit-learn: Machine learning in Python",
+        "author": "Fabian Pedregosa and Gaël Varoquaux and Alexandre Gramfort and Vincent Michel and Bertrand Thirion and Olivier Grisel and Mathieu Blondel and Peter Prettenhofer and Ron Weiss and Vincent Dubourg and Jake Vanderplas and Alexandre Passos and David Cournapeau and Matthieu Brucher and Matthieu Perrot and Édouard Duchesnay",
+        "journal": "The Journal of Machine Learning Research",
+        "year": "2011",
+        "pages": "2825--2830",
+        "volume": "12",
+        "publisher": "JMLR. org"
+      }
+    },
+    {
+      "Type": "InProceedings",
+      "Key": "pham2012enhancing",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Enhancing academic event participation with context-aware and social recommendations",
+        "author": "Pham, Manh Cuong and Kovachev, Dejan and Cao, Yiwei and Mbogos, Ghislain Manib and Klamma, Ralf",
+        "booktitle": "Proceedings of IEEE/ACM International Conference on Advances in Social Networks Analysis and Mining (ASONAM)",
+        "year": "2012",
+        "organization": "IEEE",
+        "pages": "464--471"
+      }
+    },
+    {
+      "Type": "Article",
+      "Key": "rousseeuw1987silhouettes",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Silhouettes: a graphical aid to the interpretation and validation of cluster analysis",
+        "author": "Rousseeuw, Peter J",
+        "journal": "Journal of Computational and Applied Mathematics",
+        "year": "1987",
+        "pages": "53--65",
+        "volume": "20",
+        "publisher": "Elsevier"
+      }
+    },
+    {
+      "Type": "Article",
+      "Key": "salton1975vector",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "A vector space model for automatic indexing",
+        "author": "Salton, Gerard and Wong, Anita and Yang, Chung-Shu",
+        "journal": "Communications of the ACM",
+        "year": "1975",
+        "number": "11",
+        "pages": "613--620",
+        "volume": "18",
+        "publisher": "ACM"
+      }
+    },
+    {
+      "Type": "InProceedings",
+      "Key": "sculley2010web",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Web-scale k-means clustering",
+        "author": "Sculley, David",
+        "booktitle": "Proceedings of the 19th International Conference on World Wide Web",
+        "year": "2010",
+        "organization": "ACM",
+        "pages": "1177--1178"
+      }
+    },
+    {
+      "Type": "Article",
+      "Key": "van2008visualizing",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Visualizing data using t-SNE",
+        "author": "Van der Maaten, Laurens and Hinton, Geoffrey",
+        "journal": "Journal of Machine Learning Research",
+        "year": "2008",
+        "number": "2579-2605",
+        "pages": "85",
+        "volume": "9"
+      }
+    },
+    {
+      "Type": "InProceedings",
+      "Key": "wagstaff2001constrained",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Constrained k-means clustering with background knowledge",
+        "author": "Wagstaff, Kiri and Cardie, Claire and Rogers, Seth and Schrӧdl, Stefan",
+        "booktitle": "Proceedings of the International Conference on Machine Learning",
+        "year": "2001",
+        "pages": "577--584",
+        "volume": "1"
+      }
+    },
+    {
+      "Type": "InProceedings",
+      "Key": "xia2014folksonomy",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Folksonomy based socially-aware recommendation of scholarly papers for conference participants",
+        "author": "Xia, Feng and Asabere, Nana Yaw and Liu, Haifeng and Deonauth, Nakema and Li, Fengqi",
+        "booktitle": "Proceedings of the Companion Publication of the 23rd International Conference on World Wide Web Companion",
+        "year": "2014",
+        "organization": "International World Wide Web Conferences Steering Committee",
+        "pages": "781--786"
+      }
+    },
+    {
+      "Type": "InProceedings",
+      "Key": "xia2013socially",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Socially-aware venue recommendation for conference participants",
+        "author": "Xia, Feng and Asabere, Nana Yaw and Rodrigues, Joel JPC and Basso, Filippo and Deonauth, Nakema and Wang, Wei",
+        "booktitle": "Proceedings of the 10th International Conference on Autonomic and Trusted Computing (UIC/ATC)",
+        "year": "2013",
+        "organization": "IEEE",
+        "pages": "134--141"
+      }
+    },
+    {
+      "Type": "Article",
+      "Key": "zhu2010data",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Data clustering with size constraints",
+        "author": "Zhu, Shunzhi and Wang, Dingding and Li, Tao",
+        "journal": "Knowledge-Based Systems",
+        "year": "2010",
+        "number": "8",
+        "pages": "883--889",
+        "volume": "23",
+        "publisher": "Elsevier"
+      }
+    },
+    {
+      "Type": "Proceedings",
+      "Key": "aime",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Artificial Intelligence in Medicine: 14th Conference on Artificial Intelligence in Medicine, AIME 2013, Murcia, Spain",
+        "year": "2013",
+        "editor": "Niels Peek and Roque Marin Morales and Mor Peleg ",
+        "publisher": "Springer",
+        "series": "Lecture Notes in Artificial Intelligence",
+        "volume": "7885",
+        "booktitle": "Proceedings of 14th Conference on Artificial Intelligence in Medicine"
+      }
+    },
+    {
+      "Type": "Proceedings",
+      "Key": "aime2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "13th Conference on Artificial Intelligence in Medicine",
+        "booktitle": "Artificial Intelligence in Mediclne",
+        "year": "2011",
+        "editor": "Peleg, Mor and Lavra\\vc, Nada and Combi, Carlo",
+        "publisher": "Springer"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "spasic2005text",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Text mining and ontologies in biomedicine: making sense of raw text",
+        "author": "Spasic, Irena and Ananiadou, Sophia and McNaught, John and Kumar, Anand",
+        "journal": "Briefings in bioinformatics",
+        "volume": "6",
+        "number": "3",
+        "pages": "239--251",
+        "year": "2005",
+        "publisher": "Oxford University Press"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "blei2012probabilistic",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Probabilistic topic models",
+        "author": "Blei, David M.",
+        "journal": "Communications of the ACM",
+        "volume": "55",
+        "number": "4",
+        "pages": "77--84",
+        "year": "2012",
+        "publisher": "ACM"
+      }
+    }
+  ],
+  "Comments": []
+}
