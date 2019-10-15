@@ -128,6 +128,7 @@ namespace Qiqqa.Common.Configuration
         private ConfigurationManager()
         {
             ShutdownableManager.Instance.Register(Shutdown);
+            ResetConfigurationRecordToGuest();
         }
 
         void Shutdown()
@@ -158,19 +159,19 @@ namespace Qiqqa.Common.Configuration
             {
                 if (File.Exists(ConfigFilenameForUser))
                 {
-                    Logging.Info("Loading configuration");
+                    Logging.Info("Loading configuration file {0}", ConfigFilenameForUser);
                     configuration_record = (ConfigurationRecord)ObjectSerializer.LoadObject(ConfigFilenameForUser);
-                    Logging.Info("Loaded configuration");
+                    Logging.Info("Loaded configuration file {0}", ConfigFilenameForUser);
                 }
             }
             catch (Exception ex)
             {
-                Logging.Error(ex, "There was a problem loading configuration.");
+                Logging.Error(ex, "There was a problem loading configuration file {0}", ConfigFilenameForUser);
             }
 
             if (null == configuration_record)
             {
-                Logging.Info("There is no existing configuration, so creating one from scratch.");
+                Logging.Info("There is no existing configuration, so creating one from scratch. Is configuration file {0} missing?", ConfigFilenameForUser);
                 configuration_record = new ConfigurationRecord();
             }
 
