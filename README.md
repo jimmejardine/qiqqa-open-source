@@ -17,8 +17,32 @@ Would anyone who is interested in contributing towards this repository please co
 
 ## For Developers: Building Qiqqa From Source
 
+
+
+### General Notes
+
+As the repository includes "Windows Long Filenames" (at least since commit 0cf15c0d4d9377e80ddafd3063cbef038701bb3e) you MUST run this `git` configuration
+command before working on the qiqqa repository:
+
+    git config core.longpaths true
+
+Alternatively you may try to run
+
+    git config --system core.longpaths true
+
+to enable this feature for all your git repositories, but that command will probably fail unless you have Administrator
+right in your active shell. (See also [StackOverflow](https://stackoverflow.com/questions/22575662/filename-too-long-in-git-for-windows).)
+
+After you have succesfully changed your git configuration, it might be a very good idea to run
+
+    git reset --hard
+
+next to ensure all files in the project are now correctly extracted from the git repository.
+
+
+
 >
-> ## Visual Studio 2017 (Original build environment, now *OBSOLETED/UNSUPPORTED*)
+> ### Visual Studio 2017 (Original build environment, now *OBSOLETED/UNSUPPORTED*)
 > 
 > You will need to download Visual Studio 2017 Community Edition and Syncfusion Essential Studio 14.1.0.41 (you can get a free evaluation key from syncfusion.com - works for single developers for private/free projects).
 >   
