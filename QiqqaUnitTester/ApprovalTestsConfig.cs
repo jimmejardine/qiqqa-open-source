@@ -87,7 +87,8 @@ namespace QiqqaTestHelpers
             string root = Path.GetDirectoryName(basename);
             string name = Path.GetFileName(basename);
             string dataname = Path.GetFileNameWithoutExtension(DataFile);
-            return Path.GetFullPath(Path.Combine(root, $"{dataname}.{name}{ApprovalTests.Writers.WriterUtils.Approved}{ExtensionWithDot}"));
+            // UNC long filename/path support by forcing this to be a UNC path:
+            return Path.GetLongPath(Path.GetFullPath(Path.Combine(root, $"{dataname}.{name}{ApprovalTests.Writers.WriterUtils.Approved}{ExtensionWithDot}")));
         }
 
         public override string GetReceivedFilename(string basename)
@@ -95,7 +96,7 @@ namespace QiqqaTestHelpers
             string root = Path.GetDirectoryName(basename);
             string name = Path.GetFileName(basename);
             string dataname = Path.GetFileNameWithoutExtension(DataFile);
-            return Path.GetFullPath(Path.Combine(root, $"{dataname}.{name}{ApprovalTests.Writers.WriterUtils.Received}{ExtensionWithDot}"));
+            return Path.GetLongPath(Path.GetFullPath(Path.Combine(root, $"{dataname}.{name}{ApprovalTests.Writers.WriterUtils.Received}{ExtensionWithDot}")));
         }
     }
 
