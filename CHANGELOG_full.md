@@ -2,9 +2,105 @@
 
 
 
+
+
+
+2019-10-16
+----------
+
+			
+* (acd9229) README: point at the various places where software releases are to be found.
+			
+* (bf06d31) Reorganize the README: developer info comes last.
+			
+* (db46fe8) updated README to mention how to set up Long FilenameSupport on your Windows developer machine.
+			
+* (6470d49) fixup for commit SHA-1: 0cf15c0d4d9377e80ddafd3063cbef038701bb3e -> add missing fixtures (auto-saved reference files) -> https://github.com/jimmejardine/qiqqa-open-source/issues/108
+			
+* (76f4910) fix unit tests: support Long Paths (>= 260 chars in length), i.e. UNC paths, by using AlphaFS `Path.GetLongPath()` API in the Approvals test rig.
+			
+* (0cf15c0) fixup for commit SHA-1: c2e37869acba0903bc9687c27b4887990297fd03 :: moving the BibTeX (et al) data test files to the QiqqaUnitTester project as this data belongs over-there: it is required by the unit tests for the BibTeX parser, etc. in the Utilities library/project. The QiqqaSystemTester can always link/reference these test data files later on when it is desired so. This is part of https://github.com/jimmejardine/qiqqa-open-source/issues/107, while the new 'approved' files are added as part of the work done on https://github.com/jimmejardine/qiqqa-open-source/issues/108.
+			
+
+
+
+2019-10-15
+----------
+
+			
+* (190ff05) v82pre3 release.
+			
+* (ea7eca8) Disable part of the WeakEventHandler checker code as it gets fired due to come code triggering the check. TODO. (But for now I need a Qiqqa binary that at least works, pronto.)
+			
+* (fd882e7) performance / reduce memory leaks / reduce GC delays due to objects being marked by obsoleted status messages. Only remember the last message, hence no queue upkeep any more as we don't backpedal or otherwise use that status message queue of old *anyway*. Code simplification.
+			
+* (305c085) fixes for https://github.com/jimmejardine/qiqqa-open-source/issues/96 / https://github.com/jimmejardine/qiqqa-open-source/issues/98: correct deadlock prevention code in CitationManager and shallow-copy the Attributes of a DictionaryBasedObject.
+			
+* (6ef9b44) 
+  - refactoring the PDFDocument code and making its interface threadsafe (apart from the inks, annotations and highlights attribute lists). Fixes https://github.com/jimmejardine/qiqqa-open-source/issues/96.
+  - improve the internal code of `CloneExistingDocumentFromOtherLibrary_SYNCHRONOUS()` to help ensure we will be able to copy/transfer all metadata from the sourcing document to the clone. Code simplification.
+  - code simplification/performance: remove useless LINQ overhead
+  - `SignalThatDocumentsHaveChanged()`: improve code by making sure that a reference PDF is only provided when there really is only a single PDF signaled! Also see the spots where this API is being used.
+  - belated commit of AlphaFS upgrade/refactoring for https://github.com/jimmejardine/qiqqa-open-source/issues/106 ; a multi-pass code review has been applied to uncover all places where (file/directory) paths are manipulated/processed in the Qiqqa code. TODO: Streams.
+  - redesign the ADD/REMOVE/GET-password APIs for PDFDocument as the indirection in the Qiqqa made it bloody hard to make thread-safe otherwise. (Fixes https://github.com/jimmejardine/qiqqa-open-source/issues/96 / https://github.com/jimmejardine/qiqqa-open-source/issues/98)
+  - ditto for the GC-memleaking bindables of PDFDocument: all the binding stuff has been moved to the PDFDocument thread-safe wrapper class. (TODO: investigate if we can use WeakReferences more/better to prevent memleaks due to infinitely marked PDFDocument instances...)
+  - tweak: `AddLegacyWebLibrariesThatCanBeFoundOnDisk()`: at startup, try to load all .known_web_libraries files you can find as those should provide better (= original) names of the various Commercial Qiqqa Web Libraries. (This is running ahead to the tune of https://github.com/jimmejardine/qiqqa-open-source/issues/109 / https://github.com/jimmejardine/qiqqa-open-source/issues/103)
+			
+* (d6f173d) cf. SHA-1: 4c92feec44c362f4daaa4b8757f5e66aaff7359d * belated commit fixing code typo due to AlphaFS upgrade/refactoring in commit SHA-1: 7ecf0ae90d53d8961fefa25baa7b06d4bf319902 and https://github.com/jimmejardine/qiqqa-open-source/issues/106
+			
+* (c2e3786) moving the BibTeX (et al) data test files to the QiqqaUnitTester project as this data belongs over-there: it is required by the unit tests for the BibTeX parser, etc. in the Utilities library/project. The QiqqaSystemTester can always link/reference these test data files later on when it is desired so. This is part of https://github.com/jimmejardine/qiqqa-open-source/issues/107, while the new 'approved' files are added as part of the work done on https://github.com/jimmejardine/qiqqa-open-source/issues/108.
+			
+* (f25df6c) Created new Test project for Utilities,etc. library unit tests, e.g. the BibTex parser tests. This addresses https://github.com/jimmejardine/qiqqa-open-source/issues/107. Also tweak/augment Approvals' helper classes to improve the tester UX as per https://github.com/jimmejardine/qiqqa-open-source/issues/108. The `Approver` now **saves the current test result to the 'approved' reference file when that one is not present** and then (obviously) does not invoke Beyond Compare or your favorite comparison tool. The first SO/Approvals provided solution still invoked BC for every auto-updated test, which was a HUGE nuisance. See the `ApprovalTestsConfig.cs` file for more info on this. The current implementation also results in slightly leaner test code, which is a free boon.
+			
+* (4c92fee) belated commit fixing code typo due to AlphaFS upgrade/refactoring in commit SHA-1: 7ecf0ae90d53d8961fefa25baa7b06d4bf319902 and https://github.com/jimmejardine/qiqqa-open-source/issues/106
+			
+* (8b90f41) fix https://github.com/jimmejardine/qiqqa-open-source/issues/105 : turns out the config user GUID is NULL/not initialized at startup. This fix ensures there's a predictable (Guest)config active from the very start of the Qiqqa app.
+			
+* (d52d565) quick hack for https://github.com/jimmejardine/qiqqa-open-source/issues/104 + v82pre3: make Qiqqa start no matter what. EFF that T&C!
+			
+
+
+
+2019-10-13
+----------
+
+			
+* (f515ca7) directory tree as tags" also recon with UNIX-style path separators on Windows platforms: the DownloadLocation is not guaranteed to carry only Windows/MSDOS style '\\' path separators.
+			
+* (626902b) (fix) customize library background image: copy the new file into place, if it is another file than the one we already have. Fix: do *not* delete the active image file when the user did not select another image file.
+			
+* (c66706b) `FileTools.MakeSafeFilename` already performs filename length sanitization. No need to do that twice in different places.
+			
+* (ba9b993) Add reference to source article of WeakEventHandler class + re-enable the proper use checks.
+			
+* (7ecf0ae) part of a larger work: use AlphaFS::FIle/Directory/Path.* APIs everywhere. Also use UNIX `/`instead of MSDOS `\\` where-ever possible.
+			
+
+
+
+2019-10-12
+----------
+
+			
+* (db4908d) rename: fix typo in filename
+			
+
+
+
+2019-10-11
+----------
+
+			
+* (3d3b6ca) code cleanup: remove one (semi)duplicate API
+			
+
+
+
 2019-10-10
 ----------
 
+			
+* (3b5dcc1) updated CHANGELOG_full.md to current commit
 			
 * (3a0544c) Updated README + CHANGELOG_full.md fixes for GFM
 			
