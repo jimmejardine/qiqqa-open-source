@@ -15,6 +15,7 @@
   ],
   "Comments": [
     "% `@comment` entries",
-    "BIBTEX_AUTO - GS"
+    "{ BIBTEX_AUTO - GS ",
+    "}"
   ]
 }

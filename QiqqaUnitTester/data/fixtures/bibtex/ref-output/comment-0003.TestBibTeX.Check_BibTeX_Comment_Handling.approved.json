@@ -12,6 +12,6 @@
     }
   ],
   "Comments": [
-    "this is another broken @comment as it doesn't have {curly-brace delims where it should}"
+    "this is another broken @comment as it doesn't have {curly-brace delims where it should} \r"
   ]
 }

@@ -28,8 +28,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Donald E. Knuth",
-        "title": "Fundamental \"Algorithms",
-        "volume": "1"
+        "title": "Fundamental "
       }
     },
     {
@@ -39,8 +38,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Donald E. Knïth",
-        "title": "Fundamental Älgorithms",
-        "volume": "1"
+        "title": "Fundamental \\"
       }
     },
     {
@@ -4310,12 +4308,17 @@
     {
       "Type": "techreport",
       "Key": "RFC175",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\nfner\",    title = \"{Comments on \"Socket Conventions Reconsidered\"}\",    month = \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\ntle = \"{Comments on \"Socket Conventions Reconsidered\"}\",    month = jun,    year\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nents on \"Socket Conventions Reconsidered\"}\",    month = jun,    year = 1971,    \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nents on \"Socket Conventions Reconsidered\"}\",    month = jun,    year = 1971,    \r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC175",
         "author": "E. Harslem and J. Heafner",
-        "title": "Comments on \"Socket Conventions Reconsidered\"",
+        "title": "Comments on ",
         "month": "jun",
         "year": "1971",
         "type": "RFC",
@@ -4325,12 +4328,18 @@
     {
       "Type": "techreport",
       "Key": "RFC176",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\nPostel\",    title = \"{Comments on \"Byte size for connections\"}\",    month = jun,\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nl\",    title = \"{Comments on \"Byte size for connections\"}\",    month = jun,    y\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n   title = \"{Comments on \"Byte size for connections\"}\",    month = jun,    year \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n\"{Comments on \"Byte size for connections\"}\",    month = jun,    year = 1971,    \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n\"{Comments on \"Byte size for connections\"}\",    month = jun,    year = 1971,    \r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC176",
         "author": "A. Bhushan and R. Kanodia and R. Metcalfe and J. Postel",
-        "title": "Comments on \"Byte size for connections\"",
+        "title": "Comments on ",
         "month": "jun",
         "year": "1971",
         "type": "RFC",
@@ -5480,16 +5489,18 @@
     {
       "Type": "techreport",
       "Key": "RFC263",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\nhor = \"A. McKenzie\",    title = \"{\"Very Distant\" Host interface}\",    month = de\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nA. McKenzie\",    title = \"{\"Very Distant\" Host interface}\",    month = dec,    y\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nA. McKenzie\",    title = \"{\"Very Distant\" Host interface}\",    month = dec,    y\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nnzie\",    title = \"{\"Very Distant\" Host interface}\",    month = dec,    year = 1\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n title = \"{\"Very Distant\" Host interface}\",    month = dec,    year = 1971,    t\r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC263",
         "author": "A. McKenzie",
-        "title": "\"Very Distant\" Host interface",
-        "month": "dec",
-        "year": "1971",
-        "type": "RFC",
-        "number": "263"
+        "title": ""
       }
     },
     {
@@ -5870,16 +5881,22 @@
     {
       "Type": "techreport",
       "Key": "RFC294",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\n Bhushan\",    title = \"{The Use of \"Set Data Type\" Transaction in File Transfer \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nhan\",    title = \"{The Use of \"Set Data Type\" Transaction in File Transfer Proto\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n,    title = \"{The Use of \"Set Data Type\" Transaction in File Transfer Protocol}\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n,    title = \"{The Use of \"Set Data Type\" Transaction in File Transfer Protocol}\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n{The Use of \"Set Data Type\" Transaction in File Transfer Protocol}\",    month = \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\ne Use of \"Set Data Type\" Transaction in File Transfer Protocol}\",    month = jan\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n of \"Set Data Type\" Transaction in File Transfer Protocol}\",    month = jan,    \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nData Type\" Transaction in File Transfer Protocol}\",    month = jan,    year = 19\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\ne\" Transaction in File Transfer Protocol}\",    month = jan,    year = 1972,    t\r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC294",
         "author": "A. Bhushan",
-        "title": "The Use of \"Set Data Type\" Transaction in File Transfer Protocol",
-        "month": "jan",
-        "year": "1972",
-        "type": "RFC",
-        "number": "294"
+        "title": "The Use of "
       }
     },
     {
@@ -6530,16 +6547,19 @@
     {
       "Type": "techreport",
       "Key": "RFC339",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\n Thomas\",    title = \"{MLTNET: A \"Multi Telnet\" Subsystem for Tenex}\",    month \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\ns\",    title = \"{MLTNET: A \"Multi Telnet\" Subsystem for Tenex}\",    month = may,\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\ns\",    title = \"{MLTNET: A \"Multi Telnet\" Subsystem for Tenex}\",    month = may,\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n = \"{MLTNET: A \"Multi Telnet\" Subsystem for Tenex}\",    month = may,    year = 1\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n{MLTNET: A \"Multi Telnet\" Subsystem for Tenex}\",    month = may,    year = 1972,\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nET: A \"Multi Telnet\" Subsystem for Tenex}\",    month = may,    year = 1972,    t\r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC339",
         "author": "R. Thomas",
-        "title": "MLTNET: A \"Multi Telnet\" Subsystem for Tenex",
-        "month": "may",
-        "year": "1972",
-        "type": "RFC",
-        "number": "339"
+        "title": "MLTNET: A "
       }
     },
     {
@@ -6935,12 +6955,19 @@
     {
       "Type": "techreport",
       "Key": "RFC368",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\nen\",    title = \"{Comments on \"Proposed Remote Job Entry Protocol\"}\",    month =\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n title = \"{Comments on \"Proposed Remote Job Entry Protocol\"}\",    month = jul,  \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nle = \"{Comments on \"Proposed Remote Job Entry Protocol\"}\",    month = jul,    ye\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n{Comments on \"Proposed Remote Job Entry Protocol\"}\",    month = jul,    year = 1\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\ns on \"Proposed Remote Job Entry Protocol\"}\",    month = jul,    year = 1972,    \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\ns on \"Proposed Remote Job Entry Protocol\"}\",    month = jul,    year = 1972,    \r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC368",
         "author": "R. Braden",
-        "title": "Comments on \"Proposed Remote Job Entry Protocol\"",
+        "title": "Comments on ",
         "month": "jul",
         "year": "1972",
         "type": "RFC",
@@ -7715,12 +7742,21 @@
     {
       "Type": "techreport",
       "Key": "RFC425",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\nthor = \"R. Bressler\",    title = \"{\"But my NCP costs $500 a day\"}\",    month = d\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nr = \"R. Bressler\",    title = \"{\"But my NCP costs $500 a day\"}\",    month = dec,\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n\"R. Bressler\",    title = \"{\"But my NCP costs $500 a day\"}\",    month = dec,    \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nessler\",    title = \"{\"But my NCP costs $500 a day\"}\",    month = dec,    year =\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nessler\",    title = \"{\"But my NCP costs $500 a day\"}\",    month = dec,    year =\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n,    title = \"{\"But my NCP costs $500 a day\"}\",    month = dec,    year = 1972, \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n  title = \"{\"But my NCP costs $500 a day\"}\",    month = dec,    year = 1972,    \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n  title = \"{\"But my NCP costs $500 a day\"}\",    month = dec,    year = 1972,    \r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC425",
         "author": "R. Bressler",
-        "title": "\"But my NCP costs $500 a day\"",
+        "title": "",
         "month": "dec",
         "year": "1972",
         "type": "RFC",
@@ -8615,12 +8651,15 @@
     {
       "Type": "techreport",
       "Key": "RFC491",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\n. Padlipsky\",    title = \"{What is \"Free\"?}\",    month = apr,    year = 1973,   \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n. Padlipsky\",    title = \"{What is \"Free\"?}\",    month = apr,    year = 1973,   \r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC491",
         "author": "M. Padlipsky",
-        "title": "What is \"Free\"?",
+        "title": "What is ",
         "month": "apr",
         "year": "1973",
         "type": "RFC",
@@ -8765,12 +8804,17 @@
     {
       "Type": "techreport",
       "Key": "RFC501",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\nPogran\",    title = \"{Un-muddling \"free file transfer\"}\",    month = may,    yea\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nn\",    title = \"{Un-muddling \"free file transfer\"}\",    month = may,    year = 1\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nitle = \"{Un-muddling \"free file transfer\"}\",    month = may,    year = 1973,    \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nitle = \"{Un-muddling \"free file transfer\"}\",    month = may,    year = 1973,    \r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC501",
         "author": "K. Pogran",
-        "title": "Un-muddling \"free file transfer\"",
+        "title": "Un-muddling ",
         "month": "may",
         "year": "1973",
         "type": "RFC",
@@ -10100,12 +10144,23 @@
     {
       "Type": "techreport",
       "Key": "RFC602",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\nthor = \"R. Metcalfe\",    title = \"{\"The stockings were hung by the chimney with \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n Metcalfe\",    title = \"{\"The stockings were hung by the chimney with care\"}\",  \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nalfe\",    title = \"{\"The stockings were hung by the chimney with care\"}\",    mon\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n,    title = \"{\"The stockings were hung by the chimney with care\"}\",    month = \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n  title = \"{\"The stockings were hung by the chimney with care\"}\",    month = dec\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\ntle = \"{\"The stockings were hung by the chimney with care\"}\",    month = dec,   \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n\"The stockings were hung by the chimney with care\"}\",    month = dec,    year = \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nstockings were hung by the chimney with care\"}\",    month = dec,    year = 1973,\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nkings were hung by the chimney with care\"}\",    month = dec,    year = 1973,    \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nkings were hung by the chimney with care\"}\",    month = dec,    year = 1973,    \r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC602",
         "author": "R. Metcalfe",
-        "title": "\"The stockings were hung by the chimney with care\"",
+        "title": "",
         "month": "dec",
         "year": "1973",
         "type": "RFC",
@@ -10265,12 +10320,20 @@
     {
       "Type": "techreport",
       "Key": "RFC614",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\nitle = \"{Response to RFC 607: \"Comments on the File Transfer Protocol\"}\",    mon\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\ne = \"{Response to RFC 607: \"Comments on the File Transfer Protocol\"}\",    month \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n\"{Response to RFC 607: \"Comments on the File Transfer Protocol\"}\",    month = ja\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nponse to RFC 607: \"Comments on the File Transfer Protocol\"}\",    month = jan,   \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nRFC 607: \"Comments on the File Transfer Protocol\"}\",    month = jan,    year = 1\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n \"Comments on the File Transfer Protocol\"}\",    month = jan,    year = 1974,    \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n \"Comments on the File Transfer Protocol\"}\",    month = jan,    year = 1974,    \r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC614",
         "author": "K. Pogran and N. Neigus",
-        "title": "Response to RFC 607: \"Comments on the File Transfer Protocol\"",
+        "title": "Response to RFC 607: ",
         "month": "jan",
         "year": "1974",
         "type": "RFC",
@@ -13190,16 +13253,17 @@
     {
       "Type": "techreport",
       "Key": "RFC828",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\nnications: IFIP's international \"network\" of experts}\",    month = aug,    year \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nnications: IFIP's international \"network\" of experts}\",    month = aug,    year \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nions: IFIP's international \"network\" of experts}\",    month = aug,    year = 198\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nFIP's international \"network\" of experts}\",    month = aug,    year = 1982,    t\r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC828",
         "author": "K. Owen",
-        "title": "Data communications: IFIP's international \"network\" of experts",
-        "month": "aug",
-        "year": "1982",
-        "type": "RFC",
-        "number": "828"
+        "title": "Data communications: IFIP's international "
       }
     },
     {
@@ -13490,12 +13554,18 @@
     {
       "Type": "techreport",
       "Key": "RFC848",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\n\",    title = \"{Who provides the \"little\" TCP services?}\",    month = mar,    ye\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n\",    title = \"{Who provides the \"little\" TCP services?}\",    month = mar,    ye\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\ntitle = \"{Who provides the \"little\" TCP services?}\",    month = mar,    year = 1\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n\"{Who provides the \"little\" TCP services?}\",    month = mar,    year = 1983,    \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n\"{Who provides the \"little\" TCP services?}\",    month = mar,    year = 1983,    \r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC848",
         "author": "D. Smallberg",
-        "title": "Who provides the \"little\" TCP services?",
+        "title": "Who provides the ",
         "month": "mar",
         "year": "1983",
         "type": "RFC",
@@ -14075,16 +14145,18 @@
     {
       "Type": "techreport",
       "Key": "RFC888",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\nmonson and E. Rosen\",    title = \"{\"STUB\" Exterior Gateway Protocol}\",    month \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nmonson and E. Rosen\",    title = \"{\"STUB\" Exterior Gateway Protocol}\",    month \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nE. Rosen\",    title = \"{\"STUB\" Exterior Gateway Protocol}\",    month = jan,    y\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n\",    title = \"{\"STUB\" Exterior Gateway Protocol}\",    month = jan,    year = 19\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\ntle = \"{\"STUB\" Exterior Gateway Protocol}\",    month = jan,    year = 1984,    t\r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC888",
         "author": "L. Seamonson and E. Rosen",
-        "title": "\"STUB\" Exterior Gateway Protocol",
-        "month": "jan",
-        "year": "1984",
-        "type": "RFC",
-        "number": "888"
+        "title": ""
       }
     },
     {
@@ -18335,31 +18407,34 @@
     {
       "Type": "techreport",
       "Key": "RFC1173",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\network managers: A summary of the \"oral tradition\" of the Internet}\",    month =\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nnagers: A summary of the \"oral tradition\" of the Internet}\",    month = aug,    \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nnagers: A summary of the \"oral tradition\" of the Internet}\",    month = aug,    \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\ns: A summary of the \"oral tradition\" of the Internet}\",    month = aug,    year \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n summary of the \"oral tradition\" of the Internet}\",    month = aug,    year = 19\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n of the \"oral tradition\" of the Internet}\",    month = aug,    year = 1990,    t\r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC1173",
         "author": "J. VanBokkelen",
-        "title": "Responsibilities of host and network managers: A summary of the \"oral tradition\" of the Internet",
-        "month": "aug",
-        "year": "1990",
-        "type": "RFC",
-        "number": "1173"
+        "title": "Responsibilities of host and network managers: A summary of the "
       }
     },
     {
       "Type": "techreport",
       "Key": "RFC1174",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\nded policy change to internet \"connected\" status}\",    month = aug,    year = 19\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nded policy change to internet \"connected\" status}\",    month = aug,    year = 19\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\ncy change to internet \"connected\" status}\",    month = aug,    year = 1990,    t\r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC1174",
         "author": "V. Cerf",
-        "title": "IAB recommended policy on distributing internet identifier assignment and IAB recommended policy change to internet \"connected\" status",
-        "month": "aug",
-        "year": "1990",
-        "type": "RFC",
-        "number": "1174"
+        "title": "IAB recommended policy on distributing internet identifier assignment and IAB recommended policy change to internet "
       }
     },
     {
@@ -18395,16 +18470,18 @@
     {
       "Type": "techreport",
       "Key": "RFC1177",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\nAnswers: Answers to commonly asked \"new internet user\" questions}\",    month = a\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nAnswers to commonly asked \"new internet user\" questions}\",    month = aug,    ye\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\ners to commonly asked \"new internet user\" questions}\",    month = aug,    year =\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\ners to commonly asked \"new internet user\" questions}\",    month = aug,    year =\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nonly asked \"new internet user\" questions}\",    month = aug,    year = 1990,    t\r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC1177",
         "author": "G. Malkin and A. Marine and J. Reynolds",
-        "title": "FYI on Questions and Answers: Answers to commonly asked \"new internet user\" questions",
-        "month": "aug",
-        "year": "1990",
-        "type": "RFC",
-        "number": "1177"
+        "title": "FYI on Questions and Answers: Answers to commonly asked "
       }
     },
     {
@@ -18815,31 +18892,35 @@
     {
       "Type": "techreport",
       "Key": "RFC1206",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\nAnswers: Answers to commonly asked \"new Internet user\" questions}\",    month = f\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nAnswers to commonly asked \"new Internet user\" questions}\",    month = feb,    ye\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\ners to commonly asked \"new Internet user\" questions}\",    month = feb,    year =\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\ners to commonly asked \"new Internet user\" questions}\",    month = feb,    year =\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nonly asked \"new Internet user\" questions}\",    month = feb,    year = 1991,    t\r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC1206",
         "author": "G. Malkin and A. Marine",
-        "title": "FYI on Questions and Answers: Answers to commonly asked \"new Internet user\" questions",
-        "month": "feb",
-        "year": "1991",
-        "type": "RFC",
-        "number": "1206"
+        "title": "FYI on Questions and Answers: Answers to commonly asked "
       }
     },
     {
       "Type": "techreport",
       "Key": "RFC1207",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\n Answers to commonly asked \"experienced Internet user\" questions}\",    month = f\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nto commonly asked \"experienced Internet user\" questions}\",    month = feb,    ye\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nommonly asked \"experienced Internet user\" questions}\",    month = feb,    year =\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nommonly asked \"experienced Internet user\" questions}\",    month = feb,    year =\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\ned \"experienced Internet user\" questions}\",    month = feb,    year = 1991,    t\r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC1207",
         "author": "G. Malkin and A. Marine and J. Reynolds",
-        "title": "FYI on Questions and Answers: Answers to commonly asked \"experienced Internet user\" questions",
-        "month": "feb",
-        "year": "1991",
-        "type": "RFC",
-        "number": "1207"
+        "title": "FYI on Questions and Answers: Answers to commonly asked "
       }
     },
     {
@@ -20165,12 +20246,17 @@
     {
       "Type": "techreport",
       "Key": "RFC1297",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\nFunctional Specification Wishlist (\"NOC TT REQUIREMENTS\")}\",    month = jan,    \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nctional Specification Wishlist (\"NOC TT REQUIREMENTS\")}\",    month = jan,    yea\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nification Wishlist (\"NOC TT REQUIREMENTS\")}\",    month = jan,    year = 1992,   \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nification Wishlist (\"NOC TT REQUIREMENTS\")}\",    month = jan,    year = 1992,   \r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC1297",
         "author": "D. Johnson",
-        "title": "NOC Internal Integrated Trouble Ticket System Functional Specification Wishlist (\"NOC TT REQUIREMENTS\")",
+        "title": "NOC Internal Integrated Trouble Ticket System Functional Specification Wishlist (",
         "month": "jan",
         "year": "1992",
         "type": "RFC",
@@ -20585,16 +20671,18 @@
     {
       "Type": "techreport",
       "Key": "RFC1325",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\n Answers Answers to Commonly asked \"New Internet User\" Questions}\",    month = m\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nAnswers to Commonly asked \"New Internet User\" Questions}\",    month = may,    ye\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\ners to Commonly asked \"New Internet User\" Questions}\",    month = may,    year =\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\ners to Commonly asked \"New Internet User\" Questions}\",    month = may,    year =\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nonly asked \"New Internet User\" Questions}\",    month = may,    year = 1992,    t\r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC1325",
         "author": "G. Malkin and A. Marine",
-        "title": "FYI on Questions and Answers Answers to Commonly asked \"New Internet User\" Questions",
-        "month": "may",
-        "year": "1992",
-        "type": "RFC",
-        "number": "1325"
+        "title": "FYI on Questions and Answers Answers to Commonly asked "
       }
     },
     {
@@ -22640,12 +22728,18 @@
     {
       "Type": "techreport",
       "Key": "RFC1462",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\n E. Hoffman\",    title = \"{FYI on \"What is the Internet?\"}\",    month = may,    \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n Hoffman\",    title = \"{FYI on \"What is the Internet?\"}\",    month = may,    yea\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nfman\",    title = \"{FYI on \"What is the Internet?\"}\",    month = may,    year = \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n  title = \"{FYI on \"What is the Internet?\"}\",    month = may,    year = 1993,   \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n  title = \"{FYI on \"What is the Internet?\"}\",    month = may,    year = 1993,   \r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC1462",
         "author": "E. Krol and E. Hoffman",
-        "title": "FYI on \"What is the Internet?\"",
+        "title": "FYI on ",
         "month": "may",
         "year": "1993",
         "type": "RFC",
@@ -24380,16 +24474,21 @@
     {
       "Type": "techreport",
       "Key": "RFC1578",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\nrs - Answers to Commonly Asked \"Primary and Secondary School Internet User\" Ques\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n Answers to Commonly Asked \"Primary and Secondary School Internet User\" Question\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\no Commonly Asked \"Primary and Secondary School Internet User\" Questions}\",    mo\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nnly Asked \"Primary and Secondary School Internet User\" Questions}\",    month = f\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n \"Primary and Secondary School Internet User\" Questions}\",    month = feb,    ye\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nimary and Secondary School Internet User\" Questions}\",    month = feb,    year =\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nimary and Secondary School Internet User\" Questions}\",    month = feb,    year =\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\necondary School Internet User\" Questions}\",    month = feb,    year = 1994,    t\r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC1578",
         "author": "J. Sellers",
-        "title": "FYI on Questions and Answers - Answers to Commonly Asked \"Primary and Secondary School Internet User\" Questions",
-        "month": "feb",
-        "year": "1994",
-        "type": "RFC",
-        "number": "1578"
+        "title": "FYI on Questions and Answers - Answers to Commonly Asked "
       }
     },
     {
@@ -24620,16 +24719,18 @@
     {
       "Type": "techreport",
       "Key": "RFC1594",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\nnswers - Answers to Commonly asked \"New Internet User\" Questions}\",    month = m\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nAnswers to Commonly asked \"New Internet User\" Questions}\",    month = mar,    ye\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\ners to Commonly asked \"New Internet User\" Questions}\",    month = mar,    year =\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\ners to Commonly asked \"New Internet User\" Questions}\",    month = mar,    year =\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nonly asked \"New Internet User\" Questions}\",    month = mar,    year = 1994,    t\r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC1594",
         "author": "A. Marine and J. Reynolds and G. Malkin",
-        "title": "FYI on Questions and Answers - Answers to Commonly asked \"New Internet User\" Questions",
-        "month": "mar",
-        "year": "1994",
-        "type": "RFC",
-        "number": "1594"
+        "title": "FYI on Questions and Answers - Answers to Commonly asked "
       }
     },
     {
@@ -27335,16 +27436,17 @@
     {
       "Type": "techreport",
       "Key": "RFC1775",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\nr = \"D. Crocker\",    title = \"{To Be \"On\" the Internet}\",    month = mar,    yea\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nr = \"D. Crocker\",    title = \"{To Be \"On\" the Internet}\",    month = mar,    yea\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n. Crocker\",    title = \"{To Be \"On\" the Internet}\",    month = mar,    year = 19\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nr\",    title = \"{To Be \"On\" the Internet}\",    month = mar,    year = 1995,    t\r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC1775",
         "author": "D. Crocker",
-        "title": "To Be \"On\" the Internet",
-        "month": "mar",
-        "year": "1995",
-        "type": "RFC",
-        "number": "1775"
+        "title": "To Be "
       }
     },
     {
@@ -29720,16 +29822,22 @@
     {
       "Type": "techreport",
       "Key": "RFC1937",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\nter and D. Kandlur\",    title = \"{\"Local/Remote\" Forwarding Decision in Switched\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nter and D. Kandlur\",    title = \"{\"Local/Remote\" Forwarding Decision in Switched\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n    title = \"{\"Local/Remote\" Forwarding Decision in Switched Data Link Subnetwor\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n = \"{\"Local/Remote\" Forwarding Decision in Switched Data Link Subnetworks}\",    \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n\"{\"Local/Remote\" Forwarding Decision in Switched Data Link Subnetworks}\",    mon\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nRemote\" Forwarding Decision in Switched Data Link Subnetworks}\",    month = may,\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\ne\" Forwarding Decision in Switched Data Link Subnetworks}\",    month = may,    y\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nrwarding Decision in Switched Data Link Subnetworks}\",    month = may,    year =\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\ncision in Switched Data Link Subnetworks}\",    month = may,    year = 1996,    t\r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC1937",
         "author": "Y. Rekhter and D. Kandlur",
-        "title": "\"Local/Remote\" Forwarding Decision in Switched Data Link Subnetworks",
-        "month": "may",
-        "year": "1996",
-        "type": "RFC",
-        "number": "1937"
+        "title": ""
       }
     },
     {
@@ -35780,12 +35888,15 @@
     {
       "Type": "techreport",
       "Key": "RFC2341",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\nsco Layer Two Forwarding (Protocol) \"L2F\"}\",    month = may,    year = 1998,    \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nsco Layer Two Forwarding (Protocol) \"L2F\"}\",    month = may,    year = 1998,    \r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC2341",
         "author": "A. Valencia and M. Littlewood and T. Kolar",
-        "title": "Cisco Layer Two Forwarding (Protocol) \"L2F\"",
+        "title": "Cisco Layer Two Forwarding (Protocol) ",
         "month": "may",
         "year": "1998",
         "type": "RFC",
@@ -36620,16 +36731,17 @@
     {
       "Type": "techreport",
       "Key": "RFC2397",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\n = \"L. Masinter\",    title = \"{The \"data\" URL scheme}\",    month = aug,    year \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n = \"L. Masinter\",    title = \"{The \"data\" URL scheme}\",    month = aug,    year \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n Masinter\",    title = \"{The \"data\" URL scheme}\",    month = aug,    year = 1998\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nter\",    title = \"{The \"data\" URL scheme}\",    month = aug,    year = 1998,    t\r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC2397",
         "author": "L. Masinter",
-        "title": "The \"data\" URL scheme",
-        "month": "aug",
-        "year": "1998",
-        "type": "RFC",
-        "number": "2397"
+        "title": "The "
       }
     },
     {
@@ -40580,12 +40692,15 @@
     {
       "Type": "techreport",
       "Key": "RFC2661",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\ne = \"{Layer Two Tunneling Protocol \"L2TP\"}\",    month = aug,    year = 1999,    \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\ne = \"{Layer Two Tunneling Protocol \"L2TP\"}\",    month = aug,    year = 1999,    \r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC2661",
         "author": "W. Townsley and A. Valencia and A. Rubens and G. Pall and G. Zorn and B. Palter",
-        "title": "Layer Two Tunneling Protocol \"L2TP\"",
+        "title": "Layer Two Tunneling Protocol ",
         "month": "aug",
         "year": "1999",
         "type": "RFC",
@@ -40625,16 +40740,18 @@
     {
       "Type": "techreport",
       "Key": "RFC2664",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\nnswers - Answers to Commonly Asked \"New Internet User\" Questions}\",    month = a\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nAnswers to Commonly Asked \"New Internet User\" Questions}\",    month = aug,    ye\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\ners to Commonly Asked \"New Internet User\" Questions}\",    month = aug,    year =\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\ners to Commonly Asked \"New Internet User\" Questions}\",    month = aug,    year =\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nonly Asked \"New Internet User\" Questions}\",    month = aug,    year = 1999,    t\r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC2664",
         "author": "R. Plzak and A. Wells and E. Krol",
-        "title": "FYI on Questions and Answers - Answers to Commonly Asked \"New Internet User\" Questions",
-        "month": "aug",
-        "year": "1999",
-        "type": "RFC",
-        "number": "2664"
+        "title": "FYI on Questions and Answers - Answers to Commonly Asked "
       }
     },
     {
@@ -41735,12 +41852,21 @@
     {
       "Type": "techreport",
       "Key": "RFC2738",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\n Klyne\",    title = \"{Corrections to \"A Syntax for Describing Media Feature Sets\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n,    title = \"{Corrections to \"A Syntax for Describing Media Feature Sets\"}\",   \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n title = \"{Corrections to \"A Syntax for Describing Media Feature Sets\"}\",    mon\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nCorrections to \"A Syntax for Describing Media Feature Sets\"}\",    month = dec,  \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\ntions to \"A Syntax for Describing Media Feature Sets\"}\",    month = dec,    year\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n \"A Syntax for Describing Media Feature Sets\"}\",    month = dec,    year = 1999,\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nSyntax for Describing Media Feature Sets\"}\",    month = dec,    year = 1999,    \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nSyntax for Describing Media Feature Sets\"}\",    month = dec,    year = 1999,    \r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC2738",
         "author": "G. Klyne",
-        "title": "Corrections to \"A Syntax for Describing Media Feature Sets\"",
+        "title": "Corrections to ",
         "month": "dec",
         "year": "1999",
         "type": "RFC",
@@ -42170,12 +42296,17 @@
     {
       "Type": "techreport",
       "Key": "RFC2767",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\nStack Hosts using the \"Bump-In-the-Stack\" Technique (BIS)}\",    month = feb,    \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nStack Hosts using the \"Bump-In-the-Stack\" Technique (BIS)}\",    month = feb,    \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nusing the \"Bump-In-the-Stack\" Technique (BIS)}\",    month = feb,    year = 2000,\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nusing the \"Bump-In-the-Stack\" Technique (BIS)}\",    month = feb,    year = 2000,\r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC2767",
         "author": "K. Tsuchiya and H. Higuchi and Y. Atarashi",
-        "title": "Dual Stack Hosts using the \"Bump-In-the-Stack\" Technique (BIS)",
+        "title": "Dual Stack Hosts using the ",
         "month": "feb",
         "year": "2000",
         "type": "RFC",
@@ -42440,12 +42571,25 @@
     {
       "Type": "techreport",
       "Key": "RFC2785",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\nMethods for Avoiding the \"Small-Subgroup\" Attacks on the Diffie-Hellman Key Agre\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nMethods for Avoiding the \"Small-Subgroup\" Attacks on the Diffie-Hellman Key Agre\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nr Avoiding the \"Small-Subgroup\" Attacks on the Diffie-Hellman Key Agreement Meth\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nvoiding the \"Small-Subgroup\" Attacks on the Diffie-Hellman Key Agreement Method \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\ning the \"Small-Subgroup\" Attacks on the Diffie-Hellman Key Agreement Method for \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nSubgroup\" Attacks on the Diffie-Hellman Key Agreement Method for S/MIME}\",    mo\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nroup\" Attacks on the Diffie-Hellman Key Agreement Method for S/MIME}\",    month \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\ncks on the Diffie-Hellman Key Agreement Method for S/MIME}\",    month = mar,    \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nthe Diffie-Hellman Key Agreement Method for S/MIME}\",    month = mar,    year = \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nDiffie-Hellman Key Agreement Method for S/MIME}\",    month = mar,    year = 2000\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\niffie-Hellman Key Agreement Method for S/MIME}\",    month = mar,    year = 2000,\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\niffie-Hellman Key Agreement Method for S/MIME}\",    month = mar,    year = 2000,\r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC2785",
         "author": "R. Zuccherato",
-        "title": "Methods for Avoiding the \"Small-Subgroup\" Attacks on the Diffie-Hellman Key Agreement Method for S/MIME",
+        "title": "Methods for Avoiding the ",
         "month": "mar",
         "year": "2000",
         "type": "RFC",
@@ -47045,12 +47189,15 @@
     {
       "Type": "techreport",
       "Key": "RFC3092",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\nRaymond\",    title = \"{Etymology of \"Foo\"}\",    month = apr,    year = 2001,    \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nRaymond\",    title = \"{Etymology of \"Foo\"}\",    month = apr,    year = 2001,    \r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC3092",
         "author": "Eastlake 3rd, D. and C. Manros and E. Raymond",
-        "title": "Etymology of \"Foo\"",
+        "title": "Etymology of ",
         "month": "apr",
         "year": "2001",
         "type": "RFC",
@@ -47630,16 +47777,18 @@
     {
       "Type": "techreport",
       "Key": "RFC3132",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\ntle = \"{Dormant Mode Host Alerting (\"IP Paging\") Problem Statement}\",    month =\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n\"{Dormant Mode Host Alerting (\"IP Paging\") Problem Statement}\",    month = jun, \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n\"{Dormant Mode Host Alerting (\"IP Paging\") Problem Statement}\",    month = jun, \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\node Host Alerting (\"IP Paging\") Problem Statement}\",    month = jun,    year = 2\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nAlerting (\"IP Paging\") Problem Statement}\",    month = jun,    year = 2001,    t\r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC3132",
         "author": "J. Kempf",
-        "title": "Dormant Mode Host Alerting (\"IP Paging\") Problem Statement",
-        "month": "jun",
-        "year": "2001",
-        "type": "RFC",
-        "number": "3132"
+        "title": "Dormant Mode Host Alerting ("
       }
     },
     {
@@ -48230,12 +48379,15 @@
     {
       "Type": "techreport",
       "Key": "RFC3172",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\nand Routing Parameter Area Domain (\"arpa\")}\",    month = sep,    year = 2001,   \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nand Routing Parameter Area Domain (\"arpa\")}\",    month = sep,    year = 2001,   \r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC3172",
         "author": "G. Huston",
-        "title": "Management Guidelines \\& Operational Requirements for the Address and Routing Parameter Area Domain (\"arpa\")",
+        "title": "Management Guidelines \\& Operational Requirements for the Address and Routing Parameter Area Domain (",
         "month": "sep",
         "year": "2001",
         "type": "RFC",
@@ -50660,12 +50812,16 @@
     {
       "Type": "techreport",
       "Key": "RFC3338",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\n{Dual Stack Hosts Using \"Bump-in-the-API\" (BIA)}\",    month = oct,    year = 200\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n{Dual Stack Hosts Using \"Bump-in-the-API\" (BIA)}\",    month = oct,    year = 200\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nual Stack Hosts Using \"Bump-in-the-API\" (BIA)}\",    month = oct,    year = 2002,\r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC3338",
         "author": "S. Lee and M-K. Shin and Y-J. Kim and E. Nordmark and A. Durand",
-        "title": "Dual Stack Hosts Using \"Bump-in-the-API\" (BIA)",
+        "title": "Dual Stack Hosts Using ",
         "month": "oct",
         "year": "2002",
         "type": "RFC",
@@ -51140,16 +51296,18 @@
     {
       "Type": "techreport",
       "Key": "RFC3371",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\ne = \"{Layer Two Tunneling Protocol \"L2TP\" Management Information Base}\",    mont\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\ne = \"{Layer Two Tunneling Protocol \"L2TP\" Management Information Base}\",    mont\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nwo Tunneling Protocol \"L2TP\" Management Information Base}\",    month = aug,    y\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n Protocol \"L2TP\" Management Information Base}\",    month = aug,    year = 2002, \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\ntocol \"L2TP\" Management Information Base}\",    month = aug,    year = 2002,    t\r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC3371",
         "author": "E. Caves and P. Calhoun and R. Wheeler",
-        "title": "Layer Two Tunneling Protocol \"L2TP\" Management Information Base",
-        "month": "aug",
-        "year": "2002",
-        "type": "RFC",
-        "number": "3371"
+        "title": "Layer Two Tunneling Protocol "
       }
     },
     {
@@ -52355,12 +52513,15 @@
     {
       "Type": "techreport",
       "Key": "RFC3454",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\nf Internationalized Strings (\"stringprep\")}\",    month = dec,    year = 2002,   \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nf Internationalized Strings (\"stringprep\")}\",    month = dec,    year = 2002,   \r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC3454",
         "author": "P. Hoffman and M. Blanchet",
-        "title": "Preparation of Internationalized Strings (\"stringprep\")",
+        "title": "Preparation of Internationalized Strings (",
         "month": "dec",
         "year": "2002",
         "type": "RFC",
@@ -58820,16 +58981,16 @@
     {
       "Type": "techreport",
       "Key": "RFC3891",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\nsion Initiation Protocol (SIP) \"Replaces\" Header}\",    month = sep,    year = 20\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nsion Initiation Protocol (SIP) \"Replaces\" Header}\",    month = sep,    year = 20\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\ntiation Protocol (SIP) \"Replaces\" Header}\",    month = sep,    year = 2004,    t\r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC3891",
         "author": "R. Mahy and B. Biggs and R. Dean",
-        "title": "The Session Initiation Protocol (SIP) \"Replaces\" Header",
-        "month": "sep",
-        "year": "2004",
-        "type": "RFC",
-        "number": "3891"
+        "title": "The Session Initiation Protocol (SIP) "
       }
     },
     {
@@ -58955,16 +59116,17 @@
     {
       "Type": "techreport",
       "Key": "RFC3902",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\nttingham\",    title = \"{The \"application/soap+xml\" media type}\",    month = sep,\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nttingham\",    title = \"{The \"application/soap+xml\" media type}\",    month = sep,\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nle = \"{The \"application/soap+xml\" media type}\",    month = sep,    year = 2004, \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n \"{The \"application/soap+xml\" media type}\",    month = sep,    year = 2004,    t\r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC3902",
         "author": "M. Baker and M. Nottingham",
-        "title": "The \"application/soap+xml\" media type",
-        "month": "sep",
-        "year": "2004",
-        "type": "RFC",
-        "number": "3902"
+        "title": "The "
       }
     },
     {
@@ -59060,16 +59222,16 @@
     {
       "Type": "techreport",
       "Key": "RFC3911",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\n Session Initiation Protocol (SIP) \"Join\" Header}\",    month = oct,    year = 20\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n Session Initiation Protocol (SIP) \"Join\" Header}\",    month = oct,    year = 20\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n Initiation Protocol (SIP) \"Join\" Header}\",    month = oct,    year = 2004,    t\r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC3911",
         "author": "R. Mahy and D. Petrie",
-        "title": "The Session Initiation Protocol (SIP) \"Join\" Header",
-        "month": "oct",
-        "year": "2004",
-        "type": "RFC",
-        "number": "3911"
+        "title": "The Session Initiation Protocol (SIP) "
       }
     },
     {
@@ -61790,16 +61952,23 @@
     {
       "Type": "techreport",
       "Key": "RFC4096",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\n = \"{Policy-Mandated Labels Such as \"Adv:\" in Email Subject Headers Considered I\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n = \"{Policy-Mandated Labels Such as \"Adv:\" in Email Subject Headers Considered I\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nolicy-Mandated Labels Such as \"Adv:\" in Email Subject Headers Considered Ineffec\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nMandated Labels Such as \"Adv:\" in Email Subject Headers Considered Ineffective A\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n Labels Such as \"Adv:\" in Email Subject Headers Considered Ineffective At Best}\"\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nSuch as \"Adv:\" in Email Subject Headers Considered Ineffective At Best}\",    mon\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nv:\" in Email Subject Headers Considered Ineffective At Best}\",    month = may,  \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\n Subject Headers Considered Ineffective At Best}\",    month = may,    year = 200\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nbject Headers Considered Ineffective At Best}\",    month = may,    year = 2005, \r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nt Headers Considered Ineffective At Best}\",    month = may,    year = 2005,    t\r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC4096",
         "author": "C. Malamud",
-        "title": "Policy-Mandated Labels Such as \"Adv:\" in Email Subject Headers Considered Ineffective At Best",
-        "month": "may",
-        "year": "2005",
-        "type": "RFC",
-        "number": "4096"
+        "title": "Policy-Mandated Labels Such as "
       }
     },
     {
@@ -62705,12 +62874,15 @@
     {
       "Type": "techreport",
       "Key": "RFC4159",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\nuston\",    title = \"{Deprecation of \"ip6.int\"}\",    month = aug,    year = 2005,\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\nuston\",    title = \"{Deprecation of \"ip6.int\"}\",    month = aug,    year = 2005,\r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC4159",
         "author": "G. Huston",
-        "title": "Deprecation of \"ip6.int\"",
+        "title": "Deprecation of ",
         "month": "aug",
         "year": "2005",
         "type": "RFC",
@@ -64490,16 +64662,17 @@
     {
       "Type": "techreport",
       "Key": "RFC4281",
-      "Exceptions": [],
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\ntle = \"{The Codecs Parameter for \"Bucket\" Media Types}\",    month = nov,    year\r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\ntle = \"{The Codecs Parameter for \"Bucket\" Media Types}\",    month = nov,    year\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nThe Codecs Parameter for \"Bucket\" Media Types}\",    month = nov,    year = 2005,\r\n                                        ^",
+        "Expecting an = between the field name and the field value\r\nodecs Parameter for \"Bucket\" Media Types}\",    month = nov,    year = 2005,    t\r\n                                        ^"
+      ],
       "Warnings": [],
       "Fields": {
         "key": "RFC4281",
         "author": "R. Gellens and D. Singer and P. Frojdh",
-        "title": "The Codecs Parameter for \"Bucket\" Media Types",
-        "month": "nov",
-        "year": "2005",
-        "type": "RFC",
-        "number": "4281"
+        "title": "The Codecs Parameter for "
       }
     },
     {
@@ -74969,6 +75142,23 @@
       }
     },
     {
+      "Type": "ARTICLE",
+      "Key": "PittsAM:notlrb",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "A.~M.~Pitts",
+        "title": "A Note on Logical Relations Between Semantics and\r\n                  Syntax",
+        "journal": "Logic Journal of the Interest Group in Pure and\r\n                  Applied Logics",
+        "volume": "5",
+        "number": "4",
+        "month": "jul",
+        "pages": "589--601",
+        "year": "1997",
+        "abstract": "This note gives a new proof of the `operational\r\n                  extensionality' property of Abramsky's lazy lambda\r\n                  calculus--namely the coincidence of contextual\r\n                  equivalence with a co-inductively defined notion of\r\n                  `applicative bisimilarity'.  This purely syntactic\r\n                  result is here proved using a logical relation (due\r\n                  to Plotkin) between the syntax and its denotational\r\n                  semantics. The proof exploits a mixed\r\n                  inductive/co-inductive characterisation of the\r\n                  logical relation recently discovered by the author.\r\n                  (Full version of an invited paper presented at the\r\n                  \\em 3rd Workshop on Logic, Language, Information\r\n                  and Computation\\/ (\\em WoLLIC'96\\/), May 8--10,\r\n                  Salvador (Bahia), Brazil, organised by UFPE and\r\n                  UFBA, sponsored by IGPL, FoLLI, and ASL.)"
+      }
+    },
+    {
       "Type": "INCOLLECTION",
       "Key": "PittsAM:realvo",
       "Exceptions": [],
@@ -75111,6 +75301,35 @@
         "pages": "321--359",
         "issn": "0960-1295",
         "note": "A preliminary version appeared in \\emphProceedings,\r\n                  Second Workshop on Higher Order Operational\r\n                  Techniques in Semantics (HOOTS II), Stanford CA,\r\n                  December 1997, Electronic Notes in Theoretical\r\n                  Computer Science 10, 1998."
+      }
+    },
+    {
+      "Type": "InProceedings",
+      "Key": "PittsAM:newaas",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "M.~J.~Gabbay and A.~M.~Pitts",
+        "title": "A New Approach to Abstract Syntax Involving Binders",
+        "booktitle": "14th Annual Symposium on Logic in Computer Science",
+        "year": "1999",
+        "publisher": "IEEE Computer Society Press, Washington",
+        "pages": "214--224",
+        "abstract": "The Fraenkel-Mostowski permutation model of set\r\n                  theory with atoms (\\emphFM-sets) can serve as the\r\n                  semantic basis of meta-logics for specifying and\r\n                  reasoning about formal systems involving name\r\n                  binding, $\\alpha$-conversion, capture avoiding\r\n                  substitution, and so on.  We show that in FM-set\r\n                  theory one can express statements quantifying over\r\n                  `fresh' names and we use this to give a novel\r\n                  set-theoretic interpretation of name abstraction.\r\n                  Inductively defined FM-sets involving this\r\n                  name-abstraction set former (together with cartesian\r\n                  product and disjoint union) can correctly encode\r\n                  object-level syntax modulo $\\alpha$-conversion.  In\r\n                  this way, the standard theory of algebraic data\r\n                  types can be extended to encompass signatures\r\n                  involving binding operators.  In particular, there\r\n                  is an associated notion of structural recursion for\r\n                  defining syntax-manipulating functions (such as\r\n                  capture avoiding substitution, set of free\r\n                  variables, etc) and a notion of proof by structural\r\n                  induction, both of which remain pleasingly close to\r\n                  informal practice."
+      }
+    },
+    {
+      "Type": "Article",
+      "Key": "PittsAM:tritr",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "A. M. Pitts",
+        "title": "Tripos Theory In Retrospect",
+        "journal": "Mathematical Structures in Computer Science",
+        "year": "2002",
+        "volume": "12",
+        "pages": "265--279"
       }
     },
     {
@@ -75326,6 +75545,22 @@
         "editor": "B. C. Pierce",
         "chapter": "7",
         "isbn": "0-262-16228-8"
+      }
+    },
+    {
+      "Type": "Article",
+      "Key": "PittsAM:monsf",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "M. R. Shinwell and A. M. Pitts",
+        "title": "On a Monadic Semantics for Freshness",
+        "journal": "Theoretical Computer Science",
+        "year": "2005",
+        "volume": "342",
+        "pages": "28--55",
+        "doi": "10.1016/j.tcs.2005.06.003",
+        "url": "http://dx.doi.org/10.1016/j.tcs.2005.06.003"
       }
     },
     {
@@ -75962,7 +76197,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Simon \"the saint\" Templar"
+        "author": "Simon "
       }
     },
     {
@@ -79697,39 +79932,130 @@
     }
   ],
   "Comments": [
-    "PittsAM:realvo1,\r\n@Comment AUTHOR={A.~M.~Pitts",
-    "Reasoning About Local Variables with Operationally-Based\r\n@Comment Logical Relations",
-    "11th Annual Symposium on Logic in Computer Science",
-    "IEEE Computer Society Press, Washington",
-    "152--163",
-    "PittsAM:procbe1,\r\n@Comment AUTHOR={A.~M.~Pitts and J.~R.~X.~Ross",
-    "Process Calculus Based Upon Evaluation to Committed Form",
-    "CONCUR'96: Concurrency Theory, Proc.\\ 7th Int.\\ Conf.\\,\r\n@Comment Pisa, 1996.",
-    "U.~Montanari and V.~Sassone",
-    "Lecture Notes in Computer Science",
-    "Springer-Verlag, Berlin",
-    "18--33",
-    "An approach to the semantics of CCS-like communicating\r\n@Comment processes is proposed that is based upon evaluation of processes\r\n@Comment to input- or output-committed form, with no explicit mention of\r\n@Comment silent actions.  This leads to a co-inductively defined notion of\r\n@Comment \\emph{evaluation bisimilarity",
-    "PittsAM:notlrb,\r\n  AUTHOR =\t {A.~M.~Pitts",
-    "PittsAM:parpoe-tr,\r\n@Comment author = \t {A.~M.~Pitts",
-    "Parametric Polymorphism and Operational Equivalence",
-    "Cambridge University Computer Laboratory",
-    "Studies of the mathematical properties of\r\n@Comment   impredicative polymorphic types have for the most part focused on\r\n@Comment   the \\emph{polymorphic lambda calculus",
-    "total",
-    "relational parametricity",
-    "A preliminary version appeared in \\emph{Proceedings, \r\n@Comment   Second Workshop on Higher Order Operational Techniques in Semantics\r\n@Comment   (HOOTS II), Stanford CA, December 1997",
-    "PittsAM:newaas,\r\n  author =\t {M.~J.~Gabbay and A.~M.~Pitts",
-    "Pittsam:Tritr,\r\n@Comment   Author = \t {A. M. Pitts",
-    "Tripos Theory In Retrospect",
-    "Tutorial Workshop On Realizability Semantics, \r\n@Comment                   {Floc'99",
-    "L. Birkedal And G. Rosolini",
-    "Electronic Notes In Theoretical Computer Science",
-    "Elsevier",
-    "Http://Www.Elsevier.Nl/Cas/Tree/Store/Tcs/Free/Entcs/Store/Tcs23/1/Tcs23.1.010.Ps",
-    "PittsAM:tritr,\r\n  author =\t {A. M. Pitts",
-    "PittsAM:densse,\r\n@Comment   author =\t {A. M. Pitts and T. Sheard",
-    "On the Denotational Semantics of Staged Execution of\r\n@Comment                   Open Code",
-    "Submitted",
-    "PittsAM:monsf,\r\n  author =\t {M. R. Shinwell and A. M. Pitts"
+    "% -------------------------------------------------------------------------\r\n% BibTeX is shit - but ubiquitous...\r\n% Here are some samples from the world.\r\n% See also:\r\n%   http://www.fb10.uni-bremen.de/anglistik/langpro/bibliographies/jacobsen-bibtex.html\r\n% -------------------------------------------------------------------------\r\n\r\n% -------------------------------------------------------------------------\r\n% A smattering of evil little bastards\r\n% -------------------------------------------------------------------------",
+    "Algorithms\",\r\n   volume = 1,\r\n}",
+    "Algorithms\",\r\n   volume = 1,\r\n}",
+    "% -------------------------------------------------------------------------\r\n% A sample of each bibtex record format\r\n% -------------------------------------------------------------------------",
+    "% -------------------------------------------------------------------------\r\n% Some random bibtex examples from the net\r\n% -------------------------------------------------------------------------\r\n\r\nThis file was created with JabRef 1.8.\r\nEncoding: Cp1252",
+    "\",\r\n  month = dec,\r\n  year = 1971,\r\n  type = \"{RFC}\",\r\n  number = \"263\"\r\n}",
+    "\",\r\n  month = jan,\r\n  year = 1972,\r\n  type = \"{RFC}\",\r\n  number = \"294\"\r\n}",
+    "\",\r\n  month = may,\r\n  year = 1972,\r\n  type = \"{RFC}\",\r\n  number = \"339\"\r\n}",
+    "\",\r\n  month = aug,\r\n  year = 1982,\r\n  type = \"{RFC}\",\r\n  number = \"828\"\r\n}",
+    "\",\r\n  month = jan,\r\n  year = 1984,\r\n  type = \"{RFC}\",\r\n  number = \"888\"\r\n}",
+    "\",\r\n  month = aug,\r\n  year = 1990,\r\n  type = \"{RFC}\",\r\n  number = \"1173\"\r\n}",
+    "\",\r\n  month = aug,\r\n  year = 1990,\r\n  type = \"{RFC}\",\r\n  number = \"1174\"\r\n}",
+    "\",\r\n  month = aug,\r\n  year = 1990,\r\n  type = \"{RFC}\",\r\n  number = \"1177\"\r\n}",
+    "\",\r\n  month = feb,\r\n  year = 1991,\r\n  type = \"{RFC}\",\r\n  number = \"1206\"\r\n}",
+    "\",\r\n  month = feb,\r\n  year = 1991,\r\n  type = \"{RFC}\",\r\n  number = \"1207\"\r\n}",
+    "\",\r\n  month = may,\r\n  year = 1992,\r\n  type = \"{RFC}\",\r\n  number = \"1325\"\r\n}",
+    "\",\r\n  month = feb,\r\n  year = 1994,\r\n  type = \"{RFC}\",\r\n  number = \"1578\"\r\n}",
+    "\",\r\n  month = mar,\r\n  year = 1994,\r\n  type = \"{RFC}\",\r\n  number = \"1594\"\r\n}",
+    "\",\r\n  month = mar,\r\n  year = 1995,\r\n  type = \"{RFC}\",\r\n  number = \"1775\"\r\n}",
+    "\",\r\n  month = may,\r\n  year = 1996,\r\n  type = \"{RFC}\",\r\n  number = \"1937\"\r\n}",
+    "\",\r\n  month = aug,\r\n  year = 1998,\r\n  type = \"{RFC}\",\r\n  number = \"2397\"\r\n}",
+    "\",\r\n  month = aug,\r\n  year = 1999,\r\n  type = \"{RFC}\",\r\n  number = \"2664\"\r\n}",
+    "\",\r\n  month = jun,\r\n  year = 2001,\r\n  type = \"{RFC}\",\r\n  number = \"3132\"\r\n}",
+    "\",\r\n  month = aug,\r\n  year = 2002,\r\n  type = \"{RFC}\",\r\n  number = \"3371\"\r\n}",
+    "\",\r\n  month = sep,\r\n  year = 2004,\r\n  type = \"{RFC}\",\r\n  number = \"3891\"\r\n}",
+    "\",\r\n  month = sep,\r\n  year = 2004,\r\n  type = \"{RFC}\",\r\n  number = \"3902\"\r\n}",
+    "\",\r\n  month = oct,\r\n  year = 2004,\r\n  type = \"{RFC}\",\r\n  number = \"3911\"\r\n}",
+    "\",\r\n  month = may,\r\n  year = 2005,\r\n  type = \"{RFC}\",\r\n  number = \"4096\"\r\n}",
+    "\",\r\n  month = nov,\r\n  year = 2005,\r\n  type = \"{RFC}\",\r\n  number = \"4281\"\r\n}",
+    "%% This BibTeX bibliography file was created using BibDesk.\r\n%% http://bibdesk.sourceforge.net/\r\n\r\n\r\n%% Created for Duncan Hull at 2006-03-24 08:51:21 +0000 \r\n\r\n\r\n%% Saved with string encoding ASCII (TeX)",
+    "}",
+    "%%% ====================================================================\r\n%%%  BibTeX-file{\r\n%%%\tauthor          = \"Andrew M. Pitts\",\r\n%%%\tdate            = \"2009-04-15\",\r\n%%%\tfilename        = \"PittsAM.bib\",\r\n%%%     url             = \"http://www.cl.cam.ac.uk/users/amp12/bib/PittsAM.bib\",\r\n%%%     www-home        = \"http://www.cl.cam.ac.uk/users/amp12/\",\r\n%%%\taddress         = \"Cambridge University Computer Laboratory,\r\n%%%\t\t           JJ Thomson Avenue, Cambridge CB3 0FD, UK\",\r\n%%%\temail\t\t= \"amp12 at cl.cam.ac.uk\",\r\n%%%\ttelephone       = \"+44 223 334629\",\r\n%%%\tFAX             = \"+44 223 334678\",\r\n%%%     dates           = {1980--},\r\n%%%     keywords        = \"\",\r\n%%%\tFTP-archive\t= ,\r\n%%%\tsupported       = \"yes\",\r\n%%%\tsupported-by\t= \"Andrew Pitts\",\r\n%%%\tabstract        = \"Bibliography for Andrew M. Pitts\"\r\n%%%  }\r\n%%% ====================================================================",
+    "INPROCEEDINGS{PittsAM:realvo1,\r",
+    "AUTHOR={A.~M.~Pitts},\r",
+    "TITLE={Reasoning About Local Variables with Operationally-Based\r",
+    "Logical Relations},\r",
+    "BOOKTITLE={11th Annual Symposium on Logic in Computer Science},\r",
+    "PUBLISHER={IEEE Computer Society Press, Washington},\r",
+    "YEAR=1996,\r",
+    "PAGES={152--163},\r",
+    "}\r",
+    "INPROCEEDINGS{PittsAM:procbe1,\r",
+    "AUTHOR={A.~M.~Pitts and J.~R.~X.~Ross},\r",
+    "TITLE={Process Calculus Based Upon Evaluation to Committed Form}, \r",
+    "BOOKTITLE={CONCUR'96: Concurrency Theory, Proc.\\ 7th Int.\\ Conf.\\,\r",
+    "Pisa, 1996.},\r",
+    "EDITOR={U.~Montanari and V.~Sassone},\r",
+    "SERIES={Lecture Notes in Computer Science}, \r",
+    "VOLUME=1119,\r",
+    "PUBLISHER={Springer-Verlag, Berlin}, \r",
+    "YEAR=1996, \r",
+    "PAGES={18--33},\r",
+    "ABSTRACT={An approach to the semantics of CCS-like communicating\r",
+    "processes is proposed that is based upon evaluation of processes\r",
+    "to input- or output-committed form, with no explicit mention of\r",
+    "silent actions.  This leads to a co-inductively defined notion of\r",
+    "\\emph{evaluation bisimilarity}---a form of weak equivalence which\r",
+    "is shown to be a congruence, even in the presence of summation.\r",
+    "The relationship between this evaluation-based approach and the\r",
+    "more traditional, labelled transition semantics is investigated.\r",
+    "In particular, with some restriction on sums, CCS observation\r",
+    "equivalence is characterised purely in terms of evaluation to\r",
+    "committed form, and evaluation bisimilarity is characterised as a\r",
+    "weak delay equivalence.  These results are extended to the higher\r",
+    "order case, where evaluation bisimilarity coincides with\r",
+    "Sangiorgi's weak context bisimilarity.  An evaluation-based\r",
+    "approach to $\\pi$-calculus and the relationship with Milner and\r",
+    "Sangiorgi's reduction-based notion of barbed bisimulation are\r",
+    "also examined.}\r",
+    "}\r",
+    "TechReport{PittsAM:parpoe-tr,\r",
+    "author = \t {A.~M.~Pitts},\r",
+    "title = \t {Parametric Polymorphism and Operational Equivalence},\r",
+    "institution =  {Cambridge University Computer Laboratory},\r",
+    "year = \t 1998,\r",
+    "number = \t 453,\r",
+    "abstract =     {Studies of the mathematical properties of\r",
+    "impredicative polymorphic types have for the most part focused on\r",
+    "the \\emph{polymorphic lambda calculus} of Girard-Reynolds, which is\r",
+    "a calculus of \\emph{total} polymorphic functions.  This paper\r",
+    "considers polymorphic types from a functional programming\r",
+    "perspective, where the partialness arising from the presence of\r",
+    "fixpoint recursion complicates the nature of potentially infinite\r",
+    "(`lazy'",
+    ") datatypes.  An approach to Reynolds' notion of",
+    "\\emph{relational parametricity} is developed that works directly on\r",
+    "the syntax of a programming language, using a novel closure operator\r",
+    "to relate operational behaviour to parametricity properties of\r",
+    "types.  Working with an extension of Plotkin's PCF with\r",
+    "$\\forall$-types, lazy lists and existential types, we show by\r",
+    "example how the resulting logical relation can be used to prove\r",
+    "properties of polymorphic types up to operational equivalence.},\r",
+    "note = \t {A preliminary version appeared in \\emph{Proceedings, \r",
+    "Second Workshop on Higher Order Operational Techniques in Semantics\r",
+    "(HOOTS II",
+    "), Stanford CA, December 1997}, Electronic Notes in",
+    "Theoretical Computer Science 10, 1998.}  \r",
+    "}\r",
+    "inproceedings{Pittsam:Tritr,\r",
+    "Author = \t {A. M. Pitts},\r",
+    "Title = \t {Tripos Theory In Retrospect},\r",
+    "Booktitle = \t {Tutorial Workshop On Realizability Semantics, \r",
+    "{Floc'99",
+    "}, Trento, Italy, 1999},",
+    "Editor = \t {L. Birkedal And G. Rosolini},\r",
+    "Volume = \t 23,\r",
+    "Number =        1,\r",
+    "Series = \t {Electronic Notes In Theoretical Computer Science},\r",
+    "Year = \t 1999,\r",
+    "Publisher = {Elsevier},\r",
+    "Url =          {Http://Www.Elsevier.Nl/Cas/Tree/Store/Tcs/Free/Entcs/Store/Tcs23/1/Tcs23.1.010.Ps}\r",
+    "}\r",
+    "Unpublished{PittsAM:densse,\r",
+    "author =\t {A. M. Pitts and T. Sheard},\r",
+    "title =\t {On the Denotational Semantics of Staged Execution of\r",
+    "Open Code},\r",
+    "note =\t {Submitted},\r",
+    "month =\t feb,\r",
+    "year =\t 2004\r",
+    "}\r",
+    "% -------------------------------------------------------------------------\r\n% Some random nasty bibtex samples\r\n% -------------------------------------------------------------------------",
+    "the {saint\"} Templar\", \r\n}",
+    ", \r\nYEAR = 2005, \r\n}",
+    "% -------------------------------------------------------------------------\r\n% This BibTex file was generated by Qiqqa (https://github.com/jimmejardine/qiqqa-open-source/)\r\n% 16 December 2010 18:24:34\r\n% Version 1\r\n% -------------------------------------------------------------------------",
+    "% Multiple bibtex entries for this one..."
   ]
 }
