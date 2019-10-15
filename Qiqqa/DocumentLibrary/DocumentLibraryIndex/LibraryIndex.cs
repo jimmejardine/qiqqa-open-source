@@ -8,6 +8,7 @@ using System.Threading;
 using Qiqqa.Common.TagManagement;
 using Qiqqa.DocumentLibraryIndex;
 using Qiqqa.Documents.PDF;
+using Qiqqa.Documents.PDF.ThreadUnsafe;
 using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.BibTex.Parsing;

@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Qiqqa.Documents.PDF.ThreadUnsafe;
 using Utilities.OCR;
 
 namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
@@ -7,7 +8,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
     {
         public static readonly string CANT_LOCATE = "Can't locate abstract!  You can select the abstract while reading the PDF, then right click, and choose 'Set as Abstract override.'";
 
-        public static string GetAbstractForDocument(PDFDocument pdf_document)
+        public static string GetAbstractForDocument(PDFDocument_ThreadUnsafe pdf_document)
         {
             // Try on the first two pages (sometimes there is a couvert page)
             for (int page = 1; page <= 3; ++page)
@@ -19,7 +20,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
             return CANT_LOCATE;
         }
 
-        private static string GetAbstractForDocument(PDFDocument pdf_document, int page)
+        private static string GetAbstractForDocument(PDFDocument_ThreadUnsafe pdf_document, int page)
         {
             if (pdf_document.DocumentExists)
             {

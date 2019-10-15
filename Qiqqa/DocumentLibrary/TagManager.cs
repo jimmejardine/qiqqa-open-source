@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Qiqqa.Common.TagManagement;
 using Qiqqa.Documents.PDF;
+using Qiqqa.Documents.PDF.ThreadUnsafe;
 using Utilities;
 
 namespace Qiqqa.DocumentLibrary

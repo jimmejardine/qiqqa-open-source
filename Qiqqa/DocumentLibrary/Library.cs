@@ -19,6 +19,9 @@ using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
 using Utilities.Strings;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary
 {
@@ -360,8 +363,6 @@ namespace Qiqqa.DocumentLibrary
             return pdf_document;
         }
 
-        /// <summary>
-        /// </summary>
         private PDFDocument AddNewDocumentToLibrary(string filename, string original_filename, string suggested_download_source, string bibtex, HashSet<string> tags, string comments, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
         {
             // Flag that someone is trying to add to the library.  This is used by the background processes to hold off while the library is busy being added to...
@@ -497,7 +498,7 @@ namespace Qiqqa.DocumentLibrary
                 pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.BibTex);
                 if (tags != null)
                 {
-                    foreach(string tag in tags)
+                    foreach (string tag in tags)
                     {
                         pdf_document.AddTag(tag);
                     }
@@ -522,6 +523,15 @@ namespace Qiqqa.DocumentLibrary
             {
                 SignalThatDocumentsHaveChanged(pdf_document);
             }
+
+            return pdf_document;
+        }
+
+        private PDFDocument AddNewDocumentToLibrary(PDFDocument pdf_document_template, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
+        {
+            PDFDocument pdf_document = AddNewDocumentToLibrary(pdf_document_template.DocumentPath, pdf_document_template.DownloadLocation, pdf_document_template.DownloadLocation, pdf_document_template.BibTex, null, null, suppressDialogs, suppress_signal_that_docs_have_changed);
+
+            pdf_document.CloneMetaData(pdf_document_template);
 
             return pdf_document;
         }
@@ -600,7 +610,7 @@ namespace Qiqqa.DocumentLibrary
             StatusManager.Instance.UpdateStatus("LibraryDocument", String.Format("Copying {0} ({1}) into library", existing_pdf_document.TitleCombined, existing_pdf_document.Fingerprint));
 
             //  do a normal add (since stored separately)
-            var new_pdf_document = AddNewDocumentToLibrary(existing_pdf_document.DocumentPath, existing_pdf_document.DownloadLocation, existing_pdf_document.DownloadLocation, existing_pdf_document.BibTex, TagTools.ConvertTagBundleToTags(existing_pdf_document.Tags), existing_pdf_document.Comments, suppress_dialogs, suppress_signal_that_docs_have_changed);
+            var new_pdf_document = AddNewDocumentToLibrary(existing_pdf_document, suppress_dialogs, suppress_signal_that_docs_have_changed);
 
             // If we were not able to create the PDFDocument from an existing pdf file (i.e. it was a missing reference), then create one from scratch
             if (null == new_pdf_document)
@@ -614,7 +624,7 @@ namespace Qiqqa.DocumentLibrary
                 }
             }
 
-            //  clone the metadata and switch libraries
+            // clone the metadata and switch libraries
             new_pdf_document.CloneMetaData(existing_pdf_document);
 
             StatusManager.Instance.UpdateStatus("LibraryDocument", String.Format("Copied {0} into your library", existing_pdf_document.TitleCombined));
@@ -727,10 +737,15 @@ namespace Qiqqa.DocumentLibrary
             lock (pdf_documents_lock)
             {
                 l1_clk.LockPerfTimerStop();
-                foreach (var pdf in pdf_documents.Where(x => x.Value.Deleted == false))
+                foreach (var pdf in pdf_documents.Values)
                 {
-                    if (String.Compare(pdf.Value.BibTexKey, bibTeXId, StringComparison.OrdinalIgnoreCase) == 0)
-                        return true;
+                    if (!pdf.Deleted)
+                    {
+                        if (String.Compare(pdf.BibTexKey, bibTeXId, StringComparison.OrdinalIgnoreCase) == 0)
+                        {
+                            return true;
+                        }
+                    }
                 }
             }
 
@@ -919,20 +934,12 @@ namespace Qiqqa.DocumentLibrary
 
         public class PDFDocumentEventArgs : EventArgs
         {
-            PDFDocument pdf_document;
-
             public PDFDocumentEventArgs(PDFDocument pdf_document)
             {
-                this.pdf_document = pdf_document;
+                this.PDFDocument = pdf_document;
             }
 
-            public PDFDocument PDFDocument
-            {
-                get
-                {
-                    return pdf_document;
-                }
-            }
+            public PDFDocument PDFDocument { get; }
 
         }
         public event EventHandler<PDFDocumentEventArgs> OnDocumentsChanged;
@@ -949,7 +956,15 @@ namespace Qiqqa.DocumentLibrary
             {
                 //l1_clk.LockPerfTimerStop();
                 last_documents_changed_time = DateTime.UtcNow;
-                documents_changed_optional_changed_pdf_document = optional_changed_pdf_document;
+                if (null == documents_changed_optional_changed_pdf_document || optional_changed_pdf_document == documents_changed_optional_changed_pdf_document)
+                {
+                    documents_changed_optional_changed_pdf_document = optional_changed_pdf_document;
+                }
+                else
+                {
+                    // multiple documents have changed since the observer(s) handled the previous signal...
+                    documents_changed_optional_changed_pdf_document = null;
+                }
             }
         }
 
@@ -1002,7 +1017,7 @@ namespace Qiqqa.DocumentLibrary
 
         public static string GetLibraryBasePathForId(string id)
         {
-            return ConfigurationManager.Instance.BaseDirectoryForQiqqa + id + "\\";
+            return Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.BaseDirectoryForQiqqa, id));
         }
 
         public string LIBRARY_BASE_PATH
@@ -1020,11 +1035,11 @@ namespace Qiqqa.DocumentLibrary
                 string folder_override = ConfigurationManager.Instance.ConfigurationRecord.System_OverrideDirectoryForPDFs;
                 if (!String.IsNullOrEmpty(folder_override))
                 {
-                    return folder_override + @"\";
+                    return Path.GetFullPath(folder_override + @"\");
                 }
                 else
                 {
-                    return LIBRARY_BASE_PATH + @"documents\";
+                    return Path.GetFullPath(Path.Combine(LIBRARY_BASE_PATH, @"documents"));
                 }
             }
         }
@@ -1033,7 +1048,7 @@ namespace Qiqqa.DocumentLibrary
         {
             get
             {
-                return LIBRARY_BASE_PATH + @"index\";
+                return Path.GetFullPath(Path.Combine(LIBRARY_BASE_PATH, @"index"));
             }
         }
 
