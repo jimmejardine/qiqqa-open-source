@@ -411,7 +411,7 @@ namespace Utilities.Language.TextIndexing
         {
             get
             {
-                return Path.GetFullPath(Path.Combine(LIBRARY_INDEX_BASE_PATH, @"index_version.txt");
+                return Path.GetFullPath(Path.Combine(LIBRARY_INDEX_BASE_PATH, @"index_version.txt"));
             }
         }
 
