@@ -40,7 +40,7 @@ Would anyone who is interested in contributing towards this repository please co
 
 ### General Notes
 
-As the repository includes "Windows Long Filenames" (at least since commit 0cf15c0d4d9377e80ddafd3063cbef038701bb3e) you MUST run this `git` configuration
+As the repository includes "Windows Long Filenames" (at least since commit [0cf15c0d](https://github.com/GerHobbelt/qiqqa-open-source/commit/0cf15c0d4d9377e80ddafd3063cbef038701bb3e)) you MUST run this `git` configuration
 command before working on the qiqqa repository:
 
     git config core.longpaths true
