@@ -1,0 +1,27 @@
+﻿{
+  "Items": [
+    {
+      "Type": "Article",
+      "Key": "Adachi_1989",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Cluster model investigation of the electronic state and chemical bond in cuprous and cupric oxide",
+        "author": "Adachi, H. and Takano, M.",
+        "journal": "Physica C",
+        "year": "1989",
+        "month": "jan",
+        "number": "1",
+        "pages": "169--179",
+        "volume": "157",
+        "abstract": "Cluster model calculations have been carried out to study the electronic state and the chemical bonding in\r\nCu2O and CuO as well as YBa2Cu3O7 and YBa2Cu3O6. The clusters used are Cu4O14-9, Cu4O16-12, Cu3O17-12 and Cu3O15-10,\r\nrespectively, each being embedded in an appropriate electrostatic potential reflecting the crystal structure. The\r\ncovalent interaction between Cu and O is most significant in the cluster for the high-temperature superconductor\r\nYBa2CuO7. It is remarkable that O 2p[pi] holes are created near the Fermi level and stabilized in the O----Cu+---O-\r\nlinear bond formed in the basal Cu2O plane of the cluster for YBa2Cu3O7. A charge disproportionation takes place both in\r\nthe model clusters for YBa2Cu3O7 and YBa2Cu3O6, while a spin polarization is seen only in the latter. The similarity and\r\ndissimilarity of Cu atoms in those oxides are discussed.",
+        "doi": "10.1016/0921-4534(89)90484-X",
+        "issn": "0921-4534",
+        "keywords": "CuO",
+        "owner": "Francesco",
+        "timestamp": "2010.07.01"
+      }
+    }
+  ],
+  "Comments": []
+}

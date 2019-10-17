@@ -1,0 +1,46 @@
+﻿{
+  "Items": [
+    {
+      "Type": "misc",
+      "Key": "firstname_retorquere_replicate_2015",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "abstract": "zotero-better-bibtex - Make Zotero effective for us LaTeX holdouts",
+        "author": "Firstname Retorquere",
+        "howpublished": "\\urlhttps://github.com/retorquere/zotero-better-bibtex/issues/439",
+        "journal": "GitHub",
+        "title": "Replicate Zotero Key Algorithm $\\cdot$ Issue \\#439 $\\cdot$ Retorquere/Zotero-Better-Bibtex",
+        "year": "2015"
+      }
+    },
+    {
+      "Type": "misc",
+      "Key": "retorquere_replicate_2016",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "abstract": "zotero-better-bibtex - Make Zotero effective for us LaTeX holdouts",
+        "author": "Retorquere, Firstname and Retorquere2, Firstname2",
+        "howpublished": "\\urlhttps://github.com/retorquere/zotero-better-bibtex/issues/439",
+        "journal": "GitHub",
+        "title": "Replicate Zotero Key Algorithm $\\cdot$ Issue \\#439 $\\cdot$ Retorquere/Zotero-Better-Bibtex",
+        "year": "2016"
+      }
+    },
+    {
+      "Type": "misc",
+      "Key": "retorquere-double_replicate_nodate",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "abstract": "zotero-better-bibtex - Make Zotero effective for us LaTeX holdouts",
+        "author": "Retorquere-Double, First-Double",
+        "howpublished": "\\urlhttps://github.com/retorquere/zotero-better-bibtex/issues/439",
+        "journal": "GitHub",
+        "title": "Replicate Zotero Key Algorithm $\\cdot$ Issue \\#439 $\\cdot$ Retorquere/Zotero-Better-Bibtex"
+      }
+    }
+  ],
+  "Comments": []
+}
