@@ -439,10 +439,10 @@ namespace QiqqaUnitTester
 
         // TestData items: All data files are employed in at least one BibTeX test! Hence this list is empty!
 		//
-		// (added this dummy entry to ensure the test runner doesn't barf a hairball on this otherwise 
+		// (added this dummy entry to ensure the test runner doesn't barf a hairball on this otherwise
 		// empty [DataTestMethod]:
 		[DataRow("simple-0001.bib")]
-        [DataTestMethod]
+		[DataTestMethod]
         public void Pending_TestFiles(string bibtex_filepath)
         {
             ASSERT.IsTrue(true);

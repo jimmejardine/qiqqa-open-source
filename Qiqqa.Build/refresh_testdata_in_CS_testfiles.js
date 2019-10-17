@@ -71,9 +71,14 @@ function updateBibTeXTestFile(paths) {
 	// this test is assumed to be the second in the file!
 	var comment_pos = content.indexOf('// TestData items:');
 	item_pos = content.indexOf('[DataRow(');
-	inject_pos = content.indexOf('[DataTestMethod]', 10);
+	var offset = 10;
+	if (comment_pos < content.indexOf('[DataTestMethod]', offset)) {
+		// skip comment added by this very script!
+		offset = content.indexOf('[DataTestMethod]', offset) + 10;
+	}
+	inject_pos = content.indexOf('[DataTestMethod]', offset);
 
-	var mid1_content = content.substring(0, Math.min(inject_pos, (item_pos > 0 ? item_pos : inject_pos), (comment_pos > 0 ? comment_pos : inject_pos)));
+	var mid1_content = content.substring(0, Math.min(inject_pos, (item_pos >= 0 ? item_pos : inject_pos), (comment_pos >= 0 ? comment_pos : inject_pos)));
 	var post_content = content.substring(inject_pos);
 
 
@@ -109,7 +114,12 @@ function updateBibTeXTestFile(paths) {
 		content += '// TestData items: Must be processed yet:\n        ' + missing_entirely.join('\n        ') + '\n        ';
 	}
 	if (partly_done.length == 0 && missing_entirely.length == 0) {
-		content += '// TestData items: All data files are employed in at least one BibTeX test! Hence this list is empty!\n        ';
+		content += `// TestData items: All data files are employed in at least one BibTeX test! Hence this list is empty!
+		//
+		// (added this dummy entry to ensure the test runner doesn't barf a hairball on this otherwise
+		// empty [DataTestMethod]:
+		[DataRow("simple-0001.bib")]
+		`;
 	}
 	content += post_content;
 
