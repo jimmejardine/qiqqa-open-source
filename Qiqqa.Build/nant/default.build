@@ -122,7 +122,6 @@
         <echo message=" Packaging v${version.client}"/>
         <echo message=" * * * * * * * * * * * * * * * * * * * * * * * *"/>
 
-
         <!-- Copy build and additional files -->
         <delete dir="${dir.packaging.temp}" />
         <mkdir dir="${dir.packaging.temp}" />
