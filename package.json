@@ -1,0 +1,38 @@
+{
+  "name": "qiqqa",
+  "version": "82.0.0",
+  "description": "Qiqq\u0016The essential free research and reference manager. Search for, read and annotate your PDFs. Then review your work, write up and create bibliographies instantly.",
+  "main": "Qiqqa.Build/info.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jimmejardine/qiqqa-open-source.git"
+  },
+  "keywords": [
+    "qiqqa",
+    "PDF",
+    "manager",
+    "document",
+    "manager",
+    "research",
+    "assitant",
+    "bibliography",
+    "management"
+  ],
+  "author": "Jimme Jardine",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/jimmejardine/qiqqa-open-source/issues"
+  },
+  "homepage": "https://github.com/jimmejardine/qiqqa-open-source#readme",
+  "dependencies": {
+    "globby": "^10.0.1",
+    "moment": "^2.24.0",
+    "semver": "^6.3.0"
+  }
+}

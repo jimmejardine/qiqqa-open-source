@@ -38,3 +38,6 @@ Qiqqa.Build/Packaging/ClickOnceUninstaller/ClickOnceUninstaller/obj/*
 /packages/
 
 
+# nodeJS stuff (npm)
+/node_modules
+
