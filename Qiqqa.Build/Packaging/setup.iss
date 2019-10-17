@@ -37,6 +37,8 @@ Compression=lzma/Max
 SolidCompression=yes
 SetupLogging=yes
 PrivilegesRequired=admin
+; the Windows file version as reported by the Properties of the generated setup.exe:
+VersionInfoVersion={#AppVersion}
 
 ; from: http://www.kinook.com/blog/?p=53 
 DefaultDirName={code:DefDirRoot}\{#AppName}
