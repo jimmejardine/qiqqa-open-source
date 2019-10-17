@@ -1,13 +1,15 @@
 {
   "name": "qiqqa",
-  "version": "82.0.0",
-  "description": "Qiqq\u0016The essential free research and reference manager. Search for, read and annotate your PDFs. Then review your work, write up and create bibliographies instantly.",
+  "version": "82.0.7198-42243",
+  "description": "Qiqqa: The essential free research and reference manager. Search for, read and annotate your PDFs. Then review your work, write up and create bibliographies instantly.",
   "main": "Qiqqa.Build/info.js",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "syncver": "node Qiqqa.Build/bump_version.js -s",
+    "bump": "node Qiqqa.Build/bump_version.js -b"
   },
   "repository": {
     "type": "git",
@@ -31,6 +33,7 @@
   },
   "homepage": "https://github.com/jimmejardine/qiqqa-open-source#readme",
   "dependencies": {
+    "@gerhobbelt/nomnom": "^1.8.4-29",
     "globby": "^10.0.1",
     "moment": "^2.24.0",
     "semver": "^6.3.0"

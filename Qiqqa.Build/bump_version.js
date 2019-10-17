@@ -6,7 +6,7 @@ var globby = require('globby');
 
 var package_json = require(__dirname + '/../package.json');
 
-console.log("bump dir:", __dirname, package_json.version);
+//console.log("bump dir:", __dirname, package_json.version);
 
 
 // See: https://jonthysell.com/2017/01/10/automatically-generating-version-numbers-in-visual-studio/
@@ -50,13 +50,17 @@ version_info.minor = semver.minor(package_json.version);
 version_info.patch = semver.patch(package_json.version);
 version_info.toString = function () {
 	return '' + this.major + '.' + this.minor + '.' + this.build + '.' + this.release;
-}
+};
+version_info.toSemVer = function () {
+	return '' + this.major + '.' + this.minor + '.' + this.build + '-' + this.release;
+};
 
-console.log("Current version:", version_info.toString());
+
+//console.log("Current version:", version_info.toString());
 
 
 async function scandir() {
-    const paths = await globby(['**/AssemblyInfo.cs', '**/ClientVersion.xml', '**/*.csproj'], {
+    const paths = await globby(['**/AssemblyInfo.cs', '**/ClientVersion.xml', '**/*.csproj', 'package.json'], {
         cwd: __dirname + '/..',
         absolute: true,
         onlyFiles: true,
@@ -66,7 +70,9 @@ async function scandir() {
  
  	paths.sort();
 
-    //console.log(paths);
+    if (opts.debug) {
+    	console.log("Paths to inspect:", paths);
+    }
 
     //<ApplicationVersion>82.0.0.0</ApplicationVersion>
     //[assembly: AssemblyVersion("82.0.*")]
@@ -97,30 +103,87 @@ function updateFilesWithVersion(paths) {
 
 		// patch AssemblyInfo files:
 		if (path.includes('AssemblyInfo')) {
-			let re = /assembly: AssemblyVersion\(".*?"\)/g;
+			let re = /assembly:\s+AssemblyVersion\("[^"]*"\)/g;
 			content = content.replace(re, `assembly: AssemblyVersion("${version_info.toString()}")`);
 
-			re = /assembly: AssemblyFileVersion\(".*?"\)/g;
+			re = /assembly:\s+AssemblyFileVersion\("[^"]*"\)/g;
 			content = content.replace(re, `assembly: AssemblyFileVersion("${version_info.toString()}")`);
 
-			re = /assembly: AssemblyCompany\(".*?"\)/g;
+			re = /assembly:\s+AssemblyCompany\("[^"]*"\)/g;
 			content = content.replace(re, `assembly: AssemblyCompany("Quantisle")`);
 
-			re = /assembly: AssemblyCopyright(".*?")/g;
-			content = content.replace(re, `assembly: AssemblyCopyright("Copyright © Quantisle 2010-2019.  All rights reserved.")`);
+			// assembly: AssemblyCopyright
+			re = /assembly:\s+AssemblyCopyright\("[^"]*"\)/gi;
+			content = content.replace(re, `assembly: AssemblyCopyright("Copyright © Quantisle 2010-2019. All rights reserved.")`);
+		}
+
+		// patch package.json to reflect the build+release versions calculated here:
+		if (path.includes('package.json')) {
+			let re = /"version": ".*?"/g;
+			content = content.replace(re, `"version": "${version_info.toSemVer()}"`);
 		}
 
 		if (original_content != content)
 		{
 			console.log("Patched:", path);
 
-			// fs.writeFileSync(path, content, 'utf8');
+			fs.writeFileSync(path, content, 'utf8');
 		}
 	});
 }
 
 
-scandir()
-.then(updateFilesWithVersion)
-.catch(console.error);
 
+
+
+var opts = require("@gerhobbelt/nomnom")
+   .option('debug', {
+      abbr: 'd',
+      flag: true,
+      help: 'Print debugging info'
+   })
+   .option('bump', {
+      abbr: 'b',
+   	  flag: true,
+      help: 'bump major version of Qiqqa (ready the code for another release)'
+   })
+   .option('sync', {
+      abbr: 's',
+   	  flag: true,
+      help: 'sync all Qiqqa projects to have the same version info'
+   })
+   .option('version', {
+      flag: true,
+      help: 'print version and exit',
+      callback: function() {
+		 return `
+Current version is:       ${package_json.version}
+Today's version would be: ${version_info.toSemVer()}
+		`;
+      }
+   })
+   .parse();
+
+if (opts._.length > 0) {
+	console.error('Unsupported arguments to bump tool: ', opts._);
+	process.exit(42);
+}
+
+//console.log(opts);
+//process.exit(0);
+
+
+if (opts.bump) {
+	version_info.major++;
+}
+
+if (opts.bump || opts.sync) {
+	console.log(`
+Software Release Version: ${version_info.toSemVer()}
+---------------------------------------------
+		`);
+
+	scandir()
+	.then(updateFilesWithVersion)
+	.catch(console.error);
+}
