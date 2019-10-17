@@ -29,6 +29,7 @@ async function scandir() {
 function updateBibTeXTestFile(paths) {
 	var csfile = __dirname + '/../QiqqaUnitTester/TestBibTex.cs';
 	var content = fs.readFileSync(csfile, 'utf8');
+	var original_content = content;
 
 	var lines = paths.map(path => {
 		return `[DataRow("${path}")]`;
@@ -55,17 +56,37 @@ function updateBibTeXTestFile(paths) {
 		return cnt;
 	});
 
+
+	content = content.replace(/\r\n/g, '\n');
+
+	// find location of Do_TestFiles_Exist
+	// this test is assumed to be the first in the file!
+	var item_pos = content.indexOf('[DataRow(');
 	var inject_pos = content.indexOf('[DataTestMethod]');
 
-	var pre_content = content.substring(0, pos);
-	var post_content = content.substring(pos);
+	var pre_content = content.substring(0, Math.min(inject_pos, item_pos));
+	content = content.substring(inject_pos);
 
+	// find location of Pending_TestFiles
+	// this test is assumed to be the second in the file!
+	var comment_pos = content.indexOf('// TestData items:');
+	item_pos = content.indexOf('[DataRow(');
+	inject_pos = content.indexOf('[DataTestMethod]', 10);
+
+	var mid1_content = content.substring(0, Math.min(inject_pos, (item_pos > 0 ? item_pos : inject_pos), (comment_pos > 0 ? comment_pos : inject_pos)));
+	var post_content = content.substring(inject_pos);
+
+
+
+	var full_set = [];
 	var partly_done = [];
 	var missing_entirely = [];
 
 	for (var i = 0; i < lines.length; i++) {
 		var cnt = handled[i];
 		var line = lines[i];
+
+		full_set.push(line);
 
 		if (cnt >= 2) continue;
 
@@ -77,15 +98,28 @@ function updateBibTeXTestFile(paths) {
 	}
 
 	content = pre_content;
+	if (full_set.length) {
+		content += '' + full_set.join('\n        ') + '\n        ';
+	}
+	content += mid1_content;
 	if (partly_done.length) {
-		content += '// Partly processed:\n        ' + partly_done.join('\n        ') + '\n        ';
+		content += '// TestData items: Partly processed:\n        ' + partly_done.join('\n        ') + '\n        ';
 	}
 	if (missing_entirely.length) {
-		content += '// Must be processed yet:\n        ' + missing_entirely.join('\n        ') + '\n        ';
+		content += '// TestData items: Must be processed yet:\n        ' + missing_entirely.join('\n        ') + '\n        ';
+	}
+	if (partly_done.length == 0 && missing_entirely.length == 0) {
+		content += '// TestData items: All data files are employed in at least one BibTeX test! Hence this list is empty!\n        ';
 	}
 	content += post_content;
 
-	fs.writeFileSync(csfile, content, 'utf8');
+	content.replace(/\n/g, '\r\n');
+
+	if (original_content != content) {
+		console.log("Patched:", csfile);
+		
+		fs.writeFileSync(csfile, content, 'utf8');
+	}
 }
 
 
