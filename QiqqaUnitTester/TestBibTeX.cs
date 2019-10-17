@@ -25,11 +25,10 @@ namespace QiqqaUnitTester
 
         // To (re)generate the DataRow list:
         //
-        //     cd QiqqaSystemTester/data/fixtures/bibtex
-        //     ( for f in *.bib **/*.bib **/**/*.bib **/**/*.biblatex ; do echo "[DataRow(\"$f\")]" ; done ) | sort >> ../../../TestBibTeX.cs
+        //     npm run refresh-data
         //
         // (Note that this same set is distributed across the Check_***() Tests further below.)
-		[DataRow("all-caps-0001.bib")]
+        [DataRow("all-caps-0001.bib")]
 		[DataRow("ampersand-0001.bib")]
 		[DataRow("ampersand-0002.bib")]
 		[DataRow("ampersand-0003.bib")]

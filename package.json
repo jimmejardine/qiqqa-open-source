@@ -9,7 +9,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "syncver": "node Qiqqa.Build/bump_version.js -s",
-    "bump": "node Qiqqa.Build/bump_version.js -b"
+    "bump": "node Qiqqa.Build/bump_version.js -b",
+    "refresh-data": "node Qiqqa.Build/refresh_testdata_in_CS_testfiles.js -r"
   },
   "repository": {
     "type": "git",
