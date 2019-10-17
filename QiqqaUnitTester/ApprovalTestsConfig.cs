@@ -87,8 +87,18 @@ namespace QiqqaTestHelpers
             string root = Path.GetDirectoryName(basename);
             string name = Path.GetFileName(basename);
             string dataname = Path.GetFileNameWithoutExtension(DataFile);
+            string ext = Path.GetExtension(DataFile).Substring(1);   // produce the extension without leading dot
+            if (ext.StartsWith("bib"))
+            {
+                ext = ext.Substring(3);
+            }
+            if (ext.Length > 0)
+            {
+                ext = "." + ext;
+            }
+
             // UNC long filename/path support by forcing this to be a UNC path:
-            return Path.GetLongPath(Path.GetFullPath(Path.Combine(root, $"{dataname}.{name}{ApprovalTests.Writers.WriterUtils.Approved}{ExtensionWithDot}")));
+            return Path.GetLongPath(Path.GetFullPath(Path.Combine(root, $"{dataname}.{name}{ext}{ApprovalTests.Writers.WriterUtils.Approved}{ExtensionWithDot}")));
         }
 
         public override string GetReceivedFilename(string basename)
@@ -96,7 +106,17 @@ namespace QiqqaTestHelpers
             string root = Path.GetDirectoryName(basename);
             string name = Path.GetFileName(basename);
             string dataname = Path.GetFileNameWithoutExtension(DataFile);
-            return Path.GetLongPath(Path.GetFullPath(Path.Combine(root, $"{dataname}.{name}{ApprovalTests.Writers.WriterUtils.Received}{ExtensionWithDot}")));
+            string ext = Path.GetExtension(DataFile).Substring(1);   // produce the extension without leading dot
+            if (ext.StartsWith("bib"))
+            {
+                ext = ext.Substring(3);
+            }
+            if (ext.Length > 0)
+            {
+                ext = "." + ext;
+            }
+
+            return Path.GetLongPath(Path.GetFullPath(Path.Combine(root, $"{dataname}.{name}{ext}{ApprovalTests.Writers.WriterUtils.Received}{ExtensionWithDot}")));
         }
     }
 
