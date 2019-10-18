@@ -63,6 +63,38 @@ Check the screenshot below to verify you have unchecked the correct projects in 
 ![Configuration Manager](.docs/images/devinfcm.png) 
 
 
+#### 3:
+
+These `bash` scripts are important for development:
+
+- `./update_CHANGELOG.sh` : this one grabs the `git log` output and dumps that into [`CHANGELOG_full.md`](./CHANGELOG_full.md), which you can then postprocess using Beyond Compare and possibly other tools to produce a viable [`CHANGELOG.md`](./CHANGELOG.md) when you are working on producing a Qiqqa release.
+- `./superclean.sh` : this script blows everything away that's been written by Visual Studio in the devtree. 
+
+  **When you run this script and restart Visual Studio afterwards, you MUST re-configure MSVS cf. to Note 2 further above in this document.**
+- `./build_installer.sh` : the alternative to building the Qiqqa.Packager project and the older way to build a Qiqqa `setup.exe` installer. Less relevant today...
+
+
+#### 4:
+
+Before you run any `bash` script or build anything using your Visual Studio IDE, you should have installed `node`+`npm` on your machine and run this command in the repository base directory (a.k.a. devtree root a.k.a. the directory where this DEVELOPER-INFO.md file resides):
+
+    npm i
+
+This will set up the Node/npm package environment for the JavaScript/NodeJS based `bash` scripts which help build Qiqqa. Those scripts can be invoked by using `npm run ...` commands such as:
+
+- `npm run syncver` : this command will *synchronize* all Qiqqa parts to have the same version number info.
+ 
+  The master *major* version is obtained from the `package.json` file — Qiqqa has historically used only the *major* version number to identify a Qiqqa version. Experimental prereleases, etc. can be identified in Qiqqa Open Source by watching the full version number as it is shown during Qiqqa start up and elsewhere in the application.
+
+- `npm run bump` : this will *bump* the Qiqqa major version number by +1, i.e. this command should be run after every official release as the next time a newer=higher Qiqqa version should be reported by the binaries to be built.
+
+- `npm run refresh-data` : a helper script which edits the Unit Test C# source code to ensure that all test data reference files ('fixtures') have been included in the test set.
+
+  This one comes in handy when, for instance, you add a bunch of BibTeX test files which should be parse-tested or otherwise.
+  This script will find those (when you have placed them in the `TestData/...` directory tree) and add comments and code lines in the appropriate Unit Test C# source files to ensure the new files show up in the tests.
+
+
+  
 
 ### Visual Studio 2019 (NEW, SUPPORTED build environment)
 
