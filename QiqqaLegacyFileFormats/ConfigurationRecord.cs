@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Reflection;
-using Utilities;
-using Utilities.Misc;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
-namespace Qiqqa.Common.Configuration
+namespace QiqqaLegacyFileFormats
 {
     [Serializable]
     public class ConfigurationRecord : DictionaryBasedObject
@@ -117,9 +117,9 @@ namespace Qiqqa.Common.Configuration
                 string filename = this["InCite_LastStyleFile"] as string;
                 if (String.IsNullOrEmpty(filename))
                 {
-                    filename = ConfigurationManager.Instance.StartupDirectoryForQiqqa + @"\InCite\styles\harvard1.csl";
+                    filename = Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"InCite/styles/harvard1.csl");
                 }
-                return filename;
+                return Path.GetFullPath(filename);
             }
             set { this["InCite_LastStyleFile"] = value; }
         }
@@ -166,7 +166,6 @@ namespace Qiqqa.Common.Configuration
             set 
             { 
                 this["System_DisableSSL"] = value;
-                Logging.Info("DisableSSL = " + value);
             }
         }
 
