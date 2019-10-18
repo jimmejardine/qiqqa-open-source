@@ -24,7 +24,7 @@ namespace Utilities.BibTex
             return sb.ToString();
         }
 
-        public static string GetEmplyArticleBibTeXTemplate()
+        public static string GetEmptyArticleBibTeXTemplate()
         {
             string key = GenerateRandomBibTeXKey();
 

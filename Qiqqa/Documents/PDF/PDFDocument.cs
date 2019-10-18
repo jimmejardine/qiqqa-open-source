@@ -365,6 +365,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
                 Title = value;
             }
         }
+
         /// <summary>
         /// Is true if the user made this title by hand (e.g. typed it in or got some BibTeX)
         /// </summary>
@@ -425,7 +426,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
                     return;
                 }
 
-                // If they are clearing out a value, clear the title
+                // If they are clearing out a value, clear the authors override
                 if (String.IsNullOrEmpty(value))
                 {
                     Authors = null;
@@ -1054,7 +1055,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
                 }
                 catch (Exception ex)
                 {
-                    Logging.Error(ex, "There was a problem reloading an existing PDF from existing metadata, so overwriting it!");
+                    Logging.Error(ex, "There was a problem reloading an existing PDF from existing metadata, so overwriting it! (Fingerprint: {0})", pdf_document.Fingerprint);
                     pdf_document.QueueToStorage();
                     //pdf_document.SaveToMetaData();
                 }
@@ -1089,7 +1090,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
                 }
                 catch (Exception ex)
                 {
-                    Logging.Error(ex, "There was a problem reloading an existing PDF from existing metadata, so overwriting it!");
+                    Logging.Error(ex, "There was a problem reloading an existing PDF from existing metadata, so overwriting it! (Fingerprint: {0})", pdf_document.Fingerprint);
                     pdf_document.QueueToStorage();
                 }
             }
@@ -1145,7 +1146,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
         {
             //bindable = null;
 
-            Logging.Info("Cloning metadata from {0}", existing_pdf_document.Title);
+            Logging.Info("Cloning metadata from {0}: {1}", existing_pdf_document..Fingerprint, existing_pdf_document.TitleCombined);
 
             //dictionary = (DictionaryBasedObject)existing_pdf_document.dictionary.Clone();
             this.CopyMetaData(existing_pdf_document);

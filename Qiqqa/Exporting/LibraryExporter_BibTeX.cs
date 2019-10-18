@@ -57,7 +57,7 @@ namespace Qiqqa.Exporting
                     // If there is no bibtex, make a record
                     if (String.IsNullOrEmpty(bibtex))
                     {
-                        bibtex = BibTexTools.GetEmplyArticleBibTeXTemplate();
+                        bibtex = BibTexTools.GetEmptyArticleBibTeXTemplate();
 
                         string title = pdf_document.TitleCombined;
                         if (Constants.TITLE_UNKNOWN != title) bibtex = BibTexTools.SetAuthor(bibtex, title);
