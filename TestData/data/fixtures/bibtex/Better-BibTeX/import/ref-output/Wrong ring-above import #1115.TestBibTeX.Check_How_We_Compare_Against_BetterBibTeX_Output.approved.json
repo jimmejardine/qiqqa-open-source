@@ -1,0 +1,24 @@
+﻿{
+  "Items": [
+    {
+      "Type": "inproceedings",
+      "Key": "rehurek_lrec",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Software Framework for Topic Modelling with Large Corpora",
+        "author": "Radim \\v Reh\\r u\\v rek and Petr Sojka",
+        "booktitle": "Proceedings of the LREC 2010 Workshop on New\r\nChallenges for NLP Frameworks",
+        "pages": "45--50",
+        "year": "2010",
+        "month": "May",
+        "day": "22",
+        "publisher": "ELRA",
+        "address": "Valletta, Malta",
+        "url": "http://is.muni.cz/publication/884893/en",
+        "language": "English"
+      }
+    }
+  ],
+  "Comments": []
+}

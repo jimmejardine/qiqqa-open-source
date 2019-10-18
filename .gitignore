@@ -26,6 +26,8 @@ QiqqaVersionMigrator/bin/*
 QiqqaVersionMigrator/obj/*
 QiqqaLegacyFileFormats/bin/*
 QiqqaLegacyFileFormats/obj/*
+Qiqqa.Build/Packaging/ClickOnceUninstaller/ClickOnceUninstaller/bin/*
+Qiqqa.Build/Packaging/ClickOnceUninstaller/ClickOnceUninstaller/obj/*
 
 # scratch directory for other material while working on Qiqqa items
 /research/
@@ -35,4 +37,7 @@ QiqqaLegacyFileFormats/obj/*
 # NuGet installed packages
 /packages/
 
+
+# nodeJS stuff (npm)
+/node_modules
 

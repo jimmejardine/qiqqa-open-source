@@ -1,0 +1,47 @@
+﻿{
+  "Items": [
+    {
+      "Type": "InProceedings",
+      "Key": "test_citation1",
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\n  Booktitle                = IEEE_J_PROC,    Year                     = {2016}, \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n  Booktitle                = IEEE_J_PROC,    Year                     = {2016}, \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {
+        "title": "Test Title With 100~$\\mu$J, 200\\,\\mbox$\\mu$J Energy, and $\\pm$0.1\\% Accuracy, 0.2\\,mm$^2$ Size, and $-$50\\,dB Attenuation",
+        "author": "Doe, J. and Smith, R.",
+        "booktitle": "IEEE",
+        "year": "2016",
+        "month": "Feb",
+        "pages": "300--301",
+        "abstract": "Abstract here",
+        "doi": "10.1109/JPROC.2016.2526118",
+        "issn": "0193-6530",
+        "keywords": "Keyword 1; Keyword 2"
+      }
+    },
+    {
+      "Type": "InProceedings",
+      "Key": "test_citation2",
+      "Exceptions": [
+        "Expecting an = between the field name and the field value\r\n  Booktitle                = IEEE_J_PROC,    Year                     = {2016}, \r\n                                        ^",
+        "Expecting a field name but nothing was acceptable, so moving onto next whitespace\r\n  Booktitle                = IEEE_J_PROC,    Year                     = {2016}, \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {
+        "title": "Test Title with space\\quad quad, space\\;semi-colon, space\\:colon, space\\,comma, space~nbsp",
+        "author": "Doe, J. and Smith, R.",
+        "booktitle": "IEEE",
+        "year": "2016",
+        "month": "Feb",
+        "pages": "300--301",
+        "abstract": "Abstract here",
+        "doi": "10.1109/JPROC.2016.2526118",
+        "issn": "0193-6530",
+        "keywords": "Keyword 1; Keyword 2"
+      }
+    }
+  ],
+  "Comments": []
+}

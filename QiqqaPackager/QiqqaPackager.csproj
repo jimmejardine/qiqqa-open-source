@@ -12,6 +12,21 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>82.0.7198.42243</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -38,10 +53,268 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="..\build-installer.sh">
+      <Link>Build Scripts\build-installer.sh</Link>
+    </None>
+    <None Include="..\CHANGELOG.md">
+      <Link>Build Scripts\CHANGELOG.md</Link>
+    </None>
+    <None Include="..\CHANGELOG_full.md">
+      <Link>Build Scripts\CHANGELOG_full.md</Link>
+    </None>
+    <None Include="..\LICENSE">
+      <Link>Build Scripts\LICENSE</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\go.bat">
+      <Link>Build Scripts\go.bat</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\nant\default.build">
+      <Link>Build Scripts\nant\default.build</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\nant\README.md">
+      <Link>Build Scripts\nant\README.md</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Include\README.md">
+      <Link>Build Scripts\ISCC\Include\README.md</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\ISCC\Builtins.iss">
+      <Link>Build Scripts\ISCC\ISCC\Builtins.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\ISCC\Default.isl">
+      <Link>Build Scripts\ISCC\ISCC\Default.isl</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\README.md">
+      <Link>Build Scripts\ISCC\README.md</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\isxdl\czech.ini">
+      <Link>Build Scripts\ISCC\Scripts\isxdl\czech.ini</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\isxdl\english.ini">
+      <Link>Build Scripts\ISCC\Scripts\isxdl\english.ini</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\isxdl\french.ini">
+      <Link>Build Scripts\ISCC\Scripts\isxdl\french.ini</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\isxdl\french2.ini">
+      <Link>Build Scripts\ISCC\Scripts\isxdl\french2.ini</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\isxdl\french3.ini">
+      <Link>Build Scripts\ISCC\Scripts\isxdl\french3.ini</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\isxdl\german.ini">
+      <Link>Build Scripts\ISCC\Scripts\isxdl\german.ini</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\isxdl\german2.ini">
+      <Link>Build Scripts\ISCC\Scripts\isxdl\german2.ini</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\isxdl\german3.ini">
+      <Link>Build Scripts\ISCC\Scripts\isxdl\german3.ini</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\isxdl\isxdl.iss">
+      <Link>Build Scripts\ISCC\Scripts\isxdl\isxdl.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\isxdl\norwegian.ini">
+      <Link>Build Scripts\ISCC\Scripts\isxdl\norwegian.ini</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\isxdl\polish.ini">
+      <Link>Build Scripts\ISCC\Scripts\isxdl\polish.ini</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\isxdl\portugues.ini">
+      <Link>Build Scripts\ISCC\Scripts\isxdl\portugues.ini</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\isxdl\portuguese.ini">
+      <Link>Build Scripts\ISCC\Scripts\isxdl\portuguese.ini</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\isxdl\russian.ini">
+      <Link>Build Scripts\ISCC\Scripts\isxdl\russian.ini</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\isxdl\spanish.ini">
+      <Link>Build Scripts\ISCC\Scripts\isxdl\spanish.ini</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\isxdl\swedish.ini">
+      <Link>Build Scripts\ISCC\Scripts\isxdl\swedish.ini</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products-old.iss">
+      <Link>Build Scripts\ISCC\Scripts\products-old.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products.iss">
+      <Link>Build Scripts\ISCC\Scripts\products.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products\dotnetfx11.iss">
+      <Link>Build Scripts\ISCC\Scripts\products\dotnetfx11.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products\dotnetfx11lp.iss">
+      <Link>Build Scripts\ISCC\Scripts\products\dotnetfx11lp.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products\dotnetfx11sp1.iss">
+      <Link>Build Scripts\ISCC\Scripts\products\dotnetfx11sp1.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products\dotnetfx20.iss">
+      <Link>Build Scripts\ISCC\Scripts\products\dotnetfx20.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products\dotnetfx20lp.iss">
+      <Link>Build Scripts\ISCC\Scripts\products\dotnetfx20lp.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products\dotnetfx20sp1.iss">
+      <Link>Build Scripts\ISCC\Scripts\products\dotnetfx20sp1.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products\dotnetfx20sp1lp.iss">
+      <Link>Build Scripts\ISCC\Scripts\products\dotnetfx20sp1lp.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products\dotnetfx20sp2.iss">
+      <Link>Build Scripts\ISCC\Scripts\products\dotnetfx20sp2.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products\dotnetfx20sp2lp.iss">
+      <Link>Build Scripts\ISCC\Scripts\products\dotnetfx20sp2lp.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products\dotnetfx35.iss">
+      <Link>Build Scripts\ISCC\Scripts\products\dotnetfx35.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products\dotnetfx35lp.iss">
+      <Link>Build Scripts\ISCC\Scripts\products\dotnetfx35lp.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products\dotnetfx35sp1.iss">
+      <Link>Build Scripts\ISCC\Scripts\products\dotnetfx35sp1.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products\dotnetfx35sp1lp.iss">
+      <Link>Build Scripts\ISCC\Scripts\products\dotnetfx35sp1lp.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products\dotnetfx40client.iss">
+      <Link>Build Scripts\ISCC\Scripts\products\dotnetfx40client.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products\dotnetfx40full.iss">
+      <Link>Build Scripts\ISCC\Scripts\products\dotnetfx40full.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products\fileversion.iss">
+      <Link>Build Scripts\ISCC\Scripts\products\fileversion.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products\ie6.iss">
+      <Link>Build Scripts\ISCC\Scripts\products\ie6.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products\iis.iss">
+      <Link>Build Scripts\ISCC\Scripts\products\iis.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products\jet4sp8.iss">
+      <Link>Build Scripts\ISCC\Scripts\products\jet4sp8.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products\kb835732.iss">
+      <Link>Build Scripts\ISCC\Scripts\products\kb835732.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products\kb886903.iss">
+      <Link>Build Scripts\ISCC\Scripts\products\kb886903.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products\kb928366.iss">
+      <Link>Build Scripts\ISCC\Scripts\products\kb928366.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products\mdac28.iss">
+      <Link>Build Scripts\ISCC\Scripts\products\mdac28.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products\msi20.iss">
+      <Link>Build Scripts\ISCC\Scripts\products\msi20.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products\msi31.iss">
+      <Link>Build Scripts\ISCC\Scripts\products\msi31.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products\msi45.iss">
+      <Link>Build Scripts\ISCC\Scripts\products\msi45.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products\scceruntime.iss">
+      <Link>Build Scripts\ISCC\Scripts\products\scceruntime.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products\sql2005express.iss">
+      <Link>Build Scripts\ISCC\Scripts\products\sql2005express.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products\sql2008express.iss">
+      <Link>Build Scripts\ISCC\Scripts\products\sql2008express.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products\vc2010.iss">
+      <Link>Build Scripts\ISCC\Scripts\products\vc2010.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products\winversion.iss">
+      <Link>Build Scripts\ISCC\Scripts\products\winversion.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\README.md">
+      <Link>Build Scripts\ISCC\Scripts\README.md</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\startup.iss">
+      <Link>Build Scripts\ISCC\Scripts\startup.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\Packaging\setup.iss">
+      <Link>Build Scripts\ISCC\setup.iss</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\QiqqaCodeAnalysisRules.ruleset">
+      <Link>Build Scripts\QiqqaCodeAnalysisRules.ruleset</Link>
+    </None>
+    <None Include="..\Qiqqa.Build\README.md">
+      <Link>Build Scripts\README.md</Link>
+    </None>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Qiqqa.Build\ClientVersion.xml">
+      <Link>Build Scripts\ClientVersion.xml</Link>
+    </Content>
+    <Content Include="..\Qiqqa.Build\munch_changelog.js">
+      <Link>Build Scripts\munch_changelog.js</Link>
+    </Content>
+    <Content Include="..\Qiqqa.Build\Packaging\Content\license.txt">
+      <Link>Build Scripts\ISCC\Content\license.txt</Link>
+    </Content>
+    <Content Include="..\Qiqqa.Build\Packaging\Icons\Qiqqa.ico">
+      <Link>Build Scripts\ISCC\Icons\Qiqqa.ico</Link>
+    </Content>
+    <Content Include="..\Qiqqa.Build\Packaging\Icons\startmenu_help.ico">
+      <Link>Build Scripts\ISCC\Icons\startmenu_help.ico</Link>
+    </Content>
+    <Content Include="..\Qiqqa.Build\Packaging\Icons\startmenu_support.ico">
+      <Link>Build Scripts\ISCC\Icons\startmenu_support.ico</Link>
+    </Content>
+    <Content Include="..\Qiqqa.Build\Packaging\ISCC\isfaq.htm">
+      <Link>Build Scripts\ISCC\ISCC\isfaq.htm</Link>
+    </Content>
+    <Content Include="..\Qiqqa.Build\Packaging\ISCC\license.txt">
+      <Link>Build Scripts\ISCC\ISCC\license.txt</Link>
+    </Content>
+    <Content Include="..\Qiqqa.Build\Packaging\ISCC\whatsnew.htm">
+      <Link>Build Scripts\ISCC\ISCC\whatsnew.htm</Link>
+    </Content>
+    <Content Include="..\Qiqqa.Build\Packaging\ISCC\WizModernImage-IS.bmp">
+      <Link>Build Scripts\ISCC\ISCC\WizModernImage-IS.bmp</Link>
+    </Content>
+    <Content Include="..\Qiqqa.Build\Packaging\ISCC\WizModernImage.bmp">
+      <Link>Build Scripts\ISCC\ISCC\WizModernImage.bmp</Link>
+    </Content>
+    <Content Include="..\Qiqqa.Build\Packaging\ISCC\WizModernSmallImage-IS.bmp">
+      <Link>Build Scripts\ISCC\ISCC\WizModernSmallImage-IS.bmp</Link>
+    </Content>
+    <Content Include="..\Qiqqa.Build\Packaging\ISCC\WizModernSmallImage.bmp">
+      <Link>Build Scripts\ISCC\ISCC\WizModernSmallImage.bmp</Link>
+    </Content>
+    <Content Include="..\Qiqqa.Build\Packaging\WizardLargeImage.bmp">
+      <Link>Build Scripts\ISCC\WizardLargeImage.bmp</Link>
+    </Content>
+    <Content Include="..\Qiqqa.Build\Packaging\WizardSmallImage.bmp">
+      <Link>Build Scripts\ISCC\WizardSmallImage.bmp</Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
