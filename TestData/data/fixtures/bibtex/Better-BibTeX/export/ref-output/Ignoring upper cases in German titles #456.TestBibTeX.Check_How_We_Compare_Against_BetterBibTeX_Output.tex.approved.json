@@ -1,0 +1,37 @@
+﻿{
+  "Items": [
+    {
+      "Type": "incollection",
+      "Key": "Kaufmann1990",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Kaufmann, Franz-Xaver",
+        "booktitle": "Sozialpolitik und Sozialstaat: Soziologische Analysen",
+        "doi": "10.1007/978-3-322-99962-7_7",
+        "editor": "Kauffmann, Franz-Xaver",
+        "pages": "145--160",
+        "publisher": "VS Verlag für Sozialwissenschaften",
+        "title": "Sozialpolitik und Bevӧlkerungsprozeß",
+        "year": "[1990] 2002"
+      }
+    },
+    {
+      "Type": "incollection",
+      "Key": "Kaufmann1997",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Kaufmann, Franz-Xaver",
+        "booktitle": "Sozialpolitik und Sozialstaat: Soziologische Analysen",
+        "doi": "10.1007/978-3-322-99962-7_11",
+        "editor": "Kauffmann, Franz-Xaver",
+        "pages": "241--260",
+        "publisher": "VS Verlag für Sozialwissenschaften",
+        "title": "Schwindet die integrative Funktion des Sozialstaates?",
+        "year": "[1997] 2002"
+      }
+    }
+  ],
+  "Comments": []
+}

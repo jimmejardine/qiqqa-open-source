@@ -1,8 +1,8 @@
 ﻿This folder builds a production release of Qiqqa.
 
 You need to have installed:
-- Visual Studio 2017 Community Edition
-- Syncfusion Essential Studio 14.1.0.41 - you can get a free evaluation key from syncfusion - works for single developers for private/free projects
+- Visual Studio 2019 Community Edition
+- Syncfusion Essential Studio 17 - you can get a free evaluation key from syncfusion - works for single developers for private/free projects
 
 
 

@@ -122,7 +122,6 @@
         <echo message=" Packaging v${version.client}"/>
         <echo message=" * * * * * * * * * * * * * * * * * * * * * * * *"/>
 
-
         <!-- Copy build and additional files -->
         <delete dir="${dir.packaging.temp}" />
         <mkdir dir="${dir.packaging.temp}" />
@@ -136,7 +135,7 @@
             </fileset>
         </copy>
         <exec program="${file.iscc}"
-            commandline='setup.iss "/dAppVersion=${version.client}" "/dAppSource=${dir.packaging.temp}/*" "/dOutputBaseFilename=${file.packages.latest.prefix}" "/dOutputDir=${dir.packages.latest}"'
+            commandline='setup.iss "/dAppVersion=${version.client}" "/dAppFullVersion=${version.build}" "/dAppSource=${dir.packaging.temp}/*" "/dOutputBaseFilename=${file.packages.latest.prefix}" "/dOutputDir=${dir.packages.latest}"'
             workingdir="${dir.packaging}" />
         <delete dir="${dir.packaging.temp}" />
     </target>

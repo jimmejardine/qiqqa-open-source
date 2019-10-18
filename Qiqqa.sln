@@ -221,6 +221,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QiqqaToolBench", "QiqqaTool
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QiqqaPackager", "QiqqaPackager\QiqqaPackager.csproj", "{47AB8F63-DB41-4946-A506-BF93D24492EF}"
 	ProjectSection(ProjectDependencies) = postProject
+		{95F96533-6159-4BAF-8757-51B4F63FDE09} = {95F96533-6159-4BAF-8757-51B4F63FDE09}
 		{B837C549-3CC9-4855-B698-B7E816C6652B} = {B837C549-3CC9-4855-B698-B7E816C6652B}
 	EndProjectSection
 EndProject
@@ -230,7 +231,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QiqqaTestHelpers", "QiqqaTe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QiqqaUnitTester", "QiqqaUnitTester\QiqqaUnitTester.csproj", "{F64AFA9C-0DAC-4A3F-A64A-055891366D2C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QiqqaLegacyFileFormats", "QiqqaLegacyFileFormats\QiqqaLegacyFileFormats.csproj", "{022F424B-3E81-487D-990B-A4E664FF5F70}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClickOnceUninstaller", "Qiqqa.Build\Packaging\ClickOnceUninstaller\ClickOnceUninstaller\ClickOnceUninstaller.csproj", "{95F96533-6159-4BAF-8757-51B4F63FDE09}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QiqqaLegacyFileFormats", "QiqqaLegacyFileFormats\QiqqaLegacyFileFormats.csproj", "{022F424B-3E81-487D-990B-A4E664FF5F70}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CefSharp.Example", "CefSharp.Example\CefSharp.Example.csproj", "{A4394E7B-1155-43A6-989E-8AB72DDDC9E4}"
 EndProject
@@ -412,13 +415,11 @@ Global
 		{C683A6F0-C645-4A09-8858-98E289D5AAAB}.Release+SETUP|x86.Build.0 = Release|Any CPU
 		{47AB8F63-DB41-4946-A506-BF93D24492EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{47AB8F63-DB41-4946-A506-BF93D24492EF}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{47AB8F63-DB41-4946-A506-BF93D24492EF}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{47AB8F63-DB41-4946-A506-BF93D24492EF}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{47AB8F63-DB41-4946-A506-BF93D24492EF}.Debug|x64.Build.0 = Debug|Any CPU
 		{47AB8F63-DB41-4946-A506-BF93D24492EF}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{47AB8F63-DB41-4946-A506-BF93D24492EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47AB8F63-DB41-4946-A506-BF93D24492EF}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{47AB8F63-DB41-4946-A506-BF93D24492EF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{47AB8F63-DB41-4946-A506-BF93D24492EF}.Release|x64.ActiveCfg = Release|Any CPU
 		{47AB8F63-DB41-4946-A506-BF93D24492EF}.Release|x64.Build.0 = Release|Any CPU
 		{47AB8F63-DB41-4946-A506-BF93D24492EF}.Release|x86.ActiveCfg = Release|Any CPU
@@ -503,6 +504,20 @@ Global
 		{F64AFA9C-0DAC-4A3F-A64A-055891366D2C}.Release+SETUP|x64.Build.0 = Release|Any CPU
 		{F64AFA9C-0DAC-4A3F-A64A-055891366D2C}.Release+SETUP|x86.ActiveCfg = Release|Any CPU
 		{F64AFA9C-0DAC-4A3F-A64A-055891366D2C}.Release+SETUP|x86.Build.0 = Release|Any CPU
+		{95F96533-6159-4BAF-8757-51B4F63FDE09}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{95F96533-6159-4BAF-8757-51B4F63FDE09}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{95F96533-6159-4BAF-8757-51B4F63FDE09}.Debug|x86.ActiveCfg = Debug|x86
+		{95F96533-6159-4BAF-8757-51B4F63FDE09}.Debug|x86.Build.0 = Debug|x86
+		{95F96533-6159-4BAF-8757-51B4F63FDE09}.Release|Any CPU.ActiveCfg = Release|x86
+		{95F96533-6159-4BAF-8757-51B4F63FDE09}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{95F96533-6159-4BAF-8757-51B4F63FDE09}.Release|x86.ActiveCfg = Release|x86
+		{95F96533-6159-4BAF-8757-51B4F63FDE09}.Release|x86.Build.0 = Release|x86
+		{95F96533-6159-4BAF-8757-51B4F63FDE09}.Release+SETUP|Any CPU.ActiveCfg = Release|x86
+		{95F96533-6159-4BAF-8757-51B4F63FDE09}.Release+SETUP|Any CPU.Build.0 = Release|x86
+		{95F96533-6159-4BAF-8757-51B4F63FDE09}.Release+SETUP|Mixed Platforms.ActiveCfg = Release|x86
+		{95F96533-6159-4BAF-8757-51B4F63FDE09}.Release+SETUP|Mixed Platforms.Build.0 = Release|x86
+		{95F96533-6159-4BAF-8757-51B4F63FDE09}.Release+SETUP|x86.ActiveCfg = Release|x86
+		{95F96533-6159-4BAF-8757-51B4F63FDE09}.Release+SETUP|x86.Build.0 = Release|x86
 		{022F424B-3E81-487D-990B-A4E664FF5F70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{022F424B-3E81-487D-990B-A4E664FF5F70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{022F424B-3E81-487D-990B-A4E664FF5F70}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU

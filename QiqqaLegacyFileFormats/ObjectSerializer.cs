@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace Utilities.Reflection
+namespace QiqqaLegacyFileFormats
 {
     public class ObjectSerializer
     {

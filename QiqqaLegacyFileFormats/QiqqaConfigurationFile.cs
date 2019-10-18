@@ -4,7 +4,7 @@ namespace QiqqaLegacyFileFormats
 {
     public class ApplicationConfigurationX
     {
-        public void SaveConfigurationRecord()
+ public void SaveConfigurationRecord()
         {
 #if false
             try

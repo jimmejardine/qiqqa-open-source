@@ -11,11 +11,11 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("82.0.*")]
-//[assembly: AssemblyFileVersion("1.0.0.0")]
+// [assembly: AssemblyVersion("82.0.7198.42243")]
+[assembly: AssemblyVersion("82.0.7198.42243")]
+[assembly: AssemblyFileVersion("82.0.7198.42243")]
 [assembly: AssemblyCompany("Quantisle")]
-[assembly: AssemblyCopyright("Copyright © Quantisle 2010-2019.  All rights reserved.")]
+[assembly: AssemblyCopyright("Copyright © Quantisle 2010-2019. All rights reserved.")]
 
 [assembly: AssemblyTitle("QiqqaUnitTester")]
 [assembly: AssemblyDescription("")]
@@ -27,3 +27,4 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 [assembly: Guid("f64afa9c-0dac-4a3f-a64a-055891366d2c")]
+

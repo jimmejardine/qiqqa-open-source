@@ -1,0 +1,34 @@
+﻿{
+  "Items": [
+    {
+      "Type": "patent",
+      "Key": "laufenberg",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Laufenberg, Xaver and Eynius, Dominique and Suelzle, Helmut\r\n                  and Usbeck, Stephan and Spaeth, Matthias and Neuser-Hoffmann,\r\n                  Miriam and Myrzik, Christian and Schmid, Manfred and Nietfeld,\r\n                  Franz and Thiel, Alexander and Braun, Harald and Ebner,\r\n                  Norbert",
+        "title": "Elektrische Einrichtung und Betriebsverfahren",
+        "number": "1700367",
+        "date": "2006-09-13",
+        "holder": "Robert Bosch GmbH and Daimler Chrysler AG and Bayerische\r\n                  Motoren Werke AG",
+        "type": "patenteu",
+        "url": "http://v3.espacenet.com/textdoc?IDX=EP1700367"
+      }
+    },
+    {
+      "Type": "patent",
+      "Key": "sorace",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Sorace, Ronald E. and Reinhardt, Victor S. and Vaughn, Steven\r\n                  A.",
+        "title": "High-Speed Digital-to-RF Converter",
+        "number": "5668842",
+        "date": "1997-09-16",
+        "holder": "Hughes Aircraft Company",
+        "type": "patentus"
+      }
+    }
+  ],
+  "Comments": []
+}

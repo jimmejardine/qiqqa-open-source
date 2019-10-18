@@ -26,6 +26,8 @@ QiqqaVersionMigrator/bin/*
 QiqqaVersionMigrator/obj/*
 QiqqaLegacyFileFormats/bin/*
 QiqqaLegacyFileFormats/obj/*
+Qiqqa.Build/Packaging/ClickOnceUninstaller/ClickOnceUninstaller/bin/*
+Qiqqa.Build/Packaging/ClickOnceUninstaller/ClickOnceUninstaller/obj/*
 
 # CefSharp test projects
 CefSharp.Example/bin/*
@@ -41,4 +43,7 @@ CefSharp.Wpf.Example/obj/*
 # NuGet installed packages
 /packages/
 
+
+# nodeJS stuff (npm)
+/node_modules
 
