@@ -10,6 +10,7 @@
 
 ; Constants passed in command line
 ; #define AppVersion '1.0'
+; #define AppFullVersion '1.0.3156.4513'
 ; #define AppSource 'D:\qiqqa\src\client\Qiqqa\bin\Release\*'
 ; #define OutputDir 'D:\qiqqa\src\client\Qiqqa.Build\Packages\Latest'
 ; #define OutputBaseFilename 'setup'
@@ -26,7 +27,7 @@ AppPublisher=Quantisle Ltd.
 AppPublisherURL=http://www.qiqqa.com/
 AppSupportURL={#AppSupportURL}
 AppUpdatesURL=http://www.qiqqa.com/
-AppCopyright=Copyright © Quantisle Ltd 2010-2015
+AppCopyright=Copyright © Quantisle Ltd 2010-2019
 DefaultGroupName={#AppName}
 DisableProgramGroupPage=yes
 LicenseFile=.\Content\license.txt
@@ -37,6 +38,8 @@ Compression=lzma/Max
 SolidCompression=yes
 SetupLogging=yes
 PrivilegesRequired=admin
+; the Windows file version as reported by the Properties of the generated setup.exe:
+VersionInfoVersion={#AppFullVersion}
 
 ; from: http://www.kinook.com/blog/?p=53 
 DefaultDirName={code:DefDirRoot}\{#AppName}

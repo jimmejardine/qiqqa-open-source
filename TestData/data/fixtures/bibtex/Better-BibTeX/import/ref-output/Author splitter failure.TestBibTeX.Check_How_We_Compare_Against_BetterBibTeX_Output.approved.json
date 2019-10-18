@@ -1,0 +1,20 @@
+﻿{
+  "Items": [
+    {
+      "Type": "Article",
+      "Key": "Abu-Zeid_1986",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Determination of the Thickness and Refractive Index of Cu$_2$O Thin Film Using Thermal and Optical\r\nInterferometry",
+        "author": "Abu-Zeid, M. E. and Rakhshani, A. E. and Al-Jassar, A. A. and Youssef, Y. A.",
+        "journal": "Physica Status Solidi (a)",
+        "year": "1986",
+        "pages": "613--620",
+        "volume": "93",
+        "doi": "10.1002/pssa.2210930226"
+      }
+    }
+  ],
+  "Comments": []
+}

@@ -1,0 +1,35 @@
+﻿{
+  "Items": [
+    {
+      "Type": "techreport",
+      "Key": "blantonConservativeLossRecovery2012",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "annote": "\"\\textbfPipe\" is a sender's estimate of the number of bytes outstanding\r\n      in the network.  This is used during recovery for limiting the\r\n      sender's sending rate.  The pipe variable allows TCP to use\r\n      fundamentally different congestion control than the algorithm\r\n      specified in [\\hrefhttps://tools.ietf.org/html/rfc5681RFC5681].  The congestion control algorithm using\r\n      the pipe estimate is often referred to as the \"pipe algorithm\".\r\n\r\nfast recovery algorithm",
+        "author": "Blanton, E. and Allman, M. and Wang, L. and Jarvinen, I. and Kojo, M. and Nishida, Y.",
+        "institution": "RFC Editor",
+        "month": "aug",
+        "note": "\\urlhttps://tools.ietf.org/html/rfc6675",
+        "number": "6675",
+        "title": "A Conservative Loss Recovery Algorithm Based on Selective Acknowledgment (SACK) for TCP",
+        "type": "RFC",
+        "year": "2012"
+      }
+    },
+    {
+      "Type": "misc",
+      "Key": "PortableSCTPUserland2018",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "howpublished": "sctplab",
+        "month": "nov",
+        "note": "\\urlhttps://github.com/sctplab/usrsctp",
+        "title": "A Portable SCTP Userland Stack. Contribute to Sctplab/Usrsctp Development by Creating an Account on GitHub",
+        "year": "2018"
+      }
+    }
+  ],
+  "Comments": []
+}

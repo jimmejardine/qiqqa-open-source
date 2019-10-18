@@ -1,0 +1,14 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "author",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n    @article{     author = {Huang, Y. and Mucke, L.},     title =\r\n                         ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    }
+  ],
+  "Comments": []
+}

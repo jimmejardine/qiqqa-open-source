@@ -1,0 +1,27 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "Nome2014",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Nӧme, Name",
+        "title": "Why Is Apple Launching a New Version of the iPod?",
+        "year": "2014"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "vanGogh2014",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "van Gӧgh, Vincent",
+        "title": "Why Is Apple Launching a New Version of the iPod?",
+        "year": "2014"
+      }
+    }
+  ],
+  "Comments": []
+}

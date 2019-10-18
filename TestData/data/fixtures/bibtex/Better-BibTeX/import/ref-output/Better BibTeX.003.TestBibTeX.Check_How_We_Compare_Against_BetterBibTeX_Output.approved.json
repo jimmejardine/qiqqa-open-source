@@ -1,0 +1,30 @@
+﻿{
+  "Items": [
+    {
+      "Type": "inproceedings",
+      "Key": "author:06",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Some publication title",
+        "author": "Author, First and Author, Second",
+        "crossref": "conference:06",
+        "pages": "330—331"
+      }
+    },
+    {
+      "Type": "proceedings",
+      "Key": "conference:06",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "editor": "Editor, First and Editor, Second",
+        "title": "Proceedings of the Xth Conference on XYZ",
+        "booktitle": "Proceedings of the Xth Conference on XYZ (Book)",
+        "year": "2006",
+        "month": "oct"
+      }
+    }
+  ],
+  "Comments": []
+}

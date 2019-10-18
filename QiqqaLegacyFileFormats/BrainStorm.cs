@@ -2,7 +2,7 @@
 
 namespace QiqqaLegacyFileFormats
 {
-    public class ApplicationConfiguration
+    public class BrainStormStorage
     {
     }
 }

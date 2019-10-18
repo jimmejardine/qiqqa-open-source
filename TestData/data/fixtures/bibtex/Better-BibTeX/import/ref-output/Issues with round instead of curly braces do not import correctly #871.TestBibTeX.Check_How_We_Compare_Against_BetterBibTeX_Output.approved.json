@@ -1,0 +1,29 @@
+﻿{
+  "Items": [
+    {
+      "Type": "String",
+      "Key": "MCDERMOTT",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\n @String{MCDERMOTT = \"McDermott, Drew V.\"}  @techreport(McD\r\n                   ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "techreport",
+      "Key": "McDermott:72",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "MCDERMOTT and Gerald J. Sussman",
+        "year": "1972",
+        "month": "May",
+        "institution": "MIT Artificial Intelligence\tLaboratory",
+        "title": "The \\sc CONNIVER Reference Manual"
+      }
+    }
+  ],
+  "Comments": [
+    "= \"McDermott, Drew V.\"}"
+  ]
+}

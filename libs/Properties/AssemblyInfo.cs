@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Quantisle")]
 [assembly: AssemblyProduct("")]
-[assembly: AssemblyCopyright("Copyright © Quantisle 2010-2014.  All rights reserved.")]
+[assembly: AssemblyCopyright("Copyright © Quantisle 2010-2019. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -28,5 +28,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("82.0.7198.42243")]
+[assembly: AssemblyFileVersion("82.0.7198.42243")]

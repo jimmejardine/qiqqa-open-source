@@ -1,0 +1,14 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "BibTeXEscapeTest1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "\\textbackslash\\textbackslash\\: \\"
+      }
+    }
+  ],
+  "Comments": []
+}
