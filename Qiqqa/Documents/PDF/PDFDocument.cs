@@ -1146,7 +1146,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
         {
             //bindable = null;
 
-            Logging.Info("Cloning metadata from {0}: {1}", existing_pdf_document..Fingerprint, existing_pdf_document.TitleCombined);
+            Logging.Info("Cloning metadata from {0}: {1}", existing_pdf_document.Fingerprint, existing_pdf_document.TitleCombined);
 
             //dictionary = (DictionaryBasedObject)existing_pdf_document.dictionary.Clone();
             this.CopyMetaData(existing_pdf_document);
