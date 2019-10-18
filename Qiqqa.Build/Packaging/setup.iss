@@ -10,6 +10,7 @@
 
 ; Constants passed in command line
 ; #define AppVersion '1.0'
+; #define AppFullVersion '1.0.3156.4513'
 ; #define AppSource 'D:\qiqqa\src\client\Qiqqa\bin\Release\*'
 ; #define OutputDir 'D:\qiqqa\src\client\Qiqqa.Build\Packages\Latest'
 ; #define OutputBaseFilename 'setup'
@@ -38,7 +39,7 @@ SolidCompression=yes
 SetupLogging=yes
 PrivilegesRequired=admin
 ; the Windows file version as reported by the Properties of the generated setup.exe:
-VersionInfoVersion={#AppVersion}
+VersionInfoVersion={#AppFullVersion}
 
 ; from: http://www.kinook.com/blog/?p=53 
 DefaultDirName={code:DefDirRoot}\{#AppName}
