@@ -362,6 +362,7 @@
     <Resource Include="Application\Document.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Application\DocumentsAddMissingFromSelf.psd" />
     <None Include="~COPYRIGHT.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -1029,6 +1030,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Application\DocumentsAddMissingFromSelf.png" />
+    <Content Include="Application\BibTeXEditToggleMode1.png" />
+    <Content Include="Application\BibTeXParseError2.png" />
+    <Content Include="Application\BibTeXParseError3.png" />
+    <Content Include="Application\BibTeXParseError4.png" />
+    <Content Include="Application\BibTeXParseError5.png" />
+    <Content Include="Application\ExportExcel.png" />
+    <Content Include="Application\ExportPDF.png" />
+    <Content Include="Application\Notebook.png" />
+    <Content Include="Application\PDFBinderBuild.png" />
+    <Content Include="Application\Previous2.png" />
+    <Content Include="Application\Sweep.png" />
+    <Content Include="Application\UpLeft.png" />
+    <Content Include="Application\UpRight.png" />
+    <Content Include="Application\Warning1.png" />
+    <Content Include="Application\Warning2.png" />
     <Content Include="License.htm" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
