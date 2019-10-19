@@ -1,0 +1,21 @@
+﻿{
+  "Items": [
+    {
+      "Type": "datasheet",
+      "Key": "BY8400",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "BY8400 series Fast high-voltage soft-recovery rectifiers",
+        "author": "Philips Semiconductors",
+        "year": "1996",
+        "abstract": "BY8400 series Fast high-voltage soft-recovery rectifiers\n\nFEATURES\n\n• Glass passivated\n• High maximum operating temperature\n• Low leakage current\n• Excellent stability\n• Soft-recovery switching characteristics\n• Compact construction.\n\nAPPLICATIONS\n\n• For colour television and monitors up to 25 kHz\n• High-voltage applications for:\n  – Multipliers\n  – Slot-wound diode-split-transformers.\n\nDESCRIPTION\n\nRugged glass package, using a high temperature alloyed construction.\nThis package is hermetically sealed and fatigue free as coefficients of expansion of all used parts are matched. The\npackage is designed to be used in an insulating medium such as resin, oil or SF6 gas.",
+        "publisher": "Philips Semiconductors",
+        "keywords": "BY8404, BY8406, BY8408, BY8410, BY8412, BY8414, BY8416, BY8418, BY8420"
+      }
+    }
+  ],
+  "Comments": [
+    "% title, abstract, etc. should be trimmed, i.e. leading and trailing whitespace should be removed.\r\n% Meanwhile, the internal structure of the 'abstract' field should be kept intact.\r\n%\r\n% Keywords should be split up properly with the whitespace and commas+semicolons not haphazardly spread around inside that set."
+  ]
+}

@@ -428,6 +428,7 @@ namespace QiqqaUnitTester
         [DataRow("simple-0001.bib")]
         [DataRow("whitespacing-0001.bib")]
         [DataRow("whitespacing-0002.bib")]
+        [DataRow("whitespacing-0003.bib")]
         [DataTestMethod]
         public void Do_TestFiles_Exist(string bibtex_filepath)
         {
@@ -1508,6 +1509,7 @@ namespace QiqqaUnitTester
 
         [DataRow("whitespacing-0001.bib")]
         [DataRow("whitespacing-0002.bib")]
+        [DataRow("whitespacing-0003.bib")]
         [DataTestMethod]
         public void Check_BibTeX_Whitespace_Handling(string bibtex_filepath)
         {
