@@ -31,7 +31,7 @@ namespace Utilities.GUI
 
         public static void WaitForUIThreadActivityDone()
         {
-            Logging.Debug特("+WaitForUIThreadActivityDone start");
+            Logging.Debug("+WaitForUIThreadActivityDone start");
 
             Stopwatch clk = new Stopwatch();
             clk.Start();
@@ -55,14 +55,14 @@ namespace Utilities.GUI
                     {
                         Application.Current.Dispatcher.Invoke(new Action(() =>
                         {
-                            Logging.Debug特(":::WaitForUIThreadActivityDone InvokeAsync started");
+                            Logging.Debug(":::WaitForUIThreadActivityDone InvokeAsync started");
                             DoEvents();
-                            Logging.Debug特(":::WaitForUIThreadActivityDone InvokeAsync finished");
+                            Logging.Debug(":::WaitForUIThreadActivityDone InvokeAsync finished");
                         }));
                     }
                 }
             }
-            Logging.Debug特("-WaitForUIThreadActivityDone end (time spent: {0} ms)", clk.ElapsedMilliseconds);
+            Logging.Debug("-WaitForUIThreadActivityDone end (time spent: {0} ms)", clk.ElapsedMilliseconds);
         }
 
         #region Forced Repaint of UI 
@@ -86,7 +86,8 @@ namespace Utilities.GUI
         {
             if (Application.Current != null)
             {
-                // Set the cursor to Hourglass as per: http://www.csharp411.com/the-proper-way-to-show-the-wait-cursor/ --> https://stackoverflow.com/questions/11021422/how-do-i-display-wait-cursor-during-a-wpf-applications-startup
+                // Set the cursor to Hourglass as per: http://www.csharp411.com/the-proper-way-to-show-the-wait-cursor/ 
+                // --> https://stackoverflow.com/questions/11021422/how-do-i-display-wait-cursor-during-a-wpf-applications-startup
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     Mouse.OverrideCursor = Cursors.Wait;
@@ -100,7 +101,8 @@ namespace Utilities.GUI
             {
                 // revert the forced hourglass cursor, if any:
                 //
-                // RESET the cursor to Hourglass as per: http://www.csharp411.com/the-proper-way-to-show-the-wait-cursor/ --> https://stackoverflow.com/questions/11021422/how-do-i-display-wait-cursor-during-a-wpf-applications-startup
+                // RESET the cursor to Hourglass as per: http://www.csharp411.com/the-proper-way-to-show-the-wait-cursor/ 
+                // --> https://stackoverflow.com/questions/11021422/how-do-i-display-wait-cursor-during-a-wpf-applications-startup
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     Mouse.OverrideCursor = null;
