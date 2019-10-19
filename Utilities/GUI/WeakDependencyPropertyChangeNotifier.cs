@@ -65,9 +65,9 @@ namespace Utilities.GUI
             // Get rid of unmanaged resources 
         }
 
-#endregion --- Lifetime management -----------------------------------------------------------------------
+        #endregion --- Lifetime management -----------------------------------------------------------------------
 
-#region --- Properties -----------------------------------------------------------------------
+        #region --- Properties -----------------------------------------------------------------------
 
         private WeakReference _propertySource;
         public DependencyObject PropertySource
@@ -82,8 +82,14 @@ namespace Utilities.GUI
         public static readonly DependencyProperty ValueProperty = DependencyProperty.Register("Value", typeof(object), typeof(WeakDependencyPropertyChangeNotifier), new FrameworkPropertyMetadata(null, OnValuePropertyChanged));
         public object Value
         {
-            get { return (object)GetValue(ValueProperty); }
-            set { SetValue(ValueProperty, value); }
+            get
+            {
+                return (object)GetValue(ValueProperty);
+            }
+            set
+            {
+                SetValue(ValueProperty, value);
+            }
         }
 
         private static void OnValuePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -96,6 +102,6 @@ namespace Utilities.GUI
             }
         }
 
-#endregion --- Properties -----------------------------------------------------------------------
+        #endregion --- Properties -----------------------------------------------------------------------
     }
 }

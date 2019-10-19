@@ -197,7 +197,10 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
         {
             // TODO: REMOVE AFTER TESTING
             Library library = WebLibraryManager.Instance.Library_Guest;
-            while (!library.LibraryIsLoaded) Thread.Sleep(100);
+            while (!library.LibraryIsLoaded) 
+            {
+                Thread.Sleep(100);
+            }
 
             LibraryPivotReportControl lprc = new LibraryPivotReportControl();
             lprc.Library = library;
@@ -212,7 +215,10 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
         public static void Test2()
         {
             Library library = WebLibraryManager.Instance.Library_Guest;
-            while (!library.LibraryIsLoaded) Thread.Sleep(100);
+            while (!library.LibraryIsLoaded) 
+            {
+                Thread.Sleep(100);
+            }
 
             List<PDFDocument> pdf_documents = library.PDFDocuments;
 

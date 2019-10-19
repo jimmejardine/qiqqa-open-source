@@ -297,10 +297,12 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
         public static void TestHarness()
         {
             Library library = Library.GuestInstance;
-            while (!library.LibraryIsLoaded) { Thread.Sleep(1000); }
+            while (!library.LibraryIsLoaded) 
+            { 
+                Thread.Sleep(1000); 
+            }
             LibraryCatalogControl lcc = new LibraryCatalogControl();
             lcc.Library = library;
-
 
             ControlHostingWindow window = new ControlHostingWindow("Fast library control", lcc);
             window.Show();

@@ -56,7 +56,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         static void DoInterestingAnalysis_GoogleScholar(PDFReadingControl pdf_reading_control, PDFRendererControl pdf_renderer_control, PDFRendererControlStats pdf_renderer_control_stats)
         {
-            /*
+#if true
             // Get the GoogleScholar similar documents
             try
             {
@@ -80,7 +80,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             {
                 Logging.Error(ex, "There was a problem getting the GoogleScholar similar documents for document {0}", pdf_renderer_control_stats.pdf_document.Fingerprint);
             }
-            */
+#endif
         }
 
         static void DoInterestingAnalysis_TagCloud(PDFReadingControl pdf_reading_control, PDFRendererControl pdf_renderer_control, PDFRendererControlStats pdf_renderer_control_stats)
