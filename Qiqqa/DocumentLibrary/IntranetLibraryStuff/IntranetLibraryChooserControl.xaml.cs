@@ -26,10 +26,9 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
         public IntranetLibraryChooserControl()
         {
             InitializeComponent();
-            
-            this.Title = 
-            this.Header.Caption = 
-                "Create/Join Intranet Library";
+
+            this.Title =
+            this.Header.Caption = "Create/Join Intranet Library";
 
             this.Header.SubCaption = "Please confirm the details of the Intranet Library you wish to create or join.";
             this.Header.Img = Icons.GetAppIcon(Icons.WebLibrary_IntranetLibrary);
@@ -83,7 +82,7 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
                 string base_path = TxtPath.Text;
                 if (Directory.Exists(base_path))
                 {
-                    string library_detail_path = IntranetLibraryTools.GetLibraryDetailPath(base_path);                    
+                    string library_detail_path = IntranetLibraryTools.GetLibraryDetailPath(base_path);
                     if (File.Exists(library_detail_path))
                     {
                         IntranetLibraryDetail library_detail = IntranetLibraryDetail.Read(library_detail_path);
@@ -125,10 +124,9 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
                             IntranetLibraryDetail.Write(library_detail_path, library_detail);
                         }
                     }
-
                     catch (Exception ex)
                     {
-                        Logging.Error(ex, "There was an error while updating an Intranet Library path, so will try to delete and recreate...");
+                        Logging.Error(ex, "There was an error while updating an Intranet Library path, so will try to delete and recreate... (path: {0})", base_path);
                         FileTools.Delete(library_detail_path);
                     }
                 }
@@ -163,7 +161,7 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
         private void EnsureWarningFilesArePresent(string base_path)
         {
             IEnumerable<string> warning_files = Directory.EnumerateFiles(base_path, "---*");
-            if (0 == warning_files.Count())
+            if (7 != warning_files.Count())
             {
                 EnsureWarningFilesArePresent_TOUCH(base_path, "---0--- --------------------------------------------------------------------------");
                 EnsureWarningFilesArePresent_TOUCH(base_path, "---1--- THIS IS A QIQQA INTRANET LIBRARY SYNC FOLDER");
@@ -177,25 +175,29 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
 
         private void EnsureWarningFilesArePresent_TOUCH(string base_path, string filename)
         {
+            string path = Path.GetFullPath(Path.Combine(base_path, filename));
+
             try
             {
-                File.WriteAllText(base_path + '/' + filename, "");
+                if (!File.Exists(path))
+                {
+                    File.WriteAllText(path, "");
+                }
             }
             catch (Exception ex)
             {
-                Logging.Warn(ex, "Problem writing Intranet Library mount point warnings");
+                Logging.Warn(ex, "Problem writing Intranet Library mount point warnings (path: {0})", path);
             }
         }
-
 
         void ObjButtonFolderChoose_Click(object sender, RoutedEventArgs e)
         {
             using (FolderBrowserDialog dlg = new FolderBrowserDialog
-                {
-                    Description = "Please select the shared directory for your Intranet Library.",
-                    SelectedPath = TxtPath.Text,
-                    ShowNewFolderButton = true
-                })
+            {
+                Description = "Please select the shared directory for your Intranet Library.",
+                SelectedPath = TxtPath.Text,
+                ShowNewFolderButton = true
+            })
             {
                 if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
