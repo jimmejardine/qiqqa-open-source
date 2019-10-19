@@ -19,7 +19,26 @@ namespace Qiqqa.Documents.PDF.PDFRendering
     {
         public static PDFTextExtractor Instance = new PDFTextExtractor();
 
+        object still_running_lock = new object();
         bool still_running;
+        public bool StillRunning
+        {
+            get
+            {
+                lock (still_running_lock)
+                {
+                    return still_running;
+                }
+            }
+            set
+            {
+                lock (still_running_lock)
+                {
+                    still_running = value;
+                }
+            }
+        }
+
         int NUM_OCR_THREADS;
         Thread[] threads;
 
@@ -231,7 +250,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             HashSet<string> current_jobs = next_job.is_group ? current_jobs_group : current_jobs_single;
             if (current_jobs.Contains(token))
             {
-                Logging.Error("Job is already running: " + token);
+                Logging.Error("Job is already running: {0}", token);
             }
             current_jobs.Add(token);
         }
@@ -247,7 +266,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 HashSet<string> current_jobs = next_job.is_group ? current_jobs_group : current_jobs_single;
                 if (!current_jobs.Contains(token))
                 {
-                    Logging.Error("Job is not running, so can't remove it: " + token);
+                    Logging.Error("Job is not running, so can't remove it: {0}", token);
                 }
                 current_jobs.Remove(token);
             }
@@ -444,7 +463,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                     // perform frequent happening time check outside lock:
                     if (DateTime.UtcNow.Subtract(ocr_disabled_next_notification_time).TotalMilliseconds > 0)
                     {
-                        StatusManager.Instance.UpdateStatus("PDFOCR", String.Format("OCR is disabled ({0} page(s) still to OCR)", job_queue_single_count));
+                        StatusManager.Instance.UpdateStatus("PDFOCR", String.Format("OCR is disabled (pending: {0} page(s) to textify and {1} page(s) to OCR)", job_queue_group_count, job_queue_single_count));
                         ocr_disabled_next_notification_time = DateTime.UtcNow.AddSeconds(5);
                     }
                 }
@@ -454,12 +473,39 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             return null;
         }
 
+        /// <summary>
+        /// Flush the queue. Use this call to discard pending work items when the application is terminating.
+        /// </summary>
+        private void FlushAllJobs()
+        {
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (queue_lock)
+            {
+                l1_clk.LockPerfTimerStop();
+
+                job_queue_group.Clear();
+                job_queue_single.Clear();
+            }
+        }
+
         void ThreadEntry()
         {
             bool did_some_ocr_since_last_iteration = false;
 
-            while (still_running)
+            while (true)
             {
+                if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown || !StillRunning)
+                {
+                    int job_queue_group_count;
+                    int job_queue_single_count;
+                    GetJobCounts(out job_queue_group_count, out job_queue_single_count);
+
+                    Logging.Debug特("PDFTextExtractor: shutting down and flushing the queue ({0} + {1} items discarded)", job_queue_group_count, job_queue_single_count);
+
+                    FlushAllJobs();
+                    break;
+                }
+                
                 // If this library is busy, skip it for now
                 if (Library.IsBusyAddingPDFs)
                 {
@@ -520,12 +566,6 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
                         try
                         {
-                            if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
-                            {
-                                Logging.Debug特("PDFTextExtractor: Short-circuiting the job due to application termination ({0})", next_job);
-                            }
-                            else
-                            {
                                 if (next_job.is_group)
                                 {
                                     ProcessNextJob_Group(next_job, temp_ocr_result_filename);
@@ -534,7 +574,6 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                                 {
                                     ProcessNextJob_Single(next_job, temp_ocr_result_filename);
                                 }
-                            }
                         }
                         catch (Exception ex)
                         {
@@ -672,7 +711,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                     // Wait a few minutes for the OCR process to exit
                     while (true)
                     {
-                        if (!still_running)
+                        if (!StillRunning)
                         {
                             break;
                         }
@@ -716,7 +755,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         void Shutdown()
         {
             Logging.Info("Stopping PDFTextExtractor threads");
-            still_running = false;
+            StillRunning = false;
             for (int i = 0; i < NUM_OCR_THREADS; ++i)
             {
                 threads[i].Join();
