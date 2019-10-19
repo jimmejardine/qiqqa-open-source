@@ -272,6 +272,10 @@ namespace Qiqqa.Documents.PDF.PDFControls
             {
                 GridRIGHT.Collapse();
             }
+            else
+            {
+                GridRIGHT.Restore();
+            }
         }
 
         void ObjDocumentMetadataControlsPanel_ObjDocumentMetadataControlsPanel_SelectedPageChanged(int page)
