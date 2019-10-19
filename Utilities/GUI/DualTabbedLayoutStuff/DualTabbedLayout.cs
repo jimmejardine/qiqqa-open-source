@@ -32,6 +32,8 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
 
         public DualTabbedLayout()
         {
+            Theme.Initialize();
+
             KeyboardNavigation.SetDirectionalNavigation(tab_control_left, KeyboardNavigationMode.None);
             KeyboardNavigation.SetDirectionalNavigation(tab_control_right, KeyboardNavigationMode.None);
             KeyboardNavigation.SetDirectionalNavigation(tab_control_bottom, KeyboardNavigationMode.None);
@@ -381,9 +383,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             ClearFloating(item);
             BuildTabItem(item, tab_control_bottom);
         }
-
-
-
+               
         public void WantsFloating(string reference_key)
         {
             WantsFloating(Find(reference_key, false), false);

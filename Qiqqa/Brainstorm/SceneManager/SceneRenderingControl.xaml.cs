@@ -162,6 +162,8 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         public SceneRenderingControl()
         {
+            Theme.Initialize();
+
             InitializeComponent();
 
             //this.Background = ThemeColours.Background_Brush_Blue_LightToDark;

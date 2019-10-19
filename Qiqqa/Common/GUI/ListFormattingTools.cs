@@ -16,7 +16,6 @@ namespace Qiqqa.Common.GUI
 {
     public class ListFormattingTools
     {
-
         public class DocumentTextBlockTag
         {
             public PDFDocument pdf_document;

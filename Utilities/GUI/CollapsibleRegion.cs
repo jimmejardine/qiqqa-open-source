@@ -19,33 +19,32 @@ namespace Utilities.GUI
 
             public ButtonWithNubbin()
             {
+                Theme.Initialize();
+
                 button = new Button();
                 button.Background = Brushes.Transparent;
                 button.BorderBrush = Brushes.Transparent;
                 this.Children.Add(button);
 
-                {
-                    nubbin = new Button();
-                    nubbin.Width = 50;
-                    nubbin.Height = 50;
-                    nubbin.HorizontalAlignment = HorizontalAlignment.Center;
-                    nubbin.VerticalAlignment = VerticalAlignment.Center;
-                    nubbin.Cursor = Cursors.Hand;
-                    nubbin.BorderBrush = Brushes.Transparent;
-                    nubbin.Background = ThemeColours.Background_Brush_Blue_VeryDark;
-                    this.Children.Add(nubbin);
-                }
-                {
-                    nubbin2 = new Button();
-                    nubbin2.Width = 30;
-                    nubbin2.Height = 30;
-                    nubbin2.HorizontalAlignment = HorizontalAlignment.Center;
-                    nubbin2.VerticalAlignment = VerticalAlignment.Center;
-                    nubbin2.Cursor = Cursors.Hand;
-                    nubbin2.BorderBrush = Brushes.Transparent;
-                    nubbin2.Background = ThemeColours.Background_Brush_Blue_VeryVeryDark;
-                    this.Children.Add(nubbin2);
-                }
+                nubbin = new Button();
+                nubbin.Width = 50;
+                nubbin.Height = 50;
+                nubbin.HorizontalAlignment = HorizontalAlignment.Center;
+                nubbin.VerticalAlignment = VerticalAlignment.Center;
+                nubbin.Cursor = Cursors.Hand;
+                nubbin.BorderBrush = Brushes.Transparent;
+                nubbin.Background = ThemeColours.Background_Brush_Blue_VeryDark;
+                this.Children.Add(nubbin);
+
+                nubbin2 = new Button();
+                nubbin2.Width = 30;
+                nubbin2.Height = 30;
+                nubbin2.HorizontalAlignment = HorizontalAlignment.Center;
+                nubbin2.VerticalAlignment = VerticalAlignment.Center;
+                nubbin2.Cursor = Cursors.Hand;
+                nubbin2.BorderBrush = Brushes.Transparent;
+                nubbin2.Background = ThemeColours.Background_Brush_Blue_VeryVeryDark;
+                this.Children.Add(nubbin2);
             }
         }
 
@@ -115,7 +114,6 @@ namespace Utilities.GUI
                     return null;
                 }
             }
-
         }
 
         public Dock VisibleEdge
@@ -291,7 +289,6 @@ namespace Utilities.GUI
 
             if (null != sender)
             {
-                
                 if (sender == BL) resize_x = -1;
                 if (sender == BR) resize_x = +1;
                 if (sender == BT) resize_y = -1;

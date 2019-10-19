@@ -131,6 +131,8 @@ namespace Qiqqa.Common.GUI
     {
         public StandardWindow()
         {
+            Theme.Initialize();
+
             this.Background = ThemeColours.Background_Brush_Blue_LightToDark;
             this.FontFamily = ThemeTextStyles.FontFamily_Standard;
             this.Icon = Icons.GetAppIconICO(Icons.Qiqqa);

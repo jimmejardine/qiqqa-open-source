@@ -136,7 +136,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
         internal string documentFingerprint = String.Empty;
 
         public PDFRendererPageControl(int page, PDFRendererControl pdf_renderer_control, PDFRendererControlStats pdf_renderer_control_stats, bool add_bells_and_whistles)
-        {            
+        {
+            Theme.Initialize();
+
             InitializeComponent();
 
             this.page = page;

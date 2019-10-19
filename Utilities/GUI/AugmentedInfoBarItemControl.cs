@@ -22,6 +22,8 @@ namespace Utilities.GUI
 
         public AugmentedInfoBarItemControl() : base()
         {
+            Theme.Initialize();
+
             spacer1 = new AugmentedSpacer();
             SetDock(spacer1, Dock.Bottom);
             this.Children.Add(spacer1);
