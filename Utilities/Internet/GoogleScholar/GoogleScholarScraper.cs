@@ -80,7 +80,7 @@ namespace Utilities.Internet.GoogleScholar
         /// <returns></returns>
         private static void ScrapeDoc(HtmlDocument doc, string url, List<GoogleScholarScrapePaper> gssps)
         {
-            HtmlNodeCollection NoAltElements_outer = doc.DocumentNode.SelectNodes("//*[@class='gs_r']");
+            HtmlNodeCollection NoAltElements_outer = doc.DocumentNode.SelectNodes("//*[contains(@class,'gs_r')]");
 
             if (null != NoAltElements_outer)
             {
@@ -93,9 +93,9 @@ namespace Utilities.Internet.GoogleScholar
                     HtmlDocument item_doc = new HtmlDocument();
                     item_doc.LoadHtml(element_html);
 
-                    HtmlNode NoAltElements = item_doc.DocumentNode.SelectNodes("//*[@class='gs_r']")[0];
+                    HtmlNode NoAltElements = item_doc.DocumentNode.SelectNodes("//*[contains(@class,'gs_r')]")[0];
 
-                    var title_node = NoAltElements.SelectNodes("//*[@class='gs_rt']");
+                    var title_node = NoAltElements.SelectNodes("//*[contains(@class,'gs_rt')]");
                     {
                         string title_raw = WebUtility.HtmlDecode(title_node[0].InnerText);
 
@@ -121,7 +121,7 @@ namespace Utilities.Internet.GoogleScholar
                     }
 
                     {
-                        var authors_node = NoAltElements.SelectNodes("//*[@class='gs_a']");
+                        var authors_node = NoAltElements.SelectNodes("//*[contains(@class,'gs_a')]");
                         if (null != authors_node)
                         {
                             gssp.authors = WebUtility.HtmlDecode(authors_node[0].InnerHtml);
@@ -130,7 +130,7 @@ namespace Utilities.Internet.GoogleScholar
 
                     // Pull out the abstract
                     {
-                        var abstract_node = NoAltElements.SelectNodes("//*[@class='gs_rs']");
+                        var abstract_node = NoAltElements.SelectNodes("//*[contains(@class,'gs_rs')]");
                         if (null != abstract_node)
                         {
                             gssp.abstract_html = WebUtility.HtmlDecode(abstract_node[0].InnerText);
@@ -139,7 +139,7 @@ namespace Utilities.Internet.GoogleScholar
 
                     // Pull out the potential downloads
                     {
-                        var downloads_node = NoAltElements.SelectNodes("//*[@class='gs_md_wp gs_ttss']");
+                        var downloads_node = NoAltElements.SelectNodes("//*[contains(@class,'gs_md_wp gs_ttss')]");
                         if (null != downloads_node)
                         {
                             foreach (var child_node in downloads_node[0].ChildNodes)
@@ -154,7 +154,7 @@ namespace Utilities.Internet.GoogleScholar
                         }
                     }
 
-                    var see_also_nodes = NoAltElements.SelectNodes("//*[@class='gs_fl']/a");
+                    var see_also_nodes = NoAltElements.SelectNodes("//*[contains(@class,'gs_fl')]/a");
                     GetUrlForRelatedList(url, "Cited by", see_also_nodes, out gssp.cited_by_header, out gssp.cited_by_url);
                     GetUrlForRelatedList(url, "Related", see_also_nodes, out gssp.related_articles_header, out gssp.related_articles_url);
                     GetUrlForRelatedList(url, "Import into BibTeX", see_also_nodes, out gssp.bibtex_header, out gssp.bibtex_url);
@@ -207,7 +207,7 @@ namespace Utilities.Internet.GoogleScholar
             List<GoogleScholarScrapePaper> gssps = ScrapeUrl(null, url);
             foreach (var gs_paper in gssps)
             {
-                /*
+#if false
                 bool have_a_match = false;
                 bool have_a_close_match = false;
 
@@ -234,13 +234,13 @@ namespace Utilities.Internet.GoogleScholar
                 {
                     int aaaaaaaaa = 3;
                 }
-                 * */
+#endif
 
                 Logging.Info(gs_paper.ToString());
             }
         }
 #endif
 
-        #endregion
+#endregion
     }
 }
