@@ -29,7 +29,30 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             ButtonSniffer.Caption = "Sniffer";
             ButtonSniffer.Click += ButtonSniffer_Click;
 
+            ButtonToggleBibTeX.Caption = "Toggle View";
+            ButtonToggleBibTeX.Click += ButtonToggleBibTeX_Click; 
+            ButtonAckBibTeXParseErrors.Caption = "Parse Errors";
+            ButtonAckBibTeXParseErrors.Click += ButtonAckBibTeXParseErrors_Click; 
+            ButtonUndoBibTeXEdit.Caption = "Undo";
+            ButtonUndoBibTeXEdit.Click += ButtonUndoBibTeXEdit_Click; 
+            ObjBibTeXEditorControl.RegisterOverlayButtons(ButtonAckBibTeXParseErrors, ButtonToggleBibTeX, ButtonUndoBibTeXEdit);
+
             this.PreviewKeyDown += MetadataCommentEditorControl_PreviewKeyDown;
+        }
+
+        private void ButtonUndoBibTeXEdit_Click(object sender, RoutedEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void ButtonAckBibTeXParseErrors_Click(object sender, RoutedEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void ButtonToggleBibTeX_Click(object sender, RoutedEventArgs e)
+        {
+            throw new System.NotImplementedException();
         }
 
         void MetadataCommentEditorControl_PreviewKeyDown(object sender, KeyEventArgs e)

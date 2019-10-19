@@ -91,18 +91,24 @@ xmlns:local_bibtex="clr-namespace:Qiqqa.Documents.BibTeXEditor"
 
       <local_gui:AugmentedInfoBarItemControl Header="Reference Details - Edit Multiple" ToolTip="Update the reference details of many documents simultaneously."  Collapsed="False">
         <StackPanel>
-          <local_bibtex:BibTeXEditorControl x:Name="ObjBibTeXEditorControl" BibTeX="{Binding BibTex, Mode=TwoWay}" ForceHideNoBibTeXInstructions="True"/>
+          <local_bibtex:BibTeXEditorControl x:Name="ObjBibTeXEditorControl" BibTeX="{Binding BibTex, Mode=TwoWay}" ForceHideNoBibTeXInstructions="True" MinHeight="200" />
 
           <local_gui:AugmentedSpacer />
 
           <Grid>
             <Grid.ColumnDefinitions>
               <ColumnDefinition/>
-              <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
             <local_gui:AugmentedButton x:Name="ButtonResetBibTeX" Grid.Column="0" MinHeight="20" >Reset</local_gui:AugmentedButton>
-            <local_gui:AugmentedButton x:Name="ButtonApplyBibTeX" Grid.Column="1" MinHeight="20" >Apply</local_gui:AugmentedButton>
+            <local_gui:AugmentedButton x:Name="ButtonToggleBibTeX" Grid.Column="1" MinHeight="20" >Toggle</local_gui:AugmentedButton>
+            <local_gui:AugmentedButton x:Name="ButtonAckBibTeXParseErrors" Grid.Column="2" MinHeight="20" >Parse Errors</local_gui:AugmentedButton>
+            <local_gui:AugmentedButton x:Name="ButtonUndoBibTeXEdit" Grid.Column="3" MinHeight="20" >Undo</local_gui:AugmentedButton>
+            <local_gui:AugmentedButton x:Name="ButtonApplyBibTeX" Grid.Column="4" MinHeight="20" >Apply</local_gui:AugmentedButton>
           </Grid>
         </StackPanel>
       </local_gui:AugmentedInfoBarItemControl>

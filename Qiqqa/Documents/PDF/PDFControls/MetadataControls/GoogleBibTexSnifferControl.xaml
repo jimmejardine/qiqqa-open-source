@@ -110,7 +110,8 @@
                         <Grid>
                             <ScrollViewer>
                                 <StackPanel>
-                                    <local_bibtex:BibTeXEditorControl x:Name="ObjBibTeXEditorControl" BibTeX="{Binding BibTex, Mode=TwoWay}" ForceHideNoBibTeXInstructions="True" Loaded="ObjBibTeXEditorControl_Loaded" SizeChanged="ObjBibTeXEditorControl_SizeChanged" />
+                                    <local_bibtex:BibTeXEditorControl x:Name="ObjBibTeXEditorControl" BibTeX="{Binding BibTex, Mode=TwoWay}" ForceHideNoBibTeXInstructions="True" Loaded="ObjBibTeXEditorControl_Loaded" SizeChanged="ObjBibTeXEditorControl_SizeChanged"  MinHeight="{Binding RelativeSource={RelativeSource FindAncestor, 
+    AncestorType={x:Type ScrollViewer}},Path=ActualHeight}"  />
                                 </StackPanel>
                             </ScrollViewer>
 
@@ -121,6 +122,7 @@
                                     <local_gui:AugmentedButton Name="ButtonValidate" MinWidth="20" MinHeight="20" />
                                     <local_gui:AugmentedSpacer Height="10" Width="Auto"/>
                                     <local_gui:AugmentedButton Name="ButtonToggleBibTeX" MinWidth="20" MinHeight="20" />
+                                    <local_gui:AugmentedButton Name="ButtonShowBibTeXParseErrors" MinWidth="20" MinHeight="20" />
                                     <local_gui:AugmentedButton Name="ButtonUndoBibTexEdit" MinWidth="20" MinHeight="20" />
                                 </StackPanel>
                             </local_gui:AugmentedBorder>

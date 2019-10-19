@@ -28,6 +28,11 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             ButtonBibTexClear.ToolTip = "Clear this BibTeX.";
             ButtonBibTexClear.Click += ButtonBibTexClear_Click;
 
+            ButtonToggleBibTeX.Click += ButtonToggleBibTeX_Click;
+            ButtonAckBibTeXParseErrors.Click += ButtonAckBibTeXParseErrors_Click;
+            ButtonUndoBibTeXEdit.Click += ButtonUndoBibTeXEdit_Click;
+            ObjBibTeXEditorControl.RegisterOverlayButtons(ButtonAckBibTeXParseErrors, ButtonToggleBibTeX, ButtonUndoBibTeXEdit);
+
             ButtonBibTexAutoFind.Caption = "Find";
             ButtonBibTexAutoFind.ToolTip = LocalisationManager.Get("LIBRARY/TIP/BIBTEX_AUTOFIND");
             ButtonBibTexAutoFind.Click += ButtonBibTexAutoFind_Click;
@@ -42,6 +47,22 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             ButtonUseSummary.ToolTip = "Use your Reference Summary information to create a BibTeX record.";
             ButtonUseSummary.Click += ButtonUseSummary_Click;
             ButtonUseSummary.MinWidth = 0;
+        }
+
+        private void ButtonUndoBibTeXEdit_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ButtonAckBibTeXParseErrors_Click(object sender, RoutedEventArgs e)
+        {
+            // ACK by switching to RAW display mode:
+            ObjBibTeXEditorControl.ToggleBibTeXMode(TriState.Off);
+        }
+
+        private void ButtonToggleBibTeX_Click(object sender, RoutedEventArgs e)
+        {
+            ObjBibTeXEditorControl.ToggleBibTeXMode(TriState.Arbitrary);
         }
 
         static string GetFirstWord(string source)

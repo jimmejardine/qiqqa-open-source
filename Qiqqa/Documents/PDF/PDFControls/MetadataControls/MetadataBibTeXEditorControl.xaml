@@ -8,19 +8,29 @@
   <DockPanel>
     <Grid DockPanel.Dock="Bottom">
       <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="6*" />
+                <ColumnDefinition Width="7*" />
+                <ColumnDefinition Width="3" />
+                <ColumnDefinition Width="7*" />
         <ColumnDefinition />
-        <ColumnDefinition />
-      </Grid.ColumnDefinitions>
-      <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" x:Name="ObjButtonGrid" Grid.Column="1">
-	    <local_gui:AugmentedButton x:Name="ButtonSniffer" MinHeight="10">Sniffer</local_gui:AugmentedButton>
-        <local_gui:AugmentedSpacer />
-	    <local_gui:AugmentedButton x:Name="ButtonCancel" MinHeight="10" >Close</local_gui:AugmentedButton>
-      </StackPanel>
-    </Grid>
+            </Grid.ColumnDefinitions>
+
+            <local_gui:AugmentedButton Name="ButtonToggleBibTeX" Grid.Column="0" >Toggle</local_gui:AugmentedButton>
+            <local_gui:AugmentedButton Name="ButtonAckBibTeXParseErrors" Grid.Column="1" >Parse Errors</local_gui:AugmentedButton>
+            <local_gui:AugmentedButton Name="ButtonUndoBibTeXEdit" Grid.Column="2" >Undo</local_gui:AugmentedButton>
+            <local_gui:AugmentedSpacer Grid.Column="3" />
+            <local_gui:AugmentedButton x:Name="ButtonSniffer" Grid.Column="4" MinHeight="10">Sniffer</local_gui:AugmentedButton>
+            <local_gui:AugmentedSpacer Grid.Column="5" />
+            <local_gui:AugmentedButton x:Name="ButtonCancel" Grid.Column="6" MinHeight="10" >Close</local_gui:AugmentedButton>
+        </Grid>
 
 	<ScrollViewer>
 	  <StackPanel>
-		<local_bibtex:BibTeXEditorControl x:Name="ObjBibTeXEditorControl" BibTeX="{Binding BibTex, Mode=TwoWay}"/>
+                <local_bibtex:BibTeXEditorControl x:Name="ObjBibTeXEditorControl" BibTeX="{Binding BibTex, Mode=TwoWay}" MinHeight="{Binding RelativeSource={RelativeSource FindAncestor, 
+    AncestorType={x:Type ScrollViewer}},Path=ActualHeight}" />
 	  </StackPanel>
 	</ScrollViewer>
   </DockPanel>

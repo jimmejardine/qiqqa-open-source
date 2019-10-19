@@ -10,6 +10,10 @@
   mc:Ignorable="d" 
   x:Class="Qiqqa.Documents.BibTeXEditor.BibTeXEditorControl"
   d:DesignHeight="233"
+  HorizontalAlignment="Stretch"
+  VerticalAlignment="Stretch"
+  HorizontalContentAlignment="Stretch"
+  VerticalContentAlignment="Stretch"
 >
     <DockPanel>
 
@@ -60,23 +64,6 @@
       </Grid>
 
             <Grid Name="ObjErrorPanel" />
-
-      <DockPanel x:Name="ObjOverlayPanel" >
-            <DockPanel  x:Name="ObjOverlayInnerPanel"  DockPanel.Dock="Bottom">
-          <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
-          <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
-          <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
-          <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
-          <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
-          <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
-          <Image Name="ImageBibTeXModeToggle" DockPanel.Dock="Right" Width="12" Height="12" />
-          <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
-          <Image Name="ImageBibTeXParseError" DockPanel.Dock="Right" Width="12" Height="12" />
-          <local_gui:AugmentedSpacer />
-        </DockPanel>
-        <local_gui:AugmentedSpacer />
-      </DockPanel>
-
         </Grid>
 
     </DockPanel>

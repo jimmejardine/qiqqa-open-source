@@ -44,7 +44,31 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             ButtonResetBibTeX.Click += ButtonResetBibTeX_Click;
             ButtonApplyBibTeX.Caption = "Apply";
             ButtonApplyBibTeX.Click += ButtonApplyBibTeX_Click;
+            ButtonToggleBibTeX.Caption = "Toggle View";
+            ButtonToggleBibTeX.Click += ButtonToggleBibTeX_Click;
+            ButtonAckBibTeXParseErrors.Caption = "Parse Errors";
+            ButtonAckBibTeXParseErrors.Click += ButtonAckBibTeXParseErrors_Click;
+            ButtonUndoBibTeXEdit.Caption = "Undo";
+            ButtonUndoBibTeXEdit.Click += ButtonUndoBibTeXEdit_Click;
+            ObjBibTeXEditorControl.RegisterOverlayButtons(ButtonAckBibTeXParseErrors, ButtonToggleBibTeX, ButtonUndoBibTeXEdit);
+
             ResetBibTeXStub();
+        }
+
+        private void ButtonUndoBibTeXEdit_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ButtonAckBibTeXParseErrors_Click(object sender, RoutedEventArgs e)
+        {
+            // ACK by switching to RAW display mode:
+            ObjBibTeXEditorControl.ToggleBibTeXMode(TriState.Off);
+        }
+
+        private void ButtonToggleBibTeX_Click(object sender, RoutedEventArgs e)
+        {
+            ObjBibTeXEditorControl.ToggleBibTeXMode(TriState.Arbitrary);
         }
 
         // ---------------------------------------------------------------------------------------------------
@@ -162,7 +186,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             ObjUserReviewControl.DataContext = review_stub = new ReviewStub();
         }
 
-        static readonly Color NULL_COLOR = Color.FromArgb(0,0,0,0);
+        static readonly Color NULL_COLOR = Color.FromArgb(0, 0, 0, 0);
 
         void ButtonResetReview_Click(object sender, RoutedEventArgs e)
         {
@@ -227,7 +251,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
         }
 
         void ButtonApplyBibTeX_Click(object sender, RoutedEventArgs e)
-        {            
+        {
             List<PDFDocument> selected_pdf_documents = SelectedPDFDocuments;
 
             if (null == selected_pdf_documents) return;

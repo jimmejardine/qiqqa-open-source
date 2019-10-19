@@ -215,6 +215,12 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             ButtonUndoBibTexEdit.ToolTip = "Reset the BibTeX to what was before, i.e. discard all changes to the BibTeX while viewing this document in this sniffer.";
             ButtonUndoBibTexEdit.Click += ButtonUndoBibTexEdit_Click;
 
+            ButtonShowBibTeXParseErrors.Icon = Icons.GetAppIcon(Icons.GarbageCollect);
+            ButtonShowBibTeXParseErrors.ToolTip = "Shows any BibTeX errors as they occur.";
+            ButtonShowBibTeXParseErrors.Click += ButtonShowBibTeXParseErrors_Click;
+
+            ObjBibTeXEditorControl.RegisterOverlayButtons(ButtonShowBibTeXParseErrors, ButtonToggleBibTeX, ButtonUndoBibTexEdit);
+
             ButtonConfig.Icon = Icons.GetAppIcon(Icons.DocumentMisc);
             ButtonConfig.ToolTip = LocalisationManager.Get("PDF/TIP/MORE_MENUS");
             ButtonConfig.Click += ButtonConfig_Click;
@@ -245,6 +251,11 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             ObjWebBrowser.DefaultWebSearcherKey = WebSearchers.SCHOLAR_KEY;
             ObjWebBrowser.ForceAdvancedMenus();
             ObjWebBrowser.SetupSnifferSearchers();
+        }
+
+        private void ButtonShowBibTeXParseErrors_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void ButtonUndoBibTexEdit_Click(object sender, RoutedEventArgs e)
