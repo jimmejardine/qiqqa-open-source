@@ -167,13 +167,17 @@ namespace Utilities.Internet.GoogleScholar
                         var downloads_node = GetElementsWithClass(NoAltElements, "gs_ggsd");  // was 'gs_md_wp gs_ttss' before.
                         if (null != downloads_node)
                         {
-                            foreach (var child_node in downloads_node[0].ChildNodes)
+                            var source_url_node = downloads_node[0].SelectNodes(".//a");
+                            if (null != source_url_node)
                             {
-                                if ("a" == child_node.Name)
+                                foreach (var child_node in source_url_node)
                                 {
-                                    string download_url = child_node.Attributes["href"].Value;
-                                    gssp.download_urls.Add(download_url);
-                                    Logging.Info("ScrapeDoc(URL: {0}): Downloadable from {1}", url, download_url);
+                                    if (null != child_node.Attributes["href"])
+                                    {
+                                        string download_url = child_node.Attributes["href"].Value;
+                                        gssp.download_urls.Add(download_url);
+                                        Logging.Info("ScrapeDoc(URL: {0}): Downloadable from {1}", url, download_url);
+                                    }
                                 }
                             }
                         }
