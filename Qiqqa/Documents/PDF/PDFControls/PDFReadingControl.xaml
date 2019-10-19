@@ -179,12 +179,9 @@
               <local_citations:CitationsUserControl x:Name="CitationsControl" />
             </local_gui:AugmentedInfoBarItemControl>
 
-            <!--
             <local_gui:AugmentedInfoBarItemControl Collapsed="True" Header="Google Scholar">
               <local_similardocs:SimilarGoogleDocumentsRendererControl x:Name="SimilarDocsControl"/>
             </local_gui:AugmentedInfoBarItemControl>
-            -->
-
           </StackPanel>
         </ScrollViewer>
       </DockPanel>
