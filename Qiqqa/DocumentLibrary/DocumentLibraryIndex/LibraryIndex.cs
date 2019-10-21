@@ -251,6 +251,9 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
             int total_new_to_be_indexed = 0;
 
+            Stopwatch clk = new Stopwatch();
+            clk.Start();
+
             Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (pdf_documents_in_library_lock)
             {
@@ -295,6 +298,9 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 }
             }
 
+            long clk_duration = clk.ElapsedMilliseconds;
+            Logging.Debug特("Rescan of library {0} for indexing took {1}ms for {2} documents.", library, clk_duration, pdf_documents.Count);
+
             if (total_new_to_be_indexed > 0)            
             {
                 Logging.Info("There are {0} new document(s) to be indexed", total_new_to_be_indexed);
@@ -317,6 +323,9 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 Logging.Debug特("IncrementalBuildNextDocuments: Not daemon processing any library that is busy with adds...");
                 return false;
             }
+
+            Stopwatch clk = new Stopwatch();
+            clk.Start();
 
             Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (pdf_documents_in_library_lock)
@@ -463,6 +472,10 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                     pdf_document_in_library.last_indexed = DateTime.UtcNow;                    
                 }
             }
+
+
+            long clk_duration = clk.ElapsedMilliseconds;
+            Logging.Debug特("Incremental building of the library index for library {0} took {1}ms.", library, clk_duration);
 
             return did_some_work;
         }
