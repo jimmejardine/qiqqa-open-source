@@ -295,12 +295,13 @@ namespace icons
         public static readonly string BibTeXParseError3 = "BibTeXParseError3";
         public static readonly string BibTeXParseError4 = "BibTeXParseError4";
         public static readonly string BibTeXParseError5 = "BibTeXParseError5";
+        public static readonly string BibTeXReset = "BibTexReset";
         public static readonly string Previous2 = "Previous2";
         public static readonly string UpLeft = "UpLeft";
         public static readonly string UpRight = "UpRight";
         public static readonly string Warning1 = "Warning1";
         public static readonly string Warning2 = "Warning2";
-        public static readonly string DialogWindow = "Window";
+        public static readonly string Window = "Window";
 
         #region LexLens only
 

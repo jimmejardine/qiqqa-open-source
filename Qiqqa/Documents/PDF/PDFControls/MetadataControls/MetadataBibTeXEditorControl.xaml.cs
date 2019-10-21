@@ -4,6 +4,7 @@ using icons;
 using Qiqqa.Common.GUI;
 using Qiqqa.UtilisationTracking;
 using Utilities;
+using Utilities.GUI;
 using Utilities.Reflection;
 
 namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
@@ -29,11 +30,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             ButtonSniffer.Caption = "Sniffer";
             ButtonSniffer.Click += ButtonSniffer_Click;
 
-            ButtonToggleBibTeX.Caption = "Toggle View";
             ButtonToggleBibTeX.Click += ButtonToggleBibTeX_Click; 
-            ButtonAckBibTeXParseErrors.Caption = "Parse Errors";
             ButtonAckBibTeXParseErrors.Click += ButtonAckBibTeXParseErrors_Click; 
-            ButtonUndoBibTeXEdit.Caption = "Undo";
             ButtonUndoBibTeXEdit.Click += ButtonUndoBibTeXEdit_Click; 
             ObjBibTeXEditorControl.RegisterOverlayButtons(ButtonAckBibTeXParseErrors, ButtonToggleBibTeX, ButtonUndoBibTeXEdit);
 
@@ -47,12 +45,12 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         private void ButtonAckBibTeXParseErrors_Click(object sender, RoutedEventArgs e)
         {
-            throw new System.NotImplementedException();
+            ObjBibTeXEditorControl.ToggleBibTeXErrorView();
         }
 
         private void ButtonToggleBibTeX_Click(object sender, RoutedEventArgs e)
         {
-            throw new System.NotImplementedException();
+            ObjBibTeXEditorControl.ToggleBibTeXMode(TriState.Arbitrary);
         }
 
         void MetadataCommentEditorControl_PreviewKeyDown(object sender, KeyEventArgs e)

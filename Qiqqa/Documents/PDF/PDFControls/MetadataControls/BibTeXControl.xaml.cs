@@ -8,6 +8,7 @@ using Utilities.Reflection;
 using Utilities.Strings;
 using Utilities;
 using Qiqqa.Documents.PDF.MetadataSuggestions;
+using icons;
 
 namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 {
@@ -22,16 +23,20 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
             ButtonBibTexEditor.Caption = "Popup";
             ButtonBibTexEditor.ToolTip = "Edit this BibTeX in a larger popup window.";
+            ButtonBibTexEditor.Icon = Icons.GetAppIcon(Icons.Window);
+            ButtonBibTexEditor.IconHeight = 24;
             ButtonBibTexEditor.Click += ButtonBibTexEditor_Click;
 
             ButtonBibTexClear.Caption = "Clear";
             ButtonBibTexClear.ToolTip = "Clear this BibTeX.";
+            ButtonBibTexClear.Icon = Icons.GetAppIcon(Icons.BibTeXReset);
+            ButtonBibTexClear.IconHeight = 24;
             ButtonBibTexClear.Click += ButtonBibTexClear_Click;
 
             ButtonToggleBibTeX.Click += ButtonToggleBibTeX_Click;
             ButtonAckBibTeXParseErrors.Click += ButtonAckBibTeXParseErrors_Click;
             ButtonUndoBibTeXEdit.Click += ButtonUndoBibTeXEdit_Click;
-            ObjBibTeXEditorControl.RegisterOverlayButtons(ButtonAckBibTeXParseErrors, ButtonToggleBibTeX, ButtonUndoBibTeXEdit);
+            ObjBibTeXEditorControl.RegisterOverlayButtons(ButtonAckBibTeXParseErrors, ButtonToggleBibTeX, ButtonUndoBibTeXEdit, IconHeight: 24);
 
             ButtonBibTexAutoFind.Caption = "Find";
             ButtonBibTexAutoFind.ToolTip = LocalisationManager.Get("LIBRARY/TIP/BIBTEX_AUTOFIND");
@@ -56,8 +61,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         private void ButtonAckBibTeXParseErrors_Click(object sender, RoutedEventArgs e)
         {
-            // ACK by switching to RAW display mode:
-            ObjBibTeXEditorControl.ToggleBibTeXMode(TriState.Off);
+            ObjBibTeXEditorControl.ToggleBibTeXErrorView();
         }
 
         private void ButtonToggleBibTeX_Click(object sender, RoutedEventArgs e)

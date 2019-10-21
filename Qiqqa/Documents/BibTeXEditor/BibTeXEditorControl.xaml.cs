@@ -20,6 +20,9 @@ namespace Qiqqa.Documents.BibTeXEditor
     /// </summary>
     public partial class BibTeXEditorControl : UserControl
     {
+		// These three buttons are (optionally) provided by the parent control.
+		// Note the use of WeakReferences to help ensure there's no cyclic dependency
+		// in the UI that prevents the GC from cleaning up once we're done.
         WeakReference<FrameworkElement> BibTeXParseErrorButtonRef;
         WeakReference<FrameworkElement> BibTeXModeToggleButtonRef;
         WeakReference<FrameworkElement> BibTeXUndoEditButtonRef;
@@ -64,15 +67,26 @@ namespace Qiqqa.Documents.BibTeXEditor
             InitializeComponent();
 
             // The error panel
-            ObjErrorPanel.Background = ThemeColours.Background_Brush_Warning;
-            ObjErrorPanel.Opacity = .3;
+            //ObjErrorPanel.Background = ThemeColours.Background_Brush_Warning;
+            //ObjErrorPanel.Opacity = .3;
             ObjErrorPanel.IsHitTestVisible = false;
 
+            ObjBibTeXErrorText.Background = ThemeColours.Background_Brush_Warning.Clone();
+            ObjBibTeXErrorText.Background.Opacity = 1.3;
+            
             // Initial visibility
-            ObjErrorPanel.Visibility = Visibility.Collapsed;
-
+            //
+            // For the three panels use `Hidden` instead of `Collapsed` to ensure their
+            // dimensions are kept intact, irrespective in which 'edit mode' the user
+            // is right now.
+            // 
+            ObjErrorPanel.Visibility = Visibility.Hidden;
             ObjBibTeXGrid.Visibility = Visibility.Visible;
-            ObjTextPanel.Visibility = Visibility.Collapsed;
+            ObjTextPanel.Visibility = Visibility.Hidden;
+
+            Grid.SetZIndex(ObjTextPanel, 3);
+            Grid.SetZIndex(ObjBibTeXGrid, 5);
+            Grid.SetZIndex(ObjErrorPanel, 2);
 
             // Register for notifications of changes to the COMPONENT's bibtex
             wdpcn = new WeakDependencyPropertyChangeNotifier(this, BibTeXProperty);
@@ -97,7 +111,7 @@ namespace Qiqqa.Documents.BibTeXEditor
             RebuidTextAndGrid();
         }
 
-        public void RegisterOverlayButtons(FrameworkElement BibTeXParseErrorButton, FrameworkElement BibTeXModeToggleButton, FrameworkElement BibTeXUndoEditButton)
+        public void RegisterOverlayButtons(FrameworkElement BibTeXParseErrorButton, FrameworkElement BibTeXModeToggleButton, FrameworkElement BibTeXUndoEditButton, double IconHeight = double.NaN)
         {
             BibTeXParseErrorButtonRef = new WeakReference<FrameworkElement>(BibTeXParseErrorButton);
             BibTeXModeToggleButtonRef = new WeakReference<FrameworkElement>(BibTeXModeToggleButton);
@@ -107,6 +121,11 @@ namespace Qiqqa.Documents.BibTeXEditor
             {
                 AugmentedButton btn = BibTeXParseErrorButton as AugmentedButton;
                 btn.Caption = "View parse errors";
+                btn.Icon = Icons.GetAppIcon(Icons.BibTeXParseError2);
+                if (IconHeight > 0)
+                {
+                    btn.IconHeight = IconHeight;
+                }
             }
             BibTeXParseErrorButton.Visibility = Visibility.Visible;
             BibTeXParseErrorButton.IsEnabled = false;
@@ -115,7 +134,7 @@ namespace Qiqqa.Documents.BibTeXEditor
             if (BibTeXParseErrorButton is Image)
             {
                 Image imgBtn = BibTeXParseErrorButton as Image;
-                imgBtn.Source = Icons.GetAppIcon(Icons.BibTeXParseError);
+                imgBtn.Source = Icons.GetAppIcon(Icons.BibTeXParseError2);
                 RenderOptions.SetBitmapScalingMode(imgBtn, BitmapScalingMode.HighQuality);
             }
 
@@ -123,13 +142,18 @@ namespace Qiqqa.Documents.BibTeXEditor
             {
                 AugmentedButton btn = BibTeXModeToggleButton as AugmentedButton;
                 btn.Caption = "Toggle edit mode";
+                btn.Icon = Icons.GetAppIcon(Icons.BibTeXEditToggleMode1);
+                if (IconHeight > 0)
+                {
+                    btn.IconHeight = IconHeight;
+                }
             }
             BibTeXModeToggleButton.Visibility = Visibility.Visible;
-            BibTeXModeToggleButton.ToolTip = "Toggle between a BibTeX grid and raw BibTeX text.";
+            BibTeXModeToggleButton.ToolTip = "Toggle between a BibTeX grid ('parsed mode') and raw BibTeX text ('raw/unparssed mode').";
             if (BibTeXModeToggleButton is Image)
             {
                 Image imgBtn = BibTeXModeToggleButton as Image;
-                imgBtn.Source = Icons.GetAppIcon(Icons.Switch);
+                imgBtn.Source = Icons.GetAppIcon(Icons.BibTeXEditToggleMode1);
                 RenderOptions.SetBitmapScalingMode(imgBtn, BitmapScalingMode.HighQuality);
             }
             BibTeXModeToggleButton.Cursor = Cursors.Hand;
@@ -141,6 +165,11 @@ namespace Qiqqa.Documents.BibTeXEditor
             {
                 AugmentedButton btn = BibTeXUndoEditButton as AugmentedButton;
                 btn.Caption = "Undo";
+                btn.Icon = Icons.GetAppIcon(Icons.Previous2);
+                if (IconHeight > 0)
+                {
+                    btn.IconHeight = IconHeight;
+                }
             }
             BibTeXModeToggleButton.Visibility = Visibility.Visible;
             BibTeXModeToggleButton.ToolTip = null;
@@ -149,7 +178,7 @@ namespace Qiqqa.Documents.BibTeXEditor
             if (BibTeXUndoEditButton is Image)
             {
                 Image imgBtn = BibTeXUndoEditButton as Image;
-                imgBtn.Source = Icons.GetAppIcon(Icons.Switch);
+                imgBtn.Source = Icons.GetAppIcon(Icons.Previous2);
                 RenderOptions.SetBitmapScalingMode(imgBtn, BitmapScalingMode.HighQuality);
             }
         }
@@ -168,14 +197,38 @@ namespace Qiqqa.Documents.BibTeXEditor
             if (TriState.On == state)
             {
                 ObjBibTeXGrid.Visibility = Visibility.Visible;
-                ObjTextPanel.Visibility = Visibility.Collapsed;
-                ObjErrorPanel.Visibility = Visibility.Collapsed;
+                ObjTextPanel.Visibility = Visibility.Hidden;
+                ObjErrorPanel.Visibility = Visibility.Hidden;
+
+                Grid.SetZIndex(ObjTextPanel, 3);
+                Grid.SetZIndex(ObjBibTeXGrid, 5);
+                Grid.SetZIndex(ObjErrorPanel, 2);
             }
             else
             {
-                ObjBibTeXGrid.Visibility = Visibility.Collapsed;
+                ObjBibTeXGrid.Visibility = Visibility.Hidden;
                 ObjTextPanel.Visibility = Visibility.Visible;
-                ObjErrorPanel.Visibility = Visibility.Collapsed;
+                ObjErrorPanel.Visibility = Visibility.Hidden;
+
+                Grid.SetZIndex(ObjTextPanel, 5);
+                Grid.SetZIndex(ObjBibTeXGrid, 3);
+                Grid.SetZIndex(ObjErrorPanel, 2);
+            }
+        }
+
+        public void ToggleBibTeXErrorView()
+        {
+            if (!String.IsNullOrEmpty(ObjBibTeXErrorText.Text))
+            {
+                ObjErrorPanel.Visibility = (ObjErrorPanel.Visibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible);
+
+                Grid.SetZIndex(ObjErrorPanel, ObjErrorPanel.Visibility == Visibility.Visible ? 6 : 2);
+            }
+            else
+            {
+                ObjErrorPanel.Visibility = Visibility.Hidden;
+
+                Grid.SetZIndex(ObjErrorPanel, 2);
             }
         }
 
@@ -209,20 +262,17 @@ namespace Qiqqa.Documents.BibTeXEditor
             // If there were any exceptions, go pink and jump to the text editor
             if (bibtex_item.Exceptions.Count > 0 || bibtex_item.Warnings.Count > 0)
             {
-                TextBlock tb = new TextBlock();
-                tb.FontFamily = new FontFamily("Courier New");
-                tb.Text = bibtex_item.GetExceptionsAndMessagesString();
-                tb.TextWrapping = TextWrapping.Wrap;
-                tb.MaxWidth = 400;
+				string error_msg = bibtex_item.GetExceptionsAndMessagesString().Trim();
 
-                ObjErrorPanel.Children.Add(tb);
-                ObjErrorPanel.ToolTip = tb;
+                ObjBibTeXErrorText.Text = error_msg;
+
+                ObjErrorPanel.ToolTip = error_msg;
                 ObjErrorPanel.Visibility = Visibility.Visible;
 
                 FrameworkElement errBtn = null;
                 if (BibTeXParseErrorButtonRef?.TryGetTarget(out errBtn) ?? false)
                 {
-                    errBtn.ToolTip = tb;
+                    errBtn.ToolTip = error_msg;
                     errBtn.Visibility = Visibility.Visible;
                     errBtn.IsEnabled = true;
                     errBtn.Opacity = 1.0;
@@ -230,9 +280,10 @@ namespace Qiqqa.Documents.BibTeXEditor
             }
             else
             {
-                ObjErrorPanel.Children.Clear();
+                ObjBibTeXErrorText.Text = "";
+
                 ObjErrorPanel.ToolTip = null;
-                ObjErrorPanel.Visibility = Visibility.Collapsed;
+                ObjErrorPanel.Visibility = Visibility.Hidden;
 
                 FrameworkElement errBtn = null;
                 if (BibTeXParseErrorButtonRef?.TryGetTarget(out errBtn) ?? false)

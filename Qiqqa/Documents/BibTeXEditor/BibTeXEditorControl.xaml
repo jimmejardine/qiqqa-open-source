@@ -57,13 +57,18 @@
                 </Grid>
             </DockPanel>
 
-      <Grid Name="ObjTextPanel">
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-           <TextBox Name="ObjBibTeXText" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" />
+      <Grid Name="ObjTextPanel" Visibility="Hidden">
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Name="ObjBibTeXTextScrollViewer">
+           <TextBox Name="ObjBibTeXText" TextWrapping="Wrap" AcceptsReturn="True" />
         </ScrollViewer>
       </Grid>
 
-            <Grid Name="ObjErrorPanel" />
+            <Grid Name="ObjErrorPanel">
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <TextBox Name="ObjBibTeXErrorText"   IsReadOnly="True" TextWrapping="NoWrap" FontFamily="Lucida Console" />
+                </ScrollViewer>
+            </Grid>
+
         </Grid>
 
     </DockPanel>

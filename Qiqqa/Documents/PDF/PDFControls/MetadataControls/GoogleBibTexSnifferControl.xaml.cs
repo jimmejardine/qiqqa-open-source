@@ -207,18 +207,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             ButtonValidate.ToolTip = "The automatic BibTeX for this document is great.  Mark it as valid!";
             ButtonValidate.Click += ButtonValidate_Click;
 
-            ButtonToggleBibTeX.Icon = Icons.GetAppIcon(Icons.GoogleBibTexNext);
-            ButtonToggleBibTeX.ToolTip = "Toggle the BibTeX edit mode between RAW and FIELD-FORMATTED.";
             ButtonToggleBibTeX.Click += ButtonToggleBibTeX_Click;
-
-            ButtonUndoBibTexEdit.Icon = Icons.GetAppIcon(Icons.GoogleBibTexNext);
-            ButtonUndoBibTexEdit.ToolTip = "Reset the BibTeX to what was before, i.e. discard all changes to the BibTeX while viewing this document in this sniffer.";
             ButtonUndoBibTexEdit.Click += ButtonUndoBibTexEdit_Click;
-
-            ButtonShowBibTeXParseErrors.Icon = Icons.GetAppIcon(Icons.GarbageCollect);
-            ButtonShowBibTeXParseErrors.ToolTip = "Shows any BibTeX errors as they occur.";
             ButtonShowBibTeXParseErrors.Click += ButtonShowBibTeXParseErrors_Click;
-
             ObjBibTeXEditorControl.RegisterOverlayButtons(ButtonShowBibTeXParseErrors, ButtonToggleBibTeX, ButtonUndoBibTexEdit);
 
             ButtonConfig.Icon = Icons.GetAppIcon(Icons.DocumentMisc);
@@ -255,7 +246,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         private void ButtonShowBibTeXParseErrors_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            ObjBibTeXEditorControl.ToggleBibTeXErrorView();
         }
 
         private void ButtonUndoBibTexEdit_Click(object sender, RoutedEventArgs e)
@@ -265,7 +256,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         private void ButtonToggleBibTeX_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            ObjBibTeXEditorControl.ToggleBibTeXMode(TriState.Arbitrary);
         }
 
         void GoogleBibTexSnifferControl_KeyUp(object sender, KeyEventArgs e)

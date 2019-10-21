@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using icons;
 using Qiqqa.Common.TagManagement;
 using Qiqqa.Documents.PDF;
 using Utilities.BibTex.Parsing;
@@ -41,14 +42,17 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             ResetReviewStub();
 
             ButtonResetBibTeX.Caption = "Reset";
+            ButtonResetBibTeX.Icon = Icons.GetAppIcon(Icons.BibTeXReset);
             ButtonResetBibTeX.Click += ButtonResetBibTeX_Click;
+            ButtonResetBibTeX.Icon = Icons.GetAppIcon(Icons.Yes);
             ButtonApplyBibTeX.Caption = "Apply";
             ButtonApplyBibTeX.Click += ButtonApplyBibTeX_Click;
-            ButtonToggleBibTeX.Caption = "Toggle View";
+
+            //ButtonToggleBibTeX.Caption = "Toggle View";
             ButtonToggleBibTeX.Click += ButtonToggleBibTeX_Click;
-            ButtonAckBibTeXParseErrors.Caption = "Parse Errors";
+            //ButtonAckBibTeXParseErrors.Caption = "Parse Errors";
             ButtonAckBibTeXParseErrors.Click += ButtonAckBibTeXParseErrors_Click;
-            ButtonUndoBibTeXEdit.Caption = "Undo";
+            //ButtonUndoBibTeXEdit.Caption = "Undo";
             ButtonUndoBibTeXEdit.Click += ButtonUndoBibTeXEdit_Click;
             ObjBibTeXEditorControl.RegisterOverlayButtons(ButtonAckBibTeXParseErrors, ButtonToggleBibTeX, ButtonUndoBibTeXEdit);
 
@@ -62,8 +66,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
         private void ButtonAckBibTeXParseErrors_Click(object sender, RoutedEventArgs e)
         {
-            // ACK by switching to RAW display mode:
-            ObjBibTeXEditorControl.ToggleBibTeXMode(TriState.Off);
+            ObjBibTeXEditorControl.ToggleBibTeXErrorView();
         }
 
         private void ButtonToggleBibTeX_Click(object sender, RoutedEventArgs e)

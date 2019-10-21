@@ -8,7 +8,7 @@
 xmlns:local_bibtex="clr-namespace:Qiqqa.Documents.BibTeXEditor"
     xmlns:tag="clr-namespace:Qiqqa.Common.TagManagement"
   >
-  <ScrollViewer>
+    <ScrollViewer Height="1420" Width="186">
     <StackPanel>
       <local_gui:NonScrollingFlowDocumentScrollViewer>
         <commongui:StandardFlowDocument>

@@ -338,6 +338,7 @@
     <Resource Include="Application\Clear.png" />
     <Resource Include="Application\Printer.png" />
     <Resource Include="Application\Document.png" />
+    <None Include="Application\BibTexReset.psd" />
     <None Include="Application\DocumentsAddMissingFromSelf.psd" />
     <None Include="~COPYRIGHT.txt" />
     <Resource Include="Application\BrainstormWebsite.png" />
@@ -674,6 +675,7 @@
     <Resource Include="Application\Warning1.png" />
     <Resource Include="Application\Warning2.png" />
     <Resource Include="Application\Window.png" />
+    <Resource Include="Application\BibTexReset.png" />
     <Content Include="License.htm" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
