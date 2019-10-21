@@ -71,7 +71,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                 
                 TxtNullDataContext.Visibility = Visibility.Collapsed;
                 ObjDocumentInfo.Visibility = Visibility.Visible;
-                if (!have_pdf_to_render) ObjAbstract.Expand();
+                if (!have_pdf_to_render)
+                {
+                    ObjAbstract.Expand();
+                }
                 this.IsEnabled = true;
             }
             else

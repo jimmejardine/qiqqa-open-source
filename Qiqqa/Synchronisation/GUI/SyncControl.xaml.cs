@@ -55,7 +55,8 @@ namespace Qiqqa.Synchronisation.GUI
         {
             // THIS HACK IS NEEDED BECAUSE I DONT KNOW HOW TO GET THE CHECKBOX TO UPDATE ITS BINDINGS NICELY WITH A SINGLE CLICK :-(
             CheckBox cb = (CheckBox)sender;
-            var a = cb.DataContext; cb.BindingGroup.CommitEdit();            
+            var a = cb.DataContext; 
+            cb.BindingGroup.CommitEdit();            
         }
 
         void SyncControl_KeyUp(object sender, KeyEventArgs e)
