@@ -24,7 +24,7 @@
         <!-- Contains the PDF and bibtex and buttons -->
         <DockPanel Grid.Row="0">
 
-            <local_gui:AugmentedClosableBorder DockPanel.Dock="Top">
+            <local_gui:AugmentedClosableBorder DockPanel.Dock="Top" Name="AugCBforMissingMetaInSniffer" >
                 <TextBlock TextWrapping="Wrap">
           You are missing metadata for the PDF shown below.
           Select the title (or anything else) in the PDF window to search for it in Google Scholar in the bottom browser.  When you find it, click on the "Import into BibTeX" link to associate the correct BibTeX with the PDF.  <Hyperlink Name="HyperlinkBibTeXLinksMissing">Not seeing any "Import into BibTeX" links?</Hyperlink>  The BibTeX will then be shown in the top-right so you can edit it if necessary.

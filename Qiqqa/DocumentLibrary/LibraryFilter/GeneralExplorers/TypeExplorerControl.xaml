@@ -5,7 +5,7 @@
     xmlns:local_explorer="clr-namespace:Qiqqa.DocumentLibrary.TagExplorerStuff"
 >
   <DockPanel>
-    <local_gui:AugmentedClosableBorder DockPanel.Dock="Top" Padding="5">
+        <local_gui:AugmentedClosableBorder DockPanel.Dock="Top" Padding="5"  Name="AugCBforTypeExplorer" >
       <TextBlock TextWrapping="Wrap">If you have associated BibTeX with your PDFs, Qiqqa will automatically extract their BibTeX type.</TextBlock>
     </local_gui:AugmentedClosableBorder>
     
