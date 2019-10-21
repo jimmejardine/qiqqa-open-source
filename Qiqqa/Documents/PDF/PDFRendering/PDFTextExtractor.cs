@@ -505,7 +505,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                     FlushAllJobs();
                     break;
                 }
-                
+
                 // If this library is busy, skip it for now
                 if (Library.IsBusyAddingPDFs)
                 {
@@ -540,9 +540,45 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
                         Logging.Info("Doing OCR for job '{0}'", next_job.job);
 
-                        // Relinquish control to the UI thread to make sure responsiveness remains tolerable at 100% CPU load.
-                        Utilities.GUI.WPFDoEvents.WaitForUIThreadActivityDone();
+                        long clk_duration;
+                        {
+                            Stopwatch clk = new Stopwatch();
+							clk.Start();
 
+                            // Relinquish control to the UI thread to make sure responsiveness remains tolerable at 100% CPU load.
+                            Utilities.GUI.WPFDoEvents.WaitForUIThreadActivityDone();
+
+                            clk_duration = clk.ElapsedMilliseconds;
+                        }
+
+                        // The call above can take quite a while to complete, so check all abort/delay checks once again, just in case...:
+                        if (false
+                            || Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown || !StillRunning
+                            || clk_duration > 100
+                            || Library.IsBusyAddingPDFs
+                            || ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks
+                            )
+                        {
+                            Logging.Warn("Recheck job queue after WaitForUIThreadActivityDone took {0}ms or shutdown/dealy signals were detected: {1}/{2}/{3}/{4}.", 
+                                clk_duration,
+                                (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown || !StillRunning) ? "+Shutdown+" : "-SD-",
+                                clk_duration > 100 ? "+UI-wait+" : "-UI-",
+                                Library.IsBusyAddingPDFs ? "+PDFAddPending+" : "-PDF-",
+                                ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks ? "+DisableBackgroundTasks+" : "-DB-"
+                             );
+
+                            // push the job onto the queue and start from the beginning:
+                            if (next_job.is_group)
+                            {
+                                this.QueueJobGroup(next_job.job);
+                            }
+                            else
+                            {
+                                this.QueueJobSingle(next_job.job);
+                            }
+                            continue;
+                        }
+                        else
                         {
                             // Get a count of how many jobs are left...
                             int job_queue_group_count;
@@ -566,14 +602,14 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
                         try
                         {
-                                if (next_job.is_group)
-                                {
-                                    ProcessNextJob_Group(next_job, temp_ocr_result_filename);
-                                }
-                                else
-                                {
-                                    ProcessNextJob_Single(next_job, temp_ocr_result_filename);
-                                }
+                            if (next_job.is_group)
+                            {
+                                ProcessNextJob_Group(next_job, temp_ocr_result_filename);
+                            }
+                            else
+                            {
+                                ProcessNextJob_Single(next_job, temp_ocr_result_filename);
+                            }
                         }
                         catch (Exception ex)
                         {

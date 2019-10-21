@@ -120,8 +120,7 @@ namespace Qiqqa.Synchronisation.BusinessLogic
                         library_sync_detail.local_library_sync_detail = GetLocalLibrarySyncDetail(library_sync_detail.web_library_detail.library);
                     }
                 }
-
-
+                
                 // Work out if they are allowed to sync this record
                 StatusManager.Instance.UpdateStatusBusy(StatusCodes.SYNC_META_GLOBAL, String.Format("Determining sync allowances"));
                 foreach (LibrarySyncDetail library_sync_detail in global_sync_detail.library_sync_details)
@@ -168,7 +167,6 @@ namespace Qiqqa.Synchronisation.BusinessLogic
 
                 return global_sync_detail;
             }
-
             finally
             {
                 // Clear the status bar
@@ -204,7 +202,6 @@ namespace Qiqqa.Synchronisation.BusinessLogic
                         local_library_sync_detail.total_library_size += document_size;
                     }
                 }
-
                 catch (Exception ex)
                 {
                     Logging.Error(ex, "There was an error tallying up the local library sync detail for '{0}'.", pdf_document.Fingerprint);

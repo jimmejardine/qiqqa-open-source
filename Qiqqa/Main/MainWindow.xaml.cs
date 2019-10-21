@@ -244,6 +244,8 @@ namespace Qiqqa.Main
             // Close all windows
             this.DockingManager.CloseAllContent();
 
+            MainEntry.SignalShutdown();
+
             // If we get this far, they want out
             already_exiting = true;
         }
@@ -257,6 +259,9 @@ namespace Qiqqa.Main
             FeatureTrackingManager.Instance.UseFeature(Features.App_Close);
             
             Application.Current.Shutdown();
+
+            MainEntry.SignalShutdown();
+
             Logging.Info("-Explicitly shutting down application");
         }
 

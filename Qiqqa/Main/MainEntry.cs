@@ -226,7 +226,7 @@ namespace Qiqqa.Main
             // NB NB NB NB: You CANT USE ANYTHING IN THE USER CONFIG AT THIS POINT - it is not yet decided until LOGIN has completed...
         }
 
-        private static void DoShutdown()
+        public static void SignalShutdown()
         {
             ShutdownableManager.Instance.Shutdown();
         }
@@ -255,7 +255,7 @@ namespace Qiqqa.Main
                     Logging.Error(ex, "Exception caught at Main() application.Run().  Disaster.");
                 }
 
-                DoShutdown();
+                SignalShutdown();
             }
 
             catch (Exception ex)
