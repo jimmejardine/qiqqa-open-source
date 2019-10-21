@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Markup;
@@ -13,11 +14,15 @@ namespace Utilities.GUI
     [ContentProperty("Caption")]
     public partial class AugmentedButton : Button
     {
+        private double cachedDefaultFontSize;
+
         public AugmentedButton()
         {
             Theme.Initialize();
 
             InitializeComponent();
+			
+			this.SizeChanged += Button_SizeChanged;
             
             this.HorizontalContentAlignment = HorizontalAlignment.Stretch;
             this.VerticalContentAlignment = VerticalAlignment.Stretch;
@@ -41,6 +46,12 @@ namespace Utilities.GUI
             this.VerticalContentAlignment = VerticalAlignment.Stretch;
 
             ObjPanelCentered.Visibility = System.Windows.Visibility.Collapsed;
+
+            this.cachedDefaultFontSize = this.FontSize;
+            if (this.cachedDefaultFontSize < 1)        // don't check against exact 0 as size is a `double` type
+            {
+                this.cachedDefaultFontSize = 12;
+            }
         }
 
         public bool CenteredMode
@@ -124,7 +135,7 @@ namespace Utilities.GUI
 
             if (Visibility.Visible == TextCaption.Visibility)
             {
-                MinWidth = 80;
+                MinWidth = (IconVisibility == Visibility.Visible ? IconWidth : 25);
             }
             else
             {
@@ -252,6 +263,30 @@ namespace Utilities.GUI
                 attached_popup.StaysOpen = false;
                 attached_popup.IsOpen = true;
                 e.Handled = true;
+            }
+        }
+
+        private void Button_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            const double THRESHOLD = 48;
+
+            //if (!this.NeverMeasured)
+            {
+                if (this.ActualWidth > 0)
+                {
+                    if (this.ActualWidth < THRESHOLD)
+                    {
+                        this.FontSize = Math.Max(2, (this.cachedDefaultFontSize * this.ActualWidth) / THRESHOLD);
+                    }
+                    else
+                    {
+                        this.FontSize = this.cachedDefaultFontSize;
+                    }
+                }
+                else
+                {
+                    this.FontSize = this.cachedDefaultFontSize;
+                }
             }
         }
     }

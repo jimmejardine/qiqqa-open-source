@@ -17,12 +17,12 @@
     <DockPanel DockPanel.Dock="Bottom">
       <DockPanel DockPanel.Dock="Right">
 
-        <local_gui:AugmentedButton Name="ButtonSync" DockPanel.Dock="Right" MinWidth="200"/>
+                <local_gui:AugmentedButton Name="ButtonSync" DockPanel.Dock="Right" MinWidth="100" Height="30"/>
         <local_gui:AugmentedSpacer DockPanel.Dock="Right"/>
-        <local_gui:AugmentedButton Name="ButtonRefresh" DockPanel.Dock="Right"/>
+                <local_gui:AugmentedButton Name="ButtonRefresh" DockPanel.Dock="Right" MinWidth="100" />
         <local_gui:AugmentedSpacer DockPanel.Dock="Right"/>
 
-        <local_gui:AugmentedButton Name="ButtonCancel" DockPanel.Dock="Left"/>
+                <local_gui:AugmentedButton Name="ButtonCancel" DockPanel.Dock="Left" MinWidth="100" />
         <local_gui:AugmentedSpacer DockPanel.Dock="Left"/>
 
         <local_gui:AugmentedSpacer />
@@ -69,7 +69,7 @@
                 </Paragraph>
 
                 <Paragraph>
-                  <DataGrid Name="GridLibraryGrid" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False">
+                  <DataGrid Name="GridLibraryGrid" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" >
 
                     <DataGrid.Resources>
 
