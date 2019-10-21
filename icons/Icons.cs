@@ -132,8 +132,7 @@ namespace icons
         public const string Clear = "Clear";
         public const string Camera = "Camera";
         public const string Ink = "Ink";
-
-
+        
         public const string HighlightPointErase = "HighlightPointErase";
         public const string InkDraw = "InkDraw";
         public const string InkPointErase = "InkPointErase";
@@ -290,6 +289,18 @@ namespace icons
         public static readonly string PageCornerGreen = "PageCornerGreen";
         public static readonly string PageCornerOrange = "PageCornerOrange";
         public static readonly string PageCornerPink = "PageCornerPink";
+
+        public static readonly string BibTeXEditToggleMode1 = "BibTeXEditToggleMode1";
+        public static readonly string BibTeXParseError2 = "BibTeXParseError2";
+        public static readonly string BibTeXParseError3 = "BibTeXParseError3";
+        public static readonly string BibTeXParseError4 = "BibTeXParseError4";
+        public static readonly string BibTeXParseError5 = "BibTeXParseError5";
+        public static readonly string Previous2 = "Previous2";
+        public static readonly string UpLeft = "UpLeft";
+        public static readonly string UpRight = "UpRight";
+        public static readonly string Warning1 = "Warning1";
+        public static readonly string Warning2 = "Warning2";
+        public static readonly string DialogWindow = "Window";
 
         #region LexLens only
 

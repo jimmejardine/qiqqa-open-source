@@ -112,12 +112,8 @@
     <Resource Include="Application\Page1Up.png" />
     <Resource Include="Application\Page2Up.png" />
     <Resource Include="Application\PageNUp.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\ZoomIn.png" />
     <Resource Include="Application\ZoomOut.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Papers\binoculars.png" />
     <Resource Include="Papers\boat.png" />
     <Resource Include="Papers\flame.png" />
@@ -127,11 +123,7 @@
     <Resource Include="Papers\percentage.png" />
     <Resource Include="Papers\Postit.png" />
     <Resource Include="Papers\radioactive.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Papers\NEWS.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Papers\%27I see, I said...%27.png" />
     <Resource Include="Papers\50 should have beef with the banks where his enemies keep their money..png" />
     <Resource Include="Papers\A nervous ghost..png" />
@@ -334,112 +326,50 @@
     <Resource Include="Papers\ZIP, I%27ve got bad handwriting..png" />
     <Resource Include="Papers\Zipped up in bags, when it happens, that%27s it!.png" />
     <Resource Include="Papers\_FCE, .NES.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\DesktopCommit.png" />
     <Resource Include="Application\DesktopRefresh.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Highlighter.png" />
     <Resource Include="Application\TextSelect.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Find.png" />
     <Resource Include="Application\Next.png" />
     <Resource Include="Application\PageWholeUp.png" />
     <Resource Include="Application\Previous.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Hand.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Clear.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Printer.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Document.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Application\DocumentsAddMissingFromSelf.psd" />
     <None Include="~COPYRIGHT.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\BrainstormWebsite.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\BrainstormDocument.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\JumpToSection.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Metadata.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\PictureGrab.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\New.png" />
     <Resource Include="Application\Open.png" />
     <Resource Include="Application\Save.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\ModuleBrainstorm.png" />
     <Resource Include="Application\ModuleDocumentLibrary.png" />
     <Resource Include="Application\ModulePDFViewer.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\BrainstormPDFAnnotation.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Camera.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\TextSentenceSelect.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\BrainstormAddImage.png" />
     <Resource Include="Application\BrainstormAddText.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\ModuleConfiguration.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\ReadOutLoud.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Login.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Upgrade.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\SaveAs.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\LibraryDoOCR.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\ModuleWebBrowser.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Back.png" />
     <Resource Include="Application\Forward.png" />
     <Resource Include="Application\Refresh.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Qiqqa.ico" />
     <Resource Include="Application\Qiqqa.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\BrainstormAddConnector.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\FullScreen.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Application\Old\Back.png" />
     <None Include="Application\Old\BrainstormAddConnector.png" />
     <None Include="Application\Old\BrainstormAddImage.png" />
@@ -488,24 +418,12 @@
     <None Include="Application\Old\Upgrade.png" />
     <None Include="Application\Old\ZoomIn.png" />
     <None Include="Application\Old\ZoomOut.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Backgrounds\ExceptionDialogBackground.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\ExceptionFeedbackDecline.png" />
     <Resource Include="Application\ExceptionFeedbackSend.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\OCRNotComplete.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\GarbageCollect.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\LibraryAnnotationsReport.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\AnnotationReportExportToPDF.png" />
     <Resource Include="Application\AnnotationReportExportToWord.png" />
   </ItemGroup>
@@ -516,31 +434,17 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Application\ModulePDFAnnotationReport.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\DualTabbed_Close.png" />
     <Resource Include="Application\DualTabbed_Floating.png" />
     <Resource Include="Application\DualTabbed_Left.png" />
     <Resource Include="Application\DualTabbed_Maximize.png" />
     <Resource Include="Application\DualTabbed_Minimize.png" />
     <Resource Include="Application\DualTabbed_Right.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\DocumentsAddToLibrary.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\DocumentsAddToLibraryFromFolder.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\ModuleStartPage.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\DualTabbed_FullScreen.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\DocumentTypePdf.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Help.png" />
   </ItemGroup>
   <ItemGroup>
@@ -562,398 +466,162 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Application\ExportToText.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\DualTabbed_Bottom.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\DocumentsRecentlyRead.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\DualTabbed_BottomLeft.png" />
     <Resource Include="Application\DualTabbed_BottomRight.png" />
     <Resource Include="Application\DualTabbed_TopLeft.png" />
     <Resource Include="Application\DualTabbed_TopRight.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Delete.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\SyncWithCloud.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\DocumentsWatchFolder.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\LoginGuest.png" />
     <Resource Include="Application\LoginRegister.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\SyncPDFsWithCloud.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\ExportBibTex.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\SecureIndicator.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\QiqqaLogoSmall.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\SyncDialogClose.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\WebDragToLibrary.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\GoogleBibTexCancel.png" />
     <Resource Include="Application\GoogleBibTexUseThis.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\DocumentsImportFromThirdParty.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Cancel.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\ExportWord2007.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\DualTabbed_ChangeLocation.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\PubMedUseThis.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Annotation.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\LibraryCatalogDetails.png" />
     <Resource Include="Application\LibraryCatalogDrag.png" />
     <Resource Include="Application\LibraryCatalogOpen.png" />
     <Resource Include="Application\LibraryCatalogPreview.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\WebGrabWebPage.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\ModuleHelp.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\WebLibraryRefresh.png" />
     <Resource Include="Application\WebLibrarySyncAll.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\AnnotationReportImageError.png" />
     <Resource Include="Application\AnnotationReportImageWaiting.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\AdvertClose.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\WebLibrarySyncAllPDFs.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\DocumentMetadataComments.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\DocumentsInvertColours.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Ink.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\WebLibraryManage.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\InkDraw.png" />
     <Resource Include="Application\InkPointErase.png" />
     <Resource Include="Application\InkSelect.png" />
     <Resource Include="Application\InkStrokeErase.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\NotificationBarClose.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\DocumentsAddToLibraryFromLibrary.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\ThumbsDown.png" />
     <Resource Include="Application\ThumbsUp.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\led_circle_blue.png" />
     <Resource Include="Application\led_circle_green.png" />
     <Resource Include="Application\led_circle_orange.png" />
     <Resource Include="Application\led_circle_purple.png" />
     <Resource Include="Application\led_circle_red.png" />
     <Resource Include="Application\led_circle_yellow.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\LibraryGenerateReferences.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\DocumentSave.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Premium.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\BibTexSniffer.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\About.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\LibraryAutoTagsBlackWhiteLists.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\WebPreferences.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\BrainstormPDFAuthor.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\BrainstormPDFTag.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\BrainstormPDFAutoTag.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\PremiumInactive.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Switch.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\BibTeXParseError.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\LibraryCatalogOpenVanillaReference.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\DocumentFullScreen.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\QiqqaMedal.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\PageRotate.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\InCiteAddBibliography.png" />
     <Resource Include="Application\InCiteAppendCitation.png" />
     <Resource Include="Application\InCiteNewCitation.png" />
     <Resource Include="Application\InCiteRefresh.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\InCiteAddCSLStats.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\ModuleInCite.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\InCiteCSLDownload.png" />
     <Resource Include="Application\InCiteCSLStandard.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\InCitePause.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Webcast.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Favourite.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\QiqqaWhiteBackground.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\LibraryExport.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\InCiteConnection.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\WebSearch.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Search.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\InCiteCitationSnippet.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\BibTeXSnifferWizard.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\SyncDetails.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Backup.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\HighlightPointErase.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Share.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\QiqqaAndroid.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Minus.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Plus.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\PageCurlBR.png" />
     <Resource Include="Application\PageCurlTL.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Xmas.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\ModuleExpedition.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\ModuleLocalisation.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\InCiteEditCSL.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\AugmentedButtonDown.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\ToolbarBackground.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\ZipLogs.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\DocumentMisc.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Logout.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\No.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Yes.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\TopUp.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\ViewOnline.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\WebLibrary_Charts.png" />
     <Resource Include="Application\WebLibrary_CoverFlow.png" />
     <Resource Include="Application\WebLibrary_Grids.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Import_BibTeX.png" />
     <Resource Include="Application\Import_EndNote.png" />
     <Resource Include="Application\Import_JabRef.png" />
     <Resource Include="Application\Import_Mendeley.png" />
     <Resource Include="Application\Import_Zotero.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\BrainstormAttractorTheme.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\LibraryFindDuplicates.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\InciteFindUsedReferences.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\WebLibrary_AutoSync.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\ExportCitationMatrix.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\BrainstormAutoArrange.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\WebLibrary_IntranetLibrary.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\PremiumPlus.png" />
     <Resource Include="Application\PremiumPlusInactive.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\InCiteToolbarOpenPopup.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\WebLibrary_WebLibrary.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\WebLibrary_ReadOnly.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\GoogleBibTexNext.png" />
     <Resource Include="Application\GoogleBibTexSkip.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\LibraryTypeGuest.png" />
     <Resource Include="Application\LibraryTypeIntranet.png" />
     <Resource Include="Application\LibraryTypeWeb.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\50th.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Explore.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\DualTabbed_CloseGlow.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Manual.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Champion.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\AdChampion.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\lexlens_back.png" />
     <Resource Include="Application\lexlens_dock.png" />
     <Resource Include="Application\lexlens_eye.png" />
     <Resource Include="Application\lexlens_search.png" />
     <Resource Include="Application\lexlens_search_down.png" />
     <Resource Include="Application\lexlens_search_up.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\lexlens_logo.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\lexlens_logo.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\BuildBundleLibrary.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Datacopia.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\WebLibrary_BundleLibrary.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\LibraryTypeBundle.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\BrainstormLibrary.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\SpeedRead_Backward.png" />
     <Resource Include="Application\SpeedRead_End.png" />
     <Resource Include="Application\SpeedRead_Forward.png" />
@@ -962,93 +630,54 @@
     <Resource Include="Application\SpeedRead_Play.png" />
     <Resource Include="Application\SpeedRead_Plus.png" />
     <Resource Include="Application\SpeedRead_Start.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\SpeedRead_Stop.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\SpeedRead.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\AdDatacopiaQiqqa.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\SocialMedia.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\WebEZProxy.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\GoogleBibTexSkipForever.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Sort.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\GlossChampion.jpg" />
     <Resource Include="Application\GlossHelpers.jpg" />
     <Resource Include="Application\GlossPremium.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\PivotExportToExcel.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\LibraryPivot.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\InCiteAbbreviations.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\WebGrabPDFs.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\AdOmnipatentsQiqqa.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\StarburstBlue.png" />
     <Resource Include="Application\StarburstGreen.png" />
     <Resource Include="Application\StarburstYellow.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\PageCornerBlue.png" />
     <Resource Include="Application\PageCornerCyan.png" />
     <Resource Include="Application\PageCornerGreen.png" />
     <Resource Include="Application\PageCornerOrange.png" />
     <Resource Include="Application\PageCornerPink.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Xmas3.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\LibraryEmptyAddFiles.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\Tweet.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\QiqqaWeb.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Application\DocumentsAddMissingFromSelf.png" />
-    <Content Include="Application\BibTeXEditToggleMode1.png" />
-    <Content Include="Application\BibTeXParseError2.png" />
-    <Content Include="Application\BibTeXParseError3.png" />
-    <Content Include="Application\BibTeXParseError4.png" />
-    <Content Include="Application\BibTeXParseError5.png" />
-    <Content Include="Application\ExportExcel.png" />
-    <Content Include="Application\ExportPDF.png" />
-    <Content Include="Application\Notebook.png" />
-    <Content Include="Application\PDFBinderBuild.png" />
-    <Content Include="Application\Previous2.png" />
-    <Content Include="Application\Sweep.png" />
-    <Content Include="Application\UpLeft.png" />
-    <Content Include="Application\UpRight.png" />
-    <Content Include="Application\Warning1.png" />
-    <Content Include="Application\Warning2.png" />
+    <Resource Include="Application\BibTeXEditToggleMode1.png" />
+    <Resource Include="Application\BibTeXParseError2.png" />
+    <Resource Include="Application\BibTeXParseError3.png" />
+    <Resource Include="Application\BibTeXParseError4.png" />
+    <Resource Include="Application\BibTeXParseError5.png" />
+    <Resource Include="Application\ExportExcel.png" />
+    <Resource Include="Application\ExportPDF.png" />
+    <Resource Include="Application\Notebook.png" />
+    <Resource Include="Application\PDFBinderBuild.png" />
+    <Resource Include="Application\Previous2.png" />
+    <Resource Include="Application\Sweep.png" />
+    <Resource Include="Application\UpLeft.png" />
+    <Resource Include="Application\UpRight.png" />
+    <Resource Include="Application\Warning1.png" />
+    <Resource Include="Application\Warning2.png" />
+    <Resource Include="Application\Window.png" />
     <Content Include="License.htm" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
