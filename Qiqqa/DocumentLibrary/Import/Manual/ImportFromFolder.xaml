@@ -10,9 +10,9 @@
 
     <local_gui:AugmentedPadder DockPanel.Dock="Bottom">
       <DockPanel HorizontalAlignment="Right">
-        <local_gui:AugmentedButton x:Name="btnCancel" Click="BtnCancel_OnClick" />
+                <local_gui:AugmentedButton x:Name="btnCancel" Click="BtnCancel_OnClick" MinHeight="20" />
         <local_gui:AugmentedSpacer />
-        <local_gui:AugmentedButton x:Name="btnImport" Click="BtnImport_OnClick" IsEnabled="{Binding IsSelectedFileValid}"/>
+                <local_gui:AugmentedButton x:Name="btnImport" Click="BtnImport_OnClick" IsEnabled="{Binding IsSelectedFileValid}" MinHeight="20" />
       </DockPanel>
     </local_gui:AugmentedPadder>
 
@@ -24,7 +24,8 @@
           <local_gui:AugmentedButton DockPanel.Dock="Right"
                                              Margin="5,0,0,0"
                                              Click="FolderLocationButton_Click"
-                                       CaptionDock="Bottom">
+                                       CaptionDock="Bottom"
+                                      >
             Browse
           </local_gui:AugmentedButton>
 

@@ -87,6 +87,7 @@ namespace Qiqqa.Common.Configuration
                 button.Tag = color;
                 button.Caption = "   ";
                 button.Background = new SolidColorBrush(ColorTools.MakeDarkerColor(color, 1.2));
+                button.AutoScaleText = false;
                 button.Click += ThemeColorButton_Click;
                 ObjColoursPanel.Children.Add(button);
             }
@@ -120,8 +121,7 @@ namespace Qiqqa.Common.Configuration
         {
             string user_agent = null;
 
-            if (false) { }
-            else if (sender == ObjUserAgent_Clear) user_agent = "";
+            if (sender == ObjUserAgent_Clear) user_agent = "";
             else if (sender == ObjUserAgent_IE) user_agent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)";
             else if (sender == ObjUserAgent_Chrome) user_agent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.13 (KHTML, like Gecko) Chrome/24.0.1284.0 Safari/537.13";
             else if (sender == ObjUserAgent_Safari) user_agent = "Mozilla/5.0 (Windows; U; Windows NT 6.1; tr-TR) AppleWebKit/533.20.25 (KHTML, like Gecko) Version/5.0.4 Safari/533.20.27";

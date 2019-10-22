@@ -141,7 +141,9 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             {
                 Stopwatch clk = new Stopwatch();
                 clk.Start();
+
                 Logging.Info("+Writing the index master list");
+                
                 word_index_manager.WriteMasterList();
                 Utilities.LockPerfTimer l5_clk = Utilities.LockPerfChecker.Start();
                 lock (pdf_documents_in_library_lock)
@@ -149,6 +151,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                     l5_clk.LockPerfTimerStop();
                     SerializeFile.SaveSafely(Filename_DocumentProgressList, pdf_documents_in_library);
                 }
+                
                 Logging.Info("-Wrote the index master list (time spent: {0} ms", clk.ElapsedMilliseconds);
 
                 // Report to user

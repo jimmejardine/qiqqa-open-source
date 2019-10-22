@@ -27,8 +27,8 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock Grid.ColumnSpan="2" TextWrapping="Wrap" Padding="5">We are always trying to improve our algorithms.  How do you rate the quality of these AutoTags?</TextBlock>
-        <local_gui:AugmentedButton Grid.Row="1" Grid.Column="0" x:Name="VoteUp"/>
-        <local_gui:AugmentedButton Grid.Row="1" Grid.Column="1" x:Name="VoteDown"/>
+                <local_gui:AugmentedButton Grid.Row="1" Grid.Column="0" x:Name="VoteUp" MinHeight="20" />
+                <local_gui:AugmentedButton Grid.Row="1" Grid.Column="1" x:Name="VoteDown" MinHeight="20" />
       </Grid>
     </local_gui:AugmentedClosableBorder>
     
@@ -39,8 +39,8 @@
         <ColumnDefinition/>
       </Grid.ColumnDefinitions>
 
-      <local_gui:AugmentedButton Name="ButtonRefreshTags" Grid.Column="0" DockPanel.Dock="Top" />
-      <local_gui:AugmentedButton Name="ButtonManageLists" Grid.Column="1" DockPanel.Dock="Top" />
+            <local_gui:AugmentedButton Name="ButtonRefreshTags" Grid.Column="0" DockPanel.Dock="Top" MinHeight="20"  />
+            <local_gui:AugmentedButton Name="ButtonManageLists" Grid.Column="1" DockPanel.Dock="Top" MinHeight="20"  />
     </Grid>
     
     <local_gui:AugmentedSpacer DockPanel.Dock="Top" />

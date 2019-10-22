@@ -4,6 +4,6 @@
   xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
 >
     <Grid>
-      <local_gui:AugmentedButton x:Name="SearchQuickHelp" />
+        <local_gui:AugmentedButton x:Name="SearchQuickHelp"  />
     </Grid>
 </UserControl>

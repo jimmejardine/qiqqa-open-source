@@ -246,6 +246,18 @@ namespace Utilities.GUI
             }
         }
 
+        private bool _AutoScaleText = true;
+        public bool AutoScaleText {
+            get
+            {
+                return _AutoScaleText;
+            }
+            set
+            {
+                _AutoScaleText = value;
+            }
+        }
+
         Popup attached_popup = null;
         public void AttachPopup(Popup popup)
         {
@@ -271,6 +283,7 @@ namespace Utilities.GUI
             const double THRESHOLD = 48;
 
             //if (!this.NeverMeasured)
+            if (AutoScaleText)
             {
                 if (this.ActualWidth > 0)
                 {

@@ -104,11 +104,11 @@ xmlns:local_bibtex="clr-namespace:Qiqqa.Documents.BibTeXEditor"
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <local_gui:AugmentedButton x:Name="ButtonResetBibTeX" Grid.Column="0" MinHeight="20" >Reset</local_gui:AugmentedButton>
-            <local_gui:AugmentedButton x:Name="ButtonToggleBibTeX" Grid.Column="1" MinHeight="20" >Toggle</local_gui:AugmentedButton>
-            <local_gui:AugmentedButton x:Name="ButtonAckBibTeXParseErrors" Grid.Column="2" MinHeight="20" >Parse Errors</local_gui:AugmentedButton>
-            <local_gui:AugmentedButton x:Name="ButtonUndoBibTeXEdit" Grid.Column="3" MinHeight="20" >Undo</local_gui:AugmentedButton>
-            <local_gui:AugmentedButton x:Name="ButtonApplyBibTeX" Grid.Column="4" MinHeight="20" >Apply</local_gui:AugmentedButton>
+                        <local_gui:AugmentedButton x:Name="ButtonResetBibTeX" Grid.Column="0" MinHeight="20" AutoScaleText="true"  >Reset</local_gui:AugmentedButton>
+                        <local_gui:AugmentedButton x:Name="ButtonToggleBibTeX" Grid.Column="1" MinHeight="20" AutoScaleText="true"  >Toggle</local_gui:AugmentedButton>
+                        <local_gui:AugmentedButton x:Name="ButtonAckBibTeXParseErrors" Grid.Column="2" MinHeight="20" AutoScaleText="true"  >Parse Errors</local_gui:AugmentedButton>
+                        <local_gui:AugmentedButton x:Name="ButtonUndoBibTeXEdit" Grid.Column="3" MinHeight="20" AutoScaleText="true"  >Undo</local_gui:AugmentedButton>
+                        <local_gui:AugmentedButton x:Name="ButtonApplyBibTeX" Grid.Column="4" MinHeight="20"  AutoScaleText="true" >Apply</local_gui:AugmentedButton>
           </Grid>
         </StackPanel>
       </local_gui:AugmentedInfoBarItemControl>

@@ -15,10 +15,10 @@
     <DockPanel DockPanel.Dock="Bottom">
       <DockPanel DockPanel.Dock="Right">
 
-        <local_gui:AugmentedButton Name="ButtonJoinCreate" DockPanel.Dock="Right" MinWidth="200" MinHeight="20"/>
+                <local_gui:AugmentedButton Name="ButtonJoinCreate" DockPanel.Dock="Right" MinWidth="100" MinHeight="20" />
         <local_gui:AugmentedSpacer DockPanel.Dock="Right"/>
 
-        <local_gui:AugmentedButton Name="ButtonCancel" DockPanel.Dock="Left"/>
+                <local_gui:AugmentedButton Name="ButtonCancel" DockPanel.Dock="Left" MinHeight="20" MinWidth="100" />
         <local_gui:AugmentedSpacer DockPanel.Dock="Left"/>
 
         <local_gui:AugmentedSpacer />

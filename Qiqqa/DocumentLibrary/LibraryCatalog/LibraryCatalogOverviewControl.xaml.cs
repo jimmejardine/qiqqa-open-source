@@ -52,7 +52,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             ButtonOpen.Cursor = Cursors.Hand;
 
             ButtonSearchInside.IconVisibility = Visibility.Collapsed;
-            ButtonSearchInside.Click += ButtonSearchInside_Click;            
+            ButtonSearchInside.Click += ButtonSearchInside_Click;
             ObjLookInsidePanel.Visibility = Visibility.Collapsed;
 
             ButtonThemeSwatch.ToolTip = "This swatch shows the themes in this document.  If the swatch is grey, there is no Expedition information for this document - please run Expedition again!\n\nClick here to open the document in Expedition.";
@@ -114,13 +114,13 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
                 catch (Exception ex)
                 {
                     Logging.Warn(ex, "There was a problem while trying to detemine the parent of the library catalog overview control");
-                    _library_catalog_control = null;                    
+                    _library_catalog_control = null;
                 }
 
                 return _library_catalog_control;
             }
         }
-        
+
         private void OpenPDFDocument()
         {
             // Sometimes one of these is NULL and I have no idea why and can't replicate it...
@@ -134,7 +134,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
                 Logging.Warn("LibraryCatalogControl is null");
                 return;
             }
-            
+
             MainWindowServiceDispatcher.Instance.OpenDocument(PDFDocumentBindable.Underlying, LibraryCatalogControl.FilterTerms);
         }
 
@@ -257,11 +257,11 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             }
 
             // Populate the theme swatch
-                ButtonThemeSwatch.Visibility = Visibility.Visible;
-                ButtonThemeSwatch.Background = ThemeBrushes.GetBrushForDocument(PDFDocumentBindable.Underlying);
+            ButtonThemeSwatch.Visibility = Visibility.Visible;
+            ButtonThemeSwatch.Background = ThemeBrushes.GetBrushForDocument(PDFDocumentBindable.Underlying);
 
             // Populate the linked documents
-                CitationsUserControl.PopulatePanelWithCitations(DocsPanel_Linked, PDFDocumentBindable.Underlying.Library, PDFDocumentBindable.Underlying, PDFDocumentBindable.Underlying.PDFDocumentCitationManager.GetLinkedDocuments(), Features.LinkedDocument_Library_OpenDoc, " » ", false);
+            CitationsUserControl.PopulatePanelWithCitations(DocsPanel_Linked, PDFDocumentBindable.Underlying.Library, PDFDocumentBindable.Underlying, PDFDocumentBindable.Underlying.PDFDocumentCitationManager.GetLinkedDocuments(), Features.LinkedDocument_Library_OpenDoc, " » ", false);
         }
 
         void ButtonSearchInside_Click(object sender, RoutedEventArgs e)
@@ -331,7 +331,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             }
             else
             {
-                return new List <PDFDocument>();
+                return new List<PDFDocument>();
             }
         }
 
