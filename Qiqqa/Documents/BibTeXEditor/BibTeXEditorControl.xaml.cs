@@ -66,6 +66,8 @@ namespace Qiqqa.Documents.BibTeXEditor
 
             InitializeComponent();
 
+            this.Unloaded += BibTeXEditorControl_Unloaded;
+
             // The error panel
             //ObjErrorPanel.Background = ThemeColours.Background_Brush_Warning;
             //ObjErrorPanel.Opacity = .3;
@@ -109,6 +111,19 @@ namespace Qiqqa.Documents.BibTeXEditor
                 "Please enter a BibTeX key for this article.\nIt needs to be unique in your library as it is used to identify this reference when you use Qiqqa InCite or in LaTeX when you use the \\cite{KEY} command.";
 
             RebuidTextAndGrid();
+        }
+
+        private void BibTeXEditorControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            // discard all references which might otherwise potentially cause memleaks due to (potential) references cycles:
+            BibTeXParseErrorButtonRef.SetTarget(null);
+            BibTeXModeToggleButtonRef.SetTarget(null);
+            BibTeXUndoEditButtonRef.SetTarget(null);
+
+            wdpcn.Dispose();
+            wdpcn = null;
+            BibTeX = "";
+            bindable = null;
         }
 
         public void RegisterOverlayButtons(FrameworkElement BibTeXParseErrorButton, FrameworkElement BibTeXModeToggleButton, FrameworkElement BibTeXUndoEditButton, double IconHeight = double.NaN)
