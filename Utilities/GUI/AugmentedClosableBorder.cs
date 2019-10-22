@@ -163,6 +163,11 @@ namespace Utilities.GUI
         {
             Logging.Debug("not implemented");
 
+            if (string.IsNullOrEmpty(this.Name))
+            {
+                throw new System.Exception("Every AugmentedClosableBorder UI element MUST have a Name.");
+            }
+
             IdPath = GetIdPath();
         }
 
