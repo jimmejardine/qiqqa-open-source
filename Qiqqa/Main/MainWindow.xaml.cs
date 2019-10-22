@@ -254,13 +254,13 @@ namespace Qiqqa.Main
         {
             Logging.Info("+Explicitly shutting down application");
 
+            MainEntry.SignalShutdown();
+
             ipc_server.Stop();
             
             FeatureTrackingManager.Instance.UseFeature(Features.App_Close);
-            
-            Application.Current.Shutdown();
 
-            MainEntry.SignalShutdown();
+            Application.Current.Shutdown();
 
             Logging.Info("-Explicitly shutting down application");
         }

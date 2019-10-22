@@ -48,13 +48,17 @@ namespace Utilities.Maintainable
                     Logging.Info("Waiting for Maintainable {0} to terminate.", do_maintenance_delegate_wrapper.maintainable_description);
                     double memsize1 = GC.GetTotalMemory(false);
                     GC.Collect();
+                    GC.WaitForPendingFinalizers();
+                    GC.Collect();
                     double memsize2 = GC.GetTotalMemory(true);
                     Logging.Info("While Waiting to terminate, GC collect => memory {0:0.000}K -> {1:0.000}K.", memsize1 / 1E3, memsize2 / 1E3);
+
+                    Thread.Sleep(100);
                 }
             }
         }
 
-        public void RegisterHeldOffTask(DoMaintenanceDelegate do_maintenance_delegate, int delay_before_start_milliseconds, ThreadPriority thread_priority, int hold_off_level = 0)
+        public void RegisterHeldOffTask(DoMaintenanceDelegate do_maintenance_delegate, int delay_before_start_milliseconds, ThreadPriority thread_priority, int hold_off_level = 0, string extra_descr = "")
         {
             Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (do_maintenance_delegate_wrappers_lock)
@@ -62,12 +66,12 @@ namespace Utilities.Maintainable
                 l1_clk.LockPerfTimerStop();
                 // Set up the wrapper
                 DoMaintenanceDelegateWrapper do_maintenance_delegate_wrapper = new DoMaintenanceDelegateWrapper();
-                do_maintenance_delegate_wrapper.maintainable_description = String.Format("{0}:{1}", do_maintenance_delegate.Target, do_maintenance_delegate.Method.Name);
+                do_maintenance_delegate_wrapper.maintainable_description = String.Format("{0}:{1}{2}", do_maintenance_delegate.Target, do_maintenance_delegate.Method.Name, extra_descr);
                 do_maintenance_delegate_wrapper.target = new WeakReference(do_maintenance_delegate.Target);
                 do_maintenance_delegate_wrapper.method_info = do_maintenance_delegate.Method;
                 do_maintenance_delegate_wrapper.delay_before_start_milliseconds = delay_before_start_milliseconds;
                 do_maintenance_delegate_wrapper.hold_off_level = hold_off_level;
-                do_maintenance_delegate_wrapper.daemon = new Daemon("Maintainable:" + do_maintenance_delegate.Target.GetType().Name + "." + do_maintenance_delegate.Method.Name);
+                do_maintenance_delegate_wrapper.daemon = new Daemon("Maintainable:" + do_maintenance_delegate.Target.GetType().Name + "." + do_maintenance_delegate.Method.Name + extra_descr);
                 
                 // Add it to our list of trackers
                 do_maintenance_delegate_wrappers.Add(do_maintenance_delegate_wrapper);
@@ -95,9 +99,9 @@ namespace Utilities.Maintainable
             {
                 if (0 != do_maintenance_delegate_wrapper.delay_before_start_milliseconds)
                 {
-                    Logging.Info("+MaintainableManager is waiting some startup time for {0}", do_maintenance_delegate_wrapper.maintainable_description);
+                    Logging.Info("+MaintainableManager is waiting some startup time ({1}ms) for {0}", do_maintenance_delegate_wrapper.maintainable_description, do_maintenance_delegate_wrapper.delay_before_start_milliseconds);
                     daemon.Sleep(do_maintenance_delegate_wrapper.delay_before_start_milliseconds);
-                    Logging.Info("-MaintainableManager is waiting some startup time for {0}", do_maintenance_delegate_wrapper.maintainable_description);
+                    Logging.Info("-MaintainableManager was waiting some startup time for {0}", do_maintenance_delegate_wrapper.maintainable_description);
                 }
             }
 

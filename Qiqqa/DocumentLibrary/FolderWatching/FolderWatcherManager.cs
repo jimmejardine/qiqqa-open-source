@@ -55,7 +55,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 }
             }
 
-            Utilities.Maintainable.MaintainableManager.Instance.RegisterHeldOffTask(TaskDaemonEntryPoint, 30 * 1000, System.Threading.ThreadPriority.BelowNormal);
+            Utilities.Maintainable.MaintainableManager.Instance.RegisterHeldOffTask(TaskDaemonEntryPoint, 30 * 1000, System.Threading.ThreadPriority.BelowNormal, extra_descr: $".Lib({library})");
         }
 
 #if DIAG

@@ -3,6 +3,7 @@ using System.Windows;
 using System;
 using System.Diagnostics;
 using System.Windows.Input;
+using System.Threading;
 
 namespace Utilities.GUI
 {
@@ -16,9 +17,20 @@ namespace Utilities.GUI
     {
         private static void DoEvents()
         {
-            DispatcherFrame frame = new DispatcherFrame();
-            Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Background, new DispatcherOperationCallback(ExitFrame), frame);
-            Dispatcher.PushFrame(frame);
+            if (!Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown 
+				&& null != Dispatcher.CurrentDispatcher 
+				&& !Dispatcher.CurrentDispatcher.HasShutdownStarted 
+				&& !Dispatcher.CurrentDispatcher.HasShutdownFinished
+			)
+            {
+                DispatcherFrame frame = new DispatcherFrame();
+                Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Background, new DispatcherOperationCallback(ExitFrame), frame);
+                Dispatcher.PushFrame(frame);
+            }
+            else
+            {
+                Thread.Sleep(50);
+            }
         }
 
         public static object ExitFrame(object f)
@@ -27,7 +39,7 @@ namespace Utilities.GUI
             return null;
         }
 
-        private static object DoEvents_lock = new object();
+        //private static object DoEvents_lock = new object();
 
         public static void WaitForUIThreadActivityDone()
         {
@@ -49,16 +61,27 @@ namespace Utilities.GUI
                 // i.e. kept the UI responsive, we will LOCK around this block too: the first (background) thread
                 // to enter will wait for the UI/Dispatcher to relinquish control, while subseqeunt callers from
                 // other background threads will wait on the lock to resolve...
-                lock (DoEvents_lock)
+                //lock (DoEvents_lock)
                 {
-                    if (null != Application.Current)
+                    //if (null != Application.Current)
                     {
-                        Application.Current.Dispatcher.Invoke(new Action(() =>
+                        if (!Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown 
+                            && null != Application.Current.Dispatcher 
+                            && !Application.Current.Dispatcher.HasShutdownStarted 
+                            && !Application.Current.Dispatcher.HasShutdownFinished
+						)
                         {
-                            Logging.Debug(":::WaitForUIThreadActivityDone InvokeAsync started");
-                            DoEvents();
-                            Logging.Debug(":::WaitForUIThreadActivityDone InvokeAsync finished");
-                        }));
+                            Application.Current.Dispatcher.Invoke(new Action(() =>
+                            {
+                                Logging.Debug(":::WaitForUIThreadActivityDone InvokeAsync started");
+                                DoEvents();
+                                Logging.Debug(":::WaitForUIThreadActivityDone InvokeAsync finished");
+                            }));
+                        }
+                        else
+                        {
+                            Thread.Sleep(50);
+                        }
                     }
                 }
             }
