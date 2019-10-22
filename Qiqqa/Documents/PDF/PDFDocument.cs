@@ -23,6 +23,7 @@ using Utilities.Reflection;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+using Utilities.Strings;
 
 namespace Qiqqa.Documents.PDF.ThreadUnsafe
 {
@@ -1496,6 +1497,15 @@ namespace Qiqqa.Documents.PDF
                 }
             }
         }
+
+        public string TitleCombinedTrimmed
+        {
+            get
+            {
+                return StringTools.TrimToLengthWithEllipsis(TitleCombined, 200);
+            }
+        }
+
         /// <summary>
         /// Is true if the user made this title by hand (e.g. typed it in or got some BibTeX)
         /// </summary>
@@ -1570,6 +1580,14 @@ namespace Qiqqa.Documents.PDF
                 {
                     doc.AuthorsCombined = value;
                 }
+            }
+        }
+
+        public string AuthorsCombinedTrimmed
+        {
+            get
+            {
+                return StringTools.TrimToLengthWithEllipsis(AuthorsCombined, 150);
             }
         }
 
@@ -1667,6 +1685,14 @@ namespace Qiqqa.Documents.PDF
                 {
                     doc.Publication = value;
                 }
+            }
+        }
+
+        public string PublicationTrimmed
+        {
+            get
+            {
+                return StringTools.TrimToLengthWithEllipsis(Publication, 100);
             }
         }
 

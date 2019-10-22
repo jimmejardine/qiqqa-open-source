@@ -595,19 +595,20 @@ namespace Utilities.Strings
             return str.Trim();
         }
 
-        public static string TrimToLengthWithEllipsis(string str, int max_length = 40)
+        public static string TrimToLengthWithEllipsis(string str, int max_length = 66)
         {
             if (null == str) return str;
             str = TrimAndClean(str);
             int len = str.Length;
             max_length = Math.Max(5, max_length);  // sane lower limit?
+
             if (len > max_length)
             {
                 // heuristic: when there's a word boundary within last 20% slots, take that one instead: 
                 int range_to_check = Math.Max(2, max_length / 5);
                 // account for the Unicode ellipsis character
                 int pos = str.LastIndexOf(' ', max_length - 1, range_to_check);
-                if (pos > 0)
+                if (pos > 0 && pos >= (2 * max_length) / 3)    // heuristic: if the last space is too far back (2/3rd of output width), ignore it
                 {
                     // soft cut: cut just past the space = word boundary
                     str = str.Substring(0, pos + 1);
