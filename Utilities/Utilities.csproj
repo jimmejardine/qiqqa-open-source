@@ -958,4 +958,7 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>node  $(SolutionDir)/Qiqqa.Build/patch_settings_file.js --TargetDir=$(TargetDir) --SolutionDir=$(SolutionDir) --ProjectDir=$(ProjectDir) --Build=$(ConfigurationName) $(ProjectDir)</PreBuildEvent>
+  </PropertyGroup>
 </Project>

@@ -1,0 +1,15 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Utilities.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="TargetDir" Type="System.String" Scope="Application">
+      <Value Profile="undefined">W:/Users/Ger/Projects/sites/library.visyond.gov/80/lib/tooling/qiqqa/Utilities/bin/Debug/</Value>
+    </Setting>
+    <Setting Name="ProjectDir" Type="System.String" Scope="Application">
+      <Value Profile="undefined">W:/Users/Ger/Projects/sites/library.visyond.gov/80/lib/tooling/qiqqa/Utilities/</Value>
+    </Setting>
+    <Setting Name="SolutionDir" Type="System.String" Scope="Application">
+      <Value Profile="undefined">W:/Users/Ger/Projects/sites/library.visyond.gov/80/lib/tooling/qiqqa/</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
