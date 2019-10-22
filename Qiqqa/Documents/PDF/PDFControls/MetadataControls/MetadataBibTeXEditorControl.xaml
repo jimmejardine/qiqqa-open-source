@@ -4,6 +4,7 @@
   xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
   xmlns:local_bibtex="clr-namespace:Qiqqa.Documents.BibTeXEditor"
   xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
+  MinWidth="250"
 >
   <DockPanel>
     <Grid DockPanel.Dock="Bottom">
@@ -15,7 +16,6 @@
                 <ColumnDefinition Width="7*" />
                 <ColumnDefinition Width="3" />
                 <ColumnDefinition Width="7*" />
-        <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
             <local_gui:AugmentedButton Name="ButtonToggleBibTeX" Grid.Column="0" >Toggle</local_gui:AugmentedButton>
@@ -27,7 +27,7 @@
             <local_gui:AugmentedButton x:Name="ButtonCancel" Grid.Column="6" MinHeight="10" >Close</local_gui:AugmentedButton>
         </Grid>
 
-	<ScrollViewer>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" >
 	  <StackPanel>
                 <local_bibtex:BibTeXEditorControl x:Name="ObjBibTeXEditorControl" BibTeX="{Binding BibTex, Mode=TwoWay}" MinHeight="{Binding RelativeSource={RelativeSource FindAncestor, 
     AncestorType={x:Type ScrollViewer}},Path=ActualHeight}" />

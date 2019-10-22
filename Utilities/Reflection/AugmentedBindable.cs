@@ -335,6 +335,5 @@ namespace Utilities.Reflection
         {
             return String.Format("AugmentedBindable[{0}]", underlying.ToString());
         }
-
     }
 }

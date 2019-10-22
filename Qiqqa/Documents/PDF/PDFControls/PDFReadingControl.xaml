@@ -131,14 +131,14 @@
 
     <!-- PDFDocument metadata controls  - - - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - -  - - - - - - - - - - - - -  -->
 
-    <local_gui:CollapsibleRegion Name="GridLEFT" DockPanel.Dock="Right" VisibleEdge="Left">
-      <local_metadata:DocumentMetadataControlsPanel x:Name="ObjDocumentMetadataControlsPanel" Width="220"/>
+        <local_gui:CollapsibleRegion Name="GridLEFT" DockPanel.Dock="Right" VisibleEdge="Left">
+            <local_metadata:DocumentMetadataControlsPanel x:Name="ObjDocumentMetadataControlsPanel" Width="220" MinWidth="220" />
     </local_gui:CollapsibleRegion>
 
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-    <local_gui:CollapsibleRegion Name="GridRIGHT" DockPanel.Dock="Left" VisibleEdge="Right">
-      <DockPanel Width="200">
+        <local_gui:CollapsibleRegion Name="GridRIGHT" DockPanel.Dock="Left" VisibleEdge="Right">
+            <DockPanel Width="200" MinWidth="186">
 
         <ScrollViewer VerticalScrollBarVisibility="Auto" >
           <StackPanel>

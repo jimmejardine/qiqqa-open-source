@@ -20,7 +20,7 @@
         <local_gui:NonScrollingFlowDocumentScrollViewer x:Name="ObjNoBibTeXInstructions" DockPanel.Dock="Bottom">
             <commongui:StandardFlowDocument>
                 <Paragraph>
-          Qiqqa has not been able to automatically associate BibTeX with this document.  BibTeX is useful when formatting your bibliography with InCite.  Use the BibTeX Sniffer to quickly search the Internet for this document's BibTeX.
+                    Qiqqa has not been able to automatically associate BibTeX with this document.  BibTeX is useful when formatting your bibliography with InCite.  Use the BibTeX Sniffer to quickly search the Internet for this document's BibTeX.
                 </Paragraph>
             </commongui:StandardFlowDocument>
         </local_gui:NonScrollingFlowDocumentScrollViewer>
@@ -40,10 +40,10 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
-          <TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold" Name="ComboRecordTypeHeader">Type</TextBlock>
-          <ComboBox Grid.Row="0" Grid.Column="2" Name="ComboRecordType" MinWidth="50" IsEditable="True" BorderThickness="0"/>
-          <TextBlock Grid.Row="1" Grid.Column="0" FontWeight="Bold" Name="TxtRecordKeyHeader" >Key</TextBlock>
-          <TextBox  Grid.Row="1" Grid.Column="2" Name="TxtRecordKey" MinWidth="50" BorderThickness="0"/>
+                    <TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold" Name="ComboRecordTypeHeader">Type</TextBlock>
+                    <ComboBox Grid.Row="0" Grid.Column="2" Name="ComboRecordType" MinWidth="50" IsEditable="True" BorderThickness="0"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" FontWeight="Bold" Name="TxtRecordKeyHeader" >Key</TextBlock>
+                    <TextBox  Grid.Row="1" Grid.Column="2" Name="TxtRecordKey" MinWidth="50" BorderThickness="0"/>
                 </Grid>
 
                 <local_gui:AugmentedSpacer DockPanel.Dock="Top" />
@@ -57,14 +57,14 @@
                 </Grid>
             </DockPanel>
 
-      <Grid Name="ObjTextPanel" Visibility="Hidden">
-        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Name="ObjBibTeXTextScrollViewer">
-           <TextBox Name="ObjBibTeXText" TextWrapping="Wrap" AcceptsReturn="True" />
-        </ScrollViewer>
-      </Grid>
+            <Grid Name="ObjTextPanel" Visibility="Hidden">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"  DockPanel.Dock="Top" Name="ObjBibTeXTextScrollViewer">
+                    <TextBox Name="ObjBibTeXText" TextWrapping="Wrap" AcceptsReturn="True" DockPanel.Dock="Top" />
+                </ScrollViewer>
+            </Grid>
 
             <Grid Name="ObjErrorPanel">
-                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" DockPanel.Dock="Top" Name="ObjBibTeXErrorScrollViewer">
                     <TextBox Name="ObjBibTeXErrorText"   IsReadOnly="True" TextWrapping="NoWrap" FontFamily="Lucida Console" />
                 </ScrollViewer>
             </Grid>

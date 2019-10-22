@@ -12,6 +12,7 @@ using Utilities.GUI;
 using Utilities.Reflection;
 using Qiqqa.Common.Configuration;
 using Utilities.Strings;
+using Utilities;
 
 namespace Qiqqa.Documents.BibTeXEditor
 {
@@ -67,6 +68,7 @@ namespace Qiqqa.Documents.BibTeXEditor
             InitializeComponent();
 
             this.Unloaded += BibTeXEditorControl_Unloaded;
+            this.SizeChanged += BibTeXEditorControl_SizeChanged;
 
             // The error panel
             //ObjErrorPanel.Background = ThemeColours.Background_Brush_Warning;
@@ -113,17 +115,73 @@ namespace Qiqqa.Documents.BibTeXEditor
             RebuidTextAndGrid();
         }
 
+        private void BibTeXEditorControl_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            double table_height1 = ObjGridPanel.ActualHeight;
+            //double table_height2 = ObjHeaderGrid.ActualHeight;
+            //double table_height3 = ObjBibTeXGrid.ActualHeight;
+
+            //double rawtxt_height1 = ObjTextPanel.ActualHeight;
+            //double rawtxt_height2 = ObjBibTeXTextScrollViewer.ActualHeight;
+            //double rawtxt_height3 = ObjBibTeXText.ActualHeight;
+
+            //double errtxt_height1 = ObjErrorPanel.ActualHeight;
+            //double errtxt_height2 = ObjBibTeXErrorScrollViewer.ActualHeight;
+            //double errtxt_height3 = ObjBibTeXErrorText.ActualHeight;
+
+            const double THRESHOLD = 100;
+			
+            if (table_height1 > THRESHOLD)
+            {
+	            double maxh1 = ObjBibTeXTextScrollViewer.MaxHeight;
+	            double maxh2 = ObjBibTeXErrorScrollViewer.MaxHeight;
+
+	            // tweak the control so the Parsed View gives us the master MaxHeight:
+	            ObjBibTeXTextScrollViewer.MaxHeight = THRESHOLD;
+	            ObjBibTeXErrorScrollViewer.MaxHeight = THRESHOLD;
+	            this.UpdateLayout();
+
+                table_height1 = ObjGridPanel.ActualHeight;
+
+	            if (table_height1 > THRESHOLD)
+	            {
+	                ObjBibTeXTextScrollViewer.MaxHeight = table_height1;
+	                ObjBibTeXErrorScrollViewer.MaxHeight = table_height1;
+	            }
+	            else
+	            {
+	                ObjBibTeXTextScrollViewer.MaxHeight = double.PositiveInfinity;
+	                ObjBibTeXErrorScrollViewer.MaxHeight = double.PositiveInfinity;
+	            }
+
+	            if (Math.Abs(maxh1 - ObjBibTeXTextScrollViewer.MaxHeight) > 0.25)
+	            {
+	                this.UpdateLayout();
+	            }
+			}
+        }
+
         private void BibTeXEditorControl_Unloaded(object sender, RoutedEventArgs e)
         {
-            // discard all references which might otherwise potentially cause memleaks due to (potential) references cycles:
-            BibTeXParseErrorButtonRef.SetTarget(null);
-            BibTeXModeToggleButtonRef.SetTarget(null);
-            BibTeXUndoEditButtonRef.SetTarget(null);
+            try
+            {
+                // discard all references which might otherwise potentially cause memleaks due to (potential) references cycles:
+                BibTeXParseErrorButtonRef.SetTarget(null);
+                BibTeXModeToggleButtonRef.SetTarget(null);
+                BibTeXUndoEditButtonRef.SetTarget(null);
 
-            wdpcn.Dispose();
-            wdpcn = null;
-            BibTeX = "";
-            bindable = null;
+                if (null != wdpcn)
+                {
+                    wdpcn.Dispose();
+                }
+                wdpcn = null;
+                BibTeX = "";
+                bindable = null;
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
         }
 
         public void RegisterOverlayButtons(FrameworkElement BibTeXParseErrorButton, FrameworkElement BibTeXModeToggleButton, FrameworkElement BibTeXUndoEditButton, double IconHeight = double.NaN)
