@@ -90,10 +90,6 @@ namespace Utilities
                 // Are we looking at this dialog in the Visual Studio Designer?
                 if (Runtime.IsRunningInVisualStudioDesigner && null == _StartupDirectoryForQiqqa)
                 {
-                    //string s1 = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
-                    //string s2 = System.Reflection.Assembly.GetExecutingAssembly().Location;
-                    //string s3 = System.Windows.Forms.Application.StartupPath;
-                    //string basedir = Path.GetFullPath(Path.GetDirectoryName(Path.GetFullPath(loc)));
                     string loc = Path.Combine(Utilities.Constants.QiqqaDevSolutionDir, "Qiqqa/bin/", Utilities.Constants.QiqqaDevBuild);
                     string basedir = Path.GetFullPath(loc);
                     _StartupDirectoryForQiqqa = basedir;
