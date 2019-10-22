@@ -114,7 +114,7 @@ namespace Qiqqa.Common.Configuration
 
         public string InCite_LastStyleFile
         {
-            get 
+            get
             {
                 string filename = this["InCite_LastStyleFile"] as string;
                 if (String.IsNullOrEmpty(filename))
@@ -165,8 +165,8 @@ namespace Qiqqa.Common.Configuration
         public bool System_DisableSSL
         {
             get { return (this["System_DisableSSL"] as bool?) ?? false; }
-            set 
-            { 
+            set
+            {
                 this["System_DisableSSL"] = value;
                 Logging.Debug特("DisableSSL = " + value);
             }
@@ -334,7 +334,7 @@ namespace Qiqqa.Common.Configuration
             get { return (this["GUI_LastSelectedLibraryId"] as string) ?? ""; }
             set { this["GUI_LastSelectedLibraryId"] = value; }
         }
-        
+
         public bool GUI_AdvancedMenus
         {
             get { return (this["GUI_AdvancedMenus"] as bool?) ?? false; }
@@ -462,11 +462,18 @@ namespace Qiqqa.Common.Configuration
             set { this["AutomaticAccountDetails_LibraryMembershipLastDate"] = value; }
         }
 
-        //[NonSerialized]
+        [NonSerialized]
+        private bool disable_all_background = false;
         public bool DisableAllBackgroundTasks
         {
-            get { return false; }
-            set { /* nil */ }
+            get
+            {
+                return disable_all_background;
+            }
+            set
+            {
+                disable_all_background = value;
+            }
         }
     }
 }
