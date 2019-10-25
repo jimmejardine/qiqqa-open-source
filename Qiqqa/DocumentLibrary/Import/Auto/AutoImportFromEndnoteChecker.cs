@@ -63,7 +63,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                 return;
             }
 
-            Qiqqa.UtilisationTracking.FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportAutoFromEndNote);
+            FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportAutoFromEndNote);
 
             WebLibraryDetail web_library_detail = null;
             Application.Current.Dispatcher.Invoke(((Action)(() =>

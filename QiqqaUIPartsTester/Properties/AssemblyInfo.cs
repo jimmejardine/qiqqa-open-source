@@ -7,11 +7,11 @@ using System.Windows;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("QiqqaVersionMigrator")]
+[assembly: AssemblyTitle("QiqqaUIPartsTester")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Quantisle")]
-[assembly: AssemblyProduct("QiqqaVersionMigrator")]
+[assembly: AssemblyProduct("QiqqaUIPartsTester")]
 [assembly: AssemblyCopyright("Copyright © Quantisle 2010-2019. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -48,5 +48,8 @@ using System.Windows;
 //      Build Number
 //      Revision
 //
+// You can specify all the values or you can default the Build and Revision Numbers
+// by using the '*' as shown below:
+// [assembly: AssemblyVersion("82.0.7206.22989")]
 [assembly: AssemblyVersion("82.0.7206.22989")]
 [assembly: AssemblyFileVersion("82.0.7206.22989")]

@@ -124,14 +124,14 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
         void CmdAutomaticMendeleyImport_Click(object sender, RoutedEventArgs e)
         {
-            Qiqqa.UtilisationTracking.FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportAutoFromMendeley);
+            FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportAutoFromMendeley);
             ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(this._library, false, false, mdd.metadata_imports.ToArray());
             this.Close();
         }
 
         void CmdAutomaticEndnoteImport_Click(object sender, RoutedEventArgs e)
         {
-            Qiqqa.UtilisationTracking.FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportAutoFromEndNote);
+            FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportAutoFromEndNote);
             ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(this._library, false, false, edd.metadata_imports.ToArray());
             this.Close();
         }
