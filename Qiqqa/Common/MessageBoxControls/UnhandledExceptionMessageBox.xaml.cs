@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Media;
 using icons;
 using Qiqqa.Common.Configuration;
+using Qiqqa.Common.GUI;
 using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.DateTimeTools;
@@ -15,7 +16,7 @@ namespace Qiqqa.Common.MessageBoxControls
     /// <summary>
     /// Interaction logic for UnhandledExceptionMessageBox.xaml
     /// </summary>
-    public partial class UnhandledExceptionMessageBox
+    public partial class UnhandledExceptionMessageBox : StandardWindow
     {
         private UnhandledExceptionMessageBox()
         {
@@ -24,7 +25,7 @@ namespace Qiqqa.Common.MessageBoxControls
 
             InitializeComponent();        
 
-            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            //this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             this.WindowState = WindowState.Normal;
 
             this.Icon = Icons.GetAppIconICO(Icons.Qiqqa);
@@ -237,7 +238,10 @@ namespace Qiqqa.Common.MessageBoxControls
 
         private string FaqUrl
         {
-            get { return WebsiteAccess.GetOurUrl(WebsiteAccess.OurSiteLinkKind.Faq); }
+            get 
+			{ 
+                return WebsiteAccess.GetOurUrl(WebsiteAccess.OurSiteLinkKind.Faq); 
+            }
         }
 
         void ButtonClose_Click(object sender, RoutedEventArgs e)
@@ -247,7 +251,7 @@ namespace Qiqqa.Common.MessageBoxControls
 
         #region --- Test ------------------------------------------------------------------------
 
-#if TEST
+#if TEST_UI
         public static void Test()
         {
             try
@@ -263,7 +267,6 @@ namespace Qiqqa.Common.MessageBoxControls
                         throw new Exception("Inner exception 2", ex_inner1);
                     }
                 }
-
                 catch (Exception ex_inner2)
                 {
                     throw new Exception("Outer exception", ex_inner2);
