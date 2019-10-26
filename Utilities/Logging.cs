@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reflection;
 using System.Text;
 using System.Timers;
 using log4net;
 using log4net.Appender;
 using log4net.Config;
+using LogLog = log4net.Util.LogLog;
+using LogManager = log4net.LogManager;
 
 namespace Utilities
 {
@@ -22,94 +25,237 @@ namespace Utilities
 
         static Logging()
         {
-            ILog dummy_fetch_to_init_logger = log;
+            //ILog dummy_fetch_to_init_logger = log;
+            TriggerInit();
         }
 
-        private static bool log4net_loaded;   // WARNING: DO NOT init this to false as then the logger init in the contructor will fail to deliver! HAIRY CODE / .NET BEHAVIOUR
+        private static bool log4net_loaded;   // WARNING: DO NOT init this to false as then the logger init in the contructor will fail to deliver! (only SET this member within the critical section)
+        private static bool log4net_init_pending;
+
+        // The following members MUST be accessed only within the critical section guarded by this lock:
+        //
+        // __log
+        // init_ex_list
+        // log4net_loaded
+        // log4net_init_pending
+        //
+        private static object log4net_loaded_lock = new object();
 
         static ILog log
         {
             get
             {
-                if (null == __log && log4net_loaded)
+                ILog rv;
+                bool go;
+                lock (log4net_loaded_lock)
+                {
+                    go = (null == __log && log4net_loaded && !log4net_init_pending);
+                    rv = __log;
+                }
+                if (go)
                 {
                     Init();
                 }
-                return __log;
+                return rv;
             }
         }
 
+        /// <summary>
+        /// Test whether the log4net-based log system has been loaded and set up and if so, enable the use of that logging system.
+        /// 
+        /// Up to that moment, all Logging APIs will log to a memory buffer/queue which will written to the logging system
+        /// once it is loaded, set up and active.
+        /// </summary>
         public static void TriggerInit()
         {
-            log4net_loaded = true;
+            bool go;
+            lock (log4net_loaded_lock)
+            {
+                go = (null == __log && !log4net_loaded && !log4net_init_pending);
+                if (go)
+                {
+                    log4net_init_pending = true; // block simultaneous execution of the rest of the code in TriggerInit()
+                }
+            }
+
+            if (go)
+            {
+                bool we_are_ready_for_the_next_phase = false;
+                try
+                {
+                    // test if log4net assembly is loaded and ready:
+                    Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
+                    bool active = false;
+
+                    foreach (Assembly assembly in assemblies)
+                    {
+                        if (assembly.FullName.StartsWith("log4net"))
+                        {
+                            active = true;
+                            break;
+                        }
+                    }
+
+                    if (active)
+                    {
+                        // as per https://stackoverflow.com/questions/28723920/check-whether-log4net-xmlconfigurator-succeeded
+                        //
+                        // log4net must have picked up the configuration or it will not function anyhow
+                        if (!LogManager.GetRepository().Configured)
+                        {
+                            // log4net not configured
+                            foreach (var message in LogManager.GetRepository().ConfigurationMessages)
+                            {
+                                // evaluate configuration message
+                                LogLog logInitMsg = message as LogLog;
+                                BufferMessage(String.Format("log config: {0}", logInitMsg?.Message ?? message));
+                            }
+                        }
+
+                            we_are_ready_for_the_next_phase = true;
+                    }
+                }
+                finally
+                {
+                    // make sure the pending flag is reset whenever we leave this block
+                    lock (log4net_loaded_lock)
+                    {
+                        log4net_loaded = we_are_ready_for_the_next_phase;
+
+                        log4net_init_pending = false; // de-block 
+                    }
+                }
+            }
         }
 
         private static bool Init()
         {
-            if (null != __log) return true;
-
-            try
+            bool go;
+            lock (log4net_loaded_lock)
             {
-                BasicConfigurator.Configure();
-                XmlConfigurator.Configure();
-                __log = LogManager.GetLogger(typeof(Logging));
-                Info("Logging initialised.{0}", LogAssist.AppendStackTrace(null, "get_log"));
-
-                if (init_ex_list != null && init_ex_list.Count > 0)
+                go = (null == __log && log4net_loaded && !log4net_init_pending);
+                if (go)
                 {
-                    Error("Logging init failures (due to premature init/usage?):");
-                    foreach (LogBufEntry ex in init_ex_list)
+                    log4net_init_pending = true; // block simultaneous execution of the rest of the code in Init()
+                }
+            }
+
+            if (go)
+            {
+                try
+                {
+                    BasicConfigurator.Configure();
+                    XmlConfigurator.Configure();
+                    ILog l = LogManager.GetLogger(typeof(Logging));
+                    lock (log4net_loaded_lock)
+                    {
+                        __log = l;
+                    }
+                    // as per https://stackoverflow.com/questions/28723920/check-whether-log4net-xmlconfigurator-succeeded
+                    //
+                    // log4net must have picked up the configuration or it will not function anyhow
+                    //if (!LogManager.GetRepository().Configured)
+                    {
+                        // log4net not configured
+                        foreach (var message in LogManager.GetRepository().ConfigurationMessages)
+                        {
+                            // evaluate configuration message
+                            LogLog logInitMsg = message as LogLog;
+                            BufferMessage(String.Format("log4net config: {0}", logInitMsg?.Message ?? message));
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    BufferException(ex);
+                }
+            }
+
+            bool rv;
+            lock (log4net_loaded_lock)
+            {
+                if (go)
+                {
+                    log4net_init_pending = false; // de-block
+                }
+                // return value: TRUE when success
+                rv = (null != __log);
+            }
+
+            // only log/yak about initialization success when it actually did happen just above:
+            if (rv)
+            {
+                Debug("Logging initialised at {0}", LogAssist.AppendStackTrace(null, "get_log"));
+                Info("Logging initialised.");
+
+                // thread safety: move and reset the pending message buffer/list 
+                List<LogBufEntry> lst = new List<LogBufEntry>();
+                lock (log4net_loaded_lock)
+                {
+                    if (init_ex_list != null && init_ex_list.Count > 0)
+                    {
+                        // move list
+                        lst = init_ex_list;
+                        init_ex_list = null;
+                    }
+                }
+                if (lst.Count > 0)
+                {
+                    Error("--- Logging early bird log messages: ---");
+                    foreach (LogBufEntry ex in lst)
                     {
                         if (ex.ex != null)
                         {
                             if (ex.message != null)
                             {
-                                Error(ex.ex, "Logger init failure. Message: {0}", ex.message);
+                                Error(ex.ex, "{0}", ex.message);
                             }
                             else
                             {
-                                Error(ex.ex, "Logger init failure.");
+                                Error(ex.ex, "Logger init failure?");
                             }
                         }
                         else
                         {
-                            Info(ex.message);
+                            Info("{0}", ex.message);
                         }
                     }
-                    init_ex_list.Clear();
-                    init_ex_list = null;
+                    lst.Clear();
+                    Error("-- Logging early bird log messages done. ---");
                 }
             }
-            catch (Exception ex)
-            {
-                BufferException(ex);
-            }
 
-            return (null != __log);
+            return rv;
         }
 
         private static void BufferException(Exception _ex, string msg = null)
         {
-            if (init_ex_list == null)
+            lock (log4net_loaded_lock)
             {
-                init_ex_list = new List<LogBufEntry>();
+                if (init_ex_list == null)
+                {
+                    init_ex_list = new List<LogBufEntry>();
+                }
+                init_ex_list.Add(new LogBufEntry
+                {
+                    ex = _ex,
+                    message = msg
+                });
             }
-            init_ex_list.Add(new LogBufEntry
-            {
-                ex = _ex,
-                message = msg
-            });
         }
         private static void BufferMessage(string msg)
         {
-            if (init_ex_list == null)
+            lock (log4net_loaded_lock)
             {
-                init_ex_list = new List<LogBufEntry>();
+                if (init_ex_list == null)
+                {
+                    init_ex_list = new List<LogBufEntry>();
+                }
+                init_ex_list.Add(new LogBufEntry
+                {
+                    message = msg
+                });
             }
-            init_ex_list.Add(new LogBufEntry
-            {
-                message = msg
-            });
         }
 
         private static void LogDebug(string msg)

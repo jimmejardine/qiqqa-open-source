@@ -113,10 +113,7 @@ namespace Qiqqa.Main
             AppDomain.CurrentDomain.AssemblyLoad += delegate(object sender, AssemblyLoadEventArgs args)
             {
                 Logging.Info("Loaded assembly: {0}", args.LoadedAssembly.FullName);
-                if (args.LoadedAssembly.FullName.StartsWith("log4net"))
-                {
-                    Logging.TriggerInit();
-                }
+                Logging.TriggerInit();
             };
 
 #if CEFSHARP
