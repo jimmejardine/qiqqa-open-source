@@ -9,15 +9,15 @@ namespace Utilities.Internet
     {
         // -------------------------------------------------------------------------------------
 
-        public static void DownloadWithBlocking(IWebProxy proxy, string url, out MemoryStream ms)
+        public static MemoryStream DownloadWithBlocking(IWebProxy proxy, string url)
         {
             WebHeaderCollection header_collection;
-            DownloadWithBlocking(proxy, url, out ms, out header_collection);
+            return DownloadWithBlocking(proxy, url, out header_collection);
         }
 
-        public static void DownloadWithBlocking(IWebProxy proxy, string url, out MemoryStream ms, out WebHeaderCollection header_collection)
+        public static MemoryStream DownloadWithBlocking(IWebProxy proxy, string url, out WebHeaderCollection header_collection)
         {
-            DownloadWithBlocking(proxy, url, null, out ms, out header_collection);
+            return DownloadWithBlocking(proxy, url, null, out header_collection);
         }
 
         class WebClientWithCompression : WebClient
@@ -40,7 +40,7 @@ namespace Utilities.Internet
             }
         }
         
-        public static void DownloadWithBlocking(IWebProxy proxy, string url, IEnumerable<string> request_headers, out MemoryStream ms, out WebHeaderCollection header_collection)
+        public static MemoryStream DownloadWithBlocking(IWebProxy proxy, string url, IEnumerable<string> request_headers, out WebHeaderCollection header_collection)
         {
             using (WebClientWithCompression wc = new WebClientWithCompression())
             {
@@ -57,7 +57,7 @@ namespace Utilities.Internet
 
                 byte[] data = wc.DownloadData(url);
                 header_collection = wc.ResponseHeaders;
-                ms = new MemoryStream(data);
+                return new MemoryStream(data);
             }
         }
 
@@ -99,7 +99,7 @@ namespace Utilities.Internet
 
         // -------------------------------------------------------------------------------------
 
-        public class DownloadAsyncTracker
+        public class DownloadAsyncTracker : IDisposable
         {
             private WebClientWithCompression wc;
 
@@ -159,6 +159,35 @@ namespace Utilities.Internet
             {
                 wc.CancelAsync();
             }
+
+            #region --- IDisposable ------------------------------------------------------------------------
+
+            ~DownloadAsyncTracker()
+            {
+                Logging.Debug("~DownloadAsyncTracker()");
+                Dispose(false);
+            }
+
+            public void Dispose()
+            {
+                Logging.Debug("Disposing DownloadAsyncTracker");
+                Dispose(true);
+                GC.SuppressFinalize(this);
+            }
+
+            private int dispose_count = 0;
+            private void Dispose(bool disposing)
+            {
+                Logging.Debug("DownloadAsyncTracker::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
+                if (disposing)
+                {
+                    // Get rid of managed resources
+                }
+                wc?.Dispose();
+                wc = null;
+            }
+
+            #endregion
         };
 
         public static DownloadAsyncTracker DownloadWithNonBlocking(IWebProxy proxy, string url)

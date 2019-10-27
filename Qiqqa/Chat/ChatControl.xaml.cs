@@ -119,9 +119,10 @@ namespace Qiqqa.Chat
 
             try
             {
-                MemoryStream ms;
-                UrlDownloader.DownloadWithBlocking(ConfigurationManager.Instance.Proxy, url, out ms);
-                ProcessDisplayResponse(ms);
+                using (MemoryStream ms = UrlDownloader.DownloadWithBlocking(ConfigurationManager.Instance.Proxy, url))
+                {
+                    ProcessDisplayResponse(ms);
+                }
 
                 is_chat_available = true;
             }

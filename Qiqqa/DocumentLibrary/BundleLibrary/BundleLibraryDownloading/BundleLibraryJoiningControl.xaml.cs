@@ -61,48 +61,49 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleDownloading
         private void ManageDownload(BundleLibraryManifest manifest)
         {
             string url = manifest.BaseUrl + @"/" + manifest.Id + Common.EXT_BUNDLE;
-            UrlDownloader.DownloadAsyncTracker download_async_tracker = UrlDownloader.DownloadWithNonBlocking(ConfigurationManager.Instance.Proxy, url);
-
-            string STATUS_TOKEN = "BundleDownload-" + manifest.Version;
-
-            StatusManager.Instance.ClearCancelled(STATUS_TOKEN);
-            while (!download_async_tracker.DownloadComplete)
+            using (UrlDownloader.DownloadAsyncTracker download_async_tracker = UrlDownloader.DownloadWithNonBlocking(ConfigurationManager.Instance.Proxy, url))
             {
-                if (StatusManager.Instance.IsCancelled(STATUS_TOKEN))
+                string STATUS_TOKEN = "BundleDownload-" + manifest.Version;
+
+                StatusManager.Instance.ClearCancelled(STATUS_TOKEN);
+                while (!download_async_tracker.DownloadComplete)
                 {
-                    download_async_tracker.Cancel();
-                    break;
+                    if (StatusManager.Instance.IsCancelled(STATUS_TOKEN))
+                    {
+                        download_async_tracker.Cancel();
+                        break;
+                    }
+
+                    StatusManager.Instance.UpdateStatusBusy(STATUS_TOKEN, "Downloading Bundle Library...", download_async_tracker.ProgressPercentage, 100, true);
+                    Thread.Sleep(1000);
                 }
 
-                StatusManager.Instance.UpdateStatusBusy(STATUS_TOKEN, "Downloading Bundle Library...", download_async_tracker.ProgressPercentage, 100, true);
-                Thread.Sleep(1000);
-            }
-
-            // Check the reason for exiting
-            if (download_async_tracker.DownloadDataCompletedEventArgs.Cancelled)
-            {
-                StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Cancelled download of Bundle Library.");
-            }
-            else if (null != download_async_tracker.DownloadDataCompletedEventArgs.Error)
-            {
-                MessageBoxes.Error(download_async_tracker.DownloadDataCompletedEventArgs.Error, "There was an error during the download of your Bundle Library.  Please try again later or contact {0} for more information.", manifest.SupportEmail);
-                StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Error during download of Bundle Library.");
-            }
-            else if (null == download_async_tracker.DownloadDataCompletedEventArgs.Result)
-            {
-                MessageBoxes.Error(download_async_tracker.DownloadDataCompletedEventArgs.Error, "There was an error during the download of your Bundle Library.  Please try again later or contact {0} for more information.", manifest.SupportEmail);
-                StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Error during download of Bundle Library.");
-            }
-            else
-            {
-                StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Completed download of Bundle Library.");
-                if (MessageBoxes.AskQuestion("The Bundle Library named '{0}' has been downloaded.  Do you want to install it now?", manifest.Title))
+                // Check the reason for exiting
+                if (download_async_tracker.DownloadDataCompletedEventArgs.Cancelled)
                 {
-                    LibraryBundleInstaller.Install(manifest, download_async_tracker.DownloadDataCompletedEventArgs.Result);
+                    StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Cancelled download of Bundle Library.");
+                }
+                else if (null != download_async_tracker.DownloadDataCompletedEventArgs.Error)
+                {
+                    MessageBoxes.Error(download_async_tracker.DownloadDataCompletedEventArgs.Error, "There was an error during the download of your Bundle Library.  Please try again later or contact {0} for more information.", manifest.SupportEmail);
+                    StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Error during download of Bundle Library.");
+                }
+                else if (null == download_async_tracker.DownloadDataCompletedEventArgs.Result)
+                {
+                    MessageBoxes.Error(download_async_tracker.DownloadDataCompletedEventArgs.Error, "There was an error during the download of your Bundle Library.  Please try again later or contact {0} for more information.", manifest.SupportEmail);
+                    StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Error during download of Bundle Library.");
                 }
                 else
                 {
-                    MessageBoxes.Warn("Not installing Bundle Library.");
+                    StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Completed download of Bundle Library.");
+                    if (MessageBoxes.AskQuestion("The Bundle Library named '{0}' has been downloaded.  Do you want to install it now?", manifest.Title))
+                    {
+                        LibraryBundleInstaller.Install(manifest, download_async_tracker.DownloadDataCompletedEventArgs.Result);
+                    }
+                    else
+                    {
+                        MessageBoxes.Warn("Not installing Bundle Library.");
+                    }
                 }
             }
         }

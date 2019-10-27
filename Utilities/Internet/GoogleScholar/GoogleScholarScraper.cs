@@ -43,28 +43,21 @@ namespace Utilities.Internet.GoogleScholar
         {
             List<GoogleScholarScrapePaper> gssps = new List<GoogleScholarScrapePaper>();
 
-            MemoryStream ms = null;
-
             try
             {
                 WebHeaderCollection header_collection = new WebHeaderCollection();
-                UrlDownloader.DownloadWithBlocking(proxy, url, out ms, out header_collection);
 
-                HtmlDocument doc = new HtmlDocument();
-                doc.Load(ms, System.Text.Encoding.UTF8, detectEncodingFromByteOrderMarks: false);
+                using (MemoryStream ms = UrlDownloader.DownloadWithBlocking(proxy, url, out header_collection))
+                { 
+                    HtmlDocument doc = new HtmlDocument();
+                    doc.Load(ms, System.Text.Encoding.UTF8, detectEncodingFromByteOrderMarks: false);
 
-                ScrapeDoc(doc, url, gssps);
+                    ScrapeDoc(doc, url, gssps);
+                }
             }
             catch (Exception ex)
             {
                 Logging.Error(ex, "There was a problem parsing the GoogleScholar url {0}", url);
-            }
-            finally
-            {
-                if (ms != null)
-                {
-                    ms.Dispose();
-                }
             }
 
             return gssps;

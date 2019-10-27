@@ -76,9 +76,10 @@ namespace Qiqqa.InCite
                     {
                         try
                         {
-                            MemoryStream ms;
-                            UrlDownloader.DownloadWithBlocking(ConfigurationManager.Instance.Proxy, parent_url, out ms);
-                            File.WriteAllBytes(full_parent_filename, ms.ToArray());
+                            using (MemoryStream ms = UrlDownloader.DownloadWithBlocking(ConfigurationManager.Instance.Proxy, parent_url))
+                            {
+                                File.WriteAllBytes(full_parent_filename, ms.ToArray());
+                            }
                         }
                         catch (UnauthorizedAccessException)
                         {

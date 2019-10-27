@@ -309,8 +309,7 @@ namespace Qiqqa.Brainstorm.SceneManager
         }
 
         #endregion
-
-
+        
         public bool AutoArrange
         {
             set

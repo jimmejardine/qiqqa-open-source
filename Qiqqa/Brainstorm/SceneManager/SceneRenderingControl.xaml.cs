@@ -214,6 +214,7 @@ namespace Qiqqa.Brainstorm.SceneManager
 
             New();
 
+			// TODO: dig up all these Registry-based tweaks of Qiqqa...
             if (RegistrySettings.Instance.IsSet(RegistrySettings.SampleBrainstorm))
             {
                 SampleSceneGenerator.CreateSampleScene_Coordinates(this);
@@ -350,16 +351,10 @@ namespace Qiqqa.Brainstorm.SceneManager
                 || url_lower.EndsWith(".jpeg", StringComparison.CurrentCultureIgnoreCase)
                 )
             {
-                MemoryStream ms_image = null;
-                try
-                {
-                    UrlDownloader.DownloadWithBlocking(ConfigurationManager.Instance.Proxy, url, out ms_image);
+                using (MemoryStream ms_image = UrlDownloader.DownloadWithBlocking(ConfigurationManager.Instance.Proxy, url))
+                { 
                     ImageNodeContent inc = new ImageNodeContent(ms_image);
                     AddNewNodeControl(inc, mouse_current_virtual.X, mouse_current_virtual.Y);
-                }
-                finally
-                {
-                    ms_image.Dispose();
                 }
             }
             else
