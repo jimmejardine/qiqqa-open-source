@@ -366,109 +366,112 @@ namespace Qiqqa.DocumentLibrary
                     }
                     else
                     {
-                        Stream response_stream = web_response.GetResponseStream();
-                        string content_type = web_response.GetResponseHeader("Content-Type");
-                        // See also: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition
-                        string content_disposition = web_response.GetResponseHeader("Content-Disposition");
-                        string original_filename = null;
-                        try
+                        using (Stream response_stream = web_response.GetResponseStream())
                         {
-                            if (!String.IsNullOrEmpty(content_disposition))
+                            string content_type = web_response.GetResponseHeader("Content-Type");
+                            // See also: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition
+                            string content_disposition = web_response.GetResponseHeader("Content-Disposition");
+                            string original_filename = null;
+                            try
                             {
-                                ContentDisposition contentDisposition = new ContentDisposition(content_disposition);
-                                original_filename = contentDisposition.FileName;
-                                //StringDictionary parameters = contentDisposition.Parameters;
+                                if (!String.IsNullOrEmpty(content_disposition))
+                                {
+                                    ContentDisposition contentDisposition = new ContentDisposition(content_disposition);
+                                    original_filename = contentDisposition.FileName;
+                                    //StringDictionary parameters = contentDisposition.Parameters;
+                                }
+                                else
+                                {
+                                    Logging.Warn("AddNewDocumentToLibraryFromInternet: no or empty Content-Disposition header received from {1}?\n  Headers:\n{0}", web_response.Headers, download_url);
+
+                                    // fallback: derive the filename from the URL:
+                                    original_filename = web_response.ResponseUri.LocalPath;
+                                }
                             }
-                            else
+                            catch (Exception ex)
                             {
-                                Logging.Warn("AddNewDocumentToLibraryFromInternet: no or empty Content-Disposition header received from {1}?\n  Headers:\n{0}", web_response.Headers, download_url);
+                                Logging.Error(ex, "AddNewDocumentToLibraryFromInternet: no Content-Disposition header received from {1}?\n  Headers:\n{0}", web_response.Headers, download_url);
 
                                 // fallback: derive the filename from the URL:
                                 original_filename = web_response.ResponseUri.LocalPath;
                             }
-                        }
-                        catch (Exception ex)
-                        {
-                            Logging.Error(ex, "AddNewDocumentToLibraryFromInternet: no Content-Disposition header received from {1}?\n  Headers:\n{0}", web_response.Headers, download_url);
 
-                            // fallback: derive the filename from the URL:
-                            original_filename = web_response.ResponseUri.LocalPath;
-                        }
-                        // extract the type from the Content-Type header value:
-                        try
-                        {
-                            if (!String.IsNullOrEmpty(content_type))
+                            // extract the type from the Content-Type header value:
+                            try
                             {
-                                ContentType ct = new ContentType(content_type);
-                                content_type = ct.MediaType.ToLower(CultureInfo.CurrentCulture);
+                                if (!String.IsNullOrEmpty(content_type))
+                                {
+                                    ContentType ct = new ContentType(content_type);
+                                    content_type = ct.MediaType.ToLower(CultureInfo.CurrentCulture);
+                                }
+                                else
+                                {
+                                    Logging.Warn("AddNewDocumentToLibraryFromInternet: no or empty Content-Type header '{2}' received from {1}?\n  Headers:\n{0}", web_response.Headers, download_url, content_type);
+                                    content_type = "text/html";
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Logging.Error(ex, "AddNewDocumentToLibraryFromInternet: no or invalid Content-Type header '{2}' received from {1}?\n  Headers:\n{0}", web_response.Headers, download_url, content_type);
+                                content_type = "text/html";
+                            }
+
+                            bool is_acceptable_content_type = false;
+                            if (content_type.EndsWith("pdf")) is_acceptable_content_type = true;
+                            if (content_type.StartsWith("application/octet-stream")) is_acceptable_content_type = true;
+
+                            if (is_acceptable_content_type)
+                            {
+                                string filename = TempFile.GenerateTempFilename("pdf");
+                                using (FileStream fs = File.OpenWrite(filename))
+                                {
+                                    int total_bytes = StreamToFile.CopyStreamToStream(response_stream, fs);
+                                    Logging.Info("Saved {0} bytes to {1}", total_bytes, filename);
+                                    //fs.Close();    -- autoclosed by `using` statement
+                                }
+
+                                PDFDocument pdf_document = library.AddNewDocumentToLibrary_SYNCHRONOUS(filename, original_filename, download_url, null, null, null, false, false);
+                                File.Delete(filename);
+
+                                // make sure we open every PDF fetched off the Internet: the user may need to review
+                                // their metadata.
+                                MainWindowServiceDispatcher.Instance.MainWindow.Dispatcher.InvokeAsync
+                                (
+                                    new Action(() =>
+                                    {
+                                        Documents.PDF.PDFControls.PDFReadingControl pdf_reading_control = MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);
+                                        pdf_reading_control.EnableGuestMoveNotification(null);
+                                    }),
+                                    DispatcherPriority.Background
+                                );
                             }
                             else
                             {
-                                Logging.Warn("AddNewDocumentToLibraryFromInternet: no or empty Content-Type header '{2}' received from {1}?\n  Headers:\n{0}", web_response.Headers, download_url, content_type);
-                                content_type = "text/html";
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            Logging.Error(ex, "AddNewDocumentToLibraryFromInternet: no or invalid Content-Type header '{2}' received from {1}?\n  Headers:\n{0}", web_response.Headers, download_url, content_type);
-                            content_type = "text/html";
-                        }
+                                string html = "";
 
-                        bool is_acceptable_content_type = false;
-                        if (content_type.EndsWith("pdf")) is_acceptable_content_type = true;
-                        if (content_type.StartsWith("application/octet-stream")) is_acceptable_content_type = true;
-
-                        if (is_acceptable_content_type)
-                        {
-                            string filename = TempFile.GenerateTempFilename("pdf");
-                            using (FileStream fs = File.OpenWrite(filename))
-                            {
-                                int total_bytes = StreamToFile.CopyStreamToStream(response_stream, fs);
-                                Logging.Info("Saved {0} bytes to {1}", total_bytes, filename);
-                                //fs.Close();    -- autoclosed by `using` statement
-                            }
-
-                            PDFDocument pdf_document = library.AddNewDocumentToLibrary_SYNCHRONOUS(filename, original_filename, download_url, null, null, null, false, false);
-                            File.Delete(filename);
-
-                            // make sure we open every PDF fetched off the Internet: the user may need to review
-                            // their metadata.
-                            MainWindowServiceDispatcher.Instance.MainWindow.Dispatcher.BeginInvoke
-                            (
-                                new Action(() =>
+                                if (content_type.EndsWith("html"))
                                 {
-                                    Documents.PDF.PDFControls.PDFReadingControl pdf_reading_control = MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);
-                                    pdf_reading_control.EnableGuestMoveNotification(null);
-                                }),
-                                DispatcherPriority.Background
-                            );
-                        }
-                        else
-                        {
-                            string html = "";
-
-                            if (content_type.EndsWith("html"))
-                            {
-                                using (StreamReader sr = new StreamReader(response_stream))
-                                {
-                                    html = sr.ReadToEnd();
-                                    Logging.Warn("Got this HTML instead of a PDF for URI {1}: {0}", html, download_url);
+                                    using (StreamReader sr = new StreamReader(response_stream))
+                                    {
+                                        html = sr.ReadToEnd();
+                                        Logging.Warn("Got this HTML instead of a PDF for URI {1}: {0}", html, download_url);
+                                    }
                                 }
-                            }
 
-                            // TODO: check these conditions; they are meant to be pretty tight but MAYBE I still let some
-                            // nasty websites' embedded PDF or other trickery slip through unnoticed.
-                            bool tolerate_type = false;
-                            foreach (string t in content_types_to_tolerate)
-                            {
-                                if (content_type.Contains(t))
+                                // TODO: check these conditions; they are meant to be pretty tight but MAYBE I still let some
+                                // nasty websites' embedded PDF or other trickery slip through unnoticed.
+                                bool tolerate_type = false;
+                                foreach (string t in content_types_to_tolerate)
                                 {
-                                    tolerate_type = true;
+                                    if (content_type.Contains(t))
+                                    {
+                                        tolerate_type = true;
+                                    }
                                 }
-                            }
-                            if (!tolerate_type || web_response.StatusCode != HttpStatusCode.OK || html.Contains("<embed"))
-                            {
-                                MessageBoxes.Info("The document library supports only PDF files at the moment.  You are trying to download something of type {0} / response code {1} at URI {2}.", content_type, (uint)web_response.StatusCode, download_url);
+                                if (!tolerate_type || web_response.StatusCode != HttpStatusCode.OK || html.Contains("<embed"))
+                                {
+                                    MessageBoxes.Info("The document library supports only PDF files at the moment.  You are trying to download something of type {0} / response code {1} at URI {2}.", content_type, (uint)web_response.StatusCode, download_url);
+                                }
                             }
                         }
                     }

@@ -17,14 +17,17 @@ namespace Utilities.GUI
     {
         private static void DoEvents()
         {
-            if (!Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown 
-				&& null != Dispatcher.CurrentDispatcher 
-				&& !Dispatcher.CurrentDispatcher.HasShutdownStarted 
-				&& !Dispatcher.CurrentDispatcher.HasShutdownFinished
-			)
+            if (!Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown
+                && (Application.Current?.Dispatcher.CheckAccess() ?? false))
             {
                 DispatcherFrame frame = new DispatcherFrame();
-                Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Background, new DispatcherOperationCallback(ExitFrame), frame);
+                // https://stackoverflow.com/questions/10448987/dispatcher-currentdispatcher-vs-application-current-dispatcher
+                if (System.Windows.Threading.Dispatcher.CurrentDispatcher != Application.Current?.Dispatcher)
+                {
+                    Logging.Error(new Exception("Unexpected results"), "woops");
+                }
+                //Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Background, new DispatcherOperationCallback(ExitFrame), frame);
+                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new DispatcherOperationCallback(ExitFrame), frame);
                 Dispatcher.PushFrame(frame);
             }
             else
@@ -33,7 +36,7 @@ namespace Utilities.GUI
             }
         }
 
-        public static object ExitFrame(object f)
+        internal static object ExitFrame(object f)
         {
             ((DispatcherFrame)f).Continue = false;
             return null;
@@ -51,7 +54,7 @@ namespace Utilities.GUI
             // if (Application.Current == null || Application.Current.Dispatcher.Thread == Thread.CurrentThread)
             // as per: https://stackoverflow.com/questions/5143599/detecting-whether-on-ui-thread-in-wpf-and-winforms#answer-14280425
             // and: https://stackoverflow.com/questions/2982498/wpf-dispatcher-the-calling-thread-cannot-access-this-object-because-a-differen/13726324#13726324
-            if (Application.Current == null || Application.Current.Dispatcher.CheckAccess())
+            if (Application.Current?.Dispatcher.CheckAccess() ?? false)
             {
                 DoEvents();
             }
@@ -63,25 +66,18 @@ namespace Utilities.GUI
                 // other background threads will wait on the lock to resolve...
                 //lock (DoEvents_lock)
                 {
-                    //if (null != Application.Current)
+                    if (!Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
                     {
-                        if (!Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown 
-                            && null != Application.Current.Dispatcher 
-                            && !Application.Current.Dispatcher.HasShutdownStarted 
-                            && !Application.Current.Dispatcher.HasShutdownFinished
-						)
+                        Application.Current.Dispatcher.Invoke(new Action(() =>
                         {
-                            Application.Current.Dispatcher.Invoke(new Action(() =>
-                            {
-                                Logging.Debug(":::WaitForUIThreadActivityDone InvokeAsync started");
-                                DoEvents();
-                                Logging.Debug(":::WaitForUIThreadActivityDone InvokeAsync finished");
-                            }));
-                        }
-                        else
-                        {
-                            Thread.Sleep(50);
-                        }
+                            Logging.Debug(":::WaitForUIThreadActivityDone Invoke started");
+                            DoEvents();
+                            Logging.Debug(":::WaitForUIThreadActivityDone Invoke finished");
+                        }));
+                    }
+                    else
+                    {
+                        Thread.Sleep(50);
                     }
                 }
             }
@@ -107,29 +103,62 @@ namespace Utilities.GUI
 
         public static void SetHourglassCursor()
         {
-            if (Application.Current != null)
+            // Set the cursor to Hourglass as per: http://www.csharp411.com/the-proper-way-to-show-the-wait-cursor/ 
+            // --> https://stackoverflow.com/questions/11021422/how-do-i-display-wait-cursor-during-a-wpf-applications-startup
+            InvokeInUIThread(() =>
             {
-                // Set the cursor to Hourglass as per: http://www.csharp411.com/the-proper-way-to-show-the-wait-cursor/ 
-                // --> https://stackoverflow.com/questions/11021422/how-do-i-display-wait-cursor-during-a-wpf-applications-startup
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    Mouse.OverrideCursor = Cursors.Wait;
-                });
-            }
+                Mouse.OverrideCursor = Cursors.Wait;
+            });
         }
 
         public static void ResetHourglassCursor()
         {
-            if (Application.Current != null)
+            // revert the forced hourglass cursor, if any:
+            //
+            // RESET the cursor to Hourglass as per: http://www.csharp411.com/the-proper-way-to-show-the-wait-cursor/ 
+            // --> https://stackoverflow.com/questions/11021422/how-do-i-display-wait-cursor-during-a-wpf-applications-startup
+            InvokeInUIThread(() =>
             {
-                // revert the forced hourglass cursor, if any:
-                //
-                // RESET the cursor to Hourglass as per: http://www.csharp411.com/the-proper-way-to-show-the-wait-cursor/ 
-                // --> https://stackoverflow.com/questions/11021422/how-do-i-display-wait-cursor-during-a-wpf-applications-startup
-                Application.Current.Dispatcher.Invoke(() =>
+                Mouse.OverrideCursor = null;
+            });
+        }
+
+        public static bool CurrentThreadIsUIThread()
+        {
+            if (Application.Current?.Dispatcher.CheckAccess() ?? false)
+            {
+                // https://stackoverflow.com/questions/10448987/dispatcher-currentdispatcher-vs-application-current-dispatcher
+                if (System.Windows.Threading.Dispatcher.CurrentDispatcher != Application.Current?.Dispatcher)
                 {
-                    Mouse.OverrideCursor = null;
-                });
+                    Logging.Error(new Exception("Unexpected results"), "woops");
+                    return false;
+                }
+                return true;
+            }
+            return false;
+        }
+
+        public static void InvokeInUIThread(Action action)
+        {
+            if (!CurrentThreadIsUIThread())
+            {
+                Application.Current.Dispatcher.Invoke(action, DispatcherPriority.Normal);
+            }
+            else
+            {
+                action.Invoke();
+            }
+        }
+
+        public static void InvokeAsyncInUIThread(Action action)
+        {
+            if (!CurrentThreadIsUIThread())
+            {
+                Application.Current.Dispatcher.InvokeAsync(action, DispatcherPriority.Normal);
+            }
+            else
+            {
+                action.Invoke();
             }
         }
     }

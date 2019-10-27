@@ -42,9 +42,18 @@ namespace Utilities
             }
         }
 
+        public void Abort()
+        {
+            // when user code hasn't called Stop() yet, we do it for them to signal 
+            // any running code in the thread that time is up:
+            Stop();
+
+            thread.Abort();
+        }
+
         public void Join()
         {
-            // when user code hasn't called Stop() yt, we do it for them to signal 
+            // when user code hasn't called Stop() yet, we do it for them to signal 
             // any running code in the thread that time is up:
             Stop();
 

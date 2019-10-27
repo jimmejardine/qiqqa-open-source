@@ -7,7 +7,7 @@ namespace Utilities.PDF
     /// Wraps PdfLoadedDocument - predominantly to close the underlying document when Disposed of.
     /// Always use in a using(){} block to ensure the PDF is closed and not left locked.
     /// </summary>   
-    
+
     public class AugmentedPdfLoadedDocument : PdfLoadedDocument, IDisposable
     {
         public AugmentedPdfLoadedDocument(string filename)
@@ -44,7 +44,6 @@ namespace Utilities.PDF
             }
 
             // Get rid of unmanaged resources 
-
             base.Dispose();
         }
     }

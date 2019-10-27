@@ -20,5 +20,11 @@ namespace Utilities
         public const string QiqqaDevBuild = "Debug";
         // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         // These 4 constants are live-patched by the Pre-build task (Qiqqa.Build/patch_settings_file.js)
+
+        /// <summary>
+        /// The number of milliseconds we're willing to wait on (background-)tasks 
+        /// at application termination/shutdown before forcibly aborting them.
+        /// </summary>
+        public const int MAX_WAIT_TIME_MS_AT_PROGRAM_SHUTDOWN = 15 * 1000;
     }
 }

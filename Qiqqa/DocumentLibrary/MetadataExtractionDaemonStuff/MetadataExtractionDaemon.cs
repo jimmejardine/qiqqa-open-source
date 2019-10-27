@@ -89,7 +89,7 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
 
                         // Limit the number of source files to process at once or we won't have recreated
                         // a sane (though tiny and incomplete) Lucene search index database by the time 
-                        // the user exists the Qiqqa application in a minute or so.
+                        // the user exits the Qiqqa application in a minute or so.
                         // When the user keeps Qiqqa running, this same approach will help us to 'update'
                         // the search index a bunch of files at a time, so everyone involved will be able
                         // to see progress happening after losing the index due to some fatal crash or

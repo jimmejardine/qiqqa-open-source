@@ -9,6 +9,7 @@ using Qiqqa.DocumentLibrary;
 using Utilities;
 using Utilities.Encryption;
 using Utilities.Files;
+using Utilities.GUI;
 using Utilities.Misc;
 using Utilities.ProcessTools;
 using Utilities.Shutdownable;
@@ -792,10 +793,63 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         {
             Logging.Info("Stopping PDFTextExtractor threads");
             StillRunning = false;
-            for (int i = 0; i < NUM_OCR_THREADS; ++i)
+
+            int job_queue_group_count;
+            int job_queue_single_count;
+            GetJobCounts(out job_queue_group_count, out job_queue_single_count);
+
+            Logging.Debug特("PDFTextExtractor::Shutdown: flushing the queue ({0} + {1} items discarded)", job_queue_group_count, job_queue_single_count);
+            FlushAllJobs();
+
+            SafeThreadPool.QueueUserWorkItem(o =>
             {
-                threads[i].Join();
-            }
+                Logging.Info("+Stopping PDFTextExtractor threads (async)");
+
+                bool[] done = new bool[NUM_OCR_THREADS];
+                Stopwatch clk = Stopwatch.StartNew();
+
+                while (true)
+                {
+                    int cnt = 0;
+
+                    for (int i = 0; i < NUM_OCR_THREADS; ++i)
+                    {
+                        if (!done[i])
+                        {
+                            cnt++;
+                            if (threads[i].Join(150))
+                            {
+                                done[i] = true;
+                                threads[i] = null;
+                                cnt--;
+                            }
+                        }
+                    }
+                    Logging.Info("Stopping PDFTextExtractor threads (async): {0} threads are pending.", cnt);
+                    if (cnt == 0)
+                    {
+                        break;
+                    }
+
+                    // abort the threads if they're taking way too long:
+                    if (clk.ElapsedMilliseconds >= Constants.MAX_WAIT_TIME_MS_AT_PROGRAM_SHUTDOWN)
+                    {
+                        for (int i = 0; i < NUM_OCR_THREADS; ++i)
+                        {
+                            if (!done[i])
+                            {
+                                Logging.Error("Stopping PDFTextExtractor threads (async): timeout ({1} sec), hence ABORTing PDF/OCR thread {0}.", i, Constants.MAX_WAIT_TIME_MS_AT_PROGRAM_SHUTDOWN / 1000);
+                                threads[i].Abort();
+                            }
+                        }
+                    }
+
+                    WPFDoEvents.WaitForUIThreadActivityDone();
+                }
+
+                Logging.Info("-Stopping PDFTextExtractor threads (async) --> all done!");
+            });
+
             Logging.Info("Stopped PDFTextExtractor");
         }
     }

@@ -254,7 +254,6 @@ namespace Qiqqa.Main
 
                 SignalShutdown();
             }
-
             catch (Exception ex)
             {
                 Logging.Error(ex, "Exception caught at Main().  Disaster.");

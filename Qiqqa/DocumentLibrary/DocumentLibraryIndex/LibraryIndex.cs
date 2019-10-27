@@ -126,6 +126,18 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
         public void IncrementalBuildIndex()
         {
+            if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+            {
+                Logging.Debug特("LibraryIndex::IncrementalBuildIndex: Breaking out due to application termination");
+                return;
+            }
+
+            if (Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
+            {
+                Logging.Debug特("LibraryIndex::IncrementalBuildIndex: Breaking due to DisableAllBackgroundTasks");
+                return;
+            }
+
             if (DateTime.UtcNow.Subtract(time_of_last_library_scan).TotalSeconds > LIBRARY_SCAN_PERIOD_SECONDS)
             {
                 if (RescanLibrary())
@@ -139,8 +151,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             // Flush to disk
             if (did_some_work)
             {
-                Stopwatch clk = new Stopwatch();
-                clk.Start();
+                Stopwatch clk = Stopwatch.StartNew();
 
                 Logging.Info("+Writing the index master list");
                 

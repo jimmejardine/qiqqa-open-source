@@ -24,7 +24,7 @@ namespace Qiqqa.AnnotationsReportBuilding.LegacyAnnotationConvertorStuff
             }
         }
 
-        
+
         public static int ImportLegacyAnnotations(PDFDocument pdf_document)
         {
             int imported_count = 0;
@@ -35,11 +35,11 @@ namespace Qiqqa.AnnotationsReportBuilding.LegacyAnnotationConvertorStuff
                 return imported_count;
             }
 
-            
+
             Logging.Info("+Importing legacy annotations from {0}", pdf_document.Fingerprint);
             using (AugmentedPdfLoadedDocument raw_pdf_document = new AugmentedPdfLoadedDocument(pdf_document.PDFRenderer.PDFFilename))
             {
-                for (int page = 0; page < raw_pdf_document.Pages.Count; ++page)                
+                for (int page = 0; page < raw_pdf_document.Pages.Count; ++page)
                 {
                     PdfLoadedPage raw_pdf_page = (PdfLoadedPage)raw_pdf_document.Pages[page];
                     if (null != raw_pdf_page.Annotations)
@@ -89,7 +89,7 @@ namespace Qiqqa.AnnotationsReportBuilding.LegacyAnnotationConvertorStuff
                     }
                 }
             }
-            
+
             Logging.Info("-Importing legacy annotations from {0}", pdf_document.Fingerprint);
 
             return imported_count;
@@ -200,7 +200,7 @@ namespace Qiqqa.AnnotationsReportBuilding.LegacyAnnotationConvertorStuff
                                 Logging.Debug特("  - size     = {0}", markup_annotation.Size);
                                 Logging.Debug特("  - location = {0}", markup_annotation.Location);
                                 Logging.Debug特("  - type     = {0}", markup_annotation.TextMarkupAnnotationType);
-                                Logging.Debug特("  - color    = {0}", markup_annotation.TextMarkupColor);                                
+                                Logging.Debug特("  - color    = {0}", markup_annotation.TextMarkupColor);
                                 continue;
                             }
                         }
@@ -214,13 +214,10 @@ namespace Qiqqa.AnnotationsReportBuilding.LegacyAnnotationConvertorStuff
                             Logging.Debug特("  - flags    = {0}", pdf_annotation.AnnotationFlags);
                             continue;
                         }
-
-
                     }
                 }
             }
 
-            
             Logging.Debug特("-Getting legacy annotations from {0}", pdf_filename);
         }
 

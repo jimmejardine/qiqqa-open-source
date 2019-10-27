@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Reflection;
 using System.Threading;
+using Utilities.GUI;
+using Utilities.Misc;
 using Utilities.Shutdownable;
 
 namespace Utilities.Maintainable
@@ -36,25 +39,114 @@ namespace Utilities.Maintainable
         {
             Logging.Info("Stopping MaintainableManager");
 
-            foreach (DoMaintenanceDelegateWrapper do_maintenance_delegate_wrapper in do_maintenance_delegate_wrappers)
+            // signal everyone it's STOP time ASAP:
+            lock (do_maintenance_delegate_wrappers_lock)
             {
-                do_maintenance_delegate_wrapper.daemon.Stop();
+                foreach (DoMaintenanceDelegateWrapper do_maintenance_delegate_wrapper in do_maintenance_delegate_wrappers)
+                {
+                    do_maintenance_delegate_wrapper.daemon.Stop();
+                }
             }
 
-            foreach (DoMaintenanceDelegateWrapper do_maintenance_delegate_wrapper in do_maintenance_delegate_wrappers)
+            // Then go and wait for all to really terminate.
+            SafeThreadPool.QueueUserWorkItem(o =>
             {
-                while (!do_maintenance_delegate_wrapper.daemon.Join(1000))
-                {
-                    Logging.Info("Waiting for Maintainable {0} to terminate.", do_maintenance_delegate_wrapper.maintainable_description);
-                    double memsize1 = GC.GetTotalMemory(false);
-                    GC.Collect();
-                    GC.WaitForPendingFinalizers();
-                    GC.Collect();
-                    double memsize2 = GC.GetTotalMemory(true);
-                    Logging.Info("While Waiting to terminate, GC collect => memory {0:0.000}K -> {1:0.000}K.", memsize1 / 1E3, memsize2 / 1E3);
+                Logging.Info("+Stopping MaintainableManager tasks (async)");
 
-                    Thread.Sleep(100);
+                Stopwatch clk = Stopwatch.StartNew();
+
+                while (true)
+                {
+                    // foreach... loop here would get screwed up by inner code invoking the List.Remove() API. So we use this GetFirst() + counter loop instead. Good for threadsafe locking too.
+                    DoMaintenanceDelegateWrapper w;
+                    int cnt = GetItemCount();
+
+                    for (int i = 0; i < cnt; i++)
+                    {
+                        w = GetEntry(i);
+                        if (w != null)
+                        {
+                            Logging.Info("Waiting for Maintainable {0} to terminate.", w.maintainable_description);
+
+                            if (w.daemon.Join(150))
+                            {
+                                RemoveEntry(w);
+                                // Play nasty: we know this item was at index [i], hence there's a new item now at [i]
+                                // OR we're gonna hit the end of the list. Either way, we're good to go:
+                                i--;
+                                continue;
+                            }
+                        }
+                        else
+                        {
+                            // NULL means we've hit the end of the list. Break out of the loop.
+
+#if TEST
+                            double memsize1 = GC.GetTotalMemory(false);
+                            GC.Collect();
+                            GC.WaitForPendingFinalizers();
+                            GC.Collect();
+                            double memsize2 = GC.GetTotalMemory(true);
+                            Logging.Info("While Waiting to terminate, GC collect => memory {0:0.000}K -> {1:0.000}K.", memsize1 / 1E3, memsize2 / 1E3);
+#endif
+
+                            break;
+                        }
+                    }
+
+                    cnt = GetItemCount();
+                    Logging.Info("Stopping MaintainableManager tasks (async): {0} threads are pending.", cnt);
+                    if (cnt == 0)
+                    {
+                        break;
+                    }
+
+                    // abort the threads if they're taking way too long:
+                    if (clk.ElapsedMilliseconds >= Constants.MAX_WAIT_TIME_MS_AT_PROGRAM_SHUTDOWN)
+                    {
+                        for (int i = 0; i < cnt; i++)
+                        {
+                            w = GetEntry(i);
+                            if (w != null)
+                            {
+                                Logging.Info("Timeout ({1} sec), hence ABORTing Maintainable thread {0}.", w.maintainable_description, Constants.MAX_WAIT_TIME_MS_AT_PROGRAM_SHUTDOWN / 1000);
+
+                                w.daemon.Abort();
+                            }
+                        }
+                    }
+
+                    WPFDoEvents.WaitForUIThreadActivityDone();
                 }
+            });
+        }
+
+
+        private int GetItemCount()
+        {
+            lock (do_maintenance_delegate_wrappers_lock)
+            {
+                return do_maintenance_delegate_wrappers.Count;
+            }
+        }
+
+        private DoMaintenanceDelegateWrapper GetEntry(int i)
+        {
+            lock (do_maintenance_delegate_wrappers_lock)
+            {
+                if (i < 0 || i >= do_maintenance_delegate_wrappers.Count)
+                {
+                    return do_maintenance_delegate_wrappers[i];
+                }
+                return null;
+            }
+        }
+
+        private void RemoveEntry(DoMaintenanceDelegateWrapper w)
+        {
+            lock (do_maintenance_delegate_wrappers_lock)
+            {
+                do_maintenance_delegate_wrappers.Remove(w);
             }
         }
 
@@ -72,7 +164,7 @@ namespace Utilities.Maintainable
                 do_maintenance_delegate_wrapper.delay_before_start_milliseconds = delay_before_start_milliseconds;
                 do_maintenance_delegate_wrapper.hold_off_level = hold_off_level;
                 do_maintenance_delegate_wrapper.daemon = new Daemon("Maintainable:" + do_maintenance_delegate.Target.GetType().Name + "." + do_maintenance_delegate.Method.Name + extra_descr);
-                
+
                 // Add it to our list of trackers
                 do_maintenance_delegate_wrappers.Add(do_maintenance_delegate_wrapper);
 
@@ -112,7 +204,7 @@ namespace Utilities.Maintainable
                     object target = do_maintenance_delegate_wrapper.target.Target;
                     if (null != target)
                     {
-                        do_maintenance_delegate_wrapper.method_info.Invoke(target, new object[] { daemon } );
+                        do_maintenance_delegate_wrapper.method_info.Invoke(target, new object[] { daemon });
                         target = null;
                     }
                     else
