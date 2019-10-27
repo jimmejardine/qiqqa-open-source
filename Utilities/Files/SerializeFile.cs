@@ -81,9 +81,9 @@ namespace Utilities.Files
             }
         }
 
-        public static void SaveSafely<T>(string filename, object animal_to_save)
+        public static void SaveSafely<T>(string filename, T animal_to_save)
         {
-            SaveSafely(filename, animal_to_save);
+            SaveSafely(filename, (object)animal_to_save);
         }
 
         public static void SaveSafely(string filename, object animal_to_save)
