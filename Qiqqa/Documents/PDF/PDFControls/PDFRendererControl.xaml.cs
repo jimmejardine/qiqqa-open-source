@@ -56,7 +56,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
         public delegate void OperationModeChangedDelegate(OperationMode operation_mode);
         public event OperationModeChangedDelegate OperationModeChanged;
 
-        private DateTime control_creation_time = DateTime.UtcNow;
+        //private DateTime control_creation_time = DateTime.UtcNow;
 
         public PDFRendererControl(PDFDocument pdf_document, bool remember_last_read_page) :
             this(pdf_document, remember_last_read_page, ZoomType.Other)
@@ -361,10 +361,11 @@ namespace Qiqqa.Documents.PDF.PDFControls
         }
 
         private int dispose_count = 0;
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            Logging.Debug("PDFRendererControl::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
-            if (disposing)
+            Logging.Debug("PDFRendererControl::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
             {
                 // Get the PDFDocument flushed
                 pdf_renderer_control_stats?.pdf_document.QueueToStorage();
@@ -387,8 +388,8 @@ namespace Qiqqa.Documents.PDF.PDFControls
             }
 
             pdf_renderer_control_stats = null;
-            
-            // Get rid of unmanaged resources 
+
+            ++dispose_count;
         }
 
         void PDFRendererControl_TextInput(object sender, TextCompositionEventArgs e)

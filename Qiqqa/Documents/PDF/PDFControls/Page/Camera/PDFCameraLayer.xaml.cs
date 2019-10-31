@@ -15,7 +15,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
     /// <summary>
     /// Interaction logic for PDFCameraLayer.xaml
     /// </summary>
-    public partial class PDFCameraLayer : PageLayer
+    public partial class PDFCameraLayer : PageLayer, IDisposable
     {
         PDFRendererControlStats pdf_renderer_control_stats;
         int page;
@@ -113,12 +113,51 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
             }
         }
 
-        internal override void Dispose()
-        {
-            Logging.Debug("PDFCameraLayer::Dispose()");
+        #region --- IDisposable ------------------------------------------------------------------------
 
+        ~PDFCameraLayer()
+        {
+            Logging.Debug("~PDFCameraLayer()");
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Logging.Debug("Disposing PDFCameraLayer");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected override void Dispose(bool disposing)
+        {
+            Logging.Debug("PDFCameraLayer::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (null != drag_area_tracker)
+            {
+                foreach (var el in Children)
+                {
+                    IDisposable node = el as IDisposable;
+                    node.Dispose();
+                }
+
+                drag_area_tracker.OnDragComplete -= drag_area_tracker_OnDragComplete;
+            }
+
+            Children.Clear();
+
+            // Clear the references for sanity's sake
             pdf_renderer_control_stats = null;
             drag_area_tracker = null;
+
+            this.DataContext = null;
+
+            ++dispose_count;
+
+            //base.Dispose(disposing);     // parent only throws an exception (intentionally), so depart from best practices and don't call base.Dispose(bool)
         }
+
+        #endregion
+
     }
 }

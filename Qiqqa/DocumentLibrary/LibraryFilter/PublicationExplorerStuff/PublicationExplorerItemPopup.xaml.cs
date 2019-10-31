@@ -13,8 +13,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.PublicationExplorerStuff
         string source_tag;
         
         AugmentedPopup popup;
-
-
+        
         public PublicationExplorerItemPopup(Library library, string source_tag)
         {
             this.library = library;

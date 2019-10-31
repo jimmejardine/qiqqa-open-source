@@ -7,7 +7,7 @@ using Utilities.Language;
 
 namespace Qiqqa.DocumentLibrary.SimilarAuthorsStuff
 {
-    public class SimilarAuthors
+    public static class SimilarAuthors
     {
         static readonly List<NameTools.Name> EMPTY_NAMES = new List<NameTools.Name>();
 

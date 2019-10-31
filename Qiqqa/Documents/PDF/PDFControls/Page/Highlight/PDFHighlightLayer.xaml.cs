@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -14,7 +15,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
     /// <summary>
     /// Interaction logic for PDFHighlightLayer.xaml
     /// </summary>
-    public partial class PDFHighlightLayer : PageLayer
+    public partial class PDFHighlightLayer : PageLayer, IDisposable
     {
         PDFRendererControlStats pdf_renderer_control_stats;
         int page;
@@ -71,15 +72,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
             ObjHighlightRenderer.Height = this.ActualHeight;
         }
 
-        internal override void Dispose()
-        {
-            Logging.Debug("PDFHighlightLayer::Dispose()");
-
-            pdf_renderer_control_stats = null;
-            drag_area_tracker = null;
-            text_selection_manager = null;
-        }
-
         void drag_area_tracker_OnDragStarted(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Document_AddHighlight);
@@ -105,13 +97,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
 
         void drag_area_tracker_OnDragInProgress(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point, Point mouse_move_point)
         {
-            WordList selected_words = text_selection_manager.OnDragInProgress(button_left_pressed, button_right_pressed, mouse_down_point, mouse_move_point);            
+            WordList selected_words = text_selection_manager.OnDragInProgress(button_left_pressed, button_right_pressed, mouse_down_point, mouse_move_point);
             ProcessAndApplyHighlights(selected_words);
         }
 
         void drag_area_tracker_OnDragComplete(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point, Point mouse_up_point)
         {
-            WordList selected_words = text_selection_manager.OnDragInProgress(button_left_pressed, button_right_pressed, mouse_down_point, mouse_up_point);            
+            WordList selected_words = text_selection_manager.OnDragInProgress(button_left_pressed, button_right_pressed, mouse_down_point, mouse_up_point);
             ProcessAndApplyHighlights(selected_words);
         }
 
@@ -156,7 +148,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
             }
 
             // Redraw
-            {                
+            {
                 ObjHighlightRenderer.RebuildVisual(pdf_renderer_control_stats.pdf_document, page);
             }
         }
@@ -165,5 +157,55 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
         {
             this.CurrentColourNumber = colourNumber;
         }
+
+        #region --- IDisposable ------------------------------------------------------------------------
+
+        ~PDFHighlightLayer()
+        {
+            Logging.Debug("~PDFHighlightLayer()");
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Logging.Debug("Disposing PDFHighlightLayer");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected override void Dispose(bool disposing)
+        {
+            Logging.Debug("PDFHighlightLayer::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (null != drag_area_tracker)
+            {
+                foreach (var el in Children)
+                {
+                    IDisposable node = el as IDisposable;
+                    node.Dispose();
+                }
+
+                drag_area_tracker.OnDragStarted -= drag_area_tracker_OnDragStarted;
+                drag_area_tracker.OnDragInProgress -= drag_area_tracker_OnDragInProgress;
+                drag_area_tracker.OnDragComplete -= drag_area_tracker_OnDragComplete;
+            }
+
+            Children.Clear();
+
+            // Clear the references for sanity's sake
+            pdf_renderer_control_stats = null;
+            drag_area_tracker = null;
+            text_selection_manager = null;
+
+            this.DataContext = null;
+
+            ++dispose_count;
+
+            //base.Dispose(disposing);     // parent only throws an exception (intentionally), so depart from best practices and don't call base.Dispose(bool)
+        }
+
+        #endregion
+
     }
 }

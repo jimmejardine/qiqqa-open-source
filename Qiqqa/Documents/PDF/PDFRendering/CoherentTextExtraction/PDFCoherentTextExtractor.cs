@@ -6,7 +6,7 @@ using Utilities.OCR;
 
 namespace Qiqqa.Documents.PDF.PDFRendering.CoherentTextExtraction
 {
-    public class PDFCoherentTextExtractor
+    public static class PDFCoherentTextExtractor
     {
         public class ExtractionResult
         {

@@ -76,7 +76,7 @@ namespace Qiqqa.InCite
                     {
                         try
                         {
-                            using (MemoryStream ms = UrlDownloader.DownloadWithBlocking(ConfigurationManager.Instance.Proxy, parent_url))
+                            using (MemoryStream ms = UrlDownloader.DownloadWithBlocking(parent_url))
                             {
                                 File.WriteAllBytes(full_parent_filename, ms.ToArray());
                             }

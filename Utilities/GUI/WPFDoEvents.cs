@@ -135,7 +135,7 @@ namespace Utilities.GUI
                 }
                 return true;
             }
-            return false;
+            return Application.Current == null;
         }
 
         public static void InvokeInUIThread(Action action)
@@ -158,9 +158,24 @@ namespace Utilities.GUI
             }
             else
             {
-                action.Invoke();
+                action.Invoke();  // TODO -- BeginInvoke?
+            }
+        }
+
+        public static void AssertThisCodeIs_NOT_RunningInTheUIThread()
+        {
+            if (CurrentThreadIsUIThread())
+            {
+                throw new ApplicationException("This code MUST NOT execute in the Main UI Thread. Report this issue at the GitHub Qiqqa project issue page https://github.com/jimmejardine/qiqqa-open-source/issues and please do provide the log file which contains this error report and accompanying stacktrace.");
+            }
+        }
+
+        public static void AssertThisCodeIsRunningInTheUIThread()
+        {
+            if (!CurrentThreadIsUIThread())
+            {
+                throw new ApplicationException("This code MUST NOT execute in the Main UI Thread. Report this issue at the GitHub Qiqqa project issue page https://github.com/jimmejardine/qiqqa-open-source/issues and please do provide the log file which contains this error report and accompanying stacktrace.");
             }
         }
     }
 }
-

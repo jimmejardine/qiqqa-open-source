@@ -23,6 +23,8 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
             this.DataContextChanged += MultipleDocumentsSelectedPanel_DataContextChanged;
 
+            ObjUserReviewControl.SetDatesVisible(false);
+
             ButtonResetTagsAdd.Caption = "Reset";
             ButtonResetTagsAdd.Click += ButtonResetTagsAdd_Click;
             ButtonApplyTagsAdd.Caption = "Apply";

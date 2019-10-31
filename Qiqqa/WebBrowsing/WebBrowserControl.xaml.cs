@@ -26,7 +26,7 @@ namespace Qiqqa.WebBrowsing
             ObjWebBrowser.Navigating += ObjWebBrowser_Navigating;
             ObjWebBrowser.DocumentCompleted += ObjWebBrowser_DocumentCompleted;
             ObjWebBrowser.CreateWindow += ObjWebBrowser_CreateWindow;
-            
+
             // Seems to crash Qiqqa in Gecko v13 - perhaps the statuses are updating too quickly or in parallel?!
             // Seems to work with gecko v21...
             ObjWebBrowser.StatusTextChanged += ObjWebBrowser_StatusTextChanged;
@@ -38,9 +38,9 @@ namespace Qiqqa.WebBrowsing
             WebBrowserControl wbc = wbhc.OpenNewWindow();
             e.WebBrowser = wbc.ObjWebBrowser;
         }
-        
+
         void ObjWebBrowser_StatusTextChanged(object sender, EventArgs e)
-        {   
+        {
             GeckoWebBrowser web_control = (GeckoWebBrowser)sender;
             StatusManager.Instance.UpdateStatus("WebBrowser", web_control.StatusText);
             Logging.Info("Browser:StatusTextChanged: {0}", web_control.StatusText);
@@ -89,7 +89,7 @@ namespace Qiqqa.WebBrowsing
         {
             Navigate(new Uri(uri));
         }
-        
+
         internal void Navigate(Uri uri)
         {
             try
@@ -147,7 +147,7 @@ namespace Qiqqa.WebBrowsing
         public string PageHTML
         {
             get
-            {   
+            {
                 return ObjWebBrowser.Document.GetElementsByTagName("html")[0].OuterHtml;
             }
         }
@@ -157,7 +157,7 @@ namespace Qiqqa.WebBrowsing
         ~WebBrowserControl()
         {
             Logging.Debug("~WebBrowserControl()");
-            Dispose(false);            
+            Dispose(false);
         }
 
         public void Dispose()
@@ -168,10 +168,10 @@ namespace Qiqqa.WebBrowsing
         }
 
         private int dispose_count = 0;
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            ++dispose_count;
-            Logging.Debug("WebBrowserControl::Dispose({0}) @{1}", disposing ? "true" : "false", dispose_count);
+            Logging.Debug("WebBrowserControl::Dispose({0}) @{1}", disposing, dispose_count);
+
             // Prevent recursive run-away of the code via the chain:
             //
             // *** 	Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose(bool disposing)
@@ -201,33 +201,30 @@ namespace Qiqqa.WebBrowsing
             //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.RebuildSearchers(System.Collections.Generic.HashSet<string> once_off_requested_web_searchers) 
             //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.ForceSnifferSearchers() 
             //
-            if (dispose_count == 1)
+            if (dispose_count == 0)
             {
-                if (disposing)
+                try
                 {
-                    try
-                    {
-                        // Get rid of managed resources
-                        ObjWebBrowser.Dispose();
-                        ObjWebBrowser = null;
-                    }
-                    catch (Exception ex)
-                    {
-                        Logging.Error(ex, "Error disposing Gecko webbrowser");
-                    }
-
-                    // Multiple WebBrowserControl instances MAY SHARE a single WebBrowserHostControl.
-                    // It is passed to this class/instance as a reference anyway, so we SHOULD NOT
-                    // kill/dispose it in here!
-                    //
-                    //web_browser_host_control.Dispose();
+                    // Get rid of managed resources
+                    ObjWebBrowser?.Dispose();
+                    ObjWebBrowser = null;
+                }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex, "Error disposing Gecko webbrowser");
                 }
 
-                ObjWebBrowser = null;
-                web_browser_host_control = null;
-
-                // Get rid of unmanaged resources 
+                // Multiple WebBrowserControl instances MAY SHARE a single WebBrowserHostControl.
+                // It is passed to this class/instance as a reference anyway, so we SHOULD NOT
+                // kill/dispose it in here!
+                //
+                //web_browser_host_control.Dispose();
             }
+
+            ObjWebBrowser = null;
+            web_browser_host_control = null;
+
+            ++dispose_count;
         }
 
         #endregion

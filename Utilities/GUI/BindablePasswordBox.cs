@@ -9,10 +9,10 @@ namespace Utilities.GUI
         /// The password dependency property.
         /// </summary>
         public static readonly DependencyProperty PasswordProperty;
- 
+
         private bool isPreventCallback;
         private RoutedEventHandler savedCallback;
- 
+
         /// <summary>
         /// Static constructor to initialize the dependency properties.
         /// </summary>
@@ -25,28 +25,34 @@ namespace Utilities.GUI
                 new FrameworkPropertyMetadata("", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnPasswordPropertyChanged)
             );
         }
- 
+
         /// <summary>
         /// Saves the password changed callback and sets the child element to the password box.
         /// </summary>
         public BindablePasswordBox()
         {
             savedCallback = HandlePasswordChanged;
- 
+
             PasswordBox passwordBox = new PasswordBox();
             passwordBox.PasswordChanged += savedCallback;
             Child = passwordBox;
         }
- 
+
         /// <summary>
         /// The password dependency property.
         /// </summary>
         public string Password
         {
-            get { return GetValue(PasswordProperty) as string; }
-            set { SetValue(PasswordProperty, value); }
+            get
+            {
+                return GetValue(PasswordProperty) as string;
+            }
+            set
+            {
+                SetValue(PasswordProperty, value);
+            }
         }
- 
+
         /// <summary>
         /// Handles changes to the password dependency property.
         /// </summary>
@@ -54,19 +60,19 @@ namespace Utilities.GUI
         /// <param name="eventArgs">the event args</param>
         private static void OnPasswordPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs eventArgs)
         {
-            BindablePasswordBox bindablePasswordBox = (BindablePasswordBox) d;
-            PasswordBox passwordBox = (PasswordBox) bindablePasswordBox.Child;
- 
+            BindablePasswordBox bindablePasswordBox = (BindablePasswordBox)d;
+            PasswordBox passwordBox = (PasswordBox)bindablePasswordBox.Child;
+
             if (bindablePasswordBox.isPreventCallback)
             {
                 return;
             }
- 
+
             passwordBox.PasswordChanged -= bindablePasswordBox.savedCallback;
             passwordBox.Password = (eventArgs.NewValue != null) ? eventArgs.NewValue.ToString() : "";
             passwordBox.PasswordChanged += bindablePasswordBox.savedCallback;
         }
- 
+
         /// <summary>
         /// Handles the password changed event.
         /// </summary>
@@ -74,8 +80,8 @@ namespace Utilities.GUI
         /// <param name="eventArgs">the event args</param>
         private void HandlePasswordChanged(object sender, RoutedEventArgs eventArgs)
         {
-            PasswordBox passwordBox = (PasswordBox) sender;
- 
+            PasswordBox passwordBox = (PasswordBox)sender;
+
             isPreventCallback = true;
             Password = passwordBox.Password;
             isPreventCallback = false;

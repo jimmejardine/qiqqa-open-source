@@ -49,20 +49,22 @@ namespace Utilities.GUI
             GC.SuppressFinalize(this);
         }
 
-#if DIAG
         private int dispose_count = 0;
-#endif
-        private void Dispose(bool disposing)
+        protected /*virtual*/ void Dispose(bool disposing)    // sealed class doesn't allow 'virtual'
         {
-#if DIAG
-            Logging.Debug("WeakDependencyPropertyChangeNotifier::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
-#endif
-            if (disposing)
+            Logging.Debug("WeakDependencyPropertyChangeNotifier::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
             {
-                BindingOperations.ClearBinding(this, ValueProperty);
+                WPFDoEvents.InvokeInUIThread(() =>
+                {
+                    BindingOperations.ClearBinding(this, ValueProperty);
+                });
             }
 
-            // Get rid of unmanaged resources 
+            this._propertySource = null;
+
+            ++dispose_count;
         }
 
         #endregion --- Lifetime management -----------------------------------------------------------------------
@@ -96,10 +98,7 @@ namespace Utilities.GUI
         {
             WeakDependencyPropertyChangeNotifier notifier = (WeakDependencyPropertyChangeNotifier)d;
 
-            if (null != notifier.ValueChanged)
-            {
-                notifier.ValueChanged(notifier.PropertySource, EventArgs.Empty);
-            }
+            notifier.ValueChanged?.Invoke(notifier.PropertySource, EventArgs.Empty);
         }
 
         #endregion --- Properties -----------------------------------------------------------------------

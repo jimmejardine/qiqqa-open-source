@@ -10,7 +10,7 @@ using Utilities.Misc;
 
 namespace Qiqqa.Documents.PDF.DiskSerialisation
 {
-    public class PDFMetadataSerializer
+    public static class PDFMetadataSerializer
     {
         internal static void WriteToDisk(PDFDocument_ThreadUnsafe pdf_document)
         {

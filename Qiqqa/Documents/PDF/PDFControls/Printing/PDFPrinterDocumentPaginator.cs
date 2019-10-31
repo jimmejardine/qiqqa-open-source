@@ -6,6 +6,7 @@ using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Qiqqa.Documents.PDF.PDFRendering;
+using Utilities;
 using Utilities.GUI;
 using Utilities.Images;
 using Utilities.Misc;
@@ -13,11 +14,11 @@ using Size = System.Windows.Size;
 
 namespace Qiqqa.Documents.PDF.PDFControls.Printing
 {
-    class PDFPrinterDocumentPaginator : DocumentPaginator
+    class PDFPrinterDocumentPaginator : DocumentPaginator, IDisposable
     {
         PDFDocument pdf_document;
         PDFRenderer pdf_renderer;
-        int page_from; 
+        int page_from;
         int page_to;
         Size page_size;
 
@@ -41,11 +42,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Printing
             // Hackity hack
             WPFDoEvents.WaitForUIThreadActivityDone();
 
-            if (null != last_document_page)
-            {
-                last_document_page.Dispose();
-                last_document_page = null;
-            }
+            last_document_page?.Dispose();
+            last_document_page = null;
 
             int page = page_from + page_zero_based;
 
@@ -137,5 +135,38 @@ namespace Qiqqa.Documents.PDF.PDFControls.Printing
                 return null;
             }
         }
+
+        #region --- IDisposable ------------------------------------------------------------------------
+
+        ~PDFPrinterDocumentPaginator()
+        {
+            Logging.Debug("~PDFPrinterDocumentPaginator()");
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Logging.Debug("Disposing PDFPrinterDocumentPaginator");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected virtual void Dispose(bool disposing)
+        {
+            Logging.Debug("PDFPrinterDocumentPaginator::Dispose({0}) @{1}", disposing, dispose_count);
+
+            // Get rid of managed resources / get rid of cyclic references:
+            pdf_document = null;
+            pdf_renderer = null;
+
+            last_document_page?.Dispose();
+            last_document_page = null;
+
+            ++dispose_count;
+        }
+
+        #endregion
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.Threading;
 using System.Windows;
@@ -44,11 +45,11 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleDownloading
         {
             FeatureTrackingManager.Instance.UseFeature(Features.StartPage_JoinBundleLibrary);
 
-            BundleLibraryManifest manifest = this.DataContext as BundleLibraryManifest ;
+            BundleLibraryManifest manifest = this.DataContext as BundleLibraryManifest;
             
             if (null == manifest)
             {
-                MessageBoxes.Error("Please select a Bundle Library manifest file (*.qiqqa_bundle_manifest).");
+                MessageBoxes.Error("Please select a Bundle Library manifest file (*" + Common.EXT_BUNDLE_MANIFEST + ").");
                 return;
             }
 
@@ -61,7 +62,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleDownloading
         private void ManageDownload(BundleLibraryManifest manifest)
         {
             string url = manifest.BaseUrl + @"/" + manifest.Id + Common.EXT_BUNDLE;
-            using (UrlDownloader.DownloadAsyncTracker download_async_tracker = UrlDownloader.DownloadWithNonBlocking(ConfigurationManager.Instance.Proxy, url))
+            using (UrlDownloader.DownloadAsyncTracker download_async_tracker = UrlDownloader.DownloadWithNonBlocking(url))
             {
                 string STATUS_TOKEN = "BundleDownload-" + manifest.Version;
 
@@ -118,7 +119,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleDownloading
             try
             {
                 OpenFileDialog dialog = new OpenFileDialog();
-                dialog.Filter = "Bundle Library Manifest files|*.qiqqa_bundle_manifest" + "|" + "All files|*.*";
+                dialog.Filter = "Bundle Library Manifest files|*" + Common.EXT_BUNDLE_MANIFEST + "|" + "All files|*.*";
                 dialog.CheckFileExists = true;
                 dialog.Multiselect = false;
                 if (true == dialog.ShowDialog())
@@ -145,6 +146,16 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleDownloading
         {
             TxtManifestFilename.Text = filename_prompt;
             this.DataContext = manifest;
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
         }
     }
 }

@@ -36,7 +36,7 @@ using CefSharp;
 
 namespace Qiqqa.Main
 {
-	public class MainEntry
+	public static class MainEntry
 	{
         [DllImport("kernel32.dll")]
         private static extern int SetErrorMode(int newMode); 

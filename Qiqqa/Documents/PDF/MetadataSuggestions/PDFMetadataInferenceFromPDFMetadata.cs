@@ -8,7 +8,7 @@ using Utilities;
 
 namespace Qiqqa.Documents.PDF.MetadataSuggestions
 {
-    public class PDFMetadataInferenceFromPDFMetadata
+    public static class PDFMetadataInferenceFromPDFMetadata
     {
         internal static bool NeedsProcessing(PDFDocument pdf_document)
         {

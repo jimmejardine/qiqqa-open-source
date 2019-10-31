@@ -136,5 +136,15 @@ namespace Qiqqa.Synchronisation.GUI
                 GridLibraryGrid.ItemsSource = sync_control_grid_item_set.grid_items;
             }
         }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+        }
     }
 }

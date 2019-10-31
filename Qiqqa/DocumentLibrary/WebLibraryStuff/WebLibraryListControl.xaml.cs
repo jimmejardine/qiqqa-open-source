@@ -23,6 +23,10 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         public bool ConciseView
         {
+            get
+            {
+                return concise_view;
+            }
             set
             {
                 concise_view = value;

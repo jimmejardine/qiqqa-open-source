@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 
 namespace Utilities.GUI
@@ -90,6 +91,16 @@ namespace Utilities.GUI
             {
                 Logging.Warn("ControlHostingWindow is not a parent of {0}", control.ToString());
             }
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
         }
     }
 }

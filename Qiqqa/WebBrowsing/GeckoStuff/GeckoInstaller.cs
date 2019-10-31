@@ -13,7 +13,7 @@ using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.WebBrowsing.GeckoStuff
 {
-    public class GeckoInstaller
+    public static class GeckoInstaller
     {
         private static readonly string XULPackageFilename = Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"xulrunner-33.1.1.en-US.win32.zip"));
         private static readonly string UnpackDirectoryDirectory = Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.BaseDirectoryForQiqqa, @"xulrunner-33"));

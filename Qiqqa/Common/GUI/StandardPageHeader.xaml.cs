@@ -7,7 +7,7 @@ namespace Qiqqa.Common.GUI
     /// <summary>
     /// Standard header control for any pop up pages that need a title and subtitle, with image to prettify it up. 
     /// </summary>
-    public partial class StandardPageHeader
+    public partial class StandardPageHeader : System.Windows.Controls.Border
     {
         public StandardPageHeader()
         {

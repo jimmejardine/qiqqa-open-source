@@ -20,7 +20,7 @@ using Utilities.Misc;
 
 namespace Qiqqa.DocumentLibrary.LibraryPivotReport
 {
-    public class LibraryPivotReportBuilder
+    public static class LibraryPivotReportBuilder
     {
         public class PivotResult
         {
@@ -121,7 +121,7 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
                     HashSet<string> x_values = map_x_axis.Get(x_key);
 
                     var common_fingerprint = y_values.Intersect(x_values);
-                    if (0 < common_fingerprint.Count())
+                    if (common_fingerprint.Any())
                     {
                         common_fingerprints[y, x] = new List<string>(common_fingerprint);
                     }
@@ -144,7 +144,7 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
             ,"BibTeXKey"
         };
 
-        public class IdentifierImplementations
+        public static class IdentifierImplementations
         {
             public delegate void IdentifierImplementationDelegate(Library library, List<string> fingerprints, GridStyleInfo gsi);
 

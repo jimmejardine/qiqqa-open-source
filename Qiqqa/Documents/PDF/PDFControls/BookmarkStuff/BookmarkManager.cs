@@ -5,7 +5,7 @@ using Utilities;
 
 namespace Qiqqa.Documents.PDF.PDFControls.BookmarkStuff
 {
-    public class BookmarkManager
+    public static class BookmarkManager
     {
         private static double[] FromStringRepresentation(string src)
         {

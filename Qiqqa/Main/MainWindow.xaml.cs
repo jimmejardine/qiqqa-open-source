@@ -26,7 +26,7 @@ namespace Qiqqa.Main
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : StandardWindow
+    public partial class MainWindow : StandardWindow, IDisposable
     {
         internal StartPageControl ObjStartPage = new StartPageControl();
 
@@ -63,8 +63,8 @@ namespace Qiqqa.Main
             if (this.Top > SystemParameters.VirtualScreenHeight || this.Height > SystemParameters.FullPrimaryScreenHeight)
             {
                 this.Top = 0;
-                this.Height = SystemParameters.FullPrimaryScreenHeight;                
-            }            
+                this.Height = SystemParameters.FullPrimaryScreenHeight;
+            }
 
             DockingManager.WindowIcon = Icons.GetAppIconICO(Icons.Qiqqa);
             DockingManager.OwnerWindow = this;
@@ -81,10 +81,10 @@ namespace Qiqqa.Main
             this.Closing += MainWindow_Closing;
             this.Closed += MainWindow_Closed;
 
-			// We've looked for the LAST event that triggers dependably at the start of the application:
-			//   ContentRendered
-			// is the last one triggered of this bunch:
-			//
+            // We've looked for the LAST event that triggers dependably at the start of the application:
+            //   ContentRendered
+            // is the last one triggered of this bunch:
+            //
             //this.Activated += MainWindow_Activated;
             this.ContentRendered += MainWindow_ContentRendered;
             //this.Initialized += MainWindow_Initialized;
@@ -139,23 +139,23 @@ namespace Qiqqa.Main
                 }
 
                 // Also open guest under some circumstances
-                    bool should_open_guest = false;
+                bool should_open_guest = false;
 
-                        // No web libraries
-                        if (0 == web_libary_details.Count)
-                        {
-                            should_open_guest = true;
-                        }
-                        // Web library is small compared to guest library
-                        if (0 < web_libary_details.Count && WebLibraryManager.Instance.Library_Guest.PDFDocuments_IncludingDeleted_Count > 2 * web_libary_details[0].library.PDFDocuments_IncludingDeleted_Count)
-                        {
-                            should_open_guest = true;
-                        }
+                // No web libraries
+                if (0 == web_libary_details.Count)
+                {
+                    should_open_guest = true;
+                }
+                // Web library is small compared to guest library
+                if (0 < web_libary_details.Count && WebLibraryManager.Instance.Library_Guest.PDFDocuments_IncludingDeleted_Count > 2 * web_libary_details[0].library.PDFDocuments_IncludingDeleted_Count)
+                {
+                    should_open_guest = true;
+                }
 
-                    if (should_open_guest)
-                    {
-                        MainWindowServiceDispatcher.Instance.OpenLibrary(WebLibraryManager.Instance.Library_Guest);
-                    }
+                if (should_open_guest)
+                {
+                    MainWindowServiceDispatcher.Instance.OpenLibrary(WebLibraryManager.Instance.Library_Guest);
+                }
 
                 // Make sure the start page is selected
                 MainWindowServiceDispatcher.Instance.OpenStartPage();
@@ -219,7 +219,7 @@ namespace Qiqqa.Main
         }
 
         static bool already_exiting = false;
-        public bool suppress_exit_warning = false;        
+        public bool suppress_exit_warning = false;
         void MainWindow_Closing(object sender, CancelEventArgs e)
         {
             if (!already_exiting && !suppress_exit_warning)
@@ -257,7 +257,7 @@ namespace Qiqqa.Main
             MainEntry.SignalShutdown();
 
             ipc_server.Stop();
-            
+
             FeatureTrackingManager.Instance.UseFeature(Features.App_Close);
 
             Application.Current.Shutdown();
@@ -282,6 +282,7 @@ namespace Qiqqa.Main
                         }
                         e.Handled = true;
                         break;
+
                     default:
                         break;
                 }
@@ -309,6 +310,53 @@ namespace Qiqqa.Main
                 ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.Wizard_HasSeenIntroWizard);
                 MainWindowServiceDispatcher.Instance.OpenWelcomeWizard();
             }
+        }
+
+        #region --- IDisposable ------------------------------------------------------------------------
+
+        ~MainWindow()
+        {
+            Logging.Debug("~MainWindow()");
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Logging.Debug("Disposing MainWindow");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected virtual void Dispose(bool disposing)
+        {
+            Logging.Debug("MainWindow::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
+            {
+                // Get rid of managed resources
+                ObjStartPage?.Dispose();
+            }
+
+            ObjStartPage = null;
+
+            keyboard_hook = null;
+            ipc_server = null;
+            this.DataContext = null;
+
+            ++dispose_count;
+        }
+
+        #endregion
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
         }
     }
 }

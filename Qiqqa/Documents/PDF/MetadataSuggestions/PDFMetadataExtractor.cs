@@ -4,7 +4,7 @@ using Utilities.PDF;
 
 namespace Qiqqa.Documents.PDF.MetadataSuggestions
 {
-    public class PDFMetadataExtractor
+    public static class PDFMetadataExtractor
     {
         static readonly char[] SPLITS = new char[] { ',', ';', ' ', '\'', '"' };
 

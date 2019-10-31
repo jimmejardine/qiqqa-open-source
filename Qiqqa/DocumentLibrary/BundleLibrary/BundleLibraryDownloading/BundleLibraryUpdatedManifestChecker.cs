@@ -33,8 +33,8 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
 
             // Download the new manifest
             BundleLibraryManifest manifest_existing = BundleLibraryManifest.FromJSON(library.WebLibraryDetail.BundleManifestJSON);
-            string manifest_latest_url = manifest_existing.BaseUrl + "/" + manifest_existing.Id + ".qiqqa_bundle_manifest";
-            using (MemoryStream ms = UrlDownloader.DownloadWithBlocking(ConfigurationManager.Instance.Proxy, manifest_latest_url))
+            string manifest_latest_url = manifest_existing.BaseUrl + @"/" + manifest_existing.Id + Common.EXT_BUNDLE_MANIFEST;
+            using (MemoryStream ms = UrlDownloader.DownloadWithBlocking(manifest_latest_url))
             {
                 string manifest_latest_json = Encoding.UTF8.GetString(ms.ToArray());
                 BundleLibraryManifest manifest_latest = BundleLibraryManifest.FromJSON(manifest_latest_json);

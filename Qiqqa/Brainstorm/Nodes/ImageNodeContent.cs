@@ -20,7 +20,7 @@ namespace Qiqqa.Brainstorm.Nodes
 
         public ImageNodeContent(string image_path)
         {
-            ImagePath = image_path;
+            ImageNodeContentFromPath(image_path);
         }
 
         public ImageNodeContent(MemoryStream ms)
@@ -30,13 +30,10 @@ namespace Qiqqa.Brainstorm.Nodes
         }
 
 
-        public string ImagePath
+        public void ImageNodeContentFromPath(string path)
         {
-            set
-            {
-                this.image_data = File.ReadAllBytes(value);
+                this.image_data = File.ReadAllBytes(path);
                 bitmap_source = null;
-            }
         }
 
         public BitmapSource BitmapSource

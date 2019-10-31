@@ -16,6 +16,8 @@ namespace Utilities.PDF
             Logging.Debug("+AugmentedPdfLoadedDocument::constructor: {0}", filename);
         }
 
+        #region --- IDisposable ------------------------------------------------------------------------
+
         ~AugmentedPdfLoadedDocument()
         {
             Logging.Debug("~AugmentedPdfLoadedDocument()");
@@ -29,15 +31,12 @@ namespace Utilities.PDF
             GC.SuppressFinalize(this);
         }
 
-#if DIAG
         private int dispose_count = 0;
-#endif
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-#if DIAG
-            Logging.Debug("AugmentedPdfLoadedDocument::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
-#endif
-            if (disposing)
+            Logging.Debug("AugmentedPdfLoadedDocument::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
             {
                 // Get rid of managed resources
                 this.Close(true);
@@ -45,6 +44,11 @@ namespace Utilities.PDF
 
             // Get rid of unmanaged resources 
             base.Dispose();
+
+            ++dispose_count;
         }
+
+#endregion
+
     }
 }

@@ -13,7 +13,7 @@ using Utilities.Misc;
 
 namespace Qiqqa.InCite
 {
-    public class CSLProcessor
+    public static class CSLProcessor
     {
         private static readonly string BASE_PATH = Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.TempDirectoryForQiqqa, @"InCite"));
 

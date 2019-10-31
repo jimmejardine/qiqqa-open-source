@@ -44,6 +44,10 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
 
         public Library Library
         {
+            get
+            {
+                return library;
+            }
             set
             {
                 this.library = value;

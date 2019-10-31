@@ -48,7 +48,7 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
 
         public bool MustBackoff()
         {
-            return 0 == GetWorkingServerRecords().Count();
+            return !GetWorkingServerRecords().Any();
         }
 
         public string GetServerUrl()
@@ -57,7 +57,7 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
 
             IEnumerable<ServerRecord> working_server_records = GetWorkingServerRecords();
 
-            if (0 == working_server_records.Count())
+            if (!working_server_records.Any())
             {
                 throw new GenericException("There are no viable bibtexsearch servers...");
             }

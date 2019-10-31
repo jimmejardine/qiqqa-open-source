@@ -33,17 +33,17 @@ namespace Qiqqa.Documents.PDF.PDFControls
             {
                 pdf_renderer_control.Dispatcher.Invoke(new Action(() =>
                 {
-                    pdf_reading_control.DuplicateDetectionControl.PDFDocument = pdf_renderer_control_stats.pdf_document;
+                    pdf_reading_control.DuplicateDetectionControl.SetPDFDocument(pdf_renderer_control_stats.pdf_document);
                 }
                 ));
                 pdf_renderer_control.Dispatcher.Invoke(new Action(() =>
                 {
-                    pdf_reading_control.CitationsControl.PDFDocument = pdf_renderer_control_stats.pdf_document;
+                    pdf_reading_control.CitationsControl.SetPDFDocument(pdf_renderer_control_stats.pdf_document);
                 }
                 ));
                 pdf_renderer_control.Dispatcher.Invoke(new Action(() =>
                 {
-                    pdf_reading_control.LinkedDocumentsControl.PDFDocument = pdf_renderer_control_stats.pdf_document;
+                    pdf_reading_control.LinkedDocumentsControl.SetPDFDocument(pdf_renderer_control_stats.pdf_document);
                 }
                 ));
             }
@@ -63,11 +63,11 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 string title = pdf_renderer_control_stats.pdf_document.TitleCombined;
                 if (Constants.TITLE_UNKNOWN != title)
                 {
-                    GoogleScholarScrapePaperSet gssp_set = GoogleScholarScrapePaperSet.GenerateFromQuery(ConfigurationManager.Instance.Proxy, title, 10);
+                    GoogleScholarScrapePaperSet gssp_set = GoogleScholarScrapePaperSet.GenerateFromQuery(title, 10);
 
                     pdf_renderer_control.Dispatcher.Invoke(new Action(() =>
                     {
-                        pdf_reading_control.SimilarDocsControl.PaperSet = gssp_set;
+                        pdf_reading_control.SimilarDocsControl.SpecifyPaperSet(gssp_set);
                     }
                     ));
                 }
@@ -92,7 +92,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
                 pdf_renderer_control.Dispatcher.Invoke(new Action(() =>
                 {
-                    pdf_reading_control.TagCloud.Entries = tag_cloud_entries;
+                    pdf_reading_control.TagCloud.SpecifyEntries(tag_cloud_entries);
                 }
                 ));
             }
@@ -112,7 +112,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
                 pdf_renderer_control.Dispatcher.Invoke(new Action(() =>
                 {
-                    pdf_reading_control.SimilarAuthorsControl.Items = authors_documents;
+                    pdf_reading_control.SimilarAuthorsControl.SetItems(authors_documents);
                 }
                 ));
             }

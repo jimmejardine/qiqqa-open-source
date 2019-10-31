@@ -14,6 +14,7 @@ using Utilities.Misc;
 using Utilities.Reflection;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 using System.Windows.Controls;
+using System.ComponentModel;
 
 namespace Qiqqa.DocumentLibrary.Import.Manual
 {
@@ -245,7 +246,6 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
             switch (_currentProvider)
             {
-
                 case Providers.BibTeX:
                 case Providers.Mendeley:
                 case Providers.Zotero:
@@ -258,6 +258,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                     //Wait for second file. 
                     this.btnChooseFile_EndNoteLibraryFolder.IsEnabled = true;
                     return;
+
                 default:
                     throw new NotImplementedException();
             }
@@ -307,6 +308,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             FileImporter importer = null;
 
             #region Check we can open the file, and warn about file size if necessary
+            
             try
             {
                 long fileSize = 0;
@@ -325,9 +327,9 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                 MessageBoxes.Error("Unfortunately that file could not be read. Is it perhaps still open by another program?");
                 return;
             }
+
             #endregion
-
-
+            
             try
             {
                 switch (_currentProvider)
@@ -345,7 +347,6 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                         break;
 
                     case Providers.EndNote:
-
                         if (!EndNoteImporter.ValidateDocumentRootFolder(_currentSelectedSupplementaryFolder))
                         {
                             MessageBoxes.Warn("The data directory you have picked might not be the right one - it should have a subdirectory called \"PDF\" where EndNote has exported your PDF files.");
@@ -560,7 +561,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
             IEnumerable<AugmentedBindable<BibTeXEntry>> allEntries = GetEntries().Where(x => x.Underlying.Selected);
 
-            if (allEntries.Count() == 0)
+            if (!allEntries.Any())
             {
                 MessageBoxes.Error("Please select at least one entry to import, by checking the checkbox.");
                 return;
@@ -626,5 +627,15 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 #endif
 
         #endregion
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+        }
     }
 }

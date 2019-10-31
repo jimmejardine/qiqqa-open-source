@@ -13,22 +13,24 @@ using Utilities.Reflection;
 using Qiqqa.Common.Configuration;
 using Utilities.Strings;
 using Utilities;
+using System.Windows.Data;
 
 namespace Qiqqa.Documents.BibTeXEditor
 {
     /// <summary>
     /// Interaction logic for BibTeXEditorControl.xaml
     /// </summary>
-    public partial class BibTeXEditorControl : UserControl
+    public partial class BibTeXEditorControl : UserControl, IDisposable
     {
-		// These three buttons are (optionally) provided by the parent control.
-		// Note the use of WeakReferences to help ensure there's no cyclic dependency
-		// in the UI that prevents the GC from cleaning up once we're done.
+        // These three buttons are (optionally) provided by the parent control.
+        // Note the use of WeakReferences to help ensure there's no cyclic dependency
+        // in the UI that prevents the GC from cleaning up once we're done.
         WeakReference<FrameworkElement> BibTeXParseErrorButtonRef;
         WeakReference<FrameworkElement> BibTeXModeToggleButtonRef;
         WeakReference<FrameworkElement> BibTeXUndoEditButtonRef;
 
         WeakDependencyPropertyChangeNotifier wdpcn;
+
         public static DependencyProperty BibTeXProperty = DependencyProperty.Register("BibTeX", typeof(string), typeof(BibTeXEditorControl), new PropertyMetadata());
         public string BibTeX
         {
@@ -42,7 +44,6 @@ namespace Qiqqa.Documents.BibTeXEditor
             }
         }
 
-        [NonSerialized]
         AugmentedBindable<BibTeXEditorControl> bindable = null;
         public AugmentedBindable<BibTeXEditorControl> Bindable
         {
@@ -67,7 +68,6 @@ namespace Qiqqa.Documents.BibTeXEditor
 
             InitializeComponent();
 
-            this.Unloaded += BibTeXEditorControl_Unloaded;
             this.SizeChanged += BibTeXEditorControl_SizeChanged;
 
             // The error panel
@@ -77,7 +77,7 @@ namespace Qiqqa.Documents.BibTeXEditor
 
             ObjBibTeXErrorText.Background = ThemeColours.Background_Brush_Warning.Clone();
             ObjBibTeXErrorText.Background.Opacity = 1.3;
-            
+
             // Initial visibility
             //
             // For the three panels use `Hidden` instead of `Collapsed` to ensure their
@@ -130,57 +130,34 @@ namespace Qiqqa.Documents.BibTeXEditor
             //double errtxt_height3 = ObjBibTeXErrorText.ActualHeight;
 
             const double THRESHOLD = 100;
-			
+
             if (table_height1 > THRESHOLD)
             {
-	            double maxh1 = ObjBibTeXTextScrollViewer.MaxHeight;
-	            double maxh2 = ObjBibTeXErrorScrollViewer.MaxHeight;
+                double maxh1 = ObjBibTeXTextScrollViewer.MaxHeight;
+                double maxh2 = ObjBibTeXErrorScrollViewer.MaxHeight;
 
-	            // tweak the control so the Parsed View gives us the master MaxHeight:
-	            ObjBibTeXTextScrollViewer.MaxHeight = THRESHOLD;
-	            ObjBibTeXErrorScrollViewer.MaxHeight = THRESHOLD;
-	            this.UpdateLayout();
+                // tweak the control so the Parsed View gives us the master MaxHeight:
+                ObjBibTeXTextScrollViewer.MaxHeight = THRESHOLD;
+                ObjBibTeXErrorScrollViewer.MaxHeight = THRESHOLD;
+                this.UpdateLayout();
 
                 table_height1 = ObjGridPanel.ActualHeight;
 
-	            if (table_height1 > THRESHOLD)
-	            {
-	                ObjBibTeXTextScrollViewer.MaxHeight = table_height1;
-	                ObjBibTeXErrorScrollViewer.MaxHeight = table_height1;
-	            }
-	            else
-	            {
-	                ObjBibTeXTextScrollViewer.MaxHeight = double.PositiveInfinity;
-	                ObjBibTeXErrorScrollViewer.MaxHeight = double.PositiveInfinity;
-	            }
-
-	            if (Math.Abs(maxh1 - ObjBibTeXTextScrollViewer.MaxHeight) > 0.25)
-	            {
-	                this.UpdateLayout();
-	            }
-			}
-        }
-
-        private void BibTeXEditorControl_Unloaded(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                // discard all references which might otherwise potentially cause memleaks due to (potential) references cycles:
-                BibTeXParseErrorButtonRef.SetTarget(null);
-                BibTeXModeToggleButtonRef.SetTarget(null);
-                BibTeXUndoEditButtonRef.SetTarget(null);
-
-                if (null != wdpcn)
+                if (table_height1 > THRESHOLD)
                 {
-                    wdpcn.Dispose();
+                    ObjBibTeXTextScrollViewer.MaxHeight = table_height1;
+                    ObjBibTeXErrorScrollViewer.MaxHeight = table_height1;
                 }
-                wdpcn = null;
-                BibTeX = "";
-                bindable = null;
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex);
+                else
+                {
+                    ObjBibTeXTextScrollViewer.MaxHeight = double.PositiveInfinity;
+                    ObjBibTeXErrorScrollViewer.MaxHeight = double.PositiveInfinity;
+                }
+
+                if (Math.Abs(maxh1 - ObjBibTeXTextScrollViewer.MaxHeight) > 0.25)
+                {
+                    this.UpdateLayout();
+                }
             }
         }
 
@@ -335,7 +312,7 @@ namespace Qiqqa.Documents.BibTeXEditor
             // If there were any exceptions, go pink and jump to the text editor
             if (bibtex_item.Exceptions.Count > 0 || bibtex_item.Warnings.Count > 0)
             {
-				string error_msg = bibtex_item.GetExceptionsAndMessagesString().Trim();
+                string error_msg = bibtex_item.GetExceptionsAndMessagesString().Trim();
 
                 ObjBibTeXErrorText.Text = error_msg;
 
@@ -675,5 +652,71 @@ namespace Qiqqa.Documents.BibTeXEditor
 #endif
 
         #endregion
+
+        #region --- IDisposable ------------------------------------------------------------------------
+
+        ~BibTeXEditorControl()
+        {
+            Logging.Debug("~BibTeXEditorControl()");
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Logging.Debug("Disposing BibTeXEditorControl");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected virtual void Dispose(bool disposing)
+        {
+            Logging.Debug("BibTeXEditorControl::Dispose({0}) @{1}", disposing, dispose_count);
+
+            // *Nobody* gets any updates from us anymore, so we can delete cached content etc. in peace. (https://github.com/jimmejardine/qiqqa-open-source/issues/121)
+            WPFDoEvents.InvokeInUIThread(() =>
+            {
+                BindingOperations.ClearBinding(this, BibTeXProperty);
+
+                // Get rid of managed resources / get rid of cyclic references:
+                if (null != wdpcn)
+                {
+                    wdpcn.ValueChanged -= OnBibTeXPropertyChanged;
+                }
+
+                // discard all references which might otherwise potentially cause memleaks due to (potential) references cycles:
+                BibTeXParseErrorButtonRef?.SetTarget(null);
+                BibTeXModeToggleButtonRef?.SetTarget(null);
+                BibTeXUndoEditButtonRef?.SetTarget(null);
+            });
+
+                bindable = null;
+            // BibTeX = "";  <-- forbidden to reset as that MAY trigger a dependency update! (https://github.com/jimmejardine/qiqqa-open-source/issues/121)
+
+            // Get rid of managed resources / get rid of cyclic references:
+                                   if (null != wdpcn)
+            {
+                wdpcn.Dispose();
+            }
+
+            ObjBibTeXText.TextChanged -= ObjBibTeXText_TextChanged;
+            TxtRecordKey.TextChanged -= OnGridTextChanged;
+
+            ComboRecordType.SelectionChanged -= ComboRecordType_SelectionChanged;
+            ComboRecordType.KeyUp -= ComboRecordType_KeyUp;
+
+            // Clear the references for sanity's sake
+            BibTeXParseErrorButtonRef = null;
+            BibTeXModeToggleButtonRef = null;
+            BibTeXUndoEditButtonRef = null;
+
+            wdpcn = null;
+            bindable = null;
+
+            ++dispose_count;
+        }
+
+        #endregion
+
     }
 }

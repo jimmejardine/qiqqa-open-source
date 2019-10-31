@@ -246,6 +246,28 @@ namespace Qiqqa.Common.Configuration
             set { this["Web_UserAgentOverride"] = value; }
         }
 
+        public string GetWebUserAgent()
+        {
+            string ua = Web_UserAgentOverride;
+            bool overruled = true;
+
+            if (String.IsNullOrEmpty(ua))
+            {
+                ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0 Waterfox/56.2.14";
+                overruled = false;
+#if false
+                String.Format(
+                "Mozilla/5.0 (Windows; {0}; rv:13.0) Gecko/13.0 Firefox/13.0.0",
+                    Environment.OSVersion
+                );
+#endif
+            }
+
+            Logging.Info("Using {1}user agent: {0}", ua, (overruled ? "overridden " : "default"));
+
+            return ua;
+        }
+
         public string Proxy_EZProxy
         {
             get { return this["Proxy_EZProxy"] as string; }

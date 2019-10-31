@@ -15,6 +15,7 @@ using Utilities.GUI;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+using System.ComponentModel;
 
 namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
 {
@@ -75,11 +76,13 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
 
         private void ValidateFolder()
         {
+            string base_path = "???";
+
             try
             {
                 this.ButtonJoinCreate.Caption = "Create";
 
-                string base_path = TxtPath.Text;
+                base_path = TxtPath.Text;
                 if (Directory.Exists(base_path))
                 {
                     string library_detail_path = IntranetLibraryTools.GetLibraryDetailPath(base_path);
@@ -94,7 +97,7 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
             }
             catch (Exception ex)
             {
-                Logging.Warn(ex, "There was an exception while validating the selected Intranet Library path.");
+                Logging.Warn(ex, "There was an exception while validating the selected Intranet Library path {0}.", base_path);
             }
         }
 
@@ -103,6 +106,7 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
             try
             {
                 string base_path = TxtPath.Text;
+                
                 if (!Directory.Exists(base_path))
                 {
                     DirectoryTools.CreateDirectory(base_path);
@@ -145,13 +149,14 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
                 IntranetLibraryDB db = new IntranetLibraryDB(base_path);
 
                 // Notify the WebLibraryManager
-                WebLibraryManager.Instance.UpdateKnownWebLibraryFromIntranet(base_path);
+                WebLibraryManager.Instance.UpdateKnownWebLibraryFromIntranet(base_path, suppress_flush_to_disk: false, extra_info_message_on_skip: String.Format("as specified in file {0}", library_detail_path));
 
                 return true;
             }
             catch (Exception ex)
             {
                 Logging.Error(ex, "Problem accessing Intranet Library for the first time.");
+                
                 MessageBoxes.Error("There was a problem while trying to connect to this Intranet Library.  Are you sure you have permission to access this folder?  Your Network or System Administrator can grant you this permission.\n\nThe detailed error message is:\n" + ex.Message);
 
                 return false;
@@ -204,6 +209,16 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
                     TxtPath.Text = dlg.SelectedPath;
                 }
             }
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
         }
     }
 }

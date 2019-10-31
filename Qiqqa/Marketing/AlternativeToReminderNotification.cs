@@ -6,7 +6,7 @@ using Utilities.Misc;
 
 namespace Qiqqa.Marketing
 {
-    public class AlternativeToReminderNotification
+    public static class AlternativeToReminderNotification
     {
         internal static void CheckIfWeWantToNotify()
         {

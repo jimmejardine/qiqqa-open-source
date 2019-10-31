@@ -9,7 +9,7 @@ using Path = Alphaleonis.Win32.Filesystem.Path;
 namespace Qiqqa.Main
 {
     // Creates a temp directory before anything else runs
-    public class TempDirectoryCreator
+    public static class TempDirectoryCreator
     {        
         static TempDirectoryCreator()
         {

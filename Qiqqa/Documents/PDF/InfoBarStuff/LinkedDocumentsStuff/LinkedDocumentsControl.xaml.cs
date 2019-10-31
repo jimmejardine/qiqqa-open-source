@@ -26,8 +26,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.LinkedDocumentsStuff
 
         void LinkedDocumentsControl_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (false) { }
-            else if (Key.Enter == e.Key)
+            if (Key.Enter == e.Key)
             {
                 LinkSelectedDocument();
                 e.Handled = true;
@@ -65,14 +64,11 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.LinkedDocumentsStuff
             }
         }
 
-        public PDFDocument PDFDocument
+        public void SetPDFDocument(PDFDocument doc)
         {
-            set
-            {
-                this.pdf_document = value;
-                ReSearch();
-                RepopulatePanels();
-            }
+            this.pdf_document = doc;
+            ReSearch();
+            RepopulatePanels();
         }
 
         private void RepopulatePanels()
@@ -119,7 +115,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.LinkedDocumentsStuff
         private void LinkSelectedDocument()
         {
             FeatureTrackingManager.Instance.UseFeature(Features.LinkedDocument_Create);
-            
+
             TextBlock text_block = ObjPDFDocuments.SelectedItem as TextBlock;
             if (null != text_block)
             {

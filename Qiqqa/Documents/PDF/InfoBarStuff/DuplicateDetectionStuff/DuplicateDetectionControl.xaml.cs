@@ -25,12 +25,9 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.DuplicateDetectionStuff
             InitializeComponent();
         }
 
-        public PDFDocument PDFDocument
+        public void SetPDFDocument(PDFDocument doc)
         {
-            set
-            {
-                SafeThreadPool.QueueUserWorkItem(o => FindDuplicates(value));
-            }
+            SafeThreadPool.QueueUserWorkItem(o => FindDuplicates(doc));
         }
 
 
@@ -66,7 +63,6 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.DuplicateDetectionStuff
                 }
             }
         }
-
 
         private void FindDuplicates(PDFDocument pdf_document_this)
         {

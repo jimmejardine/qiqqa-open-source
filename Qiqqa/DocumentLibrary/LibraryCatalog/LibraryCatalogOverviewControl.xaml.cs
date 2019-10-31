@@ -25,7 +25,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
     /// <summary>
     /// Interaction logic for LibraryCatalogOverviewControl.xaml
     /// </summary>
-    public partial class LibraryCatalogOverviewControl : Grid
+    public partial class LibraryCatalogOverviewControl : Grid, IDisposable
     {
         LibraryIndexHoverPopup library_index_hover_popup = null;
         DragDropHelper drag_drop_helper = null;
@@ -296,6 +296,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
         {
             library_index_hover_popup?.Dispose();
             library_index_hover_popup = null;
+
             ButtonOpen.ToolTip = "";
         }
 
@@ -357,36 +358,55 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
                 return this.DataContext as AugmentedBindable<PDFDocument>;
             }
         }
-    }
 
+        #region --- IDisposable ------------------------------------------------------------------------
 
-    class TagsConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        ~LibraryCatalogOverviewControl()
         {
-            List<string> items = value as List<string>;
-            if (null == items)
-            {
-                return "";
-            }
+            Logging.Debug("~LibraryCatalogOverviewControl()");
+            Dispose(false);
+        }
 
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < items.Count; ++i)
+        public void Dispose()
+        {
+            Logging.Debug("Disposing LibraryCatalogOverviewControl");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected virtual void Dispose(bool disposing)
+        {
+            Logging.Debug("LibraryCatalogOverviewControl::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
             {
-                if (i > 0)
+                // Get rid of managed resources / get rid of cyclic references:
+                library_index_hover_popup?.Dispose();
+
+                WPFDoEvents.InvokeInUIThread(() =>
                 {
-                    sb.Append("; ");
-                }
+                    WizardDPs.ClearPointOfInterest(PanelSearchScore);
+                    WizardDPs.ClearPointOfInterest(ObjLookInsidePanel);
+                });
 
-                sb.Append(items[i]);
+                TextTitle.MouseLeftButtonUp -= TextTitle_MouseLeftButtonUp;
+
+                ButtonOpen.ToolTipOpening -= HyperlinkPreview_ToolTipOpening;
+                ButtonOpen.ToolTipClosing -= HyperlinkPreview_ToolTipClosing;
+
+                ListSearchDetails.SearchClicked -= ListSearchDetails_SearchSelectionChanged;
+
+                this.DataContextChanged -= LibraryCatalogOverviewControl_DataContextChanged;
             }
 
-            return sb.ToString();
+            // Clear the references for sanity's sake
+            library_index_hover_popup = null;
+            drag_drop_helper = null;
+
+            ++dispose_count;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return null;
-        }
+        #endregion
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
@@ -97,6 +98,16 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
             this.ObjImage.Source = image;
             this.ObjRawText.Text = raw_text;
             this.ObjTabulatedText.Text = tabled_text;
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
         }
     }
 }

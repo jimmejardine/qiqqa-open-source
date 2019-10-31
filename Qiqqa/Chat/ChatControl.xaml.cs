@@ -29,7 +29,7 @@ namespace Qiqqa.Chat
     public partial class ChatControl : UserControl, IDisposable
     {
         private static readonly string BASE_URL = WebsiteAccess.Url_ChatAPI4Qiqqa;
-        private static int MAX_SLEEP_BACKOFF_SECONDS = 16;
+        private const int MAX_SLEEP_BACKOFF_SECONDS = 16;
 
         private Timer timer;
         private string last_epoch = "";
@@ -58,8 +58,7 @@ namespace Qiqqa.Chat
             timer.Change(0, 500);
 #endif
             }
-
-
+        
         private string ChatUsername
         {
             get            
@@ -119,7 +118,7 @@ namespace Qiqqa.Chat
 
             try
             {
-                using (MemoryStream ms = UrlDownloader.DownloadWithBlocking(ConfigurationManager.Instance.Proxy, url))
+                using (MemoryStream ms = UrlDownloader.DownloadWithBlocking(url))
                 {
                     ProcessDisplayResponse(ms);
                 }
@@ -300,16 +299,17 @@ namespace Qiqqa.Chat
         }
 
         private int dispose_count = 0;
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            Logging.Debug("ChatControl::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
-            if (disposing)
+            Logging.Debug("ChatControl::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
             {
                 timer?.Dispose();
             }
             timer = null;
 
-            // Get rid of unmanaged resources 
+            ++dispose_count;
         }
 
 #endregion

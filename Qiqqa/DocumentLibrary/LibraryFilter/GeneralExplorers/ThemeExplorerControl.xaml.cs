@@ -46,6 +46,10 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
 
         public Library Library
         {
+            get
+            {
+                return library;
+            }
             set
             {
                 this.library = value;

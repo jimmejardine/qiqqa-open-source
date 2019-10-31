@@ -63,10 +63,11 @@ namespace Utilities.Language.TextIndexing
         }
 
         private int dispose_count = 0;
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            Logging.Debug("LuceneIndex::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
-            if (disposing)
+            Logging.Debug("LuceneIndex::Dispose({0}) @{1}", disposing, dispose_count);
+ 
+            if (dispose_count == 0)
             {
                 // Get rid of managed resources
                 Logging.Info("Disposing the lucene index writer");
@@ -79,7 +80,14 @@ namespace Utilities.Language.TextIndexing
                 }
             }
 
-            // Get rid of unmanaged resources 
+            Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+            lock (index_writer_lock)
+            {
+                l2_clk.LockPerfTimerStop();
+                index_writer = null;
+            }
+
+            ++dispose_count;
         }
 
         public void WriteMasterList()
@@ -432,14 +440,14 @@ namespace Utilities.Language.TextIndexing
         
         private void CheckIndexVersion()
         {
-            string version = null;
+            string version = String.Empty;
 
             try
             {
                 if (File.Exists(VersionFilename))
                 {
                     string[] index_version_lines = File.ReadAllLines(VersionFilename);
-                    version = index_version_lines[0];
+                    version = index_version_lines[0].Trim();
                 }
             }
             catch (Exception ex)

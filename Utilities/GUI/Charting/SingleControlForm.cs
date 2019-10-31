@@ -40,8 +40,9 @@ namespace Utilities.GUI.Charting
         /// </summary>
         protected override void Dispose(bool disposing)
         {
-            Logging.Debug("GenericChartForm::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
-            if (disposing)
+            Logging.Debug("GenericChartForm::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
             {
                 components?.Dispose();
             }
@@ -49,6 +50,8 @@ namespace Utilities.GUI.Charting
             components = null;
 
             base.Dispose(disposing);
+
+            ++dispose_count;
         }
 
         #region Windows Form Designer generated code

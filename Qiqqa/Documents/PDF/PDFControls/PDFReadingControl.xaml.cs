@@ -336,9 +336,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 e.Handled = true;
             }
         }
-
-
-
+               
         void ButtonExpedition_Click(object sender, RoutedEventArgs e)
         {
             ButtonExplorePopup.Close();
@@ -354,6 +352,8 @@ namespace Qiqqa.Documents.PDF.PDFControls
             MainWindowServiceDispatcher.Instance.OpenLibrary(this.pdf_renderer_control_stats.pdf_document.Library);
         }
 
+        #region IDisposable
+
         ~PDFReadingControl()
         {
             Logging.Debug("~PDFReadingControl()");
@@ -367,28 +367,28 @@ namespace Qiqqa.Documents.PDF.PDFControls
             GC.SuppressFinalize(this);
         }
 
-#if DIAG
         private int dispose_count = 0;
-#endif
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-#if DIAG
-            Logging.Debug("PDFReadingControl::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
-#endif
-            if (disposing)
+            Logging.Debug("PDFReadingControl::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
             {
                 // Get rid of managed resources
-                PDFRendererControlArea.Children.Clear();
                 pdf_renderer_control?.Dispose();
 
                 pdf_renderer_control_stats?.pdf_document.PDFRenderer.FlushCachedPageRenderings();
             }
 
+            PDFRendererControlArea.Children.Clear();
+
             pdf_renderer_control = null;
             pdf_renderer_control_stats = null;
 
-            // Get rid of unmanaged resources 
+            ++dispose_count;
         }
+
+        #endregion
 
         void pdf_renderer_control_OperationModeChanged(PDFRendererControl.OperationMode operation_mode)
         {

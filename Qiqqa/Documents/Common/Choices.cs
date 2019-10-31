@@ -2,7 +2,7 @@
 
 namespace Qiqqa.Documents.Common
 {
-    public class Choices
+    public static class Choices
     {
         public static readonly List<string> Ratings = new List<string>
         (

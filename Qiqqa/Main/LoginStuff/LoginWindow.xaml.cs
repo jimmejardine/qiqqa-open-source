@@ -27,20 +27,19 @@ namespace Qiqqa.Main.LoginStuff
     /// </summary>
     public partial class LoginWindow : StandardWindow
     {
-        class DisableSSLData
-        {
-            public bool System_DisableSSL { get; set; }
-        }
+        //class DisableSSLData
+        //{
+        //    public bool System_DisableSSL { get; set; }
+        //}
 
         SplashScreenWindow splashscreen_window;
 
         bool is_closing = false;
         bool have_done_config = false;
 
-        ProxySettingsControl.StandardProxySettings proxy_settings = new ProxySettingsControl.StandardProxySettings();
-        DisableSSLData disable_ssl_data = new DisableSSLData();
-
-
+        //ProxySettingsControl.StandardProxySettings proxy_settings = new ProxySettingsControl.StandardProxySettings();
+        //DisableSSLData disable_ssl_data = new DisableSSLData();
+        
         public LoginWindow()
         {
             InitializeComponent();
@@ -187,6 +186,16 @@ namespace Qiqqa.Main.LoginStuff
                 ".NET4Client", ComputerStatistics.IsNET4ClientInstalled(),
                 ".NET4Full", ComputerStatistics.IsNET4FullInstalled()
                 );
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
         }
     }
 }

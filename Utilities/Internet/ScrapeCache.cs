@@ -17,14 +17,16 @@ namespace Utilities.Internet
         private string base_directory;
         private int throttle_ms;
         private Encoding encoding;
+        private string userAgent;
         
         private DateTime last_scrape_time = DateTime.MinValue;
         
-        public ScrapeCache(string base_directory, int throttle_ms, Encoding encoding = null)
+        public ScrapeCache(string base_directory, string user_agent, int throttle_ms, Encoding encoding = null)
         {
             this.base_directory = base_directory;
             this.throttle_ms = throttle_ms;
-            this.encoding=encoding;
+            this.encoding = encoding;
+            this.userAgent = user_agent;
         }
 
         public IEnumerable<string> GetAllContentFilenames()
@@ -68,7 +70,11 @@ namespace Utilities.Internet
                             client.Headers.Add(pair.Key, pair.Value);
                         }
                     }
-
+                    if (!String.IsNullOrEmpty(this.userAgent))
+                    {
+                        client.Headers.Add("User-agent", this.userAgent);
+                    }
+                    
                     string temp_filename = filename + ".tmp";
                     try
                     {

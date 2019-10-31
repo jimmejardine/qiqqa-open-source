@@ -19,8 +19,6 @@ namespace Utilities.GUI
         {
             Theme.Initialize();
 
-            this.Unloaded += AugmentedClosableBorder_Unloaded;
-
             //
             // Summary:
             //     Occurs when either the System.Windows.FrameworkElement.ActualHeight or the System.Windows.FrameworkElement.ActualWidth
@@ -141,11 +139,6 @@ namespace Utilities.GUI
             base.OnVisualParentChanged(oldParent);
         }
 
-    private void AugmentedClosableBorder_Unloaded(object sender, RoutedEventArgs e)
-    {
-            Logging.Debug("not implemented");
-        }
-
         private void AugmentedClosableBorder_SizeChanged(object sender, SizeChangedEventArgs e)
     {
             Logging.Debug("not implemented");
@@ -175,7 +168,6 @@ namespace Utilities.GUI
         {
             Logging.Debug("not implemented");
         }
-
 
         public string GetIdPath()
         {

@@ -9,7 +9,7 @@ using Utilities.GUI;
 
 namespace Qiqqa.Common.GUI
 {
-    public class ScreenSize
+    public static class ScreenSize
     {
         private static Rect? screen_bounds = null;
 
@@ -84,7 +84,7 @@ namespace Qiqqa.Common.GUI
             Rect rv = new Rect();
 
             rv.X = ClipValueToRange(x, screen.X, screen.X + screen.Width);
-            rv.Y = ClipValueToRange(x, screen.X, screen.X + screen.Width);
+            rv.Y = ClipValueToRange(y, screen.Y, screen.Y + screen.Height);
             rv.Width = ClipValueToRange(w, 0, screen.Width);
             rv.Height = ClipValueToRange(h, 0, screen.Height);
             return rv;

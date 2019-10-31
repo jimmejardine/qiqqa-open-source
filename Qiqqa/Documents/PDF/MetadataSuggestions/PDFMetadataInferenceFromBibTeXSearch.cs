@@ -157,7 +157,7 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
                     WebHeaderCollection header_collection;
                     Stopwatch clk = Stopwatch.StartNew();
 
-                    using (MemoryStream ms = UrlDownloader.DownloadWithBlocking(ConfigurationManager.Instance.Proxy, url, out header_collection))
+                    using (MemoryStream ms = UrlDownloader.DownloadWithBlocking(url, out header_collection))
                     { 
                         bibtex_search_server_manager.ReportLatency(url_server, clk.ElapsedMilliseconds);
                         Logging.Debug特("bibtex_search_server_manager: Download {0} took {1} ms", url, clk.ElapsedMilliseconds);

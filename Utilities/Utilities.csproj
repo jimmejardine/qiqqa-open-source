@@ -284,6 +284,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ComputerStatistics.cs" />
+    <Compile Include="Configuration\Configuration.cs" />
     <Compile Include="ConsoleRedirector\ConsoleForm.cs">
       <SubType>Form</SubType>
     </Compile>

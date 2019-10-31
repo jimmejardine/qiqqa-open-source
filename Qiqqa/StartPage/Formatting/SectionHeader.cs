@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿#if false
+
+using System.Reflection;
 using System.Windows.Documents;
 using System.Windows.Media;
 
@@ -15,3 +17,5 @@ namespace Qiqqa.StartPage.Formatting
         }
     }
 }
+
+#endif

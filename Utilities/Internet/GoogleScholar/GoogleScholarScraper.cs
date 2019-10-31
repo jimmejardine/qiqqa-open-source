@@ -39,7 +39,7 @@ namespace Utilities.Internet.GoogleScholar
             return gssps;
         }
 
-        public static List<GoogleScholarScrapePaper> ScrapeUrl(IWebProxy proxy, string url)
+        public static List<GoogleScholarScrapePaper> ScrapeUrl(string url)
         {
             List<GoogleScholarScrapePaper> gssps = new List<GoogleScholarScrapePaper>();
 
@@ -47,7 +47,7 @@ namespace Utilities.Internet.GoogleScholar
             {
                 WebHeaderCollection header_collection = new WebHeaderCollection();
 
-                using (MemoryStream ms = UrlDownloader.DownloadWithBlocking(proxy, url, out header_collection))
+                using (MemoryStream ms = UrlDownloader.DownloadWithBlocking(url, out header_collection))
                 { 
                     HtmlDocument doc = new HtmlDocument();
                     doc.Load(ms, System.Text.Encoding.UTF8, detectEncodingFromByteOrderMarks: false);

@@ -124,6 +124,10 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
         private Library library;        
         public Library Library
         {
+            get
+            {
+                return library;
+            }
             set
             {
                 if (null != library)

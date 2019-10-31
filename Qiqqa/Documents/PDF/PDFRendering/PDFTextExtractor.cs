@@ -108,6 +108,8 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 pdf_text_extractor.RecordThatJobHasStarted_LOCK(this, queue_lock_reminder);
             }
 
+            #region --- IDisposable ------------------------------------------------------------------------
+
             ~NextJob()
             {
                 Logging.Debug("~NextJob()");
@@ -121,15 +123,12 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 GC.SuppressFinalize(this);
             }
 
-#if DIAG
             private int dispose_count = 0;
-#endif
-            private void Dispose(bool disposing)
+            protected virtual void Dispose(bool disposing)
             {
-#if DIAG
-                Logging.Debug("NextJob::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
-#endif
-                if (disposing)
+                Logging.Debug("NextJob::Dispose({0}) @{1}", disposing, dispose_count);
+
+                if (dispose_count == 0)
                 {
                     // Notify that this job is done...
                     pdf_text_extractor.RecordThatJobHasCompleted(this);
@@ -140,8 +139,10 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 pdf_text_extractor = null;
                 job = null;
 
-                // Get rid of unmanaged resources 
+                ++dispose_count;
             }
+
+            #endregion
 
             /// <summary>
             /// Use this for getting a unique token for the job+page
@@ -287,13 +288,13 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             // No similar job is running...
             return false;
         }
-        
+
         private DateTime ocr_disabled_next_notification_time = DateTime.MinValue;
 
         const double TARGET_RATIO = 1.0;
         // add noise to the ratio to ensure that the status update, which lists the counts, shows the activity by the numbers going up and down as the user watches
-		private int prev_ocr_count = 0;
-		private int prev_textify_count = 0;
+        private int prev_ocr_count = 0;
+        private int prev_textify_count = 0;
 
         private NextJob GetNextJob()
         {
@@ -309,32 +310,32 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                     int ocr_count = job_queue_single.Count;
                     int textify_count = job_queue_group.Count;
                     double current_ratio = (ocr_count + 1) * (1.0 / (textify_count + 1));
-                    
-					// noise the target ratio: choose such that the user will observe the numbers changing most often
-					//					
-					// if the current_ratio is below par, we want to pick a textify job first,
-					// but if its number has been bumped by +1 since last time, we go for another job first instead
-					// as otherwise the user would observe a 'stuck count' while a lot of work is being done.
-					// (and vice versa of course for current_ratio above par)
-					//
+
+                    // noise the target ratio: choose such that the user will observe the numbers changing most often
+                    //					
+                    // if the current_ratio is below par, we want to pick a textify job first,
+                    // but if its number has been bumped by +1 since last time, we go for another job first instead
+                    // as otherwise the user would observe a 'stuck count' while a lot of work is being done.
+                    // (and vice versa of course for current_ratio above par)
+                    //
                     if (current_ratio <= TARGET_RATIO)
                     {
-						if (prev_textify_count == textify_count - 1)
-						{
-							current_ratio = TARGET_RATIO + 0.1;
-						}
-					}
-					else
-					{
-						if (prev_ocr_count == ocr_count - 1)
-						{
-							current_ratio = TARGET_RATIO - 0.1;
-						}
-					}
+                        if (prev_textify_count == textify_count - 1)
+                        {
+                            current_ratio = TARGET_RATIO + 0.1;
+                        }
+                    }
+                    else
+                    {
+                        if (prev_ocr_count == ocr_count - 1)
+                        {
+                            current_ratio = TARGET_RATIO - 0.1;
+                        }
+                    }
 
-					prev_textify_count = textify_count;
-					prev_ocr_count = ocr_count;
-					
+                    prev_textify_count = textify_count;
+                    prev_ocr_count = ocr_count;
+
                     if (current_ratio <= TARGET_RATIO)
                     {
                         // First look for any GROUP jobs                
@@ -544,7 +545,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                         long clk_duration;
                         {
                             Stopwatch clk = new Stopwatch();
-							clk.Start();
+                            clk.Start();
 
                             // Relinquish control to the UI thread to make sure responsiveness remains tolerable at 100% CPU load.
                             Utilities.GUI.WPFDoEvents.WaitForUIThreadActivityDone();
@@ -560,7 +561,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                             || ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks
                             )
                         {
-                            Logging.Warn("Recheck job queue after WaitForUIThreadActivityDone took {0}ms or shutdown/dealy signals were detected: {1}/{2}/{3}/{4}.", 
+                            Logging.Warn("Recheck job queue after WaitForUIThreadActivityDone took {0}ms or shutdown/dealy signals were detected: {1}/{2}/{3}/{4}.",
                                 clk_duration,
                                 (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown || !StillRunning) ? "+Shutdown+" : "-SD-",
                                 clk_duration > 100 ? "+UI-wait+" : "-UI-",

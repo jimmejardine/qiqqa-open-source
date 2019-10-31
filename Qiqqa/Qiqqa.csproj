@@ -483,6 +483,7 @@
     <Compile Include="Common\GeneralTaskDaemonStuff\GeneralTaskDaemon.cs" />
     <Compile Include="Common\GUI\ListFormattingTools.cs" />
     <Compile Include="Common\GUI\StandardFlowDocument.cs" />
+    <Compile Include="Common\GUI\ToopTipValueConverter.cs" />
     <Compile Include="Common\LibraryPickerStuff\LibraryPickerTextBoxControl.xaml.cs">
       <DependentUpon>LibraryPickerTextBoxControl.xaml</DependentUpon>
     </Compile>
@@ -506,6 +507,7 @@
     <Compile Include="Common\TagManagement\TagEditorItemControl.xaml.cs">
       <DependentUpon>TagEditorItemControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\TagManagement\TagListConverter.cs" />
     <Compile Include="Common\TagManagement\TagTools.cs" />
     <Compile Include="Common\TagManagement\TestControl.xaml.cs">
       <DependentUpon>TestControl.xaml</DependentUpon>

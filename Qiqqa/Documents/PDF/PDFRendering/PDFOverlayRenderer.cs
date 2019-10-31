@@ -103,7 +103,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
             using (Graphics graphics = Graphics.FromImage(image))
             {
-                foreach (PDFAnnotation pdf_annotation in pdf_document.Annotations)
+                foreach (PDFAnnotation pdf_annotation in pdf_document.GetAnnotations())
                 {
                     if (pdf_annotation.Deleted)
                     {
@@ -149,10 +149,12 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                     encoder.Frames.Add(BitmapFrame.Create(ink_image));
                     encoder.Save(ms);
 
-                    Bitmap bitmap = new Bitmap(ms);
-                    using (Graphics graphics = Graphics.FromImage(image))
+                    using (Bitmap bitmap = new Bitmap(ms))
                     {
-                        graphics.DrawImage(bitmap, 0, 0, image.Width, image.Height);
+                        using (Graphics graphics = Graphics.FromImage(image))
+                        {
+                            graphics.DrawImage(bitmap, 0, 0, image.Width, image.Height);
+                        }
                     }
                 }
             }

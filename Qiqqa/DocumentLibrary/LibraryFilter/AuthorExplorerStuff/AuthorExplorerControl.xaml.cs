@@ -38,6 +38,10 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AuthorExplorerStuff
 
         public Library Library
         {
+            get
+            {
+                return library;
+            }
             set
             {
                 this.library = value;

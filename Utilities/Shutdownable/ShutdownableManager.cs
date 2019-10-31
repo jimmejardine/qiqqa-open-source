@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Windows;
 
@@ -80,7 +81,7 @@ namespace Utilities.Shutdownable
                 lock (shutdown_delegates_lock)
                 {
                     l1_clk.LockPerfTimerStop();
-                    if (0 == shutdown_delegates.Count) break;
+                    if (!shutdown_delegates.Any()) break;
                     shutdown_delegate = shutdown_delegates[0];
                     shutdown_delegates.RemoveAt(0);
                 }

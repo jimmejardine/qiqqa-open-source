@@ -16,7 +16,7 @@ using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.Exporting
 {
-    public class LibraryExporter
+    public static class LibraryExporter
     {
         public static void Export(Library library, List<PDFDocument> pdf_documents)
         {

@@ -37,10 +37,11 @@ namespace Utilities.ProcessTools
         }
 
         private int dispose_count = 0;
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            Logging.Debug("ProcessOutputReader::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
-            if (disposing)
+            Logging.Debug("ProcessOutputReader::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
             {
                 // Get rid of managed resources
                 process.CancelErrorRead();
@@ -52,7 +53,7 @@ namespace Utilities.ProcessTools
 
             process = null;
 
-            // Get rid of unmanaged resources 
+            ++dispose_count;
         }
 
         // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

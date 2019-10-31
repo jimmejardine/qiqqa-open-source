@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if false
+
+using System;
 
 namespace Qiqqa.Brainstorm.Nodes
 {
@@ -10,3 +12,5 @@ namespace Qiqqa.Brainstorm.Nodes
     {
     }
 }
+
+#endif

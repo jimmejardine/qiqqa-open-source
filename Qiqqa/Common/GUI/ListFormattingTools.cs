@@ -14,8 +14,18 @@ using Utilities.GUI;
 
 namespace Qiqqa.Common.GUI
 {
-    public class ListFormattingTools
+    public static class ListFormattingTools
     {
+        //
+        // Warning CA1001  Implement IDisposable on 'ListFormattingTools::DocumentTextBlockTag' because it creates 
+        // members of the following IDisposable types: 'LibraryIndexHoverPopup'. 
+        // If 'ListFormattingTools::DocumentTextBlockTag' has previously shipped, adding new members that implement 
+        // IDisposable to this type is considered a breaking change to existing consumers.
+        //
+        // Note from GHO: that object is already managed through the sequence of tooltip_open and tooltip_close 
+        // handlers below and is currently not considered a memory leak risk for https://github.com/jimmejardine/qiqqa-open-source/issues/19
+        // and there-abouts.
+
         public class DocumentTextBlockTag
         {
             public PDFDocument pdf_document;
@@ -24,22 +34,7 @@ namespace Qiqqa.Common.GUI
             public LibraryIndexHoverPopup library_index_hover_popup = null;
         }
 
-        public static TextBlock GetDocumentTextBlock(PDFDocument pdf_document, ref bool alternator, Feature feature)
-        {
-            return GetDocumentTextBlock(pdf_document, ref alternator, feature, null, "", null);
-        }
-
-        public static TextBlock GetDocumentTextBlock(PDFDocument pdf_document, ref bool alternator, Feature feature, MouseButtonEventHandler mouse_down)
-        {
-            return GetDocumentTextBlock(pdf_document, ref alternator, feature, mouse_down, "", null);
-        }
-
-        public static TextBlock GetDocumentTextBlock(PDFDocument pdf_document, ref bool alternator, Feature feature, MouseButtonEventHandler mouse_down, string prefix)
-        {
-            return GetDocumentTextBlock(pdf_document, ref alternator, feature, mouse_down, prefix, null);
-        }
-        
-        public static TextBlock GetDocumentTextBlock(PDFDocument pdf_document, ref bool alternator, Feature feature, MouseButtonEventHandler mouse_down, string prefix, object additional_tag)
+        public static TextBlock GetDocumentTextBlock(PDFDocument pdf_document, ref bool alternator, Feature feature, MouseButtonEventHandler mouse_down = null, string prefix = "", object additional_tag = null)
         {
             string header = GetPDFDocumentDescription(pdf_document, null);
 
@@ -160,6 +155,7 @@ namespace Qiqqa.Common.GUI
 
             tag.library_index_hover_popup?.Dispose();
             tag.library_index_hover_popup = null;
+
             text_block.ToolTip = "";
         }
 

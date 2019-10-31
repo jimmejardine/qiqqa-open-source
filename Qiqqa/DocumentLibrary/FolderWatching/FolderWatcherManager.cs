@@ -61,7 +61,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 #if DIAG
         private int dispose_count = 0;
 #endif
-        internal void Dispose()
+        public void Dispose()
         {
 #if DIAG
             Logging.Debug("FolderWatcherManager::Dispose() @{0}", ++dispose_count);

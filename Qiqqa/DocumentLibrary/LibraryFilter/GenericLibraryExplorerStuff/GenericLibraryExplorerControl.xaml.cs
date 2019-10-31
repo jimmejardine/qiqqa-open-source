@@ -31,7 +31,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
     /// </summary>
     public partial class GenericLibraryExplorerControl : UserControl
     {
-        public static string YOU_CAN_FILTER_TOOLTIP = "\n\nYou can filter documents that contain them by clicking on one or more of the checkboxes to the left.\nIf you have selected 'AND' above, then a document must have all the items to be shown.\nIf you have selected 'OR', then a document must have any of the items to be shown.\nIf 'NOT' is selected, then the inverse of the filtered documents are shown.";
+        public static readonly string YOU_CAN_FILTER_TOOLTIP = "\n\nYou can filter documents that contain them by clicking on one or more of the checkboxes to the left.\nIf you have selected 'AND' above, then a document must have all the items to be shown.\nIf you have selected 'OR', then a document must have any of the items to be shown.\nIf 'NOT' is selected, then the inverse of the filtered documents are shown.";
 
         private string description_title = "";
         private Library library = null;

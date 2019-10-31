@@ -1,11 +1,12 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using Utilities.GUI.Animation;
 
 namespace Utilities.GUI
 {
-    public class BackgroundFader
+    public class BackgroundFader : IDisposable
     {
         UserControl control;
         Color color_focussed;
@@ -37,5 +38,43 @@ namespace Utilities.GUI
         {
             this.control.Background = Animations.GetAnimatedBrush(color_focussed, color_unfocussed, 1000);
         }
+
+        #region --- IDisposable ------------------------------------------------------------------------
+
+        ~BackgroundFader()
+        {
+            Logging.Debug("~BackgroundFader()");
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Logging.Debug("Disposing BackgroundFader");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected virtual void Dispose(bool disposing)
+        {
+            Logging.Debug("BackgroundFader::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
+            {
+                // Get rid of managed resources / get rid of cyclic references:
+                if (null != this.control)
+                {
+                    this.control.MouseEnter -= DocumentNodeContentControl_MouseEnter;
+                    this.control.MouseLeave -= DocumentNodeContentControl_MouseLeave;
+                }
+            }
+
+            this.control = null;
+
+            ++dispose_count;
+        }
+
+        #endregion
+
     }
 }

@@ -54,8 +54,8 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         bool concise_view = false;
 
         private static readonly string READONLY_BLURB = "You have only read-only access to this library.  Any changes or annotations you make are likely to be overwritten the next time you sync.";
-        private static readonly double BACKGROUND_IMAGE_OPACITY_INACTIVE = 0.1;
-        private static readonly double BACKGROUND_IMAGE_OPACITY_ACTIVE = 0.3;
+        private const double BACKGROUND_IMAGE_OPACITY_INACTIVE = 0.1;
+        private const double BACKGROUND_IMAGE_OPACITY_ACTIVE = 0.3;
 
         public WebLibraryDetailControl(bool concise_view, bool open_cover_flow, WebLibraryListControl.WebLibrarySelectedDelegate web_library_selected_delegate)
         {
@@ -982,6 +982,8 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         }
     }
 
+    #region --- Useful ancilliary classes ------------
+
     public class ChartItem
     {
         public string Title { get; set; }
@@ -1010,4 +1012,5 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         }
     }
 
+    #endregion
 }

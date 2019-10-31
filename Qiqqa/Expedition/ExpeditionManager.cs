@@ -27,6 +27,7 @@ namespace Qiqqa.Expedition
         }
 
         public delegate void RebuiltExpeditionCompleteDelegate();
+        
         public void RebuildExpedition(int num_topics, bool add_autotags, bool add_tags, RebuiltExpeditionCompleteDelegate rebuiltexpeditioncompletedelegate)
         {
             Logging.Info("+Rebuilding Expedition");

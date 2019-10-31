@@ -246,7 +246,7 @@ namespace Utilities.GUI
             }
         }
 
-        private bool _AutoScaleText = true;
+        private bool _AutoScaleText = false;
         public bool AutoScaleText {
             get
             {

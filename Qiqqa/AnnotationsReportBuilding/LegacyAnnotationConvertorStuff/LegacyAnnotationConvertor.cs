@@ -14,7 +14,7 @@ namespace Qiqqa.AnnotationsReportBuilding.LegacyAnnotationConvertorStuff
     {
         public static void ForgetLegacyAnnotations(PDFDocument pdf_document)
         {
-            foreach (PDFAnnotation pdf_annotation in pdf_document.Annotations)
+            foreach (PDFAnnotation pdf_annotation in pdf_document.GetAnnotations())
             {
                 if (pdf_annotation.Legacy && !pdf_annotation.Deleted)
                 {
@@ -51,7 +51,7 @@ namespace Qiqqa.AnnotationsReportBuilding.LegacyAnnotationConvertorStuff
                             {
                                 // Check if we already have this annotation
                                 PDFAnnotation matching_existing_pdf_annotation = null;
-                                foreach (PDFAnnotation existing_pdf_annotation in pdf_document.Annotations)
+                                foreach (PDFAnnotation existing_pdf_annotation in pdf_document.GetAnnotations())
                                 {
                                     if (true
                                         && existing_pdf_annotation.Page == pdf_annotation.Page
@@ -67,7 +67,7 @@ namespace Qiqqa.AnnotationsReportBuilding.LegacyAnnotationConvertorStuff
                                 if (null == matching_existing_pdf_annotation)
                                 {
                                     // Add it to the PDFDocument
-                                    pdf_document.Annotations.AddUpdatedAnnotation(pdf_annotation);
+                                    pdf_document.GetAnnotations().AddUpdatedAnnotation(pdf_annotation);
                                     imported_count++;
                                 }
                                 else

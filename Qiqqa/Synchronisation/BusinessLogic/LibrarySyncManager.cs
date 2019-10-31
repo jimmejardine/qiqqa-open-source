@@ -39,8 +39,8 @@ namespace Qiqqa.Synchronisation.BusinessLogic
             /**
              * This will autotick just the specified library.
              */
-            public SyncRequest(bool wants_user_intervention, Library library, bool sync_metadata, bool sync_pdfs, bool suppress_already_in_progress_notification) : 
-                this(wants_user_intervention, new List<Library>(new Library[] {library}), sync_metadata, sync_pdfs, suppress_already_in_progress_notification)
+            public SyncRequest(bool wants_user_intervention, Library library, bool sync_metadata, bool sync_pdfs, bool suppress_already_in_progress_notification) :
+                this(wants_user_intervention, new List<Library>(new Library[] { library }), sync_metadata, sync_pdfs, suppress_already_in_progress_notification)
             {
             }
 
@@ -65,34 +65,56 @@ namespace Qiqqa.Synchronisation.BusinessLogic
 
         internal void RefreshSyncControl(SyncControlGridItemSet scgis_previous, SyncControl sync_control)
         {
-            GlobalSyncDetail global_sync_detail = GenerateGlobalSyncDetail();
-            SyncControlGridItemSet scgis = new SyncControlGridItemSet(scgis_previous.sync_request, global_sync_detail);
-            scgis.AutoTick();
-            sync_control.SetSyncParameters(scgis);
+            WPFDoEvents.SetHourglassCursor();
+
+            SafeThreadPool.QueueUserWorkItem(o =>
+            {
+                GlobalSyncDetail global_sync_detail = GenerateGlobalSyncDetail();
+                WPFDoEvents.InvokeInUIThread(() =>
+                {
+                    WPFDoEvents.ResetHourglassCursor();
+
+                    SyncControlGridItemSet scgis = new SyncControlGridItemSet(scgis_previous.sync_request, global_sync_detail);
+                    scgis.AutoTick();
+                    sync_control.SetSyncParameters(scgis);
+                });
+            });
         }
 
         public void RequestSync(SyncRequest sync_request)
         {
             bool user_wants_intervention = KeyboardTools.IsCTRLDown() || !ConfigurationManager.Instance.ConfigurationRecord.SyncTermsAccepted;
 
-            GlobalSyncDetail global_sync_detail = GenerateGlobalSyncDetail();
-            SyncControlGridItemSet scgis = new SyncControlGridItemSet(sync_request, global_sync_detail);
-            scgis.AutoTick();
+            WPFDoEvents.SetHourglassCursor();
 
-            if (scgis.CanRunWithoutIntervention() && !user_wants_intervention)
+            SafeThreadPool.QueueUserWorkItem(o =>
             {
-                Sync(scgis);
-            }
-            else
-            {
-                SyncControl sync_control = new SyncControl();
-                sync_control.SetSyncParameters(scgis);
-                sync_control.Show();
-            }
+                GlobalSyncDetail global_sync_detail = GenerateGlobalSyncDetail();
+                WPFDoEvents.InvokeInUIThread(() =>
+                {
+                    WPFDoEvents.ResetHourglassCursor();
+
+                    SyncControlGridItemSet scgis = new SyncControlGridItemSet(sync_request, global_sync_detail);
+                    scgis.AutoTick();
+
+                    if (scgis.CanRunWithoutIntervention() && !user_wants_intervention)
+                    {
+                        Sync(scgis);
+                    }
+                    else
+                    {
+                        SyncControl sync_control = new SyncControl();
+                        sync_control.SetSyncParameters(scgis);
+                        sync_control.Show();
+                    }
+                });
+            });
         }
 
-        internal GlobalSyncDetail GenerateGlobalSyncDetail()
+        internal static GlobalSyncDetail GenerateGlobalSyncDetail()
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             try
             {
                 GlobalSyncDetail global_sync_detail = new GlobalSyncDetail();
@@ -120,7 +142,7 @@ namespace Qiqqa.Synchronisation.BusinessLogic
                         library_sync_detail.local_library_sync_detail = GetLocalLibrarySyncDetail(library_sync_detail.web_library_detail.library);
                     }
                 }
-                
+
                 // Work out if they are allowed to sync this record
                 StatusManager.Instance.UpdateStatusBusy(StatusCodes.SYNC_META_GLOBAL, String.Format("Determining sync allowances"));
                 foreach (LibrarySyncDetail library_sync_detail in global_sync_detail.library_sync_details)
@@ -129,11 +151,8 @@ namespace Qiqqa.Synchronisation.BusinessLogic
                     library_sync_detail.sync_decision = new LibrarySyncDetail.SyncDecision();
                     library_sync_detail.sync_decision.can_sync_metadata = true;
 
-                    // Else initiator
-                    if (false) { }
-
                     // Never guests
-                    else if (library_sync_detail.web_library_detail.IsLocalGuestLibrary)
+                    if (library_sync_detail.web_library_detail.IsLocalGuestLibrary)
                     {
                         library_sync_detail.sync_decision.can_sync = false;
                         library_sync_detail.sync_decision.can_sync_metadata = false;
@@ -177,6 +196,8 @@ namespace Qiqqa.Synchronisation.BusinessLogic
 
         private static LibrarySyncDetail.LocalLibrarySyncDetail GetLocalLibrarySyncDetail(Library library)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             LibrarySyncDetail.LocalLibrarySyncDetail local_library_sync_detail = new LibrarySyncDetail.LocalLibrarySyncDetail();
 
             List<PDFDocument> pdf_documents = library.PDFDocuments_IncludingDeleted;
@@ -196,11 +217,7 @@ namespace Qiqqa.Synchronisation.BusinessLogic
                     }
 
                     // We can only really tally up the documents that exist locally
-                    if (pdf_document.DocumentExists)
-                    {
-                        long document_size = (new FileInfo(pdf_document.DocumentPath)).Length;
-                        local_library_sync_detail.total_library_size += document_size;
-                    }
+                    local_library_sync_detail.total_library_size += pdf_document.DocumentSizeInBytes;
                 }
                 catch (Exception ex)
                 {
@@ -326,7 +343,7 @@ namespace Qiqqa.Synchronisation.BusinessLogic
 
             Logging.Info("Queueing {0} PDF download requests.", total_downloads_requested);
         }
-        
+
         private void SynchronizeDocuments_Upload_INTERNAL_BACKGROUND(Library library, List<PDFDocument> pdf_documents, bool is_readonly)
         {
             // TODO: Replace this with a pretty interface class ------------------------------------------------

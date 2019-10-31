@@ -11,9 +11,9 @@ using Utilities.Strings;
 
 namespace Qiqqa.Expedition
 {
-    public class ExpeditionBuilder
+    public static class ExpeditionBuilder
     {
-        private static readonly int MAX_TOPIC_ITERATIONS = 30;
+        private const int MAX_TOPIC_ITERATIONS = 30;
         
         /// <summary>
         /// Return TRUE to keep going.  FALSE to abort...

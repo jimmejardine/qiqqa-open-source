@@ -456,7 +456,7 @@ namespace Qiqqa.AnnotationsReportBuilding
             Run run = (Run)sender;
             PDFAnnotation pdf_annotation = (PDFAnnotation)run.Tag;
             PDFAnnotationEditorControl pdf_annotation_editor_control = new PDFAnnotationEditorControl();
-            pdf_annotation_editor_control.PDFAnnotation = pdf_annotation;
+            pdf_annotation_editor_control.SetAnnotation(pdf_annotation);
 
             AugmentedToolWindow pdf_annotation_editor_control_popup = new AugmentedToolWindow(pdf_annotation_editor_control, "Edit Annotation");
             pdf_annotation_editor_control_popup.IsOpen = true;

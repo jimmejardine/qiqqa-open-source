@@ -16,6 +16,7 @@ using Utilities.Strings;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+using UConf = Utilities.Configuration;
 
 namespace Qiqqa.Common.Configuration
 {
@@ -128,7 +129,19 @@ namespace Qiqqa.Common.Configuration
         private ConfigurationManager()
         {
             ShutdownableManager.Instance.Register(Shutdown);
+
+            UConf.OnBeingAccessed += Configuration_OnBeingAccessed;
+
             ResetConfigurationRecordToGuest();
+        }
+
+        static private void Configuration_OnBeingAccessed()
+        {
+            // The Utilities configuration record was accessed for the first time. 
+            //
+            // Fill all its settings:
+            UConf.WebUserAgent = ConfigurationManager.Instance.ConfigurationRecord.GetWebUserAgent();
+            UConf.Proxy = ConfigurationManager.Instance.Proxy;
         }
 
         void Shutdown()

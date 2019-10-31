@@ -57,7 +57,7 @@ namespace Qiqqa.Backups
             {
                 var files_in_folder = Directory.EnumerateFiles(target_directory);
 
-                if (0 < files_in_folder.Count())
+                if (files_in_folder.Any())
                 {
                     if (!MessageBoxes.AskQuestion("You are about to overwrite {0} with this restore.  Files already in that directory may be overwritten.  Are you sure you want to continue with your restore?", target_directory))
                     {

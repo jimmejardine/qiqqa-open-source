@@ -20,7 +20,7 @@ using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary
 {
-    public class ImportingIntoLibrary
+    public static class ImportingIntoLibrary
     {
         static ImportingIntoLibrary()
         {
@@ -319,23 +319,21 @@ namespace Qiqqa.DocumentLibrary
 
             try
             {
-                HttpWebRequest web_request = (HttpWebRequest)HttpWebRequest.Create(download_url);
+                HttpWebRequest web_request = (HttpWebRequest)HttpWebRequest.Create(new Uri(download_url));
                 web_request.Proxy = ConfigurationManager.Instance.Proxy;
                 web_request.Method = "GET";
                 web_request.AllowAutoRedirect = true;
                 // https://stackoverflow.com/questions/21728773/the-underlying-connection-was-closed-an-unexpected-error-occurred-on-a-receiv
                 // also: https://stackoverflow.com/questions/21481682/httpwebrequest-the-underlying-connection-was-closed-the-connection-was-closed
                 web_request.KeepAlive = false;
-                // https://stackoverflow.com/questions/47269609/system-net-securityprotocoltype-tls12-definition-not-found
-                //
-                // Allow ALL protocols?
-                // ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls | SecurityProtocolType.Tls;
-                ServicePointManager.SecurityProtocol = (SecurityProtocolType)(0xc0 | 0x300 | 0xc00) | SecurityProtocolType.Ssl3;
+                // Allow ALL protocols
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12 | SecurityProtocolType.Ssl3;
 
                 // same headers as sent by modern Chrome.
                 // Gentlemen, start your prayer wheels!
                 web_request.Headers.Add("Cache-Control", "no-cache");
                 web_request.Headers.Add("Pragma", "no-cache");
+                web_request.UserAgent = ConfigurationManager.Instance.ConfigurationRecord.GetWebUserAgent();
 
                 using (HttpWebResponse web_response = (HttpWebResponse)web_request.GetResponse())
                 {

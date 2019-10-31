@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.ComponentModel;
+using System.Windows;
 using icons;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Common.GUI;
@@ -36,6 +38,16 @@ namespace Qiqqa.Main.LogoutStuff
         {
             this.DialogResult = true;
             this.Close();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
         }
     }
 }

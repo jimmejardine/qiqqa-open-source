@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -14,7 +15,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
     /// <summary>
     /// Interaction logic for PDFSearchLayer.xaml
     /// </summary>
-    public partial class PDFSearchLayer : PageLayer
+    public partial class PDFSearchLayer : PageLayer, IDisposable
     {
         PDFRendererControlStats pdf_renderer_control_stats;
         int page;
@@ -31,7 +32,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
             Background = Brushes.Transparent;
 
             this.SizeChanged += PDFSearchLayer_SizeChanged;
-            
         }
 
         void PDFSearchLayer_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -134,12 +134,46 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
             return null;
         }
 
-        internal override void Dispose()
-        {
-            Logging.Debug("PDFSearchLayer::Dispose()");
+        #region --- IDisposable ------------------------------------------------------------------------
 
+        ~PDFSearchLayer()
+        {
+            Logging.Debug("~PDFSearchLayer()");
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Logging.Debug("Disposing PDFSearchLayer");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected override void Dispose(bool disposing)
+        {
+            Logging.Debug("PDFSearchLayer::Dispose({0}) @{1}", disposing, dispose_count);
+
+                foreach (var el in Children)
+                {
+                    IDisposable node = el as IDisposable;
+                    node.Dispose();
+                }
+
+            Children.Clear();
+
+            // Clear the references for sanity's sake
             pdf_renderer_control_stats = null;
             search_result_set = null;
+
+            this.DataContext = null;
+
+            ++dispose_count;
+
+            //base.Dispose(disposing);     // parent only throws an exception (intentionally), so depart from best practices and don't call base.Dispose(bool)
         }
+
+        #endregion
+
     }
 }

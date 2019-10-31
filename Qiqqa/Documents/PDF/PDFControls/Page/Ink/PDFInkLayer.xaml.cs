@@ -15,7 +15,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
     /// <summary>
     /// Interaction logic for InkLayer.xaml
     /// </summary>
-    public partial class PDFInkLayer : PageLayer
+    public partial class PDFInkLayer : PageLayer, IDisposable
     {
         PDFRendererControlStats pdf_renderer_control_stats;
         int page;
@@ -142,11 +142,55 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
             ObjInkCanvas.DefaultDrawingAttributes = drawingAttributes;
         }
 
-        internal override void Dispose()
-        {
-            Logging.Debug("PDFInkLayer::Dispose()");
+        #region --- IDisposable ------------------------------------------------------------------------
 
-            pdf_renderer_control_stats = null;
+        ~PDFInkLayer()
+        {
+            Logging.Debug("~PDFInkLayer()");
+            Dispose(false);
         }
+
+        public void Dispose()
+        {
+            Logging.Debug("Disposing PDFInkLayer");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected override void Dispose(bool disposing)
+        {
+            Logging.Debug("PDFInkLayer::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (0 == dispose_count)
+            {
+                ObjInkCanvas.StrokeCollected -= ObjInkCanvas_StrokeCollected;
+                ObjInkCanvas.StrokeErased -= ObjInkCanvas_StrokeErased;
+                ObjInkCanvas.SelectionMoved -= ObjInkCanvas_SelectionMoved;
+                ObjInkCanvas.SelectionResized -= ObjInkCanvas_SelectionResized;
+
+                ObjInkCanvas.RequestBringIntoView -= ObjInkCanvas_RequestBringIntoView;
+            }
+
+            foreach (var el in Children)
+            {
+                IDisposable node = el as IDisposable;
+                node.Dispose();
+            }
+
+            Children.Clear();
+
+            // Clear the references for sanity's sake
+            pdf_renderer_control_stats = null;
+
+            this.DataContext = null;
+
+            ++dispose_count;
+
+            //base.Dispose(disposing);     // parent only throws an exception (intentionally), so depart from best practices and don't call base.Dispose(bool)
+        }
+
+        #endregion
+
     }
 }

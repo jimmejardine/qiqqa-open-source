@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.ComponentModel;
+using System.Windows;
 using System.Windows.Forms;
 using icons;
 using Qiqqa.Common.GUI;
@@ -85,6 +87,16 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             WebLibraryManager.Instance.NotifyOfChangeToWebLibraryDetail();
 
             this.Close();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows;
 using icons;
 using Qiqqa.Common.Configuration;
@@ -98,8 +99,8 @@ namespace Qiqqa.AnnotationsReportBuilding
             ListTags.Focus();
         }
 
-
         public delegate void OnShowTagOptionsCompleteDelegate(Library library, List<PDFDocument> pdf_documents, AnnotationReportOptions annotation_report_options);
+
         Library library;
         List<PDFDocument> pdf_documents;
         OnShowTagOptionsCompleteDelegate OnShowTagOptionsComplete;
@@ -120,7 +121,7 @@ namespace Qiqqa.AnnotationsReportBuilding
                     continue;
                 }
 
-                foreach (var pdf_annotation in pdf_document.Annotations)
+                foreach (var pdf_annotation in pdf_document.GetAnnotations())
                 {
                     if (pdf_annotation.Deleted)
                     {
@@ -196,6 +197,16 @@ namespace Qiqqa.AnnotationsReportBuilding
             }
 
             return final_tags;
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
         }
     }
 }

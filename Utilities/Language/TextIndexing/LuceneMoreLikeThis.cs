@@ -550,7 +550,7 @@ namespace Utilities.Language.TextIndexing
                 return Like(rdr);
             }
         }
-		
+
         /// <summary> Return a query that will return docs like the passed URL.
         /// 
         /// </summary>
@@ -558,7 +558,19 @@ namespace Utilities.Language.TextIndexing
         /// </returns>
         public Query Like(Uri u)
         {
-            WebRequest req = HttpWebRequest.Create(u);
+            HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(u);
+            req.Proxy = Configuration.Proxy;
+            req.Method = "GET";
+            req.AllowAutoRedirect = true;
+            // Allow ALL protocols
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12 | SecurityProtocolType.Ssl3;
+
+            // same headers as sent by modern Chrome.
+            // Gentlemen, start your prayer wheels!
+            req.Headers.Add("Cache-Control", "no-cache");
+            req.Headers.Add("Pragma", "no-cache");
+            req.UserAgent = Configuration.WebUserAgent;
+
             using (WebResponse resp = req.GetResponse())
             {
                 using (Stream s = resp.GetResponseStream())

@@ -18,9 +18,9 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.PDFDocumentTagCloudStuff
         public event TagClickDelegate TagClick;
 
         static readonly Thickness TEXT_BLOCK_PADDING = new Thickness(2, 1, 2, 1);
-        static readonly int TEXT_BLOCK_FONT_SIZE = 24;
-        static readonly int TEXT_BLOCK_FONT_SIZE_MINIMUM = 12;
-        
+        const int TEXT_BLOCK_FONT_SIZE = 24;
+        const int TEXT_BLOCK_FONT_SIZE_MINIMUM = 12;
+
         public TagCloudRendererControl()
         {
             Theme.Initialize();
@@ -29,55 +29,52 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.PDFDocumentTagCloudStuff
         }
 
         List<TagCloudEntry> entries;
-        public List<TagCloudEntry> Entries
+        public void SpecifyEntries(List<TagCloudEntry> _entries)
         {
-            set
+            entries = _entries;
+
+            TagPanel.Children.Clear();
+
+            if (0 != entries.Count)
             {
-                entries = value;
+                double largest_prob = entries[0].importance;
+                if (0 == largest_prob) largest_prob = 1;
 
-                TagPanel.Children.Clear();
-
-                if (0 != entries.Count)
+                for (int i = 0; i < 30 && i < entries.Count; ++i)
                 {
-                    double largest_prob = entries[0].importance;
-                    if (0 == largest_prob) largest_prob = 1;
-                    
-                    for (int i = 0; i < 30 && i < entries.Count; ++i)
-                    {
-                        TextBlock text_block_word = new TextBlock();                        
-                        text_block_word.Padding = TEXT_BLOCK_PADDING;
-                        text_block_word.FontSize = Math.Max(TEXT_BLOCK_FONT_SIZE * entries[i].importance / largest_prob, TEXT_BLOCK_FONT_SIZE_MINIMUM);
-                        text_block_word.Tag = entries[i];
-                        text_block_word.Text = entries[i].word;
-                        text_block_word.Cursor = Cursors.Hand;
-                        text_block_word.ToolTip = String.Format("'{0}' appears {1} time(s) in this paper and in {2} paper(s) in your library.", entries[i].word, entries[i].word_count, entries[i].document_count);
-                        text_block_word.MouseUp += text_block_word_MouseUp;
+                    TextBlock text_block_word = new TextBlock();
+                    text_block_word.Padding = TEXT_BLOCK_PADDING;
+                    text_block_word.FontSize = Math.Max(TEXT_BLOCK_FONT_SIZE * entries[i].importance / largest_prob, TEXT_BLOCK_FONT_SIZE_MINIMUM);
+                    text_block_word.Tag = entries[i];
+                    text_block_word.Text = entries[i].word;
+                    text_block_word.Cursor = Cursors.Hand;
+                    text_block_word.ToolTip = String.Format("'{0}' appears {1} time(s) in this paper and in {2} paper(s) in your library.", entries[i].word, entries[i].word_count, entries[i].document_count);
+                    text_block_word.MouseUp += text_block_word_MouseUp;
 
-                        text_block_word.MouseEnter += text_block_word_MouseEnter;
-                        text_block_word.MouseLeave += text_block_word_MouseLeave;
+                    text_block_word.MouseEnter += text_block_word_MouseEnter;
+                    text_block_word.MouseLeave += text_block_word_MouseLeave;
 
-                        TagPanel.Children.Add(text_block_word);
-                    }
+                    TagPanel.Children.Add(text_block_word);
                 }
-                else
-                {
-                    string message = "Could not generate a tag cloud for this document.  Please make sure you have built your AutoTags recently...";
+            }
+            else
+            {
+                string message = "Could not generate a tag cloud for this document.  Please make sure you have built your AutoTags recently...";
 
-                    foreach (string word in message.Split(' '))
-                    {
-                        TextBlock text_block_word = new TextBlock();
-                        text_block_word.Padding = TEXT_BLOCK_PADDING;
-                        text_block_word.FontSize = 0.5 * TEXT_BLOCK_FONT_SIZE;
-                        text_block_word.Text = word;
-                        TagPanel.Children.Add(text_block_word);
-                    }
+                foreach (string word in message.Split(' '))
+                {
+                    TextBlock text_block_word = new TextBlock();
+                    text_block_word.Padding = TEXT_BLOCK_PADDING;
+                    text_block_word.FontSize = 0.5 * TEXT_BLOCK_FONT_SIZE;
+                    text_block_word.Text = word;
+                    TagPanel.Children.Add(text_block_word);
                 }
             }
         }
 
         void text_block_word_MouseLeave(object sender, MouseEventArgs e)
         {
-            TextBlock tb = (TextBlock) sender;
+            TextBlock tb = (TextBlock)sender;
             tb.Background = Brushes.Transparent;
         }
 
@@ -117,7 +114,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.PDFDocumentTagCloudStuff
 
                 // Get all the selected tags
                 List<string> tags_selected = new List<string>();
-                {                    
+                {
                     if (null != entries)
                     {
                         foreach (var tag in entries)
