@@ -1129,6 +1129,8 @@ namespace Qiqqa.DocumentLibrary
             this.folder_watcher_manager = null;
             this.library_db = null;
 
+            this.web_library_detail = null;       // cyclic reference as WebLibraryDetail instance reference us, so we MUST nil this one to break the cycle for the GC to work well.
+
             ++dispose_count;
         }
 
