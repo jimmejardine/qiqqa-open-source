@@ -1,0 +1,51 @@
+TY  - CONF
+TI  - Current source LCC resonant converter for an EDM power supply
+T2  - IECON'01. 27th Annual Conference of the IEEE Industrial Electronics Society (Cat. No.37243)
+SP  - 1027
+EP  - 1032 vol.2
+AU  - R. Casanueva
+AU  - L. A. Chiquito
+AU  - F. J. Azcondo
+AU  - S. Bracho
+PY  - 2001
+KW  - electrical discharge machining
+KW  - power supplies to apparatus
+KW  - DC-DC power convertors
+KW  - resonant power convertors
+KW  - switching circuits
+KW  - current source LCC resonant converter
+KW  - EDM power supply
+KW  - low size power supply
+KW  - electrical discharge machining
+KW  - DC to DC LCC resonant converter
+KW  - switching frequency
+KW  - natural resonant frequency
+KW  - over-voltage
+KW  - dielectric ionisation
+KW  - electric arc
+KW  - workpiece erosion
+KW  - short circuit conditions
+KW  - output voltage
+KW  - arc distance control
+KW  - Resonance
+KW  - Power supplies
+KW  - Switching converters
+KW  - Circuits
+KW  - Prototypes
+KW  - Fault location
+KW  - Machining
+KW  - Switching frequency
+KW  - Resonant frequency
+KW  - Dielectrics
+DO  - 10.1109/IECON.2001.975916
+JO  - IECON'01. 27th Annual Conference of the IEEE Industrial Electronics Society (Cat. No.37243)
+IS  - 
+SN  - 
+VO  - 2
+VL  - 2
+JA  - IECON'01. 27th Annual Conference of the IEEE Industrial Electronics Society (Cat. No.37243)
+Y1  - 29 Nov.-2 Dec. 2001
+AB  - In this paper, the design of a low size power supply prototype for electrical discharge machining is presented. The system is a DC to DC LCC resonant converter whose switching frequency is tuned at the natural resonant frequency where the converter tends to act as a current source. In this way, two effects are achieved: (1) the necessary over-voltage, first to ionize the dielectric and then to establish the electric arc is generated, and (2) a constant current is supplied during the erosion of the workpiece, providing the circuit with inherent protection under short circuit conditions. The output voltage is intended to be adjusted by an external system that controls the arc distance.
+ER  - 
+
+
