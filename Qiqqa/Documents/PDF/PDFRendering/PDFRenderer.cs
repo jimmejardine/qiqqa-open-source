@@ -14,7 +14,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 {
     public class PDFRenderer
     {
-        private static readonly int TEXT_PAGES_PER_GROUP = 20;
+        const int TEXT_PAGES_PER_GROUP = 20;
 
         string pdf_filename;
         string pdf_user_password;
@@ -142,12 +142,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         /// </summary>
         /// <param name="page"></param>
         /// <returns></returns>
-        public WordList GetOCRText(int page)
-        {
-            return GetOCRText(page, true);
-        }
-
-        public WordList GetOCRText(int page, bool queue_for_ocr)
+        public WordList GetOCRText(int page, bool queue_for_ocr = true)
         {
             Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (texts_lock)

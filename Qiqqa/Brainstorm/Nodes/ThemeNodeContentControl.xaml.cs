@@ -306,7 +306,6 @@ namespace Qiqqa.Brainstorm.Nodes
 
         private delegate void DistributionUseDelegate(NodeControl node_control_, Library library, ExpeditionDataSource eds, float[] tags_distribution);
 
-
     }
 }
 

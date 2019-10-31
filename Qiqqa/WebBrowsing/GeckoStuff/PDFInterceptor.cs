@@ -111,7 +111,9 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
 
                 document_source_url = channel.Uri.AbsoluteUri;
 
+#pragma warning disable CA2000 // Dispose objects before losing scope
                 StreamListenerTee stream_listener_tee = new StreamListenerTee();  // <-- will be Dispose()d once response/content has been received
+#pragma warning restore CA2000 // Dispose objects before losing scope
                 stream_listener_tee.Completed += streamListener_Completed;
                 TraceableChannel tc = channel.CastToTraceableChannel();
                 tc.SetNewListener(stream_listener_tee);
@@ -120,13 +122,14 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
 
         void streamListener_Completed(object sender, EventArgs e)
         {
+            StreamListenerTee stream_listener_tee = null;
+
             try
             {
-                StreamListenerTee stream_listener_tee = (StreamListenerTee)sender;
+                stream_listener_tee = (StreamListenerTee)sender;
 
+                // WARNING: `captured_data` is a reference. Delay Dispose() call until data has actually been written to disk!
                 byte[] captured_data = stream_listener_tee.GetCapturedData();
-
-                // stream_listener_tee.Dispose();  -- suggested by Microsoft Code Analysis Report, but with this active, some PDFs won't make it into the library!?!?
 
                 if (0 == captured_data.Length)
                 {
@@ -146,6 +149,7 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
                     }
 
                     Logging.Error("We seem to have been notified about a zero-length PDF - URL: {0}, FILE: {1}", document_source_url, document_source_filename);
+
                     return;
                 }
 
@@ -168,6 +172,11 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
             catch (Exception ex)
             {
                 Logging.Error(ex, "There was a problem while intercepting the download of a PDF - URL: {0}, FILE: {1}", document_source_url, document_source_filename);
+            }
+            finally
+            {
+                // suggested by Microsoft Code Analysis Report, but with this done earlier than right here *after* the file WRITE action, some PDFs won't make it into the library!!
+                stream_listener_tee.Dispose();
             }
         }
 

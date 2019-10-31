@@ -10,7 +10,7 @@ using Utilities.Internet;
 
 namespace Qiqqa.Common.Configuration
 {
-    public class WebsiteAccess // : Utilities.Internet.WebsiteAccess
+    public static class WebsiteAccess // : Utilities.Internet.WebsiteAccess
     {
         static WebsiteAccess()
         {
@@ -301,8 +301,10 @@ namespace Qiqqa.Common.Configuration
             {
                 case OurSiteFileKind.ClientVersion:
                     return GetDownloadWebsiteUrl() + "/Content/Client/ClientVersion.xml";
+
                 case OurSiteFileKind.ClientSetup:
                     return GetDownloadWebsiteUrl() + "/Content/Client/setup.exe";
+
                 default:
                     throw new NotImplementedException();
             }

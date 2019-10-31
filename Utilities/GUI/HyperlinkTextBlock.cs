@@ -6,13 +6,18 @@ namespace Utilities.GUI
 {
     public class HyperlinkTextBlock : TextBlock
     {
-        static readonly Brush BRUSH_HOVER = ThemeColours.Background_Brush_Blue_VeryDark;
-        static readonly Brush BRUSH_LIGHT = ThemeColours.Background_Brush_Blue_VeryVeryVeryDark;
+        readonly Brush BRUSH_HOVER;
+        readonly Brush BRUSH_LIGHT;
 
         public event MouseButtonEventHandler OnClick;
         
         public HyperlinkTextBlock()
         {
+            Theme.Initialize();
+
+            BRUSH_HOVER = ThemeColours.Background_Brush_Blue_VeryDark;
+            BRUSH_LIGHT = ThemeColours.Background_Brush_Blue_VeryVeryVeryDark;
+
             this.TextDecorations.Add(System.Windows.TextDecorations.Underline);
             this.Cursor = Cursors.Hand;
             this.Foreground = BRUSH_LIGHT;

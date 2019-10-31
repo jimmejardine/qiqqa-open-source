@@ -5,6 +5,8 @@ using System.Windows.Interop;
 
 namespace Utilities.GUI
 {
+    public enum TriState { Off = 0, On = 1, Arbitrary = -1 };
+
     public class WindowTools
     {
         public const int WM_NCLBUTTONDOWN = 0xA1;

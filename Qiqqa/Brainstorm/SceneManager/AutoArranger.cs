@@ -15,6 +15,12 @@ namespace Qiqqa.Brainstorm.SceneManager
         object thread_lock = new object();
         Thread active_thread;
 
+        // WARNING:
+        //
+        // SceneRenderingControl is not thread-safe, nor is this code. We'll survive with a few glitches due to that
+        // as this is only about rendering a network view, not about accessing critical data. Hence we forego the
+        // effort to make this truly thread-safe: it's not worth it.
+        //
         SceneRenderingControl scene_rendering_control;
         
         public AutoArranger(SceneRenderingControl scene_rendering_control)        
@@ -51,7 +57,7 @@ namespace Qiqqa.Brainstorm.SceneManager
         private void BackgroundThread(object thread_object)
         {
             Thread thread = (Thread)thread_object;            
-            Logging.Info("Thread {0} has started", thread.ManagedThreadId);
+            Logging.Debug特("AutoArranger Thread {0} has started", thread.ManagedThreadId);
 
             while (true)
             {
@@ -70,7 +76,7 @@ namespace Qiqqa.Brainstorm.SceneManager
                 Thread.Sleep(30);
             }
 
-            Logging.Info("Thread {0} has exited", thread.ManagedThreadId);
+            Logging.Debug特("AutoArranger Thread {0} has exited", thread.ManagedThreadId);
         }
 
         DateTime cache_scene_changed_timestamp = DateTime.MinValue;

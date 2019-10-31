@@ -146,6 +146,18 @@ namespace QiqqaTestHelpers
             this.approved = approved;
             this.received = received;
 
+            // BC4 cannot handle UNC paths, which is what AlphaFS uses to support overlong paths (> 260 chars)
+            // hence we'll have convert these UNC paths back to local/native format for BC4 to be able to open
+            // the received+approved files for comparison. The rest of the test application should use the 
+            // UNC paths though.
+            if (approved.StartsWith("\\\\?\\"))
+            {
+                approved = approved.Substring(4);
+            }
+            if (received.StartsWith("\\\\?\\"))
+            {
+                received = received.Substring(4);
+            }
             base.Report(approved, received);
         }
 

@@ -237,7 +237,7 @@ SourceURL: {0}
             {
                 try
                 {
-                    imported_count += LegacyAnnotationConvertor.ImportLegacyAnnotations(pdf_document);
+                    imported_count += LegacyAnnotationConvertor.ImportLegacyAnnotations(pdf_document);   // TODO: do this sort of heavy task in a background task; now it locks up the UI
                 }
                 catch (Exception ex)
                 {

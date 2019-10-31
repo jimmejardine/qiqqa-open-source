@@ -16,7 +16,7 @@ using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary.Import.Auto
 {
-    public class EndnoteImporter
+    public static class EndnoteImporter
     {
         public class EndnoteDatabaseDetails
         {

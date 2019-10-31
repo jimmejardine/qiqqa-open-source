@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if false
+
+using System;
 using System.Collections.Generic;
 using Utilities.OCR;
 
@@ -6,9 +8,9 @@ namespace Qiqqa.Documents.PDF.PDFRendering.CoherentTextExtraction
 {
     class PageNumberDetector
     {
-        static readonly double HEADER_FOOTER_SIZE = 0.1;
-        static readonly double HEADER_END = HEADER_FOOTER_SIZE;
-        static readonly double FOOTER_BEGIN = 1.0 - HEADER_FOOTER_SIZE;
+        //const double HEADER_FOOTER_SIZE = 0.1;
+        //const double HEADER_END = HEADER_FOOTER_SIZE;
+        //const double FOOTER_BEGIN = 1.0 - HEADER_FOOTER_SIZE;
         
         PageDetail[] page_details;
 
@@ -86,3 +88,5 @@ namespace Qiqqa.Documents.PDF.PDFRendering.CoherentTextExtraction
         }
     }
 }
+
+#endif

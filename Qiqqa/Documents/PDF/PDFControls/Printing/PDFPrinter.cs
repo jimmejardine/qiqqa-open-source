@@ -7,7 +7,7 @@ using Utilities.Misc;
 
 namespace Qiqqa.Documents.PDF.PDFControls.Printing
 {
-    public class PDFPrinter
+    public static class PDFPrinter
     {
         public static void Print(PDFDocument pdf_document, PDFRenderer pdf_renderer, string description)
         {

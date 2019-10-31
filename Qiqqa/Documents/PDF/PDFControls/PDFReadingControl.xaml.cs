@@ -76,7 +76,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
             ButtonAnnotation.Icon = Icons.GetAppIcon(Icons.Annotation);
             ButtonAnnotation.ToolTip = LocalisationManager.Get("PDF/TIP/ADD_ANNOTATION");
-            ButtonAnnotation.Click += ButtonAnnotation_Click;            
+            ButtonAnnotation.Click += ButtonAnnotation_Click;
 
             ButtonHighlighter.Icon = Icons.GetAppIcon(Icons.Highlighter);
             ButtonHighlighter.ToolTip = LocalisationManager.Get("PDF/TIP/ADD_HIGHLIGHT");
@@ -94,35 +94,34 @@ namespace Qiqqa.Documents.PDF.PDFControls
             ButtonExplore.AttachPopup(ButtonExplorePopup);
             ButtonExplore.Icon = Icons.GetAppIcon(Icons.Explore);
             ButtonExplore.ToolTip = LocalisationManager.Get("PDF/TIP/EXPLORE");
-            
-                ButtonExpedition.Icon = Icons.GetAppIcon(Icons.ModuleExpedition);
-                ButtonExpedition.Caption = LocalisationManager.Get("PDF/TIP/EXPEDITION");
-                ButtonExpedition.Click += ButtonExpedition_Click;
 
-                ButtonExploreInBrainstorm.Icon = Icons.GetAppIcon(Icons.ModuleBrainstorm);
-                ButtonExploreInBrainstorm.Caption = LocalisationManager.Get("PDF/TIP/BRAINSTORM");
-                ButtonExploreInBrainstorm.Click += ButtonExploreInBrainstorm_Click;
-            
+            ButtonExpedition.Icon = Icons.GetAppIcon(Icons.ModuleExpedition);
+            ButtonExpedition.Caption = LocalisationManager.Get("PDF/TIP/EXPEDITION");
+            ButtonExpedition.Click += ButtonExpedition_Click;
+
+            ButtonExploreInBrainstorm.Icon = Icons.GetAppIcon(Icons.ModuleBrainstorm);
+            ButtonExploreInBrainstorm.Caption = LocalisationManager.Get("PDF/TIP/BRAINSTORM");
+            ButtonExploreInBrainstorm.Click += ButtonExploreInBrainstorm_Click;
 
             ButtonInCite.AttachPopup(ButtonInCitePopup);
             ButtonInCite.Icon = Icons.GetAppIcon(Icons.ModuleInCite);
             ButtonInCite.ToolTip = LocalisationManager.Get("PDF/TIP/INCITE");
-            
-                ButtonInCite_Word.Icon = Icons.GetAppIcon(Icons.InCiteNewCitation);
-                ButtonInCite_Word.Caption = LocalisationManager.Get("PDF/CAP/CITE_WORD");
-                ButtonInCite_Word.Click += ButtonInCite_Word_Click;
 
-                ButtonInCite_WordSeparate.Icon = Icons.GetAppIcon(Icons.InCiteNewCitation);
-                ButtonInCite_WordSeparate.Caption = LocalisationManager.Get("PDF/CAP/CITE_WORD_SEPARATE");
-                ButtonInCite_WordSeparate.Click += ButtonInCite_WordSeparate_Click;
+            ButtonInCite_Word.Icon = Icons.GetAppIcon(Icons.InCiteNewCitation);
+            ButtonInCite_Word.Caption = LocalisationManager.Get("PDF/CAP/CITE_WORD");
+            ButtonInCite_Word.Click += ButtonInCite_Word_Click;
 
-                ButtonInCite_Snippet.Icon = Icons.GetAppIcon(Icons.InCiteCitationSnippet);
-                ButtonInCite_Snippet.Caption = LocalisationManager.Get("PDF/CAP/CITE_SNIPPET");
-                ButtonInCite_Snippet.Click += ButtonInCite_Snippet_Click;
+            ButtonInCite_WordSeparate.Icon = Icons.GetAppIcon(Icons.InCiteNewCitation);
+            ButtonInCite_WordSeparate.Caption = LocalisationManager.Get("PDF/CAP/CITE_WORD_SEPARATE");
+            ButtonInCite_WordSeparate.Click += ButtonInCite_WordSeparate_Click;
 
-                ButtonInCite_BibTeXKey.Icon = Icons.GetAppIcon(Icons.ExportBibTex);
-                ButtonInCite_BibTeXKey.Caption = LocalisationManager.Get("PDF/CAP/CITE_BIBTEX");
-                ButtonInCite_BibTeXKey.Click += ButtonInCite_BibTeXKey_Click;
+            ButtonInCite_Snippet.Icon = Icons.GetAppIcon(Icons.InCiteCitationSnippet);
+            ButtonInCite_Snippet.Caption = LocalisationManager.Get("PDF/CAP/CITE_SNIPPET");
+            ButtonInCite_Snippet.Click += ButtonInCite_Snippet_Click;
+
+            ButtonInCite_BibTeXKey.Icon = Icons.GetAppIcon(Icons.ExportBibTex);
+            ButtonInCite_BibTeXKey.Caption = LocalisationManager.Get("PDF/CAP/CITE_BIBTEX");
+            ButtonInCite_BibTeXKey.Click += ButtonInCite_BibTeXKey_Click;
 
             ButtonFullScreen.Icon = Icons.GetAppIcon(Icons.DocumentFullScreen);
             ButtonFullScreen.ToolTip = LocalisationManager.Get("PDF/TIP/FULL_SCREEN");
@@ -131,77 +130,77 @@ namespace Qiqqa.Documents.PDF.PDFControls
             ButtonZoom.AttachPopup(ButtonZoomPopup);
             ButtonZoom.Icon = Icons.GetAppIcon(Icons.ZoomIn);
             ButtonZoom.ToolTip = LocalisationManager.Get("PDF/TIP/ZOOM");
-            
-                Button1Up.Icon = Icons.GetAppIcon(Icons.Page1Up);
-                Button1Up.Caption = LocalisationManager.Get("PDF/TIP/ZOOM_1");
-                Button1Up.Click += Button1Up_Click;
 
-                Button2Up.Icon = Icons.GetAppIcon(Icons.Page2Up);
-                Button2Up.Caption = LocalisationManager.Get("PDF/TIP/ZOOM_2");
-                Button2Up.Click += Button2Up_Click;
+            Button1Up.Icon = Icons.GetAppIcon(Icons.Page1Up);
+            Button1Up.Caption = LocalisationManager.Get("PDF/TIP/ZOOM_1");
+            Button1Up.Click += Button1Up_Click;
 
-                ButtonNUp.Icon = Icons.GetAppIcon(Icons.PageNUp);
-                ButtonNUp.Caption = LocalisationManager.Get("PDF/TIP/ZOOM_N");
-                ButtonNUp.Click += ButtonNUp_Click;
+            Button2Up.Icon = Icons.GetAppIcon(Icons.Page2Up);
+            Button2Up.Caption = LocalisationManager.Get("PDF/TIP/ZOOM_2");
+            Button2Up.Click += Button2Up_Click;
 
-                ButtonWholeUp.Icon = Icons.GetAppIcon(Icons.PageWholeUp);
-                ButtonWholeUp.Caption = LocalisationManager.Get("PDF/TIP/ZOOM_WHOLE");
-                ButtonWholeUp.Click += ButtonWholeUp_Click;
+            ButtonNUp.Icon = Icons.GetAppIcon(Icons.PageNUp);
+            ButtonNUp.Caption = LocalisationManager.Get("PDF/TIP/ZOOM_N");
+            ButtonNUp.Click += ButtonNUp_Click;
 
-                ButtonRotate.Icon = Icons.GetAppIcon(Icons.PageRotate);
-                ButtonRotate.Caption = LocalisationManager.Get("PDF/TIP/ROTATE");
-                ButtonRotate.Click += ButtonRotate_Click;
+            ButtonWholeUp.Icon = Icons.GetAppIcon(Icons.PageWholeUp);
+            ButtonWholeUp.Caption = LocalisationManager.Get("PDF/TIP/ZOOM_WHOLE");
+            ButtonWholeUp.Click += ButtonWholeUp_Click;
 
-                ButtonRotateAll.Icon = Icons.GetAppIcon(Icons.PageRotate);
-                ButtonRotateAll.Caption = LocalisationManager.Get("PDF/TIP/ROTATE_ALL");
-                ButtonRotateAll.Click += ButtonRotateAll_Click;
+            ButtonRotate.Icon = Icons.GetAppIcon(Icons.PageRotate);
+            ButtonRotate.Caption = LocalisationManager.Get("PDF/TIP/ROTATE");
+            ButtonRotate.Click += ButtonRotate_Click;
 
-                ButtonZoomIn.Icon = Icons.GetAppIcon(Icons.ZoomIn);
-                ButtonZoomIn.Caption = LocalisationManager.Get("PDF/TIP/ZOOM_IN");
-                ButtonZoomIn.Click += ButtonZoomIn_Click;
+            ButtonRotateAll.Icon = Icons.GetAppIcon(Icons.PageRotate);
+            ButtonRotateAll.Caption = LocalisationManager.Get("PDF/TIP/ROTATE_ALL");
+            ButtonRotateAll.Click += ButtonRotateAll_Click;
 
-                ButtonZoomOut.Icon = Icons.GetAppIcon(Icons.ZoomOut);
-                ButtonZoomOut.Caption = LocalisationManager.Get("PDF/TIP/ZOOM_OUT");
-                ButtonZoomOut.Click += ButtonZoomOut_Click;
+            ButtonZoomIn.Icon = Icons.GetAppIcon(Icons.ZoomIn);
+            ButtonZoomIn.Caption = LocalisationManager.Get("PDF/TIP/ZOOM_IN");
+            ButtonZoomIn.Click += ButtonZoomIn_Click;
+
+            ButtonZoomOut.Icon = Icons.GetAppIcon(Icons.ZoomOut);
+            ButtonZoomOut.Caption = LocalisationManager.Get("PDF/TIP/ZOOM_OUT");
+            ButtonZoomOut.Click += ButtonZoomOut_Click;
 
             ButtonMisc.Visibility = ConfigurationManager.Instance.NoviceVisibility;
             ButtonMisc.AttachPopup(ButtonMiscPopup);
             ButtonMisc.Icon = Icons.GetAppIcon(Icons.DocumentMisc);
             ButtonMisc.ToolTip = LocalisationManager.Get("PDF/TIP/MISC");
-            
-                ButtonDocumentSave.Icon = Icons.GetAppIcon(Icons.DocumentSave);
-                ButtonDocumentSave.Caption = LocalisationManager.Get("PDF/TIP/SAVE_COPY");
-                ButtonDocumentSave.Click += ButtonDocumentSave_Click;
 
-                ButtonPrint.Icon = Icons.GetAppIcon(Icons.Printer);
-                ButtonPrint.Caption = LocalisationManager.Get("PDF/TIP/PRINT");
-                ButtonPrint.Click += ButtonPrint_Click;
+            ButtonDocumentSave.Icon = Icons.GetAppIcon(Icons.DocumentSave);
+            ButtonDocumentSave.Caption = LocalisationManager.Get("PDF/TIP/SAVE_COPY");
+            ButtonDocumentSave.Click += ButtonDocumentSave_Click;
 
-                ButtonOpenLibrary.Icon = Icons.GetAppIcon(Icons.ModuleDocumentLibrary);
-                ButtonOpenLibrary.Caption = LocalisationManager.Get("PDF/TIP/OPEN_PARENT_LIBRARY");
-                ButtonOpenLibrary.Click += ButtonOpenLibrary_Click;
+            ButtonPrint.Icon = Icons.GetAppIcon(Icons.Printer);
+            ButtonPrint.Caption = LocalisationManager.Get("PDF/TIP/PRINT");
+            ButtonPrint.Click += ButtonPrint_Click;
 
-                ButtonExportToText.Icon = Icons.GetAppIcon(Icons.ExportToText);
-                ButtonExportToText.Caption = LocalisationManager.Get("PDF/TIP/CONVERT_TO_TEXT");
-                ButtonExportToText.Click += ButtonExportToText_Click;
+            ButtonOpenLibrary.Icon = Icons.GetAppIcon(Icons.ModuleDocumentLibrary);
+            ButtonOpenLibrary.Caption = LocalisationManager.Get("PDF/TIP/OPEN_PARENT_LIBRARY");
+            ButtonOpenLibrary.Click += ButtonOpenLibrary_Click;
 
-                ButtonReadOutLoud.Icon = Icons.GetAppIcon(Icons.ReadOutLoud);
-                ButtonReadOutLoud.Caption = LocalisationManager.Get("PDF/TIP/READ_ALOUD");
-                ButtonReadOutLoud.Click += ButtonReadOutLoud_Click;
+            ButtonExportToText.Icon = Icons.GetAppIcon(Icons.ExportToText);
+            ButtonExportToText.Caption = LocalisationManager.Get("PDF/TIP/CONVERT_TO_TEXT");
+            ButtonExportToText.Click += ButtonExportToText_Click;
 
-                ButtonSpeedRead.Icon = Icons.GetAppIcon(Icons.SpeedRead);
-                ButtonSpeedRead.Caption = LocalisationManager.Get("PDF/TIP/SPEED_READ");
-                ButtonSpeedRead.Click += ButtonSpeedRead_Click;
+            ButtonReadOutLoud.Icon = Icons.GetAppIcon(Icons.ReadOutLoud);
+            ButtonReadOutLoud.Caption = LocalisationManager.Get("PDF/TIP/READ_ALOUD");
+            ButtonReadOutLoud.Click += ButtonReadOutLoud_Click;
 
-                ButtonInvertColours.Icon = Icons.GetAppIcon(Icons.DocumentsInvertColours);
-                ButtonInvertColours.Caption = LocalisationManager.Get("PDF/TIP/NEGATIVE");
-                ButtonInvertColours.IsChecked = false;
-                ButtonInvertColours.Click += ButtonInvertColours_Click;
+            ButtonSpeedRead.Icon = Icons.GetAppIcon(Icons.SpeedRead);
+            ButtonSpeedRead.Caption = LocalisationManager.Get("PDF/TIP/SPEED_READ");
+            ButtonSpeedRead.Click += ButtonSpeedRead_Click;
 
-                ButtonMoreMenus.Icon = Icons.GetAppIcon(Icons.DocumentMisc);
-                ButtonMoreMenus.Caption = LocalisationManager.Get("PDF/TIP/MORE_MENUS");
-                ButtonMoreMenus.Click += ButtonMoreMenus_Click;
-            
+            ButtonInvertColours.Icon = Icons.GetAppIcon(Icons.DocumentsInvertColours);
+            ButtonInvertColours.Caption = LocalisationManager.Get("PDF/TIP/NEGATIVE");
+            ButtonInvertColours.IsChecked = false;
+            ButtonInvertColours.Click += ButtonInvertColours_Click;
+
+            ButtonMoreMenus.Icon = Icons.GetAppIcon(Icons.DocumentMisc);
+            ButtonMoreMenus.Caption = LocalisationManager.Get("PDF/TIP/MORE_MENUS");
+            ButtonMoreMenus.Click += ButtonMoreMenus_Click;
+
             ButtonJumpToSection.Icon = Icons.GetAppIcon(Icons.JumpToSection);
             ButtonJumpToSection.ToolTip = LocalisationManager.Get("PDF/TIP/BOOKMARKS");
             ButtonJumpToSection.Click += ButtonJumpToSection_Click;
@@ -273,6 +272,10 @@ namespace Qiqqa.Documents.PDF.PDFControls
             {
                 GridRIGHT.Collapse();
             }
+            else
+            {
+                GridRIGHT.Restore();
+            }
         }
 
         void ObjDocumentMetadataControlsPanel_ObjDocumentMetadataControlsPanel_SelectedPageChanged(int page)
@@ -329,13 +332,11 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     StatusManager.Instance.UpdateStatus("CopyBibTeXKey", String.Format("Copied '{0}' to clipboard.", result));
 
                 }
-                
+
                 e.Handled = true;
             }
         }
-
-
-
+               
         void ButtonExpedition_Click(object sender, RoutedEventArgs e)
         {
             ButtonExplorePopup.Close();
@@ -350,7 +351,9 @@ namespace Qiqqa.Documents.PDF.PDFControls
         {
             MainWindowServiceDispatcher.Instance.OpenLibrary(this.pdf_renderer_control_stats.pdf_document.Library);
         }
-               
+
+        #region IDisposable
+
         ~PDFReadingControl()
         {
             Logging.Debug("~PDFReadingControl()");
@@ -364,29 +367,29 @@ namespace Qiqqa.Documents.PDF.PDFControls
             GC.SuppressFinalize(this);
         }
 
-#if DIAG
         private int dispose_count = 0;
-#endif
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-#if DIAG
-            Logging.Debug("PDFReadingControl::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
-#endif
-            if (disposing)
+            Logging.Debug("PDFReadingControl::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
             {
                 // Get rid of managed resources
-                PDFRendererControlArea.Children.Clear();
                 pdf_renderer_control?.Dispose();
 
                 pdf_renderer_control_stats?.pdf_document.PDFRenderer.FlushCachedPageRenderings();
             }
 
+            PDFRendererControlArea.Children.Clear();
+
             pdf_renderer_control = null;
             pdf_renderer_control_stats = null;
 
-            // Get rid of unmanaged resources 
+            ++dispose_count;
         }
-               
+
+        #endregion
+
         void pdf_renderer_control_OperationModeChanged(PDFRendererControl.OperationMode operation_mode)
         {
             // Reset the toggle buttons
@@ -543,7 +546,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             }
         }
 
-#region --- Mouse operation mode --------------------------------------------------------------------------------------------------------
+        #region --- Mouse operation mode --------------------------------------------------------------------------------------------------------
 
         void ButtonTextSentenceSelect_Click(object sender, RoutedEventArgs e)
         {
@@ -662,7 +665,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private string previous_search_string = null;
         private PDFSearchResultSet previous_search_result_set = null;
-        
+
         private void SetSearchKeywords_EXECUTE(string search_string)
         {
             // Check if we are repeating the search or not...
@@ -700,9 +703,9 @@ namespace Qiqqa.Documents.PDF.PDFControls
             pdf_renderer_control.SelectPage(page);
         }
 
-#endregion
+        #endregion
 
-#region --- Page navigation --------------------------------------------------------------------------------------------------------
+        #region --- Page navigation --------------------------------------------------------------------------------------------------------
 
         void ButtonPreviousPage_Click(object sender, RoutedEventArgs e)
         {
@@ -714,7 +717,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             pdf_renderer_control.MoveSelectedPageDelta(+1);
         }
 
-#endregion
+        #endregion
 
         void Button1Up_Click(object sender, RoutedEventArgs e)
         {
@@ -768,7 +771,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             e.Handled = true;
         }
 
-#region --- Export-to-text ------------------------------------------------------------------------------------------------------------------------------------------
+        #region --- Export-to-text ------------------------------------------------------------------------------------------------------------------------------------------
 
         void ButtonExportToText_Click(object sender, RoutedEventArgs e)
         {
@@ -777,9 +780,9 @@ namespace Qiqqa.Documents.PDF.PDFControls
             e.Handled = true;
         }
 
-#endregion
+        #endregion
 
-#region --- Speed read and text-to-speech ------------------------------------------------------------------------------------------------------------------------------------------
+        #region --- Speed read and text-to-speech ------------------------------------------------------------------------------------------------------------------------------------------
 
         private void GetCombinedWordsList(List<string> words, List<int> page_word_offsets, int single_page_only = -1)
         {
@@ -796,7 +799,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
                 for (int page = start_page; page <= end_page; ++page)
                 {
-                    WordList words_on_page = pdf_renderer_control_stats.pdf_document.PDFRenderer.GetOCRText(page+1);
+                    WordList words_on_page = pdf_renderer_control_stats.pdf_document.PDFRenderer.GetOCRText(page + 1);
                     page_word_offsets.Add(words.Count);
                     if (null != words_on_page)
                     {
@@ -863,9 +866,9 @@ namespace Qiqqa.Documents.PDF.PDFControls
             }
         }
 
-#endregion
+        #endregion
 
-#region --- Full screen mode -------------------------------------------------------------------------------------------------------------
+        #region --- Full screen mode -------------------------------------------------------------------------------------------------------------
 
         private void ToggleFullScreen()
         {
@@ -889,13 +892,13 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 GridRIGHT.Restore();
             }
         }
-        
+
         void ButtonFullScreen_Click(object sender, RoutedEventArgs e)
         {
             ReevaluateFullScreen();
         }
 
-#endregion
+        #endregion
 
         internal void EnableGuestMoveNotification(PDFDocument potential_attachment_pdf_document = null)
         {

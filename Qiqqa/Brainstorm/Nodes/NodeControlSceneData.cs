@@ -10,9 +10,9 @@ namespace Qiqqa.Brainstorm.Nodes
         internal Guid guid = Guid.NewGuid();
 
         [Obsolete("Do not use this attribute, but keep it in the class definition for backwards compatibility of the serialization", true)]
-#pragma warning disable CS0169 // The field 'NodeControlSceneData.current_scale_at_last_resize' is never used
+        #pragma warning disable CS0169 // The field 'NodeControlSceneData.current_scale_at_last_resize' is never used
         double current_scale_at_last_resize; // NB THIS CANT BE REMOVED OR IT WILL DESTROY THE SERIALIZATION...
-#pragma warning restore CS0169 // The field 'NodeControlSceneData.current_scale_at_last_resize' is never used
+        #pragma warning restore CS0169 // The field 'NodeControlSceneData.current_scale_at_last_resize' is never used
 
         double original_left = 20;  // NB: This is now centre_x - can't change because of serialization
         double original_top = 20; // NB: This is now centre_y - can't change because of serialization

@@ -1,9 +1,12 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Utilities;
 using Utilities.GUI;
+using Utilities.Misc;
 using Application = System.Windows.Forms.Application;
 
 namespace Qiqqa.Main.SplashScreenStuff
@@ -16,6 +19,10 @@ namespace Qiqqa.Main.SplashScreenStuff
         public static BitmapImage GetSplashImage()
         {
             string image_filename = Path.GetFullPath(Path.Combine(Common.Configuration.ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"Qiqqa.jpg"));
+            if (!File.Exists(image_filename))
+            {
+                throw new ApplicationException($"Cannot locate the application splash image file '{image_filename}'. Looks like the Qiqqa installation is buggered. Please report this at https://github.com/jimmejardine/qiqqa-open-source/issues");
+            }
             BitmapImage bi = new BitmapImage();
             bi.BeginInit();
             bi.StreamSource = new MemoryStream(File.ReadAllBytes(image_filename));

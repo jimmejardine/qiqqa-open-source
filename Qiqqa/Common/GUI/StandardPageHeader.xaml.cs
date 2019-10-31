@@ -7,11 +7,14 @@ namespace Qiqqa.Common.GUI
     /// <summary>
     /// Standard header control for any pop up pages that need a title and subtitle, with image to prettify it up. 
     /// </summary>
-    public partial class StandardPageHeader
+    public partial class StandardPageHeader : System.Windows.Controls.Border
     {
         public StandardPageHeader()
         {
+            Theme.Initialize();
+
             InitializeComponent();
+
             this.BorderThickness = new Thickness(0, 0, 0, 1);
             this.BorderBrush = new SolidColorBrush(ThemeColours.Background_Color_Neutral_Light);
 
@@ -20,7 +23,10 @@ namespace Qiqqa.Common.GUI
 
         public ImageSource Img
         {
-            get { return HeaderImage.Source; }
+            get
+            {
+                return HeaderImage.Source;
+            }
             set
             {
                 HeaderImage.Source = value;
@@ -30,15 +36,27 @@ namespace Qiqqa.Common.GUI
         public static readonly DependencyProperty CaptionProperty = DependencyProperty.Register("Caption", typeof(string), typeof(StandardPageHeader));
         public string Caption
         {
-            get { return (string)GetValue(CaptionProperty); }
-            set { SetValue(CaptionProperty, value); }
+            get
+            {
+                return (string)GetValue(CaptionProperty);
+            }
+            set
+            {
+                SetValue(CaptionProperty, value);
+            }
         }
 
         public static readonly DependencyProperty SubCaptionProperty = DependencyProperty.Register("SubCaption", typeof(string), typeof(StandardPageHeader));
         public string SubCaption
         {
-            get { return (string)GetValue(SubCaptionProperty); }
-            set { SetValue(SubCaptionProperty, value); }
+            get
+            {
+                return (string)GetValue(SubCaptionProperty);
+            }
+            set
+            {
+                SetValue(SubCaptionProperty, value);
+            }
         }
     }
 }

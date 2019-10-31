@@ -9,7 +9,7 @@ using Utilities.Strings;
 
 namespace Qiqqa.Documents.PDF.InfoBarStuff.PDFDocumentTagCloudStuff
 {
-    public class PDFDocumentTagCloudBuilder
+    public static class PDFDocumentTagCloudBuilder
     {
         public static List<TagCloudEntry> BuildTagCloud(Library library, PDFDocument pdf_document)
         {

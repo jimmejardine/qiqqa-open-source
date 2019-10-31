@@ -53,7 +53,7 @@ namespace Qiqqa.AnnotationsReportBuilding
                 }
 
                 List<PDFAnnotation> pdf_annotations = new List<PDFAnnotation>();
-                pdf_annotations.AddRange(pdf_document.Annotations);
+                pdf_annotations.AddRange(pdf_document.GetAnnotations());
                 if (library_items_highlights_cache.ContainsKey(pdf_document.Fingerprint))
                 {
                     pdf_annotations.AddRange(HighlightToAnnotationGenerator.GenerateAnnotations(pdf_document, library_items_highlights_cache));

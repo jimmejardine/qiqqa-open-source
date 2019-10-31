@@ -6,7 +6,7 @@ using Utilities;
 
 namespace Qiqqa.DocumentLibrary.Import.Auto.Endnote
 {
-    public class MYDBlockReader
+    public static class MYDBlockReader
     {
         public static IEnumerable<byte[]> Blocks(MYDBinaryReader br)
         {

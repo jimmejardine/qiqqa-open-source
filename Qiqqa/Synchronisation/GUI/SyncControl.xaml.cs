@@ -19,7 +19,7 @@ namespace Qiqqa.Synchronisation.GUI
     {
         public static readonly string TITLE = "Web Library Sync";
 
-        SyncControlGridItemSet sync_control_grid_item_set;        
+        SyncControlGridItemSet sync_control_grid_item_set;
 
         public SyncControl()
         {
@@ -50,12 +50,13 @@ namespace Qiqqa.Synchronisation.GUI
 
             IsVisibleChanged += SyncControl_IsVisibleChanged;
         }
-        
+
         void GRIDCHECKBOX_Checked(object sender, RoutedEventArgs e)
         {
             // THIS HACK IS NEEDED BECAUSE I DONT KNOW HOW TO GET THE CHECKBOX TO UPDATE ITS BINDINGS NICELY WITH A SINGLE CLICK :-(
             CheckBox cb = (CheckBox)sender;
-            var a = cb.DataContext; cb.BindingGroup.CommitEdit();            
+            var a = cb.DataContext;
+            cb.BindingGroup.CommitEdit();
         }
 
         void SyncControl_KeyUp(object sender, KeyEventArgs e)
@@ -90,7 +91,7 @@ namespace Qiqqa.Synchronisation.GUI
         {
             WebsiteAccess.OpenWebsite(WebsiteAccess.GetPremiumUrl("SYNC_INSTRUCTIONS"));
         }
-        
+
         void HyperlinkPremiumPlus_Click(object sender, RoutedEventArgs e)
         {
             WebsiteAccess.OpenWebsite(WebsiteAccess.GetPremiumPlusUrl("SYNC_INSTRUCTIONS"));
@@ -134,6 +135,23 @@ namespace Qiqqa.Synchronisation.GUI
                 // Populate the grid
                 GridLibraryGrid.ItemsSource = sync_control_grid_item_set.grid_items;
             }
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+
+            // base.OnClosed() invokes this calss Closed() code, so we flipped the order of exec to reduce the number of surprises for yours truly.
+            // This NULLing stuff is really the last rites of Dispose()-like so we stick it at the end here.
+
+            sync_control_grid_item_set = null;
+
+            this.DataContext = null;
         }
     }
 }

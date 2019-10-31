@@ -215,15 +215,17 @@ namespace Utilities.Files
         /// <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
         protected override void Dispose(bool disposing)
         {
-            Logging.Debug("WrappingStream::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
+            Logging.Debug("WrappingStream::Dispose({0}) @{1}", disposing, dispose_count);
 
-            // doesn't close the base stream, but just prevents access to it through this WrappingStream
-            if (disposing)
+            if (dispose_count == 0)
             {
+                // doesn't close the base stream, but just prevents access to it through this WrappingStream
                 m_streamBase = null;
             }
 
             base.Dispose(disposing);
+
+            ++dispose_count;
         }
 
         private void ThrowIfDisposed()

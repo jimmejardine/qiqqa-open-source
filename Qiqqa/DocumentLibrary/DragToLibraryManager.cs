@@ -64,10 +64,7 @@ namespace Qiqqa.DocumentLibrary
         {
             e.Effects = DragDropEffects.None;
 
-            if (false)
-            {
-            }
-            else if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 e.Effects = DragDropEffects.Copy | DragDropEffects.Link;
             }
@@ -111,16 +108,17 @@ namespace Qiqqa.DocumentLibrary
                 return;
             }
 
-            //if (false)
-            //{
-            //    StringBuilder sb = new StringBuilder();
-            //    sb.AppendLine("The available formats are:");
-            //    foreach (string format in e.Data.GetFormats(true))
-            //    {
-            //        sb.AppendFormat(" - {0}\n", format);
-            //    }
-            //    Logging.Debug(sb.ToString());
-            //}
+#if DEBUG
+            {
+            StringBuilder sb = new StringBuilder();
+                sb.AppendLine("The available formats are:");
+                foreach (string format in e.Data.GetFormats(true))
+                {
+                    sb.AppendFormat(" - {0}\n", format);
+                }
+                Logging.Debug(sb.ToString());
+            }
+#endif
 
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {

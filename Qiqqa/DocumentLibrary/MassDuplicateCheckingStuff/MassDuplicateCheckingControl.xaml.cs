@@ -158,7 +158,6 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
 
                 StatusManager.Instance.UpdateStatus("DuplicateChecking", "Finished checking for duplicates");
             }
-
             finally
             {
                 Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();

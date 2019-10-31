@@ -25,7 +25,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
     /// <summary>
     /// Interaction logic for LibraryCatalogOverviewControl.xaml
     /// </summary>
-    public partial class LibraryCatalogOverviewControl : Grid
+    public partial class LibraryCatalogOverviewControl : Grid, IDisposable
     {
         LibraryIndexHoverPopup library_index_hover_popup = null;
         DragDropHelper drag_drop_helper = null;
@@ -52,7 +52,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             ButtonOpen.Cursor = Cursors.Hand;
 
             ButtonSearchInside.IconVisibility = Visibility.Collapsed;
-            ButtonSearchInside.Click += ButtonSearchInside_Click;            
+            ButtonSearchInside.Click += ButtonSearchInside_Click;
             ObjLookInsidePanel.Visibility = Visibility.Collapsed;
 
             ButtonThemeSwatch.ToolTip = "This swatch shows the themes in this document.  If the swatch is grey, there is no Expedition information for this document - please run Expedition again!\n\nClick here to open the document in Expedition.";
@@ -114,13 +114,13 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
                 catch (Exception ex)
                 {
                     Logging.Warn(ex, "There was a problem while trying to detemine the parent of the library catalog overview control");
-                    _library_catalog_control = null;                    
+                    _library_catalog_control = null;
                 }
 
                 return _library_catalog_control;
             }
         }
-        
+
         private void OpenPDFDocument()
         {
             // Sometimes one of these is NULL and I have no idea why and can't replicate it...
@@ -134,7 +134,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
                 Logging.Warn("LibraryCatalogControl is null");
                 return;
             }
-            
+
             MainWindowServiceDispatcher.Instance.OpenDocument(PDFDocumentBindable.Underlying, LibraryCatalogControl.FilterTerms);
         }
 
@@ -257,11 +257,11 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             }
 
             // Populate the theme swatch
-                ButtonThemeSwatch.Visibility = Visibility.Visible;
-                ButtonThemeSwatch.Background = ThemeBrushes.GetBrushForDocument(PDFDocumentBindable.Underlying);
+            ButtonThemeSwatch.Visibility = Visibility.Visible;
+            ButtonThemeSwatch.Background = ThemeBrushes.GetBrushForDocument(PDFDocumentBindable.Underlying);
 
             // Populate the linked documents
-                CitationsUserControl.PopulatePanelWithCitations(DocsPanel_Linked, PDFDocumentBindable.Underlying.Library, PDFDocumentBindable.Underlying, PDFDocumentBindable.Underlying.PDFDocumentCitationManager.GetLinkedDocuments(), Features.LinkedDocument_Library_OpenDoc, " » ", false);
+            CitationsUserControl.PopulatePanelWithCitations(DocsPanel_Linked, PDFDocumentBindable.Underlying.Library, PDFDocumentBindable.Underlying, PDFDocumentBindable.Underlying.PDFDocumentCitationManager.GetLinkedDocuments(), Features.LinkedDocument_Library_OpenDoc, " » ", false);
         }
 
         void ButtonSearchInside_Click(object sender, RoutedEventArgs e)
@@ -296,6 +296,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
         {
             library_index_hover_popup?.Dispose();
             library_index_hover_popup = null;
+
             ButtonOpen.ToolTip = "";
         }
 
@@ -331,7 +332,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             }
             else
             {
-                return new List <PDFDocument>();
+                return new List<PDFDocument>();
             }
         }
 
@@ -357,36 +358,55 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
                 return this.DataContext as AugmentedBindable<PDFDocument>;
             }
         }
-    }
 
+        #region --- IDisposable ------------------------------------------------------------------------
 
-    class TagsConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        ~LibraryCatalogOverviewControl()
         {
-            List<string> items = value as List<string>;
-            if (null == items)
-            {
-                return "";
-            }
+            Logging.Debug("~LibraryCatalogOverviewControl()");
+            Dispose(false);
+        }
 
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < items.Count; ++i)
+        public void Dispose()
+        {
+            Logging.Debug("Disposing LibraryCatalogOverviewControl");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected virtual void Dispose(bool disposing)
+        {
+            Logging.Debug("LibraryCatalogOverviewControl::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
             {
-                if (i > 0)
+                // Get rid of managed resources / get rid of cyclic references:
+                library_index_hover_popup?.Dispose();
+
+                WPFDoEvents.InvokeInUIThread(() =>
                 {
-                    sb.Append("; ");
-                }
+                    WizardDPs.ClearPointOfInterest(PanelSearchScore);
+                    WizardDPs.ClearPointOfInterest(ObjLookInsidePanel);
+                });
 
-                sb.Append(items[i]);
+                TextTitle.MouseLeftButtonUp -= TextTitle_MouseLeftButtonUp;
+
+                ButtonOpen.ToolTipOpening -= HyperlinkPreview_ToolTipOpening;
+                ButtonOpen.ToolTipClosing -= HyperlinkPreview_ToolTipClosing;
+
+                ListSearchDetails.SearchClicked -= ListSearchDetails_SearchSelectionChanged;
+
+                this.DataContextChanged -= LibraryCatalogOverviewControl_DataContextChanged;
             }
 
-            return sb.ToString();
+            // Clear the references for sanity's sake
+            library_index_hover_popup = null;
+            drag_drop_helper = null;
+
+            ++dispose_count;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return null;
-        }
+        #endregion
     }
 }

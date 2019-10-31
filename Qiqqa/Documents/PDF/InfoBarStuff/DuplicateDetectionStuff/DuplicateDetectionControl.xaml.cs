@@ -25,12 +25,9 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.DuplicateDetectionStuff
             InitializeComponent();
         }
 
-        public PDFDocument PDFDocument
+        public void SetPDFDocument(PDFDocument doc)
         {
-            set
-            {                
-                SafeThreadPool.QueueUserWorkItem(o => FindDuplicates(value));                
-            }
+            SafeThreadPool.QueueUserWorkItem(o => FindDuplicates(doc));
         }
 
 
@@ -50,7 +47,11 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.DuplicateDetectionStuff
                 entries = new List<TitleCombinedCacheEntry>();
                 foreach (var pdf_document in pdf_documents)
                 {
-                    entries.Add(new TitleCombinedCacheEntry { pdf_document = pdf_document, title_combined = pdf_document.TitleCombined.ToLower() });
+                    entries.Add(new TitleCombinedCacheEntry
+                    {
+                        pdf_document = pdf_document,
+                        title_combined = pdf_document.TitleCombined.ToLower()
+                    });
                 }
             }
 
@@ -63,8 +64,6 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.DuplicateDetectionStuff
             }
         }
 
-
-
         private void FindDuplicates(PDFDocument pdf_document_this)
         {
             // Invoke the GUI
@@ -74,7 +73,6 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.DuplicateDetectionStuff
             }
             ));
 
-            
             Stopwatch stopwatch = Stopwatch.StartNew();
 
             if (null == pdf_document_this)
@@ -144,7 +142,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.DuplicateDetectionStuff
                     }
                 }
             }
-            
+
             return duplicate_pdf_documents;
         }
 
@@ -152,7 +150,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.DuplicateDetectionStuff
         {
             DocsPanel.Children.Clear();
         }
-        
+
         private void RenderDuplicates(List<PDFDocument> duplicate_pdf_documents)
         {
             bool alternator = false;

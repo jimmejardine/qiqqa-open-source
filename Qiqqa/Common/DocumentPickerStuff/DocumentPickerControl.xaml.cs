@@ -73,8 +73,7 @@ namespace Qiqqa.Common.DocumentPickerStuff
         {
             TextBlock text_doc = (TextBlock)sender;
             ListFormattingTools.DocumentTextBlockTag tag = (ListFormattingTools.DocumentTextBlockTag) text_doc.Tag;
-
-
+            
             Logging.Info("{0} was clicked", tag.pdf_document);
         }
 

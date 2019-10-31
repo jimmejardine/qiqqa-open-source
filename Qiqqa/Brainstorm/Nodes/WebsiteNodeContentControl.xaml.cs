@@ -5,18 +5,19 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using icons;
 using Qiqqa.Common.Configuration;
+using Utilities;
 using Utilities.GUI;
 using Utilities.Reflection;
-using BackgroundFader = Qiqqa.Common.Common.BackgroundFader;
 
 namespace Qiqqa.Brainstorm.Nodes
 {
     /// <summary>
     /// Interaction logic for WebsiteNodeContentControl.xaml
     /// </summary>
-    public partial class WebsiteNodeContentControl : UserControl
+    public partial class WebsiteNodeContentControl : UserControl, IDisposable
     {
         AugmentedBindable<WebsiteNodeContent> website_node_content;
+        BackgroundFader fader;
 
         public WebsiteNodeContentControl(NodeControl node_control, WebsiteNodeContent website_node_content)
         {
@@ -36,7 +37,7 @@ namespace Qiqqa.Brainstorm.Nodes
 
             this.MouseDoubleClick += WebsiteNodeContentControl_MouseDoubleClick;
 
-            new BackgroundFader(this);
+            this.fader = new BackgroundFader(this);
         }
 
         void WebsiteNodeContentControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -60,5 +61,41 @@ namespace Qiqqa.Brainstorm.Nodes
                 MessageBoxes.Error(ex, "There was a problem launching your web page");
             }
         }
+
+        #region --- IDisposable ------------------------------------------------------------------------
+
+        ~WebsiteNodeContentControl()
+        {
+            Logging.Debug("~WebsiteNodeContentControl()");
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Logging.Debug("Disposing WebsiteNodeContentControl");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected virtual void Dispose(bool disposing)
+        {
+            Logging.Debug("WebsiteNodeContentControl::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
+            {
+                // Get rid of managed resources / get rid of cyclic references:
+                this.fader?.Dispose();
+            }
+            this.fader = null;
+
+            this.DataContext = null;
+            this.website_node_content = null;
+
+            ++dispose_count;
+        }
+
+        #endregion
+
     }
 }

@@ -88,8 +88,7 @@ namespace Qiqqa.Synchronisation.MetadataSync
                     Logging.Info("+Uploading {0}", ss.filename);
 
                     // TODO: Replace this with a pretty interface class ------------------------------------------------
-                    if (false) { }
-                    else if (library.WebLibraryDetail.IsIntranetLibrary)
+                    if (library.WebLibraryDetail.IsIntranetLibrary)
                     {
                         SynchronisationExecutor_Intranet.DoUpload(library, ss);
                     }

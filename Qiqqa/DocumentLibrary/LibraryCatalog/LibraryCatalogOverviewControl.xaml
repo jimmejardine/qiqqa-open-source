@@ -30,15 +30,15 @@
 
     <StackPanel>
       <DockPanel>
-        <TextBlock DockPanel.Dock="Right" Text="{Binding YearCombined}" ToolTip="{Binding YearCombined}" />
-        <TextBlock DockPanel.Dock="Left" Name="TextTitle" Text="{Binding TitleCombined}" ToolTip="{Binding TitleCombined}" TextTrimming="CharacterEllipsis" FontWeight="Bold" TextWrapping="Wrap"  />
+        <TextBlock DockPanel.Dock="Right" Text="{Binding YearCombined}" ToolTip="{Binding YearCombined}" TextTrimming="CharacterEllipsis" />
+        <TextBlock DockPanel.Dock="Left" Name="TextTitle" Text="{Binding TitleCombinedTrimmed}" ToolTip="{Binding TitleCombined}" TextTrimming="CharacterEllipsis" FontWeight="Bold" TextWrapping="Wrap"  />
         <local_gui:AugmentedSpacer />
 
       </DockPanel>
 
       <DockPanel>
-        <TextBlock DockPanel.Dock="Left" Name="TextAuthors" Text="{Binding AuthorsCombined}" ToolTip="{Binding AuthorsCombined}" TextTrimming="CharacterEllipsis" />
-        <TextBlock DockPanel.Dock="Right" Name="TextPublication" Text="{Binding Publication}" ToolTip="{Binding Publication}" TextTrimming="CharacterEllipsis" FontStyle="Italic" />
+        <TextBlock DockPanel.Dock="Left" Name="TextAuthors" Text="{Binding AuthorsCombinedTrimmed}" ToolTip="{Binding AuthorsCombined}" TextTrimming="CharacterEllipsis" />
+        <TextBlock DockPanel.Dock="Right" Name="TextPublication" Text="{Binding PublicationTrimmed}" ToolTip="{Binding Publication}" TextTrimming="CharacterEllipsis" FontStyle="Italic" />
         <local_gui:AugmentedSpacer />
       </DockPanel>
 

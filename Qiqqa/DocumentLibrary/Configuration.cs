@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if false
+
+using System;
 
 namespace Qiqqa.DocumentLibrary
 {
@@ -7,3 +9,5 @@ namespace Qiqqa.DocumentLibrary
     {
     }
 }
+
+#endif

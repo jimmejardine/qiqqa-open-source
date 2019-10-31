@@ -31,7 +31,7 @@ namespace Qiqqa.DocumentLibrary
 
             ProcessTags(TagTools.ConvertTagBundleToTags(pdf_document.Tags));
 
-            foreach (var pdf_annotation in pdf_document.Annotations)
+            foreach (var pdf_annotation in pdf_document.GetAnnotations())
             {
                 ProcessAnnotation(pdf_annotation);
             }

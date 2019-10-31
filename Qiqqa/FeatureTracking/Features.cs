@@ -1,6 +1,6 @@
 ﻿namespace Qiqqa.UtilisationTracking
 {
-    public class Features
+    public static class Features
     {
         public static readonly Feature App_Open = new Feature { Name = "App_Open", Description = "Open Qiqqa" };
         public static readonly Feature App_Close = new Feature { Name = "App_Close", Description = "Close Qiqqa" };

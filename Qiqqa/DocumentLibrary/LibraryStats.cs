@@ -3,7 +3,7 @@ using Qiqqa.Documents.PDF;
 
 namespace Qiqqa.DocumentLibrary
 {
-    public class LibraryStats
+    public static class LibraryStats
     {
         public static List<PDFDocument> GetNextReads(Library library)
         {

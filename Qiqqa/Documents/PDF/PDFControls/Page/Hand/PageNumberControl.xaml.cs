@@ -18,12 +18,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
             this.Background = ThemeColours.Background_Brush_Blue_LightToDark;
         }
 
-        public string PageNumber
+        public void SetPageNumber(string value)
         {
-            set
-            {
-                TxtPageNumber.Text = value;
-            }
+            TxtPageNumber.Text = value;
         }
     }
 }

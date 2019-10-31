@@ -114,11 +114,14 @@ namespace Utilities.Misc
             ShutdownableManager.Instance.Register(Shutdown);
         }
 
+        bool still_running = true;
+
         private void Shutdown()
         {
             Logging.Info("StatusManager is signalling shutdown");
             // canceling all statuses which can be canceled:
             SetAllCancelled();
+            still_running = false;
         }
 
         public void ClearStatus(string key)
@@ -160,28 +163,36 @@ namespace Utilities.Misc
         {
             Logging.Info("{0}:{1} ({2}/{3})", key, message, current_update_number, total_update_count);
 
-            StatusEntry status_entry;
-
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-            lock (status_entries_lock)
+            // Do log the statuses (above) but stop updating the UI when we're shutting down:
+            if (!Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
             {
-                l1_clk.LockPerfTimerStop();
-                if (!status_entries.TryGetValue(key, out status_entry))
+                StatusEntry status_entry;
+
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                lock (status_entries_lock)
                 {
-                    status_entry = new StatusEntry();
-                    status_entry.key = key;                    
-                    status_entries[key] = status_entry;
+                    l1_clk.LockPerfTimerStop();
+                    if (!status_entries.TryGetValue(key, out status_entry))
+                    {
+                        status_entry = new StatusEntry();
+                        status_entry.key = key;
+                        status_entries[key] = status_entry;
+                    }
+
+                    status_entry.last_updated = DateTime.UtcNow;
+                    status_entry.current_update_number = current_update_number;
+                    status_entry.total_update_count = total_update_count;
+                    status_entry.InsertStatusMessage(new StatusMessage(message, cancellable));
                 }
 
-                status_entry.last_updated = DateTime.UtcNow;
-                status_entry.current_update_number = current_update_number;
-                status_entry.total_update_count = total_update_count;
-                status_entry.InsertStatusMessage(new StatusMessage(message, cancellable));
+                if (null != OnStatusEntryUpdate)
+                {
+                    OnStatusEntryUpdate(status_entry);
+                }
             }
-
-            if (null != OnStatusEntryUpdate)
+            else
             {
-                OnStatusEntryUpdate(status_entry);
+                Logging.Debug("statusManager: application is still running = {0}", still_running);
             }
         }
 

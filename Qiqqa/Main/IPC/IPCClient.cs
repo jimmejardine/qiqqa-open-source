@@ -14,9 +14,11 @@ namespace Qiqqa.Main.IPC
                 using (var client = new NamedPipeClientStream(".", IPCCommon.PIPE_NAME, PipeDirection.InOut))
                 {
                     client.Connect(500);
-                    StreamWriter sw = new StreamWriter(client);
-                    sw.WriteLine(msg);
-                    sw.Flush();
+                    using (StreamWriter sw = new StreamWriter(client))
+                    {
+                        sw.WriteLine(msg);
+                        sw.Flush();
+                    }
                 }
             }
             catch (Exception ex)

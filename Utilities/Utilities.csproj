@@ -48,7 +48,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>82.0.7198.42243</ApplicationVersion>
+    <ApplicationVersion>82.0.7206.22989</ApplicationVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -137,8 +137,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="HtmlAgilityPack">
-      <HintPath>..\libs\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="HtmlAgilityPack, Version=1.11.16.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.16\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net40-client\log4net.dll</HintPath>
@@ -284,6 +284,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ComputerStatistics.cs" />
+    <Compile Include="Configuration\Configuration.cs" />
     <Compile Include="ConsoleRedirector\ConsoleForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -958,4 +959,7 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>node  $(SolutionDir)/Qiqqa.Build/patch_settings_file.js --TargetDir=$(TargetDir) --SolutionDir=$(SolutionDir) --ProjectDir=$(ProjectDir) --Build=$(ConfigurationName) $(ProjectDir)</PreBuildEvent>
+  </PropertyGroup>
 </Project>

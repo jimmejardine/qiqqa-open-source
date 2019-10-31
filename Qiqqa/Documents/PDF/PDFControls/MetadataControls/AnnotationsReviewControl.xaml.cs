@@ -78,7 +78,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             {
                 PDFDocument pdf_document = pdf_document_bindable.Underlying;
 
-                if (pdf_document.Annotations.Count > 50 || pdf_document.Highlights.Count > 1000)
+                if (pdf_document.GetAnnotations().Count > 50 || pdf_document.Highlights.Count > 1000)
                 {
                     ObjTooManyAnnotationsButton.Visibility = Visibility.Visible;
                     ObjTooManyAnnotationsButton.Tag = pdf_document;

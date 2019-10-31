@@ -100,6 +100,10 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
         internal Library library = null;
         public Library Library
         {
+            get
+            {
+                return library;
+            }
             set
             {
                 if (null != library)

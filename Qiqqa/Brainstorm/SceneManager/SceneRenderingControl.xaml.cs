@@ -162,6 +162,8 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         public SceneRenderingControl()
         {
+            Theme.Initialize();
+
             InitializeComponent();
 
             //this.Background = ThemeColours.Background_Brush_Blue_LightToDark;
@@ -212,6 +214,7 @@ namespace Qiqqa.Brainstorm.SceneManager
 
             New();
 
+			// TODO: dig up all these Registry-based tweaks of Qiqqa...
             if (RegistrySettings.Instance.IsSet(RegistrySettings.SampleBrainstorm))
             {
                 SampleSceneGenerator.CreateSampleScene_Coordinates(this);
@@ -348,16 +351,10 @@ namespace Qiqqa.Brainstorm.SceneManager
                 || url_lower.EndsWith(".jpeg", StringComparison.CurrentCultureIgnoreCase)
                 )
             {
-                MemoryStream ms_image = null;
-                try
-                {
-                    UrlDownloader.DownloadWithBlocking(ConfigurationManager.Instance.Proxy, url, out ms_image);
+                using (MemoryStream ms_image = UrlDownloader.DownloadWithBlocking(url))
+                { 
                     ImageNodeContent inc = new ImageNodeContent(ms_image);
                     AddNewNodeControl(inc, mouse_current_virtual.X, mouse_current_virtual.Y);
-                }
-                finally
-                {
-                    ms_image.Dispose();
                 }
             }
             else
@@ -1381,7 +1378,7 @@ namespace Qiqqa.Brainstorm.SceneManager
             }
 
             // Indicate that the selection has changed...
-            if (0 < nodes_new.Count())
+            if (nodes_new.Any())
             {
                 NotifySelectedNodeControlChanged(nodes_new[0]);
             }
@@ -1433,10 +1430,11 @@ namespace Qiqqa.Brainstorm.SceneManager
         }
 
         private int dispose_count = 0;
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            Logging.Debug("SceneRenderingControl::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
-            if (disposing)
+            Logging.Debug("SceneRenderingControl::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
             {
                 // Get rid of managed resources
                 this.AutoArranger?.Enabled(false);
@@ -1461,7 +1459,7 @@ namespace Qiqqa.Brainstorm.SceneManager
 
             this.ScrollInfoChanged = null;
 
-            // Get rid of unmanaged resources 
+            ++dispose_count;
         }
 
         #endregion

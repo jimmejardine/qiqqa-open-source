@@ -2,7 +2,7 @@
 
 namespace Qiqqa.DocumentLibrary
 {
-    public class VanillaReferenceCreating
+    public static class VanillaReferenceCreating
     {
         internal static bool IsVanillaReferenceFingerprint(string fingerprint)
         {

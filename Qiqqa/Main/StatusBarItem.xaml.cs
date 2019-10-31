@@ -31,7 +31,8 @@ namespace Qiqqa.Main
             ObjTextSquare.IsEnabled = cancellable;
             ObjTextSquare.Width = 16;
             ObjTextSquareText.Text = cancellable ? "X" : "■";
-            ObjTextBlock.Text = text;
+            ObjTextBlock.Text = Utilities.Strings.StringTools.TrimToLengthWithEllipsis(text);
+            ObjTextBlock.ToolTip = text;
 
             if (String.IsNullOrEmpty(text))
             {

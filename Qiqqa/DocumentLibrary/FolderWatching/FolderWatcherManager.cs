@@ -55,13 +55,13 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 }
             }
 
-            Utilities.Maintainable.MaintainableManager.Instance.RegisterHeldOffTask(TaskDaemonEntryPoint, 30 * 1000, System.Threading.ThreadPriority.BelowNormal);
+            Utilities.Maintainable.MaintainableManager.Instance.RegisterHeldOffTask(TaskDaemonEntryPoint, 30 * 1000, System.Threading.ThreadPriority.BelowNormal, extra_descr: $".Lib({library})");
         }
 
 #if DIAG
         private int dispose_count = 0;
 #endif
-        internal void Dispose()
+        public void Dispose()
         {
 #if DIAG
             Logging.Debug("FolderWatcherManager::Dispose() @{0}", ++dispose_count);

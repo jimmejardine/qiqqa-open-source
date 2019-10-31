@@ -9,7 +9,7 @@ using Utilities.GUI;
 
 namespace Qiqqa.DocumentLibrary
 {
-    public class RecentlyReadDocumentManager
+    public static class RecentlyReadDocumentManager
     {
         public static AugmentedPopup GetRecentlyReadPopupMenu(Library library)
         {

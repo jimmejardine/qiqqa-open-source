@@ -25,7 +25,7 @@ namespace Qiqqa.Brainstorm.SceneManager
 
             InitializeComponent();
 
-            ObjSceneRenderingControlScrollWrapper.ObjSceneRenderingControl.SceneRenderingControl_PostConstructor(ObjBrainstormMetadata);
+            SceneRenderingControl.SceneRenderingControl_PostConstructor(ObjBrainstormMetadata);
 
             bool ADVANCED_MENUS = ConfigurationManager.Instance.ConfigurationRecord.GUI_AdvancedMenus;
 
@@ -85,7 +85,7 @@ namespace Qiqqa.Brainstorm.SceneManager
             ButtonAutoArrange.Icon = Icons.GetAppIcon(Icons.BrainstormAutoArrange);
             ButtonAutoArrange.ToolTip = "Automatically arrange your brainstorm.";
             ButtonAutoArrange.Click += ButtonAutoArrange_Click;
-            
+
             RadioNodeAdditionMode_Connect.Click += RadioNodeAdditionMode_Click;
             RadioNodeAdditionMode_Create.Click += RadioNodeAdditionMode_Click;
             {
@@ -108,7 +108,7 @@ namespace Qiqqa.Brainstorm.SceneManager
             LoadEditorFrameworkElement(ObjStackEditorHelpWhenEmpty);
 
             // Listen for node changes
-            ObjSceneRenderingControlScrollWrapper.ObjSceneRenderingControl.SelectedNodeControlChanged += ObjSceneRenderingControl_SelectedNodeControlChanged;
+            SceneRenderingControl.SelectedNodeControlChanged += ObjSceneRenderingControl_SelectedNodeControlChanged;
 
             Logging.Debug("-BrainstormControl()");
         }
@@ -122,11 +122,11 @@ namespace Qiqqa.Brainstorm.SceneManager
         {
             if (RadioNodeAdditionMode_Connect.IsChecked ?? false)
             {
-                ObjSceneRenderingControlScrollWrapper.ObjSceneRenderingControl.NodeAdditionPolicy = SceneRenderingControl.NodeAdditionPolicyEnum.AlwaysUseExisting;
+                SceneRenderingControl.NodeAdditionPolicy = SceneRenderingControl.NodeAdditionPolicyEnum.AlwaysUseExisting;
             }
             else
             {
-                ObjSceneRenderingControlScrollWrapper.ObjSceneRenderingControl.NodeAdditionPolicy = SceneRenderingControl.NodeAdditionPolicyEnum.AlwaysCreateNew;
+                SceneRenderingControl.NodeAdditionPolicy = SceneRenderingControl.NodeAdditionPolicyEnum.AlwaysCreateNew;
             }
         }
 
@@ -143,36 +143,36 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         void ButtonPrint_Click(object sender, RoutedEventArgs e)
         {
-            /*
+#if false
             PrintDialog print_dialog = new System.Windows.Controls.PrintDialog();
             if (print_dialog.ShowDialog() ?? false)
             {
                 FeatureTrackingManager.Instance.UseFeature(Features.Brainstorm_Print);
-                print_dialog.PrintVisual(ObjSceneRenderingControlScrollWrapper.ObjSceneRenderingControl, "Qiqqa Brainstorm");
+                print_dialog.PrintVisual(SceneRenderingControl, "Qiqqa Brainstorm");
             }
-             * */
+#endif
 
-            FrameworkElementPrinter.Print(ObjSceneRenderingControlScrollWrapper.ObjSceneRenderingControl, "Qiqqa Brainstorm");            
+            FrameworkElementPrinter.Print(SceneRenderingControl, "Qiqqa Brainstorm");
         }
 
         void ButtonNew_Click(object sender, RoutedEventArgs e)
         {
-            ObjSceneRenderingControlScrollWrapper.ObjSceneRenderingControl.New();
+            SceneRenderingControl.New();
         }
 
         void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
-            ObjSceneRenderingControlScrollWrapper.ObjSceneRenderingControl.SaveToDisk();
+            SceneRenderingControl.SaveToDisk();
         }
 
         void ButtonSaveAs_Click(object sender, RoutedEventArgs e)
         {
-            ObjSceneRenderingControlScrollWrapper.ObjSceneRenderingControl.SaveAsToDisk();
+            SceneRenderingControl.SaveAsToDisk();
         }
 
         void ButtonOpen_Click(object sender, RoutedEventArgs e)
         {
-            ObjSceneRenderingControlScrollWrapper.ObjSceneRenderingControl.OpenFromDisk();
+            SceneRenderingControl.OpenFromDisk();
         }
 
         void ButtonNextClickMode_Click(object sender, RoutedEventArgs e)
@@ -181,13 +181,13 @@ namespace Qiqqa.Brainstorm.SceneManager
             {
                 ButtonHand.IsChecked = true;
                 ButtonAddText.IsChecked = false;
-                ObjSceneRenderingControlScrollWrapper.ObjSceneRenderingControl.SetNextClickMode(SceneRenderingControl.NextClickMode.Hand);
+                SceneRenderingControl.SetNextClickMode(SceneRenderingControl.NextClickMode.Hand);
             }
             else if (sender == ButtonAddText)
             {
                 ButtonHand.IsChecked = false;
                 ButtonAddText.IsChecked = true;
-                ObjSceneRenderingControlScrollWrapper.ObjSceneRenderingControl.SetNextClickMode(SceneRenderingControl.NextClickMode.AddText);
+                SceneRenderingControl.SetNextClickMode(SceneRenderingControl.NextClickMode.AddText);
             }
             else
             {
@@ -204,7 +204,7 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         void DoSearch()
         {
-            ObjSceneRenderingControlScrollWrapper.ObjSceneRenderingControl.Search(TextBoxFind.Text);
+            SceneRenderingControl.Search(TextBoxFind.Text);
             TextBoxFind.SelectAll();
         }
 
@@ -212,17 +212,17 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         void ButtonZoomIn_Click(object sender, RoutedEventArgs e)
         {
-            ObjSceneRenderingControlScrollWrapper.ObjSceneRenderingControl.ZoomIn();
+            SceneRenderingControl.ZoomIn();
         }
 
         void ButtonZoomOut_Click(object sender, RoutedEventArgs e)
         {
-            ObjSceneRenderingControlScrollWrapper.ObjSceneRenderingControl.ZoomOut();
+            SceneRenderingControl.ZoomOut();
         }
 
         public void OpenSample()
         {
-            ObjSceneRenderingControlScrollWrapper.ObjSceneRenderingControl.OpenSample();
+            SceneRenderingControl.OpenSample();
         }
 
         public SceneRenderingControl SceneRenderingControl
@@ -230,6 +230,10 @@ namespace Qiqqa.Brainstorm.SceneManager
             get
             {
                 return ObjSceneRenderingControlScrollWrapper.ObjSceneRenderingControl;
+            }
+            private set
+            {
+                ObjSceneRenderingControlScrollWrapper.ObjSceneRenderingControl = value;
             }
         }
 
@@ -241,7 +245,7 @@ namespace Qiqqa.Brainstorm.SceneManager
             {
                 is_first_selection = false;
                 DualTabControlArea.MakeActive("Edit");
-                ObjSceneRenderingControlScrollWrapper.ObjSceneRenderingControl.Focus();
+                SceneRenderingControl.Focus();
             }
 
             // Clear out the old selected node editor
@@ -283,7 +287,7 @@ namespace Qiqqa.Brainstorm.SceneManager
         ~BrainstormControl()
         {
             Logging.Debug("~BrainstormControl()");
-            Dispose(false);            
+            Dispose(false);
         }
 
         public void Dispose()
@@ -294,30 +298,27 @@ namespace Qiqqa.Brainstorm.SceneManager
         }
 
         private int dispose_count = 0;
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            Logging.Debug("BrainstormControl::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
-            if (disposing)
+            Logging.Debug("BrainstormControl::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
             {
                 // Get rid of managed resources
                 this.SceneRenderingControl?.Dispose();
             }
-            // this.SceneRenderingControl = null;  ===>
-            this.ObjSceneRenderingControlScrollWrapper.ObjSceneRenderingControl = null;
 
-            // Get rid of unmanaged resources 
+            SceneRenderingControl = null;
+
+            ++dispose_count;
         }
 
         #endregion
 
-
-        public bool AutoArrange
+        public void AutoArrange(bool value)
         {
-            set
-            {
-                this.ButtonAutoArrange.IsChecked = value;
-                this.SceneRenderingControl.AutoArranger.Enabled(value);
-            }
+            this.ButtonAutoArrange.IsChecked = value;
+            this.SceneRenderingControl.AutoArranger.Enabled(value);
         }
     }
 }

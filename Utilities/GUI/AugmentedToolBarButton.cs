@@ -5,7 +5,7 @@ namespace Utilities.GUI
 {
     public class AugmentedToolBarButton : AugmentedButton
     {
-        public AugmentedToolBarButton()
+        public AugmentedToolBarButton() : base()
         {
             this.Background = null;
             this.BorderBrush = null;

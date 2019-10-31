@@ -7,9 +7,10 @@ using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.Localisation
 {
+    [Serializable]
     public class LocaleTable : Dictionary<string, string>
     {
-        private static readonly char LINE_SPLITTER = ':';
+        const char LINE_SPLITTER = ':';
         private static readonly char[] LINE_SPLITTER_ARRAY = new char[] { LINE_SPLITTER };
 
         public static LocaleTable Load(string filename)

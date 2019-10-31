@@ -7,7 +7,7 @@ using Utilities.PDF.Sorax;
 
 namespace Qiqqa.Documents.PDF.PDFRendering
 {
-    public class PDFTools
+    public static class PDFTools
     {
         public static int CountPDFPages(string filename)
         {

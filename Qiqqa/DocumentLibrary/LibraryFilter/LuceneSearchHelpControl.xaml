@@ -4,7 +4,6 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
   xmlns:local_gui="clr-namespace:Qiqqa.Common.GUI"
-  xmlns:local_formatting="clr-namespace:Qiqqa.StartPage.Formatting"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
   mc:Ignorable="d" 
@@ -18,25 +17,25 @@
 
     <FlowDocumentScrollViewer IsToolBarVisible="False">
       <commongui:StandardFlowDocument>
-        <local_formatting:ParagraphHeader>
+        <Paragraph>
           Qiqqa allows you to do some pretty powerful searching.
-        </local_formatting:ParagraphHeader>
+        </Paragraph>
 
         <Paragraph>
           In general you can type a free-form search query into any of the Qiqqa search fields.  Qiqqa will do its best to work out what you are looking for.  If you suspect that your search results are incomplete, you can rebuild your search index at any point.  Go to the library screen, select all documents (CTRL-A), right-click, and select "Reindex this document."
         </Paragraph>
 
-        <local_formatting:ParagraphHeader>
+        <Paragraph>
           Search history.
-        </local_formatting:ParagraphHeader>
+        </Paragraph>
 
         <Paragraph>
           Qiqqa will remember your search history across your libraries, the start screen, and the cross-library search screen.  Your search history will also be remembered if you restart Qiqqa.
         </Paragraph>
         
-        <local_formatting:ParagraphHeader>
+        <Paragraph>
           You probably want to know these basics:
-        </local_formatting:ParagraphHeader>
+        </Paragraph>
 
         <List>
           <ListItem>
@@ -61,9 +60,9 @@
           </ListItem>
         </List>
 
-        <local_formatting:ParagraphHeader>
+        <Paragraph>
           Qiqqa also supports the following advanced search options:
-        </local_formatting:ParagraphHeader>
+        </Paragraph>
 
         <List>
           <ListItem>

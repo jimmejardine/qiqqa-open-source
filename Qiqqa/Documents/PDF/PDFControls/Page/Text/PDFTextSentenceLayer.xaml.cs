@@ -15,7 +15,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
     /// <summary>
     /// Interaction logic for PDFTextLayer.xaml
     /// </summary>
-    public partial class PDFTextSentenceLayer : PageLayer
+    public partial class PDFTextSentenceLayer : PageLayer, IDisposable
     {
         PDFRendererControlStats pdf_renderer_control_stats;
         int page;
@@ -31,7 +31,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
 
             InitializeComponent();
 
-            this.Focusable = true;            
+            this.Focusable = true;
             KeyboardNavigation.SetDirectionalNavigation(this, KeyboardNavigationMode.Once);
 
             this.Background = Brushes.Transparent;
@@ -55,7 +55,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
 
         void PDFTextSentenceLayer_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
         {
-            // We dont want this control to be scrolled into view when it gets keyboard focus...
+            // We don't want this control to be scrolled into view when it gets keyboard focus...
             e.Handled = true;
         }
 
@@ -85,17 +85,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
 
                 e.Handled = true;
             }
-        }
-        
-        internal override void Dispose()
-        {
-            Logging.Debug("PDFTextSentenceLayer::Dispose()");
-
-            ClearChildren();
-
-            pdf_renderer_control_stats = null;
-            drag_area_tracker = null;
-            text_selection_manager = null;
         }
 
         internal override void DeselectLayer()
@@ -210,5 +199,76 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
         {
             this.text_layer_selection_mode = textLayerSelectionMode;
         }
+
+        #region --- IDisposable ------------------------------------------------------------------------
+
+        ~PDFTextSentenceLayer()
+        {
+            Logging.Debug("~PDFTextSentenceLayer()");
+            Dispose(false);
+        }
+
+        public override void Dispose()
+        {
+            Logging.Debug("Disposing PDFTextSentenceLayer");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected virtual void Dispose(bool disposing)
+        {
+            Logging.Debug("PDFTextSentenceLayer::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (null != drag_area_tracker)
+            {
+                WPFDoEvents.InvokeInUIThread(() =>
+                {
+                    try
+                    {
+                        foreach (var el in Children)
+                        {
+                            IDisposable node = el as IDisposable;
+                            if (null != node)
+                            {
+                                node.Dispose();
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex);
+                    }
+
+                    try
+                    {
+                        ClearChildren();
+                        Children.Clear();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex);
+                    }
+
+                    drag_area_tracker.OnDragStarted -= drag_area_tracker_OnDragStarted;
+                    drag_area_tracker.OnDragInProgress -= drag_area_tracker_OnDragInProgress;
+                    drag_area_tracker.OnDragComplete -= drag_area_tracker_OnDragComplete;
+                }, this.Dispatcher);
+            }
+
+            // Clear the references for sanity's sake
+            pdf_renderer_control_stats = null;
+            drag_area_tracker = null;
+            text_selection_manager = null;
+
+            this.DataContext = null;
+
+            ++dispose_count;
+
+            //base.Dispose(disposing);     // parent only throws an exception (intentionally), so depart from best practices and don't call base.Dispose(bool)
+        }
+
+        #endregion
+
     }
 }

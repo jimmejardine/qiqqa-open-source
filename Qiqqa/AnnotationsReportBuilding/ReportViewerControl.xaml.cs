@@ -68,6 +68,8 @@ namespace Qiqqa.AnnotationsReportBuilding
         }
 #endif
 
+        #region --- IDisposable ------------------------------------------------------------------------
+
         ~ReportViewerControl()
         {
             Logging.Debug("~ReportViewerControl()");
@@ -81,25 +83,21 @@ namespace Qiqqa.AnnotationsReportBuilding
             GC.SuppressFinalize(this);
         }
 
-#if DIAG
         private int dispose_count = 0;
-#endif
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-#if DIAG
-            Logging.Debug("ReportViewerControl::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
-#endif
-            if (disposing)
-            {
-                // Get rid of managed resources
-                this.ObjDocumentViewer.Document?.Blocks.Clear();
-            }
+            Logging.Debug("ReportViewerControl::Dispose({0}) @{1}", disposing, dispose_count);
+
+            // Get rid of managed resources
+            this.ObjDocumentViewer.Document?.Blocks.Clear();
 
             this.ObjDocumentViewer.Document = null;
             this.annotation_report = null;
 
-            // Get rid of unmanaged resources 
+            ++dispose_count;
         }
+
+        #endregion
 
         string SaveToRTF()
         {
@@ -127,36 +125,28 @@ namespace Qiqqa.AnnotationsReportBuilding
 
         void ButtonToPDF_Click(object sender, RoutedEventArgs e)
         {
-            PdfDocument doc = null;
             string filename_pdf = TempFile.GenerateTempFilename("pdf");
                                   
-            try
-            {
-                doc = new PdfDocument();
+                using (PdfDocument doc = new PdfDocument())
+                {
+                    PdfPage page = doc.Pages.Add();
+                    SizeF bounds = page.GetClientSize();
 
-                PdfPage page = doc.Pages.Add();
-                SizeF bounds = page.GetClientSize();
+                    string filename_rtf = SaveToRTF();
+                    string text = File.ReadAllText(filename_rtf);
 
-                string filename_rtf = SaveToRTF();
-                string text = File.ReadAllText(filename_rtf);
+                    PdfMetafile metafile = (PdfMetafile)PdfImage.FromRtf(text, bounds.Width, PdfImageType.Metafile);
+                    PdfMetafileLayoutFormat format = new PdfMetafileLayoutFormat();
 
-                PdfMetafile metafile = (PdfMetafile)PdfImage.FromRtf(text, bounds.Width, PdfImageType.Metafile);
-                PdfMetafileLayoutFormat format = new PdfMetafileLayoutFormat();
+                    // Allow the text to flow multiple pages without any breaks.
+                    format.SplitTextLines = true;
+                    format.SplitImages = true;
 
-                // Allow the text to flow multiple pages without any breaks.
-                format.SplitTextLines = true;
-                format.SplitImages = true;
+                    // Draw the image.
+                    metafile.Draw(page, 0, 0, format);
 
-                // Draw the image.
-                metafile.Draw(page, 0, 0, format);
-
-                doc.Save(filename_pdf);
-            }
-            finally
-            {
-                // Warning CA2000  call System.IDisposable.Dispose on object 'doc' before all references to it are out of scope.
-                doc?.Dispose();
-            }
+                    doc.Save(filename_pdf);
+                }
 
             Process.Start(filename_pdf);
         }

@@ -16,7 +16,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.CitationsStuff
     public partial class CitationsUserControl : UserControl
     {
         PDFDocument pdf_document;
-        
+
         public CitationsUserControl()
         {
             InitializeComponent();
@@ -81,13 +81,10 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.CitationsStuff
             }
         }
 
-        public PDFDocument PDFDocument
+        public void SetPDFDocument(PDFDocument doc)
         {
-            set
-            {
-                this.pdf_document = value;
-                RepopulatePanels();
-            }
+            this.pdf_document = doc;
+            RepopulatePanels();
         }
 
         private void RepopulatePanels()

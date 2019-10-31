@@ -8,23 +8,23 @@ using Utilities;
 
 namespace Qiqqa.WebBrowsing.EZProxy
 {
-    class Proxies
+    public class Proxy
+    {
+        public string url { get; set; }
+        public string name { get; set; }
+
+        public override string ToString()
+        {
+            return name;
+        }
+    }
+
+    public class Proxies
     {
         public static Proxies Instance = new Proxies();
 
         private Proxies()
         {
-        }
-
-        public class Proxy
-        {
-            public string url { get; set; }
-            public string name { get; set; }
-
-            public override string ToString()
-            {
-                return name;
-            }
         }
 
         private List<Proxy> proxies;

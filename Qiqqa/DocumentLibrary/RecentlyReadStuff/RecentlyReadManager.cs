@@ -28,7 +28,7 @@ namespace Qiqqa.DocumentLibrary.RecentlyReadStuff
 
         public void AddRecentlyRead(PDFDocument pdf_document)
         {
-            using (StreamWriter sr = new StreamWriter(Filename_Store, true))
+            using (StreamWriter sr = new StreamWriter(Filename_Store, append: true))
             {
                 sr.WriteLine(
                     "{0},{1},{2}",

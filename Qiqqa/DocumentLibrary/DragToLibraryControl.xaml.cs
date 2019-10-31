@@ -24,7 +24,6 @@ namespace Qiqqa.DocumentLibrary
 
             drag_to_library_manager = new DragToLibraryManager(null);
             drag_to_library_manager.RegisterControl(ButtonDragToLibrary);
-
         }
     }
 }

@@ -13,7 +13,7 @@ using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary.FolderWatching
 {
-    public class FolderWatcher
+    public class FolderWatcher : IDisposable
     {
         FolderWatcherManager folder_watcher_manager;
         Library library;
@@ -89,27 +89,6 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
             file_system_watcher.Path = null;
             file_system_watcher.EnableRaisingEvents = false;
-        }
-
-        private int dispose_count = 0;
-        internal void Dispose()
-        {
-            Logging.Debug("FolderWatcher::Dispose() @{0}", ++dispose_count);
-
-            if (null != file_system_watcher)
-            {
-                file_system_watcher.EnableRaisingEvents = false;
-                file_system_watcher.Dispose();
-            }
-
-            file_system_watcher = null;
-
-            folder_watcher_manager = null;
-            //library.Dispose();
-            library = null;
-            tags.Clear();
-            configured_folder_to_watch = null;
-            aspiring_folder_to_watch = null;
         }
 
         void file_system_watcher_Changed(object sender, FileSystemEventArgs e)
@@ -286,9 +265,8 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                         int textify_count = 0;
                         int ocr_count = 0;
                         Qiqqa.Documents.PDF.PDFRendering.PDFTextExtractor.Instance.GetJobCounts(out textify_count, out ocr_count);
-                        int indexing_pages_pending = library.LibraryIndex.PagesPending;
 
-                        int duration = 1 * 1000 + thr_cnt * 250 + queued_cnt * 20 + textify_count * 50 + ocr_count * 500 + indexing_pages_pending * 30;
+                        int duration = 1 * 1000 + thr_cnt * 250 + queued_cnt * 20 + textify_count * 50 + ocr_count * 500;
 
                         daemon.Sleep(Math.Min(60 * 1000, duration));
                         // As we have slept a while, it's quite unsure whether that file still exists. Skip it and 
@@ -442,5 +420,46 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             // HACK & QUICK PATCH until we have refactored this stuff:
             filenames_that_are_new.Clear();
         }
+
+        #region --- IDisposable ------------------------------------------------------------------------
+
+        ~FolderWatcher()
+        {
+            Logging.Debug("~FolderWatcher()");
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Logging.Debug("Disposing FolderWatcher");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected virtual void Dispose(bool disposing)
+        {
+            Logging.Debug("FolderWatcher::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
+            {
+                // Get rid of managed resources
+                file_system_watcher.EnableRaisingEvents = false;
+                file_system_watcher.Dispose();
+            }
+
+            file_system_watcher = null;
+
+            folder_watcher_manager = null;
+            //library.Dispose();
+            library = null;
+            tags.Clear();
+            configured_folder_to_watch = null;
+            aspiring_folder_to_watch = null;
+
+            ++dispose_count;
+        }
+
+        #endregion
     }
 }

@@ -21,7 +21,8 @@ namespace Utilities.Misc
 
             }
         }
-        public static bool QueueUserWorkItem(WaitCallback callback)
+
+        public static bool QueueUserWorkItem(WaitCallback callback, bool skip_task_at_app_shutdown = true)
         {
             lock (queued_thread_count_lock)
             {
@@ -39,15 +40,37 @@ namespace Utilities.Misc
             ThreadPool.GetMinThreads(out workerThreads, out completionPortThreads);
             Logging.Debug("QueueUserWorkItem: MinThreads = {0} | {1}", workerThreads, completionPortThreads);
 #endif
-            return ThreadPool.QueueUserWorkItem(o => QueueUserWorkItem_THREAD(callback));
+            if (skip_task_at_app_shutdown)
+            {
+                return ThreadPool.QueueUserWorkItem(o => QueueUserWorkItem_THREAD(callback));
+            }
+            else
+            {
+                return ThreadPool.QueueUserWorkItem(o => QueueUserWorkItem_THREAD_NoSkip(callback));
+            }
         }
 
         private SafeThreadPool() { }
 
+        private static void QueueUserWorkItem_THREAD_NoSkip(WaitCallback callback)
+        {
+            UserWorkItem(callback, skip_at_app_shutdown: false);
+        }
         private static void QueueUserWorkItem_THREAD(WaitCallback callback)
+        {
+            UserWorkItem(callback, skip_at_app_shutdown: true);
+        }
+
+        private static void UserWorkItem(WaitCallback callback, bool skip_at_app_shutdown)
         {
             try
             {
+                if (!skip_at_app_shutdown && Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+                {
+                    Logging.Debug特("SafeThreadPool::QueueUserWorkItem: Breaking out due to application termination");
+                    return;
+                }
+
                 callback.Invoke(null);
             }
             catch (Exception ex)
@@ -66,10 +89,12 @@ namespace Utilities.Misc
                     Logging.Error(ex2, "There was an exception while trying to call back the SafeThreadPool exception callback!");
                 }
             }
-
-            lock (queued_thread_count_lock)
+            finally
             {
-                queued_thread_count--;
+                lock (queued_thread_count_lock)
+                {
+                    queued_thread_count--;
+                }
             }
         }
 
@@ -79,15 +104,17 @@ namespace Utilities.Misc
             {
                 // determine the number of *logical* processor cores.
                 // see also: https://stackoverflow.com/questions/1542213/how-to-find-the-number-of-cpu-cores-via-net-c
-                count = Math.Max(2, Environment.ProcessorCount);
+                count = Environment.ProcessorCount;
             }
 
-            // heuristic: allow two CPU threads per core, two I/O thread per core with a minimum of 6
-            int min_cpu_threads, min_io_threads;
+            // heuristic: allow one CPU thread per core minus 2 (accounting for main thread and others), two I/O thread per core with a minimum of 2 and 6 respectively
+            int min_cpu_threads = 0, min_io_threads = 0;
+#if false
             ThreadPool.GetMinThreads(out min_cpu_threads, out min_io_threads);
-            min_cpu_threads = Math.Max(2 * count, min_cpu_threads);
+#endif
+            min_cpu_threads = Math.Max(Math.Max(2, count - 2), min_cpu_threads);
             min_io_threads = Math.Max(Math.Max(6, 2 * count), min_io_threads);
-            //ThreadPool.SetMaxThreads(min_cpu_threads, min_io_threads);
+            ThreadPool.SetMaxThreads(min_cpu_threads, min_io_threads);
         }
     }
 }

@@ -114,7 +114,7 @@ namespace Qiqqa.Common.Configuration
 
         public string InCite_LastStyleFile
         {
-            get 
+            get
             {
                 string filename = this["InCite_LastStyleFile"] as string;
                 if (String.IsNullOrEmpty(filename))
@@ -165,8 +165,8 @@ namespace Qiqqa.Common.Configuration
         public bool System_DisableSSL
         {
             get { return (this["System_DisableSSL"] as bool?) ?? false; }
-            set 
-            { 
+            set
+            {
                 this["System_DisableSSL"] = value;
                 Logging.Debug特("DisableSSL = " + value);
             }
@@ -244,6 +244,28 @@ namespace Qiqqa.Common.Configuration
         {
             get { return this["Web_UserAgentOverride"] as string; }
             set { this["Web_UserAgentOverride"] = value; }
+        }
+
+        public string GetWebUserAgent()
+        {
+            string ua = Web_UserAgentOverride;
+            bool overruled = true;
+
+            if (String.IsNullOrEmpty(ua))
+            {
+                ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0 Waterfox/56.2.14";
+                overruled = false;
+#if false
+                String.Format(
+                "Mozilla/5.0 (Windows; {0}; rv:13.0) Gecko/13.0 Firefox/13.0.0",
+                    Environment.OSVersion
+                );
+#endif
+            }
+
+            Logging.Info("Using {1}user agent: {0}", ua, (overruled ? "overridden " : "default"));
+
+            return ua;
         }
 
         public string Proxy_EZProxy
@@ -334,7 +356,7 @@ namespace Qiqqa.Common.Configuration
             get { return (this["GUI_LastSelectedLibraryId"] as string) ?? ""; }
             set { this["GUI_LastSelectedLibraryId"] = value; }
         }
-        
+
         public bool GUI_AdvancedMenus
         {
             get { return (this["GUI_AdvancedMenus"] as bool?) ?? false; }
@@ -462,11 +484,18 @@ namespace Qiqqa.Common.Configuration
             set { this["AutomaticAccountDetails_LibraryMembershipLastDate"] = value; }
         }
 
-        //[NonSerialized]
+        [NonSerialized]
+        private bool disable_all_background = false;
         public bool DisableAllBackgroundTasks
         {
-            get { return false; }
-            set { /* nil */ }
+            get
+            {
+                return disable_all_background;
+            }
+            set
+            {
+                disable_all_background = value;
+            }
         }
     }
 }

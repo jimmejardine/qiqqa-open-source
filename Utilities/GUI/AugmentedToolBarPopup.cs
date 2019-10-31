@@ -13,6 +13,8 @@ namespace Utilities.GUI
 
         public AugmentedToolBarPopup()
         {
+            Theme.Initialize();
+
             this.AllowsTransparency = true;
             
             this.border.Background = ThemeColours.Background_Brush_Blue_LightToDark;

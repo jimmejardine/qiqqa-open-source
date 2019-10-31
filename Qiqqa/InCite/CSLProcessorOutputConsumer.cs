@@ -11,7 +11,7 @@ using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.InCite
 {
-    public class CSLProcessorOutputConsumer
+    public class CSLProcessorOutputConsumer : IDisposable
     {
         public static readonly string RTF_START = @"{\rtf1" + "\n";
         public static readonly string RTF_END = @"}";
@@ -30,7 +30,7 @@ namespace Qiqqa.InCite
         public string bib_start;
         public string bib_end;
 
-        private Dictionary<int, string> position_to_inline = new Dictionary<int, string>();        
+        private Dictionary<int, string> position_to_inline = new Dictionary<int, string>();
         private Dictionary<string, List<int>> inline_to_positions = new Dictionary<string, List<int>>();
         public Dictionary<int, string> position_to_text = new Dictionary<int, string>();
         public List<string> bibliography = new List<string>();
@@ -65,7 +65,7 @@ namespace Qiqqa.InCite
             // This is the only way we can communicate from JavaScript to .NET!!
             web_browser.EnableConsoleMessageNotfication();
             web_browser.ConsoleMessage += web_browser_ConsoleMessage;
-            
+
             // Kick off citeproc computation
             web_browser.Navigate(uri.ToString());
         }
@@ -223,7 +223,7 @@ namespace Qiqqa.InCite
             text = text.Trim();
 
             // Sometimes citeproc-js returns some dodgy stuff...
-            string[] DOUBLE_PAGE_SUFFICES = new string[] 
+            string[] DOUBLE_PAGE_SUFFICES = new string[]
             {
                 ", p.", ", pp.", ", chap.", ", sec." ,
                 ": p.", ": pp.", ": chap.", ": sec." ,
@@ -292,7 +292,7 @@ namespace Qiqqa.InCite
         {
             return inline_to_positions.Keys;
         }
-        
+
         internal string GetTextForCluster(string key)
         {
             if (inline_to_positions.ContainsKey(key))
@@ -379,5 +379,47 @@ namespace Qiqqa.InCite
 
             return sb.ToString();
         }
+
+        #region --- IDisposable ------------------------------------------------------------------------
+
+        ~CSLProcessorOutputConsumer()
+        {
+            Logging.Debug("~CSLProcessorOutputConsumer()");
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Logging.Debug("Disposing CSLProcessorOutputConsumer");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected virtual void Dispose(bool disposing)
+        {
+            Logging.Debug("CSLProcessorOutputConsumer::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
+            {
+                // Get rid of managed resources
+                web_browser?.Dispose();
+            }
+
+            web_browser = null;
+
+            brd = null;
+            user_argument = null;
+
+            position_to_inline.Clear();
+            inline_to_positions.Clear();
+            position_to_text.Clear();
+            bibliography.Clear();
+            logs.Clear();
+
+            ++dispose_count;
+        }
+
+        #endregion
     }
 }

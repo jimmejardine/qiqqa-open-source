@@ -6,7 +6,7 @@ using Utilities;
 
 namespace Qiqqa.UpgradePaths
 {
-    public class UpgradeManager
+    public static class UpgradeManager
     {
         public static void RunUpgrades(SplashScreenWindow splashscreen_window)
         {
