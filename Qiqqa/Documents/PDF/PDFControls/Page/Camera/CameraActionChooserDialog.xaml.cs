@@ -59,9 +59,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
 
         void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (false) { }
-
-            else if (CmdImage == sender)
+            if (CmdImage == sender)
             {
                 Clipboard.SetImage(this.image);
                 StatusManager.Instance.UpdateStatus("RegionSnapshot", "An image snapshot of the PDF region has been copied to the clipboard.");
@@ -108,6 +106,12 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
+
+            // base.OnClosed() invokes this calss Closed() code, so we flipped the order of exec to reduce the number of surprises for yours truly.
+            // This NULLing stuff is really the last rites of Dispose()-like so we stick it at the end here.
+
+            image = null;
+            ObjImage.Source = null;
         }
     }
 }

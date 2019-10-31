@@ -8,6 +8,7 @@ using Qiqqa.Documents.PDF.PDFControls.Page.Text;
 using Qiqqa.Documents.PDF.PDFControls.Page.Tools;
 using Qiqqa.UtilisationTracking;
 using Utilities;
+using Utilities.GUI;
 using Utilities.OCR;
 
 namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
@@ -166,7 +167,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
             Dispose(false);
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
             Logging.Debug("Disposing PDFHighlightLayer");
             Dispose(true);
@@ -174,24 +175,44 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
         }
 
         private int dispose_count = 0;
-        protected override void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             Logging.Debug("PDFHighlightLayer::Dispose({0}) @{1}", disposing, dispose_count);
 
             if (null != drag_area_tracker)
             {
-                foreach (var el in Children)
+                WPFDoEvents.InvokeInUIThread(() =>
                 {
-                    IDisposable node = el as IDisposable;
-                    node.Dispose();
-                }
+                    try
+                    {
+                        foreach (var el in Children)
+                        {
+                            IDisposable node = el as IDisposable;
+                            if (null != node)
+                            {
+                                node.Dispose();
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex);
+                    }
 
-                drag_area_tracker.OnDragStarted -= drag_area_tracker_OnDragStarted;
-                drag_area_tracker.OnDragInProgress -= drag_area_tracker_OnDragInProgress;
-                drag_area_tracker.OnDragComplete -= drag_area_tracker_OnDragComplete;
+                    try
+                    {
+                        Children.Clear();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex);
+                    }
+
+                    drag_area_tracker.OnDragStarted -= drag_area_tracker_OnDragStarted;
+                    drag_area_tracker.OnDragInProgress -= drag_area_tracker_OnDragInProgress;
+                    drag_area_tracker.OnDragComplete -= drag_area_tracker_OnDragComplete;
+                }, this.Dispatcher);
             }
-
-            Children.Clear();
 
             // Clear the references for sanity's sake
             pdf_renderer_control_stats = null;

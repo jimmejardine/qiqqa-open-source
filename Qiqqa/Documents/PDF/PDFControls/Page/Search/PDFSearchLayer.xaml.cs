@@ -7,6 +7,7 @@ using Qiqqa.Documents.PDF.PDFControls.Page.Text;
 using Qiqqa.Documents.PDF.PDFControls.Page.Tools;
 using Qiqqa.Documents.PDF.Search;
 using Utilities;
+using Utilities.GUI;
 using Utilities.GUI.Animation;
 using Utilities.OCR;
 
@@ -24,9 +25,11 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
 
         public PDFSearchLayer(PDFRendererControlStats pdf_renderer_control_stats, int page)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             this.pdf_renderer_control_stats = pdf_renderer_control_stats;
             this.page = page;
-            
+
             InitializeComponent();
 
             Background = Brushes.Transparent;
@@ -142,7 +145,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
             Dispose(false);
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
             Logging.Debug("Disposing PDFSearchLayer");
             Dispose(true);
@@ -150,17 +153,42 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
         }
 
         private int dispose_count = 0;
-        protected override void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             Logging.Debug("PDFSearchLayer::Dispose({0}) @{1}", disposing, dispose_count);
 
-                foreach (var el in Children)
+            if (dispose_count == 0)
+            {
+                WPFDoEvents.InvokeInUIThread(() =>
                 {
-                    IDisposable node = el as IDisposable;
-                    node.Dispose();
-                }
+                    WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
-            Children.Clear();
+                    try
+                    {
+                        foreach (var el in Children)
+                        {
+                            IDisposable node = el as IDisposable;
+                            if (null != node)
+                            {
+                                node.Dispose();
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex);
+                    }
+
+                    try
+                    {
+                        Children.Clear();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex);
+                    }
+                }, this.Dispatcher);
+            }
 
             // Clear the references for sanity's sake
             pdf_renderer_control_stats = null;

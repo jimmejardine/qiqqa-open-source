@@ -138,9 +138,20 @@ namespace Utilities.GUI
             return Application.Current == null;
         }
 
-        public static void InvokeInUIThread(Action action)
+        public static void InvokeInUIThread(Action action, Dispatcher override_dispatcher = null)
         {
-            if (!CurrentThreadIsUIThread())
+            if (override_dispatcher != null)
+            {
+                if (!override_dispatcher.CheckAccess())
+                {
+                    override_dispatcher.Invoke(action, DispatcherPriority.Normal);
+                }
+                else
+                {
+                    action.Invoke();
+                }
+            }
+            else if (!CurrentThreadIsUIThread())
             {
                 Application.Current.Dispatcher.Invoke(action, DispatcherPriority.Normal);
             }

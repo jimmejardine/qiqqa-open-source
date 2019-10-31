@@ -734,7 +734,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     old.IsReadOnly = MixOldAndNew(old.IsReadOnly, new_web_library_detail.IsReadOnly, new_web_library_detail.Id + "::" + nameof(old.IsReadOnly), ref state);
 
                     // fixup:
-                    if (old.LibraryType() != "UNKNOWN")
+                    if (old.LibraryType() != "UNKNOWN" && old.IsReadOnly)
                     {
                         // reset ReadOnly for everyone who is ex-Premium(Plus) for all their known libraries.
                         old.IsReadOnly = false;

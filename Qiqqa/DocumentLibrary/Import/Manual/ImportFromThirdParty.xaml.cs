@@ -23,7 +23,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
     /// </summary>
     public partial class ImportFromThirdParty : StandardWindow
     {
-        private readonly Library _library;
+        private Library _library;
         private Providers _currentProvider;
         private UiState _currentUiState;
         private string _currentSelectedExportFile;
@@ -213,7 +213,6 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
         private void ChooseExportFile(object sender, RoutedEventArgs e)
         {
-
             _currentSelectedExportFile = null;
 
             switch (_currentProvider)
@@ -289,7 +288,6 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             //Cancelled. 
             if (String.IsNullOrEmpty(_currentSelectedSupplementaryFolder)) return;
 
-
             switch (_currentProvider)
             {
                 case Providers.EndNote:
@@ -308,7 +306,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             FileImporter importer = null;
 
             #region Check we can open the file, and warn about file size if necessary
-            
+
             try
             {
                 long fileSize = 0;
@@ -329,7 +327,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             }
 
             #endregion
-            
+
             try
             {
                 switch (_currentProvider)
@@ -370,8 +368,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                 return;
             }
 
-            //Get entries from parsed file and populate list
-
+            // Get entries from parsed file and populate list
 
             var result = importer.GetResult();
             List<AugmentedBindable<BibTeXEntry>> bindableEntries = new List<AugmentedBindable<BibTeXEntry>>(result.Entries.Count);
@@ -397,7 +394,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
         private void ShowWrongFormatGuidance()
         {
-            //Default prefix
+            // Default prefix
             string help = String.Format("The file you selected had content, but it did not appear to be suitable for import");
             string suffix = String.Empty;
 
@@ -408,13 +405,12 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                     break;
             }
 
-
             MessageBoxes.Warn(help + Environment.NewLine + Environment.NewLine + suffix);
         }
 
         private void ShowNoFilesGuidance(int totalEntryCount, int entriesWithoutFileFieldCount)
         {
-            //Default prefix
+            // Default prefix
             string prefix = String.Format("The file you selected had {0} entries, but {1} of them were missing the \"file\" field, OR the file could not be found on disk in the location specified by the file entry." + Environment.NewLine + Environment.NewLine + "Without the file entry (or the file being in the correct place on disk), we can't import the PDF.", totalEntryCount, entriesWithoutFileFieldCount);
             string suffix = String.Empty;
 
@@ -636,6 +632,14 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
+
+            // base.OnClosed() invokes this calss Closed() code, so we flipped the order of exec to reduce the number of surprises for yours truly.
+            // This NULLing stuff is really the last rites of Dispose()-like so we stick it at the end here.
+
+            _library = null;
+
+            mdd = null;
+            edd = null;
         }
     }
 }

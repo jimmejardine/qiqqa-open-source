@@ -807,14 +807,23 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                     pending_refresh_work_fast = null;
                     pending_refresh_work_slow = null;
                 }
+
+#if false           // These Dispose() calls have already been done above in the page_layers.Dispose() loop!
+                CanvasTextSentence_.Dispose();
+                CanvasSearch_.Dispose();
+                CanvasAnnotation_.Dispose();
+                CanvasHighlight_.Dispose();
+                CanvasCamera_.Dispose();
+                CanvasHand_.Dispose();
+                CanvasInk_.Dispose();
+#endif
             }
 
-            page_layers.Clear();
+            page_layers = null;
 
             CurrentlyShowingImage = null;
             ImagePage_HIDDEN = null;
 
-            //pdf_renderer_control.Dispose();
             pdf_renderer_control = null;
             pdf_renderer_control_stats = null;
 

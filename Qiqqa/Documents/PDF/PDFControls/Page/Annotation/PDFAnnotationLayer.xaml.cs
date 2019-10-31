@@ -136,7 +136,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
             Dispose(false);
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
             Logging.Debug("Disposing PDFAnnotationLayer");
             Dispose(true);
@@ -144,27 +144,44 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
         }
 
         private int dispose_count = 0;
-        protected override void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             Logging.Debug("PDFAnnotationLayer::Dispose({0}) @{1}", disposing, dispose_count);
 
             if (null != drag_area_tracker)
             {
-                foreach (var el in Children)
-                {
-                    IDisposable node = el as IDisposable;
-                    node.Dispose();
-                }
-
                 WPFDoEvents.InvokeInUIThread(() =>
                 {
+                    try
+                    {
+                        foreach (var el in Children)
+                        {
+                            IDisposable node = el as IDisposable;
+                            if (null != node)
+                            {
+                                node.Dispose();
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex);
+                    }
+
+                    try
+                    {
+                        Children.Clear();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex);
+                    }
+
                     WizardDPs.ClearPointOfInterest(this);
-                });
 
-                drag_area_tracker.OnDragComplete -= drag_area_tracker_OnDragComplete;
+                    drag_area_tracker.OnDragComplete -= drag_area_tracker_OnDragComplete;
+                }, this.Dispatcher);
             }
-
-            Children.Clear();
 
             // Clear the references for sanity's sake
             pdf_renderer_control_stats = null;

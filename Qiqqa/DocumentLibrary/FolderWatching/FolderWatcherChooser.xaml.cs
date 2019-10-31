@@ -21,7 +21,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             _library = library;
 
             InitializeComponent();
-            
+
             btnOk.Click += btnOk_Click;
             btnCancel.Click += btnCancel_Click;
             CmdResetHistory.Click += CmdResetHistory_Click;
@@ -55,10 +55,10 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         void CmdAddFolder_Click(object sender, RoutedEventArgs e)
         {
             using (FolderBrowserDialog dlg = new FolderBrowserDialog
-                {
-                    Description = "Please select the folder you want to watch for new PDFs.",
-                    ShowNewFolderButton = true
-                })
+            {
+                Description = "Please select the folder you want to watch for new PDFs.",
+                ShowNewFolderButton = true
+            })
             {
                 if (System.Windows.Forms.DialogResult.OK == dlg.ShowDialog())
                 {
@@ -80,7 +80,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         {
             this.Close();
         }
-        
+
         void btnOk_Click(object sender, RoutedEventArgs e)
         {
             _library.WebLibraryDetail.FolderToWatch = TxtFolders.Text;
@@ -97,6 +97,11 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
+
+            // base.OnClosed() invokes this calss Closed() code, so we flipped the order of exec to reduce the number of surprises for yours truly.
+            // This NULLing stuff is really the last rites of Dispose()-like so we stick it at the end here.
+
+            _library = null;
         }
     }
 }

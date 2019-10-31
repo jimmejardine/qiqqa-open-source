@@ -256,7 +256,8 @@ namespace Qiqqa.Main
 
             MainEntry.SignalShutdown();
 
-            ipc_server.Stop();
+            ipc_server?.Stop();
+            ipc_server = null;
 
             FeatureTrackingManager.Instance.UseFeature(Features.App_Close);
 
@@ -335,7 +336,11 @@ namespace Qiqqa.Main
             if (dispose_count == 0)
             {
                 // Get rid of managed resources
+                ObjTabWelcome.GetGoing -= ObjTabWelcome_GetGoing;
+
                 ObjStartPage?.Dispose();
+
+                ipc_server?.Stop();
             }
 
             ObjStartPage = null;
@@ -357,6 +362,10 @@ namespace Qiqqa.Main
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
+
+            // Dispose() does a few things that are also done in MainWindow_Closed(), which is invoked via base.OnClosed(), 
+            // so we flipped the order of exec to reduce the number of surprises for yours truly.
+            Dispose();
         }
     }
 }

@@ -141,9 +141,7 @@ namespace Utilities.Files
             }
             catch (Exception ex)
             {
-#if false
-                Logging.Error(ex);
-#endif
+                Logging.Error(ex, "Failed to parse JSON file '{0}'", filename);
                 return null;
             }
         }

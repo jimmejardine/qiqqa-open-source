@@ -338,14 +338,15 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
                         // Set the last read page
                         pdf_renderer_control_stats.pdf_document.PageLastRead = page.Page;
-                        // Dont notify this now as it causes many writes of the metadata to be done, which is slow for large highlightlists
+                        
+                        // Don't notify this now as it causes many writes of the metadata to be done, which is slow for large highlightlists
                         //pdf_renderer_control_stats.pdf_document.Bindable.NotifyPropertyChanged(() => pdf_renderer_control_stats.pdf_document.PageLastRead);
                     }
                 }
             }
-
-
         }
+
+        #region --- IDisposable ------------------------------------------------------------------------
 
         ~PDFRendererControl()
         {
@@ -392,6 +393,8 @@ namespace Qiqqa.Documents.PDF.PDFControls
             ++dispose_count;
         }
 
+        #endregion
+
         void PDFRendererControl_TextInput(object sender, TextCompositionEventArgs e)
         {
         }
@@ -402,9 +405,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
         
         internal void PDFRendererControl_KeyUp(object sender, KeyEventArgs e)
         {
-            if (false) {}
-
-            else if (KeyboardTools.IsCTRLDown() && e.Key == Key.P)
+            if (KeyboardTools.IsCTRLDown() && e.Key == Key.P)
             {
                 if (ZoomType.Zoom1Up == zoom_type)
                 {
@@ -610,6 +611,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     if (null != selected_page)
                     {
                         selected_page.DeselectPage();
+                        //selected_page.Dispose();       // wrong idea of mine [GHo]: adding this to "ensure it Dispose()s early" is causing null ref crashes elsewhere in the app. The darn thing stays hairy. :-(
                     }
 
                     selected_page = value;

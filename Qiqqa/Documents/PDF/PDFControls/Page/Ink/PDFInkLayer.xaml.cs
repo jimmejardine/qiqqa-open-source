@@ -8,6 +8,7 @@ using Qiqqa.Common.Configuration;
 using Qiqqa.Documents.PDF.PDFControls.Page.Tools;
 using Qiqqa.UtilisationTracking;
 using Utilities;
+using Utilities.GUI;
 using Utilities.GUI.Animation;
 
 namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
@@ -150,7 +151,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
             Dispose(false);
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
             Logging.Debug("Disposing PDFInkLayer");
             Dispose(true);
@@ -158,27 +159,47 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
         }
 
         private int dispose_count = 0;
-        protected override void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             Logging.Debug("PDFInkLayer::Dispose({0}) @{1}", disposing, dispose_count);
 
             if (0 == dispose_count)
             {
-                ObjInkCanvas.StrokeCollected -= ObjInkCanvas_StrokeCollected;
-                ObjInkCanvas.StrokeErased -= ObjInkCanvas_StrokeErased;
-                ObjInkCanvas.SelectionMoved -= ObjInkCanvas_SelectionMoved;
-                ObjInkCanvas.SelectionResized -= ObjInkCanvas_SelectionResized;
+                WPFDoEvents.InvokeInUIThread(() =>
+                {
+                    ObjInkCanvas.StrokeCollected -= ObjInkCanvas_StrokeCollected;
+                    ObjInkCanvas.StrokeErased -= ObjInkCanvas_StrokeErased;
+                    ObjInkCanvas.SelectionMoved -= ObjInkCanvas_SelectionMoved;
+                    ObjInkCanvas.SelectionResized -= ObjInkCanvas_SelectionResized;
 
-                ObjInkCanvas.RequestBringIntoView -= ObjInkCanvas_RequestBringIntoView;
+                    ObjInkCanvas.RequestBringIntoView -= ObjInkCanvas_RequestBringIntoView;
+
+                    try
+                    {
+                        foreach (var el in Children)
+                        {
+                            IDisposable node = el as IDisposable;
+                            if (null != node)
+                            {
+                                node.Dispose();
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex);
+                    }
+
+                    try
+                    {
+                        Children.Clear();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex);
+                    }
+                }, this.Dispatcher);
             }
-
-            foreach (var el in Children)
-            {
-                IDisposable node = el as IDisposable;
-                node.Dispose();
-            }
-
-            Children.Clear();
 
             // Clear the references for sanity's sake
             pdf_renderer_control_stats = null;

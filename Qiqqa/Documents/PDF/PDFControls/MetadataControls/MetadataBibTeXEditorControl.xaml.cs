@@ -32,9 +32,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             ButtonSniffer.Caption = "Sniffer";
             ButtonSniffer.Click += ButtonSniffer_Click;
 
-            ButtonToggleBibTeX.Click += ButtonToggleBibTeX_Click; 
-            ButtonAckBibTeXParseErrors.Click += ButtonAckBibTeXParseErrors_Click; 
-            ButtonUndoBibTeXEdit.Click += ButtonUndoBibTeXEdit_Click; 
+            ButtonToggleBibTeX.Click += ButtonToggleBibTeX_Click;
+            ButtonAckBibTeXParseErrors.Click += ButtonAckBibTeXParseErrors_Click;
+            ButtonUndoBibTeXEdit.Click += ButtonUndoBibTeXEdit_Click;
             ObjBibTeXEditorControl.RegisterOverlayButtons(ButtonAckBibTeXParseErrors, ButtonToggleBibTeX, ButtonUndoBibTeXEdit);
 
             this.PreviewKeyDown += MetadataCommentEditorControl_PreviewKeyDown;
@@ -113,6 +113,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
+
+            // base.OnClosed() invokes this calss Closed() code, so we flipped the order of exec to reduce the number of surprises for yours truly.
+            // This NULLing stuff is really the last rites of Dispose()-like so we stick it at the end here.
+
+            pdf_document_bindable = null;
+
+            ObjBibTeXEditorControl.RegisterOverlayButtons(null, null, null);
         }
     }
 }
