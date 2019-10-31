@@ -34,17 +34,26 @@ namespace Utilities
         /// </summary>
         public void Stop()
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (still_running_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                //l1_clk.LockPerfTimerStop();
                 still_running = false;
             }
         }
 
+        public void Abort()
+        {
+            // when user code hasn't called Stop() yet, we do it for them to signal 
+            // any running code in the thread that time is up:
+            Stop();
+
+            thread.Abort();
+        }
+
         public void Join()
         {
-            // when user code hasn't called Stop() yt, we do it for them to signal 
+            // when user code hasn't called Stop() yet, we do it for them to signal 
             // any running code in the thread that time is up:
             Stop();
 

@@ -1,15 +1,20 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Qiqqa.Common.Common;
+using Utilities;
+using Utilities.GUI;
 
 namespace Qiqqa.Brainstorm.Nodes
 {    
     /// <summary>
     /// Interaction logic for StringNodeContentControl.xaml
     /// </summary>
-    public partial class StringNodeContentControl : UserControl, IEditableNodeContentControl
+    public partial class StringNodeContentControl : UserControl, IEditableNodeContentControl, IDisposable
     {
+        BackgroundFader fader;
+
         public StringNodeContentControl(NodeControl node_control, StringNodeContent string_node_content)
         {
             InitializeComponent();
@@ -26,7 +31,7 @@ namespace Qiqqa.Brainstorm.Nodes
             TxtEdit.LostFocus += edit_text_box_LostFocus;
             TxtEdit.PreviewKeyDown += edit_text_box_PreviewKeyDown;
 
-            new BackgroundFader(this);
+            this.fader = new BackgroundFader(this);
         }
 
         void StringNodeContentControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -54,8 +59,7 @@ namespace Qiqqa.Brainstorm.Nodes
 
         void edit_text_box_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (false) { }
-            else if (e.Key == Key.Escape)
+            if (e.Key == Key.Escape)
             {
                 ExitEditMode();
                 e.Handled = true;
@@ -96,5 +100,46 @@ namespace Qiqqa.Brainstorm.Nodes
             TxtOverview.Visibility = Visibility.Visible;
             this.Focus();
         }
+
+        #region --- IDisposable ------------------------------------------------------------------------
+
+        ~StringNodeContentControl()
+        {
+            Logging.Debug("~StringNodeContentControl()");
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Logging.Debug("Disposing StringNodeContentControl");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected virtual void Dispose(bool disposing)
+        {
+            Logging.Debug("StringNodeContentControl::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
+            {
+                // Get rid of managed resources / get rid of cyclic references:
+                this.fader?.Dispose();
+            }
+            this.fader = null;
+
+            this.DataContext = null;
+
+            this.MouseDoubleClick -= StringNodeContentControl_MouseDoubleClick;
+            this.KeyDown -= StringNodeContentControl_KeyDown;
+
+            TxtEdit.LostFocus -= edit_text_box_LostFocus;
+            TxtEdit.PreviewKeyDown -= edit_text_box_PreviewKeyDown;
+
+            ++dispose_count;
+        }
+
+        #endregion
+
     }
 }

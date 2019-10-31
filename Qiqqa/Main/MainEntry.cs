@@ -36,7 +36,7 @@ using CefSharp;
 
 namespace Qiqqa.Main
 {
-	public class MainEntry
+	public static class MainEntry
 	{
         [DllImport("kernel32.dll")]
         private static extern int SetErrorMode(int newMode); 
@@ -113,10 +113,7 @@ namespace Qiqqa.Main
             AppDomain.CurrentDomain.AssemblyLoad += delegate(object sender, AssemblyLoadEventArgs args)
             {
                 Logging.Info("Loaded assembly: {0}", args.LoadedAssembly.FullName);
-                if (args.LoadedAssembly.FullName.StartsWith("log4net"))
-                {
-                    Logging.TriggerInit();
-                }
+                Logging.TriggerInit();
             };
 
 #if CEFSHARP
@@ -226,7 +223,7 @@ namespace Qiqqa.Main
             // NB NB NB NB: You CANT USE ANYTHING IN THE USER CONFIG AT THIS POINT - it is not yet decided until LOGIN has completed...
         }
 
-        private static void DoShutdown()
+        public static void SignalShutdown()
         {
             ShutdownableManager.Instance.Shutdown();
         }
@@ -255,9 +252,8 @@ namespace Qiqqa.Main
                     Logging.Error(ex, "Exception caught at Main() application.Run().  Disaster.");
                 }
 
-                DoShutdown();
+                SignalShutdown();
             }
-
             catch (Exception ex)
             {
                 Logging.Error(ex, "Exception caught at Main().  Disaster.");

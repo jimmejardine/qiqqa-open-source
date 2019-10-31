@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 
 namespace Utilities.GUI
@@ -11,8 +12,8 @@ namespace Utilities.GUI
         FrameworkElement control;
 
         public interface WindowOpenedCapable
-        {
-            void OnWindowOpened();
+       {
+           void OnWindowOpened();
         }
         public interface WindowClosedCapable
         {
@@ -40,7 +41,6 @@ namespace Utilities.GUI
 
             this.Loaded += ControlHostingWindow_Loaded;
             this.Closed += ControlHostingWindow_Closed;
-
         }
 
         public FrameworkElement InternalControl
@@ -90,6 +90,20 @@ namespace Utilities.GUI
             {
                 Logging.Warn("ControlHostingWindow is not a parent of {0}", control.ToString());
             }
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+
+            // base.OnClosed() invokes this calss Closed() code, so we flipped the order of exec to reduce the number of surprises for yours truly.
+            // This NULLing stuff is really the last rites of Dispose()-like so we stick it at the end here.
+
         }
     }
 }

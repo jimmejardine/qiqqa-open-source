@@ -20,11 +20,10 @@ namespace Qiqqa.Brainstorm.Nodes
     /// <summary>
     /// Interaction logic for DocumentNodeContentControl.xaml
     /// </summary>
-    public partial class PDFAnnotationNodeContentControl : UserControl, IKeyPressableNodeContentControl
+    public partial class PDFAnnotationNodeContentControl : UserControl, IKeyPressableNodeContentControl, IDisposable
     {
         PDFAnnotationNodeContent pdf_annotation_node_content;
 
-        // TODO:
         //
         // Warning CA1001  Implement IDisposable on 'PDFAnnotationNodeContentControl' because it creates 
         // members of the following IDisposable types: 'LibraryIndexHoverPopup'. 
@@ -95,6 +94,7 @@ namespace Qiqqa.Brainstorm.Nodes
         void PDFDocumentNodeContentControl_ToolTipClosing(object sender, ToolTipEventArgs e)
         {
             this.ToolTip = "";
+
             library_index_hover_popup?.Dispose();
             library_index_hover_popup = null;
         }
@@ -120,5 +120,44 @@ namespace Qiqqa.Brainstorm.Nodes
                 e.Handled = true;
             }
         }
+
+        #region --- IDisposable ------------------------------------------------------------------------
+
+        ~PDFAnnotationNodeContentControl()
+        {
+            Logging.Debug("~PDFAnnotationNodeContentControl()");
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Logging.Debug("Disposing PDFAnnotationNodeContentControl");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected virtual void Dispose(bool disposing)
+        {
+            Logging.Debug("PDFAnnotationNodeContentControl::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
+            {
+                library_index_hover_popup?.Dispose();
+
+                this.ToolTipClosing -= PDFDocumentNodeContentControl_ToolTipClosing;
+                this.ToolTipOpening -= PDFDocumentNodeContentControl_ToolTipOpening;
+            }
+
+            // Clear the references for sanity's sake
+            pdf_annotation_node_content = null;
+            library_index_hover_popup = null;
+
+            ++dispose_count;
+        }
+
+        #endregion
+
     }
 }
+

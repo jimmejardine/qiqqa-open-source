@@ -81,13 +81,13 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
                     return;
                 }
 
-            // Smash out he manifest
+            // Smash out the manifest
             string json = this.manifest.ToJSON();
             File.WriteAllText(target_filename_bundle_manifest, json);
 
             // Smash out the bundle
             string source_directory = Path.GetFullPath(Path.Combine(library.LIBRARY_BASE_PATH, @"*"));
-            string directory_exclusion_parameter = manifest.IncludesPDFs ? "" : String.Format("-xr!documents", source_directory);
+            string directory_exclusion_parameter = (manifest.IncludesPDFs ? "" : "-xr!documents");
             string parameters = String.Format("a -tzip -mm=Deflate -mmt=on -mx9 \"{0}\" \"{1}\" {2}", target_filename_bundle, source_directory, directory_exclusion_parameter);
             Process zip_process = Process.Start(ConfigurationManager.Instance.Program7ZIP, parameters);
 

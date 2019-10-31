@@ -19,12 +19,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             ComboBoxRating.ItemsSource = Choices.Ratings;
         }
 
-        public bool DatesVisible
+        public void SetDatesVisible(bool value)
         {
-            set
-            {
-                ObjDatesPanel.Visibility = value ? Visibility.Visible : Visibility.Collapsed;
-            }
+            ObjDatesPanel.Visibility = value ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }

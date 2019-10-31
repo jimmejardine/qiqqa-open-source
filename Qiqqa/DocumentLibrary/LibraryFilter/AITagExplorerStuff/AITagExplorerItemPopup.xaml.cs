@@ -17,8 +17,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
         string source_tag;
         
         AugmentedPopup popup;
-
-
+        
         public AITagExplorerItemPopup(Library library, string source_tag)
         {
             this.library = library;

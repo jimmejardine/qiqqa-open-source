@@ -14,6 +14,8 @@ namespace Utilities.GUI
 
         public AugmentedBorder()
         {
+            Theme.Initialize();
+
             this.CornerRadius = new CornerRadius(CORNER_RADIUS);
             this.BorderBrush = ThemeColours.Background_Brush_Blue_VeryDark;
             this.BorderThickness = new Thickness(1);

@@ -36,7 +36,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
     /// <summary>
     /// Interaction logic for GoogleBibTexSnifferControl.xaml
     /// </summary>
-    public partial class GoogleBibTexSnifferControl : StandardWindow
+    public partial class GoogleBibTexSnifferControl : StandardWindow, IDisposable
     {
         class SearchOptions
         {
@@ -208,13 +208,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             ButtonValidate.ToolTip = "The automatic BibTeX for this document is great.  Mark it as valid!";
             ButtonValidate.Click += ButtonValidate_Click;
 
-            ButtonToggleBibTeX.Icon = Icons.GetAppIcon(Icons.GoogleBibTexNext);
-            ButtonToggleBibTeX.ToolTip = "Toggle the BibTeX edit mode between RAW and FIELD-FORMATTED.";
             ButtonToggleBibTeX.Click += ButtonToggleBibTeX_Click;
-
-            ButtonUndoBibTexEdit.Icon = Icons.GetAppIcon(Icons.GoogleBibTexNext);
-            ButtonUndoBibTexEdit.ToolTip = "Reset the BibTeX to what was before, i.e. discard all changes to the BibTeX while viewing this document in this sniffer.";
             ButtonUndoBibTexEdit.Click += ButtonUndoBibTexEdit_Click;
+            ButtonShowBibTeXParseErrors.Click += ButtonShowBibTeXParseErrors_Click;
+            ObjBibTeXEditorControl.RegisterOverlayButtons(ButtonShowBibTeXParseErrors, ButtonToggleBibTeX, ButtonUndoBibTexEdit);
 
             ButtonConfig.Icon = Icons.GetAppIcon(Icons.DocumentMisc);
             ButtonConfig.ToolTip = LocalisationManager.Get("PDF/TIP/MORE_MENUS");
@@ -248,6 +245,11 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             ObjWebBrowser.SetupSnifferSearchers();
         }
 
+        private void ButtonShowBibTeXParseErrors_Click(object sender, RoutedEventArgs e)
+        {
+            ObjBibTeXEditorControl.ToggleBibTeXErrorView();
+        }
+
         private void ButtonUndoBibTexEdit_Click(object sender, RoutedEventArgs e)
         {
             throw new NotImplementedException();
@@ -255,7 +257,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         private void ButtonToggleBibTeX_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            ObjBibTeXEditorControl.ToggleBibTeXMode(TriState.Arbitrary);
         }
 
         void GoogleBibTexSnifferControl_KeyUp(object sender, KeyEventArgs e)
@@ -930,17 +932,22 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
                 Logging.Info("posting BibTeX info to bibtexsearch.com aggregator - URL: {0}, BibTeX = {1}", WebsiteAccess.Url_BibTeXSearch_Submit, bibtex);
 
-                HttpWebRequest web_request = (HttpWebRequest)HttpWebRequest.Create(WebsiteAccess.Url_BibTeXSearch_Submit);
+                HttpWebRequest web_request = (HttpWebRequest)HttpWebRequest.Create(new Uri(WebsiteAccess.Url_BibTeXSearch_Submit));
                 web_request.Proxy = ConfigurationManager.Instance.Proxy;
                 web_request.Method = "POST";
                 web_request.ContentLength = buffer.Length;
                 web_request.ContentType = "text/plain; charset=utf-8";
-                //web_request.KeepAlive = false;
-                // https://stackoverflow.com/questions/47269609/system-net-securityprotocoltype-tls12-definition-not-found
-                //
-                // Allow ALL protocols?
-                // ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls | SecurityProtocolType.Tls;
-                ServicePointManager.SecurityProtocol = (SecurityProtocolType)(0xc0 | 0x300 | 0xc00) | SecurityProtocolType.Ssl3;
+#if false
+                web_request.KeepAlive = false;
+#endif
+                // Allow ALL protocols
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12 | SecurityProtocolType.Ssl3;
+
+                // same headers as sent by modern Chrome.
+                // Gentlemen, start your prayer wheels!
+                web_request.Headers.Add("Cache-Control", "no-cache");
+                web_request.Headers.Add("Pragma", "no-cache");
+                web_request.UserAgent = ConfigurationManager.Instance.ConfigurationRecord.GetWebUserAgent();
 
                 using (Stream stream = web_request.GetRequestStream())
                 {
@@ -1015,7 +1022,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             }
         }
 
-        #region --- Test ------------------------------------------------------------------------
+#region --- Test ------------------------------------------------------------------------
 
 #if TEST
         public static void TestHarness()
@@ -1031,7 +1038,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
         }
 #endif
 
-        #endregion
+#endregion
 
         private void ObjBibTeXEditorControl_Loaded(object sender, RoutedEventArgs e)
         {
@@ -1042,5 +1049,84 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
         {
 
         }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+
+            // base.OnClosed() invokes this calss Closed() code, so we flipped the order of exec to reduce the number of surprises for yours truly.
+            // This NULLing stuff is really the last rites of Dispose()-like so we stick it at the end here.
+
+            Dispose();
+        }
+
+        #region --- IDisposable ------------------------------------------------------------------------
+
+        ~GoogleBibTexSnifferControl()
+        {
+            Logging.Debug("~GoogleBibTexSnifferControl()");
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Logging.Debug("Disposing GoogleBibTexSnifferControl");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected virtual void Dispose(bool disposing)
+        {
+            Logging.Debug("GoogleBibTexSnifferControl::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
+            {
+                // Get rid of managed resources / get rid of cyclic references:
+                pdf_documents_total_pool?.Clear();
+                pdf_documents_search_pool?.Clear();
+
+                search_options_bindable.PropertyChanged -= search_options_bindable_PropertyChanged;
+
+                ObjWebBrowser.PageLoaded -= ObjWebBrowser_PageLoaded;
+                ObjWebBrowser.TabChanged -= ObjWebBrowser_TabChanged;
+
+                ObjBibTeXEditorControl.ObjBibTeXText.TextChanged -= TxtBibTeX_TextChanged;
+
+                pdf_renderer_control?.Dispose();
+                ObjBibTeXEditorControl?.Dispose();
+
+                ObjSearchOptionsPanel.DataContext = null;
+                ButtonWizard.DataContext = null;
+            }
+
+            // Clear the references for sanity's sake
+            search_options_bindable = null;
+
+            user_specified_pdf_document = null;
+            pdf_documents_total_pool = null;
+
+            pdf_documents_search_pool = null;
+
+            pdf_document = null;
+
+            pdf_document_rendered = null;
+            pdf_renderer_control = null;
+
+            search_options = null;
+            search_options_bindable = null;
+
+            ObjBibTeXEditorControl = null;
+
+            ++dispose_count;
+        }
+
+        #endregion
+
     }
 }

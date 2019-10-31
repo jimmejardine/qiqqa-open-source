@@ -273,7 +273,6 @@ namespace Qiqqa.DocumentLibrary
             Logging.Debug("-LibraryControl()");
         }
 
-
         private void ReflectReadOnlyStatus()
         {
             ObjReadOnlyLibraryDescriptionBorder.Visibility = library.WebLibraryDetail.IsReadOnly ? Visibility.Visible : Visibility.Collapsed;

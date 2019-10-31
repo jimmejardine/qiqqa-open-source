@@ -8,7 +8,6 @@ namespace Qiqqa.Brainstorm.Nodes
     /// </summary>
     public partial class EllipseNodeContentControl : UserControl
     {
-
         static readonly Brush FILL_BRUSH = Brushes.LightBlue;
         static readonly Brush STROKE_BRUSH = Brushes.DarkBlue;
         const double STROKE_THICKNESS = 1;

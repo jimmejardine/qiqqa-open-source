@@ -106,7 +106,7 @@ namespace Qiqqa.Common.Configuration
 
         void ObjListEZProxy_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Proxies.Proxy proxy = ObjListEZProxy.SelectedItem as Proxies.Proxy;
+            Proxy proxy = ObjListEZProxy.SelectedItem as Proxy;
             if (null != proxy && !String.IsNullOrEmpty(proxy.url))
             {
                 ConfigurationManager.Instance.ConfigurationRecord.Proxy_EZProxy = proxy.url;
@@ -120,11 +120,13 @@ namespace Qiqqa.Common.Configuration
         {
             string user_agent = null;
 
-            if (false) { }
-            else if (sender == ObjUserAgent_Clear) user_agent = "";
-            else if (sender == ObjUserAgent_IE) user_agent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)";
-            else if (sender == ObjUserAgent_Chrome) user_agent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.13 (KHTML, like Gecko) Chrome/24.0.1284.0 Safari/537.13";
-            else if (sender == ObjUserAgent_Safari) user_agent = "Mozilla/5.0 (Windows; U; Windows NT 6.1; tr-TR) AppleWebKit/533.20.25 (KHTML, like Gecko) Version/5.0.4 Safari/533.20.27";
+            if (sender == ObjUserAgent_Clear) user_agent = "";
+            else if (sender == ObjUserAgent_IE) user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18362";
+            else if (sender == ObjUserAgent_Chrome) user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36";
+            else if (sender == ObjUserAgent_Safari) user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/603.3.8 (KHTML, like Gecko) Version/10.1.2 Safari/603.3.8";
+            // Lynx:  Lynx/2.8.9dev.16 libwww-FM/2.14 SSL-MM/1.4.1 GNUTLS/3.5.17
+            // Kindle: Mozilla/5.0 (Linux; U; Android 2.3.4; en-us; Kindle Fire Build/GINGERBREAD) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1
+            // WaterFox: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0 Waterfox/56.2.14
             else user_agent = null;
 
             // Update the config

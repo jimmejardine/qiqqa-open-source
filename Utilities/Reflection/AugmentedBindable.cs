@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading;
 using System.Windows;
+using Utilities.GUI;
 
 namespace Utilities.Reflection
 {
@@ -137,14 +138,10 @@ namespace Utilities.Reflection
             // if (Application.Current == null || Application.Current.Dispatcher.Thread == Thread.CurrentThread)
             // as per: https://stackoverflow.com/questions/5143599/detecting-whether-on-ui-thread-in-wpf-and-winforms#answer-14280425
             // and: https://stackoverflow.com/questions/2982498/wpf-dispatcher-the-calling-thread-cannot-access-this-object-because-a-differen/13726324#13726324
-            if (Application.Current == null || Application.Current.Dispatcher.CheckAccess())
+            WPFDoEvents.InvokeInUIThread(() =>
             {
                 NotifyPropertyChanged_THREADSAFE(property_name);
-            }
-            else
-            {
-                Application.Current.Dispatcher.BeginInvoke(new Action(() => NotifyPropertyChanged_THREADSAFE(property_name)));
-            }            
+            });
         }
 
         private void NotifyPropertyChanged_THREADSAFE(string property_name)
@@ -335,6 +332,5 @@ namespace Utilities.Reflection
         {
             return String.Format("AugmentedBindable[{0}]", underlying.ToString());
         }
-
     }
 }

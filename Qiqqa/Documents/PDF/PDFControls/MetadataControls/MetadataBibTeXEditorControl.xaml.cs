@@ -1,9 +1,12 @@
-﻿using System.Windows;
+﻿using System;
+using System.ComponentModel;
+using System.Windows;
 using System.Windows.Input;
 using icons;
 using Qiqqa.Common.GUI;
 using Qiqqa.UtilisationTracking;
 using Utilities;
+using Utilities.GUI;
 using Utilities.Reflection;
 
 namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
@@ -29,7 +32,27 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             ButtonSniffer.Caption = "Sniffer";
             ButtonSniffer.Click += ButtonSniffer_Click;
 
+            ButtonToggleBibTeX.Click += ButtonToggleBibTeX_Click;
+            ButtonAckBibTeXParseErrors.Click += ButtonAckBibTeXParseErrors_Click;
+            ButtonUndoBibTeXEdit.Click += ButtonUndoBibTeXEdit_Click;
+            ObjBibTeXEditorControl.RegisterOverlayButtons(ButtonAckBibTeXParseErrors, ButtonToggleBibTeX, ButtonUndoBibTeXEdit);
+
             this.PreviewKeyDown += MetadataCommentEditorControl_PreviewKeyDown;
+        }
+
+        private void ButtonUndoBibTeXEdit_Click(object sender, RoutedEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void ButtonAckBibTeXParseErrors_Click(object sender, RoutedEventArgs e)
+        {
+            ObjBibTeXEditorControl.ToggleBibTeXErrorView();
+        }
+
+        private void ButtonToggleBibTeX_Click(object sender, RoutedEventArgs e)
+        {
+            ObjBibTeXEditorControl.ToggleBibTeXMode(TriState.Arbitrary);
         }
 
         void MetadataCommentEditorControl_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -81,5 +104,22 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 #endif
 
         #endregion
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+
+            // base.OnClosed() invokes this calss Closed() code, so we flipped the order of exec to reduce the number of surprises for yours truly.
+            // This NULLing stuff is really the last rites of Dispose()-like so we stick it at the end here.
+
+            pdf_document_bindable = null;
+
+            ObjBibTeXEditorControl.RegisterOverlayButtons(null, null, null);
+        }
     }
 }

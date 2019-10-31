@@ -50,8 +50,7 @@ namespace Qiqqa.Common.SpeedRead
 
         void SpeedReadControl_KeyDown(object sender, KeyEventArgs e)
         {
-            if (false) { }
-            else if (Key.Space == e.Key)
+            if (Key.Space == e.Key)
             {
                 TogglePlayPause();
                 e.Handled = true;
@@ -165,8 +164,7 @@ namespace Qiqqa.Common.SpeedRead
         {
             TogglePlayPause();
         }
-
-        
+                
         bool playing = true;
         public void TogglePlayPause(bool force_stop = false)
         {
@@ -188,9 +186,17 @@ namespace Qiqqa.Common.SpeedRead
             }
         }
 
+        Thread thread = null;
+
         private void KickOffPlayingThread()
         {
-            Thread thread = new Thread(BackgroundThread);
+            if (null != thread)
+            {
+                this.playing = false;
+                thread.Join();
+            }
+
+            thread = new Thread(BackgroundThread);
             //thread.IsBackground = true;
             //thread.Priority = ThreadPriority.Lowest;
             thread.Name = "SpeedReader:Player";
@@ -232,7 +238,6 @@ namespace Qiqqa.Common.SpeedRead
                     // Sleep a bit to reflect the WPM
                     int sleep_time_ms = (60 * 1000 / (current_wpm + 1));
                     Thread.Sleep(sleep_time_ms);
-
 
                     int current_position = 0;
                     int current_maximum = 0;
@@ -282,7 +287,7 @@ namespace Qiqqa.Common.SpeedRead
                         Dispatcher.Invoke(
                             new Action(() =>
                             {
-                                TogglePlayPause(true);
+                                TogglePlayPause(force_stop: true);
                             }
                         ));
                     }
@@ -294,8 +299,7 @@ namespace Qiqqa.Common.SpeedRead
                 // was invoked on the mainline, it's hunky-dory. So we merely rate this
                 // DEBUG level diagnostics.
                 Logging.Debug特(ex, "VERY PROBABLY HARMLESS AND EXPECTED crash in SpeedReader: if you just closed/quit the panel, this is due to Dispose() invocation in the Main thread and expected behaviour.");
-
-            }
+                            }
         }
 
         public void UseText(string text)
@@ -351,18 +355,22 @@ namespace Qiqqa.Common.SpeedRead
         }
 
         private int dispose_count = 0;
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            Logging.Debug("SpeedReadControl::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
-            if (disposing)
+            Logging.Debug("SpeedReadControl::Dispose({0}) @{1}", disposing, dispose_count);
+
+            // Get rid of managed resources and background threads
+            this.playing = false;
+            if (this.thread != null)
             {
-                // Get rid of managed resources
-                TogglePlayPause(true);
+                this.thread.Join();
             }
 
-            this.words = null;
+            this.words.Clear();
 
-            // Get rid of unmanaged resources 
+            this.DataContext = null;
+
+            ++dispose_count;
         }
 
         #endregion

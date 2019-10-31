@@ -9,15 +9,15 @@ namespace Utilities.Internet
     {
         // -------------------------------------------------------------------------------------
 
-        public static void DownloadWithBlocking(IWebProxy proxy, string url, out MemoryStream ms)
+        public static MemoryStream DownloadWithBlocking(string url)
         {
             WebHeaderCollection header_collection;
-            DownloadWithBlocking(proxy, url, out ms, out header_collection);
+            return DownloadWithBlocking(url, out header_collection);
         }
 
-        public static void DownloadWithBlocking(IWebProxy proxy, string url, out MemoryStream ms, out WebHeaderCollection header_collection)
+        public static MemoryStream DownloadWithBlocking(string url, out WebHeaderCollection header_collection)
         {
-            DownloadWithBlocking(proxy, url, null, out ms, out header_collection);
+            return DownloadWithBlocking(url, null, out header_collection);
         }
 
         class WebClientWithCompression : WebClient
@@ -29,7 +29,10 @@ namespace Utilities.Internet
                 if (null != http_web_request)
                 {
                     http_web_request.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
-                    http_web_request.UserAgent = "Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko";
+
+                    // Allow ALL protocols
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12 | SecurityProtocolType.Ssl3;
+
                     return http_web_request;
                 }
                 else
@@ -40,12 +43,12 @@ namespace Utilities.Internet
             }
         }
         
-        public static void DownloadWithBlocking(IWebProxy proxy, string url, IEnumerable<string> request_headers, out MemoryStream ms, out WebHeaderCollection header_collection)
+        public static MemoryStream DownloadWithBlocking(string url, IEnumerable<string> request_headers, out WebHeaderCollection header_collection)
         {
             using (WebClientWithCompression wc = new WebClientWithCompression())
             {
                 DownloadProgressReporter dpr = new DownloadProgressReporter(wc);
-                wc.Proxy = proxy;
+                wc.Proxy = Configuration.Proxy;
 
                 if (null != request_headers)
                 {
@@ -55,9 +58,15 @@ namespace Utilities.Internet
                     }
                 }
 
-                byte[] data = wc.DownloadData(url);
+                    // same headers as sent by modern Chrome.
+                    // Gentlemen, start your prayer wheels!
+                    wc.Headers.Add("Cache-Control", "no-cache");
+                    wc.Headers.Add("Pragma", "no-cache");
+                    wc.Headers.Add("User-agent", Configuration.WebUserAgent);
+
+                byte[] data = wc.DownloadData(new Uri(url));
                 header_collection = wc.ResponseHeaders;
-                ms = new MemoryStream(data);
+                return new MemoryStream(data);
             }
         }
 
@@ -99,7 +108,7 @@ namespace Utilities.Internet
 
         // -------------------------------------------------------------------------------------
 
-        public class DownloadAsyncTracker
+        public class DownloadAsyncTracker : IDisposable
         {
             private WebClientWithCompression wc;
 
@@ -115,7 +124,7 @@ namespace Utilities.Internet
             }
             public DownloadDataCompletedEventArgs DownloadDataCompletedEventArgs { get; set; }
 
-            public DownloadAsyncTracker(IWebProxy proxy, string url)
+            public DownloadAsyncTracker(string url)
             {
                 // Init
                 this.ProgressPercentage = 0;
@@ -123,9 +132,17 @@ namespace Utilities.Internet
 
                 // Start the download
                 wc = new WebClientWithCompression();
-                wc.Proxy = proxy;
+                wc.Proxy = Configuration.Proxy;
+
                 wc.DownloadProgressChanged += this.wc_DownloadProgressChanged;
                 wc.DownloadDataCompleted += this.wc_DownloadDataCompleted;
+
+                // same headers as sent by modern Chrome.
+                // Gentlemen, start your prayer wheels!
+                wc.Headers.Add("Cache-Control", "no-cache");
+                wc.Headers.Add("Pragma", "no-cache");
+                wc.Headers.Add("User-agent", Configuration.WebUserAgent);
+
                 wc.DownloadDataAsync(new Uri(url));
             }
 
@@ -153,21 +170,65 @@ namespace Utilities.Internet
                     Logging.Info("Download complete");
                     this.DownloadDataCompletedEventArgs = e;
                 }
+
+                CleanupAfterDownload();
             }
 
             public void Cancel()
             {
                 wc.CancelAsync();
+
+                //CleanupAfterDownload();
             }
+
+            private void CleanupAfterDownload()
+            {
+                if (null != wc)
+                {
+                    wc.DownloadProgressChanged -= this.wc_DownloadProgressChanged;
+                    wc.DownloadDataCompleted -= this.wc_DownloadDataCompleted;
+
+                    wc.Dispose();
+                }
+                wc = null;
+            }
+
+            #region --- IDisposable ------------------------------------------------------------------------
+
+            ~DownloadAsyncTracker()
+            {
+                Logging.Debug("~DownloadAsyncTracker()");
+                Dispose(false);
+            }
+
+            public void Dispose()
+            {
+                Logging.Debug("Disposing DownloadAsyncTracker");
+                Dispose(true);
+                GC.SuppressFinalize(this);
+            }
+
+            private int dispose_count = 0;
+            protected virtual void Dispose(bool disposing)
+            {
+                Logging.Debug("DownloadAsyncTracker::Dispose({0}) @{1}", disposing, dispose_count);
+
+                if (dispose_count == 0)
+                {
+                    // Get rid of managed resources
+                    CleanupAfterDownload();
+                }
+
+                ++dispose_count;
+            }
+
+            #endregion
         };
 
-        public static DownloadAsyncTracker DownloadWithNonBlocking(IWebProxy proxy, string url)
+        public static DownloadAsyncTracker DownloadWithNonBlocking(string url)
         {
-            DownloadAsyncTracker tracker = new DownloadAsyncTracker(proxy, url);
+            DownloadAsyncTracker tracker = new DownloadAsyncTracker(url);
             return tracker;
         }
     }
 }
-
-
-

@@ -456,7 +456,7 @@ namespace Qiqqa.AnnotationsReportBuilding
             Run run = (Run)sender;
             PDFAnnotation pdf_annotation = (PDFAnnotation)run.Tag;
             PDFAnnotationEditorControl pdf_annotation_editor_control = new PDFAnnotationEditorControl();
-            pdf_annotation_editor_control.PDFAnnotation = pdf_annotation;
+            pdf_annotation_editor_control.SetAnnotation(pdf_annotation);
 
             AugmentedToolWindow pdf_annotation_editor_control_popup = new AugmentedToolWindow(pdf_annotation_editor_control, "Edit Annotation");
             pdf_annotation_editor_control_popup.IsOpen = true;
@@ -689,17 +689,16 @@ namespace Qiqqa.AnnotationsReportBuilding
                 {
                     Run run = new Run();
                     run.Background = Brushes.Orange;
-                    run.Text = "OCR is not complete for page " + pdf_annotation.Page;
+                    run.Text = String.Format("OCR is not complete for page {0}", pdf_annotation.Page);
                     annotation_work.annotation_paragraph.Inlines.Add(run);
                 }
             }
-
             catch (Exception ex)
             {
                 Logging.Error(ex, "There was a problem while trying to add annotation text");
                 Run run = new Run();
                 run.Background = Brushes.Red;
-                run.Text = "Processing error: " + ex.Message;
+                run.Text = String.Format("Processing error: {0}", ex.Message);
                 annotation_work.annotation_paragraph.Inlines.Add(run);
             }
         }

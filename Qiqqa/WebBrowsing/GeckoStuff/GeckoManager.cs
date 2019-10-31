@@ -20,7 +20,7 @@ using Utilities.Misc;
 
 namespace Qiqqa.WebBrowsing.GeckoStuff
 {
-    public class GeckoManager
+    public static class GeckoManager
     {
         #region --- Some external DLLs that we will need ------------------------------------------------
 
@@ -191,23 +191,11 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
                 {
                     Logging.Info("+Setting user agent");
 
-                    string user_agent = configuration_record.Web_UserAgentOverride;
-                    if (String.IsNullOrEmpty(user_agent))
-                    {
-                        user_agent = String.Format(
-                            "Mozilla/5.0 (Windows; {0}; rv:13.0) Gecko/13.0 Firefox/13.0.0",
-                            Environment.OSVersion
-                        );
-                    }
-                    else
-                    {
-                        Logging.Info("Using overridden user agent: {0}", user_agent);
-                    }
+                    string user_agent = configuration_record.GetWebUserAgent();
 
                     GeckoPreferences.User["general.useragent.override"] = user_agent;
                     Logging.Info("-Setting user agent");
                 }
-
 
                 if (configuration_record.Proxy_UseProxy)
                 {

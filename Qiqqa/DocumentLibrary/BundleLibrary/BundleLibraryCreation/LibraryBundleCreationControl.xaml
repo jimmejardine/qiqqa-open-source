@@ -61,16 +61,14 @@
               To have new documents included in your Bundle, just add them as normal to your Library from the Library Screen.
             </Paragraph>
 
-
             <Paragraph>
               <Bold>2. Make sure that all your documents have been OCRed and Indexed.</Bold>
             </Paragraph>
             <Paragraph>
               Click the button below to force OCR and Indexing of your Library.  Then wait till all indexing activity has subsided.
               <LineBreak/>
-              <local_gui:AugmentedButton Name="CmdOCRAndIndex"/>
+                            <local_gui:AugmentedButton Name="CmdOCRAndIndex" MinHeight="20" />
             </Paragraph>
-
 
             <Paragraph>
               <Bold>3. Find all the cross-references in your library.</Bold>
@@ -78,10 +76,8 @@
             <Paragraph>
               Click the button below to discover all cross-references.  Then wait till all activity has subsided.
               <LineBreak/>
-              <local_gui:AugmentedButton Name="CmdCrossReference"/>
+                            <local_gui:AugmentedButton Name="CmdCrossReference" MinHeight="20" />
             </Paragraph>
-
-
 
             <Paragraph>
               <Bold>4. Generate AutoTags.</Bold>
@@ -89,7 +85,7 @@
             <Paragraph>
               Click the button below to generate the AutoTags for this Library.  Then wait till all activity has subsided.
               <LineBreak/>
-              <local_gui:AugmentedButton Name="CmdAutoTags"/>
+              <local_gui:AugmentedButton Name="CmdAutoTags" MinHeight="20" />
             </Paragraph>
 
 
@@ -100,7 +96,7 @@
             <Paragraph>
               Click the button below to find all the Themes in this Library.  Then wait till all activity has subsided.
               <LineBreak/>
-              <local_gui:AugmentedButton Name="CmdThemes"/>
+                            <local_gui:AugmentedButton Name="CmdThemes" MinHeight="20" />
             </Paragraph>
 
 
@@ -168,7 +164,7 @@
           <local_gui:AugmentedSpacer />
           <local_gui:AugmentedSpacer />
 
-          <local_gui:AugmentedButton Name="CmdCreateBundle"/>
+                        <local_gui:AugmentedButton Name="CmdCreateBundle" MinHeight="20" />
         </StackPanel>
         </ScrollViewer>
       </local_gui:AugmentedBorder>

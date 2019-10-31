@@ -162,26 +162,31 @@ namespace Qiqqa.Common
             main_window.DockingManager.AddContent(title + "-" + Guid.NewGuid(), title, icon, true, true, control);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "<Pending>")]
         public PDFReadingControl OpenDocument(PDFDocument pdf_document)
         {
             return OpenDocument(pdf_document, null, null, false);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "<Pending>")]
         public PDFReadingControl OpenDocument(PDFDocument pdf_document, string search_terms)
         {
             return OpenDocument(pdf_document, null, search_terms, false);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "<Pending>")]
         public PDFReadingControl OpenDocument(PDFDocument pdf_document, int? page)
         {
             return OpenDocument(pdf_document, page, null, false);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "<Pending>")]
         internal PDFReadingControl OpenDocument(PDFDocument pdf_document, bool open_again)
         {
             return OpenDocument(pdf_document, null, null, open_again);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "<Pending>")]
         public PDFReadingControl OpenDocument(PDFDocument pdf_document, int? page, string search_terms, bool open_again)
         {
             if (pdf_document.IsVanillaReference)
@@ -363,6 +368,7 @@ namespace Qiqqa.Common
             control.FocusOnManifest(manifest, "Automatically downloaded manifest...");
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "<Pending>")]
         internal BrainstormControl OpenNewBrainstorm()
         {
             BrainstormControl brainstorm_control = new BrainstormControl();
@@ -370,6 +376,7 @@ namespace Qiqqa.Common
             return brainstorm_control;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "<Pending>")]
         internal BrainstormControl OpenSampleBrainstorm()
         {
             BrainstormControl brainstorm_control = new BrainstormControl();
@@ -378,6 +385,7 @@ namespace Qiqqa.Common
             return brainstorm_control;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "<Pending>")]
         public WebBrowserHostControl OpenWebBrowser()
         {
             const string window_key = "WebBrowser";
@@ -395,12 +403,14 @@ namespace Qiqqa.Common
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "<Pending>")]
         public void SearchDictionary(string query)
         {
             WebBrowserHostControl web_browser_control = OpenWebBrowser();
             web_browser_control.DoDictionarySearch(query);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "<Pending>")]
         public void SearchWeb(string query)
         {
             WebBrowserHostControl web_browser_control = OpenWebBrowser();
@@ -486,7 +496,7 @@ namespace Qiqqa.Common
                 contents.Add(content);
             }
             List<NodeControl> node_controls = brainstorm_control.SceneRenderingControl.AddNewNodeControlsInScreenCentre(contents);
-            brainstorm_control.AutoArrange = true;
+            brainstorm_control.AutoArrange(true);
 
             // Then expand the interesting documents
             {
@@ -511,7 +521,7 @@ namespace Qiqqa.Common
             BrainstormControl brainstorm_control = Instance.OpenNewBrainstorm();
             PDFTagNodeContent content = new PDFTagNodeContent(library_id, tag);
             NodeControl node_control = brainstorm_control.SceneRenderingControl.AddNewNodeControlInScreenCentre(content);
-            brainstorm_control.AutoArrange = true;
+            brainstorm_control.AutoArrange(true);
 
             PDFTagNodeContentControl content_control = node_control.NodeContentControl as PDFTagNodeContentControl;
             content_control.ExpandDocuments();
@@ -522,7 +532,7 @@ namespace Qiqqa.Common
             BrainstormControl brainstorm_control = Instance.OpenNewBrainstorm();
             PDFAutoTagNodeContent content = new PDFAutoTagNodeContent(library_id, tag);
             NodeControl node_control = brainstorm_control.SceneRenderingControl.AddNewNodeControlInScreenCentre(content);
-            brainstorm_control.AutoArrange = true;
+            brainstorm_control.AutoArrange(true);
 
             PDFAutoTagNodeContentControl content_control = node_control.NodeContentControl as PDFAutoTagNodeContentControl;
             content_control.ExpandDocuments();
@@ -537,7 +547,7 @@ namespace Qiqqa.Common
             BrainstormControl brainstorm_control = Instance.OpenNewBrainstorm();
             ThemeNodeContent tnc = new ThemeNodeContent(topic_name, library.WebLibraryDetail.Id);
             NodeControl node_control = brainstorm_control.SceneRenderingControl.AddNewNodeControlInScreenCentre(tnc);
-            brainstorm_control.AutoArrange = true;
+            brainstorm_control.AutoArrange(true);
 
             // Then expand the interesting documents - old style
             //ThemeNodeContentControl node_content_control = node_control.NodeContentControl as ThemeNodeContentControl;
@@ -603,7 +613,7 @@ namespace Qiqqa.Common
                 }
             }
 
-            brainstorm_control.AutoArrange = true;
+            brainstorm_control.AutoArrange(true);
         }
 
         internal void OpenLocalisationEditing()

@@ -51,30 +51,21 @@ namespace Qiqqa.DocumentLibrary
         }
 
         private int dispose_count = 0;
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            Logging.Debug("LibraryIndexHoverPopup::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
+            Logging.Debug("LibraryIndexHoverPopup::Dispose({0}) @{1}", disposing, dispose_count);
 
-            if (disposing)
-            {
-                DataContext = null;
-                ImageThumbnail.Source = null;
-                ImageThumbnail.Visibility = Visibility.Collapsed;
-            }
+            ImageThumbnail.Visibility = Visibility.Collapsed;
+            DataContext = null;
+            ImageThumbnail.Source = null;
 
-            // Get rid of managed resources
             this.pdf_document = null;
             this.specific_pdf_annotation = null;
 
-            // Get rid of unmanaged resources 
+            ++dispose_count;
         }
 
-        public void SetPopupContent(PDFDocument pdf_document, int page)
-        {
-            SetPopupContent(pdf_document, page, null);
-        }
-
-        public void SetPopupContent(PDFDocument pdf_document, int page, PDFAnnotation specific_pdf_annotation)
+        public void SetPopupContent(PDFDocument pdf_document, int page, PDFAnnotation specific_pdf_annotation = null)
         {
             this.DataContext = null;
             ObjThemeSwatch.Background = ThemeBrushes.GetBrushForDocument(pdf_document);
@@ -105,7 +96,7 @@ namespace Qiqqa.DocumentLibrary
             {
                 if (pdf_document.DocumentExists)
                 {
-                    double IMAGE_PERCENTAGE = 0.5;
+                    const double IMAGE_PERCENTAGE = 0.5;
 
                     using (MemoryStream ms = new MemoryStream(pdf_document.PDFRenderer.GetPageByHeightAsImage(this.page, ImageThumbnail.Height / IMAGE_PERCENTAGE)))
                     {

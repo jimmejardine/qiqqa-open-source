@@ -17,7 +17,7 @@
     </local_gui:AugmentedBorder>
 
     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" DockPanel.Dock="Bottom">
-      <local_gui:AugmentedButton x:Name="ButtonCancel" />
+            <local_gui:AugmentedButton x:Name="ButtonCancel" MinHeight="20" />
     </StackPanel>
 
     <local_gui:AugmentedBorder>

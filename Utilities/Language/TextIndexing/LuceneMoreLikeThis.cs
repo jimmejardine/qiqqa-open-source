@@ -517,7 +517,9 @@ namespace Utilities.Language.TextIndexing
                 fieldNames = new String[fields.Count];
                 int index = 0;
                 while (e.MoveNext())
-                    fieldNames[index++] = (String) e.Current;
+                {
+                    fieldNames[index++] = (String)e.Current;
+                }
             }
 			
             return CreateQuery(RetrieveTerms(docNum));
@@ -538,12 +540,17 @@ namespace Utilities.Language.TextIndexing
                 fieldNames = new String[fields.Count];
                 int index = 0;
                 while (e.MoveNext())
-                    fieldNames[index++] = (String) e.Current;
+                {
+                    fieldNames[index++] = (String)e.Current;
+                }
             }
-			
-            return Like(new StreamReader(f.FullName, Encoding.Default));
+
+            using (StreamReader rdr = new StreamReader(f.FullName, Encoding.Default))
+            {
+                return Like(rdr);
+            }
         }
-		
+
         /// <summary> Return a query that will return docs like the passed URL.
         /// 
         /// </summary>
@@ -551,9 +558,31 @@ namespace Utilities.Language.TextIndexing
         /// </returns>
         public Query Like(Uri u)
         {
-            return Like(new StreamReader(((HttpWebRequest) WebRequest.Create(u)).GetResponse().GetResponseStream(), Encoding.Default));
+            HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(u);
+            req.Proxy = Configuration.Proxy;
+            req.Method = "GET";
+            req.AllowAutoRedirect = true;
+            // Allow ALL protocols
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12 | SecurityProtocolType.Ssl3;
+
+            // same headers as sent by modern Chrome.
+            // Gentlemen, start your prayer wheels!
+            req.Headers.Add("Cache-Control", "no-cache");
+            req.Headers.Add("Pragma", "no-cache");
+            req.UserAgent = Configuration.WebUserAgent;
+
+            using (WebResponse resp = req.GetResponse())
+            {
+                using (Stream s = resp.GetResponseStream())
+                {
+                    using (StreamReader rdr = new StreamReader(s, Encoding.Default))
+                    {
+                        return Like(rdr);
+                    }
+                }
+            }
         }
-		
+
         /// <summary> Return a query that will return docs like the passed stream.
         /// 
         /// </summary>
@@ -561,7 +590,10 @@ namespace Utilities.Language.TextIndexing
         /// </returns>
         public Query Like(Stream is_Renamed)
         {
-            return Like(new StreamReader(is_Renamed, Encoding.Default));
+            using (StreamReader rdr = new StreamReader(is_Renamed, Encoding.Default))
+            {
+                return Like(rdr);
+            }
         }
 		
         /// <summary> Return a query that will return docs like the passed Reader.

@@ -214,10 +214,10 @@ namespace Qiqqa.Brainstorm.Nodes
             }
         }
 
-        private static readonly double THRESHOLD_MIN_INVISIBLE = 3;
-        private static readonly double THRESHOLD_MIN_START_TO_FADE = 5;
-        private static readonly double THRESHOLD_MAX_START_TO_FADE = 500;
-        private static readonly double THRESHOLD_MAX_INVISIBLE = 1000;
+        private const double THRESHOLD_MIN_INVISIBLE = 3;
+        private const double THRESHOLD_MIN_START_TO_FADE = 5;
+        private const double THRESHOLD_MAX_START_TO_FADE = 500;
+        private const double THRESHOLD_MAX_INVISIBLE = 1000;
 
         public void RecalculateChildDimension()
         {
@@ -322,10 +322,7 @@ namespace Qiqqa.Brainstorm.Nodes
 
         private void ReconsiderVisibility(double width, double height, double extent_min, double extent_max, bool is_selected)
         {
-            if (false)
-            {
-            }
-            else if (is_selected) // Selected trumps all
+            if (is_selected) // Selected trumps all
             {
                 shadow.SetShadowBackground(Brushes.Transparent);
                 shadow.SetShadowIsHitTestVisible(true);
@@ -357,9 +354,7 @@ namespace Qiqqa.Brainstorm.Nodes
         {
             //Logging.Info("NodeControl_PreviewKeyDown");
 
-            if (false) { }
-
-            else if (Key.Insert == e.Key)
+            if (Key.Insert == e.Key)
             {
                 NodeControl node_control = (NodeControl)sender;
 

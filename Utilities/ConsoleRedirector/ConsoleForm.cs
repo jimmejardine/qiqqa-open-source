@@ -28,16 +28,13 @@ namespace Utilities.ConsoleRedirector
 		}
 
         private int dispose_count = 0;
-
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
         protected override void Dispose(bool disposing)
 		{
-            Logging.Debug("ConsoleForm::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
-            if (disposing)
-			{
-				components?.Dispose();
+            Logging.Debug("ConsoleForm::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
+            {
+                components?.Dispose();
                 objText?.Dispose();
             }
 
@@ -45,6 +42,8 @@ namespace Utilities.ConsoleRedirector
             objText = null;
 
             base.Dispose(disposing);
+
+            ++dispose_count;
 		}
     
 		public void setText(string t)

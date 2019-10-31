@@ -1,13 +1,204 @@
-> upcoming release: v82
+Upcoming release: v82
+=====================
+
+> ## Note
+>
+> This release is **binary compatible with v80 and v79**: any library created using this version MUST be readable and usable by v80 and v79 software releases.
 
 
 
+
+
+
+2019-10-22
+----------
+
+			
+* (d1bc1a3) help performance checks/debug sessions: allow user access to the DisableBackgroundTasks config setting, but DO NOT persist that setting. (also we must remain backwards compat with v79 file formats for now)
+			
+* (b3fae39) https://github.com/jimmejardine/qiqqa-open-source/issues/82 : try to set up some decent min/max sizes for the various controls/wrappers so that huge BibTeX raw content doesn't produce unworkable UI layouts and thus bad UX. MinWidth limits are meant to restrict button scaling and thus ugly/damaged looking UI, while MaxHeight limits are intended to limit the height of the BibTeXEditorControl when it is fed huge BibTeX raw content, such as when loading a BibTeX from converted PubMed XML (the source XML is appended as a multiline comment which often is very large)
+			
+* (868e549) cleanup for https://github.com/jimmejardine/qiqqa-open-source/issues/82 : all the AugmentedButton instances which DO NOT need scaling (at least not yet in our perception of the UI) are AutoTextScale=false(default) configured. The ones which need to scale to remain legible at various screen and panel sizes are marked AutoTextScale=true.
+			
+* (2e4bce8) Add code to prevent memleaks around BibTeXEditorControl : there's no Dispose there, but we do have Unload event, which marks the end of a control's lifetime.
+			
+* (3248ea9) add validation check for https://github.com/jimmejardine/qiqqa-open-source/issues/119 : when we encounter a ClosableControl which doesn't have a name, it should be added as that will be needed for the check/persist path construction.
+			
+* (e2d8430) Tweaks to fix https://github.com/jimmejardine/qiqqa-open-source/issues/57 : handling extremely large (auto-)titles, etc.  Bummer: turns out the "Summary Details" in the right panel (QuickMetaDataControl) cannot be ellipse-trimmed like this as those are editable entities -- I didn't know (long-time Qiqqa user and still not aware of all the feature details \</snif>)
+			
+* (3ce449e) stability: we ran into the 'waiting after close' issue again ( https://github.com/jimmejardine/qiqqa-open-source/issues/112 ); PDF/OCR threads got locked up via WaitForUIThreadActivityDone() call inside a lock, which would indirectly result in other threads to run into that lock and the main thread locked up in WM message pipe handling triggering a FORCED FLUSH, which, under the hood, would run into that same lock and thus block forever. The lock footprint has been significantly reduced as we can do now that we already have made PDFDocument largely thread-safe ( https://github.com/jimmejardine/qiqqa-open-source/issues/101 ).
+  
+  Also moved the Application Shutting Down signalling forward in time: already signal this when the user/run-time zips through the 'Do you really want to exit' dialog, i.e. near the end of the Closing event for the main window.
+  
+  `WaitForUIThreadActivityDone` now does not sit inside a lock any more so everyone is free to call it, while in shutdown state, when the WM message pipe is untrustworthy, we leave the relinquishing to standard lib `Thread.Sleep(50)` to cope with: the small delay should be negligible while we are guaranteed to not run into issues around the exact message pipe state: we also ran into issues invoking some flush/actions via a Dispatcher while the app was clearly shortly into shutdown, so we try to be safe there too.
+  
+  Also patched the StatusManager to not clutter the message pipeline at shutdown by NOT showing any status updates in the UI any more once the user has closed the app window. The status messages will continue to be logged as usual, we only do *not* try to update UI any more. This saves a bundle in cross-thread dispatches in the termination phase of the app when large numbers of pending changes and/or libraries are flushed to disk.
+			
+* (930fdb3) cleanup after commit SHA-1: 6f95dd688751fbcef0eb1c87ed8b7fd30cca863a : remove now useless debugging code.
+			
+* (6f95dd6) continuation of commits 3e82bdac0b92feca47f4c5ba1dc5261039804de5 + 337dc9ed64c65bd4144dbae579a47d915f986ad8 : make the compiled target directory tree available to the DevStudio Design View to grab external files, e.g. the splash screen image.
+			
+* (3e82bda) previous commit already has a newer CSPROJ anyway and missed the JS script which did the work: here's the corresponding JS file
+			
+* (337dc9e) Design View: there's no way to obtain the original build directories as VS2019 crates shadow copies of the binaries when executing them in the context of Microsoft Blend / Visual Designer / XAML Design View. The initial hack attempt, after all other 'regular' efforts failed, was to create a Settings.settings file in the Utilities project (that's where DevStudio stores the Project->Properties->Settings you set up) and add a PreBuild script which patches that file. HOWEVER, it turns out this data is copied all over the place by DevStudio: you must also patch `app.config` file to ensure DevStudio doesn't yak about change to update and alert for every single entry. THEN you find PreBuild is **too late** to have DevStudio regenerate the `Properties/Settings.Designer.cs` file. So we log this intermediate failed result and move on towards patching one of our existing files in the project instead: Constants.cs (will be filed in the next commit)
+			
+* (a20685b) working on a fix for https://github.com/jimmejardine/qiqqa-open-source/issues/57 : part 1 = making the statusbar updates more usable by truncating them. Had a long url being reported for downloading which pushed all other messages off screen. :-1:
+			
+* (458cd2e) performance / shutdown reliability: when closing the app, the UI message may be loaded severely and may not even terminate properly in spurious circumstances (had a situation here where the WaitForUIActivityDone calls were tough to shut up for a yet unidentified reason; happened after testing several Sniffer PDF download actions so we may be looking at another hairy bit of the XulRunner/Browser interaction here). Also add a check to the PDF/OCR thread queue processing code to help hasten shutdown behaviour.
+			
+* (52d6dd8) splash page: barf a hairball when the splash page doesn't load as that surely means the Qiqqa install failed or got buggered somehow.
+			
+* (6d8812b) Splash page image is not loaded in MSVS Design View, among other resources. Working towards getting the bloody Design View in Visual Studio to work after all...
+			
+
+
+
+2019-10-21
+----------
+
+			
+* (bfa90ed) more work for the https://github.com/jimmejardine/qiqqa-open-source/issues/82 refactoring: as the AugmentedButtons need to scale down their icons and **text** when they're part of a resizable panel in order to remain readable, we need to implement that and ensure it only happens where and when we want. TODO: fix more panels with AugmentedButton nodes as they are now already scaled down due to WPF autosize actions which are not meant to do that.
+			
+* (106d954) code reformatting: no functional change.
+			
+* (ace5458) prepwork for https://github.com/jimmejardine/qiqqa-open-source/issues/119: closables should have a name so we can create an identification path for them by traversing the WPF/UI tree: every such path can be checkec and hidden/shown individually, even persisted across runs.
+			
+* (68ad1bb) added a couple of timers to measure the time spent in indexing the libraries
+			
+* (8393c55) fixed https://github.com/jimmejardine/qiqqa-open-source/issues/82 : refactored the BibTeXEditorControl and all its users: those must now provide the toggle/view-errors/etc. buttons for the control, so that the parent has full control over the layout, while the BibTeXEditorControl itself will set the icons, tooltip, etc. for each of those buttons to ensure a consistent look of the BibTeX editor buttons throughout the application.
+  
+  TODO: see if we need to discard those registered buttons in the Unload event to ensure we're not memleaking...
+			
+* (acc4357) add icons for BibTeX control et al: complete work started in commit SHA-1: 0f9fa67e470acb834e24cd30e946a0b71e954818 :: adding icons as part of https://github.com/jimmejardine/qiqqa-open-source/issues/82 refactoring/rework of the BibTeX related UI bits.
+			
+* (0cd9ea6) fix crashes in MSVS Design Viewer due to some properties not having 'get' access methods (as reported in the Exceptions thrown in the Designer View)
+			
+
+
+
+2019-10-20
+----------
+
+			
+* (7dd8a59) MSVS Visual Designer fixup work: making sure the Theme stuff gets loaded timely when loaded from the Designer too.
+			
+
+
+
+2019-10-19
+----------
+
+			
+* (e38715c) correcting omission of commit SHA-1: fd8326e1e7c4878aac9ca8a1d903c7404fe7b90d * https://github.com/jimmejardine/qiqqa-open-source/issues/82 refactoring/rework of the BibTeX related UI bits. Includes some minimal prepwork for https://github.com/jimmejardine/qiqqa-open-source/issues/87.
+			
+* (26ab3dd) fixing unfortunate edit oopsie: this part of the fixes/changes hadn't made it through in the previous fix commit for https://github.com/jimmejardine/qiqqa-open-source/issues/114 / https://github.com/jimmejardine/qiqqa-open-source/issues/115 : this corrects/augments these commits: SHA-1: 65e5707afa4e7e18181d00ef9c22b12048483b5e + SHA-1: a5faaafa233a181a47735f2e8981b6089c8ceaf7
+			
+* (fe35dbc) fix https://github.com/jimmejardine/qiqqa-open-source/issues/116 : show left panel when switching the app from novice into export mode.
+			
+* (f7d7bce) re-enable the 'Google Scholar' similar-documents panel in the PDF Reader left pane -- this is where most of the scrape info lands. ( https://github.com/jimmejardine/qiqqa-open-source/issues/114 / https://github.com/jimmejardine/qiqqa-open-source/issues/115 / https://github.com/jimmejardine/qiqqa-open-source/issues/117 )
+			
+* (761b192) a fix for one path we didn't get for https://github.com/jimmejardine/qiqqa-open-source/issues/106 + be more strict in checking whether a Web Library sync directory has been properly set up.
+			
+* (e6ee95f) OCR/text extractor: blow away the PDF/OCR queue on Qiqqa shutdown to help speed up closing the application (related to https://github.com/jimmejardine/qiqqa-open-source/issues/112). Also add thread-safety around the variables/data which cross thread boundaries.
+			
+* (27882ca) reduce a couple of now unimportant log lines to debug-level.
+			
+* (aec562b) performance: remove a couple of lock monitors which we don't need any more.
+			
+* (0f7df40) added one more test file for the BibTeX parser/processing: its surrounding whitespace in several fields should be cleaned up.
+			
+* (c4d7b6e) upgrade the HtmlAgilityPack package used by Qiqqa. This is required for https://github.com/jimmejardine/qiqqa-open-source/issues/114 + https://github.com/jimmejardine/qiqqa-open-source/issues/115
+			
+* (fd8326e) https://github.com/jimmejardine/qiqqa-open-source/issues/82 refactoring/rework of the BibTeX related UI bits. Includes some minimal prepwork for https://github.com/jimmejardine/qiqqa-open-source/issues/87.
+			
+* (0f9fa67) adding icons as part of https://github.com/jimmejardine/qiqqa-open-source/issues/82 refactoring/rework of the BibTeX related UI bits.
+			
+* (1e3edb5) some minimal code cleaning and dead code removal
+			
+* (a5faaaf) fix https://github.com/jimmejardine/qiqqa-open-source/issues/115 : PDF Reader (which does a Scholar Scrape) does not work for users living outside US/UK. Also further fixes https://github.com/jimmejardine/qiqqa-open-source/issues/114. Also fixes https://github.com/jimmejardine/qiqqa-open-source/issues/117 by enforcing UTF8 encoding on the content: we're downloading from Google Scholar there, so we should be good. Google Scrape finally finds decent titles, author lists and even PDF download links once again.
+  
+  TODO: update the 'Google Scholar' view part in the PDFReader control.
+			
+* (65e5707) fix https://github.com/jimmejardine/qiqqa-open-source/issues/114 as per https://stackoverflow.com/questions/13771083/html-agility-pack-get-all-elements-by-class#answer-14087707
+			
+
+
+
+2019-10-18
+----------
+
+			
+* (9a1cdf9) fix typo in previous commit - this was already wrong in the experimental branch  :-(
+			
+* (ba9dcd5) typo fixes in comments and one function name. Changes ripped from the experimental branch.
+			
+* (bc6b2b5) Add files via upload
+			
+* (4ebc4df) Create How to locate your Qiqqa Base Directory.md
+			
+* (734ea88) make sure all NuGet packages reference .NET 4.7.2 - edit ripped from the master branch
+			
+* (8bc773c) document the node/npm development environment, etc. in DEVELOPER-INFO.md
+			
+* (fd67219) added `superclean.sh` bash shell script to help clean up a Visual Studio environment for when you want to make sure you're starting Visual Studio *sans prejudice*.
+			
+* (7566098) added DEVELOPER-INFO.md and pointed README.md at that document for info for developers wishing to work on Qiqqa.
+			
+* (e2bef9a) update CHANGELOG
+			
+* (ac04266) setup/installer: make the generated `setup.exe` should the same full build version as the Qiqqa executable itself.
+			
+* (1f6b9df) fix for setup/installer: set the `setup.exe` file version (as reported by Windows on right-click->Properties) to the Qiqqa release version instead of 0.0.0.0
+			
+* (6bb41ab) rebuild uninstaller
+			
+* (88538dc) regenerated approval reference files for all bibtex test data files after naming dedup fix in previous commit.
+			
+* (42c79d2) https://github.com/jimmejardine/qiqqa-open-source/issues/111 : fix bug where the Approvals **namer** helper function did produce the same files for different tests (because their test data files only differed in file extension, e.g. `.bibtex` vs. `.biblatex`)
+			
+* (288cbc7) fix for `npm run refresh-data` build task: now generator includes code to cope with SHA-1: f3ed2f9640088de33cd58ed97b18891a157b4667 where we had added a comment containing one of the markers we're looking for in the code.
+			
+* (f3ed2f9) fixed unit test file for empty set for a DataTestMethod which is only there for developers to find out quickly after `npm run refresh-data` which test files have been properly employed and which have not.
+			
+* (6f3fa3f) fixed bugs in `npm run refresh-data` build task: properly list those test data files which have not been used in any Unit test yet.
+			
+* (448e135) add testfiles to TestData/... from elsewhere in the source tree: make sure all test files are in /TestData/...
+			
+* (7deb4ac) introducing build task `npm run refresh-data` to help update the test C# files with the latest data set from TestData/...
+			
+
+
+
+2019-10-17
+----------
+
+			
+* (2295adc) rebuild uninstaller
+			
+* (b0e80fb) added these build tasks: version sync: `npm run syncver`; bump release version: `npm run bump`
+			
+* (0462316) https://github.com/jimmejardine/qiqqa-open-source/issues/111 : removed the data fixture files from the test projects themselves.
+			
+* (5c2ea6c) https://github.com/jimmejardine/qiqqa-open-source/issues/111 : moving all test data references, etc. data files to /TestData/... tree
+			
+* (a31480d) adding nodeJS based script to help update/sync/bump Qiqqa software release versions. Also added node/npm-style package.json file to the project: this carries the master version info and helps us quickly setup the proper node environment on any developer box.
+			
+* (d4730ed) prepwork for the version patch / update / bump build task: manually update the copyright and version tags everywhere. Also added the ClickOnceUninstaller project (used by Inno Setup when building the Qiqqa installer) to the MSVS solution.
+			
 
 
 
 2019-10-16
 ----------
 
+			
+* (cb0b053) Merge branch 'mainline-master' into v82-build
+  
+* (81472e1) Update README.md
+			
+* (6c1d8d6) update README with latest info about Qiqqa software releases.
+			
+* (6ccb147) updated CHANGELOG_full.md
 			
 * (acd9229) README: point at the various places where software releases are to be found.
 			
@@ -260,9 +451,9 @@ v82pre release
 			
 * (758e941) Removed unused NuGet bundles; built a v82 setup/installer:
   
-      --------------------------------------
-      Completed Packaging Qiqqa version 82.0.7216.35525 into ...\Qiqqa.Build\Packages\v82 - 20191004-194431\
-      --------------------------------------
+  --------------------------------------
+  Completed Packaging Qiqqa version 82.0.7216.35525 into ...\Qiqqa.Build\Packages\v82 - 20191004-194431\
+  --------------------------------------
 			
 * (3d49ac0) Update README.md
 			

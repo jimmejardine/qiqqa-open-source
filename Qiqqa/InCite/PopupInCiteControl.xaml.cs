@@ -344,7 +344,7 @@ namespace Qiqqa.InCite
             e.Cancel = true;
         }
 
-        public class Interop
+        public static class Interop
         {
             [DllImport("user32.dll")]
             public static extern bool SetForegroundWindow(IntPtr hWnd);

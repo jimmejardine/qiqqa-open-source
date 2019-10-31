@@ -28,10 +28,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
     /// <summary>
     /// Interaction logic for PDFRendererPageControl.xaml
     /// </summary>
-    public partial class PDFRendererPageControl : Grid
+    public partial class PDFRendererPageControl : Grid, IDisposable
     {
-        internal static readonly int BASIC_PAGE_WIDTH = 850;
-        internal static readonly int BASIC_PAGE_HEIGHT = 1100;
+        internal const int BASIC_PAGE_WIDTH = 850;
+        internal const int BASIC_PAGE_HEIGHT = 1100;
 
         PDFRendererControl pdf_renderer_control = null;
         PDFRendererControlStats pdf_renderer_control_stats = null;
@@ -52,7 +52,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                 {
                     ImagePage_HIDDEN_ = new Image();
                     ImagePage_HIDDEN.Stretch = Stretch.None;
-                    
+
                     // THIS MUST BE IN PLACE OS THAT WE HAVE PIXEL PERFECT RENDERING
                     ImagePage_HIDDEN.SnapsToDevicePixels = true;
                     RenderOptions.SetBitmapScalingMode(ImagePage_HIDDEN, BitmapScalingMode.NearestNeighbor);
@@ -136,7 +136,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
         internal string documentFingerprint = String.Empty;
 
         public PDFRendererPageControl(int page, PDFRendererControl pdf_renderer_control, PDFRendererControlStats pdf_renderer_control_stats, bool add_bells_and_whistles)
-        {            
+        {
+            Theme.Initialize();
+
             InitializeComponent();
 
             this.page = page;
@@ -149,7 +151,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             this.Height = remembered_image_height * pdf_renderer_control_stats.zoom_factor;
             this.Width = remembered_image_width * pdf_renderer_control_stats.zoom_factor;
 
-            page_layers = new List<PageLayer>();    
+            page_layers = new List<PageLayer>();
 
             // Try to trap the DAMNED cursor keys escape route
             KeyboardNavigation.SetDirectionalNavigation(this, KeyboardNavigationMode.None);
@@ -177,7 +179,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             get
             {
                 if (null == CanvasTextSentence_)
-                {   
+                {
                     page_layers.Add(CanvasTextSentence_ = new PDFTextSentenceLayer(pdf_renderer_control_stats, page));
                     KeyboardNavigation.SetDirectionalNavigation(CanvasTextSentence_, KeyboardNavigationMode.None);
                     ReflectContentChildren();
@@ -199,7 +201,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                 return CanvasSearch_;
             }
         }
-        
+
         PDFAnnotationLayer CanvasAnnotation
         {
             get
@@ -354,44 +356,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             rt.Angle += 90;
         }
 
-        internal void Dispose()
-        {
-            Logging.Debug("PDFRendererPageControl::Dispose()");
-
-            pdf_renderer_control_stats.pdf_document.PDFRenderer.OnPageTextAvailable -= pdf_renderer_OnPageTextAvailable;
-
-            CurrentlyShowingImage = null;
-
-            foreach (PageLayer page_layer in page_layers)
-            {
-                page_layer.Dispose();
-            }
-
-            page_layers.Clear();
-
-            // Also erase any pending RefreshPage work:
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-            lock (pending_refresh_work_lock)
-            {
-                l1_clk.LockPerfTimerStop();
-                pending_refresh_work_fast = null;
-                pending_refresh_work_slow = null;
-            }
-
-            //pdf_renderer_control.Dispose();
-            pdf_renderer_control = null;
-            pdf_renderer_control_stats = null;
-            ImagePage_HIDDEN = null;
-            
-            CanvasTextSentence_ = null;
-            CanvasSearch_ = null;
-            CanvasAnnotation_ = null;
-            CanvasHighlight_ = null;
-            CanvasCamera_ = null;
-            CanvasHand_ = null;
-            CanvasInk_ = null;
-        }
-
         public int PageNumber
         {
             get
@@ -456,7 +420,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             }
         }
 
-#region Refresh Page
+        #region Refresh Page
 
         internal void RefreshPage()
         {
@@ -479,7 +443,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
         PendingRefreshWork pending_refresh_work_fast = null;
         bool pending_refresh_work_slow_running = false;
         PendingRefreshWork pending_refresh_work_slow = null;
-        
+
         /// <summary>
         /// Queues the page for refresh, holding onto the most recent recommended_pretty_image_rescale.
         /// Any previous queued refresh is ignored.  If another refresh is busy running, then the most recently received request is queued.
@@ -496,7 +460,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             documentFingerprint = pdf_renderer_control_stats.pdf_document.Fingerprint;
 
             Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-            lock (pending_refresh_work_lock)        
+            lock (pending_refresh_work_lock)
             {
                 l1_clk.LockPerfTimerStop();
                 pending_refresh_work_fast = pending_refresh_work;
@@ -541,7 +505,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                 try
                 {
                     if (page_is_in_view)
-                    {   
+                    {
                         double desired_rescaled_image_height = remembered_image_height * pdf_renderer_control_stats.zoom_factor * pdf_renderer_control_stats.DPI;
                         if (null != CurrentlyShowingImage && CurrentlyShowingImage.requested_height == desired_rescaled_image_height)
                         {
@@ -659,7 +623,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                             }
 
                             remembered_image_height = BASIC_PAGE_HEIGHT;
-                            remembered_image_width = BASIC_PAGE_HEIGHT * CurrentlyShowingImage.Image.Width / CurrentlyShowingImage.Image.Height;                            
+                            remembered_image_width = BASIC_PAGE_HEIGHT * CurrentlyShowingImage.Image.Width / CurrentlyShowingImage.Image.Height;
                             pdf_renderer_control_stats.largest_page_image_width = Math.Max(pdf_renderer_control_stats.largest_page_image_width, remembered_image_width);
                             pdf_renderer_control_stats.largest_page_image_height = Math.Max(pdf_renderer_control_stats.largest_page_image_height, remembered_image_height);
 
@@ -690,7 +654,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             }
         }
 
-#endregion
+        #endregion
 
         internal void SetOperationMode(PDFRendererControl.OperationMode operation_mode)
         {
@@ -776,14 +740,14 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             {
                 return;
             }
-            
+
             page_is_in_view = true;
 
             ReflectContentChildren();
             RefreshPage();
         }
 
-        
+
 
         internal void RaiseInkChange(InkCanvasEditingMode inkCanvasEditingMode)
         {
@@ -792,17 +756,92 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 
         internal void RaiseInkChange(DrawingAttributes drawingAttributes)
         {
-            this.CanvasInk.RaiseInkChange(drawingAttributes);            
+            this.CanvasInk.RaiseInkChange(drawingAttributes);
         }
 
         internal void RaiseHighlightChange(int colourNumber)
         {
-            this.CanvasHighlight.RaiseHighlightChange(colourNumber);            
+            this.CanvasHighlight.RaiseHighlightChange(colourNumber);
         }
 
         internal void RaiseTextSelectModeChange(TextLayerSelectionMode textLayerSelectionMode)
         {
             this.CanvasTextSentence.RaiseTextSelectModeChange(textLayerSelectionMode);
         }
+
+        #region --- IDisposable ------------------------------------------------------------------------
+
+        ~PDFRendererPageControl()
+        {
+            Logging.Debug("~PDFRendererPageControl()");
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Logging.Debug("Disposing PDFRendererPageControl");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected virtual void Dispose(bool disposing)
+        {
+            Logging.Debug("PDFRendererPageControl::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
+            {
+                pdf_renderer_control_stats.pdf_document.PDFRenderer.OnPageTextAvailable -= pdf_renderer_OnPageTextAvailable;
+
+                foreach (PageLayer page_layer in page_layers)
+                {
+                    page_layer.Dispose();
+                }
+                page_layers.Clear();
+
+                // Also erase any pending RefreshPage work:
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                lock (pending_refresh_work_lock)
+                {
+                    l1_clk.LockPerfTimerStop();
+                    pending_refresh_work_fast = null;
+                    pending_refresh_work_slow = null;
+                }
+
+#if false           // These Dispose() calls have already been done above in the page_layers.Dispose() loop!
+                CanvasTextSentence_.Dispose();
+                CanvasSearch_.Dispose();
+                CanvasAnnotation_.Dispose();
+                CanvasHighlight_.Dispose();
+                CanvasCamera_.Dispose();
+                CanvasHand_.Dispose();
+                CanvasInk_.Dispose();
+#endif
+            }
+
+            page_layers = null;
+
+            CurrentlyShowingImage = null;
+            ImagePage_HIDDEN = null;
+
+            pdf_renderer_control = null;
+            pdf_renderer_control_stats = null;
+
+            CanvasTextSentence_ = null;
+            CanvasSearch_ = null;
+            CanvasAnnotation_ = null;
+            CanvasHighlight_ = null;
+            CanvasCamera_ = null;
+            CanvasHand_ = null;
+            CanvasInk_ = null;
+
+            // Clear the references for sanity's sake
+            this.DataContext = null;
+
+            ++dispose_count;
+        }
+
+        #endregion
+
     }
 }

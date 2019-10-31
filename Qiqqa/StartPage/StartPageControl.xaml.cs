@@ -347,15 +347,19 @@ namespace Qiqqa.StartPage
         }
 
         private int dispose_count = 0;
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            Logging.Debug("StartPageControl::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
-            if (disposing)
+            Logging.Debug("StartPageControl::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
             {
-                ObjChatControl.Dispose();
+                ObjChatControl?.Dispose();
             }
 
-            // Get rid of unmanaged resources 
+            ObjChatControl = null;
+            this.DataContext = null;
+
+            ++dispose_count;
         }
     }
 }

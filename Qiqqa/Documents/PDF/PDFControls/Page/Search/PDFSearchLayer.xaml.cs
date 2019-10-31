@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -6,6 +7,7 @@ using Qiqqa.Documents.PDF.PDFControls.Page.Text;
 using Qiqqa.Documents.PDF.PDFControls.Page.Tools;
 using Qiqqa.Documents.PDF.Search;
 using Utilities;
+using Utilities.GUI;
 using Utilities.GUI.Animation;
 using Utilities.OCR;
 
@@ -14,7 +16,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
     /// <summary>
     /// Interaction logic for PDFSearchLayer.xaml
     /// </summary>
-    public partial class PDFSearchLayer : PageLayer
+    public partial class PDFSearchLayer : PageLayer, IDisposable
     {
         PDFRendererControlStats pdf_renderer_control_stats;
         int page;
@@ -23,15 +25,16 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
 
         public PDFSearchLayer(PDFRendererControlStats pdf_renderer_control_stats, int page)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             this.pdf_renderer_control_stats = pdf_renderer_control_stats;
             this.page = page;
-            
+
             InitializeComponent();
 
             Background = Brushes.Transparent;
 
             this.SizeChanged += PDFSearchLayer_SizeChanged;
-            
         }
 
         void PDFSearchLayer_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -134,12 +137,71 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
             return null;
         }
 
-        internal override void Dispose()
-        {
-            Logging.Debug("PDFSearchLayer::Dispose()");
+        #region --- IDisposable ------------------------------------------------------------------------
 
+        ~PDFSearchLayer()
+        {
+            Logging.Debug("~PDFSearchLayer()");
+            Dispose(false);
+        }
+
+        public override void Dispose()
+        {
+            Logging.Debug("Disposing PDFSearchLayer");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected virtual void Dispose(bool disposing)
+        {
+            Logging.Debug("PDFSearchLayer::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
+            {
+                WPFDoEvents.InvokeInUIThread(() =>
+                {
+                    WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
+                    try
+                    {
+                        foreach (var el in Children)
+                        {
+                            IDisposable node = el as IDisposable;
+                            if (null != node)
+                            {
+                                node.Dispose();
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex);
+                    }
+
+                    try
+                    {
+                        Children.Clear();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex);
+                    }
+                }, this.Dispatcher);
+            }
+
+            // Clear the references for sanity's sake
             pdf_renderer_control_stats = null;
             search_result_set = null;
+
+            this.DataContext = null;
+
+            ++dispose_count;
+
+            //base.Dispose(disposing);     // parent only throws an exception (intentionally), so depart from best practices and don't call base.Dispose(bool)
         }
+
+        #endregion
+
     }
 }

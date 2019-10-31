@@ -6,7 +6,7 @@ using Utilities.OCR;
 
 namespace Qiqqa.Documents.PDF.MetadataSuggestions
 {
-    public class PDFMetadataInferenceFromOCR
+    public static class PDFMetadataInferenceFromOCR
     {
         internal static bool NeedsProcessing(PDFDocument pdf_document)
         {

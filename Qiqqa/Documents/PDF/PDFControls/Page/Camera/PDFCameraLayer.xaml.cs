@@ -8,6 +8,7 @@ using System.Windows.Media.Imaging;
 using Qiqqa.Documents.PDF.PDFControls.Page.Tools;
 using Qiqqa.UtilisationTracking;
 using Utilities;
+using Utilities.GUI;
 using Utilities.OCR;
 
 namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
@@ -15,7 +16,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
     /// <summary>
     /// Interaction logic for PDFCameraLayer.xaml
     /// </summary>
-    public partial class PDFCameraLayer : PageLayer
+    public partial class PDFCameraLayer : PageLayer, IDisposable
     {
         PDFRendererControlStats pdf_renderer_control_stats;
         int page;
@@ -36,14 +37,14 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
             drag_area_tracker.OnDragComplete += drag_area_tracker_OnDragComplete;
         }
 
-        void drag_area_tracker_OnDragComplete(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point, Point mouse_up_point)        
+        void drag_area_tracker_OnDragComplete(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point, Point mouse_up_point)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Document_Camera);
 
             double width_page = Math.Abs(mouse_up_point.X - mouse_down_point.X);
             double height_page = Math.Abs(mouse_up_point.Y - mouse_down_point.Y);
             if (3 <= width_page && 3 <= height_page)
-            {   
+            {
                 CroppedBitmap image = GetSnappedImage(mouse_up_point, mouse_down_point);
                 List<Word> words = GetSnappedWords(mouse_up_point, mouse_down_point);
                 string raw_text = SelectedWordsToFormattedTextConvertor.ConvertToParagraph(words);
@@ -67,7 +68,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
             double height = Math.Abs(mouse_up_point.Y - mouse_down_point.Y) / this.ActualHeight;
 
             List<Word> words_in_selection = new List<Word>();
-            
+
             WordList word_list = pdf_renderer_control_stats.pdf_document.PDFRenderer.GetOCRText(this.page);
             if (null != word_list)
             {
@@ -113,12 +114,71 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
             }
         }
 
-        internal override void Dispose()
-        {
-            Logging.Debug("PDFCameraLayer::Dispose()");
+        #region --- IDisposable ------------------------------------------------------------------------
 
+        ~PDFCameraLayer()
+        {
+            Logging.Debug("~PDFCameraLayer()");
+            Dispose(false);
+        }
+
+        public override void Dispose()
+        {
+            Logging.Debug("Disposing PDFCameraLayer");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected virtual void Dispose(bool disposing)
+        {
+            Logging.Debug("PDFCameraLayer::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (null != drag_area_tracker)
+            {
+                WPFDoEvents.InvokeInUIThread(() =>
+                {
+                    try
+                    {
+                        foreach (var el in Children)
+                        {
+                            IDisposable node = el as IDisposable;
+                            if (null != node)
+                            {
+                                node.Dispose();
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex);
+                    }
+
+                    try
+                    {
+                        Children.Clear();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex);
+                    }
+
+                    drag_area_tracker.OnDragComplete -= drag_area_tracker_OnDragComplete;
+                }, this.Dispatcher);
+            }
+
+            // Clear the references for sanity's sake
             pdf_renderer_control_stats = null;
             drag_area_tracker = null;
+
+            this.DataContext = null;
+
+            ++dispose_count;
+
+            //base.Dispose(disposing);     // parent only throws an exception (intentionally), so depart from best practices and don't call base.Dispose(bool)
         }
+
+        #endregion
+
     }
 }

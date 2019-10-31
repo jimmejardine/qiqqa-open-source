@@ -25,8 +25,14 @@ namespace Utilities.GUI
 
         public double Magnification
         {
-            get { return (double)GetValue(MagnificationProperty); }
-            set { SetValue(MagnificationProperty, value); }
+            get
+            {
+                return (double)GetValue(MagnificationProperty);
+            }
+            set
+            {
+                SetValue(MagnificationProperty, value);
+            }
         }
 
         // Using a DependencyProperty as the backing store for Magnification.  This enables animation, styling, binding, etc...
@@ -35,8 +41,14 @@ namespace Utilities.GUI
 
         public int AnimationMilliseconds
         {
-            get { return (int)GetValue(AnimationMillisecondsProperty); }
-            set { SetValue(AnimationMillisecondsProperty, value); }
+            get
+            {
+                return (int)GetValue(AnimationMillisecondsProperty);
+            }
+            set
+            {
+                SetValue(AnimationMillisecondsProperty, value);
+            }
         }
 
         // Using a DependencyProperty as the backing store for AnimationMilliseconds.  This enables animation, styling, binding, etc...
@@ -47,8 +59,14 @@ namespace Utilities.GUI
         // If set true we scale different sized children to a constant width
         public bool ScaleToFit
         {
-            get { return (bool)GetValue(ScaleToFitProperty); }
-            set { SetValue(ScaleToFitProperty, value); }
+            get
+            {
+                return (bool)GetValue(ScaleToFitProperty);
+            }
+            set
+            {
+                SetValue(ScaleToFitProperty, value);
+            }
         }
 
         // Using a DependencyProperty as the backing store for ScaleToFit.  This enables animation, styling, binding, etc...

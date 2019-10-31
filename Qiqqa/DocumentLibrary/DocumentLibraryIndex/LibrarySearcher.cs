@@ -4,7 +4,7 @@ using Utilities.Language.TextIndexing;
 
 namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 {
-    public class LibrarySearcher
+    public static class LibrarySearcher
     {
         static readonly List<IndexResult> EMPTY_LIST = new List<IndexResult>();
         static readonly List<IndexPageResult> EMPTY_PAGE_LIST = new List<IndexPageResult>();

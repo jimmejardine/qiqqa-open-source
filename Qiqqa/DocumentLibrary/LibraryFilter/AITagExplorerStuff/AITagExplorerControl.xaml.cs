@@ -114,6 +114,10 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
 
         public Library Library
         {
+            get
+            {
+                return library;
+            }
             set
             {
                 this.library = value;

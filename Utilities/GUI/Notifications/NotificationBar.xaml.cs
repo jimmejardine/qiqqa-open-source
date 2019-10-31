@@ -34,15 +34,21 @@ namespace Utilities.GUI.Notifications
         public static readonly DependencyProperty ImageSourceProperty = DependencyProperty.Register("ImageSource", typeof(ImageSource), typeof(NotificationBar));
         public ImageSource ImageSource
         {
-            get { return (ImageSource)GetValue(ImageSourceProperty); }
-            set { SetValue(ImageSourceProperty, value); }
+            get
+            {
+                return (ImageSource)GetValue(ImageSourceProperty);
+            }
+            set
+            {
+                SetValue(ImageSourceProperty, value);
+            }
         }
 
         private void DisplayNotification(NotificationManager.Notification notification)
         {
             if (!CheckAccess())
             {
-                Dispatcher.Invoke(((Action) (() => DisplayNotification(notification))));
+                Dispatcher.Invoke(((Action)(() => DisplayNotification(notification))));
                 return;
             }
 

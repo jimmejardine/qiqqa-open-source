@@ -53,7 +53,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
             zip_process.WaitForExit(10000);
             
             // Reflect this new bundle
-            WebLibraryDetail new_web_library_detail = WebLibraryManager.Instance.UpdateKnownWebLibraryFromBundleLibraryManifest(manifest);
+            WebLibraryDetail new_web_library_detail = WebLibraryManager.Instance.UpdateKnownWebLibraryFromBundleLibraryManifest(manifest, suppress_flush_to_disk: false);
 
             Application.Current.Dispatcher.Invoke(((Action)(() =>
                 MainWindowServiceDispatcher.Instance.OpenLibrary(new_web_library_detail.library)

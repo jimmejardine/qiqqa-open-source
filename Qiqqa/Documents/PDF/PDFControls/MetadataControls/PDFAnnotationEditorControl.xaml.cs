@@ -56,9 +56,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         void ButtonColor_Click(object sender, RoutedEventArgs e)
         {
-            AugmentedButton button = (AugmentedButton) sender;
-            SolidColorBrush brush = (SolidColorBrush) button.Background;
-            ObjColorPicker.SelectedColor = brush.Color;            
+            AugmentedButton button = (AugmentedButton)sender;
+            SolidColorBrush brush = (SolidColorBrush)button.Background;
+            ObjColorPicker.SelectedColor = brush.Color;
         }
 
         static Color last_annotation_color = Colors.SkyBlue;
@@ -75,25 +75,22 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             {
                 pdf_annotation.Color = ObjColorPicker.SelectedColor;
                 pdf_annotation.Bindable.NotifyPropertyChanged(() => (pdf_annotation.Color));
-            }            
+            }
         }
 
-        public PDFAnnotation PDFAnnotation
+        public void SetAnnotation(PDFAnnotation value)
         {
-            set
-            {
-                this.pdf_annotation = value;
-                this.DataContext = pdf_annotation.Bindable;
+            this.pdf_annotation = value;
+            this.DataContext = pdf_annotation.Bindable;
 
-                if (null != pdf_annotation)
-                {
-                    ObjColorPicker.SelectedColor = pdf_annotation.Color;
-                    this.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    this.Visibility = Visibility.Collapsed;
-                }
+            if (null != pdf_annotation)
+            {
+                ObjColorPicker.SelectedColor = pdf_annotation.Color;
+                this.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                this.Visibility = Visibility.Collapsed;
             }
         }
     }

@@ -41,6 +41,10 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.OnlineDatabaseLookupStuff
         PDFDocument pdf_document;
         public PDFDocument PDFDocument
         {
+            get
+            {
+                return this.pdf_document;
+            }
             set
             {
                 this.pdf_document = value;

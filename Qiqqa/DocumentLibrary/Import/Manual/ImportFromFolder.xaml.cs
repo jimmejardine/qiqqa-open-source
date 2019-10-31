@@ -95,8 +95,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             this.library = library;
 
             InitializeComponent();
-
-
+            
             btnCancel.Caption = "Cancel";
             btnCancel.Icon = Icons.GetAppIcon(Icons.Cancel);
             btnImport.Caption = "Import";

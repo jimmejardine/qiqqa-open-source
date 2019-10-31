@@ -236,6 +236,11 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
             {
                 Library library = x.library;
 
+                    if (!library.LibraryIsLoaded)
+                    {
+                        continue;
+                    }
+
                 try
                 {
                     metadata_extraction_daemon.DoMaintenance(library);

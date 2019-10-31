@@ -111,7 +111,7 @@ namespace Qiqqa.DocumentLibrary
                     {
                         bool managed_update = false;
 
-                        using (var command = new SQLiteCommand("UPDATE LibraryItem SET MD5=@md5, DATA=@data WHERE fingerprint=@fingerprint AND extension=@extension", connection))
+                        using (var command = new SQLiteCommand("UPDATE LibraryItem SET MD5=@md5, DATA=@data WHERE fingerprint=@fingerprint AND extension=@extension", connection, transaction))
                         {
                             command.Parameters.AddWithValue("@md5", md5);
                             command.Parameters.AddWithValue("@data", data);
@@ -126,7 +126,7 @@ namespace Qiqqa.DocumentLibrary
 
                         if (!managed_update)
                         {
-                            using (var command = new SQLiteCommand("INSERT INTO LibraryItem(fingerprint, extension, md5, data) VALUES(@fingerprint, @extension, @md5, @data)", connection))
+                            using (var command = new SQLiteCommand("INSERT INTO LibraryItem(fingerprint, extension, md5, data) VALUES(@fingerprint, @extension, @md5, @data)", connection, transaction))
                             {
                                 command.Parameters.AddWithValue("@fingerprint", fingerprint);
                                 command.Parameters.AddWithValue("@extension", extension);

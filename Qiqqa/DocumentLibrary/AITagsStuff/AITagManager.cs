@@ -31,7 +31,6 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
 
             current_ai_tags_record = new AITags();
 
-
             // Attempt to load the existing tags
             try
             {
@@ -78,8 +77,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
                 regenerating_in_progress = true;
             }
 
-            Stopwatch clk = new Stopwatch();
-            clk.Start();
+            Stopwatch clk = Stopwatch.StartNew();
 
             try
             {
@@ -95,7 +93,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
                 {
                     if (pdf_document.IsTitleGeneratedByUser)
                     {
-                        ++count_title_by_user;                        
+                        ++count_title_by_user;
                     }
                     else
                     {
@@ -104,7 +102,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
                 }
 
                 bool use_suggested_titles = could_title_by_suggest > count_title_by_user;
-                
+
                 StatusManager.Instance.UpdateStatusBusy("AITags", "Scanning titles");
                 List<string> titles = new List<string>();
                 foreach (PDFDocument pdf_document in pdf_documents)
@@ -175,7 +173,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
                         StatusManager.Instance.UpdateStatusBusy("AITags", String.Format("AutoTagging papers with '{0}'", tag), i, ai_tags_list.Count, true);
 
                         // Surround the tag with quotes and search the index
-                        string search_tag = "\"" + tag + "\"";                        
+                        string search_tag = "\"" + tag + "\"";
                         List<IndexPageResult> fingerprints_potential = LibrarySearcher.FindAllPagesMatchingQuery(library, search_tag);
 
                         if (null != fingerprints_potential)
@@ -230,13 +228,13 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
 
                                         if (!have_tag && pdf_document.DocumentExists)
                                         {
-                                            foreach (var page_result in fingerprint_potential.page_results)                                            
+                                            foreach (var page_result in fingerprint_potential.page_results)
                                             {
                                                 if (have_tag)
                                                 {
                                                     break;
                                                 }
-                                                
+
                                                 int page = page_result.page;
                                                 WordList page_word_list = pdf_document.PDFRenderer.GetOCRText(page);
                                                 if (null != page_word_list && 0 < page_word_list.Count)
@@ -266,13 +264,12 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
                                 }
                             }
                         }
-                    } //try
+                    }
                     catch (Exception ex)
                     {
                         Logging.Error(ex, "There was an exception while processing one of the autotags");
                     }
-                } //for
-
+                }
 
                 bool use_new_autotags = true;
 
@@ -309,7 +306,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
             callback?.Invoke(null);
         }
 
-        public AITags AITags        
+        public AITags AITags
         {
             get
             {

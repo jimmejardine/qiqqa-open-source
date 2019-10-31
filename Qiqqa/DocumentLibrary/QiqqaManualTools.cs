@@ -7,7 +7,7 @@ using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary
 {
-    public class QiqqaManualTools
+    public static class QiqqaManualTools
     {
         private static string QiqqaManualFilename
         {

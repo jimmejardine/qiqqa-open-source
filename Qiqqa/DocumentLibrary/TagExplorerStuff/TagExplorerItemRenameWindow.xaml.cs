@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -41,7 +42,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             TextNewTagName.Focus();
             TextNewTagName.KeyUp += TextNewTagName_KeyUp;
 
-            RefreshSpans();            
+            RefreshSpans();
         }
 
         private static void SetSpan(Span span, string text)
@@ -106,7 +107,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             foreach (PDFDocument pdf_document in library.PDFDocuments)
             {
                 // Rename the tags in the annotations
-                foreach (PDFAnnotation pdf_annotation in pdf_document.Annotations)
+                foreach (PDFAnnotation pdf_annotation in pdf_document.GetAnnotations())
                 {
                     // This fast search will flag is the tag appears in the substring
                     if (null != pdf_annotation.Tags && pdf_annotation.Tags.Contains(tag))
@@ -159,5 +160,19 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             return count;
         }
 
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+
+            // base.OnClosed() invokes this calss Closed() code, so we flipped the order of exec to reduce the number of surprises for yours truly.
+            // This NULLing stuff is really the last rites of Dispose()-like so we stick it at the end here.
+
+            this.library = null;
+        }
     }
 }

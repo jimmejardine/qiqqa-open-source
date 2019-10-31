@@ -13,9 +13,6 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
 {
     public class DualTabbedLayout : Grid
     {
-        // ************************************************************************************************************************************************************************************
-
-
         private TabControl tab_control_left = new TabControl();
         private TabControl tab_control_right = new TabControl();
         private TabControl tab_control_bottom = new TabControl();
@@ -32,6 +29,8 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
 
         public DualTabbedLayout()
         {
+            Theme.Initialize();
+
             KeyboardNavigation.SetDirectionalNavigation(tab_control_left, KeyboardNavigationMode.None);
             KeyboardNavigation.SetDirectionalNavigation(tab_control_right, KeyboardNavigationMode.None);
             KeyboardNavigation.SetDirectionalNavigation(tab_control_bottom, KeyboardNavigationMode.None);
@@ -68,6 +67,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
                         tab_control_right.TabStripPlacement = Dock.Top;
                         tab_control_bottom.TabStripPlacement = Dock.Top;
                         break;
+
                     case TabPositions.Sides:
                         tab_control_left.LayoutTransform = new RotateTransform(+90);
                         foreach (TabItem sti in tab_control_left.Items)
@@ -78,6 +78,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
 
                         // NB: THERE IS A LOT OF WORK STILL TO BE DONE TO GET ALL THE NEW ITEMS TO BE ROTATED...
                         break;
+
                     default:
                         Logging.Warn("Unknown TabPosition " + value);
                         break;
@@ -193,7 +194,6 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             bool have_left_right = have_left && have_right;
             bool have_bottom = (0 < tab_control_bottom.Items.Count);
             bool have_top_bottom = (have_left || have_right) && have_bottom;
-
 
             Grid grid_top = this;
             Grid grid_bottom = this;
@@ -381,9 +381,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             ClearFloating(item);
             BuildTabItem(item, tab_control_bottom);
         }
-
-
-
+               
         public void WantsFloating(string reference_key)
         {
             WantsFloating(Find(reference_key, false), false);
@@ -412,24 +410,13 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
 
         internal void WantsClose(DualTabbedLayoutItem item)
         {
-            // Find the last recently used item the point of focus            
-            DualTabbedLayoutItem recent_item = null;
-            for (int i = recently_used_items.Count - 1; i >= 0; --i)
-            {
-                if (recently_used_items[i] != item)
-                {
-                    recent_item = recently_used_items[i];
-                    break;
-                }
-            }
-
             ClearTabItem(item, tab_control_left);
             ClearTabItem(item, tab_control_right);
             ClearTabItem(item, tab_control_bottom);
             ClearFloating(item);
 
             // Remove the closing tab item from the recently used list
-            for (int i = recently_used_items.Count-1; i >= 0; --i)
+            for (int i = recently_used_items.Count - 1; i >= 0; --i)
             {
                 if (recently_used_items[i] == item)
                 {
@@ -446,14 +433,11 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             }
             item.content = null;
 
-            
             // Make the last recently used the current focus
-            if (0 < recently_used_items.Count)
+            if (recently_used_items.Any())
             {
-                recently_used_items.RemoveAt(recently_used_items.Count - 1);
-            }
-            if (null != recent_item)
-            {
+                DualTabbedLayoutItem recent_item = recently_used_items.Last();
+
                 Find(recent_item.header, true);
             }
         }
@@ -586,7 +570,6 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
                 }
             }
         }
-
 
         public List<FrameworkElement> GetAllFrameworkElements()
         {
@@ -798,21 +781,27 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
 
         internal void MarkAsRecentlyUsed(DualTabbedLayoutItem item)
         {
-            recently_used_items.Add(item);
-            if (recently_used_items.Count > 10)
+            // only add item when it isn't the last one already:
+            var top = (recently_used_items.Any() ? recently_used_items.Last() : null);
+
+            if (top != item)
             {
-                recently_used_items.RemoveAt(0);
+                recently_used_items.Add(item);
+
+                if (recently_used_items.Count > 100)
+                {
+                    recently_used_items.RemoveAt(0);
+                }
             }
         }
-
-        
+                
         public FrameworkElement CurrentActiveTabItem
         {
             get
             {
-                if (recently_used_items.Count > 0)
+                if (recently_used_items.Any())
                 {
-                    DualTabbedLayoutItem item = recently_used_items[recently_used_items.Count - 1];
+                    DualTabbedLayoutItem item = recently_used_items.Last();
                     return item.Content;
                 }
                 else
@@ -862,8 +851,5 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             DualTabbedLayout dtl = (DualTabbedLayout)button.Tag;
             dtl.AddContent(null, "Child", Icons.GetAppIcon(Icons.Camera), true, true, new TextBlock { Text = "Child!" });
         }
-
-        // ------------------------------------------------------------------------------------------------------------
-
     }
 }

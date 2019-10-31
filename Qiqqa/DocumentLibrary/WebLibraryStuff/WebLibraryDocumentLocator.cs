@@ -4,7 +4,7 @@ using Utilities;
 
 namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 {
-    public class WebLibraryDocumentLocator
+    public static class WebLibraryDocumentLocator
     {
         public static PDFDocument LocateFirstPDFDocument(string library_fingerprint, string document_fingerprint)
         {

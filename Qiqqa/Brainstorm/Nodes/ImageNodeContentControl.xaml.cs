@@ -36,7 +36,7 @@ namespace Qiqqa.Brainstorm.Nodes
                 dialog.Multiselect = false;
                 if (true == dialog.ShowDialog())
                 {
-                    this.image_node_content.ImagePath = dialog.FileName;
+                    this.image_node_content.ImageNodeContentFromPath(dialog.FileName);
                     this.Image.Source = image_node_content.BitmapSource;
                 }
 

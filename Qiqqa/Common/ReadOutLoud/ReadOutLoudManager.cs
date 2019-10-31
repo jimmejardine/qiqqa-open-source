@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Speech.Synthesis;
 using Utilities;
 using Utilities.Collections;
@@ -7,7 +8,7 @@ using Utilities.Shutdownable;
 
 namespace Qiqqa.Common.ReadOutLoud
 {
-    public class ReadOutLoudManager
+    public class ReadOutLoudManager : IDisposable
     {
         public static ReadOutLoudManager Instance = new ReadOutLoudManager();
 
@@ -61,7 +62,7 @@ namespace Qiqqa.Common.ReadOutLoud
 
             string window = ArrayFormatter.ListElements(last_words, " ");
 
-            StatusManager.Instance.UpdateStatus("ReadOutAloud", window, e.CharacterPosition, current_prompt_length);            
+            StatusManager.Instance.UpdateStatus("ReadOutAloud", window, e.CharacterPosition, current_prompt_length);
         }
 
         void speech_synthesizer_SpeakCompleted(object sender, SpeakCompletedEventArgs e)
@@ -105,5 +106,41 @@ namespace Qiqqa.Common.ReadOutLoud
                 speech_synthesizer.Resume();
             }
         }
+
+        #region --- IDisposable ------------------------------------------------------------------------
+
+        ~ReadOutLoudManager()
+        {
+            Logging.Debug("~ReadOutLoudManager()");
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Logging.Debug("Disposing ReadOutLoudManager");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected virtual void Dispose(bool disposing)
+        {
+            Logging.Debug("ReadOutLoudManager::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
+            {
+                // Get rid of managed resources
+                speech_synthesizer?.Dispose();
+            }
+            speech_synthesizer = null;
+
+            current_prompt = null;
+            last_words?.Clear();
+            last_words = null;
+
+            ++dispose_count;
+        }
+
+        #endregion
     }
 }

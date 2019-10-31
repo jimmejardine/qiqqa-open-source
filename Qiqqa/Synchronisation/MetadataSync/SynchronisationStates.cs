@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Qiqqa.Synchronisation.MetadataSync
 {
+    [Serializable]
     public class SynchronisationStates : Dictionary<string, SynchronisationState>
     {
         public new SynchronisationState this[string key]

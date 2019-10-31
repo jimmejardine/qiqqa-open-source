@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <ClientVersionInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <LatestVersion>82.0.7198.42243</LatestVersion>
+  <LatestVersion>82.0.7206.22989</LatestVersion>
   <CompliantFromVersion>81</CompliantFromVersion>
   <ObsoleteToVersion xsi:nil="true" />
   <DownloadLocations>

@@ -147,16 +147,17 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
                 string url = String.Format("{0}/search?auth={1}&qe={2}", url_server, auth, WebUtility.HtmlEncode(title_encoded));
                 try
                 {
-                    MemoryStream ms;
                     WebHeaderCollection header_collection;
                     Stopwatch clk = Stopwatch.StartNew();
 
-                    UrlDownloader.DownloadWithBlocking(ConfigurationManager.Instance.Proxy, url, out ms, out header_collection);
-                    bibtex_search_server_manager.ReportLatency(url_server, clk.ElapsedMilliseconds);
-                    Logging.Debug特("bibtex_search_server_manager: Download {0} took {1} ms", url, clk.ElapsedMilliseconds);
+                    using (MemoryStream ms = UrlDownloader.DownloadWithBlocking(url, out header_collection))
+                    { 
+                        bibtex_search_server_manager.ReportLatency(url_server, clk.ElapsedMilliseconds);
+                        Logging.Debug特("bibtex_search_server_manager: Download {0} took {1} ms", url, clk.ElapsedMilliseconds);
 
-                    string json = Encoding.UTF8.GetString(ms.ToArray());
-                    return json;
+                        string json = Encoding.UTF8.GetString(ms.ToArray());
+                        return json;
+                    }
                 }
                 catch (Exception ex)
                 {

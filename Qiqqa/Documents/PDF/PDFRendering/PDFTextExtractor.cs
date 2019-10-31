@@ -9,6 +9,7 @@ using Qiqqa.DocumentLibrary;
 using Utilities;
 using Utilities.Encryption;
 using Utilities.Files;
+using Utilities.GUI;
 using Utilities.Misc;
 using Utilities.ProcessTools;
 using Utilities.Shutdownable;
@@ -19,7 +20,26 @@ namespace Qiqqa.Documents.PDF.PDFRendering
     {
         public static PDFTextExtractor Instance = new PDFTextExtractor();
 
+        object still_running_lock = new object();
         bool still_running;
+        public bool StillRunning
+        {
+            get
+            {
+                lock (still_running_lock)
+                {
+                    return still_running;
+                }
+            }
+            set
+            {
+                lock (still_running_lock)
+                {
+                    still_running = value;
+                }
+            }
+        }
+
         int NUM_OCR_THREADS;
         Thread[] threads;
 
@@ -88,6 +108,8 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 pdf_text_extractor.RecordThatJobHasStarted_LOCK(this, queue_lock_reminder);
             }
 
+            #region --- IDisposable ------------------------------------------------------------------------
+
             ~NextJob()
             {
                 Logging.Debug("~NextJob()");
@@ -101,15 +123,12 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 GC.SuppressFinalize(this);
             }
 
-#if DIAG
             private int dispose_count = 0;
-#endif
-            private void Dispose(bool disposing)
+            protected virtual void Dispose(bool disposing)
             {
-#if DIAG
-                Logging.Debug("NextJob::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
-#endif
-                if (disposing)
+                Logging.Debug("NextJob::Dispose({0}) @{1}", disposing, dispose_count);
+
+                if (dispose_count == 0)
                 {
                     // Notify that this job is done...
                     pdf_text_extractor.RecordThatJobHasCompleted(this);
@@ -120,8 +139,10 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 pdf_text_extractor = null;
                 job = null;
 
-                // Get rid of unmanaged resources 
+                ++dispose_count;
             }
+
+            #endregion
 
             /// <summary>
             /// Use this for getting a unique token for the job+page
@@ -231,7 +252,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             HashSet<string> current_jobs = next_job.is_group ? current_jobs_group : current_jobs_single;
             if (current_jobs.Contains(token))
             {
-                Logging.Error("Job is already running: " + token);
+                Logging.Error("Job is already running: {0}", token);
             }
             current_jobs.Add(token);
         }
@@ -247,7 +268,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 HashSet<string> current_jobs = next_job.is_group ? current_jobs_group : current_jobs_single;
                 if (!current_jobs.Contains(token))
                 {
-                    Logging.Error("Job is not running, so can't remove it: " + token);
+                    Logging.Error("Job is not running, so can't remove it: {0}", token);
                 }
                 current_jobs.Remove(token);
             }
@@ -267,13 +288,13 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             // No similar job is running...
             return false;
         }
-        
+
         private DateTime ocr_disabled_next_notification_time = DateTime.MinValue;
 
         const double TARGET_RATIO = 1.0;
         // add noise to the ratio to ensure that the status update, which lists the counts, shows the activity by the numbers going up and down as the user watches
-		private int prev_ocr_count = 0;
-		private int prev_textify_count = 0;
+        private int prev_ocr_count = 0;
+        private int prev_textify_count = 0;
 
         private NextJob GetNextJob()
         {
@@ -289,32 +310,32 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                     int ocr_count = job_queue_single.Count;
                     int textify_count = job_queue_group.Count;
                     double current_ratio = (ocr_count + 1) * (1.0 / (textify_count + 1));
-                    
-					// noise the target ratio: choose such that the user will observe the numbers changing most often
-					//					
-					// if the current_ratio is below par, we want to pick a textify job first,
-					// but if its number has been bumped by +1 since last time, we go for another job first instead
-					// as otherwise the user would observe a 'stuck count' while a lot of work is being done.
-					// (and vice versa of course for current_ratio above par)
-					//
+
+                    // noise the target ratio: choose such that the user will observe the numbers changing most often
+                    //					
+                    // if the current_ratio is below par, we want to pick a textify job first,
+                    // but if its number has been bumped by +1 since last time, we go for another job first instead
+                    // as otherwise the user would observe a 'stuck count' while a lot of work is being done.
+                    // (and vice versa of course for current_ratio above par)
+                    //
                     if (current_ratio <= TARGET_RATIO)
                     {
-						if (prev_textify_count == textify_count - 1)
-						{
-							current_ratio = TARGET_RATIO + 0.1;
-						}
-					}
-					else
-					{
-						if (prev_ocr_count == ocr_count - 1)
-						{
-							current_ratio = TARGET_RATIO - 0.1;
-						}
-					}
+                        if (prev_textify_count == textify_count - 1)
+                        {
+                            current_ratio = TARGET_RATIO + 0.1;
+                        }
+                    }
+                    else
+                    {
+                        if (prev_ocr_count == ocr_count - 1)
+                        {
+                            current_ratio = TARGET_RATIO - 0.1;
+                        }
+                    }
 
-					prev_textify_count = textify_count;
-					prev_ocr_count = ocr_count;
-					
+                    prev_textify_count = textify_count;
+                    prev_ocr_count = ocr_count;
+
                     if (current_ratio <= TARGET_RATIO)
                     {
                         // First look for any GROUP jobs                
@@ -444,7 +465,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                     // perform frequent happening time check outside lock:
                     if (DateTime.UtcNow.Subtract(ocr_disabled_next_notification_time).TotalMilliseconds > 0)
                     {
-                        StatusManager.Instance.UpdateStatus("PDFOCR", String.Format("OCR is disabled ({0} page(s) still to OCR)", job_queue_single_count));
+                        StatusManager.Instance.UpdateStatus("PDFOCR", String.Format("OCR is disabled (pending: {0} page(s) to textify and {1} page(s) to OCR)", job_queue_group_count, job_queue_single_count));
                         ocr_disabled_next_notification_time = DateTime.UtcNow.AddSeconds(5);
                     }
                 }
@@ -454,12 +475,39 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             return null;
         }
 
+        /// <summary>
+        /// Flush the queue. Use this call to discard pending work items when the application is terminating.
+        /// </summary>
+        private void FlushAllJobs()
+        {
+            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (queue_lock)
+            {
+                l1_clk.LockPerfTimerStop();
+
+                job_queue_group.Clear();
+                job_queue_single.Clear();
+            }
+        }
+
         void ThreadEntry()
         {
             bool did_some_ocr_since_last_iteration = false;
 
-            while (still_running)
+            while (true)
             {
+                if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown || !StillRunning)
+                {
+                    int job_queue_group_count;
+                    int job_queue_single_count;
+                    GetJobCounts(out job_queue_group_count, out job_queue_single_count);
+
+                    Logging.Debug特("PDFTextExtractor: shutting down and flushing the queue ({0} + {1} items discarded)", job_queue_group_count, job_queue_single_count);
+
+                    FlushAllJobs();
+                    break;
+                }
+
                 // If this library is busy, skip it for now
                 if (Library.IsBusyAddingPDFs)
                 {
@@ -494,9 +542,45 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
                         Logging.Info("Doing OCR for job '{0}'", next_job.job);
 
-                        // Relinquish control to the UI thread to make sure responsiveness remains tolerable at 100% CPU load.
-                        Utilities.GUI.WPFDoEvents.WaitForUIThreadActivityDone();
+                        long clk_duration;
+                        {
+                            Stopwatch clk = new Stopwatch();
+                            clk.Start();
 
+                            // Relinquish control to the UI thread to make sure responsiveness remains tolerable at 100% CPU load.
+                            Utilities.GUI.WPFDoEvents.WaitForUIThreadActivityDone();
+
+                            clk_duration = clk.ElapsedMilliseconds;
+                        }
+
+                        // The call above can take quite a while to complete, so check all abort/delay checks once again, just in case...:
+                        if (false
+                            || Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown || !StillRunning
+                            || clk_duration > 100
+                            || Library.IsBusyAddingPDFs
+                            || ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks
+                            )
+                        {
+                            Logging.Warn("Recheck job queue after WaitForUIThreadActivityDone took {0}ms or shutdown/dealy signals were detected: {1}/{2}/{3}/{4}.",
+                                clk_duration,
+                                (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown || !StillRunning) ? "+Shutdown+" : "-SD-",
+                                clk_duration > 100 ? "+UI-wait+" : "-UI-",
+                                Library.IsBusyAddingPDFs ? "+PDFAddPending+" : "-PDF-",
+                                ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks ? "+DisableBackgroundTasks+" : "-DB-"
+                             );
+
+                            // push the job onto the queue and start from the beginning:
+                            if (next_job.is_group)
+                            {
+                                this.QueueJobGroup(next_job.job);
+                            }
+                            else
+                            {
+                                this.QueueJobSingle(next_job.job);
+                            }
+                            continue;
+                        }
+                        else
                         {
                             // Get a count of how many jobs are left...
                             int job_queue_group_count;
@@ -520,20 +604,13 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
                         try
                         {
-                            if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+                            if (next_job.is_group)
                             {
-                                Logging.Debug特("PDFTextExtractor: Short-circuiting the job due to application termination ({0})", next_job);
+                                ProcessNextJob_Group(next_job, temp_ocr_result_filename);
                             }
                             else
                             {
-                                if (next_job.is_group)
-                                {
-                                    ProcessNextJob_Group(next_job, temp_ocr_result_filename);
-                                }
-                                else
-                                {
-                                    ProcessNextJob_Single(next_job, temp_ocr_result_filename);
-                                }
+                                ProcessNextJob_Single(next_job, temp_ocr_result_filename);
                             }
                         }
                         catch (Exception ex)
@@ -672,7 +749,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                     // Wait a few minutes for the OCR process to exit
                     while (true)
                     {
-                        if (!still_running)
+                        if (!StillRunning)
                         {
                             break;
                         }
@@ -716,11 +793,64 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         void Shutdown()
         {
             Logging.Info("Stopping PDFTextExtractor threads");
-            still_running = false;
-            for (int i = 0; i < NUM_OCR_THREADS; ++i)
+            StillRunning = false;
+
+            int job_queue_group_count;
+            int job_queue_single_count;
+            GetJobCounts(out job_queue_group_count, out job_queue_single_count);
+
+            Logging.Debug特("PDFTextExtractor::Shutdown: flushing the queue ({0} + {1} items discarded)", job_queue_group_count, job_queue_single_count);
+            FlushAllJobs();
+
+            SafeThreadPool.QueueUserWorkItem(o =>
             {
-                threads[i].Join();
-            }
+                Logging.Info("+Stopping PDFTextExtractor threads (async)");
+
+                bool[] done = new bool[NUM_OCR_THREADS];
+                Stopwatch clk = Stopwatch.StartNew();
+
+                while (true)
+                {
+                    int cnt = 0;
+
+                    for (int i = 0; i < NUM_OCR_THREADS; ++i)
+                    {
+                        if (!done[i])
+                        {
+                            cnt++;
+                            if (threads[i].Join(150))
+                            {
+                                done[i] = true;
+                                threads[i] = null;
+                                cnt--;
+                            }
+                        }
+                    }
+                    Logging.Info("Stopping PDFTextExtractor threads (async): {0} threads are pending.", cnt);
+                    if (cnt == 0)
+                    {
+                        break;
+                    }
+
+                    // abort the threads if they're taking way too long:
+                    if (clk.ElapsedMilliseconds >= Constants.MAX_WAIT_TIME_MS_AT_PROGRAM_SHUTDOWN)
+                    {
+                        for (int i = 0; i < NUM_OCR_THREADS; ++i)
+                        {
+                            if (!done[i])
+                            {
+                                Logging.Error("Stopping PDFTextExtractor threads (async): timeout ({1} sec), hence ABORTing PDF/OCR thread {0}.", i, Constants.MAX_WAIT_TIME_MS_AT_PROGRAM_SHUTDOWN / 1000);
+                                threads[i].Abort();
+                            }
+                        }
+                    }
+
+                    WPFDoEvents.WaitForUIThreadActivityDone();
+                }
+
+                Logging.Info("-Stopping PDFTextExtractor threads (async) --> all done!");
+            });
+
             Logging.Info("Stopped PDFTextExtractor");
         }
     }

@@ -80,7 +80,7 @@ namespace Qiqqa.Exporting
                         }
 
                         // Then the annotations
-                        foreach (PDFAnnotation annotation in item.pdf_document.Annotations)
+                        foreach (PDFAnnotation annotation in item.pdf_document.GetAnnotations())
                         {
                             if (annotation.Deleted)
                             {

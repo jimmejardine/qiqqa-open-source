@@ -43,6 +43,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.CanvasToolbars
         PDFRendererControl pdf_renderer_control = null;
         public PDFRendererControl PDFRendererControl
         {
+            get
+            {
+                return pdf_renderer_control;
+            }
             set
             {
                 pdf_renderer_control = value;

@@ -125,7 +125,6 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff.CitationFinding
                             }
                         }
                     }
-
                     catch (Exception ex)
                     {
                         Logging.Warn(ex, "There was a problem during citation finding while processing one of the matching author documents.");

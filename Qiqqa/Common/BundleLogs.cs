@@ -59,7 +59,7 @@ namespace Qiqqa.Common
                     // Delete the target filename if it exists...
                     FileTools.Delete(target_filename);
 
-                    string process_parameters = String.Format("a -t7z -mmt=on -mx9 -ssw \"{0}\" {1}", target_filename, file_list);
+                    string process_parameters = String.Format("a -t7z -mmt=on -mx9 -ssw \"{0}\" \"{1}\"", target_filename, file_list);
                     using (Process process = ProcessSpawning.SpawnChildProcess(ConfigurationManager.Instance.Program7ZIP, process_parameters, ProcessPriorityClass.Normal))
                     {
                         using (ProcessOutputReader process_output_reader = new ProcessOutputReader(process))

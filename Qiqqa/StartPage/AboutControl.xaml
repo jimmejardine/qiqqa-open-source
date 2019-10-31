@@ -1,16 +1,15 @@
 ﻿<UserControl x:Class="Qiqqa.StartPage.AboutControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local_formatting="clr-namespace:Qiqqa.StartPage.Formatting"
   xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
 >
   <Grid>
     <FlowDocumentScrollViewer  IsToolBarVisible="False">
       <commongui:StandardFlowDocument>
 
-        <local_formatting:ParagraphHeader>
+        <Paragraph>
           About Qiqqa
-        </local_formatting:ParagraphHeader>
+        </Paragraph>
 
         <Paragraph>
                     This is Qiqqa version <Run Name="lblVersion"></Run> (<Run Name="lblFullVersion"></Run>).
@@ -18,9 +17,9 @@
             All rights reserved.  All other trademarks are copyright their respective owners.
         </Paragraph>
 
-         <local_formatting:ParagraphHeader>
+         <Paragraph>
           Useful links
-        </local_formatting:ParagraphHeader>
+        </Paragraph>
 
         <List>
           <ListItem>
@@ -41,9 +40,9 @@
           </ListItem>
         </List>
 
-        <local_formatting:ParagraphHeader>
+        <Paragraph>
           Thanks!
-        </local_formatting:ParagraphHeader>
+        </Paragraph>
 
 
         <Paragraph>
@@ -199,9 +198,9 @@
 
         </List>
 
-        <local_formatting:ParagraphHeader>
+        <Paragraph>
           Qiqqa Terms and Conditions and 3rd Party Licences
-        </local_formatting:ParagraphHeader>
+        </Paragraph>
         <List>
           <ListItem>
             <Paragraph>

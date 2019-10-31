@@ -5,6 +5,7 @@ using Qiqqa.UtilisationTracking;
 using Qiqqa.WebBrowsing.GeckoStuff;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -83,6 +84,21 @@ namespace Qiqqa.Common
 			}
 
             this.Close();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+
+            // base.OnClosed() invokes this calss Closed() code, so we flipped the order of exec to reduce the number of surprises for yours truly.
+            // This NULLing stuff is really the last rites of Dispose()-like so we stick it at the end here.
+
+            this.pdf_document = null;
         }
     }
 }

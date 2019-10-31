@@ -4,13 +4,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Qiqqa.Documents.PDF.PDFControls.Page.Tools;
 using Utilities;
+using Utilities.GUI;
 
 namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
 {
     /// <summary>
     /// Interaction logic for PDFTextLayer.xaml
     /// </summary>
-    public partial class PDFHandLayer : PageLayer
+    public partial class PDFHandLayer : PageLayer, IDisposable
     {
         PDFRendererControlStats pdf_renderer_control_stats;
         int page;
@@ -36,18 +37,18 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
             int start_page_offset = pdf_renderer_control_stats.StartPageOffset;
             if (0 != start_page_offset)
             {
-                this.ObjPageNumberControl.PageNumber = String.Format("{2} ({0}/{1})", page, pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount, (page+start_page_offset-1));
+                this.ObjPageNumberControl.SetPageNumber(String.Format("{2} ({0}/{1})", page, pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount, (page + start_page_offset - 1)));
             }
             else
             {
-                this.ObjPageNumberControl.PageNumber = String.Format("{0}/{1}", page, pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount);
+                this.ObjPageNumberControl.SetPageNumber(String.Format("{0}/{1}", page, pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount));
             }
 
             MouseDown += PDFHandLayer_MouseDown;
             MouseUp += PDFHandLayer_MouseUp;
-            MouseMove += PDFHandLayer_MouseMove;            
+            MouseMove += PDFHandLayer_MouseMove;
         }
-        
+
         void PDFHandLayer_MouseUp(object sender, MouseButtonEventArgs e)
         {
             mouse_pressed = false;
@@ -87,12 +88,75 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
             mouse_last_position = mouse_current_position;
         }
 
-        internal override void Dispose()
-        {
-            Logging.Debug("PDFHandLayer::Dispose()");
+        #region --- IDisposable ------------------------------------------------------------------------
 
+        ~PDFHandLayer()
+        {
+            Logging.Debug("~PDFHandLayer()");
+            Dispose(false);
+        }
+
+        public override void Dispose()
+        {
+            Logging.Debug("Disposing PDFHandLayer");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected virtual void Dispose(bool disposing)
+        {
+            Logging.Debug("PDFHandLayer::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (0 == dispose_count)
+            {
+                WPFDoEvents.InvokeInUIThread(() =>
+                {
+                    WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
+                    try
+                    {
+                        foreach (var el in Children)
+                        {
+                            IDisposable node = el as IDisposable;
+                            if (null != node)
+                            {
+                                node.Dispose();
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex);
+                    }
+
+                    try
+                    {
+                        Children.Clear();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex);
+                    }
+
+                    MouseDown -= PDFHandLayer_MouseDown;
+                    MouseUp -= PDFHandLayer_MouseUp;
+                    MouseMove -= PDFHandLayer_MouseMove;
+                }, this.Dispatcher);
+            }
+
+            // Clear the references for sanity's sake
             pdf_renderer_control_stats = null;
             pdf_renderer_control = null;
+
+            this.DataContext = null;
+
+            ++dispose_count;
+
+            //base.Dispose(disposing);     // parent only throws an exception (intentionally), so depart from best practices and don't call base.Dispose(bool)
         }
+
+        #endregion
+
     }
 }

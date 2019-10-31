@@ -27,7 +27,7 @@ using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary
 {
-    public class Library
+    public class Library : IDisposable
     {
         public override string ToString()
         {
@@ -134,6 +134,7 @@ namespace Qiqqa.DocumentLibrary
         // Move this somewhere nice...
         public bool sync_in_progress = false;
         private bool library_is_loaded = false;
+        private bool library_is_killed = false;
         private object library_is_loaded_lock = new object();
 
         public event OnLibraryLoadedHandler OnLibraryLoaded;
@@ -147,6 +148,40 @@ namespace Qiqqa.DocumentLibrary
                 {
                     l1_clk.LockPerfTimerStop();
                     return library_is_loaded;
+                }
+            }
+            private set
+            {
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                lock (library_is_loaded_lock)
+                {
+                    l1_clk.LockPerfTimerStop();
+                    library_is_loaded = value;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Signals a forced `Dispose()` call was issued; any background processes involving this library should abort ASAP!
+        /// </summary>
+        public bool LibraryIsKilled
+        {
+            get
+            {
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                lock (library_is_loaded_lock)
+                {
+                    l1_clk.LockPerfTimerStop();
+                    return library_is_killed;
+                }
+            }
+            private set
+            {
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                lock (library_is_loaded_lock)
+                {
+                    l1_clk.LockPerfTimerStop();
+                    library_is_killed = value;
                 }
             }
         }
@@ -194,30 +229,6 @@ namespace Qiqqa.DocumentLibrary
             SafeThreadPool.QueueUserWorkItem(o => BuildFromDocumentRepository());
         }
 
-        private int dispose_count = 0;
-        internal void Dispose()
-        {
-            Logging.Debug("Library::Dispose() @{0}", ++dispose_count);
-
-            // Do we need to check that the library has finished being loaded?
-
-            // Switch off the living things
-            this.library_index?.Dispose();
-            this.folder_watcher_manager?.Dispose();
-
-            // Clear the references for sanity's sake
-            this.expedition_manager = null;
-            this.password_manager = null;
-            this.blackwhite_list_manager = null;
-            this.recently_read_manager = null;
-            this.ai_tag_manager = null;
-            this.library_index = null;
-            this.folder_watcher_manager = null;
-            this.library_db = null;
-
-            this.web_library_detail = null;       // cyclic reference as WebLibraryDetail instance reference us, so we MUST nil this one to break the cycle for the GC to work well.
-        }
-
         // NOTE: this function is executed ASYNCHRONOUSLY. 
         // 
         // Once completed, an event will be fired to
@@ -226,12 +237,7 @@ namespace Qiqqa.DocumentLibrary
         {
             try
             {
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-                lock (library_is_loaded_lock)
-                {
-                    l1_clk.LockPerfTimerStop();
-                    library_is_loaded = false;
-                }
+                LibraryIsLoaded = false;
 
                 Stopwatch clk = Stopwatch.StartNew();
                 long prev_clk = 0;
@@ -267,6 +273,11 @@ namespace Qiqqa.DocumentLibrary
                         System.Threading.Thread.Yield();
                     }
 
+                    if (LibraryIsKilled)
+                    {
+                        break;
+                    }
+
                     try
                     {
                         LoadDocumentFromMetadata(library_item, library_items_annotations_cache, false);
@@ -283,19 +294,24 @@ namespace Qiqqa.DocumentLibrary
             }
             catch (Exception ex)
             {
-                Logging.Error(ex, "There was a problem while building the document library {0}", this.WebLibraryDetail.DescriptiveTitle);
+                if (LibraryIsKilled)
+                {
+                    Logging.Warn(ex, "There was a failure while building the *KILLED* document library instance for library {0} ({1})", this.WebLibraryDetail.DescriptiveTitle, this.WebLibraryDetail.Id);
+                }
+                else
+                {
+                    Logging.Error(ex, "There was a problem while building the document library {0} ({1})", this.WebLibraryDetail.DescriptiveTitle, this.WebLibraryDetail.Id);
+                }
             }
             finally
             {
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-                lock (library_is_loaded_lock)
-                {
-                    l1_clk.LockPerfTimerStop();
-                    library_is_loaded = true;
-                }
+                LibraryIsLoaded = true;
 
-                // fire the event ASYNC
-                OnLibraryLoaded?.BeginInvoke(this, null, null);
+                if (!LibraryIsKilled)
+                {
+                    // fire the event ASYNC
+                    OnLibraryLoaded?.BeginInvoke(this, null, null);
+                }
             }
         }
 
@@ -305,10 +321,10 @@ namespace Qiqqa.DocumentLibrary
             {
                 PDFDocument pdf_document = PDFDocument.LoadFromMetaData(this, library_item.data, library_items_annotations_cache);
 
-                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (pdf_documents_lock)
                 {
-                    //l1_clk.LockPerfTimerStop();
+                    l1_clk.LockPerfTimerStop();
                     pdf_documents[pdf_document.Fingerprint] = pdf_document;
                 }
 
@@ -329,7 +345,7 @@ namespace Qiqqa.DocumentLibrary
             }
             catch (Exception ex)
             {
-                Logging.Error(ex, "Couldn't load document from ", library_item);
+                Logging.Error(ex, "Couldn't load document from {0}", library_item.fingerprint);
             }
         }
 
@@ -959,6 +975,11 @@ namespace Qiqqa.DocumentLibrary
 
         internal void CheckForSignalThatDocumentsHaveChanged()
         {
+            if (LibraryIsKilled)
+            {
+                return;
+            }
+
             PDFDocument local_documents_changed_optional_changed_pdf_document;
             DateTime now = DateTime.UtcNow;
 
@@ -1042,5 +1063,65 @@ namespace Qiqqa.DocumentLibrary
         }
 
         #endregion
+
+        #region --- IDisposable ------------------------------------------------------------------------
+
+        ~Library()
+        {
+            Logging.Debug("~Library()");
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Logging.Debug("Disposing Library");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected virtual void Dispose(bool disposing)
+        {
+            Logging.Debug("Library::Dispose({0}) @{1}", disposing, dispose_count);
+
+            LibraryIsKilled = true;
+
+            if (dispose_count == 0)
+            {
+                // Get rid of managed resources / get rid of cyclic references:
+
+                // Do we need to check that the library has finished being loaded?
+
+                // Switch off the living things
+                this.library_index?.Dispose();
+                this.folder_watcher_manager?.Dispose();
+
+                // NULL the memory database
+                Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+                lock (pdf_documents_lock)
+                {
+                    l2_clk.LockPerfTimerStop();
+                    pdf_documents.Clear();
+                    pdf_documents = null;
+                }
+            }
+
+            // Clear the references for sanity's sake
+            this.expedition_manager = null;
+            this.password_manager = null;
+            this.blackwhite_list_manager = null;
+            this.recently_read_manager = null;
+            this.ai_tag_manager = null;
+            this.library_index = null;
+            this.folder_watcher_manager = null;
+            this.library_db = null;
+
+            this.web_library_detail = null;       // cyclic reference as WebLibraryDetail instance reference us, so we MUST nil this one to break the cycle for the GC to work well.
+
+            ++dispose_count;
+        }
+
+        #endregion
+
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
+using System.Windows;
 
 namespace Utilities.Shutdownable
 {
@@ -38,7 +40,21 @@ namespace Utilities.Shutdownable
                 lock (is_being_shut_down_lock)
                 {
                     //l1_clk.LockPerfTimerStop();
-                    return is_being_shut_down;
+					//if (System.Windows.Threading.Dispatcher.CurrentDispatcher != Application.Current?.Dispatcher)
+					//{
+					//	Logging.Error(new Exception("Unexpected results"), "woops");
+					//}
+
+                    bool app_shuts_down = (null == Application.Current
+                        || null == Application.Current.Dispatcher
+                        || Application.Current.Dispatcher.HasShutdownStarted
+                        || Application.Current.Dispatcher.HasShutdownFinished);
+
+                    if (!is_being_shut_down && app_shuts_down)
+                    {
+                        app_shuts_down = true;
+                    }
+                    return is_being_shut_down || app_shuts_down;
                 }
             }
             set
@@ -47,10 +63,7 @@ namespace Utilities.Shutdownable
                 lock (is_being_shut_down_lock)
                 {
                     l1_clk.LockPerfTimerStop();
-                    if (!is_being_shut_down)
-                    {
-                        is_being_shut_down = true;
-                    }
+                    is_being_shut_down = true;
                 }
             }
         }
@@ -68,7 +81,7 @@ namespace Utilities.Shutdownable
                 lock (shutdown_delegates_lock)
                 {
                     l1_clk.LockPerfTimerStop();
-                    if (0 == shutdown_delegates.Count) break;
+                    if (!shutdown_delegates.Any()) break;
                     shutdown_delegate = shutdown_delegates[0];
                     shutdown_delegates.RemoveAt(0);
                 }
