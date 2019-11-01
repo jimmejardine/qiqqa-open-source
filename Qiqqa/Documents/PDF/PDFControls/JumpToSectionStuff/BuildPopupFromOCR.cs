@@ -6,7 +6,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
 {
     internal class BuildPopupFromOCR
     {
-        JumpToSectionPopup popup;
+        private JumpToSectionPopup popup;
 
         internal BuildPopupFromOCR(JumpToSectionPopup popup)
         {

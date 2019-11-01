@@ -1,35 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using Qiqqa.Documents.PDF;
 using Qiqqa.Documents.PDF.ThreadUnsafe;
 using Utilities;
 using Utilities.Encryption;
 using Utilities.Files;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.DocumentLibrary.PasswordStuff
 {
     public class PasswordManager
     {
-        Library library;
+        private Library library;
 
         public PasswordManager(Library library)
         {
             this.library = library;
         }
 
-        public string Filename_Store
-        {
-            get
-            {
-                return Path.GetFullPath(Path.Combine(library.LIBRARY_BASE_PATH, @"Qiqqa.pwds"));
-            }
-        }
+        public string Filename_Store => Path.GetFullPath(Path.Combine(library.LIBRARY_BASE_PATH, @"Qiqqa.pwds"));
 
-        Dictionary<string, string> _passwords = null;
-        Dictionary<string, string> Passwords
+        private Dictionary<string, string> _passwords = null;
+
+        private Dictionary<string, string> Passwords
         {
             get
             {
@@ -60,7 +55,7 @@ namespace Qiqqa.DocumentLibrary.PasswordStuff
 
         // ------------------------------------------------------------------------------------------------------------
 
-        void WritePasswordFile(string filename, Dictionary<string, string> passwords)
+        private void WritePasswordFile(string filename, Dictionary<string, string> passwords)
         {
             Logging.Info("Writing password file {0}.", filename);
             SerializeFile.SaveRedundant(filename, passwords);
@@ -80,7 +75,7 @@ namespace Qiqqa.DocumentLibrary.PasswordStuff
             {
                 Logging.Warn("Can't associate a password with a null PDFDocument.");
             }
-            
+
             if (String.IsNullOrEmpty(password))
             {
                 RemovePassword(pdf_document);
@@ -117,6 +112,6 @@ namespace Qiqqa.DocumentLibrary.PasswordStuff
             Passwords.Remove(pdf_document.Fingerprint);
             WritePasswordFile(Filename_Store, Passwords);
         }
-    }   
+    }
 }
 

@@ -7,7 +7,7 @@ namespace Utilities.ProcessTools
 {
     public class ProcessOutputReader : IDisposable
     {
-        Process process;
+        private Process process;
         public List<string> Output = new List<string>();
         public List<string> Error = new List<string>();
 
@@ -21,12 +21,12 @@ namespace Utilities.ProcessTools
             process.BeginErrorReadLine();
         }
 
-            // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
         ~ProcessOutputReader()
         {
             Logging.Debug("~ProcessOutputReader()");
-            Dispose(false);            
+            Dispose(false);
         }
 
         public void Dispose()

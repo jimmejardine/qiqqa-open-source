@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Qiqqa.Common.TagManagement
 {
-    class TagTools
+    internal class TagTools
     {
         public static HashSet<string> ConvertTagBundleToTags(string tag_bundle)
         {
@@ -29,10 +29,10 @@ namespace Qiqqa.Common.TagManagement
                 tag_list_sorted.Sort();
 
                 StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < tag_list_sorted.Count; ++i)                
+                for (int i = 0; i < tag_list_sorted.Count; ++i)
                 {
                     string tag = tag_list_sorted[i];
-                    tag = tag.Trim();                    
+                    tag = tag.Trim();
 
                     if (i > 0)
                     {

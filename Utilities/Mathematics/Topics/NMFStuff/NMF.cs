@@ -1,6 +1,4 @@
 ﻿using System.Text;
-using Utilities.Mathematics.LinearAlgebra;
-using Utilities.Random;
 
 namespace Utilities.Mathematics.Topics.NMFStuff
 {

@@ -7,6 +7,7 @@ using System.Windows.Media.Imaging;
 using icons;
 using Qiqqa.AnnotationsReportBuilding;
 using Qiqqa.Common;
+using Qiqqa.Common.GUI;
 using Qiqqa.UtilisationTracking;
 using Syncfusion.Pdf;
 using Utilities;
@@ -15,14 +16,13 @@ using Utilities.Misc;
 using Utilities.OCR;
 using Utilities.PDF;
 using Brushes = System.Windows.Media.Brushes;
-using Qiqqa.Common.GUI;
 
 namespace Qiqqa.Documents.PDF.PDFControls.PDFExporting
 {
     /// <summary>
     /// Exports to a FlowDocument
     /// </summary>
-    class ExportToWord
+    internal class ExportToWord
     {
         public static StandardFlowDocument DoExport(PDFDocument pdf_document)
         {

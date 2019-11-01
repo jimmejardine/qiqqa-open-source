@@ -17,7 +17,7 @@ namespace Utilities.Files
                 using (Stream file_stream = File.OpenRead(filename))
                 {
                     XmlReader xml_reader = new XmlTextReader(file_stream);
-                    XmlSerializer xml_serializer = new XmlSerializer(typeof (T));
+                    XmlSerializer xml_serializer = new XmlSerializer(typeof(T));
                     return xml_serializer.Deserialize(xml_reader) as T;
                 }
             }

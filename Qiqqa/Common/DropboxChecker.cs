@@ -5,16 +5,17 @@ using Qiqqa.Common.Configuration;
 using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.Misc;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Common
 {
-    class DropboxChecker
+    internal class DropboxChecker
     {
-        static readonly string WARNING = "Using cloud syncing tools like Dropbox, GoogleDrive, SkyDrive, etc. can corrupt your Qiqqa database.  Only use them if you know what you are doing...";
-        static readonly string PREAMBLE_FILENAME = "DropboxDetection";
+        private static readonly string WARNING = "Using cloud syncing tools like Dropbox, GoogleDrive, SkyDrive, etc. can corrupt your Qiqqa database.  Only use them if you know what you are doing...";
+        private static readonly string PREAMBLE_FILENAME = "DropboxDetection";
 
         internal static void DoCheck()
         {
@@ -34,7 +35,7 @@ namespace Qiqqa.Common
 
                     // Analytics it
                     FeatureTrackingManager.Instance.UseFeature(Features.Diagnostics_DropBox);
-                    
+
                     // Report it to user
                     NotificationManager.Instance.AddPendingNotification(
                         new NotificationManager.Notification(
@@ -54,7 +55,7 @@ namespace Qiqqa.Common
             }
         }
 
-        static void IUnderstand(object obj)
+        private static void IUnderstand(object obj)
         {
             try
             {

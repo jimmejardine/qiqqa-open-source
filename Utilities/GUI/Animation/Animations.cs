@@ -22,7 +22,7 @@ namespace Utilities.GUI.Animation
             SolidColorBrush border_brush = new SolidColorBrush(color_from);
             ColorAnimation ca = new ColorAnimation(color_from, color_to, new Duration(TimeSpan.FromMilliseconds(milliseconds)));
             border_brush.BeginAnimation(SolidColorBrush.ColorProperty, ca);
-            return border_brush;            
+            return border_brush;
         }
 
         public static void EnableHoverFade(UIElement fe)
@@ -43,14 +43,13 @@ namespace Utilities.GUI.Animation
             };
         }
 
-        class FadeManager
+        private class FadeManager
         {
-            static Dictionary<FrameworkElement, FadeManager> responsible_managers = new Dictionary<FrameworkElement, FadeManager>();
-            object responsible_managers_lock = new object();
-
-            FrameworkElement fe;
-            double from_opacity;
-            double to_opacity;
+            private static Dictionary<FrameworkElement, FadeManager> responsible_managers = new Dictionary<FrameworkElement, FadeManager>();
+            private object responsible_managers_lock = new object();
+            private FrameworkElement fe;
+            private double from_opacity;
+            private double to_opacity;
 
             internal FadeManager(FrameworkElement fe, double from_opacity, double to_opacity)
             {
@@ -81,18 +80,18 @@ namespace Utilities.GUI.Animation
                 }
             }
 
-            void da_Completed(object sender, EventArgs e)
+            private void da_Completed(object sender, EventArgs e)
             {
                 Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (responsible_managers_lock)
                 {
                     l1_clk.LockPerfTimerStop();
-                    if (!responsible_managers.ContainsKey(this.fe) || this != responsible_managers[this.fe])
-                    {                        
+                    if (!responsible_managers.ContainsKey(fe) || this != responsible_managers[fe])
+                    {
                     }
                     else
-                    {                        
-                        responsible_managers.Remove(this.fe);
+                    {
+                        responsible_managers.Remove(fe);
 
                         fe.Opacity = to_opacity;
                         fe.BeginAnimation(FrameworkElement.OpacityProperty, null);
@@ -100,7 +99,7 @@ namespace Utilities.GUI.Animation
                         {
                             fe.Visibility = Visibility.Hidden;
                         }
-                    }                    
+                    }
                 }
             }
         }

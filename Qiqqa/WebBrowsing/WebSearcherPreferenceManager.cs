@@ -2,12 +2,14 @@
 using System.IO;
 using Qiqqa.Common.Configuration;
 using Utilities;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 
+
 namespace Qiqqa.WebBrowsing
 {
-    class WebSearcherPreferenceManager
+    internal class WebSearcherPreferenceManager
     {
         public static readonly WebSearcherPreferenceManager Instance = new WebSearcherPreferenceManager();
 
@@ -15,13 +17,7 @@ namespace Qiqqa.WebBrowsing
         {
         }
 
-        private static string PREFERENCES_FILENAME
-        {
-            get
-            {
-                return Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.BaseDirectoryForUser, @"Qiqqa.web_searcher_preferences"));
-            }
-        }
+        private static string PREFERENCES_FILENAME => Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.BaseDirectoryForUser, @"Qiqqa.web_searcher_preferences"));
 
         private HashSet<string> GetDefaultPreferences()
         {

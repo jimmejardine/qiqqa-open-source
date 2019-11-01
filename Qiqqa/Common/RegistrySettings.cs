@@ -9,15 +9,15 @@ namespace Qiqqa.Common
         public static readonly string DebugConsole = "DebugConsole";
 
         public static readonly string FirstInstallNotification = "FirstInstallNotification";
-        
+
         public static readonly string DisableGlobalKeyHook = "DisableGlobalKeyHook";
 
         public static readonly string AllowMultipleQiqqaInstances = "AllowMultipleQiqqaInstances";
 
         public static readonly string SkipAdverts = "SkipAdverts";
-        
+
         public static readonly string SampleBrainstorm = "SampleBrainstorm";
-        
+
         public static readonly string UrlWebRoot = "UrlWebRoot";  //e.g. test.qiqqa.com
 
         public static readonly string SuppressDaemon = "SuppressDaemon";

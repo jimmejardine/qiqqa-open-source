@@ -19,8 +19,8 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
     /// </summary>
     public partial class MassDuplicateCheckingControl : UserControl
     {
-        object locker = new object();
-        bool already_finding_duplicates = false;
+        private object locker = new object();
+        private bool already_finding_duplicates = false;
 
         public MassDuplicateCheckingControl()
         {
@@ -30,11 +30,11 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
             TreeDuplicates.KeyDown += TreeDuplicates_KeyDown;
         }
 
-        void TreeDuplicates_KeyDown(object sender, KeyEventArgs e)
+        private void TreeDuplicates_KeyDown(object sender, KeyEventArgs e)
         {
             TreeViewItem tvi = TreeDuplicates.SelectedItem as TreeViewItem;
             PDFDocument pdf_document = (null != tvi) ? (PDFDocument)tvi.Tag : null;
-            
+
             if (Key.Delete == e.Key)
             {
                 if (null != pdf_document)
@@ -55,7 +55,7 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
             }
         }
 
-        void TreeDuplicates_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        private void TreeDuplicates_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             TreeViewItem tvi = TreeDuplicates.SelectedItem as TreeViewItem;
             if (null != tvi)
@@ -93,7 +93,7 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
         {
             try
             {
-                this.Dispatcher.Invoke(new Action(() =>
+                Dispatcher.Invoke(new Action(() =>
                 {
                     TxtLibraryName.Text = library.WebLibraryDetail.Title;
                     TreeDuplicates.Items.Clear();
@@ -105,14 +105,14 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
 
                 // Sort them by their titles
                 StatusManager.Instance.UpdateStatus("DuplicateChecking", "Sorting titles");
-                pdf_documents.Sort(delegate(PDFDocument d1, PDFDocument d2)
+                pdf_documents.Sort(delegate (PDFDocument d1, PDFDocument d2)
                 {
                     return String.Compare(d1.TitleCombined, d2.TitleCombined);
                 });
 
                 StatusManager.Instance.UpdateStatus("DuplicateChecking", "Caching titles");
                 DuplicateDetectionControl.TitleCombinedCache cache = new DuplicateDetectionControl.TitleCombinedCache(pdf_documents);
-                
+
                 // Do the n^2                
                 bool have_duplicates = false;
                 StatusManager.Instance.ClearCancelled("DuplicateChecking");
@@ -124,13 +124,13 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
                         Logging.Warn("User cancelled duplicate checking");
                         break;
                     }
-                    
+
                     PDFDocument pdf_document = pdf_documents[i];
                     List<PDFDocument> duplicate_pdf_documents = DuplicateDetectionControl.FindDuplicates(pdf_document, cache);
                     if (0 < duplicate_pdf_documents.Count)
                     {
                         have_duplicates = true;
-                        this.Dispatcher.Invoke(new Action(() =>
+                        Dispatcher.Invoke(new Action(() =>
                         {
                             TreeViewItem tvi_parent = new TreeViewItem();
                             AttachEvents(tvi_parent, pdf_document);
@@ -149,7 +149,7 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
 
                 if (!have_duplicates)
                 {
-                    this.Dispatcher.Invoke(new Action(() =>
+                    Dispatcher.Invoke(new Action(() =>
                     {
                         TxtNoDuplicatesFound.Visibility = Visibility.Visible;
                     }
@@ -171,8 +171,8 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
 
         private void AttachEvents(TreeViewItem tvi, PDFDocument pdf_document)
         {
-            string prefix = 
-                pdf_document.ReadingStage 
+            string prefix =
+                pdf_document.ReadingStage
                 + " - "
                 + (String.IsNullOrEmpty(pdf_document.BibTex) ? "NoBibTeX" : "HasBibTeX")
                 + " - "
@@ -184,7 +184,7 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
             tvi.MouseRightButtonUp += tvi_MouseRightButtonUp;
         }
 
-        void tvi_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        private void tvi_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
             TreeViewItem tvi = (TreeViewItem)sender;
             PDFDocument pdf_document = (PDFDocument)tvi.Tag;

@@ -24,7 +24,7 @@ namespace Qiqqa.Common.LibraryPickerStuff
             ChooseNewLibrary(null);
         }
 
-        void ObjLibraryTextBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void ObjLibraryTextBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             // Pick a new library...
             WebLibraryDetail web_library_detail = WebLibraryPicker.PickWebLibrary();
@@ -37,10 +37,10 @@ namespace Qiqqa.Common.LibraryPickerStuff
         }
 
         public WebLibraryDetail WebLibraryDetail { get; private set; }
-        
+
         public void ChooseNewLibrary(WebLibraryDetail web_library_detail)
         {
-            this.WebLibraryDetail = web_library_detail;
+            WebLibraryDetail = web_library_detail;
 
             if (null != web_library_detail)
             {

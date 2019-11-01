@@ -15,7 +15,7 @@ namespace Qiqqa.Brainstorm.Nodes
     /// </summary>
     public partial class FileSystemNodeContentControl : UserControl
     {
-        FileSystemNodeContent fsnc;
+        private FileSystemNodeContent fsnc;
 
         public FileSystemNodeContentControl(NodeControl node_control, FileSystemNodeContent fsnc)
         {
@@ -23,22 +23,22 @@ namespace Qiqqa.Brainstorm.Nodes
 
             InitializeComponent();
 
-            this.Focusable = true;
+            Focusable = true;
 
             Image.Source = FileTypeIconCache.Instance[fsnc.path];
 
-            this.Image.ToolTip = fsnc.path;
-            this.Image.Stretch = Stretch.Uniform;
-            this.Image.HorizontalAlignment = HorizontalAlignment.Center;
+            Image.ToolTip = fsnc.path;
+            Image.Stretch = Stretch.Uniform;
+            Image.HorizontalAlignment = HorizontalAlignment.Center;
 
-            this.Text.Text = Path.GetFileName(fsnc.path);
-            this.Text.HorizontalAlignment = HorizontalAlignment.Center;
-            this.Text.TextTrimming = TextTrimming.CharacterEllipsis;
+            Text.Text = Path.GetFileName(fsnc.path);
+            Text.HorizontalAlignment = HorizontalAlignment.Center;
+            Text.TextTrimming = TextTrimming.CharacterEllipsis;
 
-            this.MouseDoubleClick += FileSystemNodeContentControl_MouseDoubleClick;
+            MouseDoubleClick += FileSystemNodeContentControl_MouseDoubleClick;
         }
 
-        void FileSystemNodeContentControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void FileSystemNodeContentControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             try
             {

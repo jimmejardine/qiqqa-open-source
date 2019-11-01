@@ -22,7 +22,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
         {
             InitializeComponent();
 
-            this.ToolTip = "Here are the Types of your documents.  " + GenericLibraryExplorerControl.YOU_CAN_FILTER_TOOLTIP;
+            ToolTip = "Here are the Types of your documents.  " + GenericLibraryExplorerControl.YOU_CAN_FILTER_TOOLTIP;
 
             TagExplorerTree.DescriptionTitle = "Type";
 
@@ -35,13 +35,10 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
 
         public Library Library
         {
-            get
-            {
-                return library;
-            }
+            get => library;
             set
             {
-                this.library = value;
+                library = value;
                 TagExplorerTree.Library = value;
             }
         }
@@ -81,7 +78,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
             return tags_with_fingerprints;
         }
 
-        void TagExplorerTree_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
+        private void TagExplorerTree_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
         {
             OnTagSelectionChanged?.Invoke(fingerprints, descriptive_span);
         }

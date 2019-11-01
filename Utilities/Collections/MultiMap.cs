@@ -11,9 +11,8 @@ namespace Utilities.Collections
     [Serializable]
     public class MultiMap<KEY, VALUE>
     {
-        Dictionary<KEY, List<VALUE>> data = new Dictionary<KEY, List<VALUE>>();
-
-        bool unique_values;
+        private Dictionary<KEY, List<VALUE>> data = new Dictionary<KEY, List<VALUE>>();
+        private bool unique_values;
 
         public MultiMap(bool unique_values)
         {
@@ -33,16 +32,10 @@ namespace Utilities.Collections
             if (!unique_values || !list.Contains(value))
             {
                 list.Add(value);
-            }            
-        }
-
-        public List<VALUE> this[KEY key]
-        {
-            get
-            {
-                return data[key];
             }
         }
+
+        public List<VALUE> this[KEY key] => data[key];
 
         public Dictionary<KEY, List<VALUE>>.Enumerator GetEnumerator()
         {
@@ -56,13 +49,7 @@ namespace Utilities.Collections
             return list;
         }
 
-        public Dictionary<KEY, List<VALUE>>.KeyCollection Keys
-        {
-            get
-            {
-                return data.Keys;
-            }
-        }
+        public Dictionary<KEY, List<VALUE>>.KeyCollection Keys => data.Keys;
 
         public bool TryGetValue(KEY key, out List<VALUE> values)
         {
@@ -82,7 +69,7 @@ namespace Utilities.Collections
         public MultiMap<KEY, VALUE> Clone()
         {
             MultiMap<KEY, VALUE> result = new MultiMap<KEY, VALUE>(unique_values);
-            
+
             foreach (var pair in data)
             {
                 result.data[pair.Key] = new List<VALUE>(pair.Value);

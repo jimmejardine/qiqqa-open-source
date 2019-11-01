@@ -8,7 +8,7 @@ namespace Qiqqa.Documents.PDF
     [Serializable]
     public class PDFAnnotationList : IEnumerable<PDFAnnotation>, ICloneable
     {
-        readonly List<PDFAnnotation> annotations;
+        private readonly List<PDFAnnotation> annotations;
 
         public delegate void OnPDFAnnotationListChangedDelegate();
         // TODO: has a cyclic link in the GC to PDFDocument due to PDFDocument registering on this change event:
@@ -17,14 +17,14 @@ namespace Qiqqa.Documents.PDF
 
         public PDFAnnotationList()
         {
-            this.annotations = new List<PDFAnnotation>();
+            annotations = new List<PDFAnnotation>();
         }
 
         private PDFAnnotationList(List<PDFAnnotation> annotations)
         {
             this.annotations = annotations;
         }
-        
+
         public void AddUpdatedAnnotation(PDFAnnotation annotation)
         {
             if (!annotations.Contains(annotation))
@@ -36,18 +36,12 @@ namespace Qiqqa.Documents.PDF
             OnPDFAnnotationListChanged?.Invoke();
         }
 
-        void Bindable_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void Bindable_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             OnPDFAnnotationListChanged?.Invoke();
         }
 
-        public int Count
-        {
-            get
-            {
-                return annotations.Count;
-            }
-        }
+        public int Count => annotations.Count;
 
         public IEnumerator<PDFAnnotation> GetEnumerator()
         {
@@ -67,7 +61,7 @@ namespace Qiqqa.Documents.PDF
             var clone = new PDFAnnotationList();
             foreach (var annotation in annotations)
             {
-                clone.AddUpdatedAnnotation((PDFAnnotation) annotation.Clone());
+                clone.AddUpdatedAnnotation((PDFAnnotation)annotation.Clone());
             }
             return clone;
         }

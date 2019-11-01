@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Utilities.BibTex
+﻿namespace Utilities.BibTex
 {
     public class BibTeXActionComments
     {

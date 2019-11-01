@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using Qiqqa.DocumentLibrary;
 using Qiqqa.Documents.Common;

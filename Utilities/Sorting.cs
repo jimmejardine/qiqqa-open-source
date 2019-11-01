@@ -6,7 +6,7 @@
         {
             if (null == a) a = "";
             if (null == b) b = "";
-            
+
             return Compare(a.Length, b.Length);
         }
 

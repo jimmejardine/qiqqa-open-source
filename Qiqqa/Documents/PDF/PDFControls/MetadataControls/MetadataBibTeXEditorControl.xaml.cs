@@ -16,13 +16,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
     /// </summary>
     public partial class MetadataBibTeXEditorControl : StandardWindow
     {
-        AugmentedBindable<PDFDocument> pdf_document_bindable;
+        private AugmentedBindable<PDFDocument> pdf_document_bindable;
 
         public MetadataBibTeXEditorControl()
         {
             InitializeComponent();
 
-            this.Title = "BibTeX Editor";
+            Title = "BibTeX Editor";
 
             ButtonCancel.Icon = Icons.GetAppIcon(Icons.GoogleBibTexCancel);
             ButtonCancel.Caption = "Close";
@@ -37,7 +37,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             ButtonUndoBibTeXEdit.Click += ButtonUndoBibTeXEdit_Click;
             ObjBibTeXEditorControl.RegisterOverlayButtons(ButtonAckBibTeXParseErrors, ButtonToggleBibTeX, ButtonUndoBibTeXEdit);
 
-            this.PreviewKeyDown += MetadataCommentEditorControl_PreviewKeyDown;
+            PreviewKeyDown += MetadataCommentEditorControl_PreviewKeyDown;
         }
 
         private void ButtonUndoBibTeXEdit_Click(object sender, RoutedEventArgs e)
@@ -55,12 +55,12 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             ObjBibTeXEditorControl.ToggleBibTeXMode(TriState.Arbitrary);
         }
 
-        void MetadataCommentEditorControl_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void MetadataCommentEditorControl_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
             {
                 e.Handled = true;
-                this.Close();
+                Close();
             }
         }
 
@@ -68,16 +68,16 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Document_MetadataCommentEditor);
 
-            this.Show();
+            Show();
             this.pdf_document_bindable = pdf_document_bindable;
-            this.DataContext = pdf_document_bindable;
+            DataContext = pdf_document_bindable;
 
             Keyboard.Focus(ObjBibTeXEditorControl);
         }
 
-        void ButtonSniffer_Click(object sender, RoutedEventArgs e)
+        private void ButtonSniffer_Click(object sender, RoutedEventArgs e)
         {
-            AugmentedBindable<PDFDocument> pdf_document_bindable = this.DataContext as AugmentedBindable<PDFDocument>;
+            AugmentedBindable<PDFDocument> pdf_document_bindable = DataContext as AugmentedBindable<PDFDocument>;
             if (null == pdf_document_bindable)
             {
                 return;
@@ -87,10 +87,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             sniffer.Show(pdf_document_bindable.Underlying);
         }
 
-        void ButtonCancel_Click(object sender, RoutedEventArgs e)
+        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
             Logging.Info("User cancelled the BibTeX editor");
-            this.Close();
+            Close();
         }
 
         #region --- Test ------------------------------------------------------------------------

@@ -10,7 +10,6 @@ using Qiqqa.Documents.PDF;
 using Qiqqa.Documents.PDF.PDFControls;
 using Utilities;
 using Utilities.Files;
-using Utilities.GUI;
 using Utilities.Misc;
 
 namespace Qiqqa.DocumentConversionStuff
@@ -86,7 +85,7 @@ namespace Qiqqa.DocumentConversionStuff
                         save_file_dialog.ValidateNames = true;
                         save_file_dialog.DefaultExt = "pdf";
                         save_file_dialog.Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*";
-                        save_file_dialog.FileName = recommended_filename;                        
+                        save_file_dialog.FileName = recommended_filename;
 
                         if (true == save_file_dialog.ShowDialog())
                         {

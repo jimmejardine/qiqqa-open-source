@@ -7,9 +7,10 @@ using Qiqqa.Common.Configuration;
 using Utilities;
 using Utilities.ProcessTools;
 using Utilities.Strings;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.WebBrowsing.GeckoStuff
 {
@@ -38,7 +39,7 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
                     should_install = true;
                 }
             }
-            
+
             if (should_install)
             {
                 Logging.Info("Installing XULRunner into {0}.", InstallationDirectory);
@@ -56,7 +57,7 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
                 Logging.Info("XULRunner installed.");
             }
         }
-                
+
         public static readonly string InstallationDirectory = Path.GetFullPath(Path.Combine(UnpackDirectoryDirectory, @"xulrunner"));
     }
 }

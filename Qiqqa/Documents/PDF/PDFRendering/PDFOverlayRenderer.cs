@@ -16,8 +16,8 @@ using Image = System.Drawing.Image;
 
 namespace Qiqqa.Documents.PDF.PDFRendering
 {
-    class PDFOverlayRenderer
-    {   
+    internal class PDFOverlayRenderer
+    {
         public static Bitmap RenderHighlights(int width, int height, PDFDocument pdf_document, int page)
         {
             // Render onto a scratch image in solid
@@ -124,7 +124,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
                     // If we get here, do it!
                     using (Brush highlight_pen = new SolidBrush(Color.FromArgb(TRANSPARENCY, ColorTools.ConvertWindowsToDrawingColor(pdf_annotation.Color))))
-                    { 
+                    {
                         graphics.FillRectangle(highlight_pen, (float)(pdf_annotation.Left * image.Width), (float)(pdf_annotation.Top * image.Height), (float)(pdf_annotation.Width * image.Width), (float)(pdf_annotation.Height * image.Height));
                     }
                 }

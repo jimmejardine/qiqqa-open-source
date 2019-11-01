@@ -16,7 +16,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         /// The original untransformed bibtex items
         /// </summary>
         protected BibTexParseResult BibTexParseResult { get; private set; }
-        
+
 
         /// <summary>
         /// If specified, all the file entries will be prefixed. See JabRef import for example. 

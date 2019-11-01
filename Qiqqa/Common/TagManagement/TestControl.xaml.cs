@@ -1,8 +1,4 @@
-﻿using System.Windows.Controls;
-using Utilities.GUI;
-using Utilities.Reflection;
-
-namespace Qiqqa.Common.TagManagement
+﻿namespace Qiqqa.Common.TagManagement
 {
 #if TEST
     /// <summary>

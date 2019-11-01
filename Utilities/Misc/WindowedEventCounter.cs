@@ -6,10 +6,9 @@ namespace Utilities.Misc
 {
     public class WindowedEventCounter
     {
-        long window_ms;
-        
-        List<long> memory = new List<long>();
-        int total_count = 0;
+        private long window_ms;
+        private List<long> memory = new List<long>();
+        private int total_count = 0;
 
         public WindowedEventCounter(long window_ms)
         {
@@ -43,7 +42,7 @@ namespace Utilities.Misc
         {
             return Count(DateTime.UtcNow);
         }
-        
+
         public int Count(DateTime time)
         {
             Purge(time);

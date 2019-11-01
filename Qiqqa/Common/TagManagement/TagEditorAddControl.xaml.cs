@@ -18,9 +18,9 @@ namespace Qiqqa.Common.TagManagement
         {
             InitializeComponent();
 
-            this.Margin = new Thickness(2, 1, 2, 1);
-            this.MinWidth = 10;
-            this.MinHeight = 10;
+            Margin = new Thickness(2, 1, 2, 1);
+            MinWidth = 10;
+            MinHeight = 10;
 
             ComboBoxNewTag.VerticalAlignment = VerticalAlignment.Center;
             ComboBoxNewTag.Padding = new Thickness(8, 4, 4, 4);
@@ -36,14 +36,14 @@ namespace Qiqqa.Common.TagManagement
             ComboBoxNewTag.LostFocus += ComboBoxNewTag_LostFocus;
         }
 
-        DateTime last_frikken_mousedown_to_suppress_lostfocus_bug = DateTime.MinValue;
+        private DateTime last_frikken_mousedown_to_suppress_lostfocus_bug = DateTime.MinValue;
 
-        void ComboBoxNewTag_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void ComboBoxNewTag_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            last_frikken_mousedown_to_suppress_lostfocus_bug = DateTime.UtcNow;            
+            last_frikken_mousedown_to_suppress_lostfocus_bug = DateTime.UtcNow;
         }
 
-        void ComboBoxNewTag_LostFocus(object sender, RoutedEventArgs e)
+        private void ComboBoxNewTag_LostFocus(object sender, RoutedEventArgs e)
         {
             if (DateTime.UtcNow.Subtract(last_frikken_mousedown_to_suppress_lostfocus_bug).TotalMilliseconds < 100)
             {
@@ -53,7 +53,7 @@ namespace Qiqqa.Common.TagManagement
             AttachNewTag();
         }
 
-        void ComboBoxNewTag_KeyUp(object sender, KeyEventArgs e)
+        private void ComboBoxNewTag_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
@@ -61,10 +61,10 @@ namespace Qiqqa.Common.TagManagement
             }
         }
 
-        void AttachNewTag()
+        private void AttachNewTag()
         {
             string tag = ComboBoxNewTag.Text.Trim();
-                
+
             if (!String.IsNullOrEmpty(tag))
             {
                 OnNewTag?.Invoke(tag);

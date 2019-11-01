@@ -8,7 +8,7 @@ namespace Qiqqa.Documents.PDF
     [Serializable]
     public class PDFHightlightList : ICloneable
     {
-        Dictionary<int, HashSet<PDFHighlight>> highlights = new Dictionary<int, HashSet<PDFHighlight>>();
+        private Dictionary<int, HashSet<PDFHighlight>> highlights = new Dictionary<int, HashSet<PDFHighlight>>();
 
         public delegate void OnPDFHighlightListChangedDelegate();
         public event OnPDFHighlightListChangedDelegate OnPDFHighlightListChanged;
@@ -62,7 +62,7 @@ namespace Qiqqa.Documents.PDF
             OnPDFHighlightListChanged?.Invoke();
         }
 
-        void Bindable_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void Bindable_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             OnPDFHighlightListChanged?.Invoke();
         }
@@ -87,7 +87,7 @@ namespace Qiqqa.Documents.PDF
             return result;
         }
 
-        HashSet<PDFHighlight> EMPTY_HIGHLIGHTS_FOR_PAGE = new HashSet<PDFHighlight>();
+        private HashSet<PDFHighlight> EMPTY_HIGHLIGHTS_FOR_PAGE = new HashSet<PDFHighlight>();
         public HashSet<PDFHighlight> GetHighlightsForPage(int page)
         {
             HashSet<PDFHighlight> highlights_for_page;

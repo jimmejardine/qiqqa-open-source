@@ -8,9 +8,10 @@ using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Utilities.BibTex.Parsing;
 using Utilities.GUI;
-using Qiqqa.DocumentLibrary;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.DocumentLibrary.LibraryDBStuff
 {
@@ -19,7 +20,7 @@ namespace Qiqqa.DocumentLibrary.LibraryDBStuff
     /// </summary>
     public partial class LibraryDBExplorer : UserControl
     {
-        Library library = null;
+        private Library library = null;
 
         public LibraryDBExplorer()
         {
@@ -39,7 +40,7 @@ namespace Qiqqa.DocumentLibrary.LibraryDBStuff
             ButtonPut.Click += ButtonPut_Click;
         }
 
-        void ButtonGet_Click(object sender, RoutedEventArgs e)
+        private void ButtonGet_Click(object sender, RoutedEventArgs e)
         {
             if (null == library)
             {
@@ -168,7 +169,7 @@ namespace Qiqqa.DocumentLibrary.LibraryDBStuff
             }
         }
 
-        void ButtonPut_Click(object sender, RoutedEventArgs e)
+        private void ButtonPut_Click(object sender, RoutedEventArgs e)
         {
             if (null == library)
             {
@@ -176,23 +177,23 @@ namespace Qiqqa.DocumentLibrary.LibraryDBStuff
                 return;
             }
 
-            string json = TxtData.Text;            
+            string json = TxtData.Text;
             if (MessageBoxes.AskQuestion("Are you sure you want to write {0} characters to the database?", json.Length))
             {
                 library.LibraryDB.PutString(TxtFingerprint.Text, TxtExtension.Text, json);
             }
         }
 
-        void TxtLibrary_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void TxtLibrary_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            this.library = null;
+            library = null;
             TxtLibrary.Text = "Click to choose a library.";
 
             // Pick a new library...
             WebLibraryDetail web_library_detail = WebLibraryPicker.PickWebLibrary();
             if (null != web_library_detail)
             {
-                this.library = web_library_detail.library;
+                library = web_library_detail.library;
                 TxtLibrary.Text = web_library_detail.Title;
             }
 

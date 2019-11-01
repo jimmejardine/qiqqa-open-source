@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Common.MessageBoxControls;
 using Qiqqa.DocumentLibrary;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
-using Qiqqa.Main.LoginStuff;
 using Qiqqa.Synchronisation.GUI;
 using Qiqqa.Synchronisation.MetadataSync;
 using Qiqqa.Synchronisation.PDFSync;

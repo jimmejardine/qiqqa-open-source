@@ -5,9 +5,10 @@ using System.IO;
 using Utilities;
 using Utilities.BibTex;
 using Utilities.BibTex.Parsing;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.DocumentLibrary.Import.Auto
 {
@@ -21,18 +22,11 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
 
             public List<FilenameWithMetadataImport> metadata_imports = new List<FilenameWithMetadataImport>();
 
-            public string PotentialImportMessage
-            {
-                get
-                {
-                    return
-                        String.Format(
+            public string PotentialImportMessage => String.Format(
                         "Qiqqa has detected Mendeley™ on your computer.  Qiqqa can automatically import {0} references, {1} of which have associated PDFs."
-                        , this.documents_found
-                        , this.pdfs_found
+                        , documents_found
+                        , pdfs_found
                     );
-                }
-            }
         }
 
         internal static MendeleyDatabaseDetails DetectMendeleyDatabaseDetails()
@@ -114,7 +108,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                                     }
                                 }
                             }
-                            
+
                             // Get the bibtexes
                             {
                                 //string command_string = "SELECT * FROM Documents WHERE 1=1 ";

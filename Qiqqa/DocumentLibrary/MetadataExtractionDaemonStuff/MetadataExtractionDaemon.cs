@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using Qiqqa.Documents.PDF;
+using Qiqqa.Documents.PDF.MetadataSuggestions;
 using Utilities;
 using Utilities.Collections;
 using Utilities.Mathematics;
 using Utilities.Misc;
-using Utilities.PDF;
-using Qiqqa.Documents.PDF.MetadataSuggestions;
 
 namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
 {
-    class MetadataExtractionDaemon
+    internal class MetadataExtractionDaemon
     {
-        CountingDictionary<string> pdfs_retry_count = new CountingDictionary<string>();
+        private CountingDictionary<string> pdfs_retry_count = new CountingDictionary<string>();
 
         public void DoMaintenance(Library library)
         {

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 
 // Hacky solution to make certain confiration items available to Utilities namespace classes/code.
 
@@ -8,29 +7,25 @@ namespace Utilities
     public static class Configuration
     {
         private static string _WebUserAgent;
-        public static string WebUserAgent {
+        public static string WebUserAgent
+        {
             get
             {
                 FireOnBeingAccessed();
                 return _WebUserAgent;
             }
-            set
-            {
-                _WebUserAgent = value;
-            }
+            set => _WebUserAgent = value;
         }
 
         private static IWebProxy _Proxy;
-        public static IWebProxy Proxy {
+        public static IWebProxy Proxy
+        {
             get
             {
                 FireOnBeingAccessed();
                 return _Proxy;
             }
-            set
-            {
-                _Proxy = value;
-            }
+            set => _Proxy = value;
         }
 
         private static bool fired = false;

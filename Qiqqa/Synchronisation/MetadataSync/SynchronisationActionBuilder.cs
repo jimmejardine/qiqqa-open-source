@@ -4,7 +4,7 @@ using Utilities.Misc;
 
 namespace Qiqqa.Synchronisation.MetadataSync
 {
-    class SynchronisationActionBuilder
+    internal class SynchronisationActionBuilder
     {
         internal static SynchronisationAction Build(Library library, SynchronisationStates synchronisation_states)
         {
@@ -25,12 +25,11 @@ namespace Qiqqa.Synchronisation.MetadataSync
                 }
 
                 // NB: Ordering of these statements is important so dont reorder them!
-                if (false) {}
-
+                
                 // Not local, not remote: something dodgy in the history file, ignore it
-                else if (null == synchronisation_state.md5_local && null == synchronisation_state.md5_remote)
+                if (null == synchronisation_state.md5_local && null == synchronisation_state.md5_remote)
                 {
-                    synchronisation_action.states_dodgy.Add(synchronisation_state);                    
+                    synchronisation_action.states_dodgy.Add(synchronisation_state);
                 }
 
                 // If we don't have it locally but we do remotely
@@ -42,7 +41,7 @@ namespace Qiqqa.Synchronisation.MetadataSync
                 // If we don't have it remotely, but we do locally
                 else if (null != synchronisation_state.md5_local && null == synchronisation_state.md5_remote)
                 {
-                    synchronisation_action.states_to_upload.Add(synchronisation_state);                    
+                    synchronisation_action.states_to_upload.Add(synchronisation_state);
                 }
 
                 // If local and remote match, do nothing

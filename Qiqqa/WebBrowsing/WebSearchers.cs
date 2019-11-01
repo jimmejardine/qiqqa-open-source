@@ -2,7 +2,7 @@
 
 namespace Qiqqa.WebBrowsing
 {
-    class WebSearchers
+    internal class WebSearchers
     {
         public const string SCHOLAR_KEY = "GOOGLE_SCHOLAR";
         public const string PUBMED_KEY = "PUBMED";
@@ -27,7 +27,7 @@ namespace Qiqqa.WebBrowsing
                     new WebSearcher(PUBMEDXML_KEY, "PubMedXML", "http://www.ncbi.nlm.nih.gov/pubmed?report=xml&term={0}", WebSearcher.PopulateUrlTemplateDelegate_UrlEncode),
                     new WebSearcher(ARXIV_KEY, "arXiv", "http://search.arxiv.org:8081/?query={0}", WebSearcher.PopulateUrlTemplateDelegate_UrlEncode),
                     new WebSearcher(MSACADEMIC_KEY, "Microsoft Academic", "http://academic.research.microsoft.com/Search?query={0}", WebSearcher.PopulateUrlTemplateDelegate_UrlEncode),
-                    new WebSearcher(JSTOR_KEY, "JSTOR", "http://www.jstor.org/action/doBasicSearch?Query={0}", WebSearcher.PopulateUrlTemplateDelegate_UrlEncode),                    
+                    new WebSearcher(JSTOR_KEY, "JSTOR", "http://www.jstor.org/action/doBasicSearch?Query={0}", WebSearcher.PopulateUrlTemplateDelegate_UrlEncode),
                     new WebSearcher(IEEEXPLORE_KEY, "IEEE Xplore", "http://ieeexplore.ieee.org/search/searchresult.jsp?queryText={0}", WebSearcher.PopulateUrlTemplateDelegate_UrlEncode),
                     new WebSearcher(WIKIPEDIA_KEY, "Wikipedia", "http://en.wikipedia.org/wiki/{0}", WebSearcher.PopulateUrlTemplateDelegate_WikiEncode),
                     new WebSearcher(SCIVERSE_KEY, "ScienceDirect", "https://www.elsevier.com/search-results?query={0}&labels=all", WebSearcher.PopulateUrlTemplateDelegate_UrlEncode),

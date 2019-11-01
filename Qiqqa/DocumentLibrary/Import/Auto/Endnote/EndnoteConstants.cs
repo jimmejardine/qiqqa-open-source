@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Qiqqa.DocumentLibrary.Import.Auto.Endnote
 {
-    class EndnoteConstants
+    internal class EndnoteConstants
     {
         public static Dictionary<int, string> TYPES = new Dictionary<int, string>
         {
@@ -41,10 +38,10 @@ namespace Qiqqa.DocumentLibrary.Import.Auto.Endnote
             { 34, "online_multimedia"        },
             { 35, "classical_work"           },
             { 36, "legal_rule_or_regulation" },
-            { 37, "unpublished_work"         },            
+            { 37, "unpublished_work"         },
         };
 
-        public static readonly string[] FIELD_NAMES = new string[] 
+        public static readonly string[] FIELD_NAMES = new string[]
         {
             "id",
             "reference_type",

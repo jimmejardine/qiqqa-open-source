@@ -17,9 +17,9 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.PDFDocumentTagCloudStuff
         public delegate void TagClickDelegate(List<string> tags);
         public event TagClickDelegate TagClick;
 
-        static readonly Thickness TEXT_BLOCK_PADDING = new Thickness(2, 1, 2, 1);
-        const int TEXT_BLOCK_FONT_SIZE = 24;
-        const int TEXT_BLOCK_FONT_SIZE_MINIMUM = 12;
+        private static readonly Thickness TEXT_BLOCK_PADDING = new Thickness(2, 1, 2, 1);
+        private const int TEXT_BLOCK_FONT_SIZE = 24;
+        private const int TEXT_BLOCK_FONT_SIZE_MINIMUM = 12;
 
         public TagCloudRendererControl()
         {
@@ -28,7 +28,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.PDFDocumentTagCloudStuff
             InitializeComponent();
         }
 
-        List<TagCloudEntry> entries;
+        private List<TagCloudEntry> entries;
         public void SpecifyEntries(List<TagCloudEntry> _entries)
         {
             entries = _entries;
@@ -72,19 +72,19 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.PDFDocumentTagCloudStuff
             }
         }
 
-        void text_block_word_MouseLeave(object sender, MouseEventArgs e)
+        private void text_block_word_MouseLeave(object sender, MouseEventArgs e)
         {
             TextBlock tb = (TextBlock)sender;
             tb.Background = Brushes.Transparent;
         }
 
-        void text_block_word_MouseEnter(object sender, MouseEventArgs e)
+        private void text_block_word_MouseEnter(object sender, MouseEventArgs e)
         {
             TextBlock tb = (TextBlock)sender;
             tb.Background = ThemeColours.Background_Brush_Blue_LightToVeryLight;
         }
 
-        void text_block_word_MouseUp(object sender, MouseButtonEventArgs e)
+        private void text_block_word_MouseUp(object sender, MouseButtonEventArgs e)
         {
             if (null != TagClick)
             {

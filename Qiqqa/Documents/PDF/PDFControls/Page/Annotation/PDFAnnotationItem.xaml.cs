@@ -19,18 +19,15 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
     /// </summary>
     public partial class PDFAnnotationItem : UserControl, IDisposable
     {
-        PDFAnnotationLayer pdf_annotation_layer;
-        PDFAnnotation pdf_annotation;
-        PDFRendererControlStats pdf_renderer_control_stats;
-
-        AugmentedToolWindow pdf_annotation_editor_control_popup;
-
-        double actual_page_width;
-        double actual_page_height;
-
-        bool moving_because_mouse_is_down = false;
-        bool scaling_because_of_double_tap = false;
-        Point mouse_down_position;
+        private PDFAnnotationLayer pdf_annotation_layer;
+        private PDFAnnotation pdf_annotation;
+        private PDFRendererControlStats pdf_renderer_control_stats;
+        private AugmentedToolWindow pdf_annotation_editor_control_popup;
+        private double actual_page_width;
+        private double actual_page_height;
+        private bool moving_because_mouse_is_down = false;
+        private bool scaling_because_of_double_tap = false;
+        private Point mouse_down_position;
 
         public PDFAnnotationItem(PDFAnnotationLayer pdf_annotation_layer, PDFAnnotation pdf_annotation, PDFRendererControlStats pdf_renderer_control_stats)
         {
@@ -38,12 +35,12 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
             this.pdf_annotation = pdf_annotation;
             this.pdf_renderer_control_stats = pdf_renderer_control_stats;
 
-            this.DataContext = pdf_annotation.Bindable;
+            DataContext = pdf_annotation.Bindable;
 
             InitializeComponent();
 
-            this.MouseEnter += TextAnnotationText_MouseEnter;
-            this.MouseLeave += TextAnnotationText_MouseLeave;
+            MouseEnter += TextAnnotationText_MouseEnter;
+            MouseLeave += TextAnnotationText_MouseLeave;
 
             ButtonAnnotationDetails.MouseEnter += ButtonAnnotationDetails_MouseEnter;
             ButtonAnnotationDetails.MouseLeave += ButtonAnnotationDetails_MouseLeave;
@@ -72,17 +69,17 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
             ReColor();
         }
 
-        void ObjTagEditorControl_LostFocus(object sender, RoutedEventArgs e)
+        private void ObjTagEditorControl_LostFocus(object sender, RoutedEventArgs e)
         {
             ReColor();
         }
 
-        void ObjTagEditorControl_GotFocus(object sender, RoutedEventArgs e)
+        private void ObjTagEditorControl_GotFocus(object sender, RoutedEventArgs e)
         {
             ReColor();
         }
 
-        void ButtonAnnotationDetails_MouseDown(object sender, MouseButtonEventArgs e)
+        private void ButtonAnnotationDetails_MouseDown(object sender, MouseButtonEventArgs e)
         {
             // If we have never had a popup, create it now
             if (null == pdf_annotation_editor_control_popup)
@@ -97,10 +94,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
             e.Handled = true;
         }
 
+        private DateTime last_mouse_down_timestamp = DateTime.MinValue;
 
-        DateTime last_mouse_down_timestamp = DateTime.MinValue;
-
-        void TextAnnotationText_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void TextAnnotationText_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed && (Keyboard.Modifiers & ModifierKeys.Control) > 0)
             {
@@ -127,13 +123,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
             last_mouse_down_timestamp = DateTime.UtcNow;
         }
 
-        void TextAnnotationText_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        private void TextAnnotationText_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             moving_because_mouse_is_down = false;
             TextAnnotationText.ReleaseMouseCapture();
         }
 
-        void TextAnnotationText_PreviewMouseMove(object sender, MouseEventArgs e)
+        private void TextAnnotationText_PreviewMouseMove(object sender, MouseEventArgs e)
         {
             if (moving_because_mouse_is_down)
             {
@@ -162,37 +158,37 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
             }
         }
 
-        void TextAnnotationText_MouseEnter(object sender, MouseEventArgs e)
+        private void TextAnnotationText_MouseEnter(object sender, MouseEventArgs e)
         {
             ReColor();
         }
 
-        void ButtonAnnotationDetails_MouseEnter(object sender, MouseEventArgs e)
+        private void ButtonAnnotationDetails_MouseEnter(object sender, MouseEventArgs e)
         {
             ReColor();
         }
 
-        void ButtonAnnotationDetails_MouseLeave(object sender, MouseEventArgs e)
+        private void ButtonAnnotationDetails_MouseLeave(object sender, MouseEventArgs e)
         {
             ReColor();
         }
 
-        void TextAnnotationText_MouseLeave(object sender, MouseEventArgs e)
+        private void TextAnnotationText_MouseLeave(object sender, MouseEventArgs e)
         {
             ReColor();
         }
 
-        void TextAnnotationText_GotFocus(object sender, RoutedEventArgs e)
+        private void TextAnnotationText_GotFocus(object sender, RoutedEventArgs e)
         {
             ReColor();
         }
 
-        void TextAnnotationText_LostFocus(object sender, RoutedEventArgs e)
+        private void TextAnnotationText_LostFocus(object sender, RoutedEventArgs e)
         {
             ReColor();
         }
 
-        void pdf_annotation_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void pdf_annotation_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             ReColor();
 
@@ -207,16 +203,16 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
             }
         }
 
-        void ReColor()
+        private void ReColor()
         {
             double LIGHT_TRANSPARENCY = ConfigurationManager.Instance.ConfigurationRecord.GUI_AnnotationScreenTransparency;
             double LIGHT_TRANSPARENCY_TEXT_VISIBLE = Math.Max(0.6, LIGHT_TRANSPARENCY);
 
             Color lighter_color = pdf_annotation.Color;
             Color darker_color = ColorTools.MakeDarkerColor(lighter_color);
-            this.Background = new LinearGradientBrush(darker_color, lighter_color, 45);
+            Background = new LinearGradientBrush(darker_color, lighter_color, 45);
 
-            if (GUITools.IsDescendentOf(Keyboard.FocusedElement, TextAnnotationText) || GUITools.IsDescendentOf(Keyboard.FocusedElement, ObjTagEditorControl) || this.IsMouseOver)
+            if (GUITools.IsDescendentOf(Keyboard.FocusedElement, TextAnnotationText) || GUITools.IsDescendentOf(Keyboard.FocusedElement, ObjTagEditorControl) || IsMouseOver)
             {
                 TextAnnotationText.Foreground = Brushes.Black;
 
@@ -261,8 +257,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
 
             Canvas.SetLeft(this, pdf_annotation.Left * actual_page_width);
             Canvas.SetTop(this, pdf_annotation.Top * actual_page_height);
-            this.Width = pdf_annotation.Width * actual_page_width;
-            this.Height = pdf_annotation.Height * actual_page_height;
+            Width = pdf_annotation.Width * actual_page_width;
+            Height = pdf_annotation.Height * actual_page_height;
         }
 
         #region --- IDisposable ------------------------------------------------------------------------
@@ -310,7 +306,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
             }
 
             // Clear the references for sanity's sake
-            this.DataContext = null;
+            DataContext = null;
 
             pdf_annotation_layer = null;
             pdf_annotation = null;

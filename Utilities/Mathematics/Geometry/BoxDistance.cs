@@ -32,19 +32,26 @@ namespace Utilities.Mathematics.Geometry
             bool b_is_above = (b.Bottom < a.Top);
             bool b_is_below = (b.Top > a.Bottom);
 
-            if (false) { }
+            /*1*/
+            if (b_is_left && b_is_below) return LOGGIT(1) + CalculateDistance(b.Right, b.Top, a.Left, a.Bottom);
+            /*3*/
+            else if (b_is_right && b_is_below) return LOGGIT(3) + CalculateDistance(b.Left, b.Top, a.Right, a.Bottom);
+            /*7*/
+            else if (b_is_left && b_is_above) return LOGGIT(7) + CalculateDistance(b.Right, b.Bottom, a.Left, a.Top);
+            /*9*/
+            else if (b_is_right && b_is_above) return LOGGIT(9) + CalculateDistance(b.Left, b.Bottom, a.Right, a.Top);
 
-            /*1*/else if (b_is_left && b_is_below) return LOGGIT(1) + CalculateDistance(b.Right, b.Top, a.Left, a.Bottom);
-            /*3*/else if (b_is_right && b_is_below) return LOGGIT(3) + CalculateDistance(b.Left, b.Top, a.Right, a.Bottom);
-            /*7*/else if (b_is_left && b_is_above) return LOGGIT(7) + CalculateDistance(b.Right, b.Bottom, a.Left, a.Top);
-            /*9*/else if (b_is_right && b_is_above) return LOGGIT(9) + CalculateDistance(b.Left, b.Bottom, a.Right, a.Top);
+            /*2*/
+            else if (b_is_below) return LOGGIT(2) + (b.Top - a.Bottom);
+            /*8*/
+            else if (b_is_above) return LOGGIT(8) + (a.Top - b.Bottom);
+            /*4*/
+            else if (b_is_left) return LOGGIT(4) + (a.Left - b.Right);
+            /*6*/
+            else if (b_is_right) return LOGGIT(5) + (b.Left - a.Right);
 
-            /*2*/else if (b_is_below) return LOGGIT(2) + (b.Top - a.Bottom);
-            /*8*/else if (b_is_above) return LOGGIT(8) + (a.Top - b.Bottom);
-            /*4*/else if (b_is_left) return LOGGIT(4) + (a.Left - b.Right);
-            /*6*/else if (b_is_right) return LOGGIT(5) + (b.Left - a.Right);
-
-            /*5*/else return LOGGIT(5) + 0;
+            /*5*/
+            else return LOGGIT(5) + 0;
         }
 
         private static double LOGGIT(int i)
@@ -53,5 +60,4 @@ namespace Utilities.Mathematics.Geometry
             return 0;
         }
     }
-
 }

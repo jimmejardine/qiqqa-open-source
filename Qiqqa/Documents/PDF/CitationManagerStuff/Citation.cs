@@ -15,12 +15,12 @@
         public override bool Equals(object obj)
         {
             Citation other = obj as Citation;
-            
+
             if (null == other) return false;
 
-            if (this.fingerprint_outbound != other.fingerprint_outbound) return false;
-            if (this.fingerprint_inbound != other.fingerprint_inbound) return false;
-            if (this.type != other.type) return false;
+            if (fingerprint_outbound != other.fingerprint_outbound) return false;
+            if (fingerprint_inbound != other.fingerprint_inbound) return false;
+            if (type != other.type) return false;
 
             return true;
         }
@@ -28,9 +28,9 @@
         public override int GetHashCode()
         {
             int hash = 23;
-            hash = hash * 37 + this.fingerprint_outbound.GetHashCode();
-            hash = hash * 37 + this.fingerprint_inbound.GetHashCode();
-            hash = hash * 37 + this.type.GetHashCode();
+            hash = hash * 37 + fingerprint_outbound.GetHashCode();
+            hash = hash * 37 + fingerprint_inbound.GetHashCode();
+            hash = hash * 37 + type.GetHashCode();
             return hash;
         }
     }

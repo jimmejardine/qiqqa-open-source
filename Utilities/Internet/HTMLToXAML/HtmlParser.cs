@@ -556,8 +556,8 @@ namespace Utilities.Internet.HTMLToXAML
         private XmlDocument _document;
 
         // stack for open elements
-        Stack<XmlElement> _openedElements;
-        Stack<XmlElement> _pendingInlineElements;
+        private Stack<XmlElement> _openedElements;
+        private Stack<XmlElement> _pendingInlineElements;
 
         #endregion Private Fields
     }

@@ -4,7 +4,6 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
-using Utilities.Internet;
 
 namespace Utilities.Internet.GoogleScholar
 {
@@ -25,7 +24,7 @@ namespace Utilities.Internet.GoogleScholar
             List<GoogleScholarScrapePaper> gssps = new List<GoogleScholarScrapePaper>();
 
             try
-            {                
+            {
                 HtmlDocument doc = new HtmlDocument();
                 doc.LoadHtml(html);
 
@@ -48,7 +47,7 @@ namespace Utilities.Internet.GoogleScholar
                 WebHeaderCollection header_collection = new WebHeaderCollection();
 
                 using (MemoryStream ms = UrlDownloader.DownloadWithBlocking(url, out header_collection))
-                { 
+                {
                     HtmlDocument doc = new HtmlDocument();
                     doc.Load(ms, System.Text.Encoding.UTF8, detectEncodingFromByteOrderMarks: false);
 
@@ -264,6 +263,6 @@ namespace Utilities.Internet.GoogleScholar
         }
 #endif
 
-#endregion
+        #endregion
     }
 }

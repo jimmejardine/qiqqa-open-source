@@ -5,7 +5,7 @@ using Utilities;
 
 namespace Qiqqa.Main.IPC
 {
-    class IPCClient
+    internal class IPCClient
     {
         public static void SendMessage(string msg)
         {

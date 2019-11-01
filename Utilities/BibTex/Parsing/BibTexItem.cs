@@ -7,11 +7,11 @@ namespace Utilities.BibTex.Parsing
     public class BibTexItem
     {
         public string Type;
-        public string Key;        
+        public string Key;
 
         public List<string> Exceptions = new List<string>();
         public List<string> Warnings = new List<string>();
-        
+
         private Dictionary<string, string> fields = new Dictionary<string, string>();
 
         public override string ToString()
@@ -66,7 +66,7 @@ namespace Utilities.BibTex.Parsing
                 index = index.ToLower();
                 fields[index] = value;
             }
-            
+
             get
             {
                 index = index.ToLower();
@@ -82,23 +82,11 @@ namespace Utilities.BibTex.Parsing
                 }
             }
         }
-        
-        public IEnumerable<KeyValuePair<string, string>> Fields
-        {
-            get
-            {
-                return fields;
-            }
-        }
+
+        public IEnumerable<KeyValuePair<string, string>> Fields => fields;
 
         [Newtonsoft.Json.JsonIgnore]    // https://stackoverflow.com/questions/10169648/how-to-exclude-property-from-json-serialization#answer-25566387
-        public Dictionary<string, string>.KeyCollection FieldKeys
-        {
-            get
-            {
-                return fields.Keys;
-            }
-        }
+        public Dictionary<string, string>.KeyCollection FieldKeys => fields.Keys;
 
         public string GetExceptionsAndMessagesString()
         {
@@ -135,7 +123,7 @@ namespace Utilities.BibTex.Parsing
                 return "";
             }
         }
-        
+
         public bool ContainsField(string field)
         {
             return fields.ContainsKey(field.ToLower());

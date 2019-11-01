@@ -4,7 +4,7 @@ using Utilities.OCR;
 
 namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
 {
-    class PDFAbstractExtraction
+    internal class PDFAbstractExtraction
     {
         public static readonly string CANT_LOCATE = "Can't locate abstract!  You can select the abstract while reading the PDF, then right click, and choose 'Set as Abstract override.'";
 
@@ -40,7 +40,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
                     {
                         string test_word = word_list[i].Text;
                         string test_word_lower = test_word.ToLower();
-
 
                         if (-1 == abstract_start && test_word_lower.Contains("abstract") && 'A' == test_word[0])
                         {

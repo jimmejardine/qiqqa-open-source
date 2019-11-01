@@ -80,7 +80,7 @@ namespace Utilities.GUI
         {
             double original_width = objectToPrint.ActualWidth;
             double original_height = objectToPrint.ActualHeight;
-            
+
             PrintDialog printDialog = new PrintDialog();
             if ((bool)printDialog.ShowDialog().GetValueOrDefault())
             {
@@ -108,9 +108,9 @@ namespace Utilities.GUI
                 // Break the bitmap down into pages
                 int pageWidth = Convert.ToInt32(capabilities.PageImageableArea.ExtentWidth * dpiScale);
                 int pageHeight = Convert.ToInt32(capabilities.PageImageableArea.ExtentHeight * dpiScale);
-                
+
                 int bmp_width = bmp2.Width;
-                int bmp_height = (int) (pageHeight * bmp2.Width / pageWidth);
+                int bmp_height = (int)(pageHeight * bmp2.Width / pageWidth);
 
                 int pageBreak = 0;
                 int previousPageBreak = 0;
@@ -122,16 +122,16 @@ namespace Utilities.GUI
                     if (pageBreak > bmp2.Height) pageBreak = bmp2.Height;
 
                     PageContent pageContent = generatePageContent(
-                        bmp2, 
-                        previousPageBreak, pageBreak, 
+                        bmp2,
+                        previousPageBreak, pageBreak,
                         document.DocumentPaginator.PageSize.Width,
-                        document.DocumentPaginator.PageSize.Height, 
+                        document.DocumentPaginator.PageSize.Height,
                         capabilities
                     );
                     document.Pages.Add(pageContent);
 
                     previousPageBreak = pageBreak;
-                    
+
                     // Are we done?
                     if (pageBreak >= bmp2.Height)
                     {
@@ -144,9 +144,9 @@ namespace Utilities.GUI
         }
 
         private static PageContent generatePageContent(
-            Bitmap bitmap, 
-            int top, int bottom, 
-            double pageWidth, double PageHeight, 
+            Bitmap bitmap,
+            int top, int bottom,
+            double pageWidth, double PageHeight,
             PrintCapabilities capabilities
             )
         {

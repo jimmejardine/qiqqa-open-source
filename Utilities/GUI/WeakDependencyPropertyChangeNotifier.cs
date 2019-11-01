@@ -27,7 +27,7 @@ namespace Utilities.GUI
                 throw new ArgumentNullException("property");
             }
 
-            this._propertySource = new WeakReference(propertySource);
+            _propertySource = new WeakReference(propertySource);
 
             Binding binding = new Binding();
             binding.Path = property;
@@ -62,7 +62,7 @@ namespace Utilities.GUI
                 });
             }
 
-            this._propertySource = null;
+            _propertySource = null;
 
             ++dispose_count;
         }
@@ -76,7 +76,7 @@ namespace Utilities.GUI
         {
             get
             {
-                DependencyObject target = this._propertySource.Target as DependencyObject;
+                DependencyObject target = _propertySource.Target as DependencyObject;
                 return target;
             }
         }
@@ -84,14 +84,8 @@ namespace Utilities.GUI
         public static readonly DependencyProperty ValueProperty = DependencyProperty.Register("Value", typeof(object), typeof(WeakDependencyPropertyChangeNotifier), new FrameworkPropertyMetadata(null, OnValuePropertyChanged));
         public object Value
         {
-            get
-            {
-                return (object)GetValue(ValueProperty);
-            }
-            set
-            {
-                SetValue(ValueProperty, value);
-            }
+            get => (object)GetValue(ValueProperty);
+            set => SetValue(ValueProperty, value);
         }
 
         private static void OnValuePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

@@ -15,8 +15,8 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.PublicationExplorerStuff
     /// </summary>
     public partial class PublicationExplorerItemRenameWindow : StandardWindow
     {
-        Library library;
-        string tag;
+        private Library library;
+        private string tag;
 
         public PublicationExplorerItemRenameWindow(Library library, string tag)
         {
@@ -24,8 +24,8 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.PublicationExplorerStuff
             this.tag = tag;
 
             InitializeComponent();
-            
-            this.Title = "Qiqqa - Rename or Delete Publication";
+
+            Title = "Qiqqa - Rename or Delete Publication";
 
             CmdGenerate.Caption = "Rename";
             CmdGenerate.Icon = Icons.GetAppIcon(Icons.LibraryAnnotationsReport);
@@ -34,11 +34,11 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.PublicationExplorerStuff
 
             CmdGenerate.Click += CmdGenerate_Click;
             CmdCancel.Click += CmdCancel_Click;
-                        
-            TextNewTagName.Text = tag;            
-            TextNewTagName.SelectAll();            
+
+            TextNewTagName.Text = tag;
+            TextNewTagName.SelectAll();
             TextNewTagName.Focus();
-            TextNewTagName.KeyUp += TextNewTagName_KeyUp;            
+            TextNewTagName.KeyUp += TextNewTagName_KeyUp;
 
             RefreshSpans();
         }
@@ -49,7 +49,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.PublicationExplorerStuff
             span.Inlines.Add(text);
         }
 
-        void TextNewTagName_KeyUp(object sender, KeyEventArgs e)
+        private void TextNewTagName_KeyUp(object sender, KeyEventArgs e)
         {
             if (Key.Enter == e.Key)
             {
@@ -70,7 +70,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.PublicationExplorerStuff
             SetSpan(RegionOldTagName, tag);
             SetSpan(RegionOldTagDocumentCount, "" + CountDocumentsWithTag(library, tag));
 
-            string new_tag = TextNewTagName.Text;            
+            string new_tag = TextNewTagName.Text;
             SetSpan(RegionNewTagDocumentCount, "" + CountDocumentsWithTag(library, new_tag));
 
             if (String.IsNullOrEmpty(new_tag))
@@ -83,13 +83,13 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.PublicationExplorerStuff
             }
         }
 
-        void CmdCancel_Click(object sender, RoutedEventArgs e)
+        private void CmdCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = false;
-            this.Close();
+            DialogResult = false;
+            Close();
         }
 
-        void CmdGenerate_Click(object sender, RoutedEventArgs e)
+        private void CmdGenerate_Click(object sender, RoutedEventArgs e)
         {
             string new_tag = TextNewTagName.Text;
 
@@ -100,7 +100,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.PublicationExplorerStuff
                     return;
                 }
             }
-            
+
             // Rename all the tags in the documents
             foreach (PDFDocument pdf_document in library.PDFDocuments)
             {
@@ -110,12 +110,12 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.PublicationExplorerStuff
                     pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Publication);
                 }
             }
-            
-            this.DialogResult = true;
-            this.Close();
+
+            DialogResult = true;
+            Close();
         }
 
-        static int CountDocumentsWithTag(Library library, string search_tag)
+        private static int CountDocumentsWithTag(Library library, string search_tag)
         {
             int count = 0;
             foreach (PDFDocument pdf_document in library.PDFDocuments)
@@ -140,7 +140,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.PublicationExplorerStuff
             // base.OnClosed() invokes this calss Closed() code, so we flipped the order of exec to reduce the number of surprises for yours truly.
             // This NULLing stuff is really the last rites of Dispose()-like so we stick it at the end here.
 
-            this.library = null;
+            library = null;
         }
     }
 }

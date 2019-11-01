@@ -1,6 +1,4 @@
-﻿using System.Windows;
-using System.Windows.Documents;
-
+﻿
 #if false
 
 namespace Utilities.GUI

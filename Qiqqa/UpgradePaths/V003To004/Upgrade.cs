@@ -1,21 +1,21 @@
 ﻿using System;
-using System.IO;
 using Utilities;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.UpgradePaths.V003To004
 {
-    class Upgrade
+    internal class Upgrade
     {
         internal static void RunUpgrade()
         {
             Logging.Info("Upgrading from 003 to 004");
             //MoveHomeLibraryToGuest();
         }
-        
-        static void MoveHomeLibraryToGuest()
+
+        private static void MoveHomeLibraryToGuest()
         {
             try
             {
@@ -30,7 +30,7 @@ namespace Qiqqa.UpgradePaths.V003To004
                         Logging.Info("Guest directory does not exist, so creating it");
                         Directory.CreateDirectory(NEW_BASE_PATH);
                     }
-            
+
                     // Move the documents if we have them
                     string old_documents_path = Path.GetFullPath(Path.Combine(OLD_BASE_PATH, @"documents"));
                     if (Directory.Exists(old_documents_path))

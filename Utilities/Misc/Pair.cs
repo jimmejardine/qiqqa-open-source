@@ -4,11 +4,11 @@
     {
         public TA A;
         public TB B;
-        
+
         public Pair(TA A, TB B)
         {
             this.A = A;
             this.B = B;
-        }     
+        }
     }
 }

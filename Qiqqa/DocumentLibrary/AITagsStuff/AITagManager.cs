@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using Qiqqa.DocumentLibrary.DocumentLibraryIndex;
 using Qiqqa.Documents.PDF;
 using Utilities;
@@ -12,18 +11,19 @@ using Utilities.Language.Buzzwords;
 using Utilities.Language.TextIndexing;
 using Utilities.Misc;
 using Utilities.OCR;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.DocumentLibrary.AITagsStuff
 {
     public class AITagManager
     {
-        Library library;
-        AITags current_ai_tags_record;
-
-        object in_progress_lock = new object();
-        bool regenerating_in_progress = false;
+        private Library library;
+        private AITags current_ai_tags_record;
+        private object in_progress_lock = new object();
+        private bool regenerating_in_progress = false;
 
         public AITagManager(Library library)
         {
@@ -49,13 +49,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
             }
         }
 
-        private string Filename_Store
-        {
-            get
-            {
-                return Path.GetFullPath(Path.Combine(library.LIBRARY_BASE_PATH, @"Qiqqa.autotags"));
-            }
-        }
+        private string Filename_Store => Path.GetFullPath(Path.Combine(library.LIBRARY_BASE_PATH, @"Qiqqa.autotags"));
 
         public void Regenerate()
         {
@@ -306,13 +300,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
             callback?.Invoke(null);
         }
 
-        public AITags AITags
-        {
-            get
-            {
-                return this.current_ai_tags_record;
-            }
-        }
+        public AITags AITags => current_ai_tags_record;
 
         #region --- Test ------------------------------------------------------------------------
 

@@ -98,7 +98,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.SimilarGoogleDocumentsStuff
             }
         }
 
-        void OpenUrlInTagOfTextBlock(object sender, MouseButtonEventArgs e)
+        private void OpenUrlInTagOfTextBlock(object sender, MouseButtonEventArgs e)
         {
             HyperlinkTextBlock tb = (HyperlinkTextBlock)sender;
             string url = (string)tb.Tag;

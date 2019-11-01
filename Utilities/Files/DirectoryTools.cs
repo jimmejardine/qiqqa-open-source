@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Utilities.Files
 {
@@ -20,9 +21,9 @@ namespace Utilities.Files
         public static List<string> GetSubFiles(string root, string extension)
         {
             List<string> ret = new List<string>();
-            
+
             if (!Directory.Exists(root)) return ret;
-                        
+
             try
             {
                 ret.AddRange(Directory.GetFiles(root, "*." + extension, SearchOption.TopDirectoryOnly
@@ -33,7 +34,7 @@ namespace Utilities.Files
                 //Possible security problem
                 Logging.Error(ex, "GetSubFiles::GetFiles failure: Possible security problem?");
             }
-            
+
             foreach (string subDir in Directory.GetDirectories(root, "*", SearchOption.TopDirectoryOnly))
             {
                 try

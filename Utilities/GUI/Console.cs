@@ -6,7 +6,7 @@ namespace Utilities.GUI
     public class Console
     {
         public static Console Instance = new Console();
-        
+
         static Console()
         {
             AllocConsole();

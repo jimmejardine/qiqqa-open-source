@@ -48,14 +48,8 @@ namespace Utilities.GUI
 
         public int AnimationMilliseconds
         {
-            get
-            {
-                return (int)GetValue(AnimationMillisecondsProperty);
-            }
-            set
-            {
-                SetValue(AnimationMillisecondsProperty, value);
-            }
+            get => (int)GetValue(AnimationMillisecondsProperty);
+            set => SetValue(AnimationMillisecondsProperty, value);
         }
 
         #endregion

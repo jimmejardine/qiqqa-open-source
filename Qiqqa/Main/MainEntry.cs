@@ -1,5 +1,6 @@
 using System;
-using System.IO;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,13 +21,10 @@ using Utilities.Misc;
 using Utilities.ProcessTools;
 using Utilities.Shutdownable;
 using Console = Utilities.GUI.Console;
-using System.Runtime.InteropServices;
-using System.Diagnostics;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 #if CEFSHARP
 using CefSharp.Wpf;
@@ -36,13 +34,13 @@ using CefSharp;
 
 namespace Qiqqa.Main
 {
-	public static class MainEntry
-	{
+    public static class MainEntry
+    {
         [DllImport("kernel32.dll")]
-        private static extern int SetErrorMode(int newMode); 
+        private static extern int SetErrorMode(int newMode);
 
-        static SplashScreenWindow splashscreen_window;
-        static Application application;
+        private static SplashScreenWindow splashscreen_window;
+        private static Application application;
 
         static MainEntry()
         {
@@ -58,7 +56,7 @@ namespace Qiqqa.Main
                 DoPostUpgrade(splashscreen_window);
             }
             catch (Exception ex)
-            {                
+            {
                 MessageBoxes.Error(ex, "There was an exception in the top-level static main entry!");
             }
         }
@@ -99,7 +97,7 @@ namespace Qiqqa.Main
             // Support windows-level error reporting - helps suppressing the errors in pdfdraw.exe and QiqqaOCR.exe
             // https://msdn.microsoft.com/en-us/library/windows/desktop/ms680621%28v=vs.85%29.aspx
             try
-            {   
+            {
                 SetErrorMode(0x0001 | 0x0002 | 0x0004 | 0x8000);
             }
             catch (Exception ex)
@@ -110,7 +108,7 @@ namespace Qiqqa.Main
             // kick the number of threads in the threadpool down to a reasonable number
             SafeThreadPool.SetMaxActiveThreadCount();
 
-            AppDomain.CurrentDomain.AssemblyLoad += delegate(object sender, AssemblyLoadEventArgs args)
+            AppDomain.CurrentDomain.AssemblyLoad += delegate (object sender, AssemblyLoadEventArgs args)
             {
                 Logging.Info("Loaded assembly: {0}", args.LoadedAssembly.FullName);
                 Logging.TriggerInit();
@@ -118,14 +116,14 @@ namespace Qiqqa.Main
 
 #if CEFSHARP
 
-#region CEFsharp setup
+            #region CEFsharp setup
 
             // CEFsharp setup for AnyPC as per https://github.com/cefsharp/CefSharp/issues/1714:
             AppDomain.CurrentDomain.AssemblyResolve += CefResolver;
 
             InitCef();
 
-#endregion CEFsharp setup
+            #endregion CEFsharp setup
 
 #endif
 
@@ -149,7 +147,7 @@ namespace Qiqqa.Main
 
             // Start tracing WPF events
 #if DEBUG
-            WPFTrace wpf_trace = new WPFTrace();            
+            WPFTrace wpf_trace = new WPFTrace();
             PresentationTraceSources.Refresh();
             PresentationTraceSources.DataBindingSource.Listeners.Add(wpf_trace);
             PresentationTraceSources.DataBindingSource.Switch.Level = SourceLevels.Error;
@@ -209,7 +207,7 @@ namespace Qiqqa.Main
 
             splashscreen_window.UpdateMessage("Loading themes");
             Theme.Initialize();
-            DualTabbedLayout.GetWindowOverride = delegate() { return new StandardWindow(); };
+            DualTabbedLayout.GetWindowOverride = delegate () { return new StandardWindow(); };
 
             // Force tooltips to stay open
             ToolTipService.ShowDurationProperty.OverrideMetadata(typeof(DependencyObject), new FrameworkPropertyMetadata(3600000));
@@ -229,7 +227,7 @@ namespace Qiqqa.Main
         }
 
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             Logging.Info("+static Main()");
 
@@ -262,23 +260,23 @@ namespace Qiqqa.Main
             Logging.Info("-static Main()");
         }
 
-        static void SafeThreadPool_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        private static void SafeThreadPool_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             RemarkOnException(e.ExceptionObject as Exception);
         }
 
-        static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)        
+        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             RemarkOnException(e.ExceptionObject as Exception);
         }
 
-        static void application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        private static void application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             RemarkOnException(e.Exception);
             e.Handled = true;
         }
 
-        static void RemarkOnException(Exception ex)
+        private static void RemarkOnException(Exception ex)
         {
             Logging.Error(ex, "RemarkOnException.....");
             if (null != Application.Current)
@@ -291,7 +289,7 @@ namespace Qiqqa.Main
             }
         }
 
-        static void RemarkOnException_GUI_THREAD(Exception ex)
+        private static void RemarkOnException_GUI_THREAD(Exception ex)
         {
             try
             {
@@ -306,7 +304,7 @@ namespace Qiqqa.Main
 
 #if CEFSHARP
 
-#region CEFsharp setup helpers
+        #region CEFsharp setup helpers
 
         // CEFsharp setup code as per https://github.com/cefsharp/CefSharp/issues/1714:
 
@@ -347,7 +345,7 @@ namespace Qiqqa.Main
             return null;
         }
 
-#endregion CEFsharp setup helpers
+        #endregion CEFsharp setup helpers
 
 #endif
 

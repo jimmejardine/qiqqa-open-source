@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -8,7 +7,6 @@ using icons;
 using Qiqqa.Common;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Common.GUI;
-using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.Misc;
 
@@ -27,7 +25,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
         {
             InitializeComponent();
 
-            this.Title = "What would you like to do with your snapshot?";
+            Title = "What would you like to do with your snapshot?";
 
             CmdImage.Caption = "Copy the snapshot image to the clipboard.";
             CmdTabulatedText.Caption = "Copy the tabulated text to the clipboard.\n\nThen try pasting it into Excel...";
@@ -45,23 +43,23 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
             ObjImageSocialMedia.Source = Icons.GetAppIcon(Icons.SocialMedia);
             ObjImageSocialMedia.IsHitTestVisible = false;
 
-            this.KeyDown += CameraActionChooserDialog_KeyDown;
+            KeyDown += CameraActionChooserDialog_KeyDown;
         }
 
-        void CameraActionChooserDialog_KeyDown(object sender, KeyEventArgs e)
+        private void CameraActionChooserDialog_KeyDown(object sender, KeyEventArgs e)
         {
             if (Key.Escape == e.Key)
             {
                 e.Handled = true;
-                this.Close();
+                Close();
             }
         }
 
-        void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (CmdImage == sender)
             {
-                Clipboard.SetImage(this.image);
+                Clipboard.SetImage(image);
                 StatusManager.Instance.UpdateStatus("RegionSnapshot", "An image snapshot of the PDF region has been copied to the clipboard.");
             }
 
@@ -84,7 +82,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
                 MainWindowServiceDispatcher.Instance.OpenUrlInBrowser(url, true);
             }
 
-            this.Close();
+            Close();
         }
 
         internal void SetLovelyDetails(CroppedBitmap image, string raw_text, string tabled_text)
@@ -93,9 +91,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
             this.raw_text = raw_text;
             this.tabled_text = tabled_text;
 
-            this.ObjImage.Source = image;
-            this.ObjRawText.Text = raw_text;
-            this.ObjTabulatedText.Text = tabled_text;
+            ObjImage.Source = image;
+            ObjRawText.Text = raw_text;
+            ObjTabulatedText.Text = tabled_text;
         }
 
         protected override void OnClosing(CancelEventArgs e)

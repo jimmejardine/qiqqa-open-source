@@ -2,9 +2,9 @@
 
 namespace Utilities.PDF.Sorax
 {
-    class SoraxPDFRendererCache
+    internal class SoraxPDFRendererCache
     {
-        class SoraxPDFRendererCacheEntry
+        private class SoraxPDFRendererCacheEntry
         {
             public int page;
             public double height;
@@ -12,8 +12,7 @@ namespace Utilities.PDF.Sorax
         }
 
         private static readonly int CACHE_SIZE = 3;
-
-        List<SoraxPDFRendererCacheEntry> cache_entries = new List<SoraxPDFRendererCacheEntry>();
+        private List<SoraxPDFRendererCacheEntry> cache_entries = new List<SoraxPDFRendererCacheEntry>();
 
         public void Put(int page, double height, byte[] image)
         {

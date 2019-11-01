@@ -29,22 +29,20 @@ namespace Qiqqa.WebBrowsing
         public delegate void BrowserNavigatingDelegate(Uri uri);
         public event BrowserNavigatingDelegate Navigating;
 
-        static readonly string TAB_PREFERENCES = "Preferences";
-        static readonly string TAB_BROWSING = "Browsing";
+        private static readonly string TAB_PREFERENCES = "Preferences";
+        private static readonly string TAB_BROWSING = "Browsing";
 
-        class WebSearcherEntry
+        private class WebSearcherEntry
         {
             public WebSearcher web_searcher;
             public WebBrowserControl browser_control;
         }
 
-        WebBrowserControl active_wbc = null;
-
-        WebSearcherPreferenceControl web_searcher_preference_control;
-        WebBrowserControl wbc_browsing = null;
-        List<WebSearcherEntry> web_searcher_entries = new List<WebSearcherEntry>();
-
-        Library current_library = null;
+        private WebBrowserControl active_wbc = null;
+        private WebSearcherPreferenceControl web_searcher_preference_control;
+        private WebBrowserControl wbc_browsing = null;
+        private List<WebSearcherEntry> web_searcher_entries = new List<WebSearcherEntry>();
+        private Library current_library = null;
         public Library CurrentLibrary
         {
             get
@@ -60,10 +58,7 @@ namespace Qiqqa.WebBrowsing
                 }
                 return lib;
             }
-            set
-            {
-                current_library = value;
-            }
+            set => current_library = value;
         }
 
         public WebBrowserHostControl()
@@ -133,7 +128,7 @@ namespace Qiqqa.WebBrowsing
             Logging.Debug("-WebBrowserHostControl()");
         }
 
-        void ButtonEZProxy_Click(object sender, RoutedEventArgs e)
+        private void ButtonEZProxy_Click(object sender, RoutedEventArgs e)
         {
             string current_url = active_wbc.CurrentUri.ToString();
 
@@ -154,20 +149,20 @@ namespace Qiqqa.WebBrowsing
             e.Handled = true;
         }
 
-        void ButtonPrint_Click(object sender, RoutedEventArgs e)
+        private void ButtonPrint_Click(object sender, RoutedEventArgs e)
         {
             active_wbc.Print();
 
             e.Handled = true;
         }
 
-        void ButtonNewBrowser_Click(object sender, RoutedEventArgs e)
+        private void ButtonNewBrowser_Click(object sender, RoutedEventArgs e)
         {
             // This URL is slow/timeout:
             // this.OpenNewWindow("http://www.qiqqa.com/Account/Edit");
 
             //this.OpenNewWindow(WebsiteAccess.Url_GithubRepo4Qiqqa);
-            this.OpenNewWindow(WebsiteAccess.Url_BlankWebsite);
+            OpenNewWindow(WebsiteAccess.Url_BlankWebsite);
         }
 
         internal void ForceAdvancedMenus()
@@ -196,14 +191,8 @@ namespace Qiqqa.WebBrowsing
         private string default_web_searcher_key = null;
         public string DefaultWebSearcherKey
         {
-            get
-            {
-                return default_web_searcher_key;
-            }
-            set
-            {
-                default_web_searcher_key = value;
-            }
+            get => default_web_searcher_key;
+            set => default_web_searcher_key = value;
         }
 
         // the .CloseContent() call inside DeleteSearchers() can trigger additional
@@ -304,7 +293,7 @@ namespace Qiqqa.WebBrowsing
             TabWebBrowserControls.MakeActive(WebSearchers.SCHOLAR_KEY);
         }
 
-        void ButtonGrabWebPage_Click(object sender, RoutedEventArgs e)
+        private void ButtonGrabWebPage_Click(object sender, RoutedEventArgs e)
         {
             if (null == CurrentUri)
             {
@@ -319,7 +308,7 @@ namespace Qiqqa.WebBrowsing
             SafeThreadPool.QueueUserWorkItem(o => HTMLToPDFConversion.GrabWebPage(title, url));
         }
 
-        void TabWebBrowserControls_OnActiveItemChanged(FrameworkElement newItemContent)
+        private void TabWebBrowserControls_OnActiveItemChanged(FrameworkElement newItemContent)
         {
             WebBrowserControl wbc = newItemContent as WebBrowserControl;
 
@@ -340,7 +329,7 @@ namespace Qiqqa.WebBrowsing
         // TODO: make it work akin to the <embed> handling to prevent confusion: 
         // when the browser shows a single PDF, it MAY be an <embed> web page and 
         // we should account for that!
-        void ButtonAddToLibrary_Click(object sender, RoutedEventArgs e)
+        private void ButtonAddToLibrary_Click(object sender, RoutedEventArgs e)
         {
             if (null == CurrentUri)
             {
@@ -359,12 +348,12 @@ namespace Qiqqa.WebBrowsing
             }
         }
 
-        void TextBoxUrl_OnHardSearch()
+        private void TextBoxUrl_OnHardSearch()
         {
             DoBrowse();
         }
 
-        void DoBrowse()
+        private void DoBrowse()
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Web_Browse);
 
@@ -402,7 +391,7 @@ namespace Qiqqa.WebBrowsing
             TextBoxUrl.SelectAll();
         }
 
-        void TextBoxGoogleScholar_OnHardSearch()
+        private void TextBoxGoogleScholar_OnHardSearch()
         {
             DoWebSearch();
         }
@@ -438,7 +427,7 @@ namespace Qiqqa.WebBrowsing
             return wbc;
         }
 
-        void DoWebSearch()
+        private void DoWebSearch()
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Web_Search);
 
@@ -511,50 +500,26 @@ namespace Qiqqa.WebBrowsing
             }
         }
 
-        public Uri CurrentUri
-        {
-            get
-            {
-                return active_wbc.CurrentUri;
-            }
-        }
+        public Uri CurrentUri => active_wbc.CurrentUri;
 
 
-        public string CurrentTitle
-        {
-            get
-            {
-                return active_wbc.Title;
-            }
-        }
+        public string CurrentTitle => active_wbc.Title;
 
-        public string CurrentPageText
-        {
-            get
-            {
-                return active_wbc.PageText;
-            }
-        }
+        public string CurrentPageText => active_wbc.PageText;
 
-        public string CurrentPageHTML
-        {
-            get
-            {
-                return active_wbc.PageHTML;
-            }
-        }
+        public string CurrentPageHTML => active_wbc.PageHTML;
 
-        void ButtonForward_Click(object sender, RoutedEventArgs e)
+        private void ButtonForward_Click(object sender, RoutedEventArgs e)
         {
             CurrentWebBrowserControl.GoForward();
         }
 
-        void ButtonBack_Click(object sender, RoutedEventArgs e)
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
             CurrentWebBrowserControl.GoBack();
         }
 
-        void ButtonGrabPDFs_Click(object sender, RoutedEventArgs e)
+        private void ButtonGrabPDFs_Click(object sender, RoutedEventArgs e)
         {
             Uri current_uri = CurrentWebBrowserControl.CurrentUri;
             string html = CurrentWebBrowserControl.PageHTML;
@@ -597,8 +562,7 @@ namespace Qiqqa.WebBrowsing
             }
         }
 
-
-        WebBrowserControl CurrentWebBrowserControl
+        private WebBrowserControl CurrentWebBrowserControl
         {
             get
             {

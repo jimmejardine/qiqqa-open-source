@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary;
 using Utilities;
 using Utilities.Misc;
@@ -13,7 +12,7 @@ namespace Qiqqa.Synchronisation.PDFSync
     /// </summary>
     internal class SyncQueues
     {
-        class SyncQueueEntry
+        private class SyncQueueEntry
         {
             public string fingerprint;
             public Library library;
@@ -24,15 +23,15 @@ namespace Qiqqa.Synchronisation.PDFSync
             }
         }
 
-        List<SyncQueueEntry> fingerprints_to_put = new List<SyncQueueEntry>();
-        List<SyncQueueEntry> fingerprints_to_get = new List<SyncQueueEntry>();
+        private List<SyncQueueEntry> fingerprints_to_put = new List<SyncQueueEntry>();
+        private List<SyncQueueEntry> fingerprints_to_get = new List<SyncQueueEntry>();
 
         public static readonly SyncQueues Instance = new SyncQueues();
 
         private SyncQueues()
         {
         }
-        
+
         #region --- Public queueing --------------------------------------------------------------------------------------------------------
 
         internal void QueuePut(string fingerprint, Library library)
@@ -120,11 +119,11 @@ namespace Qiqqa.Synchronisation.PDFSync
                         throw new Exception(String.Format("Did not understand how to transfer PDFs for library {0}", sync_queue_entry.library.WebLibraryDetail.Title));
                     }
                     // -----------------------------------------------------------------------------------------------------
-                    
+
                     did_some_transfers = true;
                 }
                 catch (Exception ex)
-                {                    
+                {
                     Logging.Error(ex, "Exception while uploading paper {0}", sync_queue_entry);
                 }
                 StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_DATA, "Uploaded papers to your Web/Intranet Library");
@@ -135,7 +134,7 @@ namespace Qiqqa.Synchronisation.PDFSync
 
         #region --- Get --------------------------------------------------------------------------------------------------------
 
-        private void DaemonEntryGet(Daemon daemon, ref bool did_some_transfers)        
+        private void DaemonEntryGet(Daemon daemon, ref bool did_some_transfers)
         {
             StatusManager.Instance.ClearCancelled(StatusCodes.SYNC_DATA);
             while (daemon.StillRunning)
@@ -170,7 +169,7 @@ namespace Qiqqa.Synchronisation.PDFSync
                         throw new Exception(String.Format("Did not understand how to transfer PDFs for library {0}", sync_queue_entry.library.WebLibraryDetail.Title));
                     }
                     // -----------------------------------------------------------------------------------------------------
-                    
+
                     did_some_transfers = true;
                 }
                 catch (Exception ex)

@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using Utilities;
 using Utilities.Strings;
 
 namespace Qiqqa.DocumentLibrary.Import.Auto.Endnote
 {
-    class MYDRecordReader
+    internal class MYDRecordReader
     {
         public static IEnumerable<MYDRecord> Records(MYDBinaryReader br)
         {
             foreach (byte[] record_data in MYDBlockReader.Blocks(br))
             {
-                yield return ProcessRecord(record_data);                
+                yield return ProcessRecord(record_data);
             }
         }
 
@@ -58,7 +57,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto.Endnote
                     Dictionary<string, string> datas = new Dictionary<string, string>();
                     for (int field = 2; field < 54; ++field)
                     {
-                        if (nulls[field] == '0')                        
+                        if (nulls[field] == '0')
                         {
                             byte[] data_length_bytes = br.ReadBytes(3);
                             int data_length = 1 * data_length_bytes[0] + 256 * data_length_bytes[1] + 256 * 256 * data_length_bytes[2];

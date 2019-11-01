@@ -432,7 +432,7 @@ namespace Utilities.Internet.HTMLToXAML
 
                 switch (xamlReader.Name)
                 {
-                    case "Run" :
+                    case "Run":
                     case "Span":
                         htmlElementName = "SPAN";
                         break;
@@ -442,10 +442,10 @@ namespace Utilities.Internet.HTMLToXAML
                     case "Bold":
                         htmlElementName = "B";
                         break;
-                    case "Italic" :
+                    case "Italic":
                         htmlElementName = "I";
                         break;
-                    case "Paragraph" :
+                    case "Paragraph":
                         htmlElementName = "P";
                         break;
                     case "BlockUIContainer":
@@ -460,16 +460,16 @@ namespace Utilities.Internet.HTMLToXAML
                     case "TableColumn":
                         htmlElementName = "COL";
                         break;
-                    case "TableRowGroup" :
+                    case "TableRowGroup":
                         htmlElementName = "TBODY";
                         break;
-                    case "TableRow" :
+                    case "TableRow":
                         htmlElementName = "TR";
                         break;
-                    case "TableCell" :
+                    case "TableCell":
                         htmlElementName = "TD";
                         break;
-                    case "List" :
+                    case "List":
                         string marker = xamlReader.GetAttribute("MarkerStyle");
                         if (marker == null || marker == "None" || marker == "Disc" || marker == "Circle" || marker == "Square" || marker == "Box")
                         {
@@ -480,10 +480,10 @@ namespace Utilities.Internet.HTMLToXAML
                             htmlElementName = "OL";
                         }
                         break;
-                    case "ListItem" :
+                    case "ListItem":
                         htmlElementName = "LI";
                         break;
-                    default :
+                    default:
                         htmlElementName = null; // Ignore the element
                         break;
                 }
@@ -507,8 +507,8 @@ namespace Utilities.Internet.HTMLToXAML
         }
 
         // Reader advance helpers
-		// ----------------------
-				 
+        // ----------------------
+
         /// <summary>
         /// Reads several items from xamlReader skipping all non-significant stuff.
         /// </summary>
@@ -518,46 +518,46 @@ namespace Utilities.Internet.HTMLToXAML
         /// <returns>
         /// True if new token is available; false if end of stream reached.
         /// </returns>
-		private static bool ReadNextToken(XmlReader xamlReader)
-		{
-			while (xamlReader.Read())
-			{
-				Debug.Assert(xamlReader.ReadState == ReadState.Interactive, "Reader is expected to be in Interactive state (" + xamlReader.ReadState + ")");
-				switch (xamlReader.NodeType)
-				{
-				    case XmlNodeType.Element: 
-				    case XmlNodeType.EndElement:
-				    case XmlNodeType.None:
-				    case XmlNodeType.CDATA:
-				    case XmlNodeType.Text:
-				    case XmlNodeType.SignificantWhitespace:
-					    return true;
+        private static bool ReadNextToken(XmlReader xamlReader)
+        {
+            while (xamlReader.Read())
+            {
+                Debug.Assert(xamlReader.ReadState == ReadState.Interactive, "Reader is expected to be in Interactive state (" + xamlReader.ReadState + ")");
+                switch (xamlReader.NodeType)
+                {
+                    case XmlNodeType.Element:
+                    case XmlNodeType.EndElement:
+                    case XmlNodeType.None:
+                    case XmlNodeType.CDATA:
+                    case XmlNodeType.Text:
+                    case XmlNodeType.SignificantWhitespace:
+                        return true;
 
-				    case XmlNodeType.Whitespace:
-					    if (xamlReader.XmlSpace == XmlSpace.Preserve)
-					    {
-						    return true;
-					    }
-					    // ignore insignificant whitespace
-					    break;
+                    case XmlNodeType.Whitespace:
+                        if (xamlReader.XmlSpace == XmlSpace.Preserve)
+                        {
+                            return true;
+                        }
+                        // ignore insignificant whitespace
+                        break;
 
-				    case XmlNodeType.EndEntity:
-				    case XmlNodeType.EntityReference:
+                    case XmlNodeType.EndEntity:
+                    case XmlNodeType.EntityReference:
                         //  Implement entity reading
-					    //xamlReader.ResolveEntity();
-					    //xamlReader.Read();
-					    //ReadChildNodes( parent, parentBaseUri, xamlReader, positionInfo);
+                        //xamlReader.ResolveEntity();
+                        //xamlReader.Read();
+                        //ReadChildNodes( parent, parentBaseUri, xamlReader, positionInfo);
                         break; // for now we ignore entities as insignificant stuff
 
                     case XmlNodeType.Comment:
                         return true;
                     case XmlNodeType.ProcessingInstruction:
-				    case XmlNodeType.DocumentType:
-				    case XmlNodeType.XmlDeclaration:
-				    default:
-					    // Ignorable stuff
-					    break;
-				}
+                    case XmlNodeType.DocumentType:
+                    case XmlNodeType.XmlDeclaration:
+                    default:
+                        // Ignorable stuff
+                        break;
+                }
             }
             return false;
         }

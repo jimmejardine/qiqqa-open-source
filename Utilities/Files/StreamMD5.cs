@@ -25,7 +25,7 @@ namespace Utilities.Files
 
         public static string FromFile(string filename)
         {
-            using (FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read, 32*1024))
+            using (FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read, 32 * 1024))
             {
                 return FromStream(fs);
             }

@@ -14,7 +14,7 @@ namespace Utilities.Maintainable
         public static MaintainableManager Instance = new MaintainableManager();
         public delegate void DoMaintenanceDelegate(Daemon daemon);
 
-        class DoMaintenanceDelegateWrapper
+        private class DoMaintenanceDelegateWrapper
         {
             internal string maintainable_description;
             internal WeakReference target;
@@ -26,10 +26,10 @@ namespace Utilities.Maintainable
             internal Daemon daemon;
         }
 
-        List<DoMaintenanceDelegateWrapper> do_maintenance_delegate_wrappers = new List<DoMaintenanceDelegateWrapper>();
-        object do_maintenance_delegate_wrappers_lock = new object();
+        private List<DoMaintenanceDelegateWrapper> do_maintenance_delegate_wrappers = new List<DoMaintenanceDelegateWrapper>();
+        private object do_maintenance_delegate_wrappers_lock = new object();
 
-        MaintainableManager()
+        private MaintainableManager()
         {
             Logging.Info("Creating MaintainableManager");
             ShutdownableManager.Instance.Register(Shutdown);
@@ -174,7 +174,7 @@ namespace Utilities.Maintainable
             }
         }
 
-        void DaemonThreadEntryPoint(object wrapper)
+        private void DaemonThreadEntryPoint(object wrapper)
         {
             DoMaintenanceDelegateWrapper do_maintenance_delegate_wrapper = (DoMaintenanceDelegateWrapper)wrapper;
             Daemon daemon = do_maintenance_delegate_wrapper.daemon;

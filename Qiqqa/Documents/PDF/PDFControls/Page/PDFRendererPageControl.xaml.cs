@@ -21,7 +21,6 @@ using Qiqqa.Documents.PDF.Search;
 using Utilities;
 using Utilities.GUI;
 using Utilities.GUI.Shaders.Negative;
-using Utilities.Images;
 
 namespace Qiqqa.Documents.PDF.PDFControls.Page
 {
@@ -32,19 +31,16 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
     {
         internal const int BASIC_PAGE_WIDTH = 850;
         internal const int BASIC_PAGE_HEIGHT = 1100;
+        private PDFRendererControl pdf_renderer_control = null;
+        private PDFRendererControlStats pdf_renderer_control_stats = null;
+        private int page = 0;
+        private bool add_bells_and_whistles;
+        private double remembered_image_width = BASIC_PAGE_WIDTH;
+        private double remembered_image_height = BASIC_PAGE_HEIGHT;
+        private bool page_is_in_view = false;
+        private Image ImagePage_HIDDEN_;
 
-        PDFRendererControl pdf_renderer_control = null;
-        PDFRendererControlStats pdf_renderer_control_stats = null;
-        int page = 0;
-        bool add_bells_and_whistles;
-
-        double remembered_image_width = BASIC_PAGE_WIDTH;
-        double remembered_image_height = BASIC_PAGE_HEIGHT;
-
-        bool page_is_in_view = false;
-
-        Image ImagePage_HIDDEN_;
-        Image ImagePage_HIDDEN
+        private Image ImagePage_HIDDEN
         {
             get
             {
@@ -71,19 +67,17 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             }
         }
 
-        class CurrentlyShowingImageClass
+        private class CurrentlyShowingImageClass
         {
             public BitmapSource Image;
             public double requested_height;
         }
 
-        CurrentlyShowingImageClass _currently_showing_image = null;
-        CurrentlyShowingImageClass CurrentlyShowingImage
+        private CurrentlyShowingImageClass _currently_showing_image = null;
+
+        private CurrentlyShowingImageClass CurrentlyShowingImage
         {
-            get
-            {
-                return _currently_showing_image;
-            }
+            get => _currently_showing_image;
 
             set
             {
@@ -99,37 +93,19 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             }
         }
 
-        public double RememberedImageWidth
-        {
-            get
-            {
-                return remembered_image_width;
-            }
-        }
-        public double RememberedImageHeight
-        {
-            get
-            {
-                return remembered_image_height;
-            }
-        }
+        public double RememberedImageWidth => remembered_image_width;
+        public double RememberedImageHeight => remembered_image_height;
 
-        public int Page
-        {
-            get
-            {
-                return page;
-            }
-        }
+        public int Page => page;
 
-        PDFTextSentenceLayer CanvasTextSentence_;
-        PDFSearchLayer CanvasSearch_;
-        PDFAnnotationLayer CanvasAnnotation_;
-        PDFHighlightLayer CanvasHighlight_;
-        PDFCameraLayer CanvasCamera_;
-        PDFHandLayer CanvasHand_;
-        PDFInkLayer CanvasInk_;
-        List<PageLayer> page_layers;
+        private PDFTextSentenceLayer CanvasTextSentence_;
+        private PDFSearchLayer CanvasSearch_;
+        private PDFAnnotationLayer CanvasAnnotation_;
+        private PDFHighlightLayer CanvasHighlight_;
+        private PDFCameraLayer CanvasCamera_;
+        private PDFHandLayer CanvasHand_;
+        private PDFInkLayer CanvasInk_;
+        private List<PageLayer> page_layers;
 
         // Provide a cached copy of the PDF document fingerprint for Exception report logging,
         // when this instance has otherwise already been Disposed():
@@ -147,9 +123,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             this.add_bells_and_whistles = add_bells_and_whistles;
 
             // Start with a reasonable size
-            this.Background = Brushes.White;
-            this.Height = remembered_image_height * pdf_renderer_control_stats.zoom_factor;
-            this.Width = remembered_image_width * pdf_renderer_control_stats.zoom_factor;
+            Background = Brushes.White;
+            Height = remembered_image_height * pdf_renderer_control_stats.zoom_factor;
+            Width = remembered_image_width * pdf_renderer_control_stats.zoom_factor;
 
             page_layers = new List<PageLayer>();
 
@@ -158,7 +134,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 
             SetOperationMode(PDFRendererControl.OperationMode.Hand);
 
-            this.MouseDown += PDFRendererPageControl_MouseDown;
+            MouseDown += PDFRendererPageControl_MouseDown;
 
             this.pdf_renderer_control_stats.pdf_document.PDFRenderer.OnPageTextAvailable += pdf_renderer_OnPageTextAvailable;
 
@@ -166,7 +142,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             {
                 DropShadowEffect dse = new DropShadowEffect();
                 dse.Color = ThemeColours.Background_Color_Blue_Dark;
-                this.Effect = dse;
+                Effect = dse;
             }
 
             PopulateNeededLayers();
@@ -174,7 +150,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 
         #region --- Page layer on-demand creation -------------------
 
-        PDFTextSentenceLayer CanvasTextSentence
+        private PDFTextSentenceLayer CanvasTextSentence
         {
             get
             {
@@ -188,7 +164,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                 return CanvasTextSentence_;
             }
         }
-        PDFSearchLayer CanvasSearch
+
+        private PDFSearchLayer CanvasSearch
         {
             get
             {
@@ -202,7 +179,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             }
         }
 
-        PDFAnnotationLayer CanvasAnnotation
+        private PDFAnnotationLayer CanvasAnnotation
         {
             get
             {
@@ -217,7 +194,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             }
         }
 
-        PDFHighlightLayer CanvasHighlight
+        private PDFHighlightLayer CanvasHighlight
         {
             get
             {
@@ -231,7 +208,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             }
         }
 
-        PDFCameraLayer CanvasCamera
+        private PDFCameraLayer CanvasCamera
         {
             get
             {
@@ -245,7 +222,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             }
         }
 
-        PDFHandLayer CanvasHand
+        private PDFHandLayer CanvasHand
         {
             get
             {
@@ -259,7 +236,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             }
         }
 
-        PDFInkLayer CanvasInk
+        private PDFInkLayer CanvasInk
         {
             get
             {
@@ -298,7 +275,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             if (page_is_in_view)
             {
                 // The image layer
-                this.Children.Add(ImagePage_HIDDEN);
+                Children.Add(ImagePage_HIDDEN);
 
                 // Make the curly layer
                 if (add_bells_and_whistles)
@@ -333,36 +310,30 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                         layer_curly.Children.Add(image_tl);
                     }
 
-                    this.Children.Add(layer_curly);
+                    Children.Add(layer_curly);
                 }
 
                 // The functional layers
                 foreach (PageLayer page_layer in page_layers)
                 {
-                    this.Children.Add(page_layer);
+                    Children.Add(page_layer);
                 }
             }
         }
 
         public void RotatePage()
         {
-            RotateTransform rt = this.LayoutTransform as RotateTransform;
+            RotateTransform rt = LayoutTransform as RotateTransform;
             if (null == rt)
             {
                 rt = new RotateTransform(0);
-                this.LayoutTransform = rt;
+                LayoutTransform = rt;
             }
 
             rt.Angle += 90;
         }
 
-        public int PageNumber
-        {
-            get
-            {
-                return page;
-            }
-        }
+        public int PageNumber => page;
 
         public void SelectPage()
         {
@@ -380,9 +351,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             }
         }
 
-        void PDFRendererPageControl_MouseDown(object sender, MouseButtonEventArgs e)
+        private void PDFRendererPageControl_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            this.Focus();
+            Focus();
             Keyboard.Focus(this);
             pdf_renderer_control.SelectedPage = this;
             e.Handled = true;
@@ -394,9 +365,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 #endif
         }
 
-        void pdf_renderer_OnPageTextAvailable(int page_from, int page_to)
+        private void pdf_renderer_OnPageTextAvailable(int page_from, int page_to)
         {
-            if (page_from <= this.page && page_to >= this.page || page == 0)
+            if (page_from <= page && page_to >= page || page == 0)
             {
                 Dispatcher.BeginInvoke(new Action(OnPageTextAvailable_DISPATCHER), DispatcherPriority.Background);
             }
@@ -412,13 +383,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             }
         }
 
-        public bool PageIsInView
-        {
-            get
-            {
-                return page_is_in_view;
-            }
-        }
+        public bool PageIsInView => page_is_in_view;
 
         #region Refresh Page
 
@@ -432,17 +397,17 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             RefreshPage(requested_image_rescale, requested_height);
         }
 
-        class PendingRefreshWork
+        private class PendingRefreshWork
         {
             public BitmapSource requested_image_rescale;
             public double requested_height;
         }
 
-        object pending_refresh_work_lock = new object();
-        bool pending_refresh_work_fast_running = false;
-        PendingRefreshWork pending_refresh_work_fast = null;
-        bool pending_refresh_work_slow_running = false;
-        PendingRefreshWork pending_refresh_work_slow = null;
+        private object pending_refresh_work_lock = new object();
+        private bool pending_refresh_work_fast_running = false;
+        private PendingRefreshWork pending_refresh_work_fast = null;
+        private bool pending_refresh_work_slow_running = false;
+        private PendingRefreshWork pending_refresh_work_slow = null;
 
         /// <summary>
         /// Queues the page for refresh, holding onto the most recent recommended_pretty_image_rescale.
@@ -751,22 +716,22 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 
         internal void RaiseInkChange(InkCanvasEditingMode inkCanvasEditingMode)
         {
-            this.CanvasInk.RaiseInkChange(inkCanvasEditingMode);
+            CanvasInk.RaiseInkChange(inkCanvasEditingMode);
         }
 
         internal void RaiseInkChange(DrawingAttributes drawingAttributes)
         {
-            this.CanvasInk.RaiseInkChange(drawingAttributes);
+            CanvasInk.RaiseInkChange(drawingAttributes);
         }
 
         internal void RaiseHighlightChange(int colourNumber)
         {
-            this.CanvasHighlight.RaiseHighlightChange(colourNumber);
+            CanvasHighlight.RaiseHighlightChange(colourNumber);
         }
 
         internal void RaiseTextSelectModeChange(TextLayerSelectionMode textLayerSelectionMode)
         {
-            this.CanvasTextSentence.RaiseTextSelectModeChange(textLayerSelectionMode);
+            CanvasTextSentence.RaiseTextSelectModeChange(textLayerSelectionMode);
         }
 
         #region --- IDisposable ------------------------------------------------------------------------
@@ -836,7 +801,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             CanvasInk_ = null;
 
             // Clear the references for sanity's sake
-            this.DataContext = null;
+            DataContext = null;
 
             ++dispose_count;
         }

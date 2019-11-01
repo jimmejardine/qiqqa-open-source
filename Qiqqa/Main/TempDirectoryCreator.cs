@@ -1,16 +1,16 @@
 ﻿using System;
-using System.IO;
 using Utilities;
 using Utilities.Files;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Main
 {
     // Creates a temp directory before anything else runs
     public static class TempDirectoryCreator
-    {        
+    {
         static TempDirectoryCreator()
         {
             try

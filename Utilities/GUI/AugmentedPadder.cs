@@ -7,7 +7,7 @@ namespace Utilities.GUI
     {
         public AugmentedPadder()
         {
-            this.Padding = new Thickness(5);
+            Padding = new Thickness(5);
         }
     }
 }

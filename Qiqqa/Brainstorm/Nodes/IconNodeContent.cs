@@ -9,15 +9,15 @@ namespace Qiqqa.Brainstorm.Nodes
     [Serializable]
     public class IconNodeContent : ISearchable
     {
-        string icon_path;
+        private string icon_path;
         [NonSerialized]
-        BitmapImage bitmap_image = null;
+        private BitmapImage bitmap_image = null;
 
         public IconNodeContent(string icon_path)
         {
             this.icon_path = icon_path;
-        }        
-        
+        }
+
         public BitmapImage BitmapImage
         {
             get

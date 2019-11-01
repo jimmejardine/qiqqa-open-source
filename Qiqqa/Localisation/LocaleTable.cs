@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using Utilities;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Localisation
 {
     [Serializable]
     public class LocaleTable : Dictionary<string, string>
     {
-        const char LINE_SPLITTER = ':';
+        private const char LINE_SPLITTER = ':';
         private static readonly char[] LINE_SPLITTER_ARRAY = new char[] { LINE_SPLITTER };
 
         public static LocaleTable Load(string filename)
@@ -54,7 +55,7 @@ namespace Qiqqa.Localisation
         {
             List<string> lines = new List<string>();
 
-            List<string> keys_sorted = new List<string>(this.Keys);
+            List<string> keys_sorted = new List<string>(Keys);
             keys_sorted.Sort();
 
             foreach (string key in keys_sorted)

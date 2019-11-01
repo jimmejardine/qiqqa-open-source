@@ -11,13 +11,13 @@ namespace Qiqqa.Synchronisation.MetadataSync
             get
             {
                 SynchronisationState synchronisation_state;
-                if (!this.TryGetValue(key, out synchronisation_state))
+                if (!TryGetValue(key, out synchronisation_state))
                 {
                     // Get the fingerprint and extension
                     string[] key_split = key.Split('.');
                     string fingerprint = key_split[0];
                     string extension = key_split[1];
-                    
+
                     synchronisation_state = new SynchronisationState();
                     synchronisation_state.filename = key;
                     synchronisation_state.fingerprint = fingerprint;
@@ -29,10 +29,7 @@ namespace Qiqqa.Synchronisation.MetadataSync
                 return synchronisation_state;
             }
 
-            protected set
-            {
-                base[key] = value;
-            }
+            protected set => base[key] = value;
         }
     }
 }

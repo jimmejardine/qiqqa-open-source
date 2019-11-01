@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using icons;
+using Qiqqa.Common.Configuration;
+using Utilities;
 using Utilities.BibTex;
 using Utilities.BibTex.Parsing;
 using Utilities.GUI;
 using Utilities.Reflection;
-using Qiqqa.Common.Configuration;
 using Utilities.Strings;
-using Utilities;
-using System.Windows.Data;
 
 namespace Qiqqa.Documents.BibTeXEditor
 {
@@ -25,26 +24,19 @@ namespace Qiqqa.Documents.BibTeXEditor
         // These three buttons are (optionally) provided by the parent control.
         // Note the use of WeakReferences to help ensure there's no cyclic dependency
         // in the UI that prevents the GC from cleaning up once we're done.
-        WeakReference<FrameworkElement> BibTeXParseErrorButtonRef;
-        WeakReference<FrameworkElement> BibTeXModeToggleButtonRef;
-        WeakReference<FrameworkElement> BibTeXUndoEditButtonRef;
-
-        WeakDependencyPropertyChangeNotifier wdpcn;
+        private WeakReference<FrameworkElement> BibTeXParseErrorButtonRef;
+        private WeakReference<FrameworkElement> BibTeXModeToggleButtonRef;
+        private WeakReference<FrameworkElement> BibTeXUndoEditButtonRef;
+        private WeakDependencyPropertyChangeNotifier wdpcn;
 
         public static DependencyProperty BibTeXProperty = DependencyProperty.Register("BibTeX", typeof(string), typeof(BibTeXEditorControl), new PropertyMetadata());
         public string BibTeX
         {
-            get
-            {
-                return (string)GetValue(BibTeXProperty);
-            }
-            set
-            {
-                SetValue(BibTeXProperty, value);
-            }
+            get => (string)GetValue(BibTeXProperty);
+            set => SetValue(BibTeXProperty, value);
         }
 
-        AugmentedBindable<BibTeXEditorControl> bindable = null;
+        private AugmentedBindable<BibTeXEditorControl> bindable = null;
         public AugmentedBindable<BibTeXEditorControl> Bindable
         {
             get
@@ -68,7 +60,7 @@ namespace Qiqqa.Documents.BibTeXEditor
 
             InitializeComponent();
 
-            this.SizeChanged += BibTeXEditorControl_SizeChanged;
+            SizeChanged += BibTeXEditorControl_SizeChanged;
 
             // The error panel
             //ObjErrorPanel.Background = ThemeColours.Background_Brush_Warning;
@@ -139,7 +131,7 @@ namespace Qiqqa.Documents.BibTeXEditor
                 // tweak the control so the Parsed View gives us the master MaxHeight:
                 ObjBibTeXTextScrollViewer.MaxHeight = THRESHOLD;
                 ObjBibTeXErrorScrollViewer.MaxHeight = THRESHOLD;
-                this.UpdateLayout();
+                UpdateLayout();
 
                 table_height1 = ObjGridPanel.ActualHeight;
 
@@ -156,7 +148,7 @@ namespace Qiqqa.Documents.BibTeXEditor
 
                 if (Math.Abs(maxh1 - ObjBibTeXTextScrollViewer.MaxHeight) > 0.25)
                 {
-                    this.UpdateLayout();
+                    UpdateLayout();
                 }
             }
         }
@@ -282,14 +274,14 @@ namespace Qiqqa.Documents.BibTeXEditor
             }
         }
 
-        void OnBibTeXPropertyChanged(object sender, EventArgs e)
+        private void OnBibTeXPropertyChanged(object sender, EventArgs e)
         {
             RebuidTextAndGrid();
         }
 
         public bool ForceHideNoBibTeXInstructions { get; set; }
 
-        void RebuidTextAndGrid()
+        private void RebuidTextAndGrid()
         {
             string bibtex = BibTeX;
 
@@ -349,12 +341,12 @@ namespace Qiqqa.Documents.BibTeXEditor
             BuildTextFromBibTeX(bibtex, bibtex_item);
         }
 
-        void ObjBibTeXText_TextChanged(object sender, TextChangedEventArgs e)
+        private void ObjBibTeXText_TextChanged(object sender, TextChangedEventArgs e)
         {
             UpdateFromText();
         }
 
-        void ComboRecordType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ComboRecordType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (0 < e.AddedItems.Count)
             {
@@ -364,20 +356,21 @@ namespace Qiqqa.Documents.BibTeXEditor
             UpdateFromGrid(true);
         }
 
-        void ComboRecordType_KeyUp(object sender, KeyEventArgs e)
+        private void ComboRecordType_KeyUp(object sender, KeyEventArgs e)
         {
             UpdateFromGrid(true);
         }
 
-        void OnGridTextChanged(object sender, TextChangedEventArgs e)
+        private void OnGridTextChanged(object sender, TextChangedEventArgs e)
         {
             UpdateFromGrid(false);
         }
 
         // ------------------------------------------
 
-        HashSet<AutoCompleteBox> first_text_change_suppression_set = new HashSet<AutoCompleteBox>();
-        void tb_key_TextChanged(object sender, RoutedEventArgs e)
+        private HashSet<AutoCompleteBox> first_text_change_suppression_set = new HashSet<AutoCompleteBox>();
+
+        private void tb_key_TextChanged(object sender, RoutedEventArgs e)
         {
             // Sigh - this crappy control seems to set a text change just once after initialisation - even if we don't change the text.
             AutoCompleteBox sender_ac = (AutoCompleteBox)sender;
@@ -444,7 +437,7 @@ namespace Qiqqa.Documents.BibTeXEditor
             updating_from_grid = false;
         }
 
-        class GridPair
+        private class GridPair
         {
             public FrameworkElement key;
             public FrameworkElement value;
@@ -627,7 +620,7 @@ namespace Qiqqa.Documents.BibTeXEditor
             ++row;
         }
 
-        void tb_value_KeyDown(object sender, KeyEventArgs e)
+        private void tb_value_KeyDown(object sender, KeyEventArgs e)
         {
             if (KeyboardTools.IsCTRLDown() && Key.OemSemicolon == e.Key)
             {
@@ -690,11 +683,11 @@ namespace Qiqqa.Documents.BibTeXEditor
                 BibTeXUndoEditButtonRef?.SetTarget(null);
             });
 
-                bindable = null;
+            bindable = null;
             // BibTeX = "";  <-- forbidden to reset as that MAY trigger a dependency update! (https://github.com/jimmejardine/qiqqa-open-source/issues/121)
 
             // Get rid of managed resources / get rid of cyclic references:
-                                   if (null != wdpcn)
+            if (null != wdpcn)
             {
                 wdpcn.Dispose();
             }

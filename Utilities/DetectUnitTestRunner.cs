@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using Utilities.Misc;
 
 namespace Utilities
@@ -74,10 +73,7 @@ namespace Utilities
                 return (_runningFromNUnitHeuristic > 0);
             }
 
-            set
-            {
-                _runningFromNUnitHeuristic = (value ? -100 : +100);
-            }
+            set => _runningFromNUnitHeuristic = (value ? -100 : +100);
         }
 
         private static string _StartupDirectoryForQiqqa = null;

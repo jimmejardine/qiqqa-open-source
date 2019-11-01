@@ -3,16 +3,17 @@ using System.IO;
 using System.Windows;
 using System.Xml;
 using Qiqqa.Common;
-using Qiqqa.Common.Configuration;
 using Utilities;
 using Utilities.GUI;
 using Utilities.Internet;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 
+
 namespace Qiqqa.InCite
 {
-    class DependentStyleDetector
+    internal class DependentStyleDetector
     {
         internal static bool IsDependentStyle(string style_xml_filename, out string parent_filename, out string parent_url)
         {
@@ -38,7 +39,7 @@ namespace Qiqqa.InCite
                         // Get the rightmost "folder name" from the url - that is the name of the parent style
                         string[] url_parts = parent_url.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
                         parent_filename = url_parts[url_parts.Length - 1] + ".csl";
-                        
+
                         // This is a dependent style
                         return true;
                     }
@@ -97,7 +98,7 @@ namespace Qiqqa.InCite
                 {
                     return GetRootStyleFilename(full_parent_filename);
                 }
-                else 
+                else
                 {
                     // We need the parent style, but haven't managed to download it, so return nothing...
                     return null;

@@ -10,9 +10,9 @@ namespace Qiqqa.Brainstorm.Nodes
     [Serializable]
     public class LinkedImageNodeContent : ISearchable
     {
-        string image_path;
+        private string image_path;
         [NonSerialized]
-        BitmapSource bitmap_source = null;
+        private BitmapSource bitmap_source = null;
 
         public LinkedImageNodeContent(string image_path)
         {
@@ -21,10 +21,7 @@ namespace Qiqqa.Brainstorm.Nodes
 
         public string ImagePath
         {
-            get
-            {
-                return image_path;
-            }
+            get => image_path;
             set
             {
                 image_path = value;
@@ -37,7 +34,7 @@ namespace Qiqqa.Brainstorm.Nodes
             get
             {
                 if (null == bitmap_source)
-                {                    
+                {
                     bitmap_source = BitmapImageTools.LoadFromFile(image_path);
                 }
                 return bitmap_source;

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Utilities.Misc
 {
@@ -13,7 +10,7 @@ namespace Utilities.Misc
         public ArrayExcelColumnMapper(string[] parts, IFormatProvider format_provider)
         {
             this.parts = parts;
-            this.fallback_format_provider = format_provider;
+            fallback_format_provider = format_provider;
         }
 
         public string this[string C]
@@ -30,7 +27,7 @@ namespace Utilities.Misc
                     offset = offset * 26 + value;
                 }
 
-                string s = this.parts[offset - 1];
+                string s = parts[offset - 1];
                 if (String.IsNullOrEmpty(s)) return null;
                 return s;
             }

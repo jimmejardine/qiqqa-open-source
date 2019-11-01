@@ -13,8 +13,8 @@ namespace Utilities.Collections
         }
 
         protected SummingDictionary(SerializationInfo info, StreamingContext context)
-            : base(info, context) 
-        { 
+            : base(info, context)
+        {
         }
 
         public double GetSum(KEY key)
@@ -31,7 +31,7 @@ namespace Utilities.Collections
         public double TotalSum()
         {
             double sum = 0;
-            foreach (var val in this.Values) sum += val;
+            foreach (var val in Values) sum += val;
             return sum;
         }
 
@@ -47,7 +47,7 @@ namespace Utilities.Collections
 
         public List<KEY> OrderedKeys()
         {
-            List<KEY> l = new List<KEY>(this.Keys);
+            List<KEY> l = new List<KEY>(Keys);
             l.Sort();
             return l;
         }
@@ -73,8 +73,8 @@ namespace Utilities.Collections
         /// <returns></returns>
         public List<KEY> OrderedValues()
         {
-            List<KEY> l = new List<KEY>(this.Keys);
-            l.Sort(delegate(KEY a, KEY b) { return -Sorting.Compare(this[a], this[b]); });
+            List<KEY> l = new List<KEY>(Keys);
+            l.Sort(delegate (KEY a, KEY b) { return -Sorting.Compare(this[a], this[b]); });
             return l;
         }
 

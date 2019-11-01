@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,10 +12,10 @@ using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
-using System.ComponentModel;
+
 
 namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
 {
@@ -28,25 +28,25 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
         {
             InitializeComponent();
 
-            this.Title =
-            this.Header.Caption = "Create/Join Intranet Library";
+            Title =
+            Header.Caption = "Create/Join Intranet Library";
 
-            this.Header.SubCaption = "Please confirm the details of the Intranet Library you wish to create or join.";
-            this.Header.Img = Icons.GetAppIcon(Icons.WebLibrary_IntranetLibrary);
+            Header.SubCaption = "Please confirm the details of the Intranet Library you wish to create or join.";
+            Header.Img = Icons.GetAppIcon(Icons.WebLibrary_IntranetLibrary);
 
-            this.ButtonCancel.Caption = "Cancel";
-            this.ButtonCancel.Icon = Icons.GetAppIcon(Icons.Cancel);
-            this.ButtonCancel.Click += ButtonCancel_Click;
+            ButtonCancel.Caption = "Cancel";
+            ButtonCancel.Icon = Icons.GetAppIcon(Icons.Cancel);
+            ButtonCancel.Click += ButtonCancel_Click;
 
-            this.ButtonJoinCreate.Caption = "Create";
-            this.ButtonJoinCreate.Icon = Icons.GetAppIcon(Icons.WebLibrary_IntranetLibrary);
-            this.ButtonJoinCreate.Click += ButtonJoinCreate_Click;
+            ButtonJoinCreate.Caption = "Create";
+            ButtonJoinCreate.Icon = Icons.GetAppIcon(Icons.WebLibrary_IntranetLibrary);
+            ButtonJoinCreate.Click += ButtonJoinCreate_Click;
 
             ObjButtonFolderChoose.Click += ObjButtonFolderChoose_Click;
             TxtPath.TextChanged += TxtPath_TextChanged;
         }
 
-        void ButtonJoinCreate_Click(object sender, RoutedEventArgs e)
+        private void ButtonJoinCreate_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.StartPage_CreateIntranetLibrary);
 
@@ -60,16 +60,16 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
 
             if (validation_successful)
             {
-                this.Close();
+                Close();
             }
         }
 
-        void ButtonCancel_Click(object sender, RoutedEventArgs e)
+        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
-        void TxtPath_TextChanged(object sender, TextChangedEventArgs e)
+        private void TxtPath_TextChanged(object sender, TextChangedEventArgs e)
         {
             ValidateFolder();
         }
@@ -80,7 +80,7 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
 
             try
             {
-                this.ButtonJoinCreate.Caption = "Create";
+                ButtonJoinCreate.Caption = "Create";
 
                 base_path = TxtPath.Text;
                 if (Directory.Exists(base_path))
@@ -91,7 +91,7 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
                         IntranetLibraryDetail library_detail = IntranetLibraryDetail.Read(library_detail_path);
                         TxtTitle.Text = library_detail.Title;
                         TxtDescription.Text = library_detail.Description;
-                        this.ButtonJoinCreate.Caption = "Join";
+                        ButtonJoinCreate.Caption = "Join";
                     }
                 }
             }
@@ -106,7 +106,7 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
             try
             {
                 string base_path = TxtPath.Text;
-                
+
                 if (!Directory.Exists(base_path))
                 {
                     DirectoryTools.CreateDirectory(base_path);
@@ -156,7 +156,7 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
             catch (Exception ex)
             {
                 Logging.Error(ex, "Problem accessing Intranet Library for the first time.");
-                
+
                 MessageBoxes.Error("There was a problem while trying to connect to this Intranet Library.  Are you sure you have permission to access this folder?  Your Network or System Administrator can grant you this permission.\n\nThe detailed error message is:\n" + ex.Message);
 
                 return false;
@@ -195,7 +195,7 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
             }
         }
 
-        void ObjButtonFolderChoose_Click(object sender, RoutedEventArgs e)
+        private void ObjButtonFolderChoose_Click(object sender, RoutedEventArgs e)
         {
             using (FolderBrowserDialog dlg = new FolderBrowserDialog
             {

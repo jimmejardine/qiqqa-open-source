@@ -21,16 +21,16 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 }
             Logging.Debug("-CountPDFPages #1 = Sorax :: {0} : {1}", filename, pages);
 #endif
-                if (0 == pages)
-                {
-                    pages = CountPDFPages_Syncfusion(filename);
-                }
+            if (0 == pages)
+            {
+                pages = CountPDFPages_Syncfusion(filename);
+            }
             Logging.Debug("-CountPDFPages #2 = Syncfusion :: {0} : {1}", filename, pages);
 
-                if (0 == pages)
-                {
-                    pages = CountPDFPages_Jimme_MEGA(filename);
-                }
+            if (0 == pages)
+            {
+                pages = CountPDFPages_Jimme_MEGA(filename);
+            }
             Logging.Debug("-CountPDFPages #3 = Jimme :: {0} : {1}", filename, pages);
 
             return pages;

@@ -4,8 +4,8 @@ namespace Utilities.Mathematics
 {
     public class Average
     {
-        double numerator = 0;
-        double denominator = 0;
+        private double numerator = 0;
+        private double denominator = 0;
 
         public Average()
         {
@@ -18,21 +18,9 @@ namespace Utilities.Mathematics
             denominator += 1;
         }
 
-        public double Current
-        {
-            get
-            {
-                return numerator / denominator;
-            }
-        }
+        public double Current => numerator / denominator;
 
-        public double Count
-        {
-            get
-            {
-                return denominator;
-            }
-        }
+        public double Count => denominator;
 
         public void Reset()
         {

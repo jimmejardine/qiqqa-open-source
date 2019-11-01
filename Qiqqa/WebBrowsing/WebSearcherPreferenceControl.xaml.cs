@@ -11,7 +11,7 @@ namespace Qiqqa.WebBrowsing
     /// </summary>
     public partial class WebSearcherPreferenceControl : UserControl
     {
-        WebBrowserHostControl web_browser_host_control;
+        private WebBrowserHostControl web_browser_host_control;
 
         public WebSearcherPreferenceControl(WebBrowserHostControl web_browser_host_control)
         {
@@ -36,17 +36,17 @@ namespace Qiqqa.WebBrowsing
             Keyboard.Focus(ObjListWebSearchers);
         }
 
-        void CmdCancel_Click(object sender, RoutedEventArgs e)
+        private void CmdCancel_Click(object sender, RoutedEventArgs e)
         {
             RepopulateWebSearchers();
         }
 
-        void CmdSave_Click(object sender, RoutedEventArgs e)
+        private void CmdSave_Click(object sender, RoutedEventArgs e)
         {
             HashSet<string> requested_web_searchers = new HashSet<string>();
             foreach (WebSearcher web_searcher in ObjListWebSearchers.SelectedItems)
             {
-                requested_web_searchers.Add(web_searcher.key);                
+                requested_web_searchers.Add(web_searcher.key);
             }
             WebSearcherPreferenceManager.Instance.SavePreferences(requested_web_searchers);
 
@@ -58,7 +58,7 @@ namespace Qiqqa.WebBrowsing
             // Show all the available options
             ObjListWebSearchers.ItemsSource = null;
             ObjListWebSearchers.ItemsSource = WebSearchers.WEB_SEARCHERS;
-            
+
             // Select the ones already chosen by the user
             HashSet<string> requested_web_searchers = WebSearcherPreferenceManager.Instance.LoadPreferences();
             foreach (var searcher in WebSearchers.WEB_SEARCHERS)

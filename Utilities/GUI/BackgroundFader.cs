@@ -8,9 +8,9 @@ namespace Utilities.GUI
 {
     public class BackgroundFader : IDisposable
     {
-        UserControl control;
-        Color color_focussed;
-        Color color_unfocussed;
+        private UserControl control;
+        private Color color_focussed;
+        private Color color_unfocussed;
 
         public BackgroundFader(UserControl control) :
             this(control, Colors.SteelBlue, Colors.LightSteelBlue)
@@ -29,14 +29,14 @@ namespace Utilities.GUI
             this.control.MouseLeave += DocumentNodeContentControl_MouseLeave;
         }
 
-        void DocumentNodeContentControl_MouseEnter(object sender, MouseEventArgs e)
+        private void DocumentNodeContentControl_MouseEnter(object sender, MouseEventArgs e)
         {
-            this.control.Background = Animations.GetAnimatedBrush(color_unfocussed, color_focussed, 300);
+            control.Background = Animations.GetAnimatedBrush(color_unfocussed, color_focussed, 300);
         }
 
-        void DocumentNodeContentControl_MouseLeave(object sender, MouseEventArgs e)
+        private void DocumentNodeContentControl_MouseLeave(object sender, MouseEventArgs e)
         {
-            this.control.Background = Animations.GetAnimatedBrush(color_focussed, color_unfocussed, 1000);
+            control.Background = Animations.GetAnimatedBrush(color_focussed, color_unfocussed, 1000);
         }
 
         #region --- IDisposable ------------------------------------------------------------------------
@@ -62,14 +62,14 @@ namespace Utilities.GUI
             if (dispose_count == 0)
             {
                 // Get rid of managed resources / get rid of cyclic references:
-                if (null != this.control)
+                if (null != control)
                 {
-                    this.control.MouseEnter -= DocumentNodeContentControl_MouseEnter;
-                    this.control.MouseLeave -= DocumentNodeContentControl_MouseLeave;
+                    control.MouseEnter -= DocumentNodeContentControl_MouseEnter;
+                    control.MouseLeave -= DocumentNodeContentControl_MouseLeave;
                 }
             }
 
-            this.control = null;
+            control = null;
 
             ++dispose_count;
         }

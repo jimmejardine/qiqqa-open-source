@@ -2,18 +2,17 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Qiqqa.Common.Common;
 using Utilities;
 using Utilities.GUI;
 
 namespace Qiqqa.Brainstorm.Nodes
-{    
+{
     /// <summary>
     /// Interaction logic for StringNodeContentControl.xaml
     /// </summary>
     public partial class StringNodeContentControl : UserControl, IEditableNodeContentControl, IDisposable
     {
-        BackgroundFader fader;
+        private BackgroundFader fader;
 
         public StringNodeContentControl(NodeControl node_control, StringNodeContent string_node_content)
         {
@@ -21,26 +20,26 @@ namespace Qiqqa.Brainstorm.Nodes
 
             Focusable = true;
 
-            this.DataContext = string_node_content.Bindable;            
+            DataContext = string_node_content.Bindable;
 
             ExitEditMode();
-            
-            this.MouseDoubleClick += StringNodeContentControl_MouseDoubleClick;
-            this.KeyDown += StringNodeContentControl_KeyDown;
+
+            MouseDoubleClick += StringNodeContentControl_MouseDoubleClick;
+            KeyDown += StringNodeContentControl_KeyDown;
 
             TxtEdit.LostFocus += edit_text_box_LostFocus;
             TxtEdit.PreviewKeyDown += edit_text_box_PreviewKeyDown;
 
-            this.fader = new BackgroundFader(this);
+            fader = new BackgroundFader(this);
         }
 
-        void StringNodeContentControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void StringNodeContentControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             EnterEditMode();
             e.Handled = true;
         }
 
-        void StringNodeContentControl_KeyDown(object sender, KeyEventArgs e)
+        private void StringNodeContentControl_KeyDown(object sender, KeyEventArgs e)
         {
             if (true
                 && e.Key != Key.Delete
@@ -57,7 +56,7 @@ namespace Qiqqa.Brainstorm.Nodes
             }
         }
 
-        void edit_text_box_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void edit_text_box_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
             {
@@ -66,7 +65,7 @@ namespace Qiqqa.Brainstorm.Nodes
             }
         }
 
-        void edit_text_box_LostFocus(object sender, RoutedEventArgs e)
+        private void edit_text_box_LostFocus(object sender, RoutedEventArgs e)
         {
             ExitEditMode();
         }
@@ -94,11 +93,11 @@ namespace Qiqqa.Brainstorm.Nodes
             }
         }
 
-        void ExitEditMode()
+        private void ExitEditMode()
         {
             TxtEdit.Visibility = Visibility.Collapsed;
             TxtOverview.Visibility = Visibility.Visible;
-            this.Focus();
+            Focus();
         }
 
         #region --- IDisposable ------------------------------------------------------------------------
@@ -124,14 +123,14 @@ namespace Qiqqa.Brainstorm.Nodes
             if (dispose_count == 0)
             {
                 // Get rid of managed resources / get rid of cyclic references:
-                this.fader?.Dispose();
+                fader?.Dispose();
             }
-            this.fader = null;
+            fader = null;
 
-            this.DataContext = null;
+            DataContext = null;
 
-            this.MouseDoubleClick -= StringNodeContentControl_MouseDoubleClick;
-            this.KeyDown -= StringNodeContentControl_KeyDown;
+            MouseDoubleClick -= StringNodeContentControl_MouseDoubleClick;
+            KeyDown -= StringNodeContentControl_KeyDown;
 
             TxtEdit.LostFocus -= edit_text_box_LostFocus;
             TxtEdit.PreviewKeyDown -= edit_text_box_PreviewKeyDown;

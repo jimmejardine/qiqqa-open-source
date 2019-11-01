@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
+﻿using System.IO;
 
 namespace Qiqqa.DocumentLibrary.Import.Auto.Endnote
 {
     public class MYDBinaryReader
     {
-        Stream stream;
+        private Stream stream;
 
         public MYDBinaryReader(Stream stream)
         {
@@ -64,15 +60,9 @@ namespace Qiqqa.DocumentLibrary.Import.Auto.Endnote
         }
 
 
-        public long Position
-        {
-            get { return stream.Position; }
-        }
+        public long Position => stream.Position;
 
-        public long Length
-        {
-            get { return stream.Length; }
-        }
+        public long Length => stream.Length;
 
         internal void Seek(long offset)
         {

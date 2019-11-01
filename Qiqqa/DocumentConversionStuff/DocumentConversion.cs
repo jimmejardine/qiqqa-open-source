@@ -3,17 +3,18 @@ using Syncfusion.DocIO.DLS;
 using Syncfusion.DocToPDFConverter;
 using Syncfusion.Pdf;
 using Syncfusion.XPS;
-using Syncfusion.XlsIO;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 
+
 namespace Qiqqa.DocumentConversionStuff
 {
-    class DocumentConversion
+    internal class DocumentConversion
     {
-        delegate bool ConvertDelegate(string filename, string pdf_filename);
+        private delegate bool ConvertDelegate(string filename, string pdf_filename);
 
-        static Dictionary<string, ConvertDelegate> convertors = new Dictionary<string, ConvertDelegate>()
+        private static Dictionary<string, ConvertDelegate> convertors = new Dictionary<string, ConvertDelegate>()
         {
             {".doc", ConvertorDOC },
             {".docx", ConvertorDOC },
@@ -81,7 +82,7 @@ namespace Qiqqa.DocumentConversionStuff
 
 
         private static bool ConvertorXPS(string filename, string pdf_filename)
-        {   
+        {
             XPSToPdfConverter converter = new XPSToPdfConverter();
             PdfDocument pdf_document = converter.Convert(filename);
 

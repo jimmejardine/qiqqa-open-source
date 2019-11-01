@@ -10,11 +10,11 @@ namespace Qiqqa.Brainstorm.Nodes
     [Serializable]
     public class PDFAutoTagNodeContent : ISearchable, IRecurrentNodeContent
     {
-        string library_id;
-        string tag;
-                                     
+        private string library_id;
+        private string tag;
+
         [NonSerialized]
-        Library library = null;
+        private Library library = null;
         public Library Library
         {
             get
@@ -43,14 +43,8 @@ namespace Qiqqa.Brainstorm.Nodes
 
         #region  --- Binding properties ------------------------------------
 
-        public string Tag
-        {
-            get
-            {
-                return tag;
-            }
-        }
-        
+        public string Tag => tag;
+
         #endregion
 
         public override bool Equals(object obj)
@@ -58,8 +52,8 @@ namespace Qiqqa.Brainstorm.Nodes
             PDFAutoTagNodeContent other = obj as PDFAutoTagNodeContent;
             if (null == other) return false;
 
-            if (this.library_id != other.library_id) return false;
-            if (this.tag != other.tag) return false;
+            if (library_id != other.library_id) return false;
+            if (tag != other.tag) return false;
 
             return true;
         }
@@ -67,8 +61,8 @@ namespace Qiqqa.Brainstorm.Nodes
         public override int GetHashCode()
         {
             int hash = 23;
-            hash = hash * 37 + this.library_id.GetHashCode();
-            hash = hash * 37 + this.tag.GetHashCode();
+            hash = hash * 37 + library_id.GetHashCode();
+            hash = hash * 37 + tag.GetHashCode();
             return hash;
         }
 

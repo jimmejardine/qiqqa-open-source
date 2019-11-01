@@ -4,7 +4,7 @@ namespace Utilities.Language
 {
     public class ReasonableWord
     {
-        static readonly char[] keyword_polish_characters = new char[]
+        private static readonly char[] keyword_polish_characters = new char[]
         {
             '"', '\'', '.', ':', ';', '!', '?', ',', '[', ']', '{', '}', '(', ')'
         };
@@ -27,7 +27,7 @@ namespace Utilities.Language
             }
 
             // Only accepts keywords that are letters, numbers, dash, quote
-            bool has_at_least_one_useful_char = false; 
+            bool has_at_least_one_useful_char = false;
             for (int i = 0; i < source_keyword.Length; ++i)
             {
                 if (
@@ -43,7 +43,7 @@ namespace Utilities.Language
                     return null;
                 }
 
-                
+
                 if (!has_at_least_one_useful_char)
                 {
                     if (Char.IsLetter(source_keyword, i) || Char.IsNumber(source_keyword, i))

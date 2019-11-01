@@ -10,13 +10,13 @@ namespace Qiqqa.Brainstorm.Nodes
     [Serializable]
     public class PDFAuthorNodeContent : ISearchable, IRecurrentNodeContent
     {
-        string library_id;
-        string surname;
-        string initial;
+        private string library_id;
+        private string surname;
+        private string initial;
 
 
         [NonSerialized]
-        Library library = null;
+        private Library library = null;
         public Library Library
         {
             get
@@ -47,21 +47,9 @@ namespace Qiqqa.Brainstorm.Nodes
 
         #region  --- Binding properties ------------------------------------
 
-        public string Surname
-        {
-            get
-            {
-                return surname;
-            }
-        }
+        public string Surname => surname;
 
-        public string Initial
-        {
-            get
-            {
-                return initial;
-            }
-        }
+        public string Initial => initial;
 
         public string SurnameAndInitial
         {
@@ -78,7 +66,7 @@ namespace Qiqqa.Brainstorm.Nodes
             }
         }
 
-        
+
         #endregion
 
         public override bool Equals(object obj)
@@ -86,9 +74,9 @@ namespace Qiqqa.Brainstorm.Nodes
             PDFAuthorNodeContent other = obj as PDFAuthorNodeContent;
             if (null == other) return false;
 
-            if (this.library_id != other.library_id) return false;
-            if (this.surname != other.surname) return false;
-            if (this.initial != other.initial) return false;
+            if (library_id != other.library_id) return false;
+            if (surname != other.surname) return false;
+            if (initial != other.initial) return false;
 
             return true;
         }
@@ -96,9 +84,9 @@ namespace Qiqqa.Brainstorm.Nodes
         public override int GetHashCode()
         {
             int hash = 23;
-            hash = hash * 37 + this.library_id.GetHashCode();
-            hash = hash * 37 + this.surname.GetHashCode();
-            if (null != initial) hash = hash * 37 + this.initial.GetHashCode();
+            hash = hash * 37 + library_id.GetHashCode();
+            hash = hash * 37 + surname.GetHashCode();
+            if (null != initial) hash = hash * 37 + initial.GetHashCode();
             return hash;
         }
     }

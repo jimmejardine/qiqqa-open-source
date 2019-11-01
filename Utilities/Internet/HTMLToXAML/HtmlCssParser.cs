@@ -20,7 +20,7 @@ namespace Utilities.Internet.HTMLToXAML
     // DependencyProperty
 
     // TextElement
-  
+
     internal static class HtmlCssParser
     {
         // .................................................................
@@ -318,7 +318,7 @@ namespace Utilities.Internet.HTMLToXAML
                 "ghostwhite", "gold", "goldenrod", "gray", "green", "greenyellow", "honeydew", "hotpink", "indianred",
                 "indigo", "ivory", "khaki", "lavender", "lavenderblush", "lawngreen", "lemonchiffon", "lightblue", "lightcoral",
                 "lightcyan", "lightgoldenrodyellow", "lightgreen", "lightgrey", "lightpink", "lightsalmon", "lightseagreen",
-                "lightskyblue", "lightslategray", "lightsteelblue", "lightyellow", "lime", "limegreen", "linen", "magenta", 
+                "lightskyblue", "lightslategray", "lightsteelblue", "lightyellow", "lime", "limegreen", "linen", "magenta",
                 "maroon", "mediumaquamarine", "mediumblue", "mediumorchid", "mediumpurple", "mediumseagreen", "mediumslateblue",
                 "mediumspringgreen", "mediumturquoise", "mediumvioletred", "midnightblue", "mintcream", "mistyrose", "moccasin",
                 "navajowhite", "navy", "oldlace", "olive", "olivedrab", "orange", "orangered", "orchid", "palegoldenrod",
@@ -825,7 +825,7 @@ namespace Utilities.Internet.HTMLToXAML
         {
             if (htmlElement != null)
             {
-                this.DiscoverStyleDefinitions(htmlElement);
+                DiscoverStyleDefinitions(htmlElement);
             }
         }
 
@@ -847,7 +847,7 @@ namespace Utilities.Internet.HTMLToXAML
                 {
                     if (htmlChildNode is XmlElement)
                     {
-                        this.DiscoverStyleDefinitions((XmlElement)htmlChildNode);
+                        DiscoverStyleDefinitions((XmlElement)htmlChildNode);
                     }
                 }
                 return;
@@ -903,7 +903,7 @@ namespace Utilities.Internet.HTMLToXAML
                     // Define a style
                     if (nextCharacterIndex - definitionStart > 2)
                     {
-                        this.AddStyleDefinition(
+                        AddStyleDefinition(
                             stylesheetBuffer.ToString(selectorStart, definitionStart - selectorStart),
                             stylesheetBuffer.ToString(definitionStart + 1, nextCharacterIndex - definitionStart - 2));
                     }
@@ -972,7 +972,7 @@ namespace Utilities.Internet.HTMLToXAML
             //  Add id processing for style selectors
             if (_styleDefinitions != null)
             {
-                for (int i = _styleDefinitions.Count - 1; i >= 0;  i--)
+                for (int i = _styleDefinitions.Count - 1; i >= 0; i--)
                 {
                     string selector = _styleDefinitions[i].Selector;
 
@@ -1048,8 +1048,8 @@ namespace Utilities.Internet.HTMLToXAML
         {
             public StyleDefinition(string selector, string definition)
             {
-                this.Selector = selector;
-                this.Definition = definition;
+                Selector = selector;
+                Definition = definition;
             }
 
             public string Selector;

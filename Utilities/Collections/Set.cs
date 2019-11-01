@@ -7,8 +7,8 @@ namespace Utilities.Collections
     [Obsolete("Use HashSet instead.", true)]
     public class Set<T> : IEnumerable, IEnumerable<T>
     {
-        static object DUMMY = new object();
-        Dictionary<T, object> set = new Dictionary<T, object>();
+        private static object DUMMY = new object();
+        private Dictionary<T, object> set = new Dictionary<T, object>();
 
         public void Add(T t)
         {
@@ -20,10 +20,7 @@ namespace Utilities.Collections
             return set.Remove(t);
         }
 
-        public int Count
-        {
-            get { return set.Count; }
-        }
+        public int Count => set.Count;
 
         public bool Contains(T t)
         {
@@ -43,33 +40,29 @@ namespace Utilities.Collections
 
     [Obsolete("Use HashSet instead.", true)]
     public class Set : IEnumerable
-	{
-        Object _dummy = new Object();
+    {
+        private Object _dummy = new Object();
+        private Hashtable _set;
 
-		Hashtable _set;
-		
-		public Set()
-		{
-			_set = new Hashtable();
-		}
+        public Set()
+        {
+            _set = new Hashtable();
+        }
 
         public void Add(object item)
-		{
+        {
             if (!_set.Contains(item))
             {
                 _set.Add(item, _dummy);
             }
         }
 
-		public void Remove(object item)
-		{
-			_set.Remove(item);
-		}
+        public void Remove(object item)
+        {
+            _set.Remove(item);
+        }
 
-		public int Count
-		{
-			get { return _set.Count; }
-		}
+        public int Count => _set.Count;
 
         public object Pop()
         {
@@ -91,9 +84,9 @@ namespace Utilities.Collections
             return _set.ContainsKey(item);
         }
 
-		public IEnumerator GetEnumerator()
-		{
-			return _set.Keys.GetEnumerator();
-		}
-	}
+        public IEnumerator GetEnumerator()
+        {
+            return _set.Keys.GetEnumerator();
+        }
+    }
 }

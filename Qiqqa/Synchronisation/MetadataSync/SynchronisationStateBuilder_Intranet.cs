@@ -4,7 +4,7 @@ using Qiqqa.DocumentLibrary.IntranetLibraryStuff;
 
 namespace Qiqqa.Synchronisation.MetadataSync
 {
-    class SynchronisationStateBuilder_Intranet
+    internal class SynchronisationStateBuilder_Intranet
     {
         internal static void BuildFromRemote(Library library, ref SynchronisationStates synchronisation_states)
         {

@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using Utilities.Collections;
 
 namespace Utilities.Maps.Geocode
@@ -49,7 +47,7 @@ namespace Utilities.Maps.Geocode
 
                         string postcode = parts[1];
                         string region = PostcodeToRegion(postcode);
-                        string sub_region = PostcodeToSubRegion(postcode);                        
+                        string sub_region = PostcodeToSubRegion(postcode);
                         string lat = parts[2];
                         string lon = parts[3];
                         string latlon = lat + ',' + lon;

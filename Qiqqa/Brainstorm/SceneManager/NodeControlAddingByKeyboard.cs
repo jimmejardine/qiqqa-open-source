@@ -7,9 +7,9 @@ using Qiqqa.Brainstorm.Nodes;
 
 namespace Qiqqa.Brainstorm.SceneManager
 {
-    class NodeControlAddingByKeyboard
+    internal class NodeControlAddingByKeyboard
     {
-        static void GetAdjoiningConnectors(SceneRenderingControl scene_rendering_control, NodeControl node_control_parent, out List<ConnectorControl> connectors_both, out List<ConnectorControl> connectors_to, out List<ConnectorControl> connectors_from)
+        private static void GetAdjoiningConnectors(SceneRenderingControl scene_rendering_control, NodeControl node_control_parent, out List<ConnectorControl> connectors_both, out List<ConnectorControl> connectors_to, out List<ConnectorControl> connectors_from)
         {
             connectors_both = new List<ConnectorControl>();
             connectors_to = new List<ConnectorControl>();
@@ -23,7 +23,7 @@ namespace Qiqqa.Brainstorm.SceneManager
                     connectors_both.Add(connector);
                     connectors_from.Add(connector);
                 }
-                if (connector.node_to == node_control_parent) 
+                if (connector.node_to == node_control_parent)
                 {
                     connectors_both.Add(connector);
                     connectors_to.Add(connector);
@@ -65,7 +65,7 @@ namespace Qiqqa.Brainstorm.SceneManager
             }
             else
             {
-                double angle = Math.PI * 140.0 / 180.0 * (1+connectors_from.Count);
+                double angle = Math.PI * 140.0 / 180.0 * (1 + connectors_from.Count);
                 double max_dimension = Math.Max(node_control_parent.scene_data.Width, node_control_parent.scene_data.Height);
                 direction_inbound.X = 1.5 * max_dimension * Math.Cos(angle);
                 direction_inbound.Y = 1.5 * max_dimension * Math.Sin(angle);
@@ -104,7 +104,7 @@ namespace Qiqqa.Brainstorm.SceneManager
 
             double left = node_control_parent.scene_data.CentreX + direction_outbound_rotated.X * CHILD_SHRINKAGE_FACTOR;
             double top = node_control_parent.scene_data.CentreY + direction_outbound_rotated.Y * CHILD_SHRINKAGE_FACTOR;
-            
+
             //xxxxxxxxxxxxxxxxxxxxxxxxx
             double width = node_control_parent.scene_data.Width * CHILD_SHRINKAGE_FACTOR;
             double height = node_control_parent.scene_data.Height * CHILD_SHRINKAGE_FACTOR;

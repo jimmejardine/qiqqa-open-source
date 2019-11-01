@@ -2,8 +2,8 @@
 //http://www.jamesharte.com/blog/?p=11
 
 using System.Diagnostics;
-using Microsoft.Win32;
 using System.Windows.Forms;
+using Microsoft.Win32;
 
 
 namespace DeploymentUtilities
@@ -31,9 +31,9 @@ namespace DeploymentUtilities
             string args = uninstallString.Substring(13);
 
             if (MessageBox.Show(
-                "You have an old ClickOnce version of Qiqqa installed.  To remove the previous version, a popup will appear - please select the 'Remove the application from this computer' option from the popup and then click OK.\n\nDo you want to proceed with the uninstall?\n\n(Note: your existing data will NOT be affected by the uninstall, and will be waiting for you after the new installation is complete.)", 
+                "You have an old ClickOnce version of Qiqqa installed.  To remove the previous version, a popup will appear - please select the 'Remove the application from this computer' option from the popup and then click OK.\n\nDo you want to proceed with the uninstall?\n\n(Note: your existing data will NOT be affected by the uninstall, and will be waiting for you after the new installation is complete.)",
                 "Uninstall Previous Qiqqa",
-                MessageBoxButtons.OKCancel, 
+                MessageBoxButtons.OKCancel,
                 MessageBoxIcon.Information) == DialogResult.OK)
             {
                 //start the uninstall; this will bring up the uninstall dialog 

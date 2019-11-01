@@ -9,12 +9,11 @@ namespace Qiqqa.Brainstorm.SceneManager
     /// <summary>
     /// Interaction logic for SelectedConnectorControl.xaml
     /// </summary>
-    public partial class SelectedConnectorControl : UserControl    
+    public partial class SelectedConnectorControl : UserControl
     {
-        ConnectorControl connector_control = null;
-
-        ConnectorControl.DimensionsChangedDelegate SelectedConnector_OnDimensionsChangedDelegate;
-        ConnectorControl.DeletedDelegate SelectedConnector_OnDeletedDelegate;
+        private ConnectorControl connector_control = null;
+        private ConnectorControl.DimensionsChangedDelegate SelectedConnector_OnDimensionsChangedDelegate;
+        private ConnectorControl.DeletedDelegate SelectedConnector_OnDeletedDelegate;
 
         public SelectedConnectorControl()
         {
@@ -23,29 +22,26 @@ namespace Qiqqa.Brainstorm.SceneManager
             SelectedConnector_OnDimensionsChangedDelegate = SelectedConnector_OnDimensionsChanged;
             SelectedConnector_OnDeletedDelegate = SelectedConnector_OnDeleted;
 
-            this.KeyDown += SelectedConnectorControl_KeyDown;
-            this.MouseDown += SelectedConnectorControl_MouseDown;
-            this.Focusable = true;
+            KeyDown += SelectedConnectorControl_KeyDown;
+            MouseDown += SelectedConnectorControl_MouseDown;
+            Focusable = true;
 
-            this.Visibility = Visibility.Collapsed;
+            Visibility = Visibility.Collapsed;
         }
 
-        void SelectedConnectorControl_MouseDown(object sender, MouseButtonEventArgs e)
+        private void SelectedConnectorControl_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Logging.Debug特("SelectedConnectorControl_MouseDown");
         }
 
-        void SelectedConnectorControl_KeyDown(object sender, KeyEventArgs e)
+        private void SelectedConnectorControl_KeyDown(object sender, KeyEventArgs e)
         {
             Logging.Debug特("SelectedConnectorControl_KeyDown");
         }
 
         public ConnectorControl Selected
         {
-            get
-            {
-                return connector_control;
-            }
+            get => connector_control;
 
             set
             {
@@ -70,35 +66,35 @@ namespace Qiqqa.Brainstorm.SceneManager
                     connector_control.OnDimensionsChanged += SelectedConnector_OnDimensionsChangedDelegate;
                     connector_control.OnDeleted += SelectedConnector_OnDeletedDelegate;
                 }
-                
+
                 // Are we visible or not?
                 if (null == connector_control)
                 {
-                    this.Visibility = Visibility.Collapsed;
+                    Visibility = Visibility.Collapsed;
                 }
                 else
                 {
                     SelectedConnector_OnDimensionsChanged(connector_control);
-                    this.Visibility = Visibility.Visible;
+                    Visibility = Visibility.Visible;
                 }
             }
         }
 
-        void SelectedConnector_OnDeleted(ConnectorControl cc)
+        private void SelectedConnector_OnDeleted(ConnectorControl cc)
         {
-            this.Selected = null;
+            Selected = null;
         }
 
-        void SelectedConnector_OnDimensionsChanged(ConnectorControl cc)
+        private void SelectedConnector_OnDimensionsChanged(ConnectorControl cc)
         {
             double SPACER = 4;
 
-            this.Width = cc.Width + SPACER + SPACER;
-            this.Height = cc.Height + SPACER + SPACER;
+            Width = cc.Width + SPACER + SPACER;
+            Height = cc.Height + SPACER + SPACER;
 
             Canvas.SetLeft(this, Canvas.GetLeft(cc) - SPACER);
             Canvas.SetTop(this, Canvas.GetTop(cc) - SPACER);
-            Canvas.SetZIndex(this, Canvas.GetZIndex(cc)+1);
+            Canvas.SetZIndex(this, Canvas.GetZIndex(cc) + 1);
         }
     }
 }

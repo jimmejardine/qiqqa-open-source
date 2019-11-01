@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Reflection;
 using Qiqqa.Synchronisation.BusinessLogic;
 
 namespace Qiqqa.Synchronisation.GUI
 {
-    class SyncControlGridItemSet
+    internal class SyncControlGridItemSet
     {
         internal LibrarySyncManager.SyncRequest sync_request;
         internal GlobalSyncDetail global_sync_detail;
@@ -42,7 +41,7 @@ namespace Qiqqa.Synchronisation.GUI
                 sync_control_grid_item.SyncDocuments = tick_this_library && tick_this_documents;
             }
         }
-        
+
         public bool CanRunWithoutIntervention()
         {
             // IF the user has explicitly asked for intervention...
@@ -50,7 +49,7 @@ namespace Qiqqa.Synchronisation.GUI
 
             bool nothing_to_do = true;
             bool needs_intervention = false;
-            
+
             foreach (SyncControlGridItem sync_control_grid_item in grid_items)
             {
                 // Check if there is anything preventing us

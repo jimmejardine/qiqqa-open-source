@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Media;
 using Qiqqa.Common.Configuration;
@@ -12,17 +11,17 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
 {
     public class HighlightsRenderer : Image
     {
-        int page;
-        PDFDocument pdf_document;        
+        private int page;
+        private PDFDocument pdf_document;
 
         public HighlightsRenderer()
         {
-            this.Opacity = ConfigurationManager.Instance.ConfigurationRecord.GUI_HighlightScreenTransparency;
+            Opacity = ConfigurationManager.Instance.ConfigurationRecord.GUI_HighlightScreenTransparency;
             SizeChanged += HighlightsRenderer_SizeChanged;
-            this.Stretch = Stretch.Fill;
+            Stretch = Stretch.Fill;
         }
 
-        void HighlightsRenderer_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void HighlightsRenderer_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             RebuildVisual();
         }
@@ -35,29 +34,29 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
             RebuildVisual();
         }
 
-        
+
         public void RebuildVisual()
         {
             //Logging.Info("+HighlightsRenderer RebuildVisual() on page {0}", page);
 
             if (null == pdf_document)
             {
-                this.Source = null;
+                Source = null;
                 return;
             }
 
-            if (double.IsNaN(this.Width) || double.IsNaN(this.Height))
+            if (double.IsNaN(Width) || double.IsNaN(Height))
             {
-                this.Source = null;
+                Source = null;
                 return;
             }
 
             // We use a smaller image than necessary as we do not need high resolution to represent the highlights
-            double scaled_capped_width = Math.Min(this.Width, 300);
-            double scaled_capped_height = this.Height * scaled_capped_width / this.Width;
+            double scaled_capped_width = Math.Min(Width, 300);
+            double scaled_capped_height = Height * scaled_capped_width / Width;
             using (Bitmap raster_bitmap = PDFOverlayRenderer.RenderHighlights((int)scaled_capped_width, (int)scaled_capped_height, pdf_document, page))
             {
-                this.Source = BitmapImageTools.FromBitmap(raster_bitmap);
+                Source = BitmapImageTools.FromBitmap(raster_bitmap);
             }
 
             //Logging.Info("-HighlightsRenderer RebuildVisual() on page {0}", page);

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -22,9 +21,10 @@ using Utilities;
 using Utilities.GUI;
 using Utilities.Language.TextIndexing;
 using Utilities.Misc;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.InCite
 {
@@ -33,8 +33,8 @@ namespace Qiqqa.InCite
     /// </summary>
     public partial class InCiteControl : UserControl
     {
-        WebLibraryDetail web_library_detail = null;
-        LibraryControl library_control = null;
+        private WebLibraryDetail web_library_detail = null;
+        private LibraryControl library_control = null;
 
         public InCiteControl()
         {
@@ -182,7 +182,7 @@ namespace Qiqqa.InCite
             WordConnector.Instance.ReissueContextChanged();
         }
 
-        void ButtonCustomAbbreviationsFilename_Click(object sender, RoutedEventArgs e)
+        private void ButtonCustomAbbreviationsFilename_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "Text files|*.txt" + "|" + "All files|*.*";
@@ -201,7 +201,7 @@ namespace Qiqqa.InCite
             }
         }
 
-        void ButtonLaunchWord_Click(object sender, RoutedEventArgs e)
+        private void ButtonLaunchWord_Click(object sender, RoutedEventArgs e)
         {
             // Check if the user wants to override their version of Word.
             if (KeyboardTools.IsCTRLDown())
@@ -239,14 +239,15 @@ namespace Qiqqa.InCite
             }
         }
 
-        void ObjHyperlinkFixWordConnection_Click(object sender, RoutedEventArgs e)
+        private void ObjHyperlinkFixWordConnection_Click(object sender, RoutedEventArgs e)
         {
             Process.Start(PDFDocumentCitingTools.BASE_REGISTRY_FIXES_DIRECTORY);
             e.Handled = true;
         }
 
         private bool already_told_about_popup = false;
-        void ButtonInCitePopup_Click(object sender, RoutedEventArgs e)
+
+        private void ButtonInCitePopup_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_OpenPopupFromToolbar);
 
@@ -259,7 +260,7 @@ namespace Qiqqa.InCite
             PopupInCiteControl.Popup();
         }
 
-        void ButtonFindUsedReferences_Click(object sender, RoutedEventArgs e)
+        private void ButtonFindUsedReferences_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_OpenFindUsedReferences);
             UsedCitationsControl ucc = new UsedCitationsControl();
@@ -267,7 +268,7 @@ namespace Qiqqa.InCite
             ucc.Refresh(DefaultLibrary);
         }
 
-        void ObjCitationClusterEditorControl_CitationClusterOpenPDFByReferenceKey(string reference_key)
+        private void ObjCitationClusterEditorControl_CitationClusterOpenPDFByReferenceKey(string reference_key)
         {
             CSLProcessorBibTeXFinder.MatchingBibTeXRecord matching_bibtex_record = CSLProcessorBibTeXFinder.LocateBibTexForCitationItem(reference_key, web_library_detail.library);
             if (null != matching_bibtex_record)
@@ -276,17 +277,17 @@ namespace Qiqqa.InCite
             }
         }
 
-        void ButtonEditCSL_Internal_Click(object sender, RoutedEventArgs e)
+        private void ButtonEditCSL_Internal_Click(object sender, RoutedEventArgs e)
         {
             MainWindowServiceDispatcher.Instance.OpenCSLEditor();
         }
 
-        void ButtonEditCSL_Web_Click(object sender, RoutedEventArgs e)
+        private void ButtonEditCSL_Web_Click(object sender, RoutedEventArgs e)
         {
             MainWindowServiceDispatcher.Instance.OpenCSLWebEditor();
         }
 
-        bool CheckThatLibraryAndStyleHaveBeenSelected()
+        private bool CheckThatLibraryAndStyleHaveBeenSelected()
         {
             string style_filename = ConfigurationManager.Instance.ConfigurationRecord.InCite_LastStyleFile;
             if (String.IsNullOrEmpty(style_filename))
@@ -295,7 +296,7 @@ namespace Qiqqa.InCite
                 return false;
             }
 
-            if (null == this.library_control)
+            if (null == library_control)
             {
                 MessageBoxes.Info("You need to please choose a library from the toolbar.  This library will be used to generate your citations.");
                 return false;
@@ -304,7 +305,7 @@ namespace Qiqqa.InCite
             return true;
         }
 
-        void ButtonCitationSnippetToClipboard_Click(object sender, RoutedEventArgs e)
+        private void ButtonCitationSnippetToClipboard_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_AddNewCitationSnippet);
 
@@ -363,7 +364,7 @@ namespace Qiqqa.InCite
             }
         }
 
-        void TextLibraryForCitations_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void TextLibraryForCitations_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_ChooseLibrary);
 
@@ -383,7 +384,7 @@ namespace Qiqqa.InCite
         private void ChooseNewLibrary(WebLibraryDetail web_library_detail)
         {
             this.web_library_detail = null;
-            this.library_control = null;
+            library_control = null;
             TextLibraryForCitations.Text = "Click to choose a library.";
             ObjLibraryControlPlaceholderRegion.Children.Clear();
 
@@ -392,7 +393,7 @@ namespace Qiqqa.InCite
                 this.web_library_detail = web_library_detail;
                 TextLibraryForCitations.Text = web_library_detail.Title;
 
-                this.library_control = new LibraryControl(web_library_detail.library);
+                library_control = new LibraryControl(web_library_detail.library);
                 library_control.ObjToolBarTray.Visibility = Visibility.Collapsed;
 
                 HolderForSearchBox.Children.Clear();
@@ -402,13 +403,13 @@ namespace Qiqqa.InCite
             }
         }
 
-        enum CSLFileSource
+        private enum CSLFileSource
         {
             TEXTBOX,
             STANDARD
         }
 
-        void CorrectStyleFilenameForNewDirectoryLocation()
+        private void CorrectStyleFilenameForNewDirectoryLocation()
         {
             // Get the style filename that is in the text box
             string style_filename = ConfigurationManager.Instance.ConfigurationRecord.InCite_LastStyleFile;
@@ -422,7 +423,7 @@ namespace Qiqqa.InCite
             }
         }
 
-        void ChooseCSLFile(CSLFileSource csl_file_source)
+        private void ChooseCSLFile(CSLFileSource csl_file_source)
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "CSL style files|*.csl" + "|" + "All files|*.*";
@@ -481,7 +482,7 @@ namespace Qiqqa.InCite
             }
         }
 
-        void TextStyleFilename_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void TextStyleFilename_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_ChooseOwnCSL);
 
@@ -489,7 +490,7 @@ namespace Qiqqa.InCite
             e.Handled = true;
         }
 
-        void ButtonCSLStandard_Click(object sender, RoutedEventArgs e)
+        private void ButtonCSLStandard_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_ChooseStandardCSL);
 
@@ -497,13 +498,13 @@ namespace Qiqqa.InCite
             e.Handled = true;
         }
 
-        void ButtonCSLDownload_Click(object sender, RoutedEventArgs e)
+        private void ButtonCSLDownload_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_BrowseZoteroCSL);
             MainWindowServiceDispatcher.Instance.OpenUrlInBrowser(WebsiteAccess.Url_ZoteroCSLRepository, true);
         }
 
-        void word_connector_CitationClusterChanged(CitationCluster context_citation_cluster)
+        private void word_connector_CitationClusterChanged(CitationCluster context_citation_cluster)
         {
             Logging.Debug特("InCite: CitationClusterChanged: {0}", context_citation_cluster);
 
@@ -514,19 +515,18 @@ namespace Qiqqa.InCite
             ));
         }
 
-        void ButtonToggleWatcher_Click(object sender, RoutedEventArgs e)
+        private void ButtonToggleWatcher_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_ToggleInCite);
 
             WordConnector.Instance.SetPaused(ButtonToggleWatcher.IsChecked ?? false);
         }
 
+        private object context_thread_lock = new object();
+        private bool context_thread_running = false;
+        private string context_thread_next_context = null;
 
-        object context_thread_lock = new object();
-        bool context_thread_running = false;
-        string context_thread_next_context = null;
-
-        void word_connector_ContextChanged(string context_word, string context_backward, string context_surround)
+        private void word_connector_ContextChanged(string context_word, string context_backward, string context_surround)
         {
             Logging.Debug特("InCite: ContextChanged");
 
@@ -549,7 +549,7 @@ namespace Qiqqa.InCite
             }
         }
 
-        void word_connector_ContextChanged_BACKGROUND_UpdateButtonEnabledness(string context_word, string context_backward, string context_surround)
+        private void word_connector_ContextChanged_BACKGROUND_UpdateButtonEnabledness(string context_word, string context_backward, string context_surround)
         {
             // If there is a null context, lets assume the buttons won't work...
             if (null == context_word)
@@ -679,7 +679,7 @@ namespace Qiqqa.InCite
             return context;
         }
 
-        void RecommendedCitationsMouseDown(object sender, MouseButtonEventArgs e)
+        private void RecommendedCitationsMouseDown(object sender, MouseButtonEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_ClickRecommended);
 
@@ -696,7 +696,7 @@ namespace Qiqqa.InCite
             return PDFDocumentCitingTools.GenerateCitationClusterFromPDFDocuments(selected_pdf_documents);
         }
 
-        void ButtonNewCitation_Click(object sender, RoutedEventArgs e)
+        private void ButtonNewCitation_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_AddNewCitation);
 
@@ -715,7 +715,7 @@ namespace Qiqqa.InCite
             e.Handled = true;
         }
 
-        void ButtonNewCitationSeparateAuthorYear_Click(object sender, RoutedEventArgs e)
+        private void ButtonNewCitationSeparateAuthorYear_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_AddNewCitation);
 
@@ -734,17 +734,14 @@ namespace Qiqqa.InCite
             e.Handled = true;
         }
 
-
-
-        void ObjCitationClusterEditorControl_CitationClusterChanged(CitationCluster citation_cluster)
+        private void ObjCitationClusterEditorControl_CitationClusterChanged(CitationCluster citation_cluster)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_EditCitationCluster);
 
             WordConnector.Instance.ModifyCitation(citation_cluster);
         }
 
-
-        void ButtonAddBibliography_Click(object sender, RoutedEventArgs e)
+        private void ButtonAddBibliography_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_AddNewBibliography);
 
@@ -753,7 +750,7 @@ namespace Qiqqa.InCite
             e.Handled = true;
         }
 
-        void ButtonAddCSLStats_Click(object sender, RoutedEventArgs e)
+        private void ButtonAddCSLStats_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_AddNewCSLStats);
 
@@ -762,7 +759,7 @@ namespace Qiqqa.InCite
             e.Handled = true;
         }
 
-        string GetStyleFilename()
+        private string GetStyleFilename()
         {
             CorrectStyleFilenameForNewDirectoryLocation();
 
@@ -790,7 +787,7 @@ namespace Qiqqa.InCite
             return style_filename;
         }
 
-        void ButtonRefresh_Click(object sender, RoutedEventArgs e)
+        private void ButtonRefresh_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_Refresh);
 
@@ -813,7 +810,7 @@ namespace Qiqqa.InCite
         {
             get
             {
-                Library default_library = (null != this.web_library_detail) ? this.web_library_detail.library : null;
+                Library default_library = (null != web_library_detail) ? web_library_detail.library : null;
                 return default_library;
             }
         }

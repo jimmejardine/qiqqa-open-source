@@ -3,11 +3,11 @@ using System.Text;
 
 namespace Utilities.Language
 {
-	/// <summary>
-	/// Summary description for Comparing.
-	/// </summary>
-	public class Comparing
-	{
+    /// <summary>
+    /// Summary description for Comparing.
+    /// </summary>
+    public class Comparing
+    {
         public static string ConvertInternationalToASCII(string international)
         {
             StringBuilder local = new StringBuilder();
@@ -21,7 +21,7 @@ namespace Utilities.Language
         }
 
         public static char ConvertInternationalToASCII(char international)
-        {            
+        {
             char c2 = Char.ToLower(international);
 
             if ("אבגדהוז×".IndexOf(c2) != -1) return 'a';
@@ -37,21 +37,21 @@ namespace Utilities.Language
         }
 
         public static bool isKeyboardCompatible(char c1, char c2)
-		{
-			// Some straightforward tests
-			if (c1 == c2) return true;
+        {
+            // Some straightforward tests
+            if (c1 == c2) return true;
 
-			// Case insensitive compare now
-			c1 = Char.ToLower(c1);
-			c2 = Char.ToLower(c2);
-			if (c1 == c2) return true;
+            // Case insensitive compare now
+            c1 = Char.ToLower(c1);
+            c2 = Char.ToLower(c2);
+            if (c1 == c2) return true;
 
             c1 = ConvertInternationalToASCII(c1);
             c2 = ConvertInternationalToASCII(c2);
             if (c1 == c2) return true;
 
-			// If nothing has matched so far, they must be different
-			return false;
-		}
-	}
+            // If nothing has matched so far, they must be different
+            return false;
+        }
+    }
 }

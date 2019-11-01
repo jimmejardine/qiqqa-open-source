@@ -12,11 +12,9 @@ namespace Qiqqa.Documents.Common
     public class DocumentQueuedStorer
     {
         public static DocumentQueuedStorer Instance = new DocumentQueuedStorer();
-
-        PeriodTimer period_flush = new PeriodTimer(new TimeSpan(0, 0, 1));
-
-        object documents_to_store_lock = new object();
-        Dictionary<string, PDFDocument> documents_to_store = new Dictionary<string, PDFDocument>();
+        private PeriodTimer period_flush = new PeriodTimer(new TimeSpan(0, 0, 1));
+        private object documents_to_store_lock = new object();
+        private Dictionary<string, PDFDocument> documents_to_store = new Dictionary<string, PDFDocument>();
 
         protected DocumentQueuedStorer()
         {
@@ -26,7 +24,7 @@ namespace Qiqqa.Documents.Common
             Utilities.Shutdownable.ShutdownableManager.Instance.Register(Shutdown);
         }
 
-        void DoMaintenance_FlushDocuments(Daemon daemon)
+        private void DoMaintenance_FlushDocuments(Daemon daemon)
         {
             if (Qiqqa.Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
             {
@@ -43,15 +41,16 @@ namespace Qiqqa.Documents.Common
             }
         }
 
-        void Shutdown()
+        private void Shutdown()
         {
             // **forced** flush!
             FlushDocuments(true);
         }
 
-        object flush_locker = new object();
-        bool _force_flush_requested = false;
-        bool ForcedFlushRequested
+        private object flush_locker = new object();
+        private bool _force_flush_requested = false;
+
+        private bool ForcedFlushRequested
         {
             get
             {
@@ -125,7 +124,7 @@ namespace Qiqqa.Documents.Common
                 }
             }
         }
-    
+
         public void Queue(PDFDocument pdf_document)
         {
             Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();

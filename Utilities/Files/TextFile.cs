@@ -4,8 +4,8 @@ using System.IO;
 
 namespace Utilities.Files
 {
-	public class TextFile
-	{
+    public class TextFile
+    {
         public static void SaveTextFile(String filename, String lines)
         {
             SaveTextFile(filename, new String[] { lines });
@@ -17,23 +17,23 @@ namespace Utilities.Files
         }
 
         public static void SaveTextFile(String filename, String[] lines)
-		{
-			using (StreamWriter sr = new StreamWriter(filename, false))
+        {
+            using (StreamWriter sr = new StreamWriter(filename, false))
             {
-				foreach (String line in lines)
-				{
-					sr.WriteLine(line);
-				}
+                foreach (String line in lines)
+                {
+                    sr.WriteLine(line);
+                }
             }
-		}
+        }
 
-		public static String[] LoadTextFile(String filename)
-		{
-			return LoadTextFile(filename, false, false);
-		}
+        public static String[] LoadTextFile(String filename)
+        {
+            return LoadTextFile(filename, false, false);
+        }
 
-		public static String[] LoadTextFile(String filename, bool skip_comments, bool skip_empties)
-		{
+        public static String[] LoadTextFile(String filename, bool skip_comments, bool skip_empties)
+        {
             List<string> result = new List<string>();
 
             using (StreamReader sr = FileOpener.openStreamReaderWithLocalCheck(filename))
@@ -51,13 +51,13 @@ namespace Utilities.Files
                     }
                 }
             }
-			
-			return result.ToArray();
-		}
 
-		public static bool isComment(string source)
-		{
-			return (source.StartsWith("//") || source.StartsWith("#"));
-		}
-	}
+            return result.ToArray();
+        }
+
+        public static bool isComment(string source)
+        {
+            return (source.StartsWith("//") || source.StartsWith("#"));
+        }
+    }
 }

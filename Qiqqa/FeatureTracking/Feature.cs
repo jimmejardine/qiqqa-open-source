@@ -16,9 +16,9 @@ namespace Qiqqa.UtilisationTracking
         {
             return new Feature
             {
-                Name = this.Name,
-                Category = this.Category,
-                Description = this.Description,
+                Name = Name,
+                Category = Category,
+                Description = Description,
                 RecordOnlyOncePerSession = false,
                 parameters = f_parameters
             };

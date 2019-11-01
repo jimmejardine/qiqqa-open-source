@@ -59,7 +59,7 @@ namespace Utilities.Internet
         }
 
         private static bool OpenBrowser_APPLICATION(string browser, string url)
-        {            
+        {
             try
             {
                 Process.Start(browser, url);

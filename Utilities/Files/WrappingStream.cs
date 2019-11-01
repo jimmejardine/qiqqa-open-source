@@ -29,37 +29,19 @@ namespace Utilities.Files
         /// Gets a value indicating whether the current stream supports reading.
         /// </summary>
         /// <returns><c>true</c> if the stream supports reading; otherwise, <c>false</c>.</returns>
-        public override bool CanRead
-        {
-            get
-            {
-                return m_streamBase == null ? false : m_streamBase.CanRead;
-            }
-        }
+        public override bool CanRead => m_streamBase == null ? false : m_streamBase.CanRead;
 
         /// <summary>
         /// Gets a value indicating whether the current stream supports seeking.
         /// </summary>
         /// <returns><c>true</c> if the stream supports seeking; otherwise, <c>false</c>.</returns>
-        public override bool CanSeek
-        {
-            get
-            {
-                return m_streamBase == null ? false : m_streamBase.CanSeek;
-            }
-        }
+        public override bool CanSeek => m_streamBase == null ? false : m_streamBase.CanSeek;
 
         /// <summary>
         /// Gets a value indicating whether the current stream supports writing.
         /// </summary>
         /// <returns><c>true</c> if the stream supports writing; otherwise, <c>false</c>.</returns>
-        public override bool CanWrite
-        {
-            get
-            {
-                return m_streamBase == null ? false : m_streamBase.CanWrite;
-            }
-        }
+        public override bool CanWrite => m_streamBase == null ? false : m_streamBase.CanWrite;
 
         /// <summary>
         /// Gets the length in bytes of the stream.
@@ -199,13 +181,7 @@ namespace Utilities.Files
         /// Gets the wrapped stream.
         /// </summary>
         /// <value>The wrapped stream.</value>
-        protected Stream WrappedStream
-        {
-            get
-            {
-                return m_streamBase;
-            }
-        }
+        protected Stream WrappedStream => m_streamBase;
 
         private int dispose_count = 0;
 
@@ -237,6 +213,6 @@ namespace Utilities.Files
             }
         }
 
-        Stream m_streamBase;
+        private Stream m_streamBase;
     }
 }

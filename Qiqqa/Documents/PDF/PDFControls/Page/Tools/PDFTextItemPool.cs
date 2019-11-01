@@ -8,9 +8,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
     public class PDFTextItemPool
     {
         public static PDFTextItemPool Instance = new PDFTextItemPool();
+        private Queue<PDFTextItem> pool = new Queue<PDFTextItem>();
 
-        Queue<PDFTextItem> pool = new Queue<PDFTextItem>();
-        
         private PDFTextItemPool()
         {
         }
@@ -42,7 +41,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
             foreach (PDFTextItem pdf_text_item in children_to_kill)
             {
                 children.Remove(pdf_text_item);
-                RecyclePDFTextItem(pdf_text_item);                
+                RecyclePDFTextItem(pdf_text_item);
             }
         }
     }

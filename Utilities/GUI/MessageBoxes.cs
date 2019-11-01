@@ -73,8 +73,8 @@ namespace Utilities.GUI
         public static bool AskErrorQuestion(string msg, bool isError, params object[] args)
         {
             string message = String.Format(msg, args);
-            DialogResult dialog_result = MessageBox.Show(message, isError? "Problem" :  "Question", MessageBoxButtons.YesNo, 
-                isError? MessageBoxIcon.Error : MessageBoxIcon.Question);
+            DialogResult dialog_result = MessageBox.Show(message, isError ? "Problem" : "Question", MessageBoxButtons.YesNo,
+                isError ? MessageBoxIcon.Error : MessageBoxIcon.Question);
             return (dialog_result == DialogResult.Yes);
         }
     }

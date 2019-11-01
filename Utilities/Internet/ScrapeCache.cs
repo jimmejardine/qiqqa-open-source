@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading;
 using Utilities.Files;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Utilities.Internet
 {
@@ -18,15 +18,15 @@ namespace Utilities.Internet
         private int throttle_ms;
         private Encoding encoding;
         private string userAgent;
-        
+
         private DateTime last_scrape_time = DateTime.MinValue;
-        
+
         public ScrapeCache(string base_directory, string user_agent, int throttle_ms, Encoding encoding = null)
         {
             this.base_directory = base_directory;
             this.throttle_ms = throttle_ms;
             this.encoding = encoding;
-            this.userAgent = user_agent;
+            userAgent = user_agent;
         }
 
         public IEnumerable<string> GetAllContentFilenames()
@@ -40,7 +40,7 @@ namespace Utilities.Internet
             return ReadFile(filename);
         }
 
-        public string ScrapeURLToFile(string url, bool force_download = false, Dictionary<string,string> additional_headers = null)
+        public string ScrapeURLToFile(string url, bool force_download = false, Dictionary<string, string> additional_headers = null)
         {
             string cache_key = StreamMD5.FromText(url);
             string directory = Path.GetFullPath(Path.Combine(base_directory, cache_key.Substring(0, 2)));
@@ -70,11 +70,11 @@ namespace Utilities.Internet
                             client.Headers.Add(pair.Key, pair.Value);
                         }
                     }
-                    if (!String.IsNullOrEmpty(this.userAgent))
+                    if (!String.IsNullOrEmpty(userAgent))
                     {
-                        client.Headers.Add("User-agent", this.userAgent);
+                        client.Headers.Add("User-agent", userAgent);
                     }
-                    
+
                     string temp_filename = filename + ".tmp";
                     try
                     {
@@ -84,13 +84,13 @@ namespace Utilities.Internet
                     {
                         File.WriteAllText(temp_filename, ex.ToString());
                     }
-                    
+
                     File.Delete(filename);
                     File.Move(temp_filename, filename);
                 }
 
                 string filename_manifest = Path.GetFullPath(Path.Combine(base_directory, @"manifest.txt"));
-                string manifest_line = String.Format("{0}\t{1}",cache_key, url);
+                string manifest_line = String.Format("{0}\t{1}", cache_key, url);
                 using (StreamWriter sw = File.AppendText(filename_manifest))
                 {
                     sw.WriteLine(manifest_line);

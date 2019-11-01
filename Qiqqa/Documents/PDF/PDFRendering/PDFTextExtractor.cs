@@ -19,9 +19,8 @@ namespace Qiqqa.Documents.PDF.PDFRendering
     public class PDFTextExtractor
     {
         public static PDFTextExtractor Instance = new PDFTextExtractor();
-
-        object still_running_lock = new object();
-        bool still_running;
+        private object still_running_lock = new object();
+        private bool still_running;
         public bool StillRunning
         {
             get
@@ -40,15 +39,14 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             }
         }
 
-        int NUM_OCR_THREADS;
-        Thread[] threads;
+        private int NUM_OCR_THREADS;
+        private Thread[] threads;
 
         private object queue_lock = new object();
-        Dictionary<string, Job> job_queue_group = new Dictionary<string, Job>();
-        Dictionary<string, Job> job_queue_single = new Dictionary<string, Job>();
-
-        HashSet<string> current_jobs_group = new HashSet<string>();
-        HashSet<string> current_jobs_single = new HashSet<string>();
+        private Dictionary<string, Job> job_queue_group = new Dictionary<string, Job>();
+        private Dictionary<string, Job> job_queue_single = new Dictionary<string, Job>();
+        private HashSet<string> current_jobs_group = new HashSet<string>();
+        private HashSet<string> current_jobs_single = new HashSet<string>();
 
         public void GetJobCounts(out int job_queue_group_count, out int job_queue_single_count)
         {
@@ -76,8 +74,8 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 this.page = page;
                 this.TEXT_PAGES_PER_GROUP = TEXT_PAGES_PER_GROUP;
 
-                this.force_job = false;
-                this.language = "";
+                force_job = false;
+                language = "";
             }
 
             public override string ToString()
@@ -87,14 +85,14 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
             public void Clear()
             {
-                this.pdf_renderer = null;
-                this.language = String.Empty;
+                pdf_renderer = null;
+                language = String.Empty;
             }
         }
 
-        class NextJob : IDisposable
+        private class NextJob : IDisposable
         {
-            PDFTextExtractor pdf_text_extractor;
+            private PDFTextExtractor pdf_text_extractor;
 
             public Job job;
             public bool is_group;
@@ -179,7 +177,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             }
         }
 
-        PDFTextExtractor()
+        private PDFTextExtractor()
         {
             ShutdownableManager.Instance.Register(Shutdown);
 
@@ -290,8 +288,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         }
 
         private DateTime ocr_disabled_next_notification_time = DateTime.MinValue;
-
-        const double TARGET_RATIO = 1.0;
+        private const double TARGET_RATIO = 1.0;
         // add noise to the ratio to ensure that the status update, which lists the counts, shows the activity by the numbers going up and down as the user watches
         private int prev_ocr_count = 0;
         private int prev_textify_count = 0;
@@ -490,7 +487,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             }
         }
 
-        void ThreadEntry()
+        private void ThreadEntry()
         {
             bool did_some_ocr_since_last_iteration = false;
 
@@ -572,11 +569,11 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                             // push the job onto the queue and start from the beginning:
                             if (next_job.is_group)
                             {
-                                this.QueueJobGroup(next_job.job);
+                                QueueJobGroup(next_job.job);
                             }
                             else
                             {
-                                this.QueueJobSingle(next_job.job);
+                                QueueJobSingle(next_job.job);
                             }
                             continue;
                         }
@@ -737,7 +734,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             }
         }
 
-        bool CheckOCRProcessSuccess(string ocr_parameters, int SECONDS_TO_WAIT)
+        private bool CheckOCRProcessSuccess(string ocr_parameters, int SECONDS_TO_WAIT)
         {
             // Fire up the process            
             using (Process process = ProcessSpawning.SpawnChildProcess("QiqqaOCR.exe", ocr_parameters, ProcessPriorityClass.BelowNormal))
@@ -790,7 +787,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             }
         }
 
-        void Shutdown()
+        private void Shutdown()
         {
             Logging.Info("Stopping PDFTextExtractor threads");
             StillRunning = false;

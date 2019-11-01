@@ -8,14 +8,13 @@ namespace Qiqqa.Brainstorm.Nodes
     public class NodeContentControlRegistry
     {
         public static NodeContentControlRegistry Instance = new NodeContentControlRegistry();
+        private Dictionary<Type, Type> registry_controls = new Dictionary<Type, Type>();
+        private Dictionary<Type, Type> registry_editors = new Dictionary<Type, Type>();
 
-        Dictionary<Type, Type> registry_controls = new Dictionary<Type, Type>();
-        Dictionary<Type, Type> registry_editors = new Dictionary<Type, Type>();
-        
-        NodeContentControlRegistry()
+        private NodeContentControlRegistry()
         {
             RegisterNodeContentControls();
-            RegisterNodeEditorControls();      
+            RegisterNodeEditorControls();
         }
 
         public void RegisterNodeContentControl(Type node_content_type, Type node_content_control_type)

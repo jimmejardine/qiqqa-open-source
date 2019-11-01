@@ -28,31 +28,31 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
             CmdAddFolder.Click += CmdAddFolder_Click;
 
-            this.Title = "Watch Folders";
+            Title = "Watch Folders";
 
-            this.Header.Caption = "Watch Folders";
-            this.Header.SubCaption = "When you save a PDF into any of the specified folders, it will automatically be added to your library.  You can optionally automatically associate tags with files from each folder.";
-            this.Header.Img = Icons.GetAppIcon(Icons.DocumentsWatchFolder);
+            Header.Caption = "Watch Folders";
+            Header.SubCaption = "When you save a PDF into any of the specified folders, it will automatically be added to your library.  You can optionally automatically associate tags with files from each folder.";
+            Header.Img = Icons.GetAppIcon(Icons.DocumentsWatchFolder);
 
-            this.btnOk.Icon = Icons.GetAppIcon(Icons.Save);
-            this.btnCancel.Icon = Icons.GetAppIcon(Icons.Cancel);
+            btnOk.Icon = Icons.GetAppIcon(Icons.Save);
+            btnCancel.Icon = Icons.GetAppIcon(Icons.Cancel);
 
             TxtFolders.Text = _library.WebLibraryDetail.FolderToWatch;
             TxtFolders.TextChanged += TxtFolders_TextChanged;
         }
 
-        void TxtFolders_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void TxtFolders_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
             string[] rows = TxtFolders.Text.Split(new char[] { '\r', '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
         }
 
-        void CmdResetHistory_Click(object sender, RoutedEventArgs e)
+        private void CmdResetHistory_Click(object sender, RoutedEventArgs e)
         {
             _library.FolderWatcherManager.ResetHistory();
             MessageBoxes.Info("Your folder watching history has been reset.");
         }
 
-        void CmdAddFolder_Click(object sender, RoutedEventArgs e)
+        private void CmdAddFolder_Click(object sender, RoutedEventArgs e)
         {
             using (FolderBrowserDialog dlg = new FolderBrowserDialog
             {
@@ -76,17 +76,17 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             }
         }
 
-        void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
-        void btnOk_Click(object sender, RoutedEventArgs e)
+        private void btnOk_Click(object sender, RoutedEventArgs e)
         {
             _library.WebLibraryDetail.FolderToWatch = TxtFolders.Text;
             WebLibraryManager.Instance.NotifyOfChangeToWebLibraryDetail();
 
-            this.Close();
+            Close();
         }
 
         protected override void OnClosing(CancelEventArgs e)

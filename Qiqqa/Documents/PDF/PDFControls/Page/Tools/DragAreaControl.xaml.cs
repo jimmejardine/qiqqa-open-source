@@ -26,7 +26,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
             SizeChanged += DragAreaControl_SizeChanged;
         }
 
-        void DragAreaControl_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void DragAreaControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             Border.Width = e.NewSize.Width;
             Border.Height = e.NewSize.Height;

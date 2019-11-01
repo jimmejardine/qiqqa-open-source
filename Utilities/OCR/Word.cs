@@ -23,21 +23,9 @@ namespace Utilities.OCR
                 Height);
         }
 
-        public double Right
-        {
-            get
-            {
-                return Left + Width;
-            }
-        }
+        public double Right => Left + Width;
 
-        public double Bottom
-        {
-            get
-            {
-                return Top + Height;
-            }
-        }
+        public double Bottom => Top + Height;
 
         public bool Contains(double left, double top)
         {
@@ -51,10 +39,10 @@ namespace Utilities.OCR
             double bottom = top + height;
             return
                 true
-                && this.Right >= left
-                && this.Bottom >= top
-                && this.Left <= right
-                && this.Top <= bottom
+                && Right >= left
+                && Bottom >= top
+                && Left <= right
+                && Top <= bottom
                 ;
         }
 
@@ -63,10 +51,10 @@ namespace Utilities.OCR
         {
             return
                 true
-                && this.Right >= left + width / 2
-                && this.Bottom >= top + height / 2
-                && this.Left <= left + width / 2
-                && this.Top <= top + height / 2
+                && Right >= left + width / 2
+                && Bottom >= top + height / 2
+                && Left <= left + width / 2
+                && Top <= top + height / 2
                 ;
         }
 
@@ -79,10 +67,10 @@ namespace Utilities.OCR
 
             return
                 true
-                && right >= this.Right
-                && bottom >= this.Bottom
-                && left <= this.Left
-                && top <= this.Top
+                && right >= Right
+                && bottom >= Bottom
+                && left <= Left
+                && top <= Top
                 ;
         }
     }

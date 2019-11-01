@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
 using Qiqqa.DocumentLibrary;
-using Qiqqa.UtilisationTracking;
 using Qiqqa.Documents.PDF.ThreadUnsafe;
+using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.Files;
 
@@ -31,7 +31,7 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
                     highlights_data = library_items[0].data;
                 }
             }
-            
+
             if (null != highlights_data)
             {
                 try
@@ -89,7 +89,7 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
                 pdf_document.Library.LibraryDB.PutString(pdf_document.Fingerprint, PDFDocumentFileLocations.HIGHLIGHTS, json);
             }
         }
-        
+
         #endregion --------------------------------------------------------------------------------------------------------------------------------------------
     }
 }

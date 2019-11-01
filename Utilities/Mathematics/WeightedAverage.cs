@@ -4,8 +4,8 @@ namespace Utilities.Mathematics
 {
     public class WeightedAverage
     {
-        double numerator = 0;
-        double denominator = 0;
+        private double numerator = 0;
+        private double denominator = 0;
 
         public WeightedAverage()
         {
@@ -18,13 +18,7 @@ namespace Utilities.Mathematics
             denominator += weight;
         }
 
-        public double Current
-        {
-            get
-            {
-                return numerator / denominator;
-            }
-        }
+        public double Current => numerator / denominator;
 
         public void Reset()
         {

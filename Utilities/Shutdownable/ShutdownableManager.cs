@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 
 namespace Utilities.Shutdownable
@@ -10,10 +10,10 @@ namespace Utilities.Shutdownable
         public static ShutdownableManager Instance = new ShutdownableManager();
         public delegate void ShutdownDelegate();
 
-        List<ShutdownDelegate> shutdown_delegates = new List<ShutdownDelegate>();
-        object shutdown_delegates_lock = new object();
+        private List<ShutdownDelegate> shutdown_delegates = new List<ShutdownDelegate>();
+        private object shutdown_delegates_lock = new object();
 
-        ShutdownableManager()
+        private ShutdownableManager()
         {
             Logging.Info("Creating ShutdownableManager");
         }
@@ -40,10 +40,10 @@ namespace Utilities.Shutdownable
                 lock (is_being_shut_down_lock)
                 {
                     //l1_clk.LockPerfTimerStop();
-					//if (System.Windows.Threading.Dispatcher.CurrentDispatcher != Application.Current?.Dispatcher)
-					//{
-					//	Logging.Error(new Exception("Unexpected results"), "woops");
-					//}
+                    //if (System.Windows.Threading.Dispatcher.CurrentDispatcher != Application.Current?.Dispatcher)
+                    //{
+                    //	Logging.Error(new Exception("Unexpected results"), "woops");
+                    //}
 
                     bool app_shuts_down = (null == Application.Current
                         || null == Application.Current.Dispatcher
@@ -72,7 +72,7 @@ namespace Utilities.Shutdownable
         {
             Logging.Info("ShutdownableManager is shutting down all shutdownables:");
 
-            this.IsShuttingDown = true;
+            IsShuttingDown = true;
 
             while (true)
             {

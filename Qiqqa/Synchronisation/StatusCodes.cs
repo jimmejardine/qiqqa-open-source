@@ -2,10 +2,10 @@
 
 namespace Qiqqa.Synchronisation
 {
-    class StatusCodes
+    internal class StatusCodes
     {
         internal static readonly string SYNC_META_GLOBAL = "SYNC_META";
-        
+
         internal static string SYNC_META(Library library)
         {
             return "SYNC_META:" + library.WebLibraryDetail.Id;

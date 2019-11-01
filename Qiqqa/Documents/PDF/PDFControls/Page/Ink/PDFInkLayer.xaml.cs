@@ -18,8 +18,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
     /// </summary>
     public partial class PDFInkLayer : PageLayer, IDisposable
     {
-        PDFRendererControlStats pdf_renderer_control_stats;
-        int page;
+        private PDFRendererControlStats pdf_renderer_control_stats;
+        private int page;
 
         public PDFInkLayer(PDFRendererControlStats pdf_renderer_control_stats, int page)
         {
@@ -30,7 +30,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
 
             KeyboardNavigation.SetDirectionalNavigation(this, KeyboardNavigationMode.Contained);
 
-            this.SizeChanged += PDFInkLayer_SizeChanged;
+            SizeChanged += PDFInkLayer_SizeChanged;
 
             ObjInkCanvas.StrokeCollected += ObjInkCanvas_StrokeCollected;
             ObjInkCanvas.StrokeErased += ObjInkCanvas_StrokeErased;
@@ -50,7 +50,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
             return (null != stroke_collection);
         }
 
-        void ObjInkCanvas_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
+        private void ObjInkCanvas_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
         {
             // Don't automatically bring into view when clicked - it draws a long ugly pen line...
             e.Handled = true;
@@ -61,11 +61,11 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
             StrokeCollection stroke_collection = pdf_ink_list.GetInkStrokeCollection(page);
             if (null != stroke_collection)
             {
-                this.ObjInkCanvas.Strokes = stroke_collection;
+                ObjInkCanvas.Strokes = stroke_collection;
             }
         }
 
-        bool HaveStrokes()
+        private bool HaveStrokes()
         {
             return ObjInkCanvas.Strokes.Count > 0;
         }
@@ -85,27 +85,27 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
             }
         }
 
-        void ObjInkCanvas_SelectionResized(object sender, EventArgs e)
+        private void ObjInkCanvas_SelectionResized(object sender, EventArgs e)
         {
             InkChanged();
         }
 
-        void ObjInkCanvas_SelectionMoved(object sender, EventArgs e)
+        private void ObjInkCanvas_SelectionMoved(object sender, EventArgs e)
         {
             InkChanged();
         }
 
-        void ObjInkCanvas_StrokeErased(object sender, RoutedEventArgs e)
+        private void ObjInkCanvas_StrokeErased(object sender, RoutedEventArgs e)
         {
             InkChanged();
         }
 
-        void ObjInkCanvas_StrokeCollected(object sender, InkCanvasStrokeCollectedEventArgs e)
+        private void ObjInkCanvas_StrokeCollected(object sender, InkCanvasStrokeCollectedEventArgs e)
         {
             InkChanged();
         }
 
-        void InkChanged()
+        private void InkChanged()
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Document_InkChanged);
 
@@ -117,10 +117,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
             }
         }
 
-        void PDFInkLayer_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void PDFInkLayer_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            ObjBaseGrid.Width = this.ActualWidth;
-            ObjBaseGrid.Height = this.ActualHeight;
+            ObjBaseGrid.Width = ActualWidth;
+            ObjBaseGrid.Height = ActualHeight;
         }
 
         internal void RaiseInkChange(InkCanvasEditingMode inkCanvasEditingMode)
@@ -198,13 +198,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
                     {
                         Logging.Error(ex);
                     }
-                }, this.Dispatcher);
+                }, Dispatcher);
             }
 
             // Clear the references for sanity's sake
             pdf_renderer_control_stats = null;
 
-            this.DataContext = null;
+            DataContext = null;
 
             ++dispose_count;
 

@@ -17,12 +17,12 @@ namespace Utilities.GUI
             this.fe = fe;
 
             // Initialise to match
-            this._shadow_Left = Canvas.GetLeft(fe);
-            this._shadow_Top = Canvas.GetTop(fe);
-            this._shadow_Width = fe.Width;
-            this._shadow_Height = fe.Height;            
-            this._shadow_Opacity = fe.Opacity;
-            this._shadow_IsHitTestVisible = fe.IsHitTestVisible;
+            _shadow_Left = Canvas.GetLeft(fe);
+            _shadow_Top = Canvas.GetTop(fe);
+            _shadow_Width = fe.Width;
+            _shadow_Height = fe.Height;
+            _shadow_Opacity = fe.Opacity;
+            _shadow_IsHitTestVisible = fe.IsHitTestVisible;
         }
 
         private double _shadow_Left = double.NaN;

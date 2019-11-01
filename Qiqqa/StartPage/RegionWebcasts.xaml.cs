@@ -36,7 +36,7 @@ namespace Qiqqa.StartPage
             HyperlinkForums.Click += HyperlinkForums_Click;
         }
 
-        void HyperlinkForums_Click(object sender, RoutedEventArgs e)
+        private void HyperlinkForums_Click(object sender, RoutedEventArgs e)
         {
             WebsiteAccess.OpenWebsite(WebsiteAccess.Url_Forums);
         }
