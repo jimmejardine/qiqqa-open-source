@@ -8,8 +8,8 @@ namespace Utilities.GUI
 {
     public class AugmentedScrollViewer : ScrollViewer
     {
-        const double INITIAL_ARROW_SCROLL_SIZE = 20;
-        const double ARROW_SCROLL_SIZE_DELTA = 2;
+        private const double INITIAL_ARROW_SCROLL_SIZE = 20;
+        private const double ARROW_SCROLL_SIZE_DELTA = 2;
 
         // the current scroll speed accelleration
         private double arrow_scroll_size = 10;
@@ -18,26 +18,26 @@ namespace Utilities.GUI
         {
             if (e.Key == Key.Up)
             {
-                this.SmoothScroll(new Point(0, 0), new Point(0, -arrow_scroll_size));
+                SmoothScroll(new Point(0, 0), new Point(0, -arrow_scroll_size));
                 // accellerate scrolling while the user keeps the key depressed
                 arrow_scroll_size += ARROW_SCROLL_SIZE_DELTA;
                 e.Handled = true;
             }
             else if (e.Key == Key.Down)
             {
-                this.SmoothScroll(new Point(0, 0), new Point(0, arrow_scroll_size));
+                SmoothScroll(new Point(0, 0), new Point(0, arrow_scroll_size));
                 // accellerate scrolling while the user keeps the key depressed
                 arrow_scroll_size += ARROW_SCROLL_SIZE_DELTA;
                 e.Handled = true;
             }
             else if (e.Key == Key.Home)
             {
-                this.ScrollToVerticalOffset(0);
+                ScrollToVerticalOffset(0);
                 e.Handled = true;
             }
             else if (e.Key == Key.End)
             {
-                this.ScrollToVerticalOffset(Double.PositiveInfinity);
+                ScrollToVerticalOffset(Double.PositiveInfinity);
                 e.Handled = true;
             }
             else
@@ -62,11 +62,11 @@ namespace Utilities.GUI
         {
             if (delta.X != 0)
             {
-                this.ScrollToHorizontalOffset(this.HorizontalOffset + delta.X);
+                ScrollToHorizontalOffset(HorizontalOffset + delta.X);
             }
             if (delta.Y != 0)
             {
-                this.ScrollToVerticalOffset(this.VerticalOffset + delta.Y);
+                ScrollToVerticalOffset(VerticalOffset + delta.Y);
             }
         }
 
@@ -76,9 +76,9 @@ namespace Utilities.GUI
             BackgroundQueueRollAfterDrag(gamma);
         }
 
-        object thread_lock = new object();
-        Point current_scroll_gamma = new Point();
-        bool is_someone_scrolling = false;
+        private object thread_lock = new object();
+        private Point current_scroll_gamma = new Point();
+        private bool is_someone_scrolling = false;
 
         private void BackgroundQueueRollAfterDrag(Point gamma)
         {
@@ -114,7 +114,7 @@ namespace Utilities.GUI
                 l1_clk.LockPerfTimerStop();
                 if (Math.Abs(current_scroll_gamma.X) < ROLL_THRESHOLD && Math.Abs(current_scroll_gamma.Y) < ROLL_THRESHOLD)
                 {
-                    is_someone_scrolling = false;                    
+                    is_someone_scrolling = false;
                 }
                 else
                 {

@@ -3,9 +3,10 @@ using System.IO;
 using Qiqqa.Common.Configuration;
 using Utilities;
 using Utilities.Files;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Documents.PDF.PDFRendering
 {
@@ -18,18 +19,17 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             Directory.CreateDirectory(BASE_PATH_DEFAULT);
         }
 
-        string fingerprint;
-        string pdf_filename;
-
-        int num_pages;
-        int num_pages_calc_try_count;
+        private string fingerprint;
+        private string pdf_filename;
+        private int num_pages;
+        private int num_pages_calc_try_count;
 
         public PDFRendererFileLayer(string fingerprint, string pdf_filename)
         {
             this.fingerprint = fingerprint;
             this.pdf_filename = pdf_filename;
-            this.num_pages = 0; // CountPDFPages();
-            this.num_pages_calc_try_count = 0;
+            num_pages = 0; // CountPDFPages();
+            num_pages_calc_try_count = 0;
         }
 
         /// <summary>

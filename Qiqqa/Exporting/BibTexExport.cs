@@ -8,7 +8,7 @@ using Qiqqa.UtilisationTracking;
 
 namespace Qiqqa.Exporting
 {
-    class BibTexExport
+    internal class BibTexExport
     {
         internal static void Export(List<PDFDocument> pdf_documents)
         {

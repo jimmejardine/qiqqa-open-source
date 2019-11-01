@@ -14,8 +14,8 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
     /// </summary>
     public partial class BlackWhiteListEditorWindow : StandardWindow
     {
-        Library library;
-        List<BlackWhiteListEntry> entries;
+        private Library library;
+        private List<BlackWhiteListEntry> entries;
 
         public BlackWhiteListEditorWindow()
         {
@@ -35,16 +35,16 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
             CmdCancel.Click += CmdCancel_Click;
         }
 
-        void CmdCancel_Click(object sender, RoutedEventArgs e)
+        private void CmdCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
-        void CmdSave_Click(object sender, RoutedEventArgs e)
+        private void CmdSave_Click(object sender, RoutedEventArgs e)
         {
             List<BlackWhiteListEntry> new_entries = ProcessNewUserEntries();
             library.BlackWhiteListManager.WriteList(new_entries);
-            this.Close();
+            Close();
         }
 
         private List<BlackWhiteListEntry> ProcessNewUserEntries()
@@ -60,7 +60,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
             // Process the two new lists entries
             ProcessNewUserEntries_AddEntries(new_entries, TxtWhite, BlackWhiteListEntry.ListType.White);
             ProcessNewUserEntries_AddEntries(new_entries, TxtBlack, BlackWhiteListEntry.ListType.Black);
-            
+
             return new_entries;
         }
 
@@ -104,15 +104,15 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
         public void SetLibrary(Library library_)
         {
             // Reset the screen
-            this.library = null;
-            this.entries = null;
-            this.TxtWhite.Text = "";
-            this.TxtBlack.Text = "";
-            
+            library = null;
+            entries = null;
+            TxtWhite.Text = "";
+            TxtBlack.Text = "";
+
             // Reflect the library
             if (null != library)
             {
-                this.library = library_;
+                library = library_;
                 entries = library_.BlackWhiteListManager.ReadList();
                 foreach (var entry in entries)
                 {
@@ -120,7 +120,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
                     {
                         continue;
                     }
-                                  
+
                     switch (entry.list_type)
                     {
                         case BlackWhiteListEntry.ListType.White:

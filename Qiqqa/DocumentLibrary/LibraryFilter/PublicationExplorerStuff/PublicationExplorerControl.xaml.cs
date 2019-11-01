@@ -22,7 +22,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.PublicationExplorerStuff
         {
             InitializeComponent();
 
-            this.ToolTip = "Here are the Publications of your documents.  " + GenericLibraryExplorerControl.YOU_CAN_FILTER_TOOLTIP;
+            ToolTip = "Here are the Publications of your documents.  " + GenericLibraryExplorerControl.YOU_CAN_FILTER_TOOLTIP;
 
             TagExplorerTree.DescriptionTitle = "Publication";
 
@@ -37,13 +37,10 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.PublicationExplorerStuff
 
         public Library Library
         {
-            get
-            {
-                return library;
-            }
+            get => library;
             set
             {
-                this.library = value;
+                library = value;
                 TagExplorerTree.Library = value;
             }
         }
@@ -77,12 +74,12 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.PublicationExplorerStuff
             return tags_with_fingerprints;
         }
 
-        void TagExplorerTree_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
+        private void TagExplorerTree_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
         {
             OnTagSelectionChanged?.Invoke(fingerprints, descriptive_span);
         }
 
-        void OnItemPopup(Library library, string item_tag)
+        private void OnItemPopup(Library library, string item_tag)
         {
             PublicationExplorerItemPopup popup = new PublicationExplorerItemPopup(library, item_tag);
             popup.Open();

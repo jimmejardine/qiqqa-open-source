@@ -7,9 +7,9 @@ namespace Utilities.GUI
     {
         public AugmentedToolBarButton() : base()
         {
-            this.Background = null;
-            this.BorderBrush = null;
-            this.Style = FindResource(ToolBar.ButtonStyleKey) as Style;
+            Background = null;
+            BorderBrush = null;
+            Style = FindResource(ToolBar.ButtonStyleKey) as Style;
         }
     }
 }

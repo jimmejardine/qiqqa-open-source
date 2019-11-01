@@ -5,18 +5,18 @@ using Utilities.OCR;
 
 namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
 {
-    class SelectedWordsToFormattedTextConvertor
+    internal class SelectedWordsToFormattedTextConvertor
     {
         private static List<List<Word>> CreateRows(List<Word> words)
         {
             List<List<Word>> words_in_rows = new List<List<Word>>();
-            
+
 
             // Start the algo in the top-right corner, so the next word is guaranteed to be a new line...
             List<Word> current_row = new List<Word>();
             double last_left = 1;
             double last_top = 0;
-            
+
             foreach (var word in words)
             {
                 if (word.Left < last_left && word.Top > last_top)
@@ -130,7 +130,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
             {
                 return CreateSpacedText(words_in_rows);
             }
-            
+
             // If all rows have the same number of words, we are DONE!  WISHFUL!
             if (true)
             {
@@ -142,10 +142,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
             }
 
             // Perhaps the first row is lacking a few headers...
-            if (true) 
+            if (true)
             {
                 int common_word_count_for_non_headers = GetCommonWordCountPerRow(words_in_rows, 1, words_in_rows.Count);
-                
+
                 // If all the "non header data" has the same length, then smash up the first row till it matches...
                 if (-1 != common_word_count_for_non_headers)
                 {

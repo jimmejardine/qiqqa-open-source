@@ -5,7 +5,7 @@ namespace icons
 {
     public static class Backgrounds
     {
-        static readonly string module_name = typeof(Icons).Assembly.GetName().Name;
+        private static readonly string module_name = typeof(Icons).Assembly.GetName().Name;
 
         public static readonly string ExceptionDialogBackground = "ExceptionDialogBackground.jpg";
 

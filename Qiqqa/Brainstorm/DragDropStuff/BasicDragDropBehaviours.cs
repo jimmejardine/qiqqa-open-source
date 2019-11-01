@@ -8,10 +8,10 @@ namespace Qiqqa.Brainstorm.DragDropStuff
     /// <summary>
     /// Manages several of the Qiqqa-wide drag and drop behaviours that Qiqqa brainstorming supports by default.
     /// </summary>
-    class BasicDragDropBehaviours
+    internal class BasicDragDropBehaviours
     {
-        DragDropManager drag_drop_manager;
-        
+        private DragDropManager drag_drop_manager;
+
         internal BasicDragDropBehaviours(DragDropManager drag_drop_manager)
         {
             this.drag_drop_manager = drag_drop_manager;
@@ -24,14 +24,14 @@ namespace Qiqqa.Brainstorm.DragDropStuff
             drag_drop_manager.RegisterDropType(typeof(PDFAnnotation), OnDrop_PDFAnnotation);
         }
 
-        void OnDrop_PDFDocument(object drop_object, Point mouse_current_virtual)
+        private void OnDrop_PDFDocument(object drop_object, Point mouse_current_virtual)
         {
             PDFDocument pdf_document = (PDFDocument)drop_object;
             PDFDocumentNodeContent document_node_content = new PDFDocumentNodeContent(pdf_document.Fingerprint, pdf_document.Library.WebLibraryDetail.Id);
             drag_drop_manager.SceneRenderingControl.AddNewNodeControl(document_node_content, mouse_current_virtual.X, mouse_current_virtual.Y);
         }
 
-        void OnDrop_PDFDocumentList(object drop_object, Point mouse_current_virtual)
+        private void OnDrop_PDFDocumentList(object drop_object, Point mouse_current_virtual)
         {
             List<PDFDocument> pdf_documents = (List<PDFDocument>)drop_object;
 
@@ -47,7 +47,7 @@ namespace Qiqqa.Brainstorm.DragDropStuff
 
         }
 
-        void OnDrop_PDFAnnotation(object drop_object, Point mouse_current_virtual)
+        private void OnDrop_PDFAnnotation(object drop_object, Point mouse_current_virtual)
         {
             PDFAnnotation pdf_annotation = (PDFAnnotation)drop_object;
             PDFAnnotationNodeContent panc = new PDFAnnotationNodeContent(null, pdf_annotation.DocumentFingerprint, pdf_annotation.Guid.Value);

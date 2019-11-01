@@ -14,7 +14,7 @@ namespace Qiqqa.WebBrowsing
     /// </summary>
     public partial class WebBrowserControl : UserControl, IDisposable
     {
-        WebBrowserHostControl web_browser_host_control;
+        private WebBrowserHostControl web_browser_host_control;
 
         public WebBrowserControl(WebBrowserHostControl web_browser_host_control)
         {
@@ -32,26 +32,26 @@ namespace Qiqqa.WebBrowsing
             ObjWebBrowser.StatusTextChanged += ObjWebBrowser_StatusTextChanged;
         }
 
-        void ObjWebBrowser_CreateWindow(object sender, GeckoCreateWindowEventArgs e)
+        private void ObjWebBrowser_CreateWindow(object sender, GeckoCreateWindowEventArgs e)
         {
             WebBrowserHostControl wbhc = MainWindowServiceDispatcher.Instance.OpenWebBrowser();
             WebBrowserControl wbc = wbhc.OpenNewWindow();
             e.WebBrowser = wbc.ObjWebBrowser;
         }
 
-        void ObjWebBrowser_StatusTextChanged(object sender, EventArgs e)
+        private void ObjWebBrowser_StatusTextChanged(object sender, EventArgs e)
         {
             GeckoWebBrowser web_control = (GeckoWebBrowser)sender;
             StatusManager.Instance.UpdateStatus("WebBrowser", web_control.StatusText);
             Logging.Info("Browser:StatusTextChanged: {0}", web_control.StatusText);
         }
 
-        void ObjWebBrowser_Navigating(object sender, GeckoNavigatingEventArgs e)
+        private void ObjWebBrowser_Navigating(object sender, GeckoNavigatingEventArgs e)
         {
             web_browser_host_control.ObjWebBrowser_Navigating(this, e.Uri);
         }
 
-        void ObjWebBrowser_DocumentCompleted(object sender, EventArgs e)
+        private void ObjWebBrowser_DocumentCompleted(object sender, EventArgs e)
         {
             GeckoWebBrowser web_control = (GeckoWebBrowser)sender;
             Logging.Info("Browser page contents received at url {0}", web_control.Url.ToString());
@@ -95,7 +95,7 @@ namespace Qiqqa.WebBrowsing
             try
             {
                 // Clear out any pending uri
-                this.navigate_once_visible_uri = null;
+                navigate_once_visible_uri = null;
 
                 ObjWebBrowser.Navigate(uri.ToString());
             }
@@ -109,48 +109,24 @@ namespace Qiqqa.WebBrowsing
         private Uri navigate_once_visible_uri = null;
         internal void NavigateOnceVisible(Uri uri)
         {
-            this.navigate_once_visible_uri = uri;
+            navigate_once_visible_uri = uri;
         }
 
         internal void NavigateToPendingOnceVisibleUri()
         {
-            if (null != this.navigate_once_visible_uri)
+            if (null != navigate_once_visible_uri)
             {
-                Navigate(this.navigate_once_visible_uri);
+                Navigate(navigate_once_visible_uri);
             }
         }
 
-        public string Title
-        {
-            get
-            {
-                return ObjWebBrowser.DocumentTitle;
-            }
-        }
+        public string Title => ObjWebBrowser.DocumentTitle;
 
-        internal Uri CurrentUri
-        {
-            get
-            {
-                return ObjWebBrowser.Url;
-            }
-        }
+        internal Uri CurrentUri => ObjWebBrowser.Url;
 
-        public string PageText
-        {
-            get
-            {
-                return ObjWebBrowser.Document.Body.TextContent;
-            }
-        }
+        public string PageText => ObjWebBrowser.Document.Body.TextContent;
 
-        public string PageHTML
-        {
-            get
-            {
-                return ObjWebBrowser.Document.GetElementsByTagName("html")[0].OuterHtml;
-            }
-        }
+        public string PageHTML => ObjWebBrowser.Document.GetElementsByTagName("html")[0].OuterHtml;
 
         #region --- IDisposable ------------------------------------------------------------------------
 

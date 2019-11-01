@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using Qiqqa.Common.Configuration;
+﻿using System.Collections.Generic;
 using Utilities;
-using Utilities.Files;
-using Utilities.Shutdownable;
-using Qiqqa.FeatureTracking;
 
 namespace Qiqqa.UtilisationTracking
 {
@@ -25,8 +18,8 @@ namespace Qiqqa.UtilisationTracking
             }
         }
 
-        HashSet<string> used_once_off_per_session_features = new HashSet<string>();
-        object used_once_off_per_session_features_lock = new object();
+        private HashSet<string> used_once_off_per_session_features = new HashSet<string>();
+        private object used_once_off_per_session_features_lock = new object();
 
         private FeatureTrackingManager()
         {

@@ -11,7 +11,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.PDFExporting
     /// <summary>
     /// Exports to a text string
     /// </summary>
-    class ExportToText
+    internal class ExportToText
     {
         public static string DoExport(PDFDocument pdf_document)
         {

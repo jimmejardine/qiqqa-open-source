@@ -5,7 +5,7 @@ using Utilities.Random;
 
 namespace Qiqqa.Brainstorm.SceneManager
 {
-    class SampleSceneGenerator
+    internal class SampleSceneGenerator
     {
         private SampleSceneGenerator() { }
 
@@ -17,8 +17,8 @@ namespace Qiqqa.Brainstorm.SceneManager
             NodeControl nx = scene_rendering_control.AddNewNodeControl(new StringNodeContent() { Text = "nx" }, -2 * SCALE * EXTENT, 0, 100, 100);
             NodeControl px = scene_rendering_control.AddNewNodeControl(new StringNodeContent() { Text = "px" }, +2 * SCALE * EXTENT, 0, 100, 100);
             NodeControl ny = scene_rendering_control.AddNewNodeControl(new StringNodeContent() { Text = "ny" }, 0, -2 * SCALE * EXTENT, 100, 100);
-            NodeControl py = scene_rendering_control.AddNewNodeControl(new StringNodeContent() { Text = "py" }, 0, +2 * SCALE * EXTENT, 100, 100);            
-            
+            NodeControl py = scene_rendering_control.AddNewNodeControl(new StringNodeContent() { Text = "py" }, 0, +2 * SCALE * EXTENT, 100, 100);
+
             for (int x = -EXTENT; x <= EXTENT; ++x)
             {
                 for (int y = -EXTENT; y <= EXTENT; ++y)
@@ -103,8 +103,8 @@ namespace Qiqqa.Brainstorm.SceneManager
 
                 double raw_angle = 6 * i * Math.PI / 100;
                 double distance = 10 + i * 4 + RandomAugmented.Instance.NextDouble() * 10;
-                double left = x + distance * (-2+skew) * Math.Sin(raw_angle) + RandomAugmented.Instance.NextDouble() * 30 - 15;
-                double top = y + distance * (+2+skew) * Math.Cos(raw_angle) + RandomAugmented.Instance.NextDouble() * 30 - 15;
+                double left = x + distance * (-2 + skew) * Math.Sin(raw_angle) + RandomAugmented.Instance.NextDouble() * 30 - 15;
+                double top = y + distance * (+2 + skew) * Math.Cos(raw_angle) + RandomAugmented.Instance.NextDouble() * 30 - 15;
 
                 ncs[i] = scene_rendering_control.AddNewNodeControl(node_content, left, top);
 

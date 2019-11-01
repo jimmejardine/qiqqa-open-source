@@ -13,14 +13,14 @@ namespace Utilities.GUI
 
         public static readonly Color Color_Neutral_Medium = ThemeColours.Background_Color_Neutral_Medium;
         public static readonly Brush Brush_Neutral_Medium = new SolidColorBrush(Color_Neutral_Medium);
-        
-        
+
+
         public static void AddToApplicationResources(Application application)
         {
-            if (!application.Resources.Contains("FontFamily_Standard"))                            application.Resources.Add("FontFamily_Standard", FontFamily_Standard);
-            if (!application.Resources.Contains("FontFamily_Header"))                              application.Resources.Add("FontFamily_Header", FontFamily_Header);
-            if (!application.Resources.Contains("Color_Neutral_Medium"))                           application.Resources.Add("Color_Neutral_Medium", Color_Neutral_Medium);
-            if (!application.Resources.Contains("Brush_Neutral_Medium"))                           application.Resources.Add("Brush_Neutral_Medium", Brush_Neutral_Medium);            
+            if (!application.Resources.Contains("FontFamily_Standard")) application.Resources.Add("FontFamily_Standard", FontFamily_Standard);
+            if (!application.Resources.Contains("FontFamily_Header")) application.Resources.Add("FontFamily_Header", FontFamily_Header);
+            if (!application.Resources.Contains("Color_Neutral_Medium")) application.Resources.Add("Color_Neutral_Medium", Color_Neutral_Medium);
+            if (!application.Resources.Contains("Brush_Neutral_Medium")) application.Resources.Add("Brush_Neutral_Medium", Brush_Neutral_Medium);
         }
     }
 }

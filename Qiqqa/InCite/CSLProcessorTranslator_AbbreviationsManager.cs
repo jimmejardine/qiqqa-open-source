@@ -4,16 +4,15 @@ using System.IO;
 using System.IO.Compression;
 using Qiqqa.Common.Configuration;
 using Utilities;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 
+
 namespace Qiqqa.InCite
 {
-    class CSLProcessorTranslator_AbbreviationsManager
+    internal class CSLProcessorTranslator_AbbreviationsManager
     {
-        
-
-
         internal static Dictionary<string, string> GetAbbreviations()
         {
             Dictionary<string, string> abbreviations = new Dictionary<string, string>();
@@ -27,7 +26,7 @@ namespace Qiqqa.InCite
 
                 foreach (var pair in LoadCustomAbbreviations())
                 {
-                    abbreviations[pair.Key] = pair.Value;                    
+                    abbreviations[pair.Key] = pair.Value;
                 }
             }
 
@@ -61,7 +60,7 @@ namespace Qiqqa.InCite
 
             return abbreviations;
         }
-        
+
         internal static Dictionary<string, string> default_abbreviations = null;
         private static Dictionary<string, string> LoadDefaultAbbreviations()
         {

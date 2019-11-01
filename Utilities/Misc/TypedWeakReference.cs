@@ -10,14 +10,8 @@ namespace Utilities.Misc
 
         public T TypedTarget
         {
-            get
-            {
-                return (T)Target;
-            }
-            set
-            {
-                Target = value;
-            }
+            get => (T)Target;
+            set => Target = value;
         }
     }
 }

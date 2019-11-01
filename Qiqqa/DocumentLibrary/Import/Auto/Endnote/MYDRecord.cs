@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Qiqqa.DocumentLibrary.Import.Auto.Endnote
 {
-    class MYDRecord
+    internal class MYDRecord
     {
         public int id;
         public int reference_type;

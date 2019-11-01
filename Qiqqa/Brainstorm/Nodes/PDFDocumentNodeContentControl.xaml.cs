@@ -25,8 +25,8 @@ namespace Qiqqa.Brainstorm.Nodes
     /// </summary>
     public partial class PDFDocumentNodeContentControl : UserControl, IKeyPressableNodeContentControl, IDisposable
     {
-        NodeControl node_control;
-        PDFDocumentNodeContent pdf_document_node_content;
+        private NodeControl node_control;
+        private PDFDocumentNodeContent pdf_document_node_content;
 
         //
         // Warning CA1001  Implement IDisposable on 'PDFAnnotationNodeContentControl' because it creates 
@@ -38,7 +38,7 @@ namespace Qiqqa.Brainstorm.Nodes
         // handlers below and is currently not considered a memory leak risk for https://github.com/jimmejardine/qiqqa-open-source/issues/19
         // and there-abouts.
 
-        LibraryIndexHoverPopup library_index_hover_popup = null;
+        private LibraryIndexHoverPopup library_index_hover_popup = null;
 
         public PDFDocumentNodeContentControl(NodeControl node_control, PDFDocumentNodeContent pdf_document_node_content)
         {
@@ -47,12 +47,12 @@ namespace Qiqqa.Brainstorm.Nodes
             this.node_control = node_control;
             this.pdf_document_node_content = pdf_document_node_content;
 
-            this.DataContextChanged += PDFDocumentNodeContentControl_DataContextChanged;
-            this.DataContext = pdf_document_node_content.PDFDocument.Bindable;
+            DataContextChanged += PDFDocumentNodeContentControl_DataContextChanged;
+            DataContext = pdf_document_node_content.PDFDocument.Bindable;
 
-            this.Focusable = true;
+            Focusable = true;
 
-            this.ImageIcon.Source = Icons.GetAppIcon(Icons.BrainstormDocument);
+            ImageIcon.Source = Icons.GetAppIcon(Icons.BrainstormDocument);
 
             ImageIcon.Opacity = 0.5;
             ImageIcon.Width = NodeThemes.image_width;
@@ -62,13 +62,13 @@ namespace Qiqqa.Brainstorm.Nodes
             TextTitle.FontWeight = FontWeights.Bold;
             TextPublication.FontStyle = FontStyles.Italic;
 
-            this.MouseDoubleClick += DocumentNodeContentControl_MouseDoubleClick;
-            this.ToolTip = "";
-            this.ToolTipClosing += PDFDocumentNodeContentControl_ToolTipClosing;
-            this.ToolTipOpening += PDFDocumentNodeContentControl_ToolTipOpening;
+            MouseDoubleClick += DocumentNodeContentControl_MouseDoubleClick;
+            ToolTip = "";
+            ToolTipClosing += PDFDocumentNodeContentControl_ToolTipClosing;
+            ToolTipOpening += PDFDocumentNodeContentControl_ToolTipOpening;
         }
 
-        void PDFDocumentNodeContentControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void PDFDocumentNodeContentControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             ObjThemeSwatch.Background = ThemeBrushes.GetBrushForDocument(pdf_document_node_content.PDFDocument);
             if (ThemeBrushes.UNKNOWN_BRUSH == TextBorder.Background)
@@ -247,7 +247,7 @@ namespace Qiqqa.Brainstorm.Nodes
             }
         }
 
-        void PDFDocumentNodeContentControl_ToolTipOpening(object sender, ToolTipEventArgs e)
+        private void PDFDocumentNodeContentControl_ToolTipOpening(object sender, ToolTipEventArgs e)
         {
             try
             {
@@ -255,7 +255,7 @@ namespace Qiqqa.Brainstorm.Nodes
                 {
                     library_index_hover_popup = new LibraryIndexHoverPopup();
                     library_index_hover_popup.SetPopupContent(pdf_document_node_content.PDFDocument, 1);
-                    this.ToolTip = library_index_hover_popup;
+                    ToolTip = library_index_hover_popup;
                 }
             }
             catch (Exception ex)
@@ -264,15 +264,15 @@ namespace Qiqqa.Brainstorm.Nodes
             }
         }
 
-        void PDFDocumentNodeContentControl_ToolTipClosing(object sender, ToolTipEventArgs e)
+        private void PDFDocumentNodeContentControl_ToolTipClosing(object sender, ToolTipEventArgs e)
         {
-            this.ToolTip = "";
+            ToolTip = "";
 
             library_index_hover_popup?.Dispose();
             library_index_hover_popup = null;
         }
 
-        void DocumentNodeContentControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void DocumentNodeContentControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document_node_content.PDFDocument);
         }
@@ -354,17 +354,17 @@ namespace Qiqqa.Brainstorm.Nodes
             // Get rid of managed resources
             if (dispose_count == 0)
             {
-                this.library_index_hover_popup?.Dispose();
+                library_index_hover_popup?.Dispose();
             }
-            this.library_index_hover_popup = null;
+            library_index_hover_popup = null;
 
-            this.ToolTip = "";
+            ToolTip = "";
 
-            this.node_control = null;
-            this.pdf_document_node_content = null;
+            node_control = null;
+            pdf_document_node_content = null;
 
-            this.DataContextChanged -= PDFDocumentNodeContentControl_DataContextChanged;
-            this.DataContext = null;
+            DataContextChanged -= PDFDocumentNodeContentControl_DataContextChanged;
+            DataContext = null;
 
             ++dispose_count;
         }

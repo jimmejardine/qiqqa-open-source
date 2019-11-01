@@ -1,12 +1,11 @@
 ﻿using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using Qiqqa.Documents.PDF.PDFRendering;
 using Utilities.Images;
 
 namespace Qiqqa.Documents.PDF
 {
-    class PDFAnnotationToImageRenderer
+    internal class PDFAnnotationToImageRenderer
     {
         public static Image RenderAnnotation(PDFDocument pdf_document, PDFAnnotation pdf_annotation, float dpi)
         {

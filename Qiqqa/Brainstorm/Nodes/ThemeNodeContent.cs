@@ -26,8 +26,8 @@ namespace Qiqqa.Brainstorm.Nodes
             ThemeNodeContent other = obj as ThemeNodeContent;
             if (null == other) return false;
 
-            if (this.tags != other.tags) return false;
-            if (this.library_fingerprint != other.library_fingerprint) return false;
+            if (tags != other.tags) return false;
+            if (library_fingerprint != other.library_fingerprint) return false;
 
             return true;
         }
@@ -35,23 +35,17 @@ namespace Qiqqa.Brainstorm.Nodes
         public override int GetHashCode()
         {
             int hash = 23;
-            hash = hash * 37 + this.tags.GetHashCode();
-            hash = hash * 37 + this.library_fingerprint.GetHashCode();
+            hash = hash * 37 + tags.GetHashCode();
+            hash = hash * 37 + library_fingerprint.GetHashCode();
             return hash;
         }
 
 
         public string Tags
         {
-            get
-            {
-                return this.tags;
-            }
+            get => tags;
 
-            set
-            {
-                this.tags = value;
-            }
+            set => tags = value;
         }
     }
 }

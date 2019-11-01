@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using IWshRuntimeLibrary;
 using Qiqqa.Common.TagManagement;
 using Qiqqa.DocumentLibrary;
-using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.Files;
 using Utilities.Language;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Exporting
 {
-    class LibraryExporter_Directories
+    internal class LibraryExporter_Directories
     {
         internal static void Export(Library library, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
         {
@@ -34,9 +33,9 @@ namespace Qiqqa.Exporting
             foreach (var item in pdf_document_export_items.Values)
             {
                 try
-                {   
+                {
                     string filename = Path.GetFullPath(Path.Combine(titles_base_path, FileTools.MakeSafeFilename(item.pdf_document.TitleCombined) + ".lnk"));
-                    CreateShortcut(shell, item.filename, filename);                    
+                    CreateShortcut(shell, item.filename, filename);
                 }
                 catch (Exception ex)
                 {
@@ -44,7 +43,7 @@ namespace Qiqqa.Exporting
                 }
             }
         }
-        
+
         private static void Export_Directories_Authors(Library library, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
         {
             WshShell shell = new WshShell();

@@ -2,15 +2,15 @@ using System;
 
 namespace Utilities.Mathematics.ObjectiveFunction.Sample
 {
-	public class Sin : ObjectiveFunction
-	{
-		public Sin()
-		{
-		}
+    public class Sin : ObjectiveFunction
+    {
+        public Sin()
+        {
+        }
 
-		public double evaluate(double x)
-		{
-			return Math.Sin(x);
-		}
-	}
+        public double evaluate(double x)
+        {
+            return Math.Sin(x);
+        }
+    }
 }

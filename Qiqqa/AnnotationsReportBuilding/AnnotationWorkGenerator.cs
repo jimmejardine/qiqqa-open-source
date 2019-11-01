@@ -1,17 +1,15 @@
-﻿using Qiqqa.Common.TagManagement;
-using Qiqqa.DocumentLibrary;
-using Qiqqa.Documents.PDF;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using Qiqqa.Common.TagManagement;
+using Qiqqa.DocumentLibrary;
+using Qiqqa.Documents.PDF;
 using Utilities.Misc;
 
 namespace Qiqqa.AnnotationsReportBuilding
 {
-    class AnnotationWorkGenerator
+    internal class AnnotationWorkGenerator
     {
         public class AnnotationWork
         {

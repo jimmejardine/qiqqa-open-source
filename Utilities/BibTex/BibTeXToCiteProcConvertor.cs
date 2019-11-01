@@ -1,6 +1,6 @@
 ﻿namespace Utilities.BibTex
 {
-    class BibTeXToCiteProcConvertor
+    internal class BibTeXToCiteProcConvertor
     {
     }
 }

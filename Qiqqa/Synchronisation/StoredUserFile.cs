@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Qiqqa.Synchronisation
+﻿namespace Qiqqa.Synchronisation
 {
     internal class StoredUserFile
     {

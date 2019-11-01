@@ -1,29 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
 using Utilities;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.DocumentLibrary.AITagsStuff
 {
     public class BlackWhiteListManager
     {
-        Library library;
+        private Library library;
 
         public BlackWhiteListManager(Library library)
         {
             this.library = library;
         }
 
-        public string Filename_Store
-        {
-            get
-            {
-                return Path.GetFullPath(Path.Combine(library.LIBRARY_BASE_PATH, @"Qiqqa.aitag_blackwhitelists"));
-            }
-        }
+        public string Filename_Store => Path.GetFullPath(Path.Combine(library.LIBRARY_BASE_PATH, @"Qiqqa.aitag_blackwhitelists"));
 
         public void WriteList(List<BlackWhiteListEntry> list)
         {

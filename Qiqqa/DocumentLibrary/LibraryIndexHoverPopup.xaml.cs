@@ -20,9 +20,9 @@ namespace Qiqqa.DocumentLibrary
     /// </summary>
     public partial class LibraryIndexHoverPopup : UserControl, IDisposable
     {
-        PDFDocument pdf_document = null;
-        int page;
-        PDFAnnotation specific_pdf_annotation = null;
+        private PDFDocument pdf_document = null;
+        private int page;
+        private PDFAnnotation specific_pdf_annotation = null;
 
         public LibraryIndexHoverPopup()
         {
@@ -40,7 +40,7 @@ namespace Qiqqa.DocumentLibrary
         ~LibraryIndexHoverPopup()
         {
             Logging.Debug("~LibraryIndexHoverPopup()");
-            Dispose(false);            
+            Dispose(false);
         }
 
         public void Dispose()
@@ -59,15 +59,15 @@ namespace Qiqqa.DocumentLibrary
             DataContext = null;
             ImageThumbnail.Source = null;
 
-            this.pdf_document = null;
-            this.specific_pdf_annotation = null;
+            pdf_document = null;
+            specific_pdf_annotation = null;
 
             ++dispose_count;
         }
 
         public void SetPopupContent(PDFDocument pdf_document, int page, PDFAnnotation specific_pdf_annotation = null)
         {
-            this.DataContext = null;
+            DataContext = null;
             ObjThemeSwatch.Background = ThemeBrushes.GetBrushForDocument(pdf_document);
             ImageThumbnail.Source = null;
 
@@ -77,7 +77,7 @@ namespace Qiqqa.DocumentLibrary
             this.specific_pdf_annotation = specific_pdf_annotation;
             if (null != pdf_document)
             {
-                this.DataContext = pdf_document.Bindable;
+                DataContext = pdf_document.Bindable;
                 DisplayThumbnail();
             }
         }
@@ -91,14 +91,14 @@ namespace Qiqqa.DocumentLibrary
             {
                 return;
             }
-            
+
             try
             {
                 if (pdf_document.DocumentExists)
                 {
                     const double IMAGE_PERCENTAGE = 0.5;
 
-                    using (MemoryStream ms = new MemoryStream(pdf_document.PDFRenderer.GetPageByHeightAsImage(this.page, ImageThumbnail.Height / IMAGE_PERCENTAGE)))
+                    using (MemoryStream ms = new MemoryStream(pdf_document.PDFRenderer.GetPageByHeightAsImage(page, ImageThumbnail.Height / IMAGE_PERCENTAGE)))
                     {
                         Bitmap image = (Bitmap)Image.FromStream(ms);
                         PDFOverlayRenderer.RenderAnnotations(image, pdf_document, page, specific_pdf_annotation);
@@ -126,11 +126,11 @@ namespace Qiqqa.DocumentLibrary
 
             if (null != ImageThumbnail.Source)
             {
-                this.ImageThumbnail.Visibility = Visibility.Visible;
+                ImageThumbnail.Visibility = Visibility.Visible;
             }
             else
             {
-                this.ImageThumbnail.Visibility = Visibility.Collapsed;
+                ImageThumbnail.Visibility = Visibility.Collapsed;
             }
         }
     }

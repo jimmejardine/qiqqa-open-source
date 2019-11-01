@@ -37,24 +37,15 @@ namespace Utilities.GUI
         }
 
         public void SelectAll()
-        {            
+        {
         }
 
-        public AutoCompleteBox AutoCompleteBox
-        {
-            get
-            {
-                return TextSearch;
-            }
-        }
+        public AutoCompleteBox AutoCompleteBox => TextSearch;
 
         private HashSet<string> search_items = new HashSet<string>();
         public HashSet<string> SearchHistoryItemSource
         {
-            get
-            {
-                return search_items;
-            }
+            get => search_items;
             set
             {
                 search_items = value;
@@ -69,7 +60,7 @@ namespace Utilities.GUI
             }
         }
 
-        void TextSearch_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        private void TextSearch_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
             TextSearch.ItemsSource = null;
             TextSearch.ItemsSource = search_items;
@@ -78,27 +69,18 @@ namespace Utilities.GUI
 
         public string EmptyTextPrompt
         {
-            get
-            {
-                return TextPrompt.Text;
-            }
+            get => TextPrompt.Text;
             set
             {
                 TextPrompt.Text = value;
-                this.ToolTip = value;
+                ToolTip = value;
             }
         }
 
         public string Text
         {
-            get
-            {
-                return TextSearch.Text;
-            }
-            set
-            {
-                TextSearch.Text = value;
-            }
+            get => TextSearch.Text;
+            set => TextSearch.Text = value;
         }
 
         public void FocusSearchArea()
@@ -111,7 +93,7 @@ namespace Utilities.GUI
             }
         }
 
-        void TextSearch_KeyUp(object sender, KeyEventArgs e)
+        private void TextSearch_KeyUp(object sender, KeyEventArgs e)
         {
             if (Key.Enter == e.Key)
             {
@@ -128,7 +110,7 @@ namespace Utilities.GUI
             }
         }
 
-        void ReconsiderEmptyText()
+        private void ReconsiderEmptyText()
         {
             if (0 == TextSearch.Text.Length)
             {
@@ -140,13 +122,13 @@ namespace Utilities.GUI
             }
         }
 
-        void TextSearch_TextChanged(object sender, RoutedEventArgs e)
+        private void TextSearch_TextChanged(object sender, RoutedEventArgs e)
         {
             ReconsiderEmptyText();
             FireOnSoftSearch();
         }
 
-        void ImageClear_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void ImageClear_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             Clear();
         }
@@ -170,7 +152,7 @@ namespace Utilities.GUI
             TextSearch.ItemsSource = null;
             TextSearch.ItemsSource = search_items;
         }
-        
+
         private void FireOnHardSearch()
         {
             search_items.Remove(TextSearch.Text);

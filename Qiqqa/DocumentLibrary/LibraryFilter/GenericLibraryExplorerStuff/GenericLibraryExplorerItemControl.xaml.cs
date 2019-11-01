@@ -21,7 +21,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
 
             InitializeComponent();
 
-            this.DataContextChanged +=GenericLibraryExplorerItemControl_DataContextChanged;
+            DataContextChanged += GenericLibraryExplorerItemControl_DataContextChanged;
 
             ObjCaption.DragOver += TagExplorerControl_DragOver;
             ObjCaption.Drop += TagExplorerControl_Drop;
@@ -32,9 +32,9 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             ObjCaption.MouseRightButtonUp += TagExplorerItemControl_MouseRightButtonUp;
         }
 
-        void  GenericLibraryExplorerItemControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void GenericLibraryExplorerItemControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            this.item = e.NewValue as GenericLibraryExplorerItem;
+            item = e.NewValue as GenericLibraryExplorerItem;
 
             if (null != item)
             {
@@ -52,7 +52,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             }
         }
 
-        void GenericLibraryExplorerItemControl_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void GenericLibraryExplorerItemControl_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (null != item)
             {
@@ -62,7 +62,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             e.Handled = true;
         }
 
-        void ObjChecked_Click(object sender, RoutedEventArgs e)
+        private void ObjChecked_Click(object sender, RoutedEventArgs e)
         {
             if (null != item)
             {
@@ -72,7 +72,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             e.Handled = true;
         }
 
-        void TagExplorerItemControl_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        private void TagExplorerItemControl_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (null != item && null != item.OnItemPopup)
             {
@@ -82,7 +82,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             e.Handled = true;
         }
 
-        void TagExplorerControl_DragOver(object sender, DragEventArgs e)
+        private void TagExplorerControl_DragOver(object sender, DragEventArgs e)
         {
             if (null != item && null != item.OnItemDragOver)
             {
@@ -90,7 +90,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             }
         }
 
-        void TagExplorerControl_Drop(object sender, DragEventArgs e)
+        private void TagExplorerControl_Drop(object sender, DragEventArgs e)
         {
             if (null != item && null != item.OnItemDrop)
             {

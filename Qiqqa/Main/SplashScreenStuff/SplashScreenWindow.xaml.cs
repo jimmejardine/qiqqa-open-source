@@ -1,13 +1,8 @@
 ﻿using System;
 using System.IO;
-using System.Text;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Utilities;
-using Utilities.GUI;
-using Utilities.Misc;
-using Application = System.Windows.Forms.Application;
 
 namespace Qiqqa.Main.SplashScreenStuff
 {

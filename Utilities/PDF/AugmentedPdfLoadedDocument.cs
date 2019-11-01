@@ -39,7 +39,7 @@ namespace Utilities.PDF
             if (dispose_count == 0)
             {
                 // Get rid of managed resources
-                this.Close(true);
+                Close(true);
             }
 
             // Get rid of unmanaged resources 
@@ -48,7 +48,7 @@ namespace Utilities.PDF
             ++dispose_count;
         }
 
-#endregion
+        #endregion
 
     }
 }

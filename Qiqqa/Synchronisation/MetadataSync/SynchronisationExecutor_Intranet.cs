@@ -3,7 +3,7 @@ using Qiqqa.DocumentLibrary.IntranetLibraryStuff;
 
 namespace Qiqqa.Synchronisation.MetadataSync
 {
-    class SynchronisationExecutor_Intranet
+    internal class SynchronisationExecutor_Intranet
     {
         internal static void DoUpload(Library library, SynchronisationState ss)
         {

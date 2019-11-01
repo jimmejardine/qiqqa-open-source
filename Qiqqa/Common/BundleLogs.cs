@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
 using Microsoft.Win32;
 using Qiqqa.Common.Configuration;
 using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
 using Utilities.ProcessTools;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Common
 {
-    class BundleLogs
+    internal class BundleLogs
     {
         internal static void DoBundle()
         {

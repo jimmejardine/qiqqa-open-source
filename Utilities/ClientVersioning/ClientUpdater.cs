@@ -172,7 +172,7 @@ namespace Utilities.ClientVersioning
                     download_source = download_source.Replace("www.", "www.test.");
                     Logging.Warn("Modified download source to use test.lexlens.com: " + download_source);
                 }
-                
+
                 Logging.Info("Kicking off browser to download the latest client version from: {0}", download_source);
                 BrowserStarter.OpenBrowser(download_source);
                 Logging.Info("Finished starting browser to download latest client.");
@@ -211,7 +211,7 @@ namespace Utilities.ClientVersioning
         /// Downloads the given type of file from our server and returns the path to the temp file.
         /// Please clean up the temp file once done.
         /// </summary>
-        public static string DownloadFile(IWebProxy proxy,  string url)
+        public static string DownloadFile(IWebProxy proxy, string url)
         {
             using (WebClient web_client = new WebClient())
             {

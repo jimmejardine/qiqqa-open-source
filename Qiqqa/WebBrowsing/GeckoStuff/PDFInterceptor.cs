@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Threading;
-using Gecko;
 using Gecko.Net;
 using Gecko.Observers;
 using icons;
@@ -14,35 +11,30 @@ using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary;
 using Qiqqa.Documents.PDF;
 using Qiqqa.Documents.PDF.PDFControls;
-using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.Files;
 using Utilities.Misc;
 
 namespace Qiqqa.WebBrowsing.GeckoStuff
 {
-    class PDFInterceptor : BaseHttpRequestResponseObserver
+    internal class PDFInterceptor : BaseHttpRequestResponseObserver
     {
         public static PDFInterceptor Instance = new PDFInterceptor();
-
-        static bool have_notified_about_installing_acrobat = false;
+        private static bool have_notified_about_installing_acrobat = false;
 
         private PDFDocument potential_attachment_pdf_document = null;
 
         // information obtained from Gecko:
         private string document_source_filename = null;
         private string document_source_url = null;
-        
+
         private PDFInterceptor() : base()
         {
         }
 
         public PDFDocument PotentialAttachmentPDFDocument
         {
-            set
-            {
-                potential_attachment_pdf_document = value;
-            }
+            set => potential_attachment_pdf_document = value;
         }
 
         protected override void Response(HttpChannel channel)
@@ -120,7 +112,7 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
             }
         }
 
-        void streamListener_Completed(object sender, EventArgs e)
+        private void streamListener_Completed(object sender, EventArgs e)
         {
             StreamListenerTee stream_listener_tee = null;
 

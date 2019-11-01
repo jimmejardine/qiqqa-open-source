@@ -5,7 +5,6 @@ using System.Windows;
 using System.Windows.Input;
 using icons;
 using Qiqqa.Common.GUI;
-using Utilities;
 
 namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 {
@@ -22,30 +21,30 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         {
             InitializeComponent();
 
-            this.Title = TITLE;
+            Title = TITLE;
 
             ButtonCancel.Icon = Icons.GetAppIcon(Icons.Cancel);
             ButtonCancel.Caption = "Cancel";
             ButtonCancel.Click += ButtonCancel_Click;
 
             ObjWebLibraryListControl.OnWebLibrarySelected += ObjWebLibraryListControl_OnWebLibrarySelected;
-            this.PreviewKeyDown += WebLibraryPicker_PreviewKeyDown;
+            PreviewKeyDown += WebLibraryPicker_PreviewKeyDown;
 
             ObjWebLibraryListControl.Refresh();
         }
 
-        void Cancel()
+        private void Cancel()
         {
             last_picked_web_library_detail = null;
-            this.Close();
+            Close();
         }
-        
-        void ButtonCancel_Click(object sender, RoutedEventArgs e)
+
+        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
             Cancel();
         }
 
-        void WebLibraryPicker_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void WebLibraryPicker_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
             {
@@ -54,10 +53,10 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             }
         }
 
-        void ObjWebLibraryListControl_OnWebLibrarySelected(WebLibraryDetail web_library_detail)
+        private void ObjWebLibraryListControl_OnWebLibrarySelected(WebLibraryDetail web_library_detail)
         {
             last_picked_web_library_detail = web_library_detail;
-            this.Close();
+            Close();
         }
 
         // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -15,10 +15,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
     /// </summary>
     public partial class PDFTextSelectPopup : StackPanel
     {
-        string selected_text;
-        PDFDocument pdf_document;
-
-        AugmentedPopup popup;
+        private string selected_text;
+        private PDFDocument pdf_document;
+        private AugmentedPopup popup;
 
         public PDFTextSelectPopup(string selected_text, PDFDocument pdf_document)
         {
@@ -47,7 +46,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
 
             MenuItemBibTexSet.Header = "Use as BibTeX search terms";
             MenuItemBibTexSet.Click += MenuItemBibTexSet_Click;
-            
+
             MenuItemTitleSet.Header = "Use as paper Title";
             MenuItemTitleSet.Click += MenuItemTitleSet_Click;
 
@@ -67,7 +66,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
             popup = new AugmentedPopup(this);
         }
 
-        void MenuItemBibTexSet_Click(object sender, RoutedEventArgs e)
+        private void MenuItemBibTexSet_Click(object sender, RoutedEventArgs e)
         {
             using (var c = popup.AutoCloser)
             {
@@ -76,7 +75,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
             }
         }
 
-        void MenuItemWebsiteDictionary_Click(object sender, RoutedEventArgs e)
+        private void MenuItemWebsiteDictionary_Click(object sender, RoutedEventArgs e)
         {
             using (var c = popup.AutoCloser)
             {
@@ -86,7 +85,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
             }
         }
 
-        void MenuItemTagSet_Click(object sender, RoutedEventArgs e)
+        private void MenuItemTagSet_Click(object sender, RoutedEventArgs e)
         {
             using (var c = popup.AutoCloser)
             {
@@ -101,7 +100,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
             popup.IsOpen = true;
         }
 
-        void MenuItemTitleSet_Click(object sender, RoutedEventArgs e)
+        private void MenuItemTitleSet_Click(object sender, RoutedEventArgs e)
         {
             using (var c = popup.AutoCloser)
             {
@@ -120,7 +119,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
             }
         }
 
-        void MenuItemYearSet_Click(object sender, RoutedEventArgs e)
+        private void MenuItemYearSet_Click(object sender, RoutedEventArgs e)
         {
             using (var c = popup.AutoCloser)
             {
@@ -131,7 +130,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
             }
         }
 
-        void MenuItemAbstractSet_Click(object sender, RoutedEventArgs e)
+        private void MenuItemAbstractSet_Click(object sender, RoutedEventArgs e)
         {
             using (var c = popup.AutoCloser)
             {
@@ -142,7 +141,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
             }
         }
 
-        void MenuItemAbstractClear_Click(object sender, RoutedEventArgs e)
+        private void MenuItemAbstractClear_Click(object sender, RoutedEventArgs e)
         {
             using (var c = popup.AutoCloser)
             {
@@ -153,7 +152,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
             }
         }
 
-        void MenuItemAuthorSet_Click(object sender, RoutedEventArgs e)
+        private void MenuItemAuthorSet_Click(object sender, RoutedEventArgs e)
         {
             using (var c = popup.AutoCloser)
             {
@@ -164,7 +163,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
             }
         }
 
-        void MenuItemAuthorAppend_Click(object sender, RoutedEventArgs e)
+        private void MenuItemAuthorAppend_Click(object sender, RoutedEventArgs e)
         {
             using (var c = popup.AutoCloser)
             {
@@ -187,7 +186,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
             }
         }
 
-        void MenuItemSearchInternet_Click(object sender, RoutedEventArgs e)
+        private void MenuItemSearchInternet_Click(object sender, RoutedEventArgs e)
         {
             using (var c = popup.AutoCloser)
             {
@@ -197,7 +196,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
             }
         }
 
-        void MenuItemSearchLibrary_Click(object sender, RoutedEventArgs e)
+        private void MenuItemSearchLibrary_Click(object sender, RoutedEventArgs e)
         {
             using (var c = popup.AutoCloser)
             {
@@ -207,7 +206,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
             }
         }
 
-        void MenuItemCopy_Click(object sender, RoutedEventArgs e)
+        private void MenuItemCopy_Click(object sender, RoutedEventArgs e)
         {
             using (var c = popup.AutoCloser)
             {
@@ -225,7 +224,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
             }
         }
 
-        void MenuItemSpeedRead_Click(object sender, RoutedEventArgs e)
+        private void MenuItemSpeedRead_Click(object sender, RoutedEventArgs e)
         {
             using (var c = popup.AutoCloser)
             {

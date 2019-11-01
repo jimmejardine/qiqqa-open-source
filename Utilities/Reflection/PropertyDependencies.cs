@@ -7,8 +7,8 @@ namespace Utilities.Reflection
 {
     public class PropertyDependencies
     {
-        MultiMap<string, string> dependencies = new MultiMap<string, string>(true);
-        List<string> EMPTY = new List<string>();
+        private MultiMap<string, string> dependencies = new MultiMap<string, string>(true);
+        private List<string> EMPTY = new List<string>();
 
         public PropertyDependencies()
         {

@@ -20,13 +20,7 @@ namespace Utilities.Files
             return String.Format("{0}\\{3}.{1}.{2}", TempDirectory, Guid.NewGuid().ToString(), extension, name);
         }
 
-        public static string TempDirectory
-        {
-            get
-            {
-                return Path.GetTempPath();
-            }
-        }
+        public static string TempDirectory => Path.GetTempPath();
 
     }
 }

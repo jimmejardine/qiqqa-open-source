@@ -4,7 +4,6 @@ using Qiqqa.DocumentLibrary;
 using Qiqqa.DocumentLibrary.AITagsStuff;
 using Utilities;
 using Utilities.Collections;
-using Utilities.GUI;
 using Utilities.Strings;
 
 namespace Qiqqa.Documents.PDF.InfoBarStuff.PDFDocumentTagCloudStuff
@@ -23,7 +22,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.PDFDocumentTagCloudStuff
                 autotags.Add(tag);
             }
 
-            
+
             CountingDictionary<string> word_counts = new CountingDictionary<string>();
             {
                 Logging.Info("+Counting the autotags");
@@ -64,7 +63,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.PDFDocumentTagCloudStuff
             }
             Logging.Info("-Building the ratios");
 
-            entries.Sort(delegate(TagCloudEntry a, TagCloudEntry b) { return -Sorting.Compare(a.importance, b.importance); });
+            entries.Sort(delegate (TagCloudEntry a, TagCloudEntry b) { return -Sorting.Compare(a.importance, b.importance); });
             return entries;
         }
 
@@ -86,5 +85,5 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.PDFDocumentTagCloudStuff
 #endif
 
         #endregion
-    }    
+    }
 }

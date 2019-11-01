@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Threading;
-using Qiqqa.DocumentLibrary;
 using Qiqqa.Documents.PDF;
 using Qiqqa.Documents.PDF.PDFControls.MetadataControls;
 using Syncfusion.Pdf;

@@ -26,8 +26,7 @@ namespace Qiqqa.InCite
     {
         private static PopupInCiteControl instance = null;
         private static StandardWindow chw = null;
-
-        WebLibraryDetail web_library_detail = null;
+        private WebLibraryDetail web_library_detail = null;
 
         public PopupInCiteControl()
         {
@@ -44,12 +43,12 @@ namespace Qiqqa.InCite
             ButtonRefresh.Caption = "Refresh\nBibliography <F5>";
             ButtonRefresh.CaptionDock = Dock.Right;
             ButtonRefresh.Click += ButtonRefresh_Click;
-            
+
             ButtonCiteTogether.Icon = Icons.GetAppIcon(Icons.InCiteAppendCitation);
             ButtonCiteTogether.Caption = "(Author, Date)\n<ENTER>";
             ButtonCiteTogether.CaptionDock = Dock.Right;
             ButtonCiteTogether.Click += ButtonCiteTogether_Click;
-            
+
             ButtonCiteApart.Icon = Icons.GetAppIcon(Icons.InCiteAppendCitation);
             ButtonCiteApart.Caption = "Author (Date)\nCtrl+<ENTER>";
             ButtonCiteApart.CaptionDock = Dock.Right;
@@ -65,8 +64,8 @@ namespace Qiqqa.InCite
             ButtonCancel.Caption = "Close\n<ESC>";
             ButtonCancel.CaptionDock = Dock.Right;
             ButtonCancel.Click += ButtonCancel_Click;
-            
-            this.PreviewKeyDown += PopupInCiteControl_PreviewKeyDown;
+
+            PreviewKeyDown += PopupInCiteControl_PreviewKeyDown;
 
             TxtSearchTerms.TextChanged += TxtSearchTerms_TextChanged;
             TxtSearchTerms.ToolTip = "Enter your search query here...";
@@ -79,45 +78,44 @@ namespace Qiqqa.InCite
             MatchPreviousWebLibraryDetail();
         }
 
-
-        void ButtonRefresh_Click(object sender, RoutedEventArgs e)
+        private void ButtonRefresh_Click(object sender, RoutedEventArgs e)
         {
             PDFDocumentCitingTools.RefreshBibliography();
             chw.Close();
         }
 
-        void ButtonSnippet_Click(object sender, RoutedEventArgs e)
+        private void ButtonSnippet_Click(object sender, RoutedEventArgs e)
         {
             CiteDocument(false, true);
         }
 
-        void ButtonCiteTogether_Click(object sender, RoutedEventArgs e)
+        private void ButtonCiteTogether_Click(object sender, RoutedEventArgs e)
         {
             CiteDocument(false, false);
         }
 
-        void ButtonCiteApart_Click(object sender, RoutedEventArgs e)
+        private void ButtonCiteApart_Click(object sender, RoutedEventArgs e)
         {
             CiteDocument(true, false);
         }
 
-        void ButtonCancel_Click(object sender, RoutedEventArgs e)
+        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
             instance.ObjCheckKeepOpen.IsChecked = false;
             chw.Close();
         }
 
-        void ObjIcon_Click(object sender, RoutedEventArgs e)
+        private void ObjIcon_Click(object sender, RoutedEventArgs e)
         {
             MainWindowServiceDispatcher.Instance.OpenInCite();
         }
 
-        void PopupInCiteControl_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void PopupInCiteControl_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (false) { }
             else if (Key.Enter == e.Key)
             {
-                if (KeyboardTools.IsCTRLDown()) 
+                if (KeyboardTools.IsCTRLDown())
                 {
                     ButtonCiteApart_Click(null, null);
                 }
@@ -197,7 +195,7 @@ namespace Qiqqa.InCite
             }
         }
 
-        void TextLibraryForCitations_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void TextLibraryForCitations_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_Popup_ChooseLibrary);
 
@@ -232,20 +230,19 @@ namespace Qiqqa.InCite
 
         private void ChooseNewLibrary(WebLibraryDetail web_library_detail_)
         {
-            this.web_library_detail = null;
+            web_library_detail = null;
             TextLibraryForCitations.Text = "Click to choose a library.";
 
             if (null != web_library_detail_)
             {
-                this.web_library_detail = web_library_detail_;
+                web_library_detail = web_library_detail_;
                 TextLibraryForCitations.Text = web_library_detail_.Title;
             }
 
             ReSearch();
         }
 
-
-        void TxtSearchTerms_TextChanged(object sender, TextChangedEventArgs e)
+        private void TxtSearchTerms_TextChanged(object sender, TextChangedEventArgs e)
         {
             ReSearch();
             e.Handled = true;
@@ -257,17 +254,17 @@ namespace Qiqqa.InCite
 
             ObjPDFDocuments.ItemsSource = null;
 
-            if (null != this.web_library_detail)
+            if (null != web_library_detail)
             {
                 string query = TxtSearchTerms.Text;
                 if (!String.IsNullOrEmpty(query))
                 {
-                    List<IndexResult> matches = this.web_library_detail.library.LibraryIndex.GetFingerprintsForQuery(query);
+                    List<IndexResult> matches = web_library_detail.library.LibraryIndex.GetFingerprintsForQuery(query);
                     List<TextBlock> text_blocks = new List<TextBlock>();
                     bool alternator = false;
                     for (int i = 0; i < MAX_DOCUMENTS && i < matches.Count; ++i)
                     {
-                        PDFDocument pdf_document = this.web_library_detail.library.GetDocumentByFingerprint(matches[i].fingerprint);
+                        PDFDocument pdf_document = web_library_detail.library.GetDocumentByFingerprint(matches[i].fingerprint);
                         if (null == pdf_document || pdf_document.Deleted) continue;
 
                         string prefix = String.Format("{0:0%} - ", matches[i].score);
@@ -284,7 +281,7 @@ namespace Qiqqa.InCite
             }
         }
 
-        void VOID_MouseButtonEventHandler(object sender, MouseButtonEventArgs e)
+        private void VOID_MouseButtonEventHandler(object sender, MouseButtonEventArgs e)
         {
         }
 
@@ -330,8 +327,7 @@ namespace Qiqqa.InCite
             }
         }
 
-
-        static void chw_Closing(object sender, CancelEventArgs e)
+        private static void chw_Closing(object sender, CancelEventArgs e)
         {
             if (instance.ObjCheckKeepOpen.IsChecked ?? false)
             {
@@ -340,7 +336,7 @@ namespace Qiqqa.InCite
             {
                 chw.Hide();
             }
-            
+
             e.Cancel = true;
         }
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SQLite;
-using System.IO;
+using System.Text.RegularExpressions;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.BundleLibrary;
 using Qiqqa.DocumentLibrary.IntranetLibraryStuff;
@@ -9,14 +8,14 @@ using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
-using System.Text.RegularExpressions;
+
 
 namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 {
-    class WebLibraryManager
+    internal class WebLibraryManager
     {
         private static WebLibraryManager __instance = null;
         public static WebLibraryManager Instance
@@ -178,21 +177,9 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             });
         }
 
-        public WebLibraryDetail WebLibraryDetails_Guest
-        {
-            get
-            {
-                return guest_web_library_detail;
-            }
-        }
+        public WebLibraryDetail WebLibraryDetails_Guest => guest_web_library_detail;
 
-        public Library Library_Guest
-        {
-            get
-            {
-                return guest_web_library_detail.library;
-            }
-        }
+        public Library Library_Guest => guest_web_library_detail.library;
 
         public bool HaveOnlyLocalGuestLibrary()
         {
@@ -340,15 +327,9 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         #region --- Known web library management -------------------------------------------------------------------------------------------------------------------------
 
-        public static string KNOWN_WEB_LIBRARIES_FILENAME
-        {
-            get
-            {
-                return Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.BaseDirectoryForUser, @"Qiqqa.known_web_libraries"));
-            }
-        }
+        public static string KNOWN_WEB_LIBRARIES_FILENAME => Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.BaseDirectoryForUser, @"Qiqqa.known_web_libraries"));
 
-        void LoadKnownWebLibraries(string filename, bool only_load_those_libraries_which_are_actually_present)
+        private void LoadKnownWebLibraries(string filename, bool only_load_those_libraries_which_are_actually_present)
         {
             Logging.Info("+Loading known Web Libraries");
             try
@@ -400,7 +381,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             Logging.Info("-Loading known Web Libraries");
         }
 
-        void SaveKnownWebLibraries(string filename = null)
+        private void SaveKnownWebLibraries(string filename = null)
         {
             if (null == filename)
             {

@@ -7,7 +7,7 @@ using Utilities.Files;
 
 namespace Qiqqa.Documents.PDF.DiskSerialisation
 {
-    class PDFInkSerializer
+    internal class PDFInkSerializer
     {
         internal static void ReadFromDisk(PDFDocument_ThreadUnsafe pdf_document, PDFInkList inks, Dictionary<string, byte[]> library_items_inks_cache)
         {

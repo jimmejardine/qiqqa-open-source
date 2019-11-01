@@ -13,7 +13,7 @@ namespace Utilities.DateTimeTools
         }
 
         public static DateTime DateTimeFromMillisSinceEpoch(long millis_since_epoch)
-        {            
+        {
             return epoch_base_time.AddSeconds(millis_since_epoch);
         }
 

@@ -14,7 +14,7 @@ namespace Utilities.Internet
             {
                 WebProxy proxy = new WebProxy(Proxy_Hostname, Proxy_Port);
 
-                if (false) {}
+                if (false) { }
                 else if (Proxy_Username == USERNAME_DEFAULT_CREDENTIALS)
                 {
                     proxy.Credentials = CredentialCache.DefaultCredentials;

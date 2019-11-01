@@ -14,28 +14,25 @@ namespace Utilities.GUI
         {
             InitializeComponent();
 
-            this.HorizontalContentAlignment = HorizontalAlignment.Stretch;
-            this.VerticalContentAlignment = VerticalAlignment.Stretch;
+            HorizontalContentAlignment = HorizontalAlignment.Stretch;
+            VerticalContentAlignment = VerticalAlignment.Stretch;
 
-            RenderOptions.SetBitmapScalingMode(this.ImageIcon, BitmapScalingMode.HighQuality);
+            RenderOptions.SetBitmapScalingMode(ImageIcon, BitmapScalingMode.HighQuality);
 
             CaptionDock = Dock.Bottom;
 
             //this.Background = ThemeColours.Background_Brush_Blue_LightToDark;
             //this.BorderBrush = ThemeColours.Background_Brush_Blue_LightToDark;
-            this.Style = FindResource(ToolBar.ToggleButtonStyleKey) as Style;
-            this.HorizontalAlignment = HorizontalAlignment.Stretch;
-            this.VerticalAlignment = VerticalAlignment.Stretch;
-            this.HorizontalContentAlignment = HorizontalAlignment.Stretch;
-            this.VerticalContentAlignment = VerticalAlignment.Stretch;
+            Style = FindResource(ToolBar.ToggleButtonStyleKey) as Style;
+            HorizontalAlignment = HorizontalAlignment.Stretch;
+            VerticalAlignment = VerticalAlignment.Stretch;
+            HorizontalContentAlignment = HorizontalAlignment.Stretch;
+            VerticalContentAlignment = VerticalAlignment.Stretch;
         }
 
         public string Caption
         {
-            get
-            {
-                return TextCaption.Text;
-            }
+            get => TextCaption.Text;
             set
             {
                 if (null != value)
@@ -55,14 +52,8 @@ namespace Utilities.GUI
 
         public ImageSource Icon
         {
-            get
-            {
-                return ImageIcon.Source;
-            }
-            set
-            {
-                ImageIcon.Source = value;
-            }
+            get => ImageIcon.Source;
+            set => ImageIcon.Source = value;
         }
 
         public Dock CaptionDock
@@ -90,7 +81,7 @@ namespace Utilities.GUI
                         TextCaption.TextAlignment = TextAlignment.Center;
                         DockPanel.SetDock(ImageIcon, Dock.Bottom);
                         DockPanel.SetDock(ObjSpacer, Dock.Bottom);
-                        DockPanel.SetDock(TextCaption, Dock.Bottom);                        
+                        DockPanel.SetDock(TextCaption, Dock.Bottom);
                         break;
                     case Dock.Bottom:
                         TextCaption.TextAlignment = TextAlignment.Center;

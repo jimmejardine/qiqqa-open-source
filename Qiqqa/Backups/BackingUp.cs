@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using Microsoft.Win32;
 using Qiqqa.Common.Configuration;
 using Utilities.DateTimeTools;
 using Utilities.GUI;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Backups
 {
-    class BackingUp
+    internal class BackingUp
     {
         // Warning CA1812	'BackingUp' is an internal class that is apparently never instantiated.
         // If this class is intended to contain only static methods, consider adding a private constructor 
@@ -43,7 +43,7 @@ namespace Qiqqa.Backups
 
             string target_filename = save_file_dialog.FileName;
             string source_directory = ConfigurationManager.Instance.BaseDirectoryForQiqqa;
-                
+
             string parameters = String.Format("a -tzip -mm=Deflate -mmt=on -mx9 \"{0}\" \"{1}\\*\"", target_filename, source_directory);
             Process.Start(ConfigurationManager.Instance.Program7ZIP, parameters);
         }
@@ -65,8 +65,8 @@ namespace Qiqqa.Backups
                         return;
                     }
                 }
-            }            
-            
+            }
+
             OpenFileDialog open_file_dialog = new OpenFileDialog();
             open_file_dialog.AddExtension = true;
             open_file_dialog.CheckPathExists = true;
@@ -83,7 +83,7 @@ namespace Qiqqa.Backups
             }
 
             string source_filename = open_file_dialog.FileName;
-            
+
             // Check that the target directory exists
             if (!Directory.Exists(target_directory))
             {
@@ -91,7 +91,7 @@ namespace Qiqqa.Backups
             }
 
             string parameters = String.Format("x \"{0}\" -o\"{1}\"", source_filename, target_directory);
-            Process.Start(ConfigurationManager.Instance.Program7ZIP, parameters);            
+            Process.Start(ConfigurationManager.Instance.Program7ZIP, parameters);
         }
 
         internal static void DoBackupRestoreInstructions()

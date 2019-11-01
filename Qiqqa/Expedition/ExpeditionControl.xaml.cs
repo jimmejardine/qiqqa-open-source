@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -26,7 +25,7 @@ namespace Qiqqa.Expedition
     /// </summary>
     public partial class ExpeditionControl : UserControl
     {
-        Library library = null;
+        private Library library = null;
 
         public ExpeditionControl()
         {
@@ -41,7 +40,7 @@ namespace Qiqqa.Expedition
 
             if (!ADVANCED_MENUS) ButtonRefreshTags.Caption = "Refresh\nAutoTags";
             ButtonRefreshTags.ToolTip = "Refresh AutoTags.\nPress this to automatically generate AutoTags for your documents.  This may take some time but you can keep working in the meanwhile...";
-            ButtonRefreshTags.Icon = Icons.GetAppIcon(Icons.Refresh);            
+            ButtonRefreshTags.Icon = Icons.GetAppIcon(Icons.Refresh);
             ButtonRefreshTags.Click += ButtonRefreshTags_Click;
 
             if (!ADVANCED_MENUS) ButtonManageLists.Caption = "Manage\nAutoTags";
@@ -53,7 +52,7 @@ namespace Qiqqa.Expedition
             ButtonExportTopics.ToolTip = "Export a list of themes for your library.";
             ButtonExportTopics.Icon = Icons.GetAppIcon(Icons.ExportToText);
             ButtonExportTopics.Click += ButtonExportTopics_Click;
-            
+
 
             ButtonCollapseAll.Icon = Icons.GetAppIcon(Icons.Minus);
             ButtonCollapseAll.IconHeight = 12;
@@ -87,10 +86,10 @@ namespace Qiqqa.Expedition
             ChooseNewLibrary(null);
         }
 
-        void ButtonExportTopics_Click(object sender, RoutedEventArgs e)
+        private void ButtonExportTopics_Click(object sender, RoutedEventArgs e)
         {
             if (null != library.ExpeditionManager.ExpeditionDataSource)
-            {   
+            {
                 ExpeditionDataSource eds = library.ExpeditionManager.ExpeditionDataSource;
                 LDAAnalysis lda_analysis = library.ExpeditionManager.ExpeditionDataSource.LDAAnalysis;
 
@@ -111,7 +110,7 @@ namespace Qiqqa.Expedition
             }
         }
 
-        void ButtonRefreshTags_Click(object sender, RoutedEventArgs e)
+        private void ButtonRefreshTags_Click(object sender, RoutedEventArgs e)
         {
             if (null != library)
             {
@@ -122,8 +121,8 @@ namespace Qiqqa.Expedition
                 MessageBoxes.Warn("Please select a Library before trying to refresh its AutoTags.");
             }
         }
-        
-        void ButtonManageLists_Click(object sender, RoutedEventArgs e)
+
+        private void ButtonManageLists_Click(object sender, RoutedEventArgs e)
         {
             if (null != library)
             {
@@ -137,7 +136,7 @@ namespace Qiqqa.Expedition
             }
         }
 
-        void TextLibraryForExpedition_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void TextLibraryForExpedition_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Expedition_ChooseLibrary);
 
@@ -148,10 +147,10 @@ namespace Qiqqa.Expedition
                 ChooseNewLibrary(web_library_detail);
             }
 
-            e.Handled = true;            
+            e.Handled = true;
         }
 
-        void ButtonExpandAll_Click(object sender, RoutedEventArgs e)
+        private void ButtonExpandAll_Click(object sender, RoutedEventArgs e)
         {
             foreach (var child in ObjTopicListPanel.Children)
             {
@@ -160,7 +159,7 @@ namespace Qiqqa.Expedition
             }
         }
 
-        void ButtonCollapseAll_Click(object sender, RoutedEventArgs e)
+        private void ButtonCollapseAll_Click(object sender, RoutedEventArgs e)
         {
             foreach (var child in ObjTopicListPanel.Children)
             {
@@ -171,7 +170,7 @@ namespace Qiqqa.Expedition
 
         public void ChooseNewLibrary(WebLibraryDetail web_library_detail)
         {
-            this.library = null;
+            library = null;
             TextLibraryForExpedition.Text = "Click to choose a library.";
             ObjTopicListPanel.Children.Clear();
 
@@ -179,10 +178,10 @@ namespace Qiqqa.Expedition
 
             if (null != web_library_detail)
             {
-                this.library = web_library_detail.library;
+                library = web_library_detail.library;
                 TextLibraryForExpedition.Text = web_library_detail.Title;
 
-                int suggested_theme_count = this.library.ExpeditionManager.RecommendedThemeCount;
+                int suggested_theme_count = library.ExpeditionManager.RecommendedThemeCount;
                 TextExpeditionNumThemes.Text = "" + suggested_theme_count;
                 TextExpeditionNumThemes.ToolTip = "How many themes do you want in this Expedition?\n(" + suggested_theme_count + " suggested)";
 
@@ -206,12 +205,12 @@ namespace Qiqqa.Expedition
             }
         }
 
-        void toc_PDFDocumentSelected(PDFDocument pdf_document)
+        private void toc_PDFDocumentSelected(PDFDocument pdf_document)
         {
             ChooseNewPDFDocument(pdf_document);
         }
 
-        void ObjDocumentOverviewControl_PDFDocumentSelected(PDFDocument pdf_document)
+        private void ObjDocumentOverviewControl_PDFDocumentSelected(PDFDocument pdf_document)
         {
             ChooseNewPDFDocument(pdf_document);
         }
@@ -222,7 +221,7 @@ namespace Qiqqa.Expedition
             ObjDocumentOverviewControl.DataContext = pdf_document.Bindable;
         }
 
-        void ButtonRefresh_Click(object sender, RoutedEventArgs e)
+        private void ButtonRefresh_Click(object sender, RoutedEventArgs e)
         {
             if (null == library)
             {
@@ -236,21 +235,21 @@ namespace Qiqqa.Expedition
             SafeThreadPool.QueueUserWorkItem(o => library.ExpeditionManager.RebuildExpedition(num_topics, add_autotags, add_tags, OnRebuildExpeditionComplete));
         }
 
-        void OnRebuildExpeditionComplete()
+        private void OnRebuildExpeditionComplete()
         {
             Dispatcher.BeginInvoke(new Action(() => OnRebuildExpeditionComplete_GUITHREAD()));
         }
 
-        void OnRebuildExpeditionComplete_GUITHREAD()
+        private void OnRebuildExpeditionComplete_GUITHREAD()
         {
-            if (null != this.library)
+            if (null != library)
             {
-                ChooseNewLibrary(this.library.WebLibraryDetail);
+                ChooseNewLibrary(library.WebLibraryDetail);
                 GridVote.Visibility = Visibility.Visible;
             }
         }
 
-        void VoteDown_Click(object sender, RoutedEventArgs e)
+        private void VoteDown_Click(object sender, RoutedEventArgs e)
         {
             if (null != library.ExpeditionManager && null != library.ExpeditionManager.ExpeditionDataSource && null != library.ExpeditionManager.ExpeditionDataSource.docs)
             {
@@ -274,7 +273,7 @@ namespace Qiqqa.Expedition
             GridVote.Visibility = Visibility.Collapsed;
         }
 
-        void VoteUp_Click(object sender, RoutedEventArgs e)
+        private void VoteUp_Click(object sender, RoutedEventArgs e)
         {
             if (null != library.ExpeditionManager && null != library.ExpeditionManager.ExpeditionDataSource && null != library.ExpeditionManager.ExpeditionDataSource.docs)
             {

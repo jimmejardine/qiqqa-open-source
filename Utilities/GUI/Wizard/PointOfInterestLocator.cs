@@ -8,22 +8,22 @@ namespace Utilities.GUI.Wizard
 {
     public class PointOfInterestLocator
     {
-        Dictionary<string, List<DependencyObject>> points_of_interest;
+        private Dictionary<string, List<DependencyObject>> points_of_interest;
 
         public PointOfInterestLocator()
         {
-            this.points_of_interest = new Dictionary<string, List<DependencyObject>>();
+            points_of_interest = new Dictionary<string, List<DependencyObject>>();
 
             Refresh();
         }
 
         public void Refresh()
         {
-            this.points_of_interest.Clear();
+            points_of_interest.Clear();
 
             foreach (Window window in Application.Current.Windows)
             {
-                Refresh(window, this.points_of_interest);
+                Refresh(window, points_of_interest);
             }
         }
 

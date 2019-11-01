@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -22,25 +21,25 @@ namespace Qiqqa.Expedition
         private int _NumberOfRelevantPapersToDisplay = 50;
         public int NumberOfRelevantPapersToDisplay
         {
-            get { return _NumberOfRelevantPapersToDisplay; }
-            set { _NumberOfRelevantPapersToDisplay = value; }
+            get => _NumberOfRelevantPapersToDisplay;
+            set => _NumberOfRelevantPapersToDisplay = value;
         }
 
         private bool _ShowRelevancePercentage = true;
         public bool ShowRelevancePercentage
         {
-            get { return _ShowRelevancePercentage; }
-            set { _ShowRelevancePercentage = value; }
+            get => _ShowRelevancePercentage;
+            set => _ShowRelevancePercentage = value;
         }
 
         public ExpeditionPaperSimilarsControl()
         {
             InitializeComponent();
 
-            this.DataContextChanged += ExpeditionPaperSimilarsControl_DataContextChanged;
+            DataContextChanged += ExpeditionPaperSimilarsControl_DataContextChanged;
         }
 
-        void ExpeditionPaperSimilarsControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void ExpeditionPaperSimilarsControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             // Clear the old
             ObjPapers.Children.Clear();
@@ -76,7 +75,7 @@ namespace Qiqqa.Expedition
             TxtPleaseRunExpedition.Visibility = Visibility.Collapsed;
         }
 
-        void DocumentDocumentPressed_MouseButtonEventHandler(object sender, MouseButtonEventArgs e)
+        private void DocumentDocumentPressed_MouseButtonEventHandler(object sender, MouseButtonEventArgs e)
         {
             TextBlock text_block = (TextBlock)sender;
             ListFormattingTools.DocumentTextBlockTag tag = (ListFormattingTools.DocumentTextBlockTag)text_block.Tag;

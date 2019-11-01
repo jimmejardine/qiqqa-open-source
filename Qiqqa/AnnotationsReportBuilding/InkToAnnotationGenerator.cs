@@ -5,7 +5,7 @@ using Qiqqa.Documents.PDF;
 
 namespace Qiqqa.AnnotationsReportBuilding
 {
-    class InkToAnnotationGenerator
+    internal class InkToAnnotationGenerator
     {
         public const string INKS_TAG = "*Inks*";
 
@@ -53,7 +53,7 @@ namespace Qiqqa.AnnotationsReportBuilding
             }
 
             RegionOfInterest.AggregateRegions(regions);
-           
+
             // Build a list of annotations
             List<PDFAnnotation> annotations = RegionOfInterest.ConvertRegionsToPDFAnnotations(regions, INKS_TAG, pdf_document, page);
             return annotations;

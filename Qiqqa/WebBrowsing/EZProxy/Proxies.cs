@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using Newtonsoft.Json;
 using Qiqqa.Common.Configuration;
 using Utilities;
@@ -39,7 +38,7 @@ namespace Qiqqa.WebBrowsing.EZProxy
                 Logging.Info("Loaded {0} EZProxy proxies", proxies.Count);
 
                 proxies.Sort(
-                    delegate(Proxy a, Proxy b)
+                    delegate (Proxy a, Proxy b)
                     {
                         return String.Compare(a.name, b.name);
                     }

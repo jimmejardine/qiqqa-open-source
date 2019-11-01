@@ -23,7 +23,7 @@ namespace Qiqqa.Common.GUI
                         return (boolValue == true) ? strValues[0] : strValues[1];
                     }
                 }
-                
+
                 return boolValue ? "Yes" : "No";
             }
             return value;

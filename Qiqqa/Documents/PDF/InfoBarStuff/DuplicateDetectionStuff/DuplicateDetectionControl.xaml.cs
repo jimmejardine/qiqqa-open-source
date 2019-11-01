@@ -40,7 +40,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.DuplicateDetectionStuff
 
         public class TitleCombinedCache
         {
-            List<TitleCombinedCacheEntry> entries;
+            private List<TitleCombinedCacheEntry> entries;
 
             public TitleCombinedCache(List<PDFDocument> pdf_documents)
             {
@@ -55,19 +55,13 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.DuplicateDetectionStuff
                 }
             }
 
-            public List<TitleCombinedCacheEntry> Entries
-            {
-                get
-                {
-                    return entries;
-                }
-            }
+            public List<TitleCombinedCacheEntry> Entries => entries;
         }
 
         private void FindDuplicates(PDFDocument pdf_document_this)
         {
             // Invoke the GUI
-            this.Dispatcher.Invoke(new Action(() =>
+            Dispatcher.Invoke(new Action(() =>
             {
                 ClearDuplicates();
             }
@@ -94,7 +88,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.DuplicateDetectionStuff
             Logging.Info("It took {0}ms to run the duplicate detection.", stopwatch.ElapsedMilliseconds);
 
             // Invoke the GUI
-            this.Dispatcher.Invoke(new Action(() =>
+            Dispatcher.Invoke(new Action(() =>
             {
                 RenderDuplicates(duplicate_pdf_documents);
             }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using System.Text;
-using System.Timers;
 using log4net;
 using log4net.Appender;
 using log4net.Config;
@@ -14,14 +13,15 @@ namespace Utilities
 {
     public class Logging
     {
-        static ILog __log;
+        private static ILog __log;
 
         internal struct LogBufEntry
         {
             internal Exception ex;
             internal string message;
         }
-        static List<LogBufEntry> init_ex_list;
+
+        private static List<LogBufEntry> init_ex_list;
 
         static Logging()
         {
@@ -41,7 +41,7 @@ namespace Utilities
         //
         private static object log4net_loaded_lock = new object();
 
-        static ILog log
+        private static ILog log
         {
             get
             {
@@ -112,7 +112,7 @@ namespace Utilities
                             }
                         }
 
-                            we_are_ready_for_the_next_phase = true;
+                        we_are_ready_for_the_next_phase = true;
                     }
                 }
                 finally

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.SimilarAuthorsStuff;
 using Qiqqa.Documents.PDF.InfoBarStuff.PDFDocumentTagCloudStuff;
 using Utilities;
@@ -12,7 +11,7 @@ using Utilities.Misc;
 
 namespace Qiqqa.Documents.PDF.PDFControls
 {
-    class PDFRendererControlInterestingAnalysis
+    internal class PDFRendererControlInterestingAnalysis
     {
         public static void DoInterestingAnalysis(PDFReadingControl pdf_reading_control, PDFRendererControl pdf_renderer_control, PDFRendererControlStats pdf_renderer_control_stats)
         {
@@ -27,8 +26,8 @@ namespace Qiqqa.Documents.PDF.PDFControls
             SafeThreadPool.QueueUserWorkItem(o => DoInterestingAnalysis_SimilarAuthors(pdf_reading_control, pdf_renderer_control, pdf_renderer_control_stats));
         }
 
-        static void DoInterestingAnalysis_DuplicatesAndCitations(PDFReadingControl pdf_reading_control, PDFRendererControl pdf_renderer_control, PDFRendererControlStats pdf_renderer_control_stats)
-        {            
+        private static void DoInterestingAnalysis_DuplicatesAndCitations(PDFReadingControl pdf_reading_control, PDFRendererControl pdf_renderer_control, PDFRendererControlStats pdf_renderer_control_stats)
+        {
             try
             {
                 pdf_renderer_control.Dispatcher.Invoke(new Action(() =>
@@ -53,8 +52,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             }
         }
 
-
-        static void DoInterestingAnalysis_GoogleScholar(PDFReadingControl pdf_reading_control, PDFRendererControl pdf_renderer_control, PDFRendererControlStats pdf_renderer_control_stats)
+        private static void DoInterestingAnalysis_GoogleScholar(PDFReadingControl pdf_reading_control, PDFRendererControl pdf_renderer_control, PDFRendererControlStats pdf_renderer_control_stats)
         {
 #if true
             // Get the GoogleScholar similar documents
@@ -83,7 +81,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
 #endif
         }
 
-        static void DoInterestingAnalysis_TagCloud(PDFReadingControl pdf_reading_control, PDFRendererControl pdf_renderer_control, PDFRendererControlStats pdf_renderer_control_stats)
+        private static void DoInterestingAnalysis_TagCloud(PDFReadingControl pdf_reading_control, PDFRendererControl pdf_renderer_control, PDFRendererControlStats pdf_renderer_control_stats)
         {
             // Populate the tag cloud
             try
@@ -102,7 +100,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             }
         }
 
-        static void DoInterestingAnalysis_SimilarAuthors(PDFReadingControl pdf_reading_control, PDFRendererControl pdf_renderer_control, PDFRendererControlStats pdf_renderer_control_stats)
+        private static void DoInterestingAnalysis_SimilarAuthors(PDFReadingControl pdf_reading_control, PDFRendererControl pdf_renderer_control, PDFRendererControlStats pdf_renderer_control_stats)
         {
             // Populate the similar authors
             try

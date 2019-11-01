@@ -9,10 +9,10 @@ namespace Qiqqa.InCite
         public static readonly string OPTION_SEPARATE_AUTHOR_DATE_TRUE = "TRUE";
 
         public static readonly string PARAM_SPECIFIER_TYPE = "PARAM_SPECIFIER_TYPE";
-        public static readonly string[] OPTIONS_SPECIFIER_TYPE = new string[] 
-        { 
+        public static readonly string[] OPTIONS_SPECIFIER_TYPE = new string[]
+        {
             "", "page", "section", "chapter",
-            "", 
+            "",
             "book",
             "chapter",
             "column",
@@ -79,11 +79,11 @@ namespace Qiqqa.InCite
         {
             if (separate_author_and_date)
             {
-                this.SetParameter(PARAM_SEPARATE_AUTHOR_DATE, OPTION_SEPARATE_AUTHOR_DATE_TRUE);
+                SetParameter(PARAM_SEPARATE_AUTHOR_DATE, OPTION_SEPARATE_AUTHOR_DATE_TRUE);
             }
             else
             {
-                this.SetParameter(PARAM_SEPARATE_AUTHOR_DATE, "");
+                SetParameter(PARAM_SEPARATE_AUTHOR_DATE, "");
             }
         }
     }

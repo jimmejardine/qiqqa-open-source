@@ -13,7 +13,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
     /// </summary>
     public partial class LibraryFilterOverviewControl : UserControl
     {
-        LibraryFilterControl library_filter_control = null;
+        private LibraryFilterControl library_filter_control = null;
 
         public LibraryFilterOverviewControl()
         {
@@ -44,7 +44,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
                 paragraph.Inlines.Add("Library currently filtered by: ");
                 paragraph.Inlines.Add(descriptive_span);
                 paragraph.Inlines.Add("(" + match_count + " matching documents)");
-                
+
 
                 // Add to our viewer
                 ObjLibraryFilterDescriptiveText.Blocks.Clear();
@@ -57,7 +57,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
             }
         }
 
-        void hyperlink_clear_all_OnClick(object sender, MouseButtonEventArgs e)
+        private void hyperlink_clear_all_OnClick(object sender, MouseButtonEventArgs e)
         {
             library_filter_control.ResetFilters();
         }

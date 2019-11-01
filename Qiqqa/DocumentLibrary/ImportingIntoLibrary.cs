@@ -14,9 +14,10 @@ using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
 using Utilities.Strings;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.DocumentLibrary
 {
@@ -28,7 +29,7 @@ namespace Qiqqa.DocumentLibrary
             ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
         }
 
-        static readonly string LIBRARY_DOWNLOAD = "LibraryDownload";
+        private static readonly string LIBRARY_DOWNLOAD = "LibraryDownload";
 
         // make sure all threads use the same report file and the alert box is only shown once
         internal static string problematic_import_documents_filename = null;
@@ -70,7 +71,7 @@ namespace Qiqqa.DocumentLibrary
             StatusManager.Instance.ClearCancelled("BulkLibraryDocument");
 
             PDFDocument last_added_pdf_document = null;
-            
+
             int successful_additions = 0;
             for (int i = 0; i < filename_with_metadata_imports.Length; ++i)
             {
@@ -201,7 +202,7 @@ namespace Qiqqa.DocumentLibrary
             return last_added_pdf_document;
         }
 
-#endregion
+        #endregion
 
         internal static void AlertUserAboutProblematicImports()
         {
@@ -238,7 +239,7 @@ namespace Qiqqa.DocumentLibrary
             }
         }
 
-#region --- Add from folder ----------------------------------------------------------------------------------------------------------------------- 
+        #region --- Add from folder ----------------------------------------------------------------------------------------------------------------------- 
 
         public static void AddNewPDFDocumentsToLibraryFromFolder_SYNCHRONOUS(Library library, string root_folder, bool recurse_subfolders, bool import_tags_from_subfolder_names, bool suppress_notifications, bool suppress_signal_that_docs_have_changed)
         {
@@ -269,10 +270,10 @@ namespace Qiqqa.DocumentLibrary
                 foreach (var filename in Directory.GetFiles(folder, "*.pdf"))
                 {
                     var filename_with_metadata_import = new FilenameWithMetadataImport
-                                                            {
-                                                                filename = filename,
-                                                                tags = tags
-                                                            };
+                    {
+                        filename = filename,
+                        tags = tags
+                    };
                     file_list.Add(filename_with_metadata_import);
 
                     Logging.Debug特("Registering file import {0} with tags {1}", filename, StringTools.ConcatenateStrings(tags));
@@ -302,9 +303,9 @@ namespace Qiqqa.DocumentLibrary
             }
         }
 
-#endregion
+        #endregion
 
-#region --- Add from internet ---------------------------------------------------------------------------------------------------------------------------
+        #region --- Add from internet ---------------------------------------------------------------------------------------------------------------------------
 
         public static void AddNewDocumentToLibraryFromInternet_ASYNCHRONOUS(Library library, string download_url)
         {
@@ -483,9 +484,9 @@ namespace Qiqqa.DocumentLibrary
             StatusManager.Instance.UpdateStatus(LIBRARY_DOWNLOAD, String.Format("Downloaded {0}", download_url));
         }
 
-#endregion
+        #endregion
 
-#region --- Add from another library ---------------------------------------------------------------------------------------------------------------------------
+        #region --- Add from another library ---------------------------------------------------------------------------------------------------------------------------
 
         public static void ClonePDFDocumentsFromOtherLibrary_ASYNCHRONOUS(PDFDocument existing_pdf_document, Library library, bool suppress_signal_that_docs_have_changed)
         {
@@ -502,7 +503,7 @@ namespace Qiqqa.DocumentLibrary
         /// </summary>
         public static void ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(List<PDFDocument> existing_pdf_documents, Library library)
         {
-            for (int i = 0; i < existing_pdf_documents.Count; ++i)            
+            for (int i = 0; i < existing_pdf_documents.Count; ++i)
             {
                 StatusManager.Instance.UpdateStatus("BulkLibraryDocument", String.Format("Adding document {0} of {1} to your library", i, existing_pdf_documents.Count), i, existing_pdf_documents.Count);
 
@@ -546,6 +547,6 @@ namespace Qiqqa.DocumentLibrary
             }
         }
 
-#endregion
+        #endregion
     }
 }

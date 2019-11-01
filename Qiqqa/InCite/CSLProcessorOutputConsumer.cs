@@ -6,8 +6,10 @@ using System.Text;
 using Gecko;
 using Newtonsoft.Json.Linq;
 using Utilities;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.InCite
 {
@@ -38,8 +40,7 @@ namespace Qiqqa.InCite
         public string error_message = null;
 
         public bool success;
-
-        GeckoWebBrowser web_browser;
+        private GeckoWebBrowser web_browser;
 
         public delegate void BibliographyReadyDelegate(CSLProcessorOutputConsumer ip);
 
@@ -70,7 +71,7 @@ namespace Qiqqa.InCite
             web_browser.Navigate(uri.ToString());
         }
 
-        void web_browser_ConsoleMessage(object sender, ConsoleMessageEventArgs e)
+        private void web_browser_ConsoleMessage(object sender, ConsoleMessageEventArgs e)
         {
             Logging.Debug特("JAVASCRIPT CONSOLE MESSAGE: {0}", e.Message);
 
@@ -101,7 +102,7 @@ namespace Qiqqa.InCite
                         int line = Int32.Parse(matches[0].Groups[1].Value);
                         int pos = Int32.Parse(matches[0].Groups[2].Value);
 
-                        string[] citations_javascript_lines = this.citations_javascript.Split(new char[] { '\n' });
+                        string[] citations_javascript_lines = citations_javascript.Split(new char[] { '\n' });
 
                         int min = (int)Math.Max(0, line - 1 - 15);
                         int max = (int)Math.Min(citations_javascript_lines.Length, line - 1 + 5);
@@ -113,15 +114,15 @@ namespace Qiqqa.InCite
                             sb_error_region.AppendFormat("{0}{1}\n", indicator, citations_javascript_lines[i]);
                         }
 
-                        this.error_message = sb_error_region.ToString();
+                        error_message = sb_error_region.ToString();
                     }
                     else
                     {
-                        this.error_message = e.Message;
+                        error_message = e.Message;
                     }
 
                     Logging.Info("Calling the BibliographyReadyDelegate");
-                    this.success = false;
+                    success = false;
                     brd(this);
                     Logging.Info("Called the BibliographyReadyDelegate");
                 }
@@ -188,7 +189,7 @@ namespace Qiqqa.InCite
                         }
 
                         Logging.Debug特("Calling the BibliographyReadyDelegate");
-                        this.success = true;
+                        success = true;
                         brd(this);
                         Logging.Debug特("Called the BibliographyReadyDelegate");
                     }
@@ -211,9 +212,9 @@ namespace Qiqqa.InCite
             }
         }
 
+        private bool finished_processing = false;
 
-        bool finished_processing = false;
-        void web_browser_JavascriptError(object sender, JavascriptErrorEventArgs e)
+        private void web_browser_JavascriptError(object sender, JavascriptErrorEventArgs e)
         {
         }
 
@@ -351,10 +352,10 @@ namespace Qiqqa.InCite
         {
             StringBuilder sb = new StringBuilder();
 
-            if (0 < this.bibliography.Count)
+            if (0 < bibliography.Count)
             {
                 sb.Append(CSLProcessorOutputConsumer.RTF_START);
-                foreach (string line in this.bibliography)
+                foreach (string line in bibliography)
                 {
                     sb.Append(line);
                     sb.Append(@"\par");
@@ -367,7 +368,7 @@ namespace Qiqqa.InCite
             else
             {
                 sb.Append(CSLProcessorOutputConsumer.RTF_START);
-                foreach (string line in this.position_to_text.Values)
+                foreach (string line in position_to_text.Values)
                 {
                     sb.Append(line);
                     sb.Append(@"\par");

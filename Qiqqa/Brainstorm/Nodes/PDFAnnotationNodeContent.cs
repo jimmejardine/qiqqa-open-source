@@ -16,9 +16,9 @@ namespace Qiqqa.Brainstorm.Nodes
         internal string library_fingerprint;
 
         [NonSerialized]
-        AugmentedBindable<PDFAnnotation> pdf_annotation_bindable;
+        private AugmentedBindable<PDFAnnotation> pdf_annotation_bindable;
         [NonSerialized]
-        AugmentedBindable<PDFDocument> pdf_document_bindable;
+        private AugmentedBindable<PDFDocument> pdf_document_bindable;
 
         public PDFAnnotationNodeContent(string library_fingerprint, string pdf_document_fingerprint, Guid pdf_annotation_guid)
         {
@@ -40,7 +40,7 @@ namespace Qiqqa.Brainstorm.Nodes
                 }
             }
         }
-        
+
         public AugmentedBindable<PDFAnnotation> PDFAnnotation
         {
             get

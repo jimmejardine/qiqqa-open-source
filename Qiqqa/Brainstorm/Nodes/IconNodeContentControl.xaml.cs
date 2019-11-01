@@ -8,7 +8,7 @@ namespace Qiqqa.Brainstorm.Nodes
     /// </summary>
     public partial class IconNodeContentControl : Grid
     {
-        IconNodeContent icon_node_content;
+        private IconNodeContent icon_node_content;
 
         public IconNodeContentControl(NodeControl node_control, IconNodeContent icon_node_content)
         {
@@ -16,10 +16,10 @@ namespace Qiqqa.Brainstorm.Nodes
 
             InitializeComponent();
 
-            this.Focusable = true;
+            Focusable = true;
 
-            this.Image.Stretch = Stretch.Fill;
-            this.Image.Source = icon_node_content.BitmapImage;
+            Image.Stretch = Stretch.Fill;
+            Image.Source = icon_node_content.BitmapImage;
         }
     }
 }

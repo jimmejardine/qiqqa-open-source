@@ -7,7 +7,7 @@ namespace Utilities.GUI
 {
     public class ThemeColours
     {
-        static readonly QuantisleUserRegistry qur = new QuantisleUserRegistry("Misc");
+        private static readonly QuantisleUserRegistry qur = new QuantisleUserRegistry("Misc");
 
         public static int HEADER_FONT_SIZE = 20;
 
@@ -118,38 +118,38 @@ namespace Utilities.GUI
 
         public static void AddToApplicationResources(Application application)
         {
-            if (!application.Resources.Contains("Background_Color_Neutral_VeryLight"))              application.Resources.Add("Background_Color_Neutral_VeryLight", Background_Color_Neutral_VeryLight);
-            if (!application.Resources.Contains("Background_Color_Neutral_Light"))                  application.Resources.Add("Background_Color_Neutral_Light", Background_Color_Neutral_Light);
-            if (!application.Resources.Contains("Background_Color_Neutral_Medium"))                 application.Resources.Add("Background_Color_Neutral_Medium", Background_Color_Neutral_Medium);
+            if (!application.Resources.Contains("Background_Color_Neutral_VeryLight")) application.Resources.Add("Background_Color_Neutral_VeryLight", Background_Color_Neutral_VeryLight);
+            if (!application.Resources.Contains("Background_Color_Neutral_Light")) application.Resources.Add("Background_Color_Neutral_Light", Background_Color_Neutral_Light);
+            if (!application.Resources.Contains("Background_Color_Neutral_Medium")) application.Resources.Add("Background_Color_Neutral_Medium", Background_Color_Neutral_Medium);
 
-            if (!application.Resources.Contains("Background_Color_Blue_VeryLight"))                 application.Resources.Add("Background_Color_Blue_VeryLight", Background_Color_Blue_VeryLight);
-            if (!application.Resources.Contains("Background_Color_Blue_Light"))                     application.Resources.Add("Background_Color_Blue_Light", Background_Color_Blue_Light);
-            if (!application.Resources.Contains("Background_Color_Blue_Dark"))                      application.Resources.Add("Background_Color_Blue_Dark", Background_Color_Blue_Dark);
-            if (!application.Resources.Contains("Background_Color_Blue_VeryDark"))                  application.Resources.Add("Background_Color_Blue_VeryDark", Background_Color_Blue_VeryDark);
-            if (!application.Resources.Contains("Background_Color_Blue_VeryVeryDark"))              application.Resources.Add("Background_Color_Blue_VeryVeryDark", Background_Color_Blue_VeryVeryDark);
-            if (!application.Resources.Contains("Background_Color_Blue_VeryVeryVeryDark"))          application.Resources.Add("Background_Color_Blue_VeryVeryVeryDark", Background_Color_Blue_VeryVeryVeryDark);
+            if (!application.Resources.Contains("Background_Color_Blue_VeryLight")) application.Resources.Add("Background_Color_Blue_VeryLight", Background_Color_Blue_VeryLight);
+            if (!application.Resources.Contains("Background_Color_Blue_Light")) application.Resources.Add("Background_Color_Blue_Light", Background_Color_Blue_Light);
+            if (!application.Resources.Contains("Background_Color_Blue_Dark")) application.Resources.Add("Background_Color_Blue_Dark", Background_Color_Blue_Dark);
+            if (!application.Resources.Contains("Background_Color_Blue_VeryDark")) application.Resources.Add("Background_Color_Blue_VeryDark", Background_Color_Blue_VeryDark);
+            if (!application.Resources.Contains("Background_Color_Blue_VeryVeryDark")) application.Resources.Add("Background_Color_Blue_VeryVeryDark", Background_Color_Blue_VeryVeryDark);
+            if (!application.Resources.Contains("Background_Color_Blue_VeryVeryVeryDark")) application.Resources.Add("Background_Color_Blue_VeryVeryVeryDark", Background_Color_Blue_VeryVeryVeryDark);
 
-            if (!application.Resources.Contains("Background_Color_Warning_Light"))                  application.Resources.Add("Background_Color_Warning_Light", Background_Color_Warning_Light);
-            if (!application.Resources.Contains("Background_Color_Warning_Dark"))                   application.Resources.Add("Background_Color_Warning_Dark", Background_Color_Warning_Dark);
+            if (!application.Resources.Contains("Background_Color_Warning_Light")) application.Resources.Add("Background_Color_Warning_Light", Background_Color_Warning_Light);
+            if (!application.Resources.Contains("Background_Color_Warning_Dark")) application.Resources.Add("Background_Color_Warning_Dark", Background_Color_Warning_Dark);
 
-            if (!application.Resources.Contains("Background_Brush_Blue_Light"))                     application.Resources.Add("Background_Brush_Blue_Light", Background_Brush_Blue_Light);
-            if (!application.Resources.Contains("Background_Brush_Blue_Dark"))                      application.Resources.Add("Background_Brush_Blue_Dark", Background_Brush_Blue_Dark);
-            if (!application.Resources.Contains("Background_Brush_Blue_VeryDark"))                  application.Resources.Add("Background_Brush_Blue_VeryDark", Background_Brush_Blue_VeryDark);
-            if (!application.Resources.Contains("Background_Brush_Blue_VeryVeryDark"))              application.Resources.Add("Background_Brush_Blue_VeryVeryDark", Background_Brush_Blue_VeryVeryDark);
-            if (!application.Resources.Contains("Background_Brush_Blue_VeryVeryVeryDark"))          application.Resources.Add("Background_Brush_Blue_VeryVeryVeryDark", Background_Brush_Blue_VeryVeryVeryDark);
+            if (!application.Resources.Contains("Background_Brush_Blue_Light")) application.Resources.Add("Background_Brush_Blue_Light", Background_Brush_Blue_Light);
+            if (!application.Resources.Contains("Background_Brush_Blue_Dark")) application.Resources.Add("Background_Brush_Blue_Dark", Background_Brush_Blue_Dark);
+            if (!application.Resources.Contains("Background_Brush_Blue_VeryDark")) application.Resources.Add("Background_Brush_Blue_VeryDark", Background_Brush_Blue_VeryDark);
+            if (!application.Resources.Contains("Background_Brush_Blue_VeryVeryDark")) application.Resources.Add("Background_Brush_Blue_VeryVeryDark", Background_Brush_Blue_VeryVeryDark);
+            if (!application.Resources.Contains("Background_Brush_Blue_VeryVeryVeryDark")) application.Resources.Add("Background_Brush_Blue_VeryVeryVeryDark", Background_Brush_Blue_VeryVeryVeryDark);
 
-            if (!application.Resources.Contains("Background_Brush_Blue_LightToVeryLight"))          application.Resources.Add("Background_Brush_Blue_LightToVeryLight", Background_Brush_Blue_LightToVeryLight);
-            if (!application.Resources.Contains("Background_Brush_Blue_LightToDark"))               application.Resources.Add("Background_Brush_Blue_LightToDark", Background_Brush_Blue_LightToDark);
-            if (!application.Resources.Contains("Background_Brush_Blue_DarkToLight"))               application.Resources.Add("Background_Brush_Blue_DarkToLight", Background_Brush_Blue_DarkToLight);
-            if (!application.Resources.Contains("Background_Brush_Blue_VeryDarkToDark"))            application.Resources.Add("Background_Brush_Blue_VeryDarkToDark", Background_Brush_Blue_VeryDarkToDark);
-            if (!application.Resources.Contains("Background_Brush_Blue_VeryVeryDarkToVeryDark"))    application.Resources.Add("Background_Brush_Blue_VeryVeryDarkToVeryDark", Background_Brush_Blue_VeryVeryDarkToVeryDark);
-            if (!application.Resources.Contains("Background_Brush_Blue_LightToWhite"))              application.Resources.Add("Background_Brush_Blue_LightToWhite", Background_Brush_Blue_LightToWhite);
-            if (!application.Resources.Contains("Background_Brush_Blue_DarkToWhite"))               application.Resources.Add("Background_Brush_Blue_DarkToWhite", Background_Brush_Blue_DarkToWhite);
-            if (!application.Resources.Contains("Background_Brush_Blue_VeryDarkToWhite"))           application.Resources.Add("Background_Brush_Blue_VeryDarkToWhite", Background_Brush_Blue_VeryDarkToWhite);
-            if (!application.Resources.Contains("Background_Brush_Blue_VeryVeryDarkToWhite"))       application.Resources.Add("Background_Brush_Blue_VeryVeryDarkToWhite", Background_Brush_Blue_VeryVeryDarkToWhite);
+            if (!application.Resources.Contains("Background_Brush_Blue_LightToVeryLight")) application.Resources.Add("Background_Brush_Blue_LightToVeryLight", Background_Brush_Blue_LightToVeryLight);
+            if (!application.Resources.Contains("Background_Brush_Blue_LightToDark")) application.Resources.Add("Background_Brush_Blue_LightToDark", Background_Brush_Blue_LightToDark);
+            if (!application.Resources.Contains("Background_Brush_Blue_DarkToLight")) application.Resources.Add("Background_Brush_Blue_DarkToLight", Background_Brush_Blue_DarkToLight);
+            if (!application.Resources.Contains("Background_Brush_Blue_VeryDarkToDark")) application.Resources.Add("Background_Brush_Blue_VeryDarkToDark", Background_Brush_Blue_VeryDarkToDark);
+            if (!application.Resources.Contains("Background_Brush_Blue_VeryVeryDarkToVeryDark")) application.Resources.Add("Background_Brush_Blue_VeryVeryDarkToVeryDark", Background_Brush_Blue_VeryVeryDarkToVeryDark);
+            if (!application.Resources.Contains("Background_Brush_Blue_LightToWhite")) application.Resources.Add("Background_Brush_Blue_LightToWhite", Background_Brush_Blue_LightToWhite);
+            if (!application.Resources.Contains("Background_Brush_Blue_DarkToWhite")) application.Resources.Add("Background_Brush_Blue_DarkToWhite", Background_Brush_Blue_DarkToWhite);
+            if (!application.Resources.Contains("Background_Brush_Blue_VeryDarkToWhite")) application.Resources.Add("Background_Brush_Blue_VeryDarkToWhite", Background_Brush_Blue_VeryDarkToWhite);
+            if (!application.Resources.Contains("Background_Brush_Blue_VeryVeryDarkToWhite")) application.Resources.Add("Background_Brush_Blue_VeryVeryDarkToWhite", Background_Brush_Blue_VeryVeryDarkToWhite);
 
-            if (!application.Resources.Contains("Background_Brush_Warning"))                        application.Resources.Add("Background_Brush_Warning", Background_Brush_Warning);
-            if (!application.Resources.Contains("Background_Brush_Warning_Transparent"))            application.Resources.Add("Background_Brush_Warning_Transparent", Background_Brush_Warning_Transparent);
+            if (!application.Resources.Contains("Background_Brush_Warning")) application.Resources.Add("Background_Brush_Warning", Background_Brush_Warning);
+            if (!application.Resources.Contains("Background_Brush_Warning_Transparent")) application.Resources.Add("Background_Brush_Warning_Transparent", Background_Brush_Warning_Transparent);
 
             // And then the associated XAML file
             string MODULE_NAME = typeof(ThemeScrollbar).Assembly.GetName().Name;

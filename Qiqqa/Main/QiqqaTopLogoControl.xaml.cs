@@ -27,26 +27,26 @@ namespace Qiqqa.Main
             ImageQiqqaLogo.MouseEnter += ImageQiqqaLogo_MouseEnter;
             ImageQiqqaLogo.MouseLeave += ImageQiqqaLogo_MouseLeave;
             ImageQiqqaLogo.MouseUp += ImageQiqqaLogo_MouseUp;
- 
-            this.Opacity = 0.5;
+
+            Opacity = 0.5;
         }
 
-        void ImageQiqqaLogo_MouseUp(object sender, MouseButtonEventArgs e)
+        private void ImageQiqqaLogo_MouseUp(object sender, MouseButtonEventArgs e)
         {
             MainWindowServiceDispatcher.Instance.OpenQiqqaWebsite();
             e.Handled = true;
         }
 
-        void ImageQiqqaLogo_MouseLeave(object sender, MouseEventArgs e)
+        private void ImageQiqqaLogo_MouseLeave(object sender, MouseEventArgs e)
         {
             DoubleAnimation animation = new DoubleAnimation(0.5, new Duration(TimeSpan.FromMilliseconds(500)));
-            this.BeginAnimation(OpacityProperty, animation);
+            BeginAnimation(OpacityProperty, animation);
         }
 
-        void ImageQiqqaLogo_MouseEnter(object sender, MouseEventArgs e)
+        private void ImageQiqqaLogo_MouseEnter(object sender, MouseEventArgs e)
         {
             DoubleAnimation animation = new DoubleAnimation(1, new Duration(TimeSpan.FromMilliseconds(500)));
-            this.BeginAnimation(OpacityProperty, animation);
+            BeginAnimation(OpacityProperty, animation);
         }
     }
 }

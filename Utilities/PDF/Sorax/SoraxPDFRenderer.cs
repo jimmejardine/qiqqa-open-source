@@ -2,11 +2,10 @@
 {
     public class SoraxPDFRenderer
     {
-        SoraxPDFRendererCache cache = new SoraxPDFRendererCache();
-
-        string pdf_filename;
-        string pdf_user_password;
-        string pdf_owner_password;
+        private SoraxPDFRendererCache cache = new SoraxPDFRendererCache();
+        private string pdf_filename;
+        private string pdf_user_password;
+        private string pdf_owner_password;
 
         public SoraxPDFRenderer(string pdf_filename, string pdf_user_password, string pdf_owner_password)
         {
@@ -31,7 +30,7 @@
                 }
                 return bitmap;
             }
-            
+
         }
 
         public byte[] GetPageByDPIAsImage(int page, float dpi)

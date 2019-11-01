@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using System.Windows.Documents;
+﻿using System.Windows.Documents;
 using Utilities.GUI;
 
 namespace Qiqqa.Common.GUI
@@ -10,9 +9,9 @@ namespace Qiqqa.Common.GUI
         {
             Theme.Initialize();
 
-            this.Background = ThemeColours.Background_Brush_Blue_Light;
-            this.FontSize = 13;
-            this.FontFamily = ThemeTextStyles.FontFamily_Standard;
+            Background = ThemeColours.Background_Brush_Blue_Light;
+            FontSize = 13;
+            FontFamily = ThemeTextStyles.FontFamily_Standard;
         }
     }
 }

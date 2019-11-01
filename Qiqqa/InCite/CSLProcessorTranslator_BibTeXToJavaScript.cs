@@ -8,7 +8,7 @@ using Utilities.Language;
 
 namespace Qiqqa.InCite
 {
-    class CSLProcessorTranslator_BibTeXToJavaScript
+    internal class CSLProcessorTranslator_BibTeXToJavaScript
     {
         internal static string Translate_INIT(Dictionary<string, CSLProcessorBibTeXFinder.MatchingBibTeXRecord> bibtex_items)
         {
@@ -47,7 +47,7 @@ namespace Qiqqa.InCite
             {
                 if (is_additional_bibtex_item)
                 {
-                    sb.AppendLine(",");                    
+                    sb.AppendLine(",");
                 }
                 else
                 {
@@ -115,11 +115,11 @@ namespace Qiqqa.InCite
                         }
                     }
                 }
-                
+
                 // Close the current bibtex item
                 sb.AppendLine("}");
             }
-            
+
             sb.AppendLine();
             sb.AppendLine("};");
 
@@ -157,7 +157,7 @@ namespace Qiqqa.InCite
             else if ("journal-iso" == key) translated_key = "journalAbbreviation";
             else if ("editor" == key) translated_key = "editor";
             else if ("keywords" == key) translated_key = "keyword";
-            
+
             // The value field
             string value = field_pair.Value;
 
@@ -206,13 +206,13 @@ namespace Qiqqa.InCite
 
             // Map the type from BibTeX type to CSL type
             type = type.ToLower();
-            
+
             string translated_type = type;
             if (false) { }
             else if (CSL_TYPES.Contains(type)) translated_type = type;
 
             // BibTeX to CSL - http://www.docear.org/2012/08/08/docear4word-mapping-bibtex-fields-and-types-with-the-citation-style-language/
-            else if ("article" == type) translated_type = "article-journal";            
+            else if ("article" == type) translated_type = "article-journal";
             else if ("proceedings" == type) translated_type = "book";
             else if ("manual" == type) translated_type = "book";
             else if ("book" == type) translated_type = "book";
@@ -250,7 +250,7 @@ namespace Qiqqa.InCite
             else if ("article-csl" == type) translated_type = "article";
             else translated_type = "article-journal";
 
-            sb.AppendLine(", " + MakeQuotedPair("type", translated_type));           
+            sb.AppendLine(", " + MakeQuotedPair("type", translated_type));
         }
 
         private static void ProcessAuthors(StringBuilder sb, KeyValuePair<string, string> field_pair)
@@ -308,7 +308,7 @@ namespace Qiqqa.InCite
                 sb.Append("  { ");
                 NameTools.Name name = NameTools.SplitName(author_split);
                 sb.Append(MakeQuotedPair("family", name.last_name));
-                
+
                 // Make sure the initials have a space between them
                 string first_names_with_initials_separated = name.first_names;
                 if (!String.IsNullOrEmpty(first_names_with_initials_separated))
@@ -325,7 +325,7 @@ namespace Qiqqa.InCite
             sb.AppendLine("   ]");
         }
 
-        static string MakeQuotedPair(string key, string value)
+        private static string MakeQuotedPair(string key, string value)
         {
             value = value.Replace("\\", "\\\\");
             value = value.Replace("\"", "\\\"");

@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 
 namespace Qiqqa.Brainstorm.Nodes
-{    
+{
     /// <summary>
     /// Interaction logic for StringNodeContentControl.xaml
     /// </summary>
@@ -11,7 +11,7 @@ namespace Qiqqa.Brainstorm.Nodes
         {
             InitializeComponent();
 
-            this.DataContext = string_node_content.Bindable;
+            DataContext = string_node_content.Bindable;
         }
     }
 }

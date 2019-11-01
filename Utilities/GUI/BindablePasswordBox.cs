@@ -43,14 +43,8 @@ namespace Utilities.GUI
         /// </summary>
         public string Password
         {
-            get
-            {
-                return GetValue(PasswordProperty) as string;
-            }
-            set
-            {
-                SetValue(PasswordProperty, value);
-            }
+            get => GetValue(PasswordProperty) as string;
+            set => SetValue(PasswordProperty, value);
         }
 
         /// <summary>

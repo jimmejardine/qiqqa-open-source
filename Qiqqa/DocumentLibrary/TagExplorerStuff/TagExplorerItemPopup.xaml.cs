@@ -10,10 +10,9 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
     /// </summary>
     public partial class TagExplorerItemPopup : UserControl
     {
-        Library library;
-        string source_tag;
-        
-        AugmentedPopup popup;
+        private Library library;
+        private string source_tag;
+        private AugmentedPopup popup;
 
 
         public TagExplorerItemPopup(Library library, string source_tag)
@@ -29,7 +28,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             popup = new AugmentedPopup(this);
         }
 
-        void MenuExploreTag_Click(object sender, RoutedEventArgs e)
+        private void MenuExploreTag_Click(object sender, RoutedEventArgs e)
         {
             using (var c = popup.AutoCloser)
             {
@@ -37,7 +36,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             }
         }
 
-        void MenuRenameTag_Click(object sender, RoutedEventArgs e)
+        private void MenuRenameTag_Click(object sender, RoutedEventArgs e)
         {
             using (var c = popup.AutoCloser)
             {
@@ -45,7 +44,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
                 dialog.ShowDialog();
             }
         }
-        
+
         public void Open()
         {
             popup.IsOpen = true;

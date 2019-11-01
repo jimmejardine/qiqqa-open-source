@@ -9,7 +9,7 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff.CitationFinding
      * It assumes that the "cites" field is a semicolon delimited list of patent IDs
      * It then searches for this docs patent_id in all other's cites...
      */
-    class OmnipatentsCitationFinder
+    internal class OmnipatentsCitationFinder
     {
         public static int FindCitations(PDFDocument pdf_document)
         {

@@ -1,9 +1,9 @@
-﻿using System.Windows.Threading;
-using System.Windows;
-using System;
+﻿using System;
 using System.Diagnostics;
-using System.Windows.Input;
 using System.Threading;
+using System.Windows;
+using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace Utilities.GUI
 {

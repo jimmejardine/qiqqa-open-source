@@ -100,7 +100,7 @@ namespace Qiqqa.Common.GUI
             return sb.ToString();
         }
 
-        static void text_doc_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        private static void text_doc_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
             TextBlock text_block = (TextBlock)sender;
             DocumentTextBlockTag tag = (DocumentTextBlockTag)text_block.Tag;
@@ -111,8 +111,7 @@ namespace Qiqqa.Common.GUI
             e.Handled = true;
         }
 
-        
-        static void text_doc_MouseDown(object sender, MouseButtonEventArgs e)
+        private static void text_doc_MouseDown(object sender, MouseButtonEventArgs e)
         {
             TextBlock text_block = (TextBlock)sender;
             DocumentTextBlockTag tag = (DocumentTextBlockTag)text_block.Tag;
@@ -127,7 +126,7 @@ namespace Qiqqa.Common.GUI
             e.Handled = true;
         }
 
-        static void PDFDocumentNodeContentControl_ToolTipOpening(object sender, ToolTipEventArgs e)
+        private static void PDFDocumentNodeContentControl_ToolTipOpening(object sender, ToolTipEventArgs e)
         {
             TextBlock text_block = (TextBlock)sender;
             DocumentTextBlockTag tag = (DocumentTextBlockTag)text_block.Tag;
@@ -148,7 +147,7 @@ namespace Qiqqa.Common.GUI
             }
         }
 
-        static void PDFDocumentNodeContentControl_ToolTipClosing(object sender, ToolTipEventArgs e)
+        private static void PDFDocumentNodeContentControl_ToolTipClosing(object sender, ToolTipEventArgs e)
         {
             TextBlock text_block = (TextBlock)sender;
             DocumentTextBlockTag tag = (DocumentTextBlockTag)text_block.Tag;
@@ -160,12 +159,12 @@ namespace Qiqqa.Common.GUI
         }
 
         public static void AddGlowingHoverEffect(FrameworkElement fe)
-        {            
+        {
             fe.MouseEnter += AddGlowingHoverEffect_MouseEnter;
             fe.MouseLeave += AddGlowingHoverEffect_MouseLeave;
         }
 
-        static void AddGlowingHoverEffect_MouseLeave(object sender, MouseEventArgs e)
+        private static void AddGlowingHoverEffect_MouseLeave(object sender, MouseEventArgs e)
         {
             {
                 TextBlock o = sender as TextBlock;
@@ -177,7 +176,7 @@ namespace Qiqqa.Common.GUI
             }
         }
 
-        static void AddGlowingHoverEffect_MouseEnter(object sender, MouseEventArgs e)
+        private static void AddGlowingHoverEffect_MouseEnter(object sender, MouseEventArgs e)
         {
             {
                 TextBlock o = sender as TextBlock;

@@ -19,9 +19,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             ObjCommentsBox.ToolTip = "This space lets you store any comments you may have about this reference.";
         }
 
-        void ButtonComments_Click(object sender, RoutedEventArgs e)
+        private void ButtonComments_Click(object sender, RoutedEventArgs e)
         {
-            AugmentedBindable<PDFDocument>  pdf_document_bindable = this.DataContext as AugmentedBindable<PDFDocument>;
+            AugmentedBindable<PDFDocument> pdf_document_bindable = DataContext as AugmentedBindable<PDFDocument>;
             if (null == pdf_document_bindable)
             {
                 return;

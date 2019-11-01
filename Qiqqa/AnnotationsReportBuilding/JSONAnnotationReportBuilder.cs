@@ -1,23 +1,20 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using Newtonsoft.Json;
 using Qiqqa.DocumentLibrary;
 using Qiqqa.Documents.PDF;
 using Qiqqa.UtilisationTracking;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.AnnotationsReportBuilding
 {
-    class JSONAnnotationReportBuilder    
+    internal class JSONAnnotationReportBuilder
     {
-        class AnnotationJSON
+        private class AnnotationJSON
         {
             public string fingerprint { get; set; }
             public string title { get; set; }
@@ -38,8 +35,8 @@ namespace Qiqqa.AnnotationsReportBuilding
 
             List<AnnotationWorkGenerator.AnnotationWork> annotation_works = AnnotationWorkGenerator.GenerateAnnotationWorks(library, pdf_documents, annotation_report_options);
 
-            IEnumerable<AnnotationJSON> annotation_jsons = annotation_works.Select(annotation_work => 
-                new AnnotationJSON 
+            IEnumerable<AnnotationJSON> annotation_jsons = annotation_works.Select(annotation_work =>
+                new AnnotationJSON
                 {
                     fingerprint = annotation_work.pdf_document.Fingerprint,
                     title = annotation_work.pdf_document.TitleCombined,

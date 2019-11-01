@@ -2,7 +2,7 @@
 
 namespace Qiqqa.Brainstorm.Nodes
 {
-    interface IKeyPressableNodeContentControl
+    internal interface IKeyPressableNodeContentControl
     {
         void ProcessKeyPress(KeyEventArgs e);
     }

@@ -7,37 +7,34 @@ namespace Utilities.GUI
 {
     [ContentProperty("InnerChild")]
     public class AugmentedToolBarPopup : Popup
-    {        
-        AugmentedBorder border = new AugmentedBorder();
-        Grid grid = new Grid();
+    {
+        private AugmentedBorder border = new AugmentedBorder();
+        private Grid grid = new Grid();
 
         public AugmentedToolBarPopup()
         {
             Theme.Initialize();
 
-            this.AllowsTransparency = true;
-            
-            this.border.Background = ThemeColours.Background_Brush_Blue_LightToDark;
-            this.border.Child = grid;
-            this.Child = this.border;
+            AllowsTransparency = true;
+
+            border.Background = ThemeColours.Background_Brush_Blue_LightToDark;
+            border.Child = grid;
+            Child = border;
         }
 
         public FrameworkElement InnerChild
         {
-            get
-            {
-                return (FrameworkElement)this.grid.Children[0];
-            }
+            get => (FrameworkElement)grid.Children[0];
             set
             {
-                this.grid.Children.Clear();
-                this.grid.Children.Add(value);
+                grid.Children.Clear();
+                grid.Children.Add(value);
             }
         }
 
         public void Close()
         {
-            this.IsOpen = false;
+            IsOpen = false;
         }
     }
 }

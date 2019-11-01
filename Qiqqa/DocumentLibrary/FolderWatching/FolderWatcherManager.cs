@@ -1,31 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 using Utilities;
 using Utilities.Files;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.DocumentLibrary.FolderWatching
 {
     public class FolderWatcherManager
     {
-        Library library;
+        private Library library;
 
-        class FolderWatcherRecord
+        private class FolderWatcherRecord
         {
             public string path;
             public string tags;
             public FolderWatcher folder_watcher;
         }
-        Dictionary<string, FolderWatcherRecord> folder_watcher_records = new Dictionary<string, FolderWatcherRecord>();
-        object folder_watcher_records_lock = new object();
 
-        HashSet<string> filenames_processed = new HashSet<string>();
+        private Dictionary<string, FolderWatcherRecord> folder_watcher_records = new Dictionary<string, FolderWatcherRecord>();
+        private object folder_watcher_records_lock = new object();
+        private HashSet<string> filenames_processed = new HashSet<string>();
+
         // lock for all Filename_Store File I/O and filenames_processed HashSet:
-        object filenames_processed_lock = new object();
+        private object filenames_processed_lock = new object();
 
         public FolderWatcherManager(Library library)
         {
@@ -90,13 +90,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             }
         }
 
-        public string Filename_Store
-        {
-            get
-            {
-                return Path.GetFullPath(Path.Combine(library.LIBRARY_BASE_PATH, @"Qiqqa.folder_watcher"));
-            }
-        }
+        public string Filename_Store => Path.GetFullPath(Path.Combine(library.LIBRARY_BASE_PATH, @"Qiqqa.folder_watcher"));
 
         internal void ResetHistory()
         {
@@ -108,7 +102,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 filenames_processed.Clear();
             }
         }
-        
+
         internal bool HaveProcessedFile(string filename)
         {
             Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
@@ -118,7 +112,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 return filenames_processed.Contains(filename);
             }
         }
-        
+
         // NOTE: this method will be called from various threads.
         internal void RememberProcessedFile(string filename)
         {
@@ -135,16 +129,16 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         {
             Dictionary<string, FolderWatcherRecord> folder_watchset = new Dictionary<string, FolderWatcherRecord>();
 
-                // Get the new list of folders to watch
-                string folders_to_watch_batch = library.WebLibraryDetail.FolderToWatch;
-                HashSet<string> folders_to_watch = new HashSet<string>();
-                if (null != folders_to_watch_batch)
+            // Get the new list of folders to watch
+            string folders_to_watch_batch = library.WebLibraryDetail.FolderToWatch;
+            HashSet<string> folders_to_watch = new HashSet<string>();
+            if (null != folders_to_watch_batch)
+            {
+                foreach (var folder_to_watch_batch in folders_to_watch_batch.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries))
                 {
-                    foreach (var folder_to_watch_batch in folders_to_watch_batch.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries))
-                    {
-                        folders_to_watch.Add(folder_to_watch_batch);
-                    }
+                    folders_to_watch.Add(folder_to_watch_batch);
                 }
+            }
 
             Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (folder_watcher_records_lock)

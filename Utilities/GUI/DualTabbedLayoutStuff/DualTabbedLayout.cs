@@ -22,10 +22,10 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
         private BitmapSource window_icon = null;
 
         public delegate void OnActiveItemChangedDelegate(FrameworkElement content);
-        public event OnActiveItemChangedDelegate OnActiveItemChanged; 
+        public event OnActiveItemChangedDelegate OnActiveItemChanged;
 
-        DualTabbedLayoutItem.Location last_location = DualTabbedLayoutItem.Location.Left;
-        List<DualTabbedLayoutItem> recently_used_items = new List<DualTabbedLayoutItem>();
+        private DualTabbedLayoutItem.Location last_location = DualTabbedLayoutItem.Location.Left;
+        private List<DualTabbedLayoutItem> recently_used_items = new List<DualTabbedLayoutItem>();
 
         public DualTabbedLayout()
         {
@@ -55,7 +55,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             TopBottom,
             Sides
         }
-        
+
         public TabPositions TabPosition
         {
             set
@@ -86,7 +86,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             }
         }
 
-        void tab_control_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void tab_control_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // This hack is to let the combobox autocomplete not select the Tab...
             if (e.OriginalSource.GetType() != typeof(TabControl))
@@ -119,10 +119,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
 
         public Window OwnerWindow
         {
-            get
-            {
-                return owner_window;
-            }
+            get => owner_window;
             set
             {
                 if (null != owner_window)
@@ -131,7 +128,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
                     owner_window.Closing -= owner_window_Closing;
                 }
 
-                this.owner_window = value;
+                owner_window = value;
                 if (null != owner_window)
                 {
                     owner_window.StateChanged += owner_window_StateChanged;
@@ -141,7 +138,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             }
         }
 
-        void owner_window_StateChanged(object sender, EventArgs e)
+        private void owner_window_StateChanged(object sender, EventArgs e)
         {
             Window owner_window = (Window)sender;
 
@@ -163,7 +160,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             }
         }
 
-        void owner_window_Closing(object sender, CancelEventArgs e)
+        private void owner_window_Closing(object sender, CancelEventArgs e)
         {
             List<Window> windows = new List<Window>(floating_windows);
             foreach (Window owner_window in windows)
@@ -175,18 +172,15 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
 
         public BitmapSource WindowIcon
         {
-            set
-            {
-                window_icon = value;
-            }
+            set => window_icon = value;
         }
 
 
         private void ReevaluateLayout()
         {
-            this.Children.Clear();
-            this.RowDefinitions.Clear();
-            this.ColumnDefinitions.Clear();
+            Children.Clear();
+            RowDefinitions.Clear();
+            ColumnDefinitions.Clear();
 
             // Which panels do we need
             bool have_left = (0 < tab_control_left.Items.Count);
@@ -198,7 +192,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             Grid grid_top = this;
             Grid grid_bottom = this;
             Grid grid_left = this;
-            Grid grid_right = this;            
+            Grid grid_right = this;
 
             // Create our grid ensemble
             if (have_top_bottom)
@@ -216,10 +210,10 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
                 SetRow(grid_splitter, 1);
                 parent_grid.Children.Add(grid_splitter);
                 grid_bottom = new Grid();
-                SetRow(grid_bottom, 2);                
+                SetRow(grid_bottom, 2);
                 parent_grid.Children.Add(grid_bottom);
-                
-                this.Children.Add(parent_grid);
+
+                Children.Add(parent_grid);
             }
 
             if (have_left_right)
@@ -237,7 +231,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
                 SetColumn(grid_splitter, 1);
                 parent_grid.Children.Add(grid_splitter);
                 grid_right = new Grid();
-                SetColumn(grid_right, 2);                
+                SetColumn(grid_right, 2);
                 parent_grid.Children.Add(grid_right);
 
                 grid_top.Children.Add(parent_grid);
@@ -260,7 +254,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             }
         }
 
-        static void ClearTabControlParentGrid(TabControl tab_control)
+        private static void ClearTabControlParentGrid(TabControl tab_control)
         {
             Grid grid = tab_control.Parent as Grid;
             if (null != grid)
@@ -269,7 +263,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             }
         }
 
-        static GridSplitter CreateSplitterHorizontal()
+        private static GridSplitter CreateSplitterHorizontal()
         {
             GridSplitter grid_splitter_horizontal = new GridSplitter();
             grid_splitter_horizontal.Height = 3;
@@ -279,7 +273,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             return grid_splitter_horizontal;
         }
 
-        static GridSplitter CreateSplitterVertical()
+        private static GridSplitter CreateSplitterVertical()
         {
             GridSplitter grid_splitter_vertical = new GridSplitter();
             grid_splitter_vertical.Width = 3;
@@ -288,7 +282,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             grid_splitter_vertical.ShowsPreview = true;
             return grid_splitter_vertical;
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -344,13 +338,13 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             return null != item;
         }
 
-        DualTabbedLayoutItem Find(string reference_key, bool make_visible)
+        private DualTabbedLayoutItem Find(string reference_key, bool make_visible)
         {
             DualTabbedLayoutItem item = null;
             if (null == item) item = FindTabItem(reference_key, make_visible);
             if (null == item) item = FindFloating(reference_key, make_visible);
             return item;
-        }            
+        }
 
         internal void WantsLeft(DualTabbedLayoutItem item)
         {
@@ -381,12 +375,12 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             ClearFloating(item);
             BuildTabItem(item, tab_control_bottom);
         }
-               
+
         public void WantsFloating(string reference_key)
         {
             WantsFloating(Find(reference_key, false), false);
         }
-        
+
         internal void WantsFloating(DualTabbedLayoutItem item)
         {
             WantsFloating(item, true);
@@ -402,7 +396,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             ClearTabItem(item, tab_control_left);
             ClearTabItem(item, tab_control_right);
             ClearTabItem(item, tab_control_bottom);
-            
+
             Window window = BuildFloating(item);
             floating_windows.Add(window);
             window.Show();
@@ -423,7 +417,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
                     recently_used_items.RemoveAt(i);
                 }
             }
-            
+
             // Dispose the TabItem
             IDisposable disposable = item.content as IDisposable;
             if (null != disposable)
@@ -442,11 +436,11 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             }
         }
 
-        void BuildTabItem(DualTabbedLayoutItem item, TabControl tab_control)
+        private void BuildTabItem(DualTabbedLayoutItem item, TabControl tab_control)
         {
             TabItem tab_item = new TabItem();
             tab_item.Tag = item;
-            tab_item.Header = new ItemHeader(item);            
+            tab_item.Header = new ItemHeader(item);
             tab_item.Content = item.content;
             tab_item.Background = ThemeColours.Background_Brush_Blue_Light;
             tab_item.KeyDown += tab_item_KeyDown;
@@ -465,12 +459,12 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             tab_item.IsSelected = true;
         }
 
-        # region --- Drag bring to front -------------------------------------------------
+        #region --- Drag bring to front -------------------------------------------------
 
-        object potential_drag_to_front_target = null;
-        DateTime potential_drag_to_front_start_time = DateTime.MinValue;
+        private object potential_drag_to_front_target = null;
+        private DateTime potential_drag_to_front_start_time = DateTime.MinValue;
 
-        void tab_item_DragEnter(object sender, DragEventArgs e)
+        private void tab_item_DragEnter(object sender, DragEventArgs e)
         {
             TabItem tab_item = (TabItem)sender;
             DualTabbedLayoutItem item = (DualTabbedLayoutItem)tab_item.Tag;
@@ -486,7 +480,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             }
         }
 
-        void tab_item_DragOver(object sender, DragEventArgs e)
+        private void tab_item_DragOver(object sender, DragEventArgs e)
         {
             TabItem tab_item = (TabItem)sender;
             DualTabbedLayoutItem item = (DualTabbedLayoutItem)tab_item.Tag;
@@ -494,7 +488,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             if (sender == potential_drag_to_front_target)
             {
                 if (DateTime.UtcNow.Subtract(potential_drag_to_front_start_time).TotalMilliseconds > 300)
-                {                    
+                {
                     MarkAsRecentlyUsed(item);
                     tab_item.IsSelected = true;
                 }
@@ -513,7 +507,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             }
         }
 
-        void tab_item_Drop(object sender, DragEventArgs e)
+        private void tab_item_Drop(object sender, DragEventArgs e)
         {
             TabItem tab_item = (TabItem)sender;
             DualTabbedLayoutItem item = (DualTabbedLayoutItem)tab_item.Tag;
@@ -529,7 +523,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
 
         #endregion
 
-        void tab_item_KeyDown(object sender, KeyEventArgs e)
+        private void tab_item_KeyDown(object sender, KeyEventArgs e)
         {
             TabItem tab_item = (TabItem)sender;
             DualTabbedLayoutItem item = (DualTabbedLayoutItem)tab_item.Tag;
@@ -546,7 +540,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             e.Handled = false;
         }
 
-        void ClearTabItem(DualTabbedLayoutItem item, TabControl tab_control)
+        private void ClearTabItem(DualTabbedLayoutItem item, TabControl tab_control)
         {
             TabItem tab_item = null;
 
@@ -578,7 +572,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             return results;
         }
 
-        List<DualTabbedLayoutItem> GetAllTabItems()
+        private List<DualTabbedLayoutItem> GetAllTabItems()
         {
             List<DualTabbedLayoutItem> result = new List<DualTabbedLayoutItem>();
             result.AddRange(GetAllTabItems(tab_control_left));
@@ -594,7 +588,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             return result;
         }
 
-        List<DualTabbedLayoutItem> GetAllTabItems(TabControl tab_control)
+        private List<DualTabbedLayoutItem> GetAllTabItems(TabControl tab_control)
         {
             List<DualTabbedLayoutItem> result = new List<DualTabbedLayoutItem>();
 
@@ -607,7 +601,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             return result;
         }
 
-        DualTabbedLayoutItem FindTabItem(string reference_key, bool make_visible)
+        private DualTabbedLayoutItem FindTabItem(string reference_key, bool make_visible)
         {
             DualTabbedLayoutItem item = null;
             if (null == item) item = FindTabItem(reference_key, tab_control_left, make_visible);
@@ -616,7 +610,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             return item;
         }
 
-        DualTabbedLayoutItem FindTabItem(string reference_key, TabControl tab_control, bool make_visible)
+        private DualTabbedLayoutItem FindTabItem(string reference_key, TabControl tab_control, bool make_visible)
         {
             foreach (TabItem tab_item in tab_control.Items.OfType<TabItem>())
             {
@@ -639,10 +633,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
         private static GetWindowOverrideDelegate _GetWindowOverride = null;
         public static GetWindowOverrideDelegate GetWindowOverride
         {
-            get
-            {
-                return _GetWindowOverride;
-            }
+            get => _GetWindowOverride;
             set
             {
                 if (null != _GetWindowOverride)
@@ -653,8 +644,8 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
                 _GetWindowOverride = value;
             }
         }
-        
-        Window BuildFloating(DualTabbedLayoutItem item)
+
+        private Window BuildFloating(DualTabbedLayoutItem item)
         {
             // Get a new window for this
             Window window = (null == GetWindowOverride) ? new Window() : GetWindowOverride();
@@ -671,12 +662,12 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             DockPanel dock_panel = new DockPanel();
 
             AugmentedSpacer spacer = new AugmentedSpacer();
-            ItemHeader item_header = new ItemHeader(item);            
+            ItemHeader item_header = new ItemHeader(item);
             WindowControlsHeader controls_header = new WindowControlsHeader(item, window);
 
             DockPanel title_bar_central_space = new DockPanel();
             title_bar_central_space.Background = Brushes.Transparent;
-            title_bar_central_space.Tag = window;            
+            title_bar_central_space.Tag = window;
             title_bar_central_space.MouseDown += dock_panel_title_bar_MouseDown;
 
             DockPanel dock_panel_title_bar = new DockPanel();
@@ -694,13 +685,13 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
 
             DockPanel.SetDock(dock_panel_title_bar, Dock.Top);
             dock_panel.Children.Add(dock_panel_title_bar);
-            dock_panel.Children.Add(item.content);            
+            dock_panel.Children.Add(item.content);
 
             window.Content = dock_panel;
             return window;
         }
 
-        void window_KeyDown(object sender, KeyEventArgs e)
+        private void window_KeyDown(object sender, KeyEventArgs e)
         {
             Window window = (Window)sender;
             DualTabbedLayoutItem item = (DualTabbedLayoutItem)window.Tag;
@@ -714,7 +705,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             }
         }
 
-        void window_Closing(object sender, CancelEventArgs e)
+        private void window_Closing(object sender, CancelEventArgs e)
         {
             // Only allow the user to close it from our X buttons
             Window window = (Window)sender;
@@ -724,7 +715,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             }
         }
 
-        void ClearFloating(DualTabbedLayoutItem item)
+        private void ClearFloating(DualTabbedLayoutItem item)
         {
             Window window = null;
 
@@ -743,7 +734,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
                 floating_windows.Remove(window);
                 window.Tag = null;
                 window.Close();
-                
+
                 if (null != sp)
                 {
                     sp.Children.Clear();
@@ -751,9 +742,9 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             }
         }
 
-        DualTabbedLayoutItem FindFloating(string reference_key, bool make_visible)
+        private DualTabbedLayoutItem FindFloating(string reference_key, bool make_visible)
         {
-            foreach (Window w in floating_windows)                
+            foreach (Window w in floating_windows)
             {
                 DualTabbedLayoutItem item = (DualTabbedLayoutItem)w.Tag;
                 if (null != reference_key && 0 == reference_key.CompareTo(item.reference_key))
@@ -770,8 +761,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             return null;
         }
 
-
-        static void dock_panel_title_bar_MouseDown(object sender, MouseButtonEventArgs e)
+        private static void dock_panel_title_bar_MouseDown(object sender, MouseButtonEventArgs e)
         {
             FrameworkElement item_header = (FrameworkElement)sender;
             Window window = (Window)item_header.Tag;
@@ -794,7 +784,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
                 }
             }
         }
-                
+
         public FrameworkElement CurrentActiveTabItem
         {
             get
@@ -838,14 +828,14 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
 
         #endregion
 
-        static void button_DragOver(object sender, DragEventArgs e)
+        private static void button_DragOver(object sender, DragEventArgs e)
         {
             Logging.Debug特("BUTTON DRAG OVER");
 
             e.Handled = true;
         }
 
-        static void button_Click(object sender, RoutedEventArgs e)
+        private static void button_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
             DualTabbedLayout dtl = (DualTabbedLayout)button.Tag;

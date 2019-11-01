@@ -7,9 +7,8 @@ namespace Utilities.Language
     public class Stopwords
     {
         public static readonly Stopwords Instance = new Stopwords();
+        private HashSet<string> words = new HashSet<string>();
 
-        HashSet<string> words = new HashSet<string>();
-        
         private Stopwords()
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
@@ -24,7 +23,7 @@ namespace Utilities.Language
 
                     words.Add(word);
                 }
-            }            
+            }
         }
 
         public bool IsStopWord(string word)
@@ -32,9 +31,6 @@ namespace Utilities.Language
             return words.Contains(word);
         }
 
-        public HashSet<string> Words
-        {
-            get { return words; }
-        }
+        public HashSet<string> Words => words;
     }
 }

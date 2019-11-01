@@ -21,16 +21,16 @@ namespace Qiqqa.Brainstorm.SceneManager
             ScrollVertical.ValueChanged += ScrollVertical_ValueChanged;
         }
 
-        void ObjSceneRenderingControl_ScrollInfoChanged()
+        private void ObjSceneRenderingControl_ScrollInfoChanged()
         {
             DoHorizontal();
             DoVertical();
         }
 
-        bool horizonal_changing = false;
-        bool vertical_changing = false;
+        private bool horizonal_changing = false;
+        private bool vertical_changing = false;
 
-        void DoHorizontal()
+        private void DoHorizontal()
         {
             double min = double.MaxValue;
             double max = double.MinValue;
@@ -63,7 +63,7 @@ namespace Qiqqa.Brainstorm.SceneManager
             horizonal_changing = false;
         }
 
-        void DoVertical()
+        private void DoVertical()
         {
             double min = double.MaxValue;
             double max = double.MinValue;
@@ -96,7 +96,7 @@ namespace Qiqqa.Brainstorm.SceneManager
             vertical_changing = false;
         }
 
-        void ScrollHorizonal_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void ScrollHorizonal_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             if (!horizonal_changing)
             {
@@ -105,12 +105,12 @@ namespace Qiqqa.Brainstorm.SceneManager
             }
         }
 
-        void ScrollVertical_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void ScrollVertical_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             if (!vertical_changing)
             {
                 ObjSceneRenderingControl.current_viewport_topleft.Y = e.NewValue - ObjSceneRenderingControl.ActualHeight / ObjSceneRenderingControl.CurrentPowerScale / 2;
-                ObjSceneRenderingControl.ViewportHasChanged();                
+                ObjSceneRenderingControl.ViewportHasChanged();
             }
         }
     }

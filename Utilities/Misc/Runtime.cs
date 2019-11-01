@@ -6,13 +6,7 @@ namespace Utilities.Misc
 {
     public static class Runtime
     {
-        public static string StartupDirectory
-        {
-            get
-            {
-                return Path.GetDirectoryName(new Uri(Assembly.GetEntryAssembly().CodeBase).LocalPath);
-            }
-        }
+        public static string StartupDirectory => Path.GetDirectoryName(new Uri(Assembly.GetEntryAssembly().CodeBase).LocalPath);
 
         public static bool IsRunningInVisualStudioDesigner
         {

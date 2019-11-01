@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using Newtonsoft.Json;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Utilities.BibTex
 {
@@ -27,7 +28,7 @@ namespace Utilities.BibTex
             _Instance = null;
         }
 
-        Dictionary<string, EntryType> entry_types = new Dictionary<string, EntryType>();
+        private Dictionary<string, EntryType> entry_types = new Dictionary<string, EntryType>();
 
         // Populated from http://www.kfunigraz.ac.at/~binder/texhelp/bibtx-7.html (not active anymore in 2019 A.D.)
         // Also at http://nwalsh.com/tex/texhelp/bibtx-7.html
@@ -174,15 +175,9 @@ namespace Utilities.BibTex
             else
             {
                 return entry_types["misc"];
-            }            
-        }
-
-        private static string EntryTypesDefinitionFilename
-        {
-            get
-            {
-                return Path.GetFullPath(Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"BibTeX/qiqqa-entry-type-definitions.json"));
             }
         }
+
+        private static string EntryTypesDefinitionFilename => Path.GetFullPath(Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"BibTeX/qiqqa-entry-type-definitions.json"));
     }
 }

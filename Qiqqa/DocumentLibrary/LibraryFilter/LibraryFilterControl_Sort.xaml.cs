@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using Qiqqa.Documents.PDF;
@@ -12,8 +11,8 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
     /// </summary>
     public partial class LibraryFilterControl_Sort : UserControl
     {
-        object sort_hyperlink;
-        bool reverse_sort_direction = false;
+        private object sort_hyperlink;
+        private bool reverse_sort_direction = false;
 
         public delegate void SortChangedDelegate();
         public event SortChangedDelegate SortChanged;
@@ -23,7 +22,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
             InitializeComponent();
         }
 
-        void OnHyperLinkClick(object sender, RoutedEventArgs e)
+        private void OnHyperLinkClick(object sender, RoutedEventArgs e)
         {
             object new_sort_hyperlink = sender;
 

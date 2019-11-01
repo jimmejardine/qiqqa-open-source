@@ -10,13 +10,12 @@ namespace Qiqqa.Brainstorm.SceneManager
     /// </summary>
     public partial class SelectingNodesControl : UserControl
     {
-        static Color control_color_base = Colors.Gold;
-        static Color background_color = ColorTools.MakeTransparentColor(control_color_base, 64);
-        static Color border_color = ColorTools.MakeTransparentColor(control_color_base, 200);
-
-        static Brush background_brush = new SolidColorBrush(background_color);
-        static Brush border_brush = new SolidColorBrush(border_color);
-        static Thickness border_thickness = new Thickness(1);
+        private static Color control_color_base = Colors.Gold;
+        private static Color background_color = ColorTools.MakeTransparentColor(control_color_base, 64);
+        private static Color border_color = ColorTools.MakeTransparentColor(control_color_base, 200);
+        private static Brush background_brush = new SolidColorBrush(background_color);
+        private static Brush border_brush = new SolidColorBrush(border_color);
+        private static Thickness border_thickness = new Thickness(1);
 
         public SelectingNodesControl()
         {

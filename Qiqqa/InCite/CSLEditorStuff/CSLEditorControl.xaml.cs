@@ -11,10 +11,11 @@ using Microsoft.Win32;
 using Qiqqa.Common.Configuration;
 using Qiqqa.UtilisationTracking;
 using Utilities.BibTex.Parsing;
-using Utilities.GUI;
 using Utilities.GUI.DualTabbedLayoutStuff;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.InCite.CSLEditorStuff
 {
@@ -27,7 +28,7 @@ namespace Qiqqa.InCite.CSLEditorStuff
         private readonly XmlFoldingStrategy folding_strategy;
 
         private string last_filename = null;
-        
+
         public CSLEditorControl()
         {
             InitializeComponent();
@@ -52,7 +53,7 @@ namespace Qiqqa.InCite.CSLEditorStuff
             ButtonHelp.Icon = Icons.GetAppIcon(Icons.Help);
             ButtonHelp.Click += ButtonHelp_Click;
 
-            
+
 
             // Fix the DualTab
             DualTabTags.Children.Clear();
@@ -65,7 +66,7 @@ namespace Qiqqa.InCite.CSLEditorStuff
             DragToEditorManager.RegisterControl(ObjCSLEditor);
             DragToEditorManager.RegisterControl(ObjBibTexEditor);
             DragToEditorManager.RegisterControl(ObjJavaScriptEditor);
-            
+
             // Code folding
             folding_manager = FoldingManager.Install(ObjCSLEditor.TextArea);
             folding_strategy = new XmlFoldingStrategy();
@@ -91,21 +92,21 @@ namespace Qiqqa.InCite.CSLEditorStuff
             ObjBibTexEditor.Text = File.ReadAllText(sample_bibtex_filename);
 
             // Bind the keys
-            this.PreviewKeyDown += CSLEditorControl_PreviewKeyDown;
+            PreviewKeyDown += CSLEditorControl_PreviewKeyDown;
         }
 
-        void ButtonHelp_Click(object sender, RoutedEventArgs e)
+        private void ButtonHelp_Click(object sender, RoutedEventArgs e)
         {
             WebsiteAccess.OpenOffsiteUrl(WebsiteAccess.Url_CSLManual);
         }
 
-        void ButtonNew_Click(object sender, RoutedEventArgs e)
+        private void ButtonNew_Click(object sender, RoutedEventArgs e)
         {
             last_filename = null;
             ObjCSLEditor.Text = "";
         }
 
-        void ButtonRefresh_Click(object sender, RoutedEventArgs e)
+        private void ButtonRefresh_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_CSLEditorRefresh);
 
@@ -113,7 +114,7 @@ namespace Qiqqa.InCite.CSLEditorStuff
             e.Handled = true;
         }
 
-        void ButtonSaveAs_Click(object sender, RoutedEventArgs e)
+        private void ButtonSaveAs_Click(object sender, RoutedEventArgs e)
         {
             SaveFileDialog save_file_dialog = new SaveFileDialog();
             save_file_dialog.AddExtension = true;
@@ -132,7 +133,7 @@ namespace Qiqqa.InCite.CSLEditorStuff
             }
         }
 
-        void ButtonSave_Click(object sender, RoutedEventArgs e)
+        private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
             // Check that we have something to save, otherwise do SaveAs
             if (String.IsNullOrEmpty(last_filename))
@@ -149,7 +150,7 @@ namespace Qiqqa.InCite.CSLEditorStuff
             File.WriteAllText(filename, ObjCSLEditor.Text);
         }
 
-        void ButtonOpen_Click(object sender, RoutedEventArgs e)
+        private void ButtonOpen_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog open_file_dialog = new OpenFileDialog();
             open_file_dialog.AddExtension = true;
@@ -168,7 +169,7 @@ namespace Qiqqa.InCite.CSLEditorStuff
             }
         }
 
-        void CSLEditorControl_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void CSLEditorControl_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (Key.F5 == e.Key)
             {
@@ -177,12 +178,12 @@ namespace Qiqqa.InCite.CSLEditorStuff
             }
         }
 
-        void ObjCSLEditor_TextChanged(object sender, EventArgs e)
+        private void ObjCSLEditor_TextChanged(object sender, EventArgs e)
         {
             folding_strategy.UpdateFoldings(folding_manager, ObjCSLEditor.Document);
         }
 
-        void ObjBibTexEditor_TextChanged(object sender, EventArgs e)
+        private void ObjBibTexEditor_TextChanged(object sender, EventArgs e)
         {
             RefreshJavaScriptEditor();
         }
@@ -201,7 +202,7 @@ namespace Qiqqa.InCite.CSLEditorStuff
             citation_clusters.Add(mega_citation_cluster);
 
             Dictionary<string, string> abbreviations = new Dictionary<string, string>();
-            
+
             string citation_uses = CSLProcessorTranslator_CitationClustersToJavaScript.Translate(citation_clusters);
             string citation_init = CSLProcessorTranslator_BibTeXToJavaScript.Translate_INIT(bitex_items);
             string citation_database = CSLProcessorTranslator_BibTeXToJavaScript.Translate_DATABASE(bitex_items, abbreviations);
@@ -225,7 +226,7 @@ namespace Qiqqa.InCite.CSLEditorStuff
             // Write to file for processor
             string style_file_filename = Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.TempDirectoryForQiqqa, @"CSLEditor_CSL.csl"));
             File.WriteAllText(style_file_filename, csl);
-            
+
             // Validate the CSL
             List<string> csl_parse_results = CSLVerifier.Verify(style_file_filename);
             if (0 < csl_parse_results.Count)
@@ -239,7 +240,7 @@ namespace Qiqqa.InCite.CSLEditorStuff
             CSLProcessor.GenerateCSLEditorCitations(style_file_filename, prepared_citation_javascript, OnBibliographyReady);
         }
 
-        void OnBibliographyReady(CSLProcessorOutputConsumer ip)
+        private void OnBibliographyReady(CSLProcessorOutputConsumer ip)
         {
             StringBuilder result_rtf = new StringBuilder();
 
@@ -257,7 +258,7 @@ namespace Qiqqa.InCite.CSLEditorStuff
                 result_rtf.Append(CSLProcessorOutputConsumer.RTF_NEWLINE);
             }
 
-            
+
             result_rtf.Append("---------------------------------------------");
             result_rtf.Append(CSLProcessorOutputConsumer.RTF_NEWLINE);
             result_rtf.Append("Citations:");

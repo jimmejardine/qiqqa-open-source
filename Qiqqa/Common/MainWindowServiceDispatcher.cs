@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Text;
 using System.Windows;
-using System.Windows.Documents;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -33,18 +30,19 @@ using Qiqqa.Main;
 using Qiqqa.StartPage;
 using Qiqqa.UtilisationTracking;
 using Qiqqa.WebBrowsing;
+using Qiqqa.Wizards;
 using Qiqqa.Wizards.AnnotationReport;
 using Utilities;
 using Utilities.GUI;
 using Utilities.GUI.Wizard;
 using Utilities.Internet;
 using Utilities.Language;
-using Application = System.Windows.Forms.Application;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using UserControl = System.Windows.Controls.UserControl;
-using Qiqqa.Wizards;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Common
 {
@@ -56,14 +54,8 @@ namespace Qiqqa.Common
 
         public MainWindow MainWindow
         {
-            set
-            {
-                main_window = value;
-            }
-            get
-            {
-                return main_window;
-            }
+            set => main_window = value;
+            get => main_window;
         }
 
         public ConfigurationControl OpenControlPanel()

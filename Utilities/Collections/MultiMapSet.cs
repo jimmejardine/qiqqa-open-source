@@ -12,14 +12,14 @@ namespace Utilities.Collections
     [Serializable]
     [ProtoContract]
     public class MultiMapSet<KEY, VALUE>
-    {   
+    {
         private static HashSet<VALUE> EMPTY_VALUE_SET = new HashSet<VALUE>();
 
         [ProtoMember(1)]
-        Dictionary<KEY, HashSet<VALUE>> data = new Dictionary<KEY, HashSet<VALUE>>();
+        private Dictionary<KEY, HashSet<VALUE>> data = new Dictionary<KEY, HashSet<VALUE>>();
 
         public MultiMapSet()
-        {            
+        {
         }
 
         public void Add(KEY key, VALUE value)
@@ -35,13 +35,7 @@ namespace Utilities.Collections
             list.Add(value);
         }
 
-        public HashSet<VALUE> this[KEY key]
-        {
-            get
-            {
-                return data[key];
-            }
-        }
+        public HashSet<VALUE> this[KEY key] => data[key];
 
         public Dictionary<KEY, HashSet<VALUE>>.Enumerator GetEnumerator()
         {
@@ -61,13 +55,7 @@ namespace Utilities.Collections
             }
         }
 
-        public Dictionary<KEY, HashSet<VALUE>>.KeyCollection Keys
-        {
-            get
-            {
-                return data.Keys;
-            }
-        }
+        public Dictionary<KEY, HashSet<VALUE>>.KeyCollection Keys => data.Keys;
 
         public bool TryGetValue(KEY key, out HashSet<VALUE> values)
         {
@@ -82,7 +70,7 @@ namespace Utilities.Collections
         public MultiMapSet<KEY, VALUE> Clone()
         {
             MultiMapSet<KEY, VALUE> result = new MultiMapSet<KEY, VALUE>();
-            
+
             foreach (var pair in data)
             {
                 result.data[pair.Key] = new HashSet<VALUE>(pair.Value);
@@ -96,13 +84,7 @@ namespace Utilities.Collections
             data.Clear();
         }
 
-        public int Count
-        {
-            get
-            {
-                return data.Count;
-            }
-        }
+        public int Count => data.Count;
 
         public List<KeyValuePair<KEY, HashSet<VALUE>>> GetTopN(int N)
         {
@@ -115,7 +97,7 @@ namespace Utilities.Collections
 
             // Now sort the list in descending order
             results_to_sort.Sort(
-                delegate(KeyValuePair<KEY, HashSet<VALUE>> a, KeyValuePair<KEY, HashSet<VALUE>> b)
+                delegate (KeyValuePair<KEY, HashSet<VALUE>> a, KeyValuePair<KEY, HashSet<VALUE>> b)
                 {
                     return -Sorting.Compare(a.Value.Count, b.Value.Count);
                 }

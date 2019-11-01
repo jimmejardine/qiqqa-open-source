@@ -2,7 +2,7 @@
 
 namespace Qiqqa.DocumentLibrary.BundleLibrary
 {
-    class BundleLibraryManifest
+    internal class BundleLibraryManifest
     {
         public string Id { get; set; }
         public string Version { get; set; }
@@ -13,7 +13,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary
 
         public string BaseUrl { get; set; }
         public string SupportEmail { get; set; }
-        
+
         public bool IncludesPDFs { get; set; }
 
         public string ToJSON()

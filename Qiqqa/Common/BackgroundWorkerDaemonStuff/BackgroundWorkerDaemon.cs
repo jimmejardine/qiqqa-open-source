@@ -21,10 +21,9 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
     public class BackgroundWorkerDaemon
     {
         public static readonly BackgroundWorkerDaemon Instance = new BackgroundWorkerDaemon();
+        private MetadataExtractionDaemon metadata_extraction_daemon;
 
-        MetadataExtractionDaemon metadata_extraction_daemon;
-
-        BackgroundWorkerDaemon()
+        private BackgroundWorkerDaemon()
         {
             Logging.Info("Starting background worker daemon.");
 
@@ -40,7 +39,7 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
             MaintainableManager.Instance.BumpHoldOffPendingLevel();
         }
 
-        void DoMaintenance_OnceOff(Daemon daemon)
+        private void DoMaintenance_OnceOff(Daemon daemon)
         {
             if (daemon.StillRunning)
             {
@@ -129,7 +128,7 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
             new ClientVersionReleaseNotes(release_notes).ShowDialog();
         }
 
-        void DoMaintenance_VeryInfrequent(Daemon daemon)
+        private void DoMaintenance_VeryInfrequent(Daemon daemon)
         {
             daemon.Sleep(15 * 60 * 1000);
 
@@ -180,8 +179,7 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
             }
         }
 
-
-        void DoMaintenance_QuiteInfrequent(Daemon daemon)
+        private void DoMaintenance_QuiteInfrequent(Daemon daemon)
         {
             daemon.Sleep(1 * 60 * 1000);
 
@@ -207,7 +205,7 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
 
         }
 
-        void DoMaintenance_Infrequent(Daemon daemon)
+        private void DoMaintenance_Infrequent(Daemon daemon)
         {
             Logging.Debug特("DoMaintenance_Infrequent START");
             daemon.Sleep(10 * 1000);
@@ -236,10 +234,10 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
             {
                 Library library = x.library;
 
-                    if (!library.LibraryIsLoaded)
-                    {
-                        continue;
-                    }
+                if (!library.LibraryIsLoaded)
+                {
+                    continue;
+                }
 
                 try
                 {
@@ -262,7 +260,7 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
             Logging.Debug特("DoMaintenance_Infrequent END");
         }
 
-        void DoMaintenance_Frequent(Daemon daemon)
+        private void DoMaintenance_Frequent(Daemon daemon)
         {
             daemon.Sleep(1 * 1000);
 

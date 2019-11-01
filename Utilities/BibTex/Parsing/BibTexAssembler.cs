@@ -13,13 +13,13 @@ namespace Utilities.BibTex.Parsing
             return new BibTexParseResult(assembler.items, assembler.comments);
         }
 
-        List<BibTexItem> items = new List<BibTexItem>();
-        BibTexItem current_item = null;
-        string current_field_name = null;
-        List<string> comments = new List<string>();
+        private List<BibTexItem> items = new List<BibTexItem>();
+        private BibTexItem current_item = null;
+        private string current_field_name = null;
+        private List<string> comments = new List<string>();
 
         // ------------------------------------------------------------------------------------
-        
+
         private BibTexAssembler()
         {
         }
@@ -47,7 +47,7 @@ namespace Utilities.BibTex.Parsing
             else
             {
                 current_item.Key = key;
-            }            
+            }
         }
 
         public void RaiseFieldName(string field_name)
@@ -132,7 +132,7 @@ namespace Utilities.BibTex.Parsing
             current_item = null;
             current_field_name = null;
         }
-        
+
         // ------------------------------------------------------------------------------------
     }
 }

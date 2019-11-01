@@ -4,14 +4,13 @@ using System.Text;
 using System.Windows;
 using icons;
 using Qiqqa.Common;
-using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Utilities.Internet;
 using Utilities.Misc;
 
 namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
 {
-    class BundleLibraryUpdatedManifestChecker
+    internal class BundleLibraryUpdatedManifestChecker
     {
         internal static void Check(Library library)
         {
@@ -69,10 +68,10 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
         }
     }
 
-    class BundleLibraryUpdateNotification
+    internal class BundleLibraryUpdateNotification
     {
-        Library library;
-        BundleLibraryManifest manifest_latest;
+        private Library library;
+        private BundleLibraryManifest manifest_latest;
 
         public BundleLibraryUpdateNotification(Library library, BundleLibraryManifest manifest_latest)
         {

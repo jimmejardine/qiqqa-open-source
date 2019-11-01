@@ -5,7 +5,7 @@ namespace icons
 {
     public static class Icons
     {
-        static readonly string MODULE_NAME = typeof(Icons).Assembly.GetName().Name;
+        private static readonly string MODULE_NAME = typeof(Icons).Assembly.GetName().Name;
 
         public const string QiqqaLogoSmall = "QiqqaLogoSmall";
         public const string Qiqqa = "Qiqqa";
@@ -39,7 +39,7 @@ namespace icons
         public const string SpeedRead_Pause = "SpeedRead_Pause";
         public const string SpeedRead_Backward = "SpeedRead_Backward";
         public const string SpeedRead_Stop = "SpeedRead_Stop";
-        
+
         public const string WebLibraryRefresh = "WebLibraryRefresh";
         public const string WebLibrarySyncAll = "WebLibrarySyncAll";
         public const string WebLibrarySyncAllPDFs = "WebLibrarySyncAllPDFs";
@@ -50,17 +50,17 @@ namespace icons
         public const string WebLibrary_AutoSync = "WebLibrary_AutoSync";
         public const string WebLibrary_Grids = "WebLibrary_Grids";
         public const string WebLibrary_IntranetLibrary = "WebLibrary_IntranetLibrary";
-        public const string WebLibrary_BundleLibrary = "WebLibrary_BundleLibrary";        
+        public const string WebLibrary_BundleLibrary = "WebLibrary_BundleLibrary";
         public const string WebLibrary_WebLibrary = "WebLibrary_WebLibrary";
-        
+
         public const string ModulePDFViewer = "ModulePDFViewer";
         public const string ModuleDocumentLibrary = "ModuleDocumentLibrary";
         public const string ModuleWebBrowser = "ModuleWebBrowser";
         public const string ModuleBrainstorm = "ModuleBrainstorm";
         public const string ModuleConfiguration = "ModuleConfiguration";
         public const string ModuleHelp = "ModuleHelp";
-        public const string ModulePDFAnnotationReport = "ModulePDFAnnotationReport";        
-        public const string ModuleStartPage = "ModuleStartPage";        
+        public const string ModulePDFAnnotationReport = "ModulePDFAnnotationReport";
+        public const string ModuleStartPage = "ModuleStartPage";
         public const string ModuleInCite = "ModuleInCite";
         public const string ModuleExpedition = "ModuleExpedition";
         public const string ModuleLocalisation = "ModuleLocalisation";
@@ -85,13 +85,13 @@ namespace icons
         public const string QiqqaWeb = "QiqqaWeb";
 
         public const string New = "New";
-        public const string Open = "Open";        
+        public const string Open = "Open";
         public const string Save = "Save";
         public const string SaveAs = "SaveAs";
         public const string Delete = "Delete";
         public const string Switch = "Switch";
         public const string Explore = "Explore";
-        
+
         public const string Page1Up = "Page1Up";
         public const string Page2Up = "Page2Up";
         public const string PageNUp = "PageNUp";
@@ -113,7 +113,7 @@ namespace icons
         public const string Share = "Share";
         public const string Find = "Find";
         public const string Search = "Search";
-        public const string JumpToSection = "JumpToSection";        
+        public const string JumpToSection = "JumpToSection";
         public const string Hand = "Hand";
         public const string TextSelect = "TextSelect";
         public const string TextSentenceSelect = "TextSentenceSelect";
@@ -124,15 +124,15 @@ namespace icons
         public const string PictureGrab = "PictureGrab";
         public const string ReadOutLoud = "ReadOutLoud";
         public const string SpeedRead = "SpeedRead";
-        public const string ExportToText = "ExportToText";        
+        public const string ExportToText = "ExportToText";
         public const string OCRNotComplete = "OCRNotComplete";
-        
+
         public const string DesktopRefresh = "DesktopRefresh";
         public const string DesktopCommit = "DesktopCommit";
         public const string Clear = "Clear";
         public const string Camera = "Camera";
         public const string Ink = "Ink";
-        
+
         public const string HighlightPointErase = "HighlightPointErase";
         public const string InkDraw = "InkDraw";
         public const string InkPointErase = "InkPointErase";
@@ -140,7 +140,7 @@ namespace icons
         public const string InkSelect = "InkSelect";
 
         public const string BrainstormAddText = "BrainstormAddText";
-        public const string BrainstormAddConnector = "BrainstormAddConnector";        
+        public const string BrainstormAddConnector = "BrainstormAddConnector";
         public const string BrainstormAddImage = "BrainstormAddImage";
         public const string BrainstormDocument = "BrainstormDocument";
         public const string BrainstormLibrary = "BrainstormLibrary";
@@ -166,7 +166,7 @@ namespace icons
         public const string LibraryCatalogPreview = "LibraryCatalogPreview";
         public const string LibraryAutoTagsBlackWhiteLists = "LibraryAutoTagsBlackWhiteLists";
 
-        public const string LibraryEmptyAddFiles = "LibraryEmptyAddFiles";        
+        public const string LibraryEmptyAddFiles = "LibraryEmptyAddFiles";
 
         public const string LibraryTypeGuest = "LibraryTypeGuest";
         public const string LibraryTypeIntranet = "LibraryTypeIntranet";
@@ -196,12 +196,12 @@ namespace icons
         public const string DocumentsAddToLibrary = "DocumentsAddToLibrary";
         public const string DocumentsAddToLibraryFromFolder = "DocumentsAddToLibraryFromFolder";
         public const string DocumentsWatchFolder = "DocumentsWatchFolder";
-        public const string DocumentsAddToLibraryFromLibrary = "DocumentsAddToLibraryFromLibrary";        
+        public const string DocumentsAddToLibraryFromLibrary = "DocumentsAddToLibraryFromLibrary";
         public const string DocumentsImportFromThirdParty = "DocumentsImportFromThirdParty";
         public const string DocumentsAddMissingFromSelf = "DocumentsAddMissingFromSelf";
         public const string DocumentsInvertColours = "DocumentsInvertColours";
         public const string DocumentSave = "DocumentSave";
-        public const string DocumentMisc = "DocumentMisc";        
+        public const string DocumentMisc = "DocumentMisc";
 
         public const string ExceptionFeedbackSend = "ExceptionFeedbackSend";
         public const string ExceptionFeedbackDecline = "ExceptionFeedbackDecline";
@@ -216,7 +216,7 @@ namespace icons
         public const string DualTabbed_Minimize = "DualTabbed_Minimize";
         public const string DualTabbed_Maximize = "DualTabbed_Maximize";
         public const string DualTabbed_Close = "DualTabbed_Close";
-        public const string DualTabbed_CloseGlow = "DualTabbed_CloseGlow";        
+        public const string DualTabbed_CloseGlow = "DualTabbed_CloseGlow";
         public const string DualTabbed_TopLeft = "DualTabbed_TopLeft";
         public const string DualTabbed_TopRight = "DualTabbed_TopRight";
         public const string DualTabbed_Bottom = "DualTabbed_Bottom";
@@ -226,16 +226,16 @@ namespace icons
 
         public const string GoogleBibTexNext = "GoogleBibTexNext";
         public const string GoogleBibTexSkip = "GoogleBibTexSkip";
-        public const string GoogleBibTexSkipForever = "GoogleBibTexSkipForever";        
+        public const string GoogleBibTexSkipForever = "GoogleBibTexSkipForever";
         public const string BibTeXSnifferWizard = "BibTeXSnifferWizard";
         public const string PubMedUseThis = "PubMedUseThis";
         public const string GoogleBibTexUseThis = "GoogleBibTexUseThis";
         public const string GoogleBibTexCancel = "GoogleBibTexCancel";
 
         public const string DocumentMetadataComments = "DocumentMetadataComments";
-        public const string BibTeXParseError = "BibTeXParseError";       
+        public const string BibTeXParseError = "BibTeXParseError";
 
-        public const string SecureIndicator = "SecureIndicator";       
+        public const string SecureIndicator = "SecureIndicator";
 
         public const string DocumentTypePdf = "DocumentTypePdf";
 
@@ -256,17 +256,17 @@ namespace icons
         public const string Xmas = "Xmas";
         public const string Xmas3 = "Xmas3";
         public const string TopUp = "TopUp";
-        public const string ViewOnline = "ViewOnline";        
+        public const string ViewOnline = "ViewOnline";
 
         public const string InCiteNewCitation = "InCiteNewCitation";
         public const string InCiteAppendCitation = "InCiteAppendCitation";
         public const string InCiteAddBibliography = "InCiteAddBibliography";
         public const string InCiteAddCSLStats = "InCiteAddCSLStats";
         public const string InCiteRefresh = "InCiteRefresh";
-        public const string InCiteCitationSnippet = "InCiteCitationSnippet";        
+        public const string InCiteCitationSnippet = "InCiteCitationSnippet";
         public const string InCiteCSLStandard = "InCiteCSLStandard";
         public const string InCiteCSLDownload = "InCiteCSLDownload";
-        public const string InCitePause= "InCitePause";
+        public const string InCitePause = "InCitePause";
         public const string InCiteConnection = "InCiteConnection";
         public const string InCiteEditCSL = "InCiteEditCSL";
         public const string InCiteFindUsedReferences = "InCiteFindUsedReferences";
@@ -315,7 +315,7 @@ namespace icons
 
         #endregion
 
-       
+
         public static BitmapImage GetAppIcon(string icon, string extension = "png")
         {
             string resource_location = string.Format("pack://application:,,,/{0};component/Application/{1}.{2}", MODULE_NAME, icon, extension);

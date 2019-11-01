@@ -11,10 +11,10 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
     /// </summary>
     public partial class WindowControlsHeader : UserControl
     {
-        DualTabbedLayoutItem item;
-        Window window;
+        private DualTabbedLayoutItem item;
+        private Window window;
 
-        internal WindowControlsHeader(DualTabbedLayoutItem item, Window window)        
+        internal WindowControlsHeader(DualTabbedLayoutItem item, Window window)
         {
             this.item = item;
             this.window = window;
@@ -34,9 +34,9 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             ImageMaximize.Source = Icons.GetAppIcon(Icons.DualTabbed_Maximize);
             ImageClose.Source = Icons.GetAppIcon(Icons.DualTabbed_Close);
 
-            RenderOptions.SetBitmapScalingMode(this.ImageMinimize, BitmapScalingMode.HighQuality);
-            RenderOptions.SetBitmapScalingMode(this.ImageMaximize, BitmapScalingMode.HighQuality);
-            RenderOptions.SetBitmapScalingMode(this.ImageClose, BitmapScalingMode.HighQuality);
+            RenderOptions.SetBitmapScalingMode(ImageMinimize, BitmapScalingMode.HighQuality);
+            RenderOptions.SetBitmapScalingMode(ImageMaximize, BitmapScalingMode.HighQuality);
+            RenderOptions.SetBitmapScalingMode(ImageClose, BitmapScalingMode.HighQuality);
 
             ImageClose.Visibility = item.can_close ? Visibility.Visible : Visibility.Collapsed;
 
@@ -49,12 +49,12 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             ImageClose.MouseDown += ImageClose_MouseDown;
         }
 
-        void ImageMinimize_MouseDown(object sender, MouseButtonEventArgs e)
+        private void ImageMinimize_MouseDown(object sender, MouseButtonEventArgs e)
         {
             window.WindowState = WindowState.Minimized;
         }
 
-        void ImageMaximize_MouseDown(object sender, MouseButtonEventArgs e)
+        private void ImageMaximize_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (window.WindowState == WindowState.Maximized)
             {
@@ -63,10 +63,10 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             else
             {
                 window.WindowState = WindowState.Maximized;
-            }            
+            }
         }
 
-        void ImageClose_MouseDown(object sender, MouseButtonEventArgs e)
+        private void ImageClose_MouseDown(object sender, MouseButtonEventArgs e)
         {
             item.WantsClose();
         }

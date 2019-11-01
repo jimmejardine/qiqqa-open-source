@@ -21,7 +21,7 @@ namespace Utilities.Misc
             {
                 this.message = message;
                 this.cancellable = cancellable;
-                this.timestamp = DateTime.UtcNow;
+                timestamp = DateTime.UtcNow;
             }
         }
 
@@ -79,21 +79,9 @@ namespace Utilities.Misc
 #else
             protected StatusMessage last_status_message = null;
 
-            public string LastStatusMessage
-            {
-                get
-                {
-                    return last_status_message?.message;
-                }
-            }
+            public string LastStatusMessage => last_status_message?.message;
 
-            public bool LastStatusMessageCancellable
-            {
-                get
-                {
-                    return last_status_message?.cancellable ?? false;
-                }
-            }
+            public bool LastStatusMessageCancellable => last_status_message?.cancellable ?? false;
 
             public void InsertStatusMessage(StatusMessage msg)
             {
@@ -102,19 +90,20 @@ namespace Utilities.Misc
 #endif
         }
 
-        Dictionary<string, StatusEntry> status_entries = new Dictionary<string, StatusEntry>();
+        private Dictionary<string, StatusEntry> status_entries = new Dictionary<string, StatusEntry>();
+
         // do note https://stackoverflow.com/questions/29557718/correct-way-to-lock-the-dictionary-object
         // https://stackoverflow.com/questions/410270/can-you-lock-on-a-generic-dictionary
         // https://stackoverflow.com/questions/16984598/can-i-use-dictionary-elements-as-lock-objects
         // generic advice at https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/lock-statement#remarks
-        object status_entries_lock = new object();
+        private object status_entries_lock = new object();
 
         private StatusManager()
         {
             ShutdownableManager.Instance.Register(Shutdown);
         }
 
-        bool still_running = true;
+        private bool still_running = true;
 
         private void Shutdown()
         {
@@ -196,9 +185,9 @@ namespace Utilities.Misc
             }
         }
 
-        HashSet<string> cancelled_items = new HashSet<string>();
-        object cancelled_items_lock = new object();
-        
+        private HashSet<string> cancelled_items = new HashSet<string>();
+        private object cancelled_items_lock = new object();
+
         public bool IsCancelled(string key)
         {
             Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();

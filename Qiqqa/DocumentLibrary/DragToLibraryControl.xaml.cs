@@ -10,7 +10,7 @@ namespace Qiqqa.DocumentLibrary
     /// </summary>
     public partial class DragToLibraryControl : UserControl
     {
-        DragToLibraryManager drag_to_library_manager;
+        private DragToLibraryManager drag_to_library_manager;
 
         public DragToLibraryControl()
         {

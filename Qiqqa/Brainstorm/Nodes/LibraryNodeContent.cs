@@ -26,7 +26,7 @@ namespace Qiqqa.Brainstorm.Nodes
             LibraryNodeContent other = obj as LibraryNodeContent;
             if (null == other) return false;
 
-            if (this.library_fingerprint != other.library_fingerprint) return false;
+            if (library_fingerprint != other.library_fingerprint) return false;
 
             return true;
         }
@@ -34,21 +34,15 @@ namespace Qiqqa.Brainstorm.Nodes
         public override int GetHashCode()
         {
             int hash = 23;
-            hash = hash * 37 + this.library_fingerprint.GetHashCode();
+            hash = hash * 37 + library_fingerprint.GetHashCode();
             return hash;
         }
 
         public string Title
         {
-            get
-            {
-                return this.title;
-            }
+            get => title;
 
-            set
-            {
-                this.title = value;
-            }
+            set => title = value;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Qiqqa.DocumentLibrary
         {
             return fingerprint.EndsWith("_REF");
         }
-        
+
         internal static string CreateVanillaReferenceFingerprint()
         {
             string fingerprint = Guid.NewGuid().ToString().Replace("-", "").ToUpper() + "_REF";

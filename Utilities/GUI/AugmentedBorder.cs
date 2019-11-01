@@ -9,20 +9,19 @@ namespace Utilities.GUI
     public class AugmentedBorder : Border
     {
         public static readonly double CORNER_RADIUS = 3;
-
-        Grid GridContent;
+        private Grid GridContent;
 
         public AugmentedBorder()
         {
             Theme.Initialize();
 
-            this.CornerRadius = new CornerRadius(CORNER_RADIUS);
-            this.BorderBrush = ThemeColours.Background_Brush_Blue_VeryDark;
-            this.BorderThickness = new Thickness(1);
+            CornerRadius = new CornerRadius(CORNER_RADIUS);
+            BorderBrush = ThemeColours.Background_Brush_Blue_VeryDark;
+            BorderThickness = new Thickness(1);
 
-            this.GridContent = new Grid();
-            this.GridContent.Margin = new Thickness(CORNER_RADIUS);
-            this.Child = GridContent;            
+            GridContent = new Grid();
+            GridContent.Margin = new Thickness(CORNER_RADIUS);
+            Child = GridContent;
         }
 
         [Bindable(true)]

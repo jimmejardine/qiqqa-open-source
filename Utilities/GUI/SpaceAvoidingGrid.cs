@@ -10,7 +10,7 @@ namespace Utilities.GUI
     public class SpaceAvoidingGrid : Grid
     {
         private static readonly Size ZERO_SIZE = new Size(0, 0);
-        
+
         protected override Size MeasureOverride(Size constraint)
         {
             return ZERO_SIZE;

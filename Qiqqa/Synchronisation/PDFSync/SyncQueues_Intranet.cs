@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary;
 using Qiqqa.DocumentLibrary.IntranetLibraryStuff;
 using Qiqqa.Documents.PDF;
-using Qiqqa.Main.LoginStuff;
 using Utilities;
 using Utilities.Files;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Synchronisation.PDFSync
 {
-    class SyncQueues_Intranet
+    internal class SyncQueues_Intranet
     {
         internal static void DaemonPut(Library library, string fingerprint)
         {

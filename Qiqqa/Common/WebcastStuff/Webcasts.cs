@@ -7,7 +7,7 @@ using Utilities.GUI;
 
 namespace Qiqqa.Common.WebcastStuff
 {
-    class Webcasts
+    internal class Webcasts
     {
         public static readonly Webcast INCITE = new Webcast("INCITE", "InCite&Word", "Watch the short tutorial to get up to speed quickly with formatting references with Qiqqa InCite and Microsoft Word.", "http://www.youtube.com/watch?v=8MqeYNXNwrg");
         public static readonly Webcast LIBRARY = new Webcast("LIBRARY", "Library", "Watch the short tutorial to get up to speed quickly with the Qiqqa Library screen.", "http://www.youtube.com/watch?v=A4tzyuRd3e8");
@@ -24,7 +24,7 @@ namespace Qiqqa.Common.WebcastStuff
 
         public static void FormatWebcastButton(AugmentedButton ButtonWebcast, Webcast webcast)
         {
-            ButtonWebcast.Icon = Icons.GetAppIcon(Icons.Webcast);            
+            ButtonWebcast.Icon = Icons.GetAppIcon(Icons.Webcast);
             ButtonWebcast.ToolTip = webcast.description;
             ButtonWebcast.Tag = webcast;
             ButtonWebcast.Click += ButtonWebcast_Click;
@@ -38,7 +38,7 @@ namespace Qiqqa.Common.WebcastStuff
             hyperlink.Click += hyperlink_Click;
         }
 
-        static void hyperlink_Click(object sender, RoutedEventArgs e)
+        private static void hyperlink_Click(object sender, RoutedEventArgs e)
         {
             Hyperlink fe = sender as Hyperlink;
             Webcast webcast = fe.Tag as Webcast;

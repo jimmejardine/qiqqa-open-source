@@ -1,10 +1,4 @@
-﻿using System.Threading;
-using Qiqqa.DocumentLibrary;
-using Qiqqa.Documents.PDF.PDFControls;
-using Utilities;
-using Utilities.GUI;
-
-namespace Qiqqa.Documents.PDF
+﻿namespace Qiqqa.Documents.PDF
 {
 #if TEST
     public class TestHarness

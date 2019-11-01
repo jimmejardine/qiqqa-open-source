@@ -4,7 +4,6 @@ using Qiqqa.DocumentLibrary;
 using Qiqqa.Documents.PDF.CitationManagerStuff.CitationFinding;
 using Utilities;
 using Utilities.Misc;
-using Utilities.Random;
 
 namespace Qiqqa.Documents.PDF.CitationManagerStuff
 {
@@ -38,7 +37,7 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
             List<PDFDocument> pdf_documents = library.PDFDocuments;
 
             StatusManager.Instance.ClearCancelled("CitationLibraryFinder");
-            for (int i = 0; i < pdf_documents.Count; ++i)            
+            for (int i = 0; i < pdf_documents.Count; ++i)
             {
                 try
                 {
@@ -61,7 +60,7 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
 
             return total_found;
         }
-        
+
         internal static int FindCitations(PDFDocument pdf_document)
         {
             int total_found = 0;

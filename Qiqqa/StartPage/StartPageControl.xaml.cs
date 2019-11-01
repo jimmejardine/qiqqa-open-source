@@ -5,7 +5,6 @@ using System.Windows.Input;
 using icons;
 using Qiqqa.Backups;
 using Qiqqa.Common;
-using Qiqqa.Common.BackgroundWorkerDaemonStuff;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary;
 using Qiqqa.DocumentLibrary.IntranetLibraryStuff;
@@ -31,10 +30,10 @@ namespace Qiqqa.StartPage
             DualTabWhatsNew.Children.Clear();
             DualTabWhatsNew.AddContent("Webcasts", "Tutorials & Help", null, false, false, TabWebcasts);
             DualTabWhatsNew.AddContent("CommunityChat", "Community Chat", null, false, false, TabChat);
-            
+
             DualTabWhatsNew.TabPosition = DualTabbedLayout.TabPositions.Sides;
 
-            this.KeyDown += StartPageControl_KeyDown;
+            KeyDown += StartPageControl_KeyDown;
 
             bool ADVANCED_MENUS = ConfigurationManager.Instance.ConfigurationRecord.GUI_AdvancedMenus;
 
@@ -43,7 +42,7 @@ namespace Qiqqa.StartPage
             ButtonLibraries.Icon = Icons.GetAppIcon(Icons.ModuleDocumentLibrary);
             if (!ADVANCED_MENUS) ButtonLibraries.Caption = LocalisationManager.Get("START/CAP/POPUP_LIBRARIES");
             ButtonLibraries.ToolTip = LocalisationManager.Get("START/TIP/POPUP_LIBRARIES");
-            
+
             ButtonTools.AttachPopup(ButtonToolsPopup);
             ButtonTools.Icon = Icons.GetAppIcon(Icons.ModuleConfiguration);
             if (!ADVANCED_MENUS) ButtonTools.Caption = LocalisationManager.Get("START/CAP/POPUP_TOOLS");
@@ -60,7 +59,7 @@ namespace Qiqqa.StartPage
             ButtonSync.Caption = LocalisationManager.Get("START/CAP/SYNC_LIBRARIES");
             ButtonSync.ToolTip = LocalisationManager.Get("START/TIP/SYNC_LIBRARIES");
             ButtonSync.Click += ButtonSync_Click;
-            
+
             ButtonCreateIntranetLibrary.Icon = Icons.GetAppIcon(Icons.WebLibrary_IntranetLibrary);
             ButtonCreateIntranetLibrary.Caption = LocalisationManager.Get("START/CAP/CREATE_INTRANET_LIBRARY");
             ButtonCreateIntranetLibrary.ToolTip = LocalisationManager.Get("START/TIP/CREATE_INTRANET_LIBRARY");
@@ -87,7 +86,7 @@ namespace Qiqqa.StartPage
             ButtonOpenLibrary.Icon = Icons.GetAppIcon(Icons.ModuleDocumentLibrary);
             ButtonOpenLibrary.Caption = LocalisationManager.Get("START/CAP/OPEN_LIBRARY");
             ButtonOpenLibrary.ToolTip = LocalisationManager.Get("START/TIP/OPEN_LIBRARY");
-            ButtonOpenLibrary.Click += ButtonOpenLibrary_Click;            
+            ButtonOpenLibrary.Click += ButtonOpenLibrary_Click;
 
             ButtonInCite.Icon = Icons.GetAppIcon(Icons.ModuleInCite);
             if (!ADVANCED_MENUS) ButtonInCite.Caption = LocalisationManager.Get("START/CAP/INCITE");
@@ -102,7 +101,7 @@ namespace Qiqqa.StartPage
 
             ButtonToggleOCR.Icon = Icons.GetAppIcon(Icons.LibraryDoOCR);
             ButtonToggleOCR.Caption = LocalisationManager.Get("START/CAP/OCR"); ;
-            ButtonToggleOCR.ToolTip = LocalisationManager.Get("START/TIP/OCR_ON");            
+            ButtonToggleOCR.ToolTip = LocalisationManager.Get("START/TIP/OCR_ON");
             ButtonToggleOCR.ToolTipOpening += ButtonToggleOCR_ToolTipOpening;
 
             ButtonNewConfig.Icon = Icons.GetAppIcon(Icons.ModuleConfiguration);
@@ -110,7 +109,7 @@ namespace Qiqqa.StartPage
             ButtonNewConfig.ToolTip = LocalisationManager.Get("START/TIP/CONFIG");
             ButtonNewConfig.Click += ButtonNewConfig_Click;
 
-            ButtonExpertMode.Icon = Icons.GetAppIcon(Icons.BibTeXSnifferWizard);            
+            ButtonExpertMode.Icon = Icons.GetAppIcon(Icons.BibTeXSnifferWizard);
             if (!ADVANCED_MENUS) ButtonExpertMode.Caption = LocalisationManager.Get("START/CAP/EXPERT_MODE");
             ButtonExpertMode.ToolTip = LocalisationManager.Get("START/TIP/EXPERT_MODE");
             ButtonExpertMode.Click += ButtonExpertMode_Click;
@@ -161,12 +160,12 @@ namespace Qiqqa.StartPage
             ObjSearch.OnHardSearch += ObjSearch_OnHardSearch;
             ObjSearch.SearchHistoryItemSource = ConfigurationManager.Instance.SearchHistory;
 
-            this.DataContext = ConfigurationManager.Instance.ConfigurationRecord_Bindable;
-            
+            DataContext = ConfigurationManager.Instance.ConfigurationRecord_Bindable;
+
             ObjGlobalSearchPanel.Visibility = ConfigurationManager.Instance.NoviceVisibility;
         }
-        
-        void StartPageControl_KeyDown(object sender, KeyEventArgs e)
+
+        private void StartPageControl_KeyDown(object sender, KeyEventArgs e)
         {
             if (Key.F == e.Key && KeyboardTools.IsCTRLDown())
             {
@@ -175,13 +174,13 @@ namespace Qiqqa.StartPage
             }
         }
 
-        void ButtonBackupRestore_Click(object sender, RoutedEventArgs e)
+        private void ButtonBackupRestore_Click(object sender, RoutedEventArgs e)
         {
             ButtonToolsPopup.Close();
             BackingUp.DoBackupRestoreInstructions();
         }
 
-        void ObjSearch_OnHardSearch()
+        private void ObjSearch_OnHardSearch()
         {
             string query = ObjSearch.Text;
             if (!String.IsNullOrEmpty(query))
@@ -189,8 +188,8 @@ namespace Qiqqa.StartPage
                 MainWindowServiceDispatcher.Instance.OpenCrossLibrarySearch(query);
             }
         }
-        
-        void ButtonCreateIntranetLibrary_Click(object sender, RoutedEventArgs e)
+
+        private void ButtonCreateIntranetLibrary_Click(object sender, RoutedEventArgs e)
         {
             ButtonLibrariesPopup.Close();
 
@@ -198,13 +197,13 @@ namespace Qiqqa.StartPage
             control.Show();
         }
 
-        void ButtonJoinBundleLibrary_Click(object sender, RoutedEventArgs e)
+        private void ButtonJoinBundleLibrary_Click(object sender, RoutedEventArgs e)
         {
             ButtonLibrariesPopup.Close();
             MainWindowServiceDispatcher.Instance.ShowBundleLibraryJoiningControl();
         }
 
-        void ButtonOpenLibrary_Click(object sender, RoutedEventArgs e)
+        private void ButtonOpenLibrary_Click(object sender, RoutedEventArgs e)
         {
             ButtonLibrariesPopup.Close();
 
@@ -216,47 +215,47 @@ namespace Qiqqa.StartPage
             e.Handled = true;
         }
 
-        void ButtonSync_Click(object sender, RoutedEventArgs e)
+        private void ButtonSync_Click(object sender, RoutedEventArgs e)
         {
             ButtonLibrariesPopup.Close();
 
             ObjWebLibraries.DoSync();
-            e.Handled = true;            
+            e.Handled = true;
         }
 
-        void ButtonNewBrainstorm_Click(object sender, RoutedEventArgs e)
+        private void ButtonNewBrainstorm_Click(object sender, RoutedEventArgs e)
         {
             MainWindowServiceDispatcher.Instance.OpenNewBrainstorm();
         }
 
-        void ButtonNewBrowser_Click(object sender, RoutedEventArgs e)
+        private void ButtonNewBrowser_Click(object sender, RoutedEventArgs e)
         {
             MainWindowServiceDispatcher.Instance.OpenWebBrowser();
         }
 
-        void ButtonNewConfig_Click(object sender, RoutedEventArgs e)
+        private void ButtonNewConfig_Click(object sender, RoutedEventArgs e)
         {
             MainWindowServiceDispatcher.Instance.OpenControlPanel();
         }
 
-        void ButtonNewHelp_Click(object sender, RoutedEventArgs e)
+        private void ButtonNewHelp_Click(object sender, RoutedEventArgs e)
         {
             ButtonHelpPopup.Close();
             MainWindowServiceDispatcher.Instance.OpenHelp();
         }
 
-        void ButtonInCite_Click(object sender, RoutedEventArgs e)
+        private void ButtonInCite_Click(object sender, RoutedEventArgs e)
         {
             MainWindowServiceDispatcher.Instance.OpenInCite();
         }
 
-        void ButtonExpedition_Click(object sender, RoutedEventArgs e)
+        private void ButtonExpedition_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Expedition_Open_StartPage);
             MainWindowServiceDispatcher.Instance.OpenExpedition(null, null);
         }
 
-        void ButtonToggleOCR_ToolTipOpening(object sender, ToolTipEventArgs e)
+        private void ButtonToggleOCR_ToolTipOpening(object sender, ToolTipEventArgs e)
         {
             Logging.Info("Library_OCRDisabled = {0}", ConfigurationManager.Instance.ConfigurationRecord.Library_OCRDisabled);
             if (ConfigurationManager.Instance.ConfigurationRecord.Library_OCRDisabled)
@@ -275,7 +274,7 @@ namespace Qiqqa.StartPage
         {
             WebsiteAccess.OpenWebsite(url);
         }
-        
+
         internal void OpenFeedback()
         {
             WebsiteAccess.OpenWebsite(WebsiteAccess.OurSiteLinkKind.Feedback);
@@ -286,44 +285,44 @@ namespace Qiqqa.StartPage
             WebsiteAccess.OpenWebsite(WebsiteAccess.OurSiteLinkKind.Home);
         }
 
-        void ButtonNewManual_Click(object sender, RoutedEventArgs e)
+        private void ButtonNewManual_Click(object sender, RoutedEventArgs e)
         {
             ButtonHelpPopup.Close();
             PDFDocument pdf_document = QiqqaManualTools.AddManualsToLibrary(WebLibraryManager.Instance.WebLibraryDetails_Guest.library);
             MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);
         }
 
-        void ButtonWelcomeWizard_Click(object sender, RoutedEventArgs e)
+        private void ButtonWelcomeWizard_Click(object sender, RoutedEventArgs e)
         {
             ButtonHelpPopup.Close();
             MainWindowServiceDispatcher.Instance.OpenWelcomeWizard();
         }
 
-        void ButtonNewAbout_Click(object sender, RoutedEventArgs e)
+        private void ButtonNewAbout_Click(object sender, RoutedEventArgs e)
         {
             ButtonHelpPopup.Close();
             MainWindowServiceDispatcher.Instance.OpenAbout();
         }
 
-        void ButtonTranslate_Click(object sender, RoutedEventArgs e)
+        private void ButtonTranslate_Click(object sender, RoutedEventArgs e)
         {
             ButtonToolsPopup.Close();
             MainWindowServiceDispatcher.Instance.OpenLocalisationEditing();
         }
 
-        void ButtonZipLogs_Click(object sender, RoutedEventArgs e)
+        private void ButtonZipLogs_Click(object sender, RoutedEventArgs e)
         {
             ButtonToolsPopup.Close();
             BundleLogs.DoBundle();
         }
 
-        void ButtonDocumentConvert_Click(object sender, RoutedEventArgs e)
+        private void ButtonDocumentConvert_Click(object sender, RoutedEventArgs e)
         {
             ButtonToolsPopup.Close();
             MainWindowServiceDispatcher.Instance.OpenDocumentConvert();
         }
 
-        void ButtonExpertMode_Click(object sender, RoutedEventArgs e)
+        private void ButtonExpertMode_Click(object sender, RoutedEventArgs e)
         {
             MainWindowServiceDispatcher.Instance.GoExpertMode();
         }
@@ -352,7 +351,7 @@ namespace Qiqqa.StartPage
             }
 
             ObjChatControl = null;
-            this.DataContext = null;
+            DataContext = null;
 
             ++dispose_count;
         }

@@ -32,7 +32,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
             SearchQuick.GotKeyboardFocus += SearchQuick_GotKeyboardFocus;
         }
 
-        void SearchQuick_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        private void SearchQuick_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
             // Start the Wizard if necessary
             if (!ConfigurationManager.Instance.ConfigurationRecord.Wizard_HasSeenSearchWizard)
@@ -43,11 +43,11 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
             }
         }
 
-        void SearchQuick_OnHardSearch()
+        private void SearchQuick_OnHardSearch()
         {
             library_filter_control.ObjLibraryFilterControl_Sort.SetSortToSearchScore();
-            
-            ExecuteSearchQuick();            
+
+            ExecuteSearchQuick();
             library_filter_control.ReviewParameters();
         }
 
@@ -90,7 +90,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
             library_filter_control.search_quick_fingerprints_span.Inlines.Add(LibraryFilterHelpers.GetClearImageInline("Clear this filter.", hyperlink_search_quick_fingerprints_span_OnClick));
         }
 
-        void hyperlink_search_quick_fingerprints_span_OnClick(object sender, MouseButtonEventArgs e)
+        private void hyperlink_search_quick_fingerprints_span_OnClick(object sender, MouseButtonEventArgs e)
         {
             SearchQuick.Clear();
         }

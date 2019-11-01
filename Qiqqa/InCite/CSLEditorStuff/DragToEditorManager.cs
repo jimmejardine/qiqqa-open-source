@@ -4,7 +4,7 @@ using ICSharpCode.AvalonEdit;
 
 namespace Qiqqa.InCite.CSLEditorStuff
 {
-    class DragToEditorManager
+    internal class DragToEditorManager
     {
         public static void RegisterControl(TextEditor element)
         {

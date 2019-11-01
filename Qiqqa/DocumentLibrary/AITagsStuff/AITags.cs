@@ -79,19 +79,13 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
             return results;
         }
 
-        public bool IsGettingOld
-        {
-            get
-            {
-                return DateTime.UtcNow.Subtract(timestamp_generated).TotalDays > 30;
-            }
-        }
+        public bool IsGettingOld => DateTime.UtcNow.Subtract(timestamp_generated).TotalDays > 30;
 
         public bool HaveNoTags
         {
             get
             {
-                if (null == ai_tags_with_documents) return true;                
+                if (null == ai_tags_with_documents) return true;
                 return (0 == ai_tags_with_documents.Keys.Count);
             }
         }

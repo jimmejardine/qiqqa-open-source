@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using System.IO;
 using System.Text;
 using Qiqqa.Common.Configuration;
-using Qiqqa.DocumentLibrary;
 using Utilities;
 using Utilities.Files;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
 {
@@ -20,13 +20,13 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
 
     public class IntranetLibraryDB
     {
-        string base_path;
-        string library_path;
+        private string base_path;
+        private string library_path;
 
         public IntranetLibraryDB(string base_path)
         {
             this.base_path = base_path;
-            this.library_path = IntranetLibraryTools.GetLibraryMetadataPath(base_path);
+            library_path = IntranetLibraryTools.GetLibraryMetadataPath(base_path);
 
             // Copy a library into place...
             if (!File.Exists(library_path))
@@ -114,13 +114,13 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
 
                         if (!managed_update)
                         {
-	                        using (var command = new SQLiteCommand("INSERT INTO LibraryItem(filename, last_updated_by, md5, data) VALUES(@filename, @last_updated_by, @md5, @data)", connection, transaction))
-	                        {
-	                            command.Parameters.AddWithValue("@filename", filename);
-	                            command.Parameters.AddWithValue("@last_updated_by", Environment.UserName);
-	                            command.Parameters.AddWithValue("@md5", md5);
-	                            command.Parameters.AddWithValue("@data", data);
-	                            command.ExecuteNonQuery();
+                            using (var command = new SQLiteCommand("INSERT INTO LibraryItem(filename, last_updated_by, md5, data) VALUES(@filename, @last_updated_by, @md5, @data)", connection, transaction))
+                            {
+                                command.Parameters.AddWithValue("@filename", filename);
+                                command.Parameters.AddWithValue("@last_updated_by", Environment.UserName);
+                                command.Parameters.AddWithValue("@md5", md5);
+                                command.Parameters.AddWithValue("@data", data);
+                                command.ExecuteNonQuery();
                             }
                         }
 

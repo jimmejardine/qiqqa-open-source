@@ -15,12 +15,6 @@
             return new CancelEnabler();
         }
 
-        public bool IsCancelled
-        {
-            get
-            {
-                return cancelled;
-            }
-        }
+        public bool IsCancelled => cancelled;
     }
 }

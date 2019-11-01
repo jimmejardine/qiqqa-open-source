@@ -8,9 +8,9 @@ namespace Utilities.Encryption
     public class ReversibleEncryption
     {
         // Change these keys 
-        private byte[] Key = 
-        { 
-            184, 27,  162,  37,  12, 122, 209, 211, 
+        private byte[] Key =
+        {
+            184, 27,  162,  37,  12, 122, 209, 211,
              24, 175, 154, 173,  53, 196,  39,  24,
              24, 175, 154, 173,  53, 196,  39,  24,
              26,  77, 218, 231, 236,  23, 209,  66
@@ -21,14 +21,14 @@ namespace Utilities.Encryption
         private ICryptoTransform EncryptorTransform, DecryptorTransform;
         private UTF8Encoding UTFEncoder;
 
-        
+
         public ReversibleEncryption()
         {
             RijndaelManaged rm = new RijndaelManaged();
 
             // Create an encryptor and a decryptor using our encryption method, key, and vector. 
-            EncryptorTransform = rm.CreateEncryptor(this.Key, this.Vector);
-            DecryptorTransform = rm.CreateDecryptor(this.Key, this.Vector);
+            EncryptorTransform = rm.CreateEncryptor(Key, Vector);
+            DecryptorTransform = rm.CreateDecryptor(Key, Vector);
 
             // Used to translate bytes to text and vice versa 
             UTFEncoder = new UTF8Encoding();
@@ -59,9 +59,9 @@ namespace Utilities.Encryption
         }
 
         /// ----------- The commonly used methods ------------------------------     
-        
 
-        
+
+
         /// Encrypt some text and return a string suitable for passing in a URL. 
         public string EncryptString(string TextValue)
         {

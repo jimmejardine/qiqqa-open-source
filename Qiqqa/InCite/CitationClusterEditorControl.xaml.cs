@@ -12,7 +12,7 @@ namespace Qiqqa.InCite
     /// </summary>
     public partial class CitationClusterEditorControl : UserControl
     {
-        CitationCluster current_citation_cluster = null;
+        private CitationCluster current_citation_cluster = null;
 
         public delegate void CitationClusterChangedDelegate(CitationCluster citation_cluster);
         public event CitationClusterChangedDelegate CitationClusterChanged;
@@ -42,7 +42,7 @@ namespace Qiqqa.InCite
             SetCitationCluster(null);
         }
 
-        void ObjSpecifierType_KeyDown(object sender, KeyEventArgs e)
+        private void ObjSpecifierType_KeyDown(object sender, KeyEventArgs e)
         {
             // Delete the selected item...
             if (e.Key == Key.Delete)
@@ -59,7 +59,7 @@ namespace Qiqqa.InCite
                 e.Handled = true;
             }
 
-                // Open the selected item
+            // Open the selected item
             else if (e.Key == Key.Enter)
             {
                 ObservableCollection<string> citation_item_keys = (ObservableCollection<string>)ObjCitationsInCluster.ItemsSource;
@@ -78,7 +78,7 @@ namespace Qiqqa.InCite
             }
         }
 
-        void CmdApply_Click(object sender, RoutedEventArgs e)
+        private void CmdApply_Click(object sender, RoutedEventArgs e)
         {
             CitationCluster citation_cluster = current_citation_cluster;
             if (null != citation_cluster)
@@ -87,14 +87,14 @@ namespace Qiqqa.InCite
                 {
                     // Delete any items that were removed in the GUI
                     ObservableCollection<string> citation_item_keys = (ObservableCollection<string>)ObjCitationsInCluster.ItemsSource;
-                    for (int i = citation_cluster.citation_items.Count-1; i >= 0; --i)
+                    for (int i = citation_cluster.citation_items.Count - 1; i >= 0; --i)
                     {
                         if (!citation_item_keys.Contains(citation_cluster.citation_items[i].reference_key))
                         {
                             citation_cluster.citation_items.RemoveAt(i);
                         }
                     }
-                    
+
                     // And apply the other settings
                     List<string> specifier_locations = new List<string>(ObjSpecifierLocation.Text.Split(';'));
                     while (specifier_locations.Count < citation_cluster.citation_items.Count)
@@ -112,7 +112,7 @@ namespace Qiqqa.InCite
                         suffixes.Add("");
                     }
 
-                    for (int i = 0; i < citation_cluster.citation_items.Count; ++i)                    
+                    for (int i = 0; i < citation_cluster.citation_items.Count; ++i)
                     {
                         var citation_item = citation_cluster.citation_items[i];
 
@@ -136,7 +136,7 @@ namespace Qiqqa.InCite
             }
         }
 
-        void CmdRevert_Click(object sender, RoutedEventArgs e)
+        private void CmdRevert_Click(object sender, RoutedEventArgs e)
         {
             ReflectCitationCluster(current_citation_cluster);
         }
@@ -152,9 +152,9 @@ namespace Qiqqa.InCite
         {
             if (null == current_citation_cluster)
             {
-                this.IsEnabled = false;
-                this.ObjGridNoCitationSelectedInstructions.Visibility = Visibility.Visible;
-                this.ObjGridNoCitationSelectedInstructions.Background = ThemeColours.Background_Brush_Blue_Dark;
+                IsEnabled = false;
+                ObjGridNoCitationSelectedInstructions.Visibility = Visibility.Visible;
+                ObjGridNoCitationSelectedInstructions.Background = ThemeColours.Background_Brush_Blue_Dark;
                 //this.ObjGridCitationSelectedPanel.Visibility = Visibility.Collapsed;
 
                 ObjCitationsInCluster.ItemsSource = null;
@@ -166,8 +166,8 @@ namespace Qiqqa.InCite
             }
             else
             {
-                this.IsEnabled = true;
-                this.ObjGridNoCitationSelectedInstructions.Visibility = Visibility.Collapsed;
+                IsEnabled = true;
+                ObjGridNoCitationSelectedInstructions.Visibility = Visibility.Collapsed;
                 //this.ObjGridCitationSelectedPanel.Visibility = Visibility.Visible;
 
                 // Populate the list of items
@@ -190,7 +190,7 @@ namespace Qiqqa.InCite
                     // Locator type?
                     string specifier_type = citation_item.GetParameter(CitationItem.PARAM_SPECIFIER_TYPE);
                     ObjSpecifierType.Text = specifier_type;
-                    
+
                     // For the actual specifier, lets allow multiple selections
                     string specifier_locations = "";
                     string prefixes = "";

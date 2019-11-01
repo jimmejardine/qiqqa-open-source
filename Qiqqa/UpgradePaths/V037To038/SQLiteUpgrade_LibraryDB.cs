@@ -1,22 +1,22 @@
 ﻿using System.Data.SQLite;
-using System.IO;
-using System.Windows.Forms;
 using Utilities;
 using Utilities.Files;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 
+
 namespace Qiqqa.UpgradePaths.V037To038
 {
-    class SQLiteUpgrade_LibraryDB
+    internal class SQLiteUpgrade_LibraryDB
     {
-        string base_path;
-        string library_path;
+        private string base_path;
+        private string library_path;
 
         public SQLiteUpgrade_LibraryDB(string base_path)
         {
             this.base_path = base_path;
-            this.library_path = Path.GetFullPath(Path.Combine(base_path, @"Qiqqa.library"));
+            library_path = Path.GetFullPath(Path.Combine(base_path, @"Qiqqa.library"));
 
             // Copy a library into place...
             if (!File.Exists(library_path))
@@ -27,13 +27,7 @@ namespace Qiqqa.UpgradePaths.V037To038
             }
         }
 
-        private string StartupDirectoryForQiqqa
-        {
-            get
-            {
-                return Common.Configuration.ConfigurationManager.Instance.StartupDirectoryForQiqqa;
-            }
-        }
+        private string StartupDirectoryForQiqqa => Common.Configuration.ConfigurationManager.Instance.StartupDirectoryForQiqqa;
 
         public SQLiteConnection GetConnection()
         {

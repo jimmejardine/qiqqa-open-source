@@ -1,17 +1,15 @@
-﻿using Qiqqa.Documents.PDF.Search;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
+using Qiqqa.Documents.PDF.Search;
 using Utilities;
 using Utilities.BibTex;
 using Utilities.BibTex.Parsing;
 using Utilities.Language;
-using Utilities.Strings;
 
 namespace Qiqqa.Documents.PDF.MetadataSuggestions
 {
-    class BibTeXGoodnessOfFitEstimator
+    internal class BibTeXGoodnessOfFitEstimator
     {
         public static bool DoesBibTeXMatchDocument(BibTexItem bibtex_item, PDFDocument pdf_document, out PDFSearchResultSet search_result_set)
         {

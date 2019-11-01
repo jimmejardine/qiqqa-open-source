@@ -24,7 +24,7 @@ namespace Qiqqa.Expedition
 
             public Library library;
             public ExpeditionDataSource eds;
-            
+
             public LDASampler lda_sampler;
             public LDAAnalysis lda_analysis;
         }
@@ -33,13 +33,13 @@ namespace Qiqqa.Expedition
         {
             InitializeComponent();
 
-            this.DataContextChanged += TopicOverviewControl_DataContextChanged;
+            DataContextChanged += TopicOverviewControl_DataContextChanged;
 
             TxtTitle.Cursor = Cursors.Hand;
             TxtTitle.MouseLeftButtonUp += TxtTitle_MouseLeftButtonUp;
         }
 
-        void TxtTitle_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void TxtTitle_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             AugmentedBindable<PDFDocument> pdf_document_bindable = DataContext as AugmentedBindable<PDFDocument>;
             if (null != pdf_document_bindable)
@@ -51,7 +51,7 @@ namespace Qiqqa.Expedition
             e.Handled = true;
         }
 
-        void TopicOverviewControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void TopicOverviewControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             // Clear the old
             ObjPDFRendererControlPlaceholder.Children.Clear();

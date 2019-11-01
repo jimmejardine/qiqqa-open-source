@@ -4,13 +4,14 @@ using System.IO;
 using Qiqqa.Main.SplashScreenStuff;
 using Utilities;
 using Utilities.Misc;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.UpgradePaths.V037To038
 {
-    class SQLiteUpgrade
+    internal class SQLiteUpgrade
     {
         private static List<string> EXTENSIONS = new List<string>(
             new string[] {
@@ -25,7 +26,7 @@ namespace Qiqqa.UpgradePaths.V037To038
         internal static void RunUpgrade(SplashScreenWindow splashscreen_window)
         {
             Logging.Info("Upgrading from 037 to 038");
-            
+
             string base_directory_path = BaseDirectoryForQiqqa;
             if (Directory.Exists(base_directory_path))
             {

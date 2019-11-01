@@ -14,15 +14,15 @@ namespace Utilities.Collections
         }
 
         protected AveragingDictionary(SerializationInfo info, StreamingContext context)
-            : base(info, context) 
-        { 
+            : base(info, context)
+        {
         }
 
         public Average GetSum(KEY key)
         {
             Average count;
             if (!TryGetValue(key, out count))
-            {   
+            {
                 count = new Average();
                 this[key] = count;
             }
@@ -42,7 +42,7 @@ namespace Utilities.Collections
 
         public List<KEY> OrderedKeys()
         {
-            List<KEY> l = new List<KEY>(this.Keys);
+            List<KEY> l = new List<KEY>(Keys);
             l.Sort();
             return l;
         }
@@ -68,8 +68,8 @@ namespace Utilities.Collections
         /// <returns></returns>
         public List<KEY> OrderedValues()
         {
-            List<KEY> l = new List<KEY>(this.Keys);
-            l.Sort(delegate(KEY a, KEY b) { return -Sorting.Compare(this[a].Current, this[b].Current); });
+            List<KEY> l = new List<KEY>(Keys);
+            l.Sort(delegate (KEY a, KEY b) { return -Sorting.Compare(this[a].Current, this[b].Current); });
             return l;
         }
 

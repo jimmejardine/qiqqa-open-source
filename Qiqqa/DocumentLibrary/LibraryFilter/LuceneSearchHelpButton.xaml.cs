@@ -19,7 +19,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
 
         }
 
-        void SearchQuickHelp_Click(object sender, RoutedEventArgs e)
+        private void SearchQuickHelp_Click(object sender, RoutedEventArgs e)
         {
             LuceneSearchHelpControl control = new LuceneSearchHelpControl();
             control.Show();

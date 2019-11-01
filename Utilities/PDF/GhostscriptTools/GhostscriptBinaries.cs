@@ -2,21 +2,16 @@
 using System.Diagnostics;
 using System.IO;
 using Utilities.ProcessTools;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Utilities.PDF.GhostscriptTools
 {
     public class GhostscriptBinaries
     {
-        public static bool AreInstalled
-        {
-            get
-            {
-                return (null != LocatedPath);
-            }
-        }
+        public static bool AreInstalled => (null != LocatedPath);
 
         public static string ExecutablePath
         {
@@ -29,12 +24,13 @@ namespace Utilities.PDF.GhostscriptTools
                 else
                 {
                     throw new Exception("Unable to locate Ghostscript");
-                }                
+                }
             }
         }
 
-        static string located_path = null;
-        static string LocatedPath
+        private static string located_path = null;
+
+        private static string LocatedPath
         {
             get
             {
@@ -81,7 +77,7 @@ namespace Utilities.PDF.GhostscriptTools
             }
         }
 
-        static readonly string[] potential_directories = new string[]
+        private static readonly string[] potential_directories = new string[]
             {
                 Environment.CurrentDirectory,
                 @"C:\Program Files\gs",

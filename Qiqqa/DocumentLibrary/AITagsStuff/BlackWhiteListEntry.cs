@@ -6,7 +6,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
     {
         public enum ListType
         {
-            Black, 
+            Black,
             White
         }
 
@@ -18,30 +18,30 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
         {
             this.word = word;
             this.list_type = list_type;
-            this.is_deleted = false;
+            is_deleted = false;
         }
 
         public BlackWhiteListEntry(string line)
         {
             string[] bits = line.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
-            this.word = bits[0];
-            this.list_type = FromListTypeString(bits[1]);
-            this.is_deleted = (0 == bits[2].CompareTo("1"));
+            word = bits[0];
+            list_type = FromListTypeString(bits[1]);
+            is_deleted = (0 == bits[2].CompareTo("1"));
         }
 
         public override string ToString()
         {
-            return this.ToFileString();
+            return ToFileString();
         }
-        
-        
+
+
         public string ToFileString()
         {
             return string.Format(
                 "{0}|{1}|{2}",
-                this.word,
-                ToListTypeString(this.list_type),
-                this.is_deleted ? "1" : "0"
+                word,
+                ToListTypeString(list_type),
+                is_deleted ? "1" : "0"
                 );
         }
 

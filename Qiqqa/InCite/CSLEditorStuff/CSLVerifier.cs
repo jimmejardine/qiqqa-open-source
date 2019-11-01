@@ -4,7 +4,7 @@ using System.Xml;
 
 namespace Qiqqa.InCite.CSLEditorStuff
 {
-    class CSLVerifier
+    internal class CSLVerifier
     {
         public static List<string> Verify(string style_file_filename)
         {

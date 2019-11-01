@@ -17,14 +17,14 @@ namespace Qiqqa.Brainstorm.SceneManager
             lnkSampleBrainstorm.Click += lnkSampleBrainstorm_Click;
         }
 
-        void lnkSampleBrainstorm_Click(object sender, RoutedEventArgs e)
+        private void lnkSampleBrainstorm_Click(object sender, RoutedEventArgs e)
         {
             MainWindowServiceDispatcher.Instance.OpenSampleBrainstorm();
         }
 
-        void lnkMoreTips_Click(object sender, RoutedEventArgs e)
+        private void lnkMoreTips_Click(object sender, RoutedEventArgs e)
         {
             MainWindowServiceDispatcher.Instance.OpenHelp();
-        }       
+        }
     }
 }

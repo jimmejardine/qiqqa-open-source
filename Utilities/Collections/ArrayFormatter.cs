@@ -4,18 +4,18 @@ using System.Text;
 
 namespace Utilities.Collections
 {
-	public class ArrayFormatter
-	{
-		public static string listElements(Array array)
-		{
-			StringBuilder sb = new StringBuilder();
-			foreach (Object i in array)
-			{
-				sb.Append(i);
-				sb.Append(", ");
-			}
-			return sb.ToString();
-		}
+    public class ArrayFormatter
+    {
+        public static string listElements(Array array)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (Object i in array)
+            {
+                sb.Append(i);
+                sb.Append(", ");
+            }
+            return sb.ToString();
+        }
 
         public static string listElements(ICollection array)
         {
@@ -52,7 +52,7 @@ namespace Utilities.Collections
 
         public static string listElements(IEnumerable array, string separator)
         {
-            StringBuilder sb = new StringBuilder();            
+            StringBuilder sb = new StringBuilder();
             foreach (Object i in array)
             {
                 sb.Append(i);
@@ -62,17 +62,17 @@ namespace Utilities.Collections
         }
 
 
-		public static string listHashtableElements(Hashtable counters)
-		{
-			StringBuilder sb = new StringBuilder();
-			foreach (object key in counters.Keys)
-			{
-				object counter = counters[key];
+        public static string listHashtableElements(Hashtable counters)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (object key in counters.Keys)
+            {
+                object counter = counters[key];
 
-				sb.AppendFormat("{0}\t{1}\r\n", key, counter);
-			}
+                sb.AppendFormat("{0}\t{1}\r\n", key, counter);
+            }
 
-			return sb.ToString();
-		}
-	}
+            return sb.ToString();
+        }
+    }
 }

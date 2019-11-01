@@ -7,7 +7,7 @@ using Utilities.BibTex.Parsing;
 
 namespace Qiqqa.Documents.PDF
 {
-    class PDFDocumentBibTeXProcessor
+    internal class PDFDocumentBibTeXProcessor
     {
         internal static string Process(string source)
         {

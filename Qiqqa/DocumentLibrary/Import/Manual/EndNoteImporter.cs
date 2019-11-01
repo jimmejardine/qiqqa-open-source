@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using Qiqqa.UtilisationTracking;
 using Utilities.BibTex;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.DocumentLibrary.Import.Manual
 {
@@ -91,13 +91,13 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                     bibtex_entry.FileType = "pdf";
                 }
 
-                this.Entries.Add(bibtex_entry);
+                Entries.Add(bibtex_entry);
             }
 
 
             var res = CreateFinalResult();
 
-            if (endnote_text.Length > 0 && this.Entries.Count == 0)
+            if (endnote_text.Length > 0 && Entries.Count == 0)
             {
                 //Perhaps they tried to import the endnote library file, as opposed to export...
                 InputFileAppearsToBeWrongFormat = true;

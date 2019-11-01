@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 using Qiqqa.DocumentLibrary;
-using Utilities;
 using Utilities.Strings;
 
 namespace Qiqqa.Documents.PDF.CitationManagerStuff
 {
     public class PDFDocumentCitationManager
     {
-        PDFDocument pdf_document;
-
-        object citations_lock = new object();
-        List<Citation> _citations = null;
+        private PDFDocument pdf_document;
+        private object citations_lock = new object();
+        private List<Citation> _citations = null;
 
         private List<Citation> Citations_RAW
         {
@@ -39,7 +37,7 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
                 lock (citations_lock)
                 {
                     l1_clk.LockPerfTimerStop();
-                    return new List<Citation>(Citations_RAW); 
+                    return new List<Citation>(Citations_RAW);
                 }
             }
         }
@@ -51,13 +49,13 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
 
         public bool ContainsInboundCitation(string fingerprint_outbound)
         {
-            string fingerprint_inbound = this.pdf_document.Fingerprint;
+            string fingerprint_inbound = pdf_document.Fingerprint;
             return ContainsCitation(fingerprint_outbound, fingerprint_inbound);
         }
 
         public bool ContainsOutboundCitation(string fingerprint_inbound)
         {
-            string fingerprint_outbound = this.pdf_document.Fingerprint;
+            string fingerprint_outbound = pdf_document.Fingerprint;
             return ContainsCitation(fingerprint_outbound, fingerprint_inbound);
         }
 
@@ -82,27 +80,27 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
 
         public void AddInboundCitation(string fingerprint_outbound)
         {
-            string fingerprint_inbound = this.pdf_document.Fingerprint;
+            string fingerprint_inbound = pdf_document.Fingerprint;
             AddCitation(fingerprint_outbound, fingerprint_inbound, Citation.Type.AUTO_CITATION);
         }
 
         public void AddOutboundCitation(string fingerprint_inbound)
         {
-            string fingerprint_outbound = this.pdf_document.Fingerprint;
+            string fingerprint_outbound = pdf_document.Fingerprint;
             AddCitation(fingerprint_outbound, fingerprint_inbound, Citation.Type.AUTO_CITATION);
         }
 
         public void AddLinkedDocument(string fingerprint_linked)
         {
-            string fingerprint_this = this.pdf_document.Fingerprint;
-            AddCitation(fingerprint_this, fingerprint_linked, Citation.Type.MANUAL_LINK);            
+            string fingerprint_this = pdf_document.Fingerprint;
+            AddCitation(fingerprint_this, fingerprint_linked, Citation.Type.MANUAL_LINK);
         }
 
         private void AddCitation(string fingerprint_outbound, string fingerprint_inbound, Citation.Type type)
         {
-            this.AddCitation(new Citation { fingerprint_outbound = fingerprint_outbound, fingerprint_inbound = fingerprint_inbound, type = type });
+            AddCitation(new Citation { fingerprint_outbound = fingerprint_outbound, fingerprint_inbound = fingerprint_inbound, type = type });
         }
-        
+
         private void AddCitation(Citation new_citation)
         {
             Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
@@ -145,12 +143,12 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
 
         public List<Citation> GetInboundCitations()
         {
-            return GetCitations(null, this.pdf_document.Fingerprint);
+            return GetCitations(null, pdf_document.Fingerprint);
         }
 
         public List<Citation> GetOutboundCitations()
         {
-            return GetCitations(this.pdf_document.Fingerprint, null);
+            return GetCitations(pdf_document.Fingerprint, null);
         }
 
         private List<Citation> GetCitations(string fingerprint_outbound, string fingerprint_inbound)
@@ -174,8 +172,8 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
 
         public List<Citation> GetLinkedDocuments()
         {
-            string fingerprint = this.pdf_document.Fingerprint;
-            
+            string fingerprint = pdf_document.Fingerprint;
+
             List<Citation> result_citations = new List<Citation>();
 
             Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
@@ -227,11 +225,11 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
                     Citation citation = new Citation();
                     citation.fingerprint_outbound = chunks[0];
                     citation.fingerprint_inbound = chunks[1];
-                    citation.type = (Citation.Type) Convert.ToInt32(chunks[2]);
+                    citation.type = (Citation.Type)Convert.ToInt32(chunks[2]);
 
                     citations.Add(citation);
                 }
-            }            
+            }
 
             return citations;
         }
@@ -249,8 +247,8 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
                     // the other PDFCitMgr instance has its own lock, so without
                     // a copy through `other.Citations_LOCKED` this code would
                     // be very much thread-UNSAFE!
-                    this.Citations_RAW.AddRange(other.Citations_LOCKED);
-                    WriteToDisk(pdf_document, this.Citations_RAW);
+                    Citations_RAW.AddRange(other.Citations_LOCKED);
+                    WriteToDisk(pdf_document, Citations_RAW);
                 }
             }
         }

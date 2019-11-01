@@ -45,21 +45,22 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 DPI = graphics.DpiY / 96.0;
             }
         }
-        
+
         #region --- Background rendering of resized page images ------------------------------------------------------------------------------------------------------------------------
 
         public delegate void ResizedPageImageItemCallbackDelegate(BitmapSource image_page, double requested_height);
-        
-        class ResizedPageImageItemRequest
+
+        private class ResizedPageImageItemRequest
         {
             internal int page;
             internal PDFRendererPageControl page_control;
             internal double height;
             internal ResizedPageImageItemCallbackDelegate callback;
         }
-        Dictionary<int, ResizedPageImageItemRequest> resized_page_image_item_requests = new Dictionary<int, ResizedPageImageItemRequest>();
-        List<int> resized_page_image_item_request_orders = new List<int>();
-        int num_resized_page_image_item_thread_running = 0;
+
+        private Dictionary<int, ResizedPageImageItemRequest> resized_page_image_item_requests = new Dictionary<int, ResizedPageImageItemRequest>();
+        private List<int> resized_page_image_item_request_orders = new List<int>();
+        private int num_resized_page_image_item_thread_running = 0;
 
         public void GetResizedPageImage(PDFRendererPageControl page_control, int page, double height, ResizedPageImageItemCallbackDelegate callback)
         {
@@ -86,7 +87,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             }
         }
 
-        void ResizedPageImageItemThreadEntry(object arg)
+        private void ResizedPageImageItemThreadEntry(object arg)
         {
             while (true)
             {
@@ -99,7 +100,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     // If there is nothing more to do...
                     if (0 == resized_page_image_item_request_orders.Count)
                     {
-                        Interlocked.Decrement(ref num_resized_page_image_item_thread_running); 
+                        Interlocked.Decrement(ref num_resized_page_image_item_thread_running);
                         break;
                     }
 
@@ -124,7 +125,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 {
                     continue;
                 }
-                
+
                 try
                 {
                     //PngBitmapDecoder decoder = new PngBitmapDecoder(new MemoryStream(pdf_document.PDFRenderer.GetPageByHeightAsImage(resized_page_image_item_request.page, resized_page_image_item_request.height)), BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
@@ -134,7 +135,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     BitmapImage bitmap = new BitmapImage();
                     using (MemoryStream ms = new MemoryStream(pdf_document.PDFRenderer.GetPageByHeightAsImage(resized_page_image_item_request.page, resized_page_image_item_request.height)))
                     {
-                        bitmap.BeginInit();                        
+                        bitmap.BeginInit();
                         bitmap.StreamSource = ms;
                         bitmap.CacheOption = BitmapCacheOption.OnLoad;
                         bitmap.EndInit();
@@ -189,7 +190,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 Logging.Error(ex, "Problem calculating start_page_offset");
             }
         }
-        
+
 
     }
 }

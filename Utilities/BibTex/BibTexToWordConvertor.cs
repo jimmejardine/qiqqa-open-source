@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Xml;
 using Utilities.BibTex.Parsing;
 using Utilities.Language;
@@ -42,12 +41,12 @@ namespace Utilities.BibTex
         {
             string to;
             if (!ENTRY_TYPE_MAP.TryGetValue(from.ToLower(), out to))
-            {                
+            {
                 to = "Misc";
                 Logging.Warn("Unable to translate unknown entry type {0}, so defaulting to {1}", from, to);
             }
             return to;
-       }
+        }
 
         private static Dictionary<string, string> FIELD_TYPE_MAP = new Dictionary<string, string>()
         {
@@ -135,8 +134,8 @@ namespace Utilities.BibTex
             elem_sources.SetAttribute("xmlns", NS);
             elem_sources.SetAttribute("xmlns:" + NS_TAG, NS);
             doc.AppendChild(elem_sources);
-        }        
-        
+        }
+
         /// <summary>
         /// Converts a single bibtex entry into an XML snippet.
         /// The snippets needs to be wrapped in a well-formed <Sources></Sources> wrapper element.
@@ -278,7 +277,7 @@ namespace Utilities.BibTex
                             node_name_list.AppendChild(node_person);
                         }
                     }
-                                        else
+                    else
                     {
                         node_record.AppendChild(doc.CreateTextNode(val));
                     }
@@ -294,7 +293,7 @@ namespace Utilities.BibTex
         // ----------------------------------------------------------------------------------------
         // This is obsolete - use the new bibtex parser classes
         // ----------------------------------------------------------------------------------------
-        
+
         /// <summary>
         /// Splits a single string containing a  series of BibTex entries into a series of strings each containing one BibTex entry.
         /// NB: Will not groove if there is an @ anywhere in a BibTex field...

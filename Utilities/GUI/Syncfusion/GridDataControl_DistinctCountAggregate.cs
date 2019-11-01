@@ -1,11 +1,8 @@
-﻿using Syncfusion.Windows.Data;
-using System;
+﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Reflection;
-using System.Text;
+using Syncfusion.Windows.Data;
 using Utilities.Collections;
 
 namespace Utilities.GUI.Syncfusion
@@ -28,7 +25,7 @@ namespace Utilities.GUI.Syncfusion
         private void DoSum(IEnumerable items, string property, PropertyDescriptor pd)
         {
             counts.Clear();
-            
+
             PropertyInfo property_info = null;
             foreach (var item in items)
             {
@@ -42,7 +39,7 @@ namespace Utilities.GUI.Syncfusion
 
                 object key = property_info.GetValue(item, null);
                 if (null == key)
-                { 
+                {
                     key = "''";
                 }
                 counts.TallyOne(key.ToString());
