@@ -46,8 +46,7 @@ namespace Qiqqa.Brainstorm.Nodes
 
         public void ProcessKeyPress(KeyEventArgs e)
         {
-            if (false) { }
-            else if (Key.S == e.Key)
+            if (Key.S == e.Key)
             {
                 ExpandSpecificDocuments();
                 e.Handled = true;

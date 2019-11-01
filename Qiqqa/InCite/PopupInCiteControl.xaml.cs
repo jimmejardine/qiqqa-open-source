@@ -112,8 +112,7 @@ namespace Qiqqa.InCite
 
         private void PopupInCiteControl_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (false) { }
-            else if (Key.Enter == e.Key)
+            if (Key.Enter == e.Key)
             {
                 if (KeyboardTools.IsCTRLDown())
                 {

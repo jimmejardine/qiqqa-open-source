@@ -26,7 +26,10 @@ namespace Qiqqa.Documents.PDF
                     return source;
                 }
             }
-            catch (Exception ex) { ExceptionLog(ex, "BibTeX"); }
+            catch (Exception ex)
+            {
+                ExceptionLog(ex, "BibTeX");
+            }
 
             // See if it is valid PubMed XML
             try
@@ -38,7 +41,10 @@ namespace Qiqqa.Documents.PDF
                     return bibtex;
                 }
             }
-            catch (Exception ex) { ExceptionLog(ex, "PubMed"); }
+            catch (Exception ex)
+            {
+                ExceptionLog(ex, "PubMed");
+            }
 
             // See if it is valid EndNote
             try
@@ -55,7 +61,10 @@ namespace Qiqqa.Documents.PDF
                     return sb.ToString();
                 }
             }
-            catch (Exception ex) { ExceptionLog(ex, "EndNote"); }
+            catch (Exception ex)
+            {
+                ExceptionLog(ex, "EndNote");
+            }
 
             // If we get here, we don't have a clue what is going on...
             return source;
@@ -63,7 +72,7 @@ namespace Qiqqa.Documents.PDF
 
         private static void ExceptionLog(Exception ex, string msg)
         {
-            if (true) Logging.Warn(ex, msg);
+            Logging.Warn(ex, msg);
         }
     }
 }

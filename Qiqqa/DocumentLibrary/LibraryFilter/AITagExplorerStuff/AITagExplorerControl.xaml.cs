@@ -192,8 +192,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
 
         private void OnItemDrop(Library library, string item_tag, DragEventArgs e)
         {
-            if (false) { }
-            else if (e.Data.GetDataPresent(typeof(PDFDocument)))
+            if (e.Data.GetDataPresent(typeof(PDFDocument)))
             {
                 PDFDocument pdf_document = (PDFDocument)e.Data.GetData(typeof(PDFDocument));
                 Logging.Info("The PDF dropped onto tag {1} is {0}", pdf_document, item_tag);

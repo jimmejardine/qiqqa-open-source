@@ -470,17 +470,17 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void JumpToPageNumber_KeyDown(object sender, KeyEventArgs e)
         {
-            if (false) { }
+            switch (e.Key)
+            {
+                case Key.Add:
+                    DoJumpToPageNumber(+1);
+                    e.Handled = true;
+                    break;
 
-            else if (e.Key == Key.Add)
-            {
-                DoJumpToPageNumber(+1);
-                e.Handled = true;
-            }
-            else if (e.Key == Key.Subtract)
-            {
-                DoJumpToPageNumber(-1);
-                e.Handled = true;
+                case Key.Subtract:
+                    DoJumpToPageNumber(-1);
+                    e.Handled = true;
+                    break;
             }
         }
 
@@ -505,7 +505,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 JumpToPageNumber.Text = "" + page_number;
                 JumpToPageNumber.SelectAll();
             }
-
             catch (Exception ex)
             {
                 Logging.Error(ex, "Error jumping to manual page number '{0}'.", JumpToPageNumber.Text);
@@ -514,8 +513,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void PDFReadingControl_KeyUp(object sender, KeyEventArgs e)
         {
-            if (false) { }
-            else if (KeyboardTools.IsCTRLDown() && e.Key == Key.G)
+            if (KeyboardTools.IsCTRLDown() && e.Key == Key.G)
             {
                 JumpToPageNumber.Focus();
                 e.Handled = true;
@@ -525,13 +523,11 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 SetSearchKeywords();    // TODO: ***
                 e.Handled = true;
             }
-
             else if (e.Key == Key.F11)
             {
                 ToggleFullScreen();
                 e.Handled = true;
             }
-
             // else forward it to the render control...?
             else
             {
@@ -802,7 +798,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     }
                 }
             }
-
         }
 
         private void ButtonSpeedRead_Click(object sender, RoutedEventArgs e)

@@ -210,7 +210,6 @@ namespace Utilities.Language.Buzzwords
                         results[pair.Key] = pair.Value;
                     }
                 }
-
             }
 
             return results;
@@ -222,8 +221,7 @@ namespace Utilities.Language.Buzzwords
             CountingDictionary<NGram> repetitions1 = new CountingDictionary<NGram>();
             foreach (var pair in repetitions)
             {
-                if (false) { }
-                else if (pair.Value > 1)
+                if (pair.Value > 1)
                 {
                     repetitions1[pair.Key] = pair.Value;
                 }

@@ -76,9 +76,7 @@ namespace Utilities
             int q = Convert.ToInt32(value * (1 - f * saturation));
             int t = Convert.ToInt32(value * (1 - (1 - f) * saturation));
 
-            if (false)
-            { }
-            else if (hi == 0)
+            if (hi == 0)
                 return Color.FromArgb(255, v, t, p);
             else if (hi == 1)
                 return Color.FromArgb(255, q, v, p);

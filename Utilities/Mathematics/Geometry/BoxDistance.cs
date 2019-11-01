@@ -32,10 +32,8 @@ namespace Utilities.Mathematics.Geometry
             bool b_is_above = (b.Bottom < a.Top);
             bool b_is_below = (b.Top > a.Bottom);
 
-            if (false) { }
-
             /*1*/
-            else if (b_is_left && b_is_below) return LOGGIT(1) + CalculateDistance(b.Right, b.Top, a.Left, a.Bottom);
+            if (b_is_left && b_is_below) return LOGGIT(1) + CalculateDistance(b.Right, b.Top, a.Left, a.Bottom);
             /*3*/
             else if (b_is_right && b_is_below) return LOGGIT(3) + CalculateDistance(b.Left, b.Top, a.Right, a.Bottom);
             /*7*/
@@ -62,5 +60,4 @@ namespace Utilities.Mathematics.Geometry
             return 0;
         }
     }
-
 }

@@ -133,9 +133,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void PDFRendererControl_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            if (false) { }
-
-            else if ((Keyboard.Modifiers & ModifierKeys.Control) > 0)
+            if ((Keyboard.Modifiers & ModifierKeys.Control) > 0)
             {
                 IncrementalZoom(Math.Sign(e.Delta));
                 e.Handled = true;
@@ -319,9 +317,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     //Logging.Info("Forcing vertical offset from {0} to {1}", e.VerticalOffset, new_vertical_offset);
                     ScrollPages.ScrollToVerticalOffset(new_vertical_offset);
                     return;
-                }
-                else
-                {
                 }
             }
 

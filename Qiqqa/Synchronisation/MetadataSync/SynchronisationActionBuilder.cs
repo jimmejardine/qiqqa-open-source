@@ -25,10 +25,9 @@ namespace Qiqqa.Synchronisation.MetadataSync
                 }
 
                 // NB: Ordering of these statements is important so dont reorder them!
-                if (false) { }
-
+                
                 // Not local, not remote: something dodgy in the history file, ignore it
-                else if (null == synchronisation_state.md5_local && null == synchronisation_state.md5_remote)
+                if (null == synchronisation_state.md5_local && null == synchronisation_state.md5_remote)
                 {
                     synchronisation_action.states_dodgy.Add(synchronisation_state);
                 }

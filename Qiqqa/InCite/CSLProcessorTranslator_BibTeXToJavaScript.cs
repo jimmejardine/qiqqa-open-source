@@ -89,29 +89,28 @@ namespace Qiqqa.InCite
 
                         sb.Append(",");
 
-                        if (false) { }
-                        else if ("author" == field_pair.Key || "authors" == field_pair.Key)
+                        switch (field_pair.Key)
                         {
-                            ProcessAuthors(sb, field_pair);
-                        }
-                        else if ("year" == field_pair.Key)
-                        {
-                            ProcessYear(sb, field_pair);
-                        }
-                        else if (
-                            false
-                            || "accessed" == field_pair.Key
-                            || "container" == field_pair.Key
-                            || "event-date" == field_pair.Key
-                            || "issued" == field_pair.Key
-                            || "original-date" == field_pair.Key
-                            )
-                        {
-                            ProcessGenericDate(sb, field_pair);
-                        }
-                        else
-                        {
-                            ProcessGeneric(sb, field_pair, abbreviations);
+                            case "author":
+                            case "authors":
+                                ProcessAuthors(sb, field_pair);
+                                break;
+
+                            case "year":
+                                ProcessYear(sb, field_pair);
+                                break;
+
+                            case "accessed":
+                            case "container":
+                            case "event-date":
+                            case "issued":
+                            case "original-date":
+                                ProcessGenericDate(sb, field_pair);
+                                break;
+
+                            default:
+                                ProcessGeneric(sb, field_pair, abbreviations);
+                                break;
                         }
                     }
                 }
@@ -136,27 +135,90 @@ namespace Qiqqa.InCite
             key = key.ToLower();
 
             string translated_key = key;
-            if (false) { }
-            else if ("journal" == key) translated_key = "container-title";
-            else if ("publication" == key) translated_key = "container-title";
-            else if ("booktitle" == key) translated_key = "container-title";
-            else if ("series" == key) translated_key = "collection-title";
-            else if ("series number" == key) translated_key = "collection-number";
-            else if ("chapter" == key) translated_key = "chapter-number";
-            else if ("volume" == key) translated_key = "volume";
-            else if ("number" == key) translated_key = "issue";
-            else if ("page" == key) translated_key = "page";
-            else if ("pages" == key) translated_key = "page";
-            else if ("doi" == key.ToLower()) translated_key = "DOI";
-            else if ("url" == key.ToLower()) translated_key = "URL";
-            else if ("pmid" == key.ToLower()) translated_key = "PMID";
-            else if ("isbn" == key.ToLower()) translated_key = "ISBN";
-            else if ("issn" == key.ToLower()) translated_key = "ISSN";
-            else if ("address" == key) translated_key = "publisher-place";
-            else if ("location" == key) translated_key = "publisher-place";
-            else if ("journal-iso" == key) translated_key = "journalAbbreviation";
-            else if ("editor" == key) translated_key = "editor";
-            else if ("keywords" == key) translated_key = "keyword";
+
+            switch (key)
+            {
+                case "journal":
+                    translated_key = "container-title";
+                    break;
+
+                case "publication":
+                    translated_key = "container-title";
+                    break;
+
+                case "booktitle":
+                    translated_key = "container-title";
+                    break;
+
+                case "series":
+                    translated_key = "collection-title";
+                    break;
+
+                case "series number":
+                case "series-number":
+                    translated_key = "collection-number";
+                    break;
+
+                case "chapter":
+                    translated_key = "chapter-number";
+                    break;
+
+                case "volume":
+                    translated_key = "volume";
+                    break;
+
+                case "number":
+                    translated_key = "issue";
+                    break;
+
+                case "page":
+                    translated_key = "page";
+                    break;
+
+                case "pages":
+                    translated_key = "page";
+                    break;
+
+                case "doi":
+                    translated_key = "DOI";
+                    break;
+
+                case "url":
+                    translated_key = "URL";
+                    break;
+
+                case "pmid":
+                    translated_key = "PMID";
+                    break;
+
+                case "isbn":
+                    translated_key = "ISBN";
+                    break;
+
+                case "issn":
+                    translated_key = "ISSN";
+                    break;
+
+                case "address":
+                    translated_key = "publisher-place";
+                    break;
+
+                case "location":
+                    translated_key = "publisher-place";
+                    break;
+
+                case "journal-iso":
+                    translated_key = "journalAbbreviation";
+                    break;
+
+                case "editor":
+                    translated_key = "editor";
+                    break;
+
+                case "keywords":
+                    translated_key = "keyword";
+                    break;
+            }
 
             // The value field
             string value = field_pair.Value;
@@ -196,9 +258,7 @@ namespace Qiqqa.InCite
         {
             sb.AppendLine(" \"" + field_pair.Key + "\" : { \"raw\" : \"" + field_pair.Value + "\" }");
         }
-
-
-
+               
         private static void ProcessType(StringBuilder sb, string type)
         {
             // The following are available in CSL
@@ -208,8 +268,8 @@ namespace Qiqqa.InCite
             type = type.ToLower();
 
             string translated_type = type;
-            if (false) { }
-            else if (CSL_TYPES.Contains(type)) translated_type = type;
+            
+            if (CSL_TYPES.Contains(type)) translated_type = type;
 
             // BibTeX to CSL - http://www.docear.org/2012/08/08/docear4word-mapping-bibtex-fields-and-types-with-the-citation-style-language/
             else if ("article" == type) translated_type = "article-journal";

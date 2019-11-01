@@ -93,8 +93,7 @@ namespace Qiqqa.Brainstorm.SceneManager
             {
                 if (null != node_control)
                 {
-                    if (false) { }
-                    else if (SizerTL == sender)
+                    if (SizerTL == sender)
                     {
                         node_control.scene_data.SetDeltaWidth(-2 * mouse_left_delta_virtual);
                         node_control.scene_data.SetDeltaHeight(-2 * mouse_top_delta_virtual);

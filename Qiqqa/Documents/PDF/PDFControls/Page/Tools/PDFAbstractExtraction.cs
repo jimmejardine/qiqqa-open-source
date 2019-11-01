@@ -41,7 +41,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
                         string test_word = word_list[i].Text;
                         string test_word_lower = test_word.ToLower();
 
-
                         if (-1 == abstract_start && test_word_lower.Contains("abstract") && 'A' == test_word[0])
                         {
                             abstract_start = i;

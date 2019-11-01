@@ -163,12 +163,12 @@ namespace Qiqqa.Brainstorm.SceneManager
             SizeChanged += SceneRenderingControl_SizeChanged;
 
             // Would like to enable this code but it messes up the normal mouse events - such as click, resize, etc
-            //if (false)
-            //{
-            //    this.IsManipulationEnabled = true;
-            //    this.ManipulationDelta += SceneRenderingControl_ManipulationDelta;
-            //    this.ManipulationCompleted += SceneRenderingControl_ManipulationCompleted;
-            //}
+            if (false)
+            {
+                this.IsManipulationEnabled = true;
+                this.ManipulationDelta += SceneRenderingControl_ManipulationDelta;
+                this.ManipulationCompleted += SceneRenderingControl_ManipulationCompleted;
+            }
 
             KeyDown += SceneRenderingControl_KeyDown;
         }

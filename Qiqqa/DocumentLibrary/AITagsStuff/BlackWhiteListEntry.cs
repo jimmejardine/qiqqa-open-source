@@ -47,18 +47,32 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
 
         private static string ToListTypeString(ListType list_type)
         {
-            if (false) { }
-            else if (ListType.Black == list_type) { return "B"; }
-            else if (ListType.White == list_type) { return "W"; }
-            else throw new Exception("Unknown list type " + list_type);
+            switch (list_type)
+            {
+                case ListType.Black:
+                    return "B";
+
+                case ListType.White:
+                    return "W";
+
+                default:
+                    throw new Exception("Unknown list type " + list_type);
+            }
         }
 
         private static ListType FromListTypeString(string list_type)
         {
-            if (false) { }
-            else if (0 == list_type.CompareTo("B")) { return ListType.Black; }
-            else if (0 == list_type.CompareTo("W")) { return ListType.White; }
-            else throw new Exception("Unknown list type " + list_type);
+            switch (list_type)
+            {
+                case "B":
+                    return ListType.Black;
+
+                case "W":
+                    return ListType.White;
+
+                default:
+                    throw new Exception("Unknown list type " + list_type);
+            }
         }
     }
 }

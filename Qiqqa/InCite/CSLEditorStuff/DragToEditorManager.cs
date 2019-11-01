@@ -17,10 +17,7 @@ namespace Qiqqa.InCite.CSLEditorStuff
         {
             e.Effects = DragDropEffects.None;
 
-            if (false)
-            {
-            }
-            else if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 e.Effects = DragDropEffects.Copy | DragDropEffects.Link;
             }
@@ -30,9 +27,7 @@ namespace Qiqqa.InCite.CSLEditorStuff
 
         private static void OnDrop(object sender, DragEventArgs e)
         {
-            if (false) { }
-
-            else if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[] filenames = (string[])e.Data.GetData(DataFormats.FileDrop);
 

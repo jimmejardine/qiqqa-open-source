@@ -218,37 +218,38 @@ namespace Qiqqa.Brainstorm.Connectors
                     // --------------------------------------------------------------------------------------------------------------
                     // --- This will eventually be the code that makes up the adornments
                     // --------------------------------------------------------------------------------------------------------------                    
-                    //if (true)
-                    //{
-                    //    double TAIL_SIZE = 20;
+#if false
+                    {
+                        double TAIL_SIZE = 20;
 
-                    //    ConnectorTailFrom.X1 = point_from_X;
-                    //    ConnectorTailFrom.Y1 = point_from_Y;
-                    //    if (length_parallel > 0)
-                    //    {
-                    //        ConnectorTailFrom.X2 = point_from_X + TAIL_SIZE * direction_parallel.X / length_parallel;
-                    //        ConnectorTailFrom.Y2 = point_from_Y + TAIL_SIZE * direction_parallel.Y / length_parallel;
-                    //    }
-                    //    else
-                    //    {
-                    //        ConnectorTailFrom.X2 = point_from_X;
-                    //        ConnectorTailFrom.Y2 = point_from_Y;
-                    //    }
+                        ConnectorTailFrom.X1 = point_from_X;
+                        ConnectorTailFrom.Y1 = point_from_Y;
+                        if (length_parallel > 0)
+                        {
+                            ConnectorTailFrom.X2 = point_from_X + TAIL_SIZE * direction_parallel.X / length_parallel;
+                            ConnectorTailFrom.Y2 = point_from_Y + TAIL_SIZE * direction_parallel.Y / length_parallel;
+                        }
+                        else
+                        {
+                            ConnectorTailFrom.X2 = point_from_X;
+                            ConnectorTailFrom.Y2 = point_from_Y;
+                        }
 
-                    //    ConnectorTailTo.X2 = point_to_X;
-                    //    ConnectorTailTo.Y2 = point_to_Y;
+                        ConnectorTailTo.X2 = point_to_X;
+                        ConnectorTailTo.Y2 = point_to_Y;
 
-                    //    if (length_parallel > 0)
-                    //    {
-                    //        ConnectorTailTo.X1 = point_to_X - TAIL_SIZE * direction_parallel.X / length_parallel;
-                    //        ConnectorTailTo.Y1 = point_to_Y - TAIL_SIZE * direction_parallel.Y / length_parallel;
-                    //    }
-                    //    else
-                    //    {
-                    //        ConnectorTailTo.X1 = point_to_X;
-                    //        ConnectorTailTo.Y1 = point_to_Y;
-                    //    }
-                    //}
+                        if (length_parallel > 0)
+                        {
+                            ConnectorTailTo.X1 = point_to_X - TAIL_SIZE * direction_parallel.X / length_parallel;
+                            ConnectorTailTo.Y1 = point_to_Y - TAIL_SIZE * direction_parallel.Y / length_parallel;
+                        }
+                        else
+                        {
+                            ConnectorTailTo.X1 = point_to_X;
+                            ConnectorTailTo.Y1 = point_to_Y;
+                        }
+                    }
+#endif
                 }
             }
 
