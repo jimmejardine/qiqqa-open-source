@@ -1,6 +1,8 @@
  ![logo](../../blob/master/icons/Application/Qiqqa.png) 
 # Qiqqa (Open Source)
 
+[![Join the chat at https://gitter.im/qiqqa/community](https://badges.gitter.im/qiqqa/community.svg)](https://gitter.im/qiqqa/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 The open-sourced version of the award-winning Qiqqa research management tool for Windows.
 
 This version includes EVERY feature available in Qiqqa, including Premium and Premium+.
