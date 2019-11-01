@@ -5,8 +5,8 @@ namespace Utilities
     [Serializable]
     public class PeriodTimeout
     {
-        int seconds;
-        DateTime lastChecked = DateTime.MinValue;
+        private int seconds;
+        private DateTime lastChecked = DateTime.MinValue;
 
         public PeriodTimeout(int seconds)
         {

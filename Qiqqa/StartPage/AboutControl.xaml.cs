@@ -14,7 +14,7 @@ namespace Qiqqa.StartPage
         {
             InitializeComponent();
             lblCopyrightYear.Text = DateTime.Now.Year.ToString();
-            
+
             string post_version_type = ApplicationDeployment.IsNetworkDeployed ? "o" : "s";
             lblVersion.Text = "v." + ClientVersion.CurrentVersion + post_version_type;
             lblFullVersion.Text = "v." + ClientVersion.CurrentBuild + post_version_type;

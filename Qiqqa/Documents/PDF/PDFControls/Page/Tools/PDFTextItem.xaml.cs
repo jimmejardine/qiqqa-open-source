@@ -13,20 +13,18 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
     /// </summary>
     public partial class PDFTextItem : Shape
     {
-        static Color color_normal = Colors.LightGreen;
-        static Color color_normal_transparent = ColorTools.MakeTransparentColor(color_normal, 64);
-        static Brush brush_normal_border = new SolidColorBrush(color_normal);
-        static Brush brush_normal_fill = new SolidColorBrush(color_normal_transparent);
-
-        static Color color_highlighted = Colors.LightPink;
-        static Color color_highlighted_transparent = Color.FromArgb(64, color_highlighted.R, color_highlighted.G, color_highlighted.B);
-        static Brush brush_highlighted_border = new SolidColorBrush(color_highlighted);
-        static Brush brush_highlighted_fill = new SolidColorBrush(color_highlighted_transparent);
+        private static Color color_normal = Colors.LightGreen;
+        private static Color color_normal_transparent = ColorTools.MakeTransparentColor(color_normal, 64);
+        private static Brush brush_normal_border = new SolidColorBrush(color_normal);
+        private static Brush brush_normal_fill = new SolidColorBrush(color_normal_transparent);
+        private static Color color_highlighted = Colors.LightPink;
+        private static Color color_highlighted_transparent = Color.FromArgb(64, color_highlighted.R, color_highlighted.G, color_highlighted.B);
+        private static Brush brush_highlighted_border = new SolidColorBrush(color_highlighted);
+        private static Brush brush_highlighted_fill = new SolidColorBrush(color_highlighted_transparent);
 
         public Word word;
         public bool is_inside = false;
-
-        RectangleGeometry geometry = new RectangleGeometry();
+        private RectangleGeometry geometry = new RectangleGeometry();
 
         public PDFTextItem()
             : this(null)
@@ -39,40 +37,28 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
 
             InitializeComponent();
 
-            this.IsHitTestVisible = true;
+            IsHitTestVisible = true;
 
             MouseEnter += PDFTextItem_MouseEnter;
         }
 
         public Word Word
         {
-            get
-            {
-                return word;
-            }
-            set
-            {
-                this.word = value;
-            }
+            get => word;
+            set => word = value;
         }
 
-        void PDFTextItem_MouseEnter(object sender, MouseEventArgs e)
+        private void PDFTextItem_MouseEnter(object sender, MouseEventArgs e)
         {
             Logging.Info(word.ToString());
         }
 
-        protected override Geometry DefiningGeometry
-        {
-            get
-            {
-                return geometry;
-            }
-        }
+        protected override Geometry DefiningGeometry => geometry;
 
         protected override Size ArrangeOverride(Size finalSize)
         {
             Rect rect = new Rect(0, 0, finalSize.Width, finalSize.Height);
-            geometry = new RectangleGeometry(rect);            
+            geometry = new RectangleGeometry(rect);
             return base.ArrangeOverride(finalSize);
         }
 
@@ -81,7 +67,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
             Stroke = transparent_box_brush_pair.BorderBrush;
             Fill = transparent_box_brush_pair.FillBrush;
         }
-        
+
         internal void SetHighlightedAppearance(bool is_inside)
         {
             this.is_inside = is_inside;

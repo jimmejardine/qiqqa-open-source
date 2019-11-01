@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Qiqqa.Documents.Common;
 using Qiqqa.Documents.PDF;
-using Utilities;
 
 namespace Qiqqa.DocumentLibrary
 {
@@ -17,7 +16,7 @@ namespace Qiqqa.DocumentLibrary
 
         #endregion
 
-        HashSet<string> tags = new HashSet<string>();
+        private HashSet<string> tags = new HashSet<string>();
         private object tags_lock = new object();
 
         internal void ProcessDocument(PDFDocument pdf_document)
@@ -43,7 +42,7 @@ namespace Qiqqa.DocumentLibrary
                     l1_clk.LockPerfTimerStop();
                     List<string> results = new List<string>();
                     results.AddRange(tags);
-                    results.Sort();                    
+                    results.Sort();
                     results.AddRange(Choices.ReadingStages);
                     return results;
                 }

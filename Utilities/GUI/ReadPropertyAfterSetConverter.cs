@@ -9,7 +9,7 @@ namespace Utilities.GUI
     /// Especially important after binding to properties that have underlying validation where the value retained is not exactly the value set.
     /// In WPF4 this is no longer necessary...
     /// </summary>
-    public class ReadPropertyAfterSetConverter : IValueConverter 
+    public class ReadPropertyAfterSetConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

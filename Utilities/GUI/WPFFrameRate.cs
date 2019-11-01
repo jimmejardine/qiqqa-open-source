@@ -6,12 +6,11 @@ namespace Utilities.GUI
     public class WPFFrameRate
     {
         public static readonly WPFFrameRate Instance = new WPFFrameRate();
-
-        DateTime last_time = DateTime.UtcNow;
-        int update_count = 0;
+        private DateTime last_time = DateTime.UtcNow;
+        private int update_count = 0;
         public int total_update_count = 0;
         public double fps = 0;
-        
+
         private WPFFrameRate()
         {
             last_time = DateTime.UtcNow;
@@ -19,8 +18,9 @@ namespace Utilities.GUI
             CompositionTarget.Rendering += CompositionTarget_Rendering;
         }
 
-        static readonly int MAX_UPDATE_COUNT = 3;
-        void CompositionTarget_Rendering(object sender, EventArgs e)
+        private static readonly int MAX_UPDATE_COUNT = 3;
+
+        private void CompositionTarget_Rendering(object sender, EventArgs e)
         {
             ++update_count;
             ++total_update_count;

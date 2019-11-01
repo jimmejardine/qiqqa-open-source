@@ -5,25 +5,25 @@ namespace Utilities.GUI.Charting
 {
     public class ThemedMultiChart2D : MultiChart2D
     {
-        class Theme
+        private class Theme
         {
             public ChartType chartType = ChartType.LineAndPoint;
             public LinkedList<Point2D> points = new LinkedList<Point2D>();
         }
 
-        int MAX_AGE = 600;
-        int current_age = 0;
-        Dictionary<string, Theme> themes = new Dictionary<string,Theme>();
-        
+        private int MAX_AGE = 600;
+        private int current_age = 0;
+        private Dictionary<string, Theme> themes = new Dictionary<string, Theme>();
+
         private void InitializeComponent()
         {
-            this.SuspendLayout();
+            SuspendLayout();
             // 
             // ThemedMultiChart2D
             // 
-            this.Name = "ThemedMultiChart2D";
-            this.Size = new Size(412, 247);
-            this.ResumeLayout(false);
+            Name = "ThemedMultiChart2D";
+            Size = new Size(412, 247);
+            ResumeLayout(false);
         }
 
 
@@ -51,12 +51,12 @@ namespace Utilities.GUI.Charting
             addThemedPoint(theme_name, value, true, ChartType.LineAndPoint);
         }
 
-        void staleOldPoints()        
+        private void staleOldPoints()
         {
             List<string> keysToKill = new List<string>();
 
             // Purge the old points
-            foreach (string key in themes.Keys)            
+            foreach (string key in themes.Keys)
             {
                 Theme theme = themes[key];
                 if (theme.points.First.Value.x < current_age - MAX_AGE)
@@ -76,18 +76,18 @@ namespace Utilities.GUI.Charting
             }
         }
 
-        void rebuildSeries()
+        private void rebuildSeries()
         {
-            this.SuspendRefresh();
+            SuspendRefresh();
 
-            this.clearSeries();
-            foreach (string key in themes.Keys)            
+            clearSeries();
+            foreach (string key in themes.Keys)
             {
                 Theme theme = themes[key];
-                this.addSeries(new Series(key, theme.chartType, theme.points));
+                addSeries(new Series(key, theme.chartType, theme.points));
             }
 
-            this.ResumeRefresh();
+            ResumeRefresh();
         }
     }
 }

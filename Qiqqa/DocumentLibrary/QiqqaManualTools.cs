@@ -1,29 +1,17 @@
-﻿using System.Collections.Generic;
-using Qiqqa.Common.Configuration;
+﻿using Qiqqa.Common.Configuration;
 using Qiqqa.Documents.PDF;
-using Utilities.BibTex.Parsing;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.DocumentLibrary
 {
     public static class QiqqaManualTools
     {
-        private static string QiqqaManualFilename
-        {
-            get
-            {
-                return Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"The Qiqqa Manual.pdf"));
-            }
-        }
+        private static string QiqqaManualFilename => Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"The Qiqqa Manual.pdf"));
 
-        private static string LoexManualFilename
-        {
-            get
-            {
-                return Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"The Qiqqa Manual - LOEX.pdf"));
-            }
-        }
+        private static string LoexManualFilename => Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"The Qiqqa Manual - LOEX.pdf"));
 
 
         private static void AddQiqqaManualToLibrary(Library library, LibraryPdfActionCallbacks post_partum)

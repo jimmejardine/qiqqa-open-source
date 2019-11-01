@@ -7,11 +7,11 @@ namespace Qiqqa.Brainstorm.SceneManager
 {
     public class ConnectorControlManager
     {
-        List<ConnectorControl> connector_controls = new List<ConnectorControl>();
+        private List<ConnectorControl> connector_controls = new List<ConnectorControl>();
 
         // Lookups for directional connections
-        MultiMapSet<NodeControl, ConnectorControl> links_from_to = new MultiMapSet<NodeControl, ConnectorControl>();
-        MultiMapSet<NodeControl, ConnectorControl> links_to_from = new MultiMapSet<NodeControl, ConnectorControl>();
+        private MultiMapSet<NodeControl, ConnectorControl> links_from_to = new MultiMapSet<NodeControl, ConnectorControl>();
+        private MultiMapSet<NodeControl, ConnectorControl> links_to_from = new MultiMapSet<NodeControl, ConnectorControl>();
 
         public void Clear()
         {
@@ -20,7 +20,7 @@ namespace Qiqqa.Brainstorm.SceneManager
             links_from_to.Clear();
             links_to_from.Clear();
         }
-        
+
         public void Add(ConnectorControl connector_control)
         {
             connector_controls.Add(connector_control);
@@ -29,13 +29,7 @@ namespace Qiqqa.Brainstorm.SceneManager
             links_from_to.Add(connector_control.node_to, connector_control);
         }
 
-        public IEnumerable<ConnectorControl> ConnectorControls
-        {
-            get
-            {
-                return connector_controls;
-            }
-        }
+        public IEnumerable<ConnectorControl> ConnectorControls => connector_controls;
 
         public IEnumerable<ConnectorControl> GetNodesFrom(NodeControl node_control)
         {

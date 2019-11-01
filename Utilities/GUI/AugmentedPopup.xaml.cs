@@ -37,17 +37,11 @@ namespace Utilities.GUI
             ObjBorder.Child = background;
         }
 
-        public AugmentedPopupAutoCloser AutoCloser
-        {
-            get
-            {
-                return new AugmentedPopupAutoCloser(this);
-            }
-        }
+        public AugmentedPopupAutoCloser AutoCloser => new AugmentedPopupAutoCloser(this);
 
         public void Close()
         {
-            this.IsOpen = false;
+            IsOpen = false;
         }
     }
 }

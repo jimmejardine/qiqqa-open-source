@@ -18,8 +18,8 @@ namespace Qiqqa.InCite
     /// </summary>
     public partial class UsedCitationsControl : UserControl
     {
-        List<UsedCitation> latest_used_citations = new List<UsedCitation>();
-        List<MissingCitation> latest_missing_citations = new List<MissingCitation>();
+        private List<UsedCitation> latest_used_citations = new List<UsedCitation>();
+        private List<MissingCitation> latest_missing_citations = new List<MissingCitation>();
 
         public UsedCitationsControl()
         {
@@ -33,17 +33,17 @@ namespace Qiqqa.InCite
             SafeThreadPool.QueueUserWorkItem(o => Refresh_BACKGROUND(primary_library));
         }
 
-        class UsedCitation
+        private class UsedCitation
         {
             public CitationCluster citation_cluster;
             public CitationItem citation_item;
             public PDFDocument pdf_document;
         }
 
-        class MissingCitation
+        private class MissingCitation
         {
             public CitationCluster citation_cluster;
-            public CitationItem citation_item;            
+            public CitationItem citation_item;
         }
 
         private void Refresh_BACKGROUND(Library primary_library)
@@ -78,12 +78,12 @@ namespace Qiqqa.InCite
                 }
 
                 // Sort them by author
-                used_citations.Sort(delegate(UsedCitation p1, UsedCitation p2)
+                used_citations.Sort(delegate (UsedCitation p1, UsedCitation p2)
                 {
                     return String.Compare(p1.pdf_document.AuthorsCombined, p2.pdf_document.AuthorsCombined);
                 });
 
-                this.Dispatcher.Invoke(new Action(() =>
+                Dispatcher.Invoke(new Action(() =>
                 {
                     // Store them for the GUI
                     latest_used_citations = used_citations;
@@ -122,7 +122,7 @@ namespace Qiqqa.InCite
             StatusManager.Instance.UpdateStatus("UsedCitations", "Found used citations");
         }
 
-        void ObjUsedCitationsCatalog_SelectionChanged(List<PDFDocument> selected_pdf_documents)
+        private void ObjUsedCitationsCatalog_SelectionChanged(List<PDFDocument> selected_pdf_documents)
         {
             try
             {
@@ -148,7 +148,7 @@ namespace Qiqqa.InCite
             }
         }
 
-        void text_doc_MouseDown(object sender, MouseButtonEventArgs e)
+        private void text_doc_MouseDown(object sender, MouseButtonEventArgs e)
         {
             try
             {

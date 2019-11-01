@@ -24,7 +24,7 @@ namespace Utilities.GUI
         internal static extern int MapWindowPoints(IntPtr hWndFrom, IntPtr hWndTo, [In, Out] ref Point pt, [MarshalAs(UnmanagedType.U4)] int cPoints);
 
 
-   
+
 
         [DllImport("user32.dll", ExactSpelling = true, CharSet = CharSet.Auto)]
         public static extern IntPtr GetParent(IntPtr hWnd);
@@ -33,10 +33,10 @@ namespace Utilities.GUI
         public static Rect GetWindowPoint(IntPtr windowPtr)
         {
             RECT rct = new RECT();
-            
+
             GetWindowRect(windowPtr, ref rct);
 
-            return new Rect(rct.Left, rct.Top, (int) rct.Right - rct.Left, rct.Bottom - rct.Top);
+            return new Rect(rct.Left, rct.Top, (int)rct.Right - rct.Left, rct.Bottom - rct.Top);
 
             /*
 

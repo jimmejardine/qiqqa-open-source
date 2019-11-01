@@ -13,15 +13,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
     /// </summary>
     public partial class PDFHandLayer : PageLayer, IDisposable
     {
-        PDFRendererControlStats pdf_renderer_control_stats;
-        int page;
-        PDFRendererControl pdf_renderer_control;
-
-        bool mouse_pressed = false;
-        Point mouse_down_position;
-        Point mouse_last_position;
-
-        Point mouse_last_delta = new Point();
+        private PDFRendererControlStats pdf_renderer_control_stats;
+        private int page;
+        private PDFRendererControl pdf_renderer_control;
+        private bool mouse_pressed = false;
+        private Point mouse_down_position;
+        private Point mouse_last_position;
+        private Point mouse_last_delta = new Point();
 
         public PDFHandLayer(PDFRendererControlStats pdf_renderer_control_stats, int page, PDFRendererControl pdf_renderer_control)
         {
@@ -32,16 +30,16 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
             InitializeComponent();
 
             Background = Brushes.Transparent;
-            this.Cursor = Cursors.Hand;
+            Cursor = Cursors.Hand;
 
             int start_page_offset = pdf_renderer_control_stats.StartPageOffset;
             if (0 != start_page_offset)
             {
-                this.ObjPageNumberControl.SetPageNumber(String.Format("{2} ({0}/{1})", page, pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount, (page + start_page_offset - 1)));
+                ObjPageNumberControl.SetPageNumber(String.Format("{2} ({0}/{1})", page, pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount, (page + start_page_offset - 1)));
             }
             else
             {
-                this.ObjPageNumberControl.SetPageNumber(String.Format("{0}/{1}", page, pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount));
+                ObjPageNumberControl.SetPageNumber(String.Format("{0}/{1}", page, pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount));
             }
 
             MouseDown += PDFHandLayer_MouseDown;
@@ -49,17 +47,17 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
             MouseMove += PDFHandLayer_MouseMove;
         }
 
-        void PDFHandLayer_MouseUp(object sender, MouseButtonEventArgs e)
+        private void PDFHandLayer_MouseUp(object sender, MouseButtonEventArgs e)
         {
             mouse_pressed = false;
-            this.ReleaseMouseCapture();
+            ReleaseMouseCapture();
 
             pdf_renderer_control.ScrollPageArea(new Point(0, 0), mouse_last_delta);
 
             e.Handled = true;
         }
 
-        void PDFHandLayer_MouseDown(object sender, MouseButtonEventArgs e)
+        private void PDFHandLayer_MouseDown(object sender, MouseButtonEventArgs e)
         {
             mouse_pressed = true;
             mouse_last_position = mouse_down_position = e.GetPosition(pdf_renderer_control);
@@ -67,10 +65,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
             mouse_last_delta.X = 0;
             mouse_last_delta.Y = 0;
 
-            this.CaptureMouse();
+            CaptureMouse();
         }
 
-        void PDFHandLayer_MouseMove(object sender, MouseEventArgs e)
+        private void PDFHandLayer_MouseMove(object sender, MouseEventArgs e)
         {
             Point mouse_current_position = e.GetPosition(pdf_renderer_control);
 
@@ -142,14 +140,14 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
                     MouseDown -= PDFHandLayer_MouseDown;
                     MouseUp -= PDFHandLayer_MouseUp;
                     MouseMove -= PDFHandLayer_MouseMove;
-                }, this.Dispatcher);
+                }, Dispatcher);
             }
 
             // Clear the references for sanity's sake
             pdf_renderer_control_stats = null;
             pdf_renderer_control = null;
 
-            this.DataContext = null;
+            DataContext = null;
 
             ++dispose_count;
 

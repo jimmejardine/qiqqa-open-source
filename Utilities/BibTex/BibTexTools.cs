@@ -18,7 +18,7 @@ namespace Utilities.BibTex
             StringBuilder sb = new StringBuilder();
             sb.Append(seed + "-");
             for (int i = 0; i < 5; ++i)
-            {                
+            {
                 sb.Append(Convert.ToChar((byte)(65 + RandomAugmented.Instance.NextIntExclusive(26))));
             }
             return sb.ToString();

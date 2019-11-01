@@ -20,8 +20,8 @@ namespace Qiqqa.Common.TagManagement
             InitializeComponent();
         }
 
-        string tag;
-        TagRemovedDelegate tag_removed_delegate;
+        private string tag;
+        private TagRemovedDelegate tag_removed_delegate;
 
         public TagEditorItemControl(string tag, TagRemovedDelegate tag_removed_delegate)
         {
@@ -30,10 +30,10 @@ namespace Qiqqa.Common.TagManagement
 
             InitializeComponent();
 
-            this.Margin = new Thickness(2, 1, 2, 1);            
-            this.MinWidth = 10;
-            this.MinHeight = 10;
-            
+            Margin = new Thickness(2, 1, 2, 1);
+            MinWidth = 10;
+            MinHeight = 10;
+
             TextTag.Text = tag;
             TextTag.ToolTip = tag;
             TextTag.VerticalAlignment = VerticalAlignment.Center;
@@ -48,7 +48,7 @@ namespace Qiqqa.Common.TagManagement
             ImageClear.ToolTip = "Click here to remove this tag.";
         }
 
-        void ImageClear_MouseDown(object sender, MouseButtonEventArgs e)
+        private void ImageClear_MouseDown(object sender, MouseButtonEventArgs e)
         {
             tag_removed_delegate(tag);
             e.Handled = true;

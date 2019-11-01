@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Net;
-using System.Reflection;
 using System.Windows;
 using Qiqqa.WebBrowsing.GeckoStuff;
 using Utilities;
@@ -11,38 +9,26 @@ using Utilities.Files;
 using Utilities.Internet;
 using Utilities.Reflection;
 using Utilities.Shutdownable;
-using Application = System.Windows.Forms.Application;
 using Utilities.Strings;
 using Newtonsoft.Json;
-using File = Alphaleonis.Win32.Filesystem.File;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using Path = Alphaleonis.Win32.Filesystem.Path;
 using UConf = Utilities.Configuration;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Common.Configuration
 {
     public class ConfigurationManager
     {
         public static readonly ConfigurationManager Instance = new ConfigurationManager();
+        private string user_guid;
 
-        string user_guid;
 
-        public string TempDirectoryForQiqqa
-        {
-            get
-            {
-                return Path.GetFullPath(Path.Combine(TempFile.TempDirectory, @"Qiqqa"));
-            }
-        }
+        public string TempDirectoryForQiqqa => Path.GetFullPath(Path.Combine(TempFile.TempDirectory, @"Qiqqa"));
 
-        public string StartupDirectoryForQiqqa
-        {
-            get
-            {
-                return UnitTestDetector.StartupDirectoryForQiqqa;
-            }
-        }
-        
+        public string StartupDirectoryForQiqqa => UnitTestDetector.StartupDirectoryForQiqqa;
+
         private string base_directory_for_qiqqa = null;
         public string BaseDirectoryForQiqqa
         {
@@ -82,48 +68,18 @@ namespace Qiqqa.Common.Configuration
             }
         }
 
-        public string BaseDirectoryForUser
-        {
-            get
-            {
-                return Path.GetFullPath(Path.Combine(BaseDirectoryForQiqqa, user_guid));
-            }
-        }
+        public string BaseDirectoryForUser => Path.GetFullPath(Path.Combine(BaseDirectoryForQiqqa, user_guid));
 
-        string ConfigFilenameForUser
-        {
-            get
-            {
-                return Path.Combine(BaseDirectoryForUser, @"Qiqqa.configuration");
-            }
-        }
+        private string ConfigFilenameForUser => Path.Combine(BaseDirectoryForUser, @"Qiqqa.configuration");
 
-        string SearchHistoryFilename
-        {
-            get
-            {
-                return Path.Combine(BaseDirectoryForUser, @"Qiqqa.search_history");
-            }
-        }
+        private string SearchHistoryFilename => Path.Combine(BaseDirectoryForUser, @"Qiqqa.search_history");
 
-        public string Program7ZIP
-        {
-            get
-            {
-                return Path.Combine(StartupDirectoryForQiqqa, @"7za.exe");
-            }
-        }
+        public string Program7ZIP => Path.Combine(StartupDirectoryForQiqqa, @"7za.exe");
 
-        public string ProgramHTMLToPDF
-        {
-            get
-            {
-                return Path.Combine(StartupDirectoryForQiqqa, @"wkhtmltopdf.exe");
-            }
-        }
+        public string ProgramHTMLToPDF => Path.Combine(StartupDirectoryForQiqqa, @"wkhtmltopdf.exe");
 
-        ConfigurationRecord configuration_record;
-        AugmentedBindable<ConfigurationRecord> configuration_record_bindable;
+        private ConfigurationRecord configuration_record;
+        private AugmentedBindable<ConfigurationRecord> configuration_record_bindable;
 
         private ConfigurationManager()
         {
@@ -134,7 +90,7 @@ namespace Qiqqa.Common.Configuration
             ResetConfigurationRecordToGuest();
         }
 
-        static private void Configuration_OnBeingAccessed()
+        private static void Configuration_OnBeingAccessed()
         {
             // The Utilities configuration record was accessed for the first time. 
             //
@@ -143,7 +99,7 @@ namespace Qiqqa.Common.Configuration
             UConf.Proxy = ConfigurationManager.Instance.Proxy;
         }
 
-        void Shutdown()
+        private void Shutdown()
         {
             Logging.Info("ConfigurationManager is saving the configuration at shutdown");
             SaveConfigurationRecord();
@@ -160,7 +116,7 @@ namespace Qiqqa.Common.Configuration
             }
 
             // Create the new user_guid
-            this.user_guid = user_guid_;
+            user_guid = user_guid_;
 
             // Create the base directory in case it doesnt exist
             Directory.CreateDirectory(BaseDirectoryForUser);
@@ -227,12 +183,12 @@ namespace Qiqqa.Common.Configuration
             }
         }
 
-        void configuration_record_bindable_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void configuration_record_bindable_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (sender == configuration_record_bindable)
             {
                 SaveConfigurationRecord();
-                
+
                 GeckoManager.SetupProxyAndUserAgent(false);
             }
             else
@@ -279,8 +235,8 @@ namespace Qiqqa.Common.Configuration
 
 #region --- Search history ----------------------------------------------------------------------------------------
 
-        HashSet<string> search_history = new HashSet<string>();
-        HashSet<string> search_history_from_disk = null;
+        private HashSet<string> search_history = new HashSet<string>();
+        private HashSet<string> search_history_from_disk = null;
         public HashSet<string> SearchHistory
         {
             get
@@ -324,7 +280,7 @@ namespace Qiqqa.Common.Configuration
             }
         }
 
-        void SaveSearchHistory()
+        private void SaveSearchHistory()
         {
             try
             {
@@ -341,7 +297,7 @@ namespace Qiqqa.Common.Configuration
 #region --- Public initialisation ----------------------------------------------------------------------------------------
 
         public void ResetConfigurationRecordToGuest()
-        {            
+        {
             ResetConfigurationRecord("Guest");
         }
 
@@ -354,14 +310,8 @@ namespace Qiqqa.Common.Configuration
 
 #region --- Public accessors ----------------------------------------------------------------------------------------
 
-        public Visibility NoviceVisibility
-        {
-            get
-            {
-                return this.ConfigurationRecord.GUI_IsNovice ? Visibility.Collapsed : Visibility.Visible;
-            }
-        }
-        
+        public Visibility NoviceVisibility => ConfigurationRecord.GUI_IsNovice ? Visibility.Collapsed : Visibility.Visible;
+
         public ConfigurationRecord ConfigurationRecord
         {
             get
@@ -375,13 +325,7 @@ namespace Qiqqa.Common.Configuration
             }
         }
 
-        public AugmentedBindable<ConfigurationRecord> ConfigurationRecord_Bindable
-        {
-            get
-            {
-                return configuration_record_bindable;
-            }
-        }
+        public AugmentedBindable<ConfigurationRecord> ConfigurationRecord_Bindable => configuration_record_bindable;
 
         /// <summary>
         /// Uses the proxy settings specified by the user.  Otherwise defaults to the system proxy.
@@ -408,7 +352,7 @@ namespace Qiqqa.Common.Configuration
                 return ProxyTools.CreateProxy(ConfigurationRecord.Proxy_UseProxy, hostname, ConfigurationRecord.Proxy_Port, username, password);
             }
         }
-        
+
 #endregion
     }
 }

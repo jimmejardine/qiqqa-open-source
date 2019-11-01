@@ -12,9 +12,10 @@ using Syncfusion.Pdf.Graphics;
 using Utilities;
 using Utilities.Files;
 using Utilities.GUI.Wizard;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.AnnotationsReportBuilding
 {
@@ -51,7 +52,7 @@ namespace Qiqqa.AnnotationsReportBuilding
 #endif
 
             this.annotation_report = annotation_report;
-            this.ObjDocumentViewer.Document = annotation_report.flow_document;
+            ObjDocumentViewer.Document = annotation_report.flow_document;
         }
 
         // Warning CA1811	'ReportViewerControl.ButtonExpandClickOptions_Click(object, RoutedEventArgs)' appears to have no upstream public or protected callers.
@@ -73,7 +74,7 @@ namespace Qiqqa.AnnotationsReportBuilding
         ~ReportViewerControl()
         {
             Logging.Debug("~ReportViewerControl()");
-            Dispose(false);            
+            Dispose(false);
         }
 
         public void Dispose()
@@ -89,17 +90,17 @@ namespace Qiqqa.AnnotationsReportBuilding
             Logging.Debug("ReportViewerControl::Dispose({0}) @{1}", disposing, dispose_count);
 
             // Get rid of managed resources
-            this.ObjDocumentViewer.Document?.Blocks.Clear();
+            ObjDocumentViewer.Document?.Blocks.Clear();
 
-            this.ObjDocumentViewer.Document = null;
-            this.annotation_report = null;
+            ObjDocumentViewer.Document = null;
+            annotation_report = null;
 
             ++dispose_count;
         }
 
         #endregion
 
-        string SaveToRTF()
+        private string SaveToRTF()
         {
             FlowDocument flow_document = ObjDocumentViewer.Document;
             TextRange text_range = new TextRange(flow_document.ContentStart, flow_document.ContentEnd);
@@ -112,8 +113,8 @@ namespace Qiqqa.AnnotationsReportBuilding
 
             return filename;
         }
-        
-        void ButtonToWord_Click(object sender, RoutedEventArgs e)
+
+        private void ButtonToWord_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.AnnotationReport_ToWord);
 
@@ -123,35 +124,35 @@ namespace Qiqqa.AnnotationsReportBuilding
             Process.Start(filename);
         }
 
-        void ButtonToPDF_Click(object sender, RoutedEventArgs e)
+        private void ButtonToPDF_Click(object sender, RoutedEventArgs e)
         {
             string filename_pdf = TempFile.GenerateTempFilename("pdf");
-                                  
-                using (PdfDocument doc = new PdfDocument())
-                {
-                    PdfPage page = doc.Pages.Add();
-                    SizeF bounds = page.GetClientSize();
 
-                    string filename_rtf = SaveToRTF();
-                    string text = File.ReadAllText(filename_rtf);
+            using (PdfDocument doc = new PdfDocument())
+            {
+                PdfPage page = doc.Pages.Add();
+                SizeF bounds = page.GetClientSize();
 
-                    PdfMetafile metafile = (PdfMetafile)PdfImage.FromRtf(text, bounds.Width, PdfImageType.Metafile);
-                    PdfMetafileLayoutFormat format = new PdfMetafileLayoutFormat();
+                string filename_rtf = SaveToRTF();
+                string text = File.ReadAllText(filename_rtf);
 
-                    // Allow the text to flow multiple pages without any breaks.
-                    format.SplitTextLines = true;
-                    format.SplitImages = true;
+                PdfMetafile metafile = (PdfMetafile)PdfImage.FromRtf(text, bounds.Width, PdfImageType.Metafile);
+                PdfMetafileLayoutFormat format = new PdfMetafileLayoutFormat();
 
-                    // Draw the image.
-                    metafile.Draw(page, 0, 0, format);
+                // Allow the text to flow multiple pages without any breaks.
+                format.SplitTextLines = true;
+                format.SplitImages = true;
 
-                    doc.Save(filename_pdf);
-                }
+                // Draw the image.
+                metafile.Draw(page, 0, 0, format);
+
+                doc.Save(filename_pdf);
+            }
 
             Process.Start(filename_pdf);
         }
 
-        void ButtonPrint_Click(object sender, RoutedEventArgs e)
+        private void ButtonPrint_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.AnnotationReport_Print);
             annotation_report.CollapseClickOptions();

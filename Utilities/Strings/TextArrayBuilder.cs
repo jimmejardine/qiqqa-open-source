@@ -1,56 +1,55 @@
-using System;
 using System.Collections;
 using System.Text;
 using Utilities.Collections;
 
 namespace QuantIsleParser
 {
-	public class TextArrayBuilder
-	{
-		public ArrayList list;
-		StringBuilder sb;
+    public class TextArrayBuilder
+    {
+        public ArrayList list;
+        private StringBuilder sb;
 
-		public TextArrayBuilder()
-		{
-			list = new ArrayList();
-			sb = new StringBuilder();
+        public TextArrayBuilder()
+        {
+            list = new ArrayList();
+            sb = new StringBuilder();
 
-		}
+        }
 
-		public void Clear()
-		{
-			list.Clear();
-			sb.Length = 0;
-		}
+        public void Clear()
+        {
+            list.Clear();
+            sb.Length = 0;
+        }
 
-		public void append(string s)
-		{
-			sb.Append(s);
-		}
+        public void append(string s)
+        {
+            sb.Append(s);
+        }
 
-		public void append(char s)
-		{
-			sb.Append(s);
-		}
+        public void append(char s)
+        {
+            sb.Append(s);
+        }
 
-		public void newline()
-		{
-			list.Add(sb.ToString());
-			sb.Length = 0;
-		}
+        public void newline()
+        {
+            list.Add(sb.ToString());
+            sb.Length = 0;
+        }
 
-		public void flush()
-		{
-			if (sb.Length > 0)
-			{
-				newline();
-			}
-		}
+        public void flush()
+        {
+            if (sb.Length > 0)
+            {
+                newline();
+            }
+        }
 
-		public override string ToString()
-		{
+        public override string ToString()
+        {
             return ArrayFormatter.ListElements(list, "\n") + "\n";
-		}
+        }
 
         #region --- Test ------------------------------------------------------------------------
 

@@ -1,6 +1,6 @@
 ﻿namespace Qiqqa.Brainstorm.Nodes
 {
-    interface IEditableNodeContentControl
+    internal interface IEditableNodeContentControl
     {
         void EnterEditMode();
     }

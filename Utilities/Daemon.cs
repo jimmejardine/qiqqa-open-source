@@ -5,10 +5,10 @@ namespace Utilities
 {
     public class Daemon
     {
-        string daemon_name;
-        Thread thread;
-        bool still_running = false;
-        object still_running_lock = new object();
+        private string daemon_name;
+        private Thread thread;
+        private bool still_running = false;
+        private object still_running_lock = new object();
 
         public Daemon(string daemon_name)
         {
@@ -89,10 +89,7 @@ namespace Utilities
 
         public ThreadPriority Priority
         {
-            set
-            {
-                thread.Priority = value;
-            }
+            set => thread.Priority = value;
         }
 
         /// <summary>

@@ -27,10 +27,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.Printing
                 {
                     PrintThreadEntry(print_dialog, pdf_document, pdf_renderer, description, print_dialog.PageRange.PageFrom, print_dialog.PageRange.PageTo);
                 }
-            }            
+            }
         }
 
-        static void PrintThreadEntry(PrintDialog print_dialog, PDFDocument pdf_document, PDFRenderer pdf_renderer, string description, int page_from, int page_to)
+        private static void PrintThreadEntry(PrintDialog print_dialog, PDFDocument pdf_document, PDFRenderer pdf_renderer, string description, int page_from, int page_to)
         {
             PDFPrinterDocumentPaginator paginator = new PDFPrinterDocumentPaginator(pdf_document, pdf_renderer, page_from, page_to, new Size(print_dialog.PrintableAreaWidth, print_dialog.PrintableAreaHeight));
             print_dialog.PrintDocument(paginator, description);

@@ -20,10 +20,10 @@ namespace Utilities.Internet
             return DownloadWithBlocking(url, null, out header_collection);
         }
 
-        class WebClientWithCompression : WebClient
+        private class WebClientWithCompression : WebClient
         {
             protected override WebRequest GetWebRequest(Uri address)
-            {               
+            {
                 WebRequest web_request = base.GetWebRequest(address);
                 HttpWebRequest http_web_request = web_request as HttpWebRequest;
                 if (null != http_web_request)
@@ -42,7 +42,7 @@ namespace Utilities.Internet
                 }
             }
         }
-        
+
         public static MemoryStream DownloadWithBlocking(string url, IEnumerable<string> request_headers, out WebHeaderCollection header_collection)
         {
             using (WebClientWithCompression wc = new WebClientWithCompression())
@@ -58,11 +58,11 @@ namespace Utilities.Internet
                     }
                 }
 
-                    // same headers as sent by modern Chrome.
-                    // Gentlemen, start your prayer wheels!
-                    wc.Headers.Add("Cache-Control", "no-cache");
-                    wc.Headers.Add("Pragma", "no-cache");
-                    wc.Headers.Add("User-agent", Configuration.WebUserAgent);
+                // same headers as sent by modern Chrome.
+                // Gentlemen, start your prayer wheels!
+                wc.Headers.Add("Cache-Control", "no-cache");
+                wc.Headers.Add("Pragma", "no-cache");
+                wc.Headers.Add("User-agent", Configuration.WebUserAgent);
 
                 byte[] data = wc.DownloadData(new Uri(url));
                 header_collection = wc.ResponseHeaders;
@@ -81,7 +81,7 @@ namespace Utilities.Internet
                 wc.DownloadDataCompleted += wcb_DownloadDataCompleted;
             }
 
-            void wcb_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+            private void wcb_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
             {
                 Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (progress_lock)
@@ -95,7 +95,7 @@ namespace Utilities.Internet
                 }
             }
 
-            void wcb_DownloadDataCompleted(object sender, DownloadDataCompletedEventArgs e)
+            private void wcb_DownloadDataCompleted(object sender, DownloadDataCompletedEventArgs e)
             {
                 Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (progress_lock)
@@ -115,27 +115,21 @@ namespace Utilities.Internet
             private object progress_lock = new object();
 
             public int ProgressPercentage { get; private set; } // integer [0,100]
-            public bool DownloadComplete
-            {
-                get
-                {
-                    return this.DownloadDataCompletedEventArgs != null;
-                }
-            }
+            public bool DownloadComplete => DownloadDataCompletedEventArgs != null;
             public DownloadDataCompletedEventArgs DownloadDataCompletedEventArgs { get; set; }
 
             public DownloadAsyncTracker(string url)
             {
                 // Init
-                this.ProgressPercentage = 0;
-                this.DownloadDataCompletedEventArgs = null;
+                ProgressPercentage = 0;
+                DownloadDataCompletedEventArgs = null;
 
                 // Start the download
                 wc = new WebClientWithCompression();
                 wc.Proxy = Configuration.Proxy;
 
-                wc.DownloadProgressChanged += this.wc_DownloadProgressChanged;
-                wc.DownloadDataCompleted += this.wc_DownloadDataCompleted;
+                wc.DownloadProgressChanged += wc_DownloadProgressChanged;
+                wc.DownloadDataCompleted += wc_DownloadDataCompleted;
 
                 // same headers as sent by modern Chrome.
                 // Gentlemen, start your prayer wheels!
@@ -168,7 +162,7 @@ namespace Utilities.Internet
                 {
                     l1_clk.LockPerfTimerStop();
                     Logging.Info("Download complete");
-                    this.DownloadDataCompletedEventArgs = e;
+                    DownloadDataCompletedEventArgs = e;
                 }
 
                 CleanupAfterDownload();
@@ -185,8 +179,8 @@ namespace Utilities.Internet
             {
                 if (null != wc)
                 {
-                    wc.DownloadProgressChanged -= this.wc_DownloadProgressChanged;
-                    wc.DownloadDataCompleted -= this.wc_DownloadDataCompleted;
+                    wc.DownloadProgressChanged -= wc_DownloadProgressChanged;
+                    wc.DownloadDataCompleted -= wc_DownloadDataCompleted;
 
                     wc.Dispose();
                 }

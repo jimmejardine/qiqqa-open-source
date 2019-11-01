@@ -1,11 +1,12 @@
 ﻿using System;
-using System.IO;
 using Qiqqa.DocumentLibrary;
 using Utilities;
 using Utilities.Files;
 using Utilities.Misc;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Expedition
 {
@@ -13,13 +14,7 @@ namespace Qiqqa.Expedition
     {
         private Library library;
 
-        public string Filename_Store
-        {
-            get
-            {
-                return Path.GetFullPath(Path.Combine(library.LIBRARY_BASE_PATH, @"Qiqqa.expedition"));
-            }
-        }
+        public string Filename_Store => Path.GetFullPath(Path.Combine(library.LIBRARY_BASE_PATH, @"Qiqqa.expedition"));
 
         public ExpeditionManager(Library library)
         {
@@ -27,7 +22,7 @@ namespace Qiqqa.Expedition
         }
 
         public delegate void RebuiltExpeditionCompleteDelegate();
-        
+
         public void RebuildExpedition(int num_topics, bool add_autotags, bool add_tags, RebuiltExpeditionCompleteDelegate rebuiltexpeditioncompletedelegate)
         {
             Logging.Info("+Rebuilding Expedition");
@@ -45,13 +40,7 @@ namespace Qiqqa.Expedition
             }
         }
 
-        public int RecommendedThemeCount
-        {
-            get
-            {
-                return (int)Math.Ceiling(Math.Sqrt(this.library.PDFDocuments.Count));
-            }
-        }
+        public int RecommendedThemeCount => (int)Math.Ceiling(Math.Sqrt(library.PDFDocuments.Count));
 
         private ExpeditionDataSource expedition_data_source = null;
         public ExpeditionDataSource ExpeditionDataSource
@@ -100,8 +89,8 @@ namespace Qiqqa.Expedition
         {
             get
             {
-                if (null == this.expedition_data_source) return false;
-                return (DateTime.UtcNow.Subtract(this.expedition_data_source.date_created).TotalDays > 28);
+                if (null == expedition_data_source) return false;
+                return (DateTime.UtcNow.Subtract(expedition_data_source.date_created).TotalDays > 28);
             }
         }
     }

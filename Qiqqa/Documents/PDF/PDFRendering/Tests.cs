@@ -1,14 +1,4 @@
-﻿using System;
-using System.Drawing;
-using System.IO;
-using System.Threading;
-using Qiqqa.Documents.PDF.PDFRendering.CoherentTextExtraction;
-using Utilities;
-using Utilities.OCR;
-using File = Alphaleonis.Win32.Filesystem.File;
-using Path = Alphaleonis.Win32.Filesystem.Path;
-
-namespace Qiqqa.Documents.PDF.PDFRendering
+﻿namespace Qiqqa.Documents.PDF.PDFRendering
 {
 #if TEST
     public class Tests

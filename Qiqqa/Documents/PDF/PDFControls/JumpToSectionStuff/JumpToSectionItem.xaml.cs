@@ -10,13 +10,12 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
     /// </summary>
     public partial class JumpToSectionItem : Grid
     {
-        JumpToSectionPopup jtsp;
-        PDFReadingControl pdf_reading_control;
-        PDFRendererControl pdf_render_control;
-        PDFRendererControlStats pdf_renderer_control_stats;
-        
-        string section;
-        int page;
+        private JumpToSectionPopup jtsp;
+        private PDFReadingControl pdf_reading_control;
+        private PDFRendererControl pdf_render_control;
+        private PDFRendererControlStats pdf_renderer_control_stats;
+        private string section;
+        private int page;
 
         public JumpToSectionItem(JumpToSectionPopup jtsp, PDFReadingControl pdf_reading_control, PDFRendererControl pdf_render_control, PDFRendererControlStats pdf_renderer_control_stats, string section, int page)
         {
@@ -29,13 +28,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
             this.section = section;
             this.page = page;
 
-            this.ButtonSection.Header = section;
-            this.ButtonSection.Click += ButtonSection_Click;
+            ButtonSection.Header = section;
+            ButtonSection.Click += ButtonSection_Click;
         }
 
-        void ButtonSection_Click(object sender, RoutedEventArgs e)
+        private void ButtonSection_Click(object sender, RoutedEventArgs e)
         {
-            FeatureTrackingManager.Instance.UseFeature(Features.Document_JumpToSection);            
+            FeatureTrackingManager.Instance.UseFeature(Features.Document_JumpToSection);
 
             PDFRendererPageControl prpc = pdf_render_control.GetPageControl(page);
 

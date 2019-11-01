@@ -14,15 +14,14 @@ using Size = System.Windows.Size;
 
 namespace Qiqqa.Documents.PDF.PDFControls.Printing
 {
-    class PDFPrinterDocumentPaginator : DocumentPaginator, IDisposable
+    internal class PDFPrinterDocumentPaginator : DocumentPaginator, IDisposable
     {
-        PDFDocument pdf_document;
-        PDFRenderer pdf_renderer;
-        int page_from;
-        int page_to;
-        Size page_size;
-
-        int total_pages_printed = 0;
+        private PDFDocument pdf_document;
+        private PDFRenderer pdf_renderer;
+        private int page_from;
+        private int page_to;
+        private Size page_size;
+        private int total_pages_printed = 0;
 
         public PDFPrinterDocumentPaginator(PDFDocument pdf_document, PDFRenderer pdf_renderer, int page_from, int page_to, Size page_size)
         {
@@ -35,8 +34,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Printing
             StatusManager.Instance.ClearCancelled("PDFPrinter");
         }
 
-
-        DocumentPage last_document_page = null;
+        private DocumentPage last_document_page = null;
         public override DocumentPage GetPage(int page_zero_based)
         {
             // Hackity hack
@@ -47,7 +45,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Printing
 
             int page = page_from + page_zero_based;
 
-            StatusManager.Instance.UpdateStatus("PDFPrinter", String.Format("Printing page {0} of {1}", page_zero_based + 1, this.PageCount), page_zero_based + 1, this.PageCount, true);
+            StatusManager.Instance.UpdateStatus("PDFPrinter", String.Format("Printing page {0} of {1}", page_zero_based + 1, PageCount), page_zero_based + 1, PageCount, true);
 
             // Render a page at 300 DPI...
             using (MemoryStream ms = new MemoryStream(pdf_renderer.GetPageByDPIAsImage(page, 300)))
@@ -84,21 +82,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.Printing
             }
         }
 
-        public int TotalPagesPrinted
-        {
-            get
-            {
-                return total_pages_printed;
-            }
-        }
+        public int TotalPagesPrinted => total_pages_printed;
 
-        public override bool IsPageCountValid
-        {
-            get
-            {
-                return true;
-            }
-        }
+        public override bool IsPageCountValid => true;
 
         public override int PageCount
         {
@@ -118,23 +104,11 @@ namespace Qiqqa.Documents.PDF.PDFControls.Printing
 
         public override Size PageSize
         {
-            get
-            {
-                return page_size;
-            }
-            set
-            {
-                page_size = value;
-            }
+            get => page_size;
+            set => page_size = value;
         }
 
-        public override IDocumentPaginatorSource Source
-        {
-            get
-            {
-                return null;
-            }
-        }
+        public override IDocumentPaginatorSource Source => null;
 
         #region --- IDisposable ------------------------------------------------------------------------
 

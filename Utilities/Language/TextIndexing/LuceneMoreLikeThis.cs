@@ -22,7 +22,6 @@ using System.IO;
 using System.Net;
 using System.Text;
 using Lucene.Net.Analysis;
-using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Documents;
 using Lucene.Net.Index;
 using Lucene.Net.Search;
@@ -30,7 +29,7 @@ using Lucene.Net.Util;
 
 namespace Utilities.Language.TextIndexing
 {
-	public class PQRecord
+    public class PQRecord
     {
         public string word;
         public string topField;
@@ -51,7 +50,7 @@ namespace Utilities.Language.TextIndexing
     }
 
 
-	
+
     /// <summary> Generate "more like this" similarity queries. 
     /// Based on this mail:
     /// <code><pre>
@@ -155,58 +154,58 @@ namespace Utilities.Language.TextIndexing
     /// </author>
     public sealed class LuceneMoreLikeThis
     {
-		
+
         /// <summary> Default maximum number of tokens to parse in each example doc field that is not stored with TermVector support.</summary>
         /// <seealso cref="#getMaxNumTokensParsed">
         /// </seealso>
         public const int DEFAULT_MAX_NUM_TOKENS_PARSED = 5000;
-		
-		
+
+
         /// <summary> Default analyzer to parse source doc with.</summary>
         /// <seealso cref="#getAnalyzer">
         /// </seealso>
         public static readonly Lucene.Net.Analysis.Analyzer DEFAULT_ANALYZER = new Lucene.Net.Analysis.Standard.StandardAnalyzer();
-		
+
         /// <summary> Ignore terms with less than this frequency in the source doc.</summary>
         /// <seealso cref="#getMinTermFreq">
         /// </seealso>
         /// <seealso cref="#setMinTermFreq">
         /// </seealso>
         public const int DEFAULT_MIN_TERM_FREQ = 2;
-		
+
         /// <summary> Ignore words which do not occur in at least this many docs.</summary>
         /// <seealso cref="#getMinDocFreq">
         /// </seealso>
         /// <seealso cref="#setMinDocFreq">
         /// </seealso>
         public const int DEFALT_MIN_DOC_FREQ = 5;
-		
+
         /// <summary> Boost terms in query based on score.</summary>
         /// <seealso cref="#isBoost">
         /// </seealso>
         /// <seealso cref="#SetBoost">
         /// </seealso>
         public const bool DEFAULT_BOOST = false;
-		
+
         /// <summary> Default field names. Null is used to specify that the field names should be looked
         /// up at runtime from the provided reader.
         /// </summary>
-        public static readonly String[] DEFAULT_FIELD_NAMES = new String[]{"contents"};
-		
+        public static readonly String[] DEFAULT_FIELD_NAMES = new String[] { "contents" };
+
         /// <summary> Ignore words less than this length or if 0 then this has no effect.</summary>
         /// <seealso cref="#getMinWordLen">
         /// </seealso>
         /// <seealso cref="#setMinWordLen">
         /// </seealso>
         public const int DEFAULT_MIN_WORD_LENGTH = 0;
-		
+
         /// <summary> Ignore words greater than this length or if 0 then this has no effect.</summary>
         /// <seealso cref="#getMaxWordLen">
         /// </seealso>
         /// <seealso cref="#setMaxWordLen">
         /// </seealso>
         public const int DEFAULT_MAX_WORD_LENGTH = 0;
-		
+
         /// <summary> Default set of stopwords.
         /// If null means to allow stop words.
         /// 
@@ -216,10 +215,10 @@ namespace Utilities.Language.TextIndexing
         /// <seealso cref="#getStopWords">
         /// </seealso>
         public static readonly Hashtable DEFAULT_STOP_WORDS = null;
-		
+
         /// <summary> Current set of stop words.</summary>
         private Hashtable stopWords = DEFAULT_STOP_WORDS;
-		
+
         /// <summary> Return a Query with no more than this many terms.
         /// 
         /// </summary>
@@ -230,48 +229,48 @@ namespace Utilities.Language.TextIndexing
         /// <seealso cref="#setMaxQueryTerms">
         /// </seealso>
         public const int DEFAULT_MAX_QUERY_TERMS = 25;
-		
+
         /// <summary> Analyzer that will be used to parse the doc.</summary>
         private Lucene.Net.Analysis.Analyzer analyzer = DEFAULT_ANALYZER;
-		
+
         /// <summary> Ignore words less freqent that this.</summary>
         private int minTermFreq = DEFAULT_MIN_TERM_FREQ;
-		
+
         /// <summary> Ignore words which do not occur in at least this many docs.</summary>
         private int minDocFreq = DEFALT_MIN_DOC_FREQ;
-		
+
         /// <summary> Should we apply a boost to the Query based on the scores?</summary>
         private bool boost = DEFAULT_BOOST;
-		
+
         /// <summary> Field name we'll analyze.</summary>
         private String[] fieldNames = DEFAULT_FIELD_NAMES;
-		
+
         /// <summary> The maximum number of tokens to parse in each example doc field that is not stored with TermVector support</summary>
         private int maxNumTokensParsed = DEFAULT_MAX_NUM_TOKENS_PARSED;
-		
-		
-		
+
+
+
         /// <summary> Ignore words if less than this len.</summary>
         private int minWordLen = DEFAULT_MIN_WORD_LENGTH;
-		
+
         /// <summary> Ignore words if greater than this len.</summary>
         private int maxWordLen = DEFAULT_MAX_WORD_LENGTH;
-		
+
         /// <summary> Don't return a query longer than this.</summary>
         private int maxQueryTerms = DEFAULT_MAX_QUERY_TERMS;
-		
+
         /// <summary> For idf() calculations.</summary>
         private Lucene.Net.Search.Similarity similarity = new Lucene.Net.Search.DefaultSimilarity();
-		
+
         /// <summary> IndexReader to use</summary>
         private Lucene.Net.Index.IndexReader ir;
-		
+
         /// <summary> Constructor requiring an IndexReader.</summary>
         public LuceneMoreLikeThis(IndexReader ir)
         {
             this.ir = ir;
         }
-		
+
         /// <summary> Returns an analyzer that will be used to parse source doc with. The default analyzer
         /// is the {@link #DEFAULT_ANALYZER}.
         /// 
@@ -284,18 +283,18 @@ namespace Utilities.Language.TextIndexing
         {
             return analyzer;
         }
-		
+
         /// <summary> Sets the analyzer to use. An analyzer is not required for generating a query with the
         /// {@link #Like(int)} method, all other 'like' methods require an analyzer.
         /// 
         /// </summary>
         /// <param name="analyzer">the analyzer to use to tokenize text.
         /// </param>
-        public void  SetAnalyzer(Lucene.Net.Analysis.Analyzer analyzer)
+        public void SetAnalyzer(Lucene.Net.Analysis.Analyzer analyzer)
         {
             this.analyzer = analyzer;
         }
-		
+
         /// <summary> Returns the frequency below which terms will be ignored in the source doc. The default
         /// frequency is the {@link #DEFAULT_MIN_TERM_FREQ}.
         /// 
@@ -306,17 +305,17 @@ namespace Utilities.Language.TextIndexing
         {
             return minTermFreq;
         }
-		
+
         /// <summary> Sets the frequency below which terms will be ignored in the source doc.
         /// 
         /// </summary>
         /// <param name="minTermFreq">the frequency below which terms will be ignored in the source doc.
         /// </param>
-        public void  SetMinTermFreq(int minTermFreq)
+        public void SetMinTermFreq(int minTermFreq)
         {
             this.minTermFreq = minTermFreq;
         }
-		
+
         /// <summary> Returns the frequency at which words will be ignored which do not occur in at least this
         /// many docs. The default frequency is {@link #DEFALT_MIN_DOC_FREQ}.
         /// 
@@ -328,7 +327,7 @@ namespace Utilities.Language.TextIndexing
         {
             return minDocFreq;
         }
-		
+
         /// <summary> Sets the frequency at which words will be ignored which do not occur in at least this
         /// many docs.
         /// 
@@ -336,11 +335,11 @@ namespace Utilities.Language.TextIndexing
         /// <param name="minDocFreq">the frequency at which words will be ignored which do not occur in at
         /// least this many docs.
         /// </param>
-        public void  SetMinDocFreq(int minDocFreq)
+        public void SetMinDocFreq(int minDocFreq)
         {
             this.minDocFreq = minDocFreq;
         }
-		
+
         /// <summary> Returns whether to boost terms in query based on "score" or not. The default is
         /// {@link #DEFAULT_BOOST}.
         /// 
@@ -353,7 +352,7 @@ namespace Utilities.Language.TextIndexing
         {
             return boost;
         }
-		
+
         /// <summary> Sets whether to boost terms in query based on "score" or not.
         /// 
         /// </summary>
@@ -361,11 +360,11 @@ namespace Utilities.Language.TextIndexing
         /// </param>
         /// <seealso cref="#isBoost">
         /// </seealso>
-        public void  SetBoost(bool boost)
+        public void SetBoost(bool boost)
         {
             this.boost = boost;
         }
-		
+
         /// <summary> Returns the field names that will be used when generating the 'More Like This' query.
         /// The default field names that will be used is {@link #DEFAULT_FIELD_NAMES}.
         /// 
@@ -376,7 +375,7 @@ namespace Utilities.Language.TextIndexing
         {
             return fieldNames;
         }
-		
+
         /// <summary> Sets the field names that will be used when generating the 'More Like This' query.
         /// Set this to null for the field names to be determined at runtime from the IndexReader
         /// provided in the constructor.
@@ -385,11 +384,11 @@ namespace Utilities.Language.TextIndexing
         /// <param name="fieldNames">the field names that will be used when generating the 'More Like This'
         /// query.
         /// </param>
-        public void  SetFieldNames(String[] fieldNames)
+        public void SetFieldNames(String[] fieldNames)
         {
             this.fieldNames = fieldNames;
         }
-		
+
         /// <summary> Returns the minimum word length below which words will be ignored. Set this to 0 for no
         /// minimum word length. The default is {@link #DEFAULT_MIN_WORD_LENGTH}.
         /// 
@@ -400,17 +399,17 @@ namespace Utilities.Language.TextIndexing
         {
             return minWordLen;
         }
-		
+
         /// <summary> Sets the minimum word length below which words will be ignored.
         /// 
         /// </summary>
         /// <param name="minWordLen">the minimum word length below which words will be ignored.
         /// </param>
-        public void  SetMinWordLen(int minWordLen)
+        public void SetMinWordLen(int minWordLen)
         {
             this.minWordLen = minWordLen;
         }
-		
+
         /// <summary> Returns the maximum word length above which words will be ignored. Set this to 0 for no
         /// maximum word length. The default is {@link #DEFAULT_MAX_WORD_LENGTH}.
         /// 
@@ -421,17 +420,17 @@ namespace Utilities.Language.TextIndexing
         {
             return maxWordLen;
         }
-		
+
         /// <summary> Sets the maximum word length above which words will be ignored.
         /// 
         /// </summary>
         /// <param name="maxWordLen">the maximum word length above which words will be ignored.
         /// </param>
-        public void  SetMaxWordLen(int maxWordLen)
+        public void SetMaxWordLen(int maxWordLen)
         {
             this.maxWordLen = maxWordLen;
         }
-		
+
         /// <summary> Set the set of stopwords.
         /// Any word in this set is considered "uninteresting" and ignored.
         /// Even if your Analyzer allows stopwords, you might want to tell the MoreLikeThis code to ignore them, as
@@ -445,11 +444,11 @@ namespace Utilities.Language.TextIndexing
         /// </seealso>
         /// <seealso cref="#getStopWords">
         /// </seealso>
-        public void  SetStopWords(Hashtable stopWords)
+        public void SetStopWords(Hashtable stopWords)
         {
             this.stopWords = stopWords;
         }
-		
+
         /// <summary> Get the current stop words being used.</summary>
         /// <seealso cref="#setStopWords">
         /// </seealso>
@@ -457,8 +456,8 @@ namespace Utilities.Language.TextIndexing
         {
             return stopWords;
         }
-		
-		
+
+
         /// <summary> Returns the maximum number of query terms that will be included in any generated query.
         /// The default is {@link #DEFAULT_MAX_QUERY_TERMS}.
         /// 
@@ -469,18 +468,18 @@ namespace Utilities.Language.TextIndexing
         {
             return maxQueryTerms;
         }
-		
+
         /// <summary> Sets the maximum number of query terms that will be included in any generated query.
         /// 
         /// </summary>
         /// <param name="maxQueryTerms">the maximum number of query terms that will be included in any
         /// generated query.
         /// </param>
-        public void  SetMaxQueryTerms(int maxQueryTerms)
+        public void SetMaxQueryTerms(int maxQueryTerms)
         {
             this.maxQueryTerms = maxQueryTerms;
         }
-		
+
         /// <returns> The maximum number of tokens to parse in each example doc field that is not stored with TermVector support
         /// </returns>
         /// <seealso cref="#DEFAULT_MAX_NUM_TOKENS_PARSED">
@@ -489,17 +488,17 @@ namespace Utilities.Language.TextIndexing
         {
             return maxNumTokensParsed;
         }
-		
+
         /// <param name="i">The maximum number of tokens to parse in each example doc field that is not stored with TermVector support
         /// </param>
-        public void  SetMaxNumTokensParsed(int i)
+        public void SetMaxNumTokensParsed(int i)
         {
             maxNumTokensParsed = i;
         }
-		
-		
-		
-		
+
+
+
+
         /// <summary> Return a query that will return docs like the passed lucene document ID.
         /// 
         /// </summary>
@@ -521,10 +520,10 @@ namespace Utilities.Language.TextIndexing
                     fieldNames[index++] = (String)e.Current;
                 }
             }
-			
+
             return CreateQuery(RetrieveTerms(docNum));
         }
-		
+
         /// <summary> Return a query that will return docs like the passed file.
         /// 
         /// </summary>
@@ -595,7 +594,7 @@ namespace Utilities.Language.TextIndexing
                 return Like(rdr);
             }
         }
-		
+
         /// <summary> Return a query that will return docs like the passed Reader.
         /// 
         /// </summary>
@@ -605,7 +604,7 @@ namespace Utilities.Language.TextIndexing
         {
             return CreateQuery(RetrieveTerms(r));
         }
-		
+
         /// <summary> Create the More like query from a PriorityQueue</summary>
         private Query CreateQuery(Lucene.Net.Util.PriorityQueue q)
         {
@@ -613,12 +612,12 @@ namespace Utilities.Language.TextIndexing
             Object cur;
             int qterms = 0;
             float bestScore = 0;
-			
+
             while (((cur = q.Pop()) != null))
             {
-                PQRecord ar = (PQRecord) cur;
+                PQRecord ar = (PQRecord)cur;
                 Lucene.Net.Search.TermQuery tq = new Lucene.Net.Search.TermQuery(new Term(ar.topField, ar.word));
-				
+
                 if (boost)
                 {
                     if (qterms == 0)
@@ -626,10 +625,10 @@ namespace Utilities.Language.TextIndexing
                         bestScore = ar.score;
                     }
                     float myScore = ar.score;
-					
+
                     tq.SetBoost(myScore / bestScore);
                 }
-				
+
                 try
                 {
                     query.Add(tq, Lucene.Net.Search.BooleanClause.Occur.SHOULD);
@@ -638,17 +637,17 @@ namespace Utilities.Language.TextIndexing
                 {
                     break;
                 }
-				
+
                 qterms++;
                 if (maxQueryTerms > 0 && qterms >= maxQueryTerms)
                 {
                     break;
                 }
             }
-			
+
             return query;
         }
-		
+
         /// <summary> Create a PriorityQueue from a word->tf map.
         /// 
         /// </summary>
@@ -659,19 +658,19 @@ namespace Utilities.Language.TextIndexing
             // have collected all words in doc and their freqs
             int numDocs = ir.NumDocs();
             FreqQ res = new FreqQ(words.Count); // will order words by score
-			
+
             IEnumerator it = words.Keys.GetEnumerator();
             while (it.MoveNext())
             {
                 // for every word
-                String word = (String) it.Current;
-				
-                int tf = ((Int) words[word]).x; // term freq in the source doc
+                String word = (String)it.Current;
+
+                int tf = ((Int)words[word]).x; // term freq in the source doc
                 if (minTermFreq > 0 && tf < minTermFreq)
                 {
                     continue; // filter out words that don't occur enough times in the source
                 }
-				
+
                 // go through all the fields and find the largest document frequency
                 String topField = fieldNames[0];
                 int docFreq = 0;
@@ -681,17 +680,17 @@ namespace Utilities.Language.TextIndexing
                     topField = (freq > docFreq) ? fieldNames[i] : topField;
                     docFreq = (freq > docFreq) ? freq : docFreq;
                 }
-				
+
                 if (minDocFreq > 0 && docFreq < minDocFreq)
                 {
                     continue; // filter out words that don't occur in enough docs
                 }
-				
+
                 if (docFreq == 0)
                 {
                     continue; // index update problem?
                 }
-				
+
                 float idf = similarity.Idf(docFreq, numDocs);
                 float score = tf * idf;
 
@@ -708,7 +707,7 @@ namespace Utilities.Language.TextIndexing
             }
             return res;
         }
-		
+
         /// <summary> Describe the parameters that control how the "more like this" query is formed.</summary>
         public String DescribeParams()
         {
@@ -803,7 +802,7 @@ namespace Utilities.Language.TextIndexing
             }
         }
 #endif
-        
+
         /// <summary> Find words for a more-like-this query former.
         /// 
         /// </summary>
@@ -816,7 +815,7 @@ namespace Utilities.Language.TextIndexing
             {
                 String fieldName = fieldNames[i];
                 Lucene.Net.Index.TermFreqVector vector = ir.GetTermFreqVector(docNum, fieldName);
-				
+
                 // field does not store term vector info
                 if (vector == null)
                 {
@@ -835,29 +834,29 @@ namespace Utilities.Language.TextIndexing
                     AddTermFrequencies(termFreqMap, vector);
                 }
             }
-			
+
             return CreateQueue(termFreqMap);
         }
-		
+
         /// <summary> Adds terms and frequencies found in vector into the Map termFreqMap</summary>
         /// <param name="termFreqMap">a Map of terms and their frequencies
         /// </param>
         /// <param name="vector">List of terms and their frequencies for a doc/field
         /// </param>
-        private void  AddTermFrequencies(IDictionary termFreqMap, TermFreqVector vector)
+        private void AddTermFrequencies(IDictionary termFreqMap, TermFreqVector vector)
         {
             String[] terms = vector.GetTerms();
             int[] freqs = vector.GetTermFrequencies();
             for (int j = 0; j < terms.Length; j++)
             {
                 String term = terms[j];
-				
+
                 if (IsNoiseWord(term))
                 {
                     continue;
                 }
                 // increment frequency
-                Int cnt = (Int) termFreqMap[term];
+                Int cnt = (Int)termFreqMap[term];
                 if (cnt == null)
                 {
                     cnt = new Int();
@@ -877,7 +876,7 @@ namespace Utilities.Language.TextIndexing
         /// </param>
         /// <param name="fieldName">Used by analyzer for any special per-field analysis
         /// </param>
-        private void  AddTermFrequencies(StreamReader r, IDictionary termFreqMap, String fieldName)
+        private void AddTermFrequencies(StreamReader r, IDictionary termFreqMap, String fieldName)
         {
             Lucene.Net.Analysis.TokenStream ts = analyzer.TokenStream(fieldName, r);
             Lucene.Net.Analysis.Token token;
@@ -895,9 +894,9 @@ namespace Utilities.Language.TextIndexing
                 {
                     continue;
                 }
-				
+
                 // increment frequency
-                Int cnt = (Int) termFreqMap[word];
+                Int cnt = (Int)termFreqMap[word];
                 if (cnt == null)
                 {
                     termFreqMap[word] = new Int();
@@ -908,7 +907,7 @@ namespace Utilities.Language.TextIndexing
                 }
             }
         }
-		
+
         /// <summary>determines if the passed term is likely to be of interest in "more like" comparisons 
         /// 
         /// </summary>
@@ -933,8 +932,8 @@ namespace Utilities.Language.TextIndexing
             }
             return false;
         }
-		
-		
+
+
         /// <summary> Find words for a more-like-this query former.
         /// The result is a priority queue of arrays with one entry for <b>every word</b> in the document.
         /// Each array has 6 elements.
@@ -969,7 +968,7 @@ namespace Utilities.Language.TextIndexing
             }
             return CreateQueue(words);
         }
-		
+
         /// <summary> Convenience routine to make it easy to return the most interesting words in a document.
         /// More advanced users will call {@link #RetrieveTerms(java.io.Reader) retrieveTerms()} directly.
         /// </summary>
@@ -991,14 +990,14 @@ namespace Utilities.Language.TextIndexing
             // we just want to return the top words
             while (((cur = pq.Pop()) != null) && lim-- > 0)
             {
-                PQRecord ar = (PQRecord) cur;
+                PQRecord ar = (PQRecord)cur;
                 al.Add(ar.word); // the 1st entry is the interesting word
             }
             String[] res = new String[al.Count];
             // return (System.String[]) SupportClass.ICollectionSupport.ToArray(al, res);
-            return (String[]) al.ToArray(typeof(String));
+            return (String[])al.ToArray(typeof(String));
         }
-		
+
         /// <summary> PriorityQueue that orders words by score.</summary>
         private class FreqQ : Lucene.Net.Util.PriorityQueue
         {
@@ -1006,22 +1005,22 @@ namespace Utilities.Language.TextIndexing
             {
                 Initialize(s);
             }
-			
-            override public bool LessThan(Object a, Object b)
+
+            public override bool LessThan(Object a, Object b)
             {
-                PQRecord aa = (PQRecord) a;
-                PQRecord bb = (PQRecord) b;
+                PQRecord aa = (PQRecord)a;
+                PQRecord bb = (PQRecord)b;
                 float fa = aa.score;
                 float fb = bb.score;
                 return fa > fb;
             }
         }
-		
+
         /// <summary> Use for frequencies and to avoid renewing Integers.</summary>
         private class Int
         {
             internal int x;
-			
+
             internal Int()
             {
                 x = 1;

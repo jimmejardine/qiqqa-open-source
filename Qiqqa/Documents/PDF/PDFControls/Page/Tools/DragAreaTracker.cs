@@ -7,14 +7,12 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
 {
     public class DragAreaTracker
     {
-        Canvas canvas;
-        bool visible;
-
-        Point mouse_down_point;
-        bool button_left_pressed = false;
-        bool button_right_pressed = false;
-
-        DragAreaControl current_annotation = null;
+        private Canvas canvas;
+        private bool visible;
+        private Point mouse_down_point;
+        private bool button_left_pressed = false;
+        private bool button_right_pressed = false;
+        private DragAreaControl current_annotation = null;
 
         public delegate void OnDragStartedDelegate(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point);
         public event OnDragStartedDelegate OnDragStarted;
@@ -38,7 +36,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
             canvas.MouseUp += DragAreaTracker_MouseUp;
         }
 
-        void DragAreaTracker_MouseDown(object sender, MouseButtonEventArgs e)
+        private void DragAreaTracker_MouseDown(object sender, MouseButtonEventArgs e)
         {
             mouse_down_point = e.GetPosition(canvas);
             button_left_pressed = e.LeftButton == MouseButtonState.Pressed;
@@ -63,7 +61,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
             }
         }
 
-        void DragAreaTracker_MouseMove(object sender, MouseEventArgs e)
+        private void DragAreaTracker_MouseMove(object sender, MouseEventArgs e)
         {
             if (null != current_annotation)
             {
@@ -77,7 +75,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
             }
         }
 
-        void DragAreaTracker_MouseUp(object sender, MouseButtonEventArgs e)
+        private void DragAreaTracker_MouseUp(object sender, MouseButtonEventArgs e)
         {
             if (null != current_annotation)
             {

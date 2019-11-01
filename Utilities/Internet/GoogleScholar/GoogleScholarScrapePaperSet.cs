@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 
 namespace Utilities.Internet.GoogleScholar
 {
@@ -13,21 +12,15 @@ namespace Utilities.Internet.GoogleScholar
         }
 
         // The inputs to the query - each is optional
-        PaperSetSource paper_set_source;
-        string search_query;
-        GoogleScholarScrapePaper related_gssp;
+        private PaperSetSource paper_set_source;
+        private string search_query;
+        private GoogleScholarScrapePaper related_gssp;
 
         // The generated results
-        string url;
-        List<GoogleScholarScrapePaper> gssps;
+        private string url;
+        private List<GoogleScholarScrapePaper> gssps;
 
-        public string Url
-        {
-            get
-            {
-                return url;
-            }
-        }
+        public string Url => url;
 
         public static GoogleScholarScrapePaperSet GenerateFromQuery(string search_query, int num_items)
         {
@@ -68,12 +61,6 @@ namespace Utilities.Internet.GoogleScholar
             return gssp_set;
         }
 
-        public List<GoogleScholarScrapePaper> Papers
-        {
-            get
-            {
-                return gssps;
-            }
-        }
+        public List<GoogleScholarScrapePaper> Papers => gssps;
     }
 }

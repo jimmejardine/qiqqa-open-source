@@ -1,6 +1,4 @@
-﻿using Utilities;
-
-namespace Qiqqa.DocumentLibrary
+﻿namespace Qiqqa.DocumentLibrary
 {
 #if TEST
     public class TestHarness

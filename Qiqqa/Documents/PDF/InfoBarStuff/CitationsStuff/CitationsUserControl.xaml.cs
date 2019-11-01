@@ -15,7 +15,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.CitationsStuff
     /// </summary>
     public partial class CitationsUserControl : UserControl
     {
-        PDFDocument pdf_document;
+        private PDFDocument pdf_document;
 
         public CitationsUserControl()
         {
@@ -83,20 +83,20 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.CitationsStuff
 
         public void SetPDFDocument(PDFDocument doc)
         {
-            this.pdf_document = doc;
+            pdf_document = doc;
             RepopulatePanels();
         }
 
         private void RepopulatePanels()
         {
-            PopulatePanelWithCitations(DocsPanel_Outbound, this.pdf_document.Library, this.pdf_document, this.pdf_document.PDFDocumentCitationManager.GetOutboundCitations(), Features.Citations_OpenDoc);
-            PopulatePanelWithCitations(DocsPanel_Inbound, this.pdf_document.Library, this.pdf_document, this.pdf_document.PDFDocumentCitationManager.GetInboundCitations(), Features.Citations_OpenDoc);
+            PopulatePanelWithCitations(DocsPanel_Outbound, pdf_document.Library, pdf_document, pdf_document.PDFDocumentCitationManager.GetOutboundCitations(), Features.Citations_OpenDoc);
+            PopulatePanelWithCitations(DocsPanel_Inbound, pdf_document.Library, pdf_document, pdf_document.PDFDocumentCitationManager.GetInboundCitations(), Features.Citations_OpenDoc);
         }
 
         public void ImageRefresh_MouseUp(object sender, MouseButtonEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Document_FindAllCitations);
-            CitationFinder.FindCitations(this.pdf_document);
+            CitationFinder.FindCitations(pdf_document);
             RepopulatePanels();
         }
     }

@@ -7,12 +7,12 @@ namespace Qiqqa.InCite
     public class CitationCluster
     {
         public static readonly string QIQQA_CLUSTER = "QIQQA_CLUSTER";
-        static readonly string SEPARATOR_CITATION = ".oOo.";
-        static readonly string[] SEPARATOR_CITATION_ARRAY = new string[] { SEPARATOR_CITATION };
-        static readonly string SEPARATOR_PARAMETER = ".xXx.";
-        static readonly string[] SEPARATOR_PARAMETER_ARRAY = new string[] { SEPARATOR_PARAMETER };
-        static readonly string SEPARATOR_HASH = ".wWw.";
-        static readonly string[] SEPARATOR_HASH_ARRAY = new string[] { SEPARATOR_HASH };
+        private static readonly string SEPARATOR_CITATION = ".oOo.";
+        private static readonly string[] SEPARATOR_CITATION_ARRAY = new string[] { SEPARATOR_CITATION };
+        private static readonly string SEPARATOR_PARAMETER = ".xXx.";
+        private static readonly string[] SEPARATOR_PARAMETER_ARRAY = new string[] { SEPARATOR_PARAMETER };
+        private static readonly string SEPARATOR_HASH = ".wWw.";
+        private static readonly string[] SEPARATOR_HASH_ARRAY = new string[] { SEPARATOR_HASH };
 
         public string cluster_id;
         public List<CitationItem> citation_items;
@@ -47,8 +47,8 @@ namespace Qiqqa.InCite
             }
 
             // Build the cluster
-            this.cluster_id = source_items[1];
-            this.citation_items = new List<CitationItem>();
+            cluster_id = source_items[1];
+            citation_items = new List<CitationItem>();
             this.rtf_hash = rtf_hash;
 
             // Build the sub_items
@@ -70,30 +70,30 @@ namespace Qiqqa.InCite
                 }
 
                 CitationItem ci = new CitationItem(reference_key, reference_library_hint, parameters);
-                this.citation_items.Add(ci);
+                citation_items.Add(ci);
             }
         }
 
         public CitationCluster()
         {
-            this.cluster_id = GetRandomClusterId();
-            this.citation_items = new List<CitationItem>();
-            this.rtf_hash = null;
+            cluster_id = GetRandomClusterId();
+            citation_items = new List<CitationItem>();
+            rtf_hash = null;
         }
 
         public CitationCluster(CitationItem ci)
         {
-            this.cluster_id = GetRandomClusterId();
-            this.citation_items = new List<CitationItem>();
-            this.citation_items.Add(ci);
-            this.rtf_hash = null;
+            cluster_id = GetRandomClusterId();
+            citation_items = new List<CitationItem>();
+            citation_items.Add(ci);
+            rtf_hash = null;
         }
 
         public string GetBibTeXKeySummary()
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("[ ");
-            foreach (CitationItem ci in this.citation_items)
+            foreach (CitationItem ci in citation_items)
             {
                 sb.Append(ci.reference_key);
                 sb.Append(" ");
@@ -107,18 +107,18 @@ namespace Qiqqa.InCite
         {
             StringBuilder sb = new StringBuilder();
             sb.Append(SEPARATOR_HASH);
-            sb.Append(this.rtf_hash);
+            sb.Append(rtf_hash);
             sb.Append(SEPARATOR_HASH);
             sb.Append(QIQQA_CLUSTER);
             sb.Append(SEPARATOR_CITATION);
-            sb.Append(this.cluster_id);
-            for (int i = 0; i < this.citation_items.Count; ++i)
+            sb.Append(cluster_id);
+            for (int i = 0; i < citation_items.Count; ++i)
             {
                 sb.Append(SEPARATOR_CITATION);
-                sb.Append(this.citation_items[i].reference_key);
+                sb.Append(citation_items[i].reference_key);
                 sb.Append(SEPARATOR_CITATION);
-                sb.Append(this.citation_items[i].reference_library_hint);
-                foreach (var pair in this.citation_items[i].parameters)
+                sb.Append(citation_items[i].reference_library_hint);
+                foreach (var pair in citation_items[i].parameters)
                 {
                     sb.Append(SEPARATOR_PARAMETER);
                     sb.Append(pair.Key);

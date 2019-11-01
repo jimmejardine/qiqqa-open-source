@@ -11,7 +11,7 @@ namespace Qiqqa.UpgradePaths
         public static void RunUpgrades(SplashScreenWindow splashscreen_window)
         {
             Logging.Info("+UpgradeManager is running upgrades");
-            
+
             RenewMessage(splashscreen_window);
             Upgrade.RunUpgrade();
 

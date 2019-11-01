@@ -9,7 +9,7 @@ namespace Utilities.GUI
         {
             Theme.Initialize();
 
-            this.Background = ThemeColours.Background_Brush_Blue_VeryDarkToDark;
+            Background = ThemeColours.Background_Brush_Blue_VeryDarkToDark;
 
             HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
             VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;

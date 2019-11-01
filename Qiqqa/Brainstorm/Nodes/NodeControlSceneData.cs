@@ -10,59 +10,36 @@ namespace Qiqqa.Brainstorm.Nodes
         internal Guid guid = Guid.NewGuid();
 
         [Obsolete("Do not use this attribute, but keep it in the class definition for backwards compatibility of the serialization", true)]
-        #pragma warning disable CS0169 // The field 'NodeControlSceneData.current_scale_at_last_resize' is never used
+        private
+#pragma warning disable CS0169 // The field 'NodeControlSceneData.current_scale_at_last_resize' is never used
         double current_scale_at_last_resize; // NB THIS CANT BE REMOVED OR IT WILL DESTROY THE SERIALIZATION...
-        #pragma warning restore CS0169 // The field 'NodeControlSceneData.current_scale_at_last_resize' is never used
+#pragma warning restore CS0169 // The field 'NodeControlSceneData.current_scale_at_last_resize' is never used
 
-        double original_left = 20;  // NB: This is now centre_x - can't change because of serialization
-        double original_top = 20; // NB: This is now centre_y - can't change because of serialization
-        double original_width = 20;
-        double original_height = 20;
+        private double original_left = 20;  // NB: This is now centre_x - can't change because of serialization
+        private double original_top = 20; // NB: This is now centre_y - can't change because of serialization
+        private double original_width = 20;
+        private double original_height = 20;
 
         public bool Deleted { get; set; }
 
         [Obsolete("Do not use this attribute, but keep it in the class definition for backwards compatibility of the serialization", true)]
-        public double CurrentScaleAtLastResize
-        {
-            get
-            {
-                throw new Exception("Obsolete");
-            }
-        }
+        public double CurrentScaleAtLastResize => throw new Exception("Obsolete");
 
-        public Guid Guid
-        {
-            get
-            {
-                return guid;
-            }
-        }
+        public Guid Guid => guid;
 
-        public double CentreX
-        {
-            get
-            {
-                return original_left;
-            }
-        }
+        public double CentreX => original_left;
 
         public void SetDeltaCentreX(double v)
         {
             original_left += v;
         }
-        
+
         public void SetCentreX(double v)
         {
             original_left = v;
         }
 
-        public double CentreY
-        {
-            get
-            {
-                return original_top;
-            }
-        }
+        public double CentreY => original_top;
 
         public void SetDeltaCentreY(double v)
         {
@@ -74,17 +51,11 @@ namespace Qiqqa.Brainstorm.Nodes
             original_top = v;
         }
 
-        public double Width
-        {
-            get
-            {
-                return original_width;
-            }
-        }
+        public double Width => original_width;
 
         public void SetDeltaWidth(double v)
         {
-            original_width = Math.Max(0.000001, original_width+v);
+            original_width = Math.Max(0.000001, original_width + v);
         }
 
         public void SetWidth(double v)
@@ -92,17 +63,11 @@ namespace Qiqqa.Brainstorm.Nodes
             original_width = v;
         }
 
-        public double Height
-        {
-            get
-            {
-                return original_height;
-            }
-        }
+        public double Height => original_height;
 
         public void SetDeltaHeight(double v)
         {
-            original_height = Math.Max(0.000001, original_height+v);
+            original_height = Math.Max(0.000001, original_height + v);
         }
 
         public void SetHeight(double v)
@@ -110,9 +75,9 @@ namespace Qiqqa.Brainstorm.Nodes
             original_height = v;
         }
 
-		// Note the DIVIDE-BY-2 below; Utilities equiv code didn't have that.
-		// See also https://github.com/jimmejardine/qiqqa-open-source/issues/26
-        public double Left { get { return CentreX - Width / 2.0d; } }
-        public double Top { get { return CentreY - Height / 2.0d; } }
+        // Note the DIVIDE-BY-2 below; Utilities equiv code didn't have that.
+        // See also https://github.com/jimmejardine/qiqqa-open-source/issues/26
+        public double Left => CentreX - Width / 2.0d;
+        public double Top => CentreY - Height / 2.0d;
     }
 }

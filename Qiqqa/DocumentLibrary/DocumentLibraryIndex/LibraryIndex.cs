@@ -1,40 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using Qiqqa.Common.TagManagement;
 using Qiqqa.DocumentLibraryIndex;
 using Qiqqa.Documents.PDF;
-using Qiqqa.Documents.PDF.ThreadUnsafe;
 using Qiqqa.UtilisationTracking;
 using Utilities;
-using Utilities.BibTex.Parsing;
 using Utilities.Files;
 using Utilities.Language;
 using Utilities.Language.TextIndexing;
 using Utilities.Misc;
 using Utilities.OCR;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 {
     public class LibraryIndex : IDisposable
     {
-        const int LIBRARY_SCAN_PERIOD_SECONDS = 60;
-        const int DOCUMENT_INDEX_RETRY_PERIOD_SECONDS = 60;
-        const int MAX_MILLISECONDS_PER_ITERATION = 15 * 1000;
+        private const int LIBRARY_SCAN_PERIOD_SECONDS = 60;
+        private const int DOCUMENT_INDEX_RETRY_PERIOD_SECONDS = 60;
+        private const int MAX_MILLISECONDS_PER_ITERATION = 15 * 1000;
 
         private Library library;
-
-        LuceneIndex word_index_manager = null;
+        private LuceneIndex word_index_manager = null;
         private object word_index_manager_lock = new object();
-
-        DateTime time_of_last_library_scan = DateTime.MinValue;
-        Dictionary<string, PDFDocumentInLibrary> pdf_documents_in_library = null;
+        private DateTime time_of_last_library_scan = DateTime.MinValue;
+        private Dictionary<string, PDFDocumentInLibrary> pdf_documents_in_library = null;
         private object pdf_documents_in_library_lock = new object();
 
         private bool libraryIndex_is_loaded = false;
@@ -62,7 +58,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 }
             }
         }
-        
+
         public LibraryIndex(Library library)
         {
             this.library = library;
@@ -177,23 +173,23 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 {
                     l1_clk.LockPerfTimerStop();
 
-                    this.word_index_manager?.Dispose();
-                    this.word_index_manager = null;
+                    word_index_manager?.Dispose();
+                    word_index_manager = null;
                 }
 
                 //this.library?.Dispose();
             }
 
             //this.word_index_manager = null;
-            this.library = null;
-            
+            library = null;
+
             Utilities.LockPerfTimer l4_clk = Utilities.LockPerfChecker.Start();
             lock (pdf_documents_in_library_lock)
             {
                 l4_clk.LockPerfTimerStop();
-            
-                this.pdf_documents_in_library?.Clear();
-                this.pdf_documents_in_library = null;
+
+                pdf_documents_in_library?.Clear();
+                pdf_documents_in_library = null;
             }
 
             ++dispose_count;
@@ -360,13 +356,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             }
         }
 
-        private string Filename_DocumentProgressList
-        {
-            get
-            {
-                return Path.GetFullPath(Path.Combine(library.LIBRARY_INDEX_BASE_PATH, @"DocumentProgressList.dat"));
-            }
-        }
+        private string Filename_DocumentProgressList => Path.GetFullPath(Path.Combine(library.LIBRARY_INDEX_BASE_PATH, @"DocumentProgressList.dat"));
 
         private bool RescanLibrary()
         {
@@ -686,7 +676,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
                 pdf_document_in_library.last_indexed = index_processing_start_time;
             }
-            
+
             long clk_duration = clk.ElapsedMilliseconds;
             Logging.Debug特("Incremental building of the library index for library {0} took {1}ms.", library, clk_duration);
 

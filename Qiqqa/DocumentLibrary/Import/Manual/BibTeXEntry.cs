@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using Utilities.BibTex;
 using Utilities.BibTex.Parsing;
 using Utilities.Reflection;
@@ -35,22 +33,19 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         /// </summary>
         public bool Selected
         {
-            get
-            {
-                return _selected;
-            }
+            get => _selected;
             set
             {
                 _selected = value;
-                this.Bindable.NotifyPropertyChanged(() => this.Selected);
+                Bindable.NotifyPropertyChanged(() => Selected);
             }
         }
-        
+
         public BibTeXEntry()
         {
         }
 
-        AugmentedBindable<BibTeXEntry> _bindable = null;
+        private AugmentedBindable<BibTeXEntry> _bindable = null;
         public AugmentedBindable<BibTeXEntry> Bindable
         {
             get

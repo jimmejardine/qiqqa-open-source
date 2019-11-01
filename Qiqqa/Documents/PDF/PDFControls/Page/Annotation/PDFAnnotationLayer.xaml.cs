@@ -6,7 +6,6 @@ using System.Windows.Media;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Documents.PDF.PDFControls.MetadataControls;
 using Qiqqa.Documents.PDF.PDFControls.Page.Tools;
-using Qiqqa.Main.LoginStuff;
 using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.GUI;
@@ -19,10 +18,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
     /// </summary>
     public partial class PDFAnnotationLayer : PageLayer, IDisposable
     {
-        PDFRendererControlStats pdf_renderer_control_stats;
-        int page;
-
-        DragAreaTracker drag_area_tracker = null;
+        private PDFRendererControlStats pdf_renderer_control_stats;
+        private int page;
+        private DragAreaTracker drag_area_tracker = null;
 
         public PDFAnnotationLayer(PDFRendererControlStats pdf_renderer_control_stats, int page)
         {
@@ -37,10 +35,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
                 WizardDPs.SetPointOfInterest(this, "PDFReadingAnnotationLayer");
             }
 
-            this.Background = Brushes.Transparent;
-            this.Cursor = Cursors.Cross;
+            Background = Brushes.Transparent;
+            Cursor = Cursors.Cross;
 
-            this.SizeChanged += PDFAnnotationLayer_SizeChanged;
+            SizeChanged += PDFAnnotationLayer_SizeChanged;
 
             drag_area_tracker = new DragAreaTracker(this);
             drag_area_tracker.OnDragComplete += drag_area_tracker_OnDragComplete;
@@ -78,7 +76,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
             return false;
         }
 
-        void drag_area_tracker_OnDragComplete(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point, Point mouse_up_point)
+        private void drag_area_tracker_OnDragComplete(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point, Point mouse_up_point)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Document_AddAnnotation);
 
@@ -91,10 +89,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
             }
 
             PDFAnnotation pdf_annotation = new PDFAnnotation(pdf_renderer_control_stats.pdf_document.PDFRenderer.DocumentFingerprint, page, PDFAnnotationEditorControl.LastAnnotationColor, ConfigurationManager.Instance.ConfigurationRecord.Account_Nickname);
-            pdf_annotation.Left = Math.Min(mouse_up_point.X, mouse_down_point.X) / this.ActualWidth;
-            pdf_annotation.Top = Math.Min(mouse_up_point.Y, mouse_down_point.Y) / this.ActualHeight;
-            pdf_annotation.Width = Math.Abs(mouse_up_point.X - mouse_down_point.X) / this.ActualWidth;
-            pdf_annotation.Height = Math.Abs(mouse_up_point.Y - mouse_down_point.Y) / this.ActualHeight;
+            pdf_annotation.Left = Math.Min(mouse_up_point.X, mouse_down_point.X) / ActualWidth;
+            pdf_annotation.Top = Math.Min(mouse_up_point.Y, mouse_down_point.Y) / ActualHeight;
+            pdf_annotation.Width = Math.Abs(mouse_up_point.X - mouse_down_point.X) / ActualWidth;
+            pdf_annotation.Height = Math.Abs(mouse_up_point.Y - mouse_down_point.Y) / ActualHeight;
 
             pdf_renderer_control_stats.pdf_document.GetAnnotations().AddUpdatedAnnotation(pdf_annotation);
 
@@ -103,7 +101,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
             Children.Add(pdf_annotation_item);
         }
 
-        void PDFAnnotationLayer_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void PDFAnnotationLayer_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             foreach (PDFAnnotationItem pdf_annotation_item in Children.OfType<PDFAnnotationItem>())
             {
@@ -180,14 +178,14 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
                     WizardDPs.ClearPointOfInterest(this);
 
                     drag_area_tracker.OnDragComplete -= drag_area_tracker_OnDragComplete;
-                }, this.Dispatcher);
+                }, Dispatcher);
             }
 
             // Clear the references for sanity's sake
             pdf_renderer_control_stats = null;
             drag_area_tracker = null;
 
-            this.DataContext = null;
+            DataContext = null;
 
             ++dispose_count;
 

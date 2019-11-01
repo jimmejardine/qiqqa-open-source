@@ -5,7 +5,7 @@ using Utilities.Mathematics.Topics.LDAStuff;
 
 namespace Qiqqa.Expedition
 {
-    class ThemeBrushes
+    internal class ThemeBrushes
     {
         public static Brush UNKNOWN_BRUSH = Brushes.WhiteSmoke;
 
@@ -22,13 +22,13 @@ namespace Qiqqa.Expedition
 
             return GetBrushForDistribution(pdf_document.Library, num_topics, density_of_topics_in_document);
         }
-        
+
         public static Brush GetBrushForDistribution(Library library, int num_topics, float[] distribution)
         {
-            Color[] colours = library.ExpeditionManager.ExpeditionDataSource.Colours;            
-            
+            Color[] colours = library.ExpeditionManager.ExpeditionDataSource.Colours;
+
             int num_stops = 2 * num_topics;
-            
+
             GradientStopCollection gradient_stop_collection = new GradientStopCollection(num_stops);
             double previous_offset = 0.0;
             for (int i = 0; i < num_topics; ++i)
@@ -54,7 +54,7 @@ namespace Qiqqa.Expedition
             {
                 return;
             }
-            
+
             if (null == pdf_document.Library.ExpeditionManager.ExpeditionDataSource)
             {
                 return;

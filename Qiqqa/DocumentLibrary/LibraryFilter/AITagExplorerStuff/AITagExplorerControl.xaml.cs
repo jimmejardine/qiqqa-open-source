@@ -29,7 +29,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
         {
             InitializeComponent();
 
-            this.ToolTip = "Here are the AutoTags that were generated for your documents.  " + GenericLibraryExplorerControl.YOU_CAN_FILTER_TOOLTIP;
+            ToolTip = "Here are the AutoTags that were generated for your documents.  " + GenericLibraryExplorerControl.YOU_CAN_FILTER_TOOLTIP;
 
             ButtonRefreshTags.Caption = "Refresh";
             ButtonRefreshTags.ToolTip = "Refresh AutoTags:\nPress this to automatically generate AutoTags for your documents.  This may take some time but you can keep working in the meanwhile...";
@@ -44,7 +44,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
             ButtonManageLists.Click += ButtonManageLists_Click;
 
             TagExplorerTree.DescriptionTitle = "AutoTags";
-            
+
             TagExplorerTree.GetNodeItems = GetNodeItems;
             TagExplorerTree.OnItemPopup = OnItemPopup;
             TagExplorerTree.OnItemDragOver = OnItemDragOver;
@@ -59,14 +59,14 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
             TagExplorerTree.OnTagSelectionChanged += TagExplorerTree_OnTagSelectionChanged;
         }
 
-        void ButtonManageLists_Click(object sender, RoutedEventArgs e)
+        private void ButtonManageLists_Click(object sender, RoutedEventArgs e)
         {
             BlackWhiteListEditorWindow w = new BlackWhiteListEditorWindow();
             w.SetLibrary(library);
             w.Show();
         }
 
-        void VoteDown_Click(object sender, RoutedEventArgs e)
+        private void VoteDown_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(
                 Features.Vote_AutoTag,
@@ -75,11 +75,11 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
                 );
 
             MessageBoxes.Info("Thanks for your feedback.  We're sorry that the AutoTags are not up to scratch!\n\nAutoTags are sensitive to the titles of your documents, so if you are missing a lot of titles, that might just be the cause.");
-            
+
             GridVote.Visibility = Visibility.Collapsed;
         }
 
-        void VoteUp_Click(object sender, RoutedEventArgs e)
+        private void VoteUp_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(
                 Features.Vote_AutoTag,
@@ -90,21 +90,21 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
             GridVote.Visibility = Visibility.Collapsed;
         }
 
-        void ButtonRefreshTags_Click(object sender, RoutedEventArgs e)
+        private void ButtonRefreshTags_Click(object sender, RoutedEventArgs e)
         {
             SafeThreadPool.QueueUserWorkItem(o => library.AITagManager.Regenerate(AITagsRegenerated_NON_GUI_THREAD));
         }
 
-        void AITagsRegenerated_NON_GUI_THREAD(IAsyncResult ar)
+        private void AITagsRegenerated_NON_GUI_THREAD(IAsyncResult ar)
         {
-            this.Dispatcher.Invoke(new Action(() =>
+            Dispatcher.Invoke(new Action(() =>
                 {
                     AITagsRegenerated_GUI_THREAD();
                 }
                 ));
         }
 
-        void AITagsRegenerated_GUI_THREAD()
+        private void AITagsRegenerated_GUI_THREAD()
         {
             Reset();
             GridVote.Visibility = Visibility.Visible;
@@ -114,13 +114,10 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
 
         public Library Library
         {
-            get
-            {
-                return library;
-            }
+            get => library;
             set
             {
-                this.library = value;
+                library = value;
                 TagExplorerTree.Library = value;
             }
         }
@@ -129,17 +126,17 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
         {
             if (null == library || null == library.AITagManager.AITags)
             {
-                this.TxtWarningNeverGenerated.Visibility = Visibility.Visible;
-                this.TxtWarningGettingOld.Visibility = Visibility.Collapsed;
-                this.TxtWarningNoAutoTags.Visibility = Visibility.Collapsed;
-                this.TagExplorerTree.Visibility = Visibility.Collapsed;
+                TxtWarningNeverGenerated.Visibility = Visibility.Visible;
+                TxtWarningGettingOld.Visibility = Visibility.Collapsed;
+                TxtWarningNoAutoTags.Visibility = Visibility.Collapsed;
+                TagExplorerTree.Visibility = Visibility.Collapsed;
             }
             else
             {
-                this.TxtWarningNeverGenerated.Visibility = Visibility.Collapsed;
-                this.TxtWarningGettingOld.Visibility = library.AITagManager.AITags.IsGettingOld ? Visibility.Visible : Visibility.Collapsed;
-                this.TxtWarningNoAutoTags.Visibility = library.AITagManager.AITags.HaveNoTags ? Visibility.Visible : Visibility.Collapsed;
-                this.TagExplorerTree.Visibility = Visibility.Visible;
+                TxtWarningNeverGenerated.Visibility = Visibility.Collapsed;
+                TxtWarningGettingOld.Visibility = library.AITagManager.AITags.IsGettingOld ? Visibility.Visible : Visibility.Collapsed;
+                TxtWarningNoAutoTags.Visibility = library.AITagManager.AITags.HaveNoTags ? Visibility.Visible : Visibility.Collapsed;
+                TagExplorerTree.Visibility = Visibility.Visible;
             }
 
             TagExplorerTree.Reset();
@@ -153,7 +150,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
 
             if (null == library.AITagManager.AITags)
             {
-                return new MultiMapSet<string,string>();
+                return new MultiMapSet<string, string>();
             }
 
             MultiMapSet<string, string> rv;
@@ -169,13 +166,13 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
             return rv;
         }
 
-        void OnItemPopup(Library library, string item_tag)
+        private void OnItemPopup(Library library, string item_tag)
         {
             AITagExplorerItemPopup popup = new AITagExplorerItemPopup(library, item_tag);
             popup.Open();
         }
 
-        void OnItemDragOver(Library library, string item_tag, DragEventArgs e)
+        private void OnItemDragOver(Library library, string item_tag, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(typeof(PDFDocument)))
             {
@@ -193,10 +190,9 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
             e.Handled = true;
         }
 
-        void OnItemDrop(Library library, string item_tag, DragEventArgs e)
+        private void OnItemDrop(Library library, string item_tag, DragEventArgs e)
         {
-            if (false) { }
-            else if (e.Data.GetDataPresent(typeof(PDFDocument)))
+            if (e.Data.GetDataPresent(typeof(PDFDocument)))
             {
                 PDFDocument pdf_document = (PDFDocument)e.Data.GetData(typeof(PDFDocument));
                 Logging.Info("The PDF dropped onto tag {1} is {0}", pdf_document, item_tag);
@@ -217,7 +213,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
             e.Handled = true;
         }
 
-        void TagExplorerTree_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
+        private void TagExplorerTree_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
         {
             OnTagSelectionChanged?.Invoke(fingerprints, descriptive_span);
         }

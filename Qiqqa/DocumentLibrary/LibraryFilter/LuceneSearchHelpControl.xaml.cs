@@ -24,7 +24,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
             HyperlinkLuceneExamples.Click += HyperlinkLuceneExamples_Click;
         }
 
-        void HyperlinkLuceneExamples_Click(object sender, RoutedEventArgs e)
+        private void HyperlinkLuceneExamples_Click(object sender, RoutedEventArgs e)
         {
             MainWindowServiceDispatcher.Instance.OpenUrlInBrowser(WebsiteAccess.Url_LuceneQuerySyntax);
         }

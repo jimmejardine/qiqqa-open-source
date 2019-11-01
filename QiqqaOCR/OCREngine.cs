@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Threading;
 using tessnet2;
@@ -9,27 +8,26 @@ using Utilities;
 using Utilities.Encryption;
 using Utilities.OCR;
 using Utilities.PDF.Sorax;
-using Word = tessnet2.Word;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+using Word = tessnet2.Word;
+
 
 namespace QiqqaOCR
 {
-    class OCREngine
+    internal class OCREngine
     {
-        static string pdf_filename;
-        static int page_number;
-        static string ocr_output_filename;
-        static string pdf_user_password;
-        static string language;
-
-        static Thread thread_ocr = null;
-
-        static WordList word_list_ocr = null;
-        static bool has_exited_ocr = false;
-        static Exception exception_ocr = null;
-
-        static object global_vars_access_lock = new object();
+        private static string pdf_filename;
+        private static int page_number;
+        private static string ocr_output_filename;
+        private static string pdf_user_password;
+        private static string language;
+        private static Thread thread_ocr = null;
+        private static WordList word_list_ocr = null;
+        private static bool has_exited_ocr = false;
+        private static Exception exception_ocr = null;
+        private static object global_vars_access_lock = new object();
 
         // Warning CA1812	'OCREngine' is an internal class that is apparently never instantiated.
         // If this class is intended to contain only static methods, consider adding a private constructor 
@@ -154,10 +152,9 @@ namespace QiqqaOCR
             }
         }
 
-
-        static void ThreadOCRMainEntry(object arg)
+        private static void ThreadOCRMainEntry(object arg)
         {
-            string fname = "???"; 
+            string fname = "???";
             int pgnum = 0;
 
             try
@@ -199,52 +196,52 @@ namespace QiqqaOCR
             Logging.Info("+Rendering page {1} for PDF file {0}", pdf_filename, page_number);
             SoraxPDFRenderer renderer = new SoraxPDFRenderer(pdf_filename, pdf_user_password, pdf_user_password);
             using (MemoryStream ms = new MemoryStream(renderer.GetPageByDPIAsImage(page_number, 200)))
-            { 
+            {
                 Bitmap bitmap = (Bitmap)Image.FromStream(ms);
-				
-		        Logging.Info("-Rendering page #{0}", page_number);
 
-		        Logging.Info("Startup directory is {0}", Environment.CurrentDirectory);
-		        Logging.Info("Language is '{0}'", language);
+                Logging.Info("-Rendering page #{0}", page_number);
 
-		        using (Tesseract ocr = new Tesseract())
-				{
-		            ocr.Init(null, language, false);
+                Logging.Info("Startup directory is {0}", Environment.CurrentDirectory);
+                Logging.Info("Language is '{0}'", language);
 
-		            Logging.Info("+Doing OCR");
+                using (Tesseract ocr = new Tesseract())
+                {
+                    ocr.Init(null, language, false);
+
+                    Logging.Info("+Doing OCR");
 
                     const int MIN_WIDTH = 0;
 
                     // Build a list of all the rectangles to process
                     PDFRegionLocator pdf_region_locator = new PDFRegionLocator(bitmap);
-		            PDFRegionLocator.Region last_region = pdf_region_locator.regions[0];
-		            List<Rectangle> rectangles = new List<Rectangle>();
+                    PDFRegionLocator.Region last_region = pdf_region_locator.regions[0];
+                    List<Rectangle> rectangles = new List<Rectangle>();
                     Rectangle last_rectangle = new Rectangle();
                     foreach (PDFRegionLocator.Region region in pdf_region_locator.regions)
-		            {
+                    {
                         int rect_height = region.y - last_region.y;
                         bool alarming_height = (rect_height <= 0);
 
                         Rectangle rectangle = new Rectangle();
 
                         if (last_region.state == PDFRegionLocator.SegmentState.BLANKS)
-		                {
-		                    // LHS
-		                    {
-		                        rectangle = new Rectangle(0, last_region.y, bitmap.Width / 2, Math.Max(MIN_WIDTH, rect_height));
-		                    }
-		                    // RHS
-		                    {
-		                        rectangle = new Rectangle(bitmap.Width / 2, last_region.y, bitmap.Width / 2, Math.Max(MIN_WIDTH, rect_height));
-		                    }
-		                }
-		                else if (last_region.state == PDFRegionLocator.SegmentState.PIXELS)
-		                {
-		                    // Full column
-		                    {
-		                        rectangle = new Rectangle(0, last_region.y, bitmap.Width, Math.Max(MIN_WIDTH, rect_height));
-		                    }
-		                }
+                        {
+                            // LHS
+                            {
+                                rectangle = new Rectangle(0, last_region.y, bitmap.Width / 2, Math.Max(MIN_WIDTH, rect_height));
+                            }
+                            // RHS
+                            {
+                                rectangle = new Rectangle(bitmap.Width / 2, last_region.y, bitmap.Width / 2, Math.Max(MIN_WIDTH, rect_height));
+                            }
+                        }
+                        else if (last_region.state == PDFRegionLocator.SegmentState.PIXELS)
+                        {
+                            // Full column
+                            {
+                                rectangle = new Rectangle(0, last_region.y, bitmap.Width, Math.Max(MIN_WIDTH, rect_height));
+                            }
+                        }
 
                         if (alarming_height || rectangle.Height <= 0)
                         {
@@ -260,13 +257,13 @@ namespace QiqqaOCR
                             Logging.Warn("--> Updated 'last' rectangle:{0}", last_rectangle);
                         }
                         else
-                        { 
+                        {
                             rectangles.Add(rectangle);
                             last_rectangle = rectangle;
                         }
 
                         last_region = region;
-		            }
+                    }
 
                     // DEBUG CODE: Draw in the region rectangles
 #if DEBUG_OCR
@@ -301,24 +298,24 @@ namespace QiqqaOCR
 
                     // Do the OCR on each of the rectangles
                     WordList word_list = new WordList();
-		            foreach (Rectangle rectangle in rectangles)
-		            {
-		                if (0 == rectangle.Width || 0 == rectangle.Height)
-		                {
-		                    Logging.Info("Skipping zero extent rectangle {0}", rectangle.ToString());
-		                    continue;
-		                }
+                    foreach (Rectangle rectangle in rectangles)
+                    {
+                        if (0 == rectangle.Width || 0 == rectangle.Height)
+                        {
+                            Logging.Info("Skipping zero extent rectangle {0}", rectangle.ToString());
+                            continue;
+                        }
 
-		                Logging.Info("Doing OCR for region {0} on bitmap WxH: {1}x{2}", rectangle.ToString(), bitmap.Width, bitmap.Height);
-		                List<Word> result = ocr.DoOCR(bitmap, rectangle);
-		                Logging.Info("Got {0} words", result.Count);
-		                word_list.AddRange(ConvertToWordList(result, rectangle, bitmap));
-		            }
+                        Logging.Info("Doing OCR for region {0} on bitmap WxH: {1}x{2}", rectangle.ToString(), bitmap.Width, bitmap.Height);
+                        List<Word> result = ocr.DoOCR(bitmap, rectangle);
+                        Logging.Info("Got {0} words", result.Count);
+                        word_list.AddRange(ConvertToWordList(result, rectangle, bitmap));
+                    }
 
-		            Logging.Info("-Doing OCR");
+                    Logging.Info("-Doing OCR");
 
 
-		            Logging.Info("Found {0} words ({1} @ #{2})", word_list.Count, pdf_filename, page_number);
+                    Logging.Info("Found {0} words ({1} @ #{2})", word_list.Count, pdf_filename, page_number);
 
 #if false
                     Logging.Info("+Reordering words for columns");
@@ -327,9 +324,9 @@ namespace QiqqaOCR
 		            word_list_ordered.WriteToFile(ocr_output_filename);
 #endif
 
-		            return word_list;
-				}
-			}
+                    return word_list;
+                }
+            }
         }
 
         private static WordList ConvertToWordList(List<Word> results, Rectangle rectangle, Bitmap bitmap)

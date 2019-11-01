@@ -1,38 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
 using Utilities;
 using Utilities.Files;
 using Utilities.Misc;
 using Utilities.OCR;
 using Utilities.PDF.Sorax;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Documents.PDF.PDFRendering
 {
     public class PDFRenderer
     {
-        const int TEXT_PAGES_PER_GROUP = 20;
-
-        string pdf_filename;
-        string pdf_user_password;
-        string pdf_owner_password;
-        string document_fingerprint;
-
-        PDFRendererFileLayer pdf_render_file_layer;        
-        Dictionary<int, TypedWeakReference<WordList>> texts = new Dictionary<int, TypedWeakReference<WordList>>();
-        object texts_lock = new object();
+        private const int TEXT_PAGES_PER_GROUP = 20;
+        private string pdf_filename;
+        private string pdf_user_password;
+        private string pdf_owner_password;
+        private string document_fingerprint;
+        private PDFRendererFileLayer pdf_render_file_layer;
+        private Dictionary<int, TypedWeakReference<WordList>> texts = new Dictionary<int, TypedWeakReference<WordList>>();
+        private object texts_lock = new object();
 
         //List<int> pages_to_render = new List<int>();
 
         public delegate void OnPageTextAvailableDelegate(int page_from, int page_to);
         public event OnPageTextAvailableDelegate OnPageTextAvailable;
 
-        SoraxPDFRenderer sorax_pdf_renderer;
+        private SoraxPDFRenderer sorax_pdf_renderer;
 
-        public PDFRenderer(string pdf_filename, string pdf_user_password, string pdf_owner_password) 
+        public PDFRenderer(string pdf_filename, string pdf_user_password, string pdf_owner_password)
             : this(null, pdf_filename, pdf_user_password, pdf_owner_password)
         {
         }
@@ -42,35 +41,17 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             this.pdf_filename = pdf_filename;
             this.pdf_user_password = pdf_user_password;
             this.pdf_owner_password = pdf_owner_password;
-            this.document_fingerprint = precomputed_document_fingerprint ?? StreamFingerprint.FromFile(this.pdf_filename);
+            document_fingerprint = precomputed_document_fingerprint ?? StreamFingerprint.FromFile(this.pdf_filename);
 
-            pdf_render_file_layer = new PDFRendererFileLayer(this.document_fingerprint, pdf_filename);
+            pdf_render_file_layer = new PDFRendererFileLayer(document_fingerprint, pdf_filename);
             sorax_pdf_renderer = new SoraxPDFRenderer(pdf_filename, pdf_user_password, pdf_owner_password);
         }
 
-        public string PDFFilename
-        {
-            get
-            {
-                return pdf_filename;
-            }
-        }
+        public string PDFFilename => pdf_filename;
 
-        public string PDFUserPassword
-        {
-            get
-            {
-                return pdf_user_password;
-            }
-        }
+        public string PDFUserPassword => pdf_user_password;
 
-        public PDFRendererFileLayer PDFRendererFileLayer
-        {
-            get
-            {
-                return pdf_render_file_layer;
-            }
-        }
+        public PDFRendererFileLayer PDFRendererFileLayer => pdf_render_file_layer;
 
         /// <summary>
         /// Returns 0 when
@@ -79,21 +60,9 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         /// 
         /// Otherwise returns the number of pages in the PDF document.
         /// </summary>
-        public int PageCount
-        {
-            get
-            {
-                return pdf_render_file_layer.PageCount;
-            }
-        }
+        public int PageCount => pdf_render_file_layer.PageCount;
 
-        public string DocumentFingerprint
-        {
-            get
-            {
-                return document_fingerprint;
-            }
-        }
+        public string DocumentFingerprint => document_fingerprint;
 
         public override string ToString()
         {
@@ -125,7 +94,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         {
             return sorax_pdf_renderer.GetPageByDPIAsImage(page, dpi);
         }
-        
+
         public void CauseAllPDFPagesToBeOCRed()
         {
             // TODO: jobqueue this one too - saves us one PDF access + parse action inline.
@@ -172,7 +141,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                         {
                             // Get this ONE page
                             Dictionary<int, WordList> word_lists = WordList.ReadFromFile(filename, page);
-                            WordList word_list = word_lists[page];                            
+                            WordList word_list = word_lists[page];
                             texts[page] = new TypedWeakReference<WordList>(word_list);
                             return word_list;
                         }
@@ -251,14 +220,14 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
             return sb.ToString();
         }
-        
+
         // Gets the full concatenated text for this document.
         // This is slow as it concatenates all the words from the OCR result...
         internal string GetFullOCRText()
         {
             StringBuilder sb = new StringBuilder();
 
-            for (int page = 1; page <= this.PageCount; ++page)
+            for (int page = 1; page <= PageCount; ++page)
             {
                 WordList word_list = GetOCRText(page);
                 if (null != word_list)
@@ -318,7 +287,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 texts.Clear();
             }
         }
-        
+
         public void ForceOCRText()
         {
             ForceOCRText("eng");
@@ -359,7 +328,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
             if (null != OnPageTextAvailable)
             {
-                int page_range_start = ((page-1) / TEXT_PAGES_PER_GROUP) * TEXT_PAGES_PER_GROUP + 1;
+                int page_range_start = ((page - 1) / TEXT_PAGES_PER_GROUP) * TEXT_PAGES_PER_GROUP + 1;
                 int page_range_end = page_range_start + TEXT_PAGES_PER_GROUP - 1;
                 page_range_end = Math.Min(page_range_end, PageCount);
 
@@ -377,7 +346,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         {
             Logging.Info("Flushing the cached page renderings for {0}", document_fingerprint);
 
-            this.sorax_pdf_renderer.Flush();
+            sorax_pdf_renderer.Flush();
         }
 
         public void FlushCachedTexts()

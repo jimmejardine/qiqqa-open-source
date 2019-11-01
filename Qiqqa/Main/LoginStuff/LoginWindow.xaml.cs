@@ -1,14 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Net;
-using System.Reflection;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using icons;
 using Qiqqa.Backups;
-using Qiqqa.Common;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Common.GUI;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
@@ -16,9 +12,7 @@ using Qiqqa.Main.SplashScreenStuff;
 using Qiqqa.UtilisationTracking;
 using Qiqqa.WebBrowsing.GeckoStuff;
 using Utilities;
-using Utilities.Encryption;
 using Utilities.GUI;
-using Utilities.Internet;
 
 namespace Qiqqa.Main.LoginStuff
 {
@@ -32,14 +26,13 @@ namespace Qiqqa.Main.LoginStuff
         //    public bool System_DisableSSL { get; set; }
         //}
 
-        SplashScreenWindow splashscreen_window;
-
-        bool is_closing = false;
-        bool have_done_config = false;
+        private SplashScreenWindow splashscreen_window;
+        private bool is_closing = false;
+        private bool have_done_config = false;
 
         //ProxySettingsControl.StandardProxySettings proxy_settings = new ProxySettingsControl.StandardProxySettings();
         //DisableSSLData disable_ssl_data = new DisableSSLData();
-        
+
         public LoginWindow()
         {
             InitializeComponent();
@@ -53,7 +46,7 @@ namespace Qiqqa.Main.LoginStuff
             WindowStyle = WindowStyle.SingleBorderWindow;
 
             Brush BRUSH = new LinearGradientBrush(Colors.White, Color.FromRgb(230, 240, 255), 90);
-            this.Background = BRUSH;
+            Background = BRUSH;
 
             ImageQiqqaLogo.Source = Icons.GetAppIcon(Icons.QiqqaLogoSmall);
 
@@ -72,18 +65,18 @@ namespace Qiqqa.Main.LoginStuff
             ButtonGuest.Click += ButtonGuest_Click;
             AugmentedButton.ApplyStyling(ButtonGuest);
 
-            this.IsEnabled = true;
+            IsEnabled = true;
 
-            this.Closing += LoginWindow_Closing;
-            this.KeyDown += LoginWindow_KeyDown;
+            Closing += LoginWindow_Closing;
+            KeyDown += LoginWindow_KeyDown;
         }
 
-        void ButtonBackup_Click(object sender, RoutedEventArgs e)
+        private void ButtonBackup_Click(object sender, RoutedEventArgs e)
         {
             BackingUp.DoBackup();
         }
 
-        void ButtonRestore_Click(object sender, RoutedEventArgs e)
+        private void ButtonRestore_Click(object sender, RoutedEventArgs e)
         {
             BackingUp.DoRestore();
         }
@@ -91,7 +84,7 @@ namespace Qiqqa.Main.LoginStuff
         public void ChooseLogin(SplashScreenWindow splashscreen_window)
         {
             this.splashscreen_window = splashscreen_window;
-            this.Show();
+            Show();
         }
 
         private void CloseToContinue()
@@ -100,25 +93,25 @@ namespace Qiqqa.Main.LoginStuff
 
             if (!is_closing)
             {
-                this.Close();
+                Close();
             }
         }
 
-        void ButtonGuest_Click(object sender, RoutedEventArgs e)
+        private void ButtonGuest_Click(object sender, RoutedEventArgs e)
         {
             e.Handled = true;
             DoGuest();
         }
 
-        void DoGuest()
+        private void DoGuest()
         {
-            this.IsEnabled = false;
+            IsEnabled = false;
 
             ConfigurationManager.Instance.ResetConfigurationRecordToGuest();
             CloseToContinue();
         }
 
-        void LoginWindow_KeyDown(object sender, KeyEventArgs e)
+        private void LoginWindow_KeyDown(object sender, KeyEventArgs e)
         {
             if (Key.Escape == e.Key)
             {
@@ -127,7 +120,7 @@ namespace Qiqqa.Main.LoginStuff
             }
         }
 
-        void LoginWindow_Closing(object sender, CancelEventArgs e)
+        private void LoginWindow_Closing(object sender, CancelEventArgs e)
         {
             is_closing = true;
 
@@ -139,7 +132,7 @@ namespace Qiqqa.Main.LoginStuff
             StartMainApplication();
         }
 
-        void StartMainApplication()
+        private void StartMainApplication()
         {
             WPFDoEvents.SetHourglassCursor();
 
@@ -166,7 +159,7 @@ namespace Qiqqa.Main.LoginStuff
             MainWindow window = new MainWindow();
             window.Show();
 
-            this.Hide();
+            Hide();
         }
 
         private void StartDaemonSingletons()

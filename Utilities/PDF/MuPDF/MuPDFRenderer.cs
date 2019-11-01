@@ -1,19 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Text.RegularExpressions;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using Utilities.Files;
-using Utilities.GUI;
-using Utilities.Images;
 using Utilities.ProcessTools;
-using Image = System.Windows.Controls.Image;
-using Rectangle = System.Windows.Shapes.Rectangle;
 
 namespace Utilities.PDF.MuPDF
 {
@@ -73,7 +64,7 @@ namespace Utilities.PDF.MuPDF
 
             string current_font_name = "";
             double current_font_size = 0;
-            
+
             string line;
             while (null != (line = sr_lines.ReadLine()))
             {
@@ -186,7 +177,7 @@ namespace Utilities.PDF.MuPDF
                 {
                     Logging.Warn("Bad bounding box for raw text chunk");
                 }
-                
+
                 // If we flushed the last word
                 if (null == current_text_chunk)
                 {
@@ -225,7 +216,7 @@ namespace Utilities.PDF.MuPDF
                     text_chunks.Add(text_chunk);
                     continue;
                 }
-                
+
                 // If it is substantially to the left of the current chunk
                 if (text_chunk.x1 < current_text_chunk.x0)
                 {
@@ -435,6 +426,6 @@ namespace Utilities.PDF.MuPDF
         }
 #endif
 
-#endregion ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        #endregion ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     }
 }

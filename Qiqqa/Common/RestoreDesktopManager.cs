@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Windows;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Qiqqa.Documents.PDF.PDFControls;
-using Qiqqa.Main;
 using Utilities;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 
+
 namespace Qiqqa.Common
 {
-    class RestoreDesktopManager
+    internal class RestoreDesktopManager
     {
         public static void SaveDesktop()
         {
@@ -98,12 +98,6 @@ namespace Qiqqa.Common
             }
         }
 
-        private static string Filename
-        {
-            get
-            {
-                return Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.BaseDirectoryForUser, @"Qiqqa.restore_desktop"));
-            }
-        }
+        private static string Filename => Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.BaseDirectoryForUser, @"Qiqqa.restore_desktop"));
     }
 }

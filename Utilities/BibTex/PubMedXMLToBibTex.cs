@@ -160,7 +160,7 @@ namespace Utilities.BibTex
         {
             if (sb.Length > 0 && ',' == sb[sb.Length - 2])
             {
-                sb.Remove(sb.Length-2, 1);
+                sb.Remove(sb.Length - 2, 1);
             }
         }
 

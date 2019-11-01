@@ -28,12 +28,12 @@ namespace Qiqqa.Common.MessageBoxControls
             InitializeComponent();
 
             //this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            this.WindowState = WindowState.Normal;
+            WindowState = WindowState.Normal;
 
-            this.Icon = Icons.GetAppIconICO(Icons.Qiqqa);
+            Icon = Icons.GetAppIconICO(Icons.Qiqqa);
 
-            this.ObjImage.Stretch = Stretch.Fill;
-            this.ObjImage.Source = Backgrounds.GetBackground(Backgrounds.ExceptionDialogBackground);
+            ObjImage.Stretch = Stretch.Fill;
+            ObjImage.Source = Backgrounds.GetBackground(Backgrounds.ExceptionDialogBackground);
 
             TextComments.Focus();
         }
@@ -186,8 +186,8 @@ namespace Qiqqa.Common.MessageBoxControls
 
                     current_exception = current_exception.InnerException;
                 }
-                this.TextExceptions.Text = sb.ToString();
-                this.TextExceptionSummary.Text = ex.Message;
+                TextExceptions.Text = sb.ToString();
+                TextExceptionSummary.Text = ex.Message;
             }
             else
             {
@@ -224,8 +224,8 @@ namespace Qiqqa.Common.MessageBoxControls
                     sb.AppendLine(log_lines[i]);
                 }
 
-                this.TextLogs.Text = sb.ToString();
-                this.TextLogs.ScrollToEnd();
+                TextLogs.Text = sb.ToString();
+                TextLogs.ScrollToEnd();
             }
             catch (Exception ex)
             {
@@ -238,17 +238,11 @@ namespace Qiqqa.Common.MessageBoxControls
             TextMachineStats.Text = ComputerStatistics.GetCommonStatistics();
         }
 
-        private string FaqUrl
-        {
-            get
-            {
-                return WebsiteAccess.GetOurUrl(WebsiteAccess.OurSiteLinkKind.Faq);
-            }
-        }
+        private string FaqUrl => WebsiteAccess.GetOurUrl(WebsiteAccess.OurSiteLinkKind.Faq);
 
-        void ButtonClose_Click(object sender, RoutedEventArgs e)
+        private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         #region --- Test ------------------------------------------------------------------------

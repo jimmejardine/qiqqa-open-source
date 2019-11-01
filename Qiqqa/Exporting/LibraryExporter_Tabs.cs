@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using Qiqqa.DocumentLibrary;
@@ -8,12 +7,14 @@ using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.Collections;
 using Utilities.Misc;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 
+
 namespace Qiqqa.Exporting
 {
-    class LibraryExporter_Tabs
+    internal class LibraryExporter_Tabs
     {
         internal static void Export(Library library, List<PDFDocument> pdf_documents, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
         {

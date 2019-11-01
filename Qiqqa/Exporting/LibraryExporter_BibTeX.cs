@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using Qiqqa.DocumentLibrary;
@@ -10,12 +9,14 @@ using Utilities.BibTex;
 using Utilities.BibTex.Parsing;
 using Utilities.Collections;
 using Utilities.Misc;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 
+
 namespace Qiqqa.Exporting
 {
-    class LibraryExporter_BibTeX
+    internal class LibraryExporter_BibTeX
     {
         internal static void Export(Library library, List<PDFDocument> pdf_documents, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items, bool include_additional_fields)
         {
@@ -129,7 +130,7 @@ namespace Qiqqa.Exporting
                             }
                         }
                     }
-                     
+
 
                     // Append the bibtex
                     if (!bibtex.IsEmpty())
@@ -153,10 +154,10 @@ namespace Qiqqa.Exporting
         private static string ConvertNormalFilenameToZoteroFilename(string bibtex_base_filename, string filename)
         {
             string bibtex_base_path = Path.GetDirectoryName(bibtex_base_filename);
-            
+
             string file = Path.GetFileName(filename);
             string path = filename;
-            
+
             /// Try shrink it to a relative path
             if (path.StartsWith(bibtex_base_path))
             {

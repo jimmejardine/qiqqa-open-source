@@ -7,7 +7,7 @@ using Utilities.Misc;
 
 namespace Qiqqa.Synchronisation.MetadataSync
 {
-    class SynchronisationStateBuilder
+    internal class SynchronisationStateBuilder
     {
         /// <summary>
         /// Builds a map of SynchronisationState objects of the form
@@ -53,7 +53,7 @@ namespace Qiqqa.Synchronisation.MetadataSync
         }
 
         private static void BuildFromHistoricalSyncFile(Dictionary<string, string> historical_sync_file, ref SynchronisationStates synchronisation_states)
-        {            
+        {
             foreach (var pair in historical_sync_file)
             {
                 synchronisation_states[pair.Key].md5_previous = pair.Value;
@@ -72,7 +72,7 @@ namespace Qiqqa.Synchronisation.MetadataSync
             }
         }
 
-        static void BuildFromRemote(Library library, ref SynchronisationStates synchronisation_states)
+        private static void BuildFromRemote(Library library, ref SynchronisationStates synchronisation_states)
         {
             // TODO: Replace this with a pretty interface class ------------------------------------------------
             if (library.WebLibraryDetail.IsIntranetLibrary)

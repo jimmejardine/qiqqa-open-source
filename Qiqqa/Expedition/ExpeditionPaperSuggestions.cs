@@ -6,7 +6,7 @@ using Utilities.Mathematics.Topics.LDAStuff;
 
 namespace Qiqqa.Expedition
 {
-    class ExpeditionPaperSuggestions
+    internal class ExpeditionPaperSuggestions
     {
         public class Result
         {

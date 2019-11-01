@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Utilities.Collections
 {
@@ -13,7 +10,7 @@ namespace Utilities.Collections
             foreach (var t in src)
             {
                 buffer.Add(t);
-                if (size <= buffer.Count) 
+                if (size <= buffer.Count)
                 {
                     yield return buffer;
                     buffer = new List<T>();

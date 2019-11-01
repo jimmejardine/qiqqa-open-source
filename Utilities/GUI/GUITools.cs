@@ -140,13 +140,13 @@ namespace Utilities.GUI
         public static ScrollViewer GetScrollViewer(DependencyObject parent)
         {
             DependencyObject current = parent;
-            
+
             while (VisualTreeHelper.GetChildrenCount(current) > 0)
             {
                 ScrollViewer sv = current as ScrollViewer;
                 if (null != sv) return sv;
 
-                current = VisualTreeHelper.GetChild(current, 0); 
+                current = VisualTreeHelper.GetChild(current, 0);
             }
 
             // If we get this far, we didn't find a ScrollViewer

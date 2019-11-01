@@ -1,17 +1,18 @@
 ﻿using System;
-using System.IO;
 using System.Text.RegularExpressions;
 using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.Strings;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.DocumentLibrary.Import.Manual
 {
     public class ZoteroImporter : BibTeXImporter
     {
-        readonly string _importBasePath;
+        private readonly string _importBasePath;
 
         public ZoteroImporter(Library library, string filename)
             : base(library, filename)

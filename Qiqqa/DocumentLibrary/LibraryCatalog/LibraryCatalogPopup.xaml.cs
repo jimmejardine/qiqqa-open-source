@@ -7,9 +7,9 @@ using System.Windows;
 using System.Windows.Controls;
 using Qiqqa.AnnotationsReportBuilding.LegacyAnnotationConvertorStuff;
 using Qiqqa.Common;
-using Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
+using Qiqqa.Documents.PDF.MetadataSuggestions;
 using Qiqqa.Documents.PDF.PDFControls.MetadataControls;
 using Qiqqa.InCite;
 using Qiqqa.Synchronisation.BusinessLogic;
@@ -18,7 +18,6 @@ using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
-using Qiqqa.Documents.PDF.MetadataSuggestions;
 using Utilities.BibTex.Parsing;
 
 namespace Qiqqa.DocumentLibrary.LibraryCatalog
@@ -28,8 +27,8 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
     /// </summary>
     public partial class LibraryCatalogPopup : UserControl
     {
-        List<PDFDocument> pdf_documents;
-        AugmentedPopup popup;
+        private List<PDFDocument> pdf_documents;
+        private AugmentedPopup popup;
 
         public LibraryCatalogPopup(List<PDFDocument> pdf_documents)
         {
@@ -80,7 +79,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             popup = new AugmentedPopup(this);
         }
 
-        void MenuInCite_Snippet_Click(object sender, RoutedEventArgs e)
+        private void MenuInCite_Snippet_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
 
@@ -91,7 +90,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             }
         }
 
-        void MenuInCite_Word_Click(object sender, RoutedEventArgs e)
+        private void MenuInCite_Word_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
 
@@ -102,7 +101,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             }
         }
 
-        void MenuInCite_WordSeparated_Click(object sender, RoutedEventArgs e)
+        private void MenuInCite_WordSeparated_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
 
@@ -113,9 +112,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             }
         }
 
-
-
-        void MenuExploreInExpedition_Click(object sender, RoutedEventArgs e)
+        private void MenuExploreInExpedition_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
 
@@ -128,7 +125,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             }
         }
 
-        void MenuExploreInPivot_Click(object sender, RoutedEventArgs e)
+        private void MenuExploreInPivot_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
 
@@ -141,9 +138,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             }
         }
 
-
-
-        void MenuReIndex_Click(object sender, RoutedEventArgs e)
+        private void MenuReIndex_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
 
@@ -155,7 +150,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             }
         }
 
-        void MenuCopyQiqqaURI_Click(object sender, RoutedEventArgs e)
+        private void MenuCopyQiqqaURI_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
 
@@ -193,8 +188,7 @@ SourceURL: {0}
             StatusManager.Instance.UpdateStatus("CopyQiqqaURI", String.Format("Copied '{0}' to clipboard.", result));
         }
 
-
-        void MenuCopyBibTeXKey_Click(object sender, RoutedEventArgs e)
+        private void MenuCopyBibTeXKey_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
 
@@ -227,7 +221,7 @@ SourceURL: {0}
             }
         }
 
-        void MenuConvertLegacyAnnotations_Click(object sender, RoutedEventArgs e)
+        private void MenuConvertLegacyAnnotations_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
 
@@ -249,7 +243,7 @@ SourceURL: {0}
             MessageBoxes.Info(imported_count + " legacy annotations imported.");
         }
 
-        void MenuForgetLegacyAnnotations_Click(object sender, RoutedEventArgs e)
+        private void MenuForgetLegacyAnnotations_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
 
@@ -269,7 +263,7 @@ SourceURL: {0}
             MessageBoxes.Info("Legacy annotations removed.");
         }
 
-        void MenuForceOCR_Click(object sender, RoutedEventArgs e)
+        private void MenuForceOCR_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
 
@@ -294,7 +288,7 @@ SourceURL: {0}
             }
         }
 
-        void MenuClearOCR_Click(object sender, RoutedEventArgs e)
+        private void MenuClearOCR_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
 
@@ -306,7 +300,7 @@ SourceURL: {0}
             }
         }
 
-        void MenuAddMultipleTags_Click(object sender, RoutedEventArgs e)
+        private void MenuAddMultipleTags_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
 
@@ -316,7 +310,7 @@ SourceURL: {0}
             qatw.Show();
         }
 
-        void MenuRemoveAllTags_Click(object sender, RoutedEventArgs e)
+        private void MenuRemoveAllTags_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
 
@@ -338,7 +332,7 @@ SourceURL: {0}
             }
         }
 
-        void MenuRemoveAllBibTeX_Click(object sender, RoutedEventArgs e)
+        private void MenuRemoveAllBibTeX_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
 
@@ -360,9 +354,7 @@ SourceURL: {0}
             }
         }
 
-
-
-        void MenuExploreInBrainstorm_Click(object sender, RoutedEventArgs e)
+        private void MenuExploreInBrainstorm_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
 
@@ -371,13 +363,13 @@ SourceURL: {0}
             MainWindowServiceDispatcher.Instance.ExploreDocumentInBrainstorm(pdf_documents);
         }
 
-        void MenuCopyToAnotherLibrary_Click(object sender, RoutedEventArgs e)
+        private void MenuCopyToAnotherLibrary_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
             MoveOrCopyCommon(Features.Library_CopyDocumentToAnotherLibrary, false);
         }
 
-        void MenuMoveToAnotherLibrary_Click(object sender, RoutedEventArgs e)
+        private void MenuMoveToAnotherLibrary_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
             MoveOrCopyCommon(Features.Library_MoveDocumentToAnotherLibrary, true);
@@ -421,7 +413,7 @@ SourceURL: {0}
             });
         }
 
-        void MenuUseKeywordsAsTags_Click(object sender, RoutedEventArgs e)
+        private void MenuUseKeywordsAsTags_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
 
@@ -440,8 +432,7 @@ SourceURL: {0}
             }
         }
 
-
-        void MenuUseDirectoriesAsTags_Click(object sender, RoutedEventArgs e)
+        private void MenuUseDirectoriesAsTags_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
 
@@ -472,7 +463,7 @@ SourceURL: {0}
             }
         }
 
-        void MenuUseFilenameAsTitle_Click(object sender, RoutedEventArgs e)
+        private void MenuUseFilenameAsTitle_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
 
@@ -498,7 +489,7 @@ SourceURL: {0}
             }
         }
 
-        void MenuDelete_Click(object sender, RoutedEventArgs e)
+        private void MenuDelete_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
 
@@ -511,14 +502,14 @@ SourceURL: {0}
             }
         }
 
-        void MenuViewAllAnnotations_Click(object sender, RoutedEventArgs e)
+        private void MenuViewAllAnnotations_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
 
             MainWindowServiceDispatcher.Instance.GenerateAnnotationReport(pdf_documents[0].Library, pdf_documents);
         }
 
-        void MenuCloudDownload_Click(object sender, RoutedEventArgs e)
+        private void MenuCloudDownload_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
 
@@ -532,7 +523,7 @@ SourceURL: {0}
             LibrarySyncManager.Instance.QueueGet(pdf_documents[0].Library, fingerprints.ToArray());
         }
 
-        void MenuCloudUpload_Click(object sender, RoutedEventArgs e)
+        private void MenuCloudUpload_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
 
@@ -546,7 +537,7 @@ SourceURL: {0}
             LibrarySyncManager.Instance.QueuePut(pdf_documents[0].Library, fingerprints.ToArray());
         }
 
-        void MenuOpen_Click(object sender, RoutedEventArgs e)
+        private void MenuOpen_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
 
@@ -564,7 +555,7 @@ SourceURL: {0}
             }
         }
 
-        void MenuOpenAgain_Click(object sender, RoutedEventArgs e)
+        private void MenuOpenAgain_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
 
@@ -582,9 +573,7 @@ SourceURL: {0}
             }
         }
 
-
-
-        void MenuOpenOutside_Click(object sender, RoutedEventArgs e)
+        private void MenuOpenOutside_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
 
@@ -605,7 +594,7 @@ SourceURL: {0}
             }
         }
 
-        void MenuOpenInWindowsExplorer_Click(object sender, RoutedEventArgs e)
+        private void MenuOpenInWindowsExplorer_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
 

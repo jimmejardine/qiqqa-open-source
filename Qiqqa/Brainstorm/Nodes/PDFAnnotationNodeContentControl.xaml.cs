@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -9,10 +8,8 @@ using Qiqqa.Common;
 using Qiqqa.DocumentLibrary;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
-using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.Images;
-using Utilities.Random;
 using Image = System.Drawing.Image;
 
 namespace Qiqqa.Brainstorm.Nodes
@@ -22,7 +19,7 @@ namespace Qiqqa.Brainstorm.Nodes
     /// </summary>
     public partial class PDFAnnotationNodeContentControl : UserControl, IKeyPressableNodeContentControl, IDisposable
     {
-        PDFAnnotationNodeContent pdf_annotation_node_content;
+        private PDFAnnotationNodeContent pdf_annotation_node_content;
 
         //
         // Warning CA1001  Implement IDisposable on 'PDFAnnotationNodeContentControl' because it creates 
@@ -34,41 +31,41 @@ namespace Qiqqa.Brainstorm.Nodes
         // handlers below and is currently not considered a memory leak risk for https://github.com/jimmejardine/qiqqa-open-source/issues/19
         // and there-abouts.
 
-        LibraryIndexHoverPopup library_index_hover_popup = null;
+        private LibraryIndexHoverPopup library_index_hover_popup = null;
 
         public PDFAnnotationNodeContentControl(NodeControl node_control, PDFAnnotationNodeContent pdf_annotation_node_content)
         {
             this.pdf_annotation_node_content = pdf_annotation_node_content;
-            this.DataContext = pdf_annotation_node_content.PDFAnnotation;
+            DataContext = pdf_annotation_node_content.PDFAnnotation;
 
             InitializeComponent();
 
-            this.Focusable = true;
+            Focusable = true;
 
-            this.ImageIcon.Source = Icons.GetAppIcon(Icons.BrainstormPDFAnnotation);
-            RenderOptions.SetBitmapScalingMode(this.ImageIcon, BitmapScalingMode.HighQuality);
+            ImageIcon.Source = Icons.GetAppIcon(Icons.BrainstormPDFAnnotation);
+            RenderOptions.SetBitmapScalingMode(ImageIcon, BitmapScalingMode.HighQuality);
 
             ImageIcon.Width = NodeThemes.image_width;
             TextBorder.CornerRadius = NodeThemes.corner_radius;
             TextBorder.Background = NodeThemes.background_brush;
 
-            this.MouseDoubleClick += PDFAnnotationNodeContentControl_MouseDoubleClick;
-            this.ToolTip = "";
-            this.ToolTipClosing += PDFDocumentNodeContentControl_ToolTipClosing;
-            this.ToolTipOpening += PDFDocumentNodeContentControl_ToolTipOpening;
+            MouseDoubleClick += PDFAnnotationNodeContentControl_MouseDoubleClick;
+            ToolTip = "";
+            ToolTipClosing += PDFDocumentNodeContentControl_ToolTipClosing;
+            ToolTipOpening += PDFDocumentNodeContentControl_ToolTipOpening;
         }
 
-        void PDFAnnotationNodeContentControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void PDFAnnotationNodeContentControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             PDFDocument out_pdf_document;
             PDFAnnotation out_pdf_annotation;
             if (WebLibraryDocumentLocator.LocateFirstPDFDocumentWithAnnotation(pdf_annotation_node_content.library_fingerprint, pdf_annotation_node_content.pdf_document_fingerprint, pdf_annotation_node_content.pdf_annotation_guid, out out_pdf_document, out out_pdf_annotation))
-            {                
+            {
                 MainWindowServiceDispatcher.Instance.OpenDocument(out_pdf_document, out_pdf_annotation.Page);
             }
         }
 
-        void PDFDocumentNodeContentControl_ToolTipOpening(object sender, ToolTipEventArgs e)
+        private void PDFDocumentNodeContentControl_ToolTipOpening(object sender, ToolTipEventArgs e)
         {
             try
             {
@@ -81,7 +78,7 @@ namespace Qiqqa.Brainstorm.Nodes
                     if (WebLibraryDocumentLocator.LocateFirstPDFDocumentWithAnnotation(pdf_annotation_node_content.library_fingerprint, pdf_annotation_node_content.pdf_document_fingerprint, pdf_annotation_node_content.pdf_annotation_guid, out out_pdf_document, out out_pdf_annotation))
                     {
                         library_index_hover_popup.SetPopupContent(out_pdf_document, out_pdf_annotation.Page, out_pdf_annotation);
-                        this.ToolTip = library_index_hover_popup;
+                        ToolTip = library_index_hover_popup;
                     }
                 }
             }
@@ -91,9 +88,9 @@ namespace Qiqqa.Brainstorm.Nodes
             }
         }
 
-        void PDFDocumentNodeContentControl_ToolTipClosing(object sender, ToolTipEventArgs e)
+        private void PDFDocumentNodeContentControl_ToolTipClosing(object sender, ToolTipEventArgs e)
         {
-            this.ToolTip = "";
+            ToolTip = "";
 
             library_index_hover_popup?.Dispose();
             library_index_hover_popup = null;
@@ -145,8 +142,8 @@ namespace Qiqqa.Brainstorm.Nodes
             {
                 library_index_hover_popup?.Dispose();
 
-                this.ToolTipClosing -= PDFDocumentNodeContentControl_ToolTipClosing;
-                this.ToolTipOpening -= PDFDocumentNodeContentControl_ToolTipOpening;
+                ToolTipClosing -= PDFDocumentNodeContentControl_ToolTipClosing;
+                ToolTipOpening -= PDFDocumentNodeContentControl_ToolTipOpening;
             }
 
             // Clear the references for sanity's sake

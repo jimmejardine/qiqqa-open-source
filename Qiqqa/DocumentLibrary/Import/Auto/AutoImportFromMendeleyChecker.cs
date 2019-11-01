@@ -3,13 +3,13 @@ using System.Windows;
 using icons;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
+using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.Misc;
-using Qiqqa.UtilisationTracking;
 
 namespace Qiqqa.DocumentLibrary.Import.Auto
 {
-    class AutoImportFromMendeleyChecker
+    internal class AutoImportFromMendeleyChecker
     {
         private static MendeleyImporter.MendeleyDatabaseDetails mdd = null;
 
@@ -43,19 +43,19 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                 NotificationManager.Instance.AddPendingNotification(
                     new NotificationManager.Notification(
                         notification
-                        ,null
-                        ,NotificationManager.NotificationType.Info
-                        ,Icons.Import_Mendeley
-                        ,"Yes, Import!"
-                        ,DoImportMyDocuments
-                        ,"Don't Ask Again"
-                        ,DoNoThanks
+                        , null
+                        , NotificationManager.NotificationType.Info
+                        , Icons.Import_Mendeley
+                        , "Yes, Import!"
+                        , DoImportMyDocuments
+                        , "Don't Ask Again"
+                        , DoNoThanks
                     )
                 );
             }
         }
 
-        static void DoImportMyDocuments(object obj)
+        private static void DoImportMyDocuments(object obj)
         {
             if (null == mdd)
             {
@@ -76,7 +76,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
             }
         }
 
-        static void DoNoThanks(object obj)
+        private static void DoNoThanks(object obj)
         {
             ConfigurationManager.Instance.ConfigurationRecord.ImportFromMendeleyAutoDisabled = true;
             ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.ImportFromMendeleyAutoDisabled);

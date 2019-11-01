@@ -59,9 +59,9 @@ namespace Utilities.GUI
 
         protected override Size ArrangeOverride(Size finalSize)
         {
-            if (this.Children == null || this.Children.Count == 0)
-            { 
-                return finalSize; 
+            if (Children == null || Children.Count == 0)
+            {
+                return finalSize;
             }
 
             TranslateTransform trans = null;
@@ -119,7 +119,7 @@ namespace Utilities.GUI
                     curLineHeight = 0;
                 }
 
-                child.Arrange(new Rect(0, 0,child.DesiredSize.Width, child.DesiredSize.Height));
+                child.Arrange(new Rect(0, 0, child.DesiredSize.Width, child.DesiredSize.Height));
 
                 trans.X = curX - HorizontalOffset;
                 trans.Y = curY - VerticalOffset;
@@ -130,13 +130,13 @@ namespace Utilities.GUI
                 width_of_children_in_this_row += child.DesiredSize.Width;
 
                 if (child.DesiredSize.Height > curLineHeight)
-                { 
-                    curLineHeight = child.DesiredSize.Height; 
+                {
+                    curLineHeight = child.DesiredSize.Height;
                 }
 
                 if (curX > maxLineWidth)
-                { 
-                    maxLineWidth = curX; 
+                {
+                    maxLineWidth = curX;
                 }
             }
 
@@ -206,45 +206,39 @@ namespace Utilities.GUI
 
         public ScrollViewer ScrollOwner
         {
-            get { return _ScrollOwner; }
-            set { _ScrollOwner = value; }
+            get => _ScrollOwner;
+            set => _ScrollOwner = value;
         }
 
         public bool CanHorizontallyScroll
         {
-            get { return _CanHorizontallyScroll; }
-            set { _CanHorizontallyScroll = value; }
+            get => _CanHorizontallyScroll;
+            set => _CanHorizontallyScroll = value;
         }
 
         public bool CanVerticallyScroll
         {
-            get { return _CanVerticallyScroll; }
-            set { _CanVerticallyScroll = value; }
+            get => _CanVerticallyScroll;
+            set => _CanVerticallyScroll = value;
         }
 
-        public double ExtentHeight
-        { get { return _Extent.Height; } }
+        public double ExtentHeight => _Extent.Height;
 
-        public double ExtentWidth
-        { get { return _Extent.Width; } }
+        public double ExtentWidth => _Extent.Width;
 
-        public double HorizontalOffset
-        { get { return _Offset.X; } }
+        public double HorizontalOffset => _Offset.X;
 
-        public double VerticalOffset
-        { get { return _Offset.Y; } }
+        public double VerticalOffset => _Offset.Y;
 
-        public double ViewportHeight
-        { get { return _Viewport.Height; } }
+        public double ViewportHeight => _Viewport.Height;
 
-        public double ViewportWidth
-        { get { return _Viewport.Width; } }
+        public double ViewportWidth => _Viewport.Width;
 
         public Rect MakeVisible(Visual visual, Rect rectangle)
         {
             if (rectangle.IsEmpty || visual == null || visual == this || !base.IsAncestorOf(visual))
-            { 
-                return Rect.Empty; 
+            {
+                return Rect.Empty;
             }
 
             rectangle = visual.TransformToAncestor(this).TransformBounds(rectangle);
@@ -274,13 +268,13 @@ namespace Utilities.GUI
             bool tooLarge = (bottomChild - topChild) > (bottomView - topView);
 
             if (!offBottom && !offTop)
-            { 
-                return topView; 
+            {
+                return topView;
             } //Don't do anything, already in view
 
             if ((offBottom && !tooLarge) || (offTop && tooLarge))
-            { 
-                return topChild; 
+            {
+                return topChild;
             }
 
             return (bottomChild - (bottomView - topView));
@@ -289,13 +283,13 @@ namespace Utilities.GUI
         protected void VerifyScrollData(Size viewport, Size extent)
         {
             if (double.IsInfinity(viewport.Width))
-            { 
-                viewport.Width = extent.Width; 
+            {
+                viewport.Width = extent.Width;
             }
 
             if (double.IsInfinity(viewport.Height))
-            { 
-                viewport.Height = extent.Height; 
+            {
+                viewport.Height = extent.Height;
             }
 
             _Extent = extent;
@@ -305,8 +299,8 @@ namespace Utilities.GUI
             _Offset.Y = Math.Max(0, Math.Min(_Offset.Y, ExtentHeight - ViewportHeight));
 
             if (ScrollOwner != null)
-            { 
-                ScrollOwner.InvalidateScrollInfo(); 
+            {
+                ScrollOwner.InvalidateScrollInfo();
             }
         }
 

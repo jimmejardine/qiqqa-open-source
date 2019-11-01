@@ -11,12 +11,12 @@ namespace Utilities.GUI
     public class PropertyShadowForPanels : PropertyShadow
     {
         private Panel panel;
-        
+
         public PropertyShadowForPanels(Panel panel) : base(panel)
-        {            
+        {
             this.panel = panel;
 
-            this._shadow_Background = panel.Background;
+            _shadow_Background = panel.Background;
         }
 
         private Brush _shadow_Background = null;

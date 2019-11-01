@@ -21,20 +21,20 @@ namespace QiqqaOCR
     /// </summary>
     public partial class RegionExtractorTestWindow : UserControl
     {
-        PDFRegionLocator region_locator;
-        BitmapSource bitmap_source;
+        private PDFRegionLocator region_locator;
+        private BitmapSource bitmap_source;
 
         public RegionExtractorTestWindow()
         {
             InitializeComponent();
 
-            this.ObjImage.Stretch = Stretch.Fill;
-            this.SizeChanged += RegionExtractorTestWindow_SizeChanged;
+            ObjImage.Stretch = Stretch.Fill;
+            SizeChanged += RegionExtractorTestWindow_SizeChanged;
 
             ObjButtonGO.Click += ObjButtonGO_Click;
         }
 
-        void ObjButtonGO_Click(object sender, RoutedEventArgs e)
+        private void ObjButtonGO_Click(object sender, RoutedEventArgs e)
         {
             int pdf_number = Convert.ToInt32(ObjTextDoc.Text);
             int page_number = Convert.ToInt32(ObjTextPage.Text);
@@ -46,17 +46,17 @@ namespace QiqqaOCR
             BitmapSource bitmap_image = BitmapImageTools.LoadFromBytes(ms.ToArray());
             Bitmap bitmap = new Bitmap(ms);
             Logging.Info("-Rendering page");
-            
-            this.Image = bitmap_image;
+
+            Image = bitmap_image;
 
             Logging.Info("+Finding regions");
-            this.region_locator = new PDFRegionLocator(bitmap);
+            region_locator = new PDFRegionLocator(bitmap);
             Logging.Info("-Finding regions");
 
             Recalc();
         }
 
-        void RegionExtractorTestWindow_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void RegionExtractorTestWindow_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             Recalc();
         }
@@ -65,7 +65,7 @@ namespace QiqqaOCR
         {
             set
             {
-                this.region_locator = value;
+                region_locator = value;
                 Recalc();
             }
         }
@@ -74,8 +74,8 @@ namespace QiqqaOCR
         {
             set
             {
-                this.bitmap_source = value;
-                this.ObjImage.Source = this.bitmap_source;
+                bitmap_source = value;
+                ObjImage.Source = bitmap_source;
                 Recalc();
             }
         }
@@ -89,7 +89,7 @@ namespace QiqqaOCR
                 return;
             }
 
-            
+
             // The test strip
             if (true)
             {
@@ -150,7 +150,7 @@ namespace QiqqaOCR
                     return new SolidColorBrush(ColorTools.MakeTransparentColor(Colors.Red, 64));
                 default:
                     throw new NotImplementedException();
-            }            
+            }
         }
     }
 }

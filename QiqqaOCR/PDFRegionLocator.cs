@@ -49,7 +49,7 @@ namespace QiqqaOCR
         }
 #endif
 
-        static int ScanTillCompletelyBlankRow(Bitmap bitmap, int direction, int start_y)
+        private static int ScanTillCompletelyBlankRow(Bitmap bitmap, int direction, int start_y)
         {
             int bitmap_height = bitmap.Height;
             int bitmap_width = bitmap.Width;
@@ -59,11 +59,11 @@ namespace QiqqaOCR
             int white_in_a_row_count = 0;
 
             int gutter_width = (int)(bitmap_width * 0.05);
-            
+
             while (true)
             {
                 int test_y = last_good_y + direction;
-                
+
                 // Test that we havent gone off the page
                 if (0 > test_y) break;
                 if (bitmap_height <= test_y) break;
@@ -89,7 +89,7 @@ namespace QiqqaOCR
                     {
                         break;
                     }
-                } 
+                }
 
                 last_good_y = test_y;
             }
@@ -97,12 +97,12 @@ namespace QiqqaOCR
             return last_good_y;
         }
 
-        static bool IsBelowWhitenessThreshold(Color color)
+        private static bool IsBelowWhitenessThreshold(Color color)
         {
             int THRESHOLD = 250;
             return (color.R <= THRESHOLD || color.G <= THRESHOLD || color.B <= THRESHOLD);
         }
-        
+
         private static void GetRegions(Bitmap bitmap, out List<Region> regions, out int width_x)
         {
             Logging.Info("Getting regions");
@@ -119,7 +119,7 @@ namespace QiqqaOCR
                 for (int x = mid_x - width_x / 2; x < mid_x + width_x / 2; ++x)
                 {
                     Color color = bitmap.GetPixel(x, y);
-                    
+
                     if (IsBelowWhitenessThreshold(color))
                     {
                         ++y_counts[y];
@@ -128,7 +128,7 @@ namespace QiqqaOCR
                 }
             }
 
-            regions = new List<Region>();            
+            regions = new List<Region>();
             regions.Add(new Region { y = 0, state = SegmentState.TOP });
 
             // Now break them into segments

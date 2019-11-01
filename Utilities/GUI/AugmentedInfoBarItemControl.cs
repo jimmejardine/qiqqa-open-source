@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -12,13 +11,12 @@ namespace Utilities.GUI
     [ContentProperty("ClientContent")]
     public class AugmentedInfoBarItemControl : DockPanel
     {
-        Image ObjIcon;
-        TextBlock ObjTextHeader;
-        ContentControl ObjClientControl;
-        AugmentedSpacer spacer1;
-
-        DockPanel dock_panel_header;
-        Brush dock_panel_header_background_brush;
+        private Image ObjIcon;
+        private TextBlock ObjTextHeader;
+        private ContentControl ObjClientControl;
+        private AugmentedSpacer spacer1;
+        private DockPanel dock_panel_header;
+        private Brush dock_panel_header_background_brush;
 
         public AugmentedInfoBarItemControl() : base()
         {
@@ -26,10 +24,10 @@ namespace Utilities.GUI
 
             spacer1 = new AugmentedSpacer();
             SetDock(spacer1, Dock.Bottom);
-            this.Children.Add(spacer1);
+            Children.Add(spacer1);
 
             AugmentedBorder augmented_border = new AugmentedBorder();
-            this.Children.Add(augmented_border);
+            Children.Add(augmented_border);
 
             DockPanel dock_panel = new DockPanel();
             augmented_border.ClientContent = dock_panel;
@@ -69,29 +67,23 @@ namespace Utilities.GUI
 
         public Dock CollapserDock
         {
-            get
-            {
-                return GetDock(ObjIcon);
-            }
-            set
-            {
-                SetDock(ObjIcon, value);
-            }
+            get => GetDock(ObjIcon);
+            set => SetDock(ObjIcon, value);
         }
 
-        void dock_panel_header_MouseLeave(object sender, MouseEventArgs e)
+        private void dock_panel_header_MouseLeave(object sender, MouseEventArgs e)
         {
             DockPanel dock_panel_header = (DockPanel)sender;
             dock_panel_header.Background = dock_panel_header_background_brush;
         }
 
-        void dock_panel_header_MouseEnter(object sender, MouseEventArgs e)
+        private void dock_panel_header_MouseEnter(object sender, MouseEventArgs e)
         {
             DockPanel dock_panel_header = (DockPanel)sender;
             dock_panel_header.Background = ThemeColours.Background_Brush_Blue_LightToVeryLight;
         }
 
-        void ObjTextHeader_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void ObjTextHeader_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (ObjClientControl.Visibility == Visibility.Visible)
             {
@@ -119,10 +111,7 @@ namespace Utilities.GUI
 
         public bool Collapsed
         {
-            get
-            {
-                return (ObjClientControl.Visibility == Visibility.Collapsed);
-            }
+            get => (ObjClientControl.Visibility == Visibility.Collapsed);
             set
             {
                 if (value)
@@ -138,54 +127,33 @@ namespace Utilities.GUI
 
         public Visibility BottomSpacerVisibility
         {
-            get
-            {
-                return spacer1.Visibility;
-            }
+            get => spacer1.Visibility;
 
-            set
-            {
-                spacer1.Visibility = value;
-            }
+            set => spacer1.Visibility = value;
         }
 
         [Bindable(true)]
         public string Header
         {
-            get
-            {
-                return this.ObjTextHeader.Text;
-            }
-            set
-            {
-                this.ObjTextHeader.Text = value;
-            }
+            get => ObjTextHeader.Text;
+            set => ObjTextHeader.Text = value;
         }
 
         public Brush HeaderBackground
         {
-            get
-            {
-                return dock_panel_header_background_brush;
-            }
+            get => dock_panel_header_background_brush;
             set
             {
                 dock_panel_header_background_brush = value;
-                this.dock_panel_header.Background = dock_panel_header_background_brush;
+                dock_panel_header.Background = dock_panel_header_background_brush;
             }
         }
 
         [Bindable(true)]
         public UIElement ClientContent
         {
-            set
-            {
-                this.ObjClientControl.Content = value;
-            }
-            get
-            {
-                return (UIElement) this.ObjClientControl.Content;
-            }
+            set => ObjClientControl.Content = value;
+            get => (UIElement)ObjClientControl.Content;
         }
     }
 }

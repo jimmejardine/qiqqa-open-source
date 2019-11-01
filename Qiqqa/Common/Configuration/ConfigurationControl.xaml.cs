@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -11,14 +10,14 @@ using Qiqqa.DocumentLibrary;
 using Qiqqa.DocumentLibrary.LibraryDBStuff;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
-using Qiqqa.UpgradePaths.V031To033;
 using Qiqqa.UtilisationTracking;
 using Qiqqa.WebBrowsing.EZProxy;
 using Utilities;
 using Utilities.GUI;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Common.Configuration
 {
@@ -33,8 +32,8 @@ namespace Qiqqa.Common.Configuration
 
             InitializeComponent();
 
-            this.DataContext = ConfigurationManager.Instance.ConfigurationRecord_Bindable;
-            this.Background = ThemeColours.Background_Brush_Blue_LightToDark;
+            DataContext = ConfigurationManager.Instance.ConfigurationRecord_Bindable;
+            Background = ThemeColours.Background_Brush_Blue_LightToDark;
 
             ButtonOpenDataDirectory.Caption = "Open Qiqqa data directory";
             ButtonOpenDataDirectory.Icon = Icons.GetAppIcon(Icons.GarbageCollect);
@@ -104,7 +103,7 @@ namespace Qiqqa.Common.Configuration
             ObjListEZProxy.SelectionChanged += ObjListEZProxy_SelectionChanged;
         }
 
-        void ObjListEZProxy_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ObjListEZProxy_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Proxy proxy = ObjListEZProxy.SelectedItem as Proxy;
             if (null != proxy && !String.IsNullOrEmpty(proxy.url))
@@ -116,7 +115,7 @@ namespace Qiqqa.Common.Configuration
             e.Handled = true;
         }
 
-        void ObjUserAgent_XXX_Click(object sender, RoutedEventArgs e)
+        private void ObjUserAgent_XXX_Click(object sender, RoutedEventArgs e)
         {
             string user_agent = null;
 
@@ -134,19 +133,19 @@ namespace Qiqqa.Common.Configuration
             ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.Web_UserAgentOverride);
         }
 
-        void ButtonLibraryDBExplorer_Click(object sender, RoutedEventArgs e)
+        private void ButtonLibraryDBExplorer_Click(object sender, RoutedEventArgs e)
         {
             LibraryDBExplorer ldbe = new LibraryDBExplorer();
             MainWindowServiceDispatcher.Instance.OpenControl("LibraryDBExplorer", "LibraryDB Explorer", ldbe);
         }
 
-        void CmdClearColour_Click(object sender, RoutedEventArgs e)
+        private void CmdClearColour_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.App_ThemeColour);
             ThemeColours.ClearThemeColour();
         }
 
-        void ThemeColorButton_Click(object sender, RoutedEventArgs e)
+        private void ThemeColorButton_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.App_ThemeColour);
             AugmentedButton button = sender as AugmentedButton;
@@ -154,43 +153,43 @@ namespace Qiqqa.Common.Configuration
             ThemeColours.SetThemeColour(color);
         }
 
-        void ObjColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
+        private void ObjColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.App_ThemeColour);
             ThemeColours.SetThemeColour(ObjColorPicker.SelectedColor);
         }
 
-        void ObjBlurrySnapToPixels_Unchecked(object sender, RoutedEventArgs e)
+        private void ObjBlurrySnapToPixels_Unchecked(object sender, RoutedEventArgs e)
         {
             WriteBlurryStatus();
         }
 
-        void ObjBlurrySnapToPixels_Checked(object sender, RoutedEventArgs e)
+        private void ObjBlurrySnapToPixels_Checked(object sender, RoutedEventArgs e)
         {
             WriteBlurryStatus();
         }
 
-        void WriteBlurryStatus()
+        private void WriteBlurryStatus()
         {
             RegistrySettings.Instance.Write(RegistrySettings.SnapToPixels, (ObjBlurrySnapToPixels.IsChecked ?? false) ? "yes" : "no");
         }
 
-        void TextQiqqaBaseFolder_TextChanged(object sender, TextChangedEventArgs e)
+        private void TextQiqqaBaseFolder_TextChanged(object sender, TextChangedEventArgs e)
         {
             RegistrySettings.Instance.Write(RegistrySettings.BaseDataDirectory, TextQiqqaBaseFolder.Text);
         }
 
-        void ButtonSeeDebugStatistics_Click(object sender, RoutedEventArgs e)
+        private void ButtonSeeDebugStatistics_Click(object sender, RoutedEventArgs e)
         {
             UnhandledExceptionMessageBox.DisplayInfo("Qiqqa debug statistics", "Behold - your debug statistis.", false, null);
         }
 
-        void ButtonZipLogs_Click(object sender, RoutedEventArgs e)
+        private void ButtonZipLogs_Click(object sender, RoutedEventArgs e)
         {
             BundleLogs.DoBundle();
         }
 
-        void ButtonClearAutoSuggests_Click(object sender, RoutedEventArgs e)
+        private void ButtonClearAutoSuggests_Click(object sender, RoutedEventArgs e)
         {
             foreach (var x in WebLibraryManager.Instance.WebLibraryDetails_All_IncludingDeleted)
             {
@@ -213,8 +212,8 @@ namespace Qiqqa.Common.Configuration
 
                     if (null != pdf_document.AuthorsSuggested)
                     {
-                    pdf_document.AuthorsSuggested = null;
-                    pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.AuthorsSuggested);
+                        pdf_document.AuthorsSuggested = null;
+                        pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.AuthorsSuggested);
                     }
 
                     if (null != pdf_document.YearSuggested)
@@ -226,7 +225,7 @@ namespace Qiqqa.Common.Configuration
             }
         }
 
-        void ButtonRebuildIndices_Click(object sender, RoutedEventArgs e)
+        private void ButtonRebuildIndices_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBoxes.AskQuestion("Are you sure you wish to rebuild indices?\n\nYou should only need to do this if your indices have become corrupted by a tool like Dropbox, GoogleDrive or LiveDrive.  Please don't use them to try to sync Qiqqa's database."))
             {
@@ -239,8 +238,7 @@ namespace Qiqqa.Common.Configuration
             }
         }
 
-
-        void ButtonPurgeDeletedPDFs_Click(object sender, RoutedEventArgs e)
+        private void ButtonPurgeDeletedPDFs_Click(object sender, RoutedEventArgs e)
         {
             HashSet<string> filenames_to_keep = new HashSet<string>();
             HashSet<string> filenames_to_delete = new HashSet<string>();
@@ -288,9 +286,7 @@ namespace Qiqqa.Common.Configuration
             }
         }
 
-
-
-        void ButtonGarbageCollect_Click(object sender, RoutedEventArgs e)
+        private void ButtonGarbageCollect_Click(object sender, RoutedEventArgs e)
         {
             Logging.Info("+Before Garbage Collect: Memory load: {0} Bytes", GC.GetTotalMemory(false));
             GC.Collect();
@@ -299,12 +295,12 @@ namespace Qiqqa.Common.Configuration
             Logging.Info("-After Garbage Collect: Memory load: {0} Bytes", GC.GetTotalMemory(true));
         }
 
-        void ButtonOpenDataDirectory_Click(object sender, RoutedEventArgs e)
+        private void ButtonOpenDataDirectory_Click(object sender, RoutedEventArgs e)
         {
             Process.Start(ConfigurationManager.Instance.BaseDirectoryForQiqqa);
         }
 
-        void ButtonOpenTempDirectory_Click(object sender, RoutedEventArgs e)
+        private void ButtonOpenTempDirectory_Click(object sender, RoutedEventArgs e)
         {
             if (Directory.Exists(ConfigurationManager.Instance.TempDirectoryForQiqqa))
             {

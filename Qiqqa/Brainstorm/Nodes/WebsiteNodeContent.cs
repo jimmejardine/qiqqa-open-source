@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using System.Reflection;
 using Qiqqa.Brainstorm.Common.Searching;
 
 namespace Qiqqa.Brainstorm.Nodes

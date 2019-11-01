@@ -19,30 +19,26 @@ namespace Qiqqa.InCite
     public class WordConnector
     {
         public static WordConnector Instance = new WordConnector();
-
-        static readonly string RTF_START = @"{\rtf1" + "\n";
-        static readonly string RTF_END = @"}";
-        
-        bool paused;
-        bool have_iterated_at_least_once = false;
-        bool repopulating_clusters = false;
-
-        Application word_application = null;
-
-        string current_context_word = null;
-        string current_context_backward = null;
-        string current_context_surround = null;
-        CitationCluster current_context_citation_cluster = null;
+        private static readonly string RTF_START = @"{\rtf1" + "\n";
+        private static readonly string RTF_END = @"}";
+        private bool paused;
+        private bool have_iterated_at_least_once = false;
+        private bool repopulating_clusters = false;
+        private Application word_application = null;
+        private string current_context_word = null;
+        private string current_context_backward = null;
+        private string current_context_surround = null;
+        private CitationCluster current_context_citation_cluster = null;
 
         public delegate void ContextChangedDelegate(string context_word, string context_backward, string context_surround);
         public event ContextChangedDelegate ContextChanged;
 
         public delegate void CitationClusterChangedDelegate(CitationCluster context_citation_cluster);
         public event CitationClusterChangedDelegate CitationClusterChanged;
-        
+
         private WordConnector()
         {
-            this.paused = false;
+            paused = false;
             MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance, 0, ThreadPriority.BelowNormal);
         }
 
@@ -51,7 +47,7 @@ namespace Qiqqa.InCite
             this.paused = paused;
         }
 
-        void DoMaintenance(Daemon daemon)
+        private void DoMaintenance(Daemon daemon)
         {
 #if false
             if (Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
@@ -165,7 +161,7 @@ namespace Qiqqa.InCite
                         int field_start = Math.Min(field.Result.Start, field.Code.Start);
                         int field_end = Math.Max(field.Result.End, field.Code.End);
                         // Skip all ranges that do not overlap
-                        if (field_start > range.End+1 || field_end < range.Start)
+                        if (field_start > range.End + 1 || field_end < range.Start)
                         {
                             continue;
                         }
@@ -206,7 +202,7 @@ namespace Qiqqa.InCite
 
             CitationClusterChanged?.Invoke(current_context_citation_cluster);
         }
-        
+
         private void CheckForChangedContexts(string context_word, string context_backward, string context_surround, CitationCluster context_citation_cluster)
         {
             // Has text context changed?
@@ -260,7 +256,7 @@ namespace Qiqqa.InCite
             return IsFieldInCiteField(field, InCiteFields.CSL_STATS);
         }
 
-        
+
         private CitationCluster GenerateCitationClusterFromField(Field field)
         {
             try
@@ -287,7 +283,7 @@ namespace Qiqqa.InCite
         private static List<Field> GetDocumentFields(Document document)
         {
             List<Field> fields = new List<Field>();
-            
+
             foreach (Field field in document.Fields)
             {
                 fields.Add(field);
@@ -319,13 +315,13 @@ namespace Qiqqa.InCite
 
             return fields;
         }
-        
+
         public List<CitationCluster> GetAllCitationClustersFromCurrentDocument()
         {
             HashSet<string> used_cluster_ids = new HashSet<string>();
 
             List<CitationCluster> citation_clusters = new List<CitationCluster>();
-            
+
             Document document = word_application.Selection.Document;
 
             List<Field> fields = GetDocumentFields(document);
@@ -346,7 +342,7 @@ namespace Qiqqa.InCite
                     citation_clusters.Add(citation_cluster);
                 }
             }
-            
+
             return citation_clusters;
         }
 
@@ -368,7 +364,7 @@ namespace Qiqqa.InCite
             }
         }
 
-        void DisconnectFromWord()
+        private void DisconnectFromWord()
         {
             CheckForChangedContexts(null, null, null, null);
 
@@ -387,7 +383,7 @@ namespace Qiqqa.InCite
             }
         }
 
-        void EnsureWordIsConnected()
+        private void EnsureWordIsConnected()
         {
             if (null == word_application)
             {
@@ -395,7 +391,7 @@ namespace Qiqqa.InCite
                 word_application = (Application)Marshal.GetActiveObject("Word.Application");
 
                 Logging.Info("Word Version     : {0}", word_application.Version);
-                Logging.Info("Word StartupPath : {0}", word_application.StartupPath);                
+                Logging.Info("Word StartupPath : {0}", word_application.StartupPath);
             }
         }
 
@@ -609,7 +605,7 @@ namespace Qiqqa.InCite
                                         field.Result.Text = " ";
                                         Range range = field.Result;
                                         range.Collapse(WdCollapseDirection.wdCollapseStart);
-                                        range.PasteSpecial(DataType:WdPasteDataType.wdPasteRTF);
+                                        range.PasteSpecial(DataType: WdPasteDataType.wdPasteRTF);
                                         field.Result.Text = field.Result.Text.Trim();
                                         field.Result.Font.Name = font_name;
                                         field.Result.Font.Size = font_size;
@@ -643,7 +639,7 @@ namespace Qiqqa.InCite
                             }
 
                             string formatted_bibliography_section_wrapped = CSLProcessorOutputConsumer.RTF_START + formatted_bibliography_section + CSLProcessorOutputConsumer.RTF_END;
-                            
+
                             ClipboardTools.SetText(formatted_bibliography_section_wrapped, TextDataFormat.Rtf);
 
                             field.Result.Text = " ";
@@ -721,10 +717,10 @@ namespace Qiqqa.InCite
         {
             if (!String.IsNullOrEmpty(text_for_cluster))
             {
-                return 
+                return
                     ""
                     + (is_note_format ? "0" : "1")
-                    + StreamFingerprint.FromText(text_for_cluster).Substring(0,8)
+                    + StreamFingerprint.FromText(text_for_cluster).Substring(0, 8)
                     ;
             }
             else

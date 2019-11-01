@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using Utilities;
 using Utilities.Files;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 
+
 namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
 {
-    class IntranetLibraryTools
+    internal class IntranetLibraryTools
     {
         internal static string GetLibraryDetailPath(string base_path)
         {
@@ -39,7 +41,7 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
         }
 
         internal static string GetLibraryAuditFilename(string base_path)
-        {            
+        {
             return Path.GetFullPath(Path.Combine(base_path, @"_audit", DateTime.UtcNow.ToString("yyyyMMdd") + @".txt"));
         }
     }

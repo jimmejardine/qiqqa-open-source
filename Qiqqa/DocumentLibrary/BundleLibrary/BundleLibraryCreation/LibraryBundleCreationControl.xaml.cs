@@ -21,9 +21,8 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
     public partial class LibraryBundleCreationControl : UserControl
     {
         public static readonly string TITLE = "Bundle Library Builder";
-
-        Library library = null;
-        BundleLibraryManifest manifest = null;
+        private Library library = null;
+        private BundleLibraryManifest manifest = null;
 
         public LibraryBundleCreationControl()
         {
@@ -48,7 +47,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
             CmdCreateBundle.Click += CmdCreateBundle_Click;
         }
 
-        void CmdCreateBundle_Click(object sender, RoutedEventArgs e)
+        private void CmdCreateBundle_Click(object sender, RoutedEventArgs e)
         {
             using (FolderBrowserDialog dialog = new FolderBrowserDialog())
             {
@@ -65,24 +64,24 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
             }
         }
 
-        void CreateBundle(string target_directory)
+        private void CreateBundle(string target_directory)
         {
             string target_filename_bundle_manifest = Path.GetFullPath(Path.Combine(target_directory, manifest.Id + Common.EXT_BUNDLE_MANIFEST));
             string target_filename_bundle = Path.GetFullPath(Path.Combine(target_directory, manifest.Id + Common.EXT_BUNDLE));
 
             // Check that the details of the manifest are reasonable
-                try
-                {
-                    new Uri(this.manifest.BaseUrl);
-                }
-                catch (Exception)
-                {
-                    MessageBoxes.Warn("Your base URL of '{0}' is invalid.  Please correct it and try again.", this.manifest.BaseUrl);
-                    return;
-                }
+            try
+            {
+                new Uri(manifest.BaseUrl);
+            }
+            catch (Exception)
+            {
+                MessageBoxes.Warn("Your base URL of '{0}' is invalid.  Please correct it and try again.", manifest.BaseUrl);
+                return;
+            }
 
             // Smash out the manifest
-            string json = this.manifest.ToJSON();
+            string json = manifest.ToJSON();
             File.WriteAllText(target_filename_bundle_manifest, json);
 
             // Smash out the bundle
@@ -120,29 +119,29 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
                 }
 
                 StatusManager.Instance.UpdateStatusBusy(STATUS_TOKEN, "Creating Bundle Library...", iteration, iteration + 1, true);
-                
+
                 Thread.Sleep(1000);
             }
         }
 
-        void CmdThemes_Click(object sender, RoutedEventArgs e)
+        private void CmdThemes_Click(object sender, RoutedEventArgs e)
         {
             SafeThreadPool.QueueUserWorkItem(o => library.ExpeditionManager.RebuildExpedition(library.ExpeditionManager.RecommendedThemeCount, true, true, null));
         }
 
-        void CmdAutoTags_Click(object sender, RoutedEventArgs e)
+        private void CmdAutoTags_Click(object sender, RoutedEventArgs e)
         {
-            SafeThreadPool.QueueUserWorkItem(o => this.library.AITagManager.Regenerate(null));
+            SafeThreadPool.QueueUserWorkItem(o => library.AITagManager.Regenerate(null));
         }
 
-        void CmdCrossReference_Click(object sender, RoutedEventArgs e)
+        private void CmdCrossReference_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_GenerateReferences);
-            SafeThreadPool.QueueUserWorkItem(o => CitationFinder.FindCitations(this.library));
+            SafeThreadPool.QueueUserWorkItem(o => CitationFinder.FindCitations(library));
 
         }
 
-        void CmdOCRAndIndex_Click(object sender, RoutedEventArgs e)
+        private void CmdOCRAndIndex_Click(object sender, RoutedEventArgs e)
         {
             foreach (var pdf_document in library.PDFDocuments)
             {
@@ -152,21 +151,21 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
 
         public void ReflectLibrary(Library library_)
         {
-            this.library = library_;
-            this.manifest = new BundleLibraryManifest();
-            
+            library = library_;
+            manifest = new BundleLibraryManifest();
+
             string bundle_title = library_.WebLibraryDetail.Title + " Bundle Library";
             bundle_title = bundle_title.Replace("Library Bundle Library", "Bundle Library");
 
             // Set the manifest
-            this.manifest.Id = "BUNDLE_" + library_.WebLibraryDetail.Id;
-            this.manifest.Version = DateTime.UtcNow.ToString("yyyyMMdd.HHmmss");
+            manifest.Id = "BUNDLE_" + library_.WebLibraryDetail.Id;
+            manifest.Version = DateTime.UtcNow.ToString("yyyyMMdd.HHmmss");
 
-            this.manifest.Title = bundle_title;
-            this.manifest.Description = library_.WebLibraryDetail.Description;
-            
+            manifest.Title = bundle_title;
+            manifest.Description = library_.WebLibraryDetail.Description;
+
             // GUI updates
-            this.DataContext = this.manifest;
+            DataContext = manifest;
             ObjRunLibraryName.Text = library_.WebLibraryDetail.Title;
 
             ResetProgress();

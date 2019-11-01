@@ -6,16 +6,14 @@ using Utilities.OCR;
 
 namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
 {
-    class TextSelectionManager
+    internal class TextSelectionManager
     {
-        static readonly WordList WORDS_EMPTY = new WordList();
-
-        TextLayerSelectionMode text_layer_selection_mode;
-        WordList words;
-        double actual_width;
-        double actual_height;
-
-        WordList last_selected_words = WORDS_EMPTY;
+        private static readonly WordList WORDS_EMPTY = new WordList();
+        private TextLayerSelectionMode text_layer_selection_mode;
+        private WordList words;
+        private double actual_width;
+        private double actual_height;
+        private WordList last_selected_words = WORDS_EMPTY;
 
         public WordList OnDragStarted(TextLayerSelectionMode text_layer_selection_mode, WordList words, double actual_width, double actual_height, bool button_left_pressed, bool button_right_pressed, Point mouse_down_point)
         {

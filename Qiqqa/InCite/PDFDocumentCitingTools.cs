@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using Qiqqa.Common;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.GUI;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 
+
 namespace Qiqqa.InCite
 {
-    class PDFDocumentCitingTools
+    internal class PDFDocumentCitingTools
     {
         internal static void RefreshBibliography()
         {
@@ -54,7 +55,7 @@ namespace Qiqqa.InCite
 
                 CitationCluster citation_cluster = GenerateCitationClusterFromPDFDocuments(pdf_documents);
                 citation_cluster.citation_items[0].SeparateAuthorsAndDate(separate_author_and_date);
-                
+
                 if (null != citation_cluster)
                 {
                     WordConnector.Instance.WaitForAtLeastOneIteration();
@@ -177,22 +178,10 @@ namespace Qiqqa.InCite
             }
         }
 
-        internal static string BASE_STYLE_DIRECTORY
-        {
-            get
-            {
-                return Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"InCite/styles"));
-            }
-        }
+        internal static string BASE_STYLE_DIRECTORY => Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"InCite/styles"));
 
-        internal static string BASE_REGISTRY_FIXES_DIRECTORY
-        {
-            get
-            {
-                return Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"InCite/registry_fixes"));
-            }
-        }
-        
+        internal static string BASE_REGISTRY_FIXES_DIRECTORY => Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"InCite/registry_fixes"));
+
         internal static string FindValidStyleFilename(string style_filename)
         {
             // If this filename no longer exists, check if we can find the same filename in the default directory
@@ -204,7 +193,7 @@ namespace Qiqqa.InCite
             {
                 string new_style_filename = Path.GetFullPath(Path.Combine(BASE_STYLE_DIRECTORY, Path.GetFileName(style_filename)));
                 if (File.Exists(new_style_filename))
-                {   
+                {
                     return new_style_filename;
                 }
                 else

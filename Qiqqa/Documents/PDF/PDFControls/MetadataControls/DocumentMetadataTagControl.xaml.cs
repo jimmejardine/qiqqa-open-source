@@ -13,8 +13,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
     /// </summary>
     public partial class DocumentMetadataTagControl : StackPanel
     {
-        PDFDocument pdf_document;
-        string tag;
+        private PDFDocument pdf_document;
+        private string tag;
 
         public DocumentMetadataTagControl(PDFDocument pdf_document, string tag)
         {
@@ -23,11 +23,11 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
             InitializeComponent();
 
-            this.Background = new SolidColorBrush(ColorTools.MakeTransparentColor(Colors.Silver, 128));
-            this.Margin = new Thickness(2, 2, 0, 0);            
-            this.MinWidth = 10;
-            this.MinHeight = 10;
-            
+            Background = new SolidColorBrush(ColorTools.MakeTransparentColor(Colors.Silver, 128));
+            Margin = new Thickness(2, 2, 0, 0);
+            MinWidth = 10;
+            MinHeight = 10;
+
             TextTag.Text = tag;
             TextTag.VerticalAlignment = VerticalAlignment.Center;
             TextTag.Padding = new Thickness(4, 4, 4, 4);
@@ -40,7 +40,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             ImageClear.ToolTip = "Click here to remove this tag from the document.";
         }
 
-        void ImageClear_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void ImageClear_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Document_RemoveTag);
 

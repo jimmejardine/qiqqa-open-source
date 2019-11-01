@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Qiqqa.InCite
 {
-    class CSLProcessorTranslator_CitationClustersToJavaScript
+    internal class CSLProcessorTranslator_CitationClustersToJavaScript
     {
         /*
          * Creates this:

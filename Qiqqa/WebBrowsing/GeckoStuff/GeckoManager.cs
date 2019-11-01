@@ -2,21 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
-using System.Windows;
-using System.Windows.Threading;
 using Gecko;
-using Gecko.Net;
-using Gecko.Observers;
-using icons;
-using Qiqqa.Common;
 using Qiqqa.Common.Configuration;
-using Qiqqa.DocumentLibrary;
-using Qiqqa.Documents.PDF;
-using Qiqqa.Documents.PDF.PDFControls;
 using Qiqqa.UtilisationTracking;
 using Utilities;
-using Utilities.Files;
-using Utilities.Misc;
 
 namespace Qiqqa.WebBrowsing.GeckoStuff
 {
@@ -40,13 +29,13 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
 
         //static uint LOAD_LIBRARY_AS_DATAFILE = 0x00000002;
         //static uint LOAD_LIBRARY_AS_DATAFILE_EXCLUSIVE = 0x00000040;
-        static uint LOAD_WITH_ALTERED_SEARCH_PATH = 0x00000008;
+        private static uint LOAD_WITH_ALTERED_SEARCH_PATH = 0x00000008;
 
         #endregion ------------------------------------------------------------------------------------
 
         #region --- Our dependency DLLs ---------------------------------------------------------------
 
-        static List<string> DEPENDENCY_DLLS = new List<string>        
+        private static List<string> DEPENDENCY_DLLS = new List<string>
         {
             
             // Order is IMPORTANT - they are loaded in REVERSE dependency so that Windows never invokes its own dependency resolution code
@@ -87,7 +76,7 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
         #endregion ------------------------------------------------------------------------------------
 
 
-        static bool have_initialised = false;
+        private static bool have_initialised = false;
 
         public static void Initialise()
         {
@@ -144,7 +133,6 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
                 Xpcom.Initialize(installation_directory);
                 Logging.Info("-Initialising GeckoFX");
 
-                
                 have_initialised = true;
 
                 SetupProxyAndUserAgent(true);
@@ -240,7 +228,7 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
         }
 
         public static void RegisterPDFInterceptor()
-        {            
+        {
             ObserverService.AddObserver(PDFInterceptor.Instance);
         }
     }

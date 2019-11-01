@@ -5,54 +5,52 @@ using System.Windows.Forms;
 
 namespace Utilities.GUI.Charting
 {
-	public class TopographicalChart : UserControl
-	{
-		double[,] dataset;
-		string x_name;
-		double x_min;
-		double x_max;
-		string y_name;
-		double y_min;
-		double y_max;
+    public class TopographicalChart : UserControl
+    {
+        private double[,] dataset;
+        private string x_name;
+        private double x_min;
+        private double x_max;
+        private string y_name;
+        private double y_min;
+        private double y_max;
+        private double datasetmin;
+        private double datasetmax;
+        private int last_mouse_x;
+        private int last_mouse_y;
 
-		double datasetmin;
-		double datasetmax;
+        public TopographicalChart()
+        {
+        }
 
-		int last_mouse_x;
-		int last_mouse_y;
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+            last_mouse_x = e.X;
+            last_mouse_y = e.Y;
+        }
 
-		public TopographicalChart()
-		{
-		}
+        protected override void OnMouseDown(MouseEventArgs e)
+        {
+            base.OnMouseDown(e);
+            Refresh();
+        }
 
-		protected override void OnMouseMove(MouseEventArgs e)
-		{
-			last_mouse_x = e.X;
-			last_mouse_y = e.Y;
-		}
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            // If we have a dataset to render
+            if (null != dataset)
+            {
+                int datasetwidth = dataset.GetUpperBound(1) + 1;
+                int datasetheight = dataset.GetUpperBound(0) + 1;
+                int screenwidth = Width;
+                int screenheight = Height;
 
-		protected override void OnMouseDown(MouseEventArgs e)
-		{
-			base.OnMouseDown(e);
-			this.Refresh();
-		}
+                float rendersquarewidth = screenwidth / (float)datasetwidth;
+                float rendersquareheight = screenheight / (float)datasetheight;
 
-		protected override void OnPaint(PaintEventArgs e)
-		{
-			// If we have a dataset to render
-			if (null != dataset)
-			{
-				int datasetwidth = dataset.GetUpperBound(1)+1;
-				int datasetheight = dataset.GetUpperBound(0)+1;
-				int screenwidth = this.Width;
-				int screenheight = this.Height;
-
-				float rendersquarewidth = screenwidth / (float) datasetwidth;
-				float rendersquareheight = screenheight / (float) datasetheight;
-				
-				// Check that the mouse is still in range
-				if (last_mouse_x > screenwidth) last_mouse_x = screenwidth-1;
-				if (last_mouse_y > screenheight) last_mouse_y = screenheight-1;
+                // Check that the mouse is still in range
+                if (last_mouse_x > screenwidth) last_mouse_x = screenwidth - 1;
+                if (last_mouse_y > screenheight) last_mouse_y = screenheight - 1;
 
                 using (SolidBrush brush = new SolidBrush(Color.Black))
                 {
@@ -83,11 +81,11 @@ namespace Utilities.GUI.Charting
                     }
 
                     // Print out some information
-                    double current_y = y_min + (y_max - y_min) * last_mouse_y / (double)(this.Height - rendersquareheight);
-                    double current_x = x_min + (x_max - x_min) * last_mouse_x / (double)(this.Width - rendersquarewidth);
+                    double current_y = y_min + (y_max - y_min) * last_mouse_y / (double)(Height - rendersquareheight);
+                    double current_x = x_min + (x_max - x_min) * last_mouse_x / (double)(Width - rendersquarewidth);
 
-                    int dataset_i = (int)(datasetheight * last_mouse_y / (double)this.Height);
-                    int dataset_j = (int)(datasetwidth * last_mouse_x / (double)this.Width);
+                    int dataset_i = (int)(datasetheight * last_mouse_y / (double)Height);
+                    int dataset_j = (int)(datasetwidth * last_mouse_x / (double)Width);
                     if (dataset_i > dataset.GetUpperBound(0)) dataset_i = dataset.GetUpperBound(0);
                     if (dataset_j > dataset.GetUpperBound(1)) dataset_j = dataset.GetUpperBound(1);
                     if (dataset_i < 0) dataset_i = 0;
@@ -101,75 +99,75 @@ namespace Utilities.GUI.Charting
                         e.Graphics.DrawString(sb.ToString(), font, brush, 10, 10);
                     }
                 }
-			}
+            }
 
-			// Otherwise we have no dataset to render
-			else
-			{
-				ChartTools.renderNoDatasetMessage(e.Graphics);
-			}
-		}
+            // Otherwise we have no dataset to render
+            else
+            {
+                ChartTools.renderNoDatasetMessage(e.Graphics);
+            }
+        }
 
-		public void setDataset(double[,] adataset, string ax_name, double ax_min, double ax_max, string ay_name, double ay_min, double ay_max)
-		{
-			this.dataset = adataset;
-			x_name = ax_name;
-			x_min = ax_min;
-			x_max = ax_max;
-			y_name = ay_name;
-			y_min = ay_min;
-			y_max = ay_max;
+        public void setDataset(double[,] adataset, string ax_name, double ax_min, double ax_max, string ay_name, double ay_min, double ay_max)
+        {
+            dataset = adataset;
+            x_name = ax_name;
+            x_min = ax_min;
+            x_max = ax_max;
+            y_name = ay_name;
+            y_min = ay_min;
+            y_max = ay_max;
 
-			datasetmin = dataset[0,0];
-			datasetmax = dataset[0,0];
+            datasetmin = dataset[0, 0];
+            datasetmax = dataset[0, 0];
 
-			int datasetwidth = dataset.GetUpperBound(1)+1;
-			int datasetheight = dataset.GetUpperBound(0)+1;
-			for (int i = 0; i < datasetheight; ++i)
-			{
-				for (int j = 0; j < datasetwidth; ++j)
-				{
-					if (dataset[i,j] < datasetmin)
-					{
-						datasetmin = dataset[i,j];
-					}
-					else if (dataset[i,j] > datasetmax)
-					{
-						datasetmax = dataset[i,j];
-					}
-				}
-			}
+            int datasetwidth = dataset.GetUpperBound(1) + 1;
+            int datasetheight = dataset.GetUpperBound(0) + 1;
+            for (int i = 0; i < datasetheight; ++i)
+            {
+                for (int j = 0; j < datasetwidth; ++j)
+                {
+                    if (dataset[i, j] < datasetmin)
+                    {
+                        datasetmin = dataset[i, j];
+                    }
+                    else if (dataset[i, j] > datasetmax)
+                    {
+                        datasetmax = dataset[i, j];
+                    }
+                }
+            }
 
-			this.Refresh();
-		}
+            Refresh();
+        }
 
-		public void setTestDataset()
-		{
-			double[,] adataset = new double[4,3];
-			adataset[0,0] = 5.0;
-			adataset[2,1] = 6.0;
-			adataset[1,2] = 15.0;
-			setDataset(adataset, "x", 0, 1, "y", 0, 1);
-		}
+        public void setTestDataset()
+        {
+            double[,] adataset = new double[4, 3];
+            adataset[0, 0] = 5.0;
+            adataset[2, 1] = 6.0;
+            adataset[1, 2] = 15.0;
+            setDataset(adataset, "x", 0, 1, "y", 0, 1);
+        }
 
-		public void showFormModal()
-		{
+        public void showFormModal()
+        {
             using (SingleControlForm form = new SingleControlForm())
             {
                 form.setControl(this);
                 form.ShowDialog();
             }
-		}
+        }
 
-		public void showForm()
-		{
+        public void showForm()
+        {
             using (SingleControlForm form = new SingleControlForm())
             {
                 form.setControl(this);
                 form.Show();
             }
-		}
-	}
+        }
+    }
 }
 
 

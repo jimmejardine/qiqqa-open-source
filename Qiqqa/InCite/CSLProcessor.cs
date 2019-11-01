@@ -38,7 +38,7 @@ namespace Qiqqa.InCite
             CSLProcessorOutputConsumer csl_poc = new CSLProcessorOutputConsumer(BASE_PATH, citations_javascript, brd, null);
         }
 
-        static void GenerateRtfCitationSnippet_OnBibliographyReady(CSLProcessorOutputConsumer ip)
+        private static void GenerateRtfCitationSnippet_OnBibliographyReady(CSLProcessorOutputConsumer ip)
         {
             if (ip.success)
             {
@@ -48,7 +48,7 @@ namespace Qiqqa.InCite
                 ClipboardTools.SetRtf(snippet_rtf);
                 StatusManager.Instance.UpdateStatus("InCiteCitationSnippet", String.Format("{0} citation(s) copied to the clipboard.", ip.bibliography.Count));
             }
-            
+
             else
             {
                 StatusManager.Instance.UpdateStatus("InCiteCitationSnippet", String.Format("Error generating citation(s)."));
@@ -87,7 +87,7 @@ namespace Qiqqa.InCite
             CSLProcessorOutputConsumer csl_poc = new CSLProcessorOutputConsumer(BASE_PATH, citations_javascript, RefreshDocument_OnBibliographyReady, passthru);
         }
 
-        static void RefreshDocument_OnBibliographyReady(CSLProcessorOutputConsumer ip)
+        private static void RefreshDocument_OnBibliographyReady(CSLProcessorOutputConsumer ip)
         {
             BrowserThreadPassThru passthru = (BrowserThreadPassThru)ip.user_argument;
 
@@ -102,21 +102,15 @@ namespace Qiqqa.InCite
             }
             catch (Exception ex)
             {
-                SafeThreadPool.QueueUserWorkItem(o => 
+                SafeThreadPool.QueueUserWorkItem(o =>
                     {
                         throw new Exception(String.Format("Exception while generating bibliography with style '{0}'", passthru.style_file), ex);
                     }
-                );                
+                );
             }
         }
 
-        public static string CITATION_RESOURCES_SUBDIRECTORY
-        {
-            get
-            {
-                return Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"InCite/resources"));
-            }
-        }
+        public static string CITATION_RESOURCES_SUBDIRECTORY => Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"InCite/resources"));
 
         private static void EnsureWorkingDirectoryIsPukka_WithCode()
         {

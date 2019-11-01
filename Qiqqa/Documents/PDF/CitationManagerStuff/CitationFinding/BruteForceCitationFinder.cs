@@ -16,7 +16,7 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff.CitationFinding
      * It then finds all docs in the index with those author names.  
      * It then searches those docs for the title of this doc.
      */
-    class BruteForceCitationFinder
+    internal class BruteForceCitationFinder
     {
         private static string GenerateTextOnlyTitle(string source)
         {

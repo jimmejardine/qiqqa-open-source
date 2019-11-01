@@ -1,7 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.IO;
 
 namespace Utilities.Strings
 {
@@ -104,7 +104,7 @@ OF SUCH DAMAGE.
          *      - Provide straight-to-string method for byte arrays (GetStringFromByteArray)
          */
 
-        const long _defaultHeuristicSampleSize = 0x10000; //completely arbitrary - inappropriate for high numbers of files / high speed requirements
+        private const long _defaultHeuristicSampleSize = 0x10000; //completely arbitrary - inappropriate for high numbers of files / high speed requirements
 
         public static Encoding DetectTextFileEncoding(string InputFilename)
         {
@@ -243,16 +243,16 @@ OF SUCH DAMAGE.
             if (BOMBytes.Length < 2)
                 return null;
 
-            if (BOMBytes[0] == 0xff 
-                && BOMBytes[1] == 0xfe 
-                && (BOMBytes.Length < 4 
-                    || BOMBytes[2] != 0 
+            if (BOMBytes[0] == 0xff
+                && BOMBytes[1] == 0xfe
+                && (BOMBytes.Length < 4
+                    || BOMBytes[2] != 0
                     || BOMBytes[3] != 0
                     )
                 )
                 return Encoding.Unicode;
 
-            if (BOMBytes[0] == 0xfe 
+            if (BOMBytes[0] == 0xfe
                 && BOMBytes[1] == 0xff
                 )
                 return Encoding.BigEndianUnicode;
@@ -307,7 +307,7 @@ OF SUCH DAMAGE.
                 //likely US-ASCII characters
                 if (IsCommonUSASCIIByte(SampleBytes[currentPos]))
                     likelyUSASCIIBytesInSample++;
-                    
+
                 //suspicious sequences (look like UTF-8)
                 if (skipUTF8Bytes == 0)
                 {
@@ -334,7 +334,7 @@ OF SUCH DAMAGE.
             //  The thresholds here used (less than 20% nulls where you expect non-nulls, and more than
             //  60% nulls where you do expect nulls) are completely arbitrary.
 
-            if (((evenBinaryNullsInSample * 2.0) / SampleBytes.Length) < 0.2 
+            if (((evenBinaryNullsInSample * 2.0) / SampleBytes.Length) < 0.2
                 && ((oddBinaryNullsInSample * 2.0) / SampleBytes.Length) > 0.6
                 )
                 return Encoding.Unicode;
@@ -346,7 +346,7 @@ OF SUCH DAMAGE.
             //  The thresholds here used (less than 20% nulls where you expect non-nulls, and more than
             //  60% nulls where you do expect nulls) are completely arbitrary.
 
-            if (((oddBinaryNullsInSample * 2.0) / SampleBytes.Length) < 0.2 
+            if (((oddBinaryNullsInSample * 2.0) / SampleBytes.Length) < 0.2
                 && ((evenBinaryNullsInSample * 2.0) / SampleBytes.Length) > 0.6
                 )
                 return Encoding.BigEndianUnicode;
@@ -357,7 +357,7 @@ OF SUCH DAMAGE.
             //  http://www.w3.org/International/questions/qa-forms-utf-8
             //  adapted here for C#.
             string potentiallyMangledString = Encoding.ASCII.GetString(SampleBytes);
-            Regex UTF8Validator = new Regex(@"\A(" 
+            Regex UTF8Validator = new Regex(@"\A("
                 + @"[\x09\x0A\x0D\x20-\x7E]"
                 + @"|[\xC2-\xDF][\x80-\xBF]"
                 + @"|\xE0[\xA0-\xBF][\x80-\xBF]"
@@ -392,7 +392,7 @@ OF SUCH DAMAGE.
                 if ((suspiciousUTF8SequenceCount * 500000.0 / SampleBytes.Length >= 1) //suspicious sequences
                     && (
                            //all suspicious, so cannot evaluate proportion of US-Ascii
-                           SampleBytes.Length - suspiciousUTF8BytesTotal == 0 
+                           SampleBytes.Length - suspiciousUTF8BytesTotal == 0
                            ||
                            likelyUSASCIIBytesInSample * 1.0 / (SampleBytes.Length - suspiciousUTF8BytesTotal) >= 0.8
                        )
@@ -425,89 +425,89 @@ OF SUCH DAMAGE.
         {
             int lengthFound = 0;
 
-            if (SampleBytes.Length >= currentPos + 1 
+            if (SampleBytes.Length >= currentPos + 1
                 && SampleBytes[currentPos] == 0xC2
                 )
             {
-                if (SampleBytes[currentPos + 1] == 0x81 
-                    || SampleBytes[currentPos + 1] == 0x8D 
+                if (SampleBytes[currentPos + 1] == 0x81
+                    || SampleBytes[currentPos + 1] == 0x8D
                     || SampleBytes[currentPos + 1] == 0x8F
                     )
                     lengthFound = 2;
-                else if (SampleBytes[currentPos + 1] == 0x90 
+                else if (SampleBytes[currentPos + 1] == 0x90
                     || SampleBytes[currentPos + 1] == 0x9D
                     )
                     lengthFound = 2;
-                else if (SampleBytes[currentPos + 1] >= 0xA0 
+                else if (SampleBytes[currentPos + 1] >= 0xA0
                     && SampleBytes[currentPos + 1] <= 0xBF
                     )
                     lengthFound = 2;
             }
-            else if (SampleBytes.Length >= currentPos + 1 
+            else if (SampleBytes.Length >= currentPos + 1
                 && SampleBytes[currentPos] == 0xC3
                 )
             {
-                if (SampleBytes[currentPos + 1] >= 0x80 
+                if (SampleBytes[currentPos + 1] >= 0x80
                     && SampleBytes[currentPos + 1] <= 0xBF
                     )
                     lengthFound = 2;
             }
-            else if (SampleBytes.Length >= currentPos + 1 
+            else if (SampleBytes.Length >= currentPos + 1
                 && SampleBytes[currentPos] == 0xC5
                 )
             {
-                if (SampleBytes[currentPos + 1] == 0x92 
+                if (SampleBytes[currentPos + 1] == 0x92
                     || SampleBytes[currentPos + 1] == 0x93
                     )
                     lengthFound = 2;
-                else if (SampleBytes[currentPos + 1] == 0xA0 
+                else if (SampleBytes[currentPos + 1] == 0xA0
                     || SampleBytes[currentPos + 1] == 0xA1
                     )
                     lengthFound = 2;
-                else if (SampleBytes[currentPos + 1] == 0xB8 
-                    || SampleBytes[currentPos + 1] == 0xBD 
+                else if (SampleBytes[currentPos + 1] == 0xB8
+                    || SampleBytes[currentPos + 1] == 0xBD
                     || SampleBytes[currentPos + 1] == 0xBE
                     )
                     lengthFound = 2;
             }
-            else if (SampleBytes.Length >= currentPos + 1 
+            else if (SampleBytes.Length >= currentPos + 1
                 && SampleBytes[currentPos] == 0xC6
                 )
             {
                 if (SampleBytes[currentPos + 1] == 0x92)
                     lengthFound = 2;
             }
-            else if (SampleBytes.Length >= currentPos + 1 
+            else if (SampleBytes.Length >= currentPos + 1
                 && SampleBytes[currentPos] == 0xCB
                 )
             {
-                if (SampleBytes[currentPos + 1] == 0x86 
+                if (SampleBytes[currentPos + 1] == 0x86
                     || SampleBytes[currentPos + 1] == 0x9C
                     )
                     lengthFound = 2;
             }
-            else if (SampleBytes.Length >= currentPos + 2 
+            else if (SampleBytes.Length >= currentPos + 2
                 && SampleBytes[currentPos] == 0xE2
                 )
             {
                 if (SampleBytes[currentPos + 1] == 0x80)
                 {
-                    if (SampleBytes[currentPos + 2] == 0x93 
+                    if (SampleBytes[currentPos + 2] == 0x93
                         || SampleBytes[currentPos + 2] == 0x94
                         )
                         lengthFound = 3;
-                    if (SampleBytes[currentPos + 2] == 0x98 
-                        || SampleBytes[currentPos + 2] == 0x99 
+                    if (SampleBytes[currentPos + 2] == 0x98
+                        || SampleBytes[currentPos + 2] == 0x99
                         || SampleBytes[currentPos + 2] == 0x9A
                         )
                         lengthFound = 3;
-                    if (SampleBytes[currentPos + 2] == 0x9C 
-                        || SampleBytes[currentPos + 2] == 0x9D 
+                    if (SampleBytes[currentPos + 2] == 0x9C
+                        || SampleBytes[currentPos + 2] == 0x9D
                         || SampleBytes[currentPos + 2] == 0x9E
                         )
                         lengthFound = 3;
-                    if (SampleBytes[currentPos + 2] == 0xA0 
-                        || SampleBytes[currentPos + 2] == 0xA1 
+                    if (SampleBytes[currentPos + 2] == 0xA0
+                        || SampleBytes[currentPos + 2] == 0xA1
                         || SampleBytes[currentPos + 2] == 0xA2
                         )
                         lengthFound = 3;
@@ -515,16 +515,16 @@ OF SUCH DAMAGE.
                         lengthFound = 3;
                     if (SampleBytes[currentPos + 2] == 0xB0)
                         lengthFound = 3;
-                    if (SampleBytes[currentPos + 2] == 0xB9 
+                    if (SampleBytes[currentPos + 2] == 0xB9
                         || SampleBytes[currentPos + 2] == 0xBA
                         )
                         lengthFound = 3;
                 }
-                else if (SampleBytes[currentPos + 1] == 0x82 
+                else if (SampleBytes[currentPos + 1] == 0x82
                     && SampleBytes[currentPos + 2] == 0xAC
                     )
                     lengthFound = 3;
-                else if (SampleBytes[currentPos + 1] == 0x84 
+                else if (SampleBytes[currentPos + 1] == 0x84
                     && SampleBytes[currentPos + 2] == 0xA2
                     )
                     lengthFound = 3;

@@ -3,13 +3,13 @@ using System.Globalization;
 
 namespace Utilities.DateTimeTools
 {
-	public class DateFormatter
-	{
-		public static string asMMYY(DateTime date)
-		{
-			string year_string = date.Year.ToString();
-			return date.Month + "/" + year_string.Substring(2);
-		}
+    public class DateFormatter
+    {
+        public static string asMMYY(DateTime date)
+        {
+            string year_string = date.Year.ToString();
+            return date.Month + "/" + year_string.Substring(2);
+        }
 
         public static string asDDMMMYYYY(DateTime date)
         {

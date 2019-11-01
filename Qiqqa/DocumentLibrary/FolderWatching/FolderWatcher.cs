@@ -1,23 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Diagnostics;
-using Qiqqa.Documents.PDF;
+using System.IO;
 using Qiqqa.Common.TagManagement;
+using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.Files;
 using Utilities.Misc;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.DocumentLibrary.FolderWatching
 {
     public class FolderWatcher : IDisposable
     {
-        FolderWatcherManager folder_watcher_manager;
-        Library library;
-        HashSet<string> tags;
+        private FolderWatcherManager folder_watcher_manager;
+        private Library library;
+        private HashSet<string> tags;
 
         // TODO
         //
@@ -26,12 +27,11 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         // If 'FolderWatcher' has previously shipped, adding new members that implement IDisposable 
         // to this type is considered a breaking change to existing consumers.
 
-        FileSystemWatcher file_system_watcher;
-
-        string configured_folder_to_watch;
-        string aspiring_folder_to_watch;
-        bool __folder_contents_has_changed;
-        object folder_contents_has_changed_lock = new object();
+        private FileSystemWatcher file_system_watcher;
+        private string configured_folder_to_watch;
+        private string aspiring_folder_to_watch;
+        private bool __folder_contents_has_changed;
+        private object folder_contents_has_changed_lock = new object();
 
         private bool FolderContentsHaveChanged
         {
@@ -75,9 +75,9 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         {
             this.folder_watcher_manager = folder_watcher_manager;
             this.library = library;
-            this.aspiring_folder_to_watch = folder_to_watch;
+            aspiring_folder_to_watch = folder_to_watch;
             this.tags = TagTools.ConvertTagBundleToTags(tags);
-            this.configured_folder_to_watch = null;
+            configured_folder_to_watch = null;
 
             file_system_watcher = new FileSystemWatcher();
             file_system_watcher.IncludeSubdirectories = true;
@@ -91,13 +91,13 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             file_system_watcher.EnableRaisingEvents = false;
         }
 
-        void file_system_watcher_Changed(object sender, FileSystemEventArgs e)
+        private void file_system_watcher_Changed(object sender, FileSystemEventArgs e)
         {
             Logging.Debug特("FolderWatcher file_system_watcher_Changed");
             FolderContentsHaveChanged = true;
         }
 
-        void file_system_watcher_Created(object sender, FileSystemEventArgs e)
+        private void file_system_watcher_Created(object sender, FileSystemEventArgs e)
         {
             Logging.Debug特("FolderWatcher file_system_watcher_Created");
             FolderContentsHaveChanged = true;

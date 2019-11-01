@@ -26,7 +26,7 @@ namespace Qiqqa.Common.TagManagement
         // If 'TagEditorControl' has previously shipped, adding new members that implement IDisposable 
         // to this type is considered a breaking change to existing consumers.
 
-        WeakDependencyPropertyChangeNotifier wdpcn;
+        private WeakDependencyPropertyChangeNotifier wdpcn;
 
         public TagEditorControl()
         {
@@ -39,12 +39,12 @@ namespace Qiqqa.Common.TagManagement
             wdpcn.ValueChanged += OnTagsBundlePropertyChanged;
         }
 
-        void OnTagsBundlePropertyChanged(object sender, EventArgs e)
+        private void OnTagsBundlePropertyChanged(object sender, EventArgs e)
         {
             RebuildTagItems();
         }
 
-        void ObjAddControl_OnNewTag(string tag)
+        private void ObjAddControl_OnNewTag(string tag)
         {
             HashSet<string> tags = TagTools.ConvertTagBundleToTags(TagsBundle);
             tags.Add(tag);
@@ -56,7 +56,7 @@ namespace Qiqqa.Common.TagManagement
                 FeatureTrackingManager.Instance.UseFeature(TagFeature_Add);
             }
         }
-        
+
         private void RebuildTagItems()
         {
             string tags_string = TagsBundle;
@@ -90,25 +90,15 @@ namespace Qiqqa.Common.TagManagement
 
         public Visibility TagsTitleVisibility
         {
-            get
-            {
-                return TxtTagTitle.Visibility;
-            }
-            set
-            {
-                TxtTagTitle.Visibility = value;
-            }
+            get => TxtTagTitle.Visibility;
+            set => TxtTagTitle.Visibility = value;
         }
 
         public static DependencyProperty TagsBundleProperty = DependencyProperty.Register("TagsBundle", typeof(string), typeof(TagEditorControl), new PropertyMetadata());
         public string TagsBundle
         {
-            get { 
-                return (string)GetValue(TagsBundleProperty); 
-            }
-            set {
-                SetValue(TagsBundleProperty, value); 
-            }
+            get => (string)GetValue(TagsBundleProperty);
+            set => SetValue(TagsBundleProperty, value);
         }
 
         #region --- IDisposable ------------------------------------------------------------------------

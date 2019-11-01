@@ -1,16 +1,13 @@
-﻿using Qiqqa.DocumentLibrary;
+﻿using System;
+using Qiqqa.DocumentLibrary;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Utilities;
 using Utilities.GUI;
 
 namespace Qiqqa.Common
 {
-    class URLProtocolHandler
+    internal class URLProtocolHandler
     {
         internal static void Go(string filename)
         {
@@ -58,7 +55,7 @@ namespace Qiqqa.Common
             catch (Exception ex)
             {
                 MessageBoxes.Error(ex.Message);
-            }            
+            }
         }
     }
 }

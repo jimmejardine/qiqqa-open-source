@@ -5,9 +5,9 @@ using System.Text.RegularExpressions;
 
 namespace Utilities.Strings
 {
-	public class StringTools
-	{
-        static readonly string[] SPLIT_SENTENCE = new string[] { ". " };
+    public class StringTools
+    {
+        private static readonly string[] SPLIT_SENTENCE = new string[] { ". " };
 
         public static string[] SpitIntoSentences(string paragraph)
         {
@@ -27,7 +27,7 @@ namespace Utilities.Strings
             }
         }
 
-        static readonly char[] SPLIT_TAB = new char[] { '\t' };
+        private static readonly char[] SPLIT_TAB = new char[] { '\t' };
         public static string[] SplitAtTabs(string line)
         {
             return line.Split(SPLIT_TAB);
@@ -37,7 +37,7 @@ namespace Utilities.Strings
         {
             if (source.EndsWith(victim))
             {
-                return source.Substring(0, source.Length-victim.Length);
+                return source.Substring(0, source.Length - victim.Length);
             }
             else
             {
@@ -45,7 +45,7 @@ namespace Utilities.Strings
             }
         }
 
-	    /// <summary>
+        /// <summary>
         /// Returns the concatenated list of strings separated by separator
         /// </summary>
         /// <param name="strings"></param>
@@ -58,7 +58,7 @@ namespace Utilities.Strings
             {
                 return "";
             }
-            
+
             // If there are zero, one or multiple items
             StringBuilder sb = new StringBuilder();
             int i = 0;
@@ -163,7 +163,7 @@ namespace Utilities.Strings
                         }
                     }
 
-                    if (0 == depth && split_chars.Contains(source.Substring(i,1)))
+                    if (0 == depth && split_chars.Contains(source.Substring(i, 1)))
                     {
                         if (i - start_pos > 0 || split_options == StringSplitOptions.None)
                         {
@@ -208,53 +208,53 @@ namespace Utilities.Strings
         }
 
         public static StringArray splitAtNewline(string source)
-		{
-			StringArray result = new StringArray();
-			int source_length = source.Length;
-			int start_pos = 0;
-			for (int i = 0; i < source_length; ++i)
-			{
-				// If we find a \r or \n, chop out the string
-				if ('\r' == source[i])
-				{
-					result.Add(source.Substring(start_pos, i - start_pos));
-					start_pos = i + 1;
+        {
+            StringArray result = new StringArray();
+            int source_length = source.Length;
+            int start_pos = 0;
+            for (int i = 0; i < source_length; ++i)
+            {
+                // If we find a \r or \n, chop out the string
+                if ('\r' == source[i])
+                {
+                    result.Add(source.Substring(start_pos, i - start_pos));
+                    start_pos = i + 1;
 
-					// If \r is followed by \n ignore the \n
-					if (start_pos < source_length && '\n' == source[start_pos])
-					{
-						++i;
-						++start_pos;
-					}
-				}
+                    // If \r is followed by \n ignore the \n
+                    if (start_pos < source_length && '\n' == source[start_pos])
+                    {
+                        ++i;
+                        ++start_pos;
+                    }
+                }
 
-				else if ('\n' == source[i])
-				{
-					result.Add(source.Substring(start_pos, i - start_pos));
-					start_pos = i + 1;
-				}
-			}
+                else if ('\n' == source[i])
+                {
+                    result.Add(source.Substring(start_pos, i - start_pos));
+                    start_pos = i + 1;
+                }
+            }
 
-			// Add in the last item
-			if (start_pos < source_length)
-			{
-				result.Add(source.Substring(start_pos, source_length - start_pos));
-			}
+            // Add in the last item
+            if (start_pos < source_length)
+            {
+                result.Add(source.Substring(start_pos, source_length - start_pos));
+            }
 
-			return result;
-		}
+            return result;
+        }
 
-		public static int getCharacterPositionOfRow(int row, string[] lines)
-		{
-			int position = 0;
-			for (int i = 0; i < row; ++i)
-			{
-				position += lines[i].Length;
-				position += 2;	//CRLF
-			}
+        public static int getCharacterPositionOfRow(int row, string[] lines)
+        {
+            int position = 0;
+            for (int i = 0; i < row; ++i)
+            {
+                position += lines[i].Length;
+                position += 2;  //CRLF
+            }
 
-			return position;
-		}
+            return position;
+        }
 
         public static int CharCount(string source, char key)
         {
@@ -403,12 +403,12 @@ namespace Utilities.Strings
             if (String.IsNullOrEmpty(word)) return false;
             return word[0] >= 'a' && word[0] <= 'z';
         }
-        
+
         public static double LewensteinSimilarity(string s, string t)
         {
             return 1 - LewensteinDistance(s, t) / (double)Math.Max(s.Length, t.Length);
         }
-        
+
         /// <summary>
         /// Returns the lewenstein distance between the two strings.
         /// 0 if they are identical, up to a maximum of max(len(s),len(t))
@@ -463,7 +463,7 @@ namespace Utilities.Strings
 
         public static bool HasSomeLowerCase(string title)
         {
-            for (int i = title.Length-1; i >= 0; --i)
+            for (int i = title.Length - 1; i >= 0; --i)
             {
                 if (Char.IsLower(title, i)) return true;
             }
@@ -475,7 +475,7 @@ namespace Utilities.Strings
         {
             int num_lower = 0;
             int num_total = 0;
-            
+
             for (int i = title.Length - 1; i >= 0; --i)
             {
                 if (Char.IsLetter(title, i))
@@ -486,15 +486,15 @@ namespace Utilities.Strings
                     }
 
                     ++num_total;
-                }                
+                }
             }
 
-            return num_total > 0 ? num_lower / (double) num_total : 0;
+            return num_total > 0 ? num_lower / (double)num_total : 0;
         }
 
 
         public static bool HasSomeUpperCase(string title)
-        {            
+        {
             for (int i = 0; i < title.Length; ++i)
             {
                 if (Char.IsUpper(title, i)) return true;
@@ -509,7 +509,7 @@ namespace Utilities.Strings
             str = str.Replace("\r\n", " ");
             str = str.Replace("\r", " ");
             str = str.Replace("\n", " ");
-            return str;            
+            return str;
         }
 
         private static readonly Regex sWhitespace = new Regex(@"[\s\r\n]+");
@@ -574,7 +574,7 @@ namespace Utilities.Strings
             int blank_pos = str.IndexOf(chr);
             if (-1 != blank_pos)
             {
-                str = str.Substring(0, blank_pos + (include_string?chr.Length:0));
+                str = str.Substring(0, blank_pos + (include_string ? chr.Length : 0));
             }
 
             return str;

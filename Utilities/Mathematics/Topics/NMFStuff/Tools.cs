@@ -3,7 +3,7 @@ using Utilities.Random;
 
 namespace Utilities.Mathematics.Topics.NMFStuff
 {
-    class Tools
+    internal class Tools
     {
         internal static void InitialiseRandomMatrices(int K, int M, int N, float[,] W, float[,] H)
         {

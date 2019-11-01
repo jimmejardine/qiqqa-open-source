@@ -1,12 +1,11 @@
 ﻿using System;
-using Qiqqa.Documents.PDF;
 using Utilities.PDF;
 
 namespace Qiqqa.Documents.PDF.MetadataSuggestions
 {
     public static class PDFMetadataExtractor
     {
-        static readonly char[] SPLITS = new char[] { ',', ';', ' ', '\'', '"' };
+        private static readonly char[] SPLITS = new char[] { ',', ';', ' ', '\'', '"' };
 
         public static void ExtractKeywordsAsTags(PDFDocument pdf_document)
         {

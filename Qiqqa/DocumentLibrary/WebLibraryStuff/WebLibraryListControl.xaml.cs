@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Reflection;
 using System.Windows.Controls;
 using Qiqqa.Common.Configuration;
 using Utilities.GUI;
@@ -23,14 +22,8 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         public bool ConciseView
         {
-            get
-            {
-                return concise_view;
-            }
-            set
-            {
-                concise_view = value;
-            }
+            get => concise_view;
+            set => concise_view = value;
         }
 
         internal void Refresh()
@@ -49,7 +42,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
             // Add the children to our control
             PanelWebLibraries.Children.Clear();
-            for (int i = 0; i < children.Count; ++i)            
+            for (int i = 0; i < children.Count; ++i)
             {
                 WebLibraryDetail web_library_detail = children[i];
 
@@ -69,7 +62,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             }
         }
 
-        void OnChildWebLibrarySelected(WebLibraryDetail web_library_detail)
+        private void OnChildWebLibrarySelected(WebLibraryDetail web_library_detail)
         {
             // Remember it by tacking it onto the front and removing it from the middle
             ConfigurationManager.Instance.ConfigurationRecord.GUI_LastSelectedLibraryId = web_library_detail.Id + ConfigurationManager.Instance.ConfigurationRecord.GUI_LastSelectedLibraryId.Replace(web_library_detail.Id, "");

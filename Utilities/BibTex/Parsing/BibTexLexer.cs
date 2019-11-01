@@ -10,11 +10,11 @@ namespace Utilities.BibTex.Parsing
     /// </summary>
     public class BibTexLexer
     {
-        string bibtex;
+        private string bibtex;
 
         // Named c for current_pos, but needs to be short because we will use it in a LOT of bibtex[c+i] expressions...
-        readonly int MAX_C;
-        int c;
+        private readonly int MAX_C;
+        private int c;
 
         public BibTexLexer(string bibtex)
         {
@@ -29,8 +29,8 @@ namespace Utilities.BibTex.Parsing
             bibtex = "\n" + bibtex + "\n\n\n";
 
             this.bibtex = bibtex;
-            this.MAX_C = bibtex.Length - 3;
-            this.c = 0;
+            MAX_C = bibtex.Length - 3;
+            c = 0;
         }
 
         public void Parse(BibTexLexerCallback callback)
@@ -38,7 +38,7 @@ namespace Utilities.BibTex.Parsing
             ParseTopLevel(callback);
         }
 
-        void ParseTopLevel(BibTexLexerCallback callback)
+        private void ParseTopLevel(BibTexLexerCallback callback)
         {
             int prev_c = c;
             while (c < MAX_C)
@@ -203,7 +203,7 @@ namespace Utilities.BibTex.Parsing
             {
                 callback.RaiseWarning("There is no key in this BibTeX reference");
             }
-            
+
             string key = bibtex.Substring(key_start, key_end - key_start);
 
             callback.RaiseKey(key);
@@ -213,85 +213,85 @@ namespace Utilities.BibTex.Parsing
 
         private void ParseFields(BibTexLexerCallback callback, char delim_close)
         {
-                            while (delim_close != bibtex[c])
+            while (delim_close != bibtex[c])
+            {
+                // Parse whitespace
+                ParseWhiteSpace();
+
+                // Get the name
+                if (ParseFieldName(callback))
                 {
                     // Parse whitespace
                     ParseWhiteSpace();
 
-                    // Get the name
-                    if (ParseFieldName(callback))
+                    // Get the equals
+                    if ('=' != bibtex[c])
                     {
-                                            // Parse whitespace
-                        ParseWhiteSpace();
-
-                        // Get the equals
-                        if ('=' != bibtex[c])
-                        {
-                            Exception(callback, "Expecting an = between the field name and the field value");
-                            if (c >= MAX_C) break;  // abort as we've hit EOF prematurely
-                            continue;
-                        }
-                        else
-                        {
-                            ++c;
-                        }
-
-                        field_values.Clear();
-                        while (c < MAX_C)
-                        {
-                            // Parse whitespace
-                            ParseWhiteSpace();
-
-                            // Remember `c` as broken (and thus infinitely running) field values
-                            // are a common problem in BibTeX records...
-                            int value_start = c;
-
-                            if (!ParseFieldValue(callback))
-                            {
-                                break;
-                            }
-
-                            // Parse whitespace
-                            ParseWhiteSpace();
-
-                            // Get an optional comma or `#` concatenation operator
-                            switch (bibtex[c])
-                            {
-                                case ',':
-                                    ++c;
-                                    break;
-
-                                case '#':
-                                    // concatenation: keep adding to the field value!
-                                    ++c;
-                                    continue;
-
-                                default:
-                                    break;
-                            }
-                            break;
-                        }
-
-                        callback.RaiseFieldValue(field_values);
-                        field_values.Clear();
+                        Exception(callback, "Expecting an = between the field name and the field value");
+                        if (c >= MAX_C) break;  // abort as we've hit EOF prematurely
+                        continue;
                     }
                     else
                     {
-                        if (c >= MAX_C)
-                        {
-                            Exception(callback, "Expecting a field name but nothing was acceptable until EOF: broken or truncated BibTeX?");
-                            break;  // abort as we've hit EOF prematurely
-                        }
-                        else
-                        {
-                            Exception(callback, "Expecting a field name but nothing was acceptable, so moving onto next whitespace");
-                            HuntForWhitespace();
-                        }
+                        ++c;
                     }
 
-                    // Parse whitespace
-                    ParseWhiteSpace();
-                            }
+                    field_values.Clear();
+                    while (c < MAX_C)
+                    {
+                        // Parse whitespace
+                        ParseWhiteSpace();
+
+                        // Remember `c` as broken (and thus infinitely running) field values
+                        // are a common problem in BibTeX records...
+                        int value_start = c;
+
+                        if (!ParseFieldValue(callback))
+                        {
+                            break;
+                        }
+
+                        // Parse whitespace
+                        ParseWhiteSpace();
+
+                        // Get an optional comma or `#` concatenation operator
+                        switch (bibtex[c])
+                        {
+                            case ',':
+                                ++c;
+                                break;
+
+                            case '#':
+                                // concatenation: keep adding to the field value!
+                                ++c;
+                                continue;
+
+                            default:
+                                break;
+                        }
+                        break;
+                    }
+
+                    callback.RaiseFieldValue(field_values);
+                    field_values.Clear();
+                }
+                else
+                {
+                    if (c >= MAX_C)
+                    {
+                        Exception(callback, "Expecting a field name but nothing was acceptable until EOF: broken or truncated BibTeX?");
+                        break;  // abort as we've hit EOF prematurely
+                    }
+                    else
+                    {
+                        Exception(callback, "Expecting a field name but nothing was acceptable, so moving onto next whitespace");
+                        HuntForWhitespace();
+                    }
+                }
+
+                // Parse whitespace
+                ParseWhiteSpace();
+            }
         }
 
         /// <summary>
@@ -380,8 +380,8 @@ namespace Utilities.BibTex.Parsing
             // Check we have our final "
             if (quote != bibtex[c])
             {
-                    Exception(callback, "Quotes field value should end with \\{0} instead of being terminated at EOF. Corrupted or truncated BibTeX?", quote);
-                
+                Exception(callback, "Quotes field value should end with \\{0} instead of being terminated at EOF. Corrupted or truncated BibTeX?", quote);
+
                 // see if we can backpedal to a first comma and take it from there, thus 'recovering' the damaged field value
                 c = field_value_start;
 
@@ -582,8 +582,7 @@ namespace Utilities.BibTex.Parsing
             }
         }
 
-
-        void ParseWhiteSpace()
+        private void ParseWhiteSpace()
         {
             while (c < MAX_C && Char.IsWhiteSpace(bibtex[c]))
             {
@@ -640,7 +639,7 @@ namespace Utilities.BibTex.Parsing
             // AND IFF preceded by at least one key-char!
             //
             // This prevents replacements at start or end of a 'key'.
-            int replace_state = 0;              
+            int replace_state = 0;
             foreach (char c in key)
             {
                 if (IsKeyChar(c))

@@ -5,7 +5,6 @@ using System.Threading;
 using System.Windows;
 using icons;
 using Microsoft.Win32;
-using Qiqqa.Common.Configuration;
 using Qiqqa.Common.GUI;
 using Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading;
 using Qiqqa.UtilisationTracking;
@@ -23,30 +22,30 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleDownloading
         public BundleLibraryJoiningControl()
         {
             InitializeComponent();
-            
-            this.Title = 
-            this.Header.Caption =  "Download Bundle Library";
 
-            this.Header.SubCaption = "Please confirm the details of the Bundle Library you wish to download.";
-            this.Header.Img = Icons.GetAppIcon(Icons.WebLibrary_BundleLibrary);
+            Title =
+            Header.Caption = "Download Bundle Library";
 
-            this.ButtonCancel.Caption = "Cancel";
-            this.ButtonCancel.Icon = Icons.GetAppIcon(Icons.Cancel);
-            this.ButtonCancel.Click += ButtonCancel_Click;
+            Header.SubCaption = "Please confirm the details of the Bundle Library you wish to download.";
+            Header.Img = Icons.GetAppIcon(Icons.WebLibrary_BundleLibrary);
 
-            this.ButtonDownload.Caption = "Download";
-            this.ButtonDownload.Icon = Icons.GetAppIcon(Icons.WebLibrary_BundleLibrary);
-            this.ButtonDownload.Click += ButtonDownload_Click;
+            ButtonCancel.Caption = "Cancel";
+            ButtonCancel.Icon = Icons.GetAppIcon(Icons.Cancel);
+            ButtonCancel.Click += ButtonCancel_Click;
+
+            ButtonDownload.Caption = "Download";
+            ButtonDownload.Icon = Icons.GetAppIcon(Icons.WebLibrary_BundleLibrary);
+            ButtonDownload.Click += ButtonDownload_Click;
 
             ObjButtonManifestFilenameChoose.Click += ObjButtonManifestFilenameChoose_Click;
         }
 
-        void ButtonDownload_Click(object sender, RoutedEventArgs e)
+        private void ButtonDownload_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.StartPage_JoinBundleLibrary);
 
-            BundleLibraryManifest manifest = this.DataContext as BundleLibraryManifest;
-            
+            BundleLibraryManifest manifest = DataContext as BundleLibraryManifest;
+
             if (null == manifest)
             {
                 MessageBoxes.Error("Please select a Bundle Library manifest file (*" + Common.EXT_BUNDLE_MANIFEST + ").");
@@ -56,7 +55,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleDownloading
             // Kick off the downloader
             SafeThreadPool.QueueUserWorkItem(o => ManageDownload(manifest));
 
-            this.Close();
+            Close();
         }
 
         private void ManageDownload(BundleLibraryManifest manifest)
@@ -109,12 +108,12 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleDownloading
             }
         }
 
-        void ButtonCancel_Click(object sender, RoutedEventArgs e)
+        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
-        void ObjButtonManifestFilenameChoose_Click(object sender, RoutedEventArgs e)
+        private void ObjButtonManifestFilenameChoose_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -145,7 +144,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleDownloading
         internal void FocusOnManifest(BundleLibraryManifest manifest, string filename_prompt)
         {
             TxtManifestFilename.Text = filename_prompt;
-            this.DataContext = manifest;
+            DataContext = manifest;
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -160,7 +159,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleDownloading
             // base.OnClosed() invokes this calss Closed() code, so we flipped the order of exec to reduce the number of surprises for yours truly.
             // This NULLing stuff is really the last rites of Dispose()-like so we stick it at the end here.
 
-            this.DataContext = null;
+            DataContext = null;
         }
     }
 }

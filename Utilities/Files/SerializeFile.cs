@@ -4,14 +4,16 @@ using System.IO.Compression;
 using System.Runtime.Serialization.Formatters.Binary;
 using Newtonsoft.Json;
 using ProtoBuf;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 
+
 namespace Utilities.Files
 {
-	public class SerializeFile
-	{
-        static readonly string REDUNDANT = ".redundant";
+    public class SerializeFile
+    {
+        private static readonly string REDUNDANT = ".redundant";
 
         public static void SaveRedundant(string filename, object animal_to_save)
         {
@@ -100,7 +102,7 @@ namespace Utilities.Files
 
         public static T LoadSafely<T>(string filename)
         {
-            return (T) LoadSafely(filename);
+            return (T)LoadSafely(filename);
         }
 
         public static object LoadSafely(string filename)
@@ -146,7 +148,7 @@ namespace Utilities.Files
             }
         }
 
-        
+
 
         // ------------------------------------------------------------------------------------------------------------------------------------------------------------------
         // --- The equivalent text versions
@@ -211,7 +213,7 @@ namespace Utilities.Files
             Serializer.Serialize<T>(ms, animal_to_save);
             return ms.ToArray();
         }
-        
+
         private static void ProtoSave_NotRedundant<T>(string filename, T animal_to_save)
         {
             using (FileStream fs = File.Open(filename, FileMode.Create, FileAccess.Write, FileShare.None))
@@ -231,7 +233,7 @@ namespace Utilities.Files
                 return null;
             }
         }
-        
+
         public static T ProtoLoad<T>(string filename)
         {
             try

@@ -7,6 +7,7 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using icons;
 using Qiqqa.Common;
+using Qiqqa.Common.BackgroundWorkerDaemonStuff;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Common.GUI;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
@@ -16,10 +17,9 @@ using Qiqqa.StartPage;
 using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.GUI;
+using Utilities.Maintainable;
 using Application = System.Windows.Application;
 using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
-using Qiqqa.Common.BackgroundWorkerDaemonStuff;
-using Utilities.Maintainable;
 
 namespace Qiqqa.Main
 {
@@ -31,9 +31,8 @@ namespace Qiqqa.Main
         internal StartPageControl ObjStartPage = new StartPageControl();
 
         public static readonly string TITLE_START_PAGE = "Home (F1)";
-
-        KeyboardHook keyboard_hook;
-        IPCServer ipc_server;
+        private KeyboardHook keyboard_hook;
+        private IPCServer ipc_server;
 
         public MainWindow()
         {
@@ -45,7 +44,7 @@ namespace Qiqqa.Main
 
             WPFDoEvents.SetHourglassCursor();
 
-            this.DataContext = ConfigurationManager.Instance.ConfigurationRecord_Bindable;
+            DataContext = ConfigurationManager.Instance.ConfigurationRecord_Bindable;
 
             // Set a DEV title if necessary
             Title = String.Format("Qiqqa v{0}", ClientVersion.CurrentBuild);
@@ -55,15 +54,15 @@ namespace Qiqqa.Main
             }
 
             // Check that we actually are fitting on the user's screen
-            if (this.Left > SystemParameters.VirtualScreenWidth || this.Width > SystemParameters.FullPrimaryScreenWidth)
+            if (Left > SystemParameters.VirtualScreenWidth || Width > SystemParameters.FullPrimaryScreenWidth)
             {
-                this.Left = 0;
-                this.Width = SystemParameters.FullPrimaryScreenWidth;
+                Left = 0;
+                Width = SystemParameters.FullPrimaryScreenWidth;
             }
-            if (this.Top > SystemParameters.VirtualScreenHeight || this.Height > SystemParameters.FullPrimaryScreenHeight)
+            if (Top > SystemParameters.VirtualScreenHeight || Height > SystemParameters.FullPrimaryScreenHeight)
             {
-                this.Top = 0;
-                this.Height = SystemParameters.FullPrimaryScreenHeight;
+                Top = 0;
+                Height = SystemParameters.FullPrimaryScreenHeight;
             }
 
             DockingManager.WindowIcon = Icons.GetAppIconICO(Icons.Qiqqa);
@@ -75,18 +74,18 @@ namespace Qiqqa.Main
             ObjStatusBar.Background = ThemeColours.Background_Brush_Blue_LightToDark;
             ObjTabBackground.Background = ThemeColours.Background_Brush_Blue_VeryDark;
 
-            this.SizeChanged += MainWindow_SizeChanged;
-            this.KeyUp += MainWindow_KeyUp;
+            SizeChanged += MainWindow_SizeChanged;
+            KeyUp += MainWindow_KeyUp;
 
-            this.Closing += MainWindow_Closing;
-            this.Closed += MainWindow_Closed;
+            Closing += MainWindow_Closing;
+            Closed += MainWindow_Closed;
 
             // We've looked for the LAST event that triggers dependably at the start of the application:
             //   ContentRendered
             // is the last one triggered of this bunch:
             //
             //this.Activated += MainWindow_Activated;
-            this.ContentRendered += MainWindow_ContentRendered;
+            ContentRendered += MainWindow_ContentRendered;
             //this.Initialized += MainWindow_Initialized;
             //this.LayoutUpdated += MainWindow_LayoutUpdated;
             //this.Loaded += MainWindow_Loaded;
@@ -111,18 +110,18 @@ namespace Qiqqa.Main
             WPFDoEvents.ResetHourglassCursor();
         }
 
-        void keyboard_hook_KeyDown(object sender, KeyEventArgs e)
+        private void keyboard_hook_KeyDown(object sender, KeyEventArgs e)
         {
             if (Keys.Z == e.KeyCode && KeyboardTools.IsWinDown())
             {
                 Logging.Info("Qiqqa is being activated by WIN-Z");
                 MainWindowServiceDispatcher.Instance.OpenPopupInCite();
-                this.Activate();
+                Activate();
                 e.Handled = true;
             }
         }
 
-        void PostStartupWork()
+        private void PostStartupWork()
         {
             if (ConfigurationManager.Instance.ConfigurationRecord.GUI_RestoreWindowsAtStartup)
             {
@@ -163,13 +162,13 @@ namespace Qiqqa.Main
 
             if (ConfigurationManager.Instance.ConfigurationRecord.GUI_RestoreLocationAtStartup)
             {
-                this.SetupConfiguredDimensions();
+                SetupConfiguredDimensions();
             }
             else
             {
                 if (!RegistrySettings.Instance.IsSet(RegistrySettings.StartNotMaximized))
                 {
-                    this.WindowState = WindowState.Maximized;
+                    WindowState = WindowState.Maximized;
                 }
             }
 
@@ -209,7 +208,7 @@ namespace Qiqqa.Main
             }
         }
 
-        void ipc_server_IPCServerMessage(string message)
+        private void ipc_server_IPCServerMessage(string message)
         {
             Dispatcher.BeginInvoke(new Action(() =>
             {
@@ -218,9 +217,10 @@ namespace Qiqqa.Main
             ));
         }
 
-        static bool already_exiting = false;
+        private static bool already_exiting = false;
         public bool suppress_exit_warning = false;
-        void MainWindow_Closing(object sender, CancelEventArgs e)
+
+        private void MainWindow_Closing(object sender, CancelEventArgs e)
         {
             if (!already_exiting && !suppress_exit_warning)
             {
@@ -242,7 +242,7 @@ namespace Qiqqa.Main
             }
 
             // Close all windows
-            this.DockingManager.CloseAllContent();
+            DockingManager.CloseAllContent();
 
             MainEntry.SignalShutdown();
 
@@ -250,7 +250,7 @@ namespace Qiqqa.Main
             already_exiting = true;
         }
 
-        void MainWindow_Closed(object sender, EventArgs e)
+        private void MainWindow_Closed(object sender, EventArgs e)
         {
             Logging.Info("+Explicitly shutting down application");
 
@@ -266,7 +266,7 @@ namespace Qiqqa.Main
             Logging.Info("-Explicitly shutting down application");
         }
 
-        void MainWindow_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        private void MainWindow_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (!KeyboardTools.IsCTRLDown())
             {
@@ -290,7 +290,7 @@ namespace Qiqqa.Main
             }
         }
 
-        void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             //Logging.Info("Size is now {0}", e.NewSize.ToString());
         }
@@ -300,7 +300,7 @@ namespace Qiqqa.Main
             BackgroundWorkerDaemon d = BackgroundWorkerDaemon.Instance;
         }
 
-        void ObjTabWelcome_GetGoing()
+        private void ObjTabWelcome_GetGoing()
         {
             StartBackgroundWorkerDaemon();
 
@@ -347,7 +347,7 @@ namespace Qiqqa.Main
 
             keyboard_hook = null;
             ipc_server = null;
-            this.DataContext = null;
+            DataContext = null;
 
             ++dispose_count;
         }

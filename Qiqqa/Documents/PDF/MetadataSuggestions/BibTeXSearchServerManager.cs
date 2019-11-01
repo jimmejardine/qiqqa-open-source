@@ -1,17 +1,16 @@
-﻿using Qiqqa.Common;
-using Qiqqa.Common.Configuration;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Qiqqa.Common;
+using Qiqqa.Common.Configuration;
 using Utilities;
 using Utilities.Random;
 
 namespace Qiqqa.Documents.PDF.MetadataSuggestions
 {
-    class BibTeXSearchServerManager
+    internal class BibTeXSearchServerManager
     {
-        class ServerRecord
+        private class ServerRecord
         {
             public string url;
             public double latency_ms = 1000;

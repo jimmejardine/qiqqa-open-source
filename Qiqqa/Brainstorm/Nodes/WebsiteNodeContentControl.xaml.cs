@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -16,31 +15,31 @@ namespace Qiqqa.Brainstorm.Nodes
     /// </summary>
     public partial class WebsiteNodeContentControl : UserControl, IDisposable
     {
-        AugmentedBindable<WebsiteNodeContent> website_node_content;
-        BackgroundFader fader;
+        private AugmentedBindable<WebsiteNodeContent> website_node_content;
+        private BackgroundFader fader;
 
         public WebsiteNodeContentControl(NodeControl node_control, WebsiteNodeContent website_node_content)
         {
             this.website_node_content = new AugmentedBindable<WebsiteNodeContent>(website_node_content);
-            this.DataContext = this.website_node_content;
+            DataContext = this.website_node_content;
 
             InitializeComponent();
 
             Focusable = true;
 
-            this.ImageDocumentIcon.Source = Icons.GetAppIcon(Icons.BrainstormWebsite);
+            ImageDocumentIcon.Source = Icons.GetAppIcon(Icons.BrainstormWebsite);
 
             TextUrl.FontWeight = FontWeights.Bold;
             TextTitle.TextWrapping = TextWrapping.Wrap;
             TextLastVisited.TextTrimming = TextTrimming.CharacterEllipsis;
             TextVisitedCount.TextTrimming = TextTrimming.CharacterEllipsis;
 
-            this.MouseDoubleClick += WebsiteNodeContentControl_MouseDoubleClick;
+            MouseDoubleClick += WebsiteNodeContentControl_MouseDoubleClick;
 
-            this.fader = new BackgroundFader(this);
+            fader = new BackgroundFader(this);
         }
 
-        void WebsiteNodeContentControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void WebsiteNodeContentControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ++website_node_content.Underlying.VisitedCount;
             website_node_content.Underlying.LastVisited = DateTime.UtcNow;
@@ -85,12 +84,12 @@ namespace Qiqqa.Brainstorm.Nodes
             if (dispose_count == 0)
             {
                 // Get rid of managed resources / get rid of cyclic references:
-                this.fader?.Dispose();
+                fader?.Dispose();
             }
-            this.fader = null;
+            fader = null;
 
-            this.DataContext = null;
-            this.website_node_content = null;
+            DataContext = null;
+            website_node_content = null;
 
             ++dispose_count;
         }

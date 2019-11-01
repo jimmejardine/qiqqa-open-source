@@ -16,7 +16,7 @@ namespace Qiqqa.Common.Common
 
 
         public static Color GetColor(int i)
-        {            
+        {
             return colors[i % colors.Count];
         }
 

@@ -4,7 +4,7 @@ using Utilities.GUI;
 
 namespace Qiqqa.Brainstorm.Nodes
 {
-    class NodeThemes
+    internal class NodeThemes
     {
         public static CornerRadius corner_radius = new CornerRadius(5);
         public static Color control_color_base = Colors.LightGray;

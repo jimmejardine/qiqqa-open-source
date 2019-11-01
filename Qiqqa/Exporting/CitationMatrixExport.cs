@@ -12,17 +12,17 @@ using Utilities.Misc;
 
 namespace Qiqqa.Exporting
 {
-    class CitationMatrixExport
+    internal class CitationMatrixExport
     {
-        class FingerprintToBibTeXMap
+        private class FingerprintToBibTeXMap
         {
-            Library library;
-            Dictionary<string, string> map;
+            private Library library;
+            private Dictionary<string, string> map;
 
             public FingerprintToBibTeXMap(Library library)
             {
                 this.library = library;
-                this.map = new Dictionary<string, string>();
+                map = new Dictionary<string, string>();
             }
 
             public string Map(string fingerprint, bool use_bibtex_key_where_possible)
@@ -74,7 +74,7 @@ namespace Qiqqa.Exporting
                 save_file_dialog.DefaultExt = "txt";
                 save_file_dialog.Filter = "Text files (*.txt)|*.zip|All files (*.*)|*.*";
                 save_file_dialog.FileName = "Qiqqa Citation Matrix.txt";
-                
+
                 if (false == save_file_dialog.ShowDialog())
                 {
                     Logging.Info("User cancelled export of citation matrix.");
@@ -108,7 +108,7 @@ namespace Qiqqa.Exporting
 
             // The bibtex mapper
             FingerprintToBibTeXMap map = new FingerprintToBibTeXMap(library);
-            
+
             // Build the result
             StatusManager.Instance.UpdateStatusBusy("CitationMatrix", "Building Citation Matrix.");
             DateTime start_time = DateTime.Now;

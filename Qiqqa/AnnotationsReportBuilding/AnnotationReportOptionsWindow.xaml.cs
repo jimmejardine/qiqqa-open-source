@@ -8,7 +8,6 @@ using Qiqqa.Common.GUI;
 using Qiqqa.Common.TagManagement;
 using Qiqqa.DocumentLibrary;
 using Qiqqa.Documents.PDF;
-using Qiqqa.Main.LoginStuff;
 using Utilities.GUI.Wizard;
 
 namespace Qiqqa.AnnotationsReportBuilding
@@ -28,7 +27,7 @@ namespace Qiqqa.AnnotationsReportBuilding
 
             public bool IncludeComments = false;
             public bool IncludeAbstract = false;
-            public bool IncludeAllPapers = false;            
+            public bool IncludeAllPapers = false;
 
             public bool SuppressPDFDocumentHeader = false;
             public bool SuppressPDFAnnotationTags = false;
@@ -50,11 +49,11 @@ namespace Qiqqa.AnnotationsReportBuilding
             InitializeComponent();
 
             WizardDPs.SetPointOfInterest(this, "LibraryAnnotationReportOptionsWindow");
-            WizardDPs.SetPointOfInterest(CmdGenerate, "LibraryAnnotationReportOptionsWindowGenerateButton");            
+            WizardDPs.SetPointOfInterest(CmdGenerate, "LibraryAnnotationReportOptionsWindowGenerateButton");
 
-            this.Title = "Qiqqa Annotation Report Options";
-            this.Width = 800;
-            this.Height = 600;
+            Title = "Qiqqa Annotation Report Options";
+            Width = 800;
+            Height = 600;
 
             CmdSelectNone.Click += CmdSelectNone_Click;
             CmdSelectAll.Click += CmdSelectAll_Click;
@@ -63,37 +62,37 @@ namespace Qiqqa.AnnotationsReportBuilding
             CmdGenerate.Icon = Icons.GetAppIcon(Icons.LibraryAnnotationsReport);
             CmdCancel.Caption = "Cancel";
             CmdCancel.Icon = Icons.GetAppIcon(Icons.Cancel);
-            
+
             CmdGenerate.Click += CmdGenerate_Click;
             CmdCancel.Click += CmdCancel_Click;
 
             ObjFilterByCreatorMeButton.Click += ObjFilterByCreatorMeButton_Click;
         }
 
-        void ObjFilterByCreatorMeButton_Click(object sender, RoutedEventArgs e)
+        private void ObjFilterByCreatorMeButton_Click(object sender, RoutedEventArgs e)
         {
             ObjFilterByCreatorCombo.Text = ConfigurationManager.Instance.ConfigurationRecord.Account_Nickname;
             e.Handled = true;
         }
 
-        void CmdCancel_Click(object sender, RoutedEventArgs e)
+        private void CmdCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
-        void CmdGenerate_Click(object sender, RoutedEventArgs e)
+        private void CmdGenerate_Click(object sender, RoutedEventArgs e)
         {
-            this.OnShowTagOptionsComplete(this.library, this.pdf_documents, GetAnnotationReportOptions());
-            this.Close();
+            OnShowTagOptionsComplete(library, pdf_documents, GetAnnotationReportOptions());
+            Close();
         }
 
-        void CmdSelectAll_Click(object sender, RoutedEventArgs e)
+        private void CmdSelectAll_Click(object sender, RoutedEventArgs e)
         {
             ListTags.SelectAll();
             ListTags.Focus();
         }
 
-        void CmdSelectNone_Click(object sender, RoutedEventArgs e)
+        private void CmdSelectNone_Click(object sender, RoutedEventArgs e)
         {
             ListTags.SelectedItem = null;
             ListTags.Focus();
@@ -101,15 +100,15 @@ namespace Qiqqa.AnnotationsReportBuilding
 
         public delegate void OnShowTagOptionsCompleteDelegate(Library library, List<PDFDocument> pdf_documents, AnnotationReportOptions annotation_report_options);
 
-        Library library;
-        List<PDFDocument> pdf_documents;
-        OnShowTagOptionsCompleteDelegate OnShowTagOptionsComplete;
+        private Library library;
+        private List<PDFDocument> pdf_documents;
+        private OnShowTagOptionsCompleteDelegate OnShowTagOptionsComplete;
 
         internal void ShowTagOptions(Library library_, List<PDFDocument> pdf_documents_, OnShowTagOptionsCompleteDelegate OnShowTagOptionsComplete_)
         {
-            this.library = library_;
-            this.pdf_documents = pdf_documents_;
-            this.OnShowTagOptionsComplete = OnShowTagOptionsComplete_;
+            library = library_;
+            pdf_documents = pdf_documents_;
+            OnShowTagOptionsComplete = OnShowTagOptionsComplete_;
 
             // Collate all the availalbe tags
             HashSet<string> all_tags = new HashSet<string>();
@@ -139,13 +138,13 @@ namespace Qiqqa.AnnotationsReportBuilding
                     {
                         all_tags.Add(tag);
                     }
-                }                 
+                }
             }
 
             List<string> all_creators_sorted = new List<string>(all_creators);
             all_creators_sorted.Sort();
             ObjFilterByCreatorCombo.ItemsSource = all_creators_sorted;
-            
+
             List<string> bindable_tags = new List<string>(all_tags);
             bindable_tags.Add(HighlightToAnnotationGenerator.HIGHLIGHTS_TAG);
             bindable_tags.Add(InkToAnnotationGenerator.INKS_TAG);
@@ -153,7 +152,7 @@ namespace Qiqqa.AnnotationsReportBuilding
             ListTags.Items.Clear();
             ListTags.ItemsSource = bindable_tags;
 
-            this.Show();
+            Show();
         }
 
         private AnnotationReportOptions GetAnnotationReportOptions()
@@ -161,29 +160,29 @@ namespace Qiqqa.AnnotationsReportBuilding
             // TODO: Replace this awful mess with BINDINGS
             AnnotationReportOptions annotation_report_options = new AnnotationReportOptions();
             annotation_report_options.filter_tags = GetDesiredFilterTags();
-            annotation_report_options.IncludeComments = this.ObjIncludeComments.IsChecked ?? false;
-            annotation_report_options.IncludeAbstract = this.ObjIncludeAbstract.IsChecked ?? false;
-            annotation_report_options.IncludeAllPapers = this.ObjIncludeAllPapers.IsChecked ?? false;
+            annotation_report_options.IncludeComments = ObjIncludeComments.IsChecked ?? false;
+            annotation_report_options.IncludeAbstract = ObjIncludeAbstract.IsChecked ?? false;
+            annotation_report_options.IncludeAllPapers = ObjIncludeAllPapers.IsChecked ?? false;
 
-            annotation_report_options.ObeySuppressedImages = !(this.ObjIMAGEShow.IsChecked ?? false);
-            annotation_report_options.ObeySuppressedText = !(this.ObjTEXTShow.IsChecked ?? false);
-            annotation_report_options.SuppressAllImages = this.ObjIMAGEHide.IsChecked ?? false;
-            annotation_report_options.SuppressAllText = this.ObjTEXTHide.IsChecked ?? false;
+            annotation_report_options.ObeySuppressedImages = !(ObjIMAGEShow.IsChecked ?? false);
+            annotation_report_options.ObeySuppressedText = !(ObjTEXTShow.IsChecked ?? false);
+            annotation_report_options.SuppressAllImages = ObjIMAGEHide.IsChecked ?? false;
+            annotation_report_options.SuppressAllText = ObjTEXTHide.IsChecked ?? false;
 
-            annotation_report_options.FilterByCreationDate = this.ObjFilterByCreationDate.IsChecked ?? false;
-            annotation_report_options.FilterByCreationDate_From = this.ObjFilterByCreationDate_From.SelectedDate ?? DateTime.MinValue;
-            annotation_report_options.FilterByCreationDate_To = this.ObjFilterByCreationDate_To.SelectedDate ?? DateTime.MaxValue;
-            annotation_report_options.FilterByFollowUpDate = this.ObjFilterByFollowUpDate.IsChecked ?? false;
-            annotation_report_options.FilterByFollowUpDate_From = this.ObjFilterByFollowUpDate_From.SelectedDate ?? DateTime.MinValue;
-            annotation_report_options.FilterByFollowUpDate_To = this.ObjFilterByFollowUpDate_To.SelectedDate ?? DateTime.MaxValue;
+            annotation_report_options.FilterByCreationDate = ObjFilterByCreationDate.IsChecked ?? false;
+            annotation_report_options.FilterByCreationDate_From = ObjFilterByCreationDate_From.SelectedDate ?? DateTime.MinValue;
+            annotation_report_options.FilterByCreationDate_To = ObjFilterByCreationDate_To.SelectedDate ?? DateTime.MaxValue;
+            annotation_report_options.FilterByFollowUpDate = ObjFilterByFollowUpDate.IsChecked ?? false;
+            annotation_report_options.FilterByFollowUpDate_From = ObjFilterByFollowUpDate_From.SelectedDate ?? DateTime.MinValue;
+            annotation_report_options.FilterByFollowUpDate_To = ObjFilterByFollowUpDate_To.SelectedDate ?? DateTime.MaxValue;
 
-            annotation_report_options.FilterByCreator = this.ObjFilterByCreator.IsChecked ?? false;
-            annotation_report_options.FilterByCreator_Name = this.ObjFilterByCreatorCombo.Text;
+            annotation_report_options.FilterByCreator = ObjFilterByCreator.IsChecked ?? false;
+            annotation_report_options.FilterByCreator_Name = ObjFilterByCreatorCombo.Text;
 
             return annotation_report_options;
         }
 
-        HashSet<string> GetDesiredFilterTags()
+        private HashSet<string> GetDesiredFilterTags()
         {
             HashSet<string> final_tags = new HashSet<string>();
 
@@ -214,9 +213,9 @@ namespace Qiqqa.AnnotationsReportBuilding
             WizardDPs.ClearPointOfInterest(this);
             WizardDPs.ClearPointOfInterest(CmdGenerate);
 
-            this.library = null;
-            this.pdf_documents.Clear();
-            this.pdf_documents = null;
+            library = null;
+            pdf_documents.Clear();
+            pdf_documents = null;
 
             ListTags.Items.Clear();
             ListTags.ItemsSource = null;

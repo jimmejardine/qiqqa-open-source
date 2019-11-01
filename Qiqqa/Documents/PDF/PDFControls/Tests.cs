@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using Qiqqa.DocumentLibrary;
-using Qiqqa.Documents.PDF.PDFRendering;
-using Utilities.GUI;
-
-namespace Qiqqa.Documents.PDF.PDFControls
+﻿namespace Qiqqa.Documents.PDF.PDFControls
 {
 #if TEST
     public class Tests

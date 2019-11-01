@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Utilities;
 using Utilities.Files;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.DocumentLibrary.Import.Manual
 {
@@ -64,7 +65,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                             }
                             catch
                             {
-                                
+
                             }
                         }
 
@@ -78,7 +79,8 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                                 entry.IsVanilla = false;
                             }
                         }
-                    }else
+                    }
+                    else
                     {
                         // If file could not be found, ensure it's blanked out so we don't try to import it. This is particularly import w.r.t filenames with funny characters, where the import will choke. 
                         entry.Filename = entry.FileType = null;
@@ -109,8 +111,8 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                 }
             }
 
-            int vanillaEntriesCount = Entries.Where(x => x.IsVanilla).Count(); 
-            
+            int vanillaEntriesCount = Entries.Where(x => x.IsVanilla).Count();
+
             return new ParseFileResult(Entries, vanillaEntriesCount);
         }
     }

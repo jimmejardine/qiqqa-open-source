@@ -5,7 +5,7 @@ using Utilities;
 
 namespace QiqqaOCR
 {
-    class Program
+    internal class Program
     {
         /// <summary>
         /// Arguments are:
@@ -17,7 +17,7 @@ namespace QiqqaOCR
         /// </summary>
         /// <param name="args"></param>
         /// <returns></returns>
-        static int Main(string[] args)
+        private static int Main(string[] args)
         {
             // This is used to return any errors to the OS
             int exit_code = 0;
@@ -42,16 +42,16 @@ namespace QiqqaOCR
                 string mode_switch = args[0];
                 switch (mode_switch)
                 {
-                case "GROUP":
-                    TextExtractEngine.MainEntry(args, no_kill);
-                    break;
+                    case "GROUP":
+                        TextExtractEngine.MainEntry(args, no_kill);
+                        break;
 
-                case "SINGLE":
-                    OCREngine.MainEntry(args, no_kill);
-                    break;
+                    case "SINGLE":
+                        OCREngine.MainEntry(args, no_kill);
+                        break;
 
-                default:
-                    throw new Exception("Unknown mode switch " + mode_switch);
+                    default:
+                        throw new Exception("Unknown mode switch " + mode_switch);
                 }
             }
             catch (Exception ex)

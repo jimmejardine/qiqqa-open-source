@@ -23,31 +23,30 @@ namespace Qiqqa.Brainstorm.Nodes
     /// </summary>
     public partial class ThemeNodeContentControl : UserControl, IKeyPressableNodeContentControl
     {
-        NodeControl node_control;
-        AugmentedBindable<ThemeNodeContent> theme_node_content;
+        private NodeControl node_control;
+        private AugmentedBindable<ThemeNodeContent> theme_node_content;
 
         public ThemeNodeContentControl(NodeControl node_control_, ThemeNodeContent theme_node_content)
         {
             InitializeComponent();
 
-            this.node_control = node_control_;
+            node_control = node_control_;
             this.theme_node_content = new AugmentedBindable<ThemeNodeContent>(theme_node_content);
 
-            this.DataContextChanged += ThemeNodeContentControl_DataContextChanged;
-            this.DataContext = this.theme_node_content;
+            DataContextChanged += ThemeNodeContentControl_DataContextChanged;
+            DataContext = this.theme_node_content;
 
             Focusable = true;
 
-            this.ImageIcon.Source = Icons.GetAppIcon(Icons.BrainstormAttractorTheme);
-            RenderOptions.SetBitmapScalingMode(this.ImageIcon, BitmapScalingMode.HighQuality);
+            ImageIcon.Source = Icons.GetAppIcon(Icons.BrainstormAttractorTheme);
+            RenderOptions.SetBitmapScalingMode(ImageIcon, BitmapScalingMode.HighQuality);
 
             TextBorder.CornerRadius = NodeThemes.corner_radius;
         }
 
         public void ProcessKeyPress(KeyEventArgs e)
         {
-            if (false) { }
-            else if (Key.S == e.Key)
+            if (Key.S == e.Key)
             {
                 ExpandSpecificDocuments();
                 e.Handled = true;
@@ -60,8 +59,8 @@ namespace Qiqqa.Brainstorm.Nodes
         }
 
         // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        
-        void ThemeNodeContentControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+
+        private void ThemeNodeContentControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             ApplyTagsDistribution(ColourNodeBackground);
         }
@@ -101,20 +100,20 @@ namespace Qiqqa.Brainstorm.Nodes
 
                 for (int topic = 0; topic < eds.LDAAnalysis.NUM_TOPICS; ++topic)
                 {
-                    bias_num_squared += eds.LDAAnalysis.DensityOfTopicsInDocuments[doc,topic] * tags_distribution[topic];
-                    bias_den_doc += eds.LDAAnalysis.DensityOfTopicsInDocuments[doc,topic] * eds.LDAAnalysis.DensityOfTopicsInDocuments[doc,topic];
+                    bias_num_squared += eds.LDAAnalysis.DensityOfTopicsInDocuments[doc, topic] * tags_distribution[topic];
+                    bias_den_doc += eds.LDAAnalysis.DensityOfTopicsInDocuments[doc, topic] * eds.LDAAnalysis.DensityOfTopicsInDocuments[doc, topic];
                     bias_den_tags += tags_distribution[topic] * tags_distribution[topic];
                 }
 
                 biases[doc] = bias_num_squared / (Math.Sqrt(bias_den_doc) * Math.Sqrt(bias_den_tags));
             }
-            
+
             // Then build up a matrix FROM each document - 
             List<int>[] references_outbound = new List<int>[eds.LDAAnalysis.NUM_DOCS];
             for (int doc = 0; doc < eds.LDAAnalysis.NUM_DOCS; ++doc)
             {
                 references_outbound[doc] = new List<int>();
-                
+
                 string fingerprint = eds.docs[doc];
                 PDFDocument pdf_document = library.GetDocumentByFingerprint(fingerprint);
                 if (null == pdf_document)
@@ -135,7 +134,7 @@ namespace Qiqqa.Brainstorm.Nodes
                     }
                 }
             }
-            
+
             // Space for the pageranks
             double[] pageranks_current = new double[eds.LDAAnalysis.NUM_DOCS];
             double[] pageranks_next = new double[eds.LDAAnalysis.NUM_DOCS];

@@ -5,7 +5,7 @@ using Qiqqa.Documents.PDF;
 
 namespace Qiqqa.AnnotationsReportBuilding
 {
-    class RegionOfInterest
+    internal class RegionOfInterest
     {
         public const double PROXIMITY_MARGIN = 1.0 / 30.0;
 
@@ -24,15 +24,15 @@ namespace Qiqqa.AnnotationsReportBuilding
 
         public bool IsCloseTo(RegionOfInterest other)
         {
-            if (this.Contains(other)) return true;
+            if (Contains(other)) return true;
             if (other.Contains(this)) return true;
 
             //double other_distance_to_right = other.left - this.Right;
             //double other_distance_to_left = this.left - other.Right;
             //double horizontal_distance = Math.Max(other_distance_to_right, other_distance_to_left);
 
-            double other_distance_to_top = this.top - other.Bottom;
-            double other_distance_to_bottom = other.top - this.Bottom;
+            double other_distance_to_top = top - other.Bottom;
+            double other_distance_to_bottom = other.top - Bottom;
             double vertical_distance = Math.Max(other_distance_to_top, other_distance_to_bottom);
 
             return
@@ -44,42 +44,30 @@ namespace Qiqqa.AnnotationsReportBuilding
 
         public void Incorporate(RegionOfInterest other)
         {
-            double right = Math.Max(this.Right, other.Right);
-            double bottom = Math.Max(this.Bottom, other.Bottom);
+            double right = Math.Max(Right, other.Right);
+            double bottom = Math.Max(Bottom, other.Bottom);
 
-            this.left = Math.Min(this.left, other.left);
-            this.top = Math.Min(this.top, other.top);
+            left = Math.Min(left, other.left);
+            top = Math.Min(top, other.top);
 
-            this.width = right - this.left;
-            this.height = bottom - this.top;
+            width = right - left;
+            height = bottom - top;
         }
 
         public bool Contains(RegionOfInterest other)
         {
             return
                 true
-                && this.left <= other.left
-                && this.Right >= other.Right
-                && this.top <= other.top
-                && this.Bottom >= other.Bottom
+                && left <= other.left
+                && Right >= other.Right
+                && top <= other.top
+                && Bottom >= other.Bottom
                 ;
         }
 
-        public double Right
-        {
-            get
-            {
-                return left + width;
-            }
-        }
+        public double Right => left + width;
 
-        public double Bottom
-        {
-            get
-            {
-                return top + height;
-            }
-        }
+        public double Bottom => top + height;
 
         public override string ToString()
         {
@@ -102,7 +90,7 @@ namespace Qiqqa.AnnotationsReportBuilding
                         {
                             regions[i].Incorporate(regions[j]);
                             regions.RemoveAt(j);
-                            
+
                             --j;
                             did_more_incorporations = true;
                         }
@@ -114,7 +102,7 @@ namespace Qiqqa.AnnotationsReportBuilding
         public static List<PDFAnnotation> ConvertRegionsToPDFAnnotations(List<RegionOfInterest> regions, string tag, PDFDocument pdf_document, int page)
         {
             List<PDFAnnotation> annotations = new List<PDFAnnotation>();
-        
+
             foreach (var region in regions)
             {
                 PDFAnnotation pdf_annotation = new PDFAnnotation(pdf_document.Fingerprint, page, Colors.Black, null);

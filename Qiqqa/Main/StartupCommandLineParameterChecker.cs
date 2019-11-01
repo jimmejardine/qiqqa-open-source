@@ -4,7 +4,7 @@ using Qiqqa.Common;
 
 namespace Qiqqa.Main
 {
-    class StartupCommandLineParameterChecker
+    internal class StartupCommandLineParameterChecker
     {
         internal static void Check()
         {

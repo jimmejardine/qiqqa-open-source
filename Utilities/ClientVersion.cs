@@ -10,23 +10,11 @@ namespace Utilities
         /// <summary>
         /// Produces the major revision number from the entry exe, i.e. "the current version".
         /// </summary>
-        public static int CurrentVersion
-        {
-            get
-            {
-                return Assembly.GetEntryAssembly().GetName().Version.Major;
-            }
-        }
+        public static int CurrentVersion => Assembly.GetEntryAssembly().GetName().Version.Major;
 
         /// <summary>
         /// Produces the full build version string from the entry exe, i.e. "the current build".
         /// </summary>
-        public static string CurrentBuild
-        {
-            get
-            {
-                return Assembly.GetEntryAssembly().GetName().Version.ToString();
-            }
-        }
+        public static string CurrentBuild => Assembly.GetEntryAssembly().GetName().Version.ToString();
     }
 }

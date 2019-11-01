@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 #if TEST
 using System.Diagnostics;
@@ -22,7 +21,7 @@ namespace Utilities.BibTex.Parsing
     /// </summary>
     public class BibTexCharacterMap
     {
-        static readonly string[] MAP = new string[]
+        private static readonly string[] MAP = new string[]
         {
             // Conversion of double-backslash `\\` back to `\` must, by necessity of not 
             // causing corruption of the conversion process due to collision with other
@@ -102,10 +101,9 @@ namespace Utilities.BibTex.Parsing
         };
 
         // re performance: https://stackoverflow.com/questions/301371/why-is-dictionary-preferred-over-hashtable-in-c
-        static readonly Dictionary<string, string> MAP_U2T = new Dictionary<string, string>(/* MAP */);
-        static readonly Dictionary<string, string> MAP_T2U = new Dictionary<string, string>(/* MAP */);
-
-        static readonly int Size = MAP.Length;
+        private static readonly Dictionary<string, string> MAP_U2T = new Dictionary<string, string>(/* MAP */);
+        private static readonly Dictionary<string, string> MAP_T2U = new Dictionary<string, string>(/* MAP */);
+        private static readonly int Size = MAP.Length;
 
         static BibTexCharacterMap()
         {
@@ -176,7 +174,7 @@ namespace QiqqaUnitTester
     public class BibTexCharacterMapTester
     {
         // see also http://diacritics.typo.cz/index.php?id=1
-        const string TestStringS1 = @"Großherr Schneider müßt être fâché! \ možete tõmmata zdravím můj příteli jak se máš být lepší to těžká řeč áéíóúàèëïöüĳ ÁÉÍÓÚÀÈËÏÖÜĲ patiënt, reünie, coördinatie. Modern fonts rarely contain an Ĳ/ĳ with a double acute, so today it's usually represented as ÍJ/íj. hè, blèren. dấu nặng. ḃ, ċ, ḋ, ḟ, ġ, ṁ, ṗ, ṡ and ṫ. the Ŀ or ŀ (Ldot, ldot) characters. e is ɛ while é is [e:] ő is [ø:] and ű is [y:] dấu hỏ. Háček is a Czech word meaning little hook. This mark goes by other names as well. In Slovak it is called mäkčeň (i.e. “softener” or “palatalization mark”), in Slovenian strešica (“little roof”), in Croatian, Serbian and Bosnian kvačica (also “small hook”), and hattu (“hat”) in Fennic languages. Icelandic capital Ð appears the same as the South Slavic/Vietnamese Ð, but its lower case counterpart is different: ð. French â, ê, î, ô, û. In Slovak, it is used with ô. In Esperanto, with ĉ, ĝ, ĥ, ĵ, and ŝ. In Welsh with â, ê, î, ô, û, ŵ, and ŷ. quốc ngữ. An acute can be added to ư to produce ứ, and a breve can be added to ơ to produce ờ. Naming b bê bò and p pê phở is to avoid confusion in some dialects or some contexts, the same for s sờ mạnh (nặng) and x xờ nhẹ, i i ngắn and y y dài. Nguyễn, Đình-Hoà. In Polish, the ogonek is used with ą and ę for denoting nasal vowels. It also indicates nasality in a number of Native North American languages, such as Cayuga: ę and ǫ, and Chipewyan: ą, ę, ɛ̨, į, ǫ, ų. In Lithuanian, it lengthtens ą, ę, į and ų. somewhere between ö and ō. In Vietnamese, the tilde (or dấu ngã). including Pe̍h-ōe-jī and the Taiwanese Romanization System. It is used above vowels to indicate a specific tone (called tone 8) : a̍ e̍ i̍ o̍ o̍͘ u̍. It is also used in the Standardized orthography of Congo-Kinshasa to indicate mid tone in some languages like Ngbaka Gbaya : a̍ e̍ ɛ̍ i̍ o̍ ɔ̍ u̍. (or dấu sắc)";
+        private const string TestStringS1 = @"Großherr Schneider müßt être fâché! \ možete tõmmata zdravím můj příteli jak se máš být lepší to těžká řeč áéíóúàèëïöüĳ ÁÉÍÓÚÀÈËÏÖÜĲ patiënt, reünie, coördinatie. Modern fonts rarely contain an Ĳ/ĳ with a double acute, so today it's usually represented as ÍJ/íj. hè, blèren. dấu nặng. ḃ, ċ, ḋ, ḟ, ġ, ṁ, ṗ, ṡ and ṫ. the Ŀ or ŀ (Ldot, ldot) characters. e is ɛ while é is [e:] ő is [ø:] and ű is [y:] dấu hỏ. Háček is a Czech word meaning little hook. This mark goes by other names as well. In Slovak it is called mäkčeň (i.e. “softener” or “palatalization mark”), in Slovenian strešica (“little roof”), in Croatian, Serbian and Bosnian kvačica (also “small hook”), and hattu (“hat”) in Fennic languages. Icelandic capital Ð appears the same as the South Slavic/Vietnamese Ð, but its lower case counterpart is different: ð. French â, ê, î, ô, û. In Slovak, it is used with ô. In Esperanto, with ĉ, ĝ, ĥ, ĵ, and ŝ. In Welsh with â, ê, î, ô, û, ŵ, and ŷ. quốc ngữ. An acute can be added to ư to produce ứ, and a breve can be added to ơ to produce ờ. Naming b bê bò and p pê phở is to avoid confusion in some dialects or some contexts, the same for s sờ mạnh (nặng) and x xờ nhẹ, i i ngắn and y y dài. Nguyễn, Đình-Hoà. In Polish, the ogonek is used with ą and ę for denoting nasal vowels. It also indicates nasality in a number of Native North American languages, such as Cayuga: ę and ǫ, and Chipewyan: ą, ę, ɛ̨, į, ǫ, ų. In Lithuanian, it lengthtens ą, ę, į and ų. somewhere between ö and ō. In Vietnamese, the tilde (or dấu ngã). including Pe̍h-ōe-jī and the Taiwanese Romanization System. It is used above vowels to indicate a specific tone (called tone 8) : a̍ e̍ i̍ o̍ o̍͘ u̍. It is also used in the Standardized orthography of Congo-Kinshasa to indicate mid tone in some languages like Ngbaka Gbaya : a̍ e̍ ɛ̍ i̍ o̍ ɔ̍ u̍. (or dấu sắc)";
 
         [TestMethod]
         public void Test_Conversion_To_And_From_BibTeX_Text()

@@ -1,11 +1,13 @@
 ﻿using System;
 using Qiqqa.DocumentLibrary;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 
+
 namespace Qiqqa.Documents.PDF
 {
-    class PDFDocumentFileLocations
+    internal class PDFDocumentFileLocations
     {
         public static readonly string METADATA = "metadata";
         public static readonly string ANNOTATIONS = "annotations";

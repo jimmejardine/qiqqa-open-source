@@ -9,8 +9,8 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
     /// </summary>
     public partial class WebLibraryDetailControlPopup : UserControl
     {
-        WebLibraryDetailControl web_library_detail_control;
-        AugmentedPopup popup;
+        private WebLibraryDetailControl web_library_detail_control;
+        private AugmentedPopup popup;
 
 
         public WebLibraryDetailControlPopup(WebLibraryDetailControl web_library_detail_control)
@@ -26,21 +26,21 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             MenuCustomiseBackground.Click += MenuCustomiseBackground_Click;
         }
 
-        void MenuCustomiseBackground_Click(object sender, RoutedEventArgs e)
+        private void MenuCustomiseBackground_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
             web_library_detail_control.CustomiseBackground();
             e.Handled = true;
         }
 
-        void MenuCustomiseIcon_Click(object sender, RoutedEventArgs e)
+        private void MenuCustomiseIcon_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
             web_library_detail_control.CustomiseIcon();
             e.Handled = true;
         }
 
-        void MenuOpenLibrary_Click(object sender, RoutedEventArgs e)
+        private void MenuOpenLibrary_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
             web_library_detail_control.OpenLibrary();

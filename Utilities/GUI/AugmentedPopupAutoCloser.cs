@@ -5,7 +5,7 @@ namespace Utilities.GUI
 {
     public class AugmentedPopupAutoCloser : IDisposable
     {
-        Popup popup;
+        private Popup popup;
 
         public AugmentedPopupAutoCloser(Popup popup)
         {

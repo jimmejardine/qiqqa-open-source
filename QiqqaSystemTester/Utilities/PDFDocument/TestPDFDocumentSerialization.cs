@@ -1,13 +1,10 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
+using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
+using Qiqqa.Documents.PDF;
 using QiqqaTestHelpers;
 using static QiqqaTestHelpers.MiscTestHelpers;
-using Qiqqa.Documents.PDF;
-using Qiqqa.DocumentLibrary.WebLibraryStuff;
-using Qiqqa.DocumentLibrary;
 
 namespace QiqqaSystemTester
 {

@@ -18,10 +18,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
     /// </summary>
     public partial class PDFCameraLayer : PageLayer, IDisposable
     {
-        PDFRendererControlStats pdf_renderer_control_stats;
-        int page;
-
-        DragAreaTracker drag_area_tracker;
+        private PDFRendererControlStats pdf_renderer_control_stats;
+        private int page;
+        private DragAreaTracker drag_area_tracker;
 
         public PDFCameraLayer(PDFRendererControlStats pdf_renderer_control_stats, int page)
         {
@@ -30,14 +29,14 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
 
             InitializeComponent();
 
-            this.Background = Brushes.Transparent;
-            this.Cursor = Cursors.Cross;
+            Background = Brushes.Transparent;
+            Cursor = Cursors.Cross;
 
             drag_area_tracker = new DragAreaTracker(this);
             drag_area_tracker.OnDragComplete += drag_area_tracker_OnDragComplete;
         }
 
-        void drag_area_tracker_OnDragComplete(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point, Point mouse_up_point)
+        private void drag_area_tracker_OnDragComplete(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point, Point mouse_up_point)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Document_Camera);
 
@@ -62,14 +61,14 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
 
         private List<Word> GetSnappedWords(Point mouse_up_point, Point mouse_down_point)
         {
-            double left = Math.Min(mouse_up_point.X, mouse_down_point.X) / this.ActualWidth;
-            double top = Math.Min(mouse_up_point.Y, mouse_down_point.Y) / this.ActualHeight;
-            double width = Math.Abs(mouse_up_point.X - mouse_down_point.X) / this.ActualWidth;
-            double height = Math.Abs(mouse_up_point.Y - mouse_down_point.Y) / this.ActualHeight;
+            double left = Math.Min(mouse_up_point.X, mouse_down_point.X) / ActualWidth;
+            double top = Math.Min(mouse_up_point.Y, mouse_down_point.Y) / ActualHeight;
+            double width = Math.Abs(mouse_up_point.X - mouse_down_point.X) / ActualWidth;
+            double height = Math.Abs(mouse_up_point.Y - mouse_down_point.Y) / ActualHeight;
 
             List<Word> words_in_selection = new List<Word>();
 
-            WordList word_list = pdf_renderer_control_stats.pdf_document.PDFRenderer.GetOCRText(this.page);
+            WordList word_list = pdf_renderer_control_stats.pdf_document.PDFRenderer.GetOCRText(page);
             if (null != word_list)
             {
                 foreach (var word in word_list)
@@ -94,10 +93,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
                 BitmapSource image_page = decoder.Frames[0];
                 if (null != image_page)
                 {
-                    double left = Math.Min(mouse_up_point.X, mouse_down_point.X) * image_page.PixelWidth / this.ActualWidth;
-                    double top = Math.Min(mouse_up_point.Y, mouse_down_point.Y) * image_page.PixelHeight / this.ActualHeight;
-                    double width = Math.Abs(mouse_up_point.X - mouse_down_point.X) * image_page.PixelWidth / this.ActualWidth;
-                    double height = Math.Abs(mouse_up_point.Y - mouse_down_point.Y) * image_page.PixelHeight / this.ActualHeight;
+                    double left = Math.Min(mouse_up_point.X, mouse_down_point.X) * image_page.PixelWidth / ActualWidth;
+                    double top = Math.Min(mouse_up_point.Y, mouse_down_point.Y) * image_page.PixelHeight / ActualHeight;
+                    double width = Math.Abs(mouse_up_point.X - mouse_down_point.X) * image_page.PixelWidth / ActualWidth;
+                    double height = Math.Abs(mouse_up_point.Y - mouse_down_point.Y) * image_page.PixelHeight / ActualHeight;
 
                     left = Math.Max(left, 0);
                     top = Math.Max(top, 0);
@@ -164,14 +163,14 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
                     }
 
                     drag_area_tracker.OnDragComplete -= drag_area_tracker_OnDragComplete;
-                }, this.Dispatcher);
+                }, Dispatcher);
             }
 
             // Clear the references for sanity's sake
             pdf_renderer_control_stats = null;
             drag_area_tracker = null;
 
-            this.DataContext = null;
+            DataContext = null;
 
             ++dispose_count;
 

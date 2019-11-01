@@ -1,18 +1,7 @@
-﻿using Qiqqa.Common;
-using Qiqqa.WebBrowsing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Qiqqa.Common;
+using Qiqqa.WebBrowsing;
 
 namespace Qiqqa.Documents.PDF.InfoBarStuff.OnlineDatabaseLookupStuff
 {
@@ -38,38 +27,32 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.OnlineDatabaseLookupStuff
             ButtonArXiv.Click += ButtonArXiv_Click;
         }
 
-        PDFDocument pdf_document;
+        private PDFDocument pdf_document;
         public PDFDocument PDFDocument
         {
-            get
-            {
-                return this.pdf_document;
-            }
-            set
-            {
-                this.pdf_document = value;
-            }
+            get => pdf_document;
+            set => pdf_document = value;
         }
 
-        void ButtonGoogleScholar_Click(object sender, RoutedEventArgs e)
+        private void ButtonGoogleScholar_Click(object sender, RoutedEventArgs e)
         {
             DoSearch(WebSearchers.SCHOLAR_KEY);
         }
 
-        void ButtonPubMed_Click(object sender, RoutedEventArgs e)
+        private void ButtonPubMed_Click(object sender, RoutedEventArgs e)
         {
             DoSearch(WebSearchers.PUBMED_KEY);
         }
 
-        void ButtonArXiv_Click(object sender, RoutedEventArgs e)
+        private void ButtonArXiv_Click(object sender, RoutedEventArgs e)
         {
             DoSearch(WebSearchers.ARXIV_KEY);
         }
 
-        void DoSearch(string active_search_key)
+        private void DoSearch(string active_search_key)
         {
             if (null == pdf_document) return;
-            
+
             var web_browser = MainWindowServiceDispatcher.Instance.OpenWebBrowser();
             web_browser.DoWebSearch(pdf_document.TitleCombined);
             web_browser.SelectSearchTab(active_search_key);

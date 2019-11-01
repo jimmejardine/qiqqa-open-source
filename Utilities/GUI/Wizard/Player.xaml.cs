@@ -18,8 +18,7 @@ namespace Utilities.GUI.Wizard
 
         private DispatcherTimer dispatcher_timer;
         private DoubleAnimation opacity_animation;
-
-        List<PointOfInterestHighlighterWindow> highlighters = new List<PointOfInterestHighlighterWindow>();
+        private List<PointOfInterestHighlighterWindow> highlighters = new List<PointOfInterestHighlighterWindow>();
 
         public Player(PointOfInterestLocator poi_locator, Route route)
         {
@@ -27,13 +26,13 @@ namespace Utilities.GUI.Wizard
 
             InitializeComponent();
 
-            this.Background = ThemeColours.Background_Brush_Blue_VeryDark;
+            Background = ThemeColours.Background_Brush_Blue_VeryDark;
 
             this.poi_locator = poi_locator;
             this.route = route;
 
-            this.CmdNext.Background = Brushes.LightGreen;
-            this.CmdNext.Click += CmdNext_Click;
+            CmdNext.Background = Brushes.LightGreen;
+            CmdNext.Click += CmdNext_Click;
 
             dispatcher_timer = new DispatcherTimer();
             dispatcher_timer.Interval = new TimeSpan(0, 0, 0, 0, 250);
@@ -68,7 +67,7 @@ namespace Utilities.GUI.Wizard
             }
         }
 
-        void dispatcher_timer_Tick(object sender, EventArgs e)
+        private void dispatcher_timer_Tick(object sender, EventArgs e)
         {
             try
             {
@@ -120,8 +119,8 @@ namespace Utilities.GUI.Wizard
                                             PointOfInterestHighlighterWindow highlighter = highlighters[current_highlighter];
                                             highlighter.Left = fe_point.X - MARGIN;
                                             highlighter.Top = fe_point.Y - MARGIN;
-                                            highlighter.Width = fe.ActualWidth + 2*MARGIN;
-                                            highlighter.Height = fe.ActualHeight + 2*MARGIN;
+                                            highlighter.Width = fe.ActualWidth + 2 * MARGIN;
+                                            highlighter.Height = fe.ActualHeight + 2 * MARGIN;
                                             highlighter.Show();
                                             ++current_highlighter;
                                         }
@@ -138,18 +137,18 @@ namespace Utilities.GUI.Wizard
 
                 if (conditions_satisfied)
                 {
-                    this.TxtInstructions.Foreground = (route.CurrentStep.PostCondition_GreyInstructions) ? Brushes.LightGray : Brushes.Black;
+                    TxtInstructions.Foreground = (route.CurrentStep.PostCondition_GreyInstructions) ? Brushes.LightGray : Brushes.Black;
                     if (true != CmdNext.IsEnabled)
-                    {   
+                    {
                         CmdNext.IsEnabled = true;
                         CmdNext.BeginAnimation(OpacityProperty, opacity_animation);
                     }
                 }
                 else
                 {
-                    this.TxtInstructions.Foreground = Brushes.Black;
+                    TxtInstructions.Foreground = Brushes.Black;
                     if (false != CmdNext.IsEnabled)
-                    {                        
+                    {
                         CmdNext.IsEnabled = false;
                         CmdNext.BeginAnimation(OpacityProperty, null);
                     }
@@ -157,9 +156,9 @@ namespace Utilities.GUI.Wizard
             }
             else
             {
-                this.TxtInstructions.Foreground = Brushes.Black;
+                TxtInstructions.Foreground = Brushes.Black;
                 if (true != CmdNext.IsEnabled)
-                {   
+                {
                     CmdNext.IsEnabled = true;
                     CmdNext.BeginAnimation(OpacityProperty, opacity_animation);
                 }
@@ -177,13 +176,13 @@ namespace Utilities.GUI.Wizard
         {
             if (null != route.CurrentStep)
             {
-                this.TxtInstructions.Text = route.CurrentStep.Instructions;
+                TxtInstructions.Text = route.CurrentStep.Instructions;
                 TxtProgress.Text = String.Format("Step {0} of {1}.", route.CurrentStepIndex + 1, route.MaxStepIndex);
                 CmdNext.Content = "Next";
             }
             else
             {
-                this.TxtInstructions.Text = route.CompletionMessage;
+                TxtInstructions.Text = route.CompletionMessage;
                 TxtProgress.Text = "";
                 CmdNext.Content = "Close";
             }
@@ -191,7 +190,7 @@ namespace Utilities.GUI.Wizard
             RefreshVisualsForCurrentStep();
         }
 
-        void CmdNext_Click(object sender, RoutedEventArgs e)
+        private void CmdNext_Click(object sender, RoutedEventArgs e)
         {
             if (null == route.CurrentStep)
             {
@@ -199,7 +198,7 @@ namespace Utilities.GUI.Wizard
             }
             else
             {
-                this.route.StepNext();
+                route.StepNext();
                 ApplyCurrentStep();
             }
         }

@@ -1,34 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Threading;
 using Utilities;
 using Utilities.Encryption;
 using Utilities.OCR;
 using Utilities.PDF.MuPDF;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 
+
 namespace QiqqaOCR
 {
-    class TextExtractEngine
+    internal class TextExtractEngine
     {
-        static string pdf_filename;
-        static string page_numbers;
-        static string ocr_output_filename;
-        static string pdf_user_password;
+        private static string pdf_filename;
+        private static string page_numbers;
+        private static string ocr_output_filename;
+        private static string pdf_user_password;
+
         // Warning CA1823  It appears that field 'TextExtractEngine.language' is never used or is only ever assigned to. 
         // Use this field or remove it.	
-        static string language;
-
-        static Thread thread_text_extract = null;
-        static Dictionary<int, WordList> word_lists_text_extract = null;
-        static bool word_lists_text_extract_credible = false;
-        static bool has_exited_text_extract = false;
-        static Exception exception_text_extract = null;
-
-        static object global_vars_access_lock = new object();
+        private static string language;
+        private static Thread thread_text_extract = null;
+        private static Dictionary<int, WordList> word_lists_text_extract = null;
+        private static bool word_lists_text_extract_credible = false;
+        private static bool has_exited_text_extract = false;
+        private static Exception exception_text_extract = null;
+        private static object global_vars_access_lock = new object();
 
         // Warning CA1812	'TextExtractEngine' is an internal class that is apparently never instantiated.
         // If this class is intended to contain only static methods, consider adding a private constructor 
@@ -140,8 +140,7 @@ namespace QiqqaOCR
             }
         }
 
-
-        static void ThreadTextExtractMainEntry(object arg)
+        private static void ThreadTextExtractMainEntry(object arg)
         {
             try
             {

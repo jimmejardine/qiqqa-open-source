@@ -6,7 +6,7 @@ namespace Utilities.Internet.GoogleScholar
     public class GoogleScholarScrapePaper
     {
         public string type;
-        public string title;        
+        public string title;
         public string source_url;
         public string authors;
         public string abstract_html;
@@ -25,7 +25,7 @@ namespace Utilities.Internet.GoogleScholar
             sb.AppendFormat("Cite count:    {0}\n", cited_by_header);
             sb.AppendFormat("Abstract:      {0}\n", abstract_html);
             sb.AppendFormat("Download URLs: {0}\n", download_urls.Count);
-            
+
             return sb.ToString();
         }
     }

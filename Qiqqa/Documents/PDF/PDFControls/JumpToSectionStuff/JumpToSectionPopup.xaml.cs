@@ -21,14 +21,14 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
             this.pdf_reading_control = pdf_reading_control;
             this.pdf_render_control = pdf_render_control;
             this.pdf_renderer_control_stats = pdf_renderer_control_stats;
-            this.popup = new AugmentedPopup(this);
+            popup = new AugmentedPopup(this);
 
             // Add the bit explaining how to use bookmarks
             {
                 TextBlock tb = new TextBlock();
                 tb.FontWeight = FontWeights.Bold;
                 tb.Text = "Bookmarks:";
-                this.Children.Add(tb);
+                Children.Add(tb);
             }
 
             {
@@ -38,7 +38,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
                         ""
                         + "You can create up to 9 bookmarks while reading a PDF by\n"
                         + "holding down CTRL+SHIFT and pressing a number from 1 to 9.";
-                    this.Children.Add(mi);
+                    Children.Add(mi);
                 }
                 {
                     MenuItem mi = new MenuItem();
@@ -46,18 +46,18 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
                         ""
                     + "You can later jump to a remembered bookmark by\n"
                     + "holding down CTRL and pressing a number from 1 to 9.";
-                    this.Children.Add(mi);
+                    Children.Add(mi);
                 }
             }
 
-            this.Children.Add(new AugmentedSpacer());
+            Children.Add(new AugmentedSpacer());
 
             // Then add the sections
             {
                 TextBlock tb = new TextBlock();
                 tb.FontWeight = FontWeights.Bold;
                 tb.Text = "Sections:";
-                this.Children.Add(tb);
+                Children.Add(tb);
             }
 
             // First try from the PDF

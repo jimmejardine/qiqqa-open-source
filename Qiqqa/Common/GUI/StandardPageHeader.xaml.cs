@@ -15,48 +15,30 @@ namespace Qiqqa.Common.GUI
 
             InitializeComponent();
 
-            this.BorderThickness = new Thickness(0, 0, 0, 1);
-            this.BorderBrush = new SolidColorBrush(ThemeColours.Background_Color_Neutral_Light);
+            BorderThickness = new Thickness(0, 0, 0, 1);
+            BorderBrush = new SolidColorBrush(ThemeColours.Background_Color_Neutral_Light);
 
             RenderOptions.SetBitmapScalingMode(HeaderImage, BitmapScalingMode.HighQuality);
         }
 
         public ImageSource Img
         {
-            get
-            {
-                return HeaderImage.Source;
-            }
-            set
-            {
-                HeaderImage.Source = value;
-            }
+            get => HeaderImage.Source;
+            set => HeaderImage.Source = value;
         }
 
         public static readonly DependencyProperty CaptionProperty = DependencyProperty.Register("Caption", typeof(string), typeof(StandardPageHeader));
         public string Caption
         {
-            get
-            {
-                return (string)GetValue(CaptionProperty);
-            }
-            set
-            {
-                SetValue(CaptionProperty, value);
-            }
+            get => (string)GetValue(CaptionProperty);
+            set => SetValue(CaptionProperty, value);
         }
 
         public static readonly DependencyProperty SubCaptionProperty = DependencyProperty.Register("SubCaption", typeof(string), typeof(StandardPageHeader));
         public string SubCaption
         {
-            get
-            {
-                return (string)GetValue(SubCaptionProperty);
-            }
-            set
-            {
-                SetValue(SubCaptionProperty, value);
-            }
+            get => (string)GetValue(SubCaptionProperty);
+            set => SetValue(SubCaptionProperty, value);
         }
     }
 }

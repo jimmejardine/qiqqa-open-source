@@ -50,9 +50,9 @@ namespace Utilities.Images
             return bitmap.Clone(rectangle, bitmap.PixelFormat);
         }
 
-        [Obsolete("Use the byte[] version directly", true)]        
+        [Obsolete("Use the byte[] version directly", true)]
         public static BitmapSource LoadBitmapImageRegion(string filename, double left, double top, double width, double height)
-        {            
+        {
             Image image = LoadImageRegion(filename, left, top, width, height);
             return FromImage(image);
         }
@@ -76,12 +76,12 @@ namespace Utilities.Images
             using (MemoryStream ms = new MemoryStream(image_data_original))
             {
                 Image image = Image.FromStream(ms, false, false);
-                
+
                 // We only do shrinking of the image - not growing...
                 maximum_height = image.Height;
                 if (image.Height < new_height)
                 {
-                    Logging.Warn("Not going to grow the image");                    
+                    Logging.Warn("Not going to grow the image");
                     return image_data_original;
                 }
 
@@ -89,11 +89,11 @@ namespace Utilities.Images
                 Image image_thumbnail = image.GetThumbnailImage((int)new_width, (int)new_height, VOID_CALLBACK, IntPtr.Zero);
 
                 // Sharpen the image a bit
-   //             Bitmap bitmap = new Bitmap(image_thumbnail);
-//                Utilities.Images.BitmapFilter.Sharpen(bitmap, 11);
+                //             Bitmap bitmap = new Bitmap(image_thumbnail);
+                //                Utilities.Images.BitmapFilter.Sharpen(bitmap, 11);
                 //Utilities.Images.BitmapFilter.MeanRemoval(bitmap, 9);
-     //           image_thumbnail = bitmap;
-                
+                //           image_thumbnail = bitmap;
+
                 using (MemoryStream ms_new = new MemoryStream())
                 {
                     image_thumbnail.Save(ms_new, ImageFormat.Png);
@@ -107,7 +107,7 @@ namespace Utilities.Images
         {
             maximum_height = Int32.MaxValue;
             byte[] image_data = optional_height.HasValue ? ShrinkPNG(image_data_original, optional_height.Value, out maximum_height) : image_data_original;
-            
+
             using (MemoryStream ms = new MemoryStream(image_data))
             {
                 try
@@ -148,7 +148,7 @@ namespace Utilities.Images
         public static BitmapSource FromImage(Image image)
         {
             MemoryStream ms = new MemoryStream();
-            
+
             // Save the image
             image.Save(ms, ImageFormat.Png);
             ms.Seek(0, SeekOrigin.Begin);

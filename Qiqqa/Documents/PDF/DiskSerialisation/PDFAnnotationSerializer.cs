@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
+using Qiqqa.Documents.PDF.ThreadUnsafe;
 using Utilities.Files;
 using Utilities.Misc;
-using Qiqqa.Documents.PDF.ThreadUnsafe;
 
 namespace Qiqqa.Documents.PDF.DiskSerialisation
 {
-    class PDFAnnotationSerializer
+    internal class PDFAnnotationSerializer
     {
         internal static void WriteToDisk(PDFDocument_ThreadUnsafe pdf_document)
         {
@@ -36,7 +36,7 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
                     annotations_data = items[0].data;
                 }
             }
-            
+
             // If we actually have some annotations, load them            
             if (null != annotations_data)
             {

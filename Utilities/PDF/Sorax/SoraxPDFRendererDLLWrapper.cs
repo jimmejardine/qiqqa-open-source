@@ -2,13 +2,12 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Windows.Forms;
 
 namespace Utilities.PDF.Sorax
 {
     public class SoraxPDFRendererDLLWrapper
     {
-        class HDOCWrapper : IDisposable
+        private class HDOCWrapper : IDisposable
         {
             public string filename;
             public IntPtr HDOC;
@@ -16,7 +15,7 @@ namespace Utilities.PDF.Sorax
             public HDOCWrapper(string filename, string pdf_user_password, string pdf_owner_password)
             {
                 this.filename = filename;
-                this.HDOC = SoraxDLL.SPD_Open(filename, pdf_user_password, pdf_owner_password);
+                HDOC = SoraxDLL.SPD_Open(filename, pdf_user_password, pdf_owner_password);
 
                 if (IntPtr.Zero == HDOC)
                 {
@@ -57,7 +56,7 @@ namespace Utilities.PDF.Sorax
         }
 
         static SoraxPDFRendererDLLWrapper()
-        {   
+        {
             Logging.Debug特("+Initialising SoraxPDFRendererDLLWrapper");
             string config_filename = Path.GetFullPath(Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"SPdf.ini"));
             SoraxDLL.SPD_ResetConfig(config_filename);
@@ -112,7 +111,7 @@ namespace Utilities.PDF.Sorax
             {
                 IntPtr hbitmap = SoraxDLL.SPD_GetPageBitmap(hdoc.HDOC, HDC_HDC, page, 0, dpi);
                 Bitmap bitmap = Image.FromHbitmap(hbitmap);
-                SoraxDLL.DeleteObject(hbitmap);                
+                SoraxDLL.DeleteObject(hbitmap);
 
                 //using (FileStream fs = new FileStream(@"C:\temp\aax.png", FileMode.Create))
                 //{

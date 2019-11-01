@@ -9,10 +9,9 @@ namespace Utilities.Language
     public class ScrabbleWords
     {
         public static readonly ScrabbleWords Instance = new ScrabbleWords();
-
-        List<string> words = new List<string>();
+        private List<string> words = new List<string>();
         private ReadOnlyCollection<string> words_readonly = null;
-        
+
         private ScrabbleWords()
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
@@ -38,10 +37,7 @@ namespace Utilities.Language
             words_readonly = words.AsReadOnly();
         }
 
-        public ReadOnlyCollection<string> Words
-        {
-            get { return words_readonly; }
-        }
+        public ReadOnlyCollection<string> Words => words_readonly;
 
         public bool Contains(string word)
         {
@@ -87,7 +83,7 @@ namespace Utilities.Language
 
             return false;
         }
-        
+
 
         #region --- MAINTENANCE - FOR THE GENERATION OF NEW WORD LISTS ---------------------------------------------------------------------------------------------------
 
@@ -131,7 +127,7 @@ namespace Utilities.Language
             using (Stream stream = new FileStream(@"C:\temp\zzzRawZip.dat", FileMode.Open, FileAccess.Read, FileShare.None))
             {
                 using (GZipStream compressed_stream = new GZipStream(stream, CompressionMode.Decompress))
-                {                    
+                {
                     using (StreamReader sr = new StreamReader(compressed_stream))
                     {
                         while (true)

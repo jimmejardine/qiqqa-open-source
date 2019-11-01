@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using System.IO;
 using System.Text;
 using Qiqqa.Common.Configuration;
 using Utilities;
 using Utilities.Files;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.DocumentLibrary
 {
@@ -25,13 +26,13 @@ namespace Qiqqa.DocumentLibrary
 
     public class LibraryDB
     {
-        string base_path;
-        string library_path;
+        private string base_path;
+        private string library_path;
 
         public LibraryDB(string base_path)
         {
             this.base_path = base_path;
-            this.library_path = Path.GetFullPath(Path.Combine(base_path, @"Qiqqa.library"));
+            library_path = Path.GetFullPath(Path.Combine(base_path, @"Qiqqa.library"));
 
             // Copy a library into place...
             if (!File.Exists(library_path))

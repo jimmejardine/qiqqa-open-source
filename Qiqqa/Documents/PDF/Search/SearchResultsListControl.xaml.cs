@@ -14,7 +14,7 @@ namespace Qiqqa.Documents.PDF.Search
         public delegate void SearchDelegate(PDFSearchResult search_result);
         public event SearchDelegate SearchSelectionChanged;
         public event SearchDelegate SearchClicked;
-        
+
         public SearchResultsListControl()
         {
             Theme.Initialize();
@@ -24,30 +24,30 @@ namespace Qiqqa.Documents.PDF.Search
             ListSearchResults.SelectionChanged += ListSearchResults_SelectionChanged;
             ListSearchResults.MouseUp += ListSearchResults_MouseUp;
 
-            this.DataContextChanged += SearchResultsListControl_DataContextChanged;
+            DataContextChanged += SearchResultsListControl_DataContextChanged;
             ReflectDataContext();
         }
 
-        void ListSearchResults_MouseUp(object sender, MouseButtonEventArgs e)
+        private void ListSearchResults_MouseUp(object sender, MouseButtonEventArgs e)
         {
             PDFSearchResult search_result = ListSearchResults.SelectedItem as PDFSearchResult;
             SearchClicked?.Invoke(search_result);
         }
 
-        void ListSearchResults_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ListSearchResults_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             PDFSearchResult search_result = ListSearchResults.SelectedItem as PDFSearchResult;
             SearchSelectionChanged?.Invoke(search_result);
         }
 
-        void SearchResultsListControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void SearchResultsListControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             ReflectDataContext();
         }
 
         private void ReflectDataContext()
         {
-            List<PDFSearchResult> list = this.DataContext as List<PDFSearchResult>;
+            List<PDFSearchResult> list = DataContext as List<PDFSearchResult>;
 
             if (null == list || 0 == list.Count)
             {

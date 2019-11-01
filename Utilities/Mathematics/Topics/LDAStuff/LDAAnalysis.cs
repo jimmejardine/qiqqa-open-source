@@ -71,36 +71,18 @@ namespace Utilities.Mathematics.Topics.LDAStuff
 
     public class LDAAnalysis
     {
-        LDASampler lda;
+        private LDASampler lda;
 
         public LDAAnalysis(LDASampler lda)
         {
             this.lda = lda;
         }
 
-        public int NUM_DOCS
-        {
-            get
-            {
-                return lda.NUM_DOCS;
-            }
-        }
+        public int NUM_DOCS => lda.NUM_DOCS;
 
-        public int NUM_TOPICS
-        {
-            get
-            {
-                return lda.NUM_TOPICS;
-            }
-        }
+        public int NUM_TOPICS => lda.NUM_TOPICS;
 
-        public int NUM_WORDS
-        {
-            get
-            {
-                return lda.NUM_WORDS;
-            }
-        }
+        public int NUM_WORDS => lda.NUM_WORDS;
 
         private float[,] _density_of_words_in_topics; // [topic,word]
         public float[,] DensityOfWordsInTopics // [topic,word]
@@ -108,7 +90,7 @@ namespace Utilities.Mathematics.Topics.LDAStuff
             get
             {
                 try
-                { 
+                {
                     if (null == _density_of_words_in_topics)
                     {
                         Logging.Info("+Generating density_of_words_in_topics");
@@ -147,7 +129,7 @@ namespace Utilities.Mathematics.Topics.LDAStuff
             get
             {
                 try
-                { 
+                {
                     if (null == _density_of_topics_in_documents)
                     {
                         Logging.Info("+Generating density_of_topics_in_documents");
@@ -175,7 +157,7 @@ namespace Utilities.Mathematics.Topics.LDAStuff
                     throw ex;
                 }
 
-                return _density_of_topics_in_documents; 
+                return _density_of_topics_in_documents;
             }
         }
 
@@ -224,13 +206,13 @@ namespace Utilities.Mathematics.Topics.LDAStuff
         }
 
         [NonSerialized]
-        WordProbability[][] density_of_words_in_topics_sorted; // [topic][word]
+        private WordProbability[][] density_of_words_in_topics_sorted; // [topic][word]
         public WordProbability[][] DensityOfWordsInTopicsSorted // [topic][word]
         {
             get
             {
                 try
-                { 
+                {
                     // Build this if we need to
                     if (null == density_of_words_in_topics_sorted)
                     {
@@ -257,7 +239,7 @@ namespace Utilities.Mathematics.Topics.LDAStuff
             }
         }
 
-        DocProbability[][] density_of_docs_in_topics_sorted; // [topic][doc]
+        private DocProbability[][] density_of_docs_in_topics_sorted; // [topic][doc]
         /// <summary>
         /// [topic][doc]
         /// </summary>
@@ -293,7 +275,7 @@ namespace Utilities.Mathematics.Topics.LDAStuff
             }
         }
 
-        TopicProbability[][] density_of_topics_in_docs_sorted; // [doc][n]
+        private TopicProbability[][] density_of_topics_in_docs_sorted; // [doc][n]
         /// <summary>
         /// [doc][n]
         /// </summary>
@@ -312,7 +294,7 @@ namespace Utilities.Mathematics.Topics.LDAStuff
             }
         }
 
-        TopicProbability[][] density_of_top5_topics_in_docs_sorted; // [doc][n<5]
+        private TopicProbability[][] density_of_top5_topics_in_docs_sorted; // [doc][n<5]
         /// <summary>
         /// [doc][n<5]
         /// </summary>
@@ -375,7 +357,7 @@ namespace Utilities.Mathematics.Topics.LDAStuff
             }
         }
 
-        TopicProbability[][] density_of_topics_in_docs_scaled_sorted; // [doc][topic]
+        private TopicProbability[][] density_of_topics_in_docs_scaled_sorted; // [doc][topic]
         /// <summary>
         /// [doc][topic]
         /// </summary>
@@ -384,7 +366,7 @@ namespace Utilities.Mathematics.Topics.LDAStuff
             get
             {
                 try
-                { 
+                {
                     // Build this if we need to
                     if (null == density_of_topics_in_docs_scaled_sorted)
                     {
@@ -397,7 +379,7 @@ namespace Utilities.Mathematics.Topics.LDAStuff
                                 total_density_of_topics_in_docs[topic] += DensityOfTopicsInDocuments[doc, topic];
                             }
                         }
-                    
+
                         // Work out the sorted ranks
                         density_of_topics_in_docs_scaled_sorted = new TopicProbability[lda.NUM_DOCS][];
 

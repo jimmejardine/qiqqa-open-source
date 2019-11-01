@@ -8,7 +8,7 @@ using Utilities.Language;
 
 namespace Qiqqa.InCite
 {
-    class CSLProcessorTranslator_BibTeXToJavaScript
+    internal class CSLProcessorTranslator_BibTeXToJavaScript
     {
         internal static string Translate_INIT(Dictionary<string, CSLProcessorBibTeXFinder.MatchingBibTeXRecord> bibtex_items)
         {
@@ -47,7 +47,7 @@ namespace Qiqqa.InCite
             {
                 if (is_additional_bibtex_item)
                 {
-                    sb.AppendLine(",");                    
+                    sb.AppendLine(",");
                 }
                 else
                 {
@@ -89,37 +89,36 @@ namespace Qiqqa.InCite
 
                         sb.Append(",");
 
-                        if (false) { }
-                        else if ("author" == field_pair.Key || "authors" == field_pair.Key)
+                        switch (field_pair.Key)
                         {
-                            ProcessAuthors(sb, field_pair);
-                        }
-                        else if ("year" == field_pair.Key)
-                        {
-                            ProcessYear(sb, field_pair);
-                        }
-                        else if (
-                            false
-                            || "accessed" == field_pair.Key
-                            || "container" == field_pair.Key
-                            || "event-date" == field_pair.Key
-                            || "issued" == field_pair.Key
-                            || "original-date" == field_pair.Key
-                            )
-                        {
-                            ProcessGenericDate(sb, field_pair);
-                        }
-                        else
-                        {
-                            ProcessGeneric(sb, field_pair, abbreviations);
+                            case "author":
+                            case "authors":
+                                ProcessAuthors(sb, field_pair);
+                                break;
+
+                            case "year":
+                                ProcessYear(sb, field_pair);
+                                break;
+
+                            case "accessed":
+                            case "container":
+                            case "event-date":
+                            case "issued":
+                            case "original-date":
+                                ProcessGenericDate(sb, field_pair);
+                                break;
+
+                            default:
+                                ProcessGeneric(sb, field_pair, abbreviations);
+                                break;
                         }
                     }
                 }
-                
+
                 // Close the current bibtex item
                 sb.AppendLine("}");
             }
-            
+
             sb.AppendLine();
             sb.AppendLine("};");
 
@@ -136,28 +135,91 @@ namespace Qiqqa.InCite
             key = key.ToLower();
 
             string translated_key = key;
-            if (false) { }
-            else if ("journal" == key) translated_key = "container-title";
-            else if ("publication" == key) translated_key = "container-title";
-            else if ("booktitle" == key) translated_key = "container-title";
-            else if ("series" == key) translated_key = "collection-title";
-            else if ("series number" == key) translated_key = "collection-number";
-            else if ("chapter" == key) translated_key = "chapter-number";
-            else if ("volume" == key) translated_key = "volume";
-            else if ("number" == key) translated_key = "issue";
-            else if ("page" == key) translated_key = "page";
-            else if ("pages" == key) translated_key = "page";
-            else if ("doi" == key.ToLower()) translated_key = "DOI";
-            else if ("url" == key.ToLower()) translated_key = "URL";
-            else if ("pmid" == key.ToLower()) translated_key = "PMID";
-            else if ("isbn" == key.ToLower()) translated_key = "ISBN";
-            else if ("issn" == key.ToLower()) translated_key = "ISSN";
-            else if ("address" == key) translated_key = "publisher-place";
-            else if ("location" == key) translated_key = "publisher-place";
-            else if ("journal-iso" == key) translated_key = "journalAbbreviation";
-            else if ("editor" == key) translated_key = "editor";
-            else if ("keywords" == key) translated_key = "keyword";
-            
+
+            switch (key)
+            {
+                case "journal":
+                    translated_key = "container-title";
+                    break;
+
+                case "publication":
+                    translated_key = "container-title";
+                    break;
+
+                case "booktitle":
+                    translated_key = "container-title";
+                    break;
+
+                case "series":
+                    translated_key = "collection-title";
+                    break;
+
+                case "series number":
+                case "series-number":
+                    translated_key = "collection-number";
+                    break;
+
+                case "chapter":
+                    translated_key = "chapter-number";
+                    break;
+
+                case "volume":
+                    translated_key = "volume";
+                    break;
+
+                case "number":
+                    translated_key = "issue";
+                    break;
+
+                case "page":
+                    translated_key = "page";
+                    break;
+
+                case "pages":
+                    translated_key = "page";
+                    break;
+
+                case "doi":
+                    translated_key = "DOI";
+                    break;
+
+                case "url":
+                    translated_key = "URL";
+                    break;
+
+                case "pmid":
+                    translated_key = "PMID";
+                    break;
+
+                case "isbn":
+                    translated_key = "ISBN";
+                    break;
+
+                case "issn":
+                    translated_key = "ISSN";
+                    break;
+
+                case "address":
+                    translated_key = "publisher-place";
+                    break;
+
+                case "location":
+                    translated_key = "publisher-place";
+                    break;
+
+                case "journal-iso":
+                    translated_key = "journalAbbreviation";
+                    break;
+
+                case "editor":
+                    translated_key = "editor";
+                    break;
+
+                case "keywords":
+                    translated_key = "keyword";
+                    break;
+            }
+
             // The value field
             string value = field_pair.Value;
 
@@ -196,9 +258,7 @@ namespace Qiqqa.InCite
         {
             sb.AppendLine(" \"" + field_pair.Key + "\" : { \"raw\" : \"" + field_pair.Value + "\" }");
         }
-
-
-
+               
         private static void ProcessType(StringBuilder sb, string type)
         {
             // The following are available in CSL
@@ -206,13 +266,13 @@ namespace Qiqqa.InCite
 
             // Map the type from BibTeX type to CSL type
             type = type.ToLower();
-            
+
             string translated_type = type;
-            if (false) { }
-            else if (CSL_TYPES.Contains(type)) translated_type = type;
+            
+            if (CSL_TYPES.Contains(type)) translated_type = type;
 
             // BibTeX to CSL - http://www.docear.org/2012/08/08/docear4word-mapping-bibtex-fields-and-types-with-the-citation-style-language/
-            else if ("article" == type) translated_type = "article-journal";            
+            else if ("article" == type) translated_type = "article-journal";
             else if ("proceedings" == type) translated_type = "book";
             else if ("manual" == type) translated_type = "book";
             else if ("book" == type) translated_type = "book";
@@ -250,7 +310,7 @@ namespace Qiqqa.InCite
             else if ("article-csl" == type) translated_type = "article";
             else translated_type = "article-journal";
 
-            sb.AppendLine(", " + MakeQuotedPair("type", translated_type));           
+            sb.AppendLine(", " + MakeQuotedPair("type", translated_type));
         }
 
         private static void ProcessAuthors(StringBuilder sb, KeyValuePair<string, string> field_pair)
@@ -308,7 +368,7 @@ namespace Qiqqa.InCite
                 sb.Append("  { ");
                 NameTools.Name name = NameTools.SplitName(author_split);
                 sb.Append(MakeQuotedPair("family", name.last_name));
-                
+
                 // Make sure the initials have a space between them
                 string first_names_with_initials_separated = name.first_names;
                 if (!String.IsNullOrEmpty(first_names_with_initials_separated))
@@ -325,7 +385,7 @@ namespace Qiqqa.InCite
             sb.AppendLine("   ]");
         }
 
-        static string MakeQuotedPair(string key, string value)
+        private static string MakeQuotedPair(string key, string value)
         {
             value = value.Replace("\\", "\\\\");
             value = value.Replace("\"", "\\\"");

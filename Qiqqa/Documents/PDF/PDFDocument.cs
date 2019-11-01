@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
-using System.Reflection;
 using System.Windows.Media;
 using Newtonsoft.Json;
 using Qiqqa.Common.TagManagement;
@@ -20,10 +18,11 @@ using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
 using Utilities.Reflection;
-using File = Alphaleonis.Win32.Filesystem.File;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using Path = Alphaleonis.Win32.Filesystem.Path;
 using Utilities.Strings;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Documents.PDF.ThreadUnsafe
 {
@@ -104,14 +103,14 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
         }
  
         [NonSerialized]
-        PDFRenderer pdf_renderer;
+        private PDFRenderer pdf_renderer;
         public PDFRenderer PDFRenderer
         {
             get
             {
                 if (null == pdf_renderer)
                 {
-                    pdf_renderer = new PDFRenderer(Fingerprint, DocumentPath, this.Library.PasswordManager.GetPassword(this), this.Library.PasswordManager.GetPassword(this));
+                    pdf_renderer = new PDFRenderer(Fingerprint, DocumentPath, Library.PasswordManager.GetPassword(this), Library.PasswordManager.GetPassword(this));
                 }
 
                 return pdf_renderer;
@@ -119,7 +118,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
         }
 
         [NonSerialized]
-        PDFRendererFileLayer pdf_renderer_file_layer;
+        private PDFRendererFileLayer pdf_renderer_file_layer;
         public PDFRendererFileLayer PDFRendererFileLayer
         {
             get
@@ -156,14 +155,9 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
         /// 
         /// The cost: one(1) I/O per check.
         /// </summary>
-        public bool HasOCRdata
-        {
-            get
-            {
+        public bool HasOCRdata =>
                 // do not check if DocumentExists: our pagecount cache check is sufficient and one I/O per check.
-                return PDFRendererFileLayer.HasOCRdata(Fingerprint);
-            }
-        }
+                PDFRendererFileLayer.HasOCRdata(Fingerprint);
 
         public string Fingerprint
         { get; /* protected */ set; }
@@ -243,8 +237,6 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
                     TitleSuggested,
                     DownloadLocation
                     );
-            }
-        }
 
         public string TitleCombined
         {
@@ -316,8 +308,6 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
                     BibTex.GetAuthor(),
                     AuthorsSuggested
                     );
-            }
-        }
 
         public string AuthorsCombined
         {
@@ -375,8 +365,6 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
                     BibTex.GetYear(),
                     YearSuggested
                     );
-            }
-        }
 
         /// <summary>
         /// Produce the document's year of publication.
@@ -621,7 +609,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
         }
 
         [NonSerialized]
-        bool? document_exists = null;
+        private bool? document_exists = null;
         public bool DocumentExists
         {
             get
@@ -634,7 +622,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
         }
 
         [NonSerialized]
-        long document_size = 0;
+        private long document_size = 0;
         public long DocumentSizeInBytes
         {
             get
@@ -649,18 +637,12 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             }
         }
 
-        public bool IsVanillaReference
-        {
-            get
-            {
-                return String.Compare(this.FileType, Constants.VanillaReferenceFileType, StringComparison.OrdinalIgnoreCase) == 0;
-            }
-        }
+        public bool IsVanillaReference => String.Compare(FileType, Constants.VanillaReferenceFileType, StringComparison.OrdinalIgnoreCase) == 0;
 
         #region --- Annotations / highlights / ink ----------------------------------------------------------------------
 
         [NonSerialized]
-        PDFAnnotationList annotations = null;
+        private PDFAnnotationList annotations = null;
 
         public PDFAnnotationList GetAnnotations(Dictionary<string, byte[]> library_items_annotations_cache = null)
         {
@@ -712,14 +694,8 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
         //}
 
         [NonSerialized]
-        PDFHightlightList highlights = null;
-        public PDFHightlightList Highlights
-        {
-            get
-            {
-                return GetHighlights(null);
-            }
-        }
+        private PDFHightlightList highlights = null;
+        public PDFHightlightList Highlights => GetHighlights(null);
 
         internal PDFHightlightList GetHighlights(Dictionary<string, byte[]> library_items_highlights_cache)
         {
@@ -762,14 +738,8 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
         //}
 
         [NonSerialized]
-        PDFInkList inks = null;
-        public PDFInkList Inks
-        {
-            get
-            {
-                return GetInks(null);
-            }
-        }
+        private PDFInkList inks = null;
+        public PDFInkList Inks => GetInks(null);
 
         internal PDFInkList GetInks(Dictionary<string, byte[]> library_items_inks_cache)
         {
@@ -972,7 +942,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             Logging.Info("Cloning metadata from {0}: {1}", existing_pdf_document.Fingerprint, existing_pdf_document.TitleCombined);
 
             //dictionary = (DictionaryBasedObject)existing_pdf_document.dictionary.Clone();
-            this.CopyMetaData(existing_pdf_document);
+            CopyMetaData(existing_pdf_document);
 
 #if false
             // Copy the citations
@@ -1067,13 +1037,7 @@ namespace Qiqqa.Documents.PDF
 
         private ThreadUnsafe.PDFDocument_ThreadUnsafe doc;
 
-        public Library Library
-        {
-            get
-            {
-                return doc.Library;
-            }
-        }
+        public Library Library => doc.Library;
 
         public string GetAttributesAsJSON()
         {
@@ -1150,7 +1114,7 @@ namespace Qiqqa.Documents.PDF
         // TODO: has a cyclic link in the GC to PDFDocument due to PDFDocument being referenced as member of this bindable:
         // PDFDocument -> Bindable -> AugmentedBindable<PDFDocument> -> Underlying -> PDFDocument
         [NonSerialized]
-        AugmentedBindable<PDFDocument> bindable = null;
+        private AugmentedBindable<PDFDocument> bindable = null;
         public AugmentedBindable<PDFDocument> Bindable
         {
             get
@@ -1168,10 +1132,10 @@ namespace Qiqqa.Documents.PDF
             }
         }
 
-        void bindable_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void bindable_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             QueueToStorage();
-            this.Library.LibraryIndex.ReIndexDocument(this);
+            Library.LibraryIndex.ReIndexDocument(this);
         }
 
         public string Fingerprint
@@ -1327,13 +1291,7 @@ namespace Qiqqa.Documents.PDF
             }
         }
 
-        public string TitleCombinedTrimmed
-        {
-            get
-            {
-                return StringTools.TrimToLengthWithEllipsis(TitleCombined, 200);
-            }
-        }
+        public string TitleCombinedTrimmed => StringTools.TrimToLengthWithEllipsis(TitleCombined, 200);
 
         /// <summary>
         /// Is true if the user made this title by hand (e.g. typed it in or got some BibTeX)
@@ -1412,13 +1370,7 @@ namespace Qiqqa.Documents.PDF
             }
         }
 
-        public string AuthorsCombinedTrimmed
-        {
-            get
-            {
-                return StringTools.TrimToLengthWithEllipsis(AuthorsCombined, 150);
-            }
-        }
+        public string AuthorsCombinedTrimmed => StringTools.TrimToLengthWithEllipsis(AuthorsCombined, 150);
 
         public string Year
         {
@@ -1517,13 +1469,7 @@ namespace Qiqqa.Documents.PDF
             }
         }
 
-        public string PublicationTrimmed
-        {
-            get
-            {
-                return StringTools.TrimToLengthWithEllipsis(Publication, 100);
-            }
-        }
+        public string PublicationTrimmed => StringTools.TrimToLengthWithEllipsis(Publication, 100);
 
         public string Id
         {
@@ -2000,10 +1946,10 @@ namespace Qiqqa.Documents.PDF
             return annotations;
         }
 
-        void annotations_OnPDFAnnotationListChanged()
+        private void annotations_OnPDFAnnotationListChanged()
         {
             QueueToStorage();
-            this.Library.LibraryIndex.ReIndexDocument(this);
+            Library.LibraryIndex.ReIndexDocument(this);
         }
 
         public string GetAnnotationsAsJSON()
@@ -2043,10 +1989,11 @@ namespace Qiqqa.Documents.PDF
 
             return highlights;
         }
-        void highlights_OnPDFHighlightListChanged()
+
+        private void highlights_OnPDFHighlightListChanged()
         {
             QueueToStorage();
-            this.Library.LibraryIndex.ReIndexDocument(this);
+            Library.LibraryIndex.ReIndexDocument(this);
         }
 
         public string GetHighlightsAsJSON()
@@ -2082,11 +2029,11 @@ namespace Qiqqa.Documents.PDF
             return inks;
         }
 
-        void inks_OnPDFInkListChanged()
+        private void inks_OnPDFInkListChanged()
         {
             Logging.Info("Document has changed inks");
             QueueToStorage();
-            this.Library.LibraryIndex.ReIndexDocument(this);
+            Library.LibraryIndex.ReIndexDocument(this);
         }
 
         public byte[] GetInksAsJSON()
@@ -2102,7 +2049,7 @@ namespace Qiqqa.Documents.PDF
         #region --- Managers ----------------------------------------------------------------------
 
         [NonSerialized]
-        PDFDocumentCitationManager _pdf_document_citation_manager = null;
+        private PDFDocumentCitationManager _pdf_document_citation_manager = null;
         public PDFDocumentCitationManager PDFDocumentCitationManager
         {
             get
@@ -2326,7 +2273,7 @@ namespace Qiqqa.Documents.PDF
                     new_pdf_document.QueueToStorage();
 
                     // Delete this one
-                    this.Deleted = true;
+                    Deleted = true;
                     QueueToStorage();
 
                     // Tell library to refresh

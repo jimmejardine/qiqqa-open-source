@@ -16,9 +16,10 @@ using Utilities.GUI;
 using Utilities.Misc;
 using Utilities.Strings;
 using Utilities.BibTex.Parsing;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.DocumentLibrary
 {
@@ -30,7 +31,7 @@ namespace Qiqqa.DocumentLibrary
             ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
         }
 
-        static readonly string LIBRARY_DOWNLOAD = "LibraryDownload";
+        private static readonly string LIBRARY_DOWNLOAD = "LibraryDownload";
 
         // make sure all threads use the same report file and the alert box is only shown once
         internal static string problematic_import_documents_filename = null;
