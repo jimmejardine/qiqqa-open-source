@@ -54,7 +54,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
             {
                 using (ProcessOutputReader process_output_reader = new ProcessOutputReader(process))
                 {
-                    process.WaitForExit(10000);
+                    process.WaitForExit();
 
                     Logging.Info("7ZIP Log Bundle Install progress:\n{0}", process_output_reader.GetOutputsDumpString());
                 }
