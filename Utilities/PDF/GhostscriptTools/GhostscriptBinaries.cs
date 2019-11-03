@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if false
+
+using System;
 using System.Diagnostics;
 using System.IO;
 using Utilities.ProcessTools;
@@ -148,3 +150,5 @@ namespace Utilities.PDF.GhostscriptTools
         }
     }
 }
+
+#endif

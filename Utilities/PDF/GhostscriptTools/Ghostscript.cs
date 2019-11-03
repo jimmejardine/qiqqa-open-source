@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿#if false
+
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Media.Imaging;
@@ -68,3 +70,5 @@ namespace Utilities.PDF.GhostscriptTools
         }
     }
 }
+
+#endif
