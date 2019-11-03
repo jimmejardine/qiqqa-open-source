@@ -165,7 +165,7 @@ namespace Qiqqa.Main
             // Check that we are the only instance running
             try
             {
-                if (!RegistrySettings.Instance.IsSet(RegistrySettings.AllowMultipleQiqqaInstances) && !ProcessSingleton.IsProcessUnique(true))
+                if (!RegistrySettings.Instance.IsSet(RegistrySettings.AllowMultipleQiqqaInstances) && !ProcessSingleton.IsProcessUnique(bring_other_process_to_front_if_it_exists: true))
                 {
                     MessageBoxes.Info("There seems to be an instance of Qiqqa already running so Qiqqa will not start again.\n\nSometimes it takes a few moments for Qiqqa to exit as it finishes up a final OCR or download.  If this problem persists, you can kill the Qiqqa.exe process in Task Manager.");
                     Logging.Info("There is another instance of Qiqqa running, so exiting.");

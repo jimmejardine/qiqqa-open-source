@@ -477,11 +477,47 @@ namespace Qiqqa.Common.Configuration
         }
 
         [NonSerialized]
-        private bool disable_all_background = false;
+        private bool? disable_all_background;
         public bool DisableAllBackgroundTasks
         {
-            get => disable_all_background;
-            set => disable_all_background = value;
+            get
+            {
+                if (disable_all_background.HasValue)
+                {
+                    return disable_all_background.Value;
+                }
+
+                disable_all_background = RegistrySettings.Instance.IsSet(RegistrySettings.SuppressDaemon);
+                return disable_all_background.Value;
+            }
+            set
+            {
+                disable_all_background = value;
+
+                RegistrySettings.Instance.Write(RegistrySettings.SuppressDaemon, value ? "yes" : "no");
+            }
+        }
+
+        [NonSerialized]
+        private bool? snap_to_pixels;
+        public bool SnapToPixels
+        {
+            get
+            {
+                if (snap_to_pixels.HasValue)
+                {
+                    return snap_to_pixels.Value;
+                }
+
+                snap_to_pixels = RegistrySettings.Instance.IsSet(RegistrySettings.SnapToPixels);
+                return snap_to_pixels.Value;
+            }
+            set
+            {
+                snap_to_pixels = value;
+
+                RegistrySettings.Instance.Write(RegistrySettings.SnapToPixels, value ? "yes" : "no");
+            }
         }
     }
 }
