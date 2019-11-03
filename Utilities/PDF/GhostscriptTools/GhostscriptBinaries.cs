@@ -143,7 +143,8 @@ namespace Utilities.PDF.GhostscriptTools
 
         public static Process StartGhostscriptProcess(string ghostscript_parameters, ProcessPriorityClass priority_class)
         {
-            return ProcessSpawning.SpawnChildProcess(ExecutablePath, ghostscript_parameters, priority_class);
+            // STDOUT/STDERR
+            return ProcessSpawning.SpawnChildProcess(ExecutablePath, ghostscript_parameters, priority_class, stdout_is_binary: true);
         }
     }
 }

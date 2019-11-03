@@ -38,8 +38,10 @@ namespace DeploymentUtilities
             {
                 //start the uninstall; this will bring up the uninstall dialog 
                 //  asking if it's ok
-                Process uninstallProcess = Process.Start(runDLL32, args);
-                uninstallProcess.WaitForExit();
+                using (Process uninstallProcess = Process.Start(runDLL32, args))
+                {
+                    uninstallProcess.WaitForExit();
+                }
             }
 
             //push the OK button

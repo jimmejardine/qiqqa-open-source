@@ -45,12 +45,15 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
                 Logging.Info("Installing XULRunner into {0}.", InstallationDirectory);
                 Directory.CreateDirectory(InstallationDirectory);
 
+                // STDOUT/STDERR
                 string process_parameters = String.Format("x -y \"{0}\" -o\"{1}\"", XULPackageFilename, UnpackDirectoryDirectory);
                 using (Process process = ProcessSpawning.SpawnChildProcess(ConfigurationManager.Instance.Program7ZIP, process_parameters, ProcessPriorityClass.Normal))
                 {
                     using (ProcessOutputReader process_output_reader = new ProcessOutputReader(process))
                     {
                         process.WaitForExit();
+
+                        Logging.Info("XULRunner installer:\n{0}", process_output_reader.GetOutputsDumpString());
                     }
                 }
 

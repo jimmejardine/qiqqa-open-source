@@ -734,27 +734,31 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             }
         }
 
+        // STDOUT/STDERR
         private bool CheckOCRProcessSuccess(string ocr_parameters, int SECONDS_TO_WAIT)
         {
             // Fire up the process            
             using (Process process = ProcessSpawning.SpawnChildProcess("QiqqaOCR.exe", ocr_parameters, ProcessPriorityClass.BelowNormal))
             {
                 DateTime process_start_time = DateTime.UtcNow;
+                double duration = 0.0;
 
                 using (ProcessOutputReader process_output_reader = new ProcessOutputReader(process))
                 {
                     // Wait a few minutes for the OCR process to exit
                     while (true)
                     {
-                        if (!StillRunning)
+                        duration = DateTime.UtcNow.Subtract(process_start_time).TotalSeconds;
+
+                        if (!Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown && !StillRunning)
                         {
                             break;
                         }
-                        if (process.WaitForExit(500))
+                        if (process.WaitForExit(1000))
                         {
                             break;
                         }
-                        if (DateTime.UtcNow.Subtract(process_start_time).TotalSeconds >= SECONDS_TO_WAIT)
+                        if (duration >= SECONDS_TO_WAIT)
                         {
                             break;
                         }
@@ -763,19 +767,24 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                     // Check that we had a clean exit
                     if (!process.HasExited || 0 != process.ExitCode)
                     {
-                        Logging.Error("There was a problem while running OCR with parameters: {0}\n    Output:\n{1}", ocr_parameters, process_output_reader.GetOutputsDumpString());
-
-                        if (!process.HasExited)
+                        bool has_exited = process.HasExited;
+                        
+                        if (!has_exited)
                         {
                             try
                             {
                                 process.Kill();
+
+                                // wait for the completion signal; this also helps to collect all STDERR output of the application (even while it was KILLED)
+                                process.WaitForExit(1000);
                             }
                             catch (Exception ex)
                             {
-                                Logging.Error(ex, "There was a problem killing the OCR process");
+                                Logging.Error(ex, "There was a problem killing the OCR process after timeout ({0} > {1} seconds)", duration, SECONDS_TO_WAIT);
                             }
                         }
+
+                        Logging.Error("There was a problem while running OCR with parameters: {0}\n--- {2}\n{1}", ocr_parameters, process_output_reader.GetOutputsDumpString(), (has_exited ? $"Exit code: {process.ExitCode}" : $"Timeout: {duration} > {SECONDS_TO_WAIT} seconds"));
 
                         return false;
                     }

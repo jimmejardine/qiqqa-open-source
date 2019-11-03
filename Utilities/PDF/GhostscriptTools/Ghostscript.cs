@@ -3,6 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Media.Imaging;
 using Utilities.Files;
+using Utilities.ProcessTools;
 
 namespace Utilities.PDF.GhostscriptTools
 {
@@ -19,24 +20,33 @@ namespace Utilities.PDF.GhostscriptTools
         {
             // STDOUT/STDERR
             string ghostscript_parameters = GhostscriptBinaries.GenerateGhostscriptParameters(pdf_filename, device, dpi, page_number, 0, @"-");
-            Process process = GhostscriptBinaries.StartGhostscriptProcess(ghostscript_parameters, priority_class);
-            Logging.Info("Process started!");
-
-            // Read image from stdout
-            StreamReader sr = process.StandardOutput;
-            FileStream fs = (FileStream)sr.BaseStream;
-            MemoryStream ms = new MemoryStream(128 * 1024);
-            int total_size = StreamToFile.CopyStreamToStream(fs, ms);
-            Logging.Debug特("Image size was {0} for PDF file {1}, page {2} @ dpi {3}", total_size, pdf_filename, page_number, dpi);
-
-            // Check that the process has exited properly
-            process.WaitForExit(1000);
-            if (!process.HasExited)
+            using (Process process = GhostscriptBinaries.StartGhostscriptProcess(ghostscript_parameters, priority_class))
             {
-                Logging.Error("Ghostscript process did not terminate");
-            }
+                Logging.Info("Process started!");
 
-            return ms;
+                // Read image from stdout
+                using (ProcessOutputReader process_output_reader = new ProcessOutputReader(process, stdout_is_binary: true))
+                {
+                    using (StreamReader sr = process.StandardOutput)
+                    {
+                        using (FileStream fs = (FileStream)sr.BaseStream)
+                        {
+                            MemoryStream ms = new MemoryStream(128 * 1024);
+                            int total_size = StreamToFile.CopyStreamToStream(fs, ms);
+                            Logging.Debug特("Image size was {0} for PDF file {1}, page {2} @ dpi {3}", total_size, pdf_filename, page_number, dpi);
+
+                            // Check that the process has exited properly
+                            process.WaitForExit(1000);
+                            if (!process.HasExited)
+                            {
+                                Logging.Error("Ghostscript process did not terminate.\n{0}", process_output_reader.GetOutputsDumpString());
+                            }
+
+                            return ms;
+                        }
+                    }
+                }
+            }
         }
 
         public static BitmapImage RenderPage_AsBitmapImage(string pdf_filename, int page_number, int dpi, string device, ProcessPriorityClass priority_class)

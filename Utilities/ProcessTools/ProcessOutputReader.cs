@@ -11,13 +11,19 @@ namespace Utilities.ProcessTools
         public List<string> Output = new List<string>();
         public List<string> Error = new List<string>();
 
-        public ProcessOutputReader(Process process)
+        public ProcessOutputReader(Process process, bool stdout_is_binary = false)
         {
             this.process = process;
 
-            process.OutputDataReceived += (sender, e) => { Output.Add(e.Data); };
+            if (!stdout_is_binary)
+            {
+                process.OutputDataReceived += (sender, e) => { Output.Add(e.Data); };
+            }
             process.ErrorDataReceived += (sender, e) => { Error.Add(e.Data); };
-            process.BeginOutputReadLine();
+            if (!stdout_is_binary)
+            {
+                process.BeginOutputReadLine();
+            }
             process.BeginErrorReadLine();
         }
 
@@ -62,9 +68,15 @@ namespace Utilities.ProcessTools
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("--- Standard output:");
-            foreach (string s in Output) sb.AppendLine(s);
+            foreach (string s in Output)
+            {
+                sb.AppendLine(s);
+            }
             sb.AppendLine("--- Standard error:");
-            foreach (string s in Error) sb.AppendLine(s);
+            foreach (string s in Error)
+            {
+                sb.AppendLine(s);
+            }
             return sb.ToString();
         }
     }
