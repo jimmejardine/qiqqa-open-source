@@ -1,3 +1,5 @@
+#if false
+
 using System.Windows.Forms;
 
 namespace Utilities.Misc
@@ -10,3 +12,5 @@ namespace Utilities.Misc
         }
     }
 }
+
+#endif
