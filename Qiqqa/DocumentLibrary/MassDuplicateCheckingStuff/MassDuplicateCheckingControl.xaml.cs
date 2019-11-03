@@ -198,7 +198,6 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
             e.Handled = true;
         }
 
-
         public static void FindDuplicatesForLibrary(Library library)
         {
             MassDuplicateCheckingControl control = new MassDuplicateCheckingControl();

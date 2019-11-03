@@ -370,30 +370,39 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
         {
             Logging.Debug("LibraryCatalogOverviewControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            if (dispose_count == 0)
+            try
             {
-                // Get rid of managed resources / get rid of cyclic references:
-                library_index_hover_popup?.Dispose();
-
-                WPFDoEvents.InvokeInUIThread(() =>
+                if (dispose_count == 0)
                 {
-                    WizardDPs.ClearPointOfInterest(PanelSearchScore);
-                    WizardDPs.ClearPointOfInterest(ObjLookInsidePanel);
-                });
+                    // Get rid of managed resources / get rid of cyclic references:
+                    library_index_hover_popup?.Dispose();
 
-                TextTitle.MouseLeftButtonUp -= TextTitle_MouseLeftButtonUp;
+                    WPFDoEvents.InvokeInUIThread(() =>
+                    {
+                        WizardDPs.ClearPointOfInterest(PanelSearchScore);
+                        WizardDPs.ClearPointOfInterest(ObjLookInsidePanel);
+                    });
 
-                ButtonOpen.ToolTipOpening -= HyperlinkPreview_ToolTipOpening;
-                ButtonOpen.ToolTipClosing -= HyperlinkPreview_ToolTipClosing;
+                    TextTitle.MouseLeftButtonUp -= TextTitle_MouseLeftButtonUp;
 
-                ListSearchDetails.SearchClicked -= ListSearchDetails_SearchSelectionChanged;
+                    ButtonOpen.ToolTipOpening -= HyperlinkPreview_ToolTipOpening;
+                    ButtonOpen.ToolTipClosing -= HyperlinkPreview_ToolTipClosing;
 
-                DataContextChanged -= LibraryCatalogOverviewControl_DataContextChanged;
+                    ListSearchDetails.SearchClicked -= ListSearchDetails_SearchSelectionChanged;
+
+                    DataContextChanged -= LibraryCatalogOverviewControl_DataContextChanged;
+                }
+
+                // Clear the references for sanity's sake
+                library_index_hover_popup = null;
+                drag_drop_helper = null;
+
+                DataContext = null;
             }
-
-            // Clear the references for sanity's sake
-            library_index_hover_popup = null;
-            drag_drop_helper = null;
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             ++dispose_count;
         }

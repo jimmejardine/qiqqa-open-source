@@ -67,13 +67,15 @@ namespace Qiqqa.InCite
                 if (!File.Exists(full_parent_filename))
                 {
                     string message = String.Format(
+                        "Can't find parent style for this dependent style" +
+                        "\n\n" +
                         "Your style depends on a parent style named {0}, which needs to be saved in the same directory.\n\n" +
                         "It appears to be available from {1}.\n" +
                         "Shall we try to download it automatically?  If you choose NO, Qiqqa will open the website for you so you can download it manually.",
                         parent_filename, parent_url
                         );
 
-                    if (MessageBoxResult.Yes == MessageBox.Show(message, "Can't find parent style for this dependent style", MessageBoxButton.YesNo))
+                    if (MessageBoxes.AskQuestion(message))
                     {
                         try
                         {
@@ -82,8 +84,9 @@ namespace Qiqqa.InCite
                                 File.WriteAllBytes(full_parent_filename, ms.ToArray());
                             }
                         }
-                        catch (UnauthorizedAccessException)
+                        catch (UnauthorizedAccessException ex)
                         {
+                            Logging.Error(ex, "You don't seem to have permission to write the new style to the directory '{0}'.\nPlease copy the original style file '{1}' to a folder where you can write (perhaps alongside your Word document), and try again.", full_parent_filename, style_xml_filename);
                             MessageBoxes.Warn("You don't seem to have permission to write the new style to the directory '{0}'.\nPlease copy the original style file '{1}' to a folder where you can write (perhaps alongside your Word document), and try again.", full_parent_filename, style_xml_filename);
                         }
                     }

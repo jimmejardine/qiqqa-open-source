@@ -7,6 +7,7 @@ using icons;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Common.GUI;
 using Qiqqa.Synchronisation.BusinessLogic;
+using Utilities;
 using Utilities.GUI;
 
 namespace Qiqqa.Synchronisation.GUI
@@ -133,12 +134,19 @@ namespace Qiqqa.Synchronisation.GUI
         {
             base.OnClosed(e);
 
-            // base.OnClosed() invokes this calss Closed() code, so we flipped the order of exec to reduce the number of surprises for yours truly.
+            // base.OnClosed() invokes this class' Closed() code, so we flipped the order of exec to reduce the number of surprises for yours truly.
             // This NULLing stuff is really the last rites of Dispose()-like so we stick it at the end here.
 
-            sync_control_grid_item_set = null;
+            try
+            {
+                sync_control_grid_item_set = null;
 
-            DataContext = null;
+                DataContext = null;
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
         }
     }
 }

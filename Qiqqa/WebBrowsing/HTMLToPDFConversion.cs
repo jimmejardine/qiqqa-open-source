@@ -58,11 +58,14 @@ namespace Qiqqa.WebBrowsing
                         , filename
                     );
 
+                    // STDOUT/STDERR
                     using (Process process = ProcessSpawning.SpawnChildProcess(ConfigurationManager.Instance.ProgramHTMLToPDF, process_parameters, ProcessPriorityClass.Normal))
                     {
                         using (ProcessOutputReader process_output_reader = new ProcessOutputReader(process))
                         {
                             process.WaitForExit();
+
+                            Logging.Info("HTMLToPDF:\n{0}", process_output_reader.GetOutputsDumpString());
                         }
                     }
                 }

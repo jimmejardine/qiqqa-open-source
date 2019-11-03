@@ -106,48 +106,55 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
         {
             Logging.Debug("PDFHandLayer::Dispose({0}) @{1}", disposing, dispose_count);
 
-            if (0 == dispose_count)
+            try
             {
-                WPFDoEvents.InvokeInUIThread(() =>
+                if (0 == dispose_count)
                 {
-                    WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
-                    try
+                    WPFDoEvents.InvokeInUIThread(() =>
                     {
-                        foreach (var el in Children)
+                        WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
+                        try
                         {
-                            IDisposable node = el as IDisposable;
-                            if (null != node)
+                            foreach (var el in Children)
                             {
-                                node.Dispose();
+                                IDisposable node = el as IDisposable;
+                                if (null != node)
+                                {
+                                    node.Dispose();
+                                }
                             }
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        Logging.Error(ex);
-                    }
+                        catch (Exception ex)
+                        {
+                            Logging.Error(ex);
+                        }
 
-                    try
-                    {
-                        Children.Clear();
-                    }
-                    catch (Exception ex)
-                    {
-                        Logging.Error(ex);
-                    }
+                        try
+                        {
+                            Children.Clear();
+                        }
+                        catch (Exception ex)
+                        {
+                            Logging.Error(ex);
+                        }
 
-                    MouseDown -= PDFHandLayer_MouseDown;
-                    MouseUp -= PDFHandLayer_MouseUp;
-                    MouseMove -= PDFHandLayer_MouseMove;
-                }, Dispatcher);
+                        MouseDown -= PDFHandLayer_MouseDown;
+                        MouseUp -= PDFHandLayer_MouseUp;
+                        MouseMove -= PDFHandLayer_MouseMove;
+
+                        DataContext = null;
+                    }, Dispatcher);
+                }
+
+                // Clear the references for sanity's sake
+                pdf_renderer_control_stats = null;
+                pdf_renderer_control = null;
             }
-
-            // Clear the references for sanity's sake
-            pdf_renderer_control_stats = null;
-            pdf_renderer_control = null;
-
-            DataContext = null;
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             ++dispose_count;
 

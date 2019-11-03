@@ -36,7 +36,7 @@ namespace Qiqqa.Synchronisation.PDFSync
 
         internal void QueuePut(string fingerprint, Library library)
         {
-            //We never send vanilla ref PDFs to s3.
+            // We never send vanilla ref PDFs to s3.
             if (VanillaReferenceCreating.IsVanillaReferenceFingerprint(fingerprint)) return;
 
             Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();

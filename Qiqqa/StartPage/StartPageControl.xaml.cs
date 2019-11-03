@@ -350,13 +350,20 @@ namespace Qiqqa.StartPage
         {
             Logging.Debug("StartPageControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            if (dispose_count == 0)
+            try
             {
-                ObjChatControl?.Dispose();
-            }
+                if (dispose_count == 0)
+                {
+                    ObjChatControl?.Dispose();
+                }
 
-            ObjChatControl = null;
-            DataContext = null;
+                ObjChatControl = null;
+                DataContext = null;
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             ++dispose_count;
         }

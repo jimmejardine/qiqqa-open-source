@@ -1,4 +1,6 @@
-﻿namespace Utilities.Misc
+﻿#if false
+
+namespace Utilities.Misc
 {
     public class Pair<TA, TB>
     {
@@ -12,3 +14,5 @@
         }
     }
 }
+
+#endif

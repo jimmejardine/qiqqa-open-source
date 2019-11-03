@@ -140,24 +140,31 @@ namespace Utilities.GUI
 
         public static void InvokeInUIThread(Action action, Dispatcher override_dispatcher = null)
         {
-            if (override_dispatcher != null)
+            try
             {
-                if (!override_dispatcher.CheckAccess())
+                if (override_dispatcher != null)
                 {
-                    override_dispatcher.Invoke(action, DispatcherPriority.Normal);
+                    if (!override_dispatcher.CheckAccess())
+                    {
+                        override_dispatcher.Invoke(action, DispatcherPriority.Normal);
+                    }
+                    else
+                    {
+                        action.Invoke();
+                    }
+                }
+                else if (!CurrentThreadIsUIThread())
+                {
+                    Application.Current.Dispatcher.Invoke(action, DispatcherPriority.Normal);
                 }
                 else
                 {
                     action.Invoke();
                 }
             }
-            else if (!CurrentThreadIsUIThread())
+            catch (Exception ex)
             {
-                Application.Current.Dispatcher.Invoke(action, DispatcherPriority.Normal);
-            }
-            else
-            {
-                action.Invoke();
+                Logging.Error(ex, "InvokeInUIThread");
             }
         }
 

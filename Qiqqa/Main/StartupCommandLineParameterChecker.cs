@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using Qiqqa.Common;
+using Utilities.GUI;
 
 namespace Qiqqa.Main
 {
@@ -13,11 +14,11 @@ namespace Qiqqa.Main
             {
                 string filename = command_line_args[1];
 
-                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                WPFDoEvents.InvokeInUIThread(() =>
                 {
                     MainWindowServiceDispatcher.Instance.ProcessCommandLineFile(filename);
                 }
-                ));
+                );
             }
         }
     }

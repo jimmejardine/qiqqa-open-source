@@ -476,10 +476,58 @@ namespace Qiqqa.Common.Configuration
             set => this["AutomaticAccountDetails_LibraryMembershipLastDate"] = value;
         }
 
+        [NonSerialized]
+        private bool? disable_all_background;
         public bool DisableAllBackgroundTasks
         {
-            get { return (this["DisableAllBackgroundTasks"] as bool?) ?? false; }
-            set { this["DisableAllBackgroundTasks"] = value; }
+            get
+            {
+                if (disable_all_background.HasValue)
+                {
+                    return disable_all_background.Value;
+                }
+				
+				bool? v = this["DisableAllBackgroundTasks"] as bool?;
+                if (v.HasValue)
+                {
+                    disable_all_background = v.Value;
+                }
+				else
+				{
+	                disable_all_background = RegistrySettings.Instance.IsSet(RegistrySettings.SuppressDaemon);
+				}
+                return disable_all_background.Value;
+            }
+            set
+            {
+                disable_all_background = value;
+
+				this["DisableAllBackgroundTasks"] = value;
+				
+                RegistrySettings.Instance.Write(RegistrySettings.SuppressDaemon, value ? "yes" : "no");
+            }
+        }
+
+        [NonSerialized]
+        private bool? snap_to_pixels;
+        public bool SnapToPixels
+        {
+            get
+            {
+                if (snap_to_pixels.HasValue)
+                {
+                    return snap_to_pixels.Value;
+                }
+
+                snap_to_pixels = RegistrySettings.Instance.IsSet(RegistrySettings.SnapToPixels);
+                return snap_to_pixels.Value;
+            }
+            set
+            {
+                snap_to_pixels = value;
+
+                RegistrySettings.Instance.Write(RegistrySettings.SnapToPixels, value ? "yes" : "no");
+            }
         }
     }
 }

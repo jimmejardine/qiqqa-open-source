@@ -24,8 +24,6 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         //
         // Warning CA1001  Implement IDisposable on 'FolderWatcher' because it creates members 
         // of the following IDisposable types: 'FileSystemWatcher'. 
-        // If 'FolderWatcher' has previously shipped, adding new members that implement IDisposable 
-        // to this type is considered a breaking change to existing consumers.
 
         private FileSystemWatcher file_system_watcher;
         private string configured_folder_to_watch;
