@@ -4,11 +4,10 @@ using Qiqqa.DocumentLibrary;
 using Qiqqa.Documents.PDF.CitationManagerStuff.CitationFinding;
 using Utilities;
 using Utilities.Misc;
-using Utilities.Random;
 
 namespace Qiqqa.Documents.PDF.CitationManagerStuff
 {
-    public class CitationFinder
+    public static class CitationFinder
     {
 
         #region --- Test ------------------------------------------------------------------------
@@ -35,18 +34,10 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
         {
             int total_found = 0;
 
-            // Shuffle the documents
-            List<PDFDocument> pdf_documents = new List<PDFDocument>(library.PDFDocuments);
-            for (int i = 0; i < pdf_documents.Count; ++i)
-            {
-                int j = RandomAugmented.Instance.NextIntExclusive(pdf_documents.Count);
-                PDFDocument temp = pdf_documents[i];
-                pdf_documents[i] = pdf_documents[j];
-                pdf_documents[j] = temp;
-            }
+            List<PDFDocument> pdf_documents = library.PDFDocuments;
 
             StatusManager.Instance.ClearCancelled("CitationLibraryFinder");
-            for (int i = 0; i < pdf_documents.Count; ++i)            
+            for (int i = 0; i < pdf_documents.Count; ++i)
             {
                 try
                 {
@@ -69,7 +60,7 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
 
             return total_found;
         }
-        
+
         internal static int FindCitations(PDFDocument pdf_document)
         {
             int total_found = 0;

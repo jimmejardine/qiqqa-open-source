@@ -26,7 +26,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.CanvasToolbars
             ButtonPointErase.ToolTip = "Point erase";
             ButtonSelect.ToolTip = "Select, cut & move";
             ObjColorPicker.ToolTip = "Draw colour";
-            
+
             ButtonDraw.Click += ButtonDraw_Click;
             ButtonStrokeErase.Click += ButtonStrokeErase_Click;
             ButtonPointErase.Click += ButtonPointErase_Click;
@@ -35,18 +35,16 @@ namespace Qiqqa.Documents.PDF.PDFControls.CanvasToolbars
             ObjColorPicker.SelectedColorChanged += ObjColorPicker_SelectedColorChanged;
         }
 
-        void ObjColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
+        private void ObjColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
         {
             RebuildInkParameters();
         }
 
-        PDFRendererControl pdf_renderer_control = null;
+        private PDFRendererControl pdf_renderer_control = null;
         public PDFRendererControl PDFRendererControl
         {
-            set
-            {
-                pdf_renderer_control = value;
-            }
+            get => pdf_renderer_control;
+            set => pdf_renderer_control = value;
         }
 
         private void RaiseInkChange(InkCanvasEditingMode inkCanvasEditingMode)
@@ -66,23 +64,23 @@ namespace Qiqqa.Documents.PDF.PDFControls.CanvasToolbars
 
             pdf_renderer_control.RaiseInkChange(drawingAttributes);
         }
-        
-        void ButtonSelect_Click(object sender, RoutedEventArgs e)
+
+        private void ButtonSelect_Click(object sender, RoutedEventArgs e)
         {
             RaiseInkChange(InkCanvasEditingMode.Select);
         }
 
-        void ButtonPointErase_Click(object sender, RoutedEventArgs e)
+        private void ButtonPointErase_Click(object sender, RoutedEventArgs e)
         {
             RaiseInkChange(InkCanvasEditingMode.EraseByPoint);
         }
 
-        void ButtonStrokeErase_Click(object sender, RoutedEventArgs e)
+        private void ButtonStrokeErase_Click(object sender, RoutedEventArgs e)
         {
             RaiseInkChange(InkCanvasEditingMode.EraseByStroke);
         }
 
-        void ButtonDraw_Click(object sender, RoutedEventArgs e)
+        private void ButtonDraw_Click(object sender, RoutedEventArgs e)
         {
             RaiseInkChange(InkCanvasEditingMode.Ink);
         }

@@ -11,8 +11,8 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
     /// </summary>
     public partial class ItemHeader : UserControl
     {
-        DualTabbedLayoutItem item;
-        AugmentedPopup popup;
+        private DualTabbedLayoutItem item;
+        private AugmentedPopup popup;
 
         internal ItemHeader(DualTabbedLayoutItem item)
         {
@@ -22,14 +22,14 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
 
             ImageIcon.VerticalAlignment =
                 TextHeader.VerticalAlignment =
-                ImageClose.VerticalAlignment = 
+                ImageClose.VerticalAlignment =
                 VerticalAlignment.Center;
-            
+
             ImageIcon.Width = 20;
             ImageIcon.Source = item.icon;
             ImageIcon.Visibility = (null != item.icon) ? Visibility.Visible : Visibility.Collapsed;
 
-            RenderOptions.SetBitmapScalingMode(this.ImageIcon, BitmapScalingMode.HighQuality);
+            RenderOptions.SetBitmapScalingMode(ImageIcon, BitmapScalingMode.HighQuality);
 
             ImageClose.Width = 20;
             ImageClose.Source = Icons.GetAppIcon(Icons.DualTabbed_Close);
@@ -40,35 +40,35 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             ImageClose.MouseEnter += ImageClose_MouseEnter;
             ImageClose.MouseLeave += ImageClose_MouseLeave;
 
-            this.MouseRightButtonUp += ItemHeader_MouseRightButtonUp;
-            
+            MouseRightButtonUp += ItemHeader_MouseRightButtonUp;
+
             TextHeader.Text = item.header;
             TextHeader.ToolTip = item.header; ;
             TextHeader.TextTrimming = TextTrimming.WordEllipsis;
             TextHeader.MaxWidth = 250;
 
             if (item.background_color.HasValue && Colors.Transparent != item.background_color.Value)
-            {                
+            {
                 Background = new SolidColorBrush(ColorTools.MakeTransparentColor(item.background_color.Value, 64));
             }
         }
 
-        void ImageClose_MouseLeave(object sender, MouseEventArgs e)
+        private void ImageClose_MouseLeave(object sender, MouseEventArgs e)
         {
             ImageClose.Source = Icons.GetAppIcon(Icons.DualTabbed_Close);
         }
 
-        void ImageClose_MouseEnter(object sender, MouseEventArgs e)
+        private void ImageClose_MouseEnter(object sender, MouseEventArgs e)
         {
             ImageClose.Source = Icons.GetAppIcon(Icons.DualTabbed_CloseGlow);
         }
 
-        void ImageClose_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void ImageClose_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             item.WantsClose();
         }
 
-        void ItemHeader_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        private void ItemHeader_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
             AugmentedPopup popup = GetWindowLocationPopupMenu();
             popup.IsOpen = true;
@@ -124,7 +124,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             return popup;
         }
 
-        void ImageClose_Click(object sender, RoutedEventArgs e)
+        private void ImageClose_Click(object sender, RoutedEventArgs e)
         {
             using (popup.AutoCloser)
             {
@@ -132,7 +132,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             }
         }
 
-        void ImageLeft_MouseDown(object sender, RoutedEventArgs e)
+        private void ImageLeft_MouseDown(object sender, RoutedEventArgs e)
         {
             using (popup.AutoCloser)
             {
@@ -140,7 +140,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             }
         }
 
-        void ImageBottom_MouseDown(object sender, RoutedEventArgs e)
+        private void ImageBottom_MouseDown(object sender, RoutedEventArgs e)
         {
             using (popup.AutoCloser)
             {
@@ -148,7 +148,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             }
         }
 
-        void ImageRight_MouseDown(object sender, RoutedEventArgs e)
+        private void ImageRight_MouseDown(object sender, RoutedEventArgs e)
         {
             using (popup.AutoCloser)
             {
@@ -157,7 +157,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             }
         }
 
-        void ImageFloating_MouseDown(object sender, RoutedEventArgs e)
+        private void ImageFloating_MouseDown(object sender, RoutedEventArgs e)
         {
             using (popup.AutoCloser)
             {

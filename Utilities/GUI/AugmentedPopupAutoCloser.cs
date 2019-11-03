@@ -5,7 +5,7 @@ namespace Utilities.GUI
 {
     public class AugmentedPopupAutoCloser : IDisposable
     {
-        Popup popup;
+        private Popup popup;
 
         public AugmentedPopupAutoCloser(Popup popup)
         {
@@ -15,7 +15,7 @@ namespace Utilities.GUI
         ~AugmentedPopupAutoCloser()
         {
             Logging.Debug("~AugmentedPopupAutoCloser()");
-            Dispose(false);            
+            Dispose(false);
         }
 
         public void Dispose()
@@ -26,13 +26,14 @@ namespace Utilities.GUI
         }
 
         private int dispose_count = 0;
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            Logging.Debug("AugmentedPopupAutoCloser::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
-            if (disposing)
+            Logging.Debug("AugmentedPopupAutoCloser::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
             {
                 // Get rid of managed resources
-                if (null != popup)
+                if (popup != null)
                 {
                     popup.IsOpen = false;
                 }
@@ -40,7 +41,7 @@ namespace Utilities.GUI
 
             popup = null;
 
-            // Get rid of unmanaged resources 
+            ++dispose_count;
         }
     }
 }

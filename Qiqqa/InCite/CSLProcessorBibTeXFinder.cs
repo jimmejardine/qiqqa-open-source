@@ -6,7 +6,7 @@ using Utilities.BibTex.Parsing;
 
 namespace Qiqqa.InCite
 {
-    class CSLProcessorBibTeXFinder
+    internal class CSLProcessorBibTeXFinder
     {
         internal class MatchingBibTeXRecord
         {

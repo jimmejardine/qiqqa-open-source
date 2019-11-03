@@ -1,17 +1,16 @@
-﻿using Qiqqa.Common;
-using Qiqqa.Common.Configuration;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Qiqqa.Common;
+using Qiqqa.Common.Configuration;
 using Utilities;
 using Utilities.Random;
 
 namespace Qiqqa.Documents.PDF.MetadataSuggestions
 {
-    class BibTeXSearchServerManager
+    internal class BibTeXSearchServerManager
     {
-        class ServerRecord
+        private class ServerRecord
         {
             public string url;
             public double latency_ms = 1000;
@@ -48,16 +47,21 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
 
         public bool MustBackoff()
         {
-            return 0 == GetWorkingServerRecords().Count();
+            return !GetWorkingServerRecords().Any();
         }
 
         public string GetServerUrl()
         {
-            if (!String.IsNullOrEmpty(RegistrySettings.Instance.Read(RegistrySettings.BibTeXSearchSearchUrl))) return RegistrySettings.Instance.Read(RegistrySettings.BibTeXSearchSearchUrl);
+            string url = RegistrySettings.Instance.Read(RegistrySettings.BibTeXSearchSearchUrl);
+
+            if (!String.IsNullOrEmpty(url))
+            {
+                return url;
+            }
 
             IEnumerable<ServerRecord> working_server_records = GetWorkingServerRecords();
 
-            if (0 == working_server_records.Count())
+            if (!working_server_records.Any())
             {
                 throw new GenericException("There are no viable bibtexsearch servers...");
             }

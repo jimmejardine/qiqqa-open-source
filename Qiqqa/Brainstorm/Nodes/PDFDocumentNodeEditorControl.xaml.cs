@@ -11,7 +11,7 @@ namespace Qiqqa.Brainstorm.Nodes
         {
             InitializeComponent();
 
-            this.ObjDocumentMetadataControlsPanel.DataContext = pdf_document_node_content.PDFDocument.Bindable;
+            ObjDocumentMetadataControlsPanel.DataContext = pdf_document_node_content.PDFDocument.Bindable;
         }
     }
 }

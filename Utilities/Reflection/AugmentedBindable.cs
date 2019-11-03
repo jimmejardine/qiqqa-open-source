@@ -3,44 +3,41 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Threading;
-using System.Windows;
+using Utilities.GUI;
 
 namespace Utilities.Reflection
 {
     public class AugmentedBindable<T> : ICustomTypeDescriptor, INotifyPropertyChanged
     {
-        T underlying;
-        Type underlying_type;
-        PropertyDependencies property_dependencies;
+        private T underlying;
+        private Type underlying_type;
+        private PropertyDependencies property_dependencies;
 
         public AugmentedBindable(T underlying, PropertyDependencies property_dependencies)
         {
             this.underlying = underlying;
             this.property_dependencies = property_dependencies;
 
-            this.underlying_type = underlying.GetType();
+            underlying_type = underlying.GetType();
         }
 
         public AugmentedBindable(T underlying) : this(underlying, null)
         {
         }
 
-        public T Underlying
-        {
-            get { return underlying; }
-        }
+        public T Underlying => underlying;
 
         #region --- INotifyPropertyChanged ------------------------------------------------------------------
 
-        class CallbackWrapper
+        private class CallbackWrapper
         {
             internal WeakReference object_to_callback;
             public MethodInfo method_to_call;
-            
+
         }
-        List<CallbackWrapper> callback_wrappers = new List<CallbackWrapper>();
-        object callback_wrappers_lock = new object();
+
+        private List<CallbackWrapper> callback_wrappers = new List<CallbackWrapper>();
+        private object callback_wrappers_lock = new object();
 
         /// <summary>
         /// This is a "special" event that registers binding requests as usual, but creates weak references back to the registered party, so they will not be rooted by this binding.
@@ -87,7 +84,7 @@ namespace Utilities.Reflection
             }
         }
 
-        static PropertyChangedEventArgs NULL_PROPERTY_CHANGED_EVENT_ARGS = new PropertyChangedEventArgs(String.Empty);
+        private static PropertyChangedEventArgs NULL_PROPERTY_CHANGED_EVENT_ARGS = new PropertyChangedEventArgs(String.Empty);
 
         private void FirePropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
         {
@@ -132,19 +129,20 @@ namespace Utilities.Reflection
             NotifyPropertyChanged(property_name);
         }
 
+        /// <summary>
+        /// Always call this using the form xyz.NotifyPropertyChanged(nameof(yyy.ZZZ)), where ZZZ is the property that just got updated.
+        /// That way the compiler will catch any property name changes.
+        /// </summary>
+        /// <param name="property_name"></param>
         private void NotifyPropertyChanged(string property_name)
         {
             // if (Application.Current == null || Application.Current.Dispatcher.Thread == Thread.CurrentThread)
             // as per: https://stackoverflow.com/questions/5143599/detecting-whether-on-ui-thread-in-wpf-and-winforms#answer-14280425
             // and: https://stackoverflow.com/questions/2982498/wpf-dispatcher-the-calling-thread-cannot-access-this-object-because-a-differen/13726324#13726324
-            if (Application.Current == null || Application.Current.Dispatcher.CheckAccess())
+            WPFDoEvents.InvokeInUIThread(() =>
             {
                 NotifyPropertyChanged_THREADSAFE(property_name);
-            }
-            else
-            {
-                Application.Current.Dispatcher.BeginInvoke(new Action(() => NotifyPropertyChanged_THREADSAFE(property_name)));
-            }            
+            });
         }
 
         private void NotifyPropertyChanged_THREADSAFE(string property_name)
@@ -174,9 +172,9 @@ namespace Utilities.Reflection
             }
         }
 
-#endregion
+        #endregion
 
-#region --- ICustomTypeDescriptor - interesting ---------------------------------------------------------
+        #region --- ICustomTypeDescriptor - interesting ---------------------------------------------------------
 
         public PropertyDescriptorCollection GetProperties(Attribute[] attributes)
         {
@@ -197,9 +195,9 @@ namespace Utilities.Reflection
             return pdc_augmented;
         }
 
-        class AugmentedPropertyDescriptorForProperties : PropertyDescriptor
+        private class AugmentedPropertyDescriptorForProperties : PropertyDescriptor
         {
-            PropertyDescriptor pd;
+            private PropertyDescriptor pd;
 
             public AugmentedPropertyDescriptorForProperties(PropertyDescriptor pd)
                 : base(pd)
@@ -212,13 +210,7 @@ namespace Utilities.Reflection
                 return pd.CanResetValue(((AugmentedBindable<T>)component).Underlying);
             }
 
-            public override Type ComponentType
-            {
-                get
-                {
-                    return pd.ComponentType;
-                }
-            }
+            public override Type ComponentType => pd.ComponentType;
 
             public override object GetValue(object component)
             {
@@ -232,21 +224,9 @@ namespace Utilities.Reflection
                 }
             }
 
-            public override bool IsReadOnly
-            {
-                get
-                {
-                    return pd.IsReadOnly;
-                }
-            }
+            public override bool IsReadOnly => pd.IsReadOnly;
 
-            public override Type PropertyType
-            {
-                get
-                {
-                    return pd.PropertyType;
-                }
-            }
+            public override Type PropertyType => pd.PropertyType;
 
             public override void ResetValue(object component)
             {
@@ -273,9 +253,9 @@ namespace Utilities.Reflection
             }
         }
 
-#endregion
+        #endregion
 
-#region --- ICustomTypeDescriptor - boring ---------------------------------------------------------
+        #region --- ICustomTypeDescriptor - boring ---------------------------------------------------------
 
         public AttributeCollection GetAttributes()
         {
@@ -327,7 +307,7 @@ namespace Utilities.Reflection
             return underlying_type;
         }
 
-#endregion
+        #endregion
 
         // ---------------------------------------------------------------------------------------------------
 
@@ -335,6 +315,5 @@ namespace Utilities.Reflection
         {
             return String.Format("AugmentedBindable[{0}]", underlying.ToString());
         }
-
     }
 }

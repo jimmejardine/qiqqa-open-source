@@ -7,7 +7,9 @@ namespace Utilities.GUI
     {
         public AugmentedToolBarTray()
         {
-            this.Background = ThemeColours.Background_Brush_Blue_VeryDarkToDark;
+            Theme.Initialize();
+
+            Background = ThemeColours.Background_Brush_Blue_VeryDarkToDark;
 
             HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
             VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;

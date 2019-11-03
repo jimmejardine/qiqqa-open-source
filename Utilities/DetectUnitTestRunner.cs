@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
+using Utilities.Misc;
 
 namespace Utilities
 {
@@ -73,10 +73,7 @@ namespace Utilities
                 return (_runningFromNUnitHeuristic > 0);
             }
 
-            set
-            {
-                _runningFromNUnitHeuristic = (value ? -100 : +100);
-            }
+            set => _runningFromNUnitHeuristic = (value ? -100 : +100);
         }
 
         private static string _StartupDirectoryForQiqqa = null;
@@ -85,26 +82,38 @@ namespace Utilities
         {
             get
             {
-                // are we certain already or do we want to collect more datums still?
-                if (_runningFromNUnitHeuristic <= -50 || _runningFromNUnitHeuristic >= 50)
+#if DEBUG
+                // Are we looking at this dialog in the Visual Studio Designer?
+                if (Runtime.IsRunningInVisualStudioDesigner && null == _StartupDirectoryForQiqqa)
                 {
+                    string loc = Path.Combine(Utilities.Constants.QiqqaDevSolutionDir, "Qiqqa/bin/", Utilities.Constants.QiqqaDevBuild);
+                    string basedir = Path.GetFullPath(loc);
+                    _StartupDirectoryForQiqqa = basedir;
                 }
-                else
+#endif
+                if (null == _StartupDirectoryForQiqqa)
                 {
-                    // https://stackoverflow.com/questions/52797/how-do-i-get-the-path-of-the-assembly-the-code-is-in
-                    //string s1 = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
-                    string loc = System.Reflection.Assembly.GetExecutingAssembly().Location;
-                    //string s3 = System.Windows.Forms.Application.StartupPath;
-                    bool we_are_in_test_env = UnitTestDetector.IsRunningInUnitTest;
-                    string basedir = Path.GetDirectoryName(Path.GetFullPath(loc));
-                    //we_are_in_test_env = (basedir.ToLowerInvariant() != s3.ToLowerInvariant());
-                    if (we_are_in_test_env)
+                    // are we certain already or do we want to collect more datums still?
+                    if (_runningFromNUnitHeuristic <= -50 || _runningFromNUnitHeuristic >= 50)
                     {
-                        _StartupDirectoryForQiqqa = basedir;
                     }
                     else
                     {
-                        _StartupDirectoryForQiqqa = Path.GetFullPath(System.Windows.Forms.Application.StartupPath);
+                        // https://stackoverflow.com/questions/52797/how-do-i-get-the-path-of-the-assembly-the-code-is-in
+                        //string s1 = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
+                        string loc = System.Reflection.Assembly.GetExecutingAssembly().Location;
+                        //string s3 = System.Windows.Forms.Application.StartupPath;
+                        bool we_are_in_test_env = UnitTestDetector.IsRunningInUnitTest;
+                        string basedir = Path.GetFullPath(Path.GetDirectoryName(Path.GetFullPath(loc)));
+                        //we_are_in_test_env = (basedir.ToLowerInvariant() != s3.ToLowerInvariant());
+                        if (we_are_in_test_env)
+                        {
+                            _StartupDirectoryForQiqqa = basedir;
+                        }
+                        else
+                        {
+                            _StartupDirectoryForQiqqa = Path.GetFullPath(System.Windows.Forms.Application.StartupPath);
+                        }
                     }
                 }
 

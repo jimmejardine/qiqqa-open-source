@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using Qiqqa.AnnotationsReportBuilding;
 using Qiqqa.Common;
 using Utilities.GUI;
 using Utilities.Reflection;
-using Utilities.Random;
 
 namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 {
@@ -15,7 +13,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
     /// </summary>
     public partial class AnnotationsReviewControl : UserControl
     {
-        NonScrollingFlowDocumentScrollViewer ObjDocumentViewer;
+        private NonScrollingFlowDocumentScrollViewer ObjDocumentViewer;
 
         public AnnotationsReviewControl()
         {
@@ -37,10 +35,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             ObjPopupButton.Caption = "Popup";
             ObjPopupButton.Click += ObjPopupButton_Click;
 
-            this.DataContextChanged += AnnotationsReviewControl_DataContextChanged;
+            DataContextChanged += AnnotationsReviewControl_DataContextChanged;
         }
 
-        void ObjTooManyAnnotationsButton_Click(object sender, RoutedEventArgs e)
+        private void ObjTooManyAnnotationsButton_Click(object sender, RoutedEventArgs e)
         {
             ObjTooManyAnnotationsButton.Visibility = Visibility.Collapsed;
 
@@ -48,29 +46,28 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             PopulateWithAnnotationReport(pdf_document);
         }
 
-
-        void ObjPopupButton_Click(object sender, RoutedEventArgs e)
+        private void ObjPopupButton_Click(object sender, RoutedEventArgs e)
         {
             AugmentedBindable<PDFDocument> pdf_document_bindable = DataContext as AugmentedBindable<PDFDocument>;
             if (null != pdf_document_bindable)
             {
                 MainWindowServiceDispatcher.Instance.GenerateAnnotationReport(pdf_document_bindable.Underlying.Library, new List<PDFDocument>() { pdf_document_bindable.Underlying });
-            }            
+            }
         }
 
-        void ObjRefreshButton_Click(object sender, RoutedEventArgs e)
-        {
-            Rebuild();
-        }
-        
-        void AnnotationsReviewControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void ObjRefreshButton_Click(object sender, RoutedEventArgs e)
         {
             Rebuild();
         }
 
-        void Rebuild()
+        private void AnnotationsReviewControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            this.ObjDocumentViewer.Document = null;
+            Rebuild();
+        }
+
+        private void Rebuild()
+        {
+            ObjDocumentViewer.Document = null;
             ObjTooManyAnnotationsButton.Visibility = Visibility.Collapsed;
 
             AugmentedBindable<PDFDocument> pdf_document_bindable = DataContext as AugmentedBindable<PDFDocument>;
@@ -78,7 +75,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             {
                 PDFDocument pdf_document = pdf_document_bindable.Underlying;
 
-                if (pdf_document.Annotations.Count > 50 || pdf_document.Highlights.Count > 1000)
+                if (pdf_document.GetAnnotations().Count > 50 || pdf_document.Highlights.Count > 1000)
                 {
                     ObjTooManyAnnotationsButton.Visibility = Visibility.Visible;
                     ObjTooManyAnnotationsButton.Tag = pdf_document;
@@ -105,7 +102,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             annotation_report_options.InitialRenderDelayMilliseconds = 1000;
 
             var annotation_report = AsyncAnnotationReportBuilder.BuildReport(pdf_document.Library, pdf_documents, annotation_report_options);
-            this.ObjDocumentViewer.Document = annotation_report.flow_document;
+            ObjDocumentViewer.Document = annotation_report.flow_document;
         }
     }
 }

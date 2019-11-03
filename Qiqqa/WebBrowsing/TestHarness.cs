@@ -1,7 +1,4 @@
-﻿using System.Threading;
-using Utilities.GUI;
-
-namespace Qiqqa.WebBrowsing
+﻿namespace Qiqqa.WebBrowsing
 {
 #if TEST
     public class TestHarness

@@ -8,6 +8,7 @@ using System.Windows.Media.Imaging;
 using Qiqqa.Documents.PDF.PDFControls.Page.Tools;
 using Qiqqa.UtilisationTracking;
 using Utilities;
+using Utilities.GUI;
 using Utilities.OCR;
 
 namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
@@ -15,12 +16,11 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
     /// <summary>
     /// Interaction logic for PDFCameraLayer.xaml
     /// </summary>
-    public partial class PDFCameraLayer : PageLayer
+    public partial class PDFCameraLayer : PageLayer, IDisposable
     {
-        PDFRendererControlStats pdf_renderer_control_stats;
-        int page;
-
-        DragAreaTracker drag_area_tracker;
+        private PDFRendererControlStats pdf_renderer_control_stats;
+        private int page;
+        private DragAreaTracker drag_area_tracker;
 
         public PDFCameraLayer(PDFRendererControlStats pdf_renderer_control_stats, int page)
         {
@@ -29,21 +29,21 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
 
             InitializeComponent();
 
-            this.Background = Brushes.Transparent;
-            this.Cursor = Cursors.Cross;
+            Background = Brushes.Transparent;
+            Cursor = Cursors.Cross;
 
             drag_area_tracker = new DragAreaTracker(this);
             drag_area_tracker.OnDragComplete += drag_area_tracker_OnDragComplete;
         }
 
-        void drag_area_tracker_OnDragComplete(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point, Point mouse_up_point)        
+        private void drag_area_tracker_OnDragComplete(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point, Point mouse_up_point)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Document_Camera);
 
             double width_page = Math.Abs(mouse_up_point.X - mouse_down_point.X);
             double height_page = Math.Abs(mouse_up_point.Y - mouse_down_point.Y);
             if (3 <= width_page && 3 <= height_page)
-            {   
+            {
                 CroppedBitmap image = GetSnappedImage(mouse_up_point, mouse_down_point);
                 List<Word> words = GetSnappedWords(mouse_up_point, mouse_down_point);
                 string raw_text = SelectedWordsToFormattedTextConvertor.ConvertToParagraph(words);
@@ -61,14 +61,14 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
 
         private List<Word> GetSnappedWords(Point mouse_up_point, Point mouse_down_point)
         {
-            double left = Math.Min(mouse_up_point.X, mouse_down_point.X) / this.ActualWidth;
-            double top = Math.Min(mouse_up_point.Y, mouse_down_point.Y) / this.ActualHeight;
-            double width = Math.Abs(mouse_up_point.X - mouse_down_point.X) / this.ActualWidth;
-            double height = Math.Abs(mouse_up_point.Y - mouse_down_point.Y) / this.ActualHeight;
+            double left = Math.Min(mouse_up_point.X, mouse_down_point.X) / ActualWidth;
+            double top = Math.Min(mouse_up_point.Y, mouse_down_point.Y) / ActualHeight;
+            double width = Math.Abs(mouse_up_point.X - mouse_down_point.X) / ActualWidth;
+            double height = Math.Abs(mouse_up_point.Y - mouse_down_point.Y) / ActualHeight;
 
             List<Word> words_in_selection = new List<Word>();
-            
-            WordList word_list = pdf_renderer_control_stats.pdf_document.PDFRenderer.GetOCRText(this.page);
+
+            WordList word_list = pdf_renderer_control_stats.pdf_document.PDFRenderer.GetOCRText(page);
             if (null != word_list)
             {
                 foreach (var word in word_list)
@@ -93,10 +93,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
                 BitmapSource image_page = decoder.Frames[0];
                 if (null != image_page)
                 {
-                    double left = Math.Min(mouse_up_point.X, mouse_down_point.X) * image_page.PixelWidth / this.ActualWidth;
-                    double top = Math.Min(mouse_up_point.Y, mouse_down_point.Y) * image_page.PixelHeight / this.ActualHeight;
-                    double width = Math.Abs(mouse_up_point.X - mouse_down_point.X) * image_page.PixelWidth / this.ActualWidth;
-                    double height = Math.Abs(mouse_up_point.Y - mouse_down_point.Y) * image_page.PixelHeight / this.ActualHeight;
+                    double left = Math.Min(mouse_up_point.X, mouse_down_point.X) * image_page.PixelWidth / ActualWidth;
+                    double top = Math.Min(mouse_up_point.Y, mouse_down_point.Y) * image_page.PixelHeight / ActualHeight;
+                    double width = Math.Abs(mouse_up_point.X - mouse_down_point.X) * image_page.PixelWidth / ActualWidth;
+                    double height = Math.Abs(mouse_up_point.Y - mouse_down_point.Y) * image_page.PixelHeight / ActualHeight;
 
                     left = Math.Max(left, 0);
                     top = Math.Max(top, 0);
@@ -113,12 +113,78 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
             }
         }
 
-        internal override void Dispose()
-        {
-            Logging.Debug("PDFCameraLayer::Dispose()");
+        #region --- IDisposable ------------------------------------------------------------------------
 
-            pdf_renderer_control_stats = null;
-            drag_area_tracker = null;
+        ~PDFCameraLayer()
+        {
+            Logging.Debug("~PDFCameraLayer()");
+            Dispose(false);
         }
+
+        public override void Dispose()
+        {
+            Logging.Debug("Disposing PDFCameraLayer");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected virtual void Dispose(bool disposing)
+        {
+            Logging.Debug("PDFCameraLayer::Dispose({0}) @{1}", disposing, dispose_count);
+
+            try
+            {
+                if (null != drag_area_tracker)
+                {
+                    WPFDoEvents.InvokeInUIThread(() =>
+                    {
+                        try
+                        {
+                            foreach (var el in Children)
+                            {
+                                IDisposable node = el as IDisposable;
+                                if (null != node)
+                                {
+                                    node.Dispose();
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Logging.Error(ex);
+                        }
+
+                        try
+                        {
+                            Children.Clear();
+                        }
+                        catch (Exception ex)
+                        {
+                            Logging.Error(ex);
+                        }
+
+                        drag_area_tracker.OnDragComplete -= drag_area_tracker_OnDragComplete;
+                    }, Dispatcher);
+                }
+
+                // Clear the references for sanity's sake
+                pdf_renderer_control_stats = null;
+                drag_area_tracker = null;
+
+                DataContext = null;
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
+
+            ++dispose_count;
+
+            //base.Dispose(disposing);     // parent only throws an exception (intentionally), so depart from best practices and don't call base.Dispose(bool)
+        }
+
+        #endregion
+
     }
 }

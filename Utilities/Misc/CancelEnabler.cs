@@ -1,4 +1,6 @@
-﻿namespace Utilities.Misc
+﻿#if false
+
+namespace Utilities.Misc
 {
     public class CancelEnabler
     {
@@ -15,12 +17,8 @@
             return new CancelEnabler();
         }
 
-        public bool IsCancelled
-        {
-            get
-            {
-                return cancelled;
-            }
-        }
+        public bool IsCancelled => cancelled;
     }
 }
+
+#endif

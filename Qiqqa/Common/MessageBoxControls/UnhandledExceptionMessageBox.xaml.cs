@@ -1,36 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Media;
 using icons;
 using Qiqqa.Common.Configuration;
+using Qiqqa.Common.GUI;
 using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.DateTimeTools;
+using Utilities.GUI;
 
 namespace Qiqqa.Common.MessageBoxControls
 {
     /// <summary>
     /// Interaction logic for UnhandledExceptionMessageBox.xaml
     /// </summary>
-    public partial class UnhandledExceptionMessageBox
+    public partial class UnhandledExceptionMessageBox : StandardWindow
     {
         private UnhandledExceptionMessageBox()
         {
             // Collect all generations of memory.
             GC.Collect();
 
-            InitializeComponent();        
+            InitializeComponent();
 
-            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            this.WindowState = WindowState.Normal;
+            //this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            WindowState = WindowState.Normal;
 
-            this.Icon = Icons.GetAppIconICO(Icons.Qiqqa);
-            
-            this.ObjImage.Stretch = Stretch.Fill;
-            this.ObjImage.Source = Backgrounds.GetBackground(Backgrounds.ExceptionDialogBackground);
+            Icon = Icons.GetAppIconICO(Icons.Qiqqa);
+
+            ObjImage.Stretch = Stretch.Fill;
+            ObjImage.Source = Backgrounds.GetBackground(Backgrounds.ExceptionDialogBackground);
 
             TextComments.Focus();
         }
@@ -47,15 +50,7 @@ namespace Qiqqa.Common.MessageBoxControls
             }
 
             // make sure we're not in the process of shutting down Qiqqa for then the next code chunk will cause a (recursive) CRASH:
-            if (null != Application.Current)
-            {
-                if (!Application.Current.Dispatcher.CheckAccess())
-                {
-                    Application.Current.Dispatcher.Invoke(((Action)(() => DisplayException(ex))));
-                    return;
-                }
-            }
-            else
+            if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
             {
                 Logging.Error(ex, "Unhandled Exception Handler: detected Qiqqa shutting down.");
             }
@@ -101,9 +96,8 @@ namespace Qiqqa.Common.MessageBoxControls
                 useful_text_subheading = ute.body;
             }
 
-
             // make sure we're not in the process of shutting down Qiqqa for then we won't have any live app window any more:
-            if (null != Application.Current)
+            if (!Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
             {
                 Display("Unexpected problem in Qiqqa!", useful_text_heading, useful_text_subheading, null, true, false, ex);
             }
@@ -116,17 +110,9 @@ namespace Qiqqa.Common.MessageBoxControls
             GC.Collect();
 
             // make sure we're not in the process of shutting down Qiqqa for then the next code chunk will cause a (recursive) CRASH:
-            if (null != Application.Current)
+            if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
             {
-                if (!Application.Current.Dispatcher.CheckAccess())
-                {
-                    Application.Current.Dispatcher.Invoke(((Action)(() => DisplayInfo(useful_text, useful_text_subheading, display_faq_link, ex))));
-                    return;
-                }
-            }
-            else
-            {
-                Logging.Warn("Unhandled Exception Handler: detected Qiqqa shutting down.");
+                Logging.Error(ex, "Unhandled Exception Handler: detected Qiqqa shutting down.");
             }
 
             Display(
@@ -145,13 +131,23 @@ namespace Qiqqa.Common.MessageBoxControls
             {
                 Logging.Info(string.Format("About to display client stats: {0}", useful_text_heading), ex);
 
-                UnhandledExceptionMessageBox mb = new UnhandledExceptionMessageBox();
-                mb.Title = title;
-                mb.PopulateText(useful_text_heading, useful_text_subheading, comments_label, display_faq_link);
-                mb.PopulateException(ex, display_exception_section);
-                mb.PopulateLog();
-                mb.PopulateMachineStats();
-                mb.ShowDialog();
+                if (!Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+                {
+                    WPFDoEvents.InvokeInUIThread(() =>
+                    {
+                        UnhandledExceptionMessageBox mb = new UnhandledExceptionMessageBox();
+                        mb.Title = title;
+                        mb.PopulateText(useful_text_heading, useful_text_subheading, comments_label, display_faq_link);
+                        mb.PopulateException(ex, display_exception_section);
+                        mb.PopulateLog();
+                        mb.PopulateMachineStats();
+                        mb.ShowDialog();
+                    });
+                }
+                else
+                {
+                    throw new Exception(String.Format("Unhandled Exception Display while shutting down:\nHeading: {0}\nOriginal Exception: {1}", useful_text_heading, ex), ex);
+                }
             }
             catch (Exception ex2)
             {
@@ -163,8 +159,14 @@ namespace Qiqqa.Common.MessageBoxControls
         {
             UsefulTextHeading.Text = useful_text_heading;
             UsefulTextSubheading.Text = useful_text_subheading;
-            if (!string.IsNullOrEmpty(comments_label)) TextCommentsLabel.Text = comments_label;
-            if (display_faq_link) FaqText.Visibility = Visibility.Visible;
+            if (!string.IsNullOrEmpty(comments_label))
+            {
+                TextCommentsLabel.Text = comments_label;
+            }
+            if (display_faq_link)
+            {
+                FaqText.Visibility = Visibility.Visible;
+            }
         }
 
         private void PopulateException(Exception ex, bool display_exception_section)
@@ -181,10 +183,11 @@ namespace Qiqqa.Common.MessageBoxControls
                     sb.AppendLine();
                     sb.AppendLine("--------------------------------------------");
                     sb.AppendLine();
+
                     current_exception = current_exception.InnerException;
                 }
-                this.TextExceptions.Text = sb.ToString();
-                this.TextExceptionSummary.Text = ex.Message;                
+                TextExceptions.Text = sb.ToString();
+                TextExceptionSummary.Text = ex.Message;
             }
             else
             {
@@ -211,7 +214,7 @@ namespace Qiqqa.Common.MessageBoxControls
                         }
                     }
                 }
-                
+
                 int NUM_LINES_TO_USE = 200;
                 int start_pos = Math.Max(0, log_lines.Count - NUM_LINES_TO_USE);
 
@@ -221,8 +224,8 @@ namespace Qiqqa.Common.MessageBoxControls
                     sb.AppendLine(log_lines[i]);
                 }
 
-                this.TextLogs.Text = sb.ToString();
-                this.TextLogs.ScrollToEnd();
+                TextLogs.Text = sb.ToString();
+                TextLogs.ScrollToEnd();
             }
             catch (Exception ex)
             {
@@ -235,19 +238,16 @@ namespace Qiqqa.Common.MessageBoxControls
             TextMachineStats.Text = ComputerStatistics.GetCommonStatistics();
         }
 
-        private string FaqUrl
-        {
-            get { return WebsiteAccess.GetOurUrl(WebsiteAccess.OurSiteLinkKind.Faq); }
-        }
+        private string FaqUrl => WebsiteAccess.GetOurUrl(WebsiteAccess.OurSiteLinkKind.Faq);
 
-        void ButtonClose_Click(object sender, RoutedEventArgs e)
+        private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         #region --- Test ------------------------------------------------------------------------
 
-#if TEST
+#if TEST_UI
         public static void Test()
         {
             try
@@ -263,7 +263,6 @@ namespace Qiqqa.Common.MessageBoxControls
                         throw new Exception("Inner exception 2", ex_inner1);
                     }
                 }
-
                 catch (Exception ex_inner2)
                 {
                     throw new Exception("Outer exception", ex_inner2);
@@ -277,5 +276,19 @@ namespace Qiqqa.Common.MessageBoxControls
 #endif
 
         #endregion
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+
+            // base.OnClosed() invokes this class' Closed() code, so we flipped the order of exec to reduce the number of surprises for yours truly.
+            // This NULLing stuff is really the last rites of Dispose()-like so we stick it at the end here.
+
+        }
     }
 }

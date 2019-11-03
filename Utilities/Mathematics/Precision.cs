@@ -3,47 +3,47 @@ using Utilities.Mathematics.LinearAlgebra;
 
 namespace Utilities.Mathematics
 {
-	public class Precision
-	{
-		const double CLOSE_TO_TOLERANCE = 1E-8;
+    public class Precision
+    {
+        private const double CLOSE_TO_TOLERANCE = 1E-8;
 
-		public static void massageIntoCorrelation(Matrix source)
-		{
-			// Check its square
-			if (source.rows != source.cols)
-			{
-				throw new GenericException("Cannot massage a non-square matrix");
-			}
+        public static void massageIntoCorrelation(Matrix source)
+        {
+            // Check its square
+            if (source.rows != source.cols)
+            {
+                throw new GenericException("Cannot massage a non-square matrix");
+            }
 
-			int N = source.rows;
+            int N = source.rows;
 
-			for (int i = 0; i < N; ++i)
-			{
-				for (int j = i+1; j < N; ++j)
-				{
-					source[i,j] = 0.5 * (source[i,j] + source[j,i]);
-					source[j,i] = source[i,j];
-				}
-			}
-		}
+            for (int i = 0; i < N; ++i)
+            {
+                for (int j = i + 1; j < N; ++j)
+                {
+                    source[i, j] = 0.5 * (source[i, j] + source[j, i]);
+                    source[j, i] = source[i, j];
+                }
+            }
+        }
 
-		public static bool closeToZero(double a)
-		{
-			return closeTo(a, 0.0);
-		}
+        public static bool closeToZero(double a)
+        {
+            return closeTo(a, 0.0);
+        }
 
-		public static bool closeTo(double a, double b)
-		{
-			return (Math.Abs(a-b) < CLOSE_TO_TOLERANCE);
-		}
+        public static bool closeTo(double a, double b)
+        {
+            return (Math.Abs(a - b) < CLOSE_TO_TOLERANCE);
+        }
 
-		public static int estimateMeaningfulChartRoundingPrecision(double range)
-		{
-			int digits = (int) (-Math.Floor(Math.Log10(range / 100.0)));
-			if (digits < 0) digits = 0;
-			if (digits > 10) digits = 0;
-			return digits;
-		}
+        public static int estimateMeaningfulChartRoundingPrecision(double range)
+        {
+            int digits = (int)(-Math.Floor(Math.Log10(range / 100.0)));
+            if (digits < 0) digits = 0;
+            if (digits > 10) digits = 0;
+            return digits;
+        }
 
         #region --- Test ------------------------------------------------------------------------
 
@@ -62,7 +62,7 @@ namespace Utilities.Mathematics
 			Console.WriteLine("Rounding precision of 0 is {0}", estimateMeaningfulChartRoundingPrecision(0));
 		}
 #endif
-    
+
         #endregion
     }
 }

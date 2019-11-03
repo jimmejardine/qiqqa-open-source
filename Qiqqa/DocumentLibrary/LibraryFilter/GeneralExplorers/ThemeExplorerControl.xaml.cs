@@ -5,7 +5,6 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using Qiqqa.Common;
 using Qiqqa.DocumentLibrary.TagExplorerStuff;
-using Qiqqa.Documents.PDF;
 using Qiqqa.Expedition;
 using Utilities;
 using Utilities.Collections;
@@ -26,7 +25,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
         {
             InitializeComponent();
 
-            this.ToolTip = "Here are the Themes in your documents.  If you see no themes here, please run Expedition.  " + GenericLibraryExplorerControl.YOU_CAN_FILTER_TOOLTIP;
+            ToolTip = "Here are the Themes in your documents.  If you see no themes here, please run Expedition.  " + GenericLibraryExplorerControl.YOU_CAN_FILTER_TOOLTIP;
 
             ThemeExplorerTree.DescriptionTitle = "Theme";
 
@@ -37,7 +36,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
             HypRunExpedition.Click += HypRunExpedition_Click;
         }
 
-        void HypRunExpedition_Click(object sender, RoutedEventArgs e)
+        private void HypRunExpedition_Click(object sender, RoutedEventArgs e)
         {
             MainWindowServiceDispatcher.Instance.OpenExpedition(library);
         }
@@ -46,9 +45,10 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
 
         public Library Library
         {
+            get => library;
             set
             {
-                this.library = value;
+                library = value;
                 ThemeExplorerTree.Library = value;
             }
         }
@@ -60,7 +60,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
 
         // -----------------------------
 
-        MultiMapSet<string, string> GetNodeItems(Library library, HashSet<string> parent_fingerprints)
+        private MultiMapSet<string, string> GetNodeItems(Library library, HashSet<string> parent_fingerprints)
         {
             MultiMapSet<string, string> results = GetNodeItems_STATIC(library, parent_fingerprints);
 
@@ -78,7 +78,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
 
             return results;
         }
-        
+
         public static MultiMapSet<string, string> GetNodeItems_STATIC(Library library, HashSet<string> parent_fingerprints)
         {
             MultiMapSet<string, string> results = new MultiMapSet<string, string>();
@@ -124,7 +124,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
             return results;
         }
 
-        void TagExplorerTree_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
+        private void TagExplorerTree_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
         {
             OnTagSelectionChanged?.Invoke(fingerprints, descriptive_span);
         }

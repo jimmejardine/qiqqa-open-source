@@ -1,24 +1,21 @@
-﻿using Qiqqa.Common.Configuration;
-using Qiqqa.UtilisationTracking;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Net;
 using System.Text;
+using Qiqqa.Common.Configuration;
+using Qiqqa.UtilisationTracking;
 using Utilities;
-using Utilities.Internet;
 using Utilities.Misc;
 
 namespace Qiqqa.FeatureTracking
 {
-    class GoogleAnalysicsSubmitter
-    {                                                      
+    internal class GoogleAnalysicsSubmitter
+    {
         private static readonly string TRACKING_ID = "UA-16059803-8";
         private static readonly string URL = WebsiteAccess.Url_GoogleAnalyticsTracker4Qiqqa;
 
         private static DateTime last_ga_failure_time = DateTime.MinValue;
 
-        
+
         public static void Submit(Feature feature)
         {
             // Do not track if we have been asked not to

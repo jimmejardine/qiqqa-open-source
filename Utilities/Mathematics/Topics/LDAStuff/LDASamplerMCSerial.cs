@@ -8,14 +8,12 @@ namespace Utilities.Mathematics.Topics.LDAStuff
     [Serializable]
     public class LDASamplerMCSerial
     {
-        LDASampler lda_sampler;
-        int NUM_THREADS;
-
-        int total_words_in_corpus;
-        List<int> random_mc_orderings;
-
-        RandomAugmented[] random_mt;
-        double[][] probability_working_buffer;
+        private LDASampler lda_sampler;
+        private int NUM_THREADS;
+        private int total_words_in_corpus;
+        private List<int> random_mc_orderings;
+        private RandomAugmented[] random_mt;
+        private double[][] probability_working_buffer;
 
         public LDASamplerMCSerial(LDASampler lda_sampler, int NUM_THREADS)
         {
@@ -37,7 +35,7 @@ namespace Utilities.Mathematics.Topics.LDAStuff
                 {
                     total_words_in_corpus += lda_sampler.WORDS_IN_DOCS[doc].Length;
                 }
-                
+
                 random_mc_orderings = new List<int>();
                 for (int doc = 0; doc < lda_sampler.NUM_DOCS; ++doc)
                 {
@@ -54,7 +52,7 @@ namespace Utilities.Mathematics.Topics.LDAStuff
                 }
             }
 
-            random_mt = new RandomAugmented[NUM_THREADS];            
+            random_mt = new RandomAugmented[NUM_THREADS];
             probability_working_buffer = new double[NUM_THREADS][];
             for (int thread = 0; thread < NUM_THREADS; ++thread)
             {
@@ -81,7 +79,7 @@ namespace Utilities.Mathematics.Topics.LDAStuff
                     threads[thread].Name = "LDA Worker " + thread;
                     threads[thread].Start(thread);
                 }
-                
+
                 // Wait for the threads
                 for (int thread = 0; thread < NUM_THREADS; ++thread)
                 {

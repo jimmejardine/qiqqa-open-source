@@ -2,12 +2,12 @@ using System;
 
 namespace Utilities
 {
-	public class GenericException : Exception
-	{
+    public class GenericException : Exception
+    {
         public GenericException(string message)
             : base(message)
-		{		
-		}
+        {
+        }
 
         public GenericException(string message, params object[] args)
             : base(String.Format(message, args))
@@ -18,5 +18,5 @@ namespace Utilities
             : base(String.Format(message, args), ex)
         {
         }
-	}
+    }
 }

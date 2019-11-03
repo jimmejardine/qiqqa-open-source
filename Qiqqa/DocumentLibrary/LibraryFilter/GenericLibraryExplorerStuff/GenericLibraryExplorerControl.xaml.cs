@@ -1,28 +1,27 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
-using System.Reflection;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
+using icons;
+using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.LibraryFilter;
 using Qiqqa.DocumentLibrary.LibraryFilter.GenericLibraryExplorerStuff;
 using Qiqqa.UtilisationTracking;
 using Syncfusion.Windows.Chart;
 using Utilities.Collections;
+using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Strings;
-using icons;
-using System.Windows.Media;
-using System.Text;
-using System.IO;
-using System.Diagnostics;
-using Utilities.Files;
-using Qiqqa.Common.Configuration;
 
 namespace Qiqqa.DocumentLibrary.TagExplorerStuff
 {
@@ -31,7 +30,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
     /// </summary>
     public partial class GenericLibraryExplorerControl : UserControl
     {
-        public static string YOU_CAN_FILTER_TOOLTIP = "\n\nYou can filter documents that contain them by clicking on one or more of the checkboxes to the left.\nIf you have selected 'AND' above, then a document must have all the items to be shown.\nIf you have selected 'OR', then a document must have any of the items to be shown.\nIf 'NOT' is selected, then the inverse of the filtered documents are shown.";
+        public static readonly string YOU_CAN_FILTER_TOOLTIP = "\n\nYou can filter documents that contain them by clicking on one or more of the checkboxes to the left.\nIf you have selected 'AND' above, then a document must have all the items to be shown.\nIf you have selected 'OR', then a document must have any of the items to be shown.\nIf 'NOT' is selected, then the inverse of the filtered documents are shown.";
 
         private string description_title = "";
         private Library library = null;
@@ -48,8 +47,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
         public OnItemPopupDelegate OnItemPopup;
         public OnItemDragOverDelegate OnItemDragOver;
         public OnItemDropDelegate OnItemDrop;
-
-        List<string> selected_tags = new List<string>();
+        private List<string> selected_tags = new List<string>();
 
         public GenericLibraryExplorerControl()
         {
@@ -64,7 +62,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             ObjImageRefresh.ToolTip = "Refresh this list to reflect your latest documents and annotations.";
             ObjImageRefresh.Cursor = Cursors.Hand;
             ObjImageRefresh.MouseUp += ObjImageRefresh_MouseUp;
-            
+
             ObjBooleanAnd.ToolTip = "Choose this to display the documents that contain ALL the tags you have selected (more and more exclusive).\nYou can select/deselect multiple tags by toggling the checkbox or holding down SHIFT or CTRL while you click additional tags.";
             ObjBooleanOr.ToolTip = "Choose this to display the documents that contain ANY of the tags you have selected (more and more inclusive).\nYou can select/deselect multiple tags by toggling the checkbox or holding down SHIFT or CTRL while you click additional tags.";
             ObjBooleanNot.ToolTip = "Tick this to show instead the documents that do not meet the AND or OR criteria.  This is the logical NOT, which allows you to express selections such as:\n   show me documents that have neither X nor Y (using NOT and OR); or\n   show me documents that don't have both X and Y (using NOT and AND)";
@@ -74,14 +72,14 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             ObjBooleanNot.Click += ObjBoolean_Click;
 
             ObjSort.Click += ObjSort_Click;
-            
+
             CmdExport.Caption = "Export";
             CmdExport.CenteredMode = true;
             CmdExport.MinWidth = 0;
             CmdExport.Visibility = ConfigurationManager.Instance.NoviceVisibility;
             CmdExport.Click += CmdExport_Click;
 
-            TxtSearchTermsFilter.Visibility = ConfigurationManager.Instance.NoviceVisibility;            
+            TxtSearchTermsFilter.Visibility = ConfigurationManager.Instance.NoviceVisibility;
 
             ObjBooleanAnd.IsChecked = true;
             TreeSearchTerms.SelectionMode = SelectionMode.Single;
@@ -90,57 +88,53 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
 
             TreeSearchTerms.KeyUp += TreeSearchTerms_KeyUp;
 
-            this.AllowDrop = true;
+            AllowDrop = true;
 
             ObjSeries.MouseClick += ObjSeries_MouseClick;
 
             // Start with the chart collapsed
-            this.Loaded += GenericLibraryExplorerControl_Loaded;
+            Loaded += GenericLibraryExplorerControl_Loaded;
         }
 
-        void CmdExport_Click(object sender, RoutedEventArgs e)
+        private void CmdExport_Click(object sender, RoutedEventArgs e)
         {
             DateTime start_time = DateTime.Now;
 
-            MultiMapSet<string, string> tags_with_fingerprints_ALL = GetNodeItems(this.library, null);
+            MultiMapSet<string, string> tags_with_fingerprints_ALL = GetNodeItems(library, null);
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine("------------------------------------------------------------------------");
-            sb.AppendFormat("{0} report\r\n", this.description_title);
+            sb.AppendFormat("{0} report\r\n", description_title);
             sb.AppendLine("------------------------------------------------------------------------");
             sb.AppendLine("Generated by Qiqqa (http://www.qiqqa.com)");
             sb.AppendLine(String.Format("On {0} {1}", start_time.ToLongDateString(), start_time.ToLongTimeString()));
             sb.AppendLine("------------------------------------------------------------------------");
 
-            {
-                sb.AppendLine();
-                sb.AppendLine();
-                sb.AppendLine();
-                sb.AppendLine("------------------------------------------------------------------------");
-                sb.AppendFormat("{0}:\r\n", this.description_title);
-                sb.AppendLine("------------------------------------------------------------------------");
-                sb.AppendLine();
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.AppendLine("------------------------------------------------------------------------");
+            sb.AppendFormat("{0}:\r\n", description_title);
+            sb.AppendLine("------------------------------------------------------------------------");
+            sb.AppendLine();
 
-                foreach (var pair in tags_with_fingerprints_ALL)
-                {
-                    sb.AppendLine(pair.Key);
-                }
+            foreach (var pair in tags_with_fingerprints_ALL)
+            {
+                sb.AppendLine(pair.Key);
             }
 
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.AppendLine("------------------------------------------------------------------------");
+            sb.AppendFormat("{0} with associated fingerprints:\r\n", description_title);
+            sb.AppendLine("------------------------------------------------------------------------");
+            sb.AppendLine();
+            foreach (var pair in tags_with_fingerprints_ALL)
             {
-                sb.AppendLine();
-                sb.AppendLine();
-                sb.AppendLine();
-                sb.AppendLine("------------------------------------------------------------------------");
-                sb.AppendFormat("{0} with associated fingerprints:\r\n", this.description_title);
-                sb.AppendLine("------------------------------------------------------------------------");
-                sb.AppendLine();
-                foreach (var pair in tags_with_fingerprints_ALL)
+                foreach (var value in pair.Value)
                 {
-                    foreach (var value in pair.Value)
-                    {
-                        sb.AppendFormat("{0}\t{1}\r\n", pair.Key, value);
-                    }
+                    sb.AppendFormat("{0}\t{1}\r\n", pair.Key, value);
                 }
             }
 
@@ -149,28 +143,28 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             Process.Start(filename);
         }
 
-        void ObjImageRefresh_MouseUp(object sender, MouseButtonEventArgs e)
+        private void ObjImageRefresh_MouseUp(object sender, MouseButtonEventArgs e)
         {
             PopulateItems();
         }
 
-        void GenericLibraryExplorerControl_Loaded(object sender, RoutedEventArgs e)
+        private void GenericLibraryExplorerControl_Loaded(object sender, RoutedEventArgs e)
         {
             ObjChartRegion.Collapse();
         }
 
-        void ObjSort_Click(object sender, RoutedEventArgs e)
+        private void ObjSort_Click(object sender, RoutedEventArgs e)
         {
             PopulateItems();
         }
 
-        void ObjBoolean_Click(object sender, RoutedEventArgs e)
+        private void ObjBoolean_Click(object sender, RoutedEventArgs e)
         {
             selected_tags.Clear();
             PopulateItems();
         }
 
-        void TreeSearchTerms_KeyUp(object sender, KeyEventArgs e)
+        private void TreeSearchTerms_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
@@ -186,7 +180,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
 
         public void ToggleSelectItem(string item, bool inclusive_selection)
         {
-            ToggleSelectItems(new List<string>(new string[] { item } ), inclusive_selection);
+            ToggleSelectItems(new List<string>(new string[] { item }), inclusive_selection);
         }
 
         public void ToggleSelectItems(List<string> items, bool inclusive_selection)
@@ -221,29 +215,28 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             PopulateItems();
         }
 
-        void hyperlink_clear_all_OnClick(object sender, MouseButtonEventArgs e)
+        private void hyperlink_clear_all_OnClick(object sender, MouseButtonEventArgs e)
         {
-            this.Reset();
+            Reset();
         }
 
         public string DescriptionTitle
         {
-            set
-            {
-                description_title = value;
-            }
+            get => description_title;
+            set => description_title = value;
         }
 
         public Library Library
         {
+            get => library;
             set
             {
-                this.library = value;
+                library = value;
                 Reset();
             }
         }
 
-        void TxtSearchTermsFilter_OnSoftSearch()
+        private void TxtSearchTermsFilter_OnSoftSearch()
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_GenericExplorer_Filter);
             PopulateItems();
@@ -260,7 +253,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             bool exclusive = ObjBooleanAnd.IsChecked ?? true;
             bool is_negated = ObjBooleanNot.IsChecked ?? false;
 
-            MultiMapSet<string, string> tags_with_fingerprints_ALL = GetNodeItems(this.library, null);
+            MultiMapSet<string, string> tags_with_fingerprints_ALL = GetNodeItems(library, null);
             MultiMapSet<string, string> tags_with_fingerprints = tags_with_fingerprints_ALL;
 
             // If this is exclusive mode, we want to constrain the list of items in the tree
@@ -281,7 +274,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
                     }
                 }
 
-                tags_with_fingerprints = GetNodeItems(this.library, exclusive_fingerprints);
+                tags_with_fingerprints = GetNodeItems(library, exclusive_fingerprints);
             }
 
             // Filter them by the user filter
@@ -319,7 +312,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             if (ObjSort.IsChecked ?? false)
             {
                 // sort tags by number of occurrences for each tag: more is better
-                tags_sorted.Sort(delegate(string tag1, string tag2)
+                tags_sorted.Sort(delegate (string tag1, string tag2)
                 {
                     return tags_with_fingerprints[tag2].Count - tags_with_fingerprints[tag1].Count;
                 });
@@ -337,14 +330,14 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
                 GenericLibraryExplorerItem item = new GenericLibraryExplorerItem
                 {
                     GenericLibraryExplorerControl = this,
-                    library = this.library,
+                    library = library,
 
                     tag = tag,
                     fingerprints = tags_with_fingerprints[tag],
 
-                    OnItemDragOver = this.OnItemDragOver,
-                    OnItemDrop = this.OnItemDrop,
-                    OnItemPopup = this.OnItemPopup,
+                    OnItemDragOver = OnItemDragOver,
+                    OnItemDrop = OnItemDrop,
+                    OnItemPopup = OnItemPopup,
 
                     IsSelected = selected_tags.Contains(tag)
                 };
@@ -389,7 +382,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             // Implement the NEGATION
             if (is_negated && 0 < fingerprints.Count)
             {
-                HashSet<string> negated_fingerprints = this.library.GetAllDocumentFingerprints();
+                HashSet<string> negated_fingerprints = library.GetAllDocumentFingerprints();
                 fingerprints = new HashSet<string>(negated_fingerprints.Except(fingerprints));
             }
 
@@ -443,16 +436,16 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
                 }
             }
 
-            ChartSearchTerms.ToolTip = String.Format("Top {0} {1} in your library.", N, description_title);            
+            ChartSearchTerms.ToolTip = String.Format("Top {0} {1} in your library.", N, description_title);
             ObjChartArea.PrimaryAxis.AxisVisibility = Visibility.Collapsed;
             ObjChartArea.SecondaryAxis.AxisVisibility = Visibility.Collapsed;
-            
+
             ObjSeries.DataSource = chart_items;
             ObjSeries.BindingPathX = "ID";
             ObjSeries.BindingPathsY = new string[] { "Count" };
         }
 
-        void ObjSeries_MouseClick(object sender, ChartMouseEventArgs e)
+        private void ObjSeries_MouseClick(object sender, ChartMouseEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_GenericExplorer_ChartItem);
 
@@ -485,7 +478,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
                 return "";
             }
 
-            ChartSegment chart_segment = value as ChartSegment;            
+            ChartSegment chart_segment = value as ChartSegment;
             IList data_source = (IList)chart_segment.Series.DataSource;
             ChartItem chart_item = (ChartItem)data_source[chart_segment.CorrespondingPoints[0].Index];
             return String.Format("{0} ({1})", chart_item.Caption, chart_item.Count);

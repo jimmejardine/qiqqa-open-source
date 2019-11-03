@@ -5,11 +5,11 @@ namespace Utilities.GUI
 {
     public class AugmentedToolBarButton : AugmentedButton
     {
-        public AugmentedToolBarButton()
+        public AugmentedToolBarButton() : base()
         {
-            this.Background = null;
-            this.BorderBrush = null;
-            this.Style = FindResource(ToolBar.ButtonStyleKey) as Style;
+            Background = null;
+            BorderBrush = null;
+            Style = FindResource(ToolBar.ButtonStyleKey) as Style;
         }
     }
 }

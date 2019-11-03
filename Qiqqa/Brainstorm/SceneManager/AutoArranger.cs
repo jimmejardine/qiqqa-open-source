@@ -12,12 +12,18 @@ namespace Qiqqa.Brainstorm.SceneManager
 {
     public class AutoArranger
     {
-        object thread_lock = new object();
-        Thread active_thread;
+        private object thread_lock = new object();
+        private Thread active_thread;
 
-        SceneRenderingControl scene_rendering_control;
-        
-        public AutoArranger(SceneRenderingControl scene_rendering_control)        
+        // WARNING:
+        //
+        // SceneRenderingControl is not thread-safe, nor is this code. We'll survive with a few glitches due to that
+        // as this is only about rendering a network view, not about accessing critical data. Hence we forego the
+        // effort to make this truly thread-safe: it's not worth it.
+        //
+        private SceneRenderingControl scene_rendering_control;
+
+        public AutoArranger(SceneRenderingControl scene_rendering_control)
         {
             this.scene_rendering_control = scene_rendering_control;
         }
@@ -50,8 +56,8 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         private void BackgroundThread(object thread_object)
         {
-            Thread thread = (Thread)thread_object;            
-            Logging.Info("Thread {0} has started", thread.ManagedThreadId);
+            Thread thread = (Thread)thread_object;
+            Logging.Debug特("AutoArranger Thread {0} has started", thread.ManagedThreadId);
 
             while (true)
             {
@@ -70,39 +76,39 @@ namespace Qiqqa.Brainstorm.SceneManager
                 Thread.Sleep(30);
             }
 
-            Logging.Info("Thread {0} has exited", thread.ManagedThreadId);
+            Logging.Debug特("AutoArranger Thread {0} has exited", thread.ManagedThreadId);
         }
 
-        DateTime cache_scene_changed_timestamp = DateTime.MinValue;
-        List<NodeControl> cache_node_controls = new List<NodeControl>();
-        List<ConnectorControl> cache_connector_controls = new List<ConnectorControl>();
-        
+        private DateTime cache_scene_changed_timestamp = DateTime.MinValue;
+        private List<NodeControl> cache_node_controls = new List<NodeControl>();
+        private List<ConnectorControl> cache_connector_controls = new List<ConnectorControl>();
+
         private void DoLayout()
         {
             int SPEED = 1;
 
             // If the nodes and connectors have changed, recache them!
-            if (cache_scene_changed_timestamp != this.scene_rendering_control.SceneChangedTimestamp)
+            if (cache_scene_changed_timestamp != scene_rendering_control.SceneChangedTimestamp)
             {
                 Logging.Info("Scene has changed, so autolayout is recaching.");
-                cache_scene_changed_timestamp = this.scene_rendering_control.SceneChangedTimestamp;
-                cache_node_controls = new List<NodeControl>(this.scene_rendering_control.NodeControls);
-                cache_connector_controls = new List<ConnectorControl>(this.scene_rendering_control.ConnectorControlManager.ConnectorControls);
+                cache_scene_changed_timestamp = scene_rendering_control.SceneChangedTimestamp;
+                cache_node_controls = new List<NodeControl>(scene_rendering_control.NodeControls);
+                cache_connector_controls = new List<ConnectorControl>(scene_rendering_control.ConnectorControlManager.ConnectorControls);
             }
 
             // We reuse this so that it is memory allocation time efficient
             NodesVector vector = new NodesVector();
 
-			// Also note that Utilities codebase had ATTRACTION *before* REPULSION.
-			// Haven't looked at the precise code, but wouldn't be surprised if this is
-			// very similar to the D3 force anneal code (D3.js) anyway. There aren't that
-			// many ways to stabilize a (large) graph in 2D. 
-			//
-			// See also https://github.com/jimmejardine/qiqqa-open-source/issues/26
-			
+            // Also note that Utilities codebase had ATTRACTION *before* REPULSION.
+            // Haven't looked at the precise code, but wouldn't be surprised if this is
+            // very similar to the D3 force anneal code (D3.js) anyway. There aren't that
+            // many ways to stabilize a (large) graph in 2D. 
+            //
+            // See also https://github.com/jimmejardine/qiqqa-open-source/issues/26
+
             // Perform the repulsion
             if (true)
-            {   
+            {
                 int MAX_NODES = cache_node_controls.Count;
                 for (int i = 0; i < MAX_NODES; ++i)
                 {
@@ -167,9 +173,9 @@ namespace Qiqqa.Brainstorm.SceneManager
 	                double strength = -1 * SPEED * (vector.distance / vector.minimum_extent);
 	                DoPushPull(nodeI, nodeJ, vector, strength);
 #else
-	                double strength = -1 * SPEED * (vector.box_distance / 50);                    
-	                DoPushPull(nodeI, nodeJ, vector, strength);
-	                //Logging.Info("ATTRACT STRENGTH={0}", strength);
+                    double strength = -1 * SPEED * (vector.box_distance / 50);
+                    DoPushPull(nodeI, nodeJ, vector, strength);
+                    //Logging.Info("ATTRACT STRENGTH={0}", strength);
 #endif
                 }
             }
@@ -191,10 +197,10 @@ namespace Qiqqa.Brainstorm.SceneManager
             scene_rendering_control.Dispatcher.Invoke(new Action(() => scene_rendering_control.RecalculateAllNodeControlDimensions()), DispatcherPriority.Background);
         }
 
-        class NodesVector
+        private class NodesVector
         {
-            Rect box_i;
-            Rect box_j;
+            private Rect box_i;
+            private Rect box_j;
 
             public double box_distance;
 
@@ -215,7 +221,7 @@ namespace Qiqqa.Brainstorm.SceneManager
 #endif
 
             public NodesVector()
-            {                
+            {
             }
 
             public void Recalculate(NodeControlSceneData nodeI, NodeControlSceneData nodeJ)
@@ -237,20 +243,20 @@ namespace Qiqqa.Brainstorm.SceneManager
 	            minimum_extent = Math.Min(Math.Min(nodeI.Width, nodeI.Height), Math.Min(nodeJ.Width, nodeJ.Height));
 #else
                 // Qiqqa codebase had:
-				//
-	            //Logging.Debug(" DIST {0}", box_distance);
-	            maximum_extent = Math.Max(Math.Max(nodeI.Width, nodeI.Height), Math.Max(nodeJ.Width, nodeJ.Height));
+                //
+                //Logging.Debug(" DIST {0}", box_distance);
+                maximum_extent = Math.Max(Math.Max(nodeI.Width, nodeI.Height), Math.Max(nodeJ.Width, nodeJ.Height));
                 //minimum_extent = Math.Min(Math.Min(nodeI.Width, nodeI.Height), Math.Min(nodeJ.Width, nodeJ.Height));
 #endif
-                
+
                 delta_x = nodeI.CentreX - nodeJ.CentreX;
                 delta_y = nodeI.CentreY - nodeJ.CentreY;
-                
+
                 distance = Math.Sqrt(delta_x * delta_x + delta_y * delta_y);
                 if (1 > distance) distance = 1;
 
                 angle = Math.Atan2(delta_y, delta_x);
-                
+
                 unit_x = Math.Cos(angle);
                 unit_y = Math.Sin(angle);
             }

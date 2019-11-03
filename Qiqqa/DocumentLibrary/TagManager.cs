@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Qiqqa.Common.TagManagement;
 using Qiqqa.Documents.PDF;
-using Qiqqa.Documents.PDF.ThreadUnsafe;
-using Utilities;
 
 namespace Qiqqa.DocumentLibrary
 {
@@ -20,10 +18,10 @@ namespace Qiqqa.DocumentLibrary
 
         #endregion
 
-        HashSet<string> tags = new HashSet<string>();
-        List<string> tags_sorted = new List<string>();
+        private HashSet<string> tags = new HashSet<string>();
+        private List<string> tags_sorted = new List<string>();
         private object tags_lock = new object();
-        bool requires_sort = false;
+        private bool requires_sort = false;
 
         internal void ProcessDocument(PDFDocument pdf_document)
         {
@@ -31,7 +29,7 @@ namespace Qiqqa.DocumentLibrary
 
             ProcessTags(TagTools.ConvertTagBundleToTags(pdf_document.Tags));
 
-            foreach (var pdf_annotation in pdf_document.Annotations)
+            foreach (var pdf_annotation in pdf_document.GetAnnotations())
             {
                 ProcessAnnotation(pdf_annotation);
             }

@@ -7,7 +7,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
 {
     internal class BuildPopupFromPDF
     {
-        JumpToSectionPopup popup;
+        private JumpToSectionPopup popup;
 
         internal BuildPopupFromPDF(JumpToSectionPopup popup)
         {
@@ -32,7 +32,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
             }
         }
 
-        void GenerateBookmarks(AugmentedPdfLoadedDocument doc, PdfBookmarkBase bookmark_base, int depth)
+        private void GenerateBookmarks(AugmentedPdfLoadedDocument doc, PdfBookmarkBase bookmark_base, int depth)
         {
             // Don't go too deep in the bookmark hierarchy
             if (depth > 0)

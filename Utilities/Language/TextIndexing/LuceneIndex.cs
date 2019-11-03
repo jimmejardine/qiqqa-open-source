@@ -5,28 +5,26 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using Lucene.Net.Analysis;
-using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Documents;
 using Lucene.Net.Index;
 using Lucene.Net.QueryParsers;
 using Lucene.Net.Search;
-using Utilities.BibTex.Parsing;
 using Utilities.Files;
-using Version = Lucene.Net.Util.Version;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+using Version = Lucene.Net.Util.Version;
+
 
 namespace Utilities.Language.TextIndexing
 {
     public class LuceneIndex : IDisposable
     {
-        static readonly string INDEX_VERSION = "4.0";
-        string LIBRARY_INDEX_BASE_PATH;
-
-        Analyzer analyzer;
-        object index_writer_lock = new object();
-        IndexWriter index_writer = null;
+        private static readonly string INDEX_VERSION = "4.0";
+        private string LIBRARY_INDEX_BASE_PATH;
+        private Analyzer analyzer;
+        private object index_writer_lock = new object();
+        private IndexWriter index_writer = null;
 
         public LuceneIndex(string LIBRARY_INDEX_BASE_PATH)
         {
@@ -46,13 +44,13 @@ namespace Utilities.Language.TextIndexing
             }
 
             // Create our common parts
-            analyzer = new Lucene.Net.Analysis.Standard.StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_29, new Hashtable());            
+            analyzer = new Lucene.Net.Analysis.Standard.StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_29, new Hashtable());
         }
 
         ~LuceneIndex()
         {
             Logging.Debug("~LuceneIndex()");
-            Dispose(false);            
+            Dispose(false);
         }
 
         public void Dispose()
@@ -63,10 +61,11 @@ namespace Utilities.Language.TextIndexing
         }
 
         private int dispose_count = 0;
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            Logging.Debug("LuceneIndex::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
-            if (disposing)
+            Logging.Debug("LuceneIndex::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
             {
                 // Get rid of managed resources
                 Logging.Info("Disposing the lucene index writer");
@@ -79,7 +78,14 @@ namespace Utilities.Language.TextIndexing
                 }
             }
 
-            // Get rid of unmanaged resources 
+            Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+            lock (index_writer_lock)
+            {
+                l2_clk.LockPerfTimerStop();
+                index_writer = null;
+            }
+
+            ++dispose_count;
         }
 
         public void WriteMasterList()
@@ -91,7 +97,7 @@ namespace Utilities.Language.TextIndexing
                 FlushIndexWriter_LOCK();
             }
         }
-        
+
         private void FlushIndexWriter_LOCK()
         {
             Stopwatch clk = new Stopwatch();
@@ -158,7 +164,7 @@ namespace Utilities.Language.TextIndexing
                 string content = content_sb.ToString();
                 document.Add(new Field("content", content, Field.Store.NO, Field.Index.ANALYZED));
             }
-            
+
             AddDocumentPage_INTERNAL(fingerprint, 0, document);
         }
 
@@ -407,21 +413,9 @@ namespace Utilities.Language.TextIndexing
 
         // ---------------------------------------------------------
 
-        private string VersionFilename
-        {
-            get
-            {
-                return Path.GetFullPath(Path.Combine(LIBRARY_INDEX_BASE_PATH, @"index_version.txt"));
-            }
-        }
+        private string VersionFilename => Path.GetFullPath(Path.Combine(LIBRARY_INDEX_BASE_PATH, @"index_version.txt"));
 
-        private string LuceneWriteLockFilename
-        {
-            get
-            {
-                return Path.GetFullPath(Path.Combine(LIBRARY_INDEX_BASE_PATH, @"write.lock"));
-            }
-        }
+        private string LuceneWriteLockFilename => Path.GetFullPath(Path.Combine(LIBRARY_INDEX_BASE_PATH, @"write.lock"));
 
         public void InvalidateIndex()
         {
@@ -429,17 +423,17 @@ namespace Utilities.Language.TextIndexing
             FileTools.Delete(VersionFilename);
         }
 
-        
+
         private void CheckIndexVersion()
         {
-            string version = null;
+            string version = String.Empty;
 
             try
             {
                 if (File.Exists(VersionFilename))
                 {
                     string[] index_version_lines = File.ReadAllLines(VersionFilename);
-                    version = index_version_lines[0];
+                    version = index_version_lines[0].Trim();
                 }
             }
             catch (Exception ex)

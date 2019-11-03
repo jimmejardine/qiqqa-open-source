@@ -12,9 +12,10 @@ using Syncfusion.Pdf.Graphics;
 using Utilities;
 using Utilities.Files;
 using Utilities.GUI.Wizard;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.AnnotationsReportBuilding
 {
@@ -51,7 +52,7 @@ namespace Qiqqa.AnnotationsReportBuilding
 #endif
 
             this.annotation_report = annotation_report;
-            this.ObjDocumentViewer.Document = annotation_report.flow_document;
+            ObjDocumentViewer.Document = annotation_report.flow_document;
         }
 
         // Warning CA1811	'ReportViewerControl.ButtonExpandClickOptions_Click(object, RoutedEventArgs)' appears to have no upstream public or protected callers.
@@ -68,10 +69,12 @@ namespace Qiqqa.AnnotationsReportBuilding
         }
 #endif
 
+        #region --- IDisposable ------------------------------------------------------------------------
+
         ~ReportViewerControl()
         {
             Logging.Debug("~ReportViewerControl()");
-            Dispose(false);            
+            Dispose(false);
         }
 
         public void Dispose()
@@ -81,27 +84,23 @@ namespace Qiqqa.AnnotationsReportBuilding
             GC.SuppressFinalize(this);
         }
 
-#if DIAG
         private int dispose_count = 0;
-#endif
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-#if DIAG
-            Logging.Debug("ReportViewerControl::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
-#endif
-            if (disposing)
-            {
-                // Get rid of managed resources
-                this.ObjDocumentViewer.Document?.Blocks.Clear();
-            }
+            Logging.Debug("ReportViewerControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            this.ObjDocumentViewer.Document = null;
-            this.annotation_report = null;
+            // Get rid of managed resources
+            ObjDocumentViewer.Document?.Blocks.Clear();
 
-            // Get rid of unmanaged resources 
+            ObjDocumentViewer.Document = null;
+            annotation_report = null;
+
+            ++dispose_count;
         }
 
-        string SaveToRTF()
+        #endregion
+
+        private string SaveToRTF()
         {
             FlowDocument flow_document = ObjDocumentViewer.Document;
             TextRange text_range = new TextRange(flow_document.ContentStart, flow_document.ContentEnd);
@@ -114,8 +113,8 @@ namespace Qiqqa.AnnotationsReportBuilding
 
             return filename;
         }
-        
-        void ButtonToWord_Click(object sender, RoutedEventArgs e)
+
+        private void ButtonToWord_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.AnnotationReport_ToWord);
 
@@ -125,15 +124,12 @@ namespace Qiqqa.AnnotationsReportBuilding
             Process.Start(filename);
         }
 
-        void ButtonToPDF_Click(object sender, RoutedEventArgs e)
+        private void ButtonToPDF_Click(object sender, RoutedEventArgs e)
         {
-            PdfDocument doc = null;
             string filename_pdf = TempFile.GenerateTempFilename("pdf");
-                                  
-            try
-            {
-                doc = new PdfDocument();
 
+            using (PdfDocument doc = new PdfDocument())
+            {
                 PdfPage page = doc.Pages.Add();
                 SizeF bounds = page.GetClientSize();
 
@@ -152,16 +148,11 @@ namespace Qiqqa.AnnotationsReportBuilding
 
                 doc.Save(filename_pdf);
             }
-            finally
-            {
-                // Warning CA2000  call System.IDisposable.Dispose on object 'doc' before all references to it are out of scope.
-                doc?.Dispose();
-            }
 
             Process.Start(filename_pdf);
         }
 
-        void ButtonPrint_Click(object sender, RoutedEventArgs e)
+        private void ButtonPrint_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.AnnotationReport_Print);
             annotation_report.CollapseClickOptions();

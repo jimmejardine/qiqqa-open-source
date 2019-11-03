@@ -21,8 +21,8 @@ namespace Qiqqa.Expedition
         public LDASampler lda_sampler;
 
         [NonSerialized]
-        LDAAnalysis lda_analysis = null;        
-        
+        private LDAAnalysis lda_analysis = null;
+
         public LDAAnalysis LDAAnalysis
         {
             get
@@ -34,13 +34,13 @@ namespace Qiqqa.Expedition
                     // as these buggers load as part of the init phase. :-(
                     lda_analysis = new LDAAnalysis(lda_sampler);
                 }
-                
+
                 return lda_analysis;
             }
         }
 
         [NonSerialized]
-        Color[] colours;
+        private Color[] colours;
         public Color[] Colours
         {
             get
@@ -59,7 +59,7 @@ namespace Qiqqa.Expedition
                 return colours;
             }
         }
-        
+
         internal void RebuildIndices()
         {
             words_index = new Dictionary<string, int>();

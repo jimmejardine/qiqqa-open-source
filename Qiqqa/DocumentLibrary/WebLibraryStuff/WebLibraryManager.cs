@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SQLite;
-using System.IO;
+using System.Text.RegularExpressions;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.BundleLibrary;
 using Qiqqa.DocumentLibrary.IntranetLibraryStuff;
@@ -9,13 +8,14 @@ using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 {
-    class WebLibraryManager
+    internal class WebLibraryManager
     {
         private static WebLibraryManager __instance = null;
         public static WebLibraryManager Instance
@@ -37,11 +37,9 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         public event WebLibrariesChangedDelegate WebLibrariesChanged;
 
         private WebLibraryManager()
-        {   
+        {
             // Look for any web libraries that we know about
             LoadKnownWebLibraries(KNOWN_WEB_LIBRARIES_FILENAME, false);
-
-            AddLocalGuestLibraryIfMissing();
 
             // *************************************************************************************************************
             // *** MIGRATION TO OPEN SOURCE CODE ***************************************************************************
@@ -49,6 +47,9 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             AddLegacyWebLibrariesThatCanBeFoundOnDisk();
             // *************************************************************************************************************
 
+            AddLocalGuestLibraryIfMissing();
+
+            SaveKnownWebLibraries();
             FireWebLibrariesChanged();
         }
 
@@ -78,7 +79,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 string[] library_directories = Directory.GetDirectories(base_directory_path);
                 foreach (string library_directory in library_directories)
                 {
-                    Logging.Info("Inspecting directory {0}", library_directory);
+                    Logging.Info("Inspecting directory {0} - Phase 1 : Web & Known Libraries", library_directory);
 
                     string databaselist_file = Path.GetFullPath(Path.Combine(library_directory, @"Qiqqa.known_web_libraries"));
                     if (File.Exists(databaselist_file))
@@ -89,23 +90,41 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
                 foreach (string library_directory in library_directories)
                 {
-                    Logging.Info("Inspecting directory {0}", library_directory);
+                    Logging.Info("Inspecting directory {0} - Phase 2 : Intranet Libraries", library_directory);
+
+                    string databaselist_file = IntranetLibraryTools.GetLibraryDetailPath(library_directory);
+                    if (File.Exists(databaselist_file))
+                    {
+                        IntranetLibraryDetail intranet_library_detail = IntranetLibraryDetail.Read(databaselist_file);
+
+                        UpdateKnownWebLibraryFromIntranet(library_directory, extra_info_message_on_skip: String.Format(" as obtained from file {0}", databaselist_file));
+                    }
+                }
+
+                foreach (string library_directory in library_directories)
+                {
+                    Logging.Info("Inspecting directory {0} - Phase 3 : Bundles", library_directory);
+
+                    // must be a qiqqa_bundle and/or qiqqa_bundle_manifest file set
+                    Logging.Warn("Auto bundle import at startup is not yet suppoerted.");
+                }
+
+                foreach (string library_directory in library_directories)
+                {
+                    Logging.Info("Inspecting directory {0} - Phase 4 :  Local and Legacy Libraries", library_directory);
 
                     string database_file = Path.GetFullPath(Path.Combine(library_directory, @"Qiqqa.library"));
                     if (File.Exists(database_file))
                     {
                         var library_id = Path.GetFileName(library_directory);
-                        if (web_library_details.ContainsKey(library_id))
-                        {
-                            Logging.Info("We already know about this library, so skipping legacy locate: {0}", library_id);
-                            continue;
-                        }
 
                         WebLibraryDetail new_web_library_detail = new WebLibraryDetail();
 
                         new_web_library_detail.Id = library_id;
-                        new_web_library_detail.Title = "Legacy Web Library - " + new_web_library_detail.Id.Substring(0, new_web_library_detail.Id.Length);
+                        new_web_library_detail.Title = "Legacy Web Library - " + new_web_library_detail.Id;
                         new_web_library_detail.IsReadOnly = false;
+                        // library: UNKNOWN type 
+
                         UpdateKnownWebLibrary(new_web_library_detail);
                     }
                 }
@@ -133,10 +152,10 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 new_web_library_detail.Title = "Local Guest Library";
                 new_web_library_detail.Description = "This is the library that comes with your Qiqqa guest account.";
                 new_web_library_detail.Deleted = false;
+                new_web_library_detail.IsReadOnly = false;
                 new_web_library_detail.IsLocalGuestLibrary = true;
 
-                new_web_library_detail.library = new Library(new_web_library_detail);
-                web_library_details[new_web_library_detail.Id] = new_web_library_detail;
+                UpdateKnownWebLibrary(new_web_library_detail);
 
                 // Store this reference to guest
                 guest_web_library_detail = new_web_library_detail;
@@ -153,26 +172,14 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     }
                     System.Threading.Thread.Sleep(500);
                 }
-                    
+
                 QiqqaManualTools.AddManualsToLibrary(guest_web_library_detail.library);
             });
         }
 
-        public WebLibraryDetail WebLibraryDetails_Guest
-        {
-            get
-            {
-                return guest_web_library_detail;
-            }
-        }
+        public WebLibraryDetail WebLibraryDetails_Guest => guest_web_library_detail;
 
-        public Library Library_Guest
-        {
-            get
-            {
-                return guest_web_library_detail.library;
-            }
-        }
+        public Library Library_Guest => guest_web_library_detail.library;
 
         public bool HaveOnlyLocalGuestLibrary()
         {
@@ -210,7 +217,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 return details;
             }
         }
-        
+
         /// <summary>
         /// Returns all working web libraries.  If the user has a web library, guest and deleted libraries are not in this list.
         /// If they have only a guest library, then it is in this list...
@@ -298,7 +305,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             }
 
             web_library_details.Sort(
-                delegate(WebLibraryDetail a, WebLibraryDetail b)
+                delegate (WebLibraryDetail a, WebLibraryDetail b)
                 {
                     if (a == b) return 0;
 
@@ -320,15 +327,9 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         #region --- Known web library management -------------------------------------------------------------------------------------------------------------------------
 
-        public static string KNOWN_WEB_LIBRARIES_FILENAME
-        {
-            get
-            {
-                return Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.BaseDirectoryForUser, @"Qiqqa.known_web_libraries"));
-            }
-        }
+        public static string KNOWN_WEB_LIBRARIES_FILENAME => Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.BaseDirectoryForUser, @"Qiqqa.known_web_libraries"));
 
-        void LoadKnownWebLibraries(string filename, bool only_load_those_libraries_which_are_actually_present)
+        private void LoadKnownWebLibraries(string filename, bool only_load_those_libraries_which_are_actually_present)
         {
             Logging.Info("+Loading known Web Libraries");
             try
@@ -344,8 +345,11 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
                             if (!new_web_library_detail.IsPurged)
                             {
-                                // Intranet libraries have their readonly flag set on the user's current premium status...
-                                if (new_web_library_detail.IsIntranetLibrary)
+                                // Intranet libraries had their readonly flag set on the user's current premium status...
+                                if (new_web_library_detail.IsIntranetLibrary
+                                    || new_web_library_detail.IsLocalGuestLibrary
+                                    || new_web_library_detail.IsWebLibrary
+                                    || new_web_library_detail.IsBundleLibrary)
                                 {
                                     new_web_library_detail.IsReadOnly = false;
                                 }
@@ -355,8 +359,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
                                 if (File.Exists(libfile_path) || !only_load_those_libraries_which_are_actually_present)
                                 {
-                                    new_web_library_detail.library = new Library(new_web_library_detail);
-                                    web_library_details[new_web_library_detail.Id] = new_web_library_detail;
+                                    UpdateKnownWebLibrary(new_web_library_detail);
                                 }
                                 else
                                 {
@@ -378,7 +381,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             Logging.Info("-Loading known Web Libraries");
         }
 
-        void SaveKnownWebLibraries(string filename = null)
+        private void SaveKnownWebLibraries(string filename = null)
         {
             if (null == filename)
             {
@@ -415,16 +418,344 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             Logging.Info("-Saving known Web Libraries to {0}", filename);
         }
 
-        private void UpdateKnownWebLibrary(WebLibraryDetail new_web_library_detail)
-        {
-            new_web_library_detail.library = new Library(new_web_library_detail);
-            web_library_details[new_web_library_detail.Id] = new_web_library_detail;
+        private delegate int MixCollisionComparer(string x, string y);
 
-            SaveKnownWebLibraries();
-            FireWebLibrariesChanged();
+        private static int DefaultMixCollisionComparer(string a, string b)
+        {
+            return (a.Length != b.Length ? a.Length - b.Length : a.CompareTo(b));
         }
 
-        public void UpdateKnownWebLibraryFromIntranet(string intranet_path)
+        private static int PathsMixCollisionComparer(string a, string b)
+        {
+            // check which of them exists: that one wins
+            if (Directory.Exists(a) || File.Exists(a))
+            {
+                if (!Directory.Exists(b) && !File.Exists(b))
+                {
+                    return -1;
+                }
+                else
+                {
+                    Logging.Warn("Both paths exist: '{0}' and '{1}'; taking the longest one: '{2}'.", a, b, (b.CompareTo(a) > 0 ? b : a));
+                    return b.CompareTo(a);
+                }
+            }
+            else
+            {
+                if (Directory.Exists(b) || File.Exists(b))
+                {
+                    return 1;
+                }
+                else
+                {
+                    Logging.Warn("Both paths DO NOT exist: '{0}' and '{1}'; taking the longest one: '{2}'.", a, b, (b.CompareTo(a) > 0 ? b : a));
+                    return b.CompareTo(a);
+                }
+            }
+        }
+
+        private static string MixOldAndNew(string old, string fresh, string spec, ref int state, MixCollisionComparer compare = null)
+        {
+            // state: bit 0: prefer to use old, bit 1: prefer to use fresh, bit 2: used old, bit 3: used fresh, 0: don't know yet.
+            old = old?.Trim();
+            fresh = fresh?.Trim();
+            if (old == fresh)
+            {
+                // same = keep
+                return old;
+            }
+            if (String.IsNullOrEmpty(fresh))
+            {
+                // nothing to see here, nothing in the new one. Keep old as is.
+                state |= 0x04;
+                return old;
+            }
+            if (String.IsNullOrEmpty(old))
+            {
+                // old doesn't have this, while the new one has. Take fresh.
+                state |= 0x08;
+                return fresh;
+            }
+
+            if (old.StartsWith("Legacy Web Library - ") && !old.StartsWith("Legacy Web Library - "))
+            {
+                // old has (very probably un-edited) auto-generated title, while the new one has not. Take fresh.
+                state |= 0x08;
+                return fresh;
+            }
+            else if (!old.StartsWith("Legacy Web Library - ") && old.StartsWith("Legacy Web Library - "))
+            {
+                // new has (very probably un-edited) auto-generated title, while the old one has not. Take old.
+                state |= 0x04;
+                return old;
+            }
+
+            // when we get here, there's a collision between two different non-null values:
+            if ((state & 0x03) == 0)
+            {
+                // no decision has been made yet, so we decide on Length of the string, after preprocessing to kill some useless chunks:
+                string a = old.Replace("UNKNOWN", "").Replace("INTRANET_", "").Replace("Legacy Web Library - ", "");
+                string b = fresh.Replace("UNKNOWN", "").Replace("INTRANET_", "").Replace("Legacy Web Library - ", "");
+                // strip off GUIDs as well, as those will be part of the auto-generated titles:
+                a = Regex.Replace(a, @"[0-9A-F]{8}-(?:[0-9A-F]{4}-){3}[0-9A-F]{12}", " ", RegexOptions.IgnoreCase);
+                b = Regex.Replace(b, @"[0-9A-F]{8}-(?:[0-9A-F]{4}-){3}[0-9A-F]{12}", " ", RegexOptions.IgnoreCase);
+                a = a.Trim();
+                b = b.Trim();
+
+                if (!String.IsNullOrEmpty(a) || !String.IsNullOrEmpty(b))
+                {
+                    // after stripping down, there still is some meat on deez bones...
+                    if (String.IsNullOrEmpty(b))
+                    {
+                        // nothing to see here, nothing in the new one. Keep old as is.
+                        Logging.Debug特("library info:: {0}: taking old STRIPPED value: '{1}' (unstripped old was: '{2}' & new: '{3}')", spec, a, old, fresh);
+                        state |= 0x04;
+                        return a;
+                    }
+                    if (String.IsNullOrEmpty(a))
+                    {
+                        // old doesn't have this, while the new one has. Take fresh.
+                        Logging.Debug特("library info:: {0}: taking new STRIPPED value: '{1}' (unstripped old was: '{2}' & new: '{3}')", spec, b, old, fresh);
+                        state |= 0x08;
+                        return b;
+                    }
+                    if (a == b)
+                    {
+                        // same = take stripped-down any
+                        //
+                        // Apparently both had different cruft, but were otherwise the same, or one had cruft while the other hadn't.
+                        // Either way, they're the same so there's no collision, hence no decision to make yet!
+                        state |= 0x04;
+                        return a;
+                    }
+                }
+                else
+                {
+                    // both are empty after stripped down, hence they both carry cruft. Do we care which? Nah, we always ride with the latest:
+                    Logging.Debug特("library info:: {0}: taking new CRUFT value: '{1}' (unstripped old was: '{2}')", spec, fresh, old);
+                    state |= 0x08;
+                    return fresh;
+                }
+
+                if (compare == null)
+                {
+                    compare = DefaultMixCollisionComparer;
+                }
+                bool decision = (compare(a, b) > 0);
+
+                if (decision)
+                {
+                    state |= 0x02;   // go with the new one
+
+                    if (!String.IsNullOrEmpty(b))
+                    {
+                        Logging.Debug特("library info:: {0}: taking new STRIPPED value: '{1}' (unstripped old was: '{2}' & new: '{3}')", spec, b, old, fresh);
+                        state |= 0x08;
+                        return b;
+                    }
+                }
+                else
+                {
+                    state |= 0x01;   // go with the old one
+
+                    if (!String.IsNullOrEmpty(a))
+                    {
+                        Logging.Debug特("library info:: {0}: taking old STRIPPED value: '{1}' (unstripped old was: '{2}' & new: '{3}')", spec, a, old, fresh);
+                        state |= 0x04;
+                        return a;
+                    }
+                }
+            }
+            // now resolve the collision:
+            if ((state & 0x01) != 0)
+            {
+                Logging.Debug特("library info:: {0}: keeping old value: '{1}' (new was: '{2}')", spec, old, fresh);
+                state |= 0x05;  // prefer old from now on
+                return old;
+            }
+            Logging.Debug特("library info:: {0}: taking new value: '{1}' (old was: '{2}')", spec, fresh, old);
+            state |= 0x0a;  // prefer new from now on
+            return fresh;
+        }
+
+        private static readonly DateTime DATE_ZERO = new DateTime(1990, 1, 1);   // no Qiqqa existed before this date
+
+        private static DateTime? MixOldAndNew(DateTime? old, DateTime? fresh, string spec, ref int state)
+        {
+            // state: bit 0: prefer to use old, bit 1: prefer to use fresh, bit 2: used old, bit 3: used fresh, 0: don't know yet.
+            if (old == null && fresh == null)
+            {
+                // same = keep
+                return old;
+            }
+            DateTime a = old ?? DATE_ZERO;
+            DateTime b = fresh ?? DATE_ZERO;
+            if (a.CompareTo(b) == 0)
+            {
+                // same = keep
+                return old;
+            }
+            if (b <= DATE_ZERO)
+            {
+                // nothing to see here, nothing in the new one. Keep old as is.
+                state |= 0x04;
+                return old;
+            }
+            if (a <= DATE_ZERO)
+            {
+                // old doesn't have this, while the new one has. Take fresh.
+                state |= 0x08;
+                return fresh;
+            }
+            // when we get here, there's a collision between two different non-null values:
+            if ((state & 0x03) == 0)
+            {
+                // no decision has been made yet, so we decide on most recent date:
+                if (a < b)
+                {
+                    state |= 0x02;
+                }
+                else
+                {
+                    state |= 0x01;
+                }
+            }
+            // now resolve the collision:
+            if ((state & 0x01) != 0)
+            {
+                Logging.Debug特("library info:: {0}: keeping old value: '{1}' (new was: '{2}')", spec, old, fresh);
+                state |= 0x05;  // prefer old from now on
+                return old;
+            }
+            Logging.Debug特("library info:: {0}: taking new value: '{1}' (old was: '{2}')", spec, fresh, old);
+            state |= 0x0a;  // prefer new from now on
+            return fresh;
+        }
+
+        private static bool MixOldAndNew(bool old, bool fresh, string spec, ref int state)
+        {
+            // state: bit 0: prefer to use old, bit 1: prefer to use fresh, bit 2: used old, bit 3: used fresh, 0: don't know yet.
+            if (old == fresh)
+            {
+                // same = keep
+                return old;
+            }
+
+            // we don't mind about boolean data: it's too little to decide a collision resolution on.
+            //
+            // if any bit is set, we return true, else it's false. We don't change the state for this tidbit either.
+            return old || fresh;
+        }
+
+        private void UpdateKnownWebLibrary(WebLibraryDetail new_web_library_detail, bool suppress_flush_to_disk = true, string extra_info_message_on_skip = "")
+        {
+            WebLibraryDetail old;
+
+            if (web_library_details.TryGetValue(new_web_library_detail.Id, out old))
+            {
+                bool use_old = true;
+                bool use_new = true;
+
+                // don't work with the old find if it has been purged 
+                if (old.IsPurged)
+                {
+                    use_old = false;
+                }
+                // don't work with the new find if it has been purged 
+                if (new_web_library_detail.IsPurged)
+                {
+                    use_new = false;
+                }
+                // don't work with the old find if it has been deleted and the new one has not:
+                if (old.Deleted && !new_web_library_detail.Deleted && use_new)
+                {
+                    use_old = false;
+                }
+                // and vice versa:
+                if (!old.Deleted && new_web_library_detail.Deleted && use_old)
+                {
+                    use_new = false;
+                }
+
+                // skip when there's nothing new to pick up:
+                if (!use_new)
+                {
+                    return;
+                }
+                // only do the mix/collision resolution when both old and new are viable:
+                if (use_old)
+                {
+                    int state = 0x00; // bit 0: prefer to use old, bit 1: prefer to use fresh, bit 2: used old, bit 3: used fresh, 0: don't know yet.
+
+                    // if there's already an entry present, see if we should 'upgrade' the info or stick with what we have:
+                    DateTime? dt = MixOldAndNew(old.LastServerSyncNotificationDate, new_web_library_detail.LastServerSyncNotificationDate, new_web_library_detail.Id + "::" + nameof(old.LastServerSyncNotificationDate), ref state);
+                    old.LastServerSyncNotificationDate = dt ?? DATE_ZERO;
+                    old.LastBundleManifestDownloadTimestampUTC = MixOldAndNew(old.LastBundleManifestDownloadTimestampUTC, new_web_library_detail.LastBundleManifestDownloadTimestampUTC, new_web_library_detail.Id + "::" + nameof(old.LastBundleManifestDownloadTimestampUTC), ref state);
+                    old.LastBundleManifestIgnoreVersion = MixOldAndNew(old.LastBundleManifestIgnoreVersion, new_web_library_detail.LastBundleManifestIgnoreVersion, new_web_library_detail.Id + "::" + nameof(old.LastBundleManifestIgnoreVersion), ref state);
+                    old.LastSynced = MixOldAndNew(old.LastSynced, new_web_library_detail.LastSynced, new_web_library_detail.Id + "::" + nameof(old.LastSynced), ref state);
+                    old.IntranetPath = MixOldAndNew(old.IntranetPath, new_web_library_detail.IntranetPath, new_web_library_detail.Id + "::" + nameof(old.IntranetPath), ref state, PathsMixCollisionComparer);
+                    old.ShortWebId = MixOldAndNew(old.ShortWebId, new_web_library_detail.ShortWebId, new_web_library_detail.Id + "::" + nameof(old.ShortWebId), ref state);
+                    old.FolderToWatch = MixOldAndNew(old.FolderToWatch, new_web_library_detail.FolderToWatch, new_web_library_detail.Id + "::" + nameof(old.FolderToWatch), ref state, PathsMixCollisionComparer);
+                    old.Title = MixOldAndNew(old.Title, new_web_library_detail.Title, new_web_library_detail.Id + "::" + nameof(old.Title), ref state);
+                    old.Description = MixOldAndNew(old.Description, new_web_library_detail.Description, new_web_library_detail.Id + "::" + nameof(old.Description), ref state);
+                    old.BundleManifestJSON = MixOldAndNew(old.BundleManifestJSON, new_web_library_detail.BundleManifestJSON, new_web_library_detail.Id + "::" + nameof(old.BundleManifestJSON), ref state);
+                    /* old.DescriptiveTitle = */
+                    //MixOldAndNew(old.DescriptiveTitle, new_web_library_detail.DescriptiveTitle, new_web_library_detail.Id + "::" + nameof(old.DescriptiveTitle), ref state);
+                    MixOldAndNew(old.LibraryType(), new_web_library_detail.LibraryType(), new_web_library_detail.Id + "::" + nameof(old.LibraryType), ref state);
+                    old.Deleted = MixOldAndNew(old.Deleted, new_web_library_detail.Deleted, new_web_library_detail.Id + "::" + nameof(old.Deleted), ref state);
+                    old.AutoSync = MixOldAndNew(old.AutoSync, new_web_library_detail.AutoSync, new_web_library_detail.Id + "::" + nameof(old.AutoSync), ref state);
+                    old.IsAdministrator = MixOldAndNew(old.IsAdministrator, new_web_library_detail.IsAdministrator, new_web_library_detail.Id + "::" + nameof(old.IsAdministrator), ref state);
+                    /* old.IsBundleLibrary = */
+                    MixOldAndNew(old.IsBundleLibrary, new_web_library_detail.IsBundleLibrary, new_web_library_detail.Id + "::" + nameof(old.IsBundleLibrary), ref state);
+                    /* old.IsIntranetLibrary = */
+                    MixOldAndNew(old.IsIntranetLibrary, new_web_library_detail.IsIntranetLibrary, new_web_library_detail.Id + "::" + nameof(old.IsIntranetLibrary), ref state);
+                    /* old.IsWebLibrary = */
+                    MixOldAndNew(old.IsWebLibrary, new_web_library_detail.IsWebLibrary, new_web_library_detail.Id + "::" + nameof(old.IsWebLibrary), ref state);
+                    old.IsLocalGuestLibrary = MixOldAndNew(old.IsLocalGuestLibrary, new_web_library_detail.IsLocalGuestLibrary, new_web_library_detail.Id + "::" + nameof(old.IsLocalGuestLibrary), ref state);
+                    old.IsReadOnly = MixOldAndNew(old.IsReadOnly, new_web_library_detail.IsReadOnly, new_web_library_detail.Id + "::" + nameof(old.IsReadOnly), ref state);
+
+                    // fixup:
+                    if (old.LibraryType() != "UNKNOWN" && old.IsReadOnly)
+                    {
+                        // reset ReadOnly for everyone who is ex-Premium(Plus) for all their known libraries.
+                        old.IsReadOnly = false;
+                    }
+
+                    old.library?.Dispose();
+
+                    old.library = new_web_library_detail.library;
+
+                    if ((state & 0x0c) == 0x0c)
+                    {
+                        Logging.Warn("library info has been mixed as part of collision resolution for library {0}.", old.Id);
+                    }
+                    else if ((state & 0x04) == 0x04)
+                    {
+                        Logging.Info("library info has been kept as-is as part of collision resolution for library {0}.", old.Id);
+                    }
+                    if ((state & 0x08) == 0x08)
+                    {
+                        Logging.Warn("library info has been picked up from the new entry as part of collision resolution for library {0}.", old.Id);
+                    }
+
+                    new_web_library_detail = old;
+                }
+            }
+
+            if (null == new_web_library_detail.library)
+            {
+                new_web_library_detail.library = new Library(new_web_library_detail);
+            }
+            web_library_details[new_web_library_detail.Id] = new_web_library_detail;
+
+            if (!suppress_flush_to_disk)
+            {
+                SaveKnownWebLibraries();
+                FireWebLibrariesChanged();
+            }
+        }
+
+        public void UpdateKnownWebLibraryFromIntranet(string intranet_path, bool suppress_flush_to_disk = true, string extra_info_message_on_skip = "")
         {
             Logging.Info("+Updating known Intranet Library from {0}", intranet_path);
 
@@ -432,30 +763,32 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
             WebLibraryDetail new_web_library_detail = new WebLibraryDetail();
             new_web_library_detail.IntranetPath = intranet_path;
+            //new_web_library_detail.IsIntranetLibrary = true;
             new_web_library_detail.Id = intranet_library_detail.Id;
             new_web_library_detail.Title = intranet_library_detail.Title;
             new_web_library_detail.Description = intranet_library_detail.Description;
             new_web_library_detail.IsReadOnly = false;
             new_web_library_detail.Deleted = false;
 
-            UpdateKnownWebLibrary(new_web_library_detail);
+            UpdateKnownWebLibrary(new_web_library_detail, suppress_flush_to_disk, extra_info_message_on_skip);
 
             Logging.Info("-Updating known Intranet Library from {0}", intranet_path);
         }
 
-        public WebLibraryDetail UpdateKnownWebLibraryFromBundleLibraryManifest(BundleLibraryManifest manifest)
+        public WebLibraryDetail UpdateKnownWebLibraryFromBundleLibraryManifest(BundleLibraryManifest manifest, bool suppress_flush_to_disk = true)
         {
             Logging.Info("+Updating known Bundle Library {0} ({1})", manifest.Title, manifest.Id);
 
             WebLibraryDetail new_web_library_detail = new WebLibraryDetail();
             new_web_library_detail.BundleManifestJSON = manifest.ToJSON();
+            //new_web_library_detail.IsBundleLibrary = true;
             new_web_library_detail.Id = manifest.Id;
             new_web_library_detail.Title = manifest.Title;
             new_web_library_detail.Description = manifest.Description;
             new_web_library_detail.IsReadOnly = true;
             new_web_library_detail.Deleted = false;
 
-            UpdateKnownWebLibrary(new_web_library_detail);
+            UpdateKnownWebLibrary(new_web_library_detail, suppress_flush_to_disk);
 
             Logging.Info("-Updating known Bundle Library {0} ({1})", manifest.Title, manifest.Id);
 
@@ -464,16 +797,17 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         internal void ForgetKnownWebLibraryFromIntranet(WebLibraryDetail web_library_detail)
         {
-            Logging.Info("+Forgetting known Intranet Library from {0}", web_library_detail.Title);
+            Logging.Info("+Forgetting {1} Library from {0}", web_library_detail.Title, web_library_detail.LibraryType());
 
-            if (MessageBoxes.AskQuestion("Are you sure you want to forget the Intranet Library '{0}'?", web_library_detail.Title))
+            if (MessageBoxes.AskQuestion("Are you sure you want to forget the {1} Library '{0}'?", web_library_detail.Title, web_library_detail.LibraryType()))
             {
                 web_library_details.Remove(web_library_detail.Id);
+
                 SaveKnownWebLibraries();
                 FireWebLibrariesChanged();
             }
 
-            Logging.Info("-Forgetting known Intranet Library from {0}", web_library_detail.Title);
+            Logging.Info("-Forgetting {1} Library from {0}", web_library_detail.Title, web_library_detail.LibraryType());
         }
 
         #endregion

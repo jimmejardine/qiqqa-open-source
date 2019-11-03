@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using icons;
@@ -25,10 +22,10 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
     /// <summary>
     /// Interaction logic for LibraryCatalogOverviewControl.xaml
     /// </summary>
-    public partial class LibraryCatalogOverviewControl : Grid
+    public partial class LibraryCatalogOverviewControl : Grid, IDisposable
     {
-        LibraryIndexHoverPopup library_index_hover_popup = null;
-        DragDropHelper drag_drop_helper = null;
+        private LibraryIndexHoverPopup library_index_hover_popup = null;
+        private DragDropHelper drag_drop_helper = null;
 
         public LibraryCatalogOverviewControl()
         {
@@ -52,7 +49,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             ButtonOpen.Cursor = Cursors.Hand;
 
             ButtonSearchInside.IconVisibility = Visibility.Collapsed;
-            ButtonSearchInside.Click += ButtonSearchInside_Click;            
+            ButtonSearchInside.Click += ButtonSearchInside_Click;
             ObjLookInsidePanel.Visibility = Visibility.Collapsed;
 
             ButtonThemeSwatch.ToolTip = "This swatch shows the themes in this document.  If the swatch is grey, there is no Expedition information for this document - please run Expedition again!\n\nClick here to open the document in Expedition.";
@@ -64,14 +61,14 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
             drag_drop_helper = new DragDropHelper(ButtonOpen, GetDocumentDragData);
 
-            this.MouseRightButtonUp += LibraryCatalogOverviewControl_MouseRightButtonUp;
-            this.MouseEnter += LibraryCatalogOverviewControl_MouseEnter;
-            this.MouseLeave += LibraryCatalogOverviewControl_MouseLeave;
+            MouseRightButtonUp += LibraryCatalogOverviewControl_MouseRightButtonUp;
+            MouseEnter += LibraryCatalogOverviewControl_MouseEnter;
+            MouseLeave += LibraryCatalogOverviewControl_MouseLeave;
 
-            this.DataContextChanged += LibraryCatalogOverviewControl_DataContextChanged;
+            DataContextChanged += LibraryCatalogOverviewControl_DataContextChanged;
         }
 
-        void ButtonThemeSwatch_Click(object sender, RoutedEventArgs e)
+        private void ButtonThemeSwatch_Click(object sender, RoutedEventArgs e)
         {
             AugmentedBindable<PDFDocument> pdf_document_bindable = PDFDocumentBindable;
             if (null != pdf_document_bindable)
@@ -80,19 +77,19 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             }
         }
 
-        void TextTitle_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void TextTitle_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             OpenPDFDocument();
             e.Handled = true;
         }
 
-        void LibraryCatalogOverviewControl_MouseLeave(object sender, MouseEventArgs e)
+        private void LibraryCatalogOverviewControl_MouseLeave(object sender, MouseEventArgs e)
         {
             LibraryCatalogOverviewControl c = sender as LibraryCatalogOverviewControl;
             c.Background = Brushes.Transparent;
         }
 
-        void LibraryCatalogOverviewControl_MouseEnter(object sender, MouseEventArgs e)
+        private void LibraryCatalogOverviewControl_MouseEnter(object sender, MouseEventArgs e)
         {
             LibraryCatalogOverviewControl c = sender as LibraryCatalogOverviewControl;
             c.Background = ThemeColours.Background_Brush_Blue_LightToDark;
@@ -114,13 +111,13 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
                 catch (Exception ex)
                 {
                     Logging.Warn(ex, "There was a problem while trying to detemine the parent of the library catalog overview control");
-                    _library_catalog_control = null;                    
+                    _library_catalog_control = null;
                 }
 
                 return _library_catalog_control;
             }
         }
-        
+
         private void OpenPDFDocument()
         {
             // Sometimes one of these is NULL and I have no idea why and can't replicate it...
@@ -134,11 +131,11 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
                 Logging.Warn("LibraryCatalogControl is null");
                 return;
             }
-            
+
             MainWindowServiceDispatcher.Instance.OpenDocument(PDFDocumentBindable.Underlying, LibraryCatalogControl.FilterTerms);
         }
 
-        void LibraryCatalogOverviewControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void LibraryCatalogOverviewControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             // Make the button semi-transparent if our new document is not actually on the harddrive            
             PanelSearchScore.Visibility = Visibility.Collapsed;
@@ -257,14 +254,14 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             }
 
             // Populate the theme swatch
-                ButtonThemeSwatch.Visibility = Visibility.Visible;
-                ButtonThemeSwatch.Background = ThemeBrushes.GetBrushForDocument(PDFDocumentBindable.Underlying);
+            ButtonThemeSwatch.Visibility = Visibility.Visible;
+            ButtonThemeSwatch.Background = ThemeBrushes.GetBrushForDocument(PDFDocumentBindable.Underlying);
 
             // Populate the linked documents
-                CitationsUserControl.PopulatePanelWithCitations(DocsPanel_Linked, PDFDocumentBindable.Underlying.Library, PDFDocumentBindable.Underlying, PDFDocumentBindable.Underlying.PDFDocumentCitationManager.GetLinkedDocuments(), Features.LinkedDocument_Library_OpenDoc, " » ", false);
+            CitationsUserControl.PopulatePanelWithCitations(DocsPanel_Linked, PDFDocumentBindable.Underlying.Library, PDFDocumentBindable.Underlying, PDFDocumentBindable.Underlying.PDFDocumentCitationManager.GetLinkedDocuments(), Features.LinkedDocument_Library_OpenDoc, " » ", false);
         }
 
-        void ButtonSearchInside_Click(object sender, RoutedEventArgs e)
+        private void ButtonSearchInside_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_SearchInsideOpen);
 
@@ -273,7 +270,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             ObjLookInsidePanel.Visibility = Visibility.Visible;
         }
 
-        void HyperlinkPreview_ToolTipOpening(object sender, ToolTipEventArgs e)
+        private void HyperlinkPreview_ToolTipOpening(object sender, ToolTipEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_PreviewPDF);
 
@@ -292,20 +289,21 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             }
         }
 
-        void HyperlinkPreview_ToolTipClosing(object sender, ToolTipEventArgs e)
+        private void HyperlinkPreview_ToolTipClosing(object sender, ToolTipEventArgs e)
         {
             library_index_hover_popup?.Dispose();
             library_index_hover_popup = null;
+
             ButtonOpen.ToolTip = "";
         }
 
-        void ButtonOpen_Click(object sender, RoutedEventArgs e)
+        private void ButtonOpen_Click(object sender, RoutedEventArgs e)
         {
             OpenPDFDocument();
             e.Handled = true;
         }
 
-        void ListSearchDetails_SearchSelectionChanged(PDFSearchResult search_result)
+        private void ListSearchDetails_SearchSelectionChanged(PDFSearchResult search_result)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_SearchInsideJumpToLocation);
 
@@ -315,27 +313,27 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             }
         }
 
-        object GetDocumentDragData()
+        private object GetDocumentDragData()
         {
             LibraryCatalogControl lcc = GUITools.GetParentControl<LibraryCatalogControl>(this);
 
             if (null != lcc)
             {
                 List<PDFDocument> selected_pdf_documents = lcc.SelectedPDFDocuments;
-                if (!selected_pdf_documents.Contains(this.PDFDocumentBindable.Underlying))
+                if (!selected_pdf_documents.Contains(PDFDocumentBindable.Underlying))
                 {
-                    selected_pdf_documents.Add(this.PDFDocumentBindable.Underlying);
+                    selected_pdf_documents.Add(PDFDocumentBindable.Underlying);
                 }
 
                 return selected_pdf_documents;
             }
             else
             {
-                return new List <PDFDocument>();
+                return new List<PDFDocument>();
             }
         }
 
-        void LibraryCatalogOverviewControl_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        private void LibraryCatalogOverviewControl_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
             LibraryCatalogControl lcc = GUITools.GetParentControl<LibraryCatalogControl>(this);
 
@@ -350,43 +348,65 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             e.Handled = true;
         }
 
-        public AugmentedBindable<PDFDocument> PDFDocumentBindable
+        public AugmentedBindable<PDFDocument> PDFDocumentBindable => DataContext as AugmentedBindable<PDFDocument>;
+
+        #region --- IDisposable ------------------------------------------------------------------------
+
+        ~LibraryCatalogOverviewControl()
         {
-            get
-            {
-                return this.DataContext as AugmentedBindable<PDFDocument>;
-            }
+            Logging.Debug("~LibraryCatalogOverviewControl()");
+            Dispose(false);
         }
-    }
 
-
-    class TagsConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public void Dispose()
         {
-            List<string> items = value as List<string>;
-            if (null == items)
-            {
-                return "";
-            }
+            Logging.Debug("Disposing LibraryCatalogOverviewControl");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < items.Count; ++i)
+        private int dispose_count = 0;
+        protected virtual void Dispose(bool disposing)
+        {
+            Logging.Debug("LibraryCatalogOverviewControl::Dispose({0}) @{1}", disposing, dispose_count);
+
+            try
             {
-                if (i > 0)
+                if (dispose_count == 0)
                 {
-                    sb.Append("; ");
+                    // Get rid of managed resources / get rid of cyclic references:
+                    library_index_hover_popup?.Dispose();
+
+                    WPFDoEvents.InvokeInUIThread(() =>
+                    {
+                        WizardDPs.ClearPointOfInterest(PanelSearchScore);
+                        WizardDPs.ClearPointOfInterest(ObjLookInsidePanel);
+                    });
+
+                    TextTitle.MouseLeftButtonUp -= TextTitle_MouseLeftButtonUp;
+
+                    ButtonOpen.ToolTipOpening -= HyperlinkPreview_ToolTipOpening;
+                    ButtonOpen.ToolTipClosing -= HyperlinkPreview_ToolTipClosing;
+
+                    ListSearchDetails.SearchClicked -= ListSearchDetails_SearchSelectionChanged;
+
+                    DataContextChanged -= LibraryCatalogOverviewControl_DataContextChanged;
                 }
 
-                sb.Append(items[i]);
+                // Clear the references for sanity's sake
+                library_index_hover_popup = null;
+                drag_drop_helper = null;
+
+                DataContext = null;
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
             }
 
-            return sb.ToString();
+            ++dispose_count;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return null;
-        }
+        #endregion
     }
 }

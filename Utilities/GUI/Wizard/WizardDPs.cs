@@ -17,7 +17,7 @@ namespace Utilities.GUI.Wizard
         }
         public static void ClearPointOfInterest(DependencyObject d)
         {
-            d.ClearValue(PointOfInterestProperty);            
+            d.ClearValue(PointOfInterestProperty);
         }
 
         // --------------------------------------------------------------------------------------------------------------------------------------------------------

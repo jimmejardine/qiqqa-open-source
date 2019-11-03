@@ -19,39 +19,34 @@ namespace Qiqqa.DocumentLibrary.SimilarAuthorsStuff
             InitializeComponent();
         }
 
-        public MultiMap<string, PDFDocument> Items
+        public void SetItems(MultiMap<string, PDFDocument> items)
         {
-            set
+            // Clear our items
+            PanelItems.Children.Clear();
+
+            bool alternator = false;
+
+            foreach (string author in items.Keys)
             {
-                // Clear our items
-                PanelItems.Children.Clear();
+                TextBlock text_author = new TextBlock();
+                text_author.ToolTip = text_author.Text = author;
 
-                MultiMap<string, PDFDocument> items = value;
+                text_author.FontWeight = FontWeights.Bold;
+                PanelItems.Children.Add(text_author);
 
-                bool alternator = false;
-
-                foreach (string author in items.Keys)
+                List<PDFDocument> pdf_documents_sorted = new List<PDFDocument>(items.Get(author).OrderBy(x => x.YearCombined));
+                foreach (PDFDocument pdf_document in pdf_documents_sorted)
                 {
-                    TextBlock text_author = new TextBlock();
-                    text_author.ToolTip = text_author.Text = author;
-                    
-                    text_author.FontWeight = FontWeights.Bold;
-                    PanelItems.Children.Add(text_author);
-
-                    List<PDFDocument> pdf_documents_sorted = new List<PDFDocument>(items.Get(author).OrderBy(x => x.YearCombined));
-                    foreach (PDFDocument pdf_document in pdf_documents_sorted)
-                    {
-                        TextBlock text_doc = ListFormattingTools.GetDocumentTextBlock(pdf_document, ref alternator, Features.SimilarAuthor_OpenDoc);
-                        PanelItems.Children.Add(text_doc);
-                    }
-                }
-
-                if (0 == PanelItems.Children.Count)
-                {
-                    TextBlock text_doc = new TextBlock();
-                    text_doc.Text = "None in this library.";
+                    TextBlock text_doc = ListFormattingTools.GetDocumentTextBlock(pdf_document, ref alternator, Features.SimilarAuthor_OpenDoc);
                     PanelItems.Children.Add(text_doc);
                 }
+            }
+
+            if (0 == PanelItems.Children.Count)
+            {
+                TextBlock text_doc = new TextBlock();
+                text_doc.Text = "None in this library.";
+                PanelItems.Children.Add(text_doc);
             }
         }
     }

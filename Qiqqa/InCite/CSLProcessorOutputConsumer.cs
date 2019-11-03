@@ -6,12 +6,14 @@ using System.Text;
 using Gecko;
 using Newtonsoft.Json.Linq;
 using Utilities;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 
+
 namespace Qiqqa.InCite
 {
-    public class CSLProcessorOutputConsumer
+    public class CSLProcessorOutputConsumer : IDisposable
     {
         public static readonly string RTF_START = @"{\rtf1" + "\n";
         public static readonly string RTF_END = @"}";
@@ -30,7 +32,7 @@ namespace Qiqqa.InCite
         public string bib_start;
         public string bib_end;
 
-        private Dictionary<int, string> position_to_inline = new Dictionary<int, string>();        
+        private Dictionary<int, string> position_to_inline = new Dictionary<int, string>();
         private Dictionary<string, List<int>> inline_to_positions = new Dictionary<string, List<int>>();
         public Dictionary<int, string> position_to_text = new Dictionary<int, string>();
         public List<string> bibliography = new List<string>();
@@ -38,8 +40,7 @@ namespace Qiqqa.InCite
         public string error_message = null;
 
         public bool success;
-
-        GeckoWebBrowser web_browser;
+        private GeckoWebBrowser web_browser;
 
         public delegate void BibliographyReadyDelegate(CSLProcessorOutputConsumer ip);
 
@@ -65,12 +66,12 @@ namespace Qiqqa.InCite
             // This is the only way we can communicate from JavaScript to .NET!!
             web_browser.EnableConsoleMessageNotfication();
             web_browser.ConsoleMessage += web_browser_ConsoleMessage;
-            
+
             // Kick off citeproc computation
             web_browser.Navigate(uri.ToString());
         }
 
-        void web_browser_ConsoleMessage(object sender, ConsoleMessageEventArgs e)
+        private void web_browser_ConsoleMessage(object sender, ConsoleMessageEventArgs e)
         {
             Logging.Debug特("JAVASCRIPT CONSOLE MESSAGE: {0}", e.Message);
 
@@ -101,7 +102,7 @@ namespace Qiqqa.InCite
                         int line = Int32.Parse(matches[0].Groups[1].Value);
                         int pos = Int32.Parse(matches[0].Groups[2].Value);
 
-                        string[] citations_javascript_lines = this.citations_javascript.Split(new char[] { '\n' });
+                        string[] citations_javascript_lines = citations_javascript.Split(new char[] { '\n' });
 
                         int min = (int)Math.Max(0, line - 1 - 15);
                         int max = (int)Math.Min(citations_javascript_lines.Length, line - 1 + 5);
@@ -113,15 +114,15 @@ namespace Qiqqa.InCite
                             sb_error_region.AppendFormat("{0}{1}\n", indicator, citations_javascript_lines[i]);
                         }
 
-                        this.error_message = sb_error_region.ToString();
+                        error_message = sb_error_region.ToString();
                     }
                     else
                     {
-                        this.error_message = e.Message;
+                        error_message = e.Message;
                     }
 
                     Logging.Info("Calling the BibliographyReadyDelegate");
-                    this.success = false;
+                    success = false;
                     brd(this);
                     Logging.Info("Called the BibliographyReadyDelegate");
                 }
@@ -188,7 +189,7 @@ namespace Qiqqa.InCite
                         }
 
                         Logging.Debug特("Calling the BibliographyReadyDelegate");
-                        this.success = true;
+                        success = true;
                         brd(this);
                         Logging.Debug特("Called the BibliographyReadyDelegate");
                     }
@@ -211,9 +212,9 @@ namespace Qiqqa.InCite
             }
         }
 
+        private bool finished_processing = false;
 
-        bool finished_processing = false;
-        void web_browser_JavascriptError(object sender, JavascriptErrorEventArgs e)
+        private void web_browser_JavascriptError(object sender, JavascriptErrorEventArgs e)
         {
         }
 
@@ -223,7 +224,7 @@ namespace Qiqqa.InCite
             text = text.Trim();
 
             // Sometimes citeproc-js returns some dodgy stuff...
-            string[] DOUBLE_PAGE_SUFFICES = new string[] 
+            string[] DOUBLE_PAGE_SUFFICES = new string[]
             {
                 ", p.", ", pp.", ", chap.", ", sec." ,
                 ": p.", ": pp.", ": chap.", ": sec." ,
@@ -292,7 +293,7 @@ namespace Qiqqa.InCite
         {
             return inline_to_positions.Keys;
         }
-        
+
         internal string GetTextForCluster(string key)
         {
             if (inline_to_positions.ContainsKey(key))
@@ -351,10 +352,10 @@ namespace Qiqqa.InCite
         {
             StringBuilder sb = new StringBuilder();
 
-            if (0 < this.bibliography.Count)
+            if (0 < bibliography.Count)
             {
                 sb.Append(CSLProcessorOutputConsumer.RTF_START);
-                foreach (string line in this.bibliography)
+                foreach (string line in bibliography)
                 {
                     sb.Append(line);
                     sb.Append(@"\par");
@@ -367,7 +368,7 @@ namespace Qiqqa.InCite
             else
             {
                 sb.Append(CSLProcessorOutputConsumer.RTF_START);
-                foreach (string line in this.position_to_text.Values)
+                foreach (string line in position_to_text.Values)
                 {
                     sb.Append(line);
                     sb.Append(@"\par");
@@ -379,5 +380,47 @@ namespace Qiqqa.InCite
 
             return sb.ToString();
         }
+
+        #region --- IDisposable ------------------------------------------------------------------------
+
+        ~CSLProcessorOutputConsumer()
+        {
+            Logging.Debug("~CSLProcessorOutputConsumer()");
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Logging.Debug("Disposing CSLProcessorOutputConsumer");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected virtual void Dispose(bool disposing)
+        {
+            Logging.Debug("CSLProcessorOutputConsumer::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
+            {
+                // Get rid of managed resources
+                web_browser?.Dispose();
+            }
+
+            web_browser = null;
+
+            brd = null;
+            user_argument = null;
+
+            position_to_inline.Clear();
+            inline_to_positions.Clear();
+            position_to_text.Clear();
+            bibliography.Clear();
+            logs.Clear();
+
+            ++dispose_count;
+        }
+
+        #endregion
     }
 }

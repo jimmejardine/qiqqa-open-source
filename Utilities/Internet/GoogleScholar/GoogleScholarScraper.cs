@@ -4,7 +4,6 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
-using Utilities.Internet;
 
 namespace Utilities.Internet.GoogleScholar
 {
@@ -25,7 +24,7 @@ namespace Utilities.Internet.GoogleScholar
             List<GoogleScholarScrapePaper> gssps = new List<GoogleScholarScrapePaper>();
 
             try
-            {                
+            {
                 HtmlDocument doc = new HtmlDocument();
                 doc.LoadHtml(html);
 
@@ -39,37 +38,45 @@ namespace Utilities.Internet.GoogleScholar
             return gssps;
         }
 
-        public static List<GoogleScholarScrapePaper> ScrapeUrl(IWebProxy proxy, string url)
+        public static List<GoogleScholarScrapePaper> ScrapeUrl(string url)
         {
             List<GoogleScholarScrapePaper> gssps = new List<GoogleScholarScrapePaper>();
-
-            MemoryStream ms = null;
 
             try
             {
                 WebHeaderCollection header_collection = new WebHeaderCollection();
-                UrlDownloader.DownloadWithBlocking(proxy, url, out ms, out header_collection);
 
-                HtmlDocument doc = new HtmlDocument();
-                doc.Load(ms);
+                using (MemoryStream ms = UrlDownloader.DownloadWithBlocking(url, out header_collection))
+                {
+                    HtmlDocument doc = new HtmlDocument();
+                    doc.Load(ms, System.Text.Encoding.UTF8, detectEncodingFromByteOrderMarks: false);
 
-                ScrapeDoc(doc, url, gssps);
+                    ScrapeDoc(doc, url, gssps);
+                }
             }
             catch (Exception ex)
             {
                 Logging.Error(ex, "There was a problem parsing the GoogleScholar url {0}", url);
             }
-            finally
-            {
-                if (ms != null)
-                {
-                    ms.Dispose();
-                }
-            }
 
             return gssps;
         }
 
+        private static HtmlNodeCollection GetElementsWithClass(HtmlDocument doc, string className, string className2 = null, string childQuery = "")
+        {
+            HtmlNodeCollection lst = GetElementsWithClass(doc.DocumentNode, className, className2, childQuery);
+
+            return lst;
+        }
+
+        private static HtmlNodeCollection GetElementsWithClass(HtmlNode baseNode, string className, string className2 = null, string childQuery = "")
+        {
+            string query2 = (String.IsNullOrEmpty(className2) ? "" : $" or contains(concat(' ',normalize-space(@class), ' '),' {className2} ')");
+            string query = $"//*[contains(concat(' ',normalize-space(@class), ' '),' {className} '){query2}]{childQuery}";
+            HtmlNodeCollection lst = baseNode.SelectNodes(query);
+
+            return lst;
+        }
 
         /// <summary>
         /// Parses the HTML document for the relevant information.  
@@ -80,7 +87,7 @@ namespace Utilities.Internet.GoogleScholar
         /// <returns></returns>
         private static void ScrapeDoc(HtmlDocument doc, string url, List<GoogleScholarScrapePaper> gssps)
         {
-            HtmlNodeCollection NoAltElements_outer = doc.DocumentNode.SelectNodes("//*[@class='gs_r']");
+            HtmlNodeCollection NoAltElements_outer = GetElementsWithClass(doc, "gs_r");
 
             if (null != NoAltElements_outer)
             {
@@ -93,9 +100,15 @@ namespace Utilities.Internet.GoogleScholar
                     HtmlDocument item_doc = new HtmlDocument();
                     item_doc.LoadHtml(element_html);
 
-                    HtmlNode NoAltElements = item_doc.DocumentNode.SelectNodes("//*[@class='gs_r']")[0];
+                    HtmlNode NoAltElements = GetElementsWithClass(item_doc, "gs_r")[0];
 
-                    var title_node = NoAltElements.SelectNodes("//*[@class='gs_rt']");
+                    var sel = GetElementsWithClass(item_doc, "gs_r");
+
+
+                    sel = GetElementsWithClass(item_doc, "gs_rt");
+
+                    var title_node = GetElementsWithClass(NoAltElements, "gs_rt");
+                    if (null != title_node)
                     {
                         string title_raw = WebUtility.HtmlDecode(title_node[0].InnerText);
 
@@ -111,6 +124,10 @@ namespace Utilities.Internet.GoogleScholar
                             gssp.title = title_raw;
                         }
                     }
+                    else
+                    {
+                        Logging.Error("ScrapeDoc: unexpected structure of the Google Scholar search page snippet. Report this at https://github.com/jimmejardine/qiqqa-open-source/issues/ as it seems Google Scholar has changed its HTML output significantly. HTML:\n{0}", element_html);
+                    }
 
                     {
                         var source_url_node = title_node[0].SelectNodes("a");
@@ -121,7 +138,7 @@ namespace Utilities.Internet.GoogleScholar
                     }
 
                     {
-                        var authors_node = NoAltElements.SelectNodes("//*[@class='gs_a']");
+                        var authors_node = GetElementsWithClass(NoAltElements, "gs_a");
                         if (null != authors_node)
                         {
                             gssp.authors = WebUtility.HtmlDecode(authors_node[0].InnerHtml);
@@ -130,7 +147,7 @@ namespace Utilities.Internet.GoogleScholar
 
                     // Pull out the abstract
                     {
-                        var abstract_node = NoAltElements.SelectNodes("//*[@class='gs_rs']");
+                        var abstract_node = GetElementsWithClass(NoAltElements, "gs_rs");
                         if (null != abstract_node)
                         {
                             gssp.abstract_html = WebUtility.HtmlDecode(abstract_node[0].InnerText);
@@ -139,32 +156,36 @@ namespace Utilities.Internet.GoogleScholar
 
                     // Pull out the potential downloads
                     {
-                        var downloads_node = NoAltElements.SelectNodes("//*[@class='gs_md_wp gs_ttss']");
+                        var downloads_node = GetElementsWithClass(NoAltElements, "gs_ggsd");  // was 'gs_md_wp gs_ttss' before.
                         if (null != downloads_node)
                         {
-                            foreach (var child_node in downloads_node[0].ChildNodes)
+                            var source_url_node = downloads_node[0].SelectNodes(".//a");
+                            if (null != source_url_node)
                             {
-                                if ("a" == child_node.Name)
+                                foreach (var child_node in source_url_node)
                                 {
-                                    string download_url = child_node.Attributes["href"].Value;
-                                    gssp.download_urls.Add(download_url);
-                                    Logging.Info("Downloadable from {0}", download_url);
+                                    if (null != child_node.Attributes["href"])
+                                    {
+                                        string download_url = child_node.Attributes["href"].Value;
+                                        gssp.download_urls.Add(download_url);
+                                        Logging.Info("ScrapeDoc(URL: {0}): Downloadable from {1}", url, download_url);
+                                    }
                                 }
                             }
                         }
                     }
 
-                    var see_also_nodes = NoAltElements.SelectNodes("//*[@class='gs_fl']/a");
-                    GetUrlForRelatedList(url, "Cited by", see_also_nodes, out gssp.cited_by_header, out gssp.cited_by_url);
-                    GetUrlForRelatedList(url, "Related", see_also_nodes, out gssp.related_articles_header, out gssp.related_articles_url);
-                    GetUrlForRelatedList(url, "Import into BibTeX", see_also_nodes, out gssp.bibtex_header, out gssp.bibtex_url);
+                    var see_also_nodes = GetElementsWithClass(NoAltElements, "gs_fl", null, "/a");
+                    GetUrlForRelatedList(url, "?cites=", "Cited by", see_also_nodes, out gssp.cited_by_header, out gssp.cited_by_url);
+                    GetUrlForRelatedList(url, "?q=related:", "Related", see_also_nodes, out gssp.related_articles_header, out gssp.related_articles_url);
+                    GetUrlForRelatedList(url, "scholar.bib?q=info:", "Import into BibTeX", see_also_nodes, out gssp.bibtex_header, out gssp.bibtex_url);
 
                     gssps.Add(gssp);
                 }
             }
         }
 
-        private static void GetUrlForRelatedList(string base_url, string related_list_header, HtmlNodeCollection nodes, out string header, out string url)
+        private static void GetUrlForRelatedList(string base_url, string href_query_part, string related_list_header, HtmlNodeCollection nodes, out string header, out string url)
         {
             header = null;
             url = null;
@@ -175,7 +196,8 @@ namespace Utilities.Internet.GoogleScholar
                 {
                     try
                     {
-                        if (node.InnerText.StartsWith(related_list_header))
+                        //if (node.InnerText.StartsWith(related_list_header))
+                        if (null != node.Attributes["href"] && node.Attributes["href"].Value.Contains(href_query_part))
                         {
                             header = node.InnerText;
                             url = node.Attributes["href"].Value;
@@ -191,7 +213,7 @@ namespace Utilities.Internet.GoogleScholar
                     }
                     catch (Exception ex)
                     {
-                        Logging.Warn(ex, "Trouble while trying to convert URL");
+                        Logging.Warn(ex, "Trouble while trying to convert {2} URL {0} (BASE: {1})", url, base_url, related_list_header);
                     }
                 }
             }
@@ -207,7 +229,7 @@ namespace Utilities.Internet.GoogleScholar
             List<GoogleScholarScrapePaper> gssps = ScrapeUrl(null, url);
             foreach (var gs_paper in gssps)
             {
-                /*
+#if false
                 bool have_a_match = false;
                 bool have_a_close_match = false;
 
@@ -234,7 +256,7 @@ namespace Utilities.Internet.GoogleScholar
                 {
                     int aaaaaaaaa = 3;
                 }
-                 * */
+#endif
 
                 Logging.Info(gs_paper.ToString());
             }

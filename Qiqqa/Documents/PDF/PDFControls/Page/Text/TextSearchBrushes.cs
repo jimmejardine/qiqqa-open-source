@@ -7,10 +7,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
     public class TextSearchBrushes
     {
         public static TextSearchBrushes Instance = new TextSearchBrushes();
+        private List<TransparentBoxBrushPair> brushes = new List<TransparentBoxBrushPair>();
 
-        List<TransparentBoxBrushPair> brushes = new List<TransparentBoxBrushPair>();
-
-        TextSearchBrushes()
+        private TextSearchBrushes()
         {
             for (int i = 0; i < 7; ++i)
             {

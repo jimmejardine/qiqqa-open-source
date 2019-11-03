@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -15,15 +16,15 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
     /// </summary>
     public partial class QuickAddTagsWindow : StandardWindow
     {
-        List<PDFDocument> pdf_documents;
+        private List<PDFDocument> pdf_documents;
 
         public QuickAddTagsWindow(List<PDFDocument> pdf_documents)
         {
             this.pdf_documents = pdf_documents;
 
             InitializeComponent();
-            
-            this.Title = "Qiqqa - Add Tags";
+
+            Title = "Qiqqa - Add Tags";
 
             CmdGenerate.Caption = "Add tags\n(CTRL+ENTER)";
             CmdGenerate.Icon = Icons.GetAppIcon(Icons.Next);
@@ -33,7 +34,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             CmdGenerate.Click += CmdGenerate_Click;
             CmdCancel.Click += CmdCancel_Click;
 
-            this.KeyUp += QuickAddTagsWindow_KeyUp;
+            KeyUp += QuickAddTagsWindow_KeyUp;
 
             SetSpan(RegionDocumentCount, "" + pdf_documents.Count);
 
@@ -41,10 +42,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             ObjTagEditorControl.ObjAddControl.ComboBoxNewTag.Focus();
         }
 
-        void QuickAddTagsWindow_KeyUp(object sender, KeyEventArgs e)
+        private void QuickAddTagsWindow_KeyUp(object sender, KeyEventArgs e)
         {
-            if (false) { }
-            else if (e.Key == Key.Escape)
+            if (e.Key == Key.Escape)
             {
                 DoClose();
                 e.Handled = true;
@@ -55,12 +55,11 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                 DoClose();
                 e.Handled = true;
             }
-
         }
 
         private void DoClose()
         {
-            this.Close();
+            Close();
         }
 
         private static void SetSpan(Span span, string text)
@@ -69,12 +68,12 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             span.Inlines.Add(text);
         }
 
-        void CmdCancel_Click(object sender, RoutedEventArgs e)
+        private void CmdCancel_Click(object sender, RoutedEventArgs e)
         {
             DoClose();
         }
 
-        void AddTagsFromTextBox()
+        private void AddTagsFromTextBox()
         {
             // Get the tags
             string tags = ObjTagEditorControl.TagsBundle;
@@ -92,11 +91,28 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
             ObjTagEditorControl.TagsBundle = "";
         }
-        
-        void CmdGenerate_Click(object sender, RoutedEventArgs e)
+
+        private void CmdGenerate_Click(object sender, RoutedEventArgs e)
         {
             AddTagsFromTextBox();
-            this.Close();
+            Close();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+
+            // base.OnClosed() invokes this class' Closed() code, so we flipped the order of exec to reduce the number of surprises for yours truly.
+            // This NULLing stuff is really the last rites of Dispose()-like so we stick it at the end here.
+
+            pdf_documents?.Clear();
+            pdf_documents = null;
+
         }
     }
 }

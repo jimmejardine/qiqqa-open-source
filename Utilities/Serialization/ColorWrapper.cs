@@ -8,13 +8,13 @@ namespace Utilities.Serialization
     public class ColorWrapper
     {
         [JsonProperty("A")]
-        float a;
+        private float a;
         [JsonProperty("R")]
-        float r;
+        private float r;
         [JsonProperty("G")]
-        float g;
+        private float g;
         [JsonProperty("B")]
-        float b;
+        private float b;
 
         public ColorWrapper(Color color)
         {
@@ -30,13 +30,7 @@ namespace Utilities.Serialization
         }
 
         [JsonIgnore]
-        public Color Color
-        {
-            get
-            {
-                return Color.FromScRgb(a, r, g, b);
-            }
-        }
+        public Color Color => Color.FromScRgb(a, r, g, b);
 
         public override string ToString()
         {

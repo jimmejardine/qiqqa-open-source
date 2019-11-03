@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
 {
-    class IntranetLibraryDetail
+    internal class IntranetLibraryDetail
     {
 
         public string Id { get; set; }

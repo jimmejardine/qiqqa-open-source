@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Threading;
 using System.Windows.Forms;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary;
@@ -10,13 +8,14 @@ using Qiqqa.Documents.PDF;
 using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.Misc;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Exporting
 {
-    public class LibraryExporter
+    public static class LibraryExporter
     {
         public static void Export(Library library, List<PDFDocument> pdf_documents)
         {
@@ -28,11 +27,11 @@ namespace Qiqqa.Exporting
             if (null == initial_directory) initial_directory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
             using (FolderBrowserDialog dlg = new FolderBrowserDialog
-                {
-                    Description = "Please select the folder to which you wish to export your entire Qiqqa library.",
-                    SelectedPath = initial_directory,
-                    ShowNewFolderButton = true
-                })
+            {
+                Description = "Please select the folder to which you wish to export your entire Qiqqa library.",
+                SelectedPath = initial_directory,
+                ShowNewFolderButton = true
+            })
             {
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
@@ -87,7 +86,7 @@ namespace Qiqqa.Exporting
                 if (StatusManager.Instance.IsCancelled("LibraryExport")) return;
                 StatusManager.Instance.UpdateStatus("LibraryExport", "Exporting PDF text", 7, MAX_STEPS, true);
                 LibraryExporter_PDFText.Export(library, base_path, pdf_document_export_items);
-                
+
                 StatusManager.Instance.UpdateStatus("LibraryExport", "Finished library export");
                 Process.Start(base_path);
             }
@@ -117,7 +116,7 @@ namespace Qiqqa.Exporting
                         // The original docs
                         string filename_original = Path.GetFullPath(Path.Combine(doc_base_path_original, ExportingTools.MakeExportFilename(pdf_document)));
                         File.Copy(pdf_document.DocumentPath, filename_original, true);
-                        
+
                         // The modified docs
                         string filename = Path.GetFullPath(Path.Combine(doc_base_path, ExportingTools.MakeExportFilename(pdf_document)));
                         File.Copy(pdf_document.DocumentPath, filename, true);
@@ -125,7 +124,7 @@ namespace Qiqqa.Exporting
                         // And the ledger entry
                         PDFDocumentExportItem item = new PDFDocumentExportItem();
                         item.pdf_document = pdf_document;
-                        item.filename = filename;                        
+                        item.filename = filename;
                         pdf_document_export_items[item.pdf_document.Fingerprint] = item;
                     }
                 }

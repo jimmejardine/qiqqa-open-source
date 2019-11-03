@@ -24,13 +24,11 @@ namespace Qiqqa.Documents.PDF.PDFControls.CanvasToolbars
             ButtonSelectBlock.Click += ButtonSelectBlock_Click;
         }
 
-        PDFRendererControl pdf_renderer_control = null;
+        private PDFRendererControl pdf_renderer_control = null;
         public PDFRendererControl PDFRendererControl
         {
-            set
-            {
-                pdf_renderer_control = value;
-            }
+            get => pdf_renderer_control;
+            set => pdf_renderer_control = value;
         }
 
         private void RaiseTextSelectModeChange(TextLayerSelectionMode textLayerSelectionMode)
@@ -38,12 +36,12 @@ namespace Qiqqa.Documents.PDF.PDFControls.CanvasToolbars
             pdf_renderer_control.RaiseTextSelectModeChange(textLayerSelectionMode);
         }
 
-        void ButtonSelectSentence_Click(object sender, RoutedEventArgs e)
+        private void ButtonSelectSentence_Click(object sender, RoutedEventArgs e)
         {
             RaiseTextSelectModeChange(TextLayerSelectionMode.Sentence);
         }
 
-        void ButtonSelectBlock_Click(object sender, RoutedEventArgs e)
+        private void ButtonSelectBlock_Click(object sender, RoutedEventArgs e)
         {
             RaiseTextSelectModeChange(TextLayerSelectionMode.Block);
         }

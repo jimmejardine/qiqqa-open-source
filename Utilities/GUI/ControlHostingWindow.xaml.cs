@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 
 namespace Utilities.GUI
@@ -8,7 +9,7 @@ namespace Utilities.GUI
     /// </summary>
     public partial class ControlHostingWindow : Window
     {
-        FrameworkElement control;
+        private FrameworkElement control;
 
         public interface WindowOpenedCapable
         {
@@ -21,43 +22,36 @@ namespace Utilities.GUI
 
         public ControlHostingWindow(string title, FrameworkElement control)
             : this(title, control, true)
-        {            
+        {
         }
 
         public ControlHostingWindow(string title, FrameworkElement control, bool size_to_content)
         {
             if (size_to_content)
             {
-                this.SizeToContent = SizeToContent.WidthAndHeight;
+                SizeToContent = SizeToContent.WidthAndHeight;
             }
 
-            this.Title = title;
+            Title = title;
             this.control = control;
 
             InitializeComponent();
 
-            this.GridContent.Children.Add(control);
+            GridContent.Children.Add(control);
 
-            this.Loaded += ControlHostingWindow_Loaded;
-            this.Closed += ControlHostingWindow_Closed;
-
+            Loaded += ControlHostingWindow_Loaded;
+            Closed += ControlHostingWindow_Closed;
         }
 
-        public FrameworkElement InternalControl
-        {
-            get
-            {
-                return control;
-            }
-        }
+        public FrameworkElement InternalControl => control;
 
-        void ControlHostingWindow_Loaded(object sender, RoutedEventArgs e)
+        private void ControlHostingWindow_Loaded(object sender, RoutedEventArgs e)
         {
             WindowOpenedCapable woc = InternalControl as WindowOpenedCapable;
             if (null != woc) woc.OnWindowOpened();
         }
 
-        void ControlHostingWindow_Closed(object sender, EventArgs e)
+        private void ControlHostingWindow_Closed(object sender, EventArgs e)
         {
             {
                 WindowClosedCapable wcc = InternalControl as WindowClosedCapable;
@@ -69,13 +63,13 @@ namespace Utilities.GUI
 
             {
                 IDisposable disposable = InternalControl as IDisposable;
-                this.GridContent.Children.Clear();
+                GridContent.Children.Clear();
 
                 if (null != disposable)
                 {
                     disposable.Dispose();
                 }
-                this.control = null;
+                control = null;
             }
         }
 
@@ -90,6 +84,20 @@ namespace Utilities.GUI
             {
                 Logging.Warn("ControlHostingWindow is not a parent of {0}", control.ToString());
             }
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+
+            // base.OnClosed() invokes this class' Closed() code, so we flipped the order of exec to reduce the number of surprises for yours truly.
+            // This NULLing stuff is really the last rites of Dispose()-like so we stick it at the end here.
+
         }
     }
 }

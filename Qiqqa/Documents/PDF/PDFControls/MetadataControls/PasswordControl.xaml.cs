@@ -16,20 +16,20 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
         {
             InitializeComponent();
 
-            this.ButtonClear.Caption = "Forget";
-            this.ButtonClear.ToolTip = "Forget the password associated with this PDF.";
-            this.ButtonClear.Click += ButtonClear_Click;
+            ButtonClear.Caption = "Forget";
+            ButtonClear.ToolTip = "Forget the password associated with this PDF.";
+            ButtonClear.Click += ButtonClear_Click;
 
-            this.ButtonSet.Caption = "Set";
-            this.ButtonSet.ToolTip = "Set the password associated with this document to the value in the box above.";
-            this.ButtonSet.Click += ButtonSet_Click;
+            ButtonSet.Caption = "Set";
+            ButtonSet.ToolTip = "Set the password associated with this document to the value in the box above.";
+            ButtonSet.Click += ButtonSet_Click;
 
-            this.TxtPassword.KeyDown += TxtPassword_KeyDown;
+            TxtPassword.KeyDown += TxtPassword_KeyDown;
 
-            this.DataContextChanged += PasswordControl_DataContextChanged;
+            DataContextChanged += PasswordControl_DataContextChanged;
         }
 
-        void TxtPassword_KeyDown(object sender, KeyEventArgs e)
+        private void TxtPassword_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
@@ -54,12 +54,12 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             }
         }
 
-        void ButtonSet_Click(object sender, RoutedEventArgs e)
+        private void ButtonSet_Click(object sender, RoutedEventArgs e)
         {
             SetPassword();
         }
 
-        void ButtonClear_Click(object sender, RoutedEventArgs e)
+        private void ButtonClear_Click(object sender, RoutedEventArgs e)
         {
             ForgetPassword();
         }
@@ -75,7 +75,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             }
         }
 
-        void PasswordControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void PasswordControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             ReBind();
         }

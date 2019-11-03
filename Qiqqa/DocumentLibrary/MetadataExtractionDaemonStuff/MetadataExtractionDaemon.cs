@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using Qiqqa.Documents.PDF;
+using Qiqqa.Documents.PDF.MetadataSuggestions;
 using Utilities;
 using Utilities.Collections;
 using Utilities.Mathematics;
 using Utilities.Misc;
-using Utilities.PDF;
-using Qiqqa.Documents.PDF.MetadataSuggestions;
 
 namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
 {
-    class MetadataExtractionDaemon
+    internal class MetadataExtractionDaemon
     {
-        CountingDictionary<string> pdfs_retry_count = new CountingDictionary<string>();
+        private CountingDictionary<string> pdfs_retry_count = new CountingDictionary<string>();
 
         public void DoMaintenance(Library library)
         {
@@ -89,7 +88,7 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
 
                         // Limit the number of source files to process at once or we won't have recreated
                         // a sane (though tiny and incomplete) Lucene search index database by the time 
-                        // the user exists the Qiqqa application in a minute or so.
+                        // the user exits the Qiqqa application in a minute or so.
                         // When the user keeps Qiqqa running, this same approach will help us to 'update'
                         // the search index a bunch of files at a time, so everyone involved will be able
                         // to see progress happening after losing the index due to some fatal crash or

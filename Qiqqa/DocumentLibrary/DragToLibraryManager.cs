@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Text;
 using System.Windows;
 using Qiqqa.DocumentLibrary.Import.Manual;
@@ -8,16 +7,17 @@ using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.GUI;
 using Utilities.Misc;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.DocumentLibrary
 {
     internal class DragToLibraryManager
     {
-        Library default_library;
-        FrameworkElement previously_registered_control = null;
+        private Library default_library;
+        private FrameworkElement previously_registered_control = null;
 
         public DragToLibraryManager(Library default_library)
         {
@@ -26,8 +26,8 @@ namespace Qiqqa.DocumentLibrary
 
         public Library DefaultLibrary
         {
-            get { return default_library; }
-            set { default_library = value; }
+            get => default_library;
+            set => default_library = value;
         }
 
         public void RegisterControl(FrameworkElement element)
@@ -64,10 +64,7 @@ namespace Qiqqa.DocumentLibrary
         {
             e.Effects = DragDropEffects.None;
 
-            if (false)
-            {
-            }
-            else if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 e.Effects = DragDropEffects.Copy | DragDropEffects.Link;
             }
@@ -111,16 +108,17 @@ namespace Qiqqa.DocumentLibrary
                 return;
             }
 
-            //if (false)
-            //{
-            //    StringBuilder sb = new StringBuilder();
-            //    sb.AppendLine("The available formats are:");
-            //    foreach (string format in e.Data.GetFormats(true))
-            //    {
-            //        sb.AppendFormat(" - {0}\n", format);
-            //    }
-            //    Logging.Debug(sb.ToString());
-            //}
+#if DEBUG
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine("The available formats are:");
+                foreach (string format in e.Data.GetFormats(true))
+                {
+                    sb.AppendFormat(" - {0}\n", format);
+                }
+                Logging.Debug(sb.ToString());
+            }
+#endif
 
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {

@@ -195,7 +195,7 @@ namespace Utilities.Internet.HTMLToXAML
         {
             if (_htmlCharacterEntities.Contains(entityName))
             {
-                return (char) _htmlCharacterEntities[entityName];
+                return (char)_htmlCharacterEntities[entityName];
             }
             else
             {
@@ -205,7 +205,7 @@ namespace Utilities.Internet.HTMLToXAML
 
         #endregion Internal Methods
 
-        
+
         // ---------------------------------------------------------------------
         //
         //  Internal Properties
@@ -322,7 +322,7 @@ namespace Utilities.Internet.HTMLToXAML
             _htmlEmptyElements.Add("meta");
             _htmlEmptyElements.Add("param");
         }
-        
+
         private static void InitializeOtherOpenableElements()
         {
             // It is a list of known html elements which we
@@ -732,7 +732,7 @@ namespace Utilities.Internet.HTMLToXAML
         private static ArrayList _htmlElementsClosingOnParentElementEnd;
 
         // names of elements that close certain optional closing tag elements when they start
-        
+
         // names of elements closing the colgroup element
         private static ArrayList _htmlElementsClosingColgroup;
 

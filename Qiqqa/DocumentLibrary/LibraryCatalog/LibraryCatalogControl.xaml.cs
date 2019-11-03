@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -19,7 +18,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
     /// </summary>
     public partial class LibraryCatalogControl : UserControl
     {
-        DragToLibraryManager drag_to_library_manager;
+        private DragToLibraryManager drag_to_library_manager;
 
         public delegate void SelectionChangedDelegate(List<PDFDocument> selected_pdf_documents);
         public event SelectionChangedDelegate SelectionChanged;
@@ -50,8 +49,8 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
         {
             SetPDFDocuments(pdf_documents, pdf_document_to_focus_on, filter_terms, search_scores);
         }
-        
-        void ListPDFDocuments_SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+        private void ListPDFDocuments_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ReconsiderPDFDocumentDetail();
 
@@ -93,7 +92,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             }
         }
 
-        void ListPDFDocuments_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void ListPDFDocuments_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             List<PDFDocument> selected_pdf_documents = SelectedPDFDocuments;
             foreach (PDFDocument selected_pdf_document in selected_pdf_documents)
@@ -103,27 +102,16 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
         }
 
         private string filter_terms;
-        public string FilterTerms
-        {
-            get
-            {
-                return filter_terms;
-            }
-        }
+        public string FilterTerms => filter_terms;
 
         private Dictionary<string, double> search_scores;
-        public Dictionary<string, double> SearchScores
-        {
-            get
-            {
-                return search_scores;
-            }
-        }
+        public Dictionary<string, double> SearchScores => search_scores;
 
 
-        private Library library;        
+        private Library library;
         public Library Library
         {
+            get => library;
             set
             {
                 if (null != library)
@@ -131,8 +119,8 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
                     throw new Exception("Library can only be assigned once!");
                 }
 
-                this.library = value;
-                this.DataContext = value;
+                library = value;
+                DataContext = value;
 
                 drag_to_library_manager = new DragToLibraryManager(library);
                 drag_to_library_manager.RegisterControl(this);
@@ -179,7 +167,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             {
                 return;
             }
-            
+
             // Find the selected document
             int selected_index = -1;
             int count = 0;
@@ -297,10 +285,12 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
         public static void TestHarness()
         {
             Library library = Library.GuestInstance;
-            while (!library.LibraryIsLoaded) { Thread.Sleep(1000); }
+            while (!library.LibraryIsLoaded) 
+            { 
+                Thread.Sleep(1000); 
+            }
             LibraryCatalogControl lcc = new LibraryCatalogControl();
             lcc.Library = library;
-
 
             ControlHostingWindow window = new ControlHostingWindow("Fast library control", lcc);
             window.Show();
@@ -308,5 +298,5 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 #endif
 
         #endregion
-    }    
+    }
 }

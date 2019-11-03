@@ -8,7 +8,7 @@ using Utilities.GUI;
 
 namespace Qiqqa.DocumentLibrary.LibraryFilter
 {
-    class LibraryFilterHelpers
+    internal class LibraryFilterHelpers
     {
         public static HyperlinkTextBlock xxxGetClearHyperlink(string header, MouseButtonEventHandler on_click)
         {
@@ -23,11 +23,11 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
             InlineUIContainer uicont = new InlineUIContainer();
             uicont.BaselineAlignment = BaselineAlignment.Center;
             uicont.Background = Brushes.Transparent;
-            Image image = GetClearImage(header, on_click);            
+            Image image = GetClearImage(header, on_click);
             uicont.Child = image;
             return uicont;
         }
-        
+
         public static Image GetClearImage(string header, MouseButtonEventHandler on_click)
         {
             Image image = new Image();

@@ -11,10 +11,9 @@ namespace Utilities.Files
     public class FileTypeIconCache
     {
         public static FileTypeIconCache Instance = new FileTypeIconCache();
+        private Dictionary<string, BitmapSource> icons = new Dictionary<string, BitmapSource>();
 
-        Dictionary<string, BitmapSource> icons = new Dictionary<string, BitmapSource>();
-        
-        FileTypeIconCache()
+        private FileTypeIconCache()
         {
         }
 
@@ -31,7 +30,7 @@ namespace Utilities.Files
 
                     using (Icon sysicon = Icon.ExtractAssociatedIcon(path))
                     {
-                        result = Imaging.CreateBitmapSourceFromHIcon(sysicon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromWidthAndHeight(64,64));
+                        result = Imaging.CreateBitmapSourceFromHIcon(sysicon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromWidthAndHeight(64, 64));
                         icons[extension] = result;
                     }
                 }
@@ -40,8 +39,7 @@ namespace Utilities.Files
             }
         }
 
-
-        static readonly string[] uncacheables = new string[]
+        private static readonly string[] uncacheables = new string[]
             {
                 ".exe", ".com", ".lnk"
             };

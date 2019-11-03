@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Text;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -15,6 +15,7 @@ using Qiqqa.Common.GUI;
 using Qiqqa.Common.WebcastStuff;
 using Qiqqa.DocumentLibrary;
 using Qiqqa.DocumentLibrary.LibraryCatalog;
+using Qiqqa.Documents.PDF.MetadataSuggestions;
 using Qiqqa.Documents.PDF.Search;
 using Qiqqa.Localisation;
 using Qiqqa.UtilisationTracking;
@@ -24,21 +25,17 @@ using Utilities.BibTex;
 using Utilities.BibTex.Parsing;
 using Utilities.GUI;
 using Utilities.Internet.GoogleScholar;
-using Utilities.Language;
 using Utilities.Misc;
-using Utilities.Random;
-using Qiqqa.Documents.PDF.MetadataSuggestions;
 using Utilities.Reflection;
-using System.Diagnostics;
 
 namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 {
     /// <summary>
     /// Interaction logic for GoogleBibTexSnifferControl.xaml
     /// </summary>
-    public partial class GoogleBibTexSnifferControl : StandardWindow
+    public partial class GoogleBibTexSnifferControl : StandardWindow, IDisposable
     {
-        class SearchOptions
+        private class SearchOptions
         {
 #pragma warning disable 0649
             public bool Missing { get; set; }
@@ -49,13 +46,11 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             public bool HasSourceURL { get; set; }
             public bool HasSourceLocalFileSystem { get; set; }
             public bool Unsourced { get; set; }
-            bool? _HasDocumentPDF;
+
+            private bool? _HasDocumentPDF;
             public bool? HasDocumentPDF
             {
-                get
-                {
-                    return _HasDocumentPDF;
-                }
+                get => _HasDocumentPDF;
                 set
                 {
                     if (value == null)
@@ -76,10 +71,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             }
             public bool HasDocumentPDF_TriState
             {
-                get
-                {
-                    return null == _HasDocumentPDF;
-                }
+                get => null == _HasDocumentPDF;
                 set
                 {
                     if (value)
@@ -93,12 +85,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                 }
             }
 
-            bool? _DocumentIsOCRed;
-            public bool? DocumentIsOCRed {
-                get
-                {
-                    return _DocumentIsOCRed;
-                }
+            private bool? _DocumentIsOCRed;
+            public bool? DocumentIsOCRed
+            {
+                get => _DocumentIsOCRed;
                 set
                 {
                     if (value == null)
@@ -119,10 +109,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             }
             internal bool DocumentIsOCRed_TriState
             {
-                get
-                {
-                    return null == _DocumentIsOCRed;
-                }
+                get => null == _DocumentIsOCRed;
                 set
                 {
                     if (value)
@@ -149,18 +136,14 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         private SearchOptions search_options;
         private AugmentedBindable<SearchOptions> search_options_bindable;
-
-        PDFDocument user_specified_pdf_document = null;
-        List<PDFDocument> pdf_documents_total_pool = new List<PDFDocument>();
-        List<PDFDocument> pdf_documents_search_pool = new List<PDFDocument>();
-        int pdf_documents_search_index = 0;
-
-        PDFDocument pdf_document;
-
-        PDFDocument pdf_document_rendered = null;
-        PDFRendererControl pdf_renderer_control;
-
-        string last_autonavigated_url;
+        private PDFDocument user_specified_pdf_document = null;
+        private List<PDFDocument> pdf_documents_total_pool = new List<PDFDocument>();
+        private List<PDFDocument> pdf_documents_search_pool = new List<PDFDocument>();
+        private int pdf_documents_search_index = 0;
+        private PDFDocument pdf_document;
+        private PDFDocument pdf_document_rendered = null;
+        private PDFRendererControl pdf_renderer_control;
+        private string last_autonavigated_url;
 
         public GoogleBibTexSnifferControl()
         {
@@ -180,12 +163,12 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             Utilities.GUI.Animation.Animations.EnableHoverFade(PDFRendererControlAreaButtonPanel);
             Utilities.GUI.Animation.Animations.EnableHoverFade(ObjBibTeXEditButtonPanel);
 
-            this.Title = "Qiqqa BibTeX Sniffer";
+            Title = "Qiqqa BibTeX Sniffer";
 
-            this.Closing += GoogleBibTexSnifferControl_Closing;
-            this.Closed += GoogleBibTexSnifferControl_Closed;
+            Closing += GoogleBibTexSnifferControl_Closing;
+            Closed += GoogleBibTexSnifferControl_Closed;
 
-            this.KeyUp += GoogleBibTexSnifferControl_KeyUp;
+            KeyUp += GoogleBibTexSnifferControl_KeyUp;
 
             ButtonPrev.Icon = Icons.GetAppIcon(Icons.Back);
             ButtonPrev.ToolTip = "Move to previous PDF.";
@@ -207,13 +190,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             ButtonValidate.ToolTip = "The automatic BibTeX for this document is great.  Mark it as valid!";
             ButtonValidate.Click += ButtonValidate_Click;
 
-            ButtonToggleBibTeX.Icon = Icons.GetAppIcon(Icons.GoogleBibTexNext);
-            ButtonToggleBibTeX.ToolTip = "Toggle the BibTeX edit mode between RAW and FIELD-FORMATTED.";
             ButtonToggleBibTeX.Click += ButtonToggleBibTeX_Click;
-
-            ButtonUndoBibTexEdit.Icon = Icons.GetAppIcon(Icons.GoogleBibTexNext);
-            ButtonUndoBibTexEdit.ToolTip = "Reset the BibTeX to what was before, i.e. discard all changes to the BibTeX while viewing this document in this sniffer.";
             ButtonUndoBibTexEdit.Click += ButtonUndoBibTexEdit_Click;
+            ButtonShowBibTeXParseErrors.Click += ButtonShowBibTeXParseErrors_Click;
+            ObjBibTeXEditorControl.RegisterOverlayButtons(ButtonShowBibTeXParseErrors, ButtonToggleBibTeX, ButtonUndoBibTexEdit);
 
             ButtonConfig.Icon = Icons.GetAppIcon(Icons.DocumentMisc);
             ButtonConfig.ToolTip = LocalisationManager.Get("PDF/TIP/MORE_MENUS");
@@ -247,6 +227,11 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             ObjWebBrowser.SetupSnifferSearchers();
         }
 
+        private void ButtonShowBibTeXParseErrors_Click(object sender, RoutedEventArgs e)
+        {
+            ObjBibTeXEditorControl.ToggleBibTeXErrorView();
+        }
+
         private void ButtonUndoBibTexEdit_Click(object sender, RoutedEventArgs e)
         {
             throw new NotImplementedException();
@@ -254,10 +239,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         private void ButtonToggleBibTeX_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            ObjBibTeXEditorControl.ToggleBibTeXMode(TriState.Arbitrary);
         }
 
-        void GoogleBibTexSnifferControl_KeyUp(object sender, KeyEventArgs e)
+        private void GoogleBibTexSnifferControl_KeyUp(object sender, KeyEventArgs e)
         {
             if (Key.Clear == e.Key)
             {
@@ -267,12 +252,12 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
             else if (Key.Escape == e.Key)
             {
-                this.Close();
+                Close();
                 e.Handled = true;
             }
         }
 
-        void TxtBibTeX_TextChanged(object sender, TextChangedEventArgs e)
+        private void TxtBibTeX_TextChanged(object sender, TextChangedEventArgs e)
         {
             ObjBibTeXEditorControl.Background = null;
 
@@ -352,7 +337,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             }
         }
 
-        void HyperlinkBibTeXLinksMissing_Click(object sender, RoutedEventArgs e)
+        private void HyperlinkBibTeXLinksMissing_Click(object sender, RoutedEventArgs e)
         {
             string message =
                 ""
@@ -369,11 +354,12 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             e.Handled = true;
         }
 
-        void ButtonNext_Click(object sender, RoutedEventArgs e)
+        private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
             MoveDelta(+1);
         }
-        void ButtonPrev_Click(object sender, RoutedEventArgs e)
+
+        private void ButtonPrev_Click(object sender, RoutedEventArgs e)
         {
             MoveDelta(-1);
         }
@@ -412,7 +398,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             }
         }
 
-        void ButtonClear_Click(object sender, RoutedEventArgs e)
+        private void ButtonClear_Click(object sender, RoutedEventArgs e)
         {
             if (null != pdf_document)
             {
@@ -421,8 +407,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             }
         }
 
-
-        void ButtonSkipForever_Click(object sender, RoutedEventArgs e)
+        private void ButtonSkipForever_Click(object sender, RoutedEventArgs e)
         {
             if (null != pdf_document)
             {
@@ -433,7 +418,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             MoveDelta(+1);
         }
 
-        void ButtonValidate_Click(object sender, RoutedEventArgs e)
+        private void ButtonValidate_Click(object sender, RoutedEventArgs e)
         {
             if (null != pdf_document && null != pdf_document.BibTex)
             {
@@ -476,16 +461,16 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
         public void Show(List<PDFDocument> pdf_documents, PDFDocument user_specified_pdf_document, string search_terms)
         {
             this.user_specified_pdf_document = user_specified_pdf_document;
-            this.pdf_documents_total_pool.Clear();
-            this.pdf_documents_total_pool.AddRange(pdf_documents);
+            pdf_documents_total_pool.Clear();
+            pdf_documents_total_pool.AddRange(pdf_documents);
             RecalculateSearchPool();
 
-            ObjWebBrowser.CurrentLibrary = this.CurrentLibrary;
+            ObjWebBrowser.CurrentLibrary = CurrentLibrary;
 
             base.Show();
         }
 
-        void search_options_bindable_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void search_options_bindable_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             RecalculateSearchPool();
         }
@@ -496,9 +481,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             const int MAX_MILLISECONDS_ALLOWED_FOR_THE_SLOWER_CHECKS = 5 * 1000;
             int slower_checks_allowed = 1;      // state: 1 = allowed, 0 = disallowed, signalling, -1 = disallowed, already signalled
 
-            this.HasDocumentPDF_CheckBox.Background = Brushes.White;
+            HasDocumentPDF_CheckBox.Background = Brushes.White;
             //this.HasDocumentPDF_CheckBox.Background.Opacity = 1.0;
-            this.DocumentIsOCRed_CheckBox.Background = Brushes.White;
+            DocumentIsOCRed_CheckBox.Background = Brushes.White;
             //this.DocumentIsOCRed_CheckBox.Background.Opacity = 1.0;
 
             List<PDFDocument> pdf_documents_inverted_search_pool = new List<PDFDocument>();
@@ -515,15 +500,15 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                 {
                     if (search_options.Auto)
                         include_in_search_pool = (
-                            pdf_document.BibTex.Contains(BibTeXActionComments.AUTO_BIBTEXSEARCH) 
+                            pdf_document.BibTex.Contains(BibTeXActionComments.AUTO_BIBTEXSEARCH)
                             || pdf_document.BibTex.Contains(BibTeXActionComments.AUTO_GS)
                             );
                     else if (search_options.Skipped)
                         include_in_search_pool = pdf_document.BibTex.Contains(BibTeXActionComments.SKIP);
                     else if (search_options.Manual)
                         include_in_search_pool = (
-                            !pdf_document.BibTex.Contains(BibTeXActionComments.AUTO_BIBTEXSEARCH) 
-                            && !pdf_document.BibTex.Contains(BibTeXActionComments.AUTO_GS) 
+                            !pdf_document.BibTex.Contains(BibTeXActionComments.AUTO_BIBTEXSEARCH)
+                            && !pdf_document.BibTex.Contains(BibTeXActionComments.AUTO_GS)
                             && !pdf_document.BibTex.Contains(BibTeXActionComments.SKIP));
                 }
 
@@ -614,9 +599,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                     slower_checks_allowed = -1;
 
                     // color....
-                    this.HasDocumentPDF_CheckBox.Background = Brushes.Red;
+                    HasDocumentPDF_CheckBox.Background = Brushes.Red;
                     //this.HasDocumentPDF_CheckBox.Background.Opacity = 0.75;
-                    this.DocumentIsOCRed_CheckBox.Background = Brushes.Red;
+                    DocumentIsOCRed_CheckBox.Background = Brushes.Red;
                     //this.DocumentIsOCRed_CheckBox.Background.Opacity = 0.75;
                 }
 
@@ -650,7 +635,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             MoveFirst();
         }
 
-        void ButtonRedo_Click(object sender, RoutedEventArgs e)
+        private void ButtonRedo_Click(object sender, RoutedEventArgs e)
         {
             ReflectPDFDocument(null);
         }
@@ -675,24 +660,24 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             // fix https://github.com/jimmejardine/qiqqa-open-source/issues/59: don't reflect if we didn't change.
             //
             // when we re-render the same document, we don't move at all!
-            if (this.pdf_document_rendered == pdf_document)
+            if (pdf_document_rendered == pdf_document)
             {
                 return;
             }
 
-            if (null != this.pdf_document_rendered)
+            if (null != pdf_document_rendered)
             {
                 // Clear down the previous renderer control
                 PDFRendererControlArea.Children.Clear();
 
-                if (null != this.pdf_renderer_control)
+                if (null != pdf_renderer_control)
                 {
-                    this.pdf_renderer_control.Dispose();
-                    this.pdf_renderer_control = null;
+                    pdf_renderer_control.Dispose();
+                    pdf_renderer_control = null;
                 }
 
-                this.pdf_document_rendered = null;
-                this.DataContext = null;
+                pdf_document_rendered = null;
+                DataContext = null;
             }
 
             if (null != pdf_document)
@@ -700,8 +685,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                 // Force inference of the title in case it has not been populated...
                 PDFMetadataInferenceFromOCR.InferTitleFromOCR(pdf_document, true);
 
-                this.pdf_document_rendered = pdf_document;
-                this.DataContext = pdf_document.Bindable;
+                pdf_document_rendered = pdf_document;
+                DataContext = pdf_document.Bindable;
 
                 if (pdf_document.DocumentExists)
                 {
@@ -712,9 +697,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                     pdf_document.PDFRenderer.GetOCRText(1);
 
                     // Set up the new renderer control                
-                    this.pdf_renderer_control = new PDFRendererControl(this.pdf_document, false, PDFRendererControl.ZoomType.Zoom1Up);
-                    this.pdf_renderer_control.ReconsiderOperationMode(PDFRendererControl.OperationMode.TextSentenceSelect);
-                    this.pdf_renderer_control.TextSelected += pdf_renderer_control_TextSelected;
+                    pdf_renderer_control = new PDFRendererControl(pdf_document, false, PDFRendererControl.ZoomType.Zoom1Up);
+                    pdf_renderer_control.ReconsiderOperationMode(PDFRendererControl.OperationMode.TextSentenceSelect);
+                    pdf_renderer_control.TextSelected += pdf_renderer_control_TextSelected;
                     PDFRendererControlArea.Children.Add(pdf_renderer_control);
                 }
                 else
@@ -741,7 +726,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             }
         }
 
-        void pdf_renderer_control_TextSelected(string selected_text)
+        private void pdf_renderer_control_TextSelected(string selected_text)
         {
             if (null != selected_text)
             {
@@ -749,13 +734,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             }
         }
 
-        void GoogleBibTexSnifferControl_Closing(object sender, CancelEventArgs e)
+        private void GoogleBibTexSnifferControl_Closing(object sender, CancelEventArgs e)
         {
             ObjWebBrowser.PageLoaded -= ObjWebBrowser_PageLoaded;
             ObjWebBrowser.TabChanged -= ObjWebBrowser_TabChanged;
         }
 
-        void GoogleBibTexSnifferControl_Closed(object sender, EventArgs e)
+        private void GoogleBibTexSnifferControl_Closed(object sender, EventArgs e)
         {
             Logging.Info("GoogleBibTexSnifferControl_Closed()");
 
@@ -773,7 +758,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             last_autonavigated_url = null;
         }
 
-        void ObjWebBrowser_PageLoaded()
+        private void ObjWebBrowser_PageLoaded()
         {
             Logging.Debug特("BibTexSniffer::Browser::Page Loaded: {0}", ObjWebBrowser.CurrentUri.AbsoluteUri);
             ReflectLatestBrowserContent();
@@ -813,7 +798,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             }
         }
 
-        void ObjWebBrowser_TabChanged()
+        private void ObjWebBrowser_TabChanged()
         {
             Logging.Debug特("BibTexSniffer::Browser::Tab Changed: {0}", ObjWebBrowser.CurrentUri.AbsoluteUri);
             ReflectLatestBrowserContent();
@@ -873,7 +858,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                 {
                     // Only do this automatically if there is not already bibtex in the record
                     if (null != pdf_document && String.IsNullOrEmpty(pdf_document.BibTex))
-                    { 
+                    {
                         string url = ObjWebBrowser.CurrentUri.AbsoluteUri;
                         string html = ObjWebBrowser.CurrentPageHTML;
                         List<GoogleScholarScrapePaper> gssps = GoogleScholarScraper.ScrapeHtml(html, url);
@@ -909,8 +894,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             }
         }
 
-        DateTime bibtexsearch_backoff_timestamp = DateTime.MinValue;
-        string last_posted_bibtex = null;
+        private DateTime bibtexsearch_backoff_timestamp = DateTime.MinValue;
+        private string last_posted_bibtex = null;
 
         private void PostBibTeXToAggregator(string bibtex)
         {
@@ -924,17 +909,22 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
                 Logging.Info("posting BibTeX info to bibtexsearch.com aggregator - URL: {0}, BibTeX = {1}", WebsiteAccess.Url_BibTeXSearch_Submit, bibtex);
 
-                HttpWebRequest web_request = (HttpWebRequest)HttpWebRequest.Create(WebsiteAccess.Url_BibTeXSearch_Submit);
+                HttpWebRequest web_request = (HttpWebRequest)HttpWebRequest.Create(new Uri(WebsiteAccess.Url_BibTeXSearch_Submit));
                 web_request.Proxy = ConfigurationManager.Instance.Proxy;
                 web_request.Method = "POST";
                 web_request.ContentLength = buffer.Length;
                 web_request.ContentType = "text/plain; charset=utf-8";
-                //web_request.KeepAlive = false;
-                // https://stackoverflow.com/questions/47269609/system-net-securityprotocoltype-tls12-definition-not-found
-                //
-                // Allow ALL protocols?
-                // ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls | SecurityProtocolType.Tls;
-                ServicePointManager.SecurityProtocol = (SecurityProtocolType)(0xc0 | 0x300 | 0xc00) | SecurityProtocolType.Ssl3;
+#if false
+                web_request.KeepAlive = false;
+#endif
+                // Allow ALL protocols
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12 | SecurityProtocolType.Ssl3;
+
+                // same headers as sent by modern Chrome.
+                // Gentlemen, start your prayer wheels!
+                web_request.Headers.Add("Cache-Control", "no-cache");
+                web_request.Headers.Add("Pragma", "no-cache");
+                web_request.UserAgent = ConfigurationManager.Instance.ConfigurationRecord.GetWebUserAgent();
 
                 using (Stream stream = web_request.GetRequestStream())
                 {
@@ -1036,5 +1026,93 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
         {
 
         }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+
+            // base.OnClosed() invokes this class' Closed() code, so we flipped the order of exec to reduce the number of surprises for yours truly.
+            // This NULLing stuff is really the last rites of Dispose()-like so we stick it at the end here.
+
+            Dispose();
+        }
+
+        #region --- IDisposable ------------------------------------------------------------------------
+
+        ~GoogleBibTexSnifferControl()
+        {
+            Logging.Debug("~GoogleBibTexSnifferControl()");
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Logging.Debug("Disposing GoogleBibTexSnifferControl");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected virtual void Dispose(bool disposing)
+        {
+            Logging.Debug("GoogleBibTexSnifferControl::Dispose({0}) @{1}", disposing, dispose_count);
+
+            try
+            {
+                if (dispose_count == 0)
+                {
+                    // Get rid of managed resources / get rid of cyclic references:
+                    pdf_documents_total_pool?.Clear();
+                    pdf_documents_search_pool?.Clear();
+
+                    search_options_bindable.PropertyChanged -= search_options_bindable_PropertyChanged;
+
+                    ObjWebBrowser.PageLoaded -= ObjWebBrowser_PageLoaded;
+                    ObjWebBrowser.TabChanged -= ObjWebBrowser_TabChanged;
+
+                    ObjBibTeXEditorControl.ObjBibTeXText.TextChanged -= TxtBibTeX_TextChanged;
+
+                    pdf_renderer_control?.Dispose();
+                    ObjBibTeXEditorControl?.Dispose();
+
+                    ObjSearchOptionsPanel.DataContext = null;
+                    ButtonWizard.DataContext = null;
+                }
+
+                // Clear the references for sanity's sake
+                search_options_bindable = null;
+
+                user_specified_pdf_document = null;
+                pdf_documents_total_pool = null;
+
+                pdf_documents_search_pool = null;
+
+                pdf_document = null;
+
+                pdf_document_rendered = null;
+                pdf_renderer_control = null;
+
+                search_options = null;
+                search_options_bindable = null;
+
+                ObjBibTeXEditorControl = null;
+
+                DataContext = null;
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
+
+            ++dispose_count;
+        }
+
+        #endregion
+
     }
 }

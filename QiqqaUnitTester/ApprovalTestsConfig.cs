@@ -32,15 +32,15 @@
 * 
 */
 
-using System.IO;
+using ApprovalTests.Approvers;
+using ApprovalTests.Core;
+using ApprovalTests.Core.Exceptions;
 using static QiqqaTestHelpers.MiscTestHelpers;
 using ApprovalTests.Reporters;
-using ApprovalTests.Core;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
-using ApprovalTests.Core.Exceptions;
-using ApprovalTests.Approvers;
+
 
 [assembly: UseReporter(typeof(QiqqaTestHelpers.DiffReporterWithApprovalPower))]
 
@@ -54,7 +54,7 @@ namespace QiqqaTestHelpers
     {
         public DataTestLocationNamer(string data_filepath)
         {
-            this.DataFile = data_filepath;
+            DataFile = data_filepath;
         }
 
         public string DataFile;
@@ -146,6 +146,18 @@ namespace QiqqaTestHelpers
             this.approved = approved;
             this.received = received;
 
+            // BC4 cannot handle UNC paths, which is what AlphaFS uses to support overlong paths (> 260 chars)
+            // hence we'll have convert these UNC paths back to local/native format for BC4 to be able to open
+            // the received+approved files for comparison. The rest of the test application should use the 
+            // UNC paths though.
+            if (approved.StartsWith("\\\\?\\"))
+            {
+                approved = approved.Substring(4);
+            }
+            if (received.StartsWith("\\\\?\\"))
+            {
+                received = received.Substring(4);
+            }
             base.Report(approved, received);
         }
 
@@ -180,27 +192,27 @@ namespace QiqqaTestHelpers
         /// e.g. when the `*.approved.*` reference file does not (yet) exist.</returns>
         bool IReporterWithApprovalPower.ApprovedWhenReported()
         {
-            if (!File.Exists(this.received)) return false;
+            if (!File.Exists(received)) return false;
 #if false
             File.Delete(this.approved);
 #endif
-            if (File.Exists(this.approved)) return false;
-            File.Copy(this.received, this.approved);
-            return File.Exists(this.approved);
+            if (File.Exists(approved)) return false;
+            File.Copy(received, approved);
+            return File.Exists(approved);
         }
     }
 
 
     // A variant on
-	// https://stackoverflow.com/questions/37604285/how-do-i-automatically-approve-approval-tests-when-i-run-them
-	// but now with the added tweak that this bugger gets to approve
-	// **before Beyond Compare (or your favorite compare app) gets invoked**: *that*
-	// happens in the `Report()` call in the Approver *before* 
-	// `DiffReporterWithApprovalPower` would get a chance to 'approve' the
-	// received content!
+    // https://stackoverflow.com/questions/37604285/how-do-i-automatically-approve-approval-tests-when-i-run-them
+    // but now with the added tweak that this bugger gets to approve
+    // **before Beyond Compare (or your favorite compare app) gets invoked**: *that*
+    // happens in the `Report()` call in the Approver *before* 
+    // `DiffReporterWithApprovalPower` would get a chance to 'approve' the
+    // received content!
     public class QiqqaApprover : FileApprover /* IApprovalApprover */
     {
-        public QiqqaApprover(string json_out, string bibtex_filepath) 
+        public QiqqaApprover(string json_out, string bibtex_filepath)
             : base(
                 new DataTestApprovalTextWriter(json_out, bibtex_filepath),
                 new DataTestLocationNamer(bibtex_filepath) /* GetDefaultNamer() */,

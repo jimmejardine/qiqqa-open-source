@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Speech.Synthesis;
 using Utilities;
 using Utilities.Collections;
@@ -7,7 +8,7 @@ using Utilities.Shutdownable;
 
 namespace Qiqqa.Common.ReadOutLoud
 {
-    public class ReadOutLoudManager
+    public class ReadOutLoudManager : IDisposable
     {
         public static ReadOutLoudManager Instance = new ReadOutLoudManager();
 
@@ -18,12 +19,11 @@ namespace Qiqqa.Common.ReadOutLoud
         // If 'ReadOutLoudManager' has previously shipped, adding new members that implement IDisposable 
         // to this type is considered a breaking change to existing consumers.
 
-        object read_out_loud_lock = new object();
-        SpeechSynthesizer speech_synthesizer;
-        Prompt current_prompt;
-        int current_prompt_length;
-
-        List<string> last_words = new List<string>();
+        private object read_out_loud_lock = new object();
+        private SpeechSynthesizer speech_synthesizer;
+        private Prompt current_prompt;
+        private int current_prompt_length;
+        private List<string> last_words = new List<string>();
 
         private ReadOutLoudManager()
         {
@@ -35,7 +35,7 @@ namespace Qiqqa.Common.ReadOutLoud
             ShutdownableManager.Instance.Register(OnShutdown);
         }
 
-        void OnShutdown()
+        private void OnShutdown()
         {
             Logging.Info("Shutting down ReadOutLoudManager");
             Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
@@ -46,7 +46,7 @@ namespace Qiqqa.Common.ReadOutLoud
             }
         }
 
-        void speech_synthesizer_SpeakProgress(object sender, SpeakProgressEventArgs e)
+        private void speech_synthesizer_SpeakProgress(object sender, SpeakProgressEventArgs e)
         {
             // Add the current word to our list
             last_words.Add(e.Text);
@@ -61,10 +61,10 @@ namespace Qiqqa.Common.ReadOutLoud
 
             string window = ArrayFormatter.ListElements(last_words, " ");
 
-            StatusManager.Instance.UpdateStatus("ReadOutAloud", window, e.CharacterPosition, current_prompt_length);            
+            StatusManager.Instance.UpdateStatus("ReadOutAloud", window, e.CharacterPosition, current_prompt_length);
         }
 
-        void speech_synthesizer_SpeakCompleted(object sender, SpeakCompletedEventArgs e)
+        private void speech_synthesizer_SpeakCompleted(object sender, SpeakCompletedEventArgs e)
         {
             StatusManager.Instance.UpdateStatus("ReadOutAloud", "Finished reading page");
         }
@@ -105,5 +105,41 @@ namespace Qiqqa.Common.ReadOutLoud
                 speech_synthesizer.Resume();
             }
         }
+
+        #region --- IDisposable ------------------------------------------------------------------------
+
+        ~ReadOutLoudManager()
+        {
+            Logging.Debug("~ReadOutLoudManager()");
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Logging.Debug("Disposing ReadOutLoudManager");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected virtual void Dispose(bool disposing)
+        {
+            Logging.Debug("ReadOutLoudManager::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
+            {
+                // Get rid of managed resources
+                speech_synthesizer?.Dispose();
+            }
+            speech_synthesizer = null;
+
+            current_prompt = null;
+            last_words?.Clear();
+            last_words = null;
+
+            ++dispose_count;
+        }
+
+        #endregion
     }
 }

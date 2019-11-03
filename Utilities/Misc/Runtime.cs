@@ -6,13 +6,7 @@ namespace Utilities.Misc
 {
     public static class Runtime
     {
-        public static string StartupDirectory
-        {
-            get
-            {
-                return Path.GetDirectoryName(new Uri(Assembly.GetEntryAssembly().CodeBase).LocalPath);
-            }
-        }
+        public static string StartupDirectory => Path.GetDirectoryName(new Uri(Assembly.GetEntryAssembly().CodeBase).LocalPath);
 
         public static bool IsRunningInVisualStudioDesigner
         {
@@ -20,11 +14,15 @@ namespace Utilities.Misc
             {
 #if DEBUG
                 // Are we looking at this dialog in the Visual Studio Designer or Blend?
-                string appname = System.Reflection.Assembly.GetEntryAssembly().FullName;
-                bool rv = appname.Contains("XDesProc");
-                if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject()))
+                var asm = System.Reflection.Assembly.GetEntryAssembly();
+                if (null != asm)
                 {
-                    return true;
+                    string appname = asm.FullName;
+                    bool rv = appname.Contains("XDesProc");
+                    if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject()))
+                    {
+                        return true;
+                    }
                 }
 #endif
                 return false;

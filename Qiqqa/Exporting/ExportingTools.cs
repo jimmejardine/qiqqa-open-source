@@ -7,7 +7,7 @@ using Utilities.Language;
 
 namespace Qiqqa.Exporting
 {
-    public class ExportingTools
+    public static class ExportingTools
     {
         public static string MakeExportFilename(PDFDocument pdf_document)
         {

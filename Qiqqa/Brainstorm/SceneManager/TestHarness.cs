@@ -1,8 +1,4 @@
-﻿using System.Threading;
-using Qiqqa.DocumentLibrary;
-using Utilities.GUI;
-
-namespace Qiqqa.Brainstorm.SceneManager
+﻿namespace Qiqqa.Brainstorm.SceneManager
 {
 #if TEST
     public class TestHarness

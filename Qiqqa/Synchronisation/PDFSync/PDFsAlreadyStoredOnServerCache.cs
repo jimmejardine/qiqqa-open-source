@@ -1,39 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
 using Qiqqa.Common.Configuration;
 using Utilities;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Synchronisation.PDFSync
 {
     /// <summary>
     /// This class keeps track of which PDFs the server has told us it already owns so that the client does not have to interrogate again whether or not to upload a specific PDF.
     /// </summary>
-    class PDFsAlreadyStoredOnServerCache
+    internal class PDFsAlreadyStoredOnServerCache
     {
-        public static readonly PDFsAlreadyStoredOnServerCache Instance =new PDFsAlreadyStoredOnServerCache();
+        public static readonly PDFsAlreadyStoredOnServerCache Instance = new PDFsAlreadyStoredOnServerCache();
 
         private bool is_dirty = false;
         private HashSet<string> tokens = new HashSet<string>();
         private object tokens_lock = new object();
-        
+
         private PDFsAlreadyStoredOnServerCache()
         {
             Load();
         }
 
 
-        private string FILENAME
-        {
-            get
-            {
-                return Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.BaseDirectoryForUser, @"Qiqqa.server_stored_pdfs_cache"));
-            }
-        }
+        private string FILENAME => Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.BaseDirectoryForUser, @"Qiqqa.server_stored_pdfs_cache"));
 
         private void Load()
         {

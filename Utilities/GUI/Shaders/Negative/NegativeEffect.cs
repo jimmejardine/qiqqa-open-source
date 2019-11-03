@@ -22,8 +22,8 @@ namespace Utilities.GUI.Shaders.Negative
         RegisterPixelShaderSamplerProperty("Input", typeof(NegativeEffect), 0);
         public Brush Input
         {
-            get { return (Brush)GetValue(InputProperty); }
-            set { SetValue(InputProperty, value); }
+            get => (Brush)GetValue(InputProperty);
+            set => SetValue(InputProperty, value);
         }
 
         public NegativeEffect()

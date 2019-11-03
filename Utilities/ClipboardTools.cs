@@ -13,10 +13,10 @@ namespace Utilities
     public class ClipboardTools
     {
         [DllImport("user32.dll")]
-        static extern IntPtr GetOpenClipboardWindow();
+        extern static IntPtr GetOpenClipboardWindow();
 
         [DllImport("user32.dll")]
-        static extern int GetWindowText(int hwnd, StringBuilder text, int count);
+        extern static int GetWindowText(int hwnd, StringBuilder text, int count);
 
         public static void SetText(string selected_text)
         {

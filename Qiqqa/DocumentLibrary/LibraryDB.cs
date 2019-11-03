@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using System.IO;
 using System.Text;
 using Qiqqa.Common.Configuration;
 using Utilities;
 using Utilities.Files;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.DocumentLibrary
 {
@@ -25,13 +26,13 @@ namespace Qiqqa.DocumentLibrary
 
     public class LibraryDB
     {
-        string base_path;
-        string library_path;
+        private string base_path;
+        private string library_path;
 
         public LibraryDB(string base_path)
         {
             this.base_path = base_path;
-            this.library_path = Path.GetFullPath(Path.Combine(base_path, @"Qiqqa.library"));
+            library_path = Path.GetFullPath(Path.Combine(base_path, @"Qiqqa.library"));
 
             // Copy a library into place...
             if (!File.Exists(library_path))
@@ -111,7 +112,7 @@ namespace Qiqqa.DocumentLibrary
                     {
                         bool managed_update = false;
 
-                        using (var command = new SQLiteCommand("UPDATE LibraryItem SET MD5=@md5, DATA=@data WHERE fingerprint=@fingerprint AND extension=@extension", connection))
+                        using (var command = new SQLiteCommand("UPDATE LibraryItem SET MD5=@md5, DATA=@data WHERE fingerprint=@fingerprint AND extension=@extension", connection, transaction))
                         {
                             command.Parameters.AddWithValue("@md5", md5);
                             command.Parameters.AddWithValue("@data", data);
@@ -126,7 +127,7 @@ namespace Qiqqa.DocumentLibrary
 
                         if (!managed_update)
                         {
-                            using (var command = new SQLiteCommand("INSERT INTO LibraryItem(fingerprint, extension, md5, data) VALUES(@fingerprint, @extension, @md5, @data)", connection))
+                            using (var command = new SQLiteCommand("INSERT INTO LibraryItem(fingerprint, extension, md5, data) VALUES(@fingerprint, @extension, @md5, @data)", connection, transaction))
                             {
                                 command.Parameters.AddWithValue("@fingerprint", fingerprint);
                                 command.Parameters.AddWithValue("@extension", extension);

@@ -1,13 +1,9 @@
-﻿using Ionic.Zip;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
+﻿using System.IO;
+using Ionic.Zip;
 
 namespace Qiqqa.DocumentLibrary.Import.Auto.Endnote
 {
-    class MYDDatabase
+    internal class MYDDatabase
     {
         public static MemoryStream OpenMYDDatabase(string enl_filename)
         {

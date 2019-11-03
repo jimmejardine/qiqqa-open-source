@@ -1,7 +1,10 @@
-﻿using System.Windows;
+﻿using System;
+using System.ComponentModel;
+using System.Windows;
 using icons;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Common.GUI;
+using Utilities;
 
 namespace Qiqqa.Main.LogoutStuff
 {
@@ -14,28 +17,50 @@ namespace Qiqqa.Main.LogoutStuff
         {
             InitializeComponent();
 
-            this.DataContext = ConfigurationManager.Instance.ConfigurationRecord_Bindable;
+            DataContext = ConfigurationManager.Instance.ConfigurationRecord_Bindable;
 
             ObjCheckOptions.IsEnabled = true;
 
-            this.ButtonOk.Icon = Icons.GetAppIcon(Icons.Logout);
-            this.ButtonOk.Caption = "Exit";
-            this.ButtonOk.Click += ButtonOk_Click;
-            this.ButtonCancel.Icon = Icons.GetAppIcon(Icons.Cancel);
-            this.ButtonCancel.Caption = "Cancel";
-            this.ButtonCancel.Click += ButtonCancel_Click;
+            ButtonOk.Icon = Icons.GetAppIcon(Icons.Logout);
+            ButtonOk.Caption = "Exit";
+            ButtonOk.Click += ButtonOk_Click;
+            ButtonCancel.Icon = Icons.GetAppIcon(Icons.Cancel);
+            ButtonCancel.Caption = "Cancel";
+            ButtonCancel.Click += ButtonCancel_Click;
         }
 
-        void ButtonCancel_Click(object sender, RoutedEventArgs e)
+        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = false;
-            this.Close();
+            DialogResult = false;
+            Close();
         }
 
-        void ButtonOk_Click(object sender, RoutedEventArgs e)
+        private void ButtonOk_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = true;
-            this.Close();
+            DialogResult = true;
+            Close();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+
+            // base.OnClosed() invokes this class' Closed() code, so we flipped the order of exec to reduce the number of surprises for yours truly.
+            // This NULLing stuff is really the last rites of Dispose()-like so we stick it at the end here.
+
+            try
+            {
+                DataContext = null;
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
         }
     }
 }

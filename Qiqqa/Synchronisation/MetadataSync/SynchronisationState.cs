@@ -18,7 +18,7 @@ namespace Qiqqa.Synchronisation.MetadataSync
 
         public override string ToString()
         {
-            return String.Format("{0}{1}", filename, md5_local==md5_remote ? "" : " CHANGED");
+            return String.Format("{0}{1}", filename, md5_local == md5_remote ? "" : " CHANGED");
         }
     }
 }

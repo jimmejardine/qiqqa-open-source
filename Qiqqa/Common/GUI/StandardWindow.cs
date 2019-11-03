@@ -9,7 +9,7 @@ using Utilities.GUI;
 
 namespace Qiqqa.Common.GUI
 {
-    public class ScreenSize
+    public static class ScreenSize
     {
         private static Rect? screen_bounds = null;
 
@@ -84,7 +84,7 @@ namespace Qiqqa.Common.GUI
             Rect rv = new Rect();
 
             rv.X = ClipValueToRange(x, screen.X, screen.X + screen.Width);
-            rv.Y = ClipValueToRange(x, screen.X, screen.X + screen.Width);
+            rv.Y = ClipValueToRange(y, screen.Y, screen.Y + screen.Height);
             rv.Width = ClipValueToRange(w, 0, screen.Width);
             rv.Height = ClipValueToRange(h, 0, screen.Height);
             return rv;
@@ -131,62 +131,64 @@ namespace Qiqqa.Common.GUI
     {
         public StandardWindow()
         {
-            this.Background = ThemeColours.Background_Brush_Blue_LightToDark;
-            this.FontFamily = ThemeTextStyles.FontFamily_Standard;
-            this.Icon = Icons.GetAppIconICO(Icons.Qiqqa);
+            Theme.Initialize();
+
+            Background = ThemeColours.Background_Brush_Blue_LightToDark;
+            FontFamily = ThemeTextStyles.FontFamily_Standard;
+            Icon = Icons.GetAppIconICO(Icons.Qiqqa);
 
             // Set dimensions
             double width = Math.Max(800, SystemParameters.FullPrimaryScreenWidth - 20);
             double height = Math.Max(600, SystemParameters.FullPrimaryScreenHeight - 20);
-            this.Width = width;
-            this.Height = height;
-            this.Top = 10;
-            this.Left = 10;
+            Width = width;
+            Height = height;
+            Top = 10;
+            Left = 10;
 
-            this.UseLayoutRounding = true;
+            UseLayoutRounding = true;
 
             if (RegistrySettings.Instance.IsSet(RegistrySettings.SnapToPixels))
             {
                 Logging.Info("Snapping to device pixels.");
-                this.SnapsToDevicePixels = true;
+                SnapsToDevicePixels = true;
             }
 
-            this.Closed += StandardWindow_Closed;
+            Closed += StandardWindow_Closed;
         }
 
-        void StandardWindow_Closed(object sender, EventArgs e)
+        private void StandardWindow_Closed(object sender, EventArgs e)
         {
             // Save window dimensions and position as persistent preference:
             SaveWindowDimensions();
 
-            IDisposable disposable = this.Content as IDisposable;
+            IDisposable disposable = Content as IDisposable;
 
             disposable?.Dispose();
 
-            this.Content = null;
+            Content = null;
         }
 
         public void SaveWindowDimensions()
         {
-            if (this.IsMeasureValid && this.IsInitialized)
+            if (IsMeasureValid && IsInitialized)
             {
                 Rect rc = Rect.Empty;
 
-                if (this.WindowState != WindowState.Normal)
+                if (WindowState != WindowState.Normal)
                 {
-                    rc = this.RestoreBounds;
+                    rc = RestoreBounds;
                 }
                 if (rc.IsEmpty)
                 {
-                    rc = new Rect(this.Left, this.Top, this.Width, this.Height);
+                    rc = new Rect(Left, Top, Width, Height);
                 }
-                string position = String.Format("{0}|{1}|{2}|{3}|{4}", rc.X, rc.Y, rc.Width, rc.Height, this.WindowState);
+                string position = String.Format("{0}|{1}|{2}|{3}|{4}", rc.X, rc.Y, rc.Width, rc.Height, WindowState);
 
                 // Format: Name=X|Y|W|H|M::...
                 // Exception to the rule for backwards compatibility: first record is for main window and has no name.
                 string cfg = Configuration.ConfigurationManager.Instance.ConfigurationRecord.GUI_RestoreLocationAtStartup_Position;
 
-                string name_to_find = this.Name;
+                string name_to_find = Name;
 
                 if (String.IsNullOrEmpty(name_to_find))
                 {
@@ -250,7 +252,7 @@ namespace Qiqqa.Common.GUI
                 }
 
                 Configuration.ConfigurationManager.Instance.ConfigurationRecord.GUI_RestoreLocationAtStartup_Position = rv.ToString();
-                Logging.Info("Screen position for window {0} stored as {1}", this.Name, position);
+                Logging.Info("Screen position for window {0} stored as {1}", Name, position);
             }
             else
             {
@@ -258,14 +260,14 @@ namespace Qiqqa.Common.GUI
             }
         }
 
-        virtual public bool SetupConfiguredDimensions()
+        public virtual bool SetupConfiguredDimensions()
         {
             // Format: Name=X|Y|W|H|M::...
             // Exception to the rule for backwards compatibility: first record is for main window and has no name.
             string cfg = Configuration.ConfigurationManager.Instance.ConfigurationRecord.GUI_RestoreLocationAtStartup_Position ?? "";
             List<string> cfgarr = new List<string>(cfg.Split(new string[] { "::" }, StringSplitOptions.None));
             string position = String.Empty;
-            string name_to_find = this.Name;
+            string name_to_find = Name;
 
             if (String.IsNullOrEmpty(name_to_find))
             {
@@ -294,7 +296,7 @@ namespace Qiqqa.Common.GUI
             // https://stackoverflow.com/questions/16100/convert-a-string-to-an-enum-in-c-sharp
             if (String.IsNullOrEmpty(position))
             {
-                Logging.Warn("Can't restore screen position for window {0} from empty remembered location.", this.Name);
+                Logging.Warn("Can't restore screen position for window {0} from empty remembered location.", Name);
                 return false;
             }
 
@@ -302,7 +304,7 @@ namespace Qiqqa.Common.GUI
             {
                 StoredLocation loc = new StoredLocation(position);
 
-                Logging.Info("Window {5}: Screen position and window size restoring to x={0},y={1},w={2},h={3},mode={4}", loc.position.X, loc.position.Y, loc.position.Width, loc.position.Height, loc.state, this.Name);
+                Logging.Info("Window {5}: Screen position and window size restoring to x={0},y={1},w={2},h={3},mode={4}", loc.position.X, loc.position.Y, loc.position.Width, loc.position.Height, loc.state, Name);
 
                 Rect pos = loc.position;
 
@@ -312,25 +314,25 @@ namespace Qiqqa.Common.GUI
                 // (and possibly also *size*):
                 if (!Double.IsNaN(pos.X) && !Double.IsNaN(pos.Y))
                 {
-                    this.Left = pos.X;
-                    this.Top = pos.Y;
+                    Left = pos.X;
+                    Top = pos.Y;
 
                     if (!Double.IsNaN(pos.Width) && !Double.IsNaN(pos.Height))
                     {
-                        this.Width = pos.Width;
-                        this.Height = pos.Height;
+                        Width = pos.Width;
+                        Height = pos.Height;
                     }
                     done = true;
 
                     // only restore WindowState when the (restore-)coordinates are valid too!
-                    this.WindowState = loc.state;
+                    WindowState = loc.state;
                 }
 
                 return done;
             }
             catch (Exception ex)
             {
-                Logging.Warn(ex, "There was a problem restoring screen position to {0} for window {1}", position, this.Name);
+                Logging.Warn(ex, "There was a problem restoring screen position to {0} for window {1}", position, Name);
                 return false;
             }
         }

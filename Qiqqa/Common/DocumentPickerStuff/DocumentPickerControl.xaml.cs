@@ -8,7 +8,6 @@ using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Qiqqa.UtilisationTracking;
 using Utilities;
-using Utilities.GUI;
 
 namespace Qiqqa.Common.DocumentPickerStuff
 {
@@ -27,17 +26,17 @@ namespace Qiqqa.Common.DocumentPickerStuff
             ObjSearchFilter.TextChanged += ObjSearchFilter_TextChanged;
         }
 
-        void ObjSearchFilter_TextChanged(object sender, TextChangedEventArgs e)
+        private void ObjSearchFilter_TextChanged(object sender, TextChangedEventArgs e)
         {
             ApplyNewSearch();
         }
 
-        void ObjLibraryPicker_OnWebLibraryPicked(WebLibraryDetail web_library_detail)
+        private void ObjLibraryPicker_OnWebLibraryPicked(WebLibraryDetail web_library_detail)
         {
             ApplyNewSearch();
         }
 
-        void ApplyNewSearch()
+        private void ApplyNewSearch()
         {
             ObjDocumentsPanel.Children.Clear();
 
@@ -69,11 +68,10 @@ namespace Qiqqa.Common.DocumentPickerStuff
             }
         }
 
-        void OnDocumentClicked(object sender, MouseButtonEventArgs e)
+        private void OnDocumentClicked(object sender, MouseButtonEventArgs e)
         {
             TextBlock text_doc = (TextBlock)sender;
-            ListFormattingTools.DocumentTextBlockTag tag = (ListFormattingTools.DocumentTextBlockTag) text_doc.Tag;
-
+            ListFormattingTools.DocumentTextBlockTag tag = (ListFormattingTools.DocumentTextBlockTag)text_doc.Tag;
 
             Logging.Info("{0} was clicked", tag.pdf_document);
         }

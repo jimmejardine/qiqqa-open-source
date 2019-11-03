@@ -11,7 +11,7 @@ namespace Utilities.GUI
     [ContentProperty("Child")]
     public class CollapsibleRegion : DockPanel
     {
-        class ButtonWithNubbin : Grid
+        private class ButtonWithNubbin : Grid
         {
             public Button button;
             public Button nubbin;
@@ -19,47 +19,43 @@ namespace Utilities.GUI
 
             public ButtonWithNubbin()
             {
+                Theme.Initialize();
+
                 button = new Button();
                 button.Background = Brushes.Transparent;
                 button.BorderBrush = Brushes.Transparent;
-                this.Children.Add(button);
+                Children.Add(button);
 
-                {
-                    nubbin = new Button();
-                    nubbin.Width = 50;
-                    nubbin.Height = 50;
-                    nubbin.HorizontalAlignment = HorizontalAlignment.Center;
-                    nubbin.VerticalAlignment = VerticalAlignment.Center;
-                    nubbin.Cursor = Cursors.Hand;
-                    nubbin.BorderBrush = Brushes.Transparent;
-                    nubbin.Background = ThemeColours.Background_Brush_Blue_VeryDark;
-                    this.Children.Add(nubbin);
-                }
-                {
-                    nubbin2 = new Button();
-                    nubbin2.Width = 30;
-                    nubbin2.Height = 30;
-                    nubbin2.HorizontalAlignment = HorizontalAlignment.Center;
-                    nubbin2.VerticalAlignment = VerticalAlignment.Center;
-                    nubbin2.Cursor = Cursors.Hand;
-                    nubbin2.BorderBrush = Brushes.Transparent;
-                    nubbin2.Background = ThemeColours.Background_Brush_Blue_VeryVeryDark;
-                    this.Children.Add(nubbin2);
-                }
+                nubbin = new Button();
+                nubbin.Width = 50;
+                nubbin.Height = 50;
+                nubbin.HorizontalAlignment = HorizontalAlignment.Center;
+                nubbin.VerticalAlignment = VerticalAlignment.Center;
+                nubbin.Cursor = Cursors.Hand;
+                nubbin.BorderBrush = Brushes.Transparent;
+                nubbin.Background = ThemeColours.Background_Brush_Blue_VeryDark;
+                Children.Add(nubbin);
+
+                nubbin2 = new Button();
+                nubbin2.Width = 30;
+                nubbin2.Height = 30;
+                nubbin2.HorizontalAlignment = HorizontalAlignment.Center;
+                nubbin2.VerticalAlignment = VerticalAlignment.Center;
+                nubbin2.Cursor = Cursors.Hand;
+                nubbin2.BorderBrush = Brushes.Transparent;
+                nubbin2.Background = ThemeColours.Background_Brush_Blue_VeryVeryDark;
+                Children.Add(nubbin2);
             }
         }
 
-        static readonly int BORDER_THICKNESS = 5;
-
-        ButtonWithNubbin BL, BR, BT, BB;
-        Grid GridContent;
-
-        bool mouse_is_down;
-        Point last_down_point;
-        Point last_move_point;
-
-        double saved_width;
-        double saved_height;
+        private static readonly int BORDER_THICKNESS = 5;
+        private ButtonWithNubbin BL, BR, BT, BB;
+        private Grid GridContent;
+        private bool mouse_is_down;
+        private Point last_down_point;
+        private Point last_move_point;
+        private double saved_width;
+        private double saved_height;
 
         public CollapsibleRegion()
         {
@@ -76,11 +72,11 @@ namespace Utilities.GUI
             SetDock(BT, Dock.Top);
             SetDock(BB, Dock.Bottom);
 
-            this.Children.Add(BL);
-            this.Children.Add(BR);
-            this.Children.Add(BT);
-            this.Children.Add(BB);
-            this.Children.Add(GridContent);
+            Children.Add(BL);
+            Children.Add(BR);
+            Children.Add(BT);
+            Children.Add(BB);
+            Children.Add(GridContent);
 
             BL.Visibility = BR.Visibility = BT.Visibility = BB.Visibility = Visibility.Collapsed;
             BT.Height = BB.Height = BORDER_THICKNESS;
@@ -115,7 +111,6 @@ namespace Utilities.GUI
                     return null;
                 }
             }
-
         }
 
         public Dock VisibleEdge
@@ -144,20 +139,20 @@ namespace Utilities.GUI
             }
         }
 
-        void SetupEvents(ButtonWithNubbin b)
+        private void SetupEvents(ButtonWithNubbin b)
         {
             b.PreviewMouseDown += b_MouseDown;
             b.PreviewMouseMove += b_MouseMove;
             b.PreviewMouseUp += b_MouseUp;
         }
 
-        void b_MouseDown(object sender, MouseButtonEventArgs e)
+        private void b_MouseDown(object sender, MouseButtonEventArgs e)
         {
             mouse_is_down = true;
             last_down_point = e.GetPosition(null);
         }
 
-        void b_MouseMove(object sender, MouseEventArgs e)
+        private void b_MouseMove(object sender, MouseEventArgs e)
         {
             Point current_move_point = e.GetPosition(null);
 
@@ -186,7 +181,7 @@ namespace Utilities.GUI
             last_move_point = current_move_point;
         }
 
-        void b_MouseUp(object sender, MouseButtonEventArgs e)
+        private void b_MouseUp(object sender, MouseButtonEventArgs e)
         {
             mouse_is_down = false;
             Point up_point = e.GetPosition(null);
@@ -284,14 +279,13 @@ namespace Utilities.GUI
             }
         }
 
-        void DetermineResize(object sender, out double resize_x, out double resize_y)
+        private void DetermineResize(object sender, out double resize_x, out double resize_y)
         {
             resize_x = 0;
             resize_y = 0;
 
             if (null != sender)
             {
-                
                 if (sender == BL) resize_x = -1;
                 if (sender == BR) resize_x = +1;
                 if (sender == BT) resize_y = -1;
@@ -306,7 +300,7 @@ namespace Utilities.GUI
             }
         }
 
-        static double Distance(Point p1, Point p2)
+        private static double Distance(Point p1, Point p2)
         {
             return Math.Sqrt((p1.X - p2.X) * (p1.X - p2.X) + (p1.Y - p2.Y) * (p1.Y - p2.Y));
         }

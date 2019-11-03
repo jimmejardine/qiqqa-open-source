@@ -13,11 +13,9 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
     /// </summary>
     public partial class AITagExplorerItemPopup : UserControl
     {
-        Library library;
-        string source_tag;
-        
-        AugmentedPopup popup;
-
+        private Library library;
+        private string source_tag;
+        private AugmentedPopup popup;
 
         public AITagExplorerItemPopup(Library library, string source_tag)
         {
@@ -34,7 +32,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
             popup = new AugmentedPopup(this);
         }
 
-        void MenuExploreTag_Click(object sender, RoutedEventArgs e)
+        private void MenuExploreTag_Click(object sender, RoutedEventArgs e)
         {
             using (var c = popup.AutoCloser)
             {
@@ -42,7 +40,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
             }
         }
 
-        void MenuPromoteToTag_Click(object sender, RoutedEventArgs e)
+        private void MenuPromoteToTag_Click(object sender, RoutedEventArgs e)
         {
             using (var c = popup.AutoCloser)
             {
@@ -55,7 +53,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
             }
         }
 
-        void MenuAddBlacklist_Click(object sender, RoutedEventArgs e)
+        private void MenuAddBlacklist_Click(object sender, RoutedEventArgs e)
         {
             using (var c = popup.AutoCloser)
             {
@@ -65,7 +63,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
             }
         }
 
-        void MenuAddWhitelist_Click(object sender, RoutedEventArgs e)
+        private void MenuAddWhitelist_Click(object sender, RoutedEventArgs e)
         {
             using (var c = popup.AutoCloser)
             {

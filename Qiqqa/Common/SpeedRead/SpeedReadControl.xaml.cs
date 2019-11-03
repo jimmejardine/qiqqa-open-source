@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -8,7 +7,6 @@ using System.Windows.Input;
 using icons;
 using Qiqqa.Common.Configuration;
 using Utilities;
-using Utilities.GUI;
 
 namespace Qiqqa.Common.SpeedRead
 {
@@ -25,7 +23,7 @@ namespace Qiqqa.Common.SpeedRead
             SliderLocation.ToolTip = "Current location.  Press PageUp/PageDown to jump 1000 words.";
             TxtWPM.ToolTip = SliderWPM.ToolTip = "Words per minute.  Press Plus/Minus to change this.";
             TextCurrentWord.ToolTip = TextCurrentWordLeft.ToolTip = TextCurrentWordRight.ToolTip = "Press 1-9 to change the font size.";
-            
+
             ButtonRewind.Icon = Icons.GetAppIcon(Icons.SpeedRead_Backward);
             ButtonRewind.ToolTip = "Rewind 100 words.\n(Backspace)";
             ButtonPlayStop.Icon = Icons.GetAppIcon(Icons.SpeedRead_Play);
@@ -41,17 +39,16 @@ namespace Qiqqa.Common.SpeedRead
 
             ButtonRewind.Click += ButtonRewind_Click;
 
-            this.PreviewKeyDown += SpeedReadControl_KeyDown;
+            PreviewKeyDown += SpeedReadControl_KeyDown;
 
-            this.DataContext = ConfigurationManager.Instance.ConfigurationRecord;
+            DataContext = ConfigurationManager.Instance.ConfigurationRecord;
 
             TogglePlayPause();
         }
 
-        void SpeedReadControl_KeyDown(object sender, KeyEventArgs e)
+        private void SpeedReadControl_KeyDown(object sender, KeyEventArgs e)
         {
-            if (false) { }
-            else if (Key.Space == e.Key)
+            if (Key.Space == e.Key)
             {
                 TogglePlayPause();
                 e.Handled = true;
@@ -137,17 +134,17 @@ namespace Qiqqa.Common.SpeedRead
             SliderLocation.Value = new_value;
         }
 
-        void ButtonRewind_Click(object sender, RoutedEventArgs e)
+        private void ButtonRewind_Click(object sender, RoutedEventArgs e)
         {
             ChangeLocation(-100);
         }
 
-        void ButtonFaster_Click(object sender, RoutedEventArgs e)
+        private void ButtonFaster_Click(object sender, RoutedEventArgs e)
         {
             ChangeWPM(+20);
         }
 
-        void ButtonSlower_Click(object sender, RoutedEventArgs e)
+        private void ButtonSlower_Click(object sender, RoutedEventArgs e)
         {
             ChangeWPM(-20);
         }
@@ -161,13 +158,12 @@ namespace Qiqqa.Common.SpeedRead
             SliderWPM.Value = new_value;
         }
 
-        void ButtonPlayStop_Click(object sender, RoutedEventArgs e)
+        private void ButtonPlayStop_Click(object sender, RoutedEventArgs e)
         {
             TogglePlayPause();
         }
 
-        
-        bool playing = true;
+        private bool playing = true;
         public void TogglePlayPause(bool force_stop = false)
         {
             playing = !playing;
@@ -184,13 +180,21 @@ namespace Qiqqa.Common.SpeedRead
             }
             else
             {
-                ButtonPlayStop.Icon = Icons.GetAppIcon(Icons.SpeedRead_Play);                
+                ButtonPlayStop.Icon = Icons.GetAppIcon(Icons.SpeedRead_Play);
             }
         }
 
+        private Thread thread = null;
+
         private void KickOffPlayingThread()
         {
-            Thread thread = new Thread(BackgroundThread);
+            if (null != thread)
+            {
+                playing = false;
+                thread.Join();
+            }
+
+            thread = new Thread(BackgroundThread);
             //thread.IsBackground = true;
             //thread.Priority = ThreadPriority.Lowest;
             thread.Name = "SpeedReader:Player";
@@ -233,7 +237,6 @@ namespace Qiqqa.Common.SpeedRead
                     int sleep_time_ms = (60 * 1000 / (current_wpm + 1));
                     Thread.Sleep(sleep_time_ms);
 
-
                     int current_position = 0;
                     int current_maximum = 0;
                     // Interrogate the GUI
@@ -249,18 +252,18 @@ namespace Qiqqa.Common.SpeedRead
                     // Can we move onto the next word?
                     if (current_position < current_maximum)
                     {
-                        string current_word = this.words[current_position];
+                        string current_word = words[current_position];
                         string current_word_left = "";
                         string current_word_right = "";
                         for (int i = 1; i <= 3; ++i)
                         {
                             if (current_position - i >= 0 && current_position - i < words.Count)
                             {
-                                current_word_left += this.words[current_position - i] + " ";
+                                current_word_left += words[current_position - i] + " ";
                             }
                             if (current_position + i >= 0 && current_position + i < words.Count)
                             {
-                                current_word_right += " " + this.words[current_position + i];
+                                current_word_right += " " + words[current_position + i];
                             }
                         }
 
@@ -282,7 +285,7 @@ namespace Qiqqa.Common.SpeedRead
                         Dispatcher.Invoke(
                             new Action(() =>
                             {
-                                TogglePlayPause(true);
+                                TogglePlayPause(force_stop: true);
                             }
                         ));
                     }
@@ -294,7 +297,6 @@ namespace Qiqqa.Common.SpeedRead
                 // was invoked on the mainline, it's hunky-dory. So we merely rate this
                 // DEBUG level diagnostics.
                 Logging.Debug特(ex, "VERY PROBABLY HARMLESS AND EXPECTED crash in SpeedReader: if you just closed/quit the panel, this is due to Dispose() invocation in the Main thread and expected behaviour.");
-
             }
         }
 
@@ -308,7 +310,7 @@ namespace Qiqqa.Common.SpeedRead
 
         public void UseText(List<string> words_)
         {
-            this.words = words_;
+            words = words_;
 
             SliderLocation.Minimum = 0;
             SliderLocation.Maximum = words_.Count;
@@ -332,15 +334,15 @@ namespace Qiqqa.Common.SpeedRead
         }
 #endif
 
-#endregion
+        #endregion
 
 
-#region --- IDisposable ------------------------------------------------------------------------
+        #region --- IDisposable ------------------------------------------------------------------------
 
         ~SpeedReadControl()
         {
             Logging.Debug("~SpeedReadControl()");
-            Dispose(false);            
+            Dispose(false);
         }
 
         public void Dispose()
@@ -351,18 +353,29 @@ namespace Qiqqa.Common.SpeedRead
         }
 
         private int dispose_count = 0;
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            Logging.Debug("SpeedReadControl::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
-            if (disposing)
+            Logging.Debug("SpeedReadControl::Dispose({0}) @{1}", disposing, dispose_count);
+
+            try
             {
-                // Get rid of managed resources
-                TogglePlayPause(true);
+                // Get rid of managed resources and background threads
+                playing = false;
+                if (thread != null)
+                {
+                    thread.Join();
+                }
+
+                words.Clear();
+
+                DataContext = null;
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
             }
 
-            this.words = null;
-
-            // Get rid of unmanaged resources 
+            ++dispose_count;
         }
 
         #endregion

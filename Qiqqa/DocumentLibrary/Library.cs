@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Common.TagManagement;
 using Qiqqa.DocumentConversionStuff;
@@ -18,113 +16,53 @@ using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
-using Utilities.Strings;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.DocumentLibrary
 {
-    public class Library
+    public class Library : IDisposable
     {
         public override string ToString()
         {
-            return String.Format("Library: {0}", this.web_library_detail.Title);
+            return String.Format("Library: {0}", web_library_detail.Title);
         }
 
         /// <summary>
         /// Use this singleton instance ONLY for testing purposes!
         /// </summary>
-        public static Library GuestInstance
-        {
-            get
-            {
-                return WebLibraryManager.Instance.Library_Guest;
-            }
-        }
+        public static Library GuestInstance => WebLibraryManager.Instance.Library_Guest;
 
         private WebLibraryDetail web_library_detail;
-        public WebLibraryDetail WebLibraryDetail
-        {
-            get
-            {
-                return web_library_detail;
-            }
-        }
+        public WebLibraryDetail WebLibraryDetail => web_library_detail;
 
         private LibraryDB library_db;
-        public LibraryDB LibraryDB
-        {
-            get
-            {
-                return library_db;
-            }
-        }
+        public LibraryDB LibraryDB => library_db;
 
         private FolderWatcherManager folder_watcher_manager;
-        public FolderWatcherManager FolderWatcherManager
-        {
-            get
-            {
-                return folder_watcher_manager;
-            }
-        }
+        public FolderWatcherManager FolderWatcherManager => folder_watcher_manager;
 
         private LibraryIndex library_index;
-        public LibraryIndex LibraryIndex
-        {
-            get
-            {
-                return library_index;
-            }
-        }
+        public LibraryIndex LibraryIndex => library_index;
 
         private AITagManager ai_tag_manager;
-        public AITagManager AITagManager
-        {
-            get
-            {
-                return ai_tag_manager;
-            }
-        }
+        public AITagManager AITagManager => ai_tag_manager;
 
         private RecentlyReadManager recently_read_manager;
-        public RecentlyReadManager RecentlyReadManager
-        {
-            get
-            {
-                return recently_read_manager;
-            }
-        }
+        public RecentlyReadManager RecentlyReadManager => recently_read_manager;
 
         private BlackWhiteListManager blackwhite_list_manager;
-        public BlackWhiteListManager BlackWhiteListManager
-        {
-            get
-            {
-                return blackwhite_list_manager;
-            }
-        }
+        public BlackWhiteListManager BlackWhiteListManager => blackwhite_list_manager;
 
-        PasswordManager password_manager;
-        public PasswordManager PasswordManager
-        {
-            get
-            {
-                return password_manager;
-            }
-        }
+        private PasswordManager password_manager;
+        public PasswordManager PasswordManager => password_manager;
 
-        ExpeditionManager expedition_manager;
-        public ExpeditionManager ExpeditionManager
-        {
-            get
-            {
-                return expedition_manager;
-            }
-        }
+        private ExpeditionManager expedition_manager;
+        public ExpeditionManager ExpeditionManager => expedition_manager;
 
-        Dictionary<string, PDFDocument> pdf_documents = new Dictionary<string, PDFDocument>();
+        private Dictionary<string, PDFDocument> pdf_documents = new Dictionary<string, PDFDocument>();
         private object pdf_documents_lock = new object();
 
         public delegate void OnLibraryLoadedHandler(Library library);
@@ -132,6 +70,7 @@ namespace Qiqqa.DocumentLibrary
         // Move this somewhere nice...
         public bool sync_in_progress = false;
         private bool library_is_loaded = false;
+        private bool library_is_killed = false;
         private object library_is_loaded_lock = new object();
 
         public event OnLibraryLoadedHandler OnLibraryLoaded;
@@ -145,6 +84,40 @@ namespace Qiqqa.DocumentLibrary
                 {
                     l1_clk.LockPerfTimerStop();
                     return library_is_loaded;
+                }
+            }
+            private set
+            {
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                lock (library_is_loaded_lock)
+                {
+                    l1_clk.LockPerfTimerStop();
+                    library_is_loaded = value;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Signals a forced `Dispose()` call was issued; any background processes involving this library should abort ASAP!
+        /// </summary>
+        public bool LibraryIsKilled
+        {
+            get
+            {
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                lock (library_is_loaded_lock)
+                {
+                    l1_clk.LockPerfTimerStop();
+                    return library_is_killed;
+                }
+            }
+            private set
+            {
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                lock (library_is_loaded_lock)
+                {
+                    l1_clk.LockPerfTimerStop();
+                    library_is_killed = value;
                 }
             }
         }
@@ -179,74 +152,68 @@ namespace Qiqqa.DocumentLibrary
             Directory.CreateDirectory(LIBRARY_BASE_PATH);
             Directory.CreateDirectory(LIBRARY_DOCUMENTS_BASE_PATH);
 
-            this.library_db = new LibraryDB(this.LIBRARY_BASE_PATH);
-            this.folder_watcher_manager = new FolderWatcherManager(this);
-            this.library_index = new LibraryIndex(this);
-            this.ai_tag_manager = new AITagManager(this);
-            this.recently_read_manager = new RecentlyReadManager(this);
-            this.blackwhite_list_manager = new BlackWhiteListManager(this);
-            this.password_manager = new PasswordManager(this);
-            this.expedition_manager = new ExpeditionManager(this);
+            library_db = new LibraryDB(LIBRARY_BASE_PATH);
+            folder_watcher_manager = new FolderWatcherManager(this);
+            library_index = new LibraryIndex(this);
+            ai_tag_manager = new AITagManager(this);
+            recently_read_manager = new RecentlyReadManager(this);
+            blackwhite_list_manager = new BlackWhiteListManager(this);
+            password_manager = new PasswordManager(this);
+            expedition_manager = new ExpeditionManager(this);
 
             // Start loading the documents in the background...
             SafeThreadPool.QueueUserWorkItem(o => BuildFromDocumentRepository());
-        }
-
-        private int dispose_count = 0;
-        internal void Dispose()
-        {
-            Logging.Debug("Library::Dispose() @{0}", ++dispose_count);
-
-            // Do we need to check that the library has finished being loaded?
-
-            // Switch off the living things
-            this.library_index?.Dispose();
-            this.folder_watcher_manager?.Dispose();
-
-            // Clear the references for sanity's sake
-            this.expedition_manager = null;
-            this.password_manager = null;
-            this.blackwhite_list_manager = null;
-            this.recently_read_manager = null;
-            this.ai_tag_manager = null;
-            this.library_index = null;
-            this.folder_watcher_manager = null;
-            this.library_db = null;
         }
 
         // NOTE: this function is executed ASYNCHRONOUSLY. 
         // 
         // Once completed, an event will be fired to
         // help the main application update any relevant views.
-        void BuildFromDocumentRepository()
+        private void BuildFromDocumentRepository()
         {
             try
             {
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-                lock (library_is_loaded_lock)
+                LibraryIsLoaded = false;
+
+                // abort work when this library instance has already been Dispose()d in the main UI thread:
+                if (LibraryIsKilled)
                 {
-                    l1_clk.LockPerfTimerStop();
-                    library_is_loaded = false;
+                    Logging.Info("Building the library has been SKIPPED/ABORTED as the library {0} has already been killed.", WebLibraryDetail.Id);
+                    return;
                 }
 
                 Stopwatch clk = Stopwatch.StartNew();
                 long prev_clk = 0;
                 long elapsed = 0;
                 Logging.Debug特("+Build library from repository");
-                List<LibraryDB.LibraryItem> library_items = this.library_db.GetLibraryItems(null, PDFDocumentFileLocations.METADATA);
+                List<LibraryDB.LibraryItem> library_items = library_db.GetLibraryItems(null, PDFDocumentFileLocations.METADATA);
+
+                // abort work when this library instance has already been Dispose()d in the main UI thread:
+                if (LibraryIsKilled)
+                {
+                    Logging.Info("Building the library has been SKIPPED/ABORTED as the library {0} has already been killed.", WebLibraryDetail.Id);
+                    return;
+                }
 
                 elapsed = clk.ElapsedMilliseconds;
-                Logging.Debug特(":Build library '{2}' from repository -- time spent: {0} ms on fetching {1} records from SQLite DB.", elapsed, library_items.Count, this.WebLibraryDetail.DescriptiveTitle);
+                Logging.Debug特(":Build library '{2}' from repository -- time spent: {0} ms on fetching {1} records from SQLite DB.", elapsed, library_items.Count, WebLibraryDetail.DescriptiveTitle);
                 prev_clk = elapsed;
 
                 // Get the annotations cache
-                Dictionary<string, byte[]> library_items_annotations_cache = this.library_db.GetLibraryItemsAsCache(PDFDocumentFileLocations.ANNOTATIONS);
+                Dictionary<string, byte[]> library_items_annotations_cache = library_db.GetLibraryItemsAsCache(PDFDocumentFileLocations.ANNOTATIONS);
+
+                // abort work when this library instance has already been Dispose()d in the main UI thread:
+                if (LibraryIsKilled)
+                {
+                    Logging.Info("Building the library has been SKIPPED/ABORTED as the library {0} has already been killed.", WebLibraryDetail.Id);
+                    return;
+                }
 
                 elapsed = clk.ElapsedMilliseconds;
-                Logging.Debug特(":Build library '{2}' from repository -- time spent: {0} ms on fetching annotation cache for {1} records.", elapsed - prev_clk, library_items.Count, this.WebLibraryDetail.DescriptiveTitle);
+                Logging.Debug特(":Build library '{2}' from repository -- time spent: {0} ms on fetching annotation cache for {1} records.", elapsed - prev_clk, library_items.Count, WebLibraryDetail.DescriptiveTitle);
                 prev_clk = elapsed;
 
-                Logging.Info("Library '{2}': Loading {0} files from repository at {1}", library_items.Count, LIBRARY_DOCUMENTS_BASE_PATH, this.WebLibraryDetail.DescriptiveTitle);
+                Logging.Info("Library '{2}': Loading {0} files from repository at {1}", library_items.Count, LIBRARY_DOCUMENTS_BASE_PATH, WebLibraryDetail.DescriptiveTitle);
 
                 for (int i = 0; i < library_items.Count; ++i)
                 {
@@ -256,11 +223,18 @@ namespace Qiqqa.DocumentLibrary
                     elapsed = clk.ElapsedMilliseconds;
                     if (prev_clk + 1000 <= elapsed)
                     {
-                        StatusManager.Instance.UpdateStatus("LibraryInitialLoad", String.Format("Loading your library '{0}'", this.WebLibraryDetail.DescriptiveTitle), i, library_items.Count);
-                        Logging.Info("Library '{2}': Loaded {0}/{1} documents", i, library_items.Count, this.WebLibraryDetail.DescriptiveTitle);
+                        StatusManager.Instance.UpdateStatus("LibraryInitialLoad", String.Format("Loading your library '{0}'", WebLibraryDetail.DescriptiveTitle), i, library_items.Count);
+                        Logging.Info("Library '{2}': Loaded {0}/{1} documents", i, library_items.Count, WebLibraryDetail.DescriptiveTitle);
                         prev_clk = elapsed;
 
                         System.Threading.Thread.Yield();
+                    }
+
+                    if (LibraryIsKilled)
+                    {
+                        // abort work when this library instance has already been Dispose()d in the main UI thread:
+                        Logging.Info("Building the library has been SKIPPED/ABORTED as the library {0} has already been killed.", WebLibraryDetail.Id);
+                        break;
                     }
 
                     try
@@ -269,29 +243,34 @@ namespace Qiqqa.DocumentLibrary
                     }
                     catch (Exception ex)
                     {
-                        Logging.Error(ex, "Library '{1}': There was a problem loading document {0}", library_item, this.WebLibraryDetail.DescriptiveTitle);
+                        Logging.Error(ex, "Library '{1}': There was a problem loading document {0}", library_item, WebLibraryDetail.DescriptiveTitle);
                     }
                 }
 
                 StatusManager.Instance.ClearStatus("LibraryInitialLoad");
 
-                Logging.Debug特("-Build library '{2}' from repository -- time spent: {0} ms on {1} library records.", clk.ElapsedMilliseconds, library_items.Count, this.WebLibraryDetail.DescriptiveTitle);
+                Logging.Debug特("-Build library '{2}' from repository -- time spent: {0} ms on {1} library records.", clk.ElapsedMilliseconds, library_items.Count, WebLibraryDetail.DescriptiveTitle);
             }
             catch (Exception ex)
             {
-                Logging.Error(ex, "There was a problem while building the document library {0}", this.WebLibraryDetail.DescriptiveTitle);
+                if (LibraryIsKilled)
+                {
+                    Logging.Warn(ex, "There was a failure while building the *KILLED* document library instance for library {0} ({1})", WebLibraryDetail.DescriptiveTitle, WebLibraryDetail.Id);
+                }
+                else
+                {
+                    Logging.Error(ex, "There was a problem while building the document library {0} ({1})", WebLibraryDetail.DescriptiveTitle, WebLibraryDetail.Id);
+                }
             }
             finally
             {
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-                lock (library_is_loaded_lock)
-                {
-                    l1_clk.LockPerfTimerStop();
-                    library_is_loaded = true;
-                }
+                LibraryIsLoaded = true;
 
-                // fire the event ASYNC
-                OnLibraryLoaded?.BeginInvoke(this, null, null);
+                if (!LibraryIsKilled)
+                {
+                    // fire the event ASYNC
+                    OnLibraryLoaded?.BeginInvoke(this, null, null);
+                }
             }
         }
 
@@ -301,10 +280,10 @@ namespace Qiqqa.DocumentLibrary
             {
                 PDFDocument pdf_document = PDFDocument.LoadFromMetaData(this, library_item.data, library_items_annotations_cache);
 
-                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (pdf_documents_lock)
                 {
-                    //l1_clk.LockPerfTimerStop();
+                    l1_clk.LockPerfTimerStop();
                     pdf_documents[pdf_document.Fingerprint] = pdf_document;
                 }
 
@@ -325,7 +304,7 @@ namespace Qiqqa.DocumentLibrary
             }
             catch (Exception ex)
             {
-                Logging.Warn(ex, "Couldn't load document from ", library_item);
+                Logging.Warn(ex, "Couldn't load document from {0}", library_item.fingerprint);
             }
         }
 
@@ -914,8 +893,8 @@ namespace Qiqqa.DocumentLibrary
             Logging.Info("Library has been notified that {0} has changed", fingerprint);
             try
             {
-                LibraryDB.LibraryItem library_item = this.library_db.GetLibraryItem(fingerprint, PDFDocumentFileLocations.METADATA);
-                this.LoadDocumentFromMetadata(library_item, null, true);
+                LibraryDB.LibraryItem library_item = library_db.GetLibraryItem(fingerprint, PDFDocumentFileLocations.METADATA);
+                LoadDocumentFromMetadata(library_item, null, true);
             }
             catch (Exception ex)
             {
@@ -936,7 +915,7 @@ namespace Qiqqa.DocumentLibrary
         {
             public PDFDocumentEventArgs(PDFDocument pdf_document)
             {
-                this.PDFDocument = pdf_document;
+                PDFDocument = pdf_document;
             }
 
             public PDFDocument PDFDocument { get; }
@@ -970,6 +949,11 @@ namespace Qiqqa.DocumentLibrary
 
         internal void CheckForSignalThatDocumentsHaveChanged()
         {
+            if (LibraryIsKilled)
+            {
+                return;
+            }
+
             PDFDocument local_documents_changed_optional_changed_pdf_document;
             DateTime now = DateTime.UtcNow;
 
@@ -1020,13 +1004,7 @@ namespace Qiqqa.DocumentLibrary
             return Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.BaseDirectoryForQiqqa, id));
         }
 
-        public string LIBRARY_BASE_PATH
-        {
-            get
-            {
-                return GetLibraryBasePathForId(this.web_library_detail.Id);
-            }
-        }
+        public string LIBRARY_BASE_PATH => GetLibraryBasePathForId(web_library_detail.Id);
 
         public string LIBRARY_DOCUMENTS_BASE_PATH
         {
@@ -1044,14 +1022,88 @@ namespace Qiqqa.DocumentLibrary
             }
         }
 
-        public string LIBRARY_INDEX_BASE_PATH
-        {
-            get
-            {
-                return Path.GetFullPath(Path.Combine(LIBRARY_BASE_PATH, @"index"));
-            }
-        }
+        public string LIBRARY_INDEX_BASE_PATH => Path.GetFullPath(Path.Combine(LIBRARY_BASE_PATH, @"index"));
 
         #endregion
+
+        #region --- IDisposable ------------------------------------------------------------------------
+
+        ~Library()
+        {
+            Logging.Debug("~Library()");
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Logging.Debug("Disposing Library");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected virtual void Dispose(bool disposing)
+        {
+            Logging.Debug("Library::Dispose({0}) @{1}", disposing, dispose_count);
+
+            LibraryIsKilled = true;
+
+            if (dispose_count == 0)
+            {
+                // Get rid of managed resources / get rid of cyclic references:
+
+                // Do we need to check that the library has finished being loaded?
+
+                // Switch off the living things
+                library_index?.Dispose();
+                folder_watcher_manager?.Dispose();
+
+                // NULL the memory database
+                Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+                lock (pdf_documents_lock)
+                {
+                    l2_clk.LockPerfTimerStop();
+                    pdf_documents.Clear();
+                    pdf_documents = null;
+                }
+            }
+
+            // Clear the references for sanity's sake
+            expedition_manager = null;
+            password_manager = null;
+            blackwhite_list_manager = null;
+            recently_read_manager = null;
+            ai_tag_manager = null;
+            library_index = null;
+            folder_watcher_manager = null;
+            library_db = null;
+
+#if false
+            web_library_detail = null;       // cyclic reference as WebLibraryDetail instance reference us, so we MUST nil this one to break the cycle for the GC to work well.
+#else
+            // cyclic reference as WebLibraryDetail instance reference us, so we MUST nil this one to break the cycle for the GC to work well.
+            //
+            // WARNING:
+            // The most obvious way (see above in `#if false` branch) would be to NULL the weblibdetail reference, but this will cause all sorts of extremely
+            // nasty crashes, including memory corruption, as this reference is accessed in Library background task(s) which might discover that the
+            // library at hand has been killed rather late.
+            //
+            // When those code chunks, e.g. *anything* inside `BuildFromDocumentRepository()`, crash on a NULL dereference of any of the other NULLed
+            // library members, the error resolution code highly depends on a *still working* web_library_detail reference/instance.
+            // To resolve the cyclic reference in there (as the web_lib_detail has a `Library` reference), we hack this by creating a *temporary*
+            // intermediate web_library_detail instance, which is a copy of the original *sans Library reference*.
+            // We DO NOT nuke the Library member in the original web_library_detail as that would cause all sorts of other harm since there's other
+            // code which depends on a certain valid lifetime of that instance and that code should dispose of the record once it is done using it...
+            //
+            // Cloning...
+            web_library_detail = web_library_detail.CloneSansLibraryReference();
+
+#endif
+
+            ++dispose_count;
+        }
+
+#endregion
+
     }
 }

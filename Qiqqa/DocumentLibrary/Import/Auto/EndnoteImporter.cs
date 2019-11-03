@@ -1,22 +1,20 @@
-﻿using Ionic.Zip;
-using Microsoft.Win32;
-using Newtonsoft.Json;
-using Qiqqa.DocumentLibrary.Import.Auto.Endnote;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
+using Microsoft.Win32;
+using Qiqqa.DocumentLibrary.Import.Auto.Endnote;
 using Utilities;
 using Utilities.BibTex;
 using Utilities.BibTex.Parsing;
 using Utilities.Strings;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 
+
 namespace Qiqqa.DocumentLibrary.Import.Auto
 {
-    public class EndnoteImporter
+    public static class EndnoteImporter
     {
         public class EndnoteDatabaseDetails
         {
@@ -26,19 +24,12 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
 
             public List<FilenameWithMetadataImport> metadata_imports = new List<FilenameWithMetadataImport>();
 
-            public string PotentialImportMessage
-            {
-                get
-                {
-                    return
-                        String.Format(
+            public string PotentialImportMessage => String.Format(
                         "Qiqqa has detected {2} EndNote™ database(s) on your computer.  Qiqqa can automatically import {0} references, {1} of which have associated PDFs."
-                        , this.documents_found
-                        , this.pdfs_found
-                        , this.databases_found
+                        , documents_found
+                        , pdfs_found
+                        , databases_found
                     );
-                }
-            }
         }
 
 
@@ -159,7 +150,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
             fwmi.tags.Add("import_endnote");
             fwmi.tags.Add("import_endnote_" + Path.GetFileNameWithoutExtension(endnote_database_filename));
             fwmi.bibtex = bibtex_item.ToBibTex();
-            
+
             if (record.fields.ContainsKey("notes"))
             {
                 fwmi.notes = record.fields["notes"];

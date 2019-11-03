@@ -10,7 +10,7 @@ namespace Qiqqa.Documents.PDF
     /// </summary>
     public class PDFInkList : ICloneable
     {
-        Dictionary<int, byte[]> page_ink_blobs = new Dictionary<int, byte[]>();
+        private Dictionary<int, byte[]> page_ink_blobs = new Dictionary<int, byte[]>();
 
         public delegate void OnPDFInkListChangedDelegate();
         public event OnPDFInkListChangedDelegate OnPDFInkListChanged;
@@ -18,13 +18,7 @@ namespace Qiqqa.Documents.PDF
         /// <summary>
         /// TODO: NOT threadsafe - should clean this up...
         /// </summary>
-        public Dictionary<int, byte[]> PageInkBlobs
-        {
-            get
-            {
-                return page_ink_blobs;
-            }
-        }
+        public Dictionary<int, byte[]> PageInkBlobs => page_ink_blobs;
 
         public List<int> GetAffectedPages()
         {

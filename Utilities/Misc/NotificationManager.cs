@@ -48,8 +48,8 @@ namespace Utilities.Misc
             private string tooltip;
             public string ToolTip
             {
-                get { return (tooltip ?? Text); }
-                set { tooltip = value; }
+                get => (tooltip ?? Text);
+                set => tooltip = value;
             }
             public NotificationType Type { get; set; }
             public string ImageName { get; set; }

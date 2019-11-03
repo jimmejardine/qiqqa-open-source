@@ -15,19 +15,18 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.LinkedDocumentsStuff
     /// </summary>
     public partial class LinkedDocumentsControl : UserControl
     {
-        PDFDocument pdf_document;
+        private PDFDocument pdf_document;
 
         public LinkedDocumentsControl()
         {
             InitializeComponent();
-            this.PreviewKeyDown += LinkedDocumentsControl_PreviewKeyDown;
+            PreviewKeyDown += LinkedDocumentsControl_PreviewKeyDown;
             ObjSearchBox.OnSoftSearch += ObjSearchBox_OnSoftSearch;
         }
 
-        void LinkedDocumentsControl_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void LinkedDocumentsControl_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (false) { }
-            else if (Key.Enter == e.Key)
+            if (Key.Enter == e.Key)
             {
                 LinkSelectedDocument();
                 e.Handled = true;
@@ -65,19 +64,16 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.LinkedDocumentsStuff
             }
         }
 
-        public PDFDocument PDFDocument
+        public void SetPDFDocument(PDFDocument doc)
         {
-            set
-            {
-                this.pdf_document = value;
-                ReSearch();
-                RepopulatePanels();
-            }
+            pdf_document = doc;
+            ReSearch();
+            RepopulatePanels();
         }
 
         private void RepopulatePanels()
         {
-            CitationsUserControl.PopulatePanelWithCitations(DocsPanel_Linked, this.pdf_document.Library, this.pdf_document, this.pdf_document.PDFDocumentCitationManager.GetLinkedDocuments(), Features.LinkedDocument_InfoBar_OpenDoc);
+            CitationsUserControl.PopulatePanelWithCitations(DocsPanel_Linked, pdf_document.Library, pdf_document, pdf_document.PDFDocumentCitationManager.GetLinkedDocuments(), Features.LinkedDocument_InfoBar_OpenDoc);
         }
 
         private void ReSearch()
@@ -111,7 +107,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.LinkedDocumentsStuff
             }
         }
 
-        void MouseButtonEventHandler(object sender, MouseButtonEventArgs e)
+        private void MouseButtonEventHandler(object sender, MouseButtonEventArgs e)
         {
             LinkSelectedDocument();
         }
@@ -119,7 +115,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.LinkedDocumentsStuff
         private void LinkSelectedDocument()
         {
             FeatureTrackingManager.Instance.UseFeature(Features.LinkedDocument_Create);
-            
+
             TextBlock text_block = ObjPDFDocuments.SelectedItem as TextBlock;
             if (null != text_block)
             {
@@ -133,8 +129,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.LinkedDocumentsStuff
             RepopulatePanels();
         }
 
-
-        void ObjSearchBox_OnSoftSearch()
+        private void ObjSearchBox_OnSoftSearch()
         {
             ReSearch();
         }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -22,9 +21,10 @@ using Utilities;
 using Utilities.GUI;
 using Utilities.Language.TextIndexing;
 using Utilities.Misc;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.InCite
 {
@@ -33,115 +33,117 @@ namespace Qiqqa.InCite
     /// </summary>
     public partial class InCiteControl : UserControl
     {
-        WebLibraryDetail web_library_detail = null;
-        LibraryControl library_control = null;
+        private WebLibraryDetail web_library_detail = null;
+        private LibraryControl library_control = null;
 
         public InCiteControl()
         {
+            Theme.Initialize();
+
             InitializeComponent();
 
             // Tabs
-            
-                DualTabControlArea.Children.Clear();
-                DualTabControlArea.AddContent("Library", "Cite papers from your library", null, false, false, TabLibrary);
-                DualTabControlArea.AddContent("Recommendations", "Cite papers recommended by Qiqqa InCite", null, false, false, TabRecommendations);
-                DualTabControlArea.AddContent("Cluster", "Edit current citation cluster", null, false, false, TabCitationClusterEditor);
-                DualTabControlArea.MakeActive("Library");
-            
+
+            DualTabControlArea.Children.Clear();
+            DualTabControlArea.AddContent("Library", "Cite papers from your library", null, false, false, TabLibrary);
+            DualTabControlArea.AddContent("Recommendations", "Cite papers recommended by Qiqqa InCite", null, false, false, TabRecommendations);
+            DualTabControlArea.AddContent("Cluster", "Edit current citation cluster", null, false, false, TabCitationClusterEditor);
+            DualTabControlArea.MakeActive("Library");
+
 
             bool ADVANCED_MENUS = ConfigurationManager.Instance.ConfigurationRecord.GUI_AdvancedMenus;
 
-            
-                ButtonCitationSnippetToClipboard.Icon = Icons.GetAppIcon(Icons.InCiteCitationSnippet);
-                if (!ADVANCED_MENUS) ButtonCitationSnippetToClipboard.Caption = LocalisationManager.Get("INCITE/CAP/NEW_SNIPPET");
-                ButtonCitationSnippetToClipboard.ToolTip = LocalisationManager.Get("INCITE/TIP/NEW_SNIPPET");
-                ButtonCitationSnippetToClipboard.Click += ButtonCitationSnippetToClipboard_Click;
 
-                ButtonNewCitation.Icon = Icons.GetAppIcon(Icons.InCiteNewCitation);
-                if (!ADVANCED_MENUS) ButtonNewCitation.Caption = LocalisationManager.Get("INCITE/CAP/NEW_CITATION");
-                ButtonNewCitation.ToolTip = LocalisationManager.Get("INCITE/TIP/NEW_CITATION");
-                ButtonNewCitation.Click += ButtonNewCitation_Click;
+            ButtonCitationSnippetToClipboard.Icon = Icons.GetAppIcon(Icons.InCiteCitationSnippet);
+            if (!ADVANCED_MENUS) ButtonCitationSnippetToClipboard.Caption = LocalisationManager.Get("INCITE/CAP/NEW_SNIPPET");
+            ButtonCitationSnippetToClipboard.ToolTip = LocalisationManager.Get("INCITE/TIP/NEW_SNIPPET");
+            ButtonCitationSnippetToClipboard.Click += ButtonCitationSnippetToClipboard_Click;
 
-                ButtonNewCitationSeparateAuthorYear.Icon = Icons.GetAppIcon(Icons.InCiteNewCitation);
-                if (!ADVANCED_MENUS) ButtonNewCitationSeparateAuthorYear.Caption = LocalisationManager.Get("INCITE/CAP/NEW_CITATION_SEPARATE_AUTHOR_YEAR");
-                ButtonNewCitationSeparateAuthorYear.ToolTip = LocalisationManager.Get("INCITE/TIP/NEW_CITATION_SEPARATE_AUTHOR_YEAR");
-                ButtonNewCitationSeparateAuthorYear.Click += ButtonNewCitationSeparateAuthorYear_Click;
+            ButtonNewCitation.Icon = Icons.GetAppIcon(Icons.InCiteNewCitation);
+            if (!ADVANCED_MENUS) ButtonNewCitation.Caption = LocalisationManager.Get("INCITE/CAP/NEW_CITATION");
+            ButtonNewCitation.ToolTip = LocalisationManager.Get("INCITE/TIP/NEW_CITATION");
+            ButtonNewCitation.Click += ButtonNewCitation_Click;
 
-                ButtonAddBibliography.Icon = Icons.GetAppIcon(Icons.InCiteAddBibliography);
-                if (!ADVANCED_MENUS) ButtonAddBibliography.Caption = LocalisationManager.Get("INCITE/CAP/NEW_BIBLIOGRAPHY");
-                ButtonAddBibliography.ToolTip = LocalisationManager.Get("INCITE/TIP/NEW_BIBLIOGRAPHY");
-                ButtonAddBibliography.Click += ButtonAddBibliography_Click;
+            ButtonNewCitationSeparateAuthorYear.Icon = Icons.GetAppIcon(Icons.InCiteNewCitation);
+            if (!ADVANCED_MENUS) ButtonNewCitationSeparateAuthorYear.Caption = LocalisationManager.Get("INCITE/CAP/NEW_CITATION_SEPARATE_AUTHOR_YEAR");
+            ButtonNewCitationSeparateAuthorYear.ToolTip = LocalisationManager.Get("INCITE/TIP/NEW_CITATION_SEPARATE_AUTHOR_YEAR");
+            ButtonNewCitationSeparateAuthorYear.Click += ButtonNewCitationSeparateAuthorYear_Click;
 
-                ButtonRefresh.Icon = Icons.GetAppIcon(Icons.InCiteRefresh);
-                if (!ADVANCED_MENUS) ButtonRefresh.Caption = LocalisationManager.Get("INCITE/CAP/REFORMAT");
-                ButtonRefresh.ToolTip = LocalisationManager.Get("INCITE/TIP/REFORMAT");
-                ButtonRefresh.Click += ButtonRefresh_Click;
-            
+            ButtonAddBibliography.Icon = Icons.GetAppIcon(Icons.InCiteAddBibliography);
+            if (!ADVANCED_MENUS) ButtonAddBibliography.Caption = LocalisationManager.Get("INCITE/CAP/NEW_BIBLIOGRAPHY");
+            ButtonAddBibliography.ToolTip = LocalisationManager.Get("INCITE/TIP/NEW_BIBLIOGRAPHY");
+            ButtonAddBibliography.Click += ButtonAddBibliography_Click;
+
+            ButtonRefresh.Icon = Icons.GetAppIcon(Icons.InCiteRefresh);
+            if (!ADVANCED_MENUS) ButtonRefresh.Caption = LocalisationManager.Get("INCITE/CAP/REFORMAT");
+            ButtonRefresh.ToolTip = LocalisationManager.Get("INCITE/TIP/REFORMAT");
+            ButtonRefresh.Click += ButtonRefresh_Click;
+
 
             ButtonEditCSL.AttachPopup(ButtonEditCSLPopup);
             ButtonEditCSL.Icon = Icons.GetAppIcon(Icons.InCiteEditCSL);
             if (!ADVANCED_MENUS) ButtonEditCSL.Caption = LocalisationManager.Get("INCITE/CAP/CSL_OPTIONS");
-            
-                ButtonCSLStandard.Icon = Icons.GetAppIcon(Icons.InCiteCSLStandard);
-                ButtonCSLStandard.Caption = LocalisationManager.Get("INCITE/CAP/CSL_STANDARD");
-                ButtonCSLStandard.ToolTip = LocalisationManager.Get("INCITE/TIP/CSL_STANDARD");
-                ButtonCSLStandard.Click += ButtonCSLStandard_Click;
 
-                ButtonCSLDownload.Icon = Icons.GetAppIcon(Icons.InCiteCSLDownload);
-                ButtonCSLDownload.Caption = LocalisationManager.Get("INCITE/CAP/CSL_BROWSE");
-                ButtonCSLDownload.ToolTip = LocalisationManager.Get("INCITE/TIP/CSL_BROWSE");
-                ButtonCSLDownload.Click += ButtonCSLDownload_Click;
+            ButtonCSLStandard.Icon = Icons.GetAppIcon(Icons.InCiteCSLStandard);
+            ButtonCSLStandard.Caption = LocalisationManager.Get("INCITE/CAP/CSL_STANDARD");
+            ButtonCSLStandard.ToolTip = LocalisationManager.Get("INCITE/TIP/CSL_STANDARD");
+            ButtonCSLStandard.Click += ButtonCSLStandard_Click;
 
-                ButtonEditCSL_Web.Click += ButtonEditCSL_Web_Click;
-                ButtonEditCSL_Web.Icon = Icons.GetAppIcon(Icons.InCiteEditCSL);
-                ButtonEditCSL_Web.Caption = "Open Web CSL Editor (Beginner)";
-                ButtonEditCSL_Web.ToolTip = LocalisationManager.Get("INCITE/TIP/CSL_EDIT");
+            ButtonCSLDownload.Icon = Icons.GetAppIcon(Icons.InCiteCSLDownload);
+            ButtonCSLDownload.Caption = LocalisationManager.Get("INCITE/CAP/CSL_BROWSE");
+            ButtonCSLDownload.ToolTip = LocalisationManager.Get("INCITE/TIP/CSL_BROWSE");
+            ButtonCSLDownload.Click += ButtonCSLDownload_Click;
 
-                ButtonEditCSL_Internal.Click += ButtonEditCSL_Internal_Click;
-                ButtonEditCSL_Internal.Icon = Icons.GetAppIcon(Icons.InCiteEditCSL);
-                ButtonEditCSL_Internal.Caption = "Open Qiqqa CSL Editor (Advanced)";
-                ButtonEditCSL_Internal.ToolTip = LocalisationManager.Get("INCITE/TIP/CSL_EDIT");
-            
+            ButtonEditCSL_Web.Click += ButtonEditCSL_Web_Click;
+            ButtonEditCSL_Web.Icon = Icons.GetAppIcon(Icons.InCiteEditCSL);
+            ButtonEditCSL_Web.Caption = "Open Web CSL Editor (Beginner)";
+            ButtonEditCSL_Web.ToolTip = LocalisationManager.Get("INCITE/TIP/CSL_EDIT");
+
+            ButtonEditCSL_Internal.Click += ButtonEditCSL_Internal_Click;
+            ButtonEditCSL_Internal.Icon = Icons.GetAppIcon(Icons.InCiteEditCSL);
+            ButtonEditCSL_Internal.Caption = "Open Qiqqa CSL Editor (Advanced)";
+            ButtonEditCSL_Internal.ToolTip = LocalisationManager.Get("INCITE/TIP/CSL_EDIT");
+
 
             ButtonTools.AttachPopup(ButtonToolsPopup);
             ButtonTools.Icon = Icons.GetAppIcon(Icons.ModuleConfiguration);
             if (!ADVANCED_MENUS) ButtonTools.Caption = LocalisationManager.Get("INCITE/CAP/TOOLS");
-            
-                ButtonFindUsedReferences.Icon = Icons.GetAppIcon(Icons.InCiteFindUsedReferences);
-                ButtonFindUsedReferences.Caption = LocalisationManager.Get("INCITE/CAP/CSL_FIND");
-                ButtonFindUsedReferences.ToolTip = LocalisationManager.Get("INCITE/TIP/CSL_FIND");
-                ButtonFindUsedReferences.Click += ButtonFindUsedReferences_Click;
 
-                ButtonAddCSLStats.Icon = Icons.GetAppIcon(Icons.InCiteAddCSLStats);
-                ButtonAddCSLStats.Caption = LocalisationManager.Get("INCITE/CAP/ADD_CSL_STATS");
-                ButtonAddCSLStats.ToolTip = LocalisationManager.Get("INCITE/TIP/ADD_CSL_STATS");
-                ButtonAddCSLStats.Click += ButtonAddCSLStats_Click;
+            ButtonFindUsedReferences.Icon = Icons.GetAppIcon(Icons.InCiteFindUsedReferences);
+            ButtonFindUsedReferences.Caption = LocalisationManager.Get("INCITE/CAP/CSL_FIND");
+            ButtonFindUsedReferences.ToolTip = LocalisationManager.Get("INCITE/TIP/CSL_FIND");
+            ButtonFindUsedReferences.Click += ButtonFindUsedReferences_Click;
 
-                ButtonUseAbbreviations.Icon = Icons.GetAppIcon(Icons.InCiteAbbreviations);
-                ButtonUseAbbreviations.Caption = LocalisationManager.Get("INCITE/CAP/ABBREVIATIONS");
-                ButtonUseAbbreviations.ToolTip = LocalisationManager.Get("INCITE/TIP/ABBREVIATIONS");
-                ButtonUseAbbreviations.DataContext = ConfigurationManager.Instance.ConfigurationRecord_Bindable;
+            ButtonAddCSLStats.Icon = Icons.GetAppIcon(Icons.InCiteAddCSLStats);
+            ButtonAddCSLStats.Caption = LocalisationManager.Get("INCITE/CAP/ADD_CSL_STATS");
+            ButtonAddCSLStats.ToolTip = LocalisationManager.Get("INCITE/TIP/ADD_CSL_STATS");
+            ButtonAddCSLStats.Click += ButtonAddCSLStats_Click;
 
-                ButtonCustomAbbreviationsFilename.Icon = Icons.GetAppIcon(Icons.InCiteAbbreviations);
-                ButtonCustomAbbreviationsFilename.Caption = LocalisationManager.Get("INCITE/CAP/CUSTOM_ABBREVIATIONS_FILENAME");
-                ButtonCustomAbbreviationsFilename.ToolTip = LocalisationManager.Get("INCITE/TIP/CUSTOM_ABBREVIATIONS_FILENAME");
-                ButtonCustomAbbreviationsFilename.Click += ButtonCustomAbbreviationsFilename_Click;
+            ButtonUseAbbreviations.Icon = Icons.GetAppIcon(Icons.InCiteAbbreviations);
+            ButtonUseAbbreviations.Caption = LocalisationManager.Get("INCITE/CAP/ABBREVIATIONS");
+            ButtonUseAbbreviations.ToolTip = LocalisationManager.Get("INCITE/TIP/ABBREVIATIONS");
+            ButtonUseAbbreviations.DataContext = ConfigurationManager.Instance.ConfigurationRecord_Bindable;
 
-                ButtonToggleWatcher.Icon = Icons.GetAppIcon(Icons.InCitePause);
-                ButtonToggleWatcher.Caption = LocalisationManager.Get("INCITE/CAP/PAUSE");
-                ButtonToggleWatcher.ToolTip = LocalisationManager.Get("INCITE/TIP/PAUSE");
-                ButtonToggleWatcher.Click += ButtonToggleWatcher_Click;
+            ButtonCustomAbbreviationsFilename.Icon = Icons.GetAppIcon(Icons.InCiteAbbreviations);
+            ButtonCustomAbbreviationsFilename.Caption = LocalisationManager.Get("INCITE/CAP/CUSTOM_ABBREVIATIONS_FILENAME");
+            ButtonCustomAbbreviationsFilename.ToolTip = LocalisationManager.Get("INCITE/TIP/CUSTOM_ABBREVIATIONS_FILENAME");
+            ButtonCustomAbbreviationsFilename.Click += ButtonCustomAbbreviationsFilename_Click;
 
-                ButtonLaunchWord.Icon = Icons.GetAppIcon(Icons.ExportWord2007);
-                ButtonLaunchWord.Caption = LocalisationManager.Get("INCITE/CAP/LAUNCHWORD");
-                ButtonLaunchWord.ToolTip = LocalisationManager.Get("INCITE/TIP/LAUNCHWORD");
-                ButtonLaunchWord.Click += ButtonLaunchWord_Click;
+            ButtonToggleWatcher.Icon = Icons.GetAppIcon(Icons.InCitePause);
+            ButtonToggleWatcher.Caption = LocalisationManager.Get("INCITE/CAP/PAUSE");
+            ButtonToggleWatcher.ToolTip = LocalisationManager.Get("INCITE/TIP/PAUSE");
+            ButtonToggleWatcher.Click += ButtonToggleWatcher_Click;
 
-                ButtonInCitePopup.Icon = Icons.GetAppIcon(Icons.InCiteToolbarOpenPopup);
-                ButtonInCitePopup.Caption = LocalisationManager.Get("INCITE/CAP/INCITE_POPUP");
-                ButtonInCitePopup.ToolTip = LocalisationManager.Get("INCITE/TIP/INCITE_POPUP");
-                ButtonInCitePopup.Click += ButtonInCitePopup_Click;
-            
+            ButtonLaunchWord.Icon = Icons.GetAppIcon(Icons.ExportWord2007);
+            ButtonLaunchWord.Caption = LocalisationManager.Get("INCITE/CAP/LAUNCHWORD");
+            ButtonLaunchWord.ToolTip = LocalisationManager.Get("INCITE/TIP/LAUNCHWORD");
+            ButtonLaunchWord.Click += ButtonLaunchWord_Click;
+
+            ButtonInCitePopup.Icon = Icons.GetAppIcon(Icons.InCiteToolbarOpenPopup);
+            ButtonInCitePopup.Caption = LocalisationManager.Get("INCITE/CAP/INCITE_POPUP");
+            ButtonInCitePopup.ToolTip = LocalisationManager.Get("INCITE/TIP/INCITE_POPUP");
+            ButtonInCitePopup.Click += ButtonInCitePopup_Click;
+
 
             ObjCitationClusterEditorControl.CitationClusterChanged += ObjCitationClusterEditorControl_CitationClusterChanged;
             ObjCitationClusterEditorControl.CitationClusterOpenPDFByReferenceKey += ObjCitationClusterEditorControl_CitationClusterOpenPDFByReferenceKey;
@@ -158,7 +160,7 @@ namespace Qiqqa.InCite
             TextStyleFilename.TextTrimming = TextTrimming.CharacterEllipsis;
             TextStyleFilename.DataContext = ConfigurationManager.Instance.ConfigurationRecord_Bindable;
             TextStyleFilename.PreviewMouseDown += TextStyleFilename_PreviewMouseDown;
-            TextStyleFilename.Cursor = Cursors.Hand;            
+            TextStyleFilename.Cursor = Cursors.Hand;
             TextStyleFilename.ToolTip = "Click to choose a citation formatting style file saved somewhere on your computer.";
 
             LblTextLibraryForCitations.Visibility = ADVANCED_MENUS ? Visibility.Collapsed : Visibility.Visible;
@@ -180,7 +182,7 @@ namespace Qiqqa.InCite
             WordConnector.Instance.ReissueContextChanged();
         }
 
-        void ButtonCustomAbbreviationsFilename_Click(object sender, RoutedEventArgs e)
+        private void ButtonCustomAbbreviationsFilename_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "Text files|*.txt" + "|" + "All files|*.*";
@@ -199,7 +201,7 @@ namespace Qiqqa.InCite
             }
         }
 
-        void ButtonLaunchWord_Click(object sender, RoutedEventArgs e)
+        private void ButtonLaunchWord_Click(object sender, RoutedEventArgs e)
         {
             // Check if the user wants to override their version of Word.
             if (KeyboardTools.IsCTRLDown())
@@ -237,15 +239,16 @@ namespace Qiqqa.InCite
             }
         }
 
-        void ObjHyperlinkFixWordConnection_Click(object sender, RoutedEventArgs e)
+        private void ObjHyperlinkFixWordConnection_Click(object sender, RoutedEventArgs e)
         {
             Process.Start(PDFDocumentCitingTools.BASE_REGISTRY_FIXES_DIRECTORY);
             e.Handled = true;
         }
 
         private bool already_told_about_popup = false;
-        void ButtonInCitePopup_Click(object sender, RoutedEventArgs e)
-        {   
+
+        private void ButtonInCitePopup_Click(object sender, RoutedEventArgs e)
+        {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_OpenPopupFromToolbar);
 
             if (!already_told_about_popup)
@@ -253,11 +256,11 @@ namespace Qiqqa.InCite
                 already_told_about_popup = true;
                 MessageBoxes.Info("You can get to InCite Popup much faster by holding down the 'Windows key' and pressing 'Z'.\n\nYou definitely want to do this if you are in Microsoft Word and want to quickly add a citation and keep typing.");
             }
-            
+
             PopupInCiteControl.Popup();
         }
-        
-        void ButtonFindUsedReferences_Click(object sender, RoutedEventArgs e)
+
+        private void ButtonFindUsedReferences_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_OpenFindUsedReferences);
             UsedCitationsControl ucc = new UsedCitationsControl();
@@ -265,7 +268,7 @@ namespace Qiqqa.InCite
             ucc.Refresh(DefaultLibrary);
         }
 
-        void ObjCitationClusterEditorControl_CitationClusterOpenPDFByReferenceKey(string reference_key)
+        private void ObjCitationClusterEditorControl_CitationClusterOpenPDFByReferenceKey(string reference_key)
         {
             CSLProcessorBibTeXFinder.MatchingBibTeXRecord matching_bibtex_record = CSLProcessorBibTeXFinder.LocateBibTexForCitationItem(reference_key, web_library_detail.library);
             if (null != matching_bibtex_record)
@@ -274,17 +277,17 @@ namespace Qiqqa.InCite
             }
         }
 
-        void ButtonEditCSL_Internal_Click(object sender, RoutedEventArgs e)
+        private void ButtonEditCSL_Internal_Click(object sender, RoutedEventArgs e)
         {
             MainWindowServiceDispatcher.Instance.OpenCSLEditor();
         }
 
-        void ButtonEditCSL_Web_Click(object sender, RoutedEventArgs e)
+        private void ButtonEditCSL_Web_Click(object sender, RoutedEventArgs e)
         {
             MainWindowServiceDispatcher.Instance.OpenCSLWebEditor();
         }
 
-        bool CheckThatLibraryAndStyleHaveBeenSelected()
+        private bool CheckThatLibraryAndStyleHaveBeenSelected()
         {
             string style_filename = ConfigurationManager.Instance.ConfigurationRecord.InCite_LastStyleFile;
             if (String.IsNullOrEmpty(style_filename))
@@ -293,16 +296,16 @@ namespace Qiqqa.InCite
                 return false;
             }
 
-            if (null == this.library_control)
+            if (null == library_control)
             {
                 MessageBoxes.Info("You need to please choose a library from the toolbar.  This library will be used to generate your citations.");
                 return false;
             }
-            
+
             return true;
         }
 
-        void ButtonCitationSnippetToClipboard_Click(object sender, RoutedEventArgs e)
+        private void ButtonCitationSnippetToClipboard_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_AddNewCitationSnippet);
 
@@ -361,7 +364,7 @@ namespace Qiqqa.InCite
             }
         }
 
-        void TextLibraryForCitations_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void TextLibraryForCitations_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_ChooseLibrary);
 
@@ -381,7 +384,7 @@ namespace Qiqqa.InCite
         private void ChooseNewLibrary(WebLibraryDetail web_library_detail)
         {
             this.web_library_detail = null;
-            this.library_control = null;
+            library_control = null;
             TextLibraryForCitations.Text = "Click to choose a library.";
             ObjLibraryControlPlaceholderRegion.Children.Clear();
 
@@ -390,23 +393,23 @@ namespace Qiqqa.InCite
                 this.web_library_detail = web_library_detail;
                 TextLibraryForCitations.Text = web_library_detail.Title;
 
-                this.library_control = new LibraryControl(web_library_detail.library);
+                library_control = new LibraryControl(web_library_detail.library);
                 library_control.ObjToolBarTray.Visibility = Visibility.Collapsed;
 
                 HolderForSearchBox.Children.Clear();
                 HolderForSearchBox.Children.Add(library_control.DetachSearchBox());
-                
+
                 ObjLibraryControlPlaceholderRegion.Children.Add(library_control);
             }
-        }        
+        }
 
-        enum CSLFileSource
+        private enum CSLFileSource
         {
             TEXTBOX,
             STANDARD
         }
 
-        void CorrectStyleFilenameForNewDirectoryLocation()
+        private void CorrectStyleFilenameForNewDirectoryLocation()
         {
             // Get the style filename that is in the text box
             string style_filename = ConfigurationManager.Instance.ConfigurationRecord.InCite_LastStyleFile;
@@ -420,7 +423,7 @@ namespace Qiqqa.InCite
             }
         }
 
-        void ChooseCSLFile(CSLFileSource csl_file_source)        
+        private void ChooseCSLFile(CSLFileSource csl_file_source)
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "CSL style files|*.csl" + "|" + "All files|*.*";
@@ -429,7 +432,7 @@ namespace Qiqqa.InCite
 
             string filename = null;
             string directory = null;
-            
+
             // Decide what we want to use as the CSL file location
             if (CSLFileSource.TEXTBOX == csl_file_source)
             {
@@ -438,7 +441,7 @@ namespace Qiqqa.InCite
                     CorrectStyleFilenameForNewDirectoryLocation();
                     directory = Path.GetDirectoryName(ConfigurationManager.Instance.ConfigurationRecord.InCite_LastStyleFile);
                     filename = Path.GetFileName(ConfigurationManager.Instance.ConfigurationRecord.InCite_LastStyleFile);
- 
+
                     // If the directory no longer exists, kill our memory of it.  We will pick the default directory again.
                     if (!Directory.Exists(directory))
                     {
@@ -449,7 +452,7 @@ namespace Qiqqa.InCite
             }
             if (null == directory)
             {
-                directory = PDFDocumentCitingTools.BASE_STYLE_DIRECTORY;                
+                directory = PDFDocumentCitingTools.BASE_STYLE_DIRECTORY;
             }
 
             // Set the dialog defaults
@@ -479,7 +482,7 @@ namespace Qiqqa.InCite
             }
         }
 
-        void TextStyleFilename_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void TextStyleFilename_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_ChooseOwnCSL);
 
@@ -487,7 +490,7 @@ namespace Qiqqa.InCite
             e.Handled = true;
         }
 
-        void ButtonCSLStandard_Click(object sender, RoutedEventArgs e)
+        private void ButtonCSLStandard_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_ChooseStandardCSL);
 
@@ -495,13 +498,13 @@ namespace Qiqqa.InCite
             e.Handled = true;
         }
 
-        void ButtonCSLDownload_Click(object sender, RoutedEventArgs e)
+        private void ButtonCSLDownload_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_BrowseZoteroCSL);
             MainWindowServiceDispatcher.Instance.OpenUrlInBrowser(WebsiteAccess.Url_ZoteroCSLRepository, true);
         }
 
-        void word_connector_CitationClusterChanged(CitationCluster context_citation_cluster)
+        private void word_connector_CitationClusterChanged(CitationCluster context_citation_cluster)
         {
             Logging.Debug特("InCite: CitationClusterChanged: {0}", context_citation_cluster);
 
@@ -512,19 +515,18 @@ namespace Qiqqa.InCite
             ));
         }
 
-        void ButtonToggleWatcher_Click(object sender, RoutedEventArgs e)
+        private void ButtonToggleWatcher_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_ToggleInCite);
 
             WordConnector.Instance.SetPaused(ButtonToggleWatcher.IsChecked ?? false);
         }
 
+        private object context_thread_lock = new object();
+        private bool context_thread_running = false;
+        private string context_thread_next_context = null;
 
-        object context_thread_lock = new object();
-        bool context_thread_running = false;
-        string context_thread_next_context = null;
-        
-        void word_connector_ContextChanged(string context_word, string context_backward, string context_surround)
+        private void word_connector_ContextChanged(string context_word, string context_backward, string context_surround)
         {
             Logging.Debug特("InCite: ContextChanged");
 
@@ -547,7 +549,7 @@ namespace Qiqqa.InCite
             }
         }
 
-        void word_connector_ContextChanged_BACKGROUND_UpdateButtonEnabledness(string context_word, string context_backward, string context_surround)
+        private void word_connector_ContextChanged_BACKGROUND_UpdateButtonEnabledness(string context_word, string context_backward, string context_surround)
         {
             // If there is a null context, lets assume the buttons won't work...
             if (null == context_word)
@@ -677,7 +679,7 @@ namespace Qiqqa.InCite
             return context;
         }
 
-        void RecommendedCitationsMouseDown(object sender, MouseButtonEventArgs e)
+        private void RecommendedCitationsMouseDown(object sender, MouseButtonEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_ClickRecommended);
 
@@ -694,7 +696,7 @@ namespace Qiqqa.InCite
             return PDFDocumentCitingTools.GenerateCitationClusterFromPDFDocuments(selected_pdf_documents);
         }
 
-        void ButtonNewCitation_Click(object sender, RoutedEventArgs e)
+        private void ButtonNewCitation_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_AddNewCitation);
 
@@ -713,7 +715,7 @@ namespace Qiqqa.InCite
             e.Handled = true;
         }
 
-        void ButtonNewCitationSeparateAuthorYear_Click(object sender, RoutedEventArgs e)
+        private void ButtonNewCitationSeparateAuthorYear_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_AddNewCitation);
 
@@ -723,7 +725,7 @@ namespace Qiqqa.InCite
                 return;
             }
 
-            CitationCluster citation_cluster = GenerateCitationClusterFromCurrentSelection();            
+            CitationCluster citation_cluster = GenerateCitationClusterFromCurrentSelection();
             if (null != citation_cluster)
             {
                 citation_cluster.citation_items[0].SeparateAuthorsAndDate(true);
@@ -732,17 +734,14 @@ namespace Qiqqa.InCite
             e.Handled = true;
         }
 
-        
-
-        void ObjCitationClusterEditorControl_CitationClusterChanged(CitationCluster citation_cluster)
+        private void ObjCitationClusterEditorControl_CitationClusterChanged(CitationCluster citation_cluster)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_EditCitationCluster);
 
             WordConnector.Instance.ModifyCitation(citation_cluster);
         }
 
-
-        void ButtonAddBibliography_Click(object sender, RoutedEventArgs e)
+        private void ButtonAddBibliography_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_AddNewBibliography);
 
@@ -751,7 +750,7 @@ namespace Qiqqa.InCite
             e.Handled = true;
         }
 
-        void ButtonAddCSLStats_Click(object sender, RoutedEventArgs e)
+        private void ButtonAddCSLStats_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_AddNewCSLStats);
 
@@ -760,7 +759,7 @@ namespace Qiqqa.InCite
             e.Handled = true;
         }
 
-        string GetStyleFilename()
+        private string GetStyleFilename()
         {
             CorrectStyleFilenameForNewDirectoryLocation();
 
@@ -787,8 +786,8 @@ namespace Qiqqa.InCite
 
             return style_filename;
         }
-        
-        void ButtonRefresh_Click(object sender, RoutedEventArgs e)
+
+        private void ButtonRefresh_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_Refresh);
 
@@ -800,7 +799,7 @@ namespace Qiqqa.InCite
 
             string style_filename = GetStyleFilename();
             if (null != style_filename)
-            {   
+            {
                 CSLProcessor.RefreshDocument(WordConnector.Instance, style_filename, DefaultLibrary);
             }
 
@@ -811,7 +810,7 @@ namespace Qiqqa.InCite
         {
             get
             {
-                Library default_library = (null != this.web_library_detail) ? this.web_library_detail.library : null;
+                Library default_library = (null != web_library_detail) ? web_library_detail.library : null;
                 return default_library;
             }
         }
@@ -832,3 +831,4 @@ namespace Qiqqa.InCite
         #endregion
     }
 }
+

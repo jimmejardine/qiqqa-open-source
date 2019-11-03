@@ -1,15 +1,16 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using Utilities.GUI.Animation;
 
 namespace Utilities.GUI
 {
-    public class BackgroundFader
+    public class BackgroundFader : IDisposable
     {
-        UserControl control;
-        Color color_focussed;
-        Color color_unfocussed;
+        private UserControl control;
+        private Color color_focussed;
+        private Color color_unfocussed;
 
         public BackgroundFader(UserControl control) :
             this(control, Colors.SteelBlue, Colors.LightSteelBlue)
@@ -28,14 +29,52 @@ namespace Utilities.GUI
             this.control.MouseLeave += DocumentNodeContentControl_MouseLeave;
         }
 
-        void DocumentNodeContentControl_MouseEnter(object sender, MouseEventArgs e)
+        private void DocumentNodeContentControl_MouseEnter(object sender, MouseEventArgs e)
         {
-            this.control.Background = Animations.GetAnimatedBrush(color_unfocussed, color_focussed, 300);
+            control.Background = Animations.GetAnimatedBrush(color_unfocussed, color_focussed, 300);
         }
 
-        void DocumentNodeContentControl_MouseLeave(object sender, MouseEventArgs e)
+        private void DocumentNodeContentControl_MouseLeave(object sender, MouseEventArgs e)
         {
-            this.control.Background = Animations.GetAnimatedBrush(color_focussed, color_unfocussed, 1000);
+            control.Background = Animations.GetAnimatedBrush(color_focussed, color_unfocussed, 1000);
         }
+
+        #region --- IDisposable ------------------------------------------------------------------------
+
+        ~BackgroundFader()
+        {
+            Logging.Debug("~BackgroundFader()");
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Logging.Debug("Disposing BackgroundFader");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected virtual void Dispose(bool disposing)
+        {
+            Logging.Debug("BackgroundFader::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
+            {
+                // Get rid of managed resources / get rid of cyclic references:
+                if (null != control)
+                {
+                    control.MouseEnter -= DocumentNodeContentControl_MouseEnter;
+                    control.MouseLeave -= DocumentNodeContentControl_MouseLeave;
+                }
+            }
+
+            control = null;
+
+            ++dispose_count;
+        }
+
+        #endregion
+
     }
 }

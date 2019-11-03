@@ -1,25 +1,8 @@
-﻿using PdfSharp.Pdf;
-using PdfSharp.Pdf.Advanced;
-using PdfSharp.Pdf.IO;
-using Qiqqa.Documents.PDF;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.IO;
-using System.Text;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Utilities;
-using Utilities.PDF;
-using File = Alphaleonis.Win32.Filesystem.File;
-using Path = Alphaleonis.Win32.Filesystem.Path;
+using PdfSharp.Pdf;
+using PdfSharp.Pdf.Advanced;
 
 namespace Qiqqa.DocumentLibrary.VisualGalleryStuff
 {
@@ -49,9 +32,9 @@ namespace Qiqqa.DocumentLibrary.VisualGalleryStuff
             }
         }
 
+        private static int FILECOUNT = 0;
 
-        static int FILECOUNT = 0;
-        static void ExportJpegImage(PdfDictionary image, ref int count_jpeg)
+        private static void ExportJpegImage(PdfDictionary image, ref int count_jpeg)
         {
             ++count_jpeg;
 
@@ -68,7 +51,7 @@ namespace Qiqqa.DocumentLibrary.VisualGalleryStuff
             }
         }
 
-        static void ExportAsPngImage(PdfDictionary image, ref int count_other)
+        private static void ExportAsPngImage(PdfDictionary image, ref int count_other)
         {
             ++count_other;
             byte[] stream = image.Stream.Value;
@@ -76,13 +59,13 @@ namespace Qiqqa.DocumentLibrary.VisualGalleryStuff
             int height = image.Elements.GetInteger(PdfImage.Keys.Height);
             int bitsPerComponent = image.Elements.GetInteger(PdfImage.Keys.BitsPerComponent);
 
-                using (FileStream fs = new FileStream(String.Format(@"c:\temp\aaa\Image{0}.png", ++FILECOUNT), FileMode.Create, FileAccess.Write))
+            using (FileStream fs = new FileStream(String.Format(@"c:\temp\aaa\Image{0}.png", ++FILECOUNT), FileMode.Create, FileAccess.Write))
+            {
+                using (BinaryWriter bw = new BinaryWriter(fs))
                 {
-                    using (BinaryWriter bw = new BinaryWriter(fs))
-                    {
-                        bw.Write(stream);
-                    }
+                    bw.Write(stream);
                 }
+            }
         }
 
         #region --- Test ------------------------------------------------------------------------

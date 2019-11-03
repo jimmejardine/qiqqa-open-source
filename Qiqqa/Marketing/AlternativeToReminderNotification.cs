@@ -6,7 +6,7 @@ using Utilities.Misc;
 
 namespace Qiqqa.Marketing
 {
-    public class AlternativeToReminderNotification
+    public static class AlternativeToReminderNotification
     {
         internal static void CheckIfWeWantToNotify()
         {
@@ -27,7 +27,7 @@ namespace Qiqqa.Marketing
             // Remember when we last spammed them
             ConfigurationManager.Instance.ConfigurationRecord.Marketing_LastNotificationOfAlternativeTo = DateTime.UtcNow;
             ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.Marketing_LastNotificationOfAlternativeTo);
-            
+
             // Spam away!
             NotificationManager.Instance.AddPendingNotification(
                 new NotificationManager.Notification(
@@ -40,7 +40,7 @@ namespace Qiqqa.Marketing
                     ));
         }
 
-        static void FindOutMore(object obj)
+        private static void FindOutMore(object obj)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Marketing_AlternativeTo);
             WebsiteAccess.OpenWebsite(WebsiteAccess.Url_AlternativeTo);

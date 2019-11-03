@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Utilities;
 
 namespace Qiqqa.DocumentLibrary.Import.Auto.Endnote
 {
-    public class MYDBlockReader
+    public static class MYDBlockReader
     {
         public static IEnumerable<byte[]> Blocks(MYDBinaryReader br)
         {

@@ -14,20 +14,20 @@ namespace Qiqqa.Brainstorm.Nodes
     /// </summary>
     public partial class PDFAuthorNodeContentControl : UserControl, IKeyPressableNodeContentControl
     {
-        NodeControl node_control;
-        PDFAuthorNodeContent pdf_author_node_content;
-        
+        private NodeControl node_control;
+        private PDFAuthorNodeContent pdf_author_node_content;
+
         public PDFAuthorNodeContentControl(NodeControl node_control, PDFAuthorNodeContent pdf_author_node_content)
         {
             this.node_control = node_control;
             this.pdf_author_node_content = pdf_author_node_content;
-            this.DataContext = pdf_author_node_content;
+            DataContext = pdf_author_node_content;
 
             InitializeComponent();
 
-            this.Focusable = true;
+            Focusable = true;
 
-            this.ImageIcon.Source = Icons.GetAppIcon(Icons.BrainstormPDFAuthor);            
+            ImageIcon.Source = Icons.GetAppIcon(Icons.BrainstormPDFAuthor);
 
             ImageIcon.Width = NodeThemes.image_width;
             TextBorder.CornerRadius = NodeThemes.corner_radius;
@@ -36,8 +36,7 @@ namespace Qiqqa.Brainstorm.Nodes
 
         public void ProcessKeyPress(KeyEventArgs e)
         {
-            if (false) { }
-            else if (Key.D == e.Key)
+            if (Key.D == e.Key)
             {
                 ExpandDocuments();
                 e.Handled = true;

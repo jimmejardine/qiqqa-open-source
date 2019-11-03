@@ -3,7 +3,7 @@ using System.Windows.Media;
 
 namespace Qiqqa.Common.Common
 {
-    public class StandardHighlightColours
+    public static class StandardHighlightColours
     {
         private static readonly List<Color> colors = new List<Color>()
         {
@@ -16,7 +16,7 @@ namespace Qiqqa.Common.Common
 
 
         public static Color GetColor(int i)
-        {            
+        {
             return colors[i % colors.Count];
         }
 

@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using icons;
+using Qiqqa.Documents.PDF.MetadataSuggestions;
 using Qiqqa.Localisation;
+using Utilities;
 using Utilities.BibTex.Parsing;
 using Utilities.GUI;
 using Utilities.Reflection;
 using Utilities.Strings;
-using Utilities;
-using Qiqqa.Documents.PDF.MetadataSuggestions;
 
 namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 {
@@ -22,11 +23,20 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
             ButtonBibTexEditor.Caption = "Popup";
             ButtonBibTexEditor.ToolTip = "Edit this BibTeX in a larger popup window.";
+            ButtonBibTexEditor.Icon = Icons.GetAppIcon(Icons.Window);
+            ButtonBibTexEditor.IconHeight = 24;
             ButtonBibTexEditor.Click += ButtonBibTexEditor_Click;
 
             ButtonBibTexClear.Caption = "Clear";
             ButtonBibTexClear.ToolTip = "Clear this BibTeX.";
+            ButtonBibTexClear.Icon = Icons.GetAppIcon(Icons.BibTeXReset);
+            ButtonBibTexClear.IconHeight = 24;
             ButtonBibTexClear.Click += ButtonBibTexClear_Click;
+
+            ButtonToggleBibTeX.Click += ButtonToggleBibTeX_Click;
+            ButtonAckBibTeXParseErrors.Click += ButtonAckBibTeXParseErrors_Click;
+            ButtonUndoBibTeXEdit.Click += ButtonUndoBibTeXEdit_Click;
+            ObjBibTeXEditorControl.RegisterOverlayButtons(ButtonAckBibTeXParseErrors, ButtonToggleBibTeX, ButtonUndoBibTeXEdit, IconHeight: 24);
 
             ButtonBibTexAutoFind.Caption = "Find";
             ButtonBibTexAutoFind.ToolTip = LocalisationManager.Get("LIBRARY/TIP/BIBTEX_AUTOFIND");
@@ -44,18 +54,33 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             ButtonUseSummary.MinWidth = 0;
         }
 
-        static string GetFirstWord(string source)
+        private void ButtonUndoBibTeXEdit_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ButtonAckBibTeXParseErrors_Click(object sender, RoutedEventArgs e)
+        {
+            ObjBibTeXEditorControl.ToggleBibTeXErrorView();
+        }
+
+        private void ButtonToggleBibTeX_Click(object sender, RoutedEventArgs e)
+        {
+            ObjBibTeXEditorControl.ToggleBibTeXMode(TriState.Arbitrary);
+        }
+
+        private static string GetFirstWord(string source)
         {
             if (String.IsNullOrEmpty(source)) return "";
             string[] words = source.Split(' ');
             return StringTools.StripToLettersAndDigits(words[0]);
         }
 
-        void ButtonBibTexClear_Click(object sender, RoutedEventArgs e)
+        private void ButtonBibTexClear_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBoxes.AskQuestion("Are you sure you wish to clear this BibTeX?"))
             {
-                AugmentedBindable<PDFDocument> pdf_document_bindable = this.DataContext as AugmentedBindable<PDFDocument>;
+                AugmentedBindable<PDFDocument> pdf_document_bindable = DataContext as AugmentedBindable<PDFDocument>;
                 if (null == pdf_document_bindable)
                 {
                     return;
@@ -66,10 +91,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             }
         }
 
-
-        void ButtonUseSummary_Click(object sender, RoutedEventArgs e)
+        private void ButtonUseSummary_Click(object sender, RoutedEventArgs e)
         {
-            AugmentedBindable<PDFDocument> pdf_document_bindable = this.DataContext as AugmentedBindable<PDFDocument>;
+            AugmentedBindable<PDFDocument> pdf_document_bindable = DataContext as AugmentedBindable<PDFDocument>;
             if (null == pdf_document_bindable)
             {
                 return;
@@ -100,9 +124,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             pdf_document_bindable.NotifyPropertyChanged(() => pdf_document_bindable.Underlying.BibTex);
         }
 
-        void ButtonBibTexEditor_Click(object sender, RoutedEventArgs e)
+        private void ButtonBibTexEditor_Click(object sender, RoutedEventArgs e)
         {
-            AugmentedBindable<PDFDocument> pdf_document_bindable = this.DataContext as AugmentedBindable<PDFDocument>;
+            AugmentedBindable<PDFDocument> pdf_document_bindable = DataContext as AugmentedBindable<PDFDocument>;
             if (null == pdf_document_bindable)
             {
                 return;
@@ -112,9 +136,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             editor.Show(pdf_document_bindable);
         }
 
-        void ButtonBibTexAutoFind_Click(object sender, RoutedEventArgs e)
+        private void ButtonBibTexAutoFind_Click(object sender, RoutedEventArgs e)
         {
-            AugmentedBindable<PDFDocument> pdf_document_bindable = this.DataContext as AugmentedBindable<PDFDocument>;
+            AugmentedBindable<PDFDocument> pdf_document_bindable = DataContext as AugmentedBindable<PDFDocument>;
             if (null == pdf_document_bindable)
             {
                 return;
@@ -131,9 +155,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             }
         }
 
-        void ButtonBibTexSniffer_Click(object sender, RoutedEventArgs e)
+        private void ButtonBibTexSniffer_Click(object sender, RoutedEventArgs e)
         {
-            AugmentedBindable<PDFDocument> pdf_document_bindable = this.DataContext as AugmentedBindable<PDFDocument>;
+            AugmentedBindable<PDFDocument> pdf_document_bindable = DataContext as AugmentedBindable<PDFDocument>;
             if (null == pdf_document_bindable)
             {
                 return;

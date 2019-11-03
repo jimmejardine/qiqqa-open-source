@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Markup;
@@ -13,42 +14,49 @@ namespace Utilities.GUI
     [ContentProperty("Caption")]
     public partial class AugmentedButton : Button
     {
+        private double cachedDefaultFontSize;
+
         public AugmentedButton()
         {
             Theme.Initialize();
 
             InitializeComponent();
-            
-            this.HorizontalContentAlignment = HorizontalAlignment.Stretch;
-            this.VerticalContentAlignment = VerticalAlignment.Stretch;
-            
-            RenderOptions.SetBitmapScalingMode(this.ImageIcon, BitmapScalingMode.HighQuality);
 
-            this.IsEnabledChanged += AugmentedButton_IsEnabledChanged;
+            SizeChanged += Button_SizeChanged;
 
-            this.ImagePopupIndicator.Source = Icons.GetAppIcon(Icons.AugmentedButtonDown);
-            this.PanelPopupPanel.Visibility = Visibility.Collapsed;
+            HorizontalContentAlignment = HorizontalAlignment.Stretch;
+            VerticalContentAlignment = VerticalAlignment.Stretch;
+
+            RenderOptions.SetBitmapScalingMode(ImageIcon, BitmapScalingMode.HighQuality);
+
+            IsEnabledChanged += AugmentedButton_IsEnabledChanged;
+
+            ImagePopupIndicator.Source = Icons.GetAppIcon(Icons.AugmentedButtonDown);
+            PanelPopupPanel.Visibility = Visibility.Collapsed;
 
             // Initialise
-            this.Icon = null;
-            this.CaptionDock = Dock.Bottom;
+            Icon = null;
+            CaptionDock = Dock.Bottom;
 
             ApplyStyling(this);
 
-            this.HorizontalAlignment = HorizontalAlignment.Stretch;
-            this.VerticalAlignment = VerticalAlignment.Stretch;
-            this.HorizontalContentAlignment = HorizontalAlignment.Stretch;
-            this.VerticalContentAlignment = VerticalAlignment.Stretch;
+            HorizontalAlignment = HorizontalAlignment.Stretch;
+            VerticalAlignment = VerticalAlignment.Stretch;
+            HorizontalContentAlignment = HorizontalAlignment.Stretch;
+            VerticalContentAlignment = VerticalAlignment.Stretch;
 
             ObjPanelCentered.Visibility = System.Windows.Visibility.Collapsed;
+
+            cachedDefaultFontSize = FontSize;
+            if (cachedDefaultFontSize < 1)        // don't check against exact 0 as size is a `double` type
+            {
+                cachedDefaultFontSize = 12;
+            }
         }
 
         public bool CenteredMode
         {
-            get
-            {
-                return (ObjPanelCentered.Visibility == System.Windows.Visibility.Visible);
-            }
+            get => (ObjPanelCentered.Visibility == System.Windows.Visibility.Visible);
             set
             {
                 if (value)
@@ -71,9 +79,9 @@ namespace Utilities.GUI
             button.Style = null;
         }
 
-        void AugmentedButton_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void AugmentedButton_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (this.IsEnabled)
+            if (IsEnabled)
             {
                 ImageIcon.Opacity = 1;
             }
@@ -85,10 +93,7 @@ namespace Utilities.GUI
 
         public string Caption
         {
-            get
-            {
-                return TextCaptionCentered.Text;
-            }
+            get => TextCaptionCentered.Text;
 
             set
             {
@@ -124,20 +129,17 @@ namespace Utilities.GUI
 
             if (Visibility.Visible == TextCaption.Visibility)
             {
-                MinWidth = 80;
+                MinWidth = (IconVisibility == Visibility.Visible ? IconWidth : 25);
             }
             else
             {
                 MinWidth = 0;
-            }            
+            }
         }
 
         public Visibility IconVisibility
         {
-            get
-            {
-                return ImageIcon.Visibility;
-            }
+            get => ImageIcon.Visibility;
             set
             {
                 ImageIcon.Visibility = value;
@@ -145,15 +147,12 @@ namespace Utilities.GUI
                 RecheckSpacerVisibility();
             }
         }
-        
+
         public ImageSource Icon
         {
-            get
-            {
-                return ImageIcon.Source;
-            }
+            get => ImageIcon.Source;
             set
-            {   
+            {
                 ImageIcon.Source = value;
                 if (null == value)
                 {
@@ -170,36 +169,21 @@ namespace Utilities.GUI
 
         public double IconWidth
         {
-            set
-            {
-                ImageIcon.Width = value;
-            }
+            set => ImageIcon.Width = value;
 
-            get
-            {
-                return ImageIcon.Width;
-            }
+            get => ImageIcon.Width;
         }
 
         public double IconHeight
         {
-            set
-            {
-                ImageIcon.Height = value;
-            }
+            set => ImageIcon.Height = value;
 
-            get
-            {
-                return ImageIcon.Height;
-            }
+            get => ImageIcon.Height;
         }
 
         public Dock CaptionDock
         {
-            get
-            {
-                return Dock.Bottom;
-            }
+            get => Dock.Bottom;
 
             set
             {
@@ -209,7 +193,7 @@ namespace Utilities.GUI
                         TextCaption.TextAlignment = TextAlignment.Center;
                         DockPanel.SetDock(ImageIcon, Dock.Bottom);
                         DockPanel.SetDock(ObjSpacer, Dock.Bottom);
-                        DockPanel.SetDock(TextCaption, Dock.Bottom);                        
+                        DockPanel.SetDock(TextCaption, Dock.Bottom);
                         break;
                     case Dock.Bottom:
                         TextCaption.TextAlignment = TextAlignment.Center;
@@ -235,15 +219,22 @@ namespace Utilities.GUI
             }
         }
 
-        Popup attached_popup = null;
-        public void AttachPopup(Popup popup)
+        private bool _AutoScaleText = false;
+        public bool AutoScaleText
         {
-            this.PanelPopupPanel.Visibility = Visibility.Visible;
-            this.attached_popup = popup;
-            this.Click += AugmentedButtonPopup_Click;
+            get => _AutoScaleText;
+            set => _AutoScaleText = value;
         }
 
-        void AugmentedButtonPopup_Click(object sender, RoutedEventArgs e)
+        private Popup attached_popup = null;
+        public void AttachPopup(Popup popup)
+        {
+            PanelPopupPanel.Visibility = Visibility.Visible;
+            attached_popup = popup;
+            Click += AugmentedButtonPopup_Click;
+        }
+
+        private void AugmentedButtonPopup_Click(object sender, RoutedEventArgs e)
         {
             if (null != attached_popup)
             {
@@ -252,6 +243,31 @@ namespace Utilities.GUI
                 attached_popup.StaysOpen = false;
                 attached_popup.IsOpen = true;
                 e.Handled = true;
+            }
+        }
+
+        private void Button_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            const double THRESHOLD = 48;
+
+            //if (!this.NeverMeasured)
+            if (AutoScaleText)
+            {
+                if (ActualWidth > 0)
+                {
+                    if (ActualWidth < THRESHOLD)
+                    {
+                        FontSize = Math.Max(2, (cachedDefaultFontSize * ActualWidth) / THRESHOLD);
+                    }
+                    else
+                    {
+                        FontSize = cachedDefaultFontSize;
+                    }
+                }
+                else
+                {
+                    FontSize = cachedDefaultFontSize;
+                }
             }
         }
     }

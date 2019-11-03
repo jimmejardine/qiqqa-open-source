@@ -3,7 +3,7 @@ using Qiqqa.Documents.PDF;
 
 namespace Qiqqa.AnnotationsReportBuilding
 {
-    class HighlightToAnnotationGenerator
+    internal class HighlightToAnnotationGenerator
     {
         public const string HIGHLIGHTS_TAG = "*Highlights*";
 
@@ -43,7 +43,7 @@ namespace Qiqqa.AnnotationsReportBuilding
             }
 
             RegionOfInterest.AggregateRegions(regions);
-           
+
             // Build a list of annotations
             List<PDFAnnotation> annotations = RegionOfInterest.ConvertRegionsToPDFAnnotations(regions, HIGHLIGHTS_TAG, pdf_document, page);
             return annotations;

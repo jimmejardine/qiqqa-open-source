@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
-using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Synchronisation.BusinessLogic;
 using Utilities;
 
 namespace Qiqqa.DocumentLibrary.AutoSyncStuff
 {
-    class AutoSyncManager
+    internal class AutoSyncManager
     {
         public static AutoSyncManager Instance = new AutoSyncManager();
 

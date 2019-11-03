@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if false
+
+using System;
 
 namespace Qiqqa.Synchronisation
 {
@@ -54,3 +56,5 @@ namespace Qiqqa.Synchronisation
         }
     }
 }
+
+#endif

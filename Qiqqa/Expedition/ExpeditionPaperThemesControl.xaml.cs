@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -24,19 +23,19 @@ namespace Qiqqa.Expedition
         {
             InitializeComponent();
 
-            this.DataContextChanged += ExpeditionPaperThemesControl_DataContextChanged;
+            DataContextChanged += ExpeditionPaperThemesControl_DataContextChanged;
 
             // This is a bid to stop the exception happening when you double-click
             ChartTopics.PreviewMouseDown += ChartTopics_PreviewMouseDown;
         }
 
-        void ChartTopics_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void ChartTopics_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             Logging.Info("Ignoring mouse down on chart");
             e.Handled = true;
         }
 
-        void ExpeditionPaperThemesControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void ExpeditionPaperThemesControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             // Clear the old
             ObjSeriesTopics.DataSource = null;
@@ -73,15 +72,15 @@ namespace Qiqqa.Expedition
                     TopicProbability[] topics = lda_analysis.DensityOfTopicsInDocsSorted[doc_id];
 
                     int ITEMS_IN_CHART = Math.Min(topics.Length, 3);
-                    Brush[] brushes = new Brush[ITEMS_IN_CHART+1];
-                    
+                    Brush[] brushes = new Brush[ITEMS_IN_CHART + 1];
+
                     List<ChartItem> chart_items = new List<ChartItem>();
                     double remaining_segment_percentage = 1.0;
                     for (int t = 0; t < ITEMS_IN_CHART; ++t)
                     {
                         string topic_name = eds.GetDescriptionForTopic(topics[t].topic);
                         double percentage = topics[t].prob;
-                        
+
                         chart_items.Add(new ChartItem { Topic = topic_name, Percentage = percentage });
                         brushes[t] = new SolidColorBrush(eds.Colours[topics[t].topic]);
 
@@ -94,7 +93,7 @@ namespace Qiqqa.Expedition
                     ObjChartTopicsArea.ColorModel.CustomPalette = brushes;
                     ObjChartTopicsArea.ColorModel.Palette = ChartColorPalette.Custom;
                     ObjSeriesTopics.DataSource = chart_items;
-                    
+
                     // Silly
                     ObjSeriesTopics.AnimationDuration = TimeSpan.FromMilliseconds(1000);
                     ObjSeriesTopics.EnableAnimation = false;

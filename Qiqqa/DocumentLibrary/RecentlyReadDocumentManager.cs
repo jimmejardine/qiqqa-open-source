@@ -9,7 +9,7 @@ using Utilities.GUI;
 
 namespace Qiqqa.DocumentLibrary
 {
-    public class RecentlyReadDocumentManager
+    public static class RecentlyReadDocumentManager
     {
         public static AugmentedPopup GetRecentlyReadPopupMenu(Library library)
         {
@@ -28,7 +28,7 @@ namespace Qiqqa.DocumentLibrary
             for (int i = 0; i < 10 && i < most_recently_read_pdf_documents.Count; ++i)
             {
                 PDFDocument pdf_document = most_recently_read_pdf_documents[i];
-                
+
                 MenuItem menu_item = new MenuItem();
                 menu_item.Header = String.Format("{0} {1} by {2}", pdf_document.YearCombined, pdf_document.TitleCombined, pdf_document.AuthorsCombined);
                 menu_item.Tag = pdf_document;
@@ -40,7 +40,7 @@ namespace Qiqqa.DocumentLibrary
             return popup;
         }
 
-        static void menu_item_Click(object sender, RoutedEventArgs e)
+        private static void menu_item_Click(object sender, RoutedEventArgs e)
         {
             MenuItem menu_item = (MenuItem)sender;
             PDFDocument pdf_document = (PDFDocument)menu_item.Tag;

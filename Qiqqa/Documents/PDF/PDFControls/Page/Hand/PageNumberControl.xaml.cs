@@ -14,16 +14,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
 
             InitializeComponent();
 
-            this.Opacity = 0.5;
-            this.Background = ThemeColours.Background_Brush_Blue_LightToDark;
+            Opacity = 0.5;
+            Background = ThemeColours.Background_Brush_Blue_LightToDark;
         }
 
-        public string PageNumber
+        public void SetPageNumber(string value)
         {
-            set
-            {
-                TxtPageNumber.Text = value;
-            }
+            TxtPageNumber.Text = value;
         }
     }
 }

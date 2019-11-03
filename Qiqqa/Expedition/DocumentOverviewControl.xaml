@@ -22,11 +22,11 @@
 
     <local_gui:AugmentedBorder Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" >
       <StackPanel>
-        <TextBlock Text="{Binding TitleCombined}" TextWrapping="Wrap" FontWeight="Bold" Name="TxtTitle"/>
+        <TextBlock Text="{Binding TitleCombinedTrimmed}" ToolTip="{Binding TitleCombined}" TextWrapping="Wrap" FontWeight="Bold" Name="TxtTitle"/>
         <StackPanel Orientation="Horizontal">
-          <TextBlock Text="{Binding YearCombined}" TextWrapping="Wrap"/>
+          <TextBlock Text="{Binding YearCombined}" ToolTip="{Binding YearCombined}" TextWrapping="Wrap"/>
           <local_gui:AugmentedSpacer />
-          <TextBlock Text="{Binding AuthorsCombined}" TextWrapping="Wrap"/>
+          <TextBlock Text="{Binding AuthorsCombinedTrimmed}" ToolTip="{Binding AuthorsCombined}" TextWrapping="Wrap"/>
         </StackPanel>
         <TextBlock Text="{Binding Publication}" TextWrapping="Wrap" FontStyle="Italic"/>
       </StackPanel>
@@ -42,7 +42,7 @@
 
     <local_gui:AugmentedInfoBarItemControl Header="Themes in this document" Grid.Row="4" Grid.Column="0" >
       <ScrollViewer>
-      <this:ExpeditionPaperThemesControl />
+        <this:ExpeditionPaperThemesControl />
       </ScrollViewer>
     </local_gui:AugmentedInfoBarItemControl>
 

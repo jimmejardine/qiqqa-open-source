@@ -1,0 +1,3 @@
+﻿namespace Qiqqa.Common.GUI
+{
+}

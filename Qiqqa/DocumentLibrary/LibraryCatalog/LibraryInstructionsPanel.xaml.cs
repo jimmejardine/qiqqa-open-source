@@ -21,9 +21,9 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             DataContextChanged += LibraryInstructionsPanel_DataContextChanged;
         }
 
-        void LibraryInstructionsPanel_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void LibraryInstructionsPanel_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            Library library = this.DataContext as Library;
+            Library library = DataContext as Library;
             if (null != library)
             {
                 if (!library.WebLibraryDetail.IsWebLibrary)
@@ -37,9 +37,9 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             }
         }
 
-        void HyperlinkPublicStatus_Click(object sender, RoutedEventArgs e)
+        private void HyperlinkPublicStatus_Click(object sender, RoutedEventArgs e)
         {
-            Library library = this.DataContext as Library;
+            Library library = DataContext as Library;
             if (null != library)
             {
                 MessageBoxes.Info(
@@ -52,7 +52,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             }
         }
 
-        void ObjHyperlinkHelp_Click(object sender, RoutedEventArgs e)
+        private void ObjHyperlinkHelp_Click(object sender, RoutedEventArgs e)
         {
             ObjScrollerHelp.Visibility =
                 Visibility.Collapsed == ObjScrollerHelp.Visibility

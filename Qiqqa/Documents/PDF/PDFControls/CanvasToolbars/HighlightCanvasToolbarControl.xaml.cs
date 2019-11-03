@@ -14,7 +14,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.CanvasToolbars
     /// </summary>
     public partial class HighlightCanvasToolbarControl : UserControl
     {
-        List<AugmentedButton> buttons;
+        private List<AugmentedButton> buttons;
 
         public HighlightCanvasToolbarControl()
         {
@@ -23,7 +23,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.CanvasToolbars
             ButtonPointErase.Icon = Icons.GetAppIcon(Icons.InkPointErase);
             ButtonPointErase.Click += ButtonPointErase_Click;
             ButtonPointErase.ToolTip = "Erase your highlights.";
-            
+
             // Populate our buttons array for easy operation
             buttons = new List<AugmentedButton>();
             buttons.Add(ButtonColor1);
@@ -43,19 +43,19 @@ namespace Qiqqa.Documents.PDF.PDFControls.CanvasToolbars
             }
         }
 
-        void ButtonPointErase_Click(object sender, RoutedEventArgs e)
+        private void ButtonPointErase_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Document_HighlightSelectErase);
 
             RebuildHighlightParameters(-1);
         }
 
-        void ButtonColor_Click_Premium(object sender, RoutedEventArgs e)
+        private void ButtonColor_Click_Premium(object sender, RoutedEventArgs e)
         {
             MessageBoxes.Info("Please consider Qiqqa Premium to highlight in this colour.");
         }
-        
-        void ButtonColor_Click(object sender, RoutedEventArgs e)
+
+        private void ButtonColor_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Document_ChangeHighlightColour);
 
@@ -74,13 +74,11 @@ namespace Qiqqa.Documents.PDF.PDFControls.CanvasToolbars
             RebuildHighlightParameters(colourNumber);
         }
 
-        PDFRendererControl pdf_renderer_control = null;
+        private PDFRendererControl pdf_renderer_control = null;
         public PDFRendererControl PDFRendererControl
         {
-            set
-            {
-                pdf_renderer_control = value;
-            }
+            get => pdf_renderer_control;
+            set => pdf_renderer_control = value;
         }
 
         private void RebuildHighlightParameters(int colourNumber)

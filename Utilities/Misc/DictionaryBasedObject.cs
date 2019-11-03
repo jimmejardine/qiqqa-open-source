@@ -20,28 +20,16 @@ namespace Utilities.Misc
         {
             attributes = new Dictionary<string, object>();
         }
-        
+
         public DictionaryBasedObject(Dictionary<string, object> attributes)
         {
             this.attributes = attributes;
         }
 
-        public Dictionary<string, object> Attributes
-        {
-            get
-            {
-                return new Dictionary<string, object>(attributes);
-            }
-        }
+        public Dictionary<string, object> Attributes => new Dictionary<string, object>(attributes);
 
         //NKS - need this for my deserialization server side. 
-        public List<string> Keys
-        {
-            get
-            {
-                return attributes.Keys.ToList();
-            }
-        }
+        public List<string> Keys => attributes.Keys.ToList();
 
         public object this[string key]
         {
@@ -57,10 +45,7 @@ namespace Utilities.Misc
                     return null;
                 }
             }
-            set
-            {
-                attributes[key] = value;
-            }
+            set => attributes[key] = value;
         }
 
         public DateTime? GetDateTime(string key)
@@ -80,7 +65,7 @@ namespace Utilities.Misc
                 SetDateTime(key, datetime);
                 return datetime;
             }
-            
+
             return null;
         }
 
@@ -105,13 +90,13 @@ namespace Utilities.Misc
             }
 
             Logging.Warn("SHOULD THIS GUID BE NULL IN THE ANNOTATION JSON?");
-            return null;            
+            return null;
         }
 
         public int? GetNullableInt32(string key)
         {
             object o = this[key];
-            
+
             if (null == o) return null;
 
             int? o_nullable_int = o as int?;
@@ -136,10 +121,10 @@ namespace Utilities.Misc
         public Color GetColor(string key)
         {
             object obj = this[key];
-            
+
             string color_string = obj as string;
             if (null != color_string)
-            {                
+            {
                 return ColorTools.HEXToColor(color_string);
             }
 
@@ -158,7 +143,7 @@ namespace Utilities.Misc
             {
                 ColorWrapper cw = JsonConvert.DeserializeObject<ColorWrapper>(color_json.ToString());
                 return cw.Color;
-            }  
+            }
 
             // If we get here there is no color!
             return Colors.Transparent;

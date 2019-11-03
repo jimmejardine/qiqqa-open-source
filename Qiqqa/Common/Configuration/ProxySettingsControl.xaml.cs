@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using Utilities.Internet;
 
@@ -32,24 +31,24 @@ namespace Qiqqa.Common.Configuration
             ReevaluateEnabledNess();
         }
 
-        void ObjHyperLink_UseDefaultNetworkCredentials_Click(object sender, RoutedEventArgs e)
+        private void ObjHyperLink_UseDefaultNetworkCredentials_Click(object sender, RoutedEventArgs e)
         {
             ObjUserName.Text = ProxyTools.USERNAME_DEFAULT_CREDENTIALS;
             ObjPassword.Password = "";
         }
 
-        void ObjHyperLink_UseDefaultCredentials_Click(object sender, RoutedEventArgs e)
+        private void ObjHyperLink_UseDefaultCredentials_Click(object sender, RoutedEventArgs e)
         {
             ObjUserName.Text = ProxyTools.USERNAME_DEFAULT_NETWORK_CREDENTIALS;
             ObjPassword.Password = "";
         }
 
-        void CheckUseProxy_Checked(object sender, RoutedEventArgs e)
+        private void CheckUseProxy_Checked(object sender, RoutedEventArgs e)
         {
             ReevaluateEnabledNess();
         }
 
-        void CheckUseProxy_Unchecked(object sender, RoutedEventArgs e)
+        private void CheckUseProxy_Unchecked(object sender, RoutedEventArgs e)
         {
             ReevaluateEnabledNess();
         }

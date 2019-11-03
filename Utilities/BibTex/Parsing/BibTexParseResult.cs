@@ -10,7 +10,7 @@ namespace Utilities.BibTex.Parsing
             Comments = comments;
         }
 
-        public List<BibTexItem> Items { get; private set; } 
-        public List<string> Comments { get; private set; } 
+        public List<BibTexItem> Items { get; private set; }
+        public List<string> Comments { get; private set; }
     }
 }

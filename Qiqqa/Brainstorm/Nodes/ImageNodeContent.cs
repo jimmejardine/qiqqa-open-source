@@ -4,39 +4,37 @@ using System.IO;
 using System.Windows.Media.Imaging;
 using Qiqqa.Brainstorm.Common.Searching;
 using Utilities.Images;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Brainstorm.Nodes
 {
     [Serializable]
     public class ImageNodeContent : ISearchable
     {
-        byte[] image_data;
+        private byte[] image_data;
 
         [NonSerialized]
-        BitmapSource bitmap_source = null;
+        private BitmapSource bitmap_source = null;
 
         public ImageNodeContent(string image_path)
         {
-            ImagePath = image_path;
+            ImageNodeContentFromPath(image_path);
         }
 
         public ImageNodeContent(MemoryStream ms)
         {
-            this.image_data = ms.ToArray();
+            image_data = ms.ToArray();
             bitmap_source = null;
         }
 
 
-        public string ImagePath
+        public void ImageNodeContentFromPath(string path)
         {
-            set
-            {
-                this.image_data = File.ReadAllBytes(value);
-                bitmap_source = null;
-            }
+            image_data = File.ReadAllBytes(path);
+            bitmap_source = null;
         }
 
         public BitmapSource BitmapSource

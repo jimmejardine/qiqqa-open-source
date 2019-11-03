@@ -405,7 +405,7 @@
                     <TextBlock TextWrapping="Wrap">
                         <Run Text="Handle with care! Disabling background tasks will prevent Qiqqa from OCR-ing, indexing and otherwise processing your PDF Libraries!"/>
                     </TextBlock>
-                    <CheckBox IsChecked="{Binding DisableAllBackgroundTasks}" IsHitTestVisible="False" Focusable="False" />
+                    <CheckBox IsChecked="{Binding DisableAllBackgroundTasks}"  />
                 </StackPanel>
             </local_gui:AugmentedInfoBarItemControl>
 

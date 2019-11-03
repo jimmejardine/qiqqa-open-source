@@ -11,8 +11,8 @@ namespace Utilities.GUI
     {
         public NonScrollingFlowDocumentScrollViewer()
         {
-            this.HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled;
-            this.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
+            HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled;
+            VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
         }
 
         protected override void OnMouseWheel(MouseWheelEventArgs e)

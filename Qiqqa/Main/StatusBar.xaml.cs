@@ -6,15 +6,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
-using icons;
-using Qiqqa.Common;
 using Qiqqa.Common.BackgroundWorkerDaemonStuff;
-using Qiqqa.Common.Configuration;
-using Qiqqa.Main.LoginStuff;
 using Utilities;
 using Utilities.ClientVersioning;
-using Utilities.GUI;
-using Utilities.GUI.Wizard;
 using Utilities.Misc;
 using Utilities.Shutdownable;
 
@@ -29,7 +23,7 @@ namespace Qiqqa.Main
 
         private Dictionary<string, StatusManager.StatusEntry> status_entries_still_to_process = new Dictionary<string, StatusManager.StatusEntry>();
         private bool status_entries_still_to_process_fresh_thread_running = false;
-        object status_entries_still_to_process_lock = new object();
+        private object status_entries_still_to_process_lock = new object();
 
         public StatusBar()
         {
@@ -41,7 +35,7 @@ namespace Qiqqa.Main
             CmdVersion.Caption = " " + "v." + ClientVersion.CurrentVersion + post_version_type + " ";
             CmdVersion.MinWidth = 0;
             CmdVersion.Click += CmdVersion_Click;
-            
+
             ObjScrollViewer.MouseMove += ObjScrollViewer_MouseMove;
 
             StatusManager.Instance.OnStatusEntryUpdate += StatusManager_OnStatusEntryUpdate;
@@ -49,8 +43,7 @@ namespace Qiqqa.Main
             CmdVersion.ToolTip = "This shows the version of Qiqqa you are using.\nClick here to show the release notes for historical versions and for instructions on how to get an older version of Qiqqa.";
         }
 
-        
-        void CmdVersion_Click(object sender, RoutedEventArgs e)
+        private void CmdVersion_Click(object sender, RoutedEventArgs e)
         {
             BackgroundWorkerDaemon.Instance.InitClientUpdater();
             // if (null != ClientUpdater.Instance)
@@ -59,32 +52,32 @@ namespace Qiqqa.Main
             e.Handled = true;
         }
 
-        void ObjScrollViewer_MouseMove(object sender, MouseEventArgs e)
+        private void ObjScrollViewer_MouseMove(object sender, MouseEventArgs e)
         {
             if (0 == ObjScrollViewer.ScrollableWidth)
             {
                 ObjScrollViewer.ScrollToHorizontalOffset(0);
             }
             else
-            {   
+            {
                 double offset = ObjScrollViewer.ScrollableWidth * e.GetPosition(ObjScrollViewer).X / ObjScrollViewer.ActualWidth;
                 ObjScrollViewer.ScrollToHorizontalOffset(offset);
             }
         }
 
-        void Shutdown()
+        private void Shutdown()
         {
             StatusManager.Instance.OnStatusEntryUpdate -= StatusManager_OnStatusEntryUpdate;
         }
 
-        void StatusManager_OnStatusEntryUpdate(StatusManager.StatusEntry status_entry)
+        private void StatusManager_OnStatusEntryUpdate(StatusManager.StatusEntry status_entry)
         {
             bool do_invoke = false;
 
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (status_entries_still_to_process_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                //l1_clk.LockPerfTimerStop();
                 status_entries_still_to_process[status_entry.key] = status_entry;
                 if (!status_entries_still_to_process_fresh_thread_running)
                 {
@@ -104,10 +97,10 @@ namespace Qiqqa.Main
             while (true)
             {
                 StatusManager.StatusEntry status_entry = null;
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (status_entries_still_to_process_lock)
                 {
-                    l1_clk.LockPerfTimerStop();
+                    //l1_clk.LockPerfTimerStop();
                     if (status_entries_still_to_process.Count > 0)
                     {
                         var pair = status_entries_still_to_process.First();
@@ -119,13 +112,13 @@ namespace Qiqqa.Main
                 // Is there nothing left to do?
                 if (null == status_entry)
                 {
-                    Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+                    //Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
                     lock (status_entries_still_to_process_lock)
                     {
-                        l2_clk.LockPerfTimerStop();
+                        //l2_clk.LockPerfTimerStop();
                         status_entries_still_to_process_fresh_thread_running = false;
                         break;
-                    }                    
+                    }
                 }
 
                 // Process this entry

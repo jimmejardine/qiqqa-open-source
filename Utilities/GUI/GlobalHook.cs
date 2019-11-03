@@ -136,13 +136,7 @@ namespace Utilities.GUI
 
         #region Properties
 
-        public bool IsStarted
-        {
-            get
-            {
-                return _isStarted;
-            }
-        }
+        public bool IsStarted => _isStarted;
 
         #endregion
 
@@ -173,7 +167,7 @@ namespace Utilities.GUI
                 using (Process process = Process.GetCurrentProcess())
                 {
                     using (ProcessModule pm = process.MainModule)
-                    {                
+                    {
                         _handleToHook = SetWindowsHookEx(
                             _hookType,
                             _hookCallback,

@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using Microsoft.Win32;
 
 namespace Utilities.Files
-{   
+{
     public class FileAssociationRegistration
     {
         public static void DoUrlProtocolRegistration(string protocol)
@@ -16,7 +16,7 @@ namespace Utilities.Files
                 {
                     // Set up the Extension
                     using (RegistryKey key_protocol = key_classes.CreateSubKey(protocol))
-                    {                        
+                    {
                         key_protocol.SetValue("URL Protocol", "");
 
                         using (RegistryKey key_shell = key_protocol.CreateSubKey("shell"))
@@ -26,7 +26,7 @@ namespace Utilities.Files
                                 using (RegistryKey key_command = key_open.CreateSubKey("command"))
                                 {
                                     string binary_path = Application.ExecutablePath;
-                                    key_command.SetValue("", String.Format("\"{0}\" \"%1\"", binary_path));                                    
+                                    key_command.SetValue("", String.Format("\"{0}\" \"%1\"", binary_path));
                                 }
                             }
                         }
@@ -36,7 +36,7 @@ namespace Utilities.Files
         }
 
 
-        
+
         public static void DoFileExtensionRegistration(string extension_including_dot, string prog_id, string shell_menu_prompt)
         {
             Logging.Info("Performing file association for {0}.", extension_including_dot);

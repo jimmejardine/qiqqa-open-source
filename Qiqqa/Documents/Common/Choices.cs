@@ -2,7 +2,7 @@
 
 namespace Qiqqa.Documents.Common
 {
-    public class Choices
+    public static class Choices
     {
         public static readonly List<string> Ratings = new List<string>
         (
@@ -19,14 +19,14 @@ namespace Qiqqa.Documents.Common
         public const string ReadingStages_BROWSED = "Browsed";
         public const string ReadingStages_SKIM_READ = "Skim read";
         public const string ReadingStages_INTEREST_ONLY = "Interest only";
-        
+
         public static readonly List<string> ReadingStages = new List<string>
         (
-            new string[]             
-            { 
+            new string[]
+            {
                 "",
                 ReadingStages_TOP_PRIORITY,
-                ReadingStages_STARTED_READING,                
+                ReadingStages_STARTED_READING,
                 ReadingStages_INTERRUPTED,
                 ReadingStages_UNREAD,
                 ReadingStages_READ_AGAIN,

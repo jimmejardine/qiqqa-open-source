@@ -1,16 +1,14 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Qiqqa.Common;
-using Qiqqa.Common.Configuration;
-using Qiqqa.Documents.PDF.Search;
-using Qiqqa.UtilisationTracking;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Qiqqa.Common.Configuration;
+using Qiqqa.Documents.PDF.Search;
+using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.BibTex;
 using Utilities.BibTex.Parsing;
@@ -20,7 +18,7 @@ using Utilities.Strings;
 
 namespace Qiqqa.Documents.PDF.MetadataSuggestions
 {
-    class PDFMetadataInferenceFromBibTeXSearch
+    internal class PDFMetadataInferenceFromBibTeXSearch
     {
         private static BibTeXSearchServerManager bibtex_search_server_manager = new BibTeXSearchServerManager();
 
@@ -131,7 +129,7 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
             return false;
         }
 
-        static bool MustBackoff()
+        private static bool MustBackoff()
         {
             return bibtex_search_server_manager.MustBackoff();
         }
@@ -154,16 +152,17 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
                 string url = String.Format("{0}/search?auth={1}&qe={2}", url_server, auth, WebUtility.HtmlEncode(title_encoded));
                 try
                 {
-                    MemoryStream ms;
                     WebHeaderCollection header_collection;
                     Stopwatch clk = Stopwatch.StartNew();
 
-                    UrlDownloader.DownloadWithBlocking(ConfigurationManager.Instance.Proxy, url, out ms, out header_collection);
-                    bibtex_search_server_manager.ReportLatency(url_server, clk.ElapsedMilliseconds);
-                    Logging.Debug特("bibtex_search_server_manager: Download {0} took {1} ms", url, clk.ElapsedMilliseconds);
+                    using (MemoryStream ms = UrlDownloader.DownloadWithBlocking(url, out header_collection))
+                    {
+                        bibtex_search_server_manager.ReportLatency(url_server, clk.ElapsedMilliseconds);
+                        Logging.Debug特("bibtex_search_server_manager: Download {0} took {1} ms", url, clk.ElapsedMilliseconds);
 
-                    string json = Encoding.UTF8.GetString(ms.ToArray());
-                    return json;
+                        string json = Encoding.UTF8.GetString(ms.ToArray());
+                        return json;
+                    }
                 }
                 catch (Exception ex)
                 {

@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
 using Microsoft.Win32;
 using Qiqqa.Common.Configuration;
 using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
 using Utilities.ProcessTools;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Common
 {
-    class BundleLogs
+    internal class BundleLogs
     {
         internal static void DoBundle()
         {
@@ -59,21 +59,18 @@ namespace Qiqqa.Common
                     // Delete the target filename if it exists...
                     FileTools.Delete(target_filename);
 
-                    string process_parameters = String.Format("a -t7z -mmt=on -mx9 -ssw \"{0}\" {1}", target_filename, file_list);
+                    // STDOUT/STDERR
+                    string process_parameters = String.Format("a -t7z -mmt=on -mx9 -ssw \"{0}\" \"{1}\"", target_filename, file_list);
                     using (Process process = ProcessSpawning.SpawnChildProcess(ConfigurationManager.Instance.Program7ZIP, process_parameters, ProcessPriorityClass.Normal))
                     {
                         using (ProcessOutputReader process_output_reader = new ProcessOutputReader(process))
                         {
                             process.WaitForExit();
-                            Logging.Info("+7ZIP progress:");
-                            foreach (var line in process_output_reader.Output)
-                            {
-                                Logging.Info("  7ZIP: {0}", line);
-                            }
-                            Logging.Info("-7ZIP progress:");
+
+                            Logging.Info("7ZIP Log Bundling progress:\n{0}", process_output_reader.GetOutputsDumpString());
                         }
 
-                        MessageBoxes.Info("The Qiqqa logs with some diagnostic info has been zipped to the location you specified. Please upload it as issue attachment in your issue filed at https://github.com/jimmejardine/qiqqa-open-source/issues if the support team has requested it. Many thanks!");
+                        MessageBoxes.Info("The Qiqqa logs with some diagnostic info have been zipped to the location you specified. Please upload it as issue attachment in your issue filed at https://github.com/jimmejardine/qiqqa-open-source/issues if the support team has requested it. Many thanks!");
                         FileTools.BrowseToFileInExplorer(target_filename);
                     }
                 }

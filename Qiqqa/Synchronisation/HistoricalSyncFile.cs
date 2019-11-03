@@ -1,15 +1,18 @@
 ﻿using System.Collections.Generic;
-using Alphaleonis.Win32.Filesystem;
 using Qiqqa.DocumentLibrary;
 using Utilities;
 using Utilities.Files;
 using Utilities.Misc;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Synchronisation
 {
     internal class HistoricalSyncFile
     {
-        static string GetFILENAME(Library library)
+        private static string GetFILENAME(Library library)
         {
             return Path.GetFullPath(Path.Combine(library.LIBRARY_BASE_PATH, @"Qiqqa.sync_md5"));
         }

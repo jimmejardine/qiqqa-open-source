@@ -6,11 +6,10 @@ namespace Utilities.GUI
 {
     public class DragDropHelper
     {
-        FrameworkElement drag_origination_element;
-        GetDragDataDelegate get_drag_data_delegate;
-
-        Point dragStart;
-        bool drag_in_operation;
+        private FrameworkElement drag_origination_element;
+        private GetDragDataDelegate get_drag_data_delegate;
+        private Point dragStart;
+        private bool drag_in_operation;
 
         public delegate object GetDragDataDelegate();
 
@@ -23,26 +22,26 @@ namespace Utilities.GUI
             drag_origination_element.PreviewMouseMove += dragElement_MouseMove;
         }
 
-        void dragElement_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void dragElement_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             dragStart = e.GetPosition(null);
             drag_in_operation = false;
         }
 
-        void dragElement_MouseMove(object sender, MouseEventArgs e)
+        private void dragElement_MouseMove(object sender, MouseEventArgs e)
         {
             Point currentPos = e.GetPosition(null);
 
             if (
-                !drag_in_operation && 
+                !drag_in_operation &&
                 e.LeftButton == MouseButtonState.Pressed &&
                 ((Math.Abs(currentPos.X - dragStart.X) > SystemParameters.MinimumHorizontalDragDistance) || (Math.Abs(currentPos.Y - dragStart.Y) > SystemParameters.MinimumVerticalDragDistance))
                 )
             {
                 drag_in_operation = true;
-                
+
                 object drag_data = get_drag_data_delegate();
-                DragDropEffects de = DragDrop.DoDragDrop(drag_origination_element, drag_data, DragDropEffects.Copy);                
+                DragDropEffects de = DragDrop.DoDragDrop(drag_origination_element, drag_data, DragDropEffects.Copy);
             }
         }
     }

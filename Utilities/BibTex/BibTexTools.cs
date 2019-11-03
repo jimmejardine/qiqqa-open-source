@@ -18,13 +18,13 @@ namespace Utilities.BibTex
             StringBuilder sb = new StringBuilder();
             sb.Append(seed + "-");
             for (int i = 0; i < 5; ++i)
-            {                
+            {
                 sb.Append(Convert.ToChar((byte)(65 + RandomAugmented.Instance.NextIntExclusive(26))));
             }
             return sb.ToString();
         }
 
-        public static string GetEmplyArticleBibTeXTemplate()
+        public static string GetEmptyArticleBibTeXTemplate()
         {
             string key = GenerateRandomBibTeXKey();
 
@@ -38,7 +38,7 @@ namespace Utilities.BibTex
                 ;
         }
 
-        
+
         // ----------------------------------------------------------------------------------------
 
         public static string GetTitle_SLOOOOOOW(string bibtex)
@@ -65,7 +65,7 @@ namespace Utilities.BibTex
         {
             return HasField(bibtex_item, "title");
         }
-        
+
         public static bool HasAuthor(BibTexItem bibtex_item)
         {
             return HasField(bibtex_item, "author");
@@ -172,7 +172,7 @@ namespace Utilities.BibTex
                 return "";
             }
         }
-            
+
         public static string GetField(string bibtex, string field)
         {
             try

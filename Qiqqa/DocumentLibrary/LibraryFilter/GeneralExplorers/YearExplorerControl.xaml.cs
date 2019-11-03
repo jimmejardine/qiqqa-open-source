@@ -22,7 +22,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
         {
             InitializeComponent();
 
-            this.ToolTip = "So what years are interesting to you?";
+            ToolTip = "So what years are interesting to you?";
 
             YearExplorerTree.DescriptionTitle = "Years";
 
@@ -35,9 +35,10 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
 
         public Library Library
         {
+            get => library;
             set
             {
-                this.library = value;
+                library = value;
                 YearExplorerTree.Library = value;
             }
         }
@@ -80,7 +81,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
             return tags_with_fingerprints;
         }
 
-        static string GetYearCategory(PDFDocument pdf_document)
+        private static string GetYearCategory(PDFDocument pdf_document)
         {
             /*
              * So the ranges we are looking for are (if this year is y=2010)
@@ -113,7 +114,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
             }
         }
 
-        void YearExplorerTree_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
+        private void YearExplorerTree_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
         {
             OnTagSelectionChanged?.Invoke(fingerprints, descriptive_span);
         }

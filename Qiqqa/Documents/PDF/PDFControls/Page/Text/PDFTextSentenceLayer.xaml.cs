@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using Qiqqa.Documents.PDF.PDFControls.Page.Tools;
@@ -15,14 +14,14 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
     /// <summary>
     /// Interaction logic for PDFTextLayer.xaml
     /// </summary>
-    public partial class PDFTextSentenceLayer : PageLayer
+    public partial class PDFTextSentenceLayer : PageLayer, IDisposable
     {
-        PDFRendererControlStats pdf_renderer_control_stats;
-        int page;
+        private PDFRendererControlStats pdf_renderer_control_stats;
+        private int page;
 
         private DragAreaTracker drag_area_tracker;
         private TextLayerSelectionMode text_layer_selection_mode;
-        TextSelectionManager text_selection_manager;
+        private TextSelectionManager text_selection_manager;
 
         public PDFTextSentenceLayer(PDFRendererControlStats pdf_renderer_control_stats, int page)
         {
@@ -31,13 +30,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
 
             InitializeComponent();
 
-            this.Focusable = true;            
+            Focusable = true;
             KeyboardNavigation.SetDirectionalNavigation(this, KeyboardNavigationMode.Once);
 
-            this.Background = Brushes.Transparent;
-            this.Cursor = Cursors.IBeam;
+            Background = Brushes.Transparent;
+            Cursor = Cursors.IBeam;
 
-            this.SizeChanged += PDFTextSentenceLayer_SizeChanged;
+            SizeChanged += PDFTextSentenceLayer_SizeChanged;
 
             drag_area_tracker = new DragAreaTracker(this, false);
             drag_area_tracker.OnDragStarted += drag_area_tracker_OnDragStarted;
@@ -46,25 +45,25 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
 
             text_selection_manager = new TextSelectionManager();
 
-            this.PreviewMouseDown += PDFTextSentenceLayer_PreviewMouseDown;
-            this.PreviewKeyDown += PDFTextLayer_PreviewKeyDown;
-            this.RequestBringIntoView += PDFTextSentenceLayer_RequestBringIntoView;
+            PreviewMouseDown += PDFTextSentenceLayer_PreviewMouseDown;
+            PreviewKeyDown += PDFTextLayer_PreviewKeyDown;
+            RequestBringIntoView += PDFTextSentenceLayer_RequestBringIntoView;
 
-            this.text_layer_selection_mode = TextLayerSelectionMode.Sentence;
+            text_layer_selection_mode = TextLayerSelectionMode.Sentence;
         }
 
-        void PDFTextSentenceLayer_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
+        private void PDFTextSentenceLayer_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
         {
-            // We dont want this control to be scrolled into view when it gets keyboard focus...
+            // We don't want this control to be scrolled into view when it gets keyboard focus...
             e.Handled = true;
         }
 
-        void PDFTextSentenceLayer_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void PDFTextSentenceLayer_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             Keyboard.Focus(this);
         }
 
-        void PDFTextLayer_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void PDFTextLayer_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.C && KeyboardTools.IsCTRLDown())
             {
@@ -86,35 +85,24 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
                 e.Handled = true;
             }
         }
-        
-        internal override void Dispose()
-        {
-            Logging.Debug("PDFTextSentenceLayer::Dispose()");
-
-            ClearChildren();
-
-            pdf_renderer_control_stats = null;
-            drag_area_tracker = null;
-            text_selection_manager = null;
-        }
 
         internal override void DeselectLayer()
         {
             ClearChildren();
         }
 
-        void ClearChildren()
+        private void ClearChildren()
         {
             PDFTextItemPool.Instance.RecyclePDFTextItemsFromChildren(Children);
         }
 
-        void drag_area_tracker_OnDragStarted(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point)
+        private void drag_area_tracker_OnDragStarted(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point)
         {
             WordList words = pdf_renderer_control_stats.pdf_document.PDFRenderer.GetOCRText(page);
-            WordList selected_words = text_selection_manager.OnDragStarted(text_layer_selection_mode, words, this.ActualWidth, this.ActualHeight, button_left_pressed, button_right_pressed, mouse_down_point);
+            WordList selected_words = text_selection_manager.OnDragStarted(text_layer_selection_mode, words, ActualWidth, ActualHeight, button_left_pressed, button_right_pressed, mouse_down_point);
         }
 
-        void drag_area_tracker_OnDragInProgress(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point, Point mouse_move_point)
+        private void drag_area_tracker_OnDragInProgress(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point, Point mouse_move_point)
         {
             if (button_left_pressed)
             {
@@ -123,7 +111,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
             }
         }
 
-        void drag_area_tracker_OnDragComplete(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point, Point mouse_up_point)
+        private void drag_area_tracker_OnDragComplete(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point, Point mouse_up_point)
         {
             if (button_left_pressed)
             {
@@ -140,7 +128,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
                     popup.Open();
                 }
 
-                this.pdf_renderer_control_stats.pdf_renderer_control.OnTextSelected(selected_text);
+                pdf_renderer_control_stats.pdf_renderer_control.OnTextSelected(selected_text);
             }
         }
 
@@ -156,7 +144,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
             }
         }
 
-        void PDFTextSentenceLayer_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void PDFTextSentenceLayer_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             foreach (PDFTextItem pdf_text_item in Children.OfType<PDFTextItem>())
             {
@@ -179,7 +167,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
             BuildWords();
         }
 
-        void BuildWords()
+        private void BuildWords()
         {
             ClearChildren();
 
@@ -198,7 +186,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
             }
         }
 
-        void ResizeTextItem(PDFTextItem pdf_text_item)
+        private void ResizeTextItem(PDFTextItem pdf_text_item)
         {
             SetLeft(pdf_text_item, pdf_text_item.word.Left * ActualWidth);
             SetTop(pdf_text_item, pdf_text_item.word.Top * ActualHeight);
@@ -208,7 +196,85 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
 
         internal void RaiseTextSelectModeChange(TextLayerSelectionMode textLayerSelectionMode)
         {
-            this.text_layer_selection_mode = textLayerSelectionMode;
+            text_layer_selection_mode = textLayerSelectionMode;
         }
+
+        #region --- IDisposable ------------------------------------------------------------------------
+
+        ~PDFTextSentenceLayer()
+        {
+            Logging.Debug("~PDFTextSentenceLayer()");
+            Dispose(false);
+        }
+
+        public override void Dispose()
+        {
+            Logging.Debug("Disposing PDFTextSentenceLayer");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected virtual void Dispose(bool disposing)
+        {
+            Logging.Debug("PDFTextSentenceLayer::Dispose({0}) @{1}", disposing, dispose_count);
+
+            try
+            {
+                if (null != drag_area_tracker)
+                {
+                    WPFDoEvents.InvokeInUIThread(() =>
+                    {
+                        try
+                        {
+                            foreach (var el in Children)
+                            {
+                                IDisposable node = el as IDisposable;
+                                if (null != node)
+                                {
+                                    node.Dispose();
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Logging.Error(ex);
+                        }
+
+                        try
+                        {
+                            ClearChildren();
+                            Children.Clear();
+                        }
+                        catch (Exception ex)
+                        {
+                            Logging.Error(ex);
+                        }
+
+                        drag_area_tracker.OnDragStarted -= drag_area_tracker_OnDragStarted;
+                        drag_area_tracker.OnDragInProgress -= drag_area_tracker_OnDragInProgress;
+                        drag_area_tracker.OnDragComplete -= drag_area_tracker_OnDragComplete;
+                    }, Dispatcher);
+                }
+
+                // Clear the references for sanity's sake
+                pdf_renderer_control_stats = null;
+                drag_area_tracker = null;
+                text_selection_manager = null;
+
+                DataContext = null;
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
+
+            ++dispose_count;
+
+            //base.Dispose(disposing);     // parent only throws an exception (intentionally), so depart from best practices and don't call base.Dispose(bool)
+        }
+
+        #endregion
+
     }
 }

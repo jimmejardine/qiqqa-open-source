@@ -1,6 +1,6 @@
 ﻿namespace Qiqqa.Main
 {
-    class FileAssociationRegistration
+    internal class FileAssociationRegistration
     {
         internal static void DoRegistration()
         {

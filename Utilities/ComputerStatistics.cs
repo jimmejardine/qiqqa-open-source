@@ -35,7 +35,7 @@ namespace Utilities
             sb.AppendFormat("UTC offset:            {0}\r\n", (DateTime.Now - DateTime.UtcNow).TotalHours);
             sb.AppendFormat(".NET4 client installed {0}\r\n", IsNET4ClientInstalled());
             sb.AppendFormat(".NET4 full installed   {0}\r\n", IsNET4FullInstalled());
-            
+
             if (ApplicationDeployment.IsNetworkDeployed)
             {
                 sb.AppendFormat("Application is network deployed:\r\n");
@@ -55,7 +55,7 @@ namespace Utilities
 
             return sb.ToString();
         }
-                
+
         public static void LogCommonStatistics()
         {
             Logging.Info(GetCommonStatistics());

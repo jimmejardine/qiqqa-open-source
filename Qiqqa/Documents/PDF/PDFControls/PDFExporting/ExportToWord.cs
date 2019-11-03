@@ -7,6 +7,7 @@ using System.Windows.Media.Imaging;
 using icons;
 using Qiqqa.AnnotationsReportBuilding;
 using Qiqqa.Common;
+using Qiqqa.Common.GUI;
 using Qiqqa.UtilisationTracking;
 using Syncfusion.Pdf;
 using Utilities;
@@ -15,14 +16,13 @@ using Utilities.Misc;
 using Utilities.OCR;
 using Utilities.PDF;
 using Brushes = System.Windows.Media.Brushes;
-using Qiqqa.Common.GUI;
 
 namespace Qiqqa.Documents.PDF.PDFControls.PDFExporting
 {
     /// <summary>
     /// Exports to a FlowDocument
     /// </summary>
-    class ExportToWord
+    internal class ExportToWord
     {
         public static StandardFlowDocument DoExport(PDFDocument pdf_document)
         {
@@ -157,6 +157,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.PDFExporting
             // We have to hack this into an annotation report until we have decided if we want to use the collapsible stuff of annotation report
             StandardFlowDocument flow_document = DoExport(pdf_document);
             AsyncAnnotationReportBuilder.AnnotationReport annotation_report = new AsyncAnnotationReportBuilder.AnnotationReport(flow_document);
+
             ReportViewerControl report_view_control = new ReportViewerControl(annotation_report);
             string title = String.Format("Text export of PDF titled '{0}'", pdf_document.TitleCombined);
             MainWindowServiceDispatcher.Instance.OpenNewWindow(title, Icons.GetAppIcon(Icons.ExportToText), true, true, report_view_control);

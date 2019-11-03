@@ -6,25 +6,30 @@ namespace Utilities.GUI
 {
     public class HyperlinkTextBlock : TextBlock
     {
-        static readonly Brush BRUSH_HOVER = ThemeColours.Background_Brush_Blue_VeryDark;
-        static readonly Brush BRUSH_LIGHT = ThemeColours.Background_Brush_Blue_VeryVeryVeryDark;
+        private readonly Brush BRUSH_HOVER;
+        private readonly Brush BRUSH_LIGHT;
 
         public event MouseButtonEventHandler OnClick;
-        
+
         public HyperlinkTextBlock()
         {
-            this.TextDecorations.Add(System.Windows.TextDecorations.Underline);
-            this.Cursor = Cursors.Hand;
-            this.Foreground = BRUSH_LIGHT;
+            Theme.Initialize();
 
-            this.MouseEnter += HyperlinkTextBlock_MouseEnter;
-            this.MouseLeave += HyperlinkTextBlock_MouseLeave;
+            BRUSH_HOVER = ThemeColours.Background_Brush_Blue_VeryDark;
+            BRUSH_LIGHT = ThemeColours.Background_Brush_Blue_VeryVeryVeryDark;
 
-            this.MouseLeftButtonDown += HyperlinkTextBlock_MouseLeftButtonDown;
-            this.MouseLeftButtonUp += HyperlinkTextBlock_MouseLeftButtonUp;
+            TextDecorations.Add(System.Windows.TextDecorations.Underline);
+            Cursor = Cursors.Hand;
+            Foreground = BRUSH_LIGHT;
+
+            MouseEnter += HyperlinkTextBlock_MouseEnter;
+            MouseLeave += HyperlinkTextBlock_MouseLeave;
+
+            MouseLeftButtonDown += HyperlinkTextBlock_MouseLeftButtonDown;
+            MouseLeftButtonUp += HyperlinkTextBlock_MouseLeftButtonUp;
         }
 
-        void HyperlinkTextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void HyperlinkTextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (null != OnClick)
             {
@@ -32,7 +37,7 @@ namespace Utilities.GUI
             }
         }
 
-        void HyperlinkTextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void HyperlinkTextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (null != OnClick)
             {
@@ -41,14 +46,14 @@ namespace Utilities.GUI
             }
         }
 
-        void HyperlinkTextBlock_MouseLeave(object sender, MouseEventArgs e)
+        private void HyperlinkTextBlock_MouseLeave(object sender, MouseEventArgs e)
         {
-            this.Foreground = BRUSH_LIGHT;   
+            Foreground = BRUSH_LIGHT;
         }
 
-        void HyperlinkTextBlock_MouseEnter(object sender, MouseEventArgs e)
+        private void HyperlinkTextBlock_MouseEnter(object sender, MouseEventArgs e)
         {
-            this.Foreground = BRUSH_HOVER;
+            Foreground = BRUSH_HOVER;
         }
     }
 }

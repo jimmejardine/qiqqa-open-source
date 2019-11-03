@@ -3,7 +3,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using Qiqqa.Common;
-using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Synchronisation.BusinessLogic;
@@ -23,11 +22,11 @@ namespace Qiqqa.StartPage
             ObjWebLibraryListControl.OnWebLibrarySelected += ObjWebLibraryListControl_OnWebLibrarySelected;
 
             WebLibraryManager.Instance.WebLibrariesChanged += Instance_WebLibrariesChanged;
-            
+
             Refresh();
         }
 
-        void Instance_WebLibrariesChanged()
+        private void Instance_WebLibrariesChanged()
         {
             Dispatcher.Invoke(new Action(() =>
             {
@@ -40,14 +39,14 @@ namespace Qiqqa.StartPage
         {
             Refresh();
         }
-        
-        void ObjWebLibraryListControl_OnWebLibrarySelected(WebLibraryDetail web_library_detail)
+
+        private void ObjWebLibraryListControl_OnWebLibrarySelected(WebLibraryDetail web_library_detail)
         {
             Library library = WebLibraryManager.Instance.GetLibrary(web_library_detail);
             MainWindowServiceDispatcher.Instance.OpenLibrary(library);
         }
 
-        void Refresh()
+        private void Refresh()
         {
             ObjWebLibraryListControl.Refresh();
 

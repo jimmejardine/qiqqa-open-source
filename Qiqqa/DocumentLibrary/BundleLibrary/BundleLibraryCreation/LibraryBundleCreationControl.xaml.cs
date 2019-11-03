@@ -9,8 +9,10 @@ using icons;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Documents.PDF.CitationManagerStuff;
 using Qiqqa.UtilisationTracking;
+using Utilities;
 using Utilities.GUI;
 using Utilities.Misc;
+using Utilities.ProcessTools;
 using UserControl = System.Windows.Controls.UserControl;
 
 namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
@@ -21,9 +23,8 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
     public partial class LibraryBundleCreationControl : UserControl
     {
         public static readonly string TITLE = "Bundle Library Builder";
-
-        Library library = null;
-        BundleLibraryManifest manifest = null;
+        private Library library = null;
+        private BundleLibraryManifest manifest = null;
 
         public LibraryBundleCreationControl()
         {
@@ -48,7 +49,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
             CmdCreateBundle.Click += CmdCreateBundle_Click;
         }
 
-        void CmdCreateBundle_Click(object sender, RoutedEventArgs e)
+        private void CmdCreateBundle_Click(object sender, RoutedEventArgs e)
         {
             using (FolderBrowserDialog dialog = new FolderBrowserDialog())
             {
@@ -65,84 +66,95 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
             }
         }
 
-        void CreateBundle(string target_directory)
+        private void CreateBundle(string target_directory)
         {
             string target_filename_bundle_manifest = Path.GetFullPath(Path.Combine(target_directory, manifest.Id + Common.EXT_BUNDLE_MANIFEST));
             string target_filename_bundle = Path.GetFullPath(Path.Combine(target_directory, manifest.Id + Common.EXT_BUNDLE));
 
             // Check that the details of the manifest are reasonable
-                try
-                {
-                    new Uri(this.manifest.BaseUrl);
-                }
-                catch (Exception)
-                {
-                    MessageBoxes.Warn("Your base URL of '{0}' is invalid.  Please correct it and try again.", this.manifest.BaseUrl);
-                    return;
-                }
+            try
+            {
+                new Uri(manifest.BaseUrl);
+            }
+            catch (Exception)
+            {
+                MessageBoxes.Warn("Your base URL of '{0}' is invalid.  Please correct it and try again.", manifest.BaseUrl);
+                return;
+            }
 
-            // Smash out he manifest
-            string json = this.manifest.ToJSON();
+            // Smash out the manifest
+            string json = manifest.ToJSON();
             File.WriteAllText(target_filename_bundle_manifest, json);
 
             // Smash out the bundle
             string source_directory = Path.GetFullPath(Path.Combine(library.LIBRARY_BASE_PATH, @"*"));
-            string directory_exclusion_parameter = manifest.IncludesPDFs ? "" : String.Format("-xr!documents", source_directory);
+            string directory_exclusion_parameter = (manifest.IncludesPDFs ? "" : "-xr!documents");
             string parameters = String.Format("a -tzip -mm=Deflate -mmt=on -mx9 \"{0}\" \"{1}\" {2}", target_filename_bundle, source_directory, directory_exclusion_parameter);
-            Process zip_process = Process.Start(ConfigurationManager.Instance.Program7ZIP, parameters);
 
             // Watch the zipper
-            SafeThreadPool.QueueUserWorkItem(o => TailZIPProcess(manifest, zip_process));
+            SafeThreadPool.QueueUserWorkItem(o => TailZIPProcess(manifest, parameters));
         }
 
-        private static void TailZIPProcess(BundleLibraryManifest manifest, Process zip_process)
+        private static void TailZIPProcess(BundleLibraryManifest manifest, string parameters)
         {
-            string STATUS_TOKEN = "Bundle-" + manifest.Version;
-
-            StatusManager.Instance.ClearCancelled(STATUS_TOKEN);
-
-            int iteration = 0;
-            while (true)
+            using (Process zip_process = Process.Start(ConfigurationManager.Instance.Program7ZIP, parameters))
             {
-                ++iteration;
-
-                if (StatusManager.Instance.IsCancelled(STATUS_TOKEN))
+                using (ProcessOutputReader process_output_reader = new ProcessOutputReader(zip_process))
                 {
-                    zip_process.Kill();
-                    StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Cancelled creation of Bundle Library.");
-                    return;
-                }
+                    string STATUS_TOKEN = "Bundle-" + manifest.Version;
 
-                if (zip_process.HasExited)
-                {
-                    StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Completed creation of Bundle Library.");
-                    return;
-                }
+                    StatusManager.Instance.ClearCancelled(STATUS_TOKEN);
 
-                StatusManager.Instance.UpdateStatusBusy(STATUS_TOKEN, "Creating Bundle Library...", iteration, iteration + 1, true);
-                
-                Thread.Sleep(1000);
+                    int iteration = 0;
+                    while (true)
+                    {
+                        ++iteration;
+
+                        if (StatusManager.Instance.IsCancelled(STATUS_TOKEN))
+                        {
+                            zip_process.Kill();
+                            zip_process.WaitForExit(500);
+
+                            Logging.Error("Cancelled creation of Bundle Library:\n--- Parameters: {0}\n{1}", parameters, process_output_reader.GetOutputsDumpString());
+
+                            StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Cancelled creation of Bundle Library.");
+                            return;
+                        }
+
+                        if (zip_process.HasExited)
+                        {
+                            Logging.Info("Completed creation of Bundle Library:\n--- Parameters: {0}\n{1}", parameters, process_output_reader.GetOutputsDumpString());
+
+                            StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Completed creation of Bundle Library.");
+                            return;
+                        }
+
+                        StatusManager.Instance.UpdateStatusBusy(STATUS_TOKEN, "Creating Bundle Library...", iteration, iteration + 1, true);
+
+                        Thread.Sleep(1000);
+                    }
+                }
             }
         }
 
-        void CmdThemes_Click(object sender, RoutedEventArgs e)
+        private void CmdThemes_Click(object sender, RoutedEventArgs e)
         {
             SafeThreadPool.QueueUserWorkItem(o => library.ExpeditionManager.RebuildExpedition(library.ExpeditionManager.RecommendedThemeCount, true, true, null));
         }
 
-        void CmdAutoTags_Click(object sender, RoutedEventArgs e)
+        private void CmdAutoTags_Click(object sender, RoutedEventArgs e)
         {
-            SafeThreadPool.QueueUserWorkItem(o => this.library.AITagManager.Regenerate(null));
+            SafeThreadPool.QueueUserWorkItem(o => library.AITagManager.Regenerate(null));
         }
 
-        void CmdCrossReference_Click(object sender, RoutedEventArgs e)
+        private void CmdCrossReference_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_GenerateReferences);
-            SafeThreadPool.QueueUserWorkItem(o => CitationFinder.FindCitations(this.library));
+            SafeThreadPool.QueueUserWorkItem(o => CitationFinder.FindCitations(library));
 
         }
 
-        void CmdOCRAndIndex_Click(object sender, RoutedEventArgs e)
+        private void CmdOCRAndIndex_Click(object sender, RoutedEventArgs e)
         {
             foreach (var pdf_document in library.PDFDocuments)
             {
@@ -152,21 +164,21 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
 
         public void ReflectLibrary(Library library_)
         {
-            this.library = library_;
-            this.manifest = new BundleLibraryManifest();
-            
+            library = library_;
+            manifest = new BundleLibraryManifest();
+
             string bundle_title = library_.WebLibraryDetail.Title + " Bundle Library";
             bundle_title = bundle_title.Replace("Library Bundle Library", "Bundle Library");
 
             // Set the manifest
-            this.manifest.Id = "BUNDLE_" + library_.WebLibraryDetail.Id;
-            this.manifest.Version = DateTime.UtcNow.ToString("yyyyMMdd.HHmmss");
+            manifest.Id = "BUNDLE_" + library_.WebLibraryDetail.Id;
+            manifest.Version = DateTime.UtcNow.ToString("yyyyMMdd.HHmmss");
 
-            this.manifest.Title = bundle_title;
-            this.manifest.Description = library_.WebLibraryDetail.Description;
-            
+            manifest.Title = bundle_title;
+            manifest.Description = library_.WebLibraryDetail.Description;
+
             // GUI updates
-            this.DataContext = this.manifest;
+            DataContext = manifest;
             ObjRunLibraryName.Text = library_.WebLibraryDetail.Title;
 
             ResetProgress();

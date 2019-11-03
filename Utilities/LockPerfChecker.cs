@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Timers;
 
 namespace Utilities
@@ -19,20 +16,20 @@ namespace Utilities
         {
             double ms;
 
-            lock (this.obj_lock)
+            lock (obj_lock)
             {
-                ms = this.clk.ElapsedTicks * 1.0E3 / Stopwatch.Frequency;
-                this.t.Elapsed -= this.handler_ref;
-                this.t.Stop();
-                this.t.Close();
-                this.t = null;
+                ms = clk.ElapsedTicks * 1.0E3 / Stopwatch.Frequency;
+                t.Elapsed -= handler_ref;
+                t.Stop();
+                t.Close();
+                t = null;
                 //                    this.clk.Stop();
                 //                    this.clk = null;
             }
 
             if (ms > 250.0)
             {
-                Logging.Warn("lock took {0} msec @ {1}", ms, this.stackTrace);
+                Logging.Warn("lock took {0} msec @ {1}", ms, stackTrace);
             }
         }
     }

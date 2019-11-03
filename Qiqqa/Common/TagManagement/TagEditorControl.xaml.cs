@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using Qiqqa.DocumentLibrary;
 using Qiqqa.UtilisationTracking;
+using Utilities;
 using Utilities.GUI;
 
 namespace Qiqqa.Common.TagManagement
@@ -12,7 +14,7 @@ namespace Qiqqa.Common.TagManagement
     /// <summary>
     /// Interaction logic for TagEditorControl.xaml
     /// </summary>
-    public partial class TagEditorControl : UserControl
+    public partial class TagEditorControl : UserControl, IDisposable
     {
         internal Feature TagFeature_Add { get; set; }
         internal Feature TagFeature_Remove { get; set; }
@@ -24,7 +26,7 @@ namespace Qiqqa.Common.TagManagement
         // If 'TagEditorControl' has previously shipped, adding new members that implement IDisposable 
         // to this type is considered a breaking change to existing consumers.
 
-        WeakDependencyPropertyChangeNotifier wdpcn;
+        private WeakDependencyPropertyChangeNotifier wdpcn;
 
         public TagEditorControl()
         {
@@ -37,12 +39,12 @@ namespace Qiqqa.Common.TagManagement
             wdpcn.ValueChanged += OnTagsBundlePropertyChanged;
         }
 
-        void OnTagsBundlePropertyChanged(object sender, EventArgs e)
+        private void OnTagsBundlePropertyChanged(object sender, EventArgs e)
         {
             RebuildTagItems();
         }
 
-        void ObjAddControl_OnNewTag(string tag)
+        private void ObjAddControl_OnNewTag(string tag)
         {
             HashSet<string> tags = TagTools.ConvertTagBundleToTags(TagsBundle);
             tags.Add(tag);
@@ -54,7 +56,7 @@ namespace Qiqqa.Common.TagManagement
                 FeatureTrackingManager.Instance.UseFeature(TagFeature_Add);
             }
         }
-        
+
         private void RebuildTagItems()
         {
             string tags_string = TagsBundle;
@@ -88,17 +90,61 @@ namespace Qiqqa.Common.TagManagement
 
         public Visibility TagsTitleVisibility
         {
-            set
-            {
-                TxtTagTitle.Visibility = value;
-            }
+            get => TxtTagTitle.Visibility;
+            set => TxtTagTitle.Visibility = value;
         }
 
         public static DependencyProperty TagsBundleProperty = DependencyProperty.Register("TagsBundle", typeof(string), typeof(TagEditorControl), new PropertyMetadata());
         public string TagsBundle
         {
-            get { return (string)GetValue(TagsBundleProperty); }
-            set { SetValue(TagsBundleProperty, value); }
+            get => (string)GetValue(TagsBundleProperty);
+            set => SetValue(TagsBundleProperty, value);
         }
+
+        #region --- IDisposable ------------------------------------------------------------------------
+
+        ~TagEditorControl()
+        {
+            Logging.Debug("~TagEditorControl()");
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Logging.Debug("Disposing TagEditorControl");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected virtual void Dispose(bool disposing)
+        {
+            Logging.Debug("TagEditorControl::Dispose({0}) @{1}", disposing, dispose_count);
+
+            // *Nobody* gets any updates from us anymore, so we can delete cached content etc. in peace. (https://github.com/jimmejardine/qiqqa-open-source/issues/121)
+            WPFDoEvents.InvokeInUIThread(() =>
+            {
+                BindingOperations.ClearBinding(this, TagsBundleProperty);
+
+                if (null != wdpcn)
+                {
+                    wdpcn.ValueChanged -= OnTagsBundlePropertyChanged;
+                }
+                // TagsBundle = null;  <-- forbidden to reset as that MAY trigger a dependency update! (https://github.com/jimmejardine/qiqqa-open-source/issues/121)
+
+                ObjTagsPanel.Children.Clear();
+            });
+
+            // Get rid of managed resources
+            wdpcn?.Dispose();
+
+            ObjAddControl.OnNewTag -= ObjAddControl_OnNewTag;
+
+            wdpcn = null;
+
+            ++dispose_count;
+        }
+
+        #endregion
     }
 }

@@ -2,101 +2,101 @@ using System;
 
 namespace Utilities.Mathematics
 {
-	public class Polynomials
-	{
-		public static void findQuadraticRoot(double a, double b, double c, out Complex o1, out Complex o2)
-		{
-			o1 = new Complex();
-			o2 = new Complex();
+    public class Polynomials
+    {
+        public static void findQuadraticRoot(double a, double b, double c, out Complex o1, out Complex o2)
+        {
+            o1 = new Complex();
+            o2 = new Complex();
 
-			double descriminant = b*b - 4*a*c;
-			if (descriminant >= 0)
-			{
-				double descriminant_root = Math.Sqrt(descriminant);
-				o1 = new Complex((-b + descriminant_root) / (2*a), 0.0);
-				o2 = new Complex((-b - descriminant_root) / (2*a), 0.0);
-			}
-			else
-			{
-				double descriminant_root = Math.Sqrt(-descriminant);
-				o1 = new Complex(-b / (2*a), +descriminant_root / (2*a));
-				o2 = new Complex(-b / (2*a), -descriminant_root / (2*a));
-			}
-		}
+            double descriminant = b * b - 4 * a * c;
+            if (descriminant >= 0)
+            {
+                double descriminant_root = Math.Sqrt(descriminant);
+                o1 = new Complex((-b + descriminant_root) / (2 * a), 0.0);
+                o2 = new Complex((-b - descriminant_root) / (2 * a), 0.0);
+            }
+            else
+            {
+                double descriminant_root = Math.Sqrt(-descriminant);
+                o1 = new Complex(-b / (2 * a), +descriminant_root / (2 * a));
+                o2 = new Complex(-b / (2 * a), -descriminant_root / (2 * a));
+            }
+        }
 
-		public static Complex evalQuadratic(double a2, double a1, double a0, Complex x)
-		{
-			Complex result = new Complex(a0);
-			
-			Complex factor = new Complex(x);
-			result = Complex.add(result, Complex.multiply(a1, factor));
-			factor = Complex.multiply(factor, x);
-			result = Complex.add(result, Complex.multiply(a2, factor));
+        public static Complex evalQuadratic(double a2, double a1, double a0, Complex x)
+        {
+            Complex result = new Complex(a0);
 
-			return result;
-		}
+            Complex factor = new Complex(x);
+            result = Complex.add(result, Complex.multiply(a1, factor));
+            factor = Complex.multiply(factor, x);
+            result = Complex.add(result, Complex.multiply(a2, factor));
 
-		public static Complex evalCubic(double a3, double a2, double a1, double a0, Complex x)
-		{
-			Complex result = new Complex(a0);
-			
-			Complex factor = new Complex(x);
-			result = Complex.add(result, Complex.multiply(a1, factor));
-			factor = Complex.multiply(factor, x);
-			result = Complex.add(result, Complex.multiply(a2, factor));
-			factor = Complex.multiply(factor, x);
-			result = Complex.add(result, Complex.multiply(a3, factor));
+            return result;
+        }
 
-			return result;
-		}
-		
-		/**
+        public static Complex evalCubic(double a3, double a2, double a1, double a0, Complex x)
+        {
+            Complex result = new Complex(a0);
+
+            Complex factor = new Complex(x);
+            result = Complex.add(result, Complex.multiply(a1, factor));
+            factor = Complex.multiply(factor, x);
+            result = Complex.add(result, Complex.multiply(a2, factor));
+            factor = Complex.multiply(factor, x);
+            result = Complex.add(result, Complex.multiply(a3, factor));
+
+            return result;
+        }
+
+        /**
 		 * The findCubicRoot() method uses the method of Tartaglia - as shown in the Mathematica online help.
 		 * The first result is the real root.  The other two are generally complex...
 		 */
-		
-		public static void findCubicRoot(double a3, double a2, double a1, double a0, out Complex o1, out Complex o2, out Complex o3)
-		{
-			// Put into canonical form (coefficient of x^3 is 1)
-			if (1 != a3)
-			{
-				a2 /= a3;
-				a1 /= a3;
-				a0 /= a3;
-				a3 = 1.0;
-			}
 
-			double Q = (3*a1 - a2*a2) / 9.0;
-			double R = (9*a1*a2 - 27*a0 - 2*a2*a2*a2) / 54.0;
+        public static void findCubicRoot(double a3, double a2, double a1, double a0, out Complex o1, out Complex o2, out Complex o3)
+        {
+            // Put into canonical form (coefficient of x^3 is 1)
+            if (1 != a3)
+            {
+                a2 /= a3;
+                a1 /= a3;
+                a0 /= a3;
+                a3 = 1.0;
+            }
 
-			double R_squared = R*R;
-			double Q_cubed = Q*Q*Q;
+            double Q = (3 * a1 - a2 * a2) / 9.0;
+            double R = (9 * a1 * a2 - 27 * a0 - 2 * a2 * a2 * a2) / 54.0;
 
-			double D = Q_cubed + R_squared;
-			if (D > 0)
-			{
-				double S = General.cubeRoot(R + Math.Sqrt(D));
-				double T = General.cubeRoot(R - Math.Sqrt(D));
+            double R_squared = R * R;
+            double Q_cubed = Q * Q * Q;
 
-				double B = (S+T) / 2.0;
-				double A = (S-T) / 2.0;
+            double D = Q_cubed + R_squared;
+            if (D > 0)
+            {
+                double S = General.cubeRoot(R + Math.Sqrt(D));
+                double T = General.cubeRoot(R - Math.Sqrt(D));
 
-				o1 = new Complex(-a2/3.0 + 2*B, 0);
-				o2 = new Complex(-a2/3.0 - B, +Math.Sqrt(3)*A);
-				o3 = new Complex(-a2/3.0 - B, -Math.Sqrt(3)*A);
-			}
+                double B = (S + T) / 2.0;
+                double A = (S - T) / 2.0;
 
-			else
-			{
-				double theta = Math.Acos(R / Math.Sqrt(-Q_cubed));
-				
-				double sqrt_minus_Q = Math.Sqrt(-Q);
-				double third_a2 = a2 / 3.0;
-				o1 = new Complex(2 * sqrt_minus_Q * Math.Cos(theta/3.0) - third_a2);
-				o2 = new Complex(2 * sqrt_minus_Q * Math.Cos((theta+2.0*Math.PI)/3.0) - third_a2);
-				o3 = new Complex(2 * sqrt_minus_Q * Math.Cos((theta+4.0*Math.PI)/3.0) - third_a2);
-			}
-		}
+                o1 = new Complex(-a2 / 3.0 + 2 * B, 0);
+                o2 = new Complex(-a2 / 3.0 - B, +Math.Sqrt(3) * A);
+                o3 = new Complex(-a2 / 3.0 - B, -Math.Sqrt(3) * A);
+            }
+
+            else
+            {
+                double theta = Math.Acos(R / Math.Sqrt(-Q_cubed));
+
+                double sqrt_minus_Q = Math.Sqrt(-Q);
+                double third_a2 = a2 / 3.0;
+                o1 = new Complex(2 * sqrt_minus_Q * Math.Cos(theta / 3.0) - third_a2);
+                o2 = new Complex(2 * sqrt_minus_Q * Math.Cos((theta + 2.0 * Math.PI) / 3.0) - third_a2);
+                o3 = new Complex(2 * sqrt_minus_Q * Math.Cos((theta + 4.0 * Math.PI) / 3.0) - third_a2);
+            }
+        }
 
         #region --- Test ------------------------------------------------------------------------
 

@@ -1,13 +1,14 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.Threading;
 using System.Windows;
 using icons;
 using Microsoft.Win32;
-using Qiqqa.Common.Configuration;
 using Qiqqa.Common.GUI;
 using Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading;
 using Qiqqa.UtilisationTracking;
+using Utilities;
 using Utilities.GUI;
 using Utilities.Internet;
 using Utilities.Misc;
@@ -22,102 +23,103 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleDownloading
         public BundleLibraryJoiningControl()
         {
             InitializeComponent();
-            
-            this.Title = 
-            this.Header.Caption =  "Download Bundle Library";
 
-            this.Header.SubCaption = "Please confirm the details of the Bundle Library you wish to download.";
-            this.Header.Img = Icons.GetAppIcon(Icons.WebLibrary_BundleLibrary);
+            Title =
+            Header.Caption = "Download Bundle Library";
 
-            this.ButtonCancel.Caption = "Cancel";
-            this.ButtonCancel.Icon = Icons.GetAppIcon(Icons.Cancel);
-            this.ButtonCancel.Click += ButtonCancel_Click;
+            Header.SubCaption = "Please confirm the details of the Bundle Library you wish to download.";
+            Header.Img = Icons.GetAppIcon(Icons.WebLibrary_BundleLibrary);
 
-            this.ButtonDownload.Caption = "Download";
-            this.ButtonDownload.Icon = Icons.GetAppIcon(Icons.WebLibrary_BundleLibrary);
-            this.ButtonDownload.Click += ButtonDownload_Click;
+            ButtonCancel.Caption = "Cancel";
+            ButtonCancel.Icon = Icons.GetAppIcon(Icons.Cancel);
+            ButtonCancel.Click += ButtonCancel_Click;
+
+            ButtonDownload.Caption = "Download";
+            ButtonDownload.Icon = Icons.GetAppIcon(Icons.WebLibrary_BundleLibrary);
+            ButtonDownload.Click += ButtonDownload_Click;
 
             ObjButtonManifestFilenameChoose.Click += ObjButtonManifestFilenameChoose_Click;
         }
 
-        void ButtonDownload_Click(object sender, RoutedEventArgs e)
+        private void ButtonDownload_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.StartPage_JoinBundleLibrary);
 
-            BundleLibraryManifest manifest = this.DataContext as BundleLibraryManifest ;
-            
+            BundleLibraryManifest manifest = DataContext as BundleLibraryManifest;
+
             if (null == manifest)
             {
-                MessageBoxes.Error("Please select a Bundle Library manifest file (*.qiqqa_bundle_manifest).");
+                MessageBoxes.Error("Please select a Bundle Library manifest file (*" + Common.EXT_BUNDLE_MANIFEST + ").");
                 return;
             }
 
             // Kick off the downloader
             SafeThreadPool.QueueUserWorkItem(o => ManageDownload(manifest));
 
-            this.Close();
+            Close();
         }
 
         private void ManageDownload(BundleLibraryManifest manifest)
         {
             string url = manifest.BaseUrl + @"/" + manifest.Id + Common.EXT_BUNDLE;
-            UrlDownloader.DownloadAsyncTracker download_async_tracker = UrlDownloader.DownloadWithNonBlocking(ConfigurationManager.Instance.Proxy, url);
-
-            string STATUS_TOKEN = "BundleDownload-" + manifest.Version;
-
-            StatusManager.Instance.ClearCancelled(STATUS_TOKEN);
-            while (!download_async_tracker.DownloadComplete)
+            using (UrlDownloader.DownloadAsyncTracker download_async_tracker = UrlDownloader.DownloadWithNonBlocking(url))
             {
-                if (StatusManager.Instance.IsCancelled(STATUS_TOKEN))
+                string STATUS_TOKEN = "BundleDownload-" + manifest.Version;
+
+                StatusManager.Instance.ClearCancelled(STATUS_TOKEN);
+                while (!download_async_tracker.DownloadComplete)
                 {
-                    download_async_tracker.Cancel();
-                    break;
+                    if (StatusManager.Instance.IsCancelled(STATUS_TOKEN))
+                    {
+                        download_async_tracker.Cancel();
+                        break;
+                    }
+
+                    StatusManager.Instance.UpdateStatusBusy(STATUS_TOKEN, "Downloading Bundle Library...", download_async_tracker.ProgressPercentage, 100, true);
+                    Thread.Sleep(1000);
                 }
 
-                StatusManager.Instance.UpdateStatusBusy(STATUS_TOKEN, "Downloading Bundle Library...", download_async_tracker.ProgressPercentage, 100, true);
-                Thread.Sleep(1000);
-            }
-
-            // Check the reason for exiting
-            if (download_async_tracker.DownloadDataCompletedEventArgs.Cancelled)
-            {
-                StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Cancelled download of Bundle Library.");
-            }
-            else if (null != download_async_tracker.DownloadDataCompletedEventArgs.Error)
-            {
-                MessageBoxes.Error(download_async_tracker.DownloadDataCompletedEventArgs.Error, "There was an error during the download of your Bundle Library.  Please try again later or contact {0} for more information.", manifest.SupportEmail);
-                StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Error during download of Bundle Library.");
-            }
-            else if (null == download_async_tracker.DownloadDataCompletedEventArgs.Result)
-            {
-                MessageBoxes.Error(download_async_tracker.DownloadDataCompletedEventArgs.Error, "There was an error during the download of your Bundle Library.  Please try again later or contact {0} for more information.", manifest.SupportEmail);
-                StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Error during download of Bundle Library.");
-            }
-            else
-            {
-                StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Completed download of Bundle Library.");
-                if (MessageBoxes.AskQuestion("The Bundle Library named '{0}' has been downloaded.  Do you want to install it now?", manifest.Title))
+                // Check the reason for exiting
+                if (download_async_tracker.DownloadDataCompletedEventArgs.Cancelled)
                 {
-                    LibraryBundleInstaller.Install(manifest, download_async_tracker.DownloadDataCompletedEventArgs.Result);
+                    StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Cancelled download of Bundle Library.");
+                }
+                else if (null != download_async_tracker.DownloadDataCompletedEventArgs.Error)
+                {
+                    MessageBoxes.Error(download_async_tracker.DownloadDataCompletedEventArgs.Error, "There was an error during the download of your Bundle Library.  Please try again later or contact {0} for more information.", manifest.SupportEmail);
+                    StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Error during download of Bundle Library.");
+                }
+                else if (null == download_async_tracker.DownloadDataCompletedEventArgs.Result)
+                {
+                    MessageBoxes.Error(download_async_tracker.DownloadDataCompletedEventArgs.Error, "There was an error during the download of your Bundle Library.  Please try again later or contact {0} for more information.", manifest.SupportEmail);
+                    StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Error during download of Bundle Library.");
                 }
                 else
                 {
-                    MessageBoxes.Warn("Not installing Bundle Library.");
+                    StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Completed download of Bundle Library.");
+                    if (MessageBoxes.AskQuestion("The Bundle Library named '{0}' has been downloaded.  Do you want to install it now?", manifest.Title))
+                    {
+                        LibraryBundleInstaller.Install(manifest, download_async_tracker.DownloadDataCompletedEventArgs.Result);
+                    }
+                    else
+                    {
+                        MessageBoxes.Warn("Not installing Bundle Library.");
+                    }
                 }
             }
         }
 
-        void ButtonCancel_Click(object sender, RoutedEventArgs e)
+        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
-        void ObjButtonManifestFilenameChoose_Click(object sender, RoutedEventArgs e)
+        private void ObjButtonManifestFilenameChoose_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 OpenFileDialog dialog = new OpenFileDialog();
-                dialog.Filter = "Bundle Library Manifest files|*.qiqqa_bundle_manifest" + "|" + "All files|*.*";
+                dialog.Filter = "Bundle Library Manifest files|*" + Common.EXT_BUNDLE_MANIFEST + "|" + "All files|*.*";
                 dialog.CheckFileExists = true;
                 dialog.Multiselect = false;
                 if (true == dialog.ShowDialog())
@@ -143,7 +145,29 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleDownloading
         internal void FocusOnManifest(BundleLibraryManifest manifest, string filename_prompt)
         {
             TxtManifestFilename.Text = filename_prompt;
-            this.DataContext = manifest;
+            DataContext = manifest;
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+
+            // base.OnClosed() invokes this class' Closed() code, so we flipped the order of exec to reduce the number of surprises for yours truly.
+            // This NULLing stuff is really the last rites of Dispose()-like so we stick it at the end here.
+
+            try
+            {
+                DataContext = null;
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
         }
     }
 }

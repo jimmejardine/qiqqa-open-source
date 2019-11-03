@@ -16,12 +16,12 @@ namespace Qiqqa.Documents.PDF.Search
         {
             InitializeComponent();
 
-            this.DataContextChanged += SearchResultsListItemControl_DataContextChanged;
+            DataContextChanged += SearchResultsListItemControl_DataContextChanged;
         }
 
-        void SearchResultsListItemControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void SearchResultsListItemControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            this.TextContext.Inlines.Clear();
+            TextContext.Inlines.Clear();
 
             // Check that we know what this DataContext is
             PDFSearchResult search_result = DataContext as PDFSearchResult;
@@ -32,7 +32,7 @@ namespace Qiqqa.Documents.PDF.Search
 
             string current_context_sentence = search_result.context_sentence;
             string current_context_sentence_lower = current_context_sentence.ToLower(CultureInfo.CurrentCulture);
-            
+
             while (!String.IsNullOrEmpty(current_context_sentence))
             {
                 // Look for the next keyword
@@ -54,24 +54,24 @@ namespace Qiqqa.Documents.PDF.Search
                     // Add a span of everything up to the keyword
                     {
                         Run run = new Run(current_context_sentence.Substring(0, next_keyword_pos));
-                        this.TextContext.Inlines.Add(run);
+                        TextContext.Inlines.Add(run);
                     }
 
                     {
                         Run run = new Run(current_context_sentence.Substring(next_keyword_pos, search_result.keywords[next_k].Length));
                         run.FontWeight = FontWeights.Bold;
                         run.Foreground = TextSearchBrushes.Instance.GetBrushPair(next_k).BorderBrush;
-                        this.TextContext.Inlines.Add(run);
+                        TextContext.Inlines.Add(run);
                     }
 
                     current_context_sentence = current_context_sentence.Substring(next_keyword_pos + search_result.keywords[next_k].Length);
                     current_context_sentence_lower = current_context_sentence.ToLower(CultureInfo.CurrentCulture);
                 }
-                
+
                 else
                 {
                     Run run = new Run(current_context_sentence);
-                    this.TextContext.Inlines.Add(run);
+                    TextContext.Inlines.Add(run);
 
                     current_context_sentence = "";
                     current_context_sentence_lower = "";

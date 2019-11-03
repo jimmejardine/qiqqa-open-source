@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Text;
 using Qiqqa.Common.Configuration;
 using Utilities;
 using Utilities.Files;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Localisation
 {
@@ -25,12 +25,12 @@ namespace Qiqqa.Localisation
         }
 
         private static string GetFilenameForTempLocale(string locale)
-        {            
+        {
             return Path.GetFullPath(Path.Combine(TEMP_BASE_PATH, string.Format("{0}.qiqqa.txt", locale)));
         }
 
         public static LocalisationManager Instance = new LocalisationManager();
-        
+
         private Dictionary<string, LocaleTable> locale_tables = new Dictionary<string, LocaleTable>();
 
         public LocaleTable LoadTempLocaleTable(string locale)
@@ -40,7 +40,7 @@ namespace Qiqqa.Localisation
             {
                 LocaleTable locale_table = LocaleTable.Load(GetFilenameForTempLocale(locale));
                 if (null != locale_table)
-                {   
+                {
                     return locale_table;
                 }
             }
@@ -65,7 +65,7 @@ namespace Qiqqa.Localisation
             string filename = GetFilenameForTempLocale(locale);
             FileTools.BrowseToFileInExplorer(filename);
         }
-        
+
         public LocaleTable LoadLocaleTable(string locale)
         {
             // Temp locale
@@ -97,7 +97,7 @@ namespace Qiqqa.Localisation
             return null;
         }
 
-        List<string> last_locale_order = new List<string>();
+        private List<string> last_locale_order = new List<string>();
         public List<string> GetLocaleOrder()
         {
             // Pick the override or current UI culture
@@ -187,7 +187,7 @@ namespace Qiqqa.Localisation
         }
 
         // ------------------------------------------------------------------------------------------------------------
-        
+
         public static string Get(string key)
         {
             return Instance.GetString(key);

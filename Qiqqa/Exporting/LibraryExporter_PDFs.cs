@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using icons;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.Annotations;
@@ -15,12 +14,12 @@ using Utilities.Misc;
 
 namespace Qiqqa.Exporting
 {
-    class LibraryExporter_PDFs
+    internal class LibraryExporter_PDFs
     {
         internal static void Export(Library library, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
         {
             List<PDFDocumentExportItem> pdf_document_export_items_values = new List<PDFDocumentExportItem>(pdf_document_export_items.Values);
-            for (int i = 0; i < pdf_document_export_items_values.Count; ++i)            
+            for (int i = 0; i < pdf_document_export_items_values.Count; ++i)
             {
                 var item = pdf_document_export_items_values[i];
                 try
@@ -80,7 +79,7 @@ namespace Qiqqa.Exporting
                         }
 
                         // Then the annotations
-                        foreach (PDFAnnotation annotation in item.pdf_document.Annotations)
+                        foreach (PDFAnnotation annotation in item.pdf_document.GetAnnotations())
                         {
                             if (annotation.Deleted)
                             {

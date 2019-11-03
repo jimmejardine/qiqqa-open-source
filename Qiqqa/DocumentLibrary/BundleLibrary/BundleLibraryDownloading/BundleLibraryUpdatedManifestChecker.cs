@@ -4,14 +4,13 @@ using System.Text;
 using System.Windows;
 using icons;
 using Qiqqa.Common;
-using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Utilities.Internet;
 using Utilities.Misc;
 
 namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
 {
-    class BundleLibraryUpdatedManifestChecker
+    internal class BundleLibraryUpdatedManifestChecker
     {
         internal static void Check(Library library)
         {
@@ -33,25 +32,24 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
 
             // Download the new manifest
             BundleLibraryManifest manifest_existing = BundleLibraryManifest.FromJSON(library.WebLibraryDetail.BundleManifestJSON);
-            string manifest_latest_url = manifest_existing.BaseUrl + "/" + manifest_existing.Id +".qiqqa_bundle_manifest";
-            MemoryStream ms;
-            UrlDownloader.DownloadWithBlocking(ConfigurationManager.Instance.Proxy, manifest_latest_url, out ms);
-            string manifest_latest_json = Encoding.UTF8.GetString(ms.ToArray());
-            BundleLibraryManifest manifest_latest = BundleLibraryManifest.FromJSON(manifest_latest_json);
-
-            // It is an old version or we have this version
-            if (0 <= String.Compare(manifest_existing.Version, manifest_latest.Version))
+            string manifest_latest_url = manifest_existing.BaseUrl + @"/" + manifest_existing.Id + Common.EXT_BUNDLE_MANIFEST;
+            using (MemoryStream ms = UrlDownloader.DownloadWithBlocking(manifest_latest_url))
             {
-                return;
-            }
+                string manifest_latest_json = Encoding.UTF8.GetString(ms.ToArray());
+                BundleLibraryManifest manifest_latest = BundleLibraryManifest.FromJSON(manifest_latest_json);
 
-            // It is a version the user has chosen to ignore
-            if (library.WebLibraryDetail.LastBundleManifestIgnoreVersion == manifest_latest.Version)
-            {
-                return;
-            }
+                // It is an old version or we have this version
+                if (0 <= String.Compare(manifest_existing.Version, manifest_latest.Version))
+                {
+                    return;
+                }
 
-            {   
+                // It is a version the user has chosen to ignore
+                if (library.WebLibraryDetail.LastBundleManifestIgnoreVersion == manifest_latest.Version)
+                {
+                    return;
+                }
+
                 BundleLibraryUpdateNotification blun = new BundleLibraryUpdateNotification(library, manifest_latest);
 
                 NotificationManager.Instance.AddPendingNotification(
@@ -66,14 +64,14 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
                         blun.NoThanks
                     )
                 );
-            }            
+            }
         }
     }
 
-    class BundleLibraryUpdateNotification
+    internal class BundleLibraryUpdateNotification
     {
-        Library library;
-        BundleLibraryManifest manifest_latest;
+        private Library library;
+        private BundleLibraryManifest manifest_latest;
 
         public BundleLibraryUpdateNotification(Library library, BundleLibraryManifest manifest_latest)
         {

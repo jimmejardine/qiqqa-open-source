@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using QiqqaTestHelpers;
-using static QiqqaTestHelpers.MiscTestHelpers;
 using Utilities;
 using Utilities.BibTex;
 using Utilities.BibTex.Parsing;
-using Newtonsoft.Json;
-using System.IO;
-using System.Diagnostics;
-using File = Alphaleonis.Win32.Filesystem.File;
+using static QiqqaTestHelpers.MiscTestHelpers;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace QiqqaUnitTester
 {
@@ -428,6 +429,7 @@ namespace QiqqaUnitTester
         [DataRow("simple-0001.bib")]
         [DataRow("whitespacing-0001.bib")]
         [DataRow("whitespacing-0002.bib")]
+        [DataRow("whitespacing-0003.bib")]
         [DataTestMethod]
         public void Do_TestFiles_Exist(string bibtex_filepath)
         {
@@ -438,11 +440,11 @@ namespace QiqqaUnitTester
         }
 
         // TestData items: All data files are employed in at least one BibTeX test! Hence this list is empty!
-		//
-		// (added this dummy entry to ensure the test runner doesn't barf a hairball on this otherwise
-		// empty [DataTestMethod]:
-		[DataRow("simple-0001.bib")]
-		[DataTestMethod]
+        //
+        // (added this dummy entry to ensure the test runner doesn't barf a hairball on this otherwise
+        // empty [DataTestMethod]:
+        [DataRow("simple-0001.bib")]
+        [DataTestMethod]
         public void Pending_TestFiles(string bibtex_filepath)
         {
             ASSERT.IsTrue(true);
@@ -654,7 +656,7 @@ namespace QiqqaUnitTester
             int filecount = filelist.Count;
             BibTexParseResult rv;
             Stopwatch clock = Stopwatch.StartNew();
-            foreach(var entry in filelist)
+            foreach (var entry in filelist)
             {
                 try
                 {
@@ -1508,6 +1510,7 @@ namespace QiqqaUnitTester
 
         [DataRow("whitespacing-0001.bib")]
         [DataRow("whitespacing-0002.bib")]
+        [DataRow("whitespacing-0003.bib")]
         [DataTestMethod]
         public void Check_BibTeX_Whitespace_Handling(string bibtex_filepath)
         {

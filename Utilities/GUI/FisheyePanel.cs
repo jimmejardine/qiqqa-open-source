@@ -13,20 +13,20 @@ namespace Utilities.GUI
 
     public class FishEyePanel : Panel
     {
-        enum AnimateState { None, Up, Down };
+        private enum AnimateState { None, Up, Down };
 
         public FishEyePanel()
         {
-            this.Background = Brushes.Transparent;
-            this.MouseMove += FishEyePanel_MouseMove;
-            this.MouseEnter += FishEyePanel_MouseEnter;
-            this.MouseLeave += FishEyePanel_MouseLeave;
+            Background = Brushes.Transparent;
+            MouseMove += FishEyePanel_MouseMove;
+            MouseEnter += FishEyePanel_MouseEnter;
+            MouseLeave += FishEyePanel_MouseLeave;
         }
 
         public double Magnification
         {
-            get { return (double)GetValue(MagnificationProperty); }
-            set { SetValue(MagnificationProperty, value); }
+            get => (double)GetValue(MagnificationProperty);
+            set => SetValue(MagnificationProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for Magnification.  This enables animation, styling, binding, etc...
@@ -35,8 +35,8 @@ namespace Utilities.GUI
 
         public int AnimationMilliseconds
         {
-            get { return (int)GetValue(AnimationMillisecondsProperty); }
-            set { SetValue(AnimationMillisecondsProperty, value); }
+            get => (int)GetValue(AnimationMillisecondsProperty);
+            set => SetValue(AnimationMillisecondsProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for AnimationMilliseconds.  This enables animation, styling, binding, etc...
@@ -47,8 +47,8 @@ namespace Utilities.GUI
         // If set true we scale different sized children to a constant width
         public bool ScaleToFit
         {
-            get { return (bool)GetValue(ScaleToFitProperty); }
-            set { SetValue(ScaleToFitProperty, value); }
+            get => (bool)GetValue(ScaleToFitProperty);
+            set => SetValue(ScaleToFitProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for ScaleToFit.  This enables animation, styling, binding, etc...
@@ -60,22 +60,22 @@ namespace Utilities.GUI
         private double totalChildWidth = 0;
         private bool wasMouseOver = false;
 
-        void FishEyePanel_MouseMove(object sender, MouseEventArgs e)
+        private void FishEyePanel_MouseMove(object sender, MouseEventArgs e)
         {
             if (!animating)
             {
-                this.InvalidateArrange();
+                InvalidateArrange();
             }
         }
 
-        void FishEyePanel_MouseEnter(object sender, MouseEventArgs e)
+        private void FishEyePanel_MouseEnter(object sender, MouseEventArgs e)
         {
-            this.InvalidateArrange();
+            InvalidateArrange();
         }
 
-        void FishEyePanel_MouseLeave(object sender, MouseEventArgs e)
+        private void FishEyePanel_MouseLeave(object sender, MouseEventArgs e)
         {
-            this.InvalidateArrange();
+            InvalidateArrange();
         }
 
         protected override Size MeasureOverride(Size availableSize)
@@ -104,7 +104,7 @@ namespace Utilities.GUI
 
         protected override Size ArrangeOverride(Size finalSize)
         {
-            if (this.Children == null || this.Children.Count == 0)
+            if (Children == null || Children.Count == 0)
             {
                 return finalSize;
             }
@@ -112,7 +112,7 @@ namespace Utilities.GUI
             ourSize = finalSize;
             totalChildWidth = 0;
 
-            foreach (UIElement child in this.Children)
+            foreach (UIElement child in Children)
             {
                 // If this is the first time we've seen this child, add our transforms
                 if (child.RenderTransform as TransformGroup == null)
@@ -134,14 +134,14 @@ namespace Utilities.GUI
             return finalSize;
         }
 
-        void AnimateAll()
+        private void AnimateAll()
         {
-            if (this.Children == null || this.Children.Count == 0)
+            if (Children == null || Children.Count == 0)
                 return;
 
             animating = true;
 
-            double childWidth = ourSize.Width / this.Children.Count;
+            double childWidth = ourSize.Width / Children.Count;
             // Scale the children so they fit in our size
             double overallScaleFactor = ourSize.Width / totalChildWidth;
 
@@ -153,10 +153,10 @@ namespace Utilities.GUI
             double theChildX = 0;
             double ratio = 0;
 
-            if (this.IsMouseOver)
+            if (IsMouseOver)
             {
                 double x = Mouse.GetPosition(this).X;
-                foreach (UIElement child in this.Children)
+                foreach (UIElement child in Children)
                 {
                     if (theChild == null)
                     {
@@ -204,13 +204,13 @@ namespace Utilities.GUI
                 extra += (mag - 1);
             }
 
-            double prevScale = this.Children.Count * (1 + ((mag - 1) * (1 - ratio))) / (this.Children.Count + extra);
-            double theScale = (mag * this.Children.Count) / (this.Children.Count + extra);
-            double nextScale = this.Children.Count * (1 + ((mag - 1) * ratio)) / (this.Children.Count + extra);
-            double otherScale = this.Children.Count / (this.Children.Count + extra);       // Applied to all non-interesting children
+            double prevScale = Children.Count * (1 + ((mag - 1) * (1 - ratio))) / (Children.Count + extra);
+            double theScale = (mag * Children.Count) / (Children.Count + extra);
+            double nextScale = Children.Count * (1 + ((mag - 1) * ratio)) / (Children.Count + extra);
+            double otherScale = Children.Count / (Children.Count + extra);       // Applied to all non-interesting children
 
             // Adjust for different sized children - we overmagnify large children, so shrink the others
-            if (!ScaleToFit && this.IsMouseOver)
+            if (!ScaleToFit && IsMouseOver)
             {
                 double bigWidth = 0;
                 double actualWidth = 0;
@@ -235,12 +235,12 @@ namespace Utilities.GUI
 
             widthSoFar = 0;
             double duration = 0;
-            if (wasMouseOver != this.IsMouseOver)
+            if (wasMouseOver != IsMouseOver)
             {
                 duration = AnimationMilliseconds;
             }
 
-            foreach (UIElement child in this.Children)
+            foreach (UIElement child in Children)
             {
                 double scale = otherScale;
                 if (child == prevChild)
@@ -271,7 +271,7 @@ namespace Utilities.GUI
                 widthSoFar += child.DesiredSize.Width * scale;
             }
 
-            wasMouseOver = this.IsMouseOver;
+            wasMouseOver = IsMouseOver;
         }
 
         private void AnimateTo(UIElement child, double r, double x, double y, double s, double duration)
@@ -322,7 +322,7 @@ namespace Utilities.GUI
             return anim;
         }
 
-        void animation_Completed(object sender, EventArgs e)
+        private void animation_Completed(object sender, EventArgs e)
         {
             animating = false;
         }

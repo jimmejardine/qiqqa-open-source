@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using System.IO;
 using System.Text;
 using Qiqqa.Common.Configuration;
-using Qiqqa.DocumentLibrary;
 using Utilities;
 using Utilities.Files;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
 {
@@ -18,17 +18,15 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
     // Also note that this source code file is a near *copy* of that source file: ../LibraryDB.cs !
     //
 
-
-
     public class IntranetLibraryDB
     {
-        string base_path;
-        string library_path;
+        private string base_path;
+        private string library_path;
 
         public IntranetLibraryDB(string base_path)
         {
             this.base_path = base_path;
-            this.library_path = IntranetLibraryTools.GetLibraryMetadataPath(base_path);
+            library_path = IntranetLibraryTools.GetLibraryMetadataPath(base_path);
 
             // Copy a library into place...
             if (!File.Exists(library_path))
@@ -102,19 +100,28 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
                     connection.Open();
                     using (var transaction = connection.BeginTransaction())
                     {
-                        using (var command = new SQLiteCommand("DELETE FROM LibraryItem WHERE filename=@filename", connection, transaction))
+                        bool managed_update = false;
+
+                        using (var command = new SQLiteCommand("UPDATE LibraryItem WHERE filename=@filename", connection, transaction))
                         {
                             command.Parameters.AddWithValue("@filename", filename);
-                            command.ExecuteNonQuery();
+                            int num_rows_updated = command.ExecuteNonQuery();
+                            if (1 == num_rows_updated)
+                            {
+                                managed_update = true;
+                            }
                         }
 
-                        using (var command = new SQLiteCommand("INSERT INTO LibraryItem(filename, last_updated_by, md5, data) VALUES(@filename, @last_updated_by, @md5, @data)", connection, transaction))
+                        if (!managed_update)
                         {
-                            command.Parameters.AddWithValue("@filename", filename);
-                            command.Parameters.AddWithValue("@last_updated_by", Environment.UserName);
-                            command.Parameters.AddWithValue("@md5", md5);
-                            command.Parameters.AddWithValue("@data", data);
-                            command.ExecuteNonQuery();
+                            using (var command = new SQLiteCommand("INSERT INTO LibraryItem(filename, last_updated_by, md5, data) VALUES(@filename, @last_updated_by, @md5, @data)", connection, transaction))
+                            {
+                                command.Parameters.AddWithValue("@filename", filename);
+                                command.Parameters.AddWithValue("@last_updated_by", Environment.UserName);
+                                command.Parameters.AddWithValue("@md5", md5);
+                                command.Parameters.AddWithValue("@data", data);
+                                command.ExecuteNonQuery();
+                            }
                         }
 
                         transaction.Commit();
@@ -173,7 +180,7 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
             return items[0];
         }
 
-        public List<IntranetLibraryItem> GetIntranetLibraryItems(string filename)
+        public List<IntranetLibraryItem> GetIntranetLibraryItems(string filename, int MaxRecordCount = 0)
         {
             List<IntranetLibraryItem> results = new List<IntranetLibraryItem>();
 
@@ -185,10 +192,19 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
 
                     string command_string = "SELECT filename, last_updated_by, md5, data FROM LibraryItem WHERE 1=1 ";
                     command_string += turnArgumentIntoQueryPart("filename", filename);
+                    if (MaxRecordCount > 0)
+                    {
+                        // http://www.sqlitetutorial.net/sqlite-limit/
+                        command_string += " LIMIT @maxnum";
+                    }
 
                     using (var command = new SQLiteCommand(command_string, connection))
                     {
                         turnArgumentIntoQueryParameter(command, "filename", filename);
+                        if (MaxRecordCount > 0)
+                        {
+                            command.Parameters.AddWithValue("@maxnum", MaxRecordCount);
+                        }
 
                         using (SQLiteDataReader reader = command.ExecuteReader())
                         {

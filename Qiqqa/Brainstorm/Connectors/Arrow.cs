@@ -12,13 +12,13 @@ namespace Qiqqa.Brainstorm.Connectors
 {
     public sealed class ConnectorControl : Shape
     {
-        double X1, Y1;
-        double X2, Y2;
-        double HeadWidth, HeadHeight;
+        private double X1, Y1;
+        private double X2, Y2;
+        private double HeadWidth, HeadHeight;
 
         #region OLDConnectorControl
 
-        SceneRenderingControl scene_rendering_control;
+        private SceneRenderingControl scene_rendering_control;
 
         internal Guid guid = Guid.NewGuid();
         internal NodeControl node_from;
@@ -26,20 +26,16 @@ namespace Qiqqa.Brainstorm.Connectors
         internal bool Deleted { get; set; }
 
         internal bool is_on_screen = false;
-
-        PropertyShadow shadow;
-
-        NodeControl.DimensionsChangedDelegate Node_OnDimensionsChangedDelegate;
-        NodeControl.DeletedDelegate Node_OnDeletedDelegate;
-
-
-        static readonly SolidColorBrush STROKE_BRUSH;
+        private PropertyShadow shadow;
+        private NodeControl.DimensionsChangedDelegate Node_OnDimensionsChangedDelegate;
+        private NodeControl.DeletedDelegate Node_OnDeletedDelegate;
+        private static readonly SolidColorBrush STROKE_BRUSH;
         static ConnectorControl()
         {
-            STROKE_BRUSH = new SolidColorBrush(Color.FromArgb(128, 0,0,0));
+            STROKE_BRUSH = new SolidColorBrush(Color.FromArgb(128, 0, 0, 0));
             STROKE_BRUSH.Freeze();
         }
-        
+
         public ConnectorControl(SceneRenderingControl scene_rendering_control)
         {
             this.scene_rendering_control = scene_rendering_control;
@@ -49,42 +45,30 @@ namespace Qiqqa.Brainstorm.Connectors
 
             //this.Stroke = STROKE_BRUSH;
             //this.StrokeThickness = 0.5;
-            this.Fill = STROKE_BRUSH;
-            this.HeadWidth = 0;
-            this.HeadHeight = 2;
+            Fill = STROKE_BRUSH;
+            HeadWidth = 0;
+            HeadHeight = 2;
 
-            this.Focusable = true;
-            this.GotFocus += ConnectorControl_GotFocus;
-            this.MouseDown += ConnectorControl_MouseDown;
-            this.PreviewKeyDown += ConnectorControl_PreviewKeyDown;
+            Focusable = true;
+            GotFocus += ConnectorControl_GotFocus;
+            MouseDown += ConnectorControl_MouseDown;
+            PreviewKeyDown += ConnectorControl_PreviewKeyDown;
 
             shadow = new PropertyShadow(this);
         }
 
-        public NodeControl NodeFrom
+        public NodeControl NodeFrom => node_from;
+        public NodeControl NodeTo => node_to;
+
+        private void ConnectorControl_GotFocus(object sender, RoutedEventArgs e)
         {
-            get
-            {
-                return node_from;
-            }
-        }
-        public NodeControl NodeTo
-        {
-            get
-            {
-                return node_to;
-            }
+            //            scene_rendering_control.SetSelectedNodeControl(null);
+            //            scene_rendering_control.selected_connector_control.Selected = sender as ConnectorControl;
         }
 
-        void ConnectorControl_GotFocus(object sender, RoutedEventArgs e)
+        private void ConnectorControl_MouseDown(object sender, MouseButtonEventArgs e)
         {
-//            scene_rendering_control.SetSelectedNodeControl(null);
-//            scene_rendering_control.selected_connector_control.Selected = sender as ConnectorControl;
-        }
-
-        void ConnectorControl_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            this.Focus();
+            Focus();
 
             scene_rendering_control.UpdateMouseTracking(e, true);
 
@@ -97,7 +81,7 @@ namespace Qiqqa.Brainstorm.Connectors
             e.Handled = true;
         }
 
-        void ConnectorControl_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void ConnectorControl_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (Key.Delete == e.Key)
             {
@@ -114,20 +98,20 @@ namespace Qiqqa.Brainstorm.Connectors
         public void SetNodes(NodeControl node_from_, NodeControl node_to_)
         {
             // Unregister the existing nodes
-            if (null != this.node_from)
+            if (null != node_from)
             {
-                this.node_from.OnDimensionsChanged -= Node_OnDimensionsChangedDelegate;
-                this.node_from.OnDeleted -= Node_OnDeletedDelegate;
+                node_from.OnDimensionsChanged -= Node_OnDimensionsChangedDelegate;
+                node_from.OnDeleted -= Node_OnDeletedDelegate;
             }
-            if (null != this.node_to)
+            if (null != node_to)
             {
-                this.node_to.OnDimensionsChanged -= Node_OnDimensionsChangedDelegate;
-                this.node_to.OnDeleted -= Node_OnDeletedDelegate;
+                node_to.OnDimensionsChanged -= Node_OnDimensionsChangedDelegate;
+                node_to.OnDeleted -= Node_OnDeletedDelegate;
             }
 
             // Know our new nodes
-            this.node_from = node_from_;
-            this.node_to = node_to_;
+            node_from = node_from_;
+            node_to = node_to_;
 
             // Match our nodes' zorder
             int min_z_index = Math.Min(Canvas.GetZIndex(node_from), Canvas.GetZIndex(node_to));
@@ -148,12 +132,12 @@ namespace Qiqqa.Brainstorm.Connectors
             RealignToNodes();
         }
 
-        void Node_OnDimensionsChanged(NodeControl nc)
+        private void Node_OnDimensionsChanged(NodeControl nc)
         {
             RealignToNodes();
         }
 
-        void Node_OnDeleted(NodeControl nc)
+        private void Node_OnDeleted(NodeControl nc)
         {
             if (node_from.scene_data.Deleted || node_to.scene_data.Deleted)
             {
@@ -163,26 +147,26 @@ namespace Qiqqa.Brainstorm.Connectors
             }
         }
 
-        void RealignToNodes()
+        private void RealignToNodes()
         {
             bool is_off_screen =
                 false
                 || (!node_from.is_on_screen && !node_to.is_on_screen)
-                || this.Deleted
+                || Deleted
                 ;
 
-            if (is_off_screen && this.is_on_screen)
+            if (is_off_screen && is_on_screen)
             {
                 scene_rendering_control.ObjNodesLayer.Children.Remove(this);
-                this.is_on_screen = false;
+                is_on_screen = false;
             }
-            else if (!is_off_screen && !this.is_on_screen)
+            else if (!is_off_screen && !is_on_screen)
             {
                 scene_rendering_control.ObjNodesLayer.Children.Add(this);
-                this.is_on_screen = true;
+                is_on_screen = true;
             }
 
-            if (this.is_on_screen)
+            if (is_on_screen)
             {
                 double min_x = Math.Min(node_from.scene_data.CentreX, node_to.scene_data.CentreX);
                 double min_y = Math.Min(node_from.scene_data.CentreY, node_to.scene_data.CentreY);
@@ -225,46 +209,47 @@ namespace Qiqqa.Brainstorm.Connectors
 
                     if (true)
                     {
-                        this.X1 = point_from_X;
-                        this.Y1 = point_from_Y;
-                        this.X2 = point_to_X;
-                        this.Y2 = point_to_Y;
+                        X1 = point_from_X;
+                        Y1 = point_from_Y;
+                        X2 = point_to_X;
+                        Y2 = point_to_Y;
                     }
 
                     // --------------------------------------------------------------------------------------------------------------
                     // --- This will eventually be the code that makes up the adornments
                     // --------------------------------------------------------------------------------------------------------------                    
-                    //if (true)
-                    //{
-                    //    double TAIL_SIZE = 20;
+#if false
+                    {
+                        double TAIL_SIZE = 20;
 
-                    //    ConnectorTailFrom.X1 = point_from_X;
-                    //    ConnectorTailFrom.Y1 = point_from_Y;
-                    //    if (length_parallel > 0)
-                    //    {
-                    //        ConnectorTailFrom.X2 = point_from_X + TAIL_SIZE * direction_parallel.X / length_parallel;
-                    //        ConnectorTailFrom.Y2 = point_from_Y + TAIL_SIZE * direction_parallel.Y / length_parallel;
-                    //    }
-                    //    else
-                    //    {
-                    //        ConnectorTailFrom.X2 = point_from_X;
-                    //        ConnectorTailFrom.Y2 = point_from_Y;
-                    //    }
+                        ConnectorTailFrom.X1 = point_from_X;
+                        ConnectorTailFrom.Y1 = point_from_Y;
+                        if (length_parallel > 0)
+                        {
+                            ConnectorTailFrom.X2 = point_from_X + TAIL_SIZE * direction_parallel.X / length_parallel;
+                            ConnectorTailFrom.Y2 = point_from_Y + TAIL_SIZE * direction_parallel.Y / length_parallel;
+                        }
+                        else
+                        {
+                            ConnectorTailFrom.X2 = point_from_X;
+                            ConnectorTailFrom.Y2 = point_from_Y;
+                        }
 
-                    //    ConnectorTailTo.X2 = point_to_X;
-                    //    ConnectorTailTo.Y2 = point_to_Y;
+                        ConnectorTailTo.X2 = point_to_X;
+                        ConnectorTailTo.Y2 = point_to_Y;
 
-                    //    if (length_parallel > 0)
-                    //    {
-                    //        ConnectorTailTo.X1 = point_to_X - TAIL_SIZE * direction_parallel.X / length_parallel;
-                    //        ConnectorTailTo.Y1 = point_to_Y - TAIL_SIZE * direction_parallel.Y / length_parallel;
-                    //    }
-                    //    else
-                    //    {
-                    //        ConnectorTailTo.X1 = point_to_X;
-                    //        ConnectorTailTo.Y1 = point_to_Y;
-                    //    }
-                    //}
+                        if (length_parallel > 0)
+                        {
+                            ConnectorTailTo.X1 = point_to_X - TAIL_SIZE * direction_parallel.X / length_parallel;
+                            ConnectorTailTo.Y1 = point_to_Y - TAIL_SIZE * direction_parallel.Y / length_parallel;
+                        }
+                        else
+                        {
+                            ConnectorTailTo.X1 = point_to_X;
+                            ConnectorTailTo.Y1 = point_to_Y;
+                        }
+                    }
+#endif
                 }
             }
 
@@ -292,13 +277,12 @@ namespace Qiqqa.Brainstorm.Connectors
 
         #region Shape Overrides
 
-        StreamGeometry geometry = null;
-        
-        Point pt1 = new Point();
-        Point pt2 = new Point();
-        Point pt3 = new Point();
-        Point pt4 = new Point();
-        
+        private StreamGeometry geometry = null;
+        private Point pt1 = new Point();
+        private Point pt2 = new Point();
+        private Point pt3 = new Point();
+        private Point pt4 = new Point();
+
         protected override Geometry DefiningGeometry
         {
             get
@@ -311,7 +295,7 @@ namespace Qiqqa.Brainstorm.Connectors
                     || pt2.Y != Y2
                     ;
 
-                if (need_new_geometry)                
+                if (need_new_geometry)
                 {
                     if (null == geometry)
                     {
@@ -320,7 +304,7 @@ namespace Qiqqa.Brainstorm.Connectors
 
                     geometry.Clear();
                     using (StreamGeometryContext context = geometry.Open())
-                    {                        
+                    {
                         InternalDrawArrowGeometry(context);
                     }
                 }
@@ -349,7 +333,7 @@ namespace Qiqqa.Brainstorm.Connectors
             // Draw the line and arrow
             context.BeginFigure(pt2, true, true);
             context.LineTo(pt3, false, false);
-            context.LineTo(pt4, false, false);            
+            context.LineTo(pt4, false, false);
         }
 
         #endregion

@@ -1,37 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Diagnostics;
-using Qiqqa.Documents.PDF;
+using System.IO;
 using Qiqqa.Common.TagManagement;
+using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.Files;
 using Utilities.Misc;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.DocumentLibrary.FolderWatching
 {
-    public class FolderWatcher
+    public class FolderWatcher : IDisposable
     {
-        FolderWatcherManager folder_watcher_manager;
-        Library library;
-        HashSet<string> tags;
+        private FolderWatcherManager folder_watcher_manager;
+        private Library library;
+        private HashSet<string> tags;
 
         // TODO
         //
         // Warning CA1001  Implement IDisposable on 'FolderWatcher' because it creates members 
         // of the following IDisposable types: 'FileSystemWatcher'. 
-        // If 'FolderWatcher' has previously shipped, adding new members that implement IDisposable 
-        // to this type is considered a breaking change to existing consumers.
 
-        FileSystemWatcher file_system_watcher;
-
-        string configured_folder_to_watch;
-        string aspiring_folder_to_watch;
-        bool __folder_contents_has_changed;
-        object folder_contents_has_changed_lock = new object();
+        private FileSystemWatcher file_system_watcher;
+        private string configured_folder_to_watch;
+        private string aspiring_folder_to_watch;
+        private bool __folder_contents_has_changed;
+        private object folder_contents_has_changed_lock = new object();
 
         private bool FolderContentsHaveChanged
         {
@@ -75,9 +73,9 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         {
             this.folder_watcher_manager = folder_watcher_manager;
             this.library = library;
-            this.aspiring_folder_to_watch = folder_to_watch;
+            aspiring_folder_to_watch = folder_to_watch;
             this.tags = TagTools.ConvertTagBundleToTags(tags);
-            this.configured_folder_to_watch = null;
+            configured_folder_to_watch = null;
 
             file_system_watcher = new FileSystemWatcher();
             file_system_watcher.IncludeSubdirectories = true;
@@ -91,34 +89,13 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             file_system_watcher.EnableRaisingEvents = false;
         }
 
-        private int dispose_count = 0;
-        internal void Dispose()
-        {
-            Logging.Debug("FolderWatcher::Dispose() @{0}", ++dispose_count);
-
-            if (null != file_system_watcher)
-            {
-                file_system_watcher.EnableRaisingEvents = false;
-                file_system_watcher.Dispose();
-            }
-
-            file_system_watcher = null;
-
-            folder_watcher_manager = null;
-            //library.Dispose();
-            library = null;
-            tags.Clear();
-            configured_folder_to_watch = null;
-            aspiring_folder_to_watch = null;
-        }
-
-        void file_system_watcher_Changed(object sender, FileSystemEventArgs e)
+        private void file_system_watcher_Changed(object sender, FileSystemEventArgs e)
         {
             Logging.Debug特("FolderWatcher file_system_watcher_Changed");
             FolderContentsHaveChanged = true;
         }
 
-        void file_system_watcher_Created(object sender, FileSystemEventArgs e)
+        private void file_system_watcher_Created(object sender, FileSystemEventArgs e)
         {
             Logging.Debug特("FolderWatcher file_system_watcher_Created");
             FolderContentsHaveChanged = true;
@@ -286,9 +263,8 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                         int textify_count = 0;
                         int ocr_count = 0;
                         Qiqqa.Documents.PDF.PDFRendering.PDFTextExtractor.Instance.GetJobCounts(out textify_count, out ocr_count);
-                        int indexing_pages_pending = library.LibraryIndex.PagesPending;
 
-                        int duration = 1 * 1000 + thr_cnt * 250 + queued_cnt * 20 + textify_count * 50 + ocr_count * 500 + indexing_pages_pending * 30;
+                        int duration = 1 * 1000 + thr_cnt * 250 + queued_cnt * 20 + textify_count * 50 + ocr_count * 500;
 
                         daemon.Sleep(Math.Min(60 * 1000, duration));
                         // As we have slept a while, it's quite unsure whether that file still exists. Skip it and 
@@ -423,9 +399,10 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             List<FilenameWithMetadataImport> filename_with_metadata_imports = new List<FilenameWithMetadataImport>();
             foreach (var filename in filenames_that_are_new)
             {
-                filename_with_metadata_imports.Add(new FilenameWithMetadataImport {
+                filename_with_metadata_imports.Add(new FilenameWithMetadataImport
+                {
                     filename = filename,
-                    tags = new HashSet<string>(this.tags)
+                    tags = new HashSet<string>(tags)
                 });
 
                 // TODO: refactor this: delay until the PDF has actually been processed completely!
@@ -442,5 +419,46 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             // HACK & QUICK PATCH until we have refactored this stuff:
             filenames_that_are_new.Clear();
         }
+
+        #region --- IDisposable ------------------------------------------------------------------------
+
+        ~FolderWatcher()
+        {
+            Logging.Debug("~FolderWatcher()");
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Logging.Debug("Disposing FolderWatcher");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected virtual void Dispose(bool disposing)
+        {
+            Logging.Debug("FolderWatcher::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
+            {
+                // Get rid of managed resources
+                file_system_watcher.EnableRaisingEvents = false;
+                file_system_watcher.Dispose();
+            }
+
+            file_system_watcher = null;
+
+            folder_watcher_manager = null;
+            //library.Dispose();
+            library = null;
+            tags.Clear();
+            configured_folder_to_watch = null;
+            aspiring_folder_to_watch = null;
+
+            ++dispose_count;
+        }
+
+        #endregion
     }
 }

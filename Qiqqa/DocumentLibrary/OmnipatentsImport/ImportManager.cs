@@ -4,7 +4,7 @@ using Qiqqa.UtilisationTracking;
 
 namespace Qiqqa.DocumentLibrary.OmnipatentsImport
 {
-    class ImportManager
+    internal class ImportManager
     {
         internal static void Go(string filename)
         {

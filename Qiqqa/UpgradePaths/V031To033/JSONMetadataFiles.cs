@@ -1,10 +1,9 @@
 ﻿using Qiqqa.DocumentLibrary.WebLibraryStuff;
-using Qiqqa.Documents.Common;
 using Qiqqa.Documents.PDF;
 
 namespace Qiqqa.UpgradePaths.V031To033
 {
-    class JSONMetadataFiles
+    internal class JSONMetadataFiles
     {
         public static void Upgrade()
         {

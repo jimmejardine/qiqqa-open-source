@@ -3,7 +3,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:Qiqqa.StartPage"
     xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
-    xmlns:local_formatting="clr-namespace:Qiqqa.StartPage.Formatting"
     xmlns:local_gui_conv="clr-namespace:Utilities.GUI.Converters;assembly=Utilities"
     xmlns:local_library_filter="clr-namespace:Qiqqa.DocumentLibrary.LibraryFilter"
   xmlns:local_dualtab="clr-namespace:Utilities.GUI.DualTabbedLayoutStuff;assembly=Utilities"

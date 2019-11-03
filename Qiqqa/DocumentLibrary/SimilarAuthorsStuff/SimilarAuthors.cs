@@ -7,9 +7,9 @@ using Utilities.Language;
 
 namespace Qiqqa.DocumentLibrary.SimilarAuthorsStuff
 {
-    public class SimilarAuthors
+    public static class SimilarAuthors
     {
-        static readonly List<NameTools.Name> EMPTY_NAMES = new List<NameTools.Name>();
+        private static readonly List<NameTools.Name> EMPTY_NAMES = new List<NameTools.Name>();
 
         public static List<NameTools.Name> GetAuthorsForPDFDocument(PDFDocument pdf_document)
         {

@@ -2,8 +2,8 @@
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 
 //using Org.BouncyCastle.Crypto.Digests;
@@ -48,7 +48,7 @@ namespace Utilities.Files
             return buff.ToString();
         }
 #endif
-        
+
         private static string FromStream_DOTNET(Stream stream)
         {
             using (SHA1CryptoServiceProvider sha1 = new SHA1CryptoServiceProvider())
@@ -82,7 +82,7 @@ namespace Utilities.Files
             return FromStream(ms);
         }
 
-#region --- Test ------------------------------------------------------------------------
+        #region --- Test ------------------------------------------------------------------------
 
 #if TEST
         public static void Test()
@@ -118,6 +118,6 @@ namespace Utilities.Files
         }
 #endif
 
-#endregion
+        #endregion
     }
 }

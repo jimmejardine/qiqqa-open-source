@@ -4,13 +4,11 @@ using Utilities.OCR;
 
 namespace QiqqaOCR
 {
-    class WordListCredibility
+    internal class WordListCredibility
     {
         public static WordListCredibility Instance = new WordListCredibility();
-
-        const int REASONABLE_WORD_LIST_LENGTH = 10;
-
-        HashSet<string> COMMON_WORDS;
+        private const int REASONABLE_WORD_LIST_LENGTH = 10;
+        private HashSet<string> COMMON_WORDS;
 
         private WordListCredibility()
         {
@@ -79,7 +77,7 @@ namespace QiqqaOCR
             if (HasSufficientCommonWords(word_list)) return true;
             if (HasSufficientRepeatedWords(word_list)) return true;
 
-            return false;            
+            return false;
         }
 
         internal bool IsACredibleWordList(Dictionary<int, WordList> word_lists)
@@ -127,7 +125,7 @@ namespace QiqqaOCR
         private static bool HasSufficientRepeatedWords(WordList word_list)
         {
             HashSet<string> viable_words = new HashSet<string>();
-            
+
             CountingDictionary<string> word_counts = new CountingDictionary<string>();
             foreach (var word in word_list)
             {

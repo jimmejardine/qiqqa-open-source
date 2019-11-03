@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Syncfusion.Pdf;
-using Utilities.PDF;
 using Utilities;
+using Utilities.PDF;
 
 namespace Qiqqa.Documents.PDF.MetadataSuggestions
 {
-    public class PDFMetadataInferenceFromPDFMetadata
+    public static class PDFMetadataInferenceFromPDFMetadata
     {
         internal static bool NeedsProcessing(PDFDocument pdf_document)
         {
-            if (!pdf_document.DocumentExists) return false;            
+            if (!pdf_document.DocumentExists) return false;
             if (pdf_document.AutoSuggested_PDFMetadata) return false;
 
             Logging.Info("{0} requires PDFMetadataInferenceFromPDFMetadata", pdf_document.Fingerprint);
@@ -21,7 +18,7 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
 
         internal static bool InferFromPDFMetadata(PDFDocument pdf_document)
         {
-            if (!pdf_document.DocumentExists) return false;            
+            if (!pdf_document.DocumentExists) return false;
             if (pdf_document.AutoSuggested_PDFMetadata) return false;
 
             pdf_document.AutoSuggested_PDFMetadata = true;

@@ -6,7 +6,7 @@ namespace Utilities.GUI
 {
     public class ColorTools
     {
-        private static readonly char[] CHARS = new char[] {'0','1','2','3','4','5','6','7','8','9','A','B','C', 'D', 'E','F' };
+        private static readonly char[] CHARS = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
 
         public static string ColorToHEX(Color color)
         {
@@ -28,7 +28,7 @@ namespace Utilities.GUI
             Color color = (Color)ColorConverter.ConvertFromString(hex);
             return color;
         }
-        
+
         public static System.Drawing.Color ConvertWindowsToDrawingColor(Color color)
         {
             return System.Drawing.Color.FromArgb(color.A, color.R, color.G, color.B);
@@ -67,7 +67,7 @@ namespace Utilities.GUI
             }
         }
 
-        static RandomAugmented random_aumented = new RandomAugmented();
+        private static RandomAugmented random_aumented = new RandomAugmented();
         public static Color GetRandomColor()
         {
             byte[] buffer = new byte[3];

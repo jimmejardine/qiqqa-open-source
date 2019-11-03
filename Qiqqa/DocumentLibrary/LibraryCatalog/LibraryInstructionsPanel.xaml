@@ -1,7 +1,6 @@
 ﻿<UserControl x:Class="Qiqqa.DocumentLibrary.LibraryCatalog.LibraryInstructionsPanel"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local_formatting="clr-namespace:Qiqqa.StartPage.Formatting"
   xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
   xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
              >

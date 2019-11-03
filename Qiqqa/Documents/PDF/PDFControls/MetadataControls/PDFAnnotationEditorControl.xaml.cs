@@ -13,7 +13,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
     /// </summary>
     public partial class PDFAnnotationEditorControl : UserControl
     {
-        PDFAnnotation pdf_annotation;
+        private PDFAnnotation pdf_annotation;
 
         public PDFAnnotationEditorControl()
         {
@@ -21,7 +21,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
             InitializeComponent();
 
-            this.Background = ThemeColours.Background_Brush_Blue_LightToDark;
+            Background = ThemeColours.Background_Brush_Blue_LightToDark;
 
             ButtonColor1.Background = Brushes.LightPink;
             ButtonColor2.Background = Brushes.LightSalmon;
@@ -48,26 +48,23 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             ObjTagEditorControl.TagFeature_Remove = Features.Document_RemoveAnnotationTag;
         }
 
-        void ButtonDeleteAnnotation_Click(object sender, RoutedEventArgs e)
+        private void ButtonDeleteAnnotation_Click(object sender, RoutedEventArgs e)
         {
-            this.pdf_annotation.Deleted = true;
-            this.pdf_annotation.Bindable.NotifyPropertyChanged(() => (pdf_annotation.Deleted));
+            pdf_annotation.Deleted = true;
+            pdf_annotation.Bindable.NotifyPropertyChanged(() => (pdf_annotation.Deleted));
         }
 
-        void ButtonColor_Click(object sender, RoutedEventArgs e)
+        private void ButtonColor_Click(object sender, RoutedEventArgs e)
         {
-            AugmentedButton button = (AugmentedButton) sender;
-            SolidColorBrush brush = (SolidColorBrush) button.Background;
-            ObjColorPicker.SelectedColor = brush.Color;            
+            AugmentedButton button = (AugmentedButton)sender;
+            SolidColorBrush brush = (SolidColorBrush)button.Background;
+            ObjColorPicker.SelectedColor = brush.Color;
         }
 
-        static Color last_annotation_color = Colors.SkyBlue;
-        public static Color LastAnnotationColor
-        {
-            get { return last_annotation_color; }
-        }
+        private static Color last_annotation_color = Colors.SkyBlue;
+        public static Color LastAnnotationColor => last_annotation_color;
 
-        void ObjColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
+        private void ObjColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
         {
             last_annotation_color = ObjColorPicker.SelectedColor;
 
@@ -75,25 +72,22 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             {
                 pdf_annotation.Color = ObjColorPicker.SelectedColor;
                 pdf_annotation.Bindable.NotifyPropertyChanged(() => (pdf_annotation.Color));
-            }            
+            }
         }
 
-        public PDFAnnotation PDFAnnotation
+        public void SetAnnotation(PDFAnnotation value)
         {
-            set
-            {
-                this.pdf_annotation = value;
-                this.DataContext = pdf_annotation.Bindable;
+            pdf_annotation = value;
+            DataContext = pdf_annotation.Bindable;
 
-                if (null != pdf_annotation)
-                {
-                    ObjColorPicker.SelectedColor = pdf_annotation.Color;
-                    this.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    this.Visibility = Visibility.Collapsed;
-                }
+            if (null != pdf_annotation)
+            {
+                ObjColorPicker.SelectedColor = pdf_annotation.Color;
+                Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Visibility = Visibility.Collapsed;
             }
         }
     }

@@ -6,7 +6,7 @@ using Utilities.OCR;
 
 namespace Qiqqa.Documents.PDF.PDFRendering.CoherentTextExtraction
 {
-    public class PDFCoherentTextExtractor
+    public static class PDFCoherentTextExtractor
     {
         public class ExtractionResult
         {
@@ -29,7 +29,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering.CoherentTextExtraction
             public ExtractionResult(ResultType result_type, Exception ex)
             {
                 this.result_type = result_type;
-                this.exception = ex;
+                exception = ex;
             }
 
             public ExtractionResult(ResultType result_type, List<string> words)
@@ -95,7 +95,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering.CoherentTextExtraction
                 foreach (Word word in words_ordered)
                 {
                     words.Add(word.Text);
-                }                
+                }
 
                 // Kill some of the line-wrapping hyphenation
                 for (int i = words.Count - 2; i >= 0; --i)
@@ -105,10 +105,10 @@ namespace Qiqqa.Documents.PDF.PDFRendering.CoherentTextExtraction
                         words[i] = words[i].Substring(0, words[i].Length - 1) + words[i + 1];
                         words.RemoveAt(i + 1);
                     }
-                }                
-                
+                }
+
                 // Return the words
-                Logging.Info("Successfully extracted {0} words: {1}", words.Count, ArrayFormatter.listElements(words));                 
+                Logging.Info("Successfully extracted {0} words: {1}", words.Count, ArrayFormatter.listElements(words));
                 return new ExtractionResult(ExtractionResult.ResultType.SUCCESS, words);
             }
 

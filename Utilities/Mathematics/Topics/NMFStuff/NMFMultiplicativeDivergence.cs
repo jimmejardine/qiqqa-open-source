@@ -28,12 +28,12 @@ namespace Utilities.Mathematics.Topics.NMFStuff
             double[] rmses = new double[NUM_THREADS];
             float[,] WH = new float[M, N];
 
-            
+
             // Computational enhancement with sparse matrices
             MultiMap<int, int> M_sparse;
             MultiMap<int, int> N_sparse;
             FindSparseLocations(M, N, V, out M_sparse, out N_sparse);
-            
+
             // Random initialisation of W and H
             Tools.InitialiseRandomMatrices(K, M, N, W, H);
 
@@ -95,7 +95,7 @@ namespace Utilities.Mathematics.Topics.NMFStuff
             }
         }
 
-        static void FindSparseLocations(int M, int N, float[,] V, out MultiMap<int, int> M_sparse, out MultiMap<int, int> N_sparse)
+        private static void FindSparseLocations(int M, int N, float[,] V, out MultiMap<int, int> M_sparse, out MultiMap<int, int> N_sparse)
         {
             Logging.Info("+Finding sparse locations");
 
@@ -107,7 +107,7 @@ namespace Utilities.Mathematics.Topics.NMFStuff
             {
                 for (int n = 0; n < N; ++n)
                 {
-                    if (V[m, n] > 0)                    
+                    if (V[m, n] > 0)
                     {
                         ++count;
                         M_sparse.Add(m, n);
@@ -116,7 +116,7 @@ namespace Utilities.Mathematics.Topics.NMFStuff
                 }
             }
 
-            Logging.Info("The matrix has sparseness of {0}", count/(double)(M*N));
+            Logging.Info("The matrix has sparseness of {0}", count / (double)(M * N));
             Logging.Info("-Finding sparse locations");
         }
 

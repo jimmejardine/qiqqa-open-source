@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using icons;
 using Qiqqa.Common.TagManagement;
 using Qiqqa.Documents.PDF;
 using Utilities.BibTex.Parsing;
@@ -20,7 +20,9 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
         {
             InitializeComponent();
 
-            this.DataContextChanged += MultipleDocumentsSelectedPanel_DataContextChanged;
+            DataContextChanged += MultipleDocumentsSelectedPanel_DataContextChanged;
+
+            ObjUserReviewControl.SetDatesVisible(false);
 
             ButtonResetTagsAdd.Caption = "Reset";
             ButtonResetTagsAdd.Click += ButtonResetTagsAdd_Click;
@@ -41,23 +43,43 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             ResetReviewStub();
 
             ButtonResetBibTeX.Caption = "Reset";
+            ButtonResetBibTeX.Icon = Icons.GetAppIcon(Icons.BibTeXReset);
             ButtonResetBibTeX.Click += ButtonResetBibTeX_Click;
+            ButtonResetBibTeX.Icon = Icons.GetAppIcon(Icons.Yes);
             ButtonApplyBibTeX.Caption = "Apply";
             ButtonApplyBibTeX.Click += ButtonApplyBibTeX_Click;
+
+            //ButtonToggleBibTeX.Caption = "Toggle View";
+            ButtonToggleBibTeX.Click += ButtonToggleBibTeX_Click;
+            //ButtonAckBibTeXParseErrors.Caption = "Parse Errors";
+            ButtonAckBibTeXParseErrors.Click += ButtonAckBibTeXParseErrors_Click;
+            //ButtonUndoBibTeXEdit.Caption = "Undo";
+            ButtonUndoBibTeXEdit.Click += ButtonUndoBibTeXEdit_Click;
+            ObjBibTeXEditorControl.RegisterOverlayButtons(ButtonAckBibTeXParseErrors, ButtonToggleBibTeX, ButtonUndoBibTeXEdit);
+
             ResetBibTeXStub();
+        }
+
+        private void ButtonUndoBibTeXEdit_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ButtonAckBibTeXParseErrors_Click(object sender, RoutedEventArgs e)
+        {
+            ObjBibTeXEditorControl.ToggleBibTeXErrorView();
+        }
+
+        private void ButtonToggleBibTeX_Click(object sender, RoutedEventArgs e)
+        {
+            ObjBibTeXEditorControl.ToggleBibTeXMode(TriState.Arbitrary);
         }
 
         // ---------------------------------------------------------------------------------------------------
 
-        List<PDFDocument> SelectedPDFDocuments
-        {
-            get
-            {
-                return this.DataContext as List<PDFDocument>;
-            }
-        }
+        private List<PDFDocument> SelectedPDFDocuments => DataContext as List<PDFDocument>;
 
-        void MultipleDocumentsSelectedPanel_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void MultipleDocumentsSelectedPanel_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (null == SelectedPDFDocuments) return;
 
@@ -66,24 +88,24 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
         // ---------------------------------------------------------------------------------------------------
 
-        class TagsAddStub
+        private class TagsAddStub
         {
             public string Tags { get; set; }
         }
 
-        TagsAddStub tags_add_stub = null;
+        private TagsAddStub tags_add_stub = null;
 
         private void ResetTagsAddStub()
         {
             ObjTagsAddEditorControl.DataContext = tags_add_stub = new TagsAddStub();
         }
 
-        void ButtonResetTagsAdd_Click(object sender, RoutedEventArgs e)
+        private void ButtonResetTagsAdd_Click(object sender, RoutedEventArgs e)
         {
             ResetTagsAddStub();
         }
 
-        void ButtonApplyTagsAdd_Click(object sender, RoutedEventArgs e)
+        private void ButtonApplyTagsAdd_Click(object sender, RoutedEventArgs e)
         {
             List<PDFDocument> selected_pdf_documents = SelectedPDFDocuments;
 
@@ -106,24 +128,24 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
         // ---------------------------------------------------------------------------------------------------
 
-        class TagsRemoveStub
+        private class TagsRemoveStub
         {
             public string Tags { get; set; }
         }
 
-        TagsRemoveStub tags_remove_stub = null;
+        private TagsRemoveStub tags_remove_stub = null;
 
         private void ResetTagsRemoveStub()
         {
             ObjTagsRemoveEditorControl.DataContext = tags_remove_stub = new TagsRemoveStub();
         }
 
-        void ButtonResetTagsRemove_Click(object sender, RoutedEventArgs e)
+        private void ButtonResetTagsRemove_Click(object sender, RoutedEventArgs e)
         {
             ResetTagsRemoveStub();
         }
 
-        void ButtonApplyTagsRemove_Click(object sender, RoutedEventArgs e)
+        private void ButtonApplyTagsRemove_Click(object sender, RoutedEventArgs e)
         {
             List<PDFDocument> selected_pdf_documents = SelectedPDFDocuments;
 
@@ -147,7 +169,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
         // ---------------------------------------------------------------------------------------------------
 
-        class ReviewStub
+        private class ReviewStub
         {
             public string ReadingStage { get; set; }
             public string Rating { get; set; }
@@ -155,21 +177,21 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             public Color Color { get; set; }
         }
 
-        ReviewStub review_stub = null;
+        private ReviewStub review_stub = null;
 
         private void ResetReviewStub()
         {
             ObjUserReviewControl.DataContext = review_stub = new ReviewStub();
         }
 
-        static readonly Color NULL_COLOR = Color.FromArgb(0,0,0,0);
+        private static readonly Color NULL_COLOR = Color.FromArgb(0, 0, 0, 0);
 
-        void ButtonResetReview_Click(object sender, RoutedEventArgs e)
+        private void ButtonResetReview_Click(object sender, RoutedEventArgs e)
         {
             ResetReviewStub();
         }
 
-        void ButtonApplyReview_Click(object sender, RoutedEventArgs e)
+        private void ButtonApplyReview_Click(object sender, RoutedEventArgs e)
         {
             List<PDFDocument> selected_pdf_documents = SelectedPDFDocuments;
 
@@ -207,12 +229,12 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
         // ---------------------------------------------------------------------------------------------------
 
-        class BibTeXStub
+        private class BibTeXStub
         {
             public string BibTex { get; set; }
         }
 
-        BibTeXStub bibtex_stub = null;
+        private BibTeXStub bibtex_stub = null;
 
         private void ResetBibTeXStub()
         {
@@ -221,13 +243,13 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             ObjBibTeXEditorControl.DataContext = bibtex_stub;
         }
 
-        void ButtonResetBibTeX_Click(object sender, RoutedEventArgs e)
+        private void ButtonResetBibTeX_Click(object sender, RoutedEventArgs e)
         {
             ResetBibTeXStub();
         }
 
-        void ButtonApplyBibTeX_Click(object sender, RoutedEventArgs e)
-        {            
+        private void ButtonApplyBibTeX_Click(object sender, RoutedEventArgs e)
+        {
             List<PDFDocument> selected_pdf_documents = SelectedPDFDocuments;
 
             if (null == selected_pdf_documents) return;

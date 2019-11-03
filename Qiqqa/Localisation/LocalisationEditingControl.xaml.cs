@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using icons;
@@ -21,7 +20,7 @@ namespace Qiqqa.Localisation
             public string Translation { get; set; }
         }
 
-        string current_locale = null;
+        private string current_locale = null;
 
         public LocalisationEditingControl()
         {
@@ -42,7 +41,7 @@ namespace Qiqqa.Localisation
             TxtCurrentLocale.Inlines.Add(CultureInfo.CurrentUICulture.Name);
         }
 
-        void CmdSendToQiqqa_Click(object sender, RoutedEventArgs e)
+        private void CmdSendToQiqqa_Click(object sender, RoutedEventArgs e)
         {
             if (String.IsNullOrEmpty(current_locale))
             {
@@ -55,12 +54,12 @@ namespace Qiqqa.Localisation
             LocalisationManager.Instance.BrowseTempLocaleTable(current_locale);
         }
 
-        void GridEditor_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        private void GridEditor_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
             DoFlush(false);
         }
 
-        DateTime last_flush_time = DateTime.MinValue;
+        private DateTime last_flush_time = DateTime.MinValue;
         private void DoFlush(bool force)
         {
             if (!force && DateTime.UtcNow.Subtract(last_flush_time).TotalSeconds < 3)
@@ -69,7 +68,7 @@ namespace Qiqqa.Localisation
             }
 
             last_flush_time = DateTime.UtcNow;
-            
+
             List<LocalisationRow> rows = (List<LocalisationRow>)GridEditor.ItemsSource;
             LocaleTable locale_table = new LocaleTable();
             foreach (LocalisationRow row in rows)
@@ -81,15 +80,15 @@ namespace Qiqqa.Localisation
             }
 
             // Write to disk...
-            LocalisationManager.Instance.SaveTempLocaleTable(current_locale, locale_table);            
+            LocalisationManager.Instance.SaveTempLocaleTable(current_locale, locale_table);
         }
 
-        void TxtNewLocale_OnHardSearch()
+        private void TxtNewLocale_OnHardSearch()
         {
             if (!String.IsNullOrEmpty(TxtNewLocale.Text))
             {
                 current_locale = TxtNewLocale.Text;
-                
+
                 TxtNewLocale.Clear();
                 TxtWorkingLocale.Text = "You are working on locale: " + current_locale;
             };
@@ -114,10 +113,10 @@ namespace Qiqqa.Localisation
                 row.Id = pair.Key;
                 row.Default = pair.Value;
                 if (locale_table.ContainsKey(pair.Key))
-                {                    
+                {
                     row.Translation = locale_table[pair.Key];
                 }
-                
+
                 rows.Add(row);
             }
 

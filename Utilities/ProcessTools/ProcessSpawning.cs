@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Windows.Forms;
+using System.Text;
 
 namespace Utilities.ProcessTools
 {
@@ -13,7 +13,7 @@ namespace Utilities.ProcessTools
         /// <param name="process_parameters"></param>
         /// <param name="priority_class"></param>
         /// <returns></returns>
-        public static Process SpawnChildProcess(string executable_filename, string process_parameters, ProcessPriorityClass priority_class)
+        public static Process SpawnChildProcess(string executable_filename, string process_parameters = null, ProcessPriorityClass priority_class = ProcessPriorityClass.BelowNormal, bool stdout_is_binary = false)
         {
             ProcessStartInfo process_start_info = new ProcessStartInfo();
             process_start_info.RedirectStandardError = true;
@@ -24,6 +24,11 @@ namespace Utilities.ProcessTools
             process_start_info.FileName = executable_filename;
             process_start_info.CreateNoWindow = true;
             process_start_info.Arguments = process_parameters;
+            process_start_info.StandardErrorEncoding = Encoding.UTF8;
+            if (!stdout_is_binary)
+            {
+                process_start_info.StandardOutputEncoding = Encoding.UTF8;
+            }
 
             Process process = new Process();
             process.StartInfo = process_start_info;

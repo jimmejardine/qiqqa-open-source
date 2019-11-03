@@ -12,11 +12,9 @@ namespace Qiqqa.Documents.Common
     public class DocumentQueuedStorer
     {
         public static DocumentQueuedStorer Instance = new DocumentQueuedStorer();
-
-        PeriodTimer period_flush = new PeriodTimer(new TimeSpan(0, 0, 1));
-
-        object documents_to_store_lock = new object();
-        Dictionary<string, PDFDocument> documents_to_store = new Dictionary<string, PDFDocument>();
+        private PeriodTimer period_flush = new PeriodTimer(new TimeSpan(0, 0, 1));
+        private object documents_to_store_lock = new object();
+        private Dictionary<string, PDFDocument> documents_to_store = new Dictionary<string, PDFDocument>();
 
         protected DocumentQueuedStorer()
         {
@@ -26,7 +24,7 @@ namespace Qiqqa.Documents.Common
             Utilities.Shutdownable.ShutdownableManager.Instance.Register(Shutdown);
         }
 
-        void DoMaintenance_FlushDocuments(Daemon daemon)
+        private void DoMaintenance_FlushDocuments(Daemon daemon)
         {
             if (Qiqqa.Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
             {
@@ -43,67 +41,86 @@ namespace Qiqqa.Documents.Common
             }
         }
 
-        void Shutdown()
+        private void Shutdown()
         {
             // **forced** flush!
             FlushDocuments(true);
         }
 
-        object flush_locker = new object();
+        private object flush_locker = new object();
+        private bool _force_flush_requested = false;
+
+        private bool ForcedFlushRequested
+        {
+            get
+            {
+                lock (flush_locker)
+                {
+                    return _force_flush_requested;
+                }
+            }
+            set
+            {
+                lock (flush_locker)
+                {
+                    if (value)
+                    {
+                        _force_flush_requested = true;
+                    }
+                }
+            }
+        }
 
         private void FlushDocuments(bool force_flush_no_matter_what)
         {
             // use a lock to ensure the time-delayed flush doesn't ever collide with the
             // end-of-execution-run flush initiated by ShutdownableManager.
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-            lock (flush_locker)
+            ForcedFlushRequested = force_flush_no_matter_what;
+
+            while (true)
             {
-                l1_clk.LockPerfTimerStop();
-                while (true)
+                int count_to_go = PendingQueueCount;
+
+                if (0 < count_to_go)
                 {
-                    int count_to_go = PendingQueueCount;
+                    StatusManager.Instance.UpdateStatusBusy("DocumentQueuedStorer", String.Format("{0} documents still to flush", count_to_go), 1, count_to_go);
+                }
+                else
+                {
+                    StatusManager.Instance.ClearStatus("DocumentQueuedStorer");
+                    return;
+                }
 
-                    if (0 < count_to_go)
-                    {
-                        StatusManager.Instance.UpdateStatusBusy("DocumentQueuedStorer", String.Format("{0} documents still to flush", count_to_go), 1, count_to_go);
-                    }
-                    else
-                    {
-                        StatusManager.Instance.ClearStatus("DocumentQueuedStorer");
-                        return;
-                    }
-
+                if (!ForcedFlushRequested)
+                {
                     // No flushing while still adding... unless we're quitting the executable already.
-                    if (!force_flush_no_matter_what && Library.IsBusyAddingPDFs)
+                    if (Library.IsBusyAddingPDFs)
                     {
                         return;
                     }
 
-                    if (!force_flush_no_matter_what)
-                    {
-                        // Relinquish control to the UI thread to make sure responsiveness remains tolerable at 100% CPU load.
-                        Utilities.GUI.WPFDoEvents.WaitForUIThreadActivityDone();
-                    }
+                    // Relinquish control to the UI thread to make sure responsiveness remains tolerable at 100% CPU load.
+                    Utilities.GUI.WPFDoEvents.WaitForUIThreadActivityDone();
+                }
 
-                    PDFDocument pdf_document_to_flush = null;
+                PDFDocument pdf_document_to_flush = null;
 
-                    // grab one PDF to save/flush:
-                    Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
-                    lock (documents_to_store_lock)
+                // grab one PDF to save/flush:
+                Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+                lock (documents_to_store_lock)
+                {
+                    l2_clk.LockPerfTimerStop();
+                    foreach (var pair in documents_to_store)
                     {
-                        l2_clk.LockPerfTimerStop();
-                        foreach (var pair in documents_to_store)
-                        {
-                            pdf_document_to_flush = pair.Value;
-                            documents_to_store.Remove(pair.Key);
-                            break;
-                        }
+                        pdf_document_to_flush = pair.Value;
+                        documents_to_store.Remove(pair.Key);
+                        break;
                     }
+                }
 
-                    if (null != pdf_document_to_flush)
-                    {
-                        pdf_document_to_flush.SaveToMetaData();
-                    }
+                if (null != pdf_document_to_flush)
+                {
+                    pdf_document_to_flush.SaveToMetaData();
                 }
             }
         }

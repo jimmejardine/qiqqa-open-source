@@ -1,18 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
-using Qiqqa.InCite;
 using System.Windows.Controls;
 using icons;
-using Syncfusion.Linq;
+using Qiqqa.Common.Configuration;
+using Qiqqa.InCite;
 using Utilities;
-using Utilities.Misc;
-using Utilities.Random;
-using Utilities.Reflection;
+using Utilities.BibTex;
 using Utilities.BibTex.Parsing;
 using Utilities.Language;
-using Utilities.BibTex;
-using System.Collections.Generic;
-using Qiqqa.Common.Configuration;
+using Utilities.Random;
+using Utilities.Reflection;
 
 namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 {
@@ -25,7 +23,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
         {
             InitializeComponent();
 
-            this.ToolTip =
+            ToolTip =
                 "Love OpenSource Qiqqa?  Want to help us spread the word?";
 
             ButtonSubmit.Icon = Icons.GetAppIcon(Icons.Tweet);
@@ -34,10 +32,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
             ButtonSubmit.Click += ButtonSubmit_Click;
 
-            this.DataContextChanged += TweetControl_DataContextChanged;
+            DataContextChanged += TweetControl_DataContextChanged;
         }
 
-        void ButtonSubmit_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void ButtonSubmit_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             string url = String.Format(WebsiteAccess.Url_TwitterTweetSubmit, Uri.EscapeDataString(TxtTweet.Text));
             Process.Start(url);
@@ -100,7 +98,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             return tweet;
         }
 
-        void GenerateTweet()
+        private void GenerateTweet()
         {
             string tweet_paper = CreatePaperTweet();
             string tweet_random = GetRandomTweet();
@@ -139,7 +137,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             PDFDocumentCitingTools.CiteSnippetPDFDocument(true, pdf_document, GenerateRtfCitationSnippet_OnBibliographyReady);
         }
 
-        void GenerateRtfCitationSnippet_OnBibliographyReady(CSLProcessorOutputConsumer ip)
+        private void GenerateRtfCitationSnippet_OnBibliographyReady(CSLProcessorOutputConsumer ip)
         {
             if (ip.success)
             {

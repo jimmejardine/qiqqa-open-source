@@ -3,16 +3,17 @@ using System.IO;
 using System.Windows;
 using System.Xml;
 using Qiqqa.Common;
-using Qiqqa.Common.Configuration;
 using Utilities;
 using Utilities.GUI;
 using Utilities.Internet;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 
+
 namespace Qiqqa.InCite
 {
-    class DependentStyleDetector
+    internal class DependentStyleDetector
     {
         internal static bool IsDependentStyle(string style_xml_filename, out string parent_filename, out string parent_url)
         {
@@ -38,7 +39,7 @@ namespace Qiqqa.InCite
                         // Get the rightmost "folder name" from the url - that is the name of the parent style
                         string[] url_parts = parent_url.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
                         parent_filename = url_parts[url_parts.Length - 1] + ".csl";
-                        
+
                         // This is a dependent style
                         return true;
                     }
@@ -66,22 +67,26 @@ namespace Qiqqa.InCite
                 if (!File.Exists(full_parent_filename))
                 {
                     string message = String.Format(
+                        "Can't find parent style for this dependent style" +
+                        "\n\n" +
                         "Your style depends on a parent style named {0}, which needs to be saved in the same directory.\n\n" +
                         "It appears to be available from {1}.\n" +
                         "Shall we try to download it automatically?  If you choose NO, Qiqqa will open the website for you so you can download it manually.",
                         parent_filename, parent_url
                         );
 
-                    if (MessageBoxResult.Yes == MessageBox.Show(message, "Can't find parent style for this dependent style", MessageBoxButton.YesNo))
+                    if (MessageBoxes.AskQuestion(message))
                     {
                         try
                         {
-                            MemoryStream ms;
-                            UrlDownloader.DownloadWithBlocking(ConfigurationManager.Instance.Proxy, parent_url, out ms);
-                            File.WriteAllBytes(full_parent_filename, ms.ToArray());
+                            using (MemoryStream ms = UrlDownloader.DownloadWithBlocking(parent_url))
+                            {
+                                File.WriteAllBytes(full_parent_filename, ms.ToArray());
+                            }
                         }
-                        catch (UnauthorizedAccessException)
+                        catch (UnauthorizedAccessException ex)
                         {
+                            Logging.Error(ex, "You don't seem to have permission to write the new style to the directory '{0}'.\nPlease copy the original style file '{1}' to a folder where you can write (perhaps alongside your Word document), and try again.", full_parent_filename, style_xml_filename);
                             MessageBoxes.Warn("You don't seem to have permission to write the new style to the directory '{0}'.\nPlease copy the original style file '{1}' to a folder where you can write (perhaps alongside your Word document), and try again.", full_parent_filename, style_xml_filename);
                         }
                     }
@@ -96,7 +101,7 @@ namespace Qiqqa.InCite
                 {
                     return GetRootStyleFilename(full_parent_filename);
                 }
-                else 
+                else
                 {
                     // We need the parent style, but haven't managed to download it, so return nothing...
                     return null;

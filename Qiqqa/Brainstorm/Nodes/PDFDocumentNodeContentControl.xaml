@@ -14,9 +14,9 @@
         <local_gui:AugmentedSpacer DockPanel.Dock="Left"/>
 
         <StackPanel Orientation="Vertical">
-          <TextBlock Name="TextTitle" Text="{Binding TitleCombined}" HorizontalAlignment="Left" TextWrapping="Wrap" MaxWidth="250"/>
-          <TextBlock Margin="5,0,0,0" Name="TextAuthors" Text="{Binding AuthorsCombined}" HorizontalAlignment="Left" TextWrapping="Wrap" MaxWidth="250"/>
-          <TextBlock Margin="5,0,0,0" Name="TextPublication" Text="{Binding Publication}" HorizontalAlignment="Left" TextWrapping="Wrap" MaxWidth="250"/>
+          <TextBlock Name="TextTitle" Text="{Binding TitleCombinedTrimmed}" HorizontalAlignment="Left" TextWrapping="Wrap" MaxWidth="250"/>
+          <TextBlock Margin="5,0,0,0" Name="TextAuthors" Text="{Binding AuthorsCombinedTrimmed}" HorizontalAlignment="Left" TextWrapping="Wrap" MaxWidth="250"/>
+          <TextBlock Margin="5,0,0,0" Name="TextPublication" Text="{Binding PublicationTrimmed}" HorizontalAlignment="Left" TextWrapping="Wrap" MaxWidth="250"/>
           <StackPanel Orientation="Horizontal">
             <TextBlock Margin="5,0,0,0" Name="TextYear" Text="{Binding YearCombined}"/>
             <TextBlock Margin="5,0,0,0" Name="TextReadingStage" Text="{Binding ReadingStage}"/>

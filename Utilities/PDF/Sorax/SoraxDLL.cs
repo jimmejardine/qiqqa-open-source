@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace Utilities.PDF.Sorax
 {
-    class SoraxDLL
+    internal class SoraxDLL
     {
         static SoraxDLL()
         {
@@ -66,7 +66,7 @@ namespace Utilities.PDF.Sorax
 
         [DllImport("user32.dll")]
         public static extern int ReleaseDC(IntPtr window_handle, IntPtr hdc);
-        
+
         //[DllImport("gdi32.dll")]
         //public static extern IntPtr CreateCompatibleDC(IntPtr handle);
 

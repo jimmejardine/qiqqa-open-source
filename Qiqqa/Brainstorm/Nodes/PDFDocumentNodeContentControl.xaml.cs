@@ -23,12 +23,11 @@ namespace Qiqqa.Brainstorm.Nodes
     /// <summary>
     /// Interaction logic for DocumentNodeContentControl.xaml
     /// </summary>
-    public partial class PDFDocumentNodeContentControl : UserControl, IKeyPressableNodeContentControl
+    public partial class PDFDocumentNodeContentControl : UserControl, IKeyPressableNodeContentControl, IDisposable
     {
-        NodeControl node_control;
-        PDFDocumentNodeContent pdf_document_node_content;
+        private NodeControl node_control;
+        private PDFDocumentNodeContent pdf_document_node_content;
 
-        // TODO:
         //
         // Warning CA1001  Implement IDisposable on 'PDFAnnotationNodeContentControl' because it creates 
         // members of the following IDisposable types: 'LibraryIndexHoverPopup'. 
@@ -39,7 +38,7 @@ namespace Qiqqa.Brainstorm.Nodes
         // handlers below and is currently not considered a memory leak risk for https://github.com/jimmejardine/qiqqa-open-source/issues/19
         // and there-abouts.
 
-        LibraryIndexHoverPopup library_index_hover_popup = null;
+        private LibraryIndexHoverPopup library_index_hover_popup = null;
 
         public PDFDocumentNodeContentControl(NodeControl node_control, PDFDocumentNodeContent pdf_document_node_content)
         {
@@ -48,28 +47,28 @@ namespace Qiqqa.Brainstorm.Nodes
             this.node_control = node_control;
             this.pdf_document_node_content = pdf_document_node_content;
 
-            this.DataContextChanged += PDFDocumentNodeContentControl_DataContextChanged;
-            this.DataContext = pdf_document_node_content.PDFDocument.Bindable;
+            DataContextChanged += PDFDocumentNodeContentControl_DataContextChanged;
+            DataContext = pdf_document_node_content.PDFDocument.Bindable;
 
-            this.Focusable = true;
+            Focusable = true;
 
-            this.ImageIcon.Source = Icons.GetAppIcon(Icons.BrainstormDocument);
+            ImageIcon.Source = Icons.GetAppIcon(Icons.BrainstormDocument);
 
             ImageIcon.Opacity = 0.5;
             ImageIcon.Width = NodeThemes.image_width;
             TextBorder.CornerRadius = NodeThemes.corner_radius;
             TextBorder.Background = NodeThemes.background_brush;
-            
+
             TextTitle.FontWeight = FontWeights.Bold;
             TextPublication.FontStyle = FontStyles.Italic;
-            
-            this.MouseDoubleClick += DocumentNodeContentControl_MouseDoubleClick;
-            this.ToolTip = "";
-            this.ToolTipClosing += PDFDocumentNodeContentControl_ToolTipClosing;
-            this.ToolTipOpening += PDFDocumentNodeContentControl_ToolTipOpening;
+
+            MouseDoubleClick += DocumentNodeContentControl_MouseDoubleClick;
+            ToolTip = "";
+            ToolTipClosing += PDFDocumentNodeContentControl_ToolTipClosing;
+            ToolTipOpening += PDFDocumentNodeContentControl_ToolTipOpening;
         }
 
-        void PDFDocumentNodeContentControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void PDFDocumentNodeContentControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             ObjThemeSwatch.Background = ThemeBrushes.GetBrushForDocument(pdf_document_node_content.PDFDocument);
             if (ThemeBrushes.UNKNOWN_BRUSH == TextBorder.Background)
@@ -89,7 +88,7 @@ namespace Qiqqa.Brainstorm.Nodes
                 NodeControlAddingByKeyboard.AddChildToNodeControl(node_control, content, false);
             }
         }
-        
+
         private void ExpandSimilars()
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Brainstorm_ExploreLibrary_Document_Similars);
@@ -104,7 +103,7 @@ namespace Qiqqa.Brainstorm.Nodes
                         int doc_id = eds.docs_index[pdf_document_node_content.PDFDocument.Fingerprint];
                         float[,] density_of_topics_in_docs = eds.LDAAnalysis.DensityOfTopicsInDocuments;
 
-                        float[] distribution = new float[eds.LDAAnalysis.NUM_TOPICS];                
+                        float[] distribution = new float[eds.LDAAnalysis.NUM_TOPICS];
                         for (int topic_i = 0; topic_i < eds.LDAAnalysis.NUM_TOPICS; ++topic_i)
                         {
                             distribution[topic_i] = density_of_topics_in_docs[doc_id, topic_i];
@@ -115,7 +114,6 @@ namespace Qiqqa.Brainstorm.Nodes
                 }
             }
         }
-
 
         private void ExpandThemes()
         {
@@ -145,7 +143,6 @@ namespace Qiqqa.Brainstorm.Nodes
                 }
             }
 
-
             if (!added_at_least_one_theme)
             {
                 MessageBoxes.Warn("There were no themes available for this document.  Please run Expedition against your library.");
@@ -168,8 +165,7 @@ namespace Qiqqa.Brainstorm.Nodes
             }
         }
 
-
-        private void ExpandCitationsOutbound()        
+        private void ExpandCitationsOutbound()
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Brainstorm_ExploreLibrary_Document_CitationsOutbound);
 
@@ -185,12 +181,12 @@ namespace Qiqqa.Brainstorm.Nodes
                 }
             }
         }
-        
+
         private void ExpandAnnotations()
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Brainstorm_ExploreLibrary_Document_Annotations);
 
-            foreach (var annotation in pdf_document_node_content.PDFDocument.Annotations)
+            foreach (var annotation in pdf_document_node_content.PDFDocument.GetAnnotations())
             {
                 if (!annotation.Deleted)
                 {
@@ -251,7 +247,7 @@ namespace Qiqqa.Brainstorm.Nodes
             }
         }
 
-        void PDFDocumentNodeContentControl_ToolTipOpening(object sender, ToolTipEventArgs e)
+        private void PDFDocumentNodeContentControl_ToolTipOpening(object sender, ToolTipEventArgs e)
         {
             try
             {
@@ -259,24 +255,24 @@ namespace Qiqqa.Brainstorm.Nodes
                 {
                     library_index_hover_popup = new LibraryIndexHoverPopup();
                     library_index_hover_popup.SetPopupContent(pdf_document_node_content.PDFDocument, 1);
-                    this.ToolTip = library_index_hover_popup;
+                    ToolTip = library_index_hover_popup;
                 }
             }
-
             catch (Exception ex)
             {
                 Logging.Error(ex, "Exception while displaying document preview popup");
             }
         }
 
-        void PDFDocumentNodeContentControl_ToolTipClosing(object sender, ToolTipEventArgs e)
+        private void PDFDocumentNodeContentControl_ToolTipClosing(object sender, ToolTipEventArgs e)
         {
-            this.ToolTip = "";
+            ToolTip = "";
+
             library_index_hover_popup?.Dispose();
             library_index_hover_popup = null;
         }
 
-        void  DocumentNodeContentControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void DocumentNodeContentControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document_node_content.PDFDocument);
         }
@@ -334,5 +330,53 @@ namespace Qiqqa.Brainstorm.Nodes
                     break;
             }
         }
+
+        #region --- IDisposable ------------------------------------------------------------------------
+
+        ~PDFDocumentNodeContentControl()
+        {
+            Logging.Debug("~PDFDocumentNodeContentControl()");
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Logging.Debug("Disposing PDFDocumentNodeContentControl");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected virtual void Dispose(bool disposing)
+        {
+            Logging.Debug("PDFDocumentNodeContentControl::Dispose({0}) @{1}", disposing, dispose_count);
+
+            try
+            {
+                // Get rid of managed resources
+                if (dispose_count == 0)
+                {
+                    library_index_hover_popup?.Dispose();
+                }
+                library_index_hover_popup = null;
+
+                ToolTip = "";
+
+                node_control = null;
+                pdf_document_node_content = null;
+
+                DataContextChanged -= PDFDocumentNodeContentControl_DataContextChanged;
+                DataContext = null;
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
+
+            ++dispose_count;
+        }
+
+        #endregion
     }
 }
+

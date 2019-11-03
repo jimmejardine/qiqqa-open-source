@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using Utilities.BibTex;
 using Utilities.BibTex.Parsing;
 using Utilities.Reflection;
@@ -11,21 +9,16 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
     public class BibTeXEntry
     {
         public string BibTeX { get; set; }
-        
+
         public string EntryType { get; set; }
-        
+
         public string Filename { get; set; }
 
         public string FileType { get; set; }
 
         public BibTexItem Item { get; set; }
 
-        public string Id {
-            get
-            {
-                return Item.Key;
-            }
-        }
+        public string Id => Item.Key;
 
         /// <summary>
         /// Our Qiqqa Fingerprint. 
@@ -40,22 +33,19 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         /// </summary>
         public bool Selected
         {
-            get
-            {
-                return _selected;
-            }
+            get => _selected;
             set
             {
                 _selected = value;
-                this.Bindable.NotifyPropertyChanged(() => this.Selected);
+                Bindable.NotifyPropertyChanged(() => Selected);
             }
         }
-        
+
         public BibTeXEntry()
         {
         }
 
-        AugmentedBindable<BibTeXEntry> _bindable = null;
+        private AugmentedBindable<BibTeXEntry> _bindable = null;
         public AugmentedBindable<BibTeXEntry> Bindable
         {
             get
@@ -77,24 +67,12 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         /// <summary>
         /// Used via reflection
         /// </summary>
-        public virtual string Title
-        {
-            get
-            {
-                return BibTexTools.GetTitle_SLOOOOOOW(this.BibTeX);
-            }
-        }
+        public virtual string Title => BibTexTools.GetTitle_SLOOOOOOW(BibTeX);
 
         /// <summary>
         /// Used via reflection
         /// </summary>
-        public virtual string Author
-        {
-            get
-            {
-                return BibTexTools.GetAuthor_SLOOOOOOW(this.BibTeX);
-            }
-        }
+        public virtual string Author => BibTexTools.GetAuthor_SLOOOOOOW(BibTeX);
 
         private static void ExtractTagsFromBibTeXField(string bibtex, string TAG, ref HashSet<string> tags)
         {
@@ -114,27 +92,21 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             get
             {
                 HashSet<string> tags = new HashSet<string>();
-                ExtractTagsFromBibTeXField(this.BibTeX, "tag", ref tags);
-                ExtractTagsFromBibTeXField(this.BibTeX, "tags", ref tags);
-                ExtractTagsFromBibTeXField(this.BibTeX, "keyword", ref tags);
-                ExtractTagsFromBibTeXField(this.BibTeX, "keywords", ref tags);
+                ExtractTagsFromBibTeXField(BibTeX, "tag", ref tags);
+                ExtractTagsFromBibTeXField(BibTeX, "tags", ref tags);
+                ExtractTagsFromBibTeXField(BibTeX, "keyword", ref tags);
+                ExtractTagsFromBibTeXField(BibTeX, "keywords", ref tags);
                 return tags;
             }
         }
 
         public bool IsVanilla { get; set; }
-        
+
         /// <summary>
         /// Used via reflection
         /// </summary>
-        public bool HasPDF
-        {
-            get
-            {
-                return !IsVanilla;
-            }
-        }
+        public bool HasPDF => !IsVanilla;
 
-        public virtual string Notes { get; set; } 
+        public virtual string Notes { get; set; }
     }
 }

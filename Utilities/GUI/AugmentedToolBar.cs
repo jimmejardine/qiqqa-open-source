@@ -8,12 +8,14 @@ namespace Utilities.GUI
     {
         public AugmentedToolBar()
         {
+            Theme.Initialize();
+
             // This is a bit of a hack to get the toolbar dropdowns to be the right colour!!!  
             // I guess there must be a way to do it with styles - i dont know how.
-            this.SizeChanged += AugmentedToolBar_SizeChanged;
+            SizeChanged += AugmentedToolBar_SizeChanged;
         }
 
-        void AugmentedToolBar_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void AugmentedToolBar_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             ToggleButton toggleButton = GetTemplateChild("OverflowButton") as ToggleButton;
             if (toggleButton != null)

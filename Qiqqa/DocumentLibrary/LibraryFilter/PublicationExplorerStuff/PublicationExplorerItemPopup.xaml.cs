@@ -9,11 +9,9 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.PublicationExplorerStuff
     /// </summary>
     public partial class PublicationExplorerItemPopup : UserControl
     {
-        Library library;
-        string source_tag;
-        
-        AugmentedPopup popup;
-
+        private Library library;
+        private string source_tag;
+        private AugmentedPopup popup;
 
         public PublicationExplorerItemPopup(Library library, string source_tag)
         {
@@ -27,7 +25,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.PublicationExplorerStuff
             popup = new AugmentedPopup(this);
         }
 
-        void MenuRenamePublication_Click(object sender, RoutedEventArgs e)
+        private void MenuRenamePublication_Click(object sender, RoutedEventArgs e)
         {
             using (var c = popup.AutoCloser)
             {
@@ -35,7 +33,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.PublicationExplorerStuff
                 dialog.ShowDialog();
             }
         }
-        
+
         public void Open()
         {
             popup.IsOpen = true;

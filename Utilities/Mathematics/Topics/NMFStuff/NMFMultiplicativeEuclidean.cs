@@ -16,7 +16,7 @@ namespace Utilities.Mathematics.Topics.NMFStuff
             ,	publisher	= {Citeseer}
             }
      */
-    
+
     public class NMFMultiplicativeEuclidean
     {
         private static readonly int LOG_PERIOD = 500;

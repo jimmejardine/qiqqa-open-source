@@ -6,7 +6,6 @@ using System.Windows.Controls;
 using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Threading;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Documents.PDF.PDFControls.BookmarkStuff;
 using Qiqqa.Documents.PDF.PDFControls.MetadataControls;
@@ -46,17 +45,16 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private PDFRendererControlStats pdf_renderer_control_stats = null;
         private readonly bool remember_last_read_page;
-
-        ZoomType zoom_type = ZoomType.Zoom1Up;
-        double last_reasonable_offset_ratio = 0;
+        private ZoomType zoom_type = ZoomType.Zoom1Up;
+        private double last_reasonable_offset_ratio = 0;
         public delegate void ZoomTypeChangedDelegate(ZoomType zoom_type);
         public event ZoomTypeChangedDelegate ZoomTypeChanged;
 
-        OperationMode operation_mode = OperationMode.Hand;
+        private OperationMode operation_mode = OperationMode.Hand;
         public delegate void OperationModeChangedDelegate(OperationMode operation_mode);
         public event OperationModeChangedDelegate OperationModeChanged;
 
-        private DateTime control_creation_time = DateTime.UtcNow;
+        //private DateTime control_creation_time = DateTime.UtcNow;
 
         public PDFRendererControl(PDFDocument pdf_document, bool remember_last_read_page) :
             this(pdf_document, remember_last_read_page, ZoomType.Other)
@@ -75,10 +73,10 @@ namespace Qiqqa.Documents.PDF.PDFControls
             ObjPagesPanel.Background = ThemeColours.Background_Brush_Blue_LightToDark;
 
             PageRenderArea.SizeChanged += PDFRendererControl_SizeChanged;
-            this.KeyUp += PDFRendererControl_KeyUp;
-            this.KeyDown += PDFRendererControl_KeyDown;
-            this.TextInput += PDFRendererControl_TextInput;
-            this.PreviewMouseWheel += PDFRendererControl_MouseWheel;
+            KeyUp += PDFRendererControl_KeyUp;
+            KeyDown += PDFRendererControl_KeyDown;
+            TextInput += PDFRendererControl_TextInput;
+            PreviewMouseWheel += PDFRendererControl_MouseWheel;
 
             ScrollPages.PreviewMouseDown += ScrollPages_PreviewMouseDown;
             ScrollPages.ScrollChanged += ScrollPages_ScrollChanged;
@@ -133,11 +131,9 @@ namespace Qiqqa.Documents.PDF.PDFControls
             Logging.Info("-Setting initial viewport");
         }
 
-        void PDFRendererControl_MouseWheel(object sender, MouseWheelEventArgs e)
+        private void PDFRendererControl_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            if (false) { }
-
-            else if ((Keyboard.Modifiers & ModifierKeys.Control) > 0)
+            if ((Keyboard.Modifiers & ModifierKeys.Control) > 0)
             {
                 IncrementalZoom(Math.Sign(e.Delta));
                 e.Handled = true;
@@ -149,7 +145,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             }
         }
 
-        void ScrollPages_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void ScrollPages_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             ScrollPages.Focus();
         }
@@ -159,10 +155,10 @@ namespace Qiqqa.Documents.PDF.PDFControls
             MoveSelectedPageAbsolute(page_number);
         }
 
-        DateTime first_scroll_timestamp = DateTime.MaxValue;
-        DateTime selected_page_first_offscreen_timestamp = DateTime.MaxValue;
+        private DateTime first_scroll_timestamp = DateTime.MaxValue;
+        private DateTime selected_page_first_offscreen_timestamp = DateTime.MaxValue;
 
-        void ScrollPages_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        private void ScrollPages_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
             // Weirdly, ScrollChanged is a bubbling event - not a callback on the very object
             // So you can receive a scroll event from ANY of your children?!!?!!!!!
@@ -181,7 +177,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     if (0 < pdf_renderer_control_stats.pdf_document.PageLastRead)
                     {
                         //Logging.Info("**********************************Restoring page to page " + pdf_renderer_control_stats.pdf_document.PageLastRead);
-                        PDFRendererPageControl page_control = (PDFRendererPageControl) ObjPagesPanel.Children[pdf_renderer_control_stats.pdf_document.PageLastRead - 1];
+                        PDFRendererPageControl page_control = (PDFRendererPageControl)ObjPagesPanel.Children[pdf_renderer_control_stats.pdf_document.PageLastRead - 1];
                         page_control.BringIntoView();
                     }
                 }
@@ -322,11 +318,8 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     ScrollPages.ScrollToVerticalOffset(new_vertical_offset);
                     return;
                 }
-                else
-                {
-                }
             }
-            
+
             // Store the last seen page - but not right at the start
             if (DateTime.UtcNow.Subtract(first_scroll_timestamp).TotalSeconds > 1)
             {
@@ -338,14 +331,15 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
                         // Set the last read page
                         pdf_renderer_control_stats.pdf_document.PageLastRead = page.Page;
-                        // Dont notify this now as it causes many writes of the metadata to be done, which is slow for large highlightlists
+
+                        // Don't notify this now as it causes many writes of the metadata to be done, which is slow for large highlightlists
                         //pdf_renderer_control_stats.pdf_document.Bindable.NotifyPropertyChanged(() => pdf_renderer_control_stats.pdf_document.PageLastRead);
                     }
                 }
             }
-
-
         }
+
+        #region --- IDisposable ------------------------------------------------------------------------
 
         ~PDFRendererControl()
         {
@@ -361,10 +355,11 @@ namespace Qiqqa.Documents.PDF.PDFControls
         }
 
         private int dispose_count = 0;
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            Logging.Debug("PDFRendererControl::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
-            if (disposing)
+            Logging.Debug("PDFRendererControl::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
             {
                 // Get the PDFDocument flushed
                 pdf_renderer_control_stats?.pdf_document.QueueToStorage();
@@ -387,23 +382,23 @@ namespace Qiqqa.Documents.PDF.PDFControls
             }
 
             pdf_renderer_control_stats = null;
-            
-            // Get rid of unmanaged resources 
+
+            ++dispose_count;
         }
 
-        void PDFRendererControl_TextInput(object sender, TextCompositionEventArgs e)
+        #endregion
+
+        private void PDFRendererControl_TextInput(object sender, TextCompositionEventArgs e)
         {
         }
 
-        void PDFRendererControl_KeyDown(object sender, KeyEventArgs e)
+        private void PDFRendererControl_KeyDown(object sender, KeyEventArgs e)
         {
         }
-        
+
         internal void PDFRendererControl_KeyUp(object sender, KeyEventArgs e)
         {
-            if (false) {}
-
-            else if (KeyboardTools.IsCTRLDown() && e.Key == Key.P)
+            if (KeyboardTools.IsCTRLDown() && e.Key == Key.P)
             {
                 if (ZoomType.Zoom1Up == zoom_type)
                 {
@@ -413,7 +408,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 {
                     PageZoom(ZoomType.Zoom1Up);
                 }
-                
+
                 e.Handled = true;
             }
 
@@ -450,7 +445,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             else if (KeyboardTools.IsCTRLDown() && e.Key == Key.B)
             {
                 GoogleBibTexSnifferControl sniffer = new GoogleBibTexSnifferControl();
-                sniffer.Show(this.pdf_renderer_control_stats.pdf_document);
+                sniffer.Show(pdf_renderer_control_stats.pdf_document);
                 e.Handled = true;
             }
             else if (KeyboardTools.IsCTRLDown() && e.Key == Key.Add || KeyboardTools.IsCTRLDown() && e.Key == Key.OemPlus)
@@ -469,7 +464,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 if (KeyboardTools.IsCTRLDown() && KeyboardTools.IsShiftDown())
                 {
                     int bookmark_number = BookmarkManager.KeyToBookmarkNumber(e.Key);
-                    BookmarkManager.SetDocumentBookmark(this.pdf_renderer_control_stats.pdf_document, bookmark_number, ScrollPages.VerticalOffset / ScrollPages.ScrollableHeight);
+                    BookmarkManager.SetDocumentBookmark(pdf_renderer_control_stats.pdf_document, bookmark_number, ScrollPages.VerticalOffset / ScrollPages.ScrollableHeight);
                     StatusManager.Instance.UpdateStatus("Bookmarks", "Set bookmark " + bookmark_number);
 
                     e.Handled = true;
@@ -478,14 +473,14 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 else if (KeyboardTools.IsCTRLDown())
                 {
                     int bookmark_number = BookmarkManager.KeyToBookmarkNumber(e.Key);
-                    double vertical_offset = BookmarkManager.GetDocumentBookmark(this.pdf_renderer_control_stats.pdf_document, bookmark_number);
+                    double vertical_offset = BookmarkManager.GetDocumentBookmark(pdf_renderer_control_stats.pdf_document, bookmark_number);
                     ScrollPages.ScrollToVerticalOffset(vertical_offset * ScrollPages.ScrollableHeight);
                     StatusManager.Instance.UpdateStatus("Bookmarks", "Jumped to bookmark " + bookmark_number);
 
                     e.Handled = true;
                 }
             }
-        
+
         }
 
         #region --- Mouse operation mode --------------------------------------------------------------------------------------------------------
@@ -502,8 +497,8 @@ namespace Qiqqa.Documents.PDF.PDFControls
             OperationModeChanged?.Invoke(operation_mode);
         }
 
-        PDFSearchResultSet previous_search_result_set = null;
-        PDFSearchResult previous_search_result_placeholder = null;
+        private PDFSearchResultSet previous_search_result_set = null;
+        private PDFSearchResult previous_search_result_placeholder = null;
 
         public void FlashSelectedSearchItem(PDFSearchResult search_result)
         {
@@ -531,7 +526,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
                 foreach (PDFRendererPageControl page_control in ObjPagesPanel.Children.OfType<PDFRendererPageControl>())
                 {
-                    page_control.SetSearchKeywords(search_result_set);                    
+                    page_control.SetSearchKeywords(search_result_set);
                 }
             }
 
@@ -578,7 +573,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
         public PDFRendererPageControl GetPageControl(int page)
         {
             List<PDFRendererPageControl> child_pages = new List<PDFRendererPageControl>(ObjPagesPanel.Children.OfType<PDFRendererPageControl>());
-            if (child_pages.Count > 0 && page-1 < child_pages.Count)
+            if (child_pages.Count > 0 && page - 1 < child_pages.Count)
             {
                 return (PDFRendererPageControl)child_pages[page - 1];
             }
@@ -597,10 +592,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
         /// </summary>
         public PDFRendererPageControl SelectedPage
         {
-            get
-            {
-                return selected_page;
-            }
+            get => selected_page;
 
             set
             {
@@ -609,6 +601,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     if (null != selected_page)
                     {
                         selected_page.DeselectPage();
+                        //selected_page.Dispose();       // wrong idea of mine [GHo]: adding this to "ensure it Dispose()s early" is causing null ref crashes elsewhere in the app. The darn thing stays hairy. :-(
                     }
 
                     selected_page = value;
@@ -650,7 +643,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
             MoveSelectedPageAbsolute(page);
         }
-        
+
         public void MoveSelectedPageAbsolute(int page)
         {
             Logging.Debug("Moving to page {0}", page);
@@ -692,14 +685,15 @@ namespace Qiqqa.Documents.PDF.PDFControls
         #endregion
 
         private double last_size_change_height = double.MinValue, last_size_change_width = double.MinValue;
-        void PDFRendererControl_SizeChanged(object sender, SizeChangedEventArgs e)
+
+        private void PDFRendererControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             ReconsiderZoom();
             last_size_change_height = e.NewSize.Height;
             last_size_change_width = e.NewSize.Width;
         }
 
-        void ButtonedZoom(double page_count_abreast)
+        private void ButtonedZoom(double page_count_abreast)
         {
             if (Double.IsNaN(ObjPagesPanel.ActualWidth))
             {
@@ -718,7 +712,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             ZoomAbsolute(zoom_factor);
         }
 
-        void ZoomFullPage()
+        private void ZoomFullPage()
         {
             if (Double.IsNaN(ObjPagesPanel.ActualWidth))
             {
@@ -742,7 +736,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         public void PageZoom(ZoomType zoomType)
         {
-            this.zoom_type = zoomType;
+            zoom_type = zoomType;
 
             // Store the favourite zoom
             if (remember_last_read_page)
@@ -817,7 +811,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
         {
             ScrollPages.Scroll(new Point(direction, 0));
         }
-        
+
         public void IncrementalZoom(double direction)
         {
             zoom_type = ZoomType.Other;
@@ -830,7 +824,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             ScrollPages.SmoothScroll(delta, gamma);
         }
 
-        void RefreshPages()
+        private void RefreshPages()
         {
             foreach (PDFRendererPageControl page_control in ObjPagesPanel.Children.OfType<PDFRendererPageControl>().Reverse())
             {
@@ -845,12 +839,12 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 return;
             }
 
-            this.pdf_renderer_control_stats.zoom_factor = zoom;
-            this.pdf_renderer_control_stats.zoom_factor = Math.Min(this.pdf_renderer_control_stats.zoom_factor, 3);
-            this.pdf_renderer_control_stats.zoom_factor = Math.Max(this.pdf_renderer_control_stats.zoom_factor, 0.1); 
+            pdf_renderer_control_stats.zoom_factor = zoom;
+            pdf_renderer_control_stats.zoom_factor = Math.Min(pdf_renderer_control_stats.zoom_factor, 3);
+            pdf_renderer_control_stats.zoom_factor = Math.Max(pdf_renderer_control_stats.zoom_factor, 0.1);
             RefreshPages();
         }
-        
+
         public void Zoom(double zoom_delta)
         {
             if (null == pdf_renderer_control_stats)
@@ -858,7 +852,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 return;
             }
 
-            double zoom = Math.Exp(Math.Log(this.pdf_renderer_control_stats.zoom_factor) + zoom_delta / 10.0);
+            double zoom = Math.Exp(Math.Log(pdf_renderer_control_stats.zoom_factor) + zoom_delta / 10.0);
             ZoomAbsolute(zoom);
         }
 
@@ -880,7 +874,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 page_control.RaiseHighlightChange(colourNumber);
             }
         }
-        
+
         internal void RaiseInkChange(InkCanvasEditingMode inkCanvasEditingMode)
         {
             foreach (PDFRendererPageControl page_control in ObjPagesPanel.Children.OfType<PDFRendererPageControl>())

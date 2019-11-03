@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Utilities.Files
 {
@@ -51,7 +52,7 @@ namespace Utilities.Files
                 {
                     File.Delete(target);
                 }
-                
+
                 File.Move(source, target);
                 return true;
             }
@@ -59,28 +60,28 @@ namespace Utilities.Files
             return false;
         }
 
-		public static bool isValidFilenameCharacter(char c)
-		{
-			if (Char.IsLetterOrDigit(c)) return true;
-			if ('-' == c) return true;
-			if (' ' == c) return true;
-			if ('.' == c) return true;
-			if (',' == c) return true;
-			if ('(' == c) return true;
-			if (')' == c) return true;
-			if ('_' == c) return true;
-			if ('\'' == c) return true;
+        public static bool isValidFilenameCharacter(char c)
+        {
+            if (Char.IsLetterOrDigit(c)) return true;
+            if ('-' == c) return true;
+            if (' ' == c) return true;
+            if ('.' == c) return true;
+            if (',' == c) return true;
+            if ('(' == c) return true;
+            if (')' == c) return true;
+            if ('_' == c) return true;
+            if ('\'' == c) return true;
 
-			return false;
-		}
+            return false;
+        }
 
 
-		public static string MakeSafeFilename(string source)
-		{
-			string target = "";
-			for (int i = 0; i < source.Length; ++i)
-			{
-				char c = source[i];
+        public static string MakeSafeFilename(string source)
+        {
+            string target = "";
+            for (int i = 0; i < source.Length; ++i)
+            {
+                char c = source[i];
                 if (isValidFilenameCharacter(c))
                 {
                     target = target + c;
@@ -89,7 +90,7 @@ namespace Utilities.Files
                 {
                     target = target + '-';
                 }
-			}
+            }
 
             if (target.Length > 128)
             {
@@ -97,8 +98,8 @@ namespace Utilities.Files
                 target = target.Substring(0, 128);
             }
 
-			return target;
-		}
+            return target;
+        }
 
         public static void BrowseToFileInExplorer(string filename)
         {

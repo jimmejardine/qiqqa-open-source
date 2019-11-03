@@ -10,7 +10,7 @@ using Utilities.Internet;
 
 namespace Qiqqa.Common.Configuration
 {
-    public class WebsiteAccess // : Utilities.Internet.WebsiteAccess
+    public static class WebsiteAccess // : Utilities.Internet.WebsiteAccess
     {
         static WebsiteAccess()
         {
@@ -82,7 +82,7 @@ namespace Qiqqa.Common.Configuration
 
         public static readonly string Url_OliVideo = Webcasts.PLAY.url;
         public static readonly string Url_WebCastMcKillop = Webcasts.EXTERNAL_BASICS.url;
-        
+
         public enum OurSiteLinkKind
         {
             Home,
@@ -177,13 +177,7 @@ namespace Qiqqa.Common.Configuration
             OpenWebsite(url);
         }
 
-        public static bool IsTestEnvironment
-        {
-            get
-            {
-                return GetWebRoot().Contains("test.qiqqa.com");
-            }
-        }
+        public static bool IsTestEnvironment => GetWebRoot().Contains("test.qiqqa.com");
 
         // ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -224,7 +218,7 @@ namespace Qiqqa.Common.Configuration
 
                 return update_location.Substring(firstDot + 1);
             }
-            
+
             return "qiqqa.com";  // https://github.com/jimmejardine/qiqqa-open-source/
         }
 
@@ -301,8 +295,10 @@ namespace Qiqqa.Common.Configuration
             {
                 case OurSiteFileKind.ClientVersion:
                     return GetDownloadWebsiteUrl() + "/Content/Client/ClientVersion.xml";
+
                 case OurSiteFileKind.ClientSetup:
                     return GetDownloadWebsiteUrl() + "/Content/Client/setup.exe";
+
                 default:
                     throw new NotImplementedException();
             }

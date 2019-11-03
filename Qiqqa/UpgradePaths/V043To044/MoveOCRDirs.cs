@@ -1,15 +1,15 @@
 ﻿using System;
-using System.IO;
 using Qiqqa.Main.SplashScreenStuff;
 using Qiqqa.UpgradePaths.V037To038;
 using Utilities;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.UpgradePaths.V043To044
 {
-    class MoveOCRDirs
+    internal class MoveOCRDirs
     {
         internal static void RunUpgrade(SplashScreenWindow splashscreen_window)
         {

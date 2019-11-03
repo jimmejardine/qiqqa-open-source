@@ -68,7 +68,7 @@ namespace Utilities.Files
                 total_read += read;
                 output.Write(buffer, 0, read);
             }
-            
+
             return total_read;
         }
 

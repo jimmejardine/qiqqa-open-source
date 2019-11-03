@@ -15,18 +15,18 @@ namespace Utilities.GUI
 
         public double Hue
         {
-            get { return hue * scale; }
-            set { hue = CheckRange(value / scale); }
+            get => hue * scale;
+            set => hue = CheckRange(value / scale);
         }
         public double Saturation
         {
-            get { return saturation * scale; }
-            set { saturation = CheckRange(value / scale); }
+            get => saturation * scale;
+            set => saturation = CheckRange(value / scale);
         }
         public double Luminosity
         {
-            get { return luminosity * scale; }
-            set { luminosity = CheckRange(value / scale); }
+            get => luminosity * scale;
+            set => luminosity = CheckRange(value / scale);
         }
 
         private double CheckRange(double value)
@@ -146,9 +146,9 @@ namespace Utilities.GUI
         public void SetRGB(int red, int green, int blue)
         {
             HSLColor hslColor = (HSLColor)Color.FromArgb(red, green, blue);
-            this.hue = hslColor.hue;
-            this.saturation = hslColor.saturation;
-            this.luminosity = hslColor.luminosity;
+            hue = hslColor.hue;
+            saturation = hslColor.saturation;
+            luminosity = hslColor.luminosity;
         }
 
         public HSLColor() { }
@@ -162,9 +162,9 @@ namespace Utilities.GUI
         }
         public HSLColor(double hue, double saturation, double luminosity)
         {
-            this.Hue = hue;
-            this.Saturation = saturation;
-            this.Luminosity = luminosity;
+            Hue = hue;
+            Saturation = saturation;
+            Luminosity = luminosity;
         }
 
 

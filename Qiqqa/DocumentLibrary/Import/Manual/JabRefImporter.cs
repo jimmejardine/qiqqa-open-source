@@ -23,7 +23,8 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                             FileEntryBasePath = FileEntryBasePath.Substring(0, FileEntryBasePath.Length - 1).Trim();
                     }
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Logging.Warn(ex, "Could not extract jabref file base metadata");
             }

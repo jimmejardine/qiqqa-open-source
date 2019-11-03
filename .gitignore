@@ -22,6 +22,8 @@ QiqqaSystemTester/bin/*
 QiqqaSystemTester/obj/*
 QiqqaTestHelpers/bin/*
 QiqqaTestHelpers/obj/*
+QiqqaUIPartsTester/bin/*
+QiqqaUIPartsTester/obj/*
 QiqqaVersionMigrator/bin/*
 QiqqaVersionMigrator/obj/*
 QiqqaLegacyFileFormats/bin/*

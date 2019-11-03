@@ -11,10 +11,10 @@ using Utilities.Strings;
 
 namespace Qiqqa.Expedition
 {
-    public class ExpeditionBuilder
+    public static class ExpeditionBuilder
     {
-        private static readonly int MAX_TOPIC_ITERATIONS = 30;
-        
+        private const int MAX_TOPIC_ITERATIONS = 30;
+
         /// <summary>
         /// Return TRUE to keep going.  FALSE to abort...
         /// </summary>
@@ -51,14 +51,14 @@ namespace Qiqqa.Expedition
             data_source.date_created = DateTime.UtcNow;
 
             progress_update_delegate("Adding tags", 0);
-            data_source.words = new List<string>();            
+            data_source.words = new List<string>();
             foreach (string tag in tags)
             {
                 data_source.words.Add(tag);
             }
 
             progress_update_delegate("Adding docs", 0);
-            data_source.docs = new List<string>();            
+            data_source.docs = new List<string>();
             foreach (PDFDocument pdf_document in pdf_documents)
             {
                 data_source.docs.Add(pdf_document.Fingerprint);
@@ -74,7 +74,7 @@ namespace Qiqqa.Expedition
 
             Parallel.For(0, data_source.docs.Count, d =>
             //for (int d = 0; d < data_source.docs.Count; ++d)
-            {                
+            {
                 int total_processed_local = Interlocked.Increment(ref total_processed);
                 if (0 == total_processed_local % 10)
                 {
@@ -114,11 +114,11 @@ namespace Qiqqa.Expedition
 
             // Initialise the LDA
             not_aborted_by_user = not_aborted_by_user && progress_update_delegate("Building themes sampler", 0);
-            int num_threads = Environment.ProcessorCount;            
+            int num_threads = Environment.ProcessorCount;
             double alpha = 2.0 / num_topics;
             double beta = 0.01;
             data_source.lda_sampler = new LDASampler(alpha, beta, num_topics, data_source.words.Count, data_source.docs.Count, data_source.words_in_docs);
-            
+
             LDASamplerMCSerial lda_sampler_mc = new LDASamplerMCSerial(data_source.lda_sampler, num_threads);
             for (int i = 0; i < MAX_TOPIC_ITERATIONS; ++i)
             {

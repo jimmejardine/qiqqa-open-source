@@ -24,8 +24,8 @@ namespace Qiqqa.Documents.PDF.Search
                 search_results[index] = value;
             }
         }
-        
-        int count_cached = Int32.MinValue;
+
+        private int count_cached = Int32.MinValue;
         public int Count
         {
             get
@@ -51,7 +51,7 @@ namespace Qiqqa.Documents.PDF.Search
             {
                 results.AddRange(search_results[page]);
             }
-            
+
             return results;
         }
     }

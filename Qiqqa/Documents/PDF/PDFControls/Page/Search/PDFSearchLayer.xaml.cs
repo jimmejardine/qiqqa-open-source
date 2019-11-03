@@ -1,11 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 using Qiqqa.Documents.PDF.PDFControls.Page.Text;
 using Qiqqa.Documents.PDF.PDFControls.Page.Tools;
 using Qiqqa.Documents.PDF.Search;
 using Utilities;
+using Utilities.GUI;
 using Utilities.GUI.Animation;
 using Utilities.OCR;
 
@@ -14,27 +15,27 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
     /// <summary>
     /// Interaction logic for PDFSearchLayer.xaml
     /// </summary>
-    public partial class PDFSearchLayer : PageLayer
+    public partial class PDFSearchLayer : PageLayer, IDisposable
     {
-        PDFRendererControlStats pdf_renderer_control_stats;
-        int page;
-
-        PDFSearchResultSet search_result_set = null;
+        private PDFRendererControlStats pdf_renderer_control_stats;
+        private int page;
+        private PDFSearchResultSet search_result_set = null;
 
         public PDFSearchLayer(PDFRendererControlStats pdf_renderer_control_stats, int page)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             this.pdf_renderer_control_stats = pdf_renderer_control_stats;
             this.page = page;
-            
+
             InitializeComponent();
 
             Background = Brushes.Transparent;
 
-            this.SizeChanged += PDFSearchLayer_SizeChanged;
-            
+            SizeChanged += PDFSearchLayer_SizeChanged;
         }
 
-        void PDFSearchLayer_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void PDFSearchLayer_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             foreach (PDFTextItem pdf_text_item in Children.OfType<PDFTextItem>())
             {
@@ -42,7 +43,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
             }
         }
 
-        void ResizeTextItem(PDFTextItem pdf_text_item)
+        private void ResizeTextItem(PDFTextItem pdf_text_item)
         {
             SetLeft(pdf_text_item, pdf_text_item.word.Left * ActualWidth);
             SetTop(pdf_text_item, pdf_text_item.word.Top * ActualHeight);
@@ -71,7 +72,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
                 return;
             }
 
-            foreach (PDFSearchResult search_result in search_result_set[this.page])
+            foreach (PDFSearchResult search_result in search_result_set[page])
             {
                 foreach (Word word in search_result.words)
                 {
@@ -94,7 +95,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
                 // If the last text item was the match position, use this next one                
                 if (previous_search_result_placeholder == search_result_placeholder)
                 {
-                    pdf_renderer_control_stats.pdf_renderer_control.SelectPage(this.page);
+                    pdf_renderer_control_stats.pdf_renderer_control.SelectPage(page);
                     pdf_text_item.BringIntoView();
                     pdf_text_item.Opacity = 0;
                     Animations.Fade(pdf_text_item, 0.1, 1);
@@ -116,7 +117,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
                 // If the last text item was the match position, use this next one
                 if (null == previous_search_result_placeholder || have_found_last_search_item && previous_search_result_placeholder != search_result_placeholder)
                 {
-                    pdf_renderer_control_stats.pdf_renderer_control.SelectPage(this.page);
+                    pdf_renderer_control_stats.pdf_renderer_control.SelectPage(page);
                     pdf_text_item.BringIntoView();
                     pdf_text_item.Opacity = 0;
                     Animations.Fade(pdf_text_item, 0.1, 1);
@@ -134,12 +135,78 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
             return null;
         }
 
-        internal override void Dispose()
-        {
-            Logging.Debug("PDFSearchLayer::Dispose()");
+        #region --- IDisposable ------------------------------------------------------------------------
 
-            pdf_renderer_control_stats = null;
-            search_result_set = null;
+        ~PDFSearchLayer()
+        {
+            Logging.Debug("~PDFSearchLayer()");
+            Dispose(false);
         }
+
+        public override void Dispose()
+        {
+            Logging.Debug("Disposing PDFSearchLayer");
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private int dispose_count = 0;
+        protected virtual void Dispose(bool disposing)
+        {
+            Logging.Debug("PDFSearchLayer::Dispose({0}) @{1}", disposing, dispose_count);
+
+            try
+            {
+                if (dispose_count == 0)
+                {
+                    WPFDoEvents.InvokeInUIThread(() =>
+                    {
+                        WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
+                        try
+                        {
+                            foreach (var el in Children)
+                            {
+                                IDisposable node = el as IDisposable;
+                                if (null != node)
+                                {
+                                    node.Dispose();
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Logging.Error(ex);
+                        }
+
+                        try
+                        {
+                            Children.Clear();
+                        }
+                        catch (Exception ex)
+                        {
+                            Logging.Error(ex);
+                        }
+                    }, Dispatcher);
+                }
+
+                // Clear the references for sanity's sake
+                pdf_renderer_control_stats = null;
+                search_result_set = null;
+
+                DataContext = null;
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
+
+            ++dispose_count;
+
+            //base.Dispose(disposing);     // parent only throws an exception (intentionally), so depart from best practices and don't call base.Dispose(bool)
+        }
+
+        #endregion
+
     }
 }

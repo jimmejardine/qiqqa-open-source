@@ -1,26 +1,23 @@
-using System;
-using Utilities.Mathematics.ObjectiveFunction.Sample;
-
 namespace Utilities.Mathematics.NumericalIntegration
 {
-	public class SimpsonsRule
-	{
-		public static double integrate(double from, double to, ObjectiveFunction.ObjectiveFunction f, int NUM_STEPS)
-		{
-			double total = 0.0;
-			
-			total += 0.5 * f.evaluate(from);
-			for (int i = 1; i < NUM_STEPS; ++i)
-			{
-				total += f.evaluate(i * (to - from) / NUM_STEPS);
-			}
-			total += 0.5 * f.evaluate(from);
+    public class SimpsonsRule
+    {
+        public static double integrate(double from, double to, ObjectiveFunction.ObjectiveFunction f, int NUM_STEPS)
+        {
+            double total = 0.0;
 
-			total *= (to - from);
-			total /= NUM_STEPS;
+            total += 0.5 * f.evaluate(from);
+            for (int i = 1; i < NUM_STEPS; ++i)
+            {
+                total += f.evaluate(i * (to - from) / NUM_STEPS);
+            }
+            total += 0.5 * f.evaluate(from);
 
-			return total;
-		}
+            total *= (to - from);
+            total /= NUM_STEPS;
+
+            return total;
+        }
 
         #region --- Test ------------------------------------------------------------------------
 

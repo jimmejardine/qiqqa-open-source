@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using icons;
 using Qiqqa.Common.GUI;
-using Utilities;
 
 namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 {
@@ -20,30 +21,30 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         {
             InitializeComponent();
 
-            this.Title = TITLE;
+            Title = TITLE;
 
             ButtonCancel.Icon = Icons.GetAppIcon(Icons.Cancel);
             ButtonCancel.Caption = "Cancel";
             ButtonCancel.Click += ButtonCancel_Click;
 
             ObjWebLibraryListControl.OnWebLibrarySelected += ObjWebLibraryListControl_OnWebLibrarySelected;
-            this.PreviewKeyDown += WebLibraryPicker_PreviewKeyDown;
+            PreviewKeyDown += WebLibraryPicker_PreviewKeyDown;
 
             ObjWebLibraryListControl.Refresh();
         }
 
-        void Cancel()
+        private void Cancel()
         {
             last_picked_web_library_detail = null;
-            this.Close();
+            Close();
         }
-        
-        void ButtonCancel_Click(object sender, RoutedEventArgs e)
+
+        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
             Cancel();
         }
 
-        void WebLibraryPicker_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void WebLibraryPicker_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
             {
@@ -52,10 +53,10 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             }
         }
 
-        void ObjWebLibraryListControl_OnWebLibrarySelected(WebLibraryDetail web_library_detail)
+        private void ObjWebLibraryListControl_OnWebLibrarySelected(WebLibraryDetail web_library_detail)
         {
             last_picked_web_library_detail = web_library_detail;
-            this.Close();
+            Close();
         }
 
         // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -110,5 +111,20 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 #endif
 
         #endregion
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+
+            // base.OnClosed() invokes this class' Closed() code, so we flipped the order of exec to reduce the number of surprises for yours truly.
+            // This NULLing stuff is really the last rites of Dispose()-like so we stick it at the end here.
+
+            last_picked_web_library_detail = null;
+        }
     }
 }

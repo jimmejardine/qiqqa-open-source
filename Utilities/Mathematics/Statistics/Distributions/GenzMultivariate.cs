@@ -1,122 +1,119 @@
 using System;
-using System.Drawing;
-using Utilities.GUI.Charting;
 using Utilities.Mathematics.LinearAlgebra;
 using Utilities.Random;
 
 namespace Utilities.Mathematics.Statistics.Distributions
 {
-	public class GenzMultivariate
-	{
-		RandomAugmented random;
+    public class GenzMultivariate
+    {
+        private RandomAugmented random;
+        private Matrix correlation;
+        private Matrix correlation_root;
 
-		Matrix correlation;
-		Matrix correlation_root;
+        public GenzMultivariate(Matrix acorrelation)
+        {
+            random = RandomAugmented.Instance;
+            setCorrelation(acorrelation);
+        }
 
-		public GenzMultivariate(Matrix acorrelation)
-		{
-			random = RandomAugmented.Instance;
-			setCorrelation(acorrelation);			
-		}
+        public void setCorrelation(Matrix acorrelation)
+        {
+            // Store the correlation matrix
+            correlation = acorrelation;
+            correlation_root = Cholesky.factorise(correlation);
+        }
 
-		public void setCorrelation(Matrix acorrelation)
-		{
-			// Store the correlation matrix
-			correlation = acorrelation;
-			correlation_root = Cholesky.factorise(correlation);
-		}
+        public static double CNorm(Vector x, Matrix correlation)
+        {
+            Vector minus_infinity = new Vector(x.cols);
+            for (int i = 0; i < x.cols; ++i)
+            {
+                minus_infinity[i] = -1E10;
+            }
 
-		public static double CNorm(Vector x, Matrix correlation)
-		{
-			Vector minus_infinity = new Vector(x.cols);
-			for (int i = 0; i < x.cols; ++i)
-			{
-				minus_infinity[i] = -1E10;
-			}
+            GenzMultivariate gm = new GenzMultivariate(correlation);
+            return gm.getProb(minus_infinity, x, 2.5, 0.001, 10000);
+        }
 
-			GenzMultivariate gm = new GenzMultivariate(correlation);
-			return gm.getProb(minus_infinity, x, 2.5, 0.001, 10000);
-		}
+        public static double CNorm_2D(double x, double y, double rho)
+        {
+            Vector d = new Vector(2);
+            d[0] = x;
+            d[1] = y;
+            Matrix rho_matrix = new Matrix(2, 2);
+            rho_matrix[0, 0] = 1;
+            rho_matrix[0, 1] = rho_matrix[1, 0] = rho;
+            rho_matrix[1, 1] = 1;
+            return CNorm(d, rho_matrix);
+        }
 
-		public static double CNorm_2D(double x, double y, double rho)
-		{
-			Vector d = new Vector(2);
-			d[0] = x;
-			d[1] = y;
-			Matrix rho_matrix = new Matrix(2, 2);
-			rho_matrix[0,0] = 1;
-			rho_matrix[0,1] = rho_matrix[1,0] = rho;
-			rho_matrix[1,1] = 1;
-			return CNorm(d, rho_matrix);
-		}
-        		
-		public double getProb(Vector a, Vector b, double alpha, double epsilon, int N_max)
-		{
-			// A neat reference to match the document
-			int m = correlation.rows;
-			Matrix c = correlation_root;
+        public double getProb(Vector a, Vector b, double alpha, double epsilon, int N_max)
+        {
+            // A neat reference to match the document
+            int m = correlation.rows;
+            Matrix c = correlation_root;
 
-			// Check that we are not in univariate land....
-			if (1 == m)
-			{
-				return Distributions.CDistStandardNormal(b[0]) - Distributions.CDistStandardNormal(a[0]);
-			}
+            // Check that we are not in univariate land....
+            if (1 == m)
+            {
+                return Distributions.CDistStandardNormal(b[0]) - Distributions.CDistStandardNormal(a[0]);
+            }
 
-			// Our variables
-			double[] d = new double[m];
-			double[] e = new double[m];
-			double[] f = new double[m];
+            // Our variables
+            double[] d = new double[m];
+            double[] e = new double[m];
+            double[] f = new double[m];
 
-			double[] y = new double[m];
-			double[] w = new double[m];
+            double[] y = new double[m];
+            double[] w = new double[m];
 
-			// Initialisation code
-			double intsum = 0.0;
-			int N = 0;
-			double varsum = 0.0;
+            // Initialisation code
+            double intsum = 0.0;
+            int N = 0;
+            double varsum = 0.0;
 
-			d[0] = Distributions.CDistStandardNormal(a[0]/c[0,0]);
-			e[0] = Distributions.CDistStandardNormal(b[0]/c[0,0]);
-			f[0] = e[0] - d[0];
+            d[0] = Distributions.CDistStandardNormal(a[0] / c[0, 0]);
+            e[0] = Distributions.CDistStandardNormal(b[0] / c[0, 0]);
+            f[0] = e[0] - d[0];
 
-			double error = 0.0;
+            double error = 0.0;
 
-			do
-			{
-				for (int i = 0; i < m-1; ++i)
-				{
-					w[i] = random.NextDouble();
-				}
+            do
+            {
+                for (int i = 0; i < m - 1; ++i)
+                {
+                    w[i] = random.NextDouble();
+                }
 
-				for (int i = 1; i < m; ++i)
-				{
-					y[i-1] = Distributions.InvDist_SN(d[i-1] + w[i-1] * (e[i-1] - d[i-1]));
-					
-					double sum_cij_yj = 0.0;
-					for (int j = 0; j <= i-1; ++j)
-					{
-						sum_cij_yj += c[i,j]*y[j];
-					}
-					d[i] = Distributions.CDistStandardNormal((a[i]-sum_cij_yj) / c[i,i]);
-					e[i] = Distributions.CDistStandardNormal((b[i]-sum_cij_yj) / c[i,i]);
-					f[i] = (e[i] - d[i]) * f[i-1];
+                for (int i = 1; i < m; ++i)
+                {
+                    y[i - 1] = Distributions.InvDist_SN(d[i - 1] + w[i - 1] * (e[i - 1] - d[i - 1]));
 
-					++N;
-					double delta = (f[m-1] - intsum) / N;
-					intsum += delta;
-					varsum = (N-2)*varsum/N + delta*delta;
-					error = alpha * Math.Sqrt(varsum);
-				}
-			} while (error > epsilon && N < N_max);
+                    double sum_cij_yj = 0.0;
+                    for (int j = 0; j <= i - 1; ++j)
+                    {
+                        sum_cij_yj += c[i, j] * y[j];
+                    }
+                    d[i] = Distributions.CDistStandardNormal((a[i] - sum_cij_yj) / c[i, i]);
+                    e[i] = Distributions.CDistStandardNormal((b[i] - sum_cij_yj) / c[i, i]);
+                    f[i] = (e[i] - d[i]) * f[i - 1];
 
-			if (N >= N_max)
-			{
-				//System.Console.WriteLine("Exceeded");
-				//throw new GenericException("Reached maximum number of iterations");
-			}
+                    ++N;
+                    double delta = (f[m - 1] - intsum) / N;
+                    intsum += delta;
+                    varsum = (N - 2) * varsum / N + delta * delta;
+                    error = alpha * Math.Sqrt(varsum);
+                }
+            } while (error > epsilon && N < N_max);
 
-			return intsum;
-		}
+            if (N >= N_max)
+            {
+                //System.Console.WriteLine("Exceeded");
+                //throw new GenericException("Reached maximum number of iterations");
+            }
+
+            return intsum;
+        }
 
         #region --- Test ------------------------------------------------------------------------
 

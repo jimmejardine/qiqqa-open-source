@@ -6,7 +6,7 @@ using Utilities.OCR;
 
 namespace Qiqqa.Documents.PDF.MetadataSuggestions
 {
-    public class PDFMetadataInferenceFromOCR
+    public static class PDFMetadataInferenceFromOCR
     {
         internal static bool NeedsProcessing(PDFDocument pdf_document)
         {
@@ -49,7 +49,7 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
             return false;
         }
 
-        class SentenceHeight
+        private class SentenceHeight
         {
             public string sentence;
             public double height;
@@ -67,13 +67,13 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
             int word_offset = 0;
 
             int NUM_LINES_TO_SCAN = 20;
-            List<SentenceHeight> sentence_heights = new List<SentenceHeight>();            
+            List<SentenceHeight> sentence_heights = new List<SentenceHeight>();
             for (int i = 0; i < NUM_LINES_TO_SCAN; ++i)
             {
                 string sentence;
                 double average_sentence_height;
                 GetSentence(words, ref word_offset, out sentence, out average_sentence_height);
-                sentence_heights.Add(new SentenceHeight { sentence = sentence, height = average_sentence_height } );                
+                sentence_heights.Add(new SentenceHeight { sentence = sentence, height = average_sentence_height });
             }
 
             // Trash shitty sentences
@@ -81,7 +81,7 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
             {
                 if ((null == sentence_heights[i].sentence) || (sentence_heights[i].sentence.Length < 5))
                 {
-                    sentence_heights.RemoveAt(i);                    
+                    sentence_heights.RemoveAt(i);
                     --i;
                     continue;
                 }

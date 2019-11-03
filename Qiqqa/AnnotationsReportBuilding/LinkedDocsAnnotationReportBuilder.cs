@@ -1,21 +1,17 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.Text;
 using Qiqqa.DocumentLibrary;
 using Qiqqa.Documents.PDF;
 using Qiqqa.UtilisationTracking;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.AnnotationsReportBuilding
 {
-    class LinkedDocsAnnotationReportBuilder
+    internal class LinkedDocsAnnotationReportBuilder
     {
         // Warning CA1812	'LinkedDocsAnnotationReportBuilder' is an internal class that is apparently never instantiated.
         // If this class is intended to contain only static methods, consider adding a private constructor to prevent 

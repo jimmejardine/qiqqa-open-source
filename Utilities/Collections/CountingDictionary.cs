@@ -13,8 +13,8 @@ namespace Utilities.Collections
         }
 
         protected CountingDictionary(SerializationInfo info, StreamingContext context)
-            : base(info, context) 
-        { 
+            : base(info, context)
+        {
         }
 
         public int GetCount(KEY key)
@@ -40,7 +40,7 @@ namespace Utilities.Collections
 
         public List<KEY> OrderedKeys()
         {
-            List<KEY> l = new List<KEY>(this.Keys);
+            List<KEY> l = new List<KEY>(Keys);
             l.Sort();
             return l;
         }
@@ -66,8 +66,8 @@ namespace Utilities.Collections
         /// <returns></returns>
         public List<KEY> OrderedValues()
         {
-            List<KEY> l = new List<KEY>(this.Keys);
-            l.Sort(delegate(KEY a, KEY b) { return -Sorting.Compare(this[a], this[b]); });
+            List<KEY> l = new List<KEY>(Keys);
+            l.Sort(delegate (KEY a, KEY b) { return -Sorting.Compare(this[a], this[b]); });
             return l;
         }
 
@@ -88,7 +88,7 @@ namespace Utilities.Collections
         public string ToString_OrderedXXX(List<KEY> keys, int threshold, string TAB = "\t", string NEWLINE = "\n")
         {
             StringBuilder sb = new StringBuilder();
-            
+
             foreach (KEY key in keys)
             {
                 int value = this[key];

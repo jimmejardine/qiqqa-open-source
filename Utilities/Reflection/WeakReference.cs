@@ -1,6 +1,6 @@
 ﻿namespace Utilities.Reflection
 {
-    class WeakReference<T>
+    internal class WeakReference<T>
     {
     }
 }

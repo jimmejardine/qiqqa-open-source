@@ -16,8 +16,8 @@ using Image = System.Drawing.Image;
 
 namespace Qiqqa.Documents.PDF.PDFRendering
 {
-    class PDFOverlayRenderer
-    {   
+    internal class PDFOverlayRenderer
+    {
         public static Bitmap RenderHighlights(int width, int height, PDFDocument pdf_document, int page)
         {
             // Render onto a scratch image in solid
@@ -103,7 +103,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
             using (Graphics graphics = Graphics.FromImage(image))
             {
-                foreach (PDFAnnotation pdf_annotation in pdf_document.Annotations)
+                foreach (PDFAnnotation pdf_annotation in pdf_document.GetAnnotations())
                 {
                     if (pdf_annotation.Deleted)
                     {
@@ -124,7 +124,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
                     // If we get here, do it!
                     using (Brush highlight_pen = new SolidBrush(Color.FromArgb(TRANSPARENCY, ColorTools.ConvertWindowsToDrawingColor(pdf_annotation.Color))))
-                    { 
+                    {
                         graphics.FillRectangle(highlight_pen, (float)(pdf_annotation.Left * image.Width), (float)(pdf_annotation.Top * image.Height), (float)(pdf_annotation.Width * image.Width), (float)(pdf_annotation.Height * image.Height));
                     }
                 }
@@ -149,10 +149,12 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                     encoder.Frames.Add(BitmapFrame.Create(ink_image));
                     encoder.Save(ms);
 
-                    Bitmap bitmap = new Bitmap(ms);
-                    using (Graphics graphics = Graphics.FromImage(image))
+                    using (Bitmap bitmap = new Bitmap(ms))
                     {
-                        graphics.DrawImage(bitmap, 0, 0, image.Width, image.Height);
+                        using (Graphics graphics = Graphics.FromImage(image))
+                        {
+                            graphics.DrawImage(bitmap, 0, 0, image.Width, image.Height);
+                        }
                     }
                 }
             }

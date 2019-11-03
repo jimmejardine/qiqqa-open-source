@@ -18,27 +18,15 @@ namespace Qiqqa.WebBrowsing
             this.populate_url_template = populate_url_template;
         }
 
-        public string VisibleTitle
-        {
-            get
-            {
-                return title;
-            }
-        }
+        public string VisibleTitle => title;
 
-        public string VisibleUrl
-        {
-            get
-            {
-                return url_template;
-            }
-        }
+        public string VisibleUrl => url_template;
 
 
         #region --- Url templates ----------------------------------------------------------------------------------------------------------------
-        
+
         public delegate Uri PopulateUrlTemplateDelegate(string url_template, string keywords);
-        
+
         public static Uri PopulateUrlTemplateDelegate_UrlEncode(string url_template, string keywords)
         {
             string keywords_translated = Uri.EscapeDataString(keywords);

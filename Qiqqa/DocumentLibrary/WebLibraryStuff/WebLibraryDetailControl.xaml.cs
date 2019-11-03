@@ -6,7 +6,6 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
-using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -33,8 +32,10 @@ using Cursors = System.Windows.Input.Cursors;
 using Image = System.Windows.Controls.Image;
 using Matrix = System.Drawing.Drawing2D.Matrix;
 using MouseEventArgs = System.Windows.Input.MouseEventArgs;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 {
@@ -45,17 +46,14 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
     {
         private static int PREVIEW_IMAGE_HEIGHT = 350;
         private static double PREVIEW_IMAGE_PERCENTAGE = .4;
-
-        WebLibraryListControl.WebLibrarySelectedDelegate web_library_selected_delegate;
-        WebLibraryDetail web_library_detail = null;
-
-        DragToLibraryManager drag_to_library_manager;
-
-        bool concise_view = false;
+        private WebLibraryListControl.WebLibrarySelectedDelegate web_library_selected_delegate;
+        private WebLibraryDetail web_library_detail = null;
+        private DragToLibraryManager drag_to_library_manager;
+        private bool concise_view = false;
 
         private static readonly string READONLY_BLURB = "You have only read-only access to this library.  Any changes or annotations you make are likely to be overwritten the next time you sync.";
-        private static readonly double BACKGROUND_IMAGE_OPACITY_INACTIVE = 0.1;
-        private static readonly double BACKGROUND_IMAGE_OPACITY_ACTIVE = 0.3;
+        private const double BACKGROUND_IMAGE_OPACITY_INACTIVE = 0.1;
+        private const double BACKGROUND_IMAGE_OPACITY_ACTIVE = 0.3;
 
         public WebLibraryDetailControl(bool concise_view, bool open_cover_flow, WebLibraryListControl.WebLibrarySelectedDelegate web_library_selected_delegate)
         {
@@ -91,7 +89,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             TxtTitle.FontSize = ThemeColours.HEADER_FONT_SIZE;
             TxtTitle.FontFamily = ThemeTextStyles.FontFamily_Header;
 
-            this.DataContextChanged += WebLibraryDetailControl_DataContextChanged;
+            DataContextChanged += WebLibraryDetailControl_DataContextChanged;
 
             ButtonReadOnly.Icon = Icons.GetAppIcon(Icons.WebLibrary_ReadOnly);
             ButtonReadOnly.Click += ButtonReadOnly_Click;
@@ -130,13 +128,13 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             UpdateLibraryStatistics();
         }
 
-        void ButtonReadOnly_Click(object sender, RoutedEventArgs e)
+        private void ButtonReadOnly_Click(object sender, RoutedEventArgs e)
         {
             ButtonReadOnly.IsChecked = false;
             MessageBoxes.Info(READONLY_BLURB);
         }
 
-        void ButtonAutoSync_Click(object sender, RoutedEventArgs e)
+        private void ButtonAutoSync_Click(object sender, RoutedEventArgs e)
         {
             if (null != web_library_detail)
             {
@@ -145,30 +143,30 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             }
         }
 
-        void ButtonCoverFlow_Click(object sender, RoutedEventArgs e)
+        private void ButtonCoverFlow_Click(object sender, RoutedEventArgs e)
         {
             UpdateLibraryStatistics();
         }
 
-        void ButtonCharts_Click(object sender, RoutedEventArgs e)
+        private void ButtonCharts_Click(object sender, RoutedEventArgs e)
         {
             UpdateLibraryStatistics();
         }
 
-        void ObjTitlePanel_MouseLeave(object sender, MouseEventArgs e)
+        private void ObjTitlePanel_MouseLeave(object sender, MouseEventArgs e)
         {
             ObjTitleImage.Opacity = BACKGROUND_IMAGE_OPACITY_INACTIVE;
             ObjTitlePanel.Background = ThemeColours.Background_Brush_Blue_VeryDarkToDark;
         }
 
-        void ObjTitlePanel_MouseEnter(object sender, MouseEventArgs e)
+        private void ObjTitlePanel_MouseEnter(object sender, MouseEventArgs e)
         {
             ObjTitleImage.Opacity = BACKGROUND_IMAGE_OPACITY_ACTIVE;
             ObjTitlePanel.Background = ThemeColours.Background_Brush_Blue_LightToVeryLight;
-        
+
         }
 
-        void ObjChartArea_MouseDown(object sender, MouseButtonEventArgs e)
+        private void ObjChartArea_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (ObjCarousel.Items.Count > 0)
             {
@@ -178,27 +176,27 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             e.Handled = true;
         }
 
-        void ObjCarousel_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void ObjCarousel_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             ObjCarousel.RadiusX = ObjCarousel.ActualWidth * 0.5 * 0.8;
         }
 
-        void Button_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void Button_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             OpenLibrary();
             e.Handled = true;
         }
 
-        void ObjTitlePanel_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        private void ObjTitlePanel_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
             WebLibraryDetailControlPopup popup = new WebLibraryDetailControlPopup(this);
             popup.Open();
             e.Handled = true;
         }
 
-        internal void OpenLibrary()        
+        internal void OpenLibrary()
         {
-            WebLibraryDetail web_library_detail = this.DataContext as WebLibraryDetail;
+            WebLibraryDetail web_library_detail = DataContext as WebLibraryDetail;
             if (null != web_library_detail)
             {
                 web_library_selected_delegate(web_library_detail);
@@ -208,15 +206,15 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 Logging.Error("Can't invoke execute when we are not bound to a WebLibraryDetail");
             }
         }
-        
-        void HyperlinkPurge_OnClick(object sender, MouseButtonEventArgs e)
+
+        private void HyperlinkPurge_OnClick(object sender, MouseButtonEventArgs e)
         {
-            WebLibraryDetail web_library_detail = this.DataContext as WebLibraryDetail;
+            WebLibraryDetail web_library_detail = DataContext as WebLibraryDetail;
 
             if (MessageBoxes.AskQuestion("Are you sure you want to purge the deleted library '{0}'?  All information you have in it will be lost forever!", web_library_detail.Title))
             {
                 if (MessageBoxes.AskQuestion("One more time just to be sure: are you sure you want to purge the deleted library '{0}'?  All information you have in it will be lost forever!", web_library_detail.Title))
-                {                    
+                {
                     web_library_detail.IsPurged = true;
                     WebLibraryManager.Instance.NotifyOfChangeToWebLibraryDetail();
 
@@ -226,9 +224,9 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             e.Handled = true;
         }
 
-        void HyperlinkForget_OnClick(object sender, MouseButtonEventArgs e)
+        private void HyperlinkForget_OnClick(object sender, MouseButtonEventArgs e)
         {
-            WebLibraryDetail web_library_detail = this.DataContext as WebLibraryDetail;
+            WebLibraryDetail web_library_detail = DataContext as WebLibraryDetail;
             if (null != web_library_detail)
             {
                 WebLibraryManager.Instance.ForgetKnownWebLibraryFromIntranet(web_library_detail);
@@ -236,24 +234,23 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             e.Handled = true;
         }
 
-        void HyperlinkLocateSyncPoint_OnClick(object sender, MouseButtonEventArgs e)
+        private void HyperlinkLocateSyncPoint_OnClick(object sender, MouseButtonEventArgs e)
         {
-            WebLibraryDetail web_library_detail = this.DataContext as WebLibraryDetail;
+            WebLibraryDetail web_library_detail = DataContext as WebLibraryDetail;
             if (null != web_library_detail)
             {
                 if (!String.IsNullOrEmpty(web_library_detail.IntranetPath))
                 {
                     MessageBoxes.Warn("The Intranet Library Sync Point directory name is now on your Clipboard so you can paste it into an email to your colleagues so that they can join the Intranet Library.\n\nPlease note that this Sync Point is used to synchronize your Intranet Library with others in your organisation.  Please do not modify its contents in any way.\n\n" + web_library_detail.IntranetPath);
-                    ClipboardTools.SetText(web_library_detail.IntranetPath);                    
+                    ClipboardTools.SetText(web_library_detail.IntranetPath);
                 }
             }
             e.Handled = true;
         }
-        
 
-        void HyperlinkViewOnline_OnClick(object sender, MouseButtonEventArgs e)
+        private void HyperlinkViewOnline_OnClick(object sender, MouseButtonEventArgs e)
         {
-            WebLibraryDetail web_library_detail = this.DataContext as WebLibraryDetail;
+            WebLibraryDetail web_library_detail = DataContext as WebLibraryDetail;
             if (null != web_library_detail)
             {
                 WebsiteAccess.OpenWebLibrary(web_library_detail.ShortWebId);
@@ -261,9 +258,9 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             e.Handled = true;
         }
 
-        void HyperlinkInviteAndShare_OnClick(object sender, MouseButtonEventArgs e)
+        private void HyperlinkInviteAndShare_OnClick(object sender, MouseButtonEventArgs e)
         {
-            WebLibraryDetail web_library_detail = this.DataContext as WebLibraryDetail;
+            WebLibraryDetail web_library_detail = DataContext as WebLibraryDetail;
             if (null != web_library_detail)
             {
                 WebsiteAccess.InviteFriendsToWebLibrary(web_library_detail.ShortWebId);
@@ -271,9 +268,9 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             e.Handled = true;
         }
 
-        void HyperlinkEditDelete_OnClick(object sender, MouseButtonEventArgs e)
+        private void HyperlinkEditDelete_OnClick(object sender, MouseButtonEventArgs e)
         {
-            WebLibraryDetail web_library_detail = this.DataContext as WebLibraryDetail;
+            WebLibraryDetail web_library_detail = DataContext as WebLibraryDetail;
             if (null != web_library_detail)
             {
                 WebsiteAccess.EditOrDeleteLibrary(web_library_detail.ShortWebId);
@@ -281,9 +278,9 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             e.Handled = true;
         }
 
-        void HyperlinkTopUp_OnClick(object sender, MouseButtonEventArgs e)
+        private void HyperlinkTopUp_OnClick(object sender, MouseButtonEventArgs e)
         {
-            WebLibraryDetail web_library_detail = this.DataContext as WebLibraryDetail;
+            WebLibraryDetail web_library_detail = DataContext as WebLibraryDetail;
             if (null != web_library_detail)
             {
                 WebsiteAccess.TopUpWebLibrary(web_library_detail.ShortWebId);
@@ -291,13 +288,13 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             e.Handled = true;
         }
 
-        void WebLibraryDetailControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void WebLibraryDetailControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             drag_to_library_manager.DefaultLibrary = null;
             ObjTitleImage.Source = null;
 
             // Store the web library details
-            web_library_detail = this.DataContext as WebLibraryDetail;
+            web_library_detail = DataContext as WebLibraryDetail;
             if (null != web_library_detail)
             {
                 // WEAK EVENT HANDLER FOR: web_library_detail.library.OnDocumentsChanged += library_OnDocumentsChanged;                
@@ -315,12 +312,12 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             UpdateLibraryStatistics();
         }
 
-        void library_OnDocumentsChanged()
+        private void library_OnDocumentsChanged()
         {
             Dispatcher.BeginInvoke(new Action(() => UpdateLibraryStatistics()));
         }
 
-        void UpdateLibraryStatistics()
+        private void UpdateLibraryStatistics()
         {
             UpdateLibraryStatistics_Headers();
             UpdateLibraryStatistics_Stats();
@@ -342,7 +339,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             }
 
             bool library_is_empty = (null == web_library_detail || 0 == web_library_detail.library.PDFDocuments_IncludingDeleted_Count);
-            
+
             if (!concise_view)
             {
                 // Visibility of the empty lib msg
@@ -381,62 +378,61 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             const int WEEK_HISTORY = 4 * 3;
             DateTime NOW = DateTime.UtcNow;
 
-                // Get the buckets for the past few weeks of READING                    
-                CountingDictionary<DateTime> date_buckets_read = new CountingDictionary<DateTime>();
+            // Get the buckets for the past few weeks of READING                    
+            CountingDictionary<DateTime> date_buckets_read = new CountingDictionary<DateTime>();
+            {
+                List<DateTime> recently_reads = web_library_detail.library.RecentlyReadManager.GetRecentlyReadDates();
+                foreach (DateTime recently_read in recently_reads)
                 {
-                    List<DateTime> recently_reads = web_library_detail.library.RecentlyReadManager.GetRecentlyReadDates();
-                    foreach (DateTime recently_read in recently_reads)
+                    for (int week = 1; week < WEEK_HISTORY; ++week)
                     {
-                        for (int week = 1; week < WEEK_HISTORY; ++week)
+                        DateTime cutoff = NOW.AddDays(-7 * week);
+                        if (recently_read >= cutoff)
                         {
-                            DateTime cutoff = NOW.AddDays(-7 * week);
-                            if (recently_read >= cutoff)
-                            {
-                                date_buckets_read.TallyOne(cutoff);
-                                break;
-                            }
+                            date_buckets_read.TallyOne(cutoff);
+                            break;
                         }
                     }
                 }
+            }
 
-                // Get the buckets for the past few weeks of ADDING
-                CountingDictionary<DateTime> date_buckets_added = new CountingDictionary<DateTime>();
+            // Get the buckets for the past few weeks of ADDING
+            CountingDictionary<DateTime> date_buckets_added = new CountingDictionary<DateTime>();
+            {
+                foreach (PDFDocument pdf_document in web_library_detail.library.PDFDocuments)
                 {
-                    foreach (PDFDocument pdf_document in web_library_detail.library.PDFDocuments)
+                    for (int week = 1; week < WEEK_HISTORY; ++week)
                     {
-                        for (int week = 1; week < WEEK_HISTORY; ++week)
+                        DateTime cutoff = NOW.AddDays(-7 * week);
+                        if (pdf_document.DateAddedToDatabase >= cutoff)
                         {
-                            DateTime cutoff = NOW.AddDays(-7 * week);
-                            if (pdf_document.DateAddedToDatabase >= cutoff)
-                            {
-                                date_buckets_added.TallyOne(cutoff);
-                                break;
-                            }
+                            date_buckets_added.TallyOne(cutoff);
+                            break;
                         }
                     }
                 }
+            }
 
-                // Plot the pretty pretty
-                List<ChartItem> chart_items_read = new List<ChartItem>();
-                List<ChartItem> chart_items_added = new List<ChartItem>();
-                for (int week = 1; week < WEEK_HISTORY; ++week)
-                {
-                    DateTime cutoff = NOW.AddDays(-7 * week);
-                    int num_read = date_buckets_read.GetCount(cutoff);
-                    int num_added = date_buckets_added.GetCount(cutoff);
+            // Plot the pretty pretty
+            List<ChartItem> chart_items_read = new List<ChartItem>();
+            List<ChartItem> chart_items_added = new List<ChartItem>();
+            for (int week = 1; week < WEEK_HISTORY; ++week)
+            {
+                DateTime cutoff = NOW.AddDays(-7 * week);
+                int num_read = date_buckets_read.GetCount(cutoff);
+                int num_added = date_buckets_added.GetCount(cutoff);
 
-                    chart_items_read.Add(new ChartItem { Title = "Read", Timestamp = cutoff, Count = num_read });
-                    chart_items_added.Add(new ChartItem { Title = "Added", Timestamp = cutoff, Count = num_added });
-                }
+                chart_items_read.Add(new ChartItem { Title = "Read", Timestamp = cutoff, Count = num_read });
+                chart_items_added.Add(new ChartItem { Title = "Added", Timestamp = cutoff, Count = num_added });
+            }
 
-                Dispatcher.BeginInvoke(new Action(() => UpdateLibraryStatistics_Stats_Background_GUI(chart_items_read, chart_items_added)));
+            Dispatcher.BeginInvoke(new Action(() => UpdateLibraryStatistics_Stats_Background_GUI(chart_items_read, chart_items_added)));
         }
 
-
-        class DocumentDisplayWork
+        private class DocumentDisplayWork
         {
             public enum StarburstColor { Blue, Pink, Green };
-            
+
             public StarburstColor starburst_color;
             public string starburst_caption;
             public PDFDocument pdf_document;
@@ -445,8 +441,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             public BitmapSource page_bitmap_source;
         }
 
-
-        class DocumentDisplayWorkManager
+        private class DocumentDisplayWorkManager
         {
             public List<DocumentDisplayWork> ddws = new List<DocumentDisplayWork>();
 
@@ -458,7 +453,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             {
                 foreach (var ddw in ddws)
                 {
-                    if (ddw.pdf_document == pdf_document) return  true;
+                    if (ddw.pdf_document == pdf_document) return true;
                 }
                 return false;
             }
@@ -474,13 +469,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 return ddw;
             }
 
-            public int Count
-            {
-                get
-                {
-                    return ddws.Count;
-                }
-            }
+            public int Count => ddws.Count;
         }
 
 
@@ -590,15 +579,15 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 using (Font font = new Font("Times New Roman", 11.0f))
                 {
                     using (StringFormat string_format = new StringFormat
-                        {
-                            Alignment = StringAlignment.Center,
-                            LineAlignment = StringAlignment.Center
-                        })
+                    {
+                        Alignment = StringAlignment.Center,
+                        LineAlignment = StringAlignment.Center
+                    })
                     {
                         var color_matrix = new ColorMatrix();
                         color_matrix.Matrix33 = 0.9f;
                         using (var image_attributes = new ImageAttributes())
-                        { 
+                        {
                             image_attributes.SetColorMatrix(color_matrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
 
                             foreach (DocumentDisplayWork ddw in ddwm.ddws)
@@ -619,18 +608,18 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                                                 BitmapImage starburst_bi = null;
                                                 switch (ddw.starburst_color)
                                                 {
-                                                case DocumentDisplayWork.StarburstColor.Blue:
-                                                    starburst_bi = Icons.GetAppIcon(Icons.PageCornerBlue);
-                                                    break;
-                                                case DocumentDisplayWork.StarburstColor.Green:
-                                                    starburst_bi = Icons.GetAppIcon(Icons.PageCornerGreen);
-                                                    break;
-                                                case DocumentDisplayWork.StarburstColor.Pink:
-                                                    starburst_bi = Icons.GetAppIcon(Icons.PageCornerPink);
-                                                    break;
-                                                default:
-                                                    starburst_bi = Icons.GetAppIcon(Icons.PageCornerOrange);
-                                                    break;
+                                                    case DocumentDisplayWork.StarburstColor.Blue:
+                                                        starburst_bi = Icons.GetAppIcon(Icons.PageCornerBlue);
+                                                        break;
+                                                    case DocumentDisplayWork.StarburstColor.Green:
+                                                        starburst_bi = Icons.GetAppIcon(Icons.PageCornerGreen);
+                                                        break;
+                                                    case DocumentDisplayWork.StarburstColor.Pink:
+                                                        starburst_bi = Icons.GetAppIcon(Icons.PageCornerPink);
+                                                        break;
+                                                    default:
+                                                        starburst_bi = Icons.GetAppIcon(Icons.PageCornerOrange);
+                                                        break;
                                                 }
 
                                                 Bitmap starburst_image = BitmapImageTools.ConvertBitmapSourceToBitmap(starburst_bi);
@@ -722,7 +711,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             ddw.border.Visibility = Visibility.Visible;
         }
 
-        void ObjCarousel_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void ObjCarousel_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (0 < ObjCarousel.Items.Count && 0 <= ObjCarousel.SelectedIndex)
             {
@@ -742,7 +731,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                         fe = (FrameworkElement)ObjCarousel.Items[0];
                     }
                 }
-                
+
                 if (null != fe)
                 {
                     DocumentDisplayWork ddw = (DocumentDisplayWork)fe.Tag;
@@ -769,14 +758,14 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             }
         }
 
-        void UpdateLibraryStatistics_Headers()
+        private void UpdateLibraryStatistics_Headers()
         {
             TextLibraryCount.Text = "";
 
             PanelForHyperlinks.Visibility = Visibility.Collapsed;
             PanelForget.Visibility = Visibility.Collapsed;
             PanelLocateSyncPoint.Visibility = Visibility.Collapsed;
-            PanelViewOnline.Visibility = Visibility.Collapsed;            
+            PanelViewOnline.Visibility = Visibility.Collapsed;
             PanelInviteAndShare.Visibility = Visibility.Collapsed;
             PanelEditDelete.Visibility = Visibility.Collapsed;
             PanelTopUp.Visibility = Visibility.Collapsed;
@@ -797,11 +786,11 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 //    );
 
                 // The wizard stuff
-                    if (web_library_detail.IsLocalGuestLibrary)
-                    {
-                        WizardDPs.SetPointOfInterest(ButtonIcon, "GuestLibraryOpenButton");
-                        WizardDPs.SetPointOfInterest(TxtTitle, "GuestLibraryTitle");
-                    }
+                if (web_library_detail.IsLocalGuestLibrary)
+                {
+                    WizardDPs.SetPointOfInterest(ButtonIcon, "GuestLibraryOpenButton");
+                    WizardDPs.SetPointOfInterest(TxtTitle, "GuestLibraryTitle");
+                }
 
                 // The icon stuff
                 {
@@ -837,39 +826,39 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 }
 
                 // The customization images stuff
+                {
+                    string image_filename = CustomBackgroundFilename;
+                    if (File.Exists(image_filename))
                     {
-                        string image_filename = CustomBackgroundFilename;
-                        if (File.Exists(image_filename))
+                        try
                         {
-                            try
-                            {
-                                ObjTitleImage.Source = BitmapImageTools.FromImage(ImageLoader.Load(image_filename));
-                            }
-                            catch (Exception ex)
-                            {
-                                Logging.Warn(ex, "Problem with custom library background.");
-                            }
+                            ObjTitleImage.Source = BitmapImageTools.FromImage(ImageLoader.Load(image_filename));
                         }
-                        else
+                        catch (Exception ex)
                         {
-                            ObjTitleImage.Source = null;
+                            Logging.Warn(ex, "Problem with custom library background.");
                         }
                     }
+                    else
+                    {
+                        ObjTitleImage.Source = null;
+                    }
+                }
 
+                {
+                    string image_filename = CustomIconFilename;
+                    if (File.Exists(image_filename))
                     {
-                        string image_filename = CustomIconFilename;
-                        if (File.Exists(image_filename))
+                        try
                         {
-                            try
-                            {
-                                ButtonIcon.Source = BitmapImageTools.FromImage(ImageLoader.Load(image_filename));
-                            }
-                            catch (Exception ex)
-                            {
-                                Logging.Warn(ex, "Problem with custom library icon.");
-                            }
+                            ButtonIcon.Source = BitmapImageTools.FromImage(ImageLoader.Load(image_filename));
+                        }
+                        catch (Exception ex)
+                        {
+                            Logging.Warn(ex, "Problem with custom library icon.");
                         }
                     }
+                }
 
 
                 // The autosync stuff
@@ -920,21 +909,9 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             }
         }
 
-        private string CustomIconFilename
-        {
-            get
-            {
-                return Path.GetFullPath(Path.Combine(web_library_detail.library.LIBRARY_BASE_PATH, @"Qiqqa.library_custom_icon.png"));
-            }
-        }
+        private string CustomIconFilename => Path.GetFullPath(Path.Combine(web_library_detail.library.LIBRARY_BASE_PATH, @"Qiqqa.library_custom_icon.png"));
 
-        private string CustomBackgroundFilename
-        {
-            get
-            {
-                return Path.GetFullPath(Path.Combine(web_library_detail.library.LIBRARY_BASE_PATH, @"Qiqqa.library_custom_background.jpg"));
-            }
-        }
+        private string CustomBackgroundFilename => Path.GetFullPath(Path.Combine(web_library_detail.library.LIBRARY_BASE_PATH, @"Qiqqa.library_custom_background.jpg"));
 
         internal void CustomiseBackground()
         {
@@ -982,6 +959,8 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         }
     }
 
+    #region --- Useful ancilliary classes ------------
+
     public class ChartItem
     {
         public string Title { get; set; }
@@ -1010,4 +989,5 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         }
     }
 
+    #endregion
 }

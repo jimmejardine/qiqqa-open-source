@@ -3,13 +3,13 @@ using System.Windows;
 using icons;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
+using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.Misc;
-using Qiqqa.UtilisationTracking;
 
 namespace Qiqqa.DocumentLibrary.Import.Auto
 {
-    class AutoImportFromEndnoteChecker
+    internal class AutoImportFromEndnoteChecker
     {
         private static EndnoteImporter.EndnoteDatabaseDetails mdd = null;
 
@@ -55,7 +55,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
             }
         }
 
-        static void DoImportMyDocuments(object obj)
+        private static void DoImportMyDocuments(object obj)
         {
             if (null == mdd)
             {
@@ -63,7 +63,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                 return;
             }
 
-            Qiqqa.UtilisationTracking.FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportAutoFromEndNote);
+            FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportAutoFromEndNote);
 
             WebLibraryDetail web_library_detail = null;
             Application.Current.Dispatcher.Invoke(((Action)(() =>
@@ -76,7 +76,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
             }
         }
 
-        static void DoNoThanks(object obj)
+        private static void DoNoThanks(object obj)
         {
             ConfigurationManager.Instance.ConfigurationRecord.ImportFromEndnoteAutoDisabled = true;
             ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.ImportFromEndnoteAutoDisabled);

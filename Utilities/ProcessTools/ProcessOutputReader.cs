@@ -7,26 +7,32 @@ namespace Utilities.ProcessTools
 {
     public class ProcessOutputReader : IDisposable
     {
-        Process process;
+        private Process process;
         public List<string> Output = new List<string>();
         public List<string> Error = new List<string>();
 
-        public ProcessOutputReader(Process process)
+        public ProcessOutputReader(Process process, bool stdout_is_binary = false)
         {
             this.process = process;
 
-            process.OutputDataReceived += (sender, e) => { Output.Add(e.Data); };
+            if (!stdout_is_binary)
+            {
+                process.OutputDataReceived += (sender, e) => { Output.Add(e.Data); };
+            }
             process.ErrorDataReceived += (sender, e) => { Error.Add(e.Data); };
-            process.BeginOutputReadLine();
+            if (!stdout_is_binary)
+            {
+                process.BeginOutputReadLine();
+            }
             process.BeginErrorReadLine();
         }
 
-            // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
         ~ProcessOutputReader()
         {
             Logging.Debug("~ProcessOutputReader()");
-            Dispose(false);            
+            Dispose(false);
         }
 
         public void Dispose()
@@ -37,10 +43,11 @@ namespace Utilities.ProcessTools
         }
 
         private int dispose_count = 0;
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            Logging.Debug("ProcessOutputReader::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
-            if (disposing)
+            Logging.Debug("ProcessOutputReader::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
             {
                 // Get rid of managed resources
                 process.CancelErrorRead();
@@ -52,7 +59,7 @@ namespace Utilities.ProcessTools
 
             process = null;
 
-            // Get rid of unmanaged resources 
+            ++dispose_count;
         }
 
         // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -61,9 +68,15 @@ namespace Utilities.ProcessTools
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("--- Standard output:");
-            foreach (string s in Output) sb.AppendLine(s);
+            foreach (string s in Output)
+            {
+                sb.AppendLine(s);
+            }
             sb.AppendLine("--- Standard error:");
-            foreach (string s in Error) sb.AppendLine(s);
+            foreach (string s in Error)
+            {
+                sb.AppendLine(s);
+            }
             return sb.ToString();
         }
     }

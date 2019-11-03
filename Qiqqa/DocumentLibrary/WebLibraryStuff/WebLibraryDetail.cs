@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection;
 using ProtoBuf;
 using Utilities.Strings;
 
@@ -34,35 +33,17 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         [ProtoMember(14)]
         public bool IsReadOnly { get; set; }
 
-        public bool IsWebLibrary
-        {
-            get
-            {
-                return !String.IsNullOrEmpty(ShortWebId);
-            }
-        }
+        public bool IsWebLibrary => !String.IsNullOrEmpty(ShortWebId);
 
         /* Only valid for intranet libraries */
         [ProtoMember(13)]
         public string IntranetPath { get; set; }
-        public bool IsIntranetLibrary
-        {
-            get
-            {
-                return !String.IsNullOrEmpty(IntranetPath);
-            }
-        }
+        public bool IsIntranetLibrary => !String.IsNullOrEmpty(IntranetPath);
 
         /* Only valid for Bundle Libraries */
         [ProtoMember(15)]
         public string BundleManifestJSON { get; set; }
-        public bool IsBundleLibrary
-        {
-            get
-            {
-                return !String.IsNullOrEmpty(BundleManifestJSON);
-            }
-        }
+        public bool IsBundleLibrary => !String.IsNullOrEmpty(BundleManifestJSON);
 
         [ProtoMember(16)]
         public DateTime? LastBundleManifestDownloadTimestampUTC { get; set; }
@@ -78,7 +59,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         public bool AutoSync { get; set; }
 
         [NonSerialized]
-        public Library library;        
+        public Library library;
 
         public override string ToString()
         {
@@ -104,6 +85,31 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             if (IsBundleLibrary) return "Bundle";
             if (IsWebLibrary) return "Web";
             return "UNKNOWN";
+        }
+
+        public WebLibraryDetail CloneSansLibraryReference()
+        {
+            // only clone the important fields:
+            WebLibraryDetail rv = new WebLibraryDetail();
+            rv.Id = this.Id;
+            rv.Title = this.Title;
+            rv.Description = this.Description;
+            rv.Deleted = this.Deleted;
+            //LastSynced
+            //FolderToWatch 
+            rv.IsLocalGuestLibrary = this.IsLocalGuestLibrary;
+            //ShortWebId 
+            //IsAdministrator 
+            //IsReadOnly
+            //IntranetPath 
+            //BundleManifestJSON 
+            //LastBundleManifestDownloadTimestampUTC 
+            //LastBundleManifestIgnoreVersion 
+            rv.IsPurged = this.IsPurged;
+            //LastServerSyncNotificationDate 
+            rv.AutoSync = false;
+
+            return rv;
         }
     }
 }

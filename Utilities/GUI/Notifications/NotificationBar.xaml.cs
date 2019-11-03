@@ -20,7 +20,7 @@ namespace Utilities.GUI.Notifications
         {
             InitializeComponent();
 
-            RenderOptions.SetBitmapScalingMode(this.NotificationImage, BitmapScalingMode.HighQuality);
+            RenderOptions.SetBitmapScalingMode(NotificationImage, BitmapScalingMode.HighQuality);
 
             CloseButton.Source = Icons.GetAppIcon(Icons.NotificationBarClose);
 
@@ -34,15 +34,15 @@ namespace Utilities.GUI.Notifications
         public static readonly DependencyProperty ImageSourceProperty = DependencyProperty.Register("ImageSource", typeof(ImageSource), typeof(NotificationBar));
         public ImageSource ImageSource
         {
-            get { return (ImageSource)GetValue(ImageSourceProperty); }
-            set { SetValue(ImageSourceProperty, value); }
+            get => (ImageSource)GetValue(ImageSourceProperty);
+            set => SetValue(ImageSourceProperty, value);
         }
 
         private void DisplayNotification(NotificationManager.Notification notification)
         {
             if (!CheckAccess())
             {
-                Dispatcher.Invoke(((Action) (() => DisplayNotification(notification))));
+                Dispatcher.Invoke(((Action)(() => DisplayNotification(notification))));
                 return;
             }
 

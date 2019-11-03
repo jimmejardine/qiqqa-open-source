@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
 using System.Windows;
 using Qiqqa.Common;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Utilities;
 using Utilities.GUI;
-using File = Alphaleonis.Win32.Filesystem.File;
+using Utilities.ProcessTools;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
 {
-    class LibraryBundleInstaller
+    internal class LibraryBundleInstaller
     {
         internal static void Install(BundleLibraryManifest manifest, byte[] library_bundle_binary)
         {
@@ -49,15 +50,22 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
 
             // Unzip the bundle
             string parameters = String.Format("-y x \"{0}\" -o\"{1}\"", library_bundle_filename, library_directory);
-            Process zip_process = Process.Start(ConfigurationManager.Instance.Program7ZIP, parameters);
-            zip_process.WaitForExit(10000);
-            
-            // Reflect this new bundle
-            WebLibraryDetail new_web_library_detail = WebLibraryManager.Instance.UpdateKnownWebLibraryFromBundleLibraryManifest(manifest);
+            using (Process process = ProcessSpawning.SpawnChildProcess(ConfigurationManager.Instance.Program7ZIP, parameters))
+            {
+                using (ProcessOutputReader process_output_reader = new ProcessOutputReader(process))
+                {
+                    process.WaitForExit();
 
-            Application.Current.Dispatcher.Invoke(((Action)(() =>
-                MainWindowServiceDispatcher.Instance.OpenLibrary(new_web_library_detail.library)
-            )));
+                    Logging.Info("7ZIP Log Bundle Install progress:\n{0}", process_output_reader.GetOutputsDumpString());
+                }
+            }
+
+            // Reflect this new bundle
+            WebLibraryDetail new_web_library_detail = WebLibraryManager.Instance.UpdateKnownWebLibraryFromBundleLibraryManifest(manifest, suppress_flush_to_disk: false);
+
+            Application.Current.Dispatcher.Invoke(((Action)(() => {
+                MainWindowServiceDispatcher.Instance.OpenLibrary(new_web_library_detail.library);
+            })));
         }
     }
 }

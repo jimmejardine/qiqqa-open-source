@@ -30,7 +30,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
         {
             this.reference_key = reference_key;
             this.layout = layout;
-            this.location = Location.Left;
+            location = Location.Left;
 
             this.header = header;
             this.icon = icon;
@@ -60,7 +60,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
                     throw new Exception("Should never get here");
             }
         }
-        
+
         internal void WantsLeft()
         {
             location = Location.Left;
@@ -87,7 +87,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
 
         internal void WantsClose()
         {
-            layout.WantsClose(this); 
+            layout.WantsClose(this);
         }
 
         internal void MarkAsRecentlyUsed()
@@ -95,17 +95,11 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             layout.MarkAsRecentlyUsed(this);
         }
 
-        public FrameworkElement Content
-        {
-            get
-            {
-                return content;
-            }
-        }
+        public FrameworkElement Content => content;
 
         public override string ToString()
         {
-            return String.Format("Tab '{0}' at {1}", this.header, this.location);
+            return String.Format("Tab '{0}' at {1}", header, location);
         }
     }
 }

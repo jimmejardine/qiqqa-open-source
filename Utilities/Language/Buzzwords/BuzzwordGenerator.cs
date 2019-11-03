@@ -10,7 +10,7 @@ namespace Utilities.Language.Buzzwords
 {
     public class BuzzwordGenerator
     {
-        static readonly char[] TRIM_CHARACTERS = new char[]
+        private static readonly char[] TRIM_CHARACTERS = new char[]
         {
             ' ','\'', ',', ':', ':', '.', '(', ')', '[', ']', '{', '}', '\'', '"'
         };
@@ -85,7 +85,7 @@ namespace Utilities.Language.Buzzwords
                 {
                     continue;
                 }
-                
+
                 string[] words = title.Split(TRIM_CHARACTERS);
                 foreach (string word in words)
                 {
@@ -106,7 +106,7 @@ namespace Utilities.Language.Buzzwords
                         continue;
                     }
 
-                    potential_acronyms.Add(word);                    
+                    potential_acronyms.Add(word);
                 }
 
                 // IF too many of the words in the sentence are acronyms, this is a no-go
@@ -170,10 +170,10 @@ namespace Utilities.Language.Buzzwords
         private static CountingDictionary<NGram> FilterSmallestUniAndBiGrams(CountingDictionary<NGram> repetitions)
         {
             CountingDictionary<NGram> repetitions1 = new CountingDictionary<NGram>();
-            
+
             // Add in all the 3+ grams
             foreach (var pair in repetitions)
-            {                
+            {
                 if (pair.Key.n > 2)
                 {
                     repetitions1[pair.Key] = pair.Value;
@@ -210,20 +210,18 @@ namespace Utilities.Language.Buzzwords
                         results[pair.Key] = pair.Value;
                     }
                 }
-
             }
 
             return results;
         }
-        
-        
+
+
         private static CountingDictionary<NGram> FilterInfrequent(CountingDictionary<NGram> repetitions)
         {
             CountingDictionary<NGram> repetitions1 = new CountingDictionary<NGram>();
             foreach (var pair in repetitions)
             {
-                if (false) { }
-                else if (pair.Value > 1)
+                if (pair.Value > 1)
                 {
                     repetitions1[pair.Key] = pair.Value;
                 }
@@ -232,14 +230,14 @@ namespace Utilities.Language.Buzzwords
             return repetitions1;
         }
 
-        static bool SplitStringAtSpacesAndMarkBadSubstrings_IsAcceptable(char source_char)
+        private static bool SplitStringAtSpacesAndMarkBadSubstrings_IsAcceptable(char source_char)
         {
             if (Char.IsLetterOrDigit(source_char)) return true;
             if ('-' == source_char) return true;
             return false;
         }
 
-        static List<string> SplitStringAtSpacesAndMarkBadSubstrings(string source)
+        private static List<string> SplitStringAtSpacesAndMarkBadSubstrings(string source)
         {
             List<string> results = new List<string>();
 
@@ -301,17 +299,17 @@ namespace Utilities.Language.Buzzwords
 
             return results;
         }
-        
+
         /// <summary>
         /// Gets the first n word n-grams from the string.  They are null if there are not enough words.
         /// </summary>
         /// <param name="source_string"></param>
         /// <param name="n"></param>
         /// <returns></returns>
-        static List<NGram> GetNGrams(string source_string, bool skip_numbers)
+        private static List<NGram> GetNGrams(string source_string, bool skip_numbers)
         {
             List<string> words = SplitStringAtSpacesAndMarkBadSubstrings(source_string);
-            
+
             List<NGram> ngrams = new List<NGram>();
             for (int i = 0; i < words.Count; ++i)
             {
@@ -358,7 +356,7 @@ namespace Utilities.Language.Buzzwords
                         sb.Append(' ');
                     }
                     sb.Append(words[j]);
-                    
+
                     // Store this new n-gram
                     string ngram_word = sb.ToString();
                     ngrams.Add(new NGram(j - i + 1, ngram_word, false));
@@ -367,8 +365,8 @@ namespace Utilities.Language.Buzzwords
 
             return ngrams;
         }
-        
-        static List<NGram> GetNGrams_OLD(string source_string)
+
+        private static List<NGram> GetNGrams_OLD(string source_string)
         {
             source_string = source_string.ToLower();
 
@@ -397,7 +395,7 @@ namespace Utilities.Language.Buzzwords
             return ngrams;
         }
 
-        static CountingDictionary<NGram> FilterStoppedNGrams(CountingDictionary<NGram> source_ngrams)
+        private static CountingDictionary<NGram> FilterStoppedNGrams(CountingDictionary<NGram> source_ngrams)
         {
             List<string> stop_words_both = new List<string>();
             List<string> stop_words_head = new List<string>();
@@ -461,12 +459,12 @@ namespace Utilities.Language.Buzzwords
             return ngrams;
         }
 
-        static readonly List<string> UNIGRAM_STOP_WORDS = new List<string>(new string[]
+        private static readonly List<string> UNIGRAM_STOP_WORDS = new List<string>(new string[]
         {
             "", "a", "i", "ii", "iii", "iv", "v", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"
         });
-        
-        static CountingDictionary<NGram> FilterEnglishUniGrams(CountingDictionary<NGram> source_ngrams, bool perform_scrabble_filtration)
+
+        private static CountingDictionary<NGram> FilterEnglishUniGrams(CountingDictionary<NGram> source_ngrams, bool perform_scrabble_filtration)
         {
             CountingDictionary<NGram> ngrams = new CountingDictionary<NGram>();
 
@@ -524,7 +522,7 @@ namespace Utilities.Language.Buzzwords
             return ngrams;
         }
 
-        static CountingDictionary<NGram> FilterNumbers(CountingDictionary<NGram> source_ngrams)
+        private static CountingDictionary<NGram> FilterNumbers(CountingDictionary<NGram> source_ngrams)
         {
             CountingDictionary<NGram> ngrams = new CountingDictionary<NGram>();
 
@@ -546,8 +544,8 @@ namespace Utilities.Language.Buzzwords
 
             return ngrams;
         }
-        
-        static CountingDictionary<NGram> FilterSubNGrams(CountingDictionary<NGram> source_ngrams)
+
+        private static CountingDictionary<NGram> FilterSubNGrams(CountingDictionary<NGram> source_ngrams)
         {
             CountingDictionary<NGram> ngrams = new CountingDictionary<NGram>();
             object ngrams_lock = new object();
@@ -570,7 +568,7 @@ namespace Utilities.Language.Buzzwords
 
                     if (text_sup.Contains(text_sub))
                     {
-                        if (ngram_sup.Value / (double) ngram_sub.Value > 0.65)
+                        if (ngram_sup.Value / (double)ngram_sub.Value > 0.65)
                         {
                             // Logging.Info("Dropping sub-ngram '{0}' as it is subsumed by '{1}'", ngram_sub.Key.text, ngram_sup.Key.text);
                             is_bad = true;

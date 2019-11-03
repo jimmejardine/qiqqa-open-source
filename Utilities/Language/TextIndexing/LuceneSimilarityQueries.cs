@@ -24,7 +24,7 @@ using Lucene.Net.Search;
 
 namespace Utilities.Language.TextIndexing
 {
-	
+
     /// <summary> Simple similarity measures.
     /// 
     /// 
@@ -37,7 +37,7 @@ namespace Utilities.Language.TextIndexing
         private LuceneSimilarityQueries()
         {
         }
-		
+
         /// <summary> Simple similarity query generators.
         /// Takes every unique word and forms a boolean query where all words are optional.
         /// After you get this you'll use to to query your {@link IndexSearcher} for similar docs.

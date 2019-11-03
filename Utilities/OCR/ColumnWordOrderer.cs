@@ -20,7 +20,7 @@ namespace Utilities.OCR
             while (words_still_to_process.Count > 0)
             {
                 inter_word_gap_average.Reset();
-                last_happy_rightmost_text = Double.MaxValue;                
+                last_happy_rightmost_text = Double.MaxValue;
 
                 foreach (Word word in words_still_to_process)
                 {

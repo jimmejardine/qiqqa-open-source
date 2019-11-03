@@ -1,5 +1,4 @@
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // Version information for an assembly consists of the following four values:
@@ -9,8 +8,8 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("82.0.7198.42243")]
-[assembly: AssemblyFileVersion("82.0.7198.42243")]
+[assembly: AssemblyVersion("82.0.7215.35951")]
+[assembly: AssemblyFileVersion("82.0.7215.35951")]
 [assembly: AssemblyCompany("Quantisle")]
 [assembly: AssemblyCopyright("Copyright © Quantisle 2010-2019. All rights reserved.")]
 

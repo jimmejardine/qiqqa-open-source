@@ -16,16 +16,15 @@ namespace Qiqqa.Brainstorm.Nodes
     {
         internal SceneRenderingControl scene_rendering_control;
         internal NodeControlSceneData scene_data;
-
-        FrameworkElement node_content_control = null;
+        private FrameworkElement node_content_control = null;
 
         internal bool is_on_screen = false;
 
         internal PropertyShadowForPanels shadow;
 
-        public NodeControl(SceneRenderingControl scene_rendering_control) : 
+        public NodeControl(SceneRenderingControl scene_rendering_control) :
             this(scene_rendering_control, new NodeControlSceneData())
-        { 
+        {
         }
 
         public NodeControl(SceneRenderingControl scene_rendering_control, NodeControlSceneData scene_data)
@@ -35,35 +34,35 @@ namespace Qiqqa.Brainstorm.Nodes
 
             InitializeComponent();
 
-            this.Focusable = true;
+            Focusable = true;
 
-            this.SizeChanged += NodeControl_SizeChanged;
-            this.GotFocus += NodeControl_GotFocus;
-            this.MouseDown += NodeControl_MouseDown;
-            this.MouseUp += NodeControl_MouseUp;
-            this.MouseMove += NodeControl_MouseMove;
-            this.PreviewKeyDown += NodeControl_PreviewKeyDown;
-            this.KeyDown += NodeControl_KeyDown;
+            SizeChanged += NodeControl_SizeChanged;
+            GotFocus += NodeControl_GotFocus;
+            MouseDown += NodeControl_MouseDown;
+            MouseUp += NodeControl_MouseUp;
+            MouseMove += NodeControl_MouseMove;
+            PreviewKeyDown += NodeControl_PreviewKeyDown;
+            KeyDown += NodeControl_KeyDown;
 
             shadow = new PropertyShadowForPanels(this);
         }
 
-        void NodeControl_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void NodeControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            foreach (FrameworkElement child in this.Children)
+            foreach (FrameworkElement child in Children)
             {
-                child.Width = this.ActualWidth;
-                child.Height = this.ActualHeight;
+                child.Width = ActualWidth;
+                child.Height = ActualHeight;
             }
         }
 
-        void NodeControl_GotFocus(object sender, RoutedEventArgs e)
+        private void NodeControl_GotFocus(object sender, RoutedEventArgs e)
         {
-//            scene_rendering_control.SetSelectedNodeControl(sender as NodeControl, false);
-//            scene_rendering_control.selected_connector_control.Selected = null;
+            //            scene_rendering_control.SetSelectedNodeControl(sender as NodeControl, false);
+            //            scene_rendering_control.selected_connector_control.Selected = null;
         }
 
-        void NodeControl_MouseDown(object sender, MouseButtonEventArgs e)
+        private void NodeControl_MouseDown(object sender, MouseButtonEventArgs e)
         {
             CaptureMouse();
 
@@ -97,14 +96,14 @@ namespace Qiqqa.Brainstorm.Nodes
             }
         }
 
-        void NodeControl_MouseUp(object sender, MouseButtonEventArgs e)
+        private void NodeControl_MouseUp(object sender, MouseButtonEventArgs e)
         {
             scene_rendering_control.UpdateMouseTracking(e, false);
 
-            ReleaseMouseCapture();            
+            ReleaseMouseCapture();
         }
 
-        void NodeControl_MouseMove(object sender, MouseEventArgs e)
+        private void NodeControl_MouseMove(object sender, MouseEventArgs e)
         {
             scene_rendering_control.UpdateMouseTracking(e, false);
 
@@ -200,43 +199,34 @@ namespace Qiqqa.Brainstorm.Nodes
                 }
             }
 
-            get
-            {
-                return node_content_control;
-            }
+            get => node_content_control;
         }
 
-        public NodeControlSceneData NodeControlSceneData
-        {
-            get
-            {
-                return scene_data;
-            }
-        }
+        public NodeControlSceneData NodeControlSceneData => scene_data;
 
-        private static readonly double THRESHOLD_MIN_INVISIBLE = 3;
-        private static readonly double THRESHOLD_MIN_START_TO_FADE = 5;
-        private static readonly double THRESHOLD_MAX_START_TO_FADE = 500;
-        private static readonly double THRESHOLD_MAX_INVISIBLE = 1000;
+        private const double THRESHOLD_MIN_INVISIBLE = 3;
+        private const double THRESHOLD_MIN_START_TO_FADE = 5;
+        private const double THRESHOLD_MAX_START_TO_FADE = 500;
+        private const double THRESHOLD_MAX_INVISIBLE = 1000;
 
         public void RecalculateChildDimension()
         {
             // These are all screen coordinates
-            double left = (this.scene_data.CentreX - this.scene_data.Width / 2 - scene_rendering_control.current_viewport_topleft.X) * scene_rendering_control.CurrentPowerScale;
-            double top = (this.scene_data.CentreY - this.scene_data.Height / 2 - scene_rendering_control.current_viewport_topleft.Y) * scene_rendering_control.CurrentPowerScale;
-            double width = this.scene_data.Width * scene_rendering_control.CurrentPowerScale;
-            double height = this.scene_data.Height * scene_rendering_control.CurrentPowerScale;
+            double left = (scene_data.CentreX - scene_data.Width / 2 - scene_rendering_control.current_viewport_topleft.X) * scene_rendering_control.CurrentPowerScale;
+            double top = (scene_data.CentreY - scene_data.Height / 2 - scene_rendering_control.current_viewport_topleft.Y) * scene_rendering_control.CurrentPowerScale;
+            double width = scene_data.Width * scene_rendering_control.CurrentPowerScale;
+            double height = scene_data.Height * scene_rendering_control.CurrentPowerScale;
 
             double extent_min = Math.Min(width, height);
             double extent_max = Math.Max(width, height);
 
 
-            bool is_outside_viewport = 
+            bool is_outside_viewport =
                 false
-                || this.scene_data.CentreX + this.scene_data.Width / 2 < scene_rendering_control.current_viewport_topleft.X
-                || this.scene_data.CentreX - this.scene_data.Width / 2 > scene_rendering_control.current_viewport_bottomright.X
-                || this.scene_data.CentreY + this.scene_data.Height / 2 < scene_rendering_control.current_viewport_topleft.Y
-                || this.scene_data.CentreY - this.scene_data.Height / 2 > scene_rendering_control.current_viewport_bottomright.Y
+                || scene_data.CentreX + scene_data.Width / 2 < scene_rendering_control.current_viewport_topleft.X
+                || scene_data.CentreX - scene_data.Width / 2 > scene_rendering_control.current_viewport_bottomright.X
+                || scene_data.CentreY + scene_data.Height / 2 < scene_rendering_control.current_viewport_topleft.Y
+                || scene_data.CentreY - scene_data.Height / 2 > scene_rendering_control.current_viewport_bottomright.Y
                 ;
 
             bool is_too_small =
@@ -249,9 +239,9 @@ namespace Qiqqa.Brainstorm.Nodes
                 || extent_min > THRESHOLD_MAX_INVISIBLE
                 ;
 
-            bool is_selected = 
+            bool is_selected =
                 scene_rendering_control.IsSelectedNodeControl(this);
-            
+
             bool is_off_screen =
                 !is_selected
                 &&
@@ -260,28 +250,28 @@ namespace Qiqqa.Brainstorm.Nodes
                     || is_outside_viewport
                     || is_too_small
                     || is_too_large
-                    || this.scene_data.Deleted
+                    || scene_data.Deleted
                 )
                 ;
 
             bool position_changed = false;
 
             // Have we changed our on/off screenliness?
-            if (is_off_screen && this.is_on_screen)
+            if (is_off_screen && is_on_screen)
             {
                 scene_rendering_control.ObjNodesLayer.Children.Remove(this);
-                this.is_on_screen = false;
+                is_on_screen = false;
                 position_changed = true;
             }
-            else if (!is_off_screen && !this.is_on_screen)
+            else if (!is_off_screen && !is_on_screen)
             {
                 scene_rendering_control.ObjNodesLayer.Children.Add(this);
-                this.is_on_screen = true;
+                is_on_screen = true;
                 position_changed = true;
             }
 
             // Look at dimensions - we only need to do this if we are on the screen
-            if (this.is_on_screen)
+            if (is_on_screen)
             {
                 // First our position
                 if (shadow.SetShadowLeft(left))
@@ -322,10 +312,7 @@ namespace Qiqqa.Brainstorm.Nodes
 
         private void ReconsiderVisibility(double width, double height, double extent_min, double extent_max, bool is_selected)
         {
-            if (false)
-            {
-            }
-            else if (is_selected) // Selected trumps all
+            if (is_selected) // Selected trumps all
             {
                 shadow.SetShadowBackground(Brushes.Transparent);
                 shadow.SetShadowIsHitTestVisible(true);
@@ -339,7 +326,7 @@ namespace Qiqqa.Brainstorm.Nodes
             }
             else if (extent_min > THRESHOLD_MAX_START_TO_FADE)
             {
-                this.ReleaseMouseCapture();
+                ReleaseMouseCapture();
 
                 shadow.SetShadowBackground(null);
                 shadow.SetShadowIsHitTestVisible(false);
@@ -353,13 +340,11 @@ namespace Qiqqa.Brainstorm.Nodes
             }
         }
 
-        void NodeControl_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void NodeControl_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             //Logging.Info("NodeControl_PreviewKeyDown");
 
-            if (false) { }
-
-            else if (Key.Insert == e.Key)
+            if (Key.Insert == e.Key)
             {
                 NodeControl node_control = (NodeControl)sender;
 
@@ -375,10 +360,10 @@ namespace Qiqqa.Brainstorm.Nodes
 
                 e.Handled = true;
             }
-            
+
         }
 
-        void NodeControl_KeyDown(object sender, KeyEventArgs e)
+        private void NodeControl_KeyDown(object sender, KeyEventArgs e)
         {
             //Logging.Info("NodeControl_KeyDown");
         }
@@ -399,7 +384,7 @@ namespace Qiqqa.Brainstorm.Nodes
 
         public override string ToString()
         {
-            return this.node_content_control.ToString();
+            return node_content_control.ToString();
         }
 
         public void AttempToEnterEditMode()

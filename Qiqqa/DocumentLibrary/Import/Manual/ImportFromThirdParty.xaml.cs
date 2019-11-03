@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Windows.Documents;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using icons;
 using Qiqqa.Common.GUI;
@@ -13,7 +14,6 @@ using Utilities.GUI;
 using Utilities.Misc;
 using Utilities.Reflection;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
-using System.Windows.Controls;
 
 namespace Qiqqa.DocumentLibrary.Import.Manual
 {
@@ -22,63 +22,62 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
     /// </summary>
     public partial class ImportFromThirdParty : StandardWindow
     {
-        private readonly Library _library;
+        private Library _library;
         private Providers _currentProvider;
         private UiState _currentUiState;
         private string _currentSelectedExportFile;
         private string _currentSelectedSupplementaryFolder;
         private const long THRESHOLD_IMPORT_FILESIZE_WARNING_BYTES = 100 * 1024;
-
-        Auto.MendeleyImporter.MendeleyDatabaseDetails mdd;
-        Auto.EndnoteImporter.EndnoteDatabaseDetails edd;
+        private Auto.MendeleyImporter.MendeleyDatabaseDetails mdd;
+        private Auto.EndnoteImporter.EndnoteDatabaseDetails edd;
 
         public ImportFromThirdParty(Library library)
         {
-            this._library = library;
+            _library = library;
 
             Theme.Initialize();
 
             InitializeComponent();
 
-            this.btnProvider_BibTeX.Icon = Icons.GetAppIcon(Icons.Import_BibTeX);
-            this.btnProvider_Mendeley.Icon = Icons.GetAppIcon(Icons.Import_Mendeley);
-            this.btnProvider_Zotero.Icon = Icons.GetAppIcon(Icons.Import_Zotero);
-            this.btnProvider_EndNote.Icon = Icons.GetAppIcon(Icons.Import_EndNote);
-            this.btnProvider_JabRef.Icon = Icons.GetAppIcon(Icons.Import_JabRef);
+            btnProvider_BibTeX.Icon = Icons.GetAppIcon(Icons.Import_BibTeX);
+            btnProvider_Mendeley.Icon = Icons.GetAppIcon(Icons.Import_Mendeley);
+            btnProvider_Zotero.Icon = Icons.GetAppIcon(Icons.Import_Zotero);
+            btnProvider_EndNote.Icon = Icons.GetAppIcon(Icons.Import_EndNote);
+            btnProvider_JabRef.Icon = Icons.GetAppIcon(Icons.Import_JabRef);
 
-            this.btnProvider_BibTeX.Click += ProviderChosen_Click;
-            this.btnProvider_Mendeley.Click += ProviderChosen_Click;
-            this.btnProvider_Zotero.Click += ProviderChosen_Click;
-            this.btnProvider_EndNote.Click += ProviderChosen_Click;
-            this.btnProvider_JabRef.Click += ProviderChosen_Click;
+            btnProvider_BibTeX.Click += ProviderChosen_Click;
+            btnProvider_Mendeley.Click += ProviderChosen_Click;
+            btnProvider_Zotero.Click += ProviderChosen_Click;
+            btnProvider_EndNote.Click += ProviderChosen_Click;
+            btnProvider_JabRef.Click += ProviderChosen_Click;
 
-            this.btnChooseFile_BibTeX.Click += ChooseExportFile;
-            this.btnChooseFile_Mendeley.Click += ChooseExportFile;
-            this.btnChooseFile_Zotero.Click += ChooseExportFile;
-            this.btnChooseFile_EndNote.Click += ChooseExportFile;
-            this.btnChooseFile_JabRef.Click += ChooseExportFile;
+            btnChooseFile_BibTeX.Click += ChooseExportFile;
+            btnChooseFile_Mendeley.Click += ChooseExportFile;
+            btnChooseFile_Zotero.Click += ChooseExportFile;
+            btnChooseFile_EndNote.Click += ChooseExportFile;
+            btnChooseFile_JabRef.Click += ChooseExportFile;
 
-            this.btnChooseFile_EndNoteLibraryFolder.Click += ChooseSupplementaryFolder;
+            btnChooseFile_EndNoteLibraryFolder.Click += ChooseSupplementaryFolder;
 
-            this.btnBack.Caption = "Back";
-            this.btnBack.Icon = Icons.GetAppIcon(Icons.Back);
-            this.btnBack.Click += btnBack_Click;
+            btnBack.Caption = "Back";
+            btnBack.Icon = Icons.GetAppIcon(Icons.Back);
+            btnBack.Click += btnBack_Click;
 
-            this.btnCancel.Caption = "Cancel";
-            this.btnCancel.Icon = Icons.GetAppIcon(Icons.Cancel);
-            this.btnCancel.Click += btnCancel_Click;
+            btnCancel.Caption = "Cancel";
+            btnCancel.Icon = Icons.GetAppIcon(Icons.Cancel);
+            btnCancel.Click += btnCancel_Click;
 
-            this.btnSelectAll.Caption = "Select all";
-            this.btnSelectNone.Caption = "Select none";
-            this.btnSelectAll.Click += btnSelectAll_Click;
-            this.btnSelectNone.Click += btnSelectNone_Click;
+            btnSelectAll.Caption = "Select all";
+            btnSelectNone.Caption = "Select none";
+            btnSelectAll.Click += btnSelectAll_Click;
+            btnSelectNone.Click += btnSelectNone_Click;
 
-            this.btnImport.Caption = "Import Selected Entries";
-            this.btnImport.Icon = Icons.GetAppIcon(Icons.DocumentsImportFromThirdParty);
-            this.btnImport.Click += btnImport_Click;
+            btnImport.Caption = "Import Selected Entries";
+            btnImport.Icon = Icons.GetAppIcon(Icons.DocumentsImportFromThirdParty);
+            btnImport.Click += btnImport_Click;
 
-            this.Header.Caption = "Import";
-            this.Header.Img = Icons.GetAppIcon(Icons.DocumentsImportFromThirdParty);
+            Header.Caption = "Import";
+            Header.Img = Icons.GetAppIcon(Icons.DocumentsImportFromThirdParty);
 
             SetUiState(UiState.ChooseProvider);
 
@@ -122,21 +121,21 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             }
         }
 
-        void CmdAutomaticMendeleyImport_Click(object sender, RoutedEventArgs e)
+        private void CmdAutomaticMendeleyImport_Click(object sender, RoutedEventArgs e)
         {
-            Qiqqa.UtilisationTracking.FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportAutoFromMendeley);
-            ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(this._library, false, false, mdd.metadata_imports.ToArray());
-            this.Close();
+            FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportAutoFromMendeley);
+            ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(_library, false, false, mdd.metadata_imports.ToArray());
+            Close();
         }
 
-        void CmdAutomaticEndnoteImport_Click(object sender, RoutedEventArgs e)
+        private void CmdAutomaticEndnoteImport_Click(object sender, RoutedEventArgs e)
         {
-            Qiqqa.UtilisationTracking.FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportAutoFromEndNote);
-            ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(this._library, false, false, edd.metadata_imports.ToArray());
-            this.Close();
+            FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportAutoFromEndNote);
+            ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(_library, false, false, edd.metadata_imports.ToArray());
+            Close();
         }
 
-        void btnSelectNone_Click(object sender, RoutedEventArgs e)
+        private void btnSelectNone_Click(object sender, RoutedEventArgs e)
         {
             foreach (var entry in GetEntries())
             {
@@ -144,7 +143,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             }
         }
 
-        void btnSelectAll_Click(object sender, RoutedEventArgs e)
+        private void btnSelectAll_Click(object sender, RoutedEventArgs e)
         {
             foreach (var entry in GetEntries())
             {
@@ -152,17 +151,17 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             }
         }
 
-        List<AugmentedBindable<BibTeXEntry>> GetEntries()
+        private List<AugmentedBindable<BibTeXEntry>> GetEntries()
         {
             return lstEntries.DataContext as List<AugmentedBindable<BibTeXEntry>>;
         }
 
-        void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
-        void btnBack_Click(object sender, RoutedEventArgs e)
+        private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             switch (_currentUiState)
             {
@@ -212,7 +211,6 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
         private void ChooseExportFile(object sender, RoutedEventArgs e)
         {
-
             _currentSelectedExportFile = null;
 
             switch (_currentProvider)
@@ -245,7 +243,6 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
             switch (_currentProvider)
             {
-
                 case Providers.BibTeX:
                 case Providers.Mendeley:
                 case Providers.Zotero:
@@ -256,8 +253,9 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
                 case Providers.EndNote:
                     //Wait for second file. 
-                    this.btnChooseFile_EndNoteLibraryFolder.IsEnabled = true;
+                    btnChooseFile_EndNoteLibraryFolder.IsEnabled = true;
                     return;
+
                 default:
                     throw new NotImplementedException();
             }
@@ -271,7 +269,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             ParseImportFileAndSwitchToSelectEntriesUi();
         }
 
-        void ChooseSupplementaryFolder(object sender, RoutedEventArgs e)
+        private void ChooseSupplementaryFolder(object sender, RoutedEventArgs e)
         {
             _currentSelectedSupplementaryFolder = null;
 
@@ -287,7 +285,6 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
             //Cancelled. 
             if (String.IsNullOrEmpty(_currentSelectedSupplementaryFolder)) return;
-
 
             switch (_currentProvider)
             {
@@ -307,6 +304,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             FileImporter importer = null;
 
             #region Check we can open the file, and warn about file size if necessary
+
             try
             {
                 long fileSize = 0;
@@ -325,8 +323,8 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                 MessageBoxes.Error("Unfortunately that file could not be read. Is it perhaps still open by another program?");
                 return;
             }
-            #endregion
 
+            #endregion
 
             try
             {
@@ -345,7 +343,6 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                         break;
 
                     case Providers.EndNote:
-
                         if (!EndNoteImporter.ValidateDocumentRootFolder(_currentSelectedSupplementaryFolder))
                         {
                             MessageBoxes.Warn("The data directory you have picked might not be the right one - it should have a subdirectory called \"PDF\" where EndNote has exported your PDF files.");
@@ -369,8 +366,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                 return;
             }
 
-            //Get entries from parsed file and populate list
-
+            // Get entries from parsed file and populate list
 
             var result = importer.GetResult();
             List<AugmentedBindable<BibTeXEntry>> bindableEntries = new List<AugmentedBindable<BibTeXEntry>>(result.Entries.Count);
@@ -396,7 +392,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
         private void ShowWrongFormatGuidance()
         {
-            //Default prefix
+            // Default prefix
             string help = String.Format("The file you selected had content, but it did not appear to be suitable for import");
             string suffix = String.Empty;
 
@@ -407,13 +403,12 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                     break;
             }
 
-
             MessageBoxes.Warn(help + Environment.NewLine + Environment.NewLine + suffix);
         }
 
         private void ShowNoFilesGuidance(int totalEntryCount, int entriesWithoutFileFieldCount)
         {
-            //Default prefix
+            // Default prefix
             string prefix = String.Format("The file you selected had {0} entries, but {1} of them were missing the \"file\" field, OR the file could not be found on disk in the location specified by the file entry." + Environment.NewLine + Environment.NewLine + "Without the file entry (or the file being in the correct place on disk), we can't import the PDF.", totalEntryCount, entriesWithoutFileFieldCount);
             string suffix = String.Empty;
 
@@ -494,7 +489,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                     btnProvider_Zotero.Caption = "Zotero™";
                     btnProvider_EndNote.Caption = "EndNote™";
                     btnProvider_JabRef.Caption = "JabRef";
-                    this.Header.SubCaption = "If you already have documents in a program listed below, we can import them. \r\nPlease choose the relevant program to get started.";
+                    Header.SubCaption = "If you already have documents in a program listed below, we can import them. \r\nPlease choose the relevant program to get started.";
 
                     break;
 
@@ -506,7 +501,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                     pnlProviders.Visibility = Visibility.Collapsed;
                     pnlEntrySelection.Visibility = Visibility.Collapsed;
 
-                    this.Header.SubCaption = "Please follow the instructions below";
+                    Header.SubCaption = "Please follow the instructions below";
 
                     switch (_currentProvider)
                     {
@@ -540,7 +535,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
                     pnlAlreadyImported.Visibility = GetEntries().Any(x => x.Underlying.ExistsInLibrary) ? Visibility.Visible : Visibility.Collapsed;
 
-                    this.Header.SubCaption = "Tick the entries you wish to import";
+                    Header.SubCaption = "Tick the entries you wish to import";
                     break;
             }
         }
@@ -553,14 +548,13 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             }
         }
 
-
-        void btnImport_Click(object sender, RoutedEventArgs e)
+        private void btnImport_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportFromThirdParty);
 
             IEnumerable<AugmentedBindable<BibTeXEntry>> allEntries = GetEntries().Where(x => x.Underlying.Selected);
 
-            if (allEntries.Count() == 0)
+            if (!allEntries.Any())
             {
                 MessageBoxes.Error("Please select at least one entry to import, by checking the checkbox.");
                 return;
@@ -586,7 +580,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
             MessageBoxes.Info("{0} files are now being imported - this may take a little while.  You can track the import progress in the status bar.", filename_and_bibtex_imports.Count);
 
-            this.Close();
+            Close();
         }
 
 
@@ -626,5 +620,23 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 #endif
 
         #endregion
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+
+            // base.OnClosed() invokes this class' Closed() code, so we flipped the order of exec to reduce the number of surprises for yours truly.
+            // This NULLing stuff is really the last rites of Dispose()-like so we stick it at the end here.
+
+            _library = null;
+
+            mdd = null;
+            edd = null;
+        }
     }
 }

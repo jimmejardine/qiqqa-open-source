@@ -23,19 +23,19 @@ namespace Utilities.GUI.Wizard
         public PointOfInterestHighlighterWindow()
         {
             InitializeComponent();
-            this.WindowStyle = WindowStyle.None;
-            this.BorderThickness = new Thickness(0);
-            this.ResizeMode = ResizeMode.NoResize;
-            this.Opacity = 0.1;
-            this.IsHitTestVisible = false;
-            this.AllowsTransparency = true;
-            this.Topmost = true;
+            WindowStyle = WindowStyle.None;
+            BorderThickness = new Thickness(0);
+            ResizeMode = ResizeMode.NoResize;
+            Opacity = 0.1;
+            IsHitTestVisible = false;
+            AllowsTransparency = true;
+            Topmost = true;
 
             DoubleAnimation animation = new DoubleAnimation(0.0, 0.3, new Duration(new TimeSpan(0, 0, 0, 0, 1000)));
             animation.RepeatBehavior = RepeatBehavior.Forever;
             animation.AutoReverse = true;
             animation.AccelerationRatio = 0.1;
-            this.BeginAnimation(OpacityProperty, animation);
+            BeginAnimation(OpacityProperty, animation);
         }
 
         protected override void OnSourceInitialized(EventArgs e)

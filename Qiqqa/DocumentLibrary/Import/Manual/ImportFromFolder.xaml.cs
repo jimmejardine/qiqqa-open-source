@@ -1,14 +1,14 @@
 ﻿using System;
-using System.IO;
 using System.Windows;
 using System.Windows.Forms;
 using icons;
 using Qiqqa.Common.Configuration;
 using Utilities;
 using Utilities.Reflection;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.DocumentLibrary.Import.Manual
 {
@@ -64,7 +64,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
             internal bool DefaultRecurseSubfolders
             {
-                get { return ConfigurationManager.Instance.ConfigurationRecord.ImportFromFolderRecurseSubfolders; }
+                get => ConfigurationManager.Instance.ConfigurationRecord.ImportFromFolderRecurseSubfolders;
                 set
                 {
                     ConfigurationManager.Instance.ConfigurationRecord.ImportFromFolderRecurseSubfolders = value;
@@ -74,7 +74,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
             internal bool DefaultImportTagsFromSubfolderNames
             {
-                get { return ConfigurationManager.Instance.ConfigurationRecord.ImportFromFolderImportTagsFromSubfolderNames; }
+                get => ConfigurationManager.Instance.ConfigurationRecord.ImportFromFolderImportTagsFromSubfolderNames;
                 set
                 {
                     ConfigurationManager.Instance.ConfigurationRecord.ImportFromFolderImportTagsFromSubfolderNames = value;
@@ -96,7 +96,6 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
             InitializeComponent();
 
-
             btnCancel.Caption = "Cancel";
             btnCancel.Icon = Icons.GetAppIcon(Icons.Cancel);
             btnImport.Caption = "Import";
@@ -114,10 +113,10 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         private void FolderLocationButton_Click(object sender, RoutedEventArgs e)
         {
             using (FolderBrowserDialog dlg = new FolderBrowserDialog
-                {
-                    Description = "Please select a folder.  All the PDFs in the folder will be added to your document library.",
-                    ShowNewFolderButton = false
-                })
+            {
+                Description = "Please select a folder.  All the PDFs in the folder will be added to your document library.",
+                ShowNewFolderButton = false
+            })
             {
                 string default_folder = bindable.Underlying.DefaultSelectedPath;
                 if (default_folder != null)

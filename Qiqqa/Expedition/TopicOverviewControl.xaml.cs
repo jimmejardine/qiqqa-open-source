@@ -31,15 +31,15 @@ namespace Qiqqa.Expedition
         {
             InitializeComponent();
 
-            this.DataContextChanged += TopicOverviewControl_DataContextChanged;
+            DataContextChanged += TopicOverviewControl_DataContextChanged;
         }
 
-        void TopicOverviewControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void TopicOverviewControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             PopulateDetail(false);
         }
 
-        void PopulateDetail(bool detailed_mode)
+        private void PopulateDetail(bool detailed_mode)
         {
             // Clear the old
             ObjHeader.Header = null;
@@ -100,19 +100,19 @@ namespace Qiqqa.Expedition
             }
         }
 
-        void button_more_Click(object sender, RoutedEventArgs e)
+        private void button_more_Click(object sender, RoutedEventArgs e)
         {
             PopulateDetail(true);
         }
 
-        void button_brainstorm_Click(object sender, RoutedEventArgs e)
+        private void button_brainstorm_Click(object sender, RoutedEventArgs e)
         {
             AugmentedButton button_brainstorm = sender as AugmentedButton;
             TopicOverviewData tod = button_brainstorm.Tag as TopicOverviewData;
             MainWindowServiceDispatcher.Instance.ExploreTopicInBrainstorm(tod.library, tod.topic);
         }
 
-        void TopicDocumentPressed_MouseButtonEventHandler(object sender, MouseButtonEventArgs e)
+        private void TopicDocumentPressed_MouseButtonEventHandler(object sender, MouseButtonEventArgs e)
         {
             TextBlock text_block = (TextBlock)sender;
             ListFormattingTools.DocumentTextBlockTag tag = (ListFormattingTools.DocumentTextBlockTag)text_block.Tag;

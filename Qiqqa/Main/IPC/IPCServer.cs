@@ -6,12 +6,12 @@ using Utilities;
 
 namespace Qiqqa.Main.IPC
 {
-    class IPCServer
+    internal class IPCServer
     {
         public delegate void IPCServerMessageDelegate(string message);
         public event IPCServerMessageDelegate IPCServerMessage;
 
-        bool is_running;
+        private bool is_running;
 
         public IPCServer()
         {
@@ -29,14 +29,14 @@ namespace Qiqqa.Main.IPC
             is_running = false;
         }
 
-        
+
         private void StartServerPump()
         {
             if (!is_running)
             {
                 return;
             }
-            
+
             try
             {
                 PipeSecurity ps = new PipeSecurity();

@@ -10,7 +10,7 @@ namespace Utilities.GUI
             control.PreviewMouseWheel += control_PreviewMouseWheel;
         }
 
-        static void control_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        private static void control_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (!e.Handled)
             {

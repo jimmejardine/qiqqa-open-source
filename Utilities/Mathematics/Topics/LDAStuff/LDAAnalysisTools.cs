@@ -11,7 +11,7 @@ namespace Utilities.Mathematics.Topics.LDAStuff
         {
             int num_topics = MAX_TOPICS;
             int i = topic;
-            
+
             {
                 double hue = 360.0 * i / num_topics;
 
@@ -62,7 +62,7 @@ namespace Utilities.Mathematics.Topics.LDAStuff
             for (int topic = 0; topic < lda_analysis.NUM_TOPICS; ++topic)
             {
                 double P = distribution[topic];
-                double Q = lda_analysis.DensityOfTopicsInDocuments[doc_i, topic]; 
+                double Q = lda_analysis.DensityOfTopicsInDocuments[doc_i, topic];
                 double M = (P + Q) / 2.0;
 
                 if (0 != M)

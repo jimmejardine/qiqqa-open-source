@@ -20,7 +20,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
         public delegate void OnTagSelectionChangedDelegate(HashSet<string> fingerprints, Span descriptive_span);
         public event OnTagSelectionChangedDelegate OnTagSelectionChanged;
 
-        static readonly string NO_TAG_KEY = "<Untagged>";
+        private static readonly string NO_TAG_KEY = "<Untagged>";
 
         public TagExplorerControl()
         {
@@ -28,7 +28,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
 
             InitializeComponent();
 
-            this.ToolTip = "Here are the Tags you have added to your documents.  " + GenericLibraryExplorerControl.YOU_CAN_FILTER_TOOLTIP;
+            ToolTip = "Here are the Tags you have added to your documents.  " + GenericLibraryExplorerControl.YOU_CAN_FILTER_TOOLTIP;
 
             TagExplorerTree.DescriptionTitle = "Tags";
 
@@ -44,9 +44,10 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
 
         public Library Library
         {
+            get => library;
             set
             {
-                this.library = value;
+                library = value;
                 TagExplorerTree.Library = value;
             }
         }
@@ -86,7 +87,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
                     tags_with_fingerprints.Add(tag, pdf_document.Fingerprint);
                     has_tag = true;
                 }
-                
+
                 // And check the annotations                
                 foreach (var pdf_annotation in pdf_document.GetAnnotations(library_items_annotations_cache))
                 {
@@ -99,7 +100,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
                         }
                     }
                 }
-               
+
                 if (!has_tag)
                 {
                     tags_with_fingerprints.Add(NO_TAG_KEY, pdf_document.Fingerprint);
@@ -109,14 +110,14 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             Logging.Info("-Getting node items");
             return tags_with_fingerprints;
         }
-        
-        void OnItemPopup(Library library, string item_tag)
+
+        private void OnItemPopup(Library library, string item_tag)
         {
             TagExplorerItemPopup popup = new TagExplorerItemPopup(library, item_tag);
-            popup.Open();            
+            popup.Open();
         }
 
-        void OnItemDragOver(Library library, string item_tag, DragEventArgs e)
+        private void OnItemDragOver(Library library, string item_tag, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(typeof(PDFDocument)))
             {
@@ -134,7 +135,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             e.Handled = true;
         }
 
-        void OnItemDrop(Library library, string item_tag, DragEventArgs e)
+        private void OnItemDrop(Library library, string item_tag, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(typeof(PDFDocument)))
             {
@@ -149,7 +150,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
                 Logging.Info("The PDF list dropped onto tag {1} has {0} items", pdf_documents.Count, item_tag);
 
                 foreach (PDFDocument pdf_document in pdf_documents)
-                {                    
+                {
                     pdf_document.AddTag(item_tag);
                 }
             }
@@ -157,7 +158,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             e.Handled = true;
         }
 
-        void TagExplorerTree_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
+        private void TagExplorerTree_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
         {
             OnTagSelectionChanged?.Invoke(fingerprints, descriptive_span);
         }

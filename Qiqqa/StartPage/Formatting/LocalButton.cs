@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿#if false
+
+using System.Reflection;
 using System.Windows.Controls;
 
 namespace Qiqqa.StartPage.Formatting
@@ -8,3 +10,5 @@ namespace Qiqqa.StartPage.Formatting
     {
     }
 }
+
+#endif

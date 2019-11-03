@@ -6,7 +6,7 @@ using Utilities;
 
 namespace Qiqqa.Main
 {
-    class FirstInstallWebLauncher
+    internal class FirstInstallWebLauncher
     {
         public static void Check()
         {

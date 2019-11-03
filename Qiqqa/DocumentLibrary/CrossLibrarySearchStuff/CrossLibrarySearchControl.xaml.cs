@@ -9,7 +9,6 @@ using Qiqqa.DocumentLibrary.DocumentLibraryIndex;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Utilities;
-using Utilities.GUI;
 using Utilities.Language.TextIndexing;
 
 namespace Qiqqa.DocumentLibrary.CrossLibrarySearchStuff
@@ -30,7 +29,7 @@ namespace Qiqqa.DocumentLibrary.CrossLibrarySearchStuff
             SearchQuick.SearchHistoryItemSource = ConfigurationManager.Instance.SearchHistory;
         }
 
-        void SearchQuick_OnHardSearch()
+        private void SearchQuick_OnHardSearch()
         {
             DoSearch();
         }
@@ -41,7 +40,7 @@ namespace Qiqqa.DocumentLibrary.CrossLibrarySearchStuff
             DoSearch();
         }
 
-        class CombinedSearchResultItem
+        private class CombinedSearchResultItem
         {
             public string fingerprint;
             public double score;
@@ -51,10 +50,10 @@ namespace Qiqqa.DocumentLibrary.CrossLibrarySearchStuff
         public void DoSearch()
         {
             string query = SearchQuick.Text;
-            
+
             // Do we have anything to do?
             if (String.IsNullOrEmpty(query))
-            {   
+            {
                 SystemSounds.Beep.Play();
                 return;
             }
@@ -66,7 +65,7 @@ namespace Qiqqa.DocumentLibrary.CrossLibrarySearchStuff
                 Logging.Info("Searching library {0}", web_library_detail.Title);
                 List<IndexResult> index_results = LibrarySearcher.FindAllFingerprintsMatchingQuery(web_library_detail.library, query);
 
-                foreach (IndexResult index_result in index_results)                
+                foreach (IndexResult index_result in index_results)
                 {
                     PDFDocument pdf_document = web_library_detail.library.GetDocumentByFingerprint(index_result.fingerprint);
                     if (null != pdf_document)
@@ -76,7 +75,7 @@ namespace Qiqqa.DocumentLibrary.CrossLibrarySearchStuff
                             fingerprint = index_result.fingerprint,
                             score = index_result.score,
                             pdf_document = pdf_document
-                        };                        
+                        };
                         results.Add(result);
                     }
                     else
@@ -87,7 +86,7 @@ namespace Qiqqa.DocumentLibrary.CrossLibrarySearchStuff
             }
 
             // Sort the results
-            results.Sort(delegate(CombinedSearchResultItem p1, CombinedSearchResultItem p2) { return -Sorting.Compare(p1.score, p2.score); });
+            results.Sort(delegate (CombinedSearchResultItem p1, CombinedSearchResultItem p2) { return -Sorting.Compare(p1.score, p2.score); });
 
             // Create the ordered results
             List<PDFDocument> pdf_documents = new List<PDFDocument>();

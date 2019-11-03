@@ -6,6 +6,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using icons;
+using Qiqqa.Common.Configuration;
 using Qiqqa.Documents.PDF;
 using Qiqqa.UtilisationTracking;
 using Utilities;
@@ -13,7 +14,6 @@ using Utilities.Collections;
 using Utilities.GUI;
 using Utilities.GUI.DualTabbedLayoutStuff;
 using Utilities.Misc;
-using Qiqqa.Common.Configuration;
 
 namespace Qiqqa.DocumentLibrary.LibraryFilter
 {
@@ -28,25 +28,24 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
         internal Dictionary<string, double> search_quick_scores = null;
         internal HashSet<string> search_quick_fingerprints = null;
         internal Span search_quick_fingerprints_span = null;
-
-        HashSet<string> search_tag_fingerprints = null;
-        Span search_tag_fingerprints_span = null;
-        HashSet<string> select_tag_fingerprints = null;
-        Span select_tag_fingerprints_span = null;
-        HashSet<string> select_ai_tag_fingerprints = null;
-        Span select_ai_tag_fingerprints_span = null;
-        HashSet<string> select_author_fingerprints = null;
-        Span select_author_fingerprints_span = null;
-        HashSet<string> select_publication_fingerprints = null;
-        Span select_publication_fingerprints_span = null;
-        HashSet<string> select_reading_stage_fingerprints = null;
-        Span select_reading_stage_fingerprints_span = null;
-        HashSet<string> select_year_fingerprints = null;
-        Span select_year_fingerprints_span = null;
-        HashSet<string> select_rating_fingerprints = null;
-        Span select_rating_fingerprints_span = null;
-        HashSet<string> select_theme_fingerprints = null;
-        Span select_theme_fingerprints_span = null;
+        private HashSet<string> search_tag_fingerprints = null;
+        private Span search_tag_fingerprints_span = null;
+        private HashSet<string> select_tag_fingerprints = null;
+        private Span select_tag_fingerprints_span = null;
+        private HashSet<string> select_ai_tag_fingerprints = null;
+        private Span select_ai_tag_fingerprints_span = null;
+        private HashSet<string> select_author_fingerprints = null;
+        private Span select_author_fingerprints_span = null;
+        private HashSet<string> select_publication_fingerprints = null;
+        private Span select_publication_fingerprints_span = null;
+        private HashSet<string> select_reading_stage_fingerprints = null;
+        private Span select_reading_stage_fingerprints_span = null;
+        private HashSet<string> select_year_fingerprints = null;
+        private Span select_year_fingerprints_span = null;
+        private HashSet<string> select_rating_fingerprints = null;
+        private Span select_rating_fingerprints_span = null;
+        private HashSet<string> select_theme_fingerprints = null;
+        private Span select_theme_fingerprints_span = null;
 
         public delegate void OnFilterChangedDelegate(LibraryFilterControl library_filter_control, List<PDFDocument> pdf_documents, Span descriptive_span, string filter_terms, Dictionary<string, double> search_scores, PDFDocument pdf_document_to_focus_on);
         public event OnFilterChangedDelegate OnFilterChanged;
@@ -100,6 +99,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
         internal Library library = null;
         public Library Library
         {
+            get => library;
             set
             {
                 if (null != library)
@@ -107,18 +107,18 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
                     throw new Exception("Library can only be set once");
                 }
 
-                this.library = value;
+                library = value;
 
                 // Set our child objects
-                this.ObjTagExplorerControl.Library = library;
-                this.ObjAITagExplorerControl.Library = library;
-                this.ObjAuthorExplorerControl.Library = library;
-                this.ObjPublicationExplorerControl.Library = library;
-                this.ObjReadingStageExplorerControl.Library = library;
-                this.ObjYearExplorerControl.Library = library;
-                this.ObjRatingExplorerControl.Library = library;
-                this.ObjThemeExplorerControl.Library = library;
-                this.ObjTypeExplorerControl.Library = library;
+                ObjTagExplorerControl.Library = library;
+                ObjAITagExplorerControl.Library = library;
+                ObjAuthorExplorerControl.Library = library;
+                ObjPublicationExplorerControl.Library = library;
+                ObjReadingStageExplorerControl.Library = library;
+                ObjYearExplorerControl.Library = library;
+                ObjRatingExplorerControl.Library = library;
+                ObjThemeExplorerControl.Library = library;
+                ObjTypeExplorerControl.Library = library;
 
                 // WEAK EVENT HANDLER FOR: library.OnDocumentsChanged += Library_OnNewDocument;
                 WeakEventHandler<Library.PDFDocumentEventArgs>.Register<Library, LibraryFilterControl>(
@@ -161,7 +161,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
 
             ReviewParameters(reset_explorers);
         }
-        
+
         public void SearchLibrary(string query)
         {
             ResetFilters();
@@ -171,19 +171,19 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
             ReviewParameters();
         }
 
-        void ObjLibraryFilterControl_Sort_SortChanged()
+        private void ObjLibraryFilterControl_Sort_SortChanged()
         {
             ReviewParameters();
         }
 
         #region --- Automated update to match Library ------------------------------------------------------------------------------------------------------------------------
 
-        void Library_OnNewDocument(object sender, PDFDocument pdf_document)
+        private void Library_OnNewDocument(object sender, PDFDocument pdf_document)
         {
             Dispatcher.BeginInvoke(new Action(() => ReExecuteAllSearches(pdf_document)));
         }
 
-        void ReExecuteAllSearches(PDFDocument pdf_document_to_focus_on)
+        private void ReExecuteAllSearches(PDFDocument pdf_document_to_focus_on)
         {
             library_filter_control_search.ExecuteSearchQuick();
             ExecuteSearchTag();
@@ -192,7 +192,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
 
         #endregion ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-        void ObjTagExplorerControl_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
+        private void ObjTagExplorerControl_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
         {
             if (null == fingerprints || 0 == fingerprints.Count)
             {
@@ -209,7 +209,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
             ReviewParameters();
         }
 
-        void ObjAITagExplorerControl_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
+        private void ObjAITagExplorerControl_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
         {
             if (null == fingerprints || 0 == fingerprints.Count)
             {
@@ -226,7 +226,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
             ReviewParameters();
         }
 
-        void ObjAuthorExplorerControl_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
+        private void ObjAuthorExplorerControl_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
         {
             if (null == fingerprints || 0 == fingerprints.Count)
             {
@@ -243,7 +243,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
             ReviewParameters();
         }
 
-        void ObjPublicationExplorerControl_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
+        private void ObjPublicationExplorerControl_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
         {
             if (null == fingerprints || 0 == fingerprints.Count)
             {
@@ -260,7 +260,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
             ReviewParameters();
         }
 
-        void ObjReadingStageExplorerControl_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
+        private void ObjReadingStageExplorerControl_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
         {
             if (null == fingerprints || 0 == fingerprints.Count)
             {
@@ -277,7 +277,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
             ReviewParameters();
         }
 
-        void ObjYearExplorerControl_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
+        private void ObjYearExplorerControl_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
         {
             if (null == fingerprints || 0 == fingerprints.Count)
             {
@@ -294,7 +294,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
             ReviewParameters();
         }
 
-        void ObjRatingExplorerControl_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
+        private void ObjRatingExplorerControl_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
         {
             if (null == fingerprints || 0 == fingerprints.Count)
             {
@@ -311,7 +311,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
             ReviewParameters();
         }
 
-        void ObjThemeExplorerControl_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
+        private void ObjThemeExplorerControl_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
         {
             if (null == fingerprints || 0 == fingerprints.Count)
             {
@@ -328,7 +328,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
             ReviewParameters();
         }
 
-        void ObjTypeExplorerControl_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
+        private void ObjTypeExplorerControl_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
         {
             if (null == fingerprints || 0 == fingerprints.Count)
             {
@@ -345,14 +345,12 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
             ReviewParameters();
         }
 
-        
-
-        void SearchTag_OnSoftSearch()
+        private void SearchTag_OnSoftSearch()
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_TagFilter);
 
             ExecuteSearchTag();
-            ReviewParameters();            
+            ReviewParameters();
         }
 
         private void ExecuteSearchTag()
@@ -367,7 +365,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
             {
                 search_tag_fingerprints = new HashSet<string>();
 
-                string[] search_tags = terms.Split(new char[] {' '}, StringSplitOptions.RemoveEmptyEntries);
+                string[] search_tags = terms.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
                 foreach (var pdf_document in library.PDFDocuments)
                 {
@@ -400,7 +398,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
             }
         }
 
-        void hyperlink_search_tag_fingerprints_span_OnClick(object sender, MouseButtonEventArgs e)
+        private void hyperlink_search_tag_fingerprints_span_OnClick(object sender, MouseButtonEventArgs e)
         {
             SearchTag.Clear();
         }
@@ -409,7 +407,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
         {
             ReviewParameters(null, explorers_are_reset);
         }
-        
+
         private void ReviewParameters(PDFDocument pdf_document_to_focus_on, bool explorers_are_reset)
         {
             HashSet<string> intersection = null;

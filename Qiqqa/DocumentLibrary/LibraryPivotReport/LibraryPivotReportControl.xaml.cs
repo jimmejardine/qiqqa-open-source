@@ -14,7 +14,6 @@ using Utilities.Collections;
 using Utilities.GUI;
 using Utilities.Mathematics;
 using Utilities.Misc;
-using Utilities.Random;
 
 namespace Qiqqa.DocumentLibrary.LibraryPivotReport
 {
@@ -49,7 +48,7 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
             ObjIdentifier.SelectedIndex = 0;
         }
 
-        void ButtonExportExcel_Click(object sender, RoutedEventArgs e)        
+        private void ButtonExportExcel_Click(object sender, RoutedEventArgs e)
         {
             if (null == last_ObjGridControl)
             {
@@ -57,7 +56,7 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
                 return;
             }
 
-            
+
             SaveFileDialog save_file_dialog = new SaveFileDialog();
             save_file_dialog.AddExtension = true;
             save_file_dialog.CheckPathExists = true;
@@ -79,13 +78,13 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
         private void ExportToExcel(string filename)
         {
             StringBuilder sb = new StringBuilder();
-            
+
             for (int y = 0; y < last_ObjGridControl.Model.RowCount; ++y)
             {
                 for (int x = 0; x < last_ObjGridControl.Model.ColumnCount; ++x)
                 {
                     object value = last_ObjGridControl.Model[y, x].CellValue;
-                    sb.Append('"');                    
+                    sb.Append('"');
                     sb.Append(value);
                     sb.Append('"');
                     sb.Append(',');
@@ -98,7 +97,7 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
             Process.Start(filename);
         }
 
-        void ButtonRegenerate_Click(object sender, RoutedEventArgs e)
+        private void ButtonRegenerate_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -111,7 +110,7 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
             }
         }
 
-        void Regenerate()
+        private void Regenerate()
         {
             HashSet<string> parent_fingerprints = null;
             if (null != PDFDocuments && 0 < PDFDocuments.Count)
@@ -181,7 +180,7 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
                         {
                             if (null != pivot_result.common_fingerprints[y, x])
                             {
-                                total += pivot_result.common_fingerprints[y, x].Count;                                
+                                total += pivot_result.common_fingerprints[y, x].Count;
                             }
                         }
 

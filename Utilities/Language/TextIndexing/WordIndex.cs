@@ -2,31 +2,26 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using ProtoBuf;
 using Utilities.Files;
-using Utilities.Random;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Utilities.Language.TextIndexing
 {
     public class WordIndex
     {
-        static readonly string INDEX_VERSION = "2.0";
-
-        static readonly int GANG_SIZE = 100;
-
-        string LIBRARY_INDEX_BASE_PATH;
-        bool use_make_reasonable_word;
-
-        object locker = new object();
-        Dictionary<string, int> fingerprint_to_document_ids = new Dictionary<string, int>();
-        Dictionary<int, string> document_id_to_fingerprints = new Dictionary<int, string>();
-
-        List<WordInWordIndex> word_in_word_indexes = new List<WordInWordIndex>();
-        Dictionary<string, WordInWordIndex> word_in_word_index_lookups = new Dictionary<string, WordInWordIndex>();
+        private static readonly string INDEX_VERSION = "2.0";
+        private static readonly int GANG_SIZE = 100;
+        private string LIBRARY_INDEX_BASE_PATH;
+        private bool use_make_reasonable_word;
+        private object locker = new object();
+        private Dictionary<string, int> fingerprint_to_document_ids = new Dictionary<string, int>();
+        private Dictionary<int, string> document_id_to_fingerprints = new Dictionary<int, string>();
+        private List<WordInWordIndex> word_in_word_indexes = new List<WordInWordIndex>();
+        private Dictionary<string, WordInWordIndex> word_in_word_index_lookups = new Dictionary<string, WordInWordIndex>();
 
         public WordIndex(string LIBRARY_INDEX_BASE_PATH, bool use_make_reasonable_word)
         {
@@ -38,13 +33,7 @@ namespace Utilities.Language.TextIndexing
             ReadMasterList();
         }
 
-        private string VersionFilename
-        {
-            get
-            {
-                return Path.GetFullPath(Path.Combine(LIBRARY_INDEX_BASE_PATH, @"index_version.txt"));
-            }
-        }
+        private string VersionFilename => Path.GetFullPath(Path.Combine(LIBRARY_INDEX_BASE_PATH, @"index_version.txt"));
 
         private void CheckIndexVersion()
         {
@@ -66,7 +55,7 @@ namespace Utilities.Language.TextIndexing
             if (0 != String.Compare(version, INDEX_VERSION))
             {
                 Logging.Warn("This index is out of date (it's version is {0}), so deleting the index.", version);
-                
+
                 DeleteIndex();
             }
         }
@@ -86,7 +75,7 @@ namespace Utilities.Language.TextIndexing
             public Dictionary<string, int> doc_counts = new Dictionary<string, int>();
         }
 
-        static readonly List<SearchResult> EMPTY_SEARCH_RESULT = new List<SearchResult>();
+        private static readonly List<SearchResult> EMPTY_SEARCH_RESULT = new List<SearchResult>();
 
         public SearchResult Search(string word)
         {
@@ -136,7 +125,7 @@ namespace Utilities.Language.TextIndexing
             }
         }
 
-        static readonly HashSet<string> EMPTY_DOCUMENT_SET = new HashSet<string>();
+        private static readonly HashSet<string> EMPTY_DOCUMENT_SET = new HashSet<string>();
 
         public HashSet<string> GetDocumentsWithWord(string word)
         {
@@ -484,7 +473,7 @@ namespace Utilities.Language.TextIndexing
             Logging.Info("-PurgeAllWords_LOCK");
         }
 
-        void FlushAllWords()
+        private void FlushAllWords()
         {
             Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (locker)
@@ -517,7 +506,7 @@ namespace Utilities.Language.TextIndexing
         /// </summary>
         /// <param name="wiwi"></param>
         /// <param name="create_directory_first"></param>
-        void FlushKeyword_LOCK(WordInWordIndex wiwi)
+        private void FlushKeyword_LOCK(WordInWordIndex wiwi)
         {
             FlushKeyword_LOCK(wiwi, false);
         }
@@ -527,7 +516,7 @@ namespace Utilities.Language.TextIndexing
         /// </summary>
         /// <param name="wiwi"></param>
         /// <param name="create_directory_first"></param>
-        void FlushKeyword_LOCK(WordInWordIndex wiwi, bool create_directory_first)
+        private void FlushKeyword_LOCK(WordInWordIndex wiwi, bool create_directory_first)
         {
             // If this is not loaded, there is nothing to do
             if (!wiwi.IsLoaded)
@@ -617,7 +606,7 @@ namespace Utilities.Language.TextIndexing
             }
         }
 
-        void LoadWord_LOCK(WordInWordIndex wiwi)
+        private void LoadWord_LOCK(WordInWordIndex wiwi)
         {
             // If the word is already loaded, nothing to do...
             if (wiwi.IsLoaded)
@@ -670,7 +659,7 @@ namespace Utilities.Language.TextIndexing
             }
         }
 
-        string GetFilename_MasterList()
+        private string GetFilename_MasterList()
         {
             return Path.GetFullPath(Path.Combine(LIBRARY_INDEX_BASE_PATH, @"MasterList.dat"));
         }

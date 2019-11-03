@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
-using System.Reflection;
 using System.Windows.Media;
 using Newtonsoft.Json;
 using Qiqqa.Common.TagManagement;
@@ -20,9 +18,11 @@ using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
 using Utilities.Reflection;
-using File = Alphaleonis.Win32.Filesystem.File;
+using Utilities.Strings;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Documents.PDF.ThreadUnsafe
 {
@@ -40,13 +40,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
     public class PDFDocument_ThreadUnsafe
     {
         private Library library;
-        public Library Library
-        {
-            get
-            {
-                return library;
-            }
-        }
+        public Library Library => library;
 
         private DictionaryBasedObject dictionary = new DictionaryBasedObject();
 
@@ -60,12 +54,12 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
         static PDFDocument_ThreadUnsafe()
         {
-            PDFDocument_ThreadUnsafe p = null;            
-            
+            PDFDocument_ThreadUnsafe p = null;
+
             property_dependencies.Add(() => p.TitleCombined, () => p.Title);
             property_dependencies.Add(() => p.TitleCombined, () => p.BibTex);
             property_dependencies.Add(() => p.AuthorsCombined, () => p.Authors);
-            property_dependencies.Add(() => p.AuthorsCombined, () => p.BibTex);            
+            property_dependencies.Add(() => p.AuthorsCombined, () => p.BibTex);
             property_dependencies.Add(() => p.YearCombined, () => p.Year);
             property_dependencies.Add(() => p.YearCombined, () => p.BibTex);
 
@@ -73,7 +67,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             property_dependencies.Add(() => p.BibTex, () => p.Publication);
 
             property_dependencies.Add(() => p.Title, () => p.TitleCombined);
-            property_dependencies.Add(() => p.Title, () => p.TitleCombinedReason);            
+            property_dependencies.Add(() => p.Title, () => p.TitleCombinedReason);
             property_dependencies.Add(() => p.BibTex, () => p.TitleCombined);
             property_dependencies.Add(() => p.BibTex, () => p.TitleCombinedReason);
             property_dependencies.Add(() => p.TitleSuggested, () => p.TitleCombined);
@@ -106,24 +100,24 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
         internal PDFDocument_ThreadUnsafe(Library library)
         {
             this.library = library;
-            this.dictionary = new DictionaryBasedObject();
+            dictionary = new DictionaryBasedObject();
         }
- 
+
         internal PDFDocument_ThreadUnsafe(Library library, DictionaryBasedObject dictionary)
         {
             this.library = library;
             this.dictionary = dictionary;
         }
-        
+
         [NonSerialized]
-        PDFRenderer pdf_renderer;
+        private PDFRenderer pdf_renderer;
         public PDFRenderer PDFRenderer
         {
             get
             {
                 if (null == pdf_renderer)
                 {
-                    pdf_renderer = new PDFRenderer(Fingerprint, DocumentPath, this.Library.PasswordManager.GetPassword(this), this.Library.PasswordManager.GetPassword(this));
+                    pdf_renderer = new PDFRenderer(Fingerprint, DocumentPath, Library.PasswordManager.GetPassword(this), Library.PasswordManager.GetPassword(this));
                 }
 
                 return pdf_renderer;
@@ -131,7 +125,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
         }
 
         [NonSerialized]
-        PDFRendererFileLayer pdf_renderer_file_layer;
+        private PDFRendererFileLayer pdf_renderer_file_layer;
         public PDFRendererFileLayer PDFRendererFileLayer
         {
             get
@@ -168,42 +162,26 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
         /// 
         /// The cost: one(1) I/O per check.
         /// </summary>
-        public bool HasOCRdata
-        {
-            get
-            {
+        public bool HasOCRdata =>
                 // do not check if DocumentExists: our pagecount cache check is sufficient and one I/O per check.
-                return PDFRendererFileLayer.HasOCRdata(Fingerprint);
-            }
-        }
+                PDFRendererFileLayer.HasOCRdata(Fingerprint);
 
         public string Fingerprint
         {
-            get
-            {
-                return dictionary["Fingerprint"] as string;
-            }
-            /* protected */ set
-            {
-                dictionary["Fingerprint"] = value;
-            }
+            get => dictionary["Fingerprint"] as string;
+            /* protected */
+            set => dictionary["Fingerprint"] = value;
         }
 
         /// <summary>
         /// Unique id for both this document and the library that it exists in.
         /// </summary>
-        public string UniqueId
-        {
-            get
-            {
-                return string.Format("{0}_{1}", Fingerprint, library.WebLibraryDetail.Id);
-            }
-        }
+        public string UniqueId => string.Format("{0}_{1}", Fingerprint, library.WebLibraryDetail.Id);
 
         public string FileType
         {
-            get { return dictionary["FileType"] as string; }
-            set { dictionary["FileType"] = value.ToLower(); }
+            get => dictionary["FileType"] as string;
+            set => dictionary["FileType"] = value.ToLower();
         }
 
         private BibTexItem bibtex_item = null;
@@ -234,13 +212,10 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
                 return bibtex_item;
             }
         }
-        
+
         public string BibTex
         {
-            get
-            {
-                return dictionary["BibTex"] as string;
-            }
+            get => dictionary["BibTex"] as string;
             set
             {
                 // Clear the cached item
@@ -272,7 +247,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             {
                 try
                 {
-                    BibTexItem item = this.BibTexItem;
+                    BibTexItem item = BibTexItem;
                     if (null != item)
                     {
                         return item.Key;
@@ -289,31 +264,15 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
         public string Title
         {
-            get
-            {
-                return dictionary["Title"] as string;
-            }
-            set
-            {
-                dictionary["Title"] = value;
-            }
+            get => dictionary["Title"] as string;
+            set => dictionary["Title"] = value;
         }
         public string TitleSuggested
         {
-            get
-            {
-                return dictionary["TitleSuggested"] as string;
-            }
-            set
-            {
-                dictionary["TitleSuggested"] = value;
-            }
+            get => dictionary["TitleSuggested"] as string;
+            set => dictionary["TitleSuggested"] = value;
         }
-        public string TitleCombinedReason
-        {
-            get
-            {
-                return String.Format(
+        public string TitleCombinedReason => String.Format(
                     "Final decision: {0}\n\nYour override: {1}\nBibTeX: {2}\nSuggested: {3}\nSource: {4}",
                     TitleCombined,
                     Title,
@@ -321,8 +280,6 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
                     TitleSuggested,
                     DownloadLocation
                     );
-            }
-        }
 
         public string TitleCombined
         {
@@ -365,6 +322,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
                 Title = value;
             }
         }
+
         /// <summary>
         /// Is true if the user made this title by hand (e.g. typed it in or got some BibTeX)
         /// </summary>
@@ -382,27 +340,21 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
         public string Authors
         {
-            get { return dictionary["Authors"] as string; }
-            set { dictionary["Authors"] = value; }
+            get => dictionary["Authors"] as string;
+            set => dictionary["Authors"] = value;
         }
         public string AuthorsSuggested
         {
-            get { return dictionary["AuthorsSuggested"] as string; }
-            set { dictionary["AuthorsSuggested"] = value; }
+            get => dictionary["AuthorsSuggested"] as string;
+            set => dictionary["AuthorsSuggested"] = value;
         }
-        public string AuthorsCombinedReason
-        {
-            get
-            {
-                return String.Format(
+        public string AuthorsCombinedReason => String.Format(
                     "Final decision: {0}\n\nYour override: {1}\nBibTeX: {2}\nSuggested: {3}",
                     AuthorsCombined,
                     Authors,
                     BibTexTools.GetAuthor(BibTexItem),
                     AuthorsSuggested
                     );
-            }
-        }
 
         public string AuthorsCombined
         {
@@ -425,7 +377,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
                     return;
                 }
 
-                // If they are clearing out a value, clear the title
+                // If they are clearing out a value, clear the authors override
                 if (String.IsNullOrEmpty(value))
                 {
                     Authors = null;
@@ -446,27 +398,21 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
         public string Year
         {
-            get { return dictionary["Year"] as string; }
-            set { dictionary["Year"] = value; }
+            get => dictionary["Year"] as string;
+            set => dictionary["Year"] = value;
         }
         public string YearSuggested
         {
-            get { return dictionary["YearSuggested"] as string; }
-            set { dictionary["YearSuggested"] = value; }
+            get => dictionary["YearSuggested"] as string;
+            set => dictionary["YearSuggested"] = value;
         }
-        public string YearCombinedReason
-        {
-            get
-            {
-                return String.Format(
+        public string YearCombinedReason => String.Format(
                     "Final decision: {0}\n\nYour override: {1}\nBibTeX: {2}\nSuggested: {3}",
                     YearCombined,
                     Year,
                     BibTexTools.GetYear(BibTexItem),
                     YearSuggested
                     );
-            }
-        }
 
         /// <summary>
         /// Produce the document's year of publication.
@@ -525,18 +471,15 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
         public string Publication
         {
-            get
-            {
-                return BibTexTools.GetGenericPublication(BibTexItem);
-            }
+            get => BibTexTools.GetGenericPublication(BibTexItem);
 
             set
             {
-                BibTexItem bibtex_item = this.BibTexItem;
+                BibTexItem bibtex_item = BibTexItem;
                 if (null != bibtex_item)
                 {
                     BibTexTools.SetGenericPublication(bibtex_item, value);
-                    this.BibTex = bibtex_item.ToBibTex();
+                    BibTex = bibtex_item.ToBibTex();
                 }
             }
         }
@@ -545,7 +488,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
         {
             get
             {
-                BibTexItem bibtex_item = this.BibTexItem;
+                BibTexItem bibtex_item = BibTexItem;
                 if (null != bibtex_item)
                 {
                     return bibtex_item.Key;
@@ -559,32 +502,68 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
         public string DownloadLocation
         {
-            get { return dictionary["DownloadLocation"] as string; }
-            set { dictionary["DownloadLocation"] = value; }
-        }        
+            get => dictionary["DownloadLocation"] as string;
+            set => dictionary["DownloadLocation"] = value;
+        }
 
+        [NonSerialized]
+        private DateTime? date_added_to_db = null;
         public DateTime? DateAddedToDatabase
         {
-            get { return dictionary.GetDateTime("DateAddedToDatabase"); }
-            set { dictionary.SetDateTime("DateAddedToDatabase", value); }
+            get
+            {
+                if (date_added_to_db.HasValue) return date_added_to_db.Value;
+
+                date_added_to_db = dictionary.GetDateTime("DateAddedToDatabase");
+                return date_added_to_db;
+            }
+            set
+            {
+                date_added_to_db = null;
+                dictionary.SetDateTime("DateAddedToDatabase", value);
+            }
         }
 
+        [NonSerialized]
+        private DateTime? date_last_modified = null;
         public DateTime? DateLastModified
         {
-            get { return dictionary.GetDateTime("DateLastModified"); }
-            set { dictionary.SetDateTime("DateLastModified", value); }
+            get
+            {
+                if (date_last_modified.HasValue) return date_last_modified.Value;
+
+                date_last_modified = dictionary.GetDateTime("DateLastModified");
+                return date_last_modified;
+            }
+            set
+            {
+                date_last_modified = null;
+                dictionary.SetDateTime("DateLastModified", value);
+            }
         }
 
+        [NonSerialized]
+        private DateTime? date_last_read = null;
         public DateTime? DateLastRead
         {
-            get { return dictionary.GetDateTime("DateLastRead"); }
-            set { dictionary.SetDateTime("DateLastRead", value); }
+            get
+            {
+                if (date_last_read.HasValue) return date_last_read.Value;
+
+                date_last_read = dictionary.GetDateTime("DateLastRead");
+                return date_last_read;
+            }
+            set
+            {
+                date_last_read = null;
+                dictionary.SetDateTime("DateLastRead", value);
+            }
         }
 
         public DateTime? DateLastCited
         {
-            get { return dictionary.GetDateTime("DateLastCited"); }
-            set { dictionary.SetDateTime("DateLastCited", value); }
+            get => dictionary.GetDateTime("DateLastCited");
+            set => dictionary.SetDateTime("DateLastCited", value);
         }
 
         public void MarkAsModified()
@@ -594,32 +573,32 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
         public string ReadingStage
         {
-            get { return dictionary["ReadingStage"] as string; }
-            set { dictionary["ReadingStage"] = value as string; }
+            get => dictionary["ReadingStage"] as string;
+            set => dictionary["ReadingStage"] = value as string;
         }
 
         public bool? HaveHardcopy
         {
-            get { return dictionary["HaveHardcopy"] as bool?; }
-            set { dictionary["HaveHardcopy"] = value as bool?; }
+            get => dictionary["HaveHardcopy"] as bool?;
+            set => dictionary["HaveHardcopy"] = value as bool?;
         }
 
         public bool? IsFavourite
         {
-            get { return dictionary["IsFavourite"] as bool?; }
-            set { dictionary["IsFavourite"] = value as bool?; }
-        }        
+            get => dictionary["IsFavourite"] as bool?;
+            set => dictionary["IsFavourite"] = value as bool?;
+        }
 
         public string Rating
         {
-            get { return dictionary["Rating"] as string; }
-            set { dictionary["Rating"] = value as string; }
+            get => dictionary["Rating"] as string;
+            set => dictionary["Rating"] = value as string;
         }
 
         public string Comments
         {
-            get { return dictionary["Comments"] as string; }
-            set { dictionary["Comments"] = value as string; }
+            get => dictionary["Comments"] as string;
+            set => dictionary["Comments"] = value as string;
         }
 
         public string Abstract
@@ -637,9 +616,9 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
                 // Then check if there is an abstract in the bibtex
                 {
-                    BibTexItem item = this.BibTexItem;
+                    BibTexItem item = BibTexItem;
                     if (null != item)
-                    {   
+                    {
                         string abstract_bibtex = item["abstract"];
                         if (!String.IsNullOrEmpty(abstract_bibtex))
                         {
@@ -647,63 +626,57 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
                         }
                     }
                 }
-                
+
                 // Otherwise try get the abstract from the doc itself
                 return PDFAbstractExtraction.GetAbstractForDocument(this);
             }
-            set { dictionary["AbstractOverride"] = value as string; }
+            set => dictionary["AbstractOverride"] = value as string;
         }
 
         public string Bookmarks
         {
-            get { return dictionary["Bookmarks"] as string; }
-            set { dictionary["Bookmarks"] = value as string; }
+            get => dictionary["Bookmarks"] as string;
+            set => dictionary["Bookmarks"] = value as string;
         }
 
         public Color Color
         {
-            get { return dictionary.GetColor("ColorWrapper"); }
-            set { dictionary.SetColor("ColorWrapper", value); }
+            get => dictionary.GetColor("ColorWrapper");
+            set => dictionary.SetColor("ColorWrapper", value);
         }
 
-        public int PageLastRead        
+        public int PageLastRead
         {
-            get { return Convert.ToInt32(dictionary["PageLastRead"] ?? 0); }
-            set { dictionary["PageLastRead"] = value; }
+            get => Convert.ToInt32(dictionary["PageLastRead"] ?? 0);
+            set => dictionary["PageLastRead"] = value;
         }
 
-        public bool Deleted        
+        public bool Deleted
         {
-            get
-            {
-                return (bool)(dictionary["Deleted"] ?? false);
-            }
-            set
-            {
-                dictionary["Deleted"] = value;
-            }
+            get => (bool)(dictionary["Deleted"] ?? false);
+            set => dictionary["Deleted"] = value;
         }
 
         #region --- AutoSuggested ------------------------------------------------------------------------------
 
         public bool AutoSuggested_PDFMetadata
         {
-            get { return (dictionary["AutoSuggested_PDFMetadata"] as bool?) ?? false; }
-            set { dictionary["AutoSuggested_PDFMetadata"] = value; }
+            get => (dictionary["AutoSuggested_PDFMetadata"] as bool?) ?? false;
+            set => dictionary["AutoSuggested_PDFMetadata"] = value;
         }
 
         public bool AutoSuggested_OCRFrontPage
         {
-            get { return (dictionary["AutoSuggested_OCRFrontPage"] as bool?) ?? false; }
-            set { dictionary["AutoSuggested_OCRFrontPage"] = value; }
+            get => (dictionary["AutoSuggested_OCRFrontPage"] as bool?) ?? false;
+            set => dictionary["AutoSuggested_OCRFrontPage"] = value;
         }
 
         public bool AutoSuggested_BibTeXSearch
         {
-            get { return (dictionary["AutoSuggested_BibTeXSearch"] as bool?) ?? false; }
-            set { dictionary["AutoSuggested_BibTeXSearch"] = value; }
+            get => (dictionary["AutoSuggested_BibTeXSearch"] as bool?) ?? false;
+            set => dictionary["AutoSuggested_BibTeXSearch"] = value;
         }
-    
+
         #endregion
 
         #region --- Tags ------------------------------------------------------------------------------
@@ -745,7 +718,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             }
             return false;
         }
-        
+
         public string Tags
         {
             get
@@ -777,67 +750,55 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
                 }
             }
 
-            set 
-            {                 
-                dictionary["Tags"] = value;
-            }
+            set => dictionary["Tags"] = value;
         }
 
         #endregion ----------------------------------------------------------------------------------------------------
 
-        public string DocumentBasePath
-        {
-            get
-            {
-                return PDFDocumentFileLocations.DocumentBasePath(library, Fingerprint);
-            }
-        }
+        public string DocumentBasePath => PDFDocumentFileLocations.DocumentBasePath(library, Fingerprint);
 
         /// <summary>
         /// The location of the PDF on disk.
         /// </summary>
-        public string DocumentPath
-        {
-            get
-            {
-                return PDFDocumentFileLocations.DocumentPath(library, Fingerprint, FileType);
-            }
-        }
+        public string DocumentPath => PDFDocumentFileLocations.DocumentPath(library, Fingerprint, FileType);
 
         [NonSerialized]
-        bool document_exists = false;
+        private bool? document_exists = null;
         public bool DocumentExists
         {
             get
             {
-                if (document_exists) return true;
-                
+                if (document_exists.HasValue) return document_exists.Value;
+
                 document_exists = File.Exists(DocumentPath);
-                return document_exists;
+                return document_exists.Value;
             }
         }
 
-        public bool IsVanillaReference
+        [NonSerialized]
+        private long document_size = 0;
+        public long DocumentSizeInBytes
         {
             get
             {
-                return String.Compare(this.FileType, Constants.VanillaReferenceFileType, StringComparison.OrdinalIgnoreCase) == 0;
+                // When the document does not exist, the size is reported as ZERO.
+                // When we do not know yet whether the document exists, we'll have to go and check and find its size anyhow.
+                if (!DocumentExists) return 0;
+                if (document_size > 0) return document_size;
+
+                document_size = File.GetSize(DocumentPath);
+                return document_size;
             }
         }
+
+        public bool IsVanillaReference => String.Compare(FileType, Constants.VanillaReferenceFileType, StringComparison.OrdinalIgnoreCase) == 0;
 
         #region --- Annotations / highlights / ink ----------------------------------------------------------------------
 
         [NonSerialized]
-        PDFAnnotationList annotations = null;
-        public PDFAnnotationList Annotations
-        {
-            get
-            {
-                return GetAnnotations(null);
-            }
-        }
+        private PDFAnnotationList annotations = null;
 
-        public PDFAnnotationList GetAnnotations(Dictionary<string, byte[]> library_items_annotations_cache)
+        public PDFAnnotationList GetAnnotations(Dictionary<string, byte[]> library_items_annotations_cache = null)
         {
             if (null == annotations)
             {
@@ -887,14 +848,8 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
         //}
 
         [NonSerialized]
-        PDFHightlightList highlights = null;
-        public PDFHightlightList Highlights
-        {
-            get
-            {
-                return GetHighlights(null);
-            }
-        }
+        private PDFHightlightList highlights = null;
+        public PDFHightlightList Highlights => GetHighlights(null);
 
         internal PDFHightlightList GetHighlights(Dictionary<string, byte[]> library_items_highlights_cache)
         {
@@ -937,14 +892,8 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
         //}
 
         [NonSerialized]
-        PDFInkList inks = null;
-        public PDFInkList Inks
-        {
-            get
-            {
-                return GetInks(null);
-            }
-        }
+        private PDFInkList inks = null;
+        public PDFInkList Inks => GetInks(null);
 
         internal PDFInkList GetInks(Dictionary<string, byte[]> library_items_inks_cache)
         {
@@ -981,7 +930,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             return data;
         }
 
-#endregion -------------------------------------------------------------------------------------------------
+        #endregion -------------------------------------------------------------------------------------------------
 
         public void SaveToMetaData()
         {
@@ -1054,7 +1003,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
                 }
                 catch (Exception ex)
                 {
-                    Logging.Error(ex, "There was a problem reloading an existing PDF from existing metadata, so overwriting it!");
+                    Logging.Error(ex, "There was a problem reloading an existing PDF from existing metadata, so overwriting it! (Fingerprint: {0})", pdf_document.Fingerprint);
                     pdf_document.QueueToStorage();
                     //pdf_document.SaveToMetaData();
                 }
@@ -1089,7 +1038,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
                 }
                 catch (Exception ex)
                 {
-                    Logging.Error(ex, "There was a problem reloading an existing PDF from existing metadata, so overwriting it!");
+                    Logging.Error(ex, "There was a problem reloading an existing PDF from existing metadata, so overwriting it! (Fingerprint: {0})", pdf_document.Fingerprint);
                     pdf_document.QueueToStorage();
                 }
             }
@@ -1133,7 +1082,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             dictionary["Year"] = pdf_document_template.dictionary["Year"];
             dictionary["YearSuggested"] = pdf_document_template.dictionary["YearSuggested"];
 
-            annotations = (PDFAnnotationList)pdf_document_template.Annotations.Clone();
+            annotations = (PDFAnnotationList)pdf_document_template.GetAnnotations(null).Clone();
             highlights = (PDFHightlightList)pdf_document_template.Highlights.Clone();
             inks = (PDFInkList)pdf_document_template.Inks.Clone();
         }
@@ -1145,10 +1094,10 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
         {
             //bindable = null;
 
-            Logging.Info("Cloning metadata from {0}", existing_pdf_document.Title);
+            Logging.Info("Cloning metadata from {0}: {1}", existing_pdf_document.Fingerprint, existing_pdf_document.TitleCombined);
 
             //dictionary = (DictionaryBasedObject)existing_pdf_document.dictionary.Clone();
-            this.CopyMetaData(existing_pdf_document);
+            CopyMetaData(existing_pdf_document);
 
 #if false
             // Copy the citations
@@ -1189,7 +1138,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
         internal PDFAnnotation GetAnnotationByGuid(Guid guid)
         {
-            foreach (PDFAnnotation pdf_annotation in Annotations)
+            foreach (PDFAnnotation pdf_annotation in GetAnnotations(null))
             {
                 if (pdf_annotation.Guid == guid)
                 {
@@ -1232,19 +1181,13 @@ namespace Qiqqa.Documents.PDF
     {
     }
 
-    public class PDFDocument 
+    public class PDFDocument
     {
         private LockObject access_lock;
 
         private ThreadUnsafe.PDFDocument_ThreadUnsafe doc;
 
-        public Library Library
-        {
-            get
-            {
-                return doc.Library;
-            }
-        }
+        public Library Library => doc.Library;
 
         public string GetAttributesAsJSON()
         {
@@ -1321,7 +1264,7 @@ namespace Qiqqa.Documents.PDF
         // TODO: has a cyclic link in the GC to PDFDocument due to PDFDocument being referenced as member of this bindable:
         // PDFDocument -> Bindable -> AugmentedBindable<PDFDocument> -> Underlying -> PDFDocument
         [NonSerialized]
-        AugmentedBindable<PDFDocument> bindable = null;
+        private AugmentedBindable<PDFDocument> bindable = null;
         public AugmentedBindable<PDFDocument> Bindable
         {
             get
@@ -1339,12 +1282,12 @@ namespace Qiqqa.Documents.PDF
             }
         }
 
-        void bindable_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void bindable_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             QueueToStorage();
-            this.Library.LibraryIndex.ReIndexDocument(this);
+            Library.LibraryIndex.ReIndexDocument(this);
         }
-        
+
         public string Fingerprint
         {
             get
@@ -1354,11 +1297,13 @@ namespace Qiqqa.Documents.PDF
                     return doc.Fingerprint;
                 }
             }
-             protected set {
+            protected set
+            {
                 lock (access_lock)
                 {
                     doc.Fingerprint = value;
-                                    } }
+                }
+            }
         }
 
         /// <summary>
@@ -1495,6 +1440,9 @@ namespace Qiqqa.Documents.PDF
                 }
             }
         }
+
+        public string TitleCombinedTrimmed => StringTools.TrimToLengthWithEllipsis(TitleCombined, 200);
+
         /// <summary>
         /// Is true if the user made this title by hand (e.g. typed it in or got some BibTeX)
         /// </summary>
@@ -1571,6 +1519,8 @@ namespace Qiqqa.Documents.PDF
                 }
             }
         }
+
+        public string AuthorsCombinedTrimmed => StringTools.TrimToLengthWithEllipsis(AuthorsCombined, 150);
 
         public string Year
         {
@@ -1668,6 +1618,8 @@ namespace Qiqqa.Documents.PDF
                 }
             }
         }
+
+        public string PublicationTrimmed => StringTools.TrimToLengthWithEllipsis(Publication, 100);
 
         public string Id
         {
@@ -1958,7 +1910,7 @@ namespace Qiqqa.Documents.PDF
             }
         }
 
-#region --- AutoSuggested ------------------------------------------------------------------------------
+        #region --- AutoSuggested ------------------------------------------------------------------------------
 
         public bool AutoSuggested_PDFMetadata
         {
@@ -2068,7 +2020,7 @@ namespace Qiqqa.Documents.PDF
             }
         }
 
-#endregion ----------------------------------------------------------------------------------------------------
+        #endregion ----------------------------------------------------------------------------------------------------
 
         public string DocumentBasePath
         {
@@ -2106,6 +2058,17 @@ namespace Qiqqa.Documents.PDF
             }
         }
 
+        public long DocumentSizeInBytes
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.DocumentSizeInBytes;
+                }
+            }
+        }
+
         public bool IsVanillaReference
         {
             get
@@ -2117,20 +2080,9 @@ namespace Qiqqa.Documents.PDF
             }
         }
 
-#region --- Annotations / highlights / ink ----------------------------------------------------------------------
+        #region --- Annotations / highlights / ink ----------------------------------------------------------------------
 
-        public PDFAnnotationList Annotations
-        {
-            get
-            {
-                lock (access_lock)
-                {
-                    return doc.Annotations;
-                }
-            }
-        }
-
-        public PDFAnnotationList GetAnnotations(Dictionary<string, byte[]> library_items_annotations_cache)
+        public PDFAnnotationList GetAnnotations(Dictionary<string, byte[]> library_items_annotations_cache = null)
         {
             PDFAnnotationList annotations;
 
@@ -2144,10 +2096,10 @@ namespace Qiqqa.Documents.PDF
             return annotations;
         }
 
-        void annotations_OnPDFAnnotationListChanged()
+        private void annotations_OnPDFAnnotationListChanged()
         {
             QueueToStorage();
-            this.Library.LibraryIndex.ReIndexDocument(this);
+            Library.LibraryIndex.ReIndexDocument(this);
         }
 
         public string GetAnnotationsAsJSON()
@@ -2187,10 +2139,11 @@ namespace Qiqqa.Documents.PDF
 
             return highlights;
         }
-        void highlights_OnPDFHighlightListChanged()
+
+        private void highlights_OnPDFHighlightListChanged()
         {
             QueueToStorage();
-            this.Library.LibraryIndex.ReIndexDocument(this);
+            Library.LibraryIndex.ReIndexDocument(this);
         }
 
         public string GetHighlightsAsJSON()
@@ -2226,11 +2179,11 @@ namespace Qiqqa.Documents.PDF
             return inks;
         }
 
-        void inks_OnPDFInkListChanged()
+        private void inks_OnPDFInkListChanged()
         {
             Logging.Info("Document has changed inks");
             QueueToStorage();
-            this.Library.LibraryIndex.ReIndexDocument(this);
+            Library.LibraryIndex.ReIndexDocument(this);
         }
 
         public byte[] GetInksAsJSON()
@@ -2246,7 +2199,7 @@ namespace Qiqqa.Documents.PDF
         #region --- Managers ----------------------------------------------------------------------
 
         [NonSerialized]
-        PDFDocumentCitationManager _pdf_document_citation_manager = null;
+        private PDFDocumentCitationManager _pdf_document_citation_manager = null;
         public PDFDocumentCitationManager PDFDocumentCitationManager
         {
             get
@@ -2284,7 +2237,7 @@ namespace Qiqqa.Documents.PDF
             DictionaryBasedObject dictionary = PDFMetadataSerializer.ReadFromStream(data);
             LockObject _lock = new LockObject();
             PDFDocument pdf_document = new PDFDocument(_lock, library, dictionary);
-			// thread-UNSAFE access is permitted as the PDF has just been created so there's no thread-safety risk yet.
+            // thread-UNSAFE access is permitted as the PDF has just been created so there's no thread-safety risk yet.
             pdf_document.doc.GetAnnotations(library_items_annotations_cache);
             return pdf_document;
         }
@@ -2301,8 +2254,8 @@ namespace Qiqqa.Documents.PDF
             PDFDocument pdf_document = new PDFDocument(_lock, library);
 
             // Store the most important information
-			//
-			// thread-UNSAFE access is permitted as the PDF has just been created so there's no thread-safety risk yet.
+            //
+            // thread-UNSAFE access is permitted as the PDF has just been created so there's no thread-safety risk yet.
             pdf_document.doc.FileType = Path.GetExtension(filename).TrimStart('.');
             pdf_document.doc.Fingerprint = fingerprint;
             pdf_document.doc.DateAddedToDatabase = DateTime.UtcNow;
@@ -2343,8 +2296,8 @@ namespace Qiqqa.Documents.PDF
             PDFDocument pdf_document = new PDFDocument(_lock, library);
 
             // Store the most important information
-			//
-			// thread-UNSAFE access is permitted as the PDF has just been created so there's no thread-safety risk yet.
+            //
+            // thread-UNSAFE access is permitted as the PDF has just been created so there's no thread-safety risk yet.
             pdf_document.FileType = Constants.VanillaReferenceFileType;
             pdf_document.Fingerprint = VanillaReferenceCreating.CreateVanillaReferenceFingerprint();
             pdf_document.DateAddedToDatabase = DateTime.UtcNow;
@@ -2404,7 +2357,7 @@ namespace Qiqqa.Documents.PDF
 
                         doc.CloneMetaData(existing_pdf_document.doc);
 
-                        doc.Annotations.OnPDFAnnotationListChanged += annotations_OnPDFAnnotationListChanged;
+                        doc.GetAnnotations().OnPDFAnnotationListChanged += annotations_OnPDFAnnotationListChanged;
                         doc.Highlights.OnPDFHighlightListChanged += highlights_OnPDFHighlightListChanged;
                         doc.Inks.OnPDFInkListChanged += inks_OnPDFInkListChanged;
 
@@ -2470,7 +2423,7 @@ namespace Qiqqa.Documents.PDF
                     new_pdf_document.QueueToStorage();
 
                     // Delete this one
-                    this.Deleted = true;
+                    Deleted = true;
                     QueueToStorage();
 
                     // Tell library to refresh

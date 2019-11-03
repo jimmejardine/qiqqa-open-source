@@ -13,7 +13,7 @@ using Utilities.Misc;
 
 namespace Qiqqa.Exporting
 {
-    class Word2007Export
+    internal class Word2007Export
     {
         internal static void Export(List<PDFDocument> pdf_documents)
         {

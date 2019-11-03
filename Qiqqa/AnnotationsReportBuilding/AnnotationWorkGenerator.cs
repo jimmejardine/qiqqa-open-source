@@ -1,17 +1,15 @@
-﻿using Qiqqa.Common.TagManagement;
-using Qiqqa.DocumentLibrary;
-using Qiqqa.Documents.PDF;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using Qiqqa.Common.TagManagement;
+using Qiqqa.DocumentLibrary;
+using Qiqqa.Documents.PDF;
 using Utilities.Misc;
 
 namespace Qiqqa.AnnotationsReportBuilding
 {
-    class AnnotationWorkGenerator
+    internal class AnnotationWorkGenerator
     {
         public class AnnotationWork
         {
@@ -53,7 +51,7 @@ namespace Qiqqa.AnnotationsReportBuilding
                 }
 
                 List<PDFAnnotation> pdf_annotations = new List<PDFAnnotation>();
-                pdf_annotations.AddRange(pdf_document.Annotations);
+                pdf_annotations.AddRange(pdf_document.GetAnnotations());
                 if (library_items_highlights_cache.ContainsKey(pdf_document.Fingerprint))
                 {
                     pdf_annotations.AddRange(HighlightToAnnotationGenerator.GenerateAnnotations(pdf_document, library_items_highlights_cache));

@@ -25,14 +25,14 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
             HyperlinkRestore.Click += HyperlinkRestore_Click;
 
-            this.DataContextChanged += DocumentMetadataControlsPanel_DataContextChanged;
+            DataContextChanged += DocumentMetadataControlsPanel_DataContextChanged;
 
             ObjTweetBar.Visibility = Visibility.Visible;
 
             ReevaluateDataContext();
         }
 
-        void HyperlinkRestore_Click(object sender, RoutedEventArgs e)
+        private void HyperlinkRestore_Click(object sender, RoutedEventArgs e)
         {
             AugmentedBindable<PDFDocument> pdf_document_bindable = DataContext as AugmentedBindable<PDFDocument>;
             if (null != pdf_document_bindable)
@@ -44,7 +44,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             e.Handled = true;
         }
 
-        void DocumentMetadataControlsPanel_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void DocumentMetadataControlsPanel_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             ReevaluateDataContext();
         }
@@ -68,21 +68,24 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                         have_pdf_to_render = true;
                     }
                 }
-                
+
                 TxtNullDataContext.Visibility = Visibility.Collapsed;
                 ObjDocumentInfo.Visibility = Visibility.Visible;
-                if (!have_pdf_to_render) ObjAbstract.Expand();
-                this.IsEnabled = true;
+                if (!have_pdf_to_render)
+                {
+                    ObjAbstract.Expand();
+                }
+                IsEnabled = true;
             }
             else
             {
                 TxtNullDataContext.Visibility = Visibility.Visible;
                 ObjDocumentInfo.Visibility = Visibility.Collapsed;
-                this.IsEnabled = false;
+                IsEnabled = false;
             }
         }
 
-        void pdf_renderer_control_SelectedPageChanged(int page)
+        private void pdf_renderer_control_SelectedPageChanged(int page)
         {
             SelectedPageChanged?.Invoke(page);
         }

@@ -12,9 +12,9 @@
 
         <local_gui:AugmentedPadder DockPanel.Dock="Bottom">
             <DockPanel HorizontalAlignment="Right">
-              <local_gui:AugmentedButton Name="CloseButton" Click="CloseButton_OnClick" MinWidth="20" MinHeight="20"  />
+                <local_gui:AugmentedButton Name="CloseButton" Click="CloseButton_OnClick" MinHeight="20" />
               <local_gui:AugmentedSpacer />
-              <local_gui:AugmentedButton Name="DownloadButton" Click="DownloadButton_Click" MinWidth="20"  />
+                <local_gui:AugmentedButton Name="DownloadButton" Click="DownloadButton_Click" MinHeight="20" />
             </DockPanel>
         </local_gui:AugmentedPadder>
         

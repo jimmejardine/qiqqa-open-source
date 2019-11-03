@@ -6,7 +6,7 @@ using Utilities.Strings;
 
 namespace Qiqqa.Documents.PDF.Search
 {
-    public class PDFSearcher
+    public static class PDFSearcher
     {
         public static PDFSearchResultSet Search(PDFDocument pdf_document, string terms)
         {
@@ -27,7 +27,7 @@ namespace Qiqqa.Documents.PDF.Search
         {
             return Search(pdf_document, page, terms, PDFSearcher.MATCH_CONTAINS);
         }
-        
+
         public static PDFSearchResultSet Search(PDFDocument pdf_document, int page, string terms, MatchDelegate match)
         {
             PDFSearchResultSet search_result_set = new PDFSearchResultSet();
@@ -35,18 +35,18 @@ namespace Qiqqa.Documents.PDF.Search
             if (pdf_document.DocumentExists)
             {
                 search_result_set[page] = SearchPage(pdf_document, page, terms, match);
-            }   
+            }
 
             return search_result_set;
         }
 
         public delegate bool MatchDelegate(string target, string keyword);
         public static bool MATCH_EXACT(string target, string keyword)
-        {            
+        {
             return (0 == target.CompareTo(keyword));
         }
         public static bool MATCH_CONTAINS(string target, string keyword)
-        {            
+        {
             return target.Contains(keyword);
         }
 
@@ -78,7 +78,7 @@ namespace Qiqqa.Documents.PDF.Search
 
             // Add the annotations
             {
-                foreach (var pdf_annotation in pdf_document.Annotations)
+                foreach (var pdf_annotation in pdf_document.GetAnnotations())
                 {
                     if (page == pdf_annotation.Page)
                     {
@@ -121,7 +121,7 @@ namespace Qiqqa.Documents.PDF.Search
                     for (int i = 0; i < split_keywords.Length; ++i)
                     {
                         // Don't process single keywords that are too short
-                        if (1 == split_keywords[i].Length && 2 > split_keywords[i][0].Length)
+                        if (2 > split_keywords[i][0].Length)
                         {
                             continue;
                         }

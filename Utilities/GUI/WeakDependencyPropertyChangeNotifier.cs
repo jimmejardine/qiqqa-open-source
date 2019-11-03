@@ -27,7 +27,7 @@ namespace Utilities.GUI
                 throw new ArgumentNullException("property");
             }
 
-            this._propertySource = new WeakReference(propertySource);
+            _propertySource = new WeakReference(propertySource);
 
             Binding binding = new Binding();
             binding.Path = property;
@@ -49,32 +49,34 @@ namespace Utilities.GUI
             GC.SuppressFinalize(this);
         }
 
-#if DIAG
         private int dispose_count = 0;
-#endif
-        private void Dispose(bool disposing)
+        protected /*virtual*/ void Dispose(bool disposing)    // sealed class doesn't allow 'virtual'
         {
-#if DIAG
-            Logging.Debug("WeakDependencyPropertyChangeNotifier::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
-#endif
-            if (disposing)
+            Logging.Debug("WeakDependencyPropertyChangeNotifier::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
             {
-                BindingOperations.ClearBinding(this, ValueProperty);
+                WPFDoEvents.InvokeInUIThread(() =>
+                {
+                    BindingOperations.ClearBinding(this, ValueProperty);
+                });
             }
 
-            // Get rid of unmanaged resources 
+            _propertySource = null;
+
+            ++dispose_count;
         }
 
-#endregion --- Lifetime management -----------------------------------------------------------------------
+        #endregion --- Lifetime management -----------------------------------------------------------------------
 
-#region --- Properties -----------------------------------------------------------------------
+        #region --- Properties -----------------------------------------------------------------------
 
         private WeakReference _propertySource;
         public DependencyObject PropertySource
         {
             get
             {
-                DependencyObject target = this._propertySource.Target as DependencyObject;
+                DependencyObject target = _propertySource.Target as DependencyObject;
                 return target;
             }
         }
@@ -82,20 +84,17 @@ namespace Utilities.GUI
         public static readonly DependencyProperty ValueProperty = DependencyProperty.Register("Value", typeof(object), typeof(WeakDependencyPropertyChangeNotifier), new FrameworkPropertyMetadata(null, OnValuePropertyChanged));
         public object Value
         {
-            get { return (object)GetValue(ValueProperty); }
-            set { SetValue(ValueProperty, value); }
+            get => (object)GetValue(ValueProperty);
+            set => SetValue(ValueProperty, value);
         }
 
         private static void OnValuePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             WeakDependencyPropertyChangeNotifier notifier = (WeakDependencyPropertyChangeNotifier)d;
 
-            if (null != notifier.ValueChanged)
-            {
-                notifier.ValueChanged(notifier.PropertySource, EventArgs.Empty);
-            }
+            notifier.ValueChanged?.Invoke(notifier.PropertySource, EventArgs.Empty);
         }
 
-#endregion --- Properties -----------------------------------------------------------------------
+        #endregion --- Properties -----------------------------------------------------------------------
     }
 }

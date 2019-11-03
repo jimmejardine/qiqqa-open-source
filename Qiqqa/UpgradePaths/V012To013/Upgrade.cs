@@ -1,13 +1,13 @@
 ﻿using System;
-using System.IO;
 using Utilities;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.UpgradePaths.V012To013
 {
-    class Upgrade
+    internal class Upgrade
     {
         internal static void RunUpgrade()
         {
@@ -25,13 +25,13 @@ namespace Qiqqa.UpgradePaths.V012To013
             // First make sure that the Quantisle directory is available in the local profile directory
             if (!Directory.Exists(folder_local_quantisle))
             {
-                Directory.CreateDirectory(folder_local_quantisle);            
+                Directory.CreateDirectory(folder_local_quantisle);
             }
 
             // Output some useful stats
             if (Directory.Exists(folder_roaming_qiqqa)) Logging.Info("Roaming Qiqqa directory exists");
             if (Directory.Exists(folder_local_qiqqa)) Logging.Info("Local Qiqqa directory exists");
-            
+
             // If a roaming Qiqqa directory exists, move it to the local directory
             if (Directory.Exists(folder_roaming_qiqqa) && !Directory.Exists(folder_local_qiqqa))
             {

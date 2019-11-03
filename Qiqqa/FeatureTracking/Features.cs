@@ -1,6 +1,6 @@
 ﻿namespace Qiqqa.UtilisationTracking
 {
-    public class Features
+    public static class Features
     {
         public static readonly Feature App_Open = new Feature { Name = "App_Open", Description = "Open Qiqqa" };
         public static readonly Feature App_Close = new Feature { Name = "App_Close", Description = "Close Qiqqa" };
@@ -12,7 +12,7 @@
         public static readonly Feature Framework_OpenGenericControl = new Feature { Name = "Framework_OpenGenericControl", Description = "" };
 
         public static readonly Feature Document_Open = new Feature { Name = "Document_Open", Description = "Open a PDF" };
-        public static readonly Feature Document_Save = new Feature { Name = "Document_Save", Description = "Open a PDF" };        
+        public static readonly Feature Document_Save = new Feature { Name = "Document_Save", Description = "Open a PDF" };
         public static readonly Feature Document_Print = new Feature { Name = "Document_Print", Description = "Print a PDF" };
         public static readonly Feature Document_JumpToSection = new Feature { Name = "Document_JumpToSection", Description = "" };
         public static readonly Feature Document_AddTag = new Feature { Name = "Document_AddTag", Description = "" };
@@ -73,7 +73,7 @@
         public static readonly Feature Library_LinkedDocsAnnotationReport = new Feature { Name = "Library_LinkedDocsAnnotationReport", Description = "" };
         public static readonly Feature Library_AnnotationReport = new Feature { Name = "Library_AnnotationReport", Description = "" };
         public static readonly Feature Library_ExploreInBrainstorm = new Feature { Name = "Library_ExploreInBrainstorm", Description = "" };
-        public static readonly Feature Library_ExploreInPivot = new Feature { Name = "Library_ExploreInPivot", Description = "" };        
+        public static readonly Feature Library_ExploreInPivot = new Feature { Name = "Library_ExploreInPivot", Description = "" };
         public static readonly Feature Library_Search = new Feature { Name = "Library_Search", Description = "" };
         public static readonly Feature Library_BibTexExport = new Feature { Name = "Library_BibTexExport", Description = "" };
         public static readonly Feature Library_Word2007Export = new Feature { Name = "Library_Word2007Export", Description = "" };
@@ -127,7 +127,7 @@
         public static readonly Feature Sync_Stats = new Feature { Name = "Sync_Stats", Description = "" };
         public static readonly Feature Sync_SyncMetadata = new Feature { Name = "Sync_SyncMetadata", Description = "" };
         public static readonly Feature Sync_SyncMetadataAndPDFs = new Feature { Name = "Sync_SyncMetadataAndPDFs", Description = "" };
-        public static readonly Feature Sync_SyncDetails = new Feature { Name = "Sync_SyncDetails", Description = "" };        
+        public static readonly Feature Sync_SyncDetails = new Feature { Name = "Sync_SyncDetails", Description = "" };
         public static readonly Feature Sync_SyncUploadSinglePDF = new Feature { Name = "Sync_SyncUploadSinglePDF", Description = "" };
         public static readonly Feature Sync_SyncDownloadSinglePDF = new Feature { Name = "Sync_SyncDownloadSinglePDF", Description = "" };
 
@@ -177,7 +177,7 @@
         public static readonly Feature Legacy_DocumentTagsList = new Feature { Name = "Legacy_DocumentTagsList", Description = "", RecordOnlyOncePerSession = true };
 
         public static readonly Feature Diagnostics_DropBox = new Feature { Name = "Diagnostics_DropBox", Description = "", RecordOnlyOncePerSession = true };
-        
+
         public static readonly Feature Premium_Force = new Feature { Name = "Premium_Force", Description = "", RecordOnlyOncePerSession = true };
         public static readonly Feature Premium_Inquiry = new Feature { Name = "Premium_Inquiry", Description = "" };
 

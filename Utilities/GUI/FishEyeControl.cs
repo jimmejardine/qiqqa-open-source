@@ -48,8 +48,8 @@ namespace Utilities.GUI
 
         public int AnimationMilliseconds
         {
-            get { return (int)GetValue(AnimationMillisecondsProperty); }
-            set { SetValue(AnimationMillisecondsProperty, value); }
+            get => (int)GetValue(AnimationMillisecondsProperty);
+            set => SetValue(AnimationMillisecondsProperty, value);
         }
 
         #endregion
@@ -59,7 +59,9 @@ namespace Utilities.GUI
         protected override Size ArrangeOverride(Size arrangeSize)
         {
             if (Children == null || Children.Count == 0)
+            {
                 return arrangeSize;
+            }
 
             var children = Children;
             var finalRect = new Rect(arrangeSize);
@@ -195,17 +197,29 @@ namespace Utilities.GUI
             for (var i = 0; i < Children.Count; i++)
             {
                 if (i == selectedElement - 2)
+                {
                     AnimateTo(Children[i], 1.25, (_elementWidth * 1.5), AnimationMilliseconds);
+                }
                 else if (i == selectedElement - 1)
+                {
                     AnimateTo(Children[i], 1.5, (_elementWidth * 2.0), AnimationMilliseconds);
+                }
                 else if (i == selectedElement)
+                {
                     AnimateTo(Children[i], 2, (_elementWidth * 2.5), AnimationMilliseconds);
+                }
                 else if (i == selectedElement + 1)
+                {
                     AnimateTo(Children[i], 1.5, (_elementWidth * 2.0), AnimationMilliseconds);
+                }
                 else if (i == selectedElement + 2)
+                {
                     AnimateTo(Children[i], 1.25, (_elementWidth * 1.5), AnimationMilliseconds);
+                }
                 else
+                {
                     AnimateTo(Children[i], 1, _elementWidth, AnimationMilliseconds);
+                }
             }
         }
 

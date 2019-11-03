@@ -47,13 +47,7 @@ namespace Utilities.Language
             /// Returns 
             ///     Jardine JG
             /// </summary>
-            public string LastName_Initials
-            {
-                get
-                {
-                    return (last_name + " " + Initials).Trim();
-                }
-            }
+            public string LastName_Initials => (last_name + " " + Initials).Trim();
 
             public static readonly Name UNKNOWN_NAME = new Name { last_name = "UNKNOWN", first_names = "" };
         }

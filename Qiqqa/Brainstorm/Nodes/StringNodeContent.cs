@@ -14,8 +14,8 @@ namespace Qiqqa.Brainstorm.Nodes
         private string text;
         public string Text
         {
-            get {  return text; }
-            set { text = value; }
+            get => text;
+            set => text = value;
         }
 
         public StringNodeContent()
@@ -33,7 +33,7 @@ namespace Qiqqa.Brainstorm.Nodes
         }
 
         [NonSerialized]
-        AugmentedBindable<StringNodeContent> bindable = null;
+        private AugmentedBindable<StringNodeContent> bindable = null;
         public AugmentedBindable<StringNodeContent> Bindable
         {
             get

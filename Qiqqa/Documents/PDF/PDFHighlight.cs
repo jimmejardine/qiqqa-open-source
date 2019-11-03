@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Reflection;
 using Newtonsoft.Json;
 using ProtoBuf;
 using Utilities.OCR;
 
 namespace Qiqqa.Documents.PDF
-{    
-    [ProtoContract]    
+{
+    [ProtoContract]
     public class PDFHighlight : ICloneable
     {
         [ProtoMember(1)]
@@ -39,37 +38,25 @@ namespace Qiqqa.Documents.PDF
 
         public PDFHighlight(int page, Word word, int colourNumber)
         {
-            this.Page = page;
+            Page = page;
 
-            this.Left = word.Left;
-            this.Top = word.Top;
-            this.Width = word.Width;
-            this.Height = word.Height;
+            Left = word.Left;
+            Top = word.Top;
+            Width = word.Width;
+            Height = word.Height;
 
-            this.Color = colourNumber;
+            Color = colourNumber;
         }
 
         [JsonIgnore]
-        public double Right
-        {
-            get
-            {
-                return Left + Width;
-            }
-        }
+        public double Right => Left + Width;
 
         [JsonIgnore]
-        public double Bottom
-        {
-            get
-            {
-                return Top + Height;
-            }
-        }
+        public double Bottom => Top + Height;
 
         public bool Contains(int page, double left, double top)
         {
-            return (this.Page == page && left >= Left && left <= Right && top >= Top && top <= Bottom);
+            return (Page == page && left >= Left && left <= Right && top >= Top && top <= Bottom);
         }
 
         public override bool Equals(object obj)
@@ -78,22 +65,22 @@ namespace Qiqqa.Documents.PDF
             if (null == other) return false;
 
             return true
-                && this.Page == other.Page
-                && this.Left == other.Left
-                && this.Top == other.Top
-                && this.Width == other.Width
-                && this.Height == other.Height
+                && Page == other.Page
+                && Left == other.Left
+                && Top == other.Top
+                && Width == other.Width
+                && Height == other.Height
                 ;
         }
 
         public override int GetHashCode()
-        {            
+        {
             int hash = 23;
-            hash = hash * 37 + this.Page.GetHashCode();
-            hash = hash * 37 + this.Left.GetHashCode();
-            hash = hash * 37 + this.Top.GetHashCode();
-            hash = hash * 37 + this.Width.GetHashCode();
-            hash = hash * 37 + this.Height.GetHashCode();
+            hash = hash * 37 + Page.GetHashCode();
+            hash = hash * 37 + Left.GetHashCode();
+            hash = hash * 37 + Top.GetHashCode();
+            hash = hash * 37 + Width.GetHashCode();
+            hash = hash * 37 + Height.GetHashCode();
             return hash;
         }
 

@@ -18,8 +18,7 @@ namespace Qiqqa.Synchronisation.GUI
     public partial class SyncControl : StandardWindow
     {
         public static readonly string TITLE = "Web Library Sync";
-
-        SyncControlGridItemSet sync_control_grid_item_set;        
+        private SyncControlGridItemSet sync_control_grid_item_set;
 
         public SyncControl()
         {
@@ -27,13 +26,13 @@ namespace Qiqqa.Synchronisation.GUI
 
             InitializeComponent();
 
-            this.DataContext = ConfigurationManager.Instance.ConfigurationRecord_Bindable;
+            DataContext = ConfigurationManager.Instance.ConfigurationRecord_Bindable;
 
             MouseWheelDisabler.DisableMouseWheelForControl(GridLibraryGrid);
 
-            this.Title = TITLE;
-            this.Closing += SyncControl_Closing;
-            this.KeyUp += SyncControl_KeyUp;
+            Title = TITLE;
+            Closing += SyncControl_Closing;
+            KeyUp += SyncControl_KeyUp;
 
             ButtonSyncMetadata.Icon = Icons.GetAppIcon(Icons.SyncWithCloud);
             ButtonSyncDocuments.Icon = Icons.GetAppIcon(Icons.SyncPDFsWithCloud);
@@ -50,15 +49,16 @@ namespace Qiqqa.Synchronisation.GUI
 
             IsVisibleChanged += SyncControl_IsVisibleChanged;
         }
-        
-        void GRIDCHECKBOX_Checked(object sender, RoutedEventArgs e)
+
+        private void GRIDCHECKBOX_Checked(object sender, RoutedEventArgs e)
         {
             // THIS HACK IS NEEDED BECAUSE I DONT KNOW HOW TO GET THE CHECKBOX TO UPDATE ITS BINDINGS NICELY WITH A SINGLE CLICK :-(
             CheckBox cb = (CheckBox)sender;
-            var a = cb.DataContext; cb.BindingGroup.CommitEdit();            
+            var a = cb.DataContext;
+            cb.BindingGroup.CommitEdit();
         }
 
-        void SyncControl_KeyUp(object sender, KeyEventArgs e)
+        private void SyncControl_KeyUp(object sender, KeyEventArgs e)
         {
             switch (e.Key)
             {
@@ -77,7 +77,7 @@ namespace Qiqqa.Synchronisation.GUI
             }
         }
 
-        void SyncControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void SyncControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             // The guest area
             if (!ConfigurationManager.Instance.IsGuest)
@@ -86,39 +86,39 @@ namespace Qiqqa.Synchronisation.GUI
             }
         }
 
-        void HyperlinkPremium_Click(object sender, RoutedEventArgs e)
+        private void HyperlinkPremium_Click(object sender, RoutedEventArgs e)
         {
             WebsiteAccess.OpenWebsite(WebsiteAccess.GetPremiumUrl("SYNC_INSTRUCTIONS"));
         }
-        
-        void HyperlinkPremiumPlus_Click(object sender, RoutedEventArgs e)
+
+        private void HyperlinkPremiumPlus_Click(object sender, RoutedEventArgs e)
         {
             WebsiteAccess.OpenWebsite(WebsiteAccess.GetPremiumPlusUrl("SYNC_INSTRUCTIONS"));
         }
 
-        void SyncControl_Closing(object sender, CancelEventArgs e)
+        private void SyncControl_Closing(object sender, CancelEventArgs e)
         {
             e.Cancel = true;
-            this.Visibility = Visibility.Collapsed;
+            Visibility = Visibility.Collapsed;
         }
 
-        void ButtonSync_Click(object sender, RoutedEventArgs e)
+        private void ButtonSync_Click(object sender, RoutedEventArgs e)
         {
             LibrarySyncManager.Instance.Sync(sync_control_grid_item_set);
             if (!KeyboardTools.IsCTRLDown())
             {
-                this.Close();
+                Close();
             }
         }
 
-        void ButtonRefresh_Click(object sender, RoutedEventArgs e)
+        private void ButtonRefresh_Click(object sender, RoutedEventArgs e)
         {
             LibrarySyncManager.Instance.RefreshSyncControl(sync_control_grid_item_set, this);
         }
 
-        void ButtonCancel_Click(object sender, RoutedEventArgs e)
+        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         internal void SetSyncParameters(SyncControlGridItemSet sync_control_grid_item_set)
@@ -133,6 +133,30 @@ namespace Qiqqa.Synchronisation.GUI
             {
                 // Populate the grid
                 GridLibraryGrid.ItemsSource = sync_control_grid_item_set.grid_items;
+            }
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+
+            // base.OnClosed() invokes this class' Closed() code, so we flipped the order of exec to reduce the number of surprises for yours truly.
+            // This NULLing stuff is really the last rites of Dispose()-like so we stick it at the end here.
+
+            try
+            {
+                sync_control_grid_item_set = null;
+
+                DataContext = null;
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
             }
         }
     }

@@ -18,9 +18,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             //ObjAuthors.OnClick += new ObjAuthors.OnClickDelegate(TextLabelAuthors_OnClick);
         }
 
-        void TextLabelTitle_OnClick(object sender, MouseButtonEventArgs e)
+        private void TextLabelTitle_OnClick(object sender, MouseButtonEventArgs e)
         {
-            AugmentedBindable<PDFDocument> pdf_document_bindable = this.DataContext as AugmentedBindable<PDFDocument>;
+            AugmentedBindable<PDFDocument> pdf_document_bindable = DataContext as AugmentedBindable<PDFDocument>;
             if (null != pdf_document_bindable)
             {
                 MainWindowServiceDispatcher.Instance.SearchWeb(pdf_document_bindable.Underlying.TitleCombined);
@@ -28,9 +28,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             }
         }
 
-        void TextLabelAuthors_OnClick(object sender, MouseButtonEventArgs e)
+        private void TextLabelAuthors_OnClick(object sender, MouseButtonEventArgs e)
         {
-            AugmentedBindable<PDFDocument> pdf_document_bindable = this.DataContext as AugmentedBindable<PDFDocument>;
+            AugmentedBindable<PDFDocument> pdf_document_bindable = DataContext as AugmentedBindable<PDFDocument>;
             if (null != pdf_document_bindable)
             {
                 MainWindowServiceDispatcher.Instance.SearchWeb(pdf_document_bindable.Underlying.AuthorsCombined);

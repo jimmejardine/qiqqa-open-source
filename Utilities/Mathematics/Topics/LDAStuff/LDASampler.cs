@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using Utilities.Files;
 using Utilities.Random;
 
 namespace Utilities.Mathematics.Topics.LDAStuff
@@ -30,25 +29,13 @@ namespace Utilities.Mathematics.Topics.LDAStuff
         internal float[] number_of_times_a_topic_has_any_word; // [topic]
 
         internal int total_iterations;
-        double[] probability_working_buffer; // [topic]
+        private double[] probability_working_buffer; // [topic]
 
         #endregion -------------------------------------------------------------------------------------------------------------------------------------
 
-        public int NumTopics
-        {
-            get
-            {
-                return NUM_TOPICS;
-            }
-        }
+        public int NumTopics => NUM_TOPICS;
 
-        public int NumDocs
-        {
-            get
-            {
-                return NUM_DOCS;
-            }
-        }
+        public int NumDocs => NUM_DOCS;
 
         public LDASampler(double alpha, double beta, int num_topics, int num_words, int num_docs, int[][] WORDS_IN_DOCS /* jagged array [doc][word] */) :
             this(alpha, beta, num_topics, num_words, num_docs, WORDS_IN_DOCS, true)
@@ -57,12 +44,12 @@ namespace Utilities.Mathematics.Topics.LDAStuff
 
         public LDASampler(double alpha, double beta, int num_topics, int num_words, int num_docs, int[][] WORDS_IN_DOCS /* jagged array [doc][word] */, bool initialise_initial_distribution)
         {
-            this.ALPHA = alpha;
-            this.BETA = beta;
+            ALPHA = alpha;
+            BETA = beta;
 
-            this.NUM_TOPICS = num_topics;
-            this.NUM_WORDS = num_words;
-            this.NUM_DOCS = num_docs;
+            NUM_TOPICS = num_topics;
+            NUM_WORDS = num_words;
+            NUM_DOCS = num_docs;
 
             this.WORDS_IN_DOCS = WORDS_IN_DOCS;
 
@@ -74,7 +61,7 @@ namespace Utilities.Mathematics.Topics.LDAStuff
             }
         }
 
-        void AllocateMemoryStructures()
+        private void AllocateMemoryStructures()
         {
             // Make space for the distributions
             number_of_times_doc_has_a_specific_topic = new float[NUM_DOCS, NUM_TOPICS];
@@ -92,7 +79,7 @@ namespace Utilities.Mathematics.Topics.LDAStuff
             probability_working_buffer = new double[NUM_TOPICS];
         }
 
-        void GenerateRandomInitialDistributions()
+        private void GenerateRandomInitialDistributions()
         {
             Logging.Info("+Assigning every word in every document to a random topic");
 
@@ -103,7 +90,7 @@ namespace Utilities.Mathematics.Topics.LDAStuff
                 for (int topic = 0; topic < NUM_TOPICS; ++topic)
                 {
                     number_of_times_doc_has_a_specific_topic[doc, topic] = (float)(ALPHA);
-                }                
+                }
             }
             for (int topic = 0; topic < NUM_TOPICS; ++topic)
             {
@@ -132,7 +119,7 @@ namespace Utilities.Mathematics.Topics.LDAStuff
                 }
             }
 
-            total_iterations = 0;            
+            total_iterations = 0;
 
             Logging.Info("-Assigning every word in every document to a random topic");
         }
@@ -154,11 +141,11 @@ namespace Utilities.Mathematics.Topics.LDAStuff
                     for (int doc = 0; doc < NUM_DOCS; ++doc)
                         for (int i = 0; i < topic_of_word_in_doc[doc].Length; ++i)
                             bw.Write(topic_of_word_in_doc[doc][i]);
-        
+
                     //internal float[,] number_of_times_doc_has_a_specific_topic; // [doc,topic]
                     for (int doc = 0; doc < NUM_DOCS; ++doc)
                         for (int topic = 0; topic < NUM_TOPICS; ++topic)
-                            bw.Write(number_of_times_doc_has_a_specific_topic[doc,topic]);
+                            bw.Write(number_of_times_doc_has_a_specific_topic[doc, topic]);
 
                     //internal float[] number_of_times_a_doc_has_any_topic; // [doc]
                     for (int doc = 0; doc < NUM_DOCS; ++doc)
@@ -189,7 +176,7 @@ namespace Utilities.Mathematics.Topics.LDAStuff
                     double BETA = br.ReadDouble();
 
                     LDASampler lda_sampler = new LDASampler(ALPHA, BETA, NUM_TOPICS, NUM_WORDS, NUM_DOCS, WORDS_IN_DOCS, false);
-                    
+
                     lda_sampler.total_iterations = br.ReadInt32();
 
                     //internal int[][] topic_of_word_in_doc; // [doc][i]

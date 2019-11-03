@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary;
 using Utilities;
 using Utilities.Files;
@@ -9,7 +8,7 @@ using Utilities.Misc;
 
 namespace Qiqqa.Synchronisation.MetadataSync
 {
-    class SynchronisationExecutor
+    internal class SynchronisationExecutor
     {
         internal static void Sync(Library library, bool restricted_metadata_sync, bool is_readonly, Dictionary<string, string> historical_sync_file, SynchronisationAction synchronisation_action)
         {
@@ -88,8 +87,7 @@ namespace Qiqqa.Synchronisation.MetadataSync
                     Logging.Info("+Uploading {0}", ss.filename);
 
                     // TODO: Replace this with a pretty interface class ------------------------------------------------
-                    if (false) { }
-                    else if (library.WebLibraryDetail.IsIntranetLibrary)
+                    if (library.WebLibraryDetail.IsIntranetLibrary)
                     {
                         SynchronisationExecutor_Intranet.DoUpload(library, ss);
                     }

@@ -9,11 +9,11 @@ namespace Qiqqa.Brainstorm.Nodes
     [Serializable]
     public class PDFDocumentNodeContent : ISearchable, IRecurrentNodeContent
     {
-        string document_fingerprint;
-        string library_fingerprint;
+        private string document_fingerprint;
+        private string library_fingerprint;
 
         [NonSerialized]
-        PDFDocument pdf_document;
+        private PDFDocument pdf_document;
 
         public PDFDocumentNodeContent(string document_fingerprint, string library_fingerprint)
         {
@@ -21,21 +21,9 @@ namespace Qiqqa.Brainstorm.Nodes
             this.library_fingerprint = library_fingerprint;
         }
 
-        public string Fingerprint
-        {
-            get
-            {
-                return document_fingerprint;
-            }
-        }
+        public string Fingerprint => document_fingerprint;
 
-        public string LibraryFingerprint
-        {
-            get
-            {
-                return library_fingerprint;
-            }
-        }
+        public string LibraryFingerprint => library_fingerprint;
 
         public PDFDocument PDFDocument
         {
@@ -59,9 +47,9 @@ namespace Qiqqa.Brainstorm.Nodes
                 || (PDFDocument.AuthorsCombined?.ToLower().Contains(keyword) ?? false)
                 || (PDFDocument.Comments?.ToLower().Contains(keyword) ?? false)
                 || (PDFDocument.Publication?.ToLower().Contains(keyword) ?? false)
-//                            || (pdf_document.YearCombined?.ToLower().Contains(keyword) ?? false)
-//                            || (pdf_document.BibTex?.ToLower().Contains(keyword) ?? false)
-//                            || (pdf_document.Fingerprint?.ToLower().Contains(keyword) ?? false)
+                //                            || (pdf_document.YearCombined?.ToLower().Contains(keyword) ?? false)
+                //                            || (pdf_document.BibTex?.ToLower().Contains(keyword) ?? false)
+                //                            || (pdf_document.Fingerprint?.ToLower().Contains(keyword) ?? false)
                 ;
         }
 
@@ -70,8 +58,8 @@ namespace Qiqqa.Brainstorm.Nodes
             PDFDocumentNodeContent other = obj as PDFDocumentNodeContent;
             if (null == other) return false;
 
-            if (this.document_fingerprint != other.document_fingerprint) return false;
-            if (this.library_fingerprint != other.library_fingerprint) return false;
+            if (document_fingerprint != other.document_fingerprint) return false;
+            if (library_fingerprint != other.library_fingerprint) return false;
 
             return true;
         }
@@ -79,8 +67,8 @@ namespace Qiqqa.Brainstorm.Nodes
         public override int GetHashCode()
         {
             int hash = 23;
-            hash = hash * 37 + this.document_fingerprint.GetHashCode();
-            hash = hash * 37 + this.library_fingerprint.GetHashCode();
+            hash = hash * 37 + document_fingerprint.GetHashCode();
+            hash = hash * 37 + library_fingerprint.GetHashCode();
             return hash;
         }
     }

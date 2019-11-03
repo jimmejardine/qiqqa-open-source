@@ -1,22 +1,14 @@
-﻿using Qiqqa.Common.Configuration;
-using Qiqqa.Main.LoginStuff;
-using Qiqqa.UtilisationTracking;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Threading;
+using Qiqqa.Common.Configuration;
+using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.GUI;
 using Utilities.Internet;
@@ -29,16 +21,15 @@ namespace Qiqqa.Chat
     public partial class ChatControl : UserControl, IDisposable
     {
         private static readonly string BASE_URL = WebsiteAccess.Url_ChatAPI4Qiqqa;
-        private static int MAX_SLEEP_BACKOFF_SECONDS = 16;
+        private const int MAX_SLEEP_BACKOFF_SECONDS = 16;
 
         private Timer timer;
         private string last_epoch = "";
 
         private DateTime next_autopoll_datetime = DateTime.MinValue;
         private int current_sleep_backoff_seconds = MAX_SLEEP_BACKOFF_SECONDS;
-
-        ChatRecord previous_chat_record = null;
-        Paragraph previous_paragraph = null;
+        private ChatRecord previous_chat_record = null;
+        private Paragraph previous_paragraph = null;
 
         public ChatControl()
         {
@@ -57,12 +48,11 @@ namespace Qiqqa.Chat
             timer = new Timer(OnTimeTick);
             timer.Change(0, 500);
 #endif
-            }
-
+        }
 
         private string ChatUsername
         {
-            get            
+            get
             {
                 string massaged_username = ConfigurationManager.Instance.ConfigurationRecord.Account_Nickname;
                 if (massaged_username.Contains('@'))
@@ -73,7 +63,7 @@ namespace Qiqqa.Chat
             }
         }
 
-        void ReevaluateTxtSubmissionEmptyVisibility()
+        private void ReevaluateTxtSubmissionEmptyVisibility()
         {
             System.Windows.Visibility visibility = System.Windows.Visibility.Visible;
 
@@ -83,13 +73,12 @@ namespace Qiqqa.Chat
             TxtSubmissionEmpty.Visibility = visibility;
         }
 
-        void TxtSubmission_IsKeyboardFocusedChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void TxtSubmission_IsKeyboardFocusedChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             ReevaluateTxtSubmissionEmptyVisibility();
         }
 
-
-        void TxtSubmission_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void TxtSubmission_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             ReevaluateTxtSubmissionEmptyVisibility();
 
@@ -119,9 +108,10 @@ namespace Qiqqa.Chat
 
             try
             {
-                MemoryStream ms;
-                UrlDownloader.DownloadWithBlocking(ConfigurationManager.Instance.Proxy, url, out ms);
-                ProcessDisplayResponse(ms);
+                using (MemoryStream ms = UrlDownloader.DownloadWithBlocking(url))
+                {
+                    ProcessDisplayResponse(ms);
+                }
 
                 is_chat_available = true;
             }
@@ -138,7 +128,7 @@ namespace Qiqqa.Chat
             {
                 Application.Current.Dispatcher.BeginInvoke(new Action(() =>
                 {
-                    this.IsEnabled = is_chat_available;
+                    IsEnabled = is_chat_available;
                     TxtChatUnavailable.Visibility = is_chat_available ? Visibility.Collapsed : Visibility.Visible;
                 }));
             }
@@ -165,97 +155,97 @@ namespace Qiqqa.Chat
             PerformRequest(url);
         }
 
-        class ChatRecord
+        private class ChatRecord
         {
             public string Timestamp { get; set; }
             public string Forum { get; set; }
             public string Username { get; set; }
-            public string Comment { get; set; }            
+            public string Comment { get; set; }
         }
 
         private void ProcessDisplayResponse(MemoryStream ms)
         {
             // Process the lines
             using (StreamReader sr = new StreamReader(ms))
-			{
-	            List<ChatRecord> chat_records = new List<ChatRecord>();
-	            {
-	                string line;
-	                ChatRecord last_chat_record = null;
-	                while (null != (line = sr.ReadLine()))
-	                {
-	                    string[] items = line.Split('\t');
-	                    {
-	                        last_chat_record = new ChatRecord();
-	                        last_chat_record.Timestamp = items[0];
-	                        last_chat_record.Forum = items[1];
-	                        last_chat_record.Username = items[2];
-	                        last_chat_record.Comment = items[3];
-	                    }
-	                    chat_records.Add(last_chat_record);
-	                }
+            {
+                List<ChatRecord> chat_records = new List<ChatRecord>();
+                {
+                    string line;
+                    ChatRecord last_chat_record = null;
+                    while (null != (line = sr.ReadLine()))
+                    {
+                        string[] items = line.Split('\t');
+                        {
+                            last_chat_record = new ChatRecord();
+                            last_chat_record.Timestamp = items[0];
+                            last_chat_record.Forum = items[1];
+                            last_chat_record.Username = items[2];
+                            last_chat_record.Comment = items[3];
+                        }
+                        chat_records.Add(last_chat_record);
+                    }
 
-	                // Record the last epoch
-	                if (null != last_chat_record)
-	                {
-	                    last_epoch = last_chat_record.Timestamp;
-	                }
-	            }
+                    // Record the last epoch
+                    if (null != last_chat_record)
+                    {
+                        last_epoch = last_chat_record.Timestamp;
+                    }
+                }
 
-	            // If there has been new chat, poll frequently
-	            if (0 < chat_records.Count)
-	            {
-	                current_sleep_backoff_seconds = 1;
-	                next_autopoll_datetime = DateTime.UtcNow.AddSeconds(current_sleep_backoff_seconds);
-	            }
-	            else
-	            {
-	                current_sleep_backoff_seconds = Math.Min(MAX_SLEEP_BACKOFF_SECONDS, 2 * current_sleep_backoff_seconds);
-	                next_autopoll_datetime = DateTime.UtcNow.AddSeconds(current_sleep_backoff_seconds);
-	            }
+                // If there has been new chat, poll frequently
+                if (0 < chat_records.Count)
+                {
+                    current_sleep_backoff_seconds = 1;
+                    next_autopoll_datetime = DateTime.UtcNow.AddSeconds(current_sleep_backoff_seconds);
+                }
+                else
+                {
+                    current_sleep_backoff_seconds = Math.Min(MAX_SLEEP_BACKOFF_SECONDS, 2 * current_sleep_backoff_seconds);
+                    next_autopoll_datetime = DateTime.UtcNow.AddSeconds(current_sleep_backoff_seconds);
+                }
 
-	            // Update GUI
-	            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
-	            {
-	                bool is_currently_at_scroll_bottom = ObjChatFlowDocumentScroll.VerticalOffset == ObjChatFlowDocumentScroll.ScrollableHeight;
+                // Update GUI
+                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    bool is_currently_at_scroll_bottom = ObjChatFlowDocumentScroll.VerticalOffset == ObjChatFlowDocumentScroll.ScrollableHeight;
 
-	                foreach (ChatRecord chat_record in chat_records)
-	                {
-	                    // Is this a different user chatting?
-	                    if (null == previous_chat_record || chat_record.Username != previous_chat_record.Username || null == previous_paragraph)
-	                    {
-	                        previous_paragraph = new Paragraph();                        
-	                        ObjChatFlowDocument.Blocks.Add(previous_paragraph);
+                    foreach (ChatRecord chat_record in chat_records)
+                    {
+                        // Is this a different user chatting?
+                        if (null == previous_chat_record || chat_record.Username != previous_chat_record.Username || null == previous_paragraph)
+                        {
+                            previous_paragraph = new Paragraph();
+                            ObjChatFlowDocument.Blocks.Add(previous_paragraph);
 
-	                        previous_paragraph.TextAlignment = ToggleTextAlignment();
+                            previous_paragraph.TextAlignment = ToggleTextAlignment();
 
-	                        Run username_run = new Run(chat_record.Username);
-	                        username_run.ToolTip = String.Format("{0} ({1})", chat_record.Username, chat_record.Timestamp);
-	                        username_run.FontSize = 12;
-	                        username_run.FontStyle = FontStyles.Italic;
-	                        username_run.Foreground = ThemeColours.Background_Brush_Blue_VeryVeryDark;
-	                        username_run.Cursor = Cursors.Pen;
-	                        username_run.MouseDown += username_run_MouseDown;                        
+                            Run username_run = new Run(chat_record.Username);
+                            username_run.ToolTip = String.Format("{0} ({1})", chat_record.Username, chat_record.Timestamp);
+                            username_run.FontSize = 12;
+                            username_run.FontStyle = FontStyles.Italic;
+                            username_run.Foreground = ThemeColours.Background_Brush_Blue_VeryVeryDark;
+                            username_run.Cursor = Cursors.Pen;
+                            username_run.MouseDown += username_run_MouseDown;
 
-	                        previous_paragraph.Inlines.Add(username_run);
-	                    }
+                            previous_paragraph.Inlines.Add(username_run);
+                        }
 
-	                    previous_paragraph.Inlines.Add(new LineBreak());
-	                    previous_paragraph.Inlines.Add(new Run(chat_record.Comment));
+                        previous_paragraph.Inlines.Add(new LineBreak());
+                        previous_paragraph.Inlines.Add(new Run(chat_record.Comment));
 
-	                    previous_chat_record = chat_record;
-	                }
+                        previous_chat_record = chat_record;
+                    }
 
-	                if (is_currently_at_scroll_bottom)
-	                {
-	                    ObjChatFlowDocumentScroll.ScrollToEnd();
-	                }
-	            }
-	            ));
-			}
+                    if (is_currently_at_scroll_bottom)
+                    {
+                        ObjChatFlowDocumentScroll.ScrollToEnd();
+                    }
+                }
+                ));
+            }
         }
 
-        void username_run_MouseDown(object sender, MouseButtonEventArgs e)
+        private void username_run_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Run run = sender as Run;
             TxtSubmission.Text = TxtSubmission.Text + "@" + run.Text + " ";
@@ -283,12 +273,12 @@ namespace Qiqqa.Chat
             return previous_text_alignment;
         }
 
-#region --- IDisposable ------------------------------------------------------------------------
+        #region --- IDisposable ------------------------------------------------------------------------
 
         ~ChatControl()
         {
             Logging.Debug("~ChatControl()");
-            Dispose(false);            
+            Dispose(false);
         }
 
         public void Dispose()
@@ -299,19 +289,20 @@ namespace Qiqqa.Chat
         }
 
         private int dispose_count = 0;
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            Logging.Debug("ChatControl::Dispose({0}) @{1}", disposing ? "true" : "false", ++dispose_count);
-            if (disposing)
+            Logging.Debug("ChatControl::Dispose({0}) @{1}", disposing, dispose_count);
+
+            if (dispose_count == 0)
             {
                 timer?.Dispose();
             }
             timer = null;
 
-            // Get rid of unmanaged resources 
+            ++dispose_count;
         }
 
-#endregion
+        #endregion
 
     }
 }

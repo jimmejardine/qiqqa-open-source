@@ -1,5 +1,5 @@
-﻿using System.Windows;
-using System.Windows.Documents;
+﻿
+#if false
 
 namespace Utilities.GUI
 {
@@ -8,8 +8,14 @@ namespace Utilities.GUI
         public static DependencyProperty BindableTextProperty = DependencyProperty.Register("BindableText", typeof(string), typeof(BindableRun), new PropertyMetadata(null, OnBindableTextChanged));
         public string BindableText
         {
-            get { return (string)GetValue(BindableTextProperty); }
-            set { SetValue(BindableTextProperty, value); }
+            get
+            {
+                return (string)GetValue(BindableTextProperty);
+            }
+            set
+            {
+                SetValue(BindableTextProperty, value);
+            }
         }
 
         static void OnBindableTextChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
@@ -19,3 +25,5 @@ namespace Utilities.GUI
         }
     }
 }
+
+#endif

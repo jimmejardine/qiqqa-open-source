@@ -1,13 +1,458 @@
-> upcoming release: v82
+Upcoming release: v82
+=====================
+
+> ## Note
+>
+> This release is **binary compatible with v80 and v79**: any library created using this version MUST be readable and usable by v80 and v79 software releases.
 
 
 
+
+
+
+2019-11-01
+----------
+
+			
+* (95dff9b) fix b0rk introduced by commit SHA-1: bcd73cd877b72cd2b9aba9183172dd6c46590880 :: we don't do a *revert* action per se, but rather improve upon the patch we picked up there from the experimental branch: as it turns out, the patch caused a lot of trouble which has been resolved to allow the running background task(s) access to a reduced clone of the WebLibraryDetails, which does not exhibit the cyclic dependency that the original WebLibraryDetails instance incorporated, thus breaking the cyclic reference and allowing the .NET GC to do its job on the Library instance(s) ASAP.
+  
+  As this problem was discovered while doing work on commit SHA-1: ed2cb589a2e3562102163c4b3129310c4850e33a, these files also include the remainder of the work done for that commit, as it was important to separate out the patches which fixed the cyclic memory reference.
+			
+* (ed2cb58) ran the entire codebase through DevStudio's Analyze->Code Cleanup->Run Profile 1, where Profile 1 was set up to include these:
+  
+  - Apply expression/block body preferences
+  - Apply 'this.' qualification preferences
+  - Sort usings
+  - Remove unnecessary usings
+  - Add accessibility modifiers
+  - Sort accessibility modifiers
+  
+  The output has been manually code reviewed and has been adjusted to ensure all relevant files include ALL THREE AlphaFS using references anyway: Path, Directory, File to ensure we won't get surprised by odd spots *not* supporting long filenames when we later on edit the source code anywhere and happen to use one of the now 'unused' using references to AlphaFS.
+  
+  ---
+  
+  This implies there are NO FUNCTIONAL CHANGES in this commit.
+			
+
+
+
+2019-10-31
+----------
+
+			
+* (bcd73cd) picked up memleak fix from experimental branch
+			
+* (2a72cbd) Added a couple of RIS + BibTeX test files to the test set.
+			
+* (fe33552) More work in line with commit SHA-1: ff6e4eebfc40d072d0b37df3a950dd15681fcfc0
+  - fixing the last bit of work done in that commit where all the PageLayer-derived classes were fitted with IDisposable interfaces. Trouble is that the cleanup runs over a loop which accesses these instances via a PageLayer baseclass cast.
+  - fixing several more DevStudio Code Analysis reports regarding Closed/Dispose handling of a few XAML controls; global Code Review used to update all OnClosed() handlers and treat them as we did the Dispose() code: NULL and Dispose/Clean what we can.
+  - fixed crash in PageLayer-derived classes' Dispose, where the access to the `Children` member would throw a cross-thread-access error exception ( https://stackoverflow.com/questions/11923865/how-to-deal-with-cross-thread-access-exceptions ) Weird stuff happens as it looks like there are multiple Dispatchers in Qiqqa from this perspective, which is ... odd. (And, no, I'm not a WPF expert so it may be lack of understanding here.)
+			
+* (ce62133) DateVisible attribute has already been renamed and set in code via SetDatesVisible() in commit SHA-1: ff6e4eebfc40d072d0b37df3a950dd15681fcfc0
+			
+* (8258809) Let's see if the SyncFunction related UI hacks by Jimme Jardine are still needed: we already disabled those empty style classes in the previous commit SHA-1: ff6e4eebfc40d072d0b37df3a950dd15681fcfc0 ; now we take them out in the UI XAML definitions.
+			
+* (ff6e4ee) Another Mother Of All commit with loads of stability & memleak + performance improvements work:
+  - fixed https://github.com/jimmejardine/qiqqa-open-source/issues/121 : this happened due to a slightly over-eager `Dispose()` I introduced previously (:-() which reset the BibTeX content to an empty string, followed up immediately by a still-registered change event handler, which would communicate this 'change' to anyone listening, thus nuking the BibTeX metadata for the given Document.
+  - fixed https://github.com/jimmejardine/qiqqa-open-source/issues/82 : part of that work has been done in earlier commits, where the size of of the editor panel (**height**) is designed to stick with the size of the 'fields editor mode' subpanel height so as not to jump up & down while you toggle edit modes. Also done in earlier commits: the RAW editor *wraps* the BibTeX text data so there's no need for a *horizontal* scroller any more; this should make diting in RAW mode a little more palatable, at least it is in my own experience.
+  - Just like commit SHA-1: a540e506189ba1221ca93e09d5e5861196ed27f3, there's more IDisposable work done following the new DevStudio Code Analysis reports while I was hunting memory leaks and hunting down causes of https://github.com/jimmejardine/qiqqa-open-source/issues/112
+  - Tweaked the initial library scan to first search all Qiqqa 'known_web_libraries' config files it can find in the Qiqqa libraries' **base directory**: this should help folks (like me) who wish to recover their old/crashing Qiqqa libraries, which previously would cause Qiqqa v79 and earlier Commercial Versions to crash in all sorts of spectacular ways - mostly due to buggy PDF documents sneaking into the libraries via Sniffer download b0rks and other sources of rottenness (such as the websites themselves).
+    The positive effect of this change should be a stable list of libraries with as many of the original Web Libraries' Names restored as possible.
+  - All libraries are flagged Read/Write instead of marking 'Web Libraries' as ReadOnly, which would block any editing/updating of those libs. As Open Source Qiqqa does not support Commercial Web Libraries in the way they were meant before (as syncable Qiqqa-based Cloud storage), you're working on 'independent copies' anyway, while we have to come up with other means to sync libraries like that. As these buggers can grow huge (mine is 20GB+), free cloud solutions (OneDrive, DropBox, etc.) with their 5GB limits are not a truely viable option. Alas, something to think about. **TODO**
+  - Done another Code Review, scanning for all sorts of spots where the C#/.NET code needs a `using(...){...}` statement or something similar to ensure the allocated memory is actually *released when done*; this conjoins with the IDisposable work done in this commit.
+  - LibrarySyncManager: we now cache the PDF Document Size as we already did with the PDF Document 'File Exists' flag. This should at least reduce the running cost of subsequent invocations of the Sync Details dialog after its first run, when that data is collected.
+  - Performance: for large libraries, the initial load time was extreme, particularly when Qiqqa has 'remembered' that the library was open in its own Library View panel/tab. This is due to two major load factors: the BibTeX record for every document is parsed as part of deriving an AugmentedTitle and AugmentedAuthor set for display. Meanwhile, the library will be initially sorted by *date*, which took an *inordinate* amount of time as every date comparison would access and *(re)parse* the raw text date fields as obtained from the database. Now these parsed dates are cached in the PDFDocument until the cached value(s) are reset by the dates being modified within Qiqqa.
+  - Performance: for large libraries, the Sync Details dialog would take an extreme amount of time, with the UI *locked*. Now we set the busy bee / wait cursor to indicate work is being done, while the work has been offloaded onto a background task. Also, while the PDF Document 'File Exists' state was cached in the PDFDocument record, the *size* of the document was not and thus was (re)calculated every time the user would invoke this dialog, resulting in huge delays as thousands of files' filesize info was (re)fetched from the disk on every invocation of the dialog. This has now been alleviated at least for *subsequent invocations* as the File Size is now also cached next to the File Exists datum in PDFDocument.
+  
+  - Here's the set of Code Analysis reports that were tackled in this commit:
+  
+  warning CA1001: Type 'BibTeXEditorControl' owns disposable field(s) 'wdpcn' but is not disposable
+  warning CA1001: Type 'CSLProcessorOutputConsumer' owns disposable field(s) 'web_browser' but is not disposable
+  warning CA1001: Type 'FolderWatcher' owns disposable field(s) 'file_system_watcher' but is not disposable
+  warning CA1001: Type 'GoogleBibTexSnifferControl' owns disposable field(s) 'ObjWebBrowser, pdf_renderer_control' but is not disposable
+  warning CA1001: Type 'Library' owns disposable field(s) 'library_index' but is not disposable
+  warning CA1001: Type 'LibraryCatalogOverviewControl' owns disposable field(s) 'library_index_hover_popup' but is not disposable
+  warning CA1001: Type 'MainWindow' owns disposable field(s) 'ObjStartPage' but is not disposable
+  warning CA1001: Type 'PDFAnnotationNodeContentControl' owns disposable field(s) 'library_index_hover_popup' but is not disposable
+  warning CA1001: Type 'PDFDocumentNodeContentControl' owns disposable field(s) 'library_index_hover_popup' but is not disposable
+  warning CA1001: Type 'PDFPrinterDocumentPaginator' owns disposable field(s) 'last_document_page' but is not disposable
+  warning CA1001: Type 'ReadOutLoudManager' owns disposable field(s) 'speech_synthesizer' but is not disposable
+  warning CA1001: Type 'TagEditorControl' owns disposable field(s) 'wdpcn' but is not disposable
+  warning CA1044: Because property AutoArrange is write-only, either add a property getter with an accessibility that is greater than or equal to its setter or convert this property into a method.
+  warning CA1044: Because property ConciseView is write-only, either add a property getter with an accessibility that is greater than or equal to its setter or convert this property into a method.
+  warning CA1044: Because property DatesVisible is write-only, either add a property getter with an accessibility that is greater than or equal to its setter or convert this property into a method.
+  warning CA1044: Because property DefaultWebSearcherKey is write-only, either add a property getter with an accessibility that is greater than or equal to its setter or convert this property into a method.
+  warning CA1044: Because property Entries is write-only, either add a property getter with an accessibility that is greater than or equal to its setter or convert this property into a method.
+  warning CA1044: Because property ImagePath is write-only, either add a property getter with an accessibility that is greater than or equal to its setter or convert this property into a method.
+  warning CA1044: Because property Items is write-only, either add a property getter with an accessibility that is greater than or equal to its setter or convert this property into a method.
+  warning CA1044: Because property Library is write-only, either add a property getter with an accessibility that is greater than or equal to its setter or convert this property into a method.
+  warning CA1044: Because property OnAddedOrSkipped is write-only, either add a property getter with an accessibility that is greater than or equal to its setter or convert this property into a method.
+  warning CA1044: Because property PageNumber is write-only, either add a property getter with an accessibility that is greater than or equal to its setter or convert this property into a method.
+  warning CA1044: Because property PaperSet is write-only, either add a property getter with an accessibility that is greater than or equal to its setter or convert this property into a method.
+  warning CA1044: Because property PDFAnnotation is write-only, either add a property getter with an accessibility that is greater than or equal to its setter or convert this property into a method.
+  warning CA1044: Because property PDFDocument is write-only, either add a property getter with an accessibility that is greater than or equal to its setter or convert this property into a method.
+  warning CA1044: Because property TagsTitleVisibility is write-only, either add a property getter with an accessibility that is greater than or equal to its setter or convert this property into a method.
+  warning CA1052: Type 'AlternativeToReminderNotification' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'BookmarkManager' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'Choices' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'CitationFinder' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'CSLProcessor' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'EndnoteImporter' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'ExpeditionBuilder' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'ExportingTools' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'Features' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'GeckoInstaller' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'GeckoManager' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'IdentifierImplementations' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'ImportingIntoLibrary' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'Interop' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'LibraryExporter' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'LibraryPivotReportBuilder' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'LibrarySearcher' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'LibraryStats' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'ListFormattingTools' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'MainEntry' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'MendeleyImporter' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'MYDBlockReader' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'PDFCoherentTextExtractor' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'PDFDocumentTagCloudBuilder' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'PDFMetadataExtractor' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'PDFMetadataInferenceFromOCR' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'PDFMetadataInferenceFromPDFMetadata' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'PDFMetadataSerializer' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'PDFPrinter' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'PDFSearcher' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'PDFTools' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'QiqqaManualTools' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'RecentlyReadDocumentManager' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'SampleMaterial' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'ScreenSize' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'SimilarAuthors' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'StandardHighlightColours' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'SyncConstants' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'TempDirectoryCreator' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'UpgradeManager' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'VanillaReferenceCreating' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'WebLibraryDocumentLocator' is a static holder type but is neither static nor NotInheritable
+  warning CA1052: Type 'WebsiteAccess' is a static holder type but is neither static nor NotInheritable
+  warning CA1063: Ensure that 'BrainstormControl.Dispose' is declared as protected, virtual, and unsealed.
+  warning CA1063: Ensure that 'ChatControl.Dispose' is declared as protected, virtual, and unsealed.
+  warning CA1063: Ensure that 'CSLProcessorOutputConsumer.Dispose' is declared as protected, virtual, and unsealed.
+  warning CA1063: Ensure that 'FolderWatcher.Dispose' is declared as protected, virtual, and unsealed.
+  warning CA1063: Ensure that 'LibraryIndex.Dispose' is declared as protected, virtual, and unsealed.
+  warning CA1063: Ensure that 'LibraryIndexHoverPopup.Dispose' is declared as protected, virtual, and unsealed.
+  warning CA1063: Ensure that 'MainWindow.Dispose' is declared as protected, virtual, and unsealed.
+  warning CA1063: Ensure that 'PDFReadingControl.Dispose' is declared as protected, virtual, and unsealed.
+  warning CA1063: Ensure that 'PDFRendererControl.Dispose' is declared as protected, virtual, and unsealed.
+  warning CA1063: Ensure that 'ReadOutLoudManager.Dispose' is declared as protected, virtual, and unsealed.
+  warning CA1063: Ensure that 'ReportViewerControl.Dispose' is declared as protected, virtual, and unsealed.
+  warning CA1063: Ensure that 'SceneRenderingControl.Dispose' is declared as protected, virtual, and unsealed.
+  warning CA1063: Ensure that 'SpeedReadControl.Dispose' is declared as protected, virtual, and unsealed.
+  warning CA1063: Ensure that 'StartPageControl.Dispose' is declared as protected, virtual, and unsealed.
+  warning CA1063: Ensure that 'TagEditorControl.Dispose' is declared as protected, virtual, and unsealed.
+  warning CA1063: Ensure that 'WebBrowserControl.Dispose' is declared as protected, virtual, and unsealed.
+  warning CA1063: Ensure that 'WebBrowserHostControl.Dispose' is declared as protected, virtual, and unsealed.
+  warning CA1721: The property name 'Annotations' is confusing given the existence of method 'GetAnnotations'. Rename or remove one of these members.
+  warning CA1802: Field 'XXXXXX' is declared as 'readonly' but is initialized with a constant value. Mark this field as 'const' instead.
+  warning CA1812: XXXXXX is an internal class that is apparently never instantiated. If so, remove the code from the assembly. If this class is intended to contain only static members, make it static (Shared in Visual Basic).
+  warning CA1827: Count() is used where Any() could be used instead to improve performance.
+  warning CA2000: Call System.IDisposable.Dispose on object created by 'Instance.OpenNewBrainstorm()' before all references to it are out of scope.
+  warning CA2000: Call System.IDisposable.Dispose on object created by 'MainWindowServiceDispatcher.Instance.OpenDocument(cloned_pdf_document)' before all references to it are out of scope.
+  warning CA2000: Call System.IDisposable.Dispose on object created by 'MainWindowServiceDispatcher.Instance.OpenDocument(ddw.pdf_document)' before all references to it are out of scope.
+  warning CA2000: Call System.IDisposable.Dispose on object created by 'MainWindowServiceDispatcher.Instance.OpenDocument(matching_bibtex_record.pdf_document)' before all references to it are out of scope.
+  warning CA2000: Call System.IDisposable.Dispose on object created by 'MainWindowServiceDispatcher.Instance.OpenDocument(out_pdf_document, out_pdf_annotation.Page)' before all references to it are out of scope.
+  warning CA2000: Call System.IDisposable.Dispose on object created by 'MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document)' before all references to it are out of scope.
+  warning CA2000: Call System.IDisposable.Dispose on object created by 'MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document, annotation_work.pdf_annotation.Page)' before all references to it are out of scope.
+  warning CA2000: Call System.IDisposable.Dispose on object created by 'MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document, true)' before all references to it are out of scope.
+  warning CA2000: Call System.IDisposable.Dispose on object created by 'MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document_node_content.PDFDocument)' before all references to it are out of scope.
+  warning CA2000: Call System.IDisposable.Dispose on object created by 'MainWindowServiceDispatcher.Instance.OpenDocument(PDFDocumentBindable.Underlying, LibraryCatalogControl.FilterTerms)' before all references to it are out of scope.
+  warning CA2000: Call System.IDisposable.Dispose on object created by 'MainWindowServiceDispatcher.Instance.OpenDocument(PDFDocumentBindable.Underlying, search_result.page, LibraryCatalogControl.FilterTerms, false)' before all references to it are out of scope.
+  warning CA2000: Call System.IDisposable.Dispose on object created by 'MainWindowServiceDispatcher.Instance.OpenDocument(selected_pdf_document)' before all references to it are out of scope.
+  warning CA2000: Call System.IDisposable.Dispose on object created by 'MainWindowServiceDispatcher.Instance.OpenDocument(tag.pdf_document)' before all references to it are out of scope.
+  warning CA2000: Call System.IDisposable.Dispose on object created by 'MainWindowServiceDispatcher.Instance.OpenNewBrainstorm()' before all references to it are out of scope.
+  warning CA2000: Call System.IDisposable.Dispose on object created by 'MainWindowServiceDispatcher.Instance.OpenSampleBrainstorm()' before all references to it are out of scope.
+  warning CA2000: Call System.IDisposable.Dispose on object created by 'MainWindowServiceDispatcher.Instance.OpenWebBrowser()' before all references to it are out of scope.
+  warning CA2000: Call System.IDisposable.Dispose on object created by 'new Bitmap(ms)' before all references to it are out of scope.
+  warning CA2000: Call System.IDisposable.Dispose on object created by 'new CSLProcessorOutputConsumer(BASE_PATH, citations_javascript, brd, null)' before all references to it are out of scope.
+  warning CA2000: Call System.IDisposable.Dispose on object created by 'new CSLProcessorOutputConsumer(BASE_PATH, citations_javascript, RefreshDocument_OnBibliographyReady, passthru)' before all references to it are out of scope.
+  warning CA2000: Call System.IDisposable.Dispose on object created by 'new GoogleBibTexSnifferControl()' before all references to it are out of scope.
+  warning CA2000: Call System.IDisposable.Dispose on object created by 'new MainWindow()' before all references to it are out of scope.
+  warning CA2000: Call System.IDisposable.Dispose on object created by 'new PDFPrinterDocumentPaginator(pdf_document, pdf_renderer, page_from, page_to, new Size(print_dialog.PrintableAreaWidth, print_dialog.PrintableAreaHeight))' before all references to it are out of scope.
+  warning CA2000: Call System.IDisposable.Dispose on object created by 'new ReportViewerControl(annotation_report)' before all references to it are out of scope.
+  warning CA2000: Call System.IDisposable.Dispose on object created by 'new StreamListenerTee()' before all references to it are out of scope.
+  warning CA2000: Call System.IDisposable.Dispose on object created by 'new StreamWriter(client)' before all references to it are out of scope.
+  warning CA2000: Call System.IDisposable.Dispose on object created by 'OpenWebBrowser()' before all references to it are out of scope.
+  warning CA2000: Call System.IDisposable.Dispose on object created by 'this.OpenNewWindow(WebsiteAccess.Url_BlankWebsite)' before all references to it are out of scope.
+  warning CA2000: Call System.IDisposable.Dispose on object created by 'wbhc.OpenNewWindow()' before all references to it are out of scope.
+  warning CA2100: Review if the query string passed to 'SQLiteCommand.SQLiteCommand(string commandText, SQLiteConnection connection)' in 'GetIntranetLibraryItems', accepts any user input.
+  warning CA2100: Review if the query string passed to 'SQLiteCommand.SQLiteCommand(string commandText, SQLiteConnection connection)' in 'GetLibraryItems', accepts any user input.
+  warning CA2213: 'WebBrowserHostControl' contains field 'current_library' that is of IDisposable type 'Library', but it is never disposed. Change the Dispose method on 'WebBrowserHostControl' to call Close or Dispose on this field.
+  warning CA2234: Modify 'GoogleBibTexSnifferControl.PostBibTeXToAggregator(string)' to call 'WebRequest.Create(Uri)' instead of 'WebRequest.Create(string)'.
+  warning CA2234: Modify 'ImportingIntoLibrary.AddNewDocumentToLibraryFromInternet_SYNCHRONOUS(Library, string)' to call 'WebRequest.Create(Uri)' instead of 'WebRequest.Create(string)'.
+  warning CA2237: Add [Serializable] to LocaleTable as this type implements ISerializable
+  warning CA2237: Add [Serializable] to SynchronisationStates as this type implements ISerializable
+  
+  ## These are A-Okay and VERY MUCH INTENTIONAL: ##
+  
+  warning CA5359: The ServerCertificateValidationCallback is set to a function that accepts any server certificate, by always returning true. Ensure that server certificates are validated to verify the identity of the server receiving requests.
+  warning CA5364: Hard-coded use of deprecated security protocol Ssl3
+  warning CA5364: Hard-coded use of deprecated security protocol Tls
+  warning CA5364: Hard-coded use of deprecated security protocol Tls11
+			
+
+
+
+2019-10-27
+----------
+
+			
+* (90364ad) more work done on https://github.com/jimmejardine/qiqqa-open-source/issues/112 / https://github.com/jimmejardine/qiqqa-open-source/issues/122 :
+  - memleak prevention via `using(){...}` of IDisposable
+			
+* (bb0fde8) fix infinite call depth due to incorrect polymorphic interface use.
+			
+* (f8f64ce) more work done on https://github.com/jimmejardine/qiqqa-open-source/issues/112 :
+  - refactor the application termination handling in various parts of the application.
+  - Long-running tasks (such as 'gather and save to disk') MUST NOT be done in the UI thread, while that main thread should be kept alive and responsive.
+    + Hence cleanup & shutdown actions are relegated to a SafeThreadPool background task, while such cleanup/shutdown actions are flagged as 'not short-circuited at application shutdown time'.
+    + Pending tasks (also in SafeThreadPool) are BY DEFAULT marked as short-circuit-able at shutdown time so that not only the PDFOCR job queue but also arbitrary pending background tasks queued in the SafeThreadPool are skipped=short-circuited at shutdown time to reduce the amount of time it takes to quit/exit Qiqqa.
+  - The maximum 'reasonable wait time for threads to terminate at application shudown' has been set at 15 seconds. That number was *guestimated* as reasonable while testing a rig with 40K+ documents managed by Qiqqa. When this timeout is reached by any monitored background threads, then those threads are forcibly *aborted* as apparently their shutdown detection hasn't been functioning. Keep in mind to keep this timeout relatively high as, for instance, Lucene index saving can take a significant amount of time for large libraries (like the 40K+ one I'm testing with)
+  - `Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown` is refactored to now be the end-all in answering whether Qiqqa is in the process of shutting down/terminating.
+  - fixed several memleaks by wrapping IDisposable class instances in `using(){...}` statements: particularly Lucene/search-index based code had several spots where the DevStudio Code Analysis has failed to ever report these, while it did find many others before (when we started working on Qiqqa).
+  - make Maintainable/MaintainableManager.cs code properly thread-safe by adding appropriate locks around minimal critical sections in order to prevent shutdown activity from being interfered with.
+			
+
+
+
+2019-10-26
+----------
+
+			
+* (bc2955a) Log file paths MAY contain spaces, hence surround those in double-quotes as well for the BundleLogs command which invokes 7zip on the commandline.
+			
+* (3f8d443) Cleaned up the log4net init code and finally made it truly threadsafe: it turned out several threads where already trying to log/init while the log4net init process was not yet complete. `Logging.TriggerInit()` has been redesigned to check if the init phase MAY be triggered, while the init phase itself will write any 'early bird' log lines to the logging destination as soon as it is completely configured. Also removed the diagnostic init stacktrace dump to log: that one only still happen in DEBUG builds.
+			
+* (1955a86) moving PDF Region Test UI code+XAML to the QiqqaUIPartsTester project where such test code should reside.
+			
+
+
+
+2019-10-25
+----------
+
+			
+* (aedcd38) BeyondCompare 4 cannot handle UNC paths, which is what AlphaFS uses to support overlong paths (> 260 chars), hence we'll have convert these UNC paths back to local/native format for BC4 to be able to open the received+approved files for comparison. The rest of the test application should use the UNC paths though.
+			
+* (3e06f8a) fix crash when running test code:
+  
+        Message:
+          System.NullReferenceException: Object reference not set to an instance of an object.
+        Stack Trace:
+          Runtime.get_IsRunningInVisualStudioDesigner() line 23
+          UnitTestDetector.get_StartupDirectoryForQiqqa() line 91
+			
+* (9a928b0) updated NuPackages and added missing file from QiqqaUIPartsTester project
+			
+* (17135d7) fiddling with the UnhandledExceptionBox in a first attempt to add it to the QiqqaUITester. Turns out I'll have to take another approach there... :-\
+			
+* (41019bf) 
+  - bumped + synced new build revision (v82pre4 coming up)
+  - added QiqqaUIPartsTester test project - to be filled with UI test code to check the functioning of various dialogs and controls
+  - added Microsoft-suggested code analyzers to the project packages (DevStudio 16.3.5)
+			
+
+
+
+2019-10-22
+----------
+
+			
+* (d1bc1a3) help performance checks/debug sessions: allow user access to the DisableBackgroundTasks config setting, but DO NOT persist that setting. (also we must remain backwards compat with v79 file formats for now)
+			
+* (b3fae39) https://github.com/jimmejardine/qiqqa-open-source/issues/82 : try to set up some decent min/max sizes for the various controls/wrappers so that huge BibTeX raw content doesn't produce unworkable UI layouts and thus bad UX. MinWidth limits are meant to restrict button scaling and thus ugly/damaged looking UI, while MaxHeight limits are intended to limit the height of the BibTeXEditorControl when it is fed huge BibTeX raw content, such as when loading a BibTeX from converted PubMed XML (the source XML is appended as a multiline comment which often is very large)
+			
+* (868e549) cleanup for https://github.com/jimmejardine/qiqqa-open-source/issues/82 : all the AugmentedButton instances which DO NOT need scaling (at least not yet in our perception of the UI) are AutoTextScale=false(default) configured. The ones which need to scale to remain legible at various screen and panel sizes are marked AutoTextScale=true.
+			
+* (2e4bce8) Add code to prevent memleaks around BibTeXEditorControl : there's no Dispose there, but we do have Unload event, which marks the end of a control's lifetime.
+			
+* (3248ea9) add validation check for https://github.com/jimmejardine/qiqqa-open-source/issues/119 : when we encounter a ClosableControl which doesn't have a name, it should be added as that will be needed for the check/persist path construction.
+			
+* (e2d8430) Tweaks to fix https://github.com/jimmejardine/qiqqa-open-source/issues/57 : handling extremely large (auto-)titles, etc.  Bummer: turns out the "Summary Details" in the right panel (QuickMetaDataControl) cannot be ellipse-trimmed like this as those are editable entities -- I didn't know (long-time Qiqqa user and still not aware of all the feature details \</snif>)
+			
+* (3ce449e) stability: we ran into the 'waiting after close' issue again ( https://github.com/jimmejardine/qiqqa-open-source/issues/112 ); PDF/OCR threads got locked up via WaitForUIThreadActivityDone() call inside a lock, which would indirectly result in other threads to run into that lock and the main thread locked up in WM message pipe handling triggering a FORCED FLUSH, which, under the hood, would run into that same lock and thus block forever. The lock footprint has been significantly reduced as we can do now that we already have made PDFDocument largely thread-safe ( https://github.com/jimmejardine/qiqqa-open-source/issues/101 ).
+  
+  Also moved the Application Shutting Down signalling forward in time: already signal this when the user/run-time zips through the 'Do you really want to exit' dialog, i.e. near the end of the Closing event for the main window.
+  
+  `WaitForUIThreadActivityDone` now does not sit inside a lock any more so everyone is free to call it, while in shutdown state, when the WM message pipe is untrustworthy, we leave the relinquishing to standard lib `Thread.Sleep(50)` to cope with: the small delay should be negligible while we are guaranteed to not run into issues around the exact message pipe state: we also ran into issues invoking some flush/actions via a Dispatcher while the app was clearly shortly into shutdown, so we try to be safe there too.
+  
+  Also patched the StatusManager to not clutter the message pipeline at shutdown by NOT showing any status updates in the UI any more once the user has closed the app window. The status messages will continue to be logged as usual, we only do *not* try to update UI any more. This saves a bundle in cross-thread dispatches in the termination phase of the app when large numbers of pending changes and/or libraries are flushed to disk.
+			
+* (930fdb3) cleanup after commit SHA-1: 6f95dd688751fbcef0eb1c87ed8b7fd30cca863a : remove now useless debugging code.
+			
+* (6f95dd6) continuation of commits 3e82bdac0b92feca47f4c5ba1dc5261039804de5 + 337dc9ed64c65bd4144dbae579a47d915f986ad8 : make the compiled target directory tree available to the DevStudio Design View to grab external files, e.g. the splash screen image.
+			
+* (3e82bda) previous commit already has a newer CSPROJ anyway and missed the JS script which did the work: here's the corresponding JS file
+			
+* (337dc9e) Design View: there's no way to obtain the original build directories as VS2019 crates shadow copies of the binaries when executing them in the context of Microsoft Blend / Visual Designer / XAML Design View. The initial hack attempt, after all other 'regular' efforts failed, was to create a Settings.settings file in the Utilities project (that's where DevStudio stores the Project->Properties->Settings you set up) and add a PreBuild script which patches that file. HOWEVER, it turns out this data is copied all over the place by DevStudio: you must also patch `app.config` file to ensure DevStudio doesn't yak about change to update and alert for every single entry. THEN you find PreBuild is **too late** to have DevStudio regenerate the `Properties/Settings.Designer.cs` file. So we log this intermediate failed result and move on towards patching one of our existing files in the project instead: Constants.cs (will be filed in the next commit)
+			
+* (a20685b) working on a fix for https://github.com/jimmejardine/qiqqa-open-source/issues/57 : part 1 = making the statusbar updates more usable by truncating them. Had a long url being reported for downloading which pushed all other messages off screen. :-1:
+			
+* (458cd2e) performance / shutdown reliability: when closing the app, the UI message may be loaded severely and may not even terminate properly in spurious circumstances (had a situation here where the WaitForUIActivityDone calls were tough to shut up for a yet unidentified reason; happened after testing several Sniffer PDF download actions so we may be looking at another hairy bit of the XulRunner/Browser interaction here). Also add a check to the PDF/OCR thread queue processing code to help hasten shutdown behaviour.
+			
+* (52d6dd8) splash page: barf a hairball when the splash page doesn't load as that surely means the Qiqqa install failed or got buggered somehow.
+			
+* (6d8812b) Splash page image is not loaded in MSVS Design View, among other resources. Working towards getting the bloody Design View in Visual Studio to work after all...
+			
+
+
+
+2019-10-21
+----------
+
+			
+* (bfa90ed) more work for the https://github.com/jimmejardine/qiqqa-open-source/issues/82 refactoring: as the AugmentedButtons need to scale down their icons and **text** when they're part of a resizable panel in order to remain readable, we need to implement that and ensure it only happens where and when we want. TODO: fix more panels with AugmentedButton nodes as they are now already scaled down due to WPF autosize actions which are not meant to do that.
+			
+* (106d954) code reformatting: no functional change.
+			
+* (ace5458) prepwork for https://github.com/jimmejardine/qiqqa-open-source/issues/119: closables should have a name so we can create an identification path for them by traversing the WPF/UI tree: every such path can be checkec and hidden/shown individually, even persisted across runs.
+			
+* (68ad1bb) added a couple of timers to measure the time spent in indexing the libraries
+			
+* (8393c55) fixed https://github.com/jimmejardine/qiqqa-open-source/issues/82 : refactored the BibTeXEditorControl and all its users: those must now provide the toggle/view-errors/etc. buttons for the control, so that the parent has full control over the layout, while the BibTeXEditorControl itself will set the icons, tooltip, etc. for each of those buttons to ensure a consistent look of the BibTeX editor buttons throughout the application.
+  
+  TODO: see if we need to discard those registered buttons in the Unload event to ensure we're not memleaking...
+			
+* (acc4357) add icons for BibTeX control et al: complete work started in commit SHA-1: 0f9fa67e470acb834e24cd30e946a0b71e954818 :: adding icons as part of https://github.com/jimmejardine/qiqqa-open-source/issues/82 refactoring/rework of the BibTeX related UI bits.
+			
+* (0cd9ea6) fix crashes in MSVS Design Viewer due to some properties not having 'get' access methods (as reported in the Exceptions thrown in the Designer View)
+			
+
+
+
+2019-10-20
+----------
+
+			
+* (7dd8a59) MSVS Visual Designer fixup work: making sure the Theme stuff gets loaded timely when loaded from the Designer too.
+			
+
+
+
+2019-10-19
+----------
+
+			
+* (e38715c) correcting omission of commit SHA-1: fd8326e1e7c4878aac9ca8a1d903c7404fe7b90d * https://github.com/jimmejardine/qiqqa-open-source/issues/82 refactoring/rework of the BibTeX related UI bits. Includes some minimal prepwork for https://github.com/jimmejardine/qiqqa-open-source/issues/87.
+			
+* (26ab3dd) fixing unfortunate edit oopsie: this part of the fixes/changes hadn't made it through in the previous fix commit for https://github.com/jimmejardine/qiqqa-open-source/issues/114 / https://github.com/jimmejardine/qiqqa-open-source/issues/115 : this corrects/augments these commits: SHA-1: 65e5707afa4e7e18181d00ef9c22b12048483b5e + SHA-1: a5faaafa233a181a47735f2e8981b6089c8ceaf7
+			
+* (fe35dbc) fix https://github.com/jimmejardine/qiqqa-open-source/issues/116 : show left panel when switching the app from novice into export mode.
+			
+* (f7d7bce) re-enable the 'Google Scholar' similar-documents panel in the PDF Reader left pane -- this is where most of the scrape info lands. ( https://github.com/jimmejardine/qiqqa-open-source/issues/114 / https://github.com/jimmejardine/qiqqa-open-source/issues/115 / https://github.com/jimmejardine/qiqqa-open-source/issues/117 )
+			
+* (761b192) a fix for one path we didn't get for https://github.com/jimmejardine/qiqqa-open-source/issues/106 + be more strict in checking whether a Web Library sync directory has been properly set up.
+			
+* (e6ee95f) OCR/text extractor: blow away the PDF/OCR queue on Qiqqa shutdown to help speed up closing the application (related to https://github.com/jimmejardine/qiqqa-open-source/issues/112). Also add thread-safety around the variables/data which cross thread boundaries.
+			
+* (27882ca) reduce a couple of now unimportant log lines to debug-level.
+			
+* (aec562b) performance: remove a couple of lock monitors which we don't need any more.
+			
+* (0f7df40) added one more test file for the BibTeX parser/processing: its surrounding whitespace in several fields should be cleaned up.
+			
+* (c4d7b6e) upgrade the HtmlAgilityPack package used by Qiqqa. This is required for https://github.com/jimmejardine/qiqqa-open-source/issues/114 + https://github.com/jimmejardine/qiqqa-open-source/issues/115
+			
+* (fd8326e) https://github.com/jimmejardine/qiqqa-open-source/issues/82 refactoring/rework of the BibTeX related UI bits. Includes some minimal prepwork for https://github.com/jimmejardine/qiqqa-open-source/issues/87.
+			
+* (0f9fa67) adding icons as part of https://github.com/jimmejardine/qiqqa-open-source/issues/82 refactoring/rework of the BibTeX related UI bits.
+			
+* (1e3edb5) some minimal code cleaning and dead code removal
+			
+* (a5faaaf) fix https://github.com/jimmejardine/qiqqa-open-source/issues/115 : PDF Reader (which does a Scholar Scrape) does not work for users living outside US/UK. Also further fixes https://github.com/jimmejardine/qiqqa-open-source/issues/114. Also fixes https://github.com/jimmejardine/qiqqa-open-source/issues/117 by enforcing UTF8 encoding on the content: we're downloading from Google Scholar there, so we should be good. Google Scrape finally finds decent titles, author lists and even PDF download links once again.
+  
+  TODO: update the 'Google Scholar' view part in the PDFReader control.
+			
+* (65e5707) fix https://github.com/jimmejardine/qiqqa-open-source/issues/114 as per https://stackoverflow.com/questions/13771083/html-agility-pack-get-all-elements-by-class#answer-14087707
+			
+
+
+
+2019-10-18
+----------
+
+			
+* (9a1cdf9) fix typo in previous commit - this was already wrong in the experimental branch  :-(
+			
+* (ba9dcd5) typo fixes in comments and one function name. Changes ripped from the experimental branch.
+			
+* (bc6b2b5) Add files via upload
+			
+* (4ebc4df) Create How to locate your Qiqqa Base Directory.md
+			
+* (734ea88) make sure all NuGet packages reference .NET 4.7.2 - edit ripped from the master branch
+			
+* (8bc773c) document the node/npm development environment, etc. in DEVELOPER-INFO.md
+			
+* (fd67219) added `superclean.sh` bash shell script to help clean up a Visual Studio environment for when you want to make sure you're starting Visual Studio *sans prejudice*.
+			
+* (7566098) added DEVELOPER-INFO.md and pointed README.md at that document for info for developers wishing to work on Qiqqa.
+			
+* (e2bef9a) update CHANGELOG
+			
+* (ac04266) setup/installer: make the generated `setup.exe` should the same full build version as the Qiqqa executable itself.
+			
+* (1f6b9df) fix for setup/installer: set the `setup.exe` file version (as reported by Windows on right-click->Properties) to the Qiqqa release version instead of 0.0.0.0
+			
+* (6bb41ab) rebuild uninstaller
+			
+* (88538dc) regenerated approval reference files for all bibtex test data files after naming dedup fix in previous commit.
+			
+* (42c79d2) https://github.com/jimmejardine/qiqqa-open-source/issues/111 : fix bug where the Approvals **namer** helper function did produce the same files for different tests (because their test data files only differed in file extension, e.g. `.bibtex` vs. `.biblatex`)
+			
+* (288cbc7) fix for `npm run refresh-data` build task: now generator includes code to cope with SHA-1: f3ed2f9640088de33cd58ed97b18891a157b4667 where we had added a comment containing one of the markers we're looking for in the code.
+			
+* (f3ed2f9) fixed unit test file for empty set for a DataTestMethod which is only there for developers to find out quickly after `npm run refresh-data` which test files have been properly employed and which have not.
+			
+* (6f3fa3f) fixed bugs in `npm run refresh-data` build task: properly list those test data files which have not been used in any Unit test yet.
+			
+* (448e135) add testfiles to TestData/... from elsewhere in the source tree: make sure all test files are in /TestData/...
+			
+* (7deb4ac) introducing build task `npm run refresh-data` to help update the test C# files with the latest data set from TestData/...
+			
+
+
+
+2019-10-17
+----------
+
+			
+* (2295adc) rebuild uninstaller
+			
+* (b0e80fb) added these build tasks: version sync: `npm run syncver`; bump release version: `npm run bump`
+			
+* (0462316) https://github.com/jimmejardine/qiqqa-open-source/issues/111 : removed the data fixture files from the test projects themselves.
+			
+* (5c2ea6c) https://github.com/jimmejardine/qiqqa-open-source/issues/111 : moving all test data references, etc. data files to /TestData/... tree
+			
+* (a31480d) adding nodeJS based script to help update/sync/bump Qiqqa software release versions. Also added node/npm-style package.json file to the project: this carries the master version info and helps us quickly setup the proper node environment on any developer box.
+			
+* (d4730ed) prepwork for the version patch / update / bump build task: manually update the copyright and version tags everywhere. Also added the ClickOnceUninstaller project (used by Inno Setup when building the Qiqqa installer) to the MSVS solution.
+			
 
 
 
 2019-10-16
 ----------
 
+			
+* (cb0b053) Merge branch 'mainline-master' into v82-build
+  
+* (81472e1) Update README.md
+			
+* (6c1d8d6) update README with latest info about Qiqqa software releases.
+			
+* (6ccb147) updated CHANGELOG_full.md
 			
 * (acd9229) README: point at the various places where software releases are to be found.
 			
@@ -260,9 +705,9 @@ v82pre release
 			
 * (758e941) Removed unused NuGet bundles; built a v82 setup/installer:
   
-      --------------------------------------
-      Completed Packaging Qiqqa version 82.0.7216.35525 into ...\Qiqqa.Build\Packages\v82 - 20191004-194431\
-      --------------------------------------
+  --------------------------------------
+  Completed Packaging Qiqqa version 82.0.7216.35525 into ...\Qiqqa.Build\Packages\v82 - 20191004-194431\
+  --------------------------------------
 			
 * (3d49ac0) Update README.md
 			
