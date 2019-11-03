@@ -142,14 +142,14 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
                         MouseDown -= PDFHandLayer_MouseDown;
                         MouseUp -= PDFHandLayer_MouseUp;
                         MouseMove -= PDFHandLayer_MouseMove;
+
+                        DataContext = null;
                     }, Dispatcher);
                 }
 
                 // Clear the references for sanity's sake
                 pdf_renderer_control_stats = null;
                 pdf_renderer_control = null;
-
-                DataContext = null;
             }
             catch (Exception ex)
             {
