@@ -587,7 +587,9 @@ SourceURL: {0}
             foreach (var pdf_document in pdf_documents)
             {
                 if (pdf_document.DocumentExists)
+                {
                     Process.Start(pdf_document.DocumentPath);
+                }
             }
         }
 

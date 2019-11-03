@@ -52,7 +52,12 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
 
         public string GetServerUrl()
         {
-            if (!String.IsNullOrEmpty(RegistrySettings.Instance.Read(RegistrySettings.BibTeXSearchSearchUrl))) return RegistrySettings.Instance.Read(RegistrySettings.BibTeXSearchSearchUrl);
+            string url = RegistrySettings.Instance.Read(RegistrySettings.BibTeXSearchSearchUrl);
+
+            if (!String.IsNullOrEmpty(url))
+            {
+                return url;
+            }
 
             IEnumerable<ServerRecord> working_server_records = GetWorkingServerRecords();
 

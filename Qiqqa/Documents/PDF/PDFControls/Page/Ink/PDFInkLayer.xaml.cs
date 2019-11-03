@@ -163,48 +163,55 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
         {
             Logging.Debug("PDFInkLayer::Dispose({0}) @{1}", disposing, dispose_count);
 
-            if (0 == dispose_count)
+            try
             {
-                WPFDoEvents.InvokeInUIThread(() =>
+                if (0 == dispose_count)
                 {
-                    ObjInkCanvas.StrokeCollected -= ObjInkCanvas_StrokeCollected;
-                    ObjInkCanvas.StrokeErased -= ObjInkCanvas_StrokeErased;
-                    ObjInkCanvas.SelectionMoved -= ObjInkCanvas_SelectionMoved;
-                    ObjInkCanvas.SelectionResized -= ObjInkCanvas_SelectionResized;
-
-                    ObjInkCanvas.RequestBringIntoView -= ObjInkCanvas_RequestBringIntoView;
-
-                    try
+                    WPFDoEvents.InvokeInUIThread(() =>
                     {
-                        foreach (var el in Children)
+                        ObjInkCanvas.StrokeCollected -= ObjInkCanvas_StrokeCollected;
+                        ObjInkCanvas.StrokeErased -= ObjInkCanvas_StrokeErased;
+                        ObjInkCanvas.SelectionMoved -= ObjInkCanvas_SelectionMoved;
+                        ObjInkCanvas.SelectionResized -= ObjInkCanvas_SelectionResized;
+
+                        ObjInkCanvas.RequestBringIntoView -= ObjInkCanvas_RequestBringIntoView;
+
+                        try
                         {
-                            IDisposable node = el as IDisposable;
-                            if (null != node)
+                            foreach (var el in Children)
                             {
-                                node.Dispose();
+                                IDisposable node = el as IDisposable;
+                                if (null != node)
+                                {
+                                    node.Dispose();
+                                }
                             }
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        Logging.Error(ex);
-                    }
+                        catch (Exception ex)
+                        {
+                            Logging.Error(ex);
+                        }
 
-                    try
-                    {
-                        Children.Clear();
-                    }
-                    catch (Exception ex)
-                    {
-                        Logging.Error(ex);
-                    }
-                }, Dispatcher);
+                        try
+                        {
+                            Children.Clear();
+                        }
+                        catch (Exception ex)
+                        {
+                            Logging.Error(ex);
+                        }
+                    }, Dispatcher);
+                }
+
+                // Clear the references for sanity's sake
+                pdf_renderer_control_stats = null;
+
+                DataContext = null;
             }
-
-            // Clear the references for sanity's sake
-            pdf_renderer_control_stats = null;
-
-            DataContext = null;
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             ++dispose_count;
 

@@ -1,3 +1,5 @@
+#if false
+
 namespace Utilities.Files
 {
     public class CSV
@@ -9,3 +11,5 @@ namespace Utilities.Files
         }
     }
 }
+
+#endif

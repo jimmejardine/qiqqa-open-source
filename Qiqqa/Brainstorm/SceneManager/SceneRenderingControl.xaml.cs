@@ -184,7 +184,6 @@ namespace Qiqqa.Brainstorm.SceneManager
 
             New();
 
-            // TODO: dig up all these Registry-based tweaks of Qiqqa...
             if (RegistrySettings.Instance.IsSet(RegistrySettings.SampleBrainstorm))
             {
                 SampleSceneGenerator.CreateSampleScene_Coordinates(this);

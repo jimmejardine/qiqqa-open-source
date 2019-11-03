@@ -754,24 +754,26 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
         {
             Logging.Debug("PDFRendererPageControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            if (dispose_count == 0)
+            try
             {
-                pdf_renderer_control_stats.pdf_document.PDFRenderer.OnPageTextAvailable -= pdf_renderer_OnPageTextAvailable;
-
-                foreach (PageLayer page_layer in page_layers)
+                if (dispose_count == 0)
                 {
-                    page_layer.Dispose();
-                }
-                page_layers.Clear();
+                    pdf_renderer_control_stats.pdf_document.PDFRenderer.OnPageTextAvailable -= pdf_renderer_OnPageTextAvailable;
 
-                // Also erase any pending RefreshPage work:
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-                lock (pending_refresh_work_lock)
-                {
-                    l1_clk.LockPerfTimerStop();
-                    pending_refresh_work_fast = null;
-                    pending_refresh_work_slow = null;
-                }
+                    foreach (PageLayer page_layer in page_layers)
+                    {
+                        page_layer.Dispose();
+                    }
+                    page_layers.Clear();
+
+                    // Also erase any pending RefreshPage work:
+                    Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                    lock (pending_refresh_work_lock)
+                    {
+                        l1_clk.LockPerfTimerStop();
+                        pending_refresh_work_fast = null;
+                        pending_refresh_work_slow = null;
+                    }
 
 #if false           // These Dispose() calls have already been done above in the page_layers.Dispose() loop!
                 CanvasTextSentence_.Dispose();
@@ -782,26 +784,31 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                 CanvasHand_.Dispose();
                 CanvasInk_.Dispose();
 #endif
+                }
+
+                page_layers = null;
+
+                CurrentlyShowingImage = null;
+                ImagePage_HIDDEN = null;
+
+                pdf_renderer_control = null;
+                pdf_renderer_control_stats = null;
+
+                CanvasTextSentence_ = null;
+                CanvasSearch_ = null;
+                CanvasAnnotation_ = null;
+                CanvasHighlight_ = null;
+                CanvasCamera_ = null;
+                CanvasHand_ = null;
+                CanvasInk_ = null;
+
+                // Clear the references for sanity's sake
+                DataContext = null;
             }
-
-            page_layers = null;
-
-            CurrentlyShowingImage = null;
-            ImagePage_HIDDEN = null;
-
-            pdf_renderer_control = null;
-            pdf_renderer_control_stats = null;
-
-            CanvasTextSentence_ = null;
-            CanvasSearch_ = null;
-            CanvasAnnotation_ = null;
-            CanvasHighlight_ = null;
-            CanvasCamera_ = null;
-            CanvasHand_ = null;
-            CanvasInk_ = null;
-
-            // Clear the references for sanity's sake
-            DataContext = null;
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             ++dispose_count;
         }

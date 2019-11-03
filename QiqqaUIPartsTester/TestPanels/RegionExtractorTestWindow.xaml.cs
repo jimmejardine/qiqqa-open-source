@@ -42,16 +42,18 @@ namespace QiqqaOCR
             string pdf_filename = String.Format(@"C:\temp\{0}.pdf", pdf_number);
 
             Logging.Info("+Rendering page");
-            MemoryStream ms = MuPDFRenderer.RenderPDFPage(pdf_filename, page_number, 200, null, ProcessPriorityClass.Normal);
-            BitmapSource bitmap_image = BitmapImageTools.LoadFromBytes(ms.ToArray());
-            Bitmap bitmap = new Bitmap(ms);
-            Logging.Info("-Rendering page");
+            using (MemoryStream ms = MuPDFRenderer.RenderPDFPage(pdf_filename, page_number, 200, null, ProcessPriorityClass.Normal))
+            {
+                BitmapSource bitmap_image = BitmapImageTools.LoadFromBytes(ms.ToArray());
+                Bitmap bitmap = new Bitmap(ms);
+                Logging.Info("-Rendering page");
 
-            Image = bitmap_image;
+                Image = bitmap_image;
 
-            Logging.Info("+Finding regions");
-            region_locator = new PDFRegionLocator(bitmap);
-            Logging.Info("-Finding regions");
+                Logging.Info("+Finding regions");
+                region_locator = new PDFRegionLocator(bitmap);
+                Logging.Info("-Finding regions");
+            }
 
             Recalc();
         }

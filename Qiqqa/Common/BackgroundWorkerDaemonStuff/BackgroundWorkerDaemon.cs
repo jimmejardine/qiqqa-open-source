@@ -132,13 +132,6 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
         {
             daemon.Sleep(15 * 60 * 1000);
 
-            if (RegistrySettings.Instance.IsSet(RegistrySettings.SuppressDaemon))
-            {
-                Logging.Debug特("Daemon is forced to sleep via registry SuppressDaemon");
-                daemon.Sleep(10 * 1000);
-                return;
-            }
-
             if (ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
             {
                 Logging.Debug特("Daemons are forced to sleep via Configuration::DisableAllBackgroundTasks");
@@ -183,13 +176,6 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
         {
             daemon.Sleep(1 * 60 * 1000);
 
-            if (RegistrySettings.Instance.IsSet(RegistrySettings.SuppressDaemon))
-            {
-                Logging.Debug特("Daemon is forced to sleep via registry SuppressDaemon");
-                daemon.Sleep(10 * 1000);
-                return;
-            }
-
             if (ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
             {
                 Logging.Debug特("Daemons are forced to sleep via Configuration::DisableAllBackgroundTasks");
@@ -202,20 +188,12 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
                 Logging.Debug特("DoMaintenance_QuiteInfrequent: Not daemon processing any library that is busy with adds...");
                 return;
             }
-
         }
 
         private void DoMaintenance_Infrequent(Daemon daemon)
         {
             Logging.Debug特("DoMaintenance_Infrequent START");
             daemon.Sleep(10 * 1000);
-
-            if (RegistrySettings.Instance.IsSet(RegistrySettings.SuppressDaemon))
-            {
-                Logging.Debug特("Daemon is forced to sleep via registry SuppressDaemon");
-                daemon.Sleep(10 * 1000);
-                return;
-            }
 
             if (ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
             {
@@ -264,13 +242,6 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
         {
             daemon.Sleep(1 * 1000);
 
-            if (RegistrySettings.Instance.IsSet(RegistrySettings.SuppressDaemon))
-            {
-                Logging.Debug特("Daemon is forced to sleep via registry SuppressDaemon");
-                daemon.Sleep(10 * 1000);
-                return;
-            }
-
             if (ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
             {
                 Logging.Debug特("Daemons are forced to sleep via Configuration::DisableAllBackgroundTasks");
@@ -285,10 +256,6 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
             }
 
             // Check for new syncing
-            foreach (var x in WebLibraryManager.Instance.WebLibraryDetails_All_IncludingDeleted)
-            {
-                Library library = x.library;
-
                 try
                 {
                     SyncQueues.Instance.DoMaintenance(daemon);
@@ -297,7 +264,6 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
                 {
                     Logging.Error(ex, "Exception in SyncQueues.Instance.DoMaintenance");
                 }
-            }
 
             // Check if documents have changed
             foreach (var x in WebLibraryManager.Instance.WebLibraryDetails_All_IncludingDeleted)

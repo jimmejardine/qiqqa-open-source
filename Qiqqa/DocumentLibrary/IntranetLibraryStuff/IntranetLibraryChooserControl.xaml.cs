@@ -220,7 +220,7 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
         {
             base.OnClosed(e);
 
-            // base.OnClosed() invokes this calss Closed() code, so we flipped the order of exec to reduce the number of surprises for yours truly.
+            // base.OnClosed() invokes this class' Closed() code, so we flipped the order of exec to reduce the number of surprises for yours truly.
             // This NULLing stuff is really the last rites of Dispose()-like so we stick it at the end here.
 
         }

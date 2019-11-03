@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace Utilities.Misc
 {
-    public class SafeThreadPool
+    public static class SafeThreadPool
     {
         public static event UnhandledExceptionEventHandler UnhandledException;
 
@@ -49,8 +49,6 @@ namespace Utilities.Misc
                 return ThreadPool.QueueUserWorkItem(o => QueueUserWorkItem_THREAD_NoSkip(callback));
             }
         }
-
-        private SafeThreadPool() { }
 
         private static void QueueUserWorkItem_THREAD_NoSkip(WaitCallback callback)
         {
@@ -109,9 +107,7 @@ namespace Utilities.Misc
 
             // heuristic: allow one CPU thread per core minus 2 (accounting for main thread and others), two I/O thread per core with a minimum of 2 and 6 respectively
             int min_cpu_threads = 0, min_io_threads = 0;
-#if false
             ThreadPool.GetMinThreads(out min_cpu_threads, out min_io_threads);
-#endif
             min_cpu_threads = Math.Max(Math.Max(2, count - 2), min_cpu_threads);
             min_io_threads = Math.Max(Math.Max(6, 2 * count), min_io_threads);
             ThreadPool.SetMaxThreads(min_cpu_threads, min_io_threads);

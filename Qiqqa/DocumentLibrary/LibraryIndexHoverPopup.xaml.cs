@@ -55,12 +55,20 @@ namespace Qiqqa.DocumentLibrary
         {
             Logging.Debug("LibraryIndexHoverPopup::Dispose({0}) @{1}", disposing, dispose_count);
 
-            ImageThumbnail.Visibility = Visibility.Collapsed;
-            DataContext = null;
-            ImageThumbnail.Source = null;
+            try
+            {
+                ImageThumbnail.Visibility = Visibility.Collapsed;
+                ImageThumbnail.Source = null;
 
-            pdf_document = null;
-            specific_pdf_annotation = null;
+                pdf_document = null;
+                specific_pdf_annotation = null;
+
+                DataContext = null;
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             ++dispose_count;
         }

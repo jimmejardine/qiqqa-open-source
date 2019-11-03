@@ -49,37 +49,56 @@ namespace Utilities.Maintainable
             }
 
             // Then go and wait for all to really terminate.
-            SafeThreadPool.QueueUserWorkItem(o =>
+            shutdown_cleanup_action = new WaitCallback(o =>
             {
                 Logging.Info("+Stopping MaintainableManager tasks (async)");
 
-                Stopwatch clk = Stopwatch.StartNew();
-
-                while (true)
+                if (!CleanupOnShutdown())
                 {
-                    // foreach... loop here would get screwed up by inner code invoking the List.Remove() API. So we use this GetFirst() + counter loop instead. Good for threadsafe locking too.
-                    DoMaintenanceDelegateWrapper w;
-                    int cnt = GetItemCount();
+                    // queue another cleanup task round to check again
+                    SafeThreadPool.QueueUserWorkItem(shutdown_cleanup_action, skip_task_at_app_shutdown: false);
+                }
+            });
+            SafeThreadPool.QueueUserWorkItem(shutdown_cleanup_action, skip_task_at_app_shutdown: false);
+        }
 
-                    for (int i = 0; i < cnt; i++)
+        private Stopwatch shutdown_cleanup_clk = null;
+        private WaitCallback shutdown_cleanup_action = null;
+
+        private bool CleanupOnShutdown()
+        {
+            try
+            {
+                Logging.Info("+Stopping MaintainableManager tasks (async)");
+
+                if (null == shutdown_cleanup_clk)
+                {
+                    shutdown_cleanup_clk = Stopwatch.StartNew();
+                }
+
+                // foreach... loop here would get screwed up by inner code invoking the List.Remove() API. So we use this GetFirst() + counter loop instead. Good for threadsafe locking too.
+                DoMaintenanceDelegateWrapper w;
+                int cnt = GetItemCount();
+
+                for (int i = 0; i < cnt; i++)
+                {
+                    w = GetEntry(i);
+                    if (w != null)
                     {
-                        w = GetEntry(i);
-                        if (w != null)
-                        {
-                            Logging.Info("Waiting for Maintainable {0} to terminate.", w.maintainable_description);
+                        Logging.Info("Waiting for Maintainable {0} to terminate.", w.maintainable_description);
 
-                            if (w.daemon.Join(150))
-                            {
-                                RemoveEntry(w);
-                                // Play nasty: we know this item was at index [i], hence there's a new item now at [i]
-                                // OR we're gonna hit the end of the list. Either way, we're good to go:
-                                i--;
-                                continue;
-                            }
-                        }
-                        else
+                        if (w.daemon.Join(100))
                         {
-                            // NULL means we've hit the end of the list. Break out of the loop.
+                            RemoveEntry(w);
+                            // Play nasty: we know this item was at index [i], hence there's a new item now at [i]
+                            // OR we're gonna hit the end of the list. Either way, we're good to go:
+                            i--;
+                            continue;
+                        }
+                    }
+                    else
+                    {
+                        // NULL means we've hit the end of the list. Break out of the loop.
 
 #if TEST
                             double memsize1 = GC.GetTotalMemory(false);
@@ -90,37 +109,53 @@ namespace Utilities.Maintainable
                             Logging.Info("While Waiting to terminate, GC collect => memory {0:0.000}K -> {1:0.000}K.", memsize1 / 1E3, memsize2 / 1E3);
 #endif
 
-                            break;
-                        }
-                    }
-
-                    cnt = GetItemCount();
-                    Logging.Info("Stopping MaintainableManager tasks (async): {0} threads are pending.", cnt);
-                    if (cnt == 0)
-                    {
                         break;
                     }
+                }
 
-                    // abort the threads if they're taking way too long:
-                    if (clk.ElapsedMilliseconds >= Constants.MAX_WAIT_TIME_MS_AT_PROGRAM_SHUTDOWN)
+                cnt = GetItemCount();
+                Logging.Info("Stopping MaintainableManager tasks (async): {0} threads are pending.", cnt);
+                if (cnt == 0)
+                {
+                    return true;
+                }
+
+                // abort the threads if they're taking way too long:
+                if (shutdown_cleanup_clk.ElapsedMilliseconds >= Constants.MAX_WAIT_TIME_MS_AT_PROGRAM_SHUTDOWN)
+                {
+                    for (int i = 0; i < cnt; i++)
                     {
-                        for (int i = 0; i < cnt; i++)
+                        w = GetEntry(i);
+                        if (w != null)
                         {
-                            w = GetEntry(i);
-                            if (w != null)
-                            {
-                                Logging.Info("Timeout ({1} sec), hence ABORTing Maintainable thread {0}.", w.maintainable_description, Constants.MAX_WAIT_TIME_MS_AT_PROGRAM_SHUTDOWN / 1000);
+                            Logging.Info("Timeout ({1} sec), hence ABORTing Maintainable thread {0}.", w.maintainable_description, Constants.MAX_WAIT_TIME_MS_AT_PROGRAM_SHUTDOWN / 1000);
 
-                                w.daemon.Abort();
-                            }
+                            w.daemon.Abort();
                         }
                     }
 
-                    WPFDoEvents.WaitForUIThreadActivityDone();
-                }
-            });
-        }
+                    lock (do_maintenance_delegate_wrappers_lock)
+                    {
+                        do_maintenance_delegate_wrappers.Clear();
+                    }
 
+                    return true;
+                }
+                else
+                {
+                    // run another round to see if the tasks did terminate:
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex, "MaintainableManager: Cleanup during Shutdown");
+
+                // when an error occurred, we've arrived in an unknown application state as far as the itemcount is concerned,
+                // hence we flag this task as 'finished' then.
+                return true;
+            }
+        }
 
         private int GetItemCount()
         {

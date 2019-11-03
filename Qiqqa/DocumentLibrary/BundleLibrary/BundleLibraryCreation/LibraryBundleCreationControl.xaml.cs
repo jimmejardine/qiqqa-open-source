@@ -9,8 +9,10 @@ using icons;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Documents.PDF.CitationManagerStuff;
 using Qiqqa.UtilisationTracking;
+using Utilities;
 using Utilities.GUI;
 using Utilities.Misc;
+using Utilities.ProcessTools;
 using UserControl = System.Windows.Controls.UserControl;
 
 namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
@@ -88,39 +90,50 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
             string source_directory = Path.GetFullPath(Path.Combine(library.LIBRARY_BASE_PATH, @"*"));
             string directory_exclusion_parameter = (manifest.IncludesPDFs ? "" : "-xr!documents");
             string parameters = String.Format("a -tzip -mm=Deflate -mmt=on -mx9 \"{0}\" \"{1}\" {2}", target_filename_bundle, source_directory, directory_exclusion_parameter);
-            Process zip_process = Process.Start(ConfigurationManager.Instance.Program7ZIP, parameters);
 
             // Watch the zipper
-            SafeThreadPool.QueueUserWorkItem(o => TailZIPProcess(manifest, zip_process));
+            SafeThreadPool.QueueUserWorkItem(o => TailZIPProcess(manifest, parameters));
         }
 
-        private static void TailZIPProcess(BundleLibraryManifest manifest, Process zip_process)
+        private static void TailZIPProcess(BundleLibraryManifest manifest, string parameters)
         {
-            string STATUS_TOKEN = "Bundle-" + manifest.Version;
-
-            StatusManager.Instance.ClearCancelled(STATUS_TOKEN);
-
-            int iteration = 0;
-            while (true)
+            using (Process zip_process = Process.Start(ConfigurationManager.Instance.Program7ZIP, parameters))
             {
-                ++iteration;
-
-                if (StatusManager.Instance.IsCancelled(STATUS_TOKEN))
+                using (ProcessOutputReader process_output_reader = new ProcessOutputReader(zip_process))
                 {
-                    zip_process.Kill();
-                    StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Cancelled creation of Bundle Library.");
-                    return;
+                    string STATUS_TOKEN = "Bundle-" + manifest.Version;
+
+                    StatusManager.Instance.ClearCancelled(STATUS_TOKEN);
+
+                    int iteration = 0;
+                    while (true)
+                    {
+                        ++iteration;
+
+                        if (StatusManager.Instance.IsCancelled(STATUS_TOKEN))
+                        {
+                            zip_process.Kill();
+                            zip_process.WaitForExit(500);
+
+                            Logging.Error("Cancelled creation of Bundle Library:\n--- Parameters: {0}\n{1}", parameters, process_output_reader.GetOutputsDumpString());
+
+                            StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Cancelled creation of Bundle Library.");
+                            return;
+                        }
+
+                        if (zip_process.HasExited)
+                        {
+                            Logging.Info("Completed creation of Bundle Library:\n--- Parameters: {0}\n{1}", parameters, process_output_reader.GetOutputsDumpString());
+
+                            StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Completed creation of Bundle Library.");
+                            return;
+                        }
+
+                        StatusManager.Instance.UpdateStatusBusy(STATUS_TOKEN, "Creating Bundle Library...", iteration, iteration + 1, true);
+
+                        Thread.Sleep(1000);
+                    }
                 }
-
-                if (zip_process.HasExited)
-                {
-                    StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Completed creation of Bundle Library.");
-                    return;
-                }
-
-                StatusManager.Instance.UpdateStatusBusy(STATUS_TOKEN, "Creating Bundle Library...", iteration, iteration + 1, true);
-
-                Thread.Sleep(1000);
             }
         }
 

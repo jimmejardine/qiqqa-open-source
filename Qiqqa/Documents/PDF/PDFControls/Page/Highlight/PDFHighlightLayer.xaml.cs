@@ -178,47 +178,54 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
         {
             Logging.Debug("PDFHighlightLayer::Dispose({0}) @{1}", disposing, dispose_count);
 
-            if (null != drag_area_tracker)
+            try
             {
-                WPFDoEvents.InvokeInUIThread(() =>
+                if (null != drag_area_tracker)
                 {
-                    try
+                    WPFDoEvents.InvokeInUIThread(() =>
                     {
-                        foreach (var el in Children)
+                        try
                         {
-                            IDisposable node = el as IDisposable;
-                            if (null != node)
+                            foreach (var el in Children)
                             {
-                                node.Dispose();
+                                IDisposable node = el as IDisposable;
+                                if (null != node)
+                                {
+                                    node.Dispose();
+                                }
                             }
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        Logging.Error(ex);
-                    }
+                        catch (Exception ex)
+                        {
+                            Logging.Error(ex);
+                        }
 
-                    try
-                    {
-                        Children.Clear();
-                    }
-                    catch (Exception ex)
-                    {
-                        Logging.Error(ex);
-                    }
+                        try
+                        {
+                            Children.Clear();
+                        }
+                        catch (Exception ex)
+                        {
+                            Logging.Error(ex);
+                        }
 
-                    drag_area_tracker.OnDragStarted -= drag_area_tracker_OnDragStarted;
-                    drag_area_tracker.OnDragInProgress -= drag_area_tracker_OnDragInProgress;
-                    drag_area_tracker.OnDragComplete -= drag_area_tracker_OnDragComplete;
-                }, Dispatcher);
+                        drag_area_tracker.OnDragStarted -= drag_area_tracker_OnDragStarted;
+                        drag_area_tracker.OnDragInProgress -= drag_area_tracker_OnDragInProgress;
+                        drag_area_tracker.OnDragComplete -= drag_area_tracker_OnDragComplete;
+                    }, Dispatcher);
+                }
+
+                // Clear the references for sanity's sake
+                pdf_renderer_control_stats = null;
+                drag_area_tracker = null;
+                text_selection_manager = null;
+
+                DataContext = null;
             }
-
-            // Clear the references for sanity's sake
-            pdf_renderer_control_stats = null;
-            drag_area_tracker = null;
-            text_selection_manager = null;
-
-            DataContext = null;
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             ++dispose_count;
 
