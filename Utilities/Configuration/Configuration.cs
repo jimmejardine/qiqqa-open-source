@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-// Hacky solution to make certain confiration items available to Utilities namespace classes/code.
+// Hacky solution to make certain configuration items available to Utilities namespace classes/code.
 
 namespace Utilities
 {
