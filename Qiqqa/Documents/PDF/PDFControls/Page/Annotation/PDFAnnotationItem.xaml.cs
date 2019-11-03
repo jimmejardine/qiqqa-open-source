@@ -281,38 +281,45 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
         {
             Logging.Debug("PDFAnnotationItem::Dispose({0}) @{1}", disposing, dispose_count);
 
-            if (dispose_count == 0)
+            try
             {
-                // Get rid of managed resources / get rid of cyclic references:
-                if (null != pdf_annotation)
+                if (dispose_count == 0)
                 {
-                    pdf_annotation.Bindable.PropertyChanged -= pdf_annotation_PropertyChanged;
+                    // Get rid of managed resources / get rid of cyclic references:
+                    if (null != pdf_annotation)
+                    {
+                        pdf_annotation.Bindable.PropertyChanged -= pdf_annotation_PropertyChanged;
+                    }
+
+                    ButtonAnnotationDetails.MouseEnter -= ButtonAnnotationDetails_MouseEnter;
+                    ButtonAnnotationDetails.MouseLeave -= ButtonAnnotationDetails_MouseLeave;
+                    ButtonAnnotationDetails.MouseDown -= ButtonAnnotationDetails_MouseDown;
+                    TextAnnotationText.GotFocus -= TextAnnotationText_GotFocus;
+                    TextAnnotationText.LostFocus -= TextAnnotationText_LostFocus;
+                    TextAnnotationText.PreviewMouseDown -= TextAnnotationText_PreviewMouseDown;
+                    TextAnnotationText.PreviewMouseMove -= TextAnnotationText_PreviewMouseMove;
+                    TextAnnotationText.PreviewMouseUp -= TextAnnotationText_PreviewMouseUp;
+
+                    ObjTagEditorControl.GotFocus -= ObjTagEditorControl_GotFocus;
+                    ObjTagEditorControl.LostFocus -= ObjTagEditorControl_LostFocus;
+
+                    ObjTagEditorControl.TagFeature_Add = null;
+                    ObjTagEditorControl.TagFeature_Remove = null;
                 }
 
-                ButtonAnnotationDetails.MouseEnter -= ButtonAnnotationDetails_MouseEnter;
-                ButtonAnnotationDetails.MouseLeave -= ButtonAnnotationDetails_MouseLeave;
-                ButtonAnnotationDetails.MouseDown -= ButtonAnnotationDetails_MouseDown;
-                TextAnnotationText.GotFocus -= TextAnnotationText_GotFocus;
-                TextAnnotationText.LostFocus -= TextAnnotationText_LostFocus;
-                TextAnnotationText.PreviewMouseDown -= TextAnnotationText_PreviewMouseDown;
-                TextAnnotationText.PreviewMouseMove -= TextAnnotationText_PreviewMouseMove;
-                TextAnnotationText.PreviewMouseUp -= TextAnnotationText_PreviewMouseUp;
+                // Clear the references for sanity's sake
+                DataContext = null;
 
-                ObjTagEditorControl.GotFocus -= ObjTagEditorControl_GotFocus;
-                ObjTagEditorControl.LostFocus -= ObjTagEditorControl_LostFocus;
+                pdf_annotation_layer = null;
+                pdf_annotation = null;
+                pdf_renderer_control_stats = null;
 
-                ObjTagEditorControl.TagFeature_Add = null;
-                ObjTagEditorControl.TagFeature_Remove = null;
+                pdf_annotation_editor_control_popup = null;
             }
-
-            // Clear the references for sanity's sake
-            DataContext = null;
-
-            pdf_annotation_layer = null;
-            pdf_annotation = null;
-            pdf_renderer_control_stats = null;
-
-            pdf_annotation_editor_control_popup = null;
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             ++dispose_count;
         }

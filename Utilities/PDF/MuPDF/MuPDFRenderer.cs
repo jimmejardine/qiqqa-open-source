@@ -258,6 +258,7 @@ namespace Utilities.PDF.MuPDF
 
         private static MemoryStream ReadEntireStandardOutput(string process_parameters, ProcessPriorityClass priority_class)
         {
+            // STDOUT/STDERR
             Process process = ProcessSpawning.SpawnChildProcess("pdfdraw.exe", process_parameters, priority_class);
             process.ErrorDataReceived += (sender, e) => { };
             process.BeginErrorReadLine();

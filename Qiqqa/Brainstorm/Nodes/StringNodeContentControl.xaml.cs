@@ -120,20 +120,27 @@ namespace Qiqqa.Brainstorm.Nodes
         {
             Logging.Debug("StringNodeContentControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            if (dispose_count == 0)
+            try
             {
-                // Get rid of managed resources / get rid of cyclic references:
-                fader?.Dispose();
+                if (dispose_count == 0)
+                {
+                    // Get rid of managed resources / get rid of cyclic references:
+                    fader?.Dispose();
+                }
+                fader = null;
+
+                MouseDoubleClick -= StringNodeContentControl_MouseDoubleClick;
+                KeyDown -= StringNodeContentControl_KeyDown;
+
+                TxtEdit.LostFocus -= edit_text_box_LostFocus;
+                TxtEdit.PreviewKeyDown -= edit_text_box_PreviewKeyDown;
+
+                DataContext = null;
             }
-            fader = null;
-
-            DataContext = null;
-
-            MouseDoubleClick -= StringNodeContentControl_MouseDoubleClick;
-            KeyDown -= StringNodeContentControl_KeyDown;
-
-            TxtEdit.LostFocus -= edit_text_box_LostFocus;
-            TxtEdit.PreviewKeyDown -= edit_text_box_PreviewKeyDown;
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             ++dispose_count;
         }

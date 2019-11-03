@@ -155,44 +155,51 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
         {
             Logging.Debug("PDFSearchLayer::Dispose({0}) @{1}", disposing, dispose_count);
 
-            if (dispose_count == 0)
+            try
             {
-                WPFDoEvents.InvokeInUIThread(() =>
+                if (dispose_count == 0)
                 {
-                    WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
-                    try
+                    WPFDoEvents.InvokeInUIThread(() =>
                     {
-                        foreach (var el in Children)
+                        WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
+                        try
                         {
-                            IDisposable node = el as IDisposable;
-                            if (null != node)
+                            foreach (var el in Children)
                             {
-                                node.Dispose();
+                                IDisposable node = el as IDisposable;
+                                if (null != node)
+                                {
+                                    node.Dispose();
+                                }
                             }
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        Logging.Error(ex);
-                    }
+                        catch (Exception ex)
+                        {
+                            Logging.Error(ex);
+                        }
 
-                    try
-                    {
-                        Children.Clear();
-                    }
-                    catch (Exception ex)
-                    {
-                        Logging.Error(ex);
-                    }
-                }, Dispatcher);
+                        try
+                        {
+                            Children.Clear();
+                        }
+                        catch (Exception ex)
+                        {
+                            Logging.Error(ex);
+                        }
+                    }, Dispatcher);
+                }
+
+                // Clear the references for sanity's sake
+                pdf_renderer_control_stats = null;
+                search_result_set = null;
+
+                DataContext = null;
             }
-
-            // Clear the references for sanity's sake
-            pdf_renderer_control_stats = null;
-            search_result_set = null;
-
-            DataContext = null;
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             ++dispose_count;
 

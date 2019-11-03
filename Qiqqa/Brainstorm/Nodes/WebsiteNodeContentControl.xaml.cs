@@ -81,15 +81,22 @@ namespace Qiqqa.Brainstorm.Nodes
         {
             Logging.Debug("WebsiteNodeContentControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            if (dispose_count == 0)
+            try
             {
-                // Get rid of managed resources / get rid of cyclic references:
-                fader?.Dispose();
-            }
-            fader = null;
+                if (dispose_count == 0)
+                {
+                    // Get rid of managed resources / get rid of cyclic references:
+                    fader?.Dispose();
+                }
+                fader = null;
 
-            DataContext = null;
-            website_node_content = null;
+                website_node_content = null;
+                DataContext = null;
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             ++dispose_count;
         }

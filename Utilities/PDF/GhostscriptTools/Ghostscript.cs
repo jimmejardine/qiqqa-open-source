@@ -17,6 +17,7 @@ namespace Utilities.PDF.GhostscriptTools
 
         public static MemoryStream RenderPage_AsMemoryStream(string pdf_filename, int page_number, int dpi, string device, ProcessPriorityClass priority_class)
         {
+            // STDOUT/STDERR
             string ghostscript_parameters = GhostscriptBinaries.GenerateGhostscriptParameters(pdf_filename, device, dpi, page_number, 0, @"-");
             Process process = GhostscriptBinaries.StartGhostscriptProcess(ghostscript_parameters, priority_class);
             Logging.Info("Process started!");

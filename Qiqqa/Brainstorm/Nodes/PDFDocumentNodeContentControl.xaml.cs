@@ -351,20 +351,27 @@ namespace Qiqqa.Brainstorm.Nodes
         {
             Logging.Debug("PDFDocumentNodeContentControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            // Get rid of managed resources
-            if (dispose_count == 0)
+            try
             {
-                library_index_hover_popup?.Dispose();
+                // Get rid of managed resources
+                if (dispose_count == 0)
+                {
+                    library_index_hover_popup?.Dispose();
+                }
+                library_index_hover_popup = null;
+
+                ToolTip = "";
+
+                node_control = null;
+                pdf_document_node_content = null;
+
+                DataContextChanged -= PDFDocumentNodeContentControl_DataContextChanged;
+                DataContext = null;
             }
-            library_index_hover_popup = null;
-
-            ToolTip = "";
-
-            node_control = null;
-            pdf_document_node_content = null;
-
-            DataContextChanged -= PDFDocumentNodeContentControl_DataContextChanged;
-            DataContext = null;
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             ++dispose_count;
         }

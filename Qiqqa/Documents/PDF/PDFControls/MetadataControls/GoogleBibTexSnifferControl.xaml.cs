@@ -1036,7 +1036,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
         {
             base.OnClosed(e);
 
-            // base.OnClosed() invokes this calss Closed() code, so we flipped the order of exec to reduce the number of surprises for yours truly.
+            // base.OnClosed() invokes this class' Closed() code, so we flipped the order of exec to reduce the number of surprises for yours truly.
             // This NULLing stuff is really the last rites of Dispose()-like so we stick it at the end here.
 
             Dispose();
@@ -1062,43 +1062,52 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
         {
             Logging.Debug("GoogleBibTexSnifferControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            if (dispose_count == 0)
+            try
             {
-                // Get rid of managed resources / get rid of cyclic references:
-                pdf_documents_total_pool?.Clear();
-                pdf_documents_search_pool?.Clear();
+                if (dispose_count == 0)
+                {
+                    // Get rid of managed resources / get rid of cyclic references:
+                    pdf_documents_total_pool?.Clear();
+                    pdf_documents_search_pool?.Clear();
 
-                search_options_bindable.PropertyChanged -= search_options_bindable_PropertyChanged;
+                    search_options_bindable.PropertyChanged -= search_options_bindable_PropertyChanged;
 
-                ObjWebBrowser.PageLoaded -= ObjWebBrowser_PageLoaded;
-                ObjWebBrowser.TabChanged -= ObjWebBrowser_TabChanged;
+                    ObjWebBrowser.PageLoaded -= ObjWebBrowser_PageLoaded;
+                    ObjWebBrowser.TabChanged -= ObjWebBrowser_TabChanged;
 
-                ObjBibTeXEditorControl.ObjBibTeXText.TextChanged -= TxtBibTeX_TextChanged;
+                    ObjBibTeXEditorControl.ObjBibTeXText.TextChanged -= TxtBibTeX_TextChanged;
 
-                pdf_renderer_control?.Dispose();
-                ObjBibTeXEditorControl?.Dispose();
+                    pdf_renderer_control?.Dispose();
+                    ObjBibTeXEditorControl?.Dispose();
 
-                ObjSearchOptionsPanel.DataContext = null;
-                ButtonWizard.DataContext = null;
+                    ObjSearchOptionsPanel.DataContext = null;
+                    ButtonWizard.DataContext = null;
+                }
+
+                // Clear the references for sanity's sake
+                search_options_bindable = null;
+
+                user_specified_pdf_document = null;
+                pdf_documents_total_pool = null;
+
+                pdf_documents_search_pool = null;
+
+                pdf_document = null;
+
+                pdf_document_rendered = null;
+                pdf_renderer_control = null;
+
+                search_options = null;
+                search_options_bindable = null;
+
+                ObjBibTeXEditorControl = null;
+
+                DataContext = null;
             }
-
-            // Clear the references for sanity's sake
-            search_options_bindable = null;
-
-            user_specified_pdf_document = null;
-            pdf_documents_total_pool = null;
-
-            pdf_documents_search_pool = null;
-
-            pdf_document = null;
-
-            pdf_document_rendered = null;
-            pdf_renderer_control = null;
-
-            search_options = null;
-            search_options_bindable = null;
-
-            ObjBibTeXEditorControl = null;
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             ++dispose_count;
         }

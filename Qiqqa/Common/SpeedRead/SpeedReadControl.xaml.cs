@@ -357,16 +357,23 @@ namespace Qiqqa.Common.SpeedRead
         {
             Logging.Debug("SpeedReadControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            // Get rid of managed resources and background threads
-            playing = false;
-            if (thread != null)
+            try
             {
-                thread.Join();
+                // Get rid of managed resources and background threads
+                playing = false;
+                if (thread != null)
+                {
+                    thread.Join();
+                }
+
+                words.Clear();
+
+                DataContext = null;
             }
-
-            words.Clear();
-
-            DataContext = null;
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             ++dispose_count;
         }

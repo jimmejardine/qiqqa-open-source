@@ -333,21 +333,28 @@ namespace Qiqqa.Main
         {
             Logging.Debug("MainWindow::Dispose({0}) @{1}", disposing, dispose_count);
 
-            if (dispose_count == 0)
+            try
             {
-                // Get rid of managed resources
-                ObjTabWelcome.GetGoing -= ObjTabWelcome_GetGoing;
+                if (dispose_count == 0)
+                {
+                    // Get rid of managed resources
+                    ObjTabWelcome.GetGoing -= ObjTabWelcome_GetGoing;
 
-                ObjStartPage?.Dispose();
+                    ObjStartPage?.Dispose();
 
-                ipc_server?.Stop();
+                    ipc_server?.Stop();
+                }
+
+                ObjStartPage = null;
+
+                keyboard_hook = null;
+                ipc_server = null;
+                DataContext = null;
             }
-
-            ObjStartPage = null;
-
-            keyboard_hook = null;
-            ipc_server = null;
-            DataContext = null;
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             ++dispose_count;
         }
