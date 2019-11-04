@@ -33,6 +33,7 @@ Qiqqa.Build/Packaging/ClickOnceUninstaller/ClickOnceUninstaller/obj/*
 
 # scratch directory for other material while working on Qiqqa items
 /research/
+/docs/template-research/
 
 *.received.json
 
