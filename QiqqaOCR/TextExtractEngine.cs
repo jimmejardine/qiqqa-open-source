@@ -91,7 +91,7 @@ namespace QiqqaOCR
                 // Have we been running for too long?
                 if (clk.ElapsedMilliseconds >= Constants.MAX_WAIT_TIME_MS_FOR_QIQQA_OCR_TASK_TO_TERMINATE && !no_kill)
                 {
-                    Logging.Info("We have been running for too long, so exiting");
+                    Logging.Error("We have been running for too long, so exiting");
                     break;
                 }
 
@@ -100,7 +100,7 @@ namespace QiqqaOCR
                     // Has the process had an exception?
                     if (null != exception_text_extract)
                     {
-                        Logging.Info("Both text extract and OCR have had an exception, so exiting");
+                        Logging.Error("Both text extract and OCR have had an exception, so exiting");
                         break;
                     }
 

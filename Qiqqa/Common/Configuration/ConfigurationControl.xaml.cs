@@ -13,6 +13,7 @@ using Qiqqa.Documents.PDF;
 using Qiqqa.UtilisationTracking;
 using Qiqqa.WebBrowsing.EZProxy;
 using Utilities;
+using Utilities.Files;
 using Utilities.GUI;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
@@ -302,13 +303,13 @@ namespace Qiqqa.Common.Configuration
 
         private void ButtonOpenTempDirectory_Click(object sender, RoutedEventArgs e)
         {
-            if (Directory.Exists(ConfigurationManager.Instance.TempDirectoryForQiqqa))
+            if (Directory.Exists(TempFile.TempDirectoryForQiqqa))
             {
-                Process.Start(ConfigurationManager.Instance.TempDirectoryForQiqqa);
+                Process.Start(TempFile.TempDirectoryForQiqqa);
             }
             else
             {
-                MessageBoxes.Warn("Hmmmm.  Your computer doesn't seem to have a temp folder called '{0}'.  Please let us know at https://github.com/jimmejardine/qiqqa-open-source/issues if you are getting any strange Qiqqa behaviour as a result of this.", ConfigurationManager.Instance.TempDirectoryForQiqqa);
+                MessageBoxes.Warn("Hmmmm.  Your computer doesn't seem to have a temp folder called '{0}'.  Please let us know at https://github.com/jimmejardine/qiqqa-open-source/issues if you are getting any strange Qiqqa behaviour as a result of this.", TempFile.TempDirectoryForQiqqa);
             }
         }
     }

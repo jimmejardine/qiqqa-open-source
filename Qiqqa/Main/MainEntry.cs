@@ -66,7 +66,7 @@ namespace Qiqqa.Main
             // Make sure the temp directory exists
             if (!TempDirectoryCreator.CheckTempExists())
             {
-                MessageBoxes.Error(@"Qiqqa needs the directory {0} to exist for it to function properly.  Please create it or set the TEMP environment variable and restart Qiqqa.", TempFile.TempDirectory);
+                MessageBoxes.Error(@"Qiqqa needs the directory {0} to exist for it to function properly.  Please create it or set the TEMP environment variable and restart Qiqqa.", TempFile.TempDirectoryForQiqqa);
             }
 
             // Make sure that windir is set (goddamned font sybustem bug: http://stackoverflow.com/questions/10094197/wpf-window-throws-typeinitializationexception-at-start-up)

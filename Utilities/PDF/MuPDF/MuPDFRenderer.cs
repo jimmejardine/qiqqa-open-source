@@ -10,6 +10,7 @@ namespace Utilities.PDF.MuPDF
 {
     public class MuPDFRenderer
     {
+#if TEST
         public static MemoryStream RenderPDFPage(string pdf_filename, int page_number, int dpi, string password, ProcessPriorityClass priority_class)
         {
             string process_parameters = String.Format(
@@ -24,6 +25,7 @@ namespace Utilities.PDF.MuPDF
             MemoryStream ms = ReadEntireStandardOutput(process_parameters, priority_class);
             return ms;
         }
+#endif
 
         public class TextChunk
         {
@@ -259,7 +261,10 @@ namespace Utilities.PDF.MuPDF
 
         private static MemoryStream ReadEntireStandardOutput(string process_parameters, ProcessPriorityClass priority_class)
         {
+            Stopwatch clk = Stopwatch.StartNew();
+
             // STDOUT/STDERR
+            Logging.Debug("PDFDRAW :: ReadEntireStandardOutput command: pdfdraw.exe {0}", process_parameters);
             using (Process process = ProcessSpawning.SpawnChildProcess("pdfdraw.exe", process_parameters, priority_class, stdout_is_binary: true))
             {
                 using (ProcessOutputReader process_output_reader = new ProcessOutputReader(process, stdout_is_binary: true))
@@ -269,25 +274,39 @@ namespace Utilities.PDF.MuPDF
                     {
                         using (FileStream fs = (FileStream)sr.BaseStream)
                         {
-                            MemoryStream ms = new MemoryStream(128 * 1024);
+                            long elapsed = clk.ElapsedMilliseconds;
+                            Logging.Debug("PDFDRAW :: ReadEntireStandardOutput setup time: {0} ms for parameters:\n    {1}", elapsed, process_parameters);
+
+                            MemoryStream ms = new MemoryStream(256 * 1024);
                             int total_size = StreamToFile.CopyStreamToStream(fs, ms);
+                            long elapsed2 = clk.ElapsedMilliseconds;
+                            Logging.Debug("PDFDRAW image output {0} bytes in {1} ms (output copy took {2} ms) for command:\n    pdfdraw.exe {3}", total_size, elapsed2, elapsed2 - elapsed, process_parameters);
 
                             // Check that the process has exited properly
                             process.WaitForExit(1000);
                             if (!process.HasExited)
                             {
-                                Logging.Error("PDFRenderer process did not terminate, so killing it.\n{0}", process_output_reader.GetOutputsDumpString());
+                                Logging.Debug("PDFRenderer process did not terminate, so killing it.\n{0}", process_output_reader.GetOutputsDumpString());
 
                                 try
                                 {
-                                    Logging.Info("Killing PDFRenderer process");
                                     process.Kill();
-                                    Logging.Info("Killed PDFRenderer process");
+                                    process.WaitForExit(1000);
                                 }
                                 catch (Exception ex)
                                 {
-                                    Logging.Error(ex, "These was an exception while trying to kill the PDFRenderer process");
+                                    Logging.Error(ex, "These was an exception while trying to kill the PDFRenderer process.");
                                 }
+
+                                Logging.Error("PDFRenderer process did not terminate, so killed it.\n{0}", process_output_reader.GetOutputsDumpString());
+
+                                throw new ApplicationException($"PDFRenderer process did not terminate, so killed it.\n    Commandline: pdfdraw.exe {process_parameters}");
+                            }
+                            else if (process.ExitCode != 0)
+                            {
+                                Logging.Error("PDFDRAW did fail with exit code {0} for commandline:\n    {1}\n{2}", process.ExitCode, process_parameters, process_output_reader.GetOutputsDumpString());
+
+                                throw new ApplicationException($"PDFRenderer::PDFDRAW did fail with exit code {process.ExitCode}.\n    Commandline: pdfdraw.exe {process_parameters}");
                             }
 
                             return ms;
@@ -297,7 +316,7 @@ namespace Utilities.PDF.MuPDF
             }
         }
 
-        #region --- Test ------------------------------------------------------------------------
+#region --- Test ------------------------------------------------------------------------
 
 #if TEST
         public static void TestHarness_TEXT_RENDER()
@@ -434,6 +453,6 @@ namespace Utilities.PDF.MuPDF
         }
 #endif
 
-        #endregion ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#endregion ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     }
 }

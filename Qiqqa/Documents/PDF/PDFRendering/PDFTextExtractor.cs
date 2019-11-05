@@ -537,7 +537,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                     {
                         did_some_ocr_since_last_iteration = true;
 
-                        Logging.Info("Doing OCR for job '{0}'", next_job.job);
+                        Logging.Debug特("Doing OCR for job '{0}'", next_job.job);
 
                         long clk_duration;
                         {
@@ -727,6 +727,8 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 Logging.Error("Couldn't even perform OCR on the page, so giving up for {0}", next_job.job);
 
                 // Store an empty file so we don't queue forever... (but only if this is not due to the application terminating)
+                //
+                // ^^^--- This is done in QiqqaOCR already.
             }
         }
 

@@ -9,11 +9,24 @@ namespace QiqqaOCR
     {
         /// <summary>
         /// Arguments are:
-        /// 1) mode
-        /// 2) pdf filename
-        /// 3) page number(s)
-        /// 4) ocr result filename
-        /// 5) NOKILL (optional)
+        /// 
+        /// 1) mode: GROUP
+        /// 2) pdf_filename
+        /// 3) page number(s) - comma separated 
+        /// 4) ocr_output_filename - where the extracted word list info is stored
+        /// 5) pdf_user_password - encrypted
+        /// 6) language - (unused)
+        /// 
+        /// or:
+        /// 
+        /// 1) mode: SINGLE
+        /// 2) pdf_filename
+        /// 3) page number - only one page per run 
+        /// 4) ocr_output_filename - where the extracted word list info is stored
+        /// 5) pdf_user_password - encrypted
+        /// 6) language - default is 'eng'
+        /// 
+        /// 7) NOKILL (optional)
         /// </summary>
         /// <param name="args"></param>
         /// <returns></returns>
@@ -21,7 +34,7 @@ namespace QiqqaOCR
         {
             // This is used to return any errors to the OS
             int exit_code = 0;
-            bool no_kill = (args.Length > 6 && 0 == args[6].CompareTo("NOKILL"));
+            bool no_kill = (args.Length > 6 && 0 == args[6].ToUpper().CompareTo("NOKILL"));
 
             try
             {
@@ -68,7 +81,7 @@ namespace QiqqaOCR
                 sb.AppendLine("--- Exception ---");
                 sb.AppendLine(ex.ToString());
 
-                Logging.Error(ex, "There was an error in QiqqaOCR:\n{0}", sb.ToString());
+                Logging.Error("There was an error in QiqqaOCR:\n{0}", sb.ToString());
                 exit_code = -1;
             }
 
