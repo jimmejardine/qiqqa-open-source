@@ -52,109 +52,110 @@ namespace Utilities.PDF.MuPDF
             using (MemoryStream ms = ReadEntireStandardOutput(process_parameters, priority_class))
             {
                 ms.Seek(0, SeekOrigin.Begin);
-                StreamReader sr_lines = new StreamReader(ms);
-
-                List<TextChunk> text_chunks = new List<TextChunk>();
-
-                int page = 0;
-                double page_x0 = 0;
-                double page_y0 = 0;
-                double page_x1 = 0;
-                double page_y1 = 0;
-                double page_rotation = 0;
-
-                string current_font_name = "";
-                double current_font_size = 0;
-
-                string line;
-                while (null != (line = sr_lines.ReadLine()))
+                using (StreamReader sr_lines = new StreamReader(ms))
                 {
-                    // Look for a character element (note that even a " can be the character in the then malformed XML)
+                    List<TextChunk> text_chunks = new List<TextChunk>();
+
+                    int page = 0;
+                    double page_x0 = 0;
+                    double page_y0 = 0;
+                    double page_x1 = 0;
+                    double page_y1 = 0;
+                    double page_rotation = 0;
+
+                    string current_font_name = "";
+                    double current_font_size = 0;
+
+                    string line;
+                    while (null != (line = sr_lines.ReadLine()))
                     {
-                        Match match = Regex.Match(line, "char ucs=\"(.*)\" bbox=\"\\[(\\S*) (\\S*) (\\S*) (\\S*)\\]");
-                        if (Match.Empty != match)
+                        // Look for a character element (note that even a " can be the character in the then malformed XML)
                         {
-                            string text = match.Groups[1].Value;
-                            double word_x0 = Convert.ToDouble(match.Groups[2].Value, Internationalization.DEFAULT_CULTURE);
-                            double word_y0 = Convert.ToDouble(match.Groups[3].Value, Internationalization.DEFAULT_CULTURE);
-                            double word_x1 = Convert.ToDouble(match.Groups[4].Value, Internationalization.DEFAULT_CULTURE);
-                            double word_y1 = Convert.ToDouble(match.Groups[5].Value, Internationalization.DEFAULT_CULTURE);
-
-                            ResolveRotation(page_rotation, ref word_x0, ref word_y0, ref word_x1, ref word_y1);
-
-                            // Position this little grubber
-                            TextChunk text_chunk = new TextChunk();
-                            text_chunk.text = text;
-                            text_chunk.font_name = current_font_name;
-                            text_chunk.font_size = current_font_size;
-                            text_chunk.page = page;
-                            text_chunk.x0 = (word_x0 - page_x0) / (page_x1 - page_x0);
-                            text_chunk.y0 = 1 - (word_y0 - page_y0) / (page_y1 - page_y0);
-                            text_chunk.x1 = (word_x1 - page_x0) / (page_x1 - page_x0);
-                            text_chunk.y1 = 1 - (word_y1 - page_y0) / (page_y1 - page_y0);
-
-                            // Cater for the rotation
-                            if (0 != page_rotation)
+                            Match match = Regex.Match(line, "char ucs=\"(.*)\" bbox=\"\\[(\\S*) (\\S*) (\\S*) (\\S*)\\]");
+                            if (Match.Empty != match)
                             {
-                                text_chunk.y0 = 1 - text_chunk.y0;
-                                text_chunk.y1 = 1 - text_chunk.y1;
-                            }
+                                string text = match.Groups[1].Value;
+                                double word_x0 = Convert.ToDouble(match.Groups[2].Value, Internationalization.DEFAULT_CULTURE);
+                                double word_y0 = Convert.ToDouble(match.Groups[3].Value, Internationalization.DEFAULT_CULTURE);
+                                double word_x1 = Convert.ToDouble(match.Groups[4].Value, Internationalization.DEFAULT_CULTURE);
+                                double word_y1 = Convert.ToDouble(match.Groups[5].Value, Internationalization.DEFAULT_CULTURE);
 
-                            // Make sure the bounding box is TL-BR
-                            if (text_chunk.x1 < text_chunk.x0)
+                                ResolveRotation(page_rotation, ref word_x0, ref word_y0, ref word_x1, ref word_y1);
+
+                                // Position this little grubber
+                                TextChunk text_chunk = new TextChunk();
+                                text_chunk.text = text;
+                                text_chunk.font_name = current_font_name;
+                                text_chunk.font_size = current_font_size;
+                                text_chunk.page = page;
+                                text_chunk.x0 = (word_x0 - page_x0) / (page_x1 - page_x0);
+                                text_chunk.y0 = 1 - (word_y0 - page_y0) / (page_y1 - page_y0);
+                                text_chunk.x1 = (word_x1 - page_x0) / (page_x1 - page_x0);
+                                text_chunk.y1 = 1 - (word_y1 - page_y0) / (page_y1 - page_y0);
+
+                                // Cater for the rotation
+                                if (0 != page_rotation)
+                                {
+                                    text_chunk.y0 = 1 - text_chunk.y0;
+                                    text_chunk.y1 = 1 - text_chunk.y1;
+                                }
+
+                                // Make sure the bounding box is TL-BR
+                                if (text_chunk.x1 < text_chunk.x0)
+                                {
+                                    Swap.swap(ref text_chunk.x0, ref text_chunk.x1);
+                                }
+                                if (text_chunk.y1 < text_chunk.y0)
+                                {
+                                    Swap.swap(ref text_chunk.y0, ref text_chunk.y1);
+                                }
+
+                                if (text_chunk.x1 <= text_chunk.x0 || text_chunk.y1 <= text_chunk.y0)
+                                {
+                                    Logging.Warn("Bad bounding box for text chunk");
+                                }
+
+                                // And add him to the result list
+                                text_chunks.Add(text_chunk);
+
+                                continue;
+                            }
+                        }
+
+                        // Look for a change in font name
+                        {
+                            Match match = Regex.Match(line, " font=\"(\\S*)\" size=\"(\\S*)\" ");
+                            if (Match.Empty != match)
                             {
-                                Swap.swap(ref text_chunk.x0, ref text_chunk.x1);
+                                current_font_name = match.Groups[1].Value;
+                                current_font_size = Convert.ToDouble(match.Groups[2].Value, Internationalization.DEFAULT_CULTURE);
+
+                                continue;
                             }
-                            if (text_chunk.y1 < text_chunk.y0)
+                        }
+
+                        // Look for the page header with dimensions
+                        {
+                            Match match = Regex.Match(line, @"\[Page (.+) X0 (\S+) Y0 (\S+) X1 (\S+) Y1 (\S+) R (\S+)\]");
+                            if (Match.Empty != match)
                             {
-                                Swap.swap(ref text_chunk.y0, ref text_chunk.y1);
+                                page = Convert.ToInt32(match.Groups[1].Value, Internationalization.DEFAULT_CULTURE);
+                                page_x0 = Convert.ToDouble(match.Groups[2].Value, Internationalization.DEFAULT_CULTURE);
+                                page_y0 = Convert.ToDouble(match.Groups[3].Value, Internationalization.DEFAULT_CULTURE);
+                                page_x1 = Convert.ToDouble(match.Groups[4].Value, Internationalization.DEFAULT_CULTURE);
+                                page_y1 = Convert.ToDouble(match.Groups[5].Value, Internationalization.DEFAULT_CULTURE);
+                                page_rotation = Convert.ToDouble(match.Groups[6].Value, Internationalization.DEFAULT_CULTURE);
+
+                                ResolveRotation(page_rotation, ref page_x0, ref page_y0, ref page_x1, ref page_y1);
+
+                                continue;
                             }
-
-                            if (text_chunk.x1 <= text_chunk.x0 || text_chunk.y1 <= text_chunk.y0)
-                            {
-                                Logging.Warn("Bad bounding box for text chunk");
-                            }
-
-                            // And add him to the result list
-                            text_chunks.Add(text_chunk);
-
-                            continue;
                         }
                     }
 
-                    // Look for a change in font name
-                    {
-                        Match match = Regex.Match(line, " font=\"(\\S*)\" size=\"(\\S*)\" ");
-                        if (Match.Empty != match)
-                        {
-                            current_font_name = match.Groups[1].Value;
-                            current_font_size = Convert.ToDouble(match.Groups[2].Value, Internationalization.DEFAULT_CULTURE);
-
-                            continue;
-                        }
-                    }
-
-                    // Look for the page header with dimensions
-                    {
-                        Match match = Regex.Match(line, @"\[Page (.+) X0 (\S+) Y0 (\S+) X1 (\S+) Y1 (\S+) R (\S+)\]");
-                        if (Match.Empty != match)
-                        {
-                            page = Convert.ToInt32(match.Groups[1].Value, Internationalization.DEFAULT_CULTURE);
-                            page_x0 = Convert.ToDouble(match.Groups[2].Value, Internationalization.DEFAULT_CULTURE);
-                            page_y0 = Convert.ToDouble(match.Groups[3].Value, Internationalization.DEFAULT_CULTURE);
-                            page_x1 = Convert.ToDouble(match.Groups[4].Value, Internationalization.DEFAULT_CULTURE);
-                            page_y1 = Convert.ToDouble(match.Groups[5].Value, Internationalization.DEFAULT_CULTURE);
-                            page_rotation = Convert.ToDouble(match.Groups[6].Value, Internationalization.DEFAULT_CULTURE);
-
-                            ResolveRotation(page_rotation, ref page_x0, ref page_y0, ref page_x1, ref page_y1);
-
-                            continue;
-                        }
-                    }
+                    text_chunks = AggregateOverlappingTextChunks(text_chunks);
+                    return text_chunks;
                 }
-
-                text_chunks = AggregateOverlappingTextChunks(text_chunks);
-                return text_chunks;
             }
         }
 
@@ -236,8 +237,6 @@ namespace Utilities.PDF.MuPDF
                     text_chunks.Add(text_chunk);
                     continue;
                 }
-
-
 
                 // If we get here we aggregate
                 {
