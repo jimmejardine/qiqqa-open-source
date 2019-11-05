@@ -680,9 +680,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                     + '"' + next_job.job.language + '"'
                     ;
 
-                const int SECONDS_TO_WAIT = 60;  // MAKE SURE THIS NUMBER IS LARGER THAN THE NUMBER IN THE ACTUAL QiqqaOCR so that QiqqaOCR has time to finish up...!
-
-                if (CheckOCRProcessSuccess(ocr_parameters, SECONDS_TO_WAIT))
+                if (CheckOCRProcessSuccess(ocr_parameters))
                 {
                     next_job.job.pdf_renderer.StorePageTextGroup(next_job.job.page, next_job.job.TEXT_PAGES_PER_GROUP, temp_ocr_result_filename);
                 }
@@ -720,9 +718,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 + '"' + next_job.job.language + '"'
                 ;
 
-            const int SECONDS_TO_WAIT = 210;  // MAKE SURE THIS NUMBER IS LARGER THAN THE NUMBER IN THE ACTUAL QiqqaOCR so that QiqqaOCR has time to finish up...!
-
-            if (CheckOCRProcessSuccess(ocr_parameters, SECONDS_TO_WAIT))
+            if (CheckOCRProcessSuccess(ocr_parameters))
             {
                 next_job.job.pdf_renderer.StorePageTextSingle(next_job.job.page, temp_ocr_result_filename);
             }
@@ -735,20 +731,20 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         }
 
         // STDOUT/STDERR
-        private bool CheckOCRProcessSuccess(string ocr_parameters, int SECONDS_TO_WAIT)
+        private bool CheckOCRProcessSuccess(string ocr_parameters)
         {
             // Fire up the process            
             using (Process process = ProcessSpawning.SpawnChildProcess("QiqqaOCR.exe", ocr_parameters, ProcessPriorityClass.BelowNormal))
             {
-                DateTime process_start_time = DateTime.UtcNow;
-                double duration = 0.0;
+                Stopwatch clk = Stopwatch.StartNew();
+                long duration = 0;
 
                 using (ProcessOutputReader process_output_reader = new ProcessOutputReader(process))
                 {
                     // Wait a few minutes for the OCR process to exit
                     while (true)
                     {
-                        duration = DateTime.UtcNow.Subtract(process_start_time).TotalSeconds;
+                        duration = clk.ElapsedMilliseconds;
 
                         if (!Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown && !StillRunning)
                         {
@@ -758,7 +754,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                         {
                             break;
                         }
-                        if (duration >= SECONDS_TO_WAIT)
+                        if (duration >= Constants.MAX_WAIT_TIME_MS_FOR_QIQQA_OCR_TASK_TO_TERMINATE + Constants.EXTRA_TIME_MS_FOR_WAITING_ON_QIQQA_OCR_TASK_TERMINATION)
                         {
                             break;
                         }
@@ -780,11 +776,11 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                             }
                             catch (Exception ex)
                             {
-                                Logging.Error(ex, "There was a problem killing the OCR process after timeout ({0} > {1} seconds)", duration, SECONDS_TO_WAIT);
+                                Logging.Error(ex, "There was a problem killing the OCR process after timeout ({0} ms)", duration);
                             }
                         }
 
-                        Logging.Error("There was a problem while running OCR with parameters: {0}\n--- {2}\n{1}", ocr_parameters, process_output_reader.GetOutputsDumpString(), (has_exited ? $"Exit code: {process.ExitCode}" : $"Timeout: {duration} > {SECONDS_TO_WAIT} seconds"));
+                        Logging.Error("There was a problem while running OCR with parameters: {0}\n--- Exit Code: {1}\n--- {3}\n{2}", ocr_parameters, process.ExitCode, process_output_reader.GetOutputsDumpString(), (has_exited ? $"Exit code: {process.ExitCode}" : $"Timeout: {duration} ms"));
 
                         return false;
                     }

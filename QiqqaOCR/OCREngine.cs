@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Threading;
@@ -16,7 +17,7 @@ using Word = tessnet2.Word;
 
 namespace QiqqaOCR
 {
-    internal class OCREngine
+    internal static class OCREngine
     {
         private static string pdf_filename;
         private static int page_number;
@@ -28,12 +29,6 @@ namespace QiqqaOCR
         private static bool has_exited_ocr = false;
         private static Exception exception_ocr = null;
         private static object global_vars_access_lock = new object();
-
-        // Warning CA1812	'OCREngine' is an internal class that is apparently never instantiated.
-        // If this class is intended to contain only static methods, consider adding a private constructor 
-        // to prevent the compiler from generating a default constructor.
-        private OCREngine()
-        { }
 
         internal static void MainEntry(string[] args, bool no_kill)
         {
@@ -64,8 +59,7 @@ namespace QiqqaOCR
             }
 
             // When should the various processes die?
-            DateTime start_time_app = DateTime.UtcNow;
-            DateTime kill_time = start_time_app.AddSeconds(180);
+            Stopwatch clk = Stopwatch.StartNew();
 
             while (true)
             {
@@ -103,7 +97,7 @@ namespace QiqqaOCR
                 // --- TEST FOR PROBLEMS ------------------------------------------------------------------------------------------------------------------------------------------------
 
                 // Have we been running for too long?
-                if (DateTime.UtcNow > kill_time && !no_kill)
+                if (clk.ElapsedMilliseconds > Constants.MAX_WAIT_TIME_MS_FOR_QIQQA_OCR_TASK_TO_TERMINATE && !no_kill)
                 {
                     Logging.Error("We have been running for too long, so exiting");
                     break;
@@ -148,6 +142,16 @@ namespace QiqqaOCR
                     word_lists[page_number] = new WordList();
                     WordList.WriteToFile(ocr_output_filename, word_lists, "OCR-Failed");
                     Logging.Info("-Writing empty OCR to file {0}", ocr_output_filename);
+                }
+            }
+
+            // properly terminate/abort the thread:
+            if (null != thread_ocr)
+            {
+                if (!thread_ocr.Join(500))
+                {
+                    thread_ocr.Abort();
+                    thread_ocr.Join(100);
                 }
             }
         }

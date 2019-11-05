@@ -13,7 +13,7 @@ using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace QiqqaOCR
 {
-    internal class TextExtractEngine
+    internal static class TextExtractEngine
     {
         private static string pdf_filename;
         private static string page_numbers;
@@ -25,16 +25,9 @@ namespace QiqqaOCR
         private static string language;
         private static Thread thread_text_extract = null;
         private static Dictionary<int, WordList> word_lists_text_extract = null;
-        private static bool word_lists_text_extract_credible = false;
         private static bool has_exited_text_extract = false;
         private static Exception exception_text_extract = null;
         private static object global_vars_access_lock = new object();
-
-        // Warning CA1812	'TextExtractEngine' is an internal class that is apparently never instantiated.
-        // If this class is intended to contain only static methods, consider adding a private constructor 
-        // to prevent the compiler from generating a default constructor.
-        private TextExtractEngine()
-        { }
 
         internal static void MainEntry(string[] args, bool no_kill)
         {
@@ -58,8 +51,7 @@ namespace QiqqaOCR
             }
 
             // When should the various processes die?
-            DateTime start_time_app = DateTime.UtcNow;
-            DateTime kill_time = start_time_app.AddSeconds(30);
+            Stopwatch clk = Stopwatch.StartNew();
 
             while (true)
             {
@@ -97,7 +89,7 @@ namespace QiqqaOCR
                 // --- TEST FOR PROBLEMS ------------------------------------------------------------------------------------------------------------------------------------------------
 
                 // Have we been running for too long?
-                if (DateTime.UtcNow > kill_time && !no_kill)
+                if (clk.ElapsedMilliseconds >= Constants.MAX_WAIT_TIME_MS_FOR_QIQQA_OCR_TASK_TO_TERMINATE && !no_kill)
                 {
                     Logging.Info("We have been running for too long, so exiting");
                     break;
@@ -138,6 +130,16 @@ namespace QiqqaOCR
                     throw new Exception("We have no wordlist to write!");
                 }
             }
+
+            // properly terminate/abort the thread:
+            if (null != thread_text_extract)
+            {
+                if (!thread_text_extract.Join(500))
+                {
+                    thread_text_extract.Abort();
+                    thread_text_extract.Join(100);
+                }
+            }
         }
 
         private static void ThreadTextExtractMainEntry(object arg)
@@ -145,10 +147,10 @@ namespace QiqqaOCR
             try
             {
                 Dictionary<int, WordList> word_lists = DoOCR(pdf_filename, page_numbers, pdf_user_password);
-                lock (global_vars_access_lock)
+                bool word_lists_text_extract_credible = WordListCredibility.Instance.IsACredibleWordList(word_lists);
+                if (word_lists_text_extract_credible)
                 {
-                    word_lists_text_extract_credible = WordListCredibility.Instance.IsACredibleWordList(word_lists);
-                    if (word_lists_text_extract_credible)
+                    lock (global_vars_access_lock)
                     {
                         word_lists_text_extract = word_lists;
                     }
