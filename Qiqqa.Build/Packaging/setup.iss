@@ -298,5 +298,5 @@ begin
 	end
 end;
 
-// Uncomment the line below to see the preporcessed code
+// Uncomment the line below to see the preprocessed code
 // #expr SaveToFile(AddBackslash(SourcePath) + "Preprocessed.iss")
