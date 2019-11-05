@@ -10,9 +10,68 @@ Upcoming release: v82
 
 
 
+2019-11-03
+----------
+
+			
+* (5e787c1) bumped build revision
+			
+* (6a8dda0) don't just wait 10 seconds when extracting a Library bundle. It may be huge or you're running on a slow box and you'll get a b0rked extract. Just let 7ZIP complete.
+			
+* (4184e0c) fix typo
+			
+* (7d4bcab) Disable more unused source code files
+			
+* (3820886) Bit more refactoring work for https://github.com/jimmejardine/qiqqa-open-source/issues/95
+			
+* (d927e2b) fix lingering crash in Dispose method. Follow-up for commit SHA-1: d05bbe2da06b825a0a079a73e14543f3af282165
+			
+* (f37c9dc) https://github.com/jimmejardine/qiqqa-open-source/issues/95 : turns out most of it had already been done in the original Qiqqa. Upon closer inspection the remaining `Process.Start()` calls are are intended to open an (associated) application for a given file or directory, which is proper.
+  
+  Added a few `using(...)` statements around Process usage, etc. to prevent memory leaks on these IDisposables.
+			
+* (d05bbe2) More work related to commit SHA-1: 43b1fe0972f99660e0bbbeea2deb357b2002f190 : fix crashes at application shutdown
+			
+* (06bddf6) Maintainable/MaintainableManager: refactor the shutdown code + correct the code to use non-skippable SafeThreadPool threads to Stop/Abort pending threads.
+			
+* (cef12a8) disable unused code files
+			
+* (43b1fe0) 
+  - Fix spurious crashes in `Dispose()` methods; these happen when terminating the application at special moments, e.g. while it is still loading the libraries on init (Hit Alt-F4 while the busybee cursor is still active and you might've run into a few of these, f.e.)
+  - Make sure all `MessageBox.Show` actions go through the `MessageBoxes` class
+  - Make sure every `MessageBox.Show` is executed from the UI thread, even when its wrapper was invoked from a background thread
+			
+* (148ea94) fix https://github.com/jimmejardine/qiqqa-open-source/issues/126
+			
+* (016b888) fix https://github.com/jimmejardine/qiqqa-open-source/issues/132
+			
+
+
+
+2019-11-02
+----------
+
+			
+* (c06021a) bumped build revision
+			
+
+
+
 2019-11-01
 ----------
 
+			
+* (4aaa736) Merge remote-tracking branch 'remotes/jimmejardine-original/master' into v82-build
+			
+* (5486dca) Merge pull request #125 from gitter-badger/gitter-badge
+  
+  Add a Gitter chat badge to README.md
+			
+* (112ce55) Add Gitter badge
+			
+* (c757069) updated CHANGELOG_full.md
+			
+* (54bf3a8) bumped build revision (`npm run syncver`) and cleaned some code - no functional changes in this commit
 			
 * (95dff9b) fix b0rk introduced by commit SHA-1: bcd73cd877b72cd2b9aba9183172dd6c46590880 :: we don't do a *revert* action per se, but rather improve upon the patch we picked up there from the experimental branch: as it turns out, the patch caused a lot of trouble which has been resolved to allow the running background task(s) access to a reduced clone of the WebLibraryDetails, which does not exhibit the cyclic dependency that the original WebLibraryDetails instance incorporated, thus breaking the cyclic reference and allowing the .NET GC to do its job on the Library instance(s) ASAP.
   
@@ -448,6 +507,10 @@ Upcoming release: v82
 			
 * (cb0b053) Merge branch 'mainline-master' into v82-build
   
+* (2cdd342) Merge pull request #110 from GerHobbelt/mainline-master
+  
+  update README with latest info about Qiqqa software releases.
+			
 * (81472e1) Update README.md
 			
 * (6c1d8d6) update README with latest info about Qiqqa software releases.
