@@ -1,0 +1,107 @@
+﻿<commongui:StandardWindow 
+  x:Class="Qiqqa.DocumentLibrary.LibraryFilter.LuceneSearchHelpControl"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
+  xmlns:local_gui="clr-namespace:Qiqqa.Common.GUI"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+  mc:Ignorable="d" 
+  Title="Search Instructions"
+  d:DesignHeight="870"
+>
+
+  <DockPanel>
+
+    <local_gui:StandardPageHeader x:Name="Header" DockPanel.Dock="Top" Caption="Qiqqa Search" SubCaption="How to search better using Qiqqa's powerful search tools." />
+
+    <FlowDocumentScrollViewer IsToolBarVisible="False">
+      <commongui:StandardFlowDocument>
+        <Paragraph>
+          Qiqqa allows you to do some pretty powerful searching.
+        </Paragraph>
+
+        <Paragraph>
+          In general you can type a free-form search query into any of the Qiqqa search fields.  Qiqqa will do its best to work out what you are looking for.  If you suspect that your search results are incomplete, you can rebuild your search index at any point.  Go to the library screen, select all documents (CTRL-A), right-click, and select "Reindex this document."
+        </Paragraph>
+
+        <Paragraph>
+          Search history.
+        </Paragraph>
+
+        <Paragraph>
+          Qiqqa will remember your search history across your libraries, the start screen, and the cross-library search screen.  Your search history will also be remembered if you restart Qiqqa.
+        </Paragraph>
+        
+        <Paragraph>
+          You probably want to know these basics:
+        </Paragraph>
+
+        <List>
+          <ListItem>
+            <Paragraph>
+              <Bold>Terms</Bold> - you can search for single terms (just a word on its own like <Italic>test</Italic>) and for phrases (surrounded in quotes like <Italic>"libor market models"</Italic>).
+            </Paragraph>
+          </ListItem>
+          <ListItem>
+            <Paragraph>
+              <Bold>Fields</Bold> - you can limit your search to specific fields by prepending a search term with the field name and a colon (like <Italic>title:libor</Italic> or <Italic>author:"samuel jackson"</Italic>).  The generic fields that Qiqqa supports are: fingerprint, page, title, author, year, comment, tag, annotation, bibtex.
+            </Paragraph>
+          </ListItem>
+          <ListItem>
+            <Paragraph>
+              <Bold>Premium Fields</Bold> You can restrict your searches to ANY of the fields that you have added in your PDF BibTeX records.  For example, if you have marked some PDFs with a BibTeX field named "jurisdiction", then a search query of "reinsurance +jurisdiction:MA" will return only those PDFs containing the word "reinsurance" that also have a BibTeX record with a "jurisdiction" field set to "MA".
+            </Paragraph>
+          </ListItem>
+          <ListItem>
+            <Paragraph>
+              <Bold>Booleans</Bold> - try things like <Italic>(copper OR aluminium) AND mining</Italic> or <Italic>"fried green" NOT tomatoes</Italic>.  NB: the booleans AND OR NOT must be in <Bold>capital letters</Bold>.
+            </Paragraph>
+          </ListItem>
+        </List>
+
+        <Paragraph>
+          Qiqqa also supports the following advanced search options:
+        </Paragraph>
+
+        <List>
+          <ListItem>
+            <Paragraph>
+              <Bold>Shorthand booleans</Bold> - try things like <Italic>copper +mining</Italic> or <Italic>+"fried green" -tomatoes</Italic>.
+            </Paragraph>
+          </ListItem>
+          <ListItem>
+            <Paragraph>
+              <Bold>Wildcards</Bold> - ? is the single character wildcard (e.g. <Italic>te?t</Italic> matches test, tent and text).  * is the mulitple character wildcard (e.g. <Italic>t*t</Italic> matches test, tacit, teapot and toot).
+            </Paragraph>
+          </ListItem>
+          <ListItem>
+            <Paragraph>
+              <Bold>Fuzzies</Bold> - by tailing a term with a ~ you kick in the fuzzy search (so <Italic>africa~</Italic> will match africa, arfica, afrika and other misspellings and similar words).  You can control the fuzziness by tailing a number from 0 (very fuzzy) to 1 (not fuzzy) (e.g. <Italic>africa~0.8</Italic>).
+            </Paragraph>
+          </ListItem>
+          <ListItem>
+            <Paragraph>
+              <Bold>Proximities</Bold> - similar to fuzzies, you can specify that two words must appear close together (e.g. <Italic>"interest model"~5</Italic> will find "interest rate model" and "some interest in that model" - the words are less that 5 words apart).
+            </Paragraph>
+          </ListItem>
+          <ListItem>
+            <Paragraph>
+              <Bold>Ranges</Bold> - try something like <Italic>year:[2002 TO 2004]</Italic>.  Inclusive range queries are denoted by square brackets.  Exclusive range queries are denoted by curly brackets.
+            </Paragraph>
+          </ListItem>
+          <ListItem>
+            <Paragraph>
+              <Bold>Boosting</Bold> - you can weight some terms more than others using the ^ (e.g. <Italic>copper^4 iron</Italic> will return documents with copper higher in the ranking than those with iron because copper scores roughly 4 times more than iron.
+            </Paragraph>
+          </ListItem>
+        </List>
+
+        <Paragraph>If you want to see some more examples Qiqqa uses a search query very similar to <Hyperlink Name="HyperlinkLuceneExamples">these</Hyperlink>.</Paragraph>
+
+        </commongui:StandardFlowDocument>
+    </FlowDocumentScrollViewer>
+    
+  </DockPanel>
+</commongui:StandardWindow>
+

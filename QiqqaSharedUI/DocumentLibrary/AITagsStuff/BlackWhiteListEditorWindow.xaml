@@ -1,0 +1,45 @@
+﻿<commongui:StandardWindow x:Class="Qiqqa.DocumentLibrary.AITagsStuff.BlackWhiteListEditorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+        xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
+        Title="Edit AutoTag Black/Whitelist" Height="600" Width="800">
+  <DockPanel>
+    <commongui:StandardPageHeader x:Name="ObjHeader" DockPanel.Dock="Top" />
+
+    <local_gui:AugmentedPadder DockPanel.Dock="Bottom">
+      <DockPanel>
+                <local_gui:AugmentedButton Name="CmdSave" DockPanel.Dock="Right" MinHeight="20" />
+        <local_gui:AugmentedSpacer DockPanel.Dock="Right"/>
+                <local_gui:AugmentedButton Name="CmdCancel" DockPanel.Dock="Right" MinHeight="20" />
+        <Grid />
+      </DockPanel>
+    </local_gui:AugmentedPadder>
+
+    <local_gui:AugmentedPadder>
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="5" />
+          <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition />
+          <ColumnDefinition Width="5" />
+          <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" TextWrapping="Wrap">
+          <Bold>Whitelist</Bold><LineBreak/>Add the tags you ALWAYS want to see in your AutoTags here - one tag per line.
+        </TextBlock>
+        <TextBlock Grid.Row="0" Grid.Column="2" TextWrapping="Wrap">
+          <Bold>Blacklist</Bold><LineBreak/>Add the tags you NEVER want to see in your AutoTags here - one tag per line.
+        </TextBlock>
+
+        <TextBox TextWrapping="Wrap" Grid.Row="2" Grid.Column="0" Name="TxtWhite" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" />
+        <TextBox TextWrapping="Wrap" Grid.Row="2" Grid.Column="2" Name="TxtBlack" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" />
+      </Grid>
+    </local_gui:AugmentedPadder>
+  </DockPanel>
+</commongui:StandardWindow>
