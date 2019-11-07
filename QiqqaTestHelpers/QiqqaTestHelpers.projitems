@@ -13,6 +13,5 @@
     <Compile Include="AssertOld.cs" />
     <Compile Include="DebugOnlyAssertions.cs" />
     <Compile Include="MiscTestHelpers.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
 </Project>

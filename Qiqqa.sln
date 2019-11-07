@@ -69,11 +69,15 @@ Global
 		Utilities\Utilities.projitems*{32c275f8-5235-485b-80b2-32270d415e85}*SharedItemsImports = 4
 		QiqqaSharedCore\QiqqaSharedCore.projitems*{5989c12b-b341-4238-8f58-871ef76bf30a}*SharedItemsImports = 13
 		QiqqaTestHelpers\QiqqaTestHelpers.projitems*{67f6f89c-94f4-48fc-aba8-ad29a8741ec9}*SharedItemsImports = 13
+		QiqqaSharedCore\QiqqaSharedCore.projitems*{6c16f32f-cbfa-44d2-b73b-c817b767f436}*SharedItemsImports = 4
+		QiqqaSharedUI\QiqqaSharedUI.projitems*{6c16f32f-cbfa-44d2-b73b-c817b767f436}*SharedItemsImports = 4
+		Utilities\Utilities.projitems*{6c16f32f-cbfa-44d2-b73b-c817b767f436}*SharedItemsImports = 4
 		QiqqaOCRShared\QiqqaOCRShared.projitems*{6de7789d-8ae8-42ab-992c-82399bb327ad}*SharedItemsImports = 4
 		QiqqaSharedCore\QiqqaSharedCore.projitems*{6de7789d-8ae8-42ab-992c-82399bb327ad}*SharedItemsImports = 4
 		QiqqaTestHelpers\QiqqaTestHelpers.projitems*{6de7789d-8ae8-42ab-992c-82399bb327ad}*SharedItemsImports = 4
 		Utilities\Utilities.projitems*{6de7789d-8ae8-42ab-992c-82399bb327ad}*SharedItemsImports = 4
 		Utilities\Utilities.projitems*{99ad14c6-d556-4dc5-a522-3f44a4655cce}*SharedItemsImports = 13
+		QiqqaSharedCore\QiqqaSharedCore.projitems*{9f81a2c6-7cf9-4b27-9cb6-6f6fd0355c72}*SharedItemsImports = 4
 		Utilities\Utilities.projitems*{9f81a2c6-7cf9-4b27-9cb6-6f6fd0355c72}*SharedItemsImports = 4
 		QiqqaSharedCore\QiqqaSharedCore.projitems*{b837c549-3cc9-4855-b698-b7e816c6652b}*SharedItemsImports = 4
 		QiqqaSharedUI\QiqqaSharedUI.projitems*{b837c549-3cc9-4855-b698-b7e816c6652b}*SharedItemsImports = 4
