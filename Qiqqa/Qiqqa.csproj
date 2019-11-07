@@ -309,15 +309,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Main\MainEntry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Brainstorm\Nodes\README.md" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\libs\7za.exe">

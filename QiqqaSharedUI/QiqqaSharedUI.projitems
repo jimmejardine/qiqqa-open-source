@@ -9,9 +9,6 @@
     <Import_RootNamespace>QiqqaSharedUI</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)AnnotationsReportBuilding\AnnotationReportOptionsWindow.xaml.cs">
-      <DependentUpon>AnnotationReportOptionsWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)AnnotationsReportBuilding\AnnotationWorkGenerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AnnotationsReportBuilding\AsyncAnnotationReportBuilder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AnnotationsReportBuilding\HighlightToAnnotationGenerator.cs" />
@@ -20,9 +17,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)AnnotationsReportBuilding\LegacyAnnotationConvertorStuff\LegacyAnnotationConvertor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AnnotationsReportBuilding\LinkedDocsAnnotationReportBuilder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AnnotationsReportBuilding\RegionOfInterest.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)AnnotationsReportBuilding\ReportViewerControl.xaml.cs">
-      <DependentUpon>ReportViewerControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Backups\BackingUp.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Common\RecurrentNodeContent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Common\Searching\Searchable.cs" />
@@ -31,232 +25,78 @@
     <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\DragDropStuff\BasicDragDropBehaviours.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\DragDropStuff\DragDropManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\EllipseNodeContent.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\EllipseNodeContentControl.xaml.cs">
-      <DependentUpon>EllipseNodeContentControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\FileSystemNodeContent.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\FileSystemNodeContentControl.xaml.cs">
-      <DependentUpon>FileSystemNodeContentControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\IconNodeContent.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\IconNodeContentControl.xaml.cs">
-      <DependentUpon>IconNodeContentControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\IEditableNodeContentControl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\IKeyPressableNodeContentControl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\ImageNodeContent.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\ImageNodeContentControl.xaml.cs">
-      <DependentUpon>ImageNodeContentControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\LibraryNodeContent.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\LibraryNodeContentControl.xaml.cs">
-      <DependentUpon>LibraryNodeContentControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\LinkedImageNodeContent.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\LinkedImageNodeContentControl.xaml.cs">
-      <DependentUpon>LinkedImageNodeContentControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\NodeContent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\NodeContentControl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\NodeContentControlRegistry.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\NodeControl.xaml.cs">
-      <DependentUpon>NodeControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\NodeControlSceneData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\NodeThemes.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\PDFAnnotationNodeContent.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\PDFAnnotationNodeContentControl.xaml.cs">
-      <DependentUpon>PDFAnnotationNodeContentControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\PDFAnnotationNodeEditorControl.xaml.cs">
-      <DependentUpon>PDFAnnotationNodeEditorControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\PDFAuthorNodeContent.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\PDFAuthorNodeContentControl.xaml.cs">
-      <DependentUpon>PDFAuthorNodeContentControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\PDFAuthorNodeContentEditor.xaml.cs">
-      <DependentUpon>PDFAuthorNodeContentEditor.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\PDFAutoTagNodeContent.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\PDFAutoTagNodeContentControl.xaml.cs">
-      <DependentUpon>PDFAutoTagNodeContentControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\PDFAutoTagNodeContentEditor.xaml.cs">
-      <DependentUpon>PDFAutoTagNodeContentEditor.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\PDFDocumentNodeContent.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\PDFDocumentNodeContentControl.xaml.cs">
-      <DependentUpon>PDFDocumentNodeContentControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\PDFDocumentNodeEditorControl.xaml.cs">
-      <DependentUpon>PDFDocumentNodeEditorControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\PDFTagNodeContent.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\PDFTagNodeContentControl.xaml.cs">
-      <DependentUpon>PDFTagNodeContentControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\PDFTagNodeContentEditor.xaml.cs">
-      <DependentUpon>PDFTagNodeContentEditor.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\StringNodeContent.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\StringNodeContentControl.xaml.cs">
-      <DependentUpon>StringNodeContentControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\StringNodeContentEditor.xaml.cs">
-      <DependentUpon>StringNodeContentEditor.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\ThemeNodeContent.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\ThemeNodeContentControl.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>ThemeNodeContentControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\ThemeNodeContentEditor.xaml.cs">
-      <DependentUpon>ThemeNodeContentEditor.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\WebsiteNodeContent.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\WebsiteNodeContentControl.xaml.cs">
-      <DependentUpon>WebsiteNodeContentControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\SceneManager\AutoArranger.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\SceneManager\BrainstormControl.xaml.cs">
-      <DependentUpon>BrainstormControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\SceneManager\BrainstormControlHelpWhenEmpty.xaml.cs">
-      <DependentUpon>BrainstormControlHelpWhenEmpty.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\SceneManager\BrainstormFileFormat.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\SceneManager\BrainstormMetaData.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\SceneManager\BrainstormMetadataControl.xaml.cs">
-      <DependentUpon>BrainstormMetadataControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\SceneManager\ConnectorControlManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\SceneManager\NodeControlAddingByKeyboard.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\SceneManager\SampleSceneGenerator.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\SceneManager\SceneRenderingControl.xaml.cs">
-      <DependentUpon>SceneRenderingControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\SceneManager\SceneRenderingControlScrollWrapper.xaml.cs">
-      <DependentUpon>SceneRenderingControlScrollWrapper.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\SceneManager\SelectedConnectorControl.xaml.cs">
-      <DependentUpon>SelectedConnectorControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\SceneManager\SelectedNodeControl.xaml.cs">
-      <DependentUpon>SelectedNodeControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\SceneManager\SelectingNodesControl.xaml.cs">
-      <DependentUpon>SelectingNodesControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Brainstorm\SceneManager\TestHarness.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Chat\ChatControl.xaml.cs">
-      <DependentUpon>ChatControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)ClientVersioning\ClientVersionReleaseNotes.xaml.cs">
-      <DependentUpon>ClientVersionReleaseNotes.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Common\AssociatePDFWithVanillaReferenceWindow.xaml.cs">
-      <DependentUpon>AssociatePDFWithVanillaReferenceWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Common\BackgroundWorkerDaemonStuff\BackgroundWorkerDaemon.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\BundleLogs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\Common\BackgroundFader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\Common\StandardHighlightColours.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Common\Configuration\ConfigurationControl.xaml.cs">
-      <DependentUpon>ConfigurationControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Common\Configuration\ConfigurationManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\Configuration\ConfigurationRecord.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Common\Configuration\ProxySettingsControl.xaml.cs">
-      <DependentUpon>ProxySettingsControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Common\Configuration\WebsiteAccess.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Common\DocumentPickerStuff\DocumentPickerControl.xaml.cs">
-      <DependentUpon>DocumentPickerControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Common\DropboxChecker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\Extensions\EnumerableExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\GeneralTaskDaemonStuff\GeneralTaskDaemon.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\GUI\BoolToYesNoStringConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\GUI\ListFormattingTools.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\GUI\StandardFlowDocument.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Common\GUI\StandardPageHeader.xaml.cs">
-      <DependentUpon>StandardPageHeader.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Common\GUI\StandardWindow.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\GUI\ToopTipValueConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Common\LibraryPickerStuff\LibraryPickerTextBoxControl.xaml.cs">
-      <DependentUpon>LibraryPickerTextBoxControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Common\MainWindowServiceDispatcher.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Common\MessageBoxControls\UnhandledExceptionMessageBox.xaml.cs">
-      <DependentUpon>UnhandledExceptionMessageBox.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Common\MessageBoxControls\UsefulTextException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\ReadOutLoud\ReadOutLoudManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\RegistrySettings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\RestoreDesktopManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\SampleMaterial.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Common\SpeedRead\SpeedReadControl.xaml.cs">
-      <DependentUpon>SpeedReadControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Common\TagManagement\TagEditorAddControl.xaml.cs">
-      <DependentUpon>TagEditorAddControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Common\TagManagement\TagEditorControl.xaml.cs">
-      <DependentUpon>TagEditorControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Common\TagManagement\TagEditorItemControl.xaml.cs">
-      <DependentUpon>TagEditorItemControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Common\TagManagement\TagListConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\TagManagement\TagTools.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Common\TagManagement\TestControl.xaml.cs">
-      <DependentUpon>TestControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Common\URLProtocolHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\WebcastStuff\Webcast.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\WebcastStuff\Webcasts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DocumentConversionStuff\DocumentConversion.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentConversionStuff\DocumentConversionControl.xaml.cs">
-      <DependentUpon>DocumentConversionControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\AITagsStuff\AITagManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\AITagsStuff\AITags.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\AITagsStuff\BlackWhiteListEditorWindow.xaml.cs">
-      <DependentUpon>BlackWhiteListEditorWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\AITagsStuff\BlackWhiteListEntry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\AITagsStuff\BlackWhiteListManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\AutoSyncStuff\AutoSyncManager.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\BundleLibrary\BundleLibraryCreation\LibraryBundleCreationControl.xaml.cs">
-      <DependentUpon>LibraryBundleCreationControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\BundleLibrary\BundleLibraryDownloading\BundleLibraryJoiningControl.xaml.cs">
-      <DependentUpon>BundleLibraryJoiningControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\BundleLibrary\BundleLibraryDownloading\BundleLibraryUpdatedManifestChecker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\BundleLibrary\BundleLibraryDownloading\LibraryBundleInstaller.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\BundleLibrary\BundleLibraryManifest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\BundleLibrary\Common.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\Configuration.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\CrossLibrarySearchStuff\CrossLibrarySearchControl.xaml.cs">
-      <DependentUpon>CrossLibrarySearchControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\DocumentLibraryIndex\LibraryIndex.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\DocumentLibraryIndex\LibrarySearcher.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\DocumentLibraryIndex\PDFDocumentInLibrary.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\DragToLibraryControl.xaml.cs">
-      <DependentUpon>DragToLibraryControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\DragToLibraryManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\FilenameWithMetadataImport.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\FolderWatching\FolderWatcher.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\FolderWatching\FolderWatcherChooser.xaml.cs">
-      <DependentUpon>FolderWatcherChooser.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\FolderWatching\FolderWatcherManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\ImportingIntoLibrary.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\Import\Auto\AutoImportFromEndnoteChecker.cs" />
@@ -275,116 +115,20 @@
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\Import\Manual\BibTeXTranslation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\Import\Manual\EndNoteImporter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\Import\Manual\FileImporter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\Import\Manual\ImportFromFolder.xaml.cs">
-      <DependentUpon>ImportFromFolder.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\Import\Manual\ImportFromThirdParty.xaml.cs">
-      <DependentUpon>ImportFromThirdParty.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\Import\Manual\JabRefImporter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\Import\Manual\MendeleyImporter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\Import\Manual\ParseFileResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\Import\Manual\ZoteroImporter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\IntranetLibraryStuff\IntranetLibraryChooserControl.xaml.cs">
-      <DependentUpon>IntranetLibraryChooserControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\IntranetLibraryStuff\IntranetLibraryDB.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\IntranetLibraryStuff\IntranetLibraryDetail.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\IntranetLibraryStuff\IntranetLibraryTools.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\Library.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryAddPdfCallbacks.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryCatalog\LibraryCatalogControl.xaml.cs">
-      <DependentUpon>LibraryCatalogControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryCatalog\LibraryCatalogOverviewControl.xaml.cs">
-      <DependentUpon>LibraryCatalogOverviewControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryCatalog\LibraryCatalogPopup.xaml.cs">
-      <DependentUpon>LibraryCatalogPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryCatalog\LibraryInstructionsPanel.xaml.cs">
-      <DependentUpon>LibraryInstructionsPanel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryCatalog\MultipleDocumentsSelectedPanel.xaml.cs">
-      <DependentUpon>MultipleDocumentsSelectedPanel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryControl.xaml.cs">
-      <DependentUpon>LibraryControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryDB.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryDBStuff\LibraryDBExplorer.xaml.cs">
-      <DependentUpon>LibraryDBExplorer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\AITagExplorerStuff\AITagExplorerControl.xaml.cs">
-      <DependentUpon>AITagExplorerControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\AITagExplorerStuff\AITagExplorerItemPopup.xaml.cs">
-      <DependentUpon>AITagExplorerItemPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\AuthorExplorerStuff\AuthorExplorerControl.xaml.cs">
-      <DependentUpon>AuthorExplorerControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\GeneralExplorers\RatingExplorerControl.xaml.cs">
-      <DependentUpon>RatingExplorerControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\GeneralExplorers\ReadingStageExplorerControl.xaml.cs">
-      <DependentUpon>ReadingStageExplorerControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\GeneralExplorers\ThemeExplorerControl.xaml.cs">
-      <DependentUpon>ThemeExplorerControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\GeneralExplorers\TypeExplorerControl.xaml.cs">
-      <DependentUpon>TypeExplorerControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\GeneralExplorers\YearExplorerControl.xaml.cs">
-      <DependentUpon>YearExplorerControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\GenericLibraryExplorerStuff\GenericLibraryExplorerControl.xaml.cs">
-      <DependentUpon>GenericLibraryExplorerControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\GenericLibraryExplorerStuff\GenericLibraryExplorerItem.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\GenericLibraryExplorerStuff\GenericLibraryExplorerItemControl.xaml.cs">
-      <DependentUpon>GenericLibraryExplorerItemControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\LibraryFilterControl.xaml.cs">
-      <DependentUpon>LibraryFilterControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\LibraryFilterControl_Search.xaml.cs">
-      <DependentUpon>LibraryFilterControl_Search.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\LibraryFilterControl_Sort.xaml.cs">
-      <DependentUpon>LibraryFilterControl_Sort.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\LibraryFilterHelpers.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\LibraryFilterOverviewControl.xaml.cs">
-      <DependentUpon>LibraryFilterOverviewControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\LuceneSearchHelpButton.xaml.cs">
-      <DependentUpon>LuceneSearchHelpButton.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\LuceneSearchHelpControl.xaml.cs">
-      <DependentUpon>LuceneSearchHelpControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\PublicationExplorerStuff\PublicationExplorerControl.xaml.cs">
-      <DependentUpon>PublicationExplorerControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\PublicationExplorerStuff\PublicationExplorerItemPopup.xaml.cs">
-      <DependentUpon>PublicationExplorerItemPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\PublicationExplorerStuff\PublicationExplorerItemRenameWindow.xaml.cs">
-      <DependentUpon>PublicationExplorerItemRenameWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryIndexHoverPopup.xaml.cs">
-      <DependentUpon>LibraryIndexHoverPopup.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryPivotReport\LibraryPivotReportBuilder.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryPivotReport\LibraryPivotReportControl.xaml.cs">
-      <DependentUpon>LibraryPivotReportControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryStats.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\MassDuplicateCheckingStuff\MassDuplicateCheckingControl.xaml.cs">
-      <DependentUpon>MassDuplicateCheckingControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\MetadataExtractionDaemonStuff\MetadataExtractionDaemon.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\OmnipatentsImport\Common.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\OmnipatentsImport\ImportManager.cs" />
@@ -395,43 +139,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\RecentlyReadDocumentManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\RecentlyReadStuff\RecentlyReadManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\SimilarAuthorsStuff\SimilarAuthors.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\SimilarAuthorsStuff\SimilarAuthorsControl.xaml.cs">
-      <DependentUpon>SimilarAuthorsControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\TagExplorerStuff\TagExplorerControl.xaml.cs">
-      <DependentUpon>TagExplorerControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\TagExplorerStuff\TagExplorerItemPopup.xaml.cs">
-      <DependentUpon>TagExplorerItemPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\TagExplorerStuff\TagExplorerItemRenameWindow.xaml.cs">
-      <DependentUpon>TagExplorerItemRenameWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\TagManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\TestHarness.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\VanillaReferenceCreating.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\VisualGalleryStuff\VisualGalleryControl.xaml.cs">
-      <DependentUpon>VisualGalleryControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\WebLibraryStuff\KnownWebLibrariesFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\WebLibraryStuff\WebLibraryDetail.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\WebLibraryStuff\WebLibraryDetailControl.xaml.cs">
-      <DependentUpon>WebLibraryDetailControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\WebLibraryStuff\WebLibraryDetailControlPopup.xaml.cs">
-      <DependentUpon>WebLibraryDetailControlPopup.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\WebLibraryStuff\WebLibraryDocumentLocator.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\WebLibraryStuff\WebLibraryListControl.xaml.cs">
-      <DependentUpon>WebLibraryListControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\WebLibraryStuff\WebLibraryManager.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DocumentLibrary\WebLibraryStuff\WebLibraryPicker.xaml.cs">
-      <DependentUpon>WebLibraryPicker.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\BibTeXEditor\BibTeXEditorControl.xaml.cs">
-      <DependentUpon>BibTeXEditorControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Documents\Common\Choices.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Documents\Common\DocumentQueuedStorer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\CitationManagerStuff\Citation.cs" />
@@ -443,29 +157,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\DiskSerialisation\PDFHighlightSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\DiskSerialisation\PDFInkSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\DiskSerialisation\PDFMetadataSerializer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\InfoBarStuff\CitationsStuff\CitationsUserControl.xaml.cs">
-      <DependentUpon>CitationsUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\InfoBarStuff\DuplicateDetectionStuff\DuplicateDetectionControl.xaml.cs">
-      <DependentUpon>DuplicateDetectionControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\InfoBarStuff\LinkedDocumentsStuff\LinkedDocumentsControl.xaml.cs">
-      <DependentUpon>LinkedDocumentsControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\InfoBarStuff\OnlineDatabaseLookupStuff\OnlineDatabaseLookupControl.xaml.cs">
-      <DependentUpon>OnlineDatabaseLookupControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\InfoBarStuff\PDFDocumentTagCloudStuff\PDFDocumentTagCloudBuilder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\InfoBarStuff\PDFDocumentTagCloudStuff\TagCloudEntry.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\InfoBarStuff\PDFDocumentTagCloudStuff\TagCloudRendererControl.xaml.cs">
-      <DependentUpon>TagCloudRendererControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\InfoBarStuff\ReadOnlyStuff\ReadOnlyControl.xaml.cs">
-      <DependentUpon>ReadOnlyControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\InfoBarStuff\SimilarGoogleDocumentsStuff\SimilarGoogleDocumentsRendererControl.xaml.cs">
-      <DependentUpon>SimilarGoogleDocumentsRendererControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\MetadataSuggestions\BibTeXGoodnessOfFitEstimator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\MetadataSuggestions\BibTeXSearchServerManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\MetadataSuggestions\PDFMetadataExtractor.cs" />
@@ -476,134 +169,20 @@
     <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFAnnotationList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFAnnotationToImageRenderer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\BookmarkStuff\BookmarkManager.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\CanvasToolbars\HighlightCanvasToolbarControl.xaml.cs">
-      <DependentUpon>HighlightCanvasToolbarControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\CanvasToolbars\InkCanvasToolbarControl.xaml.cs">
-      <DependentUpon>InkCanvasToolbarControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\CanvasToolbars\TextCanvasToolbarControl.xaml.cs">
-      <DependentUpon>TextCanvasToolbarControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\JumpToSectionStuff\BuildPopupFromOCR.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\JumpToSectionStuff\BuildPopupFromPDF.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\JumpToSectionStuff\JumpToSectionItem.xaml.cs">
-      <DependentUpon>JumpToSectionItem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\JumpToSectionStuff\JumpToSectionPopup.xaml.cs">
-      <DependentUpon>JumpToSectionPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\MetadataControls\AbstractPreviewControl.xaml.cs">
-      <DependentUpon>AbstractPreviewControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\MetadataControls\AnnotationsReviewControl.xaml.cs">
-      <DependentUpon>AnnotationsReviewControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\MetadataControls\BibTeXControl.xaml.cs">
-      <DependentUpon>BibTeXControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\MetadataControls\CommentsControl.xaml.cs">
-      <DependentUpon>CommentsControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\MetadataControls\DocumentMetadataControlsPanel.xaml.cs">
-      <DependentUpon>DocumentMetadataControlsPanel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\MetadataControls\DocumentMetadataTagControl.xaml.cs">
-      <DependentUpon>DocumentMetadataTagControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\MetadataControls\GoogleBibTexSnifferControl.xaml.cs">
-      <DependentUpon>GoogleBibTexSnifferControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\MetadataControls\MetadataBibTeXEditorControl.xaml.cs">
-      <DependentUpon>MetadataBibTeXEditorControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\MetadataControls\MetadataCommentEditorControl.xaml.cs">
-      <DependentUpon>MetadataCommentEditorControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\MetadataControls\PasswordControl.xaml.cs">
-      <DependentUpon>PasswordControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\MetadataControls\PDFAnnotationEditorControl.xaml.cs">
-      <DependentUpon>PDFAnnotationEditorControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\MetadataControls\QuickAddTagsWindow.xaml.cs">
-      <DependentUpon>QuickAddTagsWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\MetadataControls\QuickMetadataControl.xaml.cs">
-      <DependentUpon>QuickMetadataControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\MetadataControls\TagsControl.xaml.cs">
-      <DependentUpon>TagsControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\MetadataControls\TweetControl.xaml.cs">
-      <DependentUpon>TweetControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\MetadataControls\UserReviewControl.xaml.cs">
-      <DependentUpon>UserReviewControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Annotation\PDFAnnotationItem.xaml.cs">
-      <DependentUpon>PDFAnnotationItem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Annotation\PDFAnnotationLayer.xaml.cs">
-      <DependentUpon>PDFAnnotationLayer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Camera\CameraActionChooserDialog.xaml.cs">
-      <DependentUpon>CameraActionChooserDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Camera\PDFCameraLayer.xaml.cs">
-      <DependentUpon>PDFCameraLayer.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Camera\SelectedWordsToFormattedTextConvertor.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Hand\PageNumberControl.xaml.cs">
-      <DependentUpon>PageNumberControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Hand\PDFHandLayer.xaml.cs">
-      <DependentUpon>PDFHandLayer.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Highlight\HighlightsRenderer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Highlight\PDFHighlightLayer.xaml.cs">
-      <DependentUpon>PDFHighlightLayer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Ink\PDFInkLayer.xaml.cs">
-      <DependentUpon>PDFInkLayer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\PDFRendererPageControl.xaml.cs">
-      <DependentUpon>PDFRendererPageControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Search\PDFSearchLayer.xaml.cs">
-      <DependentUpon>PDFSearchLayer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Text\PDFTextSentenceLayer.xaml.cs">
-      <DependentUpon>PDFTextSentenceLayer.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Text\TextLayerSelectionMode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Text\TextSearchBrushes.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Text\TextSelectionManager.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Tools\DragAreaControl.xaml.cs">
-      <DependentUpon>DragAreaControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Tools\DragAreaTracker.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Tools\OCRNotAvailableControl.xaml.cs">
-      <DependentUpon>OCRNotAvailableControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Tools\PageLayer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Tools\PDFAbstractExtraction.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Tools\PDFTextItem.xaml.cs">
-      <DependentUpon>PDFTextItem.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Tools\PDFTextItemPool.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Tools\PDFTextSelectPopup.xaml.cs">
-      <DependentUpon>PDFTextSelectPopup.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Tools\TransparentBoxBrushPair.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\PDFExporting\ExportToText.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\PDFExporting\ExportToWord.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\PDFReadingControl.xaml.cs">
-      <DependentUpon>PDFReadingControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\PDFRendererControl.xaml.cs">
-      <DependentUpon>PDFRendererControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\PDFRendererControlInterestingAnalysis.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\PDFRendererControlStats.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Printing\PDFPrinter.cs" />
@@ -628,36 +207,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\Search\PDFSearcher.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\Search\PDFSearchResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\Search\PDFSearchResultSet.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\Search\SearchResultsListControl.xaml.cs">
-      <DependentUpon>SearchResultsListControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\Search\SearchResultsListItemControl.xaml.cs">
-      <DependentUpon>SearchResultsListItemControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Documents\PDF\TestHarness.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Expedition\DocumentOverviewControl.xaml.cs">
-      <DependentUpon>DocumentOverviewControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Expedition\ExpeditionBuilder.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Expedition\ExpeditionControl.xaml.cs">
-      <DependentUpon>ExpeditionControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Expedition\ExpeditionDataSource.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Expedition\ExpeditionInstructionsControl.xaml.cs">
-      <DependentUpon>ExpeditionInstructionsControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Expedition\ExpeditionManager.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Expedition\ExpeditionPaperSimilarsControl.xaml.cs">
-      <DependentUpon>ExpeditionPaperSimilarsControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Expedition\ExpeditionPaperSuggestions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Expedition\ExpeditionPaperThemesControl.xaml.cs">
-      <DependentUpon>ExpeditionPaperThemesControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Expedition\ThemeBrushes.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Expedition\TopicOverviewControl.xaml.cs">
-      <DependentUpon>TopicOverviewControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Exporting\BibTexExport.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exporting\CitationMatrixExport.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exporting\ExportingTools.cs" />
@@ -678,13 +233,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)FeatureTracking\GoogleAnalysicsSubmitter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FeatureTracking\UsedFeature.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InCite\CitationCluster.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)InCite\CitationClusterEditorControl.xaml.cs">
-      <DependentUpon>CitationClusterEditorControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)InCite\CitationItem.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)InCite\CSLEditorStuff\CSLEditorControl.xaml.cs">
-      <DependentUpon>CSLEditorControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)InCite\CSLEditorStuff\CSLVerifier.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InCite\CSLEditorStuff\DragToEditorManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InCite\CSLProcessor.cs" />
@@ -695,79 +244,27 @@
     <Compile Include="$(MSBuildThisFileDirectory)InCite\CSLProcessorTranslator_CitationClustersToJavaScript.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InCite\DependentStyleDetector.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InCite\FilenameToCSLNameConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)InCite\InCiteControl.xaml.cs">
-      <DependentUpon>InCiteControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)InCite\InCiteFields.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InCite\PDFDocumentCitingTools.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)InCite\PopupInCiteControl.xaml.cs">
-      <DependentUpon>PopupInCiteControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)InCite\UsedCitationsControl.xaml.cs">
-      <DependentUpon>UsedCitationsControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)InCite\WordConnector.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InCite\WordConnectorStructures.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Localisation\LocaleTable.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Localisation\LocalisationEditingControl.xaml.cs">
-      <DependentUpon>LocalisationEditingControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Localisation\LocalisationManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Main\FileAssociationRegistration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Main\FirstInstallWebLauncher.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Main\IPC\IPCClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Main\IPC\IPCCommon.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Main\IPC\IPCServer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Main\LoginStuff\LoginWindow.xaml.cs">
-      <DependentUpon>LoginWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Main\LogoutStuff\LogoutWindow.xaml.cs">
-      <DependentUpon>LogoutWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Main\MainEntry.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Main\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Main\QiqqaTopLogoControl.xaml.cs">
-      <DependentUpon>QiqqaTopLogoControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Main\SplashScreenStuff\SplashScreenWindow.xaml.cs">
-      <DependentUpon>SplashScreenWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Main\StartupCommandLineParameterChecker.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Main\StatusBar.xaml.cs">
-      <DependentUpon>StatusBar.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Main\StatusBarItem.xaml.cs">
-      <DependentUpon>StatusBarItem.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Main\TempDirectoryCreator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Marketing\AlternativeToReminderNotification.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)StartPage\AboutControl.xaml.cs">
-      <DependentUpon>AboutControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)StartPage\Formatting\LocalButton.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StartPage\Formatting\ParagraphHeader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StartPage\Formatting\SectionHeader.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)StartPage\RegionWebcasts.xaml.cs">
-      <DependentUpon>RegionWebcasts.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)StartPage\RegionWebLibraries.xaml.cs">
-      <DependentUpon>RegionWebLibraries.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)StartPage\StartPageControl.xaml.cs">
-      <DependentUpon>StartPageControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)StartPage\TabWelcome.xaml.cs">
-      <DependentUpon>TabWelcome.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Synchronisation\BusinessLogic\GlobalSyncDetail.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Synchronisation\BusinessLogic\LibrarySyncDetail.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Synchronisation\BusinessLogic\LibrarySyncManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Synchronisation\BusinessLogic\SyncConstants.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Synchronisation\GUI\SyncControl.xaml.cs">
-      <DependentUpon>SyncControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Synchronisation\GUI\SyncControlGridItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Synchronisation\GUI\SyncControlGridItemSet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Synchronisation\HistoricalSyncFile.cs" />
@@ -799,701 +296,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)WebBrowsing\GeckoStuff\PDFInterceptor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebBrowsing\HTMLToPDFConversion.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebBrowsing\TestHarness.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)WebBrowsing\WebBrowserControl.xaml.cs">
-      <DependentUpon>WebBrowserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)WebBrowsing\WebBrowserHostControl.xaml.cs">
-      <DependentUpon>WebBrowserHostControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)WebBrowsing\WebSearcher.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)WebBrowsing\WebSearcherPreferenceControl.xaml.cs">
-      <DependentUpon>WebSearcherPreferenceControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)WebBrowsing\WebSearcherPreferenceManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebBrowsing\WebSearchers.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Wizards\AnnotationReport\AnnotationReportWizard.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Wizards\SearchResultWizard.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)AnnotationsReportBuilding\AnnotationReportOptionsWindow.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)AnnotationsReportBuilding\ReportViewerControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\EllipseNodeContentControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\FileSystemNodeContentControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\IconNodeContentControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\ImageNodeContentControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\LibraryNodeContentControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\LinkedImageNodeContentControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\NodeControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\PDFAnnotationNodeContentControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\PDFAnnotationNodeEditorControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\PDFAuthorNodeContentControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\PDFAuthorNodeContentEditor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\PDFAutoTagNodeContentControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\PDFAutoTagNodeContentEditor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\PDFDocumentNodeContentControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\PDFDocumentNodeEditorControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\PDFTagNodeContentControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\PDFTagNodeContentEditor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\StringNodeContentControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\StringNodeContentEditor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\ThemeNodeContentControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\ThemeNodeContentEditor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\WebsiteNodeContentControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Brainstorm\SceneManager\BrainstormControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Brainstorm\SceneManager\BrainstormControlHelpWhenEmpty.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Brainstorm\SceneManager\BrainstormMetadataControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Brainstorm\SceneManager\SceneRenderingControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Brainstorm\SceneManager\SceneRenderingControlScrollWrapper.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Brainstorm\SceneManager\SelectedConnectorControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Brainstorm\SceneManager\SelectedNodeControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Brainstorm\SceneManager\SelectingNodesControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Chat\ChatControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)ClientVersioning\ClientVersionReleaseNotes.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Common\AssociatePDFWithVanillaReferenceWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Common\Configuration\ConfigurationControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Common\Configuration\ProxySettingsControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Common\DocumentPickerStuff\DocumentPickerControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Common\GUI\StandardPageHeader.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Common\LibraryPickerStuff\LibraryPickerTextBoxControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Common\MessageBoxControls\UnhandledExceptionMessageBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Common\SpeedRead\SpeedReadControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Common\TagManagement\TagEditorAddControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Common\TagManagement\TagEditorControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Common\TagManagement\TagEditorItemControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Common\TagManagement\TestControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentConversionStuff\DocumentConversionControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\AITagsStuff\BlackWhiteListEditorWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\BundleLibrary\BundleLibraryCreation\LibraryBundleCreationControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\BundleLibrary\BundleLibraryDownloading\BundleLibraryJoiningControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\CrossLibrarySearchStuff\CrossLibrarySearchControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\DragToLibraryControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\FolderWatching\FolderWatcherChooser.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\Import\Manual\ImportFromFolder.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\Import\Manual\ImportFromThirdParty.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\IntranetLibraryStuff\IntranetLibraryChooserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryCatalog\LibraryCatalogControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryCatalog\LibraryCatalogOverviewControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryCatalog\LibraryCatalogPopup.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryCatalog\LibraryInstructionsPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryCatalog\MultipleDocumentsSelectedPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryDBStuff\LibraryDBExplorer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\AITagExplorerStuff\AITagExplorerControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\AITagExplorerStuff\AITagExplorerItemPopup.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\AuthorExplorerStuff\AuthorExplorerControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\GeneralExplorers\RatingExplorerControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\GeneralExplorers\ReadingStageExplorerControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\GeneralExplorers\ThemeExplorerControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\GeneralExplorers\TypeExplorerControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\GeneralExplorers\YearExplorerControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\GenericLibraryExplorerStuff\GenericLibraryExplorerControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\GenericLibraryExplorerStuff\GenericLibraryExplorerItemControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\LibraryFilterControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\LibraryFilterControl_Search.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\LibraryFilterControl_Sort.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\LibraryFilterOverviewControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\LuceneSearchHelpButton.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\LuceneSearchHelpControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\PublicationExplorerStuff\PublicationExplorerControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\PublicationExplorerStuff\PublicationExplorerItemPopup.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\PublicationExplorerStuff\PublicationExplorerItemRenameWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryIndexHoverPopup.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryPivotReport\LibraryPivotReportControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\MassDuplicateCheckingStuff\MassDuplicateCheckingControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\SimilarAuthorsStuff\SimilarAuthorsControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\TagExplorerStuff\TagExplorerControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\TagExplorerStuff\TagExplorerItemPopup.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\TagExplorerStuff\TagExplorerItemRenameWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\VisualGalleryStuff\VisualGalleryControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\WebLibraryStuff\WebLibraryDetailControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\WebLibraryStuff\WebLibraryDetailControlPopup.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\WebLibraryStuff\WebLibraryListControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DocumentLibrary\WebLibraryStuff\WebLibraryPicker.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\BibTeXEditor\BibTeXEditorControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\InfoBarStuff\CitationsStuff\CitationsUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\InfoBarStuff\DuplicateDetectionStuff\DuplicateDetectionControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\InfoBarStuff\LinkedDocumentsStuff\LinkedDocumentsControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\InfoBarStuff\OnlineDatabaseLookupStuff\OnlineDatabaseLookupControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\InfoBarStuff\PDFDocumentTagCloudStuff\TagCloudRendererControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\InfoBarStuff\ReadOnlyStuff\ReadOnlyControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\InfoBarStuff\SimilarGoogleDocumentsStuff\SimilarGoogleDocumentsRendererControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\CanvasToolbars\HighlightCanvasToolbarControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\CanvasToolbars\InkCanvasToolbarControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\CanvasToolbars\TextCanvasToolbarControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\JumpToSectionStuff\JumpToSectionItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\JumpToSectionStuff\JumpToSectionPopup.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\MetadataControls\AbstractPreviewControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\MetadataControls\AnnotationsReviewControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\MetadataControls\BibTeXControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\MetadataControls\CommentsControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\MetadataControls\DocumentMetadataControlsPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\MetadataControls\DocumentMetadataTagControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\MetadataControls\GoogleBibTexSnifferControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\MetadataControls\MetadataBibTeXEditorControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\MetadataControls\MetadataCommentEditorControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\MetadataControls\PasswordControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\MetadataControls\PDFAnnotationEditorControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\MetadataControls\QuickAddTagsWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\MetadataControls\QuickMetadataControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\MetadataControls\TagsControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\MetadataControls\TweetControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\MetadataControls\UserReviewControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Annotation\PDFAnnotationItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Annotation\PDFAnnotationLayer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Camera\CameraActionChooserDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Camera\PDFCameraLayer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Hand\PageNumberControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Hand\PDFHandLayer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Highlight\PDFHighlightLayer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Ink\PDFInkLayer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\PDFRendererPageControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Search\PDFSearchLayer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Text\PDFTextSentenceLayer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Tools\DragAreaControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Tools\OCRNotAvailableControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Tools\PDFTextItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Tools\PDFTextSelectPopup.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\PDFReadingControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\PDFRendererControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\Search\SearchResultsListControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Documents\PDF\Search\SearchResultsListItemControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Expedition\DocumentOverviewControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Expedition\ExpeditionControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Expedition\ExpeditionInstructionsControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Expedition\ExpeditionPaperSimilarsControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Expedition\ExpeditionPaperThemesControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Expedition\TopicOverviewControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)InCite\CitationClusterEditorControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)InCite\CSLEditorStuff\CSLEditorControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)InCite\InCiteControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)InCite\PopupInCiteControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)InCite\UsedCitationsControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Localisation\LocalisationEditingControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Main\LoginStuff\LoginWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Main\LogoutStuff\LogoutWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Main\MainWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Main\QiqqaTopLogoControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Main\SplashScreenStuff\SplashScreenWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Main\StatusBar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Main\StatusBarItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)StartPage\AboutControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)StartPage\RegionWebcasts.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)StartPage\RegionWebLibraries.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)StartPage\StartPageControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)StartPage\TabWelcome.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Synchronisation\GUI\SyncControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)WebBrowsing\WebBrowserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)WebBrowsing\WebBrowserHostControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)WebBrowsing\WebSearcherPreferenceControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="$(MSBuildThisFileDirectory)Brainstorm\Nodes\README.md" />
@@ -4482,5 +3289,39 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="$(MSBuildThisFileDirectory)InCite\samples\TestQiqqaInCite.docx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Chat\" />
+    <Folder Include="$(MSBuildThisFileDirectory)ClientVersioning\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Common\DocumentPickerStuff\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Common\LibraryPickerStuff\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Common\SpeedRead\" />
+    <Folder Include="$(MSBuildThisFileDirectory)DocumentLibrary\BundleLibrary\BundleLibraryCreation\" />
+    <Folder Include="$(MSBuildThisFileDirectory)DocumentLibrary\CrossLibrarySearchStuff\" />
+    <Folder Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryCatalog\" />
+    <Folder Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryDBStuff\" />
+    <Folder Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\AITagExplorerStuff\" />
+    <Folder Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\AuthorExplorerStuff\" />
+    <Folder Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\GeneralExplorers\" />
+    <Folder Include="$(MSBuildThisFileDirectory)DocumentLibrary\LibraryFilter\PublicationExplorerStuff\" />
+    <Folder Include="$(MSBuildThisFileDirectory)DocumentLibrary\MassDuplicateCheckingStuff\" />
+    <Folder Include="$(MSBuildThisFileDirectory)DocumentLibrary\TagExplorerStuff\" />
+    <Folder Include="$(MSBuildThisFileDirectory)DocumentLibrary\VisualGalleryStuff\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Documents\BibTeXEditor\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Documents\PDF\InfoBarStuff\CitationsStuff\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Documents\PDF\InfoBarStuff\DuplicateDetectionStuff\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Documents\PDF\InfoBarStuff\LinkedDocumentsStuff\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Documents\PDF\InfoBarStuff\OnlineDatabaseLookupStuff\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Documents\PDF\InfoBarStuff\ReadOnlyStuff\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Documents\PDF\InfoBarStuff\SimilarGoogleDocumentsStuff\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\CanvasToolbars\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\MetadataControls\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Annotation\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Hand\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Ink\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Documents\PDF\PDFControls\Page\Search\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Main\LoginStuff\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Main\LogoutStuff\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Main\SplashScreenStuff\" />
   </ItemGroup>
 </Project>

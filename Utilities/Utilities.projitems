@@ -64,9 +64,6 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ComputerStatistics.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Configuration\Configuration.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ConsoleRedirector\ConsoleForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ConsoleRedirector\ConsoleRedirector.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -125,35 +122,17 @@
     <Compile Include="$(MSBuildThisFileDirectory)GUI\AugmentedBorder.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)GUI\AugmentedButton.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>AugmentedButton.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)GUI\AugmentedClosableBorder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GUI\AugmentedInfoBarItemControl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GUI\AugmentedPadder.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)GUI\AugmentedPopup.xaml.cs">
-      <DependentUpon>AugmentedPopup.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)GUI\AugmentedPopupAutoCloser.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)GUI\AugmentedScrollViewer.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)GUI\AugmentedSearchBox.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>AugmentedSearchBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)GUI\AugmentedSpacer.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>AugmentedSpacer.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)GUI\AugmentedSplashScreen.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)GUI\AugmentedToggleButton.xaml.cs">
-      <DependentUpon>AugmentedToggleButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)GUI\AugmentedToolBar.cs">
       <SubType>Code</SubType>
@@ -193,23 +172,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)GUI\Charting\ChartType.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)GUI\Charting\GenericChartForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)GUI\Charting\MultiChart2D.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)GUI\Charting\Series.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)GUI\Charting\SingleControlForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)GUI\Charting\ThemedMultiChart2D.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)GUI\Charting\TopographicalChart.cs">
-      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)GUI\CollapsibleRegion.cs">
       <SubType>Code</SubType>
@@ -218,10 +182,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)GUI\Console.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)GUI\ControlHostingWindow.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>ControlHostingWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)GUI\Converters\BooleanToVisibilityConverter.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -243,16 +203,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)GUI\DualTabbedLayoutStuff\IDualTabbedLayoutDragDrop.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)GUI\DualTabbedLayoutStuff\ItemHeader.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>ItemHeader.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)GUI\DualTabbedLayoutStuff\WindowControlsHeader.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>WindowControlsHeader.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)GUI\FishEyeControl.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)GUI\FishEyePanel.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\FisheyePanel.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)GUI\FormTools.cs">
@@ -283,10 +235,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)GUI\MultiColumnFlowGrid.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GUI\NonScrollingFlowDocumentScrollViewer.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)GUI\Notifications\NotificationBar.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>NotificationBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)GUI\Notifications\NotificationTypeToGradientStopColour1Converter.cs">
       <SubType>Code</SubType>
@@ -340,12 +288,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)GUI\WindowTools.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)GUI\Wizard\Player.xaml.cs">
-      <DependentUpon>Player.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)GUI\Wizard\PointOfInterestHighlighterWindow.xaml.cs">
-      <DependentUpon>PointOfInterestHighlighterWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)GUI\Wizard\PointOfInterestLocator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GUI\Wizard\Route.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GUI\Wizard\Step.cs" />
@@ -384,9 +326,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Language\Buzzwords\NGram.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Language\Comparing.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Language\LanguageDropdown.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Language\NameTools.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Language\PatentTerms\PatentTermsGenerator.cs" />
@@ -621,94 +560,9 @@
     <Content Include="$(MSBuildThisFileDirectory)BibTex\TestFiles\SampleEndnote.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ConsoleRedirector\ConsoleForm.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>ConsoleForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)GUI\Charting\GenericChartForm.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>GenericChartForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)GUI\Charting\MultiChart2D.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>MultiChart2D.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)GUI\Charting\SingleControlForm.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>SingleControlForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)GUI\Charting\ThemedMultiChart2D.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>ThemedMultiChart2D.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)GUI\Charting\TopographicalChart.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>TopographicalChart.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Language\LanguageDropdown.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>LanguageDropdown.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Language\ScrabbleWords.dat" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Language\Stopwords.txt" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Maps\Geocode\postcode-outcodes.csv.gz" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)GUI\AugmentedButton.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)GUI\AugmentedPopup.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)GUI\AugmentedSearchBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)GUI\AugmentedSpacer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)GUI\AugmentedToggleButton.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)GUI\ControlHostingWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)GUI\DualTabbedLayoutStuff\ItemHeader.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)GUI\DualTabbedLayoutStuff\WindowControlsHeader.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)GUI\Notifications\NotificationBar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)GUI\ThemeColours.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)GUI\ThemeScrollbar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)GUI\ThemeTabItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)GUI\Wizard\Player.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)GUI\Wizard\PointOfInterestHighlighterWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="$(MSBuildThisFileDirectory)GUI\Shaders\Negative\NegativeEffect.ps" />
