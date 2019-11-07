@@ -694,7 +694,7 @@ namespace Qiqqa.AnnotationsReportBuilding
             }
             catch (Exception ex)
             {
-                Logging.Error(ex, "There was a problem while trying to add annotation text");
+                Logging.Error(ex, "There was a problem while trying to add annotation text for document {0}", pdf_document.Fingerprint);
                 Run run = new Run();
                 run.Background = Brushes.Red;
                 run.Text = String.Format("Processing error: {0}", ex.Message);

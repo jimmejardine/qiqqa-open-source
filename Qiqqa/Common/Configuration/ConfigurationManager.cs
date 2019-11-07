@@ -24,9 +24,6 @@ namespace Qiqqa.Common.Configuration
         private string user_guid;
         private bool is_guest;
 
-
-        public string TempDirectoryForQiqqa => Path.GetFullPath(Path.Combine(TempFile.TempDirectory, @"Qiqqa"));
-
         public string StartupDirectoryForQiqqa => UnitTestDetector.StartupDirectoryForQiqqa;
 
         private string base_directory_for_qiqqa = null;

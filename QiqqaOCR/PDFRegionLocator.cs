@@ -99,7 +99,7 @@ namespace QiqqaOCR
 
         private static bool IsBelowWhitenessThreshold(Color color)
         {
-            int THRESHOLD = 250;
+            int THRESHOLD = 240;
             return (color.R <= THRESHOLD || color.G <= THRESHOLD || color.B <= THRESHOLD);
         }
 

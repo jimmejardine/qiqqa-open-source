@@ -1,5 +1,8 @@
 ﻿using System;
 using System.IO;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Utilities.Files
 {
@@ -12,15 +15,14 @@ namespace Utilities.Files
         /// <returns></returns>
         public static string GenerateTempFilename(string extension)
         {
-            return String.Format("{0}\\TempFile.{1}.{2}", TempDirectory, Guid.NewGuid().ToString(), extension);
+            return Path.GetFullPath(String.Format("{0}\\TempFile.{1}.{2}", TempDirectoryForQiqqa, Guid.NewGuid().ToString(), extension));
         }
 
         public static string GenerateNamedTempFilename(string name, string extension)
         {
-            return String.Format("{0}\\{3}.{1}.{2}", TempDirectory, Guid.NewGuid().ToString(), extension, name);
+            return Path.GetFullPath(String.Format("{0}\\{3}.{1}.{2}", TempDirectoryForQiqqa, Guid.NewGuid().ToString(), extension, name));
         }
 
-        public static string TempDirectory => Path.GetTempPath();
-
+        public static string TempDirectoryForQiqqa => Path.GetFullPath(Path.Combine(Path.GetTempPath(), @"Qiqqa"));
     }
 }
