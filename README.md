@@ -39,7 +39,7 @@ We're working on getting the Qiqqa documentation (user manual, etc.) available a
 
 See also [CHANGELOG](../../blob/master/CHANGELOG.md) and it's big brother [CHANGELOG-full](../../blob/master/CHANGELOG_full.md), though these *will lag behind the bleeding edge of development*.
 
-@GerHobbelt has joined as a collaborator in the qiqqa-open-source mainline repository; the bleeding edge of his work on Qiqqa can be observed [at this fork](https://github.com/GerHobbelt/qiqqa-open-source). Qiqqa Prereleases and experimental releases will be made available there first at [the releases page](https://github.com/GerHobbelt/qiqqa-open-source/releases).
+[@GerHobbelt](https://github.com/GerHobbelt) has joined as a collaborator in the qiqqa-open-source mainline repository; the bleeding edge of his work on Qiqqa can be observed [at this fork](https://github.com/GerHobbelt/qiqqa-open-source). Qiqqa Prereleases and experimental releases will be made available there first at [the releases page](https://github.com/GerHobbelt/qiqqa-open-source/releases).
 
 
 
