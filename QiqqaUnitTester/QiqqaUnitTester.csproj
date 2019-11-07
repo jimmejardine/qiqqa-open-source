@@ -104,10 +104,6 @@
     <Compile Include="UnitTestProjectConfig.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\Qiqqa\BibTeX\qiqqa-entry-type-definitions.json">
-      <Link>BibTeX\qiqqa-entry-type-definitions.json</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="..\Utilities\BibTex\TestFiles\Sample.bib">
       <Link>data\Utilities\BibTeX\Sample.bib</Link>
     </None>

@@ -9,7 +9,6 @@
     <Import_RootNamespace>QiqqaSharedCore</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)FinanceSample.brain" />
     <None Include="$(MSBuildThisFileDirectory)The Qiqqa Manual.docx" />
     <None Include="$(MSBuildThisFileDirectory)The Qiqqa Manual.pptx" />
     <None Include="$(MSBuildThisFileDirectory)The Qiqqa Manual.todo.docx" />

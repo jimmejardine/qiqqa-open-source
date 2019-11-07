@@ -615,6 +615,9 @@
     <None Include="$(MSBuildThisFileDirectory)~COPYRIGHT.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)BibTex\EntryTypeDefinitions\qiqqa-entry-type-definitions.json" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)BibTex\TestFiles\SampleEndnote.txt" />
   </ItemGroup>
   <ItemGroup>
