@@ -25,23 +25,23 @@ This version includes EVERY feature available in Qiqqa, including Premium and Pr
 
 
 
-## Fixes & Additions to Qiqqa (in this fork)
+## Fixes & Additions to Qiqqa since v80/v79
 
-[For a full fixed issue list click here.](https://github.com/jimmejardine/qiqqa-open-source/issues?q=is%3Aissue+is%3Aclosed+milestone%3Av82)
+[For a full fixed issue list click here.](https://github.com/jimmejardine/qiqqa-open-source/issues?q=is%3Aissue+is%3Aclosed)
 
-See also [CHANGELOG](../../blob/master/CHANGELOG.md) and it's big brother [CHANGELOG-full](../../blob/master/CHANGELOG_full.md).
+See also [CHANGELOG](../../blob/master/CHANGELOG.md) and it's big brother [CHANGELOG-full](../../blob/master/CHANGELOG_full.md), though these *will lag behind the bleeding edge of development*.
 
-While I have joined as a collaborator in the qiqqa-open-source mainline repository, the bleeding edge of my work on Qiqqa can be observed here.
+@GerHobbelt has joined as a collaborator in the qiqqa-open-source mainline repository; the bleeding edge of his work on Qiqqa can be observed [at this fork](https://github.com/GerHobbelt/qiqqa-open-source). Qiqqa Prereleases and experimental releases will be made available there first at [the releases page](https://github.com/GerHobbelt/qiqqa-open-source/releases).
 
 
 
 ## Qiqqa Collaborators & Developers Wanted
-
-You'll need to be a little technically experienced in the .NET world to get a build up and running.
  
 Would anyone who is interested in contributing towards this repository please contact @jimmejardine...
 
 
 ## For Developers: Building Qiqqa From Source
 
-See the [DEVELOPER-INFO](./DEVELOPER-INFO.md) for more info.
+You'll need to be a little technically experienced in the .NET world to get a build up and running.
+
+See the [DEVELOPER-INFO file](DEVELOPER-INFO.md) for more info on what you need to compile/build Qiqqa from source, etc.
