@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="Qiqqa.AnnotationsReportBuilding.ReportViewerControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+    >
+  <DockPanel>
+    <!-- BEGIN: The toolbar - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+    <local_gui:AugmentedToolBarTray DockPanel.Dock="Top">
+      <StackPanel Orientation="Horizontal">
+        <local_gui:AugmentedButton x:Name="ButtonPrint" >Print</local_gui:AugmentedButton>
+        <local_gui:AugmentedButton x:Name="ButtonToWord" >To Word</local_gui:AugmentedButton>
+        <local_gui:AugmentedButton x:Name="ButtonToPDF" Visibility="Collapsed" >To PDF</local_gui:AugmentedButton>
+
+        <!--
+        <local_gui:AugmentedButton x:Name="ButtonCollapseClickOptions" />
+        <local_gui:AugmentedButton x:Name="ButtonExpandClickOptions" />
+        -->
+      </StackPanel>
+    </local_gui:AugmentedToolBarTray>
+
+    <!-- END: The toolbar - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+
+    <FlowDocumentScrollViewer Name="ObjDocumentViewer" />
+  </DockPanel>
+</UserControl>
