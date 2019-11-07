@@ -6,7 +6,7 @@
              mc:Ignorable="d"
              d:DesignHeight="600" d:DesignWidth="300"
              xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
-                          xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+                          xmlns:local_gui="clr-namespace:Utilities.GUI"
                           Title="Watch Folder" Height="600" Width="600">
 
   <DockPanel>

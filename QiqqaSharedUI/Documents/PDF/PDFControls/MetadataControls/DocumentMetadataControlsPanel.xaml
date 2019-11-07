@@ -3,9 +3,9 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
   xmlns:local_metadata="clr-namespace:Qiqqa.Documents.PDF.PDFControls.MetadataControls"
-  xmlns:local_dualtab="clr-namespace:Utilities.GUI.DualTabbedLayoutStuff;assembly=Utilities"
-  xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
-  xmlns:local_gui_conv="clr-namespace:Utilities.GUI.Converters;assembly=Utilities"
+  xmlns:local_dualtab="clr-namespace:Utilities.GUI.DualTabbedLayoutStuff"
+  xmlns:local_gui="clr-namespace:Utilities.GUI"
+  xmlns:local_gui_conv="clr-namespace:Utilities.GUI.Converters"
 >
   <UserControl.Resources>
     <local_gui_conv:BooleanToVisibilityInverseConverter x:Key="BooleanToVisibilityInverseConverter"/>

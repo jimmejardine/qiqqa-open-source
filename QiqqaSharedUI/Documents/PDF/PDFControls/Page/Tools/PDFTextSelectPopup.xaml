@@ -1,7 +1,7 @@
 ﻿<StackPanel x:Class="Qiqqa.Documents.PDF.PDFControls.Page.Tools.PDFTextSelectPopup"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+    xmlns:local_gui="clr-namespace:Utilities.GUI"
     >
 
   <MenuItem Name="MenuItemCopy"/>

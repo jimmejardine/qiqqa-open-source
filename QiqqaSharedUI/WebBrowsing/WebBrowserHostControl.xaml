@@ -1,8 +1,8 @@
 ﻿<UserControl x:Class="Qiqqa.WebBrowsing.WebBrowserHostControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
-    xmlns:local_gui_dual="clr-namespace:Utilities.GUI.DualTabbedLayoutStuff;assembly=Utilities"
+    xmlns:local_gui="clr-namespace:Utilities.GUI"
+    xmlns:local_gui_dual="clr-namespace:Utilities.GUI.DualTabbedLayoutStuff"
     xmlns:local_library="clr-namespace:Qiqqa.DocumentLibrary"
   xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
     >

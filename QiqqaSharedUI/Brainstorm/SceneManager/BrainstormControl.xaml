@@ -1,11 +1,11 @@
 ﻿<UserControl x:Class="Qiqqa.Brainstorm.SceneManager.BrainstormControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+  xmlns:local_gui="clr-namespace:Utilities.GUI"
   xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
     xmlns:local_scene="clr-namespace:Qiqqa.Brainstorm.SceneManager"
     xmlns:Documents="clr-namespace:System.Windows.Documents;assembly=PresentationFramework"
-  xmlns:local_dualtab="clr-namespace:Utilities.GUI.DualTabbedLayoutStuff;assembly=Utilities"
+  xmlns:local_dualtab="clr-namespace:Utilities.GUI.DualTabbedLayoutStuff"
     >
   <DockPanel>
     <local_gui:AugmentedToolBarTray DockPanel.Dock="Top">

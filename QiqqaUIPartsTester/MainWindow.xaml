@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QiqqaUIPartsTester"
-        xmlns:GUI="clr-namespace:Utilities.GUI;assembly=Utilities" xmlns:DualTabbedLayoutStuff="clr-namespace:Utilities.GUI.DualTabbedLayoutStuff;assembly=Utilities" x:Class="QiqqaUIPartsTester.MainWindow"
+        xmlns:GUI="clr-namespace:Utilities.GUI" xmlns:DualTabbedLayoutStuff="clr-namespace:Utilities.GUI.DualTabbedLayoutStuff" x:Class="QiqqaUIPartsTester.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <StackPanel >

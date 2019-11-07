@@ -1,14 +1,14 @@
 ﻿<UserControl x:Class="Qiqqa.DocumentLibrary.LibraryFilter.LibraryFilterControl"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+  xmlns:local_gui="clr-namespace:Utilities.GUI"
   xmlns:local_tag="clr-namespace:Qiqqa.DocumentLibrary.TagExplorerStuff"
   xmlns:local_libraryfilter="clr-namespace:Qiqqa.DocumentLibrary.LibraryFilter"
   xmlns:local_aitag="clr-namespace:Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff"
   xmlns:local_author="clr-namespace:Qiqqa.DocumentLibrary.LibraryFilter.AuthorExplorerStuff"
   xmlns:local_publication="clr-namespace:Qiqqa.DocumentLibrary.LibraryFilter.PublicationExplorerStuff"
   xmlns:local_general_explorers="clr-namespace:Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers"
-  xmlns:local_dualtab="clr-namespace:Utilities.GUI.DualTabbedLayoutStuff;assembly=Utilities"
+  xmlns:local_dualtab="clr-namespace:Utilities.GUI.DualTabbedLayoutStuff"
 >
 
   <DockPanel>

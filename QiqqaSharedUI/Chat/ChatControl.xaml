@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
-  xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+  xmlns:local_gui="clr-namespace:Utilities.GUI"
 >
 <!--
 WARNING NOTE:

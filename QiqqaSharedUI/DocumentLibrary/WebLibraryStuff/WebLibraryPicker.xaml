@@ -1,7 +1,7 @@
 ﻿<commongui:StandardWindow x:Class="Qiqqa.DocumentLibrary.WebLibraryStuff.WebLibraryPicker"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+  xmlns:local_gui="clr-namespace:Utilities.GUI"
   xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
   xmlns:local_web_library="clr-namespace:Qiqqa.DocumentLibrary.WebLibraryStuff"
 >
