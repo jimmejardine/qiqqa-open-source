@@ -1,0 +1,1 @@
+﻿The Qiqqa WPF Custom Controls and Screens. Here because you get into lots of trouble when you have XAML files in a Shared Project. :-1:

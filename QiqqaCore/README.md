@@ -1,1 +1,0 @@
-﻿The Qiqqa Core, i.e. all Qiqqa functionality that sits behind the Qiqqa application. The UI is stored in a separate Shared Project: QiqqaSharedUI.

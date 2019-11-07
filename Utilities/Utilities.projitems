@@ -680,7 +680,6 @@
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)GUI\DualTabbedLayoutStuff\ItemHeader.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)GUI\DualTabbedLayoutStuff\WindowControlsHeader.xaml">
       <SubType>Designer</SubType>

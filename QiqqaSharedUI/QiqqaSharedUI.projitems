@@ -817,7 +817,6 @@
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)AnnotationsReportBuilding\AnnotationReportOptionsWindow.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)AnnotationsReportBuilding\ReportViewerControl.xaml">
       <SubType>Designer</SubType>
