@@ -1,0 +1,1 @@
+﻿The Qiqqa UI as Shared Project for easier integration in System Test Projects.

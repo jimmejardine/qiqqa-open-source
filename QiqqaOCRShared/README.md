@@ -1,0 +1,1 @@
+﻿Core material for QiqqaOCR binary. Shared Project so it can also be easily integrated into the Unit & System Testers and be made available for experimental upgrades/migrations (e.g. upgrade to Tesseract 5)

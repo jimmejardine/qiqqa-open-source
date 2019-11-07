@@ -101,18 +101,6 @@
     <Compile Include="..\QiqqaUnitTester\TestBibTeX.cs">
       <Link>TestBibTeX.cs</Link>
     </Compile>
-    <Compile Include="..\Utilities\BibTex\EndNoteToBibTex.cs">
-      <Link>Utilities\BibTeX\EndNoteToBibTex.cs</Link>
-    </Compile>
-    <Compile Include="..\Utilities\BibTex\Parsing\BibTexCharacterMap.cs">
-      <Link>Utilities\BibTeX\Parsing\BibTexCharacterMap.cs</Link>
-    </Compile>
-    <Compile Include="..\Utilities\BibTex\PubMedXMLToBibTex.cs">
-      <Link>Utilities\BibTeX\PubMedXMLToBibTex.cs</Link>
-    </Compile>
-    <Compile Include="..\Utilities\BibTex\RisToBibTeX.cs">
-      <Link>Utilities\BibTeX\RisToBibTeX.cs</Link>
-    </Compile>
     <Compile Include="DebugAndReleaseBinariesExecTest.cs" />
     <Compile Include="TestJSONDeserializeFromArbitrary.cs" />
     <Compile Include="UnitTest1.cs" />
@@ -133,20 +121,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\QiqqaTestHelpers\QiqqaTestHelpers.csproj">
-      <Project>{5ad02ba6-4bc7-4265-81cd-ea39f67311ee}</Project>
-      <Name>QiqqaTestHelpers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Qiqqa\Qiqqa.csproj">
-      <Project>{b837c549-3cc9-4855-b698-b7e816c6652b}</Project>
-      <Name>Qiqqa</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Utilities\Utilities.csproj">
-      <Project>{b0289358-e81c-4094-9db1-f520f24d339b}</Project>
-      <Name>Utilities</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="..\Utilities\BibTex\TestFiles\SampleEndnote.txt">
       <Link>data\Utilities\BibTeX\SampleEndnote.txt</Link>
     </Content>
@@ -156,6 +130,10 @@
     <Folder Include="data\fixtures\RIS\" />
     <Folder Include="data\fixtures\serialization\PDFDocument\" />
   </ItemGroup>
+  <Import Project="..\Utilities\Utilities.projitems" Label="Shared" />
+  <Import Project="..\QiqqaSharedCore\QiqqaSharedCore.projitems" Label="Shared" />
+  <Import Project="..\QiqqaOCRShared\QiqqaOCRShared.projitems" Label="Shared" />
+  <Import Project="..\QiqqaTestHelpers\QiqqaTestHelpers.projitems" Label="Shared" />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

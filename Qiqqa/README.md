@@ -1,0 +1,1 @@
+﻿The main Qiqqa application.

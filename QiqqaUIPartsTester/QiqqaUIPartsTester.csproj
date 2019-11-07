@@ -62,9 +62,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="..\QiqqaOCR\PDFRegionLocator.cs">
-      <Link>UtilityCode\PDFRegionLocator.cs</Link>
-    </Compile>
     <Compile Include="TestPanels\RegionExtractorTestWindow.xaml.cs">
       <DependentUpon>RegionExtractorTestWindow.xaml</DependentUpon>
     </Compile>
@@ -116,20 +113,18 @@
       <Project>{85a0a46c-5068-4d2c-a799-5373eaed5028}</Project>
       <Name>icons</Name>
     </ProjectReference>
-    <ProjectReference Include="..\QiqqaTestHelpers\QiqqaTestHelpers.csproj">
-      <Project>{5ad02ba6-4bc7-4265-81cd-ea39f67311ee}</Project>
-      <Name>QiqqaTestHelpers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Utilities\Utilities.csproj">
-      <Project>{B0289358-E81C-4094-9DB1-F520F24D339B}</Project>
-      <Name>Utilities</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Qiqqa.ico" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controls\" />
+    <Folder Include="UtilityCode\" />
   </ItemGroup>
+  <Import Project="..\QiqqaOCRShared\QiqqaOCRShared.projitems" Label="Shared" />
+  <Import Project="..\QiqqaSharedCore\QiqqaSharedCore.projitems" Label="Shared" />
+  <Import Project="..\QiqqaSharedUI\QiqqaSharedUI.projitems" Label="Shared" />
+  <Import Project="..\Utilities\Utilities.projitems" Label="Shared" />
+  <Import Project="..\QiqqaTestHelpers\QiqqaTestHelpers.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

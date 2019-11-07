@@ -1,0 +1,714 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>99ad14c6-d556-4dc5-a522-3f44a4655cce</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Utilities</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)BibTex\BibTeXActionComments.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BibTex\BibTeXToCiteProcConvertor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BibTex\BibTexTools.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BibTex\BibTexToWordConvertor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BibTex\EndNoteToBibTex.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BibTex\EntryType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BibTex\EntryTypes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BibTex\FieldBlackWhiteLists.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BibTex\Parsing\BibTexAssembler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BibTex\Parsing\BibTexCharacterMap.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BibTex\Parsing\BibTexItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BibTex\Parsing\BibTexLexer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BibTex\Parsing\BibTexLexerCallback.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BibTex\Parsing\BibTexParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BibTex\Parsing\BibTexParseResult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BibTex\PubMedXMLToBibTex.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BibTex\RisToBibTeX.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ClientVersion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ClientVersioning\ClientUpdater.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ClientVersioning\ClientVersionInformation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ClipboardTools.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Cloning\DeepObjectCloner.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\ArrayFormatter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\AveragingDictionary.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\Batching.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\CountingDictionary.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\EnumerableHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\MultiMap.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\MultiMapSet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\Set.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\SetTools.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\Splitter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\SummingDictionary.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\Tools.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\TwoKeyDictionary.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\TwoKeyStoredDictionary.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Colours.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ComputerStatistics.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Configuration\Configuration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ConsoleRedirector\ConsoleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ConsoleRedirector\ConsoleRedirector.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Daemon.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DateTimeTools\DateFormatter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)DateTimeTools\DateParser.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)DateTimeTools\Misc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DateTimeTools\UnixTimestamps.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DetectUnitTestRunner.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Encryption\PkiEncryption.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Encryption\ReversibleEncryption.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Files\CSV.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Files\DirectoryTools.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Files\FileAssociationRegistration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Files\FileList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Files\FileOpener.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Files\FileSystem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Files\FileTools.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Files\FileTypeIconCache.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Files\KeyValueFile.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Files\SerializeFile.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Files\StreamFingerprint.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Files\StreamMD5.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Files\StreamToFile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Files\TempFile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Files\TextFile.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Files\WrappingStream.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Files\XmlSerializeFile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Fonts.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GenericException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\Animation\Animations.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\AugmentedBorder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\AugmentedButton.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>AugmentedButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\AugmentedClosableBorder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\AugmentedInfoBarItemControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\AugmentedPadder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\AugmentedPopup.xaml.cs">
+      <DependentUpon>AugmentedPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\AugmentedPopupAutoCloser.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\AugmentedScrollViewer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\AugmentedSearchBox.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>AugmentedSearchBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\AugmentedSpacer.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>AugmentedSpacer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\AugmentedSplashScreen.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\AugmentedToggleButton.xaml.cs">
+      <DependentUpon>AugmentedToggleButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\AugmentedToolBar.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\AugmentedToolBarButton.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\AugmentedToolBarPopup.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\AugmentedToolBarTray.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\AugmentedToolWindow.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\AugmentedWrapPanel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\BackgroundFader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\BindablePasswordBox.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\BindableRun.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\Charting\ChartAxis.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\Charting\ChartColours.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\Charting\ChartRegion.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\Charting\ChartTools.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\Charting\ChartType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\Charting\GenericChartForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\Charting\MultiChart2D.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\Charting\Series.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\Charting\SingleControlForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\Charting\ThemedMultiChart2D.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\Charting\TopographicalChart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\CollapsibleRegion.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\ColorTools.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\Console.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\ControlHostingWindow.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>ControlHostingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\Converters\BooleanToVisibilityConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\Converters\BooleanToVisibilityInverseConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\Converters\NullableToVisibilityConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\DragDropHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\DualTabbedLayoutStuff\DualTabbedLayout.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\DualTabbedLayoutStuff\DualTabbedLayoutItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\DualTabbedLayoutStuff\IDualTabbedLayoutDragDrop.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\DualTabbedLayoutStuff\ItemHeader.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>ItemHeader.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\DualTabbedLayoutStuff\WindowControlsHeader.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>WindowControlsHeader.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\FishEyeControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\FishEyePanel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\FormTools.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\FrameworkElementPrinter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\GlobalHook.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\GUITools.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\HSLColor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\HyperlinkTextBlock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\KeyboardHook.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\KeyboardTools.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\MessageBoxes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\MouseHook.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\MouseWheelDisabler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\MultiColumnFlowGrid.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\NonScrollingFlowDocumentScrollViewer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\Notifications\NotificationBar.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>NotificationBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\Notifications\NotificationTypeToGradientStopColour1Converter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\Notifications\NotificationTypeToGradientStopColour2Converter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\PixelOffsetTools.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\PropertyShadow.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\PropertyShadowForPanels.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\ReadPropertyAfterSetConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\ReflectionControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\RelayCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\Render3D\Point3D.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\RibbonTools\AugmentedRibbon.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\RibbonTools\AugmentedRibbonBar.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\RibbonTools\AugmentedRibbonButton.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\ScreenTools.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\Shaders\Negative\NegativeEffect.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\SpaceAvoidingGrid.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\Syncfusion\GridDataControl_DistinctCountAggregate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\Syncfusion\SummaryColumnTools.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\Theme.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\ThemeColours.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\ThemeScrollbar.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\ThemeTabItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\ThemeTextStyles.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\WeakDependencyPropertyChangeNotifier.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\WindowTools.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\Wizard\Player.xaml.cs">
+      <DependentUpon>Player.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\Wizard\PointOfInterestHighlighterWindow.xaml.cs">
+      <DependentUpon>PointOfInterestHighlighterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\Wizard\PointOfInterestLocator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\Wizard\Route.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\Wizard\Step.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\Wizard\Test.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\Wizard\TestWizard.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\Wizard\WizardDPs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\Wizard\WizardTools.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\WPFDoEvents.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GUI\WPFFrameRate.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Images\BitmapImageTools.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Images\Filters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Images\ImageLoader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Images\ImageSaver.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Images\PNMLoader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Internationalization.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Internet\BrowserStarter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Internet\DownloadableFileGrabber.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Internet\GoogleScholar\GoogleScholarScrapePaper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Internet\GoogleScholar\GoogleScholarScrapePaperSet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Internet\GoogleScholar\GoogleScholarScraper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Internet\HTMLToXAML\HtmlCssParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Internet\HTMLToXAML\HtmlFromXamlConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Internet\HTMLToXAML\HtmlLexicalAnalyzer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Internet\HTMLToXAML\HtmlParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Internet\HTMLToXAML\HtmlSchema.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Internet\HTMLToXAML\HtmlTokenType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Internet\HTMLToXAML\HtmlToXamlConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Internet\ProxyTools.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Internet\ScrapeCache.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Internet\UrlDownloader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Language\Buzzwords\BuzzwordGenerator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Language\Buzzwords\NGram.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Language\Comparing.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Language\LanguageDropdown.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Language\NameTools.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Language\PatentTerms\PatentTermsGenerator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Language\ReasonableWord.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Language\ScrabbleWords.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Language\Stopwords.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Language\TextIndexing\IndexPageResult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Language\TextIndexing\LuceneIndex.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Language\TextIndexing\LuceneMoreLikeThis.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Language\TextIndexing\LuceneSimilarityQueries.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Language\TextIndexing\WordIndex.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Language\TextIndexing\WordInWordIndex.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LockPerfChecker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logging.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logging\TraceLogAppender.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Maintainable\MaintainableManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Maintainable\PeriodTimer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Maps\Geocode\PostcodeOutcodes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\Average.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\Complex.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\Constants.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\General.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\Geometry\BoxDistance.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\LinearAlgebra\Cholesky.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\LinearAlgebra\Eigensystems\Eigenvectors.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\LinearAlgebra\Eigensystems\ReducedFactorMatrix.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\LinearAlgebra\LUDecomposition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\LinearAlgebra\Matrix.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\LinearAlgebra\Norms.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\LinearAlgebra\TestHarness.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\LinearAlgebra\Vector.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\NumericalIntegration\SimpsonsRule.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\ObjectiveFunction\ObjectiveFunction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\ObjectiveFunction\Sample\Constant.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\ObjectiveFunction\Sample\Sin.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\Optimisation\BisectionSearch\BisectionSearch.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\Optimisation\ConvexHull\ConvexHull.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\Optimisation\ConvexHull\ConvexHull2Pool.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\Optimisation\NelderMead\NelderMead.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\Optimisation\NelderMead\NelderMead2D.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\Optimisation\NelderMead\ObjectiveFunction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\Optimisation\NelderMead\ObjectiveFunction2D.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\Optimisation\NelderMead\Point2D.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\Optimisation\NelderMead\TestHarness\QuadraticSearchFunction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\Optimisation\NelderMead\TestHarness\QuadraticSearchFunction2D.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\Optimisation\NelderMead\TestHarness\TestHarness.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\Polynomials.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\Precision.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\RunningAverage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\Statistics\Diffusions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\Statistics\Distributions\Distributions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\Statistics\Distributions\DreznerBivariate.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\Statistics\Distributions\Genz4VariateClosed.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\Statistics\Distributions\GenzMultivariate.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\Statistics\Distributions\GenzMultivariateClosed.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\Topics\LDAStuff\LDAAnalysis.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\Topics\LDAStuff\LDAAnalysisTools.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\Topics\LDAStuff\LDASampler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\Topics\LDAStuff\LDASamplerMCSerial.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\Topics\NMFStuff\NMF.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\Topics\NMFStuff\NMFMultiplicativeDivergence.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\Topics\NMFStuff\NMFMultiplicativeEuclidean.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\Topics\NMFStuff\Tools.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mathematics\WeightedAverage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MaxMin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Misc\ArrayExcelColumnMapper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Misc\CancelEnabler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Misc\Constants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Misc\Dialogs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Misc\DictionaryBasedObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Misc\DragDropTools.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Misc\NotificationManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Misc\Pair.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Misc\ProgressLogger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Misc\QuantisleUserRegistry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Misc\Runtime.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Misc\SafeThreadPool.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Misc\StatusManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Misc\ThreadTools.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Misc\TypedWeakReference.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Misc\UserRegistry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Misc\WeakEventHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Misc\WindowedEventCounter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)OCR\ColumnWordOrderer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)OCR\Word.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)OCR\WordList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PDF\AugmentedPdfLoadedDocument.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PDF\GhostscriptTools\Ghostscript.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)PDF\GhostscriptTools\GhostscriptBinaries.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)PDF\MuPDF\MuPDFRenderer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PDF\Sorax\SoraxDLL.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PDF\Sorax\SoraxPDFRenderer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PDF\Sorax\SoraxPDFRendererCache.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PDF\Sorax\SoraxPDFRendererDLLWrapper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PeriodTimeout.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Point2D.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ProcessTools\ProcessOutputReader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProcessTools\ProcessSingleton.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProcessTools\ProcessSpawning.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Random\AntitheticRandomSource.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Random\IUniformRandomSource.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Random\MersenneTwister.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Random\Orderings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Random\RandomAugmented.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Random\Sobol.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Reflection\AugmentedBindable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Reflection\COMWrapper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Reflection\ObjectSerializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Reflection\PropertyDependencies.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Reflection\PropertyNames.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Reflection\TypeTools.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Reflection\WeakReference.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Serialization\ColorWrapper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Shutdownable\ShutdownableManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sorting.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Strings\LetterPairSimilarity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Strings\LongestCommonSubstring.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Strings\PorterStemmer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Strings\StringArray.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Strings\StringTools.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Strings\TextArrayBuilder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Strings\TextFileEncodingDetector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Swap.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)WPFTrace.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)XMLTools.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)BibTex\TestFiles\Sample.bib" />
+    <None Include="$(MSBuildThisFileDirectory)GUI\Shaders\Negative\NegativeEffect.fx" />
+    <None Include="$(MSBuildThisFileDirectory)Mathematics\Statistics\Distributions\Drezner - Computation of the Bivariate Normal Integral.pdf" />
+    <None Include="$(MSBuildThisFileDirectory)Mathematics\Statistics\Distributions\Genz - Numerical Computation of Multivariate Normal Probabilities.pdf" />
+    <None Include="$(MSBuildThisFileDirectory)Mathematics\Statistics\Distributions\Steen - Gaussian Quadratures for the Integrals xxx.pdf" />
+    <None Include="$(MSBuildThisFileDirectory)README.md" />
+    <None Include="$(MSBuildThisFileDirectory)~COPYRIGHT.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)BibTex\TestFiles\SampleEndnote.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ConsoleRedirector\ConsoleForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ConsoleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)GUI\Charting\GenericChartForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>GenericChartForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)GUI\Charting\MultiChart2D.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MultiChart2D.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)GUI\Charting\SingleControlForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SingleControlForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)GUI\Charting\ThemedMultiChart2D.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ThemedMultiChart2D.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)GUI\Charting\TopographicalChart.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>TopographicalChart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Language\LanguageDropdown.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>LanguageDropdown.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Language\ScrabbleWords.dat" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Language\Stopwords.txt" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Maps\Geocode\postcode-outcodes.csv.gz" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)GUI\AugmentedButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)GUI\AugmentedPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)GUI\AugmentedSearchBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)GUI\AugmentedSpacer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)GUI\AugmentedToggleButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)GUI\ControlHostingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)GUI\DualTabbedLayoutStuff\ItemHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)GUI\DualTabbedLayoutStuff\WindowControlsHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)GUI\Notifications\NotificationBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)GUI\ThemeColours.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)GUI\ThemeScrollbar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)GUI\ThemeTabItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)GUI\Wizard\Player.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)GUI\Wizard\PointOfInterestHighlighterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="$(MSBuildThisFileDirectory)GUI\Shaders\Negative\NegativeEffect.ps" />
+  </ItemGroup>
+</Project>

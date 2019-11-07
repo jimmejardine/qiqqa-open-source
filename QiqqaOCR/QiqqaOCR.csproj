@@ -115,16 +115,44 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OCREngine.cs" />
-    <Compile Include="PDFRegionLocator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TextExtractEngine.cs" />
-    <Compile Include="WordListCredibility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\libs\SPdf.ini">
       <Link>SPdf.ini</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\libs\tessdata\deu.DangAmbigs">
+      <Link>tessdata\deu.DangAmbigs</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\libs\tessdata\deu.freq-dawg">
+      <Link>tessdata\deu.freq-dawg</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\libs\tessdata\deu.inttemp">
+      <Link>tessdata\deu.inttemp</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\libs\tessdata\deu.normproto">
+      <Link>tessdata\deu.normproto</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\libs\tessdata\deu.pffmtable">
+      <Link>tessdata\deu.pffmtable</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\libs\tessdata\deu.unicharset">
+      <Link>tessdata\deu.unicharset</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\libs\tessdata\deu.user-words">
+      <Link>tessdata\deu.user-words</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\libs\tessdata\deu.word-dawg">
+      <Link>tessdata\deu.word-dawg</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="..\libs\tessdata\eng.DangAmbigs">
@@ -164,12 +192,6 @@
     </None>
     <None Include="packages.config" />
     <None Include="README.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Utilities\Utilities.csproj">
-      <Project>{B0289358-E81C-4094-9DB1-F520F24D339B}</Project>
-      <Name>Utilities</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\libs\pdfdraw.exe">
@@ -220,5 +242,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <Import Project="..\QiqqaOCRShared\QiqqaOCRShared.projitems" Label="Shared" />
+  <Import Project="..\Utilities\Utilities.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
