@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="Qiqqa.InCite.PopupInCiteControl"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+>
+  <DockPanel>
+
+    <!-- The buttons - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+
+    <DockPanel DockPanel.Dock="Bottom">
+      <DockPanel DockPanel.Dock="Right">
+
+        <local_gui:AugmentedButton Name="ButtonRefresh" DockPanel.Dock="Right" MinWidth="200"/>
+        <local_gui:AugmentedSpacer DockPanel.Dock="Right"/>
+        <local_gui:AugmentedButton Name="ButtonCiteApart" DockPanel.Dock="Right" MinWidth="200"/>
+        <local_gui:AugmentedSpacer DockPanel.Dock="Right"/>
+        <local_gui:AugmentedButton Name="ButtonCiteTogether" DockPanel.Dock="Right" MinWidth="200"/>
+        <local_gui:AugmentedSpacer DockPanel.Dock="Right"/>
+        <local_gui:AugmentedButton Name="ButtonSnippet" DockPanel.Dock="Right"/>
+        <local_gui:AugmentedSpacer DockPanel.Dock="Right"/>
+
+        <local_gui:AugmentedButton Name="ButtonCancel" DockPanel.Dock="Left"/>
+        <local_gui:AugmentedSpacer DockPanel.Dock="Left"/>
+        <CheckBox Name="ObjCheckKeepOpen" DockPanel.Dock="Left">
+          <StackPanel>
+            <TextBlock>Keep this</TextBlock>
+            <TextBlock>popup open</TextBlock>
+          </StackPanel>
+        </CheckBox>
+        <local_gui:AugmentedSpacer DockPanel.Dock="Left"/>
+
+        <local_gui:AugmentedSpacer />
+
+      </DockPanel>
+
+    </DockPanel>
+
+    <local_gui:AugmentedSpacer DockPanel.Dock="Bottom"/>
+
+    <!-- The buttons - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+
+    <local_gui:AugmentedBorder DockPanel.Dock="Top">
+      <DockPanel>
+        <local_gui:AugmentedButton Name="ObjIcon" DockPanel.Dock="Left" />
+        <local_gui:AugmentedSpacer DockPanel.Dock="Left"/>
+
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+          </Grid.ColumnDefinitions>
+
+          <TextBlock Grid.Row="0" Grid.Column="0">Search for references matching (add ~ to fuzzy match):</TextBlock>
+          <TextBox Grid.Row="1" Grid.Column="0" Name="TxtSearchTerms" />
+
+          <local_gui:AugmentedSpacer Grid.Row="0" Grid.Column="1"/>
+          
+          <TextBlock Grid.Row="0" Grid.Column="2">In library (click to change):</TextBlock>
+          <TextBox Grid.Row="1" Grid.Column="2" Name="TextLibraryForCitations" />
+        </Grid>
+    </DockPanel>
+    </local_gui:AugmentedBorder>
+
+    <local_gui:AugmentedBorder>
+      <ListView Name="ObjPDFDocuments" />
+    </local_gui:AugmentedBorder>
+  
+</DockPanel>
+</UserControl>

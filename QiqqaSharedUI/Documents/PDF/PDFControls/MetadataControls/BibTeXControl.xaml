@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="Qiqqa.Documents.PDF.PDFControls.MetadataControls.BibTeXControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:local_bibtex="clr-namespace:Qiqqa.Documents.BibTeXEditor"
+>
+  <StackPanel>
+
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition/>
+      </Grid.RowDefinitions>
+
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="7*"/>
+        <ColumnDefinition Width="3"/>
+        <ColumnDefinition Width="7*"/>
+        <ColumnDefinition Width="3"/>
+        <ColumnDefinition Width="7*"/>
+      </Grid.ColumnDefinitions>
+
+      <local_gui:AugmentedButton Grid.Column="0" Name="ButtonBibTexAutoFind" >Find</local_gui:AugmentedButton>
+      <local_gui:AugmentedSpacer Grid.Column="1" />
+      <local_gui:AugmentedButton Grid.Column="2" Name="ButtonBibTexSniffer" >Sniffer</local_gui:AugmentedButton>
+      <local_gui:AugmentedSpacer Grid.Column="3" />
+      <local_gui:AugmentedButton Grid.Column="4" Name="ButtonUseSummary" >Summary</local_gui:AugmentedButton>
+    </Grid>
+
+    <local_gui:AugmentedSpacer />
+
+    <local_bibtex:BibTeXEditorControl x:Name="ObjBibTeXEditorControl" BibTeX="{Binding BibTex, Mode=TwoWay}" MinHeight="230"/>
+
+    <local_gui:AugmentedSpacer />
+
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="4*"/>
+        <ColumnDefinition Width="4*"/>
+        <ColumnDefinition Width="4*"/>
+        <ColumnDefinition Width="4*"/>
+        <ColumnDefinition Width="4*"/>
+    </Grid.ColumnDefinitions>
+
+            <local_gui:AugmentedButton Grid.Column="0" Name="ButtonBibTexEditor"  AutoScaleText="true" >Popup</local_gui:AugmentedButton>
+            <local_gui:AugmentedButton Name="ButtonToggleBibTeX" Grid.Column="1"  AutoScaleText="true"  >Toggle</local_gui:AugmentedButton>
+            <local_gui:AugmentedButton Name="ButtonAckBibTeXParseErrors" Grid.Column="2"  AutoScaleText="true"  >Parse Errors</local_gui:AugmentedButton>
+            <local_gui:AugmentedButton Name="ButtonUndoBibTeXEdit" Grid.Column="3"  AutoScaleText="true"  >Undo</local_gui:AugmentedButton>
+            <local_gui:AugmentedButton Grid.Column="4" Name="ButtonBibTexClear"  AutoScaleText="true"  >Clear</local_gui:AugmentedButton>
+    </Grid>
+
+  </StackPanel>
+</UserControl>

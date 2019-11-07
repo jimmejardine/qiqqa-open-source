@@ -1,0 +1,10 @@
+﻿<layer:PageLayer x:Class="Qiqqa.Documents.PDF.PDFControls.Page.Ink.PDFInkLayer"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:layer="clr-namespace:Qiqqa.Documents.PDF.PDFControls.Page.Tools"
+                 >
+  <Viewbox StretchDirection="Both" Stretch="Fill" Name="ObjBaseGrid">
+    <InkCanvas Background="Transparent" Width="1000" Height="1000" Name="ObjInkCanvas"/>
+  </Viewbox>
+
+</layer:PageLayer>

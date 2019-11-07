@@ -1,0 +1,14 @@
+﻿<UserControl x:Class="Qiqqa.Documents.PDF.PDFControls.MetadataControls.TweetControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+>
+  <DockPanel>
+        <local_gui:AugmentedButton x:Name="ButtonSubmit" DockPanel.Dock="Left">Submit</local_gui:AugmentedButton>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" >
+            <TextBox TextWrapping="Wrap" Name="TxtTweet" >Tweeterdetweet</TextBox>
+        </ScrollViewer>
+  </DockPanel>
+</UserControl>

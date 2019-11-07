@@ -1,9 +1,0 @@
-﻿<UserControl x:Class="Qiqqa.DocumentLibrary.TagExplorerStuff.TagExplorerItemPopup"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
->
-  <StackPanel>
-    <MenuItem Header="Explore in Brainstorm" Name="MenuExploreTag"/>
-    <MenuItem Header="Rename or delete tag" Name="MenuRenameTag"/>
-  </StackPanel>
-</UserControl>

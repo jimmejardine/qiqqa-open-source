@@ -1,0 +1,8 @@
+﻿<Border  x:Class="Qiqqa.Documents.PDF.PDFControls.Page.Hand.PageNumberControl"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         
+  CornerRadius="5"
+>
+  <TextBlock Name="TxtPageNumber" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" FontWeight="Bold" Margin="5,5,5,5"/>
+</Border>

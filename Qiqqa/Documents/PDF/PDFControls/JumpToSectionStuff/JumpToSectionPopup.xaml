@@ -1,5 +1,0 @@
-﻿<StackPanel x:Class="Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff.JumpToSectionPopup"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
->
-</StackPanel>

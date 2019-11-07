@@ -1,8 +1,0 @@
-﻿<layer:PageLayer x:Class="Qiqqa.Documents.PDF.PDFControls.Page.Hand.PDFHandLayer"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:layer="clr-namespace:Qiqqa.Documents.PDF.PDFControls.Page.Tools"
-    xmlns:hand="clr-namespace:Qiqqa.Documents.PDF.PDFControls.Page.Hand"
-    >
-  <hand:PageNumberControl x:Name="ObjPageNumberControl" Canvas.Left="10" Canvas.Top="10" />
-</layer:PageLayer>
