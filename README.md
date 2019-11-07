@@ -24,6 +24,14 @@ This version includes EVERY feature available in Qiqqa, including Premium and Pr
   > **DO NOTE** that these releases are only lightly tested and may include grave bugs. Meanwhile you also get an early glance at the state of affairs in Qiqqa Features and Fixes County, which might be enough of an incentive for you to try one of these. *Living on the edge* and all that...
 
 
+## Documentation For Users
+
+We're working on getting the Qiqqa documentation (user manual, etc.) available at http://qiqqa.org/ 
+
+> It still needs a *lot* of work, so all help is appreciated. Note: the Commercial Qiqqa manual is available as a web page there at: http://qiqqa.org/The.Qiqqa.Manual.html
+>
+> Other documentation material is being added as we go; the sources for that are available in this repository's [/docs/](./docs) directory.
+
 
 ## Fixes & Additions to Qiqqa since v80/v79
 
