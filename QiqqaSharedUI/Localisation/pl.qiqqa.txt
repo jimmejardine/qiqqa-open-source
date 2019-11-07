@@ -1,0 +1,74 @@
+LIBRARY/CAP/ADD_DOCUMENTS:Dodaj\nDokumenty
+LIBRARY/CAP/ADD_FOLDER:Dodaj\nKatalog
+LIBRARY/CAP/ADD_IMPORT:Dodaj z \nImportu
+LIBRARY/CAP/ADD_LIBRARY:Dodaj\nBibliotekę
+LIBRARY/CAP/ADD_REFERENCE:Dodaj\nOdnośnik
+LIBRARY/CAP/ANNOTATION_REPORT:Przypis\nRaport
+LIBRARY/CAP/BIBTEX_SNIFFER:BibTeX\nWęszyciel
+LIBRARY/CAP/EXPEDITION:Wyprawa
+LIBRARY/CAP/EXPORT_BIBTEX:Eksportuj do\nBibTeX
+LIBRARY/CAP/EXPORT_LIBRARY:Eksportuj\nBibliotekę
+LIBRARY/CAP/EXPORT_WORD:Eksportuj do\nWord
+LIBRARY/CAP/FIND_REFERENCES:Znajdź\nReferencje
+LIBRARY/CAP/FULL_SYNC:Pełna\nSynchronizacja
+LIBRARY/CAP/PARTIAL_SYNC:Częściowa\nSynchronizacja
+LIBRARY/CAP/WATCH_FOLDER:Obserwuj\nKatalog
+LIBRARY/TIP/ADD_DOCUMENTS:Dodaj nowe pliki PDF do biblioteki.
+LIBRARY/TIP/ADD_FOLDER:Dodaj wszystkie pliki PDF z katalogu, do twojej biblioteki.
+LIBRARY/TIP/ADD_IMPORT:Importuj pliki PDS z innych programów.
+LIBRARY/TIP/ADD_LIBRARY:Dodaj do tej biblioteki wszystkie pliki PDF z innej biblioteki. Prawdopodobnie zechcesz skorzystać z tej opcji jeśli zacząłeś używać Biblioteki Gościa, a teraz chcesz zacząć korzystać z Biblioteki Web, by dokonać sycnhronizacji.
+LIBRARY/TIP/ADD_REFERENCE:Dodaj pusty odnośnik do biblioteki.\nKorzystaj, gdy posiadasz odnośnik, do którego nie masz pliku PDF.\nWciąż będziesz mógł dodać dane BibTeX, komentarze, tagi oraz skorzystać z InCite.
+LIBRARY/TIP/ANNOTATION_REPORT:Utwórz raport z przypisami, zamieszczonymi w dokumentach.\nJeśli włączony jest filtr dokumentu, zmiany zostaną uwzględnione w raporcie.
+LIBRARY/TIP/BIBTEX_SNIFFER:Węszyciel BibTeX pomoże szybko uzupełnić brakujące metadane.
+LIBRARY/TIP/EXPEDITION:Wurusz na Wyprawę Qiqqa dla tej biblioteki.
+LIBRARY/TIP/EXPORT_BIBTEX:Eksportuj wszystkie wpisy BibTeX do użytku w twoim procesorze tekstu BibTeX.\nJeśli włączony jest filtr biblioteki, zmiany zostaną uwzględnione podczas eksportu BibTeX.
+LIBRARY/TIP/EXPORT_LIBRARY:Esportuj całą bibliotekę Qiqqa do katalogu.
+LIBRARY/TIP/EXPORT_WORD:Eksportuj wszystkie wpisy BibTeX do użytku w bibliograficznym systemie zarządzania Microsoft® Word™.\nJeśli włączony jest filtr biblioteki, zmiany zostaną uwzględnione podczas eksportu.
+LIBRARY/TIP/FIND_REFERENCES:Znajdź wspólne referencje w dokumentach. Będą widoczne, gdy otworzysz pliki PDF.\nPamiętaj o wypełnieniu danych BibTeX
+LIBRARY/TIP/FULL_SYNC:Synchronizuj metadane oraz dokumenty z twoją Biblioteką Web.\nJakiekolwiek nowe dokumenty zostaną automatycznie ściągnięte.
+LIBRARY/TIP/PARTIAL_SYNC:Synchronizuj metadane z Biblioteką Web i wczytaj nowe dokumenty.\nNowe dokumenty nie będą automatycznie ściągane z twojej Biblioteki Web.
+LIBRARY/TIP/WATCH_FOLDER:Obserwuj katalog, by automatycznie dodawać nowe dokumenty do twojej biblioteki.
+PDF/TIP/ADD_ANNOTATION:Dodaj do dokumentu okno z przypisem. (Ctrl-A)
+PDF/TIP/ADD_HIGHLIGHT:Podświetl wybrany tekst. (Ctrl-H)
+PDF/TIP/ADD_INK:Rysuj po pliku PDF. (Ctrl-I)
+PDF/TIP/BOOKMARKS:Ustal zakładki i przejdź do danych sekcji dokumentu.
+PDF/TIP/BRAINSTORM:Eksploruj ten dokument w burzy mózgów.
+PDF/TIP/CONVERT_TO_TEXT:Konwertuj plik PDF do postaci tekstowej.
+PDF/TIP/EXPEDITION:Wyrysz na Wyprawę Qiqqa w tym dokumencie.
+PDF/TIP/FULL_SCREEN:Czytaj w trybie pełnoekranowym.
+PDF/TIP/MOVE_PAGE:Przesuń stronę myszką. (Ctrl-M)
+PDF/TIP/NEGATIVE:Widok negatywu (pomaga odczytać niektóre dokumenty).
+PDF/TIP/PAGE_JUMP:Wpisz numer strony i naciśnij <ENTER>, by tam przejść. Inaczej naciśnij + lub - w celu przejścia między stronami.
+PDF/TIP/PAGE_NEXT:Następna strona.
+PDF/TIP/PAGE_PREV:Poprzednia strona.
+PDF/TIP/PRINT:Drukuj Dokument.
+PDF/TIP/READ_ALOUD:Przeczytaj stronę na głos.
+PDF/TIP/ROTATE:Obróć w prawo.
+PDF/TIP/SAVE_COPY:Zapisz kopię tego pliku PDF.
+PDF/TIP/SEARCH:Szukaj danego słowa w dokumencie.\nWpisz tekst i naciśnij <ENTER>, by przeszukać dokument.\nNaciśnij Ctrl+F, by ponowić ostatnie wyszukiwanie.
+PDF/TIP/SELECT_TEXT:Zaznacz tekst. (Ctrl-S)
+PDF/TIP/SHARE:Wyślij email & dziel się dokumentem.
+PDF/TIP/SNAPSHOT:Dokonaj zrzutu ekranu części dokumentu do schowka. Możesz wkleić to zdjęcie do innej aplikacji.
+PDF/TIP/ZOOM_1:Widok na 1 stronę.
+PDF/TIP/ZOOM_2:Widok na 2 strony.
+PDF/TIP/ZOOM_IN:Przybliż.
+PDF/TIP/ZOOM_N:Widok wielu stron.
+PDF/TIP/ZOOM_OUT:Oddal.
+PDF/TIP/ZOOM_WHOLE:Widok pełnej strony.
+START/CAP/BRAINSTORM:Burza mózgów
+START/CAP/BROWSER:Internet
+START/CAP/CONFIG:Konfiguracja
+START/CAP/EXPEDITION:Wyprawa
+START/CAP/HELP:Pomoc
+START/CAP/INCITE:InCite
+START/CAP/OCR:Włącznik\nOCR
+START/CAP/SYNC_LIBRARIES:Synchronizuj\nBiblioteki
+START/TIP/BRAINSTORM:Rozpocznij burzę mózgów.
+START/TIP/BROWSER:Otwórz przeglądarkę internetową
+START/TIP/CONFIG:Otwórz ekran konfiguracji.
+START/TIP/EXPEDITION:Otwórz Wyprawę Quiqqa.\nWyrusz na Wyprawę, by przeglądać i tworzyć inspirujące relacje wewnątrz biblioteki.
+START/TIP/HELP:Uzyskaj pomoc!
+START/TIP/INCITE:Otwórz Qiqqa InCite\nKorzystaj z InCite, by automatycznie generować referencje i bibliografię w programie Word.
+START/TIP/OCR_OFF:Włącz OCR.\nOCR jest wyłączony. Włącz, jeśli chcesz indeksować nowe dokumenty i umożliwić ich przeszukiwanie.
+START/TIP/OCR_ON:Wyłącz OCR.\nOCR jest włączony. Wyłącz, by oszczędzić baterie.
+START/TIP/SYNC_LIBRARIES:Synchronizuj Biblioteki.\nTu możesz zobaczysz, jak wiele miejsca zajmuje Biblioteka Web oraz wybrać biblioteki do sychronizacji.

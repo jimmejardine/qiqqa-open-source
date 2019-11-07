@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="Qiqqa.StartPage.RegionWebcasts"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+    xmlns:common="clr-namespace:Qiqqa.Common"
+    xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
+>
+  <Grid>
+    <FlowDocumentScrollViewer>
+      <commongui:StandardFlowDocument>
+        <Paragraph>
+          The fastest way to get going is to watch some of the Qiqqa tutorials:
+        </Paragraph>
+        <Paragraph>          
+          <Hyperlink Name="LnkFirst10Mins" FontWeight="Bold" />
+          ·
+          <Hyperlink Name="LnkExplore" FontWeight="Bold" />
+          ·
+          <Hyperlink Name="LnkExternalIntro" />
+          ·
+          <Hyperlink Name="LnkLibrary" />
+          ·
+          <Hyperlink Name="LnkPDFViewer" />
+          ·
+          <Hyperlink Name="LnkBibTeXSniffer" />
+          ·
+          <Hyperlink Name="LnkInCite" />
+          ·
+          <Hyperlink Name="LnkBrainstorm" />
+          ·
+          <Hyperlink Name="LnkExpedition" />
+          ·
+          <Hyperlink Name="LnkIdeas" />
+          ·
+          <Hyperlink Name="LnkPlay" />
+        </Paragraph>
+
+        <Paragraph>
+          <Floater>
+            <BlockUIContainer>
+              <Image Name="ImageHelpers" />
+            </BlockUIContainer>
+          </Floater>
+        </Paragraph>
+
+        <Paragraph>
+          If you get stuck, <Hyperlink Name="HyperlinkForums">visit the Qiqqa help forums</Hyperlink>, where you will find the answers to most of your questions.  Feel free to jump in and reply if you already know some of the answers!
+        </Paragraph>
+      </commongui:StandardFlowDocument>
+    </FlowDocumentScrollViewer>
+  </Grid>
+</UserControl>

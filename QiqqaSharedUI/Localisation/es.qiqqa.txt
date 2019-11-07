@@ -1,0 +1,192 @@
+﻿INCITE/CAP/ABBREVIATIONS:Usar Abreviaturas
+INCITE/CAP/ADD_CSL_STATS:Agregar estadísticas CSL
+INCITE/CAP/CSL_BROWSE:Navegar Biblioteca CSL
+INCITE/CAP/CSL_EDIT:Editor\nCSL
+INCITE/CAP/CSL_FIND:Mostrar Citas Usadas
+INCITE/CAP/CSL_OPTIONS:Estilo\nCita
+INCITE/CAP/CSL_STANDARD:Elegir Estilo CSL
+INCITE/CAP/CUSTOM_ABBREVIATIONS_FILENAME:Agregar Abreviaturas Personalizadas
+INCITE/CAP/INCITE_POPUP:Abrir la ventana InCite
+INCITE/CAP/LAUNCHWORD:Abrir Word
+INCITE/CAP/NEW_BIBLIOGRAPHY:Agregar\nBibliografía\nSección
+INCITE/CAP/NEW_CITATION:Agregar\nCita\n(Autor, Año)
+INCITE/CAP/NEW_CITATION_SEPARATE_AUTHOR_YEAR:Agregar\nCita\nAutor (Año)
+INCITE/CAP/NEW_SNIPPET:Copiar\nFragmento
+INCITE/CAP/PAUSE:Pausar InCite
+INCITE/CAP/REFORMAT:Reformatear\nDocumento
+INCITE/CAP/TOOLS:Herramientas
+INCITE/TIP/ABBREVIATIONS:Usar Abreviaturas.\nLa próxima vez ud reformatee sus referencias, artículos, publicaciones, etc. serán reemplazados con sus correspondientes abreviaturas
+INCITE/TIP/ADD_CSL_STATS:Agregar una sección de estadísticas CSL a su documento Word.\nEsto es empleado para propósitos de soporte solo para mostrar cuál configuración esta siendo empleada por el procesador CSL.
+INCITE/TIP/CSL_BROWSE:Navegar los estilos CSL en el depósito de estilos de Zotero.\nDescargar y almacenar el estilo elegido en un lugar seguro (quizás con su manuscrito)\ny luego seleccionar este estilo como su estilo bibliográfico InCite de Qiqqa
+INCITE/TIP/CSL_EDIT:Activa el editor de estilo CSL.\nUse esto para crear sus propios estilos si ud no puede encontrar uno que satisfaga los requerimientos de su editor.
+INCITE/TIP/CSL_FIND:Muestra todas las citas empleadas en el documento Word actualmente seleccionado.
+INCITE/TIP/CSL_STANDARD:Elegir uno de los estilos CSL estandar que vienen con InCite de Qiqqa
+INCITE/TIP/CUSTOM_ABBREVIATIONS_FILENAME:Agrega tu propio archivo de abreviaturas propias personalizadas para ser empleado por InCite de Qiqqa
+INCITE/TIP/INCITE_POPUP:Abre la versión ventana de InCite
+INCITE/TIP/LAUNCHWORD:Iniciar Microsoft Word dentro de Qiqqa.\nAlgunas veces esto es necesario para sistemas donde Qiqqa y Word están instalados con distintos privilegios de seguridad y no pueden comunicarse. Presionar CTRL mientras presiona esto para elegir cuál versión de Word abrir.
+INCITE/TIP/NEW_BIBLIOGRAPHY:Agregar una sección bibliográfica a su documento Word.\nEsto contiene un resumen de todos los documentos que ha citado, Ud normalmente coloca esto al final de su documento.
+INCITE/TIP/NEW_CITATION:Agregar una cita a su documento Word de las fuentes seleccionadas a continuación.\nSi su cursor en Word está dentro de una cita existente, la cita será agrupada (Ejm.: en algunos estilos esto puede aparecer como [4-6]).
+INCITE/TIP/NEW_CITATION_SEPARATE_AUTHOR_YEAR:Agregar una cita a su documento Word de las fuentes seleccionadas a continuación.\nSi su cursor en Word está dentro de una cita existente, la cita será agrupada (Ejm.: en algunos estilos esto puede aparecer como [4-6]).
+INCITE/TIP/NEW_SNIPPET:Copiar la(s) cita(s) para el (los) documento(s) actual(es) seleccionado(s) al portapapeles.\nUse esto si ud desea copiar y pegar la(s) cita(s) a su editor de texto favorito.
+INCITE/TIP/PAUSE:Pausar InCite.\nNinguna recomendación se hará para ud. y InCite no detectará si ud. ha cerrado Microsoft Word\nUsar esto solo si ud. tiene energía en la batería y no desea recomendaciones de InCite.
+INCITE/TIP/REFORMAT:Reformatear todas las citas en su documento Word.\nUd necesita hacer esto después de varias nuevas citas a su documneto y quererlas ver en el nuevo formato elegido.
+LIBRARY/CAP/ADD_DOCUMENTS:Agregar documentos PDF
+LIBRARY/CAP/ADD_FOLDER:Agregar Carpeta
+LIBRARY/CAP/ADD_IMPORT:Importar desde otro Gestor de Referencias
+LIBRARY/CAP/ADD_LIBRARY:Copiar a otra Biblioteca
+LIBRARY/CAP/ADD_REFERENCE:Agregar referencia no-PDF
+LIBRARY/CAP/ANNOTATION_REPORT:Reporte\nAnotación
+LIBRARY/CAP/BIBTEX_SNIFFER:BibTex\nHusmeador
+LIBRARY/CAP/BUILD_BUNDLE_LIBRARY:Construir Paquete de Bibliotecas
+LIBRARY/CAP/EDIT_DELETE:Editar/Borrar
+LIBRARY/CAP/EXPLORE:Explorar\nBiblioteca
+LIBRARY/CAP/EXPORT_ANNOTATIONS_CODE:Exportar Códigos de Anotaciones 
+LIBRARY/CAP/EXPORT_BIBTEX:Exporta los registros BibTeX para usarlos con LaTeX.
+LIBRARY/CAP/EXPORT_CITATION_MATRIX:Exportar Matriz de Citas
+LIBRARY/CAP/EXPORT_LIBRARY:Exportar Biblioteca
+LIBRARY/CAP/EXPORT_WORD:Exportar Refs a Word XML (no recomendado)
+LIBRARY/CAP/FIND_DUPLICATES:Hallar\nDuplicados
+LIBRARY/CAP/FIND_REFERENCES:Hallar\nReferencias
+LIBRARY/CAP/FULL_SYNC:Sincronización Total
+LIBRARY/CAP/INVITE:Invitar y Compartir
+LIBRARY/CAP/PARTIAL_SYNC:Sincronización Parcial
+LIBRARY/CAP/POPUP_ADD_DOCUMENTS:Agregar PDFs\no Referencias
+LIBRARY/CAP/POPUP_EXPORT:Exportar\nBiblioteca
+LIBRARY/CAP/POPUP_SYNC:Sincronizar\nBiblioteca
+LIBRARY/CAP/PUBLIC_STATUS:Cambiar a Estatus Público
+LIBRARY/CAP/SYNC_DETAILS:Detalles de sincronización
+LIBRARY/CAP/TOP_UP:Completar
+LIBRARY/CAP/VIEW_ONLINE:Ver en línea
+LIBRARY/CAP/WATCH_FOLDER:Carpeta de Observación
+LIBRARY/TIP/ADD_DOCUMENTS:Agregar nuevos PDFs a su biblioteca
+LIBRARY/TIP/ADD_FOLDER:Agregar todos lo PDFs a una carpeta de su biblioteca.
+LIBRARY/TIP/ADD_IMPORT:Importar documentos PDF desde otros programas.
+LIBRARY/TIP/ADD_LIBRARY:Agregar todos los PDF's de otra biblioteca a esta biblioteca. Ud. probablemente quiera usar esto si ud inicio con la Biblioteca de Inivtado de Qiqqa y ahora quiere comenzar a usar una Biblioteca Web/Intranet para sincronizar.
+LIBRARY/TIP/ADD_REFERENCE:Agregar una referencia vainilla No-PDF a su biblioteca.\nUsar esto si ud tiene una referencia de la que no se dispone un PDF.\nUd igualmente podrá asociar algun BibTeX y comentario y etiquetarlo, también estará disponible en InCite.
+LIBRARY/TIP/ANNOTATION_REPORT:Crear un reporte con las anotaciones que ha realizado a sus fuentes.\nSi ud actualmente tiene aplicado un filtro de documento a la biblioteca, también aplicará a su reporte.
+LIBRARY/TIP/BIBTEX_AUTOFIND:Buscar por BibTeX en la base de datos BibTeX de Qiqqa.
+LIBRARY/TIP/BIBTEX_SNIFFER:Acelera el Husmeador BibTeX para ayudarlo a localizar rápidamente información omitida de referencias de tus documentos
+LIBRARY/TIP/BRAINSTORM:Explora esta Biblioteca en el Conceptualizador
+LIBRARY/TIP/BUILD_BUNDLE_LIBRARY:Crear un nuevo Paquete de Bibliotecas para esta Biblioteca.
+LIBRARY/TIP/EDIT_DELETE:Cambiar el título de esta biblioteca, descripción, o borrarla
+LIBRARY/TIP/EXPEDITION:Explorar esta biblioteca usando Expedición de Qiqqa.
+LIBRARY/TIP/EXPLORE:Explora tu biblioteca y encuentra algo interesante para leer.
+LIBRARY/TIP/EXPORT_ANNOTATIONS_CODE:Exportar sus Anotaciones en un formato que pueda ser usado por otros programas.
+LIBRARY/TIP/EXPORT_BIBTEX:Exportar todos sus registros BibTeX para usarlos con el procesador de palabra LaTeX/BibTeX.\nSi ud tiene un filtro en la libreria, también aplicará a su exportación BibTeX.
+LIBRARY/TIP/EXPORT_CITATION_MATRIX:Exportar sus citas y así procesarlas en cualquier otro sitio.
+LIBRARY/TIP/EXPORT_LIBRARY:Exportar toda su biblioteca Qiqqa a una carpeta para suo de otros programas.
+LIBRARY/TIP/EXPORT_WORD:Exportar toda sus registros BibTeX para emplearlos con el sistema de gestión bibliográfica de Microsoft Word.\nSi ud tiene un filtro en su biblioteca, aplicará por igual a su exportación.
+LIBRARY/TIP/FIND_DUPLICATES:Hallar todos las fuentes duplicados en su biblioteca.
+LIBRARY/TIP/FIND_REFERENCES:Hallar todas las referencias cruzadas entre los documentos de su biblioteca. Estos serán visibles cuando abra su PDFs.\nRecuerde que ud necesita tener completamente llenos los registros BibTeX (o al menos los títulos de sus artículos y autores) para que funcione bien.
+LIBRARY/TIP/FULL_SYNC:Sincronizar los metadatos y documentos con su Biblioteca Web/Intranet.\nNuevos documentos serán cargados y descargados automáticamente.
+LIBRARY/TIP/INVITE:Invita amigos y colegas para participar en tu biblioteca.
+LIBRARY/TIP/PARTIAL_SYNC:Sincronizar solo los metadatos con la Biblioteca Web/Intranet y subir cualquier nuevo documento.\nNuevos documentos no serán descargados automáticamente de su Biblioteca Web/Intranet.
+LIBRARY/TIP/PIVOT:Explorar esta bilbioteca en un Pivote.
+LIBRARY/TIP/POPUP_ADD_DOCUMENTS:Haga click aquí para agregar PDFs o referencias vainilla a su biblioteca.\nUd también puede arrastrar los PDFs directamente a la Biblioteca.
+LIBRARY/TIP/POPUP_EXPORT:Ud puede exportar su biblioteca completamente a una estructura ajustada tipo directorio,\no solo exportar para usar las referencias de sus citas con BibTeX, LaTeX o el sistema de referencia de Microsoft Word
+LIBRARY/TIP/POPUP_SYNC:Sincronice su biblioteca a la nube
+LIBRARY/TIP/PUBLIC_STATUS:Cambiar el Estatus Público a esta biblioteca.
+LIBRARY/TIP/SYNC_DETAILS:Elige cuáles bibliotecas desea sincronizar total o parcialmente
+LIBRARY/TIP/TOP_UP:Completar esta biblioteca para espacio de almacenamiento ilimitado
+LIBRARY/TIP/VIEW_ONLINE:Ver esta bilbioteca web en línea.
+LIBRARY/TIP/WATCH_FOLDER:Observar una carpeta para nuevos documentos y agregarlos automáticamente a su biblioteca
+PDF/CAP/CITE_BIBTEX:Copiar la clave BibTex al portapapeles
+PDF/CAP/CITE_SNIPPET:Citar esto usando este fragmento en el portapapeles
+PDF/CAP/CITE_WORD:Citar este documento en Word - (Autor, Fecha)
+PDF/CAP/CITE_WORD_SEPARATE:Citar este documento en Word - Autor (Fecha)
+PDF/TIP/ADD_ANNOTATION:Agregar una caja con anotación al documento fuente. (Ctrl-A)
+PDF/TIP/ADD_HIGHLIGHT:Resalta secciones del texto. (Ctrl-H)
+PDF/TIP/ADD_INK:Dibuja con tinta en tu PDF con un lapicero. (Ctrl-I)
+PDF/TIP/BOOKMARKS:Defina marcapáginas y salte a secciones de su fuente.
+PDF/TIP/BRAINSTORM:Explora este documento en el Conceptualizador
+PDF/TIP/CONVERT_TO_TEXT:Convertir su PDF a texto.
+PDF/TIP/EXPEDITION:Ejecuta Qiqqa Expedition en esta fuente.
+PDF/TIP/EXPLORE:Explorar esta fuente
+PDF/TIP/FULL_SCREEN:Leer este artículo en modo de pantalla completa.
+PDF/TIP/INCITE:Citar este documento
+PDF/TIP/MISC:Recompensas miscelaneas de PDF
+PDF/TIP/MORE_MENUS:Opciones adicionales PDF.
+PDF/TIP/MOVE_PAGE:Mover pagina con el mouse. (Ctrl-M)
+PDF/TIP/NEGATIVE:Visualizar en negativo (facilita la lectura de algunos documentos).
+PDF/TIP/OPEN_PARENT_LIBRARY:Abrir la biblioteca que contiene este PDF
+PDF/TIP/PAGE_JUMP:Escriba el número de la página y presione <ENTER> para ir a ella. De lo contrario, presione + o - para moverse entre las páginas.
+PDF/TIP/PAGE_NEXT:Página siguiente.
+PDF/TIP/PAGE_PREV:Página anterior.
+PDF/TIP/PRINT:Imprimir documento.
+PDF/TIP/READ_ALOUD:Leer en voz alta la página
+PDF/TIP/ROTATE:Rotar en sentido del reloj.
+PDF/TIP/ROTATE_ALL:Rotar todas las páginas en sentido del reloj.
+PDF/TIP/SAVE_COPY:Guarda una copia de este PDF
+PDF/TIP/SEARCH:Buscar una palabra en tu documento.\nIntroduzca el texto aquí y presione <ENTER> para buscar en este documento\nPresione Ctrl+F para repetir la última búsqueda.
+PDF/TIP/SELECT_TEXT:Seleccionar texto. (Ctrl-S)
+PDF/TIP/SHARE:Enviar por email y compartir la fuente.
+PDF/TIP/SNAPSHOT:Toma una instantánea de una región de tu documento y colocala en el Portapapeles. Ud. puede luego pegar esta imagen en otra aplicación.
+PDF/TIP/SPEED_READ:Leer rápido este PDF
+PDF/TIP/ZOOM:Aumentar y Rotar
+PDF/TIP/ZOOM_1:Aumentar a 1 página
+PDF/TIP/ZOOM_2:Aumentar a 2 páginas
+PDF/TIP/ZOOM_IN:Reducir
+PDF/TIP/ZOOM_N:Reducir a muchas páginas
+PDF/TIP/ZOOM_OUT:Aumentar
+PDF/TIP/ZOOM_WHOLE:Aumentar a página completa
+START/CAP/ABOUT:Acerca de Qiqqa
+START/CAP/ANDROID:Androide
+START/CAP/BACKUPRESTORE:Respaldo/Restaurar
+START/CAP/BRAINSTORM:Conceptualizador
+START/CAP/BROWSER:Web
+START/CAP/CHAMPION:Champion
+START/CAP/CONFIG:Configuración de Qiqqa
+START/CAP/CREATE_INTRANET_LIBRARY:Crear/Unirse a Biblioteca Intranet
+START/CAP/CREATE_WEB_LIBRARY:Crear Biblioteca Web
+START/CAP/DATACOPIA:Datacopia
+START/CAP/DOCUMENT_CONVERT:Convertir archivos DOC y DOCX a PDF
+START/CAP/EXPEDITION:Expedición
+START/CAP/EXPERT_MODE:Modo Experto
+START/CAP/HELP:Ayuda en Línea
+START/CAP/INCITE:InCite
+START/CAP/JOIN_BUNDLE_LIBRARY:Descargar un Paquete de Bibliotecas
+START/CAP/LOCALISE:Ayúdanos a traducir Qiqqa!
+START/CAP/MANAGE_LIBRARIES:Administrar Bibliotecas Web (crear, borrar, permisos, etc.).
+START/CAP/MANUAL:Manual Qiqqa
+START/CAP/OCR:Detener/Reiniciar OCR
+START/CAP/OPEN_LIBRARY:Abrir una Biblioteca
+START/CAP/POPUP_HELP:Ayuda
+START/CAP/POPUP_LIBRARIES:Bibliotecas
+START/CAP/POPUP_TOOLS:Herramientas
+START/CAP/PREMIUM:Premium
+START/CAP/QIQQAWEB:Web Qiqqa
+START/CAP/REFRESH_LIBRARIES:Refrescar la Membresía de la Biblioteca Web
+START/CAP/SYNC_LIBRARIES:Sincronizar Bibliotecas.
+START/CAP/WELCOME_WIZARD:Mago de Bienvenida
+START/CAP/ZIPLOGS:Lotes de registros de soporte Qiqqa
+START/TIP/ABOUT:Acerca de Qiqqa
+START/TIP/ANDROID:Haga click aquí para conocer más de Qiqqa para Androide y comenzar a leer sobre la marcha!
+START/TIP/BACKUPRESTORE:Respaldar/Restaurar su base de datos Qiqqa desde un archivo ZIP.\nUse esto si ud no desea sincronizar desde la nube, pero aun quiere la tranquilidad mental de que su trabajo esté a salvo en algun otro sitio.
+START/TIP/BRAINSTORM:Iniciar una nueva Tormenta de Ideas.
+START/TIP/BROWSER:Abrir un Navegador Web.
+START/TIP/CHAMPION:Gana con nosotros como un Champion Qiqqa en nuestro programa de afiliación.\nAjústalo a tu tiempo: es fácil colocar algunos posters en tu campus o como un desafío para crear tu propia red de ventas multinacional.
+START/TIP/CONFIG:Abrir la pantalla de Configuración de Qiqqa
+START/TIP/CREATE_INTRANET_LIBRARY:Crear o unirse a una biblioteca local en su Intranet\nTodos los PDFs agregados a esta biblioteca permanecen dentro de su red privada y no tocan la nube.
+START/TIP/CREATE_WEB_LIBRARY:Crear una biblioteca sincronizada desde la Nube.\nTodos los PDFs agregados a esta biblioteca pueden ser sincronizados con seguridad por ud y sus colegas invitados desde cualquier sitio con acceso a Internet.
+START/TIP/DATACOPIA:Haga click aquí para usar Qiqqa con Datacopia.com
+START/TIP/DOCUMENT_CONVERT:Ud. puede convertir fácilmente archivos Microsoft Word .doc y .docx a PDF usando esta herramienta.
+START/TIP/EXPEDITION:Abrir Expedición Qiqqa.\nUse Expedición para Navegar y hacer conexiones inspiradas dentro de su biblioteca.
+START/TIP/EXPERT_MODE:Activar Modo Experto para acceder a funciones adicionales.
+START/TIP/HELP:Obtener ayuda en línea.
+START/TIP/INCITE:Abrir Qiqqa InCite.\nUsar InCite para automáticamente generar sus referencias y bibliografía en Word.
+START/TIP/JOIN_BUNDLE_LIBRARY:Descargar un Paquete de Bibliotecas que ha sido creada para ud por un editor.
+START/TIP/LOCALISE:Ayúdanos a traducir Qiqqa a tu propio idioma.
+START/TIP/MANAGE_LIBRARIES:Administrar Bibliotecas Web.\nEsto lo conduce al website Qiqqa donde puede crear o borrar Bibliotecas Web, e invitar a tus amigos y colegas a compartirla con ellos.
+START/TIP/MANUAL:Manual Qiqqa.
+START/TIP/OCR_OFF:Activar OCR.\nOCR está desactivado actualmente. Activarlo si desea que nuevos artículos sean indexados y localizables.
+START/TIP/OCR_ON:Activar OCR.\nOCR está activo actualmente. Desactívelo si ud está en el camino y quiere conservar energia de su batería.
+START/TIP/OPEN_LIBRARY:Abrir vista de la biblioteca. Ud también puede abrir sus bibliotecas haciendoles click abajo.
+START/TIP/POPUP_HELP:Ayuda de acceso.
+START/TIP/POPUP_LIBRARIES:Acceder y mantener sus Bibliotecas
+START/TIP/POPUP_TOOLS:Puede encontrar algunas herramientas no medulares aquí.
+START/TIP/PREMIUM:Haz click aquí para saber más sobre cómo ser un miembro Qiqqa Premium o Premium+ y obtener todas las funciones de Qiqqa
+START/TIP/QIQQAWEB:Haz click aquí para abrir Qiqqa en la Web. Uselo para leer, resaltar y anotar su PDF en su equipo iPad, Android, iMac o Linux.
+START/TIP/REFRESH_LIBRARIES:Refrescar membresía de la Biblioteca Web.\nEsto recarga los miembros de la Biblioteca Web desde la web Qiqqa. Si ud, ha creado o se ha unido recientemente a una librería, presione esto para acceder a ella.
+START/TIP/SYNC_LIBRARIES:Sincronizar Bibliotecas.\nPresione para ver cuánto espacio usa la Biblioteca Web y elija cuál bilbioteca desea sincronizar.
+START/TIP/WELCOME_WIZARD:El Mago de Bienvenida presenta Anotaciones y el Reporte de Anotaciones.
+START/TIP/ZIPLOGS:Soporte Qiqqa puede pedirle enviarles sus archivos de eventos para ayudarlo a diagnosticar su problema.\nPresione este botón y envie luego por email el archio ZIP resultante a support@qiqqa.com.

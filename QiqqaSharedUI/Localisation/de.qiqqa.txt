@@ -1,0 +1,158 @@
+INCITE/CAP/ADD_CSL_STATS:Füge CSL-Statistiken hinzu
+INCITE/CAP/CSL_BROWSE:CSL-Bibliothek durchsuchen
+INCITE/CAP/CSL_EDIT:CSL-Editor
+INCITE/CAP/CSL_FIND:Zeige verwendete Zitate
+INCITE/CAP/CSL_STANDARD:CSL-Stil auswählen
+INCITE/CAP/INCITE_POPUP:Öffne InCite Popup
+INCITE/CAP/NEW_BIBLIOGRAPHY:Quellenverzeichnis\nhinzufügen
+INCITE/CAP/NEW_CITATION:Verweis\nhinzufügen\n(Autor, Datum)
+INCITE/CAP/NEW_CITATION_SEPARATE_AUTHOR_YEAR:Verweis\nhinzufügen\nAutor (Datum)
+INCITE/CAP/NEW_SNIPPET:Quellenangaben \nkopieren
+INCITE/CAP/PAUSE:InCite pausieren
+INCITE/CAP/REFORMAT:Dokument \nneu formatieren
+INCITE/TIP/ADD_CSL_STATS:Fügt eine Sektion mit CSL-Statistiken in dein Word Dokument ein.\nDies wird nur für Support-Zwecken benötigt, um anzuzeigen welche Einstellungen der CSL-Prozessor benutzt.
+INCITE/TIP/CSL_BROWSE:Durchsuche die CSL-Stile im Zotero Archiv.\nLade deinen augewählten Stil herunter, bewahre ihn gut auf (evtl. zusammen mit deinem Manuskript),\nund benutze ihn dann als deinen Stil für Quellenverzeichnisse in Qiqqa InCite.
+INCITE/TIP/CSL_EDIT:Starte den CSL-Stil Editor.\nBenutze den Editor, um eigene CSL-Stile zu erstellen. z.B. wenn keiner der vorgefertigten Stile den Anforderungen deines Verlags entspricht.
+INCITE/TIP/CSL_FIND:Zeige all Verweise, die du im ausgewählten Word Dokument benutzt hast.
+INCITE/TIP/CSL_STANDARD:Wähle einen der standardmäßig in Qiqqa InCite mitgelieferten CSL-Stile.
+INCITE/TIP/INCITE_POPUP:Öffnet InCite in einem separaten Fenster.
+INCITE/TIP/NEW_BIBLIOGRAPHY:Füge ein Quellenverzeichnis in dein Word dokument ein.\nEs enthält eine Zusammenfassung aller von dir zitierten Quellen. In der Regel wird es am Ende des Dokuments plaziert.
+INCITE/TIP/NEW_CITATION:Füge für die unten markierten Dokumente einen Verweis in dein Word Dokument ein.\nWenn dein Cursor in Word innerhalb eines bereits existierenden Verweises steht, wird der Verweis gruppiert (z.B. würde dies in manchen Stilen als [4-6] dargestellt).
+INCITE/TIP/NEW_CITATION_SEPARATE_AUTHOR_YEAR:Füge für die unten markierten Dokumente einen Verweis in dein Word Dokument ein.\nWenn dein Cursor in Word innerhalb eines bereits existierenden Verweises steht, wird der Verweis gruppiert (z.B. würde dies in manchen Stilen als [4-6] dargestellt).
+INCITE/TIP/NEW_SNIPPET:Kopiere die Quellenangaben der momentan markierten Dokumente in die Zwischenablage.\nBenutze diese Funktion, falls du Zitate in deinem bevorzugten Texteditor einfügen möchtest.
+INCITE/TIP/PAUSE:InCite anhalten.\nEs werden keine Vorschläge generiert und InCite wird nicht erkennen können, ob Microsoft Word geschlossen wurde.\nDies ist nur sinnvoll, wenn dein Rechner z.B. auf Akku-Strom läuft oder du keine InCite-Vorschläge bekommen möchtest.
+INCITE/TIP/REFORMAT:Formatiere alle Verweise im Word Dokument neu.\nDu benötigst dies nachdem du neue Verweise in dein Dokument eingefügt hast und sie im gewählten Stil formatiert sehen möchtest.
+LIBRARY/CAP/ADD_DOCUMENTS:PDF-Dokumente\nhinzufügen
+LIBRARY/CAP/ADD_FOLDER:Ordner\nhinzufügen
+LIBRARY/CAP/ADD_IMPORT:Importiere aus einem anderen\nLiteraturverwaltungsprogramm.
+LIBRARY/CAP/ADD_LIBRARY:Eine andere\nSammlung kopieren
+LIBRARY/CAP/ADD_REFERENCE:Verweis (ohne PDF)\nhinzufügen
+LIBRARY/CAP/ANNOTATION_REPORT:Zusammenfassung der\nAnmerkungen
+LIBRARY/CAP/BIBTEX_SNIFFER:BibTeX-\nSpürhund
+LIBRARY/CAP/EXPLORE:Erforsche die\nSammlung
+LIBRARY/CAP/EXPORT_BIBTEX:Exportiere Verweise\nnach BibTeX
+LIBRARY/CAP/EXPORT_CITATION_MATRIX:Exportiere die Zitat-Matrix.
+LIBRARY/CAP/EXPORT_LIBRARY:Sammlung\nexportieren
+LIBRARY/CAP/EXPORT_WORD:Exportiere Verweise\nnach Word XML (nicht empfohlen)
+LIBRARY/CAP/FIND_DUPLICATES:Duplikate\nfinden
+LIBRARY/CAP/FIND_REFERENCES:Verweise\nfinden
+LIBRARY/CAP/FULL_SYNC:Vollständig\nsynchronisieren
+LIBRARY/CAP/INVITE:Einladen & Freigeben
+LIBRARY/CAP/PARTIAL_SYNC:Teilweise\nsynchronisieren
+LIBRARY/CAP/POPUP_ADD_DOCUMENTS:Füge PDFs \noder Verweise hinzu
+LIBRARY/CAP/POPUP_EXPORT:Exportiere deine Sammlung
+LIBRARY/CAP/POPUP_SYNC:Synchronisiere deine Sammlung
+LIBRARY/CAP/TOP_UP:Speicherplatz\naufstocken
+LIBRARY/CAP/VIEW_ONLINE:Auf der Webseite betrachten
+LIBRARY/CAP/WATCH_FOLDER:Ordner\nüberwachen
+LIBRARY/TIP/ADD_DOCUMENTS:Füge deiner Sammlung neue PDFs hinzu.
+LIBRARY/TIP/ADD_FOLDER:Füge alle PDFs in einem Ordner deiner Sammlung hinzu.
+LIBRARY/TIP/ADD_IMPORT:Importiere PDF-Dokumente aus anderen Programmen.
+LIBRARY/TIP/ADD_LIBRARY:Füge alle PDFs aus einer anderen Sammlung dieser Sammlung hinzu.\nDu kannst dies zum Beispiel benutzen, wenn du Qiqqas Gast-Sammlung genutzt hast und jetzt alles in eine Web-Sammlung übertragen möchtest.
+LIBRARY/TIP/ADD_REFERENCE:Füge einen neuen Verweis in deine Sammlung ein, für den du kein PDF hast.\nBenutze diese Funktion, wenn du einen Verweis ohne zugehörige PDF-Datei besitzt.\nDu kannst den Verweis trotzdem mit BibTeX, Kommentaren und Tags versehen und in mit ihm InCite arbeiten.
+LIBRARY/TIP/ANNOTATION_REPORT:Erstelle einen Bericht mit allen Anmerkungen, die du in deinen Dokumenten erstellt hast.\nWenn du gerade einen Filter benutzt, wird er auch beim Erstellen des Berichtes angewandt.
+LIBRARY/TIP/BIBTEX_SNIFFER:Wirf den BibTeX-Spürhund an, um fehlende Metadaten deiner Dokumente schneller zu finden.
+LIBRARY/TIP/BRAINSTORM:Erforsche diese Sammlung in einem Brainstorm.
+LIBRARY/TIP/EXPEDITION:Starte Qiqqa Expedition mit dieser Sammlung.
+LIBRARY/TIP/EXPLORE:Erforsche deine Sammlung, um etwas interessant zu lesen zu finden.
+LIBRARY/TIP/EXPORT_BIBTEX:Exportiere alle deine BibTeX-Einträge, um sie in deinem BibTeX-Schreibprogramm zu nutzen.\nWenn du gerade einen Filter benutzt, wird er auch beim Export angewandt.
+LIBRARY/TIP/EXPORT_CITATION_MATRIX:Exportiere deine Zitate, um sie woanders zu verarbeiten.
+LIBRARY/TIP/EXPORT_LIBRARY:Exportiere deine gesamte Qiqqa Sammlung in einen Ordner, um sie in anderen Programmen nutzen zu können.
+LIBRARY/TIP/EXPORT_WORD:Exportiere alle deine BibTeX-Einträge, um sie im Bibliographie-Management-System von Microsoft® Word™ zu nutzen.\nWenn du gerade einen Filter benutzt, wird er auch beim Export angewandt.
+LIBRARY/TIP/FIND_DUPLICATES:Finde alle doppelten Dokumente in deiner Sammlung.
+LIBRARY/TIP/FIND_REFERENCES:Finde alle Querverweise zwischen Dokumenten in dieser Sammlung. Sie werden dir dann in deinen PDFs angezeigt.\nDamit dies richtig funktioniert, musst du die BibTeX-Angaben (oder wenigstens Titel und Autoren) eingetragen haben.
+LIBRARY/TIP/FULL_SYNC:Synchronisiere die Metadaten und alle Dokumente mit deiner Web-Sammlung.\nNeue Dokumente in deiner Web-Sammlung werden automatisch heruntergeladen.
+LIBRARY/TIP/INVITE:Lade Freunde und Kollegen zur Mitarbeit an deiner Sammlung ein.
+LIBRARY/TIP/PARTIAL_SYNC:Synchronisiere nur die Metadaten mit deiner Web/Intranet-Sammlung und lade alle neuen Dokumente hoch.\nNeue Dokumente in deiner Web-Sammlung werden nicht automatisch heruntergeladen.
+LIBRARY/TIP/POPUP_ADD_DOCUMENTS:Klicke hier, um PDFs oder neue Verweise zu deiner Sammlung hinzuzufügen.\nAlternativ kannst du PDFs per Drag&Drop auch direkt in die Sammlung ziehen.
+LIBRARY/TIP/POPUP_EXPORT:Du kannst deine komplette Sammlung als übersichtliche Ordnerstruktur exportieren\noder deine Quellenverweise mit BibTex, LateX oder Microsoft Words Referenzen-System zu nutzen.
+LIBRARY/TIP/POPUP_SYNC:Synchronisiere deine Sammlung with der Cloud.
+LIBRARY/TIP/TOP_UP:Stocke diese Sammlung auf unbegrenzten Webspeicher auf.
+LIBRARY/TIP/VIEW_ONLINE:Diese Sammlung online auf der Webseite betrachten.
+LIBRARY/TIP/WATCH_FOLDER:Überwache einen Ordner auf neue Dokumente und füge sie automatisch deiner Sammlung hinzu.
+PDF/CAP/CITE_BIBTEX:Kopiere den BibTeX-Schlüssel in die Zwischenablage.
+PDF/CAP/CITE_SNIPPET:Zitiere dieses Dokument mittels eines Textblocks in der Zwischenablage
+PDF/CAP/CITE_WORD:Zitiere dieses Dokument in Word - (Autor, Datum)
+PDF/CAP/CITE_WORD_SEPARATE:Zitiere dieses Dokument in Word - Autor (Datum)
+PDF/TIP/ADD_ANNOTATION:Füge eine Anmerkung in ein Dokument ein. (Strg+A)
+PDF/TIP/ADD_HIGHLIGHT:Hebe Teile des Textes hervor. (Strg+H)
+PDF/TIP/ADD_INK:Schreibe mit dem Stift direkt auf dein PDF. (Strg+I)
+PDF/TIP/BOOKMARKS:Lesezeichen setzen und zu bestimmten Abschnitten in deinem Dokument springen.
+PDF/TIP/BRAINSTORM:Erforsche dieses Dokument in einem Brainstorming.
+PDF/TIP/CONVERT_TO_TEXT:Wandle dein PDF in Text um.
+PDF/TIP/EXPEDITION:Starte Qiqqa Expedition mit diesem Dokument.
+PDF/TIP/EXPLORE:Erforsche dieses Dokument.
+PDF/TIP/FULL_SCREEN:Diesen Artikel im Vollbildmodus lesen.
+PDF/TIP/INCITE:Zitiere dieses Dokument.
+PDF/TIP/MISC:Weitere PDF-Werkzeuge.
+PDF/TIP/MOVE_PAGE:Bewege die Ansicht mit der Maus. (Strg+M)
+PDF/TIP/NEGATIVE:Negativ betrachten (manche Dokumente lassen sich so besser lesen).
+PDF/TIP/PAGE_JUMP:Gib hier eine Seitenzahl ein und drücke <ENTER> um direkt dorthin zu springen.\nDu kannst auch + und - drücken, um zu blättern.
+PDF/TIP/PAGE_NEXT:Nächste Seite.
+PDF/TIP/PAGE_PREV:Vorherige Seite.
+PDF/TIP/PRINT:Dokument drucken.
+PDF/TIP/READ_ALOUD:Seite vorlesen lassen.
+PDF/TIP/ROTATE:Seite im Uhrzeigersinn drehen.
+PDF/TIP/SAVE_COPY:Eine Kopie von diesem PDF speichern.
+PDF/TIP/SEARCH:Durchsuche dein Dokument nach einem Wort.\nGib hier den Text ein und drücke <ENTER>, um das Dokument zu durchsuchen.\nDrücke Strg+F, um die letzte Suche zu wiederholen.
+PDF/TIP/SELECT_TEXT:Markiere Text. (Strg+S)
+PDF/TIP/SHARE:Dokument mailen & freigeben.
+PDF/TIP/SNAPSHOT:Mache einen Schnappschuss von einem Bereich deines Dokumetes und kopiere ihn in die Zwischenablage.\nDu kannst das Bild dann in eine andere Anwendung einfügen.
+PDF/TIP/ZOOM:Vergrößern und drehen.
+PDF/TIP/ZOOM_1:Eine Seite darstellen.
+PDF/TIP/ZOOM_2:Zwei Seiten darstellen.
+PDF/TIP/ZOOM_IN:Vergrößern.
+PDF/TIP/ZOOM_N:Mehrere Seiten darstellen.
+PDF/TIP/ZOOM_OUT:Verkleinern.
+PDF/TIP/ZOOM_WHOLE:Komplette Seite darstellen.
+START/CAP/ABOUT:Über Qiqqa
+START/CAP/ANDROID:Android
+START/CAP/BACKUP:Backup
+START/CAP/BRAINSTORM:Brainstorming
+START/CAP/BROWSER:Web
+START/CAP/CHAMPION:Champion
+START/CAP/CONFIG:Qiqqa Einstellungen
+START/CAP/CREATE_INTRANET_LIBRARY:Erstelle oder trete einer Intranet-Sammlung bei
+START/CAP/CREATE_WEB_LIBRARY:Web-Sammlung erstellen
+START/CAP/DOCUMENT_CONVERT:Konvertiere DOC- und DOCX Dateien zu PDF
+START/CAP/EXPEDITION:Expedition
+START/CAP/HELP:Online Hilfe
+START/CAP/INCITE:InCite
+START/CAP/LOCALISE:Hilf uns Qiqqa in andere Sprachen zu übersetzen!
+START/CAP/MANAGE_LIBRARIES:Verwalte Web-Sammlungen (erstelle, lösche, Zugriffsrechte, etc).
+START/CAP/MANUAL:Das Qiqqa Handbuch
+START/CAP/OCR:OCR\nein/aus
+START/CAP/OPEN_LIBRARY:Eine Sammlung öffnen
+START/CAP/POPUP_HELP:Hilfe
+START/CAP/POPUP_LIBRARIES:Sammlungen
+START/CAP/POPUP_TOOLS:Werkzeuge
+START/CAP/PREMIUM:Premium
+START/CAP/REFRESH_LIBRARIES:Aktualisiere zugehörige Web-Sammlung
+START/CAP/SYNC_LIBRARIES:Sammlungen\nsynchronisieren
+START/CAP/ZIPLOGS:Fasse Log-Dateien für den Qiqqa Support zusammen.
+START/TIP/ABOUT:Informationen über Qiqqa
+START/TIP/ANDROID:Klicke hier um mehr über Qiqqa für Android zu erfahren und fange auch unterwegs zu lesen!
+START/TIP/BACKUPRESTORE:Fertige eine Backup/Restore-Datei deiner Qiqqa Datenbank an.\nBenutze diese Funktion, wenn du die Cloud-Syncronosierung nicht nutzen möchtest, aber deine PDFs und Kommentare dennoch gerne sichern willst.
+START/TIP/BRAINSTORM:Neues Brainstorming starten.
+START/TIP/BROWSER:Webbrowser öffnen.
+START/TIP/CHAMPION:Verdiene bares Geld als Qiqqa Champion in unserem Partnerprogramm.\nFlexibilität für dich: hänge einfach ein paar Porster auf deinem Campus auf oder erschaffe dein eigenes internationales Verkaufsnetzwerk!
+START/TIP/CONFIG:Qiqqa Einstellungen öffnen.
+START/TIP/CREATE_INTRANET_LIBRARY:Erstelle oder trete einer lokalen Sammlung in deinem Intranet bei.\nAlle PDFs, die dieser Sammlung hinzugefügt werden, bleiben innerhalb deines privaten Netzwerks und gelangen nicht in die Cloud.
+START/TIP/CREATE_WEB_LIBRARY:Erstelle ein Sammlung, die in der Cloud gespeicher wird.\nAlle PDFs, die zu dieser Sammlung hinzugefügt werden, können über eine sichere Verbindung mit dir\nund deinen teilnehmenden Kollegen synchronisiert werden, sobald ihr eine Verbindung zum Internet besitzt.
+START/TIP/DOCUMENT_CONVERT:Mit diesem Widget kannst du .doc und .docx Dateien von Microsoft Word in PDF umwandeln
+START/TIP/EXPEDITION:Qiqqa Expedition öffnen.\nBenutze Expedition um deine Sammlung zu durchstöbern und inspirierende Verbindungen zu entdecken.
+START/TIP/HELP:Hol' Dir Hilfe online!
+START/TIP/INCITE:Qiqqa InCite öffnen.\nBenutze InCite, um automatisch Verweise und Bibliographien in Word zu erstellen.
+START/TIP/LOCALISE:Übersetze Qiqqa in deine eigene Sprache.
+START/TIP/MANAGE_LIBRARIES:Verwalte Web-Sammlungen.\nDiese Funktion bringt dich zur Qiqqa-Webseite, wo du Web-Sammlungen erstellen oder löschen und deine Freunde sowie Kollegen zur Teilnahme einladen kannst.
+START/TIP/MANUAL:Das Qiqqa Handbuch.
+START/TIP/OCR_OFF:OCR einschalten.\nOCR ist gerade ausgeschaltet. Schalte es ein, um neue Artikel automatisch zu indizieren und durchsuchbar zu machen.
+START/TIP/OCR_ON:OCR ausschalten.\nOCR ist gerade eingeschaltet. Schalte es aus, wenn du unterwegs bist und deinen Akku schonen willst.
+START/TIP/OPEN_LIBRARY:Sammlungen anschauen. Du kannst deine Sammlungen auch öffnen, indem du sie unten anklickst.
+START/TIP/POPUP_HELP:Auf die Hilfe zugreifen.
+START/TIP/POPUP_LIBRARIES:Öffne und verwalte deine Sammlungen.
+START/TIP/POPUP_TOOLS:Hier kannst du einige weitere Werkzeuge finden.
+START/TIP/PREMIUM:Klicke hier um mehr über die Qiqqa Premium- oder Premium+-Mitgliedschaft zu erfahren und alle Features von Qiqqa nutzen zu können.
+START/TIP/REFRESH_LIBRARIES:Aktualisiere zugehörige Web-Sammlungen.\n
+START/TIP/SYNC_LIBRARIES:Sammlungen synchronisieren.\nKlicke hier, um zu sehen wieviel Speicherplatz deine Web-Sammlungen belegen und festzulegen welche Sammlungen synchronisiert werden sollen.
+START/TIP/ZIPLOGS:Der Qiqqa Support fragt dich eventuell nach Log-Dateien, um das Problem besser analysieren zu können.\nDrücke diesen Knopf und sende die erzeugte ZIP-Datei per Email an support@qiqqa.com

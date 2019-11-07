@@ -1,0 +1,103 @@
+﻿<UserControl x:Class="Qiqqa.Localisation.LocalisationEditingControl"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+    xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
+>
+  <DockPanel>
+    <local_gui:AugmentedInfoBarItemControl Header="Instructions for translation" DockPanel.Dock="Top">
+      <FlowDocumentScrollViewer>
+        <commongui:StandardFlowDocument>
+          <Paragraph>
+            You can help us translate Qiqqa into your own language.  This is done in a few easy steps:
+          </Paragraph>
+          <List>
+            <ListItem>
+              <Paragraph>
+                Decide on the locale for which you wish to provide translation.  So for example, if your locale is es-MX, type in just "es" to edit the translation for all Spanish users, or type in "es-MX" to do a translation of the items that are particular to Mexican Spanish.  If you leave out a translation, Qiqqa will use the translation from the more general language group, or fall back on English.
+                Your current locale is <Bold Name="TxtCurrentLocale" />.
+              </Paragraph>
+            </ListItem>
+            <ListItem>
+              <Paragraph>
+                Once you have decided on the locale, type it in and press &lt;ENTER&gt; to get started.
+              </Paragraph>
+            </ListItem>
+            <ListItem>
+              <Paragraph>
+                The grid will show an ID and the Default version of each item in Qiqqa that needs translation.  Under the "translation" box, type in your translation.  Your translations will be automatically saved as you work.
+              </Paragraph>
+            </ListItem>
+            <ListItem>
+              <Paragraph>
+                Once you are ready to send your translations to Qiqqa, press the "Locate my translation file" button, and please <Bold>ZIP the file (otherwise email systems chop out some of the international characters)</Bold> and email it to translations@qiqqa.com.
+              </Paragraph>
+            </ListItem>
+            <ListItem>
+              <Paragraph>
+                If you want to see how your translations are coming along, just restart Qiqqa and the effect of your transations will be immediately visible.  In the Control Panel, you can force Qiqqa to use a different locale than your default locale.
+              </Paragraph>
+            </ListItem>
+            <ListItem>
+              <Paragraph>
+                Remember not to make translations too wide or they might not fit on some people's screens.  Use multiple lines if you have to.
+              </Paragraph>
+            </ListItem>
+          </List>
+        </commongui:StandardFlowDocument>
+      </FlowDocumentScrollViewer>
+    </local_gui:AugmentedInfoBarItemControl>
+
+    <local_gui:AugmentedInfoBarItemControl Header="Choose a translation to work on"  DockPanel.Dock="Top">
+      <WrapPanel>
+        <StackPanel>
+          <local_gui:AugmentedSearchBox Name="TxtNewLocale" Width="300"/>
+          <TextBlock Name="TxtWorkingLocale" />
+          <local_gui:AugmentedButton Name="CmdSendToQiqqa" Caption="Locate my translation file"/>
+        </StackPanel>
+      </WrapPanel>
+
+    </local_gui:AugmentedInfoBarItemControl>
+
+
+
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" >
+      <DataGrid Name="GridEditor" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False">
+        <DataGrid.Resources>
+          <Style x:Key="{x:Type DataGrid}" TargetType="{x:Type DataGrid}">
+            <Setter Property="AlternatingRowBackground" Value="{StaticResource Background_Brush_Blue_LightToDark}" />
+          </Style>
+        </DataGrid.Resources>
+
+        <DataGrid.Columns>
+
+          <DataGridTemplateColumn Width="150" Header="Id" SortMemberPath="Id">
+            <DataGridTemplateColumn.CellTemplate>
+              <DataTemplate>
+                <TextBox Text="{Binding Path=Id, Mode=OneWay}" ToolTip="{Binding Path=Id, Mode=OneWay}" IsReadOnly="True"/>
+              </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+          </DataGridTemplateColumn>
+
+          <DataGridTemplateColumn Width="300" Header="Default" SortMemberPath="Default">
+            <DataGridTemplateColumn.CellTemplate>
+              <DataTemplate>
+                <TextBox Text="{Binding Path=Default, Mode=OneWay}" ToolTip="{Binding Path=Default, Mode=OneWay}" IsReadOnly="True"/>
+              </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+          </DataGridTemplateColumn>
+
+          <DataGridTextColumn MinWidth="300" Header="Translation" SortMemberPath="Translation" Binding="{Binding Path=Translation}" >
+            <DataGridTextColumn.EditingElementStyle>
+              <Style TargetType="TextBox">
+                <Setter Property="AcceptsReturn" Value="True"/>
+              </Style>
+            </DataGridTextColumn.EditingElementStyle>
+          </DataGridTextColumn>
+
+        </DataGrid.Columns>
+
+      </DataGrid>
+    </ScrollViewer>
+  </DockPanel>
+</UserControl>

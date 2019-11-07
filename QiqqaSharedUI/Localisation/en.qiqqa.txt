@@ -1,0 +1,197 @@
+﻿START/CAP/POPUP_LIBRARIES:Libraries
+START/TIP/POPUP_LIBRARIES:Access and maintain your libraries.
+START/CAP/REFRESH_LIBRARIES:Refresh Web Library Memberships
+START/TIP/REFRESH_LIBRARIES:Refresh Web Library Memberships.\nThis reloads your Web Library memberships from the Qiqqa website.  If you have recently created or joined a library, press this to access them.
+START/CAP/SYNC_LIBRARIES:Sync Libraries
+START/TIP/SYNC_LIBRARIES:Sync Libraries.\nPress this to see how much Web Library space you are using and to choose which libraries you wish to sync.
+START/CAP/MANAGE_LIBRARIES:Manage Web Libraries (create, delete, permissions, etc).
+START/TIP/MANAGE_LIBRARIES:Manage Web Libraries.\nThis takes you to the Qiqqa website where you can create or delete Web Libraries, and invite your friends and colleagues to share them.
+START/CAP/CREATE_WEB_LIBRARY:Create Web Library
+START/TIP/CREATE_WEB_LIBRARY:Create a library that is synced via the Cloud.\nAll PDFs added to this library can be synced securely by you and your invited colleagues wherever you have access to the Internet.
+START/CAP/CREATE_INTRANET_LIBRARY:Create/Join Intranet Library
+START/TIP/CREATE_INTRANET_LIBRARY:Create or join a library that is local to your Intranet.\nAll PDFs added to this library remain inside your private network and do not touch the cloud.
+START/CAP/JOIN_BUNDLE_LIBRARY:Download a Bundle Library
+START/TIP/JOIN_BUNDLE_LIBRARY:Download a Bundle Library that has been created for you by a publisher.
+START/CAP/BRAINSTORM:Brainstorm
+START/TIP/BRAINSTORM:Start a new Brainstorm.
+START/CAP/BROWSER:Web
+START/TIP/BROWSER:Open a Web Browser.
+START/CAP/INCITE:InCite
+START/TIP/INCITE:Open Qiqqa InCite.\nUse InCite to automatically generate your references and bibliography in Word.
+START/CAP/EXPEDITION:Expedition
+START/TIP/EXPEDITION:Open Qiqqa Expedition.\nUse Expedition to browse and make inspiring connections inside your library.
+START/CAP/OCR:Pause/resume OCR
+START/TIP/OCR_ON:Turn off OCR.\nOCR is currently enabled.  Turn it off if you are on the road and want to conserve battery power.
+START/TIP/OCR_OFF:Turn on OCR.\nOCR is currently disabled.  Turn it on if you want new papers to be indexed and become searchable.
+START/CAP/CONFIG:Qiqqa Configuration
+START/TIP/CONFIG:Open the Qiqqa Configuration screen.
+START/CAP/EXPERT_MODE:ExpertMode
+START/TIP/EXPERT_MODE:Turn on Expert Mode to access to additional functionality.
+START/CAP/HELP:Online Help
+START/TIP/HELP:Get help online.
+START/CAP/MANUAL:The Qiqqa Manual
+START/TIP/MANUAL:The Qiqqa Manual.
+START/CAP/WELCOME_WIZARD:The Welcome Wizard
+START/TIP/WELCOME_WIZARD:The Welcome Wizard introduces Annotations and the Annotation Report.
+START/CAP/OPEN_LIBRARY:Open a Library
+START/TIP/OPEN_LIBRARY:Open library view.  You can also open your libraries by clicking on them below.
+START/CAP/POPUP_TOOLS:Tools
+START/TIP/POPUP_TOOLS:You can find some non-core Qiqqa tools here.
+START/CAP/POPUP_HELP:Help
+START/TIP/POPUP_HELP:Access help.
+START/CAP/BACKUPRESTORE:Backup/Restore
+START/TIP/BACKUPRESTORE:Backup/Restore your Qiqqa database to/from a ZIP file.\nUse this if you don't want to sync to the cloud, but still want peace of mind that your work is somewhere safe.
+START/CAP/ABOUT:About Qiqqa
+START/TIP/ABOUT:About Qiqqa
+START/CAP/QIQQAWEB:Qiqqa Web
+START/TIP/QIQQAWEB:Click here to open Qiqqa for Web.  Use it to read, highlight and annotate your PDFs on your iPad, Android, iMac or Linux machine.
+START/CAP/ANDROID:Android
+START/TIP/ANDROID:Click here to find out more about Qiqqa for Android and start reading on the go!
+START/CAP/DATACOPIA:Datacopia
+START/TIP/DATACOPIA:Click here to find out how to use Qiqqa with Datacopia.com
+START/CAP/PREMIUM:Premium
+START/TIP/PREMIUM:Click here to find out more about becoming a Qiqqa Premium or Premium+ member so that you can access all of Qiqqa's features.
+START/CAP/CHAMPION:Champion
+START/TIP/CHAMPION:Earn with us as a Qiqqa Champion in our affiliate programme.\nTailor it to your time: it's as easy as putting up a few posters on your campus or as challenging as building your own multinational sales network!
+START/CAP/LOCALISE:Help us translate Qiqqa!
+START/TIP/LOCALISE:Help us to translate Qiqqa into your own language.
+START/CAP/ZIPLOGS:Bundle logs for Qiqqa support
+START/TIP/ZIPLOGS:Qiqqa Support may ask you to send them your log files to help diagnose a problem.\nPress this button and then email the resulting ZIP file to support@qiqqa.com.
+START/CAP/DOCUMENT_CONVERT:Convert DOC and DOCX files to PDF
+START/TIP/DOCUMENT_CONVERT:You can easily convert Microsoft Word .doc and .docx files to PDF using this widget.
+
+LIBRARY/CAP/POPUP_ADD_DOCUMENTS:Add PDFs\nor References
+LIBRARY/TIP/POPUP_ADD_DOCUMENTS:Click here to add PDFs or vanilla references to your library.\nYou can also drag PDFs directly into the library.
+LIBRARY/CAP/POPUP_SYNC:Sync\nLibrary
+LIBRARY/TIP/POPUP_SYNC:Synchronize your library with the cloud.
+LIBRARY/CAP/POPUP_EXPORT:Export\nLibrary
+LIBRARY/TIP/POPUP_EXPORT:You can export your entire library to a tidy directory structure,\nor just export to use your citation references with BibTeX, LaTeX or Microsoft Word's reference system.
+LIBRARY/CAP/ADD_REFERENCE:Add non-PDF Reference
+LIBRARY/TIP/ADD_REFERENCE:Add a vanilla non-PDF reference to your library.\nUse this if you have a reference for which you do not have a PDF.\nYou will still be able to associate some BibTeX and comment and tag it, and it will be available in InCite.
+LIBRARY/CAP/PARTIAL_SYNC:Partial Sync
+LIBRARY/TIP/PARTIAL_SYNC:Sync just the metadata with your Web/Intranet Library and upload any new documents.\nNew documents will not automatically be downloaded from your Web/Intranet Library.
+LIBRARY/CAP/FULL_SYNC:Full Sync
+LIBRARY/TIP/FULL_SYNC:Sync the metadata and documents with your Web/Intranet Library.\nAny new documents will be automatically uploaded and downloaded.
+LIBRARY/CAP/SYNC_DETAILS:Sync Details
+LIBRARY/TIP/SYNC_DETAILS:Choose which libraries you wish to Full or Partial Sync.
+LIBRARY/CAP/VIEW_ONLINE:View Online
+LIBRARY/TIP/VIEW_ONLINE:View this web Library online.
+LIBRARY/CAP/EDIT_DELETE:Edit/Delete
+LIBRARY/TIP/EDIT_DELETE:Change this library's title, description, or delete it
+LIBRARY/CAP/PUBLIC_STATUS:Change Public Status
+LIBRARY/TIP/PUBLIC_STATUS:Change this library's Public Status.
+LIBRARY/CAP/TOP_UP:Top Up 
+LIBRARY/TIP/TOP_UP:Top up this library for unlimited storage space.
+LIBRARY/CAP/INVITE:Invite & Share
+LIBRARY/TIP/INVITE:Invite friends and colleagues to participate in your library.
+LIBRARY/CAP/EXPLORE:Explore\nLibrary
+LIBRARY/TIP/EXPLORE:Explore your library to find something interesting to read.
+LIBRARY/CAP/ANNOTATION_REPORT:Annotation\nReport
+LIBRARY/TIP/ANNOTATION_REPORT:Create a report with the annotations you have made to your documents.\nIf you currently have a library document filter in place, it will also apply to your report.
+LIBRARY/CAP/FIND_REFERENCES:Find\nReferences
+LIBRARY/TIP/FIND_REFERENCES:Find all the cross-references between the documents in your library.  These will then be visible when you open your PDFs.\nRemember that you need to have filled in your BibTeX records (or at least your paper titles and authors) for this to work well.
+LIBRARY/CAP/FIND_DUPLICATES:Find\nDuplicates
+LIBRARY/TIP/FIND_DUPLICATES:Find all the duplicate documents in your library.
+LIBRARY/CAP/BIBTEX_SNIFFER:BibTeX\nSniffer
+LIBRARY/TIP/BIBTEX_SNIFFER:Fire up the BibTeX Sniffer to help you quickly locate missing reference information for your documents.
+LIBRARY/TIP/BIBTEX_AUTOFIND:Search for BibTeX against the Qiqqa BibTeX database.
+LIBRARY/TIP/EXPEDITION:Explore this library using Qiqqa Expedition.
+LIBRARY/TIP/BRAINSTORM:Explore this library in a Brainstorm.
+LIBRARY/TIP/PIVOT:Explore this library in a Pivot.
+LIBRARY/CAP/EXPORT_LIBRARY:Export Library
+LIBRARY/TIP/EXPORT_LIBRARY:Export your entire Qiqqa library to a folder for use in other programs.
+LIBRARY/CAP/EXPORT_BIBTEX:Export BibTeX records for use with LaTeX.
+LIBRARY/TIP/EXPORT_BIBTEX:Export all your BibTeX entries for use with your LaTeX/BibTeX word processor.\nIf you have a library filter in place, it will also apply to your BibTeX export.
+LIBRARY/CAP/EXPORT_WORD:Export Refs to Word XML (not recommended)
+LIBRARY/TIP/EXPORT_WORD:Export all your BibTeX entries for use with the Microsoft® Word™ bibliographic management system.\nIf you have a library filter in place, it will also apply to your export.
+LIBRARY/CAP/EXPORT_CITATION_MATRIX:Export Citation Matrix
+LIBRARY/TIP/EXPORT_CITATION_MATRIX:Export your citations so that you can process them elsewhere.
+LIBRARY/CAP/BUILD_BUNDLE_LIBRARY:Build Bundle Library
+LIBRARY/TIP/BUILD_BUNDLE_LIBRARY:Create a new Bundle Library for this Library.
+LIBRARY/CAP/EXPORT_ANNOTATIONS_CODE:Export Code Annotations
+LIBRARY/TIP/EXPORT_ANNOTATIONS_CODE:Export your Annotations in a format that can be used by other programs.
+LIBRARY/CAP/EXPORT_LINKED_DOCS:Export Linked Docs
+LIBRARY/TIP/EXPORT_LINKED_DOCS:Export your Linked Docs data in a format that can be used by other programs.
+LIBRARY/CAP/ADD_DOCUMENTS:Add PDF Documents
+LIBRARY/TIP/ADD_DOCUMENTS:Add new PDFs to your library
+LIBRARY/CAP/ADD_FOLDER:Add Folder
+LIBRARY/TIP/ADD_FOLDER:Add all the PDFs in a folder to your library.
+LIBRARY/CAP/ADD_LIBRARY:Copy Another Library
+LIBRARY/TIP/ADD_LIBRARY:Add all the PDFs from another library to this library.  You will probably want to use this if you started using Qiqqa's Guest library and now want to start using a Web/Intranet Library to sync.
+LIBRARY/CAP/WATCH_FOLDER:Watch Folder
+LIBRARY/TIP/WATCH_FOLDER:Watch a folder for new documents and automatically add them to your library.
+LIBRARY/CAP/ADD_IMPORT:Import from another Reference Manager
+LIBRARY/TIP/ADD_IMPORT:Import PDF documents from other programs.
+
+PDF/TIP/MOVE_PAGE:Move page with mouse. (Ctrl-M)
+PDF/TIP/SELECT_TEXT:Select text. (Ctrl-S)
+PDF/TIP/ADD_ANNOTATION:Add a box annotation to document. (Ctrl-A)
+PDF/TIP/ADD_HIGHLIGHT:Highlight sections of text. (Ctrl-H)
+PDF/TIP/ADD_INK:Draw ink on your PDF with a pen. (Ctrl-I)
+PDF/TIP/SNAPSHOT:Take a snapshot of a region of your document and put it on the clipboard.  You can then paste this picture into another application.
+PDF/TIP/SEARCH:Search for a word in your document.\nEnter text here and press <ENTER> to search this document.\nPress Ctrl+F to repeat the last search.
+PDF/TIP/BRAINSTORM:Explore this document in a brainstorm.
+PDF/TIP/EXPLORE:Explore this document.
+PDF/TIP/INCITE:Cite this document.
+PDF/CAP/CITE_WORD:Cite this document in Word - (Author, Date)
+PDF/CAP/CITE_WORD_SEPARATE:Cite this document in Word - Author (Date)
+PDF/CAP/CITE_SNIPPET:Cite this using a snippet on the clipboard.
+PDF/CAP/CITE_BIBTEX:Copy BibTeX key to the clipboard.
+PDF/TIP/EXPEDITION:Run Qiqqa Expedition on this document.
+PDF/TIP/PRINT:Print document.
+PDF/TIP/SHARE:Email & share document.
+PDF/TIP/OPEN_PARENT_LIBRARY:Open the Library that contains this PDF.
+PDF/TIP/SAVE_COPY:Save a copy of this PDF.
+PDF/TIP/FULL_SCREEN:Read this paper in full-screen mode.
+PDF/TIP/ZOOM:Zoom and Rotate
+PDF/TIP/ZOOM_1:Zoom to 1 page across.
+PDF/TIP/ZOOM_2:Zoom to 2 pages across.
+PDF/TIP/ZOOM_N:Zoom out to many pages.
+PDF/TIP/ZOOM_WHOLE:Zoom to full page.
+PDF/TIP/ROTATE:Rotate page clockwise.
+PDF/TIP/ROTATE_ALL:Rotate all pages clockwise.
+PDF/TIP/ZOOM_IN:Zoom in.
+PDF/TIP/ZOOM_OUT:Zoom out.
+PDF/TIP/NEGATIVE:View negative (easier to read some documents).
+PDF/TIP/MORE_MENUS:Additional PDF options.
+PDF/TIP/BOOKMARKS:Set bookmarks and Jump to sections in your document.
+PDF/TIP/PAGE_PREV:Previous page.
+PDF/TIP/PAGE_NEXT:Next page.
+PDF/TIP/PAGE_JUMP:Type in a page number here and press <ENTER> to jump there.  Otherwise press + or - to step through pages.
+PDF/TIP/READ_ALOUD:Read page out loud.
+PDF/TIP/SPEED_READ:Speed read this PDF.
+PDF/TIP/CONVERT_TO_TEXT:Convert your PDF to text.
+PDF/TIP/MISC:Miscellaneous PDF goodies.
+
+INCITE/CAP/NEW_SNIPPET:Copy\nSnippet
+INCITE/TIP/NEW_SNIPPET:Copy the citation(s) for the currently selected document(s) to the clipboard.\nUse this if you want to copy-and-paste the citation(s) to your favourite text editor.
+INCITE/CAP/NEW_CITATION:Add\nCitation\n(Author, Year)
+INCITE/TIP/NEW_CITATION:Add a citation to your Word document for the papers you have selected below.\nIf your cursor in Word is inside an existing citation, the citations will be grouped (e.g. in some styles this may appear as [4-6]).
+INCITE/CAP/NEW_CITATION_SEPARATE_AUTHOR_YEAR:Add\nCitation\nAuthor (Year)
+INCITE/TIP/NEW_CITATION_SEPARATE_AUTHOR_YEAR:Add a citation to your Word document for the papers you have selected below.\nIf your cursor in Word is inside an existing citation, the citations will be grouped (e.g. in some styles this may appear as [4-6]).
+INCITE/CAP/NEW_BIBLIOGRAPHY:Add\nBibliography\nSection
+INCITE/TIP/NEW_BIBLIOGRAPHY:Add a bibliography section to your Word document.\nThis contains a summary of all the papers you have cited.  You would normally place this at the end of your document.
+INCITE/CAP/REFORMAT:Reformat\nDocument
+INCITE/TIP/REFORMAT:Reformat all the citations in your Word document.\nYou need to do this after you have added several new citations to your document and want to see them formatted in your chosen style.
+INCITE/CAP/ADD_CSL_STATS:Add CSL Stats
+INCITE/TIP/ADD_CSL_STATS:Add a CSL stats section to your Word document.\nThis is used for support purposes only to show what settings are being used by the CSL processor.
+INCITE/CAP/CSL_STANDARD:Pick CSL Style
+INCITE/TIP/CSL_STANDARD:Choose one of the standard CSL styles that ship with Qiqqa InCite.
+INCITE/CAP/CSL_BROWSE:Browse CSL Library
+INCITE/TIP/CSL_BROWSE:Browse the CSL styles in the Zotero style repository.\nDownload and store your chosen style in a safe place (perhaps with your manuscript)\nand then select this style as your Qiqqa InCite bibliography style.
+INCITE/CAP/LAUNCHWORD:Launch Word
+INCITE/TIP/LAUNCHWORD:Launch Microsoft Word from within Qiqqa.\nThis is sometimes necessary for systems where Qiqqa and Word are installed with different security privileges and cannot communicate.  Hold down CTRL while pressing this to choose which version of Word to launch.
+INCITE/CAP/ABBREVIATIONS:Use Abbreviations
+INCITE/TIP/ABBREVIATIONS:Use Abbreviations.\nThe next time you reformat your references, the journals, publishers, etc. will be replaced with their corresponding abbreviations.
+INCITE/CAP/CUSTOM_ABBREVIATIONS_FILENAME:Add Custom Abbreviations
+INCITE/TIP/CUSTOM_ABBREVIATIONS_FILENAME:Add your own custom abbreviations file for use by Qiqqa InCite.
+INCITE/CAP/PAUSE:Pause InCite
+INCITE/TIP/PAUSE:Pause InCite.\nNo recommendations will be made to you and InCite will not detect if you have quit Microsoft Word.\nUse this only if you are on battery power and don't want InCite's recommendations.
+INCITE/CAP/CSL_OPTIONS:Citation\nStyle
+INCITE/CAP/CSL_EDIT:CSL\nEditor
+INCITE/TIP/CSL_EDIT:Fire up the CSL style editor.\nUse this to create your own styles if you can't find one matching your publisher's requirements.
+INCITE/CAP/CSL_FIND:Show Used Citations
+INCITE/TIP/CSL_FIND:Shows all the citations you have used in the currently selected Word document.
+INCITE/CAP/TOOLS:Tools
+INCITE/CAP/INCITE_POPUP:Open InCite Popup
+INCITE/TIP/INCITE_POPUP:Opens the popup version of InCite.

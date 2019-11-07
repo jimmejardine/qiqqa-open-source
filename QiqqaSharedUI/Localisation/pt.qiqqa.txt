@@ -1,0 +1,71 @@
+﻿LIBRARY/CAP/ADD_DOCUMENTS:Adicionar\nDocumentos
+LIBRARY/CAP/ADD_FOLDER:Adicionar\nPasta
+LIBRARY/CAP/ADD_IMPORT:Importar\nDocumentos
+LIBRARY/CAP/ADD_LIBRARY:Adicionar da\nBiblioteca
+LIBRARY/CAP/ADD_REFERENCE:Nova\nReferência
+LIBRARY/CAP/ANNOTATION_REPORT:Relatório de\nAnotações
+LIBRARY/CAP/BIBTEX_SNIFFER:Farejador\nBibTeX
+LIBRARY/CAP/EXPEDITION:Expedição
+LIBRARY/CAP/EXPORT_BIBTEX:Exportar\ncomo BibTeX
+LIBRARY/CAP/EXPORT_LIBRARY:Exportar\nBiblioteca
+LIBRARY/CAP/EXPORT_WORD:Exportar\npara o Word
+LIBRARY/CAP/FIND_REFERENCES:Procurar\nReferências
+LIBRARY/CAP/FULL_SYNC:Sincronização\nCompleta
+LIBRARY/CAP/PARTIAL_SYNC:Sincronização\nParcial
+LIBRARY/CAP/WATCH_FOLDER:Monitorar\nPasta
+LIBRARY/TIP/ADD_DOCUMENTS:Adiciona novos arquivos PDF na sua biblioteca.
+LIBRARY/TIP/ADD_FOLDER:Adiciona todos os arquivos PDF localizados em uma pasta.
+LIBRARY/TIP/ADD_IMPORT:Importe arquivos PDF de outros programas.
+LIBRARY/TIP/ADD_LIBRARY:Adicione todos os arquivos PDF de outra biblioteca para esta biblioteca. Você provavelmente vai querer fazer isso se você começou a usar biblioteca Guest Qiqqa e agora quer começar a usar uma Biblioteca Web sincronizável.
+LIBRARY/TIP/ADD_REFERENCE:Cria uma referência básica na sua biblioteca.\nUse isto se você tem uma referência da qual você não tem um arquivo PDF.\nVocê ainda poderá associar a ela um BibTex, um comentário ou uma tag, e ela ainda estará disponível no InCite.
+LIBRARY/TIP/ANNOTATION_REPORT:Crie um relatório com as anotações que você fez em seus documentos.\nSe houver um filtro ativo nos documentos da biblioteca, ele também se aplicará ao seu relatório.
+LIBRARY/TIP/BIBTEX_SNIFFER:Dispara o Farejador BibTeX para ajudá-lo a localizar rapidamente os metadados ausentes em seus documentos.
+LIBRARY/TIP/EXPEDITION:Executa o Qiqqa Expedição nessa biblioteca.
+LIBRARY/TIP/EXPORT_BIBTEX:Exportar todas as suas entradas BibTeX para usar com seu processador de texto BibTeX.\nSe houver um filtro ativo nos documentos da biblioteca, ele também se aplicará à sua exportação BibTeX.
+LIBRARY/TIP/EXPORT_LIBRARY:Exporta toda a sua biblioteca Qiqqa para uma pasta de modo a poder usá-la em outros programas.
+LIBRARY/TIP/EXPORT_WORD:Exportar todas as suas entradas BibTeX para usar com o sistema de gestão bibliográfica do Microsoft® Word™. \nSe houver um filtro ativo nos documentos da biblioteca, ele também se aplicará à sua exportação.
+LIBRARY/TIP/FIND_REFERENCES:Encontre todas as referências cruzadas entre os documentos em sua biblioteca. As referências ficarão visíveis quando você abrir seus arquivos PDF.\nLembre-se que você precisa ter preenchido seus registros BibTeX (ou pelo menos os títulos e os autores) para que isso funcione.
+LIBRARY/TIP/FULL_SYNC:Sincroniza os metadados e os documentos com sua Biblioteca Web.\nNovos documentos serão baixados automaticamente de sua Biblioteca Web.
+LIBRARY/TIP/PARTIAL_SYNC:Sincroniza apenas os metadados com a sua Biblioteca Web e faz o upload de novos documentos.\nNovos documentos não serão baixados de sua Biblioteca Web.
+LIBRARY/TIP/WATCH_FOLDER:Monitore novos documentos em uma pasta e os adicione automaticamente na sua biblioteca.
+PDF/TIP/ADD_ANNOTATION:Crie uma caixa de anotações no documento. (Ctrl-A)
+PDF/TIP/ADD_HIGHLIGHT:Destaque trechos do texto. (Ctrl-H)
+PDF/TIP/ADD_INK:Desenhe em seus arquivos PDF com uma caneta. (Ctrl-I)
+PDF/TIP/BOOKMARKS:Crie Marcadores e navegue nas seções de seu documento.
+PDF/TIP/BRAINSTORM:Explore este documento em um brainstorm.
+PDF/TIP/CONVERT_TO_TEXT:Converta seu PDF em texto.
+PDF/TIP/EXPEDITION:Execute o Qiqqa Expedição neste documento.
+PDF/TIP/FULL_SCREEN:Visualize o artigo no modo de tela cheia.
+PDF/TIP/MOVE_PAGE:Mova a página com o mouse. (Ctrl-M)
+PDF/TIP/NEGATIVE:Visualize em negativo (facilita a leitura de alguns documentos).
+PDF/TIP/PAGE_JUMP:Digite aqui um número de página e pressione <Enter> para ir até lá. Caso contrário, pressione + ou - para percorrer as páginas.
+PDF/TIP/PAGE_NEXT:Próxima página.
+PDF/TIP/PAGE_PREV:Página anterior.
+PDF/TIP/PRINT:Imprima o documento.
+PDF/TIP/READ_ALOUD:Lê a página em voz alta.
+PDF/TIP/ROTATE:Gire a visualização da página em sentido horário.
+PDF/TIP/SAVE_COPY:Salve uma cópia do arquivo PDF.
+PDF/TIP/SEARCH:Procurar por uma palavra em seu documento.\nDigite o texto aqui e pressione <Enter> para pesquisar neste documento.\nPressione Ctrl+F para repetir a última procura.
+PDF/TIP/SELECT_TEXT:Selecione o texto. (Ctrl-S)
+PDF/TIP/SHARE:Envie (e-mail) & compartilhe o documento.
+PDF/TIP/SNAPSHOT:Tire um instantâneo de uma região do seu documento e o coloca na área de transferência. Você pode então colar essa imagem em outro aplicativo.
+PDF/TIP/ZOOM_1:Ajuste a visualização para a largura da página.
+PDF/TIP/ZOOM_2:Ajuste a visualização para duas páginas de largura.
+PDF/TIP/ZOOM_IN:Amplie a visualização.
+PDF/TIP/ZOOM_N:Reduza a visualização para muitas páginas.
+PDF/TIP/ZOOM_OUT:Reduza a visualização.
+PDF/TIP/ZOOM_WHOLE:Visualize em página inteira.
+START/CAP/CONFIG:Configuração
+START/CAP/EXPEDITION:Expedição
+START/CAP/HELP:Ajuda
+START/CAP/OCR:Liga/Desliga\no OCR
+START/CAP/SYNC_LIBRARIES:Sincronizar\nBibliotecas
+START/TIP/BRAINSTORM:Inicia um novo Brainstorm.
+START/TIP/BROWSER:Abre um navegador Web
+START/TIP/CONFIG:Abre a tela de Configuração do Qiqqa.
+START/TIP/EXPEDITION:Abre o Qiqqa Expedição.\nUse o Expedição para navegar e fazer conexões inspiradoras dentro de sua biblioteca.
+START/TIP/HELP:Obtenha ajuda!
+START/TIP/INCITE:Abre o Qiqqa InCite
+START/TIP/OCR_OFF:Liga o OCR.\nO recurso OCR está desligado. Ligue-o se você quer que novos artigos sejam indexados e textualmente pesquisáveis.
+START/TIP/OCR_ON:Desliga o OCR.\nO recurso OCR está ligado. Desligue-o se você está se deslocando e que preservar a carga da bateria.
+START/TIP/SYNC_LIBRARIES:Sincronizar Bibliotecas.\nClique aqui para ver quanto espaço da Biblioteca Web está sendo ocupanda e escolher qual delas você quer sincronizar.
