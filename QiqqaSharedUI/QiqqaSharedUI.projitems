@@ -9,6 +9,7 @@
     <Import_RootNamespace>QiqqaSharedUI</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AnnotationsReportBuilding\AnnotationReportOptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AnnotationsReportBuilding\AnnotationWorkGenerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AnnotationsReportBuilding\AsyncAnnotationReportBuilder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AnnotationsReportBuilding\HighlightToAnnotationGenerator.cs" />

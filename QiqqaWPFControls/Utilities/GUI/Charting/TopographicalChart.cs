@@ -1,3 +1,5 @@
+#if false
+
 using System;
 using System.Drawing;
 using System.Text;
@@ -170,4 +172,5 @@ namespace Utilities.GUI.Charting
     }
 }
 
+#endif
 

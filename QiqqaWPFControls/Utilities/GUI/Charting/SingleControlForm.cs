@@ -1,3 +1,5 @@
+#if false
+
 using System.ComponentModel;
 using System.Windows.Forms;
 
@@ -40,7 +42,7 @@ namespace Utilities.GUI.Charting
         /// </summary>
         protected override void Dispose(bool disposing)
         {
-            Logging.Debug("GenericChartForm::Dispose({0}) @{1}", disposing, dispose_count);
+            Logging.Debug("SingleControlForm::Dispose({0}) @{1}", disposing, dispose_count);
 
             if (dispose_count == 0)
             {
@@ -75,3 +77,6 @@ namespace Utilities.GUI.Charting
         #endregion
     }
 }
+
+#endif
+

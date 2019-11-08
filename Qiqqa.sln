@@ -79,9 +79,6 @@ Global
 		Utilities\Utilities.projitems*{99ad14c6-d556-4dc5-a522-3f44a4655cce}*SharedItemsImports = 13
 		QiqqaSharedCore\QiqqaSharedCore.projitems*{9f81a2c6-7cf9-4b27-9cb6-6f6fd0355c72}*SharedItemsImports = 4
 		Utilities\Utilities.projitems*{9f81a2c6-7cf9-4b27-9cb6-6f6fd0355c72}*SharedItemsImports = 4
-		QiqqaSharedCore\QiqqaSharedCore.projitems*{b837c549-3cc9-4855-b698-b7e816c6652b}*SharedItemsImports = 4
-		QiqqaSharedUI\QiqqaSharedUI.projitems*{b837c549-3cc9-4855-b698-b7e816c6652b}*SharedItemsImports = 4
-		Utilities\Utilities.projitems*{b837c549-3cc9-4855-b698-b7e816c6652b}*SharedItemsImports = 4
 		Utilities\Utilities.projitems*{c683a6f0-c645-4a09-8858-98e289d5aaab}*SharedItemsImports = 4
 		QiqqaOCRShared\QiqqaOCRShared.projitems*{f0a8f461-0ed4-4ee4-aca2-822356a60b09}*SharedItemsImports = 13
 		QiqqaSharedUI\QiqqaSharedUI.projitems*{f45fb226-e915-4298-aa6c-e3730560fffc}*SharedItemsImports = 13

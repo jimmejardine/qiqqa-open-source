@@ -87,7 +87,7 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         private void SelectedConnector_OnDimensionsChanged(ConnectorControl cc)
         {
-            double SPACER = 4;
+            const double SPACER = 4;
 
             Width = cc.Width + SPACER + SPACER;
             Height = cc.Height + SPACER + SPACER;

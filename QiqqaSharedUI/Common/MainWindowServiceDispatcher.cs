@@ -301,7 +301,7 @@ namespace Qiqqa.Common
             arow.ShowTagOptions(library, pdf_documents, OnShowTagOptionsComplete);
         }
 
-        private void OnShowTagOptionsComplete(Library library, List<PDFDocument> pdf_documents, AnnotationReportOptionsWindow.AnnotationReportOptions annotation_report_options)
+        private void OnShowTagOptionsComplete(Library library, List<PDFDocument> pdf_documents, AnnotationReportOptions annotation_report_options)
         {
             var annotation_report = AsyncAnnotationReportBuilder.BuildReport(library, pdf_documents, annotation_report_options);
             ReportViewerControl report_view_control = new ReportViewerControl(annotation_report);

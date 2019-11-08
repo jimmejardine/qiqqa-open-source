@@ -377,6 +377,7 @@ namespace Qiqqa.Brainstorm.Nodes
 
         public delegate void DimensionsChangedDelegate(NodeControl nc);
         public event DimensionsChangedDelegate OnDimensionsChanged;
+        
         internal void RaiseOnDimensionsChanged()
         {
             OnDimensionsChanged?.Invoke(this);

@@ -24,7 +24,7 @@ namespace Qiqqa.AnnotationsReportBuilding
             public Paragraph annotation_paragraph = null;
         }
 
-        public static List<AnnotationWork> GenerateAnnotationWorks(Library library, List<PDFDocument> pdf_documents, AnnotationReportOptionsWindow.AnnotationReportOptions annotation_report_options)
+        public static List<AnnotationWork> GenerateAnnotationWorks(Library library, List<PDFDocument> pdf_documents, AnnotationReportOptions annotation_report_options)
         {
             List<AnnotationWork> annotation_works = new List<AnnotationWork>();
 

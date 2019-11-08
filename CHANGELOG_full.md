@@ -1724,7 +1724,7 @@ Version 81:
   * Warning	CA2000	In method 'LuceneMoreLikeThis.Main(string[])', call System.IDisposable.Dispose on object 'searcher' before all references to it are out of scope.
   * Warning	CA2000	In method 'LuceneMoreLikeThis.RetrieveTerms(int)', call System.IDisposable.Dispose on object 'new StreamReader(text[j])' before all references to it are out of scope.
   * Warning	CA2000	In method 'LuceneSimilarityQueries.FormSimilarQuery(string, Analyzer, string, Hashtable)', call System.IDisposable.Dispose on object 'new StringReader(body)' before all references to it are out of scope.
-  * Warning	CA2000	In method 'MainWindowServiceDispatcher.OnShowTagOptionsComplete(Library, List<PDFDocument>, AnnotationReportOptionsWindow.AnnotationReportOptions)', call System.IDisposable.Dispose on object 'report_view_control' before all references to it are out of scope.
+  * Warning	CA2000	In method 'MainWindowServiceDispatcher.OnShowTagOptionsComplete(Library, List<PDFDocument>, AnnotationReportOptions)', call System.IDisposable.Dispose on object 'report_view_control' before all references to it are out of scope.
   * Warning	CA2000	In method 'MainWindowServiceDispatcher.OpenDocument(PDFDocument, int?, string, bool)', object 'pdf_reading_control' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'pdf_reading_control' before all references to it are out of scope.
   * Warning	CA2000	In method 'MainWindowServiceDispatcher.OpenNewBrainstorm()', object 'brainstorm_control' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'brainstorm_control' before all references to it are out of scope.
   * Warning	CA2000	In method 'MainWindowServiceDispatcher.OpenSampleBrainstorm()', object 'brainstorm_control' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'brainstorm_control' before all references to it are out of scope.
@@ -1916,9 +1916,9 @@ Version 81:
   + Warning	CA1812	'HighlightToAnnotationGenerator' is an internal class that is apparently never instantiated. If so, remove the code from the assembly. If this class is intended to contain only static methods, consider adding a private constructor to prevent the compiler from generating a default constructor.
   + Warning	CA1802	Field 'HighlightToAnnotationGenerator.HIGHLIGHTS_TAG' is declared as 'static readonly' but is initialized with a constant value '*Highlights*'. Mark this field as 'const' instead.
 			
-* (dbf9173) Warning	CA1811	'AsyncAnnotationReportBuilder.OnShowTagOptionsComplete(Library, List<PDFDocument>, AnnotationReportOptionsWindow.AnnotationReportOptions)' appears to have no upstream public or protected callers.
+* (dbf9173) Warning	CA1811	'AsyncAnnotationReportBuilder.OnShowTagOptionsComplete(Library, List<PDFDocument>, AnnotationReportOptions)' appears to have no upstream public or protected callers.
 			
-* (25a337b) Warning	CA1804	'AsyncAnnotationReportBuilder.BuildReport(Library, List<PDFDocument>, AnnotationReportOptionsWindow.AnnotationReportOptions)' declares a variable, 'underline', of type 'Underline', which is never used or is only assigned to. Use this variable or remove it.
+* (25a337b) Warning	CA1804	'AsyncAnnotationReportBuilder.BuildReport(Library, List<PDFDocument>, AnnotationReportOptions)' declares a variable, 'underline', of type 'Underline', which is never used or is only assigned to. Use this variable or remove it.
 			
 * (1025b6b) Warning	CA1053	Because type 'AsyncAnnotationReportBuilder' contains only 'static' members, mark it as 'static' to prevent the compiler from adding a default public constructor.
 			
