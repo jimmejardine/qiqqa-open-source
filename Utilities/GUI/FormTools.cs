@@ -1,3 +1,5 @@
+#if false
+
 using System.Windows.Forms;
 
 namespace Utilities.GUI
@@ -15,3 +17,5 @@ namespace Utilities.GUI
         }
     }
 }
+
+#endif

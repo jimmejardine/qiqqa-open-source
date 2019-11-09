@@ -1,3 +1,5 @@
+#if false
+
 namespace Utilities.Mathematics.ObjectiveFunction.Sample
 {
     public class Constant : ObjectiveFunction
@@ -12,3 +14,5 @@ namespace Utilities.Mathematics.ObjectiveFunction.Sample
         }
     }
 }
+
+#endif

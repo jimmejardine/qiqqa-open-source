@@ -3,7 +3,9 @@ using System.IO;
 using System.IO.Compression;
 using System.Runtime.Serialization.Formatters.Binary;
 using Newtonsoft.Json;
+#if !HAS_NO_PROTOBUF
 using ProtoBuf;
+#endif
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -199,6 +201,8 @@ namespace Utilities.Files
         // --- The equivalent protobuf versions
         // ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+#if !HAS_NO_PROTOBUF
+
         public static void ProtoSave<T>(string filename, T animal_to_save)
         {
             string redundant_filename = filename + REDUNDANT;
@@ -274,6 +278,8 @@ namespace Utilities.Files
                 return animal;
             }
         }
+
+#endif
 
         // ------------------------------------------------------------------------------------------------------------------------------------------------------------------
         // --- Other

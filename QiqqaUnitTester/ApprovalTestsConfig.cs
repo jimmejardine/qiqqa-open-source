@@ -40,7 +40,9 @@ using ApprovalTests.Reporters;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
-
+using System.Text.RegularExpressions;
+using Utilities.Files;
+using System;
 
 [assembly: UseReporter(typeof(QiqqaTestHelpers.DiffReporterWithApprovalPower))]
 
@@ -84,13 +86,86 @@ namespace QiqqaTestHelpers
 
         public override string GetApprovalFilename(string basename)
         {
+            // ensure the filename/path has a sane length:
+            return MkLegalSizedPath(basename, ApprovalTests.Writers.WriterUtils.Approved);
+        }
+
+        public override string GetReceivedFilename(string basename)
+        {
+            // ensure the filename/path has a sane length:
+            return MkLegalSizedPath(basename, ApprovalTests.Writers.WriterUtils.Received);
+        }
+
+        private static string CamelCaseShorthand(string s)
+        {
+            // uppercase every first character of a 'word'
+            s = Regex.Replace(" " + s, " [^a-z0-9]*([a-z])", delegate (Match match)
+            {
+                string v = match.Groups[0].Value;
+                return v.ToUpper();
+            }, RegexOptions.IgnoreCase);
+
+            // strip out anything that's not a capital
+            s = Regex.Replace(s, "[^A-Z]+", "");
+
+            return s;
+        }
+
+        private static string SanitizeFilename(string s)
+        {
+            // The following characters are invalid as file or folder names on Windows using NTFS:
+            //     / ? < > \ : * | " 
+            // and any character you can type with the Ctrl key
+            //
+            // In addition to the above illegal characters the caret ^ is also not permitted under 
+            // Windows Operating Systems using the FAT file system.
+            //
+            // --> replace any run of these caracters with a single underscore.
+            s = Regex.Replace(s.Trim(), "[\x00-\x1F/?<>\\*|\":^]+", "_");
+            // filenames may not start or end with a dot either:
+            while (s.StartsWith("."))
+            {
+                s = s.Substring(1);
+            }
+            while (s.EndsWith("."))
+            {
+                s = s.Substring(0, s.Length - 1);
+            }
+
+            if (s.Length == 0)
+            {
+                s = "T";
+            }
+            return s;
+        }
+
+        private static string SubStr(string s, int startIndex, int trimLength = int.MaxValue)
+        {
+            int l = s.Length;
+            if (startIndex >= l)
+            {
+                return "";
+            }
+            startIndex = Math.Max(0, startIndex);
+            int subLen = Math.Max(0, Math.Min(trimLength, l - startIndex));
+            if (subLen == 0)
+            {
+                return "";
+            }
+            return s.Substring(startIndex, subLen);
+        }
+
+        private string MkLegalSizedPath(string basename, string typeIdStr)
+        {
+            const int PATH_MAX = 240;  // must be less than 255 / 260 - see also https://kb.acronis.com/content/39790
+
             string root = Path.GetDirectoryName(basename);
             string name = Path.GetFileName(basename);
             string dataname = Path.GetFileNameWithoutExtension(DataFile);
-            string ext = Path.GetExtension(DataFile).Substring(1);   // produce the extension without leading dot
+            string ext = SubStr(Path.GetExtension(DataFile), 1).Trim();   // produce the extension without leading dot
             if (ext.StartsWith("bib"))
             {
-                ext = ext.Substring(3);
+                ext = SubStr(ext, 3).Trim();
             }
             if (ext.Length > 0)
             {
@@ -98,25 +173,69 @@ namespace QiqqaTestHelpers
             }
 
             // UNC long filename/path support by forcing this to be a UNC path:
-            return Path.GetLongPath(Path.GetFullPath(Path.Combine(root, $"{dataname}.{name}{ext}{ApprovalTests.Writers.WriterUtils.Approved}{ExtensionWithDot}")));
-        }
+            string filenamebase = $"{dataname}.{name}{ext}{ExtensionWithDot}";
 
-        public override string GetReceivedFilename(string basename)
-        {
-            string root = Path.GetDirectoryName(basename);
-            string name = Path.GetFileName(basename);
-            string dataname = Path.GetFileNameWithoutExtension(DataFile);
-            string ext = Path.GetExtension(DataFile).Substring(1);   // produce the extension without leading dot
-            if (ext.StartsWith("bib"))
+            // first make the full path without the approved/received, so that that bit doesn't make a difference
+            // in the length check and subsequent decision to produce a shorthand filename path or not:
+
+            // It's not always needed, but do the different shorthand conversions anyway and pick the longest fitting one:
+            string short_tn = SanitizeFilename(CamelCaseShorthand(name));
+            string short_dn = SanitizeFilename(SubStr(dataname, 0, 10) + CamelCaseShorthand(dataname));
+
+            string hash = StreamMD5.FromText(filenamebase).ToUpper();
+            string short_hash = SubStr(hash, 0, Math.Max(6, 11 - short_tn.Length));
+
+            // this variant will fit in the length criterium, guaranteed:
+            string alt_filepath0 = Path.GetFullPath(Path.Combine(root, $"{short_dn}.{short_hash}_{short_tn}{ext}{typeIdStr}{ExtensionWithDot}"));
+            string filepath = alt_filepath0;
+
+            // next, we construct the longer variants to check if they fit.
+            //
+            // DO NOTE that we create a path without typeIdStr part first, because we want both received and approved files to be based
+            // on the *same* alt selection decision!
+
+            string picked_alt_filepath = Path.GetFullPath(Path.Combine(root, $"{short_dn}.{short_hash}_{short_tn}{ext}.APPROVEDXYZ{ExtensionWithDot}"));
+
+            name = SanitizeFilename(name);
+            dataname = SanitizeFilename(dataname);
+
+            string alt_filepath1 = Path.GetFullPath(Path.Combine(root, $"{short_dn}_{short_hash}.{name}{ext}.APPROVEDXYZ{ExtensionWithDot}"));
+            if (alt_filepath1.Length < PATH_MAX)
             {
-                ext = ext.Substring(3);
-            }
-            if (ext.Length > 0)
-            {
-                ext = "." + ext;
+                filepath = Path.GetFullPath(Path.Combine(root, $"{short_dn}_{short_hash}.{name}{ext}{typeIdStr}{ExtensionWithDot}"));
+                picked_alt_filepath = alt_filepath1;
             }
 
-            return Path.GetLongPath(Path.GetFullPath(Path.Combine(root, $"{dataname}.{name}{ext}{ApprovalTests.Writers.WriterUtils.Received}{ExtensionWithDot}")));
+            // second alternative: only pick this one if it fits and produces a longer name:
+            string alt_filepath2 = Path.GetFullPath(Path.Combine(root, $"{dataname}.{short_hash}_{short_tn}{ext}.APPROVEDXYZ{ExtensionWithDot}"));
+            if (alt_filepath2.Length < PATH_MAX && alt_filepath2.Length > picked_alt_filepath.Length)
+            {
+                filepath = Path.GetFullPath(Path.Combine(root, $"{dataname}.{short_hash}_{short_tn}{ext}{typeIdStr}{ExtensionWithDot}"));
+                picked_alt_filepath = alt_filepath2;
+            }
+            else
+            {
+                // third alt: the 'optimally trimmed' test name used as part of the filename:
+                int trim_length = PATH_MAX - alt_filepath0.Length + 10 - 1;
+                string short_dn2 = SanitizeFilename(SubStr(dataname, 0, trim_length) + CamelCaseShorthand(dataname));
+                string alt_filepath3 = Path.GetFullPath(Path.Combine(root, $"{short_dn2}.{short_hash}_{short_tn}{ext}{typeIdStr}{ExtensionWithDot}"));
+                if (alt_filepath3.Length < PATH_MAX && alt_filepath3.Length > picked_alt_filepath.Length)
+                {
+                    filepath = Path.GetFullPath(Path.Combine(root, $"{short_dn2}.{short_hash}_{short_tn}{ext}{typeIdStr}{ExtensionWithDot}"));
+                    picked_alt_filepath = alt_filepath3;
+                }
+            }
+
+            // fourth alt: the full, unadulterated path; if it fits in the length criterium, take it anyway
+            string alt_filepath4 = Path.GetFullPath(Path.Combine(root, $"{dataname}.{name}{ext}.APPROVEDXYZ{ExtensionWithDot}"));
+            if (alt_filepath4.Length < PATH_MAX)
+            {
+                // UNC long filename/path support by forcing this to be a UNC path:
+                filepath = Path.GetFullPath(Path.Combine(root, $"{dataname}.{name}{ext}{typeIdStr}{ExtensionWithDot}"));
+                picked_alt_filepath = alt_filepath4;
+            }
+
+            return filepath;
         }
     }
 
@@ -194,7 +313,7 @@ namespace QiqqaTestHelpers
         {
             if (!File.Exists(received)) return false;
 #if false
-            File.Delete(this.approved);
+                File.Delete(this.approved);
 #endif
             if (File.Exists(approved)) return false;
             File.Copy(received, approved);
@@ -236,5 +355,4 @@ namespace QiqqaTestHelpers
         }
     }
 }
-
 

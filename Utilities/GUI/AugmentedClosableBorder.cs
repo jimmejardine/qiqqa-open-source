@@ -204,12 +204,3 @@ namespace Utilities.GUI
     }
 }
 
-
-
-
-
-
-
-//
-// Summary:
-//     Occurs when the element is removed from within an element tree of loaded elements.
