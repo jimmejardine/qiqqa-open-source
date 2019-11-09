@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if !HAS_NO_PROTOBUF
+
+using System;
 using Newtonsoft.Json;
 using ProtoBuf;
 using Utilities.OCR;
@@ -93,3 +95,5 @@ namespace Qiqqa.Documents.PDF
         }
     }
 }
+
+#endif

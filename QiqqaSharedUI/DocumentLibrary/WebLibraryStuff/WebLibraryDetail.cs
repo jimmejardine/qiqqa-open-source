@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if !HAS_NO_PROTOBUF
+
+using System;
 using ProtoBuf;
 using Utilities.Strings;
 
@@ -113,3 +115,5 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         }
     }
 }
+
+#endif

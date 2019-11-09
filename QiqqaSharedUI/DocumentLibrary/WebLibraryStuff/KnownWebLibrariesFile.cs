@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿#if !HAS_NO_PROTOBUF
+
+using System.Collections.Generic;
 using ProtoBuf;
 
 namespace Qiqqa.DocumentLibrary.WebLibraryStuff
@@ -10,3 +12,5 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         internal List<WebLibraryDetail> web_library_details;
     }
 }
+
+#endif

@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if !HAS_NO_GUI
+
+using System;
 using System.Drawing;
 using System.Printing;
 using System.Windows;
@@ -180,3 +182,5 @@ namespace Utilities.GUI
         }
     }
 }
+
+#endif

@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if !HAS_NO_GUI
+
+using System;
 using Qiqqa.Documents.PDF;
 using Qiqqa.Documents.PDF.PDFControls.MetadataControls;
 using Syncfusion.Pdf;
@@ -238,3 +240,5 @@ namespace Qiqqa.AnnotationsReportBuilding.LegacyAnnotationConvertorStuff
         #endregion
     }
 }
+
+#endif

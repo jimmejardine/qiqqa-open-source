@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if !HAS_NO_GUI
+
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -341,3 +343,5 @@ namespace Qiqqa.Brainstorm.Connectors
         #endregion
     }
 }
+
+#endif

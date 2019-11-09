@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if !HAS_NO_GUI
+
+using System;
 using System.Windows.Forms;
 
 namespace Utilities.GUI
@@ -111,3 +113,5 @@ namespace Utilities.GUI
         }
     }
 }
+
+#endif

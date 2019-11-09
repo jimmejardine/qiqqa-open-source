@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if !HAS_NO_GUI
+
+using System;
 using System.Windows.Forms;
 using Microsoft.Win32;
 
@@ -128,3 +130,5 @@ namespace Utilities.Files
         }
     }
 }
+
+#endif

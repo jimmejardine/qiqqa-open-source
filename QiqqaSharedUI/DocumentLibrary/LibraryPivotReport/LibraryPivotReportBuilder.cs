@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if !HAS_NO_GUI
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -241,3 +243,5 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
         #endregion
     }
 }
+
+#endif

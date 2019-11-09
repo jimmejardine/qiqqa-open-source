@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿#if !HAS_NO_GUI
+
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -157,3 +159,5 @@ namespace Utilities.GUI
         }
     }
 }
+
+#endif

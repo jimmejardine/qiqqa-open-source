@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if !HAS_NO_GUI
+
+using System;
 using Syncfusion.Pdf.Interactive;
 using Utilities;
 using Utilities.PDF;
@@ -172,3 +174,5 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
 
 
 */
+
+#endif

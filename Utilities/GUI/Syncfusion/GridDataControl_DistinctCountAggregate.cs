@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if !HAS_NO_GUI
+
+using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Reflection;
@@ -49,3 +51,5 @@ namespace Utilities.GUI.Syncfusion
         }
     }
 }
+
+#endif

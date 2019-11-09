@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if !HAS_NO_GUI
+
+using System;
 using System.Linq.Expressions;
 using Syncfusion.Windows.Controls.Grid;
 using Syncfusion.Windows.Data;
@@ -42,3 +44,5 @@ namespace Utilities.GUI.Syncfusion
         }
     }
 }
+
+#endif

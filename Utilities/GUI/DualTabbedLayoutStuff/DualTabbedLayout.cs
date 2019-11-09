@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if !HAS_NO_GUI
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -459,7 +461,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             tab_item.IsSelected = true;
         }
 
-        #region --- Drag bring to front -------------------------------------------------
+#region --- Drag bring to front -------------------------------------------------
 
         private object potential_drag_to_front_target = null;
         private DateTime potential_drag_to_front_start_time = DateTime.MinValue;
@@ -521,7 +523,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
         }
 
 
-        #endregion
+#endregion
 
         private void tab_item_KeyDown(object sender, KeyEventArgs e)
         {
@@ -801,7 +803,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             }
         }
 
-        #region --- Test ------------------------------------------------------------------------
+#region --- Test ------------------------------------------------------------------------
 
 #if TEST
         public static void TestHarness()
@@ -826,7 +828,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
         }
 #endif
 
-        #endregion
+#endregion
 
         private static void button_DragOver(object sender, DragEventArgs e)
         {
@@ -843,3 +845,5 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
         }
     }
 }
+
+#endif

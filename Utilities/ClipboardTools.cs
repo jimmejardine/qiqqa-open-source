@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if !HAS_NO_GUI
+
+using System;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
@@ -98,3 +100,5 @@ namespace Utilities
         }
     }
 }
+
+#endif
