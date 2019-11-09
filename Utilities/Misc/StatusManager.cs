@@ -150,7 +150,11 @@ namespace Utilities.Misc
 
         public void UpdateStatus(string key, string message, long current_update_number, long total_update_count, bool cancellable)
         {
-            Logging.Info("{0}:{1} ({2}/{3})", key, message, current_update_number, total_update_count);
+            // Don't log 'ClearStatus' messages: Clear ~ UpdateStatus("",0,0)
+            if (current_update_number != 0 || total_update_count != 0 || !String.IsNullOrEmpty(message))
+            {
+                Logging.Debug特("{0}:{1} ({2}/{3})", key, message, current_update_number, total_update_count);
+            }
 
             // Do log the statuses (above) but stop updating the UI when we're shutting down:
             if (!Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)

@@ -163,12 +163,11 @@ namespace Qiqqa.Brainstorm.SceneManager
             SizeChanged += SceneRenderingControl_SizeChanged;
 
             // Would like to enable this code but it messes up the normal mouse events - such as click, resize, etc
-            if (false)
-            {
-                this.IsManipulationEnabled = true;
-                this.ManipulationDelta += SceneRenderingControl_ManipulationDelta;
-                this.ManipulationCompleted += SceneRenderingControl_ManipulationCompleted;
-            }
+#if false
+            this.IsManipulationEnabled = true;
+            this.ManipulationDelta += SceneRenderingControl_ManipulationDelta;
+            this.ManipulationCompleted += SceneRenderingControl_ManipulationCompleted;
+#endif
 
             KeyDown += SceneRenderingControl_KeyDown;
         }
@@ -270,9 +269,9 @@ namespace Qiqqa.Brainstorm.SceneManager
             ObjControlsLayer.Children.Add(selecting_nodes_control);
         }
 
-        #endregion
+#endregion
 
-        #region --- Clipboard and drag and drop ------------------------------------------------------------------------------------
+#region --- Clipboard and drag and drop ------------------------------------------------------------------------------------
 
         private void DragDropClipboard_AddText(string text)
         {
@@ -335,9 +334,9 @@ namespace Qiqqa.Brainstorm.SceneManager
             }
         }
 
-        #endregion
+#endregion
 
-        #region --- Drag and drop ------------------------------------------------------------------------------------
+#region --- Drag and drop ------------------------------------------------------------------------------------
 
         private void SceneRenderingControl_DragOver(object sender, DragEventArgs e)
         {
@@ -418,9 +417,9 @@ namespace Qiqqa.Brainstorm.SceneManager
             }
         }
 
-        #endregion
+#endregion
 
-        #region --- Clipboard management ------------------------------------------------------------------------------
+#region --- Clipboard management ------------------------------------------------------------------------------
 
         private void DoPaste()
         {
@@ -463,10 +462,10 @@ namespace Qiqqa.Brainstorm.SceneManager
             }
         }
 
-        #endregion
+#endregion
 
 
-        #region --- Adding to scene ---------------------------------------------------------------------------------------------------
+#region --- Adding to scene ---------------------------------------------------------------------------------------------------
 
         private DateTime scene_changed_timestamp = DateTime.MinValue;
         public DateTime SceneChangedTimestamp => scene_changed_timestamp;
@@ -634,9 +633,9 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         public BrainstormMetadata BrainstormMetadata => brainstorm_metadata;
 
-        #endregion
+#endregion
 
-        #region --- Mouse management ------------------------------------------------------------------------------
+#region --- Mouse management ------------------------------------------------------------------------------
 
         private void SceneRenderingControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -843,7 +842,7 @@ namespace Qiqqa.Brainstorm.SceneManager
             }
         }
 
-        #endregion
+#endregion
 
         internal void RecalculateNodeControlDimensions(NodeControl nc)
         {
@@ -862,7 +861,7 @@ namespace Qiqqa.Brainstorm.SceneManager
             }
         }
 
-        #region --- File management ------------------------------------------------------------------------------------------
+#region --- File management ------------------------------------------------------------------------------------------
 
 
         /// <summary>
@@ -1079,9 +1078,9 @@ namespace Qiqqa.Brainstorm.SceneManager
             }
         }
 
-        #endregion
+#endregion
 
-        #region --- Searching ------------------------------------------------------------------------------------------------
+#region --- Searching ------------------------------------------------------------------------------------------------
 
         private int last_search_child_offset = -1;
 
@@ -1169,9 +1168,9 @@ namespace Qiqqa.Brainstorm.SceneManager
             }
         }
 
-        #endregion
+#endregion
 
-        #region --- Zooming and scaling ------------------------------------------------------------------------------------
+#region --- Zooming and scaling ------------------------------------------------------------------------------------
 
         internal void ZoomIn()
         {
@@ -1216,9 +1215,9 @@ namespace Qiqqa.Brainstorm.SceneManager
             RecalculateAllNodeControlDimensions();
         }
 
-        #endregion
+#endregion
 
-        #region --- Next click mode ---------------------------------------------------------------------------------
+#region --- Next click mode ---------------------------------------------------------------------------------
 
         internal enum NextClickMode
         {
@@ -1244,9 +1243,9 @@ namespace Qiqqa.Brainstorm.SceneManager
             }
         }
 
-        #endregion ---------------------------------------------------------------------------------
+#endregion ---------------------------------------------------------------------------------
 
-        #region --- Mouse drag mode ---------------------------------------------------------------------------------
+#region --- Mouse drag mode ---------------------------------------------------------------------------------
 
         internal enum MouseDragMode
         {
@@ -1257,10 +1256,10 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         private MouseDragMode mouse_drag_mode = MouseDragMode.None;
 
-        #endregion ---------------------------------------------------------------------------------
+#endregion ---------------------------------------------------------------------------------
 
 
-        #region --- Selecting nodes --------------------------------------
+#region --- Selecting nodes --------------------------------------
 
         private List<SelectedNodeControl> selected_node_controls = new List<SelectedNodeControl>();
 
@@ -1366,9 +1365,9 @@ namespace Qiqqa.Brainstorm.SceneManager
             return ((Keyboard.Modifiers & ModifierKeys.Shift) > 0);
         }
 
-        #endregion
+#endregion
 
-        #region --- IDisposable ------------------------------------------------------------------------
+#region --- IDisposable ------------------------------------------------------------------------
 
         ~SceneRenderingControl()
         {
@@ -1416,6 +1415,6 @@ namespace Qiqqa.Brainstorm.SceneManager
             ++dispose_count;
         }
 
-        #endregion
+#endregion
     }
 }

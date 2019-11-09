@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if TEST
+
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -156,3 +158,5 @@ namespace QiqqaOCR
         }
     }
 }
+
+#endif

@@ -289,6 +289,7 @@ namespace QiqqaUnitTester
         [DataRow("IEEEtran/IEEEabrv.bib")]
         [DataRow("IEEEtran/IEEEexample.bib")]
         [DataRow("IEEEtran/IEEEfull.bib")]
+        [DataRow("IEEEtran/sample-from-website1.bib")]
         [DataRow("TeX-accented-letters-0001.bib")]
         [DataRow("TeX-accented-letters-0002.bib")]
         [DataRow("TeX-accented-letters-0003.bib")]
@@ -1292,6 +1293,7 @@ namespace QiqqaUnitTester
         [DataRow("IEEEtran/IEEEabrv.bib")]
         [DataRow("IEEEtran/IEEEexample.bib")]
         [DataRow("IEEEtran/IEEEfull.bib")]
+        [DataRow("IEEEtran/sample-from-website1.bib")]
         [DataTestMethod]
         public void Check_How_We_Compare_Against_IEEEtran(string bibtex_filepath)
         {

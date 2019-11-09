@@ -24,24 +24,32 @@ This version includes EVERY feature available in Qiqqa, including Premium and Pr
   > **DO NOTE** that these releases are only lightly tested and may include grave bugs. Meanwhile you also get an early glance at the state of affairs in Qiqqa Features and Fixes County, which might be enough of an incentive for you to try one of these. *Living on the edge* and all that...
 
 
+## Documentation For Users
 
-## Fixes & Additions to Qiqqa (in this fork)
+We're working on getting the Qiqqa documentation (user manual, etc.) available at http://qiqqa.org/ 
 
-[For a full fixed issue list click here.](https://github.com/jimmejardine/qiqqa-open-source/issues?q=is%3Aissue+is%3Aclosed+milestone%3Av82)
+> It still needs a *lot* of work, so all help is appreciated. Note: the Commercial Qiqqa manual is available as a web page there at: http://qiqqa.org/The.Qiqqa.Manual.html
+>
+> Other documentation material is being added as we go; the sources for that are available in this repository's [/docs/](./docs) directory.
 
-See also [CHANGELOG](../../blob/master/CHANGELOG.md) and it's big brother [CHANGELOG-full](../../blob/master/CHANGELOG_full.md).
 
-While I have joined as a collaborator in the qiqqa-open-source mainline repository, the bleeding edge of my work on Qiqqa can be observed here.
+## Fixes & Additions to Qiqqa since v80/v79
+
+[For a full fixed issue list click here.](https://github.com/jimmejardine/qiqqa-open-source/issues?q=is%3Aissue+is%3Aclosed)
+
+See also [CHANGELOG](../../blob/master/CHANGELOG.md) and it's big brother [CHANGELOG-full](../../blob/master/CHANGELOG_full.md), though these *will lag behind the bleeding edge of development*.
+
+[@GerHobbelt](https://github.com/GerHobbelt) has joined as a collaborator in the qiqqa-open-source mainline repository; the bleeding edge of his work on Qiqqa can be observed [at this fork](https://github.com/GerHobbelt/qiqqa-open-source). Qiqqa Prereleases and experimental releases will be made available there first at [the releases page](https://github.com/GerHobbelt/qiqqa-open-source/releases).
 
 
 
 ## Qiqqa Collaborators & Developers Wanted
-
-You'll need to be a little technically experienced in the .NET world to get a build up and running.
  
 Would anyone who is interested in contributing towards this repository please contact @jimmejardine...
 
 
 ## For Developers: Building Qiqqa From Source
 
-See the [DEVELOPER-INFO](./DEVELOPER-INFO.md) for more info.
+You'll need to be a little technically experienced in the .NET world to get a build up and running.
+
+See the [DEVELOPER-INFO file](DEVELOPER-INFO.md) for more info on what you need to compile/build Qiqqa from source, etc.

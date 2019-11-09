@@ -53,13 +53,15 @@ namespace Utilities.Files
 
         public static int CopyBufferToStream(Stream output, byte[] buffer, int bytes_to_write)
         {
-            MemoryStream ms = new MemoryStream(buffer, 0, bytes_to_write, false);
-            return CopyStreamToStream(ms, output);
+            using (MemoryStream ms = new MemoryStream(buffer, 0, bytes_to_write, false))
+            {
+                return CopyStreamToStream(ms, output);
+            }
         }
 
         public static int CopyStreamToStream(Stream input, Stream output)
         {
-            byte[] buffer = new byte[32 * 1024];
+            byte[] buffer = new byte[256 * 1024];
             int read;
             int total_read = 0;
 

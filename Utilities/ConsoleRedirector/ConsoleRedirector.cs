@@ -1,3 +1,5 @@
+#if false
+
 using System;
 using System.IO;
 using System.Text;
@@ -29,3 +31,5 @@ namespace Utilities.ConsoleRedirector
         }
     }
 }
+
+#endif

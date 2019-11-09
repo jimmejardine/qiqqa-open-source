@@ -1,6 +1,8 @@
 using System;
 using Utilities.Collections;
 
+#if TEST
+
 namespace Utilities.Mathematics.Optimisation.NelderMead.TestHarness
 {
     public class TestHarness
@@ -42,7 +44,6 @@ namespace Utilities.Mathematics.Optimisation.NelderMead.TestHarness
                     Console.WriteLine("Lowest at " + ArrayFormatter.listElements(result) + " with score " + optimal_score + " with error " + error_message);
                 }
             }
-
             catch (GenericException e)
             {
                 Console.WriteLine("There was an error: {0}", e.Message);
@@ -50,3 +51,5 @@ namespace Utilities.Mathematics.Optimisation.NelderMead.TestHarness
         }
     }
 }
+
+#endif

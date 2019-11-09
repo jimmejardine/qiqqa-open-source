@@ -1,3 +1,5 @@
+#if false
+
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
@@ -66,3 +68,6 @@ namespace Utilities.Language
         #endregion
     }
 }
+
+#endif
+

@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Utilities.Strings
 {
-    public class StringTools
+    public static class StringTools
     {
         private static readonly string[] SPLIT_SENTENCE = new string[] { ". " };
 
@@ -13,7 +14,6 @@ namespace Utilities.Strings
         {
             return paragraph.Split(SPLIT_SENTENCE, StringSplitOptions.RemoveEmptyEntries);
         }
-
 
         public static string TrimStart(string source, string victim)
         {
@@ -621,6 +621,42 @@ namespace Utilities.Strings
                 str += "…";
             }
             return str;
+        }
+
+        public static string PagesSetAsString(HashSet<int> pageSet)
+        {
+            var lst = pageSet.ToArray();
+            Array.Sort(lst);
+            List<string> pageRanges = new List<string>();
+
+            // now that we've a sorted list of pages, determine the continuous ranges in that set:
+            if (lst.Count() > 0)
+            {
+                int startPage = lst[0];
+                int endPage = lst[0];
+                for (var i = 1; i < lst.Count(); i++)
+                {
+                    int page = lst[i];
+                    if (endPage + 1 == page)
+                    {
+                        endPage++;
+                        continue;
+                    }
+                    else
+                    {
+                        // continuity has been disrupted. Store the range and begin a fresh one:
+                        pageRanges.Add($"{startPage}-{endPage}");
+                        startPage = endPage = page;
+                    }
+                }
+                // To finish up, push the last range we were working on when we hit the end of the list:
+                pageRanges.Add($"{startPage}-{endPage}");
+
+                return String.Join(",", lst);
+            }
+
+            // nothing --> empty string
+            return "";
         }
     }
 }

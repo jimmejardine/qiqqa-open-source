@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if !HAS_NO_PROTOBUF
+
+using System;
 using System.Collections.Generic;
 using ProtoBuf;
 
@@ -115,3 +117,5 @@ namespace Utilities.Collections
         }
     }
 }
+
+#endif

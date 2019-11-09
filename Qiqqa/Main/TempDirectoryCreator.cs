@@ -15,9 +15,9 @@ namespace Qiqqa.Main
         {
             try
             {
-                if (!Directory.Exists(TempFile.TempDirectory))
+                if (!Directory.Exists(TempFile.TempDirectoryForQiqqa))
                 {
-                    Directory.CreateDirectory(TempFile.TempDirectory);
+                    Directory.CreateDirectory(TempFile.TempDirectoryForQiqqa);
                 }
             }
             catch (Exception ex)
@@ -28,7 +28,7 @@ namespace Qiqqa.Main
 
         public static bool CheckTempExists()
         {
-            return Directory.Exists(TempFile.TempDirectory);
+            return Directory.Exists(TempFile.TempDirectoryForQiqqa);
         }
     }
 }

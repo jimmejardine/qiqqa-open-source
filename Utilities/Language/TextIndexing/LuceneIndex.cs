@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if !HAS_NO_LUCENE
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -455,3 +457,5 @@ namespace Utilities.Language.TextIndexing
         }
     }
 }
+
+#endif

@@ -17,7 +17,7 @@ namespace Qiqqa.Localisation
         public static readonly string DEFAULT_LOCALE = "en";
 
         private static readonly string BASE_PATH = Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"Localisation"));
-        private static readonly string TEMP_BASE_PATH = Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.TempDirectoryForQiqqa, @"Localisation"));
+        private static readonly string TEMP_BASE_PATH = Path.GetFullPath(Path.Combine(TempFile.TempDirectoryForQiqqa, @"Localisation"));
 
         private static string GetFilenameForLocale(string locale)
         {

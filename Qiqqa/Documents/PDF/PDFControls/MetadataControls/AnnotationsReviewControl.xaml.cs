@@ -92,7 +92,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             List<PDFDocument> pdf_documents = new List<PDFDocument>();
             pdf_documents.Add(pdf_document);
 
-            AnnotationReportOptionsWindow.AnnotationReportOptions annotation_report_options = new AnnotationReportOptionsWindow.AnnotationReportOptions();
+            AnnotationReportOptions annotation_report_options = new AnnotationReportOptions();
             annotation_report_options.ObeySuppressedImages = true;
             annotation_report_options.ObeySuppressedText = true;
             annotation_report_options.SuppressAllImages = false;
