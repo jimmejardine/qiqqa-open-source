@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+#if !HAS_NO_LUCENE
+
 using System;
 using System.Collections;
 using System.IO;
@@ -116,3 +118,5 @@ namespace Utilities.Language.TextIndexing
         }
     }
 }
+
+ #endif

@@ -1,3 +1,5 @@
+#if false
+
 using System;
 using System.Collections;
 using System.Drawing;
@@ -695,3 +697,6 @@ namespace Utilities.GUI.Charting
         }
     }
 }
+
+#endif
+

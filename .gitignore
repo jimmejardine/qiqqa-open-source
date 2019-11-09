@@ -1,5 +1,6 @@
 .vs
 *.csproj.user
+*.shproj.user
 *.pdb
 
 icons/bin/*
@@ -28,6 +29,12 @@ QiqqaVersionMigrator/bin/*
 QiqqaVersionMigrator/obj/*
 QiqqaLegacyFileFormats/bin/*
 QiqqaLegacyFileFormats/obj/*
+QiqqaSharedCore/bin/*
+QiqqaSharedCore/obj/*
+QiqqaSharedUI/bin/*
+QiqqaSharedUI/obj/*
+QiqqaWPFControls/bin/*
+QiqqaWPFControls/obj/*
 Qiqqa.Build/Packaging/ClickOnceUninstaller/ClickOnceUninstaller/bin/*
 Qiqqa.Build/Packaging/ClickOnceUninstaller/ClickOnceUninstaller/obj/*
 

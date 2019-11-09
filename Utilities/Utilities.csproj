@@ -150,7 +150,7 @@
       <HintPath>..\libs\NetSerializer.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
@@ -285,9 +285,7 @@
     </Compile>
     <Compile Include="ComputerStatistics.cs" />
     <Compile Include="Configuration\Configuration.cs" />
-    <Compile Include="ConsoleRedirector\ConsoleForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="ConsoleRedirector\ConsoleForm.cs" />
     <Compile Include="ConsoleRedirector\ConsoleRedirector.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -413,24 +411,14 @@
     <Compile Include="GUI\Charting\ChartType.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GUI\Charting\GenericChartForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Charting\MultiChart2D.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="GUI\Charting\GenericChartForm.cs" />
+    <Compile Include="GUI\Charting\MultiChart2D.cs" />
     <Compile Include="GUI\Charting\Series.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GUI\Charting\SingleControlForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Charting\ThemedMultiChart2D.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GUI\Charting\TopographicalChart.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="GUI\Charting\SingleControlForm.cs" />
+    <Compile Include="GUI\Charting\ThemedMultiChart2D.cs" />
+    <Compile Include="GUI\Charting\TopographicalChart.cs" />
     <Compile Include="GUI\CollapsibleRegion.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -606,9 +594,7 @@
     <Compile Include="Language\Comparing.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Language\LanguageDropdown.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Language\LanguageDropdown.cs" />
     <Compile Include="Language\NameTools.cs" />
     <Compile Include="Language\PatentTerms\PatentTermsGenerator.cs" />
     <Compile Include="Language\ReasonableWord.cs" />

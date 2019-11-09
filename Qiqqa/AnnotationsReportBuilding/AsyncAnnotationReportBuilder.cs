@@ -91,7 +91,7 @@ namespace Qiqqa.AnnotationsReportBuilding
             }
         }
 
-        internal static AnnotationReport BuildReport(Library library, List<PDFDocument> pdf_documents, AnnotationReportOptionsWindow.AnnotationReportOptions annotation_report_options)
+        internal static AnnotationReport BuildReport(Library library, List<PDFDocument> pdf_documents, AnnotationReportOptions annotation_report_options)
         {
             AnnotationReport annotation_report = new AnnotationReport();
             StandardFlowDocument flow_document = annotation_report.flow_document;
@@ -495,13 +495,13 @@ namespace Qiqqa.AnnotationsReportBuilding
             e.Handled = true;
         }
 
-        private static void BackgroundRenderImages(FlowDocument flow_document, List<AnnotationWorkGenerator.AnnotationWork> annotation_works, AnnotationReportOptionsWindow.AnnotationReportOptions annotation_report_options)
+        private static void BackgroundRenderImages(FlowDocument flow_document, List<AnnotationWorkGenerator.AnnotationWork> annotation_works, AnnotationReportOptions annotation_report_options)
         {
             // Render the images in the background
             SafeThreadPool.QueueUserWorkItem(o => BackgroundRenderImages_BACKGROUND(flow_document, annotation_works, annotation_report_options));
         }
 
-        private static void BackgroundRenderImages_BACKGROUND(FlowDocument flow_document, List<AnnotationWorkGenerator.AnnotationWork> annotation_works, AnnotationReportOptionsWindow.AnnotationReportOptions annotation_report_options)
+        private static void BackgroundRenderImages_BACKGROUND(FlowDocument flow_document, List<AnnotationWorkGenerator.AnnotationWork> annotation_works, AnnotationReportOptions annotation_report_options)
         {
             Thread.Sleep(annotation_report_options.InitialRenderDelayMilliseconds);
 
@@ -752,7 +752,7 @@ namespace Qiqqa.AnnotationsReportBuilding
             arow.ShowTagOptions(library, pdf_documents, OnShowTagOptionsComplete);
         }
 
-        private static void OnShowTagOptionsComplete(Library library, List<PDFDocument> pdf_documents, AnnotationReportOptionsWindow.AnnotationReportOptions annotation_report_options)
+        private static void OnShowTagOptionsComplete(Library library, List<PDFDocument> pdf_documents, AnnotationReportOptions annotation_report_options)
         {
             var annotation_report = BuildReport(library, pdf_documents, annotation_report_options);
             FlowDocumentScrollViewer viewer = new FlowDocumentScrollViewer();
