@@ -193,13 +193,20 @@ namespace Utilities.Files
         {
             Logging.Debug("WrappingStream::Dispose({0}) @{1}", disposing, dispose_count);
 
-            if (dispose_count == 0)
+            try
             {
-                // doesn't close the base stream, but just prevents access to it through this WrappingStream
-                m_streamBase = null;
-            }
+                if (dispose_count == 0)
+                {
+                    // doesn't close the base stream, but just prevents access to it through this WrappingStream
+                    m_streamBase = null;
+                }
 
-            base.Dispose(disposing);
+                base.Dispose(disposing);
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             ++dispose_count;
         }

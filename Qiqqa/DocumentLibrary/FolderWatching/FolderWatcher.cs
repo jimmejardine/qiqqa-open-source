@@ -440,21 +440,28 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         {
             Logging.Debug("FolderWatcher::Dispose({0}) @{1}", disposing, dispose_count);
 
-            if (dispose_count == 0)
+            try
             {
-                // Get rid of managed resources
-                file_system_watcher.EnableRaisingEvents = false;
-                file_system_watcher.Dispose();
+                if (dispose_count == 0)
+                {
+                    // Get rid of managed resources
+                    file_system_watcher.EnableRaisingEvents = false;
+                    file_system_watcher.Dispose();
+                }
+
+                file_system_watcher = null;
+
+                folder_watcher_manager = null;
+                //library.Dispose();
+                library = null;
+                tags.Clear();
+                configured_folder_to_watch = null;
+                aspiring_folder_to_watch = null;
             }
-
-            file_system_watcher = null;
-
-            folder_watcher_manager = null;
-            //library.Dispose();
-            library = null;
-            tags.Clear();
-            configured_folder_to_watch = null;
-            aspiring_folder_to_watch = null;
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             ++dispose_count;
         }

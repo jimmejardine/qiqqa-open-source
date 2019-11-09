@@ -166,31 +166,38 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
         {
             Logging.Debug("LibraryIndex::Dispose({0}) @{1}", disposing, dispose_count);
 
-            if (dispose_count == 0)
+            try
             {
-                // Get rid of managed resources
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-                lock (word_index_manager_lock)
+                if (dispose_count == 0)
                 {
-                    l1_clk.LockPerfTimerStop();
+                    // Get rid of managed resources
+                    Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                    lock (word_index_manager_lock)
+                    {
+                        l1_clk.LockPerfTimerStop();
 
-                    word_index_manager?.Dispose();
-                    word_index_manager = null;
+                        word_index_manager?.Dispose();
+                        word_index_manager = null;
+                    }
+
+                    //this.library?.Dispose();
                 }
 
-                //this.library?.Dispose();
+                //this.word_index_manager = null;
+                library = null;
+
+                Utilities.LockPerfTimer l4_clk = Utilities.LockPerfChecker.Start();
+                lock (pdf_documents_in_library_lock)
+                {
+                    l4_clk.LockPerfTimerStop();
+
+                    pdf_documents_in_library?.Clear();
+                    pdf_documents_in_library = null;
+                }
             }
-
-            //this.word_index_manager = null;
-            library = null;
-
-            Utilities.LockPerfTimer l4_clk = Utilities.LockPerfChecker.Start();
-            lock (pdf_documents_in_library_lock)
+            catch (Exception ex)
             {
-                l4_clk.LockPerfTimerStop();
-
-                pdf_documents_in_library?.Clear();
-                pdf_documents_in_library = null;
+                Logging.Error(ex);
             }
 
             ++dispose_count;

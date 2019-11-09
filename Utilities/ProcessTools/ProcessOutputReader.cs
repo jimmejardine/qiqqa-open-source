@@ -49,20 +49,27 @@ namespace Utilities.ProcessTools
         {
             Logging.Debug("ProcessOutputReader::Dispose({0}) @{1}", disposing, dispose_count);
 
-            if (dispose_count == 0)
+            try
             {
-                // Get rid of managed resources
-                process.CancelErrorRead();
-                if (!StdOutIsBinary)
+                if (dispose_count == 0)
                 {
-                    process.CancelOutputRead();
+                    // Get rid of managed resources
+                    process.CancelErrorRead();
+                    if (!StdOutIsBinary)
+                    {
+                        process.CancelOutputRead();
+                    }
+
+                    Output.Clear();
+                    Error.Clear();
                 }
 
-                Output.Clear();
-                Error.Clear();
+                process = null;
             }
-
-            process = null;
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             ++dispose_count;
         }

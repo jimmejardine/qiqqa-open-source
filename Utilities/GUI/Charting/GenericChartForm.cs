@@ -135,14 +135,21 @@ namespace Utilities.GUI.Charting
         {
             Logging.Debug("GenericChartForm::Dispose({0}) @{1}", disposing, dispose_count);
 
-            if (dispose_count == 0)
+            try
             {
-                components?.Dispose();
+                if (dispose_count == 0)
+                {
+                    components?.Dispose();
+                }
+
+                components = null;
+
+                base.Dispose(disposing);
             }
-
-            components = null;
-
-            base.Dispose(disposing);
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             ++dispose_count;
         }

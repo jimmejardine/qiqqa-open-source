@@ -207,10 +207,17 @@ namespace Utilities.Internet
             {
                 Logging.Debug("DownloadAsyncTracker::Dispose({0}) @{1}", disposing, dispose_count);
 
-                if (dispose_count == 0)
+                try
                 {
-                    // Get rid of managed resources
-                    CleanupAfterDownload();
+                    if (dispose_count == 0)
+                    {
+                        // Get rid of managed resources
+                        CleanupAfterDownload();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex);
                 }
 
                 ++dispose_count;
