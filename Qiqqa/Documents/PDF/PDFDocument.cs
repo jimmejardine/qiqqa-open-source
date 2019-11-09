@@ -1077,6 +1077,18 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
                     else
                     {
                         Logging.Warn("Copying/Moving metadata into {0}: collision on key {1}: old value = ({4})'{2}', new value = ({5})'{3}'", this.Fingerprint, k, s1, s2, t1, t2);
+                        
+						// TODO: when this is used for merging metadata anyway...
+						switch (k)
+                        {
+                            case "DateAddedToDatabase":
+                                // take oldest date:
+                                break;
+
+                            case "DateLastModified":
+                                // take latest, unless the last mod dates match the DateAddedToDatabase records: in that case, use the picked DateAddedToDatabase
+                                break;
+                        }
                     }
                 }
             }
