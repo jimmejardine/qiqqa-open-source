@@ -10,6 +10,7 @@ namespace Utilities.PDF.MuPDF
 {
     public class MuPDFRenderer
     {
+#if TEST
         public static MemoryStream RenderPDFPage(string pdf_filename, int page_number, int dpi, string password, ProcessPriorityClass priority_class)
         {
             string process_parameters = String.Format(
@@ -24,6 +25,7 @@ namespace Utilities.PDF.MuPDF
             MemoryStream ms = ReadEntireStandardOutput(process_parameters, priority_class);
             return ms;
         }
+#endif
 
         public class TextChunk
         {
@@ -52,109 +54,110 @@ namespace Utilities.PDF.MuPDF
             using (MemoryStream ms = ReadEntireStandardOutput(process_parameters, priority_class))
             {
                 ms.Seek(0, SeekOrigin.Begin);
-                StreamReader sr_lines = new StreamReader(ms);
-
-                List<TextChunk> text_chunks = new List<TextChunk>();
-
-                int page = 0;
-                double page_x0 = 0;
-                double page_y0 = 0;
-                double page_x1 = 0;
-                double page_y1 = 0;
-                double page_rotation = 0;
-
-                string current_font_name = "";
-                double current_font_size = 0;
-
-                string line;
-                while (null != (line = sr_lines.ReadLine()))
+                using (StreamReader sr_lines = new StreamReader(ms))
                 {
-                    // Look for a character element (note that even a " can be the character in the then malformed XML)
+                    List<TextChunk> text_chunks = new List<TextChunk>();
+
+                    int page = 0;
+                    double page_x0 = 0;
+                    double page_y0 = 0;
+                    double page_x1 = 0;
+                    double page_y1 = 0;
+                    double page_rotation = 0;
+
+                    string current_font_name = "";
+                    double current_font_size = 0;
+
+                    string line;
+                    while (null != (line = sr_lines.ReadLine()))
                     {
-                        Match match = Regex.Match(line, "char ucs=\"(.*)\" bbox=\"\\[(\\S*) (\\S*) (\\S*) (\\S*)\\]");
-                        if (Match.Empty != match)
+                        // Look for a character element (note that even a " can be the character in the then malformed XML)
                         {
-                            string text = match.Groups[1].Value;
-                            double word_x0 = Convert.ToDouble(match.Groups[2].Value, Internationalization.DEFAULT_CULTURE);
-                            double word_y0 = Convert.ToDouble(match.Groups[3].Value, Internationalization.DEFAULT_CULTURE);
-                            double word_x1 = Convert.ToDouble(match.Groups[4].Value, Internationalization.DEFAULT_CULTURE);
-                            double word_y1 = Convert.ToDouble(match.Groups[5].Value, Internationalization.DEFAULT_CULTURE);
-
-                            ResolveRotation(page_rotation, ref word_x0, ref word_y0, ref word_x1, ref word_y1);
-
-                            // Position this little grubber
-                            TextChunk text_chunk = new TextChunk();
-                            text_chunk.text = text;
-                            text_chunk.font_name = current_font_name;
-                            text_chunk.font_size = current_font_size;
-                            text_chunk.page = page;
-                            text_chunk.x0 = (word_x0 - page_x0) / (page_x1 - page_x0);
-                            text_chunk.y0 = 1 - (word_y0 - page_y0) / (page_y1 - page_y0);
-                            text_chunk.x1 = (word_x1 - page_x0) / (page_x1 - page_x0);
-                            text_chunk.y1 = 1 - (word_y1 - page_y0) / (page_y1 - page_y0);
-
-                            // Cater for the rotation
-                            if (0 != page_rotation)
+                            Match match = Regex.Match(line, "char ucs=\"(.*)\" bbox=\"\\[(\\S*) (\\S*) (\\S*) (\\S*)\\]");
+                            if (Match.Empty != match)
                             {
-                                text_chunk.y0 = 1 - text_chunk.y0;
-                                text_chunk.y1 = 1 - text_chunk.y1;
-                            }
+                                string text = match.Groups[1].Value;
+                                double word_x0 = Convert.ToDouble(match.Groups[2].Value, Internationalization.DEFAULT_CULTURE);
+                                double word_y0 = Convert.ToDouble(match.Groups[3].Value, Internationalization.DEFAULT_CULTURE);
+                                double word_x1 = Convert.ToDouble(match.Groups[4].Value, Internationalization.DEFAULT_CULTURE);
+                                double word_y1 = Convert.ToDouble(match.Groups[5].Value, Internationalization.DEFAULT_CULTURE);
 
-                            // Make sure the bounding box is TL-BR
-                            if (text_chunk.x1 < text_chunk.x0)
+                                ResolveRotation(page_rotation, ref word_x0, ref word_y0, ref word_x1, ref word_y1);
+
+                                // Position this little grubber
+                                TextChunk text_chunk = new TextChunk();
+                                text_chunk.text = text;
+                                text_chunk.font_name = current_font_name;
+                                text_chunk.font_size = current_font_size;
+                                text_chunk.page = page;
+                                text_chunk.x0 = (word_x0 - page_x0) / (page_x1 - page_x0);
+                                text_chunk.y0 = 1 - (word_y0 - page_y0) / (page_y1 - page_y0);
+                                text_chunk.x1 = (word_x1 - page_x0) / (page_x1 - page_x0);
+                                text_chunk.y1 = 1 - (word_y1 - page_y0) / (page_y1 - page_y0);
+
+                                // Cater for the rotation
+                                if (0 != page_rotation)
+                                {
+                                    text_chunk.y0 = 1 - text_chunk.y0;
+                                    text_chunk.y1 = 1 - text_chunk.y1;
+                                }
+
+                                // Make sure the bounding box is TL-BR
+                                if (text_chunk.x1 < text_chunk.x0)
+                                {
+                                    Swap.swap(ref text_chunk.x0, ref text_chunk.x1);
+                                }
+                                if (text_chunk.y1 < text_chunk.y0)
+                                {
+                                    Swap.swap(ref text_chunk.y0, ref text_chunk.y1);
+                                }
+
+                                if (text_chunk.x1 <= text_chunk.x0 || text_chunk.y1 <= text_chunk.y0)
+                                {
+                                    Logging.Warn("Bad bounding box for text chunk");
+                                }
+
+                                // And add him to the result list
+                                text_chunks.Add(text_chunk);
+
+                                continue;
+                            }
+                        }
+
+                        // Look for a change in font name
+                        {
+                            Match match = Regex.Match(line, " font=\"(\\S*)\" size=\"(\\S*)\" ");
+                            if (Match.Empty != match)
                             {
-                                Swap.swap(ref text_chunk.x0, ref text_chunk.x1);
+                                current_font_name = match.Groups[1].Value;
+                                current_font_size = Convert.ToDouble(match.Groups[2].Value, Internationalization.DEFAULT_CULTURE);
+
+                                continue;
                             }
-                            if (text_chunk.y1 < text_chunk.y0)
+                        }
+
+                        // Look for the page header with dimensions
+                        {
+                            Match match = Regex.Match(line, @"\[Page (.+) X0 (\S+) Y0 (\S+) X1 (\S+) Y1 (\S+) R (\S+)\]");
+                            if (Match.Empty != match)
                             {
-                                Swap.swap(ref text_chunk.y0, ref text_chunk.y1);
+                                page = Convert.ToInt32(match.Groups[1].Value, Internationalization.DEFAULT_CULTURE);
+                                page_x0 = Convert.ToDouble(match.Groups[2].Value, Internationalization.DEFAULT_CULTURE);
+                                page_y0 = Convert.ToDouble(match.Groups[3].Value, Internationalization.DEFAULT_CULTURE);
+                                page_x1 = Convert.ToDouble(match.Groups[4].Value, Internationalization.DEFAULT_CULTURE);
+                                page_y1 = Convert.ToDouble(match.Groups[5].Value, Internationalization.DEFAULT_CULTURE);
+                                page_rotation = Convert.ToDouble(match.Groups[6].Value, Internationalization.DEFAULT_CULTURE);
+
+                                ResolveRotation(page_rotation, ref page_x0, ref page_y0, ref page_x1, ref page_y1);
+
+                                continue;
                             }
-
-                            if (text_chunk.x1 <= text_chunk.x0 || text_chunk.y1 <= text_chunk.y0)
-                            {
-                                Logging.Warn("Bad bounding box for text chunk");
-                            }
-
-                            // And add him to the result list
-                            text_chunks.Add(text_chunk);
-
-                            continue;
                         }
                     }
 
-                    // Look for a change in font name
-                    {
-                        Match match = Regex.Match(line, " font=\"(\\S*)\" size=\"(\\S*)\" ");
-                        if (Match.Empty != match)
-                        {
-                            current_font_name = match.Groups[1].Value;
-                            current_font_size = Convert.ToDouble(match.Groups[2].Value, Internationalization.DEFAULT_CULTURE);
-
-                            continue;
-                        }
-                    }
-
-                    // Look for the page header with dimensions
-                    {
-                        Match match = Regex.Match(line, @"\[Page (.+) X0 (\S+) Y0 (\S+) X1 (\S+) Y1 (\S+) R (\S+)\]");
-                        if (Match.Empty != match)
-                        {
-                            page = Convert.ToInt32(match.Groups[1].Value, Internationalization.DEFAULT_CULTURE);
-                            page_x0 = Convert.ToDouble(match.Groups[2].Value, Internationalization.DEFAULT_CULTURE);
-                            page_y0 = Convert.ToDouble(match.Groups[3].Value, Internationalization.DEFAULT_CULTURE);
-                            page_x1 = Convert.ToDouble(match.Groups[4].Value, Internationalization.DEFAULT_CULTURE);
-                            page_y1 = Convert.ToDouble(match.Groups[5].Value, Internationalization.DEFAULT_CULTURE);
-                            page_rotation = Convert.ToDouble(match.Groups[6].Value, Internationalization.DEFAULT_CULTURE);
-
-                            ResolveRotation(page_rotation, ref page_x0, ref page_y0, ref page_x1, ref page_y1);
-
-                            continue;
-                        }
-                    }
+                    text_chunks = AggregateOverlappingTextChunks(text_chunks);
+                    return text_chunks;
                 }
-
-                text_chunks = AggregateOverlappingTextChunks(text_chunks);
-                return text_chunks;
             }
         }
 
@@ -237,8 +240,6 @@ namespace Utilities.PDF.MuPDF
                     continue;
                 }
 
-
-
                 // If we get here we aggregate
                 {
                     current_text_chunk.text = current_text_chunk.text + text_chunk.text;
@@ -260,7 +261,10 @@ namespace Utilities.PDF.MuPDF
 
         private static MemoryStream ReadEntireStandardOutput(string process_parameters, ProcessPriorityClass priority_class)
         {
+            Stopwatch clk = Stopwatch.StartNew();
+
             // STDOUT/STDERR
+            Logging.Debug("PDFDRAW :: ReadEntireStandardOutput command: pdfdraw.exe {0}", process_parameters);
             using (Process process = ProcessSpawning.SpawnChildProcess("pdfdraw.exe", process_parameters, priority_class, stdout_is_binary: true))
             {
                 using (ProcessOutputReader process_output_reader = new ProcessOutputReader(process, stdout_is_binary: true))
@@ -270,25 +274,39 @@ namespace Utilities.PDF.MuPDF
                     {
                         using (FileStream fs = (FileStream)sr.BaseStream)
                         {
-                            MemoryStream ms = new MemoryStream(128 * 1024);
+                            long elapsed = clk.ElapsedMilliseconds;
+                            Logging.Debug("PDFDRAW :: ReadEntireStandardOutput setup time: {0} ms for parameters:\n    {1}", elapsed, process_parameters);
+
+                            MemoryStream ms = new MemoryStream(256 * 1024);
                             int total_size = StreamToFile.CopyStreamToStream(fs, ms);
+                            long elapsed2 = clk.ElapsedMilliseconds;
+                            Logging.Debug("PDFDRAW image output {0} bytes in {1} ms (output copy took {2} ms) for command:\n    pdfdraw.exe {3}", total_size, elapsed2, elapsed2 - elapsed, process_parameters);
 
                             // Check that the process has exited properly
                             process.WaitForExit(1000);
                             if (!process.HasExited)
                             {
-                                Logging.Error("PDFRenderer process did not terminate, so killing it.\n{0}", process_output_reader.GetOutputsDumpString());
+                                Logging.Debug("PDFRenderer process did not terminate, so killing it.\n{0}", process_output_reader.GetOutputsDumpString());
 
                                 try
                                 {
-                                    Logging.Info("Killing PDFRenderer process");
                                     process.Kill();
-                                    Logging.Info("Killed PDFRenderer process");
+                                    process.WaitForExit(1000);
                                 }
                                 catch (Exception ex)
                                 {
-                                    Logging.Error(ex, "These was an exception while trying to kill the PDFRenderer process");
+                                    Logging.Error(ex, "These was an exception while trying to kill the PDFRenderer process.");
                                 }
+
+                                Logging.Error("PDFRenderer process did not terminate, so killed it.\n{0}", process_output_reader.GetOutputsDumpString());
+
+                                throw new ApplicationException($"PDFRenderer process did not terminate, so killed it.\n    Commandline: pdfdraw.exe {process_parameters}");
+                            }
+                            else if (process.ExitCode != 0)
+                            {
+                                Logging.Error("PDFDRAW did fail with exit code {0} for commandline:\n    {1}\n{2}", process.ExitCode, process_parameters, process_output_reader.GetOutputsDumpString());
+
+                                throw new ApplicationException($"PDFRenderer::PDFDRAW did fail with exit code {process.ExitCode}.\n    Commandline: pdfdraw.exe {process_parameters}");
                             }
 
                             return ms;
@@ -298,7 +316,7 @@ namespace Utilities.PDF.MuPDF
             }
         }
 
-        #region --- Test ------------------------------------------------------------------------
+#region --- Test ------------------------------------------------------------------------
 
 #if TEST
         public static void TestHarness_TEXT_RENDER()
@@ -435,6 +453,6 @@ namespace Utilities.PDF.MuPDF
         }
 #endif
 
-        #endregion ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#endregion ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     }
 }

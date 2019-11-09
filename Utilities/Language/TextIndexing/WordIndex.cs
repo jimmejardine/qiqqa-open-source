@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if !HAS_NO_PROTOBUF
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -66,7 +68,7 @@ namespace Utilities.Language.TextIndexing
             DirectoryTools.DeleteDirectory(LIBRARY_INDEX_BASE_PATH, true);
         }
 
-        #region --- Getting info out of the index ---------------------------------------------------------------------------------------------------------
+#region --- Getting info out of the index ---------------------------------------------------------------------------------------------------------
 
         public class SearchResult
         {
@@ -192,9 +194,9 @@ namespace Utilities.Language.TextIndexing
             }
         }
 
-        #endregion
+#endregion
 
-        #region --- Building the index ---------------------------------------------------------------------------------------------------------
+#region --- Building the index ---------------------------------------------------------------------------------------------------------
 
         public void AddDocumentWord(string document_fingerprint, string word)
         {
@@ -245,9 +247,9 @@ namespace Utilities.Language.TextIndexing
             }
         }
 
-        #endregion
+#endregion
 
-        #region --- Working internals  ---------------------------------------------------------------------------------------------------------
+#region --- Working internals  ---------------------------------------------------------------------------------------------------------
 
         internal WordInWordIndex GetWordInWordIndex_LOCKER(string word, bool for_modification)
         {
@@ -681,9 +683,9 @@ namespace Utilities.Language.TextIndexing
             return Path.GetFullPath(Path.Combine(LIBRARY_INDEX_BASE_PATH, filename));
         }
 
-        #endregion
+#endregion
 
-        #region --- Serialisation records -----------------------------------------------------------------
+#region --- Serialisation records -----------------------------------------------------------------
 
         [ProtoContract]
         public class Headers
@@ -731,9 +733,9 @@ namespace Utilities.Language.TextIndexing
             }
         }
 
-        #endregion
+#endregion
 
-        #region --- Test ------------------------------------------------------------------------
+#region --- Test ------------------------------------------------------------------------
 
 #if TEST
         public static void Test()
@@ -758,6 +760,8 @@ namespace Utilities.Language.TextIndexing
         }
 #endif
 
-        #endregion
+#endregion
     }
 }
+
+#endif

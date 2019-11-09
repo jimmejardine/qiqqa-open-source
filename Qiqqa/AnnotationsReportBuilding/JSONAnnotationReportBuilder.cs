@@ -31,7 +31,7 @@ namespace Qiqqa.AnnotationsReportBuilding
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_JSONAnnotationReport);
 
-            AnnotationReportOptionsWindow.AnnotationReportOptions annotation_report_options = new AnnotationReportOptionsWindow.AnnotationReportOptions();
+            AnnotationReportOptions annotation_report_options = new AnnotationReportOptions();
 
             List<AnnotationWorkGenerator.AnnotationWork> annotation_works = AnnotationWorkGenerator.GenerateAnnotationWorks(library, pdf_documents, annotation_report_options);
 

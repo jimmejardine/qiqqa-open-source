@@ -1,3 +1,5 @@
+#if false
+
 using System.ComponentModel;
 using System.Windows.Forms;
 
@@ -87,3 +89,5 @@ namespace Utilities.ConsoleRedirector
         #endregion
     }
 }
+
+#endif

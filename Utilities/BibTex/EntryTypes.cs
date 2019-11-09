@@ -178,6 +178,6 @@ namespace Utilities.BibTex
             }
         }
 
-        private static string EntryTypesDefinitionFilename => Path.GetFullPath(Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"BibTeX/qiqqa-entry-type-definitions.json"));
+        private static string EntryTypesDefinitionFilename => Path.GetFullPath(Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"BibTeX/EntryTypeDefinitions/qiqqa-entry-type-definitions.json"));
     }
 }

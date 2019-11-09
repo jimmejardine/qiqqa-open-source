@@ -11,6 +11,7 @@ using Microsoft.Win32;
 using Qiqqa.Common.Configuration;
 using Qiqqa.UtilisationTracking;
 using Utilities.BibTex.Parsing;
+using Utilities.Files;
 using Utilities.GUI.DualTabbedLayoutStuff;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
@@ -224,7 +225,7 @@ namespace Qiqqa.InCite.CSLEditorStuff
             string prepared_citation_javascript = ObjJavaScriptEditor.Text;
 
             // Write to file for processor
-            string style_file_filename = Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.TempDirectoryForQiqqa, @"CSLEditor_CSL.csl"));
+            string style_file_filename = Path.GetFullPath(Path.Combine(TempFile.TempDirectoryForQiqqa, @"CSLEditor_CSL.csl"));
             File.WriteAllText(style_file_filename, csl);
 
             // Validate the CSL

@@ -50,7 +50,7 @@ namespace Utilities.GUI
         }
 
         private int dispose_count = 0;
-        protected /*virtual*/ void Dispose(bool disposing)    // sealed class doesn't allow 'virtual'
+        internal /*virtual*/ void Dispose(bool disposing)    // sealed class doesn't allow 'virtual' + warning CS0628: 'WeakDependencyPropertyChangeNotifier.Dispose(bool)': new protected member declared in sealed class
         {
             Logging.Debug("WeakDependencyPropertyChangeNotifier::Dispose({0}) @{1}", disposing, dispose_count);
 

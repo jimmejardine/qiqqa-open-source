@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Threading;
 using tessnet2;
@@ -16,26 +18,20 @@ using Word = tessnet2.Word;
 
 namespace QiqqaOCR
 {
-    internal class OCREngine
+    internal static class OCREngine
     {
         private static string pdf_filename;
-        private static int page_number;
+        private static List<int> page_numbers;
         private static string ocr_output_filename;
         private static string pdf_user_password;
         private static string language;
+        private static bool no_kill = false;
         private static Thread thread_ocr = null;
-        private static WordList word_list_ocr = null;
         private static bool has_exited_ocr = false;
         private static Exception exception_ocr = null;
         private static object global_vars_access_lock = new object();
 
-        // Warning CA1812	'OCREngine' is an internal class that is apparently never instantiated.
-        // If this class is intended to contain only static methods, consider adding a private constructor 
-        // to prevent the compiler from generating a default constructor.
-        private OCREngine()
-        { }
-
-        internal static void MainEntry(string[] args, bool no_kill)
+        internal static void MainEntry(string[] args, bool _no_kill)
         {
             // Check that we were given the right number of parameters
             if (args.Length < 6)
@@ -45,10 +41,42 @@ namespace QiqqaOCR
 
             // Get the parameters
             pdf_filename = args[1];
-            page_number = Convert.ToInt32(args[2]);
+
+            string pages = args[2];
+            List<string> pns = new List<string>(pages.Split(','));
+            HashSet<int> pnx = new HashSet<int>();
+            foreach (var pn in pns)
+            {
+                List<string> prng = new List<string>(pn.Split('-'));
+
+                if (prng.Count > 1)
+                {
+                    int start = Convert.ToInt32(prng[0]);
+                    int finish = Convert.ToInt32(prng[1]);
+
+                    for (var i = start; i <= finish; i++)
+                    {
+                        pnx.Add(i);
+                    }
+                }
+                else
+                {
+                    pnx.Add(Convert.ToInt32(pn));
+                }
+            }
+            page_numbers = new List<int>(pnx);
+            page_numbers.Sort();
+
             ocr_output_filename = args[3];
             pdf_user_password = ReversibleEncryption.Instance.DecryptString(args[4]);
             language = args[5];
+            no_kill = _no_kill;
+
+            // sanity check the arguments:
+            if (!no_kill && page_numbers.Count != 1)
+            {
+                throw new Exception($"OCR engine 'page number' parameter only accepts a *single* page number in production. Erroneous parameter value: {pages}");
+            }
 
             // Check that the PDF exists
             if (!File.Exists(pdf_filename))
@@ -64,8 +92,7 @@ namespace QiqqaOCR
             }
 
             // When should the various processes die?
-            DateTime start_time_app = DateTime.UtcNow;
-            DateTime kill_time = start_time_app.AddSeconds(180);
+            Stopwatch clk = Stopwatch.StartNew();
 
             while (true)
             {
@@ -93,9 +120,8 @@ namespace QiqqaOCR
                 // Do we have any OCR results
                 lock (global_vars_access_lock)
                 {
-                    if (null != word_list_ocr)
+                    if (has_exited_ocr)
                     {
-                        Logging.Info("We have an OCR word list of length {0}", word_list_ocr.Count);
                         break;
                     }
                 }
@@ -103,7 +129,7 @@ namespace QiqqaOCR
                 // --- TEST FOR PROBLEMS ------------------------------------------------------------------------------------------------------------------------------------------------
 
                 // Have we been running for too long?
-                if (DateTime.UtcNow > kill_time && !no_kill)
+                if (clk.ElapsedMilliseconds > Constants.MAX_WAIT_TIME_MS_FOR_QIQQA_OCR_TASK_TO_TERMINATE && !no_kill)
                 {
                     Logging.Error("We have been running for too long, so exiting");
                     break;
@@ -130,24 +156,13 @@ namespace QiqqaOCR
                 Thread.Sleep(250);
             }
 
-            // Check that we have something to write
-            lock (global_vars_access_lock)
+            // properly terminate/abort the thread:
+            if (null != thread_ocr)
             {
-                if (null != word_list_ocr)
+                if (!thread_ocr.Join(500))
                 {
-                    Logging.Info("+Writing OCR to file {0}", ocr_output_filename);
-                    Dictionary<int, WordList> word_lists = new Dictionary<int, WordList>();
-                    word_lists[page_number] = word_list_ocr;
-                    WordList.WriteToFile(ocr_output_filename, word_lists, "OCR");
-                    Logging.Info("-Writing OCR to file {0}", ocr_output_filename);
-                }
-                else
-                {
-                    Logging.Info("+Writing empty OCR to file {0}", ocr_output_filename);
-                    Dictionary<int, WordList> word_lists = new Dictionary<int, WordList>();
-                    word_lists[page_number] = new WordList();
-                    WordList.WriteToFile(ocr_output_filename, word_lists, "OCR-Failed");
-                    Logging.Info("-Writing empty OCR to file {0}", ocr_output_filename);
+                    thread_ocr.Abort();
+                    thread_ocr.Join(100);
                 }
             }
         }
@@ -155,6 +170,7 @@ namespace QiqqaOCR
         private static void ThreadOCRMainEntry(object arg)
         {
             string fname = "???";
+            List<int> pgnums;
             int pgnum = 0;
 
             try
@@ -162,15 +178,36 @@ namespace QiqqaOCR
                 lock (global_vars_access_lock)
                 {
                     fname = pdf_filename;
-                    pgnum = page_number;
+                    pgnums = page_numbers;
                 }
 
-                WordList word_list = DoOCR(fname, pgnum);
+                Dictionary<int, WordList> word_lists = new Dictionary<int, WordList>();
+                Dictionary<int, bool> page_ocr_successes = new Dictionary<int, bool>();
 
-                lock (global_vars_access_lock)
+                foreach (var p in pgnums)
                 {
-                    word_list_ocr = word_list;
+                    pgnum = p;
+
+                    WordList word_list = DoOCR(fname, pgnum);
+
+                    Logging.Info("We have an OCR word list of length {0} for page {1}", word_list?.Count, pgnum);
+
+                    // Check that we have something to write
+                    if (null != word_list)
+                    {
+                        word_lists[pgnum] = word_list;
+                        page_ocr_successes[pgnum] = true;
+                    }
+                    else
+                    {
+                        word_lists[pgnum] = new WordList();
+                        page_ocr_successes[pgnum] = false;
+                    }
                 }
+
+                // Check that we have something to write
+                Logging.Info("Writing OCR to file {0}", ocr_output_filename);
+                WordList.WriteToFile(ocr_output_filename, word_lists, page_ocr_successes[pgnums[0]] ? "OCR" : "OCR-Failed");
             }
             catch (Exception ex)
             {
@@ -189,7 +226,6 @@ namespace QiqqaOCR
                 }
             }
         }
-
 
         public static WordList DoOCR(string pdf_filename, int page_number)
         {
@@ -266,35 +302,37 @@ namespace QiqqaOCR
                     }
 
                     // DEBUG CODE: Draw in the region rectangles
-#if DEBUG_OCR
+                    //
+                    // When we run in NOKILL mode, we "know" we're running in a debugger or standa-alone environment 
+                    // intended for testing this code. Hence we should dump the regions image as part of the process.
+                    if (no_kill)
                     {
                         string bitmap_diag_path = pdf_filename + @"." + page_number + @"-ocr.png";
 
-                        Logging.Debug特("Dumping page {0} PNG image to file {1}", page_number, bitmap_diag_path);
+                        Logging.Info("Dumping regions-augmented page {0} PNG image to file {1}", page_number, bitmap_diag_path);
                         Graphics g = Graphics.FromImage(bitmap);
-		                foreach (Rectangle rectangle in rectangles)
-		                {
+                        foreach (Rectangle rectangle in rectangles)
+                        {
                             if (rectangle.Width <= MIN_WIDTH && rectangle.Height > MIN_WIDTH)
                             {
-                                g.DrawRectangle(Pens.Purple, rectangle);
+                                DrawRectangleOutline(g, Pens.Purple, rectangle);
                             }
                             else if (rectangle.Width > MIN_WIDTH && rectangle.Height <= MIN_WIDTH)
                             {
-                                g.DrawRectangle(Pens.PowderBlue, rectangle);
+                                DrawRectangleOutline(g, Pens.PowderBlue, rectangle);
                             }
                             else if (rectangle.Width <= MIN_WIDTH && rectangle.Height <= MIN_WIDTH)
                             {
-                                g.DrawRectangle(Pens.Red, rectangle);
+                                DrawRectangleOutline(g, Pens.Red, rectangle);
                             }
                             else
                             {
-                                g.DrawRectangle(Pens.LawnGreen, rectangle);
+                                DrawRectangleOutline(g, Pens.LawnGreen, rectangle);
                             }
-		                }
+                        }
 
-		                bitmap.Save(bitmap_diag_path, ImageFormat.Png);
-		            }
-#endif
+                        bitmap.Save(bitmap_diag_path, ImageFormat.Png);
+                    }
 
                     // Do the OCR on each of the rectangles
                     WordList word_list = new WordList();
@@ -327,6 +365,25 @@ namespace QiqqaOCR
                     return word_list;
                 }
             }
+        }
+
+        private static void DrawRectangleOutline(Graphics g, Pen baseColorPen, Rectangle rect)
+        {
+            const int ALPHA = (int)(0.5 * 256);
+            const int ALPHA_FILL = (int)(0.1 * 256);
+
+            Color baseColor = baseColorPen.Color;
+
+            Color c = Color.FromArgb(ALPHA, baseColor.R, baseColor.G, baseColor.B);
+            Pen pen = new Pen(c, 2);
+
+            Color fill_c = Color.FromArgb(ALPHA_FILL, baseColor.R, baseColor.G, baseColor.B);
+            SolidBrush br = new SolidBrush(fill_c);
+
+            // create a new rectangle that's an *outline* of the given rectangle; reckon with the pen width too!
+            Rectangle rc = new Rectangle(rect.X - 1, rect.Y - 1, rect.Width + 2, rect.Height + 2);
+            g.FillRectangle(br, rc);
+            g.DrawRectangle(pen, rect);
         }
 
         private static WordList ConvertToWordList(List<Word> results, Rectangle rectangle, Bitmap bitmap)

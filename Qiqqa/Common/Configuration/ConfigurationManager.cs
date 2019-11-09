@@ -24,9 +24,6 @@ namespace Qiqqa.Common.Configuration
         public static readonly ConfigurationManager Instance = new ConfigurationManager();
         private string user_guid;
 
-
-        public string TempDirectoryForQiqqa => Path.GetFullPath(Path.Combine(TempFile.TempDirectory, @"Qiqqa"));
-
         public string StartupDirectoryForQiqqa => UnitTestDetector.StartupDirectoryForQiqqa;
 
         private string base_directory_for_qiqqa = null;

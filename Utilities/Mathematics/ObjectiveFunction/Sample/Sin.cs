@@ -1,3 +1,5 @@
+#if false
+
 using System;
 
 namespace Utilities.Mathematics.ObjectiveFunction.Sample
@@ -14,3 +16,5 @@ namespace Utilities.Mathematics.ObjectiveFunction.Sample
         }
     }
 }
+
+#endif

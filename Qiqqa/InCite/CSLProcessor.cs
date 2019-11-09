@@ -15,7 +15,7 @@ namespace Qiqqa.InCite
 {
     public static class CSLProcessor
     {
-        private static readonly string BASE_PATH = Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.TempDirectoryForQiqqa, @"InCite"));
+        private static readonly string BASE_PATH = Path.GetFullPath(Path.Combine(TempFile.TempDirectoryForQiqqa, @"InCite"));
 
         public class BrowserThreadPassThru
         {

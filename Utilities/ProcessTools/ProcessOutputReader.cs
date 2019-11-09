@@ -10,10 +10,12 @@ namespace Utilities.ProcessTools
         private Process process;
         public List<string> Output = new List<string>();
         public List<string> Error = new List<string>();
+        public readonly bool StdOutIsBinary;
 
         public ProcessOutputReader(Process process, bool stdout_is_binary = false)
         {
             this.process = process;
+            this.StdOutIsBinary = stdout_is_binary;
 
             if (!stdout_is_binary)
             {
@@ -51,7 +53,10 @@ namespace Utilities.ProcessTools
             {
                 // Get rid of managed resources
                 process.CancelErrorRead();
-                process.CancelOutputRead();
+                if (!StdOutIsBinary)
+                {
+                    process.CancelOutputRead();
+                }
 
                 Output.Clear();
                 Error.Clear();

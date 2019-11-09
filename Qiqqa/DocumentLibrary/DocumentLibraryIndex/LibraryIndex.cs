@@ -13,6 +13,7 @@ using Utilities.Language;
 using Utilities.Language.TextIndexing;
 using Utilities.Misc;
 using Utilities.OCR;
+using Utilities.Strings;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -597,9 +598,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                                             word_list = pdf_document.PDFRenderer.GetOCRText(page, queue_for_ocr: false);
                                             if (null == word_list)
                                             {
-                                                var lst = pdf_document_in_library.pages_already_indexed.ToArray();
-                                                Array.Sort(lst);
-                                                Logging.Info("LibraryIndex::IncrementalBuildNextDocuments: PDF document {0}: page {1} has no text (while pages {2} DO have text!) and will (re)trigger a PDF OCR action. This is probably a document which could not be OCRed properly (for reasons unknown at this time).", pdf_document.Fingerprint, page, String.Join(",", lst));
+                                                Logging.Warn("LibraryIndex::IncrementalBuildNextDocuments: PDF document {0}: page {1} has no text (while pages {2} DO have text!) and will (re)trigger a PDF OCR action. This is probably a document which could not be OCRed properly (for reasons unknown at this time).", pdf_document.Fingerprint, page, StringTools.PagesSetAsString(pdf_document_in_library.pages_already_indexed));
                                                 has_reported_ocr_action = true;
                                             }
                                         }
@@ -610,9 +609,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                                     {
                                         if (null != pdf_document_in_library.pages_already_indexed)
                                         {
-                                            var lst = pdf_document_in_library.pages_already_indexed.ToArray();
-                                            Array.Sort(lst);
-                                            Logging.Info("LibraryIndex::IncrementalBuildNextDocuments: PDF document {0}: page {1} has no text (while pages {2} DO have text!) and will (re)trigger a PDF OCR action. This is probably a document which could not be OCRed properly (for reasons unknown at this time).", pdf_document.Fingerprint, page, String.Join(",", lst));
+                                            Logging.Warn("LibraryIndex::IncrementalBuildNextDocuments: PDF document {0}: page {1} has no text (while pages {2} DO have text!) and will (re)trigger a PDF OCR action. This is probably a document which could not be OCRed properly (for reasons unknown at this time).", pdf_document.Fingerprint, page, StringTools.PagesSetAsString(pdf_document_in_library.pages_already_indexed));
                                         }
 
                                         word_list = pdf_document.PDFRenderer.GetOCRText(page);
