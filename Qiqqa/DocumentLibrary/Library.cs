@@ -510,8 +510,6 @@ namespace Qiqqa.DocumentLibrary
         {
             PDFDocument pdf_document = AddNewDocumentToLibrary(pdf_document_template.DocumentPath, pdf_document_template.DownloadLocation, pdf_document_template.DownloadLocation, pdf_document_template.BibTex, null, null, suppressDialogs, suppress_signal_that_docs_have_changed);
 
-            pdf_document.CloneMetaData(pdf_document_template);
-
             return pdf_document;
         }
 
@@ -601,6 +599,10 @@ namespace Qiqqa.DocumentLibrary
                     l1_clk.LockPerfTimerStop();
                     pdf_documents[new_pdf_document.Fingerprint] = new_pdf_document;
                 }
+            }
+            else
+            {
+                Logging.Warn("TODO: MERGE metadata for existing document and document which was copied/moved into this library. Document: {0}, {1}", new_pdf_document.Fingerprint, new_pdf_document.Library.ToString());
             }
 
             // clone the metadata and switch libraries

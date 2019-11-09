@@ -490,18 +490,23 @@ namespace Qiqqa.DocumentLibrary
 
         public static void ClonePDFDocumentsFromOtherLibrary_ASYNCHRONOUS(PDFDocument existing_pdf_document, Library library, bool suppress_signal_that_docs_have_changed)
         {
-            SafeThreadPool.QueueUserWorkItem(o => ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(existing_pdf_document, library, suppress_signal_that_docs_have_changed));
+            SafeThreadPool.QueueUserWorkItem(o =>
+            {
+                ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(existing_pdf_document, library, suppress_signal_that_docs_have_changed);
+            });
         }
 
-        public static void ClonePDFDocumentsFromOtherLibrary_ASYNCHRONOUS(List<PDFDocument> existing_pdf_document, Library library)
+        public static void ClonePDFDocumentsFromOtherLibrary_ASYNCHRONOUS(List<PDFDocument> existing_pdf_document, Library library, ActionPerClonedDocument doneActionPerDocument = null)
         {
-            SafeThreadPool.QueueUserWorkItem(o => ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(existing_pdf_document, library));
+            SafeThreadPool.QueueUserWorkItem(o => ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(existing_pdf_document, library, doneActionPerDocument));
         }
+
+        public delegate void ActionPerClonedDocument(PDFDocument target, PDFDocument source);
 
         /// <summary>
         /// Creates a new <code>PDFDocument</code> in the given library, and creates a copy of all the metadata.
         /// </summary>
-        public static void ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(List<PDFDocument> existing_pdf_documents, Library library)
+        public static void ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(List<PDFDocument> existing_pdf_documents, Library library, ActionPerClonedDocument doneActionPerDocument = null)
         {
             for (int i = 0; i < existing_pdf_documents.Count; ++i)
             {
@@ -513,7 +518,8 @@ namespace Qiqqa.DocumentLibrary
                 bool suppress_signal_that_docs_have_changed = true;
                 if (i == existing_pdf_documents.Count - 1) suppress_signal_that_docs_have_changed = false;
 
-                ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(existing_pdf_document, library, suppress_signal_that_docs_have_changed);
+                PDFDocument new_pdf_document = ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(existing_pdf_document, library, suppress_signal_that_docs_have_changed);
+                doneActionPerDocument?.Invoke(new_pdf_document, existing_pdf_document);
             }
 
             library.NotifyLibraryThatDocumentListHasChangedExternally();
