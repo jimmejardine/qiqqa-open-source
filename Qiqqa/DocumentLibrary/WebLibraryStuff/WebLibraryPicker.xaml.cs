@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Input;
 using icons;
 using Qiqqa.Common.GUI;
+using Utilities;
 
 namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 {
@@ -15,7 +16,24 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
     {
         public static readonly string TITLE = "Please choose a library";
 
-        private WebLibraryDetail last_picked_web_library_detail = null;
+        public class PickedEventArgs
+        {
+            public WebLibraryDetail pickedLibrary;
+        }
+
+        //
+        // Summary:
+        //     Represents the method that will handle the event when the user picked a library.
+        //
+        // Parameters:
+        //   sender:
+        //     The source of the event.
+        //
+        //   e:
+        //     An object that contains event data.
+        //
+        private delegate void PickedEventHandler(object sender, PickedEventArgs e);
+        private event PickedEventHandler Picked;
 
         private WebLibraryPicker()
         {
@@ -35,12 +53,17 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private void Cancel()
         {
-            last_picked_web_library_detail = null;
+            Picked.Invoke(this, new PickedEventArgs()
+            {
+                pickedLibrary = null
+            });
+
             Close();
         }
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
+            Logging.Info("User clicked on CANCEL button in Library picker.");
             Cancel();
         }
 
@@ -55,7 +78,13 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private void ObjWebLibraryListControl_OnWebLibrarySelected(WebLibraryDetail web_library_detail)
         {
-            last_picked_web_library_detail = web_library_detail;
+            Logging.Info("User clicked on a library entry in Library picker: {0}", web_library_detail);
+
+            Picked.Invoke(this, new PickedEventArgs()
+            {
+                pickedLibrary = web_library_detail
+            });
+
             Close();
         }
 
@@ -89,7 +118,11 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         private static WebLibraryDetail PickWebLibrary_GUI(string message)
         {
             WebLibraryPicker web_library_picker = new WebLibraryPicker();
-            web_library_picker.last_picked_web_library_detail = null;
+            WebLibraryDetail rv = null;
+
+            web_library_picker.Picked += delegate (object sender, PickedEventArgs e) {
+                rv = e.pickedLibrary;
+            };
 
             if (null != message)
             {
@@ -97,7 +130,8 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 web_library_picker.TextMessage.Inlines.Add(message);
             }
             web_library_picker.ShowDialog();
-            return web_library_picker.last_picked_web_library_detail;
+
+            return rv;
         }
 
         #region --- Test ------------------------------------------------------------------------
@@ -124,7 +158,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             // base.OnClosed() invokes this class' Closed() code, so we flipped the order of exec to reduce the number of surprises for yours truly.
             // This NULLing stuff is really the last rites of Dispose()-like so we stick it at the end here.
 
-            last_picked_web_library_detail = null;
         }
     }
 }

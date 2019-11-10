@@ -128,7 +128,6 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleDownloading
                     FocusOnManifestFilename(filename);
                 }
             }
-
             catch (Exception ex)
             {
                 MessageBoxes.Error(ex, "There was a problem with that Bundle Library Manifest file.");

@@ -293,11 +293,18 @@ namespace Qiqqa.Chat
         {
             Logging.Debug("ChatControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            if (dispose_count == 0)
+            try
             {
-                timer?.Dispose();
+                if (dispose_count == 0)
+                {
+                    timer?.Dispose();
+                }
+                timer = null;
             }
-            timer = null;
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             ++dispose_count;
         }

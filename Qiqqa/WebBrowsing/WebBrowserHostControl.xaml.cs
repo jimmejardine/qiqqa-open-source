@@ -629,37 +629,44 @@ namespace Qiqqa.WebBrowsing
             //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.RebuildSearchers(System.Collections.Generic.HashSet<string> once_off_requested_web_searchers) 
             //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.ForceSnifferSearchers() 
             //
-            if (dispose_count == 0)
+            try
             {
-                // Get rid of managed resources
-                DeleteSearchers();
+                if (dispose_count == 0)
+                {
+                    // Get rid of managed resources
+                    DeleteSearchers();
 
-                wbc_browsing?.Dispose();
+                    wbc_browsing?.Dispose();
 
-                active_wbc?.Dispose();
+                    active_wbc?.Dispose();
 
-                //TabChanged -= ;
-                //PageLoaded -= ;
-                //Navigating -= ;
+                    //TabChanged -= ;
+                    //PageLoaded -= ;
+                    //Navigating -= ;
 
-                TextBoxUrl.OnHardSearch -= TextBoxUrl_OnHardSearch;
-                TextBoxGoogleScholar.OnHardSearch -= TextBoxGoogleScholar_OnHardSearch;
+                    TextBoxUrl.OnHardSearch -= TextBoxUrl_OnHardSearch;
+                    TextBoxGoogleScholar.OnHardSearch -= TextBoxGoogleScholar_OnHardSearch;
 
-                TabWebBrowserControls.OnActiveItemChanged -= TabWebBrowserControls_OnActiveItemChanged;
+                    TabWebBrowserControls.OnActiveItemChanged -= TabWebBrowserControls_OnActiveItemChanged;
 
-                //TabWebBrowserControls.Clear();
+                    //TabWebBrowserControls.Clear();
+                }
+
+                web_searcher_entries = null;
+
+                wbc_browsing = null;
+                active_wbc = null;
+                CurrentLibrary = null;
+
+                web_searcher_preference_control = null;
+
+                // // DeleteSearchers(); ===>
+                //web_searcher_entries.Clear();
             }
-
-            web_searcher_entries = null;
-
-            wbc_browsing = null;
-            active_wbc = null;
-            CurrentLibrary = null;
-
-            web_searcher_preference_control = null;
-
-            // // DeleteSearchers(); ===>
-            //web_searcher_entries.Clear();
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             ++dispose_count;
         }

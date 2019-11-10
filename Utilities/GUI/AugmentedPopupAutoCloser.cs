@@ -30,16 +30,23 @@ namespace Utilities.GUI
         {
             Logging.Debug("AugmentedPopupAutoCloser::Dispose({0}) @{1}", disposing, dispose_count);
 
-            if (dispose_count == 0)
+            try
             {
-                // Get rid of managed resources
-                if (popup != null)
+                if (dispose_count == 0)
                 {
-                    popup.IsOpen = false;
+                    // Get rid of managed resources
+                    if (popup != null)
+                    {
+                        popup.IsOpen = false;
+                    }
                 }
-            }
 
-            popup = null;
+                popup = null;
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             ++dispose_count;
         }

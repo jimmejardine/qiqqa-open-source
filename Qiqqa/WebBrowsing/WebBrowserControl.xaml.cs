@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Controls;
+using System.Windows.Threading;
 using Gecko;
 using Gecko.Events;
 using Qiqqa.Common;
@@ -177,28 +178,31 @@ namespace Qiqqa.WebBrowsing
             //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.RebuildSearchers(System.Collections.Generic.HashSet<string> once_off_requested_web_searchers) 
             //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.ForceSnifferSearchers() 
             //
-            if (dispose_count == 0)
+            try
             {
-                try
+                if (dispose_count == 0)
                 {
                     // Get rid of managed resources
                     ObjWebBrowser?.Dispose();
                     ObjWebBrowser = null;
-                }
-                catch (Exception ex)
-                {
-                    Logging.Error(ex, "Error disposing Gecko webbrowser");
+
+                    // Multiple WebBrowserControl instances MAY SHARE a single WebBrowserHostControl.
+                    // It is passed to this class/instance as a reference anyway, so we SHOULD NOT
+                    // kill/dispose it in here!
+                    //
+                    //web_browser_host_control.Dispose();
+
+                    ObjWebBrowser = null;
+                    web_browser_host_control = null;
                 }
 
-                // Multiple WebBrowserControl instances MAY SHARE a single WebBrowserHostControl.
-                // It is passed to this class/instance as a reference anyway, so we SHOULD NOT
-                // kill/dispose it in here!
-                //
-                //web_browser_host_control.Dispose();
+                ObjWebBrowser = null;
+                web_browser_host_control = null;
             }
-
-            ObjWebBrowser = null;
-            web_browser_host_control = null;
+            catch (Exception ex)
+            {
+                Logging.Error(ex, "Error disposing Gecko webbrowser");
+            }
 
             ++dispose_count;
         }
