@@ -337,12 +337,15 @@ namespace Qiqqa.Main
             {
                 if (dispose_count == 0)
                 {
-                    // Get rid of managed resources
-                    ObjTabWelcome.GetGoing -= ObjTabWelcome_GetGoing;
+                    WPFDoEvents.InvokeInUIThread(() =>
+                    {
+                        // Get rid of managed resources
+                        ObjTabWelcome.GetGoing -= ObjTabWelcome_GetGoing;
 
-                    ObjStartPage?.Dispose();
+                        ObjStartPage?.Dispose();
 
-                    ipc_server?.Stop();
+                        ipc_server?.Stop();
+                    }, Dispatcher);
                 }
 
                 ObjStartPage = null;

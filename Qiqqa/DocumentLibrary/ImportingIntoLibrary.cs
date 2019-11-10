@@ -472,8 +472,10 @@ namespace Qiqqa.DocumentLibrary
 
         public static void ClonePDFDocumentFromOtherLibrary_ASYNCHRONOUS(PDFDocument existing_pdf_document, Library library, LibraryPdfActionCallbacks callbacks)
         {
-            SafeThreadPool.QueueUserWorkItem(o => ClonePDFDocumentFromOtherLibrary_SYNCHRONOUS(existing_pdf_document, library));
+            SafeThreadPool.QueueUserWorkItem(o => ClonePDFDocumentFromOtherLibrary_SYNCHRONOUS(existing_pdf_document, library, callbacks));
         }
+
+        public delegate void ActionPerClonedDocument(PDFDocument target, PDFDocument source);
 
         /// <summary>
         /// Creates a new <code>PDFDocument</code> in the given library, and creates a copy of all the metadata.
@@ -486,7 +488,8 @@ namespace Qiqqa.DocumentLibrary
 
                 PDFDocument existing_pdf_document = existing_pdf_documents[i];
 
-                ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(existing_pdf_document, library);
+                PDFDocument new_pdf_document = ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(existing_pdf_document, library, callbacks);
+                doneActionPerDocument?.Invoke(new_pdf_document, existing_pdf_document);
             }
 
             library.NotifyLibraryThatDocumentListHasChangedExternally();

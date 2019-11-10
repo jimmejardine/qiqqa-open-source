@@ -67,24 +67,31 @@ namespace Utilities.Language.TextIndexing
         {
             Logging.Debug("LuceneIndex::Dispose({0}) @{1}", disposing, dispose_count);
 
-            if (dispose_count == 0)
+            try
             {
-                // Get rid of managed resources
-                Logging.Info("Disposing the lucene index writer");
+                if (dispose_count == 0)
+                {
+                    // Get rid of managed resources
+                    Logging.Info("Disposing the lucene index writer");
 
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                    Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                    lock (index_writer_lock)
+                    {
+                        l1_clk.LockPerfTimerStop();
+                        FlushIndexWriter_LOCK();
+                    }
+                }
+
+                Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
                 lock (index_writer_lock)
                 {
-                    l1_clk.LockPerfTimerStop();
-                    FlushIndexWriter_LOCK();
+                    l2_clk.LockPerfTimerStop();
+                    index_writer = null;
                 }
             }
-
-            Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
-            lock (index_writer_lock)
+            catch (Exception ex)
             {
-                l2_clk.LockPerfTimerStop();
-                index_writer = null;
+                Logging.Error(ex);
             }
 
             ++dispose_count;

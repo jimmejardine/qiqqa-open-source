@@ -92,15 +92,19 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 case "1":
                     zoom_type = ZoomType.Zoom1Up;
                     break;
+
                 case "2":
                     zoom_type = ZoomType.Zoom2Up;
                     break;
+
                 case "N":
                     zoom_type = ZoomType.ZoomNUp;
                     break;
+
                 case "W":
                     zoom_type = ZoomType.ZoomWholeUp;
                     break;
+
                 default:
                     zoom_type = ZoomType.Zoom1Up;
                     break;
@@ -176,7 +180,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 {
                     if (0 < pdf_renderer_control_stats.pdf_document.PageLastRead)
                     {
-                        //Logging.Info("**********************************Restoring page to page " + pdf_renderer_control_stats.pdf_document.PageLastRead);
+                        Logging.Debug("**********************************Restoring page to page {0}", pdf_renderer_control_stats.pdf_document.PageLastRead);
                         PDFRendererPageControl page_control = (PDFRendererPageControl)ObjPagesPanel.Children[pdf_renderer_control_stats.pdf_document.PageLastRead - 1];
                         page_control.BringIntoView();
                     }
@@ -267,9 +271,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 }
             }
 
-
-            bool SKIP = false;
-            if (SKIP)
+#if false
             {
                 // Lets pretend the pages just before and after the pages in view are in view - that way we dont have to wait for the render
                 int min_page = Int32.MaxValue;
@@ -291,6 +293,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     pages_not_in_view.Remove(page);
                 }
             }
+#endif
 
             // Clear down the pages NOT in view
             foreach (PDFRendererPageControl page in pages_not_in_view)
@@ -359,29 +362,47 @@ namespace Qiqqa.Documents.PDF.PDFControls
         {
             Logging.Debug("PDFRendererControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            if (dispose_count == 0)
+            try
             {
-                // Get the PDFDocument flushed
-                pdf_renderer_control_stats?.pdf_document.QueueToStorage();
-
-                // Get rid of managed resources
-                List<PDFRendererPageControl> children = new List<PDFRendererPageControl>();
-                foreach (PDFRendererPageControl child in ObjPagesPanel.Children.OfType<PDFRendererPageControl>())
+                if (dispose_count == 0)
                 {
-                    children.Add(child);
+                    // Get the PDFDocument flushed
+                    WPFDoEvents.InvokeInUIThread(() =>
+                    {
+                        pdf_renderer_control_stats?.pdf_document.QueueToStorage();
+
+
+                        // Get rid of managed resources
+                        List<PDFRendererPageControl> children = new List<PDFRendererPageControl>();
+                        foreach (PDFRendererPageControl child in ObjPagesPanel.Children.OfType<PDFRendererPageControl>())
+                        {
+                            children.Add(child);
+                        }
+
+                        ObjPagesPanel.Children.Clear();
+
+                        foreach (PDFRendererPageControl child in children)
+                        {
+                            try
+                            {
+                                child.Dispose();
+                            }
+                            catch (Exception ex)
+                            {
+                                Logging.Error(ex);
+                            }
+                        }
+
+                        pdf_renderer_control_stats?.pdf_document.PDFRenderer.FlushCachedPageRenderings();
+                    }, Dispatcher);
                 }
 
-                ObjPagesPanel.Children.Clear();
-
-                foreach (PDFRendererPageControl child in children)
-                {
-                    child.Dispose();
-                }
-
-                pdf_renderer_control_stats?.pdf_document.PDFRenderer.FlushCachedPageRenderings();
+                pdf_renderer_control_stats = null;
             }
-
-            pdf_renderer_control_stats = null;
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             ++dispose_count;
         }
@@ -398,89 +419,97 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         internal void PDFRendererControl_KeyUp(object sender, KeyEventArgs e)
         {
-            if (KeyboardTools.IsCTRLDown() && e.Key == Key.P)
+            if ((Keyboard.Modifiers & ModifierKeys.Control) != 0)
             {
-                if (ZoomType.Zoom1Up == zoom_type)
+                switch (e.Key)
                 {
-                    PageZoom(ZoomType.Zoom2Up);
+                    case Key.P:
+                        if (ZoomType.Zoom1Up == zoom_type)
+                        {
+                            PageZoom(ZoomType.Zoom2Up);
+                        }
+                        else
+                        {
+                            PageZoom(ZoomType.Zoom1Up);
+                        }
+
+                        e.Handled = true;
+                        break;
+
+                    case Key.M:
+                        ReconsiderOperationMode(OperationMode.Hand);
+                        e.Handled = true;
+
+                        break;
+
+                    case Key.A:
+                        ReconsiderOperationMode(OperationMode.Annotation);
+                        e.Handled = true;
+                        break;
+
+                    case Key.H:
+                        ReconsiderOperationMode(OperationMode.Highlighter);
+                        e.Handled = true;
+                        break;
+
+                    case Key.S:
+                        ReconsiderOperationMode(OperationMode.TextSentenceSelect);
+                        e.Handled = true;
+                        break;
+
+                    case Key.I:
+                        ReconsiderOperationMode(OperationMode.Ink);
+                        e.Handled = true;
+                        break;
+
+                    case Key.R:
+                        ReconsiderOperationMode(OperationMode.Camera);
+                        e.Handled = true;
+                        break;
+
+                    case Key.B:
+                        GoogleBibTexSnifferControl sniffer = new GoogleBibTexSnifferControl();
+                        sniffer.Show(pdf_renderer_control_stats.pdf_document);
+                        e.Handled = true;
+                        break;
+
+                    case Key.Add:
+                    case Key.OemPlus:
+                        IncrementalZoom(+1);
+                        e.Handled = true;
+                        break;
+
+                    case Key.Subtract:
+                    case Key.OemMinus:
+                        IncrementalZoom(-1);
+                        e.Handled = true;
+                        break;
+
+                    default:
+                        if (Key.D1 <= e.Key && Key.D9 >= e.Key)
+                        {
+                            if (KeyboardTools.IsShiftDown())
+                            {
+                                int bookmark_number = BookmarkManager.KeyToBookmarkNumber(e.Key);
+                                BookmarkManager.SetDocumentBookmark(pdf_renderer_control_stats.pdf_document, bookmark_number, ScrollPages.VerticalOffset / ScrollPages.ScrollableHeight);
+                                StatusManager.Instance.UpdateStatus("Bookmarks", "Set bookmark " + bookmark_number);
+
+                                e.Handled = true;
+                            }
+
+                            else
+                            {
+                                int bookmark_number = BookmarkManager.KeyToBookmarkNumber(e.Key);
+                                double vertical_offset = BookmarkManager.GetDocumentBookmark(pdf_renderer_control_stats.pdf_document, bookmark_number);
+                                ScrollPages.ScrollToVerticalOffset(vertical_offset * ScrollPages.ScrollableHeight);
+                                StatusManager.Instance.UpdateStatus("Bookmarks", "Jumped to bookmark " + bookmark_number);
+
+                                e.Handled = true;
+                            }
+                        }
+                        break;
                 }
-                else
-                {
-                    PageZoom(ZoomType.Zoom1Up);
-                }
-
-                e.Handled = true;
             }
-
-            else if (KeyboardTools.IsCTRLDown() && e.Key == Key.M)
-            {
-                ReconsiderOperationMode(OperationMode.Hand);
-                e.Handled = true;
-            }
-            else if (KeyboardTools.IsCTRLDown() && e.Key == Key.A)
-            {
-                ReconsiderOperationMode(OperationMode.Annotation);
-                e.Handled = true;
-            }
-            else if (KeyboardTools.IsCTRLDown() && e.Key == Key.H)
-            {
-                ReconsiderOperationMode(OperationMode.Highlighter);
-                e.Handled = true;
-            }
-            else if (KeyboardTools.IsCTRLDown() && e.Key == Key.S)
-            {
-                ReconsiderOperationMode(OperationMode.TextSentenceSelect);
-                e.Handled = true;
-            }
-            else if (KeyboardTools.IsCTRLDown() && e.Key == Key.I)
-            {
-                ReconsiderOperationMode(OperationMode.Ink);
-                e.Handled = true;
-            }
-            else if (KeyboardTools.IsCTRLDown() && e.Key == Key.R)
-            {
-                ReconsiderOperationMode(OperationMode.Camera);
-                e.Handled = true;
-            }
-            else if (KeyboardTools.IsCTRLDown() && e.Key == Key.B)
-            {
-                GoogleBibTexSnifferControl sniffer = new GoogleBibTexSnifferControl();
-                sniffer.Show(pdf_renderer_control_stats.pdf_document);
-                e.Handled = true;
-            }
-            else if (KeyboardTools.IsCTRLDown() && e.Key == Key.Add || KeyboardTools.IsCTRLDown() && e.Key == Key.OemPlus)
-            {
-                IncrementalZoom(+1);
-                e.Handled = true;
-            }
-            else if (KeyboardTools.IsCTRLDown() && e.Key == Key.Subtract || KeyboardTools.IsCTRLDown() && e.Key == Key.OemMinus)
-            {
-                IncrementalZoom(-1);
-                e.Handled = true;
-            }
-
-            else if (Key.D1 <= e.Key && Key.D9 >= e.Key)
-            {
-                if (KeyboardTools.IsCTRLDown() && KeyboardTools.IsShiftDown())
-                {
-                    int bookmark_number = BookmarkManager.KeyToBookmarkNumber(e.Key);
-                    BookmarkManager.SetDocumentBookmark(pdf_renderer_control_stats.pdf_document, bookmark_number, ScrollPages.VerticalOffset / ScrollPages.ScrollableHeight);
-                    StatusManager.Instance.UpdateStatus("Bookmarks", "Set bookmark " + bookmark_number);
-
-                    e.Handled = true;
-                }
-
-                else if (KeyboardTools.IsCTRLDown())
-                {
-                    int bookmark_number = BookmarkManager.KeyToBookmarkNumber(e.Key);
-                    double vertical_offset = BookmarkManager.GetDocumentBookmark(pdf_renderer_control_stats.pdf_document, bookmark_number);
-                    ScrollPages.ScrollToVerticalOffset(vertical_offset * ScrollPages.ScrollableHeight);
-                    StatusManager.Instance.UpdateStatus("Bookmarks", "Jumped to bookmark " + bookmark_number);
-
-                    e.Handled = true;
-                }
-            }
-
         }
 
         #region --- Mouse operation mode --------------------------------------------------------------------------------------------------------
@@ -746,15 +775,19 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     case ZoomType.Zoom1Up:
                         ConfigurationManager.Instance.ConfigurationRecord.GUI_LastPagesUp = "1";
                         break;
+
                     case ZoomType.Zoom2Up:
                         ConfigurationManager.Instance.ConfigurationRecord.GUI_LastPagesUp = "2";
                         break;
+
                     case ZoomType.ZoomNUp:
                         ConfigurationManager.Instance.ConfigurationRecord.GUI_LastPagesUp = "N";
                         break;
+
                     case ZoomType.ZoomWholeUp:
                         ConfigurationManager.Instance.ConfigurationRecord.GUI_LastPagesUp = "W";
                         break;
+
                     default:
                         break;
                 }
@@ -777,15 +810,19 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 case ZoomType.Zoom1Up:
                     ButtonedZoom(1);
                     break;
+
                 case ZoomType.Zoom2Up:
                     ButtonedZoom(2);
                     break;
+
                 case ZoomType.ZoomNUp:
                     ButtonedZoom(10);
                     break;
+
                 case ZoomType.ZoomWholeUp:
                     ZoomFullPage();
                     break;
+
                 default:
                     break;
             }

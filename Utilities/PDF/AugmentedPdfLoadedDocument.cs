@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Windows.Threading;
 using Syncfusion.Pdf.Parsing;
+using Utilities.GUI;
 
 namespace Utilities.PDF
 {
@@ -36,14 +38,21 @@ namespace Utilities.PDF
         {
             Logging.Debug("AugmentedPdfLoadedDocument::Dispose({0}) @{1}", disposing, dispose_count);
 
-            if (dispose_count == 0)
+            try
             {
-                // Get rid of managed resources
-                Close(true);
-            }
+                if (dispose_count == 0)
+                {
+                    // Get rid of managed resources
+                    Close(true);
+                }
 
-            // Get rid of unmanaged resources 
-            base.Dispose();
+                // Get rid of unmanaged resources 
+                base.Dispose();
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             ++dispose_count;
         }

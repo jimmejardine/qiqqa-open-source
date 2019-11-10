@@ -894,6 +894,50 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
         public void CopyMetaData(PDFDocument_ThreadUnsafe pdf_document_template, bool copy_fingerprint = true)
         {
+            // TODO: do a proper merge, based on flags from the caller about to do and what to pass:
+            HashSet<string> keys = new HashSet<string>(dictionary.Keys);
+            foreach (var k2 in pdf_document_template.dictionary.Keys)
+            {
+                keys.Add(k2);
+            }
+            // now go through the list and see where the clashes are:
+            foreach (var k in keys)
+            {
+                if (null == dictionary[k])
+                {
+                    // no collision possible: overwriting NULL or empty/non-existing slot, so we're good
+                }
+                else
+                {
+                    object o1 = dictionary[k];
+                    object o2 = pdf_document_template.dictionary[k];
+                    string s1 = o1?.ToString();
+                    string s2 = o2?.ToString();
+                    string t1 = o1?.GetType().ToString();
+                    string t2 = o2?.GetType().ToString();
+                    if (s1 == s2 && t1 == t2)
+                    {
+                        // values match, so no change. We're golden.
+                    }
+                    else
+                    {
+                        Logging.Warn("Copying/Moving metadata into {0}: collision on key {1}: old value = ({4})'{2}', new value = ({5})'{3}'", this.Fingerprint, k, s1, s2, t1, t2);
+                        
+						// TODO: when this is used for merging metadata anyway...
+						switch (k)
+                        {
+                            case "DateAddedToDatabase":
+                                // take oldest date:
+                                break;
+
+                            case "DateLastModified":
+                                // take latest, unless the last mod dates match the DateAddedToDatabase records: in that case, use the picked DateAddedToDatabase
+                                break;
+                        }
+                    }
+                }
+            }
+
             dictionary["ColorWrapper"] = pdf_document_template.dictionary["ColorWrapper"];
             dictionary["DateAddedToDatabase"] = pdf_document_template.dictionary["DateAddedToDatabase"];
             dictionary["DateLastCited"] = pdf_document_template.dictionary["DateLastCited"];
@@ -2199,6 +2243,8 @@ namespace Qiqqa.Documents.PDF
             // prevent deadlock due to possible incorrect use of this API:
             if (existing_pdf_document != this)
             {
+                Logging.Warn("TODO: CloneMetaData: MERGE metadata for existing document and document which was copied/moved into this library. Target Document: {0}, Source Document: {1}", this.Fingerprint, existing_pdf_document.Library);
+
                 lock (existing_pdf_document.access_lock)
                 {
                     lock (access_lock)

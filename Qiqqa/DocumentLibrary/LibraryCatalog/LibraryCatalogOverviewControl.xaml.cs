@@ -381,16 +381,16 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
                     {
                         WizardDPs.ClearPointOfInterest(PanelSearchScore);
                         WizardDPs.ClearPointOfInterest(ObjLookInsidePanel);
-                    });
 
-                    TextTitle.MouseLeftButtonUp -= TextTitle_MouseLeftButtonUp;
+                        TextTitle.MouseLeftButtonUp -= TextTitle_MouseLeftButtonUp;
 
-                    ButtonOpen.ToolTipOpening -= HyperlinkPreview_ToolTipOpening;
-                    ButtonOpen.ToolTipClosing -= HyperlinkPreview_ToolTipClosing;
+                        ButtonOpen.ToolTipOpening -= HyperlinkPreview_ToolTipOpening;
+                        ButtonOpen.ToolTipClosing -= HyperlinkPreview_ToolTipClosing;
 
-                    ListSearchDetails.SearchClicked -= ListSearchDetails_SearchSelectionChanged;
+                        ListSearchDetails.SearchClicked -= ListSearchDetails_SearchSelectionChanged;
 
-                    DataContextChanged -= LibraryCatalogOverviewControl_DataContextChanged;
+                        DataContextChanged -= LibraryCatalogOverviewControl_DataContextChanged;
+                    }, Dispatcher);
                 }
 
                 // Clear the references for sanity's sake

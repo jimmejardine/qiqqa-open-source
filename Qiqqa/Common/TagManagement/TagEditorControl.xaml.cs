@@ -121,26 +121,33 @@ namespace Qiqqa.Common.TagManagement
         {
             Logging.Debug("TagEditorControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            // *Nobody* gets any updates from us anymore, so we can delete cached content etc. in peace. (https://github.com/jimmejardine/qiqqa-open-source/issues/121)
-            WPFDoEvents.InvokeInUIThread(() =>
+            try
             {
-                BindingOperations.ClearBinding(this, TagsBundleProperty);
-
-                if (null != wdpcn)
+                // *Nobody* gets any updates from us anymore, so we can delete cached content etc. in peace. (https://github.com/jimmejardine/qiqqa-open-source/issues/121)
+                WPFDoEvents.InvokeInUIThread(() =>
                 {
-                    wdpcn.ValueChanged -= OnTagsBundlePropertyChanged;
-                }
-                // TagsBundle = null;  <-- forbidden to reset as that MAY trigger a dependency update! (https://github.com/jimmejardine/qiqqa-open-source/issues/121)
+                    BindingOperations.ClearBinding(this, TagsBundleProperty);
 
-                ObjTagsPanel.Children.Clear();
-            });
+                    if (null != wdpcn)
+                    {
+                        wdpcn.ValueChanged -= OnTagsBundlePropertyChanged;
+                    }
+                    // TagsBundle = null;  <-- forbidden to reset as that MAY trigger a dependency update! (https://github.com/jimmejardine/qiqqa-open-source/issues/121)
 
-            // Get rid of managed resources
-            wdpcn?.Dispose();
+                    ObjTagsPanel.Children.Clear();
+                }, Dispatcher);
 
-            ObjAddControl.OnNewTag -= ObjAddControl_OnNewTag;
+                // Get rid of managed resources
+                wdpcn?.Dispose();
 
-            wdpcn = null;
+                ObjAddControl.OnNewTag -= ObjAddControl_OnNewTag;
+
+                wdpcn = null;
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             ++dispose_count;
         }

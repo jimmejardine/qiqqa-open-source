@@ -758,32 +758,36 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             {
                 if (dispose_count == 0)
                 {
-                    pdf_renderer_control_stats.pdf_document.PDFRenderer.OnPageTextAvailable -= pdf_renderer_OnPageTextAvailable;
-
-                    foreach (PageLayer page_layer in page_layers)
+                    WPFDoEvents.InvokeInUIThread(() =>
                     {
-                        page_layer.Dispose();
-                    }
-                    page_layers.Clear();
+                        pdf_renderer_control_stats.pdf_document.PDFRenderer.OnPageTextAvailable -= pdf_renderer_OnPageTextAvailable;
 
-                    // Also erase any pending RefreshPage work:
-                    Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-                    lock (pending_refresh_work_lock)
-                    {
-                        l1_clk.LockPerfTimerStop();
-                        pending_refresh_work_fast = null;
-                        pending_refresh_work_slow = null;
-                    }
+                        foreach (PageLayer page_layer in page_layers)
+                        {
+                            page_layer.Dispose();
+                        }
+                        page_layers.Clear();
 
-#if false           // These Dispose() calls have already been done above in the page_layers.Dispose() loop!
-                CanvasTextSentence_.Dispose();
-                CanvasSearch_.Dispose();
-                CanvasAnnotation_.Dispose();
-                CanvasHighlight_.Dispose();
-                CanvasCamera_.Dispose();
-                CanvasHand_.Dispose();
-                CanvasInk_.Dispose();
+                        // Also erase any pending RefreshPage work:
+                        Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                        lock (pending_refresh_work_lock)
+                        {
+                            l1_clk.LockPerfTimerStop();
+                            pending_refresh_work_fast = null;
+                            pending_refresh_work_slow = null;
+                        }
+
+#if false               // These Dispose() calls have already been done above in the page_layers.Dispose() loop!
+                        CanvasTextSentence_.Dispose();
+                        CanvasSearch_.Dispose();
+                        CanvasAnnotation_.Dispose();
+                        CanvasHighlight_.Dispose();
+                        CanvasCamera_.Dispose();
+                        CanvasHand_.Dispose();
+                        CanvasInk_.Dispose();
 #endif
+                        page_layers = null;
+                    }, Dispatcher);
                 }
 
                 page_layers = null;

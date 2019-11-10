@@ -510,8 +510,6 @@ namespace Qiqqa.DocumentLibrary
         {
             PDFDocument pdf_document = AddNewDocumentToLibrary(pdf_document_template.DocumentPath, pdf_document_template.DownloadLocation, pdf_document_template.DownloadLocation, pdf_document_template.BibTex, null, null, suppressDialogs, suppress_signal_that_docs_have_changed);
 
-            pdf_document.CloneMetaData(pdf_document_template);
-
             return pdf_document;
         }
 
@@ -588,6 +586,10 @@ namespace Qiqqa.DocumentLibrary
                     l1_clk.LockPerfTimerStop();
                     pdf_documents[new_pdf_document.Fingerprint] = new_pdf_document;
                 }
+            }
+            else
+            {
+                Logging.Warn("TODO: MERGE metadata for existing document and document which was copied/moved into this library. Document: {0}, {1}", new_pdf_document.Fingerprint, new_pdf_document.Library.ToString());
             }
 
             // clone the metadata and switch libraries
@@ -1033,64 +1035,70 @@ namespace Qiqqa.DocumentLibrary
         {
             Logging.Debug("Library::Dispose({0}) @{1}", disposing, dispose_count);
 
-            LibraryIsKilled = true;
-
-            if (dispose_count == 0)
+            try
             {
-                // Get rid of managed resources / get rid of cyclic references:
+                LibraryIsKilled = true;
 
-                // Do we need to check that the library has finished being loaded?
-
-                // Switch off the living things
-                library_index?.Dispose();
-                folder_watcher_manager?.Dispose();
-
-                // NULL the memory database
-                Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
-                lock (pdf_documents_lock)
+                if (dispose_count == 0)
                 {
-                    l2_clk.LockPerfTimerStop();
-                    pdf_documents.Clear();
-                    pdf_documents = null;
-                }
-            }
+                    // Get rid of managed resources / get rid of cyclic references:
 
-            // Clear the references for sanity's sake
-            expedition_manager = null;
-            password_manager = null;
-            blackwhite_list_manager = null;
-            recently_read_manager = null;
-            ai_tag_manager = null;
-            library_index = null;
-            folder_watcher_manager = null;
-            library_db = null;
+                    // Do we need to check that the library has finished being loaded?
+
+                    // Switch off the living things
+                    library_index?.Dispose();
+                    folder_watcher_manager?.Dispose();
+
+                    // NULL the memory database
+                    Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+                    lock (pdf_documents_lock)
+                    {
+                        l2_clk.LockPerfTimerStop();
+                        pdf_documents.Clear();
+                        pdf_documents = null;
+                    }
+                }
+
+                // Clear the references for sanity's sake
+                expedition_manager = null;
+                password_manager = null;
+                blackwhite_list_manager = null;
+                recently_read_manager = null;
+                ai_tag_manager = null;
+                library_index = null;
+                folder_watcher_manager = null;
+                library_db = null;
 
 #if false
-            web_library_detail = null;       // cyclic reference as WebLibraryDetail instance reference us, so we MUST nil this one to break the cycle for the GC to work well.
+                web_library_detail = null;       // cyclic reference as WebLibraryDetail instance reference us, so we MUST nil this one to break the cycle for the GC to work well.
 #else
-            // cyclic reference as WebLibraryDetail instance reference us, so we MUST nil this one to break the cycle for the GC to work well.
-            //
-            // WARNING:
-            // The most obvious way (see above in `#if false` branch) would be to NULL the weblibdetail reference, but this will cause all sorts of extremely
-            // nasty crashes, including memory corruption, as this reference is accessed in Library background task(s) which might discover that the
-            // library at hand has been killed rather late.
-            //
-            // When those code chunks, e.g. *anything* inside `BuildFromDocumentRepository()`, crash on a NULL dereference of any of the other NULLed
-            // library members, the error resolution code highly depends on a *still working* web_library_detail reference/instance.
-            // To resolve the cyclic reference in there (as the web_lib_detail has a `Library` reference), we hack this by creating a *temporary*
-            // intermediate web_library_detail instance, which is a copy of the original *sans Library reference*.
-            // We DO NOT nuke the Library member in the original web_library_detail as that would cause all sorts of other harm since there's other
-            // code which depends on a certain valid lifetime of that instance and that code should dispose of the record once it is done using it...
-            //
-            // Cloning...
-            web_library_detail = web_library_detail.CloneSansLibraryReference();
-
+                // cyclic reference as WebLibraryDetail instance reference us, so we MUST nil this one to break the cycle for the GC to work well.
+                //
+                // WARNING:
+                // The most obvious way (see above in `#if false` branch) would be to NULL the weblibdetail reference, but this will cause all sorts of extremely
+                // nasty crashes, including memory corruption, as this reference is accessed in Library background task(s) which might discover that the
+                // library at hand has been killed rather late.
+                //
+                // When those code chunks, e.g. *anything* inside `BuildFromDocumentRepository()`, crash on a NULL dereference of any of the other NULLed
+                // library members, the error resolution code highly depends on a *still working* web_library_detail reference/instance.
+                // To resolve the cyclic reference in there (as the web_lib_detail has a `Library` reference), we hack this by creating a *temporary*
+                // intermediate web_library_detail instance, which is a copy of the original *sans Library reference*.
+                // We DO NOT nuke the Library member in the original web_library_detail as that would cause all sorts of other harm since there's other
+                // code which depends on a certain valid lifetime of that instance and that code should dispose of the record once it is done using it...
+                //
+                // Cloning...
+                web_library_detail = web_library_detail.CloneSansLibraryReference();
 #endif
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             ++dispose_count;
         }
 
-#endregion
+        #endregion
 
     }
 }

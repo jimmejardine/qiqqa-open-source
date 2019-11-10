@@ -365,12 +365,14 @@ SourceURL: {0}
 
         private void MenuCopyToAnotherLibrary_Click(object sender, RoutedEventArgs e)
         {
+            Logging.Debug特("User picked 'Copy to another library' menu item.");
             popup.Close();
             MoveOrCopyCommon(Features.Library_CopyDocumentToAnotherLibrary, false);
         }
 
         private void MenuMoveToAnotherLibrary_Click(object sender, RoutedEventArgs e)
         {
+            Logging.Debug特("User picked 'Mode to another library' menu item.");
             popup.Close();
             MoveOrCopyCommon(Features.Library_MoveDocumentToAnotherLibrary, true);
         }
@@ -380,6 +382,7 @@ SourceURL: {0}
             WebLibraryDetail web_library_detail = WebLibraryPicker.PickWebLibrary();
             if (null == web_library_detail)
             {
+                Logging.Warn("User did not pick a library to copy or move to: pick = NULL.");
                 return;
             }
 
@@ -398,14 +401,21 @@ SourceURL: {0}
                 return;
             }
 
-            FeatureTrackingManager.Instance.UseFeature(feature);
+            // Copying / Moving PDFDocuments takes a while, particularly if it's a large set.
+            //
+            // Hence this WORK should be executed by a background task.
+            SafeThreadPool.QueueUserWorkItem(o =>
+            {
+                FeatureTrackingManager.Instance.UseFeature(feature);
 
             ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_ASYNCHRONOUS(pdf_documents, web_library_detail.library, new LibraryPdfActionCallbacks
             {
                 //OnAddedOrSkipped   -- too risky for now: we MAY skip when the bibtex differ in both libs and then we shouldn't delete this record!
                 OnAdded = (pdf_document, filename) =>
                 {
-                    if (delete_source_pdf_documents)
+					source = pdf_document;
+					// TODO ...
+                    if (delete_source_pdf_documents && null != target && null != source && target != source)
                     {
 	                    pdf_document.Library.DeleteDocument(pdf_document);
                     }

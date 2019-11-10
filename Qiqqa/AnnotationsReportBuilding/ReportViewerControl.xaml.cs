@@ -11,6 +11,7 @@ using Syncfusion.Pdf;
 using Syncfusion.Pdf.Graphics;
 using Utilities;
 using Utilities.Files;
+using Utilities.GUI;
 using Utilities.GUI.Wizard;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
@@ -89,11 +90,21 @@ namespace Qiqqa.AnnotationsReportBuilding
         {
             Logging.Debug("ReportViewerControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            // Get rid of managed resources
-            ObjDocumentViewer.Document?.Blocks.Clear();
+            try
+            {
+                WPFDoEvents.InvokeInUIThread(() =>
+                {
+                    // Get rid of managed resources
+                    ObjDocumentViewer.Document?.Blocks.Clear();
+                }, Dispatcher);
 
-            ObjDocumentViewer.Document = null;
-            annotation_report = null;
+                ObjDocumentViewer.Document = null;
+                annotation_report = null;
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             ++dispose_count;
         }
