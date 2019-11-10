@@ -138,17 +138,24 @@ namespace Qiqqa.Brainstorm.Nodes
         {
             Logging.Debug("PDFAnnotationNodeContentControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            if (dispose_count == 0)
+            try
             {
-                library_index_hover_popup?.Dispose();
+                if (dispose_count == 0)
+                {
+                    library_index_hover_popup?.Dispose();
 
-                ToolTipClosing -= PDFDocumentNodeContentControl_ToolTipClosing;
-                ToolTipOpening -= PDFDocumentNodeContentControl_ToolTipOpening;
+                    ToolTipClosing -= PDFDocumentNodeContentControl_ToolTipClosing;
+                    ToolTipOpening -= PDFDocumentNodeContentControl_ToolTipOpening;
+                }
+
+                // Clear the references for sanity's sake
+                pdf_annotation_node_content = null;
+                library_index_hover_popup = null;
             }
-
-            // Clear the references for sanity's sake
-            pdf_annotation_node_content = null;
-            library_index_hover_popup = null;
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             ++dispose_count;
         }

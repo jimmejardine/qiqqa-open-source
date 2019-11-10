@@ -34,16 +34,23 @@ namespace Utilities.ConsoleRedirector
         {
             Logging.Debug("ConsoleForm::Dispose({0}) @{1}", disposing, dispose_count);
 
-            if (dispose_count == 0)
+            try
             {
-                components?.Dispose();
-                objText?.Dispose();
+                if (dispose_count == 0)
+                {
+                    components?.Dispose();
+                    objText?.Dispose();
+                }
+
+                components = null;
+                objText = null;
+
+                base.Dispose(disposing);
             }
-
-            components = null;
-            objText = null;
-
-            base.Dispose(disposing);
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             ++dispose_count;
         }

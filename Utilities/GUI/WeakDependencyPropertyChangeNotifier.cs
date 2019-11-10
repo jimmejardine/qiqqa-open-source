@@ -54,15 +54,22 @@ namespace Utilities.GUI
         {
             Logging.Debug("WeakDependencyPropertyChangeNotifier::Dispose({0}) @{1}", disposing, dispose_count);
 
-            if (dispose_count == 0)
+            try
             {
-                WPFDoEvents.InvokeInUIThread(() =>
+                if (dispose_count == 0)
                 {
-                    BindingOperations.ClearBinding(this, ValueProperty);
-                });
-            }
+                    WPFDoEvents.InvokeInUIThread(() =>
+                    {
+                        BindingOperations.ClearBinding(this, ValueProperty);
+                    }, Dispatcher);
+                }
 
-            _propertySource = null;
+                _propertySource = null;
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             ++dispose_count;
         }

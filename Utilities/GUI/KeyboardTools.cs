@@ -24,14 +24,62 @@ namespace Utilities.GUI
             return Keyboard.IsKeyDown(Key.LWin) || Keyboard.IsKeyDown(Key.RWin);
         }
 
-        public static bool isAlphaNumeric(int code)
+        public static KeyPressCode Key2KeyPressCode(Key k)
         {
-            if (code >= 'A' && code <= 'Z') return true;
-            if (code >= '0' && code <= '9') return true;
-            if (code == ' ') return true;
+            KeyPressCode rv = (KeyPressCode)k;
 
-            return false;
+            if (Keyboard.IsKeyDown(Key.LeftCtrl))
+            {
+                rv |= KeyPressCode.LeftCtrl;
+            }
+            if (Keyboard.IsKeyDown(Key.RightCtrl))
+            {
+                rv |= KeyPressCode.RightShift;
+            }
+
+            if (Keyboard.IsKeyDown(Key.LeftAlt))
+            {
+                rv |= KeyPressCode.LeftAlt;
+            }
+            if (Keyboard.IsKeyDown(Key.RightAlt))
+            {
+                rv |= KeyPressCode.RightAlt;
+            }
+
+            if (Keyboard.IsKeyDown(Key.LeftShift))
+            {
+                rv |= KeyPressCode.LeftShift;
+            }
+            if (Keyboard.IsKeyDown(Key.RightShift))
+            {
+                rv |= KeyPressCode.RightShift;
+            }
+
+            if (Keyboard.IsKeyDown(Key.LWin))
+            {
+                rv |= KeyPressCode.LeftWin;
+            }
+            if (Keyboard.IsKeyDown(Key.RWin))
+            {
+                rv |= KeyPressCode.RightWin;
+            }
+
+            if (Keyboard.IsKeyDown(Key.Apps))
+            {
+                rv |= KeyPressCode.Apps;
+            }
+
+            return rv;
         }
 
+        public static KeyPressCode GetCleanKeyPressCode(KeyPressCode k)
+        {
+            return k & KeyPressCode.KeyCodeMask;
+        }
+
+        public static KeyPressCode GetKeyPressMetaBits(KeyPressCode k)
+        {
+            return k & KeyPressCode.MetaKeysMask;
+        }
     }
 }

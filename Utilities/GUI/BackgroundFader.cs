@@ -59,17 +59,24 @@ namespace Utilities.GUI
         {
             Logging.Debug("BackgroundFader::Dispose({0}) @{1}", disposing, dispose_count);
 
-            if (dispose_count == 0)
+            try
             {
-                // Get rid of managed resources / get rid of cyclic references:
-                if (null != control)
+                if (dispose_count == 0)
                 {
-                    control.MouseEnter -= DocumentNodeContentControl_MouseEnter;
-                    control.MouseLeave -= DocumentNodeContentControl_MouseLeave;
+                    // Get rid of managed resources / get rid of cyclic references:
+                    if (null != control)
+                    {
+                        control.MouseEnter -= DocumentNodeContentControl_MouseEnter;
+                        control.MouseLeave -= DocumentNodeContentControl_MouseLeave;
+                    }
                 }
-            }
 
-            control = null;
+                control = null;
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             ++dispose_count;
         }

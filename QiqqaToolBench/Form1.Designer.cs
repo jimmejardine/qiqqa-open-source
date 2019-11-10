@@ -1,4 +1,6 @@
-﻿namespace QiqqaToolBench
+﻿using System;
+
+namespace QiqqaToolBench
 {
     partial class Form1
     {
@@ -13,11 +15,18 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && components != null)
+            try
             {
-                components.Dispose();
+                if (disposing && components != null)
+                {
+                    components.Dispose();
+                }
+                base.Dispose(disposing);
             }
-            base.Dispose(disposing);
+            catch (Exception ex)
+            {
+                //Logging.Error(ex);
+            }
         }
 
         #region Windows Form Designer generated code
@@ -144,7 +153,7 @@
             // 
             // webBrowserPane
             // 
-            this.webBrowserPane.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.webBrowserPane.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.webBrowserPane.Location = new System.Drawing.Point(0, 97);
             this.webBrowserPane.MinimumSize = new System.Drawing.Size(20, 20);

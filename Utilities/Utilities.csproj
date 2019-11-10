@@ -48,7 +48,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>82.0.7215.35951</ApplicationVersion>
+    <ApplicationVersion>82.0.7222.1299</ApplicationVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -731,6 +731,7 @@
     <Compile Include="Misc\DictionaryBasedObject.cs" />
     <Compile Include="Mathematics\Optimisation\NelderMead\Point2D.cs" />
     <Compile Include="Misc\DragDropTools.cs" />
+    <Compile Include="Misc\KeyPressCodes.cs" />
     <Compile Include="Misc\NotificationManager.cs" />
     <Compile Include="Misc\Pair.cs" />
     <Compile Include="Misc\ProgressLogger.cs" />

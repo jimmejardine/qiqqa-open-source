@@ -126,16 +126,23 @@ namespace Qiqqa.Common.ReadOutLoud
         {
             Logging.Debug("ReadOutLoudManager::Dispose({0}) @{1}", disposing, dispose_count);
 
-            if (dispose_count == 0)
+            try
             {
-                // Get rid of managed resources
-                speech_synthesizer?.Dispose();
-            }
-            speech_synthesizer = null;
+                if (dispose_count == 0)
+                {
+                    // Get rid of managed resources
+                    speech_synthesizer?.Dispose();
+                }
+                speech_synthesizer = null;
 
-            current_prompt = null;
-            last_words?.Clear();
-            last_words = null;
+                current_prompt = null;
+                last_words?.Clear();
+                last_words = null;
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             ++dispose_count;
         }

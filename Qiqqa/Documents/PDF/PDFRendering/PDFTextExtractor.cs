@@ -126,16 +126,23 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             {
                 Logging.Debug("NextJob::Dispose({0}) @{1}", disposing, dispose_count);
 
-                if (dispose_count == 0)
+                try
                 {
-                    // Notify that this job is done...
-                    pdf_text_extractor.RecordThatJobHasCompleted(this);
+                    if (dispose_count == 0)
+                    {
+                        // Notify that this job is done...
+                        pdf_text_extractor.RecordThatJobHasCompleted(this);
 
-                    //job?.Clear();
+                        //job?.Clear();
+                    }
+
+                    pdf_text_extractor = null;
+                    job = null;
                 }
-
-                pdf_text_extractor = null;
-                job = null;
+                catch (Exception ex)
+                {
+                    Logging.Error(ex);
+                }
 
                 ++dispose_count;
             }
@@ -766,7 +773,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                     if (!process.HasExited || 0 != process.ExitCode)
                     {
                         bool has_exited = process.HasExited;
-                        
+
                         if (!has_exited)
                         {
                             try

@@ -401,22 +401,29 @@ namespace Qiqqa.InCite
         {
             Logging.Debug("CSLProcessorOutputConsumer::Dispose({0}) @{1}", disposing, dispose_count);
 
-            if (dispose_count == 0)
+            try
             {
-                // Get rid of managed resources
-                web_browser?.Dispose();
+                if (dispose_count == 0)
+                {
+                    // Get rid of managed resources
+                    web_browser?.Dispose();
+                }
+
+                web_browser = null;
+
+                brd = null;
+                user_argument = null;
+
+                position_to_inline.Clear();
+                inline_to_positions.Clear();
+                position_to_text.Clear();
+                bibliography.Clear();
+                logs.Clear();
             }
-
-            web_browser = null;
-
-            brd = null;
-            user_argument = null;
-
-            position_to_inline.Clear();
-            inline_to_positions.Clear();
-            position_to_text.Clear();
-            bibliography.Clear();
-            logs.Clear();
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
 
             ++dispose_count;
         }

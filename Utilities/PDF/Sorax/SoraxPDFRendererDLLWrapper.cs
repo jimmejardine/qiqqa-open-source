@@ -2,6 +2,8 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Windows.Threading;
+using Utilities.GUI;
 
 namespace Utilities.PDF.Sorax
 {
@@ -41,14 +43,21 @@ namespace Utilities.PDF.Sorax
             {
                 Logging.Debug("HDOCWrapper::Dispose({0}) @{1}", disposing, dispose_count);
 
-                if (dispose_count == 0)
+                try
                 {
-                    // Get rid of managed resources
-                    if (IntPtr.Zero != HDOC)
+                    if (dispose_count == 0)
                     {
-                        SoraxDLL.SPD_Close(HDOC);
-                        HDOC = IntPtr.Zero;
+                        // Get rid of managed resources
+                        if (IntPtr.Zero != HDOC)
+                        {
+                            SoraxDLL.SPD_Close(HDOC);
+                            HDOC = IntPtr.Zero;
+                        }
                     }
+                }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex);
                 }
 
                 ++dispose_count;

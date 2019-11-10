@@ -43,14 +43,21 @@ namespace Utilities.Language
         /// </summary>
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
+            try
             {
-                if (components != null)
+                if (disposing)
                 {
-                    components.Dispose();
+                    if (components != null)
+                    {
+                        components.Dispose();
+                    }
                 }
+                base.Dispose(disposing);
             }
-            base.Dispose(disposing);
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
         }
 
         #region Component Designer generated code

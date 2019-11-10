@@ -60,10 +60,10 @@ Hence both these projects (which can take **quite** a while to build!) SHOULD be
 
 Check the screenshot below to verify you have unchecked the correct projects in both the *Debug* and *Release* targets:
 
-![Configuration Manager](.docs/images/devinfcm.png) 
+![Configuration Manager](./docs/images/devinfcm.png) 
 
 
-#### 3:
+#### 3: know about these shell scripts
 
 These `bash` scripts are important for development:
 
@@ -74,7 +74,7 @@ These `bash` scripts are important for development:
 - `./build_installer.sh` : the alternative to building the Qiqqa.Packager project and the older way to build a Qiqqa `setup.exe` installer. Less relevant today...
 
 
-#### 4:
+#### 4: `npm i` installs mandatory dev packages before you can start compiling Qiqqa source code
 
 Before you run any `bash` script or build anything using your Visual Studio IDE, you should have installed `node`+`npm` on your machine and run this command in the repository base directory (a.k.a. devtree root a.k.a. the directory where this DEVELOPER-INFO.md file resides):
 

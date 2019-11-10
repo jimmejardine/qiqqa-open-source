@@ -364,12 +364,14 @@ SourceURL: {0}
 
         private void MenuCopyToAnotherLibrary_Click(object sender, RoutedEventArgs e)
         {
+            Logging.Debug特("User picked 'Copy to another library' menu item.");
             popup.Close();
             MoveOrCopyCommon(Features.Library_CopyDocumentToAnotherLibrary, false);
         }
 
         private void MenuMoveToAnotherLibrary_Click(object sender, RoutedEventArgs e)
         {
+            Logging.Debug特("User picked 'Mode to another library' menu item.");
             popup.Close();
             MoveOrCopyCommon(Features.Library_MoveDocumentToAnotherLibrary, true);
         }
@@ -379,6 +381,7 @@ SourceURL: {0}
             WebLibraryDetail web_library_detail = WebLibraryPicker.PickWebLibrary();
             if (null == web_library_detail)
             {
+                Logging.Warn("User did not pick a library to copy or move to: pick = NULL.");
                 return;
             }
 
@@ -397,17 +400,21 @@ SourceURL: {0}
                 return;
             }
 
-            FeatureTrackingManager.Instance.UseFeature(feature);
-
-            ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(pdf_documents, web_library_detail.library);
-
-            if (delete_source_pdf_documents)
+            // Copying / Moving PDFDocuments takes a while, particularly if it's a large set.
+            //
+            // Hence this WORK should be executed by a background task.
+            SafeThreadPool.QueueUserWorkItem(o =>
             {
-                foreach (var pdf_document in pdf_documents)
+                FeatureTrackingManager.Instance.UseFeature(feature);
+
+                ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(pdf_documents, web_library_detail.library, delegate (PDFDocument target, PDFDocument source)
                 {
-                    pdf_document.Library.DeleteDocument(pdf_document);
-                }
-            }
+                    if (delete_source_pdf_documents && null != target && null != source && target != source)
+                    {
+                        source.Library.DeleteDocument(source);
+                    }
+                });
+            });
         }
 
         private void MenuUseKeywordsAsTags_Click(object sender, RoutedEventArgs e)
