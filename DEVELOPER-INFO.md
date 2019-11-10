@@ -60,7 +60,7 @@ Hence both these projects (which can take **quite** a while to build!) SHOULD be
 
 Check the screenshot below to verify you have unchecked the correct projects in both the *Debug* and *Release* targets:
 
-![Configuration Manager](.docs/images/devinfcm.png) 
+![Configuration Manager](./docs/images/devinfcm.png) 
 
 
 #### 3:
