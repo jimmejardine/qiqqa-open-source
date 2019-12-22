@@ -145,39 +145,46 @@ namespace Qiqqa.Synchronisation.BusinessLogic
                 foreach (LibrarySyncDetail library_sync_detail in global_sync_detail.library_sync_details)
                 {
                     //  Eagerly sync metadata
-                    library_sync_detail.sync_decision = new LibrarySyncDetail.SyncDecision();
-                    library_sync_detail.sync_decision.can_sync_metadata = true;
+                    LibrarySyncDetail.SyncDecision d = library_sync_detail.sync_decision = new LibrarySyncDetail.SyncDecision();
 
                     // Never guests
                     if (library_sync_detail.web_library_detail.IsLocalGuestLibrary)
                     {
-                        library_sync_detail.sync_decision.can_sync = false;
-                        library_sync_detail.sync_decision.can_sync_metadata = false;
-                        library_sync_detail.sync_decision.is_readonly = library_sync_detail.web_library_detail.IsReadOnly;
+                        d.can_sync = false;
+                        d.can_sync_metadata = false;
+                        d.is_readonly = library_sync_detail.web_library_detail.IsReadOnly;
                     }
 
                     // Intranets are dependent on premium
                     else if (library_sync_detail.web_library_detail.IsIntranetLibrary)
                     {
-                        library_sync_detail.sync_decision.can_sync = true;
-                        library_sync_detail.sync_decision.can_sync_metadata = true;
-                        library_sync_detail.sync_decision.is_readonly = library_sync_detail.web_library_detail.IsReadOnly;
+                        d.can_sync = true;
+                        d.can_sync_metadata = true;
+                        d.is_readonly = library_sync_detail.web_library_detail.IsReadOnly;
+                    }
+
+                    // TODO: Web libs should be syncable, right?
+                    else if (library_sync_detail.web_library_detail.IsWebLibrary)
+                    {
+                        d.can_sync = true;
+                        d.can_sync_metadata = true;
+                        d.is_readonly = library_sync_detail.web_library_detail.IsReadOnly;
                     }
 
                     // Bundles can never sync
                     else if (library_sync_detail.web_library_detail.IsBundleLibrary)
                     {
-                        library_sync_detail.sync_decision.can_sync = false;
-                        library_sync_detail.sync_decision.can_sync_metadata = false;
-                        library_sync_detail.sync_decision.is_readonly = library_sync_detail.web_library_detail.IsReadOnly;
+                        d.can_sync = false;
+                        d.can_sync_metadata = false;
+                        d.is_readonly = library_sync_detail.web_library_detail.IsReadOnly;
                     }
 
                     // Unknown library types
                     else
                     {
-                        library_sync_detail.sync_decision.can_sync = false;
-                        library_sync_detail.sync_decision.can_sync_metadata = false;
-                        library_sync_detail.sync_decision.is_readonly = true;
+                        d.can_sync = false;
+                        d.can_sync_metadata = false;
+                        d.is_readonly = true;
                     }
                 }
 
