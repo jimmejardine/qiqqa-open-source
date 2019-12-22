@@ -66,7 +66,15 @@ namespace Qiqqa.Synchronisation.BusinessLogic
 
             SafeThreadPool.QueueUserWorkItem(o =>
             {
-                GlobalSyncDetail global_sync_detail = GenerateGlobalSyncDetail(tally_library_storage_size: true);
+                //
+                // Explicitly instruct the sync info collector to perform a swift scan, which DOES NOT include
+                // collecting the precise size of every document in every Qiqqa library (which itself is a *significant*
+                // file system load when you have any reasonably large libraries like I do.          [GHo]
+                //
+                // TODO: fetch and cache document filesizes in the background, so we can improve on the accuracy
+                // our numbers in a future call to this method.
+                //
+                GlobalSyncDetail global_sync_detail = GenerateGlobalSyncDetail(tally_library_storage_size: false);
                 WPFDoEvents.InvokeInUIThread(() =>
                 {
                     WPFDoEvents.ResetHourglassCursor();
@@ -86,7 +94,15 @@ namespace Qiqqa.Synchronisation.BusinessLogic
 
             SafeThreadPool.QueueUserWorkItem(o =>
             {
-                GlobalSyncDetail global_sync_detail = GenerateGlobalSyncDetail(tally_library_storage_size: true);
+                //
+                // Explicitly instruct the sync info collector to perform a swift scan, which DOES NOT include
+                // collecting the precise size of every document in every Qiqqa library (which itself is a *significant*
+                // file system load when you have any reasonably large libraries like I do.          [GHo]
+                //
+                // TODO: fetch and cache document filesizes in the background, so we can improve on the accuracy
+                // our numbers in a future call to this method.
+                //
+                GlobalSyncDetail global_sync_detail = GenerateGlobalSyncDetail(tally_library_storage_size: false);
                 WPFDoEvents.InvokeInUIThread(() =>
                 {
                     WPFDoEvents.ResetHourglassCursor();
