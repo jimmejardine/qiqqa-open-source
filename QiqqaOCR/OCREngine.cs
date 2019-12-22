@@ -375,15 +375,17 @@ namespace QiqqaOCR
             Color baseColor = baseColorPen.Color;
 
             Color c = Color.FromArgb(ALPHA, baseColor.R, baseColor.G, baseColor.B);
-            Pen pen = new Pen(c, 2);
-
-            Color fill_c = Color.FromArgb(ALPHA_FILL, baseColor.R, baseColor.G, baseColor.B);
-            SolidBrush br = new SolidBrush(fill_c);
-
-            // create a new rectangle that's an *outline* of the given rectangle; reckon with the pen width too!
-            Rectangle rc = new Rectangle(rect.X - 1, rect.Y - 1, rect.Width + 2, rect.Height + 2);
-            g.FillRectangle(br, rc);
-            g.DrawRectangle(pen, rect);
+            using (Pen pen = new Pen(c, 2))
+            {
+                Color fill_c = Color.FromArgb(ALPHA_FILL, baseColor.R, baseColor.G, baseColor.B);
+                using (SolidBrush br = new SolidBrush(fill_c))
+                {
+                    // create a new rectangle that's an *outline* of the given rectangle; reckon with the pen width too!
+                    Rectangle rc = new Rectangle(rect.X - 1, rect.Y - 1, rect.Width + 2, rect.Height + 2);
+                    g.FillRectangle(br, rc);
+                    g.DrawRectangle(pen, rect);
+                }
+            }
         }
 
         private static WordList ConvertToWordList(List<Word> results, Rectangle rectangle, Bitmap bitmap)
