@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Text;
 using Qiqqa.Common.Configuration;
+using Qiqqa.DocumentLibrary.IntranetLibraryStuff;
 using Utilities;
 using Utilities.Files;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
@@ -32,15 +33,31 @@ namespace Qiqqa.DocumentLibrary
         public LibraryDB(string base_path)
         {
             this.base_path = base_path;
-            library_path = Path.GetFullPath(Path.Combine(base_path, @"Qiqqa.library"));
+            library_path = LibraryDB.GetLibraryDBPath(base_path);
+            string db_syncref_path = IntranetLibraryTools.GetLibraryMetadataPath(base_path);
 
             // Copy a library into place...
+            // but only if this is not a Internet sync directory/DB!
+            if (File.Exists(db_syncref_path))
+            {
+                throw new Exception(String.Format("MUST NOT attempt to create a regular Qiqqa library in the Qiqqa Internet/Intranet Sync directory: '{0}'", base_path));
+            }
             if (!File.Exists(library_path))
             {
                 Logging.Warn("Library db does not exist so copying the template to {0}", library_path);
-                string library_template_path = Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"DocumentLibrary/Library.Template.s3db"));
+                string library_template_path = LibraryDB.GetLibraryDBTemplatePath();
                 File.Copy(library_template_path, library_path);
             }
+        }
+
+        internal static string GetLibraryDBPath(string base_path)
+        {
+            return Path.GetFullPath(Path.Combine(base_path, @"Qiqqa.library"));
+        }
+
+        internal static string GetLibraryDBTemplatePath()
+        {
+            return Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"DocumentLibrary/Library.Template.s3db"));
         }
 
         private SQLiteConnection GetConnection()

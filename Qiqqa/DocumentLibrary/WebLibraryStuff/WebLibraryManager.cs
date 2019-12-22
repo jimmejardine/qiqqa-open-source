@@ -51,6 +51,12 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
             SaveKnownWebLibraries();
             FireWebLibrariesChanged();
+
+            // Quick hack to swiftly profile this slow crap:
+            SafeThreadPool.QueueUserWorkItem(o =>
+            {
+                Qiqqa.Synchronisation.BusinessLogic.LibrarySyncManager.GenerateGlobalSyncDetail();
+            });
         }
 
         private void FireWebLibrariesChanged()
@@ -113,7 +119,15 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 {
                     Logging.Info("Inspecting directory {0} - Phase 4 :  Local and Legacy Libraries", library_directory);
 
-                    string database_file = Path.GetFullPath(Path.Combine(library_directory, @"Qiqqa.library"));
+                    string database_file = LibraryDB.GetLibraryDBPath(library_directory);
+                    string db_syncref_path = IntranetLibraryTools.GetLibraryMetadataPath(library_directory);
+
+                    // add/update only if this is not a Internet sync directory/DB!
+                    if (File.Exists(db_syncref_path))
+                    {
+                        Logging.Info("Skip the Qiqqa Internet/Intranet Sync directory and the sync DB ccontained therein: '{0}'", db_syncref_path);
+                        continue;
+                    }
                     if (File.Exists(database_file))
                     {
                         var library_id = Path.GetFileName(library_directory);
@@ -355,7 +369,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                                 }
 
                                 string libdir_path = Library.GetLibraryBasePathForId(new_web_library_detail.Id);
-                                string libfile_path = Path.GetFullPath(Path.Combine(libdir_path, @"Qiqqa.library"));
+                                string libfile_path = LibraryDB.GetLibraryDBPath(libdir_path);
 
                                 if (File.Exists(libfile_path) || !only_load_those_libraries_which_are_actually_present)
                                 {
