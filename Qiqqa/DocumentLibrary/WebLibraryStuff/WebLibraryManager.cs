@@ -52,17 +52,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
             SaveKnownWebLibraries();
             FireWebLibrariesChanged();
-
-            // Quick hack to swiftly profile this slow crap:
-            SafeThreadPool.QueueUserWorkItem(o =>
-            {
-                //
-                // Explicitly instruct the sync info collector to perform a swift scan, which DOES NOT include
-                // collecting the precise size of every document in every Qiqqa library (which itself is a *significant*
-                // file system load when you have any reasonably large libraries like I do.          [GHo]
-                //
-                Qiqqa.Synchronisation.BusinessLogic.LibrarySyncManager.GenerateGlobalSyncDetail(tally_library_storage_size: false);
-            });
         }
 
         private void FireWebLibrariesChanged()
