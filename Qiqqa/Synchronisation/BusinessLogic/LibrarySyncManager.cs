@@ -66,7 +66,7 @@ namespace Qiqqa.Synchronisation.BusinessLogic
 
             SafeThreadPool.QueueUserWorkItem(o =>
             {
-                GlobalSyncDetail global_sync_detail = GenerateGlobalSyncDetail();
+                GlobalSyncDetail global_sync_detail = GenerateGlobalSyncDetail(tally_library_storage_size: true);
                 WPFDoEvents.InvokeInUIThread(() =>
                 {
                     WPFDoEvents.ResetHourglassCursor();
@@ -86,7 +86,7 @@ namespace Qiqqa.Synchronisation.BusinessLogic
 
             SafeThreadPool.QueueUserWorkItem(o =>
             {
-                GlobalSyncDetail global_sync_detail = GenerateGlobalSyncDetail();
+                GlobalSyncDetail global_sync_detail = GenerateGlobalSyncDetail(tally_library_storage_size: true);
                 WPFDoEvents.InvokeInUIThread(() =>
                 {
                     WPFDoEvents.ResetHourglassCursor();
@@ -108,7 +108,7 @@ namespace Qiqqa.Synchronisation.BusinessLogic
             });
         }
 
-        internal static GlobalSyncDetail GenerateGlobalSyncDetail()
+        internal static GlobalSyncDetail GenerateGlobalSyncDetail(bool tally_library_storage_size)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
@@ -136,7 +136,7 @@ namespace Qiqqa.Synchronisation.BusinessLogic
                     {
                         LibrarySyncDetail library_sync_detail = global_sync_detail.library_sync_details[i];
                         StatusManager.Instance.UpdateStatusBusy(StatusCodes.SYNC_META_GLOBAL, String.Format("Getting the local library details for {0}", library_sync_detail.web_library_detail.Title), i, global_sync_detail.library_sync_details.Count);
-                        library_sync_detail.local_library_sync_detail = GetLocalLibrarySyncDetail(library_sync_detail.web_library_detail.library);
+                        library_sync_detail.local_library_sync_detail = GetLocalLibrarySyncDetail(library_sync_detail.web_library_detail.library, tally_library_storage_size);
                     }
                 }
 
@@ -198,7 +198,7 @@ namespace Qiqqa.Synchronisation.BusinessLogic
         }
 
 
-        private static LibrarySyncDetail.LocalLibrarySyncDetail GetLocalLibrarySyncDetail(Library library)
+        private static LibrarySyncDetail.LocalLibrarySyncDetail GetLocalLibrarySyncDetail(Library library, bool tally_library_storage_size)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
@@ -220,8 +220,18 @@ namespace Qiqqa.Synchronisation.BusinessLogic
                         continue;
                     }
 
-                    // We can only really tally up the documents that exist locally
-                    local_library_sync_detail.total_library_size += pdf_document.DocumentSizeInBytes;
+                    if (tally_library_storage_size)
+                    {
+                        // We can only really tally up the documents that exist locally
+                        local_library_sync_detail.total_library_size += pdf_document.GetDocumentSizeInBytes();
+                    }
+                    else
+                    {
+                        // fake it: take about 10KB per document, unless we already determined (and cached) the document size before.
+                        // This spares us the large overhead of querying the file system for every document in the 
+                        // (possibly huge) library.
+                        local_library_sync_detail.total_library_size += pdf_document.GetDocumentSizeInBytes(uncached_document_storage_size_override: 10 * 1024);
+                    }
                 }
                 catch (Exception ex)
                 {
