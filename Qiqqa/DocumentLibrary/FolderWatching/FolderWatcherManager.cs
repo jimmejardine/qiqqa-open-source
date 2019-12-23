@@ -67,10 +67,10 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             Logging.Debug("FolderWatcherManager::Dispose() @{0}", ++dispose_count);
 #endif
 
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (folder_watcher_records_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                //l1_clk.LockPerfTimerStop();
                 // Dispose of all the folder watchers
                 foreach (var folder_watcher_record in folder_watcher_records)
                 {
@@ -140,10 +140,10 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 }
             }
 
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (folder_watcher_records_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                //l1_clk.LockPerfTimerStop();
                 // Kill off any unwanted folders
                 HashSet<string> folders_to_watch_deleted = new HashSet<string>(folder_watcher_records.Keys);
                 foreach (var folder_to_watch in folders_to_watch)

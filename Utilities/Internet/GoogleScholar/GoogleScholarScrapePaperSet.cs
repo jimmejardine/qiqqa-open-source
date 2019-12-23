@@ -12,7 +12,9 @@ namespace Utilities.Internet.GoogleScholar
         }
 
         // The inputs to the query - each is optional
+#pragma warning disable CS0414 // The field 'paper_set_source' is assigned a value which is never used
         private PaperSetSource paper_set_source;
+#pragma warning enable CS0414  // The field 'paper_set_source' is assigned a value which is never used
         private string search_query;
         private GoogleScholarScrapePaper related_gssp;
 

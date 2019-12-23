@@ -66,7 +66,15 @@ namespace Qiqqa.Synchronisation.BusinessLogic
 
             SafeThreadPool.QueueUserWorkItem(o =>
             {
-                GlobalSyncDetail global_sync_detail = GenerateGlobalSyncDetail();
+                //
+                // Explicitly instruct the sync info collector to perform a swift scan, which DOES NOT include
+                // collecting the precise size of every document in every Qiqqa library (which itself is a *significant*
+                // file system load when you have any reasonably large libraries like I do.          [GHo]
+                //
+                // TODO: fetch and cache document filesizes in the background, so we can improve on the accuracy
+                // our numbers in a future call to this method.
+                //
+                GlobalSyncDetail global_sync_detail = GenerateGlobalSyncDetail(tally_library_storage_size: false);
                 WPFDoEvents.InvokeInUIThread(() =>
                 {
                     WPFDoEvents.ResetHourglassCursor();
@@ -86,7 +94,15 @@ namespace Qiqqa.Synchronisation.BusinessLogic
 
             SafeThreadPool.QueueUserWorkItem(o =>
             {
-                GlobalSyncDetail global_sync_detail = GenerateGlobalSyncDetail();
+                //
+                // Explicitly instruct the sync info collector to perform a swift scan, which DOES NOT include
+                // collecting the precise size of every document in every Qiqqa library (which itself is a *significant*
+                // file system load when you have any reasonably large libraries like I do.          [GHo]
+                //
+                // TODO: fetch and cache document filesizes in the background, so we can improve on the accuracy
+                // our numbers in a future call to this method.
+                //
+                GlobalSyncDetail global_sync_detail = GenerateGlobalSyncDetail(tally_library_storage_size: false);
                 WPFDoEvents.InvokeInUIThread(() =>
                 {
                     WPFDoEvents.ResetHourglassCursor();
@@ -108,7 +124,7 @@ namespace Qiqqa.Synchronisation.BusinessLogic
             });
         }
 
-        internal static GlobalSyncDetail GenerateGlobalSyncDetail()
+        internal static GlobalSyncDetail GenerateGlobalSyncDetail(bool tally_library_storage_size)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
@@ -136,7 +152,7 @@ namespace Qiqqa.Synchronisation.BusinessLogic
                     {
                         LibrarySyncDetail library_sync_detail = global_sync_detail.library_sync_details[i];
                         StatusManager.Instance.UpdateStatusBusy(StatusCodes.SYNC_META_GLOBAL, String.Format("Getting the local library details for {0}", library_sync_detail.web_library_detail.Title), i, global_sync_detail.library_sync_details.Count);
-                        library_sync_detail.local_library_sync_detail = GetLocalLibrarySyncDetail(library_sync_detail.web_library_detail.library);
+                        library_sync_detail.local_library_sync_detail = GetLocalLibrarySyncDetail(library_sync_detail.web_library_detail.library, tally_library_storage_size);
                     }
                 }
 
@@ -145,39 +161,46 @@ namespace Qiqqa.Synchronisation.BusinessLogic
                 foreach (LibrarySyncDetail library_sync_detail in global_sync_detail.library_sync_details)
                 {
                     //  Eagerly sync metadata
-                    library_sync_detail.sync_decision = new LibrarySyncDetail.SyncDecision();
-                    library_sync_detail.sync_decision.can_sync_metadata = true;
+                    LibrarySyncDetail.SyncDecision d = library_sync_detail.sync_decision = new LibrarySyncDetail.SyncDecision();
 
                     // Never guests
                     if (library_sync_detail.web_library_detail.IsLocalGuestLibrary)
                     {
-                        library_sync_detail.sync_decision.can_sync = false;
-                        library_sync_detail.sync_decision.can_sync_metadata = false;
-                        library_sync_detail.sync_decision.is_readonly = library_sync_detail.web_library_detail.IsReadOnly;
+                        d.can_sync = false;
+                        d.can_sync_metadata = false;
+                        d.is_readonly = library_sync_detail.web_library_detail.IsReadOnly;
                     }
 
                     // Intranets are dependent on premium
                     else if (library_sync_detail.web_library_detail.IsIntranetLibrary)
                     {
-                        library_sync_detail.sync_decision.can_sync = true;
-                        library_sync_detail.sync_decision.can_sync_metadata = true;
-                        library_sync_detail.sync_decision.is_readonly = library_sync_detail.web_library_detail.IsReadOnly;
+                        d.can_sync = true;
+                        d.can_sync_metadata = true;
+                        d.is_readonly = library_sync_detail.web_library_detail.IsReadOnly;
+                    }
+
+                    // TODO: Web libs should be syncable, right?
+                    else if (library_sync_detail.web_library_detail.IsWebLibrary)
+                    {
+                        d.can_sync = true;
+                        d.can_sync_metadata = true;
+                        d.is_readonly = library_sync_detail.web_library_detail.IsReadOnly;
                     }
 
                     // Bundles can never sync
                     else if (library_sync_detail.web_library_detail.IsBundleLibrary)
                     {
-                        library_sync_detail.sync_decision.can_sync = false;
-                        library_sync_detail.sync_decision.can_sync_metadata = false;
-                        library_sync_detail.sync_decision.is_readonly = library_sync_detail.web_library_detail.IsReadOnly;
+                        d.can_sync = false;
+                        d.can_sync_metadata = false;
+                        d.is_readonly = library_sync_detail.web_library_detail.IsReadOnly;
                     }
 
                     // Unknown library types
                     else
                     {
-                        library_sync_detail.sync_decision.can_sync = false;
-                        library_sync_detail.sync_decision.can_sync_metadata = false;
-                        library_sync_detail.sync_decision.is_readonly = true;
+                        d.can_sync = false;
+                        d.can_sync_metadata = false;
+                        d.is_readonly = true;
                     }
                 }
 
@@ -191,7 +214,7 @@ namespace Qiqqa.Synchronisation.BusinessLogic
         }
 
 
-        private static LibrarySyncDetail.LocalLibrarySyncDetail GetLocalLibrarySyncDetail(Library library)
+        private static LibrarySyncDetail.LocalLibrarySyncDetail GetLocalLibrarySyncDetail(Library library, bool tally_library_storage_size)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
@@ -213,8 +236,18 @@ namespace Qiqqa.Synchronisation.BusinessLogic
                         continue;
                     }
 
-                    // We can only really tally up the documents that exist locally
-                    local_library_sync_detail.total_library_size += pdf_document.DocumentSizeInBytes;
+                    if (tally_library_storage_size)
+                    {
+                        // We can only really tally up the documents that exist locally
+                        local_library_sync_detail.total_library_size += pdf_document.GetDocumentSizeInBytes();
+                    }
+                    else
+                    {
+                        // fake it: take about 10KB per document, unless we already determined (and cached) the document size before.
+                        // This spares us the large overhead of querying the file system for every document in the 
+                        // (possibly huge) library.
+                        local_library_sync_detail.total_library_size += pdf_document.GetDocumentSizeInBytes(uncached_document_storage_size_override: 10 * 1024);
+                    }
                 }
                 catch (Exception ex)
                 {

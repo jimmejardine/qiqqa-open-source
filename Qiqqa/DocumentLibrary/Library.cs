@@ -79,19 +79,19 @@ namespace Qiqqa.DocumentLibrary
         {
             get
             {
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (library_is_loaded_lock)
                 {
-                    l1_clk.LockPerfTimerStop();
+                    //l1_clk.LockPerfTimerStop();
                     return library_is_loaded;
                 }
             }
             private set
             {
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (library_is_loaded_lock)
                 {
-                    l1_clk.LockPerfTimerStop();
+                    //l1_clk.LockPerfTimerStop();
                     library_is_loaded = value;
                 }
             }
@@ -104,19 +104,19 @@ namespace Qiqqa.DocumentLibrary
         {
             get
             {
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (library_is_loaded_lock)
                 {
-                    l1_clk.LockPerfTimerStop();
+                    //l1_clk.LockPerfTimerStop();
                     return library_is_killed;
                 }
             }
             private set
             {
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (library_is_loaded_lock)
                 {
-                    l1_clk.LockPerfTimerStop();
+                    //l1_clk.LockPerfTimerStop();
                     library_is_killed = value;
                 }
             }
@@ -280,10 +280,10 @@ namespace Qiqqa.DocumentLibrary
             {
                 PDFDocument pdf_document = PDFDocument.LoadFromMetaData(this, library_item.data, library_items_annotations_cache);
 
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (pdf_documents_lock)
                 {
-                    l1_clk.LockPerfTimerStop();
+                    //l1_clk.LockPerfTimerStop();
                     pdf_documents[pdf_document.Fingerprint] = pdf_document;
                 }
 
@@ -486,10 +486,10 @@ namespace Qiqqa.DocumentLibrary
                 pdf_document.Comments = comments;
                 pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Comments);
 
-                Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+                //Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
                 lock (pdf_documents_lock)
                 {
-                    l2_clk.LockPerfTimerStop();
+                    //l2_clk.LockPerfTimerStop();
                     // Store in our database - note that we have the lock already
                     pdf_documents[pdf_document.Fingerprint] = pdf_document;
                 }
@@ -533,10 +533,10 @@ namespace Qiqqa.DocumentLibrary
             string bibtex_after_key = GetBibTeXAfterKey(bibtex);
 
             // Check that we are not adding a duplicate
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (pdf_documents_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                //l1_clk.LockPerfTimerStop();
                 foreach (var pdf_document_existing in pdf_documents.Values)
                 {
                     if (!String.IsNullOrEmpty(pdf_document_existing.BibTex))
@@ -567,10 +567,10 @@ namespace Qiqqa.DocumentLibrary
             }
 
             // Store in our database
-            Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+            //Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
             lock (pdf_documents_lock)
             {
-                l2_clk.LockPerfTimerStop();
+                //l2_clk.LockPerfTimerStop();
                 pdf_documents[pdf_document.Fingerprint] = pdf_document;
             }
 
@@ -593,10 +593,10 @@ namespace Qiqqa.DocumentLibrary
             if (null == new_pdf_document)
             {
                 new_pdf_document = PDFDocument.CreateFromPDF(this, existing_pdf_document.DocumentPath, existing_pdf_document.Fingerprint);
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (pdf_documents_lock)
                 {
-                    l1_clk.LockPerfTimerStop();
+                    //l1_clk.LockPerfTimerStop();
                     pdf_documents[new_pdf_document.Fingerprint] = new_pdf_document;
                 }
             }
@@ -628,10 +628,10 @@ namespace Qiqqa.DocumentLibrary
         /// <returns></returns>
         public PDFDocument GetDocumentByFingerprint(string fingerprint)
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (pdf_documents_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                //l1_clk.LockPerfTimerStop();
                 PDFDocument result = null;
                 if (pdf_documents.TryGetValue(fingerprint, out result))
                 {
@@ -648,10 +648,10 @@ namespace Qiqqa.DocumentLibrary
         {
             List<PDFDocument> pdf_documents_list = new List<PDFDocument>();
 
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (pdf_documents_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                //l1_clk.LockPerfTimerStop();
                 foreach (string fingerprint in fingerprints)
                 {
                     PDFDocument pdf_document = null;
@@ -669,10 +669,10 @@ namespace Qiqqa.DocumentLibrary
         {
             List<PDFDocument> pdf_documents_list = new List<PDFDocument>();
 
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (pdf_documents_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                //l1_clk.LockPerfTimerStop();
                 foreach (var pdf_document in pdf_documents.Values)
                 {
                     foreach (string tag in TagTools.ConvertTagBundleToTags(pdf_document.Tags))
@@ -695,10 +695,10 @@ namespace Qiqqa.DocumentLibrary
         /// </summary>
         public bool DocumentExistsInLibraryWithFingerprint(string fingerprint)
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (pdf_documents_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                //l1_clk.LockPerfTimerStop();
                 if (pdf_documents.ContainsKey(fingerprint))
                 {
                     return !pdf_documents[fingerprint].Deleted;
@@ -714,10 +714,10 @@ namespace Qiqqa.DocumentLibrary
         /// </summary>
         public bool DocumentExistsInLibraryWithBibTeX(string bibTeXId)
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (pdf_documents_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                //l1_clk.LockPerfTimerStop();
                 foreach (var pdf in pdf_documents.Values)
                 {
                     if (!pdf.Deleted)
@@ -742,10 +742,10 @@ namespace Qiqqa.DocumentLibrary
         {
             get
             {
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (pdf_documents_lock)
                 {
-                    l1_clk.LockPerfTimerStop();
+                    //l1_clk.LockPerfTimerStop();
                     List<PDFDocument> pdf_documents_list = new List<PDFDocument>(pdf_documents.Values);
                     return pdf_documents_list;
                 }
@@ -756,10 +756,10 @@ namespace Qiqqa.DocumentLibrary
         {
             get
             {
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (pdf_documents_lock)
                 {
-                    l1_clk.LockPerfTimerStop();
+                    //l1_clk.LockPerfTimerStop();
                     return pdf_documents.Count;
                 }
             }
@@ -775,10 +775,11 @@ namespace Qiqqa.DocumentLibrary
             get
             {
                 List<PDFDocument> pdf_documents_list = new List<PDFDocument>();
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                
+                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (pdf_documents_lock)
                 {
-                    l1_clk.LockPerfTimerStop();
+                    //l1_clk.LockPerfTimerStop();
                     foreach (var x in pdf_documents.Values)
                     {
                         if (!x.Deleted)
@@ -800,10 +801,11 @@ namespace Qiqqa.DocumentLibrary
             get
             {
                 List<PDFDocument> pdf_documents_list = new List<PDFDocument>();
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                
+                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (pdf_documents_lock)
                 {
-                    l1_clk.LockPerfTimerStop();
+                    //l1_clk.LockPerfTimerStop();
                     foreach (var x in pdf_documents.Values)
                     {
                         if (!x.Deleted && x.DocumentExists)
@@ -821,10 +823,10 @@ namespace Qiqqa.DocumentLibrary
         {
             HashSet<string> results = new HashSet<string>();
 
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (pdf_documents_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                //l1_clk.LockPerfTimerStop();
                 foreach (var pdf_document in pdf_documents.Values)
                 {
                     results.Add(pdf_document.Fingerprint);
@@ -835,10 +837,10 @@ namespace Qiqqa.DocumentLibrary
 #else
         internal HashSet<string> GetAllDocumentFingerprints()
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (pdf_documents_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                //l1_clk.LockPerfTimerStop();
                 return new HashSet<string>(pdf_documents.Keys);
             }
         }
@@ -854,10 +856,11 @@ namespace Qiqqa.DocumentLibrary
             keyword = keyword.ToLower();
 
             HashSet<string> results = new HashSet<string>();
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (pdf_documents_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                //l1_clk.LockPerfTimerStop();
                 foreach (var pdf_document in pdf_documents.Values)
                 {
                     bool document_matches = false;
@@ -1063,10 +1066,10 @@ namespace Qiqqa.DocumentLibrary
                     folder_watcher_manager?.Dispose();
 
                     // NULL the memory database
-                    Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+                    //Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
                     lock (pdf_documents_lock)
                     {
-                        l2_clk.LockPerfTimerStop();
+                        //l2_clk.LockPerfTimerStop();
                         pdf_documents.Clear();
                         pdf_documents = null;
                     }
