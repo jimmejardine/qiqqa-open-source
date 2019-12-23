@@ -102,9 +102,12 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
                     {
                         bool managed_update = false;
 
-                        using (var command = new SQLiteCommand("UPDATE LibraryItem WHERE filename=@filename", connection, transaction))
+                        using (var command = new SQLiteCommand("UPDATE LibraryItem SET MD5=@md5, DATA=@data, LAST_UPDATED_BY=@last_updated_by WHERE filename=@filename", connection, transaction))
                         {
                             command.Parameters.AddWithValue("@filename", filename);
+                            command.Parameters.AddWithValue("@last_updated_by", Environment.UserName);
+                            command.Parameters.AddWithValue("@md5", md5);
+                            command.Parameters.AddWithValue("@data", data);
                             int num_rows_updated = command.ExecuteNonQuery();
                             if (1 == num_rows_updated)
                             {
