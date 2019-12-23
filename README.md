@@ -45,7 +45,7 @@ See also [CHANGELOG](../../blob/master/CHANGELOG.md) and it's big brother [CHANG
 
 ## Qiqqa Collaborators & Developers Wanted
  
-Would anyone who is interested in contributing towards this repository please contact @jimmejardine...
+Would anyone who is interested in contributing towards this repository please contact @jimmejardine or @GerHobbelt...
 
 
 ## For Developers: Building Qiqqa From Source

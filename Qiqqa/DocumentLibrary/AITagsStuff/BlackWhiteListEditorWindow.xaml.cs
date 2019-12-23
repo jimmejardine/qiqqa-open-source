@@ -49,7 +49,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
 
         private List<BlackWhiteListEntry> ProcessNewUserEntries()
         {
-            List<BlackWhiteListEntry> new_entries = new List<BlackWhiteListEntry>(entries);
+            List<BlackWhiteListEntry> new_entries = (entries == null ? new List<BlackWhiteListEntry>() : new List<BlackWhiteListEntry>(entries));
 
             // Flag all the old ones as deleted
             foreach (var entry in new_entries)
@@ -110,7 +110,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
             TxtBlack.Text = "";
 
             // Reflect the library
-            if (null != library)
+            if (null != library_)
             {
                 library = library_;
                 entries = library_.BlackWhiteListManager.ReadList();
@@ -152,7 +152,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
             // This NULLing stuff is really the last rites of Dispose()-like so we stick it at the end here.
 
             library = null;
-            entries.Clear();
+            entries?.Clear();
             entries = null;
         }
     }

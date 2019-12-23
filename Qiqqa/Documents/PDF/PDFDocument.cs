@@ -623,18 +623,20 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
         [NonSerialized]
         private long document_size = 0;
-        public long DocumentSizeInBytes
+        public long GetDocumentSizeInBytes(long uncached_document_storage_size_override = -1)
         {
-            get
-            {
-                // When the document does not exist, the size is reported as ZERO.
-                // When we do not know yet whether the document exists, we'll have to go and check and find its size anyhow.
-                if (!DocumentExists) return 0;
-                if (document_size > 0) return document_size;
+            // When the document does not exist, the size is reported as ZERO.
+            // When we do not know yet whether the document exists, we'll have to go and check and find its size anyhow,
+            // unless the override value is sensible, i.e. **non-negative**.
+            if (!DocumentExists) return 0;
+            if (document_size > 0) return document_size;
 
-                document_size = File.GetSize(DocumentPath);
-                return document_size;
-            }
+            // Note: do NOT cache the override value!
+            if (uncached_document_storage_size_override >= 0) return uncached_document_storage_size_override;
+
+            // Execute file system query and cache its result:
+            document_size = File.GetSize(DocumentPath);
+            return document_size;
         }
 
         public bool IsVanillaReference => String.Compare(FileType, Constants.VanillaReferenceFileType, StringComparison.OrdinalIgnoreCase) == 0;
@@ -1952,14 +1954,11 @@ namespace Qiqqa.Documents.PDF
             }
         }
 
-        public long DocumentSizeInBytes
+        public long GetDocumentSizeInBytes(long uncached_document_storage_size_override = -1)
         {
-            get
+            lock (access_lock)
             {
-                lock (access_lock)
-                {
-                    return doc.DocumentSizeInBytes;
-                }
+                return doc.GetDocumentSizeInBytes(uncached_document_storage_size_override);
             }
         }
 

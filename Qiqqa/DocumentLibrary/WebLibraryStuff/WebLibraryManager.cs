@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text.RegularExpressions;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.BundleLibrary;
@@ -113,7 +114,33 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 {
                     Logging.Info("Inspecting directory {0} - Phase 4 :  Local and Legacy Libraries", library_directory);
 
-                    string database_file = Path.GetFullPath(Path.Combine(library_directory, @"Qiqqa.library"));
+                    string database_file = LibraryDB.GetLibraryDBPath(library_directory);
+                    string db_syncref_path = IntranetLibraryTools.GetLibraryMetadataPath(library_directory);
+
+                    // add/update only if this is not a Internet sync directory/DB!
+                    if (File.Exists(db_syncref_path))
+                    {
+                        Logging.Info("Skip the Qiqqa Internet/Intranet Sync directory and the sync DB ccontained therein: '{0}'", db_syncref_path);
+
+                        // https://github.com/jimmejardine/qiqqa-open-source/issues/145 :: delete lib file when it is very small and was illegally
+                        // constructed by a previous v82beta Qiqqa release:
+                        if (File.Exists(database_file))
+                        {
+                            long s3length = File.GetSize(database_file);
+                            if (6 * 1024 > s3length)
+                            {
+                                Logging.Warn("DELETE the wrongfully created DB file '{0}' in the Qiqqa Internet/Intranet Sync directory and the sync DB ccontained therein: '{1}', which has precedence!", database_file, db_syncref_path);
+
+                                FileTools.DeleteToRecycleBin(database_file);
+                            } 
+                            else 
+                            {
+                                Logging.Error("Inspect the Library DB file '{0}' in the Qiqqa Internet/Intranet Sync directory and the sync DB ccontained therein: '{1}', which MAY have precedence. Delete one of these manually to clean up your system as Qiqqa heuristics cannot tell which is the prevalent metadata database here!", database_file, db_syncref_path);
+                            }
+                        }
+                        
+                        continue;
+                    }
                     if (File.Exists(database_file))
                     {
                         var library_id = Path.GetFileName(library_directory);
@@ -245,10 +272,10 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         {
             get
             {
-                List<WebLibraryDetail> details = new List<WebLibraryDetail>();
+                HashSet<WebLibraryDetail> details = new HashSet<WebLibraryDetail>();
                 foreach (WebLibraryDetail wld in WebLibraryDetails_All_IncludingDeleted)
                 {
-                    if (!wld.Deleted && !wld.IsLocalGuestLibrary)
+                    if (!wld.Deleted)
                     {
                         details.Add(wld);
                     }
@@ -257,7 +284,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 // Always add the guest library
                 details.Add(WebLibraryDetails_Guest);
 
-                return details;
+                return new List<WebLibraryDetail>(details);
             }
         }
 
@@ -355,7 +382,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                                 }
 
                                 string libdir_path = Library.GetLibraryBasePathForId(new_web_library_detail.Id);
-                                string libfile_path = Path.GetFullPath(Path.Combine(libdir_path, @"Qiqqa.library"));
+                                string libfile_path = LibraryDB.GetLibraryDBPath(libdir_path);
 
                                 if (File.Exists(libfile_path) || !only_load_those_libraries_which_are_actually_present)
                                 {

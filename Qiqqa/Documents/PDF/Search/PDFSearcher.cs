@@ -120,27 +120,35 @@ namespace Qiqqa.Documents.PDF.Search
 
                     for (int i = 0; i < split_keywords.Length; ++i)
                     {
+                        string[] split_keyword = split_keywords[i];
+
+                        // Ignore spurious empty keyword sets
+                        if (1 > split_keyword.Length)
+                        {
+                            continue;
+                        }
+
                         // Don't process single keywords that are too short
-                        if (2 > split_keywords[i][0].Length)
+                        if (2 > split_keyword[0].Length)
                         {
                             continue;
                         }
 
                         // Process the first word - if it doesn't match we are done here
-                        if (!match(first_word_lower, split_keywords[i][0]))
+                        if (!match(first_word_lower, split_keyword[0]))
                         {
                             continue;
                         }
 
                         // If there are more words we have to get a little crafty and check the remaining words
                         bool follows_match = true;
-                        for (int j = 0; j < split_keywords[i].Length; ++j)
+                        for (int j = 0; j < split_keyword.Length; ++j)
                         {
                             if (w + j < words.Count)
                             {
                                 Word follow_word = words[w + j];
                                 string follow_word_lower = follow_word.Text.ToLower();
-                                if (!match(follow_word_lower, split_keywords[i][j]))
+                                if (!match(follow_word_lower, split_keyword[j]))
                                 {
                                     follows_match = false;
                                     break;
@@ -171,8 +179,8 @@ namespace Qiqqa.Documents.PDF.Search
                             // Get the words associated with this result
                             {
                                 search_result.keyword_index = i;
-                                search_result.words = new Word[split_keywords[i].Length];
-                                for (int j = 0; j < split_keywords[i].Length; ++j)
+                                search_result.words = new Word[split_keyword.Length];
+                                for (int j = 0; j < split_keyword.Length; ++j)
                                 {
                                     Word follow_word = words[w + j];
                                     search_result.words[j] = follow_word;
