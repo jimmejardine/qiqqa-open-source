@@ -203,19 +203,7 @@ namespace Qiqqa.Main
                 ipc_server.Start();
             }
 
-            if (ConfigurationManager.Instance.ConfigurationRecord.TermsAndConditionsAccepted)
-            {
-                StartBackgroundWorkerDaemon();
-            }
-            else
-            {
-                // TODO: nothing to do any more; user hasn't accepted the Terms & Conditions... Allow update via UI maybe? Nah, just quit!
-                WPFDoEvents.ResetHourglassCursor();
-
-                MessageBoxes.Info("You have not accepted the Qiqqa Terms and Conditions. Consequently, no service can be provided. The application will terminate now.\n\nYou may want to re-install the software and check&accept the Terms & Conditions, which are shown during the installation procedure.");
-
-                MainWindowServiceDispatcher.Instance.ShutdownQiqqa(suppress_exit_warning: true);
-            }
+            StartBackgroundWorkerDaemon();
         }
 
         private void ipc_server_IPCServerMessage(string message)
