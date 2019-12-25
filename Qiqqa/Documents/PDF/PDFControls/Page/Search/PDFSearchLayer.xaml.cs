@@ -185,14 +185,21 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
                         {
                             Logging.Error(ex);
                         }
+
+                        try
+                        {
+                            DataContext = null;
+                        }
+                        catch (Exception ex)
+                        {
+                            Logging.Error(ex);
+                        }
                     }, Dispatcher);
                 }
 
                 // Clear the references for sanity's sake
                 pdf_renderer_control_stats = null;
                 search_result_set = null;
-
-                DataContext = null;
             }
             catch (Exception ex)
             {
