@@ -185,7 +185,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
                         {
                             Logging.Error(ex);
                         }
-                    });
+                    }, Dispatcher);
                 }
 
                 // Clear the references for sanity's sake
