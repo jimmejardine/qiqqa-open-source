@@ -390,14 +390,14 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
                         ListSearchDetails.SearchClicked -= ListSearchDetails_SearchSelectionChanged;
 
                         DataContextChanged -= LibraryCatalogOverviewControl_DataContextChanged;
+
+                        DataContext = null;
                     });
                 }
 
                 // Clear the references for sanity's sake
                 library_index_hover_popup = null;
                 drag_drop_helper = null;
-
-                DataContext = null;
             }
             catch (Exception ex)
             {
