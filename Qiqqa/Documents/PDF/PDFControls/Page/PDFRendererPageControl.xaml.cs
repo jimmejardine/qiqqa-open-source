@@ -369,7 +369,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
         {
             if (page_from <= page && page_to >= page || page == 0)
             {
-                Dispatcher.BeginInvoke(new Action(OnPageTextAvailable_DISPATCHER), DispatcherPriority.Background);
+                Application.Current.Dispatcher.BeginInvoke(new Action(OnPageTextAvailable_DISPATCHER), DispatcherPriority.Background);
             }
         }
 
@@ -432,14 +432,14 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                 if (!pending_refresh_work_fast_running)
                 {
                     pending_refresh_work_fast_running = true;
-                    Dispatcher.BeginInvoke(DispatcherPriority.Normal, (Action)(() => RefreshPage_INTERNAL_FAST()));
+                    Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (Action)(() => RefreshPage_INTERNAL_FAST()));
                 }
 
                 pending_refresh_work_slow = pending_refresh_work;
                 if (!pending_refresh_work_slow_running)
                 {
                     pending_refresh_work_slow_running = true;
-                    Dispatcher.BeginInvoke(DispatcherPriority.Background, (Action)(() => RefreshPage_INTERNAL_SLOW()));
+                    Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, (Action)(() => RefreshPage_INTERNAL_SLOW()));
                 }
             }
         }
@@ -787,7 +787,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                         CanvasInk_.Dispose();
 #endif
                         page_layers = null;
-                    }, Dispatcher);
+                    });
                 }
 
                 page_layers = null;

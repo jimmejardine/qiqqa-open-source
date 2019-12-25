@@ -390,7 +390,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
                         ListSearchDetails.SearchClicked -= ListSearchDetails_SearchSelectionChanged;
 
                         DataContextChanged -= LibraryCatalogOverviewControl_DataContextChanged;
-                    }, Dispatcher);
+                    });
                 }
 
                 // Clear the references for sanity's sake

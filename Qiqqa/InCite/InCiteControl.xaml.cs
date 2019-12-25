@@ -509,7 +509,7 @@ namespace Qiqqa.InCite
         {
             Logging.Debug特("InCite: CitationClusterChanged: {0}", context_citation_cluster);
 
-            Dispatcher.BeginInvoke(new Action(() =>
+            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
             {
                 ObjCitationClusterEditorControl.SetCitationCluster(context_citation_cluster);
             }
@@ -531,7 +531,7 @@ namespace Qiqqa.InCite
         {
             Logging.Debug特("InCite: ContextChanged");
 
-            Dispatcher.BeginInvoke(new Action(() =>
+            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
             {
                 word_connector_ContextChanged_BACKGROUND_UpdateButtonEnabledness(context_word, context_backward, context_surround);
             }
@@ -630,7 +630,7 @@ namespace Qiqqa.InCite
                 }
 
                 // And get the GUI to update with the results
-                Dispatcher.BeginInvoke(new Action(() =>
+                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
                 {
                     word_connector_ContextChanged_BACKGROUND_PopulateRecommendations(context_pdf_documents);
                 }

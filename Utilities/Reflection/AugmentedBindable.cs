@@ -152,6 +152,8 @@ namespace Utilities.Reflection
 
         private void FirePropertyChanged(object sender, string property_name)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             if (null == property_name)
             {
                 FirePropertyChangedEventHandler(sender, NULL_PROPERTY_CHANGED_EVENT_ARGS);

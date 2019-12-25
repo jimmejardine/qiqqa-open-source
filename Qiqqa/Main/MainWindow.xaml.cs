@@ -97,7 +97,7 @@ namespace Qiqqa.Main
             ObjTabWelcome.GetGoing += ObjTabWelcome_GetGoing;
 
             // Put this in a background thread
-            Dispatcher.BeginInvoke(((Action)(() => PostStartupWork())), DispatcherPriority.Normal);
+            Application.Current.Dispatcher.BeginInvoke(((Action)(() => PostStartupWork())), DispatcherPriority.Normal);
 
             // https://stackoverflow.com/questions/34340134/how-to-know-when-a-frameworkelement-has-been-totally-rendered
             Application.Current.Dispatcher.Invoke(new Action(() => {
@@ -220,7 +220,7 @@ namespace Qiqqa.Main
 
         private void ipc_server_IPCServerMessage(string message)
         {
-            Dispatcher.BeginInvoke(new Action(() =>
+            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
             {
                 MainWindowServiceDispatcher.Instance.ProcessCommandLineFile(message);
             }
@@ -355,7 +355,7 @@ namespace Qiqqa.Main
                         ObjStartPage?.Dispose();
 
                         ipc_server?.Stop();
-                    }, Dispatcher);
+                    });
                 }
 
                 ObjStartPage = null;

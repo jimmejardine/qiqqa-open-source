@@ -314,11 +314,13 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private void library_OnDocumentsChanged()
         {
-            Dispatcher.BeginInvoke(new Action(() => UpdateLibraryStatistics()));
+            Application.Current.Dispatcher.BeginInvoke(new Action(() => UpdateLibraryStatistics()));
         }
 
         private void UpdateLibraryStatistics()
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             UpdateLibraryStatistics_Headers();
             UpdateLibraryStatistics_Stats();
         }
@@ -426,7 +428,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 chart_items_added.Add(new ChartItem { Title = "Added", Timestamp = cutoff, Count = num_added });
             }
 
-            Dispatcher.BeginInvoke(new Action(() => UpdateLibraryStatistics_Stats_Background_GUI(chart_items_read, chart_items_added)));
+            Application.Current.Dispatcher.BeginInvoke(new Action(() => UpdateLibraryStatistics_Stats_Background_GUI(chart_items_read, chart_items_added)));
         }
 
         private class DocumentDisplayWork
@@ -573,7 +575,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
 
                 // And fill the placeholders
-                Dispatcher.Invoke(new Action(() => UpdateLibraryStatistics_Stats_Background_GUI_AddAllPlaceHolders(ddwm.ddws)));
+                Application.Current.Dispatcher.Invoke(new Action(() => UpdateLibraryStatistics_Stats_Background_GUI_AddAllPlaceHolders(ddwm.ddws)));
 
                 // Now render each document
                 using (Font font = new Font("Times New Roman", 11.0f))
@@ -654,7 +656,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                                         ddw.page_bitmap_source = page_bitmap_source;
                                     }
 
-                                    Dispatcher.Invoke(new Action(() => UpdateLibraryStatistics_Stats_Background_GUI_FillPlaceHolder(ddw)));
+                                    Application.Current.Dispatcher.Invoke(new Action(() => UpdateLibraryStatistics_Stats_Background_GUI_FillPlaceHolder(ddw)));
                                 }
                                 catch (Exception ex)
                                 {
@@ -667,7 +669,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
                 if (0 == ddwm.ddws.Count)
                 {
-                    Dispatcher.BeginInvoke(new Action(() =>
+                    Application.Current.Dispatcher.BeginInvoke(new Action(() =>
                         {
                             ButtonCoverFlow.IsChecked = false;
                             UpdateLibraryStatistics();

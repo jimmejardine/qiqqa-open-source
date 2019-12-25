@@ -61,7 +61,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.DuplicateDetectionStuff
         private void FindDuplicates(PDFDocument pdf_document_this)
         {
             // Invoke the GUI
-            Dispatcher.Invoke(new Action(() =>
+            Application.Current.Dispatcher.Invoke(new Action(() =>
             {
                 ClearDuplicates();
             }
@@ -88,7 +88,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.DuplicateDetectionStuff
             Logging.Info("It took {0}ms to run the duplicate detection.", stopwatch.ElapsedMilliseconds);
 
             // Invoke the GUI
-            Dispatcher.Invoke(new Action(() =>
+            Application.Current.Dispatcher.Invoke(new Action(() =>
             {
                 RenderDuplicates(duplicate_pdf_documents);
             }

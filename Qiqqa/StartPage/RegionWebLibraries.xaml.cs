@@ -28,7 +28,7 @@ namespace Qiqqa.StartPage
 
         private void Instance_WebLibrariesChanged()
         {
-            Dispatcher.Invoke(new Action(() =>
+            Application.Current.Dispatcher.Invoke(new Action(() =>
             {
                 Instance_WebLibrariesChanged_THREAD();
             }

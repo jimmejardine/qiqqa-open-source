@@ -1397,7 +1397,7 @@ namespace Qiqqa.Brainstorm.SceneManager
                         AutoArranger?.Enabled(false);
 
                         node_controls.Clear();
-                    }, Dispatcher);
+                    });
                 }
 
                 brainstorm_metadata_control = null;

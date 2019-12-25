@@ -683,7 +683,7 @@ namespace Qiqqa.Documents.BibTeXEditor
                     BibTeXParseErrorButtonRef?.SetTarget(null);
                     BibTeXModeToggleButtonRef?.SetTarget(null);
                     BibTeXUndoEditButtonRef?.SetTarget(null);
-                }, Dispatcher);
+                });
 
                 bindable = null;
                 // BibTeX = "";  <-- forbidden to reset as that MAY trigger a dependency update! (https://github.com/jimmejardine/qiqqa-open-source/issues/121)

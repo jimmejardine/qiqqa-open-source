@@ -225,11 +225,11 @@ namespace Qiqqa.Common.SpeedRead
                     int current_wpm = 0;
 
                     // Interrogate the GUI
-                    Dispatcher.Invoke(
+                    Application.Current.Dispatcher.Invoke(
                         new Action(() =>
-                                {
-                                    current_wpm = (int)SliderWPM.Value;
-                                }
+                        {
+                            current_wpm = (int)SliderWPM.Value;
+                        }
                     ));
 
 
@@ -240,7 +240,7 @@ namespace Qiqqa.Common.SpeedRead
                     int current_position = 0;
                     int current_maximum = 0;
                     // Interrogate the GUI
-                    Dispatcher.Invoke(
+                    Application.Current.Dispatcher.Invoke(
                         new Action(() =>
                         {
                             current_position = (int)SliderLocation.Value;
@@ -269,7 +269,7 @@ namespace Qiqqa.Common.SpeedRead
 
                         ++current_position;
 
-                        Dispatcher.Invoke(
+                        Application.Current.Dispatcher.Invoke(
                             new Action(() =>
                             {
                                 SliderLocation.Value = current_position;
@@ -282,7 +282,7 @@ namespace Qiqqa.Common.SpeedRead
                     }
                     else
                     {
-                        Dispatcher.Invoke(
+                        Application.Current.Dispatcher.Invoke(
                             new Action(() =>
                             {
                                 TogglePlayPause(force_stop: true);

@@ -92,7 +92,7 @@ namespace Utilities.GUI
                 if (!is_someone_scrolling)
                 {
                     is_someone_scrolling = true;
-                    Dispatcher.BeginInvoke(new Action(() => RollAfterDrag()), DispatcherPriority.Background);
+                    Application.Current.Dispatcher.BeginInvoke(new Action(() => RollAfterDrag()), DispatcherPriority.Background);
                 }
             }
         }
@@ -118,7 +118,7 @@ namespace Utilities.GUI
                 }
                 else
                 {
-                    Dispatcher.BeginInvoke(new Action(() => RollAfterDrag()), DispatcherPriority.Background);
+                    Application.Current.Dispatcher.BeginInvoke(new Action(() => RollAfterDrag()), DispatcherPriority.Background);
                 }
             }
         }

@@ -97,7 +97,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
 
         private void AITagsRegenerated_NON_GUI_THREAD(IAsyncResult ar)
         {
-            Dispatcher.Invoke(new Action(() =>
+            Application.Current.Dispatcher.Invoke(new Action(() =>
                 {
                     AITagsRegenerated_GUI_THREAD();
                 }

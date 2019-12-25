@@ -161,8 +161,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
                 {
                     WPFDoEvents.InvokeInUIThread(() =>
                     {
-                        WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
                         try
                         {
                             foreach (var el in Children)
@@ -187,7 +185,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
                         {
                             Logging.Error(ex);
                         }
-                    }, Dispatcher);
+                    });
                 }
 
                 // Clear the references for sanity's sake

@@ -83,7 +83,7 @@ namespace Qiqqa.InCite
                     return String.Compare(p1.pdf_document.AuthorsCombined, p2.pdf_document.AuthorsCombined);
                 });
 
-                Dispatcher.Invoke(new Action(() =>
+                Application.Current.Dispatcher.Invoke(new Action(() =>
                 {
                     // Store them for the GUI
                     latest_used_citations = used_citations;

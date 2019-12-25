@@ -93,7 +93,7 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
         {
             try
             {
-                Dispatcher.Invoke(new Action(() =>
+                Application.Current.Dispatcher.Invoke(new Action(() =>
                 {
                     TxtLibraryName.Text = library.WebLibraryDetail.Title;
                     TreeDuplicates.Items.Clear();
@@ -130,7 +130,7 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
                     if (0 < duplicate_pdf_documents.Count)
                     {
                         have_duplicates = true;
-                        Dispatcher.Invoke(new Action(() =>
+                        Application.Current.Dispatcher.Invoke(new Action(() =>
                         {
                             TreeViewItem tvi_parent = new TreeViewItem();
                             AttachEvents(tvi_parent, pdf_document);
@@ -149,7 +149,7 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
 
                 if (!have_duplicates)
                 {
-                    Dispatcher.Invoke(new Action(() =>
+                    Application.Current.Dispatcher.Invoke(new Action(() =>
                     {
                         TxtNoDuplicatesFound.Visibility = Visibility.Visible;
                     }

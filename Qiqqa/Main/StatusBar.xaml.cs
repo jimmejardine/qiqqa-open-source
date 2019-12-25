@@ -88,7 +88,7 @@ namespace Qiqqa.Main
 
             if (do_invoke)
             {
-                Dispatcher.BeginInvoke(new Action(() => StatusManager_OnStatusEntryUpdate_GUI()), DispatcherPriority.Background);
+                Application.Current.Dispatcher.BeginInvoke(new Action(() => StatusManager_OnStatusEntryUpdate_GUI()), DispatcherPriority.Background);
             }
         }
 

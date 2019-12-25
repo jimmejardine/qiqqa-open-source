@@ -176,7 +176,8 @@ namespace Utilities.GUI
             }
             else
             {
-                action.Invoke();  // TODO -- BeginInvoke?
+                AsyncCallback cb = null;
+                action.BeginInvoke(cb, null);
             }
         }
 
