@@ -51,28 +51,20 @@ namespace Utilities.Reflection
                 callback_wrapper.object_to_callback = new WeakReference(value.Target);
                 callback_wrapper.method_to_call = value.Method;
 
-#if false
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-#endif
+                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (callback_wrappers_lock)
                 {
-#if false
-                    l1_clk.LockPerfTimerStop();
-#endif
+                    //l1_clk.LockPerfTimerStop();
                     callback_wrappers.Add(callback_wrapper);
                 }
             }
 
             remove
             {
-#if false
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-#endif
+                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (callback_wrappers_lock)
                 {
-#if false
-                    l1_clk.LockPerfTimerStop();
-#endif
+                    //l1_clk.LockPerfTimerStop();
                     for (int i = callback_wrappers.Count - 1; i >= 0; --i)
                     {
                         if (value.Target == callback_wrappers[i].object_to_callback.Target && value.Method == callback_wrappers[i].method_to_call)
@@ -88,10 +80,10 @@ namespace Utilities.Reflection
 
         private void FirePropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (callback_wrappers_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                //l1_clk.LockPerfTimerStop();
                 if (0 < callback_wrappers.Count)
                 {
                     object[] parameters = new object[] { sender, e };
