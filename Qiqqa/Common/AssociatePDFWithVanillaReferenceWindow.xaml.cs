@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using icons;
+using Microsoft.Win32;
 using Qiqqa.Common.GUI;
 using Qiqqa.Documents.PDF;
 using Qiqqa.UtilisationTracking;
@@ -57,20 +58,16 @@ namespace Qiqqa.Common
 
         private void CmdLocal_Click(object sender, RoutedEventArgs e)
         {
-            using (System.Windows.Forms.OpenFileDialog dlg = new System.Windows.Forms.OpenFileDialog
+            OpenFileDialog open_file_dialog = new OpenFileDialog();
+            open_file_dialog.CheckFileExists = true;
+            open_file_dialog.Multiselect = false;
+            open_file_dialog.Filter = "PDF Files|*.pdf";
+            open_file_dialog.Title = "Select the PDF document you wish to associate with this Vanilla Reference.";
+
+            if (true != open_file_dialog.ShowDialog())
             {
-                CheckFileExists = true,
-                CheckPathExists = true,
-                Filter = "PDF Files|*.pdf",
-                Multiselect = false,
-                Title = "Select the PDF document you wish to associate with this Vanilla Reference."
-            })
-            {
-                if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    FeatureTrackingManager.Instance.UseFeature(Features.Library_AttachToVanilla_Local);
-                    pdf_document.AssociatePDFWithVanillaReference(dlg.FileName);
-                }
+                FeatureTrackingManager.Instance.UseFeature(Features.Library_AttachToVanilla_Local);
+                pdf_document.AssociatePDFWithVanillaReference(open_file_dialog.FileName);
             }
 
             Close();

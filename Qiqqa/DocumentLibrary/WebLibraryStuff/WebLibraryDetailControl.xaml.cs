@@ -10,7 +10,6 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -35,6 +34,7 @@ using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 
 namespace Qiqqa.DocumentLibrary.WebLibraryStuff
@@ -931,28 +931,26 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private void GenericCustomiseChooser(string title, string filename)
         {
-            using (var dialog = new OpenFileDialog())
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "Image files|*.jpeg;*.jpg;*.png;*.gif;*.bmp" + "|" + "All files|*.*";
+            dialog.CheckFileExists = true;
+            dialog.Multiselect = false;
+            dialog.Title = title;
+            //dialog.FileName = filename;
+            if (true == dialog.ShowDialog())
             {
-                dialog.Filter = "Image files|*.jpeg;*.jpg;*.png;*.gif;*.bmp" + "|" + "All files|*.*";
-                dialog.CheckFileExists = true;
-                dialog.Multiselect = false;
-                dialog.Title = title;
-                //dialog.FileName = filename;
-                if (DialogResult.OK == dialog.ShowDialog())
-                {
-                    // Copy the new file into place, if it is another file than the one we already have:
-                    filename = Path.GetFullPath(filename);
-                    string new_filename = Path.GetFullPath(dialog.FileName);
-                    if (0 != new_filename.CompareTo(filename))
-                    {
-                        File.Delete(filename);
-                        File.Copy(new_filename, filename);
-                    }
-                }
-                else
+                // Copy the new file into place, if it is another file than the one we already have:
+                filename = Path.GetFullPath(filename);
+                string new_filename = Path.GetFullPath(dialog.FileName);
+                if (0 != new_filename.CompareTo(filename))
                 {
                     File.Delete(filename);
+                    File.Copy(new_filename, filename);
                 }
+            }
+            else
+            {
+                File.Delete(filename);
             }
 
             UpdateLibraryStatistics();
