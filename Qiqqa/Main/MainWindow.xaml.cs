@@ -98,6 +98,11 @@ namespace Qiqqa.Main
 
             // Put this in a background thread
             Dispatcher.BeginInvoke(((Action)(() => PostStartupWork())), DispatcherPriority.Normal);
+
+            // https://stackoverflow.com/questions/34340134/how-to-know-when-a-frameworkelement-has-been-totally-rendered
+            Application.Current.Dispatcher.Invoke(new Action(() => {
+                WPFDoEvents.ResetHourglassCursor();
+            }), DispatcherPriority.ContextIdle, null);
         }
 
         private void MainWindow_ContentRendered(object sender, EventArgs e)
@@ -107,7 +112,12 @@ namespace Qiqqa.Main
             // hold off: level 2 -> 1
             MaintainableManager.Instance.BumpHoldOffPendingLevel();
 
-            WPFDoEvents.ResetHourglassCursor();
+            // https://stackoverflow.com/questions/34340134/how-to-know-when-a-frameworkelement-has-been-totally-rendered
+            Application.Current.Dispatcher.Invoke(new Action(() => {
+                WPFDoEvents.ResetHourglassCursor();
+
+                //Environment.Exit(-2);    -- testing & profiling only
+            }), DispatcherPriority.ContextIdle, null);
         }
 
         private void keyboard_hook_KeyDown(object sender, KeyEventArgs e)
@@ -292,7 +302,7 @@ namespace Qiqqa.Main
 
         private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            //Logging.Info("Size is now {0}", e.NewSize.ToString());
+            Logging.Debug("MainWindow_SizeChanged :: Size is now {0}", e.NewSize.ToString());
         }
 
         private void StartBackgroundWorkerDaemon()

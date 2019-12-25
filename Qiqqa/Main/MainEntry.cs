@@ -185,6 +185,10 @@ namespace Qiqqa.Main
             // Create the application object
             application = new Application();
             application.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+            application.Exit += Application_Exit;
+            application.Activated += Application_Activated;
+            application.LoadCompleted += Application_LoadCompleted;
+            application.Startup += Application_Startup;
 
             // All the exception handling
             application.DispatcherUnhandledException += application_DispatcherUnhandledException;
@@ -193,6 +197,26 @@ namespace Qiqqa.Main
 
             // Start the FPS measurer
             { var init = WPFFrameRate.Instance; }
+        }
+
+        private static void Application_Startup(object sender, StartupEventArgs e)
+        {
+            Logging.Info("---Application_Startup");
+        }
+
+        private static void Application_LoadCompleted(object sender, System.Windows.Navigation.NavigationEventArgs e)
+        {
+            Logging.Info("---Application_LoadCompleted");
+        }
+
+        private static void Application_Activated(object sender, EventArgs e)
+        {
+            Logging.Info("---Application_Activated");
+        }
+
+        private static void Application_Exit(object sender, ExitEventArgs e)
+        {
+            Logging.Info("---Application_Exit");
         }
 
         private static void DoUpgrades(SplashScreenWindow splashscreen_window)
