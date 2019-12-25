@@ -107,7 +107,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     Logging.Info("Inspecting directory {0} - Phase 3 : Bundles", library_directory);
 
                     // must be a qiqqa_bundle and/or qiqqa_bundle_manifest file set
-                    Logging.Warn("Auto bundle import at startup is not yet suppoerted.");
+                    Logging.Warn("Auto bundle import at startup is not yet supported.");
                 }
 
                 foreach (string library_directory in library_directories)
