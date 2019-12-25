@@ -144,7 +144,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
 
         private void CmdAutoTags_Click(object sender, RoutedEventArgs e)
         {
-            SafeThreadPool.QueueUserWorkItem(o => library.AITagManager.Regenerate(null));
+            SafeThreadPool.QueueUserWorkItem(o => library.AITagManager.Regenerate());
         }
 
         private void CmdCrossReference_Click(object sender, RoutedEventArgs e)

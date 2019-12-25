@@ -513,7 +513,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 }
 
                 // If this library is busy, skip it for now
-                if (Library.IsBusyAddingPDFs)
+                if (Library.IsBusyAddingPDFs || Library.IsBusyRegeneratingTags)
                 {
                     // Get a count of how many jobs are left...
                     int job_queue_group_count;
@@ -562,15 +562,17 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                             || Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown || !StillRunning
                             || clk_duration > 100
                             || Library.IsBusyAddingPDFs
+                            || Library.IsBusyRegeneratingTags
                             || ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks
                             )
                         {
-                            Logging.Warn("Recheck job queue after WaitForUIThreadActivityDone took {0}ms or shutdown/dealy signals were detected: {1}/{2}/{3}/{4}.",
+                            Logging.Warn("Recheck job queue after WaitForUIThreadActivityDone took {0}ms or shutdown/dealy signals were detected: {1}/{2}/{3}/{4}/{5}.",
                                 clk_duration,
                                 (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown || !StillRunning) ? "+Shutdown+" : "-SD-",
                                 clk_duration > 100 ? "+UI-wait+" : "-UI-",
                                 Library.IsBusyAddingPDFs ? "+PDFAddPending+" : "-PDF-",
-                                ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks ? "+DisableBackgroundTasks+" : "-DB-"
+                                ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks ? "+DisableBackgroundTasks+" : "-DB-",
+                                Library.IsBusyRegeneratingTags ? "+LibRegenerate+" : "-Regen-"
                              );
 
                             // push the job onto the queue and start from the beginning:

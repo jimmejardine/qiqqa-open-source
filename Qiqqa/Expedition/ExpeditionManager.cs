@@ -27,9 +27,18 @@ namespace Qiqqa.Expedition
         {
             Logging.Info("+Rebuilding Expedition");
             StatusManager.Instance.ClearCancelled("Expedition");
-            ExpeditionDataSource eds = ExpeditionBuilder.BuildExpeditionDataSource(library, num_topics, add_autotags, add_tags, ExpeditionBuilderProgressUpdate);
-            SerializeFile.SaveSafely(Filename_Store, eds);
-            expedition_data_source = eds;
+            try
+            {
+                Library.IsBusyRegeneratingTags = true;
+
+                ExpeditionDataSource eds = ExpeditionBuilder.BuildExpeditionDataSource(library, num_topics, add_autotags, add_tags, ExpeditionBuilderProgressUpdate);
+                SerializeFile.SaveSafely(Filename_Store, eds);
+                expedition_data_source = eds;
+            }
+            finally
+            {
+                Library.IsBusyRegeneratingTags = false;
+            }
             Logging.Info("-Rebuilding Expedition");
 
             if (null != rebuiltexpeditioncompletedelegate)

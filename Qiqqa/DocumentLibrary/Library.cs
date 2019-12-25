@@ -123,7 +123,7 @@ namespace Qiqqa.DocumentLibrary
         }
 
         // This is GLOBAL to all libraries
-        private static DateTime last_pdf_add_time = DateTime.MinValue;
+        private static Stopwatch last_pdf_add_time = Stopwatch.StartNew();
         private static object last_pdf_add_time_lock = new object();
 
         public static bool IsBusyAddingPDFs
@@ -131,14 +131,48 @@ namespace Qiqqa.DocumentLibrary
             get
             {
                 //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-                DateTime mark;
                 lock (last_pdf_add_time_lock)
                 {
                     //l1_clk.LockPerfTimerStop();
-                    mark = last_pdf_add_time;
+                    // heuristic; give OCR process et al some time to breathe
+                    return (last_pdf_add_time.ElapsedMilliseconds < 3000);
                 }
-                // heuristic; give OCR process et al some time to breathe
-                return DateTime.UtcNow.Subtract(mark).TotalSeconds < 3;
+            }
+        }
+
+        private static int last_regen_counter = 0;
+        private static object last_regen_time_lock = new object();
+
+        public static bool IsBusyRegeneratingTags
+        {
+            get
+            {
+                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                lock (last_regen_time_lock)
+                {
+                    //l1_clk.LockPerfTimerStop();
+                    return (last_regen_counter > 0);
+                }
+            }
+            set 
+            {
+                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                lock (last_regen_time_lock)
+                {
+                    //l1_clk.LockPerfTimerStop();
+                    if (value)
+                    {
+                        ++last_regen_counter;
+                    }
+                    else
+                    {
+                        --last_regen_counter;
+                        if (last_regen_counter < 0)
+                        {
+                            throw new Exception("Internal error: IsBusyRegeneratingTags unmatched set call pairs!");
+                        }
+                    }
+                }
             }
         }
 
@@ -349,7 +383,7 @@ namespace Qiqqa.DocumentLibrary
             lock (last_pdf_add_time_lock)
             {
                 //l1_clk.LockPerfTimerStop();
-                last_pdf_add_time = DateTime.UtcNow;
+                last_pdf_add_time.Restart();
             }
 
             if (String.IsNullOrEmpty(filename) || filename.EndsWith(".vanilla_reference"))

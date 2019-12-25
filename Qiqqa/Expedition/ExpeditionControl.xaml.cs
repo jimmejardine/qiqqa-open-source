@@ -114,7 +114,7 @@ namespace Qiqqa.Expedition
         {
             if (null != library)
             {
-                SafeThreadPool.QueueUserWorkItem(o => library.AITagManager.Regenerate(null));
+                SafeThreadPool.QueueUserWorkItem(o => library.AITagManager.Regenerate());
             }
             else
             {

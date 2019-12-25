@@ -39,12 +39,7 @@ namespace Utilities.OCR
             File.WriteAllLines(filename, lines.ToArray());
         }
 
-        public static Dictionary<int, WordList> ReadFromFile(string filename)
-        {
-            return ReadFromFile(filename, 0);
-        }
-
-        public static Dictionary<int, WordList> ReadFromFile(string filename, int default_page)
+        public static Dictionary<int, WordList> ReadFromFile(string filename, int default_page = 0)
         {
             Dictionary<int, WordList> word_lists = new Dictionary<int, WordList>();
             WordList current_word_list = null;
@@ -82,10 +77,10 @@ namespace Utilities.OCR
                 throw new Exception("OCR file too old (pre v2)");
             }
 
-            // Process each line
-            foreach (string line in lines)
+            try
             {
-                try
+                // Process each line
+                foreach (string line in lines)
                 {
                     // Ignore comments
                     if (line.StartsWith("#"))
@@ -134,10 +129,10 @@ namespace Utilities.OCR
 
                     continue;
                 }
-                catch (Exception ex)
-                {
-                    Logging.Error(ex, "Invalid line format");
-                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Invalid line format", ex);
             }
 
             return word_lists;

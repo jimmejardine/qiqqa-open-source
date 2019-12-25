@@ -70,6 +70,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
 
                 regenerating_in_progress = true;
             }
+            Library.IsBusyRegeneratingTags = true;
 
             Stopwatch clk = Stopwatch.StartNew();
 
@@ -175,7 +176,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
                             // Skip this tag if too many documents have it...
                             if (ai_tag.is_acronym && fingerprints_potential.Count > 0.05 * pdf_documents.Count)
                             {
-                                Logging.Info("Skipping AutoTag {0} because too many documents have it...", tag);
+                                Logging.Info("Skipping AutoTag {0} because too many documents have it ({1} out of {2} ~ {3:0.#%})...", tag, fingerprints_potential.Count, pdf_documents.Count, fingerprints_potential.Count * 1.0 / pdf_documents.Count);
                                 continue;
                             }
 
@@ -292,6 +293,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
                     l2_clk.LockPerfTimerStop();
                     regenerating_in_progress = false;
                 }
+                Library.IsBusyRegeneratingTags = false;
 
                 Logging.Info("-AITagManager is finished regenerating (time spent: {0} ms)", clk.ElapsedMilliseconds);
             }

@@ -31,111 +31,145 @@ namespace Qiqqa.Expedition
 
         public static ExpeditionDataSource BuildExpeditionDataSource(Library library, int num_topics, bool add_autotags, bool add_tags, ExpeditionBuilderProgressUpdateDelegate progress_update_delegate)
         {
-            bool not_aborted_by_user = true;
-
-            // Check that we have a progres update delegate
-            if (null == progress_update_delegate)
-            {
-                progress_update_delegate = DefaultExpeditionBuilderProgressUpdate;
-            }
-
-            // What are the sources of data?
-            progress_update_delegate("Assembling tags", 0);
-            HashSet<string> tags = BuildLibraryTagList(library, add_autotags, add_tags);
-            List<PDFDocument> pdf_documents = library.PDFDocumentsWithLocalFilePresent;
-
             // Initialise the datasource
-            progress_update_delegate("Initialising datasource", 0);
+            //progress_update_delegate("Initialising datasource", 0);
             ExpeditionDataSource data_source = new ExpeditionDataSource();
 
             data_source.date_created = DateTime.UtcNow;
-
-            progress_update_delegate("Adding tags", 0);
-            data_source.words = new List<string>();
-            foreach (string tag in tags)
+            
+            try
             {
-                data_source.words.Add(tag);
-            }
-
-            progress_update_delegate("Adding docs", 0);
-            data_source.docs = new List<string>();
-            foreach (PDFDocument pdf_document in pdf_documents)
-            {
-                data_source.docs.Add(pdf_document.Fingerprint);
-            }
-
-            progress_update_delegate("Rebuilding indices", 0);
-            data_source.RebuildIndices();
-
-            // Now go through each doc and find the tags that match
-            data_source.words_in_docs = new int[data_source.docs.Count][];
-
-            int total_processed = 0;
-
-            Parallel.For(0, data_source.docs.Count, d =>
-            //for (int d = 0; d < data_source.docs.Count; ++d)
-            {
-                int total_processed_local = Interlocked.Increment(ref total_processed);
-                if (0 == total_processed_local % 10)
+                // Check that we have a progres update delegate
+                if (null == progress_update_delegate)
                 {
-                    not_aborted_by_user = not_aborted_by_user && progress_update_delegate("Scanning documents", total_processed_local / (double)data_source.docs.Count);
+                    progress_update_delegate = DefaultExpeditionBuilderProgressUpdate;
                 }
 
-                List<int> tags_in_document = new List<int>();
+                // What are the sources of data?
+                progress_update_delegate("Assembling tags", 0);
+                HashSet<string> tags = BuildLibraryTagList(library, add_autotags, add_tags);
+                List<PDFDocument> pdf_documents = library.PDFDocumentsWithLocalFilePresent;
 
-                if (not_aborted_by_user)
+                progress_update_delegate("Adding tags", 0);
+                data_source.words = new List<string>();
+                foreach (string tag in tags)
                 {
-                    PDFDocument pdf_document = pdf_documents[d];
-                    string full_text = " " + pdf_document.PDFRenderer.GetFullOCRText() + " ";
-                    string full_text_lower = full_text.ToLower();
+                    data_source.words.Add(tag);
+                }
 
-                    for (int t = 0; t < data_source.words.Count; ++t)
+                progress_update_delegate("Adding docs", 0);
+                data_source.docs = new List<string>();
+                foreach (PDFDocument pdf_document in pdf_documents)
+                {
+                    data_source.docs.Add(pdf_document.Fingerprint);
+                }
+
+                progress_update_delegate("Rebuilding indices", 0);
+                data_source.RebuildIndices();
+
+                // Now go through each doc and find the tags that match
+                int DATA_SOURCE_DOCS_COUNT = data_source.docs.Count;
+                data_source.words_in_docs = new int[DATA_SOURCE_DOCS_COUNT][];
+
+                //int total_processed = 0;
+
+                Parallel.For(0, DATA_SOURCE_DOCS_COUNT, d =>
+                //for (int d = 0; d < DATA_SOURCE_DOCS_COUNT; ++d)
+                {
+                    //int total_processed_local = Interlocked.Increment(ref total_processed);
+                    //if (0 == total_processed_local % 50)
+                    if (0 == d % 50)
                     {
-                        string tag = ' ' + data_source.words[t] + ' ';
-
-                        string full_text_to_search = full_text;
-                        if (StringTools.HasSomeLowerCase(tag))
+                        if (!progress_update_delegate(String.Format("Scanning documents ({0}/{1})", d, DATA_SOURCE_DOCS_COUNT), d / (double)DATA_SOURCE_DOCS_COUNT))
                         {
-                            full_text_to_search = full_text_lower;
-                            tag = tag.ToLower();
-                        }
-
-                        int num_appearances = StringTools.CountStringOccurence(full_text_to_search, tag);
-                        for (int i = 0; i < num_appearances; ++i)
-                        {
-                            tags_in_document.Add(t);
+                            // Parallel.For() doc at https://docs.microsoft.com/en-us/archive/msdn-magazine/2007/october/parallel-performance-optimize-managed-code-for-multi-core-machines
+                            // says:
+                            //
+                            // Finally, if any exception is thrown in any of the iterations, all iterations are canceled 
+                            // and the first thrown exception is rethrown in the calling thread, ensuring that exceptions 
+                            // are properly propagated and never lost.
+                            //
+                            // --> We can thus easily use an exception to terminate/cancel all iterations of Parallel.For()!
+                            throw new TaskCanceledException("Operation canceled by user");
                         }
                     }
+
+                    List<int> tags_in_document = new List<int>();
+
+                    {
+                        PDFDocument pdf_document = pdf_documents[d];
+                        string full_text = " " + pdf_document.PDFRenderer.GetFullOCRText() + " ";
+                        string full_text_lower = full_text.ToLower();
+
+                        for (int t = 0; t < data_source.words.Count; ++t)
+                        {
+                            string tag = ' ' + data_source.words[t] + ' ';
+
+                            string full_text_to_search = full_text;
+                            if (StringTools.HasSomeLowerCase(tag))
+                            {
+                                full_text_to_search = full_text_lower;
+                                tag = tag.ToLower();
+                            }
+
+                            int num_appearances = StringTools.CountStringOccurence(full_text_to_search, tag);
+                            for (int i = 0; i < num_appearances; ++i)
+                            {
+                                tags_in_document.Add(t);
+                            }
+                        }
+                    }
+
+                    data_source.words_in_docs[d] = tags_in_document.ToArray();
+                }
+                );
+
+                // Initialise the LDA
+                if (!progress_update_delegate("Building themes sampler", 0))
+                {
+                    // Parallel.For() doc at https://docs.microsoft.com/en-us/archive/msdn-magazine/2007/october/parallel-performance-optimize-managed-code-for-multi-core-machines
+                    // says:
+                    //
+                    // Finally, if any exception is thrown in any of the iterations, all iterations are canceled 
+                    // and the first thrown exception is rethrown in the calling thread, ensuring that exceptions 
+                    // are properly propagated and never lost.
+                    //
+                    // --> We can thus easily use an exception to terminate/cancel all iterations of Parallel.For()!
+                    throw new TaskCanceledException("Operation canceled by user");
                 }
 
-                data_source.words_in_docs[d] = tags_in_document.ToArray();
-            }
-            );
+                int num_threads = Environment.ProcessorCount;
+                double alpha = 2.0 / num_topics;
+                double beta = 0.01;
+                data_source.lda_sampler = new LDASampler(alpha, beta, num_topics, data_source.words.Count, data_source.docs.Count, data_source.words_in_docs);
 
-            // Initialise the LDA
-            not_aborted_by_user = not_aborted_by_user && progress_update_delegate("Building themes sampler", 0);
-            int num_threads = Environment.ProcessorCount;
-            double alpha = 2.0 / num_topics;
-            double beta = 0.01;
-            data_source.lda_sampler = new LDASampler(alpha, beta, num_topics, data_source.words.Count, data_source.docs.Count, data_source.words_in_docs);
-
-            LDASamplerMCSerial lda_sampler_mc = new LDASamplerMCSerial(data_source.lda_sampler, num_threads);
-            for (int i = 0; i < MAX_TOPIC_ITERATIONS; ++i)
-            {
-                if (!not_aborted_by_user) break;
-                not_aborted_by_user = not_aborted_by_user && progress_update_delegate("Building themes", i / (double)MAX_TOPIC_ITERATIONS);
-                lda_sampler_mc.MC(10);
+                LDASamplerMCSerial lda_sampler_mc = new LDASamplerMCSerial(data_source.lda_sampler, num_threads);
+                for (int i = 0; i < MAX_TOPIC_ITERATIONS; ++i)
+                {
+                    if (!progress_update_delegate("Building themes", i / (double)MAX_TOPIC_ITERATIONS))
+                    {
+                        // Parallel.For() doc at https://docs.microsoft.com/en-us/archive/msdn-magazine/2007/october/parallel-performance-optimize-managed-code-for-multi-core-machines
+                        // says:
+                        //
+                        // Finally, if any exception is thrown in any of the iterations, all iterations are canceled 
+                        // and the first thrown exception is rethrown in the calling thread, ensuring that exceptions 
+                        // are properly propagated and never lost.
+                        //
+                        // --> We can thus easily use an exception to terminate/cancel all iterations of Parallel.For()!
+                        throw new TaskCanceledException("Operation canceled by user");
+                    }
+                    lda_sampler_mc.MC(10);
+                }
             }
-
-            // Results
-            if (not_aborted_by_user)
+            catch (TaskCanceledException ex)
             {
-                progress_update_delegate("Built Expedition", 1);
-            }
-            else
-            {
+                // This exception should only occur when the user *canceled* the process and should therefor 
+                // *not* be propagated. Instead, we have to report an aborted result:
                 progress_update_delegate("Cancelled Expedition", 1);
+                return null;
             }
+
+            progress_update_delegate("Built Expedition", 1);
 
             return data_source;
         }
