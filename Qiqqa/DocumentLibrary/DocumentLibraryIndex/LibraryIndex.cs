@@ -268,12 +268,12 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 lock (pdf_documents_in_library_lock)
                 {
                     //l1_clk.LockPerfTimerStop();
-                    pdf_documents_in_library.Remove(pdf_document.Fingerprint);
+                    pdf_documents_in_library?.Remove(pdf_document.Fingerprint);
                 }
             }
             catch (Exception ex)
             {
-                Logging.Warn(ex, "How is this exception being thrown?");
+                Logging.Warn(ex, "How is this exception being thrown? Are we in the process of starting the application and 'inside' the RestoreDesktop process?");
                 FeatureTrackingManager.Instance.UseFeature(Features.Exception_NullExceptionInReIndexDocument);
             }
         }

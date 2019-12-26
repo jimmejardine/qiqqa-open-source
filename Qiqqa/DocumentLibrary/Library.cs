@@ -178,6 +178,8 @@ namespace Qiqqa.DocumentLibrary
 
         public Library(WebLibraryDetail web_library_detail)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             this.web_library_detail = web_library_detail;
 
             Logging.Info("Library basepath is at {0}", LIBRARY_BASE_PATH);
@@ -196,7 +198,12 @@ namespace Qiqqa.DocumentLibrary
             expedition_manager = new ExpeditionManager(this);
 
             // Start loading the documents in the background...
-            SafeThreadPool.QueueUserWorkItem(o => BuildFromDocumentRepository());
+			//
+			// NOTE/WARNING: do NOT spawn off another background thread
+			// to execute the call below: you'll end up in a world of hurt
+			// as a lot of stuff will arrive asynchronously at sites
+			// in the Qiqqa code which expect this next piece of work *done*.!
+            BuildFromDocumentRepository();
         }
 
         // NOTE: this function is executed ASYNCHRONOUSLY. 
@@ -318,6 +325,10 @@ namespace Qiqqa.DocumentLibrary
                 lock (pdf_documents_lock)
                 {
                     //l1_clk.LockPerfTimerStop();
+                    if (LibraryIsKilled)
+                    {
+                        throw new Exception("Hacky backy internal error");
+                    }
                     pdf_documents[pdf_document.Fingerprint] = pdf_document;
                 }
 

@@ -9,6 +9,7 @@ using System.Windows.Threading;
 using Qiqqa.Common.BackgroundWorkerDaemonStuff;
 using Utilities;
 using Utilities.ClientVersioning;
+using Utilities.GUI;
 using Utilities.Misc;
 using Utilities.Shutdownable;
 
@@ -88,7 +89,7 @@ namespace Qiqqa.Main
 
             if (do_invoke)
             {
-                Application.Current.Dispatcher.BeginInvoke(new Action(() => StatusManager_OnStatusEntryUpdate_GUI()), DispatcherPriority.Background);
+                WPFDoEvents.InvokeAsyncInUIThread(() => StatusManager_OnStatusEntryUpdate_GUI(), DispatcherPriority.Background);
             }
         }
 

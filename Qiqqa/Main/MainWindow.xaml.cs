@@ -18,6 +18,7 @@ using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.GUI;
 using Utilities.Maintainable;
+using Utilities.Misc;
 using Application = System.Windows.Application;
 using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
 
@@ -97,12 +98,7 @@ namespace Qiqqa.Main
             ObjTabWelcome.GetGoing += ObjTabWelcome_GetGoing;
 
             // Put this in a background thread
-            Application.Current.Dispatcher.BeginInvoke(((Action)(() => PostStartupWork())), DispatcherPriority.Normal);
-
-            // https://stackoverflow.com/questions/34340134/how-to-know-when-a-frameworkelement-has-been-totally-rendered
-            Application.Current.Dispatcher.Invoke(new Action(() => {
-                WPFDoEvents.ResetHourglassCursor();
-            }), DispatcherPriority.ContextIdle, null);
+            SafeThreadPool.QueueUserWorkItem(o => PostStartupWork());
         }
 
         private void MainWindow_ContentRendered(object sender, EventArgs e)
@@ -133,6 +129,8 @@ namespace Qiqqa.Main
 
         private void PostStartupWork()
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             if (ConfigurationManager.Instance.ConfigurationRecord.GUI_RestoreWindowsAtStartup)
             {
                 RestoreDesktopManager.RestoreDesktop();
@@ -144,7 +142,7 @@ namespace Qiqqa.Main
                 WebLibraryManager.Instance.SortWebLibraryDetailsByLastAccessed(web_libary_details);
                 if (0 < web_libary_details.Count)
                 {
-                    MainWindowServiceDispatcher.Instance.OpenLibrary(web_libary_details[0].library);
+                    WPFDoEvents.InvokeInUIThread(() => MainWindowServiceDispatcher.Instance.OpenLibrary(web_libary_details[0].library));
                 }
 
                 // Also open guest under some circumstances
@@ -163,38 +161,40 @@ namespace Qiqqa.Main
 
                 if (should_open_guest)
                 {
-                    MainWindowServiceDispatcher.Instance.OpenLibrary(WebLibraryManager.Instance.Library_Guest);
+                    WPFDoEvents.InvokeInUIThread(() => MainWindowServiceDispatcher.Instance.OpenLibrary(WebLibraryManager.Instance.Library_Guest));
                 }
 
                 // Make sure the start page is selected
-                MainWindowServiceDispatcher.Instance.OpenStartPage();
+                WPFDoEvents.InvokeInUIThread(() => MainWindowServiceDispatcher.Instance.OpenStartPage());
             }
 
-            if (ConfigurationManager.Instance.ConfigurationRecord.GUI_RestoreLocationAtStartup)
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                SetupConfiguredDimensions();
-            }
-            else
-            {
-                if (!RegistrySettings.Instance.IsSet(RegistrySettings.StartNotMaximized))
+                if (ConfigurationManager.Instance.ConfigurationRecord.GUI_RestoreLocationAtStartup)
                 {
-                    WindowState = WindowState.Maximized;
+                    SetupConfiguredDimensions();
                 }
-            }
+                else
+                {
+                    if (!RegistrySettings.Instance.IsSet(RegistrySettings.StartNotMaximized))
+                    {
+                        WindowState = WindowState.Maximized;
+                    }
+                }
 
-            // Install the global keyboard and mouse hooks
-            if (!RegistrySettings.Instance.IsSet(RegistrySettings.DisableGlobalKeyHook))
-            {
-                keyboard_hook = new KeyboardHook();
-                keyboard_hook.KeyDown += keyboard_hook_KeyDown;
-                keyboard_hook.Start();
-            }
-            else
-            {
-                Logging.Warn("DisableGlobalKeyHook is set!");
-            }
+                // Install the global keyboard and mouse hooks
+                if (!RegistrySettings.Instance.IsSet(RegistrySettings.DisableGlobalKeyHook))
+                {
+                    keyboard_hook = new KeyboardHook();
+                    keyboard_hook.KeyDown += keyboard_hook_KeyDown;
+                    keyboard_hook.Start();
+                }
+                else
+                {
+                    Logging.Warn("DisableGlobalKeyHook is set!");
+                }
+            });
 
-            if (true)
             {
                 // Start listening for other apps
                 ipc_server = new IPCServer();
@@ -208,11 +208,11 @@ namespace Qiqqa.Main
 
         private void ipc_server_IPCServerMessage(string message)
         {
-            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            WPFDoEvents.InvokeAsyncInUIThread(() =>
             {
                 MainWindowServiceDispatcher.Instance.ProcessCommandLineFile(message);
             }
-            ));
+            );
         }
 
         private static bool already_exiting = false;

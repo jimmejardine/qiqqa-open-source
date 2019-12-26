@@ -129,7 +129,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
                             return;
                         }
 
-                        StatusManager.Instance.UpdateStatusBusy(STATUS_TOKEN, "Creating Bundle Library...", iteration, iteration + 1, true);
+                        StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Creating Bundle Library...", cancellable: true);
 
                         Thread.Sleep(1000);
                     }
@@ -151,7 +151,6 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_GenerateReferences);
             SafeThreadPool.QueueUserWorkItem(o => CitationFinder.FindCitations(library));
-
         }
 
         private void CmdOCRAndIndex_Click(object sender, RoutedEventArgs e)

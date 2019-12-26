@@ -35,6 +35,8 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         {
             const int MAX_EXPANDED_CHILD_COUNT = 1;
 
+            WebLibraryManager.AssertInitIsDone();
+
             // Sort the children by last accessed order
             List<WebLibraryDetail> children = new List<WebLibraryDetail>();
             children.AddRange(WebLibraryManager.Instance.WebLibraryDetails_All_IncludingDeleted);

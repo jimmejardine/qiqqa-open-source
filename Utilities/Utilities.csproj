@@ -626,6 +626,7 @@
     <Compile Include="Maintainable\MaintainableManager.cs" />
     <Compile Include="Maintainable\PeriodTimer.cs" />
     <Compile Include="Maps\Geocode\PostcodeOutcodes.cs" />
+    <Compile Include="Mathematics\Perunage.cs" />
     <Compile Include="Mathematics\RunningAverage.cs" />
     <Compile Include="Mathematics\WeightedAverage.cs" />
     <Compile Include="Mathematics\Average.cs" />
@@ -745,10 +746,12 @@
     <Compile Include="Misc\DictionaryBasedObject.cs" />
     <Compile Include="Mathematics\Optimisation\NelderMead\Point2D.cs" />
     <Compile Include="Misc\DragDropTools.cs" />
+    <Compile Include="Misc\DumpExceptionInfo.cs" />
     <Compile Include="Misc\KeyPressCodes.cs" />
     <Compile Include="Misc\NotificationManager.cs" />
     <Compile Include="Misc\Pair.cs" />
     <Compile Include="Misc\ProgressLogger.cs" />
+    <Compile Include="Misc\QiqqaAssertTestException.cs" />
     <Compile Include="Misc\QuantisleUserRegistry.cs" />
     <Compile Include="Misc\Runtime.cs" />
     <Compile Include="Misc\SafeThreadPool.cs" />

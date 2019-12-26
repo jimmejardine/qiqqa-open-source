@@ -29,7 +29,7 @@ namespace Qiqqa.WebBrowsing
 
         internal static void GrabWebPage_REMOTE(string title, string url, bool may_try_again_on_exception)
         {
-            StatusManager.Instance.UpdateStatusBusy("HTMLToPDF", "Converting HTML to PDF");
+            StatusManager.Instance.UpdateStatus("HTMLToPDF", "Converting HTML to PDF");
 
             // Strip off the trailing # cos Web2PDF hates is
             if (url.Contains('#'))
@@ -70,7 +70,7 @@ namespace Qiqqa.WebBrowsing
                     }
                 }
 
-                StatusManager.Instance.UpdateStatusBusy("HTMLToPDF", "Converting HTML to PDF: adding to library");
+                StatusManager.Instance.UpdateStatus("HTMLToPDF", "Converting HTML to PDF: adding to library");
                 PDFDocument pdf_document = Library.GuestInstance.AddNewDocumentToLibrary_SYNCHRONOUS(filename, url, url, null, null, null, true, true);
                 pdf_document.Title = title;
                 pdf_document.Year = Convert.ToString(DateTime.Now.Year);

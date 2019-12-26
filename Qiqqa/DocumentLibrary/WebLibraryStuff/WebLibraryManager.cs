@@ -19,16 +19,46 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
     internal class WebLibraryManager
     {
         private static WebLibraryManager __instance = null;
+        private static object instance_lock = new object();
+
         public static WebLibraryManager Instance
         {
             get
             {
-                if (null == __instance)
+                Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+                lock (instance_lock)
                 {
-                    __instance = new WebLibraryManager();
+                    l2_clk.LockPerfTimerStop();
+
+                    if (null == __instance)
+                    {
+                        __instance = new WebLibraryManager();
+                    }
+                    return __instance;
                 }
-                return __instance;
             }
+        }
+
+        public static void Init()
+        {
+            Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+            lock (instance_lock)
+            {
+                l2_clk.LockPerfTimerStop();
+
+                if (__instance != null)
+                {
+                    throw new Exception("WebLibraryManager.Init() MUST be the first call to anything WebLibraryManager, before anything else done with/to that class/object!");
+                }
+                WebLibraryManager __unused_return_value__ = WebLibraryManager.Instance;
+                ASSERT.Test(__unused_return_value__ != null, "Internal error");
+            }
+        }
+
+        public static void AssertInitIsDone()
+        {
+            // don't use lock around this check as we're particularly interested in code which runs in parallel to a locked Init() which is still running!
+            ASSERT.Test(__instance != null);
         }
 
         private Dictionary<string, WebLibraryDetail> web_library_details = new Dictionary<string, WebLibraryDetail>();
@@ -39,6 +69,8 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private WebLibraryManager()
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             // Look for any web libraries that we know about
             LoadKnownWebLibraries(KNOWN_WEB_LIBRARIES_FILENAME, false);
 

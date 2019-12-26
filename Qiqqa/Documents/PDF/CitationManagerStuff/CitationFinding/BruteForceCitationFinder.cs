@@ -59,7 +59,7 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff.CitationFinding
                     author_query = sb.ToString();
                 }
 
-                StatusManager.Instance.UpdateStatusBusy("CitationDocumentFinder", String.Format("Looking for new citations in \"{0}\" by \"{1}\"", pdf_document.TitleCombined, author_query));
+                StatusManager.Instance.UpdateStatus("CitationDocumentFinder", String.Format("Looking for new citations in \"{0}\" by \"{1}\"", pdf_document.TitleCombined, author_query));
 
                 List<IndexPageResult> index_page_results_with_author = LibrarySearcher.FindAllPagesMatchingQuery(pdf_document.Library, author_query);
                 Logging.Info("  **** We have {0} documents matching {1}", index_page_results_with_author.Count, author_query);

@@ -48,11 +48,10 @@ namespace Qiqqa.InCite
 
         private void Refresh_BACKGROUND(Library primary_library)
         {
-            StatusManager.Instance.UpdateStatus("UsedCitations", "Finding used citations...", 0, 1);
+            StatusManager.Instance.UpdateStatus("UsedCitations", "Finding used citations...");
 
             try
             {
-
                 // Get the citations from Word
                 List<CitationCluster> citation_clusters = WordConnector.Instance.GetAllCitationClustersFromCurrentDocument();
                 Dictionary<string, CSLProcessorBibTeXFinder.MatchingBibTeXRecord> bitex_items = CSLProcessorBibTeXFinder.Find(citation_clusters, primary_library);
@@ -112,7 +111,6 @@ namespace Qiqqa.InCite
                 }));
 
             }
-
             catch (Exception ex)
             {
                 Logging.Error(ex, "There was an exception while looking for used citations.");

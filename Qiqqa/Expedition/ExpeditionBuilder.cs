@@ -6,6 +6,7 @@ using Qiqqa.Common.TagManagement;
 using Qiqqa.DocumentLibrary;
 using Qiqqa.Documents.PDF;
 using Utilities;
+using Utilities.Mathematics;
 using Utilities.Mathematics.Topics.LDAStuff;
 using Utilities.Strings;
 
@@ -21,18 +22,17 @@ namespace Qiqqa.Expedition
         /// <param name="message"></param>
         /// <param name="percentage_complete"></param>
         /// <returns></returns>
-        public delegate bool ExpeditionBuilderProgressUpdateDelegate(string message, double percentage_complete);
+        public delegate bool ExpeditionBuilderProgressUpdateDelegate(string message, long current_update_number = 0, long total_update_count = 0);
 
-        private static bool DefaultExpeditionBuilderProgressUpdate(string message, double percentage_complete)
+        private static bool DefaultExpeditionBuilderProgressUpdate(string message, long current_update_number, long total_update_count)
         {
-            Logging.Info("ExpeditionBuilder progress {0}:, {1}", percentage_complete, message);
+            Logging.Info("ExpeditionBuilder progress {0}: {1}/{2} = {3:P}", message, current_update_number, total_update_count, Perunage.Calc(current_update_number, total_update_count));
             return true;
         }
 
         public static ExpeditionDataSource BuildExpeditionDataSource(Library library, int num_topics, bool add_autotags, bool add_tags, ExpeditionBuilderProgressUpdateDelegate progress_update_delegate)
         {
             // Initialise the datasource
-            //progress_update_delegate("Initialising datasource", 0);
             ExpeditionDataSource data_source = new ExpeditionDataSource();
 
             data_source.date_created = DateTime.UtcNow;
@@ -46,25 +46,25 @@ namespace Qiqqa.Expedition
                 }
 
                 // What are the sources of data?
-                progress_update_delegate("Assembling tags", 0);
+                progress_update_delegate("Assembling tags");
                 HashSet<string> tags = BuildLibraryTagList(library, add_autotags, add_tags);
                 List<PDFDocument> pdf_documents = library.PDFDocumentsWithLocalFilePresent;
 
-                progress_update_delegate("Adding tags", 0);
+                progress_update_delegate("Adding tags");
                 data_source.words = new List<string>();
                 foreach (string tag in tags)
                 {
                     data_source.words.Add(tag);
                 }
 
-                progress_update_delegate("Adding docs", 0);
+                progress_update_delegate("Adding docs");
                 data_source.docs = new List<string>();
                 foreach (PDFDocument pdf_document in pdf_documents)
                 {
                     data_source.docs.Add(pdf_document.Fingerprint);
                 }
 
-                progress_update_delegate("Rebuilding indices", 0);
+                progress_update_delegate("Rebuilding indices");
                 data_source.RebuildIndices();
 
                 // Now go through each doc and find the tags that match
@@ -80,7 +80,7 @@ namespace Qiqqa.Expedition
                     //if (0 == total_processed_local % 50)
                     if (0 == d % 50)
                     {
-                        if (!progress_update_delegate(String.Format("Scanning documents ({0}/{1})", d, DATA_SOURCE_DOCS_COUNT), d / (double)DATA_SOURCE_DOCS_COUNT))
+                        if (!progress_update_delegate("Scanning documents", d, DATA_SOURCE_DOCS_COUNT))
                         {
                             // Parallel.For() doc at https://docs.microsoft.com/en-us/archive/msdn-magazine/2007/october/parallel-performance-optimize-managed-code-for-multi-core-machines
                             // says:
@@ -125,7 +125,7 @@ namespace Qiqqa.Expedition
                 );
 
                 // Initialise the LDA
-                if (!progress_update_delegate("Building themes sampler", 0))
+                if (!progress_update_delegate("Building themes sampler"))
                 {
                     // Parallel.For() doc at https://docs.microsoft.com/en-us/archive/msdn-magazine/2007/october/parallel-performance-optimize-managed-code-for-multi-core-machines
                     // says:
@@ -146,7 +146,7 @@ namespace Qiqqa.Expedition
                 LDASamplerMCSerial lda_sampler_mc = new LDASamplerMCSerial(data_source.lda_sampler, num_threads);
                 for (int i = 0; i < MAX_TOPIC_ITERATIONS; ++i)
                 {
-                    if (!progress_update_delegate("Building themes", i / (double)MAX_TOPIC_ITERATIONS))
+                    if (!progress_update_delegate("Building themes", i, MAX_TOPIC_ITERATIONS))
                     {
                         // Parallel.For() doc at https://docs.microsoft.com/en-us/archive/msdn-magazine/2007/october/parallel-performance-optimize-managed-code-for-multi-core-machines
                         // says:
@@ -165,11 +165,11 @@ namespace Qiqqa.Expedition
             {
                 // This exception should only occur when the user *canceled* the process and should therefor 
                 // *not* be propagated. Instead, we have to report an aborted result:
-                progress_update_delegate("Cancelled Expedition", 1);
+                progress_update_delegate("Cancelled Expedition", 1, 1);
                 return null;
             }
 
-            progress_update_delegate("Built Expedition", 1);
+            progress_update_delegate("Built Expedition", 1, 1);
 
             return data_source;
         }

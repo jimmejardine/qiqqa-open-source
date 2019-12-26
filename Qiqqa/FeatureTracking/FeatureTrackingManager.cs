@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Utilities;
+using Utilities.Misc;
 
 namespace Qiqqa.UtilisationTracking
 {
@@ -12,6 +13,8 @@ namespace Qiqqa.UtilisationTracking
             {
                 if (null == __instance)
                 {
+                    StatusManager.Instance.UpdateStatus("AppStart", "Starting feature manager");
+
                     __instance = new FeatureTrackingManager();
                 }
                 return __instance;

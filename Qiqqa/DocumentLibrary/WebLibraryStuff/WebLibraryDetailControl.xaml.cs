@@ -314,7 +314,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private void library_OnDocumentsChanged()
         {
-            Application.Current.Dispatcher.BeginInvoke(new Action(() => UpdateLibraryStatistics()));
+            WPFDoEvents.InvokeAsyncInUIThread(() => UpdateLibraryStatistics());
         }
 
         private void UpdateLibraryStatistics()
@@ -428,7 +428,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 chart_items_added.Add(new ChartItem { Title = "Added", Timestamp = cutoff, Count = num_added });
             }
 
-            Application.Current.Dispatcher.BeginInvoke(new Action(() => UpdateLibraryStatistics_Stats_Background_GUI(chart_items_read, chart_items_added)));
+            WPFDoEvents.InvokeAsyncInUIThread(() => UpdateLibraryStatistics_Stats_Background_GUI(chart_items_read, chart_items_added));
         }
 
         private class DocumentDisplayWork
@@ -669,12 +669,12 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
                 if (0 == ddwm.ddws.Count)
                 {
-                    Application.Current.Dispatcher.BeginInvoke(new Action(() =>
-                        {
-                            ButtonCoverFlow.IsChecked = false;
-                            UpdateLibraryStatistics();
-                        }
-                    ));
+                    WPFDoEvents.InvokeAsyncInUIThread(() =>
+                    {
+                        ButtonCoverFlow.IsChecked = false;
+                        UpdateLibraryStatistics();
+                    }
+                    );
                 }
             }
         }

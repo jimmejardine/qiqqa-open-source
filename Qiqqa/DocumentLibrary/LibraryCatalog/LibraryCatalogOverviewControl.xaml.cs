@@ -132,7 +132,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
                 return;
             }
 
-            MainWindowServiceDispatcher.Instance.OpenDocument(PDFDocumentBindable.Underlying, LibraryCatalogControl.FilterTerms);
+            MainWindowServiceDispatcher.Instance.OpenDocument(PDFDocumentBindable.Underlying, search_terms: LibraryCatalogControl.FilterTerms);
         }
 
         private void LibraryCatalogOverviewControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)

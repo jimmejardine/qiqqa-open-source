@@ -237,7 +237,7 @@ namespace Qiqqa.Expedition
 
         private void OnRebuildExpeditionComplete()
         {
-            Application.Current.Dispatcher.BeginInvoke(new Action(() => OnRebuildExpeditionComplete_GUITHREAD()));
+            WPFDoEvents.InvokeAsyncInUIThread(() => OnRebuildExpeditionComplete_GUITHREAD());
         }
 
         private void OnRebuildExpeditionComplete_GUITHREAD()

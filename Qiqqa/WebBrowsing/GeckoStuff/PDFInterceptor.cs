@@ -13,6 +13,7 @@ using Qiqqa.Documents.PDF;
 using Qiqqa.Documents.PDF.PDFControls;
 using Utilities;
 using Utilities.Files;
+using Utilities.GUI;
 using Utilities.Misc;
 
 namespace Qiqqa.WebBrowsing.GeckoStuff
@@ -174,9 +175,7 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
 
         private void DownloadAndInstallAcrobatReader(object obj)
         {
-            Application.Current.Dispatcher.BeginInvoke(
-                new Action(() => MainWindowServiceDispatcher.Instance.OpenUrlInBrowser(WebsiteAccess.Url_AdobeAcrobatDownload, true))
-            );
+            WPFDoEvents.InvokeAsyncInUIThread(() => MainWindowServiceDispatcher.Instance.OpenUrlInBrowser(WebsiteAccess.Url_AdobeAcrobatDownload, true));
         }
     }
 }

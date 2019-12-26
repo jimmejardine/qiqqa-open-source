@@ -92,7 +92,7 @@ namespace Utilities.GUI
                 if (!is_someone_scrolling)
                 {
                     is_someone_scrolling = true;
-                    Application.Current.Dispatcher.BeginInvoke(new Action(() => RollAfterDrag()), DispatcherPriority.Background);
+                    WPFDoEvents.InvokeAsyncInUIThread(() => RollAfterDrag(), DispatcherPriority.Background);
                 }
             }
         }
@@ -118,7 +118,7 @@ namespace Utilities.GUI
                 }
                 else
                 {
-                    Application.Current.Dispatcher.BeginInvoke(new Action(() => RollAfterDrag()), DispatcherPriority.Background);
+                    WPFDoEvents.InvokeAsyncInUIThread(() => RollAfterDrag(), DispatcherPriority.Background);
                 }
             }
         }

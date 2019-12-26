@@ -11,7 +11,7 @@ namespace Qiqqa.UpgradePaths.V043To044
 {
     internal class MoveOCRDirs
     {
-        internal static void RunUpgrade(SplashScreenWindow splashscreen_window)
+        internal static void RunUpgrade()
         {
             try
             {

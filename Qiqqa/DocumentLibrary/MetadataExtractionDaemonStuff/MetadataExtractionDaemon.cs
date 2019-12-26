@@ -136,7 +136,7 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
 
                 for (int i = 0; i < pdfs_to_process.Count; ++i)
                 {
-                    StatusManager.Instance.UpdateStatusBusy("AutoSuggestMetadata", "Suggesting metadata", i, pdfs_to_process.Count, true);
+                    StatusManager.Instance.UpdateStatus("AutoSuggestMetadata", "Suggesting metadata", i, pdfs_to_process.Count, true);
                     if (StatusManager.Instance.IsCancelled("AutoSuggestMetadata"))
                     {
                         break;

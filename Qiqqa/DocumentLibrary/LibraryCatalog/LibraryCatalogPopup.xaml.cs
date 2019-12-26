@@ -573,7 +573,7 @@ SourceURL: {0}
 
             foreach (var pdf_document in pdf_documents)
             {
-                MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document, true);
+                MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document, open_again: true);
             }
         }
 

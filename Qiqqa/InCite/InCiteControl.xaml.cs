@@ -509,11 +509,11 @@ namespace Qiqqa.InCite
         {
             Logging.Debug特("InCite: CitationClusterChanged: {0}", context_citation_cluster);
 
-            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            WPFDoEvents.InvokeAsyncInUIThread(() =>
             {
                 ObjCitationClusterEditorControl.SetCitationCluster(context_citation_cluster);
             }
-            ));
+            );
         }
 
         private void ButtonToggleWatcher_Click(object sender, RoutedEventArgs e)
@@ -531,11 +531,10 @@ namespace Qiqqa.InCite
         {
             Logging.Debug特("InCite: ContextChanged");
 
-            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            WPFDoEvents.InvokeAsyncInUIThread(() =>
             {
                 word_connector_ContextChanged_BACKGROUND_UpdateButtonEnabledness(context_word, context_backward, context_surround);
-            }
-            ), DispatcherPriority.Background);
+            }, DispatcherPriority.Background);
 
             Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (context_thread_lock)
@@ -630,11 +629,10 @@ namespace Qiqqa.InCite
                 }
 
                 // And get the GUI to update with the results
-                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
                     word_connector_ContextChanged_BACKGROUND_PopulateRecommendations(context_pdf_documents);
-                }
-                ), DispatcherPriority.Background);
+                }, DispatcherPriority.Background);
             }
         }
 

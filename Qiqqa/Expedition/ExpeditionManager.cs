@@ -80,16 +80,9 @@ namespace Qiqqa.Expedition
             }
         }
 
-        private bool ExpeditionBuilderProgressUpdate(string message, double percentage_complete)
+        private bool ExpeditionBuilderProgressUpdate(string message, long current_update_number, long total_update_count)
         {
-            if (1 != percentage_complete)
-            {
-                StatusManager.Instance.UpdateStatus("Expedition", message, percentage_complete, true);
-            }
-            else
-            {
-                StatusManager.Instance.UpdateStatus("Expedition", message);
-            }
+            StatusManager.Instance.UpdateStatus("Expedition", message, current_update_number, total_update_count, cancellable: current_update_number != total_update_count);
 
             return !StatusManager.Instance.IsCancelled("Expedition");
         }
