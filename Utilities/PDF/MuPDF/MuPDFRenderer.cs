@@ -284,6 +284,7 @@ namespace Utilities.PDF.MuPDF
 
                             // Check that the process has exited properly
                             process.WaitForExit(1000);
+
                             if (!process.HasExited)
                             {
                                 Logging.Debug("PDFRenderer process did not terminate, so killing it.\n{0}", process_output_reader.GetOutputsDumpString());
@@ -291,14 +292,16 @@ namespace Utilities.PDF.MuPDF
                                 try
                                 {
                                     process.Kill();
+
+                                    // wait for the completion signal; this also helps to collect all STDERR output of the application (even while it was KILLED)
                                     process.WaitForExit(1000);
                                 }
                                 catch (Exception ex)
                                 {
-                                    Logging.Error(ex, "These was an exception while trying to kill the PDFRenderer process.");
+                                    Logging.Error(ex, "There was a problem killing the PDFRenderer process after timeout ({0} ms)", elapsed2 + 1000);
                                 }
 
-                                Logging.Error("PDFRenderer process did not terminate, so killed it.\n{0}", process_output_reader.GetOutputsDumpString());
+                                Logging.Error("PDFRenderer process did not terminate, so killed it. Commandline:\n    {0}\n{1}", process_parameters, process_output_reader.GetOutputsDumpString());
 
                                 throw new ApplicationException($"PDFRenderer process did not terminate, so killed it.\n    Commandline: pdfdraw.exe {process_parameters}");
                             }

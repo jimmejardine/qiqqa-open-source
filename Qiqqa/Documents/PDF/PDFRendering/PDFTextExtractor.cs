@@ -735,9 +735,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             {
                 Logging.Error("Couldn't even perform OCR on the page, so giving up for {0}", next_job.job);
 
-                // Store an empty file so we don't queue forever... (but only if this is not due to the application terminating)
-                //
-                // ^^^--- This is done in QiqqaOCR already.
+                // TODO: Store an empty file so we don't queue forever... (but only if this is not due to the application terminating)
             }
         }
 
@@ -771,32 +769,34 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                         }
                     }
 
-                    // Check that we had a clean exit
-                    if (!process.HasExited || 0 != process.ExitCode)
+                    bool has_exited = process.HasExited;
+
+                    if (!has_exited)
                     {
-                        bool has_exited = process.HasExited;
-
-                        if (!has_exited)
+                        try
                         {
-                            try
-                            {
-                                process.Kill();
+                            process.Kill();
 
-                                // wait for the completion signal; this also helps to collect all STDERR output of the application (even while it was KILLED)
-                                process.WaitForExit(1000);
-                            }
-                            catch (Exception ex)
-                            {
-                                Logging.Error(ex, "There was a problem killing the OCR process after timeout ({0} ms)", duration);
-                            }
+                            // wait for the completion signal; this also helps to collect all STDERR output of the application (even while it was KILLED)
+                            process.WaitForExit(1000);
                         }
+                        catch (Exception ex)
+                        {
+                            Logging.Error(ex, "There was a problem killing the OCR process after timeout ({0} ms)", duration);
+                        }
+                    }
 
+                    // Check that we had a clean exit
+                    if (!has_exited || 0 != process.ExitCode)
+                    {
                         Logging.Error("There was a problem while running OCR with parameters: {0}\n--- Exit Code: {1}\n--- {3}\n{2}", ocr_parameters, process.ExitCode, process_output_reader.GetOutputsDumpString(), (has_exited ? $"Exit code: {process.ExitCode}" : $"Timeout: {duration} ms"));
 
                         return false;
                     }
                     else
                     {
+                        Logging.Error("Succeeded running OCR with parameters: {0}\n--- Exit Code: {1}\n--- {3}\n{2}", ocr_parameters, process.ExitCode, process_output_reader.GetOutputsDumpString(), (has_exited ? $"Exit code: {process.ExitCode}" : $"Timeout: {duration} ms"));
+
                         return true;
                     }
                 }

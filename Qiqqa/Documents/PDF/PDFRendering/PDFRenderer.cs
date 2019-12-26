@@ -16,6 +16,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
     public class PDFRenderer
     {
         private const int TEXT_PAGES_PER_GROUP = 20;
+
         private string pdf_filename;
         private string pdf_user_password;
         private string pdf_owner_password;

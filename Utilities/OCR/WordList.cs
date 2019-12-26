@@ -43,6 +43,7 @@ namespace Utilities.OCR
         {
             Dictionary<int, WordList> word_lists = new Dictionary<int, WordList>();
             WordList current_word_list = null;
+            int current_page = default_page;
 
             string[] lines = File.ReadAllLines(filename);
 
@@ -100,6 +101,7 @@ namespace Utilities.OCR
                         string page_string = line.Substring(PAGE_PREAMBLE.Length);
                         int page = Convert.ToInt32(page_string);
 
+                        current_page = page;
                         current_word_list = new WordList();
                         word_lists[page] = current_word_list;
 
@@ -117,10 +119,18 @@ namespace Utilities.OCR
                     word.Width = Convert.ToDouble(locations[2], Internationalization.DEFAULT_CULTURE);
                     word.Height = Convert.ToDouble(locations[3], Internationalization.DEFAULT_CULTURE);
                     word.Text = line.Substring(colon_pos + 1);
+                    if (word.Width <= 0.0 || word.Height <= 0.0)
+                    {
+                        throw new Exception(String.Format("OCR file '{0}': format error: zero word width/height @PAGE {1}", filename, current_page));
+                    }
 
                     // If we get this far and we don't yet have a page, assume the default page
                     if (null == current_word_list)
                     {
+                        if (default_page < 1)
+                        {
+                            throw new Exception(String.Format("OCR file '{0}': format error: words without leading @PAGE", filename));
+                        }
                         current_word_list = new WordList();
                         word_lists[default_page] = current_word_list;
                     }

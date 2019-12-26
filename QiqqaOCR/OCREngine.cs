@@ -165,6 +165,12 @@ namespace QiqqaOCR
                     thread_ocr.Join(100);
                 }
             }
+
+            // propagate any exception thrown by the worker process
+            if (null != exception_ocr)
+            {
+                throw new Exception("Failure", exception_ocr);
+            }
         }
 
         private static void ThreadOCRMainEntry(object arg)

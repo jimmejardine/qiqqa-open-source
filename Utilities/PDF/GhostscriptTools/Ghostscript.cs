@@ -39,7 +39,26 @@ namespace Utilities.PDF.GhostscriptTools
 
                             // Check that the process has exited properly
                             process.WaitForExit(1000);
-                            if (!process.HasExited)
+
+                            bool has_exited = process.HasExited;
+
+                            if (!has_exited)
+                            {
+                                try
+                                {
+                                    process.Kill();
+
+                                    // wait for the completion signal; this also helps to collect all STDERR output of the application (even while it was KILLED)
+                                    process.WaitForExit(1000);
+                                }
+                                catch (Exception ex)
+                                {
+                                    Logging.Error(ex, "There was a problem killing the GhostScript process after timeout");
+                                }
+                            }
+
+                            // Check that we had a clean exit
+                            if (!has_exited || 0 != process.ExitCode)
                             {
                                 Logging.Error("Ghostscript process did not terminate.\n{0}", process_output_reader.GetOutputsDumpString());
                             }

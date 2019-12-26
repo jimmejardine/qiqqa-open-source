@@ -140,6 +140,12 @@ namespace QiqqaOCR
                     thread_text_extract.Join(100);
                 }
             }
+
+            // propagate any exception thrown by the worker process
+            if (null != exception_text_extract)
+            {
+                throw new Exception("Failure", exception_text_extract);
+            }
         }
 
         private static void ThreadTextExtractMainEntry(object arg)
