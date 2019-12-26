@@ -10,6 +10,7 @@ using Qiqqa.DocumentLibrary.LibraryCatalog;
 using Qiqqa.Documents.PDF;
 using Qiqqa.Documents.PDF.InfoBarStuff.DuplicateDetectionStuff;
 using Utilities;
+using Utilities.GUI;
 using Utilities.Misc;
 
 namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
@@ -93,13 +94,13 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
         {
             try
             {
-                Application.Current.Dispatcher.Invoke(new Action(() =>
+                WPFDoEvents.InvokeInUIThread(() =>
                 {
                     TxtLibraryName.Text = library.WebLibraryDetail.Title;
                     TreeDuplicates.Items.Clear();
                     TxtNoDuplicatesFound.Visibility = Visibility.Collapsed;
                 }
-                ));
+                );
 
                 List<PDFDocument> pdf_documents = library.PDFDocuments;
 
@@ -130,7 +131,7 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
                     if (0 < duplicate_pdf_documents.Count)
                     {
                         have_duplicates = true;
-                        Application.Current.Dispatcher.Invoke(new Action(() =>
+                        WPFDoEvents.InvokeInUIThread(() =>
                         {
                             TreeViewItem tvi_parent = new TreeViewItem();
                             AttachEvents(tvi_parent, pdf_document);
@@ -143,17 +144,17 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
 
                             TreeDuplicates.Items.Add(tvi_parent);
                         }
-                        ));
+                        );
                     }
                 }
 
                 if (!have_duplicates)
                 {
-                    Application.Current.Dispatcher.Invoke(new Action(() =>
+                    WPFDoEvents.InvokeInUIThread(() =>
                     {
                         TxtNoDuplicatesFound.Visibility = Visibility.Visible;
                     }
-                    ));
+                    );
                 }
 
                 StatusManager.Instance.UpdateStatus("DuplicateChecking", "Finished checking for duplicates");

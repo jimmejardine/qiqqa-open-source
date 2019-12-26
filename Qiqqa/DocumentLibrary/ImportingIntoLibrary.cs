@@ -62,6 +62,8 @@ namespace Qiqqa.DocumentLibrary
 
         public static PDFDocument AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(Library library, bool suppress_notifications, bool suppress_signal_that_docs_have_changed, FilenameWithMetadataImport[] filename_with_metadata_imports)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             Stopwatch clk = new Stopwatch();
             clk.Start();
 
@@ -206,6 +208,8 @@ namespace Qiqqa.DocumentLibrary
 
         internal static void AlertUserAboutProblematicImports()
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             bool do_view = MessageBoxes.AskErrorQuestion("There were problems with some of the documents you were trying to add to Qiqqa.  Do you want to see the problem details?", true);
 
             // do NOT spend a long time inside the lock!

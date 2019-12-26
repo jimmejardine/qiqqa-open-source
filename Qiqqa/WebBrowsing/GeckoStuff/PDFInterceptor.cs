@@ -152,14 +152,12 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
                 PDFDocument pdf_document = Library.GuestInstance.AddNewDocumentToLibrary_SYNCHRONOUS(temp_pdf_filename, document_source_filename, document_source_url, null, null, null, true, true);
                 File.Delete(temp_pdf_filename);
 
-                Application.Current.Dispatcher.Invoke
-                (
-                    new Action(() =>
+                WPFDoEvents.InvokeInUIThread(() =>
                     {
                         PDFReadingControl pdf_reading_control = MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);
                         pdf_reading_control.EnableGuestMoveNotification(potential_attachment_pdf_document);
-                    }),
-                    DispatcherPriority.Background
+                    },
+                    priority: DispatcherPriority.Background
                 );
             }
             catch (Exception ex)

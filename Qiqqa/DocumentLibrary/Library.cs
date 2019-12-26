@@ -288,7 +288,7 @@ namespace Qiqqa.DocumentLibrary
                     }
                 }
 
-                StatusManager.Instance.ClearStatus("LibraryInitialLoad");
+                //StatusManager.Instance.ClearStatus("LibraryInitialLoad");
 
                 Logging.Debug特("-Build library '{2}' from repository -- time spent: {0} ms on {1} library records.", clk.ElapsedMilliseconds, library_items.Count, WebLibraryDetail.DescriptiveTitle);
             }

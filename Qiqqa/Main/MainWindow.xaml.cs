@@ -109,11 +109,13 @@ namespace Qiqqa.Main
             MaintainableManager.Instance.BumpHoldOffPendingLevel();
 
             // https://stackoverflow.com/questions/34340134/how-to-know-when-a-frameworkelement-has-been-totally-rendered
-            Application.Current.Dispatcher.Invoke(new Action(() => {
+            WPFDoEvents.InvokeInUIThread(() => {
                 WPFDoEvents.ResetHourglassCursor();
 
-                //Environment.Exit(-2);    -- testing & profiling only
-            }), DispatcherPriority.ContextIdle, null);
+#if false
+                Environment.Exit(-2);    // testing & profiling only
+#endif
+            }, priority: DispatcherPriority.ContextIdle);
         }
 
         private void keyboard_hook_KeyDown(object sender, KeyEventArgs e)
@@ -311,7 +313,7 @@ namespace Qiqqa.Main
             }
         }
 
-        #region --- IDisposable ------------------------------------------------------------------------
+#region --- IDisposable ------------------------------------------------------------------------
 
         ~MainWindow()
         {
@@ -360,7 +362,7 @@ namespace Qiqqa.Main
             ++dispose_count;
         }
 
-        #endregion
+#endregion
 
         protected override void OnClosing(CancelEventArgs e)
         {

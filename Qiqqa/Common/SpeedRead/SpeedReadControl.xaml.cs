@@ -7,6 +7,7 @@ using System.Windows.Input;
 using icons;
 using Qiqqa.Common.Configuration;
 using Utilities;
+using Utilities.GUI;
 
 namespace Qiqqa.Common.SpeedRead
 {
@@ -225,12 +226,11 @@ namespace Qiqqa.Common.SpeedRead
                     int current_wpm = 0;
 
                     // Interrogate the GUI
-                    Application.Current.Dispatcher.Invoke(
-                        new Action(() =>
+                    WPFDoEvents.InvokeInUIThread(() =>
                         {
                             current_wpm = (int)SliderWPM.Value;
                         }
-                    ));
+                    );
 
 
                     // Sleep a bit to reflect the WPM
@@ -240,13 +240,12 @@ namespace Qiqqa.Common.SpeedRead
                     int current_position = 0;
                     int current_maximum = 0;
                     // Interrogate the GUI
-                    Application.Current.Dispatcher.Invoke(
-                        new Action(() =>
+                    WPFDoEvents.InvokeInUIThread(() =>
                         {
                             current_position = (int)SliderLocation.Value;
                             current_maximum = (int)SliderLocation.Maximum;
                         }
-                    ));
+                    );
 
 
                     // Can we move onto the next word?
@@ -269,25 +268,23 @@ namespace Qiqqa.Common.SpeedRead
 
                         ++current_position;
 
-                        Application.Current.Dispatcher.Invoke(
-                            new Action(() =>
+                        WPFDoEvents.InvokeInUIThread(() =>
                             {
                                 SliderLocation.Value = current_position;
                                 TextCurrentWord.Text = current_word;
                                 TextCurrentWordLeft.Text = current_word_left;
                                 TextCurrentWordRight.Text = current_word_right;
                             }
-                        ));
+                        );
 
                     }
                     else
                     {
-                        Application.Current.Dispatcher.Invoke(
-                            new Action(() =>
+                        WPFDoEvents.InvokeInUIThread(() =>
                             {
                                 TogglePlayPause(force_stop: true);
                             }
-                        ));
+                        );
                     }
                 }
             }

@@ -114,7 +114,7 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
 
                 EnsureWarningFilesArePresent(base_path);
 
-                // If the file exists, check that we don't need to update it's details
+                // If the file exists, check that we don't need to update its details
                 string library_detail_path = IntranetLibraryTools.GetLibraryDetailPath(base_path);
                 if (File.Exists(library_detail_path))
                 {

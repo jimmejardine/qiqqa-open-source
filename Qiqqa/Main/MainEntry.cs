@@ -333,11 +333,11 @@ namespace Qiqqa.Main
             Logging.Error(ex, "RemarkOnException.....");
             if (null != Application.Current)
             {
-                Application.Current.Dispatcher.Invoke(new Action(() =>
+                WPFDoEvents.InvokeInUIThread(() =>
                 {
                     RemarkOnException_GUI_THREAD(ex);
                 }
-                ));
+                );
             }
         }
 

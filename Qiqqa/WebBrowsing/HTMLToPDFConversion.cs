@@ -13,6 +13,7 @@ using Qiqqa.Documents.PDF.PDFControls;
 using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.Files;
+using Utilities.GUI;
 using Utilities.Misc;
 using Utilities.ProcessTools;
 
@@ -76,15 +77,12 @@ namespace Qiqqa.WebBrowsing
                 pdf_document.Year = Convert.ToString(DateTime.Now.Year);
                 pdf_document.DownloadLocation = url;
 
-                Application.Current.Dispatcher.Invoke
-                (
-                    new Action(() =>
+                WPFDoEvents.InvokeInUIThread(() =>
                     {
                         PDFReadingControl pdf_reading_control = MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);
                         pdf_reading_control.EnableGuestMoveNotification();
-
-                    }),
-                    DispatcherPriority.Background
+                    },
+                    priority: DispatcherPriority.Background
                 );
             }
             catch (Exception ex)

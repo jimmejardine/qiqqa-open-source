@@ -575,7 +575,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
 
                 // And fill the placeholders
-                Application.Current.Dispatcher.Invoke(new Action(() => UpdateLibraryStatistics_Stats_Background_GUI_AddAllPlaceHolders(ddwm.ddws)));
+                WPFDoEvents.InvokeInUIThread(() => UpdateLibraryStatistics_Stats_Background_GUI_AddAllPlaceHolders(ddwm.ddws));
 
                 // Now render each document
                 using (Font font = new Font("Times New Roman", 11.0f))
@@ -656,7 +656,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                                         ddw.page_bitmap_source = page_bitmap_source;
                                     }
 
-                                    Application.Current.Dispatcher.Invoke(new Action(() => UpdateLibraryStatistics_Stats_Background_GUI_FillPlaceHolder(ddw)));
+                                    WPFDoEvents.InvokeInUIThread(() => UpdateLibraryStatistics_Stats_Background_GUI_FillPlaceHolder(ddw));
                                 }
                                 catch (Exception ex)
                                 {

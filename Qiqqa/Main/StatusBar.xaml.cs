@@ -21,27 +21,36 @@ namespace Qiqqa.Main
     public partial class StatusBar : UserControl
     {
         private Dictionary<string, StatusBarItem> status_bar_items = new Dictionary<string, StatusBarItem>();
-
         private Dictionary<string, StatusManager.StatusEntry> status_entries_still_to_process = new Dictionary<string, StatusManager.StatusEntry>();
         private bool status_entries_still_to_process_fresh_thread_running = false;
         private object status_entries_still_to_process_lock = new object();
 
         public StatusBar()
         {
-            ShutdownableManager.Instance.Register(Shutdown);
-
             InitializeComponent();
 
+            this.Loaded += StatusBar_Loaded;
+            this.Unloaded += StatusBar_Unloaded;
+
             string post_version_type = ApplicationDeployment.IsNetworkDeployed ? "o" : "s";
-            CmdVersion.Caption = " " + "v." + ClientVersion.CurrentVersion + post_version_type + " ";
+            CmdVersion.Caption = "v." + ClientVersion.CurrentVersion + post_version_type;
             CmdVersion.MinWidth = 0;
             CmdVersion.Click += CmdVersion_Click;
 
             ObjScrollViewer.MouseMove += ObjScrollViewer_MouseMove;
 
-            StatusManager.Instance.OnStatusEntryUpdate += StatusManager_OnStatusEntryUpdate;
-
             CmdVersion.ToolTip = "This shows the version of Qiqqa you are using.\nClick here to show the release notes for historical versions and for instructions on how to get an older version of Qiqqa.";
+        }
+
+        private void StatusBar_Unloaded(object sender, RoutedEventArgs e)
+        {
+            StatusManager.Instance.OnStatusEntryUpdate -= StatusManager_OnStatusEntryUpdate;
+        }
+
+        private void StatusBar_Loaded(object sender, RoutedEventArgs e)
+        {
+            StatusManager.Instance.OnStatusEntryUpdate += StatusManager_OnStatusEntryUpdate;
+            StatusManager.Instance.UpdateStatus("AppStart", "Launching Qiqqa...");
         }
 
         private void CmdVersion_Click(object sender, RoutedEventArgs e)
@@ -64,11 +73,6 @@ namespace Qiqqa.Main
                 double offset = ObjScrollViewer.ScrollableWidth * e.GetPosition(ObjScrollViewer).X / ObjScrollViewer.ActualWidth;
                 ObjScrollViewer.ScrollToHorizontalOffset(offset);
             }
-        }
-
-        private void Shutdown()
-        {
-            StatusManager.Instance.OnStatusEntryUpdate -= StatusManager_OnStatusEntryUpdate;
         }
 
         private void StatusManager_OnStatusEntryUpdate(StatusManager.StatusEntry status_entry)
@@ -142,7 +146,7 @@ namespace Qiqqa.Main
                     }
                 }
 
-                status_bar_item.SetStatus(status_entry.key, status_entry.LastStatusMessage, status_entry.LastStatusMessageCancellable, status_entry.current_update_number, status_entry.total_update_count);
+                status_bar_item.SetStatus(status_entry);
 
                 ExpungeStaleStatusBarItems();
             }

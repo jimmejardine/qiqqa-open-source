@@ -83,6 +83,9 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             AddLocalGuestLibraryIfMissing();
 
             SaveKnownWebLibraries();
+
+            StatusManager.Instance.ClearStatus("LibraryInitialLoad");
+
             FireWebLibrariesChanged();
         }
 
@@ -810,6 +813,9 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             if (!suppress_flush_to_disk)
             {
                 SaveKnownWebLibraries();
+
+                StatusManager.Instance.ClearStatus("LibraryInitialLoad");
+                
                 FireWebLibrariesChanged();
             }
         }

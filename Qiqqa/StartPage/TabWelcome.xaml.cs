@@ -25,9 +25,9 @@ namespace Qiqqa.StartPage
 
 #if false
             // https://stackoverflow.com/questions/34340134/how-to-know-when-a-frameworkelement-has-been-totally-rendered
-            Application.Current.Dispatcher.Invoke(new Action(() => {
+            WPFDoEvents.InvokeInUIThread(() => {
                 WPFDoEvents.ResetHourglassCursor();
-            }), DispatcherPriority.ContextIdle, null);
+            }, priority: DispatcherPriority.ContextIdle);
 #endif
 
             ObjBackgroundImage.Source = SplashScreenWindow.GetSplashImage();

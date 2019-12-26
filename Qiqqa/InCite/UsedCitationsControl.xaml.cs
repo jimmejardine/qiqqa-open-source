@@ -82,7 +82,7 @@ namespace Qiqqa.InCite
                     return String.Compare(p1.pdf_document.AuthorsCombined, p2.pdf_document.AuthorsCombined);
                 });
 
-                Application.Current.Dispatcher.Invoke(new Action(() =>
+                WPFDoEvents.InvokeInUIThread(() =>
                 {
                     // Store them for the GUI
                     latest_used_citations = used_citations;
@@ -108,7 +108,7 @@ namespace Qiqqa.InCite
 
                     // Only show the missing area if we have missing items...
                     ObjGridMissingCitations.Visibility = (0 < missing_citations.Count) ? Visibility.Visible : Visibility.Collapsed;
-                }));
+                });
 
             }
             catch (Exception ex)
