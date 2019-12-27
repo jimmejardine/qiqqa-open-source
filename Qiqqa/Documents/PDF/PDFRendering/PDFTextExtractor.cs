@@ -689,7 +689,8 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                     + '"' + next_job.job.language + '"'
                     ;
 
-                if (CheckOCRProcessSuccess(ocr_parameters))
+                // https://stackoverflow.com/questions/2870544/c-sharp-4-0-optional-out-ref-arguments
+                if (CheckOCRProcessSuccess(ocr_parameters, out _))
                 {
                     next_job.job.pdf_renderer.StorePageTextGroup(next_job.job.page, next_job.job.TEXT_PAGES_PER_GROUP, temp_ocr_result_filename);
                 }
@@ -705,7 +706,9 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             }
             else
             {
-                // Queue previously failed attempts on this PDF file for single OCR attempts.
+                // Immediately queue previously failed GROUP attempts on this PDF file as SINGLE OCR attempts instead, 
+                // without even trying the GROUP mode again, for it will certainly fail the second/third/etc.
+                // time around as well.
                 QueueJobSingle(next_job.job);
             }
         }
@@ -727,7 +730,8 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 + '"' + next_job.job.language + '"'
                 ;
 
-            if (CheckOCRProcessSuccess(ocr_parameters))
+            OCRExecReport report;
+            if (CheckOCRProcessSuccess(ocr_parameters, out report))
             {
                 next_job.job.pdf_renderer.StorePageTextSingle(next_job.job.page, temp_ocr_result_filename);
             }
@@ -736,11 +740,45 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 Logging.Error("Couldn't even perform OCR on the page, so giving up for {0}", next_job.job);
 
                 // TODO: Store an empty file so we don't queue forever... (but only if this is not due to the application terminating)
+                if (failureMaybeDueToEncryptedPDF(report))
+                {
+                    // fake a word file to stop the OCR processes from recurring at later times:
+                    string fake_parameters =
+                        ""
+                        + "SINGLE-FAKE"
+                        + " "
+                        + '"' + next_job.job.pdf_renderer.PDFFilename + '"'
+                        + " "
+                        + next_job.job.page
+                        + " "
+                        + '"' + temp_ocr_result_filename + '"'
+                        ;
+
+                    CheckOCRProcessSuccess(ocr_parameters, out _);
+                }
             }
         }
 
+        private class OCRExecReport
+        {
+            public string OCRParameters;
+            public int exitCode;
+            public string OCRStdioOutput;
+            public bool hasExited;
+            public long durationMS;
+        }
+
+        private bool failureMaybeDueToEncryptedPDF(OCRExecReport report)
+        {
+            if (report.OCRStdioOutput.Contains("Sorax.SoraxPDFRendererDLLWrapper.HDOCWrapper") || report.OCRStdioOutput.Contains("Sorax.SoraxPDFRendererDLLWrapper.GetPageByDPIAsImage"))
+            {
+                return true;
+            }
+            return false;
+        }
+
         // STDOUT/STDERR
-        private bool CheckOCRProcessSuccess(string ocr_parameters)
+        private bool CheckOCRProcessSuccess(string ocr_parameters, out OCRExecReport report)
         {
             // Fire up the process            
             using (Process process = ProcessSpawning.SpawnChildProcess("QiqqaOCR.exe", ocr_parameters, ProcessPriorityClass.BelowNormal))
@@ -786,19 +824,33 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                         }
                     }
 
-                    // Check that we had a clean exit
-                    if (!has_exited || 0 != process.ExitCode)
+                    while (!process.HasExited)
                     {
-                        Logging.Error("There was a problem while running OCR with parameters: {0}\n--- Exit Code: {1}\n--- {3}\n{2}", ocr_parameters, process.ExitCode, process_output_reader.GetOutputsDumpString(), (has_exited ? $"Exit code: {process.ExitCode}" : $"Timeout: {duration} ms"));
-
-                        return false;
+                        process.WaitForExit(1000);
                     }
-                    else
+
+                    report = new OCRExecReport
                     {
-                        Logging.Error("Succeeded running OCR with parameters: {0}\n--- Exit Code: {1}\n--- {3}\n{2}", ocr_parameters, process.ExitCode, process_output_reader.GetOutputsDumpString(), (has_exited ? $"Exit code: {process.ExitCode}" : $"Timeout: {duration} ms"));
+                        OCRParameters = ocr_parameters,
+                        exitCode = process.ExitCode,
+                        OCRStdioOutput = process_output_reader.GetOutputsDumpString(),
+                        hasExited = has_exited,
+                        durationMS = duration
+                    };
+                }
 
-                        return true;
-                    }
+                // Check that we had a clean exit
+                if (!report.hasExited || 0 != report.exitCode)
+                {
+                    Logging.Error("There was a problem while running OCR with parameters: {0}\n--- Exit Code: {1}\n--- {3}\n{2}", report.OCRParameters, report.exitCode, report.OCRStdioOutput, (report.hasExited ? $"Exit code: {report.exitCode}" : $"Timeout: {report.durationMS} ms"));
+
+                    return false;
+                }
+                else
+                {
+                    Logging.Error("Succeeded running OCR with parameters: {0}\n--- Exit Code: {1}\n--- {3}\n{2}", report.OCRParameters, report.exitCode, report.OCRStdioOutput, (report.hasExited ? $"Exit code: {report.exitCode}" : $"Timeout: {report.durationMS} ms"));
+
+                    return true;
                 }
             }
         }

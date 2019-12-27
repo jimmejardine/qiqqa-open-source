@@ -113,7 +113,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
                         if (StatusManager.Instance.IsCancelled(STATUS_TOKEN))
                         {
                             zip_process.Kill();
-                            zip_process.WaitForExit(500);
+                            zip_process.WaitForExit(5000);
 
                             Logging.Error("Cancelled creation of Bundle Library:\n--- Parameters: {0}\n{1}", parameters, process_output_reader.GetOutputsDumpString());
 

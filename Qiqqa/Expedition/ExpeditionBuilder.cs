@@ -6,6 +6,7 @@ using Qiqqa.Common.TagManagement;
 using Qiqqa.DocumentLibrary;
 using Qiqqa.Documents.PDF;
 using Utilities;
+using Utilities.GUI;
 using Utilities.Mathematics;
 using Utilities.Mathematics.Topics.LDAStuff;
 using Utilities.Strings;
@@ -32,6 +33,8 @@ namespace Qiqqa.Expedition
 
         public static ExpeditionDataSource BuildExpeditionDataSource(Library library, int num_topics, bool add_autotags, bool add_tags, ExpeditionBuilderProgressUpdateDelegate progress_update_delegate)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             // Initialise the datasource
             ExpeditionDataSource data_source = new ExpeditionDataSource();
 

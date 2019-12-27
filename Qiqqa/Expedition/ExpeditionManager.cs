@@ -2,6 +2,7 @@
 using Qiqqa.DocumentLibrary;
 using Utilities;
 using Utilities.Files;
+using Utilities.GUI;
 using Utilities.Misc;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
@@ -25,6 +26,8 @@ namespace Qiqqa.Expedition
 
         public void RebuildExpedition(int num_topics, bool add_autotags, bool add_tags, RebuiltExpeditionCompleteDelegate rebuiltexpeditioncompletedelegate)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             Logging.Info("+Rebuilding Expedition");
             StatusManager.Instance.ClearCancelled("Expedition");
             try

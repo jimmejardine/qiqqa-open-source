@@ -232,7 +232,10 @@ namespace Qiqqa.Expedition
             int num_topics = Convert.ToInt32(TextExpeditionNumThemes.Text);
             bool add_autotags = ObjAddAutoTags.IsChecked ?? true;
             bool add_tags = ObjAddTags.IsChecked ?? true;
-            SafeThreadPool.QueueUserWorkItem(o => library.ExpeditionManager.RebuildExpedition(num_topics, add_autotags, add_tags, OnRebuildExpeditionComplete));
+            SafeThreadPool.QueueUserWorkItem(o =>
+            {
+                library.ExpeditionManager.RebuildExpedition(num_topics, add_autotags, add_tags, OnRebuildExpeditionComplete);
+            });
         }
 
         private void OnRebuildExpeditionComplete()

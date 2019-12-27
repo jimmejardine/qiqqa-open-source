@@ -365,6 +365,8 @@ namespace Qiqqa.DocumentLibrary
         /// <returns></returns>
         public PDFDocument AddNewDocumentToLibrary_SYNCHRONOUS(string filename, string original_filename, string suggested_download_source, string bibtex, HashSet<string> tags, string comments, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             if (!suppressDialogs)
             {
                 StatusManager.Instance.UpdateStatus("LibraryDocument", String.Format("Adding {0} to library", filename));
@@ -389,6 +391,8 @@ namespace Qiqqa.DocumentLibrary
 
         private PDFDocument AddNewDocumentToLibrary(string filename, string original_filename, string suggested_download_source, string bibtex, HashSet<string> tags, string comments, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             // Flag that someone is trying to add to the library.  This is used by the background processes to hold off while the library is busy being added to...
             //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (last_pdf_add_time_lock)
@@ -553,6 +557,8 @@ namespace Qiqqa.DocumentLibrary
 
         private PDFDocument AddNewDocumentToLibrary(PDFDocument pdf_document_template, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             PDFDocument pdf_document = AddNewDocumentToLibrary(pdf_document_template.DocumentPath, pdf_document_template.DownloadLocation, pdf_document_template.DownloadLocation, pdf_document_template.BibTex, null, null, suppressDialogs, suppress_signal_that_docs_have_changed);
 
             return pdf_document;

@@ -536,6 +536,8 @@ namespace Qiqqa.DocumentLibrary
         /// </summary>
         public static PDFDocument ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(PDFDocument existing_pdf_document, Library library, bool suppress_signal_that_docs_have_changed)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             try
             {
                 if (existing_pdf_document.Library == library)

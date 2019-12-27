@@ -126,6 +126,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FakeEngine.cs" />
     <Compile Include="OCREngine.cs" />
     <Compile Include="PDFRegionLocator.cs" />
     <Compile Include="Program.cs" />
