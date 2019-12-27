@@ -78,18 +78,36 @@ namespace Utilities.ProcessTools
 
         public string GetOutputsDumpString()
         {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine("--- Standard output:");
-            foreach (string s in Output)
+            // oddly enough this code can produce a race condition exception for some Output: "Collection was modified; enumeration operation may not execute."
+            //
+            // HACK: we cope with that by re-iterating over the list until success is ours...   :-S :-S  hacky!
+			Exception odd_ex = null;
+			
+            for (int i = 10; i > 0; i--)
             {
-                sb.AppendLine(s);
+                try
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine("--- Standard output:");
+                    foreach (string s in Output)
+                    {
+                        sb.AppendLine(s);
+                    }
+                    sb.AppendLine("--- Standard error:");
+                    foreach (string s in Error)
+                    {
+                        sb.AppendLine(s);
+                    }
+                    return sb.ToString();
+                }
+                catch (Exception ex)
+                {
+					odd_ex = ex;
+                    Logging.Error(ex, "GetOutputsDumpString failed with this odd condition...");
+                }
             }
-            sb.AppendLine("--- Standard error:");
-            foreach (string s in Error)
-            {
-                sb.AppendLine(s);
-            }
-            return sb.ToString();
+			
+			throw new Exception("Failure", odd_ex);
         }
     }
 }
