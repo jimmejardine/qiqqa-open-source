@@ -13,9 +13,9 @@
 
     <DockPanel DockPanel.Dock="Bottom">
       <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
-            <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdGenerate" MinHeight="20" />
+            <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdGenerate" MinHeight="20" MinWidth="100" />
       <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
-            <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdCancel" MinHeight="20" />
+            <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdCancel" MinHeight="20" MinWidth="100" />
       <Grid/>
     </DockPanel>
 
