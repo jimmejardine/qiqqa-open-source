@@ -40,6 +40,6 @@
     "semver": "^6.3.0"
   },
   "devDependencies": {
-    "xml-beautifier": "^0.4.2"
+    "@gerhobbelt/xml-beautifier": "^1.0.2-1"
   }
 }
