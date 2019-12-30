@@ -1,6 +1,6 @@
-﻿<Window x:Class="Utilities.GUI.ControlHostingWindow"
+<Window x:Class="Utilities.GUI.ControlHostingWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   >
-  <Grid Name="GridContent" />
+    <Grid Name="GridContent" />
 </Window>

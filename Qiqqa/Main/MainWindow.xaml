@@ -1,4 +1,4 @@
-﻿<commongui:StandardWindow x:Class="Qiqqa.Main.MainWindow"
+<commongui:StandardWindow x:Class="Qiqqa.Main.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local_dualtab="clr-namespace:Utilities.GUI.DualTabbedLayoutStuff;assembly=Utilities"
@@ -11,36 +11,25 @@
     Width="1024" Height="700"
     x:Name="QiqqaMainWindow"
     >
-
-  <commongui:StandardWindow.Resources>
-    <local_gui_conv:BooleanToVisibilityInverseConverter x:Key="BooleanToVisibilityInverseConverter"/>
-    <local_gui_conv:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-  </commongui:StandardWindow.Resources>
-
-  <Grid>
-  <DockPanel>
-
-    <local_notifications:NotificationBar x:Name="NotificationBar" DockPanel.Dock="Bottom"/>
-
-    <local_gui:StatusBar DockPanel.Dock="Bottom" VerticalAlignment="Top" MinHeight="20" x:Name="ObjStatusBar"/>
-
+    <commongui:StandardWindow.Resources>
+        <local_gui_conv:BooleanToVisibilityInverseConverter x:Key="BooleanToVisibilityInverseConverter"/>
+        <local_gui_conv:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </commongui:StandardWindow.Resources>
     <Grid>
-      <DockPanel>
-        <Grid DockPanel.Dock="Top" Name="ObjTabBackground" Height="50"/>
-        <Grid/>
-      </DockPanel>
-      
-      <local_dualtab:DualTabbedLayout Name="DockingManager" />
+        <DockPanel>
+            <local_notifications:NotificationBar x:Name="NotificationBar" DockPanel.Dock="Bottom"/>
+            <local_gui:StatusBar DockPanel.Dock="Bottom" VerticalAlignment="Top" MinHeight="20" x:Name="ObjStatusBar"/>
+            <Grid>
+                <DockPanel>
+                    <Grid DockPanel.Dock="Top" Name="ObjTabBackground" Height="50"/>
+                    <Grid/>
+                </DockPanel>
+                <local_dualtab:DualTabbedLayout Name="DockingManager" />
+            </Grid>
+        </DockPanel>
+        <!-- For the T&Cs -->
+        <Grid Visibility="{Binding TermsAndConditionsAccepted, Converter={StaticResource BooleanToVisibilityInverseConverter}}">
+            <local_start:TabWelcome x:Name="ObjTabWelcome"/>
+        </Grid>
     </Grid>
-  </DockPanel>
-
-
-    <!-- For the T&Cs -->
-    <Grid Visibility="{Binding TermsAndConditionsAccepted, Converter={StaticResource BooleanToVisibilityInverseConverter}}">
-      <local_start:TabWelcome x:Name="ObjTabWelcome"/>
-    </Grid>
-
-
-  </Grid>
-
 </commongui:StandardWindow>

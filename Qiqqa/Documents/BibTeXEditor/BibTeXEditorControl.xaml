@@ -1,4 +1,4 @@
-﻿<UserControl
+<UserControl
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
   xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
@@ -16,7 +16,6 @@
   VerticalContentAlignment="Stretch"
 >
     <DockPanel>
-
         <local_gui:NonScrollingFlowDocumentScrollViewer x:Name="ObjNoBibTeXInstructions" DockPanel.Dock="Bottom">
             <commongui:StandardFlowDocument>
                 <Paragraph>
@@ -24,12 +23,9 @@
                 </Paragraph>
             </commongui:StandardFlowDocument>
         </local_gui:NonScrollingFlowDocumentScrollViewer>
-
         <Grid >
-
             <DockPanel x:Name="ObjGridPanel">
                 <Grid x:Name="ObjHeaderGrid" DockPanel.Dock="Top">
-
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="80" />
                         <ColumnDefinition Width="5"/>
@@ -39,15 +35,16 @@
                         <RowDefinition />
                         <RowDefinition />
                     </Grid.RowDefinitions>
-
-                    <TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold" Name="ComboRecordTypeHeader">Type</TextBlock>
+                    <TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold" Name="ComboRecordTypeHeader">
+                        Type
+                    </TextBlock>
                     <ComboBox Grid.Row="0" Grid.Column="2" Name="ComboRecordType" MinWidth="50" IsEditable="True" BorderThickness="0"/>
-                    <TextBlock Grid.Row="1" Grid.Column="0" FontWeight="Bold" Name="TxtRecordKeyHeader" >Key</TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="0" FontWeight="Bold" Name="TxtRecordKeyHeader" >
+                        Key
+                    </TextBlock>
                     <TextBox  Grid.Row="1" Grid.Column="2" Name="TxtRecordKey" MinWidth="50" BorderThickness="0"/>
                 </Grid>
-
                 <local_gui:AugmentedSpacer DockPanel.Dock="Top" />
-
                 <Grid x:Name="ObjBibTeXGrid">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="80" />
@@ -56,20 +53,16 @@
                     </Grid.ColumnDefinitions>
                 </Grid>
             </DockPanel>
-
             <Grid Name="ObjTextPanel" Visibility="Hidden">
                 <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"  DockPanel.Dock="Top" Name="ObjBibTeXTextScrollViewer">
                     <TextBox Name="ObjBibTeXText" TextWrapping="Wrap" AcceptsReturn="True" DockPanel.Dock="Top" />
                 </ScrollViewer>
             </Grid>
-
             <Grid Name="ObjErrorPanel">
                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" DockPanel.Dock="Top" Name="ObjBibTeXErrorScrollViewer">
                     <TextBox Name="ObjBibTeXErrorText"   IsReadOnly="True" TextWrapping="NoWrap" FontFamily="Lucida Console" />
                 </ScrollViewer>
             </Grid>
-
         </Grid>
-
     </DockPanel>
 </UserControl>

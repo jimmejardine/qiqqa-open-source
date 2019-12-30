@@ -1,16 +1,16 @@
-﻿<UserControl x:Class="Qiqqa.Main.StatusBarItem"
+<UserControl x:Class="Qiqqa.Main.StatusBarItem"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     >
-  <Grid Margin="2,2,2,2" >
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="Auto"/>
-      <ColumnDefinition Width="*"/>
-    </Grid.ColumnDefinitions>
-    <Button Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Name="ObjTextSquare">
-      <TextBlock Name="ObjTextSquareText" />
-    </Button>
-    <ProgressBar Grid.Column="1" Name="ObjProgressBar" />
-    <TextBlock Grid.Column="1" Name="ObjTextBlock" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2" />
-  </Grid>
+    <Grid Margin="2,2,2,2" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Button Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Name="ObjTextSquare">
+            <TextBlock Name="ObjTextSquareText" />
+        </Button>
+        <ProgressBar Grid.Column="1" Name="ObjProgressBar" />
+        <TextBlock Grid.Column="1" Name="ObjTextBlock" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2" />
+    </Grid>
 </UserControl>
