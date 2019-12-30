@@ -1,4 +1,4 @@
-﻿<commongui:StandardWindow
+<commongui:StandardWindow
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
@@ -7,159 +7,172 @@
   x:Class="Qiqqa.AnnotationsReportBuilding.AnnotationReportOptionsWindow"
   d:DesignHeight="633"
   >
-
-  <DockPanel>
-    <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
-
-    <DockPanel DockPanel.Dock="Bottom">
-      <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
-            <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdGenerate" MinHeight="20" MinWidth="100" />
-      <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
-            <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdCancel" MinHeight="20" MinWidth="100" />
-      <Grid/>
-    </DockPanel>
-
-    <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
-
-    <ScrollViewer>
-    <StackPanel>
-      
-      <local_gui:AugmentedInfoBarItemControl Header="Tag Filters">
-        <StackPanel>
-          <local_gui:NonScrollingFlowDocumentScrollViewer>
-            <commongui:StandardFlowDocument>
-              <Paragraph>
-                Please select the annotation tags you want to filter into your annotation report.  
-				You will get a complete annotation report if you select either ALL tags or NO tags:
-                <Hyperlink Name="CmdSelectAll">Select All</Hyperlink> / <Hyperlink Name="CmdSelectNone">Select None</Hyperlink>
-              </Paragraph>
-            </commongui:StandardFlowDocument>
-          </local_gui:NonScrollingFlowDocumentScrollViewer>
-
-          <Grid>
-            <ListBox Name="ListTags" SelectionMode="Multiple" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled" MaxHeight="200">
-              <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                  <WrapPanel />
-                </ItemsPanelTemplate>
-              </ListBox.ItemsPanel>
-
-              <ListBox.ItemTemplate>
-                <DataTemplate>
-                  <TextBlock Padding="5" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding}" ToolTip="{Binding}" Width="200" TextTrimming="CharacterEllipsis" />
-                </DataTemplate>
-              </ListBox.ItemTemplate>
-
-            </ListBox>
-          </Grid>
-
-        </StackPanel>
-      </local_gui:AugmentedInfoBarItemControl>
-
-
-      <local_gui:AugmentedInfoBarItemControl Header="Other Filters" DockPanel.Dock="Bottom">
-        <DockPanel>
-          <local_gui:NonScrollingFlowDocumentScrollViewer>
-            <commongui:StandardFlowDocument>
-              <BlockUIContainer>
-                <StackPanel Name="ObjOtherFiltersPanel">
-                  <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <CheckBox Width="200" Name="ObjFilterByCreationDate" VerticalAlignment="Center">Filter by creation date?</CheckBox>
-                    <TextBlock Width="40" Text="From " VerticalAlignment="Center" />
-                    <DatePicker Width="110" Name="ObjFilterByCreationDate_From" VerticalAlignment="Center"/>
-                    <TextBlock Width="20" Text=" to" VerticalAlignment="Center" />
-                    <DatePicker Width="110" Name="ObjFilterByCreationDate_To" VerticalAlignment="Center"/>
-                  </StackPanel>
-                  <StackPanel Orientation="Horizontal">
-                    <CheckBox Width="200" Name="ObjFilterByFollowUpDate" VerticalAlignment="Center">Filter by follow-up date?</CheckBox>
-                    <TextBlock Width="40" Text="From" VerticalAlignment="Center" />
-                    <DatePicker Width="110" Name="ObjFilterByFollowUpDate_From"  VerticalAlignment="Center"/>
-                    <TextBlock Width="20" Text=" to"  VerticalAlignment="Center"/>
-                    <DatePicker Width="110" Name="ObjFilterByFollowUpDate_To" VerticalAlignment="Center"/>
-                  </StackPanel>
-
-                  <TextBlock />
-                  
-                  <StackPanel Orientation="Horizontal">
-                    <CheckBox Width="200" Name="ObjFilterByCreator" VerticalAlignment="Center">Filter by creator?</CheckBox>
-                    <Button Width="30" Name="ObjFilterByCreatorMeButton"  VerticalAlignment="Center">Me</Button>
-                    <TextBlock Width="10" />
-                    <ComboBox Width="240" Name="ObjFilterByCreatorCombo"  VerticalAlignment="Center"/>
-                  </StackPanel>
-                </StackPanel>
-              </BlockUIContainer>
-            </commongui:StandardFlowDocument>
-          </local_gui:NonScrollingFlowDocumentScrollViewer>
-        </DockPanel>
-      </local_gui:AugmentedInfoBarItemControl>
-
-
-      <local_gui:AugmentedInfoBarItemControl Header="Document Details">
-        <local_gui:NonScrollingFlowDocumentScrollViewer>
-          <commongui:StandardFlowDocument>
-            <BlockUIContainer>
-              <Grid>
+    <DockPanel>
+        <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
+        <DockPanel DockPanel.Dock="Bottom">
+            <Grid>
                 <Grid.ColumnDefinitions>
-                  <ColumnDefinition/>
-                  <ColumnDefinition/>
-                  <ColumnDefinition/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <CheckBox Grid.Column="0" Name="ObjIncludeAllPapers">Include all documents.</CheckBox>
-                <CheckBox Grid.Column="1" Name="ObjIncludeComments">Include document comments.</CheckBox>
-                <CheckBox Grid.Column="2" Name="ObjIncludeAbstract">Include document abstract.</CheckBox>
-              </Grid>
-            </BlockUIContainer>
-          </commongui:StandardFlowDocument>
-        </local_gui:NonScrollingFlowDocumentScrollViewer>
-      </local_gui:AugmentedInfoBarItemControl>
-
-
-      <local_gui:AugmentedInfoBarItemControl Header="Annotation Image/Text Overrides" Collapsed="False">
-        <DockPanel>
-          <local_gui:NonScrollingFlowDocumentScrollViewer>
-            <commongui:StandardFlowDocument>
-              <Paragraph>
-                Each annotation in the annotation report shows (i) your comments and both (ii) an image of the PDF under the annotation and (iii) a snippet of the text under the annotation.
+                <local_gui:AugmentedButton Name="CmdCancel" MinHeight="20" MinWidth="100" Grid.Column="0" />
+                <local_gui:AugmentedButton Name="CmdGenerate" MinHeight="20" MinWidth="100" Grid.Column="2" />
+            </Grid>
+        </DockPanel>
+        <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
+        <ScrollViewer>
+            <StackPanel>
+                <local_gui:AugmentedInfoBarItemControl Header="Tag Filters">
+                    <StackPanel>
+                        <local_gui:NonScrollingFlowDocumentScrollViewer>
+                            <commongui:StandardFlowDocument>
+                                <Paragraph>
+                                    Please select the annotation tags you want to filter into your annotation report.  
+				You will get a complete annotation report if you select either ALL tags or NO tags:
+                                    <Hyperlink Name="CmdSelectAll">
+                                        Select All
+                                    </Hyperlink>
+                                    /
+                                    <Hyperlink Name="CmdSelectNone">
+                                        Select None
+                                    </Hyperlink>
+                                </Paragraph>
+                            </commongui:StandardFlowDocument>
+                        </local_gui:NonScrollingFlowDocumentScrollViewer>
+                        <Grid>
+                            <ListBox Name="ListTags" SelectionMode="Multiple" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled" MaxHeight="200">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel />
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Padding="5" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding}" ToolTip="{Binding}" Width="200" TextTrimming="CharacterEllipsis" />
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+                    </StackPanel>
+                </local_gui:AugmentedInfoBarItemControl>
+                <local_gui:AugmentedInfoBarItemControl Header="Other Filters" DockPanel.Dock="Bottom">
+                    <DockPanel>
+                        <local_gui:NonScrollingFlowDocumentScrollViewer>
+                            <commongui:StandardFlowDocument>
+                                <BlockUIContainer>
+                                    <StackPanel Name="ObjOtherFiltersPanel">
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                            <CheckBox Width="200" Name="ObjFilterByCreationDate" VerticalAlignment="Center">
+                                                Filter by creation date?
+                                            </CheckBox>
+                                            <TextBlock Width="40" Text="From " VerticalAlignment="Center" />
+                                            <DatePicker Width="110" Name="ObjFilterByCreationDate_From" VerticalAlignment="Center"/>
+                                            <TextBlock Width="20" Text=" to" VerticalAlignment="Center" />
+                                            <DatePicker Width="110" Name="ObjFilterByCreationDate_To" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <CheckBox Width="200" Name="ObjFilterByFollowUpDate" VerticalAlignment="Center">
+                                                Filter by follow-up date?
+                                            </CheckBox>
+                                            <TextBlock Width="40" Text="From" VerticalAlignment="Center" />
+                                            <DatePicker Width="110" Name="ObjFilterByFollowUpDate_From"  VerticalAlignment="Center"/>
+                                            <TextBlock Width="20" Text=" to"  VerticalAlignment="Center"/>
+                                            <DatePicker Width="110" Name="ObjFilterByFollowUpDate_To" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                        <TextBlock />
+                                        <StackPanel Orientation="Horizontal">
+                                            <CheckBox Width="200" Name="ObjFilterByCreator" VerticalAlignment="Center">
+                                                Filter by creator?
+                                            </CheckBox>
+                                            <Button Width="30" Name="ObjFilterByCreatorMeButton"  VerticalAlignment="Center">
+                                                Me
+                                            </Button>
+                                            <TextBlock Width="10" />
+                                            <ComboBox Width="240" Name="ObjFilterByCreatorCombo"  VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </BlockUIContainer>
+                            </commongui:StandardFlowDocument>
+                        </local_gui:NonScrollingFlowDocumentScrollViewer>
+                    </DockPanel>
+                </local_gui:AugmentedInfoBarItemControl>
+                <local_gui:AugmentedInfoBarItemControl Header="Document Details">
+                    <local_gui:NonScrollingFlowDocumentScrollViewer>
+                        <commongui:StandardFlowDocument>
+                            <BlockUIContainer>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <CheckBox Grid.Column="0" Name="ObjIncludeAllPapers">
+                                        Include all documents.
+                                    </CheckBox>
+                                    <CheckBox Grid.Column="1" Name="ObjIncludeComments">
+                                        Include document comments.
+                                    </CheckBox>
+                                    <CheckBox Grid.Column="2" Name="ObjIncludeAbstract">
+                                        Include document abstract.
+                                    </CheckBox>
+                                </Grid>
+                            </BlockUIContainer>
+                        </commongui:StandardFlowDocument>
+                    </local_gui:NonScrollingFlowDocumentScrollViewer>
+                </local_gui:AugmentedInfoBarItemControl>
+                <local_gui:AugmentedInfoBarItemControl Header="Annotation Image/Text Overrides" Collapsed="False">
+                    <DockPanel>
+                        <local_gui:NonScrollingFlowDocumentScrollViewer>
+                            <commongui:StandardFlowDocument>
+                                <Paragraph>
+                                    Each annotation in the annotation report shows (i) your comments and both (ii) an image of the PDF under the annotation and (iii) a snippet of the text under the annotation.
                 This lets you see equations and diagrams or copy-and-paste the annotation text.
                 You can choose (ii) or (iii) individually by ticking those options in the editor popup on each annotation.  You can apply blanket annotation settings here:
-              </Paragraph>
-
-              <BlockUIContainer>
-                <Grid Name="ObjImageTextChoicesPanel">
-                  <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                  </Grid.RowDefinitions>
-
-                  <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                  </Grid.ColumnDefinitions>
-
-                  <TextBlock Grid.Row="0" >Annotation Image:</TextBlock>
-                  <RadioButton GroupName="IMAGE" Grid.Row="0" Grid.Column="1" IsChecked="True">Respect annotation</RadioButton>
-                  <RadioButton GroupName="IMAGE" Grid.Row="0" Grid.Column="2" Name="ObjIMAGEShow">Show all images</RadioButton>
-                  <RadioButton GroupName="IMAGE" Grid.Row="0" Grid.Column="3" Name="ObjIMAGEHide">Hide all images</RadioButton>
-
-                  <TextBlock Grid.Row="1" >Annotation Text:</TextBlock>
-                  <RadioButton GroupName="TEXT" Grid.Row="1" Grid.Column="1" IsChecked="True">Respect annotation</RadioButton>
-                  <RadioButton GroupName="TEXT" Grid.Row="1" Grid.Column="2" Name="ObjTEXTShow">Show all text</RadioButton>
-                  <RadioButton GroupName="TEXT" Grid.Row="1" Grid.Column="3" Name="ObjTEXTHide">Hide all text</RadioButton>
-                </Grid>
-              </BlockUIContainer>
-            </commongui:StandardFlowDocument>
-          </local_gui:NonScrollingFlowDocumentScrollViewer>
-
-        </DockPanel>
-      </local_gui:AugmentedInfoBarItemControl>
-
-
-
-
-    </StackPanel>
-  </ScrollViewer>
-
-  </DockPanel>
+                                </Paragraph>
+                                <BlockUIContainer>
+                                    <Grid Name="ObjImageTextChoicesPanel">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Row="0" >
+                                            Annotation Image:
+                                        </TextBlock>
+                                        <RadioButton GroupName="IMAGE" Grid.Row="0" Grid.Column="1" IsChecked="True">
+                                            Respect annotation
+                                        </RadioButton>
+                                        <RadioButton GroupName="IMAGE" Grid.Row="0" Grid.Column="2" Name="ObjIMAGEShow">
+                                            Show all images
+                                        </RadioButton>
+                                        <RadioButton GroupName="IMAGE" Grid.Row="0" Grid.Column="3" Name="ObjIMAGEHide">
+                                            Hide all images
+                                        </RadioButton>
+                                        <TextBlock Grid.Row="1" >
+                                            Annotation Text:
+                                        </TextBlock>
+                                        <RadioButton GroupName="TEXT" Grid.Row="1" Grid.Column="1" IsChecked="True">
+                                            Respect annotation
+                                        </RadioButton>
+                                        <RadioButton GroupName="TEXT" Grid.Row="1" Grid.Column="2" Name="ObjTEXTShow">
+                                            Show all text
+                                        </RadioButton>
+                                        <RadioButton GroupName="TEXT" Grid.Row="1" Grid.Column="3" Name="ObjTEXTHide">
+                                            Hide all text
+                                        </RadioButton>
+                                    </Grid>
+                                </BlockUIContainer>
+                            </commongui:StandardFlowDocument>
+                        </local_gui:NonScrollingFlowDocumentScrollViewer>
+                    </DockPanel>
+                </local_gui:AugmentedInfoBarItemControl>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
 </commongui:StandardWindow>
