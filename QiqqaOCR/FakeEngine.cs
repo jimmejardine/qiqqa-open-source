@@ -138,14 +138,14 @@ namespace QiqqaOCR
             return word_list;
         }
 
-        private static WordList ConvertToWordList()
+        public static WordList ConvertToWordList()
         {
             WordList word_list = new WordList();
 
             for (int i = 0; i < 3; i++)
             {
                 Utilities.OCR.Word word = new Utilities.OCR.Word();
-                word.Text = String.Format("*QiqqaOCRFailedFakedWord.{0}*", i);
+                word.Text = String.Format("*QiqqaOCRFailedFakedWord.{0}*", i);   // no real word will have stars and/or dots in it, so this can be safely used as a nonsense 'word' for failed OCR processes.
                 word.Confidence = 0.985;
                 word.Left = 0.1;
                 word.Top = 0.1;
