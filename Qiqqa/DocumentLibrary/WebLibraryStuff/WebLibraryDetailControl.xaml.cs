@@ -229,7 +229,10 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             WebLibraryDetail web_library_detail = DataContext as WebLibraryDetail;
             if (null != web_library_detail)
             {
-                WebLibraryManager.Instance.ForgetKnownWebLibraryFromIntranet(web_library_detail);
+                SafeThreadPool.QueueUserWorkItem(o =>
+                {
+                    WebLibraryManager.Instance.ForgetKnownWebLibraryFromIntranet(web_library_detail);
+                });
             }
             e.Handled = true;
         }

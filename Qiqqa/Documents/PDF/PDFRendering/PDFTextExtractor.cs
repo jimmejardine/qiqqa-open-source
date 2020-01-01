@@ -40,7 +40,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         }
 
         private int NUM_OCR_THREADS;
-        private Thread[] threads;
+        private Daemon[] threads;
 
         private object queue_lock = new object();
         private Dictionary<string, Job> job_queue_group = new Dictionary<string, Job>();
@@ -202,14 +202,13 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
             Logging.Info("Starting {0} PDFTextExtractor threads", NUM_OCR_THREADS);
             still_running = true;
-            threads = new Thread[NUM_OCR_THREADS];
+            threads = new Daemon[NUM_OCR_THREADS];
             for (int i = 0; i < NUM_OCR_THREADS; ++i)
             {
-                threads[i] = new Thread(ThreadEntry);
+                threads[i] = new Daemon(daemon_name: "PDFTextExtractor" + i);
                 //threads[i].IsBackground = true;
-                threads[i].Priority = ThreadPriority.BelowNormal;
-                threads[i].Name = "PDFTextExtractor" + i;
-                threads[i].Start();
+                //threads[i].Priority = ThreadPriority.BelowNormal;
+                threads[i].Start(ThreadEntry, threads[i]);
             }
         }
 
@@ -294,7 +293,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             return false;
         }
 
-        private DateTime ocr_disabled_next_notification_time = DateTime.MinValue;
+        private Stopwatch ocr_disabled_next_notification_time = Stopwatch.StartNew();
         private const double TARGET_RATIO = 1.0;
         // add noise to the ratio to ensure that the status update, which lists the counts, shows the activity by the numbers going up and down as the user watches
         private int prev_ocr_count = 0;
@@ -313,7 +312,8 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 {
                     int ocr_count = job_queue_single.Count;
                     int textify_count = job_queue_group.Count;
-                    double current_ratio = (ocr_count + 1) * (1.0 / (textify_count + 1));
+                    double current_ratio = ocr_count / (textify_count + 1E-9);
+                    current_ratio *= 0.01;
 
                     // noise the target ratio: choose such that the user will observe the numbers changing most often
                     //					
@@ -340,22 +340,8 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                     prev_textify_count = textify_count;
                     prev_ocr_count = ocr_count;
 
-                    if (current_ratio <= TARGET_RATIO)
-                    {
-                        // First look for any GROUP jobs                
-                        foreach (var pair in job_queue_group)
-                        {
-                            Job job = pair.Value;
-                            if (!IsSimilarJobRunning(job, true, queue_lock))
-                            {
-                                job_queue_group.Remove(pair.Key);
-                                return new NextJob(this, job, true, queue_lock);
-                            }
-                        }
-                    }
-
                     // Don't bother with the sophistication when the numbers get large:
-                    if (100 >= ocr_count)
+                    if (20 >= ocr_count)
                     {
                         // First look for any SINGLE 1st pages - these get priority
                         foreach (var pair in job_queue_single)
@@ -428,27 +414,53 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                         }
                     }
 
-                    // Otherwise get the most recently added job
-                    //
-                    // (in a large queue, that is: just grab the first available)
-                    foreach (var pair in job_queue_single)
+                    if (current_ratio <= TARGET_RATIO)
                     {
-                        Job job = pair.Value;
-                        if (!IsSimilarJobRunning(job, false, queue_lock))
+                        // First look for any GROUP jobs                
+                        foreach (var pair in job_queue_group)
                         {
-                            job_queue_single.Remove(pair.Key);
-                            return new NextJob(this, job, false, queue_lock);
+                            Job job = pair.Value;
+                            if (!IsSimilarJobRunning(job, true, queue_lock))
+                            {
+                                job_queue_group.Remove(pair.Key);
+                                return new NextJob(this, job, true, queue_lock);
+                            }
+                        }
+
+                        // Otherwise get the most recently added SINGLE job
+                        //
+                        // (in a large queue, that is: just grab the first available)
+                        foreach (var pair in job_queue_single)
+                        {
+                            Job job = pair.Value;
+                            if (!IsSimilarJobRunning(job, false, queue_lock))
+                            {
+                                job_queue_single.Remove(pair.Key);
+                                return new NextJob(this, job, false, queue_lock);
+                            }
                         }
                     }
-
-                    // And when there's nothing else to do, clean up the GROUP queue remainder anyway
-                    foreach (var pair in job_queue_group)
+                    else
                     {
-                        Job job = pair.Value;
-                        if (!IsSimilarJobRunning(job, true, queue_lock))
+                        foreach (var pair in job_queue_single)
                         {
-                            job_queue_group.Remove(pair.Key);
-                            return new NextJob(this, job, true, queue_lock);
+                            Job job = pair.Value;
+                            if (!IsSimilarJobRunning(job, false, queue_lock))
+                            {
+                                job_queue_single.Remove(pair.Key);
+                                return new NextJob(this, job, false, queue_lock);
+                            }
+                        }
+
+                        // And when there's nothing else to do, clean up the GROUP queue remainder anyway
+                        foreach (var pair in job_queue_group)
+                        {
+                            Job job = pair.Value;
+                            if (!IsSimilarJobRunning(job, true, queue_lock))
+                            {
+                                job_queue_group.Remove(pair.Key);
+                                return new NextJob(this, job, true, queue_lock);
+                            }
                         }
                     }
                 }
@@ -467,10 +479,10 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 if (0 < job_queue_single_count)
                 {
                     // perform frequent happening time check outside lock:
-                    if (DateTime.UtcNow.Subtract(ocr_disabled_next_notification_time).TotalMilliseconds > 0)
+                    if (ocr_disabled_next_notification_time.ElapsedMilliseconds >= 5000)
                     {
                         StatusManager.Instance.UpdateStatus("PDFOCR", String.Format("OCR is disabled (pending: {0} page(s) to textify and {1} page(s) to OCR)", job_queue_group_count, job_queue_single_count));
-                        ocr_disabled_next_notification_time = DateTime.UtcNow.AddSeconds(5);
+                        ocr_disabled_next_notification_time.Restart();
                     }
                 }
             }
@@ -494,8 +506,9 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             }
         }
 
-        private void ThreadEntry()
+        private void ThreadEntry(object arg)
         {
+            Daemon daemon = (Daemon)arg;
             bool did_some_ocr_since_last_iteration = false;
 
             while (true)
@@ -527,14 +540,15 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                         did_some_ocr_since_last_iteration = true;
                         StatusManager.Instance.UpdateStatus("PDFOCR", "OCR paused while adding documents.");
                     }
-                    Thread.Sleep(1000);
+                    
+                    daemon.Sleep(1000);
                     continue;
                 }
 
                 if (ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
                 {
                     Logging.Debug特("OCR/Textify daemons are forced to sleep via Configuration::DisableAllBackgroundTasks");
-                    Thread.Sleep(1000);
+                    daemon.Sleep(1000);
                     continue;
                 }
 
@@ -644,7 +658,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                             StatusManager.Instance.ClearStatus("PDFOCR");
                         }
 
-                        Thread.Sleep(500);
+                        daemon.Sleep(500);
                     }
                 }
             }
