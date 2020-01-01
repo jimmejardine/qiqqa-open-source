@@ -154,7 +154,7 @@ namespace Qiqqa.DocumentLibrary
             {
                 PDFDocument pdf_document = (PDFDocument)e.Data.GetData(typeof(PDFDocument));
                 Logging.Info("The dropped item is {0}", pdf_document);
-                ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_ASYNCHRONOUS(pdf_document, library, false);
+                ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_ASYNCHRONOUS(pdf_document, library, suppress_signal_that_docs_have_changed: false);
             }
 
             else if (e.Data.GetDataPresent(typeof(List<PDFDocument>)))

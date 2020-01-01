@@ -88,14 +88,9 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             Close();
         }
 
-        // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------------------------------------------------------
 
-        public static WebLibraryDetail PickWebLibrary()
-        {
-            return PickWebLibrary(null);
-        }
-
-        public static WebLibraryDetail PickWebLibrary(string message)
+        public static WebLibraryDetail PickWebLibrary(string message = null)
         {
             List<WebLibraryDetail> wlds = WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries_All;
 
