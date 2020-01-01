@@ -645,14 +645,14 @@ namespace Utilities.Strings
                     else
                     {
                         // continuity has been disrupted. Store the range and begin a fresh one:
-                        pageRanges.Add($"{startPage}-{endPage}");
+                        pageRanges.Add(startPage == endPage ? $"{startPage}" : $"{startPage}-{endPage}");
                         startPage = endPage = page;
                     }
                 }
                 // To finish up, push the last range we were working on when we hit the end of the list:
-                pageRanges.Add($"{startPage}-{endPage}");
+                pageRanges.Add(startPage == endPage ? $"{startPage}" : $"{startPage}-{endPage}");
 
-                return String.Join(",", lst);
+                return String.Join(",", pageRanges);
             }
 
             // nothing --> empty string
