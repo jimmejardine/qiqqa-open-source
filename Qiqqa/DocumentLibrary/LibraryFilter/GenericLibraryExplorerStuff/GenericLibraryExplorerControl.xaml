@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Qiqqa.DocumentLibrary.TagExplorerStuff.GenericLibraryExplorerControl"
+<UserControl x:Class="Qiqqa.DocumentLibrary.TagExplorerStuff.GenericLibraryExplorerControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
@@ -7,86 +7,72 @@
     xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
     xmlns:tags="clr-namespace:Qiqqa.DocumentLibrary.TagExplorerStuff"
 >
-  <DockPanel>
-    <local_gui:CollapsibleRegion DockPanel.Dock="Bottom" VisibleEdge="Top" x:Name="ObjChartRegion">
-
-      <syncfusion:Chart Name="ChartSearchTerms" Height="150">
-
-        <syncfusion:Chart.Resources>
-          <local:ToolTipConverter x:Key="ToolTipConverter" />
-
-          <DataTemplate x:Key="DataPointTemplate">
-            <Canvas>
-              <Grid Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}" Width="{Binding Width}" Height="{Binding Height}">
-                <Border VerticalAlignment="Bottom" Width="{Binding Width}" Height="{Binding Height}"
+    <DockPanel>
+        <local_gui:CollapsibleRegion DockPanel.Dock="Bottom" VisibleEdge="Top" x:Name="ObjChartRegion">
+            <syncfusion:Chart Name="ChartSearchTerms" Height="150">
+                <syncfusion:Chart.Resources>
+                    <local:ToolTipConverter x:Key="ToolTipConverter" />
+                    <DataTemplate x:Key="DataPointTemplate">
+                        <Canvas>
+                            <Grid Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}" Width="{Binding Width}" Height="{Binding Height}">
+                                <Border VerticalAlignment="Bottom" Width="{Binding Width}" Height="{Binding Height}"
                         ToolTipService.ToolTip="{Binding Converter={StaticResource ToolTipConverter}}"
                         ToolTipService.InitialShowDelay="100"
                       >
-                  <Border.Style>
-                    <Style TargetType="{x:Type Border}">
-                      <Setter Property="BorderThickness" Value="1"/>
-                      <Setter Property="BorderBrush" Value="Black"/>
-                      <Setter Property="Background" Value="{Binding Interior}"/>
-                      <Style.Triggers>
-                        <DataTrigger Value="True">
-                          <DataTrigger.Binding>
-                            <Binding Path="Highlighted"/>
-                          </DataTrigger.Binding>
-                          <Setter Property="Background" Value="{StaticResource Background_Brush_Blue_Dark}"/>
-                        </DataTrigger>
-                      </Style.Triggers>
-                    </Style>
-                  </Border.Style>
-                </Border>
-              </Grid>
-            </Canvas>
-          </DataTemplate>
-        </syncfusion:Chart.Resources>
-
-        <syncfusion:ChartArea Name="ObjChartArea">
-          <syncfusion:ChartSeries Name="ObjSeries" Type="Column" Template="{StaticResource DataPointTemplate}" Interior="{StaticResource Background_Brush_Blue_VeryVeryDark}" />
-        </syncfusion:ChartArea>
-
-      </syncfusion:Chart>
-
-    </local_gui:CollapsibleRegion>
-
-
-    <DockPanel DockPanel.Dock="Bottom">
-      <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdExport"/>
-      <local_gui:AugmentedSearchBox Name="TxtSearchTermsFilter" EmptyTextPrompt="Enter keywords to filter the above list (e.g. smi;king)" ToolTip="Enter keywords here and press ENTER to filter the above list to show only those that contain these keywords (separate multiple words with a semicolon).  Then select from the list above to filter your library."/>
+                                    <Border.Style>
+                                        <Style TargetType="{x:Type Border}">
+                                            <Setter Property="BorderThickness" Value="1"/>
+                                            <Setter Property="BorderBrush" Value="Black"/>
+                                            <Setter Property="Background" Value="{Binding Interior}"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Value="True">
+                                                    <DataTrigger.Binding>
+                                                        <Binding Path="Highlighted"/>
+                                                    </DataTrigger.Binding>
+                                                    <Setter Property="Background" Value="{StaticResource Background_Brush_Blue_Dark}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                </Border>
+                            </Grid>
+                        </Canvas>
+                    </DataTemplate>
+                </syncfusion:Chart.Resources>
+                <syncfusion:ChartArea Name="ObjChartArea">
+                    <syncfusion:ChartSeries Name="ObjSeries" Type="Column" Template="{StaticResource DataPointTemplate}" Interior="{StaticResource Background_Brush_Blue_VeryVeryDark}" />
+                </syncfusion:ChartArea>
+            </syncfusion:Chart>
+        </local_gui:CollapsibleRegion>
+        <DockPanel DockPanel.Dock="Bottom">
+            <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdExport"/>
+            <local_gui:AugmentedSearchBox Name="TxtSearchTermsFilter" EmptyTextPrompt="Enter keywords to filter the above list (e.g. smi;king)" ToolTip="Enter keywords here and press ENTER to filter the above list to show only those that contain these keywords (separate multiple words with a semicolon).  Then select from the list above to filter your library."/>
+        </DockPanel>
+        <Grid DockPanel.Dock="Top" Name="ObjBoolean">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Name="ObjImageRefresh" Width="16"/>
+            <RadioButton Grid.Column="1" Content="AND" Name="ObjBooleanAnd"/>
+            <RadioButton Grid.Column="2" Content="OR" Name="ObjBooleanOr"/>
+            <CheckBox Grid.Column="3" Content="NOT" Name="ObjBooleanNot"/>
+            <CheckBox Grid.Column="4" Content="Sort?" Name="ObjSort"/>
+        </Grid>
+        <ListView Name="TreeSearchTerms" VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling" ItemsSource="{Binding}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <tags:GenericLibraryExplorerItemControl />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </DockPanel>
-
-    <Grid DockPanel.Dock="Top" Name="ObjBoolean">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="Auto"/>
-        <ColumnDefinition/>
-        <ColumnDefinition/>
-        <ColumnDefinition/>
-        <ColumnDefinition/>
-      </Grid.ColumnDefinitions>
-
-
-      <Image Grid.Column="0" Name="ObjImageRefresh" Width="16"/>
-      <RadioButton Grid.Column="1" Content="AND" Name="ObjBooleanAnd"/>
-      <RadioButton Grid.Column="2" Content="OR" Name="ObjBooleanOr"/>
-      <CheckBox Grid.Column="3" Content="NOT" Name="ObjBooleanNot"/>
-
-      <CheckBox Grid.Column="4" Content="Sort?" Name="ObjSort"/>
-    </Grid>
-
-    <ListView Name="TreeSearchTerms" VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling" ItemsSource="{Binding}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-      <ListView.ItemsPanel>
-        <ItemsPanelTemplate>
-          <VirtualizingStackPanel />
-        </ItemsPanelTemplate>
-      </ListView.ItemsPanel>
-
-      <ListView.ItemTemplate>
-        <DataTemplate>
-          <tags:GenericLibraryExplorerItemControl />
-        </DataTemplate>
-      </ListView.ItemTemplate>
-    </ListView>
-  </DockPanel>
 </UserControl>

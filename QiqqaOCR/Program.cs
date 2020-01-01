@@ -26,6 +26,13 @@ namespace QiqqaOCR
         /// 5) pdf_user_password - encrypted
         /// 6) language - default is 'eng'
         /// 
+        /// or:
+        /// 
+        /// 1) mode: SINGLE-FAKE
+        /// 2) pdf_filename
+        /// 3) page number - only one page per run 
+        /// 4) ocr_output_filename - where the extracted word list info is stored
+        /// 
         /// 7) NOKILL (optional)
         /// </summary>
         /// <param name="args"></param>
@@ -63,8 +70,12 @@ namespace QiqqaOCR
                         OCREngine.MainEntry(args, no_kill);
                         break;
 
+                    case "SINGLE-FAKE":
+                        FakeEngine.MainEntry(args, no_kill);
+                        break;
+
                     default:
-                        throw new Exception("Unknown mode switch " + mode_switch);
+                        throw new Exception("Unknown mode switch: " + mode_switch);
                 }
             }
             catch (Exception ex)

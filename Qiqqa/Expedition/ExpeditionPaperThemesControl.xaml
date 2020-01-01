@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Qiqqa.Expedition.ExpeditionPaperThemesControl"
+<UserControl x:Class="Qiqqa.Expedition.ExpeditionPaperThemesControl"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
@@ -7,39 +7,31 @@
   xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
   xmlns:this="clr-namespace:Qiqqa.Expedition"
 >
-  <Grid>
-    <TextBlock Name="TxtPleaseRunExpedition" TextWrapping="Wrap">Please run Expedition or select a document to analyse.</TextBlock>
-
-    <syncfusion:Chart Name="ChartTopics" MinHeight="200">
-
-      <syncfusion:Chart.Resources>
-        <ResourceDictionary>
-
-          <this:ChartLabelConvertor x:Key="ObjChartLabelConvertor"/>
-
-          <DataTemplate x:Key="LegendTemplate">
-            <DockPanel>
-              <local_gui:AugmentedSpacer DockPanel.Dock="Left" />
-              <Ellipse Fill="{Binding Interior}" Height="15" Width="15" DockPanel.Dock="Left" />
-              <local_gui:AugmentedSpacer DockPanel.Dock="Left" />
-              <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
-              <TextBlock Text="{Binding Path=CorrespondingPoints[0].DataPoint.Tag.Topic}" ToolTip="{Binding Path=CorrespondingPoints[0].DataPoint.Tag.Topic}" />
-            </DockPanel>
-          </DataTemplate>
-
-        </ResourceDictionary>
-      </syncfusion:Chart.Resources>
-
-      <syncfusion:ChartArea Name="ObjChartTopicsArea" Padding="0">
-
-        <syncfusion:ChartSeries Name="ObjSeriesTopics" Type="Pie" BindingPathX="Topic" BindingPathsY="Percentage" />
-
-        <syncfusion:ChartArea.Legend>
-          <syncfusion:ChartLegend syncfusion:Chart.Dock="Bottom" Orientation="Vertical" CheckBoxVisibility="Collapsed" ItemTemplate="{StaticResource LegendTemplate}" Padding="0" />
-        </syncfusion:ChartArea.Legend>
-
-      </syncfusion:ChartArea>
-
-    </syncfusion:Chart>
-  </Grid>
+    <Grid>
+        <TextBlock Name="TxtPleaseRunExpedition" TextWrapping="Wrap">
+            Please run Expedition or select a document to analyse.
+        </TextBlock>
+        <syncfusion:Chart Name="ChartTopics" MinHeight="200">
+            <syncfusion:Chart.Resources>
+                <ResourceDictionary>
+                    <this:ChartLabelConvertor x:Key="ObjChartLabelConvertor"/>
+                    <DataTemplate x:Key="LegendTemplate">
+                        <DockPanel>
+                            <local_gui:AugmentedSpacer DockPanel.Dock="Left" />
+                            <Ellipse Fill="{Binding Interior}" Height="15" Width="15" DockPanel.Dock="Left" />
+                            <local_gui:AugmentedSpacer DockPanel.Dock="Left" />
+                            <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
+                            <TextBlock Text="{Binding Path=CorrespondingPoints[0].DataPoint.Tag.Topic}" ToolTip="{Binding Path=CorrespondingPoints[0].DataPoint.Tag.Topic}" />
+                        </DockPanel>
+                    </DataTemplate>
+                </ResourceDictionary>
+            </syncfusion:Chart.Resources>
+            <syncfusion:ChartArea Name="ObjChartTopicsArea" Padding="0">
+                <syncfusion:ChartSeries Name="ObjSeriesTopics" Type="Pie" BindingPathX="Topic" BindingPathsY="Percentage" />
+                <syncfusion:ChartArea.Legend>
+                    <syncfusion:ChartLegend syncfusion:Chart.Dock="Bottom" Orientation="Vertical" CheckBoxVisibility="Collapsed" ItemTemplate="{StaticResource LegendTemplate}" Padding="0" />
+                </syncfusion:ChartArea.Legend>
+            </syncfusion:ChartArea>
+        </syncfusion:Chart>
+    </Grid>
 </UserControl>

@@ -1,21 +1,19 @@
-﻿<UserControl x:Class="Utilities.GUI.DualTabbedLayoutStuff.ItemHeader"
+<UserControl x:Class="Utilities.GUI.DualTabbedLayoutStuff.ItemHeader"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local_gui="clr-namespace:Utilities.GUI"
 >
-  <DockPanel>
-    <StackPanel  DockPanel.Dock="Left" Orientation="Horizontal">
-      <Image Name="ImageIcon"/>
-      <local_gui:AugmentedSpacer />      
-    </StackPanel>
-    
-    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
-      <local_gui:AugmentedSpacer />
-      <Image Name="ImageClose"/>
-    </StackPanel>
-
-    <StackPanel Orientation="Horizontal">
-      <TextBlock Name="TextHeader" />
-    </StackPanel>
-  </DockPanel>
+    <DockPanel>
+        <StackPanel  DockPanel.Dock="Left" Orientation="Horizontal">
+            <Image Name="ImageIcon"/>
+            <local_gui:AugmentedSpacer />
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+            <local_gui:AugmentedSpacer />
+            <Image Name="ImageClose"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Name="TextHeader" />
+        </StackPanel>
+    </DockPanel>
 </UserControl>

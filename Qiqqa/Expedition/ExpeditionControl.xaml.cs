@@ -114,7 +114,7 @@ namespace Qiqqa.Expedition
         {
             if (null != library)
             {
-                SafeThreadPool.QueueUserWorkItem(o => library.AITagManager.Regenerate(null));
+                SafeThreadPool.QueueUserWorkItem(o => library.AITagManager.Regenerate());
             }
             else
             {
@@ -232,12 +232,15 @@ namespace Qiqqa.Expedition
             int num_topics = Convert.ToInt32(TextExpeditionNumThemes.Text);
             bool add_autotags = ObjAddAutoTags.IsChecked ?? true;
             bool add_tags = ObjAddTags.IsChecked ?? true;
-            SafeThreadPool.QueueUserWorkItem(o => library.ExpeditionManager.RebuildExpedition(num_topics, add_autotags, add_tags, OnRebuildExpeditionComplete));
+            SafeThreadPool.QueueUserWorkItem(o =>
+            {
+                library.ExpeditionManager.RebuildExpedition(num_topics, add_autotags, add_tags, OnRebuildExpeditionComplete);
+            });
         }
 
         private void OnRebuildExpeditionComplete()
         {
-            Dispatcher.BeginInvoke(new Action(() => OnRebuildExpeditionComplete_GUITHREAD()));
+            WPFDoEvents.InvokeAsyncInUIThread(() => OnRebuildExpeditionComplete_GUITHREAD());
         }
 
         private void OnRebuildExpeditionComplete_GUITHREAD()

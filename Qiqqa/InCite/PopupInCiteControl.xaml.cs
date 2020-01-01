@@ -288,11 +288,11 @@ namespace Qiqqa.InCite
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_OpenPopup);
 
-            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            WPFDoEvents.InvokeAsyncInUIThread(() =>
             {
                 Popup_DISPATCHER();
             }
-            ));
+            );
         }
 
         private static void Popup_DISPATCHER()

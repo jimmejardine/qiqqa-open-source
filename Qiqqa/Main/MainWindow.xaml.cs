@@ -18,6 +18,7 @@ using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.GUI;
 using Utilities.Maintainable;
+using Utilities.Misc;
 using Application = System.Windows.Application;
 using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
 
@@ -97,7 +98,7 @@ namespace Qiqqa.Main
             ObjTabWelcome.GetGoing += ObjTabWelcome_GetGoing;
 
             // Put this in a background thread
-            Dispatcher.BeginInvoke(((Action)(() => PostStartupWork())), DispatcherPriority.Normal);
+            SafeThreadPool.QueueUserWorkItem(o => PostStartupWork());
         }
 
         private void MainWindow_ContentRendered(object sender, EventArgs e)
@@ -107,7 +108,14 @@ namespace Qiqqa.Main
             // hold off: level 2 -> 1
             MaintainableManager.Instance.BumpHoldOffPendingLevel();
 
-            WPFDoEvents.ResetHourglassCursor();
+            // https://stackoverflow.com/questions/34340134/how-to-know-when-a-frameworkelement-has-been-totally-rendered
+            WPFDoEvents.InvokeInUIThread(() => {
+                WPFDoEvents.ResetHourglassCursor();
+
+#if false
+                Environment.Exit(-2);    // testing & profiling only
+#endif
+            }, priority: DispatcherPriority.ContextIdle);
         }
 
         private void keyboard_hook_KeyDown(object sender, KeyEventArgs e)
@@ -123,6 +131,8 @@ namespace Qiqqa.Main
 
         private void PostStartupWork()
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             if (ConfigurationManager.Instance.ConfigurationRecord.GUI_RestoreWindowsAtStartup)
             {
                 RestoreDesktopManager.RestoreDesktop();
@@ -134,7 +144,7 @@ namespace Qiqqa.Main
                 WebLibraryManager.Instance.SortWebLibraryDetailsByLastAccessed(web_libary_details);
                 if (0 < web_libary_details.Count)
                 {
-                    MainWindowServiceDispatcher.Instance.OpenLibrary(web_libary_details[0].library);
+                    WPFDoEvents.InvokeInUIThread(() => MainWindowServiceDispatcher.Instance.OpenLibrary(web_libary_details[0].library));
                 }
 
                 // Also open guest under some circumstances
@@ -153,38 +163,40 @@ namespace Qiqqa.Main
 
                 if (should_open_guest)
                 {
-                    MainWindowServiceDispatcher.Instance.OpenLibrary(WebLibraryManager.Instance.Library_Guest);
+                    WPFDoEvents.InvokeInUIThread(() => MainWindowServiceDispatcher.Instance.OpenLibrary(WebLibraryManager.Instance.Library_Guest));
                 }
 
                 // Make sure the start page is selected
-                MainWindowServiceDispatcher.Instance.OpenStartPage();
+                WPFDoEvents.InvokeInUIThread(() => MainWindowServiceDispatcher.Instance.OpenStartPage());
             }
 
-            if (ConfigurationManager.Instance.ConfigurationRecord.GUI_RestoreLocationAtStartup)
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                SetupConfiguredDimensions();
-            }
-            else
-            {
-                if (!RegistrySettings.Instance.IsSet(RegistrySettings.StartNotMaximized))
+                if (ConfigurationManager.Instance.ConfigurationRecord.GUI_RestoreLocationAtStartup)
                 {
-                    WindowState = WindowState.Maximized;
+                    SetupConfiguredDimensions();
                 }
-            }
+                else
+                {
+                    if (!RegistrySettings.Instance.IsSet(RegistrySettings.StartNotMaximized))
+                    {
+                        WindowState = WindowState.Maximized;
+                    }
+                }
 
-            // Install the global keyboard and mouse hooks
-            if (!RegistrySettings.Instance.IsSet(RegistrySettings.DisableGlobalKeyHook))
-            {
-                keyboard_hook = new KeyboardHook();
-                keyboard_hook.KeyDown += keyboard_hook_KeyDown;
-                keyboard_hook.Start();
-            }
-            else
-            {
-                Logging.Warn("DisableGlobalKeyHook is set!");
-            }
+                // Install the global keyboard and mouse hooks
+                if (!RegistrySettings.Instance.IsSet(RegistrySettings.DisableGlobalKeyHook))
+                {
+                    keyboard_hook = new KeyboardHook();
+                    keyboard_hook.KeyDown += keyboard_hook_KeyDown;
+                    keyboard_hook.Start();
+                }
+                else
+                {
+                    Logging.Warn("DisableGlobalKeyHook is set!");
+                }
+            });
 
-            if (true)
             {
                 // Start listening for other apps
                 ipc_server = new IPCServer();
@@ -193,28 +205,16 @@ namespace Qiqqa.Main
                 ipc_server.Start();
             }
 
-            if (ConfigurationManager.Instance.ConfigurationRecord.TermsAndConditionsAccepted)
-            {
-                StartBackgroundWorkerDaemon();
-            }
-            else
-            {
-                // TODO: nothing to do any more; user hasn't accepted the Terms & Conditions... Allow update via UI maybe? Nah, just quit!
-                WPFDoEvents.ResetHourglassCursor();
-
-                MessageBoxes.Info("You have not accepted the Qiqqa Terms and Conditions. Consequently, no service can be provided. The application will terminate now.\n\nYou may want to re-install the software and check&accept the Terms & Conditions, which are shown during the installation procedure.");
-
-                MainWindowServiceDispatcher.Instance.ShutdownQiqqa(suppress_exit_warning: true);
-            }
+            StartBackgroundWorkerDaemon();
         }
 
         private void ipc_server_IPCServerMessage(string message)
         {
-            Dispatcher.BeginInvoke(new Action(() =>
+            WPFDoEvents.InvokeAsyncInUIThread(() =>
             {
                 MainWindowServiceDispatcher.Instance.ProcessCommandLineFile(message);
             }
-            ));
+            );
         }
 
         private static bool already_exiting = false;
@@ -292,7 +292,7 @@ namespace Qiqqa.Main
 
         private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            //Logging.Info("Size is now {0}", e.NewSize.ToString());
+            Logging.Debug("MainWindow_SizeChanged :: Size is now {0}", e.NewSize.ToString());
         }
 
         private void StartBackgroundWorkerDaemon()
@@ -313,7 +313,7 @@ namespace Qiqqa.Main
             }
         }
 
-        #region --- IDisposable ------------------------------------------------------------------------
+#region --- IDisposable ------------------------------------------------------------------------
 
         ~MainWindow()
         {
@@ -345,7 +345,7 @@ namespace Qiqqa.Main
                         ObjStartPage?.Dispose();
 
                         ipc_server?.Stop();
-                    }, Dispatcher);
+                    });
                 }
 
                 ObjStartPage = null;
@@ -362,7 +362,7 @@ namespace Qiqqa.Main
             ++dispose_count;
         }
 
-        #endregion
+#endregion
 
         protected override void OnClosing(CancelEventArgs e)
         {

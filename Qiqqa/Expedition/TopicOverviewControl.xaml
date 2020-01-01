@@ -1,10 +1,10 @@
-﻿<UserControl x:Class="Qiqqa.Expedition.TopicOverviewControl"
+<UserControl x:Class="Qiqqa.Expedition.TopicOverviewControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
     xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
 >
-  <local_gui:AugmentedInfoBarItemControl x:Name="ObjHeader" Header="Topic">
-    <StackPanel Name="ObjPapers" />
-  </local_gui:AugmentedInfoBarItemControl>
+    <local_gui:AugmentedInfoBarItemControl x:Name="ObjHeader" Header="Topic">
+        <StackPanel Name="ObjPapers" />
+    </local_gui:AugmentedInfoBarItemControl>
 </UserControl>

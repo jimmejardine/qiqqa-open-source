@@ -1,7 +1,9 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Threading;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Main.SplashScreenStuff;
 using Qiqqa.UtilisationTracking;
@@ -21,7 +23,12 @@ namespace Qiqqa.StartPage
         {
             InitializeComponent();
 
-            WPFDoEvents.ResetHourglassCursor();
+#if false
+            // https://stackoverflow.com/questions/34340134/how-to-know-when-a-frameworkelement-has-been-totally-rendered
+            WPFDoEvents.InvokeInUIThread(() => {
+                WPFDoEvents.ResetHourglassCursor();
+            }, priority: DispatcherPriority.ContextIdle);
+#endif
 
             ObjBackgroundImage.Source = SplashScreenWindow.GetSplashImage();
             ObjBackgroundImage.Stretch = Stretch.Fill;

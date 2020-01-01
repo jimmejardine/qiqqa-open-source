@@ -57,7 +57,7 @@ namespace Qiqqa.Exporting
 
         internal static void Export(Library library, List<PDFDocument> pdf_documents)
         {
-            StatusManager.Instance.UpdateStatusBusy("CitationMatrix", "Exporting Citation Maxtrix");
+            StatusManager.Instance.UpdateStatus("CitationMatrix", "Exporting Citation Maxtrix");
 
             // Ask the user what they want
             bool export_inbound_citations = MessageBoxes.AskQuestion("Do you want to follow one layer of INBOUND citations?");
@@ -84,7 +84,7 @@ namespace Qiqqa.Exporting
             }
 
             // Build the list of papers we want to list
-            StatusManager.Instance.UpdateStatusBusy("CitationMatrix", "Widening export set.");
+            StatusManager.Instance.UpdateStatus("CitationMatrix", "Widening export set.");
             HashSet<string> working_set_fingerprint = new HashSet<string>();
             foreach (PDFDocument pdf_document in pdf_documents)
             {
@@ -110,7 +110,7 @@ namespace Qiqqa.Exporting
             FingerprintToBibTeXMap map = new FingerprintToBibTeXMap(library);
 
             // Build the result
-            StatusManager.Instance.UpdateStatusBusy("CitationMatrix", "Building Citation Matrix.");
+            StatusManager.Instance.UpdateStatus("CitationMatrix", "Building Citation Matrix.");
             DateTime start_time = DateTime.Now;
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("------------------------------------------------------------------------");
@@ -146,7 +146,7 @@ namespace Qiqqa.Exporting
                 }
             }
 
-            StatusManager.Instance.UpdateStatusBusy("CitationMatrix", "Writing Citation Matrix.");
+            StatusManager.Instance.UpdateStatus("CitationMatrix", "Writing Citation Matrix.");
             string target_filename = save_file_dialog.FileName;
             File.WriteAllText(target_filename, sb.ToString());
 

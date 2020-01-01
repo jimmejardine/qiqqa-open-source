@@ -2,6 +2,7 @@
 using Qiqqa.DocumentLibrary;
 using Utilities;
 using Utilities.Files;
+using Utilities.GUI;
 using Utilities.Misc;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
@@ -25,11 +26,24 @@ namespace Qiqqa.Expedition
 
         public void RebuildExpedition(int num_topics, bool add_autotags, bool add_tags, RebuiltExpeditionCompleteDelegate rebuiltexpeditioncompletedelegate)
         {
-            Logging.Info("+Rebuilding Expedition");
-            StatusManager.Instance.ClearCancelled("Expedition");
-            ExpeditionDataSource eds = ExpeditionBuilder.BuildExpeditionDataSource(library, num_topics, add_autotags, add_tags, ExpeditionBuilderProgressUpdate);
-            SerializeFile.SaveSafely(Filename_Store, eds);
-            expedition_data_source = eds;
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
+            StatusManager.Instance.UpdateStatus("Expedition", "Rebuilding Expedition");
+
+            try
+            {
+                Library.IsBusyRegeneratingTags = true;
+
+                ExpeditionDataSource eds = ExpeditionBuilder.BuildExpeditionDataSource(library, num_topics, add_autotags, add_tags, ExpeditionBuilderProgressUpdate);
+                SerializeFile.SaveSafely(Filename_Store, eds);
+                expedition_data_source = eds;
+            }
+            finally
+            {
+                Library.IsBusyRegeneratingTags = false;
+
+                StatusManager.Instance.ClearCancelled("Expedition");
+            }
             Logging.Info("-Rebuilding Expedition");
 
             if (null != rebuiltexpeditioncompletedelegate)
@@ -71,16 +85,9 @@ namespace Qiqqa.Expedition
             }
         }
 
-        private bool ExpeditionBuilderProgressUpdate(string message, double percentage_complete)
+        private bool ExpeditionBuilderProgressUpdate(string message, long current_update_number, long total_update_count)
         {
-            if (1 != percentage_complete)
-            {
-                StatusManager.Instance.UpdateStatus("Expedition", message, percentage_complete, true);
-            }
-            else
-            {
-                StatusManager.Instance.UpdateStatus("Expedition", message);
-            }
+            StatusManager.Instance.UpdateStatus("Expedition", message, current_update_number, total_update_count, cancellable: current_update_number != total_update_count);
 
             return !StatusManager.Instance.IsCancelled("Expedition");
         }

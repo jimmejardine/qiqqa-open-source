@@ -18,6 +18,8 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
     {
         internal static void Install(BundleLibraryManifest manifest, byte[] library_bundle_binary)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             string temp_filename = Path.GetTempFileName();
             try
             {
@@ -39,6 +41,8 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
 
         internal static void Install(BundleLibraryManifest manifest, string library_bundle_filename)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             Library library = WebLibraryManager.Instance.GetLibrary(manifest.Id);
             if (null != library)
             {
@@ -63,9 +67,9 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
             // Reflect this new bundle
             WebLibraryDetail new_web_library_detail = WebLibraryManager.Instance.UpdateKnownWebLibraryFromBundleLibraryManifest(manifest, suppress_flush_to_disk: false);
 
-            Application.Current.Dispatcher.Invoke(((Action)(() => {
+            WPFDoEvents.InvokeInUIThread(() => {
                 MainWindowServiceDispatcher.Instance.OpenLibrary(new_web_library_detail.library);
-            })));
+            });
         }
     }
 }

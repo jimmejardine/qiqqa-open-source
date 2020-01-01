@@ -83,7 +83,7 @@ namespace Qiqqa.Documents.Common
 
                 if (0 < count_to_go)
                 {
-                    StatusManager.Instance.UpdateStatusBusy("DocumentQueuedStorer", String.Format("{0} documents still to flush", count_to_go), 1, count_to_go);
+                    StatusManager.Instance.UpdateStatus("DocumentQueuedStorer", String.Format("{0} documents still to flush", count_to_go), 1, count_to_go);
                 }
                 else
                 {

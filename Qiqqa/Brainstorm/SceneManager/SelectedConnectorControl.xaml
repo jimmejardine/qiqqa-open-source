@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Qiqqa.Brainstorm.SceneManager.SelectedConnectorControl"
+<UserControl x:Class="Qiqqa.Brainstorm.SceneManager.SelectedConnectorControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   >

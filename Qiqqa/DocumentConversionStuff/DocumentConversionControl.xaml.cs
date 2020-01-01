@@ -10,6 +10,7 @@ using Qiqqa.Documents.PDF;
 using Qiqqa.Documents.PDF.PDFControls;
 using Utilities;
 using Utilities.Files;
+using Utilities.GUI;
 using Utilities.Misc;
 
 namespace Qiqqa.DocumentConversionStuff
@@ -63,14 +64,14 @@ namespace Qiqqa.DocumentConversionStuff
 
                     if (ObjAddToGuest.IsChecked ?? false)
                     {
-                        Application.Current.Dispatcher.Invoke(
-                            new Action(() =>
+                        WPFDoEvents.InvokeInUIThread(() =>
                             {
                                 PDFDocument pdf_document = WebLibraryManager.Instance.Library_Guest.AddNewDocumentToLibrary_SYNCHRONOUS(pdf_filename, filename, filename, null, null, null, true, false);
                                 PDFReadingControl pdf_reading_control = MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);
                                 pdf_reading_control.EnableGuestMoveNotification();
-                            }),
-                            DispatcherPriority.Background);
+                            },
+                            priority: DispatcherPriority.Background
+                        );
                     }
 
                     if (ObjPromptToSave.IsChecked ?? false)

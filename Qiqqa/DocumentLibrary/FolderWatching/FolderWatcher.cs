@@ -200,7 +200,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             while (TestAndReset_FolderContentsHaveChanged())
             {
                 // If this library is busy, skip it for now
-                if (Library.IsBusyAddingPDFs)
+                if (Library.IsBusyAddingPDFs || Library.IsBusyRegeneratingTags)
                 {
                     Logging.Debug特("FolderWatcher: Not daemon processing any library that is busy with adds...");
                     FolderContentsHaveChanged = true;

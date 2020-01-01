@@ -200,7 +200,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
                         {
                             Logging.Error(ex);
                         }
-                    }, Dispatcher);
+                    });
                 }
 
                 // Clear the references for sanity's sake

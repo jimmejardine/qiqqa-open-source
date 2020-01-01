@@ -76,6 +76,8 @@ namespace Qiqqa.Common
 
         public LibraryControl OpenLibrary(Library library)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             string window_key = "Library-" + library.WebLibraryDetail.Id;
 
             LibraryControl existing_control = (LibraryControl)main_window.DockingManager.MakeActive(window_key);
@@ -155,32 +157,10 @@ namespace Qiqqa.Common
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "<Pending>")]
-        public PDFReadingControl OpenDocument(PDFDocument pdf_document)
+        public PDFReadingControl OpenDocument(PDFDocument pdf_document, int? page = null, string search_terms = null, bool open_again = false)
         {
-            return OpenDocument(pdf_document, null, null, false);
-        }
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "<Pending>")]
-        public PDFReadingControl OpenDocument(PDFDocument pdf_document, string search_terms)
-        {
-            return OpenDocument(pdf_document, null, search_terms, false);
-        }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "<Pending>")]
-        public PDFReadingControl OpenDocument(PDFDocument pdf_document, int? page)
-        {
-            return OpenDocument(pdf_document, page, null, false);
-        }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "<Pending>")]
-        internal PDFReadingControl OpenDocument(PDFDocument pdf_document, bool open_again)
-        {
-            return OpenDocument(pdf_document, null, null, open_again);
-        }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "<Pending>")]
-        public PDFReadingControl OpenDocument(PDFDocument pdf_document, int? page, string search_terms, bool open_again)
-        {
             if (pdf_document.IsVanillaReference)
             {
                 var dialog = new AssociatePDFWithVanillaReferenceWindow(pdf_document);
@@ -688,6 +668,8 @@ namespace Qiqqa.Common
 
         internal void OpenStartPage()
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             main_window.DockingManager.MakeActive(MainWindow.TITLE_START_PAGE);
         }
 

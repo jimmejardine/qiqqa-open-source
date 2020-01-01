@@ -151,7 +151,7 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
             {
                 if (General.HasPercentageJustTicked(y, pivot_result.y_keys.Count))
                 {
-                    StatusManager.Instance.UpdateStatusBusy("LibraryPivot", "Building library pivot grid", y, pivot_result.y_keys.Count, true);
+                    StatusManager.Instance.UpdateStatus("LibraryPivot", "Building library pivot grid", y, pivot_result.y_keys.Count, true);
 
                     WPFDoEvents.WaitForUIThreadActivityDone(); // HackityHack
 

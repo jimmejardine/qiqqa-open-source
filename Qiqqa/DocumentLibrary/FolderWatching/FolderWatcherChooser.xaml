@@ -1,4 +1,4 @@
-﻿<commongui:StandardWindow x:Class="Qiqqa.DocumentLibrary.FolderWatching.FolderWatcherChooser"
+<commongui:StandardWindow x:Class="Qiqqa.DocumentLibrary.FolderWatching.FolderWatcherChooser"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -8,48 +8,59 @@
              xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
                           xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
                           Title="Watch Folder" Height="600" Width="600">
-
-  <DockPanel>
-    <commongui:StandardPageHeader x:Name="Header" DockPanel.Dock="Top">
-    </commongui:StandardPageHeader>
-
-
-    <local_gui:AugmentedPadder DockPanel.Dock="Bottom">
-      <DockPanel>
-                <local_gui:AugmentedButton x:Name="btnOk" HorizontalAlignment="Right" DockPanel.Dock="Right" MinHeight="20" >OK</local_gui:AugmentedButton>
-        <local_gui:AugmentedSpacer />
-                <local_gui:AugmentedButton x:Name="btnCancel" HorizontalAlignment="Right" DockPanel.Dock="Right" MinHeight="20" >Cancel</local_gui:AugmentedButton>
-      </DockPanel>
-    </local_gui:AugmentedPadder>
-
-
-    <local_gui:AugmentedPadder >
-      <StackPanel>
-        <TextBlock>
-          <Bold>Folders to watch</Bold>
-        </TextBlock>
-        <TextBlock TextWrapping="Wrap">List separate folders on a new line.  To optionally add tags to PDFs imported from a folder, add the tags after the folder name, separated by semi-colons.</TextBlock>
-        <DockPanel>
-          <TextBox Height="100" Name="TxtFolders" AcceptsReturn="True"></TextBox>
-        </DockPanel>
-
-        <TextBlock />
-
-        <TextBlock>
-          <Bold>Add folder</Bold>
-        </TextBlock>
-        <TextBlock TextWrapping="Wrap">Click here to select folders to add to the list of watched folders.</TextBlock>
-        <local_gui:AugmentedButton Grid.Column="1" x:Name="CmdAddFolder">Add Another Folder</local_gui:AugmentedButton>
-
-        <TextBlock />
-
-        <TextBlock>
-          <Bold>Clear watch history</Bold>
-        </TextBlock>
-        <TextBlock TextWrapping="Wrap">Qiqqa keeps track of files you have imported in the past so they are not imported again.  To reset this list, click this button.</TextBlock>
-        <local_gui:AugmentedButton Grid.Column="1" x:Name="CmdResetHistory">Reset Watching History</local_gui:AugmentedButton>
-      </StackPanel>
-    </local_gui:AugmentedPadder>
-  </DockPanel>
-
+    <DockPanel>
+        <commongui:StandardPageHeader x:Name="Header" DockPanel.Dock="Top">
+        </commongui:StandardPageHeader>
+        <local_gui:AugmentedPadder DockPanel.Dock="Bottom">
+            <DockPanel>
+                <local_gui:AugmentedButton x:Name="btnOk" HorizontalAlignment="Right" DockPanel.Dock="Right" MinHeight="20" >
+                    OK
+                </local_gui:AugmentedButton>
+                <local_gui:AugmentedSpacer />
+                <local_gui:AugmentedButton x:Name="btnCancel" HorizontalAlignment="Right" DockPanel.Dock="Right" MinHeight="20" >
+                    Cancel
+                </local_gui:AugmentedButton>
+            </DockPanel>
+        </local_gui:AugmentedPadder>
+        <local_gui:AugmentedPadder >
+            <StackPanel>
+                <TextBlock>
+                    <Bold>
+                        Folders to watch
+                    </Bold>
+                </TextBlock>
+                <TextBlock TextWrapping="Wrap">
+                    List separate folders on a new line.  To optionally add tags to PDFs imported from a folder, add the tags after the folder name, separated by semi-colons.
+                </TextBlock>
+                <DockPanel>
+                    <TextBox Height="100" Name="TxtFolders" AcceptsReturn="True">
+                    </TextBox>
+                </DockPanel>
+                <TextBlock />
+                <TextBlock>
+                    <Bold>
+                        Add folder
+                    </Bold>
+                </TextBlock>
+                <TextBlock TextWrapping="Wrap">
+                    Click here to select folders to add to the list of watched folders.
+                </TextBlock>
+                <local_gui:AugmentedButton Grid.Column="1" x:Name="CmdAddFolder">
+                    Add Another Folder
+                </local_gui:AugmentedButton>
+                <TextBlock />
+                <TextBlock>
+                    <Bold>
+                        Clear watch history
+                    </Bold>
+                </TextBlock>
+                <TextBlock TextWrapping="Wrap">
+                    Qiqqa keeps track of files you have imported in the past so they are not imported again.  To reset this list, click this button.
+                </TextBlock>
+                <local_gui:AugmentedButton Grid.Column="1" x:Name="CmdResetHistory">
+                    Reset Watching History
+                </local_gui:AugmentedButton>
+            </StackPanel>
+        </local_gui:AugmentedPadder>
+    </DockPanel>
 </commongui:StandardWindow>

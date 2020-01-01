@@ -84,6 +84,13 @@ namespace Utilities.PDF.MuPDF
 
                                 ResolveRotation(page_rotation, ref word_x0, ref word_y0, ref word_x1, ref word_y1);
 
+                                // safety measure: discard zero-width and zero-height "words" as those only cause trouble down the line:
+                                if (word_x0 == word_x1 || word_y0 == word_y1)
+                                {
+                                    Logging.Warn("Zero-width/height bounding box for text chunk: ignoring this 'word' @ {0}.", line);
+                                    continue;
+                                }
+
                                 // Position this little grubber
                                 TextChunk text_chunk = new TextChunk();
                                 text_chunk.text = text;
@@ -114,7 +121,7 @@ namespace Utilities.PDF.MuPDF
 
                                 if (text_chunk.x1 <= text_chunk.x0 || text_chunk.y1 <= text_chunk.y0)
                                 {
-                                    Logging.Warn("Bad bounding box for text chunk");
+                                    Logging.Warn("Bad bounding box for text chunk ({0})", process_parameters);
                                 }
 
                                 // And add him to the result list
@@ -155,7 +162,7 @@ namespace Utilities.PDF.MuPDF
                         }
                     }
 
-                    text_chunks = AggregateOverlappingTextChunks(text_chunks);
+                    text_chunks = AggregateOverlappingTextChunks(text_chunks, process_parameters);
                     return text_chunks;
                 }
             }
@@ -171,7 +178,7 @@ namespace Utilities.PDF.MuPDF
             }
         }
 
-        private static List<TextChunk> AggregateOverlappingTextChunks(List<TextChunk> text_chunks_original)
+        private static List<TextChunk> AggregateOverlappingTextChunks(List<TextChunk> text_chunks_original, string debug_cli_info)
         {
             List<TextChunk> text_chunks = new List<TextChunk>();
 
@@ -180,7 +187,7 @@ namespace Utilities.PDF.MuPDF
             {
                 if (text_chunk.x1 <= text_chunk.x0 || text_chunk.y1 <= text_chunk.y0)
                 {
-                    Logging.Warn("Bad bounding box for raw text chunk");
+                    Logging.Warn("Bad bounding box for raw text chunk ({0})", debug_cli_info);
                 }
 
                 // If we flushed the last word
@@ -251,7 +258,7 @@ namespace Utilities.PDF.MuPDF
 
                 if (current_text_chunk.x1 <= current_text_chunk.x0 || current_text_chunk.y1 <= current_text_chunk.y0)
                 {
-                    Logging.Warn("Bad bounding box for aggregated text chunk");
+                    Logging.Warn("Bad bounding box for aggregated text chunk ({0})", debug_cli_info);
                 }
             }
 
@@ -284,6 +291,7 @@ namespace Utilities.PDF.MuPDF
 
                             // Check that the process has exited properly
                             process.WaitForExit(1000);
+
                             if (!process.HasExited)
                             {
                                 Logging.Debug("PDFRenderer process did not terminate, so killing it.\n{0}", process_output_reader.GetOutputsDumpString());
@@ -291,14 +299,16 @@ namespace Utilities.PDF.MuPDF
                                 try
                                 {
                                     process.Kill();
+
+                                    // wait for the completion signal; this also helps to collect all STDERR output of the application (even while it was KILLED)
                                     process.WaitForExit(1000);
                                 }
                                 catch (Exception ex)
                                 {
-                                    Logging.Error(ex, "These was an exception while trying to kill the PDFRenderer process.");
+                                    Logging.Error(ex, "There was a problem killing the PDFRenderer process after timeout ({0} ms)", elapsed2 + 1000);
                                 }
 
-                                Logging.Error("PDFRenderer process did not terminate, so killed it.\n{0}", process_output_reader.GetOutputsDumpString());
+                                Logging.Error("PDFRenderer process did not terminate, so killed it. Commandline:\n    {0}\n{1}", process_parameters, process_output_reader.GetOutputsDumpString());
 
                                 throw new ApplicationException($"PDFRenderer process did not terminate, so killed it.\n    Commandline: pdfdraw.exe {process_parameters}");
                             }

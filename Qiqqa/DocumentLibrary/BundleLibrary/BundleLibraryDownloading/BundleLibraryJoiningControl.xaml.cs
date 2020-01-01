@@ -61,6 +61,8 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleDownloading
 
         private void ManageDownload(BundleLibraryManifest manifest)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             string url = manifest.BaseUrl + @"/" + manifest.Id + Common.EXT_BUNDLE;
             using (UrlDownloader.DownloadAsyncTracker download_async_tracker = UrlDownloader.DownloadWithNonBlocking(url))
             {
@@ -75,7 +77,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleDownloading
                         break;
                     }
 
-                    StatusManager.Instance.UpdateStatusBusy(STATUS_TOKEN, "Downloading Bundle Library...", download_async_tracker.ProgressPercentage, 100, true);
+                    StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Downloading Bundle Library...", download_async_tracker.ProgressPercentage, 100, true);
                     Thread.Sleep(1000);
                 }
 

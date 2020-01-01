@@ -38,5 +38,8 @@
     "globby": "^10.0.1",
     "moment": "^2.24.0",
     "semver": "^6.3.0"
+  },
+  "devDependencies": {
+    "@gerhobbelt/xml-beautifier": "^1.0.2-1"
   }
 }

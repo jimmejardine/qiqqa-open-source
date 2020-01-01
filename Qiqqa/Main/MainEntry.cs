@@ -52,8 +52,14 @@ namespace Qiqqa.Main
                 splashscreen_window = new SplashScreenWindow();
                 splashscreen_window.Show();
 
-                DoUpgrades(splashscreen_window);
-                DoPostUpgrade(splashscreen_window);
+                SafeThreadPool.QueueUserWorkItem(o =>
+                {
+                    DoUpgrades();
+#if false 									// set to true for testing the UI behaviour wile this takes a long time to 'run':
+                    Thread.Sleep(15000);
+#endif					
+                    DoPostUpgrade();
+                });
             }
             catch (Exception ex)
             {
@@ -185,6 +191,10 @@ namespace Qiqqa.Main
             // Create the application object
             application = new Application();
             application.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+            application.Exit += Application_Exit;
+            application.Activated += Application_Activated;
+            application.LoadCompleted += Application_LoadCompleted;
+            application.Startup += Application_Startup;
 
             // All the exception handling
             application.DispatcherUnhandledException += application_DispatcherUnhandledException;
@@ -195,22 +205,47 @@ namespace Qiqqa.Main
             { var init = WPFFrameRate.Instance; }
         }
 
-        private static void DoUpgrades(SplashScreenWindow splashscreen_window)
+        private static void Application_Startup(object sender, StartupEventArgs e)
         {
-            // Perform any upgrade paths that we must
-            UpgradeManager.RunUpgrades(splashscreen_window);
+            Logging.Info("---Application_Startup");
         }
 
-        private static void DoPostUpgrade(SplashScreenWindow splashscreen_window)
+        private static void Application_LoadCompleted(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
+            Logging.Info("---Application_LoadCompleted");
+        }
+
+        private static void Application_Activated(object sender, EventArgs e)
+        {
+            Logging.Info("---Application_Activated");
+        }
+
+        private static void Application_Exit(object sender, ExitEventArgs e)
+        {
+            Logging.Info("---Application_Exit");
+        }
+
+        private static void DoUpgrades()
+        {
+            // Perform any upgrade paths that we must
+            UpgradeManager.RunUpgrades();
+        }
+
+        private static void DoPostUpgrade()
+        {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             // NB NB NB NB: You CANT USE ANYTHING IN THE USER CONFIG AT THIS POINT - it is not yet decided until LOGIN has completed...
 
-            splashscreen_window.UpdateMessage("Loading themes");
-            Theme.Initialize();
-            DualTabbedLayout.GetWindowOverride = delegate () { return new StandardWindow(); };
+            WPFDoEvents.InvokeInUIThread(() =>
+            {
+                StatusManager.Instance.UpdateStatus("AppStart", "Loading themes");
+                Theme.Initialize();
+                DualTabbedLayout.GetWindowOverride = delegate () { return new StandardWindow(); };
 
-            // Force tooltips to stay open
-            ToolTipService.ShowDurationProperty.OverrideMetadata(typeof(DependencyObject), new FrameworkPropertyMetadata(3600000));
+                // Force tooltips to stay open
+                ToolTipService.ShowDurationProperty.OverrideMetadata(typeof(DependencyObject), new FrameworkPropertyMetadata(3600000));
+            });
 
             // Make sure the data directories exist...
             if (!Directory.Exists(ConfigurationManager.Instance.BaseDirectoryForUser))
@@ -218,12 +253,27 @@ namespace Qiqqa.Main
                 Directory.CreateDirectory(ConfigurationManager.Instance.BaseDirectoryForUser);
             }
 
+            // and kick off the Login Dialog to start the application proper:
+            WPFDoEvents.InvokeAsyncInUIThread(() => ShowLoginDialog());
+            
             // NB NB NB NB: You CANT USE ANYTHING IN THE USER CONFIG AT THIS POINT - it is not yet decided until LOGIN has completed...
         }
 
         public static void SignalShutdown()
         {
             ShutdownableManager.Instance.Shutdown();
+        }
+
+        public static void ShowLoginDialog()
+        {
+            LoginWindow login_window = new LoginWindow();
+            login_window.ChooseLogin();
+        }
+
+        public static void RemoveSplashScreen()
+        {
+            splashscreen_window?.Close();
+            splashscreen_window = null;
         }
 
         [STAThread]
@@ -233,13 +283,15 @@ namespace Qiqqa.Main
 
             try
             {
-                splashscreen_window.UpdateMessage("Logging in");
+                StatusManager.Instance.UpdateStatus("AppStart", "Logging in");
 
-                LoginWindow login_window = new LoginWindow();
-                login_window.ChooseLogin(splashscreen_window);
-
-                splashscreen_window.Close();
-                WPFDoEvents.WaitForUIThreadActivityDone();
+				// NOTE: the initial Login Dialog will be shown by code at the end
+				// of the (background) DoPostUpgrade() process which is already running
+				// by the time we arrive at this location.
+				//
+				// This ensures all process parts, which are expected to be done by
+				// the time to login Dialog is visible (and usable by the user), are
+				// indeed ready.
 
                 try
                 {
@@ -281,11 +333,11 @@ namespace Qiqqa.Main
             Logging.Error(ex, "RemarkOnException.....");
             if (null != Application.Current)
             {
-                Application.Current.Dispatcher.Invoke(new Action(() =>
+                WPFDoEvents.InvokeInUIThread(() =>
                 {
                     RemarkOnException_GUI_THREAD(ex);
                 }
-                ));
+                );
             }
         }
 
@@ -304,7 +356,7 @@ namespace Qiqqa.Main
 
 #if CEFSHARP
 
-        #region CEFsharp setup helpers
+#region CEFsharp setup helpers
 
         // CEFsharp setup code as per https://github.com/cefsharp/CefSharp/issues/1714:
 
@@ -345,7 +397,7 @@ namespace Qiqqa.Main
             return null;
         }
 
-        #endregion CEFsharp setup helpers
+#endregion CEFsharp setup helpers
 
 #endif
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
 using Qiqqa.Common.Configuration;
@@ -19,16 +20,47 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
     internal class WebLibraryManager
     {
         private static WebLibraryManager __instance = null;
+        private static object instance_lock = new object();
+
         public static WebLibraryManager Instance
         {
             get
             {
-                if (null == __instance)
+                Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+                lock (instance_lock)
                 {
-                    __instance = new WebLibraryManager();
+                    l2_clk.LockPerfTimerStop();
+
+                    if (null == __instance)
+                    {
+                        __instance = new WebLibraryManager();
+                    }
+                    return __instance;
                 }
-                return __instance;
             }
+        }
+
+        public static void Init()
+        {
+            Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+            lock (instance_lock)
+            {
+                l2_clk.LockPerfTimerStop();
+
+                if (__instance != null)
+                {
+                    throw new Exception("WebLibraryManager.Init() MUST be the first call to anything WebLibraryManager, before anything else done with/to that class/object!");
+                }
+                WebLibraryManager __unused_return_value__ = WebLibraryManager.Instance;
+                ASSERT.Test(__unused_return_value__ != null, "Internal error");
+            }
+        }
+
+        [Conditional("DEBUG")]
+        public static void AssertInitIsDone()
+        {
+            // don't use lock around this check as we're particularly interested in code which runs in parallel to a locked Init() which is still running!
+            ASSERT.Test(__instance != null);
         }
 
         private Dictionary<string, WebLibraryDetail> web_library_details = new Dictionary<string, WebLibraryDetail>();
@@ -39,6 +71,8 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private WebLibraryManager()
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             // Look for any web libraries that we know about
             LoadKnownWebLibraries(KNOWN_WEB_LIBRARIES_FILENAME, false);
 
@@ -51,6 +85,9 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             AddLocalGuestLibraryIfMissing();
 
             SaveKnownWebLibraries();
+
+            StatusManager.Instance.ClearStatus("LibraryInitialLoad");
+
             FireWebLibrariesChanged();
         }
 
@@ -67,6 +104,8 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         // *************************************************************************************************************
         private void AddLegacyWebLibrariesThatCanBeFoundOnDisk()
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             /**
              * Plan:
              * Iterate through all the folders in the Qiqqa data directory
@@ -107,7 +146,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     Logging.Info("Inspecting directory {0} - Phase 3 : Bundles", library_directory);
 
                     // must be a qiqqa_bundle and/or qiqqa_bundle_manifest file set
-                    Logging.Warn("Auto bundle import at startup is not yet suppoerted.");
+                    Logging.Warn("Auto bundle import at startup is not yet supported.");
                 }
 
                 foreach (string library_directory in library_directories)
@@ -161,6 +200,8 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private void AddLocalGuestLibraryIfMissing()
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             // Check if we have an existing Guest library
             foreach (var pair in web_library_details)
             {
@@ -318,7 +359,11 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         public void NotifyOfChangeToWebLibraryDetail()
         {
-            SaveKnownWebLibraries();
+            SafeThreadPool.QueueUserWorkItem(o =>
+            {
+                SaveKnownWebLibraries();
+            }, 
+            skip_task_at_app_shutdown: false);
         }
 
         public void SortWebLibraryDetailsByLastAccessed(List<WebLibraryDetail> web_library_details)
@@ -358,6 +403,8 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private void LoadKnownWebLibraries(string filename, bool only_load_those_libraries_which_are_actually_present)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             Logging.Info("+Loading known Web Libraries");
             try
             {
@@ -410,6 +457,8 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private void SaveKnownWebLibraries(string filename = null)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             if (null == filename)
             {
                 filename = KNOWN_WEB_LIBRARIES_FILENAME;
@@ -676,6 +725,8 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private void UpdateKnownWebLibrary(WebLibraryDetail new_web_library_detail, bool suppress_flush_to_disk = true, string extra_info_message_on_skip = "")
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             WebLibraryDetail old;
 
             if (web_library_details.TryGetValue(new_web_library_detail.Id, out old))
@@ -778,12 +829,17 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             if (!suppress_flush_to_disk)
             {
                 SaveKnownWebLibraries();
+
+                StatusManager.Instance.ClearStatus("LibraryInitialLoad");
+                
                 FireWebLibrariesChanged();
             }
         }
 
         public void UpdateKnownWebLibraryFromIntranet(string intranet_path, bool suppress_flush_to_disk = true, string extra_info_message_on_skip = "")
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             Logging.Info("+Updating known Intranet Library from {0}", intranet_path);
 
             IntranetLibraryDetail intranet_library_detail = IntranetLibraryDetail.Read(IntranetLibraryTools.GetLibraryDetailPath(intranet_path));
@@ -804,6 +860,8 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         public WebLibraryDetail UpdateKnownWebLibraryFromBundleLibraryManifest(BundleLibraryManifest manifest, bool suppress_flush_to_disk = true)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             Logging.Info("+Updating known Bundle Library {0} ({1})", manifest.Title, manifest.Id);
 
             WebLibraryDetail new_web_library_detail = new WebLibraryDetail();
@@ -824,6 +882,8 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         internal void ForgetKnownWebLibraryFromIntranet(WebLibraryDetail web_library_detail)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             Logging.Info("+Forgetting {1} Library from {0}", web_library_detail.Title, web_library_detail.LibraryType());
 
             if (MessageBoxes.AskQuestion("Are you sure you want to forget the {1} Library '{0}'?", web_library_detail.Title, web_library_detail.LibraryType()))

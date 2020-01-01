@@ -132,7 +132,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
                 return;
             }
 
-            MainWindowServiceDispatcher.Instance.OpenDocument(PDFDocumentBindable.Underlying, LibraryCatalogControl.FilterTerms);
+            MainWindowServiceDispatcher.Instance.OpenDocument(PDFDocumentBindable.Underlying, search_terms: LibraryCatalogControl.FilterTerms);
         }
 
         private void LibraryCatalogOverviewControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -390,14 +390,14 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
                         ListSearchDetails.SearchClicked -= ListSearchDetails_SearchSelectionChanged;
 
                         DataContextChanged -= LibraryCatalogOverviewControl_DataContextChanged;
-                    }, Dispatcher);
+
+                        DataContext = null;
+                    });
                 }
 
                 // Clear the references for sanity's sake
                 library_index_hover_popup = null;
                 drag_drop_helper = null;
-
-                DataContext = null;
             }
             catch (Exception ex)
             {

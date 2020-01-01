@@ -1,6 +1,6 @@
-﻿<layer:PageLayer x:Class="Qiqqa.Documents.PDF.PDFControls.Page.Text.PDFTextSentenceLayer"
+<layer:PageLayer x:Class="Qiqqa.Documents.PDF.PDFControls.Page.Text.PDFTextSentenceLayer"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:layer="clr-namespace:Qiqqa.Documents.PDF.PDFControls.Page.Tools"
-    >    
+    >
 </layer:PageLayer>

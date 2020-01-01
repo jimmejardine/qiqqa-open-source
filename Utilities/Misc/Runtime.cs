@@ -8,11 +8,11 @@ namespace Utilities.Misc
     {
         public static string StartupDirectory => Path.GetDirectoryName(new Uri(Assembly.GetEntryAssembly().CodeBase).LocalPath);
 
+#if DEBUG
         public static bool IsRunningInVisualStudioDesigner
         {
             get
             {
-#if DEBUG
                 // Are we looking at this dialog in the Visual Studio Designer or Blend?
                 var asm = System.Reflection.Assembly.GetEntryAssembly();
                 if (null != asm)
@@ -24,9 +24,10 @@ namespace Utilities.Misc
                         return true;
                     }
                 }
-#endif
                 return false;
             }
         }
+#endif
+
     }
 }

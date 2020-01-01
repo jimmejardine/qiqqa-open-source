@@ -61,11 +61,11 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.DuplicateDetectionStuff
         private void FindDuplicates(PDFDocument pdf_document_this)
         {
             // Invoke the GUI
-            Dispatcher.Invoke(new Action(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
                 ClearDuplicates();
             }
-            ));
+            );
 
             Stopwatch stopwatch = Stopwatch.StartNew();
 
@@ -88,11 +88,11 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.DuplicateDetectionStuff
             Logging.Info("It took {0}ms to run the duplicate detection.", stopwatch.ElapsedMilliseconds);
 
             // Invoke the GUI
-            Dispatcher.Invoke(new Action(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
                 RenderDuplicates(duplicate_pdf_documents);
             }
-            ));
+            );
         }
 
         public static List<PDFDocument> FindDuplicates(PDFDocument pdf_document, TitleCombinedCache cache)

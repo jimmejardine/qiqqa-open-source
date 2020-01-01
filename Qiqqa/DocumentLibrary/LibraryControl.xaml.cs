@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Documents;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using icons;
@@ -34,6 +33,7 @@ using UserControl = System.Windows.Controls.UserControl;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 
 namespace Qiqqa.DocumentLibrary
@@ -497,19 +497,15 @@ namespace Qiqqa.DocumentLibrary
         {
             using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonAddPDFPopup))
             {
-                using (OpenFileDialog dlg = new OpenFileDialog
+                OpenFileDialog dlg = new OpenFileDialog();
+                dlg.CheckFileExists = true;
+                dlg.CheckPathExists = true;
+                dlg.Filter = "PDF Files|*.pdf";
+                dlg.Multiselect = true;
+                dlg.Title = "Select the PDF documents you wish to add to your document library";
+                if (dlg.ShowDialog() == true)
                 {
-                    CheckFileExists = true,
-                    CheckPathExists = true,
-                    Filter = "PDF Files|*.pdf",
-                    Multiselect = true,
-                    Title = "Select the PDF documents you wish to add to your document library"
-                })
-                {
-                    if (dlg.ShowDialog() == DialogResult.OK)
-                    {
-                        ImportingIntoLibrary.AddNewPDFDocumentsToLibrary_ASYNCHRONOUS(library, false, false, dlg.FileNames);
-                    }
+                    ImportingIntoLibrary.AddNewPDFDocumentsToLibrary_ASYNCHRONOUS(library, false, false, dlg.FileNames);
                 }
             }
         }
