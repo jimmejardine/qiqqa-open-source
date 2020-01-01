@@ -119,10 +119,12 @@ namespace QiqqaOCR
             // Check that we have something to write
             lock (global_vars_access_lock)
             {
-                if (null != word_lists_text_extract)
+                if (null != word_lists_text_extract && word_lists_text_extract.Count > 0)
                 {
                     Logging.Info("+Writing OCR to file {0}", ocr_output_filename);
                     WordList.WriteToFile(ocr_output_filename, word_lists_text_extract, "PDFText");
+                    // And *verify* the written OCR text format:
+                    WordList.ReadFromFile(ocr_output_filename);
                     Logging.Info("-Writing OCR to file {0}", ocr_output_filename);
                 }
                 else
