@@ -13,11 +13,12 @@
   HorizontalAlignment="Stretch"
   VerticalAlignment="Stretch"
   HorizontalContentAlignment="Stretch"
-  VerticalContentAlignment="Stretch"
+  VerticalContentAlignment="Stretch" 
+  Background="#FFBEFFB7"
 >
     <DockPanel>
-        <local_gui:NonScrollingFlowDocumentScrollViewer x:Name="ObjNoBibTeXInstructions" DockPanel.Dock="Bottom">
-            <commongui:StandardFlowDocument>
+        <local_gui:NonScrollingFlowDocumentScrollViewer x:Name="ObjNoBibTeXInstructions" DockPanel.Dock="Bottom" >
+            <commongui:StandardFlowDocument Background="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}},Path=Background}">
                 <Paragraph>
                     Qiqqa has not been able to automatically associate BibTeX with this document.  BibTeX is useful when formatting your bibliography with InCite.  Use the BibTeX Sniffer to quickly search the Internet for this document's BibTeX.
                 </Paragraph>
@@ -53,14 +54,19 @@
                     </Grid.ColumnDefinitions>
                 </Grid>
             </DockPanel>
-            <Grid Name="ObjTextPanel" Visibility="Hidden">
+            <Grid Name="ObjTextPanel" >
                 <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"  DockPanel.Dock="Top" Name="ObjBibTeXTextScrollViewer">
-                    <TextBox Name="ObjBibTeXText" TextWrapping="Wrap" AcceptsReturn="True" DockPanel.Dock="Top" />
+                    <TextBox Name="ObjBibTeXText" TextWrapping="Wrap" AcceptsReturn="True" DockPanel.Dock="Top"  Background="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}},Path=Background}" />
                 </ScrollViewer>
             </Grid>
             <Grid Name="ObjErrorPanel">
-                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" DockPanel.Dock="Top" Name="ObjBibTeXErrorScrollViewer">
-                    <TextBox Name="ObjBibTeXErrorText"   IsReadOnly="True" TextWrapping="NoWrap" FontFamily="Lucida Console" />
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" DockPanel.Dock="Top" Name="ObjBibTeXErrorScrollViewer" >
+                    <DockPanel>
+                    <Rectangle Width="15" Fill="Red"></Rectangle>
+                    <TextBox Name="ObjBibTeXErrorText"   IsReadOnly="True" TextWrapping="NoWrap" FontFamily="Lucida Console" Background="#F0FFDBDB" >
+                        Error Report
+                    </TextBox>
+                    </DockPanel>
                 </ScrollViewer>
             </Grid>
         </Grid>

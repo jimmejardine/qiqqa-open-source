@@ -67,8 +67,8 @@ namespace Qiqqa.Documents.BibTeXEditor
             //ObjErrorPanel.Opacity = .3;
             ObjErrorPanel.IsHitTestVisible = false;
 
-            ObjBibTeXErrorText.Background = ThemeColours.Background_Brush_Warning.Clone();
-            ObjBibTeXErrorText.Background.Opacity = 1.3;
+            ObjBibTeXErrorText.Background = ThemeColours.Background_Brush_Warning;
+            //ObjBibTeXErrorText.Background.Opacity = 1.0;
 
             // Initial visibility
             //
@@ -690,9 +690,16 @@ namespace Qiqqa.Documents.BibTeXEditor
                     }
 
                     // discard all references which might otherwise potentially cause memleaks due to (potential) references cycles:
-                    BibTeXParseErrorButtonRef?.SetTarget(null);
-                    BibTeXModeToggleButtonRef?.SetTarget(null);
-                    BibTeXUndoEditButtonRef?.SetTarget(null);
+                    try
+                    {
+                        BibTeXParseErrorButtonRef?.SetTarget(null);
+                        BibTeXModeToggleButtonRef?.SetTarget(null);
+                        BibTeXUndoEditButtonRef?.SetTarget(null);
+                    }
+                    catch (Exception ex)
+                    {
+                        //ignore
+                    }
                 });
 
                 bindable = null;
