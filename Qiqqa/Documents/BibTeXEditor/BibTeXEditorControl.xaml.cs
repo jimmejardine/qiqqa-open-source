@@ -436,7 +436,7 @@ namespace Qiqqa.Documents.BibTeXEditor
 
             // Check that the BibTeX is not completely empty
             string bibtex = bibtex_item.ToBibTex();
-            if ("@{\n}" == bibtex)
+            if (bibtex_item.IsEmpty())
             {
                 bibtex = "";
             }

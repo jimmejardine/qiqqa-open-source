@@ -151,7 +151,12 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
 
                 SafeThreadPool.QueueUserWorkItem(o =>
                 {
-                    PDFDocument pdf_document = Library.GuestInstance.AddNewDocumentToLibrary_SYNCHRONOUS(temp_pdf_filename, document_source_filename, document_source_url, null, null, null, true, true);
+                PDFDocument pdf_document = Library.GuestInstance.AddNewDocumentToLibrary_SYNCHRONOUS(new FilenameWithMetadataImport
+                {
+                    Filename = temp_pdf_filename,
+                    OriginalFilename = document_source_filename,
+                    SuggestedDownloadSourceURI = document_source_url
+                }, true);
                     File.Delete(temp_pdf_filename);
 
                     WPFDoEvents.InvokeInUIThread(() =>

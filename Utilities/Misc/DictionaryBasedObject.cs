@@ -59,7 +59,7 @@ namespace Utilities.Misc
             }
 
             DateTime? datetime = obj as DateTime?;
-            if (null != datetime)
+            if (null != datetime && datetime.HasValue && datetime.Value != Utilities.Constants.DATETIME_MIN)
             {
                 Logging.Info("Doing a legacy DateTime upgrade for key {0}", key);
                 SetDateTime(key, datetime);

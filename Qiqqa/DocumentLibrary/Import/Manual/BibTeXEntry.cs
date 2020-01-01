@@ -16,6 +16,12 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
         public string FileType { get; set; }
 
+        public string FileURI { get; set; }
+
+        public string OriginalFilename { get; set; }
+
+        public string SuggestedDownloadSourceURI { get; set; }
+
         public BibTexItem Item { get; set; }
 
         public string Id => Item.Key;

@@ -213,14 +213,14 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             }
         }
 
-        public string BibTex
+        public bool UpdateBibTex(BibTexItem fresh, bool replace = true)
         {
-            get => dictionary["BibTex"] as string;
-            set
+            if (fresh == null || fresh.IsEmpty() || fresh.IsContentIdenticalTo(BibTex))
             {
-                // Clear the cached item
-                bibtex_item = null;
-                bibtex_item_parsed = false;
+                return false;
+            }
+
+            // TODO: check and heuristic for merge/update
 
                 // Store the new value
                 dictionary["BibTex"] = value;
@@ -238,6 +238,21 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
                 {
                     Year = null;
                 }
+
+            return true;
+        }
+
+
+        public string BibTex
+        {
+            get => dictionary["BibTex"] as string;
+            set
+            {
+                // Clear the cached item
+                bibtex_item = null;
+                bibtex_item_parsed = false;
+
+		        UpdateBibTex(value, replace: true);
             }
         }
 
@@ -444,20 +459,21 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             }
             set
             {
-                string old_combined = YearCombined;
+               // one can NEVER set the value to UNKNOWN_YEAR:
+                 string old_combined = YearCombined;
                 if (null != old_combined && 0 == old_combined.CompareTo(value))
                 {
                     return;
                 }
 
-                // If they are clearing out a value, clear the title
+                // If they are clearing out a value, clear the year override
                 if (String.IsNullOrEmpty(value))
                 {
                     Year = null;
                     return;
                 }
 
-                // Then see if they are updating bibtex
+                // BibTeX has precedence when available (complete or partial)
                 if (String.IsNullOrEmpty(Year) && !String.IsNullOrEmpty(BibTexTools.GetYear(BibTexItem)))
                 {
                     BibTex = BibTexTools.SetYear(BibTex, value);
@@ -1204,7 +1220,12 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             }
 
             // Create the new PDF document
-            PDFDocument new_pdf_document = library.AddNewDocumentToLibrary_SYNCHRONOUS(pdf_filename, pdf_filename, pdf_filename, null, null, null, false, true);
+            PDFDocument new_pdf_document = library.AddNewDocumentToLibrary_SYNCHRONOUS(new FilenameWithMetadataImport
+            {
+                Filename = pdf_filename,
+                OriginalFilename = pdf_filename,
+                SuggestedDownloadSourceURI = pdf_filename
+            }, false);
 
             return new_pdf_document;
         }

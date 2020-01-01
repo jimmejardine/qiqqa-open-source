@@ -30,7 +30,10 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
             BibTexParseResult = BibTexParser.Parse(bibTex);
 
-            BibTexParseResult.Items.ForEach(x => Entries.Add(new BibTeXEntry { Item = x, BibTeX = x.ToBibTex() }));
+            BibTexParseResult.Items.ForEach(x => Entries.Add(new BibTeXEntry { 
+				Item = x, 
+				BibTeX = x.ToBibTex() 
+			}));
         }
 
         /// <summary>

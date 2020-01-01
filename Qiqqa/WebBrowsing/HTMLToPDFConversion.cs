@@ -72,9 +72,14 @@ namespace Qiqqa.WebBrowsing
                 }
 
                 StatusManager.Instance.UpdateStatus("HTMLToPDF", "Converting HTML to PDF: adding to library");
-                PDFDocument pdf_document = Library.GuestInstance.AddNewDocumentToLibrary_SYNCHRONOUS(filename, url, url, null, null, null, true, true);
-                pdf_document.Title = title;
-                pdf_document.Year = Convert.ToString(DateTime.Now.Year);
+                PDFDocument pdf_document = Library.GuestInstance.AddNewDocumentToLibrary_SYNCHRONOUS(new FilenameWithMetadataImport
+                {
+                    Filename = filename,
+                    OriginalFilename = url,
+                    SuggestedDownloadSourceURI = url
+                }, true);
+                pdf_document.TitleCombined = title;
+                pdf_document.YearCombined = Convert.ToString(DateTime.Now.Year);
                 pdf_document.DownloadLocation = url;
 
                 WPFDoEvents.InvokeInUIThread(() =>

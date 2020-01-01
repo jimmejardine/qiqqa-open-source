@@ -494,22 +494,31 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
                 if (pdf_document.Deleted) continue;
 
-                if (search_options.Missing && String.IsNullOrEmpty(pdf_document.BibTex)) include_in_search_pool = true;
+                if (search_options.Missing && String.IsNullOrEmpty(pdf_document.BibTex)) 
+				{
+					include_in_search_pool = true;
+				}
 
                 if (!String.IsNullOrEmpty(pdf_document.BibTex))
                 {
                     if (search_options.Auto)
+                    {
                         include_in_search_pool = (
                             pdf_document.BibTex.Contains(BibTeXActionComments.AUTO_BIBTEXSEARCH)
                             || pdf_document.BibTex.Contains(BibTeXActionComments.AUTO_GS)
                             );
+                    }
                     else if (search_options.Skipped)
+                    {
                         include_in_search_pool = pdf_document.BibTex.Contains(BibTeXActionComments.SKIP);
+                    }
                     else if (search_options.Manual)
+                    {
                         include_in_search_pool = (
                             !pdf_document.BibTex.Contains(BibTeXActionComments.AUTO_BIBTEXSEARCH)
                             && !pdf_document.BibTex.Contains(BibTeXActionComments.AUTO_GS)
                             && !pdf_document.BibTex.Contains(BibTeXActionComments.SKIP));
+                    }
                 }
 
                 // apply subselections:

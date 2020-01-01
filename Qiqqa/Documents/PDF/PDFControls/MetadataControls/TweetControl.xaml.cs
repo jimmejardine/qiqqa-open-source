@@ -50,28 +50,28 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
         {
             string[] TWEET_SELECTION = new string[]
             {
-                    "@Qiqqa rocks. Kudos! http://qiqqa.com",
-                    "I'm loving reading my PDFs using @Qiqqa http://qiqqa.com",
-                    "Reading another paper today with @Qiqqa. http://qiqqa.com",
-                    "I saved hours on my research today using @Qiqqa http://qiqqa.com",
-                    "I've just got Premium for free. Check out @Qiqqa at http://qiqqa.com",
-                    "Highlighting and annotating like a boss! with @Qiqqa http://qiqqa.com",
-                    "My research could never be this organised without @Qiqqa http://qiqqa.com",
-                    "Check out @Qiqqa, the world's most advanced reference manager. http://qiqqa.com",
-                    "My research project is going to be done in a flash with @Qiqqa's help! http://qiqqa.com",
-                    "AutoBibTeX gets meta data for my papers automatically! Nice work @Qiqqa http://qiqqa.com",
-                    "With @Qiqqa I will never lose that important piece of information again! http://qiqqa.com",
-                    "One paper down, 500 to go, no wait, make that 10...thanks @Qiqqa Expedition! http://qiqqa.com",
-                    "@Qiqqa's InCite suggests papers to cite that I haven't even read yet... Magic! http://qiqqa.com",
-                    "You absolutely have to try out @Qiqqa to make your research management a breeze! http://qiqqa.com",
-                    "Store your papers in @Qiqqa, sync them to lab, home and your Android. Brilliant! http://qiqqa.com",
-                    "@Qiqqa really has you covered for the forgotten half of research...quite literally! http://qiqqa.com",
-                    "Tagging my papers with @Qiqqa is powerful but its Autotagging of my papers is amazing! http://qiqqa.com",
-                    "Want to save time reading so you can do more researching? Check out @Qiqqa's speed reader! http://qiqqa.com",
-                    "@Qiqqa InCite, the best referencer manager there is. Practically writes your paper for you! http://qiqqa.com",
-                    "@Qiqqa's Annotation Report saves me so much time by summarising all my highlights and annotations! http://qiqqa.com",
-                    "Exploring my papers and their connections is powerful and fun with @Qiqqa expedition and brainstorms! http://qiqqa.com",
-                    "I will never print another PDF...@Qiqqa annotation report recalls all the annotations I've forgotten about. http://qiqqa.com",
+                    "@Qiqqa rocks. Kudos!",
+                    "I'm loving reading my PDFs using @Qiqqa",
+                    "Reading another paper today with @Qiqqa.",
+                    "I saved hours on my research today using @Qiqqa",
+                    "I've just got Premium for free. Check out @Qiqqa at",
+                    "Highlighting and annotating like a boss! with @Qiqqa",
+                    "My research could never be this organised without @Qiqqa",
+                    "Check out @Qiqqa, the world's most advanced reference manager.",
+                    "My research project is going to be done in a flash with @Qiqqa's help!",
+                    "AutoBibTeX gets meta data for my papers automatically! Nice work @Qiqqa",
+                    "With @Qiqqa I will never lose that important piece of information again!",
+                    "One paper down, 500 to go, no wait, make that 10...thanks @Qiqqa Expedition!",
+                    "@Qiqqa's InCite suggests papers to cite that I haven't even read yet... Magic!",
+                    "You absolutely have to try out @Qiqqa to make your research management a breeze!",
+                    "Store your papers in @Qiqqa, sync them to lab, home and your Android. Brilliant!",
+                    "@Qiqqa really has you covered for the forgotten half of research...quite literally!",
+                    "Tagging my papers with @Qiqqa is powerful but its Autotagging of my papers is amazing!",
+                    "Want to save time reading so you can do more researching? Check out @Qiqqa's speed reader!",
+                    "@Qiqqa InCite, the best referencer manager there is. Practically writes your paper for you!",
+                    "@Qiqqa's Annotation Report saves me so much time by summarising all my highlights and annotations!",
+                    "Exploring my papers and their connections is powerful and fun with @Qiqqa expedition and brainstorms!",
+                    "I will never print another PDF...@Qiqqa annotation report recalls all the annotations I've forgotten about.",
             };
 
             return TWEET_SELECTION[RandomAugmented.Instance.NextIntExclusive(TWEET_SELECTION.Length)];
@@ -92,7 +92,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             List<NameTools.Name> names = NameTools.SplitAuthors(BibTexTools.GetAuthor(bibtex_item));
             if (0 == names.Count) return null;
 
-            string tweet = String.Format("I'm reading {1}'s '{0}' with @Qiqqa http://qiqqa.com", BibTexTools.GetTitle(bibtex_item), names[0].last_name);
+            string tweet = String.Format("I'm reading {1}'s '{0}' with @Qiqqa", BibTexTools.GetTitle(bibtex_item), names[0].last_name);
             if (140 < tweet.Length) return null;
 
             return tweet;
@@ -100,8 +100,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         private void GenerateTweet()
         {
-            string tweet_paper = CreatePaperTweet();
-            string tweet_random = GetRandomTweet();
+            string POSTAMBLE_QIQQA_URL = " " + WebsiteAccess.Url_Documentation4Qiqqa;
+            string tweet_paper = CreatePaperTweet() + POSTAMBLE_QIQQA_URL;
+            string tweet_random = GetRandomTweet() + POSTAMBLE_QIQQA_URL;
 
             if (null == tweet_paper)
             {

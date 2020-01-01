@@ -407,13 +407,18 @@ SourceURL: {0}
             {
                 FeatureTrackingManager.Instance.UseFeature(feature);
 
-                ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(pdf_documents, web_library_detail.library, delegate (PDFDocument target, PDFDocument source)
+            ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_ASYNCHRONOUS(pdf_documents, web_library_detail.library, new LibraryPdfActionCallbacks
+            {
+                //OnAddedOrSkipped   -- too risky for now: we MAY skip when the bibtex differ in both libs and then we shouldn't delete this record!
+                OnAdded = (pdf_document, filename) =>
                 {
+					source = pdf_document;
+					// TODO ...
                     if (delete_source_pdf_documents && null != target && null != source && target != source)
                     {
-                        source.Library.DeleteDocument(source);
+	                    pdf_document.Library.DeleteDocument(pdf_document);
                     }
-                });
+                }
             });
         }
 
@@ -481,7 +486,7 @@ SourceURL: {0}
                     {
                         if (!String.IsNullOrEmpty(pdf_document.DownloadLocation))
                         {
-                            pdf_document.Title = Path.GetFileNameWithoutExtension(pdf_document.DownloadLocation);
+                            pdf_document.TitleCombined = Path.GetFileNameWithoutExtension(pdf_document.DownloadLocation);
                             pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Title);
                         }
                     }

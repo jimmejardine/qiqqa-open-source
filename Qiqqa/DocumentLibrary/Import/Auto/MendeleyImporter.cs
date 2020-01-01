@@ -188,6 +188,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                                                 //filename = filename.Replace('/', '\\');
 
                                                 fwmi.filename = Path.GetFullPath(filename);
+                                                fwmi.SuggestedDownloadSourceURI = reader["localUrl"] as string;
 
                                                 ++mdd.pdfs_found;
                                             }

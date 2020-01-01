@@ -170,6 +170,9 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
             if (record.fields.ContainsKey("link_to_pdf"))
             {
                 string links_string = record.fields["link_to_pdf"];
+
+                fwmi.SuggestedDownloadSourceURI = links_string;
+
                 string[] links = links_string.Split(new string[] { ",", "internal-pdf://", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
                 // Build up the list of candidates

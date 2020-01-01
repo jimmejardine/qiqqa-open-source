@@ -396,28 +396,30 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             }
 
             // Create the import records
-            List<FilenameWithMetadataImport> filename_with_metadata_imports = new List<FilenameWithMetadataImport>();
             foreach (var filename in filenames_that_are_new)
             {
-                filename_with_metadata_imports.Add(new FilenameWithMetadataImport
+                if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+                {
+                    Logging.Debug("FolderWatcher::ProcessTheNewDocuments: Aborting due to daemon termination");
+                    return;
+                }
+
+                var file_info = new FilenameWithMetadataImport
                 {
                     filename = filename,
                     tags = new HashSet<string>(tags)
+                };
+
+                // Get the library to import all these new files
+                ImportingIntoLibrary.AddNewPDFDocumentToLibraryWithMetadata_ASYNCHRONOUS(library, true, file_info, new LibraryPdfActionCallbacks
+                {
+                    OnAdded = (pdf_document, pdf_filename) =>
+                    {
+                        // Add this file to the list of processed files...
+                        folder_watcher_manager.RememberProcessedFile(pdf_filename);
+                    }
                 });
-
-                // TODO: refactor this: delay until the PDF has actually been processed completely!
-                //
-                // Add this file to the list of processed files...
-                folder_watcher_manager.RememberProcessedFile(filename);
             }
-
-            // Get the library to import all these new files
-            ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(library, true, true, filename_with_metadata_imports.ToArray());
-
-            // TODO: refactor the ImportingIntoLibrary class 
-            //
-            // HACK & QUICK PATCH until we have refactored this stuff:
-            filenames_that_are_new.Clear();
         }
 
         #region --- IDisposable ------------------------------------------------------------------------

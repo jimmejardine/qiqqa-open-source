@@ -975,7 +975,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
             SafeThreadPool.QueueUserWorkItem(o =>
             {
-                PDFDocument cloned_pdf_document = ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(source_pdf_document, web_library_detail.library, false);
+                PDFDocument cloned_pdf_document = ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(source_pdf_document, web_library_detail.library);
 
                 WPFDoEvents.InvokeInUIThread(() =>
                 {

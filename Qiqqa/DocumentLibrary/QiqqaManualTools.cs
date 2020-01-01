@@ -14,7 +14,7 @@ namespace Qiqqa.DocumentLibrary
         private static string LoexManualFilename => Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"The Qiqqa Manual - LOEX.pdf"));
 
 
-        private static PDFDocument AddQiqqaManualToLibrary(Library library)
+        private static void AddQiqqaManualToLibrary(Library library, LibraryPdfActionCallbacks post_partum)
         {
             FilenameWithMetadataImport fwmi = new FilenameWithMetadataImport();
             fwmi.filename = QiqqaManualFilename;
@@ -28,12 +28,10 @@ namespace Qiqqa.DocumentLibrary
                 "}"
                 ;
 
-            PDFDocument pdf_document = ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(library, true, true, new FilenameWithMetadataImport[] { fwmi });
-
-            return pdf_document;
+            library.AddNewDocumentToLibrary_SYNCHRONOUS(fwmi, true, post_partum);
         }
 
-        private static PDFDocument AddLoexManualToLibrary(Library library)
+        private static void AddLoexManualToLibrary(Library library)
         {
             FilenameWithMetadataImport fwmi = new FilenameWithMetadataImport();
             fwmi.filename = LoexManualFilename;
@@ -50,15 +48,13 @@ namespace Qiqqa.DocumentLibrary
                 "}"
                 ;
 
-            PDFDocument pdf_document = ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(library, true, true, new FilenameWithMetadataImport[] { fwmi });
-
-            return pdf_document;
+            library.AddNewDocumentToLibrary_SYNCHRONOUS(fwmi, true);
         }
 
-        public static PDFDocument AddManualsToLibrary(Library library)
-        {
+        public static void AddManualsToLibrary(Library library, LibraryPdfActionCallbacks post_partum)
+        {   
             AddLoexManualToLibrary(library);
-            return AddQiqqaManualToLibrary(library);
+            AddQiqqaManualToLibrary(library, post_partum);
         }
     }
 }

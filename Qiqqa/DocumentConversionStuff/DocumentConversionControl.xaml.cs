@@ -66,7 +66,12 @@ namespace Qiqqa.DocumentConversionStuff
                     {
                         WPFDoEvents.InvokeInUIThread(() =>
                             {
-                                PDFDocument pdf_document = WebLibraryManager.Instance.Library_Guest.AddNewDocumentToLibrary_SYNCHRONOUS(pdf_filename, filename, filename, null, null, null, true, false);
+                                PDFDocument pdf_document = WebLibraryManager.Instance.Library_Guest.AddNewDocumentToLibrary_SYNCHRONOUS(new FilenameWithMetadataImport
+                                {
+                                    Filename = pdf_filename,
+                                    OriginalFilename = filename,
+                                    SuggestedDownloadSourceURI = filename
+                                }, true);
                                 PDFReadingControl pdf_reading_control = MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);
                                 pdf_reading_control.EnableGuestMoveNotification();
                             },

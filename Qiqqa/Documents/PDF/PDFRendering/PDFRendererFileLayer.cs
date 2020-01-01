@@ -101,7 +101,6 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             return MakeFilenameWith2LevelIndirection(@"pagecount", @"0", @"txt");
         }
 
-
         internal string StorePageTextSingle(int page, string source_filename)
         {
             string filename = MakeFilename_TextSingle(page);
