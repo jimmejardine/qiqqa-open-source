@@ -15,12 +15,14 @@ namespace Utilities
             this.daemon_name = daemon_name;
         }
 
+        public int ManagedThreadId => thread.ManagedThreadId;
+
         public void Start(ParameterizedThreadStart thread_start, object param)
         {
             thread = new Thread(thread_start);
             thread.Name = "Daemon." + daemon_name;
             still_running = true;
-            //thread.IsBackground = true;
+            thread.IsBackground = true;
             thread.Priority = ThreadPriority.BelowNormal;
             thread.Start(param);
         }

@@ -254,7 +254,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
                         drag_area_tracker.OnDragStarted -= drag_area_tracker_OnDragStarted;
                         drag_area_tracker.OnDragInProgress -= drag_area_tracker_OnDragInProgress;
                         drag_area_tracker.OnDragComplete -= drag_area_tracker_OnDragComplete;
-                    }, Dispatcher);
+                    });
                 }
 
                 // Clear the references for sanity's sake

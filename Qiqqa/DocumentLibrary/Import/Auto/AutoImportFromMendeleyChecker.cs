@@ -5,6 +5,7 @@ using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.UtilisationTracking;
 using Utilities;
+using Utilities.GUI;
 using Utilities.Misc;
 
 namespace Qiqqa.DocumentLibrary.Import.Auto
@@ -66,9 +67,9 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
             FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportAutoFromMendeley);
 
             WebLibraryDetail web_library_detail = null;
-            Application.Current.Dispatcher.Invoke(((Action)(() =>
-                            web_library_detail = WebLibraryPicker.PickWebLibrary()
-                        )));
+            WPFDoEvents.InvokeInUIThread(() =>
+                web_library_detail = WebLibraryPicker.PickWebLibrary()
+            );
 
             if (null != web_library_detail)
             {

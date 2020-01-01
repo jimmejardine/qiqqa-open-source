@@ -1,11 +1,13 @@
-﻿<UserControl x:Class="Qiqqa.Expedition.ExpeditionPaperSimilarsControl"
+<UserControl x:Class="Qiqqa.Expedition.ExpeditionPaperSimilarsControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 
              
 >
-  <Grid>
-    <TextBlock Name="TxtPleaseRunExpedition" TextWrapping="Wrap">Please run Expedition or select a document to analyse.</TextBlock>
-    <StackPanel Name="ObjPapers" />
-  </Grid>
+    <Grid>
+        <TextBlock Name="TxtPleaseRunExpedition" TextWrapping="Wrap">
+            Please run Expedition or select a document to analyse.
+        </TextBlock>
+        <StackPanel Name="ObjPapers" />
+    </Grid>
 </UserControl>

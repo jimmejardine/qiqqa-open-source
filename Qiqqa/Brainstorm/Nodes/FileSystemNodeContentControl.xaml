@@ -1,17 +1,16 @@
-﻿<UserControl x:Class="Qiqqa.Brainstorm.Nodes.FileSystemNodeContentControl"
+<UserControl x:Class="Qiqqa.Brainstorm.Nodes.FileSystemNodeContentControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     >
-  <DockPanel>
-    <Image DockPanel.Dock="Left" Name="Image" />
-
-    <Viewbox Stretch="Uniform" HorizontalAlignment="Left">
-      <Grid>
-        <Grid.RowDefinitions>
-          <RowDefinition />
-        </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Name="Text" />
-      </Grid>
-    </Viewbox>
-  </DockPanel>
+    <DockPanel>
+        <Image DockPanel.Dock="Left" Name="Image" />
+        <Viewbox Stretch="Uniform" HorizontalAlignment="Left">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Name="Text" />
+            </Grid>
+        </Viewbox>
+    </DockPanel>
 </UserControl>

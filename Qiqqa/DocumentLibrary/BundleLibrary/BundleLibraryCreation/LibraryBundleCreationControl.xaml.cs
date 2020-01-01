@@ -113,7 +113,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
                         if (StatusManager.Instance.IsCancelled(STATUS_TOKEN))
                         {
                             zip_process.Kill();
-                            zip_process.WaitForExit(500);
+                            zip_process.WaitForExit(5000);
 
                             Logging.Error("Cancelled creation of Bundle Library:\n--- Parameters: {0}\n{1}", parameters, process_output_reader.GetOutputsDumpString());
 
@@ -129,7 +129,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
                             return;
                         }
 
-                        StatusManager.Instance.UpdateStatusBusy(STATUS_TOKEN, "Creating Bundle Library...", iteration, iteration + 1, true);
+                        StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Creating Bundle Library...", cancellable: true);
 
                         Thread.Sleep(1000);
                     }
@@ -144,14 +144,13 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
 
         private void CmdAutoTags_Click(object sender, RoutedEventArgs e)
         {
-            SafeThreadPool.QueueUserWorkItem(o => library.AITagManager.Regenerate(null));
+            SafeThreadPool.QueueUserWorkItem(o => library.AITagManager.Regenerate());
         }
 
         private void CmdCrossReference_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_GenerateReferences);
             SafeThreadPool.QueueUserWorkItem(o => CitationFinder.FindCitations(library));
-
         }
 
         private void CmdOCRAndIndex_Click(object sender, RoutedEventArgs e)

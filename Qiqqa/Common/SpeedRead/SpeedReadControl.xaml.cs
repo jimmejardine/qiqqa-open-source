@@ -7,6 +7,7 @@ using System.Windows.Input;
 using icons;
 using Qiqqa.Common.Configuration;
 using Utilities;
+using Utilities.GUI;
 
 namespace Qiqqa.Common.SpeedRead
 {
@@ -184,7 +185,7 @@ namespace Qiqqa.Common.SpeedRead
             }
         }
 
-        private Thread thread = null;
+        private Daemon thread = null;
 
         private void KickOffPlayingThread()
         {
@@ -194,15 +195,16 @@ namespace Qiqqa.Common.SpeedRead
                 thread.Join();
             }
 
-            thread = new Thread(BackgroundThread);
+            thread = new Daemon(daemon_name: "SpeedReader:Player");
             //thread.IsBackground = true;
             //thread.Priority = ThreadPriority.Lowest;
-            thread.Name = "SpeedReader:Player";
-            thread.Start();
+            thread.Start(BackgroundThread, thread);
         }
 
-        private void BackgroundThread(object thread_object)
+        private void BackgroundThread(object arg)
         {
+            Daemon daemon = (Daemon)arg;
+
             try
             {
                 // NOTE: while one might wonder why `playing` is not protected by a lock, while it
@@ -225,30 +227,27 @@ namespace Qiqqa.Common.SpeedRead
                     int current_wpm = 0;
 
                     // Interrogate the GUI
-                    Dispatcher.Invoke(
-                        new Action(() =>
-                                {
-                                    current_wpm = (int)SliderWPM.Value;
-                                }
-                    ));
+                    WPFDoEvents.InvokeInUIThread(() =>
+                        {
+                            current_wpm = (int)SliderWPM.Value;
+                        }
+                    );
 
 
                     // Sleep a bit to reflect the WPM
                     int sleep_time_ms = (60 * 1000 / (current_wpm + 1));
-                    Thread.Sleep(sleep_time_ms);
+                    daemon.Sleep(sleep_time_ms);
 
                     int current_position = 0;
                     int current_maximum = 0;
                     // Interrogate the GUI
-                    Dispatcher.Invoke(
-                        new Action(() =>
+                    WPFDoEvents.InvokeInUIThread(() =>
                         {
                             current_position = (int)SliderLocation.Value;
                             current_maximum = (int)SliderLocation.Maximum;
                         }
-                    ));
-
-
+                    );
+                    
                     // Can we move onto the next word?
                     if (current_position < current_maximum)
                     {
@@ -269,25 +268,23 @@ namespace Qiqqa.Common.SpeedRead
 
                         ++current_position;
 
-                        Dispatcher.Invoke(
-                            new Action(() =>
+                        WPFDoEvents.InvokeInUIThread(() =>
                             {
                                 SliderLocation.Value = current_position;
                                 TextCurrentWord.Text = current_word;
                                 TextCurrentWordLeft.Text = current_word_left;
                                 TextCurrentWordRight.Text = current_word_right;
                             }
-                        ));
+                        );
 
                     }
                     else
                     {
-                        Dispatcher.Invoke(
-                            new Action(() =>
+                        WPFDoEvents.InvokeInUIThread(() =>
                             {
                                 TogglePlayPause(force_stop: true);
                             }
-                        ));
+                        );
                     }
                 }
             }

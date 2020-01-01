@@ -4,6 +4,7 @@ using System.Windows;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Synchronisation.BusinessLogic;
 using Utilities;
+using Utilities.GUI;
 
 namespace Qiqqa.DocumentLibrary.AutoSyncStuff
 {
@@ -17,6 +18,8 @@ namespace Qiqqa.DocumentLibrary.AutoSyncStuff
 
         internal void DoMaintenance()
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             List<string> library_identifiers = new List<string>();
             List<WebLibraryDetail> web_library_details = WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibrariesWithoutGuest;
 
@@ -51,9 +54,9 @@ namespace Qiqqa.DocumentLibrary.AutoSyncStuff
                 WebLibraryManager.Instance.NotifyOfChangeToWebLibraryDetail();
 
                 LibrarySyncManager.SyncRequest sync_request = new LibrarySyncManager.SyncRequest(false, libraries_to_sync, true, true, true);
-                Application.Current.Dispatcher.Invoke(((Action)(() =>
+                WPFDoEvents.InvokeInUIThread(() =>
                     LibrarySyncManager.Instance.RequestSync(sync_request)
-                )));
+                );
             }
         }
     }

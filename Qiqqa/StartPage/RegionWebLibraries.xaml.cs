@@ -7,6 +7,8 @@ using Qiqqa.DocumentLibrary;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Synchronisation.BusinessLogic;
 using Qiqqa.UtilisationTracking;
+using Utilities.GUI;
+using Utilities.Misc;
 
 namespace Qiqqa.StartPage
 {
@@ -21,23 +23,23 @@ namespace Qiqqa.StartPage
 
             ObjWebLibraryListControl.OnWebLibrarySelected += ObjWebLibraryListControl_OnWebLibrarySelected;
 
-            WebLibraryManager.Instance.WebLibrariesChanged += Instance_WebLibrariesChanged;
+            SafeThreadPool.QueueUserWorkItem(o =>
+            {
+                // This particular action would BLOCK a very long time on `WebLibraryManager.Instance` as another background
+                // task is busy loading all libraries as part of the WebLibraryManager initialization.
+                WebLibraryManager.Instance.WebLibrariesChanged += Instance_WebLibrariesChanged;
 
-            Refresh();
+                WPFDoEvents.InvokeAsyncInUIThread(() => Refresh());
+            });
         }
 
         private void Instance_WebLibrariesChanged()
         {
-            Dispatcher.Invoke(new Action(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                Instance_WebLibrariesChanged_THREAD();
-            }
-            ), DispatcherPriority.Background);
-        }
-
-        private void Instance_WebLibrariesChanged_THREAD()
-        {
-            Refresh();
+                Refresh();
+            }, 
+            priority: DispatcherPriority.Background);
         }
 
         private void ObjWebLibraryListControl_OnWebLibrarySelected(WebLibraryDetail web_library_detail)
@@ -48,6 +50,8 @@ namespace Qiqqa.StartPage
 
         private void Refresh()
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             ObjWebLibraryListControl.Refresh();
 
             if (WebLibraryManager.Instance.HaveOnlyOneWebLibrary())

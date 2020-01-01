@@ -59,9 +59,9 @@ namespace Qiqqa.Common.ReadOutLoud
                 last_words.RemoveAt(0);
             }
 
-            string window = ArrayFormatter.ListElements(last_words, " ");
+            string textwindow = ArrayFormatter.ListElements(last_words, " ");
 
-            StatusManager.Instance.UpdateStatus("ReadOutAloud", window, e.CharacterPosition, current_prompt_length);
+            StatusManager.Instance.UpdateStatus("ReadOutAloud", textwindow, e.CharacterPosition, current_prompt_length);
         }
 
         private void speech_synthesizer_SpeakCompleted(object sender, SpeakCompletedEventArgs e)

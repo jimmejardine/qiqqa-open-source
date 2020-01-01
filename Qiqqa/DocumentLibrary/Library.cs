@@ -123,7 +123,7 @@ namespace Qiqqa.DocumentLibrary
         }
 
         // This is GLOBAL to all libraries
-        private static DateTime last_pdf_add_time = DateTime.MinValue;
+        private static Stopwatch last_pdf_add_time = Stopwatch.StartNew();
         private static object last_pdf_add_time_lock = new object();
 
         public static bool IsBusyAddingPDFs
@@ -131,19 +131,55 @@ namespace Qiqqa.DocumentLibrary
             get
             {
                 //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-                DateTime mark;
                 lock (last_pdf_add_time_lock)
                 {
                     //l1_clk.LockPerfTimerStop();
-                    mark = last_pdf_add_time;
+                    // heuristic; give OCR process et al some time to breathe
+                    return (last_pdf_add_time.ElapsedMilliseconds < 3000);
                 }
-                // heuristic; give OCR process et al some time to breathe
-                return DateTime.UtcNow.Subtract(mark).TotalSeconds < 3;
+            }
+        }
+
+        private static int last_regen_counter = 0;
+        private static object last_regen_time_lock = new object();
+
+        public static bool IsBusyRegeneratingTags
+        {
+            get
+            {
+                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                lock (last_regen_time_lock)
+                {
+                    //l1_clk.LockPerfTimerStop();
+                    return (last_regen_counter > 0);
+                }
+            }
+            set 
+            {
+                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                lock (last_regen_time_lock)
+                {
+                    //l1_clk.LockPerfTimerStop();
+                    if (value)
+                    {
+                        ++last_regen_counter;
+                    }
+                    else
+                    {
+                        --last_regen_counter;
+                        if (last_regen_counter < 0)
+                        {
+                            throw new Exception("Internal error: IsBusyRegeneratingTags unmatched set call pairs!");
+                        }
+                    }
+                }
             }
         }
 
         public Library(WebLibraryDetail web_library_detail)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             this.web_library_detail = web_library_detail;
 
             Logging.Info("Library basepath is at {0}", LIBRARY_BASE_PATH);
@@ -162,7 +198,12 @@ namespace Qiqqa.DocumentLibrary
             expedition_manager = new ExpeditionManager(this);
 
             // Start loading the documents in the background...
-            SafeThreadPool.QueueUserWorkItem(o => BuildFromDocumentRepository());
+			//
+			// NOTE/WARNING: do NOT spawn off another background thread
+			// to execute the call below: you'll end up in a world of hurt
+			// as a lot of stuff will arrive asynchronously at sites
+			// in the Qiqqa code which expect this next piece of work *done*.!
+            BuildFromDocumentRepository();
         }
 
         // NOTE: this function is executed ASYNCHRONOUSLY. 
@@ -223,7 +264,7 @@ namespace Qiqqa.DocumentLibrary
                     elapsed = clk.ElapsedMilliseconds;
                     if (prev_clk + 1000 <= elapsed)
                     {
-                        StatusManager.Instance.UpdateStatus("LibraryInitialLoad", String.Format("Loading your library '{0}'", WebLibraryDetail.DescriptiveTitle), i, library_items.Count);
+                        StatusManager.Instance.UpdateStatus("LibraryInitialLoad", String.Format("Loading your library '{0}': {1} of {2} documents", WebLibraryDetail.DescriptiveTitle, i, library_items.Count), i, library_items.Count);
                         Logging.Info("Library '{2}': Loaded {0}/{1} documents", i, library_items.Count, WebLibraryDetail.DescriptiveTitle);
                         prev_clk = elapsed;
 
@@ -247,7 +288,7 @@ namespace Qiqqa.DocumentLibrary
                     }
                 }
 
-                StatusManager.Instance.ClearStatus("LibraryInitialLoad");
+                //StatusManager.Instance.ClearStatus("LibraryInitialLoad");
 
                 Logging.Debug特("-Build library '{2}' from repository -- time spent: {0} ms on {1} library records.", clk.ElapsedMilliseconds, library_items.Count, WebLibraryDetail.DescriptiveTitle);
             }
@@ -284,6 +325,10 @@ namespace Qiqqa.DocumentLibrary
                 lock (pdf_documents_lock)
                 {
                     //l1_clk.LockPerfTimerStop();
+                    if (LibraryIsKilled)
+                    {
+                        throw new Exception("Hacky backy internal error");
+                    }
                     pdf_documents[pdf_document.Fingerprint] = pdf_document;
                 }
 
@@ -320,6 +365,8 @@ namespace Qiqqa.DocumentLibrary
         /// <returns></returns>
         public PDFDocument AddNewDocumentToLibrary_SYNCHRONOUS(string filename, string original_filename, string suggested_download_source, string bibtex, HashSet<string> tags, string comments, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             if (!suppressDialogs)
             {
                 StatusManager.Instance.UpdateStatus("LibraryDocument", String.Format("Adding {0} to library", filename));
@@ -344,12 +391,14 @@ namespace Qiqqa.DocumentLibrary
 
         private PDFDocument AddNewDocumentToLibrary(string filename, string original_filename, string suggested_download_source, string bibtex, HashSet<string> tags, string comments, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             // Flag that someone is trying to add to the library.  This is used by the background processes to hold off while the library is busy being added to...
             //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (last_pdf_add_time_lock)
             {
                 //l1_clk.LockPerfTimerStop();
-                last_pdf_add_time = DateTime.UtcNow;
+                last_pdf_add_time.Restart();
             }
 
             if (String.IsNullOrEmpty(filename) || filename.EndsWith(".vanilla_reference"))
@@ -508,6 +557,8 @@ namespace Qiqqa.DocumentLibrary
 
         private PDFDocument AddNewDocumentToLibrary(PDFDocument pdf_document_template, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             PDFDocument pdf_document = AddNewDocumentToLibrary(pdf_document_template.DocumentPath, pdf_document_template.DownloadLocation, pdf_document_template.DownloadLocation, pdf_document_template.BibTex, null, null, suppressDialogs, suppress_signal_that_docs_have_changed);
 
             return pdf_document;
@@ -1103,7 +1154,7 @@ namespace Qiqqa.DocumentLibrary
                 // code which depends on a certain valid lifetime of that instance and that code should dispose of the record once it is done using it...
                 //
                 // Cloning...
-                web_library_detail = web_library_detail.CloneSansLibraryReference();
+                web_library_detail = web_library_detail?.CloneSansLibraryReference();
 #endif
             }
             catch (Exception ex)

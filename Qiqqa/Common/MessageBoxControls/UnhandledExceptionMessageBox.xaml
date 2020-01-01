@@ -1,4 +1,4 @@
-﻿<local_utilities:StandardWindow x:Class="Qiqqa.Common.MessageBoxControls.UnhandledExceptionMessageBox"
+<local_utilities:StandardWindow x:Class="Qiqqa.Common.MessageBoxControls.UnhandledExceptionMessageBox"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
@@ -9,55 +9,52 @@
     WindowStartupLocation="CenterScreen"
     x:Name="UnhandledExceptionBox"
 >
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <DockPanel>
-            <local_gui:AugmentedBorder DockPanel.Dock="Left" >
-                <Image Width="123" Name="ObjImage" />
-            </local_gui:AugmentedBorder>
-
-            <local_gui:AugmentedBorder Padding="5">
-                <StackPanel>
-                    <TextBlock Name="UsefulTextHeading" TextWrapping="Wrap" FontSize="14" FontWeight="Bold" Text="An unexpected problem has occurred.  But it's okay!"/>
-                    <TextBlock Name="UsefulTextSubheading" TextWrapping="Wrap">You can probably continue working, but we would really appreciate it if you would take this opportunity to send us some feedback.  The details of the feedback are shown below.</TextBlock>
-
-                    <RichTextBox DockPanel.Dock="Top" Name="FaqText" IsDocumentEnabled="True" Visibility="Collapsed">
-                        <FlowDocument>
-                            <Paragraph>
-                                See
-                                <Hyperlink NavigateUri="{Binding FaqUrl}">FAQ</Hyperlink> for more information.
-                            </Paragraph>
-                        </FlowDocument>
-                    </RichTextBox>
-
-                    <TextBlock />
-
-                    <local_gui:AugmentedInfoBarItemControl Header="Problem Summary" x:Name="TextExceptionSummaryRegion" Collapsed="False">
-                        <TextBox Name="TextExceptionSummary" AcceptsReturn="True" TextWrapping="Wrap" />
-                    </local_gui:AugmentedInfoBarItemControl>
-
-                    <local_gui:AugmentedInfoBarItemControl Header="Comments" >
-                        <StackPanel>
-                            <TextBlock Name="TextCommentsLabel" TextWrapping="Wrap" FontWeight="SemiBold">Explanatory comments (if available):</TextBlock>
-                            <TextBox Name="TextComments" Height="60" TextWrapping="Wrap" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
-                        </StackPanel>
-                    </local_gui:AugmentedInfoBarItemControl>
-
-                    <TextBlock />
-
-                    <local_gui:AugmentedInfoBarItemControl Header="Exception Trees" x:Name="TextExceptionsRegion" Collapsed="False">
-                        <TextBox Name="TextExceptions" Height="637" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
-                    </local_gui:AugmentedInfoBarItemControl>
-
-                    <local_gui:AugmentedInfoBarItemControl Header="Recent Logs" Collapsed="False">
-                        <TextBox Name="TextLogs" Height="430" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" />
-                    </local_gui:AugmentedInfoBarItemControl>
-
-
-                    <local_gui:AugmentedInfoBarItemControl Header="Machine Stats" Collapsed="False">
-                        <TextBox Name="TextMachineStats" Height="450" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" />
-                    </local_gui:AugmentedInfoBarItemControl>
-                </StackPanel>
-            </local_gui:AugmentedBorder>
-        </DockPanel>
-    </ScrollViewer>
+<ScrollViewer VerticalScrollBarVisibility="Auto">
+    <DockPanel>
+        <local_gui:AugmentedBorder DockPanel.Dock="Left" >
+            <Image Width="123" Name="ObjImage" />
+        </local_gui:AugmentedBorder>
+        <local_gui:AugmentedBorder Padding="5">
+            <StackPanel>
+                <TextBlock Name="UsefulTextHeading" TextWrapping="Wrap" FontSize="14" FontWeight="Bold" Text="An unexpected problem has occurred.  But it's okay!"/>
+                <TextBlock Name="UsefulTextSubheading" TextWrapping="Wrap">
+                    You can probably continue working, but we would really appreciate it if you would take this opportunity to send us some feedback.  The details of the feedback are shown below.
+                </TextBlock>
+                <RichTextBox DockPanel.Dock="Top" Name="FaqText" IsDocumentEnabled="True" Visibility="Collapsed">
+                    <FlowDocument>
+                        <Paragraph>
+                            See
+                            <Hyperlink NavigateUri="{Binding FaqUrl}">
+                                FAQ
+                            </Hyperlink>
+                            for more information.
+                        </Paragraph>
+                    </FlowDocument>
+                </RichTextBox>
+                <TextBlock />
+                <local_gui:AugmentedInfoBarItemControl Header="Problem Summary" x:Name="TextExceptionSummaryRegion" Collapsed="False">
+                    <TextBox Name="TextExceptionSummary" AcceptsReturn="True" TextWrapping="Wrap" />
+                </local_gui:AugmentedInfoBarItemControl>
+                <local_gui:AugmentedInfoBarItemControl Header="Comments" >
+                    <StackPanel>
+                        <TextBlock Name="TextCommentsLabel" TextWrapping="Wrap" FontWeight="SemiBold">
+                            Explanatory comments (if available):
+                        </TextBlock>
+                        <TextBox Name="TextComments" Height="60" TextWrapping="Wrap" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
+                    </StackPanel>
+                </local_gui:AugmentedInfoBarItemControl>
+                <TextBlock />
+                <local_gui:AugmentedInfoBarItemControl Header="Exception Trees" x:Name="TextExceptionsRegion" Collapsed="False">
+                    <TextBox Name="TextExceptions" Height="637" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
+                </local_gui:AugmentedInfoBarItemControl>
+                <local_gui:AugmentedInfoBarItemControl Header="Recent Logs" Collapsed="False">
+                    <TextBox Name="TextLogs" Height="430" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" />
+                </local_gui:AugmentedInfoBarItemControl>
+                <local_gui:AugmentedInfoBarItemControl Header="Machine Stats" Collapsed="False">
+                    <TextBox Name="TextMachineStats" Height="450" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" />
+                </local_gui:AugmentedInfoBarItemControl>
+            </StackPanel>
+        </local_gui:AugmentedBorder>
+    </DockPanel>
+</ScrollViewer>
 </local_utilities:StandardWindow>

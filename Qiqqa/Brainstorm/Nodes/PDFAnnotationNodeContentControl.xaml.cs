@@ -61,7 +61,7 @@ namespace Qiqqa.Brainstorm.Nodes
             PDFAnnotation out_pdf_annotation;
             if (WebLibraryDocumentLocator.LocateFirstPDFDocumentWithAnnotation(pdf_annotation_node_content.library_fingerprint, pdf_annotation_node_content.pdf_document_fingerprint, pdf_annotation_node_content.pdf_annotation_guid, out out_pdf_document, out out_pdf_annotation))
             {
-                MainWindowServiceDispatcher.Instance.OpenDocument(out_pdf_document, out_pdf_annotation.Page);
+                MainWindowServiceDispatcher.Instance.OpenDocument(out_pdf_document, page: out_pdf_annotation.Page);
             }
         }
 

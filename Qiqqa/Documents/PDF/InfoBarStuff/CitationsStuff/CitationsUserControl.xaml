@@ -1,21 +1,22 @@
-﻿<UserControl x:Class="Qiqqa.Documents.PDF.InfoBarStuff.CitationsStuff.CitationsUserControl"
+<UserControl x:Class="Qiqqa.Documents.PDF.InfoBarStuff.CitationsStuff.CitationsUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 >
-  <StackPanel>
-
-    <TextBlock>
-      <Bold>Outbound</Bold>
-    </TextBlock>
-    <StackPanel Name="DocsPanel_Outbound" />
-
-    <DockPanel>
-      <Image DockPanel.Dock="Right" Name="ImageRefresh" Height="16"/>
-    <TextBlock>
-      <Bold>Inbound</Bold>
-    </TextBlock>
-    </DockPanel>
-    <StackPanel Name="DocsPanel_Inbound" />
-
-  </StackPanel>
+    <StackPanel>
+        <TextBlock>
+            <Bold>
+                Outbound
+            </Bold>
+        </TextBlock>
+        <StackPanel Name="DocsPanel_Outbound" />
+        <DockPanel>
+            <Image DockPanel.Dock="Right" Name="ImageRefresh" Height="16"/>
+            <TextBlock>
+                <Bold>
+                    Inbound
+                </Bold>
+            </TextBlock>
+        </DockPanel>
+        <StackPanel Name="DocsPanel_Inbound" />
+    </StackPanel>
 </UserControl>

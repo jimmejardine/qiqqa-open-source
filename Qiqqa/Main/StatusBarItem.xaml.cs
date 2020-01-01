@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using Utilities.Mathematics;
 using Utilities.Misc;
+using static Utilities.Misc.StatusManager;
 
 namespace Qiqqa.Main
 {
@@ -22,16 +24,22 @@ namespace Qiqqa.Main
             ObjTextSquare.Click += ObjTextSquare_Click;
         }
 
-        public void SetStatus(string key, string text, bool cancellable, long current, long max)
+        public void SetStatus(StatusEntry status)
         {
-            this.key = key;
+            key = status.key;
             last_status_update_time = DateTime.UtcNow;
 
-            ObjTextSquare.IsEnabled = cancellable;
+            string text = status.LastStatusMessage;
+            bool cancel = status.LastStatusMessageCancellable;
+            long current = status.current_update_number;
+            long max = status.total_update_count;
+
+            ObjTextSquare.IsEnabled = cancel;
             ObjTextSquare.Width = 16;
-            ObjTextSquareText.Text = cancellable ? "X" : "■";
+            ObjTextSquareText.Text = cancel ? "X" : "■";
             ObjTextBlock.Text = Utilities.Strings.StringTools.TrimToLengthWithEllipsis(text);
             ObjTextBlock.ToolTip = text;
+            double w = ObjTextBlock.ActualWidth;
 
             if (String.IsNullOrEmpty(text))
             {
@@ -42,29 +50,15 @@ namespace Qiqqa.Main
                 Visibility = Visibility.Visible;
             }
 
-            if (0 == max)
+            if (0 == max && 0 == current)
             {
                 ObjProgressBar.Value = 100;
-                if (Visibility.Collapsed != ObjProgressBar.Visibility)
-                {
-                    ObjProgressBar.Visibility = Visibility.Collapsed;
-                }
-            }
-            else if (1 == current)
-            {
-                ObjProgressBar.Value = 100 * Math.Pow(1.0 * current / max, 1.0 / 3.0);
-                if (Visibility.Visible != ObjProgressBar.Visibility)
-                {
-                    ObjProgressBar.Visibility = Visibility.Visible;
-                }
+                ObjProgressBar.Visibility = Visibility.Collapsed;
             }
             else
             {
-                ObjProgressBar.Value = 100 * current / max;
-                if (Visibility.Visible != ObjProgressBar.Visibility)
-                {
-                    ObjProgressBar.Visibility = Visibility.Visible;
-                }
+                ObjProgressBar.Value = 100 * Perunage.Calc(current, max);
+                ObjProgressBar.Visibility = Visibility.Visible;
             }
         }
 

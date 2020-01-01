@@ -1,4 +1,4 @@
-﻿<UserControl
+<UserControl
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
   xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
@@ -13,23 +13,20 @@
   HorizontalAlignment="Stretch"
   VerticalAlignment="Stretch"
   HorizontalContentAlignment="Stretch"
-  VerticalContentAlignment="Stretch"
+  VerticalContentAlignment="Stretch" 
+  Background="#FFBEFFB7"
 >
     <DockPanel>
-
-        <local_gui:NonScrollingFlowDocumentScrollViewer x:Name="ObjNoBibTeXInstructions" DockPanel.Dock="Bottom">
-            <commongui:StandardFlowDocument>
+        <local_gui:NonScrollingFlowDocumentScrollViewer x:Name="ObjNoBibTeXInstructions" DockPanel.Dock="Bottom" >
+            <commongui:StandardFlowDocument Background="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}},Path=Background}">
                 <Paragraph>
                     Qiqqa has not been able to automatically associate BibTeX with this document.  BibTeX is useful when formatting your bibliography with InCite.  Use the BibTeX Sniffer to quickly search the Internet for this document's BibTeX.
                 </Paragraph>
             </commongui:StandardFlowDocument>
         </local_gui:NonScrollingFlowDocumentScrollViewer>
-
         <Grid >
-
             <DockPanel x:Name="ObjGridPanel">
                 <Grid x:Name="ObjHeaderGrid" DockPanel.Dock="Top">
-
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="80" />
                         <ColumnDefinition Width="5"/>
@@ -39,15 +36,16 @@
                         <RowDefinition />
                         <RowDefinition />
                     </Grid.RowDefinitions>
-
-                    <TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold" Name="ComboRecordTypeHeader">Type</TextBlock>
+                    <TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold" Name="ComboRecordTypeHeader">
+                        Type
+                    </TextBlock>
                     <ComboBox Grid.Row="0" Grid.Column="2" Name="ComboRecordType" MinWidth="50" IsEditable="True" BorderThickness="0"/>
-                    <TextBlock Grid.Row="1" Grid.Column="0" FontWeight="Bold" Name="TxtRecordKeyHeader" >Key</TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="0" FontWeight="Bold" Name="TxtRecordKeyHeader" >
+                        Key
+                    </TextBlock>
                     <TextBox  Grid.Row="1" Grid.Column="2" Name="TxtRecordKey" MinWidth="50" BorderThickness="0"/>
                 </Grid>
-
                 <local_gui:AugmentedSpacer DockPanel.Dock="Top" />
-
                 <Grid x:Name="ObjBibTeXGrid">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="80" />
@@ -56,20 +54,21 @@
                     </Grid.ColumnDefinitions>
                 </Grid>
             </DockPanel>
-
-            <Grid Name="ObjTextPanel" Visibility="Hidden">
+            <Grid Name="ObjTextPanel" >
                 <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"  DockPanel.Dock="Top" Name="ObjBibTeXTextScrollViewer">
-                    <TextBox Name="ObjBibTeXText" TextWrapping="Wrap" AcceptsReturn="True" DockPanel.Dock="Top" />
+                    <TextBox Name="ObjBibTeXText" TextWrapping="Wrap" AcceptsReturn="True" DockPanel.Dock="Top"  Background="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}},Path=Background}" />
                 </ScrollViewer>
             </Grid>
-
             <Grid Name="ObjErrorPanel">
-                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" DockPanel.Dock="Top" Name="ObjBibTeXErrorScrollViewer">
-                    <TextBox Name="ObjBibTeXErrorText"   IsReadOnly="True" TextWrapping="NoWrap" FontFamily="Lucida Console" />
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" DockPanel.Dock="Top" Name="ObjBibTeXErrorScrollViewer" >
+                    <DockPanel>
+                    <Rectangle Width="15" Fill="Red"></Rectangle>
+                    <TextBox Name="ObjBibTeXErrorText"   IsReadOnly="True" TextWrapping="NoWrap" FontFamily="Lucida Console" Background="#F0FFDBDB" >
+                        Error Report
+                    </TextBox>
+                    </DockPanel>
                 </ScrollViewer>
             </Grid>
-
         </Grid>
-
     </DockPanel>
 </UserControl>

@@ -61,14 +61,16 @@ namespace Utilities.Mathematics.Topics.LDAStuff
             }
         }
 
-        public void MC(int num_iterations)
+        public void MC(int num_iterations, Action<int, int> progress_callback)
         {
             // Run gibbs sampling
-            while (num_iterations > 0)
+            for (int iteration = 0; iteration < num_iterations; iteration++)
             {
+                progress_callback(iteration, num_iterations);
+
                 if (0 == lda_sampler.total_iterations % 10)
                 {
-                    Logging.Info("{0} iterations remain. {1} iterations have run in total", num_iterations, lda_sampler.total_iterations);
+                    Logging.Info("{0} iterations remain. {1} iterations have run in total", iteration, lda_sampler.total_iterations);
                 }
 
                 Thread[] threads = new Thread[NUM_THREADS];
@@ -86,7 +88,6 @@ namespace Utilities.Mathematics.Topics.LDAStuff
                     threads[thread].Join();
                 }
 
-                --num_iterations;
                 ++lda_sampler.total_iterations;
             }
         }
@@ -99,50 +100,48 @@ namespace Utilities.Mathematics.Topics.LDAStuff
 
             for (int i = 0; i < total_words_in_corpus; i += NUM_THREADS)
             {
+                // Get the next doc to process
+                int doc = random_mc_orderings[random_mt[thread].NextIntExclusive(random_mc_orderings.Count)];
+                int doc_word_index = random_mt[thread].NextIntExclusive(lda_sampler.WORDS_IN_DOCS[doc].Length);
+
+                // Get the associated word/topic with this position in the doc
+                int word = lda_sampler.WORDS_IN_DOCS[doc][doc_word_index];
+
+                // What is the most likely topic for this document/word?                        
+                int new_topic = SampleTopicForWordInDoc(doc, word, thread);
+
+                // Has the word moved topic?
+                int old_topic = lda_sampler.topic_of_word_in_doc[doc][doc_word_index];
+                if (new_topic != old_topic)
                 {
-                    // Get the next doc to process
-                    int doc = random_mc_orderings[random_mt[thread].NextIntExclusive(random_mc_orderings.Count)];
-                    int doc_word_index = random_mt[thread].NextIntExclusive(lda_sampler.WORDS_IN_DOCS[doc].Length);
-
-                    // Get the associated word/topic with this position in the doc
-                    int word = lda_sampler.WORDS_IN_DOCS[doc][doc_word_index];
-
-                    // What is the most likely topic for this document/word?                        
-                    int new_topic = SampleTopicForWordInDoc(doc, word, thread);
-
-                    // Has the word moved topic?
-                    int old_topic = lda_sampler.topic_of_word_in_doc[doc][doc_word_index];
-                    if (new_topic != old_topic)
+                    Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                    lock (lda_sampler)
                     {
-                        Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-                        lock (lda_sampler)
+                        l1_clk.LockPerfTimerStop();
+                        // Resample the old topic, because it might have been moved already...
+                        old_topic = lda_sampler.topic_of_word_in_doc[doc][doc_word_index];
+                        if (new_topic != old_topic)
                         {
-                            l1_clk.LockPerfTimerStop();
-                            // Resample the old topic, because it might have been moved already...
-                            old_topic = lda_sampler.topic_of_word_in_doc[doc][doc_word_index];
-                            if (new_topic != old_topic)
+                            ++total_topic_shifts;
+
+                            if (old_topic == lda_sampler.topic_of_word_in_doc[doc][doc_word_index])
                             {
-                                ++total_topic_shifts;
+                                // Remove the word from its existing topic
+                                --lda_sampler.number_of_times_doc_has_a_specific_topic[doc, old_topic];
+                                --lda_sampler.number_of_times_a_topic_has_any_word[old_topic];
+                                --lda_sampler.number_of_times_a_topic_has_a_specific_word[old_topic, word];
 
-                                if (old_topic == lda_sampler.topic_of_word_in_doc[doc][doc_word_index])
-                                {
-                                    // Remove the word from its existing topic
-                                    --lda_sampler.number_of_times_doc_has_a_specific_topic[doc, old_topic];
-                                    --lda_sampler.number_of_times_a_topic_has_any_word[old_topic];
-                                    --lda_sampler.number_of_times_a_topic_has_a_specific_word[old_topic, word];
-
-                                    // Give the word a new topic
-                                    ++lda_sampler.number_of_times_doc_has_a_specific_topic[doc, new_topic];
-                                    ++lda_sampler.number_of_times_a_topic_has_any_word[new_topic];
-                                    ++lda_sampler.number_of_times_a_topic_has_a_specific_word[new_topic, word];
-                                }
-                                else
-                                {
-                                    Logging.Info("It must have been moved on already!");
-                                }
-
-                                lda_sampler.topic_of_word_in_doc[doc][doc_word_index] = new_topic;
+                                // Give the word a new topic
+                                ++lda_sampler.number_of_times_doc_has_a_specific_topic[doc, new_topic];
+                                ++lda_sampler.number_of_times_a_topic_has_any_word[new_topic];
+                                ++lda_sampler.number_of_times_a_topic_has_a_specific_word[new_topic, word];
                             }
+                            else
+                            {
+                                Logging.Info("It must have been moved on already!");
+                            }
+
+                            lda_sampler.topic_of_word_in_doc[doc][doc_word_index] = new_topic;
                         }
                     }
                 }
@@ -173,7 +172,9 @@ namespace Utilities.Mathematics.Topics.LDAStuff
                      */
 
                     /*
-                     * It used to look like this, but we can take out the ALPHA denominator because it doesn't change, and so is a universal scaling constant that comes out in the Giibs selection anyway
+                     * It used to look like this, but we can take out the ALPHA denominator because it doesn't change, 
+                     * and so is a universal scaling constant that comes out in the Gibbs selection anyway.
+                     * 
                     probability_working_buffer[topic] =
                         (number_of_times_a_topic_has_a_specific_word[topic, word] + BETA) /
                         (number_of_times_a_topic_has_any_word[topic] + NUM_WORDS * BETA)

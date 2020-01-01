@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using icons;
 using Qiqqa.Common.GUI;
 using Qiqqa.UtilisationTracking;
@@ -456,7 +455,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
         private static string GetFolderNameFromDialog(string title, string defaultFolder)
         {
-            using (FolderBrowserDialog ofd = new FolderBrowserDialog())
+            using (System.Windows.Forms.FolderBrowserDialog ofd = new System.Windows.Forms.FolderBrowserDialog())
             {
                 ofd.Description = title;
                 ofd.SelectedPath = defaultFolder;

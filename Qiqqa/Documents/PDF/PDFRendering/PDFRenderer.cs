@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Utilities;
 using Utilities.Files;
+using Utilities.GUI;
 using Utilities.Misc;
 using Utilities.OCR;
 using Utilities.PDF.Sorax;
@@ -16,6 +17,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
     public class PDFRenderer
     {
         private const int TEXT_PAGES_PER_GROUP = 20;
+
         private string pdf_filename;
         private string pdf_user_password;
         private string pdf_owner_password;
@@ -97,11 +99,15 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         public void CauseAllPDFPagesToBeOCRed()
         {
-            // TODO: jobqueue this one too - saves us one PDF access + parse action inline.
-            for (int i = PageCount; i >= 1; --i)
+            // jobqueue this one too - saves us one PDF access + parse action inline when invoked in the UI thread by OpenDocument()
+            int pgcount = PageCount;
+            SafeThreadPool.QueueUserWorkItem(o =>
             {
-                GetOCRText(i);
-            }
+                for (int i = pgcount; i >= 1; --i)
+                {
+                    GetOCRText(i);
+                }
+            });
         }
 
         /// <summary>
@@ -317,7 +323,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         internal void StorePageTextSingle(int page, string source_filename)
         {
-            string filename = pdf_render_file_layer.StorePageTextSingle(page, source_filename);
+            pdf_render_file_layer.StorePageTextSingle(page, source_filename);
 
             OnPageTextAvailable?.Invoke(page, page);
         }

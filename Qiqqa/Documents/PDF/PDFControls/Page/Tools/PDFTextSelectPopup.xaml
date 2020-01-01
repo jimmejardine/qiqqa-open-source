@@ -1,26 +1,25 @@
-﻿<StackPanel x:Class="Qiqqa.Documents.PDF.PDFControls.Page.Tools.PDFTextSelectPopup"
+<StackPanel x:Class="Qiqqa.Documents.PDF.PDFControls.Page.Tools.PDFTextSelectPopup"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
     >
-
-  <MenuItem Name="MenuItemCopy"/>
-  <local_gui:AugmentedSpacer />
-  <MenuItem Name="MenuItemSpeedRead"/>
-  <local_gui:AugmentedSpacer />
-  <MenuItem Name="MenuItemSearchInternet"/>
-  <MenuItem Name="MenuItemSearchLibrary"/>
-  <local_gui:AugmentedSpacer />
-  <MenuItem Name="MenuItemWebsiteDictionary"/>
-  <local_gui:AugmentedSpacer />
-  <MenuItem Name="MenuItemTagSet"/>
-  <MenuItem Name="MenuItemBibTexSet"/>
-  <local_gui:AugmentedSpacer />
-  <MenuItem Name="MenuItemAbstractSet"/>
-  <MenuItem Name="MenuItemAbstractClear"/>
-  <local_gui:AugmentedSpacer />
-  <MenuItem Name="MenuItemTitleSet"/>
-  <MenuItem Name="MenuItemAuthorSet"/>
-  <MenuItem Name="MenuItemAuthorAppend"/>
-  <MenuItem Name="MenuItemYearSet"/>
+    <MenuItem Name="MenuItemCopy"/>
+    <local_gui:AugmentedSpacer />
+    <MenuItem Name="MenuItemSpeedRead"/>
+    <local_gui:AugmentedSpacer />
+    <MenuItem Name="MenuItemSearchInternet"/>
+    <MenuItem Name="MenuItemSearchLibrary"/>
+    <local_gui:AugmentedSpacer />
+    <MenuItem Name="MenuItemWebsiteDictionary"/>
+    <local_gui:AugmentedSpacer />
+    <MenuItem Name="MenuItemTagSet"/>
+    <MenuItem Name="MenuItemBibTexSet"/>
+    <local_gui:AugmentedSpacer />
+    <MenuItem Name="MenuItemAbstractSet"/>
+    <MenuItem Name="MenuItemAbstractClear"/>
+    <local_gui:AugmentedSpacer />
+    <MenuItem Name="MenuItemTitleSet"/>
+    <MenuItem Name="MenuItemAuthorSet"/>
+    <MenuItem Name="MenuItemAuthorAppend"/>
+    <MenuItem Name="MenuItemYearSet"/>
 </StackPanel>

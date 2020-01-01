@@ -10,7 +10,6 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -35,6 +34,7 @@ using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 
 namespace Qiqqa.DocumentLibrary.WebLibraryStuff
@@ -229,7 +229,10 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             WebLibraryDetail web_library_detail = DataContext as WebLibraryDetail;
             if (null != web_library_detail)
             {
-                WebLibraryManager.Instance.ForgetKnownWebLibraryFromIntranet(web_library_detail);
+                SafeThreadPool.QueueUserWorkItem(o =>
+                {
+                    WebLibraryManager.Instance.ForgetKnownWebLibraryFromIntranet(web_library_detail);
+                });
             }
             e.Handled = true;
         }
@@ -314,11 +317,13 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private void library_OnDocumentsChanged()
         {
-            Dispatcher.BeginInvoke(new Action(() => UpdateLibraryStatistics()));
+            WPFDoEvents.InvokeAsyncInUIThread(() => UpdateLibraryStatistics());
         }
 
         private void UpdateLibraryStatistics()
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             UpdateLibraryStatistics_Headers();
             UpdateLibraryStatistics_Stats();
         }
@@ -426,7 +431,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 chart_items_added.Add(new ChartItem { Title = "Added", Timestamp = cutoff, Count = num_added });
             }
 
-            Dispatcher.BeginInvoke(new Action(() => UpdateLibraryStatistics_Stats_Background_GUI(chart_items_read, chart_items_added)));
+            WPFDoEvents.InvokeAsyncInUIThread(() => UpdateLibraryStatistics_Stats_Background_GUI(chart_items_read, chart_items_added));
         }
 
         private class DocumentDisplayWork
@@ -573,7 +578,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
 
                 // And fill the placeholders
-                Dispatcher.Invoke(new Action(() => UpdateLibraryStatistics_Stats_Background_GUI_AddAllPlaceHolders(ddwm.ddws)));
+                WPFDoEvents.InvokeInUIThread(() => UpdateLibraryStatistics_Stats_Background_GUI_AddAllPlaceHolders(ddwm.ddws));
 
                 // Now render each document
                 using (Font font = new Font("Times New Roman", 11.0f))
@@ -654,7 +659,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                                         ddw.page_bitmap_source = page_bitmap_source;
                                     }
 
-                                    Dispatcher.Invoke(new Action(() => UpdateLibraryStatistics_Stats_Background_GUI_FillPlaceHolder(ddw)));
+                                    WPFDoEvents.InvokeInUIThread(() => UpdateLibraryStatistics_Stats_Background_GUI_FillPlaceHolder(ddw));
                                 }
                                 catch (Exception ex)
                                 {
@@ -667,12 +672,12 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
                 if (0 == ddwm.ddws.Count)
                 {
-                    Dispatcher.BeginInvoke(new Action(() =>
-                        {
-                            ButtonCoverFlow.IsChecked = false;
-                            UpdateLibraryStatistics();
-                        }
-                    ));
+                    WPFDoEvents.InvokeAsyncInUIThread(() =>
+                    {
+                        ButtonCoverFlow.IsChecked = false;
+                        UpdateLibraryStatistics();
+                    }
+                    );
                 }
             }
         }
@@ -931,28 +936,26 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private void GenericCustomiseChooser(string title, string filename)
         {
-            using (var dialog = new OpenFileDialog())
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "Image files|*.jpeg;*.jpg;*.png;*.gif;*.bmp" + "|" + "All files|*.*";
+            dialog.CheckFileExists = true;
+            dialog.Multiselect = false;
+            dialog.Title = title;
+            //dialog.FileName = filename;
+            if (true == dialog.ShowDialog())
             {
-                dialog.Filter = "Image files|*.jpeg;*.jpg;*.png;*.gif;*.bmp" + "|" + "All files|*.*";
-                dialog.CheckFileExists = true;
-                dialog.Multiselect = false;
-                dialog.Title = title;
-                //dialog.FileName = filename;
-                if (DialogResult.OK == dialog.ShowDialog())
-                {
-                    // Copy the new file into place, if it is another file than the one we already have:
-                    filename = Path.GetFullPath(filename);
-                    string new_filename = Path.GetFullPath(dialog.FileName);
-                    if (0 != new_filename.CompareTo(filename))
-                    {
-                        File.Delete(filename);
-                        File.Copy(new_filename, filename);
-                    }
-                }
-                else
+                // Copy the new file into place, if it is another file than the one we already have:
+                filename = Path.GetFullPath(filename);
+                string new_filename = Path.GetFullPath(dialog.FileName);
+                if (0 != new_filename.CompareTo(filename))
                 {
                     File.Delete(filename);
+                    File.Copy(new_filename, filename);
                 }
+            }
+            else
+            {
+                File.Delete(filename);
             }
 
             UpdateLibraryStatistics();

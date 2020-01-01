@@ -48,11 +48,10 @@ namespace Qiqqa.InCite
 
         private void Refresh_BACKGROUND(Library primary_library)
         {
-            StatusManager.Instance.UpdateStatus("UsedCitations", "Finding used citations...", 0, 1);
+            StatusManager.Instance.UpdateStatus("UsedCitations", "Finding used citations...");
 
             try
             {
-
                 // Get the citations from Word
                 List<CitationCluster> citation_clusters = WordConnector.Instance.GetAllCitationClustersFromCurrentDocument();
                 Dictionary<string, CSLProcessorBibTeXFinder.MatchingBibTeXRecord> bitex_items = CSLProcessorBibTeXFinder.Find(citation_clusters, primary_library);
@@ -83,7 +82,7 @@ namespace Qiqqa.InCite
                     return String.Compare(p1.pdf_document.AuthorsCombined, p2.pdf_document.AuthorsCombined);
                 });
 
-                Dispatcher.Invoke(new Action(() =>
+                WPFDoEvents.InvokeInUIThread(() =>
                 {
                     // Store them for the GUI
                     latest_used_citations = used_citations;
@@ -109,10 +108,9 @@ namespace Qiqqa.InCite
 
                     // Only show the missing area if we have missing items...
                     ObjGridMissingCitations.Visibility = (0 < missing_citations.Count) ? Visibility.Visible : Visibility.Collapsed;
-                }));
+                });
 
             }
-
             catch (Exception ex)
             {
                 Logging.Error(ex, "There was an exception while looking for used citations.");

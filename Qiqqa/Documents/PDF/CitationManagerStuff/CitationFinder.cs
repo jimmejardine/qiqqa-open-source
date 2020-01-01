@@ -47,7 +47,7 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
                     }
 
                     PDFDocument pdf_document = pdf_documents[i];
-                    StatusManager.Instance.UpdateStatusBusy("CitationLibraryFinder", String.Format("Looking for new citations in your library ({0} found so far)", total_found), i, pdf_documents.Count, true);
+                    StatusManager.Instance.UpdateStatus("CitationLibraryFinder", String.Format("Looking for new citations in your library ({0} found so far)", total_found), i, pdf_documents.Count, true);
                     total_found += FindCitations(pdf_document);
                 }
                 catch (Exception ex)

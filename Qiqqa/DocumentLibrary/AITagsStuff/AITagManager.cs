@@ -9,6 +9,7 @@ using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Language.Buzzwords;
 using Utilities.Language.TextIndexing;
+using Utilities.Mathematics;
 using Utilities.Misc;
 using Utilities.OCR;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
@@ -70,6 +71,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
 
                 regenerating_in_progress = true;
             }
+            Library.IsBusyRegeneratingTags = true;
 
             Stopwatch clk = Stopwatch.StartNew();
 
@@ -77,12 +79,12 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
             {
                 Logging.Info("+AITagManager is starting regenerating");
 
-                StatusManager.Instance.UpdateStatusBusy("AITags", "Loading documents");
+                StatusManager.Instance.UpdateStatus("AITags", "Loading documents");
                 List<PDFDocument> pdf_documents = library.PDFDocuments;
 
                 int count_title_by_user = 0;
                 int could_title_by_suggest = 0;
-                StatusManager.Instance.UpdateStatusBusy("AITags", "Deciding whether to use suggested titles");
+                StatusManager.Instance.UpdateStatus("AITags", "Deciding whether to use suggested titles");
                 foreach (PDFDocument pdf_document in pdf_documents)
                 {
                     if (pdf_document.IsTitleGeneratedByUser)
@@ -97,7 +99,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
 
                 bool use_suggested_titles = could_title_by_suggest > count_title_by_user;
 
-                StatusManager.Instance.UpdateStatusBusy("AITags", "Scanning titles");
+                StatusManager.Instance.UpdateStatus("AITags", "Scanning titles");
                 List<string> titles = new List<string>();
                 foreach (PDFDocument pdf_document in pdf_documents)
                 {
@@ -107,7 +109,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
                     }
                 }
 
-                StatusManager.Instance.UpdateStatusBusy("AITags", "Generating AutoTags");
+                StatusManager.Instance.UpdateStatus("AITags", "Generating AutoTags");
 
                 // Get the black/whitelists
                 List<string> words_blacklist = new List<string>();
@@ -146,7 +148,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
                     Logging.Info("Generated {0} autotags without Scrabble suppression", ai_tags.Count);
                 }
 
-                StatusManager.Instance.UpdateStatusBusy("AITags", "AutoTagging documents");
+                StatusManager.Instance.UpdateStatus("AITags", "AutoTagging documents");
                 AITags ai_tags_record = new AITags();
 
                 // Go through each ngram and see what documents contain it
@@ -164,7 +166,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
                             break;
                         }
 
-                        StatusManager.Instance.UpdateStatusBusy("AITags", String.Format("AutoTagging papers with '{0}'", tag), i, ai_tags_list.Count, true);
+                        StatusManager.Instance.UpdateStatus("AITags", String.Format("AutoTagging papers with '{0}'", tag), i, ai_tags_list.Count, true);
 
                         // Surround the tag with quotes and search the index
                         string search_tag = "\"" + tag + "\"";
@@ -175,7 +177,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
                             // Skip this tag if too many documents have it...
                             if (ai_tag.is_acronym && fingerprints_potential.Count > 0.05 * pdf_documents.Count)
                             {
-                                Logging.Info("Skipping AutoTag {0} because too many documents have it...", tag);
+                                Logging.Info("Skipping AutoTag {0} because too many documents have it ({1} out of {2} ~ {3:P1})...", tag, fingerprints_potential.Count, pdf_documents.Count, Perunage.Calc(fingerprints_potential.Count, pdf_documents.Count));
                                 continue;
                             }
 
@@ -277,7 +279,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
 
                 if (use_new_autotags)
                 {
-                    StatusManager.Instance.UpdateStatusBusy("AITags", "Saving AutoTags");
+                    StatusManager.Instance.UpdateStatus("AITags", "Saving AutoTags");
                     SerializeFile.ProtoSave<AITags>(Filename_Store, ai_tags_record);
                     current_ai_tags_record = ai_tags_record;
                 }
@@ -292,6 +294,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
                     l2_clk.LockPerfTimerStop();
                     regenerating_in_progress = false;
                 }
+                Library.IsBusyRegeneratingTags = false;
 
                 Logging.Info("-AITagManager is finished regenerating (time spent: {0} ms)", clk.ElapsedMilliseconds);
             }

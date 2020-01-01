@@ -61,7 +61,7 @@ namespace Utilities.GUI
                     WPFDoEvents.InvokeInUIThread(() =>
                     {
                         BindingOperations.ClearBinding(this, ValueProperty);
-                    }, Dispatcher);
+                    });
                 }
 
                 _propertySource = null;

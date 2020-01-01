@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
@@ -6,6 +7,7 @@ using System.Text;
 using log4net;
 using log4net.Appender;
 using log4net.Config;
+using Utilities.Misc;
 using LogLog = log4net.Util.LogLog;
 using LogManager = log4net.LogManager;
 
@@ -345,7 +347,7 @@ namespace Utilities
         [Conditional("DIAG")]
         public static void Debug(Exception ex)
         {
-            string msg = ex.ToString();
+            string msg = ex.ToStringAllExceptionDetails();
             //log?.Debug(msg) ?? BufferMessage(msg);
             LogDebug(msg);
         }
@@ -356,7 +358,7 @@ namespace Utilities
             StringBuilder sb = new StringBuilder();
             sb.AppendLine(msg);
             sb.AppendLine();
-            sb.Append(ex.ToString());
+            sb.Append(ex.ToStringAllExceptionDetails());
             msg = sb.ToString();
             //log?.Debug(msg) ?? BufferMessage(msg);
             LogDebug(msg);
@@ -369,7 +371,7 @@ namespace Utilities
             sb.AppendFormat(msg, args);
             sb.AppendLine();
             sb.AppendLine();
-            sb.Append(ex.ToString());
+            sb.Append(ex.ToStringAllExceptionDetails());
             msg = sb.ToString();
             //log?.Debug(msg) ?? BufferMessage(msg);
             LogDebug(msg);
@@ -392,7 +394,7 @@ namespace Utilities
 
         public static void Debug特(Exception ex)
         {
-            string msg = ex.ToString();
+            string msg = ex.ToStringAllExceptionDetails();
             //log?.Debug(msg) ?? BufferMessage(msg);
             LogDebug(msg);
         }
@@ -402,7 +404,7 @@ namespace Utilities
             StringBuilder sb = new StringBuilder();
             sb.AppendLine(msg);
             sb.AppendLine();
-            sb.Append(ex.ToString());
+            sb.Append(ex.ToStringAllExceptionDetails());
             msg = sb.ToString();
             //log?.Debug(msg) ?? BufferMessage(msg);
             LogDebug(msg);
@@ -414,7 +416,7 @@ namespace Utilities
             sb.AppendFormat(msg, args);
             sb.AppendLine();
             sb.AppendLine();
-            sb.Append(ex.ToString());
+            sb.Append(ex.ToStringAllExceptionDetails());
             msg = sb.ToString();
             //log?.Debug(msg) ?? BufferMessage(msg);
             LogDebug(msg);
@@ -452,7 +454,7 @@ namespace Utilities
 
         public static void Warn(Exception ex)
         {
-            string msg = ex.ToString();
+            string msg = ex.ToStringAllExceptionDetails();
             //log?.Warn(msg) ?? BufferMessage(msg);
             LogWarn(msg);
         }
@@ -462,7 +464,7 @@ namespace Utilities
             StringBuilder sb = new StringBuilder();
             sb.AppendLine(msg);
             sb.AppendLine();
-            sb.Append(ex.ToString());
+            sb.Append(ex.ToStringAllExceptionDetails());
             msg = sb.ToString();
             //log?.Warn(msg) ?? BufferMessage(msg);
             LogWarn(msg);
@@ -473,7 +475,7 @@ namespace Utilities
             StringBuilder sb = new StringBuilder();
             sb.AppendFormat(msg, args);
             sb.AppendLine();
-            sb.Append(ex.ToString());
+            sb.Append(ex.ToStringAllExceptionDetails());
             msg = sb.ToString();
             //log?.Warn(msg) ?? BufferMessage(msg);
             LogWarn(msg);
@@ -496,7 +498,7 @@ namespace Utilities
 
         public static string Error(Exception ex)
         {
-            string msg = ex.ToString();
+            string msg = ex.ToStringAllExceptionDetails();
             //log?.Error(msg) ?? BufferMessage(msg);
             LogError(msg);
             return msg;
@@ -507,7 +509,7 @@ namespace Utilities
             StringBuilder sb = new StringBuilder();
             sb.AppendLine(msg);
             sb.AppendLine();
-            sb.Append(ex.ToString());
+            sb.Append(ex.ToStringAllExceptionDetails());
             msg = sb.ToString();
             //log?.Error(msg) ?? BufferMessage(msg);
             LogError(msg);
@@ -520,7 +522,7 @@ namespace Utilities
             sb.AppendFormat(msg, args);
             sb.AppendLine();
             sb.AppendLine();
-            sb.Append(ex.ToString());
+            sb.Append(ex.ToStringAllExceptionDetails());
             msg = sb.ToString();
             //log?.Error(msg) ?? BufferMessage(msg);
             LogError(msg);

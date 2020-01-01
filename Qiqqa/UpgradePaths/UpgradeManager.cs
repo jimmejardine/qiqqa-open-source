@@ -3,34 +3,38 @@ using Qiqqa.UpgradePaths.V003To004;
 using Qiqqa.UpgradePaths.V037To038;
 using Qiqqa.UpgradePaths.V043To044;
 using Utilities;
+using Utilities.GUI;
+using Utilities.Misc;
 
 namespace Qiqqa.UpgradePaths
 {
     public static class UpgradeManager
     {
-        public static void RunUpgrades(SplashScreenWindow splashscreen_window)
+        public static void RunUpgrades()
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             Logging.Info("+UpgradeManager is running upgrades");
 
-            RenewMessage(splashscreen_window);
+            RenewMessage();
             Upgrade.RunUpgrade();
 
-            RenewMessage(splashscreen_window);
+            RenewMessage();
             V012To013.Upgrade.RunUpgrade();
 
-            RenewMessage(splashscreen_window);
-            SQLiteUpgrade.RunUpgrade(splashscreen_window);
+            RenewMessage();
+            SQLiteUpgrade.RunUpgrade();
 
-            RenewMessage(splashscreen_window);
-            MoveOCRDirs.RunUpgrade(splashscreen_window);
+            RenewMessage();
+            MoveOCRDirs.RunUpgrade();
 
 
             Logging.Info("-UpgradeManager is running upgrades");
         }
 
-        private static void RenewMessage(SplashScreenWindow splashscreen_window)
+        private static void RenewMessage()
         {
-            splashscreen_window.UpdateMessage("Running upgrades.  Please be patient.");
+            StatusManager.Instance.UpdateStatus("DBUpgrade", "Running upgrades.  Please be patient.");
         }
     }
 }
