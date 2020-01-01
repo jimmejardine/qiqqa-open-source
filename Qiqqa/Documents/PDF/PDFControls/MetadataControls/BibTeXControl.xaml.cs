@@ -69,14 +69,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             ObjBibTeXEditorControl.ToggleBibTeXMode(TriState.Arbitrary);
         }
 
-        private static string GetFirstWord(string source)
-        {
-            if (String.IsNullOrEmpty(source)) return "";
-            source = StringTools.StripToLettersAndDigits(source);
-            string[] words = source.Split(' ');
-            return words.Length > 0 ? words[0] : null;
-        }
-
         private void ButtonBibTexClear_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBoxes.AskQuestion("Are you sure you wish to clear this BibTeX?"))
@@ -112,9 +104,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             bibtem_item.Type = "article";
             bibtem_item.Key = String.Format(
                 "{0}{1}{2}"
-                , Constants.UNKNOWN_AUTHORS != pdf_document_bindable.Underlying.AuthorsCombined ? GetFirstWord(pdf_document_bindable.Underlying.AuthorsCombined) : ""
-                , Constants.UNKNOWN_YEAR != pdf_document_bindable.Underlying.YearCombined ? GetFirstWord(pdf_document_bindable.Underlying.YearCombined) : ""
-                , Constants.TITLE_UNKNOWN != pdf_document_bindable.Underlying.TitleCombined ? GetFirstWord(pdf_document_bindable.Underlying.TitleCombined) : ""
+                , Constants.UNKNOWN_AUTHORS != pdf_document_bindable.Underlying.AuthorsCombined ? StringTools.GetFirstWord(pdf_document_bindable.Underlying.AuthorsCombined) : ""
+                , Constants.UNKNOWN_YEAR != pdf_document_bindable.Underlying.YearCombined ? StringTools.GetFirstWord(pdf_document_bindable.Underlying.YearCombined) : ""
+                , Constants.TITLE_UNKNOWN != pdf_document_bindable.Underlying.TitleCombined ? StringTools.GetFirstWord(pdf_document_bindable.Underlying.TitleCombined) : ""
             );
 
             if (Constants.TITLE_UNKNOWN != pdf_document_bindable.Underlying.TitleCombined) bibtem_item["title"] = pdf_document_bindable.Underlying.TitleCombined;
