@@ -294,9 +294,9 @@ namespace QiqqaUnitTester
     {
         private class Result
         {
-            internal List<List<string>> lines_set;
-            internal List<RISRecord> records = new List<RISRecord>();
-            internal List<BibTexItem> bibtex_items = new List<BibTexItem>();
+            public List<List<string>> lines_set;
+            public List<RISRecord> records = new List<RISRecord>();
+            public List<BibTexItem> bibtex_items = new List<BibTexItem>();
         }
 
         [DataRow("developer.easybib.com__ris-import__sample.txt")]

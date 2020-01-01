@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -87,7 +87,7 @@ namespace Qiqqa.Main
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
 
             string on_your_conscience =
-                "Qiqqa is Copyright � Quantisle 2010-2019.  All rights reserved." +
+                "Qiqqa is Copyright © Quantisle 2010-2019.  All rights reserved." +
                 "If you are reading this in a disassembler, you know you are doing evil and will probably always have to look over your shoulder..."
                 ;
             on_your_conscience = "Main";

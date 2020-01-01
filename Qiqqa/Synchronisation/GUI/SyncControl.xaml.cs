@@ -46,8 +46,6 @@ namespace Qiqqa.Synchronisation.GUI
             ButtonCancel.Icon = Icons.GetAppIcon(Icons.Cancel);
             ButtonCancel.Caption = "Cancel sync";
             ButtonCancel.Click += ButtonCancel_Click;
-
-            IsVisibleChanged += SyncControl_IsVisibleChanged;
         }
 
         private void GRIDCHECKBOX_Checked(object sender, RoutedEventArgs e)
@@ -74,15 +72,6 @@ namespace Qiqqa.Synchronisation.GUI
 
                 default:
                     break;
-            }
-        }
-
-        private void SyncControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            // The guest area
-            if (!ConfigurationManager.Instance.IsGuest)
-            {
-                RegionMustRegister.Visibility = Visibility.Collapsed;
             }
         }
 

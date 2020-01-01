@@ -1,8 +1,22 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+
+#if TEST
+using System.Diagnostics;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using QiqqaTestHelpers;
+using static QiqqaTestHelpers.MiscTestHelpers;
+using Newtonsoft.Json;
+
+using Utilities.Strings;
+#endif
+
+
+#if !TEST
 
 namespace Utilities.Strings
 {
@@ -95,13 +109,77 @@ namespace Utilities.Strings
 
 
         /// <summary>
-        /// Strange name for what this does, which is StripToLettersAndDigits...
+        /// Convert the given text to an ASCII representation as best as possible, mapping non-ASCII characters to their *compatible* equivalent
+        /// whenever possible.
+        /// 
+        /// WARNING: This does *not* transliterate non-euro languages to pinyin or other euro-alphabet representations.
+        /// 
+        /// See also:
+        /// - https://unicode.org/reports/tr15/#Compatibility_Composite_Figure
+        /// - https://stackoverflow.com/questions/3288114/what-does-nets-string-normalize-do/3288164#answer-3288164
+        /// - https://stackoverflow.com/questions/138449/how-to-convert-a-unicode-character-to-its-ascii-equivalent#comment-6466005
+        /// - https://docs.microsoft.com/en-us/dotnet/api/system.text.normalizationform?view=netframework-4.8
+        /// - https://stackoverflow.com/questions/31728249/convert-nepali-unicode-to-plain-text-in-c-sharp
+        /// - http://www.pinyin.info/index.html
+        /// - https://github.com/peterolson/hanzi-tools
         /// </summary>
         /// <param name="source"></param>
         /// <returns></returns>
         public static string StripToASCII(string source)
         {
-            return StripToLettersAndDigits(source);
+            // the normalization to FormD / FormKD splits accented letters in accents+letters
+            // the rest removes those accents (and other non-spacing characters)
+            string rv = source.Normalize(System.Text.NormalizationForm.FormKD);
+            
+            char[] dst = new char[rv.Length];
+            int j = 0;
+            foreach (char c in rv)
+            {
+                UnicodeCategory t = CharUnicodeInfo.GetUnicodeCategory(c);
+                switch (t)
+                {
+                    case UnicodeCategory.UppercaseLetter:
+                    case UnicodeCategory.LowercaseLetter:
+                    case UnicodeCategory.TitlecaseLetter:
+                    case UnicodeCategory.DecimalDigitNumber:
+                    //case UnicodeCategory.LetterNumber:
+                        dst[j++] = c;  // keep as-is
+                        continue;
+
+                    case UnicodeCategory.SpaceSeparator:
+                        dst[j++] = ' ';
+                        continue;
+
+                    case UnicodeCategory.LineSeparator:
+                    case UnicodeCategory.ParagraphSeparator:
+                    case UnicodeCategory.Control:                 // \r and \n are Category:Control!
+                        dst[j++] = '\n';
+                        continue;
+
+                    default:
+                        // skip 'em
+                        continue;
+                }
+            }
+            Array.Resize(ref dst, j);
+            
+            //rv = new string(dst);
+
+            // https://stackoverflow.com/questions/497782/how-to-convert-transliterate-a-string-from-utf8-to-ascii-single-byte-in-c
+            ASCIIEncoding ASCII_encoder = new ASCIIEncoding();
+            Encoder encoder = ASCII_encoder.GetEncoder();
+            encoder.Fallback = new EncoderReplacementFallback(string.Empty);
+
+            // https://docs.microsoft.com/en-us/dotnet/api/system.text.encoder.getbytes
+            byte[] b = new byte[j * 3];
+            int in_l;
+            int out_l;
+            bool done;
+            encoder.Convert(dst, 0, j, b, 0, byteCount: j * 3, flush: true, out in_l, out out_l, out done);
+            Array.Resize(ref b, out_l);
+            rv = Encoding.ASCII.GetString(b);
+
+            return rv;
         }
 
         private static HashSet<char> VOWELS = new HashSet<char> { 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u' };
@@ -539,7 +617,7 @@ namespace Utilities.Strings
             return Regex.Replace(str, @"<[^>]*>", replacement);
         }
 
-        #region --- Test ------------------------------------------------------------------------
+#region --- Test ------------------------------------------------------------------------
 
 #if TEST
         public static void Test_CountWordOccurence()
@@ -549,7 +627,7 @@ namespace Utilities.Strings
         }
 #endif
 
-        #endregion
+#endregion
 
         public static string Reverse(string src)
         {
@@ -623,6 +701,24 @@ namespace Utilities.Strings
             return str;
         }
 
+        public static string GetFirstWord(string source)
+        {
+            //source = StringTools.StripToLettersAndDigits(source);
+            if (String.IsNullOrEmpty(source)) return "";
+
+            char[] WHITESPACE = { ' ', '\t', '\n' };
+            string[] words = source.Split(WHITESPACE);
+
+            foreach (string w in words)
+            {
+                if (w.Length == 0) continue;
+                string wcl = StringTools.StripToLettersAndDigits(w);
+                if (wcl.Length == 0) continue;
+                return w;
+            }
+            return "";
+        }
+
         public static string PagesSetAsString(HashSet<int> pageSet)
         {
             var lst = pageSet.ToArray();
@@ -660,3 +756,75 @@ namespace Utilities.Strings
         }
     }
 }
+
+
+#else
+
+#region --- Test ------------------------------------------------------------------------
+
+namespace QiqqaUnitTester
+{
+    [TestClass]
+    public class StringToolsTester 
+    {
+		// https://stackoverflow.com/questions/29003215/newtonsoft-json-serialization-returns-empty-json-object
+        private class Result
+        {
+            public string result;
+            public string input;
+        }
+
+        [DataRow("Utilities/StringTools/TestFiles/StripToASCII-1.txt")]
+        [DataTestMethod]
+        public void StripToASCII_Test(string data_filepath)
+        {
+            string path = GetNormalizedPathToAnyTestDataTestFile(data_filepath);
+            ASSERT.FileExists(path);
+
+            string data_text = GetTestFileContent(path);
+
+            Result rv = new Result();
+
+            rv.input = data_text;
+            rv.result = StringTools.StripToASCII(data_text);
+
+            // Serialize the result to JSON for easier comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            string json_out = JsonConvert.SerializeObject(rv, Newtonsoft.Json.Formatting.Indented).Replace("\r\n", "\n");
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_out, data_filepath),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
+        [DataRow("Utilities/StringTools/TestFiles/GetFirstWord-1.txt")]
+        [DataRow("Utilities/StringTools/TestFiles/GetFirstWord-2.txt")]
+        [DataRow("Utilities/StringTools/TestFiles/GetFirstWord-3.txt")]
+        [DataTestMethod]
+        public void GetFirstWord_Test(string data_filepath)
+        {
+            string path = GetNormalizedPathToAnyTestDataTestFile(data_filepath);
+            ASSERT.FileExists(path);
+
+            string data_text = GetTestFileContent(path);
+
+            Result rv = new Result();
+
+            rv.input = data_text;
+            rv.result = StringTools.GetFirstWord(data_text);
+
+            // Serialize the result to JSON for easier comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            string json_out = JsonConvert.SerializeObject(rv, Newtonsoft.Json.Formatting.Indented).Replace("\r\n", "\n");
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_out, data_filepath),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+    }
+}
+
+#endregion
+
+#endif
+

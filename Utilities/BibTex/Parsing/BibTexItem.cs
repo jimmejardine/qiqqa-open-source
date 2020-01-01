@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Utilities.BibTex.Parsing
 {
+    /// <summary>
+    /// A completely parsed BibTeX record.
+    /// </summary>
     public class BibTexItem
     {
         public string Type;
