@@ -61,14 +61,16 @@ namespace Utilities.Mathematics.Topics.LDAStuff
             }
         }
 
-        public void MC(int num_iterations)
+        public void MC(int num_iterations, Action<int, int> progress_callback)
         {
             // Run gibbs sampling
-            while (num_iterations > 0)
+            for (int iteration = 0; iteration < num_iterations; iteration++)
             {
+                progress_callback(iteration, num_iterations);
+
                 if (0 == lda_sampler.total_iterations % 10)
                 {
-                    Logging.Info("{0} iterations remain. {1} iterations have run in total", num_iterations, lda_sampler.total_iterations);
+                    Logging.Info("{0} iterations remain. {1} iterations have run in total", iteration, lda_sampler.total_iterations);
                 }
 
                 Thread[] threads = new Thread[NUM_THREADS];
@@ -86,7 +88,6 @@ namespace Utilities.Mathematics.Topics.LDAStuff
                     threads[thread].Join();
                 }
 
-                --num_iterations;
                 ++lda_sampler.total_iterations;
             }
         }

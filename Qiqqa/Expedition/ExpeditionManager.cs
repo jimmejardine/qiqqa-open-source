@@ -28,8 +28,8 @@ namespace Qiqqa.Expedition
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-            Logging.Info("+Rebuilding Expedition");
-            StatusManager.Instance.ClearCancelled("Expedition");
+            StatusManager.Instance.UpdateStatus("Expedition", "Rebuilding Expedition");
+
             try
             {
                 Library.IsBusyRegeneratingTags = true;
@@ -41,6 +41,8 @@ namespace Qiqqa.Expedition
             finally
             {
                 Library.IsBusyRegeneratingTags = false;
+
+                StatusManager.Instance.ClearCancelled("Expedition");
             }
             Logging.Info("-Rebuilding Expedition");
 

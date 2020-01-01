@@ -141,15 +141,15 @@ namespace Qiqqa.Expedition
                     throw new TaskCanceledException("Operation canceled by user");
                 }
 
-                int num_threads = Environment.ProcessorCount;
+                int num_threads = Math.Min(1, (Environment.ProcessorCount - 1) / 2);
                 double alpha = 2.0 / num_topics;
                 double beta = 0.01;
                 data_source.lda_sampler = new LDASampler(alpha, beta, num_topics, data_source.words.Count, data_source.docs.Count, data_source.words_in_docs);
 
                 LDASamplerMCSerial lda_sampler_mc = new LDASamplerMCSerial(data_source.lda_sampler, num_threads);
-                for (int i = 0; i < MAX_TOPIC_ITERATIONS; ++i)
+                lda_sampler_mc.MC(MAX_TOPIC_ITERATIONS, (iteration, num_iterations) =>
                 {
-                    if (!progress_update_delegate("Building themes", i, MAX_TOPIC_ITERATIONS))
+                    if (!progress_update_delegate("Building themes", iteration, num_iterations))
                     {
                         // Parallel.For() doc at https://docs.microsoft.com/en-us/archive/msdn-magazine/2007/october/parallel-performance-optimize-managed-code-for-multi-core-machines
                         // says:
@@ -161,8 +161,7 @@ namespace Qiqqa.Expedition
                         // --> We can thus easily use an exception to terminate/cancel all iterations of Parallel.For()!
                         throw new TaskCanceledException("Operation canceled by user");
                     }
-                    lda_sampler_mc.MC(10);
-                }
+                });
             }
             catch (TaskCanceledException ex)
             {
