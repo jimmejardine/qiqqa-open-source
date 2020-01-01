@@ -9,6 +9,7 @@ using Qiqqa.Documents.PDF;
 using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.Files;
+using Utilities.GUI;
 using Utilities.Language;
 using Utilities.Language.TextIndexing;
 using Utilities.Misc;
@@ -465,6 +466,8 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
         private bool IncrementalBuildNextDocuments()
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             bool did_some_work = false;
 
             // If this library is busy, skip it for now
@@ -584,44 +587,32 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                         {
                             if (pdf_document.DocumentExists)
                             {
-                                bool has_reported_ocr_action = false;
-
                                 for (int page = 1; page <= pdf_document.PDFRenderer.PageCount; ++page)
                                 {
                                     WordList word_list = null;
 
                                     // Don't reprocess any pages that have already been processed
-                                    if (null != pdf_document_in_library.pages_already_indexed)
+                                    if (pdf_document_in_library.pages_already_indexed?.Contains(page) ?? false)
                                     {
-                                        if (pdf_document_in_library.pages_already_indexed.Contains(page))
-                                        {
-                                            continue;
-                                        }
-                                        else if (!has_reported_ocr_action)
-                                        {
-                                            // Report the missing pages as this is *probably* an OCR issue with this PDF/document
-                                            //
-                                            // First check if the OCR actions have delivered already:
-                                            word_list = pdf_document.PDFRenderer.GetOCRText(page, queue_for_ocr: false);
-                                            if (null == word_list)
-                                            {
-                                                Logging.Warn("LibraryIndex::IncrementalBuildNextDocuments: PDF document {0}: page {1} has no text (while pages {2} DO have text!) and will (re)trigger a PDF OCR action. This is probably a document which could not be OCRed properly (for reasons unknown at this time).", pdf_document.Fingerprint, page, StringTools.PagesSetAsString(pdf_document_in_library.pages_already_indexed));
-                                                has_reported_ocr_action = true;
-                                            }
-                                        }
+                                        continue;
                                     }
+
+                                    word_list = pdf_document.PDFRenderer.GetOCRText(page);
 
                                     // Process each word of the document
                                     if (null == word_list)
                                     {
-                                        if (null != pdf_document_in_library.pages_already_indexed)
+                                        // Report the missing pages as this is *probably* an OCR issue with this PDF/document
+                                        //
+                                        // First check if the OCR actions have delivered already:
+                                        if (null != pdf_document_in_library.pages_already_indexed && pdf_document_in_library.pages_already_indexed.Count > 0)
                                         {
-                                            Logging.Warn("LibraryIndex::IncrementalBuildNextDocuments: PDF document {0}: page {1} has no text (while pages {2} DO have text!) and will (re)trigger a PDF OCR action. This is probably a document which could not be OCRed properly (for reasons unknown at this time).", pdf_document.Fingerprint, page, StringTools.PagesSetAsString(pdf_document_in_library.pages_already_indexed));
+                                            Logging.Warn("LibraryIndex::IncrementalBuildNextDocuments: PDF document {0}: page {1} has no text (while pages {2} DO have text!) and will (re)trigger a PDF OCR action.{3}", pdf_document.Fingerprint, page, StringTools.PagesSetAsString(pdf_document_in_library.pages_already_indexed), (page < pdf_document_in_library.pages_already_indexed.Last() ? " This is probably a document which could not be OCRed properly (for reasons unknown at this time)." : ""));
                                         }
 
-                                        word_list = pdf_document.PDFRenderer.GetOCRText(page);
+                                        all_pages_processed_so_far = false;
                                     }
-                                    if (null != word_list)
+                                    else
                                     {
                                         did_some_work = true;
 
@@ -652,10 +643,6 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                                             pdf_document_in_library.pages_already_indexed = new HashSet<int>();
                                         }
                                         pdf_document_in_library.pages_already_indexed.Add(page);
-                                    }
-                                    else
-                                    {
-                                        all_pages_processed_so_far = false;
                                     }
                                 }
                             }
