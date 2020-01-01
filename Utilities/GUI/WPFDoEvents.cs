@@ -181,14 +181,18 @@ namespace Utilities.GUI
             }
         }
 
+        [Conditional("DEBUG")]
         public static void AssertThisCodeIs_NOT_RunningInTheUIThread()
         {
-            ASSERT.Test(!CurrentThreadIsUIThread(), "This code MUST NOT execute in the Main UI Thread.");
+            // This assertion check is important, but not severe enough to barf a hairball when it fails: dont_throw=true
+            ASSERT.Test(!CurrentThreadIsUIThread(), "This code MUST NOT execute in the Main UI Thread.", dont_throw: true);
         }
 
+        [Conditional("DEBUG")]
         public static void AssertThisCodeIsRunningInTheUIThread()
         {
-            ASSERT.Test(CurrentThreadIsUIThread(), "This code MUST execute in the Main UI Thread.");
+            // This assertion check is important, but not severe enough to barf a hairball when it fails: dont_throw=true
+            ASSERT.Test(CurrentThreadIsUIThread(), "This code MUST execute in the Main UI Thread.", dont_throw: true);
         }
     }
 }

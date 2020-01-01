@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,11 +22,20 @@ namespace Utilities.Misc
 
     public static class ASSERT
     {
-        public static void Test(bool test, string message = null)
+        [Conditional("DEBUG")]
+        public static void Test(bool test, string message = null, bool dont_throw = false)
         {
             if (!test)
             {
-                throw new QiqqaAssertTestException(message);
+                Exception ex = new QiqqaAssertTestException(message);
+                Logging.Error(ex, "ASSERTION FAILURE!");
+
+                // IFF This assertion check is important, but *not* severe enough to barf a hairball when it fails: dont_throw=true, hence
+                // we then *do* report the assertion failure via Logging.Error() but we *do not* follow up with throwing an exception.
+                if (!dont_throw)
+                {
+                    throw ex;
+                }
             }
         }
     }
