@@ -88,7 +88,7 @@ namespace Qiqqa.DocumentLibrary
                     Logging.Warn("User chose to stop bulk adding documents to the library");
                     break;
                 }
-                StatusManager.Instance.UpdateStatus("BulkLibraryDocument", String.Format("Adding document {0} of {1} to your library", i, filename_with_metadata_imports.Length), i, filename_with_metadata_imports.Length, true);
+                StatusManager.Instance.UpdateStatus("BulkLibraryDocument", String.Format("Adding document {0} of {1} to your library", i + 1, filename_with_metadata_imports.Length), i, filename_with_metadata_imports.Length, true);
 
                 // Relinquish control to the UI thread to make sure responsiveness remains tolerable at 100% CPU load.
                 if (i % 10 == 7) // random choice for this heuristic: every tenth ADD should *yield* to the UI
@@ -514,7 +514,7 @@ namespace Qiqqa.DocumentLibrary
         {
             for (int i = 0; i < existing_pdf_documents.Count; ++i)
             {
-                StatusManager.Instance.UpdateStatus("BulkLibraryDocument", String.Format("Adding document {0} of {1} to your library", i, existing_pdf_documents.Count), i, existing_pdf_documents.Count);
+                StatusManager.Instance.UpdateStatus("BulkLibraryDocument", String.Format("Adding document {0} of {1} to your library", i + 1, existing_pdf_documents.Count), i, existing_pdf_documents.Count);
 
                 PDFDocument existing_pdf_document = existing_pdf_documents[i];
 
