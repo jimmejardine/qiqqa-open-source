@@ -12,6 +12,7 @@ using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
+using Utilities.Misc;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -56,12 +57,22 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
                 return;
             }
 
-            bool validation_successful = EnsureIntranetLibraryExists();
+            string db_base_path = TxtPath.Text;
+            string db_title = TxtTitle.Text;
+            string db_description = TxtDescription.Text;
 
-            if (validation_successful)
+            SafeThreadPool.QueueUserWorkItem(o =>
             {
-                Close();
-            }
+                bool validation_successful = EnsureIntranetLibraryExists(db_base_path, db_title, db_description);
+
+                if (validation_successful)
+                {
+                    WPFDoEvents.InvokeInUIThread(() =>
+                    {
+                        Close();
+                    });
+                }
+            });
         }
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
@@ -101,11 +112,13 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
             }
         }
 
-        private bool EnsureIntranetLibraryExists()
+        private bool EnsureIntranetLibraryExists(string db_base_path, string db_title, string db_description)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             try
             {
-                string base_path = TxtPath.Text;
+                string base_path = db_base_path;
 
                 if (!Directory.Exists(base_path))
                 {
@@ -121,10 +134,10 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
                     try
                     {
                         IntranetLibraryDetail library_detail = IntranetLibraryDetail.Read(library_detail_path);
-                        if (library_detail.Title != TxtTitle.Text || library_detail.Description != TxtDescription.Text)
+                        if (library_detail.Title != db_title || library_detail.Description != db_description)
                         {
-                            library_detail.Title = TxtTitle.Text;
-                            library_detail.Description = TxtDescription.Text;
+                            library_detail.Title = db_title;
+                            library_detail.Description = db_description;
                             IntranetLibraryDetail.Write(library_detail_path, library_detail);
                         }
                     }
@@ -140,8 +153,8 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
                 {
                     IntranetLibraryDetail library_detail = new IntranetLibraryDetail();
                     library_detail.Id = IntranetLibraryDetail.GetRandomId();
-                    library_detail.Title = TxtTitle.Text;
-                    library_detail.Description = TxtDescription.Text;
+                    library_detail.Title = db_title;
+                    library_detail.Description = db_description;
                     IntranetLibraryDetail.Write(library_detail_path, library_detail);
                 }
 
