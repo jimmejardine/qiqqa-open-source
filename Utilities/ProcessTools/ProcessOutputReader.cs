@@ -19,9 +19,23 @@ namespace Utilities.ProcessTools
 
             if (!stdout_is_binary)
             {
-                process.OutputDataReceived += (sender, e) => { Output.Add(e.Data); };
+                process.OutputDataReceived += (sender, e) => {
+                    // terminated processes CAN produce one last event where e.Data == null: this does not add anything
+                    // and causes GetOutputsDumpString() to fail with an internal List<> exception error otherwise:
+                    if (e.Data != null)
+                    {
+                        Output.Add(e.Data);
+                    }
+                };
             }
-            process.ErrorDataReceived += (sender, e) => { Error.Add(e.Data); };
+            process.ErrorDataReceived += (sender, e) => {
+                // terminated processes CAN produce one last event where e.Data == null: this does not add anything
+                // and causes GetOutputsDumpString() to fail with an internal List<> exception error otherwise:
+                if (e.Data != null)
+                {
+                    Error.Add(e.Data);
+                }
+            };
             if (!stdout_is_binary)
             {
                 process.BeginOutputReadLine();
@@ -82,6 +96,7 @@ namespace Utilities.ProcessTools
             //
             // HACK: we cope with that by re-iterating over the list until success is ours...   :-S :-S  hacky!
 			Exception odd_ex = null;
+            List<string> orig_out = new List<string>(Output);
 			
             for (int i = 10; i > 0; i--)
             {
