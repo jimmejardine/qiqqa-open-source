@@ -264,7 +264,7 @@ namespace Qiqqa.DocumentLibrary
                     elapsed = clk.ElapsedMilliseconds;
                     if (prev_clk + 1000 <= elapsed)
                     {
-                        StatusManager.Instance.UpdateStatus("LibraryInitialLoad", String.Format("Loading your library '{0}'", WebLibraryDetail.DescriptiveTitle), i, library_items.Count);
+                        StatusManager.Instance.UpdateStatus("LibraryInitialLoad", String.Format("Loading your library '{0}': {1} of {2} documents", WebLibraryDetail.DescriptiveTitle, i, library_items.Count), i, library_items.Count);
                         Logging.Info("Library '{2}': Loaded {0}/{1} documents", i, library_items.Count, WebLibraryDetail.DescriptiveTitle);
                         prev_clk = elapsed;
 
@@ -1154,7 +1154,7 @@ namespace Qiqqa.DocumentLibrary
                 // code which depends on a certain valid lifetime of that instance and that code should dispose of the record once it is done using it...
                 //
                 // Cloning...
-                web_library_detail = web_library_detail.CloneSansLibraryReference();
+                web_library_detail = web_library_detail?.CloneSansLibraryReference();
 #endif
             }
             catch (Exception ex)
