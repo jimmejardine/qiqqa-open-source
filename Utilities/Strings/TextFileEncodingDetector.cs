@@ -139,7 +139,7 @@ OF SUCH DAMAGE.
             InputFileStream.Position = 0;
 
 
-            //First read only what we need for BOM detection
+            // First read only what we need for BOM detection
             byte[] bomBytes = new byte[InputFileStream.Length > 4 ? 4 : InputFileStream.Length];
             InputFileStream.Read(bomBytes, 0, bomBytes.Length);
 
@@ -390,7 +390,7 @@ OF SUCH DAMAGE.
                 //   approx 40%, so the chances of hitting this threshold by accident in random data are 
                 //   VERY low). 
 
-                if ((Perunage.Calc(suspiciousUTF8SequenceCount * 500000, SampleBytes.Length) >= 1) //suspicious sequences
+                if ((Perunage.Calc(suspiciousUTF8SequenceCount * 500000, SampleBytes.Length) >= 0.999) //suspicious sequences
                     && (
                            //all suspicious, so cannot evaluate proportion of US-Ascii
                            Perunage.Calc(likelyUSASCIIBytesInSample, SampleBytes.Length - suspiciousUTF8BytesTotal) >= 0.8
