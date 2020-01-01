@@ -72,8 +72,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
         private static string GetFirstWord(string source)
         {
             if (String.IsNullOrEmpty(source)) return "";
+            source = StringTools.StripToLettersAndDigits(source);
             string[] words = source.Split(' ');
-            return StringTools.StripToLettersAndDigits(words[0]);
+            return words.Length > 0 ? words[0] : null;
         }
 
         private void ButtonBibTexClear_Click(object sender, RoutedEventArgs e)

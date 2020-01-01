@@ -91,7 +91,7 @@ namespace Qiqqa.Exporting
                 }
                 catch (Exception ex)
                 {
-                    Logging.Error(ex, "There was a problem exporting the tab representation for " + pdf_document);
+                    Logging.Error(ex, "There was a problem exporting the tab representation for document {0}", pdf_document.Fingerprint);
                 }
 
                 sb.AppendLine();

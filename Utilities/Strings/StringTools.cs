@@ -623,6 +623,31 @@ namespace Utilities.Strings
             return str;
         }
 
+        public static string GetFirstWord(string source)
+        {
+            if (String.IsNullOrEmpty(source)) return "";
+            char[] WHITESPACE = { ' ', '\t', '\n' };
+            string[] words = source.Split(WHITESPACE);
+
+            foreach (string w in words)
+            {
+                bool is_word = true;
+                foreach (char c in w)
+                {
+                    if (!Char.IsLetter(c))
+                    {
+                        is_word = false;
+                        break;
+                    }
+                }
+                if (is_word)
+                {
+                    return w;
+                }
+            }
+            return "";
+        }
+
         public static string PagesSetAsString(HashSet<int> pageSet)
         {
             var lst = pageSet.ToArray();

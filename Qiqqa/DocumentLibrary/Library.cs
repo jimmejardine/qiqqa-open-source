@@ -349,7 +349,7 @@ namespace Qiqqa.DocumentLibrary
             }
             catch (Exception ex)
             {
-                Logging.Warn(ex, "Couldn't load document from {0}", library_item.fingerprint);
+                Logging.Error(ex, "Couldn't load document from {0}", library_item.fingerprint);
             }
         }
 
