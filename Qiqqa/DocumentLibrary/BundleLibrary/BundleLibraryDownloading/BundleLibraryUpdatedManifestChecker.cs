@@ -15,6 +15,8 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
     {
         internal static void Check(Library library)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             // We can operate only on bundle libs
             if (!library.WebLibraryDetail.IsBundleLibrary)
             {

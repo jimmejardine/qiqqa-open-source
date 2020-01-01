@@ -18,6 +18,8 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
     {
         internal static void Install(BundleLibraryManifest manifest, byte[] library_bundle_binary)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             string temp_filename = Path.GetTempFileName();
             try
             {
@@ -39,6 +41,8 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
 
         internal static void Install(BundleLibraryManifest manifest, string library_bundle_filename)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             Library library = WebLibraryManager.Instance.GetLibrary(manifest.Id);
             if (null != library)
             {

@@ -18,6 +18,8 @@ namespace Qiqqa.DocumentLibrary.AutoSyncStuff
 
         internal void DoMaintenance()
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             List<string> library_identifiers = new List<string>();
             List<WebLibraryDetail> web_library_details = WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibrariesWithoutGuest;
 

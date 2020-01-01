@@ -61,6 +61,8 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleDownloading
 
         private void ManageDownload(BundleLibraryManifest manifest)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             string url = manifest.BaseUrl + @"/" + manifest.Id + Common.EXT_BUNDLE;
             using (UrlDownloader.DownloadAsyncTracker download_async_tracker = UrlDownloader.DownloadWithNonBlocking(url))
             {
