@@ -49,7 +49,7 @@ namespace Qiqqa.Exporting
         {
             try
             {
-                int MAX_STEPS = 8;
+                const int MAX_STEPS = 8;
 
                 // Build the directory structure
                 StatusManager.Instance.ClearCancelled("LibraryExport");

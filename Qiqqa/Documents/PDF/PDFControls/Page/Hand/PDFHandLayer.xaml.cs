@@ -144,7 +144,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
                         MouseMove -= PDFHandLayer_MouseMove;
 
                         DataContext = null;
-                    }, Dispatcher);
+                    });
                 }
 
                 // Clear the references for sanity's sake

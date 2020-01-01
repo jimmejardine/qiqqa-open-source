@@ -135,7 +135,7 @@ namespace Qiqqa.Common.TagManagement
                     // TagsBundle = null;  <-- forbidden to reset as that MAY trigger a dependency update! (https://github.com/jimmejardine/qiqqa-open-source/issues/121)
 
                     ObjTagsPanel.Children.Clear();
-                }, Dispatcher);
+                });
 
                 // Get rid of managed resources
                 wdpcn?.Dispose();

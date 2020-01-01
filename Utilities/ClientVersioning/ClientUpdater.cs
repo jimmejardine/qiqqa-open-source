@@ -199,7 +199,7 @@ namespace Utilities.ClientVersioning
                 release_notes = release_notes.Trim();
 
                 //  switch to the gui thread
-                Application.Current.Dispatcher.Invoke((Action)(() => _showReleaseNotesDelegate(release_notes)));
+                WPFDoEvents.InvokeInUIThread(() => _showReleaseNotesDelegate(release_notes));
             }
             catch (Exception e)
             {

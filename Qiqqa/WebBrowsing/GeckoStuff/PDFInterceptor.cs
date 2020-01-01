@@ -13,6 +13,7 @@ using Qiqqa.Documents.PDF;
 using Qiqqa.Documents.PDF.PDFControls;
 using Utilities;
 using Utilities.Files;
+using Utilities.GUI;
 using Utilities.Misc;
 
 namespace Qiqqa.WebBrowsing.GeckoStuff
@@ -148,23 +149,24 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
                 string temp_pdf_filename = TempFile.GenerateTempFilename("pdf");
                 File.WriteAllBytes(temp_pdf_filename, captured_data);
 
+                SafeThreadPool.QueueUserWorkItem(o =>
+                {
                 PDFDocument pdf_document = Library.GuestInstance.AddNewDocumentToLibrary_SYNCHRONOUS(new FilenameWithMetadataImport
                 {
                     Filename = temp_pdf_filename,
                     OriginalFilename = document_source_filename,
                     SuggestedDownloadSourceURI = document_source_url
                 }, true);
-                File.Delete(temp_pdf_filename);
+                    File.Delete(temp_pdf_filename);
 
-                Application.Current.Dispatcher.Invoke
-                (
-                    new Action(() =>
-                    {
-                        PDFReadingControl pdf_reading_control = MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);
-                        pdf_reading_control.EnableGuestMoveNotification(potential_attachment_pdf_document);
-                    }),
-                    DispatcherPriority.Background
-                );
+                    WPFDoEvents.InvokeInUIThread(() =>
+                        {
+                            PDFReadingControl pdf_reading_control = MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);
+                            pdf_reading_control.EnableGuestMoveNotification(potential_attachment_pdf_document);
+                        },
+                        priority: DispatcherPriority.Background
+                    );
+                });
             }
             catch (Exception ex)
             {
@@ -179,9 +181,7 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
 
         private void DownloadAndInstallAcrobatReader(object obj)
         {
-            Application.Current.Dispatcher.BeginInvoke(
-                new Action(() => MainWindowServiceDispatcher.Instance.OpenUrlInBrowser(WebsiteAccess.Url_AdobeAcrobatDownload, true))
-            );
+            WPFDoEvents.InvokeAsyncInUIThread(() => MainWindowServiceDispatcher.Instance.OpenUrlInBrowser(WebsiteAccess.Url_AdobeAcrobatDownload, true));
         }
     }
 }

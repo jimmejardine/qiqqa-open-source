@@ -67,8 +67,8 @@ namespace Qiqqa.Documents.BibTeXEditor
             //ObjErrorPanel.Opacity = .3;
             ObjErrorPanel.IsHitTestVisible = false;
 
-            ObjBibTeXErrorText.Background = ThemeColours.Background_Brush_Warning.Clone();
-            ObjBibTeXErrorText.Background.Opacity = 1.3;
+            ObjBibTeXErrorText.Background = ThemeColours.Background_Brush_Warning;
+            //ObjBibTeXErrorText.Background.Opacity = 1.0;
 
             // Initial visibility
             //
@@ -159,69 +159,79 @@ namespace Qiqqa.Documents.BibTeXEditor
             BibTeXModeToggleButtonRef = new WeakReference<FrameworkElement>(BibTeXModeToggleButton);
             BibTeXUndoEditButtonRef = new WeakReference<FrameworkElement>(BibTeXUndoEditButton);
 
-            if (BibTeXParseErrorButton is AugmentedButton)
+            // button references MAY be NULL when this method is invoked on dialog close as part of the cleanup:
+            if (BibTeXParseErrorButton != null)
             {
-                AugmentedButton btn = BibTeXParseErrorButton as AugmentedButton;
-                btn.Caption = "View parse errors";
-                btn.Icon = Icons.GetAppIcon(Icons.BibTeXParseError2);
-                if (IconHeight > 0)
+                if (BibTeXParseErrorButton is AugmentedButton)
                 {
-                    btn.IconHeight = IconHeight;
+                    AugmentedButton btn = BibTeXParseErrorButton as AugmentedButton;
+                    btn.Caption = "View parse errors";
+                    btn.Icon = Icons.GetAppIcon(Icons.BibTeXParseError2);
+                    if (IconHeight > 0)
+                    {
+                        btn.IconHeight = IconHeight;
+                    }
                 }
-            }
-            BibTeXParseErrorButton.Visibility = Visibility.Visible;
-            BibTeXParseErrorButton.IsEnabled = false;
-            BibTeXParseErrorButton.Opacity = 0.3;
-            BibTeXParseErrorButton.ToolTip = "Shows BibTeX errors when they occur";
-            if (BibTeXParseErrorButton is Image)
-            {
-                Image imgBtn = BibTeXParseErrorButton as Image;
-                imgBtn.Source = Icons.GetAppIcon(Icons.BibTeXParseError2);
-                RenderOptions.SetBitmapScalingMode(imgBtn, BitmapScalingMode.HighQuality);
+                BibTeXParseErrorButton.Visibility = Visibility.Visible;
+                BibTeXParseErrorButton.IsEnabled = false;
+                BibTeXParseErrorButton.Opacity = 0.3;
+                BibTeXParseErrorButton.ToolTip = "Shows BibTeX errors when they occur";
+                if (BibTeXParseErrorButton is Image)
+                {
+                    Image imgBtn = BibTeXParseErrorButton as Image;
+                    imgBtn.Source = Icons.GetAppIcon(Icons.BibTeXParseError2);
+                    RenderOptions.SetBitmapScalingMode(imgBtn, BitmapScalingMode.HighQuality);
+                }
             }
 
-            if (BibTeXModeToggleButton is AugmentedButton)
+            if (BibTeXModeToggleButton != null)
             {
-                AugmentedButton btn = BibTeXModeToggleButton as AugmentedButton;
-                btn.Caption = "Toggle edit mode";
-                btn.Icon = Icons.GetAppIcon(Icons.BibTeXEditToggleMode1);
-                if (IconHeight > 0)
+                if (BibTeXModeToggleButton is AugmentedButton)
                 {
-                    btn.IconHeight = IconHeight;
+                    AugmentedButton btn = BibTeXModeToggleButton as AugmentedButton;
+                    btn.Caption = "Toggle edit mode";
+                    btn.Icon = Icons.GetAppIcon(Icons.BibTeXEditToggleMode1);
+                    if (IconHeight > 0)
+                    {
+                        btn.IconHeight = IconHeight;
+                    }
                 }
-            }
-            BibTeXModeToggleButton.Visibility = Visibility.Visible;
-            BibTeXModeToggleButton.ToolTip = "Toggle between a BibTeX grid ('parsed mode') and raw BibTeX text ('raw/unparssed mode').";
-            if (BibTeXModeToggleButton is Image)
-            {
-                Image imgBtn = BibTeXModeToggleButton as Image;
-                imgBtn.Source = Icons.GetAppIcon(Icons.BibTeXEditToggleMode1);
-                RenderOptions.SetBitmapScalingMode(imgBtn, BitmapScalingMode.HighQuality);
-            }
-            BibTeXModeToggleButton.Cursor = Cursors.Hand;
+                BibTeXModeToggleButton.Visibility = Visibility.Visible;
+                BibTeXModeToggleButton.ToolTip = "Toggle between a BibTeX grid ('parsed mode') and raw BibTeX text ('raw/unparssed mode').";
+                if (BibTeXModeToggleButton is Image)
+                {
+                    Image imgBtn = BibTeXModeToggleButton as Image;
+                    imgBtn.Source = Icons.GetAppIcon(Icons.BibTeXEditToggleMode1);
+                    RenderOptions.SetBitmapScalingMode(imgBtn, BitmapScalingMode.HighQuality);
+                }
+                BibTeXModeToggleButton.Cursor = Cursors.Hand;
 #if false
-            BibTeXModeToggleButton.MouseDown += ToggleBibTeXMode;
+                BibTeXModeToggleButton.MouseDown += ToggleBibTeXMode;
 #endif
-
-            if (BibTeXUndoEditButton is AugmentedButton)
-            {
-                AugmentedButton btn = BibTeXUndoEditButton as AugmentedButton;
-                btn.Caption = "Undo";
-                btn.Icon = Icons.GetAppIcon(Icons.Previous2);
-                if (IconHeight > 0)
-                {
-                    btn.IconHeight = IconHeight;
-                }
             }
-            BibTeXModeToggleButton.Visibility = Visibility.Visible;
-            BibTeXModeToggleButton.ToolTip = null;
-            BibTeXUndoEditButton.IsEnabled = false;
-            BibTeXUndoEditButton.Opacity = 0.3;
-            if (BibTeXUndoEditButton is Image)
+
+            if (BibTeXUndoEditButton != null)
             {
-                Image imgBtn = BibTeXUndoEditButton as Image;
-                imgBtn.Source = Icons.GetAppIcon(Icons.Previous2);
-                RenderOptions.SetBitmapScalingMode(imgBtn, BitmapScalingMode.HighQuality);
+                if (BibTeXUndoEditButton is AugmentedButton)
+                {
+                    AugmentedButton btn = BibTeXUndoEditButton as AugmentedButton;
+                    btn.Caption = "Undo";
+                    btn.Icon = Icons.GetAppIcon(Icons.Previous2);
+                    if (IconHeight > 0)
+                    {
+                        btn.IconHeight = IconHeight;
+                    }
+                }
+                BibTeXModeToggleButton.Visibility = Visibility.Visible;
+                BibTeXModeToggleButton.ToolTip = null;
+                BibTeXUndoEditButton.IsEnabled = false;
+                BibTeXUndoEditButton.Opacity = 0.3;
+                if (BibTeXUndoEditButton is Image)
+                {
+                    Image imgBtn = BibTeXUndoEditButton as Image;
+                    imgBtn.Source = Icons.GetAppIcon(Icons.Previous2);
+                    RenderOptions.SetBitmapScalingMode(imgBtn, BitmapScalingMode.HighQuality);
+                }
             }
         }
 
@@ -680,10 +690,17 @@ namespace Qiqqa.Documents.BibTeXEditor
                     }
 
                     // discard all references which might otherwise potentially cause memleaks due to (potential) references cycles:
-                    BibTeXParseErrorButtonRef?.SetTarget(null);
-                    BibTeXModeToggleButtonRef?.SetTarget(null);
-                    BibTeXUndoEditButtonRef?.SetTarget(null);
-                }, Dispatcher);
+                    try
+                    {
+                        BibTeXParseErrorButtonRef?.SetTarget(null);
+                        BibTeXModeToggleButtonRef?.SetTarget(null);
+                        BibTeXUndoEditButtonRef?.SetTarget(null);
+                    }
+                    catch (Exception ex)
+                    {
+                        //ignore
+                    }
+                });
 
                 bindable = null;
                 // BibTeX = "";  <-- forbidden to reset as that MAY trigger a dependency update! (https://github.com/jimmejardine/qiqqa-open-source/issues/121)

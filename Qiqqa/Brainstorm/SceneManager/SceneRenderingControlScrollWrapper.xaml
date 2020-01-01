@@ -1,21 +1,19 @@
-﻿<Grid x:Class="Qiqqa.Brainstorm.SceneManager.SceneRenderingControlScrollWrapper"
+<Grid x:Class="Qiqqa.Brainstorm.SceneManager.SceneRenderingControlScrollWrapper"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:local_scene="clr-namespace:Qiqqa.Brainstorm.SceneManager"
 >
-  <Grid.RowDefinitions>
-    <RowDefinition />    
-    <RowDefinition Height="Auto" />
-  </Grid.RowDefinitions>
-
-  <Grid.ColumnDefinitions>
-    <ColumnDefinition />
-    <ColumnDefinition Width="Auto"/>
-  </Grid.ColumnDefinitions>
-
-  <local_scene:SceneRenderingControl x:Name="ObjSceneRenderingControl" />
-  <ScrollBar Grid.Row="1" Orientation="Horizontal" Name="ScrollHorizonal" />
-  <ScrollBar Grid.Column="1" Orientation="Vertical" Name="ScrollVertical" />  
+    <Grid.RowDefinitions>
+        <RowDefinition />
+        <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition />
+        <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+    <local_scene:SceneRenderingControl x:Name="ObjSceneRenderingControl" />
+    <ScrollBar Grid.Row="1" Orientation="Horizontal" Name="ScrollHorizonal" />
+    <ScrollBar Grid.Column="1" Orientation="Vertical" Name="ScrollVertical" />
 </Grid>

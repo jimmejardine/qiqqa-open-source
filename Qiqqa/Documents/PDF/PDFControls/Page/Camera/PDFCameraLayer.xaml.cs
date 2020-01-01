@@ -165,7 +165,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
                         }
 
                         drag_area_tracker.OnDragComplete -= drag_area_tracker_OnDragComplete;
-                    }, Dispatcher);
+                    });
                 }
 
                 // Clear the references for sanity's sake

@@ -18,13 +18,13 @@ namespace Qiqqa.Synchronisation.MetadataSync
         {
             SynchronisationStates synchronisation_states = new SynchronisationStates();
 
-            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(library), "Building sync state from local history", 0, 1);
+            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(library), "Building sync state from local history");
             BuildFromHistoricalSyncFile(historical_sync_file, ref synchronisation_states);
 
-            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(library), "Building sync state from local files", 0, 1);
+            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(library), "Building sync state from local files");
             BuildFromLocal(library, ref synchronisation_states);
 
-            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(library), "Building sync state from Web/Intranet Library", 0, 1);
+            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(library), "Building sync state from Web/Intranet Library");
             BuildFromRemote(library, ref synchronisation_states);
 
             FilterSynchronisationStates(ref synchronisation_states);

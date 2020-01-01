@@ -1,26 +1,21 @@
-﻿<UserControl x:Class="Qiqqa.Documents.PDF.PDFControls.Page.Annotation.PDFAnnotationItem"
+<UserControl x:Class="Qiqqa.Documents.PDF.PDFControls.Page.Annotation.PDFAnnotationItem"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
     xmlns:tag="clr-namespace:Qiqqa.Common.TagManagement"
     >
     <DockPanel>
-     
         <DockPanel DockPanel.Dock="Bottom" Name="PanelAdditionalControls">
-          <Image DockPanel.Dock="Right" Name="ButtonAnnotationDetails" />
-
-          <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-            <tag:TagEditorControl TagsBundle="{Binding Tags, Mode=TwoWay}" Margin="5,0,0,0" x:Name="ObjTagEditorControl" />
-          </StackPanel>
+            <Image DockPanel.Dock="Right" Name="ButtonAnnotationDetails" />
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <tag:TagEditorControl TagsBundle="{Binding Tags, Mode=TwoWay}" Margin="5,0,0,0" x:Name="ObjTagEditorControl" />
+            </StackPanel>
         </DockPanel>
-
-
-      <TextBox Name="TextAnnotationText" TextWrapping="Wrap" Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True">
-        <!-- This blocks the infragistics background style from making the textbox white on mouseover -->
-        <TextBox.Resources>
-          <Style TargetType="{x:Type TextBox}" />
-        </TextBox.Resources>
-      </TextBox>
-
+        <TextBox Name="TextAnnotationText" TextWrapping="Wrap" Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True">
+            <!-- This blocks the infragistics background style from making the textbox white on mouseover -->
+            <TextBox.Resources>
+                <Style TargetType="{x:Type TextBox}" />
+            </TextBox.Resources>
+        </TextBox>
     </DockPanel>
 </UserControl>

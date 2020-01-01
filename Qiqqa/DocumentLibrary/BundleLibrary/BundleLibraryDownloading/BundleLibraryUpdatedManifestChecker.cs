@@ -5,6 +5,7 @@ using System.Windows;
 using icons;
 using Qiqqa.Common;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
+using Utilities.GUI;
 using Utilities.Internet;
 using Utilities.Misc;
 
@@ -14,6 +15,8 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
     {
         internal static void Check(Library library)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             // We can operate only on bundle libs
             if (!library.WebLibraryDetail.IsBundleLibrary)
             {
@@ -81,11 +84,11 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
 
         public void Download(object obj)
         {
-            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            WPFDoEvents.InvokeAsyncInUIThread(() =>
             {
                 MainWindowServiceDispatcher.Instance.ShowBundleLibraryJoiningControl(manifest_latest);
             }
-            ));
+            );
         }
 
         public void NoThanks(object obj)

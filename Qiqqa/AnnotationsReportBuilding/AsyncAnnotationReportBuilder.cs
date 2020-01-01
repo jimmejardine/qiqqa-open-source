@@ -720,7 +720,7 @@ namespace Qiqqa.AnnotationsReportBuilding
             }
             else
             {
-                MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document, annotation_work.pdf_annotation.Page);
+                MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document, page: annotation_work.pdf_annotation.Page);
             }
         }
 

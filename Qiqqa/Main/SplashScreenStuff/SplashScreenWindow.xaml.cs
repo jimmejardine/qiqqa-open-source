@@ -3,6 +3,8 @@ using System.IO;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Utilities.GUI;
+using Utilities.Misc;
 
 namespace Qiqqa.Main.SplashScreenStuff
 {
@@ -30,6 +32,10 @@ namespace Qiqqa.Main.SplashScreenStuff
         {
             InitializeComponent();
 
+            this.Closed += SplashScreenWindow_Closed;
+
+            StatusManager.Instance.OnStatusEntryUpdate += StatusManager_OnStatusEntryUpdate;
+
             // Borders
             WindowStyle = WindowStyle.None;
             ShowInTaskbar = false;
@@ -47,19 +53,31 @@ namespace Qiqqa.Main.SplashScreenStuff
             TxtMessage.Background = new SolidColorBrush(Color.FromArgb(128, 64, 64, 64));
             TxtMessage.Foreground = Brushes.White;
 
-            UpdateMessage("Welcome to Qiqqa!");
+            StatusManager.Instance.UpdateStatus("AppStart", "Welcome to Qiqqa!");
         }
 
-        public void UpdateMessage(string message, params object[] args)
+        private void SplashScreenWindow_Closed(object sender, EventArgs e)
         {
-            UpdateMessage(String.Format(message, args));
+            StatusManager.Instance.OnStatusEntryUpdate -= StatusManager_OnStatusEntryUpdate;
         }
 
-        public void UpdateMessage(string message)
+        public void UpdateStatusMessage(string message)
         {
             TxtMessage.Text = message;
 
             Utilities.GUI.WPFDoEvents.RepaintUIElement(TxtMessage);
+        }
+
+        private void StatusManager_OnStatusEntryUpdate(StatusManager.StatusEntry status_entry)
+        {
+            string msg = status_entry.LastStatusMessage;
+
+            if (status_entry.current_update_number < status_entry.total_update_count)
+            {
+                msg = String.Format("{0}: {1:P1}", msg, Utilities.Mathematics.Perunage.Calc(status_entry.current_update_number, status_entry.total_update_count));
+            }
+
+            WPFDoEvents.InvokeInUIThread(() => UpdateStatusMessage(msg));
         }
     }
 }

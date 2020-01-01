@@ -1,12 +1,12 @@
-﻿<ToggleButton x:Class="Utilities.GUI.AugmentedToggleButton"
+<ToggleButton x:Class="Utilities.GUI.AugmentedToggleButton"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local_gui="clr-namespace:Utilities.GUI"
     >
-  <DockPanel Background="Transparent">
-    <Image Name="ImageIcon" Width="32" Height="32" />
-    <local_gui:AugmentedSpacer x:Name="ObjSpacer" Visibility="Collapsed" />
-    <TextBlock Name="TextCaption" Visibility="Collapsed"  TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" />
-    <Grid Name="GridFiller" />
-  </DockPanel>
+    <DockPanel Background="Transparent">
+        <Image Name="ImageIcon" Width="32" Height="32" />
+        <local_gui:AugmentedSpacer x:Name="ObjSpacer" Visibility="Collapsed" />
+        <TextBlock Name="TextCaption" Visibility="Collapsed"  TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <Grid Name="GridFiller" />
+    </DockPanel>
 </ToggleButton>

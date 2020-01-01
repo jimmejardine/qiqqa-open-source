@@ -327,6 +327,7 @@ namespace Utilities.Mathematics.Topics.LDAStuff
                 // Calculate the density
                 float[,] densityoftopicsindocuments = DensityOfTopicsInDocuments;
                 Parallel.For(0, lda.NUM_DOCS, (doc) =>
+                //for (int doc = 0; doc < lda.NUM_DOCS; ++doc)
                 {
                     TopicProbability[] density_of_topics_in_doc = new TopicProbability[lda.NUM_TOPICS];
 

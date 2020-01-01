@@ -7,6 +7,7 @@ using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Qiqqa.Documents.PDF.PDFControls;
 using Utilities;
+using Utilities.GUI;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -49,6 +50,8 @@ namespace Qiqqa.Common
 
         public static void RestoreDesktop()
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             try
             {
                 // Get the remembrances
@@ -65,7 +68,7 @@ namespace Qiqqa.Common
                                 string library_id = parts[1];
 
                                 Library library = WebLibraryManager.Instance.GetLibrary(library_id);
-                                MainWindowServiceDispatcher.Instance.OpenLibrary(library);
+                                WPFDoEvents.InvokeInUIThread(() => MainWindowServiceDispatcher.Instance.OpenLibrary(library));
                             }
                             else if (restore_setting.StartsWith("PDF_DOCUMENT"))
                             {
@@ -81,7 +84,7 @@ namespace Qiqqa.Common
                                 }
                                 else
                                 {
-                                    MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);
+                                    WPFDoEvents.InvokeInUIThread(() => MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document));
                                 }
                             }
                         }
@@ -96,6 +99,8 @@ namespace Qiqqa.Common
             {
                 Logging.Error(ex, "There was a problem restoring the saved desktop state.");
             }
+
+            Logging.Warn("Finished restoring desktop.");
         }
 
         private static string Filename => Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.BaseDirectoryForUser, @"Qiqqa.restore_desktop"));

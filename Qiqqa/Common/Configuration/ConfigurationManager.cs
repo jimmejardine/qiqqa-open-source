@@ -15,7 +15,8 @@ using UConf = Utilities.Configuration;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
-
+using Utilities.Misc;
+using System.Diagnostics;
 
 namespace Qiqqa.Common.Configuration
 {
@@ -99,7 +100,7 @@ namespace Qiqqa.Common.Configuration
         private void Shutdown()
         {
             Logging.Info("ConfigurationManager is saving the configuration at shutdown");
-            SaveConfigurationRecord();
+            SaveConfigurationRecord(force_save: true);
             SaveSearchHistory();
         }
 
@@ -169,6 +170,10 @@ namespace Qiqqa.Common.Configuration
                 configuration_record = new ConfigurationRecord();
             }
 
+            // Testing....
+            configuration_record.TermsAndConditionsAccepted = false;
+            configuration_record.SyncTermsAccepted = false;
+
             // Attach a bindable to the configuration record so that GUIs can update it
             configuration_record_bindable = new AugmentedBindable<ConfigurationRecord>(configuration_record);
             configuration_record_bindable.PropertyChanged += configuration_record_bindable_PropertyChanged;
@@ -184,7 +189,13 @@ namespace Qiqqa.Common.Configuration
         {
             if (sender == configuration_record_bindable)
             {
-                SaveConfigurationRecord();
+                // Saving the config on propertyy change is non-essential as another save action will be triggered
+                // from the application shutdown handler anyway. Therefor we delegate the inherent file I/O to 
+                // a background task:
+                SafeThreadPool.QueueUserWorkItem(o =>
+                {
+                    SaveConfigurationRecord();
+                }, skip_task_at_app_shutdown: true);
 
                 GeckoManager.SetupProxyAndUserAgent(false);
             }
@@ -194,8 +205,31 @@ namespace Qiqqa.Common.Configuration
             }
         }
 
-        public void SaveConfigurationRecord()
+        private Stopwatch lastSaveTimestamp = null;
+
+        public void SaveConfigurationRecord(bool force_save = false)
         {
+            if (lastSaveTimestamp == null)
+            {
+                lastSaveTimestamp = Stopwatch.StartNew();
+                force_save = true;
+            }
+            else
+            {
+                long elapsed = lastSaveTimestamp.ElapsedMilliseconds;
+                lastSaveTimestamp.Restart();
+                if (!force_save)
+                {
+                    // only update the stored config file every minute or so, no matter how many changes are made.
+                    force_save = (elapsed >= 60 * 1000);
+                }
+            }
+            // if the flag hasn't been set by now, we're looking at a too frequent request to save the qiqqa config file.
+            if (!force_save)
+            {
+                return;
+            }
+
 #if false           // we don't 'do' old configuration file format anymore on (re)write; instead we use portable JSON
             try
             {

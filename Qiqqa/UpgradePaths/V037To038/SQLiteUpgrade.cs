@@ -24,7 +24,7 @@ namespace Qiqqa.UpgradePaths.V037To038
             }
             );
 
-        internal static void RunUpgrade(SplashScreenWindow splashscreen_window)
+        internal static void RunUpgrade()
         {
             Logging.Info("Upgrading from 037 to 038");
 
@@ -63,7 +63,7 @@ namespace Qiqqa.UpgradePaths.V037To038
                                 foreach (string full_filename in full_filenames)
                                 {
                                     ++info_item_count;
-                                    splashscreen_window.UpdateMessage("Upgrading library {0}/{1}: {2:P0}", info_library_count, library_directories.Length, info_item_count / (double)full_filenames.Length);
+                                    StatusManager.Instance.UpdateStatus("DBUpgrade", String.Format("Upgrading library {0}/{1}", info_library_count, library_directories.Length), info_item_count, full_filenames.Length);
 
                                     string fingerprint = Path.GetFileNameWithoutExtension(full_filename);
                                     string extension = Path.GetExtension(full_filename).Trim('.');
@@ -87,7 +87,7 @@ namespace Qiqqa.UpgradePaths.V037To038
                 }
             }
 
-            splashscreen_window.UpdateMessage("Finished migrating libraries.");
+            StatusManager.Instance.UpdateStatus("DBUpgrade", "Finished migrating libraries.");
         }
 
         public static string BaseDirectoryForQiqqa

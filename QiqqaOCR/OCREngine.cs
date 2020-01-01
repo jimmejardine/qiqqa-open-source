@@ -165,6 +165,12 @@ namespace QiqqaOCR
                     thread_ocr.Join(100);
                 }
             }
+
+            // propagate any exception thrown by the worker process
+            if (null != exception_ocr)
+            {
+                throw new Exception("Failure", exception_ocr);
+            }
         }
 
         private static void ThreadOCRMainEntry(object arg)
@@ -193,14 +199,15 @@ namespace QiqqaOCR
                     Logging.Info("We have an OCR word list of length {0} for page {1}", word_list?.Count, pgnum);
 
                     // Check that we have something to write
-                    if (null != word_list)
+                    if (null != word_list && word_list.Count > 0)
                     {
                         word_lists[pgnum] = word_list;
                         page_ocr_successes[pgnum] = true;
                     }
                     else
                     {
-                        word_lists[pgnum] = new WordList();
+                        // FAKE a word list to shut up Qiqqa for the time being!
+                        word_lists[pgnum] = FakeEngine.ConvertToWordList(); // new WordList();
                         page_ocr_successes[pgnum] = false;
                     }
                 }

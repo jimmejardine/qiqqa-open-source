@@ -1,15 +1,15 @@
-﻿<UserControl x:Class="Qiqqa.Documents.PDF.InfoBarStuff.ReadOnlyStuff.ReadOnlyControl"
+<UserControl x:Class="Qiqqa.Documents.PDF.InfoBarStuff.ReadOnlyStuff.ReadOnlyControl"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
 >
-  <Grid>
-    <FlowDocumentScrollViewer IsToolBarVisible="False" VerticalScrollBarVisibility="Disabled">
-      <commongui:StandardFlowDocument>
-        <Paragraph>
-          You have only read-only access to this library.  Any additions or annotations you make may be lost when you next sync.
-        </Paragraph>
-      </commongui:StandardFlowDocument>
-    </FlowDocumentScrollViewer>
-  </Grid>
+    <Grid>
+        <FlowDocumentScrollViewer IsToolBarVisible="False" VerticalScrollBarVisibility="Disabled">
+            <commongui:StandardFlowDocument>
+                <Paragraph>
+                    You have only read-only access to this library.  Any additions or annotations you make may be lost when you next sync.
+                </Paragraph>
+            </commongui:StandardFlowDocument>
+        </FlowDocumentScrollViewer>
+    </Grid>
 </UserControl>

@@ -124,13 +124,13 @@ namespace Qiqqa.Chat
             }
 
             // make sure we're not in the process of shutting down Qiqqa for then the next code chunk will cause a CRASH:
-            if (null != Application.Current && !Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+            if (!Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
             {
-                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
                     IsEnabled = is_chat_available;
                     TxtChatUnavailable.Visibility = is_chat_available ? Visibility.Collapsed : Visibility.Visible;
-                }));
+                });
             }
             else
             {
@@ -205,7 +205,7 @@ namespace Qiqqa.Chat
                 }
 
                 // Update GUI
-                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
                     bool is_currently_at_scroll_bottom = ObjChatFlowDocumentScroll.VerticalOffset == ObjChatFlowDocumentScroll.ScrollableHeight;
 
@@ -241,7 +241,7 @@ namespace Qiqqa.Chat
                         ObjChatFlowDocumentScroll.ScrollToEnd();
                     }
                 }
-                ));
+                );
             }
         }
 

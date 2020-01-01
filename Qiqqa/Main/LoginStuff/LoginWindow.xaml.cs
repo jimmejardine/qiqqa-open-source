@@ -13,6 +13,7 @@ using Qiqqa.UtilisationTracking;
 using Qiqqa.WebBrowsing.GeckoStuff;
 using Utilities;
 using Utilities.GUI;
+using Utilities.Misc;
 
 namespace Qiqqa.Main.LoginStuff
 {
@@ -26,7 +27,6 @@ namespace Qiqqa.Main.LoginStuff
         //    public bool System_DisableSSL { get; set; }
         //}
 
-        private SplashScreenWindow splashscreen_window;
         private bool is_closing = false;
         private bool have_done_config = false;
 
@@ -36,6 +36,10 @@ namespace Qiqqa.Main.LoginStuff
         public LoginWindow()
         {
             InitializeComponent();
+
+            ProgressInfo.Text = "";
+            ProgressInfoWrapper.Visibility = Visibility.Collapsed;
+            StatusManager.Instance.OnStatusEntryUpdate += StatusManager_OnStatusEntryUpdate;
 
             Title = String.Format("Welcome to Qiqqa v{0}!", ClientVersion.CurrentBuild);
             if (WebsiteAccess.IsTestEnvironment)
@@ -68,7 +72,40 @@ namespace Qiqqa.Main.LoginStuff
             IsEnabled = true;
 
             Closing += LoginWindow_Closing;
+            Closed += LoginWindow_Closed;
+            this.ContentRendered += LoginWindow_ContentRendered;
             KeyDown += LoginWindow_KeyDown;
+        }
+
+        private void LoginWindow_ContentRendered(object sender, EventArgs e)
+        {
+            // Once the Login Dialog has been completely rendered on screen, do we remove the splash screen
+            MainEntry.RemoveSplashScreen();
+        }
+
+        private void UpdateStatusMessage(string message, double progress_perunage)
+        {
+            ProgressInfoWrapper.Visibility = String.IsNullOrEmpty(message) ? Visibility.Collapsed : Visibility.Visible;
+            ProgressInfo.Text = message;
+
+            Utilities.GUI.WPFDoEvents.RepaintUIElement(ProgressInfoWrapper);
+        }
+
+        private void StatusManager_OnStatusEntryUpdate(StatusManager.StatusEntry status_entry)
+        {
+            string msg = status_entry.LastStatusMessage;
+
+            if (status_entry.UpdatePercentage != 0.0)
+            {
+                msg = String.Format("{0}: {1:P1}", msg, status_entry.UpdatePercentage);
+            }
+
+            WPFDoEvents.InvokeInUIThread(() => UpdateStatusMessage(msg, status_entry.UpdatePercentage));
+        }
+
+        private void LoginWindow_Closed(object sender, EventArgs e)
+        {
+            StatusManager.Instance.OnStatusEntryUpdate -= StatusManager_OnStatusEntryUpdate;
         }
 
         private void ButtonBackup_Click(object sender, RoutedEventArgs e)
@@ -81,9 +118,8 @@ namespace Qiqqa.Main.LoginStuff
             BackingUp.DoRestore();
         }
 
-        public void ChooseLogin(SplashScreenWindow splashscreen_window)
+        public void ChooseLogin()
         {
-            this.splashscreen_window = splashscreen_window;
             Show();
         }
 
@@ -134,14 +170,15 @@ namespace Qiqqa.Main.LoginStuff
 
         private void StartMainApplication()
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
             WPFDoEvents.SetHourglassCursor();
 
             // Initialise the web browser
             try
             {
-                splashscreen_window.UpdateMessage("Installing browser components");
+                StatusManager.Instance.UpdateStatus("AppStart", "Installing browser components");
                 GeckoInstaller.CheckForInstall();
-                splashscreen_window.UpdateMessage("Initialising browser components");
+                StatusManager.Instance.UpdateStatus("AppStart", "Initialising browser components");
                 GeckoManager.Initialise();
                 GeckoManager.RegisterPDFInterceptor();
             }
@@ -151,10 +188,13 @@ namespace Qiqqa.Main.LoginStuff
             }
 
             // Fire up Qiqqa!
-            splashscreen_window.UpdateMessage("Starting background processes");
-            StartDaemonSingletons();
+            StatusManager.Instance.UpdateStatus("AppStart", "Starting background processes");
+            SafeThreadPool.QueueUserWorkItem(o =>
+            {
+                StartDaemonSingletons();
+            });
 
-            splashscreen_window.UpdateMessage("Launching Qiqqa!");
+            StatusManager.Instance.UpdateStatus("AppStart", "Launching Qiqqa!");
             FireStartUseFeature();
             MainWindow window = new MainWindow();
             window.Show();
@@ -164,11 +204,8 @@ namespace Qiqqa.Main.LoginStuff
 
         private void StartDaemonSingletons()
         {
-            splashscreen_window.UpdateMessage("Starting feature manager");
-            FeatureTrackingManager f = FeatureTrackingManager.Instance;
-
-            splashscreen_window.UpdateMessage("Starting libraries");
-            WebLibraryManager wlm = WebLibraryManager.Instance;
+            StatusManager.Instance.UpdateStatus("AppStart", "Starting libraries");
+            WebLibraryManager.Init();
         }
 
         private void FireStartUseFeature()
@@ -193,7 +230,7 @@ namespace Qiqqa.Main.LoginStuff
             // base.OnClosed() invokes this class' Closed() code, so we flipped the order of exec to reduce the number of surprises for yours truly.
             // This NULLing stuff is really the last rites of Dispose()-like so we stick it at the end here.
 
-            splashscreen_window = null;
+            //splashscreen_window = null;
         }
     }
 }

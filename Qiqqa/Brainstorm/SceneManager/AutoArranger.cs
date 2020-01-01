@@ -13,7 +13,7 @@ namespace Qiqqa.Brainstorm.SceneManager
     public class AutoArranger
     {
         private object thread_lock = new object();
-        private Thread active_thread;
+        private Daemon active_thread;
 
         // WARNING:
         //
@@ -39,11 +39,10 @@ namespace Qiqqa.Brainstorm.SceneManager
                     // USER WANTS TO ENABLE
                     if (null == active_thread)
                     {
-                        active_thread = new Thread(BackgroundThread);
-                        active_thread.IsBackground = true;
-                        active_thread.Priority = ThreadPriority.Lowest;
-                        active_thread.Name = "AutoArranger:Background";
-                        active_thread.Start(active_thread);
+                        active_thread = new Daemon(daemon_name: "AutoArranger:Background");
+                        //active_thread.IsBackground = true;
+                        //active_thread.Priority = ThreadPriority.Lowest;
+                        active_thread.Start(BackgroundThread, active_thread);
                     }
                 }
                 else
@@ -54,10 +53,10 @@ namespace Qiqqa.Brainstorm.SceneManager
             }
         }
 
-        private void BackgroundThread(object thread_object)
+        private void BackgroundThread(object arg)
         {
-            Thread thread = (Thread)thread_object;
-            Logging.Debug特("AutoArranger Thread {0} has started", thread.ManagedThreadId);
+            Daemon daemon = (Daemon)arg;
+            Logging.Debug特("AutoArranger Thread {0} has started", daemon.ManagedThreadId);
 
             while (true)
             {
@@ -65,7 +64,7 @@ namespace Qiqqa.Brainstorm.SceneManager
                 lock (thread_lock)
                 {
                     l1_clk.LockPerfTimerStop();
-                    if (thread != active_thread)
+                    if (daemon != active_thread)
                     {
                         break;
                     }
@@ -73,10 +72,10 @@ namespace Qiqqa.Brainstorm.SceneManager
 
                 DoLayout();
 
-                Thread.Sleep(30);
+                daemon.Sleep(30);
             }
 
-            Logging.Debug特("AutoArranger Thread {0} has exited", thread.ManagedThreadId);
+            Logging.Debug特("AutoArranger Thread {0} has exited", daemon.ManagedThreadId);
         }
 
         private DateTime cache_scene_changed_timestamp = DateTime.MinValue;

@@ -96,7 +96,7 @@ namespace Qiqqa.AnnotationsReportBuilding
                 {
                     // Get rid of managed resources
                     ObjDocumentViewer.Document?.Blocks.Clear();
-                }, Dispatcher);
+                });
 
                 ObjDocumentViewer.Document = null;
                 annotation_report = null;

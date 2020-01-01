@@ -378,7 +378,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                         pdf_renderer_control?.Dispose();
 
                         pdf_renderer_control_stats?.pdf_document.PDFRenderer.FlushCachedPageRenderings();
-                    }, Dispatcher);
+                    });
                 }
 
                 pdf_renderer_control = null;
@@ -972,27 +972,34 @@ namespace Qiqqa.Documents.PDF.PDFControls
         private void MoveGuestPreviewPDFDocument(WebLibraryDetail web_library_detail)
         {
             PDFDocument source_pdf_document = pdf_renderer_control_stats.pdf_document;
-            PDFDocument cloned_pdf_document = ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(source_pdf_document, web_library_detail.library);
 
-            // Open the new
-            if (null != cloned_pdf_document)
+            SafeThreadPool.QueueUserWorkItem(o =>
             {
-                MainWindowServiceDispatcher.Instance.OpenDocument(cloned_pdf_document);
-            }
-            else
-            {
-                MessageBoxes.Warn("There was a problem moving this document to another library.");
-            }
+                PDFDocument cloned_pdf_document = ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(source_pdf_document, web_library_detail.library);
 
-            // Close the old
-            MainWindowServiceDispatcher.Instance.ClosePDFReadingControl(this);
+                WPFDoEvents.InvokeInUIThread(() =>
+                {
+                    // Open the new
+                    if (null != cloned_pdf_document)
+                    {
+                        MainWindowServiceDispatcher.Instance.OpenDocument(cloned_pdf_document);
+                    }
+                    else
+                    {
+                        MessageBoxes.Warn("There was a problem moving this document to another library.");
+                    }
 
-            // Delete the old
-            if (cloned_pdf_document != source_pdf_document)
-            {
-                source_pdf_document.Deleted = true;
-                source_pdf_document.Bindable.NotifyPropertyChanged(() => source_pdf_document.Deleted);
-            }
+                    // Close the old
+                    MainWindowServiceDispatcher.Instance.ClosePDFReadingControl(this);
+
+                    // Delete the old
+                    if (cloned_pdf_document != source_pdf_document)
+                    {
+                        source_pdf_document.Deleted = true;
+                        source_pdf_document.Bindable.NotifyPropertyChanged(() => source_pdf_document.Deleted);
+                    }
+                });
+            });
         }
     }
 }

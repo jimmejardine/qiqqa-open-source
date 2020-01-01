@@ -262,6 +262,8 @@ namespace Qiqqa.Common.GUI
 
         public virtual bool SetupConfiguredDimensions()
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             // Format: Name=X|Y|W|H|M::...
             // Exception to the rule for backwards compatibility: first record is for main window and has no name.
             string cfg = Configuration.ConfigurationManager.Instance.ConfigurationRecord.GUI_RestoreLocationAtStartup_Position ?? "";

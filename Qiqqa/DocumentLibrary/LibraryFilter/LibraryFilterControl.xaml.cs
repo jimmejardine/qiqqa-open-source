@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -180,7 +181,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
 
         private void Library_OnNewDocument(object sender, PDFDocument pdf_document)
         {
-            Dispatcher.BeginInvoke(new Action(() => ReExecuteAllSearches(pdf_document)));
+            WPFDoEvents.InvokeAsyncInUIThread(() => ReExecuteAllSearches(pdf_document));
         }
 
         private void ReExecuteAllSearches(PDFDocument pdf_document_to_focus_on)

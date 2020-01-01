@@ -50,6 +50,8 @@ namespace Qiqqa.DocumentLibrary
 
         public static PDFDocument AddNewPDFDocumentsToLibrary_SYNCHRONOUS(Library library, bool suppress_notifications, List<FilenameWithMetadataImport> filename_with_metadata_imports)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             Stopwatch clk = new Stopwatch();
             clk.Start();
 
@@ -74,7 +76,7 @@ namespace Qiqqa.DocumentLibrary
                     Logging.Warn("User chose to stop bulk adding documents to the library");
                     break;
                 }
-                StatusManager.Instance.UpdateStatus("BulkLibraryDocument", String.Format("Adding document {0} of {1} to your library", i, filename_with_metadata_imports.Count), i, filename_with_metadata_imports.Count, true);
+                StatusManager.Instance.UpdateStatus("BulkLibraryDocument", String.Format("Adding document {0} of {1} to your library", i + 1, filename_with_metadata_imports.Count), i, filename_with_metadata_imports.Count, true);
 
                 // Relinquish control to the UI thread to make sure responsiveness remains tolerable at 100% CPU load.
                 if (i % 10 == 7) // random choice for this heuristic: every tenth ADD should *yield* to the UI
@@ -181,6 +183,8 @@ namespace Qiqqa.DocumentLibrary
 
         internal static void AlertUserAboutProblematicImports()
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             bool do_view = MessageBoxes.AskErrorQuestion("There were problems with some of the documents you were trying to add to Qiqqa.  Do you want to see the problem details?", true);
 
             // do NOT spend a long time inside the lock!
@@ -484,7 +488,7 @@ namespace Qiqqa.DocumentLibrary
         {
             for (int i = 0; i < existing_pdf_documents.Count; ++i)
             {
-                StatusManager.Instance.UpdateStatus("BulkLibraryDocument", String.Format("Adding document {0} of {1} to your library", i, existing_pdf_documents.Count), i, existing_pdf_documents.Count);
+                StatusManager.Instance.UpdateStatus("BulkLibraryDocument", String.Format("Adding document {0} of {1} to your library", i + 1, existing_pdf_documents.Count), i, existing_pdf_documents.Count);
 
                 PDFDocument existing_pdf_document = existing_pdf_documents[i];
 
@@ -502,6 +506,8 @@ namespace Qiqqa.DocumentLibrary
         /// </summary>
         public static PDFDocument ClonePDFDocumentFromOtherLibrary_SYNCHRONOUS(PDFDocument existing_pdf_document, Library library, LibraryPdfActionCallbacks callbacks)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             try
             {
                 if (existing_pdf_document.Library == library)

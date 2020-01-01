@@ -8,6 +8,7 @@ using QiqqaTestHelpers;
 using Utilities;
 using Utilities.BibTex;
 using Utilities.BibTex.Parsing;
+using Utilities.Mathematics;
 using static QiqqaTestHelpers.MiscTestHelpers;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
@@ -686,7 +687,7 @@ namespace QiqqaUnitTester
                     Logging.Error(ex, "testfile <{0}>: fatal BibTeX parse error while parsing...", entry.Key);
                 }
             }
-            double tt = charcount * 1.0 / clock.ElapsedMilliseconds;
+            double tt = Perunage.Calc(charcount, clock.ElapsedMilliseconds);
             Logging.Info("BibTex parsing can do {0:0.000}K operations per second per character", tt);
         }
 

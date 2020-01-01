@@ -42,7 +42,7 @@ namespace Utilities.GUI.Notifications
         {
             if (!CheckAccess())
             {
-                Dispatcher.Invoke(((Action)(() => DisplayNotification(notification))));
+                WPFDoEvents.InvokeInUIThread(() => DisplayNotification(notification));
                 return;
             }
 

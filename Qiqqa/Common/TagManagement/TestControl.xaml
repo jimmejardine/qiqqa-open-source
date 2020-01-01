@@ -1,14 +1,18 @@
-﻿<UserControl x:Class="Qiqqa.Common.TagManagement.TestControl"
+<UserControl x:Class="Qiqqa.Common.TagManagement.TestControl"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
   xmlns:tag="clr-namespace:Qiqqa.Common.TagManagement"
 >
-  <StackPanel>
-    <TextBlock>Here be the tag editor</TextBlock>
-    <tag:TagEditorControl TagsBundle="{Binding Tags, Mode=TwoWay}" />
-    <local_gui:AugmentedSpacer />
-    <TextBlock>Here be the underlying string:</TextBlock>
-    <TextBox Text="{Binding Tags}"/>
-  </StackPanel>
+    <StackPanel>
+        <TextBlock>
+            Here be the tag editor
+        </TextBlock>
+        <tag:TagEditorControl TagsBundle="{Binding Tags, Mode=TwoWay}" />
+        <local_gui:AugmentedSpacer />
+        <TextBlock>
+            Here be the underlying string:
+        </TextBlock>
+        <TextBox Text="{Binding Tags}"/>
+    </StackPanel>
 </UserControl>

@@ -133,7 +133,7 @@ namespace Qiqqa.Synchronisation.BusinessLogic
                 GlobalSyncDetail global_sync_detail = new GlobalSyncDetail();
 
                 // Build the initial knowledge of our libraries
-                StatusManager.Instance.UpdateStatusBusy(StatusCodes.SYNC_META_GLOBAL, "Getting your library details", 0, 1);
+                StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META_GLOBAL, "Getting your library details");
                 List<WebLibraryDetail> web_library_details = WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries_All;
                 foreach (WebLibraryDetail web_library_detail in web_library_details)
                 {
@@ -147,17 +147,17 @@ namespace Qiqqa.Synchronisation.BusinessLogic
 
                 // Now get the local details of each library
                 {
-                    StatusManager.Instance.UpdateStatusBusy(StatusCodes.SYNC_META_GLOBAL, String.Format("Gather local library details"));
+                    StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META_GLOBAL, String.Format("Gather local library details"));
                     for (int i = 0; i < global_sync_detail.library_sync_details.Count; ++i)
                     {
                         LibrarySyncDetail library_sync_detail = global_sync_detail.library_sync_details[i];
-                        StatusManager.Instance.UpdateStatusBusy(StatusCodes.SYNC_META_GLOBAL, String.Format("Getting the local library details for {0}", library_sync_detail.web_library_detail.Title), i, global_sync_detail.library_sync_details.Count);
+                        StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META_GLOBAL, String.Format("Getting the local library details for {0}", library_sync_detail.web_library_detail.Title), i, global_sync_detail.library_sync_details.Count);
                         library_sync_detail.local_library_sync_detail = GetLocalLibrarySyncDetail(library_sync_detail.web_library_detail.library, tally_library_storage_size);
                     }
                 }
 
                 // Work out if they are allowed to sync this record
-                StatusManager.Instance.UpdateStatusBusy(StatusCodes.SYNC_META_GLOBAL, String.Format("Determining sync allowances"));
+                StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META_GLOBAL, String.Format("Determining sync allowances"));
                 foreach (LibrarySyncDetail library_sync_detail in global_sync_detail.library_sync_details)
                 {
                     //  Eagerly sync metadata

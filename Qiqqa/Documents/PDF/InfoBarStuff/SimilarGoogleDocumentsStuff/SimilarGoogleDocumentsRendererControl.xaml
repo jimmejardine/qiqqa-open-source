@@ -1,6 +1,6 @@
-﻿<UserControl x:Class="Qiqqa.Documents.PDF.InfoBarStuff.SimilarGoogleDocumentsStuff.SimilarGoogleDocumentsRendererControl"
+<UserControl x:Class="Qiqqa.Documents.PDF.InfoBarStuff.SimilarGoogleDocumentsStuff.SimilarGoogleDocumentsRendererControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 >
-  <StackPanel Name="DocsPanel" />
+    <StackPanel Name="DocsPanel" />
 </UserControl>

@@ -66,12 +66,12 @@ namespace Utilities
                     }
                 }
                 OnTimedEvent(rv, 1);
-
             });
+
             // Hook up the Elapsed event for the timer. 
             rv.t.Elapsed += rv.handler_ref;
 
-            rv.t.AutoReset = false;
+            rv.t.AutoReset = true;      // keep on firing event when lock remains stuck for the duration of multiple timeout intervals
             rv.t.Interval = 5 * 1000;
             rv.t.Enabled = true;
             return rv;

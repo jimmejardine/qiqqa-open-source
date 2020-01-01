@@ -4,6 +4,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
+using Utilities.Misc;
 
 namespace Utilities.GUI
 {
@@ -138,7 +139,7 @@ namespace Utilities.GUI
             return Application.Current == null;
         }
 
-        public static void InvokeInUIThread(Action action, Dispatcher override_dispatcher = null)
+        public static void InvokeInUIThread(Action action, Dispatcher override_dispatcher = null, DispatcherPriority priority = DispatcherPriority.Normal)
         {
             try
             {
@@ -146,7 +147,7 @@ namespace Utilities.GUI
                 {
                     if (!override_dispatcher.CheckAccess())
                     {
-                        override_dispatcher.Invoke(action, DispatcherPriority.Normal);
+                        override_dispatcher.Invoke(action, priority);
                     }
                     else
                     {
@@ -155,7 +156,7 @@ namespace Utilities.GUI
                 }
                 else if (!CurrentThreadIsUIThread())
                 {
-                    Application.Current.Dispatcher.Invoke(action, DispatcherPriority.Normal);
+                    Application.Current.Dispatcher.Invoke(action, priority);
                 }
                 else
                 {
@@ -168,32 +169,30 @@ namespace Utilities.GUI
             }
         }
 
-        public static void InvokeAsyncInUIThread(Action action)
+        public static void InvokeAsyncInUIThread(Action action, DispatcherPriority priority = DispatcherPriority.Normal)
         {
-            if (!CurrentThreadIsUIThread())
+            if (Application.Current != null)
             {
-                Application.Current.Dispatcher.InvokeAsync(action, DispatcherPriority.Normal);
+                Application.Current.Dispatcher.BeginInvoke(action, priority);
             }
             else
             {
-                action.Invoke();  // TODO -- BeginInvoke?
+                throw new Exception("no known GUI thread to invoke async to...");
             }
         }
 
+        [Conditional("DEBUG")]
         public static void AssertThisCodeIs_NOT_RunningInTheUIThread()
         {
-            if (CurrentThreadIsUIThread())
-            {
-                throw new ApplicationException("This code MUST NOT execute in the Main UI Thread. Report this issue at the GitHub Qiqqa project issue page https://github.com/jimmejardine/qiqqa-open-source/issues and please do provide the log file which contains this error report and accompanying stacktrace.");
-            }
+            // This assertion check is important, but not severe enough to barf a hairball when it fails: dont_throw=true
+            ASSERT.Test(!CurrentThreadIsUIThread(), "This code MUST NOT execute in the Main UI Thread.", dont_throw: true);
         }
 
+        [Conditional("DEBUG")]
         public static void AssertThisCodeIsRunningInTheUIThread()
         {
-            if (!CurrentThreadIsUIThread())
-            {
-                throw new ApplicationException("This code MUST NOT execute in the Main UI Thread. Report this issue at the GitHub Qiqqa project issue page https://github.com/jimmejardine/qiqqa-open-source/issues and please do provide the log file which contains this error report and accompanying stacktrace.");
-            }
+            // This assertion check is important, but not severe enough to barf a hairball when it fails: dont_throw=true
+            ASSERT.Test(CurrentThreadIsUIThread(), "This code MUST execute in the Main UI Thread.", dont_throw: true);
         }
     }
 }

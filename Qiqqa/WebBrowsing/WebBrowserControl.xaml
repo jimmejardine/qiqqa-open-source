@@ -1,14 +1,12 @@
-﻿<UserControl x:Class="Qiqqa.WebBrowsing.WebBrowserControl"
+<UserControl x:Class="Qiqqa.WebBrowsing.WebBrowserControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
     xmlns:gecko="clr-namespace:Gecko;assembly=Geckofx-Winforms"
     >
-
-  <Grid>
-    <WindowsFormsHost Name="ObjFormsHost">
-      <gecko:GeckoWebBrowser x:Name="ObjWebBrowser" />
-    </WindowsFormsHost>
-  </Grid>
-
+    <Grid>
+        <WindowsFormsHost Name="ObjFormsHost">
+            <gecko:GeckoWebBrowser x:Name="ObjWebBrowser" />
+        </WindowsFormsHost>
+    </Grid>
 </UserControl>

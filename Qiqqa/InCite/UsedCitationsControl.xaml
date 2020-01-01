@@ -1,43 +1,38 @@
-﻿<UserControl x:Class="Qiqqa.InCite.UsedCitationsControl"
+<UserControl x:Class="Qiqqa.InCite.UsedCitationsControl"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:local_library="clr-namespace:Qiqqa.DocumentLibrary.LibraryCatalog"
   xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
 >
-  <Grid>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto"/>
-      <RowDefinition Height="*"/>
-      <RowDefinition Height="Auto"/>
-    </Grid.RowDefinitions>
-
-    <FlowDocumentScrollViewer IsToolBarVisible="False" VerticalScrollBarVisibility="Disabled" Grid.Row="0">
-      <commongui:StandardFlowDocument>
-        <Paragraph>
-          The following citations have been made in the currently select Word document.  Click on them to quickly locate them in the text.  To act on all the referenced items in Qiqqa, press CTRL-A to select them all.  Then you can right-click and perhaps run an annotation report on them or tag them all.
-        </Paragraph>
-      </commongui:StandardFlowDocument>
-    </FlowDocumentScrollViewer>
-
-    <local_library:LibraryCatalogControl x:Name="ObjUsedCitationsCatalog" Grid.Row="1" />
-
-    <Grid Grid.Row="2" Name="ObjGridMissingCitations">
-      <Grid.RowDefinitions>
-        <RowDefinition Height="Auto"/>
-        <RowDefinition Height="Auto"/>
-      </Grid.RowDefinitions>
-
-      <FlowDocumentScrollViewer IsToolBarVisible="False" VerticalScrollBarVisibility="Disabled" Grid.Row="0">
-        <commongui:StandardFlowDocument>
-          <Paragraph>
-            The following citations in your document have no associated record in Qiqqa.  Have you perhaps deleted them in Qiqqa or changed their BibTeX keys?
-          </Paragraph>
-        </commongui:StandardFlowDocument>
-      </FlowDocumentScrollViewer>
-
-      <ScrollViewer Grid.Row="1" MaxHeight="300">
-        <StackPanel Name="ObjMissingCitationsList" />
-      </ScrollViewer>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <FlowDocumentScrollViewer IsToolBarVisible="False" VerticalScrollBarVisibility="Disabled" Grid.Row="0">
+            <commongui:StandardFlowDocument>
+                <Paragraph>
+                    The following citations have been made in the currently select Word document.  Click on them to quickly locate them in the text.  To act on all the referenced items in Qiqqa, press CTRL-A to select them all.  Then you can right-click and perhaps run an annotation report on them or tag them all.
+                </Paragraph>
+            </commongui:StandardFlowDocument>
+        </FlowDocumentScrollViewer>
+        <local_library:LibraryCatalogControl x:Name="ObjUsedCitationsCatalog" Grid.Row="1" />
+        <Grid Grid.Row="2" Name="ObjGridMissingCitations">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <FlowDocumentScrollViewer IsToolBarVisible="False" VerticalScrollBarVisibility="Disabled" Grid.Row="0">
+                <commongui:StandardFlowDocument>
+                    <Paragraph>
+                        The following citations in your document have no associated record in Qiqqa.  Have you perhaps deleted them in Qiqqa or changed their BibTeX keys?
+                    </Paragraph>
+                </commongui:StandardFlowDocument>
+            </FlowDocumentScrollViewer>
+            <ScrollViewer Grid.Row="1" MaxHeight="300">
+                <StackPanel Name="ObjMissingCitationsList" />
+            </ScrollViewer>
+        </Grid>
     </Grid>
-  </Grid>
 </UserControl>

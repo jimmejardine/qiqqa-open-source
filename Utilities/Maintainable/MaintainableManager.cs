@@ -51,7 +51,7 @@ namespace Utilities.Maintainable
             // Then go and wait for all to really terminate.
             shutdown_cleanup_action = new WaitCallback(o =>
             {
-                Logging.Info("+Stopping MaintainableManager tasks (async)");
+                Logging.Debug("+Stopping MaintainableManager tasks (async wait callback)");
 
                 if (!CleanupOnShutdown())
                 {
@@ -69,7 +69,7 @@ namespace Utilities.Maintainable
         {
             try
             {
-                Logging.Info("+Stopping MaintainableManager tasks (async)");
+                Logging.Debug("+Stopping MaintainableManager tasks (async)");
 
                 if (null == shutdown_cleanup_clk)
                 {
@@ -87,7 +87,7 @@ namespace Utilities.Maintainable
                     {
                         Logging.Info("Waiting for Maintainable {0} to terminate.", w.maintainable_description);
 
-                        if (w.daemon.Join(100))
+                        if (w.daemon.Join(Math.Max(100, Constants.MAX_WAIT_TIME_MS_AT_PROGRAM_SHUTDOWN / 2 / cnt)))
                         {
                             RemoveEntry(w);
                             // Play nasty: we know this item was at index [i], hence there's a new item now at [i]
@@ -134,12 +134,14 @@ namespace Utilities.Maintainable
                         }
                     }
 
+#if false
                     lock (do_maintenance_delegate_wrappers_lock)
                     {
                         do_maintenance_delegate_wrappers.Clear();
                     }
+#endif
 
-                    return true;
+                    return false;
                 }
                 else
                 {
@@ -169,7 +171,7 @@ namespace Utilities.Maintainable
         {
             lock (do_maintenance_delegate_wrappers_lock)
             {
-                if (i < 0 || i >= do_maintenance_delegate_wrappers.Count)
+                if (i >= 0 && i < do_maintenance_delegate_wrappers.Count)
                 {
                     return do_maintenance_delegate_wrappers[i];
                 }

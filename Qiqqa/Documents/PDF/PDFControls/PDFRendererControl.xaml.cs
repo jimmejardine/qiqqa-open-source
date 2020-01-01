@@ -394,7 +394,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                         }
 
                         pdf_renderer_control_stats?.pdf_document.PDFRenderer.FlushCachedPageRenderings();
-                    }, Dispatcher);
+                    });
                 }
 
                 pdf_renderer_control_stats = null;
