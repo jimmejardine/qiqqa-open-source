@@ -75,7 +75,7 @@ namespace Qiqqa.Main
                 MessageBoxes.Error(@"Qiqqa needs the directory {0} to exist for it to function properly.  Please create it or set the TEMP environment variable and restart Qiqqa.", TempFile.TempDirectoryForQiqqa);
             }
 
-            // Make sure that windir is set (goddamned font sybustem bug: http://stackoverflow.com/questions/10094197/wpf-window-throws-typeinitializationexception-at-start-up)
+            // Make sure that windir is set (goddamned font subsystem bug: http://stackoverflow.com/questions/10094197/wpf-window-throws-typeinitializationexception-at-start-up)
             {
                 if (String.IsNullOrEmpty(Environment.GetEnvironmentVariable("windir")))
                 {
@@ -310,6 +310,9 @@ namespace Qiqqa.Main
             }
 
             Logging.Info("-static Main()");
+
+            // This must be the last line the application executes, EVAR!
+            Logging.ShutDown();
         }
 
         private static void SafeThreadPool_UnhandledException(object sender, UnhandledExceptionEventArgs e)

@@ -230,6 +230,14 @@ namespace Utilities
             return rv;
         }
 
+        public static void ShutDown()
+        {
+            Debug("Application + Logging ShutDown");
+            LogManager.Flush(5000);
+            LogManager.Shutdown();
+            System.Threading.Thread.Sleep(500);
+        }
+
         private static void BufferException(Exception _ex, string msg = null)
         {
             lock (log4net_loaded_lock)
