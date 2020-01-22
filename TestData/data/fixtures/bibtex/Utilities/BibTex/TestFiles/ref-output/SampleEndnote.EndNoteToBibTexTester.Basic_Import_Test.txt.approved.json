@@ -1,1 +1,1713 @@
-﻿{}
+﻿{
+  "lines_set": [
+    [
+      "%0 book",
+      "%A Casebier, Allan",
+      "%D 1991",
+      "%T Film and phenomenology: toward a realist theory of cinematic representation",
+      "%C Cambridge",
+      "%I Cambridge University Press",
+      "%! Film and phenomenology: toward a realist theory of cinematic representation",
+      "%@ 9780521411325",
+      "%U http://books.google.com/books?id=VpdOAAAAIAAJ",
+      "%> internal-pdf://0521411327-2100874753/0521411327.pdf",
+      "",
+      "",
+      ""
+    ],
+    [
+      "%0 Book",
+      "%A Lacan, Jacques",
+      "%D 2006",
+      "%T Le séminaire Livre XVI: D'un autre à l'autre",
+      "%C Paris",
+      "%I Seuil",
+      "%9 Texte imprimé",
+      "%! Le séminaire Livre XVI: D'un autre à l'autre",
+      "%@ 2-02-082705-0 br. 30 EUR",
+      "%M FRBNF401345190000005",
+      "%L Tolbiac - D1 Rez de Jardin - Magasin",
+      "Tolbiac - D1 Haut de Jardin - Salle J - Libre accès",
+      "Tolbiac - D1 Rez de Jardin - Salle K - Libre accès",
+      "%F 150",
+      "%K Jouissance (psychanalyse)",
+      "L' Autre (psychanalyse)",
+      "150.195 2",
+      "%Z Jacques Lacan",
+      "61-Lonrai Impr. Normandie roto",
+      "ill., couv. ill. 24 cm",
+      "Notice réd. d'après la couv.",
+      "Index",
+      "D'un autre à l'autre",
+      "Le séminaire de Jacques Lacan",
+      "%U http://catalogue.bnf.fr/ark:/12148/cb401345191",
+      "%> internal-pdf://2020827050-0199078918/2020827050.djvu",
+      "internal-pdf://2020827050-1893725446/2020827050.pdf",
+      "%G fre",
+      "",
+      "",
+      ""
+    ],
+    [
+      "%0 Book",
+      "%A Miller, Jacques-Alain",
+      "%D 2002",
+      "%T Un début dans la vie",
+      "%B Le cabinet des lettrés",
+      "%C Paris",
+      "%I Gallimard",
+      "%P 162",
+      "%9 Texte imprimé",
+      "%! Un début dans la vie",
+      "%@ 2-07-076495-8 br. 16,50 EUR",
+      "%M FRBNF388330580000004",
+      "%L Tolbiac - D1 Rez de Jardin - Magasin",
+      "%F 150",
+      "%K 150.195",
+      "%Z Jacques-Alain Miller",
+      "53-Mayenne Impr. Floch",
+      "couv. ill. en coul. 17 cm",
+      "%U http://catalogue.bnf.fr/ark:/12148/cb38833058h",
+      "%> internal-pdf://9782070764952-2296178950/9782070764952.djvu",
+      "internal-pdf://9782070764952-3067930886/9782070764952.pdf",
+      "%G fre",
+      "",
+      "",
+      ""
+    ],
+    [
+      "%0 Book",
+      "%A Lacan, Jacques",
+      "%D 2007",
+      "%T Le séminaire Livre XVIII D'un discours qui ne serait pas du semblant",
+      "%C Paris",
+      "%I Seuil",
+      "%9 Texte imprimé",
+      "%! Le séminaire Livre XVIII D'un discours qui ne serait pas du semblant",
+      "%@ 978-2-02-090219-9 rel. 21 EUR",
+      "%M FRBNF41049264000000X",
+      "%L Tolbiac - D1 Rez de Jardin - Magasin",
+      "Tolbiac - D1 Haut de Jardin - Salle J - Libre accès",
+      "Tolbiac - D1 Rez de Jardin - Salle K - Libre accès",
+      "%F 150",
+      "%K Jouissance (psychanalyse)",
+      "Relations hommes-femmes",
+      "Psychanalyse et linguistique",
+      "150.195 2",
+      "%Z Jacques Lacan",
+      "61-Lonrai Normandie roto impr.",
+      "ill., couv. ill. en coul. 24 cm",
+      "Notice réd. d'après la couv.",
+      "Index",
+      "D'un discours qui ne serait pas du semblant",
+      "Le séminaire de Jacques Lacan",
+      "%U http://catalogue.bnf.fr/ark:/12148/cb41049264d",
+      "%> internal-pdf://2020902192-1474042118/2020902192.pdf",
+      "internal-pdf://978202092199-2346738438/978202092199.djvu",
+      "%G fre",
+      "",
+      "",
+      ""
+    ],
+    [
+      "%0 Book",
+      "%A West-Pavlov, R",
+      "%D 2009",
+      "%T Space in theory: Kristeva, Foucault, Deleuze",
+      "%I Rodopi",
+      "%! Space in theory: Kristeva, Foucault, Deleuze",
+      "%@ 9789042025455",
+      "%U http://books.google.com/books?id=BAJUPgAACAAJ",
+      "%> internal-pdf://Space in Theory- Kristeva, Foucault, Deleuze. (Spatial Practices)-2339322626/Space in Theory- Kristeva, Foucault, Deleuze. (Spatial Practices).pdf",
+      "",
+      "",
+      ""
+    ],
+    [
+      "%0 Book",
+      "%A Britton, Celia",
+      "%D 1999",
+      "%T Edouard Glissant and postcolonial theory: strategies of language and resistance",
+      "%I University Press of Virginia",
+      "%! Edouard Glissant and postcolonial theory: strategies of language and resistance",
+      "%@ 9780813918495",
+      "%U http://books.google.com/books?id=sT2ilrNtGkEC",
+      "%> internal-pdf://cover - Unknown-2658066946/cover - Unknown.pdf",
+      "",
+      "",
+      ""
+    ],
+    [
+      "%0 Book",
+      "%A Dash, J. Michael",
+      "%D 1995",
+      "%T Édouard Glissant",
+      "%C Cambridge",
+      "%I Cambridge University Press",
+      "%! Édouard Glissant",
+      "%@ 9780521402736",
+      "%X 1. Contexts",
+      "2. The poetic intention: Un champ d'îles, La terre inquiète, Les Indes, Soleil de la conscience",
+      "3. Novels of time and space: La lézarde, Le quatrième siècle",
+      "4. Writing the 'real country': L'intention poétique, Malemort, Boises, Monsieur Toussaint",
+      "5. Towards a theory of Antillanité: La case du commandeur, Le discours antillais",
+      "6. A poetics of chaos: Pays rêvé, pays réel, Mahagony, Poétique de la relation.",
+      "%U http://books.google.com/books?id=ty_ukIzKs3kC",
+      "%> internal-pdf://9780511549847_9780521402736-3781057538/9780511549847_9780521402736.pdf",
+      "",
+      "",
+      ""
+    ],
+    [
+      "%0 Book",
+      "%A Prabhu, Anjali",
+      "%D 2007",
+      "%T Hybridity: limits, transformations, prospects",
+      "%C Albany, NY",
+      "%I State University of New York Press",
+      "%! Hybridity: limits, transformations, prospects",
+      "%@ 9780791470411",
+      "%X Preface     ix",
+      "Acknowledgments     xvii",
+      "Introduction: Hybridity in Contemporary Postcolonial Theory: Examining Agency     1",
+      "Hybridity in La Reunion: Monique Boyer's Metisse and the Nation as Necessity     19",
+      "Theorizing Hybridity: Colonial and Postcolonial La Reunion     35",
+      "On the Difficulty of Articulating Hybridity: Africanness in Mauritius     51",
+      "Ethnicity and the Fate of the Nation: Reading Mauritius     85",
+      "Interrogating Hybridity: Subaltern Agency and Totality through Edouard Glissant's Poetique de la Relation     105",
+      "Narration in Frantz Fanon's Peau noire masques blancs: Some Reconsiderations for Hybridity     123",
+      "Afterword: Why Hybridity Now?     147",
+      "Notes     151",
+      "Works Cited     165",
+      "Index     175",
+      "SUNY series, Explorations in Postcolonial Studies     186",
+      "%U http://books.google.com/books?id=4N_2YlXYzQsC",
+      "%> internal-pdf://hybridity Limits, Transformations, Prospects-3395125250/hybridity Limits, Transformations, Prospects.pdf",
+      "",
+      "",
+      ""
+    ],
+    [
+      "%0 Book",
+      "%A Hooft, Stan Van",
+      "%A Vanderkerckhove, Wim",
+      "%D 2010",
+      "%T Questioning Cosmopolitanism",
+      "%I Springer",
+      "%! Questioning Cosmopolitanism",
+      "%@ 9789048187034",
+      "%U http://books.google.com/books?id=FNIGB729C4EC",
+      "%> internal-pdf://RqbzScT1P-0972641536/RqbzScT1P.pdf",
+      "",
+      "",
+      ""
+    ],
+    [
+      "%0 Book",
+      "%A Fanon, Frantz",
+      "%D 1975",
+      "%T Peau noire, masques blancs",
+      "%B Points Essais",
+      "%C Paris",
+      "%I Seuil",
+      "%N 26",
+      "%P 188",
+      "%9 Texte imprimé",
+      "%! Peau noire, masques blancs",
+      "%@ 2-02-000601-4",
+      "%M FRBNF374141510000003",
+      "%L Tolbiac - D4 Rez de Jardin - Salle V - Libre accès",
+      "Tolbiac - D4 Haut de Jardin - Salle H - Libre accès",
+      "%K 844",
+      "%Z Frantz Fanon",
+      "couv. ill. 18 cm",
+      "%U http://catalogue.bnf.fr/ark:/12148/cb37414151c",
+      "%G fre",
+      "",
+      "",
+      ""
+    ],
+    [
+      "%0 Book",
+      "%A Fanon, Frantz",
+      "%D 1975",
+      "%T Peau noire masques blancs",
+      "%B Points Civilisation",
+      "%C Paris",
+      "%I Seuil",
+      "%N 26",
+      "%P 188",
+      "%9 Texte imprimé",
+      "%! Peau noire masques blancs",
+      "%@ 2-02-000601-4",
+      "%M FRBNF373626880000007",
+      "%L Tolbiac - D1 Haut de Jardin - Salle J - Libre accès",
+      "Tolbiac - D2 Haut de Jardin - Salle D - Libre accès",
+      "%K Noirs Acculturation",
+      "Noirs Conditions sociales",
+      "303.482",
+      "305.896",
+      "%Z Frantz Fanon",
+      "couv. ill. 18 cm",
+      "Première éd. paru en 1952 dans la collection Esprit",
+      "%U http://catalogue.bnf.fr/ark:/12148/cb37362688g",
+      "%> internal-pdf://2020006014-3886251025/2020006014.pdf",
+      "%G fre",
+      "",
+      "",
+      ""
+    ],
+    [
+      "%0 Book",
+      "%A Belsey, C",
+      "%D 2005",
+      "%T Culture and the real: theorizing cultural criticism",
+      "%I Routledge",
+      "%! Culture and the real: theorizing cultural criticism",
+      "%@ 9780415252898",
+      "%U http://books.google.com/books?id=6cYL8GMKavoC",
+      "%> internal-pdf://041525289X-4228605197/041525289X.html",
+      "",
+      "",
+      ""
+    ],
+    [
+      "%0 Book",
+      "%A Lazarus, Neil",
+      "%D 1999",
+      "%T Nationalism and Cultural Practice in the Postcolonial World",
+      "%I CUP",
+      "%P 312",
+      "%! Nationalism and Cultural Practice in the Postcolonial World",
+      "%@ 9780521624107",
+      "%> internal-pdf://9780521624107 - NEIL LAZARUS - Nationalism and Cultural Practice in the-4111006989/9780521624107 - NEIL LAZARUS - Nationalism and Cultural Practice in the Postcolonial World.pdf",
+      "",
+      "",
+      ""
+    ],
+    [
+      "%0 Book",
+      "%A Lazarus, Neil",
+      "%D 2002",
+      "%T Marxism, Modernity and Postcolonial Studies",
+      "%I CUP",
+      "%P 300",
+      "%! Marxism, Modernity and Postcolonial Studies",
+      "%@ 0521813670",
+      "",
+      "",
+      ""
+    ],
+    [
+      "%0 Book",
+      "%A Mennel, Barbara",
+      "%D 2008",
+      "%T Cities and Cinema",
+      "%I Routledge",
+      "%P 256",
+      "%7 1Ed",
+      "%! Cities and Cinema",
+      "%@ 0415364450",
+      "%> internal-pdf://0415364450 - BARBARA MENNEL - Cities and Cinema-3238369293/0415364450 - BARBARA MENNEL - Cities and Cinema.pdf",
+      "",
+      "",
+      ""
+    ],
+    [
+      "%0 Book",
+      "%A Hitchcock, Peter",
+      "%D 1993",
+      "%T Dialogics of the Oppressed",
+      "%I University of Minnesota Press",
+      "%P 244",
+      "%! Dialogics of the Oppressed",
+      "%@ 0816621063",
+      "%> internal-pdf://0816621063 - PETER HITCHCOCK - Dialogics of the Oppressed-3271806989/0816621063 - PETER HITCHCOCK - Dialogics of the Oppressed.pdf",
+      "",
+      "",
+      ""
+    ],
+    [
+      "%0 Book",
+      "%A Vallega, Alejandro A.",
+      "%D 2003",
+      "%T Heidegger and the Issue of Space: Thinking on Exilic Grounds",
+      "%I Pennsylvania State University Press",
+      "%P 202",
+      "%! Heidegger and the Issue of Space: Thinking on Exilic Grounds",
+      "%@ 0271023074",
+      "%> internal-pdf://0271023074 - ALEJANDRO A. VALLEGA - Heidegger and the Issue of Sp-3556950285/0271023074 - ALEJANDRO A. VALLEGA - Heidegger and the Issue of Space~ Thinking on Exilic Grounds.pdf",
+      "",
+      "",
+      ""
+    ],
+    [
+      "%0 Book",
+      "%A Hitchcock, P",
+      "%D 1999",
+      "%T Oscillate wildly: space, body, and spirit of millennial materialism",
+      "%I University of Minnesota Press",
+      "%! Oscillate wildly: space, body, and spirit of millennial materialism",
+      "%@ 9780816631506",
+      "%U http://books.google.com/books?id=EBHQTXiEsEcC",
+      "%> internal-pdf://0816631492-1984288524/0816631492.pdf",
+      "",
+      "",
+      ""
+    ],
+    [
+      "%0 Book",
+      "%A Hiddleston, Jane",
+      "%D 2009",
+      "%T Understanding postcolonialism",
+      "%I Acumen",
+      "%! Understanding postcolonialism",
+      "%@ 9781844651603",
+      "%U http://books.google.com/books?id=gCdYPgAACAAJ",
+      "%> internal-pdf://Hiddleston-Postcolonialism-2437224204/Hiddleston-Postcolonialism.pdf",
+      "",
+      "",
+      ""
+    ],
+    [
+      "%0 Book",
+      "%A Swearingen, James E",
+      "%A Cutting-Gray, Joanne",
+      "%D 2002",
+      "%T Extreme beauty: aesthetics, politics, death",
+      "%C London",
+      "%I Continuum",
+      "%! Extreme beauty: aesthetics, politics, death",
+      "%@ 9780826460103",
+      "%X Pt. 1\tAn Other Beauty\t3",
+      "1\tFeeling the Difference\t4",
+      "Pt. 2\tArt and the Turn to the Postmodern\t15",
+      "2\tBreton's Post-Hegelian Modernism\t17",
+      "3\tPostponing the Future: Marcel Duchamp and the Avant-Garde\t29",
+      "4\tWhen Less Is More, More or Less: Subtraction and Addition in (Post)Modernist Poetics\t40",
+      "Pt. 3\tThe Impossible Place of Literature\t53",
+      "5\tChora and Character: Mimesis of Difference in Plato's Timaeus\t56",
+      "6\tThe Place of Boredom: Blanchot Not Reading Proust\t67",
+      "7\tLiterature, Film, and Virtuality: Technology's Cutting Edge\t78",
+      "Pt. 4\tThe Rhetoric of the Political\t91",
+      "8\tRhetoric, Politics, Romance: Arendt and Heidegger, 1924-26\t94",
+      "9\tHannah Arendt: Literary Criticism and the Political\t110",
+      "10\tThe Politics of Fascism, or Consuming the Flesh of the Other\t124",
+      "Pt. 5\tThe Political Imaginary\t139",
+      "11\tPost-Colonialism and History: Are We Responsible for the Past?\t142",
+      "12\tIndigenous-Becoming in the Post-Colonial Polity\t152",
+      "13\tThe Post-Colonial Threshold of Capacity: \"The Other! The Other!\"\t163",
+      "Pt. 6\tExtreme Beauty - Death, Glory\t177",
+      "14\tThe Simulacrum of Death: Perniola Beyond Heidegger and Metaphysics?\t180",
+      "15\tA Deadly Gift: To Derrida, from Kierkegaard and Bataille\t194",
+      "16\tGlory in Levinas and Derrida\t208",
+      "Abbreviations\t223",
+      "Notes\t225",
+      "Bibliography\t245",
+      "Index\t255",
+      "Contributors\t258",
+      "Editors\t260",
+      "%U http://books.google.com/books?id=op5Imn1c7JIC",
+      "%> internal-pdf://0826460100-3812831756/0826460100.pdf",
+      "",
+      "",
+      ""
+    ],
+    [
+      "%0 Book",
+      "%A Sheth, Falguni A.",
+      "%D 2009",
+      "%T Toward a Political Philosophy of Race",
+      "%C Albany, NY",
+      "%I State University of New York Press",
+      "%P 256",
+      "%! Toward a Political Philosophy of Race",
+      "%@ 9780791493977",
+      "%> internal-pdf://9780791493977 - FALGUNI A. SHETH - Toward a Political Philosophy of Race-1370972164/9780791493977 - FALGUNI A. SHETH - Toward a Political Philosophy of Race.pdf",
+      "",
+      "",
+      ""
+    ],
+    [
+      "%0 Book",
+      "%A Purshouse, luke",
+      "%D 2006",
+      "%T Plato's Republic: A Reader's Guide",
+      "%I Continuum",
+      "%P 176",
+      "%! Plato's Republic: A Reader's Guide",
+      "%@ 0826474675",
+      "%> internal-pdf://0826474675 - LUKE PURSHOUSE - Plato's Republic~ A Reader's Guide-3216386564/0826474675 - LUKE PURSHOUSE - Plato's Republic~ A Reader's Guide.pdf",
+      "",
+      "",
+      ""
+    ],
+    [
+      "%0 Book",
+      "%A Kauppi, Niilo",
+      "%D 2010",
+      "%T Radicalism in French Culture",
+      "%I Ashgate",
+      "%P 160",
+      "%! Radicalism in French Culture",
+      "%@ 9781409407836",
+      "%> internal-pdf://9781409407836 - NIILO KAUPPI - Radicalism in French Culture-0079028484/9781409407836 - NIILO KAUPPI - Radicalism in French Culture.pdf",
+      "",
+      ""
+    ]
+  ],
+  "records": [
+    {
+      "attributes": {
+        "%0": [
+          "book"
+        ],
+        "%A": [
+          "Casebier, Allan"
+        ],
+        "%D": [
+          "1991"
+        ],
+        "%T": [
+          "Film and phenomenology: toward a realist theory of cinematic representation"
+        ],
+        "%C": [
+          "Cambridge"
+        ],
+        "%I": [
+          "Cambridge University Press"
+        ],
+        "%!": [
+          "Film and phenomenology: toward a realist theory of cinematic representation"
+        ],
+        "%@": [
+          "9780521411325"
+        ],
+        "%U": [
+          "http://books.google.com/books?id=VpdOAAAAIAAJ"
+        ],
+        "%>": [
+          "internal-pdf://0521411327-2100874753/0521411327.pdf"
+        ]
+      },
+      "errors": []
+    },
+    {
+      "attributes": {
+        "%0": [
+          "Book"
+        ],
+        "%A": [
+          "Lacan, Jacques"
+        ],
+        "%D": [
+          "2006"
+        ],
+        "%T": [
+          "Le séminaire Livre XVI: D'un autre à l'autre"
+        ],
+        "%C": [
+          "Paris"
+        ],
+        "%I": [
+          "Seuil"
+        ],
+        "%9": [
+          "Texte imprimé"
+        ],
+        "%!": [
+          "Le séminaire Livre XVI: D'un autre à l'autre"
+        ],
+        "%@": [
+          "2-02-082705-0 br. 30 EUR"
+        ],
+        "%M": [
+          "FRBNF401345190000005"
+        ],
+        "%L": [
+          "Tolbiac - D1 Rez de Jardin - Magasin\nTolbiac - D1 Haut de Jardin - Salle J - Libre accès\nTolbiac - D1 Rez de Jardin - Salle K - Libre accès"
+        ],
+        "%F": [
+          "150"
+        ],
+        "%K": [
+          "Jouissance (psychanalyse)\nL' Autre (psychanalyse)\n150.195 2"
+        ],
+        "%Z": [
+          "Jacques Lacan\n61-Lonrai Impr. Normandie roto\nill., couv. ill. 24 cm\nNotice réd. d'après la couv.\nIndex\nD'un autre à l'autre\nLe séminaire de Jacques Lacan"
+        ],
+        "%U": [
+          "http://catalogue.bnf.fr/ark:/12148/cb401345191"
+        ],
+        "%>": [
+          "internal-pdf://2020827050-0199078918/2020827050.djvu\ninternal-pdf://2020827050-1893725446/2020827050.pdf"
+        ],
+        "%G": [
+          "fre"
+        ]
+      },
+      "errors": []
+    },
+    {
+      "attributes": {
+        "%0": [
+          "Book"
+        ],
+        "%A": [
+          "Miller, Jacques-Alain"
+        ],
+        "%D": [
+          "2002"
+        ],
+        "%T": [
+          "Un début dans la vie"
+        ],
+        "%B": [
+          "Le cabinet des lettrés"
+        ],
+        "%C": [
+          "Paris"
+        ],
+        "%I": [
+          "Gallimard"
+        ],
+        "%P": [
+          "162"
+        ],
+        "%9": [
+          "Texte imprimé"
+        ],
+        "%!": [
+          "Un début dans la vie"
+        ],
+        "%@": [
+          "2-07-076495-8 br. 16,50 EUR"
+        ],
+        "%M": [
+          "FRBNF388330580000004"
+        ],
+        "%L": [
+          "Tolbiac - D1 Rez de Jardin - Magasin"
+        ],
+        "%F": [
+          "150"
+        ],
+        "%K": [
+          "150.195"
+        ],
+        "%Z": [
+          "Jacques-Alain Miller\n53-Mayenne Impr. Floch\ncouv. ill. en coul. 17 cm"
+        ],
+        "%U": [
+          "http://catalogue.bnf.fr/ark:/12148/cb38833058h"
+        ],
+        "%>": [
+          "internal-pdf://9782070764952-2296178950/9782070764952.djvu\ninternal-pdf://9782070764952-3067930886/9782070764952.pdf"
+        ],
+        "%G": [
+          "fre"
+        ]
+      },
+      "errors": []
+    },
+    {
+      "attributes": {
+        "%0": [
+          "Book"
+        ],
+        "%A": [
+          "Lacan, Jacques"
+        ],
+        "%D": [
+          "2007"
+        ],
+        "%T": [
+          "Le séminaire Livre XVIII D'un discours qui ne serait pas du semblant"
+        ],
+        "%C": [
+          "Paris"
+        ],
+        "%I": [
+          "Seuil"
+        ],
+        "%9": [
+          "Texte imprimé"
+        ],
+        "%!": [
+          "Le séminaire Livre XVIII D'un discours qui ne serait pas du semblant"
+        ],
+        "%@": [
+          "978-2-02-090219-9 rel. 21 EUR"
+        ],
+        "%M": [
+          "FRBNF41049264000000X"
+        ],
+        "%L": [
+          "Tolbiac - D1 Rez de Jardin - Magasin\nTolbiac - D1 Haut de Jardin - Salle J - Libre accès\nTolbiac - D1 Rez de Jardin - Salle K - Libre accès"
+        ],
+        "%F": [
+          "150"
+        ],
+        "%K": [
+          "Jouissance (psychanalyse)\nRelations hommes-femmes\nPsychanalyse et linguistique\n150.195 2"
+        ],
+        "%Z": [
+          "Jacques Lacan\n61-Lonrai Normandie roto impr.\nill., couv. ill. en coul. 24 cm\nNotice réd. d'après la couv.\nIndex\nD'un discours qui ne serait pas du semblant\nLe séminaire de Jacques Lacan"
+        ],
+        "%U": [
+          "http://catalogue.bnf.fr/ark:/12148/cb41049264d"
+        ],
+        "%>": [
+          "internal-pdf://2020902192-1474042118/2020902192.pdf\ninternal-pdf://978202092199-2346738438/978202092199.djvu"
+        ],
+        "%G": [
+          "fre"
+        ]
+      },
+      "errors": []
+    },
+    {
+      "attributes": {
+        "%0": [
+          "Book"
+        ],
+        "%A": [
+          "West-Pavlov, R"
+        ],
+        "%D": [
+          "2009"
+        ],
+        "%T": [
+          "Space in theory: Kristeva, Foucault, Deleuze"
+        ],
+        "%I": [
+          "Rodopi"
+        ],
+        "%!": [
+          "Space in theory: Kristeva, Foucault, Deleuze"
+        ],
+        "%@": [
+          "9789042025455"
+        ],
+        "%U": [
+          "http://books.google.com/books?id=BAJUPgAACAAJ"
+        ],
+        "%>": [
+          "internal-pdf://Space in Theory- Kristeva, Foucault, Deleuze. (Spatial Practices)-2339322626/Space in Theory- Kristeva, Foucault, Deleuze. (Spatial Practices).pdf"
+        ]
+      },
+      "errors": []
+    },
+    {
+      "attributes": {
+        "%0": [
+          "Book"
+        ],
+        "%A": [
+          "Britton, Celia"
+        ],
+        "%D": [
+          "1999"
+        ],
+        "%T": [
+          "Edouard Glissant and postcolonial theory: strategies of language and resistance"
+        ],
+        "%I": [
+          "University Press of Virginia"
+        ],
+        "%!": [
+          "Edouard Glissant and postcolonial theory: strategies of language and resistance"
+        ],
+        "%@": [
+          "9780813918495"
+        ],
+        "%U": [
+          "http://books.google.com/books?id=sT2ilrNtGkEC"
+        ],
+        "%>": [
+          "internal-pdf://cover - Unknown-2658066946/cover - Unknown.pdf"
+        ]
+      },
+      "errors": []
+    },
+    {
+      "attributes": {
+        "%0": [
+          "Book"
+        ],
+        "%A": [
+          "Dash, J. Michael"
+        ],
+        "%D": [
+          "1995"
+        ],
+        "%T": [
+          "Édouard Glissant"
+        ],
+        "%C": [
+          "Cambridge"
+        ],
+        "%I": [
+          "Cambridge University Press"
+        ],
+        "%!": [
+          "Édouard Glissant"
+        ],
+        "%@": [
+          "9780521402736"
+        ],
+        "%X": [
+          "1. Contexts\n2. The poetic intention: Un champ d'îles, La terre inquiète, Les Indes, Soleil de la conscience\n3. Novels of time and space: La lézarde, Le quatrième siècle\n4. Writing the 'real country': L'intention poétique, Malemort, Boises, Monsieur Toussaint\n5. Towards a theory of Antillanité: La case du commandeur, Le discours antillais\n6. A poetics of chaos: Pays rêvé, pays réel, Mahagony, Poétique de la relation."
+        ],
+        "%U": [
+          "http://books.google.com/books?id=ty_ukIzKs3kC"
+        ],
+        "%>": [
+          "internal-pdf://9780511549847_9780521402736-3781057538/9780511549847_9780521402736.pdf"
+        ]
+      },
+      "errors": []
+    },
+    {
+      "attributes": {
+        "%0": [
+          "Book"
+        ],
+        "%A": [
+          "Prabhu, Anjali"
+        ],
+        "%D": [
+          "2007"
+        ],
+        "%T": [
+          "Hybridity: limits, transformations, prospects"
+        ],
+        "%C": [
+          "Albany, NY"
+        ],
+        "%I": [
+          "State University of New York Press"
+        ],
+        "%!": [
+          "Hybridity: limits, transformations, prospects"
+        ],
+        "%@": [
+          "9780791470411"
+        ],
+        "%X": [
+          "Preface     ix\nAcknowledgments     xvii\nIntroduction: Hybridity in Contemporary Postcolonial Theory: Examining Agency     1\nHybridity in La Reunion: Monique Boyer's Metisse and the Nation as Necessity     19\nTheorizing Hybridity: Colonial and Postcolonial La Reunion     35\nOn the Difficulty of Articulating Hybridity: Africanness in Mauritius     51\nEthnicity and the Fate of the Nation: Reading Mauritius     85\nInterrogating Hybridity: Subaltern Agency and Totality through Edouard Glissant's Poetique de la Relation     105\nNarration in Frantz Fanon's Peau noire masques blancs: Some Reconsiderations for Hybridity     123\nAfterword: Why Hybridity Now?     147\nNotes     151\nWorks Cited     165\nIndex     175\nSUNY series, Explorations in Postcolonial Studies     186"
+        ],
+        "%U": [
+          "http://books.google.com/books?id=4N_2YlXYzQsC"
+        ],
+        "%>": [
+          "internal-pdf://hybridity Limits, Transformations, Prospects-3395125250/hybridity Limits, Transformations, Prospects.pdf"
+        ]
+      },
+      "errors": []
+    },
+    {
+      "attributes": {
+        "%0": [
+          "Book"
+        ],
+        "%A": [
+          "Hooft, Stan Van",
+          "Vanderkerckhove, Wim"
+        ],
+        "%D": [
+          "2010"
+        ],
+        "%T": [
+          "Questioning Cosmopolitanism"
+        ],
+        "%I": [
+          "Springer"
+        ],
+        "%!": [
+          "Questioning Cosmopolitanism"
+        ],
+        "%@": [
+          "9789048187034"
+        ],
+        "%U": [
+          "http://books.google.com/books?id=FNIGB729C4EC"
+        ],
+        "%>": [
+          "internal-pdf://RqbzScT1P-0972641536/RqbzScT1P.pdf"
+        ]
+      },
+      "errors": []
+    },
+    {
+      "attributes": {
+        "%0": [
+          "Book"
+        ],
+        "%A": [
+          "Fanon, Frantz"
+        ],
+        "%D": [
+          "1975"
+        ],
+        "%T": [
+          "Peau noire, masques blancs"
+        ],
+        "%B": [
+          "Points Essais"
+        ],
+        "%C": [
+          "Paris"
+        ],
+        "%I": [
+          "Seuil"
+        ],
+        "%N": [
+          "26"
+        ],
+        "%P": [
+          "188"
+        ],
+        "%9": [
+          "Texte imprimé"
+        ],
+        "%!": [
+          "Peau noire, masques blancs"
+        ],
+        "%@": [
+          "2-02-000601-4"
+        ],
+        "%M": [
+          "FRBNF374141510000003"
+        ],
+        "%L": [
+          "Tolbiac - D4 Rez de Jardin - Salle V - Libre accès\nTolbiac - D4 Haut de Jardin - Salle H - Libre accès"
+        ],
+        "%K": [
+          "844"
+        ],
+        "%Z": [
+          "Frantz Fanon\ncouv. ill. 18 cm"
+        ],
+        "%U": [
+          "http://catalogue.bnf.fr/ark:/12148/cb37414151c"
+        ],
+        "%G": [
+          "fre"
+        ]
+      },
+      "errors": []
+    },
+    {
+      "attributes": {
+        "%0": [
+          "Book"
+        ],
+        "%A": [
+          "Fanon, Frantz"
+        ],
+        "%D": [
+          "1975"
+        ],
+        "%T": [
+          "Peau noire masques blancs"
+        ],
+        "%B": [
+          "Points Civilisation"
+        ],
+        "%C": [
+          "Paris"
+        ],
+        "%I": [
+          "Seuil"
+        ],
+        "%N": [
+          "26"
+        ],
+        "%P": [
+          "188"
+        ],
+        "%9": [
+          "Texte imprimé"
+        ],
+        "%!": [
+          "Peau noire masques blancs"
+        ],
+        "%@": [
+          "2-02-000601-4"
+        ],
+        "%M": [
+          "FRBNF373626880000007"
+        ],
+        "%L": [
+          "Tolbiac - D1 Haut de Jardin - Salle J - Libre accès\nTolbiac - D2 Haut de Jardin - Salle D - Libre accès"
+        ],
+        "%K": [
+          "Noirs Acculturation\nNoirs Conditions sociales\n303.482\n305.896"
+        ],
+        "%Z": [
+          "Frantz Fanon\ncouv. ill. 18 cm\nPremière éd. paru en 1952 dans la collection Esprit"
+        ],
+        "%U": [
+          "http://catalogue.bnf.fr/ark:/12148/cb37362688g"
+        ],
+        "%>": [
+          "internal-pdf://2020006014-3886251025/2020006014.pdf"
+        ],
+        "%G": [
+          "fre"
+        ]
+      },
+      "errors": []
+    },
+    {
+      "attributes": {
+        "%0": [
+          "Book"
+        ],
+        "%A": [
+          "Belsey, C"
+        ],
+        "%D": [
+          "2005"
+        ],
+        "%T": [
+          "Culture and the real: theorizing cultural criticism"
+        ],
+        "%I": [
+          "Routledge"
+        ],
+        "%!": [
+          "Culture and the real: theorizing cultural criticism"
+        ],
+        "%@": [
+          "9780415252898"
+        ],
+        "%U": [
+          "http://books.google.com/books?id=6cYL8GMKavoC"
+        ],
+        "%>": [
+          "internal-pdf://041525289X-4228605197/041525289X.html"
+        ]
+      },
+      "errors": []
+    },
+    {
+      "attributes": {
+        "%0": [
+          "Book"
+        ],
+        "%A": [
+          "Lazarus, Neil"
+        ],
+        "%D": [
+          "1999"
+        ],
+        "%T": [
+          "Nationalism and Cultural Practice in the Postcolonial World"
+        ],
+        "%I": [
+          "CUP"
+        ],
+        "%P": [
+          "312"
+        ],
+        "%!": [
+          "Nationalism and Cultural Practice in the Postcolonial World"
+        ],
+        "%@": [
+          "9780521624107"
+        ],
+        "%>": [
+          "internal-pdf://9780521624107 - NEIL LAZARUS - Nationalism and Cultural Practice in the-4111006989/9780521624107 - NEIL LAZARUS - Nationalism and Cultural Practice in the Postcolonial World.pdf"
+        ]
+      },
+      "errors": []
+    },
+    {
+      "attributes": {
+        "%0": [
+          "Book"
+        ],
+        "%A": [
+          "Lazarus, Neil"
+        ],
+        "%D": [
+          "2002"
+        ],
+        "%T": [
+          "Marxism, Modernity and Postcolonial Studies"
+        ],
+        "%I": [
+          "CUP"
+        ],
+        "%P": [
+          "300"
+        ],
+        "%!": [
+          "Marxism, Modernity and Postcolonial Studies"
+        ],
+        "%@": [
+          "0521813670"
+        ]
+      },
+      "errors": []
+    },
+    {
+      "attributes": {
+        "%0": [
+          "Book"
+        ],
+        "%A": [
+          "Mennel, Barbara"
+        ],
+        "%D": [
+          "2008"
+        ],
+        "%T": [
+          "Cities and Cinema"
+        ],
+        "%I": [
+          "Routledge"
+        ],
+        "%P": [
+          "256"
+        ],
+        "%7": [
+          "1Ed"
+        ],
+        "%!": [
+          "Cities and Cinema"
+        ],
+        "%@": [
+          "0415364450"
+        ],
+        "%>": [
+          "internal-pdf://0415364450 - BARBARA MENNEL - Cities and Cinema-3238369293/0415364450 - BARBARA MENNEL - Cities and Cinema.pdf"
+        ]
+      },
+      "errors": []
+    },
+    {
+      "attributes": {
+        "%0": [
+          "Book"
+        ],
+        "%A": [
+          "Hitchcock, Peter"
+        ],
+        "%D": [
+          "1993"
+        ],
+        "%T": [
+          "Dialogics of the Oppressed"
+        ],
+        "%I": [
+          "University of Minnesota Press"
+        ],
+        "%P": [
+          "244"
+        ],
+        "%!": [
+          "Dialogics of the Oppressed"
+        ],
+        "%@": [
+          "0816621063"
+        ],
+        "%>": [
+          "internal-pdf://0816621063 - PETER HITCHCOCK - Dialogics of the Oppressed-3271806989/0816621063 - PETER HITCHCOCK - Dialogics of the Oppressed.pdf"
+        ]
+      },
+      "errors": []
+    },
+    {
+      "attributes": {
+        "%0": [
+          "Book"
+        ],
+        "%A": [
+          "Vallega, Alejandro A."
+        ],
+        "%D": [
+          "2003"
+        ],
+        "%T": [
+          "Heidegger and the Issue of Space: Thinking on Exilic Grounds"
+        ],
+        "%I": [
+          "Pennsylvania State University Press"
+        ],
+        "%P": [
+          "202"
+        ],
+        "%!": [
+          "Heidegger and the Issue of Space: Thinking on Exilic Grounds"
+        ],
+        "%@": [
+          "0271023074"
+        ],
+        "%>": [
+          "internal-pdf://0271023074 - ALEJANDRO A. VALLEGA - Heidegger and the Issue of Sp-3556950285/0271023074 - ALEJANDRO A. VALLEGA - Heidegger and the Issue of Space~ Thinking on Exilic Grounds.pdf"
+        ]
+      },
+      "errors": []
+    },
+    {
+      "attributes": {
+        "%0": [
+          "Book"
+        ],
+        "%A": [
+          "Hitchcock, P"
+        ],
+        "%D": [
+          "1999"
+        ],
+        "%T": [
+          "Oscillate wildly: space, body, and spirit of millennial materialism"
+        ],
+        "%I": [
+          "University of Minnesota Press"
+        ],
+        "%!": [
+          "Oscillate wildly: space, body, and spirit of millennial materialism"
+        ],
+        "%@": [
+          "9780816631506"
+        ],
+        "%U": [
+          "http://books.google.com/books?id=EBHQTXiEsEcC"
+        ],
+        "%>": [
+          "internal-pdf://0816631492-1984288524/0816631492.pdf"
+        ]
+      },
+      "errors": []
+    },
+    {
+      "attributes": {
+        "%0": [
+          "Book"
+        ],
+        "%A": [
+          "Hiddleston, Jane"
+        ],
+        "%D": [
+          "2009"
+        ],
+        "%T": [
+          "Understanding postcolonialism"
+        ],
+        "%I": [
+          "Acumen"
+        ],
+        "%!": [
+          "Understanding postcolonialism"
+        ],
+        "%@": [
+          "9781844651603"
+        ],
+        "%U": [
+          "http://books.google.com/books?id=gCdYPgAACAAJ"
+        ],
+        "%>": [
+          "internal-pdf://Hiddleston-Postcolonialism-2437224204/Hiddleston-Postcolonialism.pdf"
+        ]
+      },
+      "errors": []
+    },
+    {
+      "attributes": {
+        "%0": [
+          "Book"
+        ],
+        "%A": [
+          "Swearingen, James E",
+          "Cutting-Gray, Joanne"
+        ],
+        "%D": [
+          "2002"
+        ],
+        "%T": [
+          "Extreme beauty: aesthetics, politics, death"
+        ],
+        "%C": [
+          "London"
+        ],
+        "%I": [
+          "Continuum"
+        ],
+        "%!": [
+          "Extreme beauty: aesthetics, politics, death"
+        ],
+        "%@": [
+          "9780826460103"
+        ],
+        "%X": [
+          "Pt. 1\tAn Other Beauty\t3\n1\tFeeling the Difference\t4\nPt. 2\tArt and the Turn to the Postmodern\t15\n2\tBreton's Post-Hegelian Modernism\t17\n3\tPostponing the Future: Marcel Duchamp and the Avant-Garde\t29\n4\tWhen Less Is More, More or Less: Subtraction and Addition in (Post)Modernist Poetics\t40\nPt. 3\tThe Impossible Place of Literature\t53\n5\tChora and Character: Mimesis of Difference in Plato's Timaeus\t56\n6\tThe Place of Boredom: Blanchot Not Reading Proust\t67\n7\tLiterature, Film, and Virtuality: Technology's Cutting Edge\t78\nPt. 4\tThe Rhetoric of the Political\t91\n8\tRhetoric, Politics, Romance: Arendt and Heidegger, 1924-26\t94\n9\tHannah Arendt: Literary Criticism and the Political\t110\n10\tThe Politics of Fascism, or Consuming the Flesh of the Other\t124\nPt. 5\tThe Political Imaginary\t139\n11\tPost-Colonialism and History: Are We Responsible for the Past?\t142\n12\tIndigenous-Becoming in the Post-Colonial Polity\t152\n13\tThe Post-Colonial Threshold of Capacity: \"The Other! The Other!\"\t163\nPt. 6\tExtreme Beauty - Death, Glory\t177\n14\tThe Simulacrum of Death: Perniola Beyond Heidegger and Metaphysics?\t180\n15\tA Deadly Gift: To Derrida, from Kierkegaard and Bataille\t194\n16\tGlory in Levinas and Derrida\t208\nAbbreviations\t223\nNotes\t225\nBibliography\t245\nIndex\t255\nContributors\t258\nEditors\t260"
+        ],
+        "%U": [
+          "http://books.google.com/books?id=op5Imn1c7JIC"
+        ],
+        "%>": [
+          "internal-pdf://0826460100-3812831756/0826460100.pdf"
+        ]
+      },
+      "errors": []
+    },
+    {
+      "attributes": {
+        "%0": [
+          "Book"
+        ],
+        "%A": [
+          "Sheth, Falguni A."
+        ],
+        "%D": [
+          "2009"
+        ],
+        "%T": [
+          "Toward a Political Philosophy of Race"
+        ],
+        "%C": [
+          "Albany, NY"
+        ],
+        "%I": [
+          "State University of New York Press"
+        ],
+        "%P": [
+          "256"
+        ],
+        "%!": [
+          "Toward a Political Philosophy of Race"
+        ],
+        "%@": [
+          "9780791493977"
+        ],
+        "%>": [
+          "internal-pdf://9780791493977 - FALGUNI A. SHETH - Toward a Political Philosophy of Race-1370972164/9780791493977 - FALGUNI A. SHETH - Toward a Political Philosophy of Race.pdf"
+        ]
+      },
+      "errors": []
+    },
+    {
+      "attributes": {
+        "%0": [
+          "Book"
+        ],
+        "%A": [
+          "Purshouse, luke"
+        ],
+        "%D": [
+          "2006"
+        ],
+        "%T": [
+          "Plato's Republic: A Reader's Guide"
+        ],
+        "%I": [
+          "Continuum"
+        ],
+        "%P": [
+          "176"
+        ],
+        "%!": [
+          "Plato's Republic: A Reader's Guide"
+        ],
+        "%@": [
+          "0826474675"
+        ],
+        "%>": [
+          "internal-pdf://0826474675 - LUKE PURSHOUSE - Plato's Republic~ A Reader's Guide-3216386564/0826474675 - LUKE PURSHOUSE - Plato's Republic~ A Reader's Guide.pdf"
+        ]
+      },
+      "errors": []
+    },
+    {
+      "attributes": {
+        "%0": [
+          "Book"
+        ],
+        "%A": [
+          "Kauppi, Niilo"
+        ],
+        "%D": [
+          "2010"
+        ],
+        "%T": [
+          "Radicalism in French Culture"
+        ],
+        "%I": [
+          "Ashgate"
+        ],
+        "%P": [
+          "160"
+        ],
+        "%!": [
+          "Radicalism in French Culture"
+        ],
+        "%@": [
+          "9781409407836"
+        ],
+        "%>": [
+          "internal-pdf://9781409407836 - NIILO KAUPPI - Radicalism in French Culture-0079028484/9781409407836 - NIILO KAUPPI - Radicalism in French Culture.pdf"
+        ]
+      },
+      "errors": []
+    }
+  ],
+  "bibtex_items": [
+    {
+      "Type": "book",
+      "Key": "casebier1991filmandphenomenology",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "misc": "internal-pdf://0521411327-2100874753/0521411327.pdf",
+        "year": "1991",
+        "title": "Film and phenomenology: toward a realist theory of cinematic representation",
+        "address": "Cambridge",
+        "publisher": "Cambridge University Press",
+        "url": "http://books.google.com/books?id=VpdOAAAAIAAJ",
+        "author": "Casebier, Allan"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "lacan2006leseminairelivre",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "misc": "fre",
+        "year": "2006",
+        "title": "Le séminaire Livre XVI: D'un autre à l'autre",
+        "address": "Paris",
+        "publisher": "Seuil",
+        "note": "Jacques Lacan\n61-Lonrai Impr. Normandie roto\nill., couv. ill. 24 cm\nNotice réd. d'après la couv.\nIndex\nD'un autre à l'autre\nLe séminaire de Jacques Lacan",
+        "url": "http://catalogue.bnf.fr/ark:/12148/cb401345191",
+        "author": "Lacan, Jacques",
+        "keywords": "Jouissance (psychanalyse),L' Autre (psychanalyse),150.195 2"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "miller2002undebutdans",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "misc": "fre",
+        "year": "2002",
+        "title": "Un début dans la vie",
+        "journal": "Le cabinet des lettrés",
+        "address": "Paris",
+        "publisher": "Gallimard",
+        "pages": "162",
+        "note": "Jacques-Alain Miller\n53-Mayenne Impr. Floch\ncouv. ill. en coul. 17 cm",
+        "url": "http://catalogue.bnf.fr/ark:/12148/cb38833058h",
+        "author": "Miller, Jacques-Alain",
+        "keywords": "150.195"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "lacan2007leseminairelivre",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "misc": "fre",
+        "year": "2007",
+        "title": "Le séminaire Livre XVIII D'un discours qui ne serait pas du semblant",
+        "address": "Paris",
+        "publisher": "Seuil",
+        "note": "Jacques Lacan\n61-Lonrai Normandie roto impr.\nill., couv. ill. en coul. 24 cm\nNotice réd. d'après la couv.\nIndex\nD'un discours qui ne serait pas du semblant\nLe séminaire de Jacques Lacan",
+        "url": "http://catalogue.bnf.fr/ark:/12148/cb41049264d",
+        "author": "Lacan, Jacques",
+        "keywords": "Jouissance (psychanalyse),Relations hommes-femmes,Psychanalyse et linguistique,150.195 2"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "westpavlov2009spaceintheory",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "misc": "internal-pdf://Space in Theory- Kristeva, Foucault, Deleuze. (Spatial Practices)-2339322626/Space in Theory- Kristeva, Foucault, Deleuze. (Spatial Practices).pdf",
+        "year": "2009",
+        "title": "Space in theory: Kristeva, Foucault, Deleuze",
+        "publisher": "Rodopi",
+        "url": "http://books.google.com/books?id=BAJUPgAACAAJ",
+        "author": "West-Pavlov, R"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "britton1999edouardglissantand",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "misc": "internal-pdf://cover - Unknown-2658066946/cover - Unknown.pdf",
+        "year": "1999",
+        "title": "Edouard Glissant and postcolonial theory: strategies of language and resistance",
+        "publisher": "University Press of Virginia",
+        "url": "http://books.google.com/books?id=sT2ilrNtGkEC",
+        "author": "Britton, Celia"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "dash1995edouardglissant",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "misc": "internal-pdf://9780511549847_9780521402736-3781057538/9780511549847_9780521402736.pdf",
+        "year": "1995",
+        "title": "Édouard Glissant",
+        "address": "Cambridge",
+        "publisher": "Cambridge University Press",
+        "abstract": "1. Contexts\n2. The poetic intention: Un champ d'îles, La terre inquiète, Les Indes, Soleil de la conscience\n3. Novels of time and space: La lézarde, Le quatrième siècle\n4. Writing the 'real country': L'intention poétique, Malemort, Boises, Monsieur Toussaint\n5. Towards a theory of Antillanité: La case du commandeur, Le discours antillais\n6. A poetics of chaos: Pays rêvé, pays réel, Mahagony, Poétique de la relation.",
+        "url": "http://books.google.com/books?id=ty_ukIzKs3kC",
+        "author": "Dash, J. Michael"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "prabhu2007hybriditylimitstransformations",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "misc": "internal-pdf://hybridity Limits, Transformations, Prospects-3395125250/hybridity Limits, Transformations, Prospects.pdf",
+        "year": "2007",
+        "title": "Hybridity: limits, transformations, prospects",
+        "address": "Albany, NY",
+        "publisher": "State University of New York Press",
+        "abstract": "Preface     ix\nAcknowledgments     xvii\nIntroduction: Hybridity in Contemporary Postcolonial Theory: Examining Agency     1\nHybridity in La Reunion: Monique Boyer's Metisse and the Nation as Necessity     19\nTheorizing Hybridity: Colonial and Postcolonial La Reunion     35\nOn the Difficulty of Articulating Hybridity: Africanness in Mauritius     51\nEthnicity and the Fate of the Nation: Reading Mauritius     85\nInterrogating Hybridity: Subaltern Agency and Totality through Edouard Glissant's Poetique de la Relation     105\nNarration in Frantz Fanon's Peau noire masques blancs: Some Reconsiderations for Hybridity     123\nAfterword: Why Hybridity Now?     147\nNotes     151\nWorks Cited     165\nIndex     175\nSUNY series, Explorations in Postcolonial Studies     186",
+        "url": "http://books.google.com/books?id=4N_2YlXYzQsC",
+        "author": "Prabhu, Anjali"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "hooft2010questioningcosmopolitanism",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "misc": "internal-pdf://RqbzScT1P-0972641536/RqbzScT1P.pdf",
+        "year": "2010",
+        "title": "Questioning Cosmopolitanism",
+        "publisher": "Springer",
+        "url": "http://books.google.com/books?id=FNIGB729C4EC",
+        "author": "Hooft, Stan Van and Vanderkerckhove, Wim"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "fanon1975peaunoiremasques",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "misc": "fre",
+        "year": "1975",
+        "title": "Peau noire, masques blancs",
+        "journal": "Points Essais",
+        "address": "Paris",
+        "publisher": "Seuil",
+        "number": "26",
+        "pages": "188",
+        "note": "Frantz Fanon\ncouv. ill. 18 cm",
+        "url": "http://catalogue.bnf.fr/ark:/12148/cb37414151c",
+        "author": "Fanon, Frantz",
+        "keywords": "844"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "fanon1975peaunoiremasques",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "misc": "fre",
+        "year": "1975",
+        "title": "Peau noire masques blancs",
+        "journal": "Points Civilisation",
+        "address": "Paris",
+        "publisher": "Seuil",
+        "number": "26",
+        "pages": "188",
+        "note": "Frantz Fanon\ncouv. ill. 18 cm\nPremière éd. paru en 1952 dans la collection Esprit",
+        "url": "http://catalogue.bnf.fr/ark:/12148/cb37362688g",
+        "author": "Fanon, Frantz",
+        "keywords": "Noirs Acculturation,Noirs Conditions sociales,303.482,305.896"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "belsey2005cultureandthe",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "misc": "internal-pdf://041525289X-4228605197/041525289X.html",
+        "year": "2005",
+        "title": "Culture and the real: theorizing cultural criticism",
+        "publisher": "Routledge",
+        "url": "http://books.google.com/books?id=6cYL8GMKavoC",
+        "author": "Belsey, C"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "lazarus1999nationalismandcultural",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "misc": "internal-pdf://9780521624107 - NEIL LAZARUS - Nationalism and Cultural Practice in the-4111006989/9780521624107 - NEIL LAZARUS - Nationalism and Cultural Practice in the Postcolonial World.pdf",
+        "year": "1999",
+        "title": "Nationalism and Cultural Practice in the Postcolonial World",
+        "publisher": "CUP",
+        "pages": "312",
+        "author": "Lazarus, Neil"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "lazarus2002marxismmodernityand",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "misc": "0521813670",
+        "year": "2002",
+        "title": "Marxism, Modernity and Postcolonial Studies",
+        "publisher": "CUP",
+        "pages": "300",
+        "author": "Lazarus, Neil"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "mennel2008citiesandcinema",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "misc": "internal-pdf://0415364450 - BARBARA MENNEL - Cities and Cinema-3238369293/0415364450 - BARBARA MENNEL - Cities and Cinema.pdf",
+        "year": "2008",
+        "title": "Cities and Cinema",
+        "publisher": "Routledge",
+        "pages": "256",
+        "author": "Mennel, Barbara"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "hitchcock1993dialogicsofthe",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "misc": "internal-pdf://0816621063 - PETER HITCHCOCK - Dialogics of the Oppressed-3271806989/0816621063 - PETER HITCHCOCK - Dialogics of the Oppressed.pdf",
+        "year": "1993",
+        "title": "Dialogics of the Oppressed",
+        "publisher": "University of Minnesota Press",
+        "pages": "244",
+        "author": "Hitchcock, Peter"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "vallega2003heideggerandthe",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "misc": "internal-pdf://0271023074 - ALEJANDRO A. VALLEGA - Heidegger and the Issue of Sp-3556950285/0271023074 - ALEJANDRO A. VALLEGA - Heidegger and the Issue of Space~ Thinking on Exilic Grounds.pdf",
+        "year": "2003",
+        "title": "Heidegger and the Issue of Space: Thinking on Exilic Grounds",
+        "publisher": "Pennsylvania State University Press",
+        "pages": "202",
+        "author": "Vallega, Alejandro A."
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "hitchcock1999oscillatewildlyspace",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "misc": "internal-pdf://0816631492-1984288524/0816631492.pdf",
+        "year": "1999",
+        "title": "Oscillate wildly: space, body, and spirit of millennial materialism",
+        "publisher": "University of Minnesota Press",
+        "url": "http://books.google.com/books?id=EBHQTXiEsEcC",
+        "author": "Hitchcock, P"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "hiddleston2009understandingpostcolonialism",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "misc": "internal-pdf://Hiddleston-Postcolonialism-2437224204/Hiddleston-Postcolonialism.pdf",
+        "year": "2009",
+        "title": "Understanding postcolonialism",
+        "publisher": "Acumen",
+        "url": "http://books.google.com/books?id=gCdYPgAACAAJ",
+        "author": "Hiddleston, Jane"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "swearingen2002extremebeautyaesthetics",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "misc": "internal-pdf://0826460100-3812831756/0826460100.pdf",
+        "year": "2002",
+        "title": "Extreme beauty: aesthetics, politics, death",
+        "address": "London",
+        "publisher": "Continuum",
+        "abstract": "Pt. 1\tAn Other Beauty\t3\n1\tFeeling the Difference\t4\nPt. 2\tArt and the Turn to the Postmodern\t15\n2\tBreton's Post-Hegelian Modernism\t17\n3\tPostponing the Future: Marcel Duchamp and the Avant-Garde\t29\n4\tWhen Less Is More, More or Less: Subtraction and Addition in (Post)Modernist Poetics\t40\nPt. 3\tThe Impossible Place of Literature\t53\n5\tChora and Character: Mimesis of Difference in Plato's Timaeus\t56\n6\tThe Place of Boredom: Blanchot Not Reading Proust\t67\n7\tLiterature, Film, and Virtuality: Technology's Cutting Edge\t78\nPt. 4\tThe Rhetoric of the Political\t91\n8\tRhetoric, Politics, Romance: Arendt and Heidegger, 1924-26\t94\n9\tHannah Arendt: Literary Criticism and the Political\t110\n10\tThe Politics of Fascism, or Consuming the Flesh of the Other\t124\nPt. 5\tThe Political Imaginary\t139\n11\tPost-Colonialism and History: Are We Responsible for the Past?\t142\n12\tIndigenous-Becoming in the Post-Colonial Polity\t152\n13\tThe Post-Colonial Threshold of Capacity: \"The Other! The Other!\"\t163\nPt. 6\tExtreme Beauty - Death, Glory\t177\n14\tThe Simulacrum of Death: Perniola Beyond Heidegger and Metaphysics?\t180\n15\tA Deadly Gift: To Derrida, from Kierkegaard and Bataille\t194\n16\tGlory in Levinas and Derrida\t208\nAbbreviations\t223\nNotes\t225\nBibliography\t245\nIndex\t255\nContributors\t258\nEditors\t260",
+        "url": "http://books.google.com/books?id=op5Imn1c7JIC",
+        "author": "Swearingen, James E and Cutting-Gray, Joanne"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "sheth2009towardapolitical",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "misc": "internal-pdf://9780791493977 - FALGUNI A. SHETH - Toward a Political Philosophy of Race-1370972164/9780791493977 - FALGUNI A. SHETH - Toward a Political Philosophy of Race.pdf",
+        "year": "2009",
+        "title": "Toward a Political Philosophy of Race",
+        "address": "Albany, NY",
+        "publisher": "State University of New York Press",
+        "pages": "256",
+        "author": "Sheth, Falguni A."
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "purshouse2006platosrepublica",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "misc": "internal-pdf://0826474675 - LUKE PURSHOUSE - Plato's Republic~ A Reader's Guide-3216386564/0826474675 - LUKE PURSHOUSE - Plato's Republic~ A Reader's Guide.pdf",
+        "year": "2006",
+        "title": "Plato's Republic: A Reader's Guide",
+        "publisher": "Continuum",
+        "pages": "176",
+        "author": "Purshouse, luke"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "kauppi2010radicalisminfrench",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "misc": "internal-pdf://9781409407836 - NIILO KAUPPI - Radicalism in French Culture-0079028484/9781409407836 - NIILO KAUPPI - Radicalism in French Culture.pdf",
+        "year": "2010",
+        "title": "Radicalism in French Culture",
+        "publisher": "Ashgate",
+        "pages": "160",
+        "author": "Kauppi, Niilo"
+      }
+    }
+  ]
+}

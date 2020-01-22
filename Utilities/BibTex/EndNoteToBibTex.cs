@@ -292,11 +292,12 @@ namespace QiqqaUnitTester
     [TestClass]
     public class EndNoteToBibTexTester : EndNoteToBibTex   // HACK: inherit so we can access protected members
     {
+        // https://stackoverflow.com/questions/29003215/newtonsoft-json-serialization-returns-empty-json-object
         private class Result
         {
-            internal List<List<string>> lines_set;
-            internal List<EndNoteRecord> records = new List<EndNoteRecord>();
-            internal List<BibTexItem> bibtex_items = new List<BibTexItem>();
+            public List<List<string>> lines_set;
+            public List<EndNoteRecord> records = new List<EndNoteRecord>();
+            public List<BibTexItem> bibtex_items = new List<BibTexItem>();
         }
 
         [DataRow("Utilities/BibTex/TestFiles/SampleEndnote.txt")]
