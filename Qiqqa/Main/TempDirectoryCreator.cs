@@ -13,17 +13,26 @@ namespace Qiqqa.Main
     {
         static TempDirectoryCreator()
         {
+            CreateDirectoryIfNonExistent();
+        }
+
+        public static bool CreateDirectoryIfNonExistent()
+        {
             try
             {
                 if (!Directory.Exists(TempFile.TempDirectoryForQiqqa))
                 {
                     Directory.CreateDirectory(TempFile.TempDirectoryForQiqqa);
+
+                    return CheckTempExists();
                 }
+                return true;
             }
             catch (Exception ex)
             {
                 Logging.Error(ex);
             }
+            return false;
         }
 
         public static bool CheckTempExists()

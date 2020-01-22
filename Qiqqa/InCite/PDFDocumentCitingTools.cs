@@ -90,7 +90,7 @@ namespace Qiqqa.InCite
                             {
                                 if (pdf_document_other.BibTexKey == key)
                                 {
-                                    MessageBoxes.Warn(String.Format("There are several document in your library with the same BibTeX key '{0}'.  Unless they are the same PDF, you should give them different keys or else InCite will just pick the first matching document.", key));
+                                    MessageBoxes.Warn(String.Format("There are several documents in your library with the same BibTeX key '{0}'.  Unless they are the same PDF, you should give them different keys or else InCite will just pick the first matching document.", key));
                                 }
                             }
                         }

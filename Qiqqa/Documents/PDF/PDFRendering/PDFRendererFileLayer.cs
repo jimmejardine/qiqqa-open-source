@@ -12,6 +12,8 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 {
     public class PDFRendererFileLayer
     {
+        private const int TEXT_PAGES_PER_GROUP = PDFRenderer.TEXT_PAGES_PER_GROUP;
+
         public static readonly string BASE_PATH_DEFAULT = Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.BaseDirectoryForQiqqa, @"ocr"));
 
         static PDFRendererFileLayer()
@@ -88,7 +90,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             return MakeFilenameWith2LevelIndirection("text", page_number, "txt");
         }
 
-        internal string MakeFilename_TextGroup(int page, int TEXT_PAGES_PER_GROUP)
+        internal string MakeFilename_TextGroup(int page)
         {
             int page_range_start = ((page - 1) / TEXT_PAGES_PER_GROUP) * TEXT_PAGES_PER_GROUP + 1;
             int page_range_end = page_range_start + TEXT_PAGES_PER_GROUP - 1;
@@ -111,9 +113,9 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             return filename;
         }
 
-        internal string StorePageTextGroup(int page, int TEXT_PAGES_PER_GROUP, string source_filename)
+        internal string StorePageTextGroup(int page, string source_filename)
         {
-            string filename = MakeFilename_TextGroup(page, TEXT_PAGES_PER_GROUP);
+            string filename = MakeFilename_TextGroup(page);
             Directory.CreateDirectory(Path.GetDirectoryName(filename));
             File.Copy(source_filename, filename, true);
             File.Delete(source_filename);

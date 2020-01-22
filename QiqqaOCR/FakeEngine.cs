@@ -27,7 +27,7 @@ namespace QiqqaOCR
         internal static void MainEntry(string[] args, bool _no_kill)
         {
             // Check that we were given the right number of parameters
-            if (args.Length < 6)
+            if (args.Length < 4)
             {
                 throw new Exception("Not enough command line arguments");
             }

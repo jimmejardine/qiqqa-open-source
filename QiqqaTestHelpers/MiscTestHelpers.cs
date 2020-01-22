@@ -30,6 +30,12 @@ namespace QiqqaTestHelpers
             return fnpath;
         }
 
+        public static string GetNormalizedPathToAnyTestDataTestFile(string test_filepath)
+        {
+            string fnpath = Path.GetFullPath(Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"../../../TestData/data", test_filepath));
+            return fnpath;
+        }
+
         public static string GetTestFileContent(string bibtex_filepath)
         {
             string data = File.ReadAllText(bibtex_filepath, Encoding.UTF8);

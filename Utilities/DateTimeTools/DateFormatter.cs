@@ -28,7 +28,7 @@ namespace Utilities.DateTimeTools
 
         public static string ToYYYYMMDDHHMMSSMMM(DateTime? date)
         {
-            if (null == date || !date.HasValue)
+            if (null == date || !date.HasValue || date.Value == Utilities.Constants.DATETIME_MIN)
             {
                 return null;
             }

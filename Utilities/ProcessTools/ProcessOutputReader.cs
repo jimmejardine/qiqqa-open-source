@@ -10,6 +10,7 @@ namespace Utilities.ProcessTools
         private Process process;
         public List<string> Output = new List<string>();
         public List<string> Error = new List<string>();
+        private object io_buffers_lock = new object();
         public readonly bool StdOutIsBinary;
 
         public ProcessOutputReader(Process process, bool stdout_is_binary = false)
@@ -24,7 +25,10 @@ namespace Utilities.ProcessTools
                     // and causes GetOutputsDumpString() to fail with an internal List<> exception error otherwise:
                     if (e.Data != null)
                     {
-                        Output.Add(e.Data);
+                        lock (io_buffers_lock)
+                        {
+                            Output.Add(e.Data);
+                        }
                     }
                 };
             }
@@ -33,9 +37,18 @@ namespace Utilities.ProcessTools
                 // and causes GetOutputsDumpString() to fail with an internal List<> exception error otherwise:
                 if (e.Data != null)
                 {
-                    Error.Add(e.Data);
+                    lock (io_buffers_lock)
+                    {
+                        Error.Add(e.Data);
+                    }
                 }
             };
+            process.Exited += (sender, e) => {
+                lock (io_buffers_lock)
+                {
+                    Error.Add("--EXIT--");
+                }
+            }; 
             if (!stdout_is_binary)
             {
                 process.BeginOutputReadLine();
@@ -74,8 +87,11 @@ namespace Utilities.ProcessTools
                         process.CancelOutputRead();
                     }
 
-                    Output.Clear();
-                    Error.Clear();
+                    lock (io_buffers_lock)
+                    {
+                        Output.Clear();
+                        Error.Clear();
+                    }
                 }
 
                 process = null;
@@ -96,28 +112,34 @@ namespace Utilities.ProcessTools
             //
             // HACK: we cope with that by re-iterating over the list until success is ours...   :-S :-S  hacky!
 			Exception odd_ex = null;
-            List<string> orig_out = new List<string>(Output);
 			
             for (int i = 10; i > 0; i--)
             {
                 try
                 {
                     StringBuilder sb = new StringBuilder();
+
                     sb.AppendLine("--- Standard output:");
-                    foreach (string s in Output)
+                    lock (io_buffers_lock)
                     {
-                        sb.AppendLine(s);
+                        foreach (string s in Output)
+                        {
+                            sb.AppendLine(s);
+                        }
                     }
                     sb.AppendLine("--- Standard error:");
-                    foreach (string s in Error)
+                    lock (io_buffers_lock)
                     {
-                        sb.AppendLine(s);
+                        foreach (string s in Error)
+                        {
+                            sb.AppendLine(s);
+                        }
                     }
                     return sb.ToString();
                 }
                 catch (Exception ex)
                 {
-					odd_ex = ex;
+                    odd_ex = ex;
                     Logging.Error(ex, "GetOutputsDumpString failed with this odd condition...");
                 }
             }

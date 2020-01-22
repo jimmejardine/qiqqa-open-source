@@ -138,10 +138,9 @@ namespace Qiqqa.Exporting
                         sb.AppendLine();
                     }
                 }
-
                 catch (Exception ex)
                 {
-                    Logging.Error(ex, "There was a problem exporting the bibtex for " + pdf_document);
+                    Logging.Error(ex, "There was a problem exporting the bibtex for document {0}", pdf_document.Fingerprint);
                 }
             }
 

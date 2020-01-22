@@ -26,7 +26,7 @@ namespace Utilities.Language
                 return null;
             }
 
-            // Only accepts keywords that are letters, numbers, dash, quote
+            // Only accepts keywords that are letters, numbers, dash, quote, underscore (aka "the programmers' space")
             bool has_at_least_one_useful_char = false;
             for (int i = 0; i < source_keyword.Length; ++i)
             {
@@ -34,6 +34,7 @@ namespace Utilities.Language
                     true
                     && !(Char.IsLetterOrDigit(source_keyword, i))
                     && !(Char.IsNumber(source_keyword, i))
+                    && !(source_keyword[i] == '_')
                     && !(source_keyword[i] == '-')
                     && !(source_keyword[i] == '.')
                     && !(source_keyword[i] == ' ')
@@ -42,8 +43,7 @@ namespace Utilities.Language
                 {
                     return null;
                 }
-
-
+                
                 if (!has_at_least_one_useful_char)
                 {
                     if (Char.IsLetter(source_keyword, i) || Char.IsNumber(source_keyword, i))
