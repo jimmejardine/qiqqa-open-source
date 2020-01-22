@@ -103,6 +103,9 @@ namespace QiqqaOCR
                 Console.ReadKey();
             }
 
+            // This must be the last line the application executes, EVAR!
+            Logging.ShutDown();
+
             return exit_code;
         }
     }

@@ -170,9 +170,11 @@ namespace Qiqqa.Common.Configuration
                 configuration_record = new ConfigurationRecord();
             }
 
+#if TEST_FIRST_TIME_QIQQA_EXECUTION
             // Testing....
             configuration_record.TermsAndConditionsAccepted = false;
             configuration_record.SyncTermsAccepted = false;
+#endif
 
             // Attach a bindable to the configuration record so that GUIs can update it
             configuration_record_bindable = new AugmentedBindable<ConfigurationRecord>(configuration_record);

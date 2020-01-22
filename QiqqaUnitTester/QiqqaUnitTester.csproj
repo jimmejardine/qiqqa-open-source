@@ -112,6 +112,9 @@
     <Compile Include="..\Utilities\BibTex\RisToBibTeX.cs">
       <Link>Utilities\BibTeX\RisToBibTeX.cs</Link>
     </Compile>
+    <Compile Include="..\Utilities\Strings\StringTools.cs">
+      <Link>Utilities\StringTools.cs</Link>
+    </Compile>
     <Compile Include="ApprovalTestsConfig.cs" />
     <Compile Include="TestBibTeX.cs" />
     <Compile Include="TestJSONDeserializeFromArbitrary.cs" />

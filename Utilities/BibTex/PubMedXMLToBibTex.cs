@@ -239,9 +239,9 @@ namespace QiqqaUnitTester
     {
         private struct Result
         {
-            internal string bibtex;
-            internal List<string> messages;
-            internal bool success;
+            public string bibtex;
+            public List<string> messages;
+            public bool success;
         }
 
         [DataRow("publisherhelp.Example_of_a_Standard_XML.xml")]
