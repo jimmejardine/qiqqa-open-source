@@ -16,7 +16,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 {
     public class PDFRenderer
     {
-        private const int TEXT_PAGES_PER_GROUP = 20;
+        public const int TEXT_PAGES_PER_GROUP = 20;
 
         private string pdf_filename;
         private string pdf_user_password;
@@ -148,6 +148,10 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                             // Get this ONE page
                             Dictionary<int, WordList> word_lists = WordList.ReadFromFile(filename, page);
                             WordList word_list = word_lists[page];
+                            if (null == word_list)
+                            {
+                                throw new Exception(String.Format("No words on page {0} in OCR file {1}", page, filename));
+                            }
                             texts[page] = new TypedWeakReference<WordList>(word_list);
                             return word_list;
                         }
@@ -161,7 +165,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
                 // Then check for an existing GROUP file
                 {
-                    string filename = pdf_render_file_layer.MakeFilename_TextGroup(page, TEXT_PAGES_PER_GROUP);
+                    string filename = pdf_render_file_layer.MakeFilename_TextGroup(page);
                     try
                     {
                         if (File.Exists(filename))
@@ -196,14 +200,16 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             if (queue_for_ocr)
             {
                 // If we have never tried the GROUP version before, queue for it
-                string filename = pdf_render_file_layer.MakeFilename_TextGroup(page, TEXT_PAGES_PER_GROUP);
-                if (!File.Exists(filename))
+                string filename = pdf_render_file_layer.MakeFilename_TextGroup(page);
+                PDFTextExtractor.Job job = new PDFTextExtractor.Job(this, page);
+
+                if (!File.Exists(filename) && PDFTextExtractor.Instance.JobGroupHasNotFailedBefore(job))
                 {
-                    PDFTextExtractor.Instance.QueueJobGroup(new PDFTextExtractor.Job(this, page, TEXT_PAGES_PER_GROUP));
+                    PDFTextExtractor.Instance.QueueJobGroup(job);
                 }
                 else
                 {
-                    PDFTextExtractor.Instance.QueueJobSingle(new PDFTextExtractor.Job(this, page, TEXT_PAGES_PER_GROUP));
+                    PDFTextExtractor.Instance.QueueJobSingle(job);
                 }
             }
 
@@ -272,7 +278,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
                 // Then the MULTI file
                 {
-                    string filename = pdf_render_file_layer.MakeFilename_TextGroup(page, TEXT_PAGES_PER_GROUP);
+                    string filename = pdf_render_file_layer.MakeFilename_TextGroup(page);
 
                     try
                     {
@@ -314,7 +320,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             // Queue all the pages for OCR
             for (int page = 1; page <= PageCount; ++page)
             {
-                PDFTextExtractor.Job job = new PDFTextExtractor.Job(this, page, TEXT_PAGES_PER_GROUP);
+                PDFTextExtractor.Job job = new PDFTextExtractor.Job(this, page);
                 job.force_job = true;
                 job.language = language;
                 PDFTextExtractor.Instance.QueueJobSingle(job);
@@ -330,7 +336,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         internal void StorePageTextGroup(int page, int TEXT_PAGES_PER_GROUP, string source_filename)
         {
-            string filename = pdf_render_file_layer.StorePageTextGroup(page, TEXT_PAGES_PER_GROUP, source_filename);
+            string filename = pdf_render_file_layer.StorePageTextGroup(page, source_filename);
 
             if (null != OnPageTextAvailable)
             {
