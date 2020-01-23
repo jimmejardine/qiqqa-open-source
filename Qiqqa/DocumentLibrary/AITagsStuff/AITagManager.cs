@@ -37,8 +37,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
             {
                 if (File.Exists(Filename_Store))
                 {
-                    Stopwatch clk = new Stopwatch();
-                    clk.Start();
+                    Stopwatch clk = Stopwatch.StartNew();
                     Logging.Info("+Loading AutoTags");
                     current_ai_tags_record = SerializeFile.ProtoLoad<AITags>(Filename_Store);
                     Logging.Info("-Loading AutoTags (time spent: {0} ms)", clk.ElapsedMilliseconds);

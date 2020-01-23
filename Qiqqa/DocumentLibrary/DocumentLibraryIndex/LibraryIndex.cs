@@ -100,8 +100,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 {
                     if (File.Exists(Filename_DocumentProgressList))
                     {
-                        Stopwatch clk = new Stopwatch();
-                        clk.Start();
+                        Stopwatch clk = Stopwatch.StartNew();
                         Logging.Info("+Loading historical progress file: {0}", Filename_DocumentProgressList);
                         //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                         lock (pdf_documents_in_library_lock)
@@ -374,8 +373,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
             int total_new_to_be_indexed = 0;
 
-            Stopwatch clk = new Stopwatch();
-            clk.Start();
+            Stopwatch clk = Stopwatch.StartNew();
 
             foreach (PDFDocument pdf_document in pdf_documents)
             {

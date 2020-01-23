@@ -49,8 +49,7 @@ namespace Utilities.GUI
         {
             Logging.Debug("+WaitForUIThreadActivityDone start");
 
-            Stopwatch clk = new Stopwatch();
-            clk.Start();
+            Stopwatch clk = Stopwatch.StartNew();
 
             // if (Application.Current == null || Application.Current.Dispatcher.Thread == Thread.CurrentThread)
             // as per: https://stackoverflow.com/questions/5143599/detecting-whether-on-ui-thread-in-wpf-and-winforms#answer-14280425

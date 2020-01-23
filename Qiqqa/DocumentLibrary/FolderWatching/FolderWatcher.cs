@@ -227,8 +227,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 int skipped_file_count = 0;
 
                 // If we get this far then there might be some work to do in the folder...
-                Stopwatch clk = new Stopwatch();
-                clk.Start();
+                Stopwatch clk = Stopwatch.StartNew();
                 IEnumerable<string> filenames_in_folder = Directory.EnumerateFiles(configured_folder_to_watch, "*.pdf", SearchOption.AllDirectories);
                 Logging.Debug特("Directory.EnumerateFiles took {0} ms", clk.ElapsedMilliseconds);
 

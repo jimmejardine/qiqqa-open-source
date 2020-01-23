@@ -109,8 +109,8 @@ namespace Utilities.Language.TextIndexing
 
         private void FlushIndexWriter_LOCK()
         {
-            Stopwatch clk = new Stopwatch();
-            clk.Start();
+            Stopwatch clk = Stopwatch.StartNew();
+
             Logging.Info("+Flushing a lucene IndexWriter");
             if (null != index_writer)
             {

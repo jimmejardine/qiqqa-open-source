@@ -64,8 +64,7 @@ namespace Qiqqa.DocumentLibrary
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-            Stopwatch clk = new Stopwatch();
-            clk.Start();
+            Stopwatch clk = Stopwatch.StartNew();
 
             // Notify if there is just a single doc
             suppress_notifications = suppress_notifications || (filename_with_metadata_imports.Length > 1);

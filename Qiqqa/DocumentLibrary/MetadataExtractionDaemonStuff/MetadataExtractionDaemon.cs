@@ -16,8 +16,7 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
 
         public void DoMaintenance(Library library)
         {
-            Stopwatch sw_total = new Stopwatch();
-            sw_total.Start();
+            Stopwatch sw_total = Stopwatch.StartNew();
 
             Logging.Debug特("MetadataExtractionDaemon::DoMaintenance START");
 
