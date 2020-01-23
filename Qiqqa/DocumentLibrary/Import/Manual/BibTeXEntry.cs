@@ -37,7 +37,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             set
             {
                 _selected = value;
-                Bindable.NotifyPropertyChanged(() => Selected);
+                Bindable.NotifyPropertyChanged(nameof(Selected));
             }
         }
 

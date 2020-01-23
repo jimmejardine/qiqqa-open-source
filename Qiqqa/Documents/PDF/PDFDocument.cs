@@ -826,7 +826,7 @@ namespace Qiqqa.Documents.PDF
 
             if (notify)
             {
-                Bindable.NotifyPropertyChanged(() => Tags);
+                Bindable.NotifyPropertyChanged(nameof(Tags));
                 TagManager.Instance.ProcessDocument(this);
             }
         }
@@ -842,7 +842,7 @@ namespace Qiqqa.Documents.PDF
 
             if (notify)
             {
-                Bindable.NotifyPropertyChanged(() => Tags);
+                Bindable.NotifyPropertyChanged(nameof(Tags));
                 TagManager.Instance.ProcessDocument(this);
             }
         }

@@ -80,7 +80,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
         private static void DoNoThanks(object obj)
         {
             ConfigurationManager.Instance.ConfigurationRecord.ImportFromEndnoteAutoDisabled = true;
-            ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.ImportFromEndnoteAutoDisabled);
+            ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.ImportFromEndnoteAutoDisabled));
         }
     }
 }

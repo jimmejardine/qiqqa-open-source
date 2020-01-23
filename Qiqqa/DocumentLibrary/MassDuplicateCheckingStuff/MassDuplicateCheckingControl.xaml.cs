@@ -41,7 +41,7 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
                 if (null != pdf_document)
                 {
                     pdf_document.Deleted = true;
-                    pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Deleted);
+                    pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.Deleted));
                     e.Handled = true;
                 }
             }
@@ -50,7 +50,7 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
                 if (null != pdf_document)
                 {
                     pdf_document.Deleted = false;
-                    pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Deleted);
+                    pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.Deleted));
                     e.Handled = true;
                 }
             }

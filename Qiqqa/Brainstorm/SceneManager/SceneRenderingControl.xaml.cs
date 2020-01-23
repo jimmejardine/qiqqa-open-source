@@ -921,8 +921,8 @@ namespace Qiqqa.Brainstorm.SceneManager
 
             brainstorm_metadata.LastSaveDate = DateTime.UtcNow;
             brainstorm_metadata.LastOpenLocation = filename;
-            brainstorm_metadata.AugmentedBindable.NotifyPropertyChanged(() => brainstorm_metadata.LastSaveDate);
-            brainstorm_metadata.AugmentedBindable.NotifyPropertyChanged(() => brainstorm_metadata.LastOpenLocation);
+            brainstorm_metadata.AugmentedBindable.NotifyPropertyChanged(nameof(brainstorm_metadata.LastSaveDate));
+            brainstorm_metadata.AugmentedBindable.NotifyPropertyChanged(nameof(brainstorm_metadata.LastOpenLocation));
 
             BrainstormFileFormat brainstorm_file_format = new BrainstormFileFormat();
             brainstorm_file_format.BrainstormMetadata = brainstorm_metadata;

@@ -465,7 +465,7 @@ namespace Qiqqa.DocumentLibrary
                 {
                     Logging.Info("The document {0} was deleted, so reinstating it.", fingerprint);
                     pdf_document.Deleted = false;
-                    pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Deleted);
+                    pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.Deleted));
                 }
 
                 // Try to add some useful information from the download source if the metadata doesn't already have it
@@ -484,14 +484,14 @@ namespace Qiqqa.DocumentLibrary
                 {
                     Logging.Info("The document in the library had no download location or an older one, so inferring it from download: {0} --> {1}", pdf_document.DownloadLocation ?? "(NULL)", suggested_download_source);
                     pdf_document.DownloadLocation = suggested_download_source;
-                    pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.DownloadLocation);
+                    pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.DownloadLocation));
                 }
 
                 // TODO: *merge* the BibTeX!
                 if (!String.IsNullOrEmpty(bibtex))
                 {
                     pdf_document.BibTex = bibtex;
-                    pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.BibTex);
+                    pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.BibTex));
                 }
 
                 // merge = add new tags to existing ones (if any)
@@ -511,7 +511,7 @@ namespace Qiqqa.DocumentLibrary
                     if (pdf_document.Comments != comments)
                     {
                         pdf_document.Comments = pdf_document.Comments + "\n\n---\n\n\n" + comments;
-                        pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Comments);
+                        pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.Comments));
                     }
                 }
             }
@@ -521,9 +521,9 @@ namespace Qiqqa.DocumentLibrary
                 pdf_document = PDFDocument.CreateFromPDF(this, filename, fingerprint);
                 //pdf_document.OriginalFileName = original_filename;
                 pdf_document.DownloadLocation = suggested_download_source;
-                pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.DownloadLocation);
+                pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.DownloadLocation));
                 pdf_document.BibTex = bibtex;
-                pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.BibTex);
+                pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.BibTex));
                 if (tags != null)
                 {
                     foreach (string tag in tags)
@@ -533,7 +533,7 @@ namespace Qiqqa.DocumentLibrary
                 }
 
                 pdf_document.Comments = comments;
-                pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Comments);
+                pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.Comments));
 
                 //Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
                 lock (pdf_documents_lock)
@@ -605,9 +605,9 @@ namespace Qiqqa.DocumentLibrary
             // Not a dupe, so create
             PDFDocument pdf_document = PDFDocument.CreateFromVanillaReference(this);
             pdf_document.BibTex = bibtex;
-            pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.BibTex);
+            pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.BibTex));
             pdf_document.Comments = comments;
-            pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Comments);
+            pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.Comments));
 
             if (tags != null)
             {
@@ -667,7 +667,7 @@ namespace Qiqqa.DocumentLibrary
         public void DeleteDocument(PDFDocument pdf_document)
         {
             pdf_document.Deleted = true;
-            pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Deleted);
+            pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.Deleted));
 
             SignalThatDocumentsHaveChanged(pdf_document);
         }

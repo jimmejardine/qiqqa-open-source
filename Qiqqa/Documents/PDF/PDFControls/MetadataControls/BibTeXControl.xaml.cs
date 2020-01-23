@@ -80,7 +80,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                 }
 
                 pdf_document_bindable.Underlying.BibTex = "";
-                pdf_document_bindable.NotifyPropertyChanged(() => pdf_document_bindable.Underlying.BibTex);
+                pdf_document_bindable.NotifyPropertyChanged(nameof(pdf_document_bindable.Underlying.BibTex));
             }
         }
 
@@ -114,7 +114,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             if (Constants.UNKNOWN_YEAR != pdf_document_bindable.Underlying.YearCombined) bibtem_item["year"] = pdf_document_bindable.Underlying.YearCombined;
 
             pdf_document_bindable.Underlying.BibTex = bibtem_item.ToBibTex();
-            pdf_document_bindable.NotifyPropertyChanged(() => pdf_document_bindable.Underlying.BibTex);
+            pdf_document_bindable.NotifyPropertyChanged(nameof(pdf_document_bindable.Underlying.BibTex));
         }
 
         private void ButtonBibTexEditor_Click(object sender, RoutedEventArgs e)

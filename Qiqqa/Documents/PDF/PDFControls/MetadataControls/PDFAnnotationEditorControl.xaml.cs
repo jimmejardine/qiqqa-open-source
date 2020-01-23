@@ -51,7 +51,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
         private void ButtonDeleteAnnotation_Click(object sender, RoutedEventArgs e)
         {
             pdf_annotation.Deleted = true;
-            pdf_annotation.Bindable.NotifyPropertyChanged(() => (pdf_annotation.Deleted));
+            pdf_annotation.Bindable.NotifyPropertyChanged(nameof(pdf_annotation.Deleted));
         }
 
         private void ButtonColor_Click(object sender, RoutedEventArgs e)
@@ -71,7 +71,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             if (null != pdf_annotation)
             {
                 pdf_annotation.Color = ObjColorPicker.SelectedColor;
-                pdf_annotation.Bindable.NotifyPropertyChanged(() => (pdf_annotation.Color));
+                pdf_annotation.Bindable.NotifyPropertyChanged(nameof(pdf_annotation.Color));
             }
         }
 

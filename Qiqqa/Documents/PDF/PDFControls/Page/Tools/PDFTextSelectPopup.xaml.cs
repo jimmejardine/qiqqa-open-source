@@ -115,7 +115,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
                 }
 
                 pdf_document.TitleCombined = selected_text;
-                pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.TitleCombined);
+                pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.TitleCombined));
             }
         }
 
@@ -126,7 +126,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
                 FeatureTrackingManager.Instance.UseFeature(Features.Document_TextToMetadata);
 
                 pdf_document.YearCombined = selected_text;
-                pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.YearCombined);
+                pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.YearCombined));
             }
         }
 
@@ -137,7 +137,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
                 FeatureTrackingManager.Instance.UseFeature(Features.Document_SetAbstract);
 
                 pdf_document.Abstract = selected_text;
-                pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Abstract);
+                pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.Abstract));
             }
         }
 
@@ -148,7 +148,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
                 FeatureTrackingManager.Instance.UseFeature(Features.Document_ClearAbstract);
 
                 pdf_document.Abstract = null;
-                pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Abstract);
+                pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.Abstract));
             }
         }
 
@@ -159,7 +159,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
                 FeatureTrackingManager.Instance.UseFeature(Features.Document_TextToMetadata);
 
                 pdf_document.AuthorsCombined = selected_text;
-                pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.AuthorsCombined);
+                pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.AuthorsCombined));
             }
         }
 
@@ -182,7 +182,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
                 authors = authors + selected_text;
 
                 pdf_document.AuthorsCombined = authors;
-                pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.AuthorsCombined);
+                pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.AuthorsCombined));
             }
         }
 
