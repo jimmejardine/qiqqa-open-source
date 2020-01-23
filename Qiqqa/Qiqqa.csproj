@@ -614,6 +614,7 @@
     <Compile Include="Documents\PDF\PDFControls\MetadataControls\TweetControl.xaml.cs">
       <DependentUpon>TweetControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Documents\PDF\PDFDocument_ThreadUnsafe.cs" />
     <Compile Include="FeatureTracking\GoogleAnalysicsSubmitter.cs" />
     <Compile Include="InCite\CSLProcessorTranslator_AbbreviationsManager.cs" />
     <Compile Include="InCite\FilenameToCSLNameConverter.cs" />
