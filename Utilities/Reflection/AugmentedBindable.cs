@@ -115,7 +115,7 @@ namespace Utilities.Reflection
         /// </summary>
         /// <typeparam name="U"></typeparam>
         /// <param name="property"></param>
-        private void NotifyPropertyChanged<U>(Expression<Func<U>> property)
+        public void NotifyPropertyChanged<U>(Expression<Func<U>> property)
         {
             string property_name = PropertyNames.Get<U>(property);
             NotifyPropertyChanged(property_name);

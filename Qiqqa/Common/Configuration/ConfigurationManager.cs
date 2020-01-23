@@ -151,11 +151,13 @@ namespace Qiqqa.Common.Configuration
             configuration_record_bindable = new AugmentedBindable<ConfigurationRecord>(configuration_record);
             configuration_record_bindable.PropertyChanged += configuration_record_bindable_PropertyChanged;
 
+#if false
             // Make sure we have a GA tracking ID
             if (String.IsNullOrEmpty(configuration_record.Feedback_GATrackingCode))
             {
                 configuration_record.Feedback_GATrackingCode = Guid.NewGuid().ToString();
             }
+#endif
         }
 
         private void configuration_record_bindable_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -215,7 +217,7 @@ namespace Qiqqa.Common.Configuration
             }
         }
 
-        #region --- Search history ----------------------------------------------------------------------------------------
+#region --- Search history ----------------------------------------------------------------------------------------
 
         private HashSet<string> search_history = new HashSet<string>();
         private HashSet<string> search_history_from_disk = null;
@@ -274,9 +276,9 @@ namespace Qiqqa.Common.Configuration
             }
         }
 
-        #endregion
+#endregion
 
-        #region --- Public initialisation ----------------------------------------------------------------------------------------
+#region --- Public initialisation ----------------------------------------------------------------------------------------
 
         public void ResetConfigurationRecordToGuest()
         {
@@ -288,9 +290,9 @@ namespace Qiqqa.Common.Configuration
             ResetConfigurationRecord(user_guid_, false);
         }
 
-        #endregion
+#endregion
 
-        #region --- Public accessors ----------------------------------------------------------------------------------------
+#region --- Public accessors ----------------------------------------------------------------------------------------
 
         public bool IsGuest => is_guest;
 
@@ -337,6 +339,6 @@ namespace Qiqqa.Common.Configuration
             }
         }
 
-        #endregion
+#endregion
     }
 }
