@@ -343,7 +343,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             }
         }
 
-        [Obsolete("Do not use this attribute, but keep it in the class definition for backwards compatibility of the serialization", true)]
+        [Obsolete("Do not use this attribute", true)]
         public HashSet<string> GetFingerprintsForKeyword(string keyword)
         {
             Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
