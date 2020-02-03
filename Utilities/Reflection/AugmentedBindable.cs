@@ -126,7 +126,7 @@ namespace Utilities.Reflection
         /// That way the compiler will catch any property name changes.
         /// </summary>
         /// <param name="property_name"></param>
-        private void NotifyPropertyChanged(string property_name)
+        public void NotifyPropertyChanged(string property_name)
         {
             // if (Application.Current == null || Application.Current.Dispatcher.Thread == Thread.CurrentThread)
             // as per: https://stackoverflow.com/questions/5143599/detecting-whether-on-ui-thread-in-wpf-and-winforms#answer-14280425
@@ -224,8 +224,10 @@ namespace Utilities.Reflection
 
             public override void ResetValue(object component)
             {
-                pd.ResetValue(((AugmentedBindable<T>)component).underlying);
-                ((AugmentedBindable<T>)component).NotifyPropertyChanged(pd.Name);
+                AugmentedBindable<T> c = ((AugmentedBindable<T>)component);
+
+                pd.ResetValue(c.underlying);
+                c.NotifyPropertyChanged(pd.Name);
             }
 
             public override void SetValue(object component, object value)
@@ -237,8 +239,10 @@ namespace Utilities.Reflection
                     return;
                 }
 
-                pd.SetValue(((AugmentedBindable<T>)component).underlying, value);
-                ((AugmentedBindable<T>)component).NotifyPropertyChanged(pd.Name);
+                AugmentedBindable<T> c = ((AugmentedBindable<T>)component);
+
+                pd.SetValue(c.underlying, value);
+                c.NotifyPropertyChanged(pd.Name);
             }
 
             public override bool ShouldSerializeValue(object component)

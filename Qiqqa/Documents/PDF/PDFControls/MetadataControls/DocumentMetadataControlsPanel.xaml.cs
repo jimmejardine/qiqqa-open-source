@@ -38,7 +38,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             if (null != pdf_document_bindable)
             {
                 pdf_document_bindable.Underlying.Deleted = false;
-                pdf_document_bindable.NotifyPropertyChanged(() => pdf_document_bindable.Underlying.Deleted);
+                pdf_document_bindable.NotifyPropertyChanged(nameof(pdf_document_bindable.Underlying.Deleted));
             }
 
             e.Handled = true;

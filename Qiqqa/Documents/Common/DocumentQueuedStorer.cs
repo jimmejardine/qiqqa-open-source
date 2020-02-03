@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using Qiqqa.DocumentLibrary;
 using Qiqqa.Documents.PDF;
 using Utilities;
+using Utilities.GUI;
 using Utilities.Maintainable;
 using Utilities.Misc;
 
@@ -12,7 +14,6 @@ namespace Qiqqa.Documents.Common
     public class DocumentQueuedStorer
     {
         public static DocumentQueuedStorer Instance = new DocumentQueuedStorer();
-        private PeriodTimer period_flush = new PeriodTimer(new TimeSpan(0, 0, 1));
         private object documents_to_store_lock = new object();
         private Dictionary<string, PDFDocument> documents_to_store = new Dictionary<string, PDFDocument>();
 
@@ -34,9 +35,8 @@ namespace Qiqqa.Documents.Common
 
             // Quit this delayed storing of PDF files when we've hit the end of the excution run: 
             // we'll have to save them all to disk in one go then, and quickly too!
-            if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown || period_flush.Expired)
+            if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
             {
-                period_flush.Signal();
                 FlushDocuments(false);
             }
         }
@@ -77,13 +77,16 @@ namespace Qiqqa.Documents.Common
             // end-of-execution-run flush initiated by ShutdownableManager.
             ForcedFlushRequested = force_flush_no_matter_what;
 
+            int done_count_for_status = 0;
+
             while (true)
             {
                 int count_to_go = PendingQueueCount;
+                int todo_count_for_status = done_count_for_status + count_to_go;
 
                 if (0 < count_to_go)
                 {
-                    StatusManager.Instance.UpdateStatus("DocumentQueuedStorer", String.Format("{0} documents still to flush", count_to_go), 1, count_to_go);
+                    StatusManager.Instance.UpdateStatus("DocumentQueuedStorer", String.Format("{0}/{1} documents still to flush", count_to_go, todo_count_for_status), done_count_for_status, todo_count_for_status);
                 }
                 else
                 {
@@ -100,7 +103,7 @@ namespace Qiqqa.Documents.Common
                     }
 
                     // Relinquish control to the UI thread to make sure responsiveness remains tolerable at 100% CPU load.
-                    Utilities.GUI.WPFDoEvents.WaitForUIThreadActivityDone();
+                    WPFDoEvents.WaitForUIThreadActivityDone();
                 }
 
                 PDFDocument pdf_document_to_flush = null;
@@ -121,6 +124,8 @@ namespace Qiqqa.Documents.Common
                 if (null != pdf_document_to_flush)
                 {
                     pdf_document_to_flush.SaveToMetaData();
+
+                    done_count_for_status++;
                 }
             }
         }

@@ -64,8 +64,7 @@ namespace Qiqqa.DocumentLibrary
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-            Stopwatch clk = new Stopwatch();
-            clk.Start();
+            Stopwatch clk = Stopwatch.StartNew();
 
             // Notify if there is just a single doc
             suppress_notifications = suppress_notifications || (filename_with_metadata_imports.Length > 1);
@@ -89,12 +88,6 @@ namespace Qiqqa.DocumentLibrary
                     break;
                 }
                 StatusManager.Instance.UpdateStatus("BulkLibraryDocument", String.Format("Adding document {0} of {1} to your library", i + 1, filename_with_metadata_imports.Length), i, filename_with_metadata_imports.Length, true);
-
-                // Relinquish control to the UI thread to make sure responsiveness remains tolerable at 100% CPU load.
-                if (i % 10 == 7) // random choice for this heuristic: every tenth ADD should *yield* to the UI
-                {
-                    Utilities.GUI.WPFDoEvents.WaitForUIThreadActivityDone();
-                }
 
                 FilenameWithMetadataImport filename_with_metadata_import = filename_with_metadata_imports[i];
 

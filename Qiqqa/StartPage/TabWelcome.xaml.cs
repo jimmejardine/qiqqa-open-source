@@ -48,7 +48,7 @@ namespace Qiqqa.StartPage
             FeatureTrackingManager.Instance.UseFeature(Features.App_TermsAndConditions);
 
             ConfigurationManager.Instance.ConfigurationRecord.TermsAndConditionsAccepted = true;
-            ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.TermsAndConditionsAccepted);
+            ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.TermsAndConditionsAccepted));
 
             GetGoing?.Invoke();
         }

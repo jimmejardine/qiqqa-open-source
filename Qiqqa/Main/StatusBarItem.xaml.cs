@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using Utilities.Mathematics;
@@ -12,9 +13,9 @@ namespace Qiqqa.Main
     /// </summary>
     public partial class StatusBarItem : UserControl
     {
-        private DateTime creation_time = DateTime.UtcNow;
+        private Stopwatch creation_time = Stopwatch.StartNew();
         private string key = null;
-        private DateTime last_status_update_time = DateTime.MinValue;
+        private Stopwatch last_status_update_time = Stopwatch.StartNew();
 
         public StatusBarItem()
         {
@@ -27,12 +28,10 @@ namespace Qiqqa.Main
         public void SetStatus(StatusEntry status)
         {
             key = status.key;
-            last_status_update_time = DateTime.UtcNow;
+            last_status_update_time.Restart();
 
             string text = status.LastStatusMessage;
             bool cancel = status.LastStatusMessageCancellable;
-            long current = status.current_update_number;
-            long max = status.total_update_count;
 
             ObjTextSquare.IsEnabled = cancel;
             ObjTextSquare.Width = 16;
@@ -44,21 +43,17 @@ namespace Qiqqa.Main
             if (String.IsNullOrEmpty(text))
             {
                 Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                Visibility = Visibility.Visible;
-            }
-
-            if (0 == max && 0 == current)
-            {
-                ObjProgressBar.Value = 100;
+                ObjProgressBar.Value = 0;
                 ObjProgressBar.Visibility = Visibility.Collapsed;
             }
             else
             {
-                ObjProgressBar.Value = 100 * Perunage.Calc(current, max);
-                ObjProgressBar.Visibility = Visibility.Visible;
+                Visibility = Visibility.Visible;
+
+                double pct = status.UpdatePerunage;
+
+                ObjProgressBar.Value = 100 * pct;
+                ObjProgressBar.Visibility = pct > 0.0 ? Visibility.Visible : Visibility.Collapsed;
             }
         }
 
@@ -67,8 +62,8 @@ namespace Qiqqa.Main
             StatusManager.Instance.SetCancelled(key);
         }
 
-        public DateTime CreationTime => creation_time;
+        public Stopwatch CreationTime => creation_time;
 
-        public DateTime LastStatusUpdateTime => last_status_update_time;
+        public Stopwatch TimeSinceLastStatusUpdate => last_status_update_time;
     }
 }

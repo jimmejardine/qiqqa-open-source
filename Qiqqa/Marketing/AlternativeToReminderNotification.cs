@@ -14,7 +14,7 @@ namespace Qiqqa.Marketing
             if (DateTime.UtcNow.Subtract(ConfigurationManager.Instance.ConfigurationRecord.Marketing_LastNotificationOfAlternativeTo).TotalDays > 140)
             {
                 ConfigurationManager.Instance.ConfigurationRecord.Marketing_LastNotificationOfAlternativeTo = DateTime.UtcNow;
-                ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.Marketing_LastNotificationOfAlternativeTo);
+                ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.Marketing_LastNotificationOfAlternativeTo));
                 return;
             }
 
@@ -26,7 +26,7 @@ namespace Qiqqa.Marketing
 
             // Remember when we last spammed them
             ConfigurationManager.Instance.ConfigurationRecord.Marketing_LastNotificationOfAlternativeTo = DateTime.UtcNow;
-            ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.Marketing_LastNotificationOfAlternativeTo);
+            ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.Marketing_LastNotificationOfAlternativeTo));
 
             // Spam away!
             NotificationManager.Instance.AddPendingNotification(
@@ -47,7 +47,7 @@ namespace Qiqqa.Marketing
 
             // If they have gone to investigate, don't harrass them for a loooong time
             ConfigurationManager.Instance.ConfigurationRecord.Marketing_LastNotificationOfAlternativeTo = DateTime.UtcNow.AddMonths(12);
-            ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.Marketing_LastNotificationOfAlternativeTo);
+            ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.Marketing_LastNotificationOfAlternativeTo));
         }
     }
 }

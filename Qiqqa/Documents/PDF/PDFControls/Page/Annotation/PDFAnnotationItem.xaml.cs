@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -94,7 +95,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
             e.Handled = true;
         }
 
-        private DateTime last_mouse_down_timestamp = DateTime.MinValue;
+        private Stopwatch last_mouse_down_timestamp = Stopwatch.StartNew();
 
         private void TextAnnotationText_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -105,7 +106,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
             }
             else if (e.LeftButton == MouseButtonState.Pressed)
             {
-                if (DateTime.UtcNow.Subtract(last_mouse_down_timestamp).TotalMilliseconds < 500)
+                if (last_mouse_down_timestamp.ElapsedMilliseconds < 500)
                 {
                     scaling_because_of_double_tap = true;
                 }
@@ -120,7 +121,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
                 TextAnnotationText.CaptureMouse();
             }
 
-            last_mouse_down_timestamp = DateTime.UtcNow;
+            last_mouse_down_timestamp.Restart();
         }
 
         private void TextAnnotationText_PreviewMouseUp(object sender, MouseButtonEventArgs e)

@@ -22,7 +22,7 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
             if (pdf_document.AutoSuggested_PDFMetadata) return false;
 
             pdf_document.AutoSuggested_PDFMetadata = true;
-            pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.AutoSuggested_PDFMetadata);
+            pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.AutoSuggested_PDFMetadata));
 
             using (AugmentedPdfLoadedDocument doc = new AugmentedPdfLoadedDocument(pdf_document.DocumentPath))
             {
@@ -33,7 +33,7 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
                     {
                         Logging.Info("Auto-found in PDF metadata title '{0}'", title);
                         pdf_document.TitleSuggested = title;
-                        pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.TitleSuggested);
+                        pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.TitleSuggested));
                     }
                 }
 
@@ -44,7 +44,7 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
                     {
                         Logging.Info("Auto-found in PDF metadata authors '{0}'", authors);
                         pdf_document.AuthorsSuggested = authors;
-                        pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.AuthorsSuggested);
+                        pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.AuthorsSuggested));
                     }
                 }
 
@@ -55,7 +55,7 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
                     {
                         Logging.Info("Auto-found in PDF metadata year '{0}'", year);
                         pdf_document.YearSuggested = Convert.ToString(year);
-                        pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.YearSuggested);
+                        pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.YearSuggested));
                     }
                 }
             }

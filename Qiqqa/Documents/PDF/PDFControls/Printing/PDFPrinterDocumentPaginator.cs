@@ -37,9 +37,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.Printing
         private DocumentPage last_document_page = null;
         public override DocumentPage GetPage(int page_zero_based)
         {
-            // Hackity hack
-            WPFDoEvents.WaitForUIThreadActivityDone();
-
             last_document_page?.Dispose();
             last_document_page = null;
 
