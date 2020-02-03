@@ -57,7 +57,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                     if (Directory.Exists(new_value))
                     {
                         ConfigurationManager.Instance.ConfigurationRecord.ImportFromFolderLastFolderImported = value;
-                        ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.ImportFromFolderLastFolderImported);
+                        ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.ImportFromFolderLastFolderImported));
                     }
                 }
             }
@@ -68,7 +68,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                 set
                 {
                     ConfigurationManager.Instance.ConfigurationRecord.ImportFromFolderRecurseSubfolders = value;
-                    ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.ImportFromFolderRecurseSubfolders);
+                    ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.ImportFromFolderRecurseSubfolders));
                 }
             }
 
@@ -78,7 +78,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                 set
                 {
                     ConfigurationManager.Instance.ConfigurationRecord.ImportFromFolderImportTagsFromSubfolderNames = value;
-                    ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.ImportFromFolderImportTagsFromSubfolderNames);
+                    ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.ImportFromFolderImportTagsFromSubfolderNames));
                 }
             }
         }
@@ -127,7 +127,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                 if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     bindable.Underlying.SelectedPath = dlg.SelectedPath;
-                    bindable.NotifyPropertyChanged(() => bindable.Underlying.SelectedPath);
+                    bindable.NotifyPropertyChanged(nameof(bindable.Underlying.SelectedPath));
                 }
                 Logging.Debug特("User selected import folder path: " + bindable.Underlying.SelectedPath);
             }

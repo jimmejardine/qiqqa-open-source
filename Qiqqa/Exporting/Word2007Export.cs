@@ -43,7 +43,7 @@ namespace Qiqqa.Exporting
                     // Remember the filename for next time
                     string filename = dlg.FileName;
                     ConfigurationManager.Instance.ConfigurationRecord.System_LastWord2007ExportFile = filename;
-                    ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.System_LastWord2007ExportFile);
+                    ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.System_LastWord2007ExportFile));
 
 
                     Logging.Info("Exporting entries to Word 2007 bibliography format");

@@ -83,7 +83,7 @@ namespace Qiqqa.Main.LoginStuff
             MainEntry.RemoveSplashScreen();
         }
 
-        private void UpdateStatusMessage(string message, double progress_perunage)
+        private void UpdateStatusMessage(string message)
         {
             ProgressInfoWrapper.Visibility = String.IsNullOrEmpty(message) ? Visibility.Collapsed : Visibility.Visible;
             ProgressInfo.Text = message;
@@ -93,14 +93,9 @@ namespace Qiqqa.Main.LoginStuff
 
         private void StatusManager_OnStatusEntryUpdate(StatusManager.StatusEntry status_entry)
         {
-            string msg = status_entry.LastStatusMessage;
+            string msg = status_entry.LastStatusMessageWithProgressPercentage;
 
-            if (status_entry.UpdatePercentage != 0.0)
-            {
-                msg = String.Format("{0}: {1:P1}", msg, status_entry.UpdatePercentage);
-            }
-
-            WPFDoEvents.InvokeInUIThread(() => UpdateStatusMessage(msg, status_entry.UpdatePercentage));
+            WPFDoEvents.InvokeInUIThread(() => UpdateStatusMessage(msg));
         }
 
         private void LoginWindow_Closed(object sender, EventArgs e)

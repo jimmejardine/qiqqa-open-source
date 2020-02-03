@@ -324,7 +324,7 @@ SourceURL: {0}
                     foreach (var pdf_document in pdf_documents)
                     {
                         pdf_document.Tags = "";
-                        pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Tags);
+                        pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.Tags));
                     }
 
                     MessageBoxes.Info("Your tags have been cleared.");
@@ -346,7 +346,7 @@ SourceURL: {0}
                     foreach (var pdf_document in pdf_documents)
                     {
                         pdf_document.BibTex = new BibTexItem();
-                        pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.BibTex);
+                        pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.BibTex));
                     }
 
                     MessageBoxes.Info("Your BibTeX records have been cleared.");
@@ -488,7 +488,7 @@ SourceURL: {0}
                         if (!String.IsNullOrEmpty(pdf_document.DownloadLocation))
                         {
                             pdf_document.TitleCombined = Path.GetFileNameWithoutExtension(pdf_document.DownloadLocation);
-                            pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Title);
+                            pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.Title));
                         }
                     }
                     catch (Exception ex)

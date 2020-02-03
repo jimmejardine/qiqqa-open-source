@@ -38,7 +38,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
             if (!ConfigurationManager.Instance.ConfigurationRecord.Wizard_HasSeenSearchWizard)
             {
                 ConfigurationManager.Instance.ConfigurationRecord.Wizard_HasSeenSearchWizard = true;
-                ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.Wizard_HasSeenSearchWizard);
+                ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.Wizard_HasSeenSearchWizard));
                 MainWindowServiceDispatcher.Instance.OpenSearchWizard();
             }
         }

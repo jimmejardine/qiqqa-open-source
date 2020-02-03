@@ -199,7 +199,7 @@ namespace Qiqqa.Common
 
             // Add to most recently used
             pdf_document.DateLastRead = DateTime.UtcNow;
-            pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.DateLastRead);
+            pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.DateLastRead));
 
             // Set the opening page, if necessary
             if (page.HasValue)
@@ -697,7 +697,7 @@ namespace Qiqqa.Common
                 ))
             {
                 ConfigurationManager.Instance.ConfigurationRecord.GUI_IsNovice = false;
-                ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.GUI_IsNovice);
+                ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.GUI_IsNovice));
 
                 MessageBoxes.Info("Woohoo!  Qiqqa is now in Expert Mode.  You may need to reopen some of your screens to have access to the advanced features.");
             }

@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WpfCustomControlLibrary1\WpfCustomControlLibrary1.csproj" />
+    <ProjectReference Include="..\WpfUserControlLibrary1\WpfUserControlLibrary1.csproj" />
+  </ItemGroup>
+
+  <Import Project="..\WpfSharedProject1\WpfSharedProject1.projitems" Label="Shared" />
+
+</Project>

@@ -180,7 +180,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 {
                     if (0 < pdf_renderer_control_stats.pdf_document.PageLastRead)
                     {
-                        Logging.Debug("**********************************Restoring page to page {0}", pdf_renderer_control_stats.pdf_document.PageLastRead);
+                        Logging.Debug("********************************** Restoring page to page {0}", pdf_renderer_control_stats.pdf_document.PageLastRead);
                         PDFRendererPageControl page_control = (PDFRendererPageControl)ObjPagesPanel.Children[pdf_renderer_control_stats.pdf_document.PageLastRead - 1];
                         page_control.BringIntoView();
                     }

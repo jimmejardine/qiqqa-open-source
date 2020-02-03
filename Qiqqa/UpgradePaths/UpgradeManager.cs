@@ -28,6 +28,7 @@ namespace Qiqqa.UpgradePaths
             RenewMessage();
             MoveOCRDirs.RunUpgrade();
 
+            StatusManager.Instance.ClearStatus("DBUpgrade");
 
             Logging.Info("-UpgradeManager is running upgrades");
         }

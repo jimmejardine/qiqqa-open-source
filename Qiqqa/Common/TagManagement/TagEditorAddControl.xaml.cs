@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -36,16 +37,16 @@ namespace Qiqqa.Common.TagManagement
             ComboBoxNewTag.LostFocus += ComboBoxNewTag_LostFocus;
         }
 
-        private DateTime last_frikken_mousedown_to_suppress_lostfocus_bug = DateTime.MinValue;
+        private Stopwatch last_frikken_mousedown_to_suppress_lostfocus_bug = Stopwatch.StartNew();
 
         private void ComboBoxNewTag_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            last_frikken_mousedown_to_suppress_lostfocus_bug = DateTime.UtcNow;
+            last_frikken_mousedown_to_suppress_lostfocus_bug.Restart();
         }
 
         private void ComboBoxNewTag_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (DateTime.UtcNow.Subtract(last_frikken_mousedown_to_suppress_lostfocus_bug).TotalMilliseconds < 100)
+            if (last_frikken_mousedown_to_suppress_lostfocus_bug.ElapsedMilliseconds < 100)
             {
                 return;
             }

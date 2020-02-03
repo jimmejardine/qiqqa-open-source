@@ -282,7 +282,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                         if (!pdf_document.BibTex?.SourcedFromGoogleScholarSniffer ?? false)
                         {
                             pdf_document.BibTex.SourcedFromGoogleScholarSniffer = true;
-                            pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.BibTex);
+                            pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.BibTex));
                         }
 
                         // fix: https://github.com/jimmejardine/qiqqa-open-source/issues/60
@@ -399,7 +399,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             if (null != pdf_document)
             {
                 pdf_document.BibTex.Clear();
-                pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.BibTex);
+                pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.BibTex));
             }
         }
 
@@ -408,7 +408,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             if (null != pdf_document)
             {
                 pdf_document.BibTex.SkippedInSniffer = true;
-                pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.BibTex);
+                pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.BibTex));
             }
 
             MoveDelta(+1);
@@ -424,7 +424,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                 // SET these state flags:
                 pdf_document.BibTex.SourceHasBeenUserVetted = true;
 
-                pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.BibTex);
+                pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.BibTex));
             }
 
             MoveDelta(+1);
@@ -965,7 +965,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             if (null != pdf_document)
             {
                 pdf_document.BibTex = text;
-                pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.BibTex);
+                pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.BibTex));
             }
             else
             {

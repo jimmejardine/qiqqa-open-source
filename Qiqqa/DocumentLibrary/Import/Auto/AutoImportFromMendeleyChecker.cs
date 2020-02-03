@@ -80,7 +80,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
         private static void DoNoThanks(object obj)
         {
             ConfigurationManager.Instance.ConfigurationRecord.ImportFromMendeleyAutoDisabled = true;
-            ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.ImportFromMendeleyAutoDisabled);
+            ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.ImportFromMendeleyAutoDisabled));
         }
     }
 }

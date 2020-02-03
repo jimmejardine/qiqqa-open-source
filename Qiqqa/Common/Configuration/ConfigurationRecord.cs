@@ -58,6 +58,7 @@ namespace Qiqqa.Common.Configuration
             set => this["Feedback_UtilisationInfo"] = value;
         }
 
+        [Obsolete("Do not use this attribute, but keep it in the class definition for backwards compatibility of the serialization", true)]
         public string Feedback_GATrackingCode
         {
             get => this["Feedback_GATrackingCode"] as string;
@@ -209,7 +210,7 @@ namespace Qiqqa.Common.Configuration
             set => this["GUI_UserDefinedSearchStrings"] = value;
         }
 
-        #region --- Proxy ------------------------------------------------------------------------------------
+#region --- Proxy ------------------------------------------------------------------------------------
 
         public bool Proxy_UseProxy
         {
@@ -276,9 +277,9 @@ namespace Qiqqa.Common.Configuration
         }
 
 
-        #endregion
+#endregion
 
-        #region --- Terms and conditions ------------------------------------------------------------------------------------
+#region --- Terms and conditions ------------------------------------------------------------------------------------
 
         public bool TermsAndConditionsAccepted
         {
@@ -292,9 +293,9 @@ namespace Qiqqa.Common.Configuration
             set => this["SyncTermsAccepted_20100615"] = value;
         }
 
-        #endregion
+#endregion
 
-        #region --- Import stuff ------------------------------------------------------------------------------------
+#region --- Import stuff ------------------------------------------------------------------------------------
 
         public bool ImportFromFolderImportTagsFromSubfolderNames
         {
@@ -326,7 +327,7 @@ namespace Qiqqa.Common.Configuration
             set => this["ImportFromEndnoteAutoDisabled"] = value;
         }
 
-        #endregion
+#endregion
 
         public DateTime Premium_LastChecked
         {

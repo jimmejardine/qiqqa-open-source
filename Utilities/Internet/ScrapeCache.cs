@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -19,7 +20,7 @@ namespace Utilities.Internet
         private Encoding encoding;
         private string userAgent;
 
-        private DateTime last_scrape_time = DateTime.MinValue;
+        private Stopwatch last_scrape_time = Stopwatch.StartNew();
 
         public ScrapeCache(string base_directory, string user_agent, int throttle_ms, Encoding encoding = null)
         {
@@ -51,14 +52,11 @@ namespace Utilities.Internet
                 Utilities.Files.DirectoryTools.CreateDirectory(directory);
 
                 // Crude throttle
-                if (true)
+                while (last_scrape_time.ElapsedMilliseconds < throttle_ms)
                 {
-                    while (DateTime.UtcNow.Subtract(last_scrape_time).TotalMilliseconds < throttle_ms)
-                    {
-                        Thread.Sleep(50);
-                    }
-                    last_scrape_time = DateTime.UtcNow;
+                    Thread.Sleep(50);
                 }
+                last_scrape_time.Restart();
 
                 Logging.Info("Downloading from {0}", url);
                 using (WebClient client = new WebClient())

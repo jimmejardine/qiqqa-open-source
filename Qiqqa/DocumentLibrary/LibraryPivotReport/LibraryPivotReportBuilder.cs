@@ -102,8 +102,6 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
                 {
                     StatusManager.Instance.UpdateStatus("LibraryPivot", "Building library pivot", y_progress_locked, y_keys.Count, true);
 
-                    WPFDoEvents.WaitForUIThreadActivityDone(); // HackityHack
-
                     if (StatusManager.Instance.IsCancelled("LibraryPivot"))
                     {
                         Logging.Warn("User cancelled library pivot generation");

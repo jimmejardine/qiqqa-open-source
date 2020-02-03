@@ -37,7 +37,7 @@ namespace Qiqqa.Exporting
                     // Remember the filename for next time
                     string filename = dlg.FileName;
                     ConfigurationManager.Instance.ConfigurationRecord.System_LastBibTexExportFile = filename;
-                    ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.System_LastBibTexExportFile);
+                    ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.System_LastBibTexExportFile));
 
                     LibraryExporter_BibTeX.ExportBibTeX(pdf_documents, filename, true);
                 }

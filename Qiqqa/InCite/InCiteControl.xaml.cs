@@ -193,12 +193,12 @@ namespace Qiqqa.InCite
             if (true == dialog.ShowDialog())
             {
                 ConfigurationManager.Instance.ConfigurationRecord.InCite_CustomAbbreviationsFilename = dialog.FileName;
-                ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.InCite_CustomAbbreviationsFilename);
+                ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.InCite_CustomAbbreviationsFilename));
             }
             else
             {
                 ConfigurationManager.Instance.ConfigurationRecord.InCite_CustomAbbreviationsFilename = "";
-                ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.InCite_CustomAbbreviationsFilename);
+                ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.InCite_CustomAbbreviationsFilename));
             }
         }
 
@@ -214,12 +214,12 @@ namespace Qiqqa.InCite
                 if (true == dialog.ShowDialog())
                 {
                     ConfigurationManager.Instance.ConfigurationRecord.InCite_WinWordLocation = dialog.FileName;
-                    ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.InCite_WinWordLocation);
+                    ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.InCite_WinWordLocation));
                 }
                 else
                 {
                     ConfigurationManager.Instance.ConfigurationRecord.InCite_WinWordLocation = "";
-                    ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.InCite_WinWordLocation);
+                    ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.InCite_WinWordLocation));
                 }
             }
 
@@ -374,7 +374,7 @@ namespace Qiqqa.InCite
             if (null != web_library_detail)
             {
                 ConfigurationManager.Instance.ConfigurationRecord.InCite_LastLibrary = web_library_detail.Title;
-                ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.InCite_LastLibrary);
+                ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.InCite_LastLibrary));
 
                 ChooseNewLibrary(web_library_detail);
             }
@@ -420,7 +420,7 @@ namespace Qiqqa.InCite
             {
                 Logging.Info("Updating style filename from {0} to {1}", style_filename, new_style_filename);
                 ConfigurationManager.Instance.ConfigurationRecord.InCite_LastStyleFile = new_style_filename;
-                ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.InCite_LastStyleFile);
+                ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.InCite_LastStyleFile));
             }
         }
 
@@ -464,7 +464,7 @@ namespace Qiqqa.InCite
             if (true == dialog.ShowDialog())
             {
                 ConfigurationManager.Instance.ConfigurationRecord.InCite_LastStyleFile = dialog.FileName;
-                ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.InCite_LastStyleFile);
+                ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.InCite_LastStyleFile));
 
                 // Check if it is a dependent style
                 string style_xml_filename = ConfigurationManager.Instance.ConfigurationRecord.InCite_LastStyleFile;

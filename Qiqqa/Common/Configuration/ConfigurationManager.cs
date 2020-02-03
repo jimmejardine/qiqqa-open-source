@@ -180,11 +180,13 @@ namespace Qiqqa.Common.Configuration
             configuration_record_bindable = new AugmentedBindable<ConfigurationRecord>(configuration_record);
             configuration_record_bindable.PropertyChanged += configuration_record_bindable_PropertyChanged;
 
+#if false
             // Make sure we have a GA tracking ID
             if (String.IsNullOrEmpty(configuration_record.Feedback_GATrackingCode))
             {
                 configuration_record.Feedback_GATrackingCode = Guid.NewGuid().ToString();
             }
+#endif
         }
 
         private void configuration_record_bindable_PropertyChanged(object sender, PropertyChangedEventArgs e)
