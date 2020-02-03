@@ -70,12 +70,7 @@ namespace Qiqqa.Main.SplashScreenStuff
 
         private void StatusManager_OnStatusEntryUpdate(StatusManager.StatusEntry status_entry)
         {
-            string msg = status_entry.LastStatusMessage;
-
-            if (status_entry.current_update_number < status_entry.total_update_count)
-            {
-                msg = String.Format("{0}: {1:P1}", msg, Utilities.Mathematics.Perunage.Calc(status_entry.current_update_number, status_entry.total_update_count));
-            }
+            string msg = status_entry.LastStatusMessageWithProgressPercentage;
 
             WPFDoEvents.InvokeInUIThread(() => UpdateStatusMessage(msg));
         }

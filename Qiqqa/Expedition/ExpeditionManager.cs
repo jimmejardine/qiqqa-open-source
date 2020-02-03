@@ -13,13 +13,14 @@ namespace Qiqqa.Expedition
 {
     public class ExpeditionManager
     {
-        private Library library;
+        private TypedWeakReference<Library> library;
+        public Library Library => library?.TypedTarget;
 
-        public string Filename_Store => Path.GetFullPath(Path.Combine(library.LIBRARY_BASE_PATH, @"Qiqqa.expedition"));
+        public string Filename_Store => Path.GetFullPath(Path.Combine(Library.LIBRARY_BASE_PATH, @"Qiqqa.expedition"));
 
         public ExpeditionManager(Library library)
         {
-            this.library = library;
+            this.library = new TypedWeakReference<Library>(library);
         }
 
         public delegate void RebuiltExpeditionCompleteDelegate();
@@ -34,7 +35,7 @@ namespace Qiqqa.Expedition
             {
                 Library.IsBusyRegeneratingTags = true;
 
-                ExpeditionDataSource eds = ExpeditionBuilder.BuildExpeditionDataSource(library, num_topics, add_autotags, add_tags, ExpeditionBuilderProgressUpdate);
+                ExpeditionDataSource eds = ExpeditionBuilder.BuildExpeditionDataSource(Library, num_topics, add_autotags, add_tags, ExpeditionBuilderProgressUpdate);
                 SerializeFile.SaveSafely(Filename_Store, eds);
                 expedition_data_source = eds;
             }
@@ -54,7 +55,7 @@ namespace Qiqqa.Expedition
             }
         }
 
-        public int RecommendedThemeCount => (int)Math.Ceiling(Math.Sqrt(library.PDFDocuments.Count));
+        public int RecommendedThemeCount => (int)Math.Ceiling(Math.Sqrt(Library.PDFDocuments.Count));
 
         private ExpeditionDataSource expedition_data_source = null;
         public ExpeditionDataSource ExpeditionDataSource

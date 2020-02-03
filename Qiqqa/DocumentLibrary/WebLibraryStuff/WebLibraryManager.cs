@@ -84,6 +84,10 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
             AddLocalGuestLibraryIfMissing();
 
+            InitAllLoadedLibraries();
+
+            ImportManualsIntoLocalGuestLibraryIfMissing();
+
             SaveKnownWebLibraries();
 
             StatusManager.Instance.ClearStatus("LibraryInitialLoad");
@@ -196,6 +200,21 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 }
             }
         }
+
+        // *************************************************************************************************************
+
+        public void InitAllLoadedLibraries()
+        {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
+            foreach (var pair in web_library_details)
+            {
+                var web_lib = pair.Value;
+                var library = web_lib.library;
+                library.BuildFromDocumentRepository();
+            }
+        }
+
         // *************************************************************************************************************
 
         private void AddLocalGuestLibraryIfMissing()
@@ -228,6 +247,13 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 // Store this reference to guest
                 guest_web_library_detail = new_web_library_detail;
             }
+        }
+
+        // *************************************************************************************************************
+
+        private void ImportManualsIntoLocalGuestLibraryIfMissing()
+        {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
             // Import the Qiqqa manuals in the background, waiting until the library has loaded...
             SafeThreadPool.QueueUserWorkItem(o =>
@@ -802,6 +828,11 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     old.library?.Dispose();
 
                     old.library = new_web_library_detail.library;
+                    // and update it's internal (cyclic) web_library_detail reference:
+                    if (old.library != null)
+                    {
+                        old.library.WebLibraryDetail = old;
+                    }
 
                     if ((state & 0x0c) == 0x0c)
                     {

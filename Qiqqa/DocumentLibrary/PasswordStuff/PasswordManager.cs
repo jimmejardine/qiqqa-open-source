@@ -4,6 +4,7 @@ using Qiqqa.Documents.PDF.ThreadUnsafe;
 using Utilities;
 using Utilities.Encryption;
 using Utilities.Files;
+using Utilities.Misc;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -13,14 +14,15 @@ namespace Qiqqa.DocumentLibrary.PasswordStuff
 {
     public class PasswordManager
     {
-        private Library library;
+        private TypedWeakReference<Library> library;
+        public Library Library => library?.TypedTarget;
 
         public PasswordManager(Library library)
         {
-            this.library = library;
+            this.library = new TypedWeakReference<Library>(library);
         }
 
-        public string Filename_Store => Path.GetFullPath(Path.Combine(library.LIBRARY_BASE_PATH, @"Qiqqa.pwds"));
+        public string Filename_Store => Path.GetFullPath(Path.Combine(Library.LIBRARY_BASE_PATH, @"Qiqqa.pwds"));
 
         private Dictionary<string, string> _passwords = null;
 

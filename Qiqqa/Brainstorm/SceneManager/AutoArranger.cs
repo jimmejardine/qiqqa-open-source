@@ -78,7 +78,7 @@ namespace Qiqqa.Brainstorm.SceneManager
             Logging.Debug特("AutoArranger Thread {0} has exited", daemon.ManagedThreadId);
         }
 
-        private DateTime cache_scene_changed_timestamp = DateTime.MinValue;
+        private long cache_scene_changed_marker = -1;
         private List<NodeControl> cache_node_controls = new List<NodeControl>();
         private List<ConnectorControl> cache_connector_controls = new List<ConnectorControl>();
 
@@ -87,10 +87,10 @@ namespace Qiqqa.Brainstorm.SceneManager
             int SPEED = 1;
 
             // If the nodes and connectors have changed, recache them!
-            if (cache_scene_changed_timestamp != scene_rendering_control.SceneChangedTimestamp)
+            if (cache_scene_changed_marker != scene_rendering_control.SceneChangedMarker)
             {
                 Logging.Info("Scene has changed, so autolayout is recaching.");
-                cache_scene_changed_timestamp = scene_rendering_control.SceneChangedTimestamp;
+                cache_scene_changed_marker = scene_rendering_control.SceneChangedMarker;
                 cache_node_controls = new List<NodeControl>(scene_rendering_control.NodeControls);
                 cache_connector_controls = new List<ConnectorControl>(scene_rendering_control.ConnectorControlManager.ConnectorControls);
             }

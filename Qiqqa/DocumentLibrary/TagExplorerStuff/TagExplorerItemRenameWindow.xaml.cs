@@ -123,7 +123,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
                                 tags.Add(new_tag);
                             }
                             pdf_annotation.Tags = TagTools.ConvertTagListToTagBundle(tags);
-                            pdf_annotation.Bindable.NotifyPropertyChanged(() => pdf_annotation.Tags);
+                            pdf_annotation.Bindable.NotifyPropertyChanged(nameof(pdf_annotation.Tags));
                         }
                     }
                 }

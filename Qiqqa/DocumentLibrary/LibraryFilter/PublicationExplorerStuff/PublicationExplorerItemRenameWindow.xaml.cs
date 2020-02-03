@@ -107,7 +107,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.PublicationExplorerStuff
                 if (0 == String.Compare(pdf_document.Publication, tag))
                 {
                     pdf_document.Publication = new_tag;
-                    pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Publication);
+                    pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.Publication));
                 }
             }
 

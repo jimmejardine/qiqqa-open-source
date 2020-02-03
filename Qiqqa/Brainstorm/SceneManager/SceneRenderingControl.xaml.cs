@@ -467,8 +467,8 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         #region --- Adding to scene ---------------------------------------------------------------------------------------------------
 
-        private DateTime scene_changed_timestamp = DateTime.MinValue;
-        public DateTime SceneChangedTimestamp => scene_changed_timestamp;
+        private long scene_changed_marker = 0;
+        public long SceneChangedMarker => scene_changed_marker;
 
         public ConnectorControl AddNewConnectorControl(NodeControl node_from, NodeControl node_to)
         {
@@ -479,7 +479,7 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         public ConnectorControl AddNewConnectorControl(ConnectorControl connector_control)
         {
-            scene_changed_timestamp = DateTime.UtcNow;
+            scene_changed_marker++;
             connector_control_manager.Add(connector_control);
             return connector_control;
         }
@@ -542,7 +542,7 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         public NodeControl AddNewNodeControl(object node_content, double left, double top, double width, double height)
         {
-            scene_changed_timestamp = DateTime.UtcNow;
+            scene_changed_marker++;
 
             // Check that we don't already have a recurrent node we can use            
             if (NodeAdditionPolicyEnum.AlwaysUseExisting == node_addition_policy)
@@ -575,7 +575,7 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         private NodeControl AddNewNodeControlSceneData(NodeControlSceneData node_control_scene_data)
         {
-            scene_changed_timestamp = DateTime.UtcNow;
+            scene_changed_marker++;
 
             NodeControl nc = new NodeControl(this, node_control_scene_data);
 
@@ -623,7 +623,7 @@ namespace Qiqqa.Brainstorm.SceneManager
                 }
             }
 
-            scene_changed_timestamp = DateTime.UtcNow;
+            scene_changed_marker++;
             node_controls.Add(nc);
 
             nc.RecalculateChildDimension();
@@ -883,7 +883,7 @@ namespace Qiqqa.Brainstorm.SceneManager
             ObjNodesLayer.Children.Clear();
             ObjControlsLayer.Children.Clear();
 
-            scene_changed_timestamp = DateTime.UtcNow;
+            scene_changed_marker++;
             node_controls.Clear();
             connector_control_manager.Clear();
 
@@ -921,8 +921,8 @@ namespace Qiqqa.Brainstorm.SceneManager
 
             brainstorm_metadata.LastSaveDate = DateTime.UtcNow;
             brainstorm_metadata.LastOpenLocation = filename;
-            brainstorm_metadata.AugmentedBindable.NotifyPropertyChanged(() => brainstorm_metadata.LastSaveDate);
-            brainstorm_metadata.AugmentedBindable.NotifyPropertyChanged(() => brainstorm_metadata.LastOpenLocation);
+            brainstorm_metadata.AugmentedBindable.NotifyPropertyChanged(nameof(brainstorm_metadata.LastSaveDate));
+            brainstorm_metadata.AugmentedBindable.NotifyPropertyChanged(nameof(brainstorm_metadata.LastOpenLocation));
 
             BrainstormFileFormat brainstorm_file_format = new BrainstormFileFormat();
             brainstorm_file_format.BrainstormMetadata = brainstorm_metadata;
@@ -978,7 +978,7 @@ namespace Qiqqa.Brainstorm.SceneManager
             ObjControlsLayer.Children.Clear();
             ObjNodesLayer.Children.Clear();
 
-            scene_changed_timestamp = DateTime.UtcNow;
+            scene_changed_marker++;
             node_controls.Clear();
             connector_control_manager.Clear();
 

@@ -203,7 +203,7 @@ namespace Qiqqa.InCite
             if (null != web_library_detail_)
             {
                 ConfigurationManager.Instance.ConfigurationRecord.InCite_LastLibrary = web_library_detail_.Title;
-                ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.InCite_LastLibrary);
+                ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.InCite_LastLibrary));
 
                 ChooseNewLibrary(web_library_detail_);
             }

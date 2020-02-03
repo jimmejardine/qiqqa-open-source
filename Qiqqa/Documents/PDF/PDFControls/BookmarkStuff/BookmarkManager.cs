@@ -50,7 +50,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.BookmarkStuff
             double[] bookmarks = FromStringRepresentation(pdf_document.Bookmarks);
             bookmarks[bookmark] = position;
             pdf_document.Bookmarks = ToStringRepresentation(bookmarks);
-            pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Bookmarks);
+            pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.Bookmarks));
         }
 
         public static double[] GetDocumentBookmarks(PDFDocument pdf_document)

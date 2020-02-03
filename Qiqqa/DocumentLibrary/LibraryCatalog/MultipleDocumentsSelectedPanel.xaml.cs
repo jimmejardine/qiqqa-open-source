@@ -207,22 +207,22 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
                 if (!String.IsNullOrEmpty(review_stub.ReadingStage))
                 {
                     pdf_document.ReadingStage = review_stub.ReadingStage;
-                    pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.ReadingStage);
+                    pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.ReadingStage));
                 }
                 if (!String.IsNullOrEmpty(review_stub.Rating))
                 {
                     pdf_document.Rating = review_stub.Rating;
-                    pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Rating);
+                    pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.Rating));
                 }
                 if (review_stub.IsFavourite.HasValue)
                 {
                     pdf_document.IsFavourite = review_stub.IsFavourite;
-                    pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.IsFavourite);
+                    pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.IsFavourite));
                 }
                 if (review_stub.Color != NULL_COLOR)
                 {
                     pdf_document.Color = review_stub.Color;
-                    pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.Color);
+                    pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.Color));
                 }
             }
         }
@@ -279,7 +279,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
                     }
 
                     pdf_document.BibTex = bibtex_item.ToBibTex();
-                    pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.BibTex);
+                    pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.BibTex));
                 }
                 else
                 {

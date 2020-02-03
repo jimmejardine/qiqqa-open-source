@@ -308,7 +308,7 @@ namespace Qiqqa.Main
             if (!ConfigurationManager.Instance.ConfigurationRecord.Wizard_HasSeenIntroWizard)
             {
                 ConfigurationManager.Instance.ConfigurationRecord.Wizard_HasSeenIntroWizard = true;
-                ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.Wizard_HasSeenIntroWizard);
+                ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.Wizard_HasSeenIntroWizard));
                 MainWindowServiceDispatcher.Instance.OpenWelcomeWizard();
             }
         }

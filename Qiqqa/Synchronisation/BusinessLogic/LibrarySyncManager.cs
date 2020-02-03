@@ -71,7 +71,7 @@ namespace Qiqqa.Synchronisation.BusinessLogic
                 // collecting the precise size of every document in every Qiqqa library (which itself is a *significant*
                 // file system load when you have any reasonably large libraries like I do.          [GHo]
                 //
-                // TODO: fetch and cache document filesizes in the background, so we can improve on the accuracy
+                // TODO: fetch and cache document filesizes in the background, so we can improve on the accuracy of
                 // our numbers in a future call to this method.
                 //
                 GlobalSyncDetail global_sync_detail = GenerateGlobalSyncDetail(tally_library_storage_size: false);

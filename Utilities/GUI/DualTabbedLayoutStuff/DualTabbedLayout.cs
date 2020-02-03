@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -462,7 +463,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
 #region --- Drag bring to front -------------------------------------------------
 
         private object potential_drag_to_front_target = null;
-        private DateTime potential_drag_to_front_start_time = DateTime.MinValue;
+        private Stopwatch potential_drag_to_front_start_time = Stopwatch.StartNew();
 
         private void tab_item_DragEnter(object sender, DragEventArgs e)
         {
@@ -470,7 +471,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             DualTabbedLayoutItem item = (DualTabbedLayoutItem)tab_item.Tag;
 
             potential_drag_to_front_target = sender;
-            potential_drag_to_front_start_time = DateTime.UtcNow;
+            potential_drag_to_front_start_time.Restart();
 
             // Pass on to IDualTabbedLayoutDragDrop
             IDualTabbedLayoutDragDrop idtldd = item.Content as IDualTabbedLayoutDragDrop;
@@ -487,7 +488,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
 
             if (sender == potential_drag_to_front_target)
             {
-                if (DateTime.UtcNow.Subtract(potential_drag_to_front_start_time).TotalMilliseconds > 300)
+                if (potential_drag_to_front_start_time.ElapsedMilliseconds > 300)
                 {
                     MarkAsRecentlyUsed(item);
                     tab_item.IsSelected = true;
@@ -496,7 +497,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             else
             {
                 sender = potential_drag_to_front_target;
-                potential_drag_to_front_start_time = DateTime.UtcNow;
+                potential_drag_to_front_start_time.Restart();
             }
 
             // Pass on to IDualTabbedLayoutDragDrop

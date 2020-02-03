@@ -303,16 +303,29 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 // WEAK EVENT HANDLER FOR: web_library_detail.library.OnDocumentsChanged += library_OnDocumentsChanged;                
                 WeakEventHandler<Library.PDFDocumentEventArgs>.Register<Library, WebLibraryDetailControl>(
                     web_library_detail.library,
-                    (d, eh) => d.OnDocumentsChanged += eh,
-                    (d, eh) => d.OnDocumentsChanged -= eh,
+                    registerWeakEvent,
+                    deregisterWeakEvent,
                     this,
-                    (me, event_sender, args) => me.library_OnDocumentsChanged()
+                    forwardWeakEvent
                 );
 
                 drag_to_library_manager.DefaultLibrary = web_library_detail.library;
             }
 
             UpdateLibraryStatistics();
+        }
+
+        private static void registerWeakEvent(Library sender, EventHandler<Library.PDFDocumentEventArgs> eh)
+        {
+            sender.OnDocumentsChanged += eh;
+        }
+        private static void deregisterWeakEvent(Library sender, EventHandler<Library.PDFDocumentEventArgs> eh)
+        {
+            sender.OnDocumentsChanged -= eh;
+        }
+        private static void forwardWeakEvent(WebLibraryDetailControl me, object event_sender, Library.PDFDocumentEventArgs args)
+        {
+            me.library_OnDocumentsChanged();
         }
 
         private void library_OnDocumentsChanged()
