@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
@@ -59,15 +60,15 @@ namespace Qiqqa.Localisation
             DoFlush(false);
         }
 
-        private DateTime last_flush_time = DateTime.MinValue;
+        private Stopwatch last_flush_time = Stopwatch.StartNew();
         private void DoFlush(bool force)
         {
-            if (!force && DateTime.UtcNow.Subtract(last_flush_time).TotalSeconds < 3)
+            if (!force && last_flush_time.ElapsedMilliseconds < 3000)
             {
                 return;
             }
 
-            last_flush_time = DateTime.UtcNow;
+            last_flush_time.Restart();
 
             List<LocalisationRow> rows = (List<LocalisationRow>)GridEditor.ItemsSource;
             LocaleTable locale_table = new LocaleTable();

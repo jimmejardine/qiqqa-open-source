@@ -21,14 +21,16 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
 {
     public class AITagManager
     {
-        private Library library;
+        private TypedWeakReference<Library> library;
+        public Library Library => library?.TypedTarget;
+
         private AITags current_ai_tags_record;
         private object in_progress_lock = new object();
         private bool regenerating_in_progress = false;
 
         public AITagManager(Library library)
         {
-            this.library = library;
+            this.library = new TypedWeakReference<Library>(library);
 
             current_ai_tags_record = new AITags();
 
@@ -49,7 +51,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
             }
         }
 
-        private string Filename_Store => Path.GetFullPath(Path.Combine(library.LIBRARY_BASE_PATH, @"Qiqqa.autotags"));
+        private string Filename_Store => Path.GetFullPath(Path.Combine(Library.LIBRARY_BASE_PATH, @"Qiqqa.autotags"));
 
         public void Regenerate()
         {
@@ -79,7 +81,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
                 Logging.Info("+AITagManager is starting regenerating");
 
                 StatusManager.Instance.UpdateStatus("AITags", "Loading documents");
-                List<PDFDocument> pdf_documents = library.PDFDocuments;
+                List<PDFDocument> pdf_documents = Library.PDFDocuments;
 
                 int count_title_by_user = 0;
                 int could_title_by_suggest = 0;
@@ -114,7 +116,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
                 List<string> words_blacklist = new List<string>();
                 List<string> words_whitelist = new List<string>();
                 {
-                    List<BlackWhiteListEntry> entries = library.BlackWhiteListManager.ReadList();
+                    List<BlackWhiteListEntry> entries = Library.BlackWhiteListManager.ReadList();
                     foreach (var entry in entries)
                     {
                         if (entry.is_deleted)
@@ -169,7 +171,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
 
                         // Surround the tag with quotes and search the index
                         string search_tag = "\"" + tag + "\"";
-                        List<IndexPageResult> fingerprints_potential = LibrarySearcher.FindAllPagesMatchingQuery(library, search_tag);
+                        List<IndexPageResult> fingerprints_potential = LibrarySearcher.FindAllPagesMatchingQuery(Library, search_tag);
 
                         if (null != fingerprints_potential)
                         {
@@ -190,7 +192,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
                                 else
                                 {
                                     // Acronyms need to be done manually because we only want the upper case ones...
-                                    PDFDocument pdf_document = library.GetDocumentByFingerprint(fingerprint_potential.fingerprint);
+                                    PDFDocument pdf_document = Library.GetDocumentByFingerprint(fingerprint_potential.fingerprint);
                                     if (null != pdf_document && !pdf_document.Deleted)
                                     {
                                         bool have_tag = false;

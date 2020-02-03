@@ -148,7 +148,7 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
                     }
                 }
 
-                // If the file does not exists, create it from scratch
+                // If the file does not exist, create it from scratch
                 if (!File.Exists(library_detail_path))
                 {
                     IntranetLibraryDetail library_detail = new IntranetLibraryDetail();
@@ -163,6 +163,9 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
 
                 // Notify the WebLibraryManager
                 WebLibraryManager.Instance.UpdateKnownWebLibraryFromIntranet(base_path, suppress_flush_to_disk: false, extra_info_message_on_skip: String.Format("as specified in file {0}", library_detail_path));
+
+                // make sure the PDF/documents database is loaded into memory:
+                WebLibraryManager.Instance.InitAllLoadedLibraries();
 
                 return true;
             }

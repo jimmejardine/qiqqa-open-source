@@ -28,10 +28,12 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
         private const int DOCUMENT_INDEX_RETRY_PERIOD_SECONDS = 60;
         private const int MAX_MILLISECONDS_PER_ITERATION = 15 * 1000;
 
-        private Library library;
+        private TypedWeakReference<Library> library;
+        public Library Library => library?.TypedTarget;
+
         private LuceneIndex word_index_manager = null;
         private object word_index_manager_lock = new object();
-        private DateTime time_of_last_library_scan = DateTime.MinValue;
+        private Stopwatch time_of_last_library_scan = Stopwatch.StartNew();
         private Dictionary<string, PDFDocumentInLibrary> pdf_documents_in_library = null;
         private object pdf_documents_in_library_lock = new object();
 
@@ -63,7 +65,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
         public LibraryIndex(Library library)
         {
-            this.library = library;
+            this.library = new TypedWeakReference<Library>(library);
 
             // postpone INIT phase...
         }
@@ -138,7 +140,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 lock (word_index_manager_lock)
                 {
                     l6_clk.LockPerfTimerStop();
-                    word_index_manager = new LuceneIndex(library.LIBRARY_INDEX_BASE_PATH);
+                    word_index_manager = new LuceneIndex(Library.LIBRARY_INDEX_BASE_PATH);
                     word_index_manager.WriteMasterList();
                 }
 
@@ -221,11 +223,11 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
             Init();
 
-            if (DateTime.UtcNow.Subtract(time_of_last_library_scan).TotalSeconds > LIBRARY_SCAN_PERIOD_SECONDS)
+            if (time_of_last_library_scan.ElapsedMilliseconds >= LIBRARY_SCAN_PERIOD_SECONDS * 1000)
             {
                 if (RescanLibrary())
                 {
-                    time_of_last_library_scan = DateTime.UtcNow;
+                    time_of_last_library_scan.Restart();
                 }
             }
 
@@ -364,12 +366,12 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             }
         }
 
-        private string Filename_DocumentProgressList => Path.GetFullPath(Path.Combine(library.LIBRARY_INDEX_BASE_PATH, @"DocumentProgressList.dat"));
+        private string Filename_DocumentProgressList => Path.GetFullPath(Path.Combine(Library.LIBRARY_INDEX_BASE_PATH, @"DocumentProgressList.dat"));
 
         private bool RescanLibrary()
         {
             // We include the deleted ones because we need to reindex their metadata...
-            List<PDFDocument> pdf_documents = library.PDFDocuments_IncludingDeleted;
+            List<PDFDocument> pdf_documents = Library.PDFDocuments_IncludingDeleted;
 
             int total_new_to_be_indexed = 0;
 
@@ -383,7 +385,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                     return false;
                 }
 
-                if (library.LibraryIsKilled)
+                if (Library.LibraryIsKilled)
                 {
                     Logging.Info("Breaking out of RescanLibrary loop due to forced ABORT/Dispose of library instance.");
                     return false;
@@ -530,7 +532,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                     break;
                 }
 
-                if (library.LibraryIsKilled)
+                if (Library.LibraryIsKilled)
                 {
                     Logging.Info("Breaking out of IncrementalBuildNextDocuments loop due to forced ABORT/Dispose of library instance.");
                     break;
@@ -540,7 +542,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 {
                     Logging.Info("Indexing document {0}", pdf_document_in_library.fingerprint);
 
-                    PDFDocument pdf_document = library.GetDocumentByFingerprint(pdf_document_in_library.fingerprint);
+                    PDFDocument pdf_document = Library.GetDocumentByFingerprint(pdf_document_in_library.fingerprint);
 
                     bool all_pages_processed_so_far = true;
 
@@ -648,7 +650,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                     }
                     else
                     {
-                        Logging.Warn("It appears that document {0} is no longer in library {1} so will be removed from indexing", pdf_document_in_library.fingerprint, library.WebLibraryDetail.Id);
+                        Logging.Warn("It appears that document {0} is no longer in library {1} so will be removed from indexing", pdf_document_in_library.fingerprint, Library.WebLibraryDetail.Id);
                     }
 
                     if (all_pages_processed_so_far)

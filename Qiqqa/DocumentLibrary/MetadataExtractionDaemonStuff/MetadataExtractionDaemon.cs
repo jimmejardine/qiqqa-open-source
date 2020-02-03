@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
 using Qiqqa.Documents.PDF;
 using Qiqqa.Documents.PDF.MetadataSuggestions;
 using Utilities;
 using Utilities.Collections;
+using Utilities.GUI;
 using Utilities.Mathematics;
 using Utilities.Misc;
 
@@ -16,7 +18,7 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
 
         public void DoMaintenance(Library library)
         {
-            Stopwatch sw_total = Stopwatch.StartNew();
+            Stopwatch clk = Stopwatch.StartNew();
 
             Logging.Debug特("MetadataExtractionDaemon::DoMaintenance START");
 
@@ -28,9 +30,9 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
             // To reconstruct the entire index will take a *long* time. We grow the index and other meta
             // stores a bunch-of-files at a time and then repeat the entire maintenance process until
             // we'll be sure to have run out of files to process for sure...
-            const int MAX_NUMBER_OF_PDF_FILES_TO_PROCESS = 10;
-            const int MAX_SECONDS_PER_ITERATION = 15;
-            DateTime index_processing_start_time = DateTime.UtcNow;
+            const int MAX_NUMBER_OF_PDF_FILES_TO_PROCESS = 100;
+            const int MAX_SECONDS_PER_ITERATION = 60;
+            long clk_bound = clk.ElapsedMilliseconds + MAX_SECONDS_PER_ITERATION * 1000;
 
             while (true)
             {
@@ -41,9 +43,9 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
                     break;
                 }
 
-                if (DateTime.UtcNow.Subtract(index_processing_start_time).TotalSeconds > MAX_SECONDS_PER_ITERATION)
+                if (clk_bound <= clk.ElapsedMilliseconds)
                 {
-                    Logging.Debug特("MetadataExtractionDaemon::DoMaintenance: Breaking out of outer processing loop due to MAX_SECONDS_PER_ITERATION: {0} seconds consumed", DateTime.UtcNow.Subtract(index_processing_start_time).TotalSeconds);
+                    Logging.Debug特("MetadataExtractionDaemon::DoMaintenance: Breaking out of outer processing loop due to MAX_SECONDS_PER_ITERATION: {0} ms consumed", clk.ElapsedMilliseconds);
                     break;
                 }
 
@@ -61,11 +63,18 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
 
                 // Check that we have something to do
                 List<PDFDocument> pdfs_to_process = new List<PDFDocument>();
-                {
+
                     List<PDFDocument> pdf_documents = library.PDFDocuments;
                     foreach (PDFDocument pdf_document in pdf_documents)
                     {
                         bool needs_processing = false;
+
+                    // there's nothing to infer from PDF when there's no PDF to process:
+                    if (!pdf_document.DocumentExists)
+                    {
+                        continue;
+                    }
+
                         if (PDFMetadataInferenceFromPDFMetadata.NeedsProcessing(pdf_document)) needs_processing = true;
                         if (PDFMetadataInferenceFromOCR.NeedsProcessing(pdf_document)) needs_processing = true;
                         if (PDFMetadataInferenceFromBibTeXSearch.NeedsProcessing(pdf_document)) needs_processing = true;
@@ -97,17 +106,29 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
                             Logging.Debug特("Breaking out of MetadataExtractionDaemon PDF fingerprinting loop due to MAX_NUMBER_OF_PDF_FILES_TO_PROCESS reached");
                             break;
                         }
+                        if (clk_bound <= clk.ElapsedMilliseconds)
+                        {
+                            Logging.Debug特("Breaking out of MetadataExtractionDaemon PDF fingerprinting loop due to MAX_SECONDS_PER_ITERATION: {0} ms consumed", clk.ElapsedMilliseconds);
+                            break;
+                        }
                     }
 
                     if (0 < pdfs_to_process.Count)
                     {
                         Logging.Debug特("Got {0} items of metadata extraction work", pdfs_to_process.Count);
                     }
+                else
+                {
+                    // nothing to do due to timeout
+                    Logging.Debug特("MetadataExtractionDaemon::DoMaintenance: Breaking out of outer processing loop due to no more files to process right now.");
+                    break;
                 }
 
                 // Get each of our guys to start rendering their first pages so we can do some extraction
-                foreach (PDFDocument pdf_document in pdfs_to_process)
+                for (int i = 0; i < pdfs_to_process.Count; ++i)
                 {
+                    PDFDocument pdf_document = pdfs_to_process[i];
+                
                     if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
                     {
                         Logging.Debug特("Breaking out of MetadataExtractionDaemon PDF processing loop due to daemon termination");
@@ -116,38 +137,19 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
 
                     try
                     {
-                        if (pdf_document.DocumentExists)
-                        {
+                        //if (pdf_document.DocumentExists) -- already tested in collection loop above
                             pdf_document.PDFRenderer.GetOCRText(1);
-                        }
                     }
                     catch (Exception ex)
                     {
                         Logging.Error(ex, "There was an exception while requesting the first page to be OCRed");
                     }
-                }
-
-                // See if there is any completed OCR to work with
-                if (0 < pdfs_to_process.Count)
-                {
-                    StatusManager.Instance.ClearCancelled("AutoSuggestMetadata");
-                }
-
-                for (int i = 0; i < pdfs_to_process.Count; ++i)
-                {
+                
                     StatusManager.Instance.UpdateStatus("AutoSuggestMetadata", "Suggesting metadata", i, pdfs_to_process.Count, true);
                     if (StatusManager.Instance.IsCancelled("AutoSuggestMetadata"))
                     {
                         break;
                     }
-
-                    if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
-                    {
-                        Logging.Debug特("Breaking out of MetadataExtractionDaemon metadata suggesting loop due to daemon termination");
-                        break;
-                    }
-
-                    PDFDocument pdf_document = pdfs_to_process[i];
 
                     // Try get the authors and year with the PDF in-file metadata
                     try
@@ -180,17 +182,12 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
                     }
                 }
 
-                if (0 < pdfs_to_process.Count)
-                {
-                    Logging.Info("It took a total of {0}ms to extract metadata", sw_total.ElapsedMilliseconds);
-                    StatusManager.Instance.ClearStatus("AutoSuggestMetadata");
-                }
-                else
-                {
-                    Logging.Debug特("MetadataExtractionDaemon::DoMaintenance: Breaking out of outer processing loop due to no more files to process (count = {0})", pdfs_to_process.Count);
-                    break;
-                }
+                // nap a short while between mini-runs:
+                WPFDoEvents.WaitForUIThreadActivityDone();
             }
+
+            Logging.Info("{0}ms were spent to extract metadata", clk.ElapsedMilliseconds);
+            StatusManager.Instance.ClearStatus("AutoSuggestMetadata");
         }
     }
 }

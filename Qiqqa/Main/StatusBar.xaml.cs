@@ -157,8 +157,8 @@ namespace Qiqqa.Main
             List<KeyValuePair<string, StatusBarItem>> status_bar_items_to_remove = new List<KeyValuePair<string, StatusBarItem>>();
             foreach (var pair in status_bar_items)
             {
-                double minutes = DateTime.UtcNow.Subtract(pair.Value.LastStatusUpdateTime).TotalMinutes;
-                if (minutes >= 1)
+                double ms = pair.Value.TimeSinceLastStatusUpdate.ElapsedMilliseconds;
+                if (ms >= 3000) // 3 seconds before we remove a 'stale' status item
                 {
                     status_bar_items_to_remove.Add(pair);
                 }

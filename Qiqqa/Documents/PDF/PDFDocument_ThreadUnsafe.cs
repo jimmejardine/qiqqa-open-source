@@ -39,8 +39,8 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
     public class PDFDocument_ThreadUnsafe
     {
-        private Library library;
-        public Library Library => library;
+        private TypedWeakReference<Library> library;
+        public Library Library => library?.TypedTarget;
 
         private DictionaryBasedObject dictionary = new DictionaryBasedObject();
 
@@ -99,13 +99,13 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
         internal PDFDocument_ThreadUnsafe(Library library)
         {
-            this.library = library;
+            this.library = new TypedWeakReference<Library>(library);
             dictionary = new DictionaryBasedObject();
         }
 
         internal PDFDocument_ThreadUnsafe(Library library, DictionaryBasedObject dictionary)
         {
-            this.library = library;
+            this.library = new TypedWeakReference<Library>(library);
             this.dictionary = dictionary;
         }
 
@@ -176,7 +176,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
         /// <summary>
         /// Unique id for both this document and the library that it exists in.
         /// </summary>
-        public string UniqueId => string.Format("{0}_{1}", Fingerprint, library.WebLibraryDetail.Id);
+        public string UniqueId => string.Format("{0}_{1}", Fingerprint, Library.WebLibraryDetail.Id);
 
         public string FileType
         {
@@ -755,12 +755,12 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
         #endregion ----------------------------------------------------------------------------------------------------
 
-        public string DocumentBasePath => PDFDocumentFileLocations.DocumentBasePath(library, Fingerprint);
+        public string DocumentBasePath => PDFDocumentFileLocations.DocumentBasePath(Library, Fingerprint);
 
         /// <summary>
         /// The location of the PDF on disk.
         /// </summary>
-        public string DocumentPath => PDFDocumentFileLocations.DocumentPath(library, Fingerprint, FileType);
+        public string DocumentPath => PDFDocumentFileLocations.DocumentPath(Library, Fingerprint, FileType);
 
         [NonSerialized]
         private bool? document_exists = null;
@@ -1204,7 +1204,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             }
 
             // Create the new PDF document
-            PDFDocument new_pdf_document = library.AddNewDocumentToLibrary_SYNCHRONOUS(pdf_filename, pdf_filename, pdf_filename, null, null, null, false, true);
+            PDFDocument new_pdf_document = Library.AddNewDocumentToLibrary_SYNCHRONOUS(pdf_filename, pdf_filename, pdf_filename, null, null, null, false, true);
 
             return new_pdf_document;
         }
