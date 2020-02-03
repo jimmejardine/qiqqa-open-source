@@ -29,7 +29,7 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
             if (null != word_list)
             {
                 pdf_document.AutoSuggested_OCRFrontPage = true;
-                pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.AutoSuggested_OCRFrontPage);
+                pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.AutoSuggested_OCRFrontPage));
 
                 // Try get the title from the OCR
                 string title = InferTitleFromWordList(word_list);
@@ -37,7 +37,7 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
                 {
                     Logging.Info("Auto-found in OCR metadata title '{0}'", title);
                     pdf_document.TitleSuggested = title;
-                    pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.TitleSuggested);
+                    pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.TitleSuggested));
                     return true;
                 }
             }

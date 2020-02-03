@@ -110,7 +110,7 @@ namespace Qiqqa.Common.Configuration
             if (null != proxy && !String.IsNullOrEmpty(proxy.url))
             {
                 ConfigurationManager.Instance.ConfigurationRecord.Proxy_EZProxy = proxy.url;
-                ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.Proxy_EZProxy);
+                ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.Proxy_EZProxy));
             }
 
             e.Handled = true;
@@ -131,7 +131,7 @@ namespace Qiqqa.Common.Configuration
 
             // Update the config
             ConfigurationManager.Instance.ConfigurationRecord.Web_UserAgentOverride = user_agent;
-            ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.Web_UserAgentOverride);
+            ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.Web_UserAgentOverride));
         }
 
         private void ButtonLibraryDBExplorer_Click(object sender, RoutedEventArgs e)
@@ -200,27 +200,27 @@ namespace Qiqqa.Common.Configuration
                 foreach (PDFDocument pdf_document in pdf_documents)
                 {
                     pdf_document.AutoSuggested_PDFMetadata = false;
-                    pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.AutoSuggested_PDFMetadata);
+                    pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.AutoSuggested_PDFMetadata));
 
                     pdf_document.AutoSuggested_OCRFrontPage = false;
-                    pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.AutoSuggested_OCRFrontPage);
+                    pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.AutoSuggested_OCRFrontPage));
 
                     if (null != pdf_document.TitleSuggested)
                     {
                         pdf_document.TitleSuggested = null;
-                        pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.TitleSuggested);
+                        pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.TitleSuggested));
                     }
 
                     if (null != pdf_document.AuthorsSuggested)
                     {
                         pdf_document.AuthorsSuggested = null;
-                        pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.AuthorsSuggested);
+                        pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.AuthorsSuggested));
                     }
 
                     if (null != pdf_document.YearSuggested)
                     {
                         pdf_document.YearSuggested = null;
-                        pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.YearSuggested);
+                        pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.YearSuggested));
                     }
                 }
             }

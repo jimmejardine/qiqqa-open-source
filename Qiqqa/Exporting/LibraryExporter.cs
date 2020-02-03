@@ -38,7 +38,7 @@ namespace Qiqqa.Exporting
                     // Remember the filename for next time
                     string base_path = dlg.SelectedPath;
                     ConfigurationManager.Instance.ConfigurationRecord.System_LastLibraryExportFolder = base_path;
-                    ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(() => ConfigurationManager.Instance.ConfigurationRecord.System_LastLibraryExportFolder);
+                    ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.System_LastLibraryExportFolder));
 
                     SafeThreadPool.QueueUserWorkItem(o => Export(library, pdf_documents, base_path));
                 }

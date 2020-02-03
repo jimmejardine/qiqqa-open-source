@@ -51,7 +51,7 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
 
             // Flag on this document that we have tried to do the bibtex
             pdf_document.AutoSuggested_BibTeXSearch = true;
-            pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.AutoSuggested_BibTeXSearch);
+            pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.AutoSuggested_BibTeXSearch));
 
             string title = pdf_document.TitleCombined;
 
@@ -118,7 +118,7 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
                     );
 
                     pdf_document.BibTex = bibtex_choices[0];
-                    pdf_document.Bindable.NotifyPropertyChanged(() => pdf_document.BibTex);
+                    pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.BibTex));
 
                     FeatureTrackingManager.Instance.UseFeature(Features.BibTeX_BibTeXSearchMatch);
 

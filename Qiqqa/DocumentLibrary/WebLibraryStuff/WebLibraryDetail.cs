@@ -87,6 +87,9 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             return "UNKNOWN";
         }
 
+#if false
+        // additional hacky API to assist the codebase while we weren't using TypedWeakReference object(s) for this:
+
         public WebLibraryDetail CloneSansLibraryReference()
         {
             // only clone the important fields:
@@ -111,5 +114,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
             return rv;
         }
+#endif
     }
 }

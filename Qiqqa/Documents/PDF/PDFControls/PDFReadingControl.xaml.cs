@@ -952,7 +952,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 if (cloned_pdf_document != source_pdf_document)
                 {
                     source_pdf_document.Deleted = true;
-                    source_pdf_document.Bindable.NotifyPropertyChanged(() => source_pdf_document.Deleted);
+                    source_pdf_document.Bindable.NotifyPropertyChanged(nameof(source_pdf_document.Deleted));
                 }
 
                 // Forget the target attachment
@@ -996,7 +996,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     if (cloned_pdf_document != source_pdf_document)
                     {
                         source_pdf_document.Deleted = true;
-                        source_pdf_document.Bindable.NotifyPropertyChanged(() => source_pdf_document.Deleted);
+                        source_pdf_document.Bindable.NotifyPropertyChanged(nameof(source_pdf_document.Deleted));
                     }
                 });
             });

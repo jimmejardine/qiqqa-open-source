@@ -19,21 +19,49 @@ namespace Utilities.GUI
         private static void DoEvents()
         {
             if (!Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown
-                && (Application.Current?.Dispatcher.CheckAccess() ?? false))
+                && (Application.Current?.Dispatcher.CheckAccess() ?? false)
+                && (!Application.Current?.Dispatcher.HasShutdownStarted ?? false))
             {
+                // https://stackoverflow.com/questions/4502037/where-is-the-application-doevents-in-wpf
+                // https://stackoverflow.com/questions/21642381/how-to-wait-for-waithandle-while-serving-wpf-dispatcher-events
+                //
+                // Update (taken from last SO link and adapted to Qiqqa)
+                //
+                // So it seems the above method will peg the CPU.
+                // Here's an alternative that uses a DispatcherTimer to check while the method pumps for messages.
+
+#if false
                 DispatcherFrame frame = new DispatcherFrame();
+
                 // https://stackoverflow.com/questions/10448987/dispatcher-currentdispatcher-vs-application-current-dispatcher
                 if (System.Windows.Threading.Dispatcher.CurrentDispatcher != Application.Current?.Dispatcher)
                 {
                     Logging.Error(new Exception("Unexpected results"), "woops");
                 }
+
                 //Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Background, new DispatcherOperationCallback(ExitFrame), frame);
                 Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new DispatcherOperationCallback(ExitFrame), frame);
                 Dispatcher.PushFrame(frame);
+#else
+                DispatcherTimer timer = new DispatcherTimer(DispatcherPriority.Background)
+                {
+                    Interval = TimeSpan.FromMilliseconds(50)
+                };
+
+                DispatcherFrame frame = new DispatcherFrame();
+
+                timer.Tick += (o, e) =>
+                {
+                    timer.IsEnabled = false;
+                    frame.Continue = false;
+                };
+                timer.IsEnabled = true;
+                Dispatcher.PushFrame(frame);
+#endif
             }
             else
             {
-                Thread.Sleep(50);
+                Thread.Yield();
             }
         }
 
@@ -49,8 +77,7 @@ namespace Utilities.GUI
         {
             Logging.Debug("+WaitForUIThreadActivityDone start");
 
-            Stopwatch clk = new Stopwatch();
-            clk.Start();
+            Stopwatch clk = Stopwatch.StartNew();
 
             // if (Application.Current == null || Application.Current.Dispatcher.Thread == Thread.CurrentThread)
             // as per: https://stackoverflow.com/questions/5143599/detecting-whether-on-ui-thread-in-wpf-and-winforms#answer-14280425
@@ -67,7 +94,8 @@ namespace Utilities.GUI
                 // other background threads will wait on the lock to resolve...
                 //lock (DoEvents_lock)
                 {
-                    if (!Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+                    if (!Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown 
+                        && (!Application.Current?.Dispatcher.HasShutdownStarted ?? false))
                     {
                         Application.Current.Dispatcher.Invoke(new Action(() =>
                         {
@@ -78,14 +106,14 @@ namespace Utilities.GUI
                     }
                     else
                     {
-                        Thread.Sleep(50);
+                        Thread.Yield();
                     }
                 }
             }
             Logging.Debug("-WaitForUIThreadActivityDone end (time spent: {0} ms)", clk.ElapsedMilliseconds);
         }
 
-        #region Forced Repaint of UI 
+#region Forced Repaint of UI 
 
         // as per: https://stackoverflow.com/questions/2886532/in-c-how-do-you-send-a-refresh-repaint-message-to-a-wpf-grid-or-canvas
 
@@ -100,7 +128,7 @@ namespace Utilities.GUI
             uiElement.Dispatcher.Invoke(DispatcherPriority.Render, repaint_done);
         }
 
-        #endregion
+#endregion
 
         public static void SetHourglassCursor()
         {

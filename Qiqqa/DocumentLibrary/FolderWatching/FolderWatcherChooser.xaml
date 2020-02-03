@@ -13,11 +13,10 @@
         </commongui:StandardPageHeader>
         <local_gui:AugmentedPadder DockPanel.Dock="Bottom">
             <DockPanel>
-                <local_gui:AugmentedButton x:Name="btnOk" HorizontalAlignment="Right" DockPanel.Dock="Right" MinHeight="20" >
+                <local_gui:AugmentedButton x:Name="btnOk" HorizontalAlignment="Right" DockPanel.Dock="Right" MinHeight="20" MinWidth="120" >
                     OK
                 </local_gui:AugmentedButton>
-                <local_gui:AugmentedSpacer />
-                <local_gui:AugmentedButton x:Name="btnCancel" HorizontalAlignment="Right" DockPanel.Dock="Right" MinHeight="20" >
+                <local_gui:AugmentedButton x:Name="btnCancel" HorizontalAlignment="Left" DockPanel.Dock="Right" MinHeight="20" MinWidth="120" >
                     Cancel
                 </local_gui:AugmentedButton>
             </DockPanel>

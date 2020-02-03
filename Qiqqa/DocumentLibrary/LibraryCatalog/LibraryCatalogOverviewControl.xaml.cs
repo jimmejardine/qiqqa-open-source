@@ -379,8 +379,15 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
                     WPFDoEvents.InvokeInUIThread(() =>
                     {
-                        WizardDPs.ClearPointOfInterest(PanelSearchScore);
-                        WizardDPs.ClearPointOfInterest(ObjLookInsidePanel);
+                        try
+                        {
+                            WizardDPs.ClearPointOfInterest(PanelSearchScore);
+                            WizardDPs.ClearPointOfInterest(ObjLookInsidePanel);
+                        }
+                        catch (Exception ex)
+                        {
+                            //ignore
+                        }
 
                         TextTitle.MouseLeftButtonUp -= TextTitle_MouseLeftButtonUp;
 
@@ -391,7 +398,14 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
                         DataContextChanged -= LibraryCatalogOverviewControl_DataContextChanged;
 
-                        DataContext = null;
+                        try
+                        {
+                            DataContext = null;
+                        }
+                        catch (Exception ex)
+                        {
+                            //ignore
+                        }
                     });
                 }
 

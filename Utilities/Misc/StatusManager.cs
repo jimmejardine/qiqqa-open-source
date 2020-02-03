@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Utilities.Shutdownable;
 
 namespace Utilities.Misc
@@ -15,38 +16,102 @@ namespace Utilities.Misc
         {
             public bool cancellable;
             public string message;
-            public DateTime timestamp;
+            public Stopwatch timestamp;
+            public long current_update_number;
+            public long total_update_count;
 
-            public StatusMessage(string message, bool cancellable)
+            public StatusMessage(string message, bool cancellable, long current_update_number, long total_update_count)
             {
                 this.message = message;
                 this.cancellable = cancellable;
-                timestamp = DateTime.UtcNow;
+                this.timestamp = Stopwatch.StartNew();
+                this.current_update_number = current_update_number;
+                this.total_update_count = total_update_count;
             }
         }
 
         public class StatusEntry
         {
             public string key;
+            private object data_lock = new object();
 
-            public DateTime LastUpdated => last_status_message?.timestamp ?? DateTime.MinValue;
-
-            public long current_update_number;
-            public long total_update_count;
+            public Stopwatch? LastUpdated
+            {
+                get
+                {
+                    lock (data_lock)
+                    {
+                        return last_status_message?.timestamp;
+                    }
+                }
+            }
 
             protected StatusMessage last_status_message = null;
 
-            public string LastStatusMessage => last_status_message?.message;
+            public string LastStatusMessage
+            {
+                get
+                {
+                    lock (data_lock)
+                    {
+                        return last_status_message?.message;
+                    }
+                }
+            }
 
-            public bool LastStatusMessageCancellable => last_status_message?.cancellable ?? false;
+            public string LastStatusMessageWithProgressPercentage
+            {
+                get
+                {
+                    lock (data_lock)
+                    {
+                        if (!String.IsNullOrEmpty(last_status_message?.message))
+                        {
+                            double pct = Mathematics.Perunage.Calc(last_status_message.current_update_number, last_status_message.total_update_count);
 
+                            string msg = last_status_message.message;
+                            if (pct > 0.0)
+                            {
+                                msg = String.Format("{0}: {2}/{3} = {1:P1}", msg, pct, last_status_message.current_update_number, last_status_message.total_update_count);
+                            }
+
+                            return msg;
+                        }
+                        return null;
+                    }
+                }
+            }
+
+            public bool LastStatusMessageCancellable
+            {
+                get
+                {
+                    lock (data_lock)
+                    {
+                        return last_status_message?.cancellable ?? false;
+                    }
+                }
+            }
+            
             // Produce a decent Perunage value for any progress status, even when 
             // `total_update_count` is ZERO.
-            public double UpdatePercentage => Mathematics.Perunage.Calc(current_update_number, total_update_count);
+            public double UpdatePerunage
+            {
+                get
+                {
+                    lock (data_lock)
+                    {
+                        return Mathematics.Perunage.Calc(last_status_message.current_update_number, last_status_message.total_update_count);
+                    }
+                }
+            }
 
             public void InsertStatusMessage(StatusMessage msg)
             {
-                last_status_message = msg;
+                lock (data_lock)
+                {
+                    last_status_message = msg;
+                }
             }
         }
 
@@ -83,7 +148,7 @@ namespace Utilities.Misc
             // Don't log 'ClearStatus' messages: Clear ~ UpdateStatus("",0,0)
             if (current_update_number != 0 || total_update_count != 0 || !String.IsNullOrEmpty(message))
             {
-                Logging.Debug特("{0}:{1} ({2}/{3})", key, message, current_update_number, total_update_count);
+                Logging.Debug特("{0}:{1} ({2}/{3}: {4:P1})", key, message, current_update_number, total_update_count, Mathematics.Perunage.Calc(current_update_number, total_update_count));
             }
 
             // Do log the statuses (above) but stop updating the UI when we're shutting down:
@@ -103,9 +168,7 @@ namespace Utilities.Misc
                     }
 
                     //status_entry.last_updated = DateTime.UtcNow;
-                    status_entry.current_update_number = current_update_number;
-                    status_entry.total_update_count = total_update_count;
-                    status_entry.InsertStatusMessage(new StatusMessage(message, cancellable));
+                    status_entry.InsertStatusMessage(new StatusMessage(message, cancellable, current_update_number, total_update_count));
                 }
 
                 if (null != OnStatusEntryUpdate)

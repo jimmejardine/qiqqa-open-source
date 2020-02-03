@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if false
+
+using System;
 
 namespace Utilities.Maintainable
 {
@@ -20,3 +22,5 @@ namespace Utilities.Maintainable
         }
     }
 }
+
+#endif
