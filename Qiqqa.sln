@@ -238,6 +238,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QiqqaUnitTester", "QiqqaUni
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClickOnceUninstaller", "Qiqqa.Build\Packaging\ClickOnceUninstaller\ClickOnceUninstaller\ClickOnceUninstaller.csproj", "{95F96533-6159-4BAF-8757-51B4F63FDE09}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QiqqaLegacyFileFormats", "QiqqaLegacyFileFormats\QiqqaLegacyFileFormats.csproj", "{022F424B-3E81-487D-990B-A4E664FF5F70}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QiqqaUIPartsTester", "QiqqaUIPartsTester\QiqqaUIPartsTester.csproj", "{09BDCFA3-7067-4AE0-A40C-53A645C95A50}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfUserControlLibrary1", "WpfUserControlLibrary1\WpfUserControlLibrary1.csproj", "{F4CA0B7E-9E8D-4B51-9C74-548B4EBCAE2A}"
@@ -466,6 +468,24 @@ Global
 		{95F96533-6159-4BAF-8757-51B4F63FDE09}.Release+SETUP|Mixed Platforms.Build.0 = Release|x86
 		{95F96533-6159-4BAF-8757-51B4F63FDE09}.Release+SETUP|x86.ActiveCfg = Release|x86
 		{95F96533-6159-4BAF-8757-51B4F63FDE09}.Release+SETUP|x86.Build.0 = Release|x86
+		{022F424B-3E81-487D-990B-A4E664FF5F70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{022F424B-3E81-487D-990B-A4E664FF5F70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{022F424B-3E81-487D-990B-A4E664FF5F70}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{022F424B-3E81-487D-990B-A4E664FF5F70}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{022F424B-3E81-487D-990B-A4E664FF5F70}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{022F424B-3E81-487D-990B-A4E664FF5F70}.Debug|x86.Build.0 = Debug|Any CPU
+		{022F424B-3E81-487D-990B-A4E664FF5F70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{022F424B-3E81-487D-990B-A4E664FF5F70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{022F424B-3E81-487D-990B-A4E664FF5F70}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{022F424B-3E81-487D-990B-A4E664FF5F70}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{022F424B-3E81-487D-990B-A4E664FF5F70}.Release|x86.ActiveCfg = Release|Any CPU
+		{022F424B-3E81-487D-990B-A4E664FF5F70}.Release|x86.Build.0 = Release|Any CPU
+		{022F424B-3E81-487D-990B-A4E664FF5F70}.Release+SETUP|Any CPU.ActiveCfg = Release|Any CPU
+		{022F424B-3E81-487D-990B-A4E664FF5F70}.Release+SETUP|Any CPU.Build.0 = Release|Any CPU
+		{022F424B-3E81-487D-990B-A4E664FF5F70}.Release+SETUP|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{022F424B-3E81-487D-990B-A4E664FF5F70}.Release+SETUP|Mixed Platforms.Build.0 = Release|Any CPU
+		{022F424B-3E81-487D-990B-A4E664FF5F70}.Release+SETUP|x86.ActiveCfg = Release|Any CPU
+		{022F424B-3E81-487D-990B-A4E664FF5F70}.Release+SETUP|x86.Build.0 = Release|Any CPU
 		{09BDCFA3-7067-4AE0-A40C-53A645C95A50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{09BDCFA3-7067-4AE0-A40C-53A645C95A50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09BDCFA3-7067-4AE0-A40C-53A645C95A50}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
