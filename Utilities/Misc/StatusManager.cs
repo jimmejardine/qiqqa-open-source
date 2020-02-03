@@ -35,6 +35,7 @@ namespace Utilities.Misc
             public string key;
             private object data_lock = new object();
 
+#nullable enable
             public Stopwatch? LastUpdated
             {
                 get
@@ -45,6 +46,7 @@ namespace Utilities.Misc
                     }
                 }
             }
+#nullable disable
 
             protected StatusMessage last_status_message = null;
 
