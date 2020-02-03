@@ -1,10 +1,13 @@
 ﻿using System;
 
-namespace QiqqaLegacyFileFormats
+namespace QiqqaLegacyFileFormats          // namespace QiqqaLegacyFileFormats
 {
-    public class ApplicationConfiguration
+
+#if SAMPLE_LOAD_CODE
+
+   public class ApplicationConfiguration
     {
- public void SaveConfigurationRecord()
+        public void SaveConfigurationRecord()
         {
             try
             {
@@ -18,4 +21,7 @@ namespace QiqqaLegacyFileFormats
             }
         }
     }
+
+#endif
+
 }

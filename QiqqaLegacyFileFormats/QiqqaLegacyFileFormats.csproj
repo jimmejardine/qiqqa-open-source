@@ -36,7 +36,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -129,6 +129,9 @@
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AlphaFS, Version=2.2.0.0, Culture=neutral, PublicKeyToken=4d31a58f7d7ad5c9, processorArchitecture=MSIL">
       <HintPath>..\packages\AlphaFS.2.2.6\lib\net452\AlphaFS.dll</HintPath>
@@ -136,60 +139,141 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="protobuf-net, Version=2.4.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
       <HintPath>..\packages\protobuf-net.2.4.1\lib\net40\protobuf-net.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
-      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.dll</HintPath>
     </Reference>
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data">
       <Name>System.Data</Name>
-      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Data.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.Data.dll</HintPath>
     </Reference>
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing">
       <Name>System.Drawing</Name>
-      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Drawing.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.Drawing.dll</HintPath>
     </Reference>
     <Reference Include="System.Printing" />
     <Reference Include="System.Transactions">
-      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Transactions.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.Transactions.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="System.Xml">
-      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Xml.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.Xml.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AITags.cs" />
     <Compile Include="BrainStorm.cs" />
-    <Compile Include="BrainstormFileFormat.cs" />
-    <Compile Include="BrainstormMetaData.cs" />
-    <Compile Include="ConfigurationRecord.cs" />
-    <Compile Include="DictionaryBasedObject.cs" />
-    <Compile Include="KnownWebLibrariesFile.cs" />
-    <Compile Include="MultiMapSet.cs" />
-    <Compile Include="NodeControlSceneData.cs" />
-    <Compile Include="ObjectSerializer.cs" />
-    <Compile Include="PDFAnnotation.cs" />
-    <Compile Include="PDFAnnotationSerializer.cs" />
-    <Compile Include="PDFHighlight.cs" />
-    <Compile Include="PDFHighlightSerializer.cs" />
-    <Compile Include="PDFInkSerializer.cs" />
-    <Compile Include="PDFMetadataSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QiqqaConfigurationFile.cs" />
-    <Compile Include="SerializeFile.cs" />
-    <Compile Include="WebLibraryDetail.cs" />
-    <Compile Include="WordIndex.cs" />
-    <Compile Include="WordInWordIndex.cs" />
+    <Compile Include="SupportingCode\ColorTools.cs" />
+    <Compile Include="SupportingCode\DateFormatter.cs" />
+    <Compile Include="SupportingCode\Logging.cs" />
+    <Compile Include="SupportingCode\PDFDocumentFileLocations.cs" />
+    <Compile Include="Qiqqa\AnnotationsReportBuilding\JSONAnnotationReportBuilder.cs" />
+    <Compile Include="Qiqqa\Brainstorm\Nodes\EllipseNodeContent.cs" />
+    <Compile Include="Qiqqa\Brainstorm\Nodes\FileSystemNodeContent.cs" />
+    <Compile Include="Qiqqa\Brainstorm\Nodes\IconNodeContent.cs" />
+    <Compile Include="Qiqqa\Brainstorm\Nodes\ImageNodeContent.cs" />
+    <Compile Include="Qiqqa\Brainstorm\Nodes\LibraryNodeContent.cs" />
+    <Compile Include="Qiqqa\Brainstorm\Nodes\LinkedImageNodeContent.cs" />
+    <Compile Include="Qiqqa\Brainstorm\Nodes\NodeContent.cs" />
+    <Compile Include="Qiqqa\Brainstorm\Nodes\NodeControlSceneData.cs" />
+    <Compile Include="Qiqqa\Brainstorm\Nodes\PDFAnnotationNodeContent.cs" />
+    <Compile Include="Qiqqa\Brainstorm\Nodes\PDFAuthorNodeContent.cs" />
+    <Compile Include="Qiqqa\Brainstorm\Nodes\PDFAutoTagNodeContent.cs" />
+    <Compile Include="Qiqqa\Brainstorm\Nodes\PDFDocumentNodeContent.cs" />
+    <Compile Include="Qiqqa\Brainstorm\Nodes\PDFTagNodeContent.cs" />
+    <Compile Include="Qiqqa\Brainstorm\Nodes\StringNodeContent.cs" />
+    <Compile Include="Qiqqa\Brainstorm\Nodes\ThemeNodeContent.cs" />
+    <Compile Include="Qiqqa\Brainstorm\Nodes\WebsiteNodeContent.cs" />
+    <Compile Include="Qiqqa\Brainstorm\SceneManager\BrainstormFileFormat.cs" />
+    <Compile Include="Qiqqa\Brainstorm\SceneManager\BrainstormMetaData.cs" />
+    <Compile Include="Qiqqa\Common\Configuration\ConfigurationManager.cs" />
+    <Compile Include="Qiqqa\Common\Configuration\ConfigurationRecord.cs" />
+    <Compile Include="Qiqqa\Common\MessageBoxControls\UsefulTextException.cs" />
+    <Compile Include="Qiqqa\DocumentLibrary\AITagsStuff\AITagManager.cs" />
+    <Compile Include="Qiqqa\DocumentLibrary\AITagsStuff\AITags.cs" />
+    <Compile Include="Qiqqa\DocumentLibrary\BundleLibrary\BundleLibraryManifest.cs" />
+    <Compile Include="Qiqqa\DocumentLibrary\DocumentLibraryIndex\LibraryIndex.cs" />
+    <Compile Include="Qiqqa\DocumentLibrary\DocumentLibraryIndex\PDFDocumentInLibrary.cs" />
+    <Compile Include="Qiqqa\DocumentLibrary\IntranetLibraryStuff\IntranetLibraryDetail.cs" />
+    <Compile Include="Qiqqa\DocumentLibrary\PasswordStuff\PasswordManager.cs" />
+    <Compile Include="Qiqqa\DocumentLibrary\WebLibraryStuff\KnownWebLibrariesFile.cs" />
+    <Compile Include="Qiqqa\DocumentLibrary\WebLibraryStuff\WebLibraryDetail.cs" />
+    <Compile Include="Qiqqa\DocumentLibrary\WebLibraryStuff\WebLibraryManager.cs" />
+    <Compile Include="Qiqqa\Documents\PDF\DiskSerialisation\PDFAnnotationSerializer.cs" />
+    <Compile Include="Qiqqa\Documents\PDF\DiskSerialisation\PDFHighlightSerializer.cs" />
+    <Compile Include="Qiqqa\Documents\PDF\DiskSerialisation\PDFInkSerializer.cs" />
+    <Compile Include="Qiqqa\Documents\PDF\DiskSerialisation\PDFMetadataSerializer.cs" />
+    <Compile Include="Qiqqa\Documents\PDF\PDFAnnotation.cs" />
+    <Compile Include="Qiqqa\Documents\PDF\PDFAnnotationList.cs" />
+    <Compile Include="Qiqqa\Documents\PDF\PDFDocument.cs" />
+    <Compile Include="Qiqqa\Documents\PDF\PDFDocument_ThreadUnsafe.cs" />
+    <Compile Include="Qiqqa\Documents\PDF\PDFHighlight.cs" />
+    <Compile Include="Qiqqa\Documents\PDF\PDFHighlightList.cs" />
+    <Compile Include="Qiqqa\Expedition\ExpeditionDataSource.cs" />
+    <Compile Include="Qiqqa\Expedition\ExpeditionManager.cs" />
+    <Compile Include="Qiqqa\FeatureTracking\Feature.cs" />
+    <Compile Include="Qiqqa\FeatureTracking\UsedFeature.cs" />
+    <Compile Include="Qiqqa\Localisation\LocaleTable.cs" />
+    <Compile Include="Qiqqa\Synchronisation\BusinessLogic\GlobalSyncDetail.cs" />
+    <Compile Include="Qiqqa\Synchronisation\BusinessLogic\LibrarySyncDetail.cs" />
+    <Compile Include="Qiqqa\Synchronisation\HistoricalSyncFile.cs" />
+    <Compile Include="Qiqqa\Synchronisation\MetadataSync\SynchronisationStates.cs" />
+    <Compile Include="Qiqqa\WebBrowsing\EZProxy\Proxies.cs" />
+    <Compile Include="Qiqqa\WebBrowsing\WebSearcher.cs" />
+    <Compile Include="Utilities\BibTex\EndNoteToBibTex.cs" />
+    <Compile Include="Utilities\BibTex\Parsing\BibTexItem.cs" />
+    <Compile Include="Utilities\BibTex\PubMedXMLToBibTex.cs" />
+    <Compile Include="Utilities\BibTex\RisToBibTeX.cs" />
+    <Compile Include="Utilities\ClientVersioning\ClientUpdater.cs" />
+    <Compile Include="Utilities\ClientVersioning\ClientVersionInformation.cs" />
+    <Compile Include="Utilities\Collections\CountingDictionary.cs" />
+    <Compile Include="Utilities\Collections\MultiMap.cs" />
+    <Compile Include="Utilities\Collections\MultiMapSet.cs" />
+    <Compile Include="Utilities\Collections\SummingDictionary.cs" />
+    <Compile Include="Utilities\Collections\TwoKeyDictionary.cs" />
+    <Compile Include="Utilities\Collections\TwoKeyStoredDictionary.cs" />
+    <Compile Include="Utilities\Files\SerializeFile.cs" />
+    <Compile Include="Utilities\Files\XmlSerializeFile.cs" />
+    <Compile Include="Utilities\Images\PNMLoader.cs" />
+    <Compile Include="Utilities\Language\Buzzwords\NGram.cs" />
+    <Compile Include="Utilities\Language\TextIndexing\WordIndex.cs" />
+    <Compile Include="Utilities\Mathematics\Topics\LDAStuff\LDAAnalysis.cs" />
+    <Compile Include="Utilities\Mathematics\Topics\LDAStuff\LDASampler.cs" />
+    <Compile Include="Utilities\Mathematics\Topics\LDAStuff\LDASamplerMCSerial.cs" />
+    <Compile Include="Utilities\Mathematics\Topics\NMFStuff\NMF.cs" />
+    <Compile Include="Utilities\Misc\DictionaryBasedObject.cs" />
+    <Compile Include="Utilities\OCR\Word.cs" />
+    <Compile Include="Utilities\OCR\WordList.cs" />
+    <Compile Include="Utilities\PeriodTimeout.cs" />
+    <Compile Include="Utilities\Reflection\ObjectSerializer.cs" />
+    <Compile Include="Utilities\Serialization\ColorWrapper.cs" />
+    <Compile Include="Utilities\Strings\StringTools.cs" />
+    <Compile Include="Utilities\Language\TextIndexing\WordInWordIndex.cs" />
+    <Compile Include="Qiqqa\Brainstorm\Common\Searching\Searchable.cs" />
+    <Compile Include="Qiqqa\Brainstorm\Common\RecurrentNodeContent.cs" />
+    <Compile Include="Qiqqa\Documents\PDF\PDFInkList.cs" />
+    <Compile Include="Qiqqa\Synchronisation\MetadataSync\SynchronisationState.cs" />
+    <Compile Include="Qiqqa\DocumentLibrary\LibraryDB.cs" />
+    <Compile Include="Qiqqa\Common\TagManagement\TagTools.cs" />
+    <Compile Include="Qiqqa\Expedition\ExpeditionBuilder.cs" />
+    <Compile Include="Qiqqa\DocumentLibrary\Library.cs" />
+    <Compile Include="Utilities\Random\RandomAugmented.cs" />
+    <Compile Include="Utilities\Misc\Constants.cs" />
+    <Compile Include="Utilities\Misc\DumpExceptionInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
