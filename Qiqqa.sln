@@ -15,6 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QiqqaOCR", "QiqqaOCR\QiqqaO
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{19960EDF-B439-4ED5-AD0B-A08FDA6ECF3E}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		build-installer.sh = build-installer.sh
 		CHANGELOG.md = CHANGELOG.md
 		CHANGELOG_full.md = CHANGELOG_full.md
@@ -242,11 +243,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QiqqaLegacyFileFormats", "Q
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QiqqaUIPartsTester", "QiqqaUIPartsTester\QiqqaUIPartsTester.csproj", "{09BDCFA3-7067-4AE0-A40C-53A645C95A50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfUserControlLibrary1", "WpfUserControlLibrary1\WpfUserControlLibrary1.csproj", "{F4CA0B7E-9E8D-4B51-9C74-548B4EBCAE2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfUserControlLibrary1", "WpfUserControlLibrary1\WpfUserControlLibrary1.csproj", "{F4CA0B7E-9E8D-4B51-9C74-548B4EBCAE2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfCustomControlLibrary1", "WpfCustomControlLibrary1\WpfCustomControlLibrary1.csproj", "{B3498095-B426-4C54-8DF0-635F1855A906}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfCustomControlLibrary1", "WpfCustomControlLibrary1\WpfCustomControlLibrary1.csproj", "{B3498095-B426-4C54-8DF0-635F1855A906}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp1", "WpfApp1\WpfApp1.csproj", "{C4229F07-EB98-4DBC-8DAE-9D0907A31E93}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfApp1", "WpfApp1\WpfApp1.csproj", "{C4229F07-EB98-4DBC-8DAE-9D0907A31E93}"
 	ProjectSection(ProjectDependencies) = postProject
 		{62AA35BC-3552-4A31-B297-9594E8DBC03C} = {62AA35BC-3552-4A31-B297-9594E8DBC03C}
 	EndProjectSection

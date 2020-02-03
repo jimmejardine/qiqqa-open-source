@@ -115,6 +115,9 @@
     <SignAssembly>false</SignAssembly>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AlphaFS, Version=2.2.0.0, Culture=neutral, PublicKeyToken=4d31a58f7d7ad5c9, processorArchitecture=MSIL">
       <HintPath>..\packages\AlphaFS.2.2.6\lib\net452\AlphaFS.dll</HintPath>
@@ -496,7 +499,6 @@
     <Compile Include="Common\DropboxChecker.cs" />
     <Compile Include="Common\GUI\BoolToYesNoStringConverter.cs" />
     <Compile Include="Common\Extensions\EnumerableExtensions.cs" />
-    <Compile Include="Common\GeneralTaskDaemonStuff\GeneralTaskDaemon.cs" />
     <Compile Include="Common\GUI\ListFormattingTools.cs" />
     <Compile Include="Common\GUI\StandardFlowDocument.cs" />
     <Compile Include="Common\GUI\ToopTipValueConverter.cs" />
@@ -2034,6 +2036,9 @@
       <Link>qpdf\README.md</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="InCite\registry_fixes\README.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -5266,9 +5271,9 @@
     <Resource Include="Qiqqa.ico" />
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
       <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <ProductName>Microsoft .NET Framework 4.8 %28x86 and x64%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

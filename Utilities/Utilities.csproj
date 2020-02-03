@@ -628,7 +628,6 @@
     <Compile Include="Logging\TraceLogAppender.cs" />
     <Compile Include="Maintainable\MaintainableManager.cs" />
     <Compile Include="Maintainable\PeriodTimer.cs" />
-    <Compile Include="Maps\Geocode\PostcodeOutcodes.cs" />
     <Compile Include="Mathematics\Perunage.cs" />
     <Compile Include="Mathematics\RunningAverage.cs" />
     <Compile Include="Mathematics\WeightedAverage.cs" />
@@ -864,7 +863,6 @@
     <EmbeddedResource Include="Language\ScrabbleWords.dat" />
     <None Include="BibTex\TestFiles\Sample.bib" />
     <None Include="GUI\Shaders\Negative\NegativeEffect.fx" />
-    <EmbeddedResource Include="Maps\Geocode\postcode-outcodes.csv.gz" />
     <None Include="Mathematics\Statistics\Distributions\Drezner - Computation of the Bivariate Normal Integral.pdf" />
     <None Include="Mathematics\Statistics\Distributions\Genz - Numerical Computation of Multivariate Normal Probabilities.pdf" />
     <None Include="Mathematics\Statistics\Distributions\Steen - Gaussian Quadratures for the Integrals xxx.pdf" />
