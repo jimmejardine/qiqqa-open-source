@@ -256,6 +256,8 @@ Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "WpfNodejsWebApp1", "WpfNode
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "WpfSharedProject1", "WpfSharedProject1\WpfSharedProject1.shproj", "{B2AAFEA1-A4F5-4C2F-8BAA-BD0C1A7A9CD5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QiqqaHasher", "QiqqaHasher\QiqqaHasher.csproj", "{8F57D264-C659-4D2E-9F83-D893B73CF16C}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		WpfSharedProject1\WpfSharedProject1.projitems*{b2aafea1-a4f5-4c2f-8baa-bd0c1a7a9cd5}*SharedItemsImports = 13
@@ -577,6 +579,24 @@ Global
 		{62AA35BC-3552-4A31-B297-9594E8DBC03C}.Release+SETUP|Mixed Platforms.Build.0 = Release|Any CPU
 		{62AA35BC-3552-4A31-B297-9594E8DBC03C}.Release+SETUP|x86.ActiveCfg = Release|Any CPU
 		{62AA35BC-3552-4A31-B297-9594E8DBC03C}.Release+SETUP|x86.Build.0 = Release|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Debug|x86.Build.0 = Debug|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Release|x86.ActiveCfg = Release|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Release|x86.Build.0 = Release|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Release+SETUP|Any CPU.ActiveCfg = Release|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Release+SETUP|Any CPU.Build.0 = Release|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Release+SETUP|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Release+SETUP|Mixed Platforms.Build.0 = Release|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Release+SETUP|x86.ActiveCfg = Release|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Release+SETUP|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
