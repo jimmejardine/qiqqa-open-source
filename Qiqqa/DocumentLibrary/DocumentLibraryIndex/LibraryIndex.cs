@@ -444,7 +444,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             }
 
             long clk_duration = clk.ElapsedMilliseconds;
-            Logging.Debug特("Rescan of library {0} for indexing took {1}ms for {2} documents.", library, clk_duration, pdf_documents.Count);
+            Logging.Debug特("Rescan of library {0} for indexing took {1}ms for {2} documents.", Library.ToString(), clk_duration, pdf_documents.Count);
 
             if (total_new_to_be_indexed > 0)
             {
@@ -669,7 +669,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             }
 
             long clk_duration = clk.ElapsedMilliseconds;
-            Logging.Debug特("Incremental building of the library index for library {0} took {1}ms.", library, clk_duration);
+            Logging.Debug特("Incremental building of the library index for library {0} took {1}ms.", Library.ToString(), clk_duration);
 
             return did_some_work;
         }
@@ -714,7 +714,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 Library library = Library.GuestInstance;
                 library.LibraryIndex.IncrementalBuildIndex(null);
 
-                Logging.Info("Number of indexed PDF Documents is {0}", library.LibraryIndex.NumberOfIndexedPDFDocuments);
+                Logging.Info("Number of indexed PDF Documents is {0}", Library.LibraryIndex.NumberOfIndexedPDFDocuments);
                 Thread.Sleep(1000);
             }
         }
