@@ -232,12 +232,12 @@ namespace Utilities.Maintainable
 
         public int RegisterHeldOffTask(DoMaintenanceDelegate do_maintenance_delegate, int delay_before_start_milliseconds, ThreadPriority thread_priority, int hold_off_level = 0, string extra_descr = "")
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             int index;
 
             lock (do_maintenance_delegate_wrappers_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                // l1_clk.LockPerfTimerStop();
                 // Set up the wrapper
                 DoMaintenanceDelegateWrapper do_maintenance_delegate_wrapper = new DoMaintenanceDelegateWrapper();
                 do_maintenance_delegate_wrapper.maintainable_description = String.Format("{0}:{1}{2}", do_maintenance_delegate.Target, do_maintenance_delegate.Method.Name, extra_descr);
@@ -321,10 +321,10 @@ namespace Utilities.Maintainable
         }
         public void BumpHoldOffPendingLevel()
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (hold_off_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                // l1_clk.LockPerfTimerStop();
                 hold_off--;
             }
         }

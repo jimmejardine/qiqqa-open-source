@@ -60,10 +60,10 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
 
         public void Regenerate(AsyncCallback callback)
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (in_progress_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                // l1_clk.LockPerfTimerStop();
                 if (regenerating_in_progress)
                 {
                     Logging.Info("Not regenerating AutoTags because a regeneration is already in progress.");
@@ -289,10 +289,10 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
             }
             finally
             {
-                Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+                // Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
                 lock (in_progress_lock)
                 {
-                    l2_clk.LockPerfTimerStop();
+                    // l2_clk.LockPerfTimerStop();
                     regenerating_in_progress = false;
                 }
                 Library.IsBusyRegeneratingTags = false;

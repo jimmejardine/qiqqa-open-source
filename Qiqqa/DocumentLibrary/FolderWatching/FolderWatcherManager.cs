@@ -37,20 +37,20 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             // Load any pre-existing watched filenames
             bool file_exists;
 
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (filenames_processed_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                // l1_clk.LockPerfTimerStop();
                 file_exists = File.Exists(Filename_Store);
             }
             if (file_exists)
             {
                 Logging.Info("Loading memory of files that we watched previously.");
 
-                Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+                // Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
                 lock (filenames_processed_lock)
                 {
-                    l2_clk.LockPerfTimerStop();
+                    // l2_clk.LockPerfTimerStop();
                     foreach (string filename in File.ReadAllLines(Filename_Store))
                     {
                         filenames_processed.Add(filename);
@@ -87,10 +87,10 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 library = null;
             }
 
-            Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
             lock (filenames_processed_lock)
             {
-                l2_clk.LockPerfTimerStop();
+                // l2_clk.LockPerfTimerStop();
                 filenames_processed.Clear();
             }
         }
@@ -99,10 +99,10 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
         internal void ResetHistory()
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (filenames_processed_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                // l1_clk.LockPerfTimerStop();
                 FileTools.Delete(Filename_Store);
                 filenames_processed.Clear();
             }
@@ -110,10 +110,10 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
         internal bool HaveProcessedFile(string filename)
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (filenames_processed_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                // l1_clk.LockPerfTimerStop();
                 return filenames_processed.Contains(filename);
             }
         }
@@ -121,10 +121,10 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         // NOTE: this method will be called from various threads.
         internal void RememberProcessedFile(string filename)
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (filenames_processed_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                // l1_clk.LockPerfTimerStop();
                 File.AppendAllText(Filename_Store, filename + "\n");
                 filenames_processed.Add(filename);
             }

@@ -38,10 +38,10 @@ namespace Qiqqa.Common.ReadOutLoud
         private void OnShutdown()
         {
             Logging.Info("Shutting down ReadOutLoudManager");
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (read_out_loud_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                //l1_clk.LockPerfTimerStop();
                 speech_synthesizer.SpeakAsyncCancelAll();
             }
         }
@@ -71,10 +71,10 @@ namespace Qiqqa.Common.ReadOutLoud
 
         public void Read(string text)
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (read_out_loud_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                //l1_clk.LockPerfTimerStop();
                 if (null != current_prompt)
                 {
                     speech_synthesizer.SpeakAsyncCancel(current_prompt);
@@ -88,20 +88,20 @@ namespace Qiqqa.Common.ReadOutLoud
 
         public void Pause()
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (read_out_loud_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                //l1_clk.LockPerfTimerStop();
                 speech_synthesizer.Pause();
             }
         }
 
         public void Resume()
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (read_out_loud_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                //l1_clk.LockPerfTimerStop();
                 speech_synthesizer.Resume();
             }
         }

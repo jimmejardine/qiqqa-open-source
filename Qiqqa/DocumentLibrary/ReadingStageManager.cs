@@ -23,10 +23,10 @@ namespace Qiqqa.DocumentLibrary
         {
             if (null != pdf_document.ReadingStage && !Choices.ReadingStages.Contains(pdf_document.ReadingStage))
             {
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (tags_lock)
                 {
-                    l1_clk.LockPerfTimerStop();
+                    // l1_clk.LockPerfTimerStop();
                     tags.Add(pdf_document.ReadingStage);
                 }
             }
@@ -36,10 +36,10 @@ namespace Qiqqa.DocumentLibrary
         {
             get
             {
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (tags_lock)
                 {
-                    l1_clk.LockPerfTimerStop();
+                    // l1_clk.LockPerfTimerStop();
                     List<string> results = new List<string>();
                     results.AddRange(tags);
                     results.Sort();

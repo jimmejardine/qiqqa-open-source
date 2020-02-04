@@ -85,10 +85,10 @@ namespace Utilities.GUI
             current_scroll_gamma.X = gamma.X;
             current_scroll_gamma.Y = gamma.Y;
 
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (thread_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                // l1_clk.LockPerfTimerStop();
                 if (!is_someone_scrolling)
                 {
                     is_someone_scrolling = true;
@@ -108,10 +108,10 @@ namespace Utilities.GUI
             Scroll(current_scroll_gamma);
 
             // Check if we should keep going
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (thread_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                // l1_clk.LockPerfTimerStop();
                 if (Math.Abs(current_scroll_gamma.X) < ROLL_THRESHOLD && Math.Abs(current_scroll_gamma.Y) < ROLL_THRESHOLD)
                 {
                     is_someone_scrolling = false;

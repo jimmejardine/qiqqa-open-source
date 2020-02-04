@@ -26,10 +26,10 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         {
             get
             {
-                Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+                // Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
                 lock (instance_lock)
                 {
-                    l2_clk.LockPerfTimerStop();
+                    // l2_clk.LockPerfTimerStop();
 
                     if (null == __instance)
                     {
@@ -42,10 +42,10 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         public static void Init()
         {
-            Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
             lock (instance_lock)
             {
-                l2_clk.LockPerfTimerStop();
+                // l2_clk.LockPerfTimerStop();
 
                 if (__instance != null)
                 {
