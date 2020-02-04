@@ -25,6 +25,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         private Dictionary<string, FolderWatcherRecord> folder_watcher_records = new Dictionary<string, FolderWatcherRecord>();
         private object folder_watcher_records_lock = new object();
         private HashSet<string> filenames_processed = new HashSet<string>();
+        private int managed_thread_index = -1;
 
         // lock for all Filename_Store File I/O and filenames_processed HashSet:
         private object filenames_processed_lock = new object();
@@ -57,7 +58,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 }
             }
 
-            Utilities.Maintainable.MaintainableManager.Instance.RegisterHeldOffTask(TaskDaemonEntryPoint, 30 * 1000, System.Threading.ThreadPriority.BelowNormal, extra_descr: $".Lib({Library})");
+            managed_thread_index = Utilities.Maintainable.MaintainableManager.Instance.RegisterHeldOffTask(TaskDaemonEntryPoint, 30 * 1000, System.Threading.ThreadPriority.BelowNormal, extra_descr: $".Lib({Library})");
         }
 
 #if DIAG
@@ -79,6 +80,8 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                     folder_watcher_record.Value.folder_watcher.Dispose();
                 }
                 folder_watcher_records.Clear();
+
+                Utilities.Maintainable.MaintainableManager.Instance.CleanupEntry(managed_thread_index);
 
                 //Library.Dispose();
                 library = null;

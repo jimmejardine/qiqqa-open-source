@@ -81,7 +81,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
             public override string ToString()
             {
-                return String.Format("PDF:{0} Page:{1} Grouping:{2} Forced:{3} Language:{4}", pdf_renderer, page, TEXT_PAGES_PER_GROUP, force_job, language);
+                return String.Format("PDF:{0} Page:{1} Forced:{2} Language:{3}", pdf_renderer, page, force_job, language);
             }
 
             public void Clear()
@@ -193,12 +193,18 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             NUM_OCR_THREADS = ConfigurationManager.Instance.ConfigurationRecord.System_NumOCRProcesses ?? 0;
             if (0 == NUM_OCR_THREADS)
             {
-                NUM_OCR_THREADS = Environment.ProcessorCount - 1;
+				// use the total number of cores (minus one); assume that all processors
+				// report the number of *virtual* cores as twice the number of physical
+				// cores (as happens to be the case for most modern consumer Intel and AMD CPUs)
+                NUM_OCR_THREADS = Environment.ProcessorCount / 2 - 1;
             }
+			// ditto: limit to the number of physical cores in the CPU
+            NUM_OCR_THREADS = Math.Min(NUM_OCR_THREADS, Environment.ProcessorCount / 2);
+			// and make sure antique or obscure hardware doesn't tease us into
+			// arriving at a ZERO thread count:
             NUM_OCR_THREADS = Math.Max(NUM_OCR_THREADS, 1);
-            NUM_OCR_THREADS = Math.Min(NUM_OCR_THREADS, Environment.ProcessorCount);
-#if true // for debugging 
-            NUM_OCR_THREADS = Math.Max(NUM_OCR_THREADS, 1);
+#if DEBUG // for debugging 
+            NUM_OCR_THREADS = 1;   // force a single thread for ease of debugging the background process
 #endif
 
             Logging.Info("Starting {0} PDFTextExtractor threads", NUM_OCR_THREADS);
@@ -206,10 +212,8 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             threads = new Daemon[NUM_OCR_THREADS];
             for (int i = 0; i < NUM_OCR_THREADS; ++i)
             {
-                threads[i] = new Daemon(daemon_name: "PDFTextExtractor" + i);
-                //threads[i].IsBackground = true;
-                //threads[i].Priority = ThreadPriority.BelowNormal;
-                threads[i].Start(ThreadEntry, threads[i]);
+                threads[i] = new Daemon(daemon_name: "PDFTextExtractor", daemon_index: i);
+                threads[i].Start(ThreadEntry);
             }
         }
 
@@ -222,8 +226,8 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             {
                 //l1_clk.LockPerfTimerStop();
 
-                // Only add the job if it is not already queued
-                if (!job_queue_group.ContainsKey(token))
+                // Only add the job if it is not already queued, OR if we are queuing a FORCE job, which has priority
+                if (!job_queue_group.ContainsKey(token) || job.force_job)
                 {
                     job_queue_group[token] = job;
                 }
@@ -520,9 +524,10 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             }
         }
 
-        private void ThreadEntry(object arg)
+        private void ThreadEntry(object obj)
         {
-            Daemon daemon = (Daemon)arg;
+            Daemon daemon = (Daemon)obj;
+
             bool did_some_ocr_since_last_iteration = false;
 
             while (true)
@@ -627,7 +632,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                         }
 
                         // If the text has somehow appeared before we get to process it (perhaps two requests for the same job)
-                        if (!next_job.job.force_job && null != next_job.job.pdf_renderer.GetOCRText(next_job.job.page, false))
+                        if (!next_job.job.force_job && null != next_job.job.pdf_renderer.GetOCRText(next_job.job.page, queue_for_ocr: false))
                         {
                             if (next_job.is_group)
                             {
