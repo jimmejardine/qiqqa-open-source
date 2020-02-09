@@ -30,6 +30,8 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
 
         public AITagManager(Library library)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             this.library = new TypedWeakReference<Library>(library);
 
             current_ai_tags_record = new AITags();
@@ -53,13 +55,10 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
 
         private string Filename_Store => Path.GetFullPath(Path.Combine(Library.LIBRARY_BASE_PATH, @"Qiqqa.autotags"));
 
-        public void Regenerate()
+        public void Regenerate(AsyncCallback callback = null)
         {
-            Regenerate(null);
-        }
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-        public void Regenerate(AsyncCallback callback)
-        {
             // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (in_progress_lock)
             {

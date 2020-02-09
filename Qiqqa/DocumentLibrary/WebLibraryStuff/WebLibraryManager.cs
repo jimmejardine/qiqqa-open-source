@@ -112,8 +112,9 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
             /**
              * Plan:
-             * Iterate through all the folders in the Qiqqa data directory
-             * If a folder contains a valid Library record and it is a WEB library, then add it to our list with the word '[LEGACY]' in front of it
+             * - Iterate through all the folders in the Qiqqa data directory.
+             * - If a folder contains a valid Library record and it is a WEB library, 
+             *   then add it to our list with the word '[LEGACY]' in front of it.
              */
 
             string base_directory_path = UpgradePaths.V037To038.SQLiteUpgrade.BaseDirectoryForQiqqa;

@@ -674,6 +674,8 @@ namespace Qiqqa.DocumentLibrary
 
         public PDFDocument CloneExistingDocumentFromOtherLibrary_SYNCHRONOUS(PDFDocument existing_pdf_document, bool suppress_dialogs, bool suppress_signal_that_docs_have_changed)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             StatusManager.Instance.UpdateStatus("LibraryDocument", String.Format("Copying {0} ({1}) into library", existing_pdf_document.TitleCombined, existing_pdf_document.Fingerprint));
 
             //  do a normal add (since stored separately)
