@@ -250,13 +250,6 @@ namespace Qiqqa.DocumentLibrary
                 List<LibraryDB.LibraryItem> library_items = library_db.GetLibraryItems(null, PDFDocumentFileLocations.METADATA);
                 /* const */ int library_item_count = library_items.Count;
 
-                // abort work when this library instance has already been Dispose()d in the main UI thread:
-                if (LibraryIsKilled)
-                {
-                    Logging.Info("Building the library has been SKIPPED/ABORTED as the library {0} has already been killed.", WebLibraryDetail.Id);
-                    return;
-                }
-
                 elapsed = clk.ElapsedMilliseconds;
                 Logging.Debug特(":Build library '{2}' from repository -- time spent: {0} ms on fetching {1} records from SQLite DB.", elapsed, library_item_count, WebLibraryDetail.DescriptiveTitle);
                 prev_clk = elapsed;
