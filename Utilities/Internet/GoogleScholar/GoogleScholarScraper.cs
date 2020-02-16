@@ -129,6 +129,7 @@ namespace Utilities.Internet.GoogleScholar
                         Logging.Error("ScrapeDoc: unexpected structure of the Google Scholar search page snippet. Report this at https://github.com/jimmejardine/qiqqa-open-source/issues/ as it seems Google Scholar has changed its HTML output significantly. HTML:\n{0}", element_html);
                     }
 
+                    if (null != title_node)
                     {
                         var source_url_node = title_node[0].SelectNodes("a");
                         if (null != source_url_node)
