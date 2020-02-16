@@ -125,6 +125,9 @@
     <Compile Include="..\Utilities\BibTex\RisToBibTeX.cs">
       <Link>Utilities\BibTeX\RisToBibTeX.cs</Link>
     </Compile>
+    <Compile Include="..\Utilities\Internet\GoogleScholar\GoogleScholarScraper.cs">
+      <Link>Utilities\Internet\GoogleScholar\GoogleScholarScraper.cs</Link>
+    </Compile>
     <Compile Include="DebugAndReleaseBinariesExecTest.cs" />
     <Compile Include="TestJSONDeserializeFromArbitrary.cs" />
     <Compile Include="UnitTest1.cs" />

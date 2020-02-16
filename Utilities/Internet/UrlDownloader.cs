@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using Utilities.GUI;
 
 namespace Utilities.Internet
 {
@@ -48,7 +49,7 @@ namespace Utilities.Internet
             using (WebClientWithCompression wc = new WebClientWithCompression())
             {
                 DownloadProgressReporter dpr = new DownloadProgressReporter(wc);
-                wc.Proxy = Configuration.Proxy;
+                wc.Proxy = Configuration.GetProxy();
 
                 if (null != request_headers)
                 {
@@ -62,7 +63,7 @@ namespace Utilities.Internet
                 // Gentlemen, start your prayer wheels!
                 wc.Headers.Add("Cache-Control", "no-cache");
                 wc.Headers.Add("Pragma", "no-cache");
-                wc.Headers.Add("User-agent", Configuration.WebUserAgent);
+                wc.Headers.Add("User-agent", Configuration.GetWebUserAgent());
 
                 byte[] data = wc.DownloadData(new Uri(url));
                 header_collection = wc.ResponseHeaders;
@@ -126,7 +127,7 @@ namespace Utilities.Internet
 
                 // Start the download
                 wc = new WebClientWithCompression();
-                wc.Proxy = Configuration.Proxy;
+                wc.Proxy = Configuration.GetProxy();
 
                 wc.DownloadProgressChanged += wc_DownloadProgressChanged;
                 wc.DownloadDataCompleted += wc_DownloadDataCompleted;
@@ -135,7 +136,7 @@ namespace Utilities.Internet
                 // Gentlemen, start your prayer wheels!
                 wc.Headers.Add("Cache-Control", "no-cache");
                 wc.Headers.Add("Pragma", "no-cache");
-                wc.Headers.Add("User-agent", Configuration.WebUserAgent);
+                wc.Headers.Add("User-agent", Configuration.GetWebUserAgent());
 
                 wc.DownloadDataAsync(new Uri(url));
             }
@@ -207,18 +208,14 @@ namespace Utilities.Internet
             {
                 Logging.Debug("DownloadAsyncTracker::Dispose({0}) @{1}", disposing, dispose_count);
 
-                try
+                WPFDoEvents.SafeExec(() =>
                 {
                     if (dispose_count == 0)
                     {
                         // Get rid of managed resources
                         CleanupAfterDownload();
                     }
-                }
-                catch (Exception ex)
-                {
-                    Logging.Error(ex);
-                }
+                });
 
                 ++dispose_count;
             }
