@@ -168,7 +168,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
         {
             Logging.Debug("LibraryIndex::Dispose({0}) @{1}", disposing, dispose_count);
 
-            try
+            WPFDoEvents.SafeExec(() =>
             {
                 if (dispose_count == 0)
                 {
@@ -184,10 +184,16 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
                     //this.library?.Dispose();
                 }
+            });
 
+            WPFDoEvents.SafeExec(() =>
+            {
                 //this.word_index_manager = null;
                 library = null;
+            });
 
+            WPFDoEvents.SafeExec(() =>
+            {
                 //Utilities.LockPerfTimer l4_clk = Utilities.LockPerfChecker.Start();
                 lock (pdf_documents_in_library_lock)
                 {
@@ -196,11 +202,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                     pdf_documents_in_library?.Clear();
                     pdf_documents_in_library = null;
                 }
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex);
-            }
+            });
 
             ++dispose_count;
         }

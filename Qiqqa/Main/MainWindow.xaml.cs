@@ -333,31 +333,31 @@ namespace Qiqqa.Main
         {
             Logging.Debug("MainWindow::Dispose({0}) @{1}", disposing, dispose_count);
 
-            try
+            WPFDoEvents.SafeExec(() =>
             {
                 if (dispose_count == 0)
                 {
-                    WPFDoEvents.InvokeInUIThread(() =>
-                    {
-                        // Get rid of managed resources
-                        ObjTabWelcome.GetGoing -= ObjTabWelcome_GetGoing;
+                    // Get rid of managed resources
+                    ObjTabWelcome.GetGoing -= ObjTabWelcome_GetGoing;
 
-                        ObjStartPage?.Dispose();
+                    ObjStartPage?.Dispose();
 
-                        ipc_server?.Stop();
-                    });
+                    ipc_server?.Stop();
                 }
+            }, must_exec_in_UI_thread: true);
 
+            WPFDoEvents.SafeExec(() =>
+            {
                 ObjStartPage = null;
 
                 keyboard_hook = null;
                 ipc_server = null;
-                DataContext = null;
-            }
-            catch (Exception ex)
+            });
+
+            WPFDoEvents.SafeExec(() =>
             {
-                Logging.Error(ex);
-            }
+                DataContext = null;
+            });
 
             ++dispose_count;
         }

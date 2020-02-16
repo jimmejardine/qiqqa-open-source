@@ -12,6 +12,7 @@ using Lucene.Net.Index;
 using Lucene.Net.QueryParsers;
 using Lucene.Net.Search;
 using Utilities.Files;
+using Utilities.GUI;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -67,7 +68,7 @@ namespace Utilities.Language.TextIndexing
         {
             Logging.Debug("LuceneIndex::Dispose({0}) @{1}", disposing, dispose_count);
 
-            try
+            WPFDoEvents.SafeExec(() =>
             {
                 if (dispose_count == 0)
                 {
@@ -81,18 +82,17 @@ namespace Utilities.Language.TextIndexing
                         FlushIndexWriter_LOCK();
                     }
                 }
+            });
 
+            WPFDoEvents.SafeExec(() =>
+            {
                 // Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
                 lock (index_writer_lock)
                 {
                     // l2_clk.LockPerfTimerStop();
                     index_writer = null;
                 }
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex);
-            }
+            });
 
             ++dispose_count;
         }

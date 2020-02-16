@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Utilities.GUI;
 
 namespace Utilities.Files
 {
@@ -193,7 +194,7 @@ namespace Utilities.Files
         {
             Logging.Debug("WrappingStream::Dispose({0}) @{1}", disposing, dispose_count);
 
-            try
+            WPFDoEvents.SafeExec(() =>
             {
                 if (dispose_count == 0)
                 {
@@ -202,11 +203,7 @@ namespace Utilities.Files
                 }
 
                 base.Dispose(disposing);
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex);
-            }
+            });
 
             ++dispose_count;
         }

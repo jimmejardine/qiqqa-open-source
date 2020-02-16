@@ -127,7 +127,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             {
                 Logging.Debug("NextJob::Dispose({0}) @{1}", disposing, dispose_count);
 
-                try
+                WPFDoEvents.SafeExec(() =>
                 {
                     if (dispose_count == 0)
                     {
@@ -136,14 +136,13 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
                         //job?.Clear();
                     }
+                });
 
+                WPFDoEvents.SafeExec(() =>
+                {
                     pdf_text_extractor = null;
                     job = null;
-                }
-                catch (Exception ex)
-                {
-                    Logging.Error(ex);
-                }
+                });
 
                 ++dispose_count;
             }

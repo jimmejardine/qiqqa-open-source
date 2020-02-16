@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Speech.Synthesis;
 using Utilities;
 using Utilities.Collections;
+using Utilities.GUI;
 using Utilities.Misc;
 using Utilities.Shutdownable;
 
@@ -126,7 +127,7 @@ namespace Qiqqa.Common.ReadOutLoud
         {
             Logging.Debug("ReadOutLoudManager::Dispose({0}) @{1}", disposing, dispose_count);
 
-            try
+            WPFDoEvents.SafeExec(() =>
             {
                 if (dispose_count == 0)
                 {
@@ -134,15 +135,14 @@ namespace Qiqqa.Common.ReadOutLoud
                     speech_synthesizer?.Dispose();
                 }
                 speech_synthesizer = null;
+            });
 
+            WPFDoEvents.SafeExec(() =>
+            {
                 current_prompt = null;
                 last_words?.Clear();
                 last_words = null;
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex);
-            }
+            });
 
             ++dispose_count;
         }

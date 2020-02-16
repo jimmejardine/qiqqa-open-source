@@ -81,7 +81,7 @@ namespace Qiqqa.Brainstorm.Nodes
         {
             Logging.Debug("WebsiteNodeContentControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            try
+            WPFDoEvents.SafeExec(() =>
             {
                 if (dispose_count == 0)
                 {
@@ -89,14 +89,13 @@ namespace Qiqqa.Brainstorm.Nodes
                     fader?.Dispose();
                 }
                 fader = null;
+            });
 
+            WPFDoEvents.SafeExec(() =>
+            {
                 website_node_content = null;
                 DataContext = null;
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex);
-            }
+            });
 
             ++dispose_count;
         }

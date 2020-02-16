@@ -1387,19 +1387,19 @@ namespace Qiqqa.Brainstorm.SceneManager
         {
             Logging.Debug("SceneRenderingControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            try
+            WPFDoEvents.SafeExec(() =>
             {
                 if (dispose_count == 0)
                 {
-                    WPFDoEvents.InvokeInUIThread(() =>
-                    {
-                        // Get rid of managed resources
-                        AutoArranger?.Enabled(false);
+                    // Get rid of managed resources
+                    AutoArranger?.Enabled(false);
 
-                        node_controls.Clear();
-                    });
+                    node_controls.Clear();
                 }
+            }, must_exec_in_UI_thread: true);
 
+            WPFDoEvents.SafeExec(() =>
+            {
                 brainstorm_metadata_control = null;
                 brainstorm_metadata = null;
 
@@ -1409,18 +1409,21 @@ namespace Qiqqa.Brainstorm.SceneManager
 
                 selected_connector_control = null;
                 selecting_nodes_control = null;
+            });
 
+            WPFDoEvents.SafeExec(() =>
+            {
                 node_controls.Clear();
+            });
+
+            WPFDoEvents.SafeExec(() =>
+            {
                 connector_control_manager = null;
 
                 SelectedNodeControlChanged = null;
 
                 ScrollInfoChanged = null;
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex);
-            }
+            });
 
             ++dispose_count;
         }

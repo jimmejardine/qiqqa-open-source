@@ -30,7 +30,7 @@ namespace Utilities.GUI
         {
             Logging.Debug("AugmentedPopupAutoCloser::Dispose({0}) @{1}", disposing, dispose_count);
 
-            try
+            WPFDoEvents.SafeExec(() =>
             {
                 if (dispose_count == 0)
                 {
@@ -40,13 +40,12 @@ namespace Utilities.GUI
                         popup.IsOpen = false;
                     }
                 }
+            });
 
-                popup = null;
-            }
-            catch (Exception ex)
+            WPFDoEvents.SafeExec(() =>
             {
-                Logging.Error(ex);
-            }
+                popup = null;
+            });
 
             ++dispose_count;
         }

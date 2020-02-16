@@ -1136,10 +1136,13 @@ namespace Qiqqa.DocumentLibrary
         {
             Logging.Debug("Library::Dispose({0}) @{1}", disposing, dispose_count);
 
-            try
+            WPFDoEvents.SafeExec(() =>
             {
                 LibraryIsKilled = true;
+            });
 
+            WPFDoEvents.SafeExec(() =>
+            {
                 if (dispose_count == 0)
                 {
                     // Get rid of managed resources / get rid of cyclic references:
@@ -1149,8 +1152,15 @@ namespace Qiqqa.DocumentLibrary
                     // Switch off the living things
                     library_index?.Dispose();
                     folder_watcher_manager?.Dispose();
+                }
+            });
 
+            WPFDoEvents.SafeExec(() =>
+            {
+                if (dispose_count == 0)
+                {
                     // NULL the memory database
+
                     //Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
                     lock (pdf_documents_lock)
                     {
@@ -1159,7 +1169,10 @@ namespace Qiqqa.DocumentLibrary
                         pdf_documents = null;
                     }
                 }
+            });
 
+            WPFDoEvents.SafeExec(() =>
+            {
                 // Clear the references for sanity's sake
                 expedition_manager = null;
                 password_manager = null;
@@ -1169,7 +1182,10 @@ namespace Qiqqa.DocumentLibrary
                 library_index = null;
                 folder_watcher_manager = null;
                 library_db = null;
+            });
 
+            WPFDoEvents.SafeExec(() =>
+            {
 #if true
                 web_library_detail = null;       // cyclic reference as WebLibraryDetail instance reference us, so we MUST nil this one to break the cycle for the GC to work well.
 #else
@@ -1190,11 +1206,7 @@ namespace Qiqqa.DocumentLibrary
                 // Cloning...
                 web_library_detail = web_library_detail?.CloneSansLibraryReference();
 #endif
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex);
-            }
+            });
 
             ++dispose_count;
         }

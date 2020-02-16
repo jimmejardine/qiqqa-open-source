@@ -38,22 +38,19 @@ namespace Utilities.PDF
         {
             Logging.Debug("AugmentedPdfLoadedDocument::Dispose({0}) @{1}", disposing, dispose_count);
 
-            try
+            WPFDoEvents.SafeExec(() =>
             {
                 if (dispose_count == 0)
                 {
-                    // Get rid of managed resources
                     Close(true);
                 }
+            });
 
-                // Get rid of unmanaged resources 
-                base.Dispose();
-            }
-            catch (Exception ex)
+            WPFDoEvents.SafeExec(() =>
             {
-                Logging.Error(ex);
-            }
-
+                base.Dispose();
+            });
+            
             ++dispose_count;
         }
 
