@@ -91,23 +91,22 @@ namespace Utilities.Maintainable
                 cnt = GetPendingItemCount();
                 if (cnt > 0)
                 {
-                    return true;
-                }
+                    Logging.Info("Stopping MaintainableManager tasks (async): {0} threads (or less) are pending.", cnt);
 
-                Logging.Info("Stopping MaintainableManager tasks (async): {0} threads (or less) are pending.", cnt);
-
-                // abort the threads if they're taking way too long:
-                if (shutdown_cleanup_clk.ElapsedMilliseconds >= Constants.MAX_WAIT_TIME_MS_AT_PROGRAM_SHUTDOWN)
-                {
-                    cnt = GetItemCount();
-                    for (int i = 0; i < cnt; i++)
+                    // abort the threads if they're taking way too long:
+                    if (shutdown_cleanup_clk.ElapsedMilliseconds >= Constants.MAX_WAIT_TIME_MS_AT_PROGRAM_SHUTDOWN)
                     {
-                        CleanupEntry(i, second_stage_only: true);
+                        cnt = GetItemCount();
+                        for (int i = 0; i < cnt; i++)
+                        {
+                            CleanupEntry(i, second_stage_only: true);
+                        }
                     }
-                }
-                // else: run another round to see if the tasks did terminate? This will be handled by an outer caller anyway.
+                    // else: run another round to see if the tasks did terminate? This will be handled by an outer caller anyway.
 
-                cnt = GetPendingItemCount();
+                    cnt = GetPendingItemCount();
+                }
+
                 return cnt == 0;
             }
             catch (Exception ex)
