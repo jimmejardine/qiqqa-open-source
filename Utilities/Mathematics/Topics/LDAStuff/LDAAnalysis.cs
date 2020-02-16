@@ -459,31 +459,7 @@ namespace Utilities.Mathematics.Topics.LDAStuff
             }
         }
 
-        public string GetDescriptionForTopic(IList<string> words, int topic)
-        {
-            StringBuilder sb = new StringBuilder();
-
-            sb.Append(String.Format("{0}. ", topic + 1));
-
-            double last_term_prob = 0;
-            for (int t = 0; t < 5 && t < NUM_WORDS; ++t)
-            {
-                if (last_term_prob / DensityOfWordsInTopicsSorted[topic][t].prob > 10)
-                {
-                    break;
-                }
-                last_term_prob = DensityOfWordsInTopicsSorted[topic][t].prob;
-
-                sb.Append(String.Format("{0}; ", words[DensityOfWordsInTopicsSorted[topic][t].word]));
-            }
-
-            string description = sb.ToString();
-            description = description.TrimEnd(' ', ';');
-
-            return description;
-        }
-
-        public string GetDescriptionForTopic(IList<string> words, int topic, bool include_topic_number, string separator, bool stop_at_word_probability_jump = true)
+        public string GetDescriptionForTopic(IList<string> words, int topic, bool include_topic_number = true, string separator = "; ", bool stop_at_word_probability_jump = true)
         {
             StringBuilder sb = new StringBuilder();
 

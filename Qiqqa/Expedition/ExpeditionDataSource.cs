@@ -75,12 +75,7 @@ namespace Qiqqa.Expedition
             }
         }
 
-        public string GetDescriptionForTopic(int topic)
-        {
-            return lda_analysis.GetDescriptionForTopic(words, topic);
-        }
-
-        public string GetDescriptionForTopic(int topic, bool include_topic_number, string separator)
+        public string GetDescriptionForTopic(int topic, bool include_topic_number = true, string separator = "; ")
         {
             return lda_analysis.GetDescriptionForTopic(words, topic, include_topic_number, separator);
         }
