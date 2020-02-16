@@ -25,8 +25,17 @@ namespace Qiqqa.Common.Configuration
     public class ConfigurationManager
     {
         // https://stackoverflow.com/questions/10465961/potential-pitfalls-with-static-constructors-in-c-sharp
-        private static readonly Lazy<ConfigurationManager> __instance = new Lazy<ConfigurationManager>(() => new ConfigurationManager());
-        public static ConfigurationManager Instance => __instance.Value;
+        private static readonly Lazy<ConfigurationManager> __instance = new Lazy<ConfigurationManager>(() =>
+        {
+            return new ConfigurationManager();
+        });
+        public static ConfigurationManager Instance
+        {
+            get
+            {
+                return __instance.Value;
+            }
+        }
 
         private string user_guid;
         private bool is_guest;
@@ -92,7 +101,7 @@ namespace Qiqqa.Common.Configuration
         {
             ShutdownableManager.Instance.Register(Shutdown);
 
-            UConf.GetWebUserAgent = ConfigurationManager.Instance.ConfigurationRecord.GetWebUserAgent;
+            UConf.GetWebUserAgent = () => ConfigurationManager.Instance.ConfigurationRecord.GetWebUserAgent();
             UConf.GetProxy = () => ConfigurationManager.Instance.Proxy;
 
             ResetConfigurationRecordToGuest();
