@@ -29,6 +29,8 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
         public LibraryCatalogOverviewControl()
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             Theme.Initialize();
 
             InitializeComponent();
@@ -381,8 +383,19 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
             WPFDoEvents.SafeExec(() =>
             {
-                WizardDPs.ClearPointOfInterest(PanelSearchScore);
-                WizardDPs.ClearPointOfInterest(ObjLookInsidePanel);
+                WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+                if (dispose_count == 0)
+                {
+                    WizardDPs.ClearPointOfInterest(PanelSearchScore);
+                }
+            }, must_exec_in_UI_thread: true);
+
+            WPFDoEvents.SafeExec(() =>
+            {
+                if (dispose_count == 0)
+                {
+                    WizardDPs.ClearPointOfInterest(ObjLookInsidePanel);
+                }
             }, must_exec_in_UI_thread: true);
 
             WPFDoEvents.SafeExec(() =>
