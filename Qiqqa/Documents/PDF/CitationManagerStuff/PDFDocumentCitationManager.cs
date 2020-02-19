@@ -33,10 +33,10 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
         {
             get
             {
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (citations_lock)
                 {
-                    l1_clk.LockPerfTimerStop();
+                    // l1_clk.LockPerfTimerStop();
                     return new List<Citation>(Citations_RAW);
                 }
             }
@@ -61,10 +61,10 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
 
         private bool ContainsCitation(string fingerprint_outbound, string fingerprint_inbound)
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (citations_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                // l1_clk.LockPerfTimerStop();
                 List<Citation> citations = Citations_RAW;
                 foreach (Citation citation in citations)
                 {
@@ -103,10 +103,10 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
 
         private void AddCitation(Citation new_citation)
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (citations_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                // l1_clk.LockPerfTimerStop();
                 // We can't cite ourself!
                 if (0 == new_citation.fingerprint_outbound.CompareTo(new_citation.fingerprint_inbound))
                 {
@@ -155,10 +155,10 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
         {
             List<Citation> result_citations = new List<Citation>();
 
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (citations_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                // l1_clk.LockPerfTimerStop();
                 List<Citation> citations = Citations_RAW;
                 foreach (Citation citation in citations)
                 {
@@ -176,10 +176,10 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
 
             List<Citation> result_citations = new List<Citation>();
 
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (citations_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                // l1_clk.LockPerfTimerStop();
                 List<Citation> citations = Citations_RAW;
                 foreach (Citation citation in citations)
                 {
@@ -239,10 +239,10 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
             // prevent deadlock due to possible incorrect use of this API:
             if (other != this)
             {
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (citations_lock)
                 {
-                    l1_clk.LockPerfTimerStop();
+                    // l1_clk.LockPerfTimerStop();
 
                     // the other PDFCitMgr instance has its own lock, so without
                     // a copy through `other.Citations_LOCKED` this code would

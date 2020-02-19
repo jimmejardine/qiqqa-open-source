@@ -64,10 +64,10 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         public void GetResizedPageImage(PDFRendererPageControl page_control, int page, double height, ResizedPageImageItemCallbackDelegate callback)
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (resized_page_image_item_requests)
             {
-                l1_clk.LockPerfTimerStop();
+                // l1_clk.LockPerfTimerStop();
                 Logging.Debug("Queueing page redraw for {0}", page);
                 resized_page_image_item_requests[page] = new ResizedPageImageItemRequest
                 {
@@ -93,10 +93,10 @@ namespace Qiqqa.Documents.PDF.PDFControls
             {
                 ResizedPageImageItemRequest resized_page_image_item_request = null;
 
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (resized_page_image_item_requests)
                 {
-                    l1_clk.LockPerfTimerStop();
+                    // l1_clk.LockPerfTimerStop();
                     // If there is nothing more to do...
                     if (0 == resized_page_image_item_request_orders.Count)
                     {

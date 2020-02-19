@@ -163,55 +163,49 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
         {
             Logging.Debug("PDFInkLayer::Dispose({0}) @{1}", disposing, dispose_count);
 
-            try
+            WPFDoEvents.SafeExec(() =>
             {
                 if (0 == dispose_count)
                 {
-                    WPFDoEvents.InvokeInUIThread(() =>
-                    {
-                        ObjInkCanvas.StrokeCollected -= ObjInkCanvas_StrokeCollected;
-                        ObjInkCanvas.StrokeErased -= ObjInkCanvas_StrokeErased;
-                        ObjInkCanvas.SelectionMoved -= ObjInkCanvas_SelectionMoved;
-                        ObjInkCanvas.SelectionResized -= ObjInkCanvas_SelectionResized;
+                    ObjInkCanvas.StrokeCollected -= ObjInkCanvas_StrokeCollected;
+                    ObjInkCanvas.StrokeErased -= ObjInkCanvas_StrokeErased;
+                    ObjInkCanvas.SelectionMoved -= ObjInkCanvas_SelectionMoved;
+                    ObjInkCanvas.SelectionResized -= ObjInkCanvas_SelectionResized;
 
-                        ObjInkCanvas.RequestBringIntoView -= ObjInkCanvas_RequestBringIntoView;
-
-                        try
-                        {
-                            foreach (var el in Children)
-                            {
-                                IDisposable node = el as IDisposable;
-                                if (null != node)
-                                {
-                                    node.Dispose();
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            Logging.Error(ex);
-                        }
-
-                        try
-                        {
-                            Children.Clear();
-                        }
-                        catch (Exception ex)
-                        {
-                            Logging.Error(ex);
-                        }
-                    });
+                    ObjInkCanvas.RequestBringIntoView -= ObjInkCanvas_RequestBringIntoView;
                 }
+            }, must_exec_in_UI_thread: true);
 
+            WPFDoEvents.SafeExec(() =>
+            {
+                if (dispose_count == 0)
+                {
+                    foreach (var el in Children)
+                    {
+                        IDisposable node = el as IDisposable;
+                        if (null != node)
+                        {
+                            node.Dispose();
+                        }
+                    }
+                }
+            }, must_exec_in_UI_thread: true);
+
+            WPFDoEvents.SafeExec(() =>
+            {
+                Children.Clear();
+            }, must_exec_in_UI_thread: true);
+
+            WPFDoEvents.SafeExec(() =>
+            {
                 // Clear the references for sanity's sake
                 pdf_renderer_control_stats = null;
+            });
 
-                DataContext = null;
-            }
-            catch (Exception ex)
+            WPFDoEvents.SafeExec(() =>
             {
-                Logging.Error(ex);
-            }
+                DataContext = null;
+            });
 
             ++dispose_count;
 

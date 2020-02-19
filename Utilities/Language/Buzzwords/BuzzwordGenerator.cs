@@ -579,10 +579,10 @@ namespace Utilities.Language.Buzzwords
 
                 if (!is_bad)
                 {
-                    Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                    // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                     lock (ngrams_lock)
                     {
-                        l1_clk.LockPerfTimerStop();
+                        // l1_clk.LockPerfTimerStop();
                         ngrams[ngram_sub.Key] = ngram_sub.Value;
                     }
                 }

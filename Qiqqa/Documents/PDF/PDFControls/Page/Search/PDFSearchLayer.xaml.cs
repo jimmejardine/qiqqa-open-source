@@ -155,56 +155,37 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
         {
             Logging.Debug("PDFSearchLayer::Dispose({0}) @{1}", disposing, dispose_count);
 
-            try
+            WPFDoEvents.SafeExec(() =>
             {
                 if (dispose_count == 0)
                 {
-                    WPFDoEvents.InvokeInUIThread(() =>
+                    foreach (var el in Children)
                     {
-                        try
+                        IDisposable node = el as IDisposable;
+                        if (null != node)
                         {
-                            foreach (var el in Children)
-                            {
-                                IDisposable node = el as IDisposable;
-                                if (null != node)
-                                {
-                                    node.Dispose();
-                                }
-                            }
+                            node.Dispose();
                         }
-                        catch (Exception ex)
-                        {
-                            Logging.Error(ex);
-                        }
-
-                        try
-                        {
-                            Children.Clear();
-                        }
-                        catch (Exception ex)
-                        {
-                            Logging.Error(ex);
-                        }
-
-                        try
-                        {
-                            DataContext = null;
-                        }
-                        catch (Exception ex)
-                        {
-                            Logging.Error(ex);
-                        }
-                    }, Dispatcher);
+                    }
                 }
+            }, must_exec_in_UI_thread: true);
 
+            WPFDoEvents.SafeExec(() =>
+            {
+                Children.Clear();
+            }, must_exec_in_UI_thread: true);
+
+            WPFDoEvents.SafeExec(() =>
+            {
+                DataContext = null;
+            }, Dispatcher);
+
+            WPFDoEvents.SafeExec(() =>
+            {
                 // Clear the references for sanity's sake
                 pdf_renderer_control_stats = null;
                 search_result_set = null;
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex);
-            }
+            });
 
             ++dispose_count;
 

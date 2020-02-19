@@ -57,6 +57,9 @@
   <PropertyGroup>
     <ApplicationIcon>Qiqqa.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />

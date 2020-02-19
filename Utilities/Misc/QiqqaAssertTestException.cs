@@ -27,14 +27,22 @@ namespace Utilities.Misc
         {
             if (!test)
             {
-                Exception ex = new QiqqaAssertTestException(message);
-                Logging.Error(ex, "ASSERTION FAILURE!");
-
-                // IFF This assertion check is important, but *not* severe enough to barf a hairball when it fails: dont_throw=true, hence
-                // we then *do* report the assertion failure via Logging.Error() but we *do not* follow up with throwing an exception.
-                if (!dont_throw)
+                // Note: the way to add a stacktrace to a custom assertion is to throw it. We catch it and rethrow it again when needed,
+                // as we sometimes do NOT want this exception to propagate (dont_throw = true):
+                try
                 {
-                    throw ex;
+                    throw new QiqqaAssertTestException(message);
+                }
+                catch (QiqqaAssertTestException ex)
+                {
+                    Logging.Error(ex, "ASSERTION FAILURE!");
+
+                    // IFF This assertion check is important, but *not* severe enough to barf a hairball when it fails: dont_throw=true, hence
+                    // we then *do* report the assertion failure via Logging.Error() but we *do not* follow up with throwing an exception.
+                    if (!dont_throw)
+                    {
+                        throw;
+                    }
                 }
             }
         }

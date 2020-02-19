@@ -350,7 +350,7 @@ namespace Qiqqa.StartPage
         {
             Logging.Debug("StartPageControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            try
+            WPFDoEvents.SafeExec(() =>
             {
                 if (dispose_count == 0)
                 {
@@ -358,12 +358,12 @@ namespace Qiqqa.StartPage
                 }
 
                 ObjChatControl = null;
-                DataContext = null;
-            }
-            catch (Exception ex)
+            });
+
+            WPFDoEvents.SafeExec(() =>
             {
-                Logging.Error(ex);
-            }
+                DataContext = null;
+            });
 
             ++dispose_count;
         }

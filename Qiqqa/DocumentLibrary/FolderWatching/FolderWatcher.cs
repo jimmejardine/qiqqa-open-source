@@ -614,7 +614,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         {
             Logging.Debug("FolderWatcher::Dispose({0}) @{1}", disposing, dispose_count);
 
-            try
+            WPFDoEvents.SafeExec(() =>
             {
                 if (dispose_count == 0)
                 {
@@ -624,20 +624,30 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 }
 
                 file_system_watcher = null;
+            });
 
+            WPFDoEvents.SafeExec(() =>
+            {
                 folder_watcher_manager = null;
                 //library.TypedTarget.Dispose();
                 library = null;
+            });
+
+            WPFDoEvents.SafeExec(() =>
+            {
                 tags.Clear();
+            });
+
+            WPFDoEvents.SafeExec(() =>
+            {
                 configured_folder_to_watch = null;
                 aspiring_folder_to_watch = null;
-                
-                watch_stats.Reset(null);
-            }
-            catch (Exception ex)
+            });
+
+            WPFDoEvents.SafeExec(() =>
             {
-                Logging.Error(ex);
-            }
+                watch_stats.Reset(null);
+            });
 
             ++dispose_count;
         }

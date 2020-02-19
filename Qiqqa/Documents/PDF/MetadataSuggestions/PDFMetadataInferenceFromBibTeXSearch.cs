@@ -163,7 +163,6 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
                     Logging.Warn(ex, "There was a problem searching for BibTeX for title '{0}' at server '{1}'.", title, url_server);
                 }
             }
-
             catch (Exception ex)
             {
                 Logging.Warn(ex, "There was a problem searching for BibTeX for title '{0}'.", title);

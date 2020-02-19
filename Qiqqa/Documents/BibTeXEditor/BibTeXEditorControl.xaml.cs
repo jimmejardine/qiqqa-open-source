@@ -77,8 +77,8 @@ namespace Qiqqa.Documents.BibTeXEditor
             // is right now.
             // 
             ObjErrorPanel.Visibility = Visibility.Hidden;
-            ObjBibTeXGrid.Visibility = Visibility.Visible;
-            ObjTextPanel.Visibility = Visibility.Hidden;
+            ObjBibTeXGrid.Visibility = Visibility.Hidden;
+            ObjTextPanel.Visibility = Visibility.Visible;
 
             Grid.SetZIndex(ObjTextPanel, 3);
             Grid.SetZIndex(ObjBibTeXGrid, 5);
@@ -676,47 +676,52 @@ namespace Qiqqa.Documents.BibTeXEditor
         {
             Logging.Debug("BibTeXEditorControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            try
+            WPFDoEvents.SafeExec(() =>
             {
                 // *Nobody* gets any updates from us anymore, so we can delete cached content etc. in peace. (https://github.com/jimmejardine/qiqqa-open-source/issues/121)
-                WPFDoEvents.InvokeInUIThread(() =>
-                {
-                    BindingOperations.ClearBinding(this, BibTeXProperty);
+                BindingOperations.ClearBinding(this, BibTeXProperty);
+            }, must_exec_in_UI_thread: true);
 
-                    // Get rid of managed resources / get rid of cyclic references:
-                    if (null != wdpcn)
-                    {
-                        wdpcn.ValueChanged -= OnBibTeXPropertyChanged;
-                    }
-
-                    // discard all references which might otherwise potentially cause memleaks due to (potential) references cycles:
-                    try
-                    {
-                        BibTeXParseErrorButtonRef?.SetTarget(null);
-                        BibTeXModeToggleButtonRef?.SetTarget(null);
-                        BibTeXUndoEditButtonRef?.SetTarget(null);
-                    }
-                    catch (Exception ex)
-                    {
-                        //ignore
-                    }
-                });
-
-                bindable = null;
-                // BibTeX = "";  <-- forbidden to reset as that MAY trigger a dependency update! (https://github.com/jimmejardine/qiqqa-open-source/issues/121)
-
+            WPFDoEvents.SafeExec(() =>
+            {
                 // Get rid of managed resources / get rid of cyclic references:
                 if (null != wdpcn)
                 {
-                    wdpcn.Dispose();
+                    wdpcn.ValueChanged -= OnBibTeXPropertyChanged;
                 }
+            }, must_exec_in_UI_thread: true);
 
+            WPFDoEvents.SafeExec(() =>
+            {
+                // discard all references which might otherwise potentially cause memleaks due to (potential) references cycles:
+                BibTeXParseErrorButtonRef?.SetTarget(null);
+                BibTeXModeToggleButtonRef?.SetTarget(null);
+                BibTeXUndoEditButtonRef?.SetTarget(null);
+            }, must_exec_in_UI_thread: true);
+
+            WPFDoEvents.SafeExec(() =>
+            {
+                bindable = null;
+                // BibTeX = "";  <-- forbidden to reset as that MAY trigger a dependency update! (https://github.com/jimmejardine/qiqqa-open-source/issues/121)
+            });
+
+            WPFDoEvents.SafeExec(() =>
+            {
+                // Get rid of managed resources / get rid of cyclic references:
+                wdpcn?.Dispose();
+            });
+
+            WPFDoEvents.SafeExec(() =>
+            {
                 ObjBibTeXText.TextChanged -= ObjBibTeXText_TextChanged;
                 TxtRecordKey.TextChanged -= OnGridTextChanged;
 
                 ComboRecordType.SelectionChanged -= ComboRecordType_SelectionChanged;
                 ComboRecordType.KeyUp -= ComboRecordType_KeyUp;
+            }, must_exec_in_UI_thread: true);
 
+            WPFDoEvents.SafeExec(() =>
+            {
                 // Clear the references for sanity's sake
                 BibTeXParseErrorButtonRef = null;
                 BibTeXModeToggleButtonRef = null;
@@ -724,11 +729,7 @@ namespace Qiqqa.Documents.BibTeXEditor
 
                 wdpcn = null;
                 bindable = null;
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex);
-            }
+            });
 
             ++dispose_count;
         }

@@ -4,6 +4,7 @@ using Qiqqa.DocumentLibrary;
 using Qiqqa.Documents.PDF.ThreadUnsafe;
 using Utilities;
 using Utilities.Files;
+using Utilities.GUI;
 
 namespace Qiqqa.Documents.PDF.DiskSerialisation
 {
@@ -11,6 +12,8 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
     {
         internal static void ReadFromDisk(PDFDocument_ThreadUnsafe pdf_document, PDFInkList inks, Dictionary<string, byte[]> library_items_inks_cache)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             try
             {
                 byte[] inks_data = null;
@@ -26,8 +29,7 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
                         inks_data = library_items[0].data;
                     }
                 }
-
-
+                
                 if (null != inks_data)
                 {
                     Dictionary<int, byte[]> page_ink_blobs = SerializeFile.ProtoLoadFromByteArray<Dictionary<int, byte[]>>(inks_data);
@@ -49,6 +51,8 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
 
         internal static void WriteToDisk(PDFDocument_ThreadUnsafe pdf_document)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             byte[] data = pdf_document.GetInksAsJSON();
 
             if (null != data)

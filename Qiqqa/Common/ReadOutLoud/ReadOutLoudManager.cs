@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Speech.Synthesis;
 using Utilities;
 using Utilities.Collections;
+using Utilities.GUI;
 using Utilities.Misc;
 using Utilities.Shutdownable;
 
@@ -38,10 +39,10 @@ namespace Qiqqa.Common.ReadOutLoud
         private void OnShutdown()
         {
             Logging.Info("Shutting down ReadOutLoudManager");
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (read_out_loud_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                //l1_clk.LockPerfTimerStop();
                 speech_synthesizer.SpeakAsyncCancelAll();
             }
         }
@@ -71,10 +72,10 @@ namespace Qiqqa.Common.ReadOutLoud
 
         public void Read(string text)
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (read_out_loud_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                //l1_clk.LockPerfTimerStop();
                 if (null != current_prompt)
                 {
                     speech_synthesizer.SpeakAsyncCancel(current_prompt);
@@ -88,20 +89,20 @@ namespace Qiqqa.Common.ReadOutLoud
 
         public void Pause()
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (read_out_loud_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                //l1_clk.LockPerfTimerStop();
                 speech_synthesizer.Pause();
             }
         }
 
         public void Resume()
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (read_out_loud_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                //l1_clk.LockPerfTimerStop();
                 speech_synthesizer.Resume();
             }
         }
@@ -126,7 +127,7 @@ namespace Qiqqa.Common.ReadOutLoud
         {
             Logging.Debug("ReadOutLoudManager::Dispose({0}) @{1}", disposing, dispose_count);
 
-            try
+            WPFDoEvents.SafeExec(() =>
             {
                 if (dispose_count == 0)
                 {
@@ -134,15 +135,14 @@ namespace Qiqqa.Common.ReadOutLoud
                     speech_synthesizer?.Dispose();
                 }
                 speech_synthesizer = null;
+            });
 
+            WPFDoEvents.SafeExec(() =>
+            {
                 current_prompt = null;
                 last_words?.Clear();
                 last_words = null;
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex);
-            }
+            });
 
             ++dispose_count;
         }

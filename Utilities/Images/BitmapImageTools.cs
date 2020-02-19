@@ -140,7 +140,7 @@ namespace Utilities.Images
                     }
 
                     // Throw the exception anyway
-                    throw ex;
+                    throw;
                 }
             }
         }

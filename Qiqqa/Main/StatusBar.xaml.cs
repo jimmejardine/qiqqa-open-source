@@ -137,7 +137,7 @@ namespace Qiqqa.Main
 
                     var status_bar_items_ordered =
                         from status_bar_item_ordered in status_bar_items.Values
-                        orderby status_bar_item_ordered.CreationTime descending
+                        orderby status_bar_item_ordered.CreationTime ascending
                         select status_bar_item_ordered;
 
                     foreach (StatusBarItem child in status_bar_items_ordered)

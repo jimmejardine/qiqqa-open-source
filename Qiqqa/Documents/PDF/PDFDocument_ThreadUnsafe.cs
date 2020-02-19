@@ -39,6 +39,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
     public class PDFDocument_ThreadUnsafe
     {
+        [NonSerialized]
         private TypedWeakReference<Library> library;
         public Library Library => library?.TypedTarget;
 
@@ -184,7 +185,9 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             set => dictionary["FileType"] = value.ToLower();
         }
 
+        [NonSerialized]
         private BibTexItem bibtex_item = null;
+        [NonSerialized]
         private bool bibtex_item_parsed = false;
         public BibTexItem BibTexItem
         {

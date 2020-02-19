@@ -7,16 +7,16 @@ using Qiqqa.Documents.PDF.ThreadUnsafe;
 using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.Files;
+using Utilities.GUI;
 
 namespace Qiqqa.Documents.PDF.DiskSerialisation
 {
     internal class PDFHighlightSerializer
     {
-
-        #region --- READ ------------------------------------------------------------------------------------------------------------------------------------
-
         internal static void ReadFromStream(PDFDocument_ThreadUnsafe pdf_document, PDFHightlightList highlights, Dictionary<string, byte[]> /* can be null */ library_items_highlights_cache)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             byte[] highlights_data = null;
 
             if (null != library_items_highlights_cache)
@@ -77,19 +77,17 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
             return highlights_list;
         }
 
-        #endregion --------------------------------------------------------------------------------------------------------------------------------------------
-
-        #region  --- WRITE ------------------------------------------------------------------------------------------------------------------------------------
+        // --------------------------------------------------------------------------------------------------------
 
         internal static void WriteToDisk(PDFDocument_ThreadUnsafe pdf_document)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             string json = pdf_document.GetHighlightsAsJSON();
             if (!String.IsNullOrEmpty(json))
             {
                 pdf_document.Library.LibraryDB.PutString(pdf_document.Fingerprint, PDFDocumentFileLocations.HIGHLIGHTS, json);
             }
         }
-
-        #endregion --------------------------------------------------------------------------------------------------------------------------------------------
     }
 }

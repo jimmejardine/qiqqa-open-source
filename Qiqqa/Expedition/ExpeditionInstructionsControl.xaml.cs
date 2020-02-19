@@ -51,7 +51,6 @@ namespace Qiqqa.Expedition
                     {
                         RegionExpeditionTooSmall.Visibility = Visibility.Visible;
                     }
-
                 }
             }
         }
