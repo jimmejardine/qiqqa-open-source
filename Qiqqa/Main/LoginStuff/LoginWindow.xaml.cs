@@ -208,8 +208,7 @@ namespace Qiqqa.Main.LoginStuff
             FeatureTrackingManager.Instance.UseFeature(
                 Features.App_Open,
                 "CurrentVersion", ClientVersion.CurrentVersion,
-                ".NET4Client", ComputerStatistics.IsNET4ClientInstalled(),
-                ".NET4Full", ComputerStatistics.IsNET4FullInstalled()
+                ".NETInfo", ComputerStatistics.GetCLRInfo()
                 );
         }
 
