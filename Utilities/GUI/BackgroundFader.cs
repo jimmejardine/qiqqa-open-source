@@ -59,7 +59,7 @@ namespace Utilities.GUI
         {
             Logging.Debug("BackgroundFader::Dispose({0}) @{1}", disposing, dispose_count);
 
-            try
+            WPFDoEvents.SafeExec(() =>
             {
                 if (dispose_count == 0)
                 {
@@ -70,13 +70,12 @@ namespace Utilities.GUI
                         control.MouseLeave -= DocumentNodeContentControl_MouseLeave;
                     }
                 }
+            });
 
-                control = null;
-            }
-            catch (Exception ex)
+            WPFDoEvents.SafeExec(() =>
             {
-                Logging.Error(ex);
-            }
+                control = null;
+            });
 
             ++dispose_count;
         }

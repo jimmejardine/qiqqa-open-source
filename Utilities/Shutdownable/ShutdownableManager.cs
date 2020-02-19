@@ -20,10 +20,10 @@ namespace Utilities.Shutdownable
 
         public void Register(ShutdownDelegate shutdown_delegate)
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (shutdown_delegates_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                // l1_clk.LockPerfTimerStop();
                 Logging.Info("ShutdownableManager is registering {0}", shutdown_delegate.Target);
                 shutdown_delegates.Add(shutdown_delegate);
             }
@@ -59,10 +59,10 @@ namespace Utilities.Shutdownable
             }
             set
             {
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (is_being_shut_down_lock)
                 {
-                    l1_clk.LockPerfTimerStop();
+                    // l1_clk.LockPerfTimerStop();
                     is_being_shut_down = true;
                 }
             }
@@ -77,10 +77,10 @@ namespace Utilities.Shutdownable
             while (true)
             {
                 ShutdownDelegate shutdown_delegate = null;
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (shutdown_delegates_lock)
                 {
-                    l1_clk.LockPerfTimerStop();
+                    // l1_clk.LockPerfTimerStop();
                     if (!shutdown_delegates.Any()) break;
                     shutdown_delegate = shutdown_delegates[0];
                     shutdown_delegates.RemoveAt(0);

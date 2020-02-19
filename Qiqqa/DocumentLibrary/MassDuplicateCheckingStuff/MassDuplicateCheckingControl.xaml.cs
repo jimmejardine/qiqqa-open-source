@@ -72,10 +72,10 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
 
         public void FindDuplicates(Library library)
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (locker)
             {
-                l1_clk.LockPerfTimerStop();
+                // l1_clk.LockPerfTimerStop();
                 if (already_finding_duplicates)
                 {
                     Logging.Warn("Not finding duplicates while a previous invocation is still running.");
@@ -161,10 +161,10 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
             }
             finally
             {
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (locker)
                 {
-                    l1_clk.LockPerfTimerStop();
+                    // l1_clk.LockPerfTimerStop();
                     already_finding_duplicates = false;
                 }
             }

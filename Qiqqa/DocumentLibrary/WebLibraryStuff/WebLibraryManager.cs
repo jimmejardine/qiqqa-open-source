@@ -26,10 +26,10 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         {
             get
             {
-                Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+                // Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
                 lock (instance_lock)
                 {
-                    l2_clk.LockPerfTimerStop();
+                    // l2_clk.LockPerfTimerStop();
 
                     if (null == __instance)
                     {
@@ -42,10 +42,10 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         public static void Init()
         {
-            Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
             lock (instance_lock)
             {
-                l2_clk.LockPerfTimerStop();
+                // l2_clk.LockPerfTimerStop();
 
                 if (__instance != null)
                 {
@@ -74,7 +74,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
             // Look for any web libraries that we know about
-            LoadKnownWebLibraries(KNOWN_WEB_LIBRARIES_FILENAME, false);
+            LoadKnownWebLibraries(KNOWN_WEB_LIBRARIES_FILENAME, only_load_those_libraries_which_are_actually_present: false);
 
             // *************************************************************************************************************
             // *** MIGRATION TO OPEN SOURCE CODE ***************************************************************************
@@ -110,94 +110,104 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-            /**
-             * Plan:
-             * Iterate through all the folders in the Qiqqa data directory
-             * If a folder contains a valid Library record and it is a WEB library, then add it to our list with the word '[LEGACY]' in front of it
-             */
-
-            string base_directory_path = UpgradePaths.V037To038.SQLiteUpgrade.BaseDirectoryForQiqqa;
-            Logging.Info("Going to scan for web libraries at: {0}", base_directory_path);
-            if (Directory.Exists(base_directory_path))
+            try
             {
-                string[] library_directories = Directory.GetDirectories(base_directory_path);
-                foreach (string library_directory in library_directories)
-                {
-                    Logging.Info("Inspecting directory {0} - Phase 1 : Web & Known Libraries", library_directory);
+                ConfigurationManager.ThrowWhenActionIsNotEnabled(nameof(AddLegacyWebLibrariesThatCanBeFoundOnDisk));
 
-                    string databaselist_file = Path.GetFullPath(Path.Combine(library_directory, @"Qiqqa.known_web_libraries"));
-                    if (File.Exists(databaselist_file))
+                /**
+                 * Plan:
+                 * - Iterate through all the folders in the Qiqqa data directory.
+                 * - If a folder contains a valid Library record and it is a WEB library, 
+                 *   then add it to our list with the word '[LEGACY]' in front of it.
+                 */
+
+                string base_directory_path = UpgradePaths.V037To038.SQLiteUpgrade.BaseDirectoryForQiqqa;
+                Logging.Info("Going to scan for web libraries at: {0}", base_directory_path);
+                if (Directory.Exists(base_directory_path))
+                {
+                    string[] library_directories = Directory.GetDirectories(base_directory_path);
+                    foreach (string library_directory in library_directories)
                     {
-                        LoadKnownWebLibraries(databaselist_file, true);
+                        Logging.Info("Inspecting directory {0} - Phase 1 : Web & Known Libraries", library_directory);
+
+                        string databaselist_file = Path.GetFullPath(Path.Combine(library_directory, @"Qiqqa.known_web_libraries"));
+                        if (File.Exists(databaselist_file))
+                        {
+                            LoadKnownWebLibraries(databaselist_file, only_load_those_libraries_which_are_actually_present: true);
+                        }
                     }
-                }
 
-                foreach (string library_directory in library_directories)
-                {
-                    Logging.Info("Inspecting directory {0} - Phase 2 : Intranet Libraries", library_directory);
-
-                    string databaselist_file = IntranetLibraryTools.GetLibraryDetailPath(library_directory);
-                    if (File.Exists(databaselist_file))
+                    foreach (string library_directory in library_directories)
                     {
-                        IntranetLibraryDetail intranet_library_detail = IntranetLibraryDetail.Read(databaselist_file);
+                        Logging.Info("Inspecting directory {0} - Phase 2 : Intranet Libraries", library_directory);
 
-                        UpdateKnownWebLibraryFromIntranet(library_directory, extra_info_message_on_skip: String.Format(" as obtained from file {0}", databaselist_file));
+                        string databaselist_file = IntranetLibraryTools.GetLibraryDetailPath(library_directory);
+                        if (File.Exists(databaselist_file))
+                        {
+                            IntranetLibraryDetail intranet_library_detail = IntranetLibraryDetail.Read(databaselist_file);
+
+                            UpdateKnownWebLibraryFromIntranet(library_directory, extra_info_message_on_skip: String.Format(" as obtained from file {0}", databaselist_file));
+                        }
                     }
-                }
 
-                foreach (string library_directory in library_directories)
-                {
-                    Logging.Info("Inspecting directory {0} - Phase 3 : Bundles", library_directory);
-
-                    // must be a qiqqa_bundle and/or qiqqa_bundle_manifest file set
-                    Logging.Warn("Auto bundle import at startup is not yet supported.");
-                }
-
-                foreach (string library_directory in library_directories)
-                {
-                    Logging.Info("Inspecting directory {0} - Phase 4 :  Local and Legacy Libraries", library_directory);
-
-                    string database_file = LibraryDB.GetLibraryDBPath(library_directory);
-                    string db_syncref_path = IntranetLibraryTools.GetLibraryMetadataPath(library_directory);
-
-                    // add/update only if this is not a Internet sync directory/DB!
-                    if (File.Exists(db_syncref_path))
+                    foreach (string library_directory in library_directories)
                     {
-                        Logging.Info("Skip the Qiqqa Internet/Intranet Sync directory and the sync DB ccontained therein: '{0}'", db_syncref_path);
+                        Logging.Info("Inspecting directory {0} - Phase 3 : Bundles", library_directory);
 
-                        // https://github.com/jimmejardine/qiqqa-open-source/issues/145 :: delete lib file when it is very small and was illegally
-                        // constructed by a previous v82beta Qiqqa release:
+                        // must be a qiqqa_bundle and/or qiqqa_bundle_manifest file set
+                        Logging.Warn("Auto bundle import at startup is not yet supported.");
+                    }
+
+                    foreach (string library_directory in library_directories)
+                    {
+                        Logging.Info("Inspecting directory {0} - Phase 4 : Local and Legacy Libraries", library_directory);
+
+                        string database_file = LibraryDB.GetLibraryDBPath(library_directory);
+                        string db_syncref_path = IntranetLibraryTools.GetLibraryMetadataPath(library_directory);
+
+                        // add/update only if this is not a Internet sync directory/DB!
+                        if (File.Exists(db_syncref_path))
+                        {
+                            Logging.Info("Skip the Qiqqa Internet/Intranet Sync directory and the sync DB ccontained therein: '{0}'", db_syncref_path);
+
+                            // https://github.com/jimmejardine/qiqqa-open-source/issues/145 :: delete lib file when it is very small and was illegally
+                            // constructed by a previous v82beta Qiqqa release:
+                            if (File.Exists(database_file))
+                            {
+                                long s3length = File.GetSize(database_file);
+                                if (6 * 1024 > s3length)
+                                {
+                                    Logging.Warn("DELETE the wrongfully created DB file '{0}' in the Qiqqa Internet/Intranet Sync directory and the sync DB ccontained therein: '{1}', which has precedence!", database_file, db_syncref_path);
+
+                                    FileTools.DeleteToRecycleBin(database_file);
+                                }
+                                else
+                                {
+                                    Logging.Error("Inspect the Library DB file '{0}' in the Qiqqa Internet/Intranet Sync directory and the sync DB ccontained therein: '{1}', which MAY have precedence. Delete one of these manually to clean up your system as Qiqqa heuristics cannot tell which is the prevalent metadata database here!", database_file, db_syncref_path);
+                                }
+                            }
+
+                            continue;
+                        }
                         if (File.Exists(database_file))
                         {
-                            long s3length = File.GetSize(database_file);
-                            if (6 * 1024 > s3length)
-                            {
-                                Logging.Warn("DELETE the wrongfully created DB file '{0}' in the Qiqqa Internet/Intranet Sync directory and the sync DB ccontained therein: '{1}', which has precedence!", database_file, db_syncref_path);
+                            var library_id = Path.GetFileName(library_directory);
 
-                                FileTools.DeleteToRecycleBin(database_file);
-                            } 
-                            else 
-                            {
-                                Logging.Error("Inspect the Library DB file '{0}' in the Qiqqa Internet/Intranet Sync directory and the sync DB ccontained therein: '{1}', which MAY have precedence. Delete one of these manually to clean up your system as Qiqqa heuristics cannot tell which is the prevalent metadata database here!", database_file, db_syncref_path);
-                            }
+                            WebLibraryDetail new_web_library_detail = new WebLibraryDetail();
+
+                            new_web_library_detail.Id = library_id;
+                            new_web_library_detail.Title = "Legacy Web Library - " + new_web_library_detail.Id;
+                            new_web_library_detail.IsReadOnly = false;
+                            // library: UNKNOWN type 
+
+                            UpdateKnownWebLibrary(new_web_library_detail);
                         }
-                        
-                        continue;
-                    }
-                    if (File.Exists(database_file))
-                    {
-                        var library_id = Path.GetFileName(library_directory);
-
-                        WebLibraryDetail new_web_library_detail = new WebLibraryDetail();
-
-                        new_web_library_detail.Id = library_id;
-                        new_web_library_detail.Title = "Legacy Web Library - " + new_web_library_detail.Id;
-                        new_web_library_detail.IsReadOnly = false;
-                        // library: UNKNOWN type 
-
-                        UpdateKnownWebLibrary(new_web_library_detail);
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex, "There was a problem while scanning for (legacy) libraries.");
             }
         }
 
@@ -436,6 +446,8 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             {
                 if (File.Exists(filename))
                 {
+                    ConfigurationManager.ThrowWhenActionIsNotEnabled(nameof(LoadKnownWebLibraries));
+
                     KnownWebLibrariesFile known_web_libraries_file = SerializeFile.ProtoLoad<KnownWebLibrariesFile>(filename);
                     if (null != known_web_libraries_file.web_library_details)
                     {
@@ -494,6 +506,11 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
             try
             {
+                // do NOT save to disk when ANY of the DEV/TEST settings tweak the default Qiqqa behaviour:
+                ConfigurationManager.ThrowWhenActionIsNotEnabled(nameof(SaveKnownWebLibraries));
+                ConfigurationManager.ThrowWhenActionIsNotEnabled(nameof(LoadKnownWebLibraries));
+                ConfigurationManager.ThrowWhenActionIsNotEnabled(nameof(AddLegacyWebLibrariesThatCanBeFoundOnDisk)); 
+            
                 KnownWebLibrariesFile known_web_libraries_file = new KnownWebLibrariesFile();
                 known_web_libraries_file.web_library_details = new List<WebLibraryDetail>();
                 foreach (WebLibraryDetail web_library_detail in web_library_details.Values)

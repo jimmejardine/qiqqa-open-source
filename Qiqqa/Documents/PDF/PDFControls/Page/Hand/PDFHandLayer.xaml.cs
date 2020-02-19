@@ -106,55 +106,46 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
         {
             Logging.Debug("PDFHandLayer::Dispose({0}) @{1}", disposing, dispose_count);
 
-            try
+            WPFDoEvents.SafeExec(() =>
             {
                 if (0 == dispose_count)
                 {
-                    WPFDoEvents.InvokeInUIThread(() =>
+                    WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
+                    foreach (var el in Children)
                     {
-                        WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
-                        try
+                        IDisposable node = el as IDisposable;
+                        if (null != node)
                         {
-                            foreach (var el in Children)
-                            {
-                                IDisposable node = el as IDisposable;
-                                if (null != node)
-                                {
-                                    node.Dispose();
-                                }
-                            }
+                            node.Dispose();
                         }
-                        catch (Exception ex)
-                        {
-                            Logging.Error(ex);
-                        }
-
-                        try
-                        {
-                            Children.Clear();
-                        }
-                        catch (Exception ex)
-                        {
-                            Logging.Error(ex);
-                        }
-
-                        MouseDown -= PDFHandLayer_MouseDown;
-                        MouseUp -= PDFHandLayer_MouseUp;
-                        MouseMove -= PDFHandLayer_MouseMove;
-
-                        DataContext = null;
-                    });
+                    }
                 }
+            }, must_exec_in_UI_thread: true);
 
+            WPFDoEvents.SafeExec(() =>
+            {
+                Children.Clear();
+            }, must_exec_in_UI_thread: true);
+
+            WPFDoEvents.SafeExec(() =>
+            {
+                MouseDown -= PDFHandLayer_MouseDown;
+                MouseUp -= PDFHandLayer_MouseUp;
+                MouseMove -= PDFHandLayer_MouseMove;
+            }, must_exec_in_UI_thread: true);
+
+            WPFDoEvents.SafeExec(() =>
+            {
+                DataContext = null;
+            }, must_exec_in_UI_thread: true);
+
+            WPFDoEvents.SafeExec(() =>
+            {
                 // Clear the references for sanity's sake
                 pdf_renderer_control_stats = null;
                 pdf_renderer_control = null;
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex);
-            }
+            });
 
             ++dispose_count;
 

@@ -9,6 +9,7 @@ using Qiqqa.DocumentLibrary;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Utilities;
+using Utilities.GUI;
 using Utilities.Images;
 using Image = System.Drawing.Image;
 
@@ -138,7 +139,7 @@ namespace Qiqqa.Brainstorm.Nodes
         {
             Logging.Debug("PDFAnnotationNodeContentControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            try
+            WPFDoEvents.SafeExec(() =>
             {
                 if (dispose_count == 0)
                 {
@@ -147,15 +148,14 @@ namespace Qiqqa.Brainstorm.Nodes
                     ToolTipClosing -= PDFDocumentNodeContentControl_ToolTipClosing;
                     ToolTipOpening -= PDFDocumentNodeContentControl_ToolTipOpening;
                 }
+            });
 
+            WPFDoEvents.SafeExec(() =>
+            {
                 // Clear the references for sanity's sake
                 pdf_annotation_node_content = null;
                 library_index_hover_popup = null;
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex);
-            }
+            });
 
             ++dispose_count;
         }

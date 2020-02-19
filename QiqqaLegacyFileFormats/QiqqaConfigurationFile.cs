@@ -1,12 +1,14 @@
 ﻿using System;
 
-namespace QiqqaLegacyFileFormats
+namespace QiqqaLegacyFileFormats          // namespace QiqqaLegacyFileFormats
 {
-    public class ApplicationConfigurationX
+
+#if SAMPLE_LOAD_CODE
+
+   public class ApplicationConfiguration
     {
- public void SaveConfigurationRecord()
+        public void SaveConfigurationRecord()
         {
-#if false
             try
             {
                 Logging.Info("Saving configuration");
@@ -17,7 +19,9 @@ namespace QiqqaLegacyFileFormats
             {
                 Logging.Error(ex, "There was a problem saving the configuration.");
             }
-#endif
         }
     }
+
+#endif
+
 }

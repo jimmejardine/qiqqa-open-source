@@ -514,7 +514,7 @@ namespace Qiqqa.Common
         internal void ExploreTopicInBrainstorm(Library library, int topic)
         {
             ExpeditionDataSource eds = library.ExpeditionManager.ExpeditionDataSource;
-            string topic_name = eds.GetDescriptionForTopic(topic, false, "\n");
+            string topic_name = eds.GetDescriptionForTopic(topic, include_topic_number: false, "\n");
 
             BrainstormControl brainstorm_control = Instance.OpenNewBrainstorm();
             ThemeNodeContent tnc = new ThemeNodeContent(topic_name, library.WebLibraryDetail.Id);
@@ -561,7 +561,7 @@ namespace Qiqqa.Common
             {
                 for (int topic = 0; topic < eds.lda_sampler.NumTopics; ++topic)
                 {
-                    string topic_name = eds.GetDescriptionForTopic(topic, false, "\n");
+                    string topic_name = eds.GetDescriptionForTopic(topic, include_topic_number: false, "\n");
                     ThemeNodeContent tnc = new ThemeNodeContent(topic_name, library.WebLibraryDetail.Id);
                     NodeControlAddingByKeyboard.AddChildToNodeControl(node_library, tnc);
                 }

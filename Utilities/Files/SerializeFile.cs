@@ -43,7 +43,7 @@ namespace Utilities.Files
                 }
                 else
                 {
-                    throw ex;
+                    throw;
                 }
             }
         }
@@ -187,7 +187,7 @@ namespace Utilities.Files
                 }
                 else
                 {
-                    throw ex;
+                    throw;
                 }
             }
         }
@@ -256,7 +256,7 @@ namespace Utilities.Files
                 }
                 else
                 {
-                    throw ex;
+                    throw;
                 }
             }
         }

@@ -6,25 +6,27 @@ namespace Utilities
     public class Daemon
     {
         private string daemon_name;
+        private int daemon_index;
         private Thread thread;
         private bool still_running = false;
         private object still_running_lock = new object();
 
-        public Daemon(string daemon_name)
+        public Daemon(string daemon_name, int daemon_index = -1)
         {
             this.daemon_name = daemon_name;
+            this.daemon_index = daemon_index;
         }
 
         public int ManagedThreadId => thread.ManagedThreadId;
 
-        public void Start(ParameterizedThreadStart thread_start, object param)
+        public void Start(ParameterizedThreadStart thread_start, object param = null)
         {
             thread = new Thread(thread_start);
-            thread.Name = "Daemon." + daemon_name;
+            thread.Name = daemon_index == -1 ? $"Daemon.{daemon_name}" : $"Daemon.{daemon_name}.{daemon_index + 1}";
             still_running = true;
             thread.IsBackground = true;
             thread.Priority = ThreadPriority.BelowNormal;
-            thread.Start(param);
+            thread.Start(param ?? this); // if no explicit parameter is specified, pass the threadinfo as implicit parameter
         }
 
         /// <summary>

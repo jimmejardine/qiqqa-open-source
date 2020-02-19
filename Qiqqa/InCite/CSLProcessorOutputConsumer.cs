@@ -6,6 +6,7 @@ using System.Text;
 using Gecko;
 using Newtonsoft.Json.Linq;
 using Utilities;
+using Utilities.GUI;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -401,29 +402,31 @@ namespace Qiqqa.InCite
         {
             Logging.Debug("CSLProcessorOutputConsumer::Dispose({0}) @{1}", disposing, dispose_count);
 
-            try
+            WPFDoEvents.SafeExec(() =>
             {
                 if (dispose_count == 0)
                 {
                     // Get rid of managed resources
                     web_browser?.Dispose();
                 }
+            });
 
+            WPFDoEvents.SafeExec(() =>
+            {
                 web_browser = null;
 
                 brd = null;
                 user_argument = null;
+            });
 
+            WPFDoEvents.SafeExec(() =>
+            {
                 position_to_inline.Clear();
                 inline_to_positions.Clear();
                 position_to_text.Clear();
                 bibliography.Clear();
                 logs.Clear();
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex);
-            }
+            });
 
             ++dispose_count;
         }

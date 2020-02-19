@@ -370,53 +370,44 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
         {
             Logging.Debug("LibraryCatalogOverviewControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            try
+            WPFDoEvents.SafeExec(() =>
             {
                 if (dispose_count == 0)
                 {
                     // Get rid of managed resources / get rid of cyclic references:
                     library_index_hover_popup?.Dispose();
-
-                    WPFDoEvents.InvokeInUIThread(() =>
-                    {
-                        try
-                        {
-                            WizardDPs.ClearPointOfInterest(PanelSearchScore);
-                            WizardDPs.ClearPointOfInterest(ObjLookInsidePanel);
-                        }
-                        catch (Exception ex)
-                        {
-                            //ignore
-                        }
-
-                        TextTitle.MouseLeftButtonUp -= TextTitle_MouseLeftButtonUp;
-
-                        ButtonOpen.ToolTipOpening -= HyperlinkPreview_ToolTipOpening;
-                        ButtonOpen.ToolTipClosing -= HyperlinkPreview_ToolTipClosing;
-
-                        ListSearchDetails.SearchClicked -= ListSearchDetails_SearchSelectionChanged;
-
-                        DataContextChanged -= LibraryCatalogOverviewControl_DataContextChanged;
-
-                        try
-                        {
-                            DataContext = null;
-                        }
-                        catch (Exception ex)
-                        {
-                            //ignore
-                        }
-                    });
                 }
+            });
 
+            WPFDoEvents.SafeExec(() =>
+            {
+                WizardDPs.ClearPointOfInterest(PanelSearchScore);
+                WizardDPs.ClearPointOfInterest(ObjLookInsidePanel);
+            }, must_exec_in_UI_thread: true);
+
+            WPFDoEvents.SafeExec(() =>
+            {
+                TextTitle.MouseLeftButtonUp -= TextTitle_MouseLeftButtonUp;
+
+                ButtonOpen.ToolTipOpening -= HyperlinkPreview_ToolTipOpening;
+                ButtonOpen.ToolTipClosing -= HyperlinkPreview_ToolTipClosing;
+
+                ListSearchDetails.SearchClicked -= ListSearchDetails_SearchSelectionChanged;
+
+                DataContextChanged -= LibraryCatalogOverviewControl_DataContextChanged;
+            }, must_exec_in_UI_thread: true);
+
+            WPFDoEvents.SafeExec(() =>
+            {
+                DataContext = null;
+            }, must_exec_in_UI_thread: true);
+
+            WPFDoEvents.SafeExec(() =>
+            {
                 // Clear the references for sanity's sake
                 library_index_hover_popup = null;
                 drag_drop_helper = null;
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex);
-            }
+            });
 
             ++dispose_count;
         }

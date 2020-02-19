@@ -120,7 +120,7 @@ namespace Qiqqa.Brainstorm.Nodes
         {
             Logging.Debug("StringNodeContentControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            try
+            WPFDoEvents.SafeExec(() =>
             {
                 if (dispose_count == 0)
                 {
@@ -128,19 +128,21 @@ namespace Qiqqa.Brainstorm.Nodes
                     fader?.Dispose();
                 }
                 fader = null;
+            });
 
+            WPFDoEvents.SafeExec(() =>
+            {
                 MouseDoubleClick -= StringNodeContentControl_MouseDoubleClick;
                 KeyDown -= StringNodeContentControl_KeyDown;
 
                 TxtEdit.LostFocus -= edit_text_box_LostFocus;
                 TxtEdit.PreviewKeyDown -= edit_text_box_PreviewKeyDown;
+            });
 
-                DataContext = null;
-            }
-            catch (Exception ex)
+            WPFDoEvents.SafeExec(() =>
             {
-                Logging.Error(ex);
-            }
+                DataContext = null;
+            });
 
             ++dispose_count;
         }

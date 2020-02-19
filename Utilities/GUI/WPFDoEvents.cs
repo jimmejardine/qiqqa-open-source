@@ -222,5 +222,35 @@ namespace Utilities.GUI
             // This assertion check is important, but not severe enough to barf a hairball when it fails: dont_throw=true
             ASSERT.Test(CurrentThreadIsUIThread(), "This code MUST execute in the Main UI Thread.", dont_throw: true);
         }
+
+        public static void SafeExec(Action f, Dispatcher override_dispatcher = null, bool must_exec_in_UI_thread = false)
+        {
+            if (!must_exec_in_UI_thread && override_dispatcher == null)
+            {
+                // exec in same thread:
+                try
+                {
+                    f();
+                }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex);
+                }
+            }
+            else
+            {
+                WPFDoEvents.InvokeInUIThread(() =>
+                {
+                    try
+                    {
+                        f();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex);
+                    }
+                }, override_dispatcher);
+            }
+        }
     }
 }

@@ -67,10 +67,10 @@ namespace Utilities.GUI.Animation
                 fe.Opacity = from_opacity;
                 fe.Visibility = Visibility.Visible;
 
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (responsible_managers_lock)
                 {
-                    l1_clk.LockPerfTimerStop();
+                    // l1_clk.LockPerfTimerStop();
                     //Logging.Info("FadeManager: Current {0} animations running", responsible_managers.Count);
                     responsible_managers[fe] = this;
 
@@ -82,10 +82,10 @@ namespace Utilities.GUI.Animation
 
             private void da_Completed(object sender, EventArgs e)
             {
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (responsible_managers_lock)
                 {
-                    l1_clk.LockPerfTimerStop();
+                    // l1_clk.LockPerfTimerStop();
                     if (!responsible_managers.ContainsKey(fe) || this != responsible_managers[fe])
                     {
                     }

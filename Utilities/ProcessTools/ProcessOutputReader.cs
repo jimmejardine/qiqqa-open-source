@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using Utilities.GUI;
 
 namespace Utilities.ProcessTools
 {
@@ -76,7 +77,7 @@ namespace Utilities.ProcessTools
         {
             Logging.Debug("ProcessOutputReader::Dispose({0}) @{1}", disposing, dispose_count);
 
-            try
+            WPFDoEvents.SafeExec(() =>
             {
                 if (dispose_count == 0)
                 {
@@ -93,13 +94,12 @@ namespace Utilities.ProcessTools
                         Error.Clear();
                     }
                 }
+            });
 
-                process = null;
-            }
-            catch (Exception ex)
+            WPFDoEvents.SafeExec(() =>
             {
-                Logging.Error(ex);
-            }
+                process = null;
+            });
 
             ++dispose_count;
         }

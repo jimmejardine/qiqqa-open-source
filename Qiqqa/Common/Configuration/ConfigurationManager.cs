@@ -16,12 +16,27 @@ using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 using Utilities.Misc;
 using System.Diagnostics;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json.Converters;
 
 namespace Qiqqa.Common.Configuration
 {
     public class ConfigurationManager
     {
-        public static readonly ConfigurationManager Instance = new ConfigurationManager();
+        // https://stackoverflow.com/questions/10465961/potential-pitfalls-with-static-constructors-in-c-sharp
+        private static readonly Lazy<ConfigurationManager> __instance = new Lazy<ConfigurationManager>(() =>
+        {
+            return new ConfigurationManager();
+        });
+        public static ConfigurationManager Instance
+        {
+            get
+            {
+                return __instance.Value;
+            }
+        }
+
         private string user_guid;
         private bool is_guest;
 
@@ -76,6 +91,9 @@ namespace Qiqqa.Common.Configuration
 
         public string ProgramHTMLToPDF => Path.Combine(StartupDirectoryForQiqqa, @"wkhtmltopdf.exe");
 
+        public string DeveloperTestSettingsFilename => Path.Combine(BaseDirectoryForQiqqa, @"Qiqqa.Developer.Settings.json5");
+
+        private Dictionary<string, object> developer_test_settings = null;
         private ConfigurationRecord configuration_record;
         private AugmentedBindable<ConfigurationRecord> configuration_record_bindable;
 
@@ -83,18 +101,10 @@ namespace Qiqqa.Common.Configuration
         {
             ShutdownableManager.Instance.Register(Shutdown);
 
-            UConf.OnBeingAccessed += Configuration_OnBeingAccessed;
+            UConf.GetWebUserAgent = () => ConfigurationManager.Instance.ConfigurationRecord.GetWebUserAgent();
+            UConf.GetProxy = () => ConfigurationManager.Instance.Proxy;
 
             ResetConfigurationRecordToGuest();
-        }
-
-        private static void Configuration_OnBeingAccessed()
-        {
-            // The Utilities configuration record was accessed for the first time. 
-            //
-            // Fill all its settings:
-            UConf.WebUserAgent = ConfigurationManager.Instance.ConfigurationRecord.GetWebUserAgent();
-            UConf.Proxy = ConfigurationManager.Instance.Proxy;
         }
 
         private void Shutdown()
@@ -158,6 +168,37 @@ namespace Qiqqa.Common.Configuration
                 configuration_record.Feedback_GATrackingCode = Guid.NewGuid().ToString();
             }
 #endif
+
+            // Also see if we have a Developer Test Settings file, which contains development/test environment overrides:
+            try
+            {
+                if (File.Exists(DeveloperTestSettingsFilename))
+                {
+                    Logging.Info("Loading developer test settings file {0}", DeveloperTestSettingsFilename);
+
+                    // see also https://www.newtonsoft.com/json/help/html/SerializationErrorHandling.htm
+
+                    List<string> errors = new List<string>();
+
+                    developer_test_settings = JsonConvert.DeserializeObject<Dictionary<string, object>>(
+                        File.ReadAllText(DeveloperTestSettingsFilename),
+                        new JsonSerializerSettings
+                        {
+                            Error = delegate (object sender, ErrorEventArgs args)
+                            {
+                                errors.Add(args.ErrorContext.Error.Message);
+                                args.ErrorContext.Handled = true;
+                            },
+                            //Converters = { new IsoDateTimeConverter() }
+                        });
+
+                    Logging.Info("Loaded developer test settings file {0}: {1}", DeveloperTestSettingsFilename, errors.Count == 0 ? "no errors" : errors.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex, "There was a problem loading developer test settings file {0}", DeveloperTestSettingsFilename);
+            }
         }
 
         private void configuration_record_bindable_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -308,6 +349,27 @@ namespace Qiqqa.Common.Configuration
                     ResetConfigurationRecordToGuest();
                 }
                 return configuration_record;
+            }
+        }
+
+        public static bool IsEnabled(string key)
+        {
+            if (null != Instance.developer_test_settings)
+            {
+                if (Instance.developer_test_settings.TryGetValue(key, out var val))
+                {
+                    bool? rv = val as bool?;
+                    return rv ?? true;
+                }
+            }
+            return true;
+        }
+
+        public static void ThrowWhenActionIsNotEnabled(string key)
+        {
+            if (!IsEnabled(key))
+            {
+                throw new ApplicationException($"{key} is not enabled in the developer test settings.");
             }
         }
 

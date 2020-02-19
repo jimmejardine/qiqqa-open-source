@@ -31,10 +31,10 @@ namespace Qiqqa.Synchronisation.PDFSync
 
         private void Load()
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (tokens_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                // l1_clk.LockPerfTimerStop();
                 try
                 {
                     if (File.Exists(FILENAME))
@@ -55,10 +55,10 @@ namespace Qiqqa.Synchronisation.PDFSync
 
         public void Save()
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (tokens_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                // l1_clk.LockPerfTimerStop();
                 if (!is_dirty) return;
                 try
                 {
@@ -74,10 +74,10 @@ namespace Qiqqa.Synchronisation.PDFSync
 
         public void Add(string token)
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (tokens_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                // l1_clk.LockPerfTimerStop();
                 if (tokens.Add(token))
                 {
                     is_dirty = true;
@@ -87,10 +87,10 @@ namespace Qiqqa.Synchronisation.PDFSync
 
         public bool IsAlreadyCached(string token)
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (tokens_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                // l1_clk.LockPerfTimerStop();
                 return tokens.Contains(token);
             }
         }

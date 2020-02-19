@@ -133,7 +133,7 @@ namespace Qiqqa.Brainstorm.Nodes
 
                         for (int t = 0; t < topics.Length && t < 5; ++t)
                         {
-                            string topic_name = eds.GetDescriptionForTopic(topics[t].topic, false, "\n");
+                            string topic_name = eds.GetDescriptionForTopic(topics[t].topic, include_topic_number: false, "\n");
                             ThemeNodeContent tnc = new ThemeNodeContent(topic_name, pdf_document_node_content.PDFDocument.Library.WebLibraryDetail.Id);
                             NodeControlAddingByKeyboard.AddChildToNodeControl(node_control, tnc, false);
 
@@ -351,27 +351,31 @@ namespace Qiqqa.Brainstorm.Nodes
         {
             Logging.Debug("PDFDocumentNodeContentControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            try
+            WPFDoEvents.SafeExec(() =>
             {
-                // Get rid of managed resources
                 if (dispose_count == 0)
                 {
                     library_index_hover_popup?.Dispose();
                 }
                 library_index_hover_popup = null;
+            });
 
+            WPFDoEvents.SafeExec(() =>
+            {
                 ToolTip = "";
+            });
 
+            WPFDoEvents.SafeExec(() =>
+            {
                 node_control = null;
                 pdf_document_node_content = null;
+            });
 
+            WPFDoEvents.SafeExec(() =>
+            {
                 DataContextChanged -= PDFDocumentNodeContentControl_DataContextChanged;
                 DataContext = null;
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex);
-            }
+            });
 
             ++dispose_count;
         }

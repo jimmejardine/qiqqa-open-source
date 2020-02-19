@@ -109,10 +109,10 @@ namespace Qiqqa.Documents.Common
                 PDFDocument pdf_document_to_flush = null;
 
                 // grab one PDF to save/flush:
-                Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+                // Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
                 lock (documents_to_store_lock)
                 {
-                    l2_clk.LockPerfTimerStop();
+                    // l2_clk.LockPerfTimerStop();
                     foreach (var pair in documents_to_store)
                     {
                         pdf_document_to_flush = pair.Value;
@@ -132,10 +132,10 @@ namespace Qiqqa.Documents.Common
 
         public void Queue(PDFDocument pdf_document)
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (documents_to_store_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                // l1_clk.LockPerfTimerStop();
                 documents_to_store[pdf_document.Library.WebLibraryDetail.Id + "." + pdf_document.Fingerprint] = pdf_document;
             }
         }
@@ -144,10 +144,10 @@ namespace Qiqqa.Documents.Common
         {
             get
             {
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (documents_to_store_lock)
                 {
-                    l1_clk.LockPerfTimerStop();
+                    // l1_clk.LockPerfTimerStop();
                     return documents_to_store.Count;
                 }
             }

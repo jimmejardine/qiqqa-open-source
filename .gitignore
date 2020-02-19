@@ -22,7 +22,7 @@ CefSharp.Wpf.Example/obj/*
 
 # NuGet installed packages
 /packages/
-
+/QiqqaLegacyFileFormats/packages/
 
 # nodeJS stuff (npm)
 /node_modules

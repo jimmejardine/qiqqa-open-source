@@ -293,18 +293,14 @@ namespace Qiqqa.Chat
         {
             Logging.Debug("ChatControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            try
+            WPFDoEvents.SafeExec(() =>
             {
                 if (dispose_count == 0)
                 {
                     timer?.Dispose();
                 }
                 timer = null;
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex);
-            }
+            });
 
             ++dispose_count;
         }

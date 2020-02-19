@@ -219,55 +219,49 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
         {
             Logging.Debug("PDFTextSentenceLayer::Dispose({0}) @{1}", disposing, dispose_count);
 
-            try
+            WPFDoEvents.SafeExec(() =>
             {
-                if (null != drag_area_tracker)
+                if (dispose_count == 0)
                 {
-                    WPFDoEvents.InvokeInUIThread(() =>
+                    foreach (var el in Children)
                     {
-                        try
+                        IDisposable node = el as IDisposable;
+                        if (null != node)
                         {
-                            foreach (var el in Children)
-                            {
-                                IDisposable node = el as IDisposable;
-                                if (null != node)
-                                {
-                                    node.Dispose();
-                                }
-                            }
+                            node.Dispose();
                         }
-                        catch (Exception ex)
-                        {
-                            Logging.Error(ex);
-                        }
-
-                        try
-                        {
-                            ClearChildren();
-                            Children.Clear();
-                        }
-                        catch (Exception ex)
-                        {
-                            Logging.Error(ex);
-                        }
-
-                        drag_area_tracker.OnDragStarted -= drag_area_tracker_OnDragStarted;
-                        drag_area_tracker.OnDragInProgress -= drag_area_tracker_OnDragInProgress;
-                        drag_area_tracker.OnDragComplete -= drag_area_tracker_OnDragComplete;
-                    });
+                    }
                 }
+            }, must_exec_in_UI_thread: true);
 
+            WPFDoEvents.SafeExec(() =>
+            {
+                ClearChildren();
+                Children.Clear();
+            }, must_exec_in_UI_thread: true);
+
+            WPFDoEvents.SafeExec(() =>
+            {
+                if (drag_area_tracker != null)
+                {
+                    drag_area_tracker.OnDragStarted -= drag_area_tracker_OnDragStarted;
+                    drag_area_tracker.OnDragInProgress -= drag_area_tracker_OnDragInProgress;
+                    drag_area_tracker.OnDragComplete -= drag_area_tracker_OnDragComplete;
+                }
+            }, must_exec_in_UI_thread: true);
+
+            WPFDoEvents.SafeExec(() =>
+            {
                 // Clear the references for sanity's sake
                 pdf_renderer_control_stats = null;
                 drag_area_tracker = null;
                 text_selection_manager = null;
+            });
 
-                DataContext = null;
-            }
-            catch (Exception ex)
+            WPFDoEvents.SafeExec(() =>
             {
-                Logging.Error(ex);
-            }
+                DataContext = null;
+            });
 
             ++dispose_count;
 
