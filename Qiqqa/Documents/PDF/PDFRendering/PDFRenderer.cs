@@ -266,13 +266,16 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 {
                     string filename = pdf_render_file_layer.MakeFilename_TextSingle(page);
 
-                    try
+                    if (File.Exists(filename))
                     {
-                        File.Delete(filename);
-                    }
-                    catch (Exception ex)
-                    {
-                        Logging.Error(ex, "There was a problem while trying to delete the OCR file " + filename);
+                        try
+                        {
+                            File.Delete(filename);
+                        }
+                        catch (Exception ex)
+                        {
+                            Logging.Error(ex, "There was a problem while trying to delete the OCR file " + filename);
+                        }
                     }
                 }
 
@@ -280,13 +283,16 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 {
                     string filename = pdf_render_file_layer.MakeFilename_TextGroup(page);
 
-                    try
+                    if (File.Exists(filename))
                     {
-                        File.Delete(filename);
-                    }
-                    catch (Exception ex)
-                    {
-                        Logging.Error(ex, "There was a problem while trying to delete the OCR file " + filename);
+                        try
+                        {
+                            File.Delete(filename);
+                        }
+                        catch (Exception ex)
+                        {
+                            Logging.Error(ex, "There was a problem while trying to delete the OCR file " + filename);
+                        }
                     }
                 }
             }
@@ -300,22 +306,15 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             }
         }
 
-        public void ForceOCRText()
-        {
-            ForceOCRText("eng");
-        }
-
-        public void ForceOCRText(string language)
+        public void ForceOCRText(string language = "eng")
         {
             Logging.Info("Forcing OCR for document {0} in language {1}", document_fingerprint, language);
 
             // Clear out the old texts
-            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-            lock (texts_lock)
-            {
-                //l1_clk.LockPerfTimerStop();
-                texts.Clear();
-            }
+            FlushCachedTexts();
+
+            // To truly FORCE the OCR to run again, we have to nuke the old results stored on disk as well!
+            ClearOCRText();
 
             // Queue all the pages for OCR
             for (int page = 1; page <= PageCount; ++page)
