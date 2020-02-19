@@ -3,72 +3,131 @@ LIBRARY/CAP/ADD_FOLDER:Dodaj\nKatalog
 LIBRARY/CAP/ADD_IMPORT:Dodaj z \nImportu
 LIBRARY/CAP/ADD_LIBRARY:Dodaj\nBibliotekę
 LIBRARY/CAP/ADD_REFERENCE:Dodaj\nOdnośnik
-LIBRARY/CAP/ANNOTATION_REPORT:Przypis\nRaport
-LIBRARY/CAP/BIBTEX_SNIFFER:BibTeX\nWęszyciel
-LIBRARY/CAP/EXPEDITION:Wyprawa
-LIBRARY/CAP/EXPORT_BIBTEX:Eksportuj do\nBibTeX
-LIBRARY/CAP/EXPORT_LIBRARY:Eksportuj\nBibliotekę
-LIBRARY/CAP/EXPORT_WORD:Eksportuj do\nWord
-LIBRARY/CAP/FIND_REFERENCES:Znajdź\nReferencje
-LIBRARY/CAP/FULL_SYNC:Pełna\nSynchronizacja
-LIBRARY/CAP/PARTIAL_SYNC:Częściowa\nSynchronizacja
-LIBRARY/CAP/WATCH_FOLDER:Obserwuj\nKatalog
-LIBRARY/TIP/ADD_DOCUMENTS:Dodaj nowe pliki PDF do biblioteki.
-LIBRARY/TIP/ADD_FOLDER:Dodaj wszystkie pliki PDF z katalogu, do twojej biblioteki.
-LIBRARY/TIP/ADD_IMPORT:Importuj pliki PDS z innych programów.
-LIBRARY/TIP/ADD_LIBRARY:Dodaj do tej biblioteki wszystkie pliki PDF z innej biblioteki. Prawdopodobnie zechcesz skorzystać z tej opcji jeśli zacząłeś używać Biblioteki Gościa, a teraz chcesz zacząć korzystać z Biblioteki Web, by dokonać sycnhronizacji.
 LIBRARY/TIP/ADD_REFERENCE:Dodaj pusty odnośnik do biblioteki.\nKorzystaj, gdy posiadasz odnośnik, do którego nie masz pliku PDF.\nWciąż będziesz mógł dodać dane BibTeX, komentarze, tagi oraz skorzystać z InCite.
+LIBRARY/CAP/PARTIAL_SYNC:Częściowa\nSynchronizacja
+LIBRARY/TIP/PARTIAL_SYNC:Synchronizuj metadane z Biblioteką w Chmurze/Sieciową i wczytaj nowe dokumenty.\nNowe dokumenty nie będą automatycznie ściągane z twojej Biblioteki w Chmurze/Sieciowej.
+LIBRARY/CAP/FULL_SYNC:Pełna\nSynchronizacja
+LIBRARY/TIP/FULL_SYNC:Synchronizuj metadane oraz dokumenty z twoją Biblioteką w Chmurze/Sieciową.\nJakiekolwiek nowe dokumenty zostaną automatycznie ściągnięte.
+LIBRARY/CAP/SYNC_DETAILS:Szczegóły synchronizacji
+LIBRARY/TIP/SYNC_DETAILS:Wybierz sposób synchronizacji (Pełna/Częściowa) poszczególnych Bibliotek.
+LIBRARY/CAP/VIEW_ONLINE:Wyświetl on-line
+LIBRARY/TIP/VIEW_ONLINE:Wyświetl wybraną Bibliotekę on-line.
+LIBRARY/CAP/EDIT_DELETE:Edytuj/Usuń
+LIBRARY/TIP/EDIT_DELETE:Zmień tytuł/opis Biblioteki lub ją usuń
+LIBRARY/CAP/PUBLIC_STATUS:Zmień status
+LIBRARY/TIP/PUBLIC_STATUS:Zmień status widoczności Biblioteki.
+LIBRARY/CAP/TOP_UP:Zasil Bibliotekę
+LIBRARY/TIP/TOP_UP:Zasil Bibliotekę aby uzyskać nielimitowane miejsce do przechowywania.
+LIBRARY/CAP/INVITE:Zaproś i Współpracuj
+LIBRARY/TIP/INVITE:Zaproś znajomych do współtworzenia Biblioteki.
+LIBRARY/CAP/EXPLORE:Eksploruj\nBibliotekę
+LIBRARY/TIP/EXPLORE:Przeszukaj Bibliotekę i znajdź ciekawe prace do przeczytania.
+LIBRARY/CAP/ANNOTATION_REPORT:Raport\nPrzypisów
 LIBRARY/TIP/ANNOTATION_REPORT:Utwórz raport z przypisami, zamieszczonymi w dokumentach.\nJeśli włączony jest filtr dokumentu, zmiany zostaną uwzględnione w raporcie.
+LIBRARY/CAP/FIND_REFERENCES:Znajdź\nReferencje
+LIBRARY/TIP/FIND_REFERENCES:Znajdź wspólne referencje w dokumentach znajdujących się w Bibliotece. Będą widoczne, gdy otworzysz pliki PDF.\nPamiętaj o wypełnieniu danych BibTeX
+LIBRARY/CAP/FIND_DUPLICATES:Znajdź Duplikaty
+LIBRARY/TIP/FIND_DUPLICATES:Znajduje wszystkie powielone dokumenty w Bibliotece
+LIBRARY/CAP/BIBTEX_SNIFFER:Węszyciel\nBibTeX
 LIBRARY/TIP/BIBTEX_SNIFFER:Węszyciel BibTeX pomoże szybko uzupełnić brakujące metadane.
-LIBRARY/TIP/EXPEDITION:Wurusz na Wyprawę Qiqqa dla tej biblioteki.
-LIBRARY/TIP/EXPORT_BIBTEX:Eksportuj wszystkie wpisy BibTeX do użytku w twoim procesorze tekstu BibTeX.\nJeśli włączony jest filtr biblioteki, zmiany zostaną uwzględnione podczas eksportu BibTeX.
+LIBRARY/TIP/BIBTEX_AUTOFIND:Znajdź metadane BibTeX w bazie Qiqqa.
+LIBRARY/TIP/EXPEDITION:Wyrusz na Wyprawę Qiqqa dla tej Biblioteki.
+LIBRARY/TIP/BRAINSTORM:Stwórz Burzę Mózgów dla tej Biblioteki.
+LIBRARY/TIP/PIVOT:Stwórz Tabelę Przestawną dla tej Biblioteki.
+LIBRARY/CAP/EXPORT_LIBRARY:Eksportuj\nBibliotekę
 LIBRARY/TIP/EXPORT_LIBRARY:Esportuj całą bibliotekę Qiqqa do katalogu.
+LIBRARY/CAP/EXPORT_BIBTEX:Eksportuj do\nBibTeX
+LIBRARY/TIP/EXPORT_BIBTEX:Eksportuj wszystkie wpisy BibTeX do użytku w twoim procesorze tekstu BibTeX.\nJeśli włączony jest filtr biblioteki, zmiany zostaną uwzględnione podczas eksportu BibTeX.
+LIBRARY/CAP/EXPORT_WORD:Eksportuj do\nWord XML
 LIBRARY/TIP/EXPORT_WORD:Eksportuj wszystkie wpisy BibTeX do użytku w bibliograficznym systemie zarządzania Microsoft® Word™.\nJeśli włączony jest filtr biblioteki, zmiany zostaną uwzględnione podczas eksportu.
-LIBRARY/TIP/FIND_REFERENCES:Znajdź wspólne referencje w dokumentach. Będą widoczne, gdy otworzysz pliki PDF.\nPamiętaj o wypełnieniu danych BibTeX
-LIBRARY/TIP/FULL_SYNC:Synchronizuj metadane oraz dokumenty z twoją Biblioteką Web.\nJakiekolwiek nowe dokumenty zostaną automatycznie ściągnięte.
-LIBRARY/TIP/PARTIAL_SYNC:Synchronizuj metadane z Biblioteką Web i wczytaj nowe dokumenty.\nNowe dokumenty nie będą automatycznie ściągane z twojej Biblioteki Web.
+LIBRARY/CAP/EXPORT_CITATION_MATRIX:Eksportuj Macierz Cytowań
+LIBRARY/TIP/EXPORT_CITATION_MATRIX:Eksportuj wszystkie cytowania do użytku w innym programie.
+LIBRARY/CAP/BUILD_BUNDLE_LIBRARY:Zbuduj Pakiet Biblioteczny
+LIBRARY/TIP/BUILD_BUNDLE_LIBRARY:Zbuduj Pakiet Biblioteczny z tej Biblioteki
+LIBRARY/CAP/EXPORT_ANNOTATIONS_CODE:Eksportuj Przypisy
+LIBRARY/TIP/EXPORT_ANNOTATIONS_CODE:Eksportuj swoje Przypisy do użytku w innych programach
+LIBRARY/CAP/EXPORT_LINKED_DOCS:Eksportuj powiązane dokumenty
+LIBRARY/TIP/EXPORT_LINKED_DOCS:Eksportuj ppowiązane dokumenty do użytku w innych programach.
+LIBRARY/CAP/ADD_DOCUMENTS:Dodaj\nDokumenty PDF
+LIBRARY/TIP/ADD_DOCUMENTS:Dodaj nowe pliki PDF do biblioteki.
+LIBRARY/CAP/ADD_FOLDER:Dodaj\nKatalog
+LIBRARY/TIP/ADD_FOLDER:Dodaj wszystkie pliki PDF z katalogu do Biblioteki.
+LIBRARY/CAP/ADD_LIBRARY:Dodaj\nBibliotekę
+LIBRARY/TIP/ADD_LIBRARY:Dodaj do tej Biblioteki wszystkie pliki PDF z innej Biblioteki. Prawdopodobnie zechcesz skorzystać z tej opcji jeśli zacząłeś używać Biblioteki Gościa, a teraz chcesz zacząć korzystać z Biblioteki w Chmurze, by dokonać sycnhronizacji.
+LIBRARY/CAP/WATCH_FOLDER:Obserwuj\nKatalog
 LIBRARY/TIP/WATCH_FOLDER:Obserwuj katalog, by automatycznie dodawać nowe dokumenty do twojej biblioteki.
-PDF/TIP/ADD_ANNOTATION:Dodaj do dokumentu okno z przypisem. (Ctrl-A)
-PDF/TIP/ADD_HIGHLIGHT:Podświetl wybrany tekst. (Ctrl-H)
-PDF/TIP/ADD_INK:Rysuj po pliku PDF. (Ctrl-I)
-PDF/TIP/BOOKMARKS:Ustal zakładki i przejdź do danych sekcji dokumentu.
-PDF/TIP/BRAINSTORM:Eksploruj ten dokument w burzy mózgów.
-PDF/TIP/CONVERT_TO_TEXT:Konwertuj plik PDF do postaci tekstowej.
-PDF/TIP/EXPEDITION:Wyrysz na Wyprawę Qiqqa w tym dokumencie.
-PDF/TIP/FULL_SCREEN:Czytaj w trybie pełnoekranowym.
-PDF/TIP/MOVE_PAGE:Przesuń stronę myszką. (Ctrl-M)
-PDF/TIP/NEGATIVE:Widok negatywu (pomaga odczytać niektóre dokumenty).
-PDF/TIP/PAGE_JUMP:Wpisz numer strony i naciśnij <ENTER>, by tam przejść. Inaczej naciśnij + lub - w celu przejścia między stronami.
-PDF/TIP/PAGE_NEXT:Następna strona.
-PDF/TIP/PAGE_PREV:Poprzednia strona.
-PDF/TIP/PRINT:Drukuj Dokument.
-PDF/TIP/READ_ALOUD:Przeczytaj stronę na głos.
-PDF/TIP/ROTATE:Obróć w prawo.
-PDF/TIP/SAVE_COPY:Zapisz kopię tego pliku PDF.
-PDF/TIP/SEARCH:Szukaj danego słowa w dokumencie.\nWpisz tekst i naciśnij <ENTER>, by przeszukać dokument.\nNaciśnij Ctrl+F, by ponowić ostatnie wyszukiwanie.
-PDF/TIP/SELECT_TEXT:Zaznacz tekst. (Ctrl-S)
-PDF/TIP/SHARE:Wyślij email & dziel się dokumentem.
+LIBRARY/CAP/ADD_IMPORT:Importuj pliki
+LIBRARY/TIP/ADD_IMPORT:Importuj pliki PDF z innych programów.
+
+PDF/TIP/MOVE_PAGE:Przesuń stronę myszką (Ctrl-M)
+PDF/TIP/SELECT_TEXT:Zaznacz tekst (Ctrl-S)
+PDF/TIP/ADD_ANNOTATION:Dodaj do dokumentu okno z przypisem (Ctrl-A)
+PDF/TIP/ADD_HIGHLIGHT:Podświetl wybrany tekst (Ctrl-H)
+PDF/TIP/ADD_INK:Rysuj po pliku PDF (Ctrl-I)
 PDF/TIP/SNAPSHOT:Dokonaj zrzutu ekranu części dokumentu do schowka. Możesz wkleić to zdjęcie do innej aplikacji.
+PDF/TIP/SEARCH:Szukaj danego słowa w dokumencie.\nWpisz tekst i naciśnij <ENTER>, by przeszukać dokument.\nNaciśnij Ctrl+F, by ponowić ostatnie wyszukiwanie.
+PDF/TIP/BRAINSTORM:Eksploruj ten dokument w Burzy Mózgów.
+PDF/TIP/EXPLORE:Eksploruj ten dokument.
+PDF/TIP/INCITE:Cytuj ten dokument.
+PDF/CAP/CITE_WORD:Zacytuj w Wordzie – (Autor i Data)
+PDF/CAP/CITE_WORD_SEPARATE:Zacytuj w Wordzie – Autor (Data)
+PDF/CAP/CITE_SNIPPET:Kopiuj cytowanie do schowka.
+PDF/CAP/CITE_BIBTEX:Kopiuj klucz BibTeX do schowka.
+PDF/TIP/EXPEDITION:Wyrusz na Wyprawę Qiqqa w tym dokumencie.
+PDF/TIP/PRINT:Drukuj Dokument.
+PDF/TIP/SHARE:Podziel się Dokumentem wysyłając go pocztą elektroniczną.
+PDF/TIP/OPEN_PARENT_LIBRARY:Otwórz Bibliotekę zawierającą ten plik PDF.
+PDF/TIP/SAVE_COPY:Zapisz kopię tego pliku PDF.
+PDF/TIP/FULL_SCREEN:Czytaj w trybie pełnoekranowym.
+PDF/TIP/ZOOM:Przybliżanie i Obrót
 PDF/TIP/ZOOM_1:Widok na 1 stronę.
 PDF/TIP/ZOOM_2:Widok na 2 strony.
-PDF/TIP/ZOOM_IN:Przybliż.
 PDF/TIP/ZOOM_N:Widok wielu stron.
-PDF/TIP/ZOOM_OUT:Oddal.
 PDF/TIP/ZOOM_WHOLE:Widok pełnej strony.
-START/CAP/BRAINSTORM:Burza mózgów
-START/CAP/BROWSER:Internet
-START/CAP/CONFIG:Konfiguracja
-START/CAP/EXPEDITION:Wyprawa
-START/CAP/HELP:Pomoc
-START/CAP/INCITE:InCite
-START/CAP/OCR:Włącznik\nOCR
-START/CAP/SYNC_LIBRARIES:Synchronizuj\nBiblioteki
-START/TIP/BRAINSTORM:Rozpocznij burzę mózgów.
-START/TIP/BROWSER:Otwórz przeglądarkę internetową
-START/TIP/CONFIG:Otwórz ekran konfiguracji.
-START/TIP/EXPEDITION:Otwórz Wyprawę Quiqqa.\nWyrusz na Wyprawę, by przeglądać i tworzyć inspirujące relacje wewnątrz biblioteki.
-START/TIP/HELP:Uzyskaj pomoc!
-START/TIP/INCITE:Otwórz Qiqqa InCite\nKorzystaj z InCite, by automatycznie generować referencje i bibliografię w programie Word.
-START/TIP/OCR_OFF:Włącz OCR.\nOCR jest wyłączony. Włącz, jeśli chcesz indeksować nowe dokumenty i umożliwić ich przeszukiwanie.
-START/TIP/OCR_ON:Wyłącz OCR.\nOCR jest włączony. Wyłącz, by oszczędzić baterie.
-START/TIP/SYNC_LIBRARIES:Synchronizuj Biblioteki.\nTu możesz zobaczysz, jak wiele miejsca zajmuje Biblioteka Web oraz wybrać biblioteki do sychronizacji.
+PDF/TIP/ROTATE:Obróć stronę w prawo.
+PDF/TIP/ROTATE_ALL:Obróć całość w prawo.
+PDF/TIP/ZOOM_IN:Przybliż.
+PDF/TIP/ZOOM_OUT:Oddal.
+PDF/TIP/NEGATIVE:Widok negatywu (pomaga odczytać niektóre dokumenty).
+PDF/TIP/MORE_MENUS:Dodatkowe opcje PDF.
+PDF/TIP/BOOKMARKS:Ustal zakładki i przejdź do danych sekcji dokumentu.
+PDF/TIP/PAGE_PREV:Poprzednia strona.
+PDF/TIP/PAGE_NEXT:Następna strona.
+PDF/TIP/PAGE_JUMP:Wpisz numer strony i naciśnij <ENTER>, by tam przejść. Inaczej naciśnij + lub - w celu przejścia między stronami.
+PDF/TIP/READ_ALOUD:Przeczytaj stronę na głos.
+PDF/TIP/SPEED_READ:Przyśpiesz czytanie tego pliku PDF.
+PDF/TIP/CONVERT_TO_TEXT:Konwertuj plik PDF do postaci tekstowej.
+PDF/TIP/MISC:Inne opcje PDF.
+
+INCITE/CAP/NEW_SNIPPET:Kopiuj\nCytowanie
+INCITE/TIP/NEW_SNIPPET:Skopiuj cytowanie zaznaczonych dokumentów do schowka.\nUżyj aby skopiwoać całe cytowania do używanego edytora tekstu.
+INCITE/CAP/NEW_CITATION:Dodaj\nCytowanie\n(Autor i Data)
+INCITE/TIP/NEW_CITATION:Dodaj cytowanie zaznaczonych dokumentów do programu Word.\nJeśli kursor w Wordzie znajduje się wewnątrz cytowania to zostaną one zgrupowane (w niektórych stylach może to wyglądać tak [4-6]).
+INCITE/CAP/NEW_CITATION_SEPARATE_AUTHOR_YEAR:Dodaj\nCytowanie\nAutor (Data)
+INCITE/TIP/NEW_CITATION_SEPARATE_AUTHOR_YEAR:Dodaj cytowanie zaznaczonych dokumentów do programu Word.\nJeśli kursor w Wordzie znajduje się wewnątrz cytowania to zostaną one zgrupowane (w niektórych stylach może to wyglądać tak [4-6]).
+INCITE/CAP/NEW_BIBLIOGRAPHY:Dodaj sekcję Bibliografia
+INCITE/TIP/NEW_BIBLIOGRAPHY:Dodaj do programu Word spis piśmiennictwa.\nBędzie on zawierał wszystkie dokumenty, które zostały zacytowane w tekście. Przeważnie umieszcza się go na końcu dokumnetu.
+INCITE/CAP/REFORMAT:Formatuj\nDokument
+INCITE/TIP/REFORMAT:Sformatuj wszystkie cytowania w dokumencie Worda.\nNależy wykonać po dodaniu kilku nowych wpisów do dokumnetu aby zobaczyć je sformatowane w odpowiednim stylu.
+INCITE/CAP/ADD_CSL_STATS:Dodaj statystyki CSL
+INCITE/TIP/ADD_CSL_STATS:Dodaje sekcjęstatystyk CSL do dokumentu Worda.\nPozwala podejrzeć ustawienia CSL.
+INCITE/CAP/CSL_STANDARD:Wybierz styl cytowania (CSL)
+INCITE/TIP/CSL_STANDARD:Wybierz spośród standardowych styli cytowania w Qiqqa InCite.
+INCITE/CAP/CSL_BROWSE:Przeglądaj Bibliotekę CSL
+INCITE/TIP/CSL_BROWSE:Przeglądaj style cytowania w Repozytorium Styli Zotero.\nPobierz i zapisz wybrany styl w bezpiecznym miejscu (obok maszynopisu?)\ni wybierz go jako styl cytowania w dokumencie.
+INCITE/CAP/LAUNCHWORD:Uruchom Worda.
+INCITE/TIP/LAUNCHWORD:Uruchom program Word przy użyciu Qiqqa.\nCzasem jest to wymagane gdy oba programy mają inne uprawnienia i nie mogą się komunikować. Przytrzymaj CTRL aby wybrać wersję Worda którą chcesz uruchomić.
+INCITE/CAP/ABBREVIATIONS:Używaj Skrótów
+INCITE/TIP/ABBREVIATIONS:Używaj Skrótów.\nPrzy Formatowaniu Dokumentu nazwy czasopism, wydawców itd. zostaną zastąpione odpowiendimi skrótami.
+INCITE/CAP/CUSTOM_ABBREVIATIONS_FILENAME:Dodaj własne Skróty.
+INCITE/TIP/CUSTOM_ABBREVIATIONS_FILENAME:Wczytaj własny plik ze Skrótami do użycia w Qiqqa InCite.
+INCITE/CAP/PAUSE:Zawieś InCite
+INCITE/TIP/PAUSE:Zawieś działanie InCite.\nŻadne podpowiedzi nie będą wyświetlane oraz wyłączenie Worda zostanie niewykryte.\nUżyj tylko podczas pracy na baterii albo gdy nie chcesz używać podpowiedzi.
+INCITE/CAP/CSL_OPTIONS:Styl\nCytowań
+INCITE/CAP/CSL_EDIT:Edytor\nstyli CSL
+INCITE/TIP/CSL_EDIT:Uruchom edytor CLS.\nUżyj aby stworzyć swój ctyl cytowań
+INCITE/CAP/CSL_FIND:Pokaż użyte Cytowania
+INCITE/TIP/CSL_FIND:Pokazuje wszystkie aktualne Cytowania w dokumencie Worda.
+INCITE/CAP/TOOLS:Narzędzia
+INCITE/CAP/INCITE_POPUP:Otwórz InCite w osobnym oknie
+INCITE/TIP/INCITE_POPUP:Otwiera pływającą wersję InCite.
