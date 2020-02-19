@@ -36,12 +36,7 @@ namespace QiqqaLegacyFileFormats          // namespace Utilities.Mathematics.Top
 
         public int NumDocs => NUM_DOCS;
 
-        public LDASampler(double alpha, double beta, int num_topics, int num_words, int num_docs, int[][] WORDS_IN_DOCS /* jagged array [doc][word] */) :
-            this(alpha, beta, num_topics, num_words, num_docs, WORDS_IN_DOCS, true)
-        {
-        }
-
-        public LDASampler(double alpha, double beta, int num_topics, int num_words, int num_docs, int[][] WORDS_IN_DOCS /* jagged array [doc][word] */, bool initialise_initial_distribution)
+        public LDASampler(double alpha, double beta, int num_topics, int num_words, int num_docs, int[][] WORDS_IN_DOCS /* jagged array [doc][word] */, bool initialise_initial_distribution = true)
         {
             ALPHA = alpha;
             BETA = beta;
