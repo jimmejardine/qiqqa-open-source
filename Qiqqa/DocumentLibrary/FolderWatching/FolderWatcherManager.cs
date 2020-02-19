@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Utilities;
 using Utilities.Files;
+using Utilities.GUI;
 using Utilities.Misc;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
@@ -25,6 +26,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         private Dictionary<string, FolderWatcherRecord> folder_watcher_records = new Dictionary<string, FolderWatcherRecord>();
         private object folder_watcher_records_lock = new object();
         private HashSet<string> filenames_processed = new HashSet<string>();
+        private int managed_thread_index = -1;
 
         // lock for all Filename_Store File I/O and filenames_processed HashSet:
         private object filenames_processed_lock = new object();
@@ -36,20 +38,20 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             // Load any pre-existing watched filenames
             bool file_exists;
 
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (filenames_processed_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                // l1_clk.LockPerfTimerStop();
                 file_exists = File.Exists(Filename_Store);
             }
             if (file_exists)
             {
                 Logging.Info("Loading memory of files that we watched previously.");
 
-                Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+                // Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
                 lock (filenames_processed_lock)
                 {
-                    l2_clk.LockPerfTimerStop();
+                    // l2_clk.LockPerfTimerStop();
                     foreach (string filename in File.ReadAllLines(Filename_Store))
                     {
                         filenames_processed.Add(filename);
@@ -57,7 +59,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 }
             }
 
-            Utilities.Maintainable.MaintainableManager.Instance.RegisterHeldOffTask(TaskDaemonEntryPoint, 30 * 1000, System.Threading.ThreadPriority.BelowNormal, extra_descr: $".Lib({Library})");
+            managed_thread_index = Utilities.Maintainable.MaintainableManager.Instance.RegisterHeldOffTask(TaskDaemonEntryPoint, 30 * 1000, System.Threading.ThreadPriority.BelowNormal, extra_descr: $".Lib({Library})");
         }
 
 #if DIAG
@@ -69,37 +71,51 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             Logging.Debug("FolderWatcherManager::Dispose() @{0}", ++dispose_count);
 #endif
 
-            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-            lock (folder_watcher_records_lock)
+            WPFDoEvents.SafeExec(() =>
             {
-                //l1_clk.LockPerfTimerStop();
-                // Dispose of all the folder watchers
-                foreach (var folder_watcher_record in folder_watcher_records)
+                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                lock (folder_watcher_records_lock)
                 {
-                    folder_watcher_record.Value.folder_watcher.Dispose();
+                    //l1_clk.LockPerfTimerStop();
+                    // Dispose of all the folder watchers
+                    foreach (var folder_watcher_record in folder_watcher_records)
+                    {
+                        folder_watcher_record.Value.folder_watcher.Dispose();
+                    }
+                    folder_watcher_records.Clear();
                 }
-                folder_watcher_records.Clear();
+            });
 
+            WPFDoEvents.SafeExec(() =>
+            {
+                Utilities.Maintainable.MaintainableManager.Instance.CleanupEntry(managed_thread_index);
+            });
+
+            WPFDoEvents.SafeExec(() =>
+            {
                 //Library.Dispose();
                 library = null;
-            }
+            });
 
-            Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
-            lock (filenames_processed_lock)
+            WPFDoEvents.SafeExec(() =>
             {
-                l2_clk.LockPerfTimerStop();
-                filenames_processed.Clear();
-            }
+                // Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+                lock (filenames_processed_lock)
+                {
+                    // l2_clk.LockPerfTimerStop();
+                    filenames_processed.Clear();
+                }
+            });
         }
 
         public string Filename_Store => Path.GetFullPath(Path.Combine(Library.LIBRARY_BASE_PATH, @"Qiqqa.folder_watcher"));
 
         internal void ResetHistory()
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (filenames_processed_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                // l1_clk.LockPerfTimerStop();
                 FileTools.Delete(Filename_Store);
                 filenames_processed.Clear();
             }
@@ -107,10 +123,10 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
         internal bool HaveProcessedFile(string filename)
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (filenames_processed_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                // l1_clk.LockPerfTimerStop();
                 return filenames_processed.Contains(filename);
             }
         }
@@ -118,10 +134,10 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         // NOTE: this method will be called from various threads.
         internal void RememberProcessedFile(string filename)
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (filenames_processed_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                // l1_clk.LockPerfTimerStop();
                 File.AppendAllText(Filename_Store, filename + "\n");
                 filenames_processed.Add(filename);
             }

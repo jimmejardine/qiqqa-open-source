@@ -40,20 +40,20 @@ namespace Utilities.Encryption
 
         public static string StaticEncryptString(string TextValue)
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (Instance)
             {
-                l1_clk.LockPerfTimerStop();
+                // l1_clk.LockPerfTimerStop();
                 return Instance.EncryptString(TextValue);
             }
         }
 
         public static string StaticDecryptString(string TextValue)
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (Instance)
             {
-                l1_clk.LockPerfTimerStop();
+                // l1_clk.LockPerfTimerStop();
                 return Instance.DecryptString(TextValue);
             }
         }

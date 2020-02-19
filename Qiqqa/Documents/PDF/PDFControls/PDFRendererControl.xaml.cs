@@ -362,47 +362,37 @@ namespace Qiqqa.Documents.PDF.PDFControls
         {
             Logging.Debug("PDFRendererControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            try
+            WPFDoEvents.SafeExec(() =>
             {
                 if (dispose_count == 0)
                 {
-                    // Get the PDFDocument flushed
-                    WPFDoEvents.InvokeInUIThread(() =>
+                    pdf_renderer_control_stats?.pdf_document.QueueToStorage();
+
+                    // Get rid of managed resources
+                    List<PDFRendererPageControl> children = new List<PDFRendererPageControl>();
+                    foreach (PDFRendererPageControl child in ObjPagesPanel.Children.OfType<PDFRendererPageControl>())
                     {
-                        pdf_renderer_control_stats?.pdf_document.QueueToStorage();
+                        children.Add(child);
+                    }
 
+                    ObjPagesPanel.Children.Clear();
 
-                        // Get rid of managed resources
-                        List<PDFRendererPageControl> children = new List<PDFRendererPageControl>();
-                        foreach (PDFRendererPageControl child in ObjPagesPanel.Children.OfType<PDFRendererPageControl>())
+                    foreach (PDFRendererPageControl child in children)
+                    {
+                        WPFDoEvents.SafeExec(() =>
                         {
-                            children.Add(child);
-                        }
+                            child.Dispose();
+                        });
+                    }
 
-                        ObjPagesPanel.Children.Clear();
-
-                        foreach (PDFRendererPageControl child in children)
-                        {
-                            try
-                            {
-                                child.Dispose();
-                            }
-                            catch (Exception ex)
-                            {
-                                Logging.Error(ex);
-                            }
-                        }
-
-                        pdf_renderer_control_stats?.pdf_document.PDFRenderer.FlushCachedPageRenderings();
-                    });
+                    pdf_renderer_control_stats?.pdf_document.PDFRenderer.FlushCachedPageRenderings();
                 }
+            }, must_exec_in_UI_thread: true);
 
-                pdf_renderer_control_stats = null;
-            }
-            catch (Exception ex)
+            WPFDoEvents.SafeExec(() =>
             {
-                Logging.Error(ex);
-            }
+                pdf_renderer_control_stats = null;
+            });
 
             ++dispose_count;
         }

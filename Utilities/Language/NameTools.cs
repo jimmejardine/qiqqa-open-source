@@ -103,7 +103,8 @@ namespace Utilities.Language
                 }
                 else
                 {
-                    // If we get here, we have many names.  Lets assume that all first names start with a capital letter.  If we meet a lower case letter, then we assume that is where the surname starts...
+                    // If we get here, we have many names.  Lets assume that all first names start with a capital letter.  
+                    // If we meet a lower case letter while walking back to front, then we assume that is where the surname starts...
                     int start_of_surname = nameSplit.Length - 1;
                     while (true)
                     {

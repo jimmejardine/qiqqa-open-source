@@ -282,7 +282,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
         {
             Logging.Debug("PDFAnnotationItem::Dispose({0}) @{1}", disposing, dispose_count);
 
-            try
+            WPFDoEvents.SafeExec(() =>
             {
                 if (dispose_count == 0)
                 {
@@ -307,20 +307,22 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
                     ObjTagEditorControl.TagFeature_Add = null;
                     ObjTagEditorControl.TagFeature_Remove = null;
                 }
+            });
 
+            WPFDoEvents.SafeExec(() =>
+            {
                 // Clear the references for sanity's sake
                 DataContext = null;
+            });
 
+            WPFDoEvents.SafeExec(() =>
+            {
                 pdf_annotation_layer = null;
                 pdf_annotation = null;
                 pdf_renderer_control_stats = null;
 
                 pdf_annotation_editor_control_popup = null;
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex);
-            }
+            });
 
             ++dispose_count;
         }

@@ -293,20 +293,15 @@ namespace Qiqqa.Brainstorm.SceneManager
         {
             Logging.Debug("BrainstormControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            try
+            WPFDoEvents.SafeExec(() =>
             {
                 if (dispose_count == 0)
                 {
                     // Get rid of managed resources
                     SceneRenderingControl?.Dispose();
                 }
-
                 SceneRenderingControl = null;
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex);
-            }
+            });
 
             ++dispose_count;
         }

@@ -40,10 +40,10 @@ namespace Qiqqa.UtilisationTracking
             // Check that we are not meant to be storing this feature only once...
             if (feature.RecordOnlyOncePerSession)
             {
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (used_once_off_per_session_features_lock)
                 {
-                    l1_clk.LockPerfTimerStop();
+                    // l1_clk.LockPerfTimerStop();
                     if (used_once_off_per_session_features.Contains(feature.Name))
                     {
                         return;

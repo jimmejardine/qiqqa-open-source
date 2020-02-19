@@ -100,7 +100,7 @@ namespace Utilities.Misc
 
             //  kick off our thread
             daemon = new Daemon("NotificationManager");
-            daemon.Start(StartDaemon, null);
+            daemon.Start(StartDaemon);
         }
 
         public void AddPendingNotification(Notification notification)
@@ -150,9 +150,11 @@ namespace Utilities.Misc
         /// </summary>
         private void StartDaemon(object obj)
         {
+            Daemon daemon = (Daemon)obj;
+
             Logging.Info("Starting Notifications daemon");
 
-            while (null != daemon && daemon.StillRunning && !Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+            while (daemon.StillRunning && !Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
             {
                 pending_notifications_lock.EnterUpgradeableReadLock();
                 try

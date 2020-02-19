@@ -12,6 +12,7 @@ using Lucene.Net.Index;
 using Lucene.Net.QueryParsers;
 using Lucene.Net.Search;
 using Utilities.Files;
+using Utilities.GUI;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -67,42 +68,41 @@ namespace Utilities.Language.TextIndexing
         {
             Logging.Debug("LuceneIndex::Dispose({0}) @{1}", disposing, dispose_count);
 
-            try
+            WPFDoEvents.SafeExec(() =>
             {
                 if (dispose_count == 0)
                 {
                     // Get rid of managed resources
                     Logging.Info("Disposing the lucene index writer");
 
-                    Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                    // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                     lock (index_writer_lock)
                     {
-                        l1_clk.LockPerfTimerStop();
+                        // l1_clk.LockPerfTimerStop();
                         FlushIndexWriter_LOCK();
                     }
                 }
+            });
 
-                Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+            WPFDoEvents.SafeExec(() =>
+            {
+                // Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
                 lock (index_writer_lock)
                 {
-                    l2_clk.LockPerfTimerStop();
+                    // l2_clk.LockPerfTimerStop();
                     index_writer = null;
                 }
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex);
-            }
+            });
 
             ++dispose_count;
         }
 
         public void WriteMasterList()
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (index_writer_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                // l1_clk.LockPerfTimerStop();
                 FlushIndexWriter_LOCK();
             }
         }
@@ -120,7 +120,7 @@ namespace Utilities.Language.TextIndexing
                 index_writer.Dispose();
                 index_writer = null;
             }
-            Logging.Info("-Flushing a lucene IndexWriter (time spent: {0} ms", clk.ElapsedMilliseconds);
+            Logging.Info("-Flushing a lucene IndexWriter (time spent: {0} ms)", clk.ElapsedMilliseconds);
         }
 
         private static void AddDocumentMetadata_SB(Document document, StringBuilder sb, string field_name, string field_value)
@@ -196,10 +196,10 @@ namespace Utilities.Language.TextIndexing
         private void AddDocumentPage_INTERNAL(string fingerprint, int page, Document document)
         {
             // Write to the index            
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (index_writer_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                // l1_clk.LockPerfTimerStop();
                 if (null == index_writer)
                 {
                     Logging.Info("+Creating a new lucene IndexWriter");

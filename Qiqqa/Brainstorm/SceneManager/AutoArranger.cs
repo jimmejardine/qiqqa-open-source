@@ -30,10 +30,10 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         public void Enabled(bool enabled)
         {
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (thread_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                //l1_clk.LockPerfTimerStop();
                 if (enabled)
                 {
                     // USER WANTS TO ENABLE
@@ -60,10 +60,10 @@ namespace Qiqqa.Brainstorm.SceneManager
 
             while (true)
             {
-                Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (thread_lock)
                 {
-                    l1_clk.LockPerfTimerStop();
+                    //l1_clk.LockPerfTimerStop();
                     if (daemon != active_thread)
                     {
                         break;

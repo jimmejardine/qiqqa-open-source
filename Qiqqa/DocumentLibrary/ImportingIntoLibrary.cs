@@ -91,10 +91,10 @@ namespace Qiqqa.DocumentLibrary
                     Logging.Warn(ex, "There was a problem adding a document to the library:\n{0}", filename_with_metadata_import);
 
                     // if the problem report file doesn't exist yet, we have to create it:
-                    Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+                    // Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
                     lock (problematic_import_documents_lock)
                     {
-                        l2_clk.LockPerfTimerStop();
+                        // l2_clk.LockPerfTimerStop();
                         if (null == problematic_import_documents_filename)
                         {
                             problematic_import_documents_filename = TempFile.GenerateTempFilename("qiqqa-import-problem-report.txt");
@@ -103,10 +103,10 @@ namespace Qiqqa.DocumentLibrary
 
                     // then always append the entire report chunk at once as multiple threads MAY
                     // be appending to the report simultaneously!
-                    Utilities.LockPerfTimer l3_clk = Utilities.LockPerfChecker.Start();
+                    // Utilities.LockPerfTimer l3_clk = Utilities.LockPerfChecker.Start();
                     lock (problematic_import_documents_lock)
                     {
-                        l3_clk.LockPerfTimerStop();
+                        // l3_clk.LockPerfTimerStop();
                         File.AppendAllText(
                             problematic_import_documents_filename,
                             "The following files caused problems while being imported into Qiqqa:\r\n\r\n"
@@ -147,10 +147,10 @@ namespace Qiqqa.DocumentLibrary
 
             // If there have been some import problems, report them to the user.
             // However, we should not wait for the user response!
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (problematic_import_documents_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                // l1_clk.LockPerfTimerStop();
                 if (null != problematic_import_documents_filename)
                 {
                     problematic_import_documents_alert_showing++;
@@ -186,10 +186,10 @@ namespace Qiqqa.DocumentLibrary
             // In short: take `Process.Start(...)` *outside* the lock!
             string report_filename = null;
 
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (problematic_import_documents_lock)
             {
-                l1_clk.LockPerfTimerStop();
+                // l1_clk.LockPerfTimerStop();
                 if (do_view)
                 {
                     report_filename = problematic_import_documents_filename;

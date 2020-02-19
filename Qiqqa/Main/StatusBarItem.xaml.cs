@@ -13,7 +13,7 @@ namespace Qiqqa.Main
     /// </summary>
     public partial class StatusBarItem : UserControl
     {
-        private Stopwatch creation_time = Stopwatch.StartNew();
+        private DateTime creation_time = DateTime.UtcNow;
         private string key = null;
         private Stopwatch last_status_update_time = Stopwatch.StartNew();
 
@@ -62,7 +62,7 @@ namespace Qiqqa.Main
             StatusManager.Instance.SetCancelled(key);
         }
 
-        public Stopwatch CreationTime => creation_time;
+        public DateTime CreationTime => creation_time;
 
         public Stopwatch TimeSinceLastStatusUpdate => last_status_update_time;
     }

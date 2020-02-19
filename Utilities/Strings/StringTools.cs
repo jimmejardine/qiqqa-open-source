@@ -79,7 +79,11 @@ namespace Utilities.Strings
             int j = 0;
             foreach (string s in strings)
             {
-                if (i < from) continue;
+                if (i < from)
+                {
+                    i++;
+                    continue;
+                }
                 if (i >= to_exclusive) break;
                 if (j > 0)
                 {

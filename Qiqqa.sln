@@ -15,6 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QiqqaOCR", "QiqqaOCR\QiqqaO
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{19960EDF-B439-4ED5-AD0B-A08FDA6ECF3E}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		build-installer.sh = build-installer.sh
 		CHANGELOG.md = CHANGELOG.md
 		CHANGELOG_full.md = CHANGELOG_full.md
@@ -242,11 +243,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QiqqaLegacyFileFormats", "Q
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QiqqaUIPartsTester", "QiqqaUIPartsTester\QiqqaUIPartsTester.csproj", "{09BDCFA3-7067-4AE0-A40C-53A645C95A50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfUserControlLibrary1", "WpfUserControlLibrary1\WpfUserControlLibrary1.csproj", "{F4CA0B7E-9E8D-4B51-9C74-548B4EBCAE2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfUserControlLibrary1", "WpfUserControlLibrary1\WpfUserControlLibrary1.csproj", "{F4CA0B7E-9E8D-4B51-9C74-548B4EBCAE2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfCustomControlLibrary1", "WpfCustomControlLibrary1\WpfCustomControlLibrary1.csproj", "{B3498095-B426-4C54-8DF0-635F1855A906}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfCustomControlLibrary1", "WpfCustomControlLibrary1\WpfCustomControlLibrary1.csproj", "{B3498095-B426-4C54-8DF0-635F1855A906}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp1", "WpfApp1\WpfApp1.csproj", "{C4229F07-EB98-4DBC-8DAE-9D0907A31E93}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfApp1", "WpfApp1\WpfApp1.csproj", "{C4229F07-EB98-4DBC-8DAE-9D0907A31E93}"
 	ProjectSection(ProjectDependencies) = postProject
 		{62AA35BC-3552-4A31-B297-9594E8DBC03C} = {62AA35BC-3552-4A31-B297-9594E8DBC03C}
 	EndProjectSection
@@ -254,6 +255,8 @@ EndProject
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "WpfNodejsWebApp1", "WpfNodejsWebApp1\WpfNodejsWebApp1.njsproj", "{62AA35BC-3552-4A31-B297-9594E8DBC03C}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "WpfSharedProject1", "WpfSharedProject1\WpfSharedProject1.shproj", "{B2AAFEA1-A4F5-4C2F-8BAA-BD0C1A7A9CD5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QiqqaHasher", "QiqqaHasher\QiqqaHasher.csproj", "{8F57D264-C659-4D2E-9F83-D893B73CF16C}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -576,6 +579,24 @@ Global
 		{62AA35BC-3552-4A31-B297-9594E8DBC03C}.Release+SETUP|Mixed Platforms.Build.0 = Release|Any CPU
 		{62AA35BC-3552-4A31-B297-9594E8DBC03C}.Release+SETUP|x86.ActiveCfg = Release|Any CPU
 		{62AA35BC-3552-4A31-B297-9594E8DBC03C}.Release+SETUP|x86.Build.0 = Release|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Debug|x86.Build.0 = Debug|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Release|x86.ActiveCfg = Release|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Release|x86.Build.0 = Release|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Release+SETUP|Any CPU.ActiveCfg = Release|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Release+SETUP|Any CPU.Build.0 = Release|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Release+SETUP|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Release+SETUP|Mixed Platforms.Build.0 = Release|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Release+SETUP|x86.ActiveCfg = Release|Any CPU
+		{8F57D264-C659-4D2E-9F83-D893B73CF16C}.Release+SETUP|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

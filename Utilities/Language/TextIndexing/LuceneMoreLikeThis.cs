@@ -560,7 +560,7 @@ namespace Utilities.Language.TextIndexing
         public Query Like(Uri u)
         {
             HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(u);
-            req.Proxy = Configuration.Proxy;
+            req.Proxy = Configuration.GetProxy();
             req.Method = "GET";
             req.AllowAutoRedirect = true;
             // Allow ALL protocols
@@ -570,7 +570,7 @@ namespace Utilities.Language.TextIndexing
             // Gentlemen, start your prayer wheels!
             req.Headers.Add("Cache-Control", "no-cache");
             req.Headers.Add("Pragma", "no-cache");
-            req.UserAgent = Configuration.WebUserAgent;
+            req.UserAgent = Configuration.GetWebUserAgent();
 
             using (WebResponse resp = req.GetResponse())
             {

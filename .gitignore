@@ -16,7 +16,7 @@ Qiqqa.Build/Packaging/ClickOnceUninstaller/ClickOnceUninstaller/obj/*
 
 # NuGet installed packages
 /packages/
-
+/QiqqaLegacyFileFormats/packages/
 
 # nodeJS stuff (npm)
 /node_modules

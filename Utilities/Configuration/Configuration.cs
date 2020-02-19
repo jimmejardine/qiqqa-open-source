@@ -6,39 +6,10 @@ namespace Utilities
 {
     public static class Configuration
     {
-        private static string _WebUserAgent;
-        public static string WebUserAgent
-        {
-            get
-            {
-                FireOnBeingAccessed();
-                return _WebUserAgent;
-            }
-            set => _WebUserAgent = value;
-        }
+        public delegate string GetWebUserAgentCB();
+        public delegate IWebProxy GetProxyCB();
 
-        private static IWebProxy _Proxy;
-        public static IWebProxy Proxy
-        {
-            get
-            {
-                FireOnBeingAccessed();
-                return _Proxy;
-            }
-            set => _Proxy = value;
-        }
-
-        private static bool fired = false;
-        private static void FireOnBeingAccessed()
-        {
-            if (!fired)
-            {
-                OnBeingAccessed();
-            }
-        }
-
-        public static event ConfigAccessedHandler OnBeingAccessed;
-
-        public delegate void ConfigAccessedHandler();
+        public static GetWebUserAgentCB GetWebUserAgent = null;
+        public static GetProxyCB GetProxy = null;
     }
 }

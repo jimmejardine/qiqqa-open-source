@@ -89,10 +89,10 @@ namespace Utilities.Mathematics.Topics.LDAStuff
         {
             get
             {
-                try
+                if (null == _density_of_words_in_topics)
                 {
-                    if (null == _density_of_words_in_topics)
-                    {
+                    //try
+                    //{
                         Logging.Info("+Generating density_of_words_in_topics");
                         _density_of_words_in_topics = new float[lda.NUM_TOPICS, lda.NUM_WORDS];
 
@@ -111,12 +111,12 @@ namespace Utilities.Mathematics.Topics.LDAStuff
                         });
 
                         Logging.Info("-Generating density_of_words_in_topics");
-                    }
-                }
-                catch (System.OutOfMemoryException ex)
-                {
-                    // terminate app
-                    throw ex;
+                    //}
+                    //catch (System.OutOfMemoryException ex)
+                    //{
+                    //    // terminate app
+                    //    throw;
+                    //}
                 }
 
                 return _density_of_words_in_topics;
@@ -128,10 +128,10 @@ namespace Utilities.Mathematics.Topics.LDAStuff
         {
             get
             {
-                try
+                if (null == _density_of_topics_in_documents)
                 {
-                    if (null == _density_of_topics_in_documents)
-                    {
+                    //try
+                    //{
                         Logging.Info("+Generating density_of_topics_in_documents");
                         _density_of_topics_in_documents = new float[lda.NUM_DOCS, lda.NUM_TOPICS];
 
@@ -149,12 +149,12 @@ namespace Utilities.Mathematics.Topics.LDAStuff
                             }
                         });
                         Logging.Info("-Generating density_of_topics_in_documents");
-                    }
-                }
-                catch (System.OutOfMemoryException ex)
-                {
-                    // terminate app
-                    throw ex;
+                    //}
+                    //catch (System.OutOfMemoryException ex)
+                    //{
+                    //    // terminate app
+                    //    throw;
+                    //}
                 }
 
                 return _density_of_topics_in_documents;
@@ -166,10 +166,10 @@ namespace Utilities.Mathematics.Topics.LDAStuff
         {
             get
             {
-                try
+                if (null == _pseudo_density_of_topics_in_words)
                 {
-                    if (null == _pseudo_density_of_topics_in_words)
-                    {
+                    //try
+                    //{
                         Logging.Info("+Generating pseudo_density_of_topics_in_words");
                         _pseudo_density_of_topics_in_words = new float[lda.NUM_WORDS, lda.NUM_TOPICS];
                         for (int word = 0; word < lda.NUM_WORDS; ++word)
@@ -193,12 +193,12 @@ namespace Utilities.Mathematics.Topics.LDAStuff
                         }
 
                         Logging.Info("+Generating pseudo_density_of_topics_in_words");
-                    }
-                }
-                catch (System.OutOfMemoryException ex)
-                {
-                    // terminate app
-                    throw ex;
+                    //}
+                    //catch (System.OutOfMemoryException ex)
+                    //{
+                    //    // terminate app
+                    //    throw;
+                    //}
                 }
 
                 return _pseudo_density_of_topics_in_words;
@@ -211,11 +211,11 @@ namespace Utilities.Mathematics.Topics.LDAStuff
         {
             get
             {
-                try
+                // Build this if we need to
+                if (null == density_of_words_in_topics_sorted)
                 {
-                    // Build this if we need to
-                    if (null == density_of_words_in_topics_sorted)
-                    {
+                    //try
+                    //{
                         // Work out the sorted ranks
                         density_of_words_in_topics_sorted = new WordProbability[lda.NUM_TOPICS][];
                         for (int topic = 0; topic < lda.NUM_TOPICS; ++topic)
@@ -227,12 +227,12 @@ namespace Utilities.Mathematics.Topics.LDAStuff
                             }
                             Array.Sort(density_of_words_in_topics_sorted[topic]);
                         }
-                    }
-                }
-                catch (System.OutOfMemoryException ex)
-                {
-                    // terminate app
-                    throw ex;
+                    //}
+                    //catch (System.OutOfMemoryException ex)
+                    //{
+                    //    // terminate app
+                    //    throw;
+                    //}
                 }
 
                 return density_of_words_in_topics_sorted;
@@ -247,11 +247,11 @@ namespace Utilities.Mathematics.Topics.LDAStuff
         {
             get
             {
-                try
+                // Build this if we need to
+                if (null == density_of_docs_in_topics_sorted)
                 {
-                    // Build this if we need to
-                    if (null == density_of_docs_in_topics_sorted)
-                    {
+                    //try
+                    //{
                         // Work out the sorted ranks
                         density_of_docs_in_topics_sorted = new DocProbability[lda.NUM_TOPICS][];
                         for (int topic = 0; topic < lda.NUM_TOPICS; ++topic)
@@ -263,12 +263,12 @@ namespace Utilities.Mathematics.Topics.LDAStuff
                             }
                             Array.Sort(density_of_docs_in_topics_sorted[topic]);
                         }
-                    }
-                }
-                catch (System.OutOfMemoryException ex)
-                {
-                    // terminate app
-                    throw ex;
+                    //}
+                    //catch (System.OutOfMemoryException ex)
+                    //{
+                    //    // terminate app
+                    //    throw;
+                    //}
                 }
 
                 return density_of_docs_in_topics_sorted;
@@ -315,14 +315,14 @@ namespace Utilities.Mathematics.Topics.LDAStuff
 
         private TopicProbability[][] CalculateDensityOfTopicsInDocsSorted(int max_topics_to_retain)
         {
-            try
-            {
+            //try
+            //{
                 TopicProbability[][] local_density_of_topics_in_docs_sorted = new TopicProbability[lda.NUM_DOCS][];
 
                 // How many topics will we remember for each doc?
                 int topics_to_retain = max_topics_to_retain;
                 if (topics_to_retain <= 0) topics_to_retain = lda.NUM_TOPICS;
-                if (topics_to_retain > lda.NUM_TOPICS) topics_to_retain = lda.NUM_TOPICS;
+                else if (topics_to_retain > lda.NUM_TOPICS) topics_to_retain = lda.NUM_TOPICS;
 
                 // Calculate the density
                 float[,] densityoftopicsindocuments = DensityOfTopicsInDocuments;
@@ -350,12 +350,12 @@ namespace Utilities.Mathematics.Topics.LDAStuff
                 });
 
                 return local_density_of_topics_in_docs_sorted;
-            }
-            catch (System.OutOfMemoryException ex)
-            {
-                // terminate app
-                throw ex;
-            }
+            //}
+            //catch (System.OutOfMemoryException ex)
+            //{
+            //    // terminate app
+            //    throw;
+            //}
         }
 
         private TopicProbability[][] density_of_topics_in_docs_scaled_sorted; // [doc][topic]
@@ -366,11 +366,11 @@ namespace Utilities.Mathematics.Topics.LDAStuff
         {
             get
             {
-                try
+                // Build this if we need to
+                if (null == density_of_topics_in_docs_scaled_sorted)
                 {
-                    // Build this if we need to
-                    if (null == density_of_topics_in_docs_scaled_sorted)
-                    {
+                    //try
+                    //{
                         // This hold how much each topic is used in all the documents
                         double[] total_density_of_topics_in_docs = new double[lda.NUM_TOPICS];
                         for (int topic = 0; topic < lda.NUM_TOPICS; ++topic)
@@ -414,111 +414,16 @@ namespace Utilities.Mathematics.Topics.LDAStuff
 
                             Array.Sort(density_of_topics_in_docs_scaled_sorted[doc]);
                         }
-                    }
-
-                    return density_of_topics_in_docs_scaled_sorted;
+                    //}
+                    //catch (System.OutOfMemoryException ex)
+                    //{
+                    //    // terminate app
+                    //    throw;
+                    //}
                 }
-                catch (System.OutOfMemoryException ex)
-                {
-                    // terminate app
-                    throw ex;
-                }
+
+                return density_of_topics_in_docs_scaled_sorted;
             }
-        }
-
-
-        public void PrintStats(List<string> words)
-        {
-            PrintStats_DOCS();
-            PrintStats_TOPICS(words);
-        }
-
-        public void PrintStats_TOPICS(List<string> words)
-        {
-            for (int topic = 0; topic < lda.NUM_TOPICS; ++topic)
-            {
-                Console.WriteLine("Topic: {0}", GetDescriptionForTopic(words, topic));
-                for (int word = 0; word < 10; ++word)
-                {
-                    Console.WriteLine("{0} & {1} & {2}", word + 1, words[DensityOfWordsInTopicsSorted[topic][word].word], DensityOfWordsInTopicsSorted[topic][word].prob);
-                }
-                Console.WriteLine();
-            }
-        }
-
-        public void PrintStats_DOCS()
-        {
-            for (int doc = 0; doc < lda.NUM_DOCS; ++doc)
-            {
-                Console.Write("Doc {0}:", doc);
-                for (int topic = 0; topic < lda.NUM_TOPICS; ++topic)
-                {
-                    Console.Write("\t{0:0}", 100 * DensityOfTopicsInDocuments[doc, topic]);
-                }
-                Console.WriteLine();
-            }
-        }
-
-        public string GetDescriptionForTopic(IList<string> words, int topic)
-        {
-            StringBuilder sb = new StringBuilder();
-
-            sb.Append(String.Format("{0}. ", topic + 1));
-
-            double last_term_prob = 0;
-            for (int t = 0; t < 5 && t < NUM_WORDS; ++t)
-            {
-                if (last_term_prob / DensityOfWordsInTopicsSorted[topic][t].prob > 10)
-                {
-                    break;
-                }
-                last_term_prob = DensityOfWordsInTopicsSorted[topic][t].prob;
-
-                sb.Append(String.Format("{0}; ", words[DensityOfWordsInTopicsSorted[topic][t].word]));
-            }
-
-            string description = sb.ToString();
-            description = description.TrimEnd(' ', ';');
-
-            return description;
-        }
-
-        public string GetDescriptionForTopic(IList<string> words, int topic, bool include_topic_number, string separator, bool stop_at_word_probability_jump = true)
-        {
-            StringBuilder sb = new StringBuilder();
-
-            if (include_topic_number)
-            {
-                sb.Append(String.Format("{0}. ", topic + 1));
-            }
-
-            double last_term_prob = 0;
-            for (int t = 0; t < 5 && t < NUM_WORDS; ++t)
-            {
-                if (last_term_prob / DensityOfWordsInTopicsSorted[topic][t].prob > 10)
-                {
-                    if (stop_at_word_probability_jump)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        sb.Append(" // ");
-                    }
-                }
-                last_term_prob = DensityOfWordsInTopicsSorted[topic][t].prob;
-
-                sb.Append(String.Format("{0}", words[DensityOfWordsInTopicsSorted[topic][t].word]));
-                sb.Append(separator);
-            }
-
-            string description = sb.ToString();
-            if (description.EndsWith(separator))
-            {
-                description = description.Substring(0, description.Length - separator.Length);
-            }
-
-            return description;
         }
     }
 }

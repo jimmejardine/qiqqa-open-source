@@ -1071,28 +1071,47 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
         {
             Logging.Debug("GoogleBibTexSnifferControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            try
+            WPFDoEvents.SafeExec(() =>
             {
                 if (dispose_count == 0)
                 {
                     // Get rid of managed resources / get rid of cyclic references:
                     pdf_documents_total_pool?.Clear();
                     pdf_documents_search_pool?.Clear();
+                }
+            });
 
-                    search_options_bindable.PropertyChanged -= search_options_bindable_PropertyChanged;
+            WPFDoEvents.SafeExec(() =>
+            {
+                search_options_bindable.PropertyChanged -= search_options_bindable_PropertyChanged;
 
-                    ObjWebBrowser.PageLoaded -= ObjWebBrowser_PageLoaded;
-                    ObjWebBrowser.TabChanged -= ObjWebBrowser_TabChanged;
+                ObjWebBrowser.PageLoaded -= ObjWebBrowser_PageLoaded;
+                ObjWebBrowser.TabChanged -= ObjWebBrowser_TabChanged;
 
-                    ObjBibTeXEditorControl.ObjBibTeXText.TextChanged -= TxtBibTeX_TextChanged;
+                ObjBibTeXEditorControl.ObjBibTeXText.TextChanged -= TxtBibTeX_TextChanged;
+            });
 
+            WPFDoEvents.SafeExec(() =>
+            {
+                if (dispose_count == 0)
+                {
                     pdf_renderer_control?.Dispose();
                     ObjBibTeXEditorControl?.Dispose();
-
-                    ObjSearchOptionsPanel.DataContext = null;
-                    ButtonWizard.DataContext = null;
                 }
+            });
 
+            WPFDoEvents.SafeExec(() =>
+            {
+                ObjSearchOptionsPanel.DataContext = null;
+            });
+
+            WPFDoEvents.SafeExec(() =>
+            {
+                ButtonWizard.DataContext = null;
+            });
+
+            WPFDoEvents.SafeExec(() =>
+            {
                 // Clear the references for sanity's sake
                 search_options_bindable = null;
 
@@ -1110,13 +1129,12 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                 search_options_bindable = null;
 
                 ObjBibTeXEditorControl = null;
+            });
 
-                DataContext = null;
-            }
-            catch (Exception ex)
+            WPFDoEvents.SafeExec(() =>
             {
-                Logging.Error(ex);
-            }
+                DataContext = null;
+            });
 
             ++dispose_count;
         }

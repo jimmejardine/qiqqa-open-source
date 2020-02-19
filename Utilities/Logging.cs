@@ -324,14 +324,14 @@ namespace Utilities
             object l1 = new object();
             object l2 = new object();
 
-            Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (l1)
             {
-                l1_clk.LockPerfTimerStop();
+                // l1_clk.LockPerfTimerStop();
                 msg += "x";
-                Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+                // Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
                     System.Threading.Thread.Sleep(10 * 1000);
-                    l2_clk.LockPerfTimerStop();
+                    // l2_clk.LockPerfTimerStop();
                     msg += "x";
             }
 #endif
