@@ -133,7 +133,7 @@ namespace Qiqqa.Brainstorm.Nodes
 
                         for (int t = 0; t < topics.Length && t < 5; ++t)
                         {
-                            string topic_name = eds.GetDescriptionForTopic(topics[t].topic, false, "\n");
+                            string topic_name = eds.GetDescriptionForTopic(topics[t].topic, include_topic_number: false, "\n");
                             ThemeNodeContent tnc = new ThemeNodeContent(topic_name, pdf_document_node_content.PDFDocument.Library.WebLibraryDetail.Id);
                             NodeControlAddingByKeyboard.AddChildToNodeControl(node_control, tnc, false);
 

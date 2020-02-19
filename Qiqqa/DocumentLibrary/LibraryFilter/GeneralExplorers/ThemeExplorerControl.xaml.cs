@@ -96,7 +96,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
 
                 for (int t = 0; t < eds.LDAAnalysis.NUM_TOPICS; ++t)
                 {
-                    string topic_name = eds.GetDescriptionForTopic(t, false, "; ");
+                    string topic_name = eds.GetDescriptionForTopic(t, include_topic_number: false, "; ");
 
                     // Show the top % of docs
                     int num_docs = eds.LDAAnalysis.NUM_DOCS / 10;
