@@ -603,7 +603,7 @@ namespace Utilities.Language.TextIndexing
                 else
                 {
                     // If we have created the directory before, then there must be some other problem
-                    throw ex;
+                    throw;
                 }
             }
         }
