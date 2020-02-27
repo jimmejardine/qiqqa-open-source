@@ -15,7 +15,7 @@ namespace Qiqqa.WebBrowsing
         public const string WIKIPEDIA_KEY = "WIKIPEDIA";
         public const string GOOGLE_US_KEY = "GOOGLE_US";
         public const string GOOGLE_UK_KEY = "GOOGLE_UK";
-		public const string DOI2BIB_KEY = "DOI2BIB";
+        public const string DOI2BIB_KEY = "DOI2BIB";
 
         public static readonly List<WebSearcher> WEB_SEARCHERS = new List<WebSearcher>
             (
