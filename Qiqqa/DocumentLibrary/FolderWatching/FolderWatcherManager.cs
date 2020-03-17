@@ -59,7 +59,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 }
             }
 
-            managed_thread_index = Utilities.Maintainable.MaintainableManager.Instance.RegisterHeldOffTask(TaskDaemonEntryPoint, 30 * 1000, System.Threading.ThreadPriority.BelowNormal, extra_descr: $".Lib({Library})");
+            managed_thread_index = Utilities.Maintainable.MaintainableManager.Instance.RegisterHeldOffTask(TaskDaemonEntryPoint, 30 * 1000, extra_descr: $".Lib({Library})");
         }
 
 #if DIAG
@@ -145,10 +145,12 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
         internal void TaskDaemonEntryPoint(Utilities.Daemon daemon)
         {
+            Logging.Debug特("FolderWatcherTask for library {0} START", Library);
+
             Dictionary<string, FolderWatcherRecord> folder_watchset = new Dictionary<string, FolderWatcherRecord>();
 
             // Get the new list of folders to watch
-            string folders_to_watch_batch = library?.TypedTarget?.WebLibraryDetail.FolderToWatch;
+            string folders_to_watch_batch = Library?.WebLibraryDetail.FolderToWatch;
             HashSet<string> folders_to_watch = new HashSet<string>();
             if (null != folders_to_watch_batch)
             {

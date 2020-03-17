@@ -29,11 +29,11 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
 
             metadata_extraction_daemon = new MetadataExtractionDaemon();
 
-            MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_OnceOff, 1 * 1000, ThreadPriority.BelowNormal, 1);
-            MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_Frequent, 10 * 1000, ThreadPriority.BelowNormal);
-            MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_Infrequent, 10 * 1000, ThreadPriority.BelowNormal);
-            MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_QuiteInfrequent, 10 * 1000, ThreadPriority.BelowNormal);
-            MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_VeryInfrequent, 10 * 1000, ThreadPriority.BelowNormal);
+            MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_OnceOff, 1 * 1000, hold_off_level: 1);
+            MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_Frequent, 10 * 1000, 1 * 1000);
+            MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_Infrequent, 10 * 1000, 10 * 1000);
+            MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_QuiteInfrequent, 10 * 1000, 1 * 60 * 1000);
+            MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_VeryInfrequent, 10 * 1000, 15 * 60 * 1000);
 
             // hold off: level 3 -> 2
             MaintainableManager.Instance.BumpHoldOffPendingLevel();
@@ -41,6 +41,8 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
 
         private void DoMaintenance_OnceOff(Daemon daemon)
         {
+            Logging.Debug特("DoMaintenance_OnceOff START");
+
             if (daemon.StillRunning)
             {
                 // KICK THEM OFF
@@ -130,7 +132,7 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
 
         private void DoMaintenance_VeryInfrequent(Daemon daemon)
         {
-            daemon.Sleep(15 * 60 * 1000);
+            Logging.Debug特("DoMaintenance_VeryInfrequent START");
 
             if (ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
             {
@@ -174,7 +176,7 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
 
         private void DoMaintenance_QuiteInfrequent(Daemon daemon)
         {
-            daemon.Sleep(1 * 60 * 1000);
+            Logging.Debug特("DoMaintenance_QuiteInfrequent START");
 
             if (ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
             {
@@ -193,7 +195,6 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
         private void DoMaintenance_Infrequent(Daemon daemon)
         {
             Logging.Debug特("DoMaintenance_Infrequent START");
-            daemon.Sleep(10 * 1000);
 
             if (ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
             {
@@ -219,20 +220,21 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
 
                 try
                 {
-                    metadata_extraction_daemon.DoMaintenance(library);
+                    metadata_extraction_daemon.DoMaintenance(library, () =>
+                    {
+                        try
+                        {
+                            library.LibraryIndex.IncrementalBuildIndex();
+                        }
+                        catch (Exception ex)
+                        {
+                            Logging.Error(ex, "Exception in LibraryIndex.IncrementalBuildIndex()");
+                        }
+                    });
                 }
                 catch (Exception ex)
                 {
                     Logging.Error(ex, "Exception in metadata_extraction_daemon");
-                }
-
-                try
-                {
-                    library.LibraryIndex.IncrementalBuildIndex();
-                }
-                catch (Exception ex)
-                {
-                    Logging.Error(ex, "Exception in LibraryIndex.IncrementalBuildIndex()");
                 }
             }
             Logging.Debug特("DoMaintenance_Infrequent END");
@@ -240,8 +242,6 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
 
         private void DoMaintenance_Frequent(Daemon daemon)
         {
-            daemon.Sleep(1 * 1000);
-
             if (ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
             {
                 Logging.Debug特("Daemons are forced to sleep via Configuration::DisableAllBackgroundTasks");
@@ -256,14 +256,14 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
             }
 
             // Check for new syncing
-                try
-                {
-                    SyncQueues.Instance.DoMaintenance(daemon);
-                }
-                catch (Exception ex)
-                {
-                    Logging.Error(ex, "Exception in SyncQueues.Instance.DoMaintenance");
-                }
+            try
+            {
+                SyncQueues.Instance.DoMaintenance(daemon);
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex, "Exception in SyncQueues.Instance.DoMaintenance");
+            }
 
             // Check if documents have changed
             foreach (var x in WebLibraryManager.Instance.WebLibraryDetails_All_IncludingDeleted)

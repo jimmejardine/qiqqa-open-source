@@ -21,6 +21,7 @@ namespace Utilities.Maintainable
             internal MethodInfo method_info;
 
             internal int delay_before_start_milliseconds;
+            internal int delay_before_repeat_milliseconds;
             internal int hold_off_level;
 
             internal Daemon daemon;
@@ -229,10 +230,15 @@ namespace Utilities.Maintainable
             }
         }
 
-        public int RegisterHeldOffTask(DoMaintenanceDelegate do_maintenance_delegate, int delay_before_start_milliseconds, ThreadPriority thread_priority, int hold_off_level = 0, string extra_descr = "")
+        public int RegisterHeldOffTask(DoMaintenanceDelegate do_maintenance_delegate, int delay_before_start_milliseconds, int delay_before_repeat_milliseconds = -1, ThreadPriority thread_priority = ThreadPriority.BelowNormal, int hold_off_level = 0, string extra_descr = "")
         {
             // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             int index;
+
+            if (delay_before_repeat_milliseconds <= 0)
+            {
+                delay_before_repeat_milliseconds = delay_before_start_milliseconds;
+            }
 
             lock (do_maintenance_delegate_wrappers_lock)
             {
@@ -243,6 +249,7 @@ namespace Utilities.Maintainable
                 do_maintenance_delegate_wrapper.target = new WeakReference(do_maintenance_delegate.Target);
                 do_maintenance_delegate_wrapper.method_info = do_maintenance_delegate.Method;
                 do_maintenance_delegate_wrapper.delay_before_start_milliseconds = delay_before_start_milliseconds;
+                do_maintenance_delegate_wrapper.delay_before_repeat_milliseconds = delay_before_repeat_milliseconds;
                 do_maintenance_delegate_wrapper.hold_off_level = hold_off_level;
                 do_maintenance_delegate_wrapper.daemon = new Daemon("Maintainable:" + do_maintenance_delegate.Target.GetType().Name + "." + do_maintenance_delegate.Method.Name + extra_descr);
 
@@ -302,7 +309,7 @@ namespace Utilities.Maintainable
                     Logging.Error(ex, "Maintainable {0} has thrown an unhandled exception.", do_maintenance_delegate_wrapper.maintainable_description);
                 }
 
-                daemon.Sleep();
+                daemon.Sleep(Math.Max(500, do_maintenance_delegate_wrapper.delay_before_repeat_milliseconds));
             }
         }
 

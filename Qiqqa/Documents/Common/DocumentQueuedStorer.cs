@@ -19,7 +19,7 @@ namespace Qiqqa.Documents.Common
 
         protected DocumentQueuedStorer()
         {
-            MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_FlushDocuments, 30 * 1000, ThreadPriority.BelowNormal);
+            MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_FlushDocuments, 30 * 1000);
             // Quit this delayed storing of PDF files when we've hit the end of the execution run: 
             // we'll have to save them all to disk in one go then, and quickly too!
             Utilities.Shutdownable.ShutdownableManager.Instance.Register(Shutdown);
@@ -30,21 +30,21 @@ namespace Qiqqa.Documents.Common
             if (Qiqqa.Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
             {
                 // do run the flush task, but delayed!
-                daemon.Sleep(5 * 60 * 1000);
+				return;
             }
 
             // Quit this delayed storing of PDF files when we've hit the end of the excution run: 
             // we'll have to save them all to disk in one go then, and quickly too!
-            if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+            if (!Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
             {
-                FlushDocuments(false);
+                FlushDocuments(force_flush_no_matter_what: false);
             }
         }
 
         private void Shutdown()
         {
             // **forced** flush!
-            FlushDocuments(true);
+            FlushDocuments(force_flush_no_matter_what: true);
         }
 
         private object flush_locker = new object();
