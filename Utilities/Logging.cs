@@ -27,12 +27,12 @@ namespace Utilities
 
         static Logging()
         {
-            //ILog dummy_fetch_to_init_logger = log;
             TriggerInit();
         }
 
-        private static bool log4net_loaded;   // WARNING: DO NOT init this to false as then the logger init in the contructor will fail to deliver! (only SET this member within the critical section)
+        private static bool log4net_loaded;
         private static bool log4net_init_pending;
+        private static bool log4net_has_shutdown;
 
         // The following members MUST be accessed only within the critical section guarded by this lock:
         //
@@ -40,6 +40,7 @@ namespace Utilities
         // init_ex_list
         // log4net_loaded
         // log4net_init_pending
+        // log4net_has_shutdown
         //
         private static object log4net_loaded_lock = new object();
 
@@ -51,7 +52,7 @@ namespace Utilities
                 bool go;
                 lock (log4net_loaded_lock)
                 {
-                    go = (null == __log && log4net_loaded && !log4net_init_pending);
+                    go = (null == __log && log4net_loaded && !log4net_init_pending && !log4net_has_shutdown);
                     rv = __log;
                 }
                 if (go)
@@ -64,7 +65,7 @@ namespace Utilities
 
         /// <summary>
         /// Test whether the log4net-based log system has been loaded and set up and if so, enable the use of that logging system.
-        /// 
+        ///
         /// Up to that moment, all Logging APIs will log to a memory buffer/queue which will written to the logging system
         /// once it is loaded, set up and active.
         /// </summary>
@@ -73,7 +74,7 @@ namespace Utilities
             bool go;
             lock (log4net_loaded_lock)
             {
-                go = (null == __log && !log4net_loaded && !log4net_init_pending);
+                go = (null == __log && !log4net_loaded && !log4net_init_pending && !log4net_has_shutdown);
                 if (go)
                 {
                     log4net_init_pending = true; // block simultaneous execution of the rest of the code in TriggerInit()
@@ -124,7 +125,7 @@ namespace Utilities
                     {
                         log4net_loaded = we_are_ready_for_the_next_phase;
 
-                        log4net_init_pending = false; // de-block 
+                        log4net_init_pending = false; // de-block
                     }
                 }
             }
@@ -135,7 +136,7 @@ namespace Utilities
             bool go;
             lock (log4net_loaded_lock)
             {
-                go = (null == __log && log4net_loaded && !log4net_init_pending);
+                go = (null == __log && log4net_loaded && !log4net_init_pending && !log4net_has_shutdown);
                 if (go)
                 {
                     log4net_init_pending = true; // block simultaneous execution of the rest of the code in Init()
@@ -190,7 +191,7 @@ namespace Utilities
                 Debug("Logging initialised at {0}", LogAssist.AppendStackTrace(null, "get_log"));
                 Info("Logging initialised.");
 
-                // thread safety: move and reset the pending message buffer/list 
+                // thread safety: move and reset the pending message buffer/list
                 List<LogBufEntry> lst = new List<LogBufEntry>();
                 lock (log4net_loaded_lock)
                 {
@@ -233,6 +234,11 @@ namespace Utilities
         public static void ShutDown()
         {
             Debug("Application + Logging ShutDown");
+            lock (log4net_loaded_lock)
+            {
+                log4net_has_shutdown = true;
+                __log = null;
+            }
             LogManager.Flush(5000);
             LogManager.Shutdown();
             System.Threading.Thread.Sleep(500);
@@ -242,6 +248,10 @@ namespace Utilities
         {
             lock (log4net_loaded_lock)
             {
+                if (log4net_has_shutdown)
+                {
+                    return;
+                }
                 if (init_ex_list == null)
                 {
                     init_ex_list = new List<LogBufEntry>();
@@ -257,6 +267,10 @@ namespace Utilities
         {
             lock (log4net_loaded_lock)
             {
+                if (log4net_has_shutdown)
+                {
+                    return;
+                }
                 if (init_ex_list == null)
                 {
                     init_ex_list = new List<LogBufEntry>();
