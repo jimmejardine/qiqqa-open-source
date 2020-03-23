@@ -15,7 +15,7 @@ Before we dive in, there's one important question to ask (when considering stora
     <b>Click here to unfold:</b> ☞ <b>The long answer to this question</b> 🙉🎉
   </summary>
   
-### The long answer to that question
+<!-- ### The long answer to that question -->
 
 > #### Does it depend on where the PDF is coming form?
 >
@@ -150,25 +150,51 @@ Before we dive in, there's one important question to ask (when considering stora
 </details>
 
 
-## The Process
+## The Qiqqa OCR internal workflow
+
+Once the background task gets around to it, the PDF is OCRed if this has not happened yet. 
+This is generally detected by checking whether the expected OCR data for page 1 is available.
+  
+> The correct(er) answer here is: *it depends*: several conditions exist (e.g. when the document is viewed by the user in a Qiqqa panel) when *all pages* of the document are requested and any of them missing will (re)trigger the OCR process.
+>
+> See all the invocations of [the `GetOCRText()` method](https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/Qiqqa/Documents/PDF/PDFRendering/PDFRenderer.cs#L98) in the Qiqqa source code.
 
 
-### Fetching the PDF
+### Qiqqa OCR Stage 1: The Extract Attempt (= [the `"GROUP"` call](https://github.com/jimmejardine/qiqqa-open-source/blob/a50888e836224e1d293457c8cd9a59cfef403bf7/Qiqqa/Documents/PDF/PDFRendering/PDFTextExtractor.cs#L652))
+
+First, Qiqqa attempts to [extract text from the PDF without OCR-ing it, using the `mupdf` tool](https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/QiqqaOCR/TextExtractEngine.cs#L178): this should deliver for all PDFs which are not 'page image based'.
+
+The text data collected this way is stored in proprietary format text files, up to  20 pages per file, in the `ocr` global directory tree.
+
+Example paths:
+
+```
+  base/ocr/DA/DA7B8FDA82E6D7465ADC7590EEC0C914E955C5B8.textgroup.001_to_020.txt
+  base/ocr/DA/DA7B8FDA82E6D7465ADC7590EEC0C914E955C5B8.textgroup.021_to_040.txt
+```
+  
+However, when this fails to produce any text, Qiqqa *will* trigger a Stage 2 OCR action for each of those pages of the PDF which do not produce any text this way.
+
+> In actual practice, this means many text-based PDFs will have an OCR job running for them anyway when there's an empty page, or one with only some graphics, or a title page which did not deliver any text by way of `mupdf`.
 
 
-### The Qiqqa OCR Background Process
+### Qiqqa OCR Stage 2: The OCR Attempt (= [the `"SINGLE"` call](https://github.com/jimmejardine/qiqqa-open-source/blob/a50888e836224e1d293457c8cd9a59cfef403bf7/Qiqqa/Documents/PDF/PDFRendering/PDFTextExtractor.cs#L711))
 
-- Once the background task gets around to it, the PDF is OCRed if this has not happened yet. 
+This background job is executed for every single page in the PDF which  did not deliver any text in the Stage 1 process above.
 
-  > This is detected by checking whether the expected OCR data for page 1 is available.
-  >
-  > Yes, that last statement right there is not entirely accurate either. The correct(er) answer is: *it depends*: several conditions exist (e.g. when the document is viewed by the user in a Qiqqa panel), when *all pages* of the document are requested and any of them missing will (re)trigger the OCR process. (See all the invocations of [the `GetOCRText()` method](https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/Qiqqa/Documents/PDF/PDFRendering/PDFRenderer.cs#L98) in the Qiqqa source code.)
+By now, Qiqqa assumes the PDF is image based and requires a true OCR process to obtain the text from the PDF page. Currently it uses the [Sorax PDF library to render the PDF][1]
 
-  - First, Qiqqa attempts to [extract text from the PDF without OCR-ing it, using the `mupdf` tool](https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/QiqqaOCR/TextExtractEngine.cs#L178): this should deliver for all PDFs which are not 'page image based'.
 
-    > However, Qiqqa *will* trigger a OCR action for those pages of the PDF which do not produce any text this way.
-    >
-    > In actual practice, this means many text-based PDFs will have an OCR job running for them as there's an empty page, or one with only some graphics, or a title page, which did not deliver any text by way of `mupdf`.
+---
+
+[1]: The Sorax library doesn't support some 'protected' PDFs and renders those pages as white-on-white, resulting in a completely blank view inside Qiqqa. See also these woes viewing PDFs in Qiqqa:
+
+- https://getsatisfaction.com/qiqqa/topics/pdfs_stop_displaying_blank_pages#reply_17983571
+- https://github.com/jimmejardine/qiqqa-open-source/issues/136
+
+> At the time of this writing, I know/strongly suspect almost all these white-pages-rendered-only problems are due to bugs in the  Sorax lib as  I have many PDFs in my collection suffering from this. 🤬
+
+
 
 
 ### The Lucene Text SearchIndex Update Process
