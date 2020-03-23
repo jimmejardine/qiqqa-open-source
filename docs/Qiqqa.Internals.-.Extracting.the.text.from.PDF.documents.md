@@ -281,9 +281,11 @@ This *inferred* metadata is shown and used by Qiqqa when there is no BibTeX meta
 
 
 
-![------](./images/divider-end.svg)
+<!-- HR -->
+<br><br>
+<p align="center" style="margin-top: 50px"><img src="./images/divider-end.svg" width="200"></p>
+<br><br><br>
 
----
 
 
 
