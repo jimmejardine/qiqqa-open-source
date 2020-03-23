@@ -431,7 +431,7 @@
                                 <TextBlock>
                                     User GUID:
                                 </TextBlock>
-                                <TextBlock Text="{Binding Account_Username}" />
+                                <TextBlock Text="{Binding Account_Username}" Width="720" />
                                 <TextBlock>
                                     Nickname - this will be used on chat, annotations, etc
                                 </TextBlock>
@@ -445,7 +445,7 @@
                             Header="Disable Background Tasks">
                             <StackPanel>
                                 <TextBlock TextWrapping="Wrap">
-                                    <Run Text="Tick the checkbox to disable all background tasks." />
+                                    Tick the checkbox to disable all background tasks.
                                 </TextBlock>
                                 <TextBlock TextWrapping="Wrap" />
                                 <TextBlock FontWeight="Bold" TextWrapping="Wrap">
