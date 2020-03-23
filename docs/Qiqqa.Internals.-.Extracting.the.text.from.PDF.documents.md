@@ -178,7 +178,7 @@ Other Qiqqa (background) processes *will* impact OCR activity: the Lucene text s
 
 ###   ~~TL;DR~~   ☞ 🙥 The whole story 🙧 🙉🎉
 
-🙚 🙘 🙛 🙙 🙞 🙜 🙟 🙝 🙠 🙡 🙢 🙣 🙤 🙥 🙦 🙧
+<!-- 🙚 🙘 🙛 🙙 🙞 🙜 🙟 🙝 🙠 🙡 🙢 🙣 🙤 🙥 🙦 🙧 -->
 
 <details>
   <summary>
@@ -281,6 +281,7 @@ This *inferred* metadata is shown and used by Qiqqa when there is no BibTeX meta
 
 
 
+![------](./images/divider-end.svg)
 
 ---
 
@@ -295,7 +296,7 @@ This *inferred* metadata is shown and used by Qiqqa when there is no BibTeX meta
 
 [⤣](#Stage2OCR)
 
-<b id="TesseractWoes">‡</b>: Your family namee doesn't have to be [Statler and Waldorf](https://en.wikipedia.org/wiki/Statler_and_Waldorf) to have plenty to complain about that region detection logic too: [#135](https://github.com/jimmejardine/qiqqa-open-source/issues/135). And then there's the old Tesseract which needs some assist as well: [#160](https://github.com/jimmejardine/qiqqa-open-source/issues/160) and [one other bit mentioned in #135](https://github.com/jimmejardine/qiqqa-open-source/issues/135#issuecomment-569827317).
+<b id="TesseractWoes">‡</b>: Your family name doesn't have to be [Statler and Waldorf](https://en.wikipedia.org/wiki/Statler_and_Waldorf) to have plenty to complain about that region detection logic too: [#135](https://github.com/jimmejardine/qiqqa-open-source/issues/135). And then there's the old Tesseract which needs some assist as well: [#160](https://github.com/jimmejardine/qiqqa-open-source/issues/160) and [one other bit mentioned in #135](https://github.com/jimmejardine/qiqqa-open-source/issues/135#issuecomment-569827317).
 
 However, it's not all that bleak when your research does not include diving into old/historic documents and/or PDFs published by companies: many modern scientific papers are published in a PDF format which can be grokked by `mupdf` just fine — though here I have found that quite a few PDFs which *appear* to have been produced by some older TeX variants *do* cause trouble in Stage 1 ("GROUP") and produce some crap of their own: [#86](https://github.com/jimmejardine/qiqqa-open-source/issues/86)
 
