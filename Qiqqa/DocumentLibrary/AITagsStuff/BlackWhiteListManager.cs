@@ -59,6 +59,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
                             continue;
                         }
 
+                        // skip comments
                         if (line.StartsWith("#"))
                         {
                             continue;
@@ -72,7 +73,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
                         }
                         catch (Exception ex2)
                         {
-                            Logging.Warn(ex2, "There was a problem processing aitag blacklist/whitelist line: {0}", line);
+                            Logging.Warn(ex2, "There was a problem processing AutoTags blacklist/whitelist line:\n\t{0}\n\tFile: {1}", line, Filename_Store);
                         }
                     }
                 }

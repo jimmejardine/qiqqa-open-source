@@ -1,4 +1,6 @@
-﻿using Utilities.OCR;
+﻿#if false
+
+using Utilities.OCR;
 
 namespace Qiqqa.Documents.PDF.PDFRendering.CoherentTextExtraction
 {
@@ -13,3 +15,5 @@ namespace Qiqqa.Documents.PDF.PDFRendering.CoherentTextExtraction
         }
     }
 }
+
+#endif

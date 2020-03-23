@@ -136,7 +136,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.PDFExporting
                         }
 #endif
                     }
-
                     catch (Exception ex)
                     {
                         Logging.Error(ex, "There was a problem exporting page {0}", page);
@@ -303,12 +302,11 @@ namespace Qiqqa.Documents.PDF.PDFControls.PDFExporting
                         //            uri_annotation.Bounds,
                         //            uri_annotation.Text,
                         //            null);
-                                    
+
                         //        }
                         //    }
                         //}
                     }
-
                     catch (Exception ex)
                     {
                         Logging.Error(ex, "There was a problem exporting page {0}", page);

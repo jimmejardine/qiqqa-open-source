@@ -27,9 +27,10 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.CitationsStuff
             ImageRefresh.MouseUp += ImageRefresh_MouseUp;
         }
 
-        internal static void PopulatePanelWithCitations(StackPanel panel, Library library, PDFDocument pdf_document_parent, List<Citation> citations, Feature feature, string prefix = "", bool should_add_none_indicator = true)
+        internal static void PopulatePanelWithCitations(StackPanel panel, PDFDocument parent_pdf_document, List<Citation> citations, Feature feature, string prefix = "", bool should_add_none_indicator = true)
         {
-            string fingerprint_parent = pdf_document_parent.Fingerprint;
+            string fingerprint_parent = parent_pdf_document.Fingerprint;
+            Library library = parent_pdf_document.Library;
 
             panel.Children.Clear();
 
@@ -68,11 +69,10 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.CitationsStuff
                 panel.Children.Add(text_doc);
             }
 
-
             // If the panel is empty, put NONE
             if (should_add_none_indicator)
             {
-                if (0 == panel.Children.Count)
+                if (0 == pdf_documents_sorted.Count)
                 {
                     TextBlock text_doc = new TextBlock();
                     text_doc.Text = "(none)";
@@ -89,8 +89,8 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.CitationsStuff
 
         private void RepopulatePanels()
         {
-            PopulatePanelWithCitations(DocsPanel_Outbound, pdf_document.Library, pdf_document, pdf_document.PDFDocumentCitationManager.GetOutboundCitations(), Features.Citations_OpenDoc);
-            PopulatePanelWithCitations(DocsPanel_Inbound, pdf_document.Library, pdf_document, pdf_document.PDFDocumentCitationManager.GetInboundCitations(), Features.Citations_OpenDoc);
+            PopulatePanelWithCitations(DocsPanel_Outbound, pdf_document, pdf_document.PDFDocumentCitationManager.GetOutboundCitations(), Features.Citations_OpenDoc);
+            PopulatePanelWithCitations(DocsPanel_Inbound, pdf_document, pdf_document.PDFDocumentCitationManager.GetInboundCitations(), Features.Citations_OpenDoc);
         }
 
         public void ImageRefresh_MouseUp(object sender, MouseButtonEventArgs e)

@@ -13,15 +13,14 @@
     </UserControl.Resources>
     <Grid>
         <DockPanel Name="ObjDocumentInfo">
-            <local_gui:AugmentedBorder Visibility="{Binding Deleted, Converter={StaticResource BooleanToVisibilityConverter}}" DockPanel.Dock="Top">
+            <local_gui:AugmentedBorder Name="DocumentIsDeletedNode" DockPanel.Dock="Top">
                 <local_gui:NonScrollingFlowDocumentScrollViewer>
                     <commongui:StandardFlowDocument Background="{StaticResource Background_Brush_Warning}">
                         <Paragraph>
                             This document has been deleted.
                             <Hyperlink Name="HyperlinkRestore">
-                                Click to restore
+                                Click to restore.
                             </Hyperlink>
-                            .
                         </Paragraph>
                     </commongui:StandardFlowDocument>
                 </local_gui:NonScrollingFlowDocumentScrollViewer>

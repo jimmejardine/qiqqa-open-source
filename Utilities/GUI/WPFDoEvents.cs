@@ -9,9 +9,9 @@ using Utilities.Misc;
 namespace Utilities.GUI
 {
     /// <summary>
-    /// A nasty little class that does almost the equivalent of DoEvents in former lifetimes.  
+    /// A nasty little class that does almost the equivalent of DoEvents in former lifetimes.
     /// Try to avoid using it.  Obviously you will have a good reason to do so (e.g WPF printing blocks the GUI, grrrrrrrrrrrrrr!!!).
-    /// 
+    ///
     /// See also https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.dispatcherframe
     /// </summary>
     public static class WPFDoEvents
@@ -94,7 +94,7 @@ namespace Utilities.GUI
                 // other background threads will wait on the lock to resolve...
                 //lock (DoEvents_lock)
                 {
-                    if (!Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown 
+                    if (!Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown
                         && (!Application.Current?.Dispatcher.HasShutdownStarted ?? false))
                     {
                         Application.Current.Dispatcher.Invoke(new Action(() =>
@@ -113,7 +113,7 @@ namespace Utilities.GUI
             Logging.Debug("-WaitForUIThreadActivityDone end (time spent: {0} ms)", clk.ElapsedMilliseconds);
         }
 
-#region Forced Repaint of UI 
+        #region Forced Repaint of UI
 
         // as per: https://stackoverflow.com/questions/2886532/in-c-how-do-you-send-a-refresh-repaint-message-to-a-wpf-grid-or-canvas
 
@@ -128,11 +128,11 @@ namespace Utilities.GUI
             uiElement.Dispatcher.Invoke(DispatcherPriority.Render, repaint_done);
         }
 
-#endregion
+        #endregion
 
         public static void SetHourglassCursor()
         {
-            // Set the cursor to Hourglass as per: http://www.csharp411.com/the-proper-way-to-show-the-wait-cursor/ 
+            // Set the cursor to Hourglass as per: http://www.csharp411.com/the-proper-way-to-show-the-wait-cursor/
             // --> https://stackoverflow.com/questions/11021422/how-do-i-display-wait-cursor-during-a-wpf-applications-startup
             InvokeInUIThread(() =>
             {
@@ -144,7 +144,7 @@ namespace Utilities.GUI
         {
             // revert the forced hourglass cursor, if any:
             //
-            // RESET the cursor to Hourglass as per: http://www.csharp411.com/the-proper-way-to-show-the-wait-cursor/ 
+            // RESET the cursor to Hourglass as per: http://www.csharp411.com/the-proper-way-to-show-the-wait-cursor/
             // --> https://stackoverflow.com/questions/11021422/how-do-i-display-wait-cursor-during-a-wpf-applications-startup
             InvokeInUIThread(() =>
             {
@@ -234,11 +234,13 @@ namespace Utilities.GUI
                 }
                 catch (Exception ex)
                 {
-                    Logging.Error(ex);
+                    Logging.Error(ex, "Failed safe-exec in same thread.");
                 }
             }
             else
             {
+                string trace = LogAssist.AppendStackTrace(null, "SafeExec");
+
                 WPFDoEvents.InvokeInUIThread(() =>
                 {
                     try
@@ -247,7 +249,7 @@ namespace Utilities.GUI
                     }
                     catch (Exception ex)
                     {
-                        Logging.Error(ex);
+                        Logging.Error(ex, "Failed safe-exec in UI thread.\n  Invoker call trace:\n{0}", trace);
                     }
                 }, override_dispatcher);
             }

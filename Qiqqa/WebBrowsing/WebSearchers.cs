@@ -15,6 +15,7 @@ namespace Qiqqa.WebBrowsing
         public const string WIKIPEDIA_KEY = "WIKIPEDIA";
         public const string GOOGLE_US_KEY = "GOOGLE_US";
         public const string GOOGLE_UK_KEY = "GOOGLE_UK";
+        public const string DOI2BIB_KEY = "DOI2BIB";
 
         public static readonly List<WebSearcher> WEB_SEARCHERS = new List<WebSearcher>
             (
@@ -31,6 +32,7 @@ namespace Qiqqa.WebBrowsing
                     new WebSearcher(IEEEXPLORE_KEY, "IEEE Xplore", "http://ieeexplore.ieee.org/search/searchresult.jsp?queryText={0}", WebSearcher.PopulateUrlTemplateDelegate_UrlEncode),
                     new WebSearcher(WIKIPEDIA_KEY, "Wikipedia", "http://en.wikipedia.org/wiki/{0}", WebSearcher.PopulateUrlTemplateDelegate_WikiEncode),
                     new WebSearcher(SCIVERSE_KEY, "ScienceDirect", "https://www.elsevier.com/search-results?query={0}&labels=all", WebSearcher.PopulateUrlTemplateDelegate_UrlEncode),
+                    new WebSearcher(DOI2BIB_KEY, "DOI2BIB", "https://www.doi2bib.org/bib/{0}", WebSearcher.PopulateUrlTemplateDelegate_UrlEncode),
                 }
             );
 

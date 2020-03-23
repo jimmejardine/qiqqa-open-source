@@ -310,7 +310,7 @@ namespace QiqqaOCR
 
                     // DEBUG CODE: Draw in the region rectangles
                     //
-                    // When we run in NOKILL mode, we "know" we're running in a debugger or standa-alone environment 
+                    // When we run in NOKILL mode, we "know" we're running in a debugger or stand-alone environment 
                     // intended for testing this code. Hence we should dump the regions image as part of the process.
                     if (no_kill)
                     {

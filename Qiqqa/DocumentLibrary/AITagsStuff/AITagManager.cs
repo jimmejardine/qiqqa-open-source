@@ -143,7 +143,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
                 Logging.Info("Generated {0} autotags", ai_tags.Count);
                 if (ai_tags.Count < 20)
                 {
-                    Logging.Warn("There are too few autotags (only {0}), so not supressing Scrabble words...", ai_tags.Count);
+                    Logging.Warn("There are too few autotags (only {0}), so not suppressing Scrabble words...", ai_tags.Count);
                     ai_tags = BuzzwordGenerator.GenerateBuzzwords(titles, words_blacklist, words_whitelist, false);
                     Logging.Info("Generated {0} autotags without Scrabble suppression", ai_tags.Count);
                 }
@@ -271,7 +271,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
 
                 if (StatusManager.Instance.IsCancelled("AITags"))
                 {
-                    if (!MessageBoxes.AskQuestion("You cancelled the generation of your AutoTags.  Do you want to use the partially generated AutoTags (YES) or keep your old AutoTags (NO)?"))
+                    if (!MessageBoxes.AskQuestion("You canceled the generation of your AutoTags.  Do you want to use the partially generated AutoTags (YES) or keep your old AutoTags (NO)?"))
                     {
                         use_new_autotags = false;
                     }
@@ -314,7 +314,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
             Library library = Library.GuestInstance;
 
             AITagManager ai_tag_manager = new AITagManager(library);
-            ai_tag_manager.Regenerate();                        
+            ai_tag_manager.Regenerate();
         }
 #endif
 

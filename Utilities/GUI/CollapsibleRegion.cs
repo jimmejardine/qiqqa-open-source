@@ -51,11 +51,11 @@ namespace Utilities.GUI
         private static readonly int BORDER_THICKNESS = 5;
         private ButtonWithNubbin BL, BR, BT, BB;
         private Grid GridContent;
-        private bool mouse_is_down;
+        private bool mouse_is_down = false;
         private Point last_down_point;
         private Point last_move_point;
-        private double saved_width;
-        private double saved_height;
+        private double saved_width = 0;
+        private double saved_height = 0;
 
         public CollapsibleRegion()
         {
@@ -268,13 +268,19 @@ namespace Utilities.GUI
 
             if (0 != resize_x)
             {
-                Child.Width = saved_width;
+                if (saved_width > 0)
+                {
+                    Child.Width = saved_width;
+                }
                 Child.Visibility = (0 == Child.Width || 0 == Child.Height) ? Visibility.Collapsed : Visibility.Visible;
             }
 
             if (0 != resize_y)
             {
-                Child.Height = saved_height;
+                if (saved_height > 0)
+                {
+                    Child.Height = saved_height;
+                }
                 Child.Visibility = (0 == Child.Width || 0 == Child.Height) ? Visibility.Collapsed : Visibility.Visible;
             }
         }
@@ -287,16 +293,16 @@ namespace Utilities.GUI
             if (null != sender)
             {
                 if (sender == BL) resize_x = -1;
-                if (sender == BR) resize_x = +1;
+                else if (sender == BR) resize_x = +1;
                 if (sender == BT) resize_y = -1;
-                if (sender == BB) resize_y = +1;
+                else if (sender == BB) resize_y = +1;
             }
             else
             {
                 if (BL.Visibility == Visibility.Visible) resize_x = -1;
-                if (BR.Visibility == Visibility.Visible) resize_x = +1;
+                else if (BR.Visibility == Visibility.Visible) resize_x = +1;
                 if (BT.Visibility == Visibility.Visible) resize_y = -1;
-                if (BB.Visibility == Visibility.Visible) resize_y = +1;
+                else if (BB.Visibility == Visibility.Visible) resize_y = +1;
             }
         }
 

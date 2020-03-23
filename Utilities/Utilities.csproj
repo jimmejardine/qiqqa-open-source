@@ -306,6 +306,7 @@
     <Compile Include="ConsoleRedirector\ConsoleRedirector.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CrashReporting\CrashReporter.cs" />
     <Compile Include="Daemon.cs" />
     <Compile Include="DateTimeTools\DateFormatter.cs">
       <SubType>Code</SubType>

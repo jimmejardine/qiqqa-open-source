@@ -207,7 +207,7 @@ namespace QiqqaOCR
                 // Create the new word
                 Word word = new Word();
                 word.Text = text_chunk.text;
-                word.Confidence = 100;
+                word.Confidence = 1.0;
                 word.Left = text_chunk.x0;
                 word.Top = text_chunk.y0;
                 word.Width = text_chunk.x1 - text_chunk.x0;

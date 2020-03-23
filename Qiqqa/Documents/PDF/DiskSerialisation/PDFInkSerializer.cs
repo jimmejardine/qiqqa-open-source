@@ -29,7 +29,7 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
                         inks_data = library_items[0].data;
                     }
                 }
-                
+
                 if (null != inks_data)
                 {
                     Dictionary<int, byte[]> page_ink_blobs = SerializeFile.ProtoLoadFromByteArray<Dictionary<int, byte[]>>(inks_data);
@@ -49,9 +49,12 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
             }
         }
 
-        internal static void WriteToDisk(PDFDocument_ThreadUnsafe pdf_document)
+        internal static void WriteToDisk(PDFDocument_ThreadUnsafe pdf_document, bool force_flush_no_matter_what)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+            if (!force_flush_no_matter_what)
+            {
+                WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+            }
 
             byte[] data = pdf_document.GetInksAsJSON();
 

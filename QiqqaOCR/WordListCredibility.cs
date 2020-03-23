@@ -129,8 +129,8 @@ namespace QiqqaOCR
             CountingDictionary<string> word_counts = new CountingDictionary<string>();
             foreach (var word in word_list)
             {
-                // Don't count single characters
-                if (null == word.Text)
+                // Don't count empty words
+                if (string.IsNullOrEmpty(word.Text))
                 {
                     continue;
                 }
@@ -149,7 +149,7 @@ namespace QiqqaOCR
                 string word_lower = word.Text.ToLower();
                 word_counts.TallyOne(word_lower);
 
-                // If we have seem the same words more than a few times, we like the list!
+                // If we have seen the same words more than a few times, we like the list!
                 if (word_counts[word_lower] > 3)
                 {
                     viable_words.Add(word_lower);

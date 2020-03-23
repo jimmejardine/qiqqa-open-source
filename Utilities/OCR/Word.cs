@@ -6,7 +6,7 @@ namespace Utilities.OCR
     public class Word
     {
         public string Text;
-        public double Confidence;
+        public double Confidence;     // perunage, i.e. 0.0 .. 1.0 confidence
         public double Left;
         public double Top;
         public double Width;

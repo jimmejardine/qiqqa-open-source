@@ -21,7 +21,7 @@ en.depinstall_status=Installing %1...
 
 en.depinstall_missing=%1 must be installed before setup can continue. Please install %1 and run Setup again.
 
-en.depinstall_error=An error occured while installing the dependencies. Please restart the computer and run the setup again or install the following dependencies manually:%n
+en.depinstall_error=An error occurred while installing the dependencies. Please restart the computer and run the setup again or install the following dependencies manually:%n
 
 [Code]
 type
@@ -33,7 +33,7 @@ type
 		MustRebootAfter : Boolean;
         RequestRestart : Boolean;
 	end;
-	
+
 var
 	installMemo, downloadMemo, downloadMessage: string;
 	products: array of TProduct;
@@ -41,24 +41,24 @@ var
 
 	rebootRequired : boolean;
 	rebootMessage : string;
-  
+
 procedure AddProduct(FileName, Parameters, Title, Size, URL: string; InstallClean : Boolean; MustRebootAfter : Boolean);
 var
 	path: string;
 	i: Integer;
 begin
 	installMemo := installMemo + '%1' + Title + #13;
-	
+
 	path := ExpandConstant('{src}{\}') + CustomMessage('DependenciesDir') + '\' + FileName;
 	if not FileExists(path) then begin
 		path := ExpandConstant('{tmp}{\}') + FileName;
-		
+
 		isxdl_AddFile(URL, path);
-		
+
 		downloadMemo := downloadMemo + '%1' + Title + #13;
 		downloadMessage := downloadMessage + '    ' + Title + ' (' + Size + ')' + #13;
 	end;
-	
+
 	i := GetArrayLength(products);
 	SetArrayLength(products, i + 1);
 	products[i].File := path;
@@ -81,7 +81,7 @@ begin
     end else begin
         Result := Exec(prod.File, prod.Parameters, '', SW_SHOWNORMAL, ewWaitUntilTerminated, ResultCode);
     end;
-  // MSI Deferred boot code 3010 is a success
+    // MSI Deferred boot code 3010 is a success
     if (ResultCode = 3010) then begin
         prod.RequestRestart := true;
         ResultCode := 0;
@@ -98,7 +98,7 @@ begin
 	end
 	else begin
 	  Result := false;
-  end;		
+  end;
 end;
 
 function InstallProducts: Boolean;
@@ -107,21 +107,21 @@ var
 begin
 	Result := true;
 	productCount := GetArrayLength(products);
-		
+
 	if productCount > 0 then begin
 		DependencyPage := CreateOutputProgressPage(CustomMessage('depinstall_title'), CustomMessage('depinstall_description'));
 		DependencyPage.Show;
-		
+
 		for i := 0 to productCount - 1 do begin
 		    if ((products[i].InstallClean) and PendingReboot)  then begin
 		        rebootRequired := true;
 		        rebootmessage := products[i].Title;
 		        exit;
 		    end;
-		  
+
 		    DependencyPage.SetText(FmtMessage(CustomMessage('depinstall_status'), [products[i].Title]), '');
 		    DependencyPage.SetProgress(i, productCount);
-			
+
             if SmartExec(products[i], ResultCode) then begin
 				//success; ResultCode contains the exit code
 				if ResultCode = 0 then
@@ -139,20 +139,20 @@ begin
 			    Result := false;
 				break;
 			end;
-//		end 
+//		end
 //		else begin
 //		    //failure; ResultCode contains the error code
 //		    Result := false;
 //		    break;
 //	    end;
 	    end;
-		
+
 		//only leave not installed products for error message
 		for i := 0 to productCount - finishCount - 1 do begin
 			products[i] := products[i+finishCount];
 		end;
 		SetArrayLength(products, productCount - finishCount);
-		
+
 		DependencyPage.Hide;
 	end;
 end;
@@ -168,11 +168,11 @@ var
 begin
 	if not InstallProducts() then begin
 		s := CustomMessage('depinstall_error');
-		
+
 		for i := 0 to GetArrayLength(products) - 1 do begin
 			s := s + #13 + '    ' + products[i].Title;
 		end;
-		
+
 		Result := s;
 	end
   else if (rebootrequired) then
@@ -212,7 +212,7 @@ begin
 		s := s + CustomMessage('depinstall_memo_title') + ':' + NewLine + FmtMessage(installMemo, [Space]) + NewLine;
 
 	s := s + MemoDirInfo + MemoGroupInfo
-	
+
 	if MemoTasksInfo <> '' then
 		s := s + MemoTasksInfo;
 
@@ -229,7 +229,7 @@ begin
 	Result := true;
 
     if (CurPageID = wpWelcome) and (not IsAdminLoggedOn()) and Result then begin
-   
+
         if (Wizardform.PrevAppDir <> '') then begin
             pf := ExpandConstant('{pf}');
             if Copy(Wizardform.PrevAppDir,1,Length(pf)) = pf then begin
@@ -245,13 +245,13 @@ begin
 	if CurPageID = wpReady then begin
 
 		if downloadMemo <> '' then begin
-			//change isxdl language only if it is not english because isxdl default language is already english
+			//change isxdl language only if it is not English because isxdl default language is already English
 			if ActiveLanguage() <> 'en' then begin
 				ExtractTemporaryFile(CustomMessage('isxdl_langfile'));
 				isxdl_SetOption('language', ExpandConstant('{tmp}{\}') + CustomMessage('isxdl_langfile'));
 			end;
 			//isxdl_SetOption('title', FmtMessage(SetupMessage(msgSetupWindowTitle), [CustomMessage('appname')]));
-			
+
 			if SuppressibleMsgBox(FmtMessage(CustomMessage('depdownload_msg'), [downloadMessage]), mbConfirmation, MB_YESNO, IDYES) = IDNO then
 				Result := false
 			else if isxdl_DownloadFiles(StrToInt(ExpandConstant('{wizardhwnd}'))) = 0 then
@@ -280,7 +280,7 @@ begin
 		Result := x64;
 	if IsIA64() and (ia64 <> '') then
 		Result := ia64;
-	
+
 	if Result = '' then
 		Result := x86;
 end;

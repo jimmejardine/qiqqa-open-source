@@ -20,7 +20,7 @@ namespace Utilities.Language
             source_keyword = source_keyword.Trim(keyword_polish_characters);
             source_keyword = source_keyword.ToLower();
 
-            // We dont like loooong keywords (generally they are noise in the source data)
+            // We don't like loooong keywords (generally they are noise in the source data)
             if (source_keyword.Length > 20)
             {
                 return null;
@@ -43,7 +43,7 @@ namespace Utilities.Language
                 {
                     return null;
                 }
-                
+
                 if (!has_at_least_one_useful_char)
                 {
                     if (Char.IsLetter(source_keyword, i) || Char.IsNumber(source_keyword, i))

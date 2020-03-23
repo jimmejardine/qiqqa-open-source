@@ -1,6 +1,6 @@
 [CustomMessages]
-ssceruntime_title=SQL Server Compact 3.5 Service Pack 2 for Windows Destkop
-ssceruntime_unpack=SQL Server Compact 3.5 Service Pack 2 for Windows Destkop (uncompress package)
+ssceruntime_title=SQL Server Compact 3.5 Service Pack 2 for Windows Desktop
+ssceruntime_unpack=SQL Server Compact 3.5 Service Pack 2 for Windows Desktop (uncompress package)
 
 ssceruntime_size=5.3 MB
 

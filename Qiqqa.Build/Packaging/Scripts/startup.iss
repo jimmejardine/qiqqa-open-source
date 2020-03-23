@@ -21,7 +21,7 @@ begin
 	end
 	else
 	begin
-	part := Copy(temp, 1, pos1 - 1);
+	  part := Copy(temp, 1, pos1 - 1);
 	  temp := Copy(temp, pos1 + 1, Length(temp));
 	  Result := StrToInt(part);
 	end;
@@ -31,7 +31,7 @@ function CompareInner(var temp1, temp2: String): Integer;
 var
   num1, num2: Integer;
 begin
-	num1 := GetNumber(temp1);
+  num1 := GetNumber(temp1);
   num2 := GetNumber(temp2);
   if (num1 = -1) or (num2 = -1) then
   begin
@@ -77,6 +77,11 @@ external 'IsModuleLoaded@{app}\psvince.dll stdcall uninstallonly';
 function IsAppRunning(modulename: String): Boolean;
 begin
   Result := IsModuleLoaded( modulename );
+end;
+
+function IsAppRunningU(modulename: String): Boolean;
+begin
+  Result := IsModuleLoadedU( modulename );
 end;
 
 // =======================================

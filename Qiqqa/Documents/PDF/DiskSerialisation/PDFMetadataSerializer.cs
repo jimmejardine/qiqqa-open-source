@@ -6,14 +6,20 @@ using Qiqqa.Documents.PDF.ThreadUnsafe;
 using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.Files;
+using Utilities.GUI;
 using Utilities.Misc;
 
 namespace Qiqqa.Documents.PDF.DiskSerialisation
 {
     public static class PDFMetadataSerializer
     {
-        internal static void WriteToDisk(PDFDocument_ThreadUnsafe pdf_document)
+        internal static void WriteToDisk(PDFDocument_ThreadUnsafe pdf_document, bool force_flush_no_matter_what)
         {
+            if (!force_flush_no_matter_what)
+            {
+                WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+            }
+
             string json = pdf_document.GetAttributesAsJSON();
             pdf_document.Library.LibraryDB.PutString(pdf_document.Fingerprint, PDFDocumentFileLocations.METADATA, json);
             Logging.Debug("Update metadata DB for PDF document {1}: JSON =\n{0}", json, pdf_document.Fingerprint);
