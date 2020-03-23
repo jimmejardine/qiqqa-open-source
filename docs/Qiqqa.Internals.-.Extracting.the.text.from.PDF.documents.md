@@ -1,6 +1,6 @@
-# The Qiqqa OCR *background* process
+# The Qiqqa OCR *background* process <sub>(as per 2020-03-22)</sub>
 
-Before we dive in, there's one important question to ask (when considering storage size/costs and Qiqqa backwards compatibility):
+Before we dive in, there's one important question to ask:
 
 
 ## Given a PDF, *what* does Qiqqa store on disk?
@@ -168,15 +168,21 @@ Before we dive in, there's one important question to ask (when considering stora
 
 ### TL;DR
 
-1. background process executes Stage 1: `mupdf` — extract text from PDF if possible
-2. background process executes Stage 2: `tesseract`/OCR — extract text from PDF page images if possible
-3. v80 and before: give it the run-around. For ever. v82+: Fake it and *shut up* until we *improve*.
+1. background process Stage 1: `mupdf` — extract text from PDF.
+   <br>
+   Go to next step when you fail.
+2. background process Stage 2: `tesseract`/OCR — extract text from PDF *page images*.
+   <br>
+   Go to next step when you fail.
+3. v80 and before: give it the run-around. For ever.
+   <br>
+   v82+: Fake it and *shut up* until we *improve*.
 
 Other Qiqqa (background) processes *will* impact OCR activity: the Lucene text search index and metadata inference systems *want* OCR data and don't stop until they *do*.
 
 
 
-###   ~~TL;DR~~   ☞ 🙥 The whole story 🙧 🙉🎉
+### ~~TL;DR~~            ☞ 🙥—— The whole story ——🙧 🙉🎉
 
 <!-- 🙚 🙘 🙛 🙙 🙞 🙜 🙟 🙝 🙠 🙡 🙢 🙣 🙤 🙥 🙦 🙧 -->
 
@@ -223,7 +229,7 @@ This background job is executed for every single page in the PDF which  did not 
 
 By now, Qiqqa assumes the PDF is image based and requires a true OCR process to obtain the text from the PDF page. 
 
-Currently it uses the Sorax PDF library to render the PDF page[<sup id="Stage2OCR">†</sup>](#SoraxWoes), which is then [fed into Tesseract v3 for OCR-ing](https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/QiqqaOCR/OCREngine.cs#L230). Region detection is performed by Qiqqa [proprietary logic](https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/QiqqaOCR/OCREngine.cs#L251) and passed into Tesseract.[<sup id="Stage2OCR2">‡</sup>](#TesseractWoes) 
+Currently it uses the Sorax PDF library to render the PDF page<b id="Stage2OCR1">[<sup>†</sup>](#SoraxWoes)</b>, which is then [fed into Tesseract v3 for OCR-ing](https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/QiqqaOCR/OCREngine.cs#L230). Region detection is performed by Qiqqa [proprietary logic](https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/QiqqaOCR/OCREngine.cs#L251) and passed into Tesseract.[<sup id="user-content-stage2ocr2">‡</sup>](#TesseractWoes) 
 
 Again, the expected OCR output is a set of 'words' and box coordinates pointing at the position of these OCR-ed words in the page. This information is stored on a per-page basis in that same  proprietary Qiqqa text format.
 
@@ -281,9 +287,11 @@ This *inferred* metadata is shown and used by Qiqqa when there is no BibTeX meta
 
 
 
-![------](./images/divider-end.svg)
+<!-- HR -->
+<br><br>
+<p align="center" style="margin-top: 50px"><img src="./images/divider-end.svg" width="200"></p>
+<br><br><br>
 
----
 
 
 
@@ -294,11 +302,11 @@ This *inferred* metadata is shown and used by Qiqqa when there is no BibTeX meta
 
 > At the time of this writing, I know/strongly suspect almost all these white-pages-rendered-only problems are due to bugs in the  Sorax lib as  I have many PDFs in my collection suffering from this. 🤬
 
-[⤣](#Stage2OCR)
+[⤣](#user-content-stage2ocr1)
 
-<b id="TesseractWoes">‡</b>: Your family name doesn't have to be [Statler and Waldorf](https://en.wikipedia.org/wiki/Statler_and_Waldorf) to have plenty to complain about that region detection logic too: [#135](https://github.com/jimmejardine/qiqqa-open-source/issues/135). And then there's the old Tesseract which needs some assist as well: [#160](https://github.com/jimmejardine/qiqqa-open-source/issues/160) and [one other bit mentioned in #135](https://github.com/jimmejardine/qiqqa-open-source/issues/135#issuecomment-569827317).
+<b id="TesseractWoes">‡</b>: Your family name doesn't have to be [Statler or Waldorf](https://en.wikipedia.org/wiki/Statler_and_Waldorf) to have plenty to complain about that region detection logic too: [#135](https://github.com/jimmejardine/qiqqa-open-source/issues/135). And then there's the old Tesseract which needs some assist as well: [#160](https://github.com/jimmejardine/qiqqa-open-source/issues/160) and [one other bit mentioned in #135](https://github.com/jimmejardine/qiqqa-open-source/issues/135#issuecomment-569827317).
 
-However, it's not all that bleak when your research does not include diving into old/historic documents and/or PDFs published by companies: many modern scientific papers are published in a PDF format which can be grokked by `mupdf` just fine — though here I have found that quite a few PDFs which *appear* to have been produced by some older TeX variants *do* cause trouble in Stage 1 ("GROUP") and produce some crap of their own: [#86](https://github.com/jimmejardine/qiqqa-open-source/issues/86)
+However, it's not all that bleak when your research does not include diving into old/historic documents and/or PDFs published by companies: many modern scientific papers are published in a PDF format which can be grokked by `mupdf` just fine — though here I have found that quite a few PDFs which *appear* to have been produced by some unidentified TeX variants *do* cause trouble in Stage 1 (`"GROUP"`) and produce some crap of their own: [#86](https://github.com/jimmejardine/qiqqa-open-source/issues/86)
 
-[⤣](#Stage2OCR2)
+[⤣](#user-content-stage2ocr2)
 
