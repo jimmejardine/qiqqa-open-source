@@ -8,6 +8,4 @@
   <PropertyGroup Label="Configuration">
     <Import_RootNamespace>WpfSharedProject1</Import_RootNamespace>
   </PropertyGroup>
-  <ItemGroup>
-  </ItemGroup>
 </Project>

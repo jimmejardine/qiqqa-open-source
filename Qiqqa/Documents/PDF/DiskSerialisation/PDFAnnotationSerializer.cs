@@ -4,14 +4,20 @@ using System.Text;
 using Newtonsoft.Json;
 using Qiqqa.Documents.PDF.ThreadUnsafe;
 using Utilities.Files;
+using Utilities.GUI;
 using Utilities.Misc;
 
 namespace Qiqqa.Documents.PDF.DiskSerialisation
 {
     internal class PDFAnnotationSerializer
     {
-        internal static void WriteToDisk(PDFDocument_ThreadUnsafe pdf_document)
+        internal static void WriteToDisk(PDFDocument_ThreadUnsafe pdf_document, bool force_flush_no_matter_what)
         {
+            if (!force_flush_no_matter_what)
+            {
+                WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+            }
+
             string json = pdf_document.GetAnnotationsAsJSON();
             if (!String.IsNullOrEmpty(json))
             {
@@ -37,7 +43,7 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
                 }
             }
 
-            // If we actually have some annotations, load them            
+            // If we actually have some annotations, load them
             if (null != annotations_data)
             {
                 List<DictionaryBasedObject> annotation_dictionaries = null;

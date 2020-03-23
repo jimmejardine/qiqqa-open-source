@@ -68,7 +68,7 @@ namespace Utilities.Language.TextIndexing
             DirectoryTools.DeleteDirectory(LIBRARY_INDEX_BASE_PATH, true);
         }
 
-#region --- Getting info out of the index ---------------------------------------------------------------------------------------------------------
+        #region --- Getting info out of the index ---------------------------------------------------------------------------------------------------------
 
         public class SearchResult
         {
@@ -194,9 +194,9 @@ namespace Utilities.Language.TextIndexing
             }
         }
 
-#endregion
+        #endregion
 
-#region --- Building the index ---------------------------------------------------------------------------------------------------------
+        #region --- Building the index ---------------------------------------------------------------------------------------------------------
 
         public void AddDocumentWord(string document_fingerprint, string word)
         {
@@ -243,13 +243,12 @@ namespace Utilities.Language.TextIndexing
                     throw new Exception("Not expecting to get back a null WordInWordIndex");
                 }
                 word_in_word_index.TallyDocId(document_id);
-
             }
         }
 
-#endregion
+        #endregion
 
-#region --- Working internals  ---------------------------------------------------------------------------------------------------------
+        #region --- Working internals  ---------------------------------------------------------------------------------------------------------
 
         internal WordInWordIndex GetWordInWordIndex_LOCKER(string word, bool for_modification)
         {
@@ -274,7 +273,7 @@ namespace Utilities.Language.TextIndexing
                 // Create the new wiwi
                 wiwi = new WordInWordIndex(word, word_in_word_indexes.Count);
 
-                // Add to our lookups                
+                // Add to our lookups
                 word_in_word_indexes.Add(wiwi);
                 word_in_word_index_lookups[wiwi.Word] = wiwi;
             }
@@ -346,7 +345,6 @@ namespace Utilities.Language.TextIndexing
                         }
                     }
                 }
-
                 catch (Exception ex)
                 {
                     Logging.Warn(ex, "Unable to load index master list, so starting from scratch");
@@ -433,7 +431,6 @@ namespace Utilities.Language.TextIndexing
 
             int total_gangs = ordered_results.Count();
             Logging.Info("We have {0} loaded gangs", total_gangs);
-
 
             int total_purged = 0;
             foreach (var result in ordered_results)
@@ -526,7 +523,7 @@ namespace Utilities.Language.TextIndexing
                 return;
             }
 
-            // If this one doesnt need flushing, don't do it
+            // If this one doesn't need flushing, don't do it
             if (!wiwi.needs_flushing)
             {
                 return;
@@ -683,9 +680,9 @@ namespace Utilities.Language.TextIndexing
             return Path.GetFullPath(Path.Combine(LIBRARY_INDEX_BASE_PATH, filename));
         }
 
-#endregion
+        #endregion
 
-#region --- Serialisation records -----------------------------------------------------------------
+        #region --- Serialisation records -----------------------------------------------------------------
 
         [ProtoContract]
         public class Headers
@@ -733,9 +730,9 @@ namespace Utilities.Language.TextIndexing
             }
         }
 
-#endregion
+        #endregion
 
-#region --- Test ------------------------------------------------------------------------
+        #region --- Test ------------------------------------------------------------------------
 
 #if TEST
         public static void Test()
@@ -760,7 +757,7 @@ namespace Utilities.Language.TextIndexing
         }
 #endif
 
-#endregion
+        #endregion
     }
 }
 

@@ -6,14 +6,20 @@ using Qiqqa.Documents.PDF.ThreadUnsafe;
 using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.Files;
+using Utilities.GUI;
 using Utilities.Misc;
 
 namespace Qiqqa.Documents.PDF.DiskSerialisation
 {
     public static class PDFMetadataSerializer
     {
-        internal static void WriteToDisk(PDFDocument_ThreadUnsafe pdf_document)
+        internal static void WriteToDisk(PDFDocument_ThreadUnsafe pdf_document, bool force_flush_no_matter_what)
         {
+            if (!force_flush_no_matter_what)
+            {
+                WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+            }
+
             // A little hack to make sure the legacies are updated...
             pdf_document.Tags = pdf_document.Tags;
             pdf_document.DateAddedToDatabase = pdf_document.DateAddedToDatabase;

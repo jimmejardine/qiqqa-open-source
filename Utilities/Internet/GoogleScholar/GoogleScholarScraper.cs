@@ -23,7 +23,7 @@ namespace Utilities.Internet.GoogleScholar
 {
     public class GoogleScholarScraper
     {
-        // the google scholar search request has 2 parameters: the search criteria (text) and the max number of results (number) 
+        // the google scholar search request has 2 parameters: the search criteria (text) and the max number of results (number)
         public const string Url_GoogleScholarQuery = @"http://scholar.google.com/scholar?q={0}&num={1}";
 
         public static string GenerateQueryUrl(string query, int num_items)
@@ -93,7 +93,7 @@ namespace Utilities.Internet.GoogleScholar
         }
 
         /// <summary>
-        /// Parses the HTML document for the relevant information.  
+        /// Parses the HTML document for the relevant information.
         /// The url is that from where the document was originally downloaded - it is needed to reconstruct some of the relative links.
         /// </summary>
         /// <param name="doc"></param>
@@ -194,6 +194,14 @@ namespace Utilities.Internet.GoogleScholar
                         }
 
                         gssps.Add(gssp);
+                    }
+                    else if (NoAltElements.FirstChild != null && NoAltElements.FirstChild.Name == "a" && (NoAltElements.FirstChild.Attributes["href"]?.Value ?? "").Contains("scholar_alerts?"))
+                    {
+                        // ignore Google Scholar alerts blurb
+                    }
+                    else if (NoAltElements.FirstChild != null && NoAltElements.FirstChild.Name == "#text")
+                    {
+                        // ignore Google Scholar "best result for this search query" blurb
                     }
                     else
                     {
@@ -312,7 +320,7 @@ namespace QiqqaUnitTester
                 bool have_a_close_match = false;
 
                 foreach (ACLPaperMetadata metadata in ACLPaperMetadatas.GetACLPaperMetadatas().Values)
-                {                    
+                {
                     string acl_title = metadata.title.ToLower();
                     string gs_title = gs_paper.title.ToLower();
                     double max_length = Math.Max(acl_title.Length, gs_title.Length);

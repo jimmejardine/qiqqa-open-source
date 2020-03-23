@@ -234,6 +234,9 @@
     <None Include="..\Qiqqa.Build\Packaging\Scripts\products\vc2010.iss">
       <Link>Build Scripts\ISCC\Scripts\products\vc2010.iss</Link>
     </None>
+    <None Include="..\Qiqqa.Build\Packaging\Scripts\products\unzip.iss">
+      <Link>Build Scripts\ISCC\Scripts\products\unzip.iss</Link>
+    </None>
     <None Include="..\Qiqqa.Build\Packaging\Scripts\products\winversion.iss">
       <Link>Build Scripts\ISCC\Scripts\products\winversion.iss</Link>
     </None>

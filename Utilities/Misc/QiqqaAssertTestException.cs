@@ -12,12 +12,22 @@ namespace Utilities.Misc
         public QiqqaAssertTestException(string message = null)
             : base((String.IsNullOrEmpty(message) ? "Assertion Failure" : message) + "\n### Report this issue at the GitHub Qiqqa project issue page https://github.com/jimmejardine/qiqqa-open-source/issues and please do provide the log file which contains this error report and accompanying stacktrace.")
         {
+            StackTrace = Environment.StackTrace;
         }
 
         public QiqqaAssertTestException(string message, Exception inner_exception)
             : base((String.IsNullOrEmpty(message) ? "Assertion Failure" : message) + "\n### Report this issue at the GitHub Qiqqa project issue page https://github.com/jimmejardine/qiqqa-open-source/issues and please do provide the log file which contains this error report and accompanying stacktrace.", inner_exception)
         {
+            StackTrace = Environment.StackTrace;
         }
+
+        //
+        // Summary:
+        //     Gets a string representation of the immediate frames on the call stack.
+        //
+        // Returns:
+        //     A string that describes the immediate frames of the call stack.
+        public override string StackTrace { get; }
     }
 
     public static class ASSERT

@@ -23,10 +23,10 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
 
         public BlackWhiteListEntry(string line)
         {
-            string[] bits = line.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
-            word = bits[0];
-            list_type = FromListTypeString(bits[1]);
-            is_deleted = (0 == bits[2].CompareTo("1"));
+            string[] bits = line.Split(new char[] { '|' });
+            word = bits[0].Trim();
+            list_type = FromListTypeString(bits[1].Trim());
+            is_deleted = (0 == bits[2].Trim().CompareTo("1"));
         }
 
         public override string ToString()
