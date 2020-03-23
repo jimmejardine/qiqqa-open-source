@@ -10,7 +10,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
 
         public static string GetAbstractForDocument(PDFDocument_ThreadUnsafe pdf_document)
         {
-            // Try on the first two pages (sometimes there is a couvert page)
+            // Try on the first two pages (sometimes there is a cover page)
             for (int page = 1; page <= 3; ++page)
             {
                 string result = GetAbstractForDocument(pdf_document, page);
@@ -79,7 +79,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
                     }
                 }
 
-                // Look for ABSTRACT and INTRODUCTION and take everthing in between...
+                // Look for ABSTRACT and INTRODUCTION and take everything in between...
                 if (true)
                 {
                     if (-1 != intro_start && -1 != abstract_start && abstract_start < intro_start)
@@ -97,7 +97,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
                     }
                 }
 
-                // Look for ABSTRACT and KEYWORDS and take everthing in between...
+                // Look for ABSTRACT and KEYWORDS and take everything in between...
                 if (true)
                 {
                     if (-1 != keywords_start && -1 != abstract_start && abstract_start < keywords_start)

@@ -1,6 +1,6 @@
 {
   "name": "qiqqa",
-  "version": "82.0.7265-2217",
+  "version": "82.0.7356-40890",
   "description": "Qiqqa: The essential free research and reference manager. Search for, read and annotate your PDFs. Then review your work, write up and create bibliographies instantly.",
   "main": "Qiqqa.Build/info.js",
   "directories": {
@@ -10,7 +10,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "syncver": "node Qiqqa.Build/bump_version.js -s",
     "bump": "node Qiqqa.Build/bump_version.js -b",
-    "refresh-data": "node Qiqqa.Build/refresh_testdata_in_CS_testfiles.js -r"
+    "refresh-data": "node Qiqqa.Build/refresh_testdata_in_CS_testfiles.js -r",
+    "fix-docs": "node Qiqqa.Build/fix-docs-filenames.js -g"
   },
   "repository": {
     "type": "git",

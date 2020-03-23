@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Quantisle")]
 [assembly: AssemblyProduct("QiqqaLegacyFileFormats")]
-[assembly: AssemblyCopyright("XX")]
+[assembly: AssemblyCopyright("Copyright © Quantisle 2010-2020. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("82")]
-[assembly: AssemblyFileVersion("82")]
+[assembly: AssemblyVersion("82.0.7356.40890")]
+[assembly: AssemblyFileVersion("82.0.7356.40890")]

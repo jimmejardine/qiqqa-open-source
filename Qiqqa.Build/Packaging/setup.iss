@@ -266,7 +266,7 @@ begin
   end;
 
   // check if app is running
-  if (IsAppRunningU('{#ExeName}') or IsAppRunningU('pdfdraw.exe') or IsAppRunningU('QiqqaOCR.exe')) do
+  if (IsAppRunningU('{#ExeName}') or IsAppRunningU('pdfdraw.exe') or IsAppRunningU('QiqqaOCR.exe')) then
   begin
     MsgBox( '{#AppName} is running, please close it and run uninstall again.', mbError, MB_OK );
     Result := false;

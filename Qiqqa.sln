@@ -16,7 +16,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{19960EDF-B439-4ED5-AD0B-A08FDA6ECF3E}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
-		build-installer.sh = build-installer.sh
 		CHANGELOG.md = CHANGELOG.md
 		CHANGELOG_full.md = CHANGELOG_full.md
 		DEVELOPER-INFO.md = DEVELOPER-INFO.md
@@ -257,6 +256,117 @@ EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "WpfSharedProject1", "WpfSharedProject1\WpfSharedProject1.shproj", "{B2AAFEA1-A4F5-4C2F-8BAA-BD0C1A7A9CD5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QiqqaHasher", "QiqqaHasher\QiqqaHasher.csproj", "{8F57D264-C659-4D2E-9F83-D893B73CF16C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "documentation", "documentation", "{47B16BE7-3065-445B-ADD5-368A69F5FC58}"
+	ProjectSection(SolutionItems) = preProject
+		docs\CNAME = docs\CNAME
+		docs\How.to.locate.your.Qiqqa.Base.Directory.md = docs\How.to.locate.your.Qiqqa.Base.Directory.md
+		docs\Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.md = docs\Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.md
+		docs\README.md = docs\README.md
+		docs\The.Qiqqa.Manual.md = docs\The.Qiqqa.Manual.md
+		docs\The.Qiqqa.Manual.reference.html = docs\The.Qiqqa.Manual.reference.html
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{270BB988-39BF-47CE-9CFA-7D3966008734}"
+	ProjectSection(SolutionItems) = preProject
+		docs\images\devinfcm.png = docs\images\devinfcm.png
+		docs\images\htlyqbd1.png = docs\images\htlyqbd1.png
+		docs\images\htlyqbd2.png = docs\images\htlyqbd2.png
+		docs\images\htlyqbd3.png = docs\images\htlyqbd3.png
+		docs\images\htlyqbd4.png = docs\images\htlyqbd4.png
+		docs\images\htlyqbd5.png = docs\images\htlyqbd5.png
+		docs\images\htlyqbd6.png = docs\images\htlyqbd6.png
+		docs\images\htlyqbd7.png = docs\images\htlyqbd7.png
+		docs\images\htlyqbd8.png = docs\images\htlyqbd8.png
+		docs\images\htlyqbd9.png = docs\images\htlyqbd9.png
+		docs\images\image001.png = docs\images\image001.png
+		docs\images\image002.png = docs\images\image002.png
+		docs\images\image003.png = docs\images\image003.png
+		docs\images\image004.png = docs\images\image004.png
+		docs\images\image005-TheLibraryScreen.ai = docs\images\image005-TheLibraryScreen.ai
+		docs\images\image005-TheLibraryScreen.png = docs\images\image005-TheLibraryScreen.png
+		docs\images\image006-ThePDFReadingScreen.ai = docs\images\image006-ThePDFReadingScreen.ai
+		docs\images\image006-ThePDFReadingScreen.png = docs\images\image006-ThePDFReadingScreen.png
+		docs\images\image007.png = docs\images\image007.png
+		docs\images\image008.png = docs\images\image008.png
+		docs\images\image009.png = docs\images\image009.png
+		docs\images\image010.png = docs\images\image010.png
+		docs\images\image011.png = docs\images\image011.png
+		docs\images\image012.png = docs\images\image012.png
+		docs\images\image013.png = docs\images\image013.png
+		docs\images\image014.png = docs\images\image014.png
+		docs\images\image015.png = docs\images\image015.png
+		docs\images\image016-AnnotationReport.ai = docs\images\image016-AnnotationReport.ai
+		docs\images\image016-AnnotationReport.png = docs\images\image016-AnnotationReport.png
+		docs\images\image017-AnnotationReportExample.ai = docs\images\image017-AnnotationReportExample.ai
+		docs\images\image017-AnnotationReportExample.png = docs\images\image017-AnnotationReportExample.png
+		docs\images\image018-BibTeXExample.ai = docs\images\image018-BibTeXExample.ai
+		docs\images\image018-BibTeXExample.png = docs\images\image018-BibTeXExample.png
+		docs\images\image019-BibTeXProperties.ai = docs\images\image019-BibTeXProperties.ai
+		docs\images\image019-BibTeXProperties.png = docs\images\image019-BibTeXProperties.png
+		docs\images\image020-BibTeXSniffer.ai = docs\images\image020-BibTeXSniffer.ai
+		docs\images\image020-BibTeXSniffer.png = docs\images\image020-BibTeXSniffer.png
+		docs\images\image021-InCiteScreen.ai = docs\images\image021-InCiteScreen.ai
+		docs\images\image021-InCiteScreen.png = docs\images\image021-InCiteScreen.png
+		docs\images\image022.png = docs\images\image022.png
+		docs\images\image023.png = docs\images\image023.png
+		docs\images\image024.png = docs\images\image024.png
+		docs\images\image025.png = docs\images\image025.png
+		docs\images\image026.png = docs\images\image026.png
+		docs\images\image027.png = docs\images\image027.png
+		docs\images\image028.png = docs\images\image028.png
+		docs\images\image029.png = docs\images\image029.png
+		docs\images\image030.png = docs\images\image030.png
+		docs\images\image031.png = docs\images\image031.png
+		docs\images\image032.png = docs\images\image032.png
+		docs\images\image033.png = docs\images\image033.png
+		docs\images\image034.png = docs\images\image034.png
+		docs\images\image035.png = docs\images\image035.png
+		docs\images\image036.png = docs\images\image036.png
+		docs\images\image037.png = docs\images\image037.png
+		docs\images\image038-YourLibraries.ai = docs\images\image038-YourLibraries.ai
+		docs\images\image038-YourLibraries.png = docs\images\image038-YourLibraries.png
+		docs\images\image039.png = docs\images\image039.png
+		docs\images\image040.png = docs\images\image040.png
+		docs\images\image041.png = docs\images\image041.png
+		docs\images\image042.png = docs\images\image042.png
+		docs\images\image043-AutoSync.ai = docs\images\image043-AutoSync.ai
+		docs\images\image043-AutoSync.png = docs\images\image043-AutoSync.png
+		docs\images\image044.png = docs\images\image044.png
+		docs\images\image045.png = docs\images\image045.png
+		docs\images\image046.png = docs\images\image046.png
+		docs\images\image047.png = docs\images\image047.png
+		docs\images\image048.png = docs\images\image048.png
+		docs\images\image049.png = docs\images\image049.png
+		docs\images\image050.png = docs\images\image050.png
+		docs\images\image051-0052-Android.ai = docs\images\image051-0052-Android.ai
+		docs\images\image051-Android.png = docs\images\image051-Android.png
+		docs\images\image052-Android.png = docs\images\image052-Android.png
+		docs\images\image053.png = docs\images\image053.png
+		docs\images\image054-ExpeditionScreen.ai = docs\images\image054-ExpeditionScreen.ai
+		docs\images\image054-ExpeditionScreen.png = docs\images\image054-ExpeditionScreen.png
+		docs\images\image055.png = docs\images\image055.png
+		docs\images\image056.png = docs\images\image056.png
+		docs\images\image057.png = docs\images\image057.png
+		docs\images\image058.png = docs\images\image058.png
+		docs\images\image059.png = docs\images\image059.png
+		docs\images\screen0003.ai = docs\images\screen0003.ai
+		docs\images\screen0014.ai = docs\images\screen0014.ai
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tooling", "tooling", "{F9DF5E27-2982-4CA0-B571-B9BA44FAE2BB}"
+	ProjectSection(SolutionItems) = preProject
+		Qiqqa.Build\beautify-xaml.js = Qiqqa.Build\beautify-xaml.js
+		build-installer.sh = build-installer.sh
+		Qiqqa.Build\bump_version.js = Qiqqa.Build\bump_version.js
+		Qiqqa.Build\ClientVersion.xml = Qiqqa.Build\ClientVersion.xml
+		Qiqqa.Build\fix-docs-filenames.js = Qiqqa.Build\fix-docs-filenames.js
+		Qiqqa.Build\go.bat = Qiqqa.Build\go.bat
+		Qiqqa.Build\munch_changelog.js = Qiqqa.Build\munch_changelog.js
+		Qiqqa.Build\patch_settings_file.js = Qiqqa.Build\patch_settings_file.js
+		Qiqqa.Build\README.md = Qiqqa.Build\README.md
+		Qiqqa.Build\refresh_testdata_in_CS_testfiles.js = Qiqqa.Build\refresh_testdata_in_CS_testfiles.js
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -603,6 +713,9 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{AFB0BE7E-CE68-47B1-8E14-66A0DBC848A4} = {19960EDF-B439-4ED5-AD0B-A08FDA6ECF3E}
+		{47B16BE7-3065-445B-ADD5-368A69F5FC58} = {19960EDF-B439-4ED5-AD0B-A08FDA6ECF3E}
+		{270BB988-39BF-47CE-9CFA-7D3966008734} = {47B16BE7-3065-445B-ADD5-368A69F5FC58}
+		{F9DF5E27-2982-4CA0-B571-B9BA44FAE2BB} = {19960EDF-B439-4ED5-AD0B-A08FDA6ECF3E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1053AC46-6C10-40DE-8F81-A31A1C28ACDC}
