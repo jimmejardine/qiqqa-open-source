@@ -139,7 +139,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.PDFExporting
                     catch (Exception ex)
                     {
                         Logging.Error(ex, "There was a problem exporting page {0}", page);
-
                     }
                 }
             }

@@ -92,7 +92,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
                 PDFSearchResult search_result_placeholder = pdf_text_item.Tag as PDFSearchResult;
 
                 // If there was no previous search location, we use the first we find
-                // If the last text item was the match position, use this next one                
+                // If the last text item was the match position, use this next one
                 if (previous_search_result_placeholder == search_result_placeholder)
                 {
                     pdf_renderer_control_stats.pdf_renderer_control.SelectPage(page);
