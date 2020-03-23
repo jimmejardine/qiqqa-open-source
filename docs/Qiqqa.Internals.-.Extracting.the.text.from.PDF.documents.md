@@ -1,4 +1,4 @@
-# The Qiqqa OCR \[Background\] Process
+# The Qiqqa OCR \[*background*\] process
 
 Before we dive in, there's one important question to ask (when considering storage size/costs and Qiqqa backwards compatibility):
 
