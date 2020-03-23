@@ -182,7 +182,38 @@ However, when this fails to produce any text, Qiqqa *will* trigger a Stage 2 OCR
 
 This background job is executed for every single page in the PDF which  did not deliver any text in the Stage 1 process above.
 
-By now, Qiqqa assumes the PDF is image based and requires a true OCR process to obtain the text from the PDF page. Currently it uses the [Sorax PDF library to render the PDF Bla bla <sup id="Stage2OCR">†</sup>](#SoraxWoes)
+By now, Qiqqa assumes the PDF is image based and requires a true OCR process to obtain the text from the PDF page. 
+
+Currently it uses the Sorax PDF library to render the PDF page[<sup id="Stage2OCR">†</sup>](#SoraxWoes), which is then [fed into Tesseract v3 for OCR-ing](https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/QiqqaOCR/OCREngine.cs#L230). Region detection is performed by Qiqqa [proprietary logic](https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/QiqqaOCR/OCREngine.cs#L251) and passed into Tesseract.[<sup id="Stage2OCR2">‡</sup>](#TesseractWoes) 
+
+Again, the expected OCR output is a set of 'words' and box coordinates pointing at the position of these OCR-ed words in the page. This information is stored on a per-page basis in that same  proprietary Qiqqa text format.
+
+Example path:
+
+```
+  base/ocr/DA/DA7B8FDA82E6D7465ADC7590EEC0C914E955C5B8.text.4.txt
+```
+
+
+### When Stage 2 (and Stage 1) have failed...? 🥶 😱
+
+Qiqqa v80 (and commercial Qiqqa v79 at least) will then go and re-queue the same OCR job(s) after a while since no OCR text cache files could be produced (the page(s) did not produce a single word after all and the Qiqqa text OCR files are not supposed to be *empty*!
+
+The result here is that Qiqqa will continuously re-attempt the same (failing) OCR activity for these troublesome pages in the background, loading the machine indefinitely. 🥶 😱
+
+
+#### v82 *experimental* releases: Stage 3: Faking It (= [the `"SINGLE-FAKE"` call](https://github.com/GerHobbelt/qiqqa-open-source/blob/bc80c1c07b0beda99e99021029c875bde36e2bd1/Qiqqa/Documents/PDF/PDFRendering/PDFTextExtractor.cs#L793))
+
+Qiqqa v82 (and later, I expect 😉) has added a Stage 3: when Stage 1 and Stage 2 have failed to deliver any words for the given page, then we are sure that either the PDF page has no text or at the very least Qiqqa is currently incapable of retrieving any text on that page. To prevent Qiqqa from running heavy CPU loading OCR tasks indefinitely (= until you quit the application), we "fake it" by storing a specific "magic sequence" in the Stage 2 OCR text cache file. 🤷
+
+> Future versions of Qiqqa SHOULD have improved OCR capabilities and will find and detect these "faked pages" and erase them before re-doing the OCR process then. But tthat is, at this very moment (2020-03-22 AD) still future music: [#160](https://github.com/jimmejardine/qiqqa-open-source/issues/160)
+
+
+
+
+
+
+### The Lucene Text SearchIndex Update Process
 
 
 
@@ -197,8 +228,9 @@ By now, Qiqqa assumes the PDF is image based and requires a true OCR process to 
 
 [↩⤣](#Stage2OCR)
 
+<b id="TesseractWoes">‡</b>: There's plenty to complain about that region detection logic too: [#135](https://github.com/jimmejardine/qiqqa-open-source/issues/135). And then there's the old Tesseract which needs some assist as well: [#160](https://github.com/jimmejardine/qiqqa-open-source/issues/160) and [one other bit mentioned in #135](https://github.com/jimmejardine/qiqqa-open-source/issues/135#issuecomment-569827317).
 
+However, it's not all that bleak when your research does not include diving into old/historic documents and/or PDFs published by companies: many modern scientific papers are published in a PDF format which can be grokked by `mupdf` just fine — though here I have found that quite a few PDFs which *appear* to have been produced some older TeX variants *do* cause trouble in Stage 1 ("GROUP") and produce some crap of their own: [#86](https://github.com/jimmejardine/qiqqa-open-source/issues/86)
 
-
-### The Lucene Text SearchIndex Update Process
+[↩⤣](#Stage2OCR2)
 
