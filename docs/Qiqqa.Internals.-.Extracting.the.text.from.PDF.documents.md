@@ -229,7 +229,7 @@ This background job is executed for every single page in the PDF which  did not 
 
 By now, Qiqqa assumes the PDF is image based and requires a true OCR process to obtain the text from the PDF page. 
 
-Currently it uses the Sorax PDF library to render the PDF page[<sup id="Stage2OCR">†</sup>](#SoraxWoes), which is then [fed into Tesseract v3 for OCR-ing](https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/QiqqaOCR/OCREngine.cs#L230). Region detection is performed by Qiqqa [proprietary logic](https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/QiqqaOCR/OCREngine.cs#L251) and passed into Tesseract.[<sup id="Stage2OCR2">‡</sup>](#TesseractWoes) 
+Currently it uses the Sorax PDF library to render the PDF page[<sup id="user-content-stage2ocr1">†</sup>](#SoraxWoes), which is then [fed into Tesseract v3 for OCR-ing](https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/QiqqaOCR/OCREngine.cs#L230). Region detection is performed by Qiqqa [proprietary logic](https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/QiqqaOCR/OCREngine.cs#L251) and passed into Tesseract.[<sup id="user-content-stage2ocr2">‡</sup>](#TesseractWoes) 
 
 Again, the expected OCR output is a set of 'words' and box coordinates pointing at the position of these OCR-ed words in the page. This information is stored on a per-page basis in that same  proprietary Qiqqa text format.
 
@@ -302,7 +302,7 @@ This *inferred* metadata is shown and used by Qiqqa when there is no BibTeX meta
 
 > At the time of this writing, I know/strongly suspect almost all these white-pages-rendered-only problems are due to bugs in the  Sorax lib as  I have many PDFs in my collection suffering from this. 🤬
 
-[⤣](#Stage2OCR)
+[⤣](#Stage2OCR1)
 
 <b id="TesseractWoes">‡</b>: Your family name doesn't have to be [Statler or Waldorf](https://en.wikipedia.org/wiki/Statler_and_Waldorf) to have plenty to complain about that region detection logic too: [#135](https://github.com/jimmejardine/qiqqa-open-source/issues/135). And then there's the old Tesseract which needs some assist as well: [#160](https://github.com/jimmejardine/qiqqa-open-source/issues/160) and [one other bit mentioned in #135](https://github.com/jimmejardine/qiqqa-open-source/issues/135#issuecomment-569827317).
 
