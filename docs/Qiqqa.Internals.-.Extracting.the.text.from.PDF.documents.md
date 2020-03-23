@@ -5,6 +5,14 @@ Before we dive in, there's one important question to ask (when considering stora
 
 ## Given a PDF, *what* does Qiqqa store on disk?
 
+### TL;DR
+
+1. the original PDF, *renamed* using the *content hash*.
+2. the extracted text (as a series of words plus box coordinates in a propietary text format)
+
+
+### The long answer to that question
+
 It does not matter *how* Qiqqa obtained the incoming PDF document, be it by "watch folder" directory scanning, website sniffer download, drag&drop or other means to import: all incoming PDFs are processed the same way.
 
 > Some **metadata** bits may be different: a source URL may be saved on Sniffer download or alike, but that's about it.
