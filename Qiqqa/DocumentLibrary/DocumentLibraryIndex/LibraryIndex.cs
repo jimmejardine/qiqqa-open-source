@@ -372,7 +372,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
         private bool RescanLibrary()
         {
-            // We include the deleted ones because we need to reindex their metadata...
+            // We include the deleted ones because we need to re-index their metadata...
             List<PDFDocument> pdf_documents = Library.PDFDocuments_IncludingDeleted;
 
             int total_new_to_be_indexed = 0;
@@ -499,7 +499,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             //
             // We can use minimal locking (i.e. only critical section-ing the list-fetch qeury code below, instead of the entire work loop further below)
             // as this is the only place where the content of the individual records is edited and accessed (apart from the non-critical function
-            // `GetStatusCounts()` which only serves to update the UI status reports) and the rest of the Qiqqa code ensures that this method 
+            // `GetStatusCounts()` which only serves to update the UI status reports) and the rest of the Qiqqa code ensures that this method
             // `IncrementalBuildNextDocuments()` is only invoked from a single (background) thread.
             //
             // All the other places where the `pdf_documents_in_library` data is accessed are (critical section-ed) member functions of this class which

@@ -195,7 +195,7 @@ namespace Utilities.Language.TextIndexing
 
         private void AddDocumentPage_INTERNAL(string fingerprint, int page, Document document)
         {
-            // Write to the index            
+            // Write to the index
             // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (index_writer_lock)
             {
@@ -431,7 +431,6 @@ namespace Utilities.Language.TextIndexing
             Logging.Warn("Invalidating Lucene index at {0}", LIBRARY_INDEX_BASE_PATH);
             FileTools.Delete(VersionFilename);
         }
-
 
         private void CheckIndexVersion()
         {
