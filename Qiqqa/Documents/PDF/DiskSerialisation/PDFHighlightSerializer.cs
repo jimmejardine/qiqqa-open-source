@@ -79,9 +79,12 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
 
         // --------------------------------------------------------------------------------------------------------
 
-        internal static void WriteToDisk(PDFDocument_ThreadUnsafe pdf_document)
+        internal static void WriteToDisk(PDFDocument_ThreadUnsafe pdf_document, bool force_flush_no_matter_what)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+            if (!force_flush_no_matter_what)
+            {
+                WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+            }
 
             string json = pdf_document.GetHighlightsAsJSON();
             if (!String.IsNullOrEmpty(json))

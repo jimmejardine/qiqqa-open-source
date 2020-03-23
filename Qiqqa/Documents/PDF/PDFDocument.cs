@@ -91,9 +91,9 @@ namespace Qiqqa.Documents.PDF
         /// <summary>
         /// This is an approximate response: it takes a *fast* shortcut to check if the given
         /// PDF has been OCR'd in the past.
-        /// 
+        ///
         /// The emphasis here is on NOT triggering a new OCR action! Just taking a peek, *quickly*.
-        /// 
+        ///
         /// The cost: one(1) I/O per check.
         /// </summary>
         public bool HasOCRdata
@@ -415,16 +415,16 @@ namespace Qiqqa.Documents.PDF
 
         /// <summary>
         /// Produce the document's year of publication.
-        /// 
+        ///
         /// When producing (getting) this value, the priority is:
-        /// 
+        ///
         /// - check the BibTeX `year` field and return that one when it's non-empty
         /// - check the manual-entry `year` field (@xref Year)
         /// - check the suggested year field (@xref YearSuggested)
         /// - if also else fails, return the UNKNOWN_YEAR value.
-        /// 
+        ///
         /// When setting this value, the first action in this prioirty list is executed, where the conditions pass:
-        /// 
+        ///
         /// - check if there's a non-empty (partial) BibTeX record: when there is, add/update the `year` field
         /// - update the manual-entry Year field (@xref Year)
         /// </summary>
@@ -1060,11 +1060,11 @@ namespace Qiqqa.Documents.PDF
 
         #endregion -------------------------------------------------------------------------------------------------
 
-        public void SaveToMetaData()
+        public void SaveToMetaData(bool force_flush_no_matter_what = false)
         {
             lock (access_lock)
             {
-                doc.SaveToMetaData();
+                doc.SaveToMetaData(force_flush_no_matter_what);
             }
         }
 

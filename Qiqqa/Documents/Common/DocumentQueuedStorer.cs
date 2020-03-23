@@ -20,7 +20,7 @@ namespace Qiqqa.Documents.Common
         protected DocumentQueuedStorer()
         {
             MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_FlushDocuments, 30 * 1000);
-            // Quit this delayed storing of PDF files when we've hit the end of the execution run: 
+            // Quit this delayed storing of PDF files when we've hit the end of the execution run:
             // we'll have to save them all to disk in one go then, and quickly too!
             Utilities.Shutdownable.ShutdownableManager.Instance.Register(Shutdown);
         }
@@ -33,7 +33,7 @@ namespace Qiqqa.Documents.Common
 				return;
             }
 
-            // Quit this delayed storing of PDF files when we've hit the end of the excution run: 
+            // Quit this delayed storing of PDF files when we've hit the end of the excution run:
             // we'll have to save them all to disk in one go then, and quickly too!
             if (!Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
             {
@@ -76,6 +76,11 @@ namespace Qiqqa.Documents.Common
             // use a lock to ensure the time-delayed flush doesn't ever collide with the
             // end-of-execution-run flush initiated by ShutdownableManager.
             ForcedFlushRequested = force_flush_no_matter_what;
+
+            if (!force_flush_no_matter_what)
+            {
+                WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+            }
 
             int done_count_for_status = 0;
 
@@ -123,7 +128,7 @@ namespace Qiqqa.Documents.Common
 
                 if (null != pdf_document_to_flush)
                 {
-                    pdf_document_to_flush.SaveToMetaData();
+                    pdf_document_to_flush.SaveToMetaData(ForcedFlushRequested);
 
                     done_count_for_status++;
                 }
