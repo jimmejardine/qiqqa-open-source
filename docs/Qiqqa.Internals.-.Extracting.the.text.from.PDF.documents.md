@@ -302,7 +302,7 @@ This *inferred* metadata is shown and used by Qiqqa when there is no BibTeX meta
 
 > At the time of this writing, I know/strongly suspect almost all these white-pages-rendered-only problems are due to bugs in the  Sorax lib as  I have many PDFs in my collection suffering from this. 🤬
 
-[⤣](#Stage2OCR1)
+[⤣](#user-content-stage2ocr1)
 
 <b id="TesseractWoes">‡</b>: Your family name doesn't have to be [Statler or Waldorf](https://en.wikipedia.org/wiki/Statler_and_Waldorf) to have plenty to complain about that region detection logic too: [#135](https://github.com/jimmejardine/qiqqa-open-source/issues/135). And then there's the old Tesseract which needs some assist as well: [#160](https://github.com/jimmejardine/qiqqa-open-source/issues/160) and [one other bit mentioned in #135](https://github.com/jimmejardine/qiqqa-open-source/issues/135#issuecomment-569827317).
 
