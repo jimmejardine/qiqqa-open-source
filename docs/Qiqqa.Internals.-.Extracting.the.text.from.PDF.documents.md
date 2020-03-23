@@ -5,6 +5,7 @@ Before we dive in, there's one important question to ask (when considering stora
 
 ## Given a PDF, *what* does Qiqqa store on disk?
 
+
 ### TL;DR
 
 1. the original PDF, *renamed* using the *content hash*.
@@ -14,10 +15,13 @@ Before we dive in, there's one important question to ask (when considering stora
   <summary>
     <b>Click here to unfold:</b> ☞ <b>The long answer to this question</b> 🙉🎉
   </summary>
-  
+
+<!-- empty paras to improve display on github -->
+<br>
+
 <!-- ### The long answer to that question -->
 
-> #### Does it depend on where the PDF is coming form?
+> #### Does it matter where the PDF is coming from?
 >
 > It does not matter *how* Qiqqa obtained the incoming PDF document, be it by "watch folder" directory scanning, website sniffer download, drag&drop or other means to import: all incoming PDFs are processed the same way.
 >
@@ -211,9 +215,10 @@ Qiqqa v82 (and later, I expect 😉) has added a Stage 3: when Stage 1 and Stage
 
 
 
+## Other Qiqqa \[background\] processes which use and influence the OCR process' behaviour
 
 
-## The Lucene Text SearchIndex Update Process
+### The Lucene Text SearchIndex Update Process
 
 [Another Qiqqa background process](https://github.com/jimmejardine/qiqqa-open-source/blob/0b015c923e965ba61e3f6b51218ca509fcd6cabb/Qiqqa/Common/BackgroundWorkerDaemonStuff/BackgroundWorkerDaemon.cs#L231) updates the Qiqqa text search index, which is powered by LuceneNET.
 
@@ -226,7 +231,7 @@ https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc2
 
 
 
-## Ooh! Almost forgot! The metadata inference process!
+### Ooh! Almost forgot! The metadata inference process!
 
 [Yet another background task](https://github.com/jimmejardine/qiqqa-open-source/blob/0b015c923e965ba61e3f6b51218ca509fcd6cabb/Qiqqa/DocumentLibrary/MetadataExtractionDaemonStuff/MetadataExtractionDaemon.cs) goes through your libraries' documents and attempts to infer a *title*, *author*, [*abstract*](https://github.com/jimmejardine/qiqqa-open-source/blob/0b015c923e965ba61e3f6b51218ca509fcd6cabb/Qiqqa/Documents/PDF/PDFControls/Page/Tools/PDFAbstractExtraction.cs#L11) and other *metadata* from the OCR-ed text data for the given PDF. This MAY also (re)trigger the OCR process when the text data has not been produced before. (By now you'll surely understand why the v82 "Stage 3" = "SINGLE-FAKE" hack was invented...)
 
