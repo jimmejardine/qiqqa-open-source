@@ -33,7 +33,7 @@
 
         static void PageTextReady(int page_from, int page_to)
         {
-            Logging.Info("Page {0} thru {1} text is ready", page_from, page_to);
+            Logging.Info("Pages {0} - {1} text is ready", page_from, page_to);
         }
 
         public static void TestTextExtraction()
@@ -70,11 +70,11 @@
         {
             {
                 PDFRenderer pdf_renderer = new PDFRenderer(TEST_PDF_FILENAME_LOCAL2, null, null);
-             //   PDFCoherentTextExtractor.ExtractText(pdf_renderer);
+                PDFCoherentTextExtractor.ExtractText(pdf_renderer);
             }
             {
                 PDFRenderer pdf_renderer = new PDFRenderer(TEST_PDF_FILENAME_LOCAL5, null, null);
-             //   PDFCoherentTextExtractor.ExtractText(pdf_renderer);
+                PDFCoherentTextExtractor.ExtractText(pdf_renderer);
             }
             {
                 PDFRenderer pdf_renderer = new PDFRenderer(TEST_PDF_FILENAME_LOCAL8, null, null);

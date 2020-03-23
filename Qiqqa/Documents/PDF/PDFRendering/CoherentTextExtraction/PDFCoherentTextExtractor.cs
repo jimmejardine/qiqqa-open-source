@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if false
+
+using System;
 using System.Collections.Generic;
 using Utilities;
 using Utilities.Collections;
@@ -111,7 +113,6 @@ namespace Qiqqa.Documents.PDF.PDFRendering.CoherentTextExtraction
                 Logging.Info("Successfully extracted {0} words: {1}", words.Count, ArrayFormatter.listElements(words));
                 return new ExtractionResult(ExtractionResult.ResultType.SUCCESS, words);
             }
-
             catch (Exception ex)
             {
                 Logging.Warn(ex, "There was an exception while extracting coherent text");
@@ -120,3 +121,5 @@ namespace Qiqqa.Documents.PDF.PDFRendering.CoherentTextExtraction
         }
     }
 }
+
+#endif

@@ -202,7 +202,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 			// and make sure antique or obscure hardware doesn't tease us into
 			// arriving at a ZERO thread count:
             NUM_OCR_THREADS = Math.Max(NUM_OCR_THREADS, 1);
-#if DEBUG // for debugging 
+#if DEBUG // for debugging
             NUM_OCR_THREADS = 1;   // force a single thread for ease of debugging the background process
 #endif
 
@@ -334,7 +334,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                     current_ratio *= 0.01;
 
                     // noise the target ratio: choose such that the user will observe the numbers changing most often
-                    //					
+                    //
                     // if the current_ratio is below par, we want to pick a textify job first,
                     // but if its number has been bumped by +1 since last time, we go for another job first instead
                     // as otherwise the user would observe a 'stuck count' while a lot of work is being done.
@@ -434,7 +434,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
                     if (current_ratio <= TARGET_RATIO)
                     {
-                        // First look for any GROUP jobs                
+                        // First look for any GROUP jobs
                         foreach (var pair in job_queue_group)
                         {
                             Job job = pair.Value;
@@ -561,7 +561,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                         StatusManager.Instance.UpdateStatus("PDFOCR", "OCR paused while adding documents.");
                         ocr_working_next_notification_time.Stop();
                     }
-                    
+
                     daemon.Sleep(2000);
                     continue;
                 }
@@ -750,7 +750,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 {
                     // If the group fails, then we queue it up for single OCR attempts...
                     string new_failed_group_token = NextJob.GetCurrentJobToken(next_job.job, next_job.is_group);
-                    
+
                     //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                     lock (queue_lock)
                     {
@@ -765,7 +765,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             }
             else
             {
-                // Immediately queue previously failed GROUP attempts on this PDF file as SINGLE OCR attempts instead, 
+                // Immediately queue previously failed GROUP attempts on this PDF file as SINGLE OCR attempts instead,
                 // without even trying the GROUP mode again, for it will certainly fail the second/third/etc.
                 // time around as well.
                 QueueJobSingle(next_job.job);
@@ -800,7 +800,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
                 // Before we go and 'fake it' to shut up Qiqqa and stop the repeated (and failing) OCR attempts,
                 // we check if the previous error is not due to the edge condition where Qiqqa is terminating/aborting
-                // to prevent index/OCR polution.
+                // to prevent index/OCR pollution.
                 //
                 // <handwave />
 
@@ -858,7 +858,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         // STDOUT/STDERR
         private bool CheckOCRProcessSuccess(string ocr_parameters, out OCRExecReport report)
         {
-            // Fire up the process            
+            // Fire up the process
             using (Process process = ProcessSpawning.SpawnChildProcess("QiqqaOCR.exe", ocr_parameters, ProcessPriorityClass.BelowNormal))
             {
                 Stopwatch clk = Stopwatch.StartNew();
