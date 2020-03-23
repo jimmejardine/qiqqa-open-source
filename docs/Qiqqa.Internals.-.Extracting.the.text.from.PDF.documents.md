@@ -308,5 +308,5 @@ This *inferred* metadata is shown and used by Qiqqa when there is no BibTeX meta
 
 However, it's not all that bleak when your research does not include diving into old/historic documents and/or PDFs published by companies: many modern scientific papers are published in a PDF format which can be grokked by `mupdf` just fine — though here I have found that quite a few PDFs which *appear* to have been produced by some unidentified TeX variants *do* cause trouble in Stage 1 (`"GROUP"`) and produce some crap of their own: [#86](https://github.com/jimmejardine/qiqqa-open-source/issues/86)
 
-[⤣](#Stage2OCR2)
+[⤣](#user-content-stage2ocr2)
 
