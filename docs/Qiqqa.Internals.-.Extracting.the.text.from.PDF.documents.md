@@ -1,4 +1,4 @@
-# The Qiqqa OCR \[*background*\] process
+# The Qiqqa OCR *background* process
 
 Before we dive in, there's one important question to ask (when considering storage size/costs and Qiqqa backwards compatibility):
 
@@ -215,7 +215,7 @@ Qiqqa v82 (and later, I expect 😉) has added a Stage 3: when Stage 1 and Stage
 
 
 
-## Other Qiqqa \[background\] processes which use and influence the OCR process' behaviour
+## Other Qiqqa background processes which use and influence the OCR process' behaviour
 
 
 ### The Lucene Text SearchIndex Update Process
@@ -231,7 +231,7 @@ https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc2
 
 
 
-### Ooh! Almost forgot! The metadata inference process!
+### Ooh! *Almost forgot!* The metadata inference process!
 
 [Yet another background task](https://github.com/jimmejardine/qiqqa-open-source/blob/0b015c923e965ba61e3f6b51218ca509fcd6cabb/Qiqqa/DocumentLibrary/MetadataExtractionDaemonStuff/MetadataExtractionDaemon.cs) goes through your libraries' documents and attempts to infer a *title*, *author*, [*abstract*](https://github.com/jimmejardine/qiqqa-open-source/blob/0b015c923e965ba61e3f6b51218ca509fcd6cabb/Qiqqa/Documents/PDF/PDFControls/Page/Tools/PDFAbstractExtraction.cs#L11) and other *metadata* from the OCR-ed text data for the given PDF. This MAY also (re)trigger the OCR process when the text data has not been produced before. (By now you'll surely understand why the v82 "Stage 3" = "SINGLE-FAKE" hack was invented...)
 
