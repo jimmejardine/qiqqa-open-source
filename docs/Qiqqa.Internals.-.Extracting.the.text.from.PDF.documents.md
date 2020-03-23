@@ -229,7 +229,7 @@ This background job is executed for every single page in the PDF which  did not 
 
 By now, Qiqqa assumes the PDF is image based and requires a true OCR process to obtain the text from the PDF page. 
 
-Currently it uses the Sorax PDF library to render the PDF page[<sup id="user-content-stage2ocr1">†</sup>](#SoraxWoes), which is then [fed into Tesseract v3 for OCR-ing](https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/QiqqaOCR/OCREngine.cs#L230). Region detection is performed by Qiqqa [proprietary logic](https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/QiqqaOCR/OCREngine.cs#L251) and passed into Tesseract.[<sup id="user-content-stage2ocr2">‡</sup>](#TesseractWoes) 
+Currently it uses the Sorax PDF library to render the PDF page<b id="Stage2OCR1">[<sup>†</sup>](#SoraxWoes)</b>, which is then [fed into Tesseract v3 for OCR-ing](https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/QiqqaOCR/OCREngine.cs#L230). Region detection is performed by Qiqqa [proprietary logic](https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/QiqqaOCR/OCREngine.cs#L251) and passed into Tesseract.[<sup id="user-content-stage2ocr2">‡</sup>](#TesseractWoes) 
 
 Again, the expected OCR output is a set of 'words' and box coordinates pointing at the position of these OCR-ed words in the page. This information is stored on a per-page basis in that same  proprietary Qiqqa text format.
 
