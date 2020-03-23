@@ -11,15 +11,20 @@ Before we dive in, there's one important question to ask (when considering stora
 1. the original PDF, *renamed* using the *content hash*.
 2. the extracted text (as a series of words plus box coordinates in a propietary text format)
 
+
+
+### ☞ The long answer to this question 🙉🎉
+
+
 <details>
   <summary>
-    <b>Click here to unfold:</b> ☞ <b>The long answer to this question</b> 🙉🎉
+    <b>(Click here to unfold)</b>
   </summary>
 
 <!-- empty paras to improve display on github -->
 <br>
 
-<!-- ### The long answer to that question -->
+
 
 > #### Does it matter where the PDF is coming from?
 >
@@ -154,7 +159,37 @@ Before we dive in, there's one important question to ask (when considering stora
 </details>
 
 
+
+
+
+
 ## The Qiqqa OCR internal workflow
+
+
+### TL;DR
+
+1. background process executes Stage 1: `mupdf` — extract text from PDF if possible
+2. background process executes Stage 2: `tesseract`/OCR — extract text from PDF page images if possible
+3. v80 and before: give it the run-around. For ever. v82+: Fake it and *shut up* until we *improve*.
+
+Other Qiqqa (background) processes *will* impact OCR activity: the Lucene text search index and metadata inference systems *want* OCR data and don't stop until they *do*.
+
+
+
+###   ~~TL;DR~~   ☞ 🙥 The whole story 🙧 🙉🎉
+
+🙚 🙘 🙛 🙙 🙞 🙜 🙟 🙝 🙠 🙡 🙢 🙣 🙤 🙥 🙦 🙧
+
+<details>
+  <summary>
+    <b>(Click here to unfold)</b>
+  </summary>
+
+<!-- empty paras to improve display on github -->
+<br>
+
+<!-- ### The long answer to that question -->
+
 
 Once the background task gets around to it, the PDF is OCRed if this has not happened yet. 
 This is generally detected by checking whether the expected OCR data for page 1 is available.
@@ -241,7 +276,15 @@ This *inferred* metadata is shown and used by Qiqqa when there is no BibTeX meta
 
 
 
+</details>
+
+
+
+
+
 ---
+
+
 
 <b id="SoraxWoes">†</b>: The Sorax library doesn't support some 'protected' PDFs and renders those pages as white-on-white, resulting in a completely blank view inside Qiqqa. See also these woes viewing PDFs in Qiqqa:
 
