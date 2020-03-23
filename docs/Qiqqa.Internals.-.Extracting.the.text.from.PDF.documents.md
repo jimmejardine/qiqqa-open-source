@@ -10,11 +10,17 @@ Before we dive in, there's one important question to ask (when considering stora
 1. the original PDF, *renamed* using the *content hash*.
 2. the extracted text (as a series of words plus box coordinates in a propietary text format)
 
-
+<details>
+  <summary>
+    <b>Click here to unfold:</b> ☞ <b>The long answer to this question</b> 🙉🎉
+  </summary>
+  
 ### The long answer to that question
 
-It does not matter *how* Qiqqa obtained the incoming PDF document, be it by "watch folder" directory scanning, website sniffer download, drag&drop or other means to import: all incoming PDFs are processed the same way.
-
+> #### Does it depend on where the PDF is coming form?
+>
+> It does not matter *how* Qiqqa obtained the incoming PDF document, be it by "watch folder" directory scanning, website sniffer download, drag&drop or other means to import: all incoming PDFs are processed the same way.
+>
 > Some **metadata** bits may be different: a source URL may be saved on Sniffer download or alike, but that's about it.
 
 - The incoming **original PDF** is copied to the Qiqqa Library **document store**, which is located in the `<LibraryID>/documents/` directory tree.
@@ -140,6 +146,8 @@ It does not matter *how* Qiqqa obtained the incoming PDF document, be it by "wat
   As you can already see, a 'word' here is not always in accordance of the human purview of the meaning of 'word', e.g. the 'word' `...........................` at the end of the snippet there.
   
   Qiqqa [applies a few filters to this data](https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/Qiqqa/DocumentLibrary/DocumentLibraryIndex/LibraryIndex.cs#L629-L638) before it is injected into the `Lucene` search index database.
+
+</details>
 
 
 ## The Process
