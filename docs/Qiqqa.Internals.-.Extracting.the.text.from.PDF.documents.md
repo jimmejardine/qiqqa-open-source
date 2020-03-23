@@ -182,17 +182,20 @@ However, when this fails to produce any text, Qiqqa *will* trigger a Stage 2 OCR
 
 This background job is executed for every single page in the PDF which  did not deliver any text in the Stage 1 process above.
 
-By now, Qiqqa assumes the PDF is image based and requires a true OCR process to obtain the text from the PDF page. Currently it uses the [Sorax PDF library to render the PDF][1]
+By now, Qiqqa assumes the PDF is image based and requires a true OCR process to obtain the text from the PDF page. Currently it uses the [Sorax PDF library to render the PDF Bla bla <sup id="Stage2OCR">†</sup>](#SoraxWoes)
+
 
 
 ---
 
-[1]: The Sorax library doesn't support some 'protected' PDFs and renders those pages as white-on-white, resulting in a completely blank view inside Qiqqa. See also these woes viewing PDFs in Qiqqa:
+<b id="SoraxWoes">†</b>: The Sorax library doesn't support some 'protected' PDFs and renders those pages as white-on-white, resulting in a completely blank view inside Qiqqa. See also these woes viewing PDFs in Qiqqa:
 
 - https://getsatisfaction.com/qiqqa/topics/pdfs_stop_displaying_blank_pages#reply_17983571
 - https://github.com/jimmejardine/qiqqa-open-source/issues/136
 
 > At the time of this writing, I know/strongly suspect almost all these white-pages-rendered-only problems are due to bugs in the  Sorax lib as  I have many PDFs in my collection suffering from this. 🤬
+
+[↩⤣](#Stage2OCR)
 
 
 
