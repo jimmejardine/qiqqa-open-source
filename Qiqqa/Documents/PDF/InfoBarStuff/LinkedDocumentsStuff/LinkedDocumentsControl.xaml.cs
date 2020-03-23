@@ -73,7 +73,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.LinkedDocumentsStuff
 
         private void RepopulatePanels()
         {
-            CitationsUserControl.PopulatePanelWithCitations(DocsPanel_Linked, pdf_document.Library, pdf_document, pdf_document.PDFDocumentCitationManager.GetLinkedDocuments(), Features.LinkedDocument_InfoBar_OpenDoc);
+            CitationsUserControl.PopulatePanelWithCitations(DocsPanel_Linked, pdf_document, pdf_document.PDFDocumentCitationManager.GetLinkedDocuments(), Features.LinkedDocument_InfoBar_OpenDoc);
         }
 
         private void ReSearch()

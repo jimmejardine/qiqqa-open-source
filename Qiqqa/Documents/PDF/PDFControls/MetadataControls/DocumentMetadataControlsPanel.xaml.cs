@@ -52,6 +52,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
         private void ReevaluateDataContext()
         {
             bool have_pdf_to_render = false;
+            bool have_deleted_pdf = false;
 
             GridPreview.Children.Clear();
 
@@ -67,6 +68,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                         pdf_renderer_control.SelectedPageChanged += pdf_renderer_control_SelectedPageChanged;
                         have_pdf_to_render = true;
                     }
+
+                    have_deleted_pdf = pdf_document_bindable.Underlying.Deleted;
                 }
 
                 TxtNullDataContext.Visibility = Visibility.Collapsed;
@@ -83,6 +86,17 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                 ObjDocumentInfo.Visibility = Visibility.Collapsed;
                 IsEnabled = false;
             }
+
+#if true
+            if (have_deleted_pdf)
+            {
+                DocumentIsDeletedNode.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                DocumentIsDeletedNode.Visibility = Visibility.Hidden;
+            }
+#endif
         }
 
         private void pdf_renderer_control_SelectedPageChanged(int page)

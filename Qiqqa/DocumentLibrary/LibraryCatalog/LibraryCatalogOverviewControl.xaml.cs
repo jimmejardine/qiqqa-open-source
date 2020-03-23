@@ -139,7 +139,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
         private void LibraryCatalogOverviewControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            // Make the button semi-transparent if our new document is not actually on the harddrive            
+            // Make the button semi-transparent if our new document is not actually on the harddrive
             PanelSearchScore.Visibility = Visibility.Collapsed;
             ListSearchDetails.DataContext = null;
             ObjLookInsidePanel.Visibility = Visibility.Collapsed;
@@ -260,7 +260,8 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             ButtonThemeSwatch.Background = ThemeBrushes.GetBrushForDocument(PDFDocumentBindable.Underlying);
 
             // Populate the linked documents
-            CitationsUserControl.PopulatePanelWithCitations(DocsPanel_Linked, PDFDocumentBindable.Underlying.Library, PDFDocumentBindable.Underlying, PDFDocumentBindable.Underlying.PDFDocumentCitationManager.GetLinkedDocuments(), Features.LinkedDocument_Library_OpenDoc, " » ", false);
+            PDFDocument pdf_document = PDFDocumentBindable.Underlying;
+            CitationsUserControl.PopulatePanelWithCitations(DocsPanel_Linked, pdf_document, pdf_document.PDFDocumentCitationManager.GetLinkedDocuments(), Features.LinkedDocument_Library_OpenDoc, " » ", false);
         }
 
         private void ButtonSearchInside_Click(object sender, RoutedEventArgs e)
