@@ -372,7 +372,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
         private bool RescanLibrary()
         {
-            // We include the deleted ones because we need to reindex their metadata...
+            // We include the deleted ones because we need to re-index their metadata...
             List<PDFDocument> pdf_documents = Library.PDFDocuments_IncludingDeleted;
 
             int total_new_to_be_indexed = 0;
@@ -466,6 +466,15 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             }
         }
 
+        // store to collect log/action data to help reduce logfile flooding (see the ORIGINAL_FLOODY_LOGLINE code chunk further below)
+        internal class LogData
+        {
+            public bool go = false;
+            public HashSet<int> missing_pages = new HashSet<int>();
+            public HashSet<int> pages_already_indexed = null;
+            public string extra_message = "";
+        }
+
         private bool IncrementalBuildNextDocuments()
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
@@ -482,7 +491,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             Stopwatch clk = Stopwatch.StartNew();
             DateTime index_processing_start_time = DateTime.UtcNow;
 
-            // We will only attempt to process documents that have not been looked at for a while - what is that time
+            // We will only attempt to process documents that have not been looked at for a while - what is that time?
             DateTime most_recent_eligible_time_for_processing = index_processing_start_time.Subtract(TimeSpan.FromSeconds(DOCUMENT_INDEX_RETRY_PERIOD_SECONDS));
 
             //
@@ -490,7 +499,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             //
             // We can use minimal locking (i.e. only critical section-ing the list-fetch qeury code below, instead of the entire work loop further below)
             // as this is the only place where the content of the individual records is edited and accessed (apart from the non-critical function
-            // `GetStatusCounts()` which only serves to update the UI status reports) and the rest of the Qiqqa code ensures that this method 
+            // `GetStatusCounts()` which only serves to update the UI status reports) and the rest of the Qiqqa code ensures that this method
             // `IncrementalBuildNextDocuments()` is only invoked from a single (background) thread.
             //
             // All the other places where the `pdf_documents_in_library` data is accessed are (critical section-ed) member functions of this class which
@@ -539,6 +548,8 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                     Logging.Info("Breaking out of IncrementalBuildNextDocuments loop due to forced ABORT/Dispose of library instance.");
                     break;
                 }
+
+                LogData logData = new LogData();
 
                 try
                 {
@@ -609,7 +620,19 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                                         // First check if the OCR actions have delivered already:
                                         if (null != pdf_document_in_library.pages_already_indexed && pdf_document_in_library.pages_already_indexed.Count > 0)
                                         {
+#if ORIGINAL_FLOODY_LOGLINE
+                                            // Original log line; we're gonna bundle these into a single log line as it floods the logfile for large(-ish) PDF documents.
+                                            // Some PDFs could cause up to 500 of these long(!) log lines to be produced, cluttering the log file no end.
                                             Logging.Warn("LibraryIndex::IncrementalBuildNextDocuments: PDF document {0}: page {1} has no text (while pages {2} DO have text!) and will (re)trigger a PDF OCR action.{3}", pdf_document.Fingerprint, page, StringTools.PagesSetAsString(pdf_document_in_library.pages_already_indexed), (page < pdf_document_in_library.pages_already_indexed.Last() ? " This is probably a document which could not be OCRed properly (for reasons unknown at this time)." : ""));
+#else
+                                            logData.pages_already_indexed = pdf_document_in_library.pages_already_indexed;
+                                            logData.missing_pages.Add(page);
+                                            if (page < pdf_document_in_library.pages_already_indexed.Last())
+                                            {
+                                                logData.extra_message = " This is probably a document which could not be OCRed properly (for reasons unknown at this time).";
+                                            }
+                                            logData.go = true;
+#endif
                                         }
 
                                         all_pages_processed_so_far = false;
@@ -666,6 +689,20 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 {
                     Logging.Error(ex, "There was a problem while indexing document {0}", pdf_document_in_library.fingerprint);
                 }
+                finally
+                {
+                    // dump the collected log/action info to log at the end under all circumstances:
+                    if (logData.go)
+                    {
+                        Logging.Warn("LibraryIndex::IncrementalBuildNextDocuments: PDF document {0}: page{2} {1} ha{3} no text (while pages {4} DO have text!) and will (re)trigger a PDF OCR action.{5}",
+                            pdf_document_in_library.fingerprint,
+                            StringTools.PagesSetAsString(logData.missing_pages),
+                            (logData.missing_pages.Count > 1 ? "s" : ""),   // pages / page
+                            (logData.missing_pages.Count > 1 ? "ve" : "s"),     // have / has
+                            StringTools.PagesSetAsString(logData.pages_already_indexed),
+                            logData.extra_message);
+                    }
+                }
 
                 pdf_document_in_library.last_indexed = index_processing_start_time;
             }
@@ -706,7 +743,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
         }
 #endif
 
-        #region --- Test ------------------------------------------------------------------------
+#region --- Test ------------------------------------------------------------------------
 
 #if TEST
         public static void TestHarness()
@@ -722,6 +759,6 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
         }
 #endif
 
-        #endregion
+#endregion
     }
 }

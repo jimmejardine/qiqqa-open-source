@@ -679,7 +679,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             // Set the PDF viewer search results
             pdf_renderer_control.SetSearchKeywords(search_result_set);
 
-            // Set the bottom list box search results 
+            // Set the bottom list box search results
             if (null != search_result_set && search_result_set.Count > 0)
             {
                 GridBOTTOM.Visibility = Visibility.Visible;

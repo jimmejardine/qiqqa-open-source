@@ -163,7 +163,9 @@ namespace Qiqqa.Expedition
                     }
                 });
             }
+#pragma warning disable CS0168 // The variable 'ex' is declared but never used
             catch (TaskCanceledException ex)
+#pragma warning restore CS0168 // The variable 'ex' is declared but never used
             {
                 // This exception should only occur when the user *canceled* the process and should therefor 
                 // *not* be propagated. Instead, we have to report an aborted result:

@@ -38,6 +38,11 @@ namespace Utilities.Collections
             this[key] = GetCount(key) + n;
         }
 
+        public void ResetTally(KEY key)
+        {
+            this[key] = 0;
+        }
+
         public List<KEY> OrderedKeys()
         {
             List<KEY> l = new List<KEY>(Keys);

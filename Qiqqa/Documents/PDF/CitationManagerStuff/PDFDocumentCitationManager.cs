@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Qiqqa.DocumentLibrary;
+using Utilities.GUI;
 using Utilities.Strings;
 
 namespace Qiqqa.Documents.PDF.CitationManagerStuff
@@ -143,16 +144,7 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
 
         public List<Citation> GetInboundCitations()
         {
-            return GetCitations(null, pdf_document.Fingerprint);
-        }
-
-        public List<Citation> GetOutboundCitations()
-        {
-            return GetCitations(pdf_document.Fingerprint, null);
-        }
-
-        private List<Citation> GetCitations(string fingerprint_outbound, string fingerprint_inbound)
-        {
+            string fingerprint = pdf_document.Fingerprint;
             List<Citation> result_citations = new List<Citation>();
 
             // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
@@ -162,8 +154,26 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
                 List<Citation> citations = Citations_RAW;
                 foreach (Citation citation in citations)
                 {
-                    if (null != fingerprint_outbound && Citation.Type.AUTO_CITATION == citation.type && 0 == fingerprint_outbound.CompareTo(citation.fingerprint_outbound)) result_citations.Add(citation);
-                    if (null != fingerprint_inbound && Citation.Type.AUTO_CITATION == citation.type && 0 == fingerprint_inbound.CompareTo(citation.fingerprint_inbound)) result_citations.Add(citation);
+                    if (Citation.Type.AUTO_CITATION == citation.type && 0 == fingerprint.CompareTo(citation.fingerprint_inbound)) result_citations.Add(citation);
+                }
+            }
+
+            return result_citations;
+        }
+
+        public List<Citation> GetOutboundCitations()
+        {
+            string fingerprint = pdf_document.Fingerprint;
+            List<Citation> result_citations = new List<Citation>();
+
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (citations_lock)
+            {
+                // l1_clk.LockPerfTimerStop();
+                List<Citation> citations = Citations_RAW;
+                foreach (Citation citation in citations)
+                {
+                    if (Citation.Type.AUTO_CITATION == citation.type && 0 == fingerprint.CompareTo(citation.fingerprint_outbound)) result_citations.Add(citation);
                 }
             }
 
@@ -192,6 +202,8 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
 
         private static void WriteToDisk(PDFDocument pdf_document, List<Citation> citations)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             StringBuilder sb = new StringBuilder();
             foreach (var citation in citations)
             {
@@ -209,6 +221,8 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
 
         private static List<Citation> ReadFromDisk(PDFDocument pdf_document)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             List<Citation> citations = new List<Citation>();
 
             List<LibraryDB.LibraryItem> library_items = pdf_document.Library.LibraryDB.GetLibraryItems(pdf_document.Fingerprint, PDFDocumentFileLocations.CITATIONS);

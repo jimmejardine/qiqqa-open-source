@@ -28,12 +28,12 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 {
     /// <summary>
     /// ******************* NB NB NB NB NB NB NB NB NB NB NB ********************************
-    /// 
-    /// ALL PROPERTIES STORED IN THE DICTIONARY MUST BE SIMPLE TYPES - string, int or double.  
-    /// NO DATES, NO COLORS, NO STRUCTs.  
+    ///
+    /// ALL PROPERTIES STORED IN THE DICTIONARY MUST BE SIMPLE TYPES - string, int or double.
+    /// NO DATES, NO COLORS, NO STRUCTs.
     /// If you want to store Color and DateTime, then there are helper methods on the DictionaryBasedObject to convert TO/FROM.  Use those!
     /// Otherwise platform independent serialisation will break!
-    /// 
+    ///
     /// ******************* NB NB NB NB NB NB NB NB NB NB NB ********************************
     /// </summary>
 
@@ -158,9 +158,9 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
         /// <summary>
         /// This is an approximate response: it takes a *fast* shortcut to check if the given
         /// PDF has been OCR'd in the past.
-        /// 
+        ///
         /// The emphasis here is on NOT triggering a new OCR action! Just taking a peek, *quickly*.
-        /// 
+        ///
         /// The cost: one(1) I/O per check.
         /// </summary>
         public bool HasOCRdata =>
@@ -419,16 +419,16 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
         /// <summary>
         /// Produce the document's year of publication.
-        /// 
+        ///
         /// When producing (getting) this value, the priority is:
-        /// 
+        ///
         /// - check the BibTeX `year` field and return that one when it's non-empty
         /// - check the manual-entry `year` field (@xref Year)
         /// - check the suggested year field (@xref YearSuggested)
         /// - if also else fails, return the UNKNOWN_YEAR value.
-        /// 
+        ///
         /// When setting this value, the first action in this prioirty list is executed, where the conditions pass:
-        /// 
+        ///
         /// - check if there's a non-empty (partial) BibTeX record: when there is, add/update the `year` field
         /// - update the manual-entry Year field (@xref Year)
         /// </summary>
@@ -937,19 +937,19 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
         #endregion -------------------------------------------------------------------------------------------------
 
-        public void SaveToMetaData()
+        public void SaveToMetaData(bool force_flush_no_matter_what)
         {
-            // Save the metadata            
-            PDFMetadataSerializer.WriteToDisk(this);
+            // Save the metadata
+            PDFMetadataSerializer.WriteToDisk(this, force_flush_no_matter_what);
 
             // Save the annotations
-            PDFAnnotationSerializer.WriteToDisk(this);
+            PDFAnnotationSerializer.WriteToDisk(this, force_flush_no_matter_what);
 
             // Save the highlights
-            PDFHighlightSerializer.WriteToDisk(this);
+            PDFHighlightSerializer.WriteToDisk(this, force_flush_no_matter_what);
 
             // Save the inks
-            PDFInkSerializer.WriteToDisk(this);
+            PDFInkSerializer.WriteToDisk(this, force_flush_no_matter_what);
         }
 
         //void bindable_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -970,7 +970,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
         {
             DictionaryBasedObject dictionary = PDFMetadataSerializer.ReadFromStream(data);
             PDFDocument pdf_document = new PDFDocument(library, dictionary);
-            pdf_document.GetAnnotations(library_items_annotations_cache);           
+            pdf_document.GetAnnotations(library_items_annotations_cache);
             return pdf_document;
         }
 

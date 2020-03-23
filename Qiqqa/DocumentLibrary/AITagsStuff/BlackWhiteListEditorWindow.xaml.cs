@@ -58,13 +58,13 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
             }
 
             // Process the two new lists entries
-            ProcessNewUserEntries_AddEntries(new_entries, TxtWhite, BlackWhiteListEntry.ListType.White);
-            ProcessNewUserEntries_AddEntries(new_entries, TxtBlack, BlackWhiteListEntry.ListType.Black);
+            ProcessNewUserEntries_AddEntries(ref new_entries, TxtWhite, BlackWhiteListEntry.ListType.White);
+            ProcessNewUserEntries_AddEntries(ref new_entries, TxtBlack, BlackWhiteListEntry.ListType.Black);
 
             return new_entries;
         }
 
-        private static void ProcessNewUserEntries_AddEntries(List<BlackWhiteListEntry> new_entries, TextBox TxtSource, BlackWhiteListEntry.ListType listType)
+        private static void ProcessNewUserEntries_AddEntries(ref List<BlackWhiteListEntry> new_entries, TextBox TxtSource, BlackWhiteListEntry.ListType listType)
         {
             string[] lines = TxtSource.Text.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
             foreach (string line in lines)

@@ -42,6 +42,7 @@ namespace Qiqqa.WebBrowsing
                 //preferences.Add(WebSearchers.PUBMEDXML_KEY);
                 preferences.Add(WebSearchers.GOOGLE_US_KEY);
                 //preferences.Add(WebSearchers.GOOGLE_UK_KEY);
+                preferences.Add(WebSearchers.DOI2BIB_KEY);
             }
 
             return preferences;

@@ -41,7 +41,7 @@ PrivilegesRequired=admin
 ; the Windows file version as reported by the Properties of the generated setup.exe:
 VersionInfoVersion={#AppFullVersion}
 
-; from: http://www.kinook.com/blog/?p=53 
+; from: http://www.kinook.com/blog/?p=53
 DefaultDirName={code:DefDirRoot}\{#AppName}
 UsePreviousAppDir=no
 DisableDirPage=no
@@ -123,8 +123,8 @@ begin
           Exit;
         end;
     end;
-    
-    //  if the app isnt installed (any version) then all is well
+
+    //  if the app isn't installed (any version) then all is well
     if not RegKeyExists(UninstallRegistryBaseKey, UninstallRegistryLocation) then
     begin
         Result := True;
@@ -160,7 +160,7 @@ begin
             shouldUninstallPrevious := true;
         end;
     end;
-    
+
     //  ok, should we do the uninstall?
     if (shouldUninstallPrevious) then
     begin
@@ -180,7 +180,7 @@ begin
         Result := False;
         Exit;
     end;
-  
+
     //  all good to go
     Result := True;
 end;
@@ -209,7 +209,7 @@ begin
         Result := False;
         Exit;
     end;
-    
+
     Result := True;
 end;
 
@@ -219,7 +219,7 @@ begin
   if not CanStartup() then begin
     exit;
   end;
-  
+
   //  .NET 3.5.1 DEPENDENCY CHECKS
 	//init windows version
 	initwinversion();
@@ -234,17 +234,17 @@ begin
 		MsgBox(FmtMessage(CustomMessage('depinstall_missing'), [CustomMessage('winxpsp2_title')]), mbError, MB_OK);
 		exit;
 	end;
-	
+
 	// Windows Installers
 	//msi31('3.1');
 	//msi45('4.5');
-	
+
 	// .NET 3.5.1
 	//dotnetfx35sp1();
 
 	// Check that .NET4 client profile is here...
 	dotnetfx40client(false);
-  
+
 // // If no .NET framework found, install the smallest
 //	if not dotnetfx40client(true) then
 //	    if not dotnetfx40full(true) then begin
@@ -252,7 +252,7 @@ begin
 //      end
 //	// Alternatively:
 //	dotnetfx40full();
-  
+
 	Result := true;
 end;
 
@@ -266,7 +266,7 @@ begin
   end;
 
   // check if app is running
-  if IsModuleLoadedU( '{#ExeName}' ) then
+  if (IsAppRunningU('{#ExeName}') or IsAppRunningU('pdfdraw.exe') or IsAppRunningU('QiqqaOCR.exe')) do
   begin
     MsgBox( '{#AppName} is running, please close it and run uninstall again.', mbError, MB_OK );
     Result := false;

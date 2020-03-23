@@ -127,7 +127,7 @@ namespace Qiqqa.Common.Configuration
             user_guid = user_guid_;
             is_guest = is_guest_;
 
-            // Create the base directory in case it doesnt exist
+            // Create the base directory in case it doesn't exist
             Directory.CreateDirectory(BaseDirectoryForUser);
 
             // Try loading any pre-existing config file
@@ -206,7 +206,7 @@ namespace Qiqqa.Common.Configuration
             if (sender == configuration_record_bindable)
             {
                 // Saving the config on propertyy change is non-essential as another save action will be triggered
-                // from the application shutdown handler anyway. Therefor we delegate the inherent file I/O to 
+                // from the application shutdown handler anyway. Therefor we delegate the inherent file I/O to
                 // a background task:
                 SafeThreadPool.QueueUserWorkItem(o =>
                 {

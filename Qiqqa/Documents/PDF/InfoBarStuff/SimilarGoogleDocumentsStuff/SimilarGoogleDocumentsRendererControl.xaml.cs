@@ -32,7 +32,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.SimilarGoogleDocumentsStuff
                 StackPanel sp = new StackPanel();
                 HyperlinkTextBlock tb_gs = new HyperlinkTextBlock();
                 tb_gs.HorizontalAlignment = HorizontalAlignment.Center;
-                tb_gs.Text = "Go to GoogleScholar";
+                tb_gs.Text = "Go to Google Scholar";
                 tb_gs.FontWeight = FontWeights.Bold;
                 tb_gs.Tag = gssps.Url;
                 tb_gs.OnClick += OpenUrlInTagOfTextBlock;

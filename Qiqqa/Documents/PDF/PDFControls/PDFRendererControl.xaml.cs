@@ -273,7 +273,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
 #if false
             {
-                // Lets pretend the pages just before and after the pages in view are in view - that way we dont have to wait for the render
+                // Lets pretend the pages just before and after the pages in view are in view - that way we don't have to wait for the render
                 int min_page = Int32.MaxValue;
                 int max_page = Int32.MinValue;
                 foreach (PDFRendererPageControl page in pages_in_view)

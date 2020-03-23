@@ -39,7 +39,7 @@ namespace Qiqqa.InCite
         private WordConnector()
         {
             paused = false;
-            MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance, 0, ThreadPriority.BelowNormal);
+            MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance, 0, 1500);
         }
 
         public void SetPaused(bool paused)
@@ -60,7 +60,6 @@ namespace Qiqqa.InCite
             if (paused || repopulating_clusters)
             {
                 Logging.Info("WordConnector paused");
-                daemon.Sleep(1500);
                 return;
             }
 
@@ -68,13 +67,11 @@ namespace Qiqqa.InCite
             {
                 EnsureWordIsConnected();
                 CheckTheCurrentTextContext();
-                daemon.Sleep(1500);
             }
             catch (Exception ex)
             {
                 Logging.Error(ex, "There was a problem attaching to Word.");
                 DisconnectFromWord();
-                daemon.Sleep(1500);
             }
 
             have_iterated_at_least_once = true;

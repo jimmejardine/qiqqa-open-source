@@ -18,7 +18,6 @@ namespace Utilities.Misc
                 {
                     return queued_thread_count;
                 }
-
             }
         }
 
@@ -100,17 +99,22 @@ namespace Utilities.Misc
         {
             if (0 == count)
             {
-                // determine the number of *logical* processor cores.
+                // guestimate the number of *physical* processor cores, assuming HyperThreading is available.
                 // see also: https://stackoverflow.com/questions/1542213/how-to-find-the-number-of-cpu-cores-via-net-c
-                count = Environment.ProcessorCount;
+                count = Math.Max(1, Environment.ProcessorCount / 2);
             }
 
-            // heuristic: allow one CPU thread per core minus 2 (accounting for main thread and others), two I/O thread per core with a minimum of 2 and 6 respectively
+            // heuristic: allow one CPU thread per core minus 2 (accounting for main thread and others), two I/O thread per core with a minimum of 1 and 3 respectively.
+            //
+            // Aber Oh-ho! It turns out that, for whatever obscure reason, Qiqqa UI/WPF? does not load correctly or completely when you allocate fewer than 4 threads!
+#if false
             int min_cpu_threads = 0, min_io_threads = 0;
             ThreadPool.GetMinThreads(out min_cpu_threads, out min_io_threads);
-            min_cpu_threads = Math.Max(Math.Max(2, count - 2), min_cpu_threads);
-            min_io_threads = Math.Max(Math.Max(6, 2 * count), min_io_threads);
+            min_cpu_threads = Math.Min(Math.Max(4, count - 2), min_cpu_threads);
+            min_io_threads = Math.Min(Math.Max(4, 2 * count), min_io_threads);
+            ThreadPool.SetMinThreads(4, 4);
             ThreadPool.SetMaxThreads(min_cpu_threads, min_io_threads);
+#endif
         }
     }
 }

@@ -16,11 +16,20 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
     {
         private CountingDictionary<string> pdfs_retry_count = new CountingDictionary<string>();
 
-        public void DoMaintenance(Library library)
+        private class RunningStatistics
+        {
+            public int totalDocumentCount;
+            public int currentdocumentIndex;
+            public int documentsProcessedCount;
+        }
+
+        public void DoMaintenance(Library library, Action callback_after_some_work_done)
         {
             Stopwatch clk = Stopwatch.StartNew();
 
             Logging.Debug特("MetadataExtractionDaemon::DoMaintenance START");
+
+            RunningStatistics stats = new RunningStatistics();
 
             // To recover from a search index fatal failure and re-indexing attempt for very large libraries,
             // we're better off processing a limited number of source files as we'll be able to see 
@@ -30,44 +39,42 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
             // Reconstructing the entire index will take a *long* time. We grow the index and other meta
             // stores a bunch-of-files at a time and then repeat the entire maintenance process until
             // we'll be sure to have run out of files to process for sure...
-            const int MAX_NUMBER_OF_PDF_FILES_TO_PROCESS = 100;
-            const int MAX_SECONDS_PER_ITERATION = 3 * 60;
+            const int MAX_NUMBER_OF_PDF_FILES_TO_PROCESS = 30;
+            const int MIN_NUMBER_OF_PDF_FILES_TO_PROCESS_PER_ITERATION = 10;
+            const int MAX_SECONDS_PER_ITERATION = 10 * 60;
             long clk_bound = clk.ElapsedMilliseconds + MAX_SECONDS_PER_ITERATION * 1000;
 
-            while (true)
+            try
             {
                 // If this library is busy, skip it for now
                 if (Library.IsBusyAddingPDFs || Library.IsBusyRegeneratingTags)
                 {
                     Logging.Debug特("MetadataExtractionDaemon::DoMaintenance: Not daemon processing any library that is busy with adds...");
-                    break;
-                }
-
-                if (clk_bound <= clk.ElapsedMilliseconds)
-                {
-                    Logging.Debug特("MetadataExtractionDaemon::DoMaintenance: Breaking out of outer processing loop due to MAX_SECONDS_PER_ITERATION: {0} ms consumed", clk.ElapsedMilliseconds);
-                    break;
+                    return;
                 }
 
                 if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
                 {
                     Logging.Debug特("MetadataExtractionDaemon::DoMaintenance: Breaking out of outer processing loop due to application termination");
-                    break;
+                    return;
                 }
 
                 if (Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
                 {
                     Logging.Debug特("MetadataExtractionDaemon::DoMaintenance: Breaking out of outer processing loop due to DisableAllBackgroundTasks");
-                    break;
+                    return;
                 }
 
                 // Check that we have something to do
-                List<PDFDocument> pdfs_to_process = new List<PDFDocument>();
-
                 List<PDFDocument> pdf_documents = library.PDFDocuments;
+                stats.totalDocumentCount = pdf_documents.Count;
+                stats.currentdocumentIndex = 0;
+                stats.documentsProcessedCount = 0;
                 foreach (PDFDocument pdf_document in pdf_documents)
                 {
                     bool needs_processing = false;
+
+                    stats.currentdocumentIndex++;
 
                     // there's nothing to infer from PDF when there's no PDF to process:
                     if (!pdf_document.DocumentExists)
@@ -82,126 +89,142 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
                     if (needs_processing)
                     {
                         pdfs_retry_count.TallyOne(pdf_document.Fingerprint);
-                        if (General.IsPowerOfTwo(pdfs_retry_count.GetCount(pdf_document.Fingerprint)))
+                        int cnt = pdfs_retry_count.GetCount(pdf_document.Fingerprint);
+                        if (!General.IsPowerOfTwo(cnt))
                         {
-                            pdfs_to_process.Add(pdf_document);
+                            needs_processing = false;  // skip this time around
                         }
+#if true
+                        // Reset counter when it has run up to 64 (which means 6 attempts were made up to now).
+                        if (cnt > 64)
+                        {
+                            pdfs_retry_count.ResetTally(pdf_document.Fingerprint);
+                        }
+#endif
                     }
 
+                    // Previous check calls MAY take some serious time, hence we SHOULD check again whether
+                    // the user decided to exit Qiqqa before we go on and do more time consuming work.
                     if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
                     {
                         Logging.Debug特("Breaking out of MetadataExtractionDaemon PDF fingerprinting loop due to daemon termination");
-                        break;
+                        return;
                     }
 
-                    // Limit the number of source files to process at once or we won't have recreated
-                    // a sane (though tiny and incomplete) Lucene search index database by the time 
-                    // the user exits the Qiqqa application in a minute or so.
+                    if (needs_processing)
+                    {
+                        if (DoSomeWork(library, pdf_document, stats))
+                        {
+                            stats.documentsProcessedCount++;
+                        }
+                    }
+
+                    // Limit the number of source files to process before we go and create/update
+                    // a sane (though tiny and incomplete) Lucene search index database so that 
+                    // we have some up-to-date results ready whenever the user exits the Qiqqa application 
+                    // while this process is still running.
                     // When the user keeps Qiqqa running, this same approach will help us to 'update'
                     // the search index a bunch of files at a time, so everyone involved will be able
                     // to see progress happening after losing the index due to some fatal crash or
                     // forced re-index request.
-                    if (pdfs_to_process.Count >= MAX_NUMBER_OF_PDF_FILES_TO_PROCESS)
+                    if ((stats.documentsProcessedCount + 1) % MAX_NUMBER_OF_PDF_FILES_TO_PROCESS == 0)
                     {
                         Logging.Debug特("Interupting the MetadataExtractionDaemon PDF fingerprinting loop due to MAX_NUMBER_OF_PDF_FILES_TO_PROCESS reached");
 
-                        if (!DoSomeWork(library, pdfs_to_process))
-                        {
-                            // do NOT redo the work in the section just past this large loop!
-                            pdfs_to_process.Clear();
-                            break;
-                        }
-                        else 
-                        {
-                            pdfs_to_process.Clear();
-                        }
+                        callback_after_some_work_done();
                     }
-                    if (clk_bound <= clk.ElapsedMilliseconds)
+
+                    // A timeout should only kick in when we have *some* work done already or
+					// we would have introduced a subtle bug for very large libraries: if the timeout
+					// is short enough for the library scan to take that long on a slow machine,
+					// the timeout would, by itself, cause no work to be done, *ever*.
+					// Hence we require a minimum amount of work done before the timeout condition
+					// is allowed to fire.
+                    if (clk_bound <= clk.ElapsedMilliseconds && stats.documentsProcessedCount >= MIN_NUMBER_OF_PDF_FILES_TO_PROCESS_PER_ITERATION)
                     {
                         Logging.Debug特("Breaking out of MetadataExtractionDaemon PDF fingerprinting loop due to MAX_SECONDS_PER_ITERATION: {0} ms consumed", clk.ElapsedMilliseconds);
-                        break;
+                        return;
                     }
                 }
+            }
+            finally
+            {
 
-                if (0 < pdfs_to_process.Count)
+                if (0 < stats.documentsProcessedCount)
                 {
-                    Logging.Debug特("Got {0} items of metadata extraction work", pdfs_to_process.Count);
-
-                    DoSomeWork(library, pdfs_to_process);
+                    Logging.Debug特("Got {0} items of metadata extraction work done.", stats.documentsProcessedCount);
                 }
                 else
                 {
-                    // nothing to do due to timeout
+                    // nothing to do.
                     Logging.Debug特("MetadataExtractionDaemon::DoMaintenance: Breaking out of outer processing loop due to no more files to process right now.");
-                    return;
+
+                    // when there's nothing to do, reset the retry tallying by doing a hard reset:
+                    // the idea here being that delaying any retries on pending items is useless when
+                    // there's nothing to do otherwise.
+                    pdfs_retry_count = new CountingDictionary<string>();   // quickest and cleanest reset is a re-init (+ GarbageCollect of the old dict)
                 }
 
-                // nap a short while between mini-runs:
-                WPFDoEvents.WaitForUIThreadActivityDone();
-            }
+                Logging.Info("{0}ms were spent to extract metadata", clk.ElapsedMilliseconds);
+                StatusManager.Instance.ClearStatus("AutoSuggestMetadata");
 
-            Logging.Info("{0}ms were spent to extract metadata", clk.ElapsedMilliseconds);
-            StatusManager.Instance.ClearStatus("AutoSuggestMetadata");
+                callback_after_some_work_done();
+            }
         }
 
-        private bool DoSomeWork(Library library, List<PDFDocument> pdfs_to_process)
+        private bool DoSomeWork(Library library, PDFDocument pdf_document, RunningStatistics stats)
         {
-            // Get each of our guys to start rendering their first pages so we can do some extraction
-            for (int i = 0; i < pdfs_to_process.Count; ++i)
+            if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
             {
-                PDFDocument pdf_document = pdfs_to_process[i];
+                Logging.Debug特("Breaking out of MetadataExtractionDaemon PDF processing loop due to daemon termination");
+                return false;
+            }
 
-                if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
-                {
-                    Logging.Debug特("Breaking out of MetadataExtractionDaemon PDF processing loop due to daemon termination");
-                    break;
-                }
+            // Start rendering the first page so we can do some extraction
+            try
+            {
+                //if (pdf_document.DocumentExists) -- already tested in collection loop above
+                pdf_document.PDFRenderer.GetOCRText(1);
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex, "There was an exception while requesting the first page to be OCRed while processing document {0}", pdf_document.Fingerprint);
+            }
 
-                try
-                {
-                    //if (pdf_document.DocumentExists) -- already tested in collection loop above
-                    pdf_document.PDFRenderer.GetOCRText(1);
-                }
-                catch (Exception ex)
-                {
-                    Logging.Error(ex, "There was an exception while requesting the first page to be OCRed");
-                }
+            StatusManager.Instance.UpdateStatus("AutoSuggestMetadata", "Suggesting metadata", stats.currentdocumentIndex, stats.totalDocumentCount, true);
+            if (StatusManager.Instance.IsCancelled("AutoSuggestMetadata"))
+            {
+                return false;
+            }
 
-                StatusManager.Instance.UpdateStatus("AutoSuggestMetadata", "Suggesting metadata", i, pdfs_to_process.Count, true);
-                if (StatusManager.Instance.IsCancelled("AutoSuggestMetadata"))
-                {
-                    return false;
-                }
+            // Try get the authors and year with the PDF in-file metadata
+            try
+            {
+                PDFMetadataInferenceFromPDFMetadata.InferFromPDFMetadata(pdf_document);
+            }
+            catch (Exception ex)
+            {
+                Logging.Warn(ex, "Problem in PDFMetadataInferenceFromPDFMetadata.InferFromPDFMetadata while processing document {0}", pdf_document.Fingerprint);
+            }
 
-                // Try get the authors and year with the PDF in-file metadata
-                try
-                {
-                    PDFMetadataInferenceFromPDFMetadata.InferFromPDFMetadata(pdf_document);
-                }
-                catch (Exception ex)
-                {
-                    Logging.Warn(ex, "Problem in PDFMetadataInferenceFromPDFMetadata.InferFromPDFMetadata while processing document {0}", pdf_document.Fingerprint);
-                }
+            // Try looking for the title in the OCR
+            try
+            {
+                PDFMetadataInferenceFromOCR.InferTitleFromOCR(pdf_document);
+            }
+            catch (Exception ex)
+            {
+                Logging.Warn(ex, "Problem in PDFMetadataInferenceFromOCR.InferTitleFromOCR while processing document {0}", pdf_document.Fingerprint);
+            }
 
-                // Try looking for the title in the OCR
-                try
-                {
-                    PDFMetadataInferenceFromOCR.InferTitleFromOCR(pdf_document);
-                }
-                catch (Exception ex)
-                {
-                    Logging.Warn(ex, "Problem in PDFMetadataInferenceFromOCR.InferTitleFromOCR while processing document {0}", pdf_document.Fingerprint);
-                }
-
-                // Try suggesting some bibtex from bibtexsearch.com
-                try
-                {
-                    PDFMetadataInferenceFromBibTeXSearch.InferBibTeX(pdf_document, false);
-                }
-                catch (Exception ex)
-                {
-                    Logging.Warn(ex, "Problem in PDFMetadataInferenceFromOCR.InferTitleFromOCR while processing document {0}", pdf_document.Fingerprint);
-                }
+            // Try suggesting some bibtex from bibtexsearch.com
+            try
+            {
+                PDFMetadataInferenceFromBibTeXSearch.InferBibTeX(pdf_document, false);
+            }
+            catch (Exception ex)
+            {
+                Logging.Warn(ex, "Problem in PDFMetadataInferenceFromOCR.InferTitleFromOCR while processing document {0}", pdf_document.Fingerprint);
             }
 
             return true;

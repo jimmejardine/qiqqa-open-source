@@ -86,11 +86,6 @@ namespace Utilities
             }
         }
 
-        public void Sleep()
-        {
-            Sleep(500);
-        }
-
         public ThreadPriority Priority
         {
             set => thread.Priority = value;
@@ -100,7 +95,7 @@ namespace Utilities
         /// Put the daemon to sleep, but in a way that will end sooner if the app is exiting
         /// </summary>
         /// <param name="timeout_milliseconds"></param>
-        public void Sleep(int timeout_milliseconds)
+        public void Sleep(int timeout_milliseconds = 500)
         {
             int timeout_milliseconds_remaining = timeout_milliseconds;
             while (StillRunning && !Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown && timeout_milliseconds_remaining > 0)
