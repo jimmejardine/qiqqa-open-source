@@ -215,6 +215,25 @@ Qiqqa v82 (and later, I expect 😉) has added a Stage 3: when Stage 1 and Stage
 
 ### The Lucene Text SearchIndex Update Process
 
+[Another Qiqqa background process](https://github.com/jimmejardine/qiqqa-open-source/blob/0b015c923e965ba61e3f6b51218ca509fcd6cabb/Qiqqa/Common/BackgroundWorkerDaemonStuff/BackgroundWorkerDaemon.cs#L231) updates the Qiqqa text search index, which is powered by LuceneNET.
+
+This process walks through your Qiqqa Library/Libraries and checks whether the OCR process for each PDF document has completed.
+
+> Incidentally, this background-running check will (re)trigger the OCR process if the answer to that question is not a resounding *yes*!
+
+When the OCR text data is new, the data is collected and [fed into the Lucene search index database](https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/Qiqqa/DocumentLibrary/DocumentLibraryIndex/LibraryIndex.cs#L646). See the [`AddDocumentPage()`](https://github.com/jimmejardine/qiqqa-open-source/blob/a50888e836224e1d293457c8cd9a59cfef403bf7/Utilities/Language/TextIndexing/LuceneIndex.cs#L180) and [`IncrementalBuildNextDocuments()`](https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/Qiqqa/DocumentLibrary/DocumentLibraryIndex/LibraryIndex.cs#L466) methods' code for more. Also check out the use of the `PDFDocumentInLibrary.pages_already_indexed` and `PDFDocumentInLibrary.finished_indexing` attribute members; any retry attempts are relaxed via the `PDFDocumentInLibrary.last_indexed` attribute member: [(def)](
+https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/Qiqqa/DocumentLibrary/DocumentLibraryIndex/PDFDocumentInLibrary.cs#L13) & [(use)](https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/Qiqqa/DocumentLibrary/DocumentLibraryIndex/LibraryIndex.cs#L466).
+
+
+
+### Ooh! Almost forgot! The metadata inference process!
+
+[Yet another background task](https://github.com/jimmejardine/qiqqa-open-source/blob/0b015c923e965ba61e3f6b51218ca509fcd6cabb/Qiqqa/DocumentLibrary/MetadataExtractionDaemonStuff/MetadataExtractionDaemon.cs) goes through your libraries' documents and attempts to infer a *title*, *author*, [*abstract*](https://github.com/jimmejardine/qiqqa-open-source/blob/0b015c923e965ba61e3f6b51218ca509fcd6cabb/Qiqqa/Documents/PDF/PDFControls/Page/Tools/PDFAbstractExtraction.cs#L11) and other *metadata* from the OCR-ed text data for the given PDF. This MAY also (re)trigger the OCR process when the text data has not been produced before. (By now you'll surely understand why the v82 "Stage 3" = "SINGLE-FAKE" hack was invented...)
+
+This *inferred* metadata is shown and used by Qiqqa when there is no BibTeX metadata provided by the user (via Qiqqa Sniffer or manually entry):  the BibTeX metadata is deemed [*superior* and *overriding*](https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/Qiqqa/Documents/PDF/PDFDocument.cs#L604). This metadata is also added to the Lucene search index to help users dig up articles by \[parts of the\] title, author, etc. (Most of the relevant source code can be spotted in the [`PDFMetadataInferenceFromPDFMetadata`](https://github.com/jimmejardine/qiqqa-open-source/blob/0b015c923e965ba61e3f6b51218ca509fcd6cabb/Qiqqa/Documents/PDF/MetadataSuggestions/PDFMetadataInferenceFromPDFMetadata.cs) and [`PDFMetadataInferenceFromOCR`](https://github.com/jimmejardine/qiqqa-open-source/blob/0b015c923e965ba61e3f6b51218ca509fcd6cabb/Qiqqa/Documents/PDF/MetadataSuggestions/PDFMetadataInferenceFromOCR.cs) classes.)
+
+
+
 
 
 ---
@@ -226,11 +245,11 @@ Qiqqa v82 (and later, I expect 😉) has added a Stage 3: when Stage 1 and Stage
 
 > At the time of this writing, I know/strongly suspect almost all these white-pages-rendered-only problems are due to bugs in the  Sorax lib as  I have many PDFs in my collection suffering from this. 🤬
 
-[↩⤣](#Stage2OCR)
+[⤣](#Stage2OCR)
 
-<b id="TesseractWoes">‡</b>: There's plenty to complain about that region detection logic too: [#135](https://github.com/jimmejardine/qiqqa-open-source/issues/135). And then there's the old Tesseract which needs some assist as well: [#160](https://github.com/jimmejardine/qiqqa-open-source/issues/160) and [one other bit mentioned in #135](https://github.com/jimmejardine/qiqqa-open-source/issues/135#issuecomment-569827317).
+<b id="TesseractWoes">‡</b>: Your family namee doesn't have to be [Statler and Waldorf](https://en.wikipedia.org/wiki/Statler_and_Waldorf) to have plenty to complain about that region detection logic too: [#135](https://github.com/jimmejardine/qiqqa-open-source/issues/135). And then there's the old Tesseract which needs some assist as well: [#160](https://github.com/jimmejardine/qiqqa-open-source/issues/160) and [one other bit mentioned in #135](https://github.com/jimmejardine/qiqqa-open-source/issues/135#issuecomment-569827317).
 
-However, it's not all that bleak when your research does not include diving into old/historic documents and/or PDFs published by companies: many modern scientific papers are published in a PDF format which can be grokked by `mupdf` just fine — though here I have found that quite a few PDFs which *appear* to have been produced some older TeX variants *do* cause trouble in Stage 1 ("GROUP") and produce some crap of their own: [#86](https://github.com/jimmejardine/qiqqa-open-source/issues/86)
+However, it's not all that bleak when your research does not include diving into old/historic documents and/or PDFs published by companies: many modern scientific papers are published in a PDF format which can be grokked by `mupdf` just fine — though here I have found that quite a few PDFs which *appear* to have been produced by some older TeX variants *do* cause trouble in Stage 1 ("GROUP") and produce some crap of their own: [#86](https://github.com/jimmejardine/qiqqa-open-source/issues/86)
 
-[↩⤣](#Stage2OCR2)
+[⤣](#Stage2OCR2)
 
