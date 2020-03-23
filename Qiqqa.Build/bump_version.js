@@ -10,26 +10,26 @@ var package_json = require(__dirname + '/../package.json');
 
 
 // See: https://jonthysell.com/2017/01/10/automatically-generating-version-numbers-in-visual-studio/
-// 
+//
 // Quoting:
-// 
-// The first option is given to us right in the default AssemblyInfo.cs, letting us know that we can 
-// simply set our version to Major.Minor.* and let Visual Studio auto-generate the Build and Release 
+//
+// The first option is given to us right in the default AssemblyInfo.cs, letting us know that we can
+// simply set our version to Major.Minor.* and let Visual Studio auto-generate the Build and Release
 // numbers.
-// 
-// Visual Studio then sets the Build based on the number of days that have passed since 
-// January 1st, 2000, and sets the Release to the number of two-second intervals that have elapsed 
-// since midnight. Sounds good so far, and of course you can always switch back to a manual version 
+//
+// Visual Studio then sets the Build based on the number of days that have passed since
+// January 1st, 2000, and sets the Release to the number of two-second intervals that have elapsed
+// since midnight. Sounds good so far, and of course you can always switch back to a manual version
 // at any time. But there are a couple of caveats:
-// 
-// - This only works with AssemblyVersion, not AssemblyFileVersion. 
-//   To make this work for both, you have to specify just the AssemblyVersion (comment out or delete 
-//   the AssemblyFileVersion line) and then Visual Studio is smart enough to use the same value for 
+//
+// - This only works with AssemblyVersion, not AssemblyFileVersion.
+//   To make this work for both, you have to specify just the AssemblyVersion (comment out or delete
+//   the AssemblyFileVersion line) and then Visual Studio is smart enough to use the same value for
 //   AssemblyFileVersion.
 // - Both numbers are generated at the exact time the particular project was built.
-//   So if you have multiple projects in your solution and any one takes more than two seconds to 
+//   So if you have multiple projects in your solution and any one takes more than two seconds to
 //   build, you will end up with different versions for different assemblies.
-//   
+//
 function calcMicrosoftStyleBuildAndReleaseVersionNumbers() {
 	var now = moment();
 	var epoch = new Date(2000, 1, 1);
@@ -67,7 +67,7 @@ async function scandir() {
         caseSensitiveMatch: false,
         ignore: ['Qiqqa.Build/Packages', 'packages/', 'research/']
     });
- 
+
  	paths.sort();
 
     if (opts.debug) {
@@ -78,10 +78,10 @@ async function scandir() {
     //[assembly: AssemblyVersion("82.0.*")]
     //[assembly: AssemblyFileVersion("82.0")]
     //[assembly: AssemblyCompany("Quantisle")]
-    //[assembly: AssemblyCopyright("Copyright © Quantisle 2010-2019.  All rights reserved.")]
+    //[assembly: AssemblyCopyright("Copyright © Quantisle 2010-2020.  All rights reserved.")]
     //<LatestVersion>82</LatestVersion>
 
-	return paths;    
+	return paths;
 }
 
 function updateFilesWithVersion(paths) {
@@ -91,13 +91,13 @@ function updateFilesWithVersion(paths) {
 
 		// patch CSPROJ files:
 		if (path.includes('csproj')) {
-			let re = /\<ApplicationVersion\>.*?\<\/ApplicationVersion\>/g;  
+			let re = /\<ApplicationVersion\>.*?\<\/ApplicationVersion\>/g;
 			content = content.replace(re, `<ApplicationVersion>${version_info.toString()}</ApplicationVersion>`);
 		}
 
 		// patch ClientVersion files:
 		if (path.includes('ClientVersion')) {
-			let re = /\<LatestVersion\>.*?\<\/LatestVersion\>/g;  
+			let re = /\<LatestVersion\>.*?\<\/LatestVersion\>/g;
 			content = content.replace(re, `<LatestVersion>${version_info.toString()}</LatestVersion>`);
 		}
 
@@ -114,7 +114,7 @@ function updateFilesWithVersion(paths) {
 
 			// assembly: AssemblyCopyright
 			re = /assembly:\s+AssemblyCopyright\("[^"]*"\)/gi;
-			content = content.replace(re, `assembly: AssemblyCopyright("Copyright © Quantisle 2010-2019. All rights reserved.")`);
+			content = content.replace(re, `assembly: AssemblyCopyright("Copyright © Quantisle 2010-2020. All rights reserved.")`);
 		}
 
 		// patch package.json to reflect the build+release versions calculated here:
