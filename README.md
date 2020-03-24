@@ -1,4 +1,4 @@
- ![logo](../../blob/master/icons/Application/Qiqqa.png) 
+ [![logo](../../blob/master/icons/Application/Qiqqa.png) ](http://qiqqa.org/)
 # Qiqqa (Open Source)
 
 [![Join the chat at https://gitter.im/qiqqa/community](https://badges.gitter.im/qiqqa/community.svg)](https://gitter.im/qiqqa/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
