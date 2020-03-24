@@ -35,7 +35,7 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
                 string title = InferTitleFromWordList(word_list);
                 if (IsReasonableTitleOrAuthor(title))
                 {
-                    Logging.Info("Auto-found in OCR metadata title '{0}'", title);
+                    Logging.Info("Auto-found in document {1} OCR metadata: title '{0}'", title,  pdf_document.Fingerprint);
                     pdf_document.TitleSuggested = title;
                     pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.TitleSuggested));
                     return true;
@@ -43,7 +43,7 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
             }
             else
             {
-                Logging.Info("While autosuggesting title, OCR is still not ready for {0}", pdf_document.Fingerprint);
+                Logging.Info("While auto-suggesting title, OCR is still not ready for {0}", pdf_document.Fingerprint);
             }
 
             return false;
@@ -98,12 +98,13 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
             }
 
             double SIZE_ERROR_MARGIN = 0.9;
+            double biggest_height_lower_bound = sentence_heights[biggest_sentence_pos].height * SIZE_ERROR_MARGIN;
 
             // Go back a little if the previous sentence is almost as big as the biggest sentence
             int previous_almost_biggest_sentence_pos = biggest_sentence_pos;
             while (previous_almost_biggest_sentence_pos > 0)
             {
-                if (sentence_heights[previous_almost_biggest_sentence_pos - 1].height > sentence_heights[biggest_sentence_pos].height * SIZE_ERROR_MARGIN)
+                if (sentence_heights[previous_almost_biggest_sentence_pos - 1].height >= biggest_height_lower_bound)
                 {
                     previous_almost_biggest_sentence_pos = previous_almost_biggest_sentence_pos - 1;
                 }
@@ -117,7 +118,7 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
             StringBuilder final_sentence = new StringBuilder();
             for (int i = previous_almost_biggest_sentence_pos; i < sentence_heights.Count; ++i)
             {
-                if (sentence_heights[i].height >= SIZE_ERROR_MARGIN * sentence_heights[biggest_sentence_pos].height)
+                if (sentence_heights[i].height >= biggest_height_lower_bound)
                 {
                     final_sentence.Append(sentence_heights[i].sentence);
                     final_sentence.Append(" ");
@@ -203,7 +204,7 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
             if (source_lower.EndsWith(".wpd")) return false;
             if (source_lower.EndsWith(".rtf")) return false;
 
-            if (200 < source.Length)
+            if (200 < source_lower.Length)
             {
                 return false;
             }
@@ -211,7 +212,7 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
             // Count the chars
             int numerator = 0;
             int denominator = 0;
-            foreach (char c in source)
+            foreach (char c in source_lower)
             {
                 if (Char.IsLetter(c)) ++numerator;
                 ++denominator;
