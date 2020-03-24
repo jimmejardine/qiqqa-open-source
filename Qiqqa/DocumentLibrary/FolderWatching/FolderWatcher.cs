@@ -16,8 +16,8 @@ using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary.FolderWatching
 {
-    // Warning CA1001  Implement IDisposable on 'FolderWatcher' because it creates members 
-    // of the following IDisposable types: 'FileSystemWatcher'. 
+    // Warning CA1001  Implement IDisposable on 'FolderWatcher' because it creates members
+    // of the following IDisposable types: 'FileSystemWatcher'.
 
     public class FolderWatcher : IDisposable
     {
@@ -161,7 +161,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
             // Store the *hashes* of the files we have processed during this run.
             //
-            // This helps filter out duplicates on import as the same PDF may be stored 
+            // This helps filter out duplicates on import as the same PDF may be stored
             // in multiple subdirs or filenames in the watched directory tree.
             public Dictionary<string, string> file_hashes_added;
 
@@ -195,7 +195,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         /// The daemon code calls this occasionally to poke it into action to do work
         /// </summary>
         /// <param name="daemon"></param>
-        public void TaskDaemonEntryPoint(Daemon daemon)
+        public void ExecuteBackgroundProcess(Daemon daemon)
         {
             // We don't want to start watching files until the library is loaded...
             if (!(library?.TypedTarget?.LibraryIsLoaded ?? false))
@@ -232,7 +232,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             Logging.Debug("FolderWatcher BEGIN");
 
             // To recover from a fatal library failure and re-indexing attempt for very large libraries,
-            // we're better off processing a limited number of source files as we'll be able to see 
+            // we're better off processing a limited number of source files as we'll be able to see
             // *some* results more quickly and we'll have a working, though yet incomplete,
             // index in *reasonable time*.
             //
@@ -291,7 +291,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 //     and optionally also the custom criteria tested in the method whose delegate is
                 //     specified in Alphaleonis.Win32.Filesystem.DirectoryEnumerationFilters.InclusionFilter.
                 //     These criteria could be, e.g., file size exceeding some threshold, pathname matches
-                //     a compex regular expression, etc. If the enumeration process is set to be recursive
+                //     a complex regular expression, etc. If the enumeration process is set to be recursive
                 //     (see Alphaleonis.Win32.Filesystem.DirectoryEnumerationOptions.Recursive) and
                 //     Alphaleonis.Win32.Filesystem.DirectoryEnumerationFilters.RecursionFilter is specified,
                 //     the directory is traversed recursively only if it matches the custom criteria
@@ -322,12 +322,12 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 // SearchOption.AllDirectories);
                 Logging.Debug特("Directory.EnumerateFiles took {0} ms", clk.ElapsedMilliseconds);
 
-                // Do NOT count files which are already present in our library/DB, 
+                // Do NOT count files which are already present in our library/DB,
                 // despite the fact that those also *do* take time and effort to check
                 // in the code above.
                 //
                 // The issue here is that when we would import files A,B,C,D,E,F,G,H,I,J,K,
-                // we would do so in tiny batches, resulting in a rescan after each batch 
+                // we would do so in tiny batches, resulting in a rescan after each batch
                 // where the already processed files will be included in the set, but must
                 // be filtered out as 'already in there' in the code above.
                 // Iff we had counted *all* files we inspect from the Watch Directory,
@@ -342,7 +342,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                     try
                     {
                         // check the file once again: it MAY have disappeared while we were slowly scanning the remainder of the dirtree.
-                        FileSystemEntryInfo info = Directory.GetFileSystemEntryInfo(filename);
+                        FileSystemEntryInfo info = File.GetFileSystemEntryInfo(filename);
 
                         watch_stats.processing_file_count++;
 
@@ -374,22 +374,18 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 }
 
                 // Get the library to import all these new files
-                ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(Library, true, true, filename_with_metadata_imports.ToArray());
+                if (filename_with_metadata_imports.Count > 0)
+                {
+                    ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(Library, true, true, filename_with_metadata_imports.ToArray());
 
-                // TODO: refactor the ImportingIntoLibrary class 
+                    // TODO: refactor the ImportingIntoLibrary class
+                }
 
                 watch_stats.processed_file_count = watch_stats.processing_file_count;
-
-#if false
-                // Relinquish control to the UI thread to make sure responsiveness remains tolerable at 100% CPU load.
-                Utilities.GUI.WPFDoEvents.WaitForUIThreadActivityDone();
-#endif
 
                 Logging.Info("FolderWatcher: {0} of {1} files have been processed/inspected (total {2} scanned, {3} skipped, {4} ignored)", watch_stats.processed_file_count, watch_stats.processing_file_count, watch_stats.scanned_file_count, watch_stats.skipped_file_count, watch_stats.scanned_file_count - watch_stats.skipped_file_count - watch_stats.processing_file_count);
 
                 Logging.Debug("FolderWatcher End-Of-Round");
-
-                daemon.Sleep(3 * 1000);
             }
 
             Logging.Debug("FolderWatcher END");
@@ -408,7 +404,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         {
             Logging.Error("FolderWatcher scanning error: 0x{0:X8}: {1} :: path: {2}", errorCode, errorMessage, pathProcessed);
 
-            return true; // == DirectoryEnumerationOptions.ContinueOnException 
+            return true; // == DirectoryEnumerationOptions.ContinueOnException
         }
 
         //
@@ -494,7 +490,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
                 if (have_we_slept)
                 {
-                    // As we have slept a while, it's quite unsure whether that file still exists. 
+                    // As we have slept a while, it's quite unsure whether that file still exists.
                     // Include it only when it still exists and otherwise be sure to retrigger a scan to follow up
                     // any other directory changes.
                     if (!File.Exists(obj.FullPath))
@@ -516,7 +512,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
                 // Check that the file is not still locked - if it is, mark that the folder is still "changed" and come back later.
                 //
-                // We do this at the same tim as calculating the file fingerprint as both actions require (costly) File I/O
+                // We do this at the same time as calculating the file fingerprint as both actions require (costly) File I/O
                 // and can be folded together: if the fingerprint fails, that's 99.9% sure a failure in the File I/O, hence
                 // a locked or otherwise inaccessible file.
                 string fingerprint;
@@ -542,7 +538,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                     watch_stats.skipped_file_count++;
                     break;
                 }
-                
+
                 if (watch_stats.file_hashes_added.TryGetValue(fingerprint, out var dupe_file_path))
                 {
                     Logging.Info("FolderWatcher is skipping {0} as it has already been included in the import set as file {1} which has the same fingerprint {2}", obj.FullPath, dupe_file_path, fingerprint);
