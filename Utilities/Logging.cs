@@ -244,6 +244,17 @@ namespace Utilities
             System.Threading.Thread.Sleep(500);
         }
 
+        public static bool HasShutDown
+        {
+            get
+            {
+                lock (log4net_loaded_lock)
+                {
+                    return log4net_has_shutdown;
+                }
+            }
+        }
+
         private static void BufferException(Exception _ex, string msg = null)
         {
             lock (log4net_loaded_lock)
