@@ -96,7 +96,7 @@ namespace Qiqqa.DocumentLibrary
                     string filename = filename_with_metadata_import.filename;
                     string bibtex = filename_with_metadata_import.bibtex;
 
-                    // Although the outside world may allow us to be signalling, we will not do it unless we are the n-100th doc or the last doc
+                    // Although the outside world may allow us to be signaling, we will not do it unless we are the n-100th doc or the last doc
                     bool local_suppress_signal_that_docs_have_changed = suppress_signal_that_docs_have_changed;
                     if (!local_suppress_signal_that_docs_have_changed)
                     {
@@ -236,7 +236,7 @@ namespace Qiqqa.DocumentLibrary
             }
         }
 
-        #region --- Add from folder ----------------------------------------------------------------------------------------------------------------------- 
+        #region --- Add from folder -----------------------------------------------------------------------------------------------------------------------
 
         public static void AddNewPDFDocumentsToLibraryFromFolder_SYNCHRONOUS(Library library, string root_folder, bool recurse_subfolders, bool import_tags_from_subfolder_names, bool suppress_notifications, bool suppress_signal_that_docs_have_changed)
         {
@@ -349,7 +349,7 @@ namespace Qiqqa.DocumentLibrary
                         string fwd_uri_str = web_response.GetResponseHeader("Location");
                         Uri fwd_uri = new Uri(web_response.ResponseUri, fwd_uri_str);
                         // fetch the PDF!
-                        // 
+                        //
                         // Warning: Do NOT get into a download loop due to badly configured or nasty webservers:
                         if (fwd_uri.AbsoluteUri != web_request.RequestUri.AbsoluteUri)
                         {

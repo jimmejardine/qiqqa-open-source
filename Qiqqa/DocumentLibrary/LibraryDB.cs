@@ -16,12 +16,12 @@ namespace Qiqqa.DocumentLibrary
     public static class DBAccessLock
     {
         //
-        // This lock doesn't solve the lockup-on-connect() issues I'm having, but we keep it for 
+        // This lock doesn't solve the lockup-on-connect() issues I'm having, but we keep it for
         // safety's sake - better safe than sorry. I suspect we're suffering from
         // https://stackoverflow.com/questions/12532729/sqlite-keeps-the-database-locked-even-after-the-connection-is-closed
         // (Note that the *explicit* Close() call inside those `using (...)` blocks seems to alleviate
         // matters quite a bit, but isn't the end-all as lockup is still happening, though rarely.
-        // 
+        //
         public static object db_access_lock = new object();
     }
 
@@ -164,8 +164,8 @@ namespace Qiqqa.DocumentLibrary
                 //
                 // We keep this *inside* the critical section so that we know we'll be the only active SQLite
                 // action which just transpired.
-                // *This* is also the reason why I went with a *global* lock (singeton) for *all* databases,
-                // even while *theoretically* this is *wrong* or rather: *unneccessary* as the databases
+                // *This* is also the reason why I went with a *global* lock (singleton) for *all* databases,
+                // even while *theoretically* this is *wrong* or rather: *unnecessary* as the databases
                 // i.e. Qiqqa Libraries shouldn't bite one another. I, however, need to ensure that the
                 // added `System.Data.SQLite.SQLiteConnection.ClearAllPools();` statements don't foul up
                 // matters in another library while lib A I/O is getting cleaned up.

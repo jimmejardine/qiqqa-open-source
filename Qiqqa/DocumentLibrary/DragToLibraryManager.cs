@@ -101,7 +101,7 @@ namespace Qiqqa.DocumentLibrary
                 }
             }
 
-            // If there still is no library (the user cancelled perhaps)
+            // If there still is no library (the user canceled perhaps)
             if (null == library)
             {
                 Logging.Info("No library was selected for the DragToLibraryManager.");

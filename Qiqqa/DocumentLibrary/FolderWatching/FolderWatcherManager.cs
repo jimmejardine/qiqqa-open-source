@@ -211,7 +211,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             {
                 try
                 {
-                    folder_watcher_record.Value.folder_watcher.TaskDaemonEntryPoint(daemon);
+                    folder_watcher_record.Value.folder_watcher.ExecuteBackgroundProcess(daemon);
                 }
                 catch (Exception ex)
                 {
