@@ -32,7 +32,7 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
             RunningStatistics stats = new RunningStatistics();
 
             // To recover from a search index fatal failure and re-indexing attempt for very large libraries,
-            // we're better off processing a limited number of source files as we'll be able to see 
+            // we're better off processing a limited number of source files as we'll be able to see
             // *some* results more quickly and we'll have a working, though yet incomplete,
             // index in *reasonable time*.
             //
@@ -72,7 +72,7 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
                 stats.documentsProcessedCount = 0;
                 foreach (PDFDocument pdf_document in pdf_documents)
                 {
-                    bool needs_processing = false;
+                    int needs_processing = 0;
 
                     stats.currentdocumentIndex++;
 
@@ -82,17 +82,17 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
                         continue;
                     }
 
-                    if (PDFMetadataInferenceFromPDFMetadata.NeedsProcessing(pdf_document)) needs_processing = true;
-                    if (PDFMetadataInferenceFromOCR.NeedsProcessing(pdf_document)) needs_processing = true;
-                    if (PDFMetadataInferenceFromBibTeXSearch.NeedsProcessing(pdf_document)) needs_processing = true;
+                    if (PDFMetadataInferenceFromPDFMetadata.NeedsProcessing(pdf_document))  needs_processing |= 0x01;
+                    if (PDFMetadataInferenceFromOCR.NeedsProcessing(pdf_document))          needs_processing |= 0x02;
+                    if (PDFMetadataInferenceFromBibTeXSearch.NeedsProcessing(pdf_document)) needs_processing |= 0x04;
 
-                    if (needs_processing)
+                    if (needs_processing != 0)
                     {
                         pdfs_retry_count.TallyOne(pdf_document.Fingerprint);
                         int cnt = pdfs_retry_count.GetCount(pdf_document.Fingerprint);
                         if (!General.IsPowerOfTwo(cnt))
                         {
-                            needs_processing = false;  // skip this time around
+                            needs_processing = 0;  // skip this time around
                         }
 #if true
                         // Reset counter when it has run up to 64 (which means 6 attempts were made up to now).
@@ -111,7 +111,7 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
                         return;
                     }
 
-                    if (needs_processing)
+                    if (needs_processing != 0)
                     {
                         if (DoSomeWork(library, pdf_document, stats))
                         {
@@ -120,8 +120,8 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
                     }
 
                     // Limit the number of source files to process before we go and create/update
-                    // a sane (though tiny and incomplete) Lucene search index database so that 
-                    // we have some up-to-date results ready whenever the user exits the Qiqqa application 
+                    // a sane (though tiny and incomplete) Lucene search index database so that
+                    // we have some up-to-date results ready whenever the user exits the Qiqqa application
                     // while this process is still running.
                     // When the user keeps Qiqqa running, this same approach will help us to 'update'
                     // the search index a bunch of files at a time, so everyone involved will be able
@@ -149,7 +149,6 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
             }
             finally
             {
-
                 if (0 < stats.documentsProcessedCount)
                 {
                     Logging.Debug特("Got {0} items of metadata extraction work done.", stats.documentsProcessedCount);
