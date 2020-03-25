@@ -49,6 +49,21 @@ namespace Qiqqa.Common.Configuration
             {
                 if (null == base_directory_for_qiqqa)
                 {
+                    // Command-line parameters override the Registry:
+                    string[] args = Environment.GetCommandLineArgs();
+
+                    for (int i = 0; i < args.Length; i++)
+                    {
+                        string p = args[i];
+                        p = Path.GetFullPath(p);
+                        if (Directory.Exists(p))
+                        {
+                            base_directory_for_qiqqa = p;
+                            break;
+                        }
+                    }
+
+                    // Check the Windows Registry for the path setting:
                     string override_path = RegistrySettings.Instance.Read(RegistrySettings.BaseDataDirectory);
                     if (!String.IsNullOrEmpty(override_path))
                     {
@@ -205,7 +220,7 @@ namespace Qiqqa.Common.Configuration
         {
             if (sender == configuration_record_bindable)
             {
-                // Saving the config on propertyy change is non-essential as another save action will be triggered
+                // Saving the config on property change is non-essential as another save action will be triggered
                 // from the application shutdown handler anyway. Therefor we delegate the inherent file I/O to
                 // a background task:
                 SafeThreadPool.QueueUserWorkItem(o =>
