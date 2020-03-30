@@ -529,7 +529,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             TabItem tab_item = (TabItem)sender;
             DualTabbedLayoutItem item = (DualTabbedLayoutItem)tab_item.Tag;
 
-            if (e.Key == Key.F4 && KeyboardTools.IsCTRLDown())
+            if ((e.Key == Key.F4 || e.Key == Key.W) && KeyboardTools.IsCTRLDown())
             {
                 if (item.can_close)
                 {
