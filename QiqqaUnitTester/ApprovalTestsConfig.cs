@@ -1,35 +1,35 @@
 ﻿/*
 * Welcome to ApprovalTests.
 * ====
-* 
+*
 * Please add:
-* 
+*
 * ```
 * [UseReporter(typeof(DiffReporter))]
 * ```
-* 
+*
 * to your class, test method or assembly.
-* 
+*
 * Why:
 * ----
-* 
+*
 * ApprovalTests uses the `[UseReporter]` attribute from your test class, method or assembly. When you do this ApprovalTest will launch the result using that reporter, for example in your diff tool.
-* 
+*
 * You can find several reporters in `ApprovalTests.Reporters` namespace, or create your own by extending the `ApprovalTests.Core.IApprovalFailureReporter` interface.
-* 
+*
 * Find more at: http://blog.approvaltests.com/2011/12/using-reporters-in-approval-tests.html
-* 
+*
 * Best Practice:
 * ----
-* 
+*
 * Add an *assembly* level configuration. Create a file in your base directory with the name `ApprovalTestsConfig.cs`, and the contents:
-* 
+*
 * ```
 * using ApprovalTests.Reporters;
-* 
+*
 * [assembly: UseReporter(typeof(DiffReporter))]
 * ```
-* 
+*
 */
 
 using ApprovalTests.Approvers;
@@ -114,13 +114,13 @@ namespace QiqqaTestHelpers
         private static string SanitizeFilename(string s)
         {
             // The following characters are invalid as file or folder names on Windows using NTFS:
-            //     / ? < > \ : * | " 
+            //     / ? < > \ : * | "
             // and any character you can type with the Ctrl key
             //
-            // In addition to the above illegal characters the caret ^ is also not permitted under 
+            // In addition to the above illegal characters the caret ^ is also not permitted under
             // Windows Operating Systems using the FAT file system.
             //
-            // --> replace any run of these caracters with a single underscore.
+            // --> replace any run of these characters with a single underscore.
             s = Regex.Replace(s.Trim(), "[\x00-\x1F/?<>\\*|\":^]+", "_");
             // filenames may not start or end with a dot either:
             while (s.StartsWith("."))
@@ -267,7 +267,7 @@ namespace QiqqaTestHelpers
 
             // BC4 cannot handle UNC paths, which is what AlphaFS uses to support overlong paths (> 260 chars)
             // hence we'll have convert these UNC paths back to local/native format for BC4 to be able to open
-            // the received+approved files for comparison. The rest of the test application should use the 
+            // the received+approved files for comparison. The rest of the test application should use the
             // UNC paths though.
             if (approved.StartsWith("\\\\?\\"))
             {
@@ -282,7 +282,7 @@ namespace QiqqaTestHelpers
 
         /// <summary>
         /// Executed as part of the `Approver` logic in
-        /// 
+        ///
         /// ```
         /// public static void Verify(IApprovalApprover approver, IApprovalFailureReporter reporter)
         /// {
@@ -293,7 +293,7 @@ namespace QiqqaTestHelpers
         ///     else
         ///     {
         ///         approver.ReportFailure(reporter);
-        /// 
+        ///
         ///         if (reporter is IReporterWithApprovalPower power && power.ApprovedWhenReported())
         ///                                                                   ^^^^^^^^^^^^^^^^^^^^^^
         ///         {
@@ -307,7 +307,7 @@ namespace QiqqaTestHelpers
         /// }
         /// ```
         /// </summary>
-        /// <returns>Return `false` when NOT approved automatically after all; `true` when this code auto-approves the test output, 
+        /// <returns>Return `false` when NOT approved automatically after all; `true` when this code auto-approves the test output,
         /// e.g. when the `*.approved.*` reference file does not (yet) exist.</returns>
         bool IReporterWithApprovalPower.ApprovedWhenReported()
         {
@@ -326,7 +326,7 @@ namespace QiqqaTestHelpers
     // https://stackoverflow.com/questions/37604285/how-do-i-automatically-approve-approval-tests-when-i-run-them
     // but now with the added tweak that this bugger gets to approve
     // **before Beyond Compare (or your favorite compare app) gets invoked**: *that*
-    // happens in the `Report()` call in the Approver *before* 
+    // happens in the `Report()` call in the Approver *before*
     // `DiffReporterWithApprovalPower` would get a chance to 'approve' the
     // received content!
     public class QiqqaApprover : FileApprover /* IApprovalApprover */
