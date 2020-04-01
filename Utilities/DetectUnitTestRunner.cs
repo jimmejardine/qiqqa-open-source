@@ -8,7 +8,7 @@ namespace Utilities
 {
     /// <summary>
     /// Determine if we're running/debugging a Unit/System Test or running an actual application.
-    /// 
+    ///
     /// Inspired by https://stackoverflow.com/questions/3167617/determine-if-code-is-running-as-part-of-a-unit-test
     /// </summary>
     public static class UnitTestDetector
@@ -76,49 +76,42 @@ namespace Utilities
             set => _runningFromNUnitHeuristic = (value ? -100 : +100);
         }
 
-        private static string _StartupDirectoryForQiqqa = null;
-
-        public static string StartupDirectoryForQiqqa
+        private static readonly Lazy<string> _StartupDirectoryForQiqqa = new Lazy<string>(() =>
         {
-            get
-            {
 #if DEBUG
-                // Are we looking at this dialog in the Visual Studio Designer?
-                if (Runtime.IsRunningInVisualStudioDesigner && null == _StartupDirectoryForQiqqa)
-                {
-                    string loc = Path.Combine(Utilities.Constants.QiqqaDevSolutionDir, "Qiqqa/bin/", Utilities.Constants.QiqqaDevBuild);
-                    string basedir = Path.GetFullPath(loc);
-                    _StartupDirectoryForQiqqa = basedir;
-                }
-#endif
-                if (null == _StartupDirectoryForQiqqa)
-                {
-                    // are we certain already or do we want to collect more datums still?
-                    if (_runningFromNUnitHeuristic <= -50 || _runningFromNUnitHeuristic >= 50)
-                    {
-                    }
-                    else
-                    {
-                        // https://stackoverflow.com/questions/52797/how-do-i-get-the-path-of-the-assembly-the-code-is-in
-                        //string s1 = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
-                        string loc = System.Reflection.Assembly.GetExecutingAssembly().Location;
-                        //string s3 = System.Windows.Forms.Application.StartupPath;
-                        bool we_are_in_test_env = UnitTestDetector.IsRunningInUnitTest;
-                        string basedir = Path.GetFullPath(Path.GetDirectoryName(Path.GetFullPath(loc)));
-                        //we_are_in_test_env = (basedir.ToLowerInvariant() != s3.ToLowerInvariant());
-                        if (we_are_in_test_env)
-                        {
-                            _StartupDirectoryForQiqqa = basedir;
-                        }
-                        else
-                        {
-                            _StartupDirectoryForQiqqa = Path.GetFullPath(System.Windows.Forms.Application.StartupPath);
-                        }
-                    }
-                }
-
-                return _StartupDirectoryForQiqqa;
+            // Are we looking at this dialog in the Visual Studio Designer?
+            if (Runtime.IsRunningInVisualStudioDesigner)
+            {
+                string loc = Path.Combine(Utilities.Constants.QiqqaDevSolutionDir, "Qiqqa/bin/", Utilities.Constants.QiqqaDevBuild);
+                string basedir = Path.GetFullPath(loc);
+                return basedir;
             }
-        }
+#endif
+
+            // are we certain already or do we want to collect more datums still?
+            if (_runningFromNUnitHeuristic <= -50 || _runningFromNUnitHeuristic >= 50)
+            {
+                return null;
+            }
+            else
+            {
+                // https://stackoverflow.com/questions/52797/how-do-i-get-the-path-of-the-assembly-the-code-is-in
+                //string s1 = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
+                string loc = System.Reflection.Assembly.GetExecutingAssembly().Location;
+                //string s3 = System.Windows.Forms.Application.StartupPath;
+                bool we_are_in_test_env = UnitTestDetector.IsRunningInUnitTest;
+                string basedir = Path.GetFullPath(Path.GetDirectoryName(Path.GetFullPath(loc)));
+                //we_are_in_test_env = (basedir.ToLowerInvariant() != s3.ToLowerInvariant());
+                if (we_are_in_test_env)
+                {
+                    return basedir;
+                }
+                else
+                {
+                    return Path.GetFullPath(System.Windows.Forms.Application.StartupPath);
+                }
+            }
+        });
+        public static string StartupDirectoryForQiqqa => _StartupDirectoryForQiqqa.Value;
     }
 }
