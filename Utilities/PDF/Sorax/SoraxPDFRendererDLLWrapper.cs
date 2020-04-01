@@ -21,7 +21,7 @@ namespace Utilities.PDF.Sorax
 
                 if (IntPtr.Zero == HDOC)
                 {
-                    throw new Exception(String.Format("There was a problem opening the PDF '{0}'", filename));
+                    throw new Exception(String.Format("There was a problem opening the PDF '{0}'{1}", filename, !File.Exists(filename) ? " :: File does not exist." : ""));
                 }
             }
 
