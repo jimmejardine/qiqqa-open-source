@@ -14,6 +14,8 @@ namespace QiqqaSystemTester
         [TestInitialize]
         public void Setup()
         {
+            // Make sure the configuration has been initialized by kicking the ConfigurationManager:
+            var dummy = Qiqqa.Common.Configuration.ConfigurationManager.Instance;
         }
 
         [DataRow("PDFDocument/v80-record-0001.json")]

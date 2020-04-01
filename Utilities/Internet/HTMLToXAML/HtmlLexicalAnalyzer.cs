@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------------
-// 
+//
 // File: HtmlLexicalAnalyzer.cs
 //
 // Copyright (C) Microsoft Corporation.  All rights reserved.
@@ -63,11 +63,11 @@ namespace Utilities.Internet.HTMLToXAML
         #region Internal Methods
 
         /// <summary>
-        /// retrieves next recognizable token from input string 
+        /// retrieves next recognizable token from input string
         /// and identifies its type
         /// if no valid token is found, the output parameters are set to null
         /// if end of stream is reached without matching any token, token type
-        /// paramter is set to EOF
+        /// parameter is set to EOF
         /// </summary>
         internal void GetNextContentToken()
         {
@@ -187,7 +187,7 @@ namespace Utilities.Internet.HTMLToXAML
                 _nextToken.Append("/>");
                 GetNextCharacter();
                 GetNextCharacter();
-                _ignoreNextWhitespace = false; // Whitespace after no-scope tags are sifnificant
+                _ignoreNextWhitespace = false; // Whitespace after no-scope tags are significant
             }
             else if (IsGoodForNameStart(NextCharacter))
             {
@@ -430,7 +430,7 @@ namespace Utilities.Internet.HTMLToXAML
         /// <summary>
         /// skips whitespace in the input string
         /// leaves the first non-whitespace character available in the NextCharacter property
-        /// this may be the end-of-file character, it performs no checking 
+        /// this may be the end-of-file character, it performs no checking
         /// </summary>
         private void SkipWhiteSpace()
         {
@@ -554,7 +554,7 @@ namespace Utilities.Internet.HTMLToXAML
         }
 
         /// <summary>
-        /// skips dynamic content starting with '<![' and ending with ']>' 
+        /// skips dynamic content starting with '<![' and ending with ']>'
         /// </summary>
         private void ReadDynamicContent()
         {
@@ -592,7 +592,7 @@ namespace Utilities.Internet.HTMLToXAML
         }
 
         /// <summary>
-        /// skips comments starting with '<!-' and ending with '-->' 
+        /// skips comments starting with '<!-' and ending with '-->'
         /// NOTE: 10/06/2004: processing changed, will now skip anything starting with
         /// the "<!-"  sequence and ending in "!>" or "->", because in practice many html pages do not
         /// use the full comment specifying conventions
@@ -680,7 +680,7 @@ namespace Utilities.Internet.HTMLToXAML
         }
 
         /// <summary>
-        /// skips processing directives starting with the characters '<?' and ending with '?>' 
+        /// skips processing directives starting with the characters '<?' and ending with '?>'
         /// NOTE: 10/14/2004: IE also ends processing directives with a />, so this function is
         /// being modified to recognize that condition as well
         /// </summary>

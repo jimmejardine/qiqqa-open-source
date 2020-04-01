@@ -110,11 +110,12 @@ namespace Qiqqa.InCite
             }
         }
 
-        public static string CITATION_RESOURCES_SUBDIRECTORY => Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"InCite/resources"));
+        private static readonly Lazy<string> __CITATION_RESOURCES_SUBDIRECTORY = new Lazy<string>(() => Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"InCite/resources")));
+        public static string CITATION_RESOURCES_SUBDIRECTORY => __CITATION_RESOURCES_SUBDIRECTORY.Value;
 
         private static void EnsureWorkingDirectoryIsPukka_WithCode()
         {
-            // Renew the directory            
+            // Renew the directory
             DirectoryTools.CreateDirectory(BASE_PATH);
 
             // Copy in the important files
@@ -276,7 +277,7 @@ namespace Qiqqa.InCite
 #if TEST
         public static void Test()
         {
-            Library library = Library.GuestInstance;            
+            Library library = Library.GuestInstance;
             Thread.Sleep(1000);
 
             CSLProcessor csl = new CSLProcessor();
