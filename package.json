@@ -11,7 +11,9 @@
     "syncver": "node Qiqqa.Build/bump_version.js -s",
     "bump": "node Qiqqa.Build/bump_version.js -b",
     "refresh-data": "node Qiqqa.Build/refresh_testdata_in_CS_testfiles.js -r",
-    "fix-docs": "node Qiqqa.Build/fix-docs-filenames.js -g"
+    "fix-docs": "node Qiqqa.Build/fix-docs-filenames.js -g",
+    "docs:dev": "vuepress dev docs-src",
+    "docs:build": "vuepress build docs-src"
   },
   "repository": {
     "type": "git",
@@ -35,12 +37,15 @@
   },
   "homepage": "https://github.com/jimmejardine/qiqqa-open-source#readme",
   "dependencies": {
-    "@gerhobbelt/nomnom": "^1.8.4-29",
-    "globby": "^10.0.1",
-    "moment": "^2.24.0",
-    "semver": "^6.3.0"
+    "@gerhobbelt/nomnom": "1.8.4-29",
+    "globby": "11.0.0",
+    "moment": "2.24.0",
+    "semver": "7.1.3"
   },
   "devDependencies": {
-    "@gerhobbelt/xml-beautifier": "^1.0.2-1"
+    "@gerhobbelt/xml-beautifier": "1.0.2-1",
+    "@vuepress/core": "1.4.0",
+    "@vuepress/theme-default": "1.4.0",
+    "vuepress": "1.4.0"
   }
 }
