@@ -10,4 +10,9 @@ module.exports = {
   dest: 'docs/',
 
   evergreen: true,
+
+  plugins: [
+  	'@vuepress/back-to-top',
+  	'vuepress-plugin-global-toc',
+  ]
 };
