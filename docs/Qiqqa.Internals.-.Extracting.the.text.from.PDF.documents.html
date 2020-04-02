@@ -3,95 +3,29 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>The Qiqqa OCR background process | Qiqqa / VuePress</title>
+    <title>
+      Qiqqa Internals :: Extracting the text from PDF documents | Qiqqa /
+      VuePress
+    </title>
     <meta name="description" content="Documentation in its infancy..." />
     <meta name="generator" content="VuePress 1.4.0" />
     <link
       rel="icon"
-      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/favicon.ico"
+      href="./favicon.ico"
     />
-
     <link
       rel="preload"
-      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/css/0.styles.619ec495.css"
+      href="./assets/css/0.styles.95439d49.css"
       as="style"
     />
     <link
-      rel="preload"
-      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/app.0e57a734.js"
-      as="script"
-    />
-    <link
-      rel="preload"
-      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/4.ba9855b4.js"
-      as="script"
-    />
-    <link
-      rel="preload"
-      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/3.b9ae32f7.js"
-      as="script"
-    />
-    <link
-      rel="preload"
-      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/7.8fb4afb9.js"
-      as="script"
-    />
-    <link
-      rel="prefetch"
-      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/10.920bfdd4.js"
-    />
-    <link
-      rel="prefetch"
-      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/11.b71c6241.js"
-    />
-    <link
-      rel="prefetch"
-      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/12.bd7f5758.js"
-    />
-    <link
-      rel="prefetch"
-      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/13.71be6f1c.js"
-    />
-    <link
-      rel="prefetch"
-      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/14.5324ab47.js"
-    />
-    <link
-      rel="prefetch"
-      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/15.48d59b5b.js"
-    />
-    <link
-      rel="prefetch"
-      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/16.555d4f4e.js"
-    />
-    <link
-      rel="prefetch"
-      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/2.68533b40.js"
-    />
-    <link
-      rel="prefetch"
-      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/5.fe7c1748.js"
-    />
-    <link
-      rel="prefetch"
-      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/6.0972eb28.js"
-    />
-    <link
-      rel="prefetch"
-      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/8.8ce480e3.js"
-    />
-    <link
-      rel="prefetch"
-      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/9.42907e88.js"
-    />
-    <link
       rel="stylesheet"
-      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/css/0.styles.619ec495.css"
+      href="./assets/css/0.styles.95439d49.css"
     />
   </head>
   <body>
     <div id="app" data-server-rendered="true">
-      <div class="theme-container no-sidebar">
+      <div class="theme-container">
         <header class="navbar">
           <div class="sidebar-button">
             <svg
@@ -108,40 +42,385 @@
             </svg>
           </div>
           <a
-            href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/"
+            href="./"
             class="home-link router-link-active"
-            ><!---->
-            <span class="site-name">Qiqqa / VuePress</span></a
+            ><img
+              src="./assets/img/image001.d0f5.png"
+              alt="Qiqqa / VuePress"
+              class="logo"
+            />
+            <span class="site-name can-hide">Qiqqa / VuePress</span></a
           >
           <div class="links">
-            <div class="search-box">
-              <input
-                aria-label="Search"
-                autocomplete="off"
-                spellcheck="false"
-                value=""
-              />
-              <!---->
-            </div>
-            <!---->
+            <nav class="nav-links can-hide">
+              <div class="nav-item">
+                <a
+                  href="./"
+                  class="nav-link"
+                >
+                  Home
+                </a>
+              </div>
+              <div class="nav-item">
+                <a
+                  href="./The.Qiqqa.Manual/"
+                  class="nav-link"
+                >
+                  Guide
+                </a>
+              </div>
+              <div class="nav-item">
+                <a
+                  href="https://google.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="nav-link external"
+                >
+                  External
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 100 100"
+                    width="15"
+                    height="15"
+                    class="icon outbound"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"
+                    ></path>
+                    <polygon
+                      fill="currentColor"
+                      points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
+                    ></polygon></svg
+                ></a>
+              </div>
+              <div class="nav-item">
+                <div class="dropdown-wrapper">
+                  <button
+                    type="button"
+                    aria-label="Language Menu"
+                    class="dropdown-title"
+                  >
+                    <span class="title">Languages</span>
+                    <span class="arrow right"></span>
+                  </button>
+                  <ul class="nav-dropdown" style="display: none;">
+                    <li class="dropdown-item">
+                      <a
+                        href="./language/chinese/"
+                        class="nav-link"
+                      >
+                        Chinese
+                      </a>
+                    </li>
+                    <li class="dropdown-item">
+                      <a
+                        href="./language/dutch/"
+                        class="nav-link"
+                      >
+                        Dutch
+                      </a>
+                    </li>
+                    <li class="dropdown-item">
+                      <a
+                        href="./"
+                        class="nav-link"
+                      >
+                        English
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <a
+                href="https://github.com/jimmejardine/qiqqa-open-source"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="repo-link"
+              >
+                Contribute!
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                  x="0px"
+                  y="0px"
+                  viewBox="0 0 100 100"
+                  width="15"
+                  height="15"
+                  class="icon outbound"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"
+                  ></path>
+                  <polygon
+                    fill="currentColor"
+                    points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
+                  ></polygon></svg
+              ></a>
+            </nav>
           </div>
         </header>
         <div class="sidebar-mask"></div>
         <aside class="sidebar">
-          <!---->
-          <!---->
+          <nav class="nav-links">
+            <div class="nav-item">
+              <a
+                href="./"
+                class="nav-link"
+              >
+                Home
+              </a>
+            </div>
+            <div class="nav-item">
+              <a
+                href="./The.Qiqqa.Manual/"
+                class="nav-link"
+              >
+                Guide
+              </a>
+            </div>
+            <div class="nav-item">
+              <a
+                href="https://google.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="nav-link external"
+              >
+                External
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                  x="0px"
+                  y="0px"
+                  viewBox="0 0 100 100"
+                  width="15"
+                  height="15"
+                  class="icon outbound"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"
+                  ></path>
+                  <polygon
+                    fill="currentColor"
+                    points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
+                  ></polygon></svg
+              ></a>
+            </div>
+            <div class="nav-item">
+              <div class="dropdown-wrapper">
+                <button
+                  type="button"
+                  aria-label="Language Menu"
+                  class="dropdown-title"
+                >
+                  <span class="title">Languages</span>
+                  <span class="arrow right"></span>
+                </button>
+                <ul class="nav-dropdown" style="display: none;">
+                  <li class="dropdown-item">
+                    <a
+                      href="./language/chinese/"
+                      class="nav-link"
+                    >
+                      Chinese
+                    </a>
+                  </li>
+                  <li class="dropdown-item">
+                    <a
+                      href="./language/dutch/"
+                      class="nav-link"
+                    >
+                      Dutch
+                    </a>
+                  </li>
+                  <li class="dropdown-item">
+                    <a
+                      href="./"
+                      class="nav-link"
+                    >
+                      English
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <a
+              href="https://github.com/jimmejardine/qiqqa-open-source"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="repo-link"
+            >
+              Contribute!
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+                x="0px"
+                y="0px"
+                viewBox="0 0 100 100"
+                width="15"
+                height="15"
+                class="icon outbound"
+              >
+                <path
+                  fill="currentColor"
+                  d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"
+                ></path>
+                <polygon
+                  fill="currentColor"
+                  points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
+                ></polygon></svg
+            ></a>
+          </nav>
+          <ul class="sidebar-links">
+            <li>
+              <section class="sidebar-group depth-0">
+                <p class="sidebar-heading open">
+                  <span
+                    >Qiqqa Internals :: Extracting the text from PDF
+                    documents</span
+                  >
+                </p>
+                <ul class="sidebar-links sidebar-group-items">
+                  <li>
+                    <a
+                      href="./Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.html#given-a-pdf-what-does-qiqqa-store-on-disk"
+                      class="sidebar-link"
+                      >Given a PDF, what does Qiqqa store on disk?</a
+                    >
+                    <ul class="sidebar-sub-headers">
+                      <li class="sidebar-sub-header">
+                        <a
+                          href="./Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.html#tl-dr"
+                          class="sidebar-link"
+                          >TL;DR</a
+                        >
+                      </li>
+                      <li class="sidebar-sub-header">
+                        <a
+                          href="./Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.html#☞-the-long-answer-to-this-question-🙉🎉"
+                          class="sidebar-link"
+                          >☞ The long answer to this question 🙉🎉</a
+                        >
+                      </li>
+                      <li class="sidebar-sub-header">
+                        <a
+                          href="./Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.html#does-it-matter-where-the-pdf-is-coming-from"
+                          class="sidebar-link"
+                          style="padding-left: 3rem;"
+                          >Does it matter where the PDF is coming from?</a
+                        >
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a
+                      href="./Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.html#the-qiqqa-ocr-internal-workflow"
+                      class="sidebar-link"
+                      >The Qiqqa OCR internal workflow</a
+                    >
+                    <ul class="sidebar-sub-headers">
+                      <li class="sidebar-sub-header">
+                        <a
+                          href="./Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.html#tl-dr-2"
+                          class="sidebar-link"
+                          >TL;DR</a
+                        >
+                      </li>
+                      <li class="sidebar-sub-header">
+                        <a
+                          href="./Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.html#tl-dr-☞-🙥-the-whole-story-🙧-🙉🎉"
+                          class="sidebar-link"
+                          >~~TL;DR~~            ☞ 🙥—— The whole story ——🙧
+                          🙉🎉</a
+                        >
+                      </li>
+                      <li class="sidebar-sub-header">
+                        <a
+                          href="./Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.html#qiqqa-ocr-stage-1-the-extract-attempt-the-group-call"
+                          class="sidebar-link"
+                          >Qiqqa OCR Stage 1: The Extract Attempt (= the
+                          &quot;GROUP&quot; call</a
+                        >
+                      </li>
+                      <li class="sidebar-sub-header">
+                        <a
+                          href="./Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.html#qiqqa-ocr-stage-2-the-ocr-attempt-the-single-call"
+                          class="sidebar-link"
+                          >Qiqqa OCR Stage 2: The OCR Attempt (= the
+                          &quot;SINGLE&quot; call</a
+                        >
+                      </li>
+                      <li class="sidebar-sub-header">
+                        <a
+                          href="./Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.html#what-happens-when-stage-2-and-stage-1-has-failed…-🥶-😱"
+                          class="sidebar-link"
+                          >What happens when Stage 2 (and Stage 1) has
+                          failed...? 🥶 😱</a
+                        >
+                      </li>
+                      <li class="sidebar-sub-header">
+                        <a
+                          href="./Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.html#v82-experimental-releases-stage-3-faking-it-the-single-fake-call"
+                          class="sidebar-link"
+                          style="padding-left: 3rem;"
+                          >v82 experimental releases: Stage 3: Faking It (= the
+                          &quot;SINGLE-FAKE&quot; call</a
+                        >
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a
+                      href="./Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.html#other-qiqqa-background-processes-which-use-and-influence-the-ocr-process-behaviour"
+                      class="sidebar-link"
+                      >Other Qiqqa background processes which use and influence
+                      the OCR process' behaviour</a
+                    >
+                    <ul class="sidebar-sub-headers">
+                      <li class="sidebar-sub-header">
+                        <a
+                          href="./Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.html#the-lucene-text-searchindex-update-process"
+                          class="sidebar-link"
+                          >The Lucene Text SearchIndex Update Process</a
+                        >
+                      </li>
+                      <li class="sidebar-sub-header">
+                        <a
+                          href="./Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.html#ooh-almost-forgot-the-metadata-inference-process"
+                          class="sidebar-link"
+                          >Ooh! Almost forgot! The metadata inference
+                          process!</a
+                        >
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </section>
+            </li>
+          </ul>
         </aside>
         <main class="page">
           <div class="theme-default-content content__default">
-            <h1 id="the-qiqqa-ocr-background-process-as-per-2020-03-22">
+            <h1 id="qiqqa-internals-extracting-the-text-from-pdf-documents">
               <a
-                href="#the-qiqqa-ocr-background-process-as-per-2020-03-22"
+                href="#qiqqa-internals-extracting-the-text-from-pdf-documents"
                 class="header-anchor"
                 >#</a
               >
-              The Qiqqa OCR <em>background</em> process
-              <sub>(as per 2020-03-22)</sub>
+              Qiqqa Internals :: Extracting the text from PDF documents
             </h1>
+            <h1 id="the-qiqqa-ocr-background-process">
+              <a href="#the-qiqqa-ocr-background-process" class="header-anchor"
+                >#</a
+              >
+              The Qiqqa OCR <em>background</em> process
+            </h1>
+            <title-runner>(as per 2020-03-22)</title-runner>
             <p>Before we dive in, there’s one important question to ask:</p>
             <h2 id="given-a-pdf-what-does-qiqqa-store-on-disk">
               <a
@@ -302,87 +581,46 @@
   # List source: PDFText
   # System culture: en-US
   @PAGE: 1
-
   0.62114,0.04798,0.11382,0.01641:USOO695.2431B1
-
   0.12683,0.08586,0.02602,0.02904:(12)
-
   0.15935,0.08586,0.08455,0.02904:United
-
   0.25366,0.08586,0.07480,0.02904:States
-
   0.33984,0.08586,0.07967,0.02904:Patent
-
   0.52683,0.08586,0.02602,0.02904:(10)
-
   0.55935,0.08586,0.05528,0.02904:Patent
-
   0.62114,0.08586,0.03415,0.02904:No.:
-
   0.69593,0.08586,0.03089,0.02904:US
-
   0.73333,0.08586,0.09106,0.02904:6,952,431
-
   0.83252,0.08586,0.02602,0.02904:B1
-
   0.15772,0.10732,0.04553,0.02399:Dally
-
   0.20813,0.10732,0.01626,0.02399:et
-
   0.22927,0.10732,0.02276,0.02399:al.
-
   0.52683,0.10732,0.02602,0.02399:(45)
-
   0.55935,0.10732,0.03902,0.02399:Date
-
   0.60325,0.10732,0.02114,0.02399:of
-
   0.62764,0.10732,0.05854,0.02399:Patent:
-
   0.75772,0.10732,0.03740,0.02399:Oct.
-
   0.79837,0.10732,0.01626,0.02399:4,
-
   0.81789,0.10732,0.03902,0.02399:2005
-
   0.12683,0.14899,0.02602,0.01641:(54)
-
   0.16585,0.14899,0.05528,0.01641:CLOCK
-
   0.22439,0.14899,0.10569,0.01641:MULTIPLYING
-
   0.33333,0.14899,0.11707,0.01641:DELAY-LOCKED
-
   0.53821,0.14899,0.05366,0.01641:6,037,812
-
   0.59675,0.14899,0.01138,0.01641:A
-
   0.63577,0.14899,0.03740,0.01641:3/2000
-
   0.68293,0.14899,0.03902,0.01641:Gaudet
-
   0.72683,0.14899,0.08455,0.01641:.......................
-
   0.81463,0.14899,0.04390,0.01641:327/116
-
   0.16748,0.16035,0.04228,0.01641:LOOP
-
   0.21301,0.16035,0.03089,0.01641:FOR
-
   0.24878,0.16035,0.03902,0.01641:DATA
-
   0.29106,0.16035,0.14146,0.01641:COMMUNICATIONS
-
   0.53821,0.16035,0.05366,0.01641:6,043,717
-
   0.59675,0.16035,0.01138,0.01641:A
-
   0.63577,0.16035,0.03740,0.01641:3/2000
-
   0.68293,0.16035,0.02764,0.01641:Kurd
-
   0.71545,0.16035,0.09919,0.01641:...........................
-
   0.82114,0.16035,0.01463,0.01641:33
 </code></pre>
                     <div class="line-numbers-wrapper">
@@ -1267,7 +1505,7 @@
             <p><br /><br /></p>
             <p align="center" style="margin-top: 50px;">
               <img
-                src="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/img/divider-end.87ee.svg"
+                src="./assets/img/divider-end.87ee.svg"
                 width="200"
               />
             </p>
@@ -1475,29 +1713,41 @@
             <p><a href="#user-content-stage2ocr2">⤣</a></p>
           </div>
           <footer class="page-edit">
-            <!---->
-            <!---->
+            <div class="edit-link">
+              <a
+                href="https://github.com/jimmejardine/qiqqa-open-source/edit/master/docs/Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.md"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Help us improve this page!</a
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+                x="0px"
+                y="0px"
+                viewBox="0 0 100 100"
+                width="15"
+                height="15"
+                class="icon outbound"
+              >
+                <path
+                  fill="currentColor"
+                  d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"
+                ></path>
+                <polygon
+                  fill="currentColor"
+                  points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
+                ></polygon>
+              </svg>
+            </div>
+            <div class="last-updated">
+              <span class="prefix">Last Updated:</span>
+              <span class="time">4/1/2020, 5:28:00 PM</span>
+            </div>
           </footer>
-          <!---->
         </main>
       </div>
-      <div class="global-ui"><!----></div>
+      <div class="global-ui"></div>
     </div>
-    <script
-      src="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/app.0e57a734.js"
-      defer
-    ></script>
-    <script
-      src="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/4.ba9855b4.js"
-      defer
-    ></script>
-    <script
-      src="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/3.b9ae32f7.js"
-      defer
-    ></script>
-    <script
-      src="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/7.8fb4afb9.js"
-      defer
-    ></script>
   </body>
 </html>

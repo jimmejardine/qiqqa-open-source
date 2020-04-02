@@ -224,7 +224,7 @@
   outline: none;
   transition: all 0.2s ease;
   background: #fff
-    url(/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/img/search.8362.svg)
+    url(..//img/search.8362.svg)
     0.6rem 0.5rem no-repeat;
   background-size: 1rem;
 }
@@ -1467,6 +1467,20 @@ th {
     margin: 0.85rem -1.5rem;
     border-radius: 0;
   }
+}
+.theorem {
+  margin: 1rem 0;
+  padding: 0.1rem 1.5rem;
+  border-radius: 0.4rem;
+  background-color: #f0f4f8;
+}
+.theorem .title {
+  font-weight: 700;
+}
+.custom-block.right {
+  color: rgba(0, 0, 0, 0.4);
+  font-size: 0.9rem;
+  text-align: right;
 }
 .badge[data-v-0a45b61c] {
   display: inline-block;

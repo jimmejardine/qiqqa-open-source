@@ -1,3 +1,5 @@
+# Qiqqa Internals :: Processing PDF documents' text and the impact on UI+UX
+
 > Rippeed off from my reply to https://github.com/jimmejardine/qiqqa-open-source/issues/165
 
 Had a look at what happened exactly. It has been enlightening as I discovered I was working with a couple of internal assumptions that are clearly based on developer rather than user experience influencing my user experience.

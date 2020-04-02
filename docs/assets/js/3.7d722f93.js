@@ -691,7 +691,7 @@
               const t = this.query.trim().toLowerCase();
               if (!t) return;
               const { pages: e } = this.$site,
-                n = this.$site.themeConfig.searchMaxSuggestions || 5,
+                n = this.$site.themeConfig.searchMaxSuggestions || 10,
                 r = this.$localePath,
                 o = [];
               for (let i = 0; i < e.length && !(o.length >= n); i++) {

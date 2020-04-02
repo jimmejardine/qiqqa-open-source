@@ -24,12 +24,76 @@ const cfg = {
   port: 8043,			// port # on the dev server
   dest: destinationPath,
 
+  patterns: ['**/*.md', '**/*.vue'],
+
   evergreen: true,
 
   head: [
     ['link', { rel: 'icon', href: '/favicon.ico' }],
     //['meta', { name: 'viewport', content: 'width=device-width,initial-scale=1,user-scalable=no' }]
   ],
+
+  // https://vuepress.vuejs.org/theme/default-theme-config.html#navbar
+  themeConfig: {
+      logo: "/assets/img/image001.d0f5.png", // Dang! doesn't transform URLs: 'images/image001.png',
+
+      // search functionality doesn't work ATM:
+      // https://v1.vuepress.vuejs.org/theme/default-theme-config.html#search-box
+      search: false,
+
+      nav: [
+          { text: 'Home', link: '/' },
+          { text: 'Guide', link: '/The.Qiqqa.Manual.html' },
+          { text: 'External', link: 'https://google.com/' },
+          {
+              text: 'Languages',
+              ariaLabel: 'Language Menu',
+              items: [
+                  { text: 'Chinese', link: '/language/chinese/' },
+                  { text: 'Dutch', link: '/language/dutch/' },
+                  { text: 'English', link: '/' },
+              ]
+          },
+      ],
+
+      sidebar: "auto",
+      //[
+      //    '/',
+      //    '/page-a',
+      //    ['/page-b', 'Explicit link text']
+      //],
+
+      sidebarDepth: 2,
+
+      displayAllHeaders: true, // Default: false
+
+      lastUpdated: 'Last Updated', // string | boolean
+
+      // default value is true. Set it to false to hide next page links on all pages
+      nextLinks: true,
+      // default value is true. Set it to false to hide prev page links on all pages
+      prevLinks: true,
+
+      // Assumes GitHub. Can also be a full GitLab url.
+      repo: 'jimmejardine/qiqqa-open-source',
+      // Customising the header label
+      // Defaults to "GitHub"/"GitLab"/"Bitbucket" depending on `themeConfig.repo`
+      repoLabel: 'Contribute!',
+
+      // Optional options for generating "Edit this page" link
+
+      // if your docs are in a different repo from your main project:
+      docsRepo: 'jimmejardine/qiqqa-open-source',
+      // if your docs are not at the root of the repo:
+      docsDir: 'docs',
+      // if your docs are in a specific branch (defaults to 'master'):
+      docsBranch: 'master',
+      // defaults to false, set to true to enable
+      editLinks: true,
+      // custom text for edit link. Defaults to "Edit this page"
+      editLinkText: 'Help us improve this page!',
+
+  },
 
   markdown: {
     lineNumbers: true,
@@ -75,6 +139,12 @@ const cfg = {
       md.use(require('markdown-it-deflist'));
       md.use(require('markdown-it-ins'));
       md.use(require('markdown-it-mark'));
+      md.use(require('markdown-it-include'), {
+        root: absSrcPath('.'),
+      });
+      //md.use(require('markdown-it-github-toc').default);
+      //md.use(require('markdown-it-toc-and-anchor').default);
+      //md.use(require('markdown-it-anchor'));
     },
   },
 
@@ -129,8 +199,51 @@ console.error("images rule setting hit");
   },
 
   plugins: [
-  	'@vuepress/back-to-top',
-  	'vuepress-plugin-global-toc',
+    ['@vuepress/nprogress'],
+  	['@vuepress/back-to-top'],
+    ['@vuepress/search', {
+      searchMaxSuggestions: 10
+    }],
+    ['@vuepress/last-updated'],
+    ['@vuepress/active-header-links'],
+  	['vuepress-plugin-global-toc'],
+    ['vuepress-plugin-table-of-contents'],
+
+    // you can use this plugin multiple times
+    [
+      'vuepress-plugin-container',
+      {
+        type: 'right',
+        defaultTitle: '',
+      },
+    ],
+    [
+      'vuepress-plugin-container',
+      {
+        type: 'theorem',
+        before: info => `<div class="theorem"><p class="title">${info}</p>`,
+        after: '</div>',
+      },
+    ],
+
+    // this is how VuePress Default Theme use this plugin
+    [
+      'vuepress-plugin-container',
+      {
+        type: 'tip',
+        defaultTitle: {
+          '/': 'TIP',
+          '/zh/': '提示',
+        },
+      },
+    ],
+    [
+      'vuepress-plugin-container',
+      {
+        type: 'warning',
+        //defaultTitle: 'WARNING',   <== default value
+      },
+    ],
   ],
 
   // https://vuepress.vuejs.org/plugin/life-cycle.html#updated

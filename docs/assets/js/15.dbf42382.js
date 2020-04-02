@@ -1,11 +1,11 @@
 (window.webpackJsonp = window.webpackJsonp || []).push([
-  [11],
+  [15],
   {
-    176: function (t, e, n) {
+    177: function (t, e, n) {
       "use strict";
       n.r(e);
       var s = n(0),
-        r = Object(s.a)(
+        o = Object(s.a)(
           {},
           function () {
             var t = this.$createElement,
@@ -13,7 +13,7 @@
             return e(
               "ContentSlotsDistributor",
               { attrs: { "slot-key": this.$parent.slotKey } },
-              [e("p", [this._v("first page in category1")])]
+              [e("p", [this._v("second page in category2")])]
             );
           },
           [],
@@ -22,7 +22,7 @@
           null,
           null
         );
-      e.default = r.exports;
+      e.default = o.exports;
     },
   },
 ]);

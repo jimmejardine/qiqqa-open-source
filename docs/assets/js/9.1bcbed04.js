@@ -1,7 +1,7 @@
 (window.webpackJsonp = window.webpackJsonp || []).push([
   [9],
   {
-    173: function (e, t, a) {
+    174: function (e, t, a) {
       "use strict";
       a.r(t);
       var o = a(0),
@@ -15,6 +15,32 @@
               "ContentSlotsDistributor",
               { attrs: { "slot-key": e.$parent.slotKey } },
               [
+                a(
+                  "h1",
+                  {
+                    attrs: {
+                      id:
+                        "qiqqa-internals-processing-pdf-documents-text-and-the-impact-on-ui-ux",
+                    },
+                  },
+                  [
+                    a(
+                      "a",
+                      {
+                        staticClass: "header-anchor",
+                        attrs: {
+                          href:
+                            "#qiqqa-internals-processing-pdf-documents-text-and-the-impact-on-ui-ux",
+                        },
+                      },
+                      [e._v("#")]
+                    ),
+                    e._v(
+                      " Qiqqa Internals :: Processing PDF documents’ text and the impact on UI+UX"
+                    ),
+                  ]
+                ),
+                e._v(" "),
                 a("blockquote", [
                   a("p", [
                     e._v("Rippeed off from my reply to "),

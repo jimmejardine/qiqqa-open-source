@@ -3,10 +3,20 @@
 You can [read the manual by clicking here](The.Qiqqa.Manual.md).
 
 
+::: warning
+
+# NOTE / Caveat Emptor
+
+This website is still in its infancy / under construction. The manual is *old* (it dates back to 2016) and the other content is currently quite, ahh, haphazard.
+
+We're working on it to improve this state of affairs...
+
+:::
+
 
 # Table of contents
 
-<GlobalTableOfContents />
+<!--   < GlobalTableOfContents />    <== that one currently b0rks! :-((  -->
 
 # Pages...
 

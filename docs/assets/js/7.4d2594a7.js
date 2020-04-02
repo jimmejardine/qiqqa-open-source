@@ -4,11 +4,11 @@
     111: function (e, t, a) {
       e.exports = a.p + "assets/img/divider-end.87ee.svg";
     },
-    171: function (e, t, a) {
+    176: function (e, t, a) {
       "use strict";
       a.r(t);
       var r = a(0),
-        s = Object(r.a)(
+        n = Object(r.a)(
           {},
           function () {
             var e = this,
@@ -22,7 +22,8 @@
                   "h1",
                   {
                     attrs: {
-                      id: "the-qiqqa-ocr-background-process-as-per-2020-03-22",
+                      id:
+                        "qiqqa-internals-extracting-the-text-from-pdf-documents",
                     },
                   },
                   [
@@ -32,17 +33,32 @@
                         staticClass: "header-anchor",
                         attrs: {
                           href:
-                            "#the-qiqqa-ocr-background-process-as-per-2020-03-22",
+                            "#qiqqa-internals-extracting-the-text-from-pdf-documents",
                         },
                       },
                       [e._v("#")]
                     ),
-                    e._v(" The Qiqqa OCR "),
-                    r("em", [e._v("background")]),
-                    e._v(" process "),
-                    r("sub", [e._v("(as per 2020-03-22)")]),
+                    e._v(
+                      " Qiqqa Internals :: Extracting the text from PDF documents"
+                    ),
                   ]
                 ),
+                e._v(" "),
+                r("h1", { attrs: { id: "the-qiqqa-ocr-background-process" } }, [
+                  r(
+                    "a",
+                    {
+                      staticClass: "header-anchor",
+                      attrs: { href: "#the-qiqqa-ocr-background-process" },
+                    },
+                    [e._v("#")]
+                  ),
+                  e._v(" The Qiqqa OCR "),
+                  r("em", [e._v("background")]),
+                  e._v(" process"),
+                ]),
+                e._v(" "),
+                r("title-runner", [e._v("(as per 2020-03-22)")]),
                 e._v(" "),
                 r("p", [
                   e._v(
@@ -1701,7 +1717,8 @@
                     e._v("⤣"),
                   ]),
                 ]),
-              ]
+              ],
+              1
             );
           },
           [],
@@ -1710,7 +1727,7 @@
           null,
           null
         );
-      t.default = s.exports;
+      t.default = n.exports;
     },
   },
 ]);
