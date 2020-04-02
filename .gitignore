@@ -1,9 +1,11 @@
 .vs
-*.csproj.user
-*.shproj.user
+*.user
 *.pdb
 .editorconfig
 FastWPF.DesignerSettings
+*.filters
+
+/docs-src/Debug
 
 **/bin/*
 **/obj/*
@@ -25,4 +27,3 @@ Qiqqa.Build/Packaging/ClickOnceUninstaller/ClickOnceUninstaller/obj/*
 
 # ignore directories where the installers are saved during Release+SETUP builds
 /Qiqqa.Build/Packages/v* - 20*/
-

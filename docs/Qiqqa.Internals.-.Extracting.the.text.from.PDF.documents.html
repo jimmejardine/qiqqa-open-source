@@ -1,23 +1,303 @@
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>The Qiqqa OCR background process | Hello VuePress</title>
-    <meta name="description" content="Just playing around">
-    <meta name="generator" content="VuePress 1.4.0">
-    
-    
-    <link rel="preload" href="/qiqqa/assets/css/0.styles.9a66c216.css" as="style"><link rel="preload" href="/qiqqa/assets/js/app.f7753880.js" as="script"><link rel="preload" href="/qiqqa/assets/js/3.d903a693.js" as="script"><link rel="preload" href="/qiqqa/assets/js/2.dcf82e3d.js" as="script"><link rel="preload" href="/qiqqa/assets/js/5.c4fc8e42.js" as="script"><link rel="prefetch" href="/qiqqa/assets/js/10.3beb2bba.js"><link rel="prefetch" href="/qiqqa/assets/js/11.0df061d9.js"><link rel="prefetch" href="/qiqqa/assets/js/4.106d272b.js"><link rel="prefetch" href="/qiqqa/assets/js/6.b5187cb1.js"><link rel="prefetch" href="/qiqqa/assets/js/7.d142dc65.js"><link rel="prefetch" href="/qiqqa/assets/js/8.1b07d890.js"><link rel="prefetch" href="/qiqqa/assets/js/9.379d3ee6.js">
-    <link rel="stylesheet" href="/qiqqa/assets/css/0.styles.9a66c216.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>The Qiqqa OCR background process | Qiqqa / VuePress</title>
+    <meta name="description" content="Documentation in its infancy..." />
+    <meta name="generator" content="VuePress 1.4.0" />
+    <link
+      rel="icon"
+      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/favicon.ico"
+    />
+
+    <link
+      rel="preload"
+      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/css/0.styles.619ec495.css"
+      as="style"
+    />
+    <link
+      rel="preload"
+      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/app.0e57a734.js"
+      as="script"
+    />
+    <link
+      rel="preload"
+      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/4.ba9855b4.js"
+      as="script"
+    />
+    <link
+      rel="preload"
+      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/3.b9ae32f7.js"
+      as="script"
+    />
+    <link
+      rel="preload"
+      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/7.8fb4afb9.js"
+      as="script"
+    />
+    <link
+      rel="prefetch"
+      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/10.920bfdd4.js"
+    />
+    <link
+      rel="prefetch"
+      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/11.b71c6241.js"
+    />
+    <link
+      rel="prefetch"
+      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/12.bd7f5758.js"
+    />
+    <link
+      rel="prefetch"
+      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/13.71be6f1c.js"
+    />
+    <link
+      rel="prefetch"
+      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/14.5324ab47.js"
+    />
+    <link
+      rel="prefetch"
+      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/15.48d59b5b.js"
+    />
+    <link
+      rel="prefetch"
+      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/16.555d4f4e.js"
+    />
+    <link
+      rel="prefetch"
+      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/2.68533b40.js"
+    />
+    <link
+      rel="prefetch"
+      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/5.fe7c1748.js"
+    />
+    <link
+      rel="prefetch"
+      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/6.0972eb28.js"
+    />
+    <link
+      rel="prefetch"
+      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/8.8ce480e3.js"
+    />
+    <link
+      rel="prefetch"
+      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/9.42907e88.js"
+    />
+    <link
+      rel="stylesheet"
+      href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/css/0.styles.619ec495.css"
+    />
   </head>
   <body>
-    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/qiqqa/" class="home-link router-link-active"><!----> <span class="site-name">Hello VuePress</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="the-qiqqa-ocr-background-process-as-per-2020-03-22"><a href="#the-qiqqa-ocr-background-process-as-per-2020-03-22" class="header-anchor">#</a> The Qiqqa OCR <em>background</em> process <sub>(as per 2020-03-22)</sub></h1> <p>Before we dive in, there's one important question to ask:</p> <h2 id="given-a-pdf-what-does-qiqqa-store-on-disk"><a href="#given-a-pdf-what-does-qiqqa-store-on-disk" class="header-anchor">#</a> Given a PDF, <em>what</em> does Qiqqa store on disk?</h2> <h3 id="tl-dr"><a href="#tl-dr" class="header-anchor">#</a> TL;DR</h3> <ol><li>the original PDF, <em>renamed</em> using the <em>content hash</em>.</li> <li>the extracted text (as a series of words plus box coordinates in a propietary text format)</li></ol> <h3 id="☞-the-long-answer-to-this-question-🙉🎉"><a href="#☞-the-long-answer-to-this-question-🙉🎉" class="header-anchor">#</a> ☞ The long answer to this question 🙉🎉</h3> <details><summary><b>(Click here to unfold)</b></summary> <br> <blockquote><h4 id="does-it-matter-where-the-pdf-is-coming-from"><a href="#does-it-matter-where-the-pdf-is-coming-from" class="header-anchor">#</a> Does it matter where the PDF is coming from?</h4> <p>It does not matter <em>how</em> Qiqqa obtained the incoming PDF document, be it by &quot;watch folder&quot; directory scanning, website sniffer download, drag&amp;drop or other means to import: all incoming PDFs are processed the same way.</p> <p>Some <strong>metadata</strong> bits may be different: a source URL may be saved on Sniffer download or alike, but that's about it.</p></blockquote> <ul><li><p>The incoming <strong>original PDF</strong> is copied to the Qiqqa Library <strong>document store</strong>, which is located in the <code>&lt;LibraryID&gt;/documents/</code> directory tree.</p> <p>The PDF <strong>content</strong> is hashed (using a <a href="https://github.com/jimmejardine/qiqqa-open-source/blob/0b015c923e965ba61e3f6b51218ca509fcd6cabb/Utilities/Files/StreamFingerprint.cs#L14" target="_blank" rel="noopener noreferrer">SHA1 derivative<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>) to produce a unique identifier for this particular PDF <strong>content</strong>. That hash is used throughout Qiqqa for indexing <em>and</em> is to <em>name</em> the cached version of the incoming PDF, using a simple yet effective distribution scheme to help NTFS/filesystem performance for large libraries: the first character of the hash is also used as a <em>subdirectory</em> name.</p> <p>Example path for a PDF file stored in the <code>Guest</code> Qiqqa Library:</p> <div class="language- extra-class"><pre class="language-text"><code>  base/Guest/documents/D/DA7B8FDA82E6D7465ADC7590EEC0C914E955C5B8.pdf
-</code></pre></div></li> <li><p>The <strong>extracted text</strong> is saved in a Qiqqa-global store at <code>base/ocr/</code> using a similar filesystem performance scheme as for the PDF  file itself.</p> <p>Example paths for the OCR output cached for the same PDF file as shown above:</p> <div class="language- extra-class"><pre class="language-text"><code>  base/ocr/DA/DA7B8FDA82E6D7465ADC7590EEC0C914E955C5B8.pagecount.0.txt
+    <div id="app" data-server-rendered="true">
+      <div class="theme-container no-sidebar">
+        <header class="navbar">
+          <div class="sidebar-button">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+              role="img"
+              viewBox="0 0 448 512"
+              class="icon"
+            >
+              <path
+                fill="currentColor"
+                d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"
+              ></path>
+            </svg>
+          </div>
+          <a
+            href="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/"
+            class="home-link router-link-active"
+            ><!---->
+            <span class="site-name">Qiqqa / VuePress</span></a
+          >
+          <div class="links">
+            <div class="search-box">
+              <input
+                aria-label="Search"
+                autocomplete="off"
+                spellcheck="false"
+                value=""
+              />
+              <!---->
+            </div>
+            <!---->
+          </div>
+        </header>
+        <div class="sidebar-mask"></div>
+        <aside class="sidebar">
+          <!---->
+          <!---->
+        </aside>
+        <main class="page">
+          <div class="theme-default-content content__default">
+            <h1 id="the-qiqqa-ocr-background-process-as-per-2020-03-22">
+              <a
+                href="#the-qiqqa-ocr-background-process-as-per-2020-03-22"
+                class="header-anchor"
+                >#</a
+              >
+              The Qiqqa OCR <em>background</em> process
+              <sub>(as per 2020-03-22)</sub>
+            </h1>
+            <p>Before we dive in, there’s one important question to ask:</p>
+            <h2 id="given-a-pdf-what-does-qiqqa-store-on-disk">
+              <a
+                href="#given-a-pdf-what-does-qiqqa-store-on-disk"
+                class="header-anchor"
+                >#</a
+              >
+              Given a PDF, <em>what</em> does Qiqqa store on disk?
+            </h2>
+            <h3 id="tl-dr">
+              <a href="#tl-dr" class="header-anchor">#</a> TL;DR
+            </h3>
+            <ol>
+              <li>
+                the original PDF, <em>renamed</em> using the
+                <em>content hash</em>.
+              </li>
+              <li>
+                the extracted text (as a series of words plus box coordinates in
+                a propietary text format)
+              </li>
+            </ol>
+            <h3 id="☞-the-long-answer-to-this-question-🙉🎉">
+              <a
+                href="#☞-the-long-answer-to-this-question-🙉🎉"
+                class="header-anchor"
+                >#</a
+              >
+              ☞ The long answer to this question 🙉🎉
+            </h3>
+            <details
+              ><summary><b>(Click here to unfold)</b></summary> <br />
+              <blockquote>
+                <h4 id="does-it-matter-where-the-pdf-is-coming-from">
+                  <a
+                    href="#does-it-matter-where-the-pdf-is-coming-from"
+                    class="header-anchor"
+                    >#</a
+                  >
+                  Does it matter where the PDF is coming from?
+                </h4>
+                <p>
+                  It does not matter <em>how</em> Qiqqa obtained the incoming
+                  PDF document, be it by “watch folder” directory scanning,
+                  website sniffer download, drag&amp;drop or other means to
+                  import: all incoming PDFs are processed the same way.
+                </p>
+                <p>
+                  Some <strong>metadata</strong> bits may be different: a source
+                  URL may be saved on Sniffer download or alike, but that’s
+                  about it.
+                </p>
+              </blockquote>
+              <ul>
+                <li>
+                  <p>
+                    The incoming <strong>original PDF</strong> is copied to the
+                    Qiqqa Library <strong>document store</strong>, which is
+                    located in the
+                    <code>&lt;LibraryID&gt;/documents/</code> directory tree.
+                  </p>
+                  <p>
+                    The PDF <strong>content</strong> is hashed (using a
+                    <a
+                      href="https://github.com/jimmejardine/qiqqa-open-source/blob/0b015c923e965ba61e3f6b51218ca509fcd6cabb/Utilities/Files/StreamFingerprint.cs#L14"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >SHA1 derivative<svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true"
+                        x="0px"
+                        y="0px"
+                        viewBox="0 0 100 100"
+                        width="15"
+                        height="15"
+                        class="icon outbound"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"
+                        ></path>
+                        <polygon
+                          fill="currentColor"
+                          points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
+                        ></polygon></svg></a
+                    >) to produce a unique identifier for this particular PDF
+                    <strong>content</strong>. That hash is used throughout Qiqqa
+                    for indexing <em>and</em> is to <em>name</em> the cached
+                    version of the incoming PDF, using a simple yet effective
+                    distribution scheme to help NTFS/filesystem performance for
+                    large libraries: the first character of the hash is also
+                    used as a <em>subdirectory</em> name.
+                  </p>
+                  <p>
+                    Example path for a PDF file stored in the
+                    <code>Guest</code> Qiqqa Library:
+                  </p>
+                  <div class="language- line-numbers-mode">
+                    <pre
+                      class="language-text"
+                    ><code>  base/Guest/documents/D/DA7B8FDA82E6D7465ADC7590EEC0C914E955C5B8.pdf
+</code></pre>
+                    <div class="line-numbers-wrapper">
+                      <span class="line-number">1</span><br />
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <p>
+                    The <strong>extracted text</strong> is saved in a
+                    Qiqqa-global store at <code>base/ocr/</code> using a similar
+                    filesystem performance scheme as for the PDF file itself.
+                  </p>
+                  <p>
+                    Example paths for the OCR output cached for the same PDF
+                    file as shown above:
+                  </p>
+                  <div class="language- line-numbers-mode">
+                    <pre
+                      class="language-text"
+                    ><code>  base/ocr/DA/DA7B8FDA82E6D7465ADC7590EEC0C914E955C5B8.pagecount.0.txt
   base/ocr/DA/DA7B8FDA82E6D7465ADC7590EEC0C914E955C5B8.text.4.txt
   base/ocr/DA/DA7B8FDA82E6D7465ADC7590EEC0C914E955C5B8.textgroup.001_to_020.txt
   base/ocr/DA/DA7B8FDA82E6D7465ADC7590EEC0C914E955C5B8.textgroup.021_to_040.txt
-</code></pre></div><blockquote><p>Note that in this example, we apparently had a PDF which had its page 4 OCRed using <code>tesseract</code> (a.k.a. the <strong>SINGLE</strong> process), while the other 20+ pages got extracted using <code>mupdf</code> (a.k.a. the <strong>GROUP</strong> process): apparently the given PDF was a text-based PDF which <em>possibly</em> an empty page or a full-page graphic without embedded text on page 4.</p> <p>See the process description below for more info.</p></blockquote> <p>The <strong>TEXT DATA</strong> stored in these 'ocr' files uses a custom text format, where each word is listed on a separate line and accompanied by a set of coordinates describing the rectangle of its location within the page.</p> <p>Example OCR text file snippet:</p> <div class="language- extra-class"><pre class="language-text"><code>  # Generated by: QiqqaOCR.
+</code></pre>
+                    <div class="line-numbers-wrapper">
+                      <span class="line-number">1</span><br /><span
+                        class="line-number"
+                        >2</span
+                      ><br /><span class="line-number">3</span><br /><span
+                        class="line-number"
+                        >4</span
+                      ><br />
+                    </div>
+                  </div>
+                  <blockquote>
+                    <p>
+                      Note that in this example, we apparently had a PDF which
+                      had its page 4 OCRed using <code>tesseract</code> (a.k.a.
+                      the <strong>SINGLE</strong> process), while the other 20+
+                      pages got extracted using <code>mupdf</code> (a.k.a. the
+                      <strong>GROUP</strong> process): apparently the given PDF
+                      was a text-based PDF which <em>possibly</em> an empty page
+                      or a full-page graphic without embedded text on page 4.
+                    </p>
+                    <p>See the process description below for more info.</p>
+                  </blockquote>
+                  <p>
+                    The <strong>TEXT DATA</strong> stored in these ‘ocr’ files
+                    uses a custom text format, where each word is listed on a
+                    separate line and accompanied by a set of coordinates
+                    describing the rectangle of its location within the page.
+                  </p>
+                  <p>Example OCR text file snippet:</p>
+                  <div class="language- line-numbers-mode">
+                    <pre class="language-text"><code>  # Generated by: QiqqaOCR.
   # Version: 3
   # List source: PDFText
   # System culture: en-US
@@ -104,17 +384,1120 @@
   0.71545,0.16035,0.09919,0.01641:...........................
 
   0.82114,0.16035,0.01463,0.01641:33
-</code></pre></div><p>As you can already see, a 'word' here is not always in accordance of the human purview of the meaning of 'word', e.g. the 'word' <code>...........................</code> at the end of the snippet there.</p> <p>Qiqqa <a href="https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/Qiqqa/DocumentLibrary/DocumentLibraryIndex/LibraryIndex.cs#L629-L638" target="_blank" rel="noopener noreferrer">applies a few filters to this data<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> before it is injected into the <code>Lucene</code> search index database.</p></li></ul></details> <h2 id="the-qiqqa-ocr-internal-workflow"><a href="#the-qiqqa-ocr-internal-workflow" class="header-anchor">#</a> The Qiqqa OCR internal workflow</h2> <h3 id="tl-dr-2"><a href="#tl-dr-2" class="header-anchor">#</a> TL;DR</h3> <ol><li>background process Stage 1: <code>mupdf</code> — extract text from PDF.
-<br>
-Go to next step when you fail.</li> <li>background process Stage 2: <code>tesseract</code>/OCR — extract text from PDF <em>page images</em>.
-<br>
-Go to next step when you fail.</li> <li>v80 and before: give it the run-around. For ever.
-<br>
-v82+: Fake it and <em>shut up</em> until we <em>improve</em>.</li></ol> <p>Other Qiqqa (background) processes <em>will</em> impact OCR activity: the Lucene text search index and metadata inference systems <em>want</em> OCR data and don't stop until they <em>do</em>.</p> <h3 id="tl-dr-☞-🙥-the-whole-story-🙧-🙉🎉"><a href="#tl-dr-☞-🙥-the-whole-story-🙧-🙉🎉" class="header-anchor">#</a> <s>TL;DR</s>            ☞ 🙥—— The whole story ——🙧 🙉🎉</h3> <details><summary><b>(Click here to unfold)</b></summary> <br> <p>Once the background task gets around to it, the PDF is OCRed if this has not happened yet.
-This is generally detected by checking whether the expected OCR data for page 1 is available.</p> <blockquote><p>The correct(er) answer here is: <em>it depends</em>: several conditions exist (e.g. when the document is viewed by the user in a Qiqqa panel) when <em>all pages</em> of the document are requested and any of them missing will (re)trigger the OCR process.</p> <p>See all the invocations of <a href="https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/Qiqqa/Documents/PDF/PDFRendering/PDFRenderer.cs#L98" target="_blank" rel="noopener noreferrer">the <code>GetOCRText()</code> method<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> in the Qiqqa source code.</p></blockquote> <h3 id="qiqqa-ocr-stage-1-the-extract-attempt-the-group-call"><a href="#qiqqa-ocr-stage-1-the-extract-attempt-the-group-call" class="header-anchor">#</a> Qiqqa OCR Stage 1: The Extract Attempt (= <a href="https://github.com/jimmejardine/qiqqa-open-source/blob/a50888e836224e1d293457c8cd9a59cfef403bf7/Qiqqa/Documents/PDF/PDFRendering/PDFTextExtractor.cs#L652" target="_blank" rel="noopener noreferrer">the <code>&quot;GROUP&quot;</code> call<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>)</h3> <p>First, Qiqqa attempts to <a href="https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/QiqqaOCR/TextExtractEngine.cs#L178" target="_blank" rel="noopener noreferrer">extract text from the PDF without OCR-ing it, using the <code>mupdf</code> tool<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>: this should deliver for all PDFs which are not 'page image based'.</p> <p>The text data collected this way is stored in proprietary format text files, up to  20 pages per file, in the <code>ocr</code> global directory tree.</p> <p>Example paths:</p> <div class="language- extra-class"><pre class="language-text"><code>  base/ocr/DA/DA7B8FDA82E6D7465ADC7590EEC0C914E955C5B8.textgroup.001_to_020.txt
+</code></pre>
+                    <div class="line-numbers-wrapper">
+                      <span class="line-number">1</span><br /><span
+                        class="line-number"
+                        >2</span
+                      ><br /><span class="line-number">3</span><br /><span
+                        class="line-number"
+                        >4</span
+                      ><br /><span class="line-number">5</span><br /><span
+                        class="line-number"
+                        >6</span
+                      ><br /><span class="line-number">7</span><br /><span
+                        class="line-number"
+                        >8</span
+                      ><br /><span class="line-number">9</span><br /><span
+                        class="line-number"
+                        >10</span
+                      ><br /><span class="line-number">11</span><br /><span
+                        class="line-number"
+                        >12</span
+                      ><br /><span class="line-number">13</span><br /><span
+                        class="line-number"
+                        >14</span
+                      ><br /><span class="line-number">15</span><br /><span
+                        class="line-number"
+                        >16</span
+                      ><br /><span class="line-number">17</span><br /><span
+                        class="line-number"
+                        >18</span
+                      ><br /><span class="line-number">19</span><br /><span
+                        class="line-number"
+                        >20</span
+                      ><br /><span class="line-number">21</span><br /><span
+                        class="line-number"
+                        >22</span
+                      ><br /><span class="line-number">23</span><br /><span
+                        class="line-number"
+                        >24</span
+                      ><br /><span class="line-number">25</span><br /><span
+                        class="line-number"
+                        >26</span
+                      ><br /><span class="line-number">27</span><br /><span
+                        class="line-number"
+                        >28</span
+                      ><br /><span class="line-number">29</span><br /><span
+                        class="line-number"
+                        >30</span
+                      ><br /><span class="line-number">31</span><br /><span
+                        class="line-number"
+                        >32</span
+                      ><br /><span class="line-number">33</span><br /><span
+                        class="line-number"
+                        >34</span
+                      ><br /><span class="line-number">35</span><br /><span
+                        class="line-number"
+                        >36</span
+                      ><br /><span class="line-number">37</span><br /><span
+                        class="line-number"
+                        >38</span
+                      ><br /><span class="line-number">39</span><br /><span
+                        class="line-number"
+                        >40</span
+                      ><br /><span class="line-number">41</span><br /><span
+                        class="line-number"
+                        >42</span
+                      ><br /><span class="line-number">43</span><br /><span
+                        class="line-number"
+                        >44</span
+                      ><br /><span class="line-number">45</span><br /><span
+                        class="line-number"
+                        >46</span
+                      ><br /><span class="line-number">47</span><br /><span
+                        class="line-number"
+                        >48</span
+                      ><br /><span class="line-number">49</span><br /><span
+                        class="line-number"
+                        >50</span
+                      ><br /><span class="line-number">51</span><br /><span
+                        class="line-number"
+                        >52</span
+                      ><br /><span class="line-number">53</span><br /><span
+                        class="line-number"
+                        >54</span
+                      ><br /><span class="line-number">55</span><br /><span
+                        class="line-number"
+                        >56</span
+                      ><br /><span class="line-number">57</span><br /><span
+                        class="line-number"
+                        >58</span
+                      ><br /><span class="line-number">59</span><br /><span
+                        class="line-number"
+                        >60</span
+                      ><br /><span class="line-number">61</span><br /><span
+                        class="line-number"
+                        >62</span
+                      ><br /><span class="line-number">63</span><br /><span
+                        class="line-number"
+                        >64</span
+                      ><br /><span class="line-number">65</span><br /><span
+                        class="line-number"
+                        >66</span
+                      ><br /><span class="line-number">67</span><br /><span
+                        class="line-number"
+                        >68</span
+                      ><br /><span class="line-number">69</span><br /><span
+                        class="line-number"
+                        >70</span
+                      ><br /><span class="line-number">71</span><br /><span
+                        class="line-number"
+                        >72</span
+                      ><br /><span class="line-number">73</span><br /><span
+                        class="line-number"
+                        >74</span
+                      ><br /><span class="line-number">75</span><br /><span
+                        class="line-number"
+                        >76</span
+                      ><br /><span class="line-number">77</span><br /><span
+                        class="line-number"
+                        >78</span
+                      ><br /><span class="line-number">79</span><br /><span
+                        class="line-number"
+                        >80</span
+                      ><br /><span class="line-number">81</span><br /><span
+                        class="line-number"
+                        >82</span
+                      ><br /><span class="line-number">83</span><br /><span
+                        class="line-number"
+                        >84</span
+                      ><br /><span class="line-number">85</span><br /><span
+                        class="line-number"
+                        >86</span
+                      ><br /><span class="line-number">87</span><br />
+                    </div>
+                  </div>
+                  <p>
+                    As you can already see, a ‘word’ here is not always in
+                    accordance of the human purview of the meaning of ‘word’,
+                    e.g. the ‘word’ <code>...........................</code> at
+                    the end of the snippet there.
+                  </p>
+                  <p>
+                    Qiqqa
+                    <a
+                      href="https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/Qiqqa/DocumentLibrary/DocumentLibraryIndex/LibraryIndex.cs#L629-L638"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >applies a few filters to this data<svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true"
+                        x="0px"
+                        y="0px"
+                        viewBox="0 0 100 100"
+                        width="15"
+                        height="15"
+                        class="icon outbound"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"
+                        ></path>
+                        <polygon
+                          fill="currentColor"
+                          points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
+                        ></polygon></svg
+                    ></a>
+                    before it is injected into the <code>Lucene</code> search
+                    index database.
+                  </p>
+                </li>
+              </ul></details
+            >
+            <h2 id="the-qiqqa-ocr-internal-workflow">
+              <a href="#the-qiqqa-ocr-internal-workflow" class="header-anchor"
+                >#</a
+              >
+              The Qiqqa OCR internal workflow
+            </h2>
+            <h3 id="tl-dr-2">
+              <a href="#tl-dr-2" class="header-anchor">#</a> TL;DR
+            </h3>
+            <ol>
+              <li>
+                background process Stage 1: <code>mupdf</code> — extract text
+                from PDF.
+                <br />
+                Go to next step when you fail.
+              </li>
+              <li>
+                background process Stage 2: <code>tesseract</code>/OCR — extract
+                text from PDF <em>page images</em>.
+                <br />
+                Go to next step when you fail.
+              </li>
+              <li>
+                v80 and before: give it the run-around. For ever.
+                <br />
+                v82+: Fake it and <em>shut up</em> until we <em>improve</em>.
+              </li>
+            </ol>
+            <p>
+              Other Qiqqa (background) processes <em>will</em> impact OCR
+              activity: the Lucene text search index and metadata inference
+              systems <em>want</em> OCR data and don’t stop until they
+              <em>do</em>.
+            </p>
+            <h3 id="tl-dr-☞-🙥-the-whole-story-🙧-🙉🎉">
+              <a href="#tl-dr-☞-🙥-the-whole-story-🙧-🙉🎉" class="header-anchor"
+                >#</a
+              >
+              <s>TL;DR</s> ☞ 🙥—— The whole story ——🙧 🙉🎉
+            </h3>
+            <details
+              ><summary><b>(Click here to unfold)</b></summary> <br />
+              <p>
+                Once the background task gets around to it, the PDF is OCRed if
+                this has not happened yet. This is generally detected by
+                checking whether the expected OCR data for page 1 is available.
+              </p>
+              <blockquote>
+                <p>
+                  The correct(er) answer here is: <em>it depends</em>: several
+                  conditions exist (e.g. when the document is viewed by the user
+                  in a Qiqqa panel) when <em>all pages</em> of the document are
+                  requested and any of them missing will (re)trigger the OCR
+                  process.
+                </p>
+                <p>
+                  See all the invocations of
+                  <a
+                    href="https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/Qiqqa/Documents/PDF/PDFRendering/PDFRenderer.cs#L98"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >the <code>GetOCRText()</code> method<svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                      x="0px"
+                      y="0px"
+                      viewBox="0 0 100 100"
+                      width="15"
+                      height="15"
+                      class="icon outbound"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"
+                      ></path>
+                      <polygon
+                        fill="currentColor"
+                        points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
+                      ></polygon></svg
+                  ></a>
+                  in the Qiqqa source code.
+                </p>
+              </blockquote>
+              <h3 id="qiqqa-ocr-stage-1-the-extract-attempt-the-group-call">
+                <a
+                  href="#qiqqa-ocr-stage-1-the-extract-attempt-the-group-call"
+                  class="header-anchor"
+                  >#</a
+                >
+                Qiqqa OCR Stage 1: The Extract Attempt (=
+                <a
+                  href="https://github.com/jimmejardine/qiqqa-open-source/blob/a50888e836224e1d293457c8cd9a59cfef403bf7/Qiqqa/Documents/PDF/PDFRendering/PDFTextExtractor.cs#L652"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >the <code>&quot;GROUP&quot;</code> call<svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 100 100"
+                    width="15"
+                    height="15"
+                    class="icon outbound"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"
+                    ></path>
+                    <polygon
+                      fill="currentColor"
+                      points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
+                    ></polygon></svg></a
+                >)
+              </h3>
+              <p>
+                First, Qiqqa attempts to
+                <a
+                  href="https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/QiqqaOCR/TextExtractEngine.cs#L178"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >extract text from the PDF without OCR-ing it, using the
+                  <code>mupdf</code> tool<svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 100 100"
+                    width="15"
+                    height="15"
+                    class="icon outbound"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"
+                    ></path>
+                    <polygon
+                      fill="currentColor"
+                      points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
+                    ></polygon></svg></a
+                >: this should deliver for all PDFs which are not ‘page image
+                based’.
+              </p>
+              <p>
+                The text data collected this way is stored in proprietary format
+                text files, up to 20 pages per file, in the
+                <code>ocr</code> global directory tree.
+              </p>
+              <p>Example paths:</p>
+              <div class="language- line-numbers-mode">
+                <pre
+                  class="language-text"
+                ><code>  base/ocr/DA/DA7B8FDA82E6D7465ADC7590EEC0C914E955C5B8.textgroup.001_to_020.txt
   base/ocr/DA/DA7B8FDA82E6D7465ADC7590EEC0C914E955C5B8.textgroup.021_to_040.txt
-</code></pre></div><p>However, when this fails to produce any text, Qiqqa <em>will</em> trigger a Stage 2 OCR action for each of those pages of the PDF which do not produce any text this way.</p> <blockquote><p>In actual practice, this means many text-based PDFs will have an OCR job running for them anyway when there's an empty page, or one with only some graphics, or a title page which did not deliver any text by way of <code>mupdf</code>.</p></blockquote> <h3 id="qiqqa-ocr-stage-2-the-ocr-attempt-the-single-call"><a href="#qiqqa-ocr-stage-2-the-ocr-attempt-the-single-call" class="header-anchor">#</a> Qiqqa OCR Stage 2: The OCR Attempt (= <a href="https://github.com/jimmejardine/qiqqa-open-source/blob/a50888e836224e1d293457c8cd9a59cfef403bf7/Qiqqa/Documents/PDF/PDFRendering/PDFTextExtractor.cs#L711" target="_blank" rel="noopener noreferrer">the <code>&quot;SINGLE&quot;</code> call<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>)</h3> <p>This background job is executed for every single page in the PDF which  did not deliver any text in the Stage 1 process above.</p> <p>By now, Qiqqa assumes the PDF is image based and requires a true OCR process to obtain the text from the PDF page.</p> <p>Currently it uses the Sorax PDF library to render the PDF page<b id="Stage2OCR1"><a href="#SoraxWoes"><sup>†</sup></a></b>, which is then <a href="https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/QiqqaOCR/OCREngine.cs#L230" target="_blank" rel="noopener noreferrer">fed into Tesseract v3 for OCR-ing<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>. Region detection is performed by Qiqqa <a href="https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/QiqqaOCR/OCREngine.cs#L251" target="_blank" rel="noopener noreferrer">proprietary logic<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> and passed into Tesseract.<a href="#TesseractWoes"><sup id="user-content-stage2ocr2">‡</sup></a></p> <p>Again, the expected OCR output is a set of 'words' and box coordinates pointing at the position of these OCR-ed words in the page. This information is stored on a per-page basis in that same  proprietary Qiqqa text format.</p> <p>Example path:</p> <div class="language- extra-class"><pre class="language-text"><code>  base/ocr/DA/DA7B8FDA82E6D7465ADC7590EEC0C914E955C5B8.text.4.txt
-</code></pre></div><h3 id="what-happens-when-stage-2-and-stage-1-has-failed-🥶-😱"><a href="#what-happens-when-stage-2-and-stage-1-has-failed-🥶-😱" class="header-anchor">#</a> What happens when Stage 2 (and Stage 1) has failed...? 🥶 😱</h3> <p>Qiqqa v80 (and commercial Qiqqa v79 at least) will then go and re-queue the same OCR job(s) after a while since no OCR text cache files could be produced (the page(s) did not produce a single word after all and the Qiqqa text OCR files are not supposed to be <em>empty</em>!</p> <p>The result here is that Qiqqa will continuously re-attempt the same (failing) OCR activity for these troublesome pages in the background, loading the machine indefinitely. 🥶 😱</p> <h4 id="v82-experimental-releases-stage-3-faking-it-the-single-fake-call"><a href="#v82-experimental-releases-stage-3-faking-it-the-single-fake-call" class="header-anchor">#</a> v82 <em>experimental</em> releases: Stage 3: Faking It (= <a href="https://github.com/GerHobbelt/qiqqa-open-source/blob/bc80c1c07b0beda99e99021029c875bde36e2bd1/Qiqqa/Documents/PDF/PDFRendering/PDFTextExtractor.cs#L793" target="_blank" rel="noopener noreferrer">the <code>&quot;SINGLE-FAKE&quot;</code> call<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>)</h4> <p>Qiqqa v82 (and later, I expect 😉) has added a Stage 3: when Stage 1 and Stage 2 have failed to deliver any words for the given page, then we are sure that either the PDF page has no text or at the very least Qiqqa is currently incapable of retrieving any text on that page. To prevent Qiqqa from running heavy CPU loading OCR tasks indefinitely (= until you quit the application), we &quot;fake it&quot; by storing a specific &quot;magic sequence&quot; in the Stage 2 OCR text cache file. 🤷</p> <blockquote><p>Future versions of Qiqqa SHOULD have improved OCR capabilities and will find and detect these &quot;faked pages&quot; and erase them before re-doing the OCR process then. But tthat is, at this very moment (2020-03-22 AD) still future music: <a href="https://github.com/jimmejardine/qiqqa-open-source/issues/160" target="_blank" rel="noopener noreferrer">#160<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></blockquote> <h2 id="other-qiqqa-background-processes-which-use-and-influence-the-ocr-process-behaviour"><a href="#other-qiqqa-background-processes-which-use-and-influence-the-ocr-process-behaviour" class="header-anchor">#</a> Other Qiqqa background processes which use and influence the OCR process' behaviour</h2> <h3 id="the-lucene-text-searchindex-update-process"><a href="#the-lucene-text-searchindex-update-process" class="header-anchor">#</a> The Lucene Text SearchIndex Update Process</h3> <p><a href="https://github.com/jimmejardine/qiqqa-open-source/blob/0b015c923e965ba61e3f6b51218ca509fcd6cabb/Qiqqa/Common/BackgroundWorkerDaemonStuff/BackgroundWorkerDaemon.cs#L231" target="_blank" rel="noopener noreferrer">Another Qiqqa background process<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> updates the Qiqqa text search index, which is powered by LuceneNET.</p> <p>This process walks through your Qiqqa Library/Libraries and checks whether the OCR process for each PDF document has completed.</p> <blockquote><p>Incidentally, this background-running check will (re)trigger the OCR process if the answer to that question is not a resounding <em>yes</em>!</p></blockquote> <p>When the OCR text data is new, the data is collected and <a href="https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/Qiqqa/DocumentLibrary/DocumentLibraryIndex/LibraryIndex.cs#L646" target="_blank" rel="noopener noreferrer">fed into the Lucene search index database<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>. See the <a href="https://github.com/jimmejardine/qiqqa-open-source/blob/a50888e836224e1d293457c8cd9a59cfef403bf7/Utilities/Language/TextIndexing/LuceneIndex.cs#L180" target="_blank" rel="noopener noreferrer"><code>AddDocumentPage()</code><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> and <a href="https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/Qiqqa/DocumentLibrary/DocumentLibraryIndex/LibraryIndex.cs#L466" target="_blank" rel="noopener noreferrer"><code>IncrementalBuildNextDocuments()</code><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> methods' code for more. Also check out the use of the <code>PDFDocumentInLibrary.pages_already_indexed</code> and <code>PDFDocumentInLibrary.finished_indexing</code> attribute members; any retry attempts are relaxed via the <code>PDFDocumentInLibrary.last_indexed</code> attribute member: <a href="https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/Qiqqa/DocumentLibrary/DocumentLibraryIndex/PDFDocumentInLibrary.cs#L13" target="_blank" rel="noopener noreferrer">(def)<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> &amp; <a href="https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/Qiqqa/DocumentLibrary/DocumentLibraryIndex/LibraryIndex.cs#L466" target="_blank" rel="noopener noreferrer">(use)<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>.</p> <h3 id="ooh-almost-forgot-the-metadata-inference-process"><a href="#ooh-almost-forgot-the-metadata-inference-process" class="header-anchor">#</a> Ooh! <em>Almost forgot!</em> The metadata inference process!</h3> <p><a href="https://github.com/jimmejardine/qiqqa-open-source/blob/0b015c923e965ba61e3f6b51218ca509fcd6cabb/Qiqqa/DocumentLibrary/MetadataExtractionDaemonStuff/MetadataExtractionDaemon.cs" target="_blank" rel="noopener noreferrer">Yet another background task<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> goes through your libraries' documents and attempts to infer a <em>title</em>, <em>author</em>, <a href="https://github.com/jimmejardine/qiqqa-open-source/blob/0b015c923e965ba61e3f6b51218ca509fcd6cabb/Qiqqa/Documents/PDF/PDFControls/Page/Tools/PDFAbstractExtraction.cs#L11" target="_blank" rel="noopener noreferrer"><em>abstract</em><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> and other <em>metadata</em> from the OCR-ed text data for the given PDF. This MAY also (re)trigger the OCR process when the text data has not been produced before. (By now you'll surely understand why the v82 &quot;Stage 3&quot; = &quot;SINGLE-FAKE&quot; hack was invented...)</p> <p>This <em>inferred</em> metadata is shown and used by Qiqqa when there is no BibTeX metadata provided by the user (via Qiqqa Sniffer or manually entry):  the BibTeX metadata is deemed <a href="https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/Qiqqa/Documents/PDF/PDFDocument.cs#L604" target="_blank" rel="noopener noreferrer"><em>superior</em> and <em>overriding</em><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>. This metadata is also added to the Lucene search index to help users dig up articles by [parts of the] title, author, etc. (Most of the relevant source code can be spotted in the <a href="https://github.com/jimmejardine/qiqqa-open-source/blob/0b015c923e965ba61e3f6b51218ca509fcd6cabb/Qiqqa/Documents/PDF/MetadataSuggestions/PDFMetadataInferenceFromPDFMetadata.cs" target="_blank" rel="noopener noreferrer"><code>PDFMetadataInferenceFromPDFMetadata</code><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> and <a href="https://github.com/jimmejardine/qiqqa-open-source/blob/0b015c923e965ba61e3f6b51218ca509fcd6cabb/Qiqqa/Documents/PDF/MetadataSuggestions/PDFMetadataInferenceFromOCR.cs" target="_blank" rel="noopener noreferrer"><code>PDFMetadataInferenceFromOCR</code><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> classes.)</p></details> <p><br><br></p><p align="center" style="margin-top:50px;"><img src="/qiqqa/assets/img/divider-end.87ee3c5e.svg" width="200"></p> <br><br><br><p></p> <p><b id="SoraxWoes">†</b>: The Sorax library doesn't support some 'protected' PDFs and renders those pages as white-on-white, resulting in a completely blank view inside Qiqqa. See also these woes viewing PDFs in Qiqqa:</p> <ul><li>https://getsatisfaction.com/qiqqa/topics/pdfs_stop_displaying_blank_pages#reply_17983571</li> <li>https://github.com/jimmejardine/qiqqa-open-source/issues/136</li></ul> <blockquote><p>At the time of this writing, I know/strongly suspect almost all these white-pages-rendered-only problems are due to bugs in the  Sorax lib as  I have many PDFs in my collection suffering from this. 🤬</p></blockquote> <p><a href="#user-content-stage2ocr1">⤣</a></p> <p><b id="TesseractWoes">‡</b>: Your family name doesn't have to be <a href="https://en.wikipedia.org/wiki/Statler_and_Waldorf" target="_blank" rel="noopener noreferrer">Statler or Waldorf<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> to have plenty to complain about that region detection logic too: <a href="https://github.com/jimmejardine/qiqqa-open-source/issues/135" target="_blank" rel="noopener noreferrer">#135<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>. And then there's the old Tesseract which needs some assist as well: <a href="https://github.com/jimmejardine/qiqqa-open-source/issues/160" target="_blank" rel="noopener noreferrer">#160<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> and <a href="https://github.com/jimmejardine/qiqqa-open-source/issues/135#issuecomment-569827317" target="_blank" rel="noopener noreferrer">one other bit mentioned in #135<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>.</p> <p>However, it's not all that bleak when your research does not include diving into old/historic documents and/or PDFs published by companies: many modern scientific papers are published in a PDF format which can be grokked by <code>mupdf</code> just fine — though here I have found that quite a few PDFs which <em>appear</em> to have been produced by some unidentified TeX variants <em>do</em> cause trouble in Stage 1 (<code>&quot;GROUP&quot;</code>) and produce some crap of their own: <a href="https://github.com/jimmejardine/qiqqa-open-source/issues/86" target="_blank" rel="noopener noreferrer">#86<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p><a href="#user-content-stage2ocr2">⤣</a></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"><!----></div></div>
-    <script src="/qiqqa/assets/js/app.f7753880.js" defer></script><script src="/qiqqa/assets/js/3.d903a693.js" defer></script><script src="/qiqqa/assets/js/2.dcf82e3d.js" defer></script><script src="/qiqqa/assets/js/5.c4fc8e42.js" defer></script>
+</code></pre>
+                <div class="line-numbers-wrapper">
+                  <span class="line-number">1</span><br /><span
+                    class="line-number"
+                    >2</span
+                  ><br />
+                </div>
+              </div>
+              <p>
+                However, when this fails to produce any text, Qiqqa
+                <em>will</em> trigger a Stage 2 OCR action for each of those
+                pages of the PDF which do not produce any text this way.
+              </p>
+              <blockquote>
+                <p>
+                  In actual practice, this means many text-based PDFs will have
+                  an OCR job running for them anyway when there’s an empty page,
+                  or one with only some graphics, or a title page which did not
+                  deliver any text by way of <code>mupdf</code>.
+                </p>
+              </blockquote>
+              <h3 id="qiqqa-ocr-stage-2-the-ocr-attempt-the-single-call">
+                <a
+                  href="#qiqqa-ocr-stage-2-the-ocr-attempt-the-single-call"
+                  class="header-anchor"
+                  >#</a
+                >
+                Qiqqa OCR Stage 2: The OCR Attempt (=
+                <a
+                  href="https://github.com/jimmejardine/qiqqa-open-source/blob/a50888e836224e1d293457c8cd9a59cfef403bf7/Qiqqa/Documents/PDF/PDFRendering/PDFTextExtractor.cs#L711"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >the <code>&quot;SINGLE&quot;</code> call<svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 100 100"
+                    width="15"
+                    height="15"
+                    class="icon outbound"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"
+                    ></path>
+                    <polygon
+                      fill="currentColor"
+                      points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
+                    ></polygon></svg></a
+                >)
+              </h3>
+              <p>
+                This background job is executed for every single page in the PDF
+                which did not deliver any text in the Stage 1 process above.
+              </p>
+              <p>
+                By now, Qiqqa assumes the PDF is image based and requires a true
+                OCR process to obtain the text from the PDF page.
+              </p>
+              <p>
+                Currently it uses the Sorax PDF library to render the PDF page<b
+                  id="Stage2OCR1"
+                  ><a href="#SoraxWoes"><sup>†</sup></a></b
+                >, which is then
+                <a
+                  href="https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/QiqqaOCR/OCREngine.cs#L230"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >fed into Tesseract v3 for OCR-ing<svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 100 100"
+                    width="15"
+                    height="15"
+                    class="icon outbound"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"
+                    ></path>
+                    <polygon
+                      fill="currentColor"
+                      points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
+                    ></polygon></svg></a
+                >. Region detection is performed by Qiqqa
+                <a
+                  href="https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/QiqqaOCR/OCREngine.cs#L251"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >proprietary logic<svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 100 100"
+                    width="15"
+                    height="15"
+                    class="icon outbound"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"
+                    ></path>
+                    <polygon
+                      fill="currentColor"
+                      points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
+                    ></polygon></svg
+                ></a>
+                and passed into Tesseract.<a href="#TesseractWoes"
+                  ><sup id="user-content-stage2ocr2">‡</sup></a
+                >
+              </p>
+              <p>
+                Again, the expected OCR output is a set of ‘words’ and box
+                coordinates pointing at the position of these OCR-ed words in
+                the page. This information is stored on a per-page basis in that
+                same proprietary Qiqqa text format.
+              </p>
+              <p>Example path:</p>
+              <div class="language- line-numbers-mode">
+                <pre
+                  class="language-text"
+                ><code>  base/ocr/DA/DA7B8FDA82E6D7465ADC7590EEC0C914E955C5B8.text.4.txt
+</code></pre>
+                <div class="line-numbers-wrapper">
+                  <span class="line-number">1</span><br />
+                </div>
+              </div>
+              <h3 id="what-happens-when-stage-2-and-stage-1-has-failed…-🥶-😱">
+                <a
+                  href="#what-happens-when-stage-2-and-stage-1-has-failed…-🥶-😱"
+                  class="header-anchor"
+                  >#</a
+                >
+                What happens when Stage 2 (and Stage 1) has failed…? 🥶 😱
+              </h3>
+              <p>
+                Qiqqa v80 (and commercial Qiqqa v79 at least) will then go and
+                re-queue the same OCR job(s) after a while since no OCR text
+                cache files could be produced (the page(s) did not produce a
+                single word after all and the Qiqqa text OCR files are not
+                supposed to be <em>empty</em>!
+              </p>
+              <p>
+                The result here is that Qiqqa will continuously re-attempt the
+                same (failing) OCR activity for these troublesome pages in the
+                background, loading the machine indefinitely. 🥶 😱
+              </p>
+              <h4
+                id="v82-experimental-releases-stage-3-faking-it-the-single-fake-call"
+              >
+                <a
+                  href="#v82-experimental-releases-stage-3-faking-it-the-single-fake-call"
+                  class="header-anchor"
+                  >#</a
+                >
+                v82 <em>experimental</em> releases: Stage 3: Faking It (=
+                <a
+                  href="https://github.com/GerHobbelt/qiqqa-open-source/blob/bc80c1c07b0beda99e99021029c875bde36e2bd1/Qiqqa/Documents/PDF/PDFRendering/PDFTextExtractor.cs#L793"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >the <code>&quot;SINGLE-FAKE&quot;</code> call<svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 100 100"
+                    width="15"
+                    height="15"
+                    class="icon outbound"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"
+                    ></path>
+                    <polygon
+                      fill="currentColor"
+                      points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
+                    ></polygon></svg></a
+                >)
+              </h4>
+              <p>
+                Qiqqa v82 (and later, I expect 😉) has added a Stage 3: when
+                Stage 1 and Stage 2 have failed to deliver any words for the
+                given page, then we are sure that either the PDF page has no
+                text or at the very least Qiqqa is currently incapable of
+                retrieving any text on that page. To prevent Qiqqa from running
+                heavy CPU loading OCR tasks indefinitely (= until you quit the
+                application), we “fake it” by storing a specific “magic
+                sequence” in the Stage 2 OCR text cache file. 🤷
+              </p>
+              <blockquote>
+                <p>
+                  Future versions of Qiqqa SHOULD have improved OCR capabilities
+                  and will find and detect these “faked pages” and erase them
+                  before re-doing the OCR process then. But tthat is, at this
+                  very moment (2020-03-22 AD) still future music:
+                  <a
+                    href="https://github.com/jimmejardine/qiqqa-open-source/issues/160"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >#160<svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                      x="0px"
+                      y="0px"
+                      viewBox="0 0 100 100"
+                      width="15"
+                      height="15"
+                      class="icon outbound"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"
+                      ></path>
+                      <polygon
+                        fill="currentColor"
+                        points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
+                      ></polygon></svg
+                  ></a>
+                </p>
+              </blockquote>
+              <h2
+                id="other-qiqqa-background-processes-which-use-and-influence-the-ocr-process-behaviour"
+              >
+                <a
+                  href="#other-qiqqa-background-processes-which-use-and-influence-the-ocr-process-behaviour"
+                  class="header-anchor"
+                  >#</a
+                >
+                Other Qiqqa background processes which use and influence the OCR
+                process’ behaviour
+              </h2>
+              <h3 id="the-lucene-text-searchindex-update-process">
+                <a
+                  href="#the-lucene-text-searchindex-update-process"
+                  class="header-anchor"
+                  >#</a
+                >
+                The Lucene Text SearchIndex Update Process
+              </h3>
+              <p>
+                <a
+                  href="https://github.com/jimmejardine/qiqqa-open-source/blob/0b015c923e965ba61e3f6b51218ca509fcd6cabb/Qiqqa/Common/BackgroundWorkerDaemonStuff/BackgroundWorkerDaemon.cs#L231"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Another Qiqqa background process<svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 100 100"
+                    width="15"
+                    height="15"
+                    class="icon outbound"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"
+                    ></path>
+                    <polygon
+                      fill="currentColor"
+                      points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
+                    ></polygon></svg
+                ></a>
+                updates the Qiqqa text search index, which is powered by
+                LuceneNET.
+              </p>
+              <p>
+                This process walks through your Qiqqa Library/Libraries and
+                checks whether the OCR process for each PDF document has
+                completed.
+              </p>
+              <blockquote>
+                <p>
+                  Incidentally, this background-running check will (re)trigger
+                  the OCR process if the answer to that question is not a
+                  resounding <em>yes</em>!
+                </p>
+              </blockquote>
+              <p>
+                When the OCR text data is new, the data is collected and
+                <a
+                  href="https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/Qiqqa/DocumentLibrary/DocumentLibraryIndex/LibraryIndex.cs#L646"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >fed into the Lucene search index database<svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 100 100"
+                    width="15"
+                    height="15"
+                    class="icon outbound"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"
+                    ></path>
+                    <polygon
+                      fill="currentColor"
+                      points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
+                    ></polygon></svg></a
+                >. See the
+                <a
+                  href="https://github.com/jimmejardine/qiqqa-open-source/blob/a50888e836224e1d293457c8cd9a59cfef403bf7/Utilities/Language/TextIndexing/LuceneIndex.cs#L180"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><code>AddDocumentPage()</code
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 100 100"
+                    width="15"
+                    height="15"
+                    class="icon outbound"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"
+                    ></path>
+                    <polygon
+                      fill="currentColor"
+                      points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
+                    ></polygon></svg
+                ></a>
+                and
+                <a
+                  href="https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/Qiqqa/DocumentLibrary/DocumentLibraryIndex/LibraryIndex.cs#L466"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><code>IncrementalBuildNextDocuments()</code
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 100 100"
+                    width="15"
+                    height="15"
+                    class="icon outbound"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"
+                    ></path>
+                    <polygon
+                      fill="currentColor"
+                      points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
+                    ></polygon></svg
+                ></a>
+                methods’ code for more. Also check out the use of the
+                <code>PDFDocumentInLibrary.pages_already_indexed</code> and
+                <code>PDFDocumentInLibrary.finished_indexing</code> attribute
+                members; any retry attempts are relaxed via the
+                <code>PDFDocumentInLibrary.last_indexed</code> attribute member:
+                <a
+                  href="https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/Qiqqa/DocumentLibrary/DocumentLibraryIndex/PDFDocumentInLibrary.cs#L13"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >(def)<svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 100 100"
+                    width="15"
+                    height="15"
+                    class="icon outbound"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"
+                    ></path>
+                    <polygon
+                      fill="currentColor"
+                      points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
+                    ></polygon></svg
+                ></a>
+                &amp;
+                <a
+                  href="https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/Qiqqa/DocumentLibrary/DocumentLibraryIndex/LibraryIndex.cs#L466"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >(use)<svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 100 100"
+                    width="15"
+                    height="15"
+                    class="icon outbound"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"
+                    ></path>
+                    <polygon
+                      fill="currentColor"
+                      points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
+                    ></polygon></svg></a
+                >.
+              </p>
+              <h3 id="ooh-almost-forgot-the-metadata-inference-process">
+                <a
+                  href="#ooh-almost-forgot-the-metadata-inference-process"
+                  class="header-anchor"
+                  >#</a
+                >
+                Ooh! <em>Almost forgot!</em> The metadata inference process!
+              </h3>
+              <p>
+                <a
+                  href="https://github.com/jimmejardine/qiqqa-open-source/blob/0b015c923e965ba61e3f6b51218ca509fcd6cabb/Qiqqa/DocumentLibrary/MetadataExtractionDaemonStuff/MetadataExtractionDaemon.cs"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Yet another background task<svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 100 100"
+                    width="15"
+                    height="15"
+                    class="icon outbound"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"
+                    ></path>
+                    <polygon
+                      fill="currentColor"
+                      points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
+                    ></polygon></svg
+                ></a>
+                goes through your libraries’ documents and attempts to infer a
+                <em>title</em>, <em>author</em>,
+                <a
+                  href="https://github.com/jimmejardine/qiqqa-open-source/blob/0b015c923e965ba61e3f6b51218ca509fcd6cabb/Qiqqa/Documents/PDF/PDFControls/Page/Tools/PDFAbstractExtraction.cs#L11"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><em>abstract</em
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 100 100"
+                    width="15"
+                    height="15"
+                    class="icon outbound"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"
+                    ></path>
+                    <polygon
+                      fill="currentColor"
+                      points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
+                    ></polygon></svg
+                ></a>
+                and other <em>metadata</em> from the OCR-ed text data for the
+                given PDF. This MAY also (re)trigger the OCR process when the
+                text data has not been produced before. (By now you’ll surely
+                understand why the v82 “Stage 3” = “SINGLE-FAKE” hack was
+                invented…)
+              </p>
+              <p>
+                This <em>inferred</em> metadata is shown and used by Qiqqa when
+                there is no BibTeX metadata provided by the user (via Qiqqa
+                Sniffer or manually entry): the BibTeX metadata is deemed
+                <a
+                  href="https://github.com/jimmejardine/qiqqa-open-source/blob/1ef3403788d2b2d5efcc08dc244a60d1694f5453/Qiqqa/Documents/PDF/PDFDocument.cs#L604"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><em>superior</em> and <em>overriding</em
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 100 100"
+                    width="15"
+                    height="15"
+                    class="icon outbound"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"
+                    ></path>
+                    <polygon
+                      fill="currentColor"
+                      points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
+                    ></polygon></svg></a
+                >. This metadata is also added to the Lucene search index to
+                help users dig up articles by [parts of the] title, author, etc.
+                (Most of the relevant source code can be spotted in the
+                <a
+                  href="https://github.com/jimmejardine/qiqqa-open-source/blob/0b015c923e965ba61e3f6b51218ca509fcd6cabb/Qiqqa/Documents/PDF/MetadataSuggestions/PDFMetadataInferenceFromPDFMetadata.cs"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><code>PDFMetadataInferenceFromPDFMetadata</code
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 100 100"
+                    width="15"
+                    height="15"
+                    class="icon outbound"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"
+                    ></path>
+                    <polygon
+                      fill="currentColor"
+                      points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
+                    ></polygon></svg
+                ></a>
+                and
+                <a
+                  href="https://github.com/jimmejardine/qiqqa-open-source/blob/0b015c923e965ba61e3f6b51218ca509fcd6cabb/Qiqqa/Documents/PDF/MetadataSuggestions/PDFMetadataInferenceFromOCR.cs"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><code>PDFMetadataInferenceFromOCR</code
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 100 100"
+                    width="15"
+                    height="15"
+                    class="icon outbound"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"
+                    ></path>
+                    <polygon
+                      fill="currentColor"
+                      points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
+                    ></polygon></svg
+                ></a>
+                classes.)
+              </p></details
+            >
+            <p><br /><br /></p>
+            <p align="center" style="margin-top: 50px;">
+              <img
+                src="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/img/divider-end.87ee.svg"
+                width="200"
+              />
+            </p>
+            <br /><br /><br />
+            <p></p>
+            <p>
+              <b id="SoraxWoes">†</b>: The Sorax library doesn’t support some
+              ‘protected’ PDFs and renders those pages as white-on-white,
+              resulting in a completely blank view inside Qiqqa. See also these
+              woes viewing PDFs in Qiqqa:
+            </p>
+            <ul>
+              <li>
+                <a
+                  href="https://getsatisfaction.com/qiqqa/topics/pdfs_stop_displaying_blank_pages#reply_17983571"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >https://getsatisfaction.com/qiqqa/topics/pdfs_stop_displaying_blank_pages#reply_17983571<svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 100 100"
+                    width="15"
+                    height="15"
+                    class="icon outbound"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"
+                    ></path>
+                    <polygon
+                      fill="currentColor"
+                      points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
+                    ></polygon></svg
+                ></a>
+              </li>
+              <li>
+                <a
+                  href="https://github.com/jimmejardine/qiqqa-open-source/issues/136"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >https://github.com/jimmejardine/qiqqa-open-source/issues/136<svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 100 100"
+                    width="15"
+                    height="15"
+                    class="icon outbound"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"
+                    ></path>
+                    <polygon
+                      fill="currentColor"
+                      points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
+                    ></polygon></svg
+                ></a>
+              </li>
+            </ul>
+            <blockquote>
+              <p>
+                At the time of this writing, I know/strongly suspect almost all
+                these white-pages-rendered-only problems are due to bugs in the
+                Sorax lib as I have many PDFs in my collection suffering from
+                this. 🤬
+              </p>
+            </blockquote>
+            <p><a href="#user-content-stage2ocr1">⤣</a></p>
+            <p>
+              <b id="TesseractWoes">‡</b>: Your family name doesn’t have to be
+              <a
+                href="https://en.wikipedia.org/wiki/Statler_and_Waldorf"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Statler or Waldorf<svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                  x="0px"
+                  y="0px"
+                  viewBox="0 0 100 100"
+                  width="15"
+                  height="15"
+                  class="icon outbound"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"
+                  ></path>
+                  <polygon
+                    fill="currentColor"
+                    points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
+                  ></polygon></svg
+              ></a>
+              to have plenty to complain about that region detection logic too:
+              <a
+                href="https://github.com/jimmejardine/qiqqa-open-source/issues/135"
+                target="_blank"
+                rel="noopener noreferrer"
+                >#135<svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                  x="0px"
+                  y="0px"
+                  viewBox="0 0 100 100"
+                  width="15"
+                  height="15"
+                  class="icon outbound"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"
+                  ></path>
+                  <polygon
+                    fill="currentColor"
+                    points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
+                  ></polygon></svg></a
+              >. And then there’s the old Tesseract which needs some assist as
+              well:
+              <a
+                href="https://github.com/jimmejardine/qiqqa-open-source/issues/160"
+                target="_blank"
+                rel="noopener noreferrer"
+                >#160<svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                  x="0px"
+                  y="0px"
+                  viewBox="0 0 100 100"
+                  width="15"
+                  height="15"
+                  class="icon outbound"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"
+                  ></path>
+                  <polygon
+                    fill="currentColor"
+                    points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
+                  ></polygon></svg
+              ></a>
+              and
+              <a
+                href="https://github.com/jimmejardine/qiqqa-open-source/issues/135#issuecomment-569827317"
+                target="_blank"
+                rel="noopener noreferrer"
+                >one other bit mentioned in #135<svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                  x="0px"
+                  y="0px"
+                  viewBox="0 0 100 100"
+                  width="15"
+                  height="15"
+                  class="icon outbound"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"
+                  ></path>
+                  <polygon
+                    fill="currentColor"
+                    points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
+                  ></polygon></svg></a
+              >.
+            </p>
+            <p>
+              However, it’s not all that bleak when your research does not
+              include diving into old/historic documents and/or PDFs published
+              by companies: many modern scientific papers are published in a PDF
+              format which can be grokked by <code>mupdf</code> just fine —
+              though here I have found that quite a few PDFs which
+              <em>appear</em> to have been produced by some unidentified TeX
+              variants <em>do</em> cause trouble in Stage 1
+              (<code>&quot;GROUP&quot;</code>) and produce some crap of their
+              own:
+              <a
+                href="https://github.com/jimmejardine/qiqqa-open-source/issues/86"
+                target="_blank"
+                rel="noopener noreferrer"
+                >#86<svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                  x="0px"
+                  y="0px"
+                  viewBox="0 0 100 100"
+                  width="15"
+                  height="15"
+                  class="icon outbound"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"
+                  ></path>
+                  <polygon
+                    fill="currentColor"
+                    points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"
+                  ></polygon></svg
+              ></a>
+            </p>
+            <p><a href="#user-content-stage2ocr2">⤣</a></p>
+          </div>
+          <footer class="page-edit">
+            <!---->
+            <!---->
+          </footer>
+          <!---->
+        </main>
+      </div>
+      <div class="global-ui"><!----></div>
+    </div>
+    <script
+      src="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/app.0e57a734.js"
+      defer
+    ></script>
+    <script
+      src="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/4.ba9855b4.js"
+      defer
+    ></script>
+    <script
+      src="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/3.b9ae32f7.js"
+      defer
+    ></script>
+    <script
+      src="/09fe62659c00446c93b70259e45165fc0e210a53067563d837b5d5b639ac8062/magick-BS/assets/js/7.8fb4afb9.js"
+      defer
+    ></script>
   </body>
 </html>
