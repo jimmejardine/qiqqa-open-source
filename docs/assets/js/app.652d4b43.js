@@ -53,20 +53,20 @@
               ({}[t] || t) +
               "." +
               {
-                2: "d48c2f80",
+                2: "204fc4a9",
                 3: "7d722f93",
                 4: "520f4757",
-                5: "2abe9add",
+                5: "0f5d23f0",
                 6: "e5d79534",
-                7: "4d2594a7",
+                7: "94cd4d31",
                 8: "01d0d221",
-                9: "1bcbed04",
-                10: "239362ff",
-                11: "db776615",
-                12: "f0d21ed7",
-                13: "5ab75073",
-                14: "5786d98a",
-                15: "dbf42382",
+                9: "b61749cf",
+                10: "a586b144",
+                11: "056c09f6",
+                12: "54499664",
+                13: "2329bcf1",
+                14: "eb9db52e",
+                15: "1725004c",
                 16: "fe7eb968",
                 17: "fdf2f54b",
                 18: "8c2dfe60",
@@ -6075,16 +6075,16 @@
           Promise.all([n.e(0), n.e(3), n.e(4)]).then(n.bind(null, 169)),
       },
       ga = {
-        "v-1c0e8e90": () => n.e(10).then(n.bind(null, 171)),
-        "v-4cbfcb05": () => n.e(11).then(n.bind(null, 172)),
-        "v-02afa083": () => n.e(5).then(n.bind(null, 173)),
-        "v-a5beb172": () => n.e(9).then(n.bind(null, 174)),
-        "v-74669ad6": () => n.e(12).then(n.bind(null, 175)),
-        "v-5682e796": () => n.e(7).then(n.bind(null, 176)),
-        "v-cdf45914": () => n.e(15).then(n.bind(null, 177)),
-        "v-54b99194": () => n.e(14).then(n.bind(null, 178)),
-        "v-37c93716": () => n.e(13).then(n.bind(null, 179)),
-        "v-e51e2d82": () => n.e(2).then(n.bind(null, 180)),
+        "v-5682e796": () => n.e(7).then(n.bind(null, 171)),
+        "v-1c0e8e90": () => n.e(10).then(n.bind(null, 172)),
+        "v-e51e2d82": () => n.e(2).then(n.bind(null, 173)),
+        "v-4cbfcb05": () => n.e(11).then(n.bind(null, 174)),
+        "v-02afa083": () => n.e(5).then(n.bind(null, 175)),
+        "v-37c93716": () => n.e(13).then(n.bind(null, 176)),
+        "v-74669ad6": () => n.e(12).then(n.bind(null, 177)),
+        "v-a5beb172": () => n.e(9).then(n.bind(null, 178)),
+        "v-cdf45914": () => n.e(15).then(n.bind(null, 179)),
+        "v-54b99194": () => n.e(14).then(n.bind(null, 180)),
         "v-075b2109": () => n.e(16).then(n.bind(null, 181)),
       };
     function ya(t) {
@@ -6314,6 +6314,15 @@
     })(za, "mixins", Qa);
     const Wa = [
         {
+          name: "v-5682e796",
+          path:
+            "/Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.html",
+          component: za,
+          beforeEnter: (t, e, n) => {
+            La("Layout", "v-5682e796").then(n);
+          },
+        },
+        {
           name: "v-1c0e8e90",
           path: "/",
           component: za,
@@ -6322,6 +6331,14 @@
           },
         },
         { path: "/index.html", redirect: "/" },
+        {
+          name: "v-e51e2d82",
+          path: "/The.Qiqqa.Manual.html",
+          component: za,
+          beforeEnter: (t, e, n) => {
+            La("Layout", "v-e51e2d82").then(n);
+          },
+        },
         {
           name: "v-4cbfcb05",
           path: "/The.Qiqqa.Manual.reference.html",
@@ -6339,12 +6356,11 @@
           },
         },
         {
-          name: "v-a5beb172",
-          path:
-            "/Qiqqa.Internals.-.Processing.PDF.documents'.text.and.the.impact.on.UI+UX.html",
+          name: "v-37c93716",
+          path: "/views/category1/2019/092101.html",
           component: za,
           beforeEnter: (t, e, n) => {
-            La("Layout", "v-a5beb172").then(n);
+            La("Layout", "v-37c93716").then(n);
           },
         },
         {
@@ -6356,12 +6372,12 @@
           },
         },
         {
-          name: "v-5682e796",
+          name: "v-a5beb172",
           path:
-            "/Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.html",
+            "/Qiqqa.Internals.-.Processing.PDF.documents'.text.and.the.impact.on.UI+UX.html",
           component: za,
           beforeEnter: (t, e, n) => {
-            La("Layout", "v-5682e796").then(n);
+            La("Layout", "v-a5beb172").then(n);
           },
         },
         {
@@ -6381,22 +6397,6 @@
           },
         },
         {
-          name: "v-37c93716",
-          path: "/views/category1/2019/092101.html",
-          component: za,
-          beforeEnter: (t, e, n) => {
-            La("Layout", "v-37c93716").then(n);
-          },
-        },
-        {
-          name: "v-e51e2d82",
-          path: "/The.Qiqqa.Manual.html",
-          component: za,
-          beforeEnter: (t, e, n) => {
-            La("Layout", "v-e51e2d82").then(n);
-          },
-        },
-        {
           name: "v-075b2109",
           path: "/views/other/guide.html",
           component: za,
@@ -6412,115 +6412,6 @@
         base:
           "../../",
         pages: [
-          {
-            title: "Qiqqa",
-            frontmatter: {},
-            regularPath: "/",
-            relativePath: "README.md",
-            key: "v-1c0e8e90",
-            path: "/",
-            headers: [
-              { level: 1, title: "Qiqqa", slug: "qiqqa" },
-              {
-                level: 1,
-                title: "NOTE / Caveat Emptor",
-                slug: "note-caveat-emptor",
-              },
-              {
-                level: 1,
-                title: "Table of contents",
-                slug: "table-of-contents",
-              },
-              { level: 1, title: "Pages...", slug: "pages…" },
-            ],
-            lastUpdated: "4/2/2020, 3:36:20 PM",
-          },
-          {
-            frontmatter: {},
-            regularPath: "/The.Qiqqa.Manual.reference.html",
-            relativePath: "The.Qiqqa.Manual.reference.md",
-            key: "v-4cbfcb05",
-            path: "/The.Qiqqa.Manual.reference.html",
-          },
-          {
-            title: "How to locate your Qiqqa Base Directory",
-            frontmatter: {},
-            regularPath: "/How.to.locate.your.Qiqqa.Base.Directory.html",
-            relativePath: "How.to.locate.your.Qiqqa.Base.Directory.md",
-            key: "v-02afa083",
-            path: "/How.to.locate.your.Qiqqa.Base.Directory.html",
-            headers: [
-              {
-                level: 1,
-                title: "How to locate your Qiqqa Base Directory",
-                slug: "how-to-locate-your-qiqqa-base-directory",
-              },
-            ],
-            lastUpdated: "4/2/2020, 3:36:20 PM",
-          },
-          {
-            title:
-              "Qiqqa Internals :: Processing PDF documents' text and the impact on UI+UX",
-            frontmatter: {},
-            regularPath:
-              "/Qiqqa.Internals.-.Processing.PDF.documents'.text.and.the.impact.on.UI+UX.html",
-            relativePath:
-              "Qiqqa.Internals.-.Processing.PDF.documents'.text.and.the.impact.on.UI+UX.md",
-            key: "v-a5beb172",
-            path:
-              "/Qiqqa.Internals.-.Processing.PDF.documents'.text.and.the.impact.on.UI+UX.html",
-            headers: [
-              {
-                level: 1,
-                title:
-                  "Qiqqa Internals :: Processing PDF documents' text and the impact on UI+UX",
-                slug:
-                  "qiqqa-internals-processing-pdf-documents-text-and-the-impact-on-ui-ux",
-              },
-              {
-                level: 1,
-                title: "What is going on?",
-                slug: "what-is-going-on",
-              },
-              {
-                level: 1,
-                title: 'What is "OCR text" (in this context)?',
-                slug: "what-is-ocr-text-in-this-context",
-              },
-              {
-                level: 2,
-                title: "How does Qiqqa obtain this OCR text?",
-                slug: "how-does-qiqqa-obtain-this-ocr-text",
-              },
-              { level: 3, title: "Text Extraction", slug: "text-extraction" },
-              { level: 3, title: "Text Recognition", slug: "text-recognition" },
-              {
-                level: 1,
-                title: "How does this impact UX?",
-                slug: "how-does-this-impact-ux",
-              },
-              { level: 2, title: "Performance", slug: "performance" },
-              {
-                level: 1,
-                title: "Now back on topic",
-                slug: "now-back-on-topic",
-              },
-            ],
-            lastUpdated: "4/1/2020, 5:28:00 PM",
-          },
-          {
-            title: "first page in category1",
-            frontmatter: {
-              title: "first page in category1",
-              date: "2018-12-15T00:00:00.000Z",
-              tags: ["tag1"],
-              categories: ["category1"],
-            },
-            regularPath: "/views/category1/2018/121501.html",
-            relativePath: "views/category1/2018/121501.md",
-            key: "v-74669ad6",
-            path: "/views/category1/2018/121501.html",
-          },
           {
             title: "Qiqqa Internals :: Extracting the text from PDF documents",
             frontmatter: {},
@@ -6613,46 +6504,30 @@
                 slug: "ooh-almost-forgot-the-metadata-inference-process",
               },
             ],
-            lastUpdated: "4/1/2020, 5:28:00 PM",
+            lastUpdated: "4/2/2020, 11:57:22 PM",
           },
           {
-            title: "second page in category2",
-            frontmatter: {
-              title: "second page in category2",
-              date: "2017-09-21T00:00:00.000Z",
-              tags: ["tag4"],
-              categories: ["category2"],
-            },
-            regularPath: "/views/category2/2017/092101.html",
-            relativePath: "views/category2/2017/092101.md",
-            key: "v-cdf45914",
-            path: "/views/category2/2017/092101.html",
-          },
-          {
-            title: "first page in category2",
-            frontmatter: {
-              title: "first page in category2",
-              date: "2016-12-15T00:00:00.000Z",
-              tags: ["tag3"],
-              categories: ["category2"],
-            },
-            regularPath: "/views/category2/2016/121501.html",
-            relativePath: "views/category2/2016/121501.md",
-            key: "v-54b99194",
-            path: "/views/category2/2016/121501.html",
-          },
-          {
-            title: "second page in category1",
-            frontmatter: {
-              title: "second page in category1",
-              date: "2019-09-21T00:00:00.000Z",
-              tags: ["tag2"],
-              categories: ["category1"],
-            },
-            regularPath: "/views/category1/2019/092101.html",
-            relativePath: "views/category1/2019/092101.md",
-            key: "v-37c93716",
-            path: "/views/category1/2019/092101.html",
+            title: "Qiqqa",
+            frontmatter: {},
+            regularPath: "/",
+            relativePath: "README.md",
+            key: "v-1c0e8e90",
+            path: "/",
+            headers: [
+              { level: 1, title: "Qiqqa", slug: "qiqqa" },
+              {
+                level: 1,
+                title: "NOTE / Caveat Emptor",
+                slug: "note-caveat-emptor",
+              },
+              {
+                level: 1,
+                title: "Table of contents",
+                slug: "table-of-contents",
+              },
+              { level: 1, title: "Pages...", slug: "pages…" },
+            ],
+            lastUpdated: "4/2/2020, 11:57:22 PM",
           },
           {
             title: "The Qiqqa Manual",
@@ -6942,7 +6817,137 @@
               },
               { level: 1, title: "17. Getting Help", slug: "_17-getting-help" },
             ],
+            lastUpdated: "4/2/2020, 11:57:22 PM",
+          },
+          {
+            frontmatter: {},
+            regularPath: "/The.Qiqqa.Manual.reference.html",
+            relativePath: "The.Qiqqa.Manual.reference.md",
+            key: "v-4cbfcb05",
+            path: "/The.Qiqqa.Manual.reference.html",
+            lastUpdated: "4/2/2020, 11:57:22 PM",
+          },
+          {
+            title: "How to locate your Qiqqa Base Directory",
+            frontmatter: {},
+            regularPath: "/How.to.locate.your.Qiqqa.Base.Directory.html",
+            relativePath: "How.to.locate.your.Qiqqa.Base.Directory.md",
+            key: "v-02afa083",
+            path: "/How.to.locate.your.Qiqqa.Base.Directory.html",
+            headers: [
+              {
+                level: 1,
+                title: "How to locate your Qiqqa Base Directory",
+                slug: "how-to-locate-your-qiqqa-base-directory",
+              },
+            ],
             lastUpdated: "4/2/2020, 3:36:20 PM",
+          },
+          {
+            title: "second page in category1",
+            frontmatter: {
+              title: "second page in category1",
+              date: "2019-09-21T00:00:00.000Z",
+              tags: ["tag2"],
+              categories: ["category1"],
+            },
+            regularPath: "/views/category1/2019/092101.html",
+            relativePath: "views/category1/2019/092101.md",
+            key: "v-37c93716",
+            path: "/views/category1/2019/092101.html",
+            lastUpdated: "4/2/2020, 11:57:22 PM",
+          },
+          {
+            title: "first page in category1",
+            frontmatter: {
+              title: "first page in category1",
+              date: "2018-12-15T00:00:00.000Z",
+              tags: ["tag1"],
+              categories: ["category1"],
+            },
+            regularPath: "/views/category1/2018/121501.html",
+            relativePath: "views/category1/2018/121501.md",
+            key: "v-74669ad6",
+            path: "/views/category1/2018/121501.html",
+            lastUpdated: "4/2/2020, 11:57:22 PM",
+          },
+          {
+            title:
+              "Qiqqa Internals :: Processing PDF documents' text and the impact on UI+UX",
+            frontmatter: {},
+            regularPath:
+              "/Qiqqa.Internals.-.Processing.PDF.documents'.text.and.the.impact.on.UI+UX.html",
+            relativePath:
+              "Qiqqa.Internals.-.Processing.PDF.documents'.text.and.the.impact.on.UI+UX.md",
+            key: "v-a5beb172",
+            path:
+              "/Qiqqa.Internals.-.Processing.PDF.documents'.text.and.the.impact.on.UI+UX.html",
+            headers: [
+              {
+                level: 1,
+                title:
+                  "Qiqqa Internals :: Processing PDF documents' text and the impact on UI+UX",
+                slug:
+                  "qiqqa-internals-processing-pdf-documents-text-and-the-impact-on-ui-ux",
+              },
+              {
+                level: 1,
+                title: "What is going on?",
+                slug: "what-is-going-on",
+              },
+              {
+                level: 1,
+                title: 'What is "OCR text" (in this context)?',
+                slug: "what-is-ocr-text-in-this-context",
+              },
+              {
+                level: 2,
+                title: "How does Qiqqa obtain this OCR text?",
+                slug: "how-does-qiqqa-obtain-this-ocr-text",
+              },
+              { level: 3, title: "Text Extraction", slug: "text-extraction" },
+              { level: 3, title: "Text Recognition", slug: "text-recognition" },
+              {
+                level: 1,
+                title: "How does this impact UX?",
+                slug: "how-does-this-impact-ux",
+              },
+              { level: 2, title: "Performance", slug: "performance" },
+              {
+                level: 1,
+                title: "Now back on topic",
+                slug: "now-back-on-topic",
+              },
+            ],
+            lastUpdated: "4/2/2020, 11:57:22 PM",
+          },
+          {
+            title: "second page in category2",
+            frontmatter: {
+              title: "second page in category2",
+              date: "2017-09-21T00:00:00.000Z",
+              tags: ["tag4"],
+              categories: ["category2"],
+            },
+            regularPath: "/views/category2/2017/092101.html",
+            relativePath: "views/category2/2017/092101.md",
+            key: "v-cdf45914",
+            path: "/views/category2/2017/092101.html",
+            lastUpdated: "4/2/2020, 11:57:22 PM",
+          },
+          {
+            title: "first page in category2",
+            frontmatter: {
+              title: "first page in category2",
+              date: "2016-12-15T00:00:00.000Z",
+              tags: ["tag3"],
+              categories: ["category2"],
+            },
+            regularPath: "/views/category2/2016/121501.html",
+            relativePath: "views/category2/2016/121501.md",
+            key: "v-54b99194",
+            path: "/views/category2/2016/121501.html",
+            lastUpdated: "4/2/2020, 11:57:22 PM",
           },
           {
             title: "vuepress-theme-reco",
@@ -6962,6 +6967,7 @@
               { level: 3, title: "CLI", slug: "cli" },
               { level: 2, title: "License", slug: "license" },
             ],
+            lastUpdated: "4/2/2020, 11:57:22 PM",
           },
         ],
         themeConfig: {
@@ -6969,7 +6975,7 @@
           search: !1,
           nav: [
             { text: "Home", link: "/" },
-            { text: "Guide", link: "/The.Qiqqa.Manual/" },
+            { text: "Guide", link: "/The.Qiqqa.Manual.html" },
             { text: "External", link: "https://google.com/" },
             {
               text: "Languages",
@@ -7523,7 +7529,7 @@
         const e = this.$site.base;
         return "/" === t.charAt(0) ? e + t.slice(1) : t;
       }),
-      (window.__VUEPRESS__ = { version: "1.4.0", hash: "192ce7aa" }),
+      (window.__VUEPRESS__ = { version: "1.4.0", hash: "dc941720" }),
       (async function (t) {
         const e =
             "undefined" != typeof window && window.__VUEPRESS_ROUTER_BASE__
