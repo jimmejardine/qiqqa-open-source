@@ -1,7 +1,7 @@
 (window.webpackJsonp = window.webpackJsonp || []).push([
-  [15],
+  [14],
   {
-    179: function (t, e, n) {
+    178: function (t, e, n) {
       "use strict";
       n.r(e);
       var s = n(0),
@@ -13,7 +13,7 @@
             return e(
               "ContentSlotsDistributor",
               { attrs: { "slot-key": this.$parent.slotKey } },
-              [e("p", [this._v("second page in category2")])]
+              [e("p", [this._v("second page in category1")])]
             );
           },
           [],

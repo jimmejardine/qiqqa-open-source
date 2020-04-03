@@ -53,23 +53,24 @@
               ({}[t] || t) +
               "." +
               {
-                2: "204fc4a9",
-                3: "7d722f93",
-                4: "520f4757",
-                5: "0f5d23f0",
-                6: "e5d79534",
-                7: "94cd4d31",
-                8: "01d0d221",
-                9: "b61749cf",
-                10: "a586b144",
-                11: "056c09f6",
-                12: "54499664",
-                13: "2329bcf1",
-                14: "eb9db52e",
-                15: "1725004c",
-                16: "fe7eb968",
-                17: "fdf2f54b",
-                18: "8c2dfe60",
+                2: "cc12ba81",
+                3: "029dc4d3",
+                4: "13ffff8c",
+                5: "f7338087",
+                6: "fcd4a881",
+                7: "1f735909",
+                8: "cf1fb5ff",
+                9: "44f81f06",
+                10: "3a8e7c37",
+                11: "a16f52aa",
+                12: "0ec66561",
+                13: "67b222b8",
+                14: "eee464c5",
+                15: "04198284",
+                16: "339f94fa",
+                17: "a5a49cce",
+                18: "87cc7608",
+                19: "cfabae04",
               }[t] +
               ".js"
             );
@@ -566,7 +567,7 @@
     t.exports = n(10);
   },
   function (t, e, n) {
-    Promise.all([n.e(0), n.e(17)]).then(n.t.bind(null, 11, 7));
+    Promise.all([n.e(0), n.e(18)]).then(n.t.bind(null, 11, 7));
   },
   function (t, e, n) {},
   function (t, e, n) {
@@ -678,10 +679,10 @@
         return t.charAt(0).toUpperCase() + t.slice(1);
       }),
       k = /\B([A-Z])/g,
-      O = w(function (t) {
+      q = w(function (t) {
         return t.replace(k, "-$1").toLowerCase();
       });
-    var q = Function.prototype.bind
+    var O = Function.prototype.bind
       ? function (t, e) {
           return t.bind(e);
         }
@@ -803,19 +804,19 @@
     var Q,
       H = "__proto__" in {},
       V = "undefined" != typeof window,
-      z = "undefined" != typeof WXEnvironment && !!WXEnvironment.platform,
-      W = z && WXEnvironment.platform.toLowerCase(),
-      X = V && window.navigator.userAgent.toLowerCase(),
-      K = X && /msie|trident/.test(X),
-      G = X && X.indexOf("msie 9.0") > 0,
-      Z = X && X.indexOf("edge/") > 0,
+      W = "undefined" != typeof WXEnvironment && !!WXEnvironment.platform,
+      z = W && WXEnvironment.platform.toLowerCase(),
+      G = V && window.navigator.userAgent.toLowerCase(),
+      X = G && /msie|trident/.test(G),
+      K = G && G.indexOf("msie 9.0") > 0,
+      Z = G && G.indexOf("edge/") > 0,
       J =
-        (X && X.indexOf("android"),
-        (X && /iphone|ipad|ipod|ios/.test(X)) || "ios" === W),
+        (G && G.indexOf("android"),
+        (G && /iphone|ipad|ipod|ios/.test(G)) || "ios" === z),
       Y =
-        (X && /chrome\/\d+/.test(X),
-        X && /phantomjs/.test(X),
-        X && X.match(/firefox\/(\d+)/)),
+        (G && /chrome\/\d+/.test(G),
+        G && /phantomjs/.test(G),
+        G && G.match(/firefox\/(\d+)/)),
       tt = {}.watch,
       et = !1;
     if (V)
@@ -833,7 +834,7 @@
           void 0 === Q &&
             (Q =
               !V &&
-              !z &&
+              !W &&
               "undefined" != typeof global &&
               global.process &&
               "server" === global.process.env.VUE_ENV),
@@ -1020,7 +1021,7 @@
           n
         );
     }
-    function Ot(t, e, n, r, o) {
+    function qt(t, e, n, r, o) {
       var i = new ut(),
         a = Object.getOwnPropertyDescriptor(t, e);
       if (!a || !1 !== a.configurable) {
@@ -1049,7 +1050,7 @@
         });
       }
     }
-    function qt(t, e, n) {
+    function Ot(t, e, n) {
       if (Array.isArray(t) && p(e))
         return (t.length = Math.max(t.length, e)), t.splice(e, 1, n), n;
       if (e in t && !(e in Object.prototype)) return (t[e] = n), n;
@@ -1057,7 +1058,7 @@
       return t._isVue || (r && r.vmCount)
         ? n
         : r
-        ? (Ot(r.value, e, n), r.dep.notify(), n)
+        ? (qt(r.value, e, n), r.dep.notify(), n)
         : ((t[e] = n), n);
     }
     function At(t, e) {
@@ -1075,7 +1076,7 @@
           Array.isArray(e) && St(e);
     }
     (Ct.prototype.walk = function (t) {
-      for (var e = Object.keys(t), n = 0; n < e.length; n++) Ot(t, e[n]);
+      for (var e = Object.keys(t), n = 0; n < e.length; n++) qt(t, e[n]);
     }),
       (Ct.prototype.observeArray = function (t) {
         for (var e = 0, n = t.length; e < n; e++) kt(t[e]);
@@ -1091,7 +1092,7 @@
         "__ob__" !== (n = i[a]) &&
           ((r = t[n]),
           (o = e[n]),
-          _(t, n) ? r !== o && u(r) && u(o) && Et(r, o) : qt(t, n, o));
+          _(t, n) ? r !== o && u(r) && u(o) && Et(r, o) : Ot(t, n, o));
       return t;
     }
     function Pt(t, e, n) {
@@ -1228,7 +1229,7 @@
         s = Ft(Boolean, o.type);
       if (s > -1)
         if (i && !_(o, "default")) a = !1;
-        else if ("" === a || a === O(t)) {
+        else if ("" === a || a === q(t)) {
           var c = Ft(String, o.type);
           (c < 0 || s < c) && (a = !0);
         }
@@ -1310,53 +1311,53 @@
       Vt(t, e, n);
     }
     function Vt(t, e, n) {
-      if ((!V && !z) || "undefined" == typeof console) throw t;
+      if ((!V && !W) || "undefined" == typeof console) throw t;
       console.error(t);
     }
-    var zt,
-      Wt = !1,
-      Xt = [],
-      Kt = !1;
-    function Gt() {
-      Kt = !1;
-      var t = Xt.slice(0);
-      Xt.length = 0;
+    var Wt,
+      zt = !1,
+      Gt = [],
+      Xt = !1;
+    function Kt() {
+      Xt = !1;
+      var t = Gt.slice(0);
+      Gt.length = 0;
       for (var e = 0; e < t.length; e++) t[e]();
     }
     if ("undefined" != typeof Promise && it(Promise)) {
       var Zt = Promise.resolve();
-      (zt = function () {
-        Zt.then(Gt), J && setTimeout(E);
+      (Wt = function () {
+        Zt.then(Kt), J && setTimeout(E);
       }),
-        (Wt = !0);
+        (zt = !0);
     } else if (
-      K ||
+      X ||
       "undefined" == typeof MutationObserver ||
       (!it(MutationObserver) &&
         "[object MutationObserverConstructor]" !== MutationObserver.toString())
     )
-      zt =
+      Wt =
         "undefined" != typeof setImmediate && it(setImmediate)
           ? function () {
-              setImmediate(Gt);
+              setImmediate(Kt);
             }
           : function () {
-              setTimeout(Gt, 0);
+              setTimeout(Kt, 0);
             };
     else {
       var Jt = 1,
-        Yt = new MutationObserver(Gt),
+        Yt = new MutationObserver(Kt),
         te = document.createTextNode(String(Jt));
       Yt.observe(te, { characterData: !0 }),
-        (zt = function () {
+        (Wt = function () {
           (Jt = (Jt + 1) % 2), (te.data = String(Jt));
         }),
-        (Wt = !0);
+        (zt = !0);
     }
     function ee(t, e) {
       var n;
       if (
-        (Xt.push(function () {
+        (Gt.push(function () {
           if (t)
             try {
               t.call(e);
@@ -1365,7 +1366,7 @@
             }
           else n && n(e);
         }),
-        Kt || ((Kt = !0), zt()),
+        Xt || ((Xt = !0), Wt()),
         !t && "undefined" != typeof Promise)
       )
         return new Promise(function (t) {
@@ -1623,7 +1624,7 @@
         : i
         ? _e(i, t)
         : r
-        ? O(r) !== e
+        ? q(r) !== e
         : void 0;
     }
     function xe(t, e, n, r, o) {
@@ -1641,7 +1642,7 @@
                   : t.attrs || (t.attrs = {});
             }
             var c = $(a),
-              l = O(a);
+              l = q(a);
             c in i ||
               l in i ||
               ((i[a] = n[a]),
@@ -1677,13 +1678,13 @@
     function ke(t, e, n) {
       if (Array.isArray(t))
         for (var r = 0; r < t.length; r++)
-          t[r] && "string" != typeof t[r] && Oe(t[r], e + "_" + r, n);
-      else Oe(t, e, n);
+          t[r] && "string" != typeof t[r] && qe(t[r], e + "_" + r, n);
+      else qe(t, e, n);
     }
-    function Oe(t, e, n) {
+    function qe(t, e, n) {
       (t.isStatic = !0), (t.key = e), (t.isOnce = n);
     }
-    function qe(t, e) {
+    function Oe(t, e) {
       if (e)
         if (u(e)) {
           var n = (t.on = t.on ? S({}, t.on) : {});
@@ -1730,7 +1731,7 @@
         (t._v = gt),
         (t._e = mt),
         (t._u = Ae),
-        (t._g = qe),
+        (t._g = Oe),
         (t._d = Se),
         (t._p = Te);
     }
@@ -1806,7 +1807,7 @@
                 ((n.render = r.render),
                 (n.staticRenderFns = r.staticRenderFns));
               return new t.componentOptions.Ctor(n);
-            })(t, Ke)).$mount(e ? t.elm : void 0, e);
+            })(t, Xe)).$mount(e ? t.elm : void 0, e);
           }
         },
         prepatch: function (t, e) {
@@ -1845,7 +1846,7 @@
             n = n || r;
             var v = t.$options._parentListeners;
             (t.$options._parentListeners = n),
-              Xe(t, n, v),
+              Ge(t, n, v),
               l && ((t.$slots = pe(i, o.context)), t.$forceUpdate());
             0;
           })(
@@ -1981,7 +1982,7 @@
                 c = t.props;
               if (i(s) || i(c))
                 for (var l in r) {
-                  var u = O(l);
+                  var u = q(l);
                   ce(a, c, l, u, !0) || ce(a, s, l, u, !1);
                 }
               return a;
@@ -2118,26 +2119,26 @@
     function Ve(t, e) {
       Ne.$on(t, e);
     }
-    function ze(t, e) {
+    function We(t, e) {
       Ne.$off(t, e);
     }
-    function We(t, e) {
+    function ze(t, e) {
       var n = Ne;
       return function r() {
         var o = e.apply(null, arguments);
         null !== o && n.$off(t, r);
       };
     }
-    function Xe(t, e, n) {
-      (Ne = t), ae(e, n || {}, Ve, ze, We, t), (Ne = void 0);
+    function Ge(t, e, n) {
+      (Ne = t), ae(e, n || {}, Ve, We, ze, t), (Ne = void 0);
     }
-    var Ke = null;
-    function Ge(t) {
-      var e = Ke;
+    var Xe = null;
+    function Ke(t) {
+      var e = Xe;
       return (
-        (Ke = t),
+        (Xe = t),
         function () {
-          Ke = e;
+          Xe = e;
         }
       );
     }
@@ -2170,7 +2171,7 @@
       an = 0;
     var sn = 0,
       cn = Date.now;
-    if (V && !K) {
+    if (V && !X) {
       var ln = window.performance;
       ln &&
         "function" == typeof ln.now &&
@@ -2357,7 +2358,7 @@
           var i = function (i) {
             o.push(i);
             var a = Mt(i, e, n, t);
-            Ot(r, i, a), i in t || hn(t, "_props", i);
+            qt(r, i, a), i in t || hn(t, "_props", i);
           };
           for (var a in e) i(a);
           $t(!0);
@@ -2365,7 +2366,7 @@
         e.methods &&
           (function (t, e) {
             t.$options.props;
-            for (var n in e) t[n] = "function" != typeof e[n] ? E : q(e[n], t);
+            for (var n in e) t[n] = "function" != typeof e[n] ? E : O(e[n], t);
           })(t, e.methods),
         e.data
           ? (function (t) {
@@ -2519,14 +2520,14 @@
     function kn(t) {
       return t && (t.Ctor.options.name || t.tag);
     }
-    function On(t, e) {
+    function qn(t, e) {
       return Array.isArray(t)
         ? t.indexOf(e) > -1
         : "string" == typeof t
         ? t.split(",").indexOf(e) > -1
         : !!f(t) && t.test(e);
     }
-    function qn(t, e) {
+    function On(t, e) {
       var n = t.cache,
         r = t.keys,
         o = t._vnode;
@@ -2586,7 +2587,7 @@
         (function (t) {
           (t._events = Object.create(null)), (t._hasHookEvent = !1);
           var e = t.$options._parentListeners;
-          e && Xe(t, e);
+          e && Ge(t, e);
         })(e),
         (function (t) {
           (t._vnode = null), (t._staticTrees = null);
@@ -2602,8 +2603,8 @@
               return Ue(t, e, n, r, o, !0);
             });
           var i = n && n.data;
-          Ot(t, "$attrs", (i && i.attrs) || r, null, !0),
-            Ot(t, "$listeners", e._parentListeners || r, null, !0);
+          qt(t, "$attrs", (i && i.attrs) || r, null, !0),
+            qt(t, "$listeners", e._parentListeners || r, null, !0);
         })(e),
         Ye(e, "beforeCreate"),
         (function (t) {
@@ -2611,7 +2612,7 @@
           e &&
             ($t(!1),
             Object.keys(e).forEach(function (n) {
-              Ot(t, n, e[n]);
+              qt(t, n, e[n]);
             }),
             $t(!0));
         })(e),
@@ -2636,7 +2637,7 @@
           };
         Object.defineProperty(t.prototype, "$data", e),
           Object.defineProperty(t.prototype, "$props", n),
-          (t.prototype.$set = qt),
+          (t.prototype.$set = Ot),
           (t.prototype.$delete = At),
           (t.prototype.$watch = function (t, e, n) {
             if (u(e)) return _n(this, t, e, n);
@@ -2716,7 +2717,7 @@
           var n = this,
             r = n.$el,
             o = n._vnode,
-            i = Ge(n);
+            i = Ke(n);
           (n._vnode = t),
             (n.$el = o ? n.__patch__(o, t) : n.__patch__(n.$el, t, e, !1)),
             i(),
@@ -2799,13 +2800,13 @@
           mounted: function () {
             var t = this;
             this.$watch("include", function (e) {
-              qn(t, function (t) {
-                return On(e, t);
+              On(t, function (t) {
+                return qn(e, t);
               });
             }),
               this.$watch("exclude", function (e) {
-                qn(t, function (t) {
-                  return !On(e, t);
+                On(t, function (t) {
+                  return !qn(e, t);
                 });
               });
           },
@@ -2817,7 +2818,7 @@
               var r = kn(n),
                 o = this.include,
                 i = this.exclude;
-              if ((o && (!r || !On(o, r))) || (i && r && On(i, r))) return e;
+              if ((o && (!r || !qn(o, r))) || (i && r && qn(i, r))) return e;
               var a = this.cache,
                 s = this.keys,
                 c =
@@ -2850,9 +2851,9 @@
           warn: ct,
           extend: S,
           mergeOptions: Rt,
-          defineReactive: Ot,
+          defineReactive: qt,
         }),
-        (t.set = qt),
+        (t.set = Ot),
         (t.delete = At),
         (t.nextTick = ee),
         (t.observable = function (t) {
@@ -2970,16 +2971,16 @@
       Vn = m(
         "html,body,base,head,link,meta,style,title,address,article,aside,footer,header,h1,h2,h3,h4,h5,h6,hgroup,nav,section,div,dd,dl,dt,figcaption,figure,picture,hr,img,li,main,ol,p,pre,ul,a,b,abbr,bdi,bdo,br,cite,code,data,dfn,em,i,kbd,mark,q,rp,rt,rtc,ruby,s,samp,small,span,strong,sub,sup,time,u,var,wbr,area,audio,map,track,video,embed,object,param,source,canvas,script,noscript,del,ins,caption,col,colgroup,table,thead,tbody,td,th,tr,button,datalist,fieldset,form,input,label,legend,meter,optgroup,option,output,progress,select,textarea,details,dialog,menu,menuitem,summary,content,element,shadow,template,blockquote,iframe,tfoot"
       ),
-      zn = m(
+      Wn = m(
         "svg,animate,circle,clippath,cursor,defs,desc,ellipse,filter,font-face,foreignObject,g,glyph,image,line,marker,mask,missing-glyph,path,pattern,polygon,polyline,rect,switch,symbol,text,textpath,tspan,use,view",
         !0
       ),
-      Wn = function (t) {
-        return Vn(t) || zn(t);
+      zn = function (t) {
+        return Vn(t) || Wn(t);
       };
-    var Xn = Object.create(null);
-    var Kn = m("text,number,password,search,email,tel,url");
-    var Gn = Object.freeze({
+    var Gn = Object.create(null);
+    var Xn = m("text,number,password,search,email,tel,url");
+    var Kn = Object.freeze({
         createElement: function (t, e) {
           var n = document.createElement(t);
           return (
@@ -3066,7 +3067,7 @@
             var n,
               r = i((n = t.data)) && i((n = n.attrs)) && n.type,
               o = i((n = e.data)) && i((n = n.attrs)) && n.type;
-            return r === o || (Kn(r) && Kn(o));
+            return r === o || (Xn(r) && Xn(o));
           })(t, e)) ||
           (a(t.isAsyncPlaceholder) &&
             t.asyncFactory === e.asyncFactory &&
@@ -3164,7 +3165,7 @@
           l = e.data.attrs || {};
         for (r in (i(l.__ob__) && (l = e.data.attrs = S({}, l)), l))
           (a = l[r]), c[r] !== a && fr(s, r, a);
-        for (r in ((K || Z) && l.value !== c.value && fr(s, "value", l.value),
+        for (r in ((X || Z) && l.value !== c.value && fr(s, "value", l.value),
         c))
           o(l[r]) &&
             (Dn(r)
@@ -3202,8 +3203,8 @@
       if (Un(n)) t.removeAttribute(e);
       else {
         if (
-          K &&
-          !G &&
+          X &&
+          !K &&
           "TEXTAREA" === t.tagName &&
           "placeholder" === e &&
           "" !== n &&
@@ -3245,7 +3246,7 @@
         null !== i && _r(t, o, n, r);
       };
     }
-    var yr = Wt && !(Y && Number(Y[1]) <= 53);
+    var yr = zt && !(Y && Number(Y[1]) <= 53);
     function br(t, e, n, r) {
       if (yr) {
         var o = sn,
@@ -3272,7 +3273,7 @@
         (vr = e.elm),
           (function (t) {
             if (i(t.__r)) {
-              var e = K ? "change" : "input";
+              var e = X ? "change" : "input";
               (t[e] = [].concat(t.__r, t[e] || [])), delete t.__r;
             }
             i(t.__c) &&
@@ -3302,7 +3303,7 @@
             a._value = r;
             var l = o(r) ? "" : String(r);
             kr(a, l) && (a.value = l);
-          } else if ("innerHTML" === n && zn(a.tagName) && o(a.innerHTML)) {
+          } else if ("innerHTML" === n && Wn(a.tagName) && o(a.innerHTML)) {
             (xr = xr || document.createElement("div")).innerHTML =
               "<svg>" + r + "</svg>";
             for (var u = xr.firstChild; a.firstChild; )
@@ -3337,8 +3338,8 @@
           })(t, e))
       );
     }
-    var Or = { create: Cr, update: Cr },
-      qr = w(function (t) {
+    var qr = { create: Cr, update: Cr },
+      Or = w(function (t) {
         var e = {},
           n = /:(.+)/;
         return (
@@ -3356,7 +3357,7 @@
       return t.staticStyle ? S(t.staticStyle, e) : e;
     }
     function Sr(t) {
-      return Array.isArray(t) ? T(t) : "string" == typeof t ? qr(t) : t;
+      return Array.isArray(t) ? T(t) : "string" == typeof t ? Or(t) : t;
     }
     var Tr,
       Er = /^--/,
@@ -3364,7 +3365,7 @@
       jr = function (t, e, n) {
         if (Er.test(e)) t.style.setProperty(e, n);
         else if (Pr.test(n))
-          t.style.setProperty(O(e), n.replace(Pr, ""), "important");
+          t.style.setProperty(q(e), n.replace(Pr, ""), "important");
         else {
           var r = Ir(e);
           if (Array.isArray(n))
@@ -3474,31 +3475,31 @@
           leaveActiveClass: t + "-leave-active",
         };
       }),
-      Qr = V && !G,
+      Qr = V && !K,
       Hr = "transition",
       Vr = "transitionend",
-      zr = "animation",
-      Wr = "animationend";
+      Wr = "animation",
+      zr = "animationend";
     Qr &&
       (void 0 === window.ontransitionend &&
         void 0 !== window.onwebkittransitionend &&
         ((Hr = "WebkitTransition"), (Vr = "webkitTransitionEnd")),
       void 0 === window.onanimationend &&
         void 0 !== window.onwebkitanimationend &&
-        ((zr = "WebkitAnimation"), (Wr = "webkitAnimationEnd")));
-    var Xr = V
+        ((Wr = "WebkitAnimation"), (zr = "webkitAnimationEnd")));
+    var Gr = V
       ? window.requestAnimationFrame
         ? window.requestAnimationFrame.bind(window)
         : setTimeout
       : function (t) {
           return t();
         };
-    function Kr(t) {
-      Xr(function () {
-        Xr(t);
+    function Xr(t) {
+      Gr(function () {
+        Gr(t);
       });
     }
-    function Gr(t, e) {
+    function Kr(t, e) {
       var n = t._transitionClasses || (t._transitionClasses = []);
       n.indexOf(e) < 0 && (n.push(e), Ur(t, e));
     }
@@ -3511,7 +3512,7 @@
         i = r.timeout,
         a = r.propCount;
       if (!o) return n();
-      var s = "transition" === o ? Vr : Wr,
+      var s = "transition" === o ? Vr : zr,
         c = 0,
         l = function () {
           t.removeEventListener(s, u), n();
@@ -3531,8 +3532,8 @@
         o = (r[Hr + "Delay"] || "").split(", "),
         i = (r[Hr + "Duration"] || "").split(", "),
         a = eo(o, i),
-        s = (r[zr + "Delay"] || "").split(", "),
-        c = (r[zr + "Duration"] || "").split(", "),
+        s = (r[Wr + "Delay"] || "").split(", "),
+        c = (r[Wr + "Duration"] || "").split(", "),
         l = eo(s, c),
         u = 0,
         f = 0;
@@ -3594,23 +3595,23 @@
             x = r.afterAppear,
             $ = r.appearCancelled,
             C = r.duration,
-            k = Ke,
-            O = Ke.$vnode;
-          O && O.parent;
+            k = Xe,
+            q = Xe.$vnode;
+          q && q.parent;
         )
-          (k = O.context), (O = O.parent);
-        var q = !k._isMounted || !t.isRootInsert;
-        if (!q || w || "" === w) {
-          var A = q && p ? p : l,
-            S = q && h ? h : f,
-            T = q && d ? d : u,
-            E = (q && _) || m,
-            P = q && "function" == typeof w ? w : g,
-            j = (q && x) || y,
-            L = (q && $) || b,
+          (k = q.context), (q = q.parent);
+        var O = !k._isMounted || !t.isRootInsert;
+        if (!O || w || "" === w) {
+          var A = O && p ? p : l,
+            S = O && h ? h : f,
+            T = O && d ? d : u,
+            E = (O && _) || m,
+            P = O && "function" == typeof w ? w : g,
+            j = (O && x) || y,
+            L = (O && $) || b,
             I = v(c(C) ? C.enter : C);
           0;
-          var D = !1 !== a && !G,
+          var D = !1 !== a && !K,
             M = ao(P),
             U = (n._enterCb = R(function () {
               D && (Zr(n, T), Zr(n, S)),
@@ -3626,12 +3627,12 @@
             }),
             E && E(n),
             D &&
-              (Gr(n, A),
-              Gr(n, S),
-              Kr(function () {
+              (Kr(n, A),
+              Kr(n, S),
+              Xr(function () {
                 Zr(n, A),
                   U.cancelled ||
-                    (Gr(n, T), M || (io(I) ? setTimeout(U, I) : Jr(n, s, U)));
+                    (Kr(n, T), M || (io(I) ? setTimeout(U, I) : Jr(n, s, U)));
               })),
             t.data.show && (e && e(), P && P(n, U)),
             D || M || U();
@@ -3655,7 +3656,7 @@
           m = r.leaveCancelled,
           g = r.delayLeave,
           y = r.duration,
-          b = !1 !== a && !G,
+          b = !1 !== a && !K,
           _ = ao(d),
           w = v(c(y) ? y.leave : y);
         0;
@@ -3678,12 +3679,12 @@
             ] = t),
           p && p(n),
           b &&
-            (Gr(n, l),
-            Gr(n, f),
-            Kr(function () {
+            (Kr(n, l),
+            Kr(n, f),
+            Xr(function () {
               Zr(n, l),
                 x.cancelled ||
-                  (Gr(n, u), _ || (io(w) ? setTimeout(x, w) : Jr(n, s, x)));
+                  (Kr(n, u), _ || (io(w) ? setTimeout(x, w) : Jr(n, s, x)));
             })),
           d && d(n, x),
           b || _ || x());
@@ -3805,7 +3806,7 @@
               i((e = e.$options._scopeId)) &&
               l.setStyleScope(t.elm, e),
               (n = n.parent);
-        i((e = Ke)) &&
+        i((e = Xe)) &&
           e !== t.context &&
           e !== t.fnContext &&
           i((e = e.$options._scopeId)) &&
@@ -3871,7 +3872,7 @@
           var p = (e.elm = t.elm);
           if (a(t.isAsyncPlaceholder))
             i(e.asyncFactory.resolved)
-              ? q(t.elm, e, n)
+              ? O(t.elm, e, n)
               : (e.isAsyncPlaceholder = !0);
           else if (
             a(e.isStatic) &&
@@ -3953,8 +3954,8 @@
         if (a(n) && i(t.parent)) t.parent.data.pendingInsert = e;
         else for (var r = 0; r < e.length; ++r) e[r].data.hook.insert(e[r]);
       }
-      var O = m("attrs,class,staticClass,staticStyle,key");
-      function q(t, e, n, r) {
+      var q = m("attrs,class,staticClass,staticStyle,key");
+      function O(t, e, n, r) {
         var o,
           s = e.tag,
           c = e.data,
@@ -3978,7 +3979,7 @@
                 if (o !== t.innerHTML) return !1;
               } else {
                 for (var u = !0, f = t.firstChild, d = 0; d < l.length; d++) {
-                  if (!f || !q(f, l[d], n, r)) {
+                  if (!f || !O(f, l[d], n, r)) {
                     u = !1;
                     break;
                   }
@@ -3990,7 +3991,7 @@
           if (i(c)) {
             var v = !1;
             for (var m in c)
-              if (!O(m)) {
+              if (!q(m)) {
                 (v = !0), g(e, n);
                 break;
               }
@@ -4014,7 +4015,7 @@
                   (1 === t.nodeType &&
                     t.hasAttribute("data-server-rendered") &&
                     (t.removeAttribute("data-server-rendered"), (n = !0)),
-                  a(n) && q(t, e, p))
+                  a(n) && O(t, e, p))
                 )
                   return k(e, p, !0), t;
                 (c = t),
@@ -4032,7 +4033,7 @@
                       r.create[x](Yn, g);
                     var $ = g.data.hook.insert;
                     if ($.merged)
-                      for (var O = 1; O < $.fns.length; O++) $.fns[O]();
+                      for (var q = 1; q < $.fns.length; q++) $.fns[q]();
                   } else Jn(g);
                   g = g.parent;
                 }
@@ -4044,12 +4045,12 @@
         i(t) && _(t);
       };
     })({
-      nodeOps: Gn,
+      nodeOps: Kn,
       modules: [
         dr,
         mr,
         $r,
-        Or,
+        qr,
         Dr,
         V
           ? {
@@ -4062,7 +4063,7 @@
           : {},
       ].concat(lr),
     });
-    G &&
+    K &&
       document.addEventListener("selectionchange", function () {
         var t = document.activeElement;
         t && t.vmodel && go(t, "input");
@@ -4076,13 +4077,13 @@
                 })
               : uo(t, e, n.context),
             (t._vOptions = [].map.call(t.options, ho)))
-          : ("textarea" === n.tag || Kn(t.type)) &&
+          : ("textarea" === n.tag || Xn(t.type)) &&
             ((t._vModifiers = e.modifiers),
             e.modifiers.lazy ||
               (t.addEventListener("compositionstart", vo),
               t.addEventListener("compositionend", mo),
               t.addEventListener("change", mo),
-              G && (t.vmodel = !0)));
+              K && (t.vmodel = !0)));
       },
       componentUpdated: function (t, e, n) {
         if ("select" === n.tag) {
@@ -4104,7 +4105,7 @@
     };
     function uo(t, e, n) {
       fo(t, e, n),
-        (K || Z) &&
+        (X || Z) &&
           setTimeout(function () {
             fo(t, e, n);
           }, 0);
@@ -4217,7 +4218,7 @@
       ko = function (t) {
         return "show" === t.name;
       },
-      Oo = {
+      qo = {
         name: "transition",
         props: _o,
         abstract: !0,
@@ -4290,7 +4291,7 @@
           }
         },
       },
-      qo = S({ tag: String, moveClass: String }, _o);
+      Oo = S({ tag: String, moveClass: String }, _o);
     function Ao(t) {
       t.elm._moveCb && t.elm._moveCb(), t.elm._enterCb && t.elm._enterCb();
     }
@@ -4310,16 +4311,16 @@
           (i.transitionDuration = "0s");
       }
     }
-    delete qo.mode;
+    delete Oo.mode;
     var Eo = {
-      Transition: Oo,
+      Transition: qo,
       TransitionGroup: {
-        props: qo,
+        props: Oo,
         beforeMount: function () {
           var t = this,
             e = this._update;
           this._update = function (n, r) {
-            var o = Ge(t);
+            var o = Ke(t);
             t.__patch__(t._vnode, t.kept, !1, !0),
               (t._vnode = t.kept),
               o(),
@@ -4370,7 +4371,7 @@
               if (t.data.moved) {
                 var n = t.elm,
                   r = n.style;
-                Gr(n, e),
+                Kr(n, e),
                   (r.transform = r.WebkitTransform = r.transitionDuration = ""),
                   n.addEventListener(
                     Vr,
@@ -4411,21 +4412,21 @@
         ("muted" === n && "video" === t)
       );
     }),
-      ($n.config.isReservedTag = Wn),
+      ($n.config.isReservedTag = zn),
       ($n.config.isReservedAttr = En),
       ($n.config.getTagNamespace = function (t) {
-        return zn(t) ? "svg" : "math" === t ? "math" : void 0;
+        return Wn(t) ? "svg" : "math" === t ? "math" : void 0;
       }),
       ($n.config.isUnknownElement = function (t) {
         if (!V) return !0;
-        if (Wn(t)) return !1;
-        if (((t = t.toLowerCase()), null != Xn[t])) return Xn[t];
+        if (zn(t)) return !1;
+        if (((t = t.toLowerCase()), null != Gn[t])) return Gn[t];
         var e = document.createElement(t);
         return t.indexOf("-") > -1
-          ? (Xn[t] =
+          ? (Gn[t] =
               e.constructor === window.HTMLUnknownElement ||
               e.constructor === window.HTMLElement)
-          : (Xn[t] = /HTMLUnknownElement/.test(e.toString()));
+          : (Gn[t] = /HTMLUnknownElement/.test(e.toString()));
       }),
       S($n.options.directives, bo),
       S($n.options.components, Eo),
@@ -4622,11 +4623,11 @@
       return e ? "?" + e : "";
     }
     var Vo = /\/?$/;
-    function zo(t, e, n, r) {
+    function Wo(t, e, n, r) {
       var o = r && r.options.stringifyQuery,
         i = e.query || {};
       try {
-        i = Wo(i);
+        i = zo(i);
       } catch (t) {}
       var a = {
         name: e.name || (t && t.name),
@@ -4635,26 +4636,26 @@
         hash: e.hash || "",
         query: i,
         params: e.params || {},
-        fullPath: Go(e, o),
-        matched: t ? Ko(t) : [],
+        fullPath: Ko(e, o),
+        matched: t ? Xo(t) : [],
       };
-      return n && (a.redirectedFrom = Go(n, o)), Object.freeze(a);
+      return n && (a.redirectedFrom = Ko(n, o)), Object.freeze(a);
     }
-    function Wo(t) {
-      if (Array.isArray(t)) return t.map(Wo);
+    function zo(t) {
+      if (Array.isArray(t)) return t.map(zo);
       if (t && "object" == typeof t) {
         var e = {};
-        for (var n in t) e[n] = Wo(t[n]);
+        for (var n in t) e[n] = zo(t[n]);
         return e;
       }
       return t;
     }
-    var Xo = zo(null, { path: "/" });
-    function Ko(t) {
+    var Go = Wo(null, { path: "/" });
+    function Xo(t) {
       for (var e = []; t; ) e.unshift(t), (t = t.parent);
       return e;
     }
-    function Go(t, e) {
+    function Ko(t, e) {
       var n = t.path,
         r = t.query;
       void 0 === r && (r = {});
@@ -4662,7 +4663,7 @@
       return void 0 === o && (o = ""), (n || "/") + (e || Ho)(r) + o;
     }
     function Zo(t, e) {
-      return e === Xo
+      return e === Go
         ? t === e
         : !!e &&
             (t.path && e.path
@@ -5013,7 +5014,7 @@
             p = null == u ? "router-link-exact-active" : u,
             d = null == this.activeClass ? f : this.activeClass,
             h = null == this.exactActiveClass ? p : this.exactActiveClass,
-            v = a.redirectedFrom ? zo(null, bi(a.redirectedFrom), null, n) : a;
+            v = a.redirectedFrom ? Wo(null, bi(a.redirectedFrom), null, n) : a;
           (c[h] = Zo(r, v)),
             (c[d] = this.exact
               ? c[h]
@@ -5118,7 +5119,7 @@
             (l.sensitive = o.caseSensitive);
           var f = {
             path: u,
-            regex: Oi(u, l),
+            regex: qi(u, l),
             components: o.components || { default: o.component },
             instances: {},
             name: c,
@@ -5157,10 +5158,10 @@
         "*" === o[s] && (o.push(o.splice(s, 1)[0]), c--, s--);
       return { pathList: o, pathMap: i, nameMap: a };
     }
-    function Oi(t, e) {
+    function qi(t, e) {
       return ni(t, [], e);
     }
-    function qi(t, e) {
+    function Oi(t, e) {
       var n = ki(t),
         r = n.pathList,
         o = n.pathMap,
@@ -5200,7 +5201,7 @@
       }
       function s(t, n) {
         var r = t.redirect,
-          o = "function" == typeof r ? r(zo(t, n, null, e)) : r;
+          o = "function" == typeof r ? r(Wo(t, n, null, e)) : r;
         if (
           ("string" == typeof o && (o = { path: o }),
           !o || "object" != typeof o)
@@ -5250,7 +5251,7 @@
               }
               return c(null, e);
             })(0, n, t.matchAs)
-          : zo(t, n, r, e);
+          : Wo(t, n, r, e);
       }
       return {
         match: a,
@@ -5375,10 +5376,10 @@
         window.location[e ? "replace" : "assign"](t);
       }
     }
-    function zi(t) {
+    function Wi(t) {
       Vi(t, !0);
     }
-    function Wi(t, e, n) {
+    function zi(t, e, n) {
       var r = function (o) {
         o >= t.length
           ? n()
@@ -5390,12 +5391,12 @@
       };
       r(0);
     }
-    function Xi(t) {
+    function Gi(t) {
       return function (e, n, r) {
         var o = !1,
           i = 0,
           a = null;
-        Ki(t, function (t, e, n, s) {
+        Xi(t, function (t, e, n, s) {
           if ("function" == typeof t && void 0 === t.cid) {
             (o = !0), i++;
             var c,
@@ -5428,8 +5429,8 @@
           o || r();
       };
     }
-    function Ki(t, e) {
-      return Gi(
+    function Xi(t, e) {
+      return Ki(
         t.map(function (t) {
           return Object.keys(t.components).map(function (n) {
             return e(t.components[n], t.instances[n], t, n);
@@ -5437,7 +5438,7 @@
         })
       );
     }
-    function Gi(t) {
+    function Ki(t) {
       return Array.prototype.concat.apply([], t);
     }
     var Zi =
@@ -5485,7 +5486,7 @@
           "/" !== t.charAt(0) && (t = "/" + t);
           return t.replace(/\/$/, "");
         })(e)),
-        (this.current = Xo),
+        (this.current = Go),
         (this.pending = null),
         (this.ready = !1),
         (this.readyCbs = []),
@@ -5493,7 +5494,7 @@
         (this.errorCbs = []);
     };
     function ea(t, e, n, r) {
-      var o = Ki(t, function (t, r, o, i) {
+      var o = Xi(t, function (t, r, o, i) {
         var a = (function (t, e) {
           "function" != typeof t && (t = _i.extend(t));
           return t.options[e];
@@ -5505,7 +5506,7 @@
               })
             : n(a, r, o, i);
       });
-      return Gi(r ? o.reverse() : o);
+      return Ki(r ? o.reverse() : o);
     }
     function na(t, e) {
       if (e)
@@ -5589,7 +5590,7 @@
             l.map(function (t) {
               return t.beforeEnter;
             }),
-            Xi(l)
+            Gi(l)
           );
         this.pending = t;
         var f = function (e, n) {
@@ -5609,9 +5610,9 @@
             i(t);
           }
         };
-        Wi(u, f, function () {
+        zi(u, f, function () {
           var n = [];
-          Wi(
+          zi(
             (function (t, e, n) {
               return ea(t, "beforeRouteEnter", function (t, r, o, i) {
                 return (function (t, e, n, r, o) {
@@ -5670,7 +5671,7 @@
         window.addEventListener("popstate", function (t) {
           var n = r.current,
             o = oa(r.base);
-          (r.current === Xo && o === a) ||
+          (r.current === Go && o === a) ||
             r.transitionTo(o, function (t) {
               i && Ri(e, t, n, !0);
             });
@@ -5700,7 +5701,7 @@
           this.transitionTo(
             t,
             function (t) {
-              zi(ti(r.base + t.fullPath)), Ri(r.router, t, o, !1), e && e(t);
+              Wi(ti(r.base + t.fullPath)), Ri(r.router, t, o, !1), e && e(t);
             },
             n
           );
@@ -5708,7 +5709,7 @@
         (e.prototype.ensureURL = function (t) {
           if (oa(this.base) !== this.current.fullPath) {
             var e = ti(this.base + this.current.fullPath);
-            t ? Vi(e) : zi(e);
+            t ? Vi(e) : Wi(e);
           }
         }),
         (e.prototype.getCurrentLocation = function () {
@@ -5814,7 +5815,7 @@
       Hi ? Vi(ca(t)) : (window.location.hash = t);
     }
     function ua(t) {
-      Hi ? zi(ca(t)) : window.location.replace(ca(t));
+      Hi ? Wi(ca(t)) : window.location.replace(ca(t));
     }
     var fa = (function (t) {
         function e(e, n) {
@@ -5878,7 +5879,7 @@
           (this.beforeHooks = []),
           (this.resolveHooks = []),
           (this.afterHooks = []),
-          (this.matcher = qi(t.routes || [], this));
+          (this.matcher = Oi(t.routes || [], this));
         var e = t.mode || "hash";
         switch (
           ((this.fallback = "history" === e && !Hi && !1 !== t.fallback),
@@ -6013,7 +6014,7 @@
       }),
       (pa.prototype.addRoutes = function (t) {
         this.matcher.addRoutes(t),
-          this.history.current !== Xo &&
+          this.history.current !== Go &&
             this.history.transitionTo(this.history.getCurrentLocation());
       }),
       Object.defineProperties(pa.prototype, da),
@@ -6075,17 +6076,18 @@
           Promise.all([n.e(0), n.e(3), n.e(4)]).then(n.bind(null, 169)),
       },
       ga = {
-        "v-5682e796": () => n.e(7).then(n.bind(null, 171)),
-        "v-1c0e8e90": () => n.e(10).then(n.bind(null, 172)),
-        "v-e51e2d82": () => n.e(2).then(n.bind(null, 173)),
-        "v-4cbfcb05": () => n.e(11).then(n.bind(null, 174)),
-        "v-02afa083": () => n.e(5).then(n.bind(null, 175)),
-        "v-37c93716": () => n.e(13).then(n.bind(null, 176)),
-        "v-74669ad6": () => n.e(12).then(n.bind(null, 177)),
-        "v-a5beb172": () => n.e(9).then(n.bind(null, 178)),
-        "v-cdf45914": () => n.e(15).then(n.bind(null, 179)),
-        "v-54b99194": () => n.e(14).then(n.bind(null, 180)),
-        "v-075b2109": () => n.e(16).then(n.bind(null, 181)),
+        "v-02afa083": () => n.e(5).then(n.bind(null, 171)),
+        "v-a5beb172": () => n.e(9).then(n.bind(null, 172)),
+        "v-1c0e8e90": () => n.e(10).then(n.bind(null, 173)),
+        "v-4fd4b0c3": () => n.e(11).then(n.bind(null, 174)),
+        "v-e51e2d82": () => n.e(2).then(n.bind(null, 175)),
+        "v-4cbfcb05": () => n.e(12).then(n.bind(null, 176)),
+        "v-54b99194": () => n.e(15).then(n.bind(null, 177)),
+        "v-37c93716": () => n.e(14).then(n.bind(null, 178)),
+        "v-74669ad6": () => n.e(13).then(n.bind(null, 179)),
+        "v-075b2109": () => n.e(17).then(n.bind(null, 180)),
+        "v-cdf45914": () => n.e(16).then(n.bind(null, 181)),
+        "v-5682e796": () => n.e(7).then(n.bind(null, 182)),
       };
     function ya(t) {
       const e = Object.create(null);
@@ -6104,18 +6106,18 @@
       return e.includes("-") ? t($a(_a(e))) : t($a(e)) || t(xa(e));
     }
     const ka = Object.assign({}, ma, ga),
-      Oa = (t) => ka[t],
-      qa = (t) => ga[t],
+      qa = (t) => ka[t],
+      Oa = (t) => ga[t],
       Aa = (t) => ma[t],
       Sa = (t) => Po.component(t);
     function Ta(t) {
-      return Ca(qa, t);
+      return Ca(Oa, t);
     }
     function Ea(t) {
       return Ca(Aa, t);
     }
     function Pa(t) {
-      return Ca(Oa, t);
+      return Ca(qa, t);
     }
     function ja(t) {
       return Ca(Sa, t);
@@ -6288,7 +6290,7 @@
         },
       },
       Va = n(0),
-      za = Object(Va.a)(
+      Wa = Object(Va.a)(
         Ha,
         function () {
           var t = this.$createElement;
@@ -6311,30 +6313,50 @@
         default:
           throw new Error("Unknown option name.");
       }
-    })(za, "mixins", Qa);
-    const Wa = [
+    })(Wa, "mixins", Qa);
+    const za = [
         {
-          name: "v-5682e796",
-          path:
-            "/Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.html",
-          component: za,
+          name: "v-02afa083",
+          path: "/How.to.locate.your.Qiqqa.Base.Directory.html",
+          component: Wa,
           beforeEnter: (t, e, n) => {
-            La("Layout", "v-5682e796").then(n);
+            La("Layout", "v-02afa083").then(n);
+          },
+        },
+        {
+          name: "v-a5beb172",
+          path:
+            "/Qiqqa.Internals.-.Processing.PDF.documents'.text.and.the.impact.on.UI+UX.html",
+          component: Wa,
+          beforeEnter: (t, e, n) => {
+            La("Layout", "v-a5beb172").then(n);
           },
         },
         {
           name: "v-1c0e8e90",
           path: "/",
-          component: za,
+          component: Wa,
           beforeEnter: (t, e, n) => {
             La("Layout", "v-1c0e8e90").then(n);
           },
         },
         { path: "/index.html", redirect: "/" },
         {
+          name: "v-4fd4b0c3",
+          path: "/Software%20Releases%20-%20Where%20To%20Get%20Them.html",
+          component: Wa,
+          beforeEnter: (t, e, n) => {
+            La("Layout", "v-4fd4b0c3").then(n);
+          },
+        },
+        {
+          path: "/Software Releases - Where To Get Them.html",
+          redirect: "/Software%20Releases%20-%20Where%20To%20Get%20Them.html",
+        },
+        {
           name: "v-e51e2d82",
           path: "/The.Qiqqa.Manual.html",
-          component: za,
+          component: Wa,
           beforeEnter: (t, e, n) => {
             La("Layout", "v-e51e2d82").then(n);
           },
@@ -6342,23 +6364,23 @@
         {
           name: "v-4cbfcb05",
           path: "/The.Qiqqa.Manual.reference.html",
-          component: za,
+          component: Wa,
           beforeEnter: (t, e, n) => {
             La("Layout", "v-4cbfcb05").then(n);
           },
         },
         {
-          name: "v-02afa083",
-          path: "/How.to.locate.your.Qiqqa.Base.Directory.html",
-          component: za,
+          name: "v-54b99194",
+          path: "/views/category2/2016/121501.html",
+          component: Wa,
           beforeEnter: (t, e, n) => {
-            La("Layout", "v-02afa083").then(n);
+            La("Layout", "v-54b99194").then(n);
           },
         },
         {
           name: "v-37c93716",
           path: "/views/category1/2019/092101.html",
-          component: za,
+          component: Wa,
           beforeEnter: (t, e, n) => {
             La("Layout", "v-37c93716").then(n);
           },
@@ -6366,142 +6388,106 @@
         {
           name: "v-74669ad6",
           path: "/views/category1/2018/121501.html",
-          component: za,
+          component: Wa,
           beforeEnter: (t, e, n) => {
             La("Layout", "v-74669ad6").then(n);
           },
         },
         {
-          name: "v-a5beb172",
-          path:
-            "/Qiqqa.Internals.-.Processing.PDF.documents'.text.and.the.impact.on.UI+UX.html",
-          component: za,
+          name: "v-075b2109",
+          path: "/views/other/guide.html",
+          component: Wa,
           beforeEnter: (t, e, n) => {
-            La("Layout", "v-a5beb172").then(n);
+            La("Layout", "v-075b2109").then(n);
           },
         },
         {
           name: "v-cdf45914",
           path: "/views/category2/2017/092101.html",
-          component: za,
+          component: Wa,
           beforeEnter: (t, e, n) => {
             La("Layout", "v-cdf45914").then(n);
           },
         },
         {
-          name: "v-54b99194",
-          path: "/views/category2/2016/121501.html",
-          component: za,
+          name: "v-5682e796",
+          path:
+            "/Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.html",
+          component: Wa,
           beforeEnter: (t, e, n) => {
-            La("Layout", "v-54b99194").then(n);
+            La("Layout", "v-5682e796").then(n);
           },
         },
-        {
-          name: "v-075b2109",
-          path: "/views/other/guide.html",
-          component: za,
-          beforeEnter: (t, e, n) => {
-            La("Layout", "v-075b2109").then(n);
-          },
-        },
-        { path: "*", component: za },
+        { path: "*", component: Wa },
       ],
-      Xa = {
+      Ga = {
         title: "Qiqqa / VuePress",
         description: "Documentation in its infancy...",
         base:
           "../../",
         pages: [
           {
-            title: "Qiqqa Internals :: Extracting the text from PDF documents",
+            title: "How to locate your Qiqqa Base Directory",
+            frontmatter: {},
+            regularPath: "/How.to.locate.your.Qiqqa.Base.Directory.html",
+            relativePath: "How.to.locate.your.Qiqqa.Base.Directory.md",
+            key: "v-02afa083",
+            path: "/How.to.locate.your.Qiqqa.Base.Directory.html",
+            headers: [
+              {
+                level: 1,
+                title: "How to locate your Qiqqa Base Directory",
+                slug: "how-to-locate-your-qiqqa-base-directory",
+              },
+            ],
+            lastUpdated: "4/2/2020, 3:36:20 PM",
+          },
+          {
+            title:
+              "Qiqqa Internals :: Processing PDF documents' text and the impact on UI+UX",
             frontmatter: {},
             regularPath:
-              "/Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.html",
+              "/Qiqqa.Internals.-.Processing.PDF.documents'.text.and.the.impact.on.UI+UX.html",
             relativePath:
-              "Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.md",
-            key: "v-5682e796",
+              "Qiqqa.Internals.-.Processing.PDF.documents'.text.and.the.impact.on.UI+UX.md",
+            key: "v-a5beb172",
             path:
-              "/Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.html",
+              "/Qiqqa.Internals.-.Processing.PDF.documents'.text.and.the.impact.on.UI+UX.html",
             headers: [
               {
                 level: 1,
                 title:
-                  "Qiqqa Internals :: Extracting the text from PDF documents",
-                slug: "qiqqa-internals-extracting-the-text-from-pdf-documents",
+                  "Qiqqa Internals :: Processing PDF documents' text and the impact on UI+UX",
+                slug:
+                  "qiqqa-internals-processing-pdf-documents-text-and-the-impact-on-ui-ux",
               },
               {
                 level: 1,
-                title: "The Qiqqa OCR background process",
-                slug: "the-qiqqa-ocr-background-process",
+                title: "What is going on?",
+                slug: "what-is-going-on",
+              },
+              {
+                level: 1,
+                title: 'What is "OCR text" (in this context)?',
+                slug: "what-is-ocr-text-in-this-context",
               },
               {
                 level: 2,
-                title: "Given a PDF, what does Qiqqa store on disk?",
-                slug: "given-a-pdf-what-does-qiqqa-store-on-disk",
+                title: "How does Qiqqa obtain this OCR text?",
+                slug: "how-does-qiqqa-obtain-this-ocr-text",
               },
-              { level: 3, title: "TL;DR", slug: "tl-dr" },
+              { level: 3, title: "Text Extraction", slug: "text-extraction" },
+              { level: 3, title: "Text Recognition", slug: "text-recognition" },
               {
-                level: 3,
-                title: "☞ The long answer to this question 🙉🎉",
-                slug: "☞-the-long-answer-to-this-question-🙉🎉",
+                level: 1,
+                title: "How does this impact UX?",
+                slug: "how-does-this-impact-ux",
               },
+              { level: 2, title: "Performance", slug: "performance" },
               {
-                level: 4,
-                title: "Does it matter where the PDF is coming from?",
-                slug: "does-it-matter-where-the-pdf-is-coming-from",
-              },
-              {
-                level: 2,
-                title: "The Qiqqa OCR internal workflow",
-                slug: "the-qiqqa-ocr-internal-workflow",
-              },
-              { level: 3, title: "TL;DR", slug: "tl-dr-2" },
-              {
-                level: 3,
-                title: "~~TL;DR~~            ☞ 🙥—— The whole story ——🙧 🙉🎉",
-                slug: "tl-dr-☞-🙥-the-whole-story-🙧-🙉🎉",
-              },
-              {
-                level: 3,
-                title:
-                  'Qiqqa OCR Stage 1: The Extract Attempt (= the "GROUP" call',
-                slug: "qiqqa-ocr-stage-1-the-extract-attempt-the-group-call",
-              },
-              {
-                level: 3,
-                title:
-                  'Qiqqa OCR Stage 2: The OCR Attempt (= the "SINGLE" call',
-                slug: "qiqqa-ocr-stage-2-the-ocr-attempt-the-single-call",
-              },
-              {
-                level: 3,
-                title:
-                  "What happens when Stage 2 (and Stage 1) has failed...? 🥶 😱",
-                slug: "what-happens-when-stage-2-and-stage-1-has-failed…-🥶-😱",
-              },
-              {
-                level: 4,
-                title:
-                  'v82 experimental releases: Stage 3: Faking It (= the "SINGLE-FAKE" call',
-                slug:
-                  "v82-experimental-releases-stage-3-faking-it-the-single-fake-call",
-              },
-              {
-                level: 2,
-                title:
-                  "Other Qiqqa background processes which use and influence the OCR process' behaviour",
-                slug:
-                  "other-qiqqa-background-processes-which-use-and-influence-the-ocr-process-behaviour",
-              },
-              {
-                level: 3,
-                title: "The Lucene Text SearchIndex Update Process",
-                slug: "the-lucene-text-searchindex-update-process",
-              },
-              {
-                level: 3,
-                title: "Ooh! Almost forgot! The metadata inference process!",
-                slug: "ooh-almost-forgot-the-metadata-inference-process",
+                level: 1,
+                title: "Now back on topic",
+                slug: "now-back-on-topic",
               },
             ],
             lastUpdated: "4/2/2020, 11:57:22 PM",
@@ -6527,7 +6513,29 @@
               },
               { level: 1, title: "Pages...", slug: "pages…" },
             ],
-            lastUpdated: "4/2/2020, 11:57:22 PM",
+            lastUpdated: "4/3/2020, 10:45:15 AM",
+          },
+          {
+            frontmatter: {},
+            regularPath:
+              "/Software%20Releases%20-%20Where%20To%20Get%20Them.html",
+            relativePath: "Software Releases - Where To Get Them.md",
+            key: "v-4fd4b0c3",
+            path: "/Software%20Releases%20-%20Where%20To%20Get%20Them.html",
+            headers: [
+              {
+                level: 1,
+                title: "Where to get Qiqqa?",
+                slug: "where-to-get-qiqqa",
+              },
+              {
+                level: 1,
+                title: "Installing a Qiqqa release",
+                slug: "installing-a-qiqqa-release",
+              },
+              { level: 1, title: "FAQ (TBD)", slug: "faq-tbd" },
+            ],
+            lastUpdated: "4/3/2020, 10:45:15 AM",
           },
           {
             title: "The Qiqqa Manual",
@@ -6828,20 +6836,18 @@
             lastUpdated: "4/2/2020, 11:57:22 PM",
           },
           {
-            title: "How to locate your Qiqqa Base Directory",
-            frontmatter: {},
-            regularPath: "/How.to.locate.your.Qiqqa.Base.Directory.html",
-            relativePath: "How.to.locate.your.Qiqqa.Base.Directory.md",
-            key: "v-02afa083",
-            path: "/How.to.locate.your.Qiqqa.Base.Directory.html",
-            headers: [
-              {
-                level: 1,
-                title: "How to locate your Qiqqa Base Directory",
-                slug: "how-to-locate-your-qiqqa-base-directory",
-              },
-            ],
-            lastUpdated: "4/2/2020, 3:36:20 PM",
+            title: "first page in category2",
+            frontmatter: {
+              title: "first page in category2",
+              date: "2016-12-15T00:00:00.000Z",
+              tags: ["tag3"],
+              categories: ["category2"],
+            },
+            regularPath: "/views/category2/2016/121501.html",
+            relativePath: "views/category2/2016/121501.md",
+            key: "v-54b99194",
+            path: "/views/category2/2016/121501.html",
+            lastUpdated: "4/2/2020, 11:57:22 PM",
           },
           {
             title: "second page in category1",
@@ -6872,52 +6878,22 @@
             lastUpdated: "4/2/2020, 11:57:22 PM",
           },
           {
-            title:
-              "Qiqqa Internals :: Processing PDF documents' text and the impact on UI+UX",
-            frontmatter: {},
-            regularPath:
-              "/Qiqqa.Internals.-.Processing.PDF.documents'.text.and.the.impact.on.UI+UX.html",
-            relativePath:
-              "Qiqqa.Internals.-.Processing.PDF.documents'.text.and.the.impact.on.UI+UX.md",
-            key: "v-a5beb172",
-            path:
-              "/Qiqqa.Internals.-.Processing.PDF.documents'.text.and.the.impact.on.UI+UX.html",
+            title: "vuepress-theme-reco",
+            frontmatter: {
+              title: "vuepress-theme-reco",
+              date: "2019-04-09T00:00:00.000Z",
+            },
+            regularPath: "/views/other/guide.html",
+            relativePath: "views/other/guide.md",
+            key: "v-075b2109",
+            path: "/views/other/guide.html",
             headers: [
-              {
-                level: 1,
-                title:
-                  "Qiqqa Internals :: Processing PDF documents' text and the impact on UI+UX",
-                slug:
-                  "qiqqa-internals-processing-pdf-documents-text-and-the-impact-on-ui-ux",
-              },
-              {
-                level: 1,
-                title: "What is going on?",
-                slug: "what-is-going-on",
-              },
-              {
-                level: 1,
-                title: 'What is "OCR text" (in this context)?',
-                slug: "what-is-ocr-text-in-this-context",
-              },
-              {
-                level: 2,
-                title: "How does Qiqqa obtain this OCR text?",
-                slug: "how-does-qiqqa-obtain-this-ocr-text",
-              },
-              { level: 3, title: "Text Extraction", slug: "text-extraction" },
-              { level: 3, title: "Text Recognition", slug: "text-recognition" },
-              {
-                level: 1,
-                title: "How does this impact UX?",
-                slug: "how-does-this-impact-ux",
-              },
-              { level: 2, title: "Performance", slug: "performance" },
-              {
-                level: 1,
-                title: "Now back on topic",
-                slug: "now-back-on-topic",
-              },
+              { level: 2, title: "Use", slug: "use" },
+              { level: 2, title: "Play Together", slug: "play-together" },
+              { level: 3, title: "0.x", slug: "_0-x" },
+              { level: 3, title: "1.x", slug: "_1-x" },
+              { level: 3, title: "CLI", slug: "cli" },
+              { level: 2, title: "License", slug: "license" },
             ],
             lastUpdated: "4/2/2020, 11:57:22 PM",
           },
@@ -6936,36 +6912,96 @@
             lastUpdated: "4/2/2020, 11:57:22 PM",
           },
           {
-            title: "first page in category2",
-            frontmatter: {
-              title: "first page in category2",
-              date: "2016-12-15T00:00:00.000Z",
-              tags: ["tag3"],
-              categories: ["category2"],
-            },
-            regularPath: "/views/category2/2016/121501.html",
-            relativePath: "views/category2/2016/121501.md",
-            key: "v-54b99194",
-            path: "/views/category2/2016/121501.html",
-            lastUpdated: "4/2/2020, 11:57:22 PM",
-          },
-          {
-            title: "vuepress-theme-reco",
-            frontmatter: {
-              title: "vuepress-theme-reco",
-              date: "2019-04-09T00:00:00.000Z",
-            },
-            regularPath: "/views/other/guide.html",
-            relativePath: "views/other/guide.md",
-            key: "v-075b2109",
-            path: "/views/other/guide.html",
+            title: "Qiqqa Internals :: Extracting the text from PDF documents",
+            frontmatter: {},
+            regularPath:
+              "/Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.html",
+            relativePath:
+              "Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.md",
+            key: "v-5682e796",
+            path:
+              "/Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.html",
             headers: [
-              { level: 2, title: "Use", slug: "use" },
-              { level: 2, title: "Play Together", slug: "play-together" },
-              { level: 3, title: "0.x", slug: "_0-x" },
-              { level: 3, title: "1.x", slug: "_1-x" },
-              { level: 3, title: "CLI", slug: "cli" },
-              { level: 2, title: "License", slug: "license" },
+              {
+                level: 1,
+                title:
+                  "Qiqqa Internals :: Extracting the text from PDF documents",
+                slug: "qiqqa-internals-extracting-the-text-from-pdf-documents",
+              },
+              {
+                level: 1,
+                title: "The Qiqqa OCR background process",
+                slug: "the-qiqqa-ocr-background-process",
+              },
+              {
+                level: 2,
+                title: "Given a PDF, what does Qiqqa store on disk?",
+                slug: "given-a-pdf-what-does-qiqqa-store-on-disk",
+              },
+              { level: 3, title: "TL;DR", slug: "tl-dr" },
+              {
+                level: 3,
+                title: "☞ The long answer to this question 🙉🎉",
+                slug: "☞-the-long-answer-to-this-question-🙉🎉",
+              },
+              {
+                level: 4,
+                title: "Does it matter where the PDF is coming from?",
+                slug: "does-it-matter-where-the-pdf-is-coming-from",
+              },
+              {
+                level: 2,
+                title: "The Qiqqa OCR internal workflow",
+                slug: "the-qiqqa-ocr-internal-workflow",
+              },
+              { level: 3, title: "TL;DR", slug: "tl-dr-2" },
+              {
+                level: 3,
+                title: "~~TL;DR~~            ☞ 🙥—— The whole story ——🙧 🙉🎉",
+                slug: "tl-dr-☞-🙥-the-whole-story-🙧-🙉🎉",
+              },
+              {
+                level: 3,
+                title:
+                  'Qiqqa OCR Stage 1: The Extract Attempt (= the "GROUP" call',
+                slug: "qiqqa-ocr-stage-1-the-extract-attempt-the-group-call",
+              },
+              {
+                level: 3,
+                title:
+                  'Qiqqa OCR Stage 2: The OCR Attempt (= the "SINGLE" call',
+                slug: "qiqqa-ocr-stage-2-the-ocr-attempt-the-single-call",
+              },
+              {
+                level: 3,
+                title:
+                  "What happens when Stage 2 (and Stage 1) has failed...? 🥶 😱",
+                slug: "what-happens-when-stage-2-and-stage-1-has-failed…-🥶-😱",
+              },
+              {
+                level: 4,
+                title:
+                  'v82 experimental releases: Stage 3: Faking It (= the "SINGLE-FAKE" call',
+                slug:
+                  "v82-experimental-releases-stage-3-faking-it-the-single-fake-call",
+              },
+              {
+                level: 2,
+                title:
+                  "Other Qiqqa background processes which use and influence the OCR process' behaviour",
+                slug:
+                  "other-qiqqa-background-processes-which-use-and-influence-the-ocr-process-behaviour",
+              },
+              {
+                level: 3,
+                title: "The Lucene Text SearchIndex Update Process",
+                slug: "the-lucene-text-searchindex-update-process",
+              },
+              {
+                level: 3,
+                title: "Ooh! Almost forgot! The metadata inference process!",
+                slug: "ooh-almost-forgot-the-metadata-inference-process",
+              },
             ],
             lastUpdated: "4/2/2020, 11:57:22 PM",
           },
@@ -6995,19 +7031,19 @@
           prevLinks: !0,
           repo: "jimmejardine/qiqqa-open-source",
           repoLabel: "Contribute!",
-          docsRepo: "jimmejardine/qiqqa-open-source",
-          docsDir: "docs",
-          docsBranch: "master",
+          docsRepo: "GerHobbelt/qiqqa-open-source",
+          docsDir: "docs-src",
+          docsBranch: "documentation",
           editLinks: !0,
           editLinkText: "Help us improve this page!",
         },
       };
     n(6);
     Po.component("Badge", () =>
-      Promise.all([n.e(0), n.e(6)]).then(n.bind(null, 182))
+      Promise.all([n.e(0), n.e(6)]).then(n.bind(null, 183))
     );
     n(7);
-    var Ka = {
+    var Xa = {
         name: "BackToTop",
         props: { threshold: { type: Number, default: 300 } },
         data: () => ({ scrollTop: null }),
@@ -7037,10 +7073,10 @@
           },
         },
       },
-      Ga =
+      Ka =
         (n(8),
         Object(Va.a)(
-          Ka,
+          Xa,
           function () {
             var t = this.$createElement,
               e = this._self._c || t;
@@ -7296,13 +7332,13 @@
         {},
         {},
         ({ Vue: t }) => {
-          t.component("BackToTop", Ga);
+          t.component("BackToTop", Ka);
         },
         ({ Vue: t }) => {
           t.component("GlobalTableOfContents", ss);
         },
         ({ Vue: t }) =>
-          t.component("TOC", () => n.e(18).then(n.bind(null, 168))),
+          t.component("TOC", () => n.e(19).then(n.bind(null, 168))),
       ],
       ls = ["BackToTop"];
     class us extends class {
@@ -7516,7 +7552,7 @@
                     })(this.$site.pages, this.$route.path);
               }
             },
-          Xa
+          Ga
         )
       ),
       Po.component("Content", ds),
@@ -7529,17 +7565,17 @@
         const e = this.$site.base;
         return "/" === t.charAt(0) ? e + t.slice(1) : t;
       }),
-      (window.__VUEPRESS__ = { version: "1.4.0", hash: "dc941720" }),
+      (window.__VUEPRESS__ = { version: "1.4.0", hash: "5003fe31" }),
       (async function (t) {
         const e =
             "undefined" != typeof window && window.__VUEPRESS_ROUTER_BASE__
               ? window.__VUEPRESS_ROUTER_BASE__
-              : Xa.routerBase || Xa.base,
+              : Ga.routerBase || Ga.base,
           n = new va({
             base: e,
             mode: "history",
             fallback: !1,
-            routes: Wa,
+            routes: za,
             scrollBehavior: (t, e, n) =>
               n ||
               (t.hash
@@ -7569,7 +7605,7 @@
             cs
               .filter((t) => "function" == typeof t)
               .map((e) =>
-                e({ Vue: Po, options: r, router: n, siteData: Xa, isServer: t })
+                e({ Vue: Po, options: r, router: n, siteData: Ga, isServer: t })
               )
           );
         } catch (t) {
