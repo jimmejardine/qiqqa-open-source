@@ -1,11 +1,11 @@
 (window.webpackJsonp = window.webpackJsonp || []).push([
-  [10],
+  [11],
   {
-    173: function (t, e, a) {
+    172: function (t, e, a) {
       "use strict";
       a.r(e);
       var r = a(0),
-        n = Object(r.a)(
+        s = Object(r.a)(
           {},
           function () {
             var t = this,
@@ -129,24 +129,21 @@
                     1
                   ),
                   t._v(" "),
-                  a("li", [
-                    t._v(
-                      "[Software Releases - Where To Get Them?](Software Releases - Where To Get "
-                    ),
-                    a(
-                      "a",
-                      {
-                        attrs: {
-                          href: "http://Them.md",
-                          target: "_blank",
-                          rel: "noopener noreferrer",
+                  a(
+                    "li",
+                    [
+                      a(
+                        "RouterLink",
+                        {
+                          attrs: {
+                            to: "/Software.Releases.-.Where.To.Get.Them.html",
+                          },
                         },
-                      },
-                      [t._v("Them.md"), a("OutboundLink")],
-                      1
-                    ),
-                    t._v(")"),
-                  ]),
+                        [t._v("Software Releases - Where To Get Them?")]
+                      ),
+                    ],
+                    1
+                  ),
                   t._v(" "),
                   a(
                     "li",
@@ -167,6 +164,27 @@
                   a("li", [
                     t._v("Qiqqa Internals\n"),
                     a("ul", [
+                      a(
+                        "li",
+                        [
+                          a(
+                            "RouterLink",
+                            {
+                              attrs: {
+                                to:
+                                  "/Qiqqa.Internals.-.Configuration.Overrides.for.Developers.and.Testers.html",
+                              },
+                            },
+                            [
+                              t._v(
+                                "Qiqqa Internals - Configuration Overrides for Developers and Testers"
+                              ),
+                            ]
+                          ),
+                        ],
+                        1
+                      ),
+                      t._v(" "),
                       a(
                         "li",
                         [
@@ -220,7 +238,7 @@
           null,
           null
         );
-      e.default = n.exports;
+      e.default = s.exports;
     },
   },
 ]);

@@ -11,7 +11,7 @@
     "syncver": "node Qiqqa.Build/bump_version.js -s",
     "bump": "node Qiqqa.Build/bump_version.js -b",
     "refresh-data": "node Qiqqa.Build/refresh_testdata_in_CS_testfiles.js -r",
-    "fix-docs": "node Qiqqa.Build/fix-docs-filenames.js -g",
+    "docs:fix": "node Qiqqa.Build/fix-docs-filenames.js -g",
     "docs:dev": "bash -c './docs-src/site-builder.sh -d'",
     "docs:build": "bash -c './docs-src/site-builder.sh -b'",
     "docs:server": "bash -c './docs-src/site-builder.sh -s'",
