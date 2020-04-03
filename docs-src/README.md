@@ -24,8 +24,9 @@ urgh
 
 - [The Qiqqa Manual](The.Qiqqa.Manual.md)
   - [The.Qiqqa.Manual.reference](The.Qiqqa.Manual.reference.html)
-- [Software Releases - Where To Get Them?](Software Releases - Where To Get Them.md)
+- [Software Releases - Where To Get Them?](Software.Releases.-.Where.To.Get.Them.md)
 - [How to locate your Qiqqa Base Directory](How.to.locate.your.Qiqqa.Base.Directory.md)
 - Qiqqa Internals
+  - [Qiqqa Internals - Configuration Overrides for Developers and Testers](Qiqqa.Internals.-.Configuration.Overrides.for.Developers.and.Testers.md)
   - [Qiqqa Internals - Extracting the text from PDF documents](Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.md)
   - [Qiqqa Internals - Processing PDF documents' text and the impact on UI+UX](Qiqqa.Internals.-.Processing.PDF.documents'.text.and.the.impact.on.UI+UX.md)
