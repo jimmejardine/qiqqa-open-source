@@ -99,7 +99,8 @@ procedure AppProcessMessage;
 var
   Msg: TMsg;
 begin
-  while PeekMessage(Msg, WizardForm.Handle, 0, 0, PM_REMOVE) do begin
+  while PeekMessage(Msg, WizardForm.Handle, 0, 0, PM_REMOVE) do 
+  begin
     TranslateMessage(Msg);
     DispatchMessage(Msg);
   end;
@@ -128,11 +129,12 @@ begin
     ExecInfo.lpParameters := unzipParams;
     ExecInfo.nShow := SW_HIDE;
 
-    if not FileExists(unzipTool)
-    then MsgBox('UnzipTool not found: ' + unzipTool, mbError, MB_OK)
-    else if not FileExists(source)
-    then MsgBox('File was not found while trying to unzip: ' + source, mbError, MB_OK)
-    else begin
+    if not FileExists(unzipTool) then 
+	    MsgBox('UnzipTool not found: ' + unzipTool, mbError, MB_OK)
+    else if not FileExists(source) then 
+		MsgBox('File was not found while trying to unzip: ' + source, mbError, MB_OK)
+    else 
+	begin
           {
              The unzip tool is executed via ShellExecuteEx()
              Then the installer uses a while loop with the condition
@@ -149,8 +151,8 @@ begin
 
           if ShellExecuteEx(ExecInfo) then
           begin
-            while WaitForSingleObject(ExecInfo.hProcess, 100) = WAIT_TIMEOUT
-            do begin
+            while WaitForSingleObject(ExecInfo.hProcess, 100) = WAIT_TIMEOUT do 
+			begin
                 AppProcessMessage;
                 WizardForm.Refresh();
             end;
@@ -158,3 +160,4 @@ begin
           end;
     end;
 end;
+

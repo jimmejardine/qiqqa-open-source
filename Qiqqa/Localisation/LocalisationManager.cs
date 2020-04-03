@@ -16,17 +16,17 @@ namespace Qiqqa.Localisation
     {
         public static readonly string DEFAULT_LOCALE = "en";
 
-        private static readonly string BASE_PATH = Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"Localisation"));
-        private static readonly string TEMP_BASE_PATH = Path.GetFullPath(Path.Combine(TempFile.TempDirectoryForQiqqa, @"Localisation"));
+        private static readonly Lazy<string> BASE_PATH = new Lazy<string>(() => Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"Localisation")));
+        private static readonly Lazy<string> TEMP_BASE_PATH = new Lazy<string>(() => Path.GetFullPath(Path.Combine(TempFile.TempDirectoryForQiqqa, @"Localisation")));
 
         private static string GetFilenameForLocale(string locale)
         {
-            return Path.GetFullPath(Path.Combine(BASE_PATH, string.Format("{0}.qiqqa.txt", locale)));
+            return Path.GetFullPath(Path.Combine(BASE_PATH.Value, string.Format("{0}.qiqqa.txt", locale)));
         }
 
         private static string GetFilenameForTempLocale(string locale)
         {
-            return Path.GetFullPath(Path.Combine(TEMP_BASE_PATH, string.Format("{0}.qiqqa.txt", locale)));
+            return Path.GetFullPath(Path.Combine(TEMP_BASE_PATH.Value, string.Format("{0}.qiqqa.txt", locale)));
         }
 
         public static LocalisationManager Instance = new LocalisationManager();

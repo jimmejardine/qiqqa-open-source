@@ -16,8 +16,8 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
 {
     public static class GeckoInstaller
     {
-        private static readonly string XULPackageFilename = Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"xulrunner-33.1.1.en-US.win32.zip"));
-        private static readonly string UnpackDirectoryDirectory = Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.BaseDirectoryForQiqqa, @"xulrunner-33"));
+        private static readonly Lazy<string> XULPackageFilename =  new Lazy<string>(() => Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"xulrunner-33.1.1.en-US.win32.zip")));
+        private static readonly Lazy<string> UnpackDirectoryDirectory =  new Lazy<string>(() => Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.BaseDirectoryForQiqqa, @"xulrunner-33")));
 
         internal static void CheckForInstall()
         {
@@ -46,7 +46,7 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
                 Directory.CreateDirectory(InstallationDirectory);
 
                 // STDOUT/STDERR
-                string process_parameters = String.Format("x -y \"{0}\" -o\"{1}\"", XULPackageFilename, UnpackDirectoryDirectory);
+                string process_parameters = String.Format("x -y \"{0}\" -o\"{1}\"", XULPackageFilename.Value, UnpackDirectoryDirectory.Value);
                 using (Process process = ProcessSpawning.SpawnChildProcess(ConfigurationManager.Instance.Program7ZIP, process_parameters, ProcessPriorityClass.Normal))
                 {
                     using (ProcessOutputReader process_output_reader = new ProcessOutputReader(process))
@@ -61,6 +61,7 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
             }
         }
 
-        public static readonly string InstallationDirectory = Path.GetFullPath(Path.Combine(UnpackDirectoryDirectory, @"xulrunner"));
+        private static readonly Lazy<string> __InstallationDirectory = new Lazy<string>(() => Path.GetFullPath(Path.Combine(UnpackDirectoryDirectory.Value, @"xulrunner")));
+        public static string InstallationDirectory => __InstallationDirectory.Value;
     }
 }

@@ -209,7 +209,7 @@ namespace Qiqqa.DocumentLibrary
             }
         }
 
-        #region --- Add from folder ----------------------------------------------------------------------------------------------------------------------- 
+        #region --- Add from folder -----------------------------------------------------------------------------------------------------------------------
 
         public static void AddNewPDFDocumentsToLibraryFromFolder_SYNCHRONOUS(Library library, string root_folder, bool recurse_subfolders, bool import_tags_from_subfolder_names)
         {
@@ -323,7 +323,7 @@ namespace Qiqqa.DocumentLibrary
                         string fwd_uri_str = web_response.GetResponseHeader("Location");
                         Uri fwd_uri = new Uri(web_response.ResponseUri, fwd_uri_str);
                         // fetch the PDF!
-                        // 
+                        //
                         // Warning: Do NOT get into a download loop due to badly configured or nasty webservers:
                         if (fwd_uri.AbsoluteUri != web_request.RequestUri.AbsoluteUri)
                         {

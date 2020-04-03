@@ -929,8 +929,14 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 }
                 else
                 {
-                    Logging.Error("Succeeded running OCR with parameters: {0}\n--- Exit Code: {1}\n--- {3}\n{2}", report.OCRParameters, report.exitCode, report.OCRStdioOutput, (report.hasExited ? $"Exit code: {report.exitCode}" : $"Timeout: {report.durationMS} ms"));
-
+                    if (report.OCRStdioOutput.Contains("ERROR"))
+                    {
+                        Logging.Error("Succeeded running OCR with parameters: {0}\n--- Exit Code: {1}\n--- {3}\n{2}", report.OCRParameters, report.exitCode, report.OCRStdioOutput, (report.hasExited ? $"Exit code: {report.exitCode}" : $"Timeout: {report.durationMS} ms"));
+                    }
+                    else
+                    {
+                        Logging.Info("Succeeded running OCR with parameters: {0}\n--- Exit Code: {1}\n--- {3}\n{2}", report.OCRParameters, report.exitCode, report.OCRStdioOutput, (report.hasExited ? $"Exit code: {report.exitCode}" : $"Timeout: {report.durationMS} ms"));
+                    }
                     return true;
                 }
             }

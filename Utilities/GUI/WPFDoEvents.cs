@@ -225,7 +225,7 @@ namespace Utilities.GUI
 
         public static void SafeExec(Action f, Dispatcher override_dispatcher = null, bool must_exec_in_UI_thread = false)
         {
-            if (!must_exec_in_UI_thread && override_dispatcher == null)
+            if ((!must_exec_in_UI_thread && override_dispatcher == null) || CurrentThreadIsUIThread())
             {
                 // exec in same thread:
                 try
@@ -234,7 +234,13 @@ namespace Utilities.GUI
                 }
                 catch (Exception ex)
                 {
-                    Logging.Error(ex, "Failed safe-exec in same thread.");
+                    // NOTE: when you set a debugger breakpoint here, it should only be hit
+                    // AFTER the Logging singleton instance has shut down:
+                    // it's okay when we're *that far* into the application termination phase.
+                    if (!Logging.HasShutDown)
+                    {
+                        Logging.Error(ex, "Failed safe-exec in same thread.");
+                    }
                 }
             }
             else
@@ -249,7 +255,10 @@ namespace Utilities.GUI
                     }
                     catch (Exception ex)
                     {
-                        Logging.Error(ex, "Failed safe-exec in UI thread.\n  Invoker call trace:\n{0}", trace);
+                        if (!Logging.HasShutDown)
+                        {
+                            Logging.Error(ex, "Failed safe-exec in UI thread.\n  Invoker call trace:\n{0}", trace);
+                        }
                     }
                 }, override_dispatcher);
             }

@@ -10,13 +10,653 @@ Upcoming release: v82
 
 
 
+2020-03-24
+----------
+
+			
+* (4abab9d0) v82.0.7357.40407
+			
+* (149ecf4f) `npm run syncver`
+			
+* (0ac90ad7) typo fixes etc.
+			
+* (ed3ee070) assist debugging, no change in logic: help the debugger to observe at breakpoint after the fact which reason(s) were given for triggering PDF work.
+			
+* (df9d867e) fixed a few minor issues in the metadata inference logic (used for extracting titles, etc. from the pdf text content)
+			
+* (3a154281) don't even *try* to log an exception when we've already shut down the logger and one or two of the `Dispose()` calls happens to cause a failure inside `SafeExec()`: by that time, there's nothing we can do and we're going down anyway, **as intended**.
+			
+* (0a7e86ca) fix https://github.com/jimmejardine/qiqqa-open-source/issues/180: FolderWatcher is not working: no PDF files are found, not ever.
+  
+  the wrong AlphaFS API was used in the code.
+			
+* (bb2a33dd) Update README.md
+			
+* (1a653ecb) Create Qiqqa Internals - Processing PDF documents' text and the impact on UI+UX.md
+			
+
+
+
+2020-03-23
+----------
+
+			
+* (42b82d1d) 
+  - bumped the Qiqqa version to today via `npm run syncver`, before creating a new beta release installer for testing...
+  - updated Copyright year  in the syncver script `Qiqqa.Build/bump_version.js`
+			
+* (8d7c5f72) whoops! fix coding error in setup installer script!
+			
+* (2887a366) Merge branch 'v82-build' of github.com:GerHobbelt/qiqqa-open-source into v82-build
+			
+* (dab1ce8d) comment typo fixes
+			
+* (118cd6db) 
+  - cleaned: Remove programmer warning in the Logging implementation as it no longer applies: TriggerInit() + Init() coded this way do deliver anyhow.
+  - fixed: It turns out the Logging singleton is still invoked AFTER it has been flushed and closed as part of application shutdown: some other Dispose() calls get executed after that fact and they SHOULD NOT cause a failure inside the Logging code.
+  - improved the SafeExec() code a little and checked the exceptions which were occurring: turns out those happened AFTER the Logging instance has shut down already, hence we're fine with it, even though these are due to UI elements being released quite late in the game: maybe some lingering cyclic references which should be cleaned? ::thinking/wondering...::
+			
+* (ecbbead3)..(6531718e) Update Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.md
+  
+  - http://xahlee.info/comp/unicode_arrows.html
+  - https://stackoverflow.com/questions/25579868/how-to-add-footnotes-to-github-flavoured-markdown
+  - https://en.wikipedia.org/wiki/Note_(typography)
+			
+  Thanks to https://gist.github.com/pierrejoubert73/902cc94d79424356a8d20be2b382e1ab, we now have folding section(s).
+			
+* (bc80c1c0) 
+  - make sure all projects and environments use the same FxCop ruleset
+  - update NuGet packages
+			
+* (5006a2c6) added `npm` task to rename docs/ files which contain spaces in their name: this way, those files will map to URLs more easily when we work  on the documentation website part of Qiqqa.
+			
+* (3259db13) Merge remote-tracking branch 'remotes/jimmejardine-original/master' into v82-build
+			
+* (45971f58) fix Google Scholar background scraper logic to cope with modern Google Scholar website responses; this improves the Citation References data/list shown with each viewed PDF document in Qiqqa. (This is related to commit 9d6a79dea4dd6361d4642b8248995bc98bdb4217.)
+			
+* (d60d1173) tweak: some Dispose chunks sometimes barf inside SafeExec() and I like to know where those calls originated: therefor a stacktrace is collected in the closure which invokes the UI thread execution of said chunk of code, as the debugger has lost that info by the time the Exception occurs. (It's not a big issue ATM, but I keep seeing these exceptions while debugging Qiqqa and I'd rather not have these instabilities when I can get rid of them; currently diagnosis is hampered as this trace info was lacking.)
+			
+* (ff1cd5c1) disable unused code: PDFCoherentTextExtractor apparently was an old Quantisle experiment...
+			
+* (8e88ca3f) comment typo fixes
+			
+* (9d6a79de) tweak/fix(?): Qiqqa was hiding the left side panel in the PDF Document view, which is receiving the background Google Scholar SCRAPE process output. (As I was wandering where that info went, I found out the left panel is filled at all time, but remaining hidden most of the time. This is a TEST fix to see what's going on  precisely and to evaluate whether having that info available is useful to the user...)
+			
+* (c4141a17) assertion tweak: only check if the long-running code is running in a non-UI thread when Qiqqa is NOT in the middle of application shutdown/termination.
+  
+  Reason: when Qiqqa is shutting down, some work MUST still be done while the UI is shutting down/has shut down already:  at that time in the life of the Qiqqa run-time, we DO NOT care about UI responsiveness any longer but only about whether the final required actions are done ASAP.
+  
+  This fixes some spurious UNWANTED & UNINTENTED assertion failures in the code.
+			
+* (b27856a9) comment typo fixes
+			
+* (95aea20a) emphasize user account name in the UI by indenting it visually
+			
+
+
+
+2020-03-22
+----------
+
+			
+* (ca3a4063) writing up the current Qiqqa OCR / document data handling process (also to help me reply in issue https://github.com/jimmejardine/qiqqa-open-source/issues/159 )
+			
+
+
+
+2020-03-17
+----------
+
+			
+* (19c938a3) Merge remote-tracking branch 'remotes/wkedziora/doiSniffer' into v82-build
+			
+* (86ed86f2) PDF metadata extraction background task: A timeout should only kick in when we have *some* work done already or we would have introduced a subtle bug for very large libraries: if the timeout is short enough for the library scan to take that long on a slow machine, the timeout would, by itself, cause no work to be done, *ever*. Hence we require a minimum amount of work done before the timeout condition is allowed to fire.
+			
+* (c080f562) PDF OCR background task: Do not flood the status update system when we zip through the work queue very fast: only update the counts every second or so, but be sure to be the first to update the counts after work has been (temporarily) stopped.
+			
+* (29932376) bundle PDF processing log lines into a single log line as it floods the logfile for large(-ish) PDF documents. Some PDFs could cause up to 500 of these long(!) log lines to be produced, cluttering the log file no end.
+			
+* (5bc962cc) code inspection following up on https://github.com/jimmejardine/qiqqa-open-source/issues/156 : bit of code robustness added for when blacklist/whitelist files have been manually edited.
+			
+* (1736b291) https://github.com/jimmejardine/qiqqa-open-source/issues/158 but do note the comments in that issue: this fix is not going to work according to https://github.com/domgho/innodependencyinstaller/issues/12 + https://github.com/domgho/innodependencyinstaller/commit/ce85626e61cc9e1dacb9578e8e04ab9d435d9edc#r16322373-permalink
+			
+* (e67ce509) comment typo fixes and a compiler warning removal
+			
+* (a4b75990) Dev/Debug: fiddling with the CPU core/thread count setting...
+			
+* (7906a79d) QiqqaOCR: word confidence is encoded as a perunage ("per one" instead of %: "per cent"); make it so. (Some bits of the code treated it as a percentage, some as a perunage.)
+			
+* (4899077e) looking at https://github.com/jimmejardine/qiqqa-open-source/issues/133
+			
+* (139b3320) further unify background daemons by introducing the delay_before_repeat_milliseconds parameter. Ensure every daemon CANNOT occupy an entire CPU core all the time by enforcing a minimum delay of 500ms between cycles.
+			
+* (a0a453ad) Config UI: "User guid" --> "User GUID:"
+			
+
+
+
+2020-03-07
+----------
+
+			
+* (7584a9e4) typo cleanups in the Inno Setup scripts & added a sample unzip script to the Inno Setup products install scripts collective & added IsAppRunningU() API for slightly improved install script readability/consistency. (IsAppRunning == IsModuleLoaded, both for install and uninstall tasks)
+			
+
+
+
+2020-02-27
+----------
+
+Commits pulled in via Pull Request https://github.com/jimmejardine/qiqqa-open-source/pull/157 : doi2bib
+			
+* (865a17a0) small update
+			
+* (916567d1) small changes
+			
+* (64e02652) doi2bib added
+  
+  Added new search engine - doi2bib
+			
+
+
+
+2020-02-19
+----------
+
+			
+* (d930d352) fiddling with stacktraces being very incomplete (single line only, hence useless) in run-time assertions.
+			
+* (947a897c) Merge remote-tracking branch 'remotes/jimmejardine-original/master'
+			
+* (fda8a20f) API usage readability improvement in the code
+			
+* (a21f97c9) improved the logging/reporting of installed and active .NET/CLR versions to help analyze bug reports.
+			
+* (a17b2134) updated the legacyformats sources: synced with originals
+			
+* (5751c078) 
+  - "Force OCR" should really nuke the previous OCR results on disk so we get a complete refresh and not a half-hearted one.
+  - don't throw exceptions (which are handled internally) when delete-ing files which MAY legally not exist.
+			
+* (e71d97f4) refactored the LDAsampler + expedition source code around the words set and the GetDescriptionForTopic() API; it's still a bit of a mess, but less so than before as the words set necessary for GetDescriptionForTopic() isn't passed around a zillion member functions any more.    TODO: work on the expedition refresh to reduce the number of topics to the actual non-duplicates, i.e. the ones that are unique to the human user, as visible when produced by GetDescriptionForTopic() without a sequence number.
+			
+* (eecffdff) fix: rethrowing exceptions should keep the stacktrace intact. See also the note in this section: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/throw?f1url=https%3A%2F%2Fmsdn.microsoft.com%2Fquery%2Fdev16.query%3FappId%3DDev16IDEF1%26l%3DEN-US%26k%3Dk(throw_CSharpKeyword)%3Bk(TargetFrameworkMoniker-.NETFramework%2CVersion%3Dv4.8)%3Bk(DevLang-csharp)%26rd%3Dtrue%26f%3D255%26MSPPError%3D-2147217396#re-throwing-an-exception
+			
+
+
+
+2020-02-16
+----------
+
+			
+* (26ff47aa) First bit of work to make the duplicate themes in Expedition go away: it turns out that `GetDescriptionForTopic()` is at the *visual* reason for this; we need to investigate further to find the root cause.
+			
+* (80bada14) fix cyclic ref bug in latest code edit for singleton
+			
+* (c01f5270) fix long-lived bug in the Author splitting code which would render authors like "Krista Graham" as empty slots in the Author side panel of the library view.
+			
+* (412ccf43) tweak BibTeX Control to start editing in RAW mode instead of formatted mode.
+			
+* (db6cfef4) new idiom: use `WPFDoEvents.SafeExec()` to wrap the bits of a class which we are `Dispose()`-ing. This replaces the larger-chunked try/catch blocks and UI thread invocations in there.
+			
+* (fea42040) 
+  - fixed the GoogleScholarScraper logic to suit the latest Google Scholar search page HTML output.
+  - added unit tests for the GoogleScholarScraper logic. The "live test" fails due to Utilities.Configuration.Proxy not being set up properly yet.
+			
+* (bf98e54c) fix bug in manager code: inverted logic in conditional
+			
+* (0a318405) fix crash/exception in Google scraper function
+			
+
+
+
+2020-02-14
+----------
+
+			
+* (9066471e) fix logging message text
+			
+* (2daf3ee9) Add Developer Feature: Qiqqa will load a developer test settings file (json/json5 format) when available. The settings in this file help a developer or tester to disable certain Qiqqa features and/or limit or 'tweak' specific Qiqqa behaviours to help test the application in both debug and performance measurement scenarios.
+			
+* (6c859c4a) removed duplicate chunk of code
+			
+* (7aba6ca5) Merge pull request #154 from wkedziora/polish-translation-wkedziora
+  
+  Update pl.qiqqa.txt
+			
+
+
+
+2020-02-09
+----------
+
+			
+* (b8d4ee63) added a couple more ASSERT checks for tasks which *should* execute in background threads. This currently *BREAKS* the code (as in: some of these assertions will fail!) as several tasks are executed in the UI foreground thread during Qiqqa startup/load phase, while they SHOULD NOT.
+  This is a bit of work that's part of research to improve Qiqqa UI performance.
+			
+
+
+
+2020-02-07
+----------
+
+			
+* (f829fb5b) Update pl.qiqqa.txt
+  
+  Updated Polish translation using English one as an example.
+			
+
+
+
+2020-02-04
+----------
+
+			
+* (69a941c9) auto-reformatting of a few XAML files. No functional change.
+			
+* (f6c2892f) added QiqqaHasher CLI tool to help us calculate Qiqqa compliant fingerprints for every possible document in any (shell) scripts.
+			
+* (0df9239b) IMPORTANT: disabled all lock monitoring code by commenting out the statements: these would consume about 16% of total CPU cost in the UI thread when we ran the latest benchmarks and we don't have any locking issues ATM so it's about time to get rid of these. Revert this commit to get them back.
+			
+* (96bbf16d) LINQ code triggered an exception because we've been a tad overzealous replacing Datetime with Stopwatch instances: the latter is not IComparable and henve not easily sortable by the LINQ statement. Reverting to the original Datetime solution for these status bar messages.
+			
+* (ecd9879c) order the status bar items in reverse order: most recent entries should show shifted towards the right edge so as to reduce the amount of jitter/flicker in the statusbar while several short(ish) activities get reported and completed while Qiqqa is running.
+			
+* (51dd38ca) Fixed issue where latest MSVS 2019 was yakking about an outdated package file.
+			
+* (8b17ea71) tweaked/reworked the MetadataExtractionDaemon to use the new Daemon logic where registered background tasks for now-discarded library instances can be safely removed from the active set, thus reducing background activity and CPU load a little too.
+			
+* (9ea554f8) refactor Daemon class and associated background tasks: make it possible for registered tasks to be *removed* properly: this is useful as the load/init phase of Qiqqa MAY otherwise exhibit multiple folderWatcher registrations for the same library, once for each time it is updated during the initial scan-for-suitable-libraries phase of the application.
+  
+  Note: The code is simplified by never re-using a slot in the daemon registration list: this does no harm to performance nor memory consumption as a *large* test environment (my own rig) clocks in at only 87 slots used during an entire run, while the test rig comes with 20+ actual libraries and various 'paths' through which the libraries will be discovered during the scan-and-load init/load phase of the application. Hence we expect even extreme and heavy users of Qiqqa will not surpass about 100 slots in the registration array/list. Thus we have designed the code to use the simplest approach for the registration array/list: grow-only, NULLing the discarded slots.
+			
+* (f643b08f) fix bug in logging lines after move to use TypedWeakReference instances for the library references.
+			
+
+
+
+2020-02-03
+----------
+
+			
+* (2d841cdf) updated all NuGet packages across the board
+			
+* (3e4cc439) migrate all projects to .NET 4.8 from 4.7.2 - this completes the work started in commit SHA-1: a449560fa479c75e8f0877d85cca01bcd73e28e2 : update projects to reference .NET 4.8 instead of 4.7.2 and C# language version 8.0. This does not impact OS platform support (see https://docs.microsoft.com/en-us/dotnet/framework/migration-guide/versions-and-dependencies): Qiqqa *should* run on Windows 7 and upwards, when the .NET update has been installed on Windows 8.1 and 7 (the OS update is automatic on Windows 10).
+			
+* (33861248) 
+  - Mimic the Qiqqa project filetree layout in the QiqqaLegacyFileFormats project for easier comparison in the future.
+  - Also go through the QiqqaLegacyFileFormats sources and keep the serializers and deserializers from Qiqqa as "sample code" for now, until we have a porting layer set up properly.
+  
+  (Part of the work to create a copy of the code & classes to reside in the QiqqaLegacyFileFormats project: that project is a 'TODO' project for supporting old Qiqqa file formats without overly buggering the Qiqqa code itself.)
+			
+* (dc6eca92) removing unused & empty sourcefiles from the projects.
+			
+* (387452a1) Make sure to flag PDFDocument attributes which should never be serialized as [NonSerialized]. (Part of the work to create a copy of the code & classes to reside in the QiqqaLegacyFileFormats project: that project is a 'TODO' project for supporting old Qiqqa file formats without overly buggering the Qiqqa code itself.)
+			
+* (b642898b) fix incorrect (copy-pasta'd) obsolescense message in the code
+			
+* (8acbca69) fix for C# language dropping back to 7.3 (see https://www.c-sharpcorner.com/article/which-version-of-c-sharp-am-i-using-in-visual-studio-2019/) and the warning "Utilities/Misc/StatusManager.cs(38,29,38,30): warning CS8632: The annotation for nullable reference types should only be used in code within a '#nullable' annotations context." (see https://stackoverflow.com/questions/55492214/the-annotation-for-nullable-reference-types-should-only-be-used-in-code-within-a), following my update of MSVS 2019 to v16.4.4
+			
+* (34011f7f) Merge branch 'v82-build'
+			
+* (78eef3e6) refactorings:
+  - replace all code which uses DateTime-based timers with either Stopwatch-based ones or simple counters (IFF that's what's really meant/needed in the code, i.e. when DateTime is used to "make sure" various instances have unique serial numbers)
+  - use TypedWeakReference<T> references in all classes which otherwise would create a (library instance) reference cycle, e.g. all 'Manager' classes which themselves are referenced by the Library, while they each carry a reference *tot* that Library instance.
+  - FolderWatcher has been recoded to use the Directory.EnumerateFiles() API in an effort to rid us of the lousy UI status update reports which would show the old internal (hacky) solution to reduce CPU loading by only processing about 5 documents per shot: now the code is much more fluid and clarify of function has improved, resulting in a clearer progress status message as well.
+  - removed various hacky `WPFDoEvents.WaitForUIThreadActivityDone()` lines in the background tasks' codebase; the UI status update code now includes this call to help improve UI thread execution priority and responsiveness, thus concentrating this still hacky approach into a single spot where it would be at least a *bit* sensible to have.
+  - separated the library init process into two parts: (1) the loading of the library itself (plus all database-bound metadata) and (2) the checking up on the attached PDF documents and collecting their (file-based) metadata. The latter is now available via `WebLibraryManager.Instance.InitAllLoadedLibraries()` and is only invoked once all libraries have been properly gathered from various sources, thus improving Qiqqa load time in complex environments, where libraries would previous be loaded, then replaced by updated versions, as Qiqqa scans the various places on disk for libraries. Previously this resulted in some libraries loading the PDF document data twice (at least partly, before the initial load is aborted by the update). The gain is in the amount of File I/O at startup and the associated instantiating and subsequent disposing of Librarydocument objects.
+    + Consequently, we now have rid ourselves of the hacky CloneSansLibraryReference() API which was previously needed in the Library Dispose() method to prevent fatal failures.
+  - rewrote the code to NOT use lambdas in the use of the WeakEventHandler<T> class as the MSVS Code Analysis kept on badgering us with warnings about incorrect use of this WeakReference-style class. Turned out this was due to the implicit `this` reference in the lambdas as far as the static code analysis was concerned so we removed the CA warnings by turning all of them into `private static` member functions.
+  - fixed WebLibraryDetail reference update bug as part of the TypedWeakReference rework: now the WebLibraryDetail internal reference is correctly updated as a library gets updated from another source during Qiqqa init/load phase.
+  - "stabilized" the status bar by delaying stale items' removal for 3 seconds instead of just 1: less flashing in that bottom bar when multiple processes are at work inside qiqqa.
+  - DoEvents(): now using code which should (according to SO discussions referenced in the code comments) use much less CPU, leaving more cycles for useful work.
+  - fixed race conditions in the status bar management code as the code was not thread-safe while being invoked from multiple (background) threads as well as the UI thread itself.
+			
+* (5d34a0e6) UI fix: placement of OK and Cancel buttons (TODO: do the same for the other dialogs)
+			
+* (a449560f) update projects to reference .NET 4.8 instead of 4.7.2 and C# language version 8.0. This does not impact OS platform support (see https://docs.microsoft.com/en-us/dotnet/framework/migration-guide/versions-and-dependencies): Qiqqa *should* run on Windows 7 and upwards, when the .NET update has been installed on Windows 8.1 and 7 (the OS update is automatic on Windows 10).
+			
+
+
+
+2020-01-23
+----------
+
+			
+* (d25ff654) disable the unused Google Analytics tracker code (used for Qiqqa Features(?))
+			
+* (015c06c7) refactor: use `nameof` whenever possible with `Bindable.NotifyPropertyChanged()`: https://stackoverflow.com/questions/38324208/expression-vs-nameof
+			
+* (f7a57dcc) unified StopWatch idiom in code.
+			
+* (51b8b8f4) added empty WPF+Core.NET projects for experimentation and migration
+			
+* (21afa310) comment typo fix
+			
+* (814db2ac) moved thread unsafe version of the PDFdocument class to its own source file after long lest.
+			
+* (8debb288) updated NuGet packages
+			
+
+
+
+2020-01-22
+----------
+
+			
+* (82a31fb1) Merge branch 'v82-build'
+			
+* (d94ae3f9) quite a bit of work on the OCR background process:
+  - refactor Qiqqa to *always* check if the temp scratch directory exists (and create it when absent): this prevents spurious errors when an external (overzealous) cleanup process cleans out the TEMP dir space, while a long-running Qiqqa session is still working on the OCR/indexing tasks
+  - adjust the internal OCR job scheduling in such a way that we detect "sure repeat failures" early, thus preventing the UI status updates about page(s) to be textified to run up and down like crazy for huge libraries which carry multiple hard-to-OCR PDFs - this makes the UI status updates more stable and sensible to the user and prevents a lot of (re-)testing and (re-)execution of code paths which are sure to fail in QiqqaOCR anyway.
+  - refactor the internal APIs: TEXT_PAGES_PER_GROUP is a constant which is not transported across the relevant classes instead of taking up a (useless) call parameter as this value MUST be constant and fixed across the application
+  - fix a typo in a log statement
+			
+* (13afcaea) disable and then *restore* a Roslyn Analyzer warning
+			
+* (1ddde46f) indexing PDFs / OCR: accept the underscore '_' as a legal word character (it is also known as "the programmer's space")
+			
+* (dce5cb70) debug/tweak: disable the Starting Qiqqa For The first Time hardcoded test settings, which were used to test Qiqqa behaviour as if the application had been invoked for the first time after a (fresh) install.
+			
+
+
+
+2020-01-19
+----------
+
+			
+* (d19f0053) reformatted XAML
+			
+* (437bcd96) fix faulty argument count check in QiqqaOCR for SINGLE-FAKE task
+			
+* (f89f05e3) fix for: log4net:ERROR XmlHierarchyConfigurator: Cannot find Property [ImmediateFlush] to set object on [log4net.Appender.ColoredConsoleAppender]
+			
+* (cd8b198d) OCR task: some of the error logging wouldn't make it, on occasion. Either stdout+stderr isn't flushed properly at the sender (QiqqaOCR) and/or not waited for and picked up at the receiving end (Qiqqa), but we lost important crash info too often. Now this issue is resolved by forced flushing of Log4Net (via the LogManager) *and* waiting an additional half-second to ensure the invoking process (Qiqqa) does properly fire all related events so we can gather the output of QiqqaOCR. Seemed similar to https://stackoverflow.com/questions/14963735/log4net-rollingfileappender-not-flushing-io-buffer-with-low-volume-log but in the end it turned out that only the new added Logging.ShutDown() API is resolving the issue (**with high probability**: I am still not entire sure this is it, as this problem is hard to reproduce consistently. :-(( )
+			
+
+
+
+2020-01-02
+----------
+
+			
+* (cc4c05ae) Merge branch 'v82-build' into mainline-master
+			
+* (b657d04b) 
+  - StripToASCII() now attempts to convert as many characters as possible to compatible US-ASCII characters.
+  - Added the unit tests for this and GetFirstWord() utility APIs
+  - Fixed JSON serialization bug in the test rig: https://stackoverflow.com/questions/29003215/newtonsoft-json-serialization-returns-empty-json-object
+			
+
+
+
+2020-01-01
+----------
+
+			
+* (c7ca5752) picking up minor edits and text fixes from experimental dev branch
+			
+* (bc20c556) Merge branch 'v82-build'
+			
+* (2099a1d9) 
+  - code unification: migrated code from Thread to Daemon class usage where possible.
+  - also moved another bit of work from UI to background thread.
+			
+* (673229ba) fix crash in Dispose cleanup logic and tweaked the UI progress feedback to be slightly more informative: with (very) large libraries, getting a green bar for progress is not enough to observe Qiqqa at work.
+			
+* (8f746cca) added a few more in-which-thread-are-we-running assertion checks.
+			
+* (a2d50082) Expedition: the LDA process to arrive at a set of more or less decent 'themes' (topic groups) for a library is cute, but takes a horrendous amount of time for large libraries. This commit cuts down ten-fold on the number of Monte Carlo runs and tweaks the status reporting in the UI to arrive at a slightly more informative(?) and 'easy' progress feedback while that long-running process is underway in the Expedition pane.
+			
+* (c9357750) fix bug in the PagesSetAsString() utility API: finally, long lists of page numbers are properly grouped in PDF/OCR log reports about missing/failed pages in the background PDF/OCR/indexing process.
+			
+* (3e022a0b) BibTeXEditorControl: not entirely done yet, but this at least cleans it up a *little bit* regarding green-lighting the control when the BibTeX happens to positively match the PDF Document.
+  
+  TODO: cope with BibTeX manual data entry and the many errors that will give until there's a minimal bibtex record entered. Right now the control is still very user-UNfriendly in its continuous desire to jump to the error report pane and get your focus off the edited field(s).
+			
+* (0d48af16) PDFInterceptor: reduce the amount of work and time spent in the UI thread when receiving a PDF from a webpage.
+  
+  TODO: I'm still not happy about the fact that the entire (potentially very slow) stream-to-file download+save activity is done in the UI thread, but I didn't spend more time checking whether it would survive in a background thread as I'm pretty sure the transition to CefSharp+Chrome will severely impact this and related logic parts of Qiqqa.
+			
+* (86dfe3d1) further work on coping with the OCR failures and bugs in Qiqqa and adjoining tools in the PDF/OCR chain (such as zero-width and zero-height words coming out of MuPDF)
+			
+* (33a71e94) 
+  - fix inverted logic bug
+  - adjust CleanupOnShutdown() to only report utter success when all threads have been wrapped up, even the aborted ones. This fixes some edge cases in Qiqqa code flow and behaviour at application termination under heavy loads.
+  - adjust CleanupOnShutdown() to use a more sensible timeout
+			
+* (e6c896a5) code reformatting
+			
+* (12ae2dc7) lock check code: report any timeout overrun every 5 seconds, not just once and then silence... We need to see the locks which wait for a very long time and the way to recognize those is seeing them reported multiple times, once for every 5 seconds of 'overtime', so the longest waits become obvious.
+			
+* (b607d282) Custom thread assertions and other custom Qiqqa assertions are important but not meant to be fatal in either debug or release builds: do not throw an error, but DO report them in the log. These are intended to help debugging Qiqqa and should not irrevocably impact the code behaviour; when there's a crash coming due to one or more of these assertions failing, then let it happen.
+			
+* (f47c98e9) much better fix for the GetOutputsDumpString() race condition which was hackily fixed in commit 2a51f204a69b039dd95b5df08b4d8422ef631003.
+  
+  DO NOTE that we have not yet removed the hacky 'retry a few times' work-around applied in that commit!
+			
+* (5b796ec7) Perunage.Calc() clips to a max of 1.0 (100%); make sure we catch any very-close-to-the-max-or-beyond value.
+			
+* (f10a6f52) code formatting
+			
+* (3b5fc4d8) 
+  - make sure library work (saving to file in this case) is done in a worker thread
+  - added are-we-in-UI-or-other-thread-as-expected assertions
+  - local custom assertions should only be active in DEBUG builds to prevent small yet fatal surprises in production while we try to iron out the bugs in Qiqqa during its lifecycle.
+			
+* (758b6e2c) work done on the DBExplorer: better handling of records produced by .library and .s3db databases as those records are an amalgam of metadata, annotations, inks, etc. record types -- it's not really used as a database but merely as a hash-indexed generic table store.
+			
+* (fd886c05) make sure actual work is done in a background thread while the display data is fetched and updated in the UI thread.
+  
+  TODO: Qiqqa sure needs an MVVM/MV* overhaul which takes this distribution of work serious in the software architecture as this is becoming a mess.
+			
+* (916c12d9) minor fix: report document numbers (N of M) starting at 1(one), rather than 0(zero) as it looks odd to humans otherwise
+			
+* (1f3495cc) deduplicate = simplify the logic inside IncrementalBuildNextDocuments() regarding GetOCRText()-driven activation of the background OCR process
+			
+* (1921ba30) reference all XAML files in the solution: one place to see them all
+			
+
+
+
+2019-12-31
+----------
+
+			
+* (b0191cda) QiqqaOCR: fake words for empty pages or any pages that appear so to the current OCR engine! (https://github.com/jimmejardine/qiqqa-open-source/issues/73 + https://github.com/jimmejardine/qiqqa-open-source/issues/129 + https://github.com/jimmejardine/qiqqa-open-source/issues/135 )
+			
+
+
+
+2019-12-30
+----------
+
+			
+* (3e349e5a) tweaked the AnnotationReportOptionsWindow.xaml design file.
+			
+* (066483a0) executed the XML beautifier
+			
+* (1f1d5af5) adjusted the npm package used for XML beautification
+			
+* (19fd245a) adding a XAML reformatter/beautifier tool to help ensure that we can have all XAML files formatted and cleaned consistently.
+			
+
+
+
+2019-12-27
+----------
+
+			
+* (39f6147d) 
+  - added SINGLE-FAKE mode for QiqqaOCR: this is invoked when GROUP and SINGLE don't deliver due to, for example, encrypted PDF source. This is a temporary hack to ensure Qiqqa doesn't repeat OCR activities ad nauseam (https://github.com/jimmejardine/qiqqa-open-source/issues/129 , https://github.com/jimmejardine/qiqqa-open-source/issues/135 , https://github.com/jimmejardine/qiqqa-open-source/issues/73 , etc.)
+  - the previously added extra OCR text files' sanity checks (zero-sized areas of words, etc.) seems to pay off. At least we've observed quite a few OCR files/pages being retriggered for OCR as Qiqqa uncovers these zero-sized word areas while refreshing for Expeditions
+  - added a few more UI-thread-or-not Assertions.
+			
+* (2a51f204) GetOutputsDumpString() :: oddly enough this code can produce a race condition exception for some Output: "Collection was modified; enumeration operation may not execute." -- HACK: we cope with that by re-iterating over the list until success is ours...   :-S :-S  hacky!
+			
+* (651bac5b) fix coding bug in SafeThreadPool handling: the logc to determine which tasks to skip/abort on application Exit was inverted. :-(
+			
+
+
+
+2019-12-26
+----------
+
+			
+* (483ddd7f) QiqqaOCR: added some sanity checks to the output files'decoding in Qiqqa and made sure any error in the tool itself is visible in Qiqqa - any fixup for that should be done in Qiqqa, not QiqqaOCR itself.
+			
+* (10f985c4) adding QPDF tool (v9.1.0) to the production set (Qiqqa) - this will be used for decrypting/repairing PDFs which fail to OCR/text-extract otherwise, such as On-Semi datasheets.
+			
+* (e0171c9e) 
+  - further unified the Dispatcher.Invoke() code to use WPFDoEvents.InvokeInUIThread(...)
+  - slightly simplified the StatusBar logic
+			
+* (739bc093) 
+  - tweaked the startup process to ensure better UI responsiveness:
+    + moved many parts to background tasks,
+    + heavy use of WPFDoEvents.InvokeInUIThread() to ensure specific bits of code execute in the UI thread as they MUST
+    + added several assert checks in the code to ensure the code pieces are executed in the UI or background threads as assumed
+  - some code cleanup, killing several overloaded member function definitions
+  - standardized `Application.Current.Dispatcher.BeginInvoke(....` code to use `WPFDoEvents.InvokeAsyncInUIThread(...`
+  - uncovered a race condition in the code along the way: it's relatively harmless, as the crash will be caught and is itself not fatal to the behaviour of Qiqqa as this happens when libraries are loaded (and thrown away in the multi-stage load process as newer instances come in).  Check out the totally HACKY fail-check for `LibraryIsKilled` in `LoadDocumentFromMetadata()` in Library.cs -- that's where the crash would occur otherwise due to `pdf_documents == null` in the statement after that check, due to another thread throwing away the library via `Dispose()`.   **HACK HACK HACK TODO**
+  - ran into another race condition as WebLibraryManager.Instance wasn't lock-protected and now that we init that bugger in a background thread, there *will* be multiple threads feeling around that one.
+    + also note that a few parts of the other code have been wrapped in WPFDoEvents.Invoke calls and misc code to ensure that the UI thread does not lock up anyway, while the **long running** `WebLibraryManager.Init()` call is completing in a background thread.
+  - UI/UX: Splash Screen remains visible until the Login Dialog has become visible. Ditto for the Login Dialog until the main window has been rendered.
+			
+
+
+
+2019-12-25
+----------
+
+			
+* (0c1caf1e) fix crash on program termination
+			
+* (d6ce0573) typo fix in log text
+			
+* (bfe43f1c) attempt to make the Expedition AutoTag+Themes regeneration a tad faster. Introduced the `Library.IsBusyRegeneratingTags` flag to signal other tasks (OCR+indexing) that another heavy task is running at the moment and would like to have all cores for now.
+			
+* (2361f5b8) The TermsAndConditions config boolean serves two purposes:
+  
+  1. it makes the app abort when not set (which' functionality has been removed in this commit)
+  2. it acts as 'first time you started Qiqqa' flag in showing initial help screens, etc. -- This behaviour has been kept as it deemed useful.
+			
+* (4ee43c64) speed up compiling/building the app: remove the FxCop project dependencies: we've seen enough of those for a while...
+			
+* (17d84225) fix crash during application termination
+			
+* (48e05b3b) defer configuration save activity to a background thread and then only do it when either the application is terminating or when the config hasn't been saved in the last minute or so (preventing disk hammering when changing many config settings)
+			
+* (06ac00ae) fix crash during application termination
+			
+* (60392ba9) fix crash: 91224235436:System.NullReferenceException: stacktrace:
+  
+  - Object reference not set to an instance of an object
+    - at Qiqqa.Documents.BibTeXEditor.BibTeXEditorControl.RegisterOverlayButtons(FrameworkElement BibTeXParseErrorButton, FrameworkElement BibTeXModeToggleButton, FrameworkElement BibTeXUndoEditButton, Double IconHeight) in \Qiqqa\Documents\BibTeXEditor\BibTeXEditorControl.xaml.cs:line 172
+    - at Qiqqa.Documents.PDF.PDFControls.MetadataControls.MetadataBibTeXEditorControl.OnClosed(EventArgs e) in \Qiqqa\Documents\PDF\PDFControls\MetadataControls\MetadataBibTeXEditorControl.xaml.cs:line 122
+    - at System.Windows.Window.WmDestroy()
+			
+* (05a1dc53) removed deadlock checking calls around augmentbindable internals.
+			
+* (a42b577f) regenerated uninstall exe
+			
+* (1797c7f4) DEBUGGING/TESTING: Checking whether we're okay with using `Application.Current.Dispatcher` rather than `Dispatcher` throughout the app.
+			
+* (c57f7c25) DEBUGGING/TESTING: discovering which is the code spot closest to the point when the main Qiqqa window has *completely* rendered ==> `MainWindow_ContentRendered()` i.e. the ContentRendered event for the outermost container!
+			
+* (6db5600b) developer-specific constants and checks should only be available in DEBUG builds.
+			
+* (39ab3330) using Win32 OpenFileDialog instead of the Windows.Forms flavor.
+			
+* (8b8d6e8d) updated the NuGet packages
+			
+
+
+
+2019-12-23
+----------
+
+			
+* (a7c4499d) Update README.md
+			
+* (1ef34037) Merge branch 'pdf-processing'
+			
+* (cfac5154) built new beta/test release
+			
+* (a4813a39) `npm run syncver` :: update the build version info for another v82beta release
+			
+* (6ae59eaa) Merge branch 'pdf-processing' into mainline-master
+			
+* (47dbdda8) 
+  - fix https://github.com/jimmejardine/qiqqa-open-source/issues/142 :: fix crash in DB sync activity due to b0rked UPDATE SQLite query in the code.
+  
+  B0rked UPDATE query statement was introduced in previous edit in commit SHA-1: ff6e4eebfc40d072d0b37df3a950dd15681fcfc0 ("Another Mother Of All commit with loads of stability & memleak + performance improvements work") as part of the DB I/O refactor done in there.  :'-(
+			
+* (58a72666) 
+  - fix https://github.com/jimmejardine/qiqqa-open-source/issues/147 :: Qiqqa crash when opening Autotag Management dialog and hitting SAVE when both white and black list are empty
+			
+
+
+
+2019-12-22
+----------
+
+			
+* (e165f0e9) further performance work: commented out over 95% of the deadlock checks around `lock()` code: that is 95% of the deadlock check CPU load cost as reported by the profiler. This is still a major CPU cost component of Qiqqa, ranking second just below top contender 'External code' (.NET XAML rendering, libraries used, etc.)
+			
+* (f59ee14e) UX: get the Sync info dialog up that much faster (we *still* have to wait a *long* time!) by ALWAYS telling the sync info collector that library size on disk is a non-essential information bit (as already stated in commit SHA-1: 5c66eb64b2353d1d4ff9fbb60ea8a965ae854296 :: performance: speed up the sync metadata info collect action by NOT calculating the precise storage size of each library as that entails a HUGE I/O load as each library document's file system metadata would be queried for its filesize -- which is only used in the UI in an overview table and is deemed non-essential right now.)
+  
+  Do note the TODO: we should scan the library documents for their filesize in a background process so as to allow progressively improving accuracy in the numbers reported in the sync management dialog over time.
+			
+* (fef5ee9e) clean up debug/profile hack in the code.
+			
+* (5c66eb64) 
+  - fix https://github.com/jimmejardine/qiqqa-open-source/issues/145 :: When v82beta created a Qiqqa.library file next to an already existing S3DB file, delete it. We explicitly delete it to the RecycleBin so the user MAY recover the database file on the off-chance that this was the wrong choice.
+  - fix https://github.com/jimmejardine/qiqqa-open-source/issues/144 :: Do not try to create a Qiqqa.library DB when the directory already has an S3DB database file
+  - some work done to find out how https://github.com/jimmejardine/qiqqa-open-source/issues/142 came about.
+  - `WebLibraryDetails_WorkingWebLibraries_All`: make sure all 'Guest' libraries are added to the sync set: under very particular circumstances you CAN have multiple guest libraries, e.g. when manually recovering multiple Qiqqa libraries you extracted from your backups of previous qiqqa runs/releases.
+  - performance: speed up the sync metadata info collect action by NOT calculating the precise storage size of each library as that entails a HUGE I/O load as each library document's file system metadata would be queried for its filesize -- which is only used in the UI in an overview table and is deemed non-essential right now.
+			
+* (14129ca7) performance tweak: take out the lock timeout check code around often-invoked LockObject() statements, which have not shown trouble since a long time: those deadlock detection via timeout calls were added way back to help dig up indicative spots in the Qiqqa sourcecode base while we were hunting down UI/UX lockup bad behaviour.
+			
+* (d69c30d4) fix two memleak diagnostic reports in OCRengine code.
+			
+* (557aa551) fix https://github.com/jimmejardine/qiqqa-open-source/issues/144 while refactoring the library filename/path construction for easier debugging/monitoring of Qiqqa behaviour.
+			
+* (c80b53b3) fix System.IndexOutOfRangeException: Index was outside the bounds of the array at Qiqqa.Documents.PDF.Search.PDFSearcher.SearchPage(PDFDocument pdf_document, Int32 page, String terms, MatchDelegate match)
+			
+* (cc5af3cc) added another bibtex lib file to the test set
+			
+* (832c28bd) regenerated uninstaller exe
+			
+* (d333f88e) tweaking which library types can sync, i.e. which ones are read-only and which ones aren't.
+			
+
+
+
+2019-11-26
+----------
+
+			
+* (cbb8dba2) Update README.md
+			
+
+
+
+2019-11-14
+----------
+
+			
+* (2a19b4aa) Create DEVELOPER-GOALS.md
+			
+
+
+
 2019-11-10
 ----------
 
 			
-* (110edf0a) Update DEVELOPER-INFO.md
-			
-* (6bad7f68) Update DEVELOPER-INFO.md
+* (110edf0a)..(bfb55d67) Update DEVELOPER-INFO.md
 			
 * (819790fc) rebuilt uninstaller exe
 			
@@ -57,11 +697,7 @@ Upcoming release: v82
 ----------
 
 			
-* (fb7c7f81) Update README.md
-			
-* (a83c6777) Update README.md
-			
-* (79c505ef) Update README.md
+* (fb7c7f81)..(6c52e090) Update README.md
 			
 
 
@@ -98,6 +734,8 @@ Upcoming release: v82
 * (4f737ed0) Create CNAME
 			
 * (89e9de7d) tweak the amount of logging kept in rotation - part of debugging/analyzing qiqqa behaviour
+			
+* (a2ecd3ea)..(c1b70ea3) Update README.md
 			
 
 
@@ -552,6 +1190,8 @@ Upcoming release: v82
 			
 * (7566098f) added DEVELOPER-INFO.md and pointed README.md at that document for info for developers wishing to work on Qiqqa.
 			
+* (cc6e2714) added all protobuf and binary serialization files to the legacy library -- to be cleaned up and provided with a proper interface
+			
 * (e2bef9a7) update CHANGELOG
 			
 * (ac042668) setup/installer: make the generated `setup.exe` should the same full build version as the Qiqqa executable itself.
@@ -600,8 +1240,8 @@ Upcoming release: v82
 ----------
 
 			
-* (cb0b0539) Merge branch 'mainline-master' into v82-build
-  
+* (fe49d12e)..(299b0ff0) Update README.md
+			
 * (2cdd3426) Merge pull request #110 from GerHobbelt/mainline-master
   
   update README with latest info about Qiqqa software releases.
@@ -610,7 +1250,7 @@ Upcoming release: v82
 			
 * (6c1d8d69) update README with latest info about Qiqqa software releases.
 			
-* (6ccb1475) updated CHANGELOG_full.md
+* (f9d8f7d3) Update README.md
 			
 * (acd92291) README: point at the various places where software releases are to be found.
 			
@@ -716,6 +1356,8 @@ Upcoming release: v82
 ----------
 
 			
+* (099ff71f)..(01ded4ce) Update README.md
+			
 * (deaadc37) refactoring work necessary for fixing https://github.com/jimmejardine/qiqqa-open-source/issues/96 & https://github.com/jimmejardine/qiqqa-open-source/issues/101
 			
 * (0db18484) whitespace police
@@ -793,6 +1435,34 @@ Upcoming release: v82
 			
 * (4df5d0b6) comment typo fix
 			
+* (037d42fd) twiddling...
+			
+* (8e40a828) fix crash in Jimme's code as I dumped some other libraries in there which have shorter names, e.g. "Guest2" (which is less than 8 characters) - https://github.com/jimmejardine/qiqqa-open-source/issues/93
+			
+* (26db1f48) Google Analytics throws a 403. Probably did so before, but now we notice it once again as we watch for exceptions occuring in the code flow. Better logging of the 403 failure.
+			
+* (4276cbf4) patched CHANGELOG roughly from CHANGELOG-full
+			
+* (9e77ee0b) Trying to cope with the bother of https://github.com/jimmejardine/qiqqa-open-source/issues/94 - quite a bit of it is inexplicable, unless Windows updates pulled the rug from under me (and CLR 4.0)
+			
+* (828d1dd4) comment typo fix
+			
+* (79231c00) dumb mistake caused the new test file not being discovered in the MSVS2019 Test Explorer: class must be public. duh.
+			
+* (b9b21393) Added another RIS test fixture file ( https://github.com/jimmejardine/qiqqa-open-source/issues/70 )
+			
+* (63bfe36c) spin off for  https://github.com/jimmejardine/qiqqa-open-source/issues/92 : add prerelease tests which will ensure there's no regression like that. (Discovering that one did hurt/smart!)
+			
+* (67df89cd) adding a few STILL FAILING TESTS' reference files: these are guaranteed to report failure until we get those bits of Qiqqa working properly (and/or the tests tweaked/corrected)
+			
+* (e8ceb91f) updated the 'approved' references for a few BibTeX test files
+			
+* (12ce5380) remove yet unused generic test rig bit
+			
+* (ff7b2437) fix https://github.com/jimmejardine/qiqqa-open-source/issues/92 : set all build targets to output x86 target code instead of 'AnyPC'
+			
+* (3f38b362) editing CHANGELOG.md, taking stuff from CHANGELOG_full.md
+			
 
 
 
@@ -826,9 +1496,17 @@ Upcoming release: v82
 			
 * (2f1d319e) fix https://github.com/jimmejardine/qiqqa-open-source/issues/92 : set all build targets to output x86 target code instead of 'AnyPC'
 			
+* (0fc1050d) Add files via upload
+			
+* (1fd984a8) Create How to locate your Qiqqa Base Directory.md
+			
 * (38d5a9ff) editing CHANGELOG.md, taking stuff from CHANGELOG_full.md
 			
 * (afb8260e) updated CHANGELOG_full.md
+			
+* (ed9c1291) re-did the CHANGELOG generator, using git+node. The old `changelog` tool (npm changelog / npm @g3erhobbelt/changelog) is not reliable and this was coded faster than debugging and correcting that one.
+			
+
 		
 
 v82pre release
@@ -867,9 +1545,13 @@ v82pre release
   Completed Packaging Qiqqa version 82.0.7216.35525 into ...\Qiqqa.Build\Packages\v82 - 20191004-194431\
   --------------------------------------
 			
+* (6f0c7abf) ignore build intermediates for the added legacy support lib project
+			
 * (3d49ac07) Update README.md
 			
 * (ab39dd31) Update README.md
+			
+* (623ad006) working towards https://github.com/jimmejardine/qiqqa-open-source/issues/43 and offloading the old cruft to a dedicated library so the mainline codebase doesn't keep cluttered with old stuff, just because we want to be able to load/import old Qiqqa libraries.
 			
 * (079fb117) fix CefSharp missing report on rebuild
 			

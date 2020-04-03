@@ -57,7 +57,7 @@ namespace Qiqqa.Main
                     DoUpgrades();
 #if false 									// set to true for testing the UI behaviour wile this takes a long time to 'run':
                     Thread.Sleep(15000);
-#endif					
+#endif
                     DoPostUpgrade();
                 });
             }
@@ -86,13 +86,7 @@ namespace Qiqqa.Main
 
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
 
-            string on_your_conscience =
-                "Qiqqa is Copyright © Quantisle 2010-2019.  All rights reserved." +
-                "If you are reading this in a disassembler, you know you are doing evil and will probably always have to look over your shoulder..."
-                ;
-            on_your_conscience = "Main";
-
-            Thread.CurrentThread.Name = on_your_conscience;
+            Thread.CurrentThread.Name = "Main";
 
             if (RegistrySettings.Instance.IsSet(RegistrySettings.DebugConsole))
             {
@@ -255,7 +249,7 @@ namespace Qiqqa.Main
 
             // and kick off the Login Dialog to start the application proper:
             WPFDoEvents.InvokeAsyncInUIThread(() => ShowLoginDialog());
-            
+
             // NB NB NB NB: You CANT USE ANYTHING IN THE USER CONFIG AT THIS POINT - it is not yet decided until LOGIN has completed...
         }
 

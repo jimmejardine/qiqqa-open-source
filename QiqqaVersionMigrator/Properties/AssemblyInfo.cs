@@ -10,7 +10,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Quantisle")]
 [assembly: AssemblyProduct("QiqqaVersionMigrator")]
-[assembly: AssemblyCopyright("Copyright © Quantisle 2010-2019. All rights reserved.")]
+[assembly: AssemblyCopyright("Copyright © Quantisle 2010-2020. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -46,5 +46,5 @@ using System.Windows;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("82.0.7265.2217")]
-[assembly: AssemblyFileVersion("82.0.7265.2217")]
+[assembly: AssemblyVersion("82.0.7357.40407")]
+[assembly: AssemblyFileVersion("82.0.7357.40407")]
