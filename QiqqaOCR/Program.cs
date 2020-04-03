@@ -9,30 +9,30 @@ namespace QiqqaOCR
     {
         /// <summary>
         /// Arguments are:
-        /// 
+        ///
         /// 1) mode: GROUP
         /// 2) pdf_filename
-        /// 3) page number(s) - comma separated 
+        /// 3) page number(s) - comma separated
         /// 4) ocr_output_filename - where the extracted word list info is stored
         /// 5) pdf_user_password - encrypted
         /// 6) language - (unused)
-        /// 
+        ///
         /// or:
-        /// 
+        ///
         /// 1) mode: SINGLE
         /// 2) pdf_filename
-        /// 3) page number - only one page per run 
+        /// 3) page number - only one page per run
         /// 4) ocr_output_filename - where the extracted word list info is stored
         /// 5) pdf_user_password - encrypted
         /// 6) language - default is 'eng'
-        /// 
+        ///
         /// or:
-        /// 
+        ///
         /// 1) mode: SINGLE-FAKE
         /// 2) pdf_filename
-        /// 3) page number - only one page per run 
+        /// 3) page number - only one page per run
         /// 4) ocr_output_filename - where the extracted word list info is stored
-        /// 
+        ///
         /// 7) NOKILL (optional)
         /// </summary>
         /// <param name="args"></param>
@@ -45,13 +45,7 @@ namespace QiqqaOCR
 
             try
             {
-                string on_your_conscience =
-                    "Qiqqa is Copyright © Quantisle 2010-2019.  All rights reserved." +
-                    "If you are reading this in a dissasembler, you know you are doing evil and will probably always have to look over your shoulder..."
-                    ;
-                on_your_conscience = "Main";
-
-                Thread.CurrentThread.Name = on_your_conscience;
+                Thread.CurrentThread.Name = "Main";
 
                 // Check that we were given the right number of parameters
                 if (args.Length < 1)

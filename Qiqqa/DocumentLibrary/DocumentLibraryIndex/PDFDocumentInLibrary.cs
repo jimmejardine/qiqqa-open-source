@@ -26,7 +26,7 @@ namespace Qiqqa.DocumentLibraryIndex // DON'T CHANGE THIS NAMESPACE AS IT IS USE
         public DateTime last_indexed;
 
         /// <summary>
-        /// Has the metadata been indexed - if no, then it will be reindexed...
+        /// Has the metadata been indexed - if no, then it will be re-indexed...
         /// </summary>
         public bool metadata_already_indexed;
     }

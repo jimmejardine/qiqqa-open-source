@@ -1,4 +1,8 @@
-# The Qiqqa OCR *background* process <sub>(as per 2020-03-22)</sub>
+# Qiqqa Internals :: Extracting the text from PDF documents
+
+# The Qiqqa OCR *background* process 
+
+<title-runner>(as per 2020-03-22)</title-runner>
 
 Before we dive in, there's one important question to ask:
 

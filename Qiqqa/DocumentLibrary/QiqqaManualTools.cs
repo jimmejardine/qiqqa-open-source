@@ -1,4 +1,5 @@
-﻿using Qiqqa.Common.Configuration;
+﻿using System;
+using Qiqqa.Common.Configuration;
 using Qiqqa.Documents.PDF;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
@@ -9,15 +10,15 @@ namespace Qiqqa.DocumentLibrary
 {
     public static class QiqqaManualTools
     {
-        private static string QiqqaManualFilename => Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"The Qiqqa Manual.pdf"));
+        private static readonly Lazy<string> QiqqaManualFilename = new Lazy<string>(() => Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"The Qiqqa Manual.pdf")));
 
-        private static string LoexManualFilename => Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"The Qiqqa Manual - LOEX.pdf"));
+        private static readonly Lazy<string> LoexManualFilename = new Lazy<string>(() => Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"The Qiqqa Manual - LOEX.pdf")));
 
 
         private static void AddQiqqaManualToLibrary(Library library, LibraryPdfActionCallbacks post_partum)
         {
             FilenameWithMetadataImport fwmi = new FilenameWithMetadataImport();
-            fwmi.Filename = QiqqaManualFilename;
+            fwmi.Filename = QiqqaManualFilename.Value;
             fwmi.Tags.Add("manual");
             fwmi.Tags.Add("help");
             fwmi.BibTex = BibTexParser.ParseOne(
@@ -33,7 +34,7 @@ namespace Qiqqa.DocumentLibrary
         private static void AddLoexManualToLibrary(Library library)
         {
             FilenameWithMetadataImport fwmi = new FilenameWithMetadataImport();
-            fwmi.Filename = LoexManualFilename;
+            fwmi.Filename = LoexManualFilename.Value;
             fwmi.Tags.Add("manual");
             fwmi.Tags.Add("help");
             fwmi.BibTex = BibTexParser.ParseOne(

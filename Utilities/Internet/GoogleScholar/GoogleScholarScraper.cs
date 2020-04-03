@@ -203,6 +203,10 @@ namespace Utilities.Internet.GoogleScholar
                     {
                         // ignore Google Scholar "best result for this search query" blurb
                     }
+                    else if ((NoAltElements.Attributes["class"]?.Value ?? "").Contains("gs_qsuggest"))
+                    {
+                        // ignore Google Scholar "related searches for this search query" blurb
+                    }
                     else
                     {
                         Logging.Error("ScrapeDoc: unexpected structure of the Google Scholar search page snippet. Report this at https://github.com/jimmejardine/qiqqa-open-source/issues/ as it seems Google Scholar has changed its HTML output significantly. HTML:\n{0}", element_html);
@@ -247,7 +251,6 @@ namespace Utilities.Internet.GoogleScholar
     }
 }
 
-
 #else
 
 #region --- Test ------------------------------------------------------------------------
@@ -259,6 +262,15 @@ namespace QiqqaUnitTester
     [TestClass]
     public class GoogleScholarScraperTester : GoogleScholarScraper   // HACK: inherit so we can access protected members
     {
+        [TestInitialize]
+        public static void AssemblyInit(TestContext context)
+        {
+            // Executes once before the test run. (Optional)
+
+            // Make sure the configuration has been initialized by kicking the ConfigurationManager:
+            var dummy = Qiqqa.Common.Configuration.ConfigurationManager.Instance;
+        }
+
         // https://stackoverflow.com/questions/29003215/newtonsoft-json-serialization-returns-empty-json-object
         private class Result
         {

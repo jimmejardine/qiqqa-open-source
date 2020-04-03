@@ -178,9 +178,11 @@ namespace Qiqqa.InCite
             }
         }
 
-        internal static string BASE_STYLE_DIRECTORY => Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"InCite/styles"));
+        private static readonly Lazy<string> __BASE_STYLE_DIRECTORY = new Lazy<string>(() => Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"InCite/styles")));
+            internal static string BASE_STYLE_DIRECTORY => __BASE_STYLE_DIRECTORY.Value;
 
-        internal static string BASE_REGISTRY_FIXES_DIRECTORY => Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"InCite/registry_fixes"));
+        private static readonly Lazy<string> __BASE_REGISTRY_FIXES_DIRECTORY = new Lazy<string>(() => Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"InCite/registry_fixes")));
+            internal static string BASE_REGISTRY_FIXES_DIRECTORY => __BASE_REGISTRY_FIXES_DIRECTORY.Value;
 
         internal static string FindValidStyleFilename(string style_filename)
         {
