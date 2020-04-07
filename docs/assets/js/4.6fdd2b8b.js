@@ -11,7 +11,17 @@
       var i = n(33);
       n.n(i).a;
     },
-    12: function (t, e, n) {
+    102: function (t, e, n) {
+      "use strict";
+      var i = n(34);
+      n.n(i).a;
+    },
+    103: function (t, e, n) {
+      "use strict";
+      var i = n(35);
+      n.n(i).a;
+    },
+    14: function (t, e, n) {
       "use strict";
       n.d(e, "d", function () {
         return i;
@@ -190,10 +200,10 @@
         });
       }
     },
-    169: function (t, e, n) {
+    172: function (t, e, n) {
       "use strict";
       n.r(e);
-      var i = n(12),
+      var i = n(14),
         a = {
           name: "NavLink",
           props: { item: { required: !0 } },
@@ -294,7 +304,7 @@
           },
         },
         l =
-          (n(46),
+          (n(48),
           Object(s.a)(
             o,
             function () {
@@ -389,9 +399,9 @@
             null,
             null
           ).exports),
-        c = n(167),
+        c = n(169),
         u =
-          (n(89),
+          (n(91),
           Object(s.a)(
             {},
             function () {
@@ -439,8 +449,8 @@
             null,
             null
           ).exports),
-        h = n(45),
-        p = n(91),
+        h = n(47),
+        p = n(93),
         d = n.n(p),
         f = {
           name: "DropdownLink",
@@ -465,7 +475,7 @@
           },
         },
         m =
-          (n(92),
+          (n(94),
           {
             name: "NavLinks",
             components: {
@@ -671,7 +681,7 @@
             },
           }),
         g =
-          (n(93),
+          (n(95),
           Object(s.a)(
             m,
             function () {
@@ -769,7 +779,7 @@
           },
         },
         _ =
-          (n(94),
+          (n(96),
           Object(s.a)(
             v,
             function () {
@@ -848,7 +858,7 @@
             null,
             null
           ).exports),
-        k = n(38),
+        k = n(40),
         $ = n.n(k),
         C = {
           name: "PageEdit",
@@ -908,7 +918,7 @@
           },
         },
         L =
-          (n(95),
+          (n(97),
           Object(s.a)(
             C,
             function () {
@@ -958,7 +968,7 @@
             null,
             null
           ).exports),
-        x = n(96),
+        x = n(98),
         y = n.n(x),
         O = {
           name: "PageNav",
@@ -1020,7 +1030,7 @@
       }
       var N = O,
         T =
-          (n(97),
+          (n(99),
           {
             components: {
               PageEdit: L,
@@ -1142,7 +1152,7 @@
             props: ["sidebarItems"],
           }),
         I =
-          (n(98),
+          (n(100),
           Object(s.a)(
             T,
             function () {
@@ -1177,11 +1187,11 @@
           ).exports),
         E = {
           name: "Sidebar",
-          components: { SidebarLinks: n(44).default, NavLinks: g },
+          components: { SidebarLinks: n(46).default, NavLinks: g },
           props: ["items"],
         },
         A =
-          (n(101),
+          (n(103),
           {
             name: "Layout",
             components: {
@@ -1373,9 +1383,7 @@
         );
       e.default = P.exports;
     },
-    17: function (t, e, n) {},
-    23: function (t, e, n) {},
-    24: function (t, e, n) {},
+    19: function (t, e, n) {},
     25: function (t, e, n) {},
     26: function (t, e, n) {},
     27: function (t, e, n) {},
@@ -1385,20 +1393,22 @@
     31: function (t, e, n) {},
     32: function (t, e, n) {},
     33: function (t, e, n) {},
-    44: function (t, e, n) {
+    34: function (t, e, n) {},
+    35: function (t, e, n) {},
+    46: function (t, e, n) {
       "use strict";
       n.r(e);
-      var i = n(12),
+      var i = n(14),
         a = {
           name: "SidebarGroup",
-          components: { DropdownTransition: n(45).a },
+          components: { DropdownTransition: n(47).a },
           props: ["item", "open", "collapsable", "depth"],
           beforeCreate() {
-            this.$options.components.SidebarLinks = n(44).default;
+            this.$options.components.SidebarLinks = n(46).default;
           },
           methods: { isActive: i.e },
         },
-        s = (n(99), n(0)),
+        s = (n(101), n(0)),
         r = Object(s.a)(
           a,
           function () {
@@ -1572,7 +1582,7 @@
           return d;
         },
       };
-      n(100);
+      n(102);
       function u(t, e) {
         return (
           "group" === e.type &&
@@ -1670,7 +1680,7 @@
         );
       e.default = p.exports;
     },
-    45: function (t, e, n) {
+    47: function (t, e, n) {
       "use strict";
       var i = {
           name: "DropdownTransition",
@@ -1683,7 +1693,7 @@
             },
           },
         },
-        a = (n(90), n(0)),
+        a = (n(92), n(0)),
         s = Object(a.a)(
           i,
           function () {
@@ -1710,27 +1720,17 @@
         );
       e.a = s.exports;
     },
-    46: function (t, e, n) {
+    48: function (t, e, n) {
       "use strict";
-      var i = n(17);
+      var i = n(19);
       n.n(i).a;
     },
-    89: function (t, e, n) {
-      "use strict";
-      var i = n(23);
-      n.n(i).a;
-    },
-    90: function (t, e, n) {
-      "use strict";
-      var i = n(24);
-      n.n(i).a;
-    },
-    92: function (t, e, n) {
+    91: function (t, e, n) {
       "use strict";
       var i = n(25);
       n.n(i).a;
     },
-    93: function (t, e, n) {
+    92: function (t, e, n) {
       "use strict";
       var i = n(26);
       n.n(i).a;
@@ -1745,12 +1745,12 @@
       var i = n(28);
       n.n(i).a;
     },
-    97: function (t, e, n) {
+    96: function (t, e, n) {
       "use strict";
       var i = n(29);
       n.n(i).a;
     },
-    98: function (t, e, n) {
+    97: function (t, e, n) {
       "use strict";
       var i = n(30);
       n.n(i).a;

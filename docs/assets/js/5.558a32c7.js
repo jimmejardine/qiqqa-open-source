@@ -1,34 +1,34 @@
 (window.webpackJsonp = window.webpackJsonp || []).push([
   [5],
   {
-    102: function (e, t, o) {
+    104: function (e, t, o) {
       e.exports = o.p + "assets/img/htlyqbd1.c83f.png";
     },
-    103: function (e, t, o) {
+    105: function (e, t, o) {
       e.exports = o.p + "assets/img/htlyqbd2.d692.png";
     },
-    104: function (e, t, o) {
+    106: function (e, t, o) {
       e.exports = o.p + "assets/img/htlyqbd3.6b41.png";
     },
-    105: function (e, t, o) {
+    107: function (e, t, o) {
       e.exports = o.p + "assets/img/htlyqbd4.bea7.png";
     },
-    106: function (e, t, o) {
+    108: function (e, t, o) {
       e.exports = o.p + "assets/img/htlyqbd5.a7b7.png";
     },
-    107: function (e, t, o) {
+    109: function (e, t, o) {
       e.exports = o.p + "assets/img/htlyqbd6.1b1b.png";
     },
-    108: function (e, t, o) {
+    110: function (e, t, o) {
       e.exports = o.p + "assets/img/htlyqbd7.2d6c.png";
     },
-    109: function (e, t, o) {
+    111: function (e, t, o) {
       e.exports = o.p + "assets/img/htlyqbd8.bfb3.png";
     },
-    110: function (e, t, o) {
+    112: function (e, t, o) {
       e.exports = o.p + "assets/img/htlyqbd9.83e9.png";
     },
-    173: function (e, t, o) {
+    174: function (e, t, o) {
       "use strict";
       o.r(t);
       var i = o(0),
@@ -87,13 +87,13 @@
                 i("p", [e._v("In Qiqqa")]),
                 e._v(" "),
                 i("p", [
-                  i("img", { attrs: { src: o(102), alt: "[screenshot]" } }),
+                  i("img", { attrs: { src: o(104), alt: "[screenshot]" } }),
                 ]),
                 e._v(" "),
                 i("p", [e._v("click on tools button as shown below:")]),
                 e._v(" "),
                 i("p", [
-                  i("img", { attrs: { src: o(103), alt: "[screenshot]" } }),
+                  i("img", { attrs: { src: o(105), alt: "[screenshot]" } }),
                 ]),
                 e._v(" "),
                 i("p", [
@@ -103,7 +103,7 @@
                 ]),
                 e._v(" "),
                 i("p", [
-                  i("img", { attrs: { src: o(104), alt: "[screenshot]" } }),
+                  i("img", { attrs: { src: o(106), alt: "[screenshot]" } }),
                 ]),
                 e._v(" "),
                 i("p", [
@@ -113,7 +113,7 @@
                 ]),
                 e._v(" "),
                 i("p", [
-                  i("img", { attrs: { src: o(105), alt: "[screenshot]" } }),
+                  i("img", { attrs: { src: o(107), alt: "[screenshot]" } }),
                 ]),
                 e._v(" "),
                 i("p", [
@@ -123,7 +123,7 @@
                 ]),
                 e._v(" "),
                 i("p", [
-                  i("img", { attrs: { src: o(106), alt: "[screenshot]" } }),
+                  i("img", { attrs: { src: o(108), alt: "[screenshot]" } }),
                 ]),
                 e._v(" "),
                 i("p", [
@@ -133,7 +133,7 @@
                 ]),
                 e._v(" "),
                 i("p", [
-                  i("img", { attrs: { src: o(107), alt: "[screenshot]" } }),
+                  i("img", { attrs: { src: o(109), alt: "[screenshot]" } }),
                 ]),
                 e._v(" "),
                 i("p", [
@@ -143,7 +143,7 @@
                 ]),
                 e._v(" "),
                 i("p", [
-                  i("img", { attrs: { src: o(108), alt: "[screenshot]" } }),
+                  i("img", { attrs: { src: o(110), alt: "[screenshot]" } }),
                 ]),
                 e._v(" "),
                 i("p", [
@@ -197,7 +197,7 @@
                 ]),
                 e._v(" "),
                 i("p", [
-                  i("img", { attrs: { src: o(109), alt: "[screenshot]" } }),
+                  i("img", { attrs: { src: o(111), alt: "[screenshot]" } }),
                 ]),
                 e._v(" "),
                 i("p", [
@@ -207,7 +207,7 @@
                 ]),
                 e._v(" "),
                 i("p", [
-                  i("img", { attrs: { src: o(110), alt: "[screenshot]" } }),
+                  i("img", { attrs: { src: o(112), alt: "[screenshot]" } }),
                 ]),
                 e._v(" "),
                 i("p", [

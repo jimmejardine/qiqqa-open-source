@@ -1,6 +1,6 @@
 (window.webpackJsonp = window.webpackJsonp || []).push([
   [2],
-  Array(39).concat([
+  Array(41).concat([
     function (e, t, a) {
       e.exports = a.p + "assets/img/image008.297d.png";
     },
@@ -16,6 +16,7 @@
     function (e, t, a) {
       e.exports = a.p + "assets/img/image050.32a5.png";
     },
+    ,
     ,
     ,
     ,
@@ -256,6 +257,8 @@
     ,
     ,
     ,
+    ,
+    ,
     function (e, t, a) {
       "use strict";
       a.r(t);
@@ -295,7 +298,7 @@
                 ]),
                 e._v(" "),
                 i("p", [
-                  i("img", { attrs: { src: a(111), alt: "Qiqqa Logo" } }),
+                  i("img", { attrs: { src: a(114), alt: "Qiqqa Logo" } }),
                 ]),
                 e._v(" "),
                 i("hr"),
@@ -973,7 +976,7 @@
                 ]),
                 e._v(" "),
                 i("p", [
-                  i("img", { attrs: { src: a(112), alt: "Qiqqa Account" } }),
+                  i("img", { attrs: { src: a(115), alt: "Qiqqa Account" } }),
                 ]),
                 e._v(" "),
                 i("h2", { attrs: { id: "creating-a-qiqqa-account" } }, [
@@ -1081,7 +1084,7 @@
                   ),
                 ]),
                 e._v(" "),
-                i("p", [i("img", { attrs: { src: a(113), alt: "Qiqqa" } })]),
+                i("p", [i("img", { attrs: { src: a(116), alt: "Qiqqa" } })]),
                 e._v(" "),
                 i("p", [
                   e._v(
@@ -1123,7 +1126,7 @@
                   ),
                 ]),
                 e._v(" "),
-                i("p", [i("img", { attrs: { src: a(114), alt: "Qiqqa" } })]),
+                i("p", [i("img", { attrs: { src: a(117), alt: "Qiqqa" } })]),
                 e._v(" "),
                 i("p", [
                   e._v(
@@ -1309,7 +1312,7 @@
                   ),
                 ]),
                 e._v(" "),
-                i("p", [i("img", { attrs: { src: a(115), alt: "Qiqqa" } })]),
+                i("p", [i("img", { attrs: { src: a(118), alt: "Qiqqa" } })]),
                 e._v(" "),
                 i("h2", { attrs: { id: "the-pdfs-in-the-library" } }, [
                   i(
@@ -1621,7 +1624,7 @@
                   ),
                 ]),
                 e._v(" "),
-                i("p", [i("img", { attrs: { src: a(116), alt: "Qiqqa" } })]),
+                i("p", [i("img", { attrs: { src: a(119), alt: "Qiqqa" } })]),
                 e._v(" "),
                 i("p", [
                   e._v(
@@ -1782,7 +1785,7 @@
                   i("li", [
                     i("p", [
                       e._v("The hand icon "),
-                      i("img", { attrs: { src: a(117), alt: "Hand Icon" } }),
+                      i("img", { attrs: { src: a(120), alt: "Hand Icon" } }),
                       e._v(
                         " lets you click and drag the PDF surface to move around."
                       ),
@@ -1792,7 +1795,7 @@
                   i("li", [
                     i("p", [
                       e._v("The sticky-note icon  "),
-                      i("img", { attrs: { src: a(39), alt: "Qiqqa" } }),
+                      i("img", { attrs: { src: a(41), alt: "Qiqqa" } }),
                       e._v(
                         "  lets you add Annotations to your PDF. This is by far the most important form of annotation that Qiqqa provides as you can associate Tags with each Annotation. Later, when you want to run an Annotation Report across your entire library, you can specify which Tags you are interested in, and all the Annotations with those Tags across all your PDFs will be included in the report. This is a very powerful way to review and recap all the reading you have been doing about a particular topic. You can even export that Annotation Report to Word."
                       ),
@@ -1802,7 +1805,7 @@
                   i("li", [
                     i("p", [
                       e._v("The highlighter icon  "),
-                      i("img", { attrs: { src: a(40), alt: "Qiqqa" } }),
+                      i("img", { attrs: { src: a(42), alt: "Qiqqa" } }),
                       e._v(
                         " lets you add Highlight Annotations to the PDF. Select a highlight colour and drag out areas to highlight. To remove an area that you have previously highlighted, click on the little eraser icon to the left of the highlight colours and then select the text to “unhighlight.” Highlighted text will also be included on the annotation report if you select the *Highlights* tag when running the Annotation Report (see Section 7)."
                       ),
@@ -1812,7 +1815,7 @@
                   i("li", [
                     i("p", [
                       e._v("The pencil icon  "),
-                      i("img", { attrs: { src: a(41), alt: "Qiqqa" } }),
+                      i("img", { attrs: { src: a(43), alt: "Qiqqa" } }),
                       e._v(
                         " lets you add Ink Annotations to the PDF. Use the “Ink tools” menu that pops up to select whether you want to draw or erase, and to choose the drawing colour. Ink Annotations will also be included on the annotation report if you select the *Inks* tag when running the Annotation Report (see Section 7)."
                       ),
@@ -1822,7 +1825,7 @@
                   i("li", [
                     i("p", [
                       e._v("The camera icon  "),
-                      i("img", { attrs: { src: a(118), alt: "Qiqqa" } }),
+                      i("img", { attrs: { src: a(121), alt: "Qiqqa" } }),
                       e._v(
                         " lets you select an area of a PDF that will immediately be copied onto the Clipboard. You can then switch to Word or PowerPoint or Email and paste a snapshot image there. This is useful if you want to quickly lift a diagram or quote from a PDF."
                       ),
@@ -1832,7 +1835,7 @@
                   i("li", [
                     i("p", [
                       e._v("The scribbler icon  "),
-                      i("img", { attrs: { src: a(42), alt: "Qiqqa" } }),
+                      i("img", { attrs: { src: a(44), alt: "Qiqqa" } }),
                       e._v(
                         " lets you quickly cite this PDF. If you want to cite this PDF in Word, Word must be running. A citation placeholder will be inserted at the cursor of the last active Word document. To transform this citation placeholder, you will still need to “wave the magic wand” inside Qiqqa InCite (see Section 9). But generally speaking, it is more productive to add many citation placeholders as you are working, and then “wave the magic wand” only occasionally when you want to check your reference formatting."
                       ),
@@ -1910,7 +1913,7 @@
                   ),
                 ]),
                 e._v(" "),
-                i("p", [i("img", { attrs: { src: a(119), alt: "Qiqqa" } })]),
+                i("p", [i("img", { attrs: { src: a(122), alt: "Qiqqa" } })]),
                 e._v(" "),
                 i(
                   "h1",
@@ -1966,7 +1969,7 @@
                   e._v(
                     "Adding annotations is easy. While you are reading a PDF, if you find something you want to recall, draw an annotation box around it using the Annotation tool  "
                   ),
-                  i("img", { attrs: { src: a(39), alt: "Qiqqa" } }),
+                  i("img", { attrs: { src: a(41), alt: "Qiqqa" } }),
                   e._v(
                     " on the PDF screen toolbar. If you move the mouse over an Annotation and click the “Info” button in the bottom-right of the Annotation, you get the Annotation Editor box. "
                   ),
@@ -1977,7 +1980,7 @@
                   ]),
                 ]),
                 e._v(" "),
-                i("p", [i("img", { attrs: { src: a(120), alt: "Qiqqa" } })]),
+                i("p", [i("img", { attrs: { src: a(123), alt: "Qiqqa" } })]),
                 e._v(" "),
                 i("p", [
                   e._v(
@@ -2011,9 +2014,9 @@
                 e._v(" "),
                 i("p", [
                   e._v("Highlights  "),
-                  i("img", { attrs: { src: a(40), alt: "Qiqqa" } }),
+                  i("img", { attrs: { src: a(42), alt: "Qiqqa" } }),
                   e._v(" and Inks  "),
-                  i("img", { attrs: { src: a(41), alt: "Qiqqa" } }),
+                  i("img", { attrs: { src: a(43), alt: "Qiqqa" } }),
                   e._v(
                     " are simpler, less powerful forms of Annotations. While they still appear on the Annotation Report, you cannot associate Tags or Comments with them. That said, there is nothing more gratifying than highlighting or circling the most important parts of a PDF, and then having them turn up in an Annotation Report a year later when you are trying to remember where you read something and are desperately trying to locate the citation. You will be sipping tea in the tea room while your colleagues are cursing their way through reams of dog-eared printouts (or not - because you have already told them about Qiqqa, haven’t you?)."
                   ),
@@ -2059,7 +2062,7 @@
                   e._v(
                     "From the Library screen, pressing the Annotation Report button  "
                   ),
-                  i("img", { attrs: { src: a(121), alt: "Qiqqa" } }),
+                  i("img", { attrs: { src: a(124), alt: "Qiqqa" } }),
                   e._v(
                     " takes you to the Annotation Report options screen. You need to be a little careful to correctly choose the PDFs you want to include in the Annotation Report before pressing the Annotation Report button:"
                   ),
@@ -2109,7 +2112,7 @@
                   ),
                 ]),
                 e._v(" "),
-                i("p", [i("img", { attrs: { src: a(122), alt: "Qiqqa" } })]),
+                i("p", [i("img", { attrs: { src: a(125), alt: "Qiqqa" } })]),
                 e._v(" "),
                 i("p", [
                   e._v(
@@ -2147,7 +2150,7 @@
                   e._v("Your Annotation Report will look something like this:"),
                 ]),
                 e._v(" "),
-                i("p", [i("img", { attrs: { src: a(123), alt: "Qiqqa" } })]),
+                i("p", [i("img", { attrs: { src: a(126), alt: "Qiqqa" } })]),
                 e._v(" "),
                 i("p", [
                   e._v(
@@ -2222,7 +2225,7 @@
                   ),
                 ]),
                 e._v(" "),
-                i("p", [i("img", { attrs: { src: a(124), alt: "Qiqqa" } })]),
+                i("p", [i("img", { attrs: { src: a(127), alt: "Qiqqa" } })]),
                 e._v(" "),
                 i("p", [
                   e._v(
@@ -2230,7 +2233,7 @@
                   ),
                 ]),
                 e._v(" "),
-                i("p", [i("img", { attrs: { src: a(125), alt: "Qiqqa" } })]),
+                i("p", [i("img", { attrs: { src: a(128), alt: "Qiqqa" } })]),
                 e._v(" "),
                 i("p", [
                   e._v(
@@ -2317,7 +2320,7 @@
                   ),
                 ]),
                 e._v(" "),
-                i("p", [i("img", { attrs: { src: a(126), alt: "Qiqqa" } })]),
+                i("p", [i("img", { attrs: { src: a(129), alt: "Qiqqa" } })]),
                 e._v(" "),
                 i("p", [
                   e._v(
@@ -2491,11 +2494,11 @@
                   e._v(
                     "The fastest way to get going is to fire up Microsoft Word and then open Qiqqa Incite "
                   ),
-                  i("img", { attrs: { src: a(42), alt: "Qiqqa" } }),
+                  i("img", { attrs: { src: a(44), alt: "Qiqqa" } }),
                   e._v(" from the Start screen toolbar. It looks like this:"),
                 ]),
                 e._v(" "),
-                i("p", [i("img", { attrs: { src: a(127), alt: "Qiqqa" } })]),
+                i("p", [i("img", { attrs: { src: a(130), alt: "Qiqqa" } })]),
                 e._v(" "),
                 i("p", [
                   e._v(
@@ -2539,19 +2542,19 @@
                   ),
                 ]),
                 e._v(" "),
-                i("p", [i("img", { attrs: { src: a(128), alt: "Qiqqa" } })]),
+                i("p", [i("img", { attrs: { src: a(131), alt: "Qiqqa" } })]),
                 e._v(" "),
                 i("p", [
                   e._v(
                     "I now need to motivate that fact with a citation. I switch to Qiqqa and select the relevant PDF in the Qiqqa InCite screen and I press the “Add citation” button "
                   ),
-                  i("img", { attrs: { src: a(129), alt: "Qiqqa" } }),
+                  i("img", { attrs: { src: a(132), alt: "Qiqqa" } }),
                   e._v(
                     " on the toolbar. This adds a citation-cluster placeholder to my Word document. This placeholder is not formatted according to my style (that comes later). It merely indicates that there will be a citation here."
                   ),
                 ]),
                 e._v(" "),
-                i("p", [i("img", { attrs: { src: a(130), alt: "Qiqqa" } })]),
+                i("p", [i("img", { attrs: { src: a(133), alt: "Qiqqa" } })]),
                 e._v(" "),
                 i("p", [
                   e._v(
@@ -2559,7 +2562,7 @@
                   ),
                 ]),
                 e._v(" "),
-                i("p", [i("img", { attrs: { src: a(131), alt: "Qiqqa" } })]),
+                i("p", [i("img", { attrs: { src: a(134), alt: "Qiqqa" } })]),
                 e._v(" "),
                 i("p", [
                   e._v(
@@ -2567,27 +2570,27 @@
                   ),
                 ]),
                 e._v(" "),
-                i("p", [i("img", { attrs: { src: a(132), alt: "Qiqqa" } })]),
+                i("p", [i("img", { attrs: { src: a(135), alt: "Qiqqa" } })]),
                 e._v(" "),
                 i("p", [
                   e._v("And I press the “Add bibliography” button "),
-                  i("img", { attrs: { src: a(133), alt: "Qiqqa" } }),
+                  i("img", { attrs: { src: a(136), alt: "Qiqqa" } }),
                   e._v(
                     " on the Qiqqa InCite toolbar to insert a bibliography placeholder into my Word Document."
                   ),
                 ]),
                 e._v(" "),
-                i("p", [i("img", { attrs: { src: a(134), alt: "Qiqqa" } })]),
+                i("p", [i("img", { attrs: { src: a(137), alt: "Qiqqa" } })]),
                 e._v(" "),
                 i("p", [
                   e._v(
                     "We’re almost there. We need to convert these pesky placeholders into correctly styled and formatted citations! To do that, first choose your CSL style on the Qiqqa InCite toolbar, and then “wave the magic wand” by pressing the “Reformat all citations” button "
                   ),
-                  i("img", { attrs: { src: a(135), alt: "Qiqqa" } }),
+                  i("img", { attrs: { src: a(138), alt: "Qiqqa" } }),
                   e._v(". Et voila!"),
                 ]),
                 e._v(" "),
-                i("p", [i("img", { attrs: { src: a(136), alt: "Qiqqa" } })]),
+                i("p", [i("img", { attrs: { src: a(139), alt: "Qiqqa" } })]),
                 e._v(" "),
                 i("p", [
                   e._v(
@@ -2631,7 +2634,7 @@
                   ),
                 ]),
                 e._v(" "),
-                i("p", [i("img", { attrs: { src: a(137), alt: "Qiqqa" } })]),
+                i("p", [i("img", { attrs: { src: a(140), alt: "Qiqqa" } })]),
                 e._v(" "),
                 i("p", [e._v("With this screen you can:")]),
                 e._v(" "),
@@ -2697,7 +2700,7 @@
                   ),
                 ]),
                 e._v(" "),
-                i("p", [i("img", { attrs: { src: a(138), alt: "Qiqqa" } })]),
+                i("p", [i("img", { attrs: { src: a(141), alt: "Qiqqa" } })]),
                 e._v(" "),
                 i(
                   "h2",
@@ -2729,7 +2732,7 @@
                   e._v(
                     "Imagine you have written a 100-page thesis and want to prepare for your viva. This might involve reviewing every reference you ever made. You can do this quickly and efficiently using Qiqqa. Open your thesis in Word. Then switch to Qiqqa and press the “Show all citations” button "
                   ),
-                  i("img", { attrs: { src: a(139), alt: "Qiqqa" } }),
+                  i("img", { attrs: { src: a(142), alt: "Qiqqa" } }),
                   e._v(" on the Qiqqa InCite screen toolbar."),
                 ]),
                 e._v(" "),
@@ -2757,7 +2760,7 @@
                   e._v(
                     "Sometimes you just want to quickly cite a document without having to go through Word. Perhaps you are writing an email or want to put together a slide in PowerPoint. This is as simple as opening the InCite screen, selecting the relevant PDF or PDFs, and pressing the “Citation Snippet” button "
                   ),
-                  i("img", { attrs: { src: a(140), alt: "Qiqqa" } }),
+                  i("img", { attrs: { src: a(143), alt: "Qiqqa" } }),
                   e._v(
                     " on the Qiqqa InCite screen toolbar. You can then switch to your other application (email, powerpoint, etc) and paste in the citation. It will be in the style of whatever the last CSL style you selected in InCite."
                   ),
@@ -2842,11 +2845,11 @@
                   e._v(
                     "To use cloud syncing in Qiqqa you need to use a Web Library. When you first start Qiqqa and log in as a Guest, you automatically start with a Local Guest Library "
                   ),
-                  i("img", { attrs: { src: a(141), alt: "Qiqqa" } }),
+                  i("img", { attrs: { src: a(144), alt: "Qiqqa" } }),
                   e._v(
                     ". This account only works locally on one machine and cannot be used to sync. To get your first Web Library, you must register on the Qiqqa Website and log into the Qiqqa Desktop using your account details. Then you will see your first Web Library "
                   ),
-                  i("img", { attrs: { src: a(142), alt: "Qiqqa" } }),
+                  i("img", { attrs: { src: a(145), alt: "Qiqqa" } }),
                   e._v(
                     ". Any work you do inside this library will be eligible for syncing with the cloud."
                   ),
@@ -2868,7 +2871,7 @@
                   e._v(
                     "To sync a Web Library with the cloud, open the Library screen and press the “Full Sync” button "
                   ),
-                  i("img", { attrs: { src: a(143), alt: "Qiqqa" } }),
+                  i("img", { attrs: { src: a(146), alt: "Qiqqa" } }),
                   e._v(
                     " on the toolbar. If this is the first time you have synced, it will bring up a dialog with an explanation of syncing. Please read this screen in detail, as it explains the various aspects of syncing, how much cloud storage space you are using, and indicates if you have exceeded your storage space."
                   ),
@@ -2952,7 +2955,7 @@
                   ),
                 ]),
                 e._v(" "),
-                i("p", [i("img", { attrs: { src: a(144), alt: "Qiqqa" } })]),
+                i("p", [i("img", { attrs: { src: a(147), alt: "Qiqqa" } })]),
                 e._v(" "),
                 i("p", [
                   e._v(
@@ -2960,7 +2963,7 @@
                   ),
                 ]),
                 e._v(" "),
-                i("p", [i("img", { attrs: { src: a(145), alt: "Qiqqa" } })]),
+                i("p", [i("img", { attrs: { src: a(148), alt: "Qiqqa" } })]),
                 e._v(" "),
                 i("p", [
                   e._v(
@@ -2968,7 +2971,7 @@
                   ),
                 ]),
                 e._v(" "),
-                i("p", [i("img", { attrs: { src: a(146), alt: "Qiqqa" } })]),
+                i("p", [i("img", { attrs: { src: a(149), alt: "Qiqqa" } })]),
                 e._v(" "),
                 i("p", [
                   e._v(
@@ -2976,7 +2979,7 @@
                   ),
                 ]),
                 e._v(" "),
-                i("p", [i("img", { attrs: { src: a(147), alt: "Qiqqa" } })]),
+                i("p", [i("img", { attrs: { src: a(150), alt: "Qiqqa" } })]),
                 e._v(" "),
                 i("p", [
                   e._v(
@@ -3042,13 +3045,13 @@
                   e._v(
                     "To alleviate the burden of having to remember to press SYNC all the time, you can turn on AutoSync for a Web Library. On the Qiqqa Start Page, you can toggle AutoSync "
                   ),
-                  i("img", { attrs: { src: a(148), alt: "Qiqqa" } }),
+                  i("img", { attrs: { src: a(151), alt: "Qiqqa" } }),
                   e._v(
                     " on and off for each Web Library. This will do the equivalent of pressing the SYNC button every 15 minutes."
                   ),
                 ]),
                 e._v(" "),
-                i("p", [i("img", { attrs: { src: a(149), alt: "Qiqqa" } })]),
+                i("p", [i("img", { attrs: { src: a(152), alt: "Qiqqa" } })]),
                 e._v(" "),
                 i(
                   "h2",
@@ -3078,7 +3081,7 @@
                       e._v(
                         "From Qiqqa Desktop, on the Start screen press the “Create Web Library” button "
                       ),
-                      i("img", { attrs: { src: a(150), alt: "Qiqqa" } }),
+                      i("img", { attrs: { src: a(153), alt: "Qiqqa" } }),
                       e._v(
                         " and give your new Web Library a title and a description. These can be changed on the Qiqqa Website at any time."
                       ),
@@ -3090,7 +3093,7 @@
                       e._v(
                         "From the Qiqqa Website, log in to your account and you will be able to create a Web Library from the “Your libraries” screen. To be able to see these new Web Libraries from inside Qiqqa Desktop, you need to press the “Refresh web library memberships” button "
                       ),
-                      i("img", { attrs: { src: a(151), alt: "Qiqqa" } }),
+                      i("img", { attrs: { src: a(154), alt: "Qiqqa" } }),
                       e._v(" on the Start screen."),
                     ]),
                   ]),
@@ -3158,7 +3161,7 @@
                   ),
                 ]),
                 e._v(" "),
-                i("p", [i("img", { attrs: { src: a(152), alt: "Qiqqa" } })]),
+                i("p", [i("img", { attrs: { src: a(155), alt: "Qiqqa" } })]),
                 e._v(" "),
                 i("p", [
                   e._v(
@@ -3234,7 +3237,7 @@
                   e._v(
                     "But we have something special for those who just want absolutely the best tools for the job. It’s called Qiqqa Premium, and it’s sign-posted with these golden stars: "
                   ),
-                  i("img", { attrs: { src: a(153), alt: "Qiqqa" } }),
+                  i("img", { attrs: { src: a(156), alt: "Qiqqa" } }),
                   e._v(
                     ". Please support the future development of Qiqqa by purchasing Qiqqa Premium, or better still, get it for free by telling your friends and colleagues how Qiqqa can improve their research."
                   ),
@@ -3244,7 +3247,7 @@
                   e._v(
                     "Qiqqa Premium+ brings additional features to Qiqqa Premium for companies and individuals who have more stringent corporate requirements, like syncing to Qiqqa repositories entirely within your corporate intranet and better integration with Microsoft Word documents. These features are signposted with these golden stars: "
                   ),
-                  i("img", { attrs: { src: a(154), alt: "Qiqqa" } }),
+                  i("img", { attrs: { src: a(157), alt: "Qiqqa" } }),
                   e._v("."),
                 ]),
                 e._v(" "),
@@ -3284,7 +3287,7 @@
                   ),
                 ]),
                 e._v(" "),
-                i("p", [i("img", { attrs: { src: a(155), alt: "Qiqqa" } })]),
+                i("p", [i("img", { attrs: { src: a(158), alt: "Qiqqa" } })]),
                 e._v(" "),
                 i("p", [
                   e._v(
@@ -3430,7 +3433,7 @@
                   e._v(
                     "To create a new Intranet Library, from the Start screen, press the “Create/Join Intranet Library” button "
                   ),
-                  i("img", { attrs: { src: a(43), alt: "Qiqqa" } }),
+                  i("img", { attrs: { src: a(45), alt: "Qiqqa" } }),
                   e._v(
                     " on the toolbar. Then choose a shared directory on your corporate network to use as the synchronisation point for your Intranet Library. To discourage users from accidentally breaking the library we recommend giving this directory a name like “DO NOT OPEN – Qiqqa research library” or “DO NOT OPEN – Qiqqa product group library”. System administrators are welcome to inspect the contents of this directory but should not move, delete or rename files. Using Windows Security, make sure that this shared folder on the network drive is at least readable by everyone who you want to have access to this Intranet Library. You may have to ask for system administrator to help you create the shared folder and grant permission to your colleagues."
                   ),
@@ -3470,7 +3473,7 @@
                   e._v(
                     "To join an Intranet Library you will need the shared folder location of the synchronisation point. From the Start screen, press the “Create/Join Intranet Library” button "
                   ),
-                  i("img", { attrs: { src: a(43), alt: "Qiqqa" } }),
+                  i("img", { attrs: { src: a(45), alt: "Qiqqa" } }),
                   e._v(
                     " on the toolbar and navigate to this shared folder. If Qiqqa detects that you have selected a valid Intranet Library synchronisation point, it will show the title and description of the library. Press the “Join” button to join the library."
                   ),
@@ -3772,9 +3775,9 @@
                 ]),
                 e._v(" "),
                 i("p", [
-                  i("img", { attrs: { src: a(156), alt: "Qiqqa" } }),
+                  i("img", { attrs: { src: a(159), alt: "Qiqqa" } }),
                   e._v(" "),
-                  i("img", { attrs: { src: a(157), alt: "Qiqqa" } }),
+                  i("img", { attrs: { src: a(160), alt: "Qiqqa" } }),
                 ]),
                 e._v(" "),
                 i("h1", { attrs: { id: "_14-themes-and-qiqqa-expedition" } }, [
@@ -3817,13 +3820,13 @@
                   e._v(
                     "To start Expedition, press the “Explore this library in Expedition” button "
                   ),
-                  i("img", { attrs: { src: a(158), alt: "Qiqqa" } }),
+                  i("img", { attrs: { src: a(161), alt: "Qiqqa" } }),
                   e._v(
                     " on the Library screen toolbar. Alternatively you can open Expedition directly from the Start screen."
                   ),
                 ]),
                 e._v(" "),
-                i("p", [i("img", { attrs: { src: a(159), alt: "Qiqqa" } })]),
+                i("p", [i("img", { attrs: { src: a(162), alt: "Qiqqa" } })]),
                 e._v(" "),
                 i("p", [
                   e._v(
@@ -3879,7 +3882,7 @@
                   ),
                 ]),
                 e._v(" "),
-                i("p", [i("img", { attrs: { src: a(160), alt: "Qiqqa" } })]),
+                i("p", [i("img", { attrs: { src: a(163), alt: "Qiqqa" } })]),
                 e._v(" "),
                 i("p", [
                   e._v(
@@ -3911,7 +3914,7 @@
                   ]),
                 ]),
                 e._v(" "),
-                i("p", [i("img", { attrs: { src: a(161), alt: "Qiqqa" } })]),
+                i("p", [i("img", { attrs: { src: a(164), alt: "Qiqqa" } })]),
                 e._v(" "),
                 i(
                   "h2",
@@ -3977,7 +3980,7 @@
                   ]),
                 ]),
                 e._v(" "),
-                i("p", [i("img", { attrs: { src: a(162), alt: "Qiqqa" } })]),
+                i("p", [i("img", { attrs: { src: a(165), alt: "Qiqqa" } })]),
                 e._v(" "),
                 i("h2", { attrs: { id: "general-brainstorming" } }, [
                   i(
@@ -3997,7 +4000,7 @@
                   ),
                 ]),
                 e._v(" "),
-                i("p", [i("img", { attrs: { src: a(163), alt: "Qiqqa" } })]),
+                i("p", [i("img", { attrs: { src: a(166), alt: "Qiqqa" } })]),
                 e._v(" "),
                 i("h1", { attrs: { id: "_16-the-web-browser" } }, [
                   i(
@@ -4077,7 +4080,7 @@
                       e._v(
                         "As Qiqqa has grown over time, we have made a variety of video webcasts to show the various aspects of Qiqqa in action. To watch a webcast specific to a particular Qiqqa screen, press the Webcast button "
                       ),
-                      i("img", { attrs: { src: a(164), alt: "Qiqqa" } }),
+                      i("img", { attrs: { src: a(167), alt: "Qiqqa" } }),
                       e._v(
                         " that appears on several of the toolbars. Please note that Qiqqa has evolved over the years, so some of these webcasts show versions of Qiqqa that are slightly different to the latest version. However there is still massive value in watching them as the fundamentals haven’t changed! If you search YouTube for “Qiqqa” you will also find some of the training material made by others for Qiqqa."
                       ),
