@@ -9,6 +9,9 @@ module.exports = function(eleventyConfig) {
 
   //eleventyConfig.permalink = '{{ title }}{{ fileSlug }}';
 
+  // WARNING: be aware that target path is relative to `dirs.layouts` path!
+  eleventyConfig.addLayoutAlias('default', 'default.11ty.js');
+
   let rv = {
     dir: { 
     	input: 'docs-src', 
@@ -18,7 +21,7 @@ module.exports = function(eleventyConfig) {
     	// https://www.11ty.dev/docs/config/#directory-for-global-data-files
     	data: '_meta/data',
     	includes: '_meta/includes',
-        layouts: '_meta/layouts',
+      layouts: '_meta/layouts',
     },
     passthroughFileCopy: true,
     templateFormats: ['liquid', 'md', 'css', 'html', 'yml'],
