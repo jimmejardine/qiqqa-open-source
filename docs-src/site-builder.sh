@@ -19,10 +19,12 @@ case "$opt$OPTARG" in
 b )
   echo "--- (re)build site ---"
 
-  vuepress build docs-src
-  prettier --write docs/
+  rm -rf docs/
+  mkdir docs
+  DEBUG="*,-not_this" npx @11ty/eleventy --config=docs-src/.eleventy.js
+  #prettier --write docs/
 
-  node docs-src/site-builder.js
+  #node docs-src/site-builder.js
 
   echo done.
   ;;
@@ -30,7 +32,7 @@ b )
 d )
   echo "--- start VuePress dev server ---"
 
-  vuepress dev docs-src
+  npx @11ty/eleventy --config=docs-src/.eleventy.js
 
   echo done.
   ;;
