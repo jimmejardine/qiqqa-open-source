@@ -27,7 +27,7 @@ module.exports = function(eleventyConfig) {
     templateFormats: ['liquid', 'md', 'css', 'html', 'yml'],
     htmlTemplateEngine: 'liquid',
     markdownTemplateEngine: 'liquid',
-	//permalink: '{{ title }}{{ fileSlug }}-2',
+	  //permalink: '{{ title }}{{ fileSlug }}-2',
   };
   console.log("RV = ", rv);
   return rv;

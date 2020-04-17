@@ -103,7 +103,13 @@ class MyDefaultOuterWrapper {
     <title>${ data.title }</title>
   </head>
   <body>
+    
     ${ data.content }
+
+    <footer>
+      © 2020 Qiqqa Contributors ::
+      <a href="https://github.com/GerHobbelt/qiqqa-open-source/blob/documentation/{{ page.inputPath }}">Edit this page on GitHub</a>
+    </footer>
   </body>
 </html>
 `.trimLeft();

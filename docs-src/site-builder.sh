@@ -21,7 +21,7 @@ b )
 
   rm -rf docs/
   mkdir docs
-  DEBUG="*,-not_this" npx @11ty/eleventy --config=docs-src/.eleventy.js
+  DEBUG="*,-not_this" npx @gerhobbelt/eleventy --config=docs-src/.eleventy.js
   #prettier --write docs/
 
   #node docs-src/site-builder.js
@@ -32,7 +32,7 @@ b )
 d )
   echo "--- start VuePress dev server ---"
 
-  npx @11ty/eleventy --config=docs-src/.eleventy.js
+  npx @gerhobbelt/eleventy --config=docs-src/.eleventy.js
 
   echo done.
   ;;
