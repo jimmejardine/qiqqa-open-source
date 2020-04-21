@@ -13,6 +13,12 @@ This version includes EVERY feature available in [Commercial Qiqqa](qiqqa.com), 
 
 ## Qiqqa Open Source Software Releases
 
+### Want notification of new releases?
+
+[Subscribe](https://support.google.com/groups/answer/1067205?hl=en) to the Google Group 'qiqqa-releases' [here](https://groups.google.com/d/forum/qiqqa-releases).
+
+### Where can I get them?
+
 - Qiqqa Open Source software installer releases [are available in the mainstream repository](https://github.com/jimmejardine/qiqqa-open-source/releases). Here's where you'll find Qiqqa v80 and later.
 - Qiqqa Commercial software installer releases are available at http://www.qiqqa.com/Download at least up to / into the year 2020 A.D.
 
