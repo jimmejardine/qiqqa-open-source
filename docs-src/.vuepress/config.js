@@ -13,6 +13,29 @@ function absDstPath(rel) {
 	return path.resolve(p);
 }
 
+function readTxtConfigFile(rel) {
+  let p = path.resolve(absSrcPath(rel));
+  let src = fs.readFileSync(p, "utf8");
+  // - split into lines
+  // - filter out any lines whicch don't have an '='
+  // - split each line across the initial '=' in there.
+  // - turn this into a hash table?
+  let lines = src.split(/[\r\n]/g);
+  lines = lines.filter((l) => l.trim().length > 1 && l.includes('=')).map((l) => {
+    let parts = l.split('=');
+    if (parts.length !== 2) {
+      throw new Error(`config line in ${rel} is expected to have only one '='`);
+    }
+    parts = parts.map((l) => l.trim());
+    return parts;
+  });
+  let rv = {};
+  lines.forEach((l) => {
+    rv[l[0]] = l[1];
+  });
+  return rv;
+}
+
 // https://vuepress.vuejs.org/guide/basic-config.html#config-file
 // https://vuepress.vuejs.org/config/#basic-config
 
@@ -142,6 +165,11 @@ const cfg = {
   	    quotes: '\u201c\u201d\u2018\u2019', /* “”‘’ */
   	  });
 
+      md.use(require('markdown-it-abbr'), {
+        abbreviations: readTxtConfigFile('.vuepress/abbr-abbreviations.txt'),
+        links:         readTxtConfigFile('.vuepress/abbr-links.txt'),
+        emphasis:      readTxtConfigFile('.vuepress/abbr-emphasis-phrases.txt'),
+      });
       md.use(require('markdown-it-sub'));
       md.use(require('markdown-it-sup'));
       md.use(require('markdown-it-footnote'));

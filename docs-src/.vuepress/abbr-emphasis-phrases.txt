@@ -1,0 +1,14 @@
+Internet facing
+straight off the Internet
+Plan B
+Plan A
+Plan C
+invoked executables
+invoked executable
+Text Extraction
+lossless compressed format
+image cache
+compression action
+decompression action
+marshaling
+interface barrier
