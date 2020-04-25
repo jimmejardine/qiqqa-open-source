@@ -56,9 +56,6 @@
                     </StackPanel>
                 </ScrollViewer>
                 <DockPanel Name="TabPreview">
-                    <local_gui:AugmentedInfoBarItemControl Header="Tweet This" Name="ObjTweetBar" Collapsed="True" DockPanel.Dock="Top">
-                        <local_metadata:TweetControl Height="50"/>
-                    </local_gui:AugmentedInfoBarItemControl>
                     <local_gui:AugmentedInfoBarItemControl Header="Abstract" Name="ObjAbstract" Collapsed="False" DockPanel.Dock="Top">
                         <ScrollViewer VerticalScrollBarVisibility="Auto" >
                             <local_metadata:AbstractPreviewControl />

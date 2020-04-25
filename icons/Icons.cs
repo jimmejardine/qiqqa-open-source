@@ -242,7 +242,6 @@ namespace icons
         public const string AdvertClose = "AdvertClose";
         public const string ThumbsUp = "ThumbsUp";
         public const string ThumbsDown = "ThumbsDown";
-        public const string Tweet = "Tweet";
 
         public const string LEDCircleBlue = "led_circle_blue";
 

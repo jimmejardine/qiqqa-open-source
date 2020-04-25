@@ -659,7 +659,6 @@
     <Resource Include="Application\PageCornerPink.png" />
     <Resource Include="Application\Xmas3.png" />
     <Resource Include="Application\LibraryEmptyAddFiles.png" />
-    <Resource Include="Application\Tweet.png" />
     <Resource Include="Application\QiqqaWeb.png" />
     <Resource Include="Application\DocumentsAddMissingFromSelf.png" />
     <Resource Include="Application\BibTeXEditToggleMode1.png" />

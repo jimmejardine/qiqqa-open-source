@@ -27,8 +27,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
             DataContextChanged += DocumentMetadataControlsPanel_DataContextChanged;
 
-            ObjTweetBar.Visibility = Visibility.Visible;
-
             ReevaluateDataContext();
         }
 

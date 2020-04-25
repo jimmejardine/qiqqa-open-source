@@ -611,9 +611,6 @@
     <Compile Include="Documents\PDF\MetadataSuggestions\PDFMetadataInferenceFromBibTeXSearch.cs" />
     <Compile Include="Documents\PDF\MetadataSuggestions\PDFMetadataInferenceFromPDFMetadata.cs" />
     <Compile Include="Documents\PDF\PDFAnnotationToImageRenderer.cs" />
-    <Compile Include="Documents\PDF\PDFControls\MetadataControls\TweetControl.xaml.cs">
-      <DependentUpon>TweetControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Documents\PDF\PDFDocument_ThreadUnsafe.cs" />
     <Compile Include="FeatureTracking\GoogleAnalysicsSubmitter.cs" />
     <Compile Include="InCite\CSLProcessorTranslator_AbbreviationsManager.cs" />
@@ -1550,10 +1547,6 @@
     <Page Include="Documents\PDF\InfoBarStuff\ReadOnlyStuff\ReadOnlyControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Documents\PDF\PDFControls\MetadataControls\TweetControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Documents\PDF\PDFControls\Page\Camera\CameraActionChooserDialog.xaml">
       <SubType>Designer</SubType>
