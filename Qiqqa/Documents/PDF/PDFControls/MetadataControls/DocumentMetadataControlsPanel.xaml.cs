@@ -92,7 +92,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             }
             else
             {
-                DocumentIsDeletedNode.Visibility = Visibility.Hidden;
+                DocumentIsDeletedNode.Visibility = Visibility.Collapsed;
             }
 #endif
         }
