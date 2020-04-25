@@ -2,6 +2,9 @@
 using System.IO;
 using Utilities.Random;
 
+// See https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation
+//
+// Haven't checked if Jimmy used Collapsed Gibbs Sampling (https://en.wikipedia.org/wiki/Gibbs_sampling#Variations_and_extensions)
 namespace Utilities.Mathematics.Topics.LDAStuff
 {
     [Serializable]

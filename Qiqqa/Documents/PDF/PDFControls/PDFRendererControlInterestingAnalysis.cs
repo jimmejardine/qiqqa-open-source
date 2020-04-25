@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.SimilarAuthorsStuff;
 using Qiqqa.Documents.PDF.InfoBarStuff.PDFDocumentTagCloudStuff;
 using Utilities;
@@ -19,9 +20,12 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
             Thread.Sleep(1000);
 
-            // Uncomment once ready
             SafeThreadPool.QueueUserWorkItem(o => DoInterestingAnalysis_DuplicatesAndCitations(pdf_reading_control, pdf_renderer_control, pdf_renderer_control_stats));
-            SafeThreadPool.QueueUserWorkItem(o => DoInterestingAnalysis_GoogleScholar(pdf_reading_control, pdf_renderer_control, pdf_renderer_control_stats));
+            // Only bother Google Scholar with a query when we want to:
+            if (ConfigurationManager.IsEnabled(nameof(DoInterestingAnalysis_GoogleScholar)))
+            {
+                SafeThreadPool.QueueUserWorkItem(o => DoInterestingAnalysis_GoogleScholar(pdf_reading_control, pdf_renderer_control, pdf_renderer_control_stats));
+            }
             SafeThreadPool.QueueUserWorkItem(o => DoInterestingAnalysis_TagCloud(pdf_reading_control, pdf_renderer_control, pdf_renderer_control_stats));
             SafeThreadPool.QueueUserWorkItem(o => DoInterestingAnalysis_SimilarAuthors(pdf_reading_control, pdf_renderer_control, pdf_renderer_control_stats));
         }

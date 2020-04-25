@@ -40,7 +40,7 @@ namespace Utilities.BibTex
         //
         private EntryTypes()
         {
-            string filename = EntryTypes.EntryTypesDefinitionFilename;
+            string filename = EntryTypes.EntryTypesDefinitionFilename.Value;
 
             // when the setup file does not exist, yak!
             if (!File.Exists(filename))
@@ -82,7 +82,7 @@ namespace Utilities.BibTex
                 }
             }
 
-            // see if the 'common denominator' entry has been defined in there. 
+            // see if the 'common denominator' entry has been defined in there.
             // IFF it's not, we add it on the spot and barge on.
             if (!entry_types.ContainsKey("misc"))
             {
@@ -97,13 +97,13 @@ namespace Utilities.BibTex
 
         // Dont forget to add these CSL types:
         //
-        // "article", "article-magazine", "article-newspaper", "article-journal", "bill", 
-        // "book", "broadcast", "chapter", "entry", "entry-dictionary", "entry-encyclopedia", 
-        // "figure", "graphic", "interview", "legislation", "legal_case", "manuscript", "map", 
-        // "motion_picture", "musical_score", "pamphlet", "paper-conference", "patent", "post", 
-        // "post-weblog", "personal_communication", "report", "review", "review-book", "song", 
+        // "article", "article-magazine", "article-newspaper", "article-journal", "bill",
+        // "book", "broadcast", "chapter", "entry", "entry-dictionary", "entry-encyclopedia",
+        // "figure", "graphic", "interview", "legislation", "legal_case", "manuscript", "map",
+        // "motion_picture", "musical_score", "pamphlet", "paper-conference", "patent", "post",
+        // "post-weblog", "personal_communication", "report", "review", "review-book", "song",
         // "speech", "thesis", "treaty", "webpage"
-        // + 
+        // +
         // "datasheet", "application-note"
 
 
@@ -178,6 +178,6 @@ namespace Utilities.BibTex
             }
         }
 
-        private static string EntryTypesDefinitionFilename => Path.GetFullPath(Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"BibTeX/EntryTypeDefinitions/qiqqa-entry-type-definitions.json"));
+        private static readonly Lazy<string> EntryTypesDefinitionFilename = new Lazy<string>(() => Path.GetFullPath(Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"BibTeX/EntryTypeDefinitions/qiqqa-entry-type-definitions.json")));
     }
 }

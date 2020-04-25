@@ -40,58 +40,89 @@ namespace Qiqqa.Common.Configuration
         private string user_guid;
         private bool is_guest;
 
-        public string StartupDirectoryForQiqqa => UnitTestDetector.StartupDirectoryForQiqqa;
+        private readonly Lazy<string> __startupDirectoryForQiqqa = new Lazy<string>(() => UnitTestDetector.StartupDirectoryForQiqqa);
+        public string StartupDirectoryForQiqqa => __startupDirectoryForQiqqa.Value;
 
-        private string base_directory_for_qiqqa = null;
-        public string BaseDirectoryForQiqqa
+        private readonly Lazy<string> __BaseDirectoryForQiqqa = new Lazy<string>(() =>
         {
-            get
+            // Command-line parameters override the Registry:
+            string[] args = Environment.GetCommandLineArgs();
+
+            for (int i = 0; i < args.Length; i++)
             {
-                if (null == base_directory_for_qiqqa)
+                string p = args[i];
+                try
                 {
-                    string override_path = RegistrySettings.Instance.Read(RegistrySettings.BaseDataDirectory);
-                    if (!String.IsNullOrEmpty(override_path))
+                    p = Path.GetFullPath(p);
+                    if (Directory.Exists(p))
                     {
-                        override_path = override_path.Trim();
-                        if (!String.IsNullOrEmpty(override_path))
-                        {
-                            base_directory_for_qiqqa = Path.GetFullPath(override_path);
-
-                            // Check that the path is reasonable
-                            try
-                            {
-                                Directory.CreateDirectory(base_directory_for_qiqqa);
-                            }
-                            catch (Exception ex)
-                            {
-                                Logging.Error(ex, "There was a problem creating the user-overridden base directory '{0}', so reverting to default", base_directory_for_qiqqa);
-                                base_directory_for_qiqqa = null;
-                            }
-                        }
-                    }
-
-                    // If we get here, use the default path
-                    if (null == base_directory_for_qiqqa)
-                    {
-                        base_directory_for_qiqqa = Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Quantisle/Qiqqa"));
+                        return p;
                     }
                 }
-
-                return base_directory_for_qiqqa;
+                catch (Exception ex)
+                {
+                    // ignore all errors
+                }
             }
+
+            // Check the Windows Registry for the path setting:
+            string override_path = RegistrySettings.Instance.Read(RegistrySettings.BaseDataDirectory);
+            if (!String.IsNullOrEmpty(override_path))
+            {
+                override_path = override_path.Trim();
+                if (!String.IsNullOrEmpty(override_path))
+                {
+                    string p = Path.GetFullPath(override_path);
+
+                    // Check that the path is reasonable
+                    try
+                    {
+                        Directory.CreateDirectory(p);
+                        return p;
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex, "There was a problem creating the user-overridden base directory '{0}', so reverting to default", p);
+                    }
+                }
+            }
+
+            // If we get here, use the default path
+            return Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Quantisle/Qiqqa"));
+        });
+        public string BaseDirectoryForQiqqa
+        {
+            get => __BaseDirectoryForQiqqa.Value;
         }
 
-        public string BaseDirectoryForUser => Path.GetFullPath(Path.Combine(BaseDirectoryForQiqqa, user_guid));
+        public string BaseDirectoryForUser
+        {
+            get => Path.GetFullPath(Path.Combine(BaseDirectoryForQiqqa, user_guid));
+        }
 
-        private string ConfigFilenameForUser => Path.Combine(BaseDirectoryForUser, @"Qiqqa.configuration");
+        private string ConfigFilenameForUser
+        {
+            get => Path.Combine(BaseDirectoryForUser, @"Qiqqa.configuration");
+        }
 
-        private string SearchHistoryFilename => Path.Combine(BaseDirectoryForUser, @"Qiqqa.search_history");
+        private string SearchHistoryFilename
+        {
+            get => Path.Combine(BaseDirectoryForUser, @"Qiqqa.search_history");
+        }
+        public string Program7ZIP
+        {
+            get => Path.Combine(StartupDirectoryForQiqqa, @"7za.exe");
+        }
 
-        public string Program7ZIP => Path.Combine(StartupDirectoryForQiqqa, @"7za.exe");
+        public string ProgramHTMLToPDF
+        {
+            get => Path.Combine(StartupDirectoryForQiqqa, @"wkhtmltopdf.exe");
+        }
 
-        public string ProgramHTMLToPDF => Path.Combine(StartupDirectoryForQiqqa, @"wkhtmltopdf.exe");
-
-        public string DeveloperTestSettingsFilename => Path.Combine(BaseDirectoryForQiqqa, @"Qiqqa.Developer.Settings.json5");
+        public string DeveloperTestSettingsFilename
+        {
+            get => Path.Combine(BaseDirectoryForQiqqa, @"Qiqqa.Developer.Settings.json5");
+        }
 
         private Dictionary<string, object> developer_test_settings = null;
         private ConfigurationRecord configuration_record;
@@ -205,7 +236,7 @@ namespace Qiqqa.Common.Configuration
         {
             if (sender == configuration_record_bindable)
             {
-                // Saving the config on propertyy change is non-essential as another save action will be triggered
+                // Saving the config on property change is non-essential as another save action will be triggered
                 // from the application shutdown handler anyway. Therefor we delegate the inherent file I/O to
                 // a background task:
                 SafeThreadPool.QueueUserWorkItem(o =>

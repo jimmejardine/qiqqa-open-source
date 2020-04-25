@@ -109,6 +109,7 @@ namespace Utilities.Reflection
             FirePropertyChanged(this, null);
         }
 
+#if OBSOLETED
         /// <summary>
         /// Always call this using the form xyz.NotifyPropertyChanged(() => yyy.ZZZ), where ZZZ is the property that just got updated.
         /// That way the compiler will catch any property name changes.
@@ -120,6 +121,7 @@ namespace Utilities.Reflection
             string property_name = PropertyNames.Get<U>(property);
             NotifyPropertyChanged(property_name);
         }
+#endif
 
         /// <summary>
         /// Always call this using the form xyz.NotifyPropertyChanged(nameof(yyy.ZZZ)), where ZZZ is the property that just got updated.
@@ -166,9 +168,9 @@ namespace Utilities.Reflection
             }
         }
 
-        #endregion
+#endregion
 
-        #region --- ICustomTypeDescriptor - interesting ---------------------------------------------------------
+#region --- ICustomTypeDescriptor - interesting ---------------------------------------------------------
 
         public PropertyDescriptorCollection GetProperties(Attribute[] attributes)
         {
@@ -251,9 +253,9 @@ namespace Utilities.Reflection
             }
         }
 
-        #endregion
+#endregion
 
-        #region --- ICustomTypeDescriptor - boring ---------------------------------------------------------
+#region --- ICustomTypeDescriptor - boring ---------------------------------------------------------
 
         public AttributeCollection GetAttributes()
         {
@@ -305,7 +307,7 @@ namespace Utilities.Reflection
             return underlying_type;
         }
 
-        #endregion
+#endregion
 
         // ---------------------------------------------------------------------------------------------------
 
