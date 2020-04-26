@@ -395,12 +395,9 @@
     <Resource Include="Application\LibraryTypeGuest.png" />
     <Resource Include="Application\LibraryTypeIntranet.png" />
     <Resource Include="Application\LibraryTypeWeb.png" />
-    <Resource Include="Application\50th.png" />
     <Resource Include="Application\Explore.png" />
     <Resource Include="Application\DualTabbed_CloseGlow.png" />
     <Resource Include="Application\Manual.png" />
-    <Resource Include="Application\Champion.png" />
-    <Resource Include="Application\AdChampion.png" />
     <Resource Include="Application\lexlens_back.png" />
     <Resource Include="Application\lexlens_dock.png" />
     <Resource Include="Application\lexlens_eye.png" />
@@ -424,7 +421,6 @@
     <Resource Include="Application\SpeedRead_Start.png" />
     <Resource Include="Application\SpeedRead_Stop.png" />
     <Resource Include="Application\SpeedRead.png" />
-    <Resource Include="Application\AdDatacopiaQiqqa.png" />
     <Resource Include="Application\SocialMedia.png" />
     <Resource Include="Application\WebEZProxy.png" />
     <Resource Include="Application\GoogleBibTexSkipForever.png" />
@@ -436,7 +432,6 @@
     <Resource Include="Application\LibraryPivot.png" />
     <Resource Include="Application\InCiteAbbreviations.png" />
     <Resource Include="Application\WebGrabPDFs.png" />
-    <Resource Include="Application\AdOmnipatentsQiqqa.png" />
     <Resource Include="Application\StarburstBlue.png" />
     <Resource Include="Application\StarburstGreen.png" />
     <Resource Include="Application\StarburstYellow.png" />
