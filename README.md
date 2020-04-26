@@ -1,62 +1,55 @@
+
  [![logo](../../blob/master/icons/Application/Qiqqa.png) ](http://qiqqa.org/)
  
 # [Qiqqa (Open Source)](http://qiqqa.org/)
 
 [![Join the chat at https://gitter.im/qiqqa/community](https://badges.gitter.im/qiqqa/community.svg)](https://gitter.im/qiqqa/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-The open-sourced version of the award-winning Qiqqa research management tool for Windows.
+Now open source award-winning Qiqqa research management tool for Windows.
 
-This version includes EVERY feature available in [Commercial Qiqqa](qiqqa.com), including Premium and Premium+.
+This version includes **every** feature available in [Commercial Qiqqa](qiqqa.com), including Premium and Premium+.
 
-> Unfortunately we have had to remove the web cloud sync ability as that is the one area that involves storage costs.  **Users are encouraged to migrate their Web Libraries into Intranet libraries, and use Google Drive or Dropbox as the 'sync point' for those libraries.**
+> Unfortunately we have had to **remove the web cloud sync** ability as that involves storage costs. Users are encouraged to migrate their Web Libraries into Intranet libraries, and **use Google Drive or Dropbox**
+ as the 'sync point' for those libraries.
 
 
-## Qiqqa Open Source Software Releases
+## Download Qiqqa Open Source
 
-### Want notification of new releases?
+* [Download Qiqqa Open Source](https://github.com/jimmejardine/qiqqa-open-source/tree/master/Qiqqa.Build/Packages) installer for v80 and newer releases.
+	> Installer files should be uploaded to [releases](https://github.com/jimmejardine/qiqqa-open-source/releases) in the future.
 
-[Subscribe](https://support.google.com/groups/answer/1067205?hl=en) to the Google Group 'qiqqa-releases' [here](https://groups.google.com/d/forum/qiqqa-releases).
+* [Test bleeding edge](https://github.com/GerHobbelt/qiqqa-open-source/releases) Qiqqa Open Source **experimental** releases.
 
-### Where can I get them?
+	> **DO NOTE** that these releases are only lightly tested and may include grave bugs. Backup your library before testing these, even if you like living on the edge...
 
-- Qiqqa Open Source software installer releases [are available in the mainstream repository](https://github.com/jimmejardine/qiqqa-open-source/releases). Here's where you'll find Qiqqa v80 and later.
-- Qiqqa Commercial software installer releases are available at http://www.qiqqa.com/Download at least up to / into the year 2020 A.D.
+* Qiqqa Commercial software installer releases v66 to v79 are available at [qiqqa.com](www.qiqqa.com/Download) at least until 2020 and also [here](https://github.com/jimmejardine/qiqqa-open-source/tree/master/Qiqqa-Software-Installer-Releases).
 
-  > Note: Qiqqa's SSL cert seems to have expired, so your browser will warn you about the website being *unsafe*.
-  
-  + Those very same releases are also available at GitHub [in the bleeding edge development repo](https://github.com/GerHobbelt/qiqqa-open-source/tree/master/Qiqqa-Software-Installer-Releases)
-  
-- Qiqqa Open Source **Experimental Build** software installer releases [are available at the bleeding edge development repo](https://github.com/GerHobbelt/qiqqa-open-source/releases)
+### Notifications of new releases
 
-  > **DO NOTE** that these releases are only lightly tested and may include grave bugs. Meanwhile you also get an early glance at the state of affairs in Qiqqa Features and Fixes County, which might be enough of an incentive for you to try one of these. *Living on the edge* and all that...
+To be notified of new releases [subscribe](https://groups.google.com/d/forum/qiqqa-releases) to the Google Group 'qiqqa-releases' (not working yet).
 
 
 ## Documentation For Users
 
-We're working on getting the Qiqqa documentation (user manual, etc.) available at http://qiqqa.org/ 
+Documentation still needs a **lot** of work. All help is appreciated. The Commercial Qiqqa manual is available at [qiqqa.org](http://qiqqa.org/The.Qiqqa.Manual.html).
 
-> It still needs a *lot* of work, so all help is appreciated. Note: the Commercial Qiqqa manual is available as a web page there at: http://qiqqa.org/The.Qiqqa.Manual.html
->
-> Other documentation material is being added as we go; the sources for that are available in this repository's [/docs/](./docs) directory.
+Other documentation material is being added as we go; the sources for that are available in this repository's [docs](./docs) directory.
 
 
-## Fixes & Additions to Qiqqa since v80/v79
+## Fixes & Additions to Qiqqa since v79
 
-[For a full fixed issue list click here.](https://github.com/jimmejardine/qiqqa-open-source/issues?q=is%3Aissue+is%3Aclosed)
+For list of changes in released versions see [CHANGELOG](../../blob/master/CHANGELOG.md) or [CHANGELOG-full](../../blob/master/CHANGELOG_full.md).
 
-See also [CHANGELOG](../../blob/master/CHANGELOG.md) and it's big brother [CHANGELOG-full](../../blob/master/CHANGELOG_full.md), though these *will lag behind the bleeding edge of development*.
+For bleeding edge development changes see [closed bugs list](https://github.com/jimmejardine/qiqqa-open-source/issues?q=is%3Aissue+is%3Aclosed).
 
-[@GerHobbelt](https://github.com/GerHobbelt) has joined as a collaborator in the qiqqa-open-source mainline repository; the bleeding edge of his work on Qiqqa can be observed [at this fork](https://github.com/GerHobbelt/qiqqa-open-source). Qiqqa Prereleases and experimental releases will be made available there first at [the releases page](https://github.com/GerHobbelt/qiqqa-open-source/releases).
-
+@GerHobbelt has joined as a collaborator in the qiqqa-open-source mainline repository; the bleeding edge of his work on Qiqqa can be observed [at this fork](https://github.com/GerHobbelt/qiqqa-open-source). Qiqqa pre-releases and experimental releases will be made available there first at [the releases page](https://github.com/GerHobbelt/qiqqa-open-source/releases).
 
 
 ## Qiqqa Collaborators & Developers Wanted
  
-Would anyone who is interested in contributing towards this repository please contact @jimmejardine or @GerHobbelt...
+If you are interested in contributing towards better Qiqqa, please contact @jimmejardine or @GerHobbelt.
 
 
 ## For Developers: Building Qiqqa From Source
 
-You'll need to be a little technically experienced in the .NET world to get a build up and running.
-
-See the [DEVELOPER-INFO file](DEVELOPER-INFO.md) for more info on what you need to compile/build Qiqqa from source, etc.
+It needs some technical experience. See the [DEVELOPER-INFO](DEVELOPER-INFO.md) for details.
