@@ -124,14 +124,11 @@
                         <local_gui:AugmentedInfoBarItemControl Header="Read-only" ToolTip="This PDF is readonly." x:Name="ObjReadOnlyInfoBar">
                             <local_readonly:ReadOnlyControl />
                         </local_gui:AugmentedInfoBarItemControl>
-                        <local_gui:AugmentedInfoBarItemControl Header="Duplicates" ToolTip="This area shows any other documents in your library that might be duplicates of this document.">
-                            <local_duplicates:DuplicateDetectionControl x:Name="DuplicateDetectionControl" />
+                        <local_gui:AugmentedInfoBarItemControl Collapsed="True" Header="Also by" ToolTip="The authors of this paper also authored these.">
+                            <local_similarauthors:SimilarAuthorsControl x:Name="SimilarAuthorsControl" />
                         </local_gui:AugmentedInfoBarItemControl>
-                        <local_gui:AugmentedInfoBarItemControl Collapsed="True" Header="Online Databases" ToolTip="Find this document in various online databases.">
-                            <local_online_database:OnlineDatabaseLookupControl x:Name="OnlineDatabaseLookupControl" />
-                        </local_gui:AugmentedInfoBarItemControl>
-                        <local_gui:AugmentedInfoBarItemControl Collapsed="True" Header="Linked Docs" ToolTip="This shows the documents you have linked with this document.&#10;To link additional documents, search for them using the search box and select additional documents to link from the search results using UP/DOWN/ENTER.">
-                            <local_linked:LinkedDocumentsControl x:Name="LinkedDocumentsControl" />
+                        <local_gui:AugmentedInfoBarItemControl Collapsed="True" Header="Citations" ToolTip="This shows the citations made by other document in your library to and from this document.&#10;For best results, re-run the cross-reference scanner from the main library screen.">
+                            <local_citations:CitationsUserControl x:Name="CitationsControl" />
                         </local_gui:AugmentedInfoBarItemControl>
                         <local_gui:AugmentedInfoBarItemControl Collapsed="True" Header="Keywords" ToolTip="These are the most unusual keywords found in this document.  Hold down CTRL when clicking to select multiple keywords.">
                             <local_tagcloud:TagCloudRendererControl x:Name="TagCloud" />
@@ -139,17 +136,20 @@
                         <local_gui:AugmentedInfoBarItemControl Collapsed="True" Header="Themes" ToolTip="These are the Expedition themes for this paper.">
                             <local_expedition:ExpeditionPaperThemesControl />
                         </local_gui:AugmentedInfoBarItemControl>
+                        <local_gui:AugmentedInfoBarItemControl Collapsed="True" Header="Linked Docs" ToolTip="This shows the documents you have linked with this document.&#10;To link additional documents, search for them using the search box and select additional documents to link from the search results using UP/DOWN/ENTER.">
+                            <local_linked:LinkedDocumentsControl x:Name="LinkedDocumentsControl" />
+                        </local_gui:AugmentedInfoBarItemControl>
                         <local_gui:AugmentedInfoBarItemControl Collapsed="True" Header="Relevant other PDFs" ToolTip="These are the documents in your library that Expedition has found relevant to this document.">
                             <local_expedition:ExpeditionPaperSimilarsControl  NumberOfRelevantPapersToDisplay="10" ShowRelevancePercentage="false"/>
                         </local_gui:AugmentedInfoBarItemControl>
-                        <local_gui:AugmentedInfoBarItemControl Collapsed="True" Header="Also by" ToolTip="The authors of this paper also authored these.">
-                            <local_similarauthors:SimilarAuthorsControl x:Name="SimilarAuthorsControl" />
-                        </local_gui:AugmentedInfoBarItemControl>
-                        <local_gui:AugmentedInfoBarItemControl Collapsed="True" Header="Citations" ToolTip="This shows the citations made by other document in your library to and from this document.&#10;For best results, re-run the cross-reference scanner from the main library screen.">
-                            <local_citations:CitationsUserControl x:Name="CitationsControl" />
+                        <local_gui:AugmentedInfoBarItemControl Header="Duplicates" ToolTip="This area shows any other documents in your library that might be duplicates of this document.">
+                            <local_duplicates:DuplicateDetectionControl x:Name="DuplicateDetectionControl" />
                         </local_gui:AugmentedInfoBarItemControl>
                         <local_gui:AugmentedInfoBarItemControl Collapsed="True" Header="Google Scholar">
                             <local_similardocs:SimilarGoogleDocumentsRendererControl x:Name="SimilarDocsControl"/>
+                        </local_gui:AugmentedInfoBarItemControl>
+                        <local_gui:AugmentedInfoBarItemControl Collapsed="True" Header="Online Databases" ToolTip="Find this document in various online databases.">
+                            <local_online_database:OnlineDatabaseLookupControl x:Name="OnlineDatabaseLookupControl" />
                         </local_gui:AugmentedInfoBarItemControl>
                     </StackPanel>
                 </ScrollViewer>
