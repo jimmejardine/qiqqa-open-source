@@ -59,7 +59,7 @@ namespace Qiqqa.Common.Configuration
                         return p;
                     }
                 }
-                catch (Exception ex)
+                catch
                 {
                     // ignore all errors
                 }
