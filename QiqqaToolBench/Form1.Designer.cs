@@ -23,7 +23,7 @@ namespace QiqqaToolBench
                 }
                 base.Dispose(disposing);
             }
-            catch (Exception ex)
+            catch
             {
                 //Logging.Error(ex);
             }
