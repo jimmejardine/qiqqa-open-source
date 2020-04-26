@@ -385,9 +385,6 @@
       <DependentUpon>AugmentedSpacer.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GUI\AugmentedSplashScreen.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="GUI\AugmentedToggleButton.xaml.cs">
       <DependentUpon>AugmentedToggleButton.xaml</DependentUpon>
     </Compile>

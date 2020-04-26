@@ -1,9 +1,0 @@
-<Window x:Class="Qiqqa.Main.SplashScreenStuff.SplashScreenWindow"
-  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
->
-    <Grid>
-        <Image Name="ObjImage" />
-        <TextBlock Name="TxtMessage" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="10,5,10,5" Margin="10,15,10,15"/>
-    </Grid>
-</Window>

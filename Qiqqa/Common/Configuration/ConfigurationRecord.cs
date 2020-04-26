@@ -281,12 +281,6 @@ namespace Qiqqa.Common.Configuration
 
 #region --- Terms and conditions ------------------------------------------------------------------------------------
 
-        public bool TermsAndConditionsAccepted
-        {
-            get => (this["TermsAndConditionsAccepted_20110517"] as bool?) ?? true;
-            set => this["TermsAndConditionsAccepted_20110517"] = value;
-        }
-
         public bool SyncTermsAccepted
         {
             get => (this["SyncTermsAccepted_20100615"] as bool?) ?? true;
