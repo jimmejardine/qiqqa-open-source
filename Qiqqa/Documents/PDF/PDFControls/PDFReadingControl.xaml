@@ -33,13 +33,6 @@
                     <local_gui:AugmentedToggleButton x:Name="ButtonInk"/>
                     <local_gui:AugmentedToggleButton x:Name="ButtonTextSentenceSelect"/>
                     <local_gui:AugmentedToggleButton x:Name="ButtonCamera"/>
-                    <local_gui:AugmentedToolBarButton x:Name="ButtonExplore"/>
-                    <local_gui:AugmentedToolBarPopup x:Name="ButtonExplorePopup">
-                        <StackPanel>
-                            <local_gui:AugmentedToolBarButton x:Name="ButtonExpedition" CaptionDock="Right" />
-                            <local_gui:AugmentedToolBarButton x:Name="ButtonExploreInBrainstorm" CaptionDock="Right" />
-                        </StackPanel>
-                    </local_gui:AugmentedToolBarPopup>
                     <local_gui:AugmentedToolBarButton x:Name="ButtonInCite"/>
                     <local_gui:AugmentedToolBarPopup x:Name="ButtonInCitePopup">
                         <StackPanel>
@@ -47,6 +40,13 @@
                             <local_gui:AugmentedToolBarButton x:Name="ButtonInCite_WordSeparate" CaptionDock="Right" />
                             <local_gui:AugmentedToolBarButton x:Name="ButtonInCite_Snippet" CaptionDock="Right" />
                             <local_gui:AugmentedToolBarButton x:Name="ButtonInCite_BibTeXKey" CaptionDock="Right" />
+                        </StackPanel>
+                    </local_gui:AugmentedToolBarPopup>
+                    <local_gui:AugmentedToolBarButton x:Name="ButtonExplore"/>
+                    <local_gui:AugmentedToolBarPopup x:Name="ButtonExplorePopup">
+                        <StackPanel>
+                            <local_gui:AugmentedToolBarButton x:Name="ButtonExpedition" CaptionDock="Right" />
+                            <local_gui:AugmentedToolBarButton x:Name="ButtonExploreInBrainstorm" CaptionDock="Right" />
                         </StackPanel>
                     </local_gui:AugmentedToolBarPopup>
                     <local_gui:AugmentedToolBarButton x:Name="ButtonZoom"/>
