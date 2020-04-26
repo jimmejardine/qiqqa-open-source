@@ -153,7 +153,6 @@ namespace icons
         public const string BrainstormAutoArrange = "BrainstormAutoArrange";
 
         public const string LibraryDoOCR = "LibraryDoOCR";
-        public const string LibraryTextSearch = "LibraryTextSearch";
         public const string LibraryAnnotationsReport = "LibraryAnnotationsReport";
         public const string LibraryGenerateReferences = "LibraryGenerateReferences";
         public const string LibraryFindDuplicates = "LibraryFindDuplicates";
@@ -274,9 +273,6 @@ namespace icons
 
         public static readonly string NotificationBarClose = "NotificationBarClose";
 
-
-        public static readonly string GlossPremium = "GlossPremium";
-        public static readonly string GlossChampion = "GlossChampion";
         public static readonly string GlossHelpers = "GlossHelpers";
 
         public static readonly string StarburstBlue = "StarburstBlue";
