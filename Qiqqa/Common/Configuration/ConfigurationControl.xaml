@@ -357,18 +357,6 @@
                         </local_gui:AugmentedInfoBarItemControl>
                         <local_gui:AugmentedSpacer Height="20" />
                         <local_gui:AugmentedInfoBarItemControl
-                            Grid.Row="1"
-                            Grid.Column="1"
-                            Header="Welcome Screen">
-                            <StackPanel>
-                                <TextBlock TextWrapping="Wrap">
-                                    Untick the checkbox to see the Welcome Screen.
-                                </TextBlock>
-                                <CheckBox IsChecked="{Binding TermsAndConditionsAccepted}" />
-                            </StackPanel>
-                        </local_gui:AugmentedInfoBarItemControl>
-                        <local_gui:AugmentedSpacer Height="20" />
-                        <local_gui:AugmentedInfoBarItemControl
                             Grid.Row="2"
                             Grid.Column="0"
                             Header="Sync Introduction">

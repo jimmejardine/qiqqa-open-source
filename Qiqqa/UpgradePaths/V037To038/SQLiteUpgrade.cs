@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Qiqqa.Main.SplashScreenStuff;
 using Utilities;
 using Utilities.Misc;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;

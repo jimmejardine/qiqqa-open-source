@@ -1040,9 +1040,6 @@
     <Compile Include="Main\QiqqaTopLogoControl.xaml.cs">
       <DependentUpon>QiqqaTopLogoControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Main\SplashScreenStuff\SplashScreenWindow.xaml.cs">
-      <DependentUpon>SplashScreenWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Main\StatusBar.xaml.cs">
       <DependentUpon>StatusBar.xaml</DependentUpon>
     </Compile>
@@ -1072,9 +1069,6 @@
     <Compile Include="FeatureTracking\Features.cs" />
     <Compile Include="FeatureTracking\UsedFeature.cs" />
     <Compile Include="FeatureTracking\FeatureTrackingManager.cs" />
-    <Compile Include="StartPage\TabWelcome.xaml.cs">
-      <DependentUpon>TabWelcome.xaml</DependentUpon>
-    </Compile>
     <Compile Include="DocumentLibrary\WebLibraryStuff\WebLibraryDetailControl.xaml.cs">
       <DependentUpon>WebLibraryDetailControl.xaml</DependentUpon>
     </Compile>
@@ -1829,10 +1823,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Main\SplashScreenStuff\SplashScreenWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Main\StatusBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1860,12 +1850,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="StartPage\StartPageControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="StartPage\TabWelcome.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <Generator>MSBuild:Compile</Generator>
