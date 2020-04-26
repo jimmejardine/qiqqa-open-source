@@ -29,7 +29,6 @@ namespace Qiqqa.StartPage
 
             DualTabWhatsNew.Children.Clear();
             DualTabWhatsNew.AddContent("Webcasts", "Tutorials & Help", null, false, false, TabWebcasts);
-            DualTabWhatsNew.AddContent("CommunityChat", "Community Chat", null, false, false, TabChat);
 
             DualTabWhatsNew.TabPosition = DualTabbedLayout.TabPositions.Sides;
 
@@ -344,16 +343,6 @@ namespace Qiqqa.StartPage
         protected virtual void Dispose(bool disposing)
         {
             Logging.Debug("StartPageControl::Dispose({0}) @{1}", disposing, dispose_count);
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                if (dispose_count == 0)
-                {
-                    ObjChatControl?.Dispose();
-                }
-
-                ObjChatControl = null;
-            });
 
             WPFDoEvents.SafeExec(() =>
             {
