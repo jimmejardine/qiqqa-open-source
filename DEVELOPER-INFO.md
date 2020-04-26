@@ -58,7 +58,7 @@ While still in the same folder, now run:
 
 - Choose `Release+SETUP` solution on top toolbar *(there are three different solutions: Debug, Release, Release+SETUP).*
 
-- To build Qiqqa, from `Build` menu on `Build Solution` or `Rebuild Solution`. This should take a while.
+- To build Qiqqa, in `Build` menu click on `Build Solution` or `Rebuild Solution`. This should take a while.
 
 - Find `setup.exe` file in folder `qiqqa-open-source/Qiqqa.Build/Packages/v82 - 20200426-212303` or similar. Done.
 
