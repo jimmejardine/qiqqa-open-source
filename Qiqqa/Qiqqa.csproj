@@ -469,9 +469,6 @@
       <DependentUpon>SelectingNodesControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Brainstorm\SceneManager\TestHarness.cs" />
-    <Compile Include="Chat\ChatControl.xaml.cs">
-      <DependentUpon>ChatControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ClientVersioning\ClientVersionReleaseNotes.xaml.cs">
       <DependentUpon>ClientVersionReleaseNotes.xaml</DependentUpon>
     </Compile>
@@ -1285,10 +1282,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Brainstorm\SceneManager\SelectingNodesControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Chat\ChatControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

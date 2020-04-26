@@ -161,7 +161,6 @@
         public static readonly Feature Vote_Expedition = new Feature { Name = "Vote_Expedition", Description = "" };
 
         public static readonly Feature Tool_DocumentConvertWidget = new Feature { Name = "Tool_DocumentConvertWidget", Description = "" };
-        public static readonly Feature Chat_Submit = new Feature { Name = "Chat_Submit", Description = "" };
 
         public static readonly Feature Exception = new Feature { Name = "Exception", Description = "" };
         public static readonly Feature Exception_GeckoInit = new Feature { Name = "Exception_GeckoInit", Description = "" };

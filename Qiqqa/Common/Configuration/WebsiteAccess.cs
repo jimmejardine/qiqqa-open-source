@@ -58,8 +58,6 @@ namespace Qiqqa.Common.Configuration
         public static readonly string Url_LuceneQuerySyntax = @"http://lucene.apache.org/core/old_versioned_docs/versions/2_9_1/queryparsersyntax.html";
         public static readonly string Url_GoogleScholarBibTeXPreferences = @"http://scholar.google.com/scholar_setprefs?scis=yes&scisf=4";
 
-        public static readonly string Url_ChatAPI4Qiqqa = @"http://chatapi.qiqqa.com:8080";
-
         public static readonly string Url_QiqqaLibraryExportTrackReference = @"http://www.qiqqa.com/?ref=EXPHTML";
         public static readonly string Url_GoogleAnalyticsTracker4Qiqqa = @"http://www.google-analytics.com/collect";
         // dictionary tracker search URL has 1 parameter: the word you look up:
