@@ -16,8 +16,6 @@ namespace icons
         public const string AugmentedButtonDown = "AugmentedButtonDown";
         public const string ToolbarBackground = "ToolbarBackground";
 
-        public const string Champion = "Champion";
-        public const string Fiftieth = "50th";
         public const string Plus = "Plus";
         public const string Minus = "Minus";
         public const string Yes = "Yes";
@@ -77,9 +75,6 @@ namespace icons
         public const string GarbageCollect = "GarbageCollect";
         public const string ZipLogs = "ZipLogs";
 
-        public const string AdChampion = "AdChampion";
-        public const string AdDatacopiaQiqqa = "AdDatacopiaQiqqa";
-        public const string AdOmnipatentsQiqqa = "AdOmnipatentsQiqqa";
         public const string Datacopia = "Datacopia";
         public const string SocialMedia = "SocialMedia";
         public const string QiqqaWeb = "QiqqaWeb";
