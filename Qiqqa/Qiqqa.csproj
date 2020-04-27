@@ -1044,6 +1044,7 @@
       <DependentUpon>StatusBarItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Main\TempDirectoryCreator.cs" />
+    <Compile Include="Marketing\AlternativeToReminderNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

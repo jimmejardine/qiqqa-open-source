@@ -10,6 +10,7 @@ using Qiqqa.DocumentLibrary.Import.Auto;
 using Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Main;
+using Qiqqa.Marketing;
 using Qiqqa.Synchronisation.PDFSync;
 using Utilities;
 using Utilities.ClientVersioning;
@@ -56,6 +57,15 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
                 }
 
                 InitClientUpdater();
+
+                try
+                {
+                    AlternativeToReminderNotification.CheckIfWeWantToNotify();
+                }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex, "Exception during AlternativeToReminderNotification.CheckIfWeWantToNotify");
+                }
 
                 try
                 {
