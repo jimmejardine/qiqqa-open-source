@@ -1,5 +1,4 @@
 ﻿using System;
-using Qiqqa.Main.SplashScreenStuff;
 using Qiqqa.UpgradePaths.V037To038;
 using Utilities;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;

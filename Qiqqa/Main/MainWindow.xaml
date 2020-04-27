@@ -12,10 +12,6 @@
     Width="1024"
     Height="700"
     WindowStartupLocation="Manual">
-    <commongui:StandardWindow.Resources>
-        <local_gui_conv:BooleanToVisibilityInverseConverter x:Key="BooleanToVisibilityInverseConverter" />
-        <local_gui_conv:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-    </commongui:StandardWindow.Resources>
     <Grid>
         <DockPanel>
             <local_notifications:NotificationBar x:Name="NotificationBar" DockPanel.Dock="Bottom" />
@@ -35,9 +31,5 @@
                 <local_dualtab:DualTabbedLayout Name="DockingManager" />
             </Grid>
         </DockPanel>
-        <!--  For the T&Cs  -->
-        <Grid Visibility="{Binding TermsAndConditionsAccepted, Converter={StaticResource BooleanToVisibilityInverseConverter}}">
-            <local_start:TabWelcome x:Name="ObjTabWelcome" />
-        </Grid>
     </Grid>
 </commongui:StandardWindow>
