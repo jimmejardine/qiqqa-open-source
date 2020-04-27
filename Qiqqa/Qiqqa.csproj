@@ -469,9 +469,6 @@
       <DependentUpon>SelectingNodesControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Brainstorm\SceneManager\TestHarness.cs" />
-    <Compile Include="Chat\ChatControl.xaml.cs">
-      <DependentUpon>ChatControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ClientVersioning\ClientVersionReleaseNotes.xaml.cs">
       <DependentUpon>ClientVersionReleaseNotes.xaml</DependentUpon>
     </Compile>
@@ -611,9 +608,6 @@
     <Compile Include="Documents\PDF\MetadataSuggestions\PDFMetadataInferenceFromBibTeXSearch.cs" />
     <Compile Include="Documents\PDF\MetadataSuggestions\PDFMetadataInferenceFromPDFMetadata.cs" />
     <Compile Include="Documents\PDF\PDFAnnotationToImageRenderer.cs" />
-    <Compile Include="Documents\PDF\PDFControls\MetadataControls\TweetControl.xaml.cs">
-      <DependentUpon>TweetControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Documents\PDF\PDFDocument_ThreadUnsafe.cs" />
     <Compile Include="FeatureTracking\GoogleAnalysicsSubmitter.cs" />
     <Compile Include="InCite\CSLProcessorTranslator_AbbreviationsManager.cs" />
@@ -1043,9 +1037,6 @@
     <Compile Include="Main\QiqqaTopLogoControl.xaml.cs">
       <DependentUpon>QiqqaTopLogoControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Main\SplashScreenStuff\SplashScreenWindow.xaml.cs">
-      <DependentUpon>SplashScreenWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Main\StatusBar.xaml.cs">
       <DependentUpon>StatusBar.xaml</DependentUpon>
     </Compile>
@@ -1076,9 +1067,6 @@
     <Compile Include="FeatureTracking\Features.cs" />
     <Compile Include="FeatureTracking\UsedFeature.cs" />
     <Compile Include="FeatureTracking\FeatureTrackingManager.cs" />
-    <Compile Include="StartPage\TabWelcome.xaml.cs">
-      <DependentUpon>TabWelcome.xaml</DependentUpon>
-    </Compile>
     <Compile Include="DocumentLibrary\WebLibraryStuff\WebLibraryDetailControl.xaml.cs">
       <DependentUpon>WebLibraryDetailControl.xaml</DependentUpon>
     </Compile>
@@ -1294,10 +1282,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Brainstorm\SceneManager\SelectingNodesControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Chat\ChatControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1550,10 +1534,6 @@
     <Page Include="Documents\PDF\InfoBarStuff\ReadOnlyStuff\ReadOnlyControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Documents\PDF\PDFControls\MetadataControls\TweetControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Documents\PDF\PDFControls\Page\Camera\CameraActionChooserDialog.xaml">
       <SubType>Designer</SubType>
@@ -1837,10 +1817,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Main\SplashScreenStuff\SplashScreenWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Main\StatusBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1868,12 +1844,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="StartPage\StartPageControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="StartPage\TabWelcome.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <Generator>MSBuild:Compile</Generator>
