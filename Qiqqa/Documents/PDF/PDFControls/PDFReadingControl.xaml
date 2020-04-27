@@ -22,9 +22,7 @@
         <local_gui:AugmentedToolBarTray DockPanel.Dock="Top">
             <DockPanel>
                 <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center" >
-                    <local_gui:AugmentedBorder>
-                        <local_gui:AugmentedSearchBox VerticalAlignment="Center" Name="TextBoxFind" Width="150" EmptyTextPrompt="Search this PDF..." />
-                    </local_gui:AugmentedBorder>
+                    <local_gui:AugmentedSearchBox VerticalAlignment="Center" Name="TextBoxFind" Width="150" EmptyTextPrompt="Search this PDF..." />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <local_gui:AugmentedToggleButton x:Name="ButtonHand"/>

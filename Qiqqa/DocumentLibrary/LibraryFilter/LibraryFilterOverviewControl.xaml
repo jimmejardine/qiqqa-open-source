@@ -4,14 +4,10 @@
     xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
     xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
 >
-    <Grid>
-        <local_gui:AugmentedBorder x:Name="ObjLibraryFilterDescriptiveTextBorder" >
-            <Grid>
-                <FlowDocumentScrollViewer IsToolBarVisible="False" VerticalScrollBarVisibility="Disabled">
-                    <commongui:StandardFlowDocument x:Name="ObjLibraryFilterDescriptiveText">
-                    </commongui:StandardFlowDocument>
-                </FlowDocumentScrollViewer>
-            </Grid>
-        </local_gui:AugmentedBorder>
-    </Grid>
+    <local_gui:AugmentedBorder x:Name="ObjLibraryFilterDescriptiveTextBorder" >
+        <FlowDocumentScrollViewer IsToolBarVisible="False" VerticalScrollBarVisibility="Disabled">
+            <commongui:StandardFlowDocument x:Name="ObjLibraryFilterDescriptiveText">
+            </commongui:StandardFlowDocument>
+        </FlowDocumentScrollViewer>
+    </local_gui:AugmentedBorder>
 </UserControl>

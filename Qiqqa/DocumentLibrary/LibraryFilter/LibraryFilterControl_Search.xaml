@@ -4,12 +4,8 @@
   xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
   xmlns:local_library_filter="clr-namespace:Qiqqa.DocumentLibrary.LibraryFilter"
 >
-    <Grid>
-        <local_gui:AugmentedBorder>
-            <DockPanel>
-                <local_library_filter:LuceneSearchHelpButton DockPanel.Dock="Right" x:Name="SearchQuickHelpButton"/>
-                <local_gui:AugmentedSearchBox Name="SearchQuick" EmptyTextPrompt="Search entire library..." />
-            </DockPanel>
-        </local_gui:AugmentedBorder>
-    </Grid>
+    <DockPanel>
+        <local_gui:AugmentedSearchBox Name="SearchQuick" EmptyTextPrompt="Search entire library..." />
+        <local_library_filter:LuceneSearchHelpButton DockPanel.Dock="Right" x:Name="SearchQuickHelpButton"/>
+    </DockPanel>
 </UserControl>

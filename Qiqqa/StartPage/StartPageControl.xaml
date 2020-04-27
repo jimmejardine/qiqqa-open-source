@@ -18,12 +18,10 @@
                 <DockPanel>
                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Name="ObjGlobalSearchPanel">
-                            <local_gui:AugmentedBorder>
-                                <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center" Orientation="Horizontal">
-                                    <local_gui:AugmentedSearchBox Name="ObjSearch" EmptyTextPrompt="Search across all libraries..." />
-                                    <local_library_filter:LuceneSearchHelpButton />
-                                </StackPanel>
-                            </local_gui:AugmentedBorder>
+                            <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center" Orientation="Horizontal">
+                                <local_gui:AugmentedSearchBox Name="ObjSearch" EmptyTextPrompt="Search across all libraries..." />
+                                <local_library_filter:LuceneSearchHelpButton />
+                            </StackPanel>
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">

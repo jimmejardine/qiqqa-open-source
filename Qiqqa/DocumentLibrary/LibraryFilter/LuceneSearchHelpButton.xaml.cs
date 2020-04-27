@@ -14,9 +14,8 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
             InitializeComponent();
 
             SearchQuickHelp.Icon = Icons.GetAppIcon(Icons.Help);
-            SearchQuickHelp.IconHeight = 16;
+            SearchQuickHelp.IconHeight = 24;
             SearchQuickHelp.Click += SearchQuickHelp_Click;
-
         }
 
         private void SearchQuickHelp_Click(object sender, RoutedEventArgs e)
