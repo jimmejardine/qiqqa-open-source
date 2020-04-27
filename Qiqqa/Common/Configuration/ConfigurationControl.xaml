@@ -17,7 +17,7 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="1" Width="800" Background="White">
+            <StackPanel Grid.Column="1" Width="800">
                 <local_gui:AugmentedSpacer Height="40" />
                 <local_gui:AugmentedInfoBarItemControl Collapsed="False" Header="Novice/Expert">
                     <Border Padding="10">
