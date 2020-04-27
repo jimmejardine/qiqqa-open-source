@@ -31,7 +31,7 @@
                             </TextBlock>
                             <local_gui:AugmentedSpacer Height="15" />
                             <CheckBox IsChecked="{Binding GUI_AdvancedMenus}" FontSize="15">
-                                Use advanced menus
+                                Hide toolbar captions
                             </CheckBox>
                             <TextBlock TextWrapping="Wrap" FontStyle="Italic">
                                 To get you started, the menus have text captions describing each button.  If you are a Qiqqa expert, you might be happy to rely just on the tooltips and save some screen space.  Tick this to join the major-league.
@@ -69,14 +69,14 @@
                                 Automatically associate BibTeX with PDFs
                             </CheckBox>
                             <TextBlock TextWrapping="Wrap" FontStyle="Italic">
-                                When you add a new PDF to Qiqqa, it uses several heuristics to automatically associate BibTeX with your PDF.  If you prefer to do this manually, deselect this box:
+                                When you add a new PDF to Qiqqa, it uses several heuristics to automatically associate BibTeX with your PDF.  If you prefer to do this manually, deselect this box.
                             </TextBlock>
                             <local_gui:AugmentedSpacer Height="15" />
                             <CheckBox IsChecked="{Binding Metadata_UseBibTeXSnifferWizard}" FontSize="15">
-                                Use BibTeX Sniffer Wizard
+                                BibTeX Sniffer autoforward
                             </CheckBox>
                             <TextBlock TextWrapping="Wrap" FontStyle="Italic">
-                                When enabled, the Wizard automatically advances the BibTeX Sniffer to your next PDF as soon as it detects that you have found a reasonable BibTeX to associate with the current PDF.  If you would prefer to step through your PDFs manually, deselect this box:
+                                When enabled, the Wizard automatically advances the BibTeX Sniffer to your next PDF as soon as it detects that you have found a reasonable BibTeX to associate with the current PDF.  If you would prefer to step through your PDFs manually, deselect this box.
                             </TextBlock>
                         </StackPanel>
                     </Border>
@@ -85,13 +85,13 @@
                 <local_gui:AugmentedInfoBarItemControl Collapsed="False" Header="Network">
                     <Border Padding="10">
                         <StackPanel>
-                            <Label FontSize="15" FontWeight="Bold">
+                            <Label FontSize="15">
                                 Proxy support
                             </Label>
                             <configgui:ProxySettingsControl HorizontalAlignment="Left" />
                             <local_gui:AugmentedSpacer Height="20" />
 
-                            <Label FontSize="15" FontWeight="Bold">
+                            <Label FontSize="15">
                                 EZProxy support
                             </Label>
                             <TextBlock TextWrapping="Wrap">
@@ -111,9 +111,6 @@
                             </TextBlock>
                             <local_gui:AugmentedSpacer Height="20" />
 
-                            <Label FontSize="15" FontWeight="Bold">
-                                SSL encryption
-                            </Label>
                             <CheckBox IsChecked="{Binding System_DisableSSL}" FontSize="15">
                                 Disable SSL encryption
                             </CheckBox>
@@ -121,7 +118,7 @@
                                 By default, Qiqqa communicates with the cloud using 128-bit HTTPS/SSL.  Some company network administrators do not allow encrypted information through their firewalls.  If this applies to you, you can disable SSL communications.
                             </TextBlock>
                             <local_gui:AugmentedSpacer Height="15" />
-                            <Label FontSize="15" FontWeight="Bold">
+                            <Label FontSize="15">
                                 Browser User Agent Override
                             </Label>
                             <TextBlock TextWrapping="Wrap">
@@ -146,9 +143,6 @@
                                 </Button>
                             </StackPanel>
                             <local_gui:AugmentedSpacer Height="15" />
-                            <Label FontSize="15" FontWeight="Bold">
-                                Default web browser
-                            </Label>
                             <CheckBox IsChecked="{Binding System_UseExternalWebBrowser}" FontSize="15">
                                 Use external web browser
                             </CheckBox>
@@ -162,9 +156,7 @@
                 <local_gui:AugmentedInfoBarItemControl Collapsed="False" Header="Appearance">
                     <Border Padding="10">
                         <StackPanel>
-                            <Label FontSize="15" FontWeight="Bold">
-                                Theme colours
-                            </Label>
+                            <Label FontSize="15" Content="Theme Colours"/>
                             <TextBlock TextWrapping="Wrap">
                                 Pick the &quot;base colour&quot; for the Qiqqa interface.  You will need to restart Qiqqa to see the colour in action.
                             </TextBlock>
@@ -179,12 +171,11 @@
                                 </StackPanel>
                             </StackPanel>
                             <local_gui:AugmentedSpacer Height="15" />
-                            <Label FontSize="15" FontWeight="Bold">
-                                Annotation transparency
-                            </Label>
+                            <Label FontSize="15" Content="Annotation Transparency"/>
                             <TextBlock TextWrapping="Wrap">
                                 You can change how transparently Qiqqa renders your annotations, highlights and inks.  This is a number between 0 (clear) and 1 (solid):
                              </TextBlock>
+                            <local_gui:AugmentedSpacer Height="7" />
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
@@ -239,11 +230,11 @@
                                         Text="{Binding GUI_InkScreenTransparency}" />
                             </Grid>
                             <local_gui:AugmentedSpacer Height="15" />
-                            <Label FontSize="15" FontWeight="Bold">
+                            <Label FontSize="15">
                                 Translation Locale
                             </Label>
                             <TextBlock TextWrapping="Wrap">
-                                The Qiqqa Community is hard at work translating parts of Qiqqa into your language.  Qiqqa detects your language from Windows.  If you would like to force Qiqqa to use another language, enter its language code here.  If you want Qiqqa in its default English, enter en.  You can either enter a short code like es (Spanish) or a long code like es-MX (Mexican Spanish).
+                                Qiqqa detects your language from Windows.  If you would like to force Qiqqa to use another language, enter its language code here.  If you want Qiqqa in its default English, enter en.  You can either enter a short code like es (Spanish) or a long code like es-MX (Mexican Spanish).
                                 To get involved and translate Qiqqa into your language, choose the &quot;Localise&quot; option on the Config menu of the Start Screen.
                             </TextBlock>
                             <TextBox Text="{Binding Localisation_ForcedLocale}" />
@@ -289,14 +280,14 @@
                     <Border Padding="10">
                         <StackPanel>
                             <CheckBox IsChecked="{Binding Feedback_UtilisationInfo}" FontSize="15">
-                                Feedback
+                                Feedback enabled
                             </CheckBox>
                             <TextBlock TextWrapping="Wrap" FontStyle="Italic">
                                 If you're ok with this, Qiqqa can send us usage reports.  These reports are anonymous, and contain no private data. They mainly just let us know which features are being used, so we can work on those. We would be very grateful to have them, but if you would prefer that they're not automatically sent, please uncheck this checkbox.
                             </TextBlock>
                             <local_gui:AugmentedSpacer Height="15" />
                             <CheckBox IsChecked="{Binding SyncTermsAccepted}" FontSize="15">
-                                Sync Introduction
+                                Sync introduction
                             </CheckBox>
                             <TextBlock TextWrapping="Wrap" FontStyle="Italic">
                             The first time you sync, you are presented with an introduction to the sync process.  You can choose to not display it again, in which case it will not appear the next time you sync.  If you want it to become available again, uncheck this box.
@@ -308,15 +299,13 @@
                 <local_gui:AugmentedInfoBarItemControl Collapsed="False" Header="System">
                     <Border Padding="10">
                         <StackPanel>
-                            <Label FontSize="15" FontWeight="Bold">
+                            <Label FontSize="15">
                                 Qiqqa data directory
                             </Label>
-                            <TextBlock TextWrapping="Wrap">
-                                Location of Qiqqa data directory (blank means the Qiqqa default location).  You will have to restart Qiqqa for this change to take effect.  You will also have to manually move any existing data there.  Please beware: this folder should *not* be shared by more than one user, either over an intranet or using a cloud synchronization utility like DropBox.  It could lead to corruption of your Qiqqa database if you edit the same files on two computers before they manage to sync up.
-                            </TextBlock>
+                            <TextBlock TextWrapping="Wrap"><Run Text="Location of Qiqqa data directory (blank means the Qiqqa default location). You will have to restart Qiqqa for this change to take effect. You will also have to manually move any existing data there. Please beware: this folder should "/><Run Text="NOT"/><Run Text=" be shared by more than one user, either over an intranet or using a cloud synchronization utility like DropBox. It could lead to corruption of your Qiqqa database if you edit the same files on two computers before they manage to sync up."/></TextBlock>
                             <TextBox Name="TextQiqqaBaseFolder" />
                             <local_gui:AugmentedSpacer Height="15" />
-                            <Label FontSize="15" FontWeight="Bold">
+                            <Label FontSize="15">
                                 PDF location override directory
                             </Label>
                             <TextBlock TextWrapping="Wrap">
@@ -324,7 +313,7 @@
                             </TextBlock>
                             <TextBox Text="{Binding System_OverrideDirectoryForPDFs}" />
                             <local_gui:AugmentedSpacer Height="15" />
-                            <Label FontSize="15" FontWeight="Bold">
+                            <Label FontSize="15">
                                 OCR location override directory
                             </Label>
                             <TextBlock TextWrapping="Wrap">
@@ -332,7 +321,7 @@
                             </TextBlock>
                             <TextBox Text="{Binding System_OverrideDirectoryForOCRs}" />
                             <local_gui:AugmentedSpacer Height="15" />
-                            <Label FontSize="15" FontWeight="Bold">
+                            <Label FontSize="15">
                                 Maximum number of OCR processes
                             </Label>
                             <TextBlock TextWrapping="Wrap">
@@ -355,7 +344,7 @@
                                 </TextBlock>
                             </StackPanel>
                             <local_gui:AugmentedSpacer Height="15" />
-                            <Label FontSize="15" FontWeight="Bold">
+                            <Label FontSize="15">
                                 Login details
                             </Label>
                             <StackPanel>
@@ -368,7 +357,7 @@
                                 </TextBlock>
                                 <TextBox Text="{Binding Account_Nickname}" />
                                 <local_gui:AugmentedSpacer Height="15" />
-                                <Label FontSize="15" FontWeight="Bold">
+                                <Label FontSize="15">
                                     Support functions
                                 </Label>
                                 <TextBlock DockPanel.Dock="Top" TextWrapping="Wrap">
