@@ -9,7 +9,7 @@ namespace Utilities.GUI
     {
         private static readonly QuantisleUserRegistry qur = new QuantisleUserRegistry("Misc");
 
-        public static int HEADER_FONT_SIZE = 20;
+        public static int HEADER_FONT_SIZE = 16;
 
         public static readonly Color[] THEMES = new Color[]
         {
