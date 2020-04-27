@@ -15,7 +15,7 @@
         <DockPanel Name="ObjDocumentInfo">
             <local_gui:AugmentedBorder Name="DocumentIsDeletedNode" DockPanel.Dock="Top">
                 <local_gui:NonScrollingFlowDocumentScrollViewer>
-                    <commongui:StandardFlowDocument Background="{StaticResource Background_Brush_Warning}">
+                    <commongui:StandardFlowDocument>
                         <Paragraph>
                             This document has been deleted.
                             <Hyperlink Name="HyperlinkRestore">
