@@ -19,7 +19,6 @@ namespace icons
         public const string Minus = "Minus";
         public const string Yes = "Yes";
         public const string No = "No";
-        public const string Sort = "Sort";
         public const string PageCurlTL = "PageCurlTL";
         public const string PageCurlBR = "PageCurlBR";
 

@@ -424,7 +424,6 @@
     <Resource Include="Application\SocialMedia.png" />
     <Resource Include="Application\WebEZProxy.png" />
     <Resource Include="Application\GoogleBibTexSkipForever.png" />
-    <Resource Include="Application\Sort.png" />
     <Resource Include="Application\GlossChampion.jpg" />
     <Resource Include="Application\GlossHelpers.jpg" />
     <Resource Include="Application\GlossPremium.jpg" />

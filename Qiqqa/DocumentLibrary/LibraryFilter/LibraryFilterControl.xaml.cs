@@ -55,19 +55,9 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
         {
             InitializeComponent();
 
-            // Rotate the SORT icon 270 degrees
-            TransformedBitmap sort_icon_rotated = new TransformedBitmap();
-            {
-                BitmapImage sort_icon = Icons.GetAppIcon(Icons.Sort);
-                sort_icon_rotated.BeginInit();
-                sort_icon_rotated.Transform = new RotateTransform(270);
-                sort_icon_rotated.Source = sort_icon;
-                sort_icon_rotated.EndInit();
-            }
-
             // Move the tabs into their correct places...
             DualTabTags.Children.Clear();
-            DualTabTags.AddContent("Sort", "Sort", sort_icon_rotated, false, false, TabSort);
+            DualTabTags.AddContent("Sort", "Sort", null, false, false, TabSort);
             DualTabTags.AddContent("Tag", "Tag", null, false, false, TabTags);
             DualTabTags.AddContent("AutoTag", "AutoTag", null, false, false, TabAITags);
             DualTabTags.AddContent("Author", "Author", null, false, false, TabAuthors);
