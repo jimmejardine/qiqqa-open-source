@@ -362,7 +362,6 @@
     <Resource Include="Application\ModuleLocalisation.png" />
     <Resource Include="Application\InCiteEditCSL.png" />
     <Resource Include="Application\AugmentedButtonDown.png" />
-    <Resource Include="Application\ToolbarBackground.png" />
     <Resource Include="Application\ZipLogs.png" />
     <Resource Include="Application\DocumentMisc.png" />
     <Resource Include="Application\Logout.png" />
