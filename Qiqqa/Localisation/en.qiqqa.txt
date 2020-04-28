@@ -53,7 +53,7 @@ START/CAP/PREMIUM:Premium
 START/TIP/PREMIUM:Click here to find out more about becoming a Qiqqa Premium or Premium+ member so that you can access all of Qiqqa's features.
 START/CAP/CHAMPION:Champion
 START/TIP/CHAMPION:Earn with us as a Qiqqa Champion in our affiliate programme.\nTailor it to your time: it's as easy as putting up a few posters on your campus or as challenging as building your own multinational sales network!
-START/CAP/LOCALISE:Help us translate Qiqqa!
+START/CAP/LOCALISE:Help us translate Qiqqa
 START/TIP/LOCALISE:Help us to translate Qiqqa into your own language.
 START/CAP/ZIPLOGS:Bundle logs for Qiqqa support
 START/TIP/ZIPLOGS:Qiqqa Support may ask you to send them your log files to help diagnose a problem.\nPress this button and then email the resulting ZIP file to support@qiqqa.com.
@@ -95,12 +95,12 @@ LIBRARY/TIP/FIND_DUPLICATES:Find all the duplicate documents in your library.
 LIBRARY/CAP/BIBTEX_SNIFFER:BibTeX\nSniffer
 LIBRARY/TIP/BIBTEX_SNIFFER:Fire up the BibTeX Sniffer to help you quickly locate missing reference information for your documents.
 LIBRARY/TIP/BIBTEX_AUTOFIND:Search for BibTeX against the Qiqqa BibTeX database.
-LIBRARY/TIP/EXPEDITION:Explore this library using Qiqqa Expedition.
-LIBRARY/TIP/BRAINSTORM:Explore this library in a Brainstorm.
-LIBRARY/TIP/PIVOT:Explore this library in a Pivot.
+LIBRARY/TIP/EXPEDITION:Explore with Expedition
+LIBRARY/TIP/BRAINSTORM:Explore with Brainstorm
+LIBRARY/TIP/PIVOT:Explore with Pivot
 LIBRARY/CAP/EXPORT_LIBRARY:Export Library
 LIBRARY/TIP/EXPORT_LIBRARY:Export your entire Qiqqa library to a folder for use in other programs.
-LIBRARY/CAP/EXPORT_BIBTEX:Export BibTeX records for use with LaTeX.
+LIBRARY/CAP/EXPORT_BIBTEX:Export BibTeX for LaTeX
 LIBRARY/TIP/EXPORT_BIBTEX:Export all your BibTeX entries for use with your LaTeX/BibTeX word processor.\nIf you have a library filter in place, it will also apply to your BibTeX export.
 LIBRARY/CAP/EXPORT_WORD:Export Refs to Word XML (not recommended)
 LIBRARY/TIP/EXPORT_WORD:Export all your BibTeX entries for use with the Microsoft® Word™ bibliographic management system.\nIf you have a library filter in place, it will also apply to your export.
@@ -130,37 +130,37 @@ PDF/TIP/ADD_HIGHLIGHT:Highlight sections of text. (Ctrl-H)
 PDF/TIP/ADD_INK:Draw ink on your PDF with a pen. (Ctrl-I)
 PDF/TIP/SNAPSHOT:Take a snapshot of a region of your document and put it on the clipboard.  You can then paste this picture into another application.
 PDF/TIP/SEARCH:Search for a word in your document.\nEnter text here and press <ENTER> to search this document.\nPress Ctrl+F to repeat the last search.
-PDF/TIP/BRAINSTORM:Explore this document in a brainstorm.
+PDF/TIP/BRAINSTORM:Explore in a brainstorm
 PDF/TIP/EXPLORE:Explore this document.
 PDF/TIP/INCITE:Cite this document.
 PDF/CAP/CITE_WORD:Cite this document in Word - (Author, Date)
 PDF/CAP/CITE_WORD_SEPARATE:Cite this document in Word - Author (Date)
-PDF/CAP/CITE_SNIPPET:Cite this using a snippet on the clipboard.
-PDF/CAP/CITE_BIBTEX:Copy BibTeX key to the clipboard.
-PDF/TIP/EXPEDITION:Run Qiqqa Expedition on this document.
-PDF/TIP/PRINT:Print document.
+PDF/CAP/CITE_SNIPPET:Copy citation text to the clipboard
+PDF/CAP/CITE_BIBTEX:Copy BibTeX key to the clipboard
+PDF/TIP/EXPEDITION:Run Qiqqa Expedition
+PDF/TIP/PRINT:Print document
 PDF/TIP/SHARE:Email & share document.
-PDF/TIP/OPEN_PARENT_LIBRARY:Open the Library that contains this PDF.
-PDF/TIP/SAVE_COPY:Save a copy of this PDF.
+PDF/TIP/OPEN_PARENT_LIBRARY:Open the Library that contains this PDF
+PDF/TIP/SAVE_COPY:Save a copy of this PDF
 PDF/TIP/FULL_SCREEN:Read this paper in full-screen mode.
-PDF/TIP/ZOOM:Zoom and Rotate
-PDF/TIP/ZOOM_1:Zoom to 1 page across.
-PDF/TIP/ZOOM_2:Zoom to 2 pages across.
-PDF/TIP/ZOOM_N:Zoom out to many pages.
-PDF/TIP/ZOOM_WHOLE:Zoom to full page.
-PDF/TIP/ROTATE:Rotate page clockwise.
-PDF/TIP/ROTATE_ALL:Rotate all pages clockwise.
-PDF/TIP/ZOOM_IN:Zoom in.
-PDF/TIP/ZOOM_OUT:Zoom out.
-PDF/TIP/NEGATIVE:View negative (easier to read some documents).
-PDF/TIP/MORE_MENUS:Additional PDF options.
+PDF/TIP/ZOOM:Zoom and Rotate.
+PDF/TIP/ZOOM_1:Zoom to 1 page across
+PDF/TIP/ZOOM_2:Zoom to 2 pages across
+PDF/TIP/ZOOM_N:Zoom out to many pages
+PDF/TIP/ZOOM_WHOLE:Zoom to full page
+PDF/TIP/ROTATE:Rotate page clockwise
+PDF/TIP/ROTATE_ALL:Rotate all pages clockwise
+PDF/TIP/ZOOM_IN:Zoom in
+PDF/TIP/ZOOM_OUT:Zoom out
+PDF/TIP/NEGATIVE:View negative
+PDF/TIP/MORE_MENUS:Additional PDF options
 PDF/TIP/BOOKMARKS:Set bookmarks and Jump to sections in your document.
 PDF/TIP/PAGE_PREV:Previous page.
 PDF/TIP/PAGE_NEXT:Next page.
 PDF/TIP/PAGE_JUMP:Type in a page number here and press <ENTER> to jump there.  Otherwise press + or - to step through pages.
-PDF/TIP/READ_ALOUD:Read page out loud.
-PDF/TIP/SPEED_READ:Speed read this PDF.
-PDF/TIP/CONVERT_TO_TEXT:Convert your PDF to text.
+PDF/TIP/READ_ALOUD:Read page out loud
+PDF/TIP/SPEED_READ:Speed read this PDF
+PDF/TIP/CONVERT_TO_TEXT:Convert your PDF to text
 PDF/TIP/MISC:Miscellaneous PDF goodies.
 
 INCITE/CAP/NEW_SNIPPET:Copy\nSnippet
