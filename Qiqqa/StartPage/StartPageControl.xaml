@@ -64,13 +64,11 @@
             </local_gui:AugmentedToolBarTray>
             <DockPanel>
                 <local_gui:CollapsibleRegion Name="RegionWhatsNew" DockPanel.Dock="Right" VisibleEdge="Left">
-                    <local_gui:AugmentedBorder Width="285">
-                        <local_dualtab:DualTabbedLayout Name="DualTabWhatsNew" >
-                            <DockPanel Name="TabWebcasts" >
-                                <local:RegionWebcasts />
-                            </DockPanel>
-                        </local_dualtab:DualTabbedLayout>
-                    </local_gui:AugmentedBorder>
+                    <local_dualtab:DualTabbedLayout Name="DualTabWhatsNew" >
+                        <DockPanel Name="TabWebcasts" Width="285">
+                            <local:RegionWebcasts />
+                        </DockPanel>
+                    </local_dualtab:DualTabbedLayout>
                 </local_gui:CollapsibleRegion>
                 <DockPanel>
                     <local:RegionWebLibraries x:Name="ObjWebLibraries"/>
