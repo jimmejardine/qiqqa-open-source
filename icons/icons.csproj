@@ -210,7 +210,6 @@
     <None Include="Application\Old\Upgrade.png" />
     <None Include="Application\Old\ZoomIn.png" />
     <None Include="Application\Old\ZoomOut.png" />
-    <Resource Include="Backgrounds\ExceptionDialogBackground.jpg" />
     <Resource Include="Application\ExceptionFeedbackDecline.png" />
     <Resource Include="Application\ExceptionFeedbackSend.png" />
     <Resource Include="Application\OCRNotComplete.png" />

@@ -32,9 +32,6 @@ namespace Qiqqa.Common.MessageBoxControls
 
             Icon = Icons.GetAppIconICO(Icons.Qiqqa);
 
-            ObjImage.Stretch = Stretch.Fill;
-            ObjImage.Source = Backgrounds.GetBackground(Backgrounds.ExceptionDialogBackground);
-
             TextComments.Focus();
         }
 
