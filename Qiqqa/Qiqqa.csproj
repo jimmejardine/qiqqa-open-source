@@ -1015,9 +1015,6 @@
     <Compile Include="InCite\WordConnector.cs" />
     <Compile Include="InCite\WordConnectorStructures.cs" />
     <Compile Include="Localisation\LocaleTable.cs" />
-    <Compile Include="Localisation\LocalisationEditingControl.xaml.cs">
-      <DependentUpon>LocalisationEditingControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Localisation\LocalisationManager.cs" />
     <Compile Include="Main\FileAssociationRegistration.cs" />
     <Compile Include="Main\IPC\IPCClient.cs" />
@@ -1789,10 +1786,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="InCite\UsedCitationsControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Localisation\LocalisationEditingControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

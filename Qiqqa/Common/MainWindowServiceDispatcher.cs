@@ -588,12 +588,6 @@ namespace Qiqqa.Common
             brainstorm_control.AutoArrange(true);
         }
 
-        internal void OpenLocalisationEditing()
-        {
-            LocalisationEditingControl lec = new LocalisationEditingControl();
-            main_window.DockingManager.AddContent("Localisation" + Guid.NewGuid(), "Localisation", Icons.GetAppIcon(Icons.ModuleLocalisation), true, true, lec);
-        }
-
         internal void OpenCSLEditor()
         {
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_CSLEditorOpen);

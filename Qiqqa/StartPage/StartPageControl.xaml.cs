@@ -139,12 +139,6 @@ namespace Qiqqa.StartPage
             ButtonNewAbout.ToolTip = LocalisationManager.Get("START/TIP/ABOUT");
             ButtonNewAbout.Click += ButtonNewAbout_Click;
 
-            ButtonTranslate.Visibility = ConfigurationManager.Instance.NoviceVisibility;
-            ButtonTranslate.Icon = Icons.GetAppIcon(Icons.ModuleLocalisation);
-            ButtonTranslate.Caption = LocalisationManager.Get("START/CAP/LOCALISE");
-            ButtonTranslate.ToolTip = LocalisationManager.Get("START/TIP/LOCALISE");
-            ButtonTranslate.Click += ButtonTranslate_Click;
-
             ButtonZipLogs.Icon = Icons.GetAppIcon(Icons.ZipLogs);
             ButtonZipLogs.Caption = LocalisationManager.Get("START/CAP/ZIPLOGS");
             ButtonZipLogs.ToolTip = LocalisationManager.Get("START/TIP/ZIPLOGS");
@@ -301,12 +295,6 @@ namespace Qiqqa.StartPage
         {
             ButtonHelpPopup.Close();
             MainWindowServiceDispatcher.Instance.OpenAbout();
-        }
-
-        private void ButtonTranslate_Click(object sender, RoutedEventArgs e)
-        {
-            ButtonToolsPopup.Close();
-            MainWindowServiceDispatcher.Instance.OpenLocalisationEditing();
         }
 
         private void ButtonZipLogs_Click(object sender, RoutedEventArgs e)
