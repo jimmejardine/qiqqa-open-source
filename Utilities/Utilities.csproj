@@ -549,9 +549,6 @@
     <Compile Include="GUI\ThemeColours.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GUI\ThemeScrollbar.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="GUI\ThemeTabItem.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -937,10 +934,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\ThemeColours.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\ThemeScrollbar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

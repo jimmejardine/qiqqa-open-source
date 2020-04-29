@@ -24,7 +24,6 @@ namespace Utilities.GUI
 
                 ThemeColours.AddToApplicationResources(app);
                 ThemeTextStyles.AddToApplicationResources(app);
-                ThemeScrollbar.AddToApplicationResources(app);
                 ThemeTabItem.AddToApplicationResources(app);
             }
 
