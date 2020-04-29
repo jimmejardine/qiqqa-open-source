@@ -528,16 +528,6 @@
     </Compile>
     <Compile Include="GUI\ReflectionControl.cs" />
     <Compile Include="GUI\RelayCommand.cs" />
-    <Compile Include="GUI\Render3D\Point3D.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GUI\RibbonTools\AugmentedRibbon.cs" />
-    <Compile Include="GUI\RibbonTools\AugmentedRibbonBar.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GUI\RibbonTools\AugmentedRibbonButton.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="GUI\ScreenTools.cs" />
     <Compile Include="GUI\Shaders\Negative\NegativeEffect.cs">
       <SubType>Code</SubType>
