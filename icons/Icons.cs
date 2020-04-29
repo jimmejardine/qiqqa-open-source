@@ -19,8 +19,6 @@ namespace icons
         public const string Minus = "Minus";
         public const string Yes = "Yes";
         public const string No = "No";
-        public const string PageCurlTL = "PageCurlTL";
-        public const string PageCurlBR = "PageCurlBR";
 
         public const string Import_BibTeX = "Import_BibTeX";
         public const string Import_Mendeley = "Import_Mendeley";

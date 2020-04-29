@@ -277,42 +277,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                 // The image layer
                 Children.Add(ImagePage_HIDDEN);
 
-                // Make the curly layer
-                if (add_bells_and_whistles)
-                {
-                    Grid layer_curly = new Grid();
-
-                    layer_curly.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Star) });
-                    layer_curly.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(30, GridUnitType.Star) });
-                    layer_curly.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Star) });
-                    layer_curly.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
-                    layer_curly.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(21, GridUnitType.Star) });
-                    layer_curly.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
-
-                    {
-                        Image image_tl = new Image();
-                        image_tl.Source = Icons.GetAppIcon(Icons.PageCurlTL);
-                        image_tl.Stretch = Stretch.Uniform;
-                        image_tl.HorizontalAlignment = HorizontalAlignment.Left;
-                        image_tl.VerticalAlignment = VerticalAlignment.Top;
-                        SetColumn(image_tl, 0);
-                        SetRow(image_tl, 0);
-                        layer_curly.Children.Add(image_tl);
-                    }
-                    {
-                        Image image_tl = new Image();
-                        image_tl.Source = Icons.GetAppIcon(Icons.PageCurlBR);
-                        image_tl.Stretch = Stretch.Uniform;
-                        image_tl.HorizontalAlignment = HorizontalAlignment.Right;
-                        image_tl.VerticalAlignment = VerticalAlignment.Bottom;
-                        SetColumn(image_tl, 2);
-                        SetRow(image_tl, 2);
-                        layer_curly.Children.Add(image_tl);
-                    }
-
-                    Children.Add(layer_curly);
-                }
-
                 // The functional layers
                 foreach (PageLayer page_layer in page_layers)
                 {

@@ -354,8 +354,6 @@
     <Resource Include="Application\QiqqaAndroid.png" />
     <Resource Include="Application\Minus.png" />
     <Resource Include="Application\Plus.png" />
-    <Resource Include="Application\PageCurlBR.png" />
-    <Resource Include="Application\PageCurlTL.png" />
     <Resource Include="Application\Xmas.png" />
     <Resource Include="Application\ModuleExpedition.png" />
     <Resource Include="Application\ModuleLocalisation.png" />
