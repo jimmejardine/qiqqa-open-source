@@ -1034,9 +1034,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\MainWindowServiceDispatcher.cs" />
-    <Compile Include="Main\QiqqaTopLogoControl.xaml.cs">
-      <DependentUpon>QiqqaTopLogoControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Main\StatusBar.xaml.cs">
       <DependentUpon>StatusBar.xaml</DependentUpon>
     </Compile>
@@ -1812,10 +1809,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Main\QiqqaTopLogoControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Main\StatusBar.xaml">
       <Generator>MSBuild:Compile</Generator>
