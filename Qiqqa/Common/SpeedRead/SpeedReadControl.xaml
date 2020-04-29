@@ -8,16 +8,10 @@
     <UserControl.Resources>
         <local_gui_conv:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </UserControl.Resources>
-    <DockPanel>
-        <local_gui:AugmentedSpacer DockPanel.Dock="Top" />
-        <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
+    <DockPanel Margin="5">
         <StackPanel DockPanel.Dock="Top">
             <Grid>
-                <DockPanel>
-                    <local_gui:AugmentedSpacer DockPanel.Dock="Left"/>
-                    <local_gui:AugmentedSpacer DockPanel.Dock="Right"/>
-                    <Slider Name="SliderLocation" Minimum="0" Maximum="1000" Value="100" TickPlacement="Both" VerticalAlignment="Center" IsSnapToTickEnabled="True" TickFrequency="100"/>
-                </DockPanel>
+                <Slider Name="SliderLocation" Minimum="0" Maximum="1000" Value="100" TickPlacement="Both" VerticalAlignment="Center" IsSnapToTickEnabled="True" TickFrequency="100"/>
                 <StackPanel Orientation="Horizontal" IsHitTestVisible="False" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock Text="{Binding ElementName=SliderLocation, Path=Value, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" />
                     <TextBlock Text=" of " HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" />
@@ -27,14 +21,9 @@
         </StackPanel>
         <StackPanel DockPanel.Dock="Bottom">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <local_gui:AugmentedSpacer />
                 <StackPanel>
-                    <CheckBox Name="CheckPreamble" IsChecked="{Binding SpeedRead_PreambleVisible}">
-                        Preamble?
-                    </CheckBox>
-                    <CheckBox Name="CheckPostamble" IsChecked="{Binding SpeedRead_PostambleVisible}">
-                        Postamble?
-                    </CheckBox>
+                    <CheckBox Name="CheckPreamble" IsChecked="{Binding SpeedRead_PreambleVisible}" Content="Preamble" />
+                    <CheckBox Name="CheckPostamble" IsChecked="{Binding SpeedRead_PostambleVisible}" Content="Postamble" />
                 </StackPanel>
                 <local_gui:AugmentedSpacer />
                 <local_gui:AugmentedButton x:Name="ButtonPlayStop" />
@@ -47,7 +36,6 @@
                 <Slider Name="SliderWPM" Minimum="0" Maximum="1000" Value="200" TickPlacement="Both" TickFrequency="20"  Width="300" IsSnapToTickEnabled="True" VerticalAlignment="Center" />
                 <local_gui:AugmentedSpacer />
                 <TextBlock FontSize="16" Name="TxtWPM" Text="{Binding ElementName=SliderWPM, Path=Value, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" />
-                <local_gui:AugmentedSpacer />
             </StackPanel>
         </StackPanel>
         <Grid Margin="50,50,50,50">
@@ -56,12 +44,9 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Name="TextCurrentWordLeft" Opacity="0.25" FontSize="22" FontFamily="Times New Roman" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Visibility="{Binding SpeedRead_PreambleVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-            </TextBlock>
-            <TextBlock Grid.Column="1" Name="TextCurrentWord" FontSize="22" FontFamily="Times New Roman" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center">
-            </TextBlock>
-            <TextBlock Grid.Column="2" Name="TextCurrentWordRight" Opacity="0.25" FontSize="22" FontFamily="Times New Roman" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Left" Visibility="{Binding SpeedRead_PostambleVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-            </TextBlock>
+            <TextBlock Grid.Column="0" Name="TextCurrentWordLeft" Opacity="0.25" FontSize="22" FontFamily="Times New Roman" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Visibility="{Binding SpeedRead_PreambleVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <TextBlock Grid.Column="1" Name="TextCurrentWord" FontSize="22" FontFamily="Times New Roman" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" />
+            <TextBlock Grid.Column="2" Name="TextCurrentWordRight" Opacity="0.25" FontSize="22" FontFamily="Times New Roman" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Left" Visibility="{Binding SpeedRead_PostambleVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
         </Grid>
     </DockPanel>
 </UserControl>
