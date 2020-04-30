@@ -394,7 +394,6 @@
     <Resource Include="Application\Explore.png" />
     <Resource Include="Application\DualTabbed_CloseGlow.png" />
     <Resource Include="Application\Manual.png" />
-    <Resource Include="Application\Champion.png" />
     <Resource Include="Application\lexlens_back.png" />
     <Resource Include="Application\lexlens_dock.png" />
     <Resource Include="Application\lexlens_eye.png" />
