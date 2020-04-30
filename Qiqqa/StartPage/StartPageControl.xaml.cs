@@ -27,11 +27,6 @@ namespace Qiqqa.StartPage
         {
             InitializeComponent();
 
-            DualTabWhatsNew.Children.Clear();
-            DualTabWhatsNew.AddContent("Webcasts", "Tutorials & Help", null, false, false, TabWebcasts);
-
-            DualTabWhatsNew.TabPosition = DualTabbedLayout.TabPositions.Sides;
-
             KeyDown += StartPageControl_KeyDown;
 
             bool ADVANCED_MENUS = ConfigurationManager.Instance.ConfigurationRecord.GUI_AdvancedMenus;
