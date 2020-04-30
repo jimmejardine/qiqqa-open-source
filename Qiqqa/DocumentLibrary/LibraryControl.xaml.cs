@@ -72,66 +72,11 @@ namespace Qiqqa.DocumentLibrary
             if (!ADVANCED_MENUS) ButtonAddPDF.Caption = LocalisationManager.Get("LIBRARY/CAP/POPUP_ADD_DOCUMENTS");
             ButtonAddPDF.ToolTip = LocalisationManager.Get("LIBRARY/TIP/POPUP_ADD_DOCUMENTS");
 
-            ButtonSync.AttachPopup(ButtonSyncPopup);
-            ButtonSync.Icon = Icons.GetAppIcon(Icons.SyncWithCloud);
-            if (!ADVANCED_MENUS) ButtonSync.Caption = LocalisationManager.Get("LIBRARY/CAP/POPUP_SYNC");
-            ButtonSync.ToolTip = LocalisationManager.Get("LIBRARY/TIP/POPUP_SYNC");
-
             // Then the menus
             ButtonAddVanillaReference.Icon = Icons.GetAppIcon(Icons.New);
             ButtonAddVanillaReference.Caption = LocalisationManager.Get("LIBRARY/CAP/ADD_REFERENCE");
             ButtonAddVanillaReference.ToolTip = LocalisationManager.Get("LIBRARY/TIP/ADD_REFERENCE");
             ButtonAddVanillaReference.Click += ButtonAddVanillaReference_Click;
-
-            ButtonSyncMetadaWithCloud.Icon = Icons.GetAppIcon(Icons.SyncWithCloud);
-            ButtonSyncMetadaWithCloud.Caption = LocalisationManager.Get("LIBRARY/CAP/PARTIAL_SYNC");
-            ButtonSyncMetadaWithCloud.ToolTip = LocalisationManager.Get("LIBRARY/TIP/PARTIAL_SYNC");
-            ButtonSyncMetadaWithCloud.Click += ButtonSyncMetadaWithCloud_Click;
-
-            ButtonSyncAllPDFsWithCloud.Icon = Icons.GetAppIcon(Icons.SyncPDFsWithCloud);
-            ButtonSyncAllPDFsWithCloud.Caption = LocalisationManager.Get("LIBRARY/CAP/FULL_SYNC");
-            ButtonSyncAllPDFsWithCloud.ToolTip = LocalisationManager.Get("LIBRARY/TIP/FULL_SYNC");
-            ButtonSyncAllPDFsWithCloud.Click += ButtonSyncPDFsWithCloud_Click;
-
-            ButtonSyncDetails.Icon = Icons.GetAppIcon(Icons.SyncDetails);
-            ButtonSyncDetails.Caption = LocalisationManager.Get("LIBRARY/CAP/SYNC_DETAILS");
-            ButtonSyncDetails.ToolTip = LocalisationManager.Get("LIBRARY/TIP/SYNC_DETAILS");
-            ButtonSyncDetails.Click += ButtonSyncDetails_Click;
-
-            ButtonViewOnline.Icon = Icons.GetAppIcon(Icons.ViewOnline);
-            ButtonViewOnline.Caption = LocalisationManager.Get("LIBRARY/CAP/VIEW_ONLINE");
-            ButtonViewOnline.ToolTip = LocalisationManager.Get("LIBRARY/TIP/VIEW_ONLINE");
-            ButtonViewOnline.Click += ButtonViewOnline_Click;
-
-            ButtonTopUp.Icon = Icons.GetAppIcon(Icons.TopUp);
-            ButtonTopUp.Caption = LocalisationManager.Get("LIBRARY/CAP/TOP_UP");
-            ButtonTopUp.ToolTip = LocalisationManager.Get("LIBRARY/TIP/TOP_UP");
-            ButtonTopUp.Click += ButtonTopUp_Click;
-
-            ButtonInvite.Icon = Icons.GetAppIcon(Icons.Share);
-            ButtonInvite.Caption = LocalisationManager.Get("LIBRARY/CAP/INVITE");
-            ButtonInvite.ToolTip = LocalisationManager.Get("LIBRARY/TIP/INVITE");
-            ButtonInvite.Click += ButtonInvite_Click;
-
-            ButtonEditDelete.Icon = Icons.GetAppIcon(Icons.Open);
-            ButtonEditDelete.Caption = LocalisationManager.Get("LIBRARY/CAP/EDIT_DELETE");
-            ButtonEditDelete.ToolTip = LocalisationManager.Get("LIBRARY/TIP/EDIT_DELETE");
-            ButtonEditDelete.Click += ButtonEditDelete_Click;
-
-            ButtonPublicStatus.Icon = Icons.GetAppIcon(Icons.Share);
-            ButtonPublicStatus.Caption = LocalisationManager.Get("LIBRARY/CAP/PUBLIC_STATUS");
-            ButtonPublicStatus.ToolTip = LocalisationManager.Get("LIBRARY/TIP/PUBLIC_STATUS");
-            ButtonPublicStatus.Click += ButtonPublicStatus_Click;
-
-            // Guest library doesnt have some settings
-            if (false && !library.WebLibraryDetail.IsWebLibrary)
-            {
-                ButtonViewOnline.Visibility = Visibility.Collapsed;
-                ButtonTopUp.Visibility = Visibility.Collapsed;
-                ButtonInvite.Visibility = Visibility.Collapsed;
-                ButtonEditDelete.Visibility = Visibility.Collapsed;
-                ButtonPublicStatus.Visibility = Visibility.Collapsed;
-            }
 
             ButtonAnnotationsReport.Icon = Icons.GetAppIcon(Icons.LibraryAnnotationsReport);
             if (!ADVANCED_MENUS) ButtonAnnotationsReport.Caption = LocalisationManager.Get("LIBRARY/CAP/ANNOTATION_REPORT");
@@ -307,31 +252,6 @@ namespace Qiqqa.DocumentLibrary
             CitationMatrixExport.Export(library, pdf_documents);
         }
 
-        private void ButtonInvite_Click(object sender, RoutedEventArgs e)
-        {
-            WebsiteAccess.InviteFriendsToWebLibrary(library.WebLibraryDetail.ShortWebId);
-        }
-
-        private void ButtonEditDelete_Click(object sender, RoutedEventArgs e)
-        {
-            WebsiteAccess.EditOrDeleteLibrary(library.WebLibraryDetail.ShortWebId);
-        }
-
-        private void ButtonPublicStatus_Click(object sender, RoutedEventArgs e)
-        {
-            WebsiteAccess.ChangeLibraryPublicStatus(library.WebLibraryDetail.ShortWebId);
-        }
-
-        private void ButtonTopUp_Click(object sender, RoutedEventArgs e)
-        {
-            WebsiteAccess.TopUpWebLibrary(library.WebLibraryDetail.ShortWebId);
-        }
-
-        private void ButtonViewOnline_Click(object sender, RoutedEventArgs e)
-        {
-            WebsiteAccess.OpenWebLibrary(library.WebLibraryDetail.ShortWebId);
-        }
-
         private void LibraryControl_KeyDown(object sender, KeyEventArgs e)
         {
             if (Key.F == e.Key && KeyboardTools.IsCTRLDown())
@@ -456,33 +376,6 @@ namespace Qiqqa.DocumentLibrary
 
             FeatureTrackingManager.Instance.UseFeature(Features.Library_FindDuplicates);
             MassDuplicateCheckingControl.FindDuplicatesForLibrary(library);
-        }
-
-        private void ButtonSyncMetadaWithCloud_Click(object sender, RoutedEventArgs e)
-        {
-            using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonSyncPopup))
-            {
-                FeatureTrackingManager.Instance.UseFeature(Features.Sync_SyncMetadata);
-                LibrarySyncManager.Instance.RequestSync(new LibrarySyncManager.SyncRequest(false, library, true, false, false));
-            }
-        }
-
-        private void ButtonSyncPDFsWithCloud_Click(object sender, RoutedEventArgs e)
-        {
-            using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonSyncPopup))
-            {
-                FeatureTrackingManager.Instance.UseFeature(Features.Sync_SyncMetadataAndPDFs);
-                LibrarySyncManager.Instance.RequestSync(new LibrarySyncManager.SyncRequest(false, library, true, true, false));
-            }
-        }
-
-        private void ButtonSyncDetails_Click(object sender, RoutedEventArgs e)
-        {
-            using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonSyncPopup))
-            {
-                FeatureTrackingManager.Instance.UseFeature(Features.Sync_SyncDetails);
-                LibrarySyncManager.Instance.RequestSync(new LibrarySyncManager.SyncRequest(true, library, true, true, false));
-            }
         }
 
         private void ButtonWatchFolder_Click(object sender, RoutedEventArgs e)
