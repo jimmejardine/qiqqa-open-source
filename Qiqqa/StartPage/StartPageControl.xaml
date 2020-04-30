@@ -8,16 +8,13 @@
   xmlns:local_dualtab="clr-namespace:Utilities.GUI.DualTabbedLayoutStuff;assembly=Utilities"
 >
     <Grid>
-        <!-- For the main stuff -->
         <DockPanel>
             <local_gui:AugmentedToolBarTray DockPanel.Dock="Top" >
                 <DockPanel>
                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Name="ObjGlobalSearchPanel">
-                            <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center" Orientation="Horizontal">
-                                <local_gui:AugmentedSearchBox Name="ObjSearch" EmptyTextPrompt="Search across all libraries..." />
-                                <local_library_filter:LuceneSearchHelpButton />
-                            </StackPanel>
+                        <StackPanel Name="ObjGlobalSearchPanel" DockPanel.Dock="Right" VerticalAlignment="Center" Orientation="Horizontal">
+                            <local_gui:AugmentedSearchBox Name="ObjSearch" EmptyTextPrompt="Search across all libraries..." />
+                            <local_library_filter:LuceneSearchHelpButton />
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
@@ -67,6 +64,7 @@
                     </local_dualtab:DualTabbedLayout>
                 </local_gui:CollapsibleRegion>
                 <DockPanel>
+                    <!-- Main window area -->
                     <local:RegionWebLibraries x:Name="ObjWebLibraries"/>
                 </DockPanel>
             </DockPanel>
