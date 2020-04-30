@@ -54,14 +54,6 @@ namespace Qiqqa.StartPage
 
             ObjWebLibraryListControl.Refresh();
 
-            if (WebLibraryManager.Instance.HaveOnlyOneWebLibrary())
-            {
-                RegionMoreWebLibraries.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                RegionMoreWebLibraries.Visibility = Visibility.Collapsed;
-            }
         }
 
         public void DoSync()
