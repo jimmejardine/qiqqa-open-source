@@ -30,127 +30,37 @@ namespace Qiqqa.StartPage
             KeyDown += StartPageControl_KeyDown;
 
             bool ADVANCED_MENUS = ConfigurationManager.Instance.ConfigurationRecord.GUI_AdvancedMenus;
+            if (ADVANCED_MENUS)
+            {
+                ButtonLibraries.Caption = "";
+                ButtonTools.Caption = "";
+                ButtonNewBrainstorm.Caption = "";
+                ButtonInCite.Caption = "";
+                ButtonExpedition.Caption = "";
+                ButtonExpertMode.Caption = "";
+            }
 
             // Connect the dropdowns
             ButtonLibraries.AttachPopup(ButtonLibrariesPopup);
-            ButtonLibraries.Icon = Icons.GetAppIcon(Icons.ModuleDocumentLibrary);
-            if (!ADVANCED_MENUS) ButtonLibraries.Caption = LocalisationManager.Get("START/CAP/POPUP_LIBRARIES");
-            ButtonLibraries.ToolTip = LocalisationManager.Get("START/TIP/POPUP_LIBRARIES");
-
             ButtonTools.AttachPopup(ButtonToolsPopup);
-            ButtonTools.Icon = Icons.GetAppIcon(Icons.ModuleConfiguration);
-            if (!ADVANCED_MENUS) ButtonTools.Caption = LocalisationManager.Get("START/CAP/POPUP_TOOLS");
-            ButtonTools.ToolTip = LocalisationManager.Get("START/TIP/POPUP_TOOLS");
-
             ButtonHelp.AttachPopup(ButtonHelpPopup);
-            ButtonHelp.Icon = Icons.GetAppIcon(Icons.ModuleHelp);
-            if (!ADVANCED_MENUS) ButtonHelp.Caption = LocalisationManager.Get("START/CAP/POPUP_HELP");
-            ButtonHelp.ToolTip = LocalisationManager.Get("START/TIP/POPUP_HELP");
 
             // Then the buttons
             ButtonSync.Visibility = ConfigurationManager.Instance.NoviceVisibility;
-            ButtonSync.Icon = Icons.GetAppIcon(Icons.WebLibrarySyncAll);
-            ButtonSync.Caption = LocalisationManager.Get("START/CAP/SYNC_LIBRARIES");
-            ButtonSync.ToolTip = LocalisationManager.Get("START/TIP/SYNC_LIBRARIES");
-            ButtonSync.Click += ButtonSync_Click;
-
-            ButtonCreateIntranetLibrary.Icon = Icons.GetAppIcon(Icons.WebLibrary_IntranetLibrary);
-            ButtonCreateIntranetLibrary.Caption = LocalisationManager.Get("START/CAP/CREATE_INTRANET_LIBRARY");
-            ButtonCreateIntranetLibrary.ToolTip = LocalisationManager.Get("START/TIP/CREATE_INTRANET_LIBRARY");
-            ButtonCreateIntranetLibrary.Click += ButtonCreateIntranetLibrary_Click;
-
             ButtonJoinBundleLibrary.Visibility = ConfigurationManager.Instance.NoviceVisibility;
-            ButtonJoinBundleLibrary.Icon = Icons.GetAppIcon(Icons.WebLibrary_BundleLibrary);
-            ButtonJoinBundleLibrary.Caption = LocalisationManager.Get("START/CAP/JOIN_BUNDLE_LIBRARY");
-            ButtonJoinBundleLibrary.ToolTip = LocalisationManager.Get("START/TIP/JOIN_BUNDLE_LIBRARY");
-            ButtonJoinBundleLibrary.Click += ButtonJoinBundleLibrary_Click;
-
             ButtonNewBrainstorm.Visibility = ConfigurationManager.Instance.NoviceVisibility;
-            ButtonNewBrainstorm.Icon = Icons.GetAppIcon(Icons.ModuleBrainstorm);
-            if (!ADVANCED_MENUS) ButtonNewBrainstorm.Caption = LocalisationManager.Get("START/CAP/BRAINSTORM");
-            ButtonNewBrainstorm.ToolTip = LocalisationManager.Get("START/TIP/BRAINSTORM");
-            ButtonNewBrainstorm.Click += ButtonNewBrainstorm_Click;
-
             ButtonNewBrowser.Visibility = ConfigurationManager.Instance.NoviceVisibility;
-            ButtonNewBrowser.Icon = Icons.GetAppIcon(Icons.ModuleWebBrowser);
-            if (!ADVANCED_MENUS) ButtonNewBrowser.Caption = LocalisationManager.Get("START/CAP/BROWSER");
-            ButtonNewBrowser.ToolTip = LocalisationManager.Get("START/TIP/BROWSER");
-            ButtonNewBrowser.Click += ButtonNewBrowser_Click;
-
-            ButtonOpenLibrary.Icon = Icons.GetAppIcon(Icons.ModuleDocumentLibrary);
-            ButtonOpenLibrary.Caption = LocalisationManager.Get("START/CAP/OPEN_LIBRARY");
-            ButtonOpenLibrary.ToolTip = LocalisationManager.Get("START/TIP/OPEN_LIBRARY");
-            ButtonOpenLibrary.Click += ButtonOpenLibrary_Click;
-
-            ButtonInCite.Icon = Icons.GetAppIcon(Icons.ModuleInCite);
-            if (!ADVANCED_MENUS) ButtonInCite.Caption = LocalisationManager.Get("START/CAP/INCITE");
-            ButtonInCite.ToolTip = LocalisationManager.Get("START/TIP/INCITE");
-            ButtonInCite.Click += ButtonInCite_Click;
-
             ButtonExpedition.Visibility = ConfigurationManager.Instance.NoviceVisibility;
-            ButtonExpedition.Icon = Icons.GetAppIcon(Icons.ModuleExpedition);
-            if (!ADVANCED_MENUS) ButtonExpedition.Caption = LocalisationManager.Get("START/CAP/EXPEDITION"); ;
-            ButtonExpedition.ToolTip = LocalisationManager.Get("START/TIP/EXPEDITION");
-            ButtonExpedition.Click += ButtonExpedition_Click;
-
-            ButtonToggleOCR.Icon = Icons.GetAppIcon(Icons.LibraryDoOCR);
-            ButtonToggleOCR.Caption = LocalisationManager.Get("START/CAP/OCR"); ;
-            ButtonToggleOCR.ToolTip = LocalisationManager.Get("START/TIP/OCR_ON");
-            ButtonToggleOCR.ToolTipOpening += ButtonToggleOCR_ToolTipOpening;
-
-            ButtonNewConfig.Icon = Icons.GetAppIcon(Icons.ModuleConfiguration);
-            ButtonNewConfig.Caption = LocalisationManager.Get("START/CAP/CONFIG");
-            ButtonNewConfig.ToolTip = LocalisationManager.Get("START/TIP/CONFIG");
-            ButtonNewConfig.Click += ButtonNewConfig_Click;
-
-            ButtonExpertMode.Icon = Icons.GetAppIcon(Icons.BibTeXSnifferWizard);
-            if (!ADVANCED_MENUS) ButtonExpertMode.Caption = LocalisationManager.Get("START/CAP/EXPERT_MODE");
-            ButtonExpertMode.ToolTip = LocalisationManager.Get("START/TIP/EXPERT_MODE");
-            ButtonExpertMode.Click += ButtonExpertMode_Click;
             ButtonExpertMode.Visibility = ConfigurationManager.Instance.ConfigurationRecord.GUI_IsNovice ? Visibility.Visible : Visibility.Collapsed;
-
-            ButtonNewHelp.Icon = Icons.GetAppIcon(Icons.ModuleHelp);
-            ButtonNewHelp.Caption = LocalisationManager.Get("START/CAP/HELP");
-            ButtonNewHelp.ToolTip = LocalisationManager.Get("START/TIP/HELP");
-            ButtonNewHelp.Click += ButtonNewHelp_Click;
-
-            ButtonNewManual.Icon = Icons.GetAppIcon(Icons.Manual);
-            ButtonNewManual.Caption = LocalisationManager.Get("START/CAP/MANUAL");
-            ButtonNewManual.ToolTip = LocalisationManager.Get("START/TIP/MANUAL");
-            ButtonNewManual.Click += ButtonNewManual_Click;
-
-            ButtonWelcomeWizard.Icon = Icons.GetAppIcon(Icons.BibTeXSnifferWizard);
-            ButtonWelcomeWizard.Caption = LocalisationManager.Get("START/CAP/WELCOME_WIZARD");
-            ButtonWelcomeWizard.ToolTip = LocalisationManager.Get("START/TIP/WELCOME_WIZARD");
-            ButtonWelcomeWizard.Click += ButtonWelcomeWizard_Click;
-
-            ButtonBackupRestore.Icon = Icons.GetAppIcon(Icons.Backup);
-            ButtonBackupRestore.Caption = LocalisationManager.Get("START/CAP/BACKUPRESTORE");
-            ButtonBackupRestore.ToolTip = LocalisationManager.Get("START/TIP/BACKUPRESTORE");
-            ButtonBackupRestore.Click += ButtonBackupRestore_Click;
-
-            ButtonNewAbout.Icon = Icons.GetAppIcon(Icons.About);
-            ButtonNewAbout.Caption = LocalisationManager.Get("START/CAP/ABOUT");
-            ButtonNewAbout.ToolTip = LocalisationManager.Get("START/TIP/ABOUT");
-            ButtonNewAbout.Click += ButtonNewAbout_Click;
-
-            ButtonZipLogs.Icon = Icons.GetAppIcon(Icons.ZipLogs);
-            ButtonZipLogs.Caption = LocalisationManager.Get("START/CAP/ZIPLOGS");
-            ButtonZipLogs.ToolTip = LocalisationManager.Get("START/TIP/ZIPLOGS");
-            ButtonZipLogs.Click += ButtonZipLogs_Click;
-
             ButtonDocumentConvert.Visibility = ConfigurationManager.Instance.NoviceVisibility;
-            ButtonDocumentConvert.Icon = Icons.GetAppIcon(Icons.DocumentTypePdf);
-            ButtonDocumentConvert.Caption = LocalisationManager.Get("START/CAP/DOCUMENT_CONVERT");
-            ButtonDocumentConvert.ToolTip = LocalisationManager.Get("START/TIP/DOCUMENT_CONVERT");
-            ButtonDocumentConvert.Click += ButtonDocumentConvert_Click;
 
-            ObjSearch.OnHardSearch += ObjSearch_OnHardSearch;
             ObjSearch.SearchHistoryItemSource = ConfigurationManager.Instance.SearchHistory;
+            ObjGlobalSearchPanel.Visibility = ConfigurationManager.Instance.NoviceVisibility;
+
+            ButtonToggleOCR.ToolTipOpening += ButtonToggleOCR_ToolTipOpening;
+            ObjSearch.OnHardSearch += ObjSearch_OnHardSearch;
 
             DataContext = ConfigurationManager.Instance.ConfigurationRecord_Bindable;
-
-            ObjGlobalSearchPanel.Visibility = ConfigurationManager.Instance.NoviceVisibility;
         }
 
         private void StartPageControl_KeyDown(object sender, KeyEventArgs e)
