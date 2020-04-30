@@ -12,6 +12,7 @@ namespace icons
         public const string QiqqaMedal = "QiqqaMedal";
         public const string QiqqaWhiteBackground = "QiqqaWhiteBackground";
         public const string QiqqaAndroid = "QiqqaAndroid";
+        public const string Champion = "Champion";
 
         public const string AugmentedButtonDown = "AugmentedButtonDown";
 
