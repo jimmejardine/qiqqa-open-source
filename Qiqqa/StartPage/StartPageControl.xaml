@@ -7,13 +7,9 @@
     xmlns:local_library_filter="clr-namespace:Qiqqa.DocumentLibrary.LibraryFilter"
   xmlns:local_dualtab="clr-namespace:Utilities.GUI.DualTabbedLayoutStuff;assembly=Utilities"
 >
-    <UserControl.Resources>
-        <local_gui_conv:BooleanToVisibilityInverseConverter x:Key="BooleanToVisibilityInverseConverter"/>
-        <local_gui_conv:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-    </UserControl.Resources>
     <Grid>
         <!-- For the main stuff -->
-        <DockPanel Visibility="{Binding TermsAndConditionsAccepted, Converter={StaticResource BooleanToVisibilityConverter}}" >
+        <DockPanel>
             <local_gui:AugmentedToolBarTray DockPanel.Dock="Top" >
                 <DockPanel>
                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
