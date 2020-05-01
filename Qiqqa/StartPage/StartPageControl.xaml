@@ -7,165 +7,159 @@
     xmlns:local_library_filter="clr-namespace:Qiqqa.DocumentLibrary.LibraryFilter"
   xmlns:local_dualtab="clr-namespace:Utilities.GUI.DualTabbedLayoutStuff;assembly=Utilities"
 >
-    <Grid>
-        <DockPanel>
-            <local_gui:AugmentedToolBarTray DockPanel.Dock="Top" >
-                <DockPanel>
-                    <StackPanel Name="ObjGlobalSearchPanel" DockPanel.Dock="Right" VerticalAlignment="Center" Orientation="Horizontal">
-                        <local_gui:AugmentedSearchBox Name="ObjSearch" EmptyTextPrompt="Search across all libraries..." />
-                        <local_library_filter:LuceneSearchHelpButton />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <local_gui:AugmentedToolBarButton Name="ButtonLibraries"
-                                                          Caption="Libraries"
-                                                          ToolTip="Access and maintain your libraries."
-                                                          Icon="pack://application:,,,/icons;component/Application/ModuleDocumentLibrary.png"
-                                                          />
-                        <local_gui:AugmentedToolBarPopup x:Name="ButtonLibrariesPopup">
-                            <StackPanel>
-                                <local_gui:AugmentedToolBarButton Name="ButtonOpenLibrary" CaptionDock="Right"
-                                                                  Caption="Open a Library"
-                                                                  ToolTip="Open a library view.&#013;You can also open your libraries by clicking on them below."
-                                                                  Icon="pack://application:,,,/icons;component/Application/ModuleDocumentLibrary.png"
-                                                                  Click="ButtonOpenLibrary_Click"
-                                                                  />
-                                <local_gui:AugmentedToolBarButton Name="ButtonSync" CaptionDock="Right"
-                                                                  Caption="Sync Libraries"
-                                                                  ToolTip="Sync Libraries.&#013;Press this to see how much Web Library space you are using and to choose which libraries you wish to sync."
-                                                                  Icon="pack://application:,,,/icons;component/Application/WebLibrarySyncAll.png"
-                                                                  Click="ButtonSync_Click"
-                                                                  />
-                                <local_gui:AugmentedToolBarButton Name="ButtonCreateIntranetLibrary" CaptionDock="Right"
-                                                                  Caption="Create/Join Intranet Library"
-                                                                  ToolTip="Create or join a library that is local to your Intranet.&#013;All PDFs added to this library remain inside your private network and do not touch the cloud."
-                                                                  Icon="pack://application:,,,/icons;component/Application/WebLibrary_IntranetLibrary.png"
-                                                                  Click="ButtonCreateIntranetLibrary_Click"
-                                                                  />
-                                <local_gui:AugmentedToolBarButton Name="ButtonJoinBundleLibrary" CaptionDock="Right"
-                                                                  Caption="Download a Bundle Library"
-                                                                  ToolTip="Download a Bundle Library that has been created for you by a publisher."
-                                                                  Icon="pack://application:,,,/icons;component/Application/WebLibrary_BundleLibrary.png"
-                                                                  Click="ButtonJoinBundleLibrary_Click"
-                                                                  />
-                            </StackPanel>
-                        </local_gui:AugmentedToolBarPopup>
-
-                        <local_gui:AugmentedToolBarButton Name="ButtonInCite"
-                                                          Caption="InCite"
-                                                          ToolTip="Open Qiqqa InCite.\nUse InCite to automatically generate your references and bibliography in Word."
-                                                          Icon="pack://application:,,,/icons;component/Application/ModuleInCite.png"
-                                                          Click="ButtonInCite_Click"
-                                                          />
-                        <local_gui:AugmentedToolBarButton Name="ButtonExpedition"
-                                                          Caption="Expedition"
-                                                          ToolTip="Open Qiqqa Expedition.&#013;Use Expedition to browse and make inspiring connections inside your library."
-                                                          Icon="pack://application:,,,/icons;component/Application/ModuleExpedition.png"
-                                                          Click="ButtonExpedition_Click"
-                                                          />
-                        <local_gui:AugmentedToolBarButton Name="ButtonNewBrainstorm"
-                                                          Caption="Brainstorm"
-                                                          ToolTip="Start a new Brainstorm."
-                                                          Icon="pack://application:,,,/icons;component/Application/ModuleBrainstorm.png"
-                                                          Click="ButtonNewBrainstorm_Click"
-                                                          />
-                        <local_gui:AugmentedToolBarButton Name="ButtonNewBrowser"
-                                                          Caption="Web"
-                                                          ToolTip="Open a Web Browser."
-                                                          Icon="pack://application:,,,/icons;component/Application/ModuleWebBrowser.png"
-                                                          Click="ButtonNewBrowser_Click"
-                                                          />
-
-                        <local_gui:AugmentedToolBarButton Name="ButtonTools"
-                                                          Caption="Tools"
-                                                          ToolTip="You can find some non-core Qiqqa tools here."
-                                                          Icon="pack://application:,,,/icons;component/Application/ModuleConfiguration.png"
-                                                          />
-                        <local_gui:AugmentedToolBarPopup x:Name="ButtonToolsPopup">
-                            <StackPanel>
-                                <local_gui:AugmentedToolBarButton x:Name="ButtonDocumentConvert" CaptionDock="Right"
-                                                                  Caption="Convert DOC and DOCX files to PDF"
-                                                                  ToolTip="You can easily convert Microsoft Word .doc and .docx files to PDF using this widget."
-                                                                  Icon="pack://application:,,,/icons;component/Application/DocumentTypePdf.png"
-                                                                  Click="ButtonDocumentConvert_Click"
-                                                                  />
-                                <local_gui:AugmentedToggleButton  x:Name="ButtonToggleOCR" IsChecked="{Binding Library_OCRDisabled}" CaptionDock="Right"
-                                                                  Caption="Pause/resume OCR"
-                                                                  ToolTip="Turn off OCR.&#013;OCR is currently enabled.  Turn it off if you are on the road and want to conserve battery power."
-                                                                  Icon="pack://application:,,,/icons;component/Application/LibraryDoOCR.png"
-                                                                  />
-                                <local_gui:AugmentedToolBarButton x:Name="ButtonBackupRestore" CaptionDock="Right"
-                                                                  Caption="Backup/Restore"
-                                                                  ToolTip="Backup/Restore your Qiqqa database to/from a ZIP file.&#013;Use this if you don't want to sync to the cloud, but still want peace of mind that your work is somewhere safe."
-                                                                  Icon="pack://application:,,,/icons;component/Application/Backup.png"
-                                                                  Click="ButtonBackupRestore_Click"
-                                                                  />
-                                <local_gui:AugmentedToolBarButton Name="ButtonNewConfig" CaptionDock="Right"
-                                                                  Caption="Qiqqa Configuration"
-                                                                  ToolTip="Open the Qiqqa Configuration screen."
-                                                                  Icon="pack://application:,,,/icons;component/Application/ModuleConfiguration.png"
-                                                                  Click="ButtonNewConfig_Click"
-                                                                  />
-                            </StackPanel>
-                        </local_gui:AugmentedToolBarPopup>
-
-                        <local_gui:AugmentedToolBarButton Name="ButtonExpertMode"
-                                                          Caption="ExpertMode"
-                                                          ToolTip="Turn on Expert Mode to access to additional functionality."
-                                                          Icon="pack://application:,,,/icons;component/Application/BibTeXSnifferWizard.png"
-                                                          Click="ButtonExpertMode_Click"
-                                                          />
-
-                        <local_gui:AugmentedToolBarButton Name="ButtonHelp"
-                                                          Caption="Help"
-                                                          ToolTip="Access help."
-                                                          Icon="pack://application:,,,/icons;component/Application/ModuleHelp.png"
-                                                          />
-                        <local_gui:AugmentedToolBarPopup x:Name="ButtonHelpPopup">
-                            <StackPanel>
-                                <local_gui:AugmentedToolBarButton Name="ButtonNewManual" CaptionDock="Right"
-                                                                  Caption="The Qiqqa Manual"
-                                                                  ToolTip="Open Qiqqa Manual."
-                                                                  Icon="pack://application:,,,/icons;component/Application/Manual.png"
-                                                                  Click="ButtonNewManual_Click"
-                                                                  />
-                                <local_gui:AugmentedToolBarButton Name="ButtonWelcomeWizard" CaptionDock="Right" 
-                                                                  Caption="The Welcome Wizard"
-                                                                  ToolTip="The Welcome Wizard introduces Annotations and the Annotation Report."
-                                                                  Icon="pack://application:,,,/icons;component/Application/BibTeXSnifferWizard.png"
-                                                                  Click="ButtonWelcomeWizard_Click"
-                                                                  />
-                                <local_gui:AugmentedToolBarButton Name="ButtonNewHelp" CaptionDock="Right"
-                                                                  Caption="Online Help"
-                                                                  ToolTip="Get help online."
-                                                                  Icon="pack://application:,,,/icons;component/Application/ModuleHelp.png"
-                                                                  Click="ButtonNewHelp_Click"
-                                                                  />
-                                <local_gui:AugmentedToolBarButton x:Name="ButtonNewAbout" CaptionDock="Right"
-                                                                  Caption="About Qiqqa"
-                                                                  ToolTip="Get info about Qiqqa."
-                                                                  Icon="pack://application:,,,/icons;component/Application/About.png"
-                                                                  Click="ButtonNewAbout_Click"
-                                                                  />
-                                <local_gui:AugmentedToolBarButton x:Name="ButtonZipLogs" CaptionDock="Right"
-                                                                  Caption="Bundle logs for Qiqqa support"
-                                                                  ToolTip="Qiqqa Support may ask you to send them your log files to help diagnose a problem.&#013;Press this button and then email the resulting ZIP file to support@qiqqa.com."
-                                                                  Icon="pack://application:,,,/icons;component/Application/ZipLogs.png"
-                                                                  Click="ButtonZipLogs_Click"
-                                                                  />
-                            </StackPanel>
-                        </local_gui:AugmentedToolBarPopup>
-                    </StackPanel>
-                </DockPanel>
-            </local_gui:AugmentedToolBarTray>
+    <DockPanel>
+        <local_gui:AugmentedToolBarTray DockPanel.Dock="Top" >
             <DockPanel>
-                <local_gui:CollapsibleRegion Name="RegionWhatsNew" DockPanel.Dock="Right" VisibleEdge="Left">
-                    <local:RegionWebcasts Width="285" />
-                </local_gui:CollapsibleRegion>
-                <DockPanel>
-                    <!-- Main window area -->
-                    <local:RegionWebLibraries x:Name="ObjWebLibraries"/>
-                </DockPanel>
+                <StackPanel Name="ObjGlobalSearchPanel" DockPanel.Dock="Right" VerticalAlignment="Center" Orientation="Horizontal">
+                    <local_gui:AugmentedSearchBox Name="ObjSearch" EmptyTextPrompt="Search across all libraries..." />
+                    <local_library_filter:LuceneSearchHelpButton />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <local_gui:AugmentedToolBarButton Name="ButtonLibraries"
+                                                        Caption="Libraries"
+                                                        ToolTip="Access and maintain your libraries."
+                                                        Icon="pack://application:,,,/icons;component/Application/ModuleDocumentLibrary.png"
+                                                        />
+                    <local_gui:AugmentedToolBarPopup x:Name="ButtonLibrariesPopup">
+                        <StackPanel>
+                            <local_gui:AugmentedToolBarButton Name="ButtonOpenLibrary" CaptionDock="Right"
+                                                                Caption="Open a Library"
+                                                                ToolTip="Open a library view.&#013;You can also open your libraries by clicking on them below."
+                                                                Icon="pack://application:,,,/icons;component/Application/ModuleDocumentLibrary.png"
+                                                                Click="ButtonOpenLibrary_Click"
+                                                                />
+                            <local_gui:AugmentedToolBarButton Name="ButtonSync" CaptionDock="Right"
+                                                                Caption="Sync Libraries"
+                                                                ToolTip="Sync Libraries.&#013;Press this to see how much Web Library space you are using and to choose which libraries you wish to sync."
+                                                                Icon="pack://application:,,,/icons;component/Application/WebLibrarySyncAll.png"
+                                                                Click="ButtonSync_Click"
+                                                                />
+                            <local_gui:AugmentedToolBarButton Name="ButtonCreateIntranetLibrary" CaptionDock="Right"
+                                                                Caption="Create/Join Intranet Library"
+                                                                ToolTip="Create or join a library that is local to your Intranet.&#013;All PDFs added to this library remain inside your private network and do not touch the cloud."
+                                                                Icon="pack://application:,,,/icons;component/Application/WebLibrary_IntranetLibrary.png"
+                                                                Click="ButtonCreateIntranetLibrary_Click"
+                                                                />
+                            <local_gui:AugmentedToolBarButton Name="ButtonJoinBundleLibrary" CaptionDock="Right"
+                                                                Caption="Download a Bundle Library"
+                                                                ToolTip="Download a Bundle Library that has been created for you by a publisher."
+                                                                Icon="pack://application:,,,/icons;component/Application/WebLibrary_BundleLibrary.png"
+                                                                Click="ButtonJoinBundleLibrary_Click"
+                                                                />
+                        </StackPanel>
+                    </local_gui:AugmentedToolBarPopup>
+
+                    <local_gui:AugmentedToolBarButton Name="ButtonInCite"
+                                                        Caption="InCite"
+                                                        ToolTip="Open Qiqqa InCite.\nUse InCite to automatically generate your references and bibliography in Word."
+                                                        Icon="pack://application:,,,/icons;component/Application/ModuleInCite.png"
+                                                        Click="ButtonInCite_Click"
+                                                        />
+                    <local_gui:AugmentedToolBarButton Name="ButtonExpedition"
+                                                        Caption="Expedition"
+                                                        ToolTip="Open Qiqqa Expedition.&#013;Use Expedition to browse and make inspiring connections inside your library."
+                                                        Icon="pack://application:,,,/icons;component/Application/ModuleExpedition.png"
+                                                        Click="ButtonExpedition_Click"
+                                                        />
+                    <local_gui:AugmentedToolBarButton Name="ButtonNewBrainstorm"
+                                                        Caption="Brainstorm"
+                                                        ToolTip="Start a new Brainstorm."
+                                                        Icon="pack://application:,,,/icons;component/Application/ModuleBrainstorm.png"
+                                                        Click="ButtonNewBrainstorm_Click"
+                                                        />
+                    <local_gui:AugmentedToolBarButton Name="ButtonNewBrowser"
+                                                        Caption="Web"
+                                                        ToolTip="Open a Web Browser."
+                                                        Icon="pack://application:,,,/icons;component/Application/ModuleWebBrowser.png"
+                                                        Click="ButtonNewBrowser_Click"
+                                                        />
+
+                    <local_gui:AugmentedToolBarButton Name="ButtonTools"
+                                                        Caption="Tools"
+                                                        ToolTip="You can find some non-core Qiqqa tools here."
+                                                        Icon="pack://application:,,,/icons;component/Application/ModuleConfiguration.png"
+                                                        />
+                    <local_gui:AugmentedToolBarPopup x:Name="ButtonToolsPopup">
+                        <StackPanel>
+                            <local_gui:AugmentedToolBarButton x:Name="ButtonDocumentConvert" CaptionDock="Right"
+                                                                Caption="Convert DOC and DOCX files to PDF"
+                                                                ToolTip="You can easily convert Microsoft Word .doc and .docx files to PDF using this widget."
+                                                                Icon="pack://application:,,,/icons;component/Application/DocumentTypePdf.png"
+                                                                Click="ButtonDocumentConvert_Click"
+                                                                />
+                            <local_gui:AugmentedToggleButton  x:Name="ButtonToggleOCR" IsChecked="{Binding Library_OCRDisabled}" CaptionDock="Right"
+                                                                Caption="Pause/resume OCR"
+                                                                ToolTip="Turn off OCR.&#013;OCR is currently enabled.  Turn it off if you are on the road and want to conserve battery power."
+                                                                Icon="pack://application:,,,/icons;component/Application/LibraryDoOCR.png"
+                                                                />
+                            <local_gui:AugmentedToolBarButton x:Name="ButtonBackupRestore" CaptionDock="Right"
+                                                                Caption="Backup/Restore"
+                                                                ToolTip="Backup/Restore your Qiqqa database to/from a ZIP file.&#013;Use this if you don't want to sync to the cloud, but still want peace of mind that your work is somewhere safe."
+                                                                Icon="pack://application:,,,/icons;component/Application/Backup.png"
+                                                                Click="ButtonBackupRestore_Click"
+                                                                />
+                            <local_gui:AugmentedToolBarButton Name="ButtonNewConfig" CaptionDock="Right"
+                                                                Caption="Qiqqa Configuration"
+                                                                ToolTip="Open the Qiqqa Configuration screen."
+                                                                Icon="pack://application:,,,/icons;component/Application/ModuleConfiguration.png"
+                                                                Click="ButtonNewConfig_Click"
+                                                                />
+                        </StackPanel>
+                    </local_gui:AugmentedToolBarPopup>
+
+                    <local_gui:AugmentedToolBarButton Name="ButtonExpertMode"
+                                                        Caption="ExpertMode"
+                                                        ToolTip="Turn on Expert Mode to access to additional functionality."
+                                                        Icon="pack://application:,,,/icons;component/Application/BibTeXSnifferWizard.png"
+                                                        Click="ButtonExpertMode_Click"
+                                                        />
+
+                    <local_gui:AugmentedToolBarButton Name="ButtonHelp"
+                                                        Caption="Help"
+                                                        ToolTip="Access help."
+                                                        Icon="pack://application:,,,/icons;component/Application/ModuleHelp.png"
+                                                        />
+                    <local_gui:AugmentedToolBarPopup x:Name="ButtonHelpPopup">
+                        <StackPanel>
+                            <local_gui:AugmentedToolBarButton Name="ButtonNewManual" CaptionDock="Right"
+                                                                Caption="The Qiqqa Manual"
+                                                                ToolTip="Open Qiqqa Manual."
+                                                                Icon="pack://application:,,,/icons;component/Application/Manual.png"
+                                                                Click="ButtonNewManual_Click"
+                                                                />
+                            <local_gui:AugmentedToolBarButton Name="ButtonWelcomeWizard" CaptionDock="Right" 
+                                                                Caption="The Welcome Wizard"
+                                                                ToolTip="The Welcome Wizard introduces Annotations and the Annotation Report."
+                                                                Icon="pack://application:,,,/icons;component/Application/BibTeXSnifferWizard.png"
+                                                                Click="ButtonWelcomeWizard_Click"
+                                                                />
+                            <local_gui:AugmentedToolBarButton Name="ButtonNewHelp" CaptionDock="Right"
+                                                                Caption="Online Help"
+                                                                ToolTip="Get help online."
+                                                                Icon="pack://application:,,,/icons;component/Application/ModuleHelp.png"
+                                                                Click="ButtonNewHelp_Click"
+                                                                />
+                            <local_gui:AugmentedToolBarButton x:Name="ButtonNewAbout" CaptionDock="Right"
+                                                                Caption="About Qiqqa"
+                                                                ToolTip="Get info about Qiqqa."
+                                                                Icon="pack://application:,,,/icons;component/Application/About.png"
+                                                                Click="ButtonNewAbout_Click"
+                                                                />
+                            <local_gui:AugmentedToolBarButton x:Name="ButtonZipLogs" CaptionDock="Right"
+                                                                Caption="Bundle logs for Qiqqa support"
+                                                                ToolTip="Qiqqa Support may ask you to send them your log files to help diagnose a problem.&#013;Press this button and then email the resulting ZIP file to support@qiqqa.com."
+                                                                Icon="pack://application:,,,/icons;component/Application/ZipLogs.png"
+                                                                Click="ButtonZipLogs_Click"
+                                                                />
+                        </StackPanel>
+                    </local_gui:AugmentedToolBarPopup>
+                </StackPanel>
             </DockPanel>
-        </DockPanel>
-    </Grid>
+        </local_gui:AugmentedToolBarTray>
+        <local_gui:CollapsibleRegion Name="RegionWhatsNew" DockPanel.Dock="Right" VisibleEdge="Left">
+            <local:RegionWebcasts Width="285" />
+        </local_gui:CollapsibleRegion>
+        <!-- Main window area -->
+        <local:RegionWebLibraries x:Name="ObjWebLibraries" Margin="3"/>
+    </DockPanel>
 </UserControl>
