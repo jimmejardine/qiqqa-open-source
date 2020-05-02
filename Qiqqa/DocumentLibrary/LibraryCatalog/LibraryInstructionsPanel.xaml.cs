@@ -16,8 +16,6 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
             ObjScrollerHelp.Visibility = Visibility.Collapsed;
             ObjHyperlinkHelp.Click += ObjHyperlinkHelp_Click;
-
-            DataContextChanged += LibraryInstructionsPanel_DataContextChanged;
         }
 
         private void ObjHyperlinkHelp_Click(object sender, RoutedEventArgs e)
