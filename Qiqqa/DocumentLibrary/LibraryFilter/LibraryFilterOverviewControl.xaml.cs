@@ -41,7 +41,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
                 Paragraph paragraph = new Paragraph();
                 paragraph.Inlines.Add(LibraryFilterHelpers.GetClearImageInline("Clear all filters.", hyperlink_clear_all_OnClick));
                 paragraph.Inlines.Add(" ");
-                paragraph.Inlines.Add("Library currently filtered by: ");
+                paragraph.Inlines.Add("Filter: ");
                 paragraph.Inlines.Add(descriptive_span);
                 paragraph.Inlines.Add("(" + match_count + " matching documents)");
 

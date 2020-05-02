@@ -499,12 +499,12 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
                 {
                     Logging.Info("intersection={0}", intersection.Count);
                 }
+            }
 
-                // If we have nothing good to say, say nothing at all
-                if (0 == descriptive_span.Inlines.Count)
-                {
-                    descriptive_span = null;
-                }
+            // If we have nothing good to say, say nothing at all
+            if (0 == descriptive_span.Inlines.Count)
+            {
+                descriptive_span = null;
             }
 
             List<PDFDocument> pdf_documents = null;
