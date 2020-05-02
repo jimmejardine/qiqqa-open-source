@@ -37,7 +37,6 @@
                 <local_gui:AugmentedButton Grid.Row="1" Grid.Column="1" x:Name="VoteDown" MinHeight="20" />
             </Grid>
         </local_gui:AugmentedClosableBorder>
-        <local_gui:AugmentedSpacer DockPanel.Dock="Top" />
         <Grid DockPanel.Dock="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>

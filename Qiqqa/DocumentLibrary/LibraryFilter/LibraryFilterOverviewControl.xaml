@@ -4,7 +4,7 @@
     xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
     xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
 >
-    <local_gui:AugmentedBorder x:Name="ObjLibraryFilterDescriptiveTextBorder" >
+    <local_gui:AugmentedBorder x:Name="ObjLibraryFilterDescriptiveTextBorder" Margin="0,0,0,5">
         <FlowDocumentScrollViewer IsToolBarVisible="False" VerticalScrollBarVisibility="Disabled">
             <commongui:StandardFlowDocument x:Name="ObjLibraryFilterDescriptiveText">
             </commongui:StandardFlowDocument>

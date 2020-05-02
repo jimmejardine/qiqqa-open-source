@@ -11,43 +11,41 @@
   xmlns:local_dualtab="clr-namespace:Utilities.GUI.DualTabbedLayoutStuff;assembly=Utilities"
 >
     <DockPanel>
-        <local_gui:AugmentedBorder>
-            <local_dualtab:DualTabbedLayout Name="DualTabTags" >
-                <DockPanel Name="TabSort" >
-                    <local_libraryfilter:LibraryFilterControl_Sort x:Name="ObjLibraryFilterControl_Sort"/>
-                </DockPanel>
-                <DockPanel Name="TabTags" >
-                    <StackPanel DockPanel.Dock="Top" Name="ObjPanelSearchByTag">
-                        <local_gui:AugmentedSearchBox Name="SearchTag" EmptyTextPrompt="Enter tag to filter library by tag..."/>
-                        <local_gui:AugmentedSpacer/>
-                    </StackPanel>
-                    <local_tag:TagExplorerControl x:Name="ObjTagExplorerControl" DockPanel.Dock="Top" />
-                </DockPanel>
-                <DockPanel Name="TabAITags" >
-                    <local_aitag:AITagExplorerControl x:Name="ObjAITagExplorerControl" />
-                </DockPanel>
-                <DockPanel Name="TabAuthors" >
-                    <local_author:AuthorExplorerControl x:Name="ObjAuthorExplorerControl" />
-                </DockPanel>
-                <DockPanel Name="TabPublications" >
-                    <local_publication:PublicationExplorerControl x:Name="ObjPublicationExplorerControl" />
-                </DockPanel>
-                <DockPanel Name="TabReadingStages" >
-                    <local_general_explorers:ReadingStageExplorerControl x:Name="ObjReadingStageExplorerControl" />
-                </DockPanel>
-                <DockPanel Name="TabYear" >
-                    <local_general_explorers:YearExplorerControl x:Name="ObjYearExplorerControl" />
-                </DockPanel>
-                <DockPanel Name="TabRatings" >
-                    <local_general_explorers:RatingExplorerControl x:Name="ObjRatingExplorerControl" />
-                </DockPanel>
-                <DockPanel Name="TabThemes" >
-                    <local_general_explorers:ThemeExplorerControl x:Name="ObjThemeExplorerControl" />
-                </DockPanel>
-                <DockPanel Name="TabTypes" >
-                    <local_general_explorers:TypeExplorerControl x:Name="ObjTypeExplorerControl" />
-                </DockPanel>
-            </local_dualtab:DualTabbedLayout>
-        </local_gui:AugmentedBorder>
+        <local_dualtab:DualTabbedLayout Name="DualTabTags" >
+            <DockPanel Name="TabSort" Margin="3">
+                <local_libraryfilter:LibraryFilterControl_Sort x:Name="ObjLibraryFilterControl_Sort"/>
+            </DockPanel>
+            <DockPanel Name="TabTags" Margin="3">
+                <StackPanel DockPanel.Dock="Top" Name="ObjPanelSearchByTag">
+                    <local_gui:AugmentedSearchBox Name="SearchTag" EmptyTextPrompt="Enter tag to filter library by tag..."/>
+                    <local_gui:AugmentedSpacer/>
+                </StackPanel>
+                <local_tag:TagExplorerControl x:Name="ObjTagExplorerControl" DockPanel.Dock="Top" />
+            </DockPanel>
+            <DockPanel Name="TabAITags" Margin="3">
+                <local_aitag:AITagExplorerControl x:Name="ObjAITagExplorerControl" />
+            </DockPanel>
+            <DockPanel Name="TabAuthors" Margin="3">
+                <local_author:AuthorExplorerControl x:Name="ObjAuthorExplorerControl" />
+            </DockPanel>
+            <DockPanel Name="TabPublications" Margin="3">
+                <local_publication:PublicationExplorerControl x:Name="ObjPublicationExplorerControl" />
+            </DockPanel>
+            <DockPanel Name="TabReadingStages" Margin="3">
+                <local_general_explorers:ReadingStageExplorerControl x:Name="ObjReadingStageExplorerControl" />
+            </DockPanel>
+            <DockPanel Name="TabYear" Margin="3">
+                <local_general_explorers:YearExplorerControl x:Name="ObjYearExplorerControl" />
+            </DockPanel>
+            <DockPanel Name="TabRatings" Margin="3">
+                <local_general_explorers:RatingExplorerControl x:Name="ObjRatingExplorerControl" />
+            </DockPanel>
+            <DockPanel Name="TabThemes" Margin="3">
+                <local_general_explorers:ThemeExplorerControl x:Name="ObjThemeExplorerControl" />
+            </DockPanel>
+            <DockPanel Name="TabTypes" Margin="3">
+                <local_general_explorers:TypeExplorerControl x:Name="ObjTypeExplorerControl" />
+            </DockPanel>
+        </local_dualtab:DualTabbedLayout>
     </DockPanel>
 </UserControl>

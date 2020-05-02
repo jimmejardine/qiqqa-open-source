@@ -63,7 +63,7 @@
             <local_library_filter:LibraryFilterControl Width="250" x:Name="ObjLibraryFilterControl"/>
         </local_gui:CollapsibleRegion>
         <DockPanel>
-            <local_gui:AugmentedClosableBorder DockPanel.Dock="Bottom" Name="ObjLibraryEmptyDescriptionBorder" >
+            <local_gui:AugmentedClosableBorder DockPanel.Dock="Bottom" Name="ObjLibraryEmptyDescriptionBorder" Margin="0,3,0,0">
                 <Grid>
                     <FlowDocumentScrollViewer IsToolBarVisible="False" VerticalScrollBarVisibility="Disabled">
                         <commongui:StandardFlowDocument x:Name="ObjLibraryEmptyDescriptionText">
@@ -94,13 +94,14 @@
                                 <ListItem>
                                     <Paragraph>
                                         You can import your entire EndNote™, Zotero™ or Mendeley™ library from the toolbar.
-                    You can import into Qiqqa as many times as you like - duplicates will not be created.
-                    Document metadata will be updated when you re-import.
+                                        You can import into Qiqqa as many times as you like - duplicates will not be created.
+                                        Document metadata will be updated when you re-import.
                                     </Paragraph>
                                 </ListItem>
                                 <ListItem>
                                     <Paragraph>
-                                        You can sync this Library with its Web/Intranet Library, if you have previously synced with it from another computer.
+                                        You can sync this Library with its Web/Intranet Library,
+                                        if you have previously synced with it from another computer.
                                     </Paragraph>
                                 </ListItem>
                             </List>
@@ -108,7 +109,7 @@
                     </FlowDocumentScrollViewer>
                 </Grid>
             </local_gui:AugmentedClosableBorder>
-            <local_gui:AugmentedClosableBorder DockPanel.Dock="Bottom" Name="ObjReadOnlyLibraryDescriptionBorder" >
+            <local_gui:AugmentedClosableBorder DockPanel.Dock="Bottom" Name="ObjReadOnlyLibraryDescriptionBorder" Margin="0,3,0,0">
                 <FlowDocumentScrollViewer IsToolBarVisible="False" VerticalScrollBarVisibility="Disabled">
                     <commongui:StandardFlowDocument>
                         <Paragraph>
@@ -119,7 +120,7 @@
                     </commongui:StandardFlowDocument>
                 </FlowDocumentScrollViewer>
             </local_gui:AugmentedClosableBorder>
-            <local_gui:AugmentedClosableBorder DockPanel.Dock="Bottom" Name="ObjNotMuchBibTeXDescriptionBorder" >
+            <local_gui:AugmentedClosableBorder DockPanel.Dock="Bottom" Name="ObjNotMuchBibTeXDescriptionBorder" Margin="0,3,0,0">
                 <FlowDocumentScrollViewer IsToolBarVisible="False" VerticalScrollBarVisibility="Disabled">
                     <commongui:StandardFlowDocument>
                         <Paragraph>

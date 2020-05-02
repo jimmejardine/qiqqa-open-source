@@ -3,9 +3,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local_gui="clr-namespace:Utilities.GUI"
     >
-    <Grid>
+    <Grid Margin="3,0,3,0">
         <DockPanel Name="ObjPanelDetailed">
-            <Grid Name="PanelPopupPanel" DockPanel.Dock="Right" Width="20">
+            <Grid Name="PanelPopupPanel" DockPanel.Dock="Right">
                 <Image Name="ImagePopupIndicator" Width="8" Height="8"/>
             </Grid>
             <Image Name="ImageIcon" Width="32" Height="32" Visibility="Collapsed" />
