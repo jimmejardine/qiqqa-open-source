@@ -7,10 +7,9 @@
   xmlns:local_metadata="clr-namespace:Qiqqa.Documents.PDF.PDFControls.MetadataControls"
   xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
 >
-    <local_gui:AugmentedBorder>
         <DockPanel>
             <!-- PDFDocument metadata controls  - - - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - -  - - - - - - - - - - - - -  -->
-            <local_gui:CollapsibleRegion DockPanel.Dock="Right" VisibleEdge="Left" >
+            <local_gui:CollapsibleRegion DockPanel.Dock="Right" VisibleEdge="Left">
                 <Grid Width="300">
                     <local_metadata:DocumentMetadataControlsPanel x:Name="ObjDocumentMetadataControlsPanel" />
                     <local_library:LibraryInstructionsPanel x:Name="ObjLibraryInstructionsPanel" />
@@ -59,5 +58,4 @@
                 </ListView.ItemTemplate>
             </ListView>
         </DockPanel>
-    </local_gui:AugmentedBorder>
 </UserControl>

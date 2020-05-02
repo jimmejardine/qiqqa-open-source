@@ -109,33 +109,35 @@
                 </Grid>
             </local_gui:AugmentedClosableBorder>
             <local_gui:AugmentedClosableBorder DockPanel.Dock="Bottom" Name="ObjReadOnlyLibraryDescriptionBorder" >
-                <Grid>
-                    <FlowDocumentScrollViewer IsToolBarVisible="False" VerticalScrollBarVisibility="Disabled">
-                        <commongui:StandardFlowDocument>
-                            <Paragraph>
-                                You have only read-only access to this library.  Any additions or annotations you make may be lost when you next sync.
-                                <Run Name="ObjReadonlyExplain" />
-                            </Paragraph>
-                        </commongui:StandardFlowDocument>
-                    </FlowDocumentScrollViewer>
-                </Grid>
+                <FlowDocumentScrollViewer IsToolBarVisible="False" VerticalScrollBarVisibility="Disabled">
+                    <commongui:StandardFlowDocument>
+                        <Paragraph>
+                            You have only read-only access to this library.
+                            Any additions or annotations you make may be lost when you next sync.
+                            <Run Name="ObjReadonlyExplain" />
+                        </Paragraph>
+                    </commongui:StandardFlowDocument>
+                </FlowDocumentScrollViewer>
             </local_gui:AugmentedClosableBorder>
             <local_gui:AugmentedClosableBorder DockPanel.Dock="Bottom" Name="ObjNotMuchBibTeXDescriptionBorder" >
-                <Grid>
-                    <FlowDocumentScrollViewer IsToolBarVisible="False" VerticalScrollBarVisibility="Disabled">
-                        <commongui:StandardFlowDocument>
-                            <Paragraph>
-                                <Floater Width="90" HorizontalAlignment="Right" Padding="0">
-                                    <BlockUIContainer>
-                                        <Image Name="ImageLibraryMissingBibTeX" VerticalAlignment="Top" />
-                                    </BlockUIContainer>
-                                </Floater>
-                                Several of your documents are missing BibTeX information.  BibTeX is a publishing standard that contains reference information about a document, such as its title, authors and journal name.
-                While Qiqqa tries to automatically find the correct BibTeX for your document, it will only do so if it is 100% sure of the details.  For the rest, you can run the BibTeX Sniffer (from the toolbar) to help you quickly associate BibTeX with each of your remaining documents.
-                            </Paragraph>
-                        </commongui:StandardFlowDocument>
-                    </FlowDocumentScrollViewer>
-                </Grid>
+                <FlowDocumentScrollViewer IsToolBarVisible="False" VerticalScrollBarVisibility="Disabled">
+                    <commongui:StandardFlowDocument>
+                        <Paragraph>
+                            <Floater Width="90" HorizontalAlignment="Right" Padding="0">
+                                <BlockUIContainer>
+                                    <Image Name="ImageLibraryMissingBibTeX" VerticalAlignment="Top" />
+                                </BlockUIContainer>
+                            </Floater>
+                            Several of your documents are missing BibTeX information.
+                            BibTeX is a publishing standard that contains reference information about a document,
+                            such as its title, authors and journal name.
+                            While Qiqqa tries to automatically find the correct BibTeX for your document,
+                            it will only do so if it is 100% sure of the details.
+                            For the rest, you can run the BibTeX Sniffer (from the toolbar) to help you quickly
+                            associate BibTeX with each of your remaining documents.
+                        </Paragraph>
+                    </commongui:StandardFlowDocument>
+                </FlowDocumentScrollViewer>
             </local_gui:AugmentedClosableBorder>
             <local_library_filter:LibraryFilterOverviewControl DockPanel.Dock="Top" x:Name="ObjLibraryFilterOverviewControl"/>
             <local_library_catalog:LibraryCatalogControl x:Name="ObjLibraryCatalogControl" />
