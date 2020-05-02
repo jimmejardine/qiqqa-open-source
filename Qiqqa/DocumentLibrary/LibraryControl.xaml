@@ -140,7 +140,7 @@
                     </commongui:StandardFlowDocument>
                 </FlowDocumentScrollViewer>
             </local_gui:AugmentedClosableBorder>
-            <local_library_filter:LibraryFilterOverviewControl DockPanel.Dock="Top" x:Name="ObjLibraryFilterOverviewControl"/>
+            <local_library_filter:LibraryFilterOverviewControl DockPanel.Dock="Top" x:Name="ObjLibraryFilterOverviewControl" Visibility="Collapsed"/>
             <local_library_catalog:LibraryCatalogControl x:Name="ObjLibraryCatalogControl" />
         </DockPanel>
     </DockPanel>
