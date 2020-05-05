@@ -9,7 +9,7 @@
                 No documents selected.
                 <Hyperlink Name="ObjHyperlinkHelp">Explain</Hyperlink>
             </TextBlock>
-        <ScrollViewer Name="ObjScrollerHelp" Width="280">
+        <FlowDocumentScrollViewer Name="ObjScrollerHelp" Width="280">
             <commongui:StandardFlowDocument>
                 <Paragraph>
                     The list on the left shows all those documents that match your current search and slice choices.
@@ -50,6 +50,6 @@
                     other libraries by clicking on the PDF icon and dragging.
                 </Paragraph>
             </commongui:StandardFlowDocument>
-        </ScrollViewer>
+        </FlowDocumentScrollViewer>
     </DockPanel>
 </UserControl>
