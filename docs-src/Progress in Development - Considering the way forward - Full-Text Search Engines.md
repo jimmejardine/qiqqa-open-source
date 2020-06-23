@@ -46,7 +46,9 @@ Well, Java is not my go-to place for fun and besides: interfacing it with a .NET
 
 Then what have we got elsewhere?
 
-Options abound. Sphinx. ElasticSearch (which is Lucene plus a layer on top, like Solr). A few others that I've already forgotten when I write this. (I did take a quick peek at CLucene and took to my heels immediately.)
+Options abound. Sphinx. ElasticSearch (which is Lucene plus a layer on top, like Solr). A few others that I've already forgotten when I write this, e.g. 
+MG4J [http://mg4j.di.unimi.it/] [https://stackoverflow.com/questions/5028314/mg4j-vs-apache-lucene] 
+I did take a quick peek at CLucene and took to my heels immediately.
 
 And then I stumble onto... PostgreSQL. Me old mate of pre-war days. My accountant is married to the elephant for many decades (nooo, that is *not* a double entendre regarding his significant other as she's half my diameter every day of the year, I mean the *elephant*, the **blue** one!) and now that I look for answers in a wholly different direction some-one on the Web here tries to tell me that PostgreSQL is the answer I'm looking for?! WTF?! It's got FTS (Full Text Search) up the wazoo while I haven't been attentive and was oggling the gozongas of Oracle and Microsoft, and now that I'm down about 3 or 4 SO (StackOverflow) questions and have arrived at the **manual** (!yay!), there's plenty to make me go "hmmmmm... might this be... viable?"
 
@@ -131,6 +133,8 @@ If I change my mind and more the front-end to a cross-platform setting, that wou
 - virtual list: at least 2 folks on github did the fundamental bits for it. Then there's also my own spreadsheet work: that grid uses virtual scroll functionality to be fast for huge numbers of rows.
 - the PDF viewer would be hairy: think of it like an image ditor maybe, where a native MuPDF is interfaced to deliver bitmaps which are drawn in a layer in the image editor. The tougher bit will be the virtual text marking I guess...
 - the embedded web browser is obvious on the one hand, but on the other we want to hook into that iframe (if Google Scholar is willing to run in an iframe anyway)... Hm...
+
+  https://www.electronjs.org/docs/tutorial/web-embeds
 - UI layout and live management is something else in JavaScript. There have been a few projects which did this, but I haven't checked those out lately (2+ years) so I don't know if anyone is still alive there: it's not exactly functionality that's in high demand by the masses (of developers)
 - D3 or similar for the graph / chart business?
 - OCR management is mostly image view + edit/markup again, at least it is as far as the front-end would be concerned.
@@ -142,5 +146,132 @@ If I change my mind and more the front-end to a cross-platform setting, that wou
 
 
 
+---
 
+
+node.js - How to use sqlite3 module with electron? - Stack Overflow
+https://stackoverflow.com/questions/32504307/how-to-use-sqlite3-module-with-electron
+
+Node.js Native Addons and Electron 5.0 | Electron Blog
+https://www.electronjs.org/blog/nodejs-native-addons-and-electron-5
+
+Building a Docking Window Management Solution in WPF - CodeProject
+https://www.codeproject.com/articles/140209/building-a-docking-window-management-solution-in-w
+
+Indexing for full text search in PostgreSQL - Compose Articles
+https://www.compose.com/articles/indexing-for-full-text-search-in-postgresql/
+
+EikosPartners/windowmanagerjs: A framework to manage multiple dockable HTML windows.
+https://github.com/EikosPartners/windowmanagerjs
+
+dmvaldman/samsara: ☸️ Continuous UI
+https://github.com/dmvaldman/samsara
+
+OrigenStudio/material-ui-layout: Declarative layout for Material UI
+https://github.com/OrigenStudio/material-ui-layout
+
+trstringer/electron-flexbox-ui-layout: Common UI layout for an Electron/React app using Flexbox
+https://github.com/trstringer/electron-flexbox-ui-layout
+
+Bricks.js
+http://callmecavs.com/bricks.js/
+
+callmecavs/bricks.js: A blazing fast masonry layout generator for fixed width elements.
+https://github.com/callmecavs/bricks.js
+
+desandro/masonry: Cascading grid layout plugin
+https://github.com/desandro/masonry
+
+jsPanel
+https://jspanel.de/
+
+Flyer53 (Stefan Sträßer)
+https://github.com/Flyer53/
+
+Flyer53/jsPanel4: A JavaScript library to create highly configurable floating panels, modals, tooltips, hints/notifiers/alerts or contextmenus for use in backend solutions and other web applications.
+https://github.com/Flyer53/jsPanel4
+
+Flyer53/jsPanel: A jQuery Plugin to create highly configurable floating panels, modals, tooltips and hints/notifiers for use in a backend solution and other web applications.
+https://github.com/Flyer53/jsPanel
+
+PhosphorJS: About
+https://phosphorjs.github.io/about.html
+
+coderespawn/dock-spawn: Dock Spawn is a web based dock layout engine that aids in creating flexible user interfaces by enabling panels to be docked on the screen similar to Visual Studio IDE
+https://github.com/coderespawn/dock-spawn
+
+millennialmedia/panels: A jQuery plugin for creating dockable panels in your web application
+https://github.com/millennialmedia/panels
+
+gridstack.js | Build interactive dashboards in minutes.
+https://gridstackjs.com/
+
+20+ Best Dashboard Frameworks » CSS Author
+https://cssauthor.com/dashboard-frameworks/
+
+Tabbed panels using CSS
+http://code.iamkate.com/html-and-css/tabbed-panels/
+
+How to search hyphenated words in PostgreSQL full text search? - Database Administrators Stack Exchange
+https://dba.stackexchange.com/questions/204588/how-to-search-hyphenated-words-in-postgresql-full-text-search/204601#204601
+
+regex - Escape function for regular expression or LIKE patterns - Stack Overflow
+https://stackoverflow.com/questions/5144036/escape-function-for-regular-expression-or-like-patterns/45741630#45741630
+
+PostgreSQL: Documentation: 12: 12.6. Dictionaries
+https://www.postgresql.org/docs/current/textsearch-dictionaries.html
+
+PostgreSQL: Documentation: 12: 12.6. Dictionaries
+https://www.postgresql.org/docs/current/textsearch-dictionaries.html#TEXTSEARCH-THESAURUS
+
+postgresql - Match a phrase ending in a prefix with full text search - Stack Overflow
+https://stackoverflow.com/questions/6155592/match-a-phrase-ending-in-a-prefix-with-full-text-search/41112803#41112803
+
+Tutorial | PGroonga
+https://pgroonga.github.io/tutorial/
+
+index - PostgreSQL FTS and Trigram-similarity Query Optimization - Database Administrators Stack Exchange
+https://dba.stackexchange.com/questions/56224/postgresql-fts-and-trigram-similarity-query-optimization/56232#56232
+
+'postgresql-performance' tag wiki - Database Administrators Stack Exchange
+https://dba.stackexchange.com/tags/postgresql-performance/info
+
+sql - Are PostgreSQL column names case-sensitive? - Stack Overflow
+https://stackoverflow.com/questions/20878932/are-postgresql-column-names-case-sensitive/20880247#20880247
+
+PostgreSQL: Documentation: 12: 12.4. Additional Features
+https://www.postgresql.org/docs/current/textsearch-features.html#TEXTSEARCH-QUERY-REWRITING
+
+Postgresql full text search vs Solr – Charles Nagy
+http://charlesnagy.info/it/postgresql/postgresql-full-text-search-vs-solr
+
+Postgres full-text search is Good Enough!
+http://rachbelaid.com/postgres-full-text-search-is-good-enough/
+
+Types of Indexes in PostgreSQL - Highgo Software Inc.
+https://www.highgo.ca/2020/06/22/types-of-indexes-in-postgresql/?utm_source=rss&utm_medium=rss&utm_campaign=types-of-indexes-in-postgresql
+
+PostgreSQL: Documentation: 12: Chapter 12. Full Text Search
+https://www.postgresql.org/docs/current/textsearch.html
+
+Open Source Search: The Creators of Elasticsearch, ELK Stack & Kibana | Elastic
+https://www.elastic.co/
+
+[jira] [Commented] (LUCENE-2878) Allow Scorer to expose positions and payloads aka. nuke spans
+https://mail-archives.apache.org/mod_mbox/lucene-dev/201207.mbox/%3C2061698841.73547.1342661195362.JavaMail.jiratomcat@issues-vm%3E
+
+How to add a collapsible section in markdown.
+https://gist.github.com/pierrejoubert73/902cc94d79424356a8d20be2b382e1ab
+
+Redocly/redoc: 📘 OpenAPI/Swagger-generated API Reference Documentation
+https://github.com/Redocly/redoc
+
+simonhaenisch/prettier-plugin-organize-imports: Make Prettier organize your imports using the TypeScript language service API.
+https://github.com/simonhaenisch/prettier-plugin-organize-imports
+
+shins/include.md at master · Mermade/shins
+https://github.com/Mermade/shins/blob/master/docs/include.md
+
+Mermade/widdershins: OpenAPI / Swagger, AsyncAPI & Semoasa definitions to Slate / Shins compatible markdown
+https://github.com/Mermade/widdershins/
 
