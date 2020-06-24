@@ -2,6 +2,8 @@
 
 **TBD (Redact/rewrite/da worx, you know what. Make it multiple articles, now it's only braindump)**
 
+Forewarning: blubbering rant. Pitfall: 
+https://www.joelonsoftware.com/2000/04/06/things-you-should-never-do-part-i/
 
 - you start looking when you feel agonized.
   + for me, it's WPF/XAML: cute but way too verbose and hard to dive into (not just scratching the surface but getting things done in a nice looking, well-behaved way with attention to details)
