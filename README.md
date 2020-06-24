@@ -29,7 +29,7 @@ This version includes **every** feature available in [Commercial Qiqqa](qiqqa.co
 
 ### Notifications of new releases
 
-To be notified of new releases [subscribe](https://groups.google.com/d/forum/qiqqa-releases) to the Google Group 'qiqqa-releases' (not working yet).
+To be notified of new releases [subscribe](https://groups.google.com/d/forum/qiqqa-releases) to the Google Group 'qiqqa-releases'.
 
 
 ## Documentation For Users
