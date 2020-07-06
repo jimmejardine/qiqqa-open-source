@@ -2,7 +2,7 @@
 
 ### V.20160720
 
-![Qiqqa Logo](./images/image001.png)
+![Qiqqa Logo](./assets/image001.png)
 
 ---------------------------------------------------------------------------------
 
@@ -50,7 +50,7 @@ To access some of the features of Qiqqa, such as having multiple Web Libraries, 
 
 
 
-![Qiqqa Account](./images/image002.png)
+![Qiqqa Account](./assets/image002.png)
 
 ## Creating a Qiqqa Account
 
@@ -76,7 +76,7 @@ To logout of Qiqqa Desktop, press the “Logout” button on the status bar in t
 
 To log in to the Qiqqa Website, go to [http://www.qiqqa.com/Account/LogOn](http://www.qiqqa.com/Account/LogOn)
 
-![Qiqqa](./images/image003.png)
+![Qiqqa](./assets/image003.png)
 
 Be sure to enter the Qiqqa username you chose when you registered, and not your email address.
 
@@ -94,7 +94,7 @@ Before we get going though, the first thing to understand is that the first few 
 
 Once you are in Expert mode, it should look like this:
 
-![Qiqqa](./images/image004.png)
+![Qiqqa](./assets/image004.png)
 
 From the Start Screen toolbar you can access the main features of Qiqqa:
 
@@ -148,7 +148,7 @@ The status bar at the bottom gives you several items of information:
 
 The Library screen is where you get to collect and organise your PDFs. The easiest way to get to this screen is to click on the title of the library on the Start screen.
 
-![Qiqqa](./images/image005-TheLibraryScreen.png)
+![Qiqqa](./assets/image005-TheLibraryScreen.png)
 
 
 
@@ -243,7 +243,7 @@ Finally, Exhibit 6 is the toolbar. You can access a variety of tools here. Proba
 
 The PDF Reading screen is where you will be spending most of your time in Qiqqa.
 
-![Qiqqa](./images/image006-ThePDFReadingScreen.png)
+![Qiqqa](./assets/image006-ThePDFReadingScreen.png)
 
 Exhibit 1 is the main PDF reading area where you interact with your PDFs. This is where you add annotations, highlight and ink notes as you progress with your reading.
 
@@ -281,17 +281,17 @@ Exhibit 4 is where you can search this PDF. The search results are shown in Exhi
 
 Exhibit 6 is the toolbar where you can get to loads of features for editing the current PDF:
 
-* The hand icon ![Hand Icon](./images/image007.png) lets you click and drag the PDF surface to move around.
+* The hand icon ![Hand Icon](./assets/image007.png) lets you click and drag the PDF surface to move around.
 
-* The sticky-note icon  ![Qiqqa](./images/image008.png)  lets you add Annotations to your PDF. This is by far the most important form of annotation that Qiqqa provides as you can associate Tags with each Annotation. Later, when you want to run an Annotation Report across your entire library, you can specify which Tags you are interested in, and all the Annotations with those Tags across all your PDFs will be included in the report. This is a very powerful way to review and recap all the reading you have been doing about a particular topic. You can even export that Annotation Report to Word.
+* The sticky-note icon  ![Qiqqa](./assets/image008.png)  lets you add Annotations to your PDF. This is by far the most important form of annotation that Qiqqa provides as you can associate Tags with each Annotation. Later, when you want to run an Annotation Report across your entire library, you can specify which Tags you are interested in, and all the Annotations with those Tags across all your PDFs will be included in the report. This is a very powerful way to review and recap all the reading you have been doing about a particular topic. You can even export that Annotation Report to Word.
 
-* The highlighter icon  ![Qiqqa](./images/image009.png) lets you add Highlight Annotations to the PDF. Select a highlight colour and drag out areas to highlight. To remove an area that you have previously highlighted, click on the little eraser icon to the left of the highlight colours and then select the text to “unhighlight.” Highlighted text will also be included on the annotation report if you select the \*Highlights\* tag when running the Annotation Report (see Section 7).
+* The highlighter icon  ![Qiqqa](./assets/image009.png) lets you add Highlight Annotations to the PDF. Select a highlight colour and drag out areas to highlight. To remove an area that you have previously highlighted, click on the little eraser icon to the left of the highlight colours and then select the text to “unhighlight.” Highlighted text will also be included on the annotation report if you select the \*Highlights\* tag when running the Annotation Report (see Section 7).
 
-* The pencil icon  ![Qiqqa](./images/image010.png) lets you add Ink Annotations to the PDF. Use the “Ink tools” menu that pops up to select whether you want to draw or erase, and to choose the drawing colour. Ink Annotations will also be included on the annotation report if you select the \*Inks\* tag when running the Annotation Report (see Section 7).
+* The pencil icon  ![Qiqqa](./assets/image010.png) lets you add Ink Annotations to the PDF. Use the “Ink tools” menu that pops up to select whether you want to draw or erase, and to choose the drawing colour. Ink Annotations will also be included on the annotation report if you select the \*Inks\* tag when running the Annotation Report (see Section 7).
 
-* The camera icon  ![Qiqqa](./images/image011.png) lets you select an area of a PDF that will immediately be copied onto the Clipboard. You can then switch to Word or PowerPoint or Email and paste a snapshot image there. This is useful if you want to quickly lift a diagram or quote from a PDF.
+* The camera icon  ![Qiqqa](./assets/image011.png) lets you select an area of a PDF that will immediately be copied onto the Clipboard. You can then switch to Word or PowerPoint or Email and paste a snapshot image there. This is useful if you want to quickly lift a diagram or quote from a PDF.
 
-* The scribbler icon  ![Qiqqa](./images/image012.png) lets you quickly cite this PDF. If you want to cite this PDF in Word, Word must be running. A citation placeholder will be inserted at the cursor of the last active Word document. To transform this citation placeholder, you will still need to “wave the magic wand” inside Qiqqa InCite (see Section 9). But generally speaking, it is more productive to add many citation placeholders as you are working, and then “wave the magic wand” only occasionally when you want to check your reference formatting.
+* The scribbler icon  ![Qiqqa](./assets/image012.png) lets you quickly cite this PDF. If you want to cite this PDF in Word, Word must be running. A citation placeholder will be inserted at the cursor of the last active Word document. To transform this citation placeholder, you will still need to “wave the magic wand” inside Qiqqa InCite (see Section 9). But generally speaking, it is more productive to add many citation placeholders as you are working, and then “wave the magic wand” only occasionally when you want to check your reference formatting.
 
 * There are loads of other icons. Play with them – they don’t bite. Hover the mouse over each of them to get a description of what they do. And if you want to help translate Qiqqa into your own language, then look for the “Help us translate Qiqqa” option on the Start screen.
 
@@ -315,7 +315,7 @@ If you notice some strangeness in the search results or notice some missing PDFs
 
 Qiqqa supports a wide syntax for searching. To see some examples of the variety of searches Qiqqa can perform, press the little question mark next to the Search Boxes. They are included here for your convenience:
 
- ![Qiqqa](./images/image013.png) 
+ ![Qiqqa](./assets/image013.png) 
 
 
 
@@ -332,9 +332,9 @@ The idea behind Annotation Reports is that you should only ever read a PDF once.
 ## Annotations
 
 
-Adding annotations is easy. While you are reading a PDF, if you find something you want to recall, draw an annotation box around it using the Annotation tool  ![Qiqqa](./images/image008.png) on the PDF screen toolbar. If you move the mouse over an Annotation and click the “Info” button in the bottom-right of the Annotation, you get the Annotation Editor box. **Note that this only works if you are in Annotation mode, having pressed the Annotation tool button on the toolbar.**
+Adding annotations is easy. While you are reading a PDF, if you find something you want to recall, draw an annotation box around it using the Annotation tool  ![Qiqqa](./assets/image008.png) on the PDF screen toolbar. If you move the mouse over an Annotation and click the “Info” button in the bottom-right of the Annotation, you get the Annotation Editor box. **Note that this only works if you are in Annotation mode, having pressed the Annotation tool button on the toolbar.**
 
-![Qiqqa](./images/image014.png)
+![Qiqqa](./assets/image014.png)
 
 If you like the idea of categorising your annotations, then add Tags to the annotation. You will later be able to run an Annotation Report on a subset of Annotations that contain specific Tags. Note that tags you associate with PDFs are different to tags you associate with Annotations. The former are used to filter PDFs in the Library screen. The latter are used to build tag-specific Annotation Reports.
 
@@ -348,7 +348,7 @@ Note the instructions on how to move and resize annotations.
 ## Highlights and Inks
 
 
-Highlights  ![Qiqqa](./images/image009.png) and Inks  ![Qiqqa](./images/image010.png) are simpler, less powerful forms of Annotations. While they still appear on the Annotation Report, you cannot associate Tags or Comments with them. That said, there is nothing more gratifying than highlighting or circling the most important parts of a PDF, and then having them turn up in an Annotation Report a year later when you are trying to remember where you read something and are desperately trying to locate the citation. You will be sipping tea in the tea room while your colleagues are cursing their way through reams of dog-eared printouts (or not - because you have already told them about Qiqqa, haven’t you?).
+Highlights  ![Qiqqa](./assets/image009.png) and Inks  ![Qiqqa](./assets/image010.png) are simpler, less powerful forms of Annotations. While they still appear on the Annotation Report, you cannot associate Tags or Comments with them. That said, there is nothing more gratifying than highlighting or circling the most important parts of a PDF, and then having them turn up in an Annotation Report a year later when you are trying to remember where you read something and are desperately trying to locate the citation. You will be sipping tea in the tea room while your colleagues are cursing their way through reams of dog-eared printouts (or not - because you have already told them about Qiqqa, haven’t you?).
 
 
 
@@ -366,7 +366,7 @@ If you are a Qiqqa Premium member, clicking on a summary Annotation takes you di
 ## The Annotation Report
 
 
-From the Library screen, pressing the Annotation Report button  ![Qiqqa](./images/image015.png) takes you to the Annotation Report options screen. You need to be a little careful to correctly choose the PDFs you want to include in the Annotation Report before pressing the Annotation Report button:
+From the Library screen, pressing the Annotation Report button  ![Qiqqa](./assets/image015.png) takes you to the Annotation Report options screen. You need to be a little careful to correctly choose the PDFs you want to include in the Annotation Report before pressing the Annotation Report button:
 
 * If you have **no** PDFs selected in the Library screen, then an Annotation Report will be generated for **all** the PDFs. This is also the case if you have selected all the PDFs by pressing CTRL-A before pressing the Annotation Report button.
 
@@ -378,7 +378,7 @@ It is important to remember that the Library screen only shows the currently fil
 
 The Annotation Report options screen looks as follows:
 
-![Qiqqa](./images/image016-AnnotationReport.png) 
+![Qiqqa](./assets/image016-AnnotationReport.png) 
 
 Exhibit 1 shows all the Annotation Tags that you have associated with your Annotations. Select the Annotation Tags that you want included in your Annotation Report. If you select no Tags, then Qiqqa will assume you want them all (the same as pressing “Select All”).
 
@@ -394,7 +394,7 @@ Finally, press the “Generate” button at Exhibit 5 to get your report. It may
 
 Your Annotation Report will look something like this:
 
-![Qiqqa](./images/image017-AnnotationReportExample.png)
+![Qiqqa](./assets/image017-AnnotationReportExample.png)
 
 Exhibit 1 shows the PDF metadata: the title, year, author and publication venue. These are retrieved from the BibTeX associated with the PDF (see Section 8). You can also quicky open the PDF, or cite the PDF using InCite.
 
@@ -420,11 +420,11 @@ Rather than create its own proprietary bibliography format, Qiqqa embraces the i
 
 A sample BibTeX record looks as follows. This information not only identifies the PDF to you in Qiqqa, but is also used by Qiqqa InCite to automatically create beautiful bibliographies in Microsoft Word in any of the thousands of journal styles (see Section 9).
 
-![Qiqqa](./images/image018-BibTeXExample.png)
+![Qiqqa](./assets/image018-BibTeXExample.png)
 
 You can manually associate BibTeX with a PDF document on its “Metadata” tab. This tab is available from the Library screen by selecting a PDF, or from the PDF screen itself.
 
-![Qiqqa](./images/image019-BibTeXProperties.png)
+![Qiqqa](./assets/image019-BibTeXProperties.png)
 
 Exhibit 1 shows the “grid-editor” for entering BibTeX. When you select the “Type” of the BibTeX record, the recommended fields for that type will be shown in the grid with the strongly recommended fields shown in bold. However you can populate any fields you want. Indeed, if you want to populate fields in addition to the recommended ones, click on the space below the last field and enter your own field names and values. This is particularly useful if you want to add field particular to your field and your citation style. Anything you enter here will be included in Qiqqa’s search capabilities.
 
@@ -450,7 +450,7 @@ The BibTeX Sniffer takes the pain out of associating BibTeX with your PDFs. Rath
 
 When you select the BibTeX Sniffer for a PDF you arrive at the following screen:
 
-![Qiqqa](./images/image020-BibTeXSniffer.png)
+![Qiqqa](./assets/image020-BibTeXSniffer.png)
 
 Exhibit 1 shows the PDF with which you are associating BibTeX. If you have given it enough time, Qiqqa should automatically have performed OCR on your PDF and tried to detect its title by searching for the largest text on the first page. Qiqqa then automatically submits this title as a search query to Google Scholar by Exhibit 2.
 
@@ -502,9 +502,9 @@ Qiqqa supports the industry-standard Citation Style Language (CSL) for automatic
 ## The Qiqqa InCite screen
 
 
-The fastest way to get going is to fire up Microsoft Word and then open Qiqqa Incite ![Qiqqa](./images/image012.png) from the Start screen toolbar. It looks like this:
+The fastest way to get going is to fire up Microsoft Word and then open Qiqqa Incite ![Qiqqa](./assets/image012.png) from the Start screen toolbar. It looks like this:
 
-![Qiqqa](./images/image021-InCiteScreen.png)
+![Qiqqa](./assets/image021-InCiteScreen.png)
 
 Probably the best way to learn InCite is to see it in action in the Qiqqa InCite webcast, which you can access from the InCite toolbar.
 
@@ -518,27 +518,27 @@ Qiqqa InCite works with Microsoft Word using two concepts: citation-clusters and
 
 Let’s see how InCite works with these concepts with a worked example. In Word, I am going to type the first sentence of my ground-breaking paper:
 
-![Qiqqa](./images/image022.png)
+![Qiqqa](./assets/image022.png)
 
-I now need to motivate that fact with a citation. I switch to Qiqqa and select the relevant PDF in the Qiqqa InCite screen and I press the “Add citation” button ![Qiqqa](./images/image023.png) on the toolbar. This adds a citation-cluster placeholder to my Word document. This placeholder is not formatted according to my style (that comes later). It merely indicates that there will be a citation here.
+I now need to motivate that fact with a citation. I switch to Qiqqa and select the relevant PDF in the Qiqqa InCite screen and I press the “Add citation” button ![Qiqqa](./assets/image023.png) on the toolbar. This adds a citation-cluster placeholder to my Word document. This placeholder is not formatted according to my style (that comes later). It merely indicates that there will be a citation here.
 
-![Qiqqa](./images/image024.png)
+![Qiqqa](./assets/image024.png)
 
 If I select multiple PDFs and press the “Add citation” button, a citation-cluster placeholder will be created with multiple PDFs inside it:
 
-![Qiqqa](./images/image025.png)
+![Qiqqa](./assets/image025.png)
 
 Having added my first few references, I want to also add the bibliography section. To do that I type in the words “My Bibliography Section” into my Word document:
 
-![Qiqqa](./images/image026.png)
+![Qiqqa](./assets/image026.png)
 
-And I press the “Add bibliography” button ![Qiqqa](./images/image027.png) on the Qiqqa InCite toolbar to insert a bibliography placeholder into my Word Document.
+And I press the “Add bibliography” button ![Qiqqa](./assets/image027.png) on the Qiqqa InCite toolbar to insert a bibliography placeholder into my Word Document.
 
-![Qiqqa](./images/image028.png)
+![Qiqqa](./assets/image028.png)
 
-We’re almost there. We need to convert these pesky placeholders into correctly styled and formatted citations! To do that, first choose your CSL style on the Qiqqa InCite toolbar, and then “wave the magic wand” by pressing the “Reformat all citations” button ![Qiqqa](./images/image029.png). Et voila!
+We’re almost there. We need to convert these pesky placeholders into correctly styled and formatted citations! To do that, first choose your CSL style on the Qiqqa InCite toolbar, and then “wave the magic wand” by pressing the “Reformat all citations” button ![Qiqqa](./assets/image029.png). Et voila!
 
-![Qiqqa](./images/image030.png)
+![Qiqqa](./assets/image030.png)
 
 You can now continue editing your Word Document and adding more citations. As you add those citations, they will be inserted as citation-cluster placeholders. You just have to wave the magic wand to get them formatted correctly. If you want to change style completely, pick another CSL file by pressing the “Style CSL” (next to Exhibit 2) and wave the magic wand. It’s as simple as that!
 
@@ -558,7 +558,7 @@ At Exhibit 3, you have the papers that Qiqqa suggests you might want to cite. Th
 
 At Exhibit 4 you have the ability to edit an existing citation in your Word document. If your editor caret is inside a citation in Word, then Exhibit 3 will be populated with information about that citation.
 
-![Qiqqa](./images/image031.png)
+![Qiqqa](./assets/image031.png)
 
 With this screen you can:
 
@@ -582,7 +582,7 @@ With this screen you can:
 
 If you find it a little tedious having to switch between Word and Qiqqa for each citation, a “mini InCite screen ” is available. While in Word, hold down the WINDOWS key (the one between the left-hand CTRL and ALT) and press Q. InCite will pop up with a quick-search function and the ability to add citations in several formats. Under Windows 8.1, Win-Q starts the search tool, so we have also enabled Win-A as an alternative.
 
-![Qiqqa](./images/image032.png)
+![Qiqqa](./assets/image032.png)
 
 
 
@@ -590,7 +590,7 @@ If you find it a little tedious having to switch between Word and Qiqqa for each
 ## Browsing all the existing citations in a Word document
 
 
-Imagine you have written a 100-page thesis and want to prepare for your viva. This might involve reviewing every reference you ever made. You can do this quickly and efficiently using Qiqqa. Open your thesis in Word. Then switch to Qiqqa and press the “Show all citations” button ![Qiqqa](./images/image033.png) on the Qiqqa InCite screen toolbar.
+Imagine you have written a 100-page thesis and want to prepare for your viva. This might involve reviewing every reference you ever made. You can do this quickly and efficiently using Qiqqa. Open your thesis in Word. Then switch to Qiqqa and press the “Show all citations” button ![Qiqqa](./assets/image033.png) on the Qiqqa InCite screen toolbar.
 
 You will get a screen listing all the citations from the Word document in alphabetical order of title. You can open these PDFs to read them, or click on them to locate them quickly in the Word file. This works well if your monitor is wide enough to have Qiqqa and Word side-by-side.
 
@@ -602,7 +602,7 @@ Good luck with the viva!
 ## Copying citation snippets
 
 
-Sometimes you just want to quickly cite a document without having to go through Word. Perhaps you are writing an email or want to put together a slide in PowerPoint. This is as simple as opening the InCite screen, selecting the relevant PDF or PDFs, and pressing the “Citation Snippet” button ![Qiqqa](./images/image034.png) on the Qiqqa InCite screen toolbar. You can then switch to your other application (email, powerpoint, etc) and paste in the citation. It will be in the style of whatever the last CSL style you selected in InCite.
+Sometimes you just want to quickly cite a document without having to go through Word. Perhaps you are writing an email or want to put together a slide in PowerPoint. This is as simple as opening the InCite screen, selecting the relevant PDF or PDFs, and pressing the “Citation Snippet” button ![Qiqqa](./assets/image034.png) on the Qiqqa InCite screen toolbar. You can then switch to your other application (email, powerpoint, etc) and paste in the citation. It will be in the style of whatever the last CSL style you selected in InCite.
 
 
 
@@ -630,7 +630,7 @@ Any changes you make on one computer, once synced up to the cloud will become vi
 ## Getting your first Web Library
 
 
-To use cloud syncing in Qiqqa you need to use a Web Library. When you first start Qiqqa and log in as a Guest, you automatically start with a Local Guest Library ![Qiqqa](./images/image035.png). This account only works locally on one machine and cannot be used to sync. To get your first Web Library, you must register on the Qiqqa Website and log into the Qiqqa Desktop using your account details. Then you will see your first Web Library ![Qiqqa](./images/image036.png). Any work you do inside this library will be eligible for syncing with the cloud.
+To use cloud syncing in Qiqqa you need to use a Web Library. When you first start Qiqqa and log in as a Guest, you automatically start with a Local Guest Library ![Qiqqa](./assets/image035.png). This account only works locally on one machine and cannot be used to sync. To get your first Web Library, you must register on the Qiqqa Website and log into the Qiqqa Desktop using your account details. Then you will see your first Web Library ![Qiqqa](./assets/image036.png). Any work you do inside this library will be eligible for syncing with the cloud.
 
 
 
@@ -638,7 +638,7 @@ To use cloud syncing in Qiqqa you need to use a Web Library. When you first star
 ## Syncing
 
 
-To sync a Web Library with the cloud, open the Library screen and press the “Full Sync” button ![Qiqqa](./images/image037.png) on the toolbar. If this is the first time you have synced, it will bring up a dialog with an explanation of syncing. Please read this screen in detail, as it explains the various aspects of syncing, how much cloud storage space you are using, and indicates if you have exceeded your storage space.
+To sync a Web Library with the cloud, open the Library screen and press the “Full Sync” button ![Qiqqa](./assets/image037.png) on the toolbar. If this is the first time you have synced, it will bring up a dialog with an explanation of syncing. Please read this screen in detail, as it explains the various aspects of syncing, how much cloud storage space you are using, and indicates if you have exceeded your storage space.
 
 Once you understand these details, check “Hide the introductory guidelines” and this box will not appear again unless there is a problem with your syncing. If you ever want the full instructions again, hold down CTRL while pressing the “Full sync” button on the Library toolbar.
 
@@ -668,19 +668,19 @@ In both these cases you can “Top-Up” a Web Library, in which case the Web Li
 
 To top-up a Web Library, log in to your Account on the Qiqqa Website. Then click the “Your libraries” tab.
 
-![Qiqqa](./images/image038-YourLibraries.png)
+![Qiqqa](./assets/image038-YourLibraries.png)
 
 You’ll then be presented with a list of your Web Libraries.
 
-![Qiqqa](./images/image039.png)
+![Qiqqa](./assets/image039.png)
 
 Click on a library title to access the library contents:
 
-![Qiqqa](./images/image040.png)
+![Qiqqa](./assets/image040.png)
 
 When viewing your Web library, click the Cloud Storage tab, choose an amount, and click “Next”.
 
-![Qiqqa](./images/image041.png)
+![Qiqqa](./assets/image041.png)
 
 This will take you to PayPal to complete your purchase. Your credit will be applied immediately and you will be able to sync this library just like you do your other Web Libraries, except this Web Library does not account towards your free cloud storage space. Instead, small microcharges will be charged for storing and transferring your PDFs to/from the cloud. You can see the microcharges against your Top-Up Web Libraries at any time from the Library screen on the Qiqqa Website. These microcharges really are small – a couple of dollars can easily last a year for reasonable libraries.
 
@@ -700,9 +700,9 @@ To avoid this situation, it is a good idea that before you sit down to work in Q
 ## Autosync
 
 
-To alleviate the burden of having to remember to press SYNC all the time, you can turn on AutoSync for a Web Library. On the Qiqqa Start Page, you can toggle AutoSync ![Qiqqa](./images/image042.png) on and off for each Web Library. This will do the equivalent of pressing the SYNC button every 15 minutes.
+To alleviate the burden of having to remember to press SYNC all the time, you can turn on AutoSync for a Web Library. On the Qiqqa Start Page, you can toggle AutoSync ![Qiqqa](./assets/image042.png) on and off for each Web Library. This will do the equivalent of pressing the SYNC button every 15 minutes.
 
-![Qiqqa](./images/image043-AutoSync.png)
+![Qiqqa](./assets/image043-AutoSync.png)
 
 
 
@@ -712,9 +712,9 @@ To alleviate the burden of having to remember to press SYNC all the time, you ca
 
 There are two ways to create additional Web Libraries:
 
-* From Qiqqa Desktop, on the Start screen press the “Create Web Library” button ![Qiqqa](./images/image044.png) and give your new Web Library a title and a description. These can be changed on the Qiqqa Website at any time.
+* From Qiqqa Desktop, on the Start screen press the “Create Web Library” button ![Qiqqa](./assets/image044.png) and give your new Web Library a title and a description. These can be changed on the Qiqqa Website at any time.
 
-* From the Qiqqa Website, log in to your account and you will be able to create a Web Library from the “Your libraries” screen. To be able to see these new Web Libraries from inside Qiqqa Desktop, you need to press the “Refresh web library memberships” button ![Qiqqa](./images/image045.png) on the Start screen.
+* From the Qiqqa Website, log in to your account and you will be able to create a Web Library from the “Your libraries” screen. To be able to see these new Web Libraries from inside Qiqqa Desktop, you need to press the “Refresh web library memberships” button ![Qiqqa](./assets/image045.png) on the Start screen.
 
 
 
@@ -734,7 +734,7 @@ One of the most compelling aspects of Qiqqa is to be able to work collaborativel
 
 To share one of your Web Libraries with others, log in to the Qiqqa Website. Click on the “Libraries” menu item. Click on the library name and then press “Members” to invite other Qiqqa members. You will get a screen like this:
 
-![Qiqqa](./images/image046.png)
+![Qiqqa](./assets/image046.png)
 
 Follow the instructions for emailing invitations to others.
 
@@ -754,9 +754,9 @@ When inviting others to share your Web Library, you can give them three levels o
 
 The Qiqqa team loves producing awesome free research management software. Everything already free in Qiqqa will always be free. From the start, we have built Qiqqa in a sustainable way that requires no external funding for its development or servers.
 
-But we have something special for those who just want absolutely the best tools for the job. It's called Qiqqa Premium, and it's sign-posted with these golden stars: ![Qiqqa](./images/image047.png). Please support the future development of Qiqqa by purchasing Qiqqa Premium, or better still, get it for free by telling your friends and colleagues how Qiqqa can improve their research.
+But we have something special for those who just want absolutely the best tools for the job. It's called Qiqqa Premium, and it's sign-posted with these golden stars: ![Qiqqa](./assets/image047.png). Please support the future development of Qiqqa by purchasing Qiqqa Premium, or better still, get it for free by telling your friends and colleagues how Qiqqa can improve their research.
 
-Qiqqa Premium+ brings additional features to Qiqqa Premium for companies and individuals who have more stringent corporate requirements, like syncing to Qiqqa repositories entirely within your corporate intranet and better integration with Microsoft Word documents. These features are signposted with these golden stars: ![Qiqqa](./images/image048.png).
+Qiqqa Premium+ brings additional features to Qiqqa Premium for companies and individuals who have more stringent corporate requirements, like syncing to Qiqqa repositories entirely within your corporate intranet and better integration with Microsoft Word documents. These features are signposted with these golden stars: ![Qiqqa](./assets/image048.png).
 
 You can find out more about Qiqqa Premium and Premium + from the Qiqqa Website.
 
@@ -770,7 +770,7 @@ Log into the Qiqqa Website, click on “Your account” and choose the “Premiu
 
 If you’re feeling adventurous, we also accept Bitcoin.
 
-![Qiqqa](./images/image049.png)
+![Qiqqa](./assets/image049.png)
 
 The moment we receive confirmation of your purchase, you Qiqqa account will automatically be upgraded to Qiqqa Premium or Premium+. You might have to logout and login to Qiqqa Desktop to enable all the premium features.
 
@@ -822,7 +822,7 @@ Qiqqa does this by making use of a shared folder on your local intranet as a syn
 ## Creating an Intranet Library
 
 
-To create a new Intranet Library, from the Start screen, press the “Create/Join Intranet Library” button ![Qiqqa](./images/image050.png) on the toolbar. Then choose a shared directory on your corporate network to use as the synchronisation point for your Intranet Library. To discourage users from accidentally breaking the library we recommend giving this directory a name like “DO NOT OPEN – Qiqqa research library” or “DO NOT OPEN – Qiqqa product group library”. System administrators are welcome to inspect the contents of this directory but should not move, delete or rename files. Using Windows Security, make sure that this shared folder on the network drive is at least readable by everyone who you want to have access to this Intranet Library. You may have to ask for system administrator to help you create the shared folder and grant permission to your colleagues.
+To create a new Intranet Library, from the Start screen, press the “Create/Join Intranet Library” button ![Qiqqa](./assets/image050.png) on the toolbar. Then choose a shared directory on your corporate network to use as the synchronisation point for your Intranet Library. To discourage users from accidentally breaking the library we recommend giving this directory a name like “DO NOT OPEN – Qiqqa research library” or “DO NOT OPEN – Qiqqa product group library”. System administrators are welcome to inspect the contents of this directory but should not move, delete or rename files. Using Windows Security, make sure that this shared folder on the network drive is at least readable by everyone who you want to have access to this Intranet Library. You may have to ask for system administrator to help you create the shared folder and grant permission to your colleagues.
 
 Then enter a title and description for your new Intranet Library and press the “Create” button.
 
@@ -836,7 +836,7 @@ The Intranet Library will appear on your Start screen. Open the library to start
 ## Joining an Intranet Library
 
 
-To join an Intranet Library you will need the shared folder location of the synchronisation point. From the Start screen, press the “Create/Join Intranet Library” button ![Qiqqa](./images/image050.png) on the toolbar and navigate to this shared folder. If Qiqqa detects that you have selected a valid Intranet Library synchronisation point, it will show the title and description of the library. Press the “Join” button to join the library.
+To join an Intranet Library you will need the shared folder location of the synchronisation point. From the Start screen, press the “Create/Join Intranet Library” button ![Qiqqa](./assets/image050.png) on the toolbar and navigate to this shared folder. If Qiqqa detects that you have selected a valid Intranet Library synchronisation point, it will show the title and description of the library. Press the “Join” button to join the library.
 
 The Intranet Library will appear on your Start screen. The first thing you will want to do is press the Sync button to download all the PDFs from this library.
 
@@ -928,8 +928,8 @@ The PDF reading screen (Exhibit 4) offers you touch scrolling, pinch zooming, bo
 
 NB: Always remember to sync regularly so you don’t run into information conflict!
 
-![Qiqqa](./images/image051-Android.png)
-![Qiqqa](./images/image052-Android.png)
+![Qiqqa](./assets/image051-Android.png)
+![Qiqqa](./assets/image052-Android.png)
 
 
 
@@ -945,9 +945,9 @@ Before you begin, it is most important that you have populated the titles for a 
 
 Qiqqa Expedition then uses these AutoTags (and your manually assigned Tags if you wish) to produce its Themes.
 
-To start Expedition, press the “Explore this library in Expedition” button ![Qiqqa](./images/image053.png) on the Library screen toolbar. Alternatively you can open Expedition directly from the Start screen.
+To start Expedition, press the “Explore this library in Expedition” button ![Qiqqa](./assets/image053.png) on the Library screen toolbar. Alternatively you can open Expedition directly from the Start screen.
 
-![Qiqqa](./images/image054-ExpeditionScreen.png)
+![Qiqqa](./assets/image054-ExpeditionScreen.png)
 
 The first thing you need to ensure is that you are working with the right library (Exhibit 1). Then press the “Refresh” button (Exhibit 2) to regenerate your Themes. You should refresh your Expedition whenever you have made significant additions to your library. If your AutoTags are old, refreshing your Expedition will also refresh your AutoTags.
 
@@ -971,7 +971,7 @@ A different approach Qiqqa offers to deciding what to read next is its Interacti
 
 If you have already run Qiqqa Expedition of your library (see Section 14) then press ‘M’ to expand the main Themes for this PDF:
 
-![Qiqqa](./images/image055.png)
+![Qiqqa](./assets/image055.png)
 
 Nodes representing the technical terms from the top five Themes for this PDF are shown. Sometimes, when these technical terms overlap several themes, the theme nodes will have multiple colours.
 
@@ -981,7 +981,7 @@ Select a theme node and press either ‘D’ or ‘S’ to expand some PDF nodes
 
 * Press 'S' to expand the most specific documents in an Expedition theme. This shows the PDFs that are most specific to the theme. These PDFs are probably worth reading if you are interested in delving into the specific details of papers in the theme.
 
-![Qiqqa](./images/image056.png)
+![Qiqqa](./assets/image056.png)
 
 
 
@@ -1001,7 +1001,7 @@ Then from the Brainstorm screen you can select a PDF and:
 
 * Examine the instructions panel on the right-hand for the variety of other options available from each brainstorm node type.
 
-![Qiqqa](./images/image057.png)
+![Qiqqa](./assets/image057.png)
 
 
 
@@ -1011,7 +1011,7 @@ Then from the Brainstorm screen you can select a PDF and:
 
 You can also use Qiqqa Brainstorms to brainstorm ideas around your research. You can add text, images and links to your brainstorms and even combine them with automatic brainstorm node features.
 
-![Qiqqa](./images/image058.png)
+![Qiqqa](./assets/image058.png)
 
 
 
@@ -1035,7 +1035,7 @@ There are several avenues for getting help with Qiqqa:
 
 * The Qiqqa Support forum is available at [https://getsatisfaction.com/qiqqa](https://getsatisfaction.com/qiqqa). We built this forum so that the Qiqqa Community might be able help each other out. While we do read every posting in the forum, it is impossible for us to answer every question. So please search the forum for answers to your questions before posting new identical questions! 😄 
 
-* As Qiqqa has grown over time, we have made a variety of video webcasts to show the various aspects of Qiqqa in action. To watch a webcast specific to a particular Qiqqa screen, press the Webcast button ![Qiqqa](./images/image059.png) that appears on several of the toolbars. Please note that Qiqqa has evolved over the years, so some of these webcasts show versions of Qiqqa that are slightly different to the latest version. However there is still massive value in watching them as the fundamentals haven’t changed! If you search YouTube for “Qiqqa” you will also find some of the training material made by others for Qiqqa.
+* As Qiqqa has grown over time, we have made a variety of video webcasts to show the various aspects of Qiqqa in action. To watch a webcast specific to a particular Qiqqa screen, press the Webcast button ![Qiqqa](./assets/image059.png) that appears on several of the toolbars. Please note that Qiqqa has evolved over the years, so some of these webcasts show versions of Qiqqa that are slightly different to the latest version. However there is still massive value in watching them as the fundamentals haven’t changed! If you search YouTube for “Qiqqa” you will also find some of the training material made by others for Qiqqa.
 
 * Get your friends and colleagues using Qiqqa! The more people you know using Qiqqa, the easier it is to find someone who might explain something in Qiqqa that you haven’t yet discovered.
 
