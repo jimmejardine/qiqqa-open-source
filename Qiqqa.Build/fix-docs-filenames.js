@@ -5,7 +5,7 @@ var globby = require('globby');
 
 async function scandir() {
     const paths = await globby(['**/*.md'], {
-        cwd: __dirname + '/../docs',
+        cwd: __dirname + '/../docs-src',
         absolute: true,
         onlyFiles: true,
         caseSensitiveMatch: false,

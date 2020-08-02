@@ -8,7 +8,6 @@ using Qiqqa.Backups;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Common.GUI;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
-using Qiqqa.Main.SplashScreenStuff;
 using Qiqqa.UtilisationTracking;
 using Qiqqa.WebBrowsing.GeckoStuff;
 using Utilities;
@@ -73,14 +72,7 @@ namespace Qiqqa.Main.LoginStuff
 
             Closing += LoginWindow_Closing;
             Closed += LoginWindow_Closed;
-            this.ContentRendered += LoginWindow_ContentRendered;
             KeyDown += LoginWindow_KeyDown;
-        }
-
-        private void LoginWindow_ContentRendered(object sender, EventArgs e)
-        {
-            // Once the Login Dialog has been completely rendered on screen, do we remove the splash screen
-            MainEntry.RemoveSplashScreen();
         }
 
         private void UpdateStatusMessage(string message)

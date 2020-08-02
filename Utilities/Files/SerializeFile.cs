@@ -31,7 +31,7 @@ namespace Utilities.Files
             {
                 return Load(filename);
             }
-            catch (Exception ex)
+            catch
             {
                 // Check if there is a redundant file to fall back on
                 string redundant_filename = filename + REDUNDANT;
@@ -175,7 +175,7 @@ namespace Utilities.Files
             {
                 return TextLoad_NotRedundant(filename);
             }
-            catch (Exception ex)
+            catch
             {
                 // Check if there is a redundant file to fall back on
                 string redundant_filename = filename + REDUNDANT;
@@ -244,7 +244,7 @@ namespace Utilities.Files
             {
                 return ProtoLoad_NotRedundant<T>(filename);
             }
-            catch (Exception ex)
+            catch
             {
                 // Check if there is a redundant file to fall back on
                 string redundant_filename = filename + REDUNDANT;

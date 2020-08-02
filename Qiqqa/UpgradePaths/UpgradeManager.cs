@@ -1,4 +1,3 @@
-﻿using Qiqqa.Main.SplashScreenStuff;
 using Qiqqa.UpgradePaths.V003To004;
 using Qiqqa.UpgradePaths.V037To038;
 using Qiqqa.UpgradePaths.V043To044;

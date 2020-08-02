@@ -1,0 +1,13 @@
+
+GhostScript.NET = https://github.com/jhabjan/Ghostscript.NET
+Quantisle 		= http://www.qiqqa.com/
+
+GhostScript = https://www.ghostscript.com/
+MuPDF = https://www.mupdf.com/
+MuPDFSharp.NET = https://github.com/wmjordan/mupdf/tree/master/MupdfSharp
+
+RAMdisk = https://en.wikipedia.org/wiki/RAM_drive
+
+high retina screens = https://en.wikipedia.org/wiki/Retina_display
+
+

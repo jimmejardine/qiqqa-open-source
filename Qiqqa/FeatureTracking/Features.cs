@@ -4,7 +4,6 @@
     {
         public static readonly Feature App_Open = new Feature { Name = "App_Open", Description = "Open Qiqqa" };
         public static readonly Feature App_Close = new Feature { Name = "App_Close", Description = "Close Qiqqa" };
-        public static readonly Feature App_TermsAndConditions = new Feature { Name = "App_TermsAndConditions", Description = "Accepted terms and conditions" };
         public static readonly Feature App_ThemeColour = new Feature { Name = "App_ThemeColour", Description = "" };
 
         public static readonly Feature Beta_40 = new Feature { Name = "Beta_40", Description = "Beta v40 - Using .NET4" };
@@ -162,7 +161,6 @@
         public static readonly Feature Vote_Expedition = new Feature { Name = "Vote_Expedition", Description = "" };
 
         public static readonly Feature Tool_DocumentConvertWidget = new Feature { Name = "Tool_DocumentConvertWidget", Description = "" };
-        public static readonly Feature Chat_Submit = new Feature { Name = "Chat_Submit", Description = "" };
 
         public static readonly Feature Exception = new Feature { Name = "Exception", Description = "" };
         public static readonly Feature Exception_GeckoInit = new Feature { Name = "Exception_GeckoInit", Description = "" };
