@@ -28,5 +28,9 @@ Qiqqa.Build/Packaging/ClickOnceUninstaller/ClickOnceUninstaller/obj/*
 # ignore directories where the installers are saved during Release+SETUP builds
 /Qiqqa.Build/Packages/v* - 20*/
 
+# Windows' stuff
+desktop.ini
+
+# experimental dev work
 /libs/3rdparty/mupdf/mupdf/
 
