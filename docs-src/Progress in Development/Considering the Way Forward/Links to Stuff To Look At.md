@@ -18,7 +18,7 @@ https://www.codeproject.com/Articles/71593/How-to-compile-and-use-Xapian-on-Wind
 
 
 
-# Google Scolar
+# Google Scholar
 
 You want BibTeX data, citations, etc. from Google.
 
@@ -338,11 +338,11 @@ VPN immediately changes its IP address. Now there are many free VPNs on the Inte
 
 If a message appears when running Crawler 
 
-__findPages-Can not find the pages link in the start URL!! 
+__findPages - Can not find the pages link in the start URL!! 
 
-__findPages-1.Google robot check might ban you from crawling!! 
+__findPages - 1. Google robot check might ban you from crawling!! 
 
-__findPages-2.You might not crawl the page of google scholar 
+__findPages - 2. You might not crawl the page of google scholar 
 
 The solution is to use VPN and change IP
 
