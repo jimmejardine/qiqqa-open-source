@@ -130,8 +130,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\GeckoFx-Windows-33.0-0.2\Geckofx-Winforms.dll</HintPath>
     </Reference>
-    <Reference Include="HtmlAgilityPack, Version=1.11.23.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlAgilityPack.1.11.23\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="HtmlAgilityPack, Version=1.11.24.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.24\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.AvalonEdit, Version=0.0.0.0, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -157,7 +157,6 @@
     </Reference>
     <Reference Include="Microsoft.Win32.Registry, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Registry.4.7.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
@@ -248,8 +247,8 @@
     <Reference Include="System.Data.SqlClient, Version=4.6.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SqlClient.4.8.1\lib\net461\System.Data.SqlClient.dll</HintPath>
     </Reference>
-    <Reference Include="System.Data.SQLite, Version=1.0.112.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SQLite.Core.1.0.112.0\lib\net46\System.Data.SQLite.dll</HintPath>
+    <Reference Include="System.Data.SQLite, Version=1.0.113.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.113.1\lib\net46\System.Data.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing">
@@ -261,11 +260,9 @@
     <Reference Include="System.Printing" />
     <Reference Include="System.Security.AccessControl, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.AccessControl.4.7.0\lib\net461\System.Security.AccessControl.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System.Security.Principal.Windows, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Principal.Windows.4.7.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System.ServiceModel">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
@@ -469,9 +466,6 @@
       <DependentUpon>SelectingNodesControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Brainstorm\SceneManager\TestHarness.cs" />
-    <Compile Include="Chat\ChatControl.xaml.cs">
-      <DependentUpon>ChatControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ClientVersioning\ClientVersionReleaseNotes.xaml.cs">
       <DependentUpon>ClientVersionReleaseNotes.xaml</DependentUpon>
     </Compile>
@@ -611,9 +605,6 @@
     <Compile Include="Documents\PDF\MetadataSuggestions\PDFMetadataInferenceFromBibTeXSearch.cs" />
     <Compile Include="Documents\PDF\MetadataSuggestions\PDFMetadataInferenceFromPDFMetadata.cs" />
     <Compile Include="Documents\PDF\PDFAnnotationToImageRenderer.cs" />
-    <Compile Include="Documents\PDF\PDFControls\MetadataControls\TweetControl.xaml.cs">
-      <DependentUpon>TweetControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Documents\PDF\PDFDocument_ThreadUnsafe.cs" />
     <Compile Include="FeatureTracking\GoogleAnalysicsSubmitter.cs" />
     <Compile Include="InCite\CSLProcessorTranslator_AbbreviationsManager.cs" />
@@ -1043,9 +1034,6 @@
     <Compile Include="Main\QiqqaTopLogoControl.xaml.cs">
       <DependentUpon>QiqqaTopLogoControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Main\SplashScreenStuff\SplashScreenWindow.xaml.cs">
-      <DependentUpon>SplashScreenWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Main\StatusBar.xaml.cs">
       <DependentUpon>StatusBar.xaml</DependentUpon>
     </Compile>
@@ -1076,9 +1064,6 @@
     <Compile Include="FeatureTracking\Features.cs" />
     <Compile Include="FeatureTracking\UsedFeature.cs" />
     <Compile Include="FeatureTracking\FeatureTrackingManager.cs" />
-    <Compile Include="StartPage\TabWelcome.xaml.cs">
-      <DependentUpon>TabWelcome.xaml</DependentUpon>
-    </Compile>
     <Compile Include="DocumentLibrary\WebLibraryStuff\WebLibraryDetailControl.xaml.cs">
       <DependentUpon>WebLibraryDetailControl.xaml</DependentUpon>
     </Compile>
@@ -1294,10 +1279,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Brainstorm\SceneManager\SelectingNodesControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Chat\ChatControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1550,10 +1531,6 @@
     <Page Include="Documents\PDF\InfoBarStuff\ReadOnlyStuff\ReadOnlyControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Documents\PDF\PDFControls\MetadataControls\TweetControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Documents\PDF\PDFControls\Page\Camera\CameraActionChooserDialog.xaml">
       <SubType>Designer</SubType>
@@ -1837,10 +1814,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Main\SplashScreenStuff\SplashScreenWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Main\StatusBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1868,12 +1841,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="StartPage\StartPageControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="StartPage\TabWelcome.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <Generator>MSBuild:Compile</Generator>
@@ -5317,14 +5284,12 @@
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>
-  <ItemGroup>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.112.0\build\net46\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.112.0\build\net46\System.Data.SQLite.Core.targets'))" />
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.113.1\build\net46\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.113.1\build\net46\System.Data.SQLite.Core.targets'))" />
   </Target>
-  <Import Project="..\packages\System.Data.SQLite.Core.1.0.112.0\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.112.0\build\net46\System.Data.SQLite.Core.targets')" />
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.113.1\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.113.1\build\net46\System.Data.SQLite.Core.targets')" />
 </Project>

@@ -59,7 +59,7 @@ namespace Qiqqa.Common.Configuration
                         return p;
                     }
                 }
-                catch (Exception ex)
+                catch
                 {
                     // ignore all errors
                 }
@@ -184,7 +184,6 @@ namespace Qiqqa.Common.Configuration
 
 #if TEST_FIRST_TIME_QIQQA_EXECUTION
             // Testing....
-            configuration_record.TermsAndConditionsAccepted = false;
             configuration_record.SyncTermsAccepted = false;
 #endif
 

@@ -13,6 +13,29 @@ function absDstPath(rel) {
 	return path.resolve(p);
 }
 
+function readTxtConfigFile(rel) {
+  let p = path.resolve(absSrcPath(rel));
+  let src = fs.readFileSync(p, "utf8");
+  // - split into lines
+  // - filter out any lines whicch don't have an '='
+  // - split each line across the initial '=' in there.
+  // - turn this into a hash table?
+  let lines = src.split(/[\r\n]/g);
+  lines = lines.filter((l) => l.trim().length > 1 && l.includes('=')).map((l) => {
+    let parts = l.split('=');
+    if (parts.length !== 2) {
+      throw new Error(`config line in ${rel} is expected to have only one '='`);
+    }
+    parts = parts.map((l) => l.trim());
+    return parts;
+  });
+  let rv = {};
+  lines.forEach((l) => {
+    rv[l[0]] = l[1];
+  });
+  return rv;
+}
+
 // https://vuepress.vuejs.org/guide/basic-config.html#config-file
 // https://vuepress.vuejs.org/config/#basic-config
 
@@ -29,8 +52,17 @@ const cfg = {
   evergreen: true,
 
   head: [
-    ['link', { rel: 'icon', href: '/favicon.ico' }],
+    ['link', { rel: 'icon', href: '/icons/logo.png' }],
+    ['link', { rel: 'icon', href: '/icons/favicon.ico', type: 'image/x-icon' }],
     //['meta', { name: 'viewport', content: 'width=device-width,initial-scale=1,user-scalable=no' }]
+    ['link', { rel: 'manifest', href: '/manifest.json' }],
+    ['meta', { name: 'theme-color', content: '#3eaf7c' }],
+    ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
+    ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }],
+    ['link', { rel: 'apple-touch-icon', href: '/icons/apple-touch-icon-152x152.png' }],
+    ['link', { rel: 'mask-icon', href: '/icons/safari-pinned-tab.svg', color: '#3eaf7c' }],
+    ['meta', { name: 'msapplication-TileImage', content: '/icons/msapplication-icon-144x144.png' }],
+    ['meta', { name: 'msapplication-TileColor', content: '#000000' }],
   ],
 
   // https://vuepress.vuejs.org/theme/default-theme-config.html#navbar
@@ -92,7 +124,6 @@ const cfg = {
       editLinks: true,
       // custom text for edit link. Defaults to "Edit this page"
       editLinkText: 'Help us improve this page!',
-
   },
 
   markdown: {
@@ -106,33 +137,38 @@ const cfg = {
 
   	extendMarkdown: md => {
       md.set({
-	    html:         true,        // Enable HTML tags in source
-	    //breaks:       false,        // Convert '\n' in paragraphs into <br>
-	    linkify:      true,        // autoconvert URL-like texts to links
+  	    html:         true,        // Enable HTML tags in source
+  	    //breaks:       false,        // Convert '\n' in paragraphs into <br>
+  	    linkify:      true,        // autoconvert URL-like texts to links
 
-	    // highSecurity:
-	    // - false:           lower protection against XSS/Unicode-Homologue/etc. attacks via the input MarkDown.
-	    //                    This setting assumes you own or at least trust the Markdown
-	    //                    being fed to MarkDonw-It. The result is a nicer render.
-	    // - true (default):  maximum protection against XSS/Unicode-Homologue/etc. attacks via the input MarkDown.
-	    //                    This is the default setting and assumes you have no control or absolute trust in the Markdown
-	    //                    being fed to MarkDonw-It. Use this setting when using markdown-it as part of a forum or other
-	    //                    website where more-or-less arbitrary users can enter and feed any MarkDown to markdown-it.
-	    //
-	    // See https://en.wikipedia.org/wiki/Internationalized_domain_name for details on homograph attacks, for example.
-	    highSecurity: false,
+  	    // highSecurity:
+  	    // - false:           lower protection against XSS/Unicode-Homologue/etc. attacks via the input MarkDown.
+  	    //                    This setting assumes you own or at least trust the Markdown
+  	    //                    being fed to MarkDonw-It. The result is a nicer render.
+  	    // - true (default):  maximum protection against XSS/Unicode-Homologue/etc. attacks via the input MarkDown.
+  	    //                    This is the default setting and assumes you have no control or absolute trust in the Markdown
+  	    //                    being fed to MarkDonw-It. Use this setting when using markdown-it as part of a forum or other
+  	    //                    website where more-or-less arbitrary users can enter and feed any MarkDown to markdown-it.
+  	    //
+  	    // See https://en.wikipedia.org/wiki/Internationalized_domain_name for details on homograph attacks, for example.
+  	    highSecurity: false,
 
-	    // Enable some language-neutral replacements + quotes beautification
-	    typographer:  true,
+  	    // Enable some language-neutral replacements + quotes beautification
+  	    typographer:  true,
 
-	    // Double + single quotes replacement pairs, when typographer enabled,
-	    // and smartquotes on. Could be either a String or an Array.
-	    //
-	    // For example, you can use '«»„“' for Russian, '„“‚‘' for German,
-	    // and ['«\xA0', '\xA0»', '‹\xA0', '\xA0›'] for French (including nbsp).
-	    quotes: '\u201c\u201d\u2018\u2019', /* “”‘’ */
-	  });
+  	    // Double + single quotes replacement pairs, when typographer enabled,
+  	    // and smartquotes on. Could be either a String or an Array.
+  	    //
+  	    // For example, you can use '«»„“' for Russian, '„“‚‘' for German,
+  	    // and ['«\xA0', '\xA0»', '‹\xA0', '\xA0›'] for French (including nbsp).
+  	    quotes: '\u201c\u201d\u2018\u2019', /* “”‘’ */
+  	  });
 
+      md.use(require('markdown-it-abbr'), {
+        abbreviations: readTxtConfigFile('.vuepress/abbr-abbreviations.txt'),
+        links:         readTxtConfigFile('.vuepress/abbr-links.txt'),
+        emphasis:      readTxtConfigFile('.vuepress/abbr-emphasis-phrases.txt'),
+      });
       md.use(require('markdown-it-sub'));
       md.use(require('markdown-it-sup'));
       md.use(require('markdown-it-footnote'));
@@ -165,25 +201,25 @@ const cfg = {
         name: `[path][name].[hash:4].[ext]`
       });
 
-console.error("images rule setting hit");
-  config.module
-    .rule('images')
-      .test(/\.(png|jpe?g|gif)(\?.*)?$/)
-      .use('url-loader')
-        .loader('url-loader')
-        .options({
-          limit: 200,   // ~ 200 bytes max size of image file for embedding (data:base64)
-          name: `assets/img/[name].[hash:4].[ext]`
-        });
+    console.error("images rule setting hit");
+      config.module
+        .rule('images')
+          .test(/\.(png|jpe?g|gif)(\?.*)?$/)
+          .use('url-loader')
+            .loader('url-loader')
+            .options({
+              limit: 200,   // ~ 200 bytes max size of image file for embedding (data:base64)
+              name: `assets/img/[name].[hash:4].[ext]`
+            });
 
-  config.module
-    .rule('svg')
-      .test(/\.(svg)(\?.*)?$/)
-      .use('file-loader')
-        .loader('file-loader')
-        .options({
-          name: `assets/img/[name].[hash:4].[ext]`
-        });
+    config.module
+      .rule('svg')
+        .test(/\.(svg)(\?.*)?$/)
+        .use('file-loader')
+          .loader('file-loader')
+          .options({
+            name: `assets/img/[name].[hash:4].[ext]`
+          });
 
     config.module.rule('vue')
       .uses.store
@@ -199,6 +235,37 @@ console.error("images rule setting hit");
   },
 
   plugins: [
+    // workaround SSR mismatch
+    [
+      'vuepress-plugin-dehydrate', {
+        // disable SSR
+        noSSR:  [
+          // support glob patterns
+          '*.html',
+          '404.html',
+        ],
+        // remove scripts
+        noScript: [
+          // support glob patterns
+          '**/X*.html',
+        ],
+      },
+    ],
+    [
+      'vuepress-plugin-clean-urls',
+      {
+        normalSuffix: '.html',
+        indexSuffix: '/index.html',
+        notFoundPath: '/404.html',
+      },
+    ],
+    [
+      '@vuepress/pwa',
+      {
+        serviceWorker: false,
+        updatePopup: false,
+      }
+    ],
     ['@vuepress/nprogress'],
   	['@vuepress/back-to-top'],
     ['@vuepress/search', {
@@ -208,7 +275,7 @@ console.error("images rule setting hit");
     ['@vuepress/active-header-links'],
   	['vuepress-plugin-global-toc'],
     ['vuepress-plugin-table-of-contents'],
-
+    ['vuepress-plugin-smooth-scroll'],
     // you can use this plugin multiple times
     [
       'vuepress-plugin-container',
@@ -256,9 +323,9 @@ console.error("images rule setting hit");
     // cp docs-src/.nojekyll docs/ && cp docs-src/CNAME docs/
     console.error("async generated HIT");
 
-	fs.writeFileSync(absDstPath('CNAME'), 'qiqqa.org\n', 'utf8');
+  	fs.writeFileSync(absDstPath('CNAME'), 'qiqqa.org\n', 'utf8');
 
-	fs.writeFileSync(absDstPath('.nojekyll'), '');
+  	fs.writeFileSync(absDstPath('.nojekyll'), '');
   },
 };
 

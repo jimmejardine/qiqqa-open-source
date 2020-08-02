@@ -250,11 +250,6 @@ namespace QiqqaTestHelpers
             : base()
         { }
 
-        public override void CleanUp(string approved, string received)
-        {
-            base.CleanUp(approved, received);
-        }
-
         public override bool IsWorkingInThisEnvironment(string forFile)
         {
             return base.IsWorkingInThisEnvironment(forFile);

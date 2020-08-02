@@ -95,8 +95,6 @@ namespace Qiqqa.Main
             //this.SourceInitialized += MainWindow_SourceInitialized;
             //this.StateChanged += MainWindow_StateChanged;
 
-            ObjTabWelcome.GetGoing += ObjTabWelcome_GetGoing;
-
             // Put this in a background thread
             SafeThreadPool.QueueUserWorkItem(o => PostStartupWork());
         }
@@ -337,11 +335,6 @@ namespace Qiqqa.Main
             {
                 if (dispose_count == 0)
                 {
-                    // Get rid of managed resources
-                    ObjTabWelcome.GetGoing -= ObjTabWelcome_GetGoing;
-
-                    ObjStartPage?.Dispose();
-
                     ipc_server?.Stop();
                 }
             }, must_exec_in_UI_thread: true);

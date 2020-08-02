@@ -64,10 +64,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <NMakeBuildCommandLine>npm run docs:build</NMakeBuildCommandLine>
-    <NMakeOutput>$(MSBuildProjectDirectory)/../docs/index.html</NMakeOutput>
-    <NMakeCleanCommandLine>npm run docs:clean</NMakeCleanCommandLine>
-    <NMakeReBuildCommandLine>npm run docs:build</NMakeReBuildCommandLine>
+    <NMakeBuildCommandLine>
+    </NMakeBuildCommandLine>
+    <NMakeOutput>
+    </NMakeOutput>
+    <NMakeCleanCommandLine>
+    </NMakeCleanCommandLine>
+    <NMakeReBuildCommandLine>
+    </NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -94,6 +98,14 @@
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="..\package.json" />
+    <None Include="Contributing -- What Can You Do To Help.md" />
+    <None Include="dummy.md.include" />
+    <None Include="Human Communications -- Where Goes What.md" />
+    <None Include="Makefile" />
+    <None Include="README.md" />
+    <None Include="site-builder.js" />
+    <None Include="site-builder.sh" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

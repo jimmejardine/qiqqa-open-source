@@ -27,8 +27,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
             DataContextChanged += DocumentMetadataControlsPanel_DataContextChanged;
 
-            ObjTweetBar.Visibility = Visibility.Visible;
-
             ReevaluateDataContext();
         }
 
@@ -94,7 +92,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             }
             else
             {
-                DocumentIsDeletedNode.Visibility = Visibility.Hidden;
+                DocumentIsDeletedNode.Visibility = Visibility.Collapsed;
             }
 #endif
         }

@@ -11,7 +11,6 @@ using Qiqqa.Common.GUI;
 using Qiqqa.Common.MessageBoxControls;
 using Qiqqa.Main.IPC;
 using Qiqqa.Main.LoginStuff;
-using Qiqqa.Main.SplashScreenStuff;
 using Qiqqa.UpgradePaths;
 using Utilities;
 using Utilities.Files;
@@ -39,7 +38,6 @@ namespace Qiqqa.Main
         [DllImport("kernel32.dll")]
         private static extern int SetErrorMode(int newMode);
 
-        private static SplashScreenWindow splashscreen_window;
         private static Application application;
 
         static MainEntry()
@@ -48,9 +46,6 @@ namespace Qiqqa.Main
             {
                 DoPreamble();
                 DoApplicationCreate();
-
-                splashscreen_window = new SplashScreenWindow();
-                splashscreen_window.Show();
 
                 SafeThreadPool.QueueUserWorkItem(o =>
                 {
@@ -262,12 +257,6 @@ namespace Qiqqa.Main
         {
             LoginWindow login_window = new LoginWindow();
             login_window.ChooseLogin();
-        }
-
-        public static void RemoveSplashScreen()
-        {
-            splashscreen_window?.Close();
-            splashscreen_window = null;
         }
 
         [STAThread]

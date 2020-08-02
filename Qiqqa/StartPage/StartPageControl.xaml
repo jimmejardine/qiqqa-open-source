@@ -6,7 +6,6 @@
     xmlns:local_gui_conv="clr-namespace:Utilities.GUI.Converters;assembly=Utilities"
     xmlns:local_library_filter="clr-namespace:Qiqqa.DocumentLibrary.LibraryFilter"
   xmlns:local_dualtab="clr-namespace:Utilities.GUI.DualTabbedLayoutStuff;assembly=Utilities"
-  xmlns:local_chat="clr-namespace:Qiqqa.Chat"
 >
     <UserControl.Resources>
         <local_gui_conv:BooleanToVisibilityInverseConverter x:Key="BooleanToVisibilityInverseConverter"/>
@@ -71,9 +70,6 @@
                         <local_dualtab:DualTabbedLayout Name="DualTabWhatsNew" >
                             <DockPanel Name="TabWebcasts" >
                                 <local:RegionWebcasts />
-                            </DockPanel>
-                            <DockPanel Name="TabChat" >
-                                <local_chat:ChatControl x:Name="ObjChatControl"/>
                             </DockPanel>
                         </local_dualtab:DualTabbedLayout>
                     </local_gui:AugmentedBorder>

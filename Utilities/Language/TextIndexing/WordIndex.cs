@@ -590,7 +590,7 @@ namespace Utilities.Language.TextIndexing
                     word_in_word_indexes[gang_start + i].needs_flushing = false;
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 //  If we have an exception, it is probably because we have not created the directory, so try that
                 if (!create_directory_first)
