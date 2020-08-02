@@ -44,7 +44,6 @@
     "@gerhobbelt/live-server": "1.3.1-28",
     "@gerhobbelt/nomnom": "1.8.4-30",
     "@gerhobbelt/xml-beautifier": "1.0.2-1",
-    "deGaulle": "file:../deGaulle",
     "glob": "7.1.6",
     "globby": "11.0.1",
     "moment": "2.27.0",

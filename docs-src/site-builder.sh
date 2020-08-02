@@ -21,7 +21,8 @@ b )
 
   rm -rf docs/
   mkdir docs
-  DEBUG="*,-not_this" npx @gerhobbelt/eleventy --config=docs-src/.eleventy.js
+  echo "Website construction temporarily disabled as we change tooling for this..."
+  #DEBUG="*,-not_this" npx @gerhobbelt/eleventy --config=docs-src/.eleventy.js
   #prettier --write docs/
 
   #node docs-src/site-builder.js
@@ -77,6 +78,5 @@ esac
 
 
 popd                                                                                                    2> /dev/null  > /dev/null
-
 
 
