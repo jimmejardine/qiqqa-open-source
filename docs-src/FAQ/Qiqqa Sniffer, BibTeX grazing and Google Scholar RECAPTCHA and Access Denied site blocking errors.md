@@ -57,11 +57,13 @@ When you search the Internet, you'll find lots of others, who don't use Qiqqa, h
 
 ## Many places around the Internet advise to use a (paid) VPN as a work-around. Would this work and why?
 
+**TL;DR: umm, don't think so, but you might get lucky. For a while. Google is actively fighting this and gets smart quickly. *Bloody engineers.*** 😣😈 
+
 The VPN should be a *anonymizing VPN*, i.e. a VPN which picks up your network access and outputs it from one of many nodes spread throughout the world. NordVPN is a good example of such a VPN but there are many VPN service providers like that.
 
 The trick here is that the IP-based request counting (also often described as *IP tracking*, though that would be a slightly different tech with almost the same effect) by Google Scholar is now spread over N '*exit nodes*' of your VPN service provider as your subsequent Scholar requests seem to originate from another random node of theirs. 
 
-** So that would be a good solution, eh?**
+### So that would be a good solution, eh?
 
 Well... There's a few things that make it a temporarily *lucky fix* at best, in my opinion and experience. Consider not just yourself but *many* folks wanting to access Google Scholar hassle-free and *many* of them taking the VPN route: now *their* Scholar queries are mixed in with *yours* and all those requests now happen to pop out at the VPN exit nodes, which, you guessed it, now start to look like very active, *probably abusive* Google Scholar accessing machines and it then takes the proverbial microsecond for Google to decide to *block* the buggers or at the very least spit ourt RECAPTCHAS. Given that *the same exit node* from the VPN serves many users like you, chances are that Google has to transmit multiple RECAPTCHAS to that node before the first RECAPTCHA is answered by a user: 
 it would take just a little piece of server-side code 
@@ -74,9 +76,63 @@ Again, I am *second guessing* what Google does in their very **closed source** o
 
 So... that would make a VPN a risky proposition as you exchange getting blocked/RECAPTCHAd for your own activities with getting blocked/RECAPTCHAd for *other folks*' Scholar activities. Plus the blacklisting is easy to, ah, *escalate*: take a blocked offender IP off the list, but *keep it around in a 'previous offences' list*: when an IP, at any time, is *going to be* blocked, we (Google) can quickly check the list of 'previous offenders' and when the IP happens to be one, hit it with a doubled time penalty, for example. If the node happens to be the kind of incurable 'turn style criminal', that doubling quickly adds up to a *year* of blockage and the problem will go away by itself.
 
-**Tip**: my research dug up [`scholarly`](https://pypi.org/project/scholarly/) as being a very smart little piece of software, which can use the Tor network instead of regular VPN services. Now don't get excited, as the description for VPNs above goes for Tor and any other distributed anonymizing network alike: your traffic is anonymized by outputting it at a random *exit node*. The number of *exit nodes* is however limited and is quite a lower number than the total number of Internet-accessing humans, so their traffic gets mixed in with yours, indicating the same problem for Tor exit nodes as for VPN exit nodes: I (being Google) can more easily detect the nodes as serving multiple people at once, and randomly!, thus having a quicker path towards blocking (cheap) vs. RECAPTCHA slow-down (more expensive for me).
+### [Tor](https://www.torproject.org/) to the rescue?
 
-Of course, things are not so clear-cut as described here as there's also corporate routers/proxies to consider, but those are recognizable as well if we include mandatory **cookies** in our Scholar traffic (and Google does, gosh, what a surprise!): one user session will always exit from the same IP node for a corporate firewall/proxy, but MAY jump around to different IP numbers when it's a anonymizing VPN's exit node collective we're dealing with: this will happen when we close the connection after a request+response and it will be quite expensive for the VPN service provider to track and link later user requests to Scholar, while we are tracking that Scholar 'session' already because *we* (Google) intend it to last not too long or be (ab)used too frequently: you may sip from our teat but *feeding* off it is objectionable (by us = Google) and hence denied.
+**Tip**: my research dug up [`scholarly`](https://pypi.org/project/scholarly/) as being a very smart little piece of software, which can use the [Tor network](https://www.torproject.org/) instead of regular VPN services. Now don't get excited, as the description for VPNs above goes for [Tor](https://www.torproject.org/) and any other distributed anonymizing network alike: your traffic is anonymized by outputting it at a random *exit node*. The number of *exit nodes* is however limited and is quite a lower number than the total number of Internet-accessing humans, so their traffic gets mixed in with yours, indicating the same problem for Tor exit nodes as for VPN exit nodes: I (being Google) can more easily detect the nodes as serving multiple people at once, and randomly!, thus having a quicker path towards blocking (cheap) vs. RECAPTCHA slow-down (more expensive for me).
+
+The [Tor](https://www.torproject.org/) way might have slightly *more* luck as Google is also savvy to some social issues and it is politically opportune to keep the tor gates open for designated opressed people. As Tor is meant to give these folks some potentially safe access to the Net at large, Google **may** be less inclined to block Tor exit nodes, compared to other VPN exit nodes, but again, I'm second-guessing a large corporate entity here, so YMMV.
+
+### Nice, but you've forgotten about corporate proxies serving many users at work: they are not blocked!
+
+Of course, things are not so clear-cut as described here as there's also corporate routers/proxies to consider, but those are recognizable as well if we include mandatory **cookies** in our Scholar traffic (and Google does, gosh, what a surprise!): one user session will always exit from the same IP node for a corporate firewall/proxy, but MAY jump around to different IP numbers when it's a anonymizing VPN's exit node collective we're dealing with: this will happen when we close the connection after a request+response and it will be quite expensive for the VPN service provider to track and link later user requests to Scholar *in order to connect them to one exit node consistently*, while we are tracking that Scholar 'session' already because *we* (Google) intend it to last not too long or be (ab)used too frequently: you may sip from our teat but *feeding* off it is objectionable (by us = Google) and hence denied.
+
+So, yes, all the wild stuff on the Net makes the logic on the Google Scholar server-side quite a bit more finicky, but the basics remains intact: Google can easily install a few knobs to tweak the parameters for RECAPTCHA and Access Denied decisions. As Google has the data and the ability to restrict access unless you conform to their input demands, you only get *more* Scholar access if you're human (in the perception of Google!) with very high probability.
+
+That is why you get less hassle from Google when you log into your google account and access Scholar while being logged in.
+
+## That's all dandy, but I cannot log into my google account inside the Qiqqa Sniffer!
+
+Yep, that's the 'old embedded browser' kicking in: Google doesn't allow logins in 'outdated' / 'outmoded' or otherwise *unsupported* browsers, and XULrunner happens to be one of those, alas. Hence we have [issue #2](https://github.com/jimmejardine/qiqqa-open-source/issues/2) which is, regrettably, a lot of work to accomplish, so it will take a while before that one is done.
+
+**Note**:  it looks like the User-Agent tweak in Qiqqa v82 allows you to log into your google account inside the Qiqqa Sniffer, but that only succeeds anyway when the planets are aligned or what-not. It worked kinda okay back in Q4 2019, but, like with all other things Scholar access, its success rate seems to decline, so YMMV.
+
+
+## But you can tell Google that you are a modern-day Chrome, right? There's the User-Agent!
+
+Yup, we do that already in [Qiqqa v82](https://github.com/GerHobbelt/qiqqa-open-source/releases). It *seemed* to work for a bit last year, but then Google got smart and my access statistics started to go bad again, so it *may help a bit* but Google knows better than to merely check the User-Agent. You can include JavaScript in your webpage to detect the browser in other ways (Language and feature support checks, f.e.) and then you can decide what to do after all.
+
+## Is there no end to this RECAPTCHA problem?
+
+Frankly, *no*. 
+
+Like I wrote above, it's a *race of arms* as you and Google do have quite different goals with Scholar: you want to use it as a free metadata provider to complete your own library, while Google offers it as an apetizer: we have the best metadata, come into our berth! But we need to be paid after all! And we don't want anyone siphoning it off our servers and take off with the loot. And while you are only a petty small-time criminal from that perspective, having your own library instead of depending entirely on *us* (Google), you still are more or less undesirable by us (Google), for Scholar provides you with ways to 'manage your library' over at our (Google's) servers, if only you'ld get an account, so why don't you?
+
+"Well, I use Qiqqa!" 😊
+
+## Jumping Jehoshapath! TL;DR! Give me a list of things to do!
+
+I can give you a list of things to *try*. As you had a TL;DR! moment, the key take-away of all the above should be: it can change any time, any day, depending on the mood Google corporate is in. They decide how tight they turn the screws on your ways into Scholar.
+
+Given that caveat, here's a list of things to try:
+
+- try to log into your google account using the browser in the Sniffer. See if it succeeds and is persistent, i.e. if Google still calls you by your name while you query Scholar from inside that same Sniffer.
+
+  Expected Result: you might get lucky and be able to do more searches before you're hit with RECAPTCHA or Access Denied.
+  
+- try to 'Add to Library' inside google and then extract the BibTeX from there. Convoluted way to access BibTeX, I'll grant you, but sometimes that works when regular BibTeX grabbing off Scholar fails.
+
+- [try the other suggestions listed in the comments for issue #113](https://github.com/jimmejardine/qiqqa-open-source/issues/113)
+
+- try an anonymizing VPN or SOCKS proxy.
+
+Always: YMMV.
+
+
+
+
+
+
+
 
 
 
