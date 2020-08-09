@@ -48,6 +48,8 @@ If you are interested in contributing towards better Qiqqa, please contact @jimm
 
 It needs some technical experience. See the [DEVELOPER-INFO](DEVELOPER-INFO.md) for details.
 
+---
+
 
 # WARNING NOTICE for Commercial Qiqqa users with a user account and Web Libraries
 
