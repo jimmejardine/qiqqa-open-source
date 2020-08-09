@@ -1,4 +1,5 @@
 *.bat           text eol=crlf
+*.csproj        text eol=lf
 *.css           text eol=lf
 *.ejs           text eol=lf
 *.html          text eol=lf
@@ -18,12 +19,14 @@
 *.sass          text eol=lf
 *.sed           text eol=lf
 *.sh            text eol=lf
+*.sln           text eol=lf
 *.src           text eol=lf
 *.txt           text eol=lf
 *.xml           text eol=lf
 *.vue           text eol=lf
 *.y             text eol=lf
 *.yacc          text eol=lf
+*.xaml          text eol=lf
 *.yaml          text eol=lf
 *.yml           text eol=lf
 
