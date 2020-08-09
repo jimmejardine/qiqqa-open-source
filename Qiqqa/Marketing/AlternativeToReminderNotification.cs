@@ -45,7 +45,7 @@ namespace Qiqqa.Marketing
             FeatureTrackingManager.Instance.UseFeature(Features.Marketing_AlternativeTo);
             WebsiteAccess.OpenWebsite(WebsiteAccess.Url_AlternativeTo);
 
-            // If they have gone to investigate, don't harrass them for a loooong time
+            // If they have gone to investigate, don't harass them for a loooong time
             ConfigurationManager.Instance.ConfigurationRecord.Marketing_LastNotificationOfAlternativeTo = DateTime.UtcNow.AddMonths(12);
             ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.Marketing_LastNotificationOfAlternativeTo));
         }
