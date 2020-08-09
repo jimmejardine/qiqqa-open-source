@@ -22,7 +22,7 @@ https://www.codeproject.com/Articles/71593/How-to-compile-and-use-Xapian-on-Wind
 
 You want BibTeX data, citations, etc. from Google.
 
-\[Edit: see [Google and the Publishers](#Publishers) section below for a very probable cause of the Scholar RECAPTCHA woes.]
+\[Edit: see [Google and the Publishers](#google-and-the-publishers) section below for a very probable cause of the Scholar RECAPTCHA woes.]
 
 Let's not be squeamish about it: in exchange, Google wants your *soul*. Or your money, but in the case of Google Scholar, only your *soul* will do: lots of effort has been expended by Google in the last 1-2 years to **block everyone that's not provably a human using a modern browser *manually***. And even than, you're limited to only so much use of Scholar before you're supposed to go back to basic Search, which at least can soak you in ads.
 
