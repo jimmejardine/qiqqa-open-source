@@ -35,7 +35,7 @@ which are my quick notes while looking into what everybody else has been doing a
   > if you altered or filtered your browser fingerprint, you're **very probably** also filtering ads. 1+1=no-Scholar. 
   >
   > Since this whole endeavour is bathed in *probability*, Google cannot be absolutely 100% sure about their conclusions about you being a aleged robot/automaton/undesirable-user and 
-  > the easiest answer to the conundrum what to do about *that* uncertainty is to severely limit the number of Scholar requests for any such entity. If it's a 'live one' (clicking human with a 'good' browser) then too bad, but they get a sip and that's good enough. If they want more, they'll quickly find it works out for them to move to Chrome. Yay! Meanwhile we (Google) make sure the bots don't get our stuff in a 1000 years. Yay! \times 2! 
+  > the easiest answer to the conundrum what to do about *that* uncertainty is to severely limit the number of Scholar requests for any such entity. If it's a 'live one' (clicking human with a 'good' browser) then too bad, but they get a sip and that's good enough. If they want more, they'll quickly find it works out for them to move to Chrome. Yay! Meanwhile we (Google) make sure the bots don't get our stuff in a 1000 years. Yay! × 2! 
   > 
   > Google can simply log your IP address and count requests,
   > hitting you with a RECAPTCHA after, say, 10 searches (*10* being one of the unknown/undocumented parameters that can be easily adjusted by Google
