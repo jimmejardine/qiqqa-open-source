@@ -15,13 +15,31 @@ If you want to build qiqqa from scratch yourself and/or wish to participate in i
 
 - [Microsoft Developer Studio 2019 ![](assets/visualstudio-help-me-choose.png)](https://visualstudio.microsoft.com/)
 - [The .NET Framework SDK for Visual Studio](https://dotnet.microsoft.com/download/visual-studio-sdks), version 4.8 or later. (Migration to .NET Core is considered, but not decided on yet.)
-- git : https://git-scm.com/downloads
-- bash UNIX shell - this one is included in the git-for-windows install liked above: https://git-scm.com/downloads
-- node + npm : NodeJS v12 or later - since we have some JavaScript in Qiqqa and build the documentation site and other bits & pieces using Node.
+- `git` : https://git-scm.com/downloads
+- `bash` UNIX shell - this one is included in the git-for-windows install linked above: https://git-scm.com/downloads
+- `node` + `npm` : NodeJS v12 or later - since we have some JavaScript in Qiqqa and build the documentation site and other bits & pieces using Node.
 
   While there is a pure NodeJS installer, we advise you to install `nvm` so you can switch Node versions on your development machine. This comes in handy when you do other projects with Node / JavaScript too:
-  + https://docs.microsoft.com/en-us/windows/nodejs/setup-on-windows - a nice write-up by the folks at Microsoft how to setup `nvm` and the rest
-  + https://nodejs.org/en/download/ - the pure NodeJS installer. **DOES NOT include `nvm` and DOES NOT work well with `nvm` when you install that one later on!**
+  + https://docs.microsoft.com/en-us/windows/nodejs/setup-on-windows : a nice write-up by the folks at Microsoft how to setup `nvm` and the rest.
+  + https://nodejs.org/en/download/ : the pure NodeJS installer. 
+  
+    **DOES NOT include `nvm` and DOES NOT work well with `nvm` when you install that one later on!**
+    
+    
+  You are strongly advised to [use the Windows-nvm approach described above](https://docs.microsoft.com/en-us/windows/nodejs/setup-on-windows).
+  
+  Make sure to install and activate the latest node v12 release via `nvm`, e.g. 
+  
+  ```bash
+  nvm install 12.18.3
+  nvm use 12.18.3
+  ```
+  
+  Do *not* forget the `nvm use <version>` command there as that one *activates* the installed node version!
+  
+    
+    
+    
 
 ### Extra bits you might need later
 
