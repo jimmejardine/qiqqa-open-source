@@ -34,3 +34,6 @@ desktop.ini
 # experimental dev work
 /libs/3rdparty/mupdf/mupdf/
 
+# build misc output files for Qiqqa.org project
+Qiqqa.org.log
+Qiqqa.org.vcxprojAssemblyReference.cache
