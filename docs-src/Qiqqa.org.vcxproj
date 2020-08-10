@@ -82,10 +82,14 @@
     <NMakePreprocessorDefinitions>_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <NMakeBuildCommandLine>cd .. &amp;&amp; npm run docs:build</NMakeBuildCommandLine>
-    <NMakeOutput>index.html</NMakeOutput>
-    <NMakeCleanCommandLine>cd .. &amp;&amp; npm run docs:clean</NMakeCleanCommandLine>
-    <NMakeReBuildCommandLine>cd .. &amp;&amp; npm run docs:build</NMakeReBuildCommandLine>
+    <NMakeBuildCommandLine>
+    </NMakeBuildCommandLine>
+    <NMakeOutput>
+    </NMakeOutput>
+    <NMakeCleanCommandLine>
+    </NMakeCleanCommandLine>
+    <NMakeReBuildCommandLine>
+    </NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
