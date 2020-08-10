@@ -14,6 +14,7 @@ namespace icons
         public const string QiqqaAndroid = "QiqqaAndroid";
 
         public const string AugmentedButtonDown = "AugmentedButtonDown";
+        public const string Champion = "Champion";
         public const string ToolbarBackground = "ToolbarBackground";
 
         public const string Plus = "Plus";
