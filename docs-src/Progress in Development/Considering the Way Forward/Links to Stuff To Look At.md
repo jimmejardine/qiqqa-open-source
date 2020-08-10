@@ -22,6 +22,8 @@ https://www.codeproject.com/Articles/71593/How-to-compile-and-use-Xapian-on-Wind
 
 You want BibTeX data, citations, etc. from Google.
 
+\[Edit: see [Google and the Publishers](#google-and-the-publishers) section below for a very probable cause of the Scholar RECAPTCHA woes.]
+
 Let's not be squeamish about it: in exchange, Google wants your *soul*. Or your money, but in the case of Google Scholar, only your *soul* will do: lots of effort has been expended by Google in the last 1-2 years to **block everyone that's not provably a human using a modern browser *manually***. And even than, you're limited to only so much use of Scholar before you're supposed to go back to basic Search, which at least can soak you in ads.
 
 Sounds opinionated? Well, it's "*follow the money*" as usual: if you *assume* Google is interested in **human activity only** -- or more specifically stated: Google is **only interested in humans who can click on ads** -- then *all* behavioural changes of the Google Scholar site over the recent months/years are *reasonable*: 
@@ -37,6 +39,56 @@ The nett effect is that **any embedded browser** is dead in the water unless you
 This translates to the Qiqqa Sniffer being a, ah, '*challenge*' to make it work again in 2020 A.D.: one must make it look like it's the genuine Chrome browser and no hanky panky happenin', or you get toasted with CAPTCHA/robot checks and 503/429 HTTP error reponses, i.e. *no results what-so-ever* until you return the next day and try again.
 
 Meanwhile, Google also seems to have added a VPN exit node blacklist of some sort as using a VPN to perform Google Scholar searches doesn't seem to help: it was rather *worse* than Scholar-ing from the private node. Having had a look at `scholarly` (below) which uses the `tor` network as a randomizing VPN/proxy rig might fly better for a while, but I don't know how long Google will keep up appearances regarding `tor` and disadvantaged web users from beyond the Great Firewall and elsewhere: in the end, they're in it for the money. My opinion here: when / as-long-as the `tor` road works, heck, let's do it!
+
+## Google and the Publishers
+
+Found via the README of the project [`edsu/etudier`: "Extract a citation network from Google Scholar"](https://github.com/edsu/etudier):
+
+> If you are wondering why it uses a non-headless browser it's because [Google is quite protective of this data](https://www.quora.com/Are-there-technological-or-logistical-challenges-that-explain-why-Google-does-not-have-an-official-API-for-Google-Scholar) and routinely will ask you to solve a captcha (identifying street signs, cars, etc in photos). étudier will allow you to complete these tasks when they occur and then will continue on its way collecting data.
+
+**Follow the money**: following the link in the README above, Quora says:
+
+> Aaron Tay, academic librarian who has studied, blogged and presented on Google scholar
+>
+> Updated August 11, 2016
+>
+> I’ve read or heard someone say that Google Scholar is given privileged access to crawl Publisher,aggregator (often enhanced with subject heading and controlled vocab) and none-free abstract and indexing sites like Elsevier and Thomson Reuters’s Scopus and Web of Science respectively.
+>
+> Obviously the latter two wouldn’t be so wild about Google Scholar offering a API that would expose all their content to anyone since they sell access to such metadata.
+>
+> Currently you only get such content (relatively rare) from GS if you are in the specific institution IP range that has subscriptions. (Also If your institution is already a subscriber to such services such as Web of Science or Scopus, you library could usually with some work allow you access directly via the specific resource API!.)
+>
+> Even publishers like Wiley that are usually happy for their metadata to be freely available might not like the idea of a Google Scholar API. The reason is unlike Google, Google Scholar actually has access to the full text as well (which they sell)…. If the API exposes that…..
+>
+> There are of course technical solutions if Google wants the API enough, but why would they make the effort?
+>
+> As already mentioned Libraries do pay for things like Web of Science and Scopus and these services do provide APIs, so do consult a librarian if you have such access.
+>
+> Also Web Scale discovery services that libraries pay for such as Summon, Ebsco discovery service, Primo etc do have APIs and they come closest to duplicating a (less comprehensive version) Google Scholar API
+>
+> Another poor substitute to a Google Scholar API, is the Crossref Metadata Search. It’s not as comprehensive as Google Scholar but most major publishers do deposit their metadata.
+> 
+> ---
+> 
+> Tom Griffin, works at IEEE
+> 
+> Answered July 15, 2013
+>
+> Google doesn't have an API for Scholar likely for the same reason they don't have an API for web search - it would get overwhelmed by applications creating aggregation platforms (and running continuous queries) versus applications that just run on-demand, user-initiated lookups (like Mendeley linking out to Google Scholar).
+>
+> Couple this with the fact that Scholar is a philanthropic and they make no money off of it - there certainly isn't the pressing need for an API.
+>
+> There are, however, some openly available scrapers that work as an API. Of course, they only work well if they're tuned to the current structure of Scholar search results. One such example
+>
+> [A Parser for Google Scholar](https://www.icir.org/christian/scholar.html)
+>
+> The other thing to note is that Microsoft Academic Search does offer an API. You need to request a key, but other than that, it provides full programatic access to what the application returns using the web interface.
+>
+> [Microsoft Academic Search API](https://www.microsoft.com/en-us/research/project/academic/articles/sign-academic-knowledge-api/)
+
+
+
+
 
 
 
