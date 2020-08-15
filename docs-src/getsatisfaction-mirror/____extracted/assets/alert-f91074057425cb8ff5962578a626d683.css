@@ -1,0 +1,117 @@
+.gsfn-jqmOverlay {
+  background-color: #000; }
+
+a.gsfn-jqmClose {
+  display: block;
+  position: absolute;
+  top: -21px;
+  width: 42px;
+  height: 42px;
+  left: -21px;
+  background: transparent url("/assets/widget_common/close_x.png");
+  text-indent: -9999px;
+  overflow: hidden;
+  z-index: 4;
+  cursor: pointer; }
+  a.gsfn-jqmClose :focus {
+    outline: none; }
+
+.gsfn-jqm-alert {
+  background-color: white;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  color: #333;
+  border: 1px solid black;
+  box-shadow: #303030 0 0 75px;
+  -webkit-box-shadow: #303030 0 0 75px;
+  -moz-box-shadow: #303030 0 0 75px;
+  border-radius: 7px;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  width: 700px;
+  margin-left: -350px; }
+  .gsfn-jqm-alert .banner {
+    background: #ffeeca;
+    /* Old browsers */
+    background: url("/assets/widget_common/rings_dark.png"), -moz-linear-gradient(top, #ffeeca 0%, #ffe3a8 100%);
+    /* FF3.6+ */
+    background: url("/assets/widget_common/rings_dark.png"), -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffeeca), color-stop(100%, #ffe3a8));
+    /* Chrome,Safari4+ */
+    background: url("/assets/widget_common/rings_dark.png"), -webkit-linear-gradient(top, #ffeeca 0%, #ffe3a8 100%);
+    /* Chrome10+,Safari5.1+ */
+    background: url("/assets/widget_common/rings_dark.png"), -o-linear-gradient(top, #ffeeca 0%, #ffe3a8 100%);
+    /* Opera 11.10+ */
+    background: url("/assets/widget_common/rings_dark.png"), -ms-linear-gradient(top, #ffeeca 0%, #ffe3a8 100%);
+    /* IE10+ */
+    background: url("/assets/widget_common/rings_dark.png"), linear-gradient(top, #ffeeca 0%, #ffe3a8 100%);
+    /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffeeca', endColorstr='#ffe3a8',GradientType=0 );
+    /* IE6-9 */
+    margin: 32px 0 15px 0; }
+  .gsfn-jqm-alert h3 {
+    padding: 10px 20px 10px 275px;
+    background-image: url("/assets/widget_common/rings_dark.png");
+    padding: 10px 20px 10px 275px;
+    font-family: georgia, serif;
+    font-size: 22pt;
+    color: #606; }
+  .gsfn-jqm-alert p, .gsfn-jqm-alert .actions {
+    padding: 0 10px 20px 0;
+    font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+    font-size: 11pt; }
+  .gsfn-jqm-alert .actions {
+    font-size: 9pt; }
+  .gsfn-jqm-alert .jargon {
+    z-index: 111111;
+    position: absolute;
+    bottom: -3px;
+    left: 15px;
+    width: 237px;
+    height: 296px;
+    background: url("/assets/widget_common/jargon-alert.png") no-repeat; }
+  .gsfn-jqm-alert .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%; }
+    .gsfn-jqm-alert .footer .content {
+      padding: 0.5em 1em;
+      margin-left: 275px; }
+  .gsfn-jqm-alert .gsfn-jqm-alert-message {
+    padding: 1em;
+    margin-left: 275px; }
+  .gsfn-jqm-alert button {
+    display: inline-block;
+    padding: 5px 15px;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #9e3ba4), color-stop(50%, #58175c));
+    /* Safari 4, Chrome 2 */
+    background-image: -webkit-linear-gradient(#9e3ba4, #58175c 50%);
+    /* Safari 5.1, Chrome 10 */
+    background-image: -moz-linear-gradient(#9e3ba4, #58175c 50%);
+    /* FF 3.6 */
+    background-image: -ms-linear-gradient(#9e3ba4, #58175c 50%);
+    /* IE10 */
+    background-image: -o-linear-gradient(#9e3ba4, #58175c 50%);
+    /* Opera 11.10 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#9e3ba4', EndColorStr='#58175c');
+    background-image: linear-gradient(#9e3ba4, #58175c 50%);
+    /* the standard */
+    background-color: #58175c;
+    filter: none;
+    border: 4px solid #dddddd;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    border-radius: 20px;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+    -ms-background-clip: padding-box;
+    -o-background-clip: padding-box;
+    background-clip: padding-box;
+    color: #fff;
+    cursor: pointer;
+    font-family: Arial;
+    font-size: 12px;
+    outline: none;
+    margin-right: 15px; }

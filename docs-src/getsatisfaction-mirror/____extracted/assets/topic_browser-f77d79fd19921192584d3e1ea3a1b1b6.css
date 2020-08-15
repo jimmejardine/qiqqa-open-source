@@ -1,0 +1,295 @@
+.browse_header {
+  color: #333333 !important;
+  font-size: 90% !important;
+  font-weight: normal !important;
+  padding-bottom: 2px;
+  letter-spacing: 0 !important;
+  text-transform: uppercase;
+  border-bottom: 1px solid #dddddd;
+  display: inline-block; }
+  .browse_header:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden; }
+  * html .browse_header {
+    height: 1px; }
+  .browse_header {
+    display: block; }
+  .browse_header h1 {
+    text-transform: none;
+    margin-bottom: 8px; }
+  .browse_header.question {
+    background: transparent url(https://dwxmyiyf7jg6.cloudfront.net/assets/question_small-45c16f1a88ed2a2ff746cbc253a766e2.png) no-repeat 8px 0; }
+    .browse_header.question h1 {
+      padding-left: 44px;
+      padding-top: 3px; }
+  .browse_header.idea {
+    background: transparent url(https://dv4uxy777adjt.cloudfront.net/assets/idea_small-a0ddf1f7802ad17ef0158f25dc2fe782.png) no-repeat 8px 0; }
+    .browse_header.idea h1 {
+      padding-left: 44px;
+      padding-top: 3px; }
+  .browse_header.problem {
+    background: transparent url(https://dv4uxy777adjt.cloudfront.net/assets/problem_small-00ffe3bce0577e662c9ededd19781f46.png) no-repeat 6px 0; }
+    .browse_header.problem h1 {
+      padding-left: 44px;
+      padding-top: 2px; }
+  .browse_header.tip {
+    background: transparent url(https://drp60gfj3y9kn.cloudfront.net/assets/tip_small-c7098170d3cd0829e8390ab6f9a123ea.png) no-repeat 6px 0; }
+    .browse_header.tip h1 {
+      padding-left: 44px;
+      padding-top: 2px; }
+  .browse_header.praise {
+    background: transparent url(https://drp60gfj3y9kn.cloudfront.net/assets/praise_small-6affafe1d879b7d60aa2b5e7271db8e9.png) no-repeat 6px 0; }
+    .browse_header.praise h1 {
+      padding-left: 44px;
+      padding-top: 3px; }
+  .browse_header.update {
+    background: transparent url(https://d37h3y471q0lt2.cloudfront.net/assets/update_small-a6adb04fefe36d4489bc5fd564455190.png) no-repeat 3px 0; }
+    .browse_header.update h1 {
+      padding-left: 44px;
+      padding-top: 3px; }
+  .browse_header .change_log {
+    float: right;
+    text-transform: lowercase; }
+  .browse_header .sort_filters {
+    float: right;
+    margin-top: -1px;
+    text-transform: none; }
+    .browse_header .sort_filters a {
+      font-weight: bold;
+      margin-left: 10px;
+      padding-left: 10px;
+      border-left: 1px solid #dddddd; }
+      .browse_header .sort_filters a.on {
+        color: #222222; }
+
+#browse_nav {
+  padding: 5px 10px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border: 1px solid #dddddd; }
+  #browse_nav dl {
+    padding-bottom: 2px;
+    padding-top: 2px;
+    border-top: 1px solid #cccccc; }
+    #browse_nav dl.all dt {
+      padding-left: 5px; }
+    #browse_nav dl.first {
+      border-top: none; }
+    #browse_nav dl.active {
+      background-color: #f8f8f8; }
+    #browse_nav dl dt {
+      background-repeat: no-repeat;
+      background-position: 5px 50%;
+      line-height: 1.5;
+      padding: 3px 0 3px 29px;
+      font-weight: bold; }
+      #browse_nav dl dt.question {
+        background-image: url(https://drp60gfj3y9kn.cloudfront.net/assets/feedback_tab_question-f02a92e918713538c94d426885bbd61c.png); }
+      #browse_nav dl dt.idea {
+        background-image: url(https://dwxmyiyf7jg6.cloudfront.net/assets/feedback_tab_idea-ee97d8978e2e56253ec69f6f089adc7a.png); }
+      #browse_nav dl dt.problem {
+        background-image: url(https://dv4uxy777adjt.cloudfront.net/assets/feedback_tab_problem-4f52ab36f5609357b2771709805f8a02.png); }
+      #browse_nav dl dt.praise {
+        background-image: url(https://drp60gfj3y9kn.cloudfront.net/assets/feedback_tab_praise-05162c92a7cfd960826dd6a61a8397b0.png); }
+      #browse_nav dl dt.tip {
+        background-image: url(https://dwxmyiyf7jg6.cloudfront.net/assets/feedback_tab_tip-36795fbc199186697dbae15931471bc7.png); }
+      #browse_nav dl dt.update {
+        background-image: url(https://dwxmyiyf7jg6.cloudfront.net/assets/update_mini-be7b6b808eb7f9bfae59371c1d7730d1.png); }
+      #browse_nav dl dt.talk {
+        background-image: url(https://dv4uxy777adjt.cloudfront.net/_cb/90e376c/assets/feedback_tab_talk.png); }
+      #browse_nav dl dt a {
+        display: block;
+        color: black; }
+    #browse_nav dl dd a {
+      font-size: 90%;
+      display: block;
+      padding: 3px 0 3px 29px;
+      color: #333333; }
+    #browse_nav dl dd.on a {
+      background: transparent url(https://drp60gfj3y9kn.cloudfront.net/assets/style_filter_arrow-f5ea0e444c0cef991d5e438d4314d9a7.png) no-repeat 18px 50%; }
+      #browse_nav dl dd.on a:hover {
+        cursor: default;
+        text-decoration: none; }
+
+.no_topics_message {
+  color: #777777;
+  line-height: 1.3;
+  padding-top: 50px;
+  text-align: center; }
+
+.topic_browser ul.topic_list {
+  margin-bottom: 10px; }
+  .topic_browser ul.topic_list li {
+    padding: 10px 0;
+    background: transparent url(https://drp60gfj3y9kn.cloudfront.net/assets/topic_list_dotted_border-c1db1b2efccda398f3bbbf8e19a8bd49.png) repeat-x 0 100%; }
+    .topic_browser ul.topic_list li img.style_icon {
+      float: left;
+      width: 20px;
+      height: 20px;
+      margin-left: 10px;
+      background-position: 50%;
+      background-repeat: no-repeat; }
+    .topic_browser ul.topic_list li.question .topic_details {
+      margin-left: 74px; }
+    .topic_browser ul.topic_list li.question img.style_icon {
+      background-image: url(https://drp60gfj3y9kn.cloudfront.net/assets/feedback_tab_question-f02a92e918713538c94d426885bbd61c.png); }
+    .topic_browser ul.topic_list li.idea .topic_details {
+      margin-left: 74px; }
+    .topic_browser ul.topic_list li.idea img.style_icon {
+      background-image: url(https://dwxmyiyf7jg6.cloudfront.net/assets/feedback_tab_idea-ee97d8978e2e56253ec69f6f089adc7a.png); }
+    .topic_browser ul.topic_list li.problem .topic_details {
+      margin-left: 74px; }
+    .topic_browser ul.topic_list li.problem img.style_icon {
+      background-image: url(https://dv4uxy777adjt.cloudfront.net/assets/feedback_tab_problem-4f52ab36f5609357b2771709805f8a02.png); }
+    .topic_browser ul.topic_list li.praise .topic_details {
+      margin-left: 74px; }
+    .topic_browser ul.topic_list li.praise img.style_icon {
+      background-image: url(https://drp60gfj3y9kn.cloudfront.net/assets/feedback_tab_praise-05162c92a7cfd960826dd6a61a8397b0.png); }
+    .topic_browser ul.topic_list li.tip .topic_details {
+      margin-left: 74px; }
+    .topic_browser ul.topic_list li.tip img.style_icon {
+      background-image: url(https://dwxmyiyf7jg6.cloudfront.net/assets/feedback_tab_tip-36795fbc199186697dbae15931471bc7.png); }
+    .topic_browser ul.topic_list li.talk .topic_details {
+      margin-left: 74px; }
+    .topic_browser ul.topic_list li.talk img.style_icon {
+      background-image: url(https://d37h3y471q0lt2.cloudfront.net/assets/talk_mini-b3cfea4d9fd22dbf3f3f109923916ed4.png); }
+    .topic_browser ul.topic_list li.update .topic_details {
+      margin-left: 74px; }
+    .topic_browser ul.topic_list li.update img.style_icon {
+      background: transparent url(https://dwxmyiyf7jg6.cloudfront.net/assets/update_mini-be7b6b808eb7f9bfae59371c1d7730d1.png) no-repeat 50%; }
+    .topic_browser ul.topic_list li .mini_profile_icon {
+      overflow: hidden;
+      height: 30px;
+      width: 30px;
+      float: left;
+      color: white; }
+      .topic_browser ul.topic_list li .mini_profile_icon img {
+        width: 30px;
+        height: 30px; }
+    .topic_browser ul.topic_list li .topic_details {
+      margin-left: 50px;
+      margin-right: 60px; }
+      .topic_browser ul.topic_list li .topic_details .subject {
+        font-size: 1em;
+        font-weight: bold;
+        text-decoration: underline;
+        margin-right: 3px; }
+        .topic_browser ul.topic_list li .topic_details .subject:hover {
+          color: black; }
+      .topic_browser ul.topic_list li .topic_details .meta {
+        color: #777777;
+        font-size: 90%;
+        padding-top: 4px; }
+        .topic_browser ul.topic_list li .topic_details .meta .divider {
+          padding: 0 2px;
+          color: #666666; }
+        .topic_browser ul.topic_list li .topic_details .meta .concluded {
+          font-weight: bold;
+          white-space: nowrap; }
+        .topic_browser ul.topic_list li .topic_details .meta .rejected {
+          font-weight: bold;
+          white-space: nowrap; }
+        .topic_browser ul.topic_list li .topic_details .meta .open {
+          font-weight: bold;
+          white-space: nowrap; }
+    .topic_browser ul.topic_list li .me_too {
+      float: right;
+      border-radius: 4px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      border: 2px solid #e2e2e2;
+      background: #e2e2e2;
+      position: relative;
+      z-index: 10; }
+      .topic_browser ul.topic_list li .me_too .inset {
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        padding: 6px 6px;
+        border: 1px solid #c2c2c2;
+        background: #f8f8f8 url(https://d37h3y471q0lt2.cloudfront.net/assets/white_pixel-2ac3ee4aa5651d259f7acbe89e9c3b17.png) repeat-x; }
+      .topic_browser ul.topic_list li .me_too.active .me_too_action {
+        color: black; }
+      .topic_browser ul.topic_list li .me_too.active img.star {
+        background-position: -13px 0 !important; }
+      .topic_browser ul.topic_list li .me_too .me_too_action {
+        color: #333333;
+        padding: 5px 0;
+        display: inline;
+        position: relative; }
+        .topic_browser ul.topic_list li .me_too .me_too_action a {
+          padding: 5px 0;
+          position: relative;
+          z-index: 11;
+          text-decoration: none;
+          color: inherit !important; }
+          .topic_browser ul.topic_list li .me_too .me_too_action a:hover {
+            color: black !important; }
+            .topic_browser ul.topic_list li .me_too .me_too_action a:hover img {
+              background-position: -13px 0; }
+        .topic_browser ul.topic_list li .me_too .me_too_action img.star {
+          width: 13px;
+          height: 13px;
+          margin-right: 2px;
+          vertical-align: top;
+          background: transparent url(https://drp60gfj3y9kn.cloudfront.net/assets/topic_star-9809fb0f4c90dfd6f9c0a6a8fc8d860f.png) no-repeat; }
+        .topic_browser ul.topic_list li .me_too .me_too_action .overlay {
+          font-size: 90%;
+          text-align: center;
+          width: 200px;
+          height: 77px;
+          left: -73px;
+          padding: 0;
+          z-index: 10;
+          position: absolute;
+          display: table;
+          background: transparent url(https://d37h3y471q0lt2.cloudfront.net/assets/me_too_overlay-f1143d93f80c90a12eeb2adba79255c3.png) no-repeat; }
+          .topic_browser ul.topic_list li .me_too .me_too_action .overlay > div {
+            *position: absolute;
+            top: 50%;
+            display: table-cell;
+            vertical-align: middle;
+            left: 0;
+            width: 100%; }
+            .topic_browser ul.topic_list li .me_too .me_too_action .overlay > div > div {
+              *position: relative;
+              top: -50%;
+              margin-top: -7px;
+              left: 0; }
+          .topic_browser ul.topic_list li .me_too .me_too_action .overlay strong {
+            line-height: 1.6;
+            display: block; }
+          .topic_browser ul.topic_list li .me_too .me_too_action .overlay .updates_checkbox {
+            color: #666666 !important; }
+            .topic_browser ul.topic_list li .me_too .me_too_action .overlay .updates_checkbox img {
+              width: 12px;
+              height: 12px;
+              margin-right: 6px;
+              vertical-align: middle;
+              margin-top: -2px;
+              background: transparent url(https://d37h3y471q0lt2.cloudfront.net/assets/check_off-77afc121f8d74c29fbafc541fbc78fa1.png) no-repeat; }
+            .topic_browser ul.topic_list li .me_too .me_too_action .overlay .updates_checkbox:hover {
+              text-decoration: none; }
+            .topic_browser ul.topic_list li .me_too .me_too_action .overlay .updates_checkbox.checked img {
+              background: transparent url(https://dwxmyiyf7jg6.cloudfront.net/assets/check_on-a995b49d46c61b9851297c142512236a.png) no-repeat; }
+            .topic_browser ul.topic_list li .me_too .me_too_action .overlay .updates_checkbox:hover {
+              color: #111111 !important; }
+            .topic_browser ul.topic_list li .me_too .me_too_action .overlay .updates_checkbox img {
+              margin-right: 1px; }
+        .topic_browser ul.topic_list li .me_too .me_too_action .inactive {
+          bottom: -8px; }
+        .topic_browser ul.topic_list li .me_too .me_too_action .active {
+          bottom: 25px; }
+        .topic_browser ul.topic_list li .me_too .me_too_action .hidden {
+          bottom: 40px; }
+      .topic_browser ul.topic_list li .me_too .topic_status_action {
+        font-size: 75%;
+        font-weight: bold;
+        text-transform: uppercase;
+        padding: 3px 5px 3px 0;
+        margin-right: 2px;
+        border-right: 1px solid #cccccc; }
