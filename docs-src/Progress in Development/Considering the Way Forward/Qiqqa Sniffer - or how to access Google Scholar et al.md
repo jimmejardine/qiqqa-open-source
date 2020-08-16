@@ -30,6 +30,61 @@ Then we *might* consider using a *absolutely minimal native UI* base application
 
 Such a browser extension would be suboptimal in another way: you wouldn't be able to look at the PDF / bibTeX part of your Sniffer UI unless we'd rebuild that in HTML/CSS *inside* the extension, so talking about having your work cut for you... Sounds like the HTML/CSS UI way isn't so dumb / over the top as I sometimes think it is when the hours are dark. :-/
 
+### `<webview>` --> Electron *et al*?
+
+I've looked at Electron and various similar solutions which might be more closely related to C#/.NET -- which is what we're currently using as a programming language in Qiqqa.
+Chromely might be a viable candidate as it's not using WinForms or WPF and is advertised as Cross Platform (Win, Mac, Linux). Electron.NET is what I looked at before that, but it's a bit too much ASP.NET oriented to my tastes and I don't wish to exchange WPF for ASP.NET: I believe we can do a fine UI without any need for ASP.NET.
+
+Meanwhile -- and **this is the important bit to consider across the board, irrespective of which UI/CEF solution we pick** -- there's this page: https://www.electronjs.org/docs/api/webview-tag#warning. Quoting (emphasis mine):
+
+> ## Warning
+>
+> Electron's `webview` tag is based on [Chromium's `webview`](https://developer.chrome.com/apps/tags/webview), which is undergoing dramatic architectural changes. This impacts the stability of `webviews`, including rendering, navigation, and event routing. 
+>
+> **We currently recommend to NOT USE the `webview` tag and to consider alternatives, like `iframe`, Electron's `BrowserView`, or an architecture that avoids embedded content altogether.**
+
+Given that recommendation (and some noise I saw elsewhere about removing `<webview>` from CEF altogether), (re)building the Qiqqa UI in pure HTML (via Electron *et al*) is NOT DOABLE. Quoting the next bit from that same page:
+
+> ### Enabling
+>
+> By default the `webview` tag is disabled in Electron >= 5. You need to enable the tag by setting the `webviewTag` webPreferences option when constructing your `BrowserWindow`.
+> For more information [see the `BrowserWindow` constructor docs](https://www.electronjs.org/docs/api/browser-window).
+
+And from the Chrome `<webview>` documentation page:
+
+> ### Usage
+>
+> Use the `webview` tag to embed 'guest' content (such as web pages) in your Chrome App. The guest content is contained within the `webview` container; an embedder page within your Chrome App controls how the guest content is laid out and rendered.
+>
+> Different from the `iframe`, the `webview` runs in a separate process than your app; it doesn't have the same permissions as your app and all interactions between your app and embedded content will be asynchronous. This keeps your app safe from the embedded content.
+
+Also read [the Electron Security Considerations page](https://www.electronjs.org/docs/tutorial/security#isolation-for-untrusted-content) as that one applies to *anyone* with an embedded (CEF) browser. **That includes us!** Quoting from that page:
+
+> ### Isolation For Untrusted Content
+>
+> A security issue exists whenever you receive code from an untrusted source (e.g. a remote server) and execute it locally. As an example, consider a remote website being displayed inside a default [`BrowserWindow`](https://www.electronjs.org/docs/api/browser-window). If an attacker somehow manages to change said content (either by attacking the source directly, or by sitting between your app and the actual destination), they will be able to execute native code on the user's machine.
+>
+> **⚠️ Under no circumstances should you load and execute remote code with `Node.js` integration enabled. Instead, use only local files (packaged together with your application) to execute `Node.js` code. To display remote content, use [the `<webview>` tag](https://www.electronjs.org/docs/api/webview-tag) or [`BrowserView`](https://www.electronjs.org/docs/api/browser-view), make sure to disable the `nodeIntegration` and enable `contextIsolation`.
+
+... and check [their Security Recommendations Checklist!](https://www.electronjs.org/docs/tutorial/security#checklist-security-recommendations) when we finally do ours.
+  
+**Q:** Should we maybe use an Electron (or Chromely) derivative which has a very basic native UI, which embeds multiple [`BrowserViews`](https://www.electronjs.org/docs/api/browser-view)? Or can Electron / Chromely do that already? 
+
+**A:** Chromely does not seem to have this, out of the box, while a further check uncovered [this PR-16148 for Electron](https://github.com/electron/electron/pull/16148) which has been merged into their codebase since December 2018. Related Electron issues also referenced in that PR: 
+- [16181 - Allow more than one BrowserView per BrowserWindow](https://github.com/electron/electron/issues/16181)
+- [10323 - Trying to tile 2 BrowserViews into one BrowserWindow, 1st not rendering](https://github.com/electron/electron/issues/10323)
+plus some `webview` woes that may hit us too:
+- [14905 - webview no longer emits keyboard events ](https://github.com/electron/electron/issues/14905)
+- [14258 - Webview: traps keyboard events once focused (comment on why this won't be fixed)](https://github.com/electron/electron/issues/14258#issuecomment-416794070)
+
+
+### Backing up to the main problem: how to get a Qiqqa Sniffer done in a cross-platform UI (not WPF)
+
+The Qiqqa Sniffer is a UI part which is useful in a large part by having both a 'Google'-like public internet facing search engine *and* a PDF + metadata viewer visible and accessible for select/copy/paste and various editing activities: this requires at least *some way of communication* between the PDF viewer, metadata editor, additional controls and the multi-tabbed generic search engine, while security concerns & [Google Scholar quirks](https://github.com/jimmejardine/qiqqa-open-source/blob/master/docs-src/FAQ/Qiqqa%20Sniffer%2C%20BibTeX%20grazing%20and%20Google%20Scholar%20RECAPTCHA%20and%20Access%20Denied%20site%20blocking%20errors.md) will make this *probably hard* when we do it in plain Electron or Chromely.
+
+How about having a very basic *native* UI (which must then be ported to the various platforms 😰) which embeds multiple BrowserViews? (Rough thought right now going like this: take Chromely, augment to have native UI for window with 2 or 3 panels, each carrying its own independent BrowserWindow, sandboxed if need be. That would make the dialogs/windows *containers* _native_, while all content and controls nitty-gritty would then be done in a CEF control, i.e. HTML/CSS/JS)
+
+
 
 ## Analysis Notes
 
@@ -42,7 +97,7 @@ Now we either stick with WPF for the Sniffer -- which would mean at least one im
 CEF webview:
 
 - https://bitbucket.org/chromiumembedded/cef/issues/1748/support
--     
+     
 
 
 
