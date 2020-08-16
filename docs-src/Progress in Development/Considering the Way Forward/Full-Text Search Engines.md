@@ -277,3 +277,69 @@ https://github.com/Mermade/shins/blob/master/docs/include.md
 Mermade/widdershins: OpenAPI / Swagger, AsyncAPI & Semoasa definitions to Slate / Shins compatible markdown
 https://github.com/Mermade/widdershins/
 
+Apache Solr vs Elasticsearch: The Feature Smackdown
+https://solr-vs-elasticsearch.com/
+⚠️ Pay attention / do read the notes in the section near the end called "Thoughts..."
+
+Why the Apache Lucene and Solr "divorce" is better for developers and users
+https://www.techrepublic.com/article/why-the-apache-lucene-and-solr-divorce-is-better-for-developers-and-users/
+
+DB-Engines: System Properties Comparison Elasticsearch vs. Solr
+https://db-engines.com/en/system/Elasticsearch%3BSolr
+
+Solr vs. Elasticsearch: Performance Differences & More. How to Decide Which One is Best for You
+https://sematext.com/blog/solr-vs-elasticsearch-differences/
+
+Taking Solr to Production
+https://lucene.apache.org/solr/guide/8_4/taking-solr-to-production.html
+Note that both Solr and ElasticSearch have user management, etc. which are features we do not want/need. Solr, according to the sematext article above, is the one that's more suitable for 'static data & full text search': we are not interested in 'log analysis' or 'aggregation' that seems to be the primary use case of ElasticSearch. https://stackoverflow.com/questions/33283725/what-are-some-use-cases-for-using-elasticsearch-versus-standard-sql-queries -- that SO answer compares ES against classic RDBMS which is bloody obvious, while it doesn't compare against Solr. https://www.nextbrick.com/blog/differences-between-apache-solr-and-apache-lucene/ https://www.nextbrick.com/blog/what-are-the-top-solr-metrics-to-monitor/
+
+
+Solr on Windows (and Linux)
+https://lucene.apache.org/solr/guide/7_0/installing-solr.html
+
+https://lucene.apache.org/solr/
+Solr also seems to be more flexible when it comes to search plugins, but I don't know if anyone will need those. Solr, however, is fully open-source while ElasticSearch is a little different: https://www.elastic.co/blog/doubling-down-on-open https://sematext.com/blog/open-distro-elasticsearch-review/ https://opendistro.github.io/for-elasticsearch/ https://aws.amazon.com/blogs/opensource/keeping-open-source-open-open-distro-for-elasticsearch/ 
+https://opendistro.github.io/for-elasticsearch-docs/docs/install/windows/
+
+https://www.elastic.co/guide/en/elasticsearch/reference/current/windows.html
+
+https://www.elastic.co/guide/en/elasticsearch/reference/current/filter-search-results.html#post-filter
+
+https://sematext.com/guides/elasticsearch
+
+https://sematext.com/guides/solr/
+
+https://trends.google.com/trends/explore?cat=31&date=all&q=lucene.net,elasticsearch%20.net
+Lucene.NET interest vs. ElasticSearch.NET, which is the client interface code for ElasticSearch written in C#. What you see is Lucene.NET slowly fading to nil from 2006 to 2020 AD.
+![](assets/google-trends-lucene.net.png)
+
+https://trends.google.com/trends/explore?cat=31&date=all&q=lucene.net,lucene,solr,elasticsearch
+![](assets/google-trends-lucene.net2.png)
+
+https://trends.google.com/trends/explore?cat=31&date=2011-07-16%202020-08-16&q=chromely,electron.net,cefglue,cefsharp,cef
+![](assets/google-trends-cef-et-al1.png)
+![](assets/google-trends-cef-et-al2.png)
+If these trends are anything to go by, there's not much interest in CEFGlue, which is cross platform, while there's much more interest in CEFSharp, which is Windows-only. Also note that the C# CEF wrappers get much less attention than the straight C/C++ embedded browser component CEF, which is the core of Electron and several others. Now to put the C# components in perspective, here's the trend graph with Electron included (and we drop CEFGlue to make room):
+![](assets/google-trends-cef-et-al3.png)
+and to show that we (or rather: Google) did not confuse that one with the physical entity called an electron, here's that electron search filter redone so it's very specific: note the correlation in the upswitng since 2014 for both, while this latter trend query of course delivers fewer hits over the entire period:
+![](assets/google-trends-cef-et-al4.png)
+
+https://trends.google.com/trends/explore?cat=31&date=2011-07-16%202020-08-16&q=winforms,wpf%20.net,%2Fg%2F11bw_559wr,cefsharp,cef
+![](assets/google-trends-cef-et-al5.png)
+and redone to show that the google analystics warning there is irrelevant for this particular trend analysis: compare the `electron` curves above and below (*topic* and *search term*):
+![](assets/google-trends-cef-et-al6.png)
+
+Now that we're comparing trends, just curious about programming languages used or to be used in Qiqqa:
+![](assets/google-trends-cef-et-al10.png)
+here Electron and CEF sink into the noise floor, while C# and JavaScript are about on par with one another, while NodeJS is making a wee bit of noise in the lowest percent range. Conclusion: it doesn't matter all that much whether we code in C# or JavaScript, if we anticipate developer availability (that's a rough estimate, but good enough for me right now). How about my old pals?
+[]![](assets/google-trends-cef-et-al11.png)](https://trends.google.com/trends/explore?cat=31&date=2011-07-16%202020-08-16&q=C%23,javascript,c%2B%2B,html,css)
+Hm, compare that with [the latest SO languages vs pay grade / empoyment / interest poll](https://insights.stackoverflow.com/survey/2019): it's all mainstream, though [JavaScript has the advantage](https://insights.stackoverflow.com/survey/2019#technology-_-programming-scripting-and-markup-languages), or [does it? (Count .NET+.NETcore vs. NodeJS...)](https://insights.stackoverflow.com/survey/2019#technology-_-other-frameworks-libraries-and-tools) See [the link](https://insights.stackoverflow.com/survey/2019#developer-profile-_-contributing-to-open-source) though for an interesting tidbit: C# devs as a population are less inclined to contribute to open source, apparently. 😢🤔
+
+
+
+
+
+
+
+
