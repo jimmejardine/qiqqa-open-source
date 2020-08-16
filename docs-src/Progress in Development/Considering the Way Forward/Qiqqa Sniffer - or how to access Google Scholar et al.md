@@ -76,6 +76,7 @@ Also read [the Electron Security Considerations page](https://www.electronjs.org
 plus some `webview` woes that may hit us too:
 - [14905 - webview no longer emits keyboard events ](https://github.com/electron/electron/issues/14905)
 - [14258 - Webview: traps keyboard events once focused (comment on why this won't be fixed)](https://github.com/electron/electron/issues/14258#issuecomment-416794070)
+- [BeakerBrowser: 1297 - Inconsistent Keyboard Shortcuts](https://github.com/beakerbrowser/beaker/issues/1297#issuecomment-459932323)
 
 
 ### Backing up to the main problem: how to get a Qiqqa Sniffer done in a cross-platform UI (not WPF)
