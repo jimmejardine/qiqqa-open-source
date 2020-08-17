@@ -11,9 +11,13 @@ There's two ways forward as I can see, which are the most viable:
 
   That's a bigger project initially as we'll have to redo the entire UI in HTML5/CSS/JS, but it would be portable, at least in *theory*.
 
-  Trouble there is that `<iframe>` is **out** to serve as a Google Scholar embed function, since Scholar and friends have similar checks and restrictions built in server-side to what's described here (emphasis mine): https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Other_embedding_technologies#Security_concerns
+  Trouble there is that `<iframe>` is **out** to serve as a Google Scholar embed function, since Scholar and friends have similar checks and restrictions built in server-side to what's described here (emphasis mine): [MDN: From object to iframe — other embedding technologies: Security Concerns](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Other_embedding_technologies#Security_concerns)
 
-    > A quick example first though — try loading the previous example we showed above into your browser — you can find it live on Github (see the source code too.) You won't actually see anything displayed on the page, and if you look at the Console in the browser developer tools, you'll see a message telling you why. In Firefox, you'll get told **Load denied by X-Frame-Options: https://developer.mozilla.org/en-US/docs/Glossary does not permit framing. This is because the developers that built MDN have included a setting on the server that serves the website pages to disallow them from being embedded inside `<iframe>`s** (see [Configure CSP directives](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Other_embedding_technologies#Configure_CSP_directives), below. [+](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options) [+](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/frame-ancestors) ) This makes sense — an entire MDN page doesn't really make sense to be embedded in other pages unless you want to do something like embed them on your site and claim them as your own — or attempt to steal data via clickjacking, which are both really bad things to do. Plus if everybody started to do this, all the additional bandwidth would start to cost Mozilla a lot of money.
+    > A quick example first though — try loading the previous example we showed above into your browser — you can find it live on Github (see the source code too.) You won't actually see anything displayed on the page, and if you look at the Console in the browser developer tools, you'll see a message telling you why. In Firefox, you'll get told 
+    >
+    > > **Load denied by X-Frame-Options: https://developer.mozilla.org/en-US/docs/Glossary does not permit framing.**
+    >
+    > **This is because the developers that built MDN have included a setting on the server that serves the website pages to disallow them from being embedded inside `<iframe>`s** (see [Configure CSP directives](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Other_embedding_technologies#Configure_CSP_directives), below. [+](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options) [+](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/frame-ancestors) ) This makes sense — an entire MDN page doesn't really make sense to be embedded in other pages unless you want to do something like embed them on your site and claim them as your own — or attempt to steal data via clickjacking, which are both really bad things to do. Plus if everybody started to do this, all the additional bandwidth would start to cost Mozilla a lot of money.
     > 
     
 ## So it's CEF's `<webview>` or bust.
@@ -76,7 +80,34 @@ Also read [the Electron Security Considerations page](https://www.electronjs.org
 plus some `webview` woes that may hit us too:
 - [14905 - webview no longer emits keyboard events ](https://github.com/electron/electron/issues/14905)
 - [14258 - Webview: traps keyboard events once focused (comment on why this won't be fixed)](https://github.com/electron/electron/issues/14258#issuecomment-416794070)
+- [16064 - Allow more than one BrowserView per BrowserWindow](https://github.com/electron/electron/pull/16064)
 - [BeakerBrowser: 1297 - Inconsistent Keyboard Shortcuts](https://github.com/beakerbrowser/beaker/issues/1297#issuecomment-459932323)
+- [Ferdi i.e. Open Source Franz: 305 - Considering BrowserViews](https://github.com/getferdi/ferdi/issues/305)
+- [Reddit: Google bans Falkon and Konqueror browsers! Probably other niche browsers too.](https://www.reddit.com/r/kde/comments/e7136e/google_bans_falkon_and_konqueror_browsers/)
+- [Awesome Electron - Useful resources for creating apps with Electron](https://github.com/sindresorhus/awesome-electron)
+- [Package apps with native module dependencies on platforms other than the host platform (cross-compilation) -> advice is to use multi-platform CI build processes to produce electron installers](https://github.com/electron/electron-packager/issues/215)
+- [📡 100 tiny steps to build cross-platform desktop application using Electron/Node.js/C++](https://github.com/maciejczyzewski/airtrash)
+- [Electron: Using Native Node Modules](https://www.electronjs.org/docs/tutorial/using-native-node-modules)
+- [Can you catch a native exception in C# code?](https://stackoverflow.com/questions/150544/can-you-catch-a-native-exception-in-c-sharp-code)
+- [Electron: Multi Platform Build](https://www.electron.build/multi-platform-build)
+- [Electron with SQLite](http://blog.arrayofbytes.co.uk/?p=379)
+- [Open Distro for Elasticsearch](https://opendistro.github.io/for-elasticsearch/)
+- [Electron Documentation: Class: BrowserView](https://www.electronjs.org/docs/api/browser-view)
+- [Electron Documentation: BrowserWindow](https://www.electronjs.org/docs/api/browser-window)
+- [Electron Documentation: Web embeds in Electron](https://www.electronjs.org/docs/tutorial/web-embeds)
+- [How to implement browser like tabs in Electron Framework](https://ourcodeworld.com/articles/read/925/how-to-implement-browser-like-tabs-in-electron-framework)
+  Note that this article uses `<webview>` which is advised against by Electron. Check the Min and Wex web browsers listed in the 'Awesome Electron' list to see if they use some other means, e.g. BrowserView. [Ferdi](https://github.com/getferdi/ferdi) and [RamBox](https://github.com/ramboxapp/community-edition) are also candidates for inspection as these apps link to a plethora of external services. **Do check out these issues of theirs**:
+  + [Unable to login to google account with 2-step verification](https://github.com/ramboxapp/community-edition/issues/2521)
+  + [Google says: "You are trying to sign in from a browser or app that doesn't allow us to keep your account secure."](https://github.com/ramboxapp/community-edition/issues/2495)
+  + [I have problems when i try to login in Microsoft teams and Microsoft outlook since around 1 week](https://github.com/ramboxapp/community-edition/issues/2375)
+  + [Please fix your security posture.](https://github.com/ramboxapp/community-edition/issues/1765)
+  + [Memory comsumption and process opened](https://github.com/meetfranz/franz/issues/15)
+- [Chromium: Out-of-Process iframes (OOPIFs)](https://www.chromium.org/developers/design-documents/oop-iframes)
+- [Chromium: Site Isolation Design Document](https://www.chromium.org/developers/design-documents/site-isolation)
+- [Chromium: Rendering and compositing out of process iframes](https://www.chromium.org/developers/design-documents/oop-iframes/oop-iframes-rendering)
+- [CEF: `<webview>` support](https://bitbucket.org/chromiumembedded/cef/issues/1748/support)
+
+
 
 
 ### Backing up to the main problem: how to get a Qiqqa Sniffer done in a cross-platform UI (not WPF)
