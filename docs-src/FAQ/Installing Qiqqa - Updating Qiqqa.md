@@ -30,6 +30,7 @@ Once you have downloaded the `setup-v**.*.****.*****.exe` from the *Release Asse
 When you double-click on the installer, it will probably pop up a [Windows UAC (User Account Control)](https://docs.microsoft.com/en-us/windows/security/identity-protection/user-account-control/user-account-control-overview) dialog requesting access to your machine.
 
 ![](../assets/UAC-access-request-A.jpg)
+
 Answering **Yes** will continue the installation (**No** will abort the install process).
 
 >
