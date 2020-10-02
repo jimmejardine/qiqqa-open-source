@@ -103,13 +103,38 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="..\package.json" />
+    <None Include=".eleventy.js" />
+    <None Include="Aside\The World of Data Extraction and Re-use - PDF Reading, Annotating and Content Extraction.md" />
     <None Include="Contributing -- What Can You Do To Help.md" />
     <None Include="dummy.md.include" />
+    <None Include="FAQ\How to locate your Qiqqa Base Directory.md" />
+    <None Include="FAQ\Installing Qiqqa - Updating Qiqqa.md" />
+    <None Include="FAQ\Problems with running the installer on your Microsoft Windows machine.md" />
+    <None Include="FAQ\Qiqqa Sniffer, BibTeX grazing and Google Scholar RECAPTCHA and Access Denied site blocking errors.md" />
+    <None Include="How to build Qiqqa from source.md" />
     <None Include="Human Communications -- Where Goes What.md" />
     <None Include="Makefile" />
+    <None Include="Misc notes for developers.md" />
+    <None Include="Notes for self (%40Gerhobbelt).md" />
+    <None Include="Progress in Development\Considering the Way Forward\!dummy.md" />
+    <None Include="Progress in Development\Considering the Way Forward\Essential yet hard(er) to port UI features.md" />
+    <None Include="Progress in Development\Considering the Way Forward\Full-Text Search Engines.md" />
+    <None Include="Progress in Development\Considering the Way Forward\Links to Stuff To Look At.md" />
+    <None Include="Progress in Development\Considering the Way Forward\Qiqqa library storage, database, DropBox (and frenemies), backups and backwards compatibility.md" />
+    <None Include="Progress in Development\Considering the Way Forward\Qiqqa Sniffer - or how to access Google Scholar et al.md" />
+    <None Include="Progress in Development\Notes From The Trenches - Odd, Odder, Oddest, ...PDF!.md" />
+    <None Include="Progress in Development\Qiqqa Functionalities &amp; Technology Areas.md" />
+    <None Include="Progress in Development\Towards Migrating the PDF Viewer + Renderer (+ Text Extractor).md" />
+    <None Include="Qiqqa Internals\Configuration Overrides for Developers and Testers.md" />
+    <None Include="Qiqqa Internals\Extracting the text from PDF documents.md" />
+    <None Include="Qiqqa Internals\Processing PDF documents%27 text and the impact on UI+UX.md" />
     <None Include="README.md" />
     <None Include="site-builder.js" />
     <None Include="site-builder.sh" />
+    <None Include="Software Releases\Where To Get Them.md" />
+    <None Include="The Official Manual\The Qiqqa Manual.md" />
+    <None Include="views\other\guide.md" />
+    <None Include="_meta\layouts\confer\readme.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
