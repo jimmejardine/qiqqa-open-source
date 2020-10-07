@@ -170,7 +170,11 @@ namespace Qiqqa.Common.GUI
 
         public void SaveWindowDimensions()
         {
-            if (IsMeasureValid && IsInitialized)
+            if (!Configuration.ConfigurationManager.IsInitialized)
+            {
+                // silently ignore: we haven't started up properly yet.
+            }
+            else if (IsMeasureValid && IsInitialized)
             {
                 Rect rc = Rect.Empty;
 
@@ -312,7 +316,7 @@ namespace Qiqqa.Common.GUI
 
                 bool done = false;
 
-                // when we have a valid corner coordinate, do we restore window *position* 
+                // when we have a valid corner coordinate, do we restore window *position*
                 // (and possibly also *size*):
                 if (!Double.IsNaN(pos.X) && !Double.IsNaN(pos.Y))
                 {

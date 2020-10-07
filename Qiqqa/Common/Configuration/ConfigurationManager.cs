@@ -37,6 +37,26 @@ namespace Qiqqa.Common.Configuration
             }
         }
 
+        public static bool IsInitialized
+        {
+            get
+            {
+                if (!__instance.IsValueCreated) return false;
+
+                if (!Instance.__BaseDirectoryForQiqqa.IsValueCreated) return false;
+
+                try
+                {
+                    return (Instance.__BaseDirectoryForQiqqa.Value != null);
+                }
+                catch
+                {
+                    // error doesn't matter; the fact that there IS an error is enough
+                    return false;
+                }
+            }
+        }
+
         private string user_guid;
         private bool is_guest;
 
@@ -47,21 +67,48 @@ namespace Qiqqa.Common.Configuration
         {
             // Command-line parameters override the Registry:
             string[] args = Environment.GetCommandLineArgs();
+            Exception ex_to_report = null;
 
-            for (int i = 0; i < args.Length; i++)
+            // argv[0] is the executable itself; commandline parameters start at index 1
+            //
+            // TODO: make this part of a proper commandline parse, where we also look at other options.
+            for (int i = 1; i < args.Length; i++)
             {
                 string p = args[i];
                 try
                 {
-                    p = Path.GetFullPath(p);
-                    if (Directory.Exists(p))
+                    string dp = Path.GetFullPath(p);
+                    if (Directory.Exists(dp))
                     {
-                        return p;
+                        return dp;
+                    }
+                    else
+                    {
+                        // if directory does not exist (and we've made sure we're not looking at a commandline option argument)
+                        // we create it on the spot: commandline parameter overrides registry setting.
+                        if (!p.StartsWith("-"))
+                        {
+                            Directory.CreateDirectory(dp);
+                            if (Directory.Exists(dp))
+                            {
+                                return dp;
+                            }
+                            else
+                            {
+                                ex_to_report = new ApplicationException(String.Format("There was a problem creating the commandline-specified base directory '{0}'.", p));
+                                throw ex_to_report;
+                            }
+                        }
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
-                    // ignore all errors
+                    // ignore but report all errors:
+                    Logging.Error(ex, "There was a problem creating the commandline-overridden base directory '{0}'", p);
+                }
+                if (ex_to_report != null)
+                {
+                    throw ex_to_report;
                 }
             }
 
@@ -255,6 +302,11 @@ namespace Qiqqa.Common.Configuration
 
         public void SaveConfigurationRecord(bool force_save = false)
         {
+            // do not even attempt to save a configuration which has not been properly loaded/initialized yet:
+            if (configuration_record == null)
+            {
+                return;
+            }
             if (lastSaveTimestamp == null)
             {
                 lastSaveTimestamp = Stopwatch.StartNew();
