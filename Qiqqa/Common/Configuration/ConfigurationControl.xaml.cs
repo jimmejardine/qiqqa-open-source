@@ -291,7 +291,7 @@ namespace Qiqqa.Common.Configuration
         {
             Logging.Info("+Before Garbage Collect: Memory load: {0} Bytes", GC.GetTotalMemory(false));
             GC.Collect();
-            GC.WaitForPendingFinalizers();
+            //GC.WaitForPendingFinalizers();
             GC.Collect();
             Logging.Info("-After Garbage Collect: Memory load: {0} Bytes", GC.GetTotalMemory(true));
         }
