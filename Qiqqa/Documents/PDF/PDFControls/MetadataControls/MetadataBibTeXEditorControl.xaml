@@ -26,18 +26,17 @@
             <local_gui:AugmentedButton Name="ButtonUndoBibTeXEdit" Grid.Column="2" >
                 Undo
             </local_gui:AugmentedButton>
-            <local_gui:AugmentedSpacer Grid.Column="3" />
+            <!-- <local_gui:AugmentedSpacer Grid.Column="3" /> -->
             <local_gui:AugmentedButton x:Name="ButtonSniffer" Grid.Column="4" MinHeight="10">
                 Sniffer
             </local_gui:AugmentedButton>
-            <local_gui:AugmentedSpacer Grid.Column="5" />
             <local_gui:AugmentedButton x:Name="ButtonCancel" Grid.Column="6" MinHeight="10" >
                 Close
             </local_gui:AugmentedButton>
         </Grid>
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" >
             <StackPanel>
-                <local_bibtex:BibTeXEditorControl x:Name="ObjBibTeXEditorControl" BibTeX="{Binding BibTex, Mode=TwoWay}" MinHeight="{Binding RelativeSource={RelativeSource FindAncestor, 
+                <local_bibtex:BibTeXEditorControl x:Name="ObjBibTeXEditorControl" BibTeX="{Binding BibTex, Mode=TwoWay}" MinHeight="{Binding RelativeSource={RelativeSource FindAncestor,
     AncestorType={x:Type ScrollViewer}},Path=ActualHeight}" />
             </StackPanel>
         </ScrollViewer>

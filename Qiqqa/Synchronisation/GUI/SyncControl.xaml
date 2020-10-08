@@ -13,21 +13,15 @@
         <!-- The buttons - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
         <DockPanel DockPanel.Dock="Bottom">
             <DockPanel DockPanel.Dock="Right">
-                <local_gui:AugmentedButton Name="ButtonSync" DockPanel.Dock="Right" MinWidth="100" MinHeight="20"/>
-                <local_gui:AugmentedSpacer DockPanel.Dock="Right"/>
-                <local_gui:AugmentedButton Name="ButtonRefresh" DockPanel.Dock="Right" MinWidth="100" />
-                <local_gui:AugmentedSpacer DockPanel.Dock="Right"/>
-                <local_gui:AugmentedButton Name="ButtonCancel" DockPanel.Dock="Left" MinWidth="100" />
-                <local_gui:AugmentedSpacer DockPanel.Dock="Left"/>
-                <local_gui:AugmentedSpacer />
+                <local_gui:AugmentedButton Name="ButtonSync" DockPanel.Dock="Right" MinWidth="100" MinHeight="20" Margin="3" />
+                <local_gui:AugmentedButton Name="ButtonRefresh" DockPanel.Dock="Right" MinWidth="100"  Margin="3" />
+                <local_gui:AugmentedButton Name="ButtonCancel" DockPanel.Dock="Left" MinWidth="100"  Margin="3" />
             </DockPanel>
         </DockPanel>
-        <local_gui:AugmentedSpacer DockPanel.Dock="Bottom"/>
         <ScrollViewer>
             <StackPanel>
                 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-                <local_gui:AugmentedSpacer />
-                <local_gui:AugmentedBorder Name="RegionLibraryGrid">
+                <local_gui:AugmentedBorder Name="RegionLibraryGrid" Margin="3" >
                     <DockPanel>
                         <!-- The grid - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
                         <local_gui:NonScrollingFlowDocumentScrollViewer Name="ObjSurroundingScrollViewer">
@@ -86,8 +80,7 @@
                     </DockPanel>
                 </local_gui:AugmentedBorder>
                 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-                <local_gui:AugmentedSpacer />
-                <local_gui:AugmentedBorder>
+                <local_gui:AugmentedBorder Margin="3" >
                     <local_gui:NonScrollingFlowDocumentScrollViewer>
                         <commongui:StandardFlowDocument>
                             <Paragraph>
@@ -99,8 +92,7 @@
                     </local_gui:NonScrollingFlowDocumentScrollViewer>
                 </local_gui:AugmentedBorder>
                 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-                <local_gui:AugmentedSpacer />
-                <local_gui:AugmentedBorder Name="RegionOverview" Visibility="{Binding SyncTermsAccepted, Converter={StaticResource BooleanToVisibilityInverseConverter}}">
+                <local_gui:AugmentedBorder Name="RegionOverview" Visibility="{Binding SyncTermsAccepted, Converter={StaticResource BooleanToVisibilityInverseConverter}}" Margin="3" >
                     <local_gui:NonScrollingFlowDocumentScrollViewer>
                         <commongui:StandardFlowDocument>
                             <Paragraph>

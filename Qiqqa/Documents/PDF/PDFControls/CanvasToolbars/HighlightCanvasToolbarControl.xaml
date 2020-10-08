@@ -6,8 +6,7 @@
     <local_gui:AugmentedBorder Background="White">
         <StackPanel>
             <local_gui:AugmentedButton x:Name="ButtonPointErase" Grid.Column="0"/>
-            <local_gui:AugmentedSpacer />
-            <local_gui:AugmentedButton Height="32" x:Name="ButtonColor1" Grid.Column="1"/>
+            <local_gui:AugmentedButton Height="32" x:Name="ButtonColor1" Grid.Column="1" Margin="3" />
             <local_gui:AugmentedButton Height="32" x:Name="ButtonColor2" Grid.Column="2"/>
             <local_gui:AugmentedButton Height="32" x:Name="ButtonColor3" Grid.Column="3"/>
             <local_gui:AugmentedButton Height="32" x:Name="ButtonColor4" Grid.Column="4"/>

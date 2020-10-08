@@ -17,10 +17,9 @@
             </DockPanel>
             <DockPanel Name="TabTags" Margin="3">
                 <StackPanel DockPanel.Dock="Top" Name="ObjPanelSearchByTag">
-                    <local_gui:AugmentedSearchBox Name="SearchTag" EmptyTextPrompt="Enter tag to filter library by tag..."/>
-                    <local_gui:AugmentedSpacer/>
+                    <local_gui:AugmentedSearchBox Name="SearchTag" EmptyTextPrompt="Enter tag to filter library by tag..." Margin="3" />
                 </StackPanel>
-                <local_tag:TagExplorerControl x:Name="ObjTagExplorerControl" DockPanel.Dock="Top" />
+                <local_tag:TagExplorerControl x:Name="ObjTagExplorerControl" DockPanel.Dock="Top"  Margin="3" />
             </DockPanel>
             <DockPanel Name="TabAITags" Margin="3">
                 <local_aitag:AITagExplorerControl x:Name="ObjAITagExplorerControl" />

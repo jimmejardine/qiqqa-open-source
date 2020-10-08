@@ -5,8 +5,7 @@
     >
     <DockPanel Background="Transparent">
         <Image Name="ImageIcon" Width="32" Height="32" />
-        <local_gui:AugmentedSpacer x:Name="ObjSpacer" Visibility="Collapsed" />
-        <TextBlock Name="TextCaption" Visibility="Collapsed"  TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <TextBlock Name="TextCaption" Visibility="Collapsed"  TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="3" />
         <Grid Name="GridFiller" />
     </DockPanel>
 </ToggleButton>

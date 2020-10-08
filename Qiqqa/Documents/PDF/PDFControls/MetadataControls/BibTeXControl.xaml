@@ -19,18 +19,16 @@
             <local_gui:AugmentedButton Grid.Column="0" Name="ButtonBibTexAutoFind" >
                 Find
             </local_gui:AugmentedButton>
-            <local_gui:AugmentedSpacer Grid.Column="1" />
+            <!-- <local_gui:AugmentedSpacer Grid.Column="1" /> -->
             <local_gui:AugmentedButton Grid.Column="2" Name="ButtonBibTexSniffer" >
                 Sniffer
             </local_gui:AugmentedButton>
-            <local_gui:AugmentedSpacer Grid.Column="3" />
+            <!-- <local_gui:AugmentedSpacer Grid.Column="3" /> -->
             <local_gui:AugmentedButton Grid.Column="4" Name="ButtonUseSummary" >
                 Summary
             </local_gui:AugmentedButton>
         </Grid>
-        <local_gui:AugmentedSpacer />
-        <local_bibtex:BibTeXEditorControl x:Name="ObjBibTeXEditorControl" BibTeX="{Binding BibTex, Mode=TwoWay}" MinHeight="230"/>
-        <local_gui:AugmentedSpacer />
+        <local_bibtex:BibTeXEditorControl x:Name="ObjBibTeXEditorControl" BibTeX="{Binding BibTex, Mode=TwoWay}" MinHeight="230" Margin="3" />
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="4*"/>

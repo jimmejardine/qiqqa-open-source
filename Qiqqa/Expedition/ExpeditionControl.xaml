@@ -20,10 +20,8 @@
                         <TextBox Name="TextLibraryForExpedition" MaxWidth="150" />
                     </StackPanel>
                 </local_gui:AugmentedBorder>
-                <local_gui:AugmentedSpacer />
-                <local_gui:AugmentedToolBarButton Name="ButtonRefresh" />
-                <local_gui:AugmentedSpacer />
-                <DockPanel>
+                <local_gui:AugmentedToolBarButton Name="ButtonRefresh"  Margin="3" />
+                <DockPanel Margin="3" >
                     <StackPanel Orientation="Horizontal" Name="ObjParametersPanel">
                         <local_gui:AugmentedBorder>
                             <StackPanel VerticalAlignment="Center">
@@ -33,8 +31,7 @@
                                 <TextBox Name="TextExpeditionNumThemes" />
                             </StackPanel>
                         </local_gui:AugmentedBorder>
-                        <local_gui:AugmentedSpacer />
-                        <local_gui:AugmentedBorder>
+                        <local_gui:AugmentedBorder Margin="3" >
                             <StackPanel VerticalAlignment="Center">
                                 <CheckBox Name="ObjAddAutoTags" IsChecked="True">
                                     Use AutoTags?
@@ -46,13 +43,10 @@
                         </local_gui:AugmentedBorder>
                     </StackPanel>
                 </DockPanel>
-                <local_gui:AugmentedSpacer />
-                <local_gui:AugmentedToolBarButton Name="ButtonRefreshTags" />
+                <local_gui:AugmentedToolBarButton Name="ButtonRefreshTags"  Margin="3" />
                 <local_gui:AugmentedToolBarButton Name="ButtonManageLists" />
-                <local_gui:AugmentedSpacer />
-                <local_gui:AugmentedToolBarButton Name="ButtonExportTopics" />
-                <local_gui:AugmentedSpacer />
-                <local_gui:AugmentedToolBarButton Name="ButtonWebcast" />
+                <local_gui:AugmentedToolBarButton Name="ButtonExportTopics"  Margin="3" />
+                <local_gui:AugmentedToolBarButton Name="ButtonWebcast"  Margin="3" />
             </StackPanel>
         </local_gui:AugmentedToolBarTray>
         <!-- END: The toolbar - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->

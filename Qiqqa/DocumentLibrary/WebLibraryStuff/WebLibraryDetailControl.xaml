@@ -14,91 +14,66 @@
                     <Image Name="ObjTitleImage" />
                 </local_gui:SpaceAvoidingGrid>
                 <DockPanel>
-                    <Grid DockPanel.Dock="Left" >
-                        <local_gui:AugmentedSpacer />
-                    </Grid>
-                    <Grid DockPanel.Dock="Left" >
+                    <Grid DockPanel.Dock="Left"  Margin="3" >
                         <StackPanel VerticalAlignment="Center" Name="ObjOpenButtonPanel">
                             <Image x:Name="ButtonIcon" />
                         </StackPanel>
                     </Grid>
-                    <Grid DockPanel.Dock="Left" >
-                        <local_gui:AugmentedSpacer Width="10"/>
-                    </Grid>
-                    <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
-                    <Grid DockPanel.Dock="Right">
+                    <Grid DockPanel.Dock="Right" Margin="10" >
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Name="ObjToolButtonPanel">
                             <local_gui:AugmentedToggleButton DockPanel.Dock="Right" x:Name="ButtonReadOnly"/>
-                            <local_gui:AugmentedSpacer />
-                            <local_gui:AugmentedToggleButton DockPanel.Dock="Right" x:Name="ButtonAutoSync"/>
-                            <local_gui:AugmentedSpacer />
-                            <local_gui:AugmentedToggleButton DockPanel.Dock="Right" x:Name="ButtonCharts"/>
-                            <local_gui:AugmentedSpacer />
-                            <local_gui:AugmentedToggleButton DockPanel.Dock="Right" x:Name="ButtonCoverFlow"/>
+                            <local_gui:AugmentedToggleButton DockPanel.Dock="Right" x:Name="ButtonAutoSync" Margin="3" />
+                            <local_gui:AugmentedToggleButton DockPanel.Dock="Right" x:Name="ButtonCharts" Margin="3" />
+                            <local_gui:AugmentedToggleButton DockPanel.Dock="Right" x:Name="ButtonCoverFlow" Margin="3" />
                         </StackPanel>
-                        <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
                     </Grid>
                     <StackPanel VerticalAlignment="Center" Name="ObjDetailsPanel">
                         <TextBlock Name="TxtTitle" Text="{Binding Title}" FontWeight="Bold"/>
                         <TextBlock Text="{Binding Description}" TextWrapping="Wrap" />
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Name="TextLibraryCount"/>
-                            <local_gui:AugmentedSpacer />
-                            <StackPanel Orientation="Horizontal" Name="PanelForHyperlinks">
+                            <StackPanel Orientation="Horizontal" Name="PanelForHyperlinks" Margin="3" >
                                 <WrapPanel Name="PanelForget">
                                     <TextBlock>
                                         ·
                                     </TextBlock>
-                                    <local_gui:AugmentedSpacer />
-                                    <local_gui:HyperlinkTextBlock ToolTip="Forget this Intranet Library" Text="Forget" Name="HyperlinkForget" />
-                                    <local_gui:AugmentedSpacer />
+                                    <local_gui:HyperlinkTextBlock ToolTip="Forget this Intranet Library" Text="Forget" Name="HyperlinkForget"  Margin="3" />
                                 </WrapPanel>
                                 <WrapPanel Name="PanelLocateSyncPoint">
                                     <TextBlock>
                                         ·
                                     </TextBlock>
-                                    <local_gui:AugmentedSpacer />
-                                    <local_gui:HyperlinkTextBlock ToolTip="Locate the Sync Point of this Intranet Library so you can share it with your colleagues" Text="Share" Name="HyperlinkLocateSyncPoint" />
-                                    <local_gui:AugmentedSpacer />
+                                    <local_gui:HyperlinkTextBlock ToolTip="Locate the Sync Point of this Intranet Library so you can share it with your colleagues" Text="Share" Name="HyperlinkLocateSyncPoint"  Margin="3" />
                                 </WrapPanel>
                                 <WrapPanel Name="PanelViewOnline">
                                     <TextBlock>
                                         ·
                                     </TextBlock>
-                                    <local_gui:AugmentedSpacer />
-                                    <local_gui:HyperlinkTextBlock ToolTip="View this library online at Qiqqa.com." Text="View online" Name="HyperlinkViewOnline" />
-                                    <local_gui:AugmentedSpacer />
+                                    <local_gui:HyperlinkTextBlock ToolTip="View this library online at Qiqqa.com." Text="View online" Name="HyperlinkViewOnline"  Margin="3" />
                                 </WrapPanel>
                                 <WrapPanel Name="PanelTopUp">
                                     <TextBlock>
                                         ·
                                     </TextBlock>
-                                    <local_gui:AugmentedSpacer />
-                                    <local_gui:HyperlinkTextBlock ToolTip="Top-up your library for unlimited storage space." Text="Top-up" Name="HyperlinkTopUp" />
-                                    <local_gui:AugmentedSpacer />
+                                    <local_gui:HyperlinkTextBlock ToolTip="Top-up your library for unlimited storage space." Text="Top-up" Name="HyperlinkTopUp"  Margin="3" />
                                 </WrapPanel>
                                 <WrapPanel Name="PanelInviteAndShare">
                                     <TextBlock>
                                         ·
                                     </TextBlock>
-                                    <local_gui:AugmentedSpacer />
-                                    <local_gui:HyperlinkTextBlock ToolTip="Invite friends and colleagues to share this library." Text="Invite &amp; share" Name="HyperlinkInviteAndShare" />
-                                    <local_gui:AugmentedSpacer />
+                                    <local_gui:HyperlinkTextBlock ToolTip="Invite friends and colleagues to share this library." Text="Invite &amp; share" Name="HyperlinkInviteAndShare"  Margin="3" />
                                 </WrapPanel>
                                 <WrapPanel Name="PanelEditDelete">
                                     <TextBlock>
                                         ·
                                     </TextBlock>
-                                    <local_gui:AugmentedSpacer />
-                                    <local_gui:HyperlinkTextBlock ToolTip="Edit this Library's details, or delete it." Text="Edit or Delete" Name="HyperlinkEditDelete" />
-                                    <local_gui:AugmentedSpacer />
+                                    <local_gui:HyperlinkTextBlock ToolTip="Edit this Library's details, or delete it." Text="Edit or Delete" Name="HyperlinkEditDelete"  Margin="3" />
                                 </WrapPanel>
                                 <WrapPanel Name="PanelPurge">
                                     <TextBlock>
                                         ·
                                     </TextBlock>
-                                    <local_gui:AugmentedSpacer />
-                                    <local_gui:HyperlinkTextBlock ToolTip="Purge this deleted library." Text="Purge deleted library" Name="HyperlinkPurge" />
+                                    <local_gui:HyperlinkTextBlock ToolTip="Purge this deleted library." Text="Purge deleted library" Name="HyperlinkPurge"  Margin="3" />
                                 </WrapPanel>
                             </StackPanel>
                         </StackPanel>

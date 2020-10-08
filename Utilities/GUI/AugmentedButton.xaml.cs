@@ -118,15 +118,6 @@ namespace Utilities.GUI
 
         private void RecheckSpacerVisibility()
         {
-            if (Visibility.Collapsed == TextCaption.Visibility || Visibility.Collapsed == ImageIcon.Visibility)
-            {
-                ObjSpacer.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                ObjSpacer.Visibility = Visibility.Visible;
-            }
-
             if (Visibility.Visible == TextCaption.Visibility)
             {
                 MinWidth = (IconVisibility == Visibility.Visible ? IconWidth : 25);
@@ -192,25 +183,21 @@ namespace Utilities.GUI
                     case Dock.Top:
                         TextCaption.TextAlignment = TextAlignment.Center;
                         DockPanel.SetDock(ImageIcon, Dock.Bottom);
-                        DockPanel.SetDock(ObjSpacer, Dock.Bottom);
                         DockPanel.SetDock(TextCaption, Dock.Bottom);
                         break;
                     case Dock.Bottom:
                         TextCaption.TextAlignment = TextAlignment.Center;
                         DockPanel.SetDock(ImageIcon, Dock.Top);
-                        DockPanel.SetDock(ObjSpacer, Dock.Top);
                         DockPanel.SetDock(TextCaption, Dock.Top);
                         break;
                     case Dock.Left:
                         TextCaption.TextAlignment = TextAlignment.Right;
                         DockPanel.SetDock(ImageIcon, Dock.Right);
-                        DockPanel.SetDock(ObjSpacer, Dock.Right);
                         DockPanel.SetDock(TextCaption, Dock.Right);
                         break;
                     case Dock.Right:
                         TextCaption.TextAlignment = TextAlignment.Left;
                         DockPanel.SetDock(ImageIcon, Dock.Left);
-                        DockPanel.SetDock(ObjSpacer, Dock.Left);
                         DockPanel.SetDock(TextCaption, Dock.Left);
                         break;
                     default:

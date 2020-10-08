@@ -4,21 +4,15 @@
     xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
     >
     <MenuItem Name="MenuItemCopy"/>
-    <local_gui:AugmentedSpacer />
-    <MenuItem Name="MenuItemSpeedRead"/>
-    <local_gui:AugmentedSpacer />
-    <MenuItem Name="MenuItemSearchInternet"/>
+    <MenuItem Name="MenuItemSpeedRead" Margin="3" />
+    <MenuItem Name="MenuItemSearchInternet" Margin="3" />
     <MenuItem Name="MenuItemSearchLibrary"/>
-    <local_gui:AugmentedSpacer />
-    <MenuItem Name="MenuItemWebsiteDictionary"/>
-    <local_gui:AugmentedSpacer />
-    <MenuItem Name="MenuItemTagSet"/>
+    <MenuItem Name="MenuItemWebsiteDictionary" Margin="3" />
+    <MenuItem Name="MenuItemTagSet" Margin="3" />
     <MenuItem Name="MenuItemBibTexSet"/>
-    <local_gui:AugmentedSpacer />
-    <MenuItem Name="MenuItemAbstractSet"/>
+    <MenuItem Name="MenuItemAbstractSet" Margin="3" />
     <MenuItem Name="MenuItemAbstractClear"/>
-    <local_gui:AugmentedSpacer />
-    <MenuItem Name="MenuItemTitleSet"/>
+    <MenuItem Name="MenuItemTitleSet" Margin="3" />
     <MenuItem Name="MenuItemAuthorSet"/>
     <MenuItem Name="MenuItemAuthorAppend"/>
     <MenuItem Name="MenuItemYearSet"/>

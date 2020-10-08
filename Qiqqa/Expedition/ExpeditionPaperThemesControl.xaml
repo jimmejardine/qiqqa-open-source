@@ -17,11 +17,8 @@
                     <this:ChartLabelConvertor x:Key="ObjChartLabelConvertor"/>
                     <DataTemplate x:Key="LegendTemplate">
                         <DockPanel>
-                            <local_gui:AugmentedSpacer DockPanel.Dock="Left" />
-                            <Ellipse Fill="{Binding Interior}" Height="15" Width="15" DockPanel.Dock="Left" />
-                            <local_gui:AugmentedSpacer DockPanel.Dock="Left" />
-                            <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
-                            <TextBlock Text="{Binding Path=CorrespondingPoints[0].DataPoint.Tag.Topic}" ToolTip="{Binding Path=CorrespondingPoints[0].DataPoint.Tag.Topic}" />
+                            <Ellipse Fill="{Binding Interior}" Height="15" Width="15" DockPanel.Dock="Left"  Margin="3" />
+                            <TextBlock Text="{Binding Path=CorrespondingPoints[0].DataPoint.Tag.Topic}" ToolTip="{Binding Path=CorrespondingPoints[0].DataPoint.Tag.Topic}"  Margin="3" />
                         </DockPanel>
                     </DataTemplate>
                 </ResourceDictionary>

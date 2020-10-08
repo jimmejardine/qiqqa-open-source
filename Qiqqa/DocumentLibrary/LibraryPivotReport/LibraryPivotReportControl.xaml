@@ -10,8 +10,7 @@
         <local_gui:AugmentedToolBarTray DockPanel.Dock="Top">
             <StackPanel Orientation="Horizontal">
                 <local_gui:AugmentedToolBarButton Name="ButtonRegenerate" />
-                <local_gui:AugmentedSpacer />
-                <local_gui:AugmentedToolBarButton Name="ButtonExportExcel" />
+                <local_gui:AugmentedToolBarButton Name="ButtonExportExcel"  Margin="3" />
                 <local_gui:AugmentedToolBarButton Name="ButtonExportPDF" />
             </StackPanel>
         </local_gui:AugmentedToolBarTray>
@@ -23,21 +22,17 @@
                         Rows
                     </TextBlock>
                     <ListBox Name="ObjYAxis"/>
-                    <local_gui:AugmentedSpacer />
-                    <TextBlock>
+                    <TextBlock Margin="3" >
                         Columns
                     </TextBlock>
                     <ListBox Name="ObjXAxis"/>
-                    <local_gui:AugmentedSpacer />
-                    <TextBlock>
+                    <TextBlock Margin="3" >
                         Identifier
                     </TextBlock>
-                    <ListBox Name="ObjIdentifier"/>
-                    <local_gui:AugmentedSpacer />
+                    <ListBox Name="ObjIdentifier" Margin="3" />
                 </StackPanel>
             </ScrollViewer>
         </local_gui:AugmentedBorder>
-        <local_gui:AugmentedSpacer DockPanel.Dock="Left" />
         <local_gui:AugmentedBorder>
             <ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" x:Name="ObjGridControlHolder" />
         </local_gui:AugmentedBorder>

@@ -27,8 +27,7 @@
                             <local_gui:AugmentedToolBarButton x:Name="ButtonAddMissingDocumentsFromSelf"  CaptionDock="Right" />
                         </StackPanel>
                     </local_gui:AugmentedToolBarPopup>
-                    <local_gui:AugmentedSpacer />
-                    <local_gui:AugmentedToolBarButton x:Name="ButtonBibTexSniffer" />
+                    <local_gui:AugmentedToolBarButton x:Name="ButtonBibTexSniffer"  Margin="3" />
                     <local_gui:AugmentedToolBarButton x:Name="ButtonAnnotationsReport" />
                     <local_gui:AugmentedToolBarButton x:Name="ButtonExplore"/>
                     <local_gui:AugmentedToolBarPopup x:Name="ButtonExplorePopup">
@@ -40,8 +39,7 @@
                     </local_gui:AugmentedToolBarPopup>
                     <local_gui:AugmentedToolBarButton x:Name="ButtonGenerateReferences" />
                     <local_gui:AugmentedToolBarButton x:Name="ButtonFindDuplicates" />
-                    <local_gui:AugmentedSpacer />
-                    <local_gui:AugmentedToolBarButton x:Name="ButtonExport" />
+                    <local_gui:AugmentedToolBarButton x:Name="ButtonExport"  Margin="3" />
                     <local_gui:AugmentedToolBarPopup x:Name="ButtonExportPopup">
                         <StackPanel>
                             <local_gui:AugmentedToolBarButton x:Name="ButtonExportLibrary"  CaptionDock="Right" />
@@ -53,8 +51,7 @@
                             <local_gui:AugmentedToolBarButton x:Name="ButtonBuildBundleLibrary"  CaptionDock="Right" />
                         </StackPanel>
                     </local_gui:AugmentedToolBarPopup>
-                    <local_gui:AugmentedSpacer />
-                    <local_gui:AugmentedToolBarButton Name="ButtonWebcast" />
+                    <local_gui:AugmentedToolBarButton Name="ButtonWebcast"  Margin="3" />
                 </StackPanel>
             </DockPanel>
         </local_gui:AugmentedToolBarTray>

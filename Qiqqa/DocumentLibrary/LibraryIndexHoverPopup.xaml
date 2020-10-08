@@ -10,13 +10,11 @@
         <local_gui:AugmentedBorder Name="ObjTitleBorder">
             <DockPanel>
                 <Grid Name="ObjThemeSwatch" DockPanel.Dock="Right" Width="24" />
-                <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
-                <StackPanel Name="StackTextHeader">
+                <StackPanel Name="StackTextHeader" Margin="3" >
                     <TextBlock Text="{Binding TitleCombined, Converter={StaticResource ReadPropertyAfterSetConverter}}" TextTrimming="CharacterEllipsis" FontWeight="Bold" Name="TextTitle"/>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding YearCombined, Converter={StaticResource ReadPropertyAfterSetConverter}}" TextTrimming="CharacterEllipsis" Name="TextYear" />
-                        <local_gui:AugmentedSpacer />
-                        <TextBlock Text="{Binding AuthorsCombined, Converter={StaticResource ReadPropertyAfterSetConverter}}" TextTrimming="CharacterEllipsis" Name="TextAuthor" />
+                        <TextBlock Text="{Binding AuthorsCombined, Converter={StaticResource ReadPropertyAfterSetConverter}}" TextTrimming="CharacterEllipsis" Name="TextAuthor"  Margin="3" />
                     </StackPanel>
                     <TextBlock Text="{Binding Publication, Converter={StaticResource ReadPropertyAfterSetConverter}}" TextTrimming="CharacterEllipsis" FontStyle="Italic" />
                 </StackPanel>

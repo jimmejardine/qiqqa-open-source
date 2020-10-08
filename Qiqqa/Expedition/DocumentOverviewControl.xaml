@@ -24,23 +24,22 @@
                 <TextBlock Text="{Binding TitleCombinedTrimmed}" ToolTip="{Binding TitleCombined}" TextWrapping="Wrap" FontWeight="Bold" Name="TxtTitle"/>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{Binding YearCombined}" ToolTip="{Binding YearCombined}" TextWrapping="Wrap"/>
-                    <local_gui:AugmentedSpacer />
-                    <TextBlock Text="{Binding AuthorsCombinedTrimmed}" ToolTip="{Binding AuthorsCombined}" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding AuthorsCombinedTrimmed}" ToolTip="{Binding AuthorsCombined}" TextWrapping="Wrap" Margin="3" />
                 </StackPanel>
                 <TextBlock Text="{Binding Publication}" TextWrapping="Wrap" FontStyle="Italic"/>
             </StackPanel>
         </local_gui:AugmentedBorder>
-        <local_gui:AugmentedSpacer Grid.Row="1" />
+        <!-- <local_gui:AugmentedSpacer Grid.Row="1" /> -->
         <local_gui:AugmentedBorder Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Name="ObjPDFRendererControlPlaceholderBorder">
             <Grid Name="ObjPDFRendererControlPlaceholder" />
         </local_gui:AugmentedBorder>
-        <local_gui:AugmentedSpacer Grid.Row="3" />
+        <!-- <local_gui:AugmentedSpacer Grid.Row="3" /> -->
         <local_gui:AugmentedInfoBarItemControl Header="Themes in this document" Grid.Row="4" Grid.Column="0" >
             <ScrollViewer>
                 <this:ExpeditionPaperThemesControl />
             </ScrollViewer>
         </local_gui:AugmentedInfoBarItemControl>
-        <local_gui:AugmentedSpacer Grid.Row="4" Grid.Column="1" />
+        <!-- <local_gui:AugmentedSpacer Grid.Row="4" Grid.Column="1" /> -->
         <local_gui:AugmentedInfoBarItemControl Header="Documents relevant to this one" Grid.Row="4" Grid.Column="2">
             <ScrollViewer>
                 <this:ExpeditionPaperSimilarsControl x:Name="ObjExpeditionPaperSimilarsControl"/>

@@ -45,7 +45,6 @@
             <local_gui:AugmentedButton Name="ButtonRefreshTags" Grid.Column="0" DockPanel.Dock="Top" MinHeight="20"  />
             <local_gui:AugmentedButton Name="ButtonManageLists" Grid.Column="1" DockPanel.Dock="Top" MinHeight="20"  />
         </Grid>
-        <local_gui:AugmentedSpacer DockPanel.Dock="Top" />
-        <local_explorer:GenericLibraryExplorerControl x:Name="TagExplorerTree" />
+        <local_explorer:GenericLibraryExplorerControl x:Name="TagExplorerTree"  Margin="3" />
     </DockPanel>
 </UserControl>
