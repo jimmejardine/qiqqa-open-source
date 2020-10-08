@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Media;
 using icons;
 using Qiqqa.Common.MessageBoxControls;
@@ -312,6 +313,12 @@ namespace Qiqqa.Common.Configuration
             {
                 MessageBoxes.Warn("Hmmmm.  Your computer doesn't seem to have a temp folder called '{0}'.  Please let us know at https://github.com/jimmejardine/qiqqa-open-source/issues if you are getting any strange Qiqqa behaviour as a result of this.", TempFile.TempDirectoryForQiqqa);
             }
+        }
+
+        private void Issue225_Link_Click(object sender, RoutedEventArgs e)
+        {
+            var link = (Hyperlink)sender;
+            Process.Start(link.NavigateUri.ToString());
         }
     }
 }

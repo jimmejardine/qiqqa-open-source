@@ -149,6 +149,22 @@
                             <TextBlock TextWrapping="Wrap" FontStyle="Italic">
                                 Qiqqa embeds and extends Firefox/Gecko to give you additional features such as searching many repositories simultaneously and easy adding of PDFs to your libraries.  If you would prefer Qiqqa to use your default web browser instead, check this box.  You can still add PDFs to your libraries by dragging-and-dropping their URLs onto the library windows.
                             </TextBlock>
+                            <local_gui:AugmentedSpacer Height="15" />
+                            <CheckBox IsChecked="{Binding GoogleScholar_DoExtraBackgroundQueries}" FontSize="15">
+                                Send extra background queries to Google Scholar
+                            </CheckBox>
+                            <TextBlock TextWrapping="Wrap" FontStyle="Italic">
+                                When this box is ticked, Qiqqa runs a Google Scholar query in the background to <Run FontStyle="Normal">"scrape"</Run> their response for <Run FontStyle="Normal">"interesting articles"</Run> to list in the sidebar while you view a PDF document.
+                                This will, however, <Run FontWeight="Bold">hammer the Google Scholar website</Run> while you browse through your PDF documents and will therefor get you (temporarily) banned on Scholar all that much sooner. (<Hyperlink NavigateUri="https://github.com/jimmejardine/qiqqa-open-source/issues/225" Click="Issue225_Link_Click">Issue #225</Hyperlink>; more on Scholar and RECAPTCHA/40x HTTP Errors in <Hyperlink NavigateUri="https://github.com/jimmejardine/qiqqa-open-source/blob/master/docs-src/FAQ/Qiqqa%20Sniffer,%20BibTeX%20grazing%20and%20Google%20Scholar%20RECAPTCHA%20and%20Access%20Denied%20site%20blocking%20errors.md" Click="Issue225_Link_Click">this FAQ</Hyperlink>)
+                            </TextBlock>
+                            <TextBlock />
+                            <TextBlock TextWrapping="Wrap" FontStyle="Italic">
+                                This behaviour has been disabled by default since the Qiqqa v82 release of October 2020. Not having this background scrape run for every document you view should also, indirectly, help keep your Qiqqa Sniffer sessions on Scholar alive a little longer as well and thus aid <Hyperlink NavigateUri="https://github.com/jimmejardine/qiqqa-open-source/issues/225" Click="Issue225_Link_Click">Issue #225</Hyperlink> a little!
+                            </TextBlock>
+                            <TextBlock />
+                            <TextBlock TextWrapping="Wrap" FontStyle="Italic">
+                                <Run FontWeight="Bold">Our Strong Advice:</Run> <Run FontWeight="Bold">do NOT tick this box</Run> unless you absolutely positively need the old Qiqqa PDF viewer sidebar behaviour.
+                            </TextBlock>
                         </StackPanel>
                     </Border>
                 </local_gui:AugmentedInfoBarItemControl>
