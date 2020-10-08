@@ -268,13 +268,13 @@ namespace Qiqqa.Main
             {
                 StatusManager.Instance.UpdateStatus("AppStart", "Logging in");
 
-				// NOTE: the initial Login Dialog will be shown by code at the end
-				// of the (background) DoPostUpgrade() process which is already running
-				// by the time we arrive at this location.
-				//
-				// This ensures all process parts, which are expected to be done by
-				// the time to login Dialog is visible (and usable by the user), are
-				// indeed ready.
+                // NOTE: the initial Login Dialog will be shown by code at the end
+                // of the (background) DoPostUpgrade() process which is already running
+                // by the time we arrive at this location.
+                //
+                // This ensures all process parts, which are expected to be done by
+                // the time to login Dialog is visible (and usable by the user), are
+                // indeed ready.
 
                 try
                 {
@@ -333,7 +333,8 @@ namespace Qiqqa.Main
             {
                 Logging.Error(ex, "RemarkOnException_GUI_THREAD...");
                 UnhandledExceptionMessageBox.DisplayException(ex);
-                if (ex.Message.Contains("A generic error occurred in GDI+") || ex.Message.Contains("ErrorCode: 0x80004005"))
+                const int EACCESS = unchecked((int)0x80004005);
+                if (ex.Message.Contains("A generic error occurred in GDI+") || ex.HResult == EACCESS)
                 {
                     potentially_fatal = false;
                 }
