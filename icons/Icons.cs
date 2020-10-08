@@ -16,7 +16,6 @@ namespace icons
 
         public const string AugmentedButtonDown = "AugmentedButtonDown";
 
-        public const string Champion = "Champion";
         public const string Plus = "Plus";
         public const string Minus = "Minus";
         public const string Yes = "Yes";
