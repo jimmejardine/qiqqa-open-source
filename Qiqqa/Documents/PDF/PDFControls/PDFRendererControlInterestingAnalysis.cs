@@ -58,7 +58,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private static void DoInterestingAnalysis_GoogleScholar(PDFReadingControl pdf_reading_control, PDFRendererControl pdf_renderer_control, PDFRendererControlStats pdf_renderer_control_stats)
         {
-            var attempt_scrape = Qiqqa.Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.GoogleScholar_DoExtraBackgroundQueries;
+            bool attempt_scrape = Qiqqa.Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.GoogleScholar_DoExtraBackgroundQueries;
 
             if (attempt_scrape)
             {
