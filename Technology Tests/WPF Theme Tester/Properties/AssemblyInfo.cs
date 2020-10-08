@@ -10,9 +10,9 @@ using System.Windows;
 [assembly: AssemblyTitle("WPF Theme Tester")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Quantisle")]
 [assembly: AssemblyProduct("WPF Theme Tester")]
-[assembly: AssemblyCopyright("Copyright ©  2020")]
+[assembly: AssemblyCopyright("Copyright © Quantisle 2010-2020. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -50,6 +50,6 @@ using System.Windows;
 //
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+// [assembly: AssemblyVersion("82.0.7555.31312")]
+[assembly: AssemblyVersion("82.0.7555.31312")]
+[assembly: AssemblyFileVersion("82.0.7555.31312")]

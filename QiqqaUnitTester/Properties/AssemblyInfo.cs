@@ -10,9 +10,9 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
-// [assembly: AssemblyVersion("82.0.7357.40407")]
-[assembly: AssemblyVersion("82.0.7357.40407")]
-[assembly: AssemblyFileVersion("82.0.7357.40407")]
+// [assembly: AssemblyVersion("82.0.7555.31312")]
+[assembly: AssemblyVersion("82.0.7555.31312")]
+[assembly: AssemblyFileVersion("82.0.7555.31312")]
 [assembly: AssemblyCompany("Quantisle")]
 [assembly: AssemblyCopyright("Copyright © Quantisle 2010-2020. All rights reserved.")]
 
