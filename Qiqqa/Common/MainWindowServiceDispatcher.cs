@@ -415,8 +415,22 @@ namespace Qiqqa.Common
 
         public void ShutdownQiqqa(bool suppress_exit_warning)
         {
-            main_window.suppress_exit_warning = suppress_exit_warning;
-            main_window.Close();
+            if (main_window != null)
+            {
+                main_window.suppress_exit_warning = suppress_exit_warning;
+                main_window.Close();
+            }
+            else
+            {
+                Logging.Error("Forcibly shutting down Qiqqa (no main window present yet)");
+                Application app = Application.Current;
+                Window win = app.MainWindow;
+                if (win != null)
+                {
+                    win.Close();
+                }
+                app.Shutdown(9);
+            }
         }
 
         internal void OpenQiqqaWebsite()

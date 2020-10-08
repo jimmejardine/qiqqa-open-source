@@ -34,3 +34,11 @@ desktop.ini
 # experimental dev work
 /libs/3rdparty/mupdf/mupdf/
 
+/docs-src/_meta/HTML standards and designs/
+/docs-src/_meta/layouts/
+/docs-src/getsatisfaction-mirror/*.html
+/docs-src/getsatisfaction-mirror/*_files/
+
+# build misc output files for Qiqqa.org project
+Qiqqa.org.log
+Qiqqa.org.vcxprojAssemblyReference.cache

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using icons;
@@ -83,7 +84,7 @@ namespace Qiqqa.AnnotationsReportBuilding
             pdf_documents = pdf_documents_;
             OnShowTagOptionsComplete = OnShowTagOptionsComplete_;
 
-            // Collate all the availalbe tags
+            // Collate all the available tags
             HashSet<string> all_tags = new HashSet<string>();
             HashSet<string> all_creators = new HashSet<string>();
             foreach (var pdf_document in pdf_documents)
@@ -116,12 +117,14 @@ namespace Qiqqa.AnnotationsReportBuilding
 
             List<string> all_creators_sorted = new List<string>(all_creators);
             all_creators_sorted.Sort();
-            ObjFilterByCreatorCombo.ItemsSource = all_creators_sorted;
+            ObservableCollection<string> all_creators_source = new ObservableCollection<string>(all_creators_sorted);
+            ObjFilterByCreatorCombo.ItemsSource = all_creators_source;
 
-            List<string> bindable_tags = new List<string>(all_tags);
-            bindable_tags.Add(HighlightToAnnotationGenerator.HIGHLIGHTS_TAG);
-            bindable_tags.Add(InkToAnnotationGenerator.INKS_TAG);
-            bindable_tags.Sort();
+            all_tags.Add(HighlightToAnnotationGenerator.HIGHLIGHTS_TAG);
+            all_tags.Add(InkToAnnotationGenerator.INKS_TAG);
+            List<string> all_tags_sorted = new List<string>(all_tags);
+            all_tags_sorted.Sort();
+            ObservableCollection<string> bindable_tags = new ObservableCollection<string>(all_tags_sorted);
             ListTags.Items.Clear();
             ListTags.ItemsSource = bindable_tags;
 
@@ -190,9 +193,8 @@ namespace Qiqqa.AnnotationsReportBuilding
             pdf_documents.Clear();
             pdf_documents = null;
 
-            ListTags.Items.Clear();
             ListTags.ItemsSource = null;
-
+            ListTags.Items.Clear();
         }
     }
 }

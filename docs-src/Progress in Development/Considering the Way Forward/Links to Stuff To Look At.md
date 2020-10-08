@@ -22,6 +22,8 @@ https://www.codeproject.com/Articles/71593/How-to-compile-and-use-Xapian-on-Wind
 
 You want BibTeX data, citations, etc. from Google.
 
+\[Edit: see [Google and the Publishers](#google-and-the-publishers) section below for a very probable cause of the Scholar RECAPTCHA woes.]
+
 Let's not be squeamish about it: in exchange, Google wants your *soul*. Or your money, but in the case of Google Scholar, only your *soul* will do: lots of effort has been expended by Google in the last 1-2 years to **block everyone that's not provably a human using a modern browser *manually***. And even than, you're limited to only so much use of Scholar before you're supposed to go back to basic Search, which at least can soak you in ads.
 
 Sounds opinionated? Well, it's "*follow the money*" as usual: if you *assume* Google is interested in **human activity only** -- or more specifically stated: Google is **only interested in humans who can click on ads** -- then *all* behavioural changes of the Google Scholar site over the recent months/years are *reasonable*: 
@@ -37,6 +39,56 @@ The nett effect is that **any embedded browser** is dead in the water unless you
 This translates to the Qiqqa Sniffer being a, ah, '*challenge*' to make it work again in 2020 A.D.: one must make it look like it's the genuine Chrome browser and no hanky panky happenin', or you get toasted with CAPTCHA/robot checks and 503/429 HTTP error reponses, i.e. *no results what-so-ever* until you return the next day and try again.
 
 Meanwhile, Google also seems to have added a VPN exit node blacklist of some sort as using a VPN to perform Google Scholar searches doesn't seem to help: it was rather *worse* than Scholar-ing from the private node. Having had a look at `scholarly` (below) which uses the `tor` network as a randomizing VPN/proxy rig might fly better for a while, but I don't know how long Google will keep up appearances regarding `tor` and disadvantaged web users from beyond the Great Firewall and elsewhere: in the end, they're in it for the money. My opinion here: when / as-long-as the `tor` road works, heck, let's do it!
+
+## Google and the Publishers
+
+Found via the README of the project [`edsu/etudier`: "Extract a citation network from Google Scholar"](https://github.com/edsu/etudier):
+
+> If you are wondering why it uses a non-headless browser it's because [Google is quite protective of this data](https://www.quora.com/Are-there-technological-or-logistical-challenges-that-explain-why-Google-does-not-have-an-official-API-for-Google-Scholar) and routinely will ask you to solve a captcha (identifying street signs, cars, etc in photos). étudier will allow you to complete these tasks when they occur and then will continue on its way collecting data.
+
+**Follow the money**: following the link in the README above, Quora says:
+
+> Aaron Tay, academic librarian who has studied, blogged and presented on Google scholar
+>
+> Updated August 11, 2016
+>
+> I’ve read or heard someone say that Google Scholar is given privileged access to crawl Publisher,aggregator (often enhanced with subject heading and controlled vocab) and none-free abstract and indexing sites like Elsevier and Thomson Reuters’s Scopus and Web of Science respectively.
+>
+> Obviously the latter two wouldn’t be so wild about Google Scholar offering a API that would expose all their content to anyone since they sell access to such metadata.
+>
+> Currently you only get such content (relatively rare) from GS if you are in the specific institution IP range that has subscriptions. (Also If your institution is already a subscriber to such services such as Web of Science or Scopus, you library could usually with some work allow you access directly via the specific resource API!.)
+>
+> Even publishers like Wiley that are usually happy for their metadata to be freely available might not like the idea of a Google Scholar API. The reason is unlike Google, Google Scholar actually has access to the full text as well (which they sell)…. If the API exposes that…..
+>
+> There are of course technical solutions if Google wants the API enough, but why would they make the effort?
+>
+> As already mentioned Libraries do pay for things like Web of Science and Scopus and these services do provide APIs, so do consult a librarian if you have such access.
+>
+> Also Web Scale discovery services that libraries pay for such as Summon, Ebsco discovery service, Primo etc do have APIs and they come closest to duplicating a (less comprehensive version) Google Scholar API
+>
+> Another poor substitute to a Google Scholar API, is the Crossref Metadata Search. It’s not as comprehensive as Google Scholar but most major publishers do deposit their metadata.
+> 
+> ---
+> 
+> Tom Griffin, works at IEEE
+> 
+> Answered July 15, 2013
+>
+> Google doesn't have an API for Scholar likely for the same reason they don't have an API for web search - it would get overwhelmed by applications creating aggregation platforms (and running continuous queries) versus applications that just run on-demand, user-initiated lookups (like Mendeley linking out to Google Scholar).
+>
+> Couple this with the fact that Scholar is a philanthropic and they make no money off of it - there certainly isn't the pressing need for an API.
+>
+> There are, however, some openly available scrapers that work as an API. Of course, they only work well if they're tuned to the current structure of Scholar search results. One such example
+>
+> [A Parser for Google Scholar](https://www.icir.org/christian/scholar.html)
+>
+> The other thing to note is that Microsoft Academic Search does offer an API. You need to request a key, but other than that, it provides full programatic access to what the application returns using the web interface.
+>
+> [Microsoft Academic Search API](https://www.microsoft.com/en-us/research/project/academic/articles/sign-academic-knowledge-api/)
+
+
+
+
 
 
 
@@ -352,92 +404,449 @@ The solution is to use VPN and change IP
 ## cute-jumper/gscholar-bibtex: Retrieve BibTeX entries from Google Scholar, ACM Digital Library, IEEE Xplore and DBLP
 https://github.com/cute-jumper/gscholar-bibtex
 
+### Analysis Notes
+
+Looks like a pretty vanilla scraper. Has extras for other sites though: 
+
+> Retrieve BibTeX entries from Google Scholar, ACM Digital Library, IEEE Xplore and DBLP by your query. All in Emacs Lisp!
+>
+> *UPDATE*: ACM Digital Library, IEEE Xplore, and DBLP are now supported though the package name doesn't suggest that.
+> 
+> https://github.com/cute-jumper/gscholar-bibtex/blob/master/gscholar-bibtex.el
+
+
+
+
 ## alberto-martin/googlescholar: Code to extract bibliographic data from Google Scholar
 https://github.com/alberto-martin/googlescholar
+
+### Analysis Notes
+
+- Uses Selenium driver approach
+- Uses `scrapy` package
+- From the README:
+
+  Be aware that if too many queries are carried out in a short period of time, Google Scholar will ask you to solve one or several CAPTCHAs, or will directly block you. The script will detect when Google Scholar requests a CAPTCHA, and will pause if this happens. The user must solve the CAPTCHA manually. When the browser resumes displaying search results, the user can resume the process by clicking enter in the terminal window. This script cannot resume automatically after Google Scholar has blocked you for making too many queries.
+
 
 ## leventsagun/scholar-bib-scraper: Get bibtex from saved Google Scholar articles
 https://github.com/leventsagun/scholar-bib-scraper
 
+### Analysis Notes
+
+Another Selenium driver based tool.
+
+From the README:
+
+Little script to get BibTeX entries of Google Scholar articles that are saved in personal accounts (for some reason Google Scholar doesn't have a bulk export option for all saved articles).
+
+Requires manual login and possible reCAPTCHA solving at the beginning.
+
+
 ## supasorn/GoogleScholarCopyBibTeX: Copy BibTeX on Google Scholar Search page with a single click
 https://github.com/supasorn/GoogleScholarCopyBibTeX
+
+A Chrome plugin that adds "Copy BibTeX" button to Google Scholar Search result. BibTex can be copied to your system's clipboard with a single click. https://chrome.google.com/webstore/detail/google-scholar-bibtex/lpadjkikoegfojgbhapfmkanmpoejdia
+
 
 ## maikelronnau/google_scholar_paper_finder: A engine that searches for papers on Google Scholar based on keywords extracted from a text.
 https://github.com/maikelronnau/google_scholar_paper_finder
 
+### Analysis Notes
+
+Uses a locally modified `scholar` package. Pretty vanilla otherwise.
+
+
 ## ag-gipp/grespa: A tool to obtain and analyze data from Google Scholar
 https://github.com/ag-gipp/grespa
+
+### Analysis Notes
+
+- Uses `scrapy` package for Scholar access.
+- From the README:
+
+#### GRESPA Scraper
+
+The spiders can be run locally (in the current shell) or using the *scrapyd* daemon. The following part describes the
+local installation and configuration necessary to run the scrapy spiders.
+
+#### Dependencies
+
+Installation details are provided by the readme located in the projects root directory.
+
+For the proxy connection a socks proxy (e.g. tor) can be used, together with a http proxy
+to fire the actual requests against.
+
+Recommended proxies:
+
+- socks proxy: standard tor client
+- http proxy: `privoxy` or `polipo`
+
+See `settings.py` for the appropriate http proxy port. If you do not want to use a proxy, you can disable the proxy
+middleware in the scrapy settings.
+
+#### Configuration
+
+Environment variables (or crawler settings) are used to configure credentials like passwords or database connections.
+ The files `*.env-sample` contain all parameters that are currently used (with placeholders). To provide your values,
+ strip the suffix `-sample` from the files and fill in your values.
+ So the file `database.env` contains the correct postgres connection credentials. To actually use the values,
+ you can export the variables as *environment variables*.
+
+#### Tor Control
+
+The following config parameters are used to control the tor client using the built in class:
+
+- `TOR_CONTROL_PASSWORD=...`
+
+
 
 ## yufree/scifetch: webpage crawling tools for pubmed, google scholar and rss
 https://github.com/yufree/scifetch
 
+### Analysis Notes
+
+Has two vanilla scrapers for Google Scholar and PubMed.
+
+
 ## pykong/PyperGrabber: Fetches PubMed article IDs (PMIDs) from email inbox, then crawls PubMed, Google Scholar and Sci-Hub for respective PDF files.
 https://github.com/pykong/PyperGrabber
+
+### PyperGrabber
+
+Fetches PubMed article IDs (PMIDs) from email inbox, then crawls **PubMed**, **Google Scholar** and **Sci-Hub** for respective PDF files.
+
+PubMed can send you regular update on new articles matching your specified search criteria. PyperGrabber will automatically download thoe papers, saving you much time tracking on downloading those manually. When no PDF article is found PyperGrabber will save the PubMed abstract of the respective article to PDF. All files are named after PMID for convenience.
+
+#### NOTES:
+- _Messy code ahead!_ 
+- Program may halt without error message. The source of this bug is yet to be determined.
+- The web crawler function may be used to work with other sources of PMIDs then email (e.g. command line parameter  or file holding list of PMIDs)
 
 ## pentas1150/google-scholar-keyword-crwaler: 구글 스칼라에서 논문 제목을 단어 단위로 쪼개어 단어 카운팅해주는 크롤러
 https://github.com/pentas1150/google-scholar-keyword-crwaler
 
+### Translated README:
+
+I stopped due to the Google reCAPTCHA problem... Even with Beautifulsoup & Selenium, it could not be solved well, so I am exploring another solution. It doesn't show up again after a certain time. But if I turn it again, it blocks and it hurts. 
+
+#### Brief explanation 
+
+Graduate students will read a lot of thesis. I'm looking for papers on Google Scholar and I'm curious about recent research trends, but it's hard to find one by one. So, by counting the words in the title of the paper by crawling, I created it to help understand the latest research trends. (We will continue to refine it.) 
+ 
+
+### Analysis Notes
+
+Uses `axios` npm package for URL querying Scholar, hence is pretty vanilla. JavaScript.
+
+Scholar access code at https://github.com/pentas1150/google-scholar-keyword-crwaler/blob/master/crwal.js#L19
+
+
 ## janosh/gatsby-source-google-scholar: Gatsby source plugin that pulls metadata for scientific publications from Google Scholar
 https://github.com/janosh/gatsby-source-google-scholar
+
+### Analysis Notes
+
+Vanilla scraper in JavaScript.
+
+Has very clear and grokkable error messages: might be useful for that. https://github.com/janosh/gatsby-source-google-scholar/blob/master/scraper.js
+
 
 ## Nicozheng/GoogleScholarCrawler: search, format, and download paper form google scholar
 https://github.com/Nicozheng/GoogleScholarCrawler
 
+### Analysis Notes
+
+Vanilla scraper using Selenium driver and BeautifulSoup packages.
+
 ## zjuiuczy/Google-Scholar: cs411 project
 https://github.com/zjuiuczy/Google-Scholar
+
+### Analysis Notes
+
+Visualization project from local databases. **Not a scraper!**
 
 ## fholstege/GoogleScholar_Research
 https://github.com/fholstege/GoogleScholar_Research
 
+### Analysis Notes
+
+- Uses `scrapy` for Scholar access: https://github.com/fholstege/GoogleScholar_Research/blob/master/gscholar/spiders/gsspider.py & https://github.com/fholstege/GoogleScholar_Research/blob/master/gscholar/gscholar_crawlprocess.py#L47
+
+From the README:
+
+### Retrieving data from Google Scholar for research 
+
+(Currently in development)
+
+This is repository is my attempt to make a tool that allows users to scrape data from profiles on GoogleScholar. This data will be put into a dataset that contains the following information: 
+
+- h-index - the h-index for the professor for all years
+
+- h5-index  - the h-index for the professor for the last five years
+
+- i10-index - the i10 index for the professor for all years
+
+- i10-5-index - the i10 index for the professor for the last five years
+
+- n_citations - the total number of citations
+
+- n5_citations  - the total number of citations for the last five years
+
+- institution - the institution of the profile user
+
+- name  - name of the profile user
+
+- url - link to the profile 
+
+- field - using tags, we determine the field the profile is active in 
+
+Users should be able to fill in their field of interest and the number of profiles they want to scrape. A first version of the scraper has already been used by students of Leiden and Oxford University. 
+
+
 ## mattkearl/AdvancedSearchforGoogleScholar: Advanced Search for Google Scholar
 https://github.com/mattkearl/AdvancedSearchforGoogleScholar
+
+From the README:
+
+### An extension to help users expand their search queries on Google Scholar.
+
+The **BEST** advanced search for Google Scholar is finally here!
+
+#### What is Google Scholar Plus?
+
+Google Scholar Plus is an **extension** that helps users discover better search results. Where you can quickly explore related words that can narrow or broaden your search on Google Scholar.
+
+Whether you are working on research, academic, or scholarly papers, Google Scholar Plus will help you explore words to narrow or broaden your search results – on the fly.  This easy to use extension will help college and university students create a better and more advanced searches for research and college papers.
+
+Feeling stuck? Having a hard time coming up with the right search? Google Scholar Plus can also help by expanding your search by providing relevant search terms.
+
+Google Scholar Plus can also help you discover articles similar to the search query you are currently using.
+
+When you install Google Scholar Plus, Google Scholar will automatically update your related word options to customize your now advanced search query.
+
+Google Scholar Plus was created and developed by university students and faculty FOR university students and faculty.
+
+
 
 ## hazelnutsgz/NaiveScholarMap: Interactive Visualization Of Google Scholar connection all past 20 years
 https://github.com/hazelnutsgz/NaiveScholarMap
 
+### Analysis Notes
+
+Visualization tool.
+
+From the README: "Google Scholar Connection visualized by echart"
+
+
+
 ## Robinlovelace/scholarsearch: Tiny R package that makes it easy to search for academic publications on Google Scholar from the command line
 https://github.com/Robinlovelace/scholarsearch
+
+### Analysis Notes
+
+Vanilla crawler in R
 
 ## TWRogers/google-scholar-export: Takes a Google Scholar profile URL and outputs an html snippet to add to your website.
 https://github.com/TWRogers/google-scholar-export
 
+### Analysis Notes
+
+Vanilla scraper in Python.
+
+From the README:
+
+**google-scholar-export** is a Python library for scraping Google scholar profiles to generate a HTML publication lists.
+
+Currently, the profile can be scraped from either the Scholar user id, or the Scholar profile URL, resulting in a list
+of the following:
+
+1. Publication title
+2. Publication authors
+3. Journal information (name, issue no., vol.)
+4. Date
+5. Url to the Scholar publication
+6. The number of citations according to Scholar
+
+The resulting html is formatted like:
+
+```html
+<p>Publications (<b>20</b>) last scraped for <a href="https://scholar.google.co.uk/citations?user=JicYPdAAAAAJ&hl=en">Geoffrey Hinton</a> on <b>2019-08-11</b> 
+using <a href="https://github.com/TWRogers/google-scholar-export">google-scholar-export</a>.</p>
+<div class="card">
+    <div class="card-publication">
+        <div class="card-body card-body-left">
+            <h4><a href="https://scholar.google.co.uk/citations?user=JicYPdAAAAAJ&hl=en#d=gs_md_cita-d&u=%2Fcitations%3Fview_op%3Dview_citation%26hl%3Den%26oe%3DASCII%26user%3DJicYPdAAAAAJ%26citation_for_view%3DJicYPdAAAAAJ%3AGFxP56DSvIMC">Learning internal representations by error-propagation</a></h4>
+            <p style="font-style: italic;">by DE Rumelhart, GE Hinton, RJ Williams</p>
+            <p><b>Parallel Distributed Processing: Explorations in the Microstructure of …</b></p>
+        </div>
+    </div>
+    <div class="card-footer">
+        <small class="text-muted">Published in <b>1986</b> | 
+        <a href="https://scholar.google.co.uk/scholar?oi=bibs&hl=en&oe=ASCII&cites=1374659557399191249,4574189560556662535,10453698013284960354,12541410141153091507,7476519782727404507,1722523513356915749,6822548856209813074,4464353390709992638,15344233312479649775">Citations: <b>62260</b></a></small>
+    </div>
+</div>
+...
+```
+And is primarily aimed at people using Bootstrap.
+
+It is possible to modify the html for each publication by modifying `PAPER_TEMPLATE` in `./exporter/exporter.py`
+
+## Rationale
+
+Generating lists of publications for static websites is a pain. Google Scholar, popular amongst academics, is great at
+tracking publications and citations. However, it does not have an API.
+
+There are some other libraries:
+* [dschreij/scholar_parser](https://github.com/dschreij/scholar_parser)
+* [bborrel/google-scholar-profile-parser](https://github.com/bborrel/google-scholar-profile-parser)
+
+However, both of these are php based, and not useful for static sites.
+
+The purpose of this repository is to allow generation of static html code directly from your Google Scholar profile.
+This code can be run manually, or at website build time to update the publications list.
+
+Here is an example that utilises this library:
+[twrogers.github.io/projects.html](https://twrogers.github.io/projects.html#publications)
+
+
 ## Ir1d/PKUScholar: A naive Google Scholar for PKU CS
 https://github.com/Ir1d/PKUScholar
+
+### Analysis Notes
+
+Uses `scholarly` package: https://github.com/Ir1d/PKUScholar/blob/master/crawler/crawler.py
+
 
 ## leyiwang/nlp_research: The Research Spider for Anthology. This toolkit can automatically grab the papers information by given keywords in title. You can set the search params: the conference, publication date and the keywords in title . Then it will automatically save these papers' title, authors, download link, Google Scholar cited number and abstracts information in a Excel file.
 https://github.com/leyiwang/nlp_research
 
+### Analysis Notes
+
+Uses Selenium driver approach.
+
+
 ## tyiannak/pyScholar: Python Library to Analyse and Visualise Google Scholar Metadata
 https://github.com/tyiannak/pyScholar
+
+### Analysis Notes
+
+Uses `scholarly` package.
+
 
 ## lyn716/CitationsGenerator: for generating cite relation of articles in google scholar
 https://github.com/lyn716/CitationsGenerator
 
+### Analysis Notes
+
+- uses SOCKS5 proxies, etc.: https://github.com/lyn716/CitationsGenerator/blob/master/crawl_tools/request_with_proxy.py
+- uses UserAgent spoofing: https://github.com/lyn716/CitationsGenerator/blob/master/crawl_tools/ua_pool.py
+- has code on board for Selenium driver, but I don't see it used (yet).
+- Scholar access: https://github.com/lyn716/CitationsGenerator/blob/master/GoogleInfoGenerator.py
+- Tor proxy check: https://github.com/lyn716/CitationsGenerator/blob/master/tor_test.py
+
 ## alvinwan/webfscholar: Generate publications webpage from a google scholar
 https://github.com/alvinwan/webfscholar
+
+### Analysis Notes
+
+- Vanilla crawler: https://github.com/alvinwan/webfscholar/blob/master/webfscholar/profile.py
+- But has some extra bits that may be of interest at the biTeX level. From the README:
+
+  #### Why webfscholar
+
+  The intermediate bibtex allows you to plug-and-play with other
+  auto-publication-webpage services. Furthermore, unlike most Google Scholar
+  unofficial APIs, this library:
+
+  - Uses information pulled directly from the Google Scholar profile page, as
+    opposed to un-configurable search results. This means `webfscholar` will
+    respect any custom titles or removed publications.
+  - Supplants Google Scholar information using ArXiv.
+
+
 
 ## troore/scholar-spider: A spider to get researcher information, citations, etc. from academic libraries like IEEE digital library, google scholar, microsoft academic, etc.
 https://github.com/troore/scholar-spider
 
+
+### Analysis Notes
+
+- Vanilla crawler
+- uses http://scholar.glgoo.org/scholar which redirects to Microsoft Bing these days instead (August 2020)
+- https://github.com/troore/scholar-spider/blob/master/getcitation.py
+
+
 ## miostudio/DawnScholar: A scholar search for The People who cannot access google scholar freely.
 https://github.com/miostudio/DawnScholar
+
+### Analysis Notes
+
+- vanilla crawler: https://github.com/miostudio/DawnScholar/blob/master/gs.php
+- From the README:
+
+  For those who need scholar search in mainland China.
+  
+  url：http://a.biomooc.com/ 
+
+  local: http://scholar.wjl.com/
+
+
+
 
 ## chrokh/lit: Command line tool for systematic literature reviews using Google Scholar
 https://github.com/chrokh/lit
 
+### Analysis Notes
+
+- Uses Selenium driver together with JavaScript code: this is interesting as all the other Selenium driver users were coded in Python or PHP.
+- knows about and seems to attempt to handle RECAPTCHA, etc. Scholar nuisances: https://github.com/chrokh/lit/blob/master/src/scholar.js
+- To be inspected further...
+
+
+
 ## HTian1997/getarticle: getarticle is a package based on SciHub and Google Scholar that can download articles given DOI, website address or keywords.
 https://github.com/HTian1997/getarticle
+
+### Analysis Notes
+
+Vanilla downloader.
 
 ## fagnersutel/Google_Scholar: Google Scholar
 https://github.com/fagnersutel/Google_Scholar
 
+### Analysis Notes
+
+- Vanilla crawler
+- Check the queries: this one includes a call to fetch the *abstract* of a paper from Scholar, f.e.. https://github.com/fagnersutel/Google_Scholar/blob/master/google_scholar.R#L69
+
+
 ## tugcelmaci/GoogleScholarWebScraping: Google Scholar Web Scraping
 https://github.com/tugcelmaci/GoogleScholarWebScraping
+
+
+### Analysis Notes
+
+multiple egotrip app. Vanilla.
+
 
 ## guzmonne/scholar: Google Scholar web scrapper
 https://github.com/guzmonne/scholar
 
+### Analysis Notes
+
+Vanilla.
+
+
 ## arunhpatil/GoogleScholar: Revised GoogleScholar-API from fredrike
 https://github.com/arunhpatil/GoogleScholar
+
+### Analysis Notes
+
+- Vanilla scraper in PHP
+- https://github.com/arunhpatil/GoogleScholar/blob/master/GoogleScholar.php#L16
+
+
 
 ## ChenZhongPu/GoogleScholar: This is an extension for PopClip to search in a China's google scholar mirror site
 https://github.com/ChenZhongPu/GoogleScholar
@@ -478,9 +887,6 @@ https://github.com/juicecwc/GoogleScholarCrawler
 ## foool/GoogleScholarBibTex: Batch get BibTeXs of papers collected in your Google Scholar library.
 https://github.com/foool/GoogleScholarBibTex
 
-## shaileshkeskar/GoogleScholarSortCit
-https://github.com/shaileshkeskar/GoogleScholarSortCit
-
 ## michaelvdow/GoogleScholarScript
 https://github.com/michaelvdow/GoogleScholarScript
 
@@ -502,125 +908,338 @@ https://github.com/nivgold/SCholar
 ## mehdi-user/ScholarChart: ScholarChart: a charting userscript for Google Scholar
 https://github.com/mehdi-user/ScholarChart
 
-## nivgold/SCholar: Nice tool to get useful authors information from google scholar. wraps the scholarly package.
-https://github.com/nivgold/SCholar
-
 ## mehdi-user/ScholarChart: ScholarChart: a charting userscript for Google Scholar
 https://github.com/mehdi-user/ScholarChart
-
-## lucasmun09/Bibimbap
-https://github.com/lucasmun09/Bibimbap
 
 ## meander-why/konbini: crawler for google scholar
 https://github.com/meander-why/konbini
 
+### Analysis Notes
+
+Uses its own vanilla crawler code. No error handling, nothing fancy.
+
+
 ## ViGeng/gs_spider: Google Scholar Spider
 https://github.com/ViGeng/gs_spider
 
-## huanhuanBOY/scholarsearch
-https://github.com/huanhuanBOY/scholarsearch
+### Analysis Notes
 
-## aiB0ld/CS411-Database-System: Google Scholar Visualization
-https://github.com/aiB0ld/CS411-Database-System
+Uses Selenium driver based headless browser plus BeautifulSoup to fetch and crawl Scholar pages. Code is in https://github.com/ViGeng/gs_spider/blob/master/util/CitationGetter.py + https://github.com/ViGeng/gs_spider/blob/master/util/Browser.py -- nothing fancy beyond that.
+
+Google Translation of README hints that they're considering delays / timeouts, but I don't see anything important implemented of that TODO list.
+
 
 ## sraashis/scholary: Scrap google scholar
 https://github.com/sraashis/scholary
 
+### Analysis Notes
+
+Edit/Copy of scholarly. (Not forked)
+
+
 ## devteamepic/scholar-parser: Parser for google scholar
 https://github.com/devteamepic/scholar-parser
 
-## esther730/Google-Scholar-Web-Crawling
-https://github.com/esther730/Google-Scholar-Web-Crawling
+### Analysis Notes
+
+Edit/Copy of scholarly plus some extraction code, but nothing essential added to scholarly pops out in the initial inspection. (Not forked)
+
+
 
 ## charlesduan/scholar2tex: Convert Google Scholar cases to LaTeX
 https://github.com/charlesduan/scholar2tex
 
+### Analysis Notes
+
+Processes downloaded / already fetched Scholar HTML pages.
+
+From the README:
+
+#### scholar2tex
+
+Converts HTML for cases from Google Scholar into LaTeX. The resulting file is
+formatted based on casemacs.sty, which will generate half-letter-size sheets
+that can be compiled into a book.
+
+**scholar2tex.rb** - script that converts an HTML page of a Google Scholar case into
+a LaTeX document.
+
+
+
+
 ## Bearzilasaur/ScholarScraper: Repository for a Google Scholar scraper for literature reviews.
 https://github.com/Bearzilasaur/ScholarScraper
+
+### Analysis Notes
+
+While the requirements file lists `scholarly` as a dependency, it seems the code doesn't use it (yet), but does vanilla URL queries and feeds the HTML to BeautifulSoup for data extraction.
+
+Includes a Scopus scraper as well, but this one is vanilla as well and there's mention of it in TODO so I wonder if the quick code inspection discovered a not-yet-working Scopus scraper?
+
+
+
 
 ## dilumb/scholarlyPull: Pull author details and papers from Google Scholar
 https://github.com/dilumb/scholarlyPull
 
+### Analysis Notes
+
+From the README:
+
+Pull author details and papers from Google Scholar. **This tool is build on top of `scholarly`. Go through `scholarly-README.rst` for details on how to use scholarly for your need.**
+
+That .rst file seems to be a copy of the `scholarly` README so nothing special.
+
+
 ## toolbuddy/ScholarJS: A parser for Google Scholar, written in JavaScript.
 https://github.com/toolbuddy/ScholarJS
+
+### Analysis Notes
+
+From the README:
+
+I will always strive to add features that increase the power of this API, **but I will never add features that intentionally try to work around the query limits imposed by Google Scholar. Please don't ask me to add such features.**
+
 
 ## alegione/ScholarPlot: Shiny web tool for visualising and exporting google scholar data
 https://github.com/alegione/ScholarPlot
 
+### Analysis Notes
+
+Pretty useless as it's for listing your own publications only. Let's label this type of app 'egotrip' for I expect to run into more incantations of this sort of thing and I don't want to spend time writing up analysis notes for each.
+
+From the README:
+
+The input is your Google Scholar ID. You can find this in your Google Scholar web address. If you go to your scholar profile, your individual ID can be found as part of the web address.
+
+(Example URL)
+
+In the above example, my user ID is highlighted (i.e. rW9T5f4AAAAJ).
+
+The current primary output is a plot of papers per year and citations per year, a secondary output is a table of the publications of the author to date, ordered by 'Paper Score': A custom metric that aims to take into account impact factor of the journal and the number of citations per year of the manuscript itself. This can be helpful for applications that ask for you to provide your 'top 10 papers'.
+
+
+
 ## tihbe/google_scholar_trend: A simple scientific paper based trend viewer using the number of results in Google Scholar.
 https://github.com/tihbe/google_scholar_trend
+
+### Analysis Notes
+
+Vanilla URL querying.
+
 
 ## brunojus/google-scholar-crawler
 https://github.com/brunojus/google-scholar-crawler
 
+### Analysis Notes
+
+Selenium driver based Scholar URL querying.
+
+
 ## siwalan/google-scholar-citation-scrapper: Simple scrapper for Google Scholar Data
 https://github.com/siwalan/google-scholar-citation-scrapper
+
+### Analysis Notes
+
+egotrip style app. Vanilla code.
+
+From the README:
+
+This is a simple scrapper for Google Scholar Data, you can input a Google Scholar ID and it will return all the publications related to the said ID and citation data for the last 3 years. You can easily modify it to get data from only the last year, last five years, or all years the publication has been cited.
+
+The program works by inputing a list of Google Scholar ID on the file called dosen.csv (you can change the file name, to add/remove scholars please just add or remove data in the row) and running all the ipynb cell. The ipynb will create a .xlsx file as the result containing all the publication from the said Google Scholar ID and the citations data for the last 3 years.
+
 
 ## lucgerrits/google-scholar-scraper: Basic Google Scholar scraper written in python.
 https://github.com/lucgerrits/google-scholar-scraper
 
+### Analysis Notes
+
+Selenium driver based Scholar URL querying.
+
+
 ## madhawadias/google-scholar-profile-scraper: Scrape profiles of google scholar authors.
 https://github.com/madhawadias/google-scholar-profile-scraper
+
+### Analysis Notes
+
+Uses [`scrapy.http` package](https://github.com/scrapy/scrapy) for the Google Scholar scraping.
+
 
 ## gerryreilly/google_scholar_scrape: Sample code for scraping list of publication for a group of authors and saving in a csv file
 https://github.com/gerryreilly/google_scholar_scrape
 
+### Analysis Notes
+
+Uses `scholarly`.
+
 ## SakuraX99/Crawler-For-Google-Scholar
 https://github.com/SakuraX99/Crawler-For-Google-Scholar
+
+
+### Analysis Notes
+
+Uses `scholarly` and [`fp` (FreeProxy)](https://pypi.org/project/free-proxy/) to get the stuff. Clearly is a scratch project but might be handy to have a quick peek at it.
+
 
 ## WebGuruBoy/Python-google-scholar-scraping
 https://github.com/WebGuruBoy/Python-google-scholar-scraping
 
+### Analysis Notes
+
+- uses Selenium driver based headless browser for Scholar URL querying
+- implements 'adaptive request rate' in https://github.com/WebGuruBoy/Python-google-scholar-scraping/blob/master/new_scholar.py#L69
+- From their https://github.com/WebGuruBoy/Python-google-scholar-scraping/blob/master/scholar.py ChangeLog:
+
+  2.11:  The Scholar site seems to have become more picky about the
+  number of results requested. The default of 20 in scholar.py
+  could cause HTTP 503 responses. scholar.py now doesn't request
+  a maximum unless you provide it at the comment line. (For the
+  time being, you still cannot request more than 20 results.)
+
+Looks like (very) recent work done based on `scholar` package copy plus extras. Deserves a further peek beyond my initial scan.
+
+
+
 ## amychan331/google-scholar-scraper: Scraps scientific article data from Google Scholar and either create or update a node.
 https://github.com/amychan331/google-scholar-scraper
+
+### Analysis Notes
+
+`curl` + PHP based vanilla scraper.
 
 ## zhivou/google-scholar-helper: A simple gem to show information for 1 user from google scholar page
 https://github.com/zhivou/google-scholar-helper
 
+### Analysis Notes
+
+Ruby language tool, which uses the [`faraday` module](https://github.com/lostisland/faraday) for Scholar access. From a very quick scan of that one (plus this codebase) the preliminary conclusion is: "yet another vanilla Scholar scraper".
+
+
 ## liusida/Google-Scholar-Trends: Plot the trends of terminologies in Google Scholar over 20 years
 https://github.com/liusida/Google-Scholar-Trends
 
-## erkamozturk/Python-Google-Scholar: Publications of faculty members at a university are usually published on university web pages. As an example, publications of SEHIR’s CS faculty members are published at their profile pages (e.g., see Ahmet Bulut’s publications at http://cs.sehir.edu.tr/en/profile/6/Ahmet-Bulut/). However, searching for particular publications is not usually possible on such web pages. In this project, you are going to develop a publication search engine (similar to Google Scholar) that will allow searching for publications of CS faculty members with some optional filters. Details regarding the requirements are as follows:
+### Analysis Notes
+
+- uses a full set of faked headers (FireFox) to access the Scholar site: see https://github.com/liusida/Google-Scholar-Trends/blob/master/Google-Scholar-Trends.ipynb near the top.
+
+- warns about Scholar: 2 secondd dealy between requests is advised in the README.
+
+
+## erkamozturk/Python-Google-Scholar
+
+### README
+
+Publications of faculty members at a university are usually published on university web pages. As an example, publications of SEHIR’s CS faculty members are published at their profile pages (e.g., see Ahmet Bulut’s publications at http://cs.sehir.edu.tr/en/profile/6/Ahmet-Bulut/). However, searching for particular publications is not usually possible on such web pages. 
+
+In this project, you are going to develop a publication search engine (similar to Google Scholar) that will allow searching for publications of CS faculty members with some optional filters. Details regarding the requirements are as follows:
 https://github.com/erkamozturk/Python-Google-Scholar
+
+### Analysis Notes
+
+Don't see nothing fancy. Vanilla crawl?
+
 
 ## mibot/Google-Scholar-Crawler
 https://github.com/mibot/Google-Scholar-Crawler
 
+### Analysis Notes
+
+Has pretty basic Scholar scraper. Plus a CiteSeerX scraper.
+
+Most work in here is about language detection, translation? (there's an OAuth2-based google translate service being used?) and keyword analysis.
+
+
+
 ## chponte/google-scholar-search-engine
 https://github.com/chponte/google-scholar-search-engine
 
-## msstoci/google-scholar-scraper
-https://github.com/msstoci/google-scholar-scraper
+### Analysis Notes
+
+Extremely basic.
+
+From the README:
+
+This *extension* adds a search engine to Firefox.
+
 
 ## DaiJunyan/RutgersGoogleScholar
 https://github.com/DaiJunyan/RutgersGoogleScholar
 
+### Analysis Notes
+
+Looks like a rough copy & edit work. Uses `scrapy` and the Selenium driver approach to access Scholar.
+
+
 ## JackXuRepo/Google-Scholar-Data-Scrapper: Developed a program, which reads and analyzes the contents of the Google Scholar Page of an author
 https://github.com/JackXuRepo/Google-Scholar-Data-Scrapper
+
+### Analysis Notes
+
+Useless. Parses locally stored copies of HTML pages obtained from Google. Java.
+
 
 ## JohnZhang-source/download_google_scholar_alert: download papers in google scholar alert
 https://github.com/JohnZhang-source/download_google_scholar_alert
 
-## qiisziilbash/Google-Scholar-Crawler: This is a bot that gets the name of article and returns information about that article in google scholar
-https://github.com/qiisziilbash/Google-Scholar-Crawler
+### Analysis Notes
 
-## yokotatsuya/ExtractGoogleScholarCitations: The matlab code to extract the list of publications of a personal author from Google Scholar Citations from only url (user id). Text Analytics toolbox is necessary.
+Uses https://f.glgoo.top/scholar which (in my test) redirects to the Microsoft Bing search engine at the time of this writing (August 2020).
+
+Uses User-Agent header and cookies. See https://github.com/JohnZhang-source/download_google_scholar_alert/blob/master/download%20paper%20in%20google%20scholar%20alert.py#L117
+
+
+## yokotatsuya/ExtractGoogleScholarCitations
+
+The matlab code to extract the list of publications of a personal author from Google Scholar Citations from only url (user id). Text Analytics toolbox is necessary.
 https://github.com/yokotatsuya/ExtractGoogleScholarCitations
 
-## paulazoo/google-scholar-h-index: Some authors don't have a Google Scholar stats page. This calculates an author's h index based on citation and publication data from Google Scholar.
+### Analysis Notes
+
+Vanilla access.
+
+
+## paulazoo/google-scholar-h-index
+
+Some authors don't have a Google Scholar stats page. This calculates an author's h index based on citation and publication data from Google Scholar.
 https://github.com/paulazoo/google-scholar-h-index
+
+### Analysis Notes
+
+Selenium driver based.
 
 ## BAEM1N/google-scholar-crawler: with HYU or without HYU
 https://github.com/BAEM1N/google-scholar-crawler
 
+### Analysis Notes
+
+With or without Selenium driver? Nothing fancy or new, anyway.
+
+
 ## Ngogabill/About-Google-Scholar
 https://github.com/Ngogabill/About-Google-Scholar
+
+### Analysis Notes
+
+From the README:
+
+This project consists of building a webpage similar to the original webpage of About google scholar . heres where u can find the orginal site.
+
+
 
 ## lorenzibex/Scrape-Google-Scholar: In this short python script you will see, how to extract/scrape these two parameters in Python.
 https://github.com/lorenzibex/Scrape-Google-Scholar
 
+### Analysis Notes
+
+Simple `scholarly` usage demo.
+
 ## VikramTiwari/google-scholarr-metadata-extraction
 https://github.com/VikramTiwari/google-scholarr-metadata-extraction
+
+### Analysis Notes
+
+Vanilla scraper, which grabs the BibTeX record from Scholar. **JavaScript code**. https://github.com/VikramTiwari/google-scholarr-metadata-extraction/blob/master/index.js
 
 ## utkarshsingh341/web-scraping-google-scholar: Web Scraping and Data Aquisition from Google Scholar
 https://github.com/utkarshsingh341/web-scraping-google-scholar
@@ -628,32 +1247,140 @@ https://github.com/utkarshsingh341/web-scraping-google-scholar
 ## pranjaljo/Google-Scholar-Network-Analysis
 https://github.com/pranjaljo/Google-Scholar-Network-Analysis
 
+### Analysis Notes
+
+Vanilla scraper
+
+
 ## istex/istex-google-scholar: A module for generating ISTEX holding description for Google Scholar Library Links
 https://github.com/istex/istex-google-scholar
+
+### Analysis Notes
+
+Very different purpose. Is an XSLT processor at its core.
+
+From the README:
+
+
+#### Description
+
+Google Scholar allows the integration of OpenURL links to full text resources contextualized with the electronic subscriptions associated to a given affiliation. 
+
+The integration of these links to ISTEX resources follows these steps:
+
+1) __Description of the ISTEX holding__ thanks to Kbart files available with the BACON services (provided by ABES) in JSON and XML format. For example:  
+
+* to get the complete list of packages available in BACON in json: 
+
+https://bacon.abes.fr/list.json
+
+* to get the description of a particular package in XML format : 
+
+https://bacon.abes.fr/package2kbart/NPG_FRANCE_ISTEXJOURNALS.xml 
+
+2) __Converting the ISTEX holding description__ from the Kbart XML format into the Google Scholar XML format defined at the following link : 
+https://scholar.google.com/intl/en/scholar/institutional_holdings.xml 
+
+This is done by an XSLT style sheet applied to the Kbart files obtained via BACON for each ISTEX package. 
+
+3) __Creation of the Google Scholar form__ for requesting the activation of the OpenURL links, also in XML :
+https://scholar.google.com/intl/en/scholar/institutional_links.xml 
+
+This form will refer to the XML documents created at the step 2.
+
+The files ```institutional_links.xml``` and ```institutional_holdings.xml``` for ISTEX can be validated by the dedicated DTD provided by Google. 
+
+4) __Submission of the form__. The Google Scholar XML documents describing the holding in XML format are exposed on a web server. The URL of the main filled form file (```institutional_links.xml```) is sent by email to Google Scholar via their  address for support:
+https://support.google.com/scholar/contact/general 
+
+Google Scholar indicates that the activation (and update) takes one to two weeks. 
+
+5) __Activation__ : 
+
+After the setting by the user of his ISTEX affiliation in the Google Scholar settings, the links to the ISTEX full texts will appear on the right side of the search results, for instance :
+
+![Example of links to full texts contextualized by the affiliation on Google Scholar](doc/gs.png)
+
+6) __Update__ : the ISTEX holding description files can be regenerated by following the previous steps. It is only needed to replace the XML files exposed on internet and the Google Scholar crawler will take into account the new versions.  
+
+7) Here are some additional possible complementary elements doable by the [ISTEX Browser Addon](https://github.com/istex/istex-browser-addon) :
+
+* Automatic setting of the _library links_ affiliation in Google Scholar
+
+* Standard "button" for accessing the ISTEX full texts (actually it's not really a button, simply decorated text easier to catch for a user and faster to render than bitmap) instead of the default Google Scholar text link, in order to have a consistent visual indication independently from the visited web site. 
+
+#### Build and run
+
+The goal of the present _node.js_ module is to automate all the previously described steps in one single command line. 
+For updating the Google Scholar library links and the different settings, simply re-execute the module. 
+
+
 
 ## Coldflyer/Google-Scholar-Breadcrumbs-Builder
 https://github.com/Coldflyer/Google-Scholar-Breadcrumbs-Builder
 
+### Analysis Notes
+
+Vanilla scraper. https://github.com/Coldflyer/Google-Scholar-Breadcrumbs-Builder/blob/master/ScrapingGS.py#L15
+
 ## wl8837/Google-Scholar-API
 https://github.com/wl8837/Google-Scholar-API
 
+### Analysis Notes
+
+Uses Selenium driver approach.
+
+TODO from the README:
+
+Proxy and Tor: Not fullfilled. Google can identify robots even if I use proxy and Tor.
+
+
 ## vignif/crawler-google-scholar: Download automatically statistics and pictures from google scholar's researchers.
 https://github.com/vignif/crawler-google-scholar
+
+### Analysis Notes
+
+Uses vanilla approach, but mentions `scholarly` as a potential way forward. Might be interesting anyway as this one collects author data from Scholar; pretty neat code.
+
+From the README:
+
+this repo presents an automatic way of downloading statistics of a set of researchers or professors from the google scholar.
+giving as input a list of [name surname] of researchers it retrieves data from google scholar such as {# of publications, h-index, i10-index and others}
+
+the project scholarly (https://pypi.org/project/scholarly/) probably allows me to do the same. I wanted
+to find out a bit more regarding http requests and its implications.
+
+get_stats_serial.py is waiting until each task(load webpage of researcher X) is completed, and only after that proceeds with the new author (Y).
+this simple approach comes with the expense of time complexity O(N), meaning as long as the amount of researcher is 'little' it won't require too much time.
+
+This problem has a bottleneck in the speed which is the network, crawling the web is time expensive and the amount of request accepted by servers is limited and has to be respected.
+
+A method to avoid the system staying idle while the web server responds is to allow multple tasks to run simultaneously.
+
+get_stats_coroutine.py wants to exploit this strategy.
+
+A proper timing sleep function must be setted inside each file in order to avoid rejection by the server.
+If we are requesting informations too fast, the server will answer always with an [Error 429 Too Many Requests].
+
+The serial script has been tested to query at a speed of 0,7 researcher per second.
+The coroutine script has been tested to query at a speed of 0.05 researcher per second.
+
+
 
 ## sutlxwhx/scholar-parser: This is a PHP example of how you can use Phantom.js to extract links from the first page of Google Scholar SERP in one page web application.
 https://github.com/sutlxwhx/scholar-parser
 
+### Analysis Notes
+
+- Uses PhantomJS as headless browser.
+- Uses randomizing User-Agent strings to thwart Scholar police: "Randomize current user-agent for each request to avoid Google rate limiting" https://github.com/sutlxwhx/scholar-parser/blob/master/app/ua.php
+- Has RECAPTCHA processing: "Receive recaptcha response for a current user. When I created this project I was not aware that there is official recaptcha PHP client library https://github.com/google/recaptcha" https://github.com/sutlxwhx/scholar-parser/blob/master/app/functions.php
+- Vanilla URL querying
+- PHP
+
+
 ## xzk-seu/SpiderForGoogleScholar: 鱼塘
 https://github.com/xzk-seu/SpiderForGoogleScholar
-
-## wl8837/Google-Scholar-API
-https://github.com/wl8837/Google-Scholar-API
-
-## vignif/crawler-google-scholar: Download automatically statistics and pictures from google scholar's researchers.
-https://github.com/vignif/crawler-google-scholar
-
-## Coldflyer/Google-Scholar-Breadcrumbs-Builder
-https://github.com/Coldflyer/Google-Scholar-Breadcrumbs-Builder
 
 ## madhawadias/google_scholar_scrapper: A scrapping tool to scrape article attributes from scholar.google.com
 https://github.com/madhawadias/google_scholar_scrapper

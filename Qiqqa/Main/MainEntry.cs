@@ -300,49 +300,62 @@ namespace Qiqqa.Main
 
         private static void SafeThreadPool_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            RemarkOnException(e.ExceptionObject as Exception);
+            RemarkOnException(e.ExceptionObject as Exception, false);
         }
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            RemarkOnException(e.ExceptionObject as Exception);
+            RemarkOnException(e.ExceptionObject as Exception, true);
         }
 
         private static void application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            RemarkOnException(e.Exception);
+            RemarkOnException(e.Exception, true);
             e.Handled = true;
         }
 
-        private static void RemarkOnException(Exception ex)
+        private static void RemarkOnException(Exception ex, bool potentially_fatal)
         {
             Logging.Error(ex, "RemarkOnException.....");
             if (null != Application.Current)
             {
                 WPFDoEvents.InvokeInUIThread(() =>
                 {
-                    RemarkOnException_GUI_THREAD(ex);
+                    RemarkOnException_GUI_THREAD(ex, potentially_fatal);
                 }
                 );
             }
         }
 
-        private static void RemarkOnException_GUI_THREAD(Exception ex)
+        private static void RemarkOnException_GUI_THREAD(Exception ex, bool potentially_fatal)
         {
             try
             {
                 Logging.Error(ex, "RemarkOnException_GUI_THREAD...");
                 UnhandledExceptionMessageBox.DisplayException(ex);
+                if (ex.Message.Contains("A generic error occurred in GDI+") || ex.Message.Contains("ErrorCode: 0x80004005"))
+                {
+                    potentially_fatal = false;
+                }
             }
             catch (Exception ex2)
             {
                 Logging.Error(ex2, "Exception thrown in top level error handler!!");
             }
+
+            if (potentially_fatal)
+            {
+                // signal the application to shutdown as an unhandled exception is a grave issue and nothing will be guaranteed afterwards.
+                Utilities.Shutdownable.ShutdownableManager.Instance.Shutdown();
+
+                // and terminate the Windows Message Loop if it hasn't already (in my tests, Qiqqa was stuck in there without a window to receive messages from at this point...)
+                MainWindowServiceDispatcher.Instance.ShutdownQiqqa(true);
+            }
         }
 
 #if CEFSHARP
 
-#region CEFsharp setup helpers
+        #region CEFsharp setup helpers
 
         // CEFsharp setup code as per https://github.com/cefsharp/CefSharp/issues/1714:
 
@@ -383,7 +396,7 @@ namespace Qiqqa.Main
             return null;
         }
 
-#endregion CEFsharp setup helpers
+        #endregion CEFsharp setup helpers
 
 #endif
 

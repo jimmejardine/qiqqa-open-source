@@ -48,6 +48,8 @@ namespace Qiqqa.Documents.PDF.PDFControls
         {
             InitializeComponent();
 
+            GoogleScholarSideBar.Visibility = Qiqqa.Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.GoogleScholar_DoExtraBackgroundQueries ? Visibility.Visible : Visibility.Collapsed;
+
             pdf_renderer_control = new PDFRendererControl(pdf_document, true);
             pdf_renderer_control.OperationModeChanged += pdf_renderer_control_OperationModeChanged;
             pdf_renderer_control.ZoomTypeChanged += pdf_renderer_control_ZoomTypeChanged;

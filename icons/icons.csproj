@@ -27,7 +27,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>82.0.7357.40407</ApplicationVersion>
+    <ApplicationVersion>82.0.7555.31312</ApplicationVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -394,6 +394,7 @@
     <Resource Include="Application\Explore.png" />
     <Resource Include="Application\DualTabbed_CloseGlow.png" />
     <Resource Include="Application\Manual.png" />
+    <Resource Include="Application\Champion.png" />
     <Resource Include="Application\lexlens_back.png" />
     <Resource Include="Application\lexlens_dock.png" />
     <Resource Include="Application\lexlens_eye.png" />

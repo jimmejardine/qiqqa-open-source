@@ -304,7 +304,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             // Notify the new pages that are in view
             foreach (PDFRendererPageControl page in pages_in_view)
             {
-                //Logging.Info("Page {0} is in view!!!!!!!!!!!!!!", page.PageNumber);
+                //Logging.Debug("Page {0} is in view!!!!!!!!!!!!!!", page.PageNumber);
                 page.SetPageInView();
             }
 
