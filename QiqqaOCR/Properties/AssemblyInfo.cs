@@ -14,8 +14,8 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("82.0.7555.31312")]
-[assembly: AssemblyFileVersion("82.0.7555.31312")]
+[assembly: AssemblyVersion("82.0.7568.29227")]
+[assembly: AssemblyFileVersion("82.0.7568.29227")]
 [assembly: AssemblyCompany("Quantisle")]
 [assembly: AssemblyProduct("QiqqaOCR")]
 [assembly: AssemblyCopyright("Copyright © Quantisle 2010-2020. All rights reserved.")]
