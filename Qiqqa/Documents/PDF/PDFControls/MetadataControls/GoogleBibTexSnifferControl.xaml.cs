@@ -553,7 +553,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                 // Now follow the **slow** checks: these are time-restrained in that we have set an "acceptable upper time limit"
                 // for them to take, after which we let *everyone* through: UX-wise performance has to win over accuracy of
                 // the filter result.
-                // 
+                //
                 // When this timeout happens, we flag the flags RED to signal their *inaccuracy*.
                 if (1 == slower_checks_allowed)
                 {
@@ -696,7 +696,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                     // Make sure the first page is OCRed...
                     pdf_document.PDFRenderer.GetOCRText(1);
 
-                    // Set up the new renderer control                
+                    // Set up the new renderer control
                     pdf_renderer_control = new PDFRendererControl(pdf_document, false, PDFRendererControl.ZoomType.Zoom1Up);
                     pdf_renderer_control.ReconsiderOperationMode(PDFRendererControl.OperationMode.TextSentenceSelect);
                     pdf_renderer_control.TextSelected += pdf_renderer_control_TextSelected;
@@ -771,8 +771,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             // something like this:
             //
             // <html><head><meta content="width=device-width; height=device-height;" name="viewport"></head>
-            // <body marginheight="0" marginwidth="0"><embed type="application/pdf" 
-            //    src ="https://escholarship.org/content/qt0cs6v2w7/qt0cs6v2w7.pdf" 
+            // <body marginheight="0" marginwidth="0"><embed type="application/pdf"
+            //    src ="https://escholarship.org/content/qt0cs6v2w7/qt0cs6v2w7.pdf"
             //    name ="plugin" height="100%" width="100%"></body></html>
             //
             // !Yay!          /sarcasm!/
@@ -786,7 +786,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                 //    https://digitalcommons.unl.edu/cgi/viewcontent.cgi?article=1130&context=cseconfwork
                 //
                 // hence we don't care about the exact extension '.pdf' but merely if it MIGHT be a PDF....
-                if (true) 			// if (uri.Contains(".pdf"))
+                if (uri != "about:blank") 			// if (uri.Contains(".pdf"))
                 {
                     // fetch the PDF!
                     ImportingIntoLibrary.AddNewDocumentToLibraryFromInternet_ASYNCHRONOUS(CurrentLibrary, uri);
@@ -852,7 +852,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                     }
                 }
 
-                // Otherwise let's try parse the page cos it might be a google scholar page 
+                // Otherwise let's try parse the page cos it might be a google scholar page
                 // and if so we are going to want to try to get the first link to BibTeX
                 if (ConfigurationManager.Instance.ConfigurationRecord.Metadata_UseBibTeXSnifferWizard)
                 {
