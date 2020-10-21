@@ -21,7 +21,7 @@ namespace Utilities.GUI
             double original_height = objectToPrint.ActualHeight;
 
             PrintDialog printDialog = new PrintDialog();
-            if ((bool)printDialog.ShowDialog().GetValueOrDefault())
+            if (true == printDialog.ShowDialog())
             {
                 PrintCapabilities capabilities = printDialog.PrintQueue.GetPrintCapabilities(printDialog.PrintTicket);
 
@@ -82,7 +82,7 @@ namespace Utilities.GUI
             double original_height = objectToPrint.ActualHeight;
 
             PrintDialog printDialog = new PrintDialog();
-            if ((bool)printDialog.ShowDialog().GetValueOrDefault())
+            if (true == printDialog.ShowDialog())
             {
                 PrintCapabilities capabilities = printDialog.PrintQueue.GetPrintCapabilities(printDialog.PrintTicket);
 
