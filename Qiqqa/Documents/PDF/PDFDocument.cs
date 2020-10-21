@@ -1172,14 +1172,14 @@ namespace Qiqqa.Documents.PDF
             return pdf_document;
         }
 
-        public void CopyMetaData(PDFDocument pdf_document_template, bool copy_fingerprint = true)
+        public void CopyMetaData(PDFDocument pdf_document_template, bool copy_fingerprint = true, bool copy_filetype = true)
         {
             // prevent deadlock due to possible incorrect use of this API:
             if (pdf_document_template != this)
             {
                 lock (access_lock)
                 {
-                    doc.CopyMetaData(pdf_document_template.doc, copy_fingerprint);
+                    doc.CopyMetaData(pdf_document_template.doc, copy_fingerprint, copy_filetype);
                 }
             }
         }
@@ -1241,12 +1241,7 @@ namespace Qiqqa.Documents.PDF
 
         internal PDFDocument AssociatePDFWithVanillaReference(string pdf_filename)
         {
-            PDFDocument new_pdf_document;
-
-            lock (access_lock)
-            {
-                new_pdf_document = doc.AssociatePDFWithVanillaReference_Part1(pdf_filename);
-            }
+            PDFDocument new_pdf_document = doc.AssociatePDFWithVanillaReference_Part1(pdf_filename);
 
             // Prevent nasty things when the API is used in unintended ways, where the current document already happens to have that file
             // associated with it:
@@ -1263,7 +1258,7 @@ namespace Qiqqa.Documents.PDF
                     new_pdf_document.Fingerprint = fingerprint;
                     new_pdf_document.FileType = Path.GetExtension(pdf_filename).TrimStart('.');
 #else
-                    new_pdf_document.CopyMetaData(this, copy_fingerprint: false);
+                    new_pdf_document.CopyMetaData(this, copy_fingerprint: false, copy_filetype: false);
 #endif
                     new_pdf_document.QueueToStorage();
 
