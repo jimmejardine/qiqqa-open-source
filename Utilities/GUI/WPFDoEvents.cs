@@ -90,7 +90,7 @@ namespace Utilities.GUI
             {
                 // As we want the caller to WAIT until the UI has processed everything in the Windows Message Pipe,
                 // i.e. kept the UI responsive, we will LOCK around this block too: the first (background) thread
-                // to enter will wait for the UI/Dispatcher to relinquish control, while subseqeunt callers from
+                // to enter will wait for the UI/Dispatcher to relinquish control, while subsequent callers from
                 // other background threads will wait on the lock to resolve...
                 //lock (DoEvents_lock)
                 {

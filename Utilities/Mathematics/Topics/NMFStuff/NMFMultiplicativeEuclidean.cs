@@ -6,7 +6,7 @@ namespace Utilities.Mathematics.Topics.NMFStuff
 {
     /*
      * NMF implementation of the multiplicative update algorithm for the Euclidean measure as stated in:
-     * 
+     *
             @article{lee2001algorithms
             ,	author	= {Lee, D.D. and Seung, H.S.}
             ,	title	= {Algorithms for non-negative matrix factorization}
@@ -30,7 +30,7 @@ namespace Utilities.Mathematics.Topics.NMFStuff
             // Random initialisation of W and H
             Tools.InitialiseRandomMatrices(K, M, N, W, H);
 
-            // And now we iterate            
+            // And now we iterate
             int iteration = 0;
             while (true)
             {
@@ -64,7 +64,7 @@ namespace Utilities.Mathematics.Topics.NMFStuff
                     break;
                 }
 
-                // Calculate the new P                
+                // Calculate the new P
                 {
                     int num_threads_running = 0;
                     for (int thread_id = 0; thread_id < NUM_THREADS; ++thread_id)
@@ -196,16 +196,10 @@ namespace Utilities.Mathematics.Topics.NMFStuff
                     {
                         W[m, k] = W[m, k] * numerator / denominator;
                     }
-                    else
-                    {
-                    }
-
-
                 }
             }
 
             Interlocked.Decrement(ref num_threads_running);
         }
-
     }
 }

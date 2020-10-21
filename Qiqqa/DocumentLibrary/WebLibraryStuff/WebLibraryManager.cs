@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Threading;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.BundleLibrary;
 using Qiqqa.DocumentLibrary.IntranetLibraryStuff;
@@ -274,7 +275,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     {
                         return;
                     }
-                    System.Threading.Thread.Sleep(500);
+                    Thread.Sleep(500);
                 }
 
                 QiqqaManualTools.AddManualsToLibrary(guest_web_library_detail.library);
