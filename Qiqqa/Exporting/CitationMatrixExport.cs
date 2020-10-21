@@ -75,7 +75,7 @@ namespace Qiqqa.Exporting
                 save_file_dialog.Filter = "Text files (*.txt)|*.zip|All files (*.*)|*.*";
                 save_file_dialog.FileName = "Qiqqa Citation Matrix.txt";
 
-                if (false == save_file_dialog.ShowDialog())
+                if (true != save_file_dialog.ShowDialog())
                 {
                     Logging.Info("User cancelled export of citation matrix.");
                     StatusManager.Instance.UpdateStatus("CitationMatrix", "Cancelled export of Citation Maxtrix");
