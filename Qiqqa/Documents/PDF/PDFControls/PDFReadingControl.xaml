@@ -145,7 +145,7 @@
                         <local_gui:AugmentedInfoBarItemControl Header="Duplicates" ToolTip="This area shows any other documents in your library that might be duplicates of this document.">
                             <local_duplicates:DuplicateDetectionControl x:Name="DuplicateDetectionControl" />
                         </local_gui:AugmentedInfoBarItemControl>
-                        <local_gui:AugmentedInfoBarItemControl Collapsed="True" Header="Google Scholar">
+                        <local_gui:AugmentedInfoBarItemControl Collapsed="True" Header="Google Scholar" x:Name="GoogleScholarSideBar">
                             <local_similardocs:SimilarGoogleDocumentsRendererControl x:Name="SimilarDocsControl"/>
                         </local_gui:AugmentedInfoBarItemControl>
                         <local_gui:AugmentedInfoBarItemControl Collapsed="True" Header="Online Databases" ToolTip="Find this document in various online databases.">

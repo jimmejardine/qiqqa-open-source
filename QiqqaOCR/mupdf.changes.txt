@@ -1,0 +1,108 @@
+So the files I have changed in mupdf:
+
+------------------------------------------------------------
+pdfdraw.c - added page width and height and rotation to the xml output
+------------------------------------------------------------
+
+	if (showtext)
+	{
+		fz_textspan *text = fz_newtextspan();
+		dev = fz_newtextdevice(text);
+		fz_executedisplaylist(list, dev, fz_identity);
+		fz_freedevice(dev);
+		// xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+		printf("[Page %d X0 %f Y0 %f X1 %f Y1 %f R %d]\n", pagenum, page->mediabox.x0, page->mediabox.y0, page->mediabox.x1, page->mediabox.y1, page->rotate);
+		// xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+		if (showtext > 1)
+			fz_debugtextspanxml(text);
+		else
+			fz_debugtextspan(text);
+		printf("\n");
+		fz_freetextspan(text);
+	}
+
+------------------------------------------------------------
+res_pixmap.c - added the ability to write to standard out
+------------------------------------------------------------
+
+	// xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+	if (!strstr(filename, "stdout"))
+	{
+		fp = fopen(filename, "wb");
+		if (!fp)
+		{
+			fz_free(udata);
+			fz_free(cdata);
+			return fz_throw("cannot open file '%s': %s", filename, strerror(errno));
+		}
+	}
+	else
+	{
+		fp = stdout;
+	}
+	// xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+...
+
+	// xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+	// Don't close stdout
+	if (stdout != fp)
+	{
+		fclose(fp);
+	}
+	// xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+
+------------------------------------------------------------
+cffgload.c
+------------------------------------------------------------
+
+This fixes the "missing letters problem"...
+
+Remove the ip + 1 + ... in the following:
+
+          /* In a valid charstring there must be at least one byte */
+          /* after `hintmask' or `cntrmask' (e.g., for a `return'  */
+          /* instruction).  Additionally, there must be space for  */
+          /* `num_hints' bits.                                     */
+
+          if ( ( ip + ( ( decoder->num_hints + 7 ) >> 3 ) ) >= limit )
+            goto Syntax_Error;
+
+
+------------------------------------------------------------
+pdf_build.c
+------------------------------------------------------------
+
+For some patterns, this code used to recurse forever, causing a 1.3Gb process before (sometimes) crashing.
+I limit the number of "Repeats" of the pattern.
+I can see no detriment to the page on rendering!!
+Process still grown to 100Mb but I think that is a reasonable tradeoff in case my limiting the iteration
+is breaking some other real functionality...
+
+	for (y = y0; y < y1; y++)
+	{
+		for (x = x0; x < x1; x++)
+		{
+			gstate->ctm = fz_concat(fz_translate(x * pat->xstep, y * pat->ystep), ptm);
+			csi->topctm = gstate->ctm;
+			error = pdf_runcsibuffer(csi, pat->resources, pat->contents); // ********** the leak is here
+			while (oldtop < csi->gtop)
+				pdf_grestore(csi);
+			if (error)
+			{
+				fz_catch(error, "cannot render pattern tile");
+				goto cleanup;
+			}
+
+			// xxxxxxxxxxxxxx
+			++pattern_repeat_count;
+			if (pattern_repeat_count > 10000)
+			{
+				goto cleanup;
+			}
+			// xxxxxxxxxxxxxx
+		}
+	}
+
+------------------------------------------------------------

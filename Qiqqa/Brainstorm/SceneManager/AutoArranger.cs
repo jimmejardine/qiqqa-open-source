@@ -58,7 +58,7 @@ namespace Qiqqa.Brainstorm.SceneManager
             Daemon daemon = (Daemon)arg;
             Logging.Debug特("AutoArranger Thread {0} has started", daemon.ManagedThreadId);
 
-            while (true)
+            while (!Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
             {
                 //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (thread_lock)
@@ -101,7 +101,7 @@ namespace Qiqqa.Brainstorm.SceneManager
             // Also note that Utilities codebase had ATTRACTION *before* REPULSION.
             // Haven't looked at the precise code, but wouldn't be surprised if this is
             // very similar to the D3 force anneal code (D3.js) anyway. There aren't that
-            // many ways to stabilize a (large) graph in 2D. 
+            // many ways to stabilize a (large) graph in 2D.
             //
             // See also https://github.com/jimmejardine/qiqqa-open-source/issues/26
 
@@ -128,7 +128,7 @@ namespace Qiqqa.Brainstorm.SceneManager
                         vector.Recalculate(nodeI, nodeJ);
 
                         // Utilities code had:
-                        // 
+                        //
                         // See also https://github.com/jimmejardine/qiqqa-open-source/issues/26
 #if UNUSED_CODE
                         double strength = SPEED * Math.Min(2, (vector.minimum_extent / (vector.box_distance + 1)));
@@ -140,7 +140,7 @@ namespace Qiqqa.Brainstorm.SceneManager
                         if (strength > 10)
                         {
                         }
-                        // end of Qiqqa alt chunk; looks to me like someone has been fiddling around here... 
+                        // end of Qiqqa alt chunk; looks to me like someone has been fiddling around here...
                         // (including the logline below, which was also not in Utilities codebase...
                         DoPushPull(nodeI, nodeJ, vector, strength);
                         //Logging.Info("REPULSE STRENGTH={0}, box.distance={1}", strength, vector.box_distance);

@@ -49,6 +49,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.SimilarGoogleDocumentsStuff
                 try
                 {
                     string html = gssp.abstract_html;
+                    if (html == null) html = "";
                     html = html.Replace("<br>", " ");
                     string xaml = HtmlToXamlConverter.ConvertHtmlToXaml(html, true);
                     FlowDocument fd = (FlowDocument)XamlReader.Parse(xaml);
