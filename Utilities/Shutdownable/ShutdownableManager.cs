@@ -50,10 +50,6 @@ namespace Utilities.Shutdownable
                         || Application.Current.Dispatcher.HasShutdownStarted
                         || Application.Current.Dispatcher.HasShutdownFinished);
 
-                    if (!is_being_shut_down && app_shuts_down)
-                    {
-                        app_shuts_down = true;
-                    }
                     return is_being_shut_down || app_shuts_down;
                 }
             }
