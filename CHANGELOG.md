@@ -1,4 +1,56 @@
 
+# v82pre release: v82.0.7568-29227
+
+> ## Note
+>
+> This release is **binary compatible with v80 and v79**: any library created using this version MUST be readable and usable by v80 and v79 software releases.
+
+
+
+
+
+
+2020-10-21
+----------
+
+
+* (b74f18ff) prevent superfluous fetch of illegal URI 'about:blank' when the Sniffer dialog window is opened.
+
+* (612bc454)..(d127ba28) fixed https://github.com/jimmejardine/qiqqa-open-source/issues/253 : this uncovered a deadlock situation due to pdf_documents_lock and access_lock interplay via the Associate...() call going directly to the PDFDocument (hence access_lock) while one of the background threads was fetching a list of documents to inspect via Library (hence pdf_documents_lock -> access_lock for each doc): the deadlock occurred because the Associate..() call internally would *add* the new PDF into the Library (hence: pdf_ddocuments_lock inside an access_lock zone, hence DEADLOCK with the bg thread!)
+
+  Also note that this issue uncovered another matter: PDF association with a Vanilla Reference was not working AT ALL: fixed that as well. (WARNING: association via 'FromWeb' a.k.a. SearchWeb will not deliver AFAICT: only FromLocal associations will deliver.
+
+  This uncovered yet another bug, which involved the metadata copying code (which still has some TODO's to be addressed at a later time!) resulting in the associated PDF then being marked as a vanilla reference *itself* due to overzealous metadata copying, which includes the 'FileType' field: 'pdf' or 'vanilla_reference'. Fixed as well.
+
+* (ca328e0e) improved application shutdown behaviour
+
+
+
+
+2020-10-08
+----------
+
+
+* (48e0186b) Cherrypicked BibTeX TeX-to-Unicode work downe by @mahfiaz
+
+* (6162ac9a) Fix strange empty space in PDF view when PDF is available.
+
+* (8d226995) Fixed unintentional Alt+W shortcut created in earlier commit.
+
+* (3ccea169) Add Ctrl+W change to another similarly used place.
+
+* (e511ed99) Suppress annoying exception.
+
+* (d3dcb5f0) add shell script to more easily push the local repo to both my fork and the mainline repo.
+
+* (aec72d23) improve upon SHA-1: 0998a2fe8d5e2b0bc19cb475280edf87c26b641f and fix the checks for GDI+ errors (due to Gecko for example, see https://github.com/jimmejardine/qiqqa-open-source/issues/244)
+
+
+
+
+
+
+
 # v82pre release: v82.0.7555-31312
 
 > ## Note
