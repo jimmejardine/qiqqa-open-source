@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.ServiceModel.Security;
 using Qiqqa.Common.Configuration;
 using Utilities;
 using Utilities.Files;
@@ -37,9 +38,9 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         /// <summary>
         /// This is an approximate response: it takes a *fast* shortcut to check if the given
         /// PDF has been OCR'd in the past.
-        /// 
+        ///
         /// The emphasis here is on NOT triggering a new OCR action! Just taking a peek, *quickly*.
-        /// 
+        ///
         /// The cost: one(1) I/O per check.
         /// </summary>
         public static bool HasOCRdata(string fingerprint)
@@ -158,11 +159,11 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 FileTools.Delete(cached_count_filename);
             }
 
-            // If we get here, either the pagecountfile doesn't exist, or there was an exception
+            // If we get here, either the pagecount-file doesn't exist, or there was an exception
             Logging.Debug特("Using calculated PDF page count for file {0}", pdf_filename);
             num = PDFTools.CountPDFPages(pdf_filename);
             Logging.Info("The result is {1} for using calculated PDF page count for file {0}", pdf_filename, num);
-            do
+            while (true)
             {
                 if (0 != num)
                 {
@@ -174,7 +175,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                         string outputText = Convert.ToString(num, 10);
                         File.WriteAllText(cached_count_filename, outputText);
                         // Open the file and read back what was written: we don't do a file lock for this one, but reckon all threads who
-                        // do this, will produce the same number = file content. 
+                        // do this, will produce the same number = file content.
                         //
                         // Besides, we don't know if WriteAllText() is atomic; it probably is not.
                         // Hence we read back to verify written content and if there's anything off about it, we
@@ -191,9 +192,9 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
                         FileTools.Delete(cached_count_filename);
 
-                        // we know the *calculated* pagecount is A-okay, so we can pass that on. 
-                        // It's just the file I/O for caching the value that may have gone awry, 
-                        // so we should retry that the next time we (re)calculate the pagecount number 
+                        // we know the *calculated* pagecount is A-okay, so we can pass that on.
+                        // It's just the file I/O for caching the value that may have gone awry,
+                        // so we should retry that the next time we (re)calculate the pagecount number
                         // as it is a heavy operation!
                         //
                         //num = 0;
@@ -201,10 +202,10 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 }
                 else
                 {
-                    // Special case: when the CountPDFPages() API does not deliver a sane, that is non-zero, page count, 
+                    // Special case: when the CountPDFPages() API does not deliver a sane, that is non-zero, page count,
                     // then we've got a PDF file issue on our hands, very probably a damaged PDF.
                     //
-                    // Damaged PDF files SHOULD NOT burden us forever, hence we introduce the heauristic of Three Strikes:
+                    // Damaged PDF files SHOULD NOT burden us forever, hence we introduce the heuristic of Three Strikes:
                     // when we've (re)calculated the PDF page count three times in a row with errors (num == 0), then we
                     // don't retry ever again, at least not during this application run.
                     //
@@ -220,7 +221,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                     }
                 }
                 break;
-            } while (true);
+            }
 
             return num;
         }
