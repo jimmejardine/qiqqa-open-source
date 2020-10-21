@@ -64,7 +64,7 @@ namespace Qiqqa.Common
             open_file_dialog.Filter = "PDF Files|*.pdf";
             open_file_dialog.Title = "Select the PDF document you wish to associate with this Vanilla Reference.";
 
-            if (true != open_file_dialog.ShowDialog())
+            if (true == open_file_dialog.ShowDialog())
             {
                 FeatureTrackingManager.Instance.UseFeature(Features.Library_AttachToVanilla_Local);
                 pdf_document.AssociatePDFWithVanillaReference(open_file_dialog.FileName);

@@ -1,4 +1,62 @@
 
+# v82pre release: v82.0.7568-29227
+
+> ## Note
+>
+> This release is **binary compatible with v80 and v79**: any library created using this version MUST be readable and usable by v80 and v79 software releases.
+
+
+
+
+
+
+2020-10-21
+----------
+
+
+* (b74f18ff) prevent superfluous fetch of illegal URI 'about:blank' when the Sniffer dialog window is opened.
+
+* (612bc454) fixed https://github.com/jimmejardine/qiqqa-open-source/issues/253 post cleanup: making sure all SghowDialog() calls (which return a `bool?` type!) are checked the same way, by explicit comparison against `true`, so `null` and `false` are always treated the same way.
+
+* (d127ba28) fixed https://github.com/jimmejardine/qiqqa-open-source/issues/253 : this uncovered a deadlock situation due to pdf_documents_lock and access_lock interplay via the Associate...() call going directly to the PDFDocument (hence access_lock) while one of the background threads was fetching a list of documents to inspect via Library (hence pdf_documents_lock -> access_lock for each doc): the deadlock occurred because the Associate..() call internally would *add* the new PDF into the Library (hence: pdf_ddocuments_lock inside an access_lock zone, hence DEADLOCK with the bg thread!)
+
+  Also note that this issue uncovered another matter: PDF association with a Vanilla Reference was not working AT ALL: fixed that as well. (WARNING: association via 'FromWeb' a.k.a. SearchWeb will not deliver AFAICT: only FromLocal associations will deliver.
+
+  This uncovered yet another bug, which involved the metadata copying code (which still has some TODO's to be addressed at a later time!) resulting in the associated PDF then being marked as a vanilla reference *itself* due to overzealous metadata copying, which includes the 'FileType' field: 'pdf' or 'vanilla_reference'. Fixed as well.
+
+* (af76f546) misc code cleanups: no functional change
+
+* (ca328e0e) all loops which run for any noticable time should be abortable for when the application shuts down (terminates on user exit)
+
+* (63bab7af) remove superfluous check&set: the variable has already been set when the condition is true
+
+
+
+
+2020-10-08
+----------
+
+
+* (48e0186b) Cherrypicked BibTeX TeX-to-Unicode work downe by @mahfiaz
+
+* (6162ac9a) Fix strange empty space in PDF view when PDF is available.
+
+* (8d226995) Fixed unintentional Alt+W shortcut created in earlier commit.
+
+* (3ccea169) Add Ctrl+W change to another similarly used place.
+
+* (e511ed99) Suppress annoying exception.
+
+* (d3dcb5f0) add shell script to more easily push the local repo to both my fork and the mainline repo.
+
+* (aec72d23) improve upon SHA-1: 0998a2fe8d5e2b0bc19cb475280edf87c26b641f and fix the checks for GDI+ errors (due to Gecko for example, see https://github.com/jimmejardine/qiqqa-open-source/issues/244)
+
+
+
+
+
+
+
 # v82pre release: v82.0.7555-31312
 
 > ## Note
@@ -129,9 +187,13 @@
 ----------
 
 
-* (07bb4046)..(d0f69706) Update README.md
+* (07bb4046) Update README.md
 
-* (f30c67fe)..(a34827df) Update Qiqqa Sniffer, BibTeX grazing and Google Scholar RECAPTCHA and Access Denied site blocking errors.md
+* (d0f69706) Update README.md
+
+* (f30c67fe) Update Qiqqa Sniffer, BibTeX grazing and Google Scholar RECAPTCHA and Access Denied site blocking errors.md
+
+* (a34827df) Update Qiqqa Sniffer, BibTeX grazing and Google Scholar RECAPTCHA and Access Denied site blocking errors.md
 
 
 
@@ -142,7 +204,9 @@
 
 * (cde626f5) Create Qiqqa Sniffer, BibTeX grazing and Google Scholar RECAPTCHA and Access Denied site blocking errors.md
 
-* (1b6cf53a)..(ed4ab929) Update `Links to Stuff To Look At.md`
+* (1b6cf53a) Update Links to Stuff To Look At.md
+
+* (ed4ab929) Update Links to Stuff To Look At.md
 
 * (df25e278) working on the docs
 
@@ -151,6 +215,10 @@
 * (7d7810c5) further work on the docs
 
 * (86499dad) updating CRLF trouble files following .gitattributes update and forced clean + `git reset --hard` to prevent this issue on these files in the future.
+
+* (b9f4d6ce) Merge remote-tracking branch 'remotes/jimmejardine-original/master' into master
+
+* (9ef4afd3) Merge remote-tracking branch 'remotes/GerHobbelt/master' into master
 
 * (83c1e7bf) updated npm packages
 
@@ -162,9 +230,9 @@
 
 * (47d09105) add technology research documentation notes: further work on having looked into upgrading the embedded web browser : https://github.com/jimmejardine/qiqqa-open-source/issues/2
 
-* (28f81d66) Create `How to build Qiqqa from source.md`
+* (28f81d66) Create How to build Qiqqa from source.md
 
-* (90a4f2a7) Update `Processing PDF documents' text and the impact on UI+UX.md`
+* (90a4f2a7) Update Processing PDF documents' text and the impact on UI+UX.md
 
 
 
@@ -173,7 +241,9 @@
 ----------
 
 
-* (33b3f30e) Create `Qiqqa Functionalities & Technology Areas.md`
+* (1e696ea3) Merge remote-tracking branch 'remotes/GerHobbelt/master' into master
+
+* (33b3f30e) Create Qiqqa Functionalities & Technology Areas.md
 
 
 
@@ -194,6 +264,8 @@
 
 
 * (c4bbd335) ignore obnoxious windows' desktop.ini files.
+
+* (bae78baf) Merge branch 'master' into mainline-master
 
 * (517aab82) CRLF
 
@@ -268,7 +340,9 @@
 ----------
 
 
-* (f640e9a5)..(1fad253a) Create Progress in Development - Considering the way forward - Full-Text Search Engines.md
+* (f640e9a5) Update Progress in Development - Considering the way forward - Full-Text Search Engines.md
+
+* (1fad253a) Create Progress in Development - Considering the way forward - Full-Text Search Engines.md
 
 
 
@@ -277,7 +351,11 @@
 ----------
 
 
+* (0fa9d3f0) Merge branch 'documentation'
+
 * (5107c784) delete useless Windows Explorer auto-generated files
+
+* (dbcfe70e) Merge branch 'documentation' into mainline-master
 
 * (f680e9e8) make sure we don't get bothered to commit the old mupdf code we're inspecting, which came as an archive with Qiqqa.
 
@@ -285,7 +363,10 @@
 
 * (413768db) Merge remote-tracking branch 'remotes/mahfiaz/master' into documentation
 
-  Thanks @mahfiaz!
+  # Conflicts:
+  #	Qiqqa/Common/Configuration/ConfigurationControl.xaml
+  #	icons/Icons.cs
+  #	icons/icons.csproj
 
 * (173fb104) Configuration page text fixes.
 
@@ -356,7 +437,7 @@
 
 * (b98163b4) Remove references to not existing icons.
 
-* (f21f5383) Deleted lots of unused icons, removed unused references.
+* (f21f5383) Deleted lots of unused icons, removed unused refereneces.
 
 * (ada53fac) Add Ctrl+W change to another similarly used place.
 
@@ -375,6 +456,7 @@
 
 * (26e69147) Remove Tweeting button.
 
+* (2a295353) Merge remote-tracking branch 'upstream/master'
 
 
 
@@ -382,6 +464,13 @@
 2020-04-21
 ----------
 
+
+* (0b4b3118) Merge remote-tracking branch 'remotes/GerHobbelt/master' into documentation
+
+* (dc6fe6ab) Merge remote-tracking branch 'remotes/jimmejardine-original/master' into documentation
+
+  # Conflicts:
+  #	docs/index.html
 
 * (89771517) write up the PDF + C# work done.
 
@@ -409,7 +498,7 @@
 
 * (eb038b01) added the intended Technology Tests' projects for testing of various new bits of technology to be integrated into Qiqqa as we upgrade the functional elements to modern standards (embedded browser, etc.): https://github.com/jimmejardine/qiqqa-open-source/issues/2 https://github.com/jimmejardine/qiqqa-open-source/issues/7 https://github.com/jimmejardine/qiqqa-open-source/issues/34 https://github.com/jimmejardine/qiqqa-open-source/issues/35
 
-* (4bf6ea79) added `Aside - The World of Data Extraction and Re-use - PDF Reading, Annotating and Content Extraction.md` article rough copy. Regenerated website.
+* (4bf6ea79) added Aside - The World of Data Extraction and Re-use - PDF Reading, Annotating and Content Extraction.md article rough copy. Regenerated website.
 
 
 
@@ -427,15 +516,15 @@
 ----------
 
 
-* (055b4a15) Create `Communications -- Where Goes What.md`
+* (055b4a15) Create Communications -- Where Goes What.md
 
-* (c0323fa2) Create `Contributing -- What Can You Do To Help.md`
+* (c0323fa2) Create Contributing -- What Can You Do To Help.md
 
 * (30ec1445) Update test.html
 
 * (eabfef01) Update index.html
 
-* (30eb4127) Create `Communications--Where.Goes.What.html`
+* (30eb4127) Create Communications--Where.Goes.What.html
 
 * (e1fe054c) Rename test to test.html
 
@@ -479,13 +568,19 @@
 ----------
 
 
+* (3a642b56) Merge remote-tracking branch 'remotes/jimmejardine-original/master' into mainline-master
+
 * (269d6511) Update README.md
 
 * (e25fd778) `npm run docs:build`
 
 * (24f91681) documentation: fix the docs filename fixing script. Added documentation for the developer override settings.
 
-* (0bd1f57b)..(c095e8b5) `npm run docs:build` : regenerated documentation
+* (0bd1f57b) `npm run docs:build`
+
+* (5003fe31) Merge branch 'mainline-master' into documentation
+
+* (c095e8b5) `npm run docs:build` : regenerated documentation
 
 * (dc941720) we're having a spot of trouble with CRLF vs LF-only in our shell scripts under Visual Studio :-(
 
@@ -523,6 +618,8 @@
 
 * (b9ee5184) introducing `vuepress` as the documentation gh-pages generating tool
 
+* (56be2d9e) Merge branch 'v82-build' into documentation
+
 * (1a4bb935) comment typos and whitespace police
 
 * (06b9d8b6) fix test rig: make sure the configuration is loaded before we run PDF tests as those require those settings to having been initialized to work properly at all.
@@ -559,7 +656,7 @@
 ----------
 
 
-* (6cc8c39e) Create `Software Releases - Where To Get  Them.md`
+* (6cc8c39e) Create Software Releases - Where To Get  Them.md
 
 
 
@@ -585,6 +682,10 @@
 
 * (f63d07c4) `npm run fix-docs`
 
+* (1c161e67) Merge remote-tracking branch 'remotes/jimmejardine-original/v82-build'
+
+* (64fd2991) Merge remote-tracking branch 'remotes/jimmejardine-original/master'
+
 * (4abab9d0) v82.0.7357.40407
 
 * (149ecf4f) `npm run syncver`
@@ -603,7 +704,7 @@
 
 * (bb2a33dd) Update README.md
 
-* (1a653ecb) Create `Qiqqa Internals - Processing PDF documents' text and the impact on UI+UX.md`
+* (1a653ecb) Create Qiqqa Internals - Processing PDF documents' text and the impact on UI+UX.md
 
 
 
@@ -627,13 +728,53 @@
   - fixed: It turns out the Logging singleton is still invoked AFTER it has been flushed and closed as part of application shutdown: some other Dispose() calls get executed after that fact and they SHOULD NOT cause a failure inside the Logging code.
   - improved the SafeExec() code a little and checked the exceptions which were occurring: turns out those happened AFTER the Logging instance has shut down already, hence we're fine with it, even though these are due to UI elements being released quite late in the game: maybe some lingering cyclic references which should be cleaned? ::thinking/wondering...::
 
-* (ecbbead3)..(6531718e) Update Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.md
+* (ecbbead3) Update Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.md
+
+* (21f09c14) Update Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.md
+
+* (49674ce6) Update Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.md
+
+* (a851b63f) Update Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.md
+
+* (509ec6e4) Update Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.md
+
+* (eaa162a0) Update Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.md
+
+* (9d87dcbc) Update Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.md
+
+* (614be3c5) docs: decorative divider for doc. Just having fun.
+
+* (5ad0d9c5) Update Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.md
+
+* (26b404b6) Update Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.md
+
+* (88291c05) Update Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.md
+
+* (ac2b231f) Update Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.md
+
+* (1b7c2b1b) Update Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.md
+
+* (34f8edf7) Update Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.md
+
+* (9672c0a1) Update Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.md
+
+* (d0a9c11b) Update Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.md
+
+* (7ae67bc6) Update Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.md
 
   - http://xahlee.info/comp/unicode_arrows.html
   - https://stackoverflow.com/questions/25579868/how-to-add-footnotes-to-github-flavoured-markdown
   - https://en.wikipedia.org/wiki/Note_(typography)
 
+* (61f6c4ab) Update Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.md
+
+* (9bfb8d7e) Update Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.md
+
   Thanks to https://gist.github.com/pierrejoubert73/902cc94d79424356a8d20be2b382e1ab, we now have folding section(s).
+
+* (5213be62) Update Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.md
+
+* (6531718e) Update Qiqqa.Internals.-.Extracting.the.text.from.PDF.documents.md
 
 * (bc80c1c0)
   - make sure all projects and environments use the same FxCop ruleset
@@ -643,7 +784,7 @@
 
 * (3259db13) Merge remote-tracking branch 'remotes/jimmejardine-original/master' into v82-build
 
-* (45971f58) fix Google Scholar background scraper logic to cope with modern Google Scholar website responses; this improves the Citation References data/list shown with each viewed PDF document in Qiqqa. (This is related to commit 9d6a79dea4dd6361d4642b8248995bc98bdb4217.)
+* (45971f58) fix Goggle Scholar background scraper logic to cope with modern Google Scholar website responses; this improves the Citation References data/list shown with each viewed PDF document in Qiqqa. (This is related to commit 9d6a79dea4dd6361d4642b8248995bc98bdb4217.)
 
 * (d60d1173) tweak: some Dispose chunks sometimes barf inside SafeExec() and I like to know where those calls originated: therefor a stacktrace is collected in the closure which invokes the UI thread execution of said chunk of code, as the debugger has lost that info by the time the Exception occurs. (It's not a big issue ATM, but I keep seeing these exceptions while debugging Qiqqa and I'd rather not have these instabilities when I can get rid of them; currently diagnosis is hampered as this trace info was lacking.)
 
@@ -718,7 +859,6 @@
 2020-02-27
 ----------
 
-Commits pulled in via Pull Request https://github.com/jimmejardine/qiqqa-open-source/pull/157 : doi2bib
 
 * (865a17a0) small update
 
@@ -1045,9 +1185,9 @@ Commits pulled in via Pull Request https://github.com/jimmejardine/qiqqa-open-so
 
 * (3e349e5a) tweaked the AnnotationReportOptionsWindow.xaml design file.
 
-* (066483a0) executed the XAML beautifier
+* (066483a0) executed the XML beautifier
 
-* (1f1d5af5) adjusted the npm package used for XAML beautification
+* (1f1d5af5) adjusted the npm package used for XML beautification
 
 * (19fd245a) adding a XAML reformatter/beautifier tool to help ensure that we can have all XAML files formatted and cleaned consistently.
 
@@ -1065,7 +1205,7 @@ Commits pulled in via Pull Request https://github.com/jimmejardine/qiqqa-open-so
 
 * (2a51f204) GetOutputsDumpString() :: oddly enough this code can produce a race condition exception for some Output: "Collection was modified; enumeration operation may not execute." -- HACK: we cope with that by re-iterating over the list until success is ours...   :-S :-S  hacky!
 
-* (651bac5b) fix coding bug in SafeThreadPool handling: the logic to determine which tasks to skip/abort on application Exit was inverted. :-(
+* (651bac5b) fix coding bug in SafeThreadPool handling: the logc to determine which tasks to skip/abort on application Exit was inverted. :-(
 
 
 
@@ -1109,7 +1249,7 @@ Commits pulled in via Pull Request https://github.com/jimmejardine/qiqqa-open-so
 
 * (2361f5b8) The TermsAndConditions config boolean serves two purposes:
 
-  1. it makes the app abort when not set (which' functionality has been removed in this commit)
+  1. it makes the app abort when not set (which ' functionality has been removed in this commit)
   2. it acts as 'first time you started Qiqqa' flag in showing initial help screens, etc. -- This behaviour has been kept as it deemed useful.
 
 * (4ee43c64) speed up compiling/building the app: remove the FxCop project dependencies: we've seen enough of those for a while...
@@ -1227,7 +1367,17 @@ Commits pulled in via Pull Request https://github.com/jimmejardine/qiqqa-open-so
 ----------
 
 
-* (110edf0a)..(bfb55d67) Update DEVELOPER-INFO.md
+* (b983d260) updated CHANGELOG_full.md
+
+* (a50888e8) Merge branch 'v82-build'
+
+* (110edf0a) Update DEVELOPER-INFO.md
+
+* (6bad7f68) Update DEVELOPER-INFO.md
+
+* (df8600ec) Update DEVELOPER-INFO.md
+
+* (bfb55d67) Update DEVELOPER-INFO.md
 
 * (819790fc) rebuilt uninstaller exe
 
@@ -1255,6 +1405,8 @@ Commits pulled in via Pull Request https://github.com/jimmejardine/qiqqa-open-so
 
 * (d2ec492c) fixed couple of crashes in Dispose() calls. Applying a single pattern to all Dispoase methods so that the look of the code and behaviour is largely comparable across classes.
 
+* (4b1b99fb) Merge branch 'v82-build'
+
 * (68d1568a) updated the unit tests' script.
 
 * (d6ece3d0) Tweaked the ApprovalTest helper to create NTFS/Windows-sane filenames and ditto paths, which are limited to below 255 characters (see also https://kb.acronis.com/content/39790).
@@ -1268,7 +1420,19 @@ Commits pulled in via Pull Request https://github.com/jimmejardine/qiqqa-open-so
 ----------
 
 
-* (fb7c7f81)..(6c52e090) Update README.md
+* (93658b66) Merge branch 'v82-build'
+
+* (fb7c7f81) Update README.md
+
+* (a83c6777) Update README.md
+
+* (79c505ef) Update README.md
+
+* (e9a39756) Update README.md
+
+* (0b501716) Update README.md
+
+* (6c52e090) Update README.md
 
 
 
@@ -1298,15 +1462,23 @@ Commits pulled in via Pull Request https://github.com/jimmejardine/qiqqa-open-so
 ----------
 
 
+* (0b015c92) Merge branch 'v82-build'
+
 * (a00facd1) edited gitignore for documentation testing
 
 * (f11d55b8) picked up README edits from master branch
+
+* (9984ff4d) Merge remote-tracking branch 'remotes/jimmejardine-original/master'
 
 * (4f737ed0) Create CNAME
 
 * (89e9de7d) tweak the amount of logging kept in rotation - part of debugging/analyzing qiqqa behaviour
 
-* (a2ecd3ea)..(c1b70ea3) Update README.md
+* (a2ecd3ea) Update README.md
+
+* (6beacd72) Create CNAME
+
+* (c1b70ea3) Update README.md
 
 
 
@@ -1316,6 +1488,8 @@ Commits pulled in via Pull Request https://github.com/jimmejardine/qiqqa-open-so
 
 
 * (4efb08c7) whoops. Forgot to run the CHANGELOG script.
+
+* (70dc5d12) Merge branch 'v82-build'
 
 * (5e787c15) bumped build revision
 
@@ -1364,6 +1538,8 @@ Commits pulled in via Pull Request https://github.com/jimmejardine/qiqqa-open-so
 ----------
 
 
+* (604b3dad) Merge branch 'v82-build'
+
 * (4aaa7367) Merge remote-tracking branch 'remotes/jimmejardine-original/master' into v82-build
 
 * (5486dcaf) Merge pull request #125 from gitter-badger/gitter-badge
@@ -1371,6 +1547,8 @@ Commits pulled in via Pull Request https://github.com/jimmejardine/qiqqa-open-so
   Add a Gitter chat badge to README.md
 
 * (112ce55c) Add Gitter badge
+
+* (1dbf7f58) Merge branch 'v82-build'
 
 * (c7570690) updated CHANGELOG_full.md
 
@@ -1403,6 +1581,11 @@ Commits pulled in via Pull Request https://github.com/jimmejardine/qiqqa-open-so
 
 
 * (bcd73cd8) picked up memleak fix from experimental branch
+
+* (72a707f2) Merge branch 'v82-build'
+
+  # Conflicts:
+  #	Qiqqa.sln
 
 * (2a72cbd1) Added a couple of RIS + BibTeX test files to the test set.
 
@@ -1749,6 +1932,10 @@ Commits pulled in via Pull Request https://github.com/jimmejardine/qiqqa-open-so
 
 * (ba9dcd54) typo fixes in comments and one function name. Changes ripped from the experimental branch.
 
+* (1b24aec1) Merge remote-tracking branch 'remotes/jimmejardine-original/master'
+
+* (4bf94053) Merge branch 'v82-build'
+
 * (bc6b2b5b) Add files via upload
 
 * (4ebc4dfb) Create How to locate your Qiqqa Base Directory.md
@@ -1761,7 +1948,18 @@ Commits pulled in via Pull Request https://github.com/jimmejardine/qiqqa-open-so
 
 * (7566098f) added DEVELOPER-INFO.md and pointed README.md at that document for info for developers wishing to work on Qiqqa.
 
+* (ca772d70) document the node/npm development environment, etc. in DEVELOPER-INFO.md
+
+* (0e7afcdb) added `superclean.sh` bash shell script to help clean up a Visual Studio environment for when you want to make sure you're starting Visual Studio *sans prejudice*.
+
+* (0f508156) added DEVELOPER-INFO.md and pointed README.md at that document for info for developers wishing to work on Qiqqa.
+
 * (cc6e2714) added all protobuf and binary serialization files to the legacy library -- to be cleaned up and provided with a proper interface
+
+* (3a4df12b) Merge branch 'v82-build'
+
+  # Conflicts:
+  #	Qiqqa.sln
 
 * (e2bef9a7) update CHANGELOG
 
@@ -1811,7 +2009,14 @@ Commits pulled in via Pull Request https://github.com/jimmejardine/qiqqa-open-so
 ----------
 
 
-* (fe49d12e)..(299b0ff0) Update README.md
+* (fe49d12e) Update README.md
+
+* (299b0ff0) Update README.md
+
+* (cb0b0539) Merge branch 'mainline-master' into v82-build
+
+  # Conflicts:
+  #	README.md
 
 * (2cdd3426) Merge pull request #110 from GerHobbelt/mainline-master
 
@@ -1822,6 +2027,15 @@ Commits pulled in via Pull Request https://github.com/jimmejardine/qiqqa-open-so
 * (6c1d8d69) update README with latest info about Qiqqa software releases.
 
 * (f9d8f7d3) Update README.md
+
+* (6ccb1475) updated CHANGELOG_full.md
+
+* (56e9989a) Merge branch 'v82-build'
+
+* (130239a3) Merge tag 'v82.0.7227.6146'
+
+  # Conflicts:
+  #	Qiqqa.sln
 
 * (acd92291) README: point at the various places where software releases are to be found.
 
@@ -1914,9 +2128,25 @@ Commits pulled in via Pull Request https://github.com/jimmejardine/qiqqa-open-so
 ----------
 
 
+* (3f501caf) Merge branch 'v82-build'
+
 * (3b5dcc16) updated CHANGELOG_full.md to current commit
 
 * (3a0544c9) Updated README + CHANGELOG_full.md fixes for GFM
+
+* (32d431ab) Merge remote-tracking branch 'remotes/GerHobbelt/master'
+
+* (49a44cdd) Update README.md
+
+* (6dd11919) Update CHANGELOG_full.md
+
+* (9d33d6a8) Update README.md
+
+* (2665d423) Update README.md
+
+* (7070c53f) Merge branch 'v82-build'
+
+* (0c108073) Merge commit '4df5d0b6f812f80bdc3e63f007a3cadf47898e44'
 
 * (2832a078) tweak: DescriptiveTitle: trim every title to the default length + ellipsis.
 
@@ -1927,7 +2157,11 @@ Commits pulled in via Pull Request https://github.com/jimmejardine/qiqqa-open-so
 ----------
 
 
-* (099ff71f)..(01ded4ce) Update README.md
+* (099ff71f) Update README.md
+
+* (25fbf3d2) Update README.md
+
+* (01ded4ce) Update README.md
 
 * (deaadc37) refactoring work necessary for fixing https://github.com/jimmejardine/qiqqa-open-source/issues/96 & https://github.com/jimmejardine/qiqqa-open-source/issues/101
 
@@ -1967,7 +2201,7 @@ Commits pulled in via Pull Request https://github.com/jimmejardine/qiqqa-open-so
 
 * (82c52dd6) performance testing of startup behaviour: the next big think is ReviewParameters() but we cannot ditch that one as it initiates the (re)draw of the controls. What we can do is save a little time in superfluous code.
 
-* (359b8d84) after rerun of performance test: now the topmost consumer is the thread lock monitor in SignalThatDocumentsHaveChanged(), or at least regarding thread lock monitors. The highest bidder overall is currently: Qiqqa.DocumentLibrary.Library::BuildFromDocumentRepository  7794 (47.61%)
+* (359b8d84) after rerun of performance test: now the topmost consumer is the thread lock monitor in SignalThatDocumentsHaveChanged(), or at least regarding thread lock monitors. The highest bidder overall is currently: Qiqqa.DocumentLibrary.Library::BuildFromDocumentRepository	7794 (47.61%)
 
 * (072a7c64) Delayed the PDF Page Count calculation a bit: it's not yet needed in the constructor call, so delay until actually requested. Also clean up the PDF page count helper method(s) a tad.
 
@@ -2002,9 +2236,11 @@ Commits pulled in via Pull Request https://github.com/jimmejardine/qiqqa-open-so
 ----------
 
 
-* (9439b600) Cleaning up the logging action: the regular Debug activity is relegated to special builds which have the `DIAG` define *set* (I specifically DID NOT use `DEBUG` for this, so I can switch debug logging on in Release builds when the shit hits the fan). Meanwhile Unicode and Chinese language came to the rescue: `Debugç‰¹` is the new Debug level logging API methods set which will always do the job, in both DEBUG and RELEASE builds.
+* (9439b600) Cleaning up the logging action: the regular Debug activity is relegated to special builds which have the `DIAG` define *set* (I specifically DID NOT use `DEBUG` for this, so I can switch debug logging on in Release builds when the shit hits the fan). Meanwhile Unicode and Chinese language came to the rescue: `Debug特` is the new Debug level logging API methods set which will always do the job, in both DEBUG and RELEASE builds.
 
 * (4df5d0b6) comment typo fix
+
+* (fb412657) Merge branch 'v82-build'
 
 * (037d42fd) twiddling...
 
@@ -2071,29 +2307,13 @@ Commits pulled in via Pull Request https://github.com/jimmejardine/qiqqa-open-so
 
 * (1fd984a8) Create How to locate your Qiqqa Base Directory.md
 
+* (68be32d2) updated CHANGELOG_full.md
+
 * (38d5a9ff) editing CHANGELOG.md, taking stuff from CHANGELOG_full.md
 
 * (afb8260e) updated CHANGELOG_full.md
 
 * (ed9c1291) re-did the CHANGELOG generator, using git+node. The old `changelog` tool (npm changelog / npm @g3erhobbelt/changelog) is not reliable and this was coded faster than debugging and correcting that one.
-
-
-
-
-v82pre release
-==============
-
-> ## Note
->
-> This release is **binary compatible with v80 and v79**: any library created using this version MUST be readable and usable by v80 and v79 software releases.
-
-
-
-
-
-2019-10-05
-----------
-
 
 * (d4ad6d86) re-did the CHANGELOG generator, using git+node. The old `changelog` tool (npm changelog / npm @g3erhobbelt/changelog) is not reliable and this was coded faster than debugging and correcting that one.
 
@@ -2117,6 +2337,8 @@ v82pre release
   --------------------------------------
 
 * (6f0c7abf) ignore build intermediates for the added legacy support lib project
+
+* (476e113f) Merge remote-tracking branch 'remotes/GerHobbelt/master'
 
 * (3d49ac07) Update README.md
 
@@ -2231,6 +2453,9 @@ v82pre release
 
 * (97885405) first baby steps towards https://github.com/jimmejardine/qiqqa-open-source/issues/68 : adding more tests and registering the current state of affairs in 'approved' reference files by way of `ApprovalTests` use in the test rig.
 
+  # Conflicts:
+  #	QiqqaSystemTester/data/fixtures/bibtex/b0rked-0008.bib
+
 * (5019762b) NEVER add/register the `*.received.json` files produced by ApprovalTests in git; only the `*.approved.json` user-approved reference output files should be registered with the revision control system.
 
 * (5d06874f) added more BibTeX test data files + tweaked reference output path for ApprovalTests custom DataTest namer/writer.
@@ -2256,11 +2481,6 @@ v82pre release
 
 2019-10-01
 ----------
-
-
-> ## NOTE:
->
-> All these commits are listed on this particular day because these are all git-cherrypick'ed commits from the EXPERIMENTAL branch, which includes other not-yet-ready work. Unfortunately, the dates of these commits are thus a bit mangled, but the commit hashes are the relevant entries in the upcoming software release anyway.
 
 
 * (63783471) add the mirrored commercial Qiqqa installers for backtesting/etc. purposes.
@@ -2321,6 +2541,9 @@ v82pre release
 
 * (a4dbef68) Merge branch 'master' into experimental-ui-edits
 
+  # Conflicts:
+  #	Qiqqa/Documents/PDF/PDFControls/MetadataControls/GoogleBibTexSnifferControl.xaml.cs
+
 * (27ffcc4f) Fiddle with the versions: Qiqqa and QiqqaOCR should have the same build/version numbers.
 
   TODO: The Version number needs to be updated in a few more places too.
@@ -2348,6 +2571,9 @@ v82pre release
   Adding a global/singleton  `lock(x) {...}` critical section **shared among /all/ library instances** *seems* to reduce the problem, but large PDF import tests show that the problem isn't *gone* with such a fix/tweak/hack.
 
 * (abd020ae) UPGRADE PACKAGES: log4net, SQLite, etc. -- the easy ones. Using NuGet Package Manager.
+
+  # Conflicts:
+  #	Utilities/packages.config
 
 * (b5a42568) preparation for unit tests that can work: add a QiqqaTestHelpers library -- it turns out we're pretty much toast when we use NUnit, so that one's **out**; then there's MSTest but the standard Assert library there is rather lacking, hence we've ripped the Assertions from xUnit/nUnit and tweaked/augmented them to suit MSTest and our rig -- the intent being that you can still see **and debug** the tests from within Microsoft Visual Studio. It's all a bit hacky still to my taste, but at least now we don't get crazy NUnit execution failures any more for every !@#$ test.
 
@@ -2404,6 +2630,9 @@ v82pre release
 * (f417ea87) !@#$%^ got it! Had been too zealous when hack-patching the faults at ScrollToTop. Dang!  https://github.com/jimmejardine/qiqqa-open-source/issues/55#issuecomment-524846632-permalink & commit SHA-1: babb1bcdd531db2a4aee7ca12739265beb2199c6
 
 * (bc201494) building x86 only as otherwise antique tesseract et al will fail dramatically. Otherwise aligned the settings of the projects and disabled a few config items in the cod for testing the current view update woes. >:-(   I !@#$%^&^%$#@#$%^ loath WPF.
+
+  # Conflicts:
+  #	Qiqqa/packages.config
 
 * (be4e884b) fiddling: add a *failing* dummy test case to the test suite -- to be written when we address BibTeX parsing for real.
 
@@ -2531,6 +2760,13 @@ v82pre release
   - added more thread safety code for FolderWatcherManager
   - always keep the Word Connection Setup thread running, even when other background tasks have been disabled, since this thread is required for the InCite front work (direct user activity)
 
+  # Conflicts:
+  #	Qiqqa/Common/BackgroundWorkerDaemonStuff/BackgroundWorkerDaemon.cs
+  #	Qiqqa/Common/GeneralTaskDaemonStuff/GeneralTaskDaemon.cs
+  #	Qiqqa/DocumentLibrary/FolderWatching/FolderWatcher.cs
+  #	Qiqqa/InCite/WordConnector.cs
+  #	Utilities/Maintainable/MaintainableManager.cs
+
 * (c94c3623) fixd bug, found as part of the task register code refactor: Quit this delayed storing of PDF files when we've hit the end of the execution run: we'll have to save them all to disk in one go then, and quickly too!
 
   Note the new code line
@@ -2538,6 +2774,9 @@ v82pre release
               Utilities.Shutdownable.ShutdownableManager.Instance.Register(Shutdown);
 
   in particular!
+
+  # Conflicts:
+  #	Qiqqa/Documents/Common/DocumentQueuedStorer.cs
 
 * (9fe39eff)
   - shut up Visual Studio Designer - at least as much as we can on short notice: give 'em the Theme colors and brushes, limit the number of XUL crashes while loading the Sniffer XAML, etc.
@@ -2753,6 +2992,9 @@ v82pre release
 
 * (f9918c89) fiddling with website theme...
 
+  # Conflicts:
+  #	docs/_config.yml
+
 * (831edb37) (lint) `const`-ing a few variables, which really are constants
 
 * (1b390f8f) Removing old debug lines that aren't required any more...
@@ -2813,22 +3055,9 @@ v82pre release
 
 * (4c75cdb9) Prepwork done on https://github.com/jimmejardine/qiqqa-open-source/issues/23 as it turns out to be a tougher nut to crack then I initially expected.
 
-* Do NOT write old format (.NET serialized binary) configuration files any more: DO load them when the new JSON format is missing, but only write the NEW JSON format. https://github.com/jimmejardine/qiqqa-open-source/issues/41
-* NuGet: package Newtonsoft.JSON: the JSON-to-object deserializer/serializer. Lingering work from https://github.com/jimmejardine/qiqqa-open-source/issues/41
-* https://github.com/jimmejardine/qiqqa-open-source/issues/41 tweak: more human-readable JSON formatting
-
 * (6e37242c) fix https://github.com/jimmejardine/qiqqa-open-source/issues/42: fixed crash.
 
 * (0cb6b26e) more of the same as SHA-1: af670a88f8fb56d090ed8d04bfb9b08cb0e53b33 * minimally tweak UI elements and make Microsoft Visual Studio :: XAML Designer *NOT* barf a hairball
-
-* Hm, looks like the NANT build script (`./build-installer.sh`) picks up the new Newtonsoft.Json.dll location. Lucky break. Killed the old one as we now *upgrade* JSON.NET ( https://github.com/jimmejardine/qiqqa-open-source/issues/41 )
-* work done on https://github.com/jimmejardine/qiqqa-open-source/issues/41, which was triggered by the bugging and b0rking of https://github.com/jimmejardine/qiqqa-open-source/issues/40, hence a few bits from that one will peek through here.
-* Using Json.NET as advised by Microsoft: https://docs.microsoft.com/en-us/dotnet/api/system.web.script.serialization.javascriptserializer?view=netframework-4.8
-
-  As mentioned in the Deprecation Notice of the old serializer code:
-
-  > .NET binary serialization causes too much trouble, e.g. https://stackoverflow.com/questions/6825819/how-can-i-tell-when-what-is-loading-certain-assemblies and https://social.msdn.microsoft.com/forums/vstudio/en-US/7192f23e-7d43-47b5-b401-5fcd19671cf6/invalidcastexception-thrown-when-casting-to-the-same-type. Use Json.NET instead. And then there's https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/how-to-enable-and-disable-automatic-binding-redirection (sigh)
-
 
 
 
@@ -2859,7 +3088,7 @@ v82pre release
   <UserControl.Resources>
       <ResourceDictionary>
           <ResourceDictionary.MergedDictionaries>
-            <ResourceDictionary Source="pack://application:,,,/Styles;component/Resources.xaml" />
+  			<ResourceDictionary Source="pack://application:,,,/Styles;component/Resources.xaml" />
           </ResourceDictionary.MergedDictionaries>
       </ResourceDictionary>
   </UserControl.Resources>
@@ -2890,22 +3119,6 @@ v82pre release
 
 * (77502798) make Qiqqa main app and QiqqaOCR logging easily recognizable: `[Q]` or `[OCR]` tag per logline.
   Also print the QC-reported memory usage as a fixed-width number in MBytes
-
-
-
-
-# version 81.0.7158.38371 :: alpha test release
-
-* updated CHANGELOG files
-
-
-Version 81:
-- Qiqqa now copes better with damaged PDFs which are part of the librarie(s):
-  + search index does not "disappear" any more
-  + Qiqqa does not continue running in the background for eternity due to locked-up PDF re-indexing task
-
-
-**WARNING**: this was an EXPERIMENTAL release. Do not expect full forward or backwards compatibility.
 
 
 
@@ -2971,195 +3184,195 @@ Version 81:
 
 * (a540e506) part of IDisposable cleanup work following the advice of the MSVS Code Analysis Report as much as possible (mostly the first bunch of CA2000 report lines) :
 
-  * Message IDE0067 Disposable object created by 'new FolderBrowserDialog()' is never disposed
-  * Message IDE0067 Disposable object created by 'new Tesseract()' is never disposed
-  * Message IDE0067 Disposable object created by 'out ms_image' is never disposed
-  * Warning CA1001  Implement IDisposable on 'BibTeXEditorControl' because it creates members of the following IDisposable types: 'WeakDependencyPropertyChangeNotifier'. If 'BibTeXEditorControl' has previously shipped, adding new members that implement IDisposable to this type is considered a breaking change to existing consumers.
-  * Warning CA1001  Implement IDisposable on 'CSLProcessorOutputConsumer' because it creates members of the following IDisposable types: 'GeckoWebBrowser'. If 'CSLProcessorOutputConsumer' has previously shipped, adding new members that implement IDisposable to this type is considered a breaking change to existing consumers.
-  * Warning CA1001  Implement IDisposable on 'FolderWatcher' because it creates members of the following IDisposable types: 'FileSystemWatcher'. If 'FolderWatcher' has previously shipped, adding new members that implement IDisposable to this type is considered a breaking change to existing consumers.
-  * Warning CA1001  Implement IDisposable on 'GoogleBibTexSnifferControl' because it creates members of the following IDisposable types: 'PDFRendererControl'. If 'GoogleBibTexSnifferControl' has previously shipped, adding new members that implement IDisposable to this type is considered a breaking change to existing consumers.
-  * Warning CA1001  Implement IDisposable on 'HtmlLexicalAnalyzer' because it creates members of the following IDisposable types: 'StringReader'.
-  * Warning CA1001  Implement IDisposable on 'Library' because it creates members of the following IDisposable types: 'LibraryIndex'. If 'Library' has previously shipped, adding new members that implement IDisposable to this type is considered a breaking change to existing consumers.
-  * Warning CA1001  Implement IDisposable on 'LibraryCatalogOverviewControl' because it creates members of the following IDisposable types: 'LibraryIndexHoverPopup'. If 'LibraryCatalogOverviewControl' has previously shipped, adding new members that implement IDisposable to this type is considered a breaking change to existing consumers.
-  * Warning CA1001  Implement IDisposable on 'MainWindow' because it creates members of the following IDisposable types: 'StartPageControl'. If 'MainWindow' has previously shipped, adding new members that implement IDisposable to this type is considered a breaking change to existing consumers.
-  * Warning CA1001  Implement IDisposable on 'NotificationManager' because it creates members of the following IDisposable types: 'ReaderWriterLockSlim', 'AutoResetEvent'. If 'NotificationManager' has previously shipped, adding new members that implement IDisposable to this type is considered a breaking change to existing consumers.
-  * Warning CA1001  Implement IDisposable on 'PDFAnnotationNodeContentControl' because it creates members of the following IDisposable types: 'LibraryIndexHoverPopup'. If 'PDFAnnotationNodeContentControl' has previously shipped, adding new members that implement IDisposable to this type is considered a breaking change to existing consumers.
-  * Warning CA1001  Implement IDisposable on 'PDFDocumentNodeContentControl' because it creates members of the following IDisposable types: 'LibraryIndexHoverPopup'. If 'PDFDocumentNodeContentControl' has previously shipped, adding new members that implement IDisposable to this type is considered a breaking change to existing consumers.
-  * Warning CA1001  Implement IDisposable on 'PDFPrinterDocumentPaginator' because it creates members of the following IDisposable types: 'DocumentPage'.
-  * Warning CA1001  Implement IDisposable on 'ReadOutLoudManager' because it creates members of the following IDisposable types: 'SpeechSynthesizer'. If 'ReadOutLoudManager' has previously shipped, adding new members that implement IDisposable to this type is considered a breaking change to existing consumers.
-  * Warning CA1001  Implement IDisposable on 'TagEditorControl' because it creates members of the following IDisposable types: 'WeakDependencyPropertyChangeNotifier'. If 'TagEditorControl' has previously shipped, adding new members that implement IDisposable to this type is considered a breaking change to existing consumers.
-  * Warning CA1001  Implement IDisposable on 'UrlDownloader.DownloadAsyncTracker' because it creates members of the following IDisposable types: 'UrlDownloader.WebClientWithCompression'. If 'UrlDownloader.DownloadAsyncTracker' has previously shipped, adding new members that implement IDisposable to this type is considered a breaking change to existing consumers.
-  * Warning CA1063  Modify 'AugmentedPdfLoadedDocument.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
-  * Warning CA1063  Modify 'AugmentedPdfLoadedDocument.~AugmentedPdfLoadedDocument()' so that it calls Dispose(false) and then returns.
-  * Warning CA1063  Modify 'AugmentedPopupAutoCloser.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
-  * Warning CA1063  Modify 'AugmentedPopupAutoCloser.~AugmentedPopupAutoCloser()' so that it calls Dispose(false) and then returns.
-  * Warning CA1063  Modify 'BrainstormControl.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
-  * Warning CA1063  Modify 'BrainstormControl.~BrainstormControl()' so that it calls Dispose(false) and then returns.
-  * Warning CA1063  Modify 'ChatControl.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
-  * Warning CA1063  Modify 'ChatControl.~ChatControl()' so that it calls Dispose(false) and then returns.
-  * Warning CA1063  Modify 'LibraryIndex.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
-  * Warning CA1063  Modify 'LibraryIndex.~LibraryIndex()' so that it calls Dispose(false) and then returns.
-  * Warning CA1063  Modify 'LibraryIndexHoverPopup.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
-  * Warning CA1063  Modify 'LibraryIndexHoverPopup.~LibraryIndexHoverPopup()' so that it calls Dispose(false) and then returns.
-  * Warning CA1063  Modify 'LuceneIndex.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
-  * Warning CA1063  Modify 'LuceneIndex.~LuceneIndex()' so that it calls Dispose(false) and then returns.
-  * Warning CA1063  Modify 'PDFReadingControl.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
-  * Warning CA1063  Modify 'PDFReadingControl.~PDFReadingControl()' so that it calls Dispose(false) and then returns.
-  * Warning CA1063  Modify 'PDFRendererControl.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
-  * Warning CA1063  Modify 'PDFRendererControl.~PDFRendererControl()' so that it calls Dispose(false) and then returns.
-  * Warning CA1063  Modify 'ProcessOutputReader.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
-  * Warning CA1063  Modify 'ProcessOutputReader.~ProcessOutputReader()' so that it calls Dispose(false) and then returns.
-  * Warning CA1063  Modify 'ReportViewerControl.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
-  * Warning CA1063  Modify 'ReportViewerControl.~ReportViewerControl()' so that it calls Dispose(false) and then returns.
-  * Warning CA1063  Modify 'SceneRenderingControl.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
-  * Warning CA1063  Modify 'SceneRenderingControl.~SceneRenderingControl()' so that it calls Dispose(false) and then returns.
-  * Warning CA1063  Modify 'SpeedReadControl.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
-  * Warning CA1063  Modify 'SpeedReadControl.~SpeedReadControl()' so that it calls Dispose(false) and then returns.
-  * Warning CA1063  Modify 'StartPageControl.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
-  * Warning CA1063  Modify 'StartPageControl.~StartPageControl()' so that it calls Dispose(false) and then returns.
-  * Warning CA1063  Modify 'StopWatch.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
-  * Warning CA1063  Modify 'StopWatch.~StopWatch()' so that it calls Dispose(false) and then returns.
-  * Warning CA1063  Modify 'WebBrowserControl.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
-  * Warning CA1063  Modify 'WebBrowserControl.~WebBrowserControl()' so that it calls Dispose(false) and then returns.
-  * Warning CA1063  Modify 'WebBrowserHostControl.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
-  * Warning CA1063  Modify 'WebBrowserHostControl.~WebBrowserHostControl()' so that it calls Dispose(false) and then returns.
-  * Warning CA2000  In method 'AssociatePDFWithVanillaReferenceWindow.CmdLocal_Click(object, RoutedEventArgs)', call System.IDisposable.Dispose on object 'new OpenFileDialog()' before all references to it are out of scope.
-  * Warning CA2000  In method 'BibTexExport.Export(List<PDFDocument>)', call System.IDisposable.Dispose on object 'new SaveFileDialog()' before all references to it are out of scope.
-  * Warning CA2000  In method 'BitmapImageTools.CropImageRegion(Image, double, double, double, double)', call System.IDisposable.Dispose on object 'bitmap' before all references to it are out of scope.
-  * Warning CA2000  In method 'BitmapImageTools.FromImage(Image)', object 'ms' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'ms' before all references to it are out of scope.
-  * Warning CA2000  In method 'BrowserStarter.OpenBrowser_REGISTRY(string)', call System.IDisposable.Dispose on object 'p' before all references to it are out of scope.
-  * Warning CA2000  In method 'ChartTools.renderNoDatasetMessage(Graphics)', call System.IDisposable.Dispose on object 'font' before all references to it are out of scope.
-  * Warning CA2000  In method 'ClipboardTools.SetRtf(string)', call System.IDisposable.Dispose on object 'rich_text_box' before all references to it are out of scope.
-  * Warning CA2000  In method 'ConsoleRedirector.CaptureConsole()', call System.IDisposable.Dispose on object 'cr' before all references to it are out of scope.
-  * Warning CA2000  In method 'CSLEditorControl.OnBibliographyReady(CSLProcessorOutputConsumer)', call System.IDisposable.Dispose on object 'ms' before all references to it are out of scope.
-  * Warning CA2000  In method 'DocumentConversion.ConvertorDOC(string, string)', call System.IDisposable.Dispose on object 'converter' before all references to it are out of scope.
-  * Warning CA2000  In method 'DocumentConversion.ConvertorDOC(string, string)', call System.IDisposable.Dispose on object 'word_document' before all references to it are out of scope.
-  * Warning CA2000  In method 'ExportToWord.ExportToTextAndLaunch(PDFDocument)', call System.IDisposable.Dispose on object 'report_view_control' before all references to it are out of scope.
-  * Warning CA2000  In method 'FolderWatcherChooser.CmdAddFolder_Click(object, RoutedEventArgs)', call System.IDisposable.Dispose on object 'new FolderBrowserDialog()' before all references to it are out of scope.
-  * Warning CA2000  In method 'Fonts.getLargestFont(Graphics, string, double)', object 'font' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'font' before all references to it are out of scope.
-  * Warning CA2000  In method 'Ghostscript.RenderPage_AsMemoryStream(string, int, int, string, ProcessPriorityClass)', object 'ms' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'ms' before all references to it are out of scope.
-  * Warning CA2000  In method 'GoogleAnalysicsSubmitter.Submit_BACKGROUND(Feature)', call System.IDisposable.Dispose on object 'wc' before all references to it are out of scope.
-  * Warning CA2000  In method 'GoogleScholarScraper.ScrapeUrl(IWebProxy, string)', call System.IDisposable.Dispose on object 'ms' before all references to it are out of scope.
-  * Warning CA2000  In method 'GUITools.RenderToBitmapImage(UIElement)', object 'ms' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'ms' before all references to it are out of scope.
-  * Warning CA2000  In method 'HtmlFromXamlConverter.ConvertXamlToHtml(string)', call System.IDisposable.Dispose on object 'new StringReader(xamlString)' before all references to it are out of scope.
-  * Warning CA2000  In method 'HtmlFromXamlConverter.ConvertXamlToHtml(string)', call System.IDisposable.Dispose on object 'new StringWriter(htmlStringBuilder)' before all references to it are out of scope.
-  * Warning CA2000  In method 'ImportFromFolder.FolderLocationButton_Click(object, RoutedEventArgs)', call System.IDisposable.Dispose on object 'new FolderBrowserDialog()' before all references to it are out of scope.
-  * Warning CA2000  In method 'ImportFromThirdParty.GetFolderNameFromDialog(string, string)', call System.IDisposable.Dispose on object 'ofd' before all references to it are out of scope.
-  * Warning CA2000  In method 'IntranetLibraryChooserControl.ObjButtonFolderChoose_Click(object, RoutedEventArgs)', call System.IDisposable.Dispose on object 'new FolderBrowserDialog()' before all references to it are out of scope.
-  * Warning CA2000  In method 'IPCServer.StartServerPump()', call System.IDisposable.Dispose on object 'npss' before all references to it are out of scope.
-  * Warning CA2000  In method 'LibraryBundleCreationControl.CmdCreateBundle_Click(object, RoutedEventArgs)', call System.IDisposable.Dispose on object 'dialog' before all references to it are out of scope.
-  * Warning CA2000  In method 'LibraryControl.ButtonAddDocuments_Click(object, RoutedEventArgs)', call System.IDisposable.Dispose on object 'new OpenFileDialog()' before all references to it are out of scope.
-  * Warning CA2000  In method 'LibraryExporter.Export(Library, List<PDFDocument>)', call System.IDisposable.Dispose on object 'new FolderBrowserDialog()' before all references to it are out of scope.
-  * Warning CA2000  In method 'LibraryIndexHoverPopup.DisplayThumbnail()', call System.IDisposable.Dispose on object 'new MemoryStream(this.pdf_document.PDFRenderer.GetPageByHeightAsImage(this.page, (this.ImageThumbnail.Height / IMAGE_PERCENTAGE)))' before all references to it are out of scope.
-  * Warning CA2000  In method 'LuceneIndex.GetDocumentPagesWithQuery(string)', call System.IDisposable.Dispose on object 'index_reader' before all references to it are out of scope.
-  * Warning CA2000  In method 'LuceneIndex.GetDocumentPagesWithQuery(string)', call System.IDisposable.Dispose on object 'index_searcher' before all references to it are out of scope.
-  * Warning CA2000  In method 'LuceneIndex.GetDocumentsSimilarToDocument(string)', call System.IDisposable.Dispose on object 'index_reader' before all references to it are out of scope.
-  * Warning CA2000  In method 'LuceneIndex.GetDocumentsSimilarToDocument(string)', call System.IDisposable.Dispose on object 'index_searcher' before all references to it are out of scope.
-  * Warning CA2000  In method 'LuceneIndex.GetDocumentsSimilarToDocument(string)', call System.IDisposable.Dispose on object 'new StreamReader(document_filename)' before all references to it are out of scope.
-  * Warning CA2000  In method 'LuceneIndex.GetDocumentsWithQuery(string)', call System.IDisposable.Dispose on object 'index_reader' before all references to it are out of scope.
-  * Warning CA2000  In method 'LuceneIndex.GetDocumentsWithQuery(string)', call System.IDisposable.Dispose on object 'index_searcher' before all references to it are out of scope.
-  * Warning CA2000  In method 'LuceneIndex.GetDocumentsWithWord(string)', call System.IDisposable.Dispose on object 'index_reader' before all references to it are out of scope.
-  * Warning CA2000  In method 'LuceneIndex.GetDocumentsWithWord(string)', call System.IDisposable.Dispose on object 'index_searcher' before all references to it are out of scope.
-  * Warning CA2000  In method 'LuceneMoreLikeThis.Like(FileInfo)', call System.IDisposable.Dispose on object 'new StreamReader(f.FullName, Encoding.Default)' before all references to it are out of scope.
-  * Warning CA2000  In method 'LuceneMoreLikeThis.Main(string[])', call System.IDisposable.Dispose on object 'Console.OpenStandardOutput()' before all references to it are out of scope.
-  * Warning CA2000  In method 'LuceneMoreLikeThis.Main(string[])', call System.IDisposable.Dispose on object 'r' before all references to it are out of scope.
-  * Warning CA2000  In method 'LuceneMoreLikeThis.Main(string[])', call System.IDisposable.Dispose on object 'searcher' before all references to it are out of scope.
-  * Warning CA2000  In method 'LuceneMoreLikeThis.RetrieveTerms(int)', call System.IDisposable.Dispose on object 'new StreamReader(text[j])' before all references to it are out of scope.
-  * Warning CA2000  In method 'LuceneSimilarityQueries.FormSimilarQuery(string, Analyzer, string, Hashtable)', call System.IDisposable.Dispose on object 'new StringReader(body)' before all references to it are out of scope.
-  * Warning CA2000  In method 'MainWindowServiceDispatcher.OnShowTagOptionsComplete(Library, List<PDFDocument>, AnnotationReportOptions)', call System.IDisposable.Dispose on object 'report_view_control' before all references to it are out of scope.
-  * Warning CA2000  In method 'MainWindowServiceDispatcher.OpenDocument(PDFDocument, int?, string, bool)', object 'pdf_reading_control' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'pdf_reading_control' before all references to it are out of scope.
-  * Warning CA2000  In method 'MainWindowServiceDispatcher.OpenNewBrainstorm()', object 'brainstorm_control' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'brainstorm_control' before all references to it are out of scope.
-  * Warning CA2000  In method 'MainWindowServiceDispatcher.OpenSampleBrainstorm()', object 'brainstorm_control' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'brainstorm_control' before all references to it are out of scope.
-  * Warning CA2000  In method 'MainWindowServiceDispatcher.OpenSpeedRead()', object 'src' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'src' before all references to it are out of scope.
-  * Warning CA2000  In method 'MainWindowServiceDispatcher.OpenWebBrowser()', object 'web_browser_control' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'web_browser_control' before all references to it are out of scope.
-  * Warning CA2000  In method 'MultiChart2D.performPaintY1Axis(Graphics, ChartRegion, ChartRegion, Point2D, Point2D)', call System.IDisposable.Dispose on object 'string_format' before all references to it are out of scope.
-  * Warning CA2000  In method 'MultiChart2D.performPaintY2Axis(Graphics, ChartRegion, ChartRegion, Point2D, Point2D)', call System.IDisposable.Dispose on object 'string_format' before all references to it are out of scope.
-  * Warning CA2000  In method 'MuPDFRenderer.ReadEntireStandardOutput(string, ProcessPriorityClass)', object 'ms' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'ms' before all references to it are out of scope.
-  * Warning CA2000  In method 'MYDDatabase.OpenMYDDatabase(string)', object 'ms' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'ms' before all references to it are out of scope.
-  * Warning CA2000  In method 'OCREngine.DoOCR(string, int)', call System.IDisposable.Dispose on object 'new MemoryStream(renderer.GetPageByDPIAsImage(page_number, 200F))' before all references to it are out of scope.
-  * Warning CA2000  In method 'PDFAnnotationToImageRenderer.RenderAnnotation(PDFDocument, PDFAnnotation, float)', call System.IDisposable.Dispose on object 'new MemoryStream(pdf_document.PDFRenderer.GetPageByDPIAsImage(pdf_annotation.Page, dpi))' before all references to it are out of scope.
-  * Warning CA2000  In method 'PDFCameraLayer.GetSnappedImage(Point, Point)', call System.IDisposable.Dispose on object 'new MemoryStream(this.pdf_renderer_control_stats.pdf_document.PDFRenderer.GetPageByDPIAsImage(this.page, 150F))' before all references to it are out of scope.
-  * Warning CA2000  In method 'PDFInterceptor.Response(HttpChannel)', call System.IDisposable.Dispose on object 'stream_listener_tee' before all references to it are out of scope.
-  * Warning CA2000  In method 'PDFOverlayRenderer.RenderAnnotations(Image, PDFDocument, int, PDFAnnotation)', call System.IDisposable.Dispose on object 'highlight_pen' before all references to it are out of scope.
-  * Warning CA2000  In method 'PDFOverlayRenderer.RenderHighlights(Image, PDFDocument, int)', call System.IDisposable.Dispose on object 'image_attributes' before all references to it are out of scope.
-  * Warning CA2000  In method 'PDFOverlayRenderer.RenderHighlights(int, int, PDFDocument, int)', call System.IDisposable.Dispose on object 'highlight_pen' before all references to it are out of scope.
-  * Warning CA2000  In method 'PDFOverlayRenderer.RenderHighlights(int, int, PDFDocument, int)', object 'bitmap' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'bitmap' before all references to it are out of scope.
-  * Warning CA2000  In method 'PDFPrinterDocumentPaginator.GetPage(int)', call System.IDisposable.Dispose on object 'new MemoryStream(this.pdf_renderer.GetPageByDPIAsImage(page, 300F))' before all references to it are out of scope.
-  * Warning CA2000  In method 'PDFTextExtractor.GetNextJob()', call System.IDisposable.Dispose on object 'new PDFTextExtractor.NextJob(this, job, false, this.queue_lock)' before all references to it are out of scope.
-  * Warning CA2000  In method 'PDFTextExtractor.GetNextJob()', call System.IDisposable.Dispose on object 'new PDFTextExtractor.NextJob(this, job, false, this.queue_lock)' before all references to it are out of scope.
-  * Warning CA2000  In method 'PDFTextExtractor.GetNextJob()', call System.IDisposable.Dispose on object 'new PDFTextExtractor.NextJob(this, job, false, this.queue_lock)' before all references to it are out of scope.
-  * Warning CA2000  In method 'PDFTextExtractor.GetNextJob()', call System.IDisposable.Dispose on object 'new PDFTextExtractor.NextJob(this, job, false, this.queue_lock)' before all references to it are out of scope.
-  * Warning CA2000  In method 'PDFTextExtractor.GetNextJob()', call System.IDisposable.Dispose on object 'new PDFTextExtractor.NextJob(this, job, false, this.queue_lock)' before all references to it are out of scope.
-  * Warning CA2000  In method 'PDFTextExtractor.GetNextJob()', call System.IDisposable.Dispose on object 'new PDFTextExtractor.NextJob(this, job, false, this.queue_lock)' before all references to it are out of scope.
-  * Warning CA2000  In method 'PDFTextExtractor.GetNextJob()', call System.IDisposable.Dispose on object 'new PDFTextExtractor.NextJob(this, job, true, this.queue_lock)' before all references to it are out of scope.
-  * Warning CA2000  In method 'PkiEncryption.Decrypt(string, string)', call System.IDisposable.Dispose on object 'rsaProvider' before all references to it are out of scope.
-  * Warning CA2000  In method 'PkiEncryption.Encrypt(string, string)', call System.IDisposable.Dispose on object 'rsaProvider' before all references to it are out of scope.
-  * Warning CA2000  In method 'PkiEncryption.GenerateKeys(out string, out string)', call System.IDisposable.Dispose on object 'rsaProvider' before all references to it are out of scope.
-  * Warning CA2000  In method 'PNMLoader.CreateBitmapOffSize()', object 'bitmap' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'bitmap' before all references to it are out of scope.
-  * Warning CA2000  In method 'PNMLoader.CreateGreyMap()', object 'bitmap' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'bitmap' before all references to it are out of scope.
-  * Warning CA2000  In method 'PNMLoader.CreateGreyMapOffSize(byte[])', object 'bitmap' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'bitmap' before all references to it are out of scope.
-  * Warning CA2000  In method 'PNMLoader.PNMLoader(string)', object 'stream' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'stream' before all references to it are out of scope.
-  * Warning CA2000  In method 'ProcessSpawning.SpawnChildProcess(string, string, ProcessPriorityClass)', object 'process' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'process' before all references to it are out of scope.
-  * Warning CA2000  In method 'ReversibleEncryption.Decrypt(byte[])', object 'encryptedStream' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'encryptedStream' before all references to it are out of scope.
-  * Warning CA2000  In method 'ReversibleEncryption.Encrypt(string)', object 'memoryStream' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'memoryStream' before all references to it are out of scope.
-  * Warning CA2000  In method 'ReversibleEncryption.ReversibleEncryption()', call System.IDisposable.Dispose on object 'rm' before all references to it are out of scope.
-  * Warning CA2000  In method 'SerializeFile.ProtoSaveToByteArray<T>(T)', call System.IDisposable.Dispose on object 'ms' before all references to it are out of scope.
-  * Warning CA2000  In method 'SoraxPDFRendererDLLWrapper.GetPageByDPIAsImage_LOCK(SoraxPDFRendererDLLWrapper.HDOCWrapper, int, float)', call System.IDisposable.Dispose on object 'ms' before all references to it are out of scope.
-  * Warning CA2000  In method 'StreamFingerprint.FromStream_DOTNET(Stream)', call System.IDisposable.Dispose on object 'sha1' before all references to it are out of scope.
-  * Warning CA2000  In method 'StreamFingerprint.FromText(string)', call System.IDisposable.Dispose on object 'ms' before all references to it are out of scope.
-  * Warning CA2000  In method 'StreamMD5.FromBytes(byte[])', call System.IDisposable.Dispose on object 'ms' before all references to it are out of scope.
-  * Warning CA2000  In method 'StreamMD5.FromStream(Stream)', call System.IDisposable.Dispose on object 'md5' before all references to it are out of scope.
-  * Warning CA2000  In method 'StreamMD5.FromText(string)', call System.IDisposable.Dispose on object 'ms' before all references to it are out of scope.
-  * Warning CA2000  In method 'StreamToFile.CopyBufferToStream(Stream, byte[], int)', call System.IDisposable.Dispose on object 'ms' before all references to it are out of scope.
-  * Warning CA2000  In method 'TopographicalChart.OnPaint(PaintEventArgs)', call System.IDisposable.Dispose on object 'brush' before all references to it are out of scope.
-  * Warning CA2000  In method 'TopographicalChart.OnPaint(PaintEventArgs)', call System.IDisposable.Dispose on object 'font' before all references to it are out of scope.
-  * Warning CA2000  In method 'TopographicalChart.showForm()', call System.IDisposable.Dispose on object 'form' before all references to it are out of scope.
-  * Warning CA2000  In method 'TopographicalChart.showFormModal()', call System.IDisposable.Dispose on object 'form' before all references to it are out of scope.
-  * Warning CA2000  In method 'TweetControl.GenerateRtfCitationSnippet_OnBibliographyReady(CSLProcessorOutputConsumer)', call System.IDisposable.Dispose on object 'rich_text_box' before all references to it are out of scope.
-  * Warning CA2000  In method 'WebBrowserHostControl.OpenNewWindow()', object 'wbc' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'wbc' before all references to it are out of scope.
-  * Warning CA2000  In method 'WebLibraryDetailControl.GenericCustomiseChooser(string, string)', call System.IDisposable.Dispose on object 'dialog' before all references to it are out of scope.
-  * Warning CA2000  In method 'WebLibraryDetailControl.UpdateLibraryStatistics_Stats_Background_CoverFlow()', call System.IDisposable.Dispose on object 'font' before all references to it are out of scope.
-  * Warning CA2000  In method 'WebLibraryDetailControl.UpdateLibraryStatistics_Stats_Background_CoverFlow()', call System.IDisposable.Dispose on object 'image_attributes' before all references to it are out of scope.
-  * Warning CA2000  In method 'WebLibraryDetailControl.UpdateLibraryStatistics_Stats_Background_CoverFlow()', call System.IDisposable.Dispose on object 'mat' before all references to it are out of scope.
-  * Warning CA2000  In method 'WebLibraryDetailControl.UpdateLibraryStatistics_Stats_Background_CoverFlow()', call System.IDisposable.Dispose on object 'new MemoryStream(base.Current.pdf_document.PDFRenderer.GetPageByHeightAsImage(1, (WebLibraryDetailControl.PREVIEW_IMAGE_HEIGHT / WebLibraryDetailControl.PREVIEW_IMAGE_PERCENTAGE)))' before all references to it are out of scope.
-  * Warning CA2000  In method 'WebLibraryDetailControl.UpdateLibraryStatistics_Stats_Background_CoverFlow()', call System.IDisposable.Dispose on object 'new StringFormat()' before all references to it are out of scope.
-  * Warning CA2000  In method 'WebsiteAccess.DownloadFile(WebsiteAccess.OurSiteFileKind)', call System.IDisposable.Dispose on object 'web_client' before all references to it are out of scope.
-  * Warning CA2000  In method 'Word2007Export.Export(List<PDFDocument>)', call System.IDisposable.Dispose on object 'new SaveFileDialog()' before all references to it are out of scope.
-  * Warning CA2000  In method 'XMLTools.ToString(XmlDocument)', call System.IDisposable.Dispose on object 'sw' before all references to it are out of scope.
-  * Warning CA2202  Object 'app_key' can be disposed more than once in method 'UserRegistry.Read(string)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 39
-  * Warning CA2202  Object 'app_key' can be disposed more than once in method 'UserRegistry.Write(string, string)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 28
-  * Warning CA2202  Object 'compressed_stream' can be disposed more than once in method 'PostcodeOutcodes.PostcodeOutcodes()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 80
-  * Warning CA2202  Object 'compressed_stream' can be disposed more than once in method 'ScrabbleWords.CreateWords()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 125
-  * Warning CA2202  Object 'compressed_stream' can be disposed more than once in method 'ScrabbleWords.CreateWords()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 148
-  * Warning CA2202  Object 'compressed_stream' can be disposed more than once in method 'ScrabbleWords.ScrabbleWords()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 36
-  * Warning CA2202  Object 'fs' can be disposed more than once in method 'BibTeXImporter.BibTeXImporter(Library, string)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 37
-  * Warning CA2202  Object 'fs' can be disposed more than once in method 'ImportingIntoLibrary.AddNewDocumentToLibraryFromInternet_SYNCHRONOUS(Library, object)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 285
-  * Warning CA2202  Object 'fs' can be disposed more than once in method 'LDASampler.FastLoad(string, int[][])'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 218
-  * Warning CA2202  Object 'fs' can be disposed more than once in method 'LDASampler.FastSave(string)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 176
-  * Warning CA2202  Object 'fs' can be disposed more than once in method 'UnhandledExceptionMessageBox.PopulateLog()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 213
-  * Warning CA2202  Object 'fs' can be disposed more than once in method 'VisualGalleryControl.ExportJpegImage(PdfDictionary, ref int)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 64
-  * Warning CA2202  Object 'memoryStream' can be disposed more than once in method 'ReversibleEncryption.Encrypt(string)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 95
-  * Warning CA2202  Object 'npss_in_callback' can be disposed more than once in method 'IPCServer.StartServerPump()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 66
-  * Warning CA2202  Object 'stream' can be disposed more than once in method 'CSLProcessorTranslator_AbbreviationsManager.LoadDefaultAbbreviations()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 80
-  * Warning CA2202  Object 'stream' can be disposed more than once in method 'PostcodeOutcodes.PostcodeOutcodes()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 80
-  * Warning CA2202  Object 'stream' can be disposed more than once in method 'ScrabbleWords.CreateWords()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 125, 126
-  * Warning CA2202  Object 'stream' can be disposed more than once in method 'ScrabbleWords.CreateWords()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 148, 149
-  * Warning CA2202  Object 'stream' can be disposed more than once in method 'ScrabbleWords.ScrabbleWords()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 36
-  * Warning CA2202  Object 'stream' can be disposed more than once in method 'SerializeFile.LoadCompressed(string)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 297
-  * Warning CA2202  Object 'stream' can be disposed more than once in method 'SerializeFile.SaveCompressed(string, object)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 286
-  * Warning CA2202  Object 'sub_app_key' can be disposed more than once in method 'UserRegistry.Read(string, string)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 77
-  * Warning CA2202  Object 'sub_app_key' can be disposed more than once in method 'UserRegistry.Write(string, string, string)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 63
-  * Warning CA2202  Object 'sw' can be disposed more than once in method 'PubMedXMLToBibTex.XMLNodeToPrettyString(XmlNode)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 119
-  * Warning CA2213  'ChatControl' contains field 'ChatControl.timer' that is of IDisposable type: 'Timer'. Change the Dispose method on 'ChatControl' to call Dispose or Close on this field.
-  * Warning CA2213  'LibraryIndex' contains field 'LibraryIndex.word_index_manager' that is of IDisposable type: 'LuceneIndex'. Change the Dispose method on 'LibraryIndex' to call Dispose or Close on this field.
-  * Warning CA2213  'PDFReadingControl' contains field 'PDFReadingControl.pdf_renderer_control' that is of IDisposable type: 'PDFRendererControl'. Change the Dispose method on 'PDFReadingControl' to call Dispose or Close on this field.
-  * Warning CA2213  'WebBrowserHostControl' contains field 'WebBrowserHostControl.wbc_browsing' that is of IDisposable type: 'WebBrowserControl'. Change the Dispose method on 'WebBrowserHostControl' to call Dispose or Close on this field.
+  * Message	IDE0067	Disposable object created by 'new FolderBrowserDialog()' is never disposed
+  * Message	IDE0067	Disposable object created by 'new Tesseract()' is never disposed
+  * Message	IDE0067	Disposable object created by 'out ms_image' is never disposed
+  * Warning	CA1001	Implement IDisposable on 'BibTeXEditorControl' because it creates members of the following IDisposable types: 'WeakDependencyPropertyChangeNotifier'. If 'BibTeXEditorControl' has previously shipped, adding new members that implement IDisposable to this type is considered a breaking change to existing consumers.
+  * Warning	CA1001	Implement IDisposable on 'CSLProcessorOutputConsumer' because it creates members of the following IDisposable types: 'GeckoWebBrowser'. If 'CSLProcessorOutputConsumer' has previously shipped, adding new members that implement IDisposable to this type is considered a breaking change to existing consumers.
+  * Warning	CA1001	Implement IDisposable on 'FolderWatcher' because it creates members of the following IDisposable types: 'FileSystemWatcher'. If 'FolderWatcher' has previously shipped, adding new members that implement IDisposable to this type is considered a breaking change to existing consumers.
+  * Warning	CA1001	Implement IDisposable on 'GoogleBibTexSnifferControl' because it creates members of the following IDisposable types: 'PDFRendererControl'. If 'GoogleBibTexSnifferControl' has previously shipped, adding new members that implement IDisposable to this type is considered a breaking change to existing consumers.
+  * Warning	CA1001	Implement IDisposable on 'HtmlLexicalAnalyzer' because it creates members of the following IDisposable types: 'StringReader'.
+  * Warning	CA1001	Implement IDisposable on 'Library' because it creates members of the following IDisposable types: 'LibraryIndex'. If 'Library' has previously shipped, adding new members that implement IDisposable to this type is considered a breaking change to existing consumers.
+  * Warning	CA1001	Implement IDisposable on 'LibraryCatalogOverviewControl' because it creates members of the following IDisposable types: 'LibraryIndexHoverPopup'. If 'LibraryCatalogOverviewControl' has previously shipped, adding new members that implement IDisposable to this type is considered a breaking change to existing consumers.
+  * Warning	CA1001	Implement IDisposable on 'MainWindow' because it creates members of the following IDisposable types: 'StartPageControl'. If 'MainWindow' has previously shipped, adding new members that implement IDisposable to this type is considered a breaking change to existing consumers.
+  * Warning	CA1001	Implement IDisposable on 'NotificationManager' because it creates members of the following IDisposable types: 'ReaderWriterLockSlim', 'AutoResetEvent'. If 'NotificationManager' has previously shipped, adding new members that implement IDisposable to this type is considered a breaking change to existing consumers.
+  * Warning	CA1001	Implement IDisposable on 'PDFAnnotationNodeContentControl' because it creates members of the following IDisposable types: 'LibraryIndexHoverPopup'. If 'PDFAnnotationNodeContentControl' has previously shipped, adding new members that implement IDisposable to this type is considered a breaking change to existing consumers.
+  * Warning	CA1001	Implement IDisposable on 'PDFDocumentNodeContentControl' because it creates members of the following IDisposable types: 'LibraryIndexHoverPopup'. If 'PDFDocumentNodeContentControl' has previously shipped, adding new members that implement IDisposable to this type is considered a breaking change to existing consumers.
+  * Warning	CA1001	Implement IDisposable on 'PDFPrinterDocumentPaginator' because it creates members of the following IDisposable types: 'DocumentPage'.
+  * Warning	CA1001	Implement IDisposable on 'ReadOutLoudManager' because it creates members of the following IDisposable types: 'SpeechSynthesizer'. If 'ReadOutLoudManager' has previously shipped, adding new members that implement IDisposable to this type is considered a breaking change to existing consumers.
+  * Warning	CA1001	Implement IDisposable on 'TagEditorControl' because it creates members of the following IDisposable types: 'WeakDependencyPropertyChangeNotifier'. If 'TagEditorControl' has previously shipped, adding new members that implement IDisposable to this type is considered a breaking change to existing consumers.
+  * Warning	CA1001	Implement IDisposable on 'UrlDownloader.DownloadAsyncTracker' because it creates members of the following IDisposable types: 'UrlDownloader.WebClientWithCompression'. If 'UrlDownloader.DownloadAsyncTracker' has previously shipped, adding new members that implement IDisposable to this type is considered a breaking change to existing consumers.
+  * Warning	CA1063	Modify 'AugmentedPdfLoadedDocument.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
+  * Warning	CA1063	Modify 'AugmentedPdfLoadedDocument.~AugmentedPdfLoadedDocument()' so that it calls Dispose(false) and then returns.
+  * Warning	CA1063	Modify 'AugmentedPopupAutoCloser.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
+  * Warning	CA1063	Modify 'AugmentedPopupAutoCloser.~AugmentedPopupAutoCloser()' so that it calls Dispose(false) and then returns.
+  * Warning	CA1063	Modify 'BrainstormControl.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
+  * Warning	CA1063	Modify 'BrainstormControl.~BrainstormControl()' so that it calls Dispose(false) and then returns.
+  * Warning	CA1063	Modify 'ChatControl.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
+  * Warning	CA1063	Modify 'ChatControl.~ChatControl()' so that it calls Dispose(false) and then returns.
+  * Warning	CA1063	Modify 'LibraryIndex.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
+  * Warning	CA1063	Modify 'LibraryIndex.~LibraryIndex()' so that it calls Dispose(false) and then returns.
+  * Warning	CA1063	Modify 'LibraryIndexHoverPopup.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
+  * Warning	CA1063	Modify 'LibraryIndexHoverPopup.~LibraryIndexHoverPopup()' so that it calls Dispose(false) and then returns.
+  * Warning	CA1063	Modify 'LuceneIndex.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
+  * Warning	CA1063	Modify 'LuceneIndex.~LuceneIndex()' so that it calls Dispose(false) and then returns.
+  * Warning	CA1063	Modify 'PDFReadingControl.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
+  * Warning	CA1063	Modify 'PDFReadingControl.~PDFReadingControl()' so that it calls Dispose(false) and then returns.
+  * Warning	CA1063	Modify 'PDFRendererControl.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
+  * Warning	CA1063	Modify 'PDFRendererControl.~PDFRendererControl()' so that it calls Dispose(false) and then returns.
+  * Warning	CA1063	Modify 'ProcessOutputReader.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
+  * Warning	CA1063	Modify 'ProcessOutputReader.~ProcessOutputReader()' so that it calls Dispose(false) and then returns.
+  * Warning	CA1063	Modify 'ReportViewerControl.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
+  * Warning	CA1063	Modify 'ReportViewerControl.~ReportViewerControl()' so that it calls Dispose(false) and then returns.
+  * Warning	CA1063	Modify 'SceneRenderingControl.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
+  * Warning	CA1063	Modify 'SceneRenderingControl.~SceneRenderingControl()' so that it calls Dispose(false) and then returns.
+  * Warning	CA1063	Modify 'SpeedReadControl.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
+  * Warning	CA1063	Modify 'SpeedReadControl.~SpeedReadControl()' so that it calls Dispose(false) and then returns.
+  * Warning	CA1063	Modify 'StartPageControl.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
+  * Warning	CA1063	Modify 'StartPageControl.~StartPageControl()' so that it calls Dispose(false) and then returns.
+  * Warning	CA1063	Modify 'StopWatch.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
+  * Warning	CA1063	Modify 'StopWatch.~StopWatch()' so that it calls Dispose(false) and then returns.
+  * Warning	CA1063	Modify 'WebBrowserControl.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
+  * Warning	CA1063	Modify 'WebBrowserControl.~WebBrowserControl()' so that it calls Dispose(false) and then returns.
+  * Warning	CA1063	Modify 'WebBrowserHostControl.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.
+  * Warning	CA1063	Modify 'WebBrowserHostControl.~WebBrowserHostControl()' so that it calls Dispose(false) and then returns.
+  * Warning	CA2000	In method 'AssociatePDFWithVanillaReferenceWindow.CmdLocal_Click(object, RoutedEventArgs)', call System.IDisposable.Dispose on object 'new OpenFileDialog()' before all references to it are out of scope.
+  * Warning	CA2000	In method 'BibTexExport.Export(List<PDFDocument>)', call System.IDisposable.Dispose on object 'new SaveFileDialog()' before all references to it are out of scope.
+  * Warning	CA2000	In method 'BitmapImageTools.CropImageRegion(Image, double, double, double, double)', call System.IDisposable.Dispose on object 'bitmap' before all references to it are out of scope.
+  * Warning	CA2000	In method 'BitmapImageTools.FromImage(Image)', object 'ms' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'ms' before all references to it are out of scope.
+  * Warning	CA2000	In method 'BrowserStarter.OpenBrowser_REGISTRY(string)', call System.IDisposable.Dispose on object 'p' before all references to it are out of scope.
+  * Warning	CA2000	In method 'ChartTools.renderNoDatasetMessage(Graphics)', call System.IDisposable.Dispose on object 'font' before all references to it are out of scope.
+  * Warning	CA2000	In method 'ClipboardTools.SetRtf(string)', call System.IDisposable.Dispose on object 'rich_text_box' before all references to it are out of scope.
+  * Warning	CA2000	In method 'ConsoleRedirector.CaptureConsole()', call System.IDisposable.Dispose on object 'cr' before all references to it are out of scope.
+  * Warning	CA2000	In method 'CSLEditorControl.OnBibliographyReady(CSLProcessorOutputConsumer)', call System.IDisposable.Dispose on object 'ms' before all references to it are out of scope.
+  * Warning	CA2000	In method 'DocumentConversion.ConvertorDOC(string, string)', call System.IDisposable.Dispose on object 'converter' before all references to it are out of scope.
+  * Warning	CA2000	In method 'DocumentConversion.ConvertorDOC(string, string)', call System.IDisposable.Dispose on object 'word_document' before all references to it are out of scope.
+  * Warning	CA2000	In method 'ExportToWord.ExportToTextAndLaunch(PDFDocument)', call System.IDisposable.Dispose on object 'report_view_control' before all references to it are out of scope.
+  * Warning	CA2000	In method 'FolderWatcherChooser.CmdAddFolder_Click(object, RoutedEventArgs)', call System.IDisposable.Dispose on object 'new FolderBrowserDialog()' before all references to it are out of scope.
+  * Warning	CA2000	In method 'Fonts.getLargestFont(Graphics, string, double)', object 'font' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'font' before all references to it are out of scope.
+  * Warning	CA2000	In method 'Ghostscript.RenderPage_AsMemoryStream(string, int, int, string, ProcessPriorityClass)', object 'ms' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'ms' before all references to it are out of scope.
+  * Warning	CA2000	In method 'GoogleAnalysicsSubmitter.Submit_BACKGROUND(Feature)', call System.IDisposable.Dispose on object 'wc' before all references to it are out of scope.
+  * Warning	CA2000	In method 'GoogleScholarScraper.ScrapeUrl(IWebProxy, string)', call System.IDisposable.Dispose on object 'ms' before all references to it are out of scope.
+  * Warning	CA2000	In method 'GUITools.RenderToBitmapImage(UIElement)', object 'ms' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'ms' before all references to it are out of scope.
+  * Warning	CA2000	In method 'HtmlFromXamlConverter.ConvertXamlToHtml(string)', call System.IDisposable.Dispose on object 'new StringReader(xamlString)' before all references to it are out of scope.
+  * Warning	CA2000	In method 'HtmlFromXamlConverter.ConvertXamlToHtml(string)', call System.IDisposable.Dispose on object 'new StringWriter(htmlStringBuilder)' before all references to it are out of scope.
+  * Warning	CA2000	In method 'ImportFromFolder.FolderLocationButton_Click(object, RoutedEventArgs)', call System.IDisposable.Dispose on object 'new FolderBrowserDialog()' before all references to it are out of scope.
+  * Warning	CA2000	In method 'ImportFromThirdParty.GetFolderNameFromDialog(string, string)', call System.IDisposable.Dispose on object 'ofd' before all references to it are out of scope.
+  * Warning	CA2000	In method 'IntranetLibraryChooserControl.ObjButtonFolderChoose_Click(object, RoutedEventArgs)', call System.IDisposable.Dispose on object 'new FolderBrowserDialog()' before all references to it are out of scope.
+  * Warning	CA2000	In method 'IPCServer.StartServerPump()', call System.IDisposable.Dispose on object 'npss' before all references to it are out of scope.
+  * Warning	CA2000	In method 'LibraryBundleCreationControl.CmdCreateBundle_Click(object, RoutedEventArgs)', call System.IDisposable.Dispose on object 'dialog' before all references to it are out of scope.
+  * Warning	CA2000	In method 'LibraryControl.ButtonAddDocuments_Click(object, RoutedEventArgs)', call System.IDisposable.Dispose on object 'new OpenFileDialog()' before all references to it are out of scope.
+  * Warning	CA2000	In method 'LibraryExporter.Export(Library, List<PDFDocument>)', call System.IDisposable.Dispose on object 'new FolderBrowserDialog()' before all references to it are out of scope.
+  * Warning	CA2000	In method 'LibraryIndexHoverPopup.DisplayThumbnail()', call System.IDisposable.Dispose on object 'new MemoryStream(this.pdf_document.PDFRenderer.GetPageByHeightAsImage(this.page, (this.ImageThumbnail.Height / IMAGE_PERCENTAGE)))' before all references to it are out of scope.
+  * Warning	CA2000	In method 'LuceneIndex.GetDocumentPagesWithQuery(string)', call System.IDisposable.Dispose on object 'index_reader' before all references to it are out of scope.
+  * Warning	CA2000	In method 'LuceneIndex.GetDocumentPagesWithQuery(string)', call System.IDisposable.Dispose on object 'index_searcher' before all references to it are out of scope.
+  * Warning	CA2000	In method 'LuceneIndex.GetDocumentsSimilarToDocument(string)', call System.IDisposable.Dispose on object 'index_reader' before all references to it are out of scope.
+  * Warning	CA2000	In method 'LuceneIndex.GetDocumentsSimilarToDocument(string)', call System.IDisposable.Dispose on object 'index_searcher' before all references to it are out of scope.
+  * Warning	CA2000	In method 'LuceneIndex.GetDocumentsSimilarToDocument(string)', call System.IDisposable.Dispose on object 'new StreamReader(document_filename)' before all references to it are out of scope.
+  * Warning	CA2000	In method 'LuceneIndex.GetDocumentsWithQuery(string)', call System.IDisposable.Dispose on object 'index_reader' before all references to it are out of scope.
+  * Warning	CA2000	In method 'LuceneIndex.GetDocumentsWithQuery(string)', call System.IDisposable.Dispose on object 'index_searcher' before all references to it are out of scope.
+  * Warning	CA2000	In method 'LuceneIndex.GetDocumentsWithWord(string)', call System.IDisposable.Dispose on object 'index_reader' before all references to it are out of scope.
+  * Warning	CA2000	In method 'LuceneIndex.GetDocumentsWithWord(string)', call System.IDisposable.Dispose on object 'index_searcher' before all references to it are out of scope.
+  * Warning	CA2000	In method 'LuceneMoreLikeThis.Like(FileInfo)', call System.IDisposable.Dispose on object 'new StreamReader(f.FullName, Encoding.Default)' before all references to it are out of scope.
+  * Warning	CA2000	In method 'LuceneMoreLikeThis.Main(string[])', call System.IDisposable.Dispose on object 'Console.OpenStandardOutput()' before all references to it are out of scope.
+  * Warning	CA2000	In method 'LuceneMoreLikeThis.Main(string[])', call System.IDisposable.Dispose on object 'r' before all references to it are out of scope.
+  * Warning	CA2000	In method 'LuceneMoreLikeThis.Main(string[])', call System.IDisposable.Dispose on object 'searcher' before all references to it are out of scope.
+  * Warning	CA2000	In method 'LuceneMoreLikeThis.RetrieveTerms(int)', call System.IDisposable.Dispose on object 'new StreamReader(text[j])' before all references to it are out of scope.
+  * Warning	CA2000	In method 'LuceneSimilarityQueries.FormSimilarQuery(string, Analyzer, string, Hashtable)', call System.IDisposable.Dispose on object 'new StringReader(body)' before all references to it are out of scope.
+  * Warning	CA2000	In method 'MainWindowServiceDispatcher.OnShowTagOptionsComplete(Library, List<PDFDocument>, AnnotationReportOptionsWindow.AnnotationReportOptions)', call System.IDisposable.Dispose on object 'report_view_control' before all references to it are out of scope.
+  * Warning	CA2000	In method 'MainWindowServiceDispatcher.OpenDocument(PDFDocument, int?, string, bool)', object 'pdf_reading_control' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'pdf_reading_control' before all references to it are out of scope.
+  * Warning	CA2000	In method 'MainWindowServiceDispatcher.OpenNewBrainstorm()', object 'brainstorm_control' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'brainstorm_control' before all references to it are out of scope.
+  * Warning	CA2000	In method 'MainWindowServiceDispatcher.OpenSampleBrainstorm()', object 'brainstorm_control' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'brainstorm_control' before all references to it are out of scope.
+  * Warning	CA2000	In method 'MainWindowServiceDispatcher.OpenSpeedRead()', object 'src' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'src' before all references to it are out of scope.
+  * Warning	CA2000	In method 'MainWindowServiceDispatcher.OpenWebBrowser()', object 'web_browser_control' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'web_browser_control' before all references to it are out of scope.
+  * Warning	CA2000	In method 'MultiChart2D.performPaintY1Axis(Graphics, ChartRegion, ChartRegion, Point2D, Point2D)', call System.IDisposable.Dispose on object 'string_format' before all references to it are out of scope.
+  * Warning	CA2000	In method 'MultiChart2D.performPaintY2Axis(Graphics, ChartRegion, ChartRegion, Point2D, Point2D)', call System.IDisposable.Dispose on object 'string_format' before all references to it are out of scope.
+  * Warning	CA2000	In method 'MuPDFRenderer.ReadEntireStandardOutput(string, ProcessPriorityClass)', object 'ms' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'ms' before all references to it are out of scope.
+  * Warning	CA2000	In method 'MYDDatabase.OpenMYDDatabase(string)', object 'ms' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'ms' before all references to it are out of scope.
+  * Warning	CA2000	In method 'OCREngine.DoOCR(string, int)', call System.IDisposable.Dispose on object 'new MemoryStream(renderer.GetPageByDPIAsImage(page_number, 200F))' before all references to it are out of scope.
+  * Warning	CA2000	In method 'PDFAnnotationToImageRenderer.RenderAnnotation(PDFDocument, PDFAnnotation, float)', call System.IDisposable.Dispose on object 'new MemoryStream(pdf_document.PDFRenderer.GetPageByDPIAsImage(pdf_annotation.Page, dpi))' before all references to it are out of scope.
+  * Warning	CA2000	In method 'PDFCameraLayer.GetSnappedImage(Point, Point)', call System.IDisposable.Dispose on object 'new MemoryStream(this.pdf_renderer_control_stats.pdf_document.PDFRenderer.GetPageByDPIAsImage(this.page, 150F))' before all references to it are out of scope.
+  * Warning	CA2000	In method 'PDFInterceptor.Response(HttpChannel)', call System.IDisposable.Dispose on object 'stream_listener_tee' before all references to it are out of scope.
+  * Warning	CA2000	In method 'PDFOverlayRenderer.RenderAnnotations(Image, PDFDocument, int, PDFAnnotation)', call System.IDisposable.Dispose on object 'highlight_pen' before all references to it are out of scope.
+  * Warning	CA2000	In method 'PDFOverlayRenderer.RenderHighlights(Image, PDFDocument, int)', call System.IDisposable.Dispose on object 'image_attributes' before all references to it are out of scope.
+  * Warning	CA2000	In method 'PDFOverlayRenderer.RenderHighlights(int, int, PDFDocument, int)', call System.IDisposable.Dispose on object 'highlight_pen' before all references to it are out of scope.
+  * Warning	CA2000	In method 'PDFOverlayRenderer.RenderHighlights(int, int, PDFDocument, int)', object 'bitmap' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'bitmap' before all references to it are out of scope.
+  * Warning	CA2000	In method 'PDFPrinterDocumentPaginator.GetPage(int)', call System.IDisposable.Dispose on object 'new MemoryStream(this.pdf_renderer.GetPageByDPIAsImage(page, 300F))' before all references to it are out of scope.
+  * Warning	CA2000	In method 'PDFTextExtractor.GetNextJob()', call System.IDisposable.Dispose on object 'new PDFTextExtractor.NextJob(this, job, false, this.queue_lock)' before all references to it are out of scope.
+  * Warning	CA2000	In method 'PDFTextExtractor.GetNextJob()', call System.IDisposable.Dispose on object 'new PDFTextExtractor.NextJob(this, job, false, this.queue_lock)' before all references to it are out of scope.
+  * Warning	CA2000	In method 'PDFTextExtractor.GetNextJob()', call System.IDisposable.Dispose on object 'new PDFTextExtractor.NextJob(this, job, false, this.queue_lock)' before all references to it are out of scope.
+  * Warning	CA2000	In method 'PDFTextExtractor.GetNextJob()', call System.IDisposable.Dispose on object 'new PDFTextExtractor.NextJob(this, job, false, this.queue_lock)' before all references to it are out of scope.
+  * Warning	CA2000	In method 'PDFTextExtractor.GetNextJob()', call System.IDisposable.Dispose on object 'new PDFTextExtractor.NextJob(this, job, false, this.queue_lock)' before all references to it are out of scope.
+  * Warning	CA2000	In method 'PDFTextExtractor.GetNextJob()', call System.IDisposable.Dispose on object 'new PDFTextExtractor.NextJob(this, job, false, this.queue_lock)' before all references to it are out of scope.
+  * Warning	CA2000	In method 'PDFTextExtractor.GetNextJob()', call System.IDisposable.Dispose on object 'new PDFTextExtractor.NextJob(this, job, true, this.queue_lock)' before all references to it are out of scope.
+  * Warning	CA2000	In method 'PkiEncryption.Decrypt(string, string)', call System.IDisposable.Dispose on object 'rsaProvider' before all references to it are out of scope.
+  * Warning	CA2000	In method 'PkiEncryption.Encrypt(string, string)', call System.IDisposable.Dispose on object 'rsaProvider' before all references to it are out of scope.
+  * Warning	CA2000	In method 'PkiEncryption.GenerateKeys(out string, out string)', call System.IDisposable.Dispose on object 'rsaProvider' before all references to it are out of scope.
+  * Warning	CA2000	In method 'PNMLoader.CreateBitmapOffSize()', object 'bitmap' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'bitmap' before all references to it are out of scope.
+  * Warning	CA2000	In method 'PNMLoader.CreateGreyMap()', object 'bitmap' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'bitmap' before all references to it are out of scope.
+  * Warning	CA2000	In method 'PNMLoader.CreateGreyMapOffSize(byte[])', object 'bitmap' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'bitmap' before all references to it are out of scope.
+  * Warning	CA2000	In method 'PNMLoader.PNMLoader(string)', object 'stream' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'stream' before all references to it are out of scope.
+  * Warning	CA2000	In method 'ProcessSpawning.SpawnChildProcess(string, string, ProcessPriorityClass)', object 'process' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'process' before all references to it are out of scope.
+  * Warning	CA2000	In method 'ReversibleEncryption.Decrypt(byte[])', object 'encryptedStream' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'encryptedStream' before all references to it are out of scope.
+  * Warning	CA2000	In method 'ReversibleEncryption.Encrypt(string)', object 'memoryStream' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'memoryStream' before all references to it are out of scope.
+  * Warning	CA2000	In method 'ReversibleEncryption.ReversibleEncryption()', call System.IDisposable.Dispose on object 'rm' before all references to it are out of scope.
+  * Warning	CA2000	In method 'SerializeFile.ProtoSaveToByteArray<T>(T)', call System.IDisposable.Dispose on object 'ms' before all references to it are out of scope.
+  * Warning	CA2000	In method 'SoraxPDFRendererDLLWrapper.GetPageByDPIAsImage_LOCK(SoraxPDFRendererDLLWrapper.HDOCWrapper, int, float)', call System.IDisposable.Dispose on object 'ms' before all references to it are out of scope.
+  * Warning	CA2000	In method 'StreamFingerprint.FromStream_DOTNET(Stream)', call System.IDisposable.Dispose on object 'sha1' before all references to it are out of scope.
+  * Warning	CA2000	In method 'StreamFingerprint.FromText(string)', call System.IDisposable.Dispose on object 'ms' before all references to it are out of scope.
+  * Warning	CA2000	In method 'StreamMD5.FromBytes(byte[])', call System.IDisposable.Dispose on object 'ms' before all references to it are out of scope.
+  * Warning	CA2000	In method 'StreamMD5.FromStream(Stream)', call System.IDisposable.Dispose on object 'md5' before all references to it are out of scope.
+  * Warning	CA2000	In method 'StreamMD5.FromText(string)', call System.IDisposable.Dispose on object 'ms' before all references to it are out of scope.
+  * Warning	CA2000	In method 'StreamToFile.CopyBufferToStream(Stream, byte[], int)', call System.IDisposable.Dispose on object 'ms' before all references to it are out of scope.
+  * Warning	CA2000	In method 'TopographicalChart.OnPaint(PaintEventArgs)', call System.IDisposable.Dispose on object 'brush' before all references to it are out of scope.
+  * Warning	CA2000	In method 'TopographicalChart.OnPaint(PaintEventArgs)', call System.IDisposable.Dispose on object 'font' before all references to it are out of scope.
+  * Warning	CA2000	In method 'TopographicalChart.showForm()', call System.IDisposable.Dispose on object 'form' before all references to it are out of scope.
+  * Warning	CA2000	In method 'TopographicalChart.showFormModal()', call System.IDisposable.Dispose on object 'form' before all references to it are out of scope.
+  * Warning	CA2000	In method 'TweetControl.GenerateRtfCitationSnippet_OnBibliographyReady(CSLProcessorOutputConsumer)', call System.IDisposable.Dispose on object 'rich_text_box' before all references to it are out of scope.
+  * Warning	CA2000	In method 'WebBrowserHostControl.OpenNewWindow()', object 'wbc' is not disposed along all exception paths. Call System.IDisposable.Dispose on object 'wbc' before all references to it are out of scope.
+  * Warning	CA2000	In method 'WebLibraryDetailControl.GenericCustomiseChooser(string, string)', call System.IDisposable.Dispose on object 'dialog' before all references to it are out of scope.
+  * Warning	CA2000	In method 'WebLibraryDetailControl.UpdateLibraryStatistics_Stats_Background_CoverFlow()', call System.IDisposable.Dispose on object 'font' before all references to it are out of scope.
+  * Warning	CA2000	In method 'WebLibraryDetailControl.UpdateLibraryStatistics_Stats_Background_CoverFlow()', call System.IDisposable.Dispose on object 'image_attributes' before all references to it are out of scope.
+  * Warning	CA2000	In method 'WebLibraryDetailControl.UpdateLibraryStatistics_Stats_Background_CoverFlow()', call System.IDisposable.Dispose on object 'mat' before all references to it are out of scope.
+  * Warning	CA2000	In method 'WebLibraryDetailControl.UpdateLibraryStatistics_Stats_Background_CoverFlow()', call System.IDisposable.Dispose on object 'new MemoryStream(base.Current.pdf_document.PDFRenderer.GetPageByHeightAsImage(1, (WebLibraryDetailControl.PREVIEW_IMAGE_HEIGHT / WebLibraryDetailControl.PREVIEW_IMAGE_PERCENTAGE)))' before all references to it are out of scope.
+  * Warning	CA2000	In method 'WebLibraryDetailControl.UpdateLibraryStatistics_Stats_Background_CoverFlow()', call System.IDisposable.Dispose on object 'new StringFormat()' before all references to it are out of scope.
+  * Warning	CA2000	In method 'WebsiteAccess.DownloadFile(WebsiteAccess.OurSiteFileKind)', call System.IDisposable.Dispose on object 'web_client' before all references to it are out of scope.
+  * Warning	CA2000	In method 'Word2007Export.Export(List<PDFDocument>)', call System.IDisposable.Dispose on object 'new SaveFileDialog()' before all references to it are out of scope.
+  * Warning	CA2000	In method 'XMLTools.ToString(XmlDocument)', call System.IDisposable.Dispose on object 'sw' before all references to it are out of scope.
+  * Warning	CA2202	Object 'app_key' can be disposed more than once in method 'UserRegistry.Read(string)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 39
+  * Warning	CA2202	Object 'app_key' can be disposed more than once in method 'UserRegistry.Write(string, string)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 28
+  * Warning	CA2202	Object 'compressed_stream' can be disposed more than once in method 'PostcodeOutcodes.PostcodeOutcodes()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 80
+  * Warning	CA2202	Object 'compressed_stream' can be disposed more than once in method 'ScrabbleWords.CreateWords()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 125
+  * Warning	CA2202	Object 'compressed_stream' can be disposed more than once in method 'ScrabbleWords.CreateWords()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 148
+  * Warning	CA2202	Object 'compressed_stream' can be disposed more than once in method 'ScrabbleWords.ScrabbleWords()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 36
+  * Warning	CA2202	Object 'fs' can be disposed more than once in method 'BibTeXImporter.BibTeXImporter(Library, string)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 37
+  * Warning	CA2202	Object 'fs' can be disposed more than once in method 'ImportingIntoLibrary.AddNewDocumentToLibraryFromInternet_SYNCHRONOUS(Library, object)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 285
+  * Warning	CA2202	Object 'fs' can be disposed more than once in method 'LDASampler.FastLoad(string, int[][])'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 218
+  * Warning	CA2202	Object 'fs' can be disposed more than once in method 'LDASampler.FastSave(string)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 176
+  * Warning	CA2202	Object 'fs' can be disposed more than once in method 'UnhandledExceptionMessageBox.PopulateLog()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 213
+  * Warning	CA2202	Object 'fs' can be disposed more than once in method 'VisualGalleryControl.ExportJpegImage(PdfDictionary, ref int)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 64
+  * Warning	CA2202	Object 'memoryStream' can be disposed more than once in method 'ReversibleEncryption.Encrypt(string)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 95
+  * Warning	CA2202	Object 'npss_in_callback' can be disposed more than once in method 'IPCServer.StartServerPump()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 66
+  * Warning	CA2202	Object 'stream' can be disposed more than once in method 'CSLProcessorTranslator_AbbreviationsManager.LoadDefaultAbbreviations()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 80
+  * Warning	CA2202	Object 'stream' can be disposed more than once in method 'PostcodeOutcodes.PostcodeOutcodes()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 80
+  * Warning	CA2202	Object 'stream' can be disposed more than once in method 'ScrabbleWords.CreateWords()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 125, 126
+  * Warning	CA2202	Object 'stream' can be disposed more than once in method 'ScrabbleWords.CreateWords()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 148, 149
+  * Warning	CA2202	Object 'stream' can be disposed more than once in method 'ScrabbleWords.ScrabbleWords()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 36
+  * Warning	CA2202	Object 'stream' can be disposed more than once in method 'SerializeFile.LoadCompressed(string)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 297
+  * Warning	CA2202	Object 'stream' can be disposed more than once in method 'SerializeFile.SaveCompressed(string, object)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 286
+  * Warning	CA2202	Object 'sub_app_key' can be disposed more than once in method 'UserRegistry.Read(string, string)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 77
+  * Warning	CA2202	Object 'sub_app_key' can be disposed more than once in method 'UserRegistry.Write(string, string, string)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 63
+  * Warning	CA2202	Object 'sw' can be disposed more than once in method 'PubMedXMLToBibTex.XMLNodeToPrettyString(XmlNode)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 119
+  * Warning	CA2213	'ChatControl' contains field 'ChatControl.timer' that is of IDisposable type: 'Timer'. Change the Dispose method on 'ChatControl' to call Dispose or Close on this field.
+  * Warning	CA2213	'LibraryIndex' contains field 'LibraryIndex.word_index_manager' that is of IDisposable type: 'LuceneIndex'. Change the Dispose method on 'LibraryIndex' to call Dispose or Close on this field.
+  * Warning	CA2213	'PDFReadingControl' contains field 'PDFReadingControl.pdf_renderer_control' that is of IDisposable type: 'PDFRendererControl'. Change the Dispose method on 'PDFReadingControl' to call Dispose or Close on this field.
+  * Warning	CA2213	'WebBrowserHostControl' contains field 'WebBrowserHostControl.wbc_browsing' that is of IDisposable type: 'WebBrowserControl'. Change the Dispose method on 'WebBrowserHostControl' to call Dispose or Close on this field.
 
 * (a80be7d7) done work on https://github.com/jimmejardine/qiqqa-open-source/issues/27 and on the lockups of Qiqqa (some critical sections in there were **humongous** in both code side and run-time duration; now the number of lock-ups due to *very* slow loading PDFs coming in from the Qiqqa Sniffer should be quite reduced: work related to https://github.com/jimmejardine/qiqqa-open-source/issues/18
 
 * (409d5124) better handling of 'unreachable code' warnings
 
-* (37c8b2cd) Code looks like a swap/insert code pattern gone bad: did we find a bug?  Found due to MSVS Code Analysis Message   IDE0059 Unnecessary assignment of a value to 'pageranks_temp'
+* (37c8b2cd) Code looks like a swap/insert code pattern gone bad: did we find a bug?  Found due to MSVS Code Analysis Message	IDE0059	Unnecessary assignment of a value to 'pageranks_temp'
 
 
 
@@ -3168,7 +3381,7 @@ Version 81:
 ----------
 
 
-* (c48bca95) several like this: Warning CA1500  'filter_terms', a parameter declared in 'LibraryCatalogControl.OnFilterChanged(LibraryFilterControl, List<PDFDocument>, Span, string, Dictionary<string, double>, PDFDocument)', has the same name as an instance field on the type. Change the name of one of these items.
+* (c48bca95) several like this: Warning	CA1500	'filter_terms', a parameter declared in 'LibraryCatalogControl.OnFilterChanged(LibraryFilterControl, List<PDFDocument>, Span, string, Dictionary<string, double>, PDFDocument)', has the same name as an instance field on the type. Change the name of one of these items.
 
 * (c2d3a639) we also don't care (yet) to validate arguments coming into public methods and neither are we interested to hear about methods which might be better off as properties' getter/setter.
 
@@ -3185,32 +3398,35 @@ Version 81:
 * (2d51712e) addressing https://github.com/jimmejardine/qiqqa-open-source/issues/26 : nuked the Utilities/GUI/BrainStorm copy and copied/commented all diffs into the Qiqqa source tree: every diff edit references the issue https://github.com/jimmejardine/qiqqa-open-source/issues/26 in the comments.     `Utilities/GUI/BrainStorm/` === `Qiqqa/BrainStorm/`
 
 * (041b1609) NOT FIXED:
-  + Warning CA1801  Parameter 'node_control' of 'EllipseNodeContentControl.EllipseNodeContentControl(NodeControl, EllipseNodeContent)' is never used. Remove the parameter or use it in the method body.
-  + Warning CA1823  It appears that field 'EllipseNodeContentControl.circle_node_content' is never used or is only ever assigned to. Use this field or remove it.
+  + Warning	CA1801	Parameter 'node_control' of 'EllipseNodeContentControl.EllipseNodeContentControl(NodeControl, EllipseNodeContent)' is never used. Remove the parameter or use it in the method body.
+  + Warning	CA1823	It appears that field 'EllipseNodeContentControl.circle_node_content' is never used or is only ever assigned to. Use this field or remove it.
   FIXED:
-  + Warning CA1802  Field 'EllipseNodeContentControl.STROKE_THICKNESS' is declared as 'static readonly' but is initialized with a constant value '1'. Mark this field as 'const' instead.
+  + Warning	CA1802	Field 'EllipseNodeContentControl.STROKE_THICKNESS' is declared as 'static readonly' but is initialized with a constant value '1'. Mark this field as 'const' instead.
 
-* (e494e597) Warning    CA1802  Field 'EllipseNodeContentControl.STROKE_THICKNESS' is declared as 'static readonly' but is initialized with a constant value '1'. Mark this field as 'const' instead.
+* (e494e597) Warning	CA1802	Field 'EllipseNodeContentControl.STROKE_THICKNESS' is declared as 'static readonly' but is initialized with a constant value '1'. Mark this field as 'const' instead.
 
-* (9f640a62) Warning    CA1704  Correct the spelling of 'Unkown' in member name 'DragDropManager.DumpUnkownDropTypes(DragEventArgs)' or remove it entirely if it represents any sort of Hungarian notation.
+* (9f640a62) Warning	CA1704	Correct the spelling of 'Unkown' in member name 'DragDropManager.DumpUnkownDropTypes(DragEventArgs)' or remove it entirely if it represents any sort of Hungarian notation.
 
-* (76c47e77) Warning    CA1500  'node_from', a parameter declared in 'ConnectorControl.SetNodes(NodeControl, NodeControl)', has the same name as an instance field on the type. Change the name of one of these items.
+* (76c47e77) Warning	CA1500	'node_from', a parameter declared in 'ConnectorControl.SetNodes(NodeControl, NodeControl)', has the same name as an instance field on the type. Change the name of one of these items.
 
   NOTE: code inspection has led me to change the code in this way that the events registered with the old nodes are UNregistered before the new nodes are assigned and events are REGISTERED with them. The old code was ambiguous, at least for me (human); I'm not entirely sure what the compiler had made of that. HMmm...
 
   Given these next two MSVS Code Analysis report Warnings, I guess that was a couple of lurking bugs right there:
 
-  + Warning CA1062  In externally visible method 'ConnectorControl.SetNodes(NodeControl, NodeControl)', validate parameter 'node_from' before using it.
-  + Warning CA1062  In externally visible method 'ConnectorControl.SetNodes(NodeControl, NodeControl)', validate parameter 'node_to' before using it.
+  + Warning	CA1062	In externally visible method 'ConnectorControl.SetNodes(NodeControl, NodeControl)', validate parameter 'node_from' before using it.
+  + Warning	CA1062	In externally visible method 'ConnectorControl.SetNodes(NodeControl, NodeControl)', validate parameter 'node_to' before using it.
 
 * (39f50e05) updated links/refs in README.md
 
 * (99bb1817)
-  + Warning CA1715  Prefix interface name 'RecurrentNodeContent' with 'I'.
-  + Warning CA1715  Prefix interface name 'Searchable' with 'I'.
-  + Warning CA1715  Prefix interface name 'Selectable' with 'I'.
+  + Warning	CA1715	Prefix interface name 'RecurrentNodeContent' with 'I'.
+  + Warning	CA1715	Prefix interface name 'Searchable' with 'I'.
+  + Warning	CA1715	Prefix interface name 'Selectable' with 'I'.
 
 * (c186a6ba) Merge branch 'memleak-hunting'
+
+  # Conflicts:
+  #	Qiqqa/AnnotationsReportBuilding/ReportViewerControl.xaml.cs
 
 * (44e15752) working on using a more developed build versioning approach. Have MSVS produce a unique version for each build, then (FUTURE WORK) add tooling to ensure all files carry the updated version number(s).
 
@@ -3227,72 +3443,72 @@ Version 81:
   Also note that we employ the `?.` **null conditional operator**, which is part of C# 6.0 and described here: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/member-access-operators#null-conditional-operators--and-
   It turns out the NANT build doesn't cope with this but I'm loath to revert to antiquity there, so the NANT build process has become a little hacky as MSVS2019 (IDE) can build (and debug) the Qiqqa binaries without a fuss, so we now use that one to build the binaries and the NANT build script for packaging (creating the `setup.exe`).
 
-* (53c97510) Warning    CA1812  'BackingUp' is an internal class that is apparently never instantiated. If so, remove the code from the assembly. If this class is intended to contain only static methods, consider adding a private constructor to prevent the compiler from generating a default constructor.
+* (53c97510) Warning	CA1812	'BackingUp' is an internal class that is apparently never instantiated. If so, remove the code from the assembly. If this class is intended to contain only static methods, consider adding a private constructor to prevent the compiler from generating a default constructor.
 
-* (9b6a61e1) Warning    CA2000  In method 'ReportViewerControl.ButtonToPDF_Click(object, RoutedEventArgs)', call System.IDisposable.Dispose on object 'doc' before all references to it are out of scope.
+* (9b6a61e1) Warning	CA2000	In method 'ReportViewerControl.ButtonToPDF_Click(object, RoutedEventArgs)', call System.IDisposable.Dispose on object 'doc' before all references to it are out of scope.
 
 * (7aa66dd0)
   + Save To PDF had been disabled in the original Qiqqa source code. No idea why. Re-enabling it so that 'Save To PDF' is not a NIL activity anymore.
-  + Warning CA1811  'ReportViewerControl.ButtonExpandClickOptions_Click(object, RoutedEventArgs)' appears to have no upstream public or protected callers.
-  + Warning CA1811  'ReportViewerControl.ButtonCollapseClickOptions_Click(object, RoutedEventArgs)' appears to have no upstream public or protected callers.
+  + Warning	CA1811	'ReportViewerControl.ButtonExpandClickOptions_Click(object, RoutedEventArgs)' appears to have no upstream public or protected callers.
+  + Warning	CA1811	'ReportViewerControl.ButtonCollapseClickOptions_Click(object, RoutedEventArgs)' appears to have no upstream public or protected callers.
 
 * (602a1ebb)
   + Save To PDF had been disabled in the original Qiqqa source code. No idea why. Re-enabling it so that 'Save To PDF' is not a NIL activity anymore.
-  + Warning CA1811  'ReportViewerControl.ButtonExpandClickOptions_Click(object, RoutedEventArgs)' appears to have no upstream public or protected callers.
-  + Warning CA1811  'ReportViewerControl.ButtonCollapseClickOptions_Click(object, RoutedEventArgs)' appears to have no upstream public or protected callers.
+  + Warning	CA1811	'ReportViewerControl.ButtonExpandClickOptions_Click(object, RoutedEventArgs)' appears to have no upstream public or protected callers.
+  + Warning	CA1811	'ReportViewerControl.ButtonCollapseClickOptions_Click(object, RoutedEventArgs)' appears to have no upstream public or protected callers.
 
 * (a42a79b9)
-  + Warning CA1804  'RegionOfInterest.IsCloseTo(RegionOfInterest)' declares a variable, 'horizontal_distance', of type 'double', which is never used or is only assigned to. Use this variable or remove it.
-  + Warning CA1802  Field 'RegionOfInterest.PROXIMITY_MARGIN' is declared as 'static readonly' but is initialized with a constant value '0.0333333333333333'. Mark this field as 'const' instead.
+  + Warning	CA1804	'RegionOfInterest.IsCloseTo(RegionOfInterest)' declares a variable, 'horizontal_distance', of type 'double', which is never used or is only assigned to. Use this variable or remove it.
+  + Warning	CA1802	Field 'RegionOfInterest.PROXIMITY_MARGIN' is declared as 'static readonly' but is initialized with a constant value '0.0333333333333333'. Mark this field as 'const' instead.
 
-* (80cc9b1b) Warning    CA1812  'LinkedDocsAnnotationReportBuilder' is an internal class that is apparently never instantiated. If so, remove the code from the assembly. If this class is intended to contain only static methods, consider adding a private constructor to prevent the compiler from generating a default constructor.
+* (80cc9b1b) Warning	CA1812	'LinkedDocsAnnotationReportBuilder' is an internal class that is apparently never instantiated. If so, remove the code from the assembly. If this class is intended to contain only static methods, consider adding a private constructor to prevent the compiler from generating a default constructor.
 
-* (45e6d8f5) Warning    CA1053  Because type 'LegacyAnnotationConvertor' contains only 'static' members, mark it as 'static' to prevent the compiler from adding a default public constructor.
+* (45e6d8f5) Warning	CA1053	Because type 'LegacyAnnotationConvertor' contains only 'static' members, mark it as 'static' to prevent the compiler from adding a default public constructor.
 
 * (17a97f81)
-  + Warning CA1812  'InkToAnnotationGenerator' is an internal class that is apparently never instantiated. If so, remove the code from the assembly. If this class is intended to contain only static methods, consider adding a private constructor to prevent the compiler from generating a default constructor.
-  + Warning CA1802  Field 'InkToAnnotationGenerator.INKS_TAG' is declared as 'static readonly' but is initialized with a constant value '*Inks*'. Mark this field as 'const' instead.
+  + Warning	CA1812	'InkToAnnotationGenerator' is an internal class that is apparently never instantiated. If so, remove the code from the assembly. If this class is intended to contain only static methods, consider adding a private constructor to prevent the compiler from generating a default constructor.
+  + Warning	CA1802	Field 'InkToAnnotationGenerator.INKS_TAG' is declared as 'static readonly' but is initialized with a constant value '*Inks*'. Mark this field as 'const' instead.
 
 * (9c925bde)
-  + Warning CA1812  'HighlightToAnnotationGenerator' is an internal class that is apparently never instantiated. If so, remove the code from the assembly. If this class is intended to contain only static methods, consider adding a private constructor to prevent the compiler from generating a default constructor.
-  + Warning CA1802  Field 'HighlightToAnnotationGenerator.HIGHLIGHTS_TAG' is declared as 'static readonly' but is initialized with a constant value '*Highlights*'. Mark this field as 'const' instead.
+  + Warning	CA1812	'HighlightToAnnotationGenerator' is an internal class that is apparently never instantiated. If so, remove the code from the assembly. If this class is intended to contain only static methods, consider adding a private constructor to prevent the compiler from generating a default constructor.
+  + Warning	CA1802	Field 'HighlightToAnnotationGenerator.HIGHLIGHTS_TAG' is declared as 'static readonly' but is initialized with a constant value '*Highlights*'. Mark this field as 'const' instead.
 
-* (dbf9173c) Warning    CA1811  'AsyncAnnotationReportBuilder.OnShowTagOptionsComplete(Library, List<PDFDocument>, AnnotationReportOptions)' appears to have no upstream public or protected callers.
+* (dbf9173c) Warning	CA1811	'AsyncAnnotationReportBuilder.OnShowTagOptionsComplete(Library, List<PDFDocument>, AnnotationReportOptionsWindow.AnnotationReportOptions)' appears to have no upstream public or protected callers.
 
-* (25a337b0) Warning    CA1804  'AsyncAnnotationReportBuilder.BuildReport(Library, List<PDFDocument>, AnnotationReportOptions)' declares a variable, 'underline', of type 'Underline', which is never used or is only assigned to. Use this variable or remove it.
+* (25a337b0) Warning	CA1804	'AsyncAnnotationReportBuilder.BuildReport(Library, List<PDFDocument>, AnnotationReportOptionsWindow.AnnotationReportOptions)' declares a variable, 'underline', of type 'Underline', which is never used or is only assigned to. Use this variable or remove it.
 
-* (1025b6b1) Warning    CA1053  Because type 'AsyncAnnotationReportBuilder' contains only 'static' members, mark it as 'static' to prevent the compiler from adding a default public constructor.
+* (1025b6b1) Warning	CA1053	Because type 'AsyncAnnotationReportBuilder' contains only 'static' members, mark it as 'static' to prevent the compiler from adding a default public constructor.
 
-* (490c7a46) Warning    CA1053  Because type 'AsyncAnnotationReportBuilder' contains only 'static' members, mark it as 'static' to prevent the compiler from adding a default public constructor.
+* (490c7a46) Warning	CA1053	Because type 'AsyncAnnotationReportBuilder' contains only 'static' members, mark it as 'static' to prevent the compiler from adding a default public constructor.
 
 * (2032827a)
-  + Warning CA1500  'OnShowTagOptionsComplete', a parameter declared in 'AnnotationReportOptionsWindow.ShowTagOptions(Library, List<PDFDocument>, AnnotationReportOptionsWindow.OnShowTagOptionsCompleteDelegate)', has the same name as an instance field on the type. Change the name of one of these items.
-  + Warning CA1500  'library', a parameter declared in 'AnnotationReportOptionsWindow.ShowTagOptions(Library, List<PDFDocument>, AnnotationReportOptionsWindow.OnShowTagOptionsCompleteDelegate)', has the same name as an instance field on the type. Change the name of one of these items.
-  + Warning CA1500  'pdf_documents', a parameter declared in 'AnnotationReportOptionsWindow.ShowTagOptions(Library, List<PDFDocument>, AnnotationReportOptionsWindow.OnShowTagOptionsCompleteDelegate)', has the same name as an instance field on the type. Change the name of one of these items.
+  + Warning	CA1500	'OnShowTagOptionsComplete', a parameter declared in 'AnnotationReportOptionsWindow.ShowTagOptions(Library, List<PDFDocument>, AnnotationReportOptionsWindow.OnShowTagOptionsCompleteDelegate)', has the same name as an instance field on the type. Change the name of one of these items.
+  + Warning	CA1500	'library', a parameter declared in 'AnnotationReportOptionsWindow.ShowTagOptions(Library, List<PDFDocument>, AnnotationReportOptionsWindow.OnShowTagOptionsCompleteDelegate)', has the same name as an instance field on the type. Change the name of one of these items.
+  + Warning	CA1500	'pdf_documents', a parameter declared in 'AnnotationReportOptionsWindow.ShowTagOptions(Library, List<PDFDocument>, AnnotationReportOptionsWindow.OnShowTagOptionsCompleteDelegate)', has the same name as an instance field on the type. Change the name of one of these items.
 
-* (59eab8ae) Warning    CA1822  The 'this' parameter (or 'Me' in Visual Basic) of 'WordListCredibility.HasSufficientRepeatedWords(WordList)' is never used. Mark the member as static (or Shared in Visual Basic) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.
+* (59eab8ae) Warning	CA1822	The 'this' parameter (or 'Me' in Visual Basic) of 'WordListCredibility.HasSufficientRepeatedWords(WordList)' is never used. Mark the member as static (or Shared in Visual Basic) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.
 
-* (f40f507f) Warning    CA1802  Field 'WordListCredibility.REASONABLE_WORD_LIST_LENGTH' is declared as 'static readonly' but is initialized with a constant value '10'. Mark this field as 'const' instead.
+* (f40f507f) Warning	CA1802	Field 'WordListCredibility.REASONABLE_WORD_LIST_LENGTH' is declared as 'static readonly' but is initialized with a constant value '10'. Mark this field as 'const' instead.
 
-* (40a3ce72) Warning    CA2204  Correct the spelling of the unrecognized token 'exst' in the literal '"\' does not exst"'.
+* (40a3ce72) Warning	CA2204	Correct the spelling of the unrecognized token 'exst' in the literal '"\' does not exst"'.
 
-* (23f5ca6d) Warning    CA1812  'TextExtractEngine' is an internal class that is apparently never instantiated. If so, remove the code from the assembly. If this class is intended to contain only static methods, consider adding a private constructor to prevent the compiler from generating a default constructor.
+* (23f5ca6d) Warning	CA1812	'TextExtractEngine' is an internal class that is apparently never instantiated. If so, remove the code from the assembly. If this class is intended to contain only static methods, consider adding a private constructor to prevent the compiler from generating a default constructor.
 
-* (9e9490af) Warning    CA1822  The 'this' parameter (or 'Me' in Visual Basic) of 'RegionExtractorTestWindow.ChooseBrush(PDFRegionLocator.Region)' is never used. Mark the member as static (or Shared in Visual Basic) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.
+* (9e9490af) Warning	CA1822	The 'this' parameter (or 'Me' in Visual Basic) of 'RegionExtractorTestWindow.ChooseBrush(PDFRegionLocator.Region)' is never used. Mark the member as static (or Shared in Visual Basic) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.
 
-* (1bfee58f) Warning    CA1811  'PDFRegionLocator.GetRegions_FULLPAGE(Bitmap, out List<PDFRegionLocator.Region>, out int)' appears to have no upstream public or protected callers.
+* (1bfee58f) Warning	CA1811	'PDFRegionLocator.GetRegions_FULLPAGE(Bitmap, out List<PDFRegionLocator.Region>, out int)' appears to have no upstream public or protected callers.
 
-* (ff0a1812) Warning    CA2000  In method 'OCREngine.DoOCR(string, int)', call System.IDisposable.Dispose on object 'ocr' before all references to it are out of scope.
+* (ff0a1812) Warning	CA2000	In method 'OCREngine.DoOCR(string, int)', call System.IDisposable.Dispose on object 'ocr' before all references to it are out of scope.
 
-* (8f128987) Warning    CA2000  In method 'OCREngine.DoOCR(string, int)', call System.IDisposable.Dispose on object 'new MemoryStream(renderer.GetPageByDPIAsImage(page_number, 200F))' before all references to it are out of scope.
+* (8f128987) Warning	CA2000	In method 'OCREngine.DoOCR(string, int)', call System.IDisposable.Dispose on object 'new MemoryStream(renderer.GetPageByDPIAsImage(page_number, 200F))' before all references to it are out of scope.
 
-* (e6531a75) Warning    CA2204  Correct the spelling of the unrecognized token 'exst' in the literal '"\' does not exst"'.
+* (e6531a75) Warning	CA2204	Correct the spelling of the unrecognized token 'exst' in the literal '"\' does not exst"'.
 
-* (bf35cc88) Warning    CA1801  Parameter 'no_kill' of 'OCREngine.MainEntry(string[], bool)' is never used. Remove the parameter or use it in the method body.
+* (bf35cc88) Warning	CA1801	Parameter 'no_kill' of 'OCREngine.MainEntry(string[], bool)' is never used. Remove the parameter or use it in the method body.
 
   Synced `no_kill` code with the code in TestExtractEngine.cs
 
-* (abfe48c9) Warning    CA1812  'OCREngine' is an internal class that is apparently never instantiated. If so, remove the code from the assembly. If this class is intended to contain only static methods, consider adding a private constructor to prevent the compiler from generating a default constructor.
+* (abfe48c9) Warning	CA1812	'OCREngine' is an internal class that is apparently never instantiated. If so, remove the code from the assembly. If this class is intended to contain only static methods, consider adding a private constructor to prevent the compiler from generating a default constructor.
 
 * (f7f62b1d)
   + MSVS Code Analysis: Warning CA1053  Because type 'Backgrounds' contains only 'static' members, mark it as 'static' to prevent the compiler from adding a default public constructor.icons
@@ -3466,29 +3682,6 @@ Version 81:
 
 * (4c2de1fe) Merge remote-tracking branch 'remotes/jimmejardine-original/master'
 
- *  Merge branch 'master' of https://github.com/jimmejardine/qiqqa-open-source
-
-
-
-
-
-v80 (FOSS)
-==========
-
-v80 software installer published.
-
-> ## Note
->
-> This release is **binary compatible with v80 and v79**: any library created using this version MUST be readable and usable by v80 and v79 software releases.
-
-
-
-
-
-- Qiqqa goes Open Source!!!
-- Enabled ALL Premium and Premium+ features for everyone.
-- Removed all Web Library capabilities (create/sync/manage)
-- Added the ability to copy the entire contents of a former Web Library into a library - as a migration path from Qiqqa v79 to v80
 
 
 
@@ -3549,464 +3742,4 @@ v80 software installer published.
 * (dd17b0a2) Update README.md
 
 * (60199c03) Create README.md
-
-
-
-
-----
-
-**Start of the Qiqqa Open Source activity**
-
-----
-
-
-
-
-
-Commercial Qiqqa releases
-=========================
-
-
-Version 79 (Commercial):
-- Can add regularly used user-defined keys to the BibTeX Editor
-- Can add regularly used search queries to the Search Boxes.
-- Adds Jamatto donate buttons to the PDF Share feature.
-- Check out Qiqqa for Web at http://web.qiqqa.com
-
-Version 78:
-- Bundle Libraries allow you to bundle up libraries for read-only dstribution of your content to your customers.
-- Can export linked-documents data.
-- Custom abbreviations can override default ones.
-- Font size change in Speed Reader.
-- Fixes a BibTeX parse error causing problems with Qiqqa starting.
-
-Version 77:
-- You can override the location of your PDF and OCR files.
-
-Version 76:
-- Improved BibTeX Sniffer where you can scan linearly and review automatically found BibTeXes.
-- Improved InCite screen.
-- Improved location of highlighter, annotation tools in PDF Reader.
-
-Version 75:
-- Can attach PDFs to Vanilla References using Web Browser.
-- Can toggle BibTeX Search Wizard and Automatic BibTeX association.
-- Automatically import from EndNote.
-- Qiqqa Community Chat.
-- Latest embedded Firefox browser.
-- Locked PDFs do not cause the Annotation Report to stop halfway through.
-
-Version 74:
-- Can watch multiple folders.
-- Can automatically attach tags to PDFs from watched folders.
-- Can export tags, autotags, etc.
-- Updated lucene library to fix corrupted search index on rare occasions.
-- Moves to the top of the library after sorting.
-
-Version 73:
-- Friendlier configuration screen.
-- Scrolls to the top of the document list when a filter or sort changes.
-- Annotation Report: Removes menu hyperlinks from annotation report on export to Word; Abstract and Comment titles.
-- PDF renderer is robust to a variety of corrupted PDF types.
-- PDFs are not blurry on *all* LCD monitor types
-- If necessary, Qiqqa can now use up to 4Gb RAM on 64-bit machines.  No longer limited to circa 1.2Gb.
-
-Version 72:
-- Qiqqa automatically associates BibTeX with well-known PDFs.
-- Public status web libraries
-- Better duplicates detector.
-- Improved brainstorm auto layout
-- Can tweet a document from the document reader
-- Can get a username reminder from login screen.
-- Batches PDF uploads so that massive libraries (e.g. 20,000+ docs) do not time out on slow networks.
-- Fix to brainstorm resize exception
-
-Version 71:
-- Can link documents so that you can quickly jump between them.
-- Can customise library icon and background.
-- Can open a PDF from the BibTeX Sniffer.
-- Qiqqa's proxy support now includes using your Windows-user or network-user details.
-- Can add 1000s of documents more quickly.
-- OCR automatically uses all but one of your CPUs
-- Can locate an Intranet sync folder location.
-
-Version 70:
-- Downloads of upgrades are MUCH faster.
-- Premium Web Library storage space is increased to 10Gb, free storage space to 2Gb!
-- Smoother highlighting.
-- Library search always causes the sort mode to switch to Search Score.
-- Explanation of recommendations on Start Page.
-- Can resize Annotations on a PDF by double tapping and dragging - great for tablets.
-- Can right-click and add an AutoTag to the while- or blacklists.
-- Can promote an AutoTag to a Tag.
-- Can explore an AutoTag in a Brainstorm.
-- Automatically detects when you sync from another computer and syncs immediately.
-- Autodetects new library memberships and new premium payments.
-- Fixed the 'forgotten watch folder when you refresh memberships' issue.
-- Authors in BibTeX are now split on 'mixed case aNd'
-
-Version 69:
-- You can filter annotation in the Annotation Report by creator.
-- Improvements to Annotation Report formatting.
-- "BibTeX Type" library filter.
-- Welcome Wizard gets you up to speed with Qiqqa quickly.
-- Mass-download all PDFs in web browser handles more types of URL and content type.
-- Web Browser status messages.
-- Ctrl-F jumps to search box.
-
-Version 68:
-- Supports imports of patent portfolios from Omnipatents.
-- Can mass-download all PDFs linked to by a web page.
-- Open PDF tabs are coloured.
-
-Version 67:
-- Novice/Expert mode.
-- Mass edit documents metadata.
-- Customised Reading Stages.
-- Pivot Table of library statistics.
-- Share Annotations and Brainstorms via Social Media.
-- Redesigned Qiqqa InCite screen.
-- Improvement to 'blue book' citation snippet formatting.
-- Miscellaneous changes to GUI to remove clutter.
-- Fixed window redock exception.
-
-Version 66:
-- Can filter annotations by date in the Annotation Report.
-- Can add prefixes and suffixes to InCite citations.
-- Sort has moved to filter area for better screen use.
-- Page number in PDF Reader now respects start page number in BibTeX
-- Improved citation editor control.
-- Improved annotation editor control.
-- Vastly improved title recognition for better BibTeX Sniffer results.
-- Can move PDFs between libraries.
-- EZProxy support.
-- Can toggle appearance of SpeedRead shadow text.
-- Improved printing of Brainstorms.
-- Fixed the 'bug' where a new PDF in the watch folder 'steals' the currently selected focus.
-- Much faster addition of 1,000s of PDFs.
-
-Version 65:
-- Share PDF annotations via social media.
-- Sort tags, authors, etc. in the library filter by frequency.
-- Web page HTML to PDF conversion is now completely inside Qiqqa, so it is more stable and has better features.
-- Further integration with Datacopia.com to automatically create beautiful charts from tables of results.
-- Improved stability for import where Mendeley points to broken files.
-
-Version 64:
-- BibTeX Sniffer supports international characters
-- Libraries open much more quickly - especially libraries with more than 10k+ documents.
-- Importing PDFs is much faster.
-- Batch importing of PDFs no longer aborts after the first missing PDF: instead a report of errors is offered at the end of the import.
-- Now supports 'ridiculously long filenames'.
-- Updated the bundled Firefox browser to latest version - improves stability of internal web browser.
-
-Version 63:
-- Integration with Datacopia.com to automatically create charts from tables of results.
-- *SpeedRead* your way through PDFs at up to 1000 WPM.  Awesome!
-- Massive improvements to brainstorm for PDF document nodes and their annotations.
-
-Version 62:
-- Integration with Datacopia.com to automatically create charts from tables of results.
-- Support for Bundle Libraries.
-- Better author name disambiguation
-- Vastly improved brainstorm automatic layout algorithm
-- Thumbnail PDF pages
-- Jump to the library containing a PDF
-
-Version 61:
-- You can automatically create a BibTeX record from the suggested metadata.
-- Pressing CTRL-; in the BibTeX editor will add the current date (useful for the accessed field of a website record).
-- Better instructions on how to cancel a Watch Folder.
-- Improvements to the Import feature.
-
-Version 60:
-- When you now explore Documents or Themes in a brainstorm (right click and explore), you get some pretty epic pictures of your library.
-- The BibTeX editor now offers the legal-case type.
-- InCite now has separate toolbar buttons for citing (Author, Year) and Author (Year).
-- PDF pages are now centered in the reader.
-- The Qiqqa InCite popup can now also be activated using Win-A as well as Win-Q.
-
-Version 59:
-- You can sync to Intranet libraries even when not connected to the Internet.
-- You can rotate all pages at once.
-- Patch: Fixes the sync problem if you don't have a proxy.
-
-Version 58:
-- German and Turkish translations.
-- Patch: InCite maps the "article" type to CSL "article-journal" so that journal and page numbers are included in the bibliography.
-
-Version 57:
-- Search queries are remembered.
-- Can log in with default network proxy credentials.
-- 50Gb Web Libraries for Premium+ members.
-- Annotation report is ordered according to Library Screen.
-- All CSL document types and location types are supported.
-- Highlight rendering speed dramatically improved for long documents.
-
-Version 56:
-- Documents can have colours associated with them.
-- Document title and size is coloured and sized accouring to reading stage and rating.
-- Fixes Word connectivity on computers where Word has been incorrectly installed and uninstalled.
-- All Document metadata is visible at once on tall screens.
-- Can mass-rename publications
-- F11 goes full-screen while reading PDFs
-- Fixed a memory leak while reading large PDFs.
-
-Version 55:
-- Premium Fields allow you to restrict your searches to ANY of the fields that you have added in your PDF BibTeX records.
-- Qiqqa now supports the Bluebook legal CSL style.
-- Qiqqa supports the "short form" of journal name in your bibliographies.
-- You can refresh the Annotation Report for a PDF or jump straight to a full blown Annotation Report.
-- Qiqqa warns about DropBox conflicts.
-
-Version 54:
-- Added the Qiqqa Manual.
-
-Version 53:
-- Compatibility with Word 2013.
-- Drag and drop PDFs straight onto Start Page libraries.
-- Can export Expedition themes to text.
-- Can sort PDFs by page count.
-- The BibTeX types incollection inproceedings inbook chapter all map to CSL chapter type
-
-Version 52:
-- Qiqqa Champion Project.
-- Support for online CSL editor.
-- Individually control highlight, annotation and ink transparencies.
-- Better feedback from InCite when you have a problematic reference.
-- Library export has an HTML summary.
-- Annotation reports are not automatic if they are too large.
-- Can rebuild indices corrupted by DropBox, GoogleDrive, etc.
-
-Version 51:
-- Automatic PubMed support in BibTeX Sniffer.
-- OCR supports several European languages.
-- Adding a non-PDF reference automatically popup up the BibTeX editor.
-- Favourites now show up with hearts in library view.
-- Can explore libraries in brainstorm.
-- InCite is much faster at updating references in Word.
-- BibTeX Sniffer editor window is resizable.
-- Better keyboard shortcut handling.
-- Better zoom behaviour.
-
-Version 50:
-- Umbrella-search across all your libraries.
-- Can expand most INFLUENTIAL and most SIMILAR papers for a theme in brainstorm.
-- Smarter BibTeX Sniffer that highlights author names for fast cross-check.
-- Smarter BibTeX Sniffer Wizard.
-- Tag filters now have checkboxes for more intuitive multi-select.
-- PDF preview popup has Expedition Themes.
-- Can copy BibTeX key from PDF Reader screen.
-- Can sort library by whether or not a document has associated BibTeX.
-- You can now choose between using Tags, AutoTags or both when building your Expedition.
-- "CSV database" of metadata added to Library Export.
-
-Version 49:
-- Supports read-only Web Libraries.
-- Supports read-only Intranet Libraries for Premium members.
-- Can import legacy PDF annotations and highlights.
-- Qiqqa remembers screen location at shutdown.
-
-Version 48:
-- Libraries can be filtered by Expedition theme.
-- The filter graph shows more columns.
-- You can create Web Libraries from within the Qiqqa Client.
-- Stability:
-  + Fixes more issues around Firefox DLL clashes.
-
-Version 47:
-- Remembers last page N-up settings.
-- Deleted PDFs no longer appear in cross references.
-- Stability:
-  + Fixes issues with clients with non-standard DPI display settings (highlighting positions do not match text).
-  + Fixes issues with PDFs with corrupted XRef tables.
-  + Fixes some issues around Firefox DLL clashes.
-
-Version 46:
-- Win+Q key combination brings up a mini-InCite screen so that you can easily add citations to Word.
-- Expedition theme colours are visible throughout Qiqqa.
-- You can print from the Browser.
-- Performance improvements to the PDF renderer and to startup time.
-
-Version 45:
-- Qiqqa Premium+
-- Qiqqa now supports Intranet Libraries, where you can sync completely internally to your corporate intranet.
-- Automatically convert Microsoft Word files to PDF.
-- You can delete duplicates in the duplicate detection screen.
-- Brainstorms can automatically neaten themselves.
-
-Version 44:
-- The built-in browser uses Firefox, not Internet Explorer.
-- Browsing a PDF document in the built-in web browser will automatically add it to your Guest library and offer for you to move it.
-- Can turn on automatic synchronisation, so you never have to worry about forgetting to sync before leaving the office.
-- Can add InCite fields to floating text areas too.
-- InCite fields are locked in Word by default so that you don't need Qiqqa on a computer to maintain the contents of the fields.
-- Can run a report to see which documents you have cited in InCite.
-- Can open a document just by moving the mouse cursor over it in Word and pressing ENTER in Qiqqa InCite.
-- BibTeX abstracts are shown in abstract sidebar when present.
-- Uploads of large PDFs work over slow connections.
-- You can cite Author (date) and (Author, Date) from the PDF library and PDF reader menus.
-- Better duplicate detection with sort.
-- Clearer PDF rendering.
-- Improved keyword cloud using autotags.
-- Massive all-round speed enhancements - now tested with libraries of up to 15,000 documents.
-
-Version 43:
-- NB: THIS VERSION REQUIRES AN AUTOMATIC UPGRADE TO MICROSOFT'S .NET4 FRAMEWORK if you are running an earlier version of Qiqqa than v40.
-- NB: So only update if you have about 30 minutes and no urgent project deadlines.
-- You can now see all duplicates across your library.
-- Highlight/select/ink tools are below the toolbar items.
-
-Version 42:
-- NB: THIS VERSION REQUIRES AN AUTOMATIC UPGRADE TO MICROSOFT'S .NET4 FRAMEWORK if you are running an earlier version of Qiqqa than v40.
-- NB: So only update if you have about 30 minutes and no urgent project deadlines.
-- The start page now shows the coverpages of your recommended reading.
-- You can turn off secure SSL communication with the Qiqqa Cloud.
-- Qiqqa warns you if you cite a document that has a duplicate or a blank BibTeX key.
-- Qiqqa now remembers which libraries and documents you last had open.
-- Can purge deleted files from the config screen.
-
-Version 41:
-- NB: THIS VERSION REQUIRES AN AUTOMATIC UPGRADE TO MICROSOFT'S .NET4 FRAMEWORK.
-- NB: So only update if you have about 30 minutes and no urgent project deadlines.
-- Can cite documents from pdf reader and annotation report.
-- Added "id" field to library catalog.
-- Prettier library catalog layout.
-- Fixed delayed update in BibTeX editor.
-- Tidier menu bars.
-
-Version 40:
-- More brainstorm features - group select, better node represenations.
-- Library export adds file and filename fields to BibTeX.
-
-Version 39:
-- Menus in French, German, Mandarin Chinese, Polish, Portuguese & Taiwanese.
-- Qiqqa now supports password-protected PDFs.
-- 8Gb storage for Premium Members.
-- "Webpage" InCite and BibTeX type.
-- Better highlight extraction in annotation reports.
-- Performance improvements - at startup, when generating AutoTags and when generating Annotation reports.
-
-Version 38:
-- NB: This version will require an update to your Qiqqa database,
-- NB: so although we have heavily tested this release,
-- NB: be prudent and don't upgrade if you have a looming hard paper deadline... :-)
-- You can associate PDFs with Vanilla References.
-- Right-click copy BibTeX keys for fast pasting into LaTeX.
-- Speed improvements at startup and during sync.
-- Fixed the InCite SURNAME p. (DATE p.) issue.
-
-Version 37:
-- Built-in CSL style editor.
-- You can now look inside your library search results without having to open each PDF.
-- You can now contribute to the translation of Qiqqa into your own language.
-- Expedition details in PDF Reading screen.
-- Speed improvements to OCR.
-
-Version 36:
-- Qiqqa Expedition - Qiqqa helps you understand your research literature landscape.
-- Ink annotations now show up in Annotation Report.
-- Can include abstracts in Annotation Report.
-- Brainstorm support multiline text.
-- Open PDF multiple times.
-- Improved highlighting mode.
-- New webcasts for Brainstorms and Expedition.
-
-Version 35:
-- Premium Membership get you 1Gb of free Web Library space.
-- Themed colours for Qiqqa.
-- Qiqqa help forums.
-- New Qiqqa features webcast.
-
-Version 34:
-- Awesome annotations summaries in side-bars.
-- Better search results.
-- Can reverse your sorts with 2nd click.
-- Paper abstracts are automatically extracted.
-- A great new introductory webcast by the McKillop Library.
-- InCite tidies up spurious spaces around citations.
-
-Version 33:
-- Support for Qiqqa for Android!  Please make sure you upgrade to at least Qiqqa v31 on ALL your computers...
-- DON'T UPGRADE IF YOU HAVE A DEADLINE THIS WEEK - just in case! :-)
-- Last reading page and bookmarks are remembered.
-- You can filter to PDFs that have no tags at all.
-
-Version 32:
-- Share and email a document
-- Faster opening of PDFs
-
-Version 31:
-- Can backup to ZIP file.
-- Better BibTeX Sniffer wizard.
-- Improved EndNote importing.
-- Improvements to Start Page.
-- Additional webcasts and helper tips.
-- Better folder watching.
-
-Version 30:
-- Qiqqa InCite - copy single citation snippets to the clipboard for pasting into OpenOffice and emails.
-- More powerful search result ranking by relevance.
-- Duplicate detection with indicator warning.
-- Bookmarks while reading your PDFs so you can jump back-and-forth to the bibliography.
-
-Version 29:
-- Qiqqa InCite released - including dependent CSL styles.
-- More powerful library search facility with quoted, boolean, proximity, fuzzy and field searches.
-- WARNING: Will automatically rebuild your document indices, so please be patient for a few minutes.
-
-Version 28:
-- Faster PDF text extract and index
-- You can force OCR on pages where the embedded text is corrupt in the PDF.
-- Qiqqa Library export to directory.
-
-Version 27:
-- Qiqqa InCite BETA improvements (more styles, Word XP support, error messages).
-- Webcasts introducing and demonstrating some of the Qiqqa functionality.
-
-Version 26:
-- Qiqqa InCite, Qiqqa's Microsoft Word bibliography management system.
-- Web proxy support.
-
-Version 25:
-- Full screen reading mode.
-- Recommended reading on Start Page.
-
-Version 24:
-- Full BibTeX editor.
-- Better document metadata editors.
-- Document metadata editors available from document library.
-- Speed improvements.
-
-Version 23:
-- Explore your documents using brainstorms.
-- Better BibTeX sniffer.
-- Multicoloured text highlighting.
-- Printing now contains your annotations and highlights.
-- Better PDF text clarity.
-- More EndNote article export types.
-- Qiqqa Premium features.
-
-Version 22:
-- Improved tablet support.
-- Performance and other minor enhancements.
-- WARNING: Will automatically rebuild your document indices, so please be patient.
-
-Version 21:
-- Unlimited libraries.
-- Sharper PDF rendering.
-- Cross references for your papers.
-- Improvements to the BibTeX sniffer.
-
-Version 20:
-- A lot of new PDF search functionality.
-- Can copy and delete multiple PDFs in the library catalog.
-
-Version 19:
-- Import from EndNote, Zotero, Mendeley.
-- Import PDFs recursively from folders and tag them with their folder names.
-- Ink annotations for tablets.
-
-Version 18:
-- The first installer version of Qiqqa available for beta testing!
 
