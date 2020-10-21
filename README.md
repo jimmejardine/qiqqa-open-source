@@ -14,22 +14,43 @@ This version includes **every** feature available in [Commercial Qiqqa](qiqqa.co
  as the 'sync point' for those libraries.
 
 
-## Download Qiqqa
+## Download & Install Qiqqa
 
-* [Download Qiqqa Open Source](https://github.com/jimmejardine/qiqqa-open-source/tree/master/Qiqqa.Build/Packages) installer for v80 and newer releases.
-  > For release notes see [CHANGELOG](../../blob/master/CHANGELOG.md).
-  > *Installer files should be uploaded to [releases](https://github.com/jimmejardine/qiqqa-open-source/releases) in the future.*
+New Qiqqa (pre)releases are available at this link: [https://github.com/GerHobbelt/qiqqa-open-source/releases](https://github.com/GerHobbelt/qiqqa-open-source/releases) -- scroll down a bit and click on 'Assets' to twirl open the download list for each released version and download the **setup** **exe** there.
 
-* [Test bleeding edge](https://github.com/GerHobbelt/qiqqa-open-source/releases) Qiqqa Open Source **experimental** releases.
+It's a Windows setup executable, which can be installed over your existing Qiqqa install as usual by following the installer prompts.
 
-  > **DO NOTE** that these releases are only lightly tested and may include grave bugs. Backup your library before testing these, even if you like living on the edge...
-  > *@GerHobbelt has joined the team and keeps the bleeding edge rolling. For recent changes see  [closed bugs list](https://github.com/jimmejardine/qiqqa-open-source/issues?q=is%3Aissue+is%3Aclosed).*
+> For release notes see [CHANGELOG](../../blob/master/CHANGELOG.md).
 
-* Qiqqa Commercial software installer releases v66 to v79 are available at [qiqqa.com](www.qiqqa.com/Download) at least until 2020 and also [here](https://github.com/jimmejardine/qiqqa-open-source/tree/master/Qiqqa-Software-Installer-Releases).
+
+### Need help?
+
+*   [This document describes how to install Qiqqa using the setup executable](https://github.com/jimmejardine/qiqqa-open-source/blob/master/docs-src/FAQ/Installing%20Qiqqa%20-%20Updating%20Qiqqa.md).
+*   [This document lists a few issues you may encounter while installing and how to solve them](https://github.com/jimmejardine/qiqqa-open-source/blob/master/docs-src/FAQ/Problems%20with%20running%20the%20installer%20on%20your%20Microsoft%20Windows%20machine.md).
+*   File an issue asking your question on github at [https://github.com/jimmejardine/qiqqa-open-source/issues](https://github.com/jimmejardine/qiqqa-open-source/issues)
+
 
 ### Notifications of new releases
 
 To be notified of new releases [subscribe](https://groups.google.com/d/forum/qiqqa-releases) to the Google Group 'qiqqa-releases'.
+
+
+### Just in case
+
+On the unhappy chance where you want to revert to a previous Qiqqa version, these are all available for download at [https://github.com/GerHobbelt/qiqqa-open-source/releases](https://github.com/GerHobbelt/qiqqa-open-source/releases) (v82 and v81 prereleases) and [https://github.com/jimmejardine/qiqqa-open-source/releases](https://github.com/jimmejardine/qiqqa-open-source/releases) (v80 release).
+
+All v82*, v81*, v80 and (commercial) v79  Qiqqa releases are binary compatible: they use the same database and directory structures, so you can install any of them over the existing Qiqqa install without damaging your Qiqqa libraries.  
+
+Enjoy Qiqqa and take care!
+
+
+### Miscellaneous Notes
+
+* > **DO NOTE** that the v82 releases are prereleases, only lightly tested and may include grave bugs. Backup your library before testing these, even if you like living on the edge...
+  >
+  > *@GerHobbelt has joined the team and keeps the bleeding edge rolling. For recent changes see  [closed bugs list](https://github.com/jimmejardine/qiqqa-open-source/issues?q=is%3Aissue+is%3Aclosed).*
+
+* Qiqqa Commercial software installer releases v66 to v79 are available at [qiqqa.com](www.qiqqa.com/Download) at least until 2020 and also [here](https://github.com/jimmejardine/qiqqa-open-source/tree/master/Qiqqa-Software-Installer-Releases).
 
 
 ## Documentation For Users
