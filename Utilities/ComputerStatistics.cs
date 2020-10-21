@@ -33,7 +33,7 @@ namespace Utilities
                 return $"{Version}{typeStr}  {InstalledVersion}{spStr}";
             }
 
-            // overload > < >= <= 
+            // overload > < >= <=
             public static bool operator <(NETVersionInfo a, NETVersionInfo b)
             {
                 return Compare(a, b) > 0;

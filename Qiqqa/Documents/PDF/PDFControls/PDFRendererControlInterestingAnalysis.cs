@@ -58,31 +58,36 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private static void DoInterestingAnalysis_GoogleScholar(PDFReadingControl pdf_reading_control, PDFRendererControl pdf_renderer_control, PDFRendererControlStats pdf_renderer_control_stats)
         {
-#if true
-            // Get the GoogleScholar similar documents
-            try
-            {
-                string title = pdf_renderer_control_stats.pdf_document.TitleCombined;
-                if (Constants.TITLE_UNKNOWN != title)
-                {
-                    GoogleScholarScrapePaperSet gssp_set = GoogleScholarScrapePaperSet.GenerateFromQuery(title, 10);
+            bool attempt_scrape = Qiqqa.Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.GoogleScholar_DoExtraBackgroundQueries;
 
-                    pdf_renderer_control.Dispatcher.Invoke(new Action(() =>
-                    {
-                        pdf_reading_control.SimilarDocsControl.SpecifyPaperSet(gssp_set);
-                    }
-                    ));
-                }
-                else
-                {
-                    Logging.Info("We don't have a title, so skipping GoogleScholar similar documents");
-                }
-            }
-            catch (Exception ex)
+            if (attempt_scrape)
             {
-                Logging.Error(ex, "There was a problem getting the GoogleScholar similar documents for document {0}", pdf_renderer_control_stats.pdf_document.Fingerprint);
+                Logging.Info("You are accessing Google Scholar in the background as you have the 'Send extra background queries to Google Scholar' Configuration option ticked. Be aware that this can lead to a quick denial of service response by Google in the form of a 40x HTTP Error or RECAPTCHA page instead of the search response you seek! Also refer to GitHub issues #225 & #113.");
+
+                // Get the GoogleScholar similar documents
+                try
+                {
+                    string title = pdf_renderer_control_stats.pdf_document.TitleCombined;
+                    if (Constants.TITLE_UNKNOWN != title)
+                    {
+                        GoogleScholarScrapePaperSet gssp_set = GoogleScholarScrapePaperSet.GenerateFromQuery(title, 10);
+
+                        pdf_renderer_control.Dispatcher.Invoke(new Action(() =>
+                        {
+                            pdf_reading_control.SimilarDocsControl.SpecifyPaperSet(gssp_set);
+                        }
+                        ));
+                    }
+                    else
+                    {
+                        Logging.Info("We don't have a title, so skipping GoogleScholar similar documents");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex, "There was a problem getting the GoogleScholar similar documents for document {0}", pdf_renderer_control_stats.pdf_document.Fingerprint);
+                }
             }
-#endif
         }
 
         private static void DoInterestingAnalysis_TagCloud(PDFReadingControl pdf_reading_control, PDFRendererControl pdf_renderer_control, PDFRendererControlStats pdf_renderer_control_stats)

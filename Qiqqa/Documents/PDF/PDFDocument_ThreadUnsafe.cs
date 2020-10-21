@@ -650,8 +650,27 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
         public int PageLastRead
         {
-            get => Convert.ToInt32(dictionary["PageLastRead"] ?? 0);
-            set => dictionary["PageLastRead"] = value;
+            get
+            {
+                int value = Convert.ToInt32(dictionary["PageLastRead"] ?? 0);
+                int pageCount = this.SafePageCount;
+                if (value < 0 || value > pageCount)
+                {
+                    Logging.Error("Reading an invalid PageLastRead value {0} from the database, while the total page count is {1}", dictionary["PageLastRead"], SafePageCount);
+                    value = Math.Max(0, Math.Min(pageCount, value));
+                }
+                return value;
+            }
+            set
+            {
+                int pageCount = this.SafePageCount;
+                if (value < 0 || value > pageCount)
+                {
+                    Logging.Error("Setting an invalid PageLastRead value {0}, while the total page count is {1}", value, SafePageCount);
+                    value = Math.Max(0, Math.Min(pageCount, value));
+                }
+                dictionary["PageLastRead"] = value;
+            }
         }
 
         public bool Deleted

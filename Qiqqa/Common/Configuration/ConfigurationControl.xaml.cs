@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Media;
 using icons;
 using Qiqqa.Common.MessageBoxControls;
@@ -15,6 +16,7 @@ using Qiqqa.WebBrowsing.EZProxy;
 using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
+using Utilities.Misc;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -182,7 +184,7 @@ namespace Qiqqa.Common.Configuration
 
         private void ButtonSeeDebugStatistics_Click(object sender, RoutedEventArgs e)
         {
-            UnhandledExceptionMessageBox.DisplayInfo("Qiqqa debug statistics", "Behold - your debug statistis.", false, null);
+            UnhandledExceptionMessageBox.DisplayInfo("Qiqqa debug statistics", "Behold - your debug statistics.", false, null);
         }
 
         private void ButtonZipLogs_Click(object sender, RoutedEventArgs e)
@@ -291,7 +293,7 @@ namespace Qiqqa.Common.Configuration
         {
             Logging.Info("+Before Garbage Collect: Memory load: {0} Bytes", GC.GetTotalMemory(false));
             GC.Collect();
-            GC.WaitForPendingFinalizers();
+            //GC.WaitForPendingFinalizers();
             GC.Collect();
             Logging.Info("-After Garbage Collect: Memory load: {0} Bytes", GC.GetTotalMemory(true));
         }
@@ -311,6 +313,12 @@ namespace Qiqqa.Common.Configuration
             {
                 MessageBoxes.Warn("Hmmmm.  Your computer doesn't seem to have a temp folder called '{0}'.  Please let us know at https://github.com/jimmejardine/qiqqa-open-source/issues if you are getting any strange Qiqqa behaviour as a result of this.", TempFile.TempDirectoryForQiqqa);
             }
+        }
+
+        private void Issue225_Link_Click(object sender, RoutedEventArgs e)
+        {
+            var link = (Hyperlink)sender;
+            Process.Start(link.NavigateUri.ToString());
         }
     }
 }

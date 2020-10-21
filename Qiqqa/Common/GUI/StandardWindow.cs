@@ -170,8 +170,19 @@ namespace Qiqqa.Common.GUI
 
         public void SaveWindowDimensions()
         {
-            if (IsMeasureValid && IsInitialized)
+            if (!Configuration.ConfigurationManager.IsInitialized)
             {
+                // silently ignore: we haven't started up properly yet.
+            }
+            else if (IsMeasureValid && IsInitialized)
+            {
+                string name_to_find = Name;
+
+                if (String.IsNullOrEmpty(name_to_find))
+                {
+                    return;
+                }
+
                 Rect rc = Rect.Empty;
 
                 if (WindowState != WindowState.Normal)
@@ -188,17 +199,6 @@ namespace Qiqqa.Common.GUI
                 // Exception to the rule for backwards compatibility: first record is for main window and has no name.
                 string cfg = Configuration.ConfigurationManager.Instance.ConfigurationRecord.GUI_RestoreLocationAtStartup_Position;
 
-                string name_to_find = Name;
-
-                if (String.IsNullOrEmpty(name_to_find))
-                {
-                    return;
-                }
-                if (name_to_find == "QiqqaMainWindow")
-                {
-                    name_to_find = "!";
-                }
-
                 bool got_it = false;
 
                 List<string> cfgarr;
@@ -209,10 +209,6 @@ namespace Qiqqa.Common.GUI
                     for (int i = 0; i < cfgarr.Count; i++)
                     {
                         string[] wincfg = cfgarr[i].Split('=');
-                        if (0 == i)
-                        {
-                            wincfg = new string[] { "!" /* Main */, wincfg[0] };
-                        }
 
                         if (wincfg[0] == name_to_find)
                         {
@@ -221,7 +217,7 @@ namespace Qiqqa.Common.GUI
                             got_it = true;
                         }
                         // validation of other records:
-                        else if (0 != wincfg[0].IndexOfAny("!ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray()))
+                        else if (0 != wincfg[0].IndexOfAny("ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray()))
                         {
                             // bad record: nuke it!
                             cfgarr[i] = "";
@@ -240,15 +236,9 @@ namespace Qiqqa.Common.GUI
                 // and sort + re-bundle the config string:
                 cfgarr.Sort();
                 StringBuilder rv = new StringBuilder();
-                rv.Append(cfgarr[0].Replace("!=", ""));
-                for (int i = 1; i < cfgarr.Count; i++)
+                for (int i = 0; i < cfgarr.Count; i++)
                 {
-                    // validation of records:
-                    if (!String.IsNullOrEmpty(cfgarr[i])
-                        && 0 == cfgarr[i].IndexOfAny("ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray()))
-                    {
-                        rv.AppendFormat("::{0}", cfgarr[i]);
-                    }
+                    rv.AppendFormat("::{0}", cfgarr[i]);
                 }
 
                 Configuration.ConfigurationManager.Instance.ConfigurationRecord.GUI_RestoreLocationAtStartup_Position = rv.ToString();
@@ -312,7 +302,7 @@ namespace Qiqqa.Common.GUI
 
                 bool done = false;
 
-                // when we have a valid corner coordinate, do we restore window *position* 
+                // when we have a valid corner coordinate, do we restore window *position*
                 // (and possibly also *size*):
                 if (!Double.IsNaN(pos.X) && !Double.IsNaN(pos.Y))
                 {
