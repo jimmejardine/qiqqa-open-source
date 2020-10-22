@@ -360,6 +360,7 @@ namespace QiqqaUnitTester
         // see also http://diacritics.typo.cz/index.php?id=1
 
         [DataRow("fixtures/TeXcharmap/test-0001.txt")]
+        [DataRow("fixtures/TeXcharmap/test-0002.txt")]
         [DataTestMethod]
         public void Test_Conversion_To_And_From_BibTeX_Text(string filepath)
         {
