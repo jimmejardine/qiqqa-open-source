@@ -45,7 +45,7 @@ namespace Utilities.DateTimeTools
 
         public static DateTime? FromYYYYMMDDHHMMSSMMM(string date_string)
         {
-            if (null == date_string)
+            if (String.IsNullOrEmpty(date_string))
             {
                 return new DateTime?();
             }

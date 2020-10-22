@@ -23,11 +23,11 @@ namespace Utilities.BibTex.Parsing
     {
         private static readonly string[] MAP = new string[]
         {
-            // Conversion of double-backslash `\\` back to `\` must, by necessity of not 
+            // Conversion of double-backslash `\\` back to `\` must, by necessity of not
             // causing corruption of the conversion process due to collision with other
             // backslash-escapes, happen as two-stage process, where we FIRST convert
             // double-backslash to a 'magic' Unicode NON-CHARACTER sequence and then,
-            // when we've reached the end of the process, pick up from thre and perform
+            // when we've reached the end of the process, pick up from there and perform
             // the second step.
             //
             // Since the forward conversion of 'literal' backslash to double backslash
