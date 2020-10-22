@@ -37,7 +37,9 @@
 ----------
 
 
-* (48e0186b) Cherrypicked BibTeX TeX-to-Unicode work downe by @mahfiaz
+* (48e0186b) Cherrypicked BibTeX TeX-to-Unicode work done by @mahfiaz
+
+  Fixes https://github.com/jimmejardine/qiqqa-open-source/issues/201
 
 * (6162ac9a) Fix strange empty space in PDF view when PDF is available.
 
