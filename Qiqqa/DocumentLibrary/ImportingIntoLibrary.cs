@@ -242,7 +242,7 @@ namespace Qiqqa.DocumentLibrary
         {
             //  build up the files list
             var file_list = new List<FilenameWithMetadataImport>();
-            BuildFileListFromFolder(file_list, root_folder, null, recurse_subfolders, import_tags_from_subfolder_names);
+            BuildFileListFromFolder(ref file_list, root_folder, null, recurse_subfolders, import_tags_from_subfolder_names);
 
             //  now import into the library
             Logging.Info(
@@ -259,7 +259,7 @@ namespace Qiqqa.DocumentLibrary
         /// <summary>
         /// Build up the list of <code>FilenameWithMetadataImport</code>'s, including tags.  Recurse with all subfolders.
         /// </summary>
-        private static void BuildFileListFromFolder(List<FilenameWithMetadataImport> file_list, string folder, HashSet<string> tags, bool recurse_subfolders, bool import_tags_from_subfolder_names)
+        private static void BuildFileListFromFolder(ref List<FilenameWithMetadataImport> file_list, string folder, HashSet<string> tags, bool recurse_subfolders, bool import_tags_from_subfolder_names)
         {
             try
             {
@@ -291,7 +291,7 @@ namespace Qiqqa.DocumentLibrary
                     }
 
                     //  recurse
-                    BuildFileListFromFolder(file_list, subfolder, subfolder_tags, true, import_tags_from_subfolder_names);
+                    BuildFileListFromFolder(ref file_list, subfolder, subfolder_tags, true, import_tags_from_subfolder_names);
                 }
             }
             catch (Exception ex)
