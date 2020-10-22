@@ -15,6 +15,72 @@ V. G. Veselago, "The electrodynamics of substances with simultaneously negative 
 As far as I know, LaTeX/BibTeX chokes on those characters; they should actually be $\epsilon$ and $\mu$, in order to be properly rendered in a bibliography.
 
 article: test-ticket1661
-title: non-braking space: ~; accented characters: {\\~n} and \\~{n}; tilde operator: \\~
+title: non-braking space: ~; accented characters: {\~n} and \~{n}; tilde operator: \~
+
+title: \TeX at Calma R\thinspace\&\thinspace D
+
+Announcement of \LaTeX Version 2.09
+
+DVIto\kern-.15em VDU: A \TeX\ page previewer
+
+DVIto\kern{-.15em} VDU: A \TeX\ page previewer
+
+\VAX\ Language Sensitive Editor Templates and Guide for use with \LaTeX
+
+Post-\LaTeX Index Formatting
+
+DVIto\kern-.1emVDU 1.7 and PSPRINT 1.1
+
+DVIto\kern{-.1em}VDU 1.7 and PSPRINT 1.1
+
+Amiga\TeX\dots or How envy was resisted
+
+Using \TeX and \LaTeX with WordPerfect 5.0
+
+Reprint: The new font family selection\Dash User interface to standard \LaTeX
+
+Ji\vr\'\i Vesel\'y
+
+Review of \it 3\thinspace:\thinspace16 Bible Texts
+
+Relative moves in \LaTeX\ pictures
+
+Tough table becomes easy with \PiCTeX
+
+Document classes and packages in \LaTeXe
+
+\PS font support in \LaTeXe
+
+First applications of $ \Omega $: Adobe Poetica
+
+An audio view of (\La)\TeX documents --- part II
+
+Another look at \LaTeX to \SGML conversion
+
+Never again active characters! $ \Omega
+$-Babel
+
+$ \Omega $Times and $ \Omega $Helvetica fonts
+
+Hán Thê\llap\raise 0.5ex\hbox\'\relax Thánh and Sebastian Rahtz
+
+\LyX --- An Open Source document processor
+
+Euler-\kern-1pt VM: Generic math fonts for use with LaTeX
+
+Math in \ConTeXt: Bridging the gap with (\kern-.1emAMS\kern.05em-)\LaTeX
+
+Generating multiple outputs from \OMEGA
+
+\csstarttext: Practical \ConTeXt
+
+Katalin Fried \lowercaseet al.
+
+New hyphenation techniques in $ \Omega_2 $
+
+Designing a special book: With both pleasure and
+                 \ldots\,fear
+
+
 
 
