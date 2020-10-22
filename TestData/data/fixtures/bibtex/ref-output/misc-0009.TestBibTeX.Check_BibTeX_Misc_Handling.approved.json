@@ -1,0 +1,22 @@
+﻿{
+  "Items": [
+    {
+      "Type": "conference",
+      "Key": "webist07",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Chris Biemann and Uwe Quasthoff",
+        "title": "SIMILARITY OF DOCUMENTS AND DOCUMENT COLLECTIONS USING ATTRIBUTES WITH LOW NOISE",
+        "booktitle": "Proceedings of the Third International Conference on Web Information Systems and Technologies - Volume 1: WEBIST,",
+        "year": "2007",
+        "pages": "130-135",
+        "publisher": "SciTePress",
+        "organization": "INSTICC",
+        "doi": "10.5220/0001260601300135",
+        "isbn": "978-972-8865-78-8"
+      }
+    }
+  ],
+  "Comments": []
+}

@@ -1,0 +1,32 @@
+﻿{
+  "Items": [
+    {
+      "Type": "Book",
+      "Key": "abramowitz+stegun",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Milton Abramowitz and Irene A. Stegun",
+        "title": "Handbook of Mathematical Functions with\r\n              Formulas, Graphs, and Mathematical Tables",
+        "publisher": "Dover",
+        "year": "1964",
+        "address": "New York",
+        "edition": "ninth Dover printing, tenth GPO printing"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "Torre2008",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Joe Torre and Tom Verducci",
+        "publisher": "Doubleday",
+        "title": "The Yankee Years",
+        "year": "2008",
+        "isbn": "0385527403"
+      }
+    }
+  ],
+  "Comments": []
+}

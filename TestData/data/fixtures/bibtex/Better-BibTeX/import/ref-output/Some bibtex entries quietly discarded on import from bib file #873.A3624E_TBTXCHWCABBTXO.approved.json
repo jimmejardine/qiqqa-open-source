@@ -8737,7 +8737,7 @@
       "Fields": {
         "author": "Erik Sandewall",
         "title": "Features and Fluents",
-        "institution": "Linkӧping University",
+        "institution": "Linköping University",
         "number": "LiTH-IDA-R-92-30",
         "year": "1992",
         "month": "sep",
@@ -8752,10 +8752,10 @@
       "Fields": {
         "author": "Erik Sandewall",
         "title": "Logic Based Modelling of Goal-directed Behavior",
-        "institution": "Linkӧping University",
+        "institution": "Linköping University",
         "year": "1997",
-        "type": "Linkӧping Electronic Articles in Computer and \r\n\t\tInformation Science",
-        "note": "\\verb+http://www.ep.liu.se/ea/cis/1997/019/"
+        "type": "Linköping Electronic Articles in Computer and \r\n\t\tInformation Science",
+        "note": "ěrb+http://www.ep.liu.se/ea/cis/1997/019/"
       }
     },
     {
@@ -12162,7 +12162,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Stefan Edelkamp and Jӧrg Hoffmann",
+        "author": "Stefan Edelkamp and Jörg Hoffmann",
         "title": "PDDL2.2: The Language for the Classical Part of the\r\n\t\t 4th International Planning Competition",
         "institution": "Institut für Informatik, Universität\r\n\t\t Freiburg",
         "type": "report00195",
@@ -12178,7 +12178,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Sebastian Trüg and Jӧrg Hoffmann and Bernhard\r\n                  Nebel",
+        "author": "Sebastian Trüg and Jörg Hoffmann and Bernhard\r\n                  Nebel",
         "title": "Applying Automatic Planning Systems to Airport\r\n                  Ground-Traffic Control --- A Feasibility Study",
         "institution": "Insitut für Informatik, Universität Freiburg",
         "year": "2004",
@@ -12192,7 +12192,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Jӧrg Hoffmann and Stefan Edelkamp",
+        "author": "Jörg Hoffmann and Stefan Edelkamp",
         "title": "The Deterministic Part of IPC-4: An Overview",
         "journal": "JAIR",
         "year": "2005",
@@ -12206,7 +12206,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Jӧrg Hoffmann and Stefan Edelkamp and Roman\r\n                  Englert and Frederico dos Santos Liporace and Sylvie\r\n                  Thiébaux and Sebastian Trüg",
+        "author": "Jörg Hoffmann and Stefan Edelkamp and Roman\r\n                  Englert and Frederico dos Santos Liporace and Sylvie\r\n                  Thiébaux and Sebastian Trüg",
         "title": "Towards Realistic Benchmarks for Planning: the\r\n                  Domains Used in the Classical Part of IPC-4",
         "note": "Unpublished draft",
         "month": "jul",
@@ -12220,8 +12220,8 @@
       "Warnings": [],
       "Fields": {
         "title": "Engineering Benchmarks for Planning: the Domains Used in the\r\n                  Deterministic Part of IPC-4",
-        "author": "Jӧrg Hoffmann and Stefan Edelkamp and Sylvie Thiébaux\r\n                  and Roman Englert and Frederico dos S.  Liporace and Sebastian\r\n                  Trüg",
-        "shortauthor": "Jӧrg Hoffmann and Stefan Edelkamp and others",
+        "author": "Jörg Hoffmann and Stefan Edelkamp and Sylvie Thiébaux\r\n                  and Roman Englert and Frederico dos S.  Liporace and Sebastian\r\n                  Trüg",
+        "shortauthor": "Jörg Hoffmann and Stefan Edelkamp and others",
         "journal": "JAIR",
         "year": "2006",
         "volume": "26",
@@ -12699,7 +12699,7 @@
         "abstract": "Description Logics are a family of knowledge\r\n\t\t representation languages that have been studied\r\n\t\t extensively in Artificial Intelligence over the last\r\n\t\t two decades. They are embodied in several\r\n\t\t knowledge-based systems and are used to develop various\r\n\t\t real-life applications. The Description Logic Handbook\r\n\t\t provides a thorough account of the subject, covering\r\n\t\t all aspects of research in this field, namely: theory,\r\n\t\t implementation, and applications. Its appeal will be\r\n\t\t broad, ranging from more theoretically-oriented\r\n\t\t readers, to those with more practically-oriented\r\n\t\t interests who need a sound and modern understanding of\r\n\t\t knowledge representation systems based on Description\r\n\t\t Logics. The chapters are written by some of the most\r\n\t\t prominent researchers in the field, introducing the\r\n\t\t basic technical material before taking the reader to\r\n\t\t the current state of the subject, and including\r\n\t\t comprehensive guides to the literature. In sum, the\r\n\t\t book will serve as a unique reference for the subject,\r\n\t\t and can also be used for self-study or in conjunction\r\n\t\t with Knowledge Representation and Artificial\r\n\t\t Intelligence courses.",
         "publisher": "Cambridge University Press",
         "year": "2003",
-        "annote": "Contents: 1. An introduction to description logics D.\r\n\t\t Nardi and R. J. Brachman; Part I. Theory: 2. Basic\r\n\t\t description logics F. Baader and W. Nutt; 3. Complexity\r\n\t\t of reasoning F. M. Donini; 4. Relationships with other\r\n\t\t formalisms U. Sattler, D. Calvanese and R. Molitor; 5.\r\n\t\t Expressive description logics D. Calvanese and G. De\r\n\t\t Giacomo; 6. Extensions to description logics F. Baader,\r\n\t\t R. Küsters and F. Wolter; Part II. Implementation:\r\n\t\t 7. From description logic provers to knowledge\r\n\t\t representation systems D. L. McGuinness and P. F.\r\n\t\t Patel-Schneider; 8. Description logics systems R.\r\n\t\t Mӧller and V. Haarslev; 9. Implementation and\r\n\t\t optimisation techniques I. Horrocks; Part III.\r\n\t\t Applications: 10. Conceptual modeling with description\r\n\t\t logics A. Borgida and R. J. Brachman; 11. Software\r\n\t\t engineering C. Welty; 12. Configuration D. L.\r\n\t\t McGuinness; 13. Medical informatics A. Rector; 14.\r\n\t\t Digital libraries and web-based information systems I.\r\n\t\t Horrocks, D. L. McGuinness and C. Welty; 15. Natural\r\n\t\t language processing E. Franconi; 16. Description logics\r\n\t\t for data bases A. Borgida, M. Lenzerini and R. Rosati;\r\n\t\t Appendix. Description logic terminology F. Baader;\r\n\t\t Bibliography. See also\r\n\t\t http://www.inf.unibz.it/%7efranconi/dl/course/"
+        "annote": "Contents: 1. An introduction to description logics D.\r\n\t\t Nardi and R. J. Brachman; Part I. Theory: 2. Basic\r\n\t\t description logics F. Baader and W. Nutt; 3. Complexity\r\n\t\t of reasoning F. M. Donini; 4. Relationships with other\r\n\t\t formalisms U. Sattler, D. Calvanese and R. Molitor; 5.\r\n\t\t Expressive description logics D. Calvanese and G. De\r\n\t\t Giacomo; 6. Extensions to description logics F. Baader,\r\n\t\t R. Küsters and F. Wolter; Part II. Implementation:\r\n\t\t 7. From description logic provers to knowledge\r\n\t\t representation systems D. L. McGuinness and P. F.\r\n\t\t Patel-Schneider; 8. Description logics systems R.\r\n\t\t Möller and V. Haarslev; 9. Implementation and\r\n\t\t optimisation techniques I. Horrocks; Part III.\r\n\t\t Applications: 10. Conceptual modeling with description\r\n\t\t logics A. Borgida and R. J. Brachman; 11. Software\r\n\t\t engineering C. Welty; 12. Configuration D. L.\r\n\t\t McGuinness; 13. Medical informatics A. Rector; 14.\r\n\t\t Digital libraries and web-based information systems I.\r\n\t\t Horrocks, D. L. McGuinness and C. Welty; 15. Natural\r\n\t\t language processing E. Franconi; 16. Description logics\r\n\t\t for data bases A. Borgida, M. Lenzerini and R. Rosati;\r\n\t\t Appendix. Description logic terminology F. Baader;\r\n\t\t Bibliography. See also\r\n\t\t http://www.inf.unibz.it/%7efranconi/dl/course/"
       }
     },
     {
@@ -12708,7 +12708,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Jӧrg Hoffmann and Piergiorgio Bertoli and Malte Helmert\r\n                  and Marco Pistore",
+        "author": "Jörg Hoffmann and Piergiorgio Bertoli and Malte Helmert\r\n                  and Marco Pistore",
         "title": "Message-Based Web Service Composition, Integrity Constraints,\r\n                  and Planning under Uncertainty: A New Connection",
         "journal": "JAIR",
         "year": "2009",
@@ -12797,7 +12797,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Negin Nejati and Tolga Kӧnik and Ugur Kuter",
+        "author": "Negin Nejati and Tolga Könik and Ugur Kuter",
         "booktitle": "Proceedings of the Fifth International Conference on Knowledge Capture (KCAP-09)",
         "date-added": "2010-06-24 16:07:45 -0400",
         "date-modified": "2010-06-24 16:07:45 -0400",
@@ -12871,7 +12871,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "T. Kӧnik and N. Nejati and U. Kuter",
+        "author": "T. Könik and N. Nejati and U. Kuter",
         "booktitle": "ILP-09",
         "date-added": "2010-06-18 12:20:06 -0400",
         "date-modified": "2010-06-18 12:20:45 -0400",
@@ -12917,7 +12917,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "N. Nejati and P. Langley and T. Kӧnik",
+        "author": "N. Nejati and P. Langley and T. Könik",
         "booktitle": "ICML-06",
         "date-added": "2010-06-18 12:19:13 -0400",
         "date-modified": "2010-06-18 12:19:13 -0400",
@@ -12931,7 +12931,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "T. Kӧnik and J. E. Laird",
+        "author": "T. Könik and J. E. Laird",
         "date-added": "2010-06-18 12:19:13 -0400",
         "date-modified": "2010-06-18 12:19:13 -0400",
         "journal": "Machine Learning",
@@ -13176,7 +13176,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Jӧrg Hoffman",
+        "author": "Jörg Hoffman",
         "title": "FF: The Fast-Forward PLanning System",
         "journal": "The AI Magazine",
         "year": "2001",
@@ -13262,7 +13262,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Jӧrg Hoffmann and Bernhard Nebel",
+        "author": "Jörg Hoffmann and Bernhard Nebel",
         "journal": "jair",
         "pages": "253--302",
         "title": "The FF Planning System: Fast Plan Generation Through Heuristic Search",
@@ -13277,7 +13277,7 @@
       "Warnings": [],
       "Fields": {
         "title": "Probabilistic planning via heuristic forward search and weighted model counting",
-        "author": "Carmel Domshlak and Jӧrg Hoffmann",
+        "author": "Carmel Domshlak and Jörg Hoffmann",
         "journal": "JAIR",
         "volume": "30",
         "number": "1",
@@ -13647,8 +13647,8 @@
       "Warnings": [],
       "Fields": {
         "title": "Fast downward stone soup",
-        "author": "Helmert, Malte and Rӧger, Gabriele and Seipp, Jendrik and\r\n                  Karpas, Erez and Hoffmann, Jӧrg and Keyder, Emil and\r\n                  Nissim, Raz and Richter, Silvia and Westphal, Matthias",
-        "shortauthor": "Helmert, Malte and Rӧger, Gabriele and others",
+        "author": "Helmert, Malte and Röger, Gabriele and Seipp, Jendrik and\r\n                  Karpas, Erez and Hoffmann, Jörg and Keyder, Emil and\r\n                  Nissim, Raz and Richter, Silvia and Westphal, Matthias",
+        "shortauthor": "Helmert, Malte and Röger, Gabriele and others",
         "booktitle": "Seventh International Planning Competition",
         "pages": "38--45",
         "publisher": "ICAPS Foundation",
@@ -13690,7 +13690,7 @@
       "Warnings": [],
       "Fields": {
         "title": "Where \"ignoring delete lists\" works: local search topology in\r\n                  planning benchmarks",
-        "author": "Hoffmann, Jӧrg",
+        "author": "Hoffmann, Jörg",
         "journal": "JAIR",
         "pages": "685--758",
         "year": "2005"

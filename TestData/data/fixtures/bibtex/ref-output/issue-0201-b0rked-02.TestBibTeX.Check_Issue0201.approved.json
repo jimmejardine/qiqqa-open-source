@@ -1,0 +1,389 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "Mothe2019",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "publisher": "MDPI AG",
+        "author": "Le Vayer, Fran\\c cois de La Mothe",
+        "title": "Bla bla bla",
+        "journal": "Forests"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "dM1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "de’​ Medici, Lorenzo",
+        "title": "Bla bla bla 2"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "dM2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "de’\\mbox​ Medici, Lorenzo",
+        "title": "Bla bla bla 2"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "dM3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "de’\\hspace0pt​ Medici, Lorenzo",
+        "title": "Bla bla bla 2"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "dM4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "de’\\relax​ Medici, Lorenzo",
+        "title": "Bla bla bla 2"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "dM5",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "de’\\relax​ Medici, Lorenzo",
+        "title": "Bla bla bla 2"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "dM6",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "de’\\aftergroup\\ignorespaces Medici, Lorenzo",
+        "title": "Bla bla bla 2"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "dM7",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "\\noopMacedode Macedo, Agostinho José da Costa",
+        "title": "Bla bla bla 2"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "dM8",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "du Puy de Clinchamps, \\relax Philippe",
+        "title": "Bla bla bla 2"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "dM9",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "National Aeronautics and Space Administration",
+        "title": "Bla bla bla 2"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "dM10",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "'s-Gravesande, Goverdus and al-Hakim, Tawfiq and d'Alembert, Jean le Rond",
+        "title": "Bla bla bla 2"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "dM11",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "el-Sadat, Anwar and Ortega y Gasset, José",
+        "title": "Bla bla bla 2"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "dM12",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "de La Salle, René-Robert Cavelier",
+        "title": "Bla bla bla 2"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "dM13",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "La Follette, Sr., Robert M.",
+        "title": "Bla bla bla 2"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "dM14",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Medici, Lorenzo de'\\hspace0pt",
+        "title": "Bla bla bla 2"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "CUDA",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "NVIDIA Corporation",
+        "title": "NVIDIA CUDA Compute Unified Device Architecture Programming Guide",
+        "publisher": "NVIDIA Corporation",
+        "year": "2007"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "dM15",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Barnes and Noble, Inc.",
+        "title": "Bla bla bla 2"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "dM15",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "FCC H2020 Project",
+        "title": "Bla bla bla 2"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "hawking1988",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "A Brief History of Time: From the Big Bang to Black Holes",
+        "author": "Hawking, Stephen",
+        "year": "1988",
+        "publisher": "Bantam",
+        "address": "London"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "einstein",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Albert Einstein",
+        "title": "Zur Elektrodynamik bewegter Körper. (German)\r\n        [On the electrodynamics of moving bodies]",
+        "journal": "Annalen der Physik",
+        "volume": "322",
+        "number": "10",
+        "pages": "891--921",
+        "year": "1905",
+        "doi": "http://dx.doi.org/10.1002/andp.19053221004"
+      }
+    },
+    {
+      "Type": "book",
+      "Key": "latexcompanion",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Michel Goossens and Frank Mittelbach and Alexander Samarin",
+        "title": "The ŁaTeX\\ Companion",
+        "year": "1993",
+        "publisher": "Addison-Wesley",
+        "address": "Reading, Massachusetts"
+      }
+    },
+    {
+      "Type": "misc",
+      "Key": "knuthwebsite",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Donald Knuth",
+        "title": "Knuth: Computers and Typesetting",
+        "url": "http://www-cs-faculty.stanford.edu/ũno/abcde.html"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "mrx05",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Mr. X",
+        "title": "Something Great",
+        "publisher": "nobody",
+        "year": "2005"
+      }
+    },
+    {
+      "Type": "string",
+      "Key": null,
+      "Exceptions": [
+        "Expecting a ( or {{ to start a BibTeX reference\r\nns previously defined using the @string command can only be used in conjunction \r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "string",
+      "Key": "btx",
+      "Exceptions": [
+        "Expecting a , after the BibTeX key\r\nhe string concatenation.    @string{btx = \"{\\textsc{Bib}\\TeX}\"}     @article{dM2\r\n                                        ^"
+      ],
+      "Warnings": [],
+      "Fields": {}
+    },
+    {
+      "Type": "article",
+      "Key": "dM25",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "FCC H2020 Project",
+        "title": "btxing"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "dM26",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "FCC H2020 Project",
+        "title": "Bib\\TeX"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "dM27",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "FCC H2020 Project",
+        "title": "Bib\\TeX"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "dM28",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "FCC H2020 Project",
+        "title": "Bib\\TeX"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "dM30",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "D[onald] E. Knuth",
+        "title": "Bib\\TeX",
+        "month": "jul~4,"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "dM31",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Åke José Édouard Gödel",
+        "title": "BibTeX"
+      }
+    },
+    {
+      "Type": "incollection",
+      "Key": "m85",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Maskin, Eric S.",
+        "year": "1985",
+        "title": "The theory of implementation in Nash equilibrium: a survey",
+        "booktitle": "Social Goals and Social Organization",
+        "editor": "Leonid Hurwicz and David Schmeidler and Hugo Sonnenschein",
+        "pages": "173-204",
+        "publisher": "Cambridge University Press",
+        "address": "Cambridge"
+      }
+    },
+    {
+      "Type": "inproceedings",
+      "Key": "ah2006",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Aggarwal, Gagan and Hartline, Jason D.",
+        "year": "2006",
+        "title": "Knapsack auctions",
+        "booktitle": "Proceedings of the 17th Annual ACM-SIAM Symposium on Discrete Algorithms",
+        "pages": "1083-1092",
+        "publisher": "Association for Computing Machinery",
+        "address": "New York"
+      }
+    },
+    {
+      "Type": "techreport",
+      "Key": "arrow48",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Arrow, Kenneth J.",
+        "title": "The possibility of a universal social welfare function",
+        "institution": "RAND Corporation",
+        "year": "1948",
+        "number": "P-41",
+        "type": "Report"
+      }
+    }
+  ],
+  "Comments": [
+    "% gleaned from https://github.com/retorquere/zotero-better-bibtex/issues/565",
+    "% \\relax{}<SPACE> does not work, it has to be \\relax<SPACE>",
+    "% Hufflen (2006) recommends {\\aftergroup\\ignorespaces}<SPACE> instead (if that’s easier for BBT than \\relax<SPACE>)",
+    "% A trick I sometimes see on TSE is to add (configurably of course) the non-particled last name as a no-op to force sorting, something like\r\n%\r\n% author = {\\noop{Macedo}de Macedo, Agostinho José da Costa}",
+    "% https://www.overleaf.com/learn/latex/Bibliography_management_with_natbib",
+    "% http://www.bibtex.org/Format/\r\n\r\nIt is important to know that abbreviations previously defined using the",
+    "command can only be used in conjunction with other strings using the string concatenation.",
+    "= \"{\\textsc{Bib}\\TeX}\"}",
+    "For example, the following statements are equal:",
+    "---"
+  ]
+}
