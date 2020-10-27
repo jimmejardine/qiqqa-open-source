@@ -339,7 +339,7 @@ namespace Utilities.PDF.MuPDF
             //TestHarness_TEXT_RENDER_ONE(@"C:\temp\p5.pdf", 3);
             //TestHarness_TEXT_RENDER_ONE(@"C:\temp\7.pdf", 3);
             //TestHarness_TEXT_RENDER_ONE(@"C:\temp\7a.pdf", 3);
-         
+
             // FAILURES
             //TestHarness_TEXT_RENDER_ONE(@"C:\temp\kevin.pdf", 3);
             //TestHarness_TEXT_RENDER_ONE(@"C:\Users\Jimme\AppData\Roaming\Quantisle\Qiqqa\\7CDA3872-F99B-49B5-A0EB-E58C08719C1C\documents\1\1E18A4945DA8F9CDB6621F12FECE3CFFC3CB7CF.pdf", 2);
@@ -424,8 +424,7 @@ namespace Utilities.PDF.MuPDF
             Logging.Info("Start!");
 
             List<TextChunk> chunks = GetEmbeddedText(@"C:\temp\poo.pdf", "1", null, ProcessPriorityClass.Normal);
-            
-            
+
             //for (int i = 1; i <= 32; ++i)
             //{
             //    Logging.Info("Page {0}", i);
@@ -449,8 +448,8 @@ namespace Utilities.PDF.MuPDF
 
             Logging.Info("Done!");
         }
-        
-        
+
+
         public static void TestHarness_IMAGE()
         {
             Logging.Info("Start!");

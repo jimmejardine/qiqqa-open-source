@@ -25,7 +25,7 @@ namespace Utilities.PDF.Sorax
             }
             else
             {
-                // We have to bump someopne from the cache...
+                // We have to bump someone from the cache...
                 if (cache_entries.Count > CACHE_SIZE)
                 {
                     cache_entries.RemoveAt(0);
