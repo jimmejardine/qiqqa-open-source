@@ -362,6 +362,24 @@ namespace QiqqaUnitTester
         [DataRow("fixtures/TeXcharmap/test-0001.txt")]
         [DataRow("fixtures/TeXcharmap/test-0002.txt")]
         [DataTestMethod]
+        public void Test_Conversion_To_BibTeX_Text(string filepath)
+        {
+            string path = GetNormalizedPathToAnyTestDataTestFile(filepath);
+            ASSERT.FileExists(path);
+
+            string data_in = GetTestFileContent(path);
+            string s1 = data_in;
+            string s2 = BibTexCharacterMap.ASCIIToBibTex(s1);
+
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(s2, filepath),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
+        [DataRow("fixtures/TeXcharmap/test-0001.txt")]
+        [DataRow("fixtures/TeXcharmap/test-0002.txt")]
+        [DataTestMethod]
         public void Test_Conversion_To_And_From_BibTeX_Text(string filepath)
         {
             string path = GetNormalizedPathToAnyTestDataTestFile(filepath);
@@ -372,9 +390,9 @@ namespace QiqqaUnitTester
             string s2 = BibTexCharacterMap.ASCIIToBibTex(s1);
             string s3 = BibTexCharacterMap.BibTexToASCII(s2);
 
-            ASSERT.AreEqual(s1, s3);
+            //ASSERT.AreEqual(s1, s3);
             ApprovalTests.Approvals.Verify(
-                new QiqqaApprover(s2, filepath),
+                new QiqqaApprover(s3, filepath),
                 ApprovalTests.Approvals.GetReporter()
             );
         }
