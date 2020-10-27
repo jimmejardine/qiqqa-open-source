@@ -333,8 +333,16 @@ and redone to show that the google analystics warning there is irrelevant for th
 Now that we're comparing trends, just curious about programming languages used or to be used in Qiqqa:
 ![](assets/google-trends-cef-et-al10.png)
 here Electron and CEF sink into the noise floor, while C# and JavaScript are about on par with one another, while NodeJS is making a wee bit of noise in the lowest percent range. Conclusion: it doesn't matter all that much whether we code in C# or JavaScript, if we anticipate developer availability (that's a rough estimate, but good enough for me right now). How about my old pals?
-[]![](assets/google-trends-cef-et-al11.png)](https://trends.google.com/trends/explore?cat=31&date=2011-07-16%202020-08-16&q=C%23,javascript,c%2B%2B,html,css)
+[![](assets/google-trends-cef-et-al11.png)](https://trends.google.com/trends/explore?cat=31&date=2011-07-16%202020-08-16&q=C%23,javascript,c%2B%2B,html,css)
 Hm, compare that with [the latest SO languages vs pay grade / empoyment / interest poll](https://insights.stackoverflow.com/survey/2019): it's all mainstream, though [JavaScript has the advantage](https://insights.stackoverflow.com/survey/2019#technology-_-programming-scripting-and-markup-languages), or [does it? (Count .NET+.NETcore vs. NodeJS...)](https://insights.stackoverflow.com/survey/2019#technology-_-other-frameworks-libraries-and-tools) See [the link](https://insights.stackoverflow.com/survey/2019#developer-profile-_-contributing-to-open-source) though for an interesting tidbit: C# devs as a population are less inclined to contribute to open source, apparently. 😢🤔
+
+https://trends.google.com/trends/explore?cat=31&date=all&q=winforms,wpf%20.net,%2Fg%2F11bw_559wr,mfc%20windows,cef
+![](assets/google-trends-cef-et-al12.png)
+and then there's the current year in
+![](assets/google-trends-cef-et-al13.png)
+which indicates to me that electron is sort of steady in mind's eye, while WPF is still slowly declining -- or is that wishful thinking? 
+Anyway, back in the day I used a few frameworks, before having to land with MFC, which I kinda liked (thanks to an MSJ article by Paul diLascia which enabled me to hack the bugger to bits) and after that it's been a lot of *meh* (old wine, new bags) outside the HTML+CSS realm. Looks like we're indeed heading there...
+
 
 
 
