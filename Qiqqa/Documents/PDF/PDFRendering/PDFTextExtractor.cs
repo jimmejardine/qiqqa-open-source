@@ -594,7 +594,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                         // The call above can take quite a while to complete, so check all abort/delay checks once again, just in case...:
                         if (false
                             || Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown || !StillRunning
-                            || clk_duration > 100
+                            || clk_duration > 300
                             || Library.IsBusyAddingPDFs
                             || Library.IsBusyRegeneratingTags
                             || ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks
@@ -603,7 +603,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                             Logging.Warn("Recheck job queue after WaitForUIThreadActivityDone took {0}ms or shutdown/delay signals were detected: {1}/{2}/{3}/{4}/{5}.",
                                 clk_duration,
                                 (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown || !StillRunning) ? "+Shutdown+" : "-SD-",
-                                clk_duration > 100 ? "+UI-wait+" : "-UI-",
+                                clk_duration > 300 ? "+UI-wait+" : "-UI-",
                                 Library.IsBusyAddingPDFs ? "+PDFAddPending+" : "-PDF-",
                                 ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks ? "+DisableBackgroundTasks+" : "-DB-",
                                 Library.IsBusyRegeneratingTags ? "+LibRegenerate+" : "-Regen-"
