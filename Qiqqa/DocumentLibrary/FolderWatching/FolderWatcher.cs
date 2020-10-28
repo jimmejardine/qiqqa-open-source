@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using Alphaleonis.Win32.Filesystem;
+using Qiqqa.Common.Configuration;
 using Qiqqa.Common.TagManagement;
 using Qiqqa.Documents.PDF;
 using Utilities;
@@ -226,6 +227,12 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             // If the folder or its contents has not changed since the last time, do nothing
             if (!FolderContentsHaveChanged)
             {
+                return;
+            }
+
+            if (!ConfigurationManager.IsEnabled(nameof(FolderWatcher)))
+            {
+                Logging.Info("Watched folder {0} will not be watched/scanned due to Developer Override setting FolderWatcher=false", configured_folder_to_watch);
                 return;
             }
 

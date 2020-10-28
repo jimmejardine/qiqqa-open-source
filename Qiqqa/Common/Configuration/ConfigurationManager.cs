@@ -434,6 +434,12 @@ namespace Qiqqa.Common.Configuration
             }
         }
 
+        /// <summary>
+        /// Whether or not a given key is DISabled by the developer settings (JSON5 override file) or not.
+        /// </summary>
+        /// <param name="key">Tip: to ensure the names in the JSON5 config file will/must match the actual names in the code, use `nameof(class)`
+        /// instead of a direct string value `"class"`.</param>
+        /// <returns>`true` by default (ENabled), unless the loaded developer overrides file explicitly set this key to `false`.</returns>
         public static bool IsEnabled(string key)
         {
             if (null != Instance.developer_test_settings)
