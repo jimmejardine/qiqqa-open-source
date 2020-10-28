@@ -122,7 +122,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                  *   then add it to our list with the word '[LEGACY]' in front of it.
                  */
 
-                string base_directory_path = UpgradePaths.V037To038.SQLiteUpgrade.BaseDirectoryForQiqqa;
+                string base_directory_path = ConfigurationManager.Instance.BaseDirectoryForQiqqa;
                 Logging.Info("Going to scan for web libraries at: {0}", base_directory_path);
                 if (Directory.Exists(base_directory_path))
                 {
@@ -418,15 +418,18 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 {
                     if (a == b) return 0;
 
-                    if (b.Deleted) return -1;
+                    // make sure sort criteria are consistent across the board or you'll get a BadComparer exception!
+                    // Hence we MUST compare (B && !A) before (A), not just simply, and faster, (B) then (A):
+
+                    if (b.Deleted && !a.Deleted) return -1;
                     if (a.Deleted) return +1;
 
-                    if (b.IsLocalGuestLibrary) return -1;
+                    if (b.IsLocalGuestLibrary && !a.IsLocalGuestLibrary) return -1;
                     if (a.IsLocalGuestLibrary) return +1;
 
                     int pos_b = last_open_ordering.IndexOf(b.Id);
-                    if (-1 == pos_b) return -1;
                     int pos_a = last_open_ordering.IndexOf(a.Id);
+                    if (-1 == pos_b && -1 != pos_a) return -1;
                     if (-1 == pos_a) return +1;
 
                     return Sorting.Compare(pos_a, pos_b);
