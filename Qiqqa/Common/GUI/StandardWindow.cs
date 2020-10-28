@@ -265,18 +265,10 @@ namespace Qiqqa.Common.GUI
             {
                 return false;
             }
-            if (name_to_find == "QiqqaMainWindow")
-            {
-                name_to_find = "!";
-            }
 
             for (int i = 0; i < cfgarr.Count; i++)
             {
                 string[] wincfg = cfgarr[i].Split('=');
-                if (0 == i)
-                {
-                    wincfg = new string[] { "!" /* Main */, wincfg[0] };
-                }
 
                 if (wincfg[0] == name_to_find)
                 {
