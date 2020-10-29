@@ -88,34 +88,5 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             if (IsWebLibrary) return "Web";
             return "Legacy";
         }
-
-#if false
-        // additional hacky API to assist the codebase while we weren't using TypedWeakReference object(s) for this:
-
-        public WebLibraryDetail CloneSansLibraryReference()
-        {
-            // only clone the important fields:
-            WebLibraryDetail rv = new WebLibraryDetail();
-            rv.Id = this.Id;
-            rv.Title = this.Title;
-            rv.Description = this.Description;
-            rv.Deleted = this.Deleted;
-            //LastSynced
-            //FolderToWatch
-            rv.IsLocalGuestLibrary = this.IsLocalGuestLibrary;
-            //ShortWebId
-            //IsAdministrator
-            //IsReadOnly
-            //IntranetPath
-            //BundleManifestJSON
-            //LastBundleManifestDownloadTimestampUTC
-            //LastBundleManifestIgnoreVersion
-            rv.IsPurged = this.IsPurged;
-            //LastServerSyncNotificationDate
-            rv.AutoSync = false;
-
-            return rv;
-        }
-#endif
     }
 }
