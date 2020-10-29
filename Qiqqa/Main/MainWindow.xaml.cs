@@ -34,6 +34,7 @@ namespace Qiqqa.Main
         public static readonly string TITLE_START_PAGE = "Home (F1)";
         private KeyboardHook keyboard_hook;
         private IPCServer ipc_server;
+        private int HourglassState;
 
         public MainWindow()
         {
@@ -43,6 +44,7 @@ namespace Qiqqa.Main
 
             InitializeComponent();
 
+            HourglassState = 2;
             WPFDoEvents.SetHourglassCursor();
 
             DataContext = ConfigurationManager.Instance.ConfigurationRecord_Bindable;
@@ -95,8 +97,24 @@ namespace Qiqqa.Main
             //this.SourceInitialized += MainWindow_SourceInitialized;
             //this.StateChanged += MainWindow_StateChanged;
 
+            WebLibraryManager.Instance.WebLibrariesChanged += Instance_WebLibrariesChanged;
+
             // Put this in a background thread
             SafeThreadPool.QueueUserWorkItem(o => PostStartupWork());
+        }
+
+        private void Instance_WebLibrariesChanged()
+        {
+            HourglassState--;
+
+            if (HourglassState == 0)
+            {
+                WPFDoEvents.ResetHourglassCursor();
+
+#if PROFILE_STARTUP_PHASE
+                    Environment.Exit(-2);    // testing & profiling only
+#endif
+            }
         }
 
         private void MainWindow_ContentRendered(object sender, EventArgs e)
@@ -108,11 +126,16 @@ namespace Qiqqa.Main
 
             // https://stackoverflow.com/questions/34340134/how-to-know-when-a-frameworkelement-has-been-totally-rendered
             WPFDoEvents.InvokeInUIThread(() => {
-                WPFDoEvents.ResetHourglassCursor();
+                HourglassState--;
 
-#if false
-                Environment.Exit(-2);    // testing & profiling only
+                if (HourglassState == 0)
+                {
+                    WPFDoEvents.ResetHourglassCursor();
+
+#if PROFILE_STARTUP_PHASE
+                    Environment.Exit(-2);    // testing & profiling only
 #endif
+                }
             }, priority: DispatcherPriority.ContextIdle);
         }
 
@@ -366,7 +389,7 @@ namespace Qiqqa.Main
         {
             base.OnClosed(e);
 
-            // Dispose() does a few things that are also done in MainWindow_Closed(), which is invoked via base.OnClosed(), 
+            // Dispose() does a few things that are also done in MainWindow_Closed(), which is invoked via base.OnClosed(),
             // so we flipped the order of exec to reduce the number of surprises for yours truly.
             Dispose();
         }
