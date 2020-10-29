@@ -305,12 +305,16 @@ namespace Qiqqa.Main
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            RemarkOnException(e.ExceptionObject as Exception, true);
+            Exception ex = e.ExceptionObject as Exception;
+            bool obnoxious_but_not_fatal = ex.Message.Contains(" GDI+");   // "generic error happenedinGDI+."
+            RemarkOnException(ex, !obnoxious_but_not_fatal);
         }
 
         private static void application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            RemarkOnException(e.Exception, true);
+            Exception ex = e.Exception;
+            bool obnoxious_but_not_fatal = ex.Message.Contains(" GDI+");   // "generic error happenedinGDI+."
+            RemarkOnException(ex, !obnoxious_but_not_fatal);
             e.Handled = true;
         }
 
