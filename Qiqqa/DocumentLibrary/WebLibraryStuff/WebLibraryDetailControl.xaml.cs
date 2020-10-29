@@ -298,9 +298,9 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
             // Store the web library details
             web_library_detail = DataContext as WebLibraryDetail;
-            if (null != web_library_detail)
+            if (null != web_library_detail && null != web_library_detail.library)
             {
-                // WEAK EVENT HANDLER FOR: web_library_detail.library.OnDocumentsChanged += library_OnDocumentsChanged;                
+                // WEAK EVENT HANDLER FOR: web_library_detail.library.OnDocumentsChanged += library_OnDocumentsChanged;
                 WeakEventHandler<Library.PDFDocumentEventArgs>.Register<Library, WebLibraryDetailControl>(
                     web_library_detail.library,
                     registerWeakEvent,
@@ -396,7 +396,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             const int WEEK_HISTORY = 4 * 3;
             DateTime NOW = DateTime.UtcNow;
 
-            // Get the buckets for the past few weeks of READING                    
+            // Get the buckets for the past few weeks of READING
             CountingDictionary<DateTime> date_buckets_read = new CountingDictionary<DateTime>();
             {
                 List<DateTime> recently_reads = web_library_detail.library.RecentlyReadManager.GetRecentlyReadDates();
