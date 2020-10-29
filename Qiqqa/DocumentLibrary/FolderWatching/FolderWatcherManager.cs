@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Qiqqa.Common.Configuration;
 using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
@@ -59,7 +60,10 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 }
             }
 
-            managed_thread_index = Utilities.Maintainable.MaintainableManager.Instance.RegisterHeldOffTask(TaskDaemonEntryPoint, 30 * 1000, extra_descr: $".Lib({Library})");
+            if (ConfigurationManager.IsEnabled(nameof(FolderWatcher)))
+            {
+                managed_thread_index = Utilities.Maintainable.MaintainableManager.Instance.RegisterHeldOffTask(TaskDaemonEntryPoint, 30 * 1000, extra_descr: $".Lib({Library})");
+            }
         }
 
 #if DIAG
