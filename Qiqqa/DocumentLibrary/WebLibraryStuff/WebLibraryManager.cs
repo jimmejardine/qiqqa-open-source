@@ -73,28 +73,33 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private WebLibraryManager()
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+            // WARNING: this code is executed inside an Instance lock (lock_instance) and should therefor be both minimal and FAST:
+            // hence we push all the work to be done onto a worker thread for processing at a later time.
+            SafeThreadPool.QueueUserWorkItem(o =>
+            {
+                WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-            // Look for any web libraries that we know about
-            LoadKnownWebLibraries(KNOWN_WEB_LIBRARIES_FILENAME, only_load_those_libraries_which_are_actually_present: false);
+                // Look for any web libraries that we know about
+                LoadKnownWebLibraries(KNOWN_WEB_LIBRARIES_FILENAME, only_load_those_libraries_which_are_actually_present: false);
 
-            // *************************************************************************************************************
-            // *** MIGRATION TO OPEN SOURCE CODE ***************************************************************************
-            // *************************************************************************************************************
-            AddLegacyWebLibrariesThatCanBeFoundOnDisk();
-            // *************************************************************************************************************
+                // *************************************************************************************************************
+                // *** MIGRATION TO OPEN SOURCE CODE ***************************************************************************
+                // *************************************************************************************************************
+                AddLegacyWebLibrariesThatCanBeFoundOnDisk();
+                // *************************************************************************************************************
 
-            AddLocalGuestLibraryIfMissing();
+                AddLocalGuestLibraryIfMissing();
 
-            InitAllLoadedLibraries();
+                InitAllLoadedLibraries();
 
-            ImportManualsIntoLocalGuestLibraryIfMissing();
+                ImportManualsIntoLocalGuestLibraryIfMissing();
 
-            SaveKnownWebLibraries();
+                SaveKnownWebLibraries();
 
-            StatusManager.Instance.ClearStatus("LibraryInitialLoad");
+                StatusManager.Instance.ClearStatus("LibraryInitialLoad");
 
-            FireWebLibrariesChanged();
+                FireWebLibrariesChanged();
+            });
         }
 
         private void FireWebLibrariesChanged()
