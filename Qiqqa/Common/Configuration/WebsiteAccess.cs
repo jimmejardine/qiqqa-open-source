@@ -29,7 +29,7 @@ namespace Qiqqa.Common.Configuration
         public static readonly string Url_CSLManual = @"http://citationstyles.org/downloads/specification.html";
         public static readonly string Url_CSLAbout = @"http://editor.citationstyles.org/about/";
 
-        public static readonly string Url_Forums = @"http://getsatisfaction.com/qiqqa";
+        public static readonly string Url_Forums = @"https://github.com/jimmejardine/qiqqa-open-source/issues";
 
         public static readonly string Url_Datacopia = @"https://www.youtube.com/watch?v=NnNm_aqYUrQ";
         public static readonly string Url_Omnipatents = @"http://www.omnipatents.com";
@@ -69,7 +69,7 @@ namespace Qiqqa.Common.Configuration
 
         public static readonly string Url_GithubRepo4Qiqqa = @"https://github.com/jimmejardine/qiqqa-open-source";
         public static readonly string Url_Support4Qiqqa = @"https://github.com/jimmejardine/qiqqa-open-source/issues";
-        public static readonly string Url_Documentation4Qiqqa = @"http://bit.ly/QIQQA";  // --> https://gerhobbelt.github.io/qiqqa-open-source
+        public static readonly string Url_Documentation4Qiqqa = @"https://qiqqa.org/"; // previously: http://bit.ly/QIQQA
 
         // bibtexsearch.com search URL has 1 parameter: the server ID/number (1..4):
         public static readonly string Url_BibTeXSearchServerN = @"http://search{0}.bibtexsearch.com:80";
@@ -180,7 +180,7 @@ namespace Qiqqa.Common.Configuration
         // ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
         /// <summary>
-        /// Gets the url of the root of the main website. 
+        /// Gets the url of the root of the main website.
         /// </summary>
         /// <returns></returns>
         private static string GetWebsiteUrl()
