@@ -84,7 +84,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             if (IsIntranetLibrary) return "Intranet";
             if (IsBundleLibrary) return "Bundle";
             if (IsWebLibrary) return "Web";
-            return "UNKNOWN";
+            return "Legacy";
         }
 
 #if false
@@ -99,17 +99,17 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             rv.Description = this.Description;
             rv.Deleted = this.Deleted;
             //LastSynced
-            //FolderToWatch 
+            //FolderToWatch
             rv.IsLocalGuestLibrary = this.IsLocalGuestLibrary;
-            //ShortWebId 
-            //IsAdministrator 
+            //ShortWebId
+            //IsAdministrator
             //IsReadOnly
-            //IntranetPath 
-            //BundleManifestJSON 
-            //LastBundleManifestDownloadTimestampUTC 
-            //LastBundleManifestIgnoreVersion 
+            //IntranetPath
+            //BundleManifestJSON
+            //LastBundleManifestDownloadTimestampUTC
+            //LastBundleManifestIgnoreVersion
             rv.IsPurged = this.IsPurged;
-            //LastServerSyncNotificationDate 
+            //LastServerSyncNotificationDate
             rv.AutoSync = false;
 
             return rv;

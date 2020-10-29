@@ -523,7 +523,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     // *** MIGRATION TO OPEN SOURCE CODE ***************************************************************************
                     // *************************************************************************************************************
                     // Don't remember the web libraries - let them be discovered by this
-                    if ("UNKNOWN" == web_library_detail.LibraryType())
+                    if ("Legacy" == web_library_detail.LibraryType())
                     {
                         continue;
                     }
@@ -840,11 +840,8 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     old.IsReadOnly = MixOldAndNew(old.IsReadOnly, new_web_library_detail.IsReadOnly, new_web_library_detail.Id + "::" + nameof(old.IsReadOnly), ref state);
 
                     // fixup:
-                    if (old.LibraryType() != "UNKNOWN" && old.IsReadOnly)
-                    {
-                        // reset ReadOnly for everyone who is ex-Premium(Plus) for all their known libraries.
-                        old.IsReadOnly = false;
-                    }
+                    // reset ReadOnly for everyone who is ex-Premium(Plus) for all their known libraries.
+                    old.IsReadOnly = false;
 
                     old.library?.Dispose();
 

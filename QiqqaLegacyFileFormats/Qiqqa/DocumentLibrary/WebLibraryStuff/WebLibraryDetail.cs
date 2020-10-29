@@ -68,7 +68,7 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.DocumentLibrary.Web
             if (IsIntranetLibrary) return "Intranet";
             if (IsBundleLibrary) return "Bundle";
             if (IsWebLibrary) return "Web";
-            return "UNKNOWN";
+            return "Legacy";
         }
     }
 }
