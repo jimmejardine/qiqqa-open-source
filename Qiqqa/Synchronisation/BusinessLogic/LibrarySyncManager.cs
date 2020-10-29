@@ -100,7 +100,7 @@ namespace Qiqqa.Synchronisation.BusinessLogic
                 // file system load when you have any reasonably large libraries like I do.          [GHo]
                 //
                 // TODO: fetch and cache document filesizes in the background, so we can improve on the accuracy
-                // our numbers in a future call to this method.
+                // of our numbers in a future call to this method.
                 //
                 GlobalSyncDetail global_sync_detail = GenerateGlobalSyncDetail(tally_library_storage_size: false);
                 WPFDoEvents.InvokeInUIThread(() =>
@@ -244,7 +244,7 @@ namespace Qiqqa.Synchronisation.BusinessLogic
                     else
                     {
                         // fake it: take about 10KB per document, unless we already determined (and cached) the document size before.
-                        // This spares us the large overhead of querying the file system for every document in the 
+                        // This spares us the large overhead of querying the file system for every document in the
                         // (possibly huge) library.
                         local_library_sync_detail.total_library_size += pdf_document.GetDocumentSizeInBytes(uncached_document_storage_size_override: 10 * 1024);
                     }
