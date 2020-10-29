@@ -242,7 +242,7 @@ namespace Utilities
             }
             LogManager.Flush(5000);
             LogManager.Shutdown();
-            Thread.Sleep(500);
+            //Thread.Sleep(500);
         }
 
         public static bool HasShutDown
