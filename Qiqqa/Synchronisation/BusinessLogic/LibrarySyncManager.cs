@@ -195,12 +195,12 @@ namespace Qiqqa.Synchronisation.BusinessLogic
                         d.is_readonly = library_sync_detail.web_library_detail.IsReadOnly;
                     }
 
-                    // Unknown library types
+                    // Legacy/Unknown library types
                     else
                     {
-                        d.can_sync = false;
-                        d.can_sync_metadata = false;
-                        d.is_readonly = true;
+                        d.can_sync = true;
+                        d.can_sync_metadata = true;
+                        d.is_readonly = false;
                     }
                 }
 

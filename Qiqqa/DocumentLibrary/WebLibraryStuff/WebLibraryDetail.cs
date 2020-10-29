@@ -31,7 +31,9 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         [ProtoMember(9)]
         public bool IsAdministrator { get; set; }
         [ProtoMember(14)]
-        public bool IsReadOnly { get; set; }
+        public bool IsReadOnly {
+            get;
+            set; }
 
         public bool IsWebLibrary => !String.IsNullOrEmpty(ShortWebId);
 
