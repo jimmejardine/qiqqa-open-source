@@ -535,7 +535,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
             while (true)
             {
-                if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown || !StillRunning)
+                if (ShutdownableManager.Instance.IsShuttingDown || !StillRunning)
                 {
                     int job_queue_group_count;
                     int job_queue_single_count;
@@ -595,7 +595,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
                         // The call above can take quite a while to complete, so check all abort/delay checks once again, just in case...:
                         if (false
-                            || Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown || !StillRunning
+                            || ShutdownableManager.Instance.IsShuttingDown || !StillRunning
                             || clk_duration > 300
                             || Library.IsBusyAddingPDFs
                             || Library.IsBusyRegeneratingTags
@@ -604,7 +604,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                         {
                             Logging.Warn("Recheck job queue after WaitForUIThreadActivityDone took {0}ms or shutdown/delay signals were detected: {1}/{2}/{3}/{4}/{5}.",
                                 clk_duration,
-                                (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown || !StillRunning) ? "+Shutdown+" : "-SD-",
+                                (ShutdownableManager.Instance.IsShuttingDown || !StillRunning) ? "+Shutdown+" : "-SD-",
                                 clk_duration > 300 ? "+UI-wait+" : "-UI-",
                                 Library.IsBusyAddingPDFs ? "+PDFAddPending+" : "-PDF-",
                                 ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks ? "+DisableBackgroundTasks+" : "-DB-",
@@ -806,7 +806,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 //
                 // <handwave />
 
-                if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+                if (ShutdownableManager.Instance.IsShuttingDown)
                 {
                     Logging.Info("Breaking out of SINGLE Job processing for {0} due to application termination", next_job.job);
                     return;
@@ -873,7 +873,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                     {
                         duration = clk.ElapsedMilliseconds;
 
-                        if (!Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown && !StillRunning)
+                        if (!ShutdownableManager.Instance.IsShuttingDown && !StillRunning)
                         {
                             break;
                         }

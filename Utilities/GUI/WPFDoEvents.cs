@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using Utilities.Misc;
+using Utilities.Shutdownable;
 
 namespace Utilities.GUI
 {
@@ -18,7 +19,7 @@ namespace Utilities.GUI
     {
         private static void DoEvents()
         {
-            if (!Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown
+            if (!ShutdownableManager.Instance.IsShuttingDown
                 && (Application.Current?.Dispatcher.CheckAccess() ?? false)
                 && (!Application.Current?.Dispatcher.HasShutdownStarted ?? false))
             {
@@ -94,7 +95,7 @@ namespace Utilities.GUI
                 // other background threads will wait on the lock to resolve...
                 //lock (DoEvents_lock)
                 {
-                    if (!Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown
+                    if (!ShutdownableManager.Instance.IsShuttingDown
                         && (!Application.Current?.Dispatcher.HasShutdownStarted ?? false))
                     {
                         Application.Current.Dispatcher.Invoke(new Action(() =>

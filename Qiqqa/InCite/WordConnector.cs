@@ -11,6 +11,7 @@ using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Maintainable;
 using Utilities.Misc;
+using Utilities.Shutdownable;
 using Application = Microsoft.Office.Interop.Word.Application;
 using Shape = Microsoft.Office.Interop.Word.Shape;
 
@@ -84,7 +85,12 @@ namespace Qiqqa.InCite
                 for (int i = 0; i < 20 && !have_iterated_at_least_once; ++i)
                 {
                     Logging.Info("Waiting for the InCite thread to iterate once.");
-                    Thread.Sleep(250);
+                    ShutdownableManager.Sleep(250);
+                    if (ShutdownableManager.Instance.IsShuttingDown)
+                    {
+                        Logging.Error("Canceling WordConnector due to signaled application shutdown");
+                        return;
+                    }
                 }
             }
         }
@@ -533,7 +539,12 @@ namespace Qiqqa.InCite
                 {
                     if (StatusManager.Instance.IsCancelled("InCite"))
                     {
-                        Logging.Info("Updating of citations in Word has been cancelled by the user.");
+                        Logging.Info("Updating of citations in Word has been canceled by the user.");
+                        break;
+                    }
+                    if (ShutdownableManager.Instance.IsShuttingDown)
+                    {
+                        Logging.Error("Canceling citation update in Word due to signaled Qiqqa application shutdown");
                         break;
                     }
 
@@ -688,7 +699,7 @@ namespace Qiqqa.InCite
                             Logging.Warn(ex, "Will try again (try {0}) because there was a problem updating a citation field: {1}", dodgy_paste_retry_count, field.Result.Text);
 
                             // Back up one field so we can try again
-                            Thread.Sleep(DODGY_PASTE_RETRY_SLEEP_TIME_MS);
+                            ShutdownableManager.Sleep(DODGY_PASTE_RETRY_SLEEP_TIME_MS);
                             --f;
                             continue;
                         }

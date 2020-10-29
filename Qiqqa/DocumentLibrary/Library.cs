@@ -16,6 +16,7 @@ using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
+using Utilities.Shutdownable;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -166,7 +167,7 @@ namespace Qiqqa.DocumentLibrary
                     return (last_regen_counter > 0);
                 }
             }
-            set 
+            set
             {
                 //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (last_regen_time_lock)
@@ -220,8 +221,8 @@ namespace Qiqqa.DocumentLibrary
 #endif
         }
 
-        // NOTE: this function is executed ASYNCHRONOUSLY. 
-        // 
+        // NOTE: this function is executed ASYNCHRONOUSLY.
+        //
         // Once completed, an event will be fired to
         // help the main application update any relevant views.
         public void BuildFromDocumentRepository()
@@ -266,7 +267,7 @@ namespace Qiqqa.DocumentLibrary
 
                 elapsed = clk.ElapsedMilliseconds;
                 Logging.Debug特(":Build library '{2}' from repository -- time spent: {0} ms on fetching annotation cache for {1} records.", elapsed - prev_clk, library_item_count, WebLibraryDetail.DescriptiveTitle);
-                
+
                 Logging.Info("Library '{2}': Loading {0} files from repository at {1}", library_item_count, LIBRARY_DOCUMENTS_BASE_PATH, WebLibraryDetail.DescriptiveTitle);
 
                 long clk_bound = elapsed;
@@ -304,7 +305,7 @@ namespace Qiqqa.DocumentLibrary
                         break;
                     }
 
-                    if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+                    if (ShutdownableManager.Instance.IsShuttingDown)
                     {
                         Logging.Info("Library '{0}': Breaking out of PDF/Documents loading loop due to application termination", WebLibraryDetail.DescriptiveTitle);
                         break;
@@ -860,7 +861,7 @@ namespace Qiqqa.DocumentLibrary
             get
             {
                 List<PDFDocument> pdf_documents_list = new List<PDFDocument>();
-                
+
                 //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (pdf_documents_lock)
                 {
@@ -886,7 +887,7 @@ namespace Qiqqa.DocumentLibrary
             get
             {
                 List<PDFDocument> pdf_documents_list = new List<PDFDocument>();
-                
+
                 //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (pdf_documents_lock)
                 {
@@ -941,7 +942,7 @@ namespace Qiqqa.DocumentLibrary
             keyword = keyword.ToLower();
 
             HashSet<string> results = new HashSet<string>();
-            
+
             //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (pdf_documents_lock)
             {

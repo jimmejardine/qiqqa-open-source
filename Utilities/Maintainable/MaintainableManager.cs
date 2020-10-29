@@ -271,14 +271,14 @@ namespace Utilities.Maintainable
             Daemon daemon = do_maintenance_delegate_wrapper.daemon;
 
             // first wait until the hold off signal is released
-            while (daemon.StillRunning && !Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+            while (daemon.StillRunning && !ShutdownableManager.Instance.IsShuttingDown)
             {
                 if (!IsHoldOffPending(do_maintenance_delegate_wrapper.hold_off_level)) break;
-                daemon.Sleep(1000);
+                daemon.Sleep(3000);
             }
 
             // only sleep the extra delay time when there's still a chance we will be running the actual thread code.
-            if (daemon.StillRunning && !Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+            if (daemon.StillRunning && !ShutdownableManager.Instance.IsShuttingDown)
             {
                 if (0 != do_maintenance_delegate_wrapper.delay_before_start_milliseconds)
                 {
@@ -288,7 +288,7 @@ namespace Utilities.Maintainable
                 }
             }
 
-            while (daemon.StillRunning && !Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+            while (daemon.StillRunning && !ShutdownableManager.Instance.IsShuttingDown)
             {
                 try
                 {

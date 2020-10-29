@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using Utilities.Shutdownable;
 
 namespace Utilities.Misc
 {
@@ -62,7 +63,7 @@ namespace Utilities.Misc
         {
             try
             {
-                if (skip_at_app_shutdown && Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+                if (skip_at_app_shutdown && ShutdownableManager.Instance.IsShuttingDown)
                 {
                     Logging.Debug特("SafeThreadPool::QueueUserWorkItem: Breaking out due to application termination");
                     return;

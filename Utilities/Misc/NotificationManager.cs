@@ -154,7 +154,7 @@ namespace Utilities.Misc
 
             Logging.Info("Starting Notifications daemon");
 
-            while (daemon.StillRunning && !Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+            while (daemon.StillRunning && !ShutdownableManager.Instance.IsShuttingDown)
             {
                 pending_notifications_lock.EnterUpgradeableReadLock();
                 try

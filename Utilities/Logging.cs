@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using log4net;
 using log4net.Appender;
 using log4net.Config;
@@ -241,7 +242,7 @@ namespace Utilities
             }
             LogManager.Flush(5000);
             LogManager.Shutdown();
-            System.Threading.Thread.Sleep(500);
+            Thread.Sleep(500);
         }
 
         public static bool HasShutDown
@@ -355,7 +356,7 @@ namespace Utilities
                 // l1_clk.LockPerfTimerStop();
                 msg += "x";
                 // Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
-                    System.Threading.Thread.Sleep(10 * 1000);
+                    Thread.Sleep(10 * 1000);
                     // l2_clk.LockPerfTimerStop();
                     msg += "x";
             }

@@ -10,6 +10,7 @@ using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
+using Utilities.Shutdownable;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -258,7 +259,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                     break;
                 }
 
-                if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+                if (ShutdownableManager.Instance.IsShuttingDown)
                 {
                     Logging.Debug特("FolderWatcher: Breaking out of outer processing loop due to daemon termination");
                     FolderContentsHaveChanged = true;
@@ -436,7 +437,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             bool isRegularFile = !(obj.IsDevice || obj.IsDirectory || obj.IsMountPoint || /* obj.IsReparsePoint (hardlink!) || */ obj.IsOffline || obj.IsSystem || obj.IsTemporary);
             Logging.Debug("FolderWatcher: testing {1} '{0}' for inclusion in the Qiqqa library.", obj.FullPath, isRegularFile ? "regular File" : obj.IsDirectory ? "directory" : "node");
 
-            if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+            if (ShutdownableManager.Instance.IsShuttingDown)
             {
                 Logging.Info("FolderWatcher: Breaking out of inner processing loop due to daemon termination");
                 throw new OperationCanceledException("FolderWatcher: Breaking out of inner processing loop due to daemon termination");

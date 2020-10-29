@@ -11,6 +11,7 @@ using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
+using Utilities.Shutdownable;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -271,7 +272,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             {
                 while (!guest_web_library_detail.library.LibraryIsLoaded)
                 {
-                    if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+                    if (ShutdownableManager.Instance.IsShuttingDown)
                     {
                         return;
                     }

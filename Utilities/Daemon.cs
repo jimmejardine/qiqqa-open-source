@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using Utilities.Shutdownable;
 
 namespace Utilities
 {
@@ -31,10 +32,10 @@ namespace Utilities
 
         /// <summary>
         /// Signal the daemon thread that it is being terminated.
-        /// 
+        ///
         /// Check for this signal by testing <code>daemon.StillRunning</code>.
-        /// 
-        /// <see cref="StillRunning" /> 
+        ///
+        /// <see cref="StillRunning" />
         /// </summary>
         public void Stop()
         {
@@ -48,7 +49,7 @@ namespace Utilities
 
         public void Abort()
         {
-            // when user code hasn't called Stop() yet, we do it for them to signal 
+            // when user code hasn't called Stop() yet, we do it for them to signal
             // any running code in the thread that time is up:
             Stop();
 
@@ -57,7 +58,7 @@ namespace Utilities
 
         public void Join()
         {
-            // when user code hasn't called Stop() yet, we do it for them to signal 
+            // when user code hasn't called Stop() yet, we do it for them to signal
             // any running code in the thread that time is up:
             Stop();
 
@@ -66,7 +67,7 @@ namespace Utilities
 
         public bool Join(int timeout_milliseconds)
         {
-            // when user code hasn't called Stop() yet, we do it for them to signal 
+            // when user code hasn't called Stop() yet, we do it for them to signal
             // any running code in the thread that time is up:
             Stop();
 
@@ -98,7 +99,7 @@ namespace Utilities
         public void Sleep(int timeout_milliseconds = 500)
         {
             int timeout_milliseconds_remaining = timeout_milliseconds;
-            while (StillRunning && !Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown && timeout_milliseconds_remaining > 0)
+            while (StillRunning && !ShutdownableManager.Instance.IsShuttingDown && timeout_milliseconds_remaining > 0)
             {
                 int sleep_time = Math.Min(timeout_milliseconds_remaining, 500);
                 timeout_milliseconds_remaining -= sleep_time;

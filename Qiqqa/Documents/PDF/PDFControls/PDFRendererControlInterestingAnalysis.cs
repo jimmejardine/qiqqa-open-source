@@ -9,6 +9,7 @@ using Utilities.Collections;
 using Utilities.Internet.GoogleScholar;
 using Utilities.Language;
 using Utilities.Misc;
+using Utilities.Shutdownable;
 
 namespace Qiqqa.Documents.PDF.PDFControls
 {
@@ -18,7 +19,12 @@ namespace Qiqqa.Documents.PDF.PDFControls
         {
             pdf_reading_control.OnlineDatabaseLookupControl.PDFDocument = pdf_renderer_control_stats.pdf_document;
 
-            Thread.Sleep(1000);
+            ShutdownableManager.Sleep(1000);
+            if (ShutdownableManager.Instance.IsShuttingDown)
+            {
+                Logging.Error("Canceling DoInterestingAnalysis due to signaled application shutdown");
+                return;
+            }
 
             SafeThreadPool.QueueUserWorkItem(o => DoInterestingAnalysis_DuplicatesAndCitations(pdf_reading_control, pdf_renderer_control, pdf_renderer_control_stats));
             // Only bother Google Scholar with a query when we want to:

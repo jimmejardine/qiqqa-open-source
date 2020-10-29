@@ -12,6 +12,7 @@ using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.DateTimeTools;
 using Utilities.GUI;
+using Utilities.Shutdownable;
 
 namespace Qiqqa.Common.MessageBoxControls
 {
@@ -50,7 +51,7 @@ namespace Qiqqa.Common.MessageBoxControls
             }
 
             // make sure we're not in the process of shutting down Qiqqa for then the next code chunk will cause a (recursive) CRASH:
-            if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+            if (ShutdownableManager.Instance.IsShuttingDown)
             {
                 Logging.Error(ex, "Unhandled Exception Handler: detected Qiqqa shutting down.");
             }
@@ -97,7 +98,7 @@ namespace Qiqqa.Common.MessageBoxControls
             }
 
             // make sure we're not in the process of shutting down Qiqqa for then we won't have any live app window any more:
-            if (!Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+            if (!ShutdownableManager.Instance.IsShuttingDown)
             {
                 Display("Unexpected problem in Qiqqa!", useful_text_heading, useful_text_subheading, null, true, false, ex);
             }
@@ -110,7 +111,7 @@ namespace Qiqqa.Common.MessageBoxControls
             GC.Collect();
 
             // make sure we're not in the process of shutting down Qiqqa for then the next code chunk will cause a (recursive) CRASH:
-            if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+            if (ShutdownableManager.Instance.IsShuttingDown)
             {
                 Logging.Error(ex, "Unhandled Exception Handler: detected Qiqqa shutting down.");
             }
@@ -131,7 +132,7 @@ namespace Qiqqa.Common.MessageBoxControls
             {
                 Logging.Info(string.Format("About to display client stats: {0}", useful_text_heading), ex);
 
-                if (!Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+                if (!ShutdownableManager.Instance.IsShuttingDown)
                 {
                     WPFDoEvents.InvokeInUIThread(() =>
                     {

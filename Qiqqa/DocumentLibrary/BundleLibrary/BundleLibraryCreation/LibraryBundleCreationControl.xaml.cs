@@ -13,6 +13,7 @@ using Utilities;
 using Utilities.GUI;
 using Utilities.Misc;
 using Utilities.ProcessTools;
+using Utilities.Shutdownable;
 using UserControl = System.Windows.Controls.UserControl;
 
 namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
@@ -110,14 +111,20 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
                     {
                         ++iteration;
 
+                        if (ShutdownableManager.Instance.IsShuttingDown)
+                        {
+                            Logging.Error("Canceling creation of Bundle Library due to signaled application shutdown");
+                            StatusManager.Instance.SetCancelled(STATUS_TOKEN);
+                        }
+
                         if (StatusManager.Instance.IsCancelled(STATUS_TOKEN))
                         {
                             zip_process.Kill();
                             zip_process.WaitForExit(5000);
 
-                            Logging.Error("Cancelled creation of Bundle Library:\n--- Parameters: {0}\n{1}", parameters, process_output_reader.GetOutputsDumpString());
+                            Logging.Error("Canceled creation of Bundle Library:\n--- Parameters: {0}\n{1}", parameters, process_output_reader.GetOutputsDumpString());
 
-                            StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Cancelled creation of Bundle Library.");
+                            StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Canceled creation of Bundle Library.");
                             return;
                         }
 
@@ -131,7 +138,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
 
                         StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Creating Bundle Library...", cancellable: true);
 
-                        Thread.Sleep(1000);
+                        ShutdownableManager.Sleep(3000);
                     }
                 }
             }

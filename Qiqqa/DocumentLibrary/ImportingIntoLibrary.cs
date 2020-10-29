@@ -13,6 +13,7 @@ using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
+using Utilities.Shutdownable;
 using Utilities.Strings;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
@@ -76,7 +77,7 @@ namespace Qiqqa.DocumentLibrary
             int successful_additions = 0;
             for (int i = 0; i < filename_with_metadata_imports.Length; ++i)
             {
-                if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+                if (ShutdownableManager.Instance.IsShuttingDown)
                 {
                     Logging.Debug特("ImportingIntoLibrary: Breaking out of outer processing loop due to application termination");
                     break;

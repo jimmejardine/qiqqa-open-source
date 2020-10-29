@@ -347,7 +347,7 @@ namespace Qiqqa.Main
             if (potentially_fatal)
             {
                 // signal the application to shutdown as an unhandled exception is a grave issue and nothing will be guaranteed afterwards.
-                Utilities.Shutdownable.ShutdownableManager.Instance.Shutdown();
+                ShutdownableManager.Instance.Shutdown();
 
                 // and terminate the Windows Message Loop if it hasn't already (in my tests, Qiqqa was stuck in there without a window to receive messages from at this point...)
                 MainWindowServiceDispatcher.Instance.ShutdownQiqqa(true);

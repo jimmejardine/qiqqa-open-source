@@ -14,6 +14,7 @@ using Utilities.Language;
 using Utilities.Language.TextIndexing;
 using Utilities.Misc;
 using Utilities.OCR;
+using Utilities.Shutdownable;
 using Utilities.Strings;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
@@ -211,7 +212,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
         public void IncrementalBuildIndex()
         {
-            if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+            if (ShutdownableManager.Instance.IsShuttingDown)
             {
                 Logging.Debug特("LibraryIndex::IncrementalBuildIndex: Breaking out due to application termination");
                 return;
@@ -381,7 +382,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
             foreach (PDFDocument pdf_document in pdf_documents)
             {
-                if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+                if (ShutdownableManager.Instance.IsShuttingDown)
                 {
                     Logging.Info("Breaking out of RescanLibrary loop due to application termination");
                     return false;
@@ -537,7 +538,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                     break;
                 }
 
-                if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+                if (ShutdownableManager.Instance.IsShuttingDown)
                 {
                     Logging.Info("Breaking out of IncrementalBuildNextDocuments processing loop due to application termination");
                     break;

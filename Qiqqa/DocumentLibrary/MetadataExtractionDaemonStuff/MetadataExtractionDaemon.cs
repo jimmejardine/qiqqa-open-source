@@ -10,6 +10,7 @@ using Utilities.Collections;
 using Utilities.GUI;
 using Utilities.Mathematics;
 using Utilities.Misc;
+using Utilities.Shutdownable;
 
 namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
 {
@@ -54,7 +55,7 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
                     return;
                 }
 
-                if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+                if (ShutdownableManager.Instance.IsShuttingDown)
                 {
                     Logging.Debug特("MetadataExtractionDaemon::DoMaintenance: Breaking out of outer processing loop due to application termination");
                     return;
@@ -112,7 +113,7 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
 
                     // Previous check calls MAY take some serious time, hence we SHOULD check again whether
                     // the user decided to exit Qiqqa before we go on and do more time consuming work.
-                    if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+                    if (ShutdownableManager.Instance.IsShuttingDown)
                     {
                         Logging.Debug特("Breaking out of MetadataExtractionDaemon PDF fingerprinting loop due to daemon termination");
                         return;
@@ -180,7 +181,7 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
 
         private bool DoSomeWork(Library library, PDFDocument pdf_document, RunningStatistics stats)
         {
-            if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+            if (ShutdownableManager.Instance.IsShuttingDown)
             {
                 Logging.Debug特("Breaking out of MetadataExtractionDaemon PDF processing loop due to daemon termination");
                 return false;

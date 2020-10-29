@@ -24,6 +24,7 @@ using Utilities.GUI;
 using Utilities.Images;
 using Utilities.Misc;
 using Utilities.OCR;
+using Utilities.Shutdownable;
 
 namespace Qiqqa.AnnotationsReportBuilding
 {
@@ -503,16 +504,22 @@ namespace Qiqqa.AnnotationsReportBuilding
 
         private static void BackgroundRenderImages_BACKGROUND(FlowDocument flow_document, List<AnnotationWorkGenerator.AnnotationWork> annotation_works, AnnotationReportOptions annotation_report_options)
         {
-            Thread.Sleep(annotation_report_options.InitialRenderDelayMilliseconds);
+            ShutdownableManager.Sleep(annotation_report_options.InitialRenderDelayMilliseconds);
 
             PDFDocument last_pdf_document = null;
             StatusManager.Instance.ClearCancelled("AnnotationReportBackground");
             for (int j = 0; j < annotation_works.Count; ++j)
             {
+                if (ShutdownableManager.Instance.IsShuttingDown)
+                {
+                    Logging.Error("Canceling creation of Annotation Report due to signaled application shutdown");
+                    StatusManager.Instance.SetCancelled("AnnotationReportBackground");
+                }
+
                 StatusManager.Instance.UpdateStatus("AnnotationReportBackground", "Building annotation report image", j, annotation_works.Count, true);
                 if (StatusManager.Instance.IsCancelled("AnnotationReportBackground"))
                 {
-                    Logging.Warn("User cancelled annotation report generation");
+                    Logging.Warn("User canceled annotation report generation");
                     break;
                 }
 

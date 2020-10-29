@@ -8,6 +8,7 @@ using Utilities;
 using Utilities.GUI;
 using Utilities.Maintainable;
 using Utilities.Misc;
+using Utilities.Shutdownable;
 
 namespace Qiqqa.Documents.Common
 {
@@ -22,7 +23,7 @@ namespace Qiqqa.Documents.Common
             MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_FlushDocuments, 30 * 1000);
             // Quit this delayed storing of PDF files when we've hit the end of the execution run:
             // we'll have to save them all to disk in one go then, and quickly too!
-            Utilities.Shutdownable.ShutdownableManager.Instance.Register(Shutdown);
+            ShutdownableManager.Instance.Register(Shutdown);
         }
 
         private void DoMaintenance_FlushDocuments(Daemon daemon)
@@ -33,9 +34,9 @@ namespace Qiqqa.Documents.Common
 				return;
             }
 
-            // Quit this delayed storing of PDF files when we've hit the end of the excution run:
+            // Quit this delayed storing of PDF files when we've hit the end of the execution run:
             // we'll have to save them all to disk in one go then, and quickly too!
-            if (!Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+            if (!ShutdownableManager.Instance.IsShuttingDown)
             {
                 FlushDocuments(force_flush_no_matter_what: false);
             }
