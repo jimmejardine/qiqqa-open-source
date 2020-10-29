@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
+using Qiqqa.Common.Configuration;
 using Qiqqa.Documents.PDF;
 using Qiqqa.Documents.PDF.MetadataSuggestions;
 using Utilities;
@@ -62,6 +63,12 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
                 if (Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
                 {
                     Logging.Debug特("MetadataExtractionDaemon::DoMaintenance: Breaking out of outer processing loop due to DisableAllBackgroundTasks");
+                    return;
+                }
+
+                if (!ConfigurationManager.IsEnabled("SuggestingMetadata"))
+                {
+                    Logging.Debug特("MetadataExtractionDaemon::DoMaintenance: Breaking out of outer processing loop due to SuggestingMetadata=false");
                     return;
                 }
 

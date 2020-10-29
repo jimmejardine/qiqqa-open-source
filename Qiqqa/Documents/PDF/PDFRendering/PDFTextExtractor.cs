@@ -319,15 +319,16 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         private NextJob GetNextJob()
         {
-            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-            lock (queue_lock)
+            // Check if OCR is disabled
+            if (!(ConfigurationManager.Instance.ConfigurationRecord.Library_OCRDisabled
+                || ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks
+                || !ConfigurationManager.IsEnabled("TextExtraction")))
             {
-                //l1_clk.LockPerfTimerStop();
-
-                // Check if OCR is disabled
-                if (!(ConfigurationManager.Instance.ConfigurationRecord.Library_OCRDisabled
-                    || ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks))
+                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                lock (queue_lock)
                 {
+                    //l1_clk.LockPerfTimerStop();
+
                     int ocr_count = job_queue_single.Count;
                     int textify_count = job_queue_group.Count;
                     double current_ratio = ocr_count / (textify_count + 1E-9);
@@ -483,11 +484,12 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                     }
                 }
             }
-
-            // Check if OCR is disabled
-            if (ConfigurationManager.Instance.ConfigurationRecord.Library_OCRDisabled
-                || ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
+            else
             {
+                ASSERT.Test(ConfigurationManager.Instance.ConfigurationRecord.Library_OCRDisabled
+                    || ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks
+                    || !ConfigurationManager.IsEnabled("TextExtraction"));
+
                 int job_queue_group_count;
                 int job_queue_single_count;
                 GetJobCounts(out job_queue_group_count, out job_queue_single_count);

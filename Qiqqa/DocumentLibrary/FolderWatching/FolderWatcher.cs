@@ -232,7 +232,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
             if (!ConfigurationManager.IsEnabled(nameof(FolderWatcher)))
             {
-                Logging.Info("Watched folder {0} will not be watched/scanned due to Developer Override setting FolderWatcher=false", configured_folder_to_watch);
+                Logging.Info("Watched folder {0} will not be watched/scanned due to Developer Override setting {1}=false", configured_folder_to_watch, nameof(FolderWatcher));
                 return;
             }
 
