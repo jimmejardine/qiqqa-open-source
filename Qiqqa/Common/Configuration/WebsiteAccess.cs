@@ -51,7 +51,8 @@ namespace Qiqqa.Common.Configuration
         public static readonly string Url_CSLGithub = @"https://github.com/citation-style-language/styles";
         public static readonly string Url_IconsVisualPharm = @"http://www.visualpharm.com/";
         public static readonly string Url_Glyphicons = @"http://glyphicons.com/";
-        public static readonly string Url_BlankWebsite = @"http://www.blankwebsite.com/";
+        public static readonly string Url_BlankWebsite = @"https://duckduckgo.com/";
+        public static readonly string Url_AboutBlank = @"about:blank";
         public static readonly string Url_Gecko = @"http://code.google.com/p/geckofx/";
         public static readonly string Url_XULRunner = @"https://developer.mozilla.org/en/XULRunner";
         public static readonly string Url_AdobeAcrobatDownload = @"http://get.adobe.com/reader/";
@@ -151,7 +152,13 @@ namespace Qiqqa.Common.Configuration
             OpenWebsite(url);
         }
 
-        public static void EditOrDeleteLibrary(string web_library_short_id)
+        public static void EditLibrary(string web_library_short_id)
+        {
+            string url = GetOurUrl(OurSiteLinkKind.Home) + String.Format("Library/{0}/Settings", web_library_short_id);
+            OpenWebsite(url);
+        }
+
+        public static void DeleteLibrary(string web_library_short_id)
         {
             string url = GetOurUrl(OurSiteLinkKind.Home) + String.Format("Library/{0}/Settings", web_library_short_id);
             OpenWebsite(url);
@@ -166,12 +173,6 @@ namespace Qiqqa.Common.Configuration
         public static void InviteFriendsToWebLibrary(string web_library_short_id)
         {
             string url = GetOurUrl(OurSiteLinkKind.Home) + String.Format("Library/{0}/Members", web_library_short_id);
-            OpenWebsite(url);
-        }
-
-        public static void TopUpWebLibrary(string web_library_short_id)
-        {
-            string url = GetOurUrl(OurSiteLinkKind.Home) + String.Format("Library/{0}/Storage", web_library_short_id);
             OpenWebsite(url);
         }
 

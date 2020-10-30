@@ -56,7 +56,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         private void ButtonUndoBibTeXEdit_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            MessageBox.Show("Sorry!\n\nMethod has not been implemented yet!");
         }
 
         private void ButtonAckBibTeXParseErrors_Click(object sender, RoutedEventArgs e)

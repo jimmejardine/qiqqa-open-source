@@ -1185,9 +1185,19 @@ namespace Qiqqa.DocumentLibrary
                 library_db = null;
             });
 
+            var self = this;
+
             WPFDoEvents.SafeExec(() =>
             {
 #if true
+                if (web_library_detail.IsAlive && web_library_detail.TypedTarget != null)
+                {
+                    WebLibraryDetail wbl = web_library_detail.TypedTarget;
+                    if (wbl.library == self)
+                    {
+                        wbl.library = null;
+                    }
+                }
                 web_library_detail = null;       // cyclic reference as WebLibraryDetail instance reference us, so we MUST nil this one to break the cycle for the GC to work well.
 #else
                 // cyclic reference as WebLibraryDetail instance reference us, so we MUST nil this one to break the cycle for the GC to work well.

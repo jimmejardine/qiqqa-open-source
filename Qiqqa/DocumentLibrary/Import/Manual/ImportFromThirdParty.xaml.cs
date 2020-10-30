@@ -17,7 +17,7 @@ using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 namespace Qiqqa.DocumentLibrary.Import.Manual
 {
     /// <summary>
-    /// Provides UI for importing documents from 3rd parties. 
+    /// Provides UI for importing documents from 3rd parties.
     /// </summary>
     public partial class ImportFromThirdParty : StandardWindow
     {
@@ -246,12 +246,12 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                 case Providers.Mendeley:
                 case Providers.Zotero:
                 case Providers.JabRef:
-                    //We have all we need. 
+                    // We have all we need.
                     ParseImportFileAndSwitchToSelectEntriesUi();
                     break;
 
                 case Providers.EndNote:
-                    //Wait for second file. 
+                    // Wait for second file.
                     btnChooseFile_EndNoteLibraryFolder.IsEnabled = true;
                     return;
 
@@ -259,7 +259,6 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                     throw new NotImplementedException();
             }
         }
-
 
         public void DoAutomatedBibTeXImport(string filename)
         {
@@ -282,7 +281,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                     throw new ApplicationException("_currentProvider wrong: " + _currentProvider);
             }
 
-            //Cancelled. 
+            //Cancelled.
             if (String.IsNullOrEmpty(_currentSelectedSupplementaryFolder)) return;
 
             switch (_currentProvider)
@@ -296,7 +295,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
 
         /// <summary>
-        /// Creates importer, executes it, changes UI 
+        /// Creates importer, executes it, changes UI
         /// </summary>
         private void ParseImportFileAndSwitchToSelectEntriesUi()
         {
@@ -414,7 +413,6 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             switch (_currentProvider)
             {
                 case Providers.Mendeley:
-
                     break;
 
                 case Providers.BibTeX:
@@ -431,7 +429,6 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                     break;
 
                 case Providers.JabRef:
-
                     break;
             }
 

@@ -69,14 +69,6 @@
                                     <local_gui:HyperlinkTextBlock ToolTip="View this library online at Qiqqa.com." Text="View online" Name="HyperlinkViewOnline" />
                                     <local_gui:AugmentedSpacer />
                                 </WrapPanel>
-                                <WrapPanel Name="PanelTopUp">
-                                    <TextBlock>
-                                        ·
-                                    </TextBlock>
-                                    <local_gui:AugmentedSpacer />
-                                    <local_gui:HyperlinkTextBlock ToolTip="Top-up your library for unlimited storage space." Text="Top-up" Name="HyperlinkTopUp" />
-                                    <local_gui:AugmentedSpacer />
-                                </WrapPanel>
                                 <WrapPanel Name="PanelInviteAndShare">
                                     <TextBlock>
                                         ·
@@ -85,12 +77,20 @@
                                     <local_gui:HyperlinkTextBlock ToolTip="Invite friends and colleagues to share this library." Text="Invite &amp; share" Name="HyperlinkInviteAndShare" />
                                     <local_gui:AugmentedSpacer />
                                 </WrapPanel>
-                                <WrapPanel Name="PanelEditDelete">
+                                <WrapPanel Name="PanelEdit">
                                     <TextBlock>
                                         ·
                                     </TextBlock>
                                     <local_gui:AugmentedSpacer />
-                                    <local_gui:HyperlinkTextBlock ToolTip="Edit this Library's details, or delete it." Text="Edit or Delete" Name="HyperlinkEditDelete" />
+                                    <local_gui:HyperlinkTextBlock ToolTip="Edit this Library's details." Text="Edit" Name="HyperlinkEdit" />
+                                    <local_gui:AugmentedSpacer />
+                                </WrapPanel>
+                                <WrapPanel Name="PanelDelete">
+                                    <TextBlock>
+                                        ·
+                                    </TextBlock>
+                                    <local_gui:AugmentedSpacer />
+                                    <local_gui:HyperlinkTextBlock ToolTip="Delete this Library." Text="Delete" Name="HyperlinkDelete" />
                                     <local_gui:AugmentedSpacer />
                                 </WrapPanel>
                                 <WrapPanel Name="PanelPurge">

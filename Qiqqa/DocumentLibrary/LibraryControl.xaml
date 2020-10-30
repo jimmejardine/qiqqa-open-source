@@ -34,8 +34,8 @@
                             <local_gui:AugmentedToolBarButton x:Name="ButtonSyncMetadaWithCloud" CaptionDock="Right" />
                             <local_gui:AugmentedToolBarButton x:Name="ButtonSyncDetails" CaptionDock="Right" />
                             <local_gui:AugmentedToolBarButton x:Name="ButtonViewOnline" CaptionDock="Right" />
-                            <local_gui:AugmentedToolBarButton x:Name="ButtonTopUp" CaptionDock="Right" />
-                            <local_gui:AugmentedToolBarButton x:Name="ButtonEditDelete" CaptionDock="Right" />
+                            <local_gui:AugmentedToolBarButton x:Name="ButtonEdit" CaptionDock="Right" />
+                            <local_gui:AugmentedToolBarButton x:Name="ButtonDelete" CaptionDock="Right" />
                             <local_gui:AugmentedToolBarButton x:Name="ButtonInvite" CaptionDock="Right" />
                             <local_gui:AugmentedToolBarButton x:Name="ButtonPublicStatus" CaptionDock="Right" />
                         </StackPanel>

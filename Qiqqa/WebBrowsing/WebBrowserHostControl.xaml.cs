@@ -201,7 +201,7 @@ namespace Qiqqa.WebBrowsing
         // resulting in a bit of havoc.
         //
         // The quick & dirty way out of this conundrum (while maximizing GC) is to
-        // track whether we're entering here as part of an 'outer' call to 
+        // track whether we're entering here as part of an 'outer' call to
         // DeleteSearches(); we use a counter instead of a boolean for debugging/analysis
         // purposes.
         private int executing_DeleteSearchers = 0;
@@ -314,20 +314,46 @@ namespace Qiqqa.WebBrowsing
 
             if (null != wbc)
             {
-                wbc.NavigateToPendingOnceVisibleUri();
+                // find out which, if any, web searcher goes with this particular control
+                WebSearcherEntry wse = null;
+
+                foreach (var web_searcher_entry in web_searcher_entries)
+                {
+                    if (web_searcher_entry.browser_control == wbc)
+                    {
+                        wse = web_searcher_entry;
+                        break;
+                    }
+                }
+
+                Uri uri = wbc.NavigateOnceVisibleUri;
+
+                if (uri == null || uri.ToString() == WebsiteAccess.Url_AboutBlank)
+                {
+                    if (wse != null)
+                    {
+                        uri = wbc.NavigateOnceVisibleUri = new Uri(wse.web_searcher.StartUri);
+                    }
+                    else
+                    {
+                        uri = wbc.NavigateOnceVisibleUri = new Uri(WebsiteAccess.Url_BlankWebsite);
+                    }
+                }
+                uri = wbc.NavigateToPendingOnceVisibleUri();
 
                 Logging.Debug特("Active browser control changed");
                 active_wbc = wbc;
 
-                Uri uri = wbc.CurrentUri;
-                TextBoxUrl.Text = uri == null ? String.Empty : uri.ToString();
+                uri = wbc.CurrentUri;
+                ASSERT.Test(uri != null);
+                TextBoxUrl.Text = uri.ToString();
             }
 
             TabChanged?.Invoke();
         }
 
-        // TODO: make it work akin to the <embed> handling to prevent confusion: 
-        // when the browser shows a single PDF, it MAY be an <embed> web page and 
+        // TODO: make it work akin to the <embed> handling to prevent confusion:
+        // when the browser shows a single PDF, it MAY be an <embed> web page and
         // we should account for that!
         private void ButtonAddToLibrary_Click(object sender, RoutedEventArgs e)
         {
@@ -443,8 +469,8 @@ namespace Qiqqa.WebBrowsing
 
             foreach (var web_searcher_entry in web_searcher_entries)
             {
-                Uri uri = web_searcher_entry.web_searcher.populate_url_template(web_searcher_entry.web_searcher.url_template, search_terms);
-                web_searcher_entry.browser_control.NavigateOnceVisible(uri);
+                Uri uri = web_searcher_entry.web_searcher.Populate(search_terms);
+                web_searcher_entry.browser_control.NavigateOnceVisibleUri = uri;
 
                 // Make sure the current page is actually going to execute
                 if (TabWebBrowserControls.CurrentActiveTabItem == web_searcher_entry.browser_control)
@@ -453,7 +479,7 @@ namespace Qiqqa.WebBrowsing
                 }
             }
 
-            // Make sure we are looking at a search page... **UNLESS** the user has explicitly selected 
+            // Make sure we are looking at a search page... **UNLESS** the user has explicitly selected
             // the current browser tab.
             if (CurrentWebBrowserControl == wbc_browsing)
             {
@@ -605,31 +631,31 @@ namespace Qiqqa.WebBrowsing
                 // Prevent recursive run-away of the code via the chain:
                 //
                 // *** 	Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose(bool disposing)
-                // **   Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose() 
-                // 	    Utilities.dll!Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayout.WantsClose(Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayoutItem item) 
-                //      Utilities.dll!Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayout.CloseContent(System.Windows.FrameworkElement fe) 
-                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.DeleteSearchers() 
-                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose(bool disposing) 
-                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose() 
-                // ***  Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose(bool disposing) 
-                // **   Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose() 
+                // **   Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose()
+                // 	    Utilities.dll!Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayout.WantsClose(Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayoutItem item)
+                //      Utilities.dll!Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayout.CloseContent(System.Windows.FrameworkElement fe)
+                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.DeleteSearchers()
+                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose(bool disposing)
+                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose()
+                // ***  Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose(bool disposing)
+                // **   Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose()
                 //
                 // and prevent partial/broken cleanup due to chains like this one, resulting in
                 // a dispose_count == 2:
                 //
-                // =2 * Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose(bool disposing) 
-                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose() 
-                // =2 * Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose(bool disposing) 
-                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose() 
-                // =1   Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose(bool disposing) 
-                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose() 
-                // =1   Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose(bool disposing) 
-                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose() 
-                //      Utilities.dll!Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayout.WantsClose(Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayoutItem item) 
-                //      Utilities.dll!Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayout.CloseContent(System.Windows.FrameworkElement fe) 
-                // *    Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.DeleteSearchers() 
-                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.RebuildSearchers(System.Collections.Generic.HashSet<string> once_off_requested_web_searchers) 
-                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.ForceSnifferSearchers() 
+                // =2 * Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose(bool disposing)
+                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose()
+                // =2 * Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose(bool disposing)
+                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose()
+                // =1   Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose(bool disposing)
+                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose()
+                // =1   Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose(bool disposing)
+                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose()
+                //      Utilities.dll!Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayout.WantsClose(Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayoutItem item)
+                //      Utilities.dll!Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayout.CloseContent(System.Windows.FrameworkElement fe)
+                // *    Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.DeleteSearchers()
+                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.RebuildSearchers(System.Collections.Generic.HashSet<string> once_off_requested_web_searchers)
+                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.ForceSnifferSearchers()
                 //
                 if (dispose_count == 0)
                 {

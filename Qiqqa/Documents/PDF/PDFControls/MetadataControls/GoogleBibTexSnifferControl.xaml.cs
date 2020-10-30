@@ -234,7 +234,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         private void ButtonUndoBibTexEdit_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            MessageBox.Show("Sorry!\n\nMethod has not been implemented yet!");
         }
 
         private void ButtonToggleBibTeX_Click(object sender, RoutedEventArgs e)
@@ -786,11 +786,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                 //    https://digitalcommons.unl.edu/cgi/viewcontent.cgi?article=1130&context=cseconfwork
                 //
                 // hence we don't care about the exact extension '.pdf' but merely if it MIGHT be a PDF....
-                if (uri != "about:blank") 			// if (uri.Contains(".pdf"))
-                {
-                    // fetch the PDF!
-                    ImportingIntoLibrary.AddNewDocumentToLibraryFromInternet_ASYNCHRONOUS(CurrentLibrary, uri);
-                }
+                //
+                // fetch the PDF, iff any!
+                ImportingIntoLibrary.AddNewDocumentToLibraryFromInternet_ASYNCHRONOUS(CurrentLibrary, uri);
             }
             catch (Exception ex)
             {

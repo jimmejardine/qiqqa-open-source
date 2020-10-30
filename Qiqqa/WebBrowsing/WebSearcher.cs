@@ -6,22 +6,40 @@ namespace Qiqqa.WebBrowsing
     public class WebSearcher
     {
         public string key;
-        public string title;
-        public string url_template;
-        public PopulateUrlTemplateDelegate populate_url_template;
+        public string title
+        {
+            get;
+            set;
+        }
+        public string url_template
+        {
+            get;
+            set;
+        }
+        public string StartUri
+        {
+            get;
+            set;
+        }
+        private PopulateUrlTemplateDelegate populate_url_template;
 
-        public WebSearcher(string key, string title, string url_template, PopulateUrlTemplateDelegate populate_url_template)
+        public WebSearcher(string key, string title, string url_template, string start_uri, PopulateUrlTemplateDelegate populate_url_template)
         {
             this.key = key;
             this.title = title;
             this.url_template = url_template;
+            this.StartUri = start_uri;
             this.populate_url_template = populate_url_template;
         }
 
-        public string VisibleTitle => title;
+        public string VisibleTitle => title;            // used by the XAML bindings in WebSearcherPreferenceControl
 
-        public string VisibleUrl => url_template;
+        public string VisibleUrl => url_template;       // used by the XAML bindings in WebSearcherPreferenceControl
 
+        public Uri Populate(string search_terms)
+        {
+            return populate_url_template(url_template, search_terms);
+        }
 
         #region --- Url templates ----------------------------------------------------------------------------------------------------------------
 

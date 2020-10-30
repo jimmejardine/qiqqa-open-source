@@ -103,35 +103,25 @@ namespace Qiqqa.DocumentLibrary
             ButtonViewOnline.ToolTip = LocalisationManager.Get("LIBRARY/TIP/VIEW_ONLINE");
             ButtonViewOnline.Click += ButtonViewOnline_Click;
 
-            ButtonTopUp.Icon = Icons.GetAppIcon(Icons.TopUp);
-            ButtonTopUp.Caption = LocalisationManager.Get("LIBRARY/CAP/TOP_UP");
-            ButtonTopUp.ToolTip = LocalisationManager.Get("LIBRARY/TIP/TOP_UP");
-            ButtonTopUp.Click += ButtonTopUp_Click;
-
             ButtonInvite.Icon = Icons.GetAppIcon(Icons.Share);
             ButtonInvite.Caption = LocalisationManager.Get("LIBRARY/CAP/INVITE");
             ButtonInvite.ToolTip = LocalisationManager.Get("LIBRARY/TIP/INVITE");
             ButtonInvite.Click += ButtonInvite_Click;
 
-            ButtonEditDelete.Icon = Icons.GetAppIcon(Icons.Open);
-            ButtonEditDelete.Caption = LocalisationManager.Get("LIBRARY/CAP/EDIT_DELETE");
-            ButtonEditDelete.ToolTip = LocalisationManager.Get("LIBRARY/TIP/EDIT_DELETE");
-            ButtonEditDelete.Click += ButtonEditDelete_Click;
+            ButtonEdit.Icon = Icons.GetAppIcon(Icons.Open);
+            ButtonEdit.Caption = LocalisationManager.Get("LIBRARY/CAP/EDIT");
+            ButtonEdit.ToolTip = LocalisationManager.Get("LIBRARY/TIP/EDIT");
+            ButtonEdit.Click += ButtonEdit_Click;
+
+            ButtonDelete.Icon = Icons.GetAppIcon(Icons.Open);
+            ButtonDelete.Caption = LocalisationManager.Get("LIBRARY/CAP/DELETE");
+            ButtonDelete.ToolTip = LocalisationManager.Get("LIBRARY/TIP/DELETE");
+            ButtonDelete.Click += ButtonDelete_Click;
 
             ButtonPublicStatus.Icon = Icons.GetAppIcon(Icons.Share);
             ButtonPublicStatus.Caption = LocalisationManager.Get("LIBRARY/CAP/PUBLIC_STATUS");
             ButtonPublicStatus.ToolTip = LocalisationManager.Get("LIBRARY/TIP/PUBLIC_STATUS");
             ButtonPublicStatus.Click += ButtonPublicStatus_Click;
-
-            // Guest library doesnt have some settings
-            if (false && !library.WebLibraryDetail.IsWebLibrary)
-            {
-                ButtonViewOnline.Visibility = Visibility.Collapsed;
-                ButtonTopUp.Visibility = Visibility.Collapsed;
-                ButtonInvite.Visibility = Visibility.Collapsed;
-                ButtonEditDelete.Visibility = Visibility.Collapsed;
-                ButtonPublicStatus.Visibility = Visibility.Collapsed;
-            }
 
             ButtonAnnotationsReport.Icon = Icons.GetAppIcon(Icons.LibraryAnnotationsReport);
             if (!ADVANCED_MENUS) ButtonAnnotationsReport.Caption = LocalisationManager.Get("LIBRARY/CAP/ANNOTATION_REPORT");
@@ -312,19 +302,19 @@ namespace Qiqqa.DocumentLibrary
             WebsiteAccess.InviteFriendsToWebLibrary(library.WebLibraryDetail.ShortWebId);
         }
 
-        private void ButtonEditDelete_Click(object sender, RoutedEventArgs e)
+        private void ButtonEdit_Click(object sender, RoutedEventArgs e)
         {
-            WebsiteAccess.EditOrDeleteLibrary(library.WebLibraryDetail.ShortWebId);
+            WebsiteAccess.EditLibrary(library.WebLibraryDetail.ShortWebId);
+        }
+
+        private void ButtonDelete_Click(object sender, RoutedEventArgs e)
+        {
+            WebsiteAccess.DeleteLibrary(library.WebLibraryDetail.ShortWebId);
         }
 
         private void ButtonPublicStatus_Click(object sender, RoutedEventArgs e)
         {
             WebsiteAccess.ChangeLibraryPublicStatus(library.WebLibraryDetail.ShortWebId);
-        }
-
-        private void ButtonTopUp_Click(object sender, RoutedEventArgs e)
-        {
-            WebsiteAccess.TopUpWebLibrary(library.WebLibraryDetail.ShortWebId);
         }
 
         private void ButtonViewOnline_Click(object sender, RoutedEventArgs e)
@@ -388,7 +378,7 @@ namespace Qiqqa.DocumentLibrary
                     }
                 }
 
-                // Set the visibility - must have a few documents, and more than 
+                // Set the visibility - must have a few documents, and more than
                 ObjNotMuchBibTeXDescriptionBorder.Visibility = Visibility.Collapsed;
                 if (library.PDFDocuments.Count > EMPTY_LIBRARY_THRESHOLD && pdf_document_to_check_for_bibtex.Count > 0)
                 {

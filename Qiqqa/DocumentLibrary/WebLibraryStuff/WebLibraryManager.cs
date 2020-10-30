@@ -556,6 +556,11 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private static int PathsMixCollisionComparer(string a, string b)
         {
+            if (a == b)
+            {
+                return 0;
+            }
+
             // check which of them exists: that one wins
             if (Directory.Exists(a) || File.Exists(a))
             {

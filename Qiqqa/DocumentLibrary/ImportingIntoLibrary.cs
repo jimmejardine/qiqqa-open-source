@@ -9,6 +9,7 @@ using System.Windows.Threading;
 using Qiqqa.Common;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Documents.PDF;
+using Qiqqa.WebBrowsing;
 using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
@@ -28,6 +29,15 @@ namespace Qiqqa.DocumentLibrary
         {
             // This dodgy global hack allows SSL failures on the server to pass (i.e. if they have a dodgy certificate)
             ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+
+            urls_which_are_guaranteed_to_be_NOT_a_download = new HashSet<string>();
+            urls_which_are_guaranteed_to_be_NOT_a_download.Add(null);
+            urls_which_are_guaranteed_to_be_NOT_a_download.Add(WebsiteAccess.Url_AboutBlank);
+            urls_which_are_guaranteed_to_be_NOT_a_download.Add(WebsiteAccess.Url_BlankWebsite);
+            foreach (var searcher in WebSearchers.WEB_SEARCHERS)
+            {
+                urls_which_are_guaranteed_to_be_NOT_a_download.Add(searcher.StartUri);
+            }
         }
 
         private static readonly string LIBRARY_DOWNLOAD = "LibraryDownload";
@@ -36,6 +46,8 @@ namespace Qiqqa.DocumentLibrary
         internal static string problematic_import_documents_filename = null;
         internal static int problematic_import_documents_alert_showing = 0;
         internal static object problematic_import_documents_lock = new object();
+
+        private static HashSet<string> urls_which_are_guaranteed_to_be_NOT_a_download;
 
         #region --- Add filenames ---------------------------------------------------------------------------------------------------------------------------
 
@@ -307,12 +319,25 @@ namespace Qiqqa.DocumentLibrary
 
         public static void AddNewDocumentToLibraryFromInternet_ASYNCHRONOUS(Library library, string download_url)
         {
-            SafeThreadPool.QueueUserWorkItem(o => AddNewDocumentToLibraryFromInternet_SYNCHRONOUS(library, download_url));
+            // we also need to fetch nasty URIs like these ones:
+            //
+            //    http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.49.6383&rep=rep1&type=pdf
+            //    https://digitalcommons.unl.edu/cgi/viewcontent.cgi?article=1130&context=cseconfwork
+            //
+            // hence we don't care about the exact extension '.pdf' but merely if it MIGHT be a PDF....
+            //
+            // fetch the PDF, iff any!
+            //
+            // (Ignore the search engine 'base' URLs, which may be fed into here)
+            if (!urls_which_are_guaranteed_to_be_NOT_a_download.Contains(download_url))
+            {
+                SafeThreadPool.QueueUserWorkItem(o => AddNewDocumentToLibraryFromInternet_SYNCHRONOUS(library, download_url));
+            }
         }
 
         private static readonly string[] content_types_to_tolerate = { "image/", "text/" };
 
-        public static void AddNewDocumentToLibraryFromInternet_SYNCHRONOUS(Library library, string download_url)
+        private static void AddNewDocumentToLibraryFromInternet_SYNCHRONOUS(Library library, string download_url)
         {
             StatusManager.Instance.UpdateStatus(LIBRARY_DOWNLOAD, String.Format("Downloading {0}", download_url));
 

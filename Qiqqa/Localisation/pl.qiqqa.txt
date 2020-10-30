@@ -12,8 +12,10 @@ LIBRARY/CAP/SYNC_DETAILS:Szczegóły synchronizacji
 LIBRARY/TIP/SYNC_DETAILS:Wybierz sposób synchronizacji (Pełna/Częściowa) poszczególnych Bibliotek.
 LIBRARY/CAP/VIEW_ONLINE:Wyświetl on-line
 LIBRARY/TIP/VIEW_ONLINE:Wyświetl wybraną Bibliotekę on-line.
-LIBRARY/CAP/EDIT_DELETE:Edytuj/Usuń
-LIBRARY/TIP/EDIT_DELETE:Zmień tytuł/opis Biblioteki lub ją usuń
+LIBRARY/CAP/EDIT:Edytuj
+LIBRARY/TIP/EDIT:Zmień tytuł/opis Biblioteki
+LIBRARY/CAP/DELETE:Usuń
+LIBRARY/TIP/DELETE:Usuń Biblioteki
 LIBRARY/CAP/PUBLIC_STATUS:Zmień status
 LIBRARY/TIP/PUBLIC_STATUS:Zmień status widoczności Biblioteki.
 LIBRARY/CAP/TOP_UP:Zasil Bibliotekę

@@ -246,7 +246,7 @@ namespace Qiqqa.Synchronisation.BusinessLogic
                         // fake it: take about 10KB per document, unless we already determined (and cached) the document size before.
                         // This spares us the large overhead of querying the file system for every document in the
                         // (possibly huge) library.
-                        local_library_sync_detail.total_library_size += pdf_document.GetDocumentSizeInBytes(uncached_document_storage_size_override: 10 * 1024);
+                        local_library_sync_detail.total_library_size += pdf_document.GetDocumentSizeInBytes(uncached_document_storage_size_override: 100 * 1024);
                     }
                 }
                 catch (Exception ex)

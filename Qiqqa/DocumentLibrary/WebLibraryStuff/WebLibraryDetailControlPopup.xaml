@@ -5,6 +5,8 @@
 >
     <StackPanel Grid.Column="0">
         <MenuItem Header="Open Library" Name="MenuOpenLibrary"/>
+        <MenuItem Header="Rename Library" Name="MenuRenameLibrary"/>
+        <MenuItem Header="Delete Library" Name="MenuDeleteLibrary"/>
         <Separator/>
         <MenuItem Header="Customise Icon" Name="MenuCustomiseIcon"/>
         <MenuItem Header="Customise Background" Name="MenuCustomiseBackground"/>

@@ -4,6 +4,7 @@ using System.Windows.Threading;
 using Gecko;
 using Gecko.Events;
 using Qiqqa.Common;
+using Qiqqa.Common.Configuration;
 using Utilities;
 using Utilities.GUI;
 using Utilities.Misc;
@@ -96,29 +97,31 @@ namespace Qiqqa.WebBrowsing
             try
             {
                 // Clear out any pending uri
-                navigate_once_visible_uri = null;
+                NavigateOnceVisibleUri = uri;
 
-                ObjWebBrowser.Navigate(uri.ToString());
+                ObjWebBrowser.Navigate(uri?.ToString() ?? "");
             }
             catch (Exception ex)
             {
-                Logging.Warn(ex, "Problem navigating to website {0}", uri.ToString());
-                MessageBoxes.Error("There was a problem navigating to {0}.  Please try again after checking the web address.", uri.ToString());
+                string uristr = uri?.ToString() ?? "(???)";
+                Logging.Warn(ex, "Problem navigating to website {0}", uristr);
+                MessageBoxes.Error("There was a problem navigating to {0}.  Please try again after checking the web address.", uristr);
             }
         }
 
-        private Uri navigate_once_visible_uri = null;
-        internal void NavigateOnceVisible(Uri uri)
+        internal Uri NavigateOnceVisibleUri
         {
-            navigate_once_visible_uri = uri;
+            get;
+            set;
         }
 
-        internal void NavigateToPendingOnceVisibleUri()
+        internal Uri NavigateToPendingOnceVisibleUri()
         {
-            if (null != navigate_once_visible_uri)
-            {
-                Navigate(navigate_once_visible_uri);
-            }
+            var uri = NavigateOnceVisibleUri;
+
+            Navigate(uri);
+
+            return uri;
         }
 
         public string Title => ObjWebBrowser.DocumentTitle;
@@ -154,31 +157,31 @@ namespace Qiqqa.WebBrowsing
                 // Prevent recursive run-away of the code via the chain:
                 //
                 // *** 	Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose(bool disposing)
-                // **   Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose() 
-                // 	    Utilities.dll!Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayout.WantsClose(Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayoutItem item) 
-                //      Utilities.dll!Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayout.CloseContent(System.Windows.FrameworkElement fe) 
-                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.DeleteSearchers() 
-                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose(bool disposing) 
-                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose() 
-                // ***  Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose(bool disposing) 
-                // **   Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose() 
+                // **   Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose()
+                // 	    Utilities.dll!Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayout.WantsClose(Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayoutItem item)
+                //      Utilities.dll!Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayout.CloseContent(System.Windows.FrameworkElement fe)
+                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.DeleteSearchers()
+                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose(bool disposing)
+                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose()
+                // ***  Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose(bool disposing)
+                // **   Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose()
                 //
                 // and prevent partial/broken cleanup due to chains like this one, resulting in
                 // a dispose_count == 2:
                 //
-                // =2 * Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose(bool disposing) 
-                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose() 
-                // =2 * Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose(bool disposing) 
-                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose() 
-                // =1   Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose(bool disposing) 
-                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose() 
-                // =1   Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose(bool disposing) 
-                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose() 
-                //      Utilities.dll!Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayout.WantsClose(Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayoutItem item) 
-                //      Utilities.dll!Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayout.CloseContent(System.Windows.FrameworkElement fe) 
-                // *    Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.DeleteSearchers() 
-                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.RebuildSearchers(System.Collections.Generic.HashSet<string> once_off_requested_web_searchers) 
-                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.ForceSnifferSearchers() 
+                // =2 * Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose(bool disposing)
+                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose()
+                // =2 * Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose(bool disposing)
+                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose()
+                // =1   Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose(bool disposing)
+                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose()
+                // =1   Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose(bool disposing)
+                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose()
+                //      Utilities.dll!Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayout.WantsClose(Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayoutItem item)
+                //      Utilities.dll!Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayout.CloseContent(System.Windows.FrameworkElement fe)
+                // *    Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.DeleteSearchers()
+                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.RebuildSearchers(System.Collections.Generic.HashSet<string> once_off_requested_web_searchers)
+                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.ForceSnifferSearchers()
                 //
                 if (dispose_count == 0)
                 {

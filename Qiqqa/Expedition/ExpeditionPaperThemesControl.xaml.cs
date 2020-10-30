@@ -139,5 +139,4 @@ namespace Qiqqa.Expedition
             throw new NotImplementedException();
         }
     }
-
 }

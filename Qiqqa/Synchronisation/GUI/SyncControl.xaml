@@ -138,14 +138,14 @@
                                                 Binding="{Binding Path=SizeLocalString, Mode=OneWay}"
                                                 EditingElementStyle="{StaticResource TextBlockCellStyle_RightAligned}"
                                                 ElementStyle="{StaticResource TextBlockCellStyle_RightAligned}"
-                                                Foreground="DarkGray"
+                                                Foreground="Black"
                                                 Header="Local size&#x0a;(Mb)"
                                                 SortMemberPath="SizeLocal" />
                                             <DataGridTextColumn
                                                 Width="Auto"
                                                 MinWidth="100"
-                                                Binding="{Binding Path=SyncTarget}"
-                                                Foreground="DarkGray"
+                                                Binding="{Binding Path=SyncTarget, Mode=OneWay}"
+                                                Foreground="Black"
                                                 Header="Sync Target Path"
                                                 SortMemberPath="SyncTarget" />
                                         </DataGrid.Columns>
