@@ -74,7 +74,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             }
             Logging.Debug特("TagExplorerControl: processing {0} documents from library {1}", pdf_documents.Count, library.WebLibraryDetail.Title);
 
-            // Load all the annotations upfront so we dont have to go to the database for each PDF
+            // Load all the annotations upfront so we don't have to go to the database for each PDF
             Dictionary<string, byte[]> library_items_annotations_cache = library.LibraryDB.GetLibraryItemsAsCache(PDFDocumentFileLocations.ANNOTATIONS);
 
             // Build up the map of PDFs associated with each tag
@@ -88,7 +88,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
                     has_tag = true;
                 }
 
-                // And check the annotations                
+                // And check the annotations
                 foreach (var pdf_annotation in pdf_document.GetAnnotations(library_items_annotations_cache))
                 {
                     if (!pdf_annotation.Deleted)

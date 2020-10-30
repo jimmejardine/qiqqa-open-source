@@ -16,6 +16,7 @@ using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.GUI;
 using Utilities.Language.TextIndexing;
+using Utilities.Misc;
 
 namespace Qiqqa.InCite
 {
@@ -213,17 +214,29 @@ namespace Qiqqa.InCite
 
         private void MatchPreviousWebLibraryDetail()
         {
-            ChooseNewLibrary(null);
+            bool found_matching_library = false;
 
             // Attempt to match the last known library
             string last_library_name = ConfigurationManager.Instance.ConfigurationRecord.InCite_LastLibrary;
-            foreach (WebLibraryDetail web_library_detail_ in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries_All)
+            foreach (WebLibraryDetail web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries)
             {
-                if (last_library_name == web_library_detail_.Title)
+                if (last_library_name == web_library_detail.Title)
                 {
-                    ChooseNewLibrary(web_library_detail_);
+                    ChooseNewLibrary(web_library_detail);
+                    found_matching_library = true;
                     break;
                 }
+            }
+
+            // If we have not found a matching library, choose their most recent lib (which will be a fallback on guest if that's the only or top one)
+            if (!found_matching_library)
+            {
+                List<WebLibraryDetail> web_libary_details = WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries;
+                WebLibraryManager.Instance.SortWebLibraryDetailsByLastAccessed(web_libary_details);
+
+                ASSERT.Test(web_libary_details.Count > 0);
+
+                ChooseNewLibrary(web_libary_details[0]);
             }
         }
 

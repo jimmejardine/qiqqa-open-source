@@ -12,7 +12,7 @@ namespace Qiqqa.Synchronisation
 {
     internal class HistoricalSyncFile
     {
-        private static string GetFILENAME(Library library)
+        internal static string GetSyncDbFilename(Library library)
         {
             return Path.GetFullPath(Path.Combine(library.LIBRARY_BASE_PATH, @"Qiqqa.sync_md5"));
         }
@@ -21,7 +21,7 @@ namespace Qiqqa.Synchronisation
         {
             StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(library), "Loading sync history");
 
-            Dictionary<string, string> historical_sync_file = (Dictionary<string, string>)SerializeFile.LoadSafely(GetFILENAME(library));
+            Dictionary<string, string> historical_sync_file = (Dictionary<string, string>)SerializeFile.LoadSafely(GetSyncDbFilename(library));
             if (null == historical_sync_file)
             {
                 Logging.Info("There is no sync history, so creating a new one");
@@ -34,7 +34,7 @@ namespace Qiqqa.Synchronisation
         internal static void PutHistoricalSyncFile(Library library, Dictionary<string, string> historical_sync_file)
         {
             StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(library), "Saving sync history");
-            SerializeFile.SaveSafely(GetFILENAME(library), historical_sync_file);
+            SerializeFile.SaveSafely(GetSyncDbFilename(library), historical_sync_file);
         }
     }
 }

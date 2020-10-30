@@ -621,12 +621,7 @@ namespace Qiqqa.Common
             Instance.OpenUrlInBrowser(WebsiteAccess.Url_CSLAbout);
         }
 
-        internal void OpenControl(string type, string title, UserControl control)
-        {
-            OpenControl(type, title, control, null);
-        }
-
-        internal void OpenControl(string type, string title, UserControl control, BitmapImage icon)
+        internal void OpenControl(string type, string title, UserControl control, BitmapImage icon = null)
         {
             FeatureTrackingManager.Instance.UseFeature(
                 Features.Framework_OpenGenericControl,

@@ -6,6 +6,7 @@ using System.Windows.Input;
 using icons;
 using Qiqqa.Common.GUI;
 using Utilities;
+using Utilities.Misc;
 
 namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 {
@@ -92,14 +93,12 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         public static WebLibraryDetail PickWebLibrary(string message = null)
         {
-            List<WebLibraryDetail> wlds = WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries_All;
+            List<WebLibraryDetail> wlds = WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries;
+
+            ASSERT.Test(wlds.Count > 0);
 
             switch (wlds.Count)
             {
-                case 0:
-                    // If we have no libraries, use the guest account...
-                    return WebLibraryManager.Instance.WebLibraryDetails_Guest;
-
                 case 1:
                     // If we have only one library, use that...
                     return wlds[0];

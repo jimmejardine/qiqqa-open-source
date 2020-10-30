@@ -339,7 +339,7 @@ namespace Qiqqa.InCite
 
             // Attempt to match the last known library
             string last_library_name = ConfigurationManager.Instance.ConfigurationRecord.InCite_LastLibrary;
-            foreach (WebLibraryDetail web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries_All)
+            foreach (WebLibraryDetail web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries)
             {
                 if (last_library_name == web_library_detail.Title)
                 {
@@ -349,19 +349,15 @@ namespace Qiqqa.InCite
                 }
             }
 
-            // If we have not found a matching library, choose their most recent lib or fallback on guest
+            // If we have not found a matching library, choose their most recent lib (which will be a fallback on guest if that's the only or top one)
             if (!found_matching_library)
             {
-                List<WebLibraryDetail> web_libary_details = WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibrariesWithoutGuest;
+                List<WebLibraryDetail> web_libary_details = WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries;
                 WebLibraryManager.Instance.SortWebLibraryDetailsByLastAccessed(web_libary_details);
-                if (0 < web_libary_details.Count)
-                {
-                    ChooseNewLibrary(web_libary_details[0]);
-                }
-                else
-                {
-                    ChooseNewLibrary(WebLibraryManager.Instance.WebLibraryDetails_Guest);
-                }
+
+                ASSERT.Test(web_libary_details.Count > 0);
+
+                ChooseNewLibrary(web_libary_details[0]);
             }
         }
 
@@ -639,7 +635,7 @@ namespace Qiqqa.InCite
 
         private void word_connector_ContextChanged_BACKGROUND_PopulateRecommendations(List<PDFDocument> context_pdf_documents)
         {
-            // Out with the old...            
+            // Out with the old...
             ObjRecommendedCitationsList.Children.Clear();
 
             // In with the new

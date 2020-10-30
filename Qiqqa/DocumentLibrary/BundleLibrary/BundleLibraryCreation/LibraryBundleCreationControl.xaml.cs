@@ -62,7 +62,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
                 }
                 else
                 {
-                    MessageBoxes.Warn("Your Library Bundle creation has been cancelled.");
+                    MessageBoxes.Warn("Your Library Bundle creation has been canceled.");
                 }
             }
         }

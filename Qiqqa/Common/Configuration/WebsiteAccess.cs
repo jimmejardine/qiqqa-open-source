@@ -164,18 +164,6 @@ namespace Qiqqa.Common.Configuration
             OpenWebsite(url);
         }
 
-        public static void ChangeLibraryPublicStatus(string web_library_short_id)
-        {
-            string url = GetOurUrl(OurSiteLinkKind.Home) + String.Format("Library/{0}/Settings", web_library_short_id);
-            OpenWebsite(url);
-        }
-
-        public static void InviteFriendsToWebLibrary(string web_library_short_id)
-        {
-            string url = GetOurUrl(OurSiteLinkKind.Home) + String.Format("Library/{0}/Members", web_library_short_id);
-            OpenWebsite(url);
-        }
-
         public static bool IsTestEnvironment => GetWebRoot().Contains("test.qiqqa.com");
 
         // ------------------------------------------------------------------------------------------------------------------------------------------------------------

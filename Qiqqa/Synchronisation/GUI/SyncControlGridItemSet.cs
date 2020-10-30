@@ -32,7 +32,7 @@ namespace Qiqqa.Synchronisation.GUI
             // Preset some of the values that the user might have wanted
             foreach (SyncControlGridItem sync_control_grid_item in grid_items)
             {
-                bool tick_this_library = (0 == sync_request.libraries_to_sync.Count && !sync_control_grid_item.library_sync_detail.web_library_detail.IsLocalGuestLibrary) || sync_request.libraries_to_sync.Contains(sync_control_grid_item.library_sync_detail.web_library_detail.library);
+                bool tick_this_library = (0 == sync_request.libraries_to_sync.Count && !sync_control_grid_item.library_sync_detail.web_library_detail.IsReadOnlyLibrary) || sync_request.libraries_to_sync.Contains(sync_control_grid_item.library_sync_detail.web_library_detail.library);
                 bool tick_this_metadata = sync_request.sync_metadata && sync_control_grid_item.CanSyncMetadata;
                 bool tick_this_documents = sync_request.sync_pdfs && sync_control_grid_item.CanSyncDocuments;
 

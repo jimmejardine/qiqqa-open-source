@@ -1,12 +1,12 @@
-<DockPanel x:Class="Qiqqa.DocumentLibrary.WebLibraryStuff.WebLibraryDetailControl"
-  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
-  xmlns:local_gui_conv="clr-namespace:Utilities.GUI.Converters;assembly=Utilities"
-  xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
-  xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
-  xmlns:local="clr-namespace:Qiqqa.DocumentLibrary.WebLibraryStuff"
->
+<DockPanel
+    x:Class="Qiqqa.DocumentLibrary.WebLibraryStuff.WebLibraryDetailControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
+    xmlns:local="clr-namespace:Qiqqa.DocumentLibrary.WebLibraryStuff"
+    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+    xmlns:local_gui_conv="clr-namespace:Utilities.GUI.Converters;assembly=Utilities"
+    xmlns:syncfusion="http://schemas.syncfusion.com/wpf">
     <local_gui:AugmentedBorder>
         <StackPanel x:Name="ButtonMain">
             <Grid Name="ObjTitlePanel">
@@ -14,92 +14,99 @@
                     <Image Name="ObjTitleImage" />
                 </local_gui:SpaceAvoidingGrid>
                 <DockPanel>
-                    <Grid DockPanel.Dock="Left" >
+                    <Grid DockPanel.Dock="Left">
                         <local_gui:AugmentedSpacer />
                     </Grid>
-                    <Grid DockPanel.Dock="Left" >
-                        <StackPanel VerticalAlignment="Center" Name="ObjOpenButtonPanel">
+                    <Grid DockPanel.Dock="Left">
+                        <StackPanel Name="ObjOpenButtonPanel" VerticalAlignment="Center">
                             <Image x:Name="ButtonIcon" />
                         </StackPanel>
                     </Grid>
-                    <Grid DockPanel.Dock="Left" >
-                        <local_gui:AugmentedSpacer Width="10"/>
+                    <Grid DockPanel.Dock="Left">
+                        <local_gui:AugmentedSpacer Width="10" />
                     </Grid>
                     <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
                     <Grid DockPanel.Dock="Right">
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Name="ObjToolButtonPanel">
-                            <local_gui:AugmentedToggleButton DockPanel.Dock="Right" x:Name="ButtonReadOnly"/>
+                        <StackPanel
+                            Name="ObjToolButtonPanel"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                            <local_gui:AugmentedToggleButton x:Name="ButtonReadOnly" DockPanel.Dock="Right" />
                             <local_gui:AugmentedSpacer />
-                            <local_gui:AugmentedToggleButton DockPanel.Dock="Right" x:Name="ButtonAutoSync"/>
+                            <local_gui:AugmentedToggleButton x:Name="ButtonAutoSync" DockPanel.Dock="Right" />
                             <local_gui:AugmentedSpacer />
-                            <local_gui:AugmentedToggleButton DockPanel.Dock="Right" x:Name="ButtonCharts"/>
+                            <local_gui:AugmentedToggleButton x:Name="ButtonCharts" DockPanel.Dock="Right" />
                             <local_gui:AugmentedSpacer />
-                            <local_gui:AugmentedToggleButton DockPanel.Dock="Right" x:Name="ButtonCoverFlow"/>
+                            <local_gui:AugmentedToggleButton x:Name="ButtonCoverFlow" DockPanel.Dock="Right" />
                         </StackPanel>
                         <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
                     </Grid>
-                    <StackPanel VerticalAlignment="Center" Name="ObjDetailsPanel">
-                        <TextBlock Name="TxtTitle" Text="{Binding Title}" FontWeight="Bold"/>
+                    <StackPanel Name="ObjDetailsPanel" VerticalAlignment="Center">
+                        <TextBlock
+                            Name="TxtTitle"
+                            FontWeight="Bold"
+                            Text="{Binding Title}" />
                         <TextBlock Text="{Binding Description}" TextWrapping="Wrap" />
+                        <TextBlock Name="TextLibraryCount" TextWrapping="Wrap" />
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Name="TextLibraryCount"/>
-                            <local_gui:AugmentedSpacer />
-                            <StackPanel Orientation="Horizontal" Name="PanelForHyperlinks">
+                            <StackPanel Name="PanelForHyperlinks" Orientation="Horizontal">
                                 <WrapPanel Name="PanelForget">
-                                    <TextBlock>
+                                    <TextBlock Padding="2,0">
                                         ·
                                     </TextBlock>
-                                    <local_gui:AugmentedSpacer />
-                                    <local_gui:HyperlinkTextBlock ToolTip="Forget this Intranet Library" Text="Forget" Name="HyperlinkForget" />
-                                    <local_gui:AugmentedSpacer />
+                                    <local_gui:HyperlinkTextBlock
+                                        Name="HyperlinkForget"
+                                        Text="Forget"
+                                        ToolTip="Forget this Intranet Library" Padding="5,0" />
+                                </WrapPanel>
+                                <WrapPanel Name="PanelSetSyncPoint">
+                                    <TextBlock Padding="2,0">
+                                        ·
+                                    </TextBlock>
+                                    <local_gui:HyperlinkTextBlock Padding="5,0"
+                                        Name="HyperlinkSetSyncPoint"
+                                        Text="Change Sync Target"
+                                        ToolTip="Assign the new Sync Point of this Intranet Library so you can share it with your colleagues. This will replace the existing Sync Point, if any." />
                                 </WrapPanel>
                                 <WrapPanel Name="PanelLocateSyncPoint">
-                                    <TextBlock>
+                                    <TextBlock Padding="2,0">
                                         ·
                                     </TextBlock>
-                                    <local_gui:AugmentedSpacer />
-                                    <local_gui:HyperlinkTextBlock ToolTip="Locate the Sync Point of this Intranet Library so you can share it with your colleagues" Text="Share" Name="HyperlinkLocateSyncPoint" />
-                                    <local_gui:AugmentedSpacer />
-                                </WrapPanel>
-                                <WrapPanel Name="PanelViewOnline">
-                                    <TextBlock>
-                                        ·
-                                    </TextBlock>
-                                    <local_gui:AugmentedSpacer />
-                                    <local_gui:HyperlinkTextBlock ToolTip="View this library online at Qiqqa.com." Text="View online" Name="HyperlinkViewOnline" />
-                                    <local_gui:AugmentedSpacer />
-                                </WrapPanel>
-                                <WrapPanel Name="PanelInviteAndShare">
-                                    <TextBlock>
-                                        ·
-                                    </TextBlock>
-                                    <local_gui:AugmentedSpacer />
-                                    <local_gui:HyperlinkTextBlock ToolTip="Invite friends and colleagues to share this library." Text="Invite &amp; share" Name="HyperlinkInviteAndShare" />
-                                    <local_gui:AugmentedSpacer />
+                                    <local_gui:HyperlinkTextBlock Padding="5,0"
+                                        Name="HyperlinkLocateSyncPoint"
+                                        Text="Share Target"
+                                        ToolTip="Locate the Sync Point of this Intranet Library so you can share it with your colleagues" />
                                 </WrapPanel>
                                 <WrapPanel Name="PanelEdit">
-                                    <TextBlock>
+                                    <TextBlock Padding="2,0">
                                         ·
                                     </TextBlock>
-                                    <local_gui:AugmentedSpacer />
-                                    <local_gui:HyperlinkTextBlock ToolTip="Edit this Library's details." Text="Edit" Name="HyperlinkEdit" />
-                                    <local_gui:AugmentedSpacer />
+                                    <local_gui:HyperlinkTextBlock Padding="5,0"
+                                        Name="HyperlinkEdit"
+                                        Text="Edit"
+                                        ToolTip="Edit this Library's details." />
                                 </WrapPanel>
                                 <WrapPanel Name="PanelDelete">
-                                    <TextBlock>
+                                    <TextBlock Padding="2,0">
                                         ·
                                     </TextBlock>
-                                    <local_gui:AugmentedSpacer />
-                                    <local_gui:HyperlinkTextBlock ToolTip="Delete this Library." Text="Delete" Name="HyperlinkDelete" />
-                                    <local_gui:AugmentedSpacer />
+                                    <local_gui:HyperlinkTextBlock Padding="5,0"
+                                        Name="HyperlinkDelete"
+                                        Text="Delete"
+                                        ToolTip="Delete this Library." />
                                 </WrapPanel>
                                 <WrapPanel Name="PanelPurge">
-                                    <TextBlock>
+                                    <TextBlock Padding="2,0">
                                         ·
                                     </TextBlock>
-                                    <local_gui:AugmentedSpacer />
-                                    <local_gui:HyperlinkTextBlock ToolTip="Purge this deleted library." Text="Purge deleted library" Name="HyperlinkPurge" />
+                                    <local_gui:HyperlinkTextBlock Padding="5,0"
+                                        Name="HyperlinkPurge"
+                                        Text="Purge deleted library"
+                                        ToolTip="Purge this deleted library." />
                                 </WrapPanel>
+                                <TextBlock Padding="2,0">
+                                        ·
+                                </TextBlock>
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
@@ -110,7 +117,7 @@
                     <commongui:StandardFlowDocument>
                         <Paragraph>
                             To add PDFs to this library, open it by clicking on its title area above.
-              This area will then display some recommended reading so you can jump straight in and get to work!
+                            This area will then display some recommended reading so you can jump straight in and get to work!
                         </Paragraph>
                     </commongui:StandardFlowDocument>
                 </local_gui:NonScrollingFlowDocumentScrollViewer>
@@ -120,21 +127,28 @@
                     <local:ToolTipConverter x:Key="ToolTipConverter" />
                     <DataTemplate x:Key="DataPointTemplate">
                         <Canvas>
-                            <Grid Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}" Width="{Binding Width}" Height="{Binding Height}">
-                                <Border VerticalAlignment="Bottom" Width="{Binding Width}" Height="{Binding Height}"
-                        ToolTipService.ToolTip="{Binding Converter={StaticResource ToolTipConverter}}"
-                        ToolTipService.InitialShowDelay="100">
+                            <Grid
+                                Canvas.Left="{Binding X}"
+                                Canvas.Top="{Binding Y}"
+                                Width="{Binding Width}"
+                                Height="{Binding Height}">
+                                <Border
+                                    Width="{Binding Width}"
+                                    Height="{Binding Height}"
+                                    VerticalAlignment="Bottom"
+                                    ToolTipService.InitialShowDelay="100"
+                                    ToolTipService.ToolTip="{Binding Converter={StaticResource ToolTipConverter}}">
                                     <Border.Style>
                                         <Style TargetType="{x:Type Border}">
-                                            <Setter Property="BorderThickness" Value="1"/>
-                                            <Setter Property="BorderBrush" Value="Black"/>
-                                            <Setter Property="Background" Value="{Binding Interior}"/>
+                                            <Setter Property="BorderThickness" Value="1" />
+                                            <Setter Property="BorderBrush" Value="Black" />
+                                            <Setter Property="Background" Value="{Binding Interior}" />
                                             <Style.Triggers>
                                                 <DataTrigger Value="True">
                                                     <DataTrigger.Binding>
-                                                        <Binding Path="Highlighted"/>
+                                                        <Binding Path="Highlighted" />
                                                     </DataTrigger.Binding>
-                                                    <Setter Property="Background" Value="{StaticResource Background_Brush_Blue_Dark}"/>
+                                                    <Setter Property="Background" Value="{StaticResource Background_Brush_Blue_Dark}" />
                                                 </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
@@ -146,21 +160,40 @@
                 </syncfusion:Chart.Resources>
                 <syncfusion:ChartArea Name="ObjChartArea" Background="Transparent">
                     <syncfusion:ChartArea.SecondaryAxis>
-                        <syncfusion:ChartAxis AxisVisibility="Collapsed"/>
+                        <syncfusion:ChartAxis AxisVisibility="Collapsed" />
                     </syncfusion:ChartArea.SecondaryAxis>
-                    <syncfusion:ChartSeries Name="ObjSeriesAdded" Type="Column" Template="{StaticResource DataPointTemplate}" Interior="{StaticResource Background_Brush_Blue_VeryVeryDark}">
+                    <syncfusion:ChartSeries
+                        Name="ObjSeriesAdded"
+                        Interior="{StaticResource Background_Brush_Blue_VeryVeryDark}"
+                        Template="{StaticResource DataPointTemplate}"
+                        Type="Column">
                         <syncfusion:ChartSeries.YAxis>
-                            <syncfusion:ChartAxis OpposedPosition="False" Orientation="Vertical" AxisVisibility="Collapsed"/>
+                            <syncfusion:ChartAxis
+                                AxisVisibility="Collapsed"
+                                OpposedPosition="False"
+                                Orientation="Vertical" />
                         </syncfusion:ChartSeries.YAxis>
                     </syncfusion:ChartSeries>
-                    <syncfusion:ChartSeries Name="ObjSeriesRead" Type="Column" Template="{StaticResource DataPointTemplate}" Interior="{StaticResource Background_Brush_Blue_VeryDark}" >
+                    <syncfusion:ChartSeries
+                        Name="ObjSeriesRead"
+                        Interior="{StaticResource Background_Brush_Blue_VeryDark}"
+                        Template="{StaticResource DataPointTemplate}"
+                        Type="Column">
                         <syncfusion:ChartSeries.YAxis>
-                            <syncfusion:ChartAxis OpposedPosition="False" Orientation="Vertical" AxisVisibility="Collapsed"/>
+                            <syncfusion:ChartAxis
+                                AxisVisibility="Collapsed"
+                                OpposedPosition="False"
+                                Orientation="Vertical" />
                         </syncfusion:ChartSeries.YAxis>
                     </syncfusion:ChartSeries>
                 </syncfusion:ChartArea>
             </syncfusion:Chart>
-            <syncfusion:Carousel Name="ObjCarousel" RadiusY="0" ScaleFraction="0.6" OpacityFraction="0.75"  RotationSpeed="75" />
+            <syncfusion:Carousel
+                Name="ObjCarousel"
+                OpacityFraction="0.75"
+                RadiusY="0"
+                RotationSpeed="75"
+                ScaleFraction="0.6" />
         </StackPanel>
     </local_gui:AugmentedBorder>
 </DockPanel>

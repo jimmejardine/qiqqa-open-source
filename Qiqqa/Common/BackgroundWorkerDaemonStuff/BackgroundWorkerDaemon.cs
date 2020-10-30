@@ -156,20 +156,20 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
                 return;
             }
 
-            foreach (var x in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries_All)
+            foreach (var x in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries)
             {
                 Library library = x.library;
 
-                try
+                if (library.WebLibraryDetail.IsBundleLibrary)
                 {
-                    if (library.WebLibraryDetail.IsBundleLibrary)
+                    try
                     {
                         BundleLibraryUpdatedManifestChecker.Check(library);
                     }
-                }
-                catch (Exception ex)
-                {
-                    Logging.Warn(ex, "Exception in BundleLibraryUpdatedManifestChecker.Check()");
+                    catch (Exception ex)
+                    {
+                        Logging.Warn(ex, "Exception in BundleLibraryUpdatedManifestChecker.Check()");
+                    }
                 }
             }
         }
@@ -209,11 +209,11 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
                 return;
             }
 
-            foreach (var x in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries_All)
+            foreach (var x in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries)
             {
                 Library library = x.library;
 
-                if (!library.LibraryIsLoaded)
+                if (library == null || !library.LibraryIsLoaded)
                 {
                     continue;
                 }

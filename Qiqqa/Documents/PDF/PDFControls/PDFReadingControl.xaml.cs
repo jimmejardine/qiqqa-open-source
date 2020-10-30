@@ -256,7 +256,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             ObjHyperlinkGuestPreviewMoveDefault.Click += ObjHyperlinkGuestPreviewMoveDefault_Click;
             ObjHyperlinkGuestPreviewVanillaAttach.Click += ObjHyperlinkGuestPreviewVanillaAttach_Click;
 
-            ObjReadOnlyInfoBar.Visibility = pdf_document.Library.WebLibraryDetail.IsReadOnly ? Visibility.Visible : Visibility.Collapsed;
+            ObjReadOnlyInfoBar.Visibility = pdf_document.Library.WebLibraryDetail.IsReadOnlyLibrary ? Visibility.Visible : Visibility.Collapsed;
 
             DataContext = pdf_document.Bindable;
 

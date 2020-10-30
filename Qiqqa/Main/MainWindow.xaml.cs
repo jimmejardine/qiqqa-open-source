@@ -98,33 +98,23 @@ namespace Qiqqa.Main
             //this.StateChanged += MainWindow_StateChanged;
 
             WebLibraryManager.Instance.WebLibrariesChanged += Instance_WebLibrariesChanged;
-
-            // Put this in a background thread
-            SafeThreadPool.QueueUserWorkItem(o => PostStartupWork());
         }
 
         private void Instance_WebLibrariesChanged()
         {
-            HourglassState--;
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-            if (HourglassState == 0)
-            {
-                WPFDoEvents.ResetHourglassCursor();
-
-#if PROFILE_STARTUP_PHASE
-                    Environment.Exit(-2);    // testing & profiling only
-#endif
-            }
-        }
-
-        private void MainWindow_ContentRendered(object sender, EventArgs e)
-        {
-            Logging.Debug特("MainWindow::ContentRendered event");
-
-            // hold off: level 2 -> 1
-            MaintainableManager.Instance.BumpHoldOffPendingLevel();
+            // NOTE:
+            // the code in PostStartupWork() depends on the completed loading of the libraries,
+            // hence it is executed only now instead of earlier in MainWindow()
+            PostStartupWork();
 
             // https://stackoverflow.com/questions/34340134/how-to-know-when-a-frameworkelement-has-been-totally-rendered
+            ResetHourglassWhenAllIsDone();
+        }
+
+        private void ResetHourglassWhenAllIsDone()
+        {
             WPFDoEvents.InvokeInUIThread(() => {
                 HourglassState--;
 
@@ -137,6 +127,17 @@ namespace Qiqqa.Main
 #endif
                 }
             }, priority: DispatcherPriority.ContextIdle);
+        }
+
+        private void MainWindow_ContentRendered(object sender, EventArgs e)
+        {
+            Logging.Debug特("MainWindow::ContentRendered event");
+
+            // hold off: level 2 -> 1
+            MaintainableManager.Instance.BumpHoldOffPendingLevel();
+
+            // https://stackoverflow.com/questions/34340134/how-to-know-when-a-frameworkelement-has-been-totally-rendered
+            ResetHourglassWhenAllIsDone();
         }
 
         private void keyboard_hook_KeyDown(object sender, KeyEventArgs e)
@@ -161,28 +162,24 @@ namespace Qiqqa.Main
             else
             {
                 // Open the most recently accessed web library
-                List<WebLibraryDetail> web_libary_details = WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibrariesWithoutGuest;
+                List<WebLibraryDetail> web_libary_details = WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries;
                 WebLibraryManager.Instance.SortWebLibraryDetailsByLastAccessed(web_libary_details);
-                if (0 < web_libary_details.Count)
-                {
-                    WPFDoEvents.InvokeInUIThread(() => MainWindowServiceDispatcher.Instance.OpenLibrary(web_libary_details[0].library));
-                }
 
                 // Also open guest under some circumstances
                 bool should_open_guest = false;
 
-                // No web libraries
-                if (0 == web_libary_details.Count)
-                {
-                    should_open_guest = true;
-                }
+                ASSERT.Test(web_libary_details.Count > 0);
+
                 // Web library is small compared to guest library
-                if (0 < web_libary_details.Count && WebLibraryManager.Instance.Library_Guest.PDFDocuments_IncludingDeleted_Count > 2 * web_libary_details[0].library.PDFDocuments_IncludingDeleted_Count)
+                if (WebLibraryManager.Instance.Library_Guest.PDFDocuments_IncludingDeleted_Count > 2 * web_libary_details[0].library.PDFDocuments_IncludingDeleted_Count)
                 {
                     should_open_guest = true;
                 }
 
-                if (should_open_guest)
+                WPFDoEvents.InvokeInUIThread(() => MainWindowServiceDispatcher.Instance.OpenLibrary(web_libary_details[0].library));
+
+                // don't open the guest library *twice* so check against `web_libary_details[0].library`
+                if (should_open_guest && web_libary_details[0].library != WebLibraryManager.Instance.Library_Guest)
                 {
                     WPFDoEvents.InvokeInUIThread(() => MainWindowServiceDispatcher.Instance.OpenLibrary(WebLibraryManager.Instance.Library_Guest));
                 }

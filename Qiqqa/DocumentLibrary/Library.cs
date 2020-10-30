@@ -247,7 +247,7 @@ namespace Qiqqa.DocumentLibrary
                 Stopwatch clk = Stopwatch.StartNew();
                 long prev_clk = 0;
                 long elapsed = 0;
-                Logging.Debug特("+Build library from repository");
+                Logging.Debug特("+Build library {0} from repository", WebLibraryDetail.Id);
                 List<LibraryDB.LibraryItem> library_items = library_db.GetLibraryItems(null, PDFDocumentFileLocations.METADATA);
                 /* const */ int library_item_count = library_items.Count;
 
@@ -348,41 +348,39 @@ namespace Qiqqa.DocumentLibrary
             }
         }
 
-        public void LoadDocumentFromMetadata(LibraryDB.LibraryItem library_item, Dictionary<string, byte[]> /* can be null */ library_items_annotations_cache, bool notify_changed_pdf_document)
+        private void LoadDocumentFromMetadata(LibraryDB.LibraryItem library_item, Dictionary<string, byte[]> /* can be null */ library_items_annotations_cache, bool notify_changed_pdf_document)
         {
-            try
+            if (library_item.data == null)
             {
-                PDFDocument pdf_document = PDFDocument.LoadFromMetaData(this, library_item.data, library_items_annotations_cache);
-
-                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-                lock (pdf_documents_lock)
-                {
-                    //l1_clk.LockPerfTimerStop();
-                    if (LibraryIsKilled)
-                    {
-                        throw new Exception("Hacky backy internal error");
-                    }
-                    pdf_documents[pdf_document.Fingerprint] = pdf_document;
-                }
-
-                if (!pdf_document.Deleted)
-                {
-                    TagManager.Instance.ProcessDocument(pdf_document);
-                    ReadingStageManager.Instance.ProcessDocument(pdf_document);
-                }
-
-                if (notify_changed_pdf_document)
-                {
-                    SignalThatDocumentsHaveChanged(pdf_document);
-                }
-                else
-                {
-                    SignalThatDocumentsHaveChanged(null);
-                }
+                throw new Exception(String.Format("Skipping corrupted NULL record for ID {0}", library_item.ToString()));
             }
-            catch (Exception ex)
+
+            PDFDocument pdf_document = PDFDocument.LoadFromMetaData(this, library_item.data, library_items_annotations_cache);
+
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (pdf_documents_lock)
             {
-                Logging.Error(ex, "Couldn't load document from {0}", library_item.fingerprint);
+                //l1_clk.LockPerfTimerStop();
+                if (LibraryIsKilled)
+                {
+                    throw new Exception("Hacky backy internal error");
+                }
+                pdf_documents[pdf_document.Fingerprint] = pdf_document;
+            }
+
+            if (!pdf_document.Deleted)
+            {
+                TagManager.Instance.ProcessDocument(pdf_document);
+                ReadingStageManager.Instance.ProcessDocument(pdf_document);
+            }
+
+            if (notify_changed_pdf_document)
+            {
+                SignalThatDocumentsHaveChanged(pdf_document);
+            }
+            else
+            {
+                SignalThatDocumentsHaveChanged(null);
             }
         }
 
@@ -989,7 +987,7 @@ namespace Qiqqa.DocumentLibrary
             }
             catch (Exception ex)
             {
-                Logging.Warn(ex, "We were told that something had changed, but could not find it on looking...");
+                Logging.Warn(ex, "Library '{0}': We were told that something had changed, but could not find it on looking...", WebLibraryDetail.DescriptiveTitle);
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Alphaleonis.Win32.Filesystem;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Common.MessageBoxControls;
 using Qiqqa.DocumentLibrary;
@@ -134,7 +135,7 @@ namespace Qiqqa.Synchronisation.BusinessLogic
 
                 // Build the initial knowledge of our libraries
                 StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META_GLOBAL, "Getting your library details");
-                List<WebLibraryDetail> web_library_details = WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries_All;
+                List<WebLibraryDetail> web_library_details = WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries;
                 foreach (WebLibraryDetail web_library_detail in web_library_details)
                 {
                     // Create the new LibrarySyncDetail
@@ -163,44 +164,26 @@ namespace Qiqqa.Synchronisation.BusinessLogic
                     //  Eagerly sync metadata
                     LibrarySyncDetail.SyncDecision d = library_sync_detail.sync_decision = new LibrarySyncDetail.SyncDecision();
 
-                    // Never guests
-                    if (library_sync_detail.web_library_detail.IsLocalGuestLibrary)
-                    {
-                        d.can_sync = false;
-                        d.can_sync_metadata = false;
-                        d.is_readonly = library_sync_detail.web_library_detail.IsReadOnly;
-                    }
-
-                    // Intranets are dependent on premium
-                    else if (library_sync_detail.web_library_detail.IsIntranetLibrary)
-                    {
-                        d.can_sync = true;
-                        d.can_sync_metadata = true;
-                        d.is_readonly = library_sync_detail.web_library_detail.IsReadOnly;
-                    }
-
-                    // TODO: Web libs should be syncable, right?
-                    else if (library_sync_detail.web_library_detail.IsWebLibrary)
-                    {
-                        d.can_sync = true;
-                        d.can_sync_metadata = true;
-                        d.is_readonly = library_sync_detail.web_library_detail.IsReadOnly;
-                    }
+                    // We do not care what type of (commercial) library this has been:
+                    // you are now free to choose and do as you like.
+                    //
+                    // Hence it should be possible for 'Guest' libraries (and everything else)
+                    // to be assigned a sync target directory or URI to sync your libraries anywhere.
+                    //
+                    // When you think about user access rights to your library, THAT SUBJECT
+                    // should be taken care of at the sync target itself: if you have
+                    // WRITE access, you should be able to update the library, period.
+                    d.can_sync = true;
+                    d.can_sync_metadata = true;
+                    d.is_readonly = false;
+                    //library_sync_detail.web_library_detail.IsReadOnly;
 
                     // Bundles can never sync
-                    else if (library_sync_detail.web_library_detail.IsBundleLibrary)
+                    if (library_sync_detail.web_library_detail.IsReadOnlyLibrary)
                     {
                         d.can_sync = false;
                         d.can_sync_metadata = false;
-                        d.is_readonly = library_sync_detail.web_library_detail.IsReadOnly;
-                    }
-
-                    // Legacy/Unknown library types
-                    else
-                    {
-                        d.can_sync = true;
-                        d.can_sync_metadata = true;
-                        d.is_readonly = false;
+                        d.is_readonly = true;
                     }
                 }
 
@@ -296,48 +279,65 @@ namespace Qiqqa.Synchronisation.BusinessLogic
         {
             StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(sync_control_grid_item.library_sync_detail.web_library_detail.library), String.Format("Starting sync of {0}", sync_control_grid_item.LibraryTitle));
 
+            var sd = sync_control_grid_item.library_sync_detail;
+            bool done_anything = false;
+
             try
             {
+
                 if (sync_control_grid_item.SyncMetadata)
                 {
-                    if (sync_control_grid_item.library_sync_detail.sync_decision.can_sync)
+                    if (sd.sync_decision.can_sync)
                     {
-                        Logging.Info("Syncing metadata for {0}", sync_control_grid_item.library_sync_detail.web_library_detail.Title);
-                        SynchronizeMetadata_INTERNAL_BACKGROUND(sync_control_grid_item.library_sync_detail.web_library_detail.library, false, sync_control_grid_item.IsReadOnly);
-                        SynchronizeDocuments_Upload_INTERNAL_BACKGROUND(sync_control_grid_item.library_sync_detail.web_library_detail.library, sync_control_grid_item.library_sync_detail.web_library_detail.library.PDFDocuments, sync_control_grid_item.IsReadOnly);
+                        Logging.Info("Syncing metadata for {0}", sd.web_library_detail.Title);
+                        SynchronizeMetadata_INTERNAL_BACKGROUND(sd.web_library_detail.library, false, sync_control_grid_item.IsReadOnly);
+                        SynchronizeDocuments_Upload_INTERNAL_BACKGROUND(sd.web_library_detail.library, sd.web_library_detail.library.PDFDocuments, sync_control_grid_item.IsReadOnly);
+                        done_anything = true;
                     }
                     else
                     {
-                        Logging.Info("Partial syncing metadata for {0}", sync_control_grid_item.library_sync_detail.web_library_detail.Title);
-                        SynchronizeMetadata_INTERNAL_BACKGROUND(sync_control_grid_item.library_sync_detail.web_library_detail.library, true, sync_control_grid_item.IsReadOnly);
+                        Logging.Info("Partial syncing metadata for {0}", sd.web_library_detail.Title);
+                        SynchronizeMetadata_INTERNAL_BACKGROUND(sd.web_library_detail.library, true, sync_control_grid_item.IsReadOnly);
+                        done_anything = true;
 
-                        Logging.Info("Not uploading documents for {0}", sync_control_grid_item.library_sync_detail.web_library_detail.Title);
+                        Logging.Info("Not uploading documents for {0}", sd.web_library_detail.Title);
                     }
                 }
 
                 if (sync_control_grid_item.SyncDocuments)
                 {
-                    if (sync_control_grid_item.library_sync_detail.sync_decision.can_sync)
+                    if (sd.sync_decision.can_sync)
                     {
-                        Logging.Info("Downloading documents for {0}", sync_control_grid_item.library_sync_detail.web_library_detail.Title);
-                        SynchronizeDocuments_Download_INTERNAL_BACKGROUND(sync_control_grid_item.library_sync_detail.web_library_detail.library, sync_control_grid_item.library_sync_detail.web_library_detail.library.PDFDocuments, sync_control_grid_item.IsReadOnly);
+                        Logging.Info("Downloading documents for {0}", sd.web_library_detail.Title);
+                        SynchronizeDocuments_Download_INTERNAL_BACKGROUND(sd.web_library_detail.library, sd.web_library_detail.library.PDFDocuments, sync_control_grid_item.IsReadOnly);
+                        done_anything = true;
                     }
                     else
                     {
-                        Logging.Info("Not downloading documents for {0}", sync_control_grid_item.library_sync_detail.web_library_detail.Title);
+                        Logging.Info("Not downloading documents for {0}", sd.web_library_detail.Title);
                     }
+                }
+
+                // Indicate that we have synced
+                if (done_anything)
+                {
+                    var now = DateTime.UtcNow;
+
+                    sd.web_library_detail.library.WebLibraryDetail.LastSynced = now;
+
+                    string syncfilepath = HistoricalSyncFile.GetSyncDbFilename(sd.web_library_detail.library);
+                    File.SetCreationTimeUtc(syncfilepath, now);
+                    File.SetLastWriteTimeUtc(syncfilepath, now);
                 }
             }
             finally
             {
-                sync_control_grid_item.library_sync_detail.web_library_detail.library.sync_in_progress = false;
+                sd.web_library_detail.library.sync_in_progress = false;
 
-                // Indicate that we have synced
-                sync_control_grid_item.library_sync_detail.web_library_detail.library.WebLibraryDetail.LastSynced = DateTime.UtcNow;
                 WebLibraryManager.Instance.NotifyOfChangeToWebLibraryDetail();
             }
 
-            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(sync_control_grid_item.library_sync_detail.web_library_detail.library), String.Format("Finished sync of {0}", sync_control_grid_item.LibraryTitle));
+            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(sd.web_library_detail.library), String.Format("Finished sync of {0}", sync_control_grid_item.LibraryTitle));
         }
 
         private void SynchronizeMetadata_INTERNAL_BACKGROUND(Library library, bool restricted_metadata_sync, bool is_readonly)

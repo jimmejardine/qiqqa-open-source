@@ -47,7 +47,7 @@ namespace Qiqqa.InCite
             }
 
             // Failing that, look in all libraries
-            foreach (WebLibraryDetail web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries_All)
+            foreach (WebLibraryDetail web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries)
             {
                 // Don't repeat a search of the preferred library
                 if (primary_library != web_library_detail.library)

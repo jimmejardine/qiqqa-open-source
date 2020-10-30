@@ -60,7 +60,7 @@ namespace Qiqqa.DocumentLibrary.CrossLibrarySearchStuff
 
             // Search each library
             List<CombinedSearchResultItem> results = new List<CombinedSearchResultItem>();
-            foreach (WebLibraryDetail web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries_All)
+            foreach (WebLibraryDetail web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries)
             {
                 Logging.Info("Searching library {0}", web_library_detail.Title);
                 List<IndexResult> index_results = LibrarySearcher.FindAllFingerprintsMatchingQuery(web_library_detail.library, query);

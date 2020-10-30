@@ -33,11 +33,8 @@
                             <local_gui:AugmentedToolBarButton x:Name="ButtonSyncAllPDFsWithCloud" CaptionDock="Right" />
                             <local_gui:AugmentedToolBarButton x:Name="ButtonSyncMetadaWithCloud" CaptionDock="Right" />
                             <local_gui:AugmentedToolBarButton x:Name="ButtonSyncDetails" CaptionDock="Right" />
-                            <local_gui:AugmentedToolBarButton x:Name="ButtonViewOnline" CaptionDock="Right" />
                             <local_gui:AugmentedToolBarButton x:Name="ButtonEdit" CaptionDock="Right" />
                             <local_gui:AugmentedToolBarButton x:Name="ButtonDelete" CaptionDock="Right" />
-                            <local_gui:AugmentedToolBarButton x:Name="ButtonInvite" CaptionDock="Right" />
-                            <local_gui:AugmentedToolBarButton x:Name="ButtonPublicStatus" CaptionDock="Right" />
                         </StackPanel>
                     </local_gui:AugmentedToolBarPopup>
                     <local_gui:AugmentedSpacer />

@@ -26,7 +26,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 }
             }
 
-            // If we couldnt find it, then try in all the other libraries...
+            // If we couldn't find it, then try in all the other libraries...
             foreach (WebLibraryDetail web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries)
             {
                 PDFDocument pdf_document = web_library_detail.library.GetDocumentByFingerprint(document_fingerprint);
@@ -65,7 +65,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 }
             }
 
-            // If we couldnt find it, then try in all the other libraries...
+            // If we couldn't find it, then try in all the other libraries...
             foreach (WebLibraryDetail web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries)
             {
                 PDFDocument pdf_document = web_library_detail.library.GetDocumentByFingerprint(document_fingerprint);

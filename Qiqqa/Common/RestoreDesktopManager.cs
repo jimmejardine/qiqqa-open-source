@@ -8,6 +8,7 @@ using Qiqqa.Documents.PDF;
 using Qiqqa.Documents.PDF.PDFControls;
 using Utilities;
 using Utilities.GUI;
+using Utilities.Misc;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -68,7 +69,14 @@ namespace Qiqqa.Common
                                 string library_id = parts[1];
 
                                 Library library = WebLibraryManager.Instance.GetLibrary(library_id);
-                                WPFDoEvents.InvokeInUIThread(() => MainWindowServiceDispatcher.Instance.OpenLibrary(library));
+                                if (null == library)
+                                {
+                                    Logging.Warn("RestoreDesktop: Cannot find library anymore for Id {0}", library_id);
+                                }
+                                else
+                                {
+                                    WPFDoEvents.InvokeInUIThread(() => MainWindowServiceDispatcher.Instance.OpenLibrary(library));
+                                }
                             }
                             else if (restore_setting.StartsWith("PDF_DOCUMENT"))
                             {
@@ -77,14 +85,21 @@ namespace Qiqqa.Common
                                 string document_fingerprint = parts[2];
 
                                 Library library = WebLibraryManager.Instance.GetLibrary(library_id);
-                                PDFDocument pdf_document = library.GetDocumentByFingerprint(document_fingerprint);
-                                if (null == pdf_document)
+                                if (null == library)
                                 {
-                                    Logging.Warn("RestoreDesktop: Cannot find document anymore for fingerprint {0}", document_fingerprint);
+                                    Logging.Warn("RestoreDesktop: Cannot find library anymore for Id {0}", library_id);
                                 }
                                 else
                                 {
-                                    WPFDoEvents.InvokeInUIThread(() => MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document));
+                                    PDFDocument pdf_document = library.GetDocumentByFingerprint(document_fingerprint);
+                                    if (null == pdf_document)
+                                    {
+                                        Logging.Warn("RestoreDesktop: Cannot find document anymore for fingerprint {0}", document_fingerprint);
+                                    }
+                                    else
+                                    {
+                                        WPFDoEvents.InvokeInUIThread(() => MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document));
+                                    }
                                 }
                             }
                         }

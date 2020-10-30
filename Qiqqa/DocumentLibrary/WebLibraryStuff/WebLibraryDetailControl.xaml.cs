@@ -78,8 +78,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             ObjTitlePanel.MouseLeave += ObjTitlePanel_MouseLeave;
             ObjTitlePanel.ToolTip = "Click to open this library.";
 
-            HyperlinkViewOnline.OnClick += HyperlinkViewOnline_OnClick;
-            HyperlinkInviteAndShare.OnClick += HyperlinkInviteAndShare_OnClick;
             HyperlinkEdit.OnClick += HyperlinkEdit_OnClick;
             HyperlinkDelete.OnClick += HyperlinkDelete_OnClick;
             HyperlinkPurge.OnClick += HyperlinkPurge_OnClick;
@@ -244,29 +242,9 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             {
                 if (!String.IsNullOrEmpty(web_library_detail.IntranetPath))
                 {
-                    MessageBoxes.Warn("The Intranet Library Sync Point directory name is now on your Clipboard so you can paste it into an email to your colleagues so that they can join the Intranet Library.\n\nPlease note that this Sync Point is used to synchronize your Intranet Library with others in your organisation.  Please do not modify its contents in any way.\n\n" + web_library_detail.IntranetPath);
                     ClipboardTools.SetText(web_library_detail.IntranetPath);
+                    MessageBoxes.Warn("The Intranet Library Sync Point directory name is now on your Clipboard so you can paste it into an email to your colleagues so that they can join the Intranet Library.\n\nPlease note that this Sync Point is used to synchronize your Intranet Library with others in your organisation.  Please do not modify its contents in any way.\n\n" + web_library_detail.IntranetPath);
                 }
-            }
-            e.Handled = true;
-        }
-
-        private void HyperlinkViewOnline_OnClick(object sender, MouseButtonEventArgs e)
-        {
-            WebLibraryDetail web_library_detail = DataContext as WebLibraryDetail;
-            if (null != web_library_detail)
-            {
-                WebsiteAccess.OpenWebLibrary(web_library_detail.ShortWebId);
-            }
-            e.Handled = true;
-        }
-
-        private void HyperlinkInviteAndShare_OnClick(object sender, MouseButtonEventArgs e)
-        {
-            WebLibraryDetail web_library_detail = DataContext as WebLibraryDetail;
-            if (null != web_library_detail)
-            {
-                WebsiteAccess.InviteFriendsToWebLibrary(web_library_detail.ShortWebId);
             }
             e.Handled = true;
         }
@@ -276,7 +254,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             WebLibraryDetail web_library_detail = DataContext as WebLibraryDetail;
             if (null != web_library_detail)
             {
-                WebsiteAccess.EditLibrary(web_library_detail.ShortWebId);
+                MessageBoxes.Error("Sorry!\n\nMethod has not been implemented yet!");
             }
             e.Handled = true;
         }
@@ -286,7 +264,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             WebLibraryDetail web_library_detail = DataContext as WebLibraryDetail;
             if (null != web_library_detail)
             {
-                WebsiteAccess.DeleteLibrary(web_library_detail.ShortWebId);
+                MessageBoxes.Error("Sorry!\n\nMethod has not been implemented yet!");
             }
             e.Handled = true;
         }
@@ -361,7 +339,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             if (!concise_view)
             {
                 // Visibility of the empty lib msg
-                if (library_is_empty || web_library_detail.IsLocalGuestLibrary && 1 >= web_library_detail.library.PDFDocuments_IncludingDeleted_Count)
+                if (library_is_empty || ConfigurationManager.Instance.ConfigurationRecord.GUI_IsNovice)
                 {
                     ObjEmptyLibraryGrid.Visibility = Visibility.Visible;
                 }
@@ -746,7 +724,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     fe = (FrameworkElement)ObjCarousel.SelectedValue;
                 }
 
-                // If that doesnt work, then try any item in the carousel
+                // If that doesn't work, then try any item in the carousel
                 if (null == fe)
                 {
                     if (0 < ObjCarousel.Items.Count)
@@ -787,11 +765,10 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
             PanelForHyperlinks.Visibility = Visibility.Visible;
             PanelForget.Visibility = Visibility.Collapsed;
+            PanelSetSyncPoint.Visibility = Visibility.Collapsed;
             PanelLocateSyncPoint.Visibility = Visibility.Collapsed;
-            PanelViewOnline.Visibility = Visibility.Collapsed;
-            PanelInviteAndShare.Visibility = Visibility.Collapsed;
-            PanelEdit.Visibility = Visibility.Visible;
-            PanelDelete.Visibility = Visibility.Visible;
+            PanelEdit.Visibility = Visibility.Collapsed;
+            PanelDelete.Visibility = Visibility.Collapsed;
             PanelPurge.Visibility = Visibility.Collapsed;
 
             ButtonAutoSync.Visibility = Visibility.Collapsed;
@@ -799,17 +776,19 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
             if (null != web_library_detail)
             {
-                TextLibraryCount.Text = String.Format("{0} document(s) in this library", web_library_detail.library?.PDFDocuments_IncludingDeleted_Count ?? 0);
-
-                //TextLibraryCount.Text =
-                //    String.Format(
-                //    " ({0} documents, last synced on {1})",
-                //    web_library_detail.library.PDFDocuments.Count,
-                //    web_library_detail.LastSynced.HasValue ? web_library_detail.LastSynced.Value.ToString() : "Never"
-                //    );
+                if (!web_library_detail.IsIntranetLibrary)
+                {
+                    TextLibraryCount.Text = String.Format("{0} document(s) in this library", web_library_detail.library?.PDFDocuments_IncludingDeleted_Count ?? 0);
+                }
+                else
+                {
+                    TextLibraryCount.Text = String.Format("{0} document(s) in this library, {1}",
+                        web_library_detail.library?.PDFDocuments_IncludingDeleted_Count ?? 0,
+                        web_library_detail.LastSynced.HasValue ? $"last synced on {web_library_detail.LastSynced.Value.ToString()}" : @"has never been synced yet");
+                }
 
                 // The wizard stuff
-                if (web_library_detail.IsLocalGuestLibrary)
+                if (ConfigurationManager.Instance.ConfigurationRecord.GUI_IsNovice)
                 {
                     WizardDPs.SetPointOfInterest(ButtonIcon, "GuestLibraryOpenButton");
                     WizardDPs.SetPointOfInterest(TxtTitle, "GuestLibraryTitle");
@@ -821,20 +800,11 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     ButtonIcon.Width = 64;
                     ButtonIcon.Height = 64;
 
-                    if (web_library_detail.IsWebLibrary)
+                    if (web_library_detail.IsIntranetLibrary)
                     {
                         ButtonIcon.Source = Icons.GetAppIcon(Icons.LibraryTypeWeb);
-                        ButtonIcon.ToolTip = "This is a Web Library.\nYou can sync it via the cloud to access it online or on your other devices.";
-                    }
-                    else if (web_library_detail.IsIntranetLibrary)
-                    {
-                        ButtonIcon.Source = Icons.GetAppIcon(Icons.LibraryTypeIntranet);
-                        ButtonIcon.ToolTip = "This is an Intranet Library.\nYou can sync it via your Intranet to share with colleagues and across your company computers.";
-                    }
-                    else if (web_library_detail.IsLocalGuestLibrary)
-                    {
-                        ButtonIcon.Source = Icons.GetAppIcon(Icons.LibraryTypeGuest);
-                        ButtonIcon.ToolTip = "This is a Guest Library.\nIts contents remain local to this computer and can not be synced.";
+                        //ButtonIcon.Source = Icons.GetAppIcon(Icons.LibraryTypeIntranet);
+                        ButtonIcon.ToolTip = "This is an Intranet Library.\nYou can sync it via your Intranet to share with colleagues and across your company computers. Alternatively you can sync to a folder in Cloud Storage such as DropBox, Google Drive or Microsoft OneDrive and anyone with access to that shared folder can sync with your library.";
                     }
                     else if (web_library_detail.IsBundleLibrary)
                     {
@@ -843,8 +813,8 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     }
                     else
                     {
-                        ButtonIcon.Source = null;
-                        ButtonIcon.ToolTip = null;
+                        ButtonIcon.Source = Icons.GetAppIcon(Icons.LibraryTypeGuest);
+                        ButtonIcon.ToolTip = "This is a local Library.\nIts contents are local to this computer. When you assign this library a Sync Point, it can be synchronized with that backup location and possibly shared with other people and machines.";
                     }
                 }
 
@@ -883,51 +853,42 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     }
                 }
 
-
                 // The autosync stuff
-                if (web_library_detail.IsWebLibrary || web_library_detail.IsIntranetLibrary)
+                if (web_library_detail.IsIntranetLibrary)
                 {
                     ButtonAutoSync.Visibility = Visibility.Visible;
                     ButtonAutoSync.IsChecked = web_library_detail.AutoSync;
                 }
 
                 // The readonly stuff
-                if (web_library_detail.IsReadOnly)
+                if (web_library_detail.IsReadOnlyLibrary)
                 {
                     ButtonReadOnly.Visibility = Visibility.Visible;
                 }
 
                 // The hyperlinks panel
-                if (web_library_detail.IsWebLibrary)
+                PanelEdit.Visibility = Visibility.Visible;
+                PanelDelete.Visibility = Visibility.Visible;
+                PanelForget.Visibility = Visibility.Visible;
+                //PanelSetSyncPoint.Visibility = Visibility.Visible;
+                //PanelLocateSyncPoint.Visibility = Visibility.Visible;
+                PanelEdit.Visibility = Visibility.Visible;
+                PanelDelete.Visibility = Visibility.Visible;
+                //PanelPurge.Visibility = Visibility.Visible;
+
+                if (web_library_detail.Deleted)
                 {
-                    PanelForHyperlinks.Visibility = Visibility.Visible;
-
-                    PanelViewOnline.Visibility = Visibility.Visible;
-
-                    if (web_library_detail.IsAdministrator)
-                    {
-                        PanelInviteAndShare.Visibility = Visibility.Visible;
-                        PanelEdit.Visibility = Visibility.Visible;
-                        PanelDelete.Visibility = Visibility.Visible;
-                    }
-
-                    if (web_library_detail.Deleted)
-                    {
-                        PanelPurge.Visibility = Visibility.Visible;
-                    }
+                    PanelPurge.Visibility = Visibility.Visible;
                 }
 
                 if (web_library_detail.IsIntranetLibrary)
                 {
-                    PanelForHyperlinks.Visibility = Visibility.Visible;
-                    PanelForget.Visibility = Visibility.Visible;
                     PanelLocateSyncPoint.Visibility = Visibility.Visible;
                 }
 
-                if (web_library_detail.IsBundleLibrary)
+                if (!web_library_detail.IsReadOnlyLibrary)
                 {
-                    PanelForHyperlinks.Visibility = Visibility.Visible;
-                    PanelForget.Visibility = Visibility.Visible;
+                    PanelSetSyncPoint.Visibility = Visibility.Visible;
                 }
             }
         }

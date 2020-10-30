@@ -6,6 +6,7 @@ using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.IntranetLibraryStuff;
 using Utilities;
 using Utilities.Files;
+using Utilities.GUI;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -237,6 +238,7 @@ namespace Qiqqa.DocumentLibrary
         public List<LibraryItem> GetLibraryItems(string fingerprint, string extension, int MaxRecordCount = 0)
         {
             List<LibraryItem> results = new List<LibraryItem>();
+            List<Exception> database_corruption = new List<Exception>();
 
             try
             {
@@ -271,16 +273,37 @@ namespace Qiqqa.DocumentLibrary
                                     LibraryItem result = new LibraryItem();
                                     results.Add(result);
 
-                                    result.fingerprint = reader.GetString(0);
-                                    result.extension = reader.GetString(1);
-                                    result.md5 = reader.GetString(2);
+                                    long total_bytes = 0;
 
-                                    long total_bytes = reader.GetBytes(3, 0, null, 0, 0);
-                                    result.data = new byte[total_bytes];
-                                    long total_bytes2 = reader.GetBytes(3, 0, result.data, 0, (int)total_bytes);
-                                    if (total_bytes != total_bytes2)
+                                    try
                                     {
-                                        throw new Exception("Error reading blob - blob size different on each occasion.");
+                                        result.fingerprint = reader.GetString(0);
+                                        result.extension = reader.GetString(1);
+                                        result.md5 = reader.GetString(2);
+
+                                        total_bytes = reader.GetBytes(3, 0, null, 0, 0);
+                                        result.data = new byte[total_bytes];
+                                        long total_bytes2 = reader.GetBytes(3, 0, result.data, 0, (int)total_bytes);
+                                        if (total_bytes != total_bytes2)
+                                        {
+                                            throw new Exception("Error reading blob - blob size different on each occasion.");
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        string msg = String.Format("LibraryDB::GetLibraryItems: Database record #{4} decode failure for DB '{0}': fingerprint={1}, ext={2}, md5={3}, length={5}.",
+                                            library_path,
+                                            String.IsNullOrEmpty(result.fingerprint) ? "???" : result.fingerprint,
+                                            String.IsNullOrEmpty(result.extension) ? "???" : result.extension,
+                                            String.IsNullOrEmpty(result.md5) ? "???" : result.md5,
+                                            reader.StepCount, // ~= results.Count + database_corruption.Count
+                                            total_bytes
+                                            );
+                                        Logging.Error(ex, "{0}", msg);
+
+                                        Exception ex2 = new Exception(msg, ex);
+
+                                        database_corruption.Add(ex2);
                                     }
                                 }
 
@@ -311,6 +334,17 @@ namespace Qiqqa.DocumentLibrary
             {
                 Logging.Error(ex, "LibraryDB::GetLibraryItems: Database I/O failure for DB '{0}'.", library_path);
                 throw ex;
+            }
+
+            if (database_corruption.Count > 0)
+            {
+                // report database corruption: the user may want to recover from this ASAP!
+                if (MessageBoxes.AskErrorQuestion(true, "Library '{0}' has some data corruption. Do you want to abort the application to attempt recovery using external tools, e.g. a data restore from backup?\n\nWhen you answer NO, we will continue with what we could recover so far instead.\n\n\nConsult the Qiqqa logfiles to see the individual corruptions reported.",
+                    library_path))
+                {
+                    Logging.Warn("User chose to abort the application on database corruption report");
+                    Environment.Exit(3);
+                }
             }
 
             return results;

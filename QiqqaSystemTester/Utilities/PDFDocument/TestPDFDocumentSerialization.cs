@@ -44,7 +44,6 @@ namespace QiqqaSystemTester
             new_web_library_detail.Title = "Local UnitTest Library";
             new_web_library_detail.Description = "This is the library that comes with your Qiqqa unit test(s).";
             new_web_library_detail.Deleted = false;
-            new_web_library_detail.IsLocalGuestLibrary = true;
             new_web_library_detail.library = new Library(new_web_library_detail);
 
             PDFDocument doc2 = QiqqaManualTools.AddManualsToLibrary(new_web_library_detail.library);

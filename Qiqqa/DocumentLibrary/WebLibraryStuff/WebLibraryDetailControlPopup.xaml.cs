@@ -30,12 +30,12 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private void MenuRenameLibrary_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Sorry!\n\nMethod has not been implemented yet!");
+            MessageBoxes.Error("Sorry!\n\nMethod has not been implemented yet!");
         }
 
         private void MenuDeleteLibrary_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Sorry!\n\nMethod has not been implemented yet!");
+            MessageBoxes.Error("Sorry!\n\nMethod has not been implemented yet!");
         }
 
         private void MenuCustomiseBackground_Click(object sender, RoutedEventArgs e)

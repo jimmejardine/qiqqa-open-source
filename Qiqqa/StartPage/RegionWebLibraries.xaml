@@ -6,15 +6,6 @@
   xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
 >
     <DockPanel>
-        <local_gui:AugmentedBorder  DockPanel.Dock="Bottom" Name="RegionMoreWebLibraries" Visibility="Collapsed">
-            <FlowDocumentScrollViewer VerticalScrollBarVisibility="Auto">
-                <commongui:StandardFlowDocument>
-                    <Paragraph>
-                        At the moment you have only a single Web Library.
-                    </Paragraph>
-                </commongui:StandardFlowDocument>
-            </FlowDocumentScrollViewer>
-        </local_gui:AugmentedBorder>
         <local_web_library:WebLibraryListControl x:Name="ObjWebLibraryListControl"/>
     </DockPanel>
 </UserControl>

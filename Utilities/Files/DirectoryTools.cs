@@ -31,7 +31,7 @@ namespace Utilities.Files
             }
             catch (Exception ex)
             {
-                //Possible security problem
+                // Possible security problem
                 Logging.Error(ex, "GetSubFiles::GetFiles failure: Possible security problem?");
             }
 
@@ -43,7 +43,7 @@ namespace Utilities.Files
                 }
                 catch (Exception ex)
                 {
-                    //Possible security problem
+                    // Possible security problem
                     Logging.Error(ex, "GetSubFiles::GetDirectories failure: Possible security problem?");
                 }
             }

@@ -61,10 +61,10 @@ namespace Qiqqa.Synchronisation.MetadataSync
                 StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(library), String.Format("Uploading metadata to your Web/Intranet Library ({0} to go)", synchronisation_action.states_to_upload.Count - upload_count), upload_count, synchronisation_action.states_to_upload.Count, true);
                 ++upload_count;
 
-                // Has the user cancelled?
+                // Has the user canceled?
                 if (StatusManager.Instance.IsCancelled(StatusCodes.SYNC_META(library)))
                 {
-                    Logging.Info("User has cancelled their metadata upload");
+                    Logging.Info("User has canceled their metadata upload");
                     break;
                 }
 
@@ -117,10 +117,10 @@ namespace Qiqqa.Synchronisation.MetadataSync
                 StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(library), String.Format("Downloading metadata from your Web/Intranet Library ({0} to go)", synchronisation_action.states_to_download.Count - download_count), download_count, synchronisation_action.states_to_download.Count, true);
                 ++download_count;
 
-                // Has the user cancelled?
+                // Has the user canceled?
                 if (StatusManager.Instance.IsCancelled(StatusCodes.SYNC_META(library)))
                 {
-                    Logging.Info("User has cancelled their metadata download");
+                    Logging.Info("User has canceled their metadata download");
                     break;
                 }
 

@@ -22,17 +22,17 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.DocumentLibrary.Web
         [ProtoMember(6)]
         public string FolderToWatch { get; set; }
         [ProtoMember(7)]
-        public bool IsLocalGuestLibrary { get; set; }
+        public bool XIsLocalGuestLibrary { get; set; }
 
         /* Only valid for web libraries */
         [ProtoMember(8)]
-        public string ShortWebId { get; set; }
+        public string XShortWebId { get; set; }
         [ProtoMember(9)]
-        public bool IsAdministrator { get; set; }
+        public bool XIsAdministrator { get; set; }
         [ProtoMember(14)]
-        public bool IsReadOnly { get; set; }
+        public bool XIsReadOnly { get; set; }
 
-        public bool IsWebLibrary => !String.IsNullOrEmpty(ShortWebId);
+        public bool XIsWebLibrary => !String.IsNullOrEmpty(XShortWebId);
 
         /* Only valid for intranet libraries */
         [ProtoMember(13)]
@@ -53,7 +53,7 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.DocumentLibrary.Web
         public bool IsPurged { get; set; }
 
         [ProtoMember(11)]
-        public DateTime LastServerSyncNotificationDate { get; set; }
+        public DateTime XLastServerSyncNotificationDate { get; set; }
         [ProtoMember(12)]
         public bool AutoSync { get; set; }
 
@@ -64,10 +64,8 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.DocumentLibrary.Web
 
         public string LibraryType()
         {
-            if (IsLocalGuestLibrary) return "Guest";
             if (IsIntranetLibrary) return "Intranet";
             if (IsBundleLibrary) return "Bundle";
-            if (IsWebLibrary) return "Web";
             return "Legacy";
         }
     }

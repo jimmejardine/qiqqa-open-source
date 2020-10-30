@@ -98,16 +98,6 @@ namespace Qiqqa.DocumentLibrary
             ButtonSyncDetails.ToolTip = LocalisationManager.Get("LIBRARY/TIP/SYNC_DETAILS");
             ButtonSyncDetails.Click += ButtonSyncDetails_Click;
 
-            ButtonViewOnline.Icon = Icons.GetAppIcon(Icons.ViewOnline);
-            ButtonViewOnline.Caption = LocalisationManager.Get("LIBRARY/CAP/VIEW_ONLINE");
-            ButtonViewOnline.ToolTip = LocalisationManager.Get("LIBRARY/TIP/VIEW_ONLINE");
-            ButtonViewOnline.Click += ButtonViewOnline_Click;
-
-            ButtonInvite.Icon = Icons.GetAppIcon(Icons.Share);
-            ButtonInvite.Caption = LocalisationManager.Get("LIBRARY/CAP/INVITE");
-            ButtonInvite.ToolTip = LocalisationManager.Get("LIBRARY/TIP/INVITE");
-            ButtonInvite.Click += ButtonInvite_Click;
-
             ButtonEdit.Icon = Icons.GetAppIcon(Icons.Open);
             ButtonEdit.Caption = LocalisationManager.Get("LIBRARY/CAP/EDIT");
             ButtonEdit.ToolTip = LocalisationManager.Get("LIBRARY/TIP/EDIT");
@@ -117,11 +107,6 @@ namespace Qiqqa.DocumentLibrary
             ButtonDelete.Caption = LocalisationManager.Get("LIBRARY/CAP/DELETE");
             ButtonDelete.ToolTip = LocalisationManager.Get("LIBRARY/TIP/DELETE");
             ButtonDelete.Click += ButtonDelete_Click;
-
-            ButtonPublicStatus.Icon = Icons.GetAppIcon(Icons.Share);
-            ButtonPublicStatus.Caption = LocalisationManager.Get("LIBRARY/CAP/PUBLIC_STATUS");
-            ButtonPublicStatus.ToolTip = LocalisationManager.Get("LIBRARY/TIP/PUBLIC_STATUS");
-            ButtonPublicStatus.Click += ButtonPublicStatus_Click;
 
             ButtonAnnotationsReport.Icon = Icons.GetAppIcon(Icons.LibraryAnnotationsReport);
             if (!ADVANCED_MENUS) ButtonAnnotationsReport.Caption = LocalisationManager.Get("LIBRARY/CAP/ANNOTATION_REPORT");
@@ -256,7 +241,7 @@ namespace Qiqqa.DocumentLibrary
             if (!ADVANCED_MENUS) ButtonWebcast.Caption = "Tutorial\n";
             Webcasts.FormatWebcastButton(ButtonWebcast, Webcasts.LIBRARY);
 
-            // IF the library readonly?
+            // IF the library is readonly?
             ReflectReadOnlyStatus();
 
             Logging.Debug("-LibraryControl()");
@@ -264,14 +249,10 @@ namespace Qiqqa.DocumentLibrary
 
         private void ReflectReadOnlyStatus()
         {
-            ObjReadOnlyLibraryDescriptionBorder.Visibility = library.WebLibraryDetail.IsReadOnly ? Visibility.Visible : Visibility.Collapsed;
+            ObjReadOnlyLibraryDescriptionBorder.Visibility = library.WebLibraryDetail.IsReadOnlyLibrary ? Visibility.Visible : Visibility.Collapsed;
             ObjReadonlyExplain.Text = "";
 
-            if (library.WebLibraryDetail.IsWebLibrary)
-                ObjReadonlyExplain.Text = "If you wish to have write access, ask your library administrator to give you permission.";
-            else if (library.WebLibraryDetail.IsIntranetLibrary)
-                ObjReadonlyExplain.Text = "You need to upgrade to Premium+ to be able to write to this Intranet Library.";
-            else if (library.WebLibraryDetail.IsBundleLibrary)
+            if (library.WebLibraryDetail.IsBundleLibrary)
                 ObjReadonlyExplain.Text = "This Bundle Library is automatically overwritten whenever the Bundle creator updates it online.";
         }
 
@@ -279,7 +260,7 @@ namespace Qiqqa.DocumentLibrary
         {
             LibraryBundleCreationControl lbcc = new LibraryBundleCreationControl();
             lbcc.ReflectLibrary(library);
-            MainWindowServiceDispatcher.Instance.OpenControl("LibraryBundleCreationControl" + library.WebLibraryDetail.ShortWebId, LibraryBundleCreationControl.TITLE, lbcc, Icons.GetAppIcon(Icons.BuildBundleLibrary));
+            MainWindowServiceDispatcher.Instance.OpenControl("LibraryBundleCreationControl", LibraryBundleCreationControl.TITLE, lbcc, Icons.GetAppIcon(Icons.BuildBundleLibrary));
         }
 
         private void ButtonExportLinkedDocs_Click(object sender, RoutedEventArgs e)
@@ -297,29 +278,14 @@ namespace Qiqqa.DocumentLibrary
             CitationMatrixExport.Export(library, pdf_documents);
         }
 
-        private void ButtonInvite_Click(object sender, RoutedEventArgs e)
-        {
-            WebsiteAccess.InviteFriendsToWebLibrary(library.WebLibraryDetail.ShortWebId);
-        }
-
         private void ButtonEdit_Click(object sender, RoutedEventArgs e)
         {
-            WebsiteAccess.EditLibrary(library.WebLibraryDetail.ShortWebId);
+            MessageBoxes.Error("Sorry!\n\nMethod has not been implemented yet!");
         }
 
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
         {
-            WebsiteAccess.DeleteLibrary(library.WebLibraryDetail.ShortWebId);
-        }
-
-        private void ButtonPublicStatus_Click(object sender, RoutedEventArgs e)
-        {
-            WebsiteAccess.ChangeLibraryPublicStatus(library.WebLibraryDetail.ShortWebId);
-        }
-
-        private void ButtonViewOnline_Click(object sender, RoutedEventArgs e)
-        {
-            WebsiteAccess.OpenWebLibrary(library.WebLibraryDetail.ShortWebId);
+            MessageBoxes.Error("Sorry!\n\nMethod has not been implemented yet!");
         }
 
         private void LibraryControl_KeyDown(object sender, KeyEventArgs e)

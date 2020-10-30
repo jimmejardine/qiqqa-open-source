@@ -7,7 +7,7 @@ namespace Qiqqa.UpgradePaths.V031To033
     {
         public static void Upgrade()
         {
-            foreach (WebLibraryDetail web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries_All)
+            foreach (WebLibraryDetail web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries)
             {
                 foreach (PDFDocument pdf_document in web_library_detail.library.PDFDocuments_IncludingDeleted)
                 {

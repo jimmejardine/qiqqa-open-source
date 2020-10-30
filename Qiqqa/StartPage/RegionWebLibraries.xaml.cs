@@ -38,7 +38,7 @@ namespace Qiqqa.StartPage
             WPFDoEvents.InvokeInUIThread(() =>
             {
                 Refresh();
-            }, 
+            },
             priority: DispatcherPriority.Background);
         }
 
@@ -53,15 +53,6 @@ namespace Qiqqa.StartPage
             WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
             ObjWebLibraryListControl.Refresh();
-
-            if (WebLibraryManager.Instance.HaveOnlyOneWebLibrary())
-            {
-                RegionMoreWebLibraries.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                RegionMoreWebLibraries.Visibility = Visibility.Collapsed;
-            }
         }
 
         public void DoSync()

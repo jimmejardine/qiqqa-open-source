@@ -216,7 +216,7 @@ namespace Qiqqa.DocumentLibrary
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-            bool do_view = MessageBoxes.AskErrorQuestion("There were problems with some of the documents you were trying to add to Qiqqa.  Do you want to see the problem details?", true);
+            bool do_view = MessageBoxes.AskErrorQuestion(true, "There were problems with some of the documents you were trying to add to Qiqqa.  Do you want to see the problem details?");
 
             // do NOT spend a long time inside the lock!
             // hence we null the report file reference so that other threads can

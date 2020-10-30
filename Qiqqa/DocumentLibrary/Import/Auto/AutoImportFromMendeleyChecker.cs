@@ -24,7 +24,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
 
             // Count the number of files in all our libraries
             int total_pdfs = 0;
-            foreach (WebLibraryDetail web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries_All)
+            foreach (WebLibraryDetail web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries)
             {
                 total_pdfs += web_library_detail.library.PDFDocuments_IncludingDeleted_Count;
             }
