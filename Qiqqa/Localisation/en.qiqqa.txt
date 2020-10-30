@@ -76,9 +76,9 @@ LIBRARY/CAP/SYNC_DETAILS:Sync Details
 LIBRARY/TIP/SYNC_DETAILS:Choose which libraries you wish to Full or Partial Sync.
 LIBRARY/CAP/VIEW_ONLINE:View Online
 LIBRARY/TIP/VIEW_ONLINE:View this web Library online.
-LIBRARY/CAP/EDIT:Edit/Delete
+LIBRARY/CAP/EDIT:Edit
 LIBRARY/TIP/EDIT:Change this library's title, description
-LIBRARY/CAP/DELETE:Edit/Delete
+LIBRARY/CAP/DELETE:Delete
 LIBRARY/TIP/DELETE:Delete this library
 LIBRARY/CAP/PUBLIC_STATUS:Change Public Status
 LIBRARY/TIP/PUBLIC_STATUS:Change this library's Public Status.
