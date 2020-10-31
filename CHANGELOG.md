@@ -1,4 +1,140 @@
 
+# v82pre release: v82.0.7578.6369
+
+> ## Note
+>
+> This release is **binary compatible with v80 and v79**: any library created using this version MUST be readable and usable by v80 and v79 software releases.
+
+
+
+
+
+
+
+
+
+2020-10-31
+----------
+
+
+* (e870b462)..(3fadd9c6) Mother Of All Commits for library type rework and synchronization:
+
+  - all the Qiqqa library types from the commercial days are now gone and replaced with only three types for all:
+    + Local/Legacy,
+    + Intranet (anything with a know sync point path),
+    + Bundle.
+  - Guest library is now treated like any other library. It may be synchronized too, iff you have set a Sync Point path.
+  - TODO: add DB edit & delete functionality.
+  - TODO: add edit sync parameters, including setting a new or differrent  Sync Point path (aka Share Target)
+  - NEW: database record decode failures are now counted and reported, instead of silently ignored (and the rest of the database ignored as well).
+
+    The nett effect of this is that corrupted databases can be (at least partly) read and worked on.
+
+    + TODO: add an option to rewrite the database after such extract/recovery. Right now you're still stuck with a (known) corrupted database.
+  - fix various crashes due to incorrect handling of (async) desktop window recovery -- which could happen earlier than then the libraries and/or documents it attempts to re-open, have been properly loaded.
+  - fix various crashes in library load/setup at startup time.
+  - attempted fix for LastSynced set & check code.
+  - TODO: AutoSync et al should not yek about 'not knowing how to do this' when a library has no Sync Point set up, wheen it has ended up in the AutoSync set.
+  - all libraries (except Bundles) are now read/write. This is the first step towards truly being able to work wwith and use your old commercial Qiqqa cloud libraries. (See the TODO above about being able to set/edit the Sync Point)
+  - UI: removed some of the lingering bits from the Commercial era: Invite, Top Up, etc.
+  - DO NOT treat Guest library special any longer: this was another remnant of the Commercial Qiqqa Era, where the Guest library was not allowed to be included in the Sync and other behaviours of the Intranet and Cloud/Web Libraries. Today, I consider them all equal (except for Bundle libraries, of course)
+
+
+
+
+2020-10-30
+----------
+
+
+* (b97c2498)
+  - work done on the browser (multi-tabbed) window component: now, finally, the crapped up display below the horizontal tabbed series should clean up itself and load a duckduckgo landing page instead of `about:blank` (which did not render)
+  - augmented the download code to filter & reject plain search engine URLs, reducing the amount of useless internet activity when you open the browser pane and/or Qiqqa Sniffer dialog (which includes another browser pane at the bottom half of the dialog)
+  - better cleanup a library in memory (that bloody darn cyclic reference between WebLibraryDetails and Library class instances is really obnoxious!)
+  - removed the 'Top Up' commercial menu item
+  - Split the Library Edit/Delete menu item into two: Edit and Delete. (open library in its own tab, then in the Sync menu dropdown at the top, you should now have Edit and Delete.
+    STILL NOT WORKING as those point to the old commercial site still.
+    **TODO**
+  - fixed a couple of crashes with code flow for empty libraries, i.e. where WebLibraryDetails.Library = NULL
+  - minimal tweak to the PathsMixCollisionComparer so as to simplify debugging of the library set mixing code: when two library specs are joined and the path is the same, there's no need to do the extensive tests as there's no real collision.
+  - crash fixes for 'not yet implemented' UI features: show a messagebox instead of barfing an (unhandled & application terminating!) exception
+
+
+
+
+2020-10-29
+----------
+
+
+* (97fa79cb) include the PubMed::XML searcher in the default set.
+
+* (fc2449c9) mark other "generic error happened in GDI+." exceptions as harmless, otherwise XULrunner (embedded browser) will only cause premature Qiqqa crash exits.
+
+* (5fbd346d) comment out superfluous wait at shutdown time after logging has been flushed and terminated.
+
+* (e06d1f9c) fix crash which, oddly enough, never appeared before -- hmmmm.   library = null  applies to completely empty libraries discovered during the scan at startup.
+
+* (3b83a460) DO NOT kick off the zillion worker threads for the FolderWatcher (one per watched library!) when the developer settings have FolderWatcher=false
+
+* (2c92a5e1) nuke the getsatisfaction URL in the Qiqqa help text(s) -- https://github.com/jimmejardine/qiqqa-open-source/issues/218
+
+* (d13a65b2) fix deadlock between threads waiting for the WebLibraryManager instance to be created -- an action which previously created a lot of work in the initial getter call. All that work (inside the deadlocking lock) is now off-loaded to a queued worker thread action, so the code chunk inside the lock is, as it should have been, small *and* fast, without causing deadlocks due to nested/indirect re-entry into the getter.
+
+  Note that the long hold-off delay used for testing/debugging may have "improved" the chances of hitting the deadlock but that does not matter: a deadlock should be removed whenever it is found as it can happen on any machine under a particular load and result in a bad user experience.
+
+* (5815f5e4)
+  - Code review -> update a few possibly long running loops with abort-on-exit code: reducing the risk of Qiqqa hanging 'forever' on exit.
+
+* (6025f3f5) Improve commit 1b2daca9fc12e1be3956a3b960dbc9227154cd93 : keep the Windows Hourglass visible until *both* the main window UI has rendered *and* the Qiqqa libraries have been loaded by the startup code.
+
+* (c21d2839) added two more developer settings to help tweak (or rather: shut up) Qiqqa background processes while we debug:
+
+    TextExtraction: false,           // this kills the mupdf based text extraction and OCR tasks
+    SuggestingMetadata: false,       // this kills the metadata (Title, Author, etc.) suggesting from extracted text
+
+* (6205de31) At least, now we can tick boxes for the Legacy libraries in sync dialog.    @#%)(*&^%$
+
+* (d08c0179) tweak the LibraryType code so as to identify auto-discovered 'Legacy' libraries as 'Legacy' instead of 'UNKNOWN' and allow these to be synced -- ONCE WE GET TO ADDING AN EDITOR SO YOU CAN SET/CHANGE THE SYNC TARGET DIRECTORY FOR ANY LIBRARY, that is.
+
+* (779b6e1b)
+  - tweaked the sync dialog and the table therein to look a little more suitable, instead of brutally clipped off.
+  - added the Sync Target column at the right size in there, so you can see what Qiqqa thinks the current Sync Target directory might be. `(null)` when none has been set up.
+  - WARNING: this stuff is not yet editable!
+  - File.Copy() gives out a horrible user-unfriendly exception: path only, no cause, no blurb about it being the source or target either. Hackily fixed for the sync template database now. Must be inspected. MIGHT be just good enough for recovering from a broken sync target database like Simon Dedman in https://github.com/jimmejardine/qiqqa-open-source/issues/257 is possibly sadled with. (IFF one goes and *manually* deletes the corrupted XYZ.s3db database file in that sync destination, anyway. Dangerous stuff. :-)
+
+
+
+
+2020-10-28
+----------
+
+
+* (629db2be) Fix: removed the bit of lingering screen positioning *restore* code which was aimed at antiquated v82pre releases: the code was b0rked anyway and caused the main screen position to never be restored properly on this box.
+
+* (35838cb1) Fix: turns out old 'upgrade' code for very old commercial Qiqqa releases used its own code to get at the global config, without reckoning properly with our commandline 'base directory' override option, thus causing some very obnoxious trouble while debugging Qiqqa with a larger set of databases.
+
+* (5b16b8e7) added 'FolderWatcher' setting to the Developers Override Settings JSON/JSON5 config file support: help us test Qiqqa without our watch folder being depleted until we want *that* part of the code in action at a later run.
+
+* (6a29b27c) dial back a bit on the 'took a long time' logging: increase the acceptable limit from 0.1s to 0.3s before we decide to log the wait.
+
+
+
+
+
+2020-10-27
+----------
+
+
+* (1f693c09) typo fix in comment
+
+* (5afb9ed3)..(c016e7be) augmented the BibTeX tex escapes vs. Unicode conversion code a bit.
+
+* (8f31836e) typo fix and bugfix
+
+
+
+
+
+
 # v82pre release: v82.0.7568-29227
 
 > ## Note
@@ -997,7 +1133,13 @@
 
 
 
+
+
+
+
 # version 81.0.7158.38371 :: alpha test release
+
+
 2019-08-07
 ----------
 
