@@ -23,15 +23,15 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         [ProtoMember(6)]
         public string FolderToWatch { get; set; }
         [ProtoMember(7)]
-        public bool XIsLocalGuestLibrary { get; set; }
+        public bool IsLocalGuestLibrary { get; set; }
 
         /* Only valid for web libraries */
         [ProtoMember(8)]
-        public string XShortWebId { get; set; }
+        public string ShortWebId { get; set; }
         [ProtoMember(9)]
-        public bool XIsAdministrator { get; set; }
+        public bool IsAdministrator { get; set; }
         [ProtoMember(14)]
-        public bool XIsReadOnly {
+        public bool IsReadOnly {
             get;
             set; }
         // Bundles can never sync
@@ -56,7 +56,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         public bool IsPurged { get; set; }
 
         [ProtoMember(11)]
-        public DateTime XLastServerSyncNotificationDate { get; set; }
+        public DateTime LastServerSyncNotificationDate { get; set; }
         [ProtoMember(12)]
         public bool AutoSync {
             get;
